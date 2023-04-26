@@ -9,5 +9,25 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class CountUps
 {
-
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
+        new AttributeItem() {
+            Name = "Value",
+            Description = Localizer["Value"],
+            Type = "TValue",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "OnCompleted",
+            Description = Localizer["OnCompleted"],
+            Type = "Func<Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    };
 }
