@@ -87,14 +87,14 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
                     Relative = attr.Relative;
 
                     // 兼容 扩展组件包
-                    if (!Relative && !ModulePath.StartsWith("./_content/", StringComparison.OrdinalIgnoreCase))
+                    if (!Relative && IsBootstrapBlazorAssembly)
                     {
                         ModulePath = $"./_content/BootstrapBlazor/Components/{ModulePath}";
                     }
                 }
                 else
                 {
-                    ModulePath = $"./_content/BootstrapBlazor/modules/{attr.ModuleName}.js";
+                    ModulePath = IsBootstrapBlazorAssembly ? $"./_content/BootstrapBlazor/modules/{attr.ModuleName}.js" : attr.ModuleName;
                     Relative = false;
                 }
                 AutoInvokeDispose = attr.AutoInvokeDispose;
@@ -107,6 +107,8 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
             }
         }
     }
+
+    private bool IsBootstrapBlazorAssembly => this.GetType().Assembly == typeof(BootstrapModuleComponentBase).Assembly;
 
     /// <summary>
     /// call javascript method
