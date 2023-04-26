@@ -33,8 +33,7 @@ export function dispose(id) {
     const data = Data.get(id)
     if (data) {
         EventHandler.off(data.popover.toggleMenu, 'click', '.tree-node')
-        Popover.dispose(data.el)
-
+        Popover.dispose(data.popover)
     }
     Data.remove(id)
 }

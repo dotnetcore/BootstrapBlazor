@@ -42,6 +42,6 @@ export function dispose(id) {
         if (data.dismissSelector) {
             EventHandler.off(data.popover.toggleMenu, 'click', data.dismissSelector)
         }
-        Popover.dispose(data.el)
+        Popover.dispose(data.popover)
     }
 }
