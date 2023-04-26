@@ -178,7 +178,7 @@ public partial class MultiSelect<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync(Id, nameof(ToggleRow));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, nameof(ToggleRow));
 
     /// <summary>
     /// FormatValueAsString 方法
