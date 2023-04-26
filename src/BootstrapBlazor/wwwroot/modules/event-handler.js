@@ -318,12 +318,20 @@ function hydrateObj(obj, meta) {
 
 export default EventHandler
 
-export function registerEvent(invoke, eventHandles, method, id) {
+export function registerEvent(invoke, eventHandles, method, id, el) {
     const handler = () => {
         invoke.invokeMethodAsync(method);
     }
-
-    EventHandler.on(window, eventHandles, handler)
+    if (id) {
+        var el = document.getElementById(id);
+        EventHandler.on(el, eventHandles, handler)
+    } else {
+        if (el) {
+            EventHandler.on(el, eventHandles, handler)
+        } else {
+            EventHandler.on(window, eventHandles, handler)
+        }
+    }
 }
 
 export function getIdPropertieByName(id, tag) {

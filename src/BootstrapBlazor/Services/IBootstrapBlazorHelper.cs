@@ -13,14 +13,49 @@ public interface IBootstrapBlazorHelper
     /// 注册浏览器事件
     /// </summary>
     /// <param name="eventType"></param>
+    /// <returns></returns>
+    Task RegisterEvent(BootStrapBlazorEventType eventType);
+
+    /// <summary>
+    /// 注册浏览器事件
+    /// </summary>
+    /// <param name="eventType"></param>
     /// <param name="id"></param>
     /// <returns></returns>
-    Task RegisterEvent(BootStrapBlazorEventType eventType, string? id);
+    Task RegisterEvent(BootStrapBlazorEventType eventType, string id);
 
+    /// <summary>
+    /// 注册浏览器事件
+    /// </summary>
+    /// <param name="eventType"></param>
+    /// <param name="element"></param>
+    /// <returns></returns>
+    Task RegisterEvent(BootStrapBlazorEventType eventType, ElementReference element);
+
+    /// <summary>
+    /// 通过tag获取元素的属性值
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="id"></param>
+    /// <param name="tag"></param>
+    /// <returns></returns>
     Task<T> GetIdPropertieByNameAsync<T>(string id, string tag);
 
+    /// <summary>
+    /// 通过tag获取元素的属性值
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="tag"></param>
+    /// <returns></returns>
     Task<T> GetDocumentPropertieByNameAsync<T>(string tag);
 
+    /// <summary>
+    /// 通过tag获取元素的属性值
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="element"></param>
+    /// <param name="tag"></param>
+    /// <returns></returns>
     Task<T> GetElementPropertieByNameAsync<T>(ElementReference element, string tag);
 
     #region Event

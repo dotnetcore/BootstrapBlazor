@@ -15,47 +15,57 @@ namespace BootstrapBlazor.Services;
 /// <summary>
 /// <inheritdoc/>
 /// </summary>
-public class BootstrapBlazorHelper : IBootstrapBlazorHelper
+[JSModuleAutoLoader("event-handler", JSObjectReference = true)]
+public class BootstrapBlazorHelper : BootstrapModuleComponentBase, IBootstrapBlazorHelper
 {
-    private IJSRuntime JSRuntime { get; set; }
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="eventType"></param>
+    /// <returns></returns>
+    public async Task RegisterEvent(BootStrapBlazorEventType eventType) => await InvokeVoidAsync("registerEvent", Interop, eventType, $"JSInvokOn{eventType}");
 
-    [NotNull]
-    private IJSObjectReference? Module { get; set; }
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="eventType"></param>
+    /// <param name="Id"></param>
+    /// <returns></returns>
+    public async Task RegisterEvent(BootStrapBlazorEventType eventType, string Id) => await InvokeVoidAsync("registerEvent", Interop, eventType, $"JSInvokOn{eventType}", Id);
 
-    [NotNull]
-    private DotNetObjectReference<BootstrapBlazorHelper>? Interop { get; set; }
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="eventType"></param>
+    /// <param name="element"></param>
+    /// <returns></returns>
+    public async Task RegisterEvent(BootStrapBlazorEventType eventType, ElementReference element) => await InvokeVoidAsync("registerEvent", Interop, eventType, $"JSInvokOn{eventType}", null, element);
 
-    public BootstrapBlazorHelper(IJSRuntime js) => JSRuntime = js;
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="id"></param>
+    /// <param name="tag"></param>
+    /// <returns></returns>
+    public async Task<T> GetIdPropertieByNameAsync<T>(string id, string tag) => await Module.InvokeAsync<T>("getIdPropertieByName", id, tag);
 
-    private async Task ImportModule()
-    {
-        Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor/modules/event-handler.js");
-        Interop = DotNetObjectReference.Create(this);
-    }
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="tag"></param>
+    /// <returns></returns>
+    public async Task<T> GetDocumentPropertieByNameAsync<T>(string tag) => await Module.InvokeAsync<T>("getDocumentPropertieByName", tag);
 
-    public async Task RegisterEvent(BootStrapBlazorEventType handles, string? Id)
-    {
-        await ImportModule();
-        await Module.InvokeVoidAsync("registerEvent", Interop, handles, $"JSInvokOn{handles}", Id);
-    }
-
-    public async Task<T> GetIdPropertieByNameAsync<T>(string id, string tag)
-    {
-        await ImportModule();
-        return await Module.InvokeAsync<T>("getIdPropertieByName", id, tag);
-    }
-
-    public async Task<T> GetDocumentPropertieByNameAsync<T>(string tag)
-    {
-        await ImportModule();
-        return await Module.InvokeAsync<T>("getDocumentPropertieByName", tag);
-    }
-
-    public async Task<T> GetElementPropertieByNameAsync<T>(ElementReference element, string tag)
-    {
-        await ImportModule();
-        return await Module.InvokeAsync<T>("getElementPropertieByName", element, tag);
-    }
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="element"></param>
+    /// <param name="tag"></param>
+    /// <returns></returns>
+    public async Task<T> GetElementPropertieByNameAsync<T>(ElementReference element, string tag) => await Module.InvokeAsync<T>("getElementPropertieByName", element, tag);
 
     #region JSInvok
     [JSInvokable] public void JSInvokOnClick() => OnClick?.Invoke();
@@ -104,7 +114,6 @@ public class BootstrapBlazorHelper : IBootstrapBlazorHelper
     [JSInvokable] public void JSInvokOnError() => OnError?.Invoke();
     [JSInvokable] public void JSInvokOnAbort() => OnAbort?.Invoke();
     [JSInvokable] public void JSInvokOnScroll() => OnScroll?.Invoke();
-
     #endregion
 
     #region Event
