@@ -9,6 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Checkbox 组件
 /// </summary>
+[JSModuleAutoLoader(ModuleName = "utility", AutoInvokeInit = false, AutoInvokeDispose = false)]
 public partial class Checkbox<TValue>
 {
     /// <summary>
@@ -143,11 +144,7 @@ public partial class Checkbox<TValue>
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        Module ??= await JSRuntime.LoadModule2("base/utility");
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync("setIndeterminate", Id, State == CheckboxState.Indeterminate);
-        }
+        await InvokeVoidAsync("setIndeterminate", Id, State == CheckboxState.Indeterminate);
     }
 
     /// <summary>

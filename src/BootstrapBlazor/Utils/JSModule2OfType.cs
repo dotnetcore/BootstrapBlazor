@@ -8,6 +8,8 @@ namespace BootstrapBlazor.Components;
 /// 模块加载器
 /// </summary>
 /// <typeparam name="TCom"></typeparam>
+[Obsolete("后期删除掉")]
+[ExcludeFromCodeCoverage]
 public class JSModule2<TCom> : JSModule where TCom : class
 {
     /// <summary>
