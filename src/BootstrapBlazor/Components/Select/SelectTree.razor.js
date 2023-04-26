@@ -5,7 +5,7 @@ import Popover from "../../modules/base-popover.js"
 export function init(id) {
     const el = document.getElementById(id)
 
-    if (el != null) {
+    if (el == null) {
         return
     }
 
@@ -17,8 +17,8 @@ export function init(id) {
     }
 
     EventHandler.on(popover.toggleMenu, 'click', '.tree-node', e => {
-        if (popover.popover.isPopover) {
-            popover.popover.hide()
+        if (popover.isPopover) {
+            popover.hide()
         } else {
             const dropdown = bootstrap.Dropdown.getInstance(popover.toggleElement)
             if (dropdown) {
