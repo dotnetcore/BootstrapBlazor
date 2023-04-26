@@ -11,17 +11,40 @@ namespace BootstrapBlazor.Services;
 /// <summary>
 /// <inheritdoc/>
 /// </summary>
-[JSModuleAutoLoader("event-handler", JSObjectReference = true)]
-public class BootstrapBlazorHelper : BootstrapModuleComponentBase, IBootstrapBlazorHelper
+public class BootstrapBlazorHelper : IBootstrapBlazorHelper
 {
-    /// <inheritdoc/>
-    public async Task RegisterEvent(BootStrapBlazorEventType eventType) => await InvokeVoidAsync("registerEvent", Interop, eventType, $"JSInvokOn{eventType}");
+    private IJSRuntime JSRuntime { get; set; }
+
+    [NotNull]
+    private IJSObjectReference? Module { get; set; }
+
+    [NotNull]
+    private DotNetObjectReference<BootstrapBlazorHelper>? Interop { get; set; }
+
+    /// <summary>
+    /// 构造函数
+    /// </summary>
+    /// <param name="jSRuntime"></param>
+    public BootstrapBlazorHelper(IJSRuntime jSRuntime)
+    {
+        JSRuntime ??= jSRuntime;
+        ImportModule();
+    }
+
+    private async void ImportModule()
+    {
+        Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor/modules/event-handler.js");
+        Interop ??= DotNetObjectReference.Create(this);
+    }
 
     /// <inheritdoc/>
-    public async Task RegisterEvent(BootStrapBlazorEventType eventType, string Id) => await InvokeVoidAsync("registerEvent", Interop, eventType, $"JSInvokOn{eventType}", Id);
+    public async Task RegisterEvent(BootStrapBlazorEventType eventType) => await Module.InvokeVoidAsync("registerEvent", Interop, eventType, $"JSInvokOn{eventType}");
 
     /// <inheritdoc/>
-    public async Task RegisterEvent(BootStrapBlazorEventType eventType, ElementReference element) => await InvokeVoidAsync("registerEvent", Interop, eventType, $"JSInvokOn{eventType}", null, element);
+    public async Task RegisterEvent(BootStrapBlazorEventType eventType, string Id) => await Module.InvokeVoidAsync("registerEvent", Interop, eventType, $"JSInvokOn{eventType}", Id);
+
+    /// <inheritdoc/>
+    public async Task RegisterEvent(BootStrapBlazorEventType eventType, ElementReference element) => await Module.InvokeVoidAsync("registerEvent", Interop, eventType, $"JSInvokOn{eventType}", null, element);
 
     /// <inheritdoc/>
     public async Task<T?> GetIdPropertieByNameAsync<T>(string id, string tag)
