@@ -133,6 +133,7 @@ public class IconThemeOptions
         { ComponentIcons.SearchButtonLoadingIcon, "fa-solid fa-spin fa-spinner" },
 
         { ComponentIcons.SelectDropdownIcon, "fa-solid fa-angle-up" },
+        { ComponentIcons.SelectClearIcon, "fa-regular fa-circle-xmark" },
         { ComponentIcons.SelectSearchIcon, "fa-solid fa-magnifying-glass" },
 
         { ComponentIcons.SweetAlertCloseIcon, "fa-solid fa-xmark" },

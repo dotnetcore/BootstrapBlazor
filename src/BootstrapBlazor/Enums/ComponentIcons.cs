@@ -490,6 +490,11 @@ public enum ComponentIcons
     SelectDropdownIcon,
 
     /// <summary>
+    /// Select 组件 ClearIcon 属性图标
+    /// </summary>
+    SelectClearIcon,
+
+    /// <summary>
     /// Select 组件 SearchIcon 属性图标
     /// </summary>
     SelectSearchIcon,
