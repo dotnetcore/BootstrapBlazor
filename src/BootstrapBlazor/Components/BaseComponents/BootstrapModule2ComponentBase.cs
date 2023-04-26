@@ -9,6 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Bootstrap blazor Javascript isoloation base class
 /// </summary>
+[ExcludeFromCodeCoverage]
 public abstract class BootstrapModule2ComponentBase : IdComponentBase, IAsyncDisposable
 {
     /// <summary>
