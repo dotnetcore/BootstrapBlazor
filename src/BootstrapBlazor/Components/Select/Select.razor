@@ -28,6 +28,10 @@
                 <span class="@AppendClassString"><i class="@DropdownIcon"></i></span>
             }
         </div>
+        @if (GetClearable())
+        {
+            <span class="@ClearClassString" @onclick="OnClearValue"><i class="@ClearIcon"></i></span>
+        }
         <div class="dropdown-menu">
             @if (ShowSearch)
             {

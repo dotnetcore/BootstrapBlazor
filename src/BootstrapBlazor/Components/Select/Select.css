@@ -130,6 +130,27 @@
     transform: rotate(0);
 }
 
+.select .clear-icon {
+    position: absolute;
+    height: 100%;
+    width: var(--bb-select-append-width);
+    right: 0;
+    top: 0;
+    color: var(--bb-select-append-color);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    display: none;
+}
+
+.select:hover .clear-icon {
+    display: flex;
+}
+
+.select.cls:hover .form-select-append {
+    display: none;
+}
+
 .form-select.is-valid:focus,
 .was-validated .form-select:valid:focus,
 .form-select.is-invalid:focus,
