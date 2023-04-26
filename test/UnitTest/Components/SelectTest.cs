@@ -78,6 +78,49 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void IsClearable_Ok()
+    {
+        var val = "Test2";
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.IsClearable, true);
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new SelectedItem("", "请选择"),
+                new SelectedItem("2", "Test2"),
+                new SelectedItem("3", "Test3")
+            });
+            pb.Add(a => a.Value, "");
+            pb.Add(a => a.OnValueChanged, v =>
+            {
+                val = v;
+                return Task.CompletedTask;
+            });
+        });
+        var clearButton = cut.Find(".clear-icon");
+        cut.InvokeAsync(() => clearButton.Click());
+        Assert.Null(val);
+
+        // 提高代码覆盖率
+        var select = cut;
+        select.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Color, Color.Danger);
+        });
+
+        var validPi = typeof(Select<string>).GetProperty("IsValid", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
+        validPi.SetValue(select.Instance, true);
+
+        var pi = typeof(Select<string>).GetProperty("ClearClassString", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
+        val = pi.GetValue(select.Instance, null)!.ToString();
+        Assert.Contains("text-success", val);
+
+        validPi.SetValue(select.Instance, false);
+        val = pi.GetValue(select.Instance, null)!.ToString();
+        Assert.Contains("text-danger", val);
+    }
+
+    [Fact]
     public void SelectOption_Ok()
     {
         var cut = Context.RenderComponent<SelectOption>(pb =>
