@@ -1,10 +1,10 @@
 ﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Rates> Localizer
 
-<div class="row">
+<div class="row mt-3">
     <div class="col-12 col-sm-6">
         <Rate @bind-Value="IconListValue" class="custom-rate">
             <ItemTemplate>
-                <i class="@GetIconList(context)"></i>
+                <i class="@GetIconList(int.Parse(Math.Round(context, 0, MidpointRounding.AwayFromZero).ToString()))"></i>
             </ItemTemplate>
         </Rate>
     </div>
@@ -16,7 +16,7 @@
 </div>
 
 @code {
-    private int IconListValue { get; set; } = 1;
+    private double IconListValue { get; set; } = 1;
 
     private List<string> IconList { get; } = new List<string>()
     {
