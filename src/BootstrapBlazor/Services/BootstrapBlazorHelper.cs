@@ -14,7 +14,8 @@ namespace BootstrapBlazor.Services;
 /// </summary>
 public class BootstrapBlazorHelper : IBootstrapBlazorHelper, IAsyncDisposable
 {
-    private IJSRuntime JSRuntime { get; set; }
+    /// <inheritdoc/>
+    public IJSRuntime JSRuntime { get; set; }
 
     [NotNull]
     private IJSObjectReference? Module { get; set; }
@@ -40,10 +41,9 @@ public class BootstrapBlazorHelper : IBootstrapBlazorHelper, IAsyncDisposable
     public async Task RegisterEvent(BootStrapBlazorEventType eventName)
     {
         await ImportModule();
-
         var guid = Guid.NewGuid();
         guidList.Add($"{guid}");
-        await Module.InvokeVoidAsync("registerEvent", guid, Interop, $"JSInvokOn{eventName}", eventName);
+        await Module.InvokeVoidAsync("addEventListener", guid, Interop, $"JSInvokOn{eventName}", eventName);
     }
 
     /// <inheritdoc/>
@@ -52,38 +52,37 @@ public class BootstrapBlazorHelper : IBootstrapBlazorHelper, IAsyncDisposable
         await ImportModule();
         var guid = Guid.NewGuid();
         guidList.Add($"{guid}");
-        await Module.InvokeVoidAsync("registerEvent", guid, Interop, $"JSInvokOn{eventName}", eventName, Id);
+        await Module.InvokeVoidAsync("addEventListener", guid, Interop, $"JSInvokOn{eventName}", eventName, Id);
     }
 
     /// <inheritdoc/>
     public async Task RegisterEvent(BootStrapBlazorEventType eventName, ElementReference element)
     {
         await ImportModule();
-
         var guid = Guid.NewGuid();
         guidList.Add($"{guid}");
-        await Module.InvokeVoidAsync("registerEvent", guid, Interop, $"JSInvokOn{eventName}", eventName, null, element);
+        await Module.InvokeVoidAsync("addEventListener", guid, Interop, $"JSInvokOn{eventName}", eventName, null, element);
     }
 
     /// <inheritdoc/>
-    public async Task<T?> GetIdPropertieByNameAsync<T>(string id, string tag)
+    public async Task<T?> GetElementPropertiesByTagFromIdAsync<T>(string id, string tag)
     {
         await ImportModule();
-        return await Module.InvokeAsync<T?>("getIdPropertieByName", id, tag);
+        return await Module.InvokeAsync<T?>("getElementPropertiesByTagFromId", id, tag);
     }
 
     /// <inheritdoc/>
-    public async Task<T?> GetDocumentPropertieByNameAsync<T>(string tag)
+    public async Task<T?> GetDocumentPropertiesByTagAsync<T>(string tag)
     {
         await ImportModule();
-        return await Module.InvokeAsync<T?>("getDocumentPropertieByName", tag);
+        return await Module.InvokeAsync<T?>("getDocumentPropertiesByTag", tag);
     }
 
     /// <inheritdoc/>
-    public async Task<T?> GetElementPropertieByNameAsync<T>(ElementReference element, string tag)
+    public async Task<T?> GetElementPropertiesByTagAsync<T>(ElementReference element, string tag)
     {
         await ImportModule();
-        return await Module.InvokeAsync<T?>("getElementPropertieByName", element, tag);
+        return await Module.InvokeAsync<T?>("getElementPropertiesByTag", element, tag);
     }
 
     #region Dispose

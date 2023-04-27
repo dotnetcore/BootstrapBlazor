@@ -12,7 +12,7 @@ import EventHandler from "./base/event-handler.js"
  * @param {any} id 元素id
  * @param {any} el 元素标识
  */
-export function registerEvent(guid, interop, invokeMethodName, eventName, id, el) {
+export function addEventListener(guid, interop, invokeMethodName, eventName, id, el) {
     const hp = {
         eventName: eventName,
         target: window,
@@ -21,7 +21,7 @@ export function registerEvent(guid, interop, invokeMethodName, eventName, id, el
         },
         id: id,
         el: el,
-        code: guid
+        guid: guid
     }
 
     if (id) {
@@ -31,24 +31,24 @@ export function registerEvent(guid, interop, invokeMethodName, eventName, id, el
         hp.target = el;
     }
 
-    Data.set(guid, hp)
+    Data.set(hp.guid, hp)
     EventHandler.on(hp.target, hp.eventName, hp.handler)
 }
 
-export function getIdPropertieByName(id, tag) {
+export function getElementPropertiesByTagFromId(id, tag) {
     var el = document.getElementById(id);
-    return getPropertie(el, tag);
+    return getProperties(el, tag);
 }
 
-export function getDocumentPropertieByName(tag) {
-    return getPropertie(document, tag);
+export function getDocumentPropertiesByTag(tag) {
+    return getProperties(document, tag);
 }
 
-export function getElementPropertieByName(el, tag) {
-    return getPropertie(el, tag);
+export function getElementPropertiesByTag(el, tag) {
+    return getProperties(el, tag);
 }
 
-export function getPropertie(obj, tag) {
+export function getProperties(obj, tag) {
     let tags = tag.split('.');
     let tagsCopy = JSON.parse(JSON.stringify(tags));
     var object = obj;
@@ -59,9 +59,9 @@ export function getPropertie(obj, tag) {
     return object;
 }
 
-export function dispose(code) {
-    const hp = Data.get(code)
-    Data.remove(code)
+export function dispose(guid) {
+    const hp = Data.get(guid)
+    Data.remove(guid)
 
     EventHandler.off(hp.target, hp.eventName, hp.handler)
     hp.destroy()

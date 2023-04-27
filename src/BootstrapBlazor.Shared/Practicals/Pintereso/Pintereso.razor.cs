@@ -50,24 +50,20 @@ public partial class Pintereso
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
+        helper.JSRuntime = JSRuntime;
         await helper.RegisterEvent(BootStrapBlazorEventType.Scroll);
-        await helper.RegisterEvent(BootStrapBlazorEventType.Click, Id);
         helper.OnScroll += Helper_OnScroll;
-        helper.OnClick += Helper_OnClick;
-    }
-
-    private void Helper_OnClick()
-    {
-        System.Console.WriteLine("BootstrapBlazorHelperEvent-");
     }
 
     private async void Helper_OnScroll()
     {
-        var h1 = await helper.GetDocumentPropertieByNameAsync<decimal>("documentElement.clientHeight");
-        var h2 = await helper.GetDocumentPropertieByNameAsync<decimal>("documentElement.scrollHeight");
-        var h3 = await helper.GetDocumentPropertieByNameAsync<decimal>("documentElement.scrollTop");
-        var h4 = await helper.GetDocumentPropertieByNameAsync<decimal>("body.scrollTop");
-        var h5 = await helper.GetDocumentPropertieByNameAsync<decimal>("body.scrollHeight");
+        var h1 = await helper.GetDocumentPropertiesByTagAsync<decimal>("documentElement.clientHeight");
+        var h2 = await helper.GetDocumentPropertiesByTagAsync<decimal>("documentElement.scrollHeight");
+        var h3 = await helper.GetDocumentPropertiesByTagAsync<decimal>("documentElement.scrollTop");
+        var h4 = await helper.GetDocumentPropertiesByTagAsync<decimal>("body.scrollTop");
+        var h5 = await helper.GetDocumentPropertiesByTagAsync<decimal>("body.scrollHeight");
+
+        System.Console.WriteLine("触发滚动事件");
     }
 
     /// <summary>
@@ -90,5 +86,14 @@ public partial class Pintereso
         }
 
         StateHasChanged();
+    }
+
+    protected override async ValueTask DisposeAsync(bool disposing)
+    {
+        await base.DisposeAsync(disposing);
+        if (disposing)
+        {
+            await helper.DisposeAsync();
+        }
     }
 }

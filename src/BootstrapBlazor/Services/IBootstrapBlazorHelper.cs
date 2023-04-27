@@ -10,6 +10,11 @@ namespace BootstrapBlazor.Services;
 public interface IBootstrapBlazorHelper
 {
     /// <summary>
+    /// Javascript调用
+    /// </summary>
+    IJSRuntime JSRuntime { get; set; }
+
+    /// <summary>
     /// 注册浏览器事件
     /// </summary>
     /// <param name="eventName"></param>
@@ -39,7 +44,7 @@ public interface IBootstrapBlazorHelper
     /// <param name="id"></param>
     /// <param name="tag"></param>
     /// <returns></returns>
-    Task<T?> GetIdPropertieByNameAsync<T>(string id, string tag);
+    Task<T?> GetElementPropertiesByTagFromIdAsync<T>(string id, string tag);
 
     /// <summary>
     /// 通过tag获取元素的属性值
@@ -47,7 +52,7 @@ public interface IBootstrapBlazorHelper
     /// <typeparam name="T"></typeparam>
     /// <param name="tag"></param>
     /// <returns></returns>
-    Task<T?> GetDocumentPropertieByNameAsync<T>(string tag);
+    Task<T?> GetDocumentPropertiesByTagAsync<T>(string tag);
 
     /// <summary>
     /// 通过tag获取元素的属性值
@@ -56,7 +61,13 @@ public interface IBootstrapBlazorHelper
     /// <param name="element"></param>
     /// <param name="tag"></param>
     /// <returns></returns>
-    Task<T?> GetElementPropertieByNameAsync<T>(ElementReference element, string tag);
+    Task<T?> GetElementPropertiesByTagAsync<T>(ElementReference element, string tag);
+
+    /// <summary>
+    /// 释放资源
+    /// </summary>
+    /// <returns></returns>
+    ValueTask DisposeAsync();
 
     #region Event
     /// <summary>
