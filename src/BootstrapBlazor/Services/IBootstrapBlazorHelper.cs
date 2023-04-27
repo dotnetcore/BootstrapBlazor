@@ -59,10 +59,17 @@ public interface IBootstrapBlazorHelper
     Task<T?> GetElementPropertiesByTagAsync<T>(ElementReference element, string tag);
 
     /// <summary>
-    /// 释放资源
+    /// 请在Dispose中，优先释放该资源
     /// </summary>
     /// <returns></returns>
     ValueTask DisposeAsync();
+
+    /// <summary>
+    /// 动态运行js脚本
+    /// </summary>
+    /// <param name="js">js代码</param>
+    /// <returns></returns>
+    Task RunJSEval(string js);
 
     #region Event
     /// <summary>
@@ -247,6 +254,7 @@ public interface IBootstrapBlazorHelper
     public event BootStrapBlazorEventHandler? OnAbort;
     /// <summary>
     /// 滚动元素后将触发滚动事件。 若要检测滚动何时完成，请参阅 Element： scrollend 事件。
+    /// 由于 scroll 事件可被高频触发，事件处理程序不应该执行高性能消耗的操作，如 DOM 操作。
     /// </summary>
     public event BootStrapBlazorEventHandler? OnScroll;
     #endregion

@@ -2,10 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System;
-using System.ComponentModel;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using System.Xml.Linq;
 
 namespace BootstrapBlazor.Services;
 
@@ -67,33 +64,21 @@ public class BootstrapBlazorHelper : IBootstrapBlazorHelper, IAsyncDisposable
     public async Task<T?> GetElementPropertiesByTagFromIdAsync<T>(string id, string tag)
     {
         await ImportModule();
-        if (Module is not null)
-        {
-            return await Module.InvokeAsync<T?>("getElementPropertiesByTagFromId", id, tag);
-        }
-        return default;
+        return await Module.InvokeAsync<T?>("getElementPropertiesByTagFromId", id, tag);
     }
 
     /// <inheritdoc/>
     public async Task<T?> GetDocumentPropertiesByTagAsync<T>(string tag)
     {
         await ImportModule();
-        if(Module is not null)
-        {
-            return await Module.InvokeAsync<T?>("getDocumentPropertiesByTag", tag);
-        }
-        return default;
+        return await Module.InvokeAsync<T?>("getDocumentPropertiesByTag", tag);
     }
 
     /// <inheritdoc/>
     public async Task<T?> GetElementPropertiesByTagAsync<T>(ElementReference element, string tag)
     {
         await ImportModule();
-        if (Module is not null)
-        {
-            return await Module.InvokeAsync<T?>("getElementPropertiesByTag", element, tag);
-        }
-        return default;
+        return await Module.InvokeAsync<T?>("getElementPropertiesByTag", element, tag);
     }
 
     #region Dispose
@@ -117,10 +102,14 @@ public class BootstrapBlazorHelper : IBootstrapBlazorHelper, IAsyncDisposable
         }
     }
 
-    /// <summary>
     /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
+    public async Task RunJSEval(string js)
+    {
+        await ImportModule();
+        await Module.InvokeVoidAsync("runJSEval", js);
+    }
+
+    /// <inheritdoc/>
     public async ValueTask DisposeAsync()
     {
         await DisposeAsync(true);
@@ -134,278 +123,232 @@ public class BootstrapBlazorHelper : IBootstrapBlazorHelper, IAsyncDisposable
     /// <summary>
     /// OnClick JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnClick() => OnClick?.Invoke();
+    [JSInvokable] public void JSInvokOnClick() => OnClick?.Invoke();
 
     /// <summary>
     /// OnDblclick JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnDblclick() => OnDblclick?.Invoke();
+    [JSInvokable] public void JSInvokOnDblclick() => OnDblclick?.Invoke();
 
     /// <summary>
     /// OnMouseup JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnMouseup() => OnMouseup?.Invoke();
+    [JSInvokable] public void JSInvokOnMouseup() => OnMouseup?.Invoke();
 
     /// <summary>
     /// OnMousedown JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnMousedown() => OnMousedown?.Invoke();
+    [JSInvokable] public void JSInvokOnMousedown() => OnMousedown?.Invoke();
 
     /// <summary>
     /// OnContextmenu JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnContextmenu() => OnContextmenu?.Invoke();
+    [JSInvokable] public void JSInvokOnContextmenu() => OnContextmenu?.Invoke();
 
     /// <summary>
     /// OnMousewheel JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnMousewheel() => OnMousewheel?.Invoke();
+    [JSInvokable] public void JSInvokOnMousewheel() => OnMousewheel?.Invoke();
 
     /// <summary>
     /// OnDOMMouseScroll JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnDOMMouseScroll() => OnDOMMouseScroll?.Invoke();
+    [JSInvokable] public void JSInvokOnDOMMouseScroll() => OnDOMMouseScroll?.Invoke();
 
     /// <summary>
     /// OnMouseover JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnMouseover() => OnMouseover?.Invoke();
+    [JSInvokable] public void JSInvokOnMouseover() => OnMouseover?.Invoke();
 
     /// <summary>
     /// OnMouseout JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnMouseout() => OnMouseout?.Invoke();
+    [JSInvokable] public void JSInvokOnMouseout() => OnMouseout?.Invoke();
 
     /// <summary>
     /// OnMousemove JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnMousemove() => OnMousemove?.Invoke();
+    [JSInvokable] public void JSInvokOnMousemove() => OnMousemove?.Invoke();
 
     /// <summary>
     /// OnSelectstart JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnSelectstart() => OnSelectstart?.Invoke();
+    [JSInvokable] public void JSInvokOnSelectstart() => OnSelectstart?.Invoke();
 
     /// <summary>
     /// OnSelectend JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnSelectend() => OnSelectend?.Invoke();
+    [JSInvokable] public void JSInvokOnSelectend() => OnSelectend?.Invoke();
 
     /// <summary>
     /// OnKeydown JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnKeydown() => OnKeydown?.Invoke();
+    [JSInvokable] public void JSInvokOnKeydown() => OnKeydown?.Invoke();
 
     /// <summary>
     /// OnKeypress JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnKeypress() => OnKeypress?.Invoke();
+    [JSInvokable] public void JSInvokOnKeypress() => OnKeypress?.Invoke();
 
     /// <summary>
     /// OnKeyup JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnKeyup() => OnKeyup?.Invoke();
+    [JSInvokable] public void JSInvokOnKeyup() => OnKeyup?.Invoke();
 
     /// <summary>
     /// OnOrientationchange JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnOrientationchange() => OnOrientationchange?.Invoke();
+    [JSInvokable] public void JSInvokOnOrientationchange() => OnOrientationchange?.Invoke();
 
     /// <summary>
     /// OnTouchstart JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnTouchstart() => OnTouchstart?.Invoke();
+    [JSInvokable] public void JSInvokOnTouchstart() => OnTouchstart?.Invoke();
 
     /// <summary>
     /// OnTouchmove JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnTouchmove() => OnTouchmove?.Invoke();
+    [JSInvokable] public void JSInvokOnTouchmove() => OnTouchmove?.Invoke();
 
     /// <summary>
     /// OnTouchend JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnTouchend() => OnTouchend?.Invoke();
+    [JSInvokable] public void JSInvokOnTouchend() => OnTouchend?.Invoke();
 
     /// <summary>
     /// OnTouchcancel JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnTouchcancel() => OnTouchcancel?.Invoke();
+    [JSInvokable] public void JSInvokOnTouchcancel() => OnTouchcancel?.Invoke();
 
     /// <summary>
     /// OnPointerdown JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnPointerdown() => OnPointerdown?.Invoke();
+    [JSInvokable] public void JSInvokOnPointerdown() => OnPointerdown?.Invoke();
 
     /// <summary>
     /// OnPointermove JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnPointermove() => OnPointermove?.Invoke();
+    [JSInvokable] public void JSInvokOnPointermove() => OnPointermove?.Invoke();
 
     /// <summary>
     /// OnPointerup JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnPointerup() => OnPointerup?.Invoke();
+    [JSInvokable] public void JSInvokOnPointerup() => OnPointerup?.Invoke();
 
     /// <summary>
     /// OnPointerleave JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnPointerleave() => OnPointerleave?.Invoke();
+    [JSInvokable] public void JSInvokOnPointerleave() => OnPointerleave?.Invoke();
 
     /// <summary>
     /// OnPointercancel JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnPointercancel() => OnPointercancel?.Invoke();
+    [JSInvokable] public void JSInvokOnPointercancel() => OnPointercancel?.Invoke();
 
     /// <summary>
     /// OnGesturestart JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnGesturestart() => OnGesturestart?.Invoke();
+    [JSInvokable] public void JSInvokOnGesturestart() => OnGesturestart?.Invoke();
 
     /// <summary>
     /// OnGesturechange JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnGesturechange() => OnGesturechange?.Invoke();
+    [JSInvokable] public void JSInvokOnGesturechange() => OnGesturechange?.Invoke();
 
     /// <summary>
     /// OnGestureend JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnGestureend() => OnGestureend?.Invoke();
+    [JSInvokable] public void JSInvokOnGestureend() => OnGestureend?.Invoke();
 
     /// <summary>
     /// OnFocus JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnFocus() => OnFocus?.Invoke();
+    [JSInvokable] public void JSInvokOnFocus() => OnFocus?.Invoke();
 
     /// <summary>
     /// OnBlur JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnBlur() => OnBlur?.Invoke();
+    [JSInvokable] public void JSInvokOnBlur() => OnBlur?.Invoke();
 
     /// <summary>
     /// OnChange JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnChange() => OnChange?.Invoke();
+    [JSInvokable] public void JSInvokOnChange() => OnChange?.Invoke();
 
     /// <summary>
     /// OnReset JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnReset() => OnReset?.Invoke();
+    [JSInvokable] public void JSInvokOnReset() => OnReset?.Invoke();
 
     /// <summary>
     /// OnSelect JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnSelect() => OnSelect?.Invoke();
+    [JSInvokable] public void JSInvokOnSelect() => OnSelect?.Invoke();
 
     /// <summary>
     /// OnSubmit JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnSubmit() => OnSubmit?.Invoke();
+    [JSInvokable] public void JSInvokOnSubmit() => OnSubmit?.Invoke();
 
     /// <summary>
     /// OnFocusin JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnFocusin() => OnFocusin?.Invoke();
+    [JSInvokable] public void JSInvokOnFocusin() => OnFocusin?.Invoke();
 
     /// <summary>
     /// OnFocusout JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnFocusout() => OnFocusout?.Invoke();
+    [JSInvokable] public void JSInvokOnFocusout() => OnFocusout?.Invoke();
 
     /// <summary>
     /// OnLoad JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnLoad() => OnLoad?.Invoke();
+    [JSInvokable] public void JSInvokOnLoad() => OnLoad?.Invoke();
 
     /// <summary>
     /// OnUnload JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnUnload() => OnUnload?.Invoke();
+    [JSInvokable] public void JSInvokOnUnload() => OnUnload?.Invoke();
 
     /// <summary>
     /// OnBeforeunload JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnBeforeunload() => OnBeforeunload?.Invoke();
+    [JSInvokable] public void JSInvokOnBeforeunload() => OnBeforeunload?.Invoke();
 
     /// <summary>
     /// OnResize JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnResize() => OnResize?.Invoke();
+    [JSInvokable] public void JSInvokOnResize() => OnResize?.Invoke();
 
     /// <summary>
     /// OnMove JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnMove() => OnMove?.Invoke();
+    [JSInvokable] public void JSInvokOnMove() => OnMove?.Invoke();
 
     /// <summary>
     /// OnDOMContentLoaded JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnDOMContentLoaded() => OnDOMContentLoaded?.Invoke();
+    [JSInvokable] public void JSInvokOnDOMContentLoaded() => OnDOMContentLoaded?.Invoke();
 
     /// <summary>
     /// OnReadystatechange JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnReadystatechange() => OnReadystatechange?.Invoke();
+    [JSInvokable] public void JSInvokOnReadystatechange() => OnReadystatechange?.Invoke();
 
     /// <summary>
     /// OnError JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnError() => OnError?.Invoke();
+    [JSInvokable] public void JSInvokOnError() => OnError?.Invoke();
 
     /// <summary>
     /// OnAbort JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnAbort() => OnAbort?.Invoke();
+    [JSInvokable] public void JSInvokOnAbort() => OnAbort?.Invoke();
 
     /// <summary>
     /// OnScroll JS 回调
     /// </summary>
-    [JSInvokable]
-    public void JSInvokOnScroll() => OnScroll?.Invoke();
+    [JSInvokable] public void JSInvokOnScroll() => OnScroll?.Invoke();
 
     #endregion
 
@@ -503,261 +446,9 @@ public class BootstrapBlazorHelper : IBootstrapBlazorHelper, IAsyncDisposable
     /// <inheritdoc/>
     public event BootStrapBlazorEventHandler? OnScroll;
     #endregion
-
 }
 
 /// <summary>
 /// <inheritdoc/>
 /// </summary>
 public delegate void BootStrapBlazorEventHandler();
-
-class EventHandlesConverter : JsonConverter<BootStrapBlazorEventType>
-{
-    public override BootStrapBlazorEventType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-    {
-        throw new NotImplementedException();
-    }
-
-    public override void Write(Utf8JsonWriter writer, BootStrapBlazorEventType value, JsonSerializerOptions options)
-    {
-        writer.WriteStringValue(value.ToDescriptionString());
-    }
-}
-
-/// <summary>
-/// 事件枚举
-/// </summary>
-[JsonConverter(typeof(EventHandlesConverter))]
-public enum BootStrapBlazorEventType
-{
-    /// <summary>
-    /// Click 事件枚举
-    /// </summary>
-    [Description("click")]
-    Click,
-    /// <summary>
-    /// Dblclick 事件枚举
-    /// </summary>
-    [Description("dblclick")]
-    Dblclick,
-    /// <summary>
-    /// Mouseup 事件枚举
-    /// </summary>
-    [Description("mouseup")]
-    Mouseup,
-    /// <summary>
-    /// Mousedown 事件枚举
-    /// </summary>
-    [Description("mousedown")]
-    Mousedown,
-    /// <summary>
-    /// Contextmenu 事件枚举
-    /// </summary>
-    [Description("contextmenu")]
-    Contextmenu,
-    /// <summary>
-    /// Mousewheel 事件枚举
-    /// </summary>
-    [Description("mousewheel")]
-    Mousewheel,
-    /// <summary>
-    /// DOMMouseScroll 事件枚举
-    /// </summary>
-    [Description("dOMMouseScroll")]
-    DOMMouseScroll,
-    /// <summary>
-    /// Mouseover 事件枚举
-    /// </summary>
-    [Description("mouseover")]
-    Mouseover,
-    /// <summary>
-    /// Mouseout 事件枚举
-    /// </summary>
-    [Description("mouseout")]
-    Mouseout,
-    /// <summary>
-    /// Mousemove 事件枚举
-    /// </summary>
-    [Description("mousemove")]
-    Mousemove,
-    /// <summary>
-    /// Selectstart 事件枚举
-    /// </summary>
-    [Description("selectstart")]
-    Selectstart,
-    /// <summary>
-    /// Selectend 事件枚举
-    /// </summary>
-    [Description("selectend")]
-    Selectend,
-    /// <summary>
-    /// Keydown 事件枚举
-    /// </summary>
-    [Description("keydown")]
-    Keydown,
-    /// <summary>
-    /// Keypress 事件枚举
-    /// </summary>
-    [Description("keypress")]
-    Keypress,
-    /// <summary>
-    /// Keyup 事件枚举
-    /// </summary>
-    [Description("keyup")]
-    Keyup,
-    /// <summary>
-    /// Orientationchange 事件枚举
-    /// </summary>
-    [Description("orientationchange")]
-    Orientationchange,
-    /// <summary>
-    /// Touchstart 事件枚举
-    /// </summary>
-    [Description("touchstart")]
-    Touchstart,
-    /// <summary>
-    /// Touchmove 事件枚举
-    /// </summary>
-    [Description("touchmove")]
-    Touchmove,
-    /// <summary>
-    /// Touchend 事件枚举
-    /// </summary>
-    [Description("touchend")]
-    Touchend,
-    /// <summary>
-    /// Touchcancel 事件枚举
-    /// </summary>
-    [Description("touchcancel")]
-    Touchcancel,
-    /// <summary>
-    /// Pointerdown 事件枚举
-    /// </summary>
-    [Description("pointerdown")]
-    Pointerdown,
-    /// <summary>
-    /// Pointermove 事件枚举
-    /// </summary>
-    [Description("pointermove")]
-    Pointermove,
-    /// <summary>
-    /// Pointerup 事件枚举
-    /// </summary>
-    [Description("pointerup")]
-    Pointerup,
-    /// <summary>
-    /// Pointerleave 事件枚举
-    /// </summary>
-    [Description("pointerleave")]
-    Pointerleave,
-    /// <summary>
-    /// Pointercancel 事件枚举
-    /// </summary>
-    [Description("pointercancel")]
-    Pointercancel,
-    /// <summary>
-    /// Gesturestart 事件枚举
-    /// </summary>
-    [Description("gesturestart")]
-    Gesturestart,
-    /// <summary>
-    /// Gesturechange 事件枚举
-    /// </summary>
-    [Description("gesturechange")]
-    Gesturechange,
-    /// <summary>
-    /// Gestureend 事件枚举
-    /// </summary>
-    [Description("gestureend")]
-    Gestureend,
-    /// <summary>
-    /// Focus 事件枚举
-    /// </summary>
-    [Description("focus")]
-    Focus,
-    /// <summary>
-    /// Blur 事件枚举
-    /// </summary>
-    [Description("blur")]
-    Blur,
-    /// <summary>
-    /// Change 事件枚举
-    /// </summary>
-    [Description("change")]
-    Change,
-    /// <summary>
-    /// Reset 事件枚举
-    /// </summary>
-    [Description("reset")]
-    Reset,
-    /// <summary>
-    /// Select 事件枚举
-    /// </summary>
-    [Description("select")]
-    Select,
-    /// <summary>
-    /// Submit 事件枚举
-    /// </summary>
-    [Description("submit")]
-    Submit,
-    /// <summary>
-    /// Focusin 事件枚举
-    /// </summary>
-    [Description("focusin")]
-    Focusin,
-    /// <summary>
-    /// Focusout 事件枚举
-    /// </summary>
-    [Description("focusout")]
-    Focusout,
-    /// <summary>
-    /// Load 事件枚举
-    /// </summary>
-    [Description("load")]
-    Load,
-    /// <summary>
-    /// Unload 事件枚举
-    /// </summary>
-    [Description("unload")]
-    Unload,
-    /// <summary>
-    /// Beforeunload 事件枚举
-    /// </summary>
-    [Description("beforeunload")]
-    Beforeunload,
-    /// <summary>
-    /// Resize 事件枚举
-    /// </summary>
-    [Description("resize")]
-    Resize,
-    /// <summary>
-    /// Move 事件枚举
-    /// </summary>
-    [Description("move")]
-    Move,
-    /// <summary>
-    /// DOMContentLoaded 事件枚举
-    /// </summary>
-    [Description("dOMContentLoaded")]
-    DOMContentLoaded,
-    /// <summary>
-    /// Readystatechange 事件枚举
-    /// </summary>
-    [Description("readystatechange")]
-    Readystatechange,
-    /// <summary>
-    /// Error 事件枚举
-    /// </summary>
-    [Description("error")]
-    Error,
-    /// <summary>
-    /// Abort 事件枚举
-    /// </summary>
-    [Description("abort")]
-    Abort,
-    /// <summary>
-    /// Scroll 事件枚举
-    /// </summary>
-    [Description("scroll")]
-    Scroll
-}

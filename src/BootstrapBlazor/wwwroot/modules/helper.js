@@ -58,6 +58,10 @@ export function getProperties(obj, tag) {
     return object;
 }
 
+export function runJSEval(js) {
+    eval(js);
+}
+
 export function dispose(guid) {
     const hp = Data.get(guid)
     Data.remove(guid)

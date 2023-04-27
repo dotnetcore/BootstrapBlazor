@@ -51,18 +51,27 @@ public partial class Pintereso
     {
         await base.OnInitializedAsync();
         await helper.RegisterEvent(BootStrapBlazorEventType.Scroll);
+        await helper.RegisterEvent(BootStrapBlazorEventType.Click, Id);
         helper.OnScroll += Helper_OnScroll;
+        helper.OnClick += Helper_OnClick;
+    }
+
+    private async void Helper_OnClick()
+    {
+        await helper.RunJSEval("alert('23333')");
     }
 
     private async void Helper_OnScroll()
     {
+        System.Console.WriteLine("========================================================");
+        System.Console.WriteLine("触发滚动事件");
         var h1 = await helper.GetDocumentPropertiesByTagAsync<decimal>("documentElement.clientHeight");
         var h2 = await helper.GetDocumentPropertiesByTagAsync<decimal>("documentElement.scrollHeight");
         var h3 = await helper.GetDocumentPropertiesByTagAsync<decimal>("documentElement.scrollTop");
         var h4 = await helper.GetDocumentPropertiesByTagAsync<decimal>("body.scrollTop");
         var h5 = await helper.GetDocumentPropertiesByTagAsync<decimal>("body.scrollHeight");
-
-        System.Console.WriteLine("触发滚动事件");
+        System.Console.WriteLine($"获取数据,h1:{h1},h2:{h2},h3:{h3},h4:{h4},h5:{h5}");
+        System.Console.WriteLine("========================================================");
     }
 
     /// <summary>
@@ -87,12 +96,18 @@ public partial class Pintereso
         StateHasChanged();
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
     protected override async ValueTask DisposeAsync(bool disposing)
     {
-        await base.DisposeAsync(disposing);
         if (disposing)
         {
+            //一定要先释放该资源
             await helper.DisposeAsync();
         }
+        await base.DisposeAsync(disposing);
     }
 }
