@@ -46,7 +46,7 @@ public partial class Pintereso
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns
+    /// <returns></returns>
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();

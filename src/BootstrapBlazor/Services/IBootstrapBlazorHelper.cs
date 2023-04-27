@@ -12,25 +12,25 @@ public interface IBootstrapBlazorHelper
     /// <summary>
     /// 注册浏览器事件
     /// </summary>
-    /// <param name="eventType"></param>
+    /// <param name="eventName"></param>
     /// <returns></returns>
-    Task RegisterEvent(BootStrapBlazorEventType eventType);
+    Task RegisterEvent(BootStrapBlazorEventType eventName);
 
     /// <summary>
     /// 注册浏览器事件
     /// </summary>
-    /// <param name="eventType"></param>
+    /// <param name="eventName"></param>
     /// <param name="id"></param>
     /// <returns></returns>
-    Task RegisterEvent(BootStrapBlazorEventType eventType, string id);
+    Task RegisterEvent(BootStrapBlazorEventType eventName, string id);
 
     /// <summary>
     /// 注册浏览器事件
     /// </summary>
-    /// <param name="eventType"></param>
+    /// <param name="eventName"></param>
     /// <param name="element"></param>
     /// <returns></returns>
-    Task RegisterEvent(BootStrapBlazorEventType eventType, ElementReference element);
+    Task RegisterEvent(BootStrapBlazorEventType eventName, ElementReference element);
 
     /// <summary>
     /// 通过tag获取元素的属性值
