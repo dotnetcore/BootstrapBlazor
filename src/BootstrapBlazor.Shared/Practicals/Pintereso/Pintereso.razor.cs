@@ -4,18 +4,18 @@
 
 using BootstrapBlazor.Services;
 
-using Microsoft.JSInterop;
-
 namespace BootstrapBlazor.Shared.Practicals.Pintereso;
 
 /// <summary>
 /// 瀑布流图片
 /// </summary>
-public partial class Pintereso
+public partial class Pintereso : IDisposable
 {
     private readonly Random random = new();
 
-    private readonly List<string> IamgeList = new()
+    private readonly List<string> IamgeList = new();
+
+    private readonly List<string> _IamgeList = new()
     {
         "https://images.unsplash.com/photo-1489743342057-3448cc7c3bb9?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6d284a2efbca5f89528546307f7e7b87&auto=format&fit=crop&w=500&q=60",
         "https://images.unsplash.com/photo-1519996521430-02b798c1d881?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=79f770fc1a5d8ff9b0eb033d0f09e15d&auto=format&fit=crop&w=500&q=60",
@@ -39,6 +39,8 @@ public partial class Pintereso
         "https://images.unsplash.com/photo-1512355144108-e94a235b10af?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c622d56d975113a08c71c912618b5f83&auto=format&fit=crop&w=500&q=60"
     };
 
+    private bool disposedValue;
+
     [NotNull]
     [Inject]
     private IBootstrapBlazorHelper? helper { get; set; }
@@ -51,49 +53,61 @@ public partial class Pintereso
     {
         await base.OnInitializedAsync();
         await helper.RegisterEvent(BootStrapBlazorEventType.Scroll);
-        await helper.RegisterEvent(BootStrapBlazorEventType.Click, Id);
         helper.OnScroll += Helper_OnScroll;
-        helper.OnClick += Helper_OnClick;
+        await LoadImages(true);
     }
 
-    private async void Helper_OnClick()
-    {
-        await helper.RunJSEval("alert('23333')");
-    }
+    private DateTime lastRun { get; set; } = DateTime.Now;
 
     private async void Helper_OnScroll()
     {
-        System.Console.WriteLine("========================================================");
-        System.Console.WriteLine("触发滚动事件");
-        var h1 = await helper.GetDocumentPropertiesByTagAsync<decimal>("documentElement.clientHeight");
-        var h2 = await helper.GetDocumentPropertiesByTagAsync<decimal>("documentElement.scrollHeight");
-        var h3 = await helper.GetDocumentPropertiesByTagAsync<decimal>("documentElement.scrollTop");
-        var h4 = await helper.GetDocumentPropertiesByTagAsync<decimal>("body.scrollTop");
-        var h5 = await helper.GetDocumentPropertiesByTagAsync<decimal>("body.scrollHeight");
-        System.Console.WriteLine($"获取数据,h1:{h1},h2:{h2},h3:{h3},h4:{h4},h5:{h5}");
-        System.Console.WriteLine("========================================================");
+        var now = DateTime.Now;
+        var ts = now - lastRun;
+        //两次触发时间间隔0.1秒以上
+        if (ts.TotalSeconds > TimeSpan.FromSeconds(0.1).TotalSeconds)
+        {
+            lastRun = now;
+            var h1 = await helper.GetDocumentPropertiesByTagAsync<decimal>("documentElement.clientHeight");
+            var h2 = await helper.GetDocumentPropertiesByTagAsync<decimal>("documentElement.scrollHeight");
+            var h3 = await helper.GetDocumentPropertiesByTagAsync<decimal>("documentElement.scrollTop");
+            var h4 = await helper.GetDocumentPropertiesByTagAsync<decimal>("body.scrollTop");
+            var h5 = await helper.GetDocumentPropertiesByTagAsync<decimal>("body.scrollHeight");
+
+            //可视区窗口高度
+            var windowH = h1;
+            //滚动条的上边距
+            var scrollH = h3 > 0 ? h3 : h4;
+            //滚动条的高度
+            var documentH = h2 > 0 ? h2 : h5;
+
+            var sh1 = windowH + scrollH;
+            var sh2 = documentH;
+
+            if (Math.Abs(sh1 - sh2) < 50)
+            {
+                //每次滚动到底部，就给他塞5张新照片。
+                await LoadImages(false);
+
+                //把滚动条往上滚一点
+                //await helper.RunJSEval($"""window.scrollTo(0,-40);""");
+            }
+        }
     }
 
     /// <summary>
-    /// 
+    /// 加载图片
     /// </summary>
+    /// <param name="firstload"></param>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(InvokeOnScroll));
-
-    /// <summary>
-    /// 滚动到底部后回调此方法
-    /// </summary>
-    [JSInvokable]
-    public void InvokeOnScroll()
+    private async Task LoadImages(bool firstload)
     {
-        //每次滚动到底部，就给他塞5张新照片。
-        for (int i = 0; i < 5; i++)
+        var num = firstload ? _IamgeList.Count : 5;
+        for (int i = 0; i < num; i++)
         {
-            var item = IamgeList[random.Next(0, IamgeList.Count)];
-            IamgeList.Add(item);
+            await Task.Delay(200);
+            IamgeList.Add(_IamgeList[random.Next(0, _IamgeList.Count)]);
+            StateHasChanged();
         }
-
-        StateHasChanged();
     }
 
     /// <summary>
@@ -101,13 +115,29 @@ public partial class Pintereso
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>
-    protected override async ValueTask DisposeAsync(bool disposing)
+    protected virtual async Task DisposeAsync(bool disposing)
     {
-        if (disposing)
+        if (!disposedValue)
         {
-            //一定要先释放该资源
-            await helper.DisposeAsync();
+            if (disposing)
+            {
+                //一定要先释放该资源
+                await helper.DisposeAsync();
+            }
+
+            // TODO: 释放未托管的资源(未托管的对象)并重写终结器
+            // TODO: 将大型字段设置为 null
+            disposedValue = true;
         }
-        await base.DisposeAsync(disposing);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public async void Dispose()
+    {
+        // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+        await DisposeAsync(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }
