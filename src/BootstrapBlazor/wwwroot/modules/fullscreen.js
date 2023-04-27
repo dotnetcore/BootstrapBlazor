@@ -1,4 +1,4 @@
-﻿import { isElement } from "./utility.js";
+import { isElement } from "./utility.js?v=$version";
 import Data from './data.js'
 
 export function init(id) {
