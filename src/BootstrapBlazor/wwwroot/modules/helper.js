@@ -1,7 +1,5 @@
-﻿import Data from "./base/data.js"
-import EventHandler from "./base/event-handler.js"
-
-
+﻿import Data from "./data.js"
+import EventHandler from "./event-handler.js"
 
 /**
  * @function 事件注册
@@ -31,7 +29,8 @@ export function addEventListener(guid, interop, invokeMethodName, eventName, id,
         hp.target = el;
     }
 
-    Data.set(hp.guid, hp)
+    Data.set(guid, hp)
+
     EventHandler.on(hp.target, hp.eventName, hp.handler)
 }
 
@@ -64,5 +63,4 @@ export function dispose(guid) {
     Data.remove(guid)
 
     EventHandler.off(hp.target, hp.eventName, hp.handler)
-    hp.destroy()
 }

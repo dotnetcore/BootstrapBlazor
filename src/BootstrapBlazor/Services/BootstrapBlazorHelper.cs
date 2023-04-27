@@ -14,8 +14,7 @@ namespace BootstrapBlazor.Services;
 /// </summary>
 public class BootstrapBlazorHelper : IBootstrapBlazorHelper, IAsyncDisposable
 {
-    /// <inheritdoc/>
-    public IJSRuntime JSRuntime { get; set; }
+    private IJSRuntime JSRuntime { get; set; }
 
     [NotNull]
     private IJSObjectReference? Module { get; set; }
@@ -68,21 +67,33 @@ public class BootstrapBlazorHelper : IBootstrapBlazorHelper, IAsyncDisposable
     public async Task<T?> GetElementPropertiesByTagFromIdAsync<T>(string id, string tag)
     {
         await ImportModule();
-        return await Module.InvokeAsync<T?>("getElementPropertiesByTagFromId", id, tag);
+        if (Module is not null)
+        {
+            return await Module.InvokeAsync<T?>("getElementPropertiesByTagFromId", id, tag);
+        }
+        return default;
     }
 
     /// <inheritdoc/>
     public async Task<T?> GetDocumentPropertiesByTagAsync<T>(string tag)
     {
         await ImportModule();
-        return await Module.InvokeAsync<T?>("getDocumentPropertiesByTag", tag);
+        if(Module is not null)
+        {
+            return await Module.InvokeAsync<T?>("getDocumentPropertiesByTag", tag);
+        }
+        return default;
     }
 
     /// <inheritdoc/>
     public async Task<T?> GetElementPropertiesByTagAsync<T>(ElementReference element, string tag)
     {
         await ImportModule();
-        return await Module.InvokeAsync<T?>("getElementPropertiesByTag", element, tag);
+        if (Module is not null)
+        {
+            return await Module.InvokeAsync<T?>("getElementPropertiesByTag", element, tag);
+        }
+        return default;
     }
 
     #region Dispose
@@ -492,7 +503,6 @@ public class BootstrapBlazorHelper : IBootstrapBlazorHelper, IAsyncDisposable
     /// <inheritdoc/>
     public event BootStrapBlazorEventHandler? OnScroll;
     #endregion
-
 
 }
 

@@ -50,7 +50,6 @@ public partial class Pintereso
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        helper.JSRuntime = JSRuntime;
         await helper.RegisterEvent(BootStrapBlazorEventType.Scroll);
         helper.OnScroll += Helper_OnScroll;
     }

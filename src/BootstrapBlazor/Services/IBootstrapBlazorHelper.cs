@@ -10,11 +10,6 @@ namespace BootstrapBlazor.Services;
 public interface IBootstrapBlazorHelper
 {
     /// <summary>
-    /// Javascript调用
-    /// </summary>
-    IJSRuntime JSRuntime { get; set; }
-
-    /// <summary>
     /// 注册浏览器事件
     /// </summary>
     /// <param name="eventName"></param>
