@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Services;
 /// <summary>
 /// 浏览器事件,通用属性帮助类接口
 /// </summary>
-public interface IBootstrapBlazorHelper
+public interface IBootstrapBlazorHelper : IAsyncDisposable
 {
     /// <summary>
     /// 注册浏览器事件
@@ -57,12 +57,6 @@ public interface IBootstrapBlazorHelper
     /// <param name="tag"></param>
     /// <returns></returns>
     Task<T?> GetElementPropertiesByTagAsync<T>(ElementReference element, string tag);
-
-    /// <summary>
-    /// 请在Dispose中，优先释放该资源
-    /// </summary>
-    /// <returns></returns>
-    ValueTask DisposeAsync();
 
     /// <summary>
     /// 动态运行js脚本
