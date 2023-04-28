@@ -208,7 +208,7 @@ public partial class BarcodeReader : IAsyncDisposable
         }
         else
         {
-            var index = Math.Min(Devices.Count(), DefaultInitDeviceIndex);
+            var index = Math.Min(Devices.Count, DefaultInitDeviceIndex);
             SelectedDeviceId = Devices.ElementAt(index).Value;
         }
         StateHasChanged();
