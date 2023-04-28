@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Chart 组件基类
 /// </summary>
-public partial class Chart : BootstrapComponentBase, IAsyncDisposable
+public partial class Chart : IAsyncDisposable
 {
     [NotNull]
     private IJSObjectReference? Module { get; set; }

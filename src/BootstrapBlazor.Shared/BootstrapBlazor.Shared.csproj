@@ -20,7 +20,7 @@
   <ItemGroup>
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="7.*" />
-    <PackageReference Include="BootstrapBlazor.BarCode" Version="7.1.3" />
+    <PackageReference Include="BootstrapBlazor.BarCode" Version="7.1.4" />
     <PackageReference Include="BootstrapBlazor.Bluetooth" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.Chart" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="7.*" />
