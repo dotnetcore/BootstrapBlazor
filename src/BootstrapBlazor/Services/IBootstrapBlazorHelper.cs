@@ -39,7 +39,7 @@ public interface IBootstrapBlazorHelper : IAsyncDisposable
     /// <param name="id"></param>
     /// <param name="tag"></param>
     /// <returns></returns>
-    Task<T?> GetElementPropertiesByTagFromIdAsync<T>(string id, string tag);
+    ValueTask<T?> GetElementPropertiesByTagFromIdAsync<T>(string id, string tag);
 
     /// <summary>
     /// 通过tag获取元素的属性值
@@ -47,7 +47,7 @@ public interface IBootstrapBlazorHelper : IAsyncDisposable
     /// <typeparam name="T"></typeparam>
     /// <param name="tag"></param>
     /// <returns></returns>
-    Task<T?> GetDocumentPropertiesByTagAsync<T>(string tag);
+    ValueTask<T?> GetDocumentPropertiesByTagAsync<T>(string tag);
 
     /// <summary>
     /// 通过tag获取元素的属性值
@@ -56,14 +56,14 @@ public interface IBootstrapBlazorHelper : IAsyncDisposable
     /// <param name="element"></param>
     /// <param name="tag"></param>
     /// <returns></returns>
-    Task<T?> GetElementPropertiesByTagAsync<T>(ElementReference element, string tag);
+    ValueTask<T?> GetElementPropertiesByTagAsync<T>(ElementReference element, string tag);
 
     /// <summary>
     /// 动态运行js脚本
     /// </summary>
-    /// <param name="js">js代码</param>
+    /// <param name="scripts">js代码</param>
     /// <returns></returns>
-    Task RunJSEval(string js);
+    ValueTask RunEval(string scripts);
 
     #region Event
     /// <summary>

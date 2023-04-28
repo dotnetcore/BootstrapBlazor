@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.Xml.Linq;
-
 namespace BootstrapBlazor.Services;
 
 /// <summary>
@@ -11,15 +9,15 @@ namespace BootstrapBlazor.Services;
 /// </summary>
 public class BootstrapBlazorHelper : IBootstrapBlazorHelper
 {
-    private IJSRuntime JSRuntime { get; set; }
+    private IJSRuntime JSRuntime { get; }
 
     [NotNull]
     private IJSObjectReference? Module { get; set; }
 
     [NotNull]
-    private DotNetObjectReference<BootstrapBlazorHelper>? Interop { get; set; }
+    private DotNetObjectReference<BootstrapBlazorHelper>? Interop { get; }
 
-    private List<string> guidList { get; set; } = new List<string>();
+    private List<string> guidList { get; } = new List<string>();
 
     /// <summary>
     /// 构造函数
@@ -27,99 +25,94 @@ public class BootstrapBlazorHelper : IBootstrapBlazorHelper
     /// <param name="jSRuntime"></param>
     public BootstrapBlazorHelper(IJSRuntime jSRuntime)
     {
-        JSRuntime ??= jSRuntime;
-        Interop ??= DotNetObjectReference.Create(this);
+        JSRuntime = jSRuntime;
+        Interop = DotNetObjectReference.Create(this);
     }
 
-    private async Task ImportModule() => Module ??= await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor/modules/helper.js");
+    private ValueTask<IJSObjectReference> ImportModule() => JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor/modules/helper.js");
 
-    /// <inheritdoc/>
-    public async Task RegisterEvent(BootStrapBlazorEventType eventName)
+    private async Task InternalRegisterEvent(BootStrapBlazorEventType eventName, params object?[]? args)
     {
-        await ImportModule();
         var guid = Guid.NewGuid();
         guidList.Add($"{guid}");
-        await Module.InvokeVoidAsync("addEventListener", guid, Interop, $"JSInvokOn{eventName}", eventName);
-    }
 
-    /// <inheritdoc/>
-    public async Task RegisterEvent(BootStrapBlazorEventType eventName, string Id)
-    {
-        await ImportModule();
-        var guid = Guid.NewGuid();
-        guidList.Add($"{guid}");
-        await Module.InvokeVoidAsync("addEventListener", guid, Interop, $"JSInvokOn{eventName}", eventName, Id);
+        var arguments = new List<object?> { guid, Interop, $"JSInvokOn{eventName}" };
+        if (args != null)
+        {
+            arguments.AddRange(args);
+        }
+        await InvokeVoidAsync("addEventListener", arguments.ToArray());
     }
-
-    /// <inheritdoc/>
-    public async Task RegisterEvent(BootStrapBlazorEventType eventName, ElementReference element)
-    {
-        await ImportModule();
-        var guid = Guid.NewGuid();
-        guidList.Add($"{guid}");
-        await Module.InvokeVoidAsync("addEventListener", guid, Interop, $"JSInvokOn{eventName}", eventName, null, element);
-    }
-
-    /// <inheritdoc/>
-    public async Task<T?> GetElementPropertiesByTagFromIdAsync<T>(string id, string tag)
-    {
-        await ImportModule();
-        return await Module.InvokeAsync<T?>("getElementPropertiesByTagFromId", id, tag);
-    }
-
-    /// <inheritdoc/>
-    public async Task<T?> GetDocumentPropertiesByTagAsync<T>(string tag)
-    {
-        await ImportModule();
-        return await Module.InvokeAsync<T?>("getDocumentPropertiesByTag", tag);
-    }
-
-    /// <inheritdoc/>
-    public async Task<T?> GetElementPropertiesByTagAsync<T>(ElementReference element, string tag)
-    {
-        await ImportModule();
-        return await Module.InvokeAsync<T?>("getElementPropertiesByTag", element, tag);
-    }
-
-    #region Dispose
 
     /// <summary>
-    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="disposing"></param>
+    /// <param name="eventName"></param>
     /// <returns></returns>
-    protected virtual async ValueTask DisposeAsync(bool disposing)
-    {
-        if (Module != null && disposing)
-        {
-            guidList.ForEach(async x => await Module.InvokeVoidAsync("dispose", x));
-            guidList.Clear();
+    public Task RegisterEvent(BootStrapBlazorEventType eventName) => InternalRegisterEvent(eventName);
 
-            Interop?.Dispose();
-
-            await Module.DisposeAsync();
-            Module = null;
-        }
-    }
-
+    /// <summary>
     /// <inheritdoc/>
-    public async Task RunJSEval(string js)
-    {
-        await ImportModule();
-        await Module.InvokeVoidAsync("runJSEval", js);
-    }
+    /// </summary>
+    /// <param name="eventName"></param>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public Task RegisterEvent(BootStrapBlazorEventType eventName, string id) => InternalRegisterEvent(eventName, id);
 
+    /// <summary>
     /// <inheritdoc/>
-    public async ValueTask DisposeAsync()
+    /// </summary>
+    /// <param name="eventName"></param>
+    /// <param name="element"></param>
+    /// <returns></returns>
+    public Task RegisterEvent(BootStrapBlazorEventType eventName, ElementReference element) => InternalRegisterEvent(eventName, null, element);
+
+    private async ValueTask InvokeVoidAsync(string identifier, params object?[]? args)
     {
-        await DisposeAsync(true);
-        GC.SuppressFinalize(this);
+        Module ??= await ImportModule();
+        await Module.InvokeVoidAsync(identifier, args);
     }
 
-    #endregion
+    private async ValueTask<TValue?> InvokeAsync<TValue>(string identifier, params object?[]? args)
+    {
+        Module ??= await ImportModule();
+        return await Module.InvokeAsync<TValue?>(identifier, args);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="id"></param>
+    /// <param name="tag"></param>
+    /// <returns></returns>
+    public ValueTask<T?> GetElementPropertiesByTagFromIdAsync<T>(string id, string tag) => InvokeAsync<T?>("getElementPropertiesByTagFromId", id, tag);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="tag"></param>
+    /// <returns></returns>
+    public ValueTask<T?> GetDocumentPropertiesByTagAsync<T>(string tag) => InvokeAsync<T?>("getDocumentPropertiesByTag", tag);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="element"></param>
+    /// <param name="tag"></param>
+    /// <returns></returns>
+    public ValueTask<T?> GetElementPropertiesByTagAsync<T>(ElementReference element, string tag) => InvokeAsync<T?>("getElementPropertiesByTag", element, tag);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="scripts"></param>
+    /// <returns></returns>
+    public ValueTask RunEval(string scripts) => InvokeVoidAsync("runJSEval", scripts);
 
     #region JSInvok
-
     /// <summary>
     /// OnClick JS 回调
     /// </summary>
@@ -349,7 +342,6 @@ public class BootstrapBlazorHelper : IBootstrapBlazorHelper
     /// OnScroll JS 回调
     /// </summary>
     [JSInvokable] public void JSInvokOnScroll() => OnScroll?.Invoke();
-
     #endregion
 
     #region Event
@@ -445,6 +437,40 @@ public class BootstrapBlazorHelper : IBootstrapBlazorHelper
     public event BootStrapBlazorEventHandler? OnAbort;
     /// <inheritdoc/>
     public event BootStrapBlazorEventHandler? OnScroll;
+    #endregion
+
+    #region Dispose
+    /// <summary>
+    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected virtual async ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            Interop.Dispose();
+
+            if (Module != null)
+            {
+                guidList.ForEach(async x => await Module.InvokeVoidAsync("dispose", x));
+                guidList.Clear();
+
+                await Module.DisposeAsync();
+                Module = null;
+            }
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
+    }
     #endregion
 }
 

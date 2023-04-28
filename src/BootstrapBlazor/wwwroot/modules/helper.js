@@ -12,14 +12,13 @@ import EventHandler from "./event-handler.js"
  */
 export function addEventListener(guid, interop, invokeMethodName, eventName, id, el) {
     const hp = {
-        eventName: eventName,
-        target: window,
+        guid,
+        eventName,
         handler: () => {
             interop.invokeMethodAsync(invokeMethodName);
         },
-        id: id,
-        el: el,
-        guid: guid
+        id, el,
+        target: window,
     }
 
     if (id) {
@@ -30,7 +29,6 @@ export function addEventListener(guid, interop, invokeMethodName, eventName, id,
     }
 
     Data.set(guid, hp)
-
     EventHandler.on(hp.target, hp.eventName, hp.handler)
 }
 
@@ -66,5 +64,7 @@ export function dispose(guid) {
     const hp = Data.get(guid)
     Data.remove(guid)
 
-    EventHandler.off(hp.target, hp.eventName, hp.handler)
+    if (hp) {
+        EventHandler.off(hp.target, hp.eventName, hp.handler)
+    }
 }
