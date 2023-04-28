@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Services;
 /// <summary>
 /// <inheritdoc/>
 /// </summary>
-public class BootstrapBlazorHelper : IBootstrapBlazorHelper, IAsyncDisposable
+public class BootstrapBlazorHelper : IBootstrapBlazorHelper
 {
     private IJSRuntime JSRuntime { get; set; }
 
