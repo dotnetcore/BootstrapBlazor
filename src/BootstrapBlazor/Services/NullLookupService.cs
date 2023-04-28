@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-namespace BootstrapBlazor.Services;
+namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// 内部默认字典服务实现类

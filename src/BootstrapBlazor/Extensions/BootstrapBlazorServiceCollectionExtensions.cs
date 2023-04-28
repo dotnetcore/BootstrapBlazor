@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Localization.Json;
-using BootstrapBlazor.Services;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Globalization;
 
@@ -51,6 +50,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.AddScoped(typeof(DragDropService<>));
         services.AddScoped<ClipboardService>();
         services.AddScoped<ResizeNotificationService>();
+        services.AddTransient<IJSRuntimeEventHandler, JSRuntimeEventHandler>();
 
         services.TryAddScoped<IIPLocatorProvider, DefaultIPLocatorProvider>();
         services.TryAddScoped<IReconnectorProvider, ReconnectorProvider>();
