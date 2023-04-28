@@ -29,7 +29,7 @@ partial class JSRuntimeEventHandler : IJSRuntimeEventHandler
         Interop = DotNetObjectReference.Create(this);
     }
 
-    private ValueTask<IJSObjectReference> ImportModule() => JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor/modules/helper.js");
+    private ValueTask<IJSObjectReference> ImportModule() => JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor/modules/event-services.js");
 
     private async Task InternalRegisterEvent(BootStrapBlazorEventType eventName, params object?[]? args)
     {
