@@ -12,13 +12,6 @@ public class DialogOption
     /// <summary>
     /// 获得/设置 相关弹窗实例
     /// </summary>
-    [Obsolete("请使用 CloseDialogAsync 关闭弹窗")]
-    [ExcludeFromCodeCoverage]
-    public Modal? Dialog { get; set; }
-
-    /// <summary>
-    /// 获得/设置 相关弹窗实例
-    /// </summary>
     internal Modal? Modal { get; set; }
 
     /// <summary>

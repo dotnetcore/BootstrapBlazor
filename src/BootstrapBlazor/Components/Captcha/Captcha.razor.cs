@@ -75,14 +75,6 @@ public partial class Captcha : IDisposable
     /// 获得/设置 验证码结果回调委托
     /// </summary>
     [Parameter]
-    [Obsolete("use OnValidAsync parameter")]
-    [ExcludeFromCodeCoverage]
-    public Action<bool>? OnValid { get; set; }
-
-    /// <summary>
-    /// 获得/设置 验证码结果回调委托
-    /// </summary>
-    [Parameter]
     public Func<bool, Task>? OnValidAsync { get; set; }
 
     /// <summary>

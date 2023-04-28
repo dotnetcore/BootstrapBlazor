@@ -162,14 +162,6 @@ public partial class Tab : IHandlerException, IDisposable
     public string? DefaultUrl { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击 Tab 时回调方法
-    /// </summary>
-    [Parameter]
-    [Obsolete("请使用 OnClickTabItemAsync 代替")]
-    [ExcludeFromCodeCoverage]
-    public Func<TabItem, Task>? OnClickTab { get; set; }
-
-    /// <summary>
     /// 获得/设置 点击 TabItem 时回调方法
     /// </summary>
     [Parameter]

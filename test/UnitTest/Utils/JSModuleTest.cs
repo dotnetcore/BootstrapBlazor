@@ -51,31 +51,6 @@ public class JSModuleTest
     }
 
     [Fact]
-    public async ValueTask JSModuleGeneric_Ok()
-    {
-        var js = new MockJSObjectReference();
-        var module = new JSModule2<object>(js, new Foo());
-        Assert.NotNull(module);
-
-        await module.InvokeVoidAsync("Test.init", "bb_id");
-        await module.InvokeVoidAsync("Test.init", TimeSpan.Zero, "bb_id");
-        await module.InvokeVoidAsync("Test.init", CancellationToken.None, "bb_id");
-        await module.InvokeAsync<object>("Test.init", "bb_id");
-        await module.InvokeAsync<object>("Test.init", TimeSpan.Zero, "bb_id");
-        await module.InvokeAsync<object>("Test.init", CancellationToken.None, "bb_id");
-        await module.DisposeAsync();
-    }
-
-    [Fact]
-    public async ValueTask JSModuleGeneric_Error()
-    {
-        var js = new MockErrorJSObjectReference();
-        var module = new JSModule2<object>(js, new Foo());
-        await module.InvokeVoidAsync("Test.init", "bb_id");
-        await module.DisposeAsync();
-    }
-
-    [Fact]
     public void JSModule_JSDisconnectedException()
     {
         var js = new MockJSDisconnectedObjectReference();
@@ -88,18 +63,6 @@ public class JSModuleTest
         Assert.ThrowsAsync<JSDisconnectedException>(() =>
         {
             module.InvokeAsync<int>("test");
-            return Task.CompletedTask;
-        });
-
-        var module2 = new JSModule2<Foo>(js, new Foo());
-        Assert.ThrowsAsync<JSDisconnectedException>(() =>
-        {
-            module2.InvokeVoidAsync("test");
-            return Task.CompletedTask;
-        });
-        Assert.ThrowsAsync<JSDisconnectedException>(() =>
-        {
-            module2.InvokeAsync<int>("test");
             return Task.CompletedTask;
         });
     }
@@ -117,18 +80,6 @@ public class JSModuleTest
         Assert.ThrowsAsync<TaskCanceledException>(() =>
         {
             module.InvokeAsync<int>("test");
-            return Task.CompletedTask;
-        });
-
-        var module2 = new JSModule2<Foo>(js, new Foo());
-        Assert.ThrowsAsync<TaskCanceledException>(() =>
-        {
-            module2.InvokeVoidAsync("test", "args1", "args2");
-            return Task.CompletedTask;
-        });
-        Assert.ThrowsAsync<TaskCanceledException>(() =>
-        {
-            module2.InvokeAsync<int>("test", "args1", "args2");
             return Task.CompletedTask;
         });
     }

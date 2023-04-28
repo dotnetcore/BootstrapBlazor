@@ -10,6 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Search 组件基类
 /// </summary>
+[JSModuleAutoLoader("AutoComplete/AutoComplete.razor.js", Relative = false)]
 public partial class Search
 {
     [NotNull]
@@ -95,8 +96,6 @@ public partial class Search
     [Inject]
     [NotNull]
     private IStringLocalizer<Search>? Localizer { get; set; }
-
-    private JSInterop<Search>? Interop { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -215,35 +214,5 @@ public partial class Search
         {
             await OnSearchClick();
         }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task RegisterComposition()
-    {
-        // 汉字多次触发问题
-        if (ValidateForm != null)
-        {
-            Interop ??= new JSInterop<Search>(JSRuntime);
-
-            await Interop.InvokeVoidAsync(this, FocusElement, "bb_composition", nameof(TriggerOnChange));
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected override ValueTask DisposeAsync(bool disposing)
-    {
-        if (disposing)
-        {
-            Interop?.Dispose();
-        }
-
-        return base.DisposeAsync(disposing);
     }
 }

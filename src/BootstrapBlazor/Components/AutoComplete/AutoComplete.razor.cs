@@ -10,9 +10,9 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// AutoComplete 组件基类
 /// </summary>
+[JSModuleAutoLoader(JSObjectReference = true)]
 public partial class AutoComplete
 {
-
     private bool IsLoading { get; set; }
 
     private bool IsShown { get; set; }
@@ -129,8 +129,6 @@ public partial class AutoComplete
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
-    private JSInterop<AutoComplete>? Interop { get; set; }
-
     private string CurrentSelectedItem { get; set; } = "";
 
     /// <summary>
@@ -182,7 +180,7 @@ public partial class AutoComplete
 
         if (CurrentItemIndex.HasValue)
         {
-            await JSRuntime.InvokeVoidAsync(AutoCompleteElement, "bb_autoScrollItem", CurrentItemIndex.Value);
+            await InvokeVoidAsync("autoScroll", AutoCompleteElement, CurrentItemIndex.Value);
         }
 
         if (firstRender)
@@ -191,7 +189,7 @@ public partial class AutoComplete
 
             if (Debounce > 0)
             {
-                await JSRuntime.InvokeVoidAsync(FocusElement, "bb_setDebounce", Debounce);
+                await InvokeVoidAsync("debounce", AutoCompleteElement, FocusElement, Debounce);
             }
         }
     }
@@ -329,23 +327,7 @@ public partial class AutoComplete
         // 汉字多次触发问题
         if (ValidateForm != null)
         {
-            Interop ??= new JSInterop<AutoComplete>(JSRuntime);
-            await Interop.InvokeVoidAsync(this, FocusElement, "bb_composition", nameof(TriggerOnChange));
+            await InvokeVoidAsync("composition", AutoCompleteElement, FocusElement, Interop, nameof(TriggerOnChange));
         }
-    }
-
-    /// <summary>
-    /// DisposeAsyncCore 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected override ValueTask DisposeAsync(bool disposing)
-    {
-        if (disposing)
-        {
-            Interop?.Dispose();
-        }
-
-        return base.DisposeAsync(disposing);
     }
 }
