@@ -193,6 +193,7 @@ public partial class Topology : IAsyncDisposable
             {
                 await Module.InvokeVoidAsync("dispose", Element);
                 await Module.DisposeAsync();
+                Module = null;
             }
         }
     }
