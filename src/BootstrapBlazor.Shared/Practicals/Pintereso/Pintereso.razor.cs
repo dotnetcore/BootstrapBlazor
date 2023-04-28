@@ -43,7 +43,7 @@ public partial class Pintereso : IAsyncDisposable
 
     [NotNull]
     [Inject]
-    private IBootstrapBlazorHelper? helper { get; set; }
+    private IJSRuntimeEventHandler? JSRuntimeEventHandler { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -52,27 +52,29 @@ public partial class Pintereso : IAsyncDisposable
     {
         if (firstRender)
         {
-            await helper.RegisterEvent(BootStrapBlazorEventType.Scroll);
-            helper.OnScroll += Helper_OnScroll;
+            await JSRuntimeEventHandler.RegisterEvent(BootStrapBlazorEventType.Scroll);
+            JSRuntimeEventHandler.OnScroll += Helper_OnScroll;
+
             await LoadImages(true);
         }
     }
 
-    private DateTime lastRun { get; set; } = DateTime.Now;
+    private DateTime LastRun { get; set; } = DateTime.Now;
 
     private async void Helper_OnScroll()
     {
         var now = DateTime.Now;
-        var ts = now - lastRun;
+        var ts = now - LastRun;
+
         //两次触发时间间隔0.1秒以上
         if (ts.TotalSeconds > TimeSpan.FromSeconds(0.1).TotalSeconds)
         {
-            lastRun = now;
-            var h1 = await helper.GetDocumentPropertiesByTagAsync<decimal>("documentElement.clientHeight");
-            var h2 = await helper.GetDocumentPropertiesByTagAsync<decimal>("documentElement.scrollHeight");
-            var h3 = await helper.GetDocumentPropertiesByTagAsync<decimal>("documentElement.scrollTop");
-            var h4 = await helper.GetDocumentPropertiesByTagAsync<decimal>("body.scrollTop");
-            var h5 = await helper.GetDocumentPropertiesByTagAsync<decimal>("body.scrollHeight");
+            LastRun = now;
+            var h1 = await JSRuntimeEventHandler.GetDocumentPropertiesByTagAsync<decimal>("documentElement.clientHeight");
+            var h2 = await JSRuntimeEventHandler.GetDocumentPropertiesByTagAsync<decimal>("documentElement.scrollHeight");
+            var h3 = await JSRuntimeEventHandler.GetDocumentPropertiesByTagAsync<decimal>("documentElement.scrollTop");
+            var h4 = await JSRuntimeEventHandler.GetDocumentPropertiesByTagAsync<decimal>("body.scrollTop");
+            var h5 = await JSRuntimeEventHandler.GetDocumentPropertiesByTagAsync<decimal>("body.scrollHeight");
 
             //可视区窗口高度
             var windowH = h1;
@@ -88,9 +90,6 @@ public partial class Pintereso : IAsyncDisposable
             {
                 //每次滚动到底部，就给他塞5张新照片。
                 await LoadImages(false);
-
-                //把滚动条往上滚一点
-                //await helper.RunJSEval($"""window.scrollTo(0,-40);""");
             }
         }
     }
@@ -123,8 +122,8 @@ public partial class Pintereso : IAsyncDisposable
             if (!disposedValue)
             {
                 disposedValue = true;
-                helper.OnScroll -= Helper_OnScroll;
-                await helper.DisposeAsync();
+                JSRuntimeEventHandler.OnScroll -= Helper_OnScroll;
+                await JSRuntimeEventHandler.DisposeAsync();
             }
         }
     }

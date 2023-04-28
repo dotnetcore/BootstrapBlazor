@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Services;
 /// <summary>
 /// <inheritdoc/>
 /// </summary>
-public class BootstrapBlazorHelper : IBootstrapBlazorHelper
+class JSRuntimeEventHandler : IJSRuntimeEventHandler
 {
     private IJSRuntime JSRuntime { get; }
 
@@ -15,7 +15,7 @@ public class BootstrapBlazorHelper : IBootstrapBlazorHelper
     private IJSObjectReference? Module { get; set; }
 
     [NotNull]
-    private DotNetObjectReference<BootstrapBlazorHelper>? Interop { get; }
+    private DotNetObjectReference<JSRuntimeEventHandler>? Interop { get; }
 
     private List<string> guidList { get; } = new List<string>();
 
@@ -23,7 +23,7 @@ public class BootstrapBlazorHelper : IBootstrapBlazorHelper
     /// 构造函数
     /// </summary>
     /// <param name="jSRuntime"></param>
-    public BootstrapBlazorHelper(IJSRuntime jSRuntime)
+    public JSRuntimeEventHandler(IJSRuntime jSRuntime)
     {
         JSRuntime = jSRuntime;
         Interop = DotNetObjectReference.Create(this);
@@ -36,7 +36,7 @@ public class BootstrapBlazorHelper : IBootstrapBlazorHelper
         var guid = Guid.NewGuid();
         guidList.Add($"{guid}");
 
-        var arguments = new List<object?> { guid, Interop, $"JSInvokOn{eventName}" };
+        var arguments = new List<object?> { guid, Interop, $"JSInvokOn{eventName}", eventName };
         if (args != null)
         {
             arguments.AddRange(args);

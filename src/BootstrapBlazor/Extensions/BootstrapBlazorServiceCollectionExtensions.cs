@@ -51,7 +51,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.AddScoped(typeof(DragDropService<>));
         services.AddScoped<ClipboardService>();
         services.AddScoped<ResizeNotificationService>();
-        services.AddTransient<IBootstrapBlazorHelper,BootstrapBlazorHelper>();
+        services.AddTransient<IJSRuntimeEventHandler, JSRuntimeEventHandler>();
 
         services.TryAddScoped<IIPLocatorProvider, DefaultIPLocatorProvider>();
         services.TryAddScoped<IReconnectorProvider, ReconnectorProvider>();
