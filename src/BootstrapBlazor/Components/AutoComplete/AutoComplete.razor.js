@@ -22,17 +22,17 @@ export function autoScroll(el, index) {
         active.classList.remove('active')
     }
 
-    //var len = $menu.children().length
-    //    if (index < len) {
-    //        $menu.children()[index].classList.add('active')
-    //    }
+    var len = menu.children.length
+    if (index < len) {
+        menu.children[index].classList.add('active')
+    }
 
-    //    if (height > maxHeight) {
-    //        $menu.scrollTop(itemHeight * (index > count ? index - count : index))
-    //    }
-    //    else if (index <= count) {
-    //        $menu.scrollTop(0)
-    //    }
+    if (height > maxHeight) {
+        menu.scrollTop = itemHeight * (index > count ? index - count : index)
+    }
+    else if (index <= count) {
+        menu.scrollTop = 0
+    }
 }
 
 export function debounce(el, input, ms) {
