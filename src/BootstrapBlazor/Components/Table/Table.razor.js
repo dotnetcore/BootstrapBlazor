@@ -21,35 +21,46 @@ const fixHeader = table => {
                 prev.classList.add('modified')
                 prev.style.right = margin
                 prev = prev.previousElementSibling
-            } else {
+            }
+            else {
                 break
             }
         }
     }
 
-    const search = el.querySelector('.table-search')
-    let searchHeight = 0
-    if (search) {
-        searchHeight = getHeight(search)
-    }
-    const pagination = el.querySelector('.nav-pages')
-    let paginationHeight = 0
-    if (pagination) {
-        paginationHeight = getHeight(pagination)
-    }
-    const toolbar = el.querySelector('.table-toolbar')
-    let toolbarHeight = 0
-    if (toolbar) {
-        toolbarHeight = getHeight(toolbar)
-    }
-    const bodyHeight = paginationHeight + toolbarHeight + searchHeight;
-    if (bodyHeight > 0) {
-        body.parentNode.style.height = `calc(100% - ${bodyHeight}px)`
+    const setBodyHeight = () => {
+        const search = el.querySelector('.table-search')
+        table.search = search
+        let searchHeight = 0
+        if (search) {
+            searchHeight = getHeight(search)
+        }
+        const pagination = el.querySelector('.nav-pages')
+        let paginationHeight = 0
+        if (pagination) {
+            paginationHeight = getHeight(pagination)
+        }
+        const toolbar = el.querySelector('.table-toolbar')
+        let toolbarHeight = 0
+        if (toolbar) {
+            toolbarHeight = getHeight(toolbar)
+        }
+        const bodyHeight = paginationHeight + toolbarHeight + searchHeight;
+        if (bodyHeight > 0) {
+            body.parentNode.style.height = `calc(100% - ${bodyHeight}px)`
+        }
+        const headerHeight = getHeight(table.thead)
+        if (headerHeight > 0) {
+            body.style.height = `calc(100% - ${headerHeight}px)`
+        }
     }
 
-    const headerHeight = getHeight(table.thead)
-    if (headerHeight > 0) {
-        body.style.height = `calc(100% - ${headerHeight}px)`
+    setBodyHeight()
+
+    if (table.search) {
+        // handler collapse event
+        EventHandler.on(table.search, 'shown.bs.collapse', () => setBodyHeight())
+        EventHandler.on(table.search, 'hidden.bs.collapse', () => setBodyHeight())
     }
 }
 
@@ -377,6 +388,11 @@ export function dispose(id) {
         })
 
         EventHandler.off(table.element, 'click', '.col-copy')
+
+        if (table.search) {
+            EventHandler.off(table.search, 'shown.bs.collapse')
+            EventHandler.off(table.search, 'hidden.bs.collapse')
+        }
     }
 }
 
