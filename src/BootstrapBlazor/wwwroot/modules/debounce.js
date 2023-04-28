@@ -19,7 +19,7 @@ export default {
                     // 清除计时器，使下次事件不能进入到if中
                     timer = null;
                     // 手动激发冒泡事件
-                    event.target.dispatchEvent(event.originalEvent);
+                    event.target.dispatchEvent(event);
                 }, waitMs);
             }
             else {
