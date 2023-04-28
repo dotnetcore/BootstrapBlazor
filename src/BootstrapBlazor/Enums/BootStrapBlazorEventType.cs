@@ -245,6 +245,7 @@ public enum BootStrapBlazorEventType
     Scroll
 }
 
+[ExcludeFromCodeCoverage]
 class EventHandlesConverter : JsonConverter<BootStrapBlazorEventType>
 {
     public override BootStrapBlazorEventType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => throw new NotImplementedException();

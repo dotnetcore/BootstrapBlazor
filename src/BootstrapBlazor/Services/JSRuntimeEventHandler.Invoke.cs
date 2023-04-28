@@ -4,6 +4,7 @@
 
 namespace BootstrapBlazor.Components;
 
+[ExcludeFromCodeCoverage]
 partial class JSRuntimeEventHandler
 {
     /// <summary>
