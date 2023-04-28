@@ -73,11 +73,11 @@
     {
         var open = DataService.IsOpen;
         var op = new SwalOption()
-            {
-                Title = open ? "关闭风扇" : "打开风扇",
-                Content = open ? "您确定要关闭风扇吗？" : "您确定要打开风扇吗？",
-                Category = SwalCategory.Information
-            };
+        {
+            Title = open ? "关闭风扇" : "打开风扇",
+            Content = open ? "您确定要关闭风扇吗？" : "您确定要打开风扇吗？",
+            Category = SwalCategory.Information
+        };
         open = !open;
         var ret = await SwalService.ShowModal(op);
         if (ret)

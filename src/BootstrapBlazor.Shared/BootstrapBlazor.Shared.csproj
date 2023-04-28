@@ -18,23 +18,23 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="7.*" />
-    <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="7.*" />
+    <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="7.1.0" />
+    <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="7.1.1" />
     <PackageReference Include="BootstrapBlazor.BarCode" Version="7.1.4" />
     <PackageReference Include="BootstrapBlazor.Bluetooth" Version="7.*" />
-    <PackageReference Include="BootstrapBlazor.Chart" Version="7.*" />
-    <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="7.*" />
+    <PackageReference Include="BootstrapBlazor.Chart" Version="7.5.2" />
+    <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="7.2.0" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="7.4.2" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="7.2.1" />
-    <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="7.*" />
-    <PackageReference Include="BootstrapBlazor.MaterialDesign.Extensions" Version="7.*" />
+    <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="7.0.0" />
+    <PackageReference Include="BootstrapBlazor.MaterialDesign.Extensions" Version="7.2.1" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.PdfReader" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="7.2.1" />
-    <PackageReference Include="BootstrapBlazor.TableExport" Version="7.*" />
-    <PackageReference Include="BootstrapBlazor.Topology" Version="7.*" />
+    <PackageReference Include="BootstrapBlazor.TableExport" Version="7.3.0" />
+    <PackageReference Include="BootstrapBlazor.Topology" Version="7.4.1" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="7.*" />
   </ItemGroup>
 
