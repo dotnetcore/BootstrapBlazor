@@ -304,10 +304,7 @@ public partial class AutoFill<TValue>
             }
             else if (args.Key == "Enter")
             {
-                if (ActiveSelectedItem == null)
-                {
-                    ActiveSelectedItem = FindItem().FirstOrDefault();
-                }
+                ActiveSelectedItem ??= FindItem().FirstOrDefault();
                 if (ActiveSelectedItem != null)
                 {
                     InputString = OnGetDisplayText(ActiveSelectedItem);
