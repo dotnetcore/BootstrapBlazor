@@ -267,6 +267,7 @@ public partial class BarcodeReader : IAsyncDisposable
             {
                 await Module.InvokeVoidAsync("dispose", Element);
                 await Module.DisposeAsync();
+                Module = null;
             }
         }
     }
