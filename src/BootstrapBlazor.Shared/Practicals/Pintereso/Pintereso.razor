@@ -5,9 +5,7 @@
         <div class="card-columns">
             @foreach (var item in IamgeList)
             {
-                <div class="card card-pin">
-                    <ImageViewer class="card-img" Url="@item" PreviewList="@(new List<string>() { item })" alt="Card image" />
-                </div>
+                <ImageViewer class="card-img" Url="@item" PreviewList="IamgeList" ShowPlaceHolder="true" />
             }
         </div>
     </div>
