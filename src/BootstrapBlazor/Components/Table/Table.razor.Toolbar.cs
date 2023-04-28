@@ -213,7 +213,7 @@ public partial class Table<TItem>
     /// <para>表格工具栏左侧按钮模板，模板中内容出现在默认按钮后面</para>
     /// </summary>
     [Parameter]
-    public RenderFragment? TableToolbarAfterTemplate { get; set; }
+    public RenderFragment? TableToolbarTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 表格 Toolbar 按钮模板
@@ -227,7 +227,7 @@ public partial class Table<TItem>
     /// <para>表格工具栏右侧按钮模板，模板中内容出现在默认按钮后面</para>
     /// </summary>
     [Parameter]
-    public RenderFragment? TableExtensionToolbarAfterTemplate { get; set; }
+    public RenderFragment? TableExtensionToolbarTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 新建按钮回调方法

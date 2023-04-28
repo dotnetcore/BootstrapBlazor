@@ -56,9 +56,9 @@
                                                           ConfirmButtonText="@ConfirmDeleteButtonText" ConfirmButtonColor="Color.Danger" />
                         }
                     }
-                    @if (TableToolbarAfterTemplate != null)
+                    @if (TableToolbarTemplate != null)
                     {
-                        @TableToolbarAfterTemplate
+                        @TableToolbarTemplate
                     }
                 </TableToolbar>
                 <div class="float-end table-toolbar-button btn-group table-column-right">
@@ -125,7 +125,7 @@
                             </div>
                         </div>
                     }
-                    @TableExtensionToolbarAfterTemplate
+                    @TableExtensionToolbarTemplate
                 </div>
                 @if (ShowSearch && SearchMode == SearchMode.Popup)
                 {
