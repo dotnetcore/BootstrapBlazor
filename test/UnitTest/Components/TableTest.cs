@@ -1868,7 +1868,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
-                pb.Add(a => a.TableToolbarAfterTemplate, builder =>
+                pb.Add(a => a.TableToolbarTemplate, builder =>
                 {
                     builder.OpenComponent<TableToolbarPopconfirmButton<Foo>>(0);
                     builder.AddAttribute(1, nameof(TableToolbarPopconfirmButton<Foo>.Text), "test");
@@ -1914,7 +1914,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
-                pb.Add(a => a.TableToolbarAfterTemplate, builder =>
+                pb.Add(a => a.TableToolbarTemplate, builder =>
                 {
                     builder.OpenComponent<TableToolbarButton<Foo>>(0);
                     builder.AddAttribute(1, nameof(TableToolbarButton<Foo>.Text), "test");
@@ -1992,7 +1992,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
-                pb.Add(a => a.TableToolbarAfterTemplate, builder =>
+                pb.Add(a => a.TableToolbarTemplate, builder =>
                 {
                     builder.OpenComponent<TableToolbarButton<Foo>>(0);
                     builder.AddAttribute(1, nameof(TableToolbarButton<Foo>.Text), "test");
@@ -2044,7 +2044,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
-                pb.Add(a => a.TableToolbarAfterTemplate, builder =>
+                pb.Add(a => a.TableToolbarTemplate, builder =>
                 {
                     builder.OpenComponent<TableToolbarButton<Foo>>(0);
                     builder.AddAttribute(1, nameof(TableToolbarButton<Foo>.Text), "test");
@@ -2082,7 +2082,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
-                pb.Add(a => a.TableToolbarAfterTemplate, builder =>
+                pb.Add(a => a.TableToolbarTemplate, builder =>
                 {
                     builder.OpenComponent<TableToolbarButton<Foo>>(0);
                     builder.AddAttribute(1, nameof(TableToolbarButton<Foo>.Text), "test-after");
@@ -2100,7 +2100,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(1, nameof(Button.Text), "test-extension-after");
                     builder.CloseComponent();
                 });
-                pb.Add(a => a.TableExtensionToolbarAfterTemplate, builder =>
+                pb.Add(a => a.TableExtensionToolbarTemplate, builder =>
                 {
                     builder.OpenComponent<Button>(0);
                     builder.AddAttribute(1, nameof(Button.Text), "test-extension-before");
@@ -2132,7 +2132,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
-                pb.Add(a => a.TableToolbarAfterTemplate, builder =>
+                pb.Add(a => a.TableToolbarTemplate, builder =>
                 {
                     builder.OpenComponent<TableToolbarButton<Foo>>(0);
                     builder.AddAttribute(1, nameof(TableToolbarButton<Foo>.Text), "test-async");
