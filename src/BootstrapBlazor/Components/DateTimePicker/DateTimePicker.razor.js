@@ -1,4 +1,4 @@
-﻿import Data from "../../modules/Data.js"
+﻿import Data from "../../modules/data.js"
 import EventHandler from "../../modules/event-handler.js"
 import Popover from "../../modules/base-popover.js"
 
