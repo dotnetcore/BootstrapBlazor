@@ -67,7 +67,7 @@ partial class JSRuntimeEventHandler : IJSRuntimeEventHandler
     /// <returns></returns>
     public Task RegisterEvent(BootStrapBlazorEventType eventName, ElementReference element) => InternalRegisterEvent(eventName, null, element);
 
-    private async ValueTask InvokeVoidAsync(string identifier, params object?[]? args)
+    private async ValueTask InvokeVoidAsync(string identifier, params object?[] args)
     {
         Module ??= await ImportModule();
         await Module.InvokeVoidAsync(identifier, args);

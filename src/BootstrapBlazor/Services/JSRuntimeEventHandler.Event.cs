@@ -9,230 +9,230 @@ partial class JSRuntimeEventHandler
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnClick;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnClick;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnDblclick;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnDblclick;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnMouseup;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnMouseup;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnMousedown;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnMousedown;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnContextmenu;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnContextmenu;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnMousewheel;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnMousewheel;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnDOMMouseScroll;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnDOMMouseScroll;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnMouseover;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnMouseover;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnMouseout;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnMouseout;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnMousemove;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnMousemove;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnSelectstart;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnSelectstart;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnSelectend;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnSelectend;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnKeydown;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnKeydown;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnKeypress;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnKeypress;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnKeyup;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnKeyup;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnOrientationchange;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnOrientationchange;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnTouchstart;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnTouchstart;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnTouchmove;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnTouchmove;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnTouchend;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnTouchend;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnTouchcancel;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnTouchcancel;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnPointerdown;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnPointerdown;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnPointermove;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnPointermove;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnPointerup;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnPointerup;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnPointerleave;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnPointerleave;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnPointercancel;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnPointercancel;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnGesturestart;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnGesturestart;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnGesturechange;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnGesturechange;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnGestureend;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnGestureend;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnFocus;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnFocus;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnBlur;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnBlur;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnChange;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnChange;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnReset;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnReset;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnSelect;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnSelect;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnSubmit;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnSubmit;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnFocusin;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnFocusin;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnFocusout;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnFocusout;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnLoad;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnLoad;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnUnload;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnUnload;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnBeforeunload;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnBeforeunload;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnResize;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnResize;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnMove;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnMove;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnDOMContentLoaded;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnDOMContentLoaded;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnReadystatechange;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnReadystatechange;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnError;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnError;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnAbort;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnAbort;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public event BootstrapBlazorJSRuntimeEventHandler OnScroll;
+    public event BootstrapBlazorJSRuntimeEventHandler? OnScroll;
 }
