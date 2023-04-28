@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Shared.Practicals.Pintereso;
 /// <summary>
 /// 瀑布流图片
 /// </summary>
-public partial class Pintereso : IDisposable
+public partial class Pintereso : IAsyncDisposable
 {
     private readonly Random random = new();
 
@@ -48,13 +48,14 @@ public partial class Pintereso : IDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await base.OnInitializedAsync();
-        await helper.RegisterEvent(BootStrapBlazorEventType.Scroll);
-        helper.OnScroll += Helper_OnScroll;
-        await LoadImages(true);
+        if (firstRender)
+        {
+            await helper.RegisterEvent(BootStrapBlazorEventType.Scroll);
+            helper.OnScroll += Helper_OnScroll;
+            await LoadImages(true);
+        }
     }
 
     private DateTime lastRun { get; set; } = DateTime.Now;
@@ -117,27 +118,23 @@ public partial class Pintereso : IDisposable
     /// <returns></returns>
     protected virtual async Task DisposeAsync(bool disposing)
     {
-        if (!disposedValue)
+        if (disposing)
         {
-            if (disposing)
+            if (!disposedValue)
             {
-                //一定要先释放该资源
+                disposedValue = true;
+                helper.OnScroll -= Helper_OnScroll;
                 await helper.DisposeAsync();
             }
-
-            // TODO: 释放未托管的资源(未托管的对象)并重写终结器
-            // TODO: 将大型字段设置为 null
-            disposedValue = true;
         }
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public async void Dispose()
+    public async ValueTask DisposeAsync()
     {
-        // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
-        await DisposeAsync(disposing: true);
+        await DisposeAsync(true);
         GC.SuppressFinalize(this);
     }
 }
