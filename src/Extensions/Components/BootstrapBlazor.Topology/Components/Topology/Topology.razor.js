@@ -16,19 +16,42 @@ export function init(el, invoker, data, callback) {
     const isFitView = el.getAttribute('data-bb-fit-view') === 'true'
     const isCenterView = el.getAttribute('data-bb-center-view') === 'true'
 
+    const initCanvas = () => {
+        meta.topology = new Topology(el, {}, isSupportTouch)
+        meta.topology.connectSocket = function () {
+        }
+        meta.topology.open(JSON.parse(data))
+        meta.topology.lock(1)
+        if (isFitView) {
+            meta.topology.fitView()
+        }
+        if (isCenterView) {
+            meta.topology.centerView()
+        }
+        invoker.invokeMethodAsync(callback)
+    }
 
-    meta.topology = new Topology(el, {}, isSupportTouch)
-    meta.topology.connectSocket = function () {
+    // make sure el has height
+    if (el.offsetHeight > 0) {
+        initCanvas()
     }
-    meta.topology.open(JSON.parse(data))
-    meta.topology.lock(1)
-    if (isFitView) {
-        meta.topology.fitView()
+    else {
+        let timers = 0;
+        const handler = setInterval(() => {
+            if (el.offsetHeight > 0) {
+                clearInterval(handler)
+                initCanvas()
+            }
+            else {
+                timers++
+                if (timers > 10) {
+                    clearInterval(handler)
+                    console.log(el)
+                    console.error(`el no height can't init'`)
+                }
+            }
+        }, 200)
     }
-    if (isCenterView) {
-        meta.topology.centerView()
-    }
-    invoker.invokeMethodAsync(callback)
 }
 
 export function update(el, data) {
