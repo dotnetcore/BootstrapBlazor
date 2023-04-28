@@ -26,7 +26,7 @@
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="7.4.2" />
-    <PackageReference Include="BootstrapBlazor.Markdown" Version="7.*" />
+    <PackageReference Include="BootstrapBlazor.Markdown" Version="7.2.1" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign.Extensions" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="7.*" />

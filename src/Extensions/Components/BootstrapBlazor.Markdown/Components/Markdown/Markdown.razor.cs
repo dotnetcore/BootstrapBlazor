@@ -81,7 +81,7 @@ public partial class Markdown : IAsyncDisposable
     private MarkdownOption Option { get; } = new();
 
     [NotNull]
-    private IJSObjectReference? Module { get; set; }
+    private IJSObjectReference? MarkdownModule { get; set; }
 
     [NotNull]
     private DotNetObjectReference<Markdown>? Interop { get; set; }
@@ -127,9 +127,9 @@ public partial class Markdown : IAsyncDisposable
         if (firstRender)
         {
             // import JavaScript
-            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Markdown/Components/Markdown/Markdown.razor.js");
+            MarkdownModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Markdown/Components/Markdown/Markdown.razor.js");
             Interop = DotNetObjectReference.Create(this);
-            await Module.InvokeVoidAsync("init", Element, Interop, Option, nameof(Update));
+            await MarkdownModule.InvokeVoidAsync("init", Element, Interop, Option, nameof(Update));
         }
     }
 
@@ -169,7 +169,7 @@ public partial class Markdown : IAsyncDisposable
     public new async ValueTask SetValue(string value)
     {
         CurrentValueAsString = value;
-        await Module.InvokeVoidAsync("update", Element, Value);
+        await MarkdownModule.InvokeVoidAsync("update", Element, Value);
     }
 
     /// <summary>
@@ -178,34 +178,25 @@ public partial class Markdown : IAsyncDisposable
     /// <param name="method"></param>
     /// <param name="parameters"></param>
     /// <returns></returns>
-    public ValueTask DoMethodAsync(string method, params object[] parameters) => Module.InvokeVoidAsync("invoke", Element, method, parameters);
+    public ValueTask DoMethodAsync(string method, params object[] parameters) => MarkdownModule.InvokeVoidAsync("invoke", Element, method, parameters);
 
-    #region Dispose
     /// <summary>
-    /// Dispose 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>
-    protected virtual async ValueTask DisposeAsync(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
+        await base.DisposeAsync(disposing);
+
         if (disposing)
         {
             Interop?.Dispose();
-
             if (Module != null)
             {
                 await Module.InvokeVoidAsync("dispose", Element);
                 await Module.DisposeAsync();
+                Module = null;
             }
         }
     }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsync(true);
-        GC.SuppressFinalize(this);
-    }
-    #endregion
 }
