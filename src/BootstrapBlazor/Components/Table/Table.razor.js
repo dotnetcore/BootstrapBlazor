@@ -59,6 +59,7 @@ const fixHeader = table => {
 
     if (table.search) {
         // handler collapse event
+        // TODO: 搜索栏初始化是转圈的，要先计算高度，转圈结束后再次计算，展开收缩时需要再次计算
         EventHandler.on(table.search, 'shown.bs.collapse', () => setBodyHeight())
         EventHandler.on(table.search, 'hidden.bs.collapse', () => setBodyHeight())
     }
