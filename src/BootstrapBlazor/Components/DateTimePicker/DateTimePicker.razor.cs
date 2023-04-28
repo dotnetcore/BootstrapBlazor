@@ -9,7 +9,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// DateTimePicker 组件基类
 /// </summary>
-[JSModuleAutoLoader("dropdown", ModuleName = "Dropdown")]
 public partial class DateTimePicker<TValue>
 {
     /// <summary>
@@ -231,7 +230,7 @@ public partial class DateTimePicker<TValue>
         CurrentValueAsString = SelectedValue.ToString("yyyy-MM-dd HH:mm:ss");
         if (AutoClose)
         {
-            await InvokeExecuteAsync(Id, "hide");
+            await InvokeVoidAsync("hide", Id);
         }
     }
 }

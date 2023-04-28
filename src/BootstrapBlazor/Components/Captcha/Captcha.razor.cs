@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Captcha 组件
 /// </summary>
 public partial class Captcha : IDisposable
 {
@@ -75,7 +75,15 @@ public partial class Captcha : IDisposable
     /// 获得/设置 验证码结果回调委托
     /// </summary>
     [Parameter]
+    [Obsolete("use OnValidAsync parameter")]
+    [ExcludeFromCodeCoverage]
     public Action<bool>? OnValid { get; set; }
+
+    /// <summary>
+    /// 获得/设置 验证码结果回调委托
+    /// </summary>
+    [Parameter]
+    public Func<bool, Task>? OnValidAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 图床路径 默认值为 images
@@ -133,6 +141,12 @@ public partial class Captcha : IDisposable
     public string? RefreshIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 随机图片最大张数 默认 1024
+    /// </summary>
+    [Parameter]
+    public int Max { get; set; } = 1024;
+
+    /// <summary>
     /// 获得/设置 刷新按钮图标 默认值 fa-solid fa-arrow-right
     /// </summary>
     [Parameter]
@@ -185,11 +199,14 @@ public partial class Captcha : IDisposable
     /// 验证方差方法
     /// </summary>
     [JSInvokable]
-    public Task<bool> Verify(int offset, IEnumerable<int> trails)
+    public async Task<bool> Verify(int offset, IEnumerable<int> trails)
     {
         var ret = Math.Abs(offset - OriginX) < Offset && CalcStddev(trails);
-        OnValid?.Invoke(ret);
-        return Task.FromResult(ret);
+        if (OnValidAsync != null)
+        {
+            await OnValidAsync(ret);
+        }
+        return ret;
     }
 
     private CaptchaOption GetCaptchaOption()
@@ -213,7 +230,7 @@ public partial class Captcha : IDisposable
 
         if (GetImageName == null)
         {
-            var index = Convert.ToInt32(ImageRandomer.Next(0, 8) / 1.0);
+            var index = Convert.ToInt32(ImageRandomer.Next(0, Max) / 1.0);
             var imageName = Path.GetFileNameWithoutExtension(ImagesName);
             var extendName = Path.GetExtension(ImagesName);
             var fileName = $"{imageName}{index}{extendName}";
@@ -270,11 +287,7 @@ public partial class Captcha : IDisposable
     public async Task Reset()
     {
         var option = GetCaptchaOption();
-        if (Interop == null)
-        {
-            Interop = new JSInterop<Captcha>(JSRuntime);
-        }
-
+        Interop ??= new JSInterop<Captcha>(JSRuntime);
         await Interop.InvokeVoidAsync(this, CaptchaElement, "captcha", nameof(Verify), option);
     }
 }

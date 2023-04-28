@@ -10,7 +10,6 @@ namespace BootstrapBlazor.Components;
 /// Select 组件实现类
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
-[JSModuleAutoLoader(JSObjectReference = true)]
 public partial class Select<TValue> : ISelect
 {
     [Inject]
@@ -21,6 +20,7 @@ public partial class Select<TValue> : ISelect
     /// 获得 样式集合
     /// </summary>
     private string? ClassString => CssBuilder.Default("select dropdown")
+        .AddClass("cls", IsClearable)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -42,6 +42,14 @@ public partial class Select<TValue> : ISelect
         .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
         .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
         .Build();
+
+    private string? ClearClassString => CssBuilder.Default("clear-icon")
+        .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
+        .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
+        .Build();
+
+    private bool GetClearable() => IsClearable && !IsDisabled;
 
     /// <summary>
     /// 设置当前项是否 Active 方法
@@ -73,6 +81,13 @@ public partial class Select<TValue> : ISelect
     public string? DropdownIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 右侧清除图标 默认 fa-solid fa-angle-up
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ClearIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 搜索文本发生变化时回调此方法
     /// </summary>
     [Parameter]
@@ -96,6 +111,12 @@ public partial class Select<TValue> : ISelect
     /// </summary>
     [Parameter]
     public string? PlaceHolder { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否可清除 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsClearable { get; set; }
 
     /// <summary>
     /// 获得/设置 选项模板支持静态数据
@@ -136,6 +157,7 @@ public partial class Select<TValue> : ISelect
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         NoSearchDataText ??= Localizer[nameof(NoSearchDataText)];
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectDropdownIcon);
+        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectClearIcon);
 
         // 内置对枚举类型的支持
         if (!Items.Any() && ValueType.IsEnum())
@@ -200,7 +222,7 @@ public partial class Select<TValue> : ISelect
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task ModuleInitAsync()
+    protected async override Task InvokeInitAsync()
     {
         // 首次加载是 Value 不为 null 时触发一次 OnSelectedItemChanged 回调
         // 此逻辑与 ResetSelectedItem 逻辑互补
@@ -208,8 +230,7 @@ public partial class Select<TValue> : ISelect
         {
             await OnSelectedItemChanged.Invoke(SelectedItem);
         }
-
-        await InvokeInitAsync(Id, nameof(ConfirmSelectedItem));
+        await InvokeVoidAsync("init", Id, nameof(ConfirmSelectedItem), Interop);
     }
 
     /// <summary>
@@ -288,4 +309,9 @@ public partial class Select<TValue> : ISelect
     /// </summary>
     /// <param name="item"></param>
     public void Add(SelectedItem item) => Children.Add(item);
+
+    private void OnClearValue()
+    {
+        CurrentValue = default;
+    }
 }

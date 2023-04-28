@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Circle 组件基类
 /// </summary>
-public abstract class CircleBase : BootstrapModule2ComponentBase
+public abstract class CircleBase : BootstrapModuleComponentBase
 {
     /// <summary>
     /// 获得 组件样式字符串

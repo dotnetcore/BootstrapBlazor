@@ -372,6 +372,13 @@ const hackPopover = (popover, css) => {
     }
 }
 
+const setIndeterminate = (object, state) => {
+    const element = getElementById(object)
+    if (isElement(element)) {
+        element.indeterminate = state;
+    }
+}
+
 export {
     addLink,
     addScript,
@@ -398,5 +405,6 @@ export {
     hackPopover,
     removeLink,
     removeScript,
+    setIndeterminate,
     vibrate
 }

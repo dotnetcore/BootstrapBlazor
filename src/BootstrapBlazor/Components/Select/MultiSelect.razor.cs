@@ -10,7 +10,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// MultiSelect 组件
 /// </summary>
-[JSModuleAutoLoader("multi-select", JSObjectReference = true)]
 public partial class MultiSelect<TValue>
 {
     [NotNull]
@@ -179,7 +178,7 @@ public partial class MultiSelect<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task ModuleInitAsync() => InvokeInitAsync(Id, nameof(ToggleRow));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, nameof(ToggleRow));
 
     /// <summary>
     /// FormatValueAsString 方法

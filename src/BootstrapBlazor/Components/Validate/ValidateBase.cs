@@ -451,9 +451,9 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// 移除客户端 Tooltip 方法
     /// </summary>
     /// <returns></returns>
-    protected virtual async ValueTask RemoveValidResult()
+    protected virtual async ValueTask RemoveValidResult(string? validateId = null)
     {
-        var id = RetrieveId();
+        var id = validateId ?? RetrieveId();
         if (!string.IsNullOrEmpty(id))
         {
             ValidateModule ??= await LoadValidateModule();

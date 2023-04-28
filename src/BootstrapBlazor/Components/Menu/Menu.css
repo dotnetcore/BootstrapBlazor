@@ -1,179 +1,185 @@
-﻿.menu .nav {
-    padding: 0 1rem;
-    border-bottom: 1px solid #e6e6e6;
+﻿.menu {
+    --bb-menu-nav-pading: 0 1rem;
+    --bb-menu-nav-border-bottom: 1px solid #e6e6e6;
+    --bb-menu-min-width: 160px;
 }
 
-.menu > .nav > li {
-    position: relative;
-    border-bottom: solid 2px transparent;
-}
-
-    .menu > .nav > li.active:after {
-        width: 100%;
-        left: 0;
+    .menu .nav {
+        padding: var(--bb-menu-nav-pading);
+        border-bottom: var(--bb-menu-nav-border-bottom);
     }
 
-    .menu > .nav > li:after {
-        content: "";
-        position: absolute;
-        background-color: #1890ff;
-        left: 50%;
-        height: 2px;
-        width: 0;
-        transition: width .3s linear, left .3s linear;
+    .menu > .nav > li {
+        position: relative;
+        border-bottom: solid 2px transparent;
     }
 
-.menu .nav .nav-link,
-.cascade .dropdown-item {
-    padding: 0.5rem 1rem;
-    color: rgba(0,0,0,.65);
-    user-select: none;
-    white-space: nowrap;
-    position: relative;
-}
+        .menu > .nav > li.active:after {
+            width: 100%;
+            left: 0;
+        }
 
-    .menu .nav .nav-link.active,
-    .menu .nav .nav-link:not(.disabled):hover {
-        color: #1890ff;
-    }
+        .menu > .nav > li:after {
+            content: "";
+            position: absolute;
+            background-color: #1890ff;
+            left: 50%;
+            height: 2px;
+            width: 0;
+            transition: width .3s linear, left .3s linear;
+        }
 
-.menu .nav .dropdown-menu,
-.cascade .dropdown-menu {
-    overflow: unset;
-    max-height: unset;
-    margin-top: 10px;
-}
-
-    .menu .nav .dropdown-menu .nav-link:not(.disabled):hover,
-    .menu .nav .dropdown-menu .nav-link.active,
-    .menu .submenu .nav-link.active,
-    .menu .submenu .nav-link:not(.disabled):hover,
-    .cascade .dropdown-item:not(.disabled):hover,
-    .cascade .dropdown-item.active,
-    .cascade .nav .nav-link:not(.disabled):hover,
-    .cascade .nav .nav-link.active {
-        background-color: #60aff9;
-        color: #16181b;
-    }
-
-.menu .nav .sub-menu,
-.cascade .has-leaf .sub-menu {
-    display: none;
-    background-color: #fff;
-    white-space: nowrap;
-    border: solid 1px #e6e6e6;
-    border-radius: var(--bs-border-radius);
-    padding: 0.5rem 0;
-    position: absolute;
-    left: 100%;
-    top: -9px;
-    box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
-}
-
-.menu .nav .dropdown-menu,
-.menu .nav .sub-menu,
-.cascade .sub-menu {
-    min-width: 160px;
-}
-
-.menu .nav .nav-link:hover > .sub-menu,
-.cascade .dropdown-item:hover > .sub-menu {
-    display: block;
-}
-
-.menu .nav-item:hover > .nav-link > .sub-menu {
-    left: calc(100% + 20px);
-    top: -15px;
-}
-
-.menu .has-leaf > .nav-link-right {
-    transition: transform .3s linear;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-}
-
-.menu .nav .sub-menu .has-leaf > .nav-link-right {
-    right: 12px;
-    top: 10px;
-}
-
-.menu .has-leaf:hover > .nav-link-right {
-    transform: rotate(-90deg);
-}
-
-.menu .text {
-    overflow: hidden;
-    vertical-align: top;
-    display: inline-block;
-    transition: width .3s linear;
-}
-
-.menu .nav-link.disabled {
-    color: #ddd;
-}
-
-.menu .nav .nav-link .text {
-    margin-left: 4px;
-}
-
-.menu .nav .dropdown-toggle[aria-expanded="true"] + .dropdown-menu-arrow,
-.cascade .show .dropdown-menu-arrow {
-    display: block;
-}
-
-.menu .nav .dropdown .dropdown-menu-arrow {
-    left: calc(50% - 6px);
-}
-
-.menu .nav-link {
-    display: flex;
-    align-items: center;
-    line-height: 21px;
-    color: inherit;
-    transition: background-color .3s linear, color .3s linear;
-}
-
-    .menu .nav-link > div {
+    .menu .nav .nav-link,
+    .cascade .dropdown-item {
+        padding: 0.5rem 1rem;
+        color: rgba(0,0,0,.65);
+        user-select: none;
         white-space: nowrap;
+        position: relative;
     }
 
-.menu .widget > .badge:not(:first-child) {
-    margin-left: 4px;
-}
+        .menu .nav .nav-link.active,
+        .menu .nav .nav-link:not(.disabled):hover {
+            color: #1890ff;
+        }
 
-.menu.is-vertical {
-    padding: 0 .5rem;
-    border: none;
-}
-
-.menu .submenu {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-    .menu .submenu li {
-        margin-top: 2px;
+    .menu .nav .dropdown-menu,
+    .cascade .dropdown-menu {
+        overflow: unset;
+        max-height: unset;
+        margin-top: 10px;
     }
 
-    .menu .submenu .nav-link {
+        .menu .nav .dropdown-menu .nav-link:not(.disabled):hover,
+        .menu .nav .dropdown-menu .nav-link.active,
+        .menu .submenu .nav-link.active,
+        .menu .submenu .nav-link:not(.disabled):hover,
+        .cascade .dropdown-item:not(.disabled):hover,
+        .cascade .dropdown-item.active,
+        .cascade .nav .nav-link:not(.disabled):hover,
+        .cascade .nav .nav-link.active {
+            background-color: #60aff9;
+            color: #16181b;
+        }
+
+    .menu .nav .sub-menu,
+    .cascade .has-leaf .sub-menu {
+        display: none;
+        background-color: #fff;
+        white-space: nowrap;
+        border: solid 1px #e6e6e6;
         border-radius: var(--bs-border-radius);
-        padding: .5rem 0 0.5rem 0.25rem;
+        padding: 0.5rem 0;
+        position: absolute;
+        left: 100%;
+        top: -9px;
+        box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
     }
 
-        .menu .submenu .nav-link .fa-angle-left {
-            transition: transform .3s linear;
+    .menu .nav .dropdown-menu,
+    .menu .nav .sub-menu,
+    .cascade .sub-menu {
+        min-width: var(--bb-menu-min-width);
+    }
+
+    .menu .nav .nav-link:hover > .sub-menu,
+    .cascade .dropdown-item:hover > .sub-menu {
+        display: block;
+    }
+
+    .menu .nav-item:hover > .nav-link > .sub-menu {
+        left: calc(100% + 20px);
+        top: -15px;
+    }
+
+    .menu .has-leaf > .nav-link-right {
+        transition: transform .3s linear;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+
+    .menu .nav .sub-menu .has-leaf > .nav-link-right {
+        right: 12px;
+        top: 10px;
+    }
+
+    .menu .has-leaf:hover > .nav-link-right {
+        transform: rotate(-90deg);
+    }
+
+    .menu .text {
+        overflow: hidden;
+        vertical-align: top;
+        display: inline-block;
+        transition: width .3s linear;
+    }
+
+    .menu .nav-link.disabled {
+        color: #ddd;
+    }
+
+    .menu .nav .nav-link .text {
+        margin-left: 4px;
+    }
+
+    .menu .nav .dropdown-toggle[aria-expanded="true"] + .dropdown-menu-arrow,
+    .cascade .show .dropdown-menu-arrow {
+        display: block;
+    }
+
+    .menu .nav .dropdown .dropdown-menu-arrow {
+        left: calc(50% - 6px);
+    }
+
+    .menu .nav-link {
+        display: flex;
+        align-items: center;
+        line-height: 21px;
+        color: inherit;
+        transition: background-color .3s linear, color .3s linear;
+    }
+
+        .menu .nav-link > div {
+            white-space: nowrap;
         }
 
-        .menu .submenu .nav-link[aria-expanded="true"] > .fa-angle-left {
-            transform: rotate(-90deg);
+    .menu .widget > .badge:not(:first-child) {
+        margin-left: 4px;
+    }
+
+    .menu.is-vertical {
+        padding: 0 .5rem;
+        border: none;
+    }
+
+    .menu .submenu {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+        .menu .submenu li {
+            margin-top: 2px;
         }
 
-        .menu .submenu .nav-link .text,
-        .menu .submenu .nav-link .widget {
-            margin: 0 4px;
+        .menu .submenu .nav-link {
+            border-radius: var(--bs-border-radius);
+            padding: .5rem;
         }
+
+            .menu .submenu .nav-link .fa-angle-left {
+                transition: transform .3s linear;
+            }
+
+            .menu .submenu .nav-link[aria-expanded="true"] > .fa-angle-left {
+                transform: rotate(-90deg);
+            }
+
+            .menu .submenu .nav-link .text,
+            .menu .submenu .nav-link .widget {
+                margin: 0 4px;
+            }
 
 .cascade .dropdown-menu {
     right: 0;

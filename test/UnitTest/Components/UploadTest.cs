@@ -521,6 +521,15 @@ public class UploadTest : BootstrapBlazorTestBase
         Assert.NotNull(deleteFile);
         Assert.Null(deleteFile!.Error);
 
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.DefaultFileList, null);
+        });
+        // 增加代码覆盖率
+        var ins = cut.Instance;
+        var pi = ins.GetType().GetMethod("OnFileDelete", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        pi.Invoke(ins, new object[] { new UploadFile() });
+
         deleteFile = null;
         // 上传失败测试
         cut.SetParametersAndRender(pb =>

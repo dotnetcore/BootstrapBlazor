@@ -10,7 +10,6 @@ namespace BootstrapBlazor.Components;
 /// Select 组件实现类
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
-[JSModuleAutoLoader("select-tree")]
 public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 {
     /// <summary>
