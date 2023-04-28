@@ -1,4 +1,5 @@
 ﻿import { getHeight } from "../../modules/utility.js"
+import { handleKeyup, select, selectAllByFocus, selectAllByEnter } from '../Input/BootstrapInput.razor.js'
 import Data from '../../modules/data.js'
 import Debounce from '../../modules/debounce.js'
 import EventHandler from "../../modules/event-handler.js"
@@ -57,6 +58,8 @@ export function dispose(el) {
     const ac = Data.get(el)
     Data.remove(el)
 
+    EventHandler.off(el, 'keyup')
+    EventHandler.off(el, 'focus')
     if (ac) {
         if (ac.composition) {
             Input.dispose(ac.input)
@@ -66,3 +69,5 @@ export function dispose(el) {
         }
     }
 }
+
+export { handleKeyup, select, selectAllByFocus, selectAllByEnter }
