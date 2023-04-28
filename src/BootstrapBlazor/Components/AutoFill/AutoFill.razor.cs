@@ -8,8 +8,9 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// AutoComplete 组件基类
+/// AutoFill 组件
 /// </summary>
+[JSModuleAutoLoader("AutoComplete/AutoComplete.razor.js", JSObjectReference = true, Relative = false)]
 public partial class AutoFill<TValue>
 {
     private bool _isLoading;
@@ -135,14 +136,12 @@ public partial class AutoFill<TValue>
 
     private TValue? ActiveSelectedItem { get; set; }
 
-    private JSInterop<AutoFill<TValue>>? Interop { get; set; }
-
     private ElementReference AutoFillElement { get; set; }
 
     private int? CurrentItemIndex { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -155,7 +154,7 @@ public partial class AutoFill<TValue>
     }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -168,7 +167,7 @@ public partial class AutoFill<TValue>
     }
 
     /// <summary>
-    /// firstRender
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -178,7 +177,7 @@ public partial class AutoFill<TValue>
 
         if (CurrentItemIndex.HasValue)
         {
-            await JSRuntime.InvokeVoidAsync(AutoFillElement, "bb_autoScrollItem", CurrentItemIndex.Value);
+            await InvokeVoidAsync("autoScroll", AutoFillElement, CurrentItemIndex.Value);
         }
 
         if (firstRender)
@@ -186,14 +185,12 @@ public partial class AutoFill<TValue>
             // 汉字多次触发问题
             if (ValidateForm != null)
             {
-                Interop ??= new JSInterop<AutoFill<TValue>>(JSRuntime);
-
-                await Interop.InvokeVoidAsync(this, FocusElement, "bb_composition", nameof(TriggerOnChange));
+                await InvokeVoidAsync("composition", FocusElement, Interop, nameof(TriggerOnChange));
             }
 
             if (Debounce > 0)
             {
-                await JSRuntime.InvokeVoidAsync(AutoFillElement, "bb_setDebounce", Debounce);
+                await InvokeVoidAsync("debounce", AutoFillElement, Debounce);
             }
         }
     }
@@ -304,10 +301,7 @@ public partial class AutoFill<TValue>
             }
             else if (args.Key == "Enter")
             {
-                if (ActiveSelectedItem == null)
-                {
-                    ActiveSelectedItem = FindItem().FirstOrDefault();
-                }
+                ActiveSelectedItem ??= FindItem().FirstOrDefault();
                 if (ActiveSelectedItem != null)
                 {
                     InputString = OnGetDisplayText(ActiveSelectedItem);
@@ -337,20 +331,5 @@ public partial class AutoFill<TValue>
     public void TriggerOnChange(string val)
     {
         InputString = val;
-    }
-
-    /// <summary>
-    /// DisposeAsyncCore 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected override ValueTask DisposeAsync(bool disposing)
-    {
-        if (disposing)
-        {
-            Interop?.Dispose();
-        }
-
-        return base.DisposeAsync(disposing);
     }
 }

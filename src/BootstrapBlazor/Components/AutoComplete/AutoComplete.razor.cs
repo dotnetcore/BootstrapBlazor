@@ -8,7 +8,7 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// AutoComplete 组件基类
+/// AutoComplete 组件
 /// </summary>
 [JSModuleAutoLoader(JSObjectReference = true)]
 public partial class AutoComplete

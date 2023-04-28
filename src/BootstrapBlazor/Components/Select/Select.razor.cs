@@ -222,7 +222,7 @@ public partial class Select<TValue> : ISelect
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected async override Task InvokeInitAsync()
+    protected override async Task InvokeInitAsync()
     {
         // 首次加载是 Value 不为 null 时触发一次 OnSelectedItemChanged 回调
         // 此逻辑与 ResetSelectedItem 逻辑互补

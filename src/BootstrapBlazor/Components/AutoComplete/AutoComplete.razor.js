@@ -1,4 +1,5 @@
 ﻿import { getHeight } from "../../modules/utility.js"
+import { handleKeyup, select, selectAllByFocus, selectAllByEnter } from '../Input/BootstrapInput.razor.js'
 import Data from '../../modules/data.js'
 import Debounce from '../../modules/debounce.js'
 import EventHandler from "../../modules/event-handler.js"
@@ -22,17 +23,17 @@ export function autoScroll(el, index) {
         active.classList.remove('active')
     }
 
-    //var len = $menu.children().length
-    //    if (index < len) {
-    //        $menu.children()[index].classList.add('active')
-    //    }
+    var len = menu.children.length
+    if (index < len) {
+        menu.children[index].classList.add('active')
+    }
 
-    //    if (height > maxHeight) {
-    //        $menu.scrollTop(itemHeight * (index > count ? index - count : index))
-    //    }
-    //    else if (index <= count) {
-    //        $menu.scrollTop(0)
-    //    }
+    if (height > maxHeight) {
+        menu.scrollTop = itemHeight * (index > count ? index - count : index)
+    }
+    else if (index <= count) {
+        menu.scrollTop = 0
+    }
 }
 
 export function debounce(el, input, ms) {
@@ -57,6 +58,8 @@ export function dispose(el) {
     const ac = Data.get(el)
     Data.remove(el)
 
+    EventHandler.off(el, 'keyup')
+    EventHandler.off(el, 'focus')
     if (ac) {
         if (ac.composition) {
             Input.dispose(ac.input)
@@ -66,3 +69,5 @@ export function dispose(el) {
         }
     }
 }
+
+export { handleKeyup, select, selectAllByFocus, selectAllByEnter }

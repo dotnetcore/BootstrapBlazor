@@ -32,6 +32,7 @@ export function init(id, method, obj) {
     }
 
     const keydown = e => {
+        e.preventDefault()
         e.stopPropagation()
 
         if (popover.toggleElement.classList.contains('show')) {
@@ -52,7 +53,8 @@ export function init(id, method, obj) {
                         }
                         activeItem.classList.add('preActive')
                         scrollToActive(popover.toggleMenu, activeItem)
-                    } else if (e.key === "ArrowDown") {
+                    }
+                    else if (e.key === "ArrowDown") {
                         do {
                             activeItem = activeItem.nextElementSibling
                         }
@@ -67,7 +69,7 @@ export function init(id, method, obj) {
 
                 if (e.key === "Enter") {
                     popover.toggleMenu.classList.remove('show')
-                    let index = indexOf(activeItem)
+                    let index = indexOf(el, activeItem)
                     obj.invokeMethodAsync(method, index)
                 }
             }
@@ -104,7 +106,8 @@ function scrollToActive(el, activeItem) {
         const margin = itemHeight * index - (innerHeight - itemHeight) / 2;
         if (margin >= 0) {
             el.scrollTo(0, margin);
-        } else {
+        }
+        else {
             el.scrollTo(0, 0);
         }
     }
