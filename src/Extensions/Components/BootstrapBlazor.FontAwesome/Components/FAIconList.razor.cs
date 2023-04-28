@@ -11,8 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// FAIconList 组件
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor.FontAwesome/Components/FAIconList.razor.js", JSObjectReference = true, Relative = false)]
-public partial class FAIconList
+public partial class FAIconList : BootstrapComponentBase, IAsyncDisposable
 {
     private string? ClassString => CssBuilder.Default("icon-list")
         .AddClass("is-catalog", ShowCatalog)
@@ -71,6 +70,17 @@ public partial class FAIconList
     [NotNull]
     private IStringLocalizer<IconDialog>? Localizer { get; set; }
 
+    [NotNull]
+    private IJSObjectReference? Module { get; set; }
+
+    [NotNull]
+    private DotNetObjectReference<FAIconList>? Interop { get; set; }
+
+    /// <summary>
+    /// 获得/设置 EChart DOM 元素实例
+    /// </summary>
+    private ElementReference Element { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -84,8 +94,20 @@ public partial class FAIconList
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(UpdateIcon), nameof(ShowDialog), IsCopy);
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            // import JavaScript
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.FontAwesome/Components/FAIconList.razor.js");
+            Interop = DotNetObjectReference.Create(this);
+            await Module.InvokeVoidAsync("init", Element, Interop, nameof(UpdateIcon), nameof(ShowDialog), IsCopy);
+        }
+    }
 
     /// <summary>
     /// UpdateIcon 方法由 JS Invoke 调用
@@ -114,4 +136,33 @@ public partial class FAIconList
     {
         parameters.Add(nameof(IconDialog.IconName), text);
     });
+
+    #region Dispose
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected virtual async ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            Interop?.Dispose();
+
+            if (Module != null)
+            {
+                await Module.InvokeVoidAsync("dispose", Element);
+                await Module.DisposeAsync();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
+    }
+    #endregion
 }
