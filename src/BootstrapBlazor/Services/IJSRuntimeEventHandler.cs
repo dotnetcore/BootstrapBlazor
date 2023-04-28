@@ -14,7 +14,7 @@ public interface IJSRuntimeEventHandler : IAsyncDisposable
     /// </summary>
     /// <param name="eventName"></param>
     /// <returns></returns>
-    Task RegisterEvent(BootStrapBlazorEventType eventName);
+    ValueTask RegisterEvent(BootStrapBlazorEventType eventName);
 
     /// <summary>
     /// 通过tag获取元素的属性值

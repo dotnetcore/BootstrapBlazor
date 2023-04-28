@@ -31,7 +31,7 @@ partial class JSRuntimeEventHandler : IJSRuntimeEventHandler
 
     private ValueTask<IJSObjectReference> ImportModule() => JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor/modules/event-services.js");
 
-    private async Task InternalRegisterEvent(BootStrapBlazorEventType eventName, params object?[]? args)
+    private async ValueTask InternalRegisterEvent(BootStrapBlazorEventType eventName, params object?[]? args)
     {
         var guid = Guid.NewGuid();
         guidList.Add($"{guid}");
@@ -49,7 +49,7 @@ partial class JSRuntimeEventHandler : IJSRuntimeEventHandler
     /// </summary>
     /// <param name="eventName"></param>
     /// <returns></returns>
-    public Task RegisterEvent(BootStrapBlazorEventType eventName) => InternalRegisterEvent(eventName);
+    public ValueTask RegisterEvent(BootStrapBlazorEventType eventName) => InternalRegisterEvent(eventName);
 
     private async ValueTask InvokeVoidAsync(string identifier, params object?[] args)
     {
