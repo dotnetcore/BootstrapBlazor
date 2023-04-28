@@ -17,22 +17,6 @@ public interface IJSRuntimeEventHandler : IAsyncDisposable
     Task RegisterEvent(BootStrapBlazorEventType eventName);
 
     /// <summary>
-    /// 注册浏览器事件
-    /// </summary>
-    /// <param name="eventName"></param>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    Task RegisterEvent(BootStrapBlazorEventType eventName, string id);
-
-    /// <summary>
-    /// 注册浏览器事件
-    /// </summary>
-    /// <param name="eventName"></param>
-    /// <param name="element"></param>
-    /// <returns></returns>
-    Task RegisterEvent(BootStrapBlazorEventType eventName, ElementReference element);
-
-    /// <summary>
     /// 通过tag获取元素的属性值
     /// </summary>
     /// <typeparam name="T"></typeparam>

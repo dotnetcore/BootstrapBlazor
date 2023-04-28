@@ -51,22 +51,6 @@ partial class JSRuntimeEventHandler : IJSRuntimeEventHandler
     /// <returns></returns>
     public Task RegisterEvent(BootStrapBlazorEventType eventName) => InternalRegisterEvent(eventName);
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="eventName"></param>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    public Task RegisterEvent(BootStrapBlazorEventType eventName, string id) => InternalRegisterEvent(eventName, id);
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="eventName"></param>
-    /// <param name="element"></param>
-    /// <returns></returns>
-    public Task RegisterEvent(BootStrapBlazorEventType eventName, ElementReference element) => InternalRegisterEvent(eventName, null, element);
-
     private async ValueTask InvokeVoidAsync(string identifier, params object?[] args)
     {
         Module ??= await ImportModule();
