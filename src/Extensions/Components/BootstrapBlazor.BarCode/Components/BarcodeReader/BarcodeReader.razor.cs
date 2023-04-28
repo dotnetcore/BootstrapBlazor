@@ -102,6 +102,12 @@ public partial class BarcodeReader : IAsyncDisposable
     public Func<string, Task>? OnResult { get; set; }
 
     /// <summary>
+    /// 获得/设置 默认初始化设备索引 默认 0 第一个设备
+    /// </summary>
+    [Parameter]
+    public int DefaultInitDeviceIndex { get; set; }
+
+    /// <summary>
     /// 获得/设置 自动开启摄像头 默认为 false
     /// </summary>
     [Parameter]
@@ -135,7 +141,7 @@ public partial class BarcodeReader : IAsyncDisposable
     [NotNull]
     private IStringLocalizer<BarcodeReader>? Localizer { get; set; }
 
-    private IEnumerable<SelectedItem>? Devices { get; set; }
+    private List<SelectedItem> Devices { get; } = new();
 
     [NotNull]
     private IJSObjectReference? Module { get; set; }
@@ -161,8 +167,6 @@ public partial class BarcodeReader : IAsyncDisposable
         DeviceLabel ??= Localizer[nameof(DeviceLabel)];
         InitDevicesString ??= Localizer[nameof(InitDevicesString)];
         NotFoundDevicesString ??= Localizer[nameof(NotFoundDevicesString)];
-
-        Devices ??= Enumerable.Empty<SelectedItem>();
     }
 
     /// <summary>
@@ -189,13 +193,24 @@ public partial class BarcodeReader : IAsyncDisposable
     /// <param name="devices"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task InitDevices(IEnumerable<DeviceItem> devices)
+    public async Task InitDevices(List<DeviceItem> devices)
     {
-        Devices = devices.Select(i => new SelectedItem { Value = i.DeviceId, Text = i.Label });
+        Devices.AddRange(devices.Select(i => new SelectedItem { Value = i.DeviceId, Text = i.Label }));
         IsDisabled = !Devices.Any();
 
-        if (OnInit != null) await OnInit(devices);
-        if (IsDisabled) InitDevicesString = NotFoundDevicesString;
+        if (OnInit != null)
+        {
+            await OnInit(devices);
+        }
+        if (IsDisabled)
+        {
+            InitDevicesString = NotFoundDevicesString;
+        }
+        else
+        {
+            var index = Math.Min(Devices.Count(), DefaultInitDeviceIndex);
+            SelectedDeviceId = Devices.ElementAt(index).Value;
+        }
         StateHasChanged();
     }
 
