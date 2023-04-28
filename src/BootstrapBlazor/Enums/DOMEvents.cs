@@ -10,8 +10,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 浏览器event事件枚举
 /// </summary>
-[JsonConverter(typeof(EventHandlesConverter))]
-public enum BootStrapBlazorEventType
+[JsonConverter(typeof(DOMEventsConverter))]
+public enum DOMEvents
 {
     /// <summary>
     /// Click 事件枚举
@@ -246,9 +246,9 @@ public enum BootStrapBlazorEventType
 }
 
 [ExcludeFromCodeCoverage]
-class EventHandlesConverter : JsonConverter<BootStrapBlazorEventType>
+class DOMEventsConverter : JsonConverter<DOMEvents>
 {
-    public override BootStrapBlazorEventType Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => throw new NotImplementedException();
+    public override DOMEvents Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => throw new NotImplementedException();
 
-    public override void Write(Utf8JsonWriter writer, BootStrapBlazorEventType value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToDescriptionString());
+    public override void Write(Utf8JsonWriter writer, DOMEvents value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToDescriptionString());
 }

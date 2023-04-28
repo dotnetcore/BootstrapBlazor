@@ -52,7 +52,7 @@ public partial class Pintereso : IAsyncDisposable
     {
         if (firstRender)
         {
-            await JSRuntimeEventHandler.RegisterEvent(BootStrapBlazorEventType.Scroll);
+            await JSRuntimeEventHandler.RegisterEvent(DOMEvents.Scroll);
             JSRuntimeEventHandler.OnScroll += Helper_OnScroll;
 
             await LoadImages(true);

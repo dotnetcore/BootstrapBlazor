@@ -12,7 +12,7 @@ public class JSRuntimeEventHandlerTest : BootstrapBlazorTestBase
     public void RegisterEvent_Ok()
     {
         var eh = Context.Services.GetRequiredService<IJSRuntimeEventHandler>();
-        _ = eh.RegisterEvent(BootStrapBlazorEventType.Scroll);
+        _ = eh.RegisterEvent(DOMEvents.Scroll);
         _ = eh.RunEval("test");
     }
 
