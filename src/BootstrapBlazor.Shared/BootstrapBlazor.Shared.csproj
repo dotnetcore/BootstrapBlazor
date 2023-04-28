@@ -32,7 +32,7 @@
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.PdfReader" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="7.*" />
-    <PackageReference Include="BootstrapBlazor.SummerNote" Version="7.*" />
+    <PackageReference Include="BootstrapBlazor.SummerNote" Version="7.2.1" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="7.*" />

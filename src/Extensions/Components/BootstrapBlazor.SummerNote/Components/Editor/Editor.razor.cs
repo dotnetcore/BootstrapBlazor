@@ -155,7 +155,6 @@ public partial class Editor : IAsyncDisposable
                 methodClickPluginItem = nameof(ClickPluginItem);
             }
 
-
             // import JavaScript
             Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.SummerNote/Components/Editor/Editor.razor.js");
             Interop = DotNetObjectReference.Create(this);
@@ -262,6 +261,7 @@ public partial class Editor : IAsyncDisposable
             {
                 await Module.InvokeVoidAsync("dispose", Element);
                 await Module.DisposeAsync();
+                Module = null;
             }
         }
     }
