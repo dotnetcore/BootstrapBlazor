@@ -340,9 +340,7 @@ export function init(id) {
         setResizeListener(table)
     }
 
-    if (true) {
-        setCopyColumn(table)
-    }
+    setCopyColumn(table)
 }
 
 export function sort(id) {
