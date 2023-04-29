@@ -22,7 +22,7 @@ export function init(id, method, obj) {
 
     const shown = () => {
         if (search) {
-            se.focus();
+            search.focus();
         }
         const prev = popover.toggleMenu.querySelector('.dropdown-item.preActive')
         if (prev) {
