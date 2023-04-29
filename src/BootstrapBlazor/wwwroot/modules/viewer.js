@@ -1,4 +1,4 @@
-﻿import { drag } from "./utility.js"
+﻿import Drag from "./drag.js"
 import EventHandler from "./event-handler.js"
 
 export default {
@@ -271,7 +271,7 @@ export default {
 
         EventHandler.on(viewer.prevImg, 'touchcancel', touchEndHandler)
 
-        drag(viewer.prevImg,
+        Drag.drag(viewer.prevImg,
             e => {
                 viewer.originX = e.clientX || e.touches[0].clientX
                 viewer.originY = e.clientY || e.touches[0].clientY
@@ -340,8 +340,7 @@ export default {
         EventHandler.off(viewer.prevImg, 'touchcancel')
 
         //drag
-        EventHandler.off(viewer.prevImg, 'mousedown')
-        EventHandler.off(viewer.prevImg, 'touchstart')
+        Drag.dispose(viewer.prevImg)
 
         // 点击遮罩关闭功能
         EventHandler.off(viewer.mask, 'click')
