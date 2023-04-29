@@ -29,7 +29,10 @@ export function selectAllByEnter(el) {
     });
 }
 
-export function dispose(el) {
-    EventHandler.off(el, 'keyup')
-    EventHandler.off(el, 'focus')
+export function dispose(id) {
+    const el = document.getElementById(id)
+    if (el) {
+        EventHandler.off(el, 'keyup')
+        EventHandler.off(el, 'focus')
+    }
 }
