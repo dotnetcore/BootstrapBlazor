@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// AutoComplete 组件
 /// </summary>
-[JSModuleAutoLoader(JSObjectReference = true)]
+[JSModuleAutoLoader("AutoComplete/AutoComplete.razor.js", JSObjectReference = true, Relative = false)]
 public partial class AutoComplete
 {
     private bool IsLoading { get; set; }
@@ -189,7 +189,7 @@ public partial class AutoComplete
 
             if (Debounce > 0)
             {
-                await InvokeVoidAsync("debounce", AutoCompleteElement, FocusElement, Debounce);
+                await InvokeVoidAsync("debounce", Id, Debounce);
             }
         }
     }
@@ -327,7 +327,7 @@ public partial class AutoComplete
         // 汉字多次触发问题
         if (ValidateForm != null)
         {
-            await InvokeVoidAsync("composition", AutoCompleteElement, FocusElement, Interop, nameof(TriggerOnChange));
+            await InvokeVoidAsync("composition", Id, Interop, nameof(TriggerOnChange));
         }
     }
 }

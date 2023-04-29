@@ -101,7 +101,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// 全选文字
     /// </summary>
     /// <returns></returns>
-    public async ValueTask SelectAllTextAsync() => await InvokeVoidAsync("select", FocusElement);
+    public async ValueTask SelectAllTextAsync() => await InvokeVoidAsync("select", Id);
 
     /// <summary>
     /// 获得/设置 是否不注册 js 脚本处理 Enter/ESC 键盘处理函数 默认 false
@@ -143,15 +143,15 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
         {
             if (!SkipRegisterEnterEscJSInvoke && (OnEnterAsync != null || OnEscAsync != null))
             {
-                await InvokeVoidAsync("handleKeyup", FocusElement, Interop, OnEnterAsync != null, nameof(EnterCallback), OnEscAsync != null, nameof(EscCallback));
+                await InvokeVoidAsync("handleKeyup", Id, Interop, OnEnterAsync != null, nameof(EnterCallback), OnEscAsync != null, nameof(EscCallback));
             }
             if (IsSelectAllTextOnFocus)
             {
-                await InvokeVoidAsync("selectAllByFocus", FocusElement);
+                await InvokeVoidAsync("selectAllByFocus", Id);
             }
             if (IsSelectAllTextOnEnter)
             {
-                await InvokeVoidAsync("selectAllByEnter", FocusElement);
+                await InvokeVoidAsync("selectAllByEnter", Id);
             }
             if (IsAutoFocus)
             {

@@ -185,12 +185,12 @@ public partial class AutoFill<TValue>
             // 汉字多次触发问题
             if (ValidateForm != null)
             {
-                await InvokeVoidAsync("composition", FocusElement, Interop, nameof(TriggerOnChange));
+                await InvokeVoidAsync("composition", Id, Interop, nameof(TriggerOnChange));
             }
 
             if (Debounce > 0)
             {
-                await InvokeVoidAsync("debounce", AutoFillElement, Debounce);
+                await InvokeVoidAsync("debounce", Id, Debounce);
             }
         }
     }
