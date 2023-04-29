@@ -10,13 +10,13 @@ export function init(id, invoke, callback) {
             let originX = 0
             let curVal = 0
             let newVal = 0
-            let slider_width = el.innerWidth
+            let slider_width = el.offsetWidth
             const bar = el.querySelector('.slider-bar')
             const button = el.querySelector('.slider-button-wrapper')
             if (button) {
                 drag(button,
                     e => {
-                        slider_width = el.innerWidth
+                        slider_width = el.offsetWidth
                         originX = e.clientX || e.touches[0].clientX
                         curVal = parseInt(el.getAttribute('aria-valuetext'))
                         button.classList.add('dragging')
@@ -30,14 +30,14 @@ export function init(id, invoke, callback) {
                         if (newVal <= 0) newVal = 0
                         if (newVal >= 100) newVal = 100
 
-                        bar.css({"width": newVal.toString() + "%"})
-                        button.css({"left": newVal.toString() + "%"})
+                        bar.style.width = `${newVal}%`
+                        button.style.left = `${newVal}%`
                         el.setAttribute('aria-valuetext', newVal.toString())
                         invoke.invokeMethodAsync(callback, newVal)
                     },
                     e => {
-                        button.classList.add('dragging')
-                        button.children[0].classList.add('dragging')
+                        button.classList.remove('dragging')
+                        button.children[0].classList.remove('dragging')
                         invoke.invokeMethodAsync(callback, newVal)
                     })
             }
