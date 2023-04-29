@@ -1,5 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader(JSObjectReference = true)]
 
 <CascadingValue Value="this" IsFixed="true">
     @if (IsInit)
