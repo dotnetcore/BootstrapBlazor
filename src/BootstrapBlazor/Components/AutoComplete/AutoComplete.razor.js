@@ -5,9 +5,10 @@ import Debounce from '../../modules/debounce.js'
 import EventHandler from "../../modules/event-handler.js"
 import Input from '../../modules/input.js'
 
-export function init(el) {
+export function init(id) {
+    const el = document.getElementById(id)
     var ac = { el }
-    Data.set(el, ac)
+    Data.set(id, ac)
 }
 
 export function autoScroll(el, index) {
@@ -36,36 +37,36 @@ export function autoScroll(el, index) {
     }
 }
 
-export function debounce(el, input, ms) {
-    const ac = Data.get(el)
+export function debounce(id, ms) {
+    const ac = Data.get(id)
     if (ac) {
-        ac.input = input
         ac.debounce = true
     }
-    Debounce.init(input, ms)
+    Debounce.init(id, ms)
 }
 
-export function composition(el, input, invoke, method) {
-    const ac = Data.get(el)
+export function composition(id, invoke, method) {
+    const ac = Data.get(id)
     if (ac) {
-        ac.input = input
         ac.composition = true
     }
-    Input.composition(input, invoke, method)
+    Input.composition(id, invoke, method)
 }
 
-export function dispose(el) {
-    const ac = Data.get(el)
-    Data.remove(el)
+export function dispose(id) {
+    const ac = Data.get(id)
+    Data.remove(id)
 
-    EventHandler.off(el, 'keyup')
-    EventHandler.off(el, 'focus')
     if (ac) {
+        if (ac.el) {
+            EventHandler.off(ac.el, 'keyup')
+            EventHandler.off(ac.el, 'focus')
+        }
         if (ac.composition) {
-            Input.dispose(ac.input)
+            Input.dispose(id)
         }
         if (ac.debounce) {
-            Debounce.dispose(ac.input)
+            Debounce.dispose(id)
         }
     }
 }
