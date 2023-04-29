@@ -470,7 +470,7 @@ public partial class Layout : IHandlerException
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>
-    protected virtual async ValueTask DisposeAsyncCore(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
         await base.DisposeAsync(disposing);
 
