@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// FloatingLabel 组件
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
 public partial class FloatingLabel<TValue>

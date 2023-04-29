@@ -8,9 +8,8 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Search 组件基类
+/// Search 组件
 /// </summary>
-[JSModuleAutoLoader("AutoComplete/AutoComplete.razor.js", Relative = false)]
 public partial class Search
 {
     [NotNull]

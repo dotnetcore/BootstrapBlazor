@@ -132,7 +132,7 @@ public partial class AutoComplete
     private string CurrentSelectedItem { get; set; } = "";
 
     /// <summary>
-    /// ElementReference 实例
+    /// 获得/设置 组件 Element 实例
     /// </summary>
     protected ElementReference AutoCompleteElement { get; set; }
 

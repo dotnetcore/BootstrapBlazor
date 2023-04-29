@@ -123,7 +123,7 @@ public partial class BootstrapInputNumber<TValue>
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override string? FormatParsingErrorMessage() => string.Format(CultureInfo.InvariantCulture, ParsingErrorMessage, DisplayText);
@@ -140,7 +140,7 @@ public partial class BootstrapInputNumber<TValue>
             : InternalFormat(value));
 
     /// <summary>
-    /// 
+    /// InternalFormat 方法
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
