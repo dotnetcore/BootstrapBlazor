@@ -2936,7 +2936,7 @@
   "BootstrapBlazor.Shared.Demos.Inputs.InputsKeyboard": {
     "InputsKeyboardSpan": "Basic usage",
     "InputsKeyboardTips1": "Press the keyboard <kbd>Enter</kbd> or <kbd>Esc</kbd> test",
-    "InputsKeyboardTips2": "Execute @ref.SelectAllTextAsync() method select the all text",
+    "InputsKeyboardTips2": "Execute <code>@ref.SelectAllTextAsync()</code> method select the all text",
     "PlaceHolder": "Please enter ...",
     "InputsKeyboardLog": "The key triggers the current text box value"
   },
