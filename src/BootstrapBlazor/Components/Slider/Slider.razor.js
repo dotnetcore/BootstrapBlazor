@@ -1,10 +1,11 @@
-﻿import { drag } from "../../modules/utility.js"
-import Data from "../../modules/data.js"
-import EventHandler from "../../modules/event-handler.js"
+﻿import Data from "../../modules/data.js"
+import Drag from "../../modules/drag.js"
 
 export function init(id, invoke, callback) {
     const el = document.getElementById(id)
+    const slider = {}
     if (el) {
+        Data.set(id, slider)
         const isDisabled = el.querySelector('.disabled') !== null
         if (!isDisabled) {
             let originX = 0
@@ -14,7 +15,8 @@ export function init(id, invoke, callback) {
             const bar = el.querySelector('.slider-bar')
             const button = el.querySelector('.slider-button-wrapper')
             if (button) {
-                drag(button,
+                slider.button = button
+                Drag.drag(button,
                     e => {
                         slider_width = el.offsetWidth
                         originX = e.clientX || e.touches[0].clientX
@@ -43,13 +45,13 @@ export function init(id, invoke, callback) {
             }
         }
     }
-    Data.set(id, { el })
+
 }
 
 export function dispose(id) {
     const slider = Data.get(id)
     Data.remove(id)
-    if(slider.el) {
-        
+    if (slider.button) {
+        Drag.dispose(slider.button)
     }
 }
