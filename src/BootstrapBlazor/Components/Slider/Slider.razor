@@ -1,7 +1,8 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader(JSObjectReference = true)]
 
-<div @attributes="@AdditionalAttributes" role="slider" class="@ClassName" aria-valuemin="@Min" aria-valuemax="@Max" aria-valuetext="@Value" aria-disabled="@Disabled" aria-orientation="horizontal" aria-label="slider between @Min and @Max" @ref="SliderElement">
+<div @attributes="@AdditionalAttributes" id="@Id" role="slider" class="@ClassName" aria-valuemin="@Min" aria-valuemax="@Max" aria-valuetext="@Value" aria-disabled="@Disabled" aria-orientation="horizontal" aria-label="slider between @Min and @Max">
     <div class="@SliderClassName">
         <div class="slider-bar" style="@BarStyle"></div>
         <div tabindex="0" class="slider-button-wrapper" style="@ButtonStyle">

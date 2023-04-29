@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Silder 组件
 /// </summary>
-public partial class Slider : IDisposable
+public partial class Slider
 {
     /// <summary>
     /// 获得/设置 组件当前值
@@ -51,11 +51,6 @@ public partial class Slider : IDisposable
     public double Min { get; set; } = 0;
 
     /// <summary>
-    /// 获得/设置 JSInterop 实例
-    /// </summary>
-    private JSInterop<Slider>? Interop { get; set; }
-
-    /// <summary>
     /// 获得 样式集合
     /// </summary>
     private string? ClassName => CssBuilder.Default("slider")
@@ -84,25 +79,10 @@ public partial class Slider : IDisposable
         .Build();
 
     /// <summary>
-    /// 获得/设置 当前组件 DOM 实例
+    /// <inheritdoc/>
     /// </summary>
-    private ElementReference SliderElement { get; set; }
-
-    /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            Interop = new JSInterop<Slider>(JSRuntime);
-            await Interop.InvokeVoidAsync(this, SliderElement, "bb_slider", nameof(SetValue));
-        }
-    }
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(SetValue));
 
     /// <summary>
     /// SetValue 方法
@@ -121,30 +101,5 @@ public partial class Slider : IDisposable
         {
             await ValueChanged.InvokeAsync(Value);
         }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            if (Interop != null)
-            {
-                Interop.Dispose();
-                Interop = null;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
     }
 }
