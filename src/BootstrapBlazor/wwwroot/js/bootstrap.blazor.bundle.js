@@ -19838,16 +19838,6 @@ return jQuery;
 
 (function ($) {
     $.extend({
-        bb_transition: function (el, obj, method) {
-            $(el).on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd', function () {
-                obj.invokeMethodAsync(method);
-            });
-        },
-    });
-})(jQuery);
-
-(function ($) {
-    $.extend({
         bb_tree: function (el) {
             var $el = $(el);
             $el.find('.tree-content').hover(function () {

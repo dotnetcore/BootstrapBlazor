@@ -1,6 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader(JSObjectReference = true)]
 
-<div class="@ClassString" @ref="TransitionElement" @attributes="@AdditionalAttributes" style="@StyleString">
+<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" style="@StyleString">
     @ChildContent
 </div>
