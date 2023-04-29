@@ -2946,7 +2946,7 @@
   "BootstrapBlazor.Shared.Demos.Inputs.InputsKeyboard": {
     "InputsKeyboardSpan": "基础用法",
     "InputsKeyboardTips1": "请按键盘 <kbd>Enter</kbd> 或者 <kbd>Esc</kbd> 进行测试",
-    "InputsKeyboardTips2": "执行 @ref.SelectAllTextAsync() 选择输入框内所有字符串",
+    "InputsKeyboardTips2": "执行 <code>@ref.SelectAllTextAsync()</code> 选择输入框内所有字符串",
     "PlaceHolder": "请输入 ...",
     "InputsKeyboardLog": "按键触发 当前文本框值"
   },
