@@ -35,6 +35,6 @@ public abstract class IdComponentBase : BootstrapComponentBase
     {
         base.OnInitialized();
 
-        Id = ComponentIdGenerator.Generate(this);
+        Id ??= ComponentIdGenerator.Generate(this);
     }
 }
