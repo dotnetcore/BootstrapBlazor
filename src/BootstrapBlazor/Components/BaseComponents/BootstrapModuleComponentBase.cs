@@ -203,17 +203,22 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// <returns></returns>
     protected virtual async ValueTask DisposeAsync(bool disposing)
     {
-        if (Module != null && disposing)
+        if (disposing)
         {
-            if (AutoInvokeDispose)
-            {
-                await Module.InvokeVoidAsync("dispose", Id);
-            }
-
+            // 销毁 DotNetObjectReference 实例
             Interop?.Dispose();
 
-            await Module.DisposeAsync();
-            Module = null;
+            // 销毁 JSModule
+            if (Module != null)
+            {
+                if (AutoInvokeDispose)
+                {
+                    await Module.InvokeVoidAsync("dispose", Id);
+                }
+
+                await Module.DisposeAsync();
+                Module = null;
+            }
         }
     }
 
