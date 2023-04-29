@@ -109,7 +109,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     protected bool SkipRegisterEnterEscJSInvoke { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -131,7 +131,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
