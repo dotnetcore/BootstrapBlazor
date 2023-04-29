@@ -5,17 +5,22 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Alert 组件
 /// </summary>
 public partial class Alert
 {
     /// <summary>
-    /// 
+    /// 获得 样式集合
     /// </summary>
-    protected override string? ClassName => CssBuilder.Default(base.ClassName)
+    /// <returns></returns>
+    private string? ClassName => CssBuilder.Default("alert fade show")
+        .AddClass($"alert-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass($"border-{Color.ToDescriptionString()}", ShowBorder)
         .AddClass("d-none", !IsShown)
         .AddClass("shadow", ShowShadow)
-        .AddClass($"border-{Color.ToDescriptionString()}", ShowBorder)
+        .AddClass("alert-bar", ShowBar)
+        .AddClass("alert-dismissible", ShowDismiss)
+        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     private bool IsShown { get; set; } = true;

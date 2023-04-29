@@ -5,9 +5,9 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Message 组件
 /// </summary>
-public partial class Message : IDisposable
+public partial class Message
 {
     /// <summary>
     /// 获得 组件样式
@@ -27,7 +27,7 @@ public partial class Message : IDisposable
     /// <summary>
     /// 获得 弹出窗集合
     /// </summary>
-    private List<MessageOption> Messages { get; } = new List<MessageOption>();
+    private List<MessageOption> Messages { get; } = new();
 
     /// <summary>
     /// 获得/设置 显示位置 默认为 Top
@@ -49,9 +49,17 @@ public partial class Message : IDisposable
     {
         base.OnInitialized();
 
-        // 注册 Toast 弹窗事件
+        // 注册 Message 弹窗事件
         MessageService.Register(this, Show);
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(Clear));
+
+    private Task PushMessageIdAsync(string msgId) => InvokeVoidAsync("show", Id, msgId);
 
     /// <summary>
     /// 设置 Toast 容器位置方法
@@ -63,25 +71,21 @@ public partial class Message : IDisposable
         StateHasChanged();
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="option"></param>
-    /// <returns></returns>
-    protected async Task Show(MessageOption option)
+    private async Task Show(MessageOption option)
     {
         Messages.Add(option);
         await InvokeAsync(StateHasChanged);
     }
 
     /// <summary>
-    /// 清除 ToastBox 方法
+    /// 清除 Message 方法
     /// </summary>
     [JSInvokable]
-    public async Task Clear()
+    public Task Clear()
     {
         Messages.Clear();
-        await InvokeAsync(StateHasChanged);
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 
     private static async Task OnDismiss(MessageOption option)
@@ -92,34 +96,17 @@ public partial class Message : IDisposable
         }
     }
 
-    private List<MessageOption> GetMessages()
-    {
-        if (Placement != Placement.Top)
-        {
-            Messages.Reverse();
-        }
-
-        return Messages;
-    }
-
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
+        await base.DisposeAsync(disposing);
+
         if (disposing)
         {
             MessageService.UnRegister(this);
         }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
     }
 }

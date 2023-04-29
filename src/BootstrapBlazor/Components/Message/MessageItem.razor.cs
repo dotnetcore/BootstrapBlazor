@@ -7,21 +7,33 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// MessageItem 组件
 /// </summary>
-public sealed partial class MessageItem
+public partial class MessageItem
 {
-    private ElementReference MessageItemElement { get; set; }
-
     /// <summary>
     /// 获得 样式集合
     /// </summary>
     /// <returns></returns>
-    protected override string? ClassName => CssBuilder.Default("alert")
+    private string? ClassName => CssBuilder.Default("alert")
         .AddClass($"alert-{Color.ToDescriptionString()}", Color != Color.None)
-        .AddClass("is-bar", ShowBar)
+        .AddClass($"border-{Color.ToDescriptionString()}", ShowBorder)
+        .AddClass("shadow", ShowShadow)
+        .AddClass("alert-bar", ShowBar)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     private string? AutoHideString => IsAutoHide ? "true" : null;
+
+    /// <summary>
+    /// 获得/设置 是否显示阴影 默认 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowShadow { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示边框 默认 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowBorder { get; set; }
 
     /// <summary>
     /// 获得/设置 Toast Body 子组件
@@ -46,9 +58,27 @@ public sealed partial class MessageItem
     /// </summary>
     /// <value></value>
     [CascadingParameter]
-    public Message? Message { get; set; }
+    public Func<string, Task>? PushMessageIdAsync { get; set; }
 
-    private JSInterop<Message>? _interop;
+    /// <summary>
+    /// 获得 IComponentIdGenerator 实例
+    /// </summary>
+    [Inject]
+    [NotNull]
+    protected IComponentIdGenerator? ComponentIdGenerator { get; set; }
+
+    [NotNull]
+    private string? Id { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Id = ComponentIdGenerator.Generate(this);
+    }
 
     /// <summary>
     /// OnAfterRender 方法
@@ -58,10 +88,9 @@ public sealed partial class MessageItem
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (firstRender && Message != null)
+        if (firstRender && PushMessageIdAsync != null)
         {
-            _interop = new JSInterop<Message>(JSRuntime);
-            await _interop.InvokeVoidAsync(Message, MessageItemElement, "bb_message", nameof(Message.Clear));
+            await PushMessageIdAsync(Id);
         }
     }
 
