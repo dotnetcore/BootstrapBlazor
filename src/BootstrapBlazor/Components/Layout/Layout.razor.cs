@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Layout 组件
 /// </summary>
-public partial class Layout : IHandlerException, IAsyncDisposable
+public partial class Layout : IHandlerException
 {
     /// <summary>
     ///
@@ -194,8 +194,6 @@ public partial class Layout : IHandlerException, IAsyncDisposable
 
     private bool SubscribedLocationChangedEvent { get; set; }
 
-    private JSInterop<Layout>? Interop { get; set; }
-
     /// <summary>
     /// 获得/设置 是否已授权
     /// </summary>
@@ -365,19 +363,10 @@ public partial class Layout : IHandlerException, IAsyncDisposable
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-        if (firstRender)
-        {
-            Interop = new JSInterop<Layout>(JSRuntime);
-            await Interop.InvokeVoidAsync(this, null, "bb_layout", nameof(SetCollapsed));
-        }
-    }
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(SetCollapsed));
 
     /// <summary>
     /// HandlerMain 方法
@@ -477,12 +466,14 @@ public partial class Layout : IHandlerException, IAsyncDisposable
     }
 
     /// <summary>
-    /// DisposeAsyncCore 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>
     protected virtual async ValueTask DisposeAsyncCore(bool disposing)
     {
+        await base.DisposeAsync(disposing);
+
         if (disposing)
         {
             ErrorLogger?.UnRegister(this);
@@ -490,23 +481,6 @@ public partial class Layout : IHandlerException, IAsyncDisposable
             {
                 Navigation.LocationChanged -= Navigation_LocationChanged;
             }
-
-            if (Interop != null)
-            {
-                await Interop.InvokeVoidAsync(this, null, "bb_layout", "dispose");
-                Interop.Dispose();
-                Interop = null;
-            }
         }
-    }
-
-    /// <summary>
-    /// DisposeAsyncCore 方法
-    /// </summary>
-    /// <returns></returns>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsyncCore(true);
-        GC.SuppressFinalize(this);
     }
 }
