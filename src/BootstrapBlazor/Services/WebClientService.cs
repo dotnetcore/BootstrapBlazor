@@ -7,27 +7,33 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// WebClient 服务类
 /// </summary>
-public class WebClientService : IDisposable
+public class WebClientService : IAsyncDisposable
 {
     /// <summary>
     /// 获得/设置 模态弹窗返回值任务实例
     /// </summary>
-    private TaskCompletionSource<bool>? ReturnTask { get; set; }
+    private TaskCompletionSource? ReturnTask { get; set; }
 
-    private readonly IJSRuntime _runtime;
+    private IJSRuntime JSRuntime { get; }
 
-    private readonly NavigationManager _navigation;
+    private NavigationManager Navigation { get; }
 
-    private JSInterop<WebClientService>? Interop { get; set; }
+    private JSModule? Module { get; set; }
+
+    private DotNetObjectReference<WebClientService>? Interop { get; set; }
 
     private ClientInfo? Client { get; set; }
 
     /// <summary>
-    /// 
+    /// 构造函数
     /// </summary>
     /// <param name="runtime"></param>
     /// <param name="navigation"></param>
-    public WebClientService(IJSRuntime runtime, NavigationManager navigation) => (_runtime, _navigation) = (runtime, navigation);
+    public WebClientService(IJSRuntime runtime, NavigationManager navigation)
+    {
+        JSRuntime = runtime;
+        Navigation = navigation;
+    }
 
     /// <summary>
     /// 获得 ClientInfo 实例方法
@@ -35,18 +41,17 @@ public class WebClientService : IDisposable
     /// <returns></returns>
     public async Task<ClientInfo> GetClientInfo()
     {
-        Interop ??= new JSInterop<WebClientService>(_runtime);
-        await Interop.InvokeVoidAsync(this, null, "webClient", "ip.axd", nameof(SetData));
-
+        ReturnTask = new TaskCompletionSource();
         Client = new ClientInfo()
         {
-            RequestUrl = _navigation.Uri
+            RequestUrl = Navigation.Uri
         };
+        Module ??= await JSRuntime.LoadModule("./_content/BootstrapBlazor/modules/client.js", false);
+        Interop ??= DotNetObjectReference.Create(this);
+        await Module.InvokeVoidAsync("ping", "ip.axd", Interop, nameof(SetData));
 
         // 等待 SetData 方法执行完毕
-        ReturnTask = new TaskCompletionSource<bool>();
         await ReturnTask.Task;
-
         return Client;
     }
 
@@ -75,7 +80,7 @@ public class WebClientService : IDisposable
             Client.Engine = engine;
             Client.UserAgent = agent;
         }
-        ReturnTask?.TrySetResult(true);
+        ReturnTask?.TrySetResult();
     }
 
     private static WebClientDeviceType ParseDeviceType(string device)
@@ -89,24 +94,33 @@ public class WebClientService : IDisposable
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.
     /// </summary>
     /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
+    /// <returns></returns>
+    protected virtual async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
+            // 销毁 DotNetObjectReference 实例
             Interop?.Dispose();
-            Interop = null;
+
+            // 销毁 JSModule
+            if (Module != null)
+            {
+                await Module.DisposeAsync();
+                Module = null;
+            }
         }
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// <inheritdoc/>
     /// </summary>
-    public void Dispose()
+    /// <returns></returns>
+    public async ValueTask DisposeAsync()
     {
-        Dispose(true);
+        await DisposeAsync(true);
         GC.SuppressFinalize(this);
     }
 }
