@@ -22,10 +22,10 @@ public class AjaxTest : BootstrapBlazorTestBase
         Assert.NotNull(option.Data);
 
         var service = Context.Services.GetRequiredService<AjaxService>();
-        service.InvokeAsync(option);
+        _ = service.InvokeAsync(option);
 
         Context.RenderComponent<Ajax>();
-        service.InvokeAsync(option);
-        service.Goto("http://www.blazor.zone");
+        _ = service.InvokeAsync(option);
+        _ = service.Goto("http://www.blazor.zone");
     }
 }
