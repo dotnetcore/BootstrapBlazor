@@ -34,6 +34,17 @@ public class RadioTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void SelectedItem_Ok()
+    {
+        var cut = Context.RenderComponent<RadioList<SelectedItem>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem> { new("1", "Test1"), new("2", "Test2") });
+        });
+        var item = cut.Find(".form-check-input");
+        item.Click();
+    }
+
+    [Fact]
     public void EnumNullValue_Ok()
     {
         EnumEducation? v = null;
