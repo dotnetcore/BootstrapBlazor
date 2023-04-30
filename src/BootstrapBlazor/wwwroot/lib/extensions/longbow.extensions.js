@@ -92,28 +92,6 @@
             do prefix += ~~(Math.random() * 1000000);
             while (document.getElementById(prefix));
             return prefix;
-        },
-        webClient: function (obj, url, method) {
-            var data = {};
-            var browser = new Browser();
-            data.Browser = browser.browser + ' ' + browser.version;
-            data.Device = browser.device;
-            data.Language = browser.language;
-            data.Engine = browser.engine;
-            data.UserAgent = navigator.userAgent;
-
-            $.ajax({
-                type: "GET",
-                url: url,
-                success: function (result) {
-                    data.Os = browser.os + ' ' + browser.osVersion;
-                    obj.invokeMethodAsync(method, result.Id, result.Ip, data.Os, data.Browser, data.Device, data.Language, data.Engine, data.UserAgent);
-                },
-                error: function (xhr, state, errorThrown) {
-                    console.error('Please add UseBootstrapBlazor middleware');
-                    obj.invokeMethodAsync(method, '', '', data.Os, data.Browser, data.Device, data.Language, data.Engine, data.UserAgent);
-                }
-            });
         }
     });
 
