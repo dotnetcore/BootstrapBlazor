@@ -44,15 +44,13 @@
         }
         else
         {
-            ResultMessage = result;
-            var doc = JsonDocument.Parse(result);
-            if (200 == doc.RootElement.GetProperty("code").GetInt32())
+            if (200 == result.RootElement.GetProperty("code").GetInt32())
             {
                 await SwalService.Show(new SwalOption() { Content = "Login success！", Category = SwalCategory.Success });
             }
             else
             {
-                await SwalService.Show(new SwalOption() { Content = $"Login failed: {doc.RootElement.GetProperty("message").GetString()}", Category = SwalCategory.Error });
+                await SwalService.Show(new SwalOption() { Content = $"Login failed: {result.RootElement.GetProperty("message").GetString()}", Category = SwalCategory.Error });
             }
         }
     }
