@@ -7,8 +7,7 @@
     "HeaderText": "Captcha",
     "BarText": "Slide right to fill puzzle",
     "FailedText": "Load failed",
-    "LoadText": "Loading ...",
-    "TryText": "Try again"
+    "LoadText": "Loading ..."
   },
   "BootstrapBlazor.Components.Camera": {
     "DeviceLabel": "Camera",

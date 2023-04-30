@@ -25,34 +25,6 @@ public class JSInterop<TValue> : IDisposable where TValue : class
     /// <summary>
     /// Invoke 方法
     /// </summary>
-    /// <param name="identifier"></param>
-    /// <param name="value"></param>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    public async ValueTask InvokeVoidAsync(string identifier, TValue value, params object?[]? args)
-    {
-        _objRef = DotNetObjectReference.Create(value);
-#if NET5_0
-        var paras = new List<object>()
-        {
-            _objRef
-        };
-#else
-        var paras = new List<object?>()
-        {
-            _objRef
-        };
-#endif
-        if (args != null)
-        {
-            paras.AddRange(args!);
-        }
-        await JSRuntime.InvokeVoidAsync(identifier: identifier, paras.ToArray());
-    }
-
-    /// <summary>
-    /// Invoke 方法
-    /// </summary>
     /// <param name="value"></param>
     /// <param name="el"></param>
     /// <param name="func"></param>
