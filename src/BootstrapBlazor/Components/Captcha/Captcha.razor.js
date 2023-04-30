@@ -4,12 +4,12 @@ import EventHandler from "../../modules/event-handler.js"
 
 export function init(id, invoke, callback, option) {
     const el = document.getElementById(id)
-    const captcha = {el, invoke, callback}
+    const captcha = { el, invoke, callback }
     Data.set(id, captcha)
 
-    const canvas = el.querySelector(".captcha-body-bg").getContext('2d', {willReadFrequently: true})
+    const canvas = el.querySelector(".captcha-body-bg").getContext('2d', { willReadFrequently: true })
     const block = el.querySelector(".captcha-body-bar")
-    const bar = block.getContext('2d', {willReadFrequently: true})
+    const bar = block.getContext('2d', { willReadFrequently: true })
     const load = el.querySelector(".captcha-load")
     const footer = el.querySelector('.captcha-footer')
     const barLeft = footer.querySelector('.captcha-bar-bg')
