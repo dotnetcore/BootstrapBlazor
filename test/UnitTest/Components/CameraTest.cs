@@ -92,6 +92,7 @@ public class CameraTest : BootstrapBlazorTestBase
         var capture = false;
         var cut = Context.RenderComponent<Camera>(pb =>
         {
+            pb.Add(a => a.ShowPreview, true);
             pb.Add(a => a.OnCapture, payload =>
             {
                 capture = true;
