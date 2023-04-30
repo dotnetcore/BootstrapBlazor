@@ -1,7 +1,8 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader(JSObjectReference = true)]
 
-<div class="camera" @ref="CameraElement">
+<div @attributes="@AdditionalAttributes" id="@Id" class="camera">
     <div class="row g-3">
         <div class="col-12">
             <video class="camera-header" style="width: @VideoWidthString height: @VideoHeightString"></video>

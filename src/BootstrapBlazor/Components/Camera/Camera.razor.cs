@@ -8,21 +8,18 @@ using System.Text;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Camera 组件
 /// </summary>
-public partial class Camera : IAsyncDisposable
+public partial class Camera
 {
-    private ElementReference CameraElement { get; set; }
-
-    private JSInterop<Camera>? Interop { get; set; }
-
     private string DeviceId { get; set; } = "";
 
     private bool IsDisabled { get; set; } = true;
 
     private bool CaptureDisabled { get; set; } = true;
 
-    private IEnumerable<SelectedItem> Devices { get; set; } = Enumerable.Empty<SelectedItem>();
+    [NotNull]
+    private IEnumerable<SelectedItem>? Devices { get; set; }
 
     [NotNull]
     private IEnumerable<SelectedItem>? Cameras { get; set; }
@@ -206,6 +203,8 @@ public partial class Camera : IAsyncDisposable
         StopIcon ??= IconTheme.GetIconByKey(ComponentIcons.CameraStopIcon);
         PhotoIcon ??= IconTheme.GetIconByKey(ComponentIcons.CameraPhotoIcon);
 
+        Devices ??= Enumerable.Empty<SelectedItem>();
+
         if (VideoWidth < 40)
         {
             VideoWidth = 40;
@@ -218,20 +217,10 @@ public partial class Camera : IAsyncDisposable
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            Interop = new JSInterop<Camera>(JSRuntime);
-            await Interop.InvokeVoidAsync(this, CameraElement, "bb_camera", "init", AutoStart, VideoWidth, VideoHeight);
-        }
-    }
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, AutoStart, VideoWidth, VideoHeight);
 
     /// <summary>
     /// 初始化设备方法
@@ -294,9 +283,8 @@ public partial class Camera : IAsyncDisposable
         CaptureDisabled = false;
         if (OnStart != null)
         {
-            await OnStart.Invoke();
+            await OnStart();
         }
-
         StateHasChanged();
     }
 
@@ -310,7 +298,7 @@ public partial class Camera : IAsyncDisposable
         CaptureDisabled = true;
         if (OnClose != null)
         {
-            await OnClose.Invoke();
+            await OnClose();
         }
 
         StateHasChanged();
@@ -337,32 +325,5 @@ public partial class Camera : IAsyncDisposable
         {
             _sb.Append(payload);
         }
-    }
-
-    /// <summary>
-    /// DisposeAsyncCore 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected virtual async ValueTask DisposeAsyncCore(bool disposing)
-    {
-        if (disposing)
-        {
-            if (Interop != null)
-            {
-                await JSRuntime.InvokeVoidAsync(CameraElement, "bb_camera", "", "stop").ConfigureAwait(false);
-                Interop.Dispose();
-                Interop = null;
-            }
-        }
-    }
-
-    /// <summary>
-    /// DisposeAsync 方法
-    /// </summary>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsyncCore(true).ConfigureAwait(false);
-        GC.SuppressFinalize(this);
     }
 }
