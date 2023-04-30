@@ -4,7 +4,9 @@ import EventHandler from "../../modules/event-handler.js"
 const stop = (video, track) => {
     video.pause()
     video.srcObject = null
-    track.stop()
+    if(track) {
+        track.stop()
+    }
 }
 
 export function init(id, invoke, auto, videoWidth, videoHeight) {
@@ -35,14 +37,14 @@ export function init(id, invoke, auto, videoWidth, videoHeight) {
         canvas.height = videoHeight
         const context = canvas.getContext('2d')
 
-        EventHandler.on(el, 'click', 'button[data-method]', e => {
+        EventHandler.on(el, 'click', 'button[data-method]', async e => {
             const button = e.delegateTarget
             const data_method = button.getAttribute('data-method')
             if (data_method === 'play') {
                 const front = button.getAttribute('data-camera')
-                const deviceId = el.querySelector('.dropdown-item.active').getAttribute('data-val')
+                const deviceId = el.getAttribute('data-device-id')
                 const constrains = { video: { facingMode: front, width: videoWidth, height: videoHeight }, audio: false }
-                if (deviceId !== "") {
+                if (deviceId) {
                     constrains.video.deviceId = { exact: deviceId }
                 }
                 navigator.mediaDevices.getUserMedia(constrains).then(stream => {
@@ -64,14 +66,14 @@ export function init(id, invoke, auto, videoWidth, videoHeight) {
                 const maxLength = 30 * 1024
                 while (url.length > maxLength) {
                     const data = url.substring(0, maxLength)
-                    invoke.invokeMethodAsync("Capture", data)
+                    await invoke.invokeMethodAsync("Capture", data)
                     url = url.substring(data.length)
                 }
 
                 if (url.length > 0) {
-                    invoke.invokeMethodAsync("Capture", url)
+                    await invoke.invokeMethodAsync("Capture", url)
                 }
-                invoke.invokeMethodAsync("Capture", "__BB__%END%__BB__")
+                await invoke.invokeMethodAsync("Capture", "__BB__%END%__BB__")
             }
         })
     })
