@@ -21,28 +21,11 @@ public partial class Camera
     [NotNull]
     private IEnumerable<SelectedItem>? Devices { get; set; }
 
-    [NotNull]
-    private IEnumerable<SelectedItem>? Cameras { get; set; }
-
     /// <summary>
     /// 获得/设置 是否自动开启摄像头 默认为 false
     /// </summary>
     [Parameter]
     public bool AutoStart { get; set; }
-
-    /// <summary>
-    /// 获得/设置 前置摄像头显示文本 默认前置
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? FrontText { get; set; }
-
-    /// <summary>
-    /// 获得/设置 后置摄像头显示文本 默认后置
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? BackText { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示 照片预览 默认为 false 不预览
@@ -180,14 +163,6 @@ public partial class Camera
         DeviceLabel ??= Localizer[nameof(DeviceLabel)];
         InitDevicesString ??= Localizer[nameof(InitDevicesString)];
         NotFoundDevicesString ??= Localizer[nameof(NotFoundDevicesString)];
-        FrontText ??= Localizer[nameof(FrontText)];
-        BackText ??= Localizer[nameof(BackText)];
-
-        Cameras = new SelectedItem[]
-        {
-            new SelectedItem { Text = FrontText, Value = "user", Active = true },
-            new SelectedItem { Text = BackText, Value = "environment" }
-        };
     }
 
     /// <summary>
@@ -237,7 +212,7 @@ public partial class Camera
         }
         if (devices.Any())
         {
-            for (var index = 0; index < devices.Count(); index++)
+            for (var index = 0; index < devices.Count; index++)
             {
                 var d = devices.ElementAt(index);
                 if (string.IsNullOrEmpty(d.Label))

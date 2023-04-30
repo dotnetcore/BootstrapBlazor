@@ -16,8 +16,6 @@
     "PlayText": "Open",
     "StopText": "Close",
     "PhotoText": "Photo",
-    "FrontText": "Front",
-    "BackText": "Back",
     "NotFoundDevicesString": "Not found video device"
   },
   "BootstrapBlazor.Components.Calendar": {
