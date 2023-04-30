@@ -82,7 +82,7 @@ public class MessageTest : MessageTestBase
             pb.Add(a => a.ShowBorder, true);
         });
 
-        cut.Contains("alert-bar");
+        cut.Contains("border-primary");
     }
 
     [Fact]
