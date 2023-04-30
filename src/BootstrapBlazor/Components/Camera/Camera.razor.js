@@ -41,9 +41,8 @@ export function init(id, invoke, auto, videoWidth, videoHeight) {
             const button = e.delegateTarget
             const data_method = button.getAttribute('data-method')
             if (data_method === 'play') {
-                const front = button.getAttribute('data-camera')
                 const deviceId = el.getAttribute('data-device-id')
-                const constrains = { video: { facingMode: front, width: videoWidth, height: videoHeight }, audio: false }
+                const constrains = { video: { facingMode: 'environment', width: videoWidth, height: videoHeight }, audio: false }
                 if (deviceId) {
                     constrains.video.deviceId = { exact: deviceId }
                 }

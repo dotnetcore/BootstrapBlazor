@@ -20,11 +20,8 @@
             <Select Items="@Devices" @bind-Value="@DeviceId" DisplayText="@DeviceLabel" ShowLabel="true" PlaceHolder="@InitDevicesString"></Select>
         </div>
         <div class="col-12">
-            <RadioList Items="@Cameras" @bind-Value="@ActiveCamera" />
-        </div>
-        <div class="col-12">
             <div class="btn-group">
-                <Button Text="@PlayText" Color="Color.Success" Icon="@PlayIcon" IsDisabled="@IsDisabled" data-method="play" data-camera="@ActiveCamera?.Value"></Button>
+                <Button Text="@PlayText" Color="Color.Success" Icon="@PlayIcon" IsDisabled="@IsDisabled" data-method="play"></Button>
                 <Button Text="@StopText" Color="Color.Danger" Icon="@StopIcon" IsDisabled="@IsDisabled" data-method="stop"></Button>
                 <Button Text="@PhotoText" Icon="@PhotoIcon" IsDisabled="@CaptureDisabled" data-method="capture"></Button>
             </div>

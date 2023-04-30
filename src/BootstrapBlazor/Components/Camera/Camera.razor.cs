@@ -24,8 +24,6 @@ public partial class Camera
     [NotNull]
     private IEnumerable<SelectedItem>? Cameras { get; set; }
 
-    private SelectedItem? ActiveCamera { get; set; }
-
     /// <summary>
     /// 获得/设置 是否自动开启摄像头 默认为 false
     /// </summary>
@@ -187,8 +185,8 @@ public partial class Camera
 
         Cameras = new SelectedItem[]
         {
-            new SelectedItem { Text = FrontText!, Value = "user", Active = true },
-            new SelectedItem { Text = BackText!, Value = "environment" }
+            new SelectedItem { Text = FrontText, Value = "user", Active = true },
+            new SelectedItem { Text = BackText, Value = "environment" }
         };
     }
 
@@ -237,7 +235,6 @@ public partial class Camera
         {
             await OnInit(devices);
         }
-
         if (devices.Any())
         {
             for (var index = 0; index < devices.Count(); index++)
@@ -248,14 +245,11 @@ public partial class Camera
                     d.Label = $"Video device {index + 1}";
                 }
             }
-            ActiveCamera = Cameras.First();
         }
-
         if (IsDisabled)
         {
             InitDevicesString = NotFoundDevicesString;
         }
-
         StateHasChanged();
     }
 
