@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class Camera
 {
-    private string DeviceId { get; set; } = "";
+    private string? DeviceId { get; set; }
 
     private bool IsDisabled { get; set; } = true;
 
@@ -228,7 +228,7 @@ public partial class Camera
     /// <param name="devices"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task InitDevices(IEnumerable<DeviceItem> devices)
+    public async Task InitDevices(List<DeviceItem> devices)
     {
         Devices = devices.Select(i => new SelectedItem { Value = i.DeviceId, Text = i.Label });
         IsDisabled = !Devices.Any();
@@ -305,6 +305,8 @@ public partial class Camera
     }
 
     private readonly StringBuilder _sb = new();
+    private string? PreviewData { get; set; }
+
     /// <summary>
     /// 拍照回调方法
     /// </summary>
@@ -319,6 +321,12 @@ public partial class Camera
             if (OnCapture != null)
             {
                 await OnCapture(data);
+            }
+
+            if (ShowPreview)
+            {
+                PreviewData = data;
+                StateHasChanged();
             }
         }
         else

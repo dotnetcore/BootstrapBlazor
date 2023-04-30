@@ -8,11 +8,11 @@
             <video class="camera-header" style="width: @VideoWidthString height: @VideoHeightString"></video>
             <canvas style="display:none"></canvas>
         </div>
-        @if (ShowPreview)
+        @if (ShowPreview && !string.IsNullOrEmpty(PreviewData))
         {
             <div class="col-12">
                 <div class="camera-header">
-                    <img />
+                    <img alt="preview" src="@PreviewData" />
                 </div>
             </div>
         }
