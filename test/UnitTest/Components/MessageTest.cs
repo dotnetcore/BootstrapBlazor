@@ -73,4 +73,26 @@ public class MessageTest : MessageTestBase
 
         cut.DoesNotContain("data-autohide");
     }
+
+    [Fact]
+    public void ShowBorder_Ok()
+    {
+        var cut = Context.RenderComponent<MessageItem>(pb =>
+        {
+            pb.Add(a => a.ShowBorder, true);
+        });
+
+        cut.Contains("alert-bar");
+    }
+
+    [Fact]
+    public void Showshadow_Ok()
+    {
+        var cut = Context.RenderComponent<MessageItem>(pb =>
+        {
+            pb.Add(a => a.ShowShadow, true);
+        });
+
+        cut.Contains("shadow");
+    }
 }
