@@ -8,46 +8,24 @@ using System.Text;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Camera 组件
 /// </summary>
-public partial class Camera : IAsyncDisposable
+public partial class Camera
 {
-    private ElementReference CameraElement { get; set; }
-
-    private JSInterop<Camera>? Interop { get; set; }
-
-    private string DeviceId { get; set; } = "";
+    private string? DeviceId { get; set; }
 
     private bool IsDisabled { get; set; } = true;
 
     private bool CaptureDisabled { get; set; } = true;
 
-    private IEnumerable<SelectedItem> Devices { get; set; } = Enumerable.Empty<SelectedItem>();
-
     [NotNull]
-    private IEnumerable<SelectedItem>? Cameras { get; set; }
-
-    private SelectedItem? ActiveCamera { get; set; }
+    private IEnumerable<SelectedItem>? Devices { get; set; }
 
     /// <summary>
     /// 获得/设置 是否自动开启摄像头 默认为 false
     /// </summary>
     [Parameter]
     public bool AutoStart { get; set; }
-
-    /// <summary>
-    /// 获得/设置 前置摄像头显示文本 默认前置
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? FrontText { get; set; }
-
-    /// <summary>
-    /// 获得/设置 后置摄像头显示文本 默认后置
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? BackText { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示 照片预览 默认为 false 不预览
@@ -185,14 +163,6 @@ public partial class Camera : IAsyncDisposable
         DeviceLabel ??= Localizer[nameof(DeviceLabel)];
         InitDevicesString ??= Localizer[nameof(InitDevicesString)];
         NotFoundDevicesString ??= Localizer[nameof(NotFoundDevicesString)];
-        FrontText ??= Localizer[nameof(FrontText)];
-        BackText ??= Localizer[nameof(BackText)];
-
-        Cameras = new SelectedItem[]
-        {
-            new SelectedItem { Text = FrontText!, Value = "user", Active = true },
-            new SelectedItem { Text = BackText!, Value = "environment" }
-        };
     }
 
     /// <summary>
@@ -206,6 +176,8 @@ public partial class Camera : IAsyncDisposable
         StopIcon ??= IconTheme.GetIconByKey(ComponentIcons.CameraStopIcon);
         PhotoIcon ??= IconTheme.GetIconByKey(ComponentIcons.CameraPhotoIcon);
 
+        Devices ??= Enumerable.Empty<SelectedItem>();
+
         if (VideoWidth < 40)
         {
             VideoWidth = 40;
@@ -218,20 +190,10 @@ public partial class Camera : IAsyncDisposable
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            Interop = new JSInterop<Camera>(JSRuntime);
-            await Interop.InvokeVoidAsync(this, CameraElement, "bb_camera", "init", AutoStart, VideoWidth, VideoHeight);
-        }
-    }
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, AutoStart, VideoWidth, VideoHeight);
 
     /// <summary>
     /// 初始化设备方法
@@ -239,7 +201,7 @@ public partial class Camera : IAsyncDisposable
     /// <param name="devices"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task InitDevices(IEnumerable<DeviceItem> devices)
+    public async Task InitDevices(List<DeviceItem> devices)
     {
         Devices = devices.Select(i => new SelectedItem { Value = i.DeviceId, Text = i.Label });
         IsDisabled = !Devices.Any();
@@ -248,10 +210,9 @@ public partial class Camera : IAsyncDisposable
         {
             await OnInit(devices);
         }
-
         if (devices.Any())
         {
-            for (var index = 0; index < devices.Count(); index++)
+            for (var index = 0; index < devices.Count; index++)
             {
                 var d = devices.ElementAt(index);
                 if (string.IsNullOrEmpty(d.Label))
@@ -259,14 +220,11 @@ public partial class Camera : IAsyncDisposable
                     d.Label = $"Video device {index + 1}";
                 }
             }
-            ActiveCamera = Cameras.First();
         }
-
         if (IsDisabled)
         {
             InitDevicesString = NotFoundDevicesString;
         }
-
         StateHasChanged();
     }
 
@@ -294,9 +252,8 @@ public partial class Camera : IAsyncDisposable
         CaptureDisabled = false;
         if (OnStart != null)
         {
-            await OnStart.Invoke();
+            await OnStart();
         }
-
         StateHasChanged();
     }
 
@@ -310,13 +267,15 @@ public partial class Camera : IAsyncDisposable
         CaptureDisabled = true;
         if (OnClose != null)
         {
-            await OnClose.Invoke();
+            await OnClose();
         }
 
         StateHasChanged();
     }
 
     private readonly StringBuilder _sb = new();
+    private string? PreviewData { get; set; }
+
     /// <summary>
     /// 拍照回调方法
     /// </summary>
@@ -332,37 +291,16 @@ public partial class Camera : IAsyncDisposable
             {
                 await OnCapture(data);
             }
+
+            if (ShowPreview)
+            {
+                PreviewData = data;
+                StateHasChanged();
+            }
         }
         else
         {
             _sb.Append(payload);
         }
-    }
-
-    /// <summary>
-    /// DisposeAsyncCore 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected virtual async ValueTask DisposeAsyncCore(bool disposing)
-    {
-        if (disposing)
-        {
-            if (Interop != null)
-            {
-                await JSRuntime.InvokeVoidAsync(CameraElement, "bb_camera", "", "stop").ConfigureAwait(false);
-                Interop.Dispose();
-                Interop = null;
-            }
-        }
-    }
-
-    /// <summary>
-    /// DisposeAsync 方法
-    /// </summary>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsyncCore(true).ConfigureAwait(false);
-        GC.SuppressFinalize(this);
     }
 }
