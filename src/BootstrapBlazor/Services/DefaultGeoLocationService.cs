@@ -12,6 +12,8 @@ class DefaultGeoLocationService : IGeoLocationService
 
     private DotNetObjectReference<DefaultGeoLocationService>? Interop { get; }
 
+    private long WatchId { get; set; }
+
     /// <summary>
     /// 构造函数
     /// </summary>
@@ -60,23 +62,77 @@ class DefaultGeoLocationService : IGeoLocationService
         return Task.CompletedTask;
     }
 
+    private Func<GeolocationPosition, Task>? WatchPositionCallback { get; set; }
+
     /// <summary>
     /// register a handler function that will be called automatically each time the position of the device changes
     /// </summary>
     /// <returns></returns>
-    public async ValueTask<long> GetWatchPositionItemAsync()
+    public async ValueTask<long> WatchPositionAsync(Func<GeolocationPosition, Task> callback)
     {
         Module ??= await LoadModule();
-        return await Module.InvokeAsync<long>("watchPosition", Interop);
+        if (WatchId != 0)
+        {
+            await ClearWatchPositionAsync(WatchId);
+        }
+        WatchPositionCallback = callback;
+        WatchId = await Module.InvokeAsync<long>("watchPosition", Interop, nameof(WatchlocationPositionCallback));
+        return WatchId;
     }
 
     /// <summary>
-    /// unregister location/error monitoring handlers previously installed using <see cref="GetWatchPositionItemAsync"/>
+    /// unregister location/error monitoring handlers previously installed using <see cref="WatchPositionAsync"/>
     /// </summary>
     /// <returns></returns>
-    public async ValueTask<bool> SetClearWatchPositionAsync(long id)
+    public async ValueTask<bool> ClearWatchPositionAsync(long id)
     {
         Module ??= await LoadModule();
         return await Module.InvokeAsync<bool>("clearWatchLocation", id);
+    }
+
+    /// <summary>
+    /// 获得 当前设备地理位置由 JS 调用
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task WatchlocationPositionCallback(GeolocationPosition position)
+    {
+        LastPosition = position;
+
+        if (WatchPositionCallback != null)
+        {
+            await WatchPositionCallback(LastPosition);
+        }
+    }
+
+    /// <summary>
+    /// DisposeAsync 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected virtual async ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            if (WatchId != 0)
+            {
+                await ClearWatchPositionAsync(WatchId);
+            }
+
+            if (Module != null)
+            {
+                await Module.DisposeAsync();
+                Module = null;
+            }
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
     }
 }

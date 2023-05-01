@@ -110,7 +110,7 @@ export function getPosition(invoke, callback) {
     return ret
 }
 
-export function watchPosition(invoke, method) {
+export function watchPosition(invoke, callback) {
     var id = 0
     var currentDistance = 0.0
     var totalDistance = 0.0
@@ -123,7 +123,7 @@ export function watchPosition(invoke, method) {
             totalDistance = info.totalDistance
             lastLat = info.lastLat
             lastLong = info.lastLong
-            invoke.invokeMethodAsync(method, info)
+            invoke.invokeMethodAsync(callback, info)
         }, handleLocationError, {
             maximumAge: 20000
         })
