@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.Extensions.Caching.Memory;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -13,41 +15,68 @@ public class NotificationService : IAsyncDisposable
 
     private JSModule? Module { get; set; }
 
-    private DotNetObjectReference<WebClientService>? Interop { get; set; }
+    private DotNetObjectReference<NotificationService> Interop { get; }
+
+    private ICacheManager Cache { get; }
 
     /// <summary>
     /// 构造函数
     /// </summary>
     /// <param name="runtime"></param>
-    public NotificationService(IJSRuntime runtime)
+    /// <param name="cache"></param>
+    public NotificationService(IJSRuntime runtime, ICacheManager cache)
     {
         JSRuntime = runtime;
+        Cache = cache;
+        Interop = DotNetObjectReference.Create(this);
     }
+
+    private Task<JSModule> LoadModule() => JSRuntime.LoadModule("./_content/BootstrapBlazor/modules/noti.js", false);
 
     /// <summary>
     /// 检查浏览器通知权限状态
     /// </summary>
-    /// <typeparam name="TComponent"></typeparam>
-    /// <param name="interop">JSInterop 实例</param>
-    /// <param name="component">当前页面</param>
-    /// <param name="callbackMethodName">检查通知权限结果回调方法</param>
     /// <param name="requestPermission">是否请求权限 默认 true</param>
     /// <returns></returns>
-    public ValueTask CheckPermission<TComponent>(JSInterop<TComponent> interop, TComponent component, string? callbackMethodName = null, bool requestPermission = true) where TComponent : class => interop.CheckNotifyPermissionAsync(component, callbackMethodName, requestPermission);
+    public async ValueTask<bool> CheckPermission(bool requestPermission = true)
+    {
+        Module ??= await LoadModule();
+        return await Module.InvokeAsync<bool>("check", requestPermission);
+    }
 
     /// <summary>
     /// 发送浏览器通知
     /// </summary>
-    /// <typeparam name="TComponent"></typeparam>
-    /// <param name="interop">JSInterop 实例</param>
-    /// <param name="component">当前页面</param>
-    /// <param name="model">NotificationItem 实例</param>
-    /// <param name="callbackMethodName">发送结果回调方法</param>
+    /// <param name="item">NotificationItem 实例</param>
     /// <returns></returns>
-    public async Task<bool> Dispatch<TComponent>(JSInterop<TComponent> interop, TComponent component, NotificationItem model, string? callbackMethodName = null) where TComponent : class
+    public async Task<bool> Dispatch(NotificationItem item)
     {
-        var ret = await interop.Dispatch(component, model, callbackMethodName);
-        return ret;
+        Module ??= await LoadModule();
+        item.Id ??= $"noti_item_{item.GetHashCode()}";
+        Cache.GetOrCreate<NotificationItem>(item.Id, entry =>
+        {
+            entry.SetAbsoluteExpiration(TimeSpan.FromMinutes(10));
+            return item;
+        });
+        return await Module.InvokeAsync<bool>("notify", Interop, nameof(DispatchCallback), item);
+    }
+
+    /// <summary>
+    /// 消息通知回调方法由 JS 点击触发
+    /// </summary>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task DispatchCallback(string id)
+    {
+        if (Cache.TryGetValue(id, out NotificationItem? val))
+        {
+            Cache.Clear(id);
+
+            if (val.OnClick != null)
+            {
+                await val.OnClick();
+            }
+        }
     }
 
     /// <summary>

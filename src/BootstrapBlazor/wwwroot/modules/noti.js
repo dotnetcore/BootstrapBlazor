@@ -1,22 +1,39 @@
-﻿export function check(invoke, callback, requestPermission) {
+﻿export function check(requestPermission) {
+    let async = false
+    let granted = null
+
     if ((!window.Notification && !navigator.mozNotification) || !window.FileReader || !window.history.pushState) {
         console.warn("Your browser does not support all features of this API")
-        if (invoke !== null && callback !== '') invoke.invokeMethodAsync(callback, false)
+        granted = false
     }
     else if (Notification.permission === "granted") {
-        if (invoke !== null && callback !== '') invoke.invokeMethodAsync(callback, true)
+        granted = true
     }
     else if (requestPermission && (Notification.permission !== 'denied' || Notification.permission === "default")) {
+        async = true
         Notification.requestPermission(permission => {
-            var granted = permission === "granted"
-            if (invoke !== null && callback !== '') invoke.invokeMethodAsync(callback, granted)
+            granted = permission === "granted"
+
         })
     }
+    return new Promise((resolve, reject) => {
+        if (async) {
+            const handler = setInterval(() => {
+                if (granted != null) {
+                    clearInterval(handler)
+                    resolve(granted)
+                }
+            }, 20)
+        }
+        else {
+            resolve(granted || false)
+        }
+    })
 }
 
-export function notify(invoke, callback, model) {
+export async function notify(invoke, callback, model) {
     var ret = false
-    check(null, null, true)
+    await check(true)
     if (model.title !== null) {
         var onClickCallback = model.onClick
         var options = {}
@@ -28,11 +45,13 @@ export function notify(invoke, callback, model) {
         if (invoke !== null && onClickCallback !== null) {
             notification.onclick = e => {
                 e.preventDefault()
-                invoke.invokeMethodAsync(onClickCallback)
+                invoke.invokeMethodAsync(callback, model.id)
+            }
+            notification.onclick = () => {
+                invoke.invokeMethodAsync(callback, model.id)
             }
         }
         ret = true
     }
-    if (invoke !== null && callback !== null) invoke.invokeMethodAsync(callback, ret)
     return ret
 }
