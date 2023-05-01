@@ -52,6 +52,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.AddScoped<ResizeNotificationService>();
         services.AddScoped<NotificationService>();
         services.AddTransient<IJSRuntimeEventHandler, JSRuntimeEventHandler>();
+        services.AddScoped<IGeoLocationService, DefaultGeoLocationService>();
 
         services.TryAddScoped<IIPLocatorProvider, DefaultIPLocatorProvider>();
         services.TryAddScoped<IReconnectorProvider, ReconnectorProvider>();
