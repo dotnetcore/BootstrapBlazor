@@ -12,6 +12,8 @@ class DefaultGeoLocationService : IGeoLocationService
 
     private DotNetObjectReference<DefaultGeoLocationService> Interop { get; }
 
+    private GeolocationPosition? LastPosition { get; set; }
+
     private long WatchId { get; set; }
 
     /// <summary>
@@ -27,11 +29,6 @@ class DefaultGeoLocationService : IGeoLocationService
 
     private Task<JSModule> LoadModule() => JSRuntime.LoadModule("./_content/BootstrapBlazor/modules/geo.js", false);
 
-    private GeolocationPosition? LastPosition { get; set; }
-
-    [NotNull]
-    private TaskCompletionSource? GetPositionTaskSource { get; set; }
-
     /// <summary>
     /// get the current position of the device
     /// </summary>
@@ -39,27 +36,7 @@ class DefaultGeoLocationService : IGeoLocationService
     public async Task<GeolocationPosition?> GetPositionAsync()
     {
         Module ??= await LoadModule();
-        GetPositionTaskSource = new TaskCompletionSource();
-        LastPosition = null;
-        var result = await Module.InvokeAsync<bool>("getPosition", Interop, nameof(GeolocationPositionCallback));
-        if (result)
-        {
-            await GetPositionTaskSource.Task;
-        }
-        return LastPosition;
-    }
-
-    /// <summary>
-    /// 获得 当前设备地理位置由 JS 调用
-    /// </summary>
-    /// <param name="position"></param>
-    /// <returns></returns>
-    [JSInvokable]
-    public Task GeolocationPositionCallback(GeolocationPosition position)
-    {
-        LastPosition = position;
-        GetPositionTaskSource.SetResult();
-        return Task.CompletedTask;
+        return await Module.InvokeAsync<GeolocationPosition>("getPosition");
     }
 
     private Func<GeolocationPosition, Task>? WatchPositionCallback { get; set; }
