@@ -89,7 +89,7 @@ public class NotificationService : IAsyncDisposable
         if (disposing)
         {
             // 销毁 DotNetObjectReference 实例
-            Interop?.Dispose();
+            Interop.Dispose();
 
             // 销毁 JSModule
             if (Module != null)

@@ -96,6 +96,8 @@ class DefaultGeoLocationService : IGeoLocationService
                 await ClearWatchPositionAsync(WatchId);
             }
 
+            Interop.Dispose();
+
             if (Module != null)
             {
                 await Module.DisposeAsync();
