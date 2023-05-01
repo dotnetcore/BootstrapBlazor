@@ -32,26 +32,21 @@
 }
 
 export async function notify(invoke, callback, model) {
-    var ret = false
-    await check(true)
-    if (model.title !== null) {
-        var onClickCallback = model.onClick
-        var options = {}
-        if (model.message !== null) options.body = model.message.substr(0, 250)
-        if (model.icon !== null) options.icon = model.icon
-        if (model.silent !== null) options.silent = model.silent
-        if (model.sound !== null) options.sound = model.sound
-        var notification = new Notification(model.title.substr(0, 100), options)
-        if (invoke !== null && onClickCallback !== null) {
+    let ret = false
+    if(await check(true)) {
+        if (model.title !== null) {
+            const options = {}
+            if (model.message !== null) options.body = model.message.substring(0, 250)
+            if (model.icon !== null) options.icon = model.icon
+            if (model.silent !== null) options.silent = model.silent
+            if (model.sound !== null) options.sound = model.sound
+            const notification = new Notification(model.title.substring(0, 100), options)
             notification.onclick = e => {
                 e.preventDefault()
                 invoke.invokeMethodAsync(callback, model.id)
             }
-            notification.onclick = () => {
-                invoke.invokeMethodAsync(callback, model.id)
-            }
+            ret = true
         }
-        ret = true
     }
     return ret
 }
