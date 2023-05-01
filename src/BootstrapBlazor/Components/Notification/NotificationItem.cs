@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Text.Json.Serialization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -9,6 +11,11 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public class NotificationItem
 {
+    /// <summary>
+    /// 获得/设置 消息键值 未赋值时系统自动生成
+    /// </summary>
+    public string? Id { get; set; }
+
     /// <summary>
     /// 获得/设置 标题
     /// </summary>
@@ -37,5 +44,7 @@ public class NotificationItem
     /// <summary>
     /// 获得/设置 通知点击后的回调
     /// </summary>
-    public string? OnClick { get; set; }
+    /// <remarks>点击通知后自动关闭</remarks>
+    [JsonIgnore]
+    public Func<Task>? OnClick { get; set; }
 }
