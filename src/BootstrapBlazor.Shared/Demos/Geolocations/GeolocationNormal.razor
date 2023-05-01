@@ -1,5 +1,5 @@
 ﻿@inject IStringLocalizer<Geolocations> Localizer
-@inject IJSRuntime JSRuntime
+@inject IGeoLocationService GeoLocationService
 @implements IAsyncDisposable
 
 <div>
@@ -55,12 +55,10 @@
 </div>
 
 @code {
-    private JSInterop<GeolocationNormal>? Interop { get; set; }
-
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
-    private GeolocationItem? Model { get; set; }
+    private GeolocationPosition? Model { get; set; }
 
     /// <summary>
     /// 获得/设置 获取持续定位监听器ID
@@ -69,16 +67,19 @@
 
     private async Task GetLocation()
     {
-        Interop ??= new JSInterop<GeolocationNormal>(JSRuntime);
-        var ret = await Geolocation.GetLocaltion(interop: Interop, component: this, callbackMethodName: nameof(GetLocationCallback));
-        Logger.Log(ret ? Localizer["GetLocationResultSuccess"] : Localizer["GetLocationResultFailed"]);
+        Model = await GeoLocationService.GetPositionAsync();
     }
+
     private async Task WatchPosition()
     {
         try
         {
-            Interop ??= new JSInterop<GeolocationNormal>(JSRuntime);
-            WatchID = await Geolocation.WatchPosition(Interop, this, nameof(GetLocationCallback));
+            WatchID = await GeoLocationService.WatchPositionAsync(p =>
+            {
+                Model = p;
+                StateHasChanged();
+                return Task.CompletedTask;
+            });
             Logger.Log(WatchID != 0 ? Localizer["WatchPositionResultSuccess"] : Localizer["WatchPositionResultFailed"]);
             Logger.Log($"WatchID : {WatchID}");
         }
@@ -92,8 +93,7 @@
     {
         if (WatchID != 0)
         {
-            Interop ??= new JSInterop<GeolocationNormal>(JSRuntime);
-            var ret = await Geolocation.ClearWatchPosition(Interop, WatchID);
+            var ret = await GeoLocationService.ClearWatchPositionAsync(WatchID);
             if (ret)
             {
                 WatchID = 0;
@@ -103,39 +103,22 @@
     }
 
     /// <summary>
-    ///
-    /// </summary>
-    /// <param name="item"></param>
-    [JSInvokable]
-    public void GetLocationCallback(GeolocationItem item)
-    {
-        Model = item;
-        StateHasChanged();
-    }
-
-    /// <summary>
-    ///
+    /// DisposeAsync
     /// </summary>
     /// <param name="disposing"></param>
     protected virtual async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
-            if (Interop != null)
+            if (WatchID != 0)
             {
-                if (WatchID != 0)
-                {
-                    await Geolocation.ClearWatchPosition(Interop, WatchID);
-                }
-
-                Interop.Dispose();
-                Interop = null;
+                await GeoLocationService.ClearWatchPositionAsync(WatchID);
             }
         }
     }
 
     /// <summary>
-    ///
+    /// <inheritdoc/>
     /// </summary>
     public async ValueTask DisposeAsync()
     {
