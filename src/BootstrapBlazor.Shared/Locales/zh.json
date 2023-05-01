@@ -6046,7 +6046,6 @@
     "NotificationsNormalShowNotificationCallbackText": "发送结果回调",
     "NotificationsNormalGetPermissionCallbackText": "检查通知权限结果回调",
     "NotificationsNormalOnClickText": "通知点击后的回调方法名称",
-    "NotificationsNormalOnCloseText": "关闭通知回调方法名称",
     "NotificationsNormalTitleSampleText": "你有新的物流通知",
     "NotificationsNormalMessageSampleText": "您的包裹已到达亮马河南路,距离分发只剩3站."
   },

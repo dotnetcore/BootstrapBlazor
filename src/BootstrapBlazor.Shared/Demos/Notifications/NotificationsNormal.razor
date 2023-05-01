@@ -41,7 +41,6 @@
         Model.Title ??= Localizer["NotificationsNormalTitleSampleText"];
         Model.Message ??= Localizer["NotificationsNormalMessageSampleText"];
         Model.OnClick = OnClickNotificationCallback;
-        Model.OnClose = OnCloseNotificationCallback;
     }
 
     /// <summary>
@@ -71,13 +70,6 @@
     private Task OnClickNotificationCallback()
     {
         Logger.Log($"{Localizer["NotificationsNormalOnClickText"]}");
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
-
-    private Task OnCloseNotificationCallback()
-    {
-        Logger.Log($"{Localizer["NotificationsNormalOnCloseText"]}");
         StateHasChanged();
         return Task.CompletedTask;
     }

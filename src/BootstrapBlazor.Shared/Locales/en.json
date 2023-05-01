@@ -6034,7 +6034,6 @@
     "NotificationsNormalShowNotificationCallbackText": "Show notification callback",
     "NotificationsNormalGetPermissionCallbackText": "Get permission callback",
     "NotificationsNormalOnClickText": "Click notification callback method name",
-    "NotificationsNormalOnCloseText": "Close notification callback method name",
     "NotificationsNormalTitleSampleText": "You have a new logistics notification",
     "NotificationsNormalMessageSampleText": "Your package has arrived on Panama South Road, and there are only 3 stops left for distribution."
   },
