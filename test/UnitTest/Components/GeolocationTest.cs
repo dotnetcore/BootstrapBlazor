@@ -12,7 +12,7 @@ public class GeolocationTest : BootstrapBlazorTestBase
     public async Task GetPositionAsync_Ok()
     {
         var server = Context.Services.GetRequiredService<IGeoLocationService>();
-        Context.JSInterop.Setup<bool>("getPosition", v => true).SetResult(true);
+        Context.JSInterop.Setup<GeolocationPosition>("getPosition", v => true).SetResult(new GeolocationPosition() { Latitude = 100, LastLat = 50 });
         ResetModule(server);
         var pos = await server.GetPositionAsync();
         Assert.NotNull(pos);

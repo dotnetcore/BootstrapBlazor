@@ -26,6 +26,17 @@ public class CacheManagerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void TryGetValue()
+    {
+        Cache.GetOrCreate("test_01", entry =>
+        {
+            return 1;
+        });
+        Cache.TryGetValue("test_01", out int v1);
+        Cache.TryGetValue("test_01", out string? v2);
+    }
+
+    [Fact]
     public async Task GetOrCreateAsync_Ok()
     {
         var key = new object();
