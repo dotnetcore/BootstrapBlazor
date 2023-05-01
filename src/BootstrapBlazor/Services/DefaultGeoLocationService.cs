@@ -10,7 +10,7 @@ class DefaultGeoLocationService : IGeoLocationService
 
     private JSModule? Module { get; set; }
 
-    private DotNetObjectReference<DefaultGeoLocationService>? Interop { get; }
+    private DotNetObjectReference<DefaultGeoLocationService> Interop { get; }
 
     private long WatchId { get; set; }
 
