@@ -13,6 +13,7 @@ public class GeolocationTest : BootstrapBlazorTestBase
     {
         var server = Context.Services.GetRequiredService<IGeoLocationService>();
         Context.JSInterop.Setup<bool>("getPosition", v => true).SetResult(true);
+        ResetModule(server);
         _ = Task.Run(async () =>
         {
             await Task.Delay(100);
@@ -31,6 +32,7 @@ public class GeolocationTest : BootstrapBlazorTestBase
         var called = false;
         var server = Context.Services.GetRequiredService<IGeoLocationService>();
         Context.JSInterop.Setup<long>("watchPosition", v => true).SetResult(1);
+        ResetModule(server);
         var id = await server.WatchPositionAsync(p =>
         {
             called = true;
@@ -48,6 +50,7 @@ public class GeolocationTest : BootstrapBlazorTestBase
         {
             return Task.CompletedTask;
         });
+        ResetModule(server);
         await server.ClearWatchPositionAsync(id);
     }
 
@@ -82,5 +85,11 @@ public class GeolocationTest : BootstrapBlazorTestBase
         Assert.Equal(10, item.Timestamp);
         Assert.Equal(10, item.TotalDistance);
         Assert.NotEqual(1, item.LastUpdateTime.Year);
+    }
+
+    private static void ResetModule(IGeoLocationService service)
+    {
+        var pi = service.GetType().GetProperty("Module", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
+        pi.SetValue(service, null);
     }
 }
