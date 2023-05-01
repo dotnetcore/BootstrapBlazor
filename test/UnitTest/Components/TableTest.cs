@@ -1020,7 +1020,7 @@ public class TableTest : TableTestBase
                 });
             });
         });
-        Assert.Contains("0 - 0 &#x5171; 0 &#x6761;", cut.Markup);
+        Assert.Contains("0 - 0 共 0 条", cut.Markup);
     }
 
     [Fact]

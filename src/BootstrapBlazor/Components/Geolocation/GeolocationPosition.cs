@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 定位数据类
 /// </summary>
-public class GeolocationItem
+public class GeolocationPosition
 {
     /// <summary>
     /// 获得/设置 纬度

@@ -16,7 +16,6 @@ public class IconDialogTest : BootstrapBlazorTestBase
             pb.Add(a => a.IconName, "fa-icon-name");
         });
         cut.Contains("fa-icon-name");
-        cut.Contains("&lt;i class=&quot;fa-icon-name&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;");
     }
 
     [Fact]

@@ -6,7 +6,10 @@ using System.Reflection;
 
 namespace BootstrapBlazor.Components;
 
-internal static class PropertyInfoExtensions
+/// <summary>
+/// PropertyInfo 扩展方法
+/// </summary>
+public static class PropertyInfoExtensions
 {
     /// <summary>
     /// 判断属性是否为静态属性

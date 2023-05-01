@@ -238,6 +238,21 @@ public class ObjectExtensionsTest
         Assert.Throws<InvalidOperationException>(() => item.CanWrite(typeof(Dummy)));
     }
 
+    [Fact]
+    public void IsStatic_Ok()
+    {
+        var v = new MockStatic();
+        var pi = v.GetType().GetProperty(nameof(MockStatic.Test))!;
+        Assert.True(pi.IsStatic());
+    }
+
+    private class MockStatic
+    {
+        private static int _test;
+
+        public static int Test { set { _test = value; } }
+    }
+
     [TypeConverter(typeof(DummyConverter))]
     private class Dummy
     {
