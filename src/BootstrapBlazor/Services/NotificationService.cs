@@ -7,8 +7,23 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 浏览器通知服务
 /// </summary>
-public class NotificationService
+public class NotificationService : IAsyncDisposable
 {
+    private IJSRuntime JSRuntime { get; }
+
+    private JSModule? Module { get; set; }
+
+    private DotNetObjectReference<WebClientService>? Interop { get; set; }
+
+    /// <summary>
+    /// 构造函数
+    /// </summary>
+    /// <param name="runtime"></param>
+    public NotificationService(IJSRuntime runtime)
+    {
+        JSRuntime = runtime;
+    }
+
     /// <summary>
     /// 检查浏览器通知权限状态
     /// </summary>
@@ -33,5 +48,36 @@ public class NotificationService
     {
         var ret = await interop.Dispatch(component, model, callbackMethodName);
         return ret;
+    }
+
+    /// <summary>
+    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected virtual async ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            // 销毁 DotNetObjectReference 实例
+            Interop?.Dispose();
+
+            // 销毁 JSModule
+            if (Module != null)
+            {
+                await Module.DisposeAsync();
+                Module = null;
+            }
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
     }
 }
