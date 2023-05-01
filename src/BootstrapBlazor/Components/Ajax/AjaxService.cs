@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Text.Json;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -12,7 +14,7 @@ public class AjaxService
     /// <summary>
     /// 获得 回调委托缓存集合
     /// </summary>
-    private List<(IComponent Key, Func<AjaxOption, Task<string?>> Callback)> Cache { get; } = new();
+    private List<(IComponent Key, Func<AjaxOption, Task<JsonDocument?>> Callback)> Cache { get; } = new();
 
     /// <summary>
     /// 获得 跳转其他页面的回调委托缓存集合
@@ -24,7 +26,7 @@ public class AjaxService
     /// </summary>
     /// <param name="key"></param>
     /// <param name="callback"></param>
-    internal void Register(IComponent key, Func<AjaxOption, Task<string?>> callback) => Cache.Add((key, callback));
+    internal void Register(IComponent key, Func<AjaxOption, Task<JsonDocument?>> callback) => Cache.Add((key, callback));
 
     /// <summary>
     /// 注销事件
@@ -62,10 +64,10 @@ public class AjaxService
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
-    public async Task<string?> InvokeAsync(AjaxOption option)
+    public async Task<JsonDocument?> InvokeAsync(AjaxOption option)
     {
         var cb = Cache.FirstOrDefault().Callback;
-        return cb == null ? null : await cb.Invoke(option);
+        return cb == null ? default : await cb.Invoke(option);
     }
 
     /// <summary>

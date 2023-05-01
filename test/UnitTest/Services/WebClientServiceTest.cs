@@ -35,8 +35,9 @@ public class WebClientServiceTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void WebClientService_Dispose()
+    public async Task WebClientService_Dispose()
     {
-        using var service = Context.Services.GetRequiredService<WebClientService>();
+        var service = Context.Services.GetRequiredService<WebClientService>() as IAsyncDisposable;
+        await service.DisposeAsync();
     }
 }

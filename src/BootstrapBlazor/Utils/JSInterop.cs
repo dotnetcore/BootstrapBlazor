@@ -7,6 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// JSInterop 类
 /// </summary>
+[ExcludeFromCodeCoverage]
 public class JSInterop<TValue> : IDisposable where TValue : class
 {
     private IJSRuntime JSRuntime { get; }
@@ -20,52 +21,6 @@ public class JSInterop<TValue> : IDisposable where TValue : class
     public JSInterop(IJSRuntime jsRuntime)
     {
         JSRuntime = jsRuntime;
-    }
-
-    /// <summary>
-    /// Invoke 方法
-    /// </summary>
-    /// <param name="identifier"></param>
-    /// <param name="value"></param>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    public async ValueTask InvokeVoidAsync(string identifier, TValue value, params object?[]? args)
-    {
-        _objRef = DotNetObjectReference.Create(value);
-#if NET5_0
-        var paras = new List<object>()
-        {
-            _objRef
-        };
-#else
-        var paras = new List<object?>()
-        {
-            _objRef
-        };
-#endif
-        if (args != null)
-        {
-            paras.AddRange(args!);
-        }
-        await JSRuntime.InvokeVoidAsync(identifier: identifier, paras.ToArray());
-    }
-
-    /// <summary>
-    /// Invoke 方法
-    /// </summary>
-    /// <param name="value"></param>
-    /// <param name="el"></param>
-    /// <param name="func"></param>
-    /// <param name="args"></param>
-    public async ValueTask InvokeVoidAsync(TValue value, object? el, string func, params object[] args)
-    {
-        _objRef = DotNetObjectReference.Create(value);
-        var paras = new List<object>()
-        {
-            _objRef
-        };
-        paras.AddRange(args);
-        await JSRuntime.InvokeVoidAsync(el, func, paras.ToArray());
     }
 
     /// <summary>

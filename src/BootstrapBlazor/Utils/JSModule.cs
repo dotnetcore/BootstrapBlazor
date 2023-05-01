@@ -13,7 +13,7 @@ public class JSModule : IAsyncDisposable
     /// IJSObjectReference 实例
     /// </summary>
     [NotNull]
-    protected IJSObjectReference? Module { get; }
+    private IJSObjectReference? Module { get; }
 
     /// <summary>
     /// 构造函数

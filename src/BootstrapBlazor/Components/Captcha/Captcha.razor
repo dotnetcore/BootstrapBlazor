@@ -1,7 +1,8 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader(JSObjectReference = true)]
 
-<div @attributes="@AdditionalAttributes" class="captcha card shadow-sm" style="@StyleString" @ref="CaptchaElement">
+<div @attributes="@AdditionalAttributes" id="@Id" class="captcha card shadow-sm" style="@StyleString">
     <div class="card-header">
         <span class="flex-fill">@HeaderText</span>
         <span class="captcha-refresh" @onclick="@OnClickRefresh">
@@ -19,7 +20,7 @@
             <div class="captcha-bar">
                 <i class="@BarIcon"></i>
             </div>
-            <span class="captcha-bar-text" data-try="@TryText" data-text="@BarText">@BarText</span>
+            <span class="captcha-bar-text" data-text="@BarText">@BarText</span>
         </div>
     </div>
 </div>

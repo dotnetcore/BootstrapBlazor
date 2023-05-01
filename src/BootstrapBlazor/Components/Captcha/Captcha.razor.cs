@@ -9,18 +9,11 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Captcha 组件
 /// </summary>
-public partial class Captcha : IDisposable
+public partial class Captcha
 {
-    private static Random ImageRandomer { get; } = new Random();
+    private static Random ImageRandomer { get; } = new();
 
     private int OriginX { get; set; }
-
-    private JSInterop<Captcha>? Interop { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Captcha DOM 元素实例
-    /// </summary>
-    private ElementReference CaptchaElement { get; set; }
 
     /// <summary>
     /// 获得 组件宽度
@@ -64,12 +57,6 @@ public partial class Captcha : IDisposable
     [Parameter]
     [NotNull]
     public string? LoadText { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Bar 显示文本
-    /// </summary>
-    [Parameter]
-    public string? TryText { get; set; }
 
     /// <summary>
     /// 获得/设置 验证码结果回调委托
@@ -164,34 +151,27 @@ public partial class Captcha : IDisposable
         BarText ??= Localizer[nameof(BarText)];
         FailedText ??= Localizer[nameof(FailedText)];
         LoadText ??= Localizer[nameof(LoadText)];
-        TryText ??= Localizer[nameof(TryText)];
 
         RefreshIcon ??= IconTheme.GetIconByKey(ComponentIcons.CaptchaRefreshIcon);
         BarIcon ??= IconTheme.GetIconByKey(ComponentIcons.CaptchaBarIcon);
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await Reset();
-        }
-    }
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(Verify), GetCaptchaOption());
 
     /// <summary>
     /// 点击刷新按钮时回调此方法
     /// </summary>
-    protected Task OnClickRefresh() => Reset();
+    private Task OnClickRefresh() => Reset();
 
     /// <summary>
     /// 验证方差方法
     /// </summary>
     [JSInvokable]
-    public async Task<bool> Verify(int offset, IEnumerable<int> trails)
+    public async Task<bool> Verify(int offset, List<int> trails)
     {
         var ret = Math.Abs(offset - OriginX) < Offset && CalcStddev(trails);
         if (OnValidAsync != null)
@@ -232,16 +212,15 @@ public partial class Captcha : IDisposable
         {
             option.ImageUrl = GetImageName();
         }
-
         return option;
     }
 
-    private static bool CalcStddev(IEnumerable<int> trails)
+    private static bool CalcStddev(List<int> trails)
     {
         var ret = false;
         if (trails.Any())
         {
-            var average = trails.Sum() * 1.0 / trails.Count();
+            var average = trails.Sum() * 1.0 / trails.Count;
             var dev = trails.Select(t => t - average);
             var stddev = Math.Sqrt(dev.Sum() * 1.0 / dev.Count());
             ret = stddev != 0;
@@ -250,36 +229,11 @@ public partial class Captcha : IDisposable
     }
 
     /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            if (Interop != null)
-            {
-                Interop.Dispose();
-                Interop = null;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
-    /// <summary>
     /// 重置组件方法
     /// </summary>
     public async Task Reset()
     {
         var option = GetCaptchaOption();
-        Interop ??= new JSInterop<Captcha>(JSRuntime);
-        await Interop.InvokeVoidAsync(this, CaptchaElement, "captcha", nameof(Verify), option);
+        await InvokeVoidAsync("reset", Id, option);
     }
 }

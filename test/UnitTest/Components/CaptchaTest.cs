@@ -22,10 +22,10 @@ public class CaptchaTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
-        await cut.InvokeAsync(() => cut.Instance.Verify(10, new int[] { 1, 2, 3, 4, 1 }));
+        await cut.InvokeAsync(() => cut.Instance.Verify(10, new List<int> { 1, 2, 3, 4, 1 }));
         Assert.True(verify);
 
-        await cut.InvokeAsync(() => cut.Instance.Verify(10, new int[] { 1, 2, 3, 4 }));
+        await cut.InvokeAsync(() => cut.Instance.Verify(10, new List<int> { 1, 2, 3, 4 }));
         Assert.False(verify);
 
         cut.SetParametersAndRender(pb =>
@@ -33,7 +33,7 @@ public class CaptchaTest : BootstrapBlazorTestBase
             pb.Add(a => a.Offset, 5);
             pb.Add(a => a.OnValidAsync, null);
         });
-        await cut.InvokeAsync(() => cut.Instance.Verify(10, new int[] { 1, 2, 3, 4, 1 }));
+        await cut.InvokeAsync(() => cut.Instance.Verify(10, new List<int> { 1, 2, 3, 4, 1 }));
     }
 
     [Fact]
