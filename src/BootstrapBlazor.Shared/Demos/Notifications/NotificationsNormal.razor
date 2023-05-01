@@ -1,6 +1,5 @@
 ﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Notifications> Localizer
-@inject IJSRuntime JSRuntime
-@implements IDisposable
+@inject NotificationService BrowserNotification
 
 <div class="form-inline row g-3">
     <div class="col-12">
@@ -23,8 +22,6 @@
 <ConsoleLogger @ref="Logger" class="mt-3" />
 
 @code {
-    private JSInterop<NotificationsNormal>? Interop { get; set; }
-
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
@@ -36,18 +33,19 @@
     };
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
         Model.Title ??= Localizer["NotificationsNormalTitleSampleText"];
         Model.Message ??= Localizer["NotificationsNormalMessageSampleText"];
-        Model.OnClick ??= nameof(OnClickNotificationCallback);
+        Model.OnClick = OnClickNotificationCallback;
+        Model.OnClose = OnCloseNotificationCallback;
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -55,78 +53,32 @@
     {
         if (firstRender)
         {
-            Interop = new JSInterop<NotificationsNormal>(JSRuntime);
-            await BrowserNotification.CheckPermission(Interop, this, nameof(GetPermissionCallback), false);
+            await BrowserNotification.CheckPermission(false);
         }
     }
 
     private async Task CheckPermission()
     {
-        Interop ??= new JSInterop<NotificationsNormal>(JSRuntime);
-        await BrowserNotification.CheckPermission(Interop, this, nameof(GetPermissionCallback));
+        Permission = await BrowserNotification.CheckPermission();
+        Logger.Log(Localizer["NotificationsNormalGetPermissionCallbackText"] + (Permission ? "OK" : "No permission"));
     }
 
     private async Task Dispatch()
     {
-        Interop ??= new JSInterop<NotificationsNormal>(JSRuntime);
-        await BrowserNotification.Dispatch(Interop, this, Model, nameof(ShowNotificationCallback));
+        await BrowserNotification.Dispatch(Model);
     }
 
-    /// <summary>
-    /// GetPermissionCallback
-    /// </summary>
-    /// <param name="result"></param>
-    [JSInvokable]
-    public void GetPermissionCallback(bool result)
-    {
-        Permission = result;
-        Logger.Log(Localizer["NotificationsNormalGetPermissionCallbackText"] + (result ? "OK" : "No permission"));
-        StateHasChanged();
-    }
-
-    /// <summary>
-    /// ShowNotificationCallback
-    /// </summary>
-    /// <param name="result"></param>
-    [JSInvokable]
-    public void ShowNotificationCallback(bool result)
-    {
-        Logger.Log($"{Localizer["NotificationsNormalShowNotificationCallbackText"]}: {result}");
-        StateHasChanged();
-    }
-
-    /// <summary>
-    /// OnClickNotificationCallback
-    /// </summary>
-    [JSInvokable]
-    public void OnClickNotificationCallback()
+    private Task OnClickNotificationCallback()
     {
         Logger.Log($"{Localizer["NotificationsNormalOnClickText"]}");
         StateHasChanged();
+        return Task.CompletedTask;
     }
 
-    /// <summary>
-    /// Dispose
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
+    private Task OnCloseNotificationCallback()
     {
-        if (disposing)
-        {
-            if (Interop != null)
-            {
-                Interop.Dispose();
-                Interop = null;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Dispose
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
+        Logger.Log($"{Localizer["NotificationsNormalOnCloseText"]}");
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 }
