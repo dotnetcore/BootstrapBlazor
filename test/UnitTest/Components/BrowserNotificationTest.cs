@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.JSInterop;
 
 namespace UnitTest.Components;
@@ -9,46 +10,42 @@ namespace UnitTest.Components;
 public class BrowserNotificationTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void CheckPermission_Ok()
+    public async Task CheckPermission_Ok()
     {
-        var cut = Context.RenderComponent<MockNotification>();
-        cut.Instance.CheckPermission();
+        var service = Context.Services.GetRequiredService<NotificationService>();
+        Context.JSInterop.Setup<bool>("check", v => true).SetResult(true);
+        var result = await service.CheckPermission();
+        Assert.True(result);
+
         var item = new NotificationItem()
         {
             Icon = "fa-solid fa-font-awesome",
             Message = "Test",
-            OnClick = "",
             Silent = true,
             Sound = "test.wav",
             Title = "Title"
         };
-        cut.Instance.Dispatch(item);
+        ResetModule(service);
+        await service.Dispatch(item);
         Assert.Equal("fa-solid fa-font-awesome", item.Icon);
         Assert.Equal("Test", item.Message);
-        Assert.Equal("", item.OnClick);
         Assert.True(item.Silent);
         Assert.Equal("test.wav", item.Sound);
         Assert.Equal("Title", item.Title);
+
+        var callback = false;
+        item.OnClick = () =>
+        {
+            callback = true;
+            return Task.CompletedTask;
+        };
+        await service.DispatchCallback($"noti_item_{item.GetHashCode()}");
+        Assert.True(callback);
     }
 
-    private class MockNotification : ComponentBase
+    private static void ResetModule(NotificationService service)
     {
-        [Inject]
-        [NotNull]
-        private IJSRuntime? JSRuntime { get; set; }
-
-        private JSInterop<MockNotification>? Interop { get; set; }
-
-        public void CheckPermission()
-        {
-            Interop ??= new JSInterop<MockNotification>(JSRuntime);
-            _ = BrowserNotification.CheckPermission(Interop, this);
-        }
-
-        public void Dispatch(NotificationItem item)
-        {
-            Interop ??= new JSInterop<MockNotification>(JSRuntime);
-            _ = BrowserNotification.Dispatch<MockNotification>(Interop, this, item, "");
-        }
+        var pi = service.GetType().GetProperty("Module", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
+        pi.SetValue(service, null);
     }
 }
