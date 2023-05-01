@@ -102,7 +102,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
 
                 if (attr.JSObjectReference)
                 {
-                    Interop = DotNetObjectReference.Create<BootstrapModuleComponentBase>(this);
+                    Interop = DotNetObjectReference.Create(this);
                 }
             }
         }
