@@ -2,26 +2,59 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.JSInterop;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace UnitTest.Components;
 
 public class GeolocationTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public async Task Geolocation_Ok()
+    public async Task GetPositionAsync_Ok()
     {
-        var cut = Context.RenderComponent<MockGeoTest>();
-        var instance = cut.Instance;
-        await instance.GetLocaltion();
-        await instance.WatchPosition();
-        await instance.ClearWatchPosition(1);
+        var server = Context.Services.GetRequiredService<IGeoLocationService>();
+        Context.JSInterop.Setup<bool>("getPosition", v => true).SetResult(true);
+        _ = Task.Run(async () =>
+        {
+            await Task.Delay(100);
+            var mi = server.GetType().GetMethod("GeolocationPositionCallback")!;
+            mi.Invoke(server, new object[] { new GeolocationPosition() { Latitude = 100, LastLat = 50 } });
+        });
+        var pos = await server.GetPositionAsync();
+        Assert.NotNull(pos);
+        Assert.Equal(100, pos.Latitude);
+        Assert.Equal(50, pos.LastLat);
     }
 
     [Fact]
-    public void GeolocationItem_Ok()
+    public async Task WatchPositionAsync_Ok()
     {
-        var item = new GeolocationItem()
+        var called = false;
+        var server = Context.Services.GetRequiredService<IGeoLocationService>();
+        Context.JSInterop.Setup<long>("watchPosition", v => true).SetResult(1);
+        var id = await server.WatchPositionAsync(p =>
+        {
+            called = true;
+            return Task.CompletedTask;
+        });
+
+        // test callback
+        // WatchlocationPositionCallback
+        var mi = server.GetType().GetMethod("WatchlocationPositionCallback")!;
+        mi.Invoke(server, new object[] { new GeolocationPosition() { Latitude = 100, LastLat = 50 } });
+        Assert.True(called);
+
+        // test call watch again
+        id = await server.WatchPositionAsync(p =>
+        {
+            return Task.CompletedTask;
+        });
+        await server.ClearWatchPositionAsync(id);
+    }
+
+    [Fact]
+    public void GeolocationPosition_Ok()
+    {
+        var item = new GeolocationPosition()
         {
             Latitude = 10,
             Accuracy = 10,
@@ -49,27 +82,5 @@ public class GeolocationTest : BootstrapBlazorTestBase
         Assert.Equal(10, item.Timestamp);
         Assert.Equal(10, item.TotalDistance);
         Assert.NotEqual(1, item.LastUpdateTime.Year);
-    }
-
-    private class MockGeoTest : ComponentBase
-    {
-        [Inject]
-        [NotNull]
-        private IJSRuntime? JSRuntime { get; set; }
-
-        [NotNull]
-        private JSInterop<MockGeoTest>? Interop { get; set; }
-
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-            Interop = new JSInterop<MockGeoTest>(JSRuntime);
-        }
-
-        public ValueTask<bool> GetLocaltion() => Geolocation.GetLocaltion(Interop, this, "Test");
-
-        public ValueTask<long> WatchPosition() => Geolocation.WatchPosition(Interop, this, "Test");
-
-        public ValueTask<bool> ClearWatchPosition(long watchId) => Geolocation.ClearWatchPosition(Interop, watchId);
     }
 }
