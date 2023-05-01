@@ -75,12 +75,30 @@ internal class CacheManager : ICacheManager
     })!;
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <typeparam name="TItem"></typeparam>
+    /// <param name="key"></param>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public bool TryGetValue<TItem>(object key, [NotNullWhen(true)] out TItem? value)
+    {
+        var ret = Cache.TryGetValue(key, out var v);
+        value = default;
+        if (ret && v is TItem val)
+        {
+            value = val;
+        }
+        return ret;
+    }
+
+    /// <summary>
     /// 清除指定 Key 缓存项
     /// </summary>
     /// <param name="key"></param>
-    public void Clear(string? key)
+    public void Clear(object? key)
     {
-        if (!string.IsNullOrEmpty(key))
+        if (key is not null)
         {
             Cache.Remove(key);
         }
