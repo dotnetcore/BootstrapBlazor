@@ -16,7 +16,7 @@
                     {
                         <img alt="prevUrl" src="@item.PrevUrl" />
                     }
-                    else if(IconTemplate != null)
+                    else if (IconTemplate != null)
                     {
                         @IconTemplate(item)
                     }
@@ -28,10 +28,13 @@
                 <div class="upload-item-size"><span>@item.GetFileName()</span> (@item.Size.ToFileSizeString())</div>
                 <div class="upload-item-actions">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-secondary btn-zoom" disabled="@GetDiabledString(item)" @onclick="() => OnClickZoom(item)" aria-label="zoom">
-                            <i class="@ZoomIcon"></i>
-                        </button>
-                        @if(ShowDownloadButton)
+                        @if (ShowZoomButton)
+                        {
+                            <button type="button" class="btn btn-sm btn-secondary btn-zoom" disabled="@GetDiabledString(item)" @onclick="() => OnClickZoom(item)" aria-label="zoom">
+                                <i class="@ZoomIcon"></i>
+                            </button>
+                        }
+                        @if (ShowDownloadButton)
                         {
                             <button type="button" class="btn btn-sm btn-secondary" disabled="@GetDiabledString(item)" @onclick="() => OnClickDownload(item)" aria-label="download">
                                 <i class="@DownloadIcon"></i>
