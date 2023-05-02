@@ -36,7 +36,7 @@
                         }
                         @if (ShowDownloadButton)
                         {
-                            <button type="button" class="btn btn-sm btn-secondary" disabled="@GetDiabledString(item)" @onclick="() => OnClickDownload(item)" aria-label="download">
+                            <button type="button" class="btn btn-sm btn-secondary btn-download" disabled="@GetDiabledString(item)" @onclick="() => OnClickDownload(item)" aria-label="download">
                                 <i class="@DownloadIcon"></i>
                             </button>
                         }

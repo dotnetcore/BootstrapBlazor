@@ -755,8 +755,8 @@ public class UploadTest : BootstrapBlazorTestBase
             });
         });
 
-        var button = cut.FindAll(".btn-secondary");
-        await cut.InvokeAsync(() => button[1].Click());
+        var button = cut.Find(".btn-download");
+        await cut.InvokeAsync(() => button.Click());
         Assert.True(clicked);
     }
 
