@@ -219,17 +219,18 @@ public class MultiSelectTest : BootstrapBlazorTestBase
         var buttons = cut.FindAll(".toolbar button");
 
         // SelectAll
-        buttons[0].Click();
+        cut.InvokeAsync(() => buttons[0].Click());
         Assert.Equal(2, selectedItems.Count);
 
         // InvertSelect
-        buttons[1].Click();
+        cut.InvokeAsync(() => buttons[1].Click());
         Assert.Empty(selectedItems);
 
         // InvertSelect
-        buttons[0].Click();
+        cut.InvokeAsync(() => buttons[1].Click());
         Assert.Equal(2, selectedItems.Count);
-        buttons[2].Click();
+
+        cut.InvokeAsync(() => buttons[1].Click());
         Assert.Empty(selectedItems);
     }
 
