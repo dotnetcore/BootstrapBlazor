@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class PopConfirmButton
 {
-    private string? ClassString => CssBuilder.Default()
+    private string? ClassString => CssBuilder.Default("pop-confirm")
         .AddClass("disabled", IsDisabled)
         .AddClass(InternalClassName, IsLink)
         .AddClass(ClassName, !IsLink)
