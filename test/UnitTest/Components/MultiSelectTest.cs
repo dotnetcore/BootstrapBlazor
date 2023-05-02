@@ -219,17 +219,19 @@ public class MultiSelectTest : BootstrapBlazorTestBase
         var buttons = cut.FindAll(".toolbar button");
 
         // SelectAll
-        buttons[0].Click();
+        cut.InvokeAsync(() => buttons[0].Click());
         Assert.Equal(2, selectedItems.Count);
 
         // InvertSelect
-        buttons[1].Click();
+        cut.InvokeAsync(() => buttons[1].Click());
         Assert.Empty(selectedItems);
 
         // InvertSelect
-        buttons[0].Click();
+        cut.InvokeAsync(() => buttons[1].Click());
         Assert.Equal(2, selectedItems.Count);
-        buttons[2].Click();
+
+        // Clear
+        cut.InvokeAsync(() => buttons[2].Click());
         Assert.Empty(selectedItems);
     }
 
@@ -249,7 +251,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsPopover_Flase()
+    public void IsPopover_False()
     {
         var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
         {
