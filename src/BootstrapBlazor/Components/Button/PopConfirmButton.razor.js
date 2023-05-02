@@ -68,11 +68,11 @@ export function init(id) {
 
     confirm.checkCancel = el => {
         // check button
-        let self = confirm.el === el || el.closest('.dropdown-toggle') === confirm.el
+        let self = el === confirm.el || el.closest('.dropdown-toggle') === confirm.el
         self = self && confirm.popover && confirm.popover._isShown()
 
         // check popover
-        self = self || el.closest(config.popoverSelector)
+        self = self || el.closest('.pop-confirm') || el.closest(config.popoverSelector)
         return self
     }
 
@@ -92,15 +92,21 @@ export function init(id) {
     }
 
     if (!window.bb_confirm) {
-        window.bb_confirm = true
-
+        window.bb_confirm = { 
+            handle: false,
+            items: []
+        }
+    }
+    if (!window.bb_confirm.handle) {
+        window.bb_confirm.handle = true
         EventHandler.on(document, 'click', confirm.closeConfirm);
     }
+    window.bb_confirm.items.push(id)
 }
 
 const toggle = id => {
     const confirm = Data.get(id)
-    if (confirm && confiirm.popover) {
+    if (confirm && confirm.popover) {
         confirm.popover.toggle()
     }
 }
@@ -135,6 +141,11 @@ export function dispose(id) {
     Data.remove(id)
 
     if (confirm) {
+        window.bb_confirm.items.pop(id)
+        if (window.bb_confirm.items.length === 0) {
+            delete window.bb_confirm
+            EventHandler.off(document, 'click', confirm.closeConfirm)
+        }
         if (confirm.popover) {
             confirm.popover.dispose()
         }
