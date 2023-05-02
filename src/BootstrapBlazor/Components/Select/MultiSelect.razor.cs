@@ -12,10 +12,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class MultiSelect<TValue>
 {
-    [NotNull]
-    private List<SelectedItem>? DataSource { get; set; }
-
-    private IEnumerable<SelectedItem> SelectedItems => DataSource.Where(i => i.Active);
+    private List<SelectedItem> SelectedItems { get; } = new();
 
     private static string? ClassString => CssBuilder.Default("select dropdown multi-select")
         .Build();
@@ -69,6 +66,7 @@ public partial class MultiSelect<TValue>
     /// 获得/设置 搜索文本发生变化时回调此方法
     /// </summary>
     [Parameter]
+    [NotNull]
     public Func<string, IEnumerable<SelectedItem>>? OnSearchTextChanged { get; set; }
 
     /// <summary>
@@ -135,6 +133,8 @@ public partial class MultiSelect<TValue>
     [NotNull]
     private IStringLocalizer<MultiSelect<TValue>>? Localizer { get; set; }
 
+    private string? PreviousValue { get; set; }
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
@@ -152,25 +152,15 @@ public partial class MultiSelect<TValue>
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectClearIcon);
 
         ResetItems();
-
         OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison.OrdinalIgnoreCase));
-
         ResetRules();
-    }
-
-    /// <summary>
-    /// OnParametersSetAsync 方法
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task OnParametersSetAsync()
-    {
-        await base.OnParametersSetAsync();
 
         // 通过 Value 对集合进行赋值
-        var list = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
-        foreach (var item in Items)
+        if (PreviousValue != CurrentValueAsString)
         {
-            item.Active = list.Any(i => i.Equals(item.Value, StringComparison.OrdinalIgnoreCase));
+            var list = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
+            SelectedItems.Clear();
+            SelectedItems.AddRange(GetData().Where(item => list.Any(i => i == item.Value)));
         }
     }
 
@@ -198,30 +188,27 @@ public partial class MultiSelect<TValue>
     {
         if (!IsDisabled)
         {
-            var d = DataSource.FirstOrDefault(i => i.Value == val);
-            if (d != null)
+            var item = SelectedItems.FirstOrDefault(i => i.Value == val);
+            if (item != null)
             {
-                d.Active = !d.Active;
+                SelectedItems.Remove(item);
+            }
+            else
+            {
+                var d = GetData().FirstOrDefault(i => i.Value == val);
+                if (d != null)
+                {
+                    SelectedItems.Add(d);
+                }
             }
 
             // 更新选中值
             await SetValue();
-
-            await TriggerSelectedItemChanged();
-
             StateHasChanged();
         }
     }
 
     private string? GetValueString(SelectedItem item) => IsPopover ? item.Value : null;
-
-    private async Task TriggerSelectedItemChanged()
-    {
-        if (OnSelectedItemsChanged != null)
-        {
-            await OnSelectedItemsChanged.Invoke(SelectedItems);
-        }
-    }
 
     private int _min;
     private int _max;
@@ -261,7 +248,7 @@ public partial class MultiSelect<TValue>
         {
             var t = typeValue.IsGenericType ? typeValue.GenericTypeArguments[0] : typeValue.GetElementType()!;
             var listType = typeof(List<>).MakeGenericType(t);
-            var instance = (IList)Activator.CreateInstance(listType, SelectedItems.Count())!;
+            var instance = (IList)Activator.CreateInstance(listType, SelectedItems.Count)!;
 
             foreach (var item in SelectedItems)
             {
@@ -281,42 +268,34 @@ public partial class MultiSelect<TValue>
             await ValidatePropertyAsync(CurrentValue, validationContext, validationResults);
             ToggleMessage(validationResults, true);
         }
+
+        if (OnSelectedItemsChanged != null)
+        {
+            await OnSelectedItemsChanged.Invoke(SelectedItems);
+        }
+
+        PreviousValue = CurrentValueAsString;
     }
 
     private async Task Clear()
     {
-        foreach (var item in Items)
-        {
-            item.Active = false;
-        }
-
+        SelectedItems.Clear();
         await SetValue();
-
-        await TriggerSelectedItemChanged();
     }
 
     private async Task SelectAll()
     {
-        foreach (var item in GetData())
-        {
-            item.Active = true;
-        }
-
+        SelectedItems.Clear();
+        SelectedItems.AddRange(GetData());
         await SetValue();
-
-        await TriggerSelectedItemChanged();
     }
 
     private async Task InvertSelect()
     {
-        foreach (var item in GetData())
-        {
-            item.Active = !item.Active;
-        }
-
+        var items = GetData().Where(item => !SelectedItems.Any(i => i.Value == item.Value)).ToList();
+        SelectedItems.Clear();
+        SelectedItems.AddRange(items);
         await SetValue();
-
-        await TriggerSelectedItemChanged();
     }
 
     private bool GetCheckedState(SelectedItem item) => SelectedItems.Any(i => i.Value == item.Value);
@@ -326,7 +305,7 @@ public partial class MultiSelect<TValue>
         var ret = true;
         if (Max > 0)
         {
-            ret = SelectedItems.Count() < Max || GetCheckedState(item);
+            ret = SelectedItems.Count < Max || GetCheckedState(item);
         }
         return ret;
     }
@@ -344,9 +323,9 @@ public partial class MultiSelect<TValue>
     private IEnumerable<SelectedItem> GetData()
     {
         var data = Items;
-        if (ShowSearch && !string.IsNullOrEmpty(SearchText) && OnSearchTextChanged != null)
+        if (ShowSearch && !string.IsNullOrEmpty(SearchText))
         {
-            data = OnSearchTextChanged(SearchText).ToList();
+            data = OnSearchTextChanged(SearchText);
         }
         return data;
     }
@@ -388,7 +367,5 @@ public partial class MultiSelect<TValue>
                 Items = Enumerable.Empty<SelectedItem>();
             }
         }
-
-        DataSource = Items.ToList();
     }
 }
