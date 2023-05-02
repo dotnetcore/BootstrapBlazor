@@ -36,6 +36,10 @@ export default {
             viewer.el.classList.add('show')
         }
 
+        viewer.updatePrevList = prevList => {
+            viewer.prevList = prevList
+        }
+
         viewer.resetImage = () => {
             viewer.prevImg.classList.add('transition-none')
             viewer.prevImg.style.transform = 'scale(1) rotate(0deg)'
