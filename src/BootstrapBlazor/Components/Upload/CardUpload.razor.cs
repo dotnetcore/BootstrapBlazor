@@ -73,6 +73,12 @@ public partial class CardUpload<TValue>
     [Parameter]
     public string? ZoomIcon { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否显示放大按钮 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowZoomButton { get; set; } = true;
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }

@@ -755,9 +755,38 @@ public class UploadTest : BootstrapBlazorTestBase
             });
         });
 
-        var button = cut.FindAll(".btn-secondary");
-        await cut.InvokeAsync(() => button[1].Click());
+        var button = cut.Find(".btn-download");
+        await cut.InvokeAsync(() => button.Click());
         Assert.True(clicked);
+    }
+
+    [Fact]
+    public async Task CardUpload_ShowZoom()
+    {
+        var clicked = false;
+        var cut = Context.RenderComponent<CardUpload<string>>(pb =>
+        {
+            pb.Add(a => a.ShowZoomButton, true);
+            pb.Add(a => a.OnZoomAsync, file =>
+            {
+                clicked = true;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.DefaultFileList, new List<UploadFile>()
+            {
+                new UploadFile() { FileName  = "Test-File1.text" }
+            });
+        });
+
+        var button = cut.Find(".btn-zoom");
+        await cut.InvokeAsync(() => button.Click());
+        Assert.True(clicked);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowZoomButton, false);
+        });
+        cut.DoesNotContain("btn-zoom");
     }
 
     [Fact]
