@@ -230,7 +230,8 @@ public class MultiSelectTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => buttons[1].Click());
         Assert.Equal(2, selectedItems.Count);
 
-        cut.InvokeAsync(() => buttons[1].Click());
+        // Clear
+        cut.InvokeAsync(() => buttons[2].Click());
         Assert.Empty(selectedItems);
     }
 
@@ -250,7 +251,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsPopover_Flase()
+    public void IsPopover_False()
     {
         var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
         {
