@@ -31,7 +31,7 @@ public class NotificationService : IAsyncDisposable
         Interop = DotNetObjectReference.Create(this);
     }
 
-    private Task<JSModule> LoadModule() => JSRuntime.LoadModule("./_content/BootstrapBlazor/modules/noti.js", false);
+    private Task<JSModule> LoadModule() => JSRuntime.LoadModule("./_content/BootstrapBlazor/modules/noti.js");
 
     /// <summary>
     /// 检查浏览器通知权限状态

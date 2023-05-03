@@ -46,7 +46,7 @@ public class WebClientService : IAsyncDisposable
         {
             RequestUrl = Navigation.Uri
         };
-        Module ??= await JSRuntime.LoadModule("./_content/BootstrapBlazor/modules/client.js", false);
+        Module ??= await JSRuntime.LoadModule("./_content/BootstrapBlazor/modules/client.js");
         Interop ??= DotNetObjectReference.Create(this);
         await Module.InvokeVoidAsync("ping", "ip.axd", Interop, nameof(SetData));
 

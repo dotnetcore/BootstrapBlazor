@@ -27,7 +27,7 @@ class DefaultGeoLocationService : IGeoLocationService
         Interop = DotNetObjectReference.Create(this);
     }
 
-    private Task<JSModule> LoadModule() => JSRuntime.LoadModule("./_content/BootstrapBlazor/modules/geo.js", false);
+    private Task<JSModule> LoadModule() => JSRuntime.LoadModule("./_content/BootstrapBlazor/modules/geo.js");
 
     /// <summary>
     /// get the current position of the device
@@ -53,7 +53,7 @@ class DefaultGeoLocationService : IGeoLocationService
             await ClearWatchPositionAsync(WatchId);
         }
         WatchPositionCallback = callback;
-        WatchId = await Module.InvokeAsync<long>("watchPosition", Interop, nameof(WatchlocationPositionCallback));
+        WatchId = await Module.InvokeAsync<long>("watchPosition", Interop, nameof(WatchCallback));
         return WatchId;
     }
 
@@ -73,7 +73,7 @@ class DefaultGeoLocationService : IGeoLocationService
     /// <param name="position"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task WatchlocationPositionCallback(GeolocationPosition position)
+    public async Task WatchCallback(GeolocationPosition position)
     {
         LastPosition = position;
 
