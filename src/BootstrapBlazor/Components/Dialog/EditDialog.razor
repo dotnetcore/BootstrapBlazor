@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TModel
 @inherits DialogBase<TModel>
-@attribute [JSModuleAutoLoader("Dialog/EditDialog.razor.js", Relative = false, AutoInvokeInit = false, AutoInvokeDispose = false)]
+@attribute [BootstrapModuleAutoLoader("Dialog/EditDialog.razor.js", AutoInvokeInit = false, AutoInvokeDispose = false)]
 
 <ValidateForm Model="@Model" OnValidSubmit="@OnValidSubmitAsync" DisableAutoSubmitFormByEnter="@DisableAutoSubmitFormByEnter">
     @if (BodyTemplate != null)

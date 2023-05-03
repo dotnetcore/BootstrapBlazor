@@ -34,8 +34,8 @@ public class GeolocationTest : BootstrapBlazorTestBase
         });
 
         // test callback
-        // WatchlocationPositionCallback
-        var mi = server.GetType().GetMethod("WatchlocationPositionCallback")!;
+        // WatchCallback
+        var mi = server.GetType().GetMethod("WatchCallback")!;
         mi.Invoke(server, new object[] { new GeolocationPosition() { Latitude = 100, LastLat = 50 } });
         Assert.True(called);
 

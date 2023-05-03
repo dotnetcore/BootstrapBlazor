@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// BootstrapInputBase 组件基类
 /// </summary>
-[JSModuleAutoLoader("Input/BootstrapInput.razor.js", JSObjectReference = true, Relative = false, AutoInvokeInit = false)]
+[BootstrapModuleAutoLoader("Input/BootstrapInput.razor.js", JSObjectReference = true, AutoInvokeInit = false)]
 public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
 {
     /// <summary>

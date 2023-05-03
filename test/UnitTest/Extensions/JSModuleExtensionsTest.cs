@@ -9,13 +9,11 @@ namespace UnitTest.Extensions;
 
 public class JSModuleExtensionsTest : BootstrapBlazorTestBase
 {
-    [Theory]
-    [InlineData(true)]
-    [InlineData(false)]
-    public async Task LoadModule_Ok(bool relative)
+    [Fact]
+    public async Task LoadModule_Ok()
     {
         var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
-        await jsRuntime.LoadModule("./mock.js", relative);
+        await jsRuntime.LoadModule("./mock.js");
     }
 
     [Fact]

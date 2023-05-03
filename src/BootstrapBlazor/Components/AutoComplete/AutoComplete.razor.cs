@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// AutoComplete 组件
 /// </summary>
-[JSModuleAutoLoader("AutoComplete/AutoComplete.razor.js", JSObjectReference = true, Relative = false)]
+[BootstrapModuleAutoLoader("AutoComplete/AutoComplete.razor.js", JSObjectReference = true)]
 public partial class AutoComplete
 {
     private bool IsLoading { get; set; }
