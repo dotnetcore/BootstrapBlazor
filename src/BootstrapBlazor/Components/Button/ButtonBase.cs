@@ -37,7 +37,7 @@ public abstract class ButtonBase : TooltipWrapperBase
     protected string DisabledString => IsDisabled ? "true" : "false";
 
     /// <summary>
-    /// 获得 按钮 tabindex 属性
+    /// 获得 按钮 tab index 属性
     /// </summary>
     protected string? Tab => IsDisabled ? "-1" : null;
 

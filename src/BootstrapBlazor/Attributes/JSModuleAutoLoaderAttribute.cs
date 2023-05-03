@@ -13,22 +13,12 @@ public class JSModuleAutoLoaderAttribute : Attribute
     /// <summary>
     /// 获得 Name 属性
     /// </summary>
-    public string? Path { get; }
-
-    /// <summary>
-    /// 获得 模块名称
-    /// </summary>
-    public string? ModuleName { get; set; }
+    public string Path { get; }
 
     /// <summary>
     /// Represents a reference to a JavaScript object Default value false
     /// </summary>
     public bool JSObjectReference { get; set; }
-
-    /// <summary>
-    /// 获得/设置 脚本路径是否为相对路径 默认 true
-    /// </summary>
-    public bool Relative { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 是否自动调用 init 默认 true
@@ -44,7 +34,7 @@ public class JSModuleAutoLoaderAttribute : Attribute
     /// 构造函数
     /// </summary>
     /// <param name="path"></param>
-    public JSModuleAutoLoaderAttribute(string? path = null)
+    public JSModuleAutoLoaderAttribute(string path)
     {
         Path = path;
     }
