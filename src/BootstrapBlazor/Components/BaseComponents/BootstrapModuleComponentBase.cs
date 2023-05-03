@@ -19,7 +19,6 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// <summary>
     /// 获得/设置 脚本路径
     /// </summary>
-    [NotNull]
     protected string? ModulePath { get; set; }
 
     /// <summary>
@@ -53,7 +52,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// <param name="firstRender"></param>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        if (firstRender && !string.IsNullOrEmpty(ModulePath))
         {
             Module ??= await JSRuntime.LoadModule(ModulePath);
 
@@ -76,7 +75,6 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
             var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>();
             if (attr != null)
             {
-                ModulePath = attr.Path;
                 AutoInvokeDispose = attr.AutoInvokeDispose;
                 AutoInvokeInit = attr.AutoInvokeInit;
 
@@ -84,6 +82,8 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
                 {
                     Interop = DotNetObjectReference.Create(this);
                 }
+
+                ModulePath = attr is BootstrapModuleAutoLoaderAttribute loader ? loader.LoadModulePath(type) : attr.Path;
             }
         }
     }

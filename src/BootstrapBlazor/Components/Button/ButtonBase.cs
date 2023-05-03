@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Button 按钮组件
 /// </summary>
-[JSModuleAutoLoader("Button/Button.razor.js", Relative = false, AutoInvokeInit = false)]
+[BootstrapModuleAutoLoader("Button/Button.razor.js", AutoInvokeInit = false)]
 public abstract class ButtonBase : TooltipWrapperBase
 {
     /// <summary>

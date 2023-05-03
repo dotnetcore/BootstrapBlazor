@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// AutoRedirect component
 /// </summary>
-[JSModuleAutoLoader(ModuleName = "autoredirect", JSObjectReference = true)]
+[BootstrapModuleAutoLoader(ModuleName = "autoredirect", JSObjectReference = true)]
 public class AutoRedirect : BootstrapModuleComponentBase
 {
     /// <summary>

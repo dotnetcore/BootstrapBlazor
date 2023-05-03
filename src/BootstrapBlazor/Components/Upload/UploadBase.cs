@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Upload 组件基类
 /// </summary>
-[JSModuleAutoLoader(ModuleName = "upload")]
+[BootstrapModuleAutoLoader(ModuleName = "upload")]
 public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 {
     /// <summary>
