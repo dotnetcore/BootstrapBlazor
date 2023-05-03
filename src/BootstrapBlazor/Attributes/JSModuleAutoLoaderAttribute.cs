@@ -13,7 +13,7 @@ public class JSModuleAutoLoaderAttribute : Attribute
     /// <summary>
     /// 获得 Name 属性
     /// </summary>
-    public string Path { get; }
+    public string? Path { get; }
 
     /// <summary>
     /// Represents a reference to a JavaScript object Default value false
@@ -34,7 +34,7 @@ public class JSModuleAutoLoaderAttribute : Attribute
     /// 构造函数
     /// </summary>
     /// <param name="path"></param>
-    public JSModuleAutoLoaderAttribute(string path)
+    public JSModuleAutoLoaderAttribute(string? path = null)
     {
         Path = path;
     }
