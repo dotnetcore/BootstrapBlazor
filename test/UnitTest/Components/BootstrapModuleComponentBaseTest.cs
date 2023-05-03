@@ -25,7 +25,7 @@ public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
         Assert.True(cut.Instance.InvokeRunner);
     }
 
-    [JSModuleAutoLoader("")]
+    [JSModuleAutoLoader("mock.js")]
     class MockComponent : BootstrapModuleComponentBase
     {
         public bool InvokeVoidRunner { get; set; }
@@ -42,7 +42,7 @@ public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
         }
     }
 
-    [JSModuleAutoLoader("", JSObjectReference = true, AutoInvokeDispose = true, AutoInvokeInit = true)]
+    [JSModuleAutoLoader("mock.js", JSObjectReference = true, AutoInvokeDispose = true, AutoInvokeInit = true)]
     class MockObjectReferenceComponent : BootstrapModuleComponentBase
     {
         public bool InvokeRunner { get; set; }
