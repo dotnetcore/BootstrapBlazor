@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Shared.Components;
 
 /// <summary>
-/// JSModuleComponentBase 组件
+/// WebSiteModuleComponentBase 组件
 /// </summary>
 public abstract class WebSiteModuleComponentBase : BootstrapModuleComponentBase
 {
