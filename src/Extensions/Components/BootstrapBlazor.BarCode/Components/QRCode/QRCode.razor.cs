@@ -24,6 +24,12 @@ public partial class QRCode : IAsyncDisposable
     public Func<Task>? OnGenerated { get; set; }
 
     /// <summary>
+    /// 获得/设置 二维码清除后回调委托
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnCleared { get; set; }
+
+    /// <summary>
     /// 获得/设置 PlaceHolder 文字
     /// </summary>
     [Parameter]
@@ -133,30 +139,35 @@ public partial class QRCode : IAsyncDisposable
             Interop = DotNetObjectReference.Create(this);
             await Module.InvokeVoidAsync("init", Element, Interop, Content, nameof(Generated));
         }
-        else
-        {
-            await Generate();
-        }
-    }
-
-
-    private async Task Clear()
-    {
-        Content = "";
-        await Generate();
-    }
-
-    private async Task Generate()
-    {
-        if (_content != Content)
+        else if (_content != Content)
         {
             _content = Content;
             await Module.InvokeVoidAsync("update", Element, Content);
         }
     }
 
+    private async Task OnClickClear()
+    {
+        Content = "";
+        if (OnCleared != null)
+        {
+            await OnCleared();
+        }
+    }
+
+    private Task OnClickGenerate()
+    {
+        return Task.CompletedTask;
+    }
+
+    private Task OnValueChanged(string? v)
+    {
+        Content = v;
+        return Task.CompletedTask;
+    }
+
     /// <summary>
-    ///
+    /// 二维码生成后回调方法由 JavaScript 调用
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
