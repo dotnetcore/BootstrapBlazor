@@ -85,6 +85,13 @@ public sealed partial class QRCodes
             Type = "Func<Task>",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = nameof(QRCode.OnCleared),
+            Description = Localizer[nameof(QRCode.OnCleared)],
+            Type = "Func<Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     };
 }

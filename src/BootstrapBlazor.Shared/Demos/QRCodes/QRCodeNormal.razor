@@ -1,18 +1,21 @@
 ﻿@inject IStringLocalizer<QRCodes> Localizer
 
-<QRCode OnGenerated="OnGenerated" ShowButtons="true"></QRCode>
+<QRCode OnGenerated="OnGenerated" OnCleared="OnCleared" ShowButtons="true"></QRCode>
 <ConsoleLogger @ref="Logger" class="mt-3" />
 
 @code {
-    [NotNull]
-    private string? SuccessText { get; set; }
-
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
     private Task OnGenerated()
     {
-        Logger.Log(Localizer[nameof(SuccessText)]);
+        Logger.Log(Localizer["SuccessText"]);
+        return Task.CompletedTask;
+    }
+
+    private Task OnCleared()
+    {
+        Logger.Log(Localizer["ClearText"]);
         return Task.CompletedTask;
     }
 }
