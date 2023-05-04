@@ -4773,7 +4773,7 @@
     "QRCodesColorTitle": "颜色",
     "QRCodesColorIntro": "通过 <code>DarkColor</code> 参数指定二维码黑色部分颜色，<code>LightColor</code> 参数指定二维码白色部分颜色",
     "SuccessText": "二维码生成成功",
-    "ClearText": "二维码生成成功",
+    "ClearText": "二维码清除成功",
     "OnGenerated": "二维码生成后回调委托",
     "OnCleared": "二维码清除后回调委托",
     "Width": "大小",
