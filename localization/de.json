@@ -5,7 +5,7 @@
   },
   "BootstrapBlazor.Components.Captcha": {
     "HeaderText": "Captcha",
-    "BarText": "Schiebe nach rechts und befülle das Puzzle",
+    "BarText": "Schieben Sie nach rechts und befüllen Sie das Puzzle",
     "FailedText": "Laden fehlgeschlagen",
     "LoadText": "Lade ...",
     "TryText": "Erneut versuchen"
@@ -32,7 +32,7 @@
     "WeekHeaderText": "",
     "WeekLists": "Son,Mon,Die,Mit,Don,Fre,Sam",
     "WeekNumberText": "{0} Woche(n)",
-    "Months": "Januar,Februar,März,April,Mai,Juni,July,August,September,Oktober,November,Dezember",
+    "Months": "Januar,Februar,März,April,Mai,Juni,Juli,August,September,Oktober,November,Dezember",
     "Title": "{0} {1}"
   },
   "BootstrapBlazor.Components.Cascader": {
@@ -50,8 +50,8 @@
     "DateTimePlaceHolderText": "Bitte auswählen ...",
     "DatePlaceHolderText": "Bitte auswählen ...",
     "TimeFormat": "hh\\:mm\\:ss",
-    "DateFormat": "M/d/yyyy",
-    "DateTimeFormat": "M/d/yyyy HH\\:mm\\:ss",
+    "DateFormat": "dd\\.MM\\.yyyy",
+    "DateTimeFormat": "dd\\.MM\\.yyyy HH\\:mm\\:ss",
     "AiraPrevYearLabel": "Vorheriges Jahr",
     "AiraNextYearLabel": "Nächstes Jahr",
     "AiraPrevMonthLabel": "Vorheriger Monat",
@@ -63,10 +63,10 @@
     "YearText": "{0}",
     "MonthText": "{0}",
     "YearPeriodText": "{0} - {1}",
-    "Months": "Januar,Februar,März,April,Mai,Juni,July,August,September,Oktober,November,Dezember",
-    "MonthLists": "Jan,Feb,Mar,Apr,Maiy,Jun,Jul,Aug,Sep,Okt,Nov,Dez",
+    "Months": "Januar,Februar,März,April,Mai,Juni,Juli,August,September,Oktober,November,Dezember",
+    "MonthLists": "Jan,Feb,Mar,Apr,Mai,Jun,Jul,Aug,Sep,Okt,Nov,Dez",
     "WeekLists": "Son,Mon,Die,Mit,Don,Fre,Sam",
-    "GenericTypeErroMessage": "DateTimePicker only support DateTime or Nullable<DateTime>",
+    "GenericTypeErroMessage": "DateTimePicker unterstützt nur DateTime oder Nullable<DateTime>",
     "Today": "Heute",
     "Yesterday": "Gestern",
     "Week": "Eine Woche zuvor"
@@ -78,14 +78,14 @@
     "ClearButtonText": "Leeren",
     "TodayButtonText": "Heute",
     "ConfirmButtonText": "Ok",
-    "DateFormat": "M/d/yyyy",
-    "Last7Days": "Letzten 7 Tage",
-    "Last30Days": "Letzten 30 Tage",
+    "DateFormat": "dd\\.MM\\.yyyy",
+    "Last7Days": "Letzte 7 Tage",
+    "Last30Days": "Letzte 30 Tage",
     "ThisMonth": "Dieser Monat",
     "LastMonth": "Letzter Monat"
   },
   "BootstrapBlazor.Components.BootstrapInputNumber": {
-    "ParsingErrorMessage": "Das {0} Feld muss eine Nummer sein."
+    "ParsingErrorMessage": "Das {0} Feld muss eine Zahl sein."
   },
   "BootstrapBlazor.Components.ResultDialogOption": {
     "ButtonYesText": "Ja",
@@ -96,7 +96,7 @@
     "PlaceHolder": "Bitte auswählen ..."
   },
   "BootstrapBlazor.Components.Editor": {
-    "PlaceHolder": "Klicken zum bearbeiten"
+    "PlaceHolder": "Klicken zum Bearbeiten"
   },
   "BootstrapBlazor.Components.EditorForm": {
     "ModelInvalidOperationExceptionMessage": "Validationsform Model entspricht nicht {0} Model",
@@ -106,16 +106,16 @@
     "Text": "Keine Daten"
   },
   "BootstrapBlazor.Components.EqualToValidator": {
-    "ErrorMessage": "Bitte gebe den selben Wert nochmals ein"
+    "ErrorMessage": "Bitte geben Sie denselben Wert nochmals ein"
   },
   "BootstrapBlazor.Components.ErrorLogger": {
-    "ToastTitle": "Applikationserror"
+    "ToastTitle": "Anwendungfehler"
   },
   "BootstrapBlazor.Components.GoTop": {
-    "TooltipText": "Geh nach oben"
+    "TooltipText": "Nach oben"
   },
   "BootstrapBlazor.Components.Layout": {
-    "TooltipText": "Klicken um sidebar auf- bzw. zuzuklappen"
+    "TooltipText": "Klicken um Sidebar auf- bzw. zuzuklappen"
   },
   "BootstrapBlazor.Components.Logout": {
     "PrefixDisplayNameText": "Willkommen",
@@ -125,7 +125,7 @@
     "Text": "Ausloggen"
   },
   "BootstrapBlazor.Components.Menu": {
-    "InvalidOperationExceptionMessage": "Sidemenu component cannot be used independently. Please use Menu component to set IsVertical = true"
+    "InvalidOperationExceptionMessage": "Sidemenu-Komponente kann nicht unabhängig verwendet werden. Bitte verwensen Sie die Menu Komponente, um IsVertical = true zu setzen"
   },
   "BootstrapBlazor.Components.ModalDialog": {
     "CloseButtonText": "Schließen",
@@ -133,20 +133,20 @@
     "PrintButtonText": "Drucken"
   },
   "BootstrapBlazor.Components.MultiSelect": {
-    "PlaceHolder": "Klicken für auswählen ...",
+    "PlaceHolder": "Klicken, um auszuwählen ...",
     "SelectAllText": "Alle",
     "ReverseSelectText": "Umkehren",
     "ClearText": "Leeren",
-    "MinErrorMessage": "Wähle wenigstens {0} Elemente",
+    "MinErrorMessage": "Wählen Sie wenigstens {0} Elemente",
     "MaxErrorMessage": "Es können maximal {0} Elemente selektiert werden"
   },
   "BootstrapBlazor.Components.Pagination": {
-    "GotoNavigatorLabelText": "Goto"
+    "GotoNavigatorLabelText": "Zu"
   },
   "BootstrapBlazor.Components.PopConfirmButton": {
     "CloseButtonText": "Abbrechen",
     "ConfirmButtonText": "Ok",
-    "Content": "Bist du sicher diese Aktion durchzuführen?"
+    "Content": "Wollen Sie diese Aktion wirklich durchführen?"
   },
   "BootstrapBlazor.Components.PrintButton": {
     "Text": "Drucken"
@@ -155,13 +155,13 @@
     "SearchButtonText": "Suchen"
   },
   "BootstrapBlazor.Components.Select": {
-    "PlaceHolder": "Klicken für auswählen ..."
+    "PlaceHolder": "Zum Auswählen klicken ..."
   },
   "BootstrapBlazor.Components.SelectTree": {
-    "PlaceHolder": "Klicken für auswählen ..."
+    "PlaceHolder": "Zum Auswählen klicken ..."
   },
   "BootstrapBlazor.Components.StringLengthValidator": {
-    "ErrorMessage": "Bitte geben Sie ein Wert kleiner oder gleich {{0}}"
+    "ErrorMessage": "Bitte geben Sie einen Wert kleiner oder gleich {{0}} ein"
   },
   "BootstrapBlazor.Components.SweetAlert": {
     "CloseButtonText": "Schließen",
@@ -175,7 +175,7 @@
   "BootstrapBlazor.Components.Tab": {
     "CloseCurrentTabText": "Abbrechen",
     "CloseOtherTabsText": "Andere schließen",
-    "CloseAllTabsText": "Schließe alle",
+    "CloseAllTabsText": "Alle schließen",
     "NotFoundTabText": "Nicht gefunden"
   },
   "BootstrapBlazor.Components.Table": {
@@ -188,10 +188,10 @@
     "CloseButtonText": "Schließen",
     "CancelDeleteButtonText": "Abbrechen",
     "ConfirmDeleteButtonText": "Löschen",
-    "ConfirmDeleteContentText": "Sind Sie sicher alle ausgwählten Zeilen zu löschen?",
+    "ConfirmDeleteContentText": "Sind Sie sicher, dass alle ausgwählten Zeilen gelöscht werden sollen?",
     "RefreshButtonText": "Aktualisieren",
     "CardViewButtonText": "Ansicht",
-    "ColumnButtonTitleText": "Zeige/Verstecke Spalten",
+    "ColumnButtonTitleText": "Spalten anzeigen/verbergen",
     "ColumnButtonText": "Spalten",
     "ExportButtonText": "Export",
     "SearchPlaceholderText": "Suchen",
@@ -218,18 +218,18 @@
     "SuccessText": "Erfolgreich",
     "FailText": "Fehlgeschlagen",
     "DeleteButtonToastTitle": "Daten löschen",
-    "DeleteButtonToastContent": "Bitte markiere zu löschende Zeilen, Fenster schließt nach {0}s",
+    "DeleteButtonToastContent": "Bitte markieren Sie die zu löschenden Zeilen, Fenster schließt nach {0}s",
     "DeleteButtonToastResultContent": "Lösche Daten {0}, Fenster schließt nach {1}s",
     "DeleteButtonToastCanNotDeleteContent": "Die makierten Daten sind nicht löschbar, Fenster schließt nach {0}s",
-    "DataServiceInvalidOperationText": "Cannot provide a value for property 'DataService' on type 'BootstrapBlazor.Components.Table`1[[{0}]]'. There is no registered service of type 'BootstrapBlazor.Components.IDataService`1[{0}]'.",
-    "NotSetOnTreeExpandErrorMessage": "not set OnTreeExpand parameter",
+    "DataServiceInvalidOperationText": "Wert für Eigenschaft 'DataService' in 'BootstrapBlazor.Components.Table`1[[{0}]]' kann nicht bereitgestellt werden. Es ist kein Service vom Typ 'BootstrapBlazor.Components.IDataService`1[{0}]' registriert.",
+    "NotSetOnTreeExpandErrorMessage": "OnTreeExpand-Parameter ist nicht gesetzt",
     "UnsetText": "Aufsteigend",
     "SortAscText": "Absteigend",
     "SortDescText": "Keine",
     "EmptyText": "Keine Daten",
     "ExportToastTitle": "Daten exportieren",
-    "ExportToastContent": "Daten exportieren {0}, Automatisches Schließen in {1} Sekunden",
-    "ExportToastInProgressContent": "Daten exportieren, Automatisches Schließen in {0} Sekunden",
+    "ExportToastContent": "Daten exportieren {0}, automatisches Schließen in {1} Sekunden",
+    "ExportToastInProgressContent": "Daten exportieren, automatisches Schließen in {0} Sekunden",
     "ExportExcelDropdownItemText": "MS-Excel",
     "PageInfoText": "{0} - {1} Total {2}",
     "PageItemsText": "{0}/page"
@@ -286,7 +286,7 @@
     "Text": "Liste"
   },
   "BootstrapBlazor.Components.Tree": {
-    "NotSetOnTreeExpandErrorMessage": "not set OnExpandNodeAsync parameter"
+    "NotSetOnTreeExpandErrorMessage": "OnExpandNodeAsync-Parameter nicht gesetzt"
   },
   "BootstrapBlazor.Components.UploadBase": {
     "DeleteButtonText": "Löschen",
