@@ -115,7 +115,7 @@
     "TooltipText": "Nach oben"
   },
   "BootstrapBlazor.Components.Layout": {
-    "TooltipText": "Klicken um Sidebar auf- bzw. zuzuklappen"
+    "TooltipText": "Klicken, um Sidebar auf- bzw. zuzuklappen"
   },
   "BootstrapBlazor.Components.Logout": {
     "PrefixDisplayNameText": "Willkommen",
@@ -125,7 +125,7 @@
     "Text": "Ausloggen"
   },
   "BootstrapBlazor.Components.Menu": {
-    "InvalidOperationExceptionMessage": "Sidemenu-Komponente kann nicht unabhängig verwendet werden. Bitte verwensen Sie die Menu Komponente, um IsVertical = true zu setzen"
+    "InvalidOperationExceptionMessage": "Sidemenu-Komponente kann nicht unabhängig verwendet werden. Bitte verwenden Sie die Menu Komponente, um IsVertical = true zu setzen"
   },
   "BootstrapBlazor.Components.ModalDialog": {
     "CloseButtonText": "Schließen",
