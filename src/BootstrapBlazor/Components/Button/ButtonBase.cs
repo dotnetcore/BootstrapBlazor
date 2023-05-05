@@ -143,9 +143,12 @@ public abstract class ButtonBase : TooltipWrapperBase
     [CascadingParameter]
     protected ValidateForm? ValidateForm { get; set; }
 
+    /// <summary>
+    /// 获得 IconTheme 实例
+    /// </summary>
     [Inject]
     [NotNull]
-    private IIconTheme? IconTheme { get; set; }
+    protected IIconTheme? IconTheme { get; set; }
 
     /// <summary>
     /// 获得/设置 是否当前正在异步执行操作
