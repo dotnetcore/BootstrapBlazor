@@ -38,7 +38,7 @@ public class FullScreen : BootstrapModuleComponentBase
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>
     protected override async ValueTask DisposeAsync(bool disposing)

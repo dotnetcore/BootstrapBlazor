@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 public class EyeDropper : BootstrapModuleComponentBase
 {
     /// <summary>
-    /// DialogServices 服务实例
+    /// EyeDropperService 服务实例
     /// </summary>
     [Inject]
     [NotNull]
@@ -34,7 +34,7 @@ public class EyeDropper : BootstrapModuleComponentBase
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>
     protected override async ValueTask DisposeAsync(bool disposing)
