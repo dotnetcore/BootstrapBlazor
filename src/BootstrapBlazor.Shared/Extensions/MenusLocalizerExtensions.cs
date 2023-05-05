@@ -470,6 +470,12 @@ internal static class MenusLocalizerExtensions
                     Text=Localizer["Empty"],
                     Url = "empties"
                 },
+                new ()
+                {
+                    IsNew = true,
+                    Text=Localizer["EyeDropper"],
+                    Url = "eye-droppers"
+                },
                 new()
                 {
                     Text = Localizer["FileIcon"],
