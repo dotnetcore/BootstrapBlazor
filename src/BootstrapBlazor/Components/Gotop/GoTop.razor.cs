@@ -7,12 +7,10 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// GoTop 组件
 /// </summary>
-public sealed partial class GoTop
+public partial class GoTop
 {
-    private ElementReference GoTopElement { get; set; }
-
     /// <summary>
     /// 获得/设置 返回顶端 Icon 属性
     /// </summary>
@@ -52,14 +50,9 @@ public sealed partial class GoTop
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Target ?? "");
 
-        if (firstRender) await JSRuntime.InvokeVoidAsync(GoTopElement, "bb_gotop", Target ?? "");
-    }
 }
