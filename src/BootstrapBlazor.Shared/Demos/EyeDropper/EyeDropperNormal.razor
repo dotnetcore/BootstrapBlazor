@@ -2,8 +2,8 @@
 
 <Button Text="@Localizer["EyeDropperNormalButtonText"]" OnClick="OnOpen"></Button>
 
-<div class="mt-3">
-    <Display Value="@Value"></Display>
+<div class="mt-3 d-flex">
+    <div style="width: 35px; height: 35px; border: 1px solid var(--bs-border-color); border-radius: var(--bs-border-radius); margin-right: .5rem; background-color: @ValueString"></div><Display Value="@Value"></Display>
 </div>
 
 @code {
@@ -13,8 +13,10 @@
 
     private string? Value { get; set; }
 
+    private string ValueString => Value ?? "#fff";
+
     private async Task OnOpen()
     {
-        Value = await EyeDropperService.Open();
+        Value = await EyeDropperService.PickAsync();
     }
 }
