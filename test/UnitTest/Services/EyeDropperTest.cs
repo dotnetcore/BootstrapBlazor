@@ -14,7 +14,7 @@ public class EyeDropperTest : BootstrapBlazorTestBase
         Context.JSInterop.Setup<string?>("open").SetResult("Ok");
         var service = Context.Services.GetRequiredService<EyeDropperService>();
         var cut = Context.RenderComponent<EyeDropper>();
-        var expected = await service.Open();
+        var expected = await service.PickAsync();
         Assert.Equal("Ok", expected);
     }
 }
