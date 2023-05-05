@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// PrintButton 打印按钮
 /// </summary>
 public partial class PrintButton
 {
@@ -21,14 +21,8 @@ public partial class PrintButton
     [NotNull]
     private IStringLocalizer<PrintButton>? Localizer { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IIconTheme? IconTheme { get; set; }
-
-    private string? Target { get; set; }
-
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -38,22 +32,11 @@ public partial class PrintButton
     }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
-        // 不需要走 base.OnParametersSet 方法
-        AdditionalAttributes ??= new Dictionary<string, object>();
-        if (string.IsNullOrEmpty(PreviewUrl))
-        {
-            AdditionalAttributes.Add("onclick", "$.bb_printview(this)");
-            Target = null;
-        }
-        else
-        {
-            AdditionalAttributes.Remove("onclick", out _);
-            Target = "_blank";
-        }
+        base.OnParametersSet();
 
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.PrintButtonIcon);
         ButtonIcon = Icon;

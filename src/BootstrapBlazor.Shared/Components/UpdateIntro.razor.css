@@ -60,3 +60,9 @@
         height: 24px;
         fill: currentcolor;
     }
+
+@media print {
+    .blazor-intro {
+        display: none;
+    }
+}
