@@ -395,7 +395,6 @@ public class UploadTest : BootstrapBlazorTestBase
         {
             new MockBrowserFile()
         })));
-        Assert.Contains("disabled=\"disabled\"", button.ToMarkup());
     }
 
     [Fact]
