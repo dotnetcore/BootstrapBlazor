@@ -1,0 +1,12 @@
+﻿@page "/eye-droppers"
+@inject IStringLocalizer<EyeDroppers> Localizer
+
+<h3>@Localizer["EyeDropperTitle"]</h3>
+
+<h4>@((MarkupString)Localizer["EyeDropperDescription"].Value)</h4>
+
+<DemoBlock Title="@Localizer["EyeDropperNormalTitle"]"
+           Introduction="@Localizer["EyeDropperNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.EyeDropper.EyeDropperNormal)">
+</DemoBlock>

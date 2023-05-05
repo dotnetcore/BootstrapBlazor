@@ -5080,7 +5080,7 @@
     "SelectTreesEditIntro": "By setting <code>IsEdit=\"true\"</code> you can edit the input textbox",
     "SelectTreesIsPopoverTitle": "IsPopover",
     "SelectTreesIsPopoverIntro": "Set <code>IsPopover</code> to <b>true</b>, use popover render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>",
-    "SelectTreesClientValidationButtonText": "提交"
+    "SelectTreesClientValidationButtonText": "Submit"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesDetailRow": {
     "TablesDetailRowTitle": "Display detail line function",
@@ -6229,5 +6229,10 @@
     "Description": "Animates a numerical value by counting to it",
     "CountUpsNormalTitle": "Normal",
     "CountUpsNormalIntro": "Set <code>Value</code>"
+  },
+  "BootstrapBlazor.Shaerd.Samples.EyeDroppers": {
+    "EyeDropperTitle": "EyeDropper",
+    "EyeDropperDescription": "The <code>EyeDropperService</code> provides a mechanism for creating an eyedropper tool. Using this tool, users can sample colors from their screens, including outside of the browser window.",
+    "EyeDropperNormalButtonText": "Pick"
   }
 }

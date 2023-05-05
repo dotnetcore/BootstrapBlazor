@@ -1,0 +1,20 @@
+﻿@inject IStringLocalizer<EyeDroppers> Localizer
+
+<Button Text="@Localizer["EyeDropperNormalButtonText"]" OnClick="OnOpen"></Button>
+
+<div class="mt-3">
+    <Display Value="@Value"></Display>
+</div>
+
+@code {
+    [Inject]
+    [NotNull]
+    private EyeDropperService? EyeDropperService { get; set; }
+
+    private string? Value { get; set; }
+
+    private async Task OnOpen()
+    {
+        Value = await EyeDropperService.Open();
+    }
+}

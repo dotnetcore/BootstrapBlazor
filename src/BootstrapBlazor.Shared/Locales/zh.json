@@ -6242,5 +6242,10 @@
     "Description": "多用于报表数据动态展示，数字以跳动的形式展现",
     "CountUpsNormalTitle": "基础用法",
     "CountUpsNormalIntro": "通过设置 <code>Value</code> 参数赋值"
+  },
+  "BootstrapBlazor.Shaerd.Samples.EyeDroppers": {
+    "EyeDropperTitle": "屏幕取色 EyeDropper",
+    "EyeDropperDescription": "用户可以从屏幕上采样颜色，包括在浏览器窗口之外",
+    "EyeDropperNormalButtonText": "取色"
   }
 }
