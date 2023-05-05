@@ -783,6 +783,9 @@
     @<div class="table-cell">
         <label>@ColumnButtonTemplateHeaderText</label>
         <span class="btn-group">
+            <TableExtensionButton OnClickButton="args => OnClickExtensionButton(item, args)">
+                @BeforeRowButtonTemplate?.Invoke(item)
+            </TableExtensionButton>
             @if (GetShowEditButton(item))
             {
                 <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" Icon="@EditButtonIcon" Text="@EditButtonText"></Button>
