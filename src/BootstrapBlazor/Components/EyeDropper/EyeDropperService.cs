@@ -13,7 +13,7 @@ public class EyeDropperService : BootstrapServiceBase<EyeDropperOption>
     /// 全屏方法，已经全屏时再次调用后退出全屏
     /// </summary>
     /// <returns></returns>
-    public async Task<string?> Open()
+    public async Task<string?> PickAsync()
     {
         var op = new EyeDropperOption();
         await Invoke(op);

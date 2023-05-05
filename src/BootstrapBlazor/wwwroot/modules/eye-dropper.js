@@ -5,6 +5,11 @@
     }
 
     const eyeDropper = new EyeDropper();
-    const result = await eyeDropper.open();
-    return result.sRGBHex;
+    try {
+        const result = await eyeDropper.open();
+        return result.sRGBHex;
+    }
+    catch {
+        return null
+    }
 }

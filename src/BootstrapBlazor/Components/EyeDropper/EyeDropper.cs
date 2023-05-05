@@ -25,10 +25,10 @@ public class EyeDropper : BootstrapModuleComponentBase
         base.OnInitialized();
 
         // 注册 EyeDropperService 弹窗事件
-        EyeDropperService.Register(this, Open);
+        EyeDropperService.Register(this, Pick);
     }
 
-    private async Task Open(EyeDropperOption option)
+    private async Task Pick(EyeDropperOption option)
     {
         option.Value = await InvokeAsync<string>("open");
     }
