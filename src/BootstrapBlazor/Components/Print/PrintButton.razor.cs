@@ -41,5 +41,6 @@ public partial class PrintButton
         base.OnParametersSet();
 
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.PrintButtonIcon);
+        ButtonIcon = Icon;
     }
 }
