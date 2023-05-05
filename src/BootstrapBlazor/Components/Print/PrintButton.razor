@@ -2,7 +2,7 @@
 @inherits ButtonBase
 @attribute [BootstrapModuleAutoLoader("Print/PrintButton.razor.js")]
 
-<a @attributes="@AdditionalAttributes" id="@Id" target="@Target" href="@PreviewUrl" class="@ClassName" disabled="@Disabled" role="button" aria-disabled="@DisabledString" tabindex="@Tab">
+<a @attributes="@AdditionalAttributes" id="@Id" href="@PreviewUrl" class="@ClassName" disabled="@Disabled" role="button" aria-disabled="@DisabledString" tabindex="@Tab">
     @if (!string.IsNullOrEmpty(ButtonIcon))
     {
         <i class="@ButtonIcon"></i>

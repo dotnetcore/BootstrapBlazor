@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// PrintButton 打印按钮
 /// </summary>
 public partial class PrintButton
 {
@@ -21,10 +21,8 @@ public partial class PrintButton
     [NotNull]
     private IStringLocalizer<PrintButton>? Localizer { get; set; }
 
-    private string? Target { get; set; }
-
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -34,7 +32,7 @@ public partial class PrintButton
     }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
