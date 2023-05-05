@@ -51,6 +51,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.AddScoped<ClipboardService>();
         services.AddScoped<ResizeNotificationService>();
         services.AddScoped<NotificationService>();
+        services.AddScoped<EyeDropperService>();
         services.AddTransient<IJSRuntimeEventHandler, JSRuntimeEventHandler>();
         services.AddScoped<IGeoLocationService, DefaultGeoLocationService>();
 

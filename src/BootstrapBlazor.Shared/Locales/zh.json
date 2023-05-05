@@ -4949,6 +4949,7 @@
     "DateTimeRange": "时间范围框 DateTimeRange",
     "Editor": "富文本框 Editor",
     "EditorForm": "表单编辑框 EditorForm",
+    "EyeDropper": "吸色服务 EyeDropper",
     "Input": "输入框 Input",
     "InputNumber": "数字框 InputNumber",
     "InputGroup": "输入组 InputGroup",
@@ -6241,5 +6242,16 @@
     "Description": "多用于报表数据动态展示，数字以跳动的形式展现",
     "CountUpsNormalTitle": "基础用法",
     "CountUpsNormalIntro": "通过设置 <code>Value</code> 参数赋值"
+  },
+  "BootstrapBlazor.Shared.Samples.EyeDroppers": {
+    "EyeDropperTitle": "屏幕取色 EyeDropper",
+    "EyeDropperDescription": "用户可以从屏幕上采样颜色，包括在浏览器窗口之外",
+    "EyeDropperNormalTitle": "基础用法",
+    "EyeDropperNormalIntro": "使用 <code>EyeDropperService</code>，可以启动吸管模式。启动后，光标会发生变化以向用户指示该模式处于活动状态。然后用户可以从屏幕上的任何位置选择一种颜色，通过按 <kbd>Escape</kbd> 关闭吸管模式",
+    "EyeDropperNormalButtonText": "取色",
+    "EyeDropperTips1": "这是一项实验性技术，在生产中使用之前请仔细检查<a href=\"https://developer.mozilla.org/en-US/docs/Web/API/EyeDropper_API#browser_compatibility\" target=\"_blank\">浏览器兼容性表</a>",
+    "EyeDropperTips2": "为防止恶意网站在用户不知情的情况下从用户屏幕获取像素数据，必须由用户操作（如单击按钮）时调用",
+    "EyeDropperTips3": "为了帮助用户更容易注意到吸管模式，浏览器将其设置为显而易见。短暂延迟后，正常的鼠标光标消失，取而代之的是一个放大镜。在滴管模式启动和用户可以选择像素以确保用户有时间查看放大镜之间也存在延迟",
+    "EyeDropperTips4": "用户也可以随时取消吸管模式（按键 <kbd>Escape</kbd>）"
   }
 }
