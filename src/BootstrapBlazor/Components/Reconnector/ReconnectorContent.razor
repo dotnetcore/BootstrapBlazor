@@ -1,5 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits ComponentBase
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader(AutoInvokeInit = false, AutoInvokeDispose = false)]
 
 <div id="components-reconnect-modal">
     <div class="reconnect-state show">
