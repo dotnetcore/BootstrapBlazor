@@ -1,5 +1,9 @@
 ﻿.pre-code {
     position: relative;
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    margin: .5rem;
+    overflow: hidden;
 }
 
 ::deep .btn-primary {
@@ -26,8 +30,6 @@
 code {
     line-height: 1.8;
     font-size: 0.75rem;
-    border: 1px solid var(--bs-border-color);
-    border-radius: var(--bs-border-radius);
     padding: 10px 65px 10px 16px;
     display: block;
     white-space: pre-wrap;
