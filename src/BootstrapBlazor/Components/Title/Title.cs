@@ -27,10 +27,7 @@ public class Title : BootstrapModuleComponentBase
     {
         base.OnInitialized();
 
-        if (string.IsNullOrEmpty(Text))
-        {
-            TitleService.Register(this, SetTitle);
-        }
+        TitleService.Register(this, SetTitle);
     }
 
     /// <summary>
@@ -42,7 +39,10 @@ public class Title : BootstrapModuleComponentBase
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        await SetTitle(new TitleOption() { Title = Text });
+        if (Text != null)
+        {
+            await SetTitle(new TitleOption() { Title = Text });
+        }
     }
 
     private Task SetTitle(TitleOption op) => InvokeVoidAsync("setTitle", op.Title);
