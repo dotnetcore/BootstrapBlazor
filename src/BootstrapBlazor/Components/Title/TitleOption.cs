@@ -4,6 +4,9 @@
 
 namespace BootstrapBlazor.Components;
 
+/// <summary>
+/// TitleOption 配置类
+/// </summary>
 public class TitleOption
 {
     /// <summary>
