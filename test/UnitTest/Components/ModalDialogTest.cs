@@ -68,10 +68,10 @@ public class ModalDialogTest : BootstrapBlazorTestBase
         Assert.Contains("btn-maximize", cut.Markup);
 
         var button = cut.Find(".btn-maximize");
-        button.Click();
+        cut.InvokeAsync(() => button.Click());
         Assert.Contains("modal-fullscreen", cut.Markup);
 
-        button.Click();
+        cut.InvokeAsync(() => button.Click());
         Assert.DoesNotContain("modal-fullscreen", cut.Markup);
     }
 
