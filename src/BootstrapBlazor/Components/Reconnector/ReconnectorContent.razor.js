@@ -1,10 +1,10 @@
 ﻿export function reconnect() {
     const reconnectHandler = setInterval(async () => {
-        const com = document.getElementById('components-reconnect-modal');
+        const com = document.getElementById('components-reconnect-modal')
         if (com) {
             const cls = com.getAttribute("class");
             if (cls === 'components-reconnect-show') {
-                clearInterval(reconnectHandler);
+                clearInterval(reconnectHandler)
 
                 await attemptReload()
                 setInterval(attemptReload, 5000)
