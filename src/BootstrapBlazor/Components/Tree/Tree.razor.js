@@ -25,7 +25,7 @@ export function init(id) {
         const node = e.delegateTarget
         const prev = node.previousElementSibling;
         const radio = prev.querySelector('[type="radio"]')
-        if (radio.getAttribute('disabled') !== 'disabled') {
+        if (radio && radio.getAttribute('disabled') !== 'disabled') {
             radio.click();
         }
     })
