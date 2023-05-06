@@ -5,17 +5,12 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Title 服务
+/// TitleOption 配置类
 /// </summary>
-public class TitleService : BootstrapServiceBase<TitleOption>
+public class TitleOption
 {
     /// <summary>
-    /// 设置当前网页 Title 方法
+    /// 获得/设置 Title
     /// </summary>
-    /// <returns></returns>
-    public async Task SetTitle(string title)
-    {
-        var op = new TitleOption() { Title = title };
-        await Invoke(op);
-    }
+    public string? Title { get; set; }
 }

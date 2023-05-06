@@ -18647,14 +18647,6 @@ return jQuery;
 
 (function ($) {
     $.extend({
-        bb_setTitle: function (title) {
-            document.title = title;
-        }
-    });
-})(jQuery);
-
-(function ($) {
-    $.extend({
         bb_tree: function (el) {
             var $el = $(el);
             $el.find('.tree-content').hover(function () {
