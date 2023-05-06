@@ -124,10 +124,6 @@ public abstract class PopConfirmButtonBase : ButtonBase
     [Parameter]
     public bool ShowShadow { get; set; } = true;
 
-    [Inject]
-    [NotNull]
-    private IIconTheme? IconTheme { get; set; }
-
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>

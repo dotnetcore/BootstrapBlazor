@@ -15,10 +15,6 @@ public partial class DialogSaveButton : Button
     [NotNull]
     private IStringLocalizer<ModalDialog>? Localizer { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IIconTheme? IconTheme { get; set; }
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
