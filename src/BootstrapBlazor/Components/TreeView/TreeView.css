@@ -39,7 +39,7 @@
             align-items: center;
         }
 
-            .tree-view .tree-item .tree-content .fa-caret-right {
+            .tree-view .tree-item .tree-content .node-icon {
                 width: 18px;
                 height: 18px;
                 transition: transform .3s linear;
@@ -49,7 +49,7 @@
                 visibility: hidden;
             }
 
-            .tree-view .tree-item .tree-content .show .fa-caret-right {
+            .tree-view .tree-item .tree-content .show .node-icon {
                 transform: rotate(90deg);
             }
 
@@ -62,7 +62,7 @@
     }
 
         .tree-view .tree-node.disabled,
-        .tree-view .tree-item.disabled > .tree-content > .fa-caret-right {
+        .tree-view .tree-item.disabled > .tree-content > .node-icon {
             opacity: var(--bb-disabled-opactiy);
         }
 
