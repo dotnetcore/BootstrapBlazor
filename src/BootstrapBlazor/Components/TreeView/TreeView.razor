@@ -1,6 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
 @typeparam TItem
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader]
 
 @if (Items == null)
 {
@@ -17,7 +18,7 @@
 }
 else
 {
-    <div tabindex="0" class="@ClassString" @ref="@TreeElement">
+    <div @attributes="AdditionalAttributes" id="@Id" tabindex="0" class="@ClassString">
         <ul class="tree-root">
             @foreach (var item in Items)
             {
@@ -36,40 +37,40 @@ else
         }
     </ul>;
 
-private RenderFragment<TreeViewItem<TItem>> RenderTreeItem => item =>
-@<li class="@GetItemClassString(item)">
-    <div class="tree-content">
-        <DynamicElement TagName="i" class="@GetCaretClassString(item)" TriggerClick="TriggerNodeArrow(item)"  OnClick="() => OnToggleNodeAsync(item, true)"></DynamicElement>
-        @if (ShowCheckbox)
+    private RenderFragment<TreeViewItem<TItem>> RenderTreeItem => item =>
+    @<li class="@GetItemClassString(item)">
+        <div class="tree-content">
+            <DynamicElement TagName="i" class="@GetCaretClassString(item)" TriggerClick="TriggerNodeArrow(item)"  OnClick="() => OnToggleNodeAsync(item, true)"></DynamicElement>
+            @if (ShowCheckbox)
+            {
+                <Checkbox Value="@item.CheckedState" IsDisabled="@item.IsDisabled" SkipValidate="true"
+                          ShowLabel="false" ShowAfterLabel="false" State="@item.CheckedState"
+                          OnStateChanged="(state, v) => OnCheckStateChanged(item, true)" StopPropagation="true" />
+            }
+            <DynamicElement class="@GetNodeClassString(item)" TriggerClick="TriggerNodeLabel(item)" OnClick="() => OnClick(item)">
+                @if (ShowIcon)
+                {
+                    <i class="@GetIconClassString(item)"></i>
+                }
+                @if (item.Template == null)
+                {
+                    <span class="@item.CssClass">@item.Text</span>
+                }
+                else
+                {
+                    @item.Template.Invoke(item.Value)    
+                }
+            </DynamicElement>
+        </div>
+        @if (item.ShowLoading)
         {
-            <Checkbox Value="@item.CheckedState" IsDisabled="@item.IsDisabled" SkipValidate="true"
-                      ShowLabel="false" ShowAfterLabel="false" State="@item.CheckedState"
-                      OnStateChanged="(state, v) => OnCheckStateChanged(item, true)" StopPropagation="true" />
+            <ul class="tree-ul show">
+                <Spinner Size="Size.Small" Color="Color.Primary" />
+            </ul>
         }
-        <DynamicElement class="@GetNodeClassString(item)" TriggerClick="TriggerNodeLabel(item)" OnClick="() => OnClick(item)">
-            @if (ShowIcon)
-            {
-                <i class="@GetIconClassString(item)"></i>
-            }
-            @if (item.Template == null)
-            {
-                <span class="@item.CssClass">@item.Text</span>
-            }
-            else
-            {
-                @item.Template.Invoke(item.Value)    
-            }
-        </DynamicElement>
-    </div>
-    @if (item.ShowLoading)
-    {
-        <ul class="tree-ul show">
-            <Spinner Size="Size.Small" Color="Color.Primary" />
-        </ul>
-    }
-    else if (item.Items.Any())
-    {
-        @RenderTreeNode(item)
-    }
-</li>;
+        else if (item.Items.Any())
+        {
+            @RenderTreeNode(item)
+        }
+    </li>;
 }

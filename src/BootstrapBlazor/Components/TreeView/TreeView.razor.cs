@@ -15,11 +15,6 @@ namespace BootstrapBlazor.Components;
 public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
 {
     /// <summary>
-    /// 获得/设置 Tree 组件实例引用
-    /// </summary>
-    private ElementReference TreeElement { get; set; }
-
-    /// <summary>
     /// 获得 按钮样式集合
     /// </summary>
     private string? ClassString => CssBuilder.Default("tree-view")
@@ -279,21 +274,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
                     }
                 }
             }
-        }
-    }
-
-    /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync(TreeElement, "bb_tree");
         }
     }
 
