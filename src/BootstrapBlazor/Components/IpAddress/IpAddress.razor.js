@@ -17,26 +17,6 @@ const selectCell = (el, index) => {
     c.select()
 }
 
-const isValidIPStr = ipString => {
-    if (typeof ipString !== "string") return false
-
-    var ipStrArray = ipString.split(".")
-    if (ipStrArray.length !== 4) return false
-
-    return ipStrArray.reduce(function (prev, cur) {
-        if (prev === false || cur.length === 0) return false
-        return (Number(cur) >= 0 && Number(cur) <= 255) ? true : false
-    }, true)
-}
-
-const getCurIPStr = () => {
-    var str = ""
-    this.find(".ipv4-cell").each(function (index, element) {
-        str += (index == 0) ? $(element).val() : "." + $(element).val()
-    })
-    return str
-}
-
 // function for text input cell
 const getCursorPosition = cell => {
     if ('selectionStart' in cell) {
