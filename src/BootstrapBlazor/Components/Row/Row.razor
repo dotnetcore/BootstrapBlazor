@@ -1,6 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader(AutoInvokeDispose = false)]
 
-<div @attributes="@AdditionalAttributes" data-toggle="row" data-type="@RowType.ToDescriptionString()" data-items="@ItemsPerRow.ToDescriptionString()" data-colspan="@ColSpan" class="d-none" @ref="RowElement">
+<div @attributes="@AdditionalAttributes" id="@Id" data-bb-toggle="row" data-bb-type="@RowType.ToDescriptionString()" data-bb-items="@ItemsPerRow.ToDescriptionString()" data-bb-colspan="@ColSpan" class="d-none">
     @ChildContent
 </div>
