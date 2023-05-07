@@ -1,7 +1,6 @@
-﻿<div>
-    <IpAddress @bind-Value="@Value" />
-    <div class="mt-3">@Value</div>
-</div>
+﻿<IpAddress @bind-Value="@Value" />
+
+<div class="mt-3">@Value</div>
 
 @code {
     private string? Value { get; set; }
