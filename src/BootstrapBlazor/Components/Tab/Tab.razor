@@ -1,5 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader]
 
 @if (Excluded)
 {
@@ -7,7 +8,7 @@
 }
 else
 {
-    <div @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString" @ref="TabElement">
+    <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" style="@StyleString">
         <div class="tabs-header">
             <div class="@WrapClassString">
                 @if (ShouldShowExtendButtons())

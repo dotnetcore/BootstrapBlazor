@@ -9,9 +9,9 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Tab 组件基类
+/// Tab 组件
 /// </summary>
-public partial class Tab : IHandlerException, IDisposable
+public partial class Tab : IHandlerException
 {
     private bool FirstRender { get; set; } = true;
 
@@ -31,8 +31,6 @@ public partial class Tab : IHandlerException, IDisposable
     private static string? GetIconClassString(string icon) => CssBuilder.Default()
         .AddClass(icon)
         .Build();
-
-    private ElementReference TabElement { get; set; }
 
     private string? ClassString => CssBuilder.Default("tabs")
         .AddClass("tabs-card", IsCard)
@@ -250,7 +248,7 @@ public partial class Tab : IHandlerException, IDisposable
     private bool HandlerNavigation { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -260,7 +258,7 @@ public partial class Tab : IHandlerException, IDisposable
     }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override void OnParametersSet()
@@ -294,6 +292,20 @@ public partial class Tab : IHandlerException, IDisposable
         else
         {
             RemoveLocationChanged();
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            FirstRender = false;
         }
     }
 
@@ -335,22 +347,6 @@ public partial class Tab : IHandlerException, IDisposable
                 AddTabItem(requestUrl);
             }
         }
-    }
-
-    /// <summary>
-    /// OnAfterRender 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            FirstRender = false;
-        }
-
-        await JSRuntime.InvokeVoidAsync(TabElement, "bb_tab");
     }
 
     private bool ShouldShowExtendButtons() => ShowExtendButtons && (Placement == Placement.Top || Placement == Placement.Bottom);
