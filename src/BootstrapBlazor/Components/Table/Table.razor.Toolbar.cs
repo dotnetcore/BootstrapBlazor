@@ -64,7 +64,7 @@ public partial class Table<TItem>
     public Func<TItem, bool>? ShowDeleteButtonCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示导出按钮 默认为 false 显示
+    /// 获得/设置 是否显示导出按钮 默认为 false 不显示
     /// </summary>
     [Parameter]
     public bool ShowExportButton { get; set; }
