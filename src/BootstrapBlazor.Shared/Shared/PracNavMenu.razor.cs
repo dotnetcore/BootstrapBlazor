@@ -2,7 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared.Services;
+using Microsoft.AspNetCore.Components.Web;
+
+using System.IO.Compression;
 
 namespace BootstrapBlazor.Shared.Shared;
 
@@ -19,34 +21,54 @@ public partial class PracNavMenu
     [NotNull]
     private TitleService? TitleService { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<NavMenu>? Localizer { get; set; }
-
-    [Inject]
-    [NotNull]
-    private MenuService? MenuService { get; set; }
-
     [NotNull]
     private List<MenuItem>? Menus { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        base.OnInitialized();
+        await base.OnInitializedAsync();
 
         Menus = new List<MenuItem>
         {
-            new MenuItem() { Text="仪表盘 Dashboard",Url="dashboard"},
-            new MenuItem() { Text="登陆和注册 Login & Register",Url="praclogin"},
-            new MenuItem() { Text="瀑布流图片 Pintereso",Url="pintereso"}
+            new MenuItem()
+            {
+                Template = CreateDownloadButtonComponent("仪表盘dashboard",dashboardFileList).Render(),
+                Text="仪表盘 Dashboard",Url="dashboard"
+            },
+            new MenuItem()
+            {
+                Template = CreateDownloadButtonComponent("登陆和注册praclogin",pracloginFileList).Render(),
+                Text="登陆和注册 Login & Register",Url="praclogin"
+            },
+            new MenuItem()
+            {
+                Template = CreateDownloadButtonComponent("瀑布流图片pintereso",pinteresoFileList).Render(),
+                Text="瀑布流图片 Pintereso",Url="pintereso"
+            }
         };
-
-
     }
 
+    /// <summary>
+    /// 打包并下载源码
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="fileList"></param>
+    /// <returns></returns>
+    private async Task DownloadZipArchive(string name, string[] fileList)
+    {
+        var bt = PackageSourceFile(fileList);
+        await DownloadService.DownloadFromStreamAsync($"BootstrapBlazor-{name}.zip", new MemoryStream(bt));
+        await Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// OnClickMenu回调
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
     private async Task OnClickMenu(MenuItem item)
     {
         if (!item.Items.Any() && !string.IsNullOrEmpty(item.Text))
@@ -54,4 +76,60 @@ public partial class PracNavMenu
             await TitleService.SetTitle($"{item.Text} - {AppLocalizer["Title"]}");
         }
     }
+
+    /// <summary>
+    /// 动态创建下载按钮
+    /// </summary>
+    /// <param name="name"></param>
+    /// <param name="fileList"></param>
+    /// <returns></returns>
+    private BootstrapDynamicComponent CreateDownloadButtonComponent(string name, string[] fileList)
+    {
+        return BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>
+        {
+            [nameof(Button.Color)] = Color.Danger,
+            [nameof(Button.Text)] = "Download",
+            [nameof(Button.OnClick)] = EventCallback.Factory.Create<MouseEventArgs>(this, () => DownloadZipArchive(name, fileList))
+        });
+    }
+
+    /// <summary>
+    /// 打包源码文件
+    /// </summary>
+    /// <param name="filelist"></param>
+    /// <returns></returns>
+    private static byte[] PackageSourceFile(string[] filelist)
+    {
+        var memory = new MemoryStream();
+        using (var archive = new ZipArchive(memory, ZipArchiveMode.Create, true))
+        {
+            foreach (var item in filelist)
+            {
+                archive.CreateEntryFromFile(item, Path.GetFileName(item));
+            }
+        }
+
+        return memory.ToArray();
+    }
+
+    private readonly string[] dashboardFileList = new[]
+    {
+        "../BootstrapBlazor.Shared/Practicals/Dashboard/Dashboard.razor",
+        "../BootstrapBlazor.Shared/Practicals/Dashboard/Dashboard.razor.cs",
+        "../BootstrapBlazor.Shared/Practicals/Dashboard/Dashboard.razor.css",
+        "../BootstrapBlazor.Shared/Services/DashboardService.cs"
+    };
+
+    private readonly string[] pracloginFileList = new[]
+    {
+        "../BootstrapBlazor.Shared/Practicals/LoginAndRegister/PracLogin.razor",
+        "../BootstrapBlazor.Shared/Practicals/LoginAndRegister/PracRegister.razor"
+    };
+
+    private readonly string[] pinteresoFileList = new[]
+    {
+        "../BootstrapBlazor.Shared/Practicals/Pintereso/Pintereso.razor",
+        "../BootstrapBlazor.Shared/Practicals/Pintereso/Pintereso.razor.cs",
+        "../BootstrapBlazor.Shared/Practicals/Pintereso/Pintereso.razor.css"
+    };
 }
