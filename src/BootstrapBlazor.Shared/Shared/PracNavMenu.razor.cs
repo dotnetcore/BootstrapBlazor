@@ -88,7 +88,7 @@ public partial class PracNavMenu
         return BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>
         {
             [nameof(Button.Color)] = Color.Danger,
-            [nameof(Button.Text)] = "Download",
+            [nameof(Button.Icon)] = "fas fa-download",
             [nameof(Button.OnClick)] = EventCallback.Factory.Create<MouseEventArgs>(this, () => DownloadZipArchive(name, fileList))
         });
     }
