@@ -13,11 +13,11 @@ else
             <div class="@WrapClassString">
                 @if (ShouldShowExtendButtons())
                 {
-                    <DynamicElement class="nav-link-bar left" OnClick="@ClickPrevTab"><i class="@PreviousIcon"></i></DynamicElement>
+                    <div class="nav-link-bar left" @onclick="@ClickPrevTab"><i class="@PreviousIcon"></i></div>
                 }
                 else
                 {
-                    <DynamicElement class="tabs-nav-prev" OnClick="@ClickPrevTab"><i class="@PreviousIcon"></i></DynamicElement>
+                    <div class="tabs-nav-prev" @onclick="@ClickPrevTab"><i class="@PreviousIcon"></i></div>
                 }
                 <div class="tabs-nav-scroll">
                     <div role="tablist" class="tabs-nav">
@@ -48,9 +48,7 @@ else
                                 }
                                 else
                                 {
-                                    <DynamicElement href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item)"
-                                                    TagName="a" OnClick="@(() => OnClickTabItem(item))"
-                                                    PreventDefault="@(!ClickTabToNavigation)">
+                                    <a href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item)" @onclick="@(() => OnClickTabItem(item))" @onclick:preventDefault="@(!ClickTabToNavigation)">
                                         @if (!string.IsNullOrEmpty(item.Icon))
                                         {
                                             <i class="@GetIconClassString(item.Icon)"></i>
@@ -62,7 +60,7 @@ else
                                                 <i class="@CloseIcon"></i>
                                             </span>
                                         }
-                                    </DynamicElement>
+                                    </a>
                                 }
                             }
                         </RenderTemplate>
@@ -74,19 +72,19 @@ else
                 }
                 @if (ShouldShowExtendButtons())
                 {
-                    <DynamicElement class="nav-link-bar right" OnClick="@ClickNextTab"><i class="@NextIcon"></i></DynamicElement>
+                    <div class="nav-link-bar right" @onclick="@ClickNextTab"><i class="@NextIcon"></i></div>
                     <div class="dropdown nav-link-bar dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="nav-link-close"><i class="@DropdownIcon"></i></div>
                     </div>
                     <div class="dropdown-menu dropdown-menu-end shadow">
-                        <DynamicElement class="dropdown-item" OnClick="@CloseCurrentTab"><span>@CloseCurrentTabText</span></DynamicElement>
+                        <div class="dropdown-item" @onclick="@CloseCurrentTab"><span>@CloseCurrentTabText</span></div>
                         <div class="dropdown-item" @onclick="@OnClickCloseOtherTabs"><span>@CloseOtherTabsText</span></div>
                         <div class="dropdown-item" @onclick="@OnClickCloseAllTabs"><span>@CloseAllTabsText</span></div>
                     </div>
                 }
                 else
                 {
-                    <DynamicElement class="tabs-nav-next" OnClick="@ClickNextTab"><i class="@NextIcon"></i></DynamicElement>
+                    <div class="tabs-nav-next" @onclick="@ClickNextTab"><i class="@NextIcon"></i></div>
                 }
             </div>
         </div>
