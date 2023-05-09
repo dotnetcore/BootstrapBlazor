@@ -1,16 +1,19 @@
 ﻿@inject IStringLocalizer<Tabs> Localizer
 
 <p>
-    <button type="button" class="btn btn-outline-primary" @onclick="@(e => AddTab(TabSet2))">
+    <button type="button" class="btn btn-outline-primary" @onclick="@AddTab">
         <i class="fa-solid fa-circle-plus"></i>
         <span>@Localizer["AddButtonText"]</span>
     </button>
-    <button type="button" class="btn btn-outline-danger" disabled="@((TabSet2?.Items.Count() > 4) ? null : "true")" @onclick="@(e => RemoveTab(TabSet2!))">
+    <button type="button" class="btn btn-outline-danger" disabled="@((TabSet.Items.Count() > 4) ? null : "true")" @onclick="@RemoveTab">
         <i class="fa-solid fa-circle-minus"></i>
         <span>@Localizer["RmoveButtonText"]</span>
     </button>
 </p>
-<Tab ShowExtendButtons="true" ShowClose="true" @ref="TabSet2">
+
+<Button Text="Test" OnClick="OnClick"></Button>
+
+<Tab ShowExtendButtons="ShowButtons" ShowClose="true" @ref="TabSet">
     <TabItem Text="@Localizer["TabItem1Text"]" Closable="false">
         <div>@Localizer["TabItem1Content"]</div>
     </TabItem>
@@ -30,21 +33,28 @@
 
 @code {
     [NotNull]
-    private Tab? TabSet2 { get; set; }
+    private Tab? TabSet { get; set; }
 
-    private static async Task RemoveTab(Tab tabset)
+    private bool ShowButtons { get; set; } = true;
+
+    private void OnClick()
     {
-        if (tabset.Items.Count() > 4)
+        ShowButtons = !ShowButtons;
+    }
+
+    private async Task RemoveTab()
+    {
+        if (TabSet.Items.Count() > 4)
         {
-            var item = tabset.Items.Last();
-            await tabset.RemoveTab(item);
+            var item = TabSet.Items.Last();
+            await TabSet.RemoveTab(item);
         }
     }
 
-    private Task AddTab(Tab tabset)
+    private Task AddTab()
     {
-        var text = $"Tab {tabset.Items.Count() + 1}";
-        tabset.AddTab(new Dictionary<string, object?>
+        var text = $"Tab {TabSet.Items.Count() + 1}";
+        TabSet.AddTab(new Dictionary<string, object?>
         {
             [nameof(TabItem.Text)] = text,
             [nameof(TabItem.IsActive)] = true,
