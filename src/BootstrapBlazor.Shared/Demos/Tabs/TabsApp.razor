@@ -5,7 +5,7 @@
         <i class="fa-solid fa-circle-plus"></i>
         <span>@Localizer["AddButtonText"]</span>
     </button>
-    <button type="button" class="btn btn-outline-danger" disabled="@((TabSet.Items.Count() > 4) ? null : "true")" @onclick="@RemoveTab">
+    <button type="button" class="btn btn-outline-danger" disabled="@((TabSet?.Items.Count() > 4) ? null : "disabled")" @onclick="@RemoveTab">
         <i class="fa-solid fa-circle-minus"></i>
         <span>@Localizer["RmoveButtonText"]</span>
     </button>
