@@ -11,14 +11,7 @@ else
     <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" style="@StyleString">
         <div class="tabs-header">
             <div class="@WrapClassString">
-                @if (ShouldShowExtendButtons())
-                {
-                    <div class="nav-link-bar left" @onclick="@ClickPrevTab"><i class="@PreviousIcon"></i></div>
-                }
-                else
-                {
-                    <div class="tabs-nav-prev" @onclick="@ClickPrevTab"><i class="@PreviousIcon"></i></div>
-                }
+                <div class="nav-link-bar left" @onclick="@ClickPrevTab"><i class="@PreviousIcon"></i></div>
                 <div class="tabs-nav-scroll">
                     <div role="tablist" class="tabs-nav">
                         @if (!IsCard && !IsBorderCard)
@@ -70,10 +63,10 @@ else
                 {
                     @ButtonTemplate
                 }
+                <div class="nav-link-bar right" @onclick="@ClickNextTab"><i class="@NextIcon"></i></div>
                 @if (ShouldShowExtendButtons())
                 {
-                    <div class="nav-link-bar right" @onclick="@ClickNextTab"><i class="@NextIcon"></i></div>
-                    <div class="dropdown nav-link-bar dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="nav-link-bar dropdown dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="nav-link-close"><i class="@DropdownIcon"></i></div>
                     </div>
                     <div class="dropdown-menu dropdown-menu-end shadow">
@@ -81,10 +74,6 @@ else
                         <div class="dropdown-item" @onclick="@OnClickCloseOtherTabs"><span>@CloseOtherTabsText</span></div>
                         <div class="dropdown-item" @onclick="@OnClickCloseAllTabs"><span>@CloseAllTabsText</span></div>
                     </div>
-                }
-                else
-                {
-                    <div class="tabs-nav-next" @onclick="@ClickNextTab"><i class="@NextIcon"></i></div>
                 }
             </div>
         </div>
