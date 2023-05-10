@@ -1,19 +1,15 @@
 ﻿@inject IStringLocalizer<Tabs> Localizer
 
-<p>
-    <button type="button" class="btn btn-outline-primary" @onclick="@AddTab">
-        <i class="fa-solid fa-circle-plus"></i>
-        <span>@Localizer["AddButtonText"]</span>
-    </button>
-    <button type="button" class="btn btn-outline-danger" disabled="@((TabSet?.Items.Count() > 4) ? null : "disabled")" @onclick="@RemoveTab">
-        <i class="fa-solid fa-circle-minus"></i>
-        <span>@Localizer["RmoveButtonText"]</span>
-    </button>
-</p>
+<button type="button" class="btn btn-outline-primary" @onclick="@AddTab">
+    <i class="fa-solid fa-circle-plus"></i>
+    <span>@Localizer["AddButtonText"]</span>
+</button>
+<button type="button" class="btn btn-outline-danger" disabled="@((TabSet?.Items.Count() > 4) ? null : "disabled")" @onclick="@RemoveTab">
+    <i class="fa-solid fa-circle-minus"></i>
+    <span>@Localizer["RmoveButtonText"]</span>
+</button>
 
-<Button Text="Test" OnClick="OnClick" class="mb-3"></Button>
-
-<Tab ShowExtendButtons="ShowButtons" ShowClose="true" @ref="TabSet">
+<Tab ShowExtendButtons="ShowButtons" ShowClose="true" @ref="TabSet" class="mt-3">
     <TabItem Text="@Localizer["TabItem1Text"]" Closable="false">
         <div>@Localizer["TabItem1Content"]</div>
     </TabItem>
