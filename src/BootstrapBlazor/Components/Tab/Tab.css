@@ -192,12 +192,13 @@
         .tabs.tabs-card .tabs-item,
         .tabs.tabs-border-card .tabs-item {
             height: 100%;
-            border-bottom: 1px solid var(--bb-tabs-border-color);
+            border: 1px solid var(--bb-tabs-border-color);
+            border-width: 0 0 1px 0;
         }
 
             .tabs.tabs-card .tabs-item:not(:last-child),
             .tabs.tabs-border-card .tabs-item:not(:last-child) {
-                border-right: 1px solid var(--bb-tabs-border-color);
+                border-right-width: 1px;
             }
 
             .tabs.tabs-card .tabs-item.active,
@@ -208,7 +209,8 @@
     .tabs .tabs-item-fix {
         height: 100%;
         flex: 1;
-        border-bottom: 1px solid var(--bb-tabs-border-color);
+        border: 1px solid var(--bb-tabs-border-color);
+        border-width: 0 0 1px 0;
     }
 
     /*Border-Card*/
@@ -247,6 +249,34 @@
         border-radius: 0 0 var(--bs-border-radius) var(--bs-border-radius);
     }
 
+    /*bottom*/
+    .tabs.tabs-bottom {
+        flex-flow: column-reverse;
+    }
+
+        .tabs.tabs-bottom .tabs-nav-scroll {
+            border-radius: 0 0 var(--bs-border-radius) var(--bs-border-radius);
+        }
+
+    .tabs.tabs-card.tabs-bottom .tabs-body,
+    .tabs.tabs-border-card.tabs-bottom .tabs-body {
+        border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0;
+    }
+
+    .tabs.tabs-card.tabs-bottom .tabs-item,
+    .tabs.tabs-border-card.tabs-bottom .tabs-item {
+        border-width: 1px 1px 0 0;
+    }
+
+        .tabs.tabs-card.tabs-bottom .tabs-item.active,
+        .tabs.tabs-border-card.tabs-bottom .tabs-item.active {
+            border-top-color: #fff;
+        }
+
+    .tabs.tabs-bottom .tabs-item-fix {
+        border-width: 1px 0 0 0;
+    }
+
 /*left*/
 /*    .tabs.tabs-left {
         flex-flow: row;
@@ -258,19 +288,6 @@
     }
 */
 /*bottom*/
-/*    .tabs.tabs-bottom {
-        flex-flow: column-reverse;
-    }
-
-    .tabs.tabs-card.tabs-bottom .tabs-header {
-        border-top: 1px solid #e4e7ed;
-        border-bottom: none;
-    }
-
-    .tabs.tabs-border-card.tabs-bottom .tabs-header {
-        margin-top: 0;
-    }
-*/
 
 
 /*wrapper*/
