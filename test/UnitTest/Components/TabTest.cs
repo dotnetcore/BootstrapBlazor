@@ -539,8 +539,8 @@ public class TabTest : TabTestBase
             pb.Add(a => a.DefaultUrl, "/Dog");
         });
         cut.InvokeAsync(() => cut.Instance.AddTab("/Dog", "Dog"));
-        var tabItem = cut.FindComponents<DynamicElement>().First(i => i.Markup.Contains("Dog"));
-        Assert.DoesNotContain("tabs-item-close", tabItem.Markup);
+        var tabItem = cut.FindAll(".tabs-item").First(i => i.InnerHtml.Contains("Dog"));
+        Assert.DoesNotContain("tabs-item-close", tabItem.InnerHtml);
     }
 
     [Fact]
