@@ -1,137 +1,132 @@
-﻿(function ($) {
-    $.extend({
-        bb_tab: function (el) {
-            var $el = $(el);
-            var handler = window.setInterval(function () {
-                if ($el.is(':visible')) {
-                    window.clearInterval(handler);
-                    $el.lgbTab('active');
-                }
-            }, 200);
-        }
-    });
-})(jQuery);
+﻿import Data from "../../modules/data.js"
+import EventHandler from "../../modules/event-handler.js"
 
-(function ($) {
-    /**
-     * Tab
-     * @param {any} element
-     * @param {any} options
-     */
-    var Tab = function (element, options) {
-        this.$element = $(element);
-        this.$header = this.$element.children('.tabs-header');
-        this.$wrap = this.$header.children('.tabs-nav-wrap');
-        this.$scroll = this.$wrap.children('.tabs-nav-scroll');
-        this.$tab = this.$scroll.children('.tabs-nav');
-        this.options = $.extend({}, options);
-        this.init();
-    };
+const getPosition = el => {
+    const rect = el.getBoundingClientRect()
+    return rect;
+}
 
-    Tab.VERSION = "5.1.0";
-    Tab.Author = 'argo@163.com';
-    Tab.DATA_KEY = "lgb.Tab";
+const fixSize = function (el) {
+    const height = el.offsetHeight
+    const width = el.offsetWidth
+    el.style.height = `${height}px`
+    el.style.width = `${width}px`
+}
 
-    var _proto = Tab.prototype;
-    _proto.init = function () {
-        var that = this;
-        $(window).on('resize', function () {
-            that.resize();
-        });
-        this.active();
-    };
+const resize = tab => {
+    const el = tab.el
+    const tabNav = tab.tabNav
+    const wrap = tab.wrap
+    const scroll = tab.scroll
 
-    _proto.fixSize = function () {
-        var height = this.$element.height();
-        var width = this.$element.width();
-        this.$element.css({ 'height': height + 'px', 'width': width + 'px' });
-    }
+    tab.vertical = el.classList.contains('tabs-left') || el.classList.contains('tabs-right')
+    tab.horizontal = el.classList.contains('tabs-top') || el.classList.contains('tabs-bottom')
 
-    _proto.resize = function () {
-        this.vertical = this.$element.hasClass('tabs-left') || this.$element.hasClass('tabs-right');
-        this.horizontal = this.$element.hasClass('tabs-top') || this.$element.hasClass('tabs-bottom');
-
-        var $lastItem = this.$tab.find('.tabs-item:last');
-        if ($lastItem.length > 0) {
-            if (this.vertical) {
-                this.$wrap.css({ 'height': this.$element.height() + 'px' });
-                var tabHeight = this.$tab.height();
-                var itemHeight = $lastItem.position().top + $lastItem.outerHeight();
-                if (itemHeight < tabHeight) this.$wrap.removeClass("is-scrollable");
-                else this.$wrap.addClass('is-scrollable');
+    const lastItem = [...tabNav.querySelectorAll('.tabs-item')].pop()
+    if (lastItem) {
+        if (tab.vertical) {
+            wrap.style.height = `${el.offsetHeight}px`
+            const tabHeight = tabNav.offsetHeight
+            const itemHeight = getPosition(lastItem).top + lastItem.offsetHeight
+            if (itemHeight < tabHeight) {
+                wrap.classList.remove("is-scrollable")
             }
             else {
-                this.$wrap.removeAttr('style');
-                var tabWidth = this.$tab.width();
-                var itemWidth = $lastItem.position().left + $lastItem.outerWidth();
-                if (itemWidth < tabWidth) this.$wrap.removeClass("is-scrollable");
-                else this.$wrap.addClass('is-scrollable');
+                wrap.classList.add('is-scrollable')
             }
-        }
-    }
-
-    _proto.active = function () {
-        // check scrollable
-        this.resize();
-
-        var $bar = this.$tab.children('.tabs-active-bar');
-        var $activeTab = this.$tab.children('.tabs-item.active');
-        if ($activeTab.length === 0) return;
-
-        if (this.vertical) {
-            //scroll
-            var top = $activeTab.position().top;
-            var itemHeight = top + $activeTab.outerHeight();
-            var scrollTop = this.$scroll.scrollTop();
-            var scrollHeight = this.$scroll.outerHeight();
-            var marginTop = itemHeight - scrollTop - scrollHeight;
-            if (marginTop > 0) {
-                this.$scroll.scrollTop(scrollTop + marginTop);
-            }
-            else {
-                var marginBottom = top - scrollTop;
-                if (marginBottom < 0) {
-                    this.$scroll.scrollTop(scrollTop + marginBottom);
-                }
-            }
-            $bar.css({ 'width': '2px', 'transform': 'translateY(' + top + 'px)' });
         }
         else {
-            // scroll
-            var left = $activeTab.position().left;
-            var itemWidth = left + $activeTab.outerWidth();
-            var scrollLeft = this.$scroll.scrollLeft();
-            var scrollWidth = this.$scroll.width();
-            var marginLeft = itemWidth - scrollLeft - scrollWidth;
-            if (marginLeft > 0) {
-                this.$scroll.scrollLeft(scrollLeft + marginLeft);
+            wrap.removeAttribute('style')
+            const tabWidth = tabNav.offsetWidth
+            const itemWidth = getPosition(lastItem).left + lastItem.offsetWidth
+            if (itemWidth < tabWidth) {
+                wrap.classList.remove("is-scrollable")
             }
             else {
-                var marginRight = left - scrollLeft;
-                if (marginRight < 0) {
-                    this.$scroll.scrollLeft(scrollLeft + marginRight);
-                }
+                wrap.classList.add('is-scrollable')
             }
-            var width = $activeTab.width();
-            var itemLeft = left + parseInt($activeTab.css('paddingLeft'));
-            $bar.css({ 'width': width + 'px', 'transform': 'translateX(' + itemLeft + 'px)' });
+
+            // 设置 scroll 宽度
+            let barWidth = 0
+            wrap.querySelectorAll('.nav-link-bar').forEach(v => {
+                barWidth += v.offsetWidth
+            })
+            barWidth = wrap.offsetWidth - barWidth
+            scroll.style.width = `${barWidth}px`
         }
-    };
+    }
+}
 
-    function TabPlugin(option) {
-        return this.each(function () {
-            var $this = $(this);
-            var data = $this.data(Tab.DATA_KEY);
-            var options = typeof option === 'object' && option;
+const active = (tab, item) => {
+    resize(tab)
 
-            if (!data) $this.data(Tab.DATA_KEY, data = new Tab(this, options));
-            if (typeof option === 'string') {
-                if (/active/.test(option))
-                    data[option].apply(data);
-            }
-        });
+    const bar = tab.tabNav.querySelector('.tabs-active-bar')
+    if (bar === null) {
+        return
+    }
+    const activeTab = item || tab.tabNav.querySelector('.tabs-item.active')
+    if (activeTab.length === 0) {
+        return
     }
 
-    $.fn.lgbTab = TabPlugin;
-    $.fn.lgbTab.Constructor = Tab;
-})(jQuery);
+    if (tab.vertical) {
+        //scroll
+        const top = getPosition(activeTab).top
+        const itemHeight = top + activeTab.offsetHeight
+        const scrollTop = tab.scroll.scrollTop
+        const scrollHeight = tab.scroll.offsetHeight
+        const marginTop = itemHeight - scrollTop - scrollHeight
+        if (marginTop > 0) {
+            //tab.scroll.scrollTop = scrollTop + marginTop
+        }
+        else {
+            const marginBottom = top - scrollTop
+            if (marginBottom < 0) {
+                //tab.scroll.scrollTop = scrollTop + marginBottom
+            }
+        }
+        bar.style.width = '2px'
+        bar.style.transform = `translateY(${top}px)`
+    }
+    else {
+        const left = getPosition(activeTab).left - getPosition(activeTab.parentNode).left
+        const width = activeTab.offsetWidth
+        bar.style.width = `${width}px`
+        bar.style.transform = `translateX(${left}px)`
+    }
+}
+
+export function init(id) {
+    const el = document.getElementById(id)
+    if (el === null) {
+        return
+    }
+
+    const tab = { el }
+    Data.set(id, tab)
+
+    tab.header = el.firstChild
+    tab.wrap = tab.header.firstChild
+    tab.scroll = tab.wrap.querySelector('.tabs-nav-scroll')
+    tab.tabNav = tab.scroll.firstChild
+
+    tab.resizeHandler = () => {
+        resize(tab)
+    }
+
+    EventHandler.on(window, 'resize', tab.resizeHandler)
+    EventHandler.on(tab.tabNav, 'click', '.tabs-item', e => {
+        active(tab, e.delegateTarget)
+    })
+    active(tab)
+}
+
+export function dispose(id) {
+    const tab = Data.get(id)
+    Data.remove(id)
+
+    if (tab) {
+        EventHandler.off(window, 'resize', tab.resizeHandler)
+        EventHandler.off(tab.tabNav, 'click', '.tabs-item')
+    }
+}

@@ -14,10 +14,6 @@ else
                 <div class="nav-link-bar left" @onclick="@ClickPrevTab"><i class="@PreviousIcon"></i></div>
                 <div class="tabs-nav-scroll">
                     <div role="tablist" class="tabs-nav">
-                        @if (!IsCard && !IsBorderCard)
-                        {
-                            <div class="tabs-active-bar"></div>
-                        }
                         <CascadingValue Value="this" IsFixed="true">
                             @ChildContent
                         </CascadingValue>
@@ -56,7 +52,15 @@ else
                                     </a>
                                 }
                             }
+                            @if (IsCard || IsBorderCard)
+                            {
+                                <div class="tabs-item-fix"></div>
+                            }
                         </RenderTemplate>
+                        @if (!IsCard && !IsBorderCard)
+                        {
+                            <div class="tabs-active-bar"></div>
+                        }
                     </div>
                 </div>
                 @if (ButtonTemplate != null)
