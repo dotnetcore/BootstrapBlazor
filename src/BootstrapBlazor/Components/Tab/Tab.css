@@ -45,7 +45,7 @@
 
     .tabs .extend .tabs-nav-scroll {
         left: var(--bb-tabs-bar-width);
-        right: 60px;
+        right: calc(2 * var(--bb-tabs-bar-width));
         border-top-left-radius: 0;
         border-top-right-radius: 0;
     }
@@ -98,16 +98,20 @@
         }
 
     .tabs .of .tabs-nav-scroll {
+        left: var(--bb-tabs-bar-width);
         right: var(--bb-tabs-bar-width);
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
     }
 
-    .tabs .extend.of .tabs-nav-scroll {
-        right: calc(2 * var(--bb-tabs-bar-width));
+    .tabs .of .nav-link-bar {
+        display: flex;
     }
 
-    .tabs :not(.extend).of .nav-link-bar.right {
-        right: 0;
-    }
+        .tabs .of .nav-link-bar.right {
+            right: 0;
+            border-width: 0 0 1px 1px;
+        }
 
     .tabs .tabs-active-bar {
         position: absolute;
@@ -170,6 +174,13 @@
                 border-radius: var(--bs-border-radius);
             }
 
+    .tabs .tabs-body {
+        padding: var(--bb-tabs-padding);
+    }
+
+    .tabs .tabs-content {
+        position: relative;
+    }
 
     /*Card*/
     .tabs.tabs-card,
@@ -227,17 +238,13 @@
         border-top-right-radius: var(--bs-border-radius);
     }
 
-    .tabs.tabs-card.tabs-top .tabs-body {
+    .tabs.tabs-card .tabs-body {
         border-top-width: 0;
         border-radius: 0 0 var(--bs-border-radius) var(--bs-border-radius);
     }
 
-    .tabs .tabs-body {
-        padding: var(--bb-tabs-padding);
-    }
-
-    .tabs .tabs-content {
-        position: relative;
+    .tabs.tabs-border-card .tabs-body {
+        border-radius: 0 0 var(--bs-border-radius) var(--bs-border-radius);
     }
 
 /*left*/

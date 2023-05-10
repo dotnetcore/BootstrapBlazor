@@ -17,6 +17,9 @@ const resize = tab => {
     const el = tab.el
     const tabNav = tab.tabNav
     const wrap = tab.wrap
+    if (wrap.classList.contains('extend')) {
+        return
+    }
     const scroll = tab.scroll
 
     tab.vertical = el.classList.contains('tabs-left') || el.classList.contains('tabs-right')
@@ -37,7 +40,6 @@ const resize = tab => {
                 itemWidth += v.offsetWidth
             })
             if (itemWidth > tabWidth) {
-                wrap.classList.add('extend')
                 wrap.classList.add('of')
             }
         }
