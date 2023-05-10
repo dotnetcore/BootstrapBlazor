@@ -39,15 +39,13 @@
         left: 0;
         right: 0;
         height: 100%;
-        border-top-left-radius: var(--bs-border-radius);
-        border-top-right-radius: var(--bs-border-radius);
+        border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0;
     }
 
     .tabs .extend .tabs-nav-scroll {
         left: var(--bb-tabs-bar-width);
         right: calc(2 * var(--bb-tabs-bar-width));
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
+        border-radius: 0;
     }
 
     .tabs .tabs-nav {
@@ -86,7 +84,7 @@
             border-width: 0 0 1px 1px;
             right: 0;
             top: 0;
-            border-top-right-radius: var(--bs-border-radius);
+            border-radius: 0 var(--bs-border-radius) 0 0;
         }
 
     .tabs .extend .nav-link-bar {
@@ -100,8 +98,7 @@
     .tabs .of .tabs-nav-scroll {
         left: var(--bb-tabs-bar-width);
         right: var(--bb-tabs-bar-width);
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
+        border-radius: 0;
     }
 
     .tabs .of .nav-link-bar {
@@ -237,7 +234,7 @@
             }
 
     .tabs:not(.extend).of .nav-link-bar.right {
-        border-top-right-radius: var(--bs-border-radius);
+        border-radius: 0 var(--bs-border-radius) 0 0;
     }
 
     .tabs.tabs-card .tabs-body {
@@ -258,9 +255,26 @@
             border-radius: 0 0 var(--bs-border-radius) var(--bs-border-radius);
         }
 
+    .tabs.tabs-card.tabs-bottom .of .tabs-nav-scroll,
+    .tabs.tabs-border-card.tabs-bottom .of .tabs-nav-scroll {
+        border-radius: 0;
+    }
+
+    .tabs.tabs-card.tabs-bottom .nav-link-bar.left,
+    .tabs.tabs-border-card.tabs-bottom .nav-link-bar.left {
+        border-radius: 0 0 0 var(--bs-border-radius);
+        border-width: 1px 1px 0 0;
+    }
+
+    .tabs.tabs-card.tabs-bottom .nav-link-bar.right,
+    .tabs.tabs-border-card.tabs-bottom .nav-link-bar.right {
+        border-radius: 0 0 var(--bs-border-radius) 0;
+        border-width: 1px 0 0 1px;
+    }
+
     .tabs.tabs-card.tabs-bottom .tabs-body,
     .tabs.tabs-border-card.tabs-bottom .tabs-body {
-        border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0;
+        border-radius: var(--bs-border-radius) 0 0 var(--bs-border-radius);
     }
 
     .tabs.tabs-card.tabs-bottom .tabs-item,
