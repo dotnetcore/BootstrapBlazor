@@ -101,7 +101,11 @@
         right: var(--bb-tabs-bar-width);
     }
 
-    .tabs .of .nav-link-bar.right {
+    .tabs .extend.of .tabs-nav-scroll {
+        right: calc(2 * var(--bb-tabs-bar-width));
+    }
+
+    .tabs :not(.extend).of .nav-link-bar.right {
         right: 0;
     }
 

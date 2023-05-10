@@ -467,7 +467,20 @@ public partial class Tab : IHandlerException
         }
     }
 
-    private void OnClickCloseAllTabs() => _items.RemoveAll(t => t.Closable);
+    private void OnClickCloseAllTabs()
+    {
+        _items.RemoveAll(t => t.Closable);
+        if (_items.Any())
+        {
+            var activeItem = _items.FirstOrDefault(i => i.IsActive);
+            if (activeItem == null)
+            {
+                activeItem = _items.First();
+                activeItem.SetActive(true);
+            }
+        }
+        InvokeUpdate = true;
+    }
 
     /// <summary>
     /// 关闭所有标签页方法
@@ -475,7 +488,6 @@ public partial class Tab : IHandlerException
     public void CloseAllTabs()
     {
         OnClickCloseAllTabs();
-        InvokeUpdate = true;
         StateHasChanged();
     }
 
