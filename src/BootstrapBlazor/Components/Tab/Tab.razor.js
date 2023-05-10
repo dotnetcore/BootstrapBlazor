@@ -38,7 +38,7 @@ const resize = tab => {
             })
             if (itemWidth > tabWidth) {
                 wrap.classList.add('extend')
-                wrap.classList.add('show')
+                wrap.classList.add('of')
             }
         }
     }

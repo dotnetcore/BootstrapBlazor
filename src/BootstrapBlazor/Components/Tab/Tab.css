@@ -39,11 +39,15 @@
         left: 0;
         right: 0;
         height: 100%;
+        border-top-left-radius: var(--bs-border-radius);
+        border-top-right-radius: var(--bs-border-radius);
     }
 
     .tabs .extend .tabs-nav-scroll {
         left: var(--bb-tabs-bar-width);
         right: 60px;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
     }
 
     .tabs .tabs-nav {
@@ -73,26 +77,31 @@
         }
 
         .tabs .nav-link-bar.right {
-            border-width: 0 1px;
+            border-width: 0 1px 1px 0;
             right: var(--bb-tabs-bar-width);
             top: 0;
         }
 
         .tabs .nav-link-bar.dropdown {
-            border-width: 0;
+            border-width: 0 0 1px 1px;
             right: 0;
             top: 0;
+            border-top-right-radius: var(--bs-border-radius);
         }
 
     .tabs .extend .nav-link-bar {
         display: flex;
     }
 
-    .tabs .show .tabs-nav-scroll {
+        .tabs .extend .nav-link-bar.right {
+            border-width: 0 0 1px 1px;
+        }
+
+    .tabs .of .tabs-nav-scroll {
         right: var(--bb-tabs-bar-width);
     }
 
-    .tabs .show .nav-link-bar.right {
+    .tabs .of .nav-link-bar.right {
         right: 0;
     }
 
@@ -163,7 +172,6 @@
     .tabs.tabs-border-card {
         border: 1px solid var(--bb-tabs-border-color);
         border-radius: var(--bs-border-radius);
-        overflow: hidden;
     }
 
         .tabs.tabs-card .tabs-item,
@@ -207,6 +215,14 @@
             background-color: var(--bb-tabs-border-card-header-bg-color);
         }
 
+            .tabs.tabs-border-card .nav-link-bar.left {
+                border-top-left-radius: var(--bs-border-radius);
+            }
+
+    .tabs:not(.extend).of .nav-link-bar.right {
+        border-top-right-radius: var(--bs-border-radius);
+    }
+
     .tabs.tabs-card.tabs-top .tabs-body {
         border-top-width: 0;
         border-radius: 0 0 var(--bs-border-radius) var(--bs-border-radius);
@@ -217,7 +233,6 @@
     }
 
     .tabs .tabs-content {
-        overflow: hidden;
         position: relative;
     }
 
