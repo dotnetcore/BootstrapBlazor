@@ -247,6 +247,8 @@ public partial class Tab : IHandlerException
 
     private bool HandlerNavigation { get; set; }
 
+    private bool InvokeUpdate { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -307,6 +309,15 @@ public partial class Tab : IHandlerException
         {
             FirstRender = false;
         }
+
+        if (InvokeUpdate)
+        {
+            InvokeUpdate = false;
+            if (!IsCard && !IsBorderCard)
+            {
+                await InvokeVoidAsync("update", Id);
+            }
+        }
     }
 
     private void RemoveLocationChanged()
@@ -363,8 +374,9 @@ public partial class Tab : IHandlerException
 
         if (!ClickTabToNavigation)
         {
-            Items.ToList().ForEach(i => i.SetActive(false));
+            _items.ForEach(i => i.SetActive(false));
             item.SetActive(true);
+            InvokeUpdate = true;
             StateHasChanged();
         }
     }
@@ -374,7 +386,7 @@ public partial class Tab : IHandlerException
     /// </summary>
     public Task ClickPrevTab()
     {
-        var item = Items.FirstOrDefault(i => i.IsActive);
+        var item = _items.FirstOrDefault(i => i.IsActive);
         if (item != null)
         {
             var index = _items.IndexOf(item);
@@ -630,7 +642,7 @@ public partial class Tab : IHandlerException
     public void ActiveTab(TabItem item)
     {
         ActiveTabItem(item);
-
+        InvokeUpdate = true;
         StateHasChanged();
     }
 

@@ -57,34 +57,20 @@ const resize = tab => {
     }
 }
 
-const active = (tab, item) => {
+const active = (tab) => {
     resize(tab)
 
     const bar = tab.tabNav.querySelector('.tabs-active-bar')
     if (bar === null) {
         return
     }
-    const activeTab = item || tab.tabNav.querySelector('.tabs-item.active')
+    const activeTab = tab.tabNav.querySelector('.tabs-item.active')
     if (activeTab.length === 0) {
         return
     }
 
     if (tab.vertical) {
-        //scroll
-        const top = getPosition(activeTab).top
-        const itemHeight = top + activeTab.offsetHeight
-        const scrollTop = tab.scroll.scrollTop
-        const scrollHeight = tab.scroll.offsetHeight
-        const marginTop = itemHeight - scrollTop - scrollHeight
-        if (marginTop > 0) {
-            //tab.scroll.scrollTop = scrollTop + marginTop
-        }
-        else {
-            const marginBottom = top - scrollTop
-            if (marginBottom < 0) {
-                //tab.scroll.scrollTop = scrollTop + marginBottom
-            }
-        }
+        const top = getPosition(activeTab).top - getPosition(activeTab.parentNode).top
         bar.style.width = '2px'
         bar.style.transform = `translateY(${top}px)`
     }
@@ -115,10 +101,14 @@ export function init(id) {
     }
 
     EventHandler.on(window, 'resize', tab.resizeHandler)
-    EventHandler.on(tab.tabNav, 'click', '.tabs-item', e => {
-        active(tab, e.delegateTarget)
-    })
     active(tab)
+}
+
+export function update(id) {
+    const tab = Data.get(id)
+    if (tab) {
+        active(tab)
+    }
 }
 
 export function dispose(id) {
@@ -127,6 +117,5 @@ export function dispose(id) {
 
     if (tab) {
         EventHandler.off(window, 'resize', tab.resizeHandler)
-        EventHandler.off(tab.tabNav, 'click', '.tabs-item')
     }
 }
