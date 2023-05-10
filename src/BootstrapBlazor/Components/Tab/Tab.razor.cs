@@ -313,10 +313,7 @@ public partial class Tab : IHandlerException
         if (InvokeUpdate)
         {
             InvokeUpdate = false;
-            if (!IsCard && !IsBorderCard)
-            {
-                await InvokeVoidAsync("update", Id);
-            }
+            await InvokeVoidAsync("update", Id);
         }
     }
 
@@ -411,6 +408,7 @@ public partial class Tab : IHandlerException
                 else
                 {
                     item.SetActive(true);
+                    InvokeUpdate = true;
                     StateHasChanged();
                 }
             }
@@ -449,6 +447,7 @@ public partial class Tab : IHandlerException
                 else
                 {
                     item.SetActive(true);
+                    InvokeUpdate = true;
                     StateHasChanged();
                 }
             }
@@ -476,10 +475,15 @@ public partial class Tab : IHandlerException
     public void CloseAllTabs()
     {
         OnClickCloseAllTabs();
+        InvokeUpdate = true;
         StateHasChanged();
     }
 
-    private void OnClickCloseOtherTabs() => _items.RemoveAll(t => t is { Closable: true, IsActive: false });
+    private void OnClickCloseOtherTabs()
+    {
+        _items.RemoveAll(t => t is { Closable: true, IsActive: false });
+        InvokeUpdate = true;
+    }
 
     /// <summary>
     /// 关闭其他标签页方法
@@ -576,6 +580,7 @@ public partial class Tab : IHandlerException
     public void AddTab(Dictionary<string, object?> parameters, int? index = null)
     {
         AddTabItem(parameters, index);
+        InvokeUpdate = true;
         StateHasChanged();
     }
 
@@ -611,6 +616,7 @@ public partial class Tab : IHandlerException
 
         var index = _items.IndexOf(item);
         _items.Remove(item);
+        InvokeUpdate = true;
 
         // 删除的 TabItem 是当前 Tab
         // 查找后面的 Tab

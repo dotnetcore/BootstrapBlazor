@@ -21,23 +21,6 @@
         height: var(--bb-tabs-item-height);
     }
 
-        .tabs .tabs-nav-wrap .nav-link-bar {
-            position: absolute;
-            cursor: pointer;
-            font-size: 16px;
-            color: #909399;
-            width: var(--bb-tabs-bar-width);
-            height: 100%;
-            justify-content: center;
-            align-items: center;
-            border: 1px solid #dcdfe6;
-            display: none;
-        }
-
-        .tabs .tabs-nav-wrap.extend .nav-link-bar {
-            display: flex;
-        }
-
         .tabs .tabs-nav-wrap .dropdown-toggle:after {
             display: none;
         }
@@ -58,8 +41,7 @@
         height: 100%;
     }
 
-    .tabs.tabs-top .extend .tabs-nav-scroll,
-    .tabs.tabs-bottom .extend .tabs-nav-scroll {
+    .tabs .extend .tabs-nav-scroll {
         left: var(--bb-tabs-bar-width);
         right: 60px;
     }
@@ -71,22 +53,47 @@
         height: 100%;
     }
 
-    .tabs .nav-link-bar.left {
-        border-width: 0 1px 1px 0;
-        left: 0;
-        top: 0;
+    .tabs .nav-link-bar {
+        position: absolute;
+        cursor: pointer;
+        font-size: 16px;
+        color: #909399;
+        width: var(--bb-tabs-bar-width);
+        height: 100%;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #dcdfe6;
+        display: none;
     }
 
-    .tabs .nav-link-bar.right {
-        border-width: 0 1px;
-        right: 40px;
-        top: 0;
+        .tabs .nav-link-bar.left {
+            border-width: 0 1px 1px 0;
+            left: 0;
+            top: 0;
+        }
+
+        .tabs .nav-link-bar.right {
+            border-width: 0 1px;
+            right: var(--bb-tabs-bar-width);
+            top: 0;
+        }
+
+        .tabs .nav-link-bar.dropdown {
+            border-width: 0;
+            right: 0;
+            top: 0;
+        }
+
+    .tabs .extend .nav-link-bar {
+        display: flex;
     }
 
-    .tabs .nav-link-bar.dropdown {
-        border-width: 0;
+    .tabs .show .tabs-nav-scroll {
+        right: var(--bb-tabs-bar-width);
+    }
+
+    .tabs .show .nav-link-bar.right {
         right: 0;
-        top: 0;
     }
 
     .tabs .tabs-active-bar {

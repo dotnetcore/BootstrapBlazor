@@ -28,47 +28,43 @@ const resize = tab => {
             wrap.style.height = `${el.offsetHeight}px`
             const tabHeight = tabNav.offsetHeight
             const itemHeight = getPosition(lastItem).top + lastItem.offsetHeight
-            if (itemHeight < tabHeight) {
-                wrap.classList.remove("is-scrollable")
-            }
-            else {
-                wrap.classList.add('is-scrollable')
-            }
         }
         else {
-            wrap.removeAttribute('style')
+            // Item 总宽度大于 Nav 宽度
             const tabWidth = tabNav.offsetWidth
-            const itemWidth = getPosition(lastItem).left + lastItem.offsetWidth
-            if (itemWidth < tabWidth) {
-                wrap.classList.remove("is-scrollable")
-            }
-            else {
-                wrap.classList.add('is-scrollable')
-            }
-
-            // 设置 scroll 宽度
-            let barWidth = 0
-            wrap.querySelectorAll('.nav-link-bar').forEach(v => {
-                barWidth += v.offsetWidth
+            let itemWidth = 0
+            tabNav.querySelectorAll('.tabs-item').forEach(v => {
+                itemWidth += v.offsetWidth
             })
-            barWidth = wrap.offsetWidth - barWidth
-            scroll.style.width = `${barWidth}px`
+            if (itemWidth > tabWidth) {
+                wrap.classList.add('extend')
+                wrap.classList.add('show')
+            }
         }
     }
 }
 
-const active = (tab) => {
+const active = tab => {
     resize(tab)
+
+    const activeTab = tab.tabNav.querySelector('.tabs-item.active')
+    if (activeTab) {
+        // mark sure display total active tabitem
+        const right = getPosition(activeTab).left - getPosition(activeTab.parentNode).left + activeTab.offsetWidth
+        const navWidth = tab.scroll.offsetWidth
+        const marginX = navWidth - right + 2
+        if (marginX < 0) {
+            tab.tabNav.style.transform = `translateX(${marginX}px)`
+        }
+        else {
+            tab.tabNav.style.transform = null
+        }
+    }
 
     const bar = tab.tabNav.querySelector('.tabs-active-bar')
     if (bar === null) {
         return
     }
-    const activeTab = tab.tabNav.querySelector('.tabs-item.active')
-    if (activeTab.length === 0) {
-        return
-    }
-
     if (tab.vertical) {
         const top = getPosition(activeTab).top - getPosition(activeTab.parentNode).top
         bar.style.width = '2px'
