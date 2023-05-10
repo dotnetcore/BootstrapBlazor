@@ -506,7 +506,11 @@ public class TabTest : TabTestBase
         cut.Contains("<span class=\"tabs-item-text\">Tab1</span>");
         var item = cut.FindComponent<TabItem>();
         cut.InvokeAsync(() => item.Instance.SetHeader("Text", "fa fa-fa", true));
-        cut.Contains("<span class=\"tabs-item-text\">Text</span>");
+        item.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Url, "/Dog");
+        });
+        cut.Markup.Contains("<span class=\"tabs-item-text\">Text</span>");
     }
 
     [Fact]
