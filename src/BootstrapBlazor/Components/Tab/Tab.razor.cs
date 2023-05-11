@@ -250,6 +250,8 @@ public partial class Tab : IHandlerException
 
     private bool InvokeUpdate { get; set; }
 
+    private Placement LastPlacement { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -308,7 +310,13 @@ public partial class Tab : IHandlerException
 
         if (firstRender)
         {
+            LastPlacement = Placement;
             FirstRender = false;
+        }
+        else if (LastPlacement != Placement)
+        {
+            LastPlacement = Placement;
+            InvokeUpdate = true;
         }
 
         if (InvokeUpdate)
