@@ -36,7 +36,8 @@ public partial class Tab : IHandlerException
         .AddClass("tabs-card", IsCard)
         .AddClass("tabs-border-card", IsBorderCard)
         .AddClass($"tabs-{Placement.ToDescriptionString()}", Placement == Placement.Top || Placement == Placement.Right || Placement == Placement.Bottom || Placement == Placement.Left)
-        .AddClassFromAttributes(AdditionalAttributes)
+        .AddClass($"tabs-vertical", Placement == Placement.Left || Placement == Placement.Right)
+       .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     private string? StyleString => CssBuilder.Default()
