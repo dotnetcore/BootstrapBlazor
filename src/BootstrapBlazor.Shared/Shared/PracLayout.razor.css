@@ -58,10 +58,6 @@
     color: #17a2b8
 }
 
-::deep .tabs .tabs-item {
-    padding: 0 1rem;
-}
-
 ::deep .wwads-cn {
     --ad-min-height: 120px;
     --ad-margin-bottom: 1rem;
