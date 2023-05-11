@@ -69,13 +69,13 @@
     }
 
         .tabs .nav-link-bar.left {
-            border-width: 0 1px 1px 0;
+            border-width: 0;
             left: 0;
             top: 0;
         }
 
         .tabs .nav-link-bar.right {
-            border-width: 0 1px 1px 0;
+            border-width: 0;
             right: var(--bb-tabs-bar-width);
             top: 0;
         }
@@ -107,7 +107,6 @@
 
         .tabs .of .nav-link-bar.right {
             right: 0;
-            border-width: 0 0 1px 1px;
         }
 
     .tabs .tabs-active-bar {
@@ -208,6 +207,16 @@
         flex: 1;
         border: 1px solid var(--bb-tabs-border-color);
         border-width: 0 0 1px 0;
+    }
+
+    .tabs.tabs-card .of .nav-link-bar.left,
+    .tabs.tabs-border-card .of .nav-link-bar.left {
+        border-width: 0 1px 1px 0;
+    }
+
+    .tabs.tabs-card .of .nav-link-bar.right,
+    .tabs.tabs-border-card .of .nav-link-bar.right {
+        border-width: 0 0 1px 1px;
     }
 
     /*Border-Card*/
