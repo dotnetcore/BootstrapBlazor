@@ -25,12 +25,21 @@ const resize = tab => {
     const lastItem = [...tabNav.querySelectorAll('.tabs-item')].pop()
     if (lastItem) {
         if (tab.vertical) {
-            const tabHeight = tabNav.offsetHeight
-            const itemHeight = getPosition(lastItem).top + lastItem.offsetHeight
+            const tabHeight = scroll.offsetHeight
+            let itemHeight = 0
+            tabNav.querySelectorAll('.tabs-item').forEach(v => {
+                itemHeight += v.offsetHeight
+            })
+            if (itemHeight > tabHeight) {
+                wrap.classList.add('of')
+            }
+            else {
+                wrap.classList.remove('of')
+            }
         }
         else {
             // Item 总宽度大于 Nav 宽度
-            const tabWidth = tabNav.offsetWidth
+            const tabWidth = scroll.offsetWidth
             let itemWidth = 0
             tabNav.querySelectorAll('.tabs-item').forEach(v => {
                 itemWidth += v.offsetWidth
@@ -50,15 +59,28 @@ const active = tab => {
 
     const activeTab = tab.tabNav.querySelector('.tabs-item.active')
     if (activeTab) {
-        // mark sure display total active tabitem
-        const right = getPosition(activeTab).left - getPosition(activeTab.parentNode).left + activeTab.offsetWidth
-        const navWidth = tab.scroll.offsetWidth
-        const marginX = navWidth - right + 2
-        if (marginX < 0) {
-            tab.tabNav.style.transform = `translateX(${marginX}px)`
+        if (tab.vertical) {
+            const top = getPosition(activeTab).top - getPosition(activeTab.parentNode).top + activeTab.offsetHeight
+            const navHeight = tab.scroll.offsetHeight
+            const marginY = navHeight - top + 2
+            if (marginY < 0) {
+                tab.tabNav.style.transform = `translateY(${marginY}px)`
+            }
+            else {
+                tab.tabNav.style.transform = null
+            }
         }
         else {
-            tab.tabNav.style.transform = null
+            // mark sure display total active tabitem
+            const right = getPosition(activeTab).left - getPosition(activeTab.parentNode).left + activeTab.offsetWidth
+            const navWidth = tab.scroll.offsetWidth
+            const marginX = navWidth - right + 2
+            if (marginX < 0) {
+                tab.tabNav.style.transform = `translateX(${marginX}px)`
+            }
+            else {
+                tab.tabNav.style.transform = null
+            }
         }
     }
 
