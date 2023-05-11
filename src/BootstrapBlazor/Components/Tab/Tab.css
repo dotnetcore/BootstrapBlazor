@@ -1,17 +1,17 @@
 ﻿.tabs {
+    --bb-tabs-item-padding: 0 1rem;
     --bb-tabs-item-height: 40px;
-    --bb-tabs-item-hover-color: #e9ecef;
-    --bb-tabs-border-card-top-item-margin-top: -1px;
-    --bb-tabs-bar-width: 40px;
-    --bb-tabs-bar-height: 40px;
-    --bb-tabs-padding: 1rem;
-    --bb-tabs-border-color: #e4e7ed;
-    --bb-tabs-border-card-header-bg-color: #f5f7fa;
-    --bb-tabs-header-vertical-min-width: 126px;
-    --bb-tabs-bar-bg: #409eff;
     --bb-tabs-item-active-bg: #fff;
     --bb-tabs-item-active-color: #409eff;
     --bb-tabs-item-hover-color: #409eff;
+    --bb-tabs-border-card-top-item-margin-top: -1px;
+    --bb-tabs-border-color: #e4e7ed;
+    --bb-tabs-border-card-header-bg-color: #f5f7fa;
+    --bb-tabs-bar-width: 40px;
+    --bb-tabs-bar-height: 40px;
+    --bb-tabs-bar-bg: #409eff;
+    --bb-tabs-body-padding: 1rem;
+    --bb-tabs-header-vertical-min-width: 126px;
     display: flex;
     flex-flow: column;
 }
@@ -36,7 +36,7 @@
         }
 
             .tabs .tabs-nav-wrap .dropdown-item:hover {
-                background-color: #409eff;
+                background-color: var(--bb-tabs-item-hover-color);
             }
 
     .tabs .tabs-nav-scroll {
@@ -65,12 +65,12 @@
         position: absolute;
         cursor: pointer;
         font-size: 16px;
-        color: #909399;
+        color: var(--bs-body-color);
         width: var(--bb-tabs-bar-width);
         height: 100%;
         justify-content: center;
         align-items: center;
-        border: 1px solid #dcdfe6;
+        border: 1px solid var(--bb-tabs-border-color);
         display: none;
     }
 
@@ -127,12 +127,12 @@
     }
 
     .tabs .tabs-item {
-        padding: 0 1rem;
+        padding: var(--bb-tabs-item-padding);
         height: var(--bb-tabs-item-height);
         display: flex;
         list-style: none;
         font-weight: 500;
-        color: #303133;
+        color: var(--bs-body-color);
         cursor: pointer;
         align-items: center;
         position: relative;
@@ -177,7 +177,7 @@
             }
 
     .tabs .tabs-body {
-        padding: var(--bb-tabs-padding);
+        padding: var(--bb-tabs-body-padding);
         flex: 1;
     }
 
