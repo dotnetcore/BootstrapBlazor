@@ -3,13 +3,15 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Options;
 
 using System.IO.Compression;
+using System.Text.Json;
 
 namespace BootstrapBlazor.Shared.Shared;
 
 /// <summary>
-///
+/// 实战栏目侧边菜单
 /// </summary>
 public partial class PracNavMenu
 {
@@ -21,6 +23,18 @@ public partial class PracNavMenu
     [NotNull]
     private TitleService? TitleService { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IHttpClientFactory? Factory { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<WebsiteOptions>? options { get; set; }
+
+    private string? ServerUrl { get; set; }
+
+    private string? DemoUrl { get; set; }
+
     [NotNull]
     private List<MenuItem>? Menus { get; set; }
 
@@ -30,6 +44,9 @@ public partial class PracNavMenu
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
+
+        ServerUrl = options.CurrentValue.ServerUrl;
+        DemoUrl = $"{options.CurrentValue.SourceUrl}BootstrapBlazor.Shared/";
 
         Menus = new List<MenuItem>
         {
@@ -59,7 +76,7 @@ public partial class PracNavMenu
     /// <returns></returns>
     private async Task DownloadZipArchive(string name, string[] fileList)
     {
-        var bt = PackageSourceFile(fileList);
+        var bt = await PackageSourceFile(fileList);
         await DownloadService.DownloadFromStreamAsync($"BootstrapBlazor-{name}.zip", new MemoryStream(bt));
         await Task.CompletedTask;
     }
@@ -98,38 +115,67 @@ public partial class PracNavMenu
     /// </summary>
     /// <param name="filelist"></param>
     /// <returns></returns>
-    private static byte[] PackageSourceFile(string[] filelist)
+    private async Task<byte[]> PackageSourceFile(string[] filelist)
     {
         var memory = new MemoryStream();
         using (var archive = new ZipArchive(memory, ZipArchiveMode.Create, true))
         {
             foreach (var item in filelist)
             {
-                archive.CreateEntryFromFile(item, Path.GetFileName(item));
+                var code = await ReadFileContent(item);
+
+                var fileInArchive = archive.CreateEntry(Path.GetFileName(item), CompressionLevel.Optimal);
+                using var entryStream = fileInArchive.Open();
+                using var fileToCompressStream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(code));
+                fileToCompressStream.CopyTo(entryStream);
             }
         }
 
         return memory.ToArray();
     }
 
+    /// <summary>
+    /// 获取源码内容
+    /// </summary>
+    /// <param name="fileName"></param>
+    /// <returns></returns>
+    private async Task<string> ReadFileContent(string fileName)
+    {
+        var client = Factory.CreateClient();
+        client.Timeout = TimeSpan.FromSeconds(5);
+
+        string? payload;
+        if (OperatingSystem.IsBrowser())
+        {
+            client.BaseAddress = new Uri($"{ServerUrl}/api/");
+            payload = await client.GetStringAsync($"Code?fileName=BootstrapBlazor.Shared/{fileName}");
+        }
+        else
+        {
+            client.BaseAddress = new Uri(DemoUrl!);
+            payload = await client.GetStringAsync(fileName.Replace('\\', '/'));
+        }
+        return payload;
+    }
+
     private readonly string[] dashboardFileList = new[]
     {
-        "../BootstrapBlazor.Shared/Practicals/Dashboard/Dashboard.razor",
-        "../BootstrapBlazor.Shared/Practicals/Dashboard/Dashboard.razor.cs",
-        "../BootstrapBlazor.Shared/Practicals/Dashboard/Dashboard.razor.css",
-        "../BootstrapBlazor.Shared/Services/DashboardService.cs"
+        "Practicals/Dashboard/Dashboard.razor",
+        "Practicals/Dashboard/Dashboard.razor.cs",
+        "Practicals/Dashboard/Dashboard.razor.css",
+        "Services/DashboardService.cs"
     };
 
     private readonly string[] pracloginFileList = new[]
     {
-        "../BootstrapBlazor.Shared/Practicals/LoginAndRegister/PracLogin.razor",
-        "../BootstrapBlazor.Shared/Practicals/LoginAndRegister/PracRegister.razor"
+        "Practicals/LoginAndRegister/PracLogin.razor",
+        "Practicals/LoginAndRegister/PracRegister.razor"
     };
 
     private readonly string[] pinteresoFileList = new[]
     {
-        "../BootstrapBlazor.Shared/Practicals/Pintereso/Pintereso.razor",
-        "../BootstrapBlazor.Shared/Practicals/Pintereso/Pintereso.razor.cs",
-        "../BootstrapBlazor.Shared/Practicals/Pintereso/Pintereso.razor.css"
+        "Practicals/Pintereso/Pintereso.razor",
+        "Practicals/Pintereso/Pintereso.razor.cs",
+        "Practicals/Pintereso/Pintereso.razor.css"
     };
 }
