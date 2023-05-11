@@ -3,6 +3,7 @@
     --bb-tabs-item-hover-color: #e9ecef;
     --bb-tabs-border-card-top-item-margin-top: -1px;
     --bb-tabs-bar-width: 40px;
+    --bb-tabs-bar-height: 40px;
     --bb-tabs-padding: 1rem;
     --bb-tabs-border-color: #e4e7ed;
     --bb-tabs-border-card-header-bg-color: #f5f7fa;
@@ -216,9 +217,29 @@
         border-width: 0 1px 1px 0;
     }
 
+        .tabs.tabs-card .of .nav-link-bar.left i,
+        .tabs.tabs-border-card .of .nav-link-bar.left i {
+            transform: rotate(90deg);
+        }
+
+    .tabs.tabs-card.tabs-right .of .nav-link-bar.left,
+    .tabs.tabs-border-card.tabs-right .of .nav-link-bar.left {
+        border-width: 0 0 1px 1px;
+    }
+
     .tabs.tabs-card .of .nav-link-bar.right,
     .tabs.tabs-border-card .of .nav-link-bar.right {
         border-width: 0 0 1px 1px;
+    }
+
+        .tabs.tabs-card .of .nav-link-bar.right i,
+        .tabs.tabs-border-card .of .nav-link-bar.right i {
+            transform: rotate(90deg);
+        }
+
+    .tabs.tabs-card.tabs-right .of .nav-link-bar.right,
+    .tabs.tabs-border-card.tabs-right .of .nav-link-bar.right {
+        border-width: 1px 0 0 1px;
     }
 
     /*Border-Card*/
@@ -315,12 +336,22 @@
     }
 
     .tabs.tabs-vertical .tabs-nav {
-        display: flex;
         flex-flow: column;
+        height: auto;
     }
 
     .tabs.tabs-vertical .tabs-nav-scroll {
         border-radius: 0;
+        top: 0;
+        bottom: 0;
+        height: auto;
+    }
+
+    .tabs.tabs-vertical .of .tabs-nav-scroll {
+        top: var(--bb-tabs-bar-height);
+        bottom: var(--bb-tabs-bar-height);
+        left: 0;
+        right: 0;
     }
 
     .tabs.tabs-vertical .tabs-active-bar {
@@ -360,6 +391,10 @@
             border-width: 0;
         }
 
+    .tabs.tabs-vertical .of .nav-link-bar.right {
+        border-width: 1px 1px 0 0;
+    }
+
     .tabs.tabs-vertical .tabs-item-fix {
         border-width: 0 1px 0 0;
     }
@@ -367,6 +402,19 @@
     .tabs.tabs-vertical.tabs-right .tabs-item-fix {
         border-width: 0 0 0 1px;
     }
+
+    .tabs.tabs-vertical .nav-link-bar {
+        height: var(--bb-tabs-bar-height);
+        width: 100%;
+    }
+
+        .tabs.tabs-vertical .nav-link-bar.left {
+        }
+
+        .tabs.tabs-vertical .nav-link-bar.right {
+            top: auto;
+            bottom: 0;
+        }
 
     .tabs.tabs-right .tabs-active-bar {
         right: 0;
