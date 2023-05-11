@@ -17,18 +17,14 @@ const resize = tab => {
     const el = tab.el
     const tabNav = tab.tabNav
     const wrap = tab.wrap
+    tab.vertical = el.classList.contains('tabs-vertical')
     if (wrap.classList.contains('extend')) {
         return
     }
     const scroll = tab.scroll
-
-    tab.vertical = el.classList.contains('tabs-left') || el.classList.contains('tabs-right')
-    tab.horizontal = el.classList.contains('tabs-top') || el.classList.contains('tabs-bottom')
-
     const lastItem = [...tabNav.querySelectorAll('.tabs-item')].pop()
     if (lastItem) {
         if (tab.vertical) {
-            wrap.style.height = `${el.offsetHeight}px`
             const tabHeight = tabNav.offsetHeight
             const itemHeight = getPosition(lastItem).top + lastItem.offsetHeight
         }
@@ -71,14 +67,17 @@ const active = tab => {
         return
     }
     if (tab.vertical) {
-        const top = getPosition(activeTab).top - getPosition(activeTab.parentNode).top
+        const p = getPosition(activeTab);
+        const top = p.top - getPosition(activeTab.parentNode).top
         bar.style.width = '2px'
+        bar.style.height = `${p.height}px`
         bar.style.transform = `translateY(${top}px)`
     }
     else {
         const left = getPosition(activeTab).left - getPosition(activeTab.parentNode).left
         const width = activeTab.offsetWidth
         bar.style.width = `${width}px`
+        bar.style.height = `2px`
         bar.style.transform = `translateX(${left}px)`
     }
 }
