@@ -64,6 +64,8 @@ public class TabItem : ComponentBase
     [CascadingParameter]
     protected internal Tab? TabSet { get; set; }
 
+    private string? LastText { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -73,6 +75,19 @@ public class TabItem : ComponentBase
 
         Url ??= "";
         TabSet?.AddItem(this);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (LastText != null)
+        {
+            Text = LastText;
+        }
     }
 
     /// <summary>
@@ -91,7 +106,7 @@ public class TabItem : ComponentBase
     {
         if (TabSet != null)
         {
-            Text = text;
+            LastText = Text = text;
 
             if (!string.IsNullOrEmpty(icon))
             {
@@ -117,7 +132,7 @@ public class TabItem : ComponentBase
         {
             parameters[nameof(Url)] = url?.ToString()?.TrimStart('/') ?? "";
         }
-        var _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters!));
+        _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters!));
         return item;
     }
 }

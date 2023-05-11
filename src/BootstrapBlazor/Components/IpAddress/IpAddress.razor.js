@@ -110,6 +110,9 @@ export function dispose(id) {
     Data.remove(id)
 
     if (ip) {
-
+        ip.el.querySelectorAll(".ipv4-cell").forEach(c => {
+            EventHandler.off(c, 'keyup')
+            EventHandler.off(c, 'keydown')
+        })
     }
 }

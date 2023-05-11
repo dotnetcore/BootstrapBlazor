@@ -813,6 +813,7 @@
     "Attribute": "DialogOption 属性",
     "EmailDialogTitle": "选择收件人",
     "EmailDialogButtonYes": "选择",
+    "EmailInput": "请输入 ...",
     "HeaderToolbarTemplateTitle": "标题栏自定义按钮",
     "HeaderToolbarTemplateIntro": "通过设置 <code>HeaderToolbarTemplate</code> 自定义 <code>Header</code> 中工具栏按钮",
     "KeyboardTip": "通过设置 <code>DialogOption</code> <code>IsKeyboard</code> 参数，开启弹窗是否支持 <kbd>ESC</kbd>，请点击后面按钮设置后再点击 <b>弹窗</b> 按钮测试效果"
@@ -864,9 +865,6 @@
   },
   "BootstrapBlazor.Shared.Demos.Dialog.DialogErrorLogger": {
     "ErrorLoggerButton": "全局异常测试"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogEmail": {
-    "EmailInput": "请输入 ..."
   },
   "BootstrapBlazor.Shared.Samples.Dispatches": {
     "Title": "Dispatch 消息分发",
@@ -2044,7 +2042,7 @@
     "TabItem1Text": "用户管理",
     "TabItem1Content": "我是用户管理",
     "TabItem2Text": "菜单管理",
-    "TabItem2Content": "我是角色管理",
+    "TabItem2Content": "我是菜单管理",
     "TabItem3Text": "角色管理",
     "TabItem3Content": "我是角色管理",
     "TabItem4Text": "部门管理",

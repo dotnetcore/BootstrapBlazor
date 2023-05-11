@@ -813,6 +813,7 @@
     "Attribute": "DialogOption property",
     "EmailDialogTitle": "Select recipient",
     "EmailDialogButtonYes": "Choose",
+    "EmailInput": "please enter ...",
     "HeaderToolbarTemplateTitle": "Header Toolbar Template",
     "HeaderToolbarTemplateIntro": "Set <code>HeaderToolbarTemplate</code> custom the buttons on <code>Header</code>",
     "KeyboardTip": "by setting <code>DialogOption</code> <code>IsKeyboard</code> parameter, whether the pop-up window supports <kbd>ESC</kbd>, please click the back button to set and then click the <b>pop-up window</b> button to test the effect"
@@ -864,9 +865,6 @@
   },
   "BootstrapBlazor.Shared.Demos.Dialog.DialogErrorLogger": {
     "ErrorLoggerButton": "global exception test"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogEmail": {
-    "EmailInput": "please enter ..."
   },
   "BootstrapBlazor.Shared.Samples.Dispatches": {
     "Title": "Dispatch message distribution",

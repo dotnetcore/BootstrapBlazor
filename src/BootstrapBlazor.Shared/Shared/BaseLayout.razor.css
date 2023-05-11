@@ -58,3 +58,9 @@
     .install-prompt-body .cancelButton {
         margin-left: 0.3rem;
     }
+
+::deep pre {
+    color: #e83e8c;
+    margin-bottom: 0;
+    max-height: 260px;
+}
