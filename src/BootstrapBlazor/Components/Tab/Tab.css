@@ -358,11 +358,16 @@
 
     .tabs.tabs-vertical .tabs-item {
         height: var(--bb-tabs-item-height);
+        justify-content: flex-end;
     }
 
         .tabs.tabs-vertical .tabs-item:last-child {
             border-width: 0 1px 0 0;
         }
+
+    .tabs.tabs-vertical.tabs-right .tabs-item {
+        justify-content: flex-start;
+    }
 
     .tabs.tabs-vertical.tabs-card .tabs-item.active,
     .tabs.tabs-vertical.tabs-border-card .tabs-item.active {
