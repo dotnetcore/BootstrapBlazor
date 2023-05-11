@@ -27,6 +27,16 @@
         height: var(--bb-tabs-item-height);
     }
 
+        .tabs .tabs-nav-wrap:after {
+            content: "";
+            height: 2px;
+            background-color: var(--bb-tabs-border-color);
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
         .tabs .tabs-nav-wrap .dropdown-toggle:after {
             display: none;
         }
@@ -276,8 +286,18 @@
         flex-flow: column-reverse;
     }
 
+        .tabs.tabs-bottom .tabs-nav-wrap:after {
+            top: 0;
+            bottom: auto;
+        }
+
         .tabs.tabs-bottom .tabs-nav-scroll {
             border-radius: 0 0 var(--bs-border-radius) var(--bs-border-radius);
+        }
+
+        .tabs.tabs-bottom .tabs-active-bar {
+            top: 0;
+            bottom: auto;
         }
 
     .tabs.tabs-card.tabs-bottom .of .tabs-nav-scroll,
@@ -354,6 +374,8 @@
 
     .tabs.tabs-vertical .tabs-active-bar {
         bottom: auto;
+        left: auto;
+        right: 0;
     }
 
     .tabs.tabs-vertical .tabs-item {
@@ -426,8 +448,8 @@
         }
 
     .tabs.tabs-right .tabs-active-bar {
-        right: 0;
-        left: auto;
+        right: auto;
+        left: 0;
     }
 
 .is-page .layout-main > .tabs {
