@@ -42,6 +42,9 @@ const resize = tab => {
             if (itemWidth > tabWidth) {
                 wrap.classList.add('of')
             }
+            else {
+                wrap.classList.remove('of')
+            }
         }
     }
 }
