@@ -8,7 +8,7 @@
     <Button Icon="fa-solid fa-font-awesome" OnClickWithoutRender="@(() => Active(TabSet))" Text="@Localizer["ActiveButtonText"]">
     </Button>
 </p>
-<Tab IsBorderCard="true" @ref="TabSet">
+<Tab IsBorderCard="true" Placement="Placement.Bottom" @ref="TabSet">
     <TabItem Text="@Localizer["TabItem1Text"]">
         <div>@Localizer["TabItem1Content"]</div>
     </TabItem>
