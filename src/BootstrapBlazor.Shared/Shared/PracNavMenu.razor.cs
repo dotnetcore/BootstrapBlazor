@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Shared.Services;
+
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Options;
 
@@ -25,15 +27,7 @@ public partial class PracNavMenu
 
     [Inject]
     [NotNull]
-    private IHttpClientFactory? Factory { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IOptionsMonitor<WebsiteOptions>? options { get; set; }
-
-    private string? ServerUrl { get; set; }
-
-    private string? DemoUrl { get; set; }
+    private CodeSnippetService? CodeSnippetService { get; set; }
 
     [NotNull]
     private List<MenuItem>? Menus { get; set; }
@@ -44,9 +38,6 @@ public partial class PracNavMenu
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-
-        ServerUrl = options.CurrentValue.ServerUrl;
-        DemoUrl = $"{options.CurrentValue.SourceUrl}BootstrapBlazor.Shared/";
 
         Menus = new List<MenuItem>
         {
@@ -122,7 +113,7 @@ public partial class PracNavMenu
         {
             foreach (var item in filelist)
             {
-                var code = await ReadFileContent(item);
+                var code = await CodeSnippetService.GetFileContentAsync(item);
 
                 var fileInArchive = archive.CreateEntry(Path.GetFileName(item), CompressionLevel.Optimal);
                 using var entryStream = fileInArchive.Open();
@@ -132,30 +123,6 @@ public partial class PracNavMenu
         }
 
         return memory.ToArray();
-    }
-
-    /// <summary>
-    /// 获取源码内容
-    /// </summary>
-    /// <param name="fileName"></param>
-    /// <returns></returns>
-    private async Task<string> ReadFileContent(string fileName)
-    {
-        var client = Factory.CreateClient();
-        client.Timeout = TimeSpan.FromSeconds(5);
-
-        string? payload;
-        if (OperatingSystem.IsBrowser())
-        {
-            client.BaseAddress = new Uri($"{ServerUrl}/api/");
-            payload = await client.GetStringAsync($"Code?fileName=BootstrapBlazor.Shared/{fileName}");
-        }
-        else
-        {
-            client.BaseAddress = new Uri(DemoUrl!);
-            payload = await client.GetStringAsync(fileName.Replace('\\', '/'));
-        }
-        return payload;
     }
 
     private readonly string[] dashboardFileList = new[]
