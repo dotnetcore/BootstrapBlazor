@@ -28,12 +28,19 @@ class Program
         {
             foreach (var file in Directory.EnumerateFiles(projectPath, "*.js", SearchOption.AllDirectories))
             {
-                var content = File.ReadAllText(file, System.Text.Encoding.UTF8);
-                if (content.Contains("?v=$version"))
+                try
                 {
-                    content = content.Replace("?v=$version", $"?v={version}");
-                    File.WriteAllText(file, content, System.Text.Encoding.UTF8);
-                    Console.WriteLine($"Version: {file} -- ver: {version}");
+                    var content = File.ReadAllText(file, System.Text.Encoding.UTF8);
+                    if (content.Contains("?v=$version"))
+                    {
+                        content = content.Replace("?v=$version", $"?v={version}");
+                        File.WriteAllText(file, content, System.Text.Encoding.UTF8);
+                        Console.WriteLine($"Version: {file} -- ver: {version}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Version: {file} -- ver: {version} -- failed: {ex.Message}");
                 }
             }
         }
