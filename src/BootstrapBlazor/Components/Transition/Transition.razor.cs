@@ -5,22 +5,17 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Transition 动画组件
 /// </summary>
-public partial class Transition : IDisposable
+public partial class Transition
 {
-    private ElementReference TransitionElement { get; set; }
-
-    private JSInterop<Transition>? Interop { get; set; }
-
-    private string? ClassString => CssBuilder
-        .Default("animate__animated")
+    private string? ClassString => CssBuilder.Default("animate__animated")
         .AddClass(TransitionType.ToDescriptionString(), Show)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     private string? StyleString => CssBuilder.Default()
-        .AddClass($"--animate-duration: {Duration / 1000}s", Duration > 100)
+        .AddClass($"animate-duration: {Duration / 1000}s", Duration > 100)
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -67,41 +62,8 @@ public partial class Transition : IDisposable
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        base.OnAfterRender(firstRender);
-
-        if (firstRender)
-        {
-            Interop = new JSInterop<Transition>(JSRuntime);
-            await Interop.InvokeVoidAsync(this, TransitionElement, "bb_transition", nameof(TransitionEndAsync));
-        }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            if (Interop != null)
-            {
-                Interop.Dispose();
-                Interop = null;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
-    }
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(TransitionEndAsync));
 }

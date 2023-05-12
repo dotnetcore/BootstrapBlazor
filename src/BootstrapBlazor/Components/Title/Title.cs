@@ -7,7 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Title 组件
 /// </summary>
-public class Title : BootstrapComponentBase, IDisposable
+[BootstrapModuleAutoLoader(ModuleName = "title", AutoInvokeInit = false, AutoInvokeDispose = false)]
+public class Title : BootstrapModuleComponentBase
 {
     [Inject]
     [NotNull]
@@ -26,14 +27,11 @@ public class Title : BootstrapComponentBase, IDisposable
     {
         base.OnInitialized();
 
-        if (string.IsNullOrEmpty(Text))
-        {
-            TitleService.Register(this, SetTitle);
-        }
+        TitleService.Register(this, SetTitle);
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -41,36 +39,24 @@ public class Title : BootstrapComponentBase, IDisposable
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (!string.IsNullOrEmpty(Text))
+        if (Text != null)
         {
-            await SetTitle(Text);
+            await SetTitle(new TitleOption() { Title = Text });
         }
     }
 
-    /// <summary>
-    /// 设置网站 Title 方法
-    /// </summary>
-    /// <param name="title"></param>
-    /// <returns></returns>
-    private ValueTask SetTitle(string title) => JSRuntime.InvokeVoidAsync(identifier: "$.bb_setTitle", title);
+    private Task SetTitle(TitleOption op) => InvokeVoidAsync("setTitle", op.Title);
 
     /// <summary>
-    /// Dispose 方法
+    /// <inheritdoc/>
     /// </summary>
-    protected virtual void Dispose(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
+        await base.DisposeAsync(disposing);
+
         if (disposing)
         {
             TitleService.UnRegister(this);
         }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
     }
 }

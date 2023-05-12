@@ -2,12 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Text.Json;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// Ajax 组件
 /// </summary>
-[JSModuleAutoLoader(ModuleName = "ajax", AutoInvokeInit = false, AutoInvokeDispose = false)]
+[BootstrapModuleAutoLoader(ModuleName = "ajax", AutoInvokeInit = false, AutoInvokeDispose = false)]
 public class Ajax : BootstrapModuleComponentBase
 {
     [Inject]
@@ -24,7 +26,7 @@ public class Ajax : BootstrapModuleComponentBase
         AjaxService.RegisterGoto(this, Goto);
     }
 
-    private Task<string?> InvokeAsync(AjaxOption option) => InvokeAsync<string?>("execute", option);
+    private Task<JsonDocument?> InvokeAsync(AjaxOption option) => InvokeAsync<JsonDocument?>("execute", option);
 
     private Task Goto(string url) => InvokeVoidAsync("goto", url);
 

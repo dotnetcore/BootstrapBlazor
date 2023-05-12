@@ -2,11 +2,7 @@
 import Data from "../../BootstrapBlazor/modules/data.js"
 import EventHandler from "../../BootstrapBlazor/modules/event-handler.js"
 
-export function init(id, invoke, updateMethod, showDialogMethod, copyIcon) {
-    const el = document.getElementById(id)
-    if (el === null) {
-        return
-    }
+export function init(el, invoke, updateMethod, showDialogMethod, copyIcon) {
     const faList = {
         element: el,
         invoke,
@@ -14,7 +10,7 @@ export function init(id, invoke, updateMethod, showDialogMethod, copyIcon) {
         showDialogMethod,
         copyIcon
     }
-    Data.set(id, faList)
+    Data.set(el, faList)
 
     if (el.classList.contains('is-catalog')) {
         faList.body = el.querySelector('.icons-body')
@@ -103,9 +99,9 @@ export function init(id, invoke, updateMethod, showDialogMethod, copyIcon) {
     }
 }
 
-export function dispose(id) {
-    const faList = Data.get(id)
-    Data.remove(id)
+export function dispose(el) {
+    const faList = Data.get(el)
+    Data.remove(el)
 
     if (faList) {
         EventHandler.off(faList.element, 'click', '.nav-link')

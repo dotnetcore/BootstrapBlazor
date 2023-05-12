@@ -1,4 +1,4 @@
-﻿:root {
+﻿.layout {
     --bb-layout-header-height: 50px;
     --bb-layout-header-backgound: #17a2b8;
     --bb-layout-headerbar-backgound: #1ab394;
@@ -13,9 +13,6 @@
     --bb-layout-sidebar-backgound: #343a40;
     --bb-layout-sidebar-color: #c2c7d0;
     --bb-layout-title-color: #e9ecef;
-}
-
-.layout {
     display: flex;
     height: 100%;
     width: 100%;

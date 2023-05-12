@@ -14,7 +14,7 @@ public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<MockComponent>();
         cut.InvokeAsync(() => cut.Instance.InvokeVoidAsyncTest());
-        Assert.True(cut.Instance.InvokeVoidRunned);
+        Assert.True(cut.Instance.InvokeVoidRunner);
     }
 
     [Fact]
@@ -22,13 +22,13 @@ public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<MockObjectReferenceComponent>();
         cut.InvokeAsync(() => cut.Instance.InvokeAsyncTest());
-        Assert.True(cut.Instance.InvokeRunned);
+        Assert.True(cut.Instance.InvokeRunner);
     }
 
-    [JSModuleAutoLoader]
+    [JSModuleAutoLoader("mock.js")]
     class MockComponent : BootstrapModuleComponentBase
     {
-        public bool InvokeVoidRunned { get; set; }
+        public bool InvokeVoidRunner { get; set; }
 
         public async Task InvokeVoidAsyncTest()
         {
@@ -38,14 +38,14 @@ public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
             using CancellationTokenSource cancellationTokenSource = new CancellationTokenSource(1000);
             await base.InvokeVoidAsync(Id, cancellationTokenSource.Token);
 
-            InvokeVoidRunned = true;
+            InvokeVoidRunner = true;
         }
     }
 
-    [JSModuleAutoLoader(JSObjectReference = true, ModuleName = "Mock", Relative = true, AutoInvokeDispose = true, AutoInvokeInit = true)]
+    [JSModuleAutoLoader("mock.js", JSObjectReference = true, AutoInvokeDispose = true, AutoInvokeInit = true)]
     class MockObjectReferenceComponent : BootstrapModuleComponentBase
     {
-        public bool InvokeRunned { get; set; }
+        public bool InvokeRunner { get; set; }
 
         public async Task InvokeAsyncTest()
         {
@@ -55,7 +55,7 @@ public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
             using CancellationTokenSource cancellationTokenSource = new CancellationTokenSource(1000);
             await base.InvokeAsync<string>(Id, cancellationTokenSource.Token);
 
-            InvokeRunned = true;
+            InvokeRunner = true;
         }
     }
 }

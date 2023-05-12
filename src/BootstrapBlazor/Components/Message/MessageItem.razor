@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits AlertBase
 
-<div @ref="MessageItemElement" @attributes="@AdditionalAttributes" role="alert" class="@ClassName" data-autohide="@AutoHideString" data-delay="@Delay">
+<div id="@Id" @attributes="@AdditionalAttributes" role="alert" class="@ClassName" data-bb-autohide="@AutoHideString" data-bb-delay="@Delay">
     @if (!string.IsNullOrEmpty(Icon))
     {
         <i class="@Icon"></i>

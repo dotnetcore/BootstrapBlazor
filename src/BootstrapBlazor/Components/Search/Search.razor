@@ -3,7 +3,7 @@
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" @ref="AutoCompleteElement">
     <div class="input-group">
-        <input @attributes="AdditionalAttributes" @ref="FocusElement" class="@ClassName" autocomplete="off" type="@Type" placeholder="@PlaceHolder" @bind-value="@CurrentValueAsString" @bind-value:event="oninput" @onblur="OnBlur" @onkeyup="OnKeyUp" />
+        <input @attributes="AdditionalAttributes" id="@Id" @ref="FocusElement" class="@ClassName" autocomplete="off" type="@Type" placeholder="@PlaceHolder" @bind-value="@CurrentValueAsString" @bind-value:event="oninput" @onblur="OnBlur" @onkeyup="OnKeyUp" />
         @if (ShowClearButton)
         {
             <Button Color="ClearButtonColor" Text="@ClearButtonText" Icon="@ClearButtonIcon" OnClick="OnClearClick" aria-label="Clear" />

@@ -16,55 +16,80 @@ export function init(el, invoker, data, callback) {
     const isFitView = el.getAttribute('data-bb-fit-view') === 'true'
     const isCenterView = el.getAttribute('data-bb-center-view') === 'true'
 
-    meta._topology = new Topology(el, {}, isSupportTouch)
-    meta._topology.connectSocket = function () {
+    const initCanvas = () => {
+        meta.topology = new Topology(el, {}, isSupportTouch)
+        meta.topology.connectSocket = function () {
+        }
+        meta.topology.open(JSON.parse(data))
+        meta.topology.lock(1)
+        if (isFitView) {
+            meta.topology.fitView()
+        }
+        if (isCenterView) {
+            meta.topology.centerView()
+        }
+        invoker.invokeMethodAsync(callback)
     }
-    meta._topology.open(JSON.parse(data))
-    meta._topology.lock(1)
-    if (isFitView) {
-        meta._topology.fitView()
+
+    // make sure el has height
+    if (el.offsetHeight > 0) {
+        initCanvas()
     }
-    if (isCenterView) {
-        meta._topology.centerView()
+    else {
+        let timers = 0;
+        const handler = setInterval(() => {
+            if (el.offsetHeight > 0) {
+                clearInterval(handler)
+                initCanvas()
+            }
+            else {
+                timers++
+                if (timers > 10) {
+                    clearInterval(handler)
+                    console.log(el)
+                    console.error(`el no height can't init'`)
+                }
+            }
+        }, 200)
     }
-    invoker.invokeMethodAsync(callback)
 }
 
 export function update(el, data) {
     const meta = Data.get(el)
-    meta._topology.doSocket(JSON.stringify(data))
+    meta.topology.doSocket(JSON.stringify(data))
 }
 
 export function scale(el, rate) {
     const meta = Data.get(el)
-    meta._topology.scale(rate)
-    meta._topology.centerView()
+    meta.topology.scale(rate)
+    meta.topology.centerView()
 }
 
 export function reset(el) {
     const meta = Data.get(el)
-    meta._topology.fitView()
-    meta._topology.centerView()
+    meta.topology.fitView()
+    meta.topology.centerView()
 }
 
 export function resize(el, width, height) {
     const meta = Data.get(el)
-    meta._topology.canvas.dirty = true
+    meta.topology.canvas.dirty = true
     if (width !== null && height !== null) {
-        meta._topology.resize(width, height)
+        meta.topology.resize(width, height)
     }
     else {
-        meta._topology.resize()
+        meta.topology.resize()
     }
-    meta._topology.fitView()
-    meta._topology.centerView()
+    meta.topology.fitView()
+    meta.topology.centerView()
 }
 
 export function dispose(el) {
     const meta = Data.get(el)
-    if (meta._topology) {
-        meta._topology.destroy()
-        delete meta._topology
-    }
     Data.remove(el)
+
+    if (meta.topology) {
+        meta.topology.destroy()
+        delete meta.topology
+    }
 }

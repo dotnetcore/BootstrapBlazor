@@ -12,7 +12,7 @@ public class SwitchButtonTest : BootstrapBlazorTestBase
     public void Text_Ok()
     {
         var cut = Context.RenderComponent<SwitchButton>();
-        cut.Contains("&#x5173;");
+        cut.Contains("关");
     }
 
     [Fact]
@@ -22,7 +22,7 @@ public class SwitchButtonTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.ToggleState, true);
         });
-        cut.Contains("&#x5F00;");
+        cut.Contains("开");
     }
 
     [Fact]

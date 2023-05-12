@@ -64,7 +64,7 @@ public partial class Table<TItem>
     public Func<TItem, bool>? ShowDeleteButtonCallback { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示导出按钮 默认为 false 显示
+    /// 获得/设置 是否显示导出按钮 默认为 false 不显示
     /// </summary>
     [Parameter]
     public bool ShowExportButton { get; set; }
@@ -203,18 +203,6 @@ public partial class Table<TItem>
 
     /// <summary>
     /// 获得/设置 表格 Toolbar 按钮模板
-    /// <para>表格工具栏左侧按钮模板，模板中内容出现在默认按钮后面</para>
-    /// <see cref="TableToolbarAfterTemplate"/>
-    /// <seealso cref="TableToolbarBeforeTemplate"/>
-    /// </summary>
-    /// <remarks>已过期，请使用 TableToolbarBeforeTemplate 或者 TableToolbarAfterTemplate 参数代替</remarks>
-    [Parameter]
-    [Obsolete("已过期，请使用 TableToolbarBeforeTemplate 或者 TableToolbarAfterTemplate 参数代替")]
-    [ExcludeFromCodeCoverage]
-    public RenderFragment? TableToolbarTemplate { get { return TableToolbarAfterTemplate; } set { TableToolbarAfterTemplate = value; } }
-
-    /// <summary>
-    /// 获得/设置 表格 Toolbar 按钮模板
     /// <para>表格工具栏左侧按钮模板，模板中内容出现在默认按钮前面</para>
     /// </summary>
     [Parameter]
@@ -225,7 +213,7 @@ public partial class Table<TItem>
     /// <para>表格工具栏左侧按钮模板，模板中内容出现在默认按钮后面</para>
     /// </summary>
     [Parameter]
-    public RenderFragment? TableToolbarAfterTemplate { get; set; }
+    public RenderFragment? TableToolbarTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 表格 Toolbar 按钮模板
@@ -239,7 +227,7 @@ public partial class Table<TItem>
     /// <para>表格工具栏右侧按钮模板，模板中内容出现在默认按钮后面</para>
     /// </summary>
     [Parameter]
-    public RenderFragment? TableExtensionToolbarAfterTemplate { get; set; }
+    public RenderFragment? TableExtensionToolbarTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 新建按钮回调方法

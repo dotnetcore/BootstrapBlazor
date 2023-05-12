@@ -6,7 +6,7 @@ using BootstrapBlazor;
 
 namespace UnitTest.Components;
 
-public class TransitionTest : TestBase
+public class TransitionTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void ShowAnimate_Ok()
@@ -30,7 +30,7 @@ public class TransitionTest : TestBase
     public void Duration_Ok()
     {
         var cut = Context.RenderComponent<Transition>(builder => builder.Add(s => s.Duration, 3000));
-        Assert.Contains("--animate-duration: 3s", cut.Markup);
+        Assert.Contains("animate-duration: 3s", cut.Markup);
     }
 
     [Fact]

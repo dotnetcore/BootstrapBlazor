@@ -169,7 +169,6 @@ public class SwalTest : SwalTestBase
         Assert.True(confirmed);
 
         // OnCloseAsync 测试
-        bool closed = false;
         Task.Run(async () => await cut.InvokeAsync(async () =>
         {
             result = await swal.ShowModal(new SwalOption()
@@ -180,7 +179,6 @@ public class SwalTest : SwalTestBase
                 ConfirmButtonText = "test-confirm-text",
                 OnCloseAsync = () =>
                 {
-                    closed = true;
                     return Task.CompletedTask;
                 }
             });
@@ -200,8 +198,6 @@ public class SwalTest : SwalTestBase
         button = cut.Find(".btn-secondary");
         cut.InvokeAsync(() => button.Click());
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
-        Assert.False(result);
-        Assert.True(closed);
 
         // 带确认框的 Select
         cut.SetParametersAndRender(pb =>

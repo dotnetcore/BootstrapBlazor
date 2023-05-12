@@ -7,8 +7,7 @@
     "HeaderText": "请完成安全验证",
     "BarText": "向右滑动填充拼图",
     "FailedText": "加载失败",
-    "LoadText": "正在加载 ...",
-    "TryText": "再试一次"
+    "LoadText": "正在加载 ..."
   },
   "BootstrapBlazor.Components.Camera": {
     "DeviceLabel": "摄像头",
@@ -16,8 +15,6 @@
     "PlayText": "开启",
     "StopText": "关闭",
     "PhotoText": "拍照",
-    "FrontText": "前置",
-    "BackText": "后置",
     "NotFoundDevicesString": "未找到视频相关设备"
   },
   "BootstrapBlazor.Components.Calendar": {

@@ -21,12 +21,10 @@ public static class JSModuleExtensions
     /// </summary>
     /// <param name="jsRuntime"></param>
     /// <param name="fileName"></param>
-    /// <param name="relative">是否为相对路径 默认 true</param>
     /// <returns></returns>
-    public static async Task<JSModule> LoadModule(this IJSRuntime jsRuntime, string fileName, bool relative = true)
+    public static async Task<JSModule> LoadModule(this IJSRuntime jsRuntime, string fileName)
     {
-        var filePath = relative ? $"./_content/BootstrapBlazor/Components/{fileName}/{fileName}.razor.js" : fileName;
-        var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", $"{filePath}?v={GetVersion()}");
+        var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", $"{fileName}?v={GetVersion()}");
         return new JSModule(jSObjectReference);
     }
 

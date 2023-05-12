@@ -9,9 +9,9 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Tab 组件基类
+/// Tab 组件
 /// </summary>
-public partial class Tab : IHandlerException, IDisposable
+public partial class Tab : IHandlerException
 {
     private bool FirstRender { get; set; } = true;
 
@@ -32,13 +32,12 @@ public partial class Tab : IHandlerException, IDisposable
         .AddClass(icon)
         .Build();
 
-    private ElementReference TabElement { get; set; }
-
     private string? ClassString => CssBuilder.Default("tabs")
         .AddClass("tabs-card", IsCard)
         .AddClass("tabs-border-card", IsBorderCard)
         .AddClass($"tabs-{Placement.ToDescriptionString()}", Placement == Placement.Top || Placement == Placement.Right || Placement == Placement.Bottom || Placement == Placement.Left)
-        .AddClassFromAttributes(AdditionalAttributes)
+        .AddClass($"tabs-vertical", Placement == Placement.Left || Placement == Placement.Right)
+       .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     private string? StyleString => CssBuilder.Default()
@@ -162,14 +161,6 @@ public partial class Tab : IHandlerException, IDisposable
     public string? DefaultUrl { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击 Tab 时回调方法
-    /// </summary>
-    [Parameter]
-    [Obsolete("请使用 OnClickTabItemAsync 代替")]
-    [ExcludeFromCodeCoverage]
-    public Func<TabItem, Task>? OnClickTab { get; set; }
-
-    /// <summary>
     /// 获得/设置 点击 TabItem 时回调方法
     /// </summary>
     [Parameter]
@@ -257,8 +248,12 @@ public partial class Tab : IHandlerException, IDisposable
 
     private bool HandlerNavigation { get; set; }
 
+    private bool InvokeUpdate { get; set; }
+
+    private Placement LastPlacement { get; set; }
+
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -268,7 +263,7 @@ public partial class Tab : IHandlerException, IDisposable
     }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override void OnParametersSet()
@@ -302,6 +297,32 @@ public partial class Tab : IHandlerException, IDisposable
         else
         {
             RemoveLocationChanged();
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            LastPlacement = Placement;
+            FirstRender = false;
+        }
+        else if (LastPlacement != Placement)
+        {
+            LastPlacement = Placement;
+            InvokeUpdate = true;
+        }
+
+        if (InvokeUpdate)
+        {
+            InvokeUpdate = false;
+            await InvokeVoidAsync("update", Id);
         }
     }
 
@@ -345,22 +366,6 @@ public partial class Tab : IHandlerException, IDisposable
         }
     }
 
-    /// <summary>
-    /// OnAfterRender 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            FirstRender = false;
-        }
-
-        await JSRuntime.InvokeVoidAsync(TabElement, "bb_tab");
-    }
-
     private bool ShouldShowExtendButtons() => ShowExtendButtons && (Placement == Placement.Top || Placement == Placement.Bottom);
 
     /// <summary>
@@ -375,8 +380,9 @@ public partial class Tab : IHandlerException, IDisposable
 
         if (!ClickTabToNavigation)
         {
-            Items.ToList().ForEach(i => i.SetActive(false));
+            _items.ForEach(i => i.SetActive(false));
             item.SetActive(true);
+            InvokeUpdate = true;
             StateHasChanged();
         }
     }
@@ -386,7 +392,7 @@ public partial class Tab : IHandlerException, IDisposable
     /// </summary>
     public Task ClickPrevTab()
     {
-        var item = Items.FirstOrDefault(i => i.IsActive);
+        var item = _items.FirstOrDefault(i => i.IsActive);
         if (item != null)
         {
             var index = _items.IndexOf(item);
@@ -411,6 +417,7 @@ public partial class Tab : IHandlerException, IDisposable
                 else
                 {
                     item.SetActive(true);
+                    InvokeUpdate = true;
                     StateHasChanged();
                 }
             }
@@ -449,6 +456,7 @@ public partial class Tab : IHandlerException, IDisposable
                 else
                 {
                     item.SetActive(true);
+                    InvokeUpdate = true;
                     StateHasChanged();
                 }
             }
@@ -468,7 +476,20 @@ public partial class Tab : IHandlerException, IDisposable
         }
     }
 
-    private void OnClickCloseAllTabs() => _items.RemoveAll(t => t.Closable);
+    private void OnClickCloseAllTabs()
+    {
+        _items.RemoveAll(t => t.Closable);
+        if (_items.Any())
+        {
+            var activeItem = _items.FirstOrDefault(i => i.IsActive);
+            if (activeItem == null)
+            {
+                activeItem = _items.First();
+                activeItem.SetActive(true);
+            }
+        }
+        InvokeUpdate = true;
+    }
 
     /// <summary>
     /// 关闭所有标签页方法
@@ -479,7 +500,11 @@ public partial class Tab : IHandlerException, IDisposable
         StateHasChanged();
     }
 
-    private void OnClickCloseOtherTabs() => _items.RemoveAll(t => t is { Closable: true, IsActive: false });
+    private void OnClickCloseOtherTabs()
+    {
+        _items.RemoveAll(t => t is { Closable: true, IsActive: false });
+        InvokeUpdate = true;
+    }
 
     /// <summary>
     /// 关闭其他标签页方法
@@ -576,6 +601,7 @@ public partial class Tab : IHandlerException, IDisposable
     public void AddTab(Dictionary<string, object?> parameters, int? index = null)
     {
         AddTabItem(parameters, index);
+        InvokeUpdate = true;
         StateHasChanged();
     }
 
@@ -611,6 +637,7 @@ public partial class Tab : IHandlerException, IDisposable
 
         var index = _items.IndexOf(item);
         _items.Remove(item);
+        InvokeUpdate = true;
 
         // 删除的 TabItem 是当前 Tab
         // 查找后面的 Tab
@@ -642,7 +669,7 @@ public partial class Tab : IHandlerException, IDisposable
     public void ActiveTab(TabItem item)
     {
         ActiveTabItem(item);
-
+        InvokeUpdate = true;
         StateHasChanged();
     }
 
@@ -703,23 +730,16 @@ public partial class Tab : IHandlerException, IDisposable
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// <inheritdoc/>
     /// </summary>
-    protected virtual void Dispose(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
+        await base.DisposeAsync(disposing);
+
         if (disposing)
         {
             RemoveLocationChanged();
             ErrorLogger?.UnRegister(this);
         }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
     }
 }

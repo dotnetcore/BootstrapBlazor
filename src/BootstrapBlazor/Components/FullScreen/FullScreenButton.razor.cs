@@ -19,10 +19,6 @@ public partial class FullScreenButton
     [NotNull]
     private FullScreenService? FullScreenService { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IIconTheme? IconTheme { get; set; }
-
     private string? ClassString => CssBuilder.Default("btn btn-fs")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();

@@ -11,15 +11,20 @@
         return null
     }
 
-    const response = await fetch(option.url, {
+    const init = {
         method: option.method,
-        body: JSON.stringify(option.data),
         headers: {
             'Content-Type': 'application/json'
         }
-    })
+    }
+
+    if (option.method === 'POST' && option.data) {
+        init.body = JSON.stringify(option.data)
+    }
+
+    const response = await fetch(option.url, init)
     const json = await response.json()
-    return JSON.stringify(json)
+    return json
 }
 
 export function goto(url) {

@@ -18,7 +18,7 @@
     "PhotoText": "Foto",
     "FrontText": "Frente",
     "BackText": "Atrás",
-    "NotFoundDevicesString": "Nenhum dispositivo encontrado"
+    "NotFoundDevicesString": "Ningún dispositivo encontrado"
   },
   "BootstrapBlazor.Components.Calendar": {
     "PreviousYear": "Año anterior",
@@ -41,8 +41,8 @@
   "BootstrapBlazor.Components.Console": {
     "HeaderText": "Supervisar",
     "LightTitle": "Luz",
-    "ClearButtonText": "Limpar",
-    "AutoScrollText": "AutoDesplazamiento"
+    "ClearButtonText": "Limpiar",
+    "AutoScrollText": "Auto Desplazamiento"
   },
   "BootstrapBlazor.Components.DateTimePicker": {
     "DatePlaceHolder": "Sel. fecha",
@@ -205,7 +205,7 @@
     "ColumnButtonTemplateHeaderText": "",
     "SearchTooltip": "<div class='search-input-tooltip'>Presione ...</br><kbd>Entrar</kbd> Buscar <kbd>ESC</kbd> Borrar</div>",
     "SearchModalTitle": "Buscando",
-    "AddButtonToastTitle": "AgregarRegistro",
+    "AddButtonToastTitle": "Agregar Registro",
     "AddButtonToastContent": "Error al agregar. Asignar método OnAddAsync",
     "EditButtonToastTitle": "Agregar Registro",
     "EditButtonToastNotSelectContent": "Error al guardar. Asignar método OnSaveAsync",

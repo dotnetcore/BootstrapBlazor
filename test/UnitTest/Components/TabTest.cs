@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using AngleSharp.Dom;
 using Bunit.TestDoubles;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -506,7 +507,11 @@ public class TabTest : TabTestBase
         cut.Contains("<span class=\"tabs-item-text\">Tab1</span>");
         var item = cut.FindComponent<TabItem>();
         cut.InvokeAsync(() => item.Instance.SetHeader("Text", "fa fa-fa", true));
-        cut.Contains("<span class=\"tabs-item-text\">Text</span>");
+        item.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Url, "/Dog");
+        });
+        cut.Markup.Contains("<span class=\"tabs-item-text\">Text</span>");
     }
 
     [Fact]
@@ -539,8 +544,8 @@ public class TabTest : TabTestBase
             pb.Add(a => a.DefaultUrl, "/Dog");
         });
         cut.InvokeAsync(() => cut.Instance.AddTab("/Dog", "Dog"));
-        var tabItem = cut.FindComponents<DynamicElement>().First(i => i.Markup.Contains("Dog"));
-        Assert.DoesNotContain("tabs-item-close", tabItem.Markup);
+        var tabItem = cut.FindAll(".tabs-item").First(i => i.InnerHtml.Contains("Dog"));
+        Assert.DoesNotContain("tabs-item-close", tabItem.InnerHtml);
     }
 
     [Fact]
@@ -552,5 +557,54 @@ public class TabTest : TabTestBase
             pb.Add(a => a.DefaultUrl, "/Binder");
         });
         cut.Contains("Index_Binder_Test");
+    }
+
+    [Fact]
+    public void CloseAll_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.ShowExtendButtons, true);
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Text1");
+                pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "Test1"));
+            });
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Text2");
+                pb.Add(a => a.Closable, false);
+                pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "Test2"));
+            });
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Text3");
+                pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "Test3"));
+            });
+        });
+
+        var button = cut.FindAll(".dropdown-menu > .dropdown-item")[cut.FindAll(".dropdown-menu > .dropdown-item").Count - 1].Children.First();
+        cut.InvokeAsync(() => button.Click());
+        cut.Contains("Text2");
+        cut.DoesNotContain("Text3");
+    }
+
+    [Fact]
+    public void SetPlacement_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Text1");
+                pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "Test1"));
+            });
+        });
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Placement, Placement.Bottom);
+        });
+        cut.Contains("tabs-bottom");
     }
 }

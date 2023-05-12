@@ -813,6 +813,7 @@
     "Attribute": "DialogOption property",
     "EmailDialogTitle": "Select recipient",
     "EmailDialogButtonYes": "Choose",
+    "EmailInput": "please enter ...",
     "HeaderToolbarTemplateTitle": "Header Toolbar Template",
     "HeaderToolbarTemplateIntro": "Set <code>HeaderToolbarTemplate</code> custom the buttons on <code>Header</code>",
     "KeyboardTip": "by setting <code>DialogOption</code> <code>IsKeyboard</code> parameter, whether the pop-up window supports <kbd>ESC</kbd>, please click the back button to set and then click the <b>pop-up window</b> button to test the effect"
@@ -864,9 +865,6 @@
   },
   "BootstrapBlazor.Shared.Demos.Dialog.DialogErrorLogger": {
     "ErrorLoggerButton": "global exception test"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogEmail": {
-    "EmailInput": "please enter ..."
   },
   "BootstrapBlazor.Shared.Samples.Dispatches": {
     "Title": "Dispatch message distribution",
@@ -2936,7 +2934,7 @@
   "BootstrapBlazor.Shared.Demos.Inputs.InputsKeyboard": {
     "InputsKeyboardSpan": "Basic usage",
     "InputsKeyboardTips1": "Press the keyboard <kbd>Enter</kbd> or <kbd>Esc</kbd> test",
-    "InputsKeyboardTips2": "Execute @ref.SelectAllTextAsync() method select the all text",
+    "InputsKeyboardTips2": "Execute <code>@ref.SelectAllTextAsync()</code> method select the all text",
     "PlaceHolder": "Please enter ...",
     "InputsKeyboardLog": "The key triggers the current text box value"
   },
@@ -4765,7 +4763,9 @@
     "QRCodesColorTitle": "Color",
     "QRCodesColorIntro": "<code>DarkColor</code> set the black color，<code>LightColor</code> set the white color",
     "SuccessText": "QR code generated successfully",
+    "ClearText": "QR code clear successfully",
     "OnGenerated": "Call back after QR code generation",
+    "OnCleared": "Call back after QR code clear",
     "Width": "Size",
     "ClearButtonText": "The text of Clear button",
     "ClearButtonIcon": "The icon of Clear button",
@@ -4938,6 +4938,7 @@
     "DateTimeRange": "DateTimeRange",
     "Editor": "Editor",
     "EditorForm": "EditorForm",
+    "EyeDropper": "EyeDropper",
     "FloatingLabel": "FloatingLabel",
     "Input": "Input",
     "InputNumber": "InputNumber",
@@ -5077,7 +5078,7 @@
     "SelectTreesEditIntro": "By setting <code>IsEdit=\"true\"</code> you can edit the input textbox",
     "SelectTreesIsPopoverTitle": "IsPopover",
     "SelectTreesIsPopoverIntro": "Set <code>IsPopover</code> to <b>true</b>, use popover render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>",
-    "SelectTreesClientValidationButtonText": "提交"
+    "SelectTreesClientValidationButtonText": "Submit"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesDetailRow": {
     "TablesDetailRowTitle": "Display detail line function",
@@ -6226,5 +6227,16 @@
     "Description": "Animates a numerical value by counting to it",
     "CountUpsNormalTitle": "Normal",
     "CountUpsNormalIntro": "Set <code>Value</code>"
+  },
+  "BootstrapBlazor.Shared.Samples.EyeDroppers": {
+    "EyeDropperTitle": "EyeDropper",
+    "EyeDropperDescription": "The <code>EyeDropperService</code> provides a mechanism for creating an eyedropper tool. Using this tool, users can sample colors from their screens, including outside of the browser window.",
+    "EyeDropperNormalTitle": "Basic usage",
+    "EyeDropperNormalIntro": "Using the <code>EyeDropperService</code> application can start the eyedropper mode. Once started, the cursor changes to indicate to the user that the mode is active. The user can then either select a color from anywhere on the screen, or dismiss the eyedropper mode by pressing <kbd>Escape</kbd>",
+    "EyeDropperNormalButtonText": "Pick",
+    "EyeDropperTips1": "This is an experimental technology Check the <a href=\"https://developer.mozilla.org/en-US/docs/Web/API/EyeDropper_API#browser_compatibility\" target=\"_blank\">Browser compatibility table</a> carefully before using this in production. ",
+    "EyeDropperTips2": "To prevent malicious websites from getting pixel data from a user's screen without them realizing, the EyeDropper API implements the following measures. Only be called in response to a user action (like a button click)",
+    "EyeDropperTips3": "To help users notice the eyedropper mode more easily, it is made obvious by browsers. The normal mouse cursor disappears after a short delay and a magnifying glass appears instead. There is also a delay between when the eyedropper mode starts and when the user can select a pixel to ensure the user has had time to see the magnifying glass",
+    "EyeDropperTips4": "Users are also able to cancel the eyedropper mode at any time (by pressing the <kbd>Escape</kbd> key)"
   }
 }

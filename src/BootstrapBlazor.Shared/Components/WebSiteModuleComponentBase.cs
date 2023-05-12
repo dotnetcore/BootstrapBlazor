@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Shared.Components;
 
 /// <summary>
-/// JSModuleComponentBase 组件
+/// WebSiteModuleComponentBase 组件
 /// </summary>
 public abstract class WebSiteModuleComponentBase : BootstrapModuleComponentBase
 {
@@ -17,6 +17,5 @@ public abstract class WebSiteModuleComponentBase : BootstrapModuleComponentBase
         base.OnLoadJSModule();
 
         ModulePath = $"./_content/BootstrapBlazor.Shared/{ModulePath}";
-        Relative = false;
     }
 }

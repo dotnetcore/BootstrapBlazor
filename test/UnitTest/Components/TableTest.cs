@@ -1020,7 +1020,7 @@ public class TableTest : TableTestBase
                 });
             });
         });
-        Assert.Contains("0 - 0 &#x5171; 0 &#x6761;", cut.Markup);
+        Assert.Contains("0 - 0 共 0 条", cut.Markup);
     }
 
     [Fact]
@@ -1570,6 +1570,10 @@ public class TableTest : TableTestBase
                 {
                     builder.AddContent(0, "test-button");
                 }));
+                pb.Add(a => a.BeforeRowButtonTemplate, new RenderFragment<Foo>(foo => builder =>
+                {
+                    builder.AddContent(0, "test-before-button");
+                }));
             });
         });
         cut.Contains("test-button");
@@ -1868,7 +1872,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
-                pb.Add(a => a.TableToolbarAfterTemplate, builder =>
+                pb.Add(a => a.TableToolbarTemplate, builder =>
                 {
                     builder.OpenComponent<TableToolbarPopconfirmButton<Foo>>(0);
                     builder.AddAttribute(1, nameof(TableToolbarPopconfirmButton<Foo>.Text), "test");
@@ -1914,7 +1918,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
-                pb.Add(a => a.TableToolbarAfterTemplate, builder =>
+                pb.Add(a => a.TableToolbarTemplate, builder =>
                 {
                     builder.OpenComponent<TableToolbarButton<Foo>>(0);
                     builder.AddAttribute(1, nameof(TableToolbarButton<Foo>.Text), "test");
@@ -1992,7 +1996,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
-                pb.Add(a => a.TableToolbarAfterTemplate, builder =>
+                pb.Add(a => a.TableToolbarTemplate, builder =>
                 {
                     builder.OpenComponent<TableToolbarButton<Foo>>(0);
                     builder.AddAttribute(1, nameof(TableToolbarButton<Foo>.Text), "test");
@@ -2044,7 +2048,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
-                pb.Add(a => a.TableToolbarAfterTemplate, builder =>
+                pb.Add(a => a.TableToolbarTemplate, builder =>
                 {
                     builder.OpenComponent<TableToolbarButton<Foo>>(0);
                     builder.AddAttribute(1, nameof(TableToolbarButton<Foo>.Text), "test");
@@ -2082,7 +2086,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
-                pb.Add(a => a.TableToolbarAfterTemplate, builder =>
+                pb.Add(a => a.TableToolbarTemplate, builder =>
                 {
                     builder.OpenComponent<TableToolbarButton<Foo>>(0);
                     builder.AddAttribute(1, nameof(TableToolbarButton<Foo>.Text), "test-after");
@@ -2100,7 +2104,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(1, nameof(Button.Text), "test-extension-after");
                     builder.CloseComponent();
                 });
-                pb.Add(a => a.TableExtensionToolbarAfterTemplate, builder =>
+                pb.Add(a => a.TableExtensionToolbarTemplate, builder =>
                 {
                     builder.OpenComponent<Button>(0);
                     builder.AddAttribute(1, nameof(Button.Text), "test-extension-before");
@@ -2132,7 +2136,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
-                pb.Add(a => a.TableToolbarAfterTemplate, builder =>
+                pb.Add(a => a.TableToolbarTemplate, builder =>
                 {
                     builder.OpenComponent<TableToolbarButton<Foo>>(0);
                     builder.AddAttribute(1, nameof(TableToolbarButton<Foo>.Text), "test-async");
@@ -3596,6 +3600,41 @@ public class TableTest : TableTestBase
 
                 // <TableCellButton Color="Color.Primary" Icon="fa-solid fa-pen" Text="明细" OnClick="@(() => OnRowButtonClick(context, "明细"))" />
                 pb.Add(a => a.RowButtonTemplate, foo => builder =>
+                {
+                    builder.OpenComponent<TableCellButton>(0);
+                    builder.AddAttribute(2, "Text", "test-extend-button");
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var btn = cut.FindComponent<TableExtensionButton>();
+        await cut.InvokeAsync(() => btn.Instance.OnClickButton!(new TableCellButtonArgs() { AutoRenderTableWhenClick = true, AutoSelectedRowWhenClick = true }));
+    }
+
+    [Fact]
+    public async Task OnClickBeforeRowButton_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.CardView);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+
+                // <TableCellButton Color="Color.Primary" Icon="fa-solid fa-pen" Text="明细" OnClick="@(() => OnRowButtonClick(context, "明细"))" />
+                pb.Add(a => a.BeforeRowButtonTemplate, foo => builder =>
                 {
                     builder.OpenComponent<TableCellButton>(0);
                     builder.AddAttribute(2, "Text", "test-extend-button");

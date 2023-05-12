@@ -7,8 +7,7 @@
     "HeaderText": "Captcha",
     "BarText": "Slide right to fill puzzle",
     "FailedText": "Load failed",
-    "LoadText": "Loading ...",
-    "TryText": "Try again"
+    "LoadText": "Loading ..."
   },
   "BootstrapBlazor.Components.Camera": {
     "DeviceLabel": "Camera",
@@ -16,8 +15,6 @@
     "PlayText": "Open",
     "StopText": "Close",
     "PhotoText": "Photo",
-    "FrontText": "Front",
-    "BackText": "Back",
     "NotFoundDevicesString": "Not found video device"
   },
   "BootstrapBlazor.Components.Calendar": {

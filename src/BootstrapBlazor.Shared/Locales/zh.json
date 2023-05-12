@@ -813,6 +813,7 @@
     "Attribute": "DialogOption 属性",
     "EmailDialogTitle": "选择收件人",
     "EmailDialogButtonYes": "选择",
+    "EmailInput": "请输入 ...",
     "HeaderToolbarTemplateTitle": "标题栏自定义按钮",
     "HeaderToolbarTemplateIntro": "通过设置 <code>HeaderToolbarTemplate</code> 自定义 <code>Header</code> 中工具栏按钮",
     "KeyboardTip": "通过设置 <code>DialogOption</code> <code>IsKeyboard</code> 参数，开启弹窗是否支持 <kbd>ESC</kbd>，请点击后面按钮设置后再点击 <b>弹窗</b> 按钮测试效果"
@@ -864,9 +865,6 @@
   },
   "BootstrapBlazor.Shared.Demos.Dialog.DialogErrorLogger": {
     "ErrorLoggerButton": "全局异常测试"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogEmail": {
-    "EmailInput": "请输入 ..."
   },
   "BootstrapBlazor.Shared.Samples.Dispatches": {
     "Title": "Dispatch 消息分发",
@@ -2044,7 +2042,7 @@
     "TabItem1Text": "用户管理",
     "TabItem1Content": "我是用户管理",
     "TabItem2Text": "菜单管理",
-    "TabItem2Content": "我是角色管理",
+    "TabItem2Content": "我是菜单管理",
     "TabItem3Text": "角色管理",
     "TabItem3Content": "我是角色管理",
     "TabItem4Text": "部门管理",
@@ -2946,7 +2944,7 @@
   "BootstrapBlazor.Shared.Demos.Inputs.InputsKeyboard": {
     "InputsKeyboardSpan": "基础用法",
     "InputsKeyboardTips1": "请按键盘 <kbd>Enter</kbd> 或者 <kbd>Esc</kbd> 进行测试",
-    "InputsKeyboardTips2": "执行 @ref.SelectAllTextAsync() 选择输入框内所有字符串",
+    "InputsKeyboardTips2": "执行 <code>@ref.SelectAllTextAsync()</code> 选择输入框内所有字符串",
     "PlaceHolder": "请输入 ...",
     "InputsKeyboardLog": "按键触发 当前文本框值"
   },
@@ -4773,7 +4771,9 @@
     "QRCodesColorTitle": "颜色",
     "QRCodesColorIntro": "通过 <code>DarkColor</code> 参数指定二维码黑色部分颜色，<code>LightColor</code> 参数指定二维码白色部分颜色",
     "SuccessText": "二维码生成成功",
+    "ClearText": "二维码清除成功",
     "OnGenerated": "二维码生成后回调委托",
+    "OnCleared": "二维码清除后回调委托",
     "Width": "大小",
     "ClearButtonText": "清除按钮文字",
     "ClearButtonIcon": "清除按钮图标",
@@ -4947,6 +4947,7 @@
     "DateTimeRange": "时间范围框 DateTimeRange",
     "Editor": "富文本框 Editor",
     "EditorForm": "表单编辑框 EditorForm",
+    "EyeDropper": "取色服务 EyeDropper",
     "Input": "输入框 Input",
     "InputNumber": "数字框 InputNumber",
     "InputGroup": "输入组 InputGroup",
@@ -6239,5 +6240,16 @@
     "Description": "多用于报表数据动态展示，数字以跳动的形式展现",
     "CountUpsNormalTitle": "基础用法",
     "CountUpsNormalIntro": "通过设置 <code>Value</code> 参数赋值"
+  },
+  "BootstrapBlazor.Shared.Samples.EyeDroppers": {
+    "EyeDropperTitle": "屏幕取色 EyeDropper",
+    "EyeDropperDescription": "用户可以从屏幕上采样颜色，包括在浏览器窗口之外",
+    "EyeDropperNormalTitle": "基础用法",
+    "EyeDropperNormalIntro": "使用 <code>EyeDropperService</code>，可以启动吸管模式。启动后，光标会发生变化以向用户指示该模式处于活动状态。然后用户可以从屏幕上的任何位置选择一种颜色，通过按 <kbd>Escape</kbd> 关闭吸管模式",
+    "EyeDropperNormalButtonText": "取色",
+    "EyeDropperTips1": "这是一项实验性技术，在生产中使用之前请仔细检查 <a href=\"https://developer.mozilla.org/en-US/docs/Web/API/EyeDropper_API#browser_compatibility\" target=\"_blank\">浏览器兼容性表</a>",
+    "EyeDropperTips2": "为防止恶意网站在用户不知情的情况下从用户屏幕获取像素数据，必须由用户操作（如单击按钮）时调用",
+    "EyeDropperTips3": "为了帮助用户更容易注意到吸管模式，浏览器将其设置为显而易见。短暂延迟后，正常的鼠标光标消失，取而代之的是一个放大镜。在滴管模式启动和用户可以选择像素以确保用户有时间查看放大镜之间也存在延迟",
+    "EyeDropperTips4": "用户也可以随时取消吸管模式（按键 <kbd>Escape</kbd>）"
   }
 }

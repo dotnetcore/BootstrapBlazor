@@ -103,11 +103,6 @@ public partial class Dialog : IDisposable
 
         option.Modal = ModalContainer;
 
-        // TODO: 下一个版本移除
-#pragma warning disable CS0618 // Type or member is obsolete
-        option.Dialog = ModalContainer;
-#pragma warning restore CS0618 // Type or member is obsolete
-
         var parameters = option.ToAttributes();
         var content = option.BodyTemplate ?? option.Component?.Render();
         if (content != null)

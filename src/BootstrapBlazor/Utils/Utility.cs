@@ -291,7 +291,7 @@ public static class Utility
     {
         var cols = new List<ITableColumn>(50);
         var attrModel = type.GetCustomAttribute<AutoGenerateClassAttribute>(true);
-        var props = type.GetProperties();
+        var props = type.GetProperties().Where(p => !p.IsStatic());
         foreach (var prop in props)
         {
             ITableColumn? tc;

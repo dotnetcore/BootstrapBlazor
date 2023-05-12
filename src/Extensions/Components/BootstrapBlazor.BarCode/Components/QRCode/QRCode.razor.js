@@ -2,16 +2,21 @@
 import Data from '../../../BootstrapBlazor/modules/data.js'
 
 const generate = (b, content) => {
-    b.qrcode.clear()
+    if (!b.qrcode) {
+        b.qrcode = new QRCode(b.qr, b.config)
+    }
     b.qrcode.makeCode(content)
     b.invoke.invokeMethodAsync(b.callback)
 }
 
 const clear = b => {
-    b._qrcode.clear()
-    const img = b._qr.querySelector('img')
-    if (img) {
-        img.src = ''
+    if (b.qrcode) {
+        b.qrcode.clear()
+        delete b.qrcode
+        const img = b.qr.querySelector('img')
+        if (img) {
+            img.remove()
+        }
     }
 }
 
@@ -27,7 +32,7 @@ export async function init(el, invoke, content, callback) {
     }
     Data.set(el, b)
 
-    const config = {
+    b.config = {
         ...{
             width: 128,
             height: 128,
@@ -42,7 +47,6 @@ export async function init(el, invoke, content, callback) {
             correctLevel: QRCode.CorrectLevel.H
         }
     }
-    b.qrcode = new QRCode(b.qr, config)
 
     if (content && content.length > 0) {
         generate(b, content)

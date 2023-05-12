@@ -37,10 +37,6 @@ public partial class ReconnectorContent
     [NotNull]
     private IReconnectorProvider? Provider { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IJSRuntime? JSRuntime { get; set; }
-
     /// <summary>
     /// SetParametersAsync 方法
     /// </summary>
@@ -53,14 +49,14 @@ public partial class ReconnectorContent
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    /// <returns></returns>
+    protected override async Task InvokeInitAsync()
     {
-        if (firstRender && AutoReconnect)
+        if (AutoReconnect)
         {
-            await JSRuntime.InvokeVoidAsync(func: "bb_reconnect");
+            await InvokeVoidAsync("reconnect");
         }
     }
 

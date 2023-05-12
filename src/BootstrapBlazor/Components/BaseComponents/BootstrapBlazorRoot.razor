@@ -3,13 +3,14 @@
 
 @RenderBody()
 
-<FullScreen />
-<Clipboard />
-<Title />
-<ResizeNotification />
+<EyeDropper></EyeDropper>
+<FullScreen></FullScreen>
+<Clipboard></Clipboard>
+<Title></Title>
+<ResizeNotification></ResizeNotification>
 
-<Message @ref="MessageContainer" />
-<ToastContainer @ref="ToastContainer" />
+<Message @ref="MessageContainer"></Message>
+<ToastContainer @ref="ToastContainer"></ToastContainer>
 
 @code {
     RenderFragment RenderChildContent =>

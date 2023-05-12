@@ -1,31 +1,29 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
-<div class="camera" @ref="CameraElement">
+<div @attributes="@AdditionalAttributes" id="@Id" class="camera" data-device-id="@DeviceId">
     <div class="row g-3">
         <div class="col-12">
             <video class="camera-header" style="width: @VideoWidthString height: @VideoHeightString"></video>
             <canvas style="display:none"></canvas>
         </div>
-        @if (ShowPreview)
+        @if (ShowPreview && !string.IsNullOrEmpty(PreviewData))
         {
             <div class="col-12">
                 <div class="camera-header">
-                    <img />
+                    <img alt="preview" src="@PreviewData" />
                 </div>
             </div>
         }
         <div class="col-12">
-            <Select Items="@Devices" @bind-Value="@DeviceId" DisplayText="@DeviceLabel" ShowLabel="true" PlaceHolder="@InitDevicesString" />
-        </div>
-        <div class="col-12">
-            <RadioList Items="@Cameras" @bind-Value="@ActiveCamera" />
+            <Select Items="@Devices" @bind-Value="@DeviceId" DisplayText="@DeviceLabel" ShowLabel="true" PlaceHolder="@InitDevicesString"></Select>
         </div>
         <div class="col-12">
             <div class="btn-group">
-                <Button Text="@PlayText" Color="Color.Success" Icon="@PlayIcon" IsDisabled="@IsDisabled" data-method="play" data-camera="@ActiveCamera?.Value" />
-                <Button Text="@StopText" Color="Color.Danger" Icon="@StopIcon" IsDisabled="@IsDisabled" data-method="stop" />
-                <Button Text="@PhotoText" Icon="@PhotoIcon" IsDisabled="@CaptureDisabled" data-method="capture" />
+                <Button Text="@PlayText" Color="Color.Success" Icon="@PlayIcon" IsDisabled="@IsDisabled" data-method="play"></Button>
+                <Button Text="@StopText" Color="Color.Danger" Icon="@StopIcon" IsDisabled="@IsDisabled" data-method="stop"></Button>
+                <Button Text="@PhotoText" Icon="@PhotoIcon" IsDisabled="@CaptureDisabled" data-method="capture"></Button>
             </div>
             <a class="d-none download"></a>
         </div>

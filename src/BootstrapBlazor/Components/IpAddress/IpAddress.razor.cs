@@ -17,8 +17,6 @@ public partial class IpAddress
 
     private string? Value4 { get; set; } = "0";
 
-    private ElementReference IPAddressElement { get; set; }
-
     /// <summary>
     /// 获得 class 样式集合
     /// </summary>
@@ -28,7 +26,7 @@ public partial class IpAddress
         .Build();
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -50,20 +48,6 @@ public partial class IpAddress
             Value4 = "0";
         }
         UpdateValue();
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync(IPAddressElement, "bb_ipv4_input");
-        }
     }
 
     private void ValueChanged1(ChangeEventArgs args)

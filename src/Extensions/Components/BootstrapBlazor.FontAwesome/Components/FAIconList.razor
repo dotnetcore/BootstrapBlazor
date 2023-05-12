@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapModuleComponentBase
+@inherits BootstrapComponentBase
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" data-bb-title="@CopiedTooltipText" id="@Id">
+<div @attributes="@AdditionalAttributes" class="@ClassString" data-bb-title="@CopiedTooltipText" @ref="Element">
     <div class="icons-body" data-bs-spy="scroll" data-bs-target=".icons-nav" data-bs-smooth-scroll="true" tabindex="0">
         <section id="bb-fa-top" class="fa-target"></section>
             <section id="bb-Sponsored">

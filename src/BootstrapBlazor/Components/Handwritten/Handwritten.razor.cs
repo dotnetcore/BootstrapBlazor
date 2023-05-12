@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Handwritten 手写签名
 /// </summary>
-public partial class Handwritten : IDisposable
+public partial class Handwritten
 {
     /// <summary>
     /// 清除按钮文本
@@ -41,11 +41,6 @@ public partial class Handwritten : IDisposable
     [Parameter]
     public string? Result { get; set; }
 
-    [NotNull]
-    private JSInterop<Handwritten>? Interop { get; set; }
-
-    private ElementReference HandwrittenElement { get; set; }
-
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -57,20 +52,10 @@ public partial class Handwritten : IDisposable
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            Interop ??= new JSInterop<Handwritten>(JSRuntime);
-            await Interop.InvokeVoidAsync(this, HandwrittenElement, "bb_handwritten", true, nameof(OnValueChanged));
-        }
-    }
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(OnValueChanged));
 
     /// <summary>
     /// 保存结果
@@ -83,27 +68,5 @@ public partial class Handwritten : IDisposable
         Result = val;
         StateHasChanged();
         await HandwrittenBase64.InvokeAsync(val);
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            Interop?.Dispose();
-            Interop = null;
-        }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
     }
 }

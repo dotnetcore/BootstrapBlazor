@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Button 按钮组件
 /// </summary>
-[JSModuleAutoLoader("Button/Button.razor.js", Relative = false, AutoInvokeInit = false)]
+[BootstrapModuleAutoLoader("Button/Button.razor.js", AutoInvokeInit = false)]
 public abstract class ButtonBase : TooltipWrapperBase
 {
     /// <summary>
@@ -37,7 +37,7 @@ public abstract class ButtonBase : TooltipWrapperBase
     protected string DisabledString => IsDisabled ? "true" : "false";
 
     /// <summary>
-    /// 获得 按钮 tabindex 属性
+    /// 获得 按钮 tab index 属性
     /// </summary>
     protected string? Tab => IsDisabled ? "-1" : null;
 
@@ -143,9 +143,12 @@ public abstract class ButtonBase : TooltipWrapperBase
     [CascadingParameter]
     protected ValidateForm? ValidateForm { get; set; }
 
+    /// <summary>
+    /// 获得 IconTheme 实例
+    /// </summary>
     [Inject]
     [NotNull]
-    private IIconTheme? IconTheme { get; set; }
+    protected IIconTheme? IconTheme { get; set; }
 
     /// <summary>
     /// 获得/设置 是否当前正在异步执行操作

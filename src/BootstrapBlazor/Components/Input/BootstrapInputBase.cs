@@ -5,8 +5,9 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// BootstrapInputBase 组件基类
 /// </summary>
+[BootstrapModuleAutoLoader("Input/BootstrapInput.razor.js", JSObjectReference = true, AutoInvokeInit = false)]
 public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
 {
     /// <summary>
@@ -100,9 +101,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     /// 全选文字
     /// </summary>
     /// <returns></returns>
-    public async ValueTask SelectAllTextAsync() => await JSRuntime.InvokeVoidAsync(FocusElement, "bb_input_selectAll");
-
-    private JSInterop<BootstrapInputBase<TValue>>? Interop { get; set; }
+    public async ValueTask SelectAllTextAsync() => await InvokeVoidAsync("select", Id);
 
     /// <summary>
     /// 获得/设置 是否不注册 js 脚本处理 Enter/ESC 键盘处理函数 默认 false
@@ -110,7 +109,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     protected bool SkipRegisterEnterEscJSInvoke { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -132,7 +131,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -144,16 +143,15 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
         {
             if (!SkipRegisterEnterEscJSInvoke && (OnEnterAsync != null || OnEscAsync != null))
             {
-                Interop ??= new JSInterop<BootstrapInputBase<TValue>>(JSRuntime);
-                await Interop.InvokeVoidAsync(this, FocusElement, "bb_input", OnEnterAsync != null, nameof(EnterCallback), OnEscAsync != null, nameof(EscCallback));
+                await InvokeVoidAsync("handleKeyup", Id, Interop, OnEnterAsync != null, nameof(EnterCallback), OnEscAsync != null, nameof(EscCallback));
             }
             if (IsSelectAllTextOnFocus)
             {
-                await JSRuntime.InvokeVoidAsync(FocusElement, "bb_input_selectAll_focus");
+                await InvokeVoidAsync("selectAllByFocus", Id);
             }
             if (IsSelectAllTextOnEnter)
             {
-                await JSRuntime.InvokeVoidAsync(FocusElement, "bb_input_selectAll_enter");
+                await InvokeVoidAsync("selectAllByEnter", Id);
             }
             if (IsAutoFocus)
             {
@@ -211,20 +209,5 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
         {
             await OnEscAsync(Value);
         }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected override async ValueTask DisposeAsync(bool disposing)
-    {
-        if (disposing)
-        {
-            Interop?.Dispose();
-            Interop = null;
-        }
-        await base.DisposeAsync(disposing);
     }
 }

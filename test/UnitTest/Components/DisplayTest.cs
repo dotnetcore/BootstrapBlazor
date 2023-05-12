@@ -196,7 +196,7 @@ public class DisplayTest : BootstrapBlazorTestBase
         });
         Assert.Contains("is-display", cut.Markup);
         Assert.Contains("input-group-text", cut.Markup);
-        Assert.Contains("<span>&#x59D3;&#x540D;</span>", cut.Markup);
+        Assert.Contains("<span>姓名</span>", cut.Markup);
     }
 
     [Fact]
@@ -211,7 +211,7 @@ public class DisplayTest : BootstrapBlazorTestBase
         });
 
         // 获得中学 DisplayName
-        Assert.Contains("&#x5B66;&#x5386;", cut.Markup);
+        Assert.Contains("中学", cut.Markup);
     }
 
     class DisplayGenericValueMock<T>

@@ -7,7 +7,7 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Bootstrap blazor Javascript isoloation base class
+/// Bootstrap blazor JavaScript isolation base class
 /// </summary>
 public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisposable
 {
@@ -19,13 +19,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// <summary>
     /// 获得/设置 脚本路径
     /// </summary>
-    [NotNull]
     protected string? ModulePath { get; set; }
-
-    /// <summary>
-    /// 获得/设置 路径是否为相对路径 默认 false
-    /// </summary>
-    protected bool Relative { get; set; }
 
     /// <summary>
     /// 获得/设置 是否自动调用 init 默认 true
@@ -60,7 +54,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     {
         if (firstRender && !string.IsNullOrEmpty(ModulePath))
         {
-            Module ??= await JSRuntime.LoadModule(ModulePath, Relative);
+            Module ??= await JSRuntime.LoadModule(ModulePath);
 
             if (AutoInvokeInit)
             {
@@ -81,43 +75,27 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
             var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>();
             if (attr != null)
             {
-                if (string.IsNullOrEmpty(attr.ModuleName))
-                {
-                    ModulePath = attr.Path ?? type.GetTypeModuleName();
-                    Relative = attr.Relative;
-
-                    // 兼容 扩展组件包
-                    if (!Relative && IsBootstrapBlazorAssembly)
-                    {
-                        ModulePath = $"./_content/BootstrapBlazor/Components/{ModulePath}";
-                    }
-                }
-                else
-                {
-                    ModulePath = IsBootstrapBlazorAssembly ? $"./_content/BootstrapBlazor/modules/{attr.ModuleName}.js" : attr.ModuleName;
-                    Relative = false;
-                }
                 AutoInvokeDispose = attr.AutoInvokeDispose;
                 AutoInvokeInit = attr.AutoInvokeInit;
 
                 if (attr.JSObjectReference)
                 {
-                    Interop = DotNetObjectReference.Create<BootstrapModuleComponentBase>(this);
+                    Interop = DotNetObjectReference.Create(this);
                 }
+
+                ModulePath = attr is BootstrapModuleAutoLoaderAttribute loader ? loader.LoadModulePath(type) : attr.Path;
             }
         }
     }
 
-    private bool IsBootstrapBlazorAssembly => this.GetType().Assembly == typeof(BootstrapModuleComponentBase).Assembly;
-
     /// <summary>
-    /// call javascript method
+    /// call JavaScript method
     /// </summary>
     /// <returns></returns>
     protected virtual Task InvokeInitAsync() => InvokeVoidAsync("init", Id);
 
     /// <summary>
-    /// call javascript method
+    /// call JavaScript method
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="args"></param>
@@ -125,7 +103,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected Task InvokeVoidAsync(string identifier, params object?[]? args) => InvokeVoidAsync(identifier, CancellationToken.None, args);
 
     /// <summary>
-    /// call javascript method
+    /// call JavaScript method
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="timeout"></param>
@@ -140,7 +118,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     }
 
     /// <summary>
-    /// call javascript method
+    /// call JavaScript method
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="cancellationToken"></param>
@@ -155,7 +133,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     }
 
     /// <summary>
-    /// call javascript method
+    /// call JavaScript method
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="args"></param>
@@ -163,7 +141,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     protected Task<TValue?> InvokeAsync<TValue>(string identifier, params object?[]? args) => InvokeAsync<TValue?>(identifier, CancellationToken.None, args);
 
     /// <summary>
-    /// call javascript method
+    /// call JavaScript method
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="timeout"></param>
@@ -180,7 +158,7 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     }
 
     /// <summary>
-    /// call javascript method
+    /// call JavaScript method
     /// </summary>
     /// <param name="identifier"></param>
     /// <param name="cancellationToken"></param>
@@ -203,17 +181,22 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
     /// <returns></returns>
     protected virtual async ValueTask DisposeAsync(bool disposing)
     {
-        if (Module != null && disposing)
+        if (disposing)
         {
-            if (AutoInvokeDispose)
-            {
-                await Module.InvokeVoidAsync("dispose", Id);
-            }
-
+            // 销毁 DotNetObjectReference 实例
             Interop?.Dispose();
 
-            await Module.DisposeAsync();
-            Module = null;
+            // 销毁 JSModule
+            if (Module != null)
+            {
+                if (AutoInvokeDispose)
+                {
+                    await Module.InvokeVoidAsync("dispose", Id);
+                }
+
+                await Module.DisposeAsync();
+                Module = null;
+            }
         }
     }
 

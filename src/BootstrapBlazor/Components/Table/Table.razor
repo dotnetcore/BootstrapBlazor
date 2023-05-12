@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TItem
 @inherits BootstrapModuleComponentBase
-@attribute [JSModuleAutoLoader]
+@attribute [BootstrapModuleAutoLoader]
 
 <div @attributes="@AdditionalAttributes" class="@ClassName" style="@StyleString" id="@Id">
     <CascadingValue Value="this" IsFixed="true">
@@ -56,9 +56,9 @@
                                                           ConfirmButtonText="@ConfirmDeleteButtonText" ConfirmButtonColor="Color.Danger" />
                         }
                     }
-                    @if (TableToolbarAfterTemplate != null)
+                    @if (TableToolbarTemplate != null)
                     {
-                        @TableToolbarAfterTemplate
+                        @TableToolbarTemplate
                     }
                 </TableToolbar>
                 <div class="float-end table-toolbar-button btn-group table-column-right">
@@ -125,7 +125,7 @@
                             </div>
                         </div>
                     }
-                    @TableExtensionToolbarAfterTemplate
+                    @TableExtensionToolbarTemplate
                 </div>
                 @if (ShowSearch && SearchMode == SearchMode.Popup)
                 {
@@ -783,6 +783,12 @@
     @<div class="table-cell">
         <label>@ColumnButtonTemplateHeaderText</label>
         <span class="btn-group">
+            @if (BeforeRowButtonTemplate != null)
+            {
+                <TableExtensionButton OnClickButton="args => OnClickExtensionButton(item, args)">
+                    @BeforeRowButtonTemplate.Invoke(item)
+                </TableExtensionButton>
+            }
             @if (GetShowEditButton(item))
             {
                 <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" Icon="@EditButtonIcon" Text="@EditButtonText"></Button>
@@ -798,9 +804,12 @@
                                   OnBeforeClick="@ClickBeforeDelete(item)"
                                   OnConfirm="DeleteAsync" />
             }
-            <TableExtensionButton OnClickButton="args => OnClickExtensionButton(item, args)">
-                @RowButtonTemplate?.Invoke(item)
-            </TableExtensionButton>
+            @if (RowButtonTemplate != null)
+            {
+                <TableExtensionButton OnClickButton="args => OnClickExtensionButton(item, args)">
+                    @RowButtonTemplate.Invoke(item)
+                </TableExtensionButton>
+            }
         </span>
     </div>;
 

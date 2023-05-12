@@ -8,13 +8,9 @@ namespace BootstrapBlazor.Components;
 /// Tree 组件
 /// </summary>
 [ExcludeFromCodeCoverage]
+[Obsolete("请使用 TreeView 代替，未来几个版本后将会删除")]
 public partial class Tree
 {
-    /// <summary>
-    /// 获得/设置 Tree 组件实例引用
-    /// </summary>
-    private ElementReference TreeElement { get; set; }
-
     [NotNull]
     private string? GroupName { get; set; }
 
@@ -175,46 +171,34 @@ public partial class Tree
     }
 
     /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync(TreeElement, "bb_tree");
-        }
-    }
-
-    /// <summary>
     /// 选中节点时触发此方法
     /// </summary>
     /// <returns></returns>
     private async Task OnClick(TreeItem item)
     {
-        ActiveItem = item;
-        if (ClickToggleNode)
+        if (!item.IsDisabled)
         {
-            await OnExpandRowAsync(item);
-        }
+            ActiveItem = item;
+            if (ClickToggleNode)
+            {
+                await OnExpandRowAsync(item);
+            }
 
-        if (OnTreeItemClick != null)
-        {
-            await OnTreeItemClick(item);
-        }
+            if (OnTreeItemClick != null)
+            {
+                await OnTreeItemClick(item);
+            }
 
-        if (ShowRadio)
-        {
-            await OnRadioClick(item);
-        }
-        else if (ShowCheckbox)
-        {
-            item.Checked = !item.Checked;
-            var status = item.Checked ? CheckboxState.Checked : CheckboxState.UnChecked;
-            await OnStateChanged(status, item);
+            if (ShowRadio)
+            {
+                await OnRadioClick(item);
+            }
+            else if (ShowCheckbox)
+            {
+                item.Checked = !item.Checked;
+                var status = item.Checked ? CheckboxState.Checked : CheckboxState.UnChecked;
+                await OnStateChanged(status, item);
+            }
         }
     }
 
@@ -268,17 +252,20 @@ public partial class Tree
 
     private async Task OnRadioClick(TreeItem item)
     {
-        if (ActiveItem != null)
+        if (!item.IsDisabled)
         {
-            ActiveItem.Checked = false;
-        }
-        ActiveItem = item;
-        ActiveItem.Checked = true;
+            if (ActiveItem != null)
+            {
+                ActiveItem.Checked = false;
+            }
+            ActiveItem = item;
+            ActiveItem.Checked = true;
 
-        // 其他设置为 false
-        if (OnTreeItemChecked != null)
-        {
-            await OnTreeItemChecked(new List<TreeItem> { item });
+            // 其他设置为 false
+            if (OnTreeItemChecked != null)
+            {
+                await OnTreeItemChecked(new List<TreeItem> { item });
+            }
         }
     }
 

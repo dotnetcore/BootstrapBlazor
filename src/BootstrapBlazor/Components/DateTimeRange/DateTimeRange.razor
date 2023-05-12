@@ -1,6 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits PopoverDropdownBase<DateTimeRangeValue>
-@attribute [JSModuleAutoLoader("DateTimePicker/DateTimePicker.razor.js", Relative = false)]
+@attribute [BootstrapModuleAutoLoader("DateTimePicker/DateTimePicker.razor.js")]
 
 @if (IsShowLabel)
 {
@@ -45,18 +45,18 @@
             <div class="flex-fill me-3">
                 @if (AllowNull)
                 {
-                    <Button class="picker-panel-link-btn is-confirm is-clear" Color="Color.None" OnClickWithoutRender="@ClickClearButton">
+                    <Button class="picker-panel-link-btn is-confirm is-clear" Color="Color.None" OnClick="@ClickClearButton">
                         <span>@ClearButtonText</span>
                     </Button>
                 }
             </div>
             @if (ShowToday)
             {
-                <Button class="picker-panel-link-btn is-confirm me-3" Color="Color.None" OnClickWithoutRender="@ClickTodayButton">
+                <Button class="picker-panel-link-btn is-confirm me-3" Color="Color.None" OnClick="@ClickTodayButton">
                     <span>@TodayButtonText</span>
                 </Button>
             }
-            <Button class="picker-panel-link-btn is-confirm" Color="Color.None" OnClickWithoutRender="@ClickConfirmButton">
+            <Button class="picker-panel-link-btn is-confirm" Color="Color.None" OnClick="@ClickConfirmButton">
                 <span>@ConfirmButtonText</span>
             </Button>
         </div>
