@@ -13,32 +13,9 @@
     "inputFiles": [ "wwwroot/src/css/motronic.css" ]
   },
   {
-    "outputFileName": "wwwroot/bundle/bootstrap.blazor.js",
-    "inputFiles": [
-      "wwwroot/lib/extensions/*.js",
-      "Components/**/!(*.razor).js"
-    ],
-    "minify": {
-      "enabled": false,
-      "renameLocals": true
-    }
-  },
-  {
-    "outputFileName": "wwwroot/bundle/bootstrap.blazor.min.js",
-    "inputFiles": [
-      "wwwroot/bundle/bootstrap.blazor.js"
-    ],
-    "minify": {
-      "enabled": true,
-      "renameLocals": true
-    }
-  },
-  {
     "outputFileName": "wwwroot/js/bootstrap.blazor.bundle.js",
     "inputFiles": [
-      "wwwroot/core/jquery/jquery-3.5.1.js",
-      "wwwroot/core/bootstrap/js/bootstrap.bundle.js",
-      "wwwroot/bundle/bootstrap.blazor.js"
+      "wwwroot/core/bootstrap/js/bootstrap.bundle.js"
     ],
     "minify": {
       "enabled": false,
@@ -48,9 +25,7 @@
   {
     "outputFileName": "wwwroot/js/bootstrap.blazor.bundle.min.js",
     "inputFiles": [
-      "wwwroot/core/jquery/jquery-3.5.1.min.js",
-      "wwwroot/core/bootstrap/js/bootstrap.bundle.min.js",
-      "wwwroot/bundle/bootstrap.blazor.min.js"
+      "wwwroot/core/bootstrap/js/bootstrap.bundle.min.js"
     ],
     "minify": {
       "enabled": false,
