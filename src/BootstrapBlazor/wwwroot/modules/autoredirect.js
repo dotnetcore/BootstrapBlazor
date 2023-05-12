@@ -1,5 +1,5 @@
-﻿import Data from "./data.js"
-import EventHandler from "./event-handler.js"
+﻿import Data from "./data.js?v=$version"
+import EventHandler from "./event-handler.js?v=$version"
 
 export function init(id, invoker, interval, callback) {
     var m = { invoker, interval, callback, mousePosition: {}, count: 1000 }
