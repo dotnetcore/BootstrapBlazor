@@ -24,15 +24,19 @@ public class WebClientService : IAsyncDisposable
 
     private ClientInfo? Client { get; set; }
 
+    private IVersionService JSVersionService { get; }
+
     /// <summary>
     /// 构造函数
     /// </summary>
     /// <param name="runtime"></param>
     /// <param name="navigation"></param>
-    public WebClientService(IJSRuntime runtime, NavigationManager navigation)
+    /// <param name="versionService"></param>
+    public WebClientService(IJSRuntime runtime, NavigationManager navigation, IVersionService versionService)
     {
         JSRuntime = runtime;
         Navigation = navigation;
+        JSVersionService = versionService;
     }
 
     /// <summary>
@@ -46,7 +50,7 @@ public class WebClientService : IAsyncDisposable
         {
             RequestUrl = Navigation.Uri
         };
-        Module ??= await JSRuntime.LoadModule("./_content/BootstrapBlazor/modules/client.js");
+        Module ??= await JSRuntime.LoadModule("./_content/BootstrapBlazor/modules/client.js", JSVersionService.GetVersion());
         Interop ??= DotNetObjectReference.Create(this);
         await Module.InvokeVoidAsync("ping", "ip.axd", Interop, nameof(SetData));
 

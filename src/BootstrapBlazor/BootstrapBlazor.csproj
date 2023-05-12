@@ -63,9 +63,4 @@
     <Using Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
 
-  <UsingTask TaskName="CreateJs.CreateJs" AssemblyFile="../CreateJs/bin/Debug/net7.0/CreateJs.dll" />
-  <Target Name="CreateJs" BeforeTargets="Build">
-    <CreateJs FilePath="wwwroot/modules/fullscreen.js" />
-  </Target>
-
 </Project>
