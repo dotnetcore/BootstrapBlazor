@@ -26,10 +26,15 @@ class Program
             return;
         }
 
+        if (args.Any(a => a.Equals("revert", StringComparison.OrdinalIgnoreCase)))
+        {
+            ProcessFiles(args[0], true);
+            return;
+        }
         ProcessFiles(args[0]);
     }
 
-    static void ProcessFiles(string projectFileName)
+    static void ProcessFiles(string projectFileName, bool revert = false)
     {
         var version = GetVersion(projectFileName);
         var projectPath = Path.GetDirectoryName(projectFileName);
@@ -45,11 +50,12 @@ class Program
                         continue;
                     }
                     var content = File.ReadAllText(file, System.Text.Encoding.UTF8);
-                    if (content.Contains("?v=$version"))
+                    var target = "?v=$version";
+                    var dest = $"?v={version}";
+                    if (content.Contains(revert ? dest : target))
                     {
-                        content = content.Replace("?v=$version", $"?v={version}");
+                        content = content.Replace(revert ? dest : target, revert ? target : dest);
                         File.WriteAllText(file, content, System.Text.Encoding.UTF8);
-                        Console.WriteLine($"Version: {file} -- ver: {version}");
                     }
                 }
                 catch (Exception ex)
