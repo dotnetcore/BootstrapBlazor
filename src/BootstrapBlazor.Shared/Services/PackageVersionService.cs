@@ -6,7 +6,7 @@ using System.Net.Http.Json;
 
 namespace BootstrapBlazor.Shared.Services;
 
-internal class VersionService
+internal class PackageVersionService
 {
     private IHttpClientFactory Factory { get; set; }
 
@@ -15,7 +15,7 @@ internal class VersionService
     /// <summary>
     /// 构造方法
     /// </summary>
-    public VersionService(IHttpClientFactory factory)
+    public PackageVersionService(IHttpClientFactory factory)
     {
         Factory = factory;
         if (OperatingSystem.IsBrowser())

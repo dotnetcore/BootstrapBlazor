@@ -13,7 +13,7 @@ public partial class Speechs
 {
     [Inject]
     [NotNull]
-    private VersionService? VersionManager { get; set; }
+    private PackageVersionService? VersionManager { get; set; }
 
     [Inject]
     [NotNull]
