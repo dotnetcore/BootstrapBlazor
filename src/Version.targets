@@ -1,0 +1,8 @@
+<Project>
+
+  <Target Name="version" AfterTargets="CompileTypeScriptWithTSConfig" BeforeTargets="BeforeCompile">
+    <Message Importance="high" Text="Version: $(MSBuildProjectDirectory)" Condition="'$(Configuration)' == 'Debug'"></Message>
+    <Exec Command="dotnet jsver $(MSBuildProjectDirectory)"></Exec>
+  </Target>
+
+</Project>

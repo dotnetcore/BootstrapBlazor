@@ -5,6 +5,7 @@
   <Import Project="..\Logo.props" />
   <Import Project="..\bundleconfig.props" />
   <Import Project="..\SourceLink.targets" />
+  <Import Project="..\Version.targets" />
 
   <PropertyGroup>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components</PackageTags>
