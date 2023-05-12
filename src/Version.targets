@@ -1,7 +1,7 @@
 <Project>
 
-  <Target Name="version" AfterTargets="CompileTypeScriptWithTSConfig" BeforeTargets="BeforeCompile">
-    <Message Importance="high" Text="Version: $(MSBuildProjectDirectory)" Condition="'$(Configuration)' == 'Debug'"></Message>
+  <Target Name="version" AfterTargets="CompileTypeScriptWithTSConfig" BeforeTargets="BeforeCompile" Condition="'$(Configuration)' == 'Release'">
+    <Message Importance="high" Text="Version: $(MSBuildProjectDirectory)"></Message>
     <Exec Command="dotnet jsver $(MSBuildProjectFullPath)"></Exec>
   </Target>
 
