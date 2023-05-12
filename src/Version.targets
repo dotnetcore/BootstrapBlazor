@@ -2,6 +2,7 @@
 
   <Target Name="version" AfterTargets="CompileTypeScriptWithTSConfig" BeforeTargets="BeforeCompile" Condition="'$(Configuration)' == 'Release'">
     <Message Importance="high" Text="Version: $(MSBuildProjectDirectory)"></Message>
+    <Exec Command="dotnet tool restore"></Exec>
     <Exec Command="dotnet jsver $(MSBuildProjectFullPath)"></Exec>
   </Target>
 
