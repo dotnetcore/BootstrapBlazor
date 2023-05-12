@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>7.6.3-beta02</Version>
+    <Version>7.6.3-beta03</Version>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
@@ -42,23 +42,17 @@
   <ItemGroup>
     <Content Remove="bundleconfig.json" />
     <Content Remove="wwwroot\core\**\*.*" />
-    <Content Remove="wwwroot\lib\**\*.*" />
-    <Content Remove="wwwroot\bundle\*.*" />
+    <Content Remove="wwwroot\lib\**\*.css" />
     <Content Remove="wwwroot\src\**\*.*" />
     <None Include="bundleconfig.json" />
     <None Include="wwwroot\core\**\*.*" />
-    <None Include="wwwroot\lib\**\*.*" />
-    <None Include="wwwroot\bundle\*.*" />
+    <None Include="wwwroot\lib\**\*.css" />
     <None Include="wwwroot\src\**\*.*" />
-    <Content Include="wwwroot\lib\countUp\*.js" />
-    <None Remove="wwwroot\lib\countUp\*.js" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
     <Content Remove="wwwroot\js\bootstrap.blazor.bundle.js" />
     <None Include="wwwroot\js\bootstrap.blazor.bundle.js" />
-    <Content Remove="wwwroot\modules\**\*.map" />
-    <None Include="wwwroot\modules\**\*.map" />
   </ItemGroup>
 
   <ItemGroup>
