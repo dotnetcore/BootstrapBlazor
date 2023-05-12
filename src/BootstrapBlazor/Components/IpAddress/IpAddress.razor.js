@@ -1,5 +1,5 @@
-﻿import Data from "../../modules/data.js"
-import EventHandler from "../../modules/event-handler.js"
+﻿import Data from "../../modules/data.js?v=$version"
+import EventHandler from "../../modules/event-handler.js?v=$version"
 
 const revert = (ip, index) => {
     ip.el.querySelectorAll(".ipv4-cell")[index].value = ip.prevValues[index]

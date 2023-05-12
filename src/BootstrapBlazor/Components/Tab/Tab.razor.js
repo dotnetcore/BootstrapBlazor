@@ -1,5 +1,5 @@
-﻿import Data from "../../modules/data.js"
-import EventHandler from "../../modules/event-handler.js"
+﻿import Data from "../../modules/data.js?v=$version"
+import EventHandler from "../../modules/event-handler.js?v=$version"
 
 const getPosition = el => {
     const rect = el.getBoundingClientRect()

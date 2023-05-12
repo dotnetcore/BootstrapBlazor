@@ -1,4 +1,4 @@
-﻿import Data from "../../modules/data.js"
+﻿import Data from "../../modules/data.js?v=$version"
 
 export function init(id) {
     const text = {
