@@ -11,6 +11,8 @@ partial class JSRuntimeEventHandler : IJSRuntimeEventHandler
 {
     private IJSRuntime JSRuntime { get; }
 
+    private IVersionService JSVersionService { get; }
+
     [NotNull]
     private IJSObjectReference? Module { get; set; }
 
@@ -23,13 +25,15 @@ partial class JSRuntimeEventHandler : IJSRuntimeEventHandler
     /// 构造函数
     /// </summary>
     /// <param name="jSRuntime"></param>
-    public JSRuntimeEventHandler(IJSRuntime jSRuntime)
+    /// <param name="versionService"></param>
+    public JSRuntimeEventHandler(IJSRuntime jSRuntime, IVersionService versionService)
     {
         JSRuntime = jSRuntime;
+        JSVersionService = versionService;
         Interop = DotNetObjectReference.Create(this);
     }
 
-    private ValueTask<IJSObjectReference> ImportModule() => JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor/modules/event-services.js");
+    private ValueTask<IJSObjectReference> ImportModule() => JSRuntime.InvokeAsync<IJSObjectReference>("import", $"./_content/BootstrapBlazor/modules/event-services.js?v={JSVersionService.GetVersion()}");
 
     private async ValueTask InternalRegisterEvent(DOMEvents eventName, params object?[]? args)
     {

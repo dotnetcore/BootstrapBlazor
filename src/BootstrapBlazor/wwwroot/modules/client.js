@@ -1,5 +1,5 @@
-﻿import * as browser from './browser.js'
-import { execute } from './ajax.js'
+﻿import * as browser from "./browser.js?v=$version"
+import { execute } from "./ajax.js?v=$version"
 
 export async function ping(url, invoke, method) {
     var info = window.browser()
