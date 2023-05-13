@@ -64,6 +64,11 @@
     min-height: var(--ad-min-height);
     margin-bottom: var(--ad-margin-bottom);
     overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: .5rem;
 }
 
     ::deep .wwads-cn.debug {
