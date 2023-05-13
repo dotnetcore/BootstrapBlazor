@@ -1,7 +1,0 @@
-<Project>
-
-  <Target Name="Clean" AfterTargets="AfterPublish" Condition="'$(Configuration)' == 'Release'">
-    <Exec Command="dotnet jsver $(MSBuildProjectFullPath) revert"></Exec>
-  </Target>
-
-</Project>
