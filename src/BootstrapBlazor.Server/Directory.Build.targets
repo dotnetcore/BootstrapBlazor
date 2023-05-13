@@ -1,0 +1,8 @@
+<Project>
+
+  <Target Name="PostPublish" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
+    <Message Importance="high" Text="Revert: $(MSBuildProjectDirectory)"></Message>
+    <Exec Command="git reset --hard"></Exec>
+  </Target>
+
+</Project>
