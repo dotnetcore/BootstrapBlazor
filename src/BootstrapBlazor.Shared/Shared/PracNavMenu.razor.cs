@@ -3,9 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Services;
-
 using Microsoft.AspNetCore.Components.Web;
-
 using System.IO.Compression;
 
 namespace BootstrapBlazor.Shared.Shared;
