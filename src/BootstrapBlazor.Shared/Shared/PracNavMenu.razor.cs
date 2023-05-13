@@ -5,10 +5,8 @@
 using BootstrapBlazor.Shared.Services;
 
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Extensions.Options;
 
 using System.IO.Compression;
-using System.Text.Json;
 
 namespace BootstrapBlazor.Shared.Shared;
 
@@ -43,17 +41,17 @@ public partial class PracNavMenu
         {
             new MenuItem()
             {
-                Template = CreateDownloadButtonComponent("仪表盘dashboard",dashboardFileList).Render(),
+                Template = CreateDownloadButtonComponent("仪表盘dashboard", dashboardFileList),
                 Text="仪表盘 Dashboard",Url="dashboard"
             },
             new MenuItem()
             {
-                Template = CreateDownloadButtonComponent("登陆和注册praclogin",pracloginFileList).Render(),
+                Template = CreateDownloadButtonComponent("登陆和注册praclogin", pracloginFileList),
                 Text="登陆和注册 Login & Register",Url="praclogin"
             },
             new MenuItem()
             {
-                Template = CreateDownloadButtonComponent("瀑布流图片pintereso",pinteresoFileList).Render(),
+                Template = CreateDownloadButtonComponent("瀑布流图片pintereso", pinteresoFileList),
                 Text="瀑布流图片 Pintereso",Url="pintereso"
             }
         };
@@ -91,15 +89,13 @@ public partial class PracNavMenu
     /// <param name="name"></param>
     /// <param name="fileList"></param>
     /// <returns></returns>
-    private BootstrapDynamicComponent CreateDownloadButtonComponent(string name, string[] fileList)
+    private RenderFragment CreateDownloadButtonComponent(string name, string[] fileList) => BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>
     {
-        return BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>
-        {
-            [nameof(Button.Color)] = Color.Danger,
-            [nameof(Button.Icon)] = "fas fa-download",
-            [nameof(Button.OnClick)] = EventCallback.Factory.Create<MouseEventArgs>(this, () => DownloadZipArchive(name, fileList))
-        });
-    }
+        [nameof(Button.Color)] = Color.Danger,
+        [nameof(Button.Icon)] = "fas fa-download",
+        [nameof(Button.Size)] = Size.ExtraSmall,
+        [nameof(Button.OnClick)] = EventCallback.Factory.Create<MouseEventArgs>(this, () => DownloadZipArchive(name, fileList))
+    }).Render();
 
     /// <summary>
     /// 打包源码文件
@@ -108,20 +104,17 @@ public partial class PracNavMenu
     /// <returns></returns>
     private async Task<byte[]> PackageSourceFile(string[] filelist)
     {
-        var memory = new MemoryStream();
-        using (var archive = new ZipArchive(memory, ZipArchiveMode.Create, true))
+        using var memory = new MemoryStream();
+        using var archive = new ZipArchive(memory, ZipArchiveMode.Create, true);
+        foreach (var item in filelist)
         {
-            foreach (var item in filelist)
-            {
-                var code = await CodeSnippetService.GetFileContentAsync(item);
+            var code = await CodeSnippetService.GetFileContentAsync(item);
 
-                var fileInArchive = archive.CreateEntry(Path.GetFileName(item), CompressionLevel.Optimal);
-                using var entryStream = fileInArchive.Open();
-                using var fileToCompressStream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(code));
-                fileToCompressStream.CopyTo(entryStream);
-            }
+            var fileInArchive = archive.CreateEntry(Path.GetFileName(item), CompressionLevel.Optimal);
+            using var entryStream = fileInArchive.Open();
+            using var fileToCompressStream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(code));
+            fileToCompressStream.CopyTo(entryStream);
         }
-
         return memory.ToArray();
     }
 
