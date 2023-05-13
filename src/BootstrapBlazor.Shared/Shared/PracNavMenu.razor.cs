@@ -5,6 +5,7 @@
 using BootstrapBlazor.Shared.Services;
 using Microsoft.AspNetCore.Components.Web;
 using System.IO.Compression;
+using System.Text;
 
 namespace BootstrapBlazor.Shared.Shared;
 
@@ -63,9 +64,8 @@ public partial class PracNavMenu
     /// <returns></returns>
     private async Task DownloadZipArchive(string name, string[] fileList)
     {
-        var bt = await PackageSourceFile(fileList);
-        await DownloadService.DownloadFromStreamAsync($"BootstrapBlazor-{name}.zip", new MemoryStream(bt));
-        await Task.CompletedTask;
+        var data = await PackageSourceFile(fileList);
+        await DownloadService.DownloadFromByteArrayAsync($"BootstrapBlazor-{name}.zip", data);
     }
 
     /// <summary>
@@ -103,16 +103,17 @@ public partial class PracNavMenu
     private async Task<byte[]> PackageSourceFile(string[] filelist)
     {
         using var memory = new MemoryStream();
-        using var archive = new ZipArchive(memory, ZipArchiveMode.Create, true);
+        using var archive = new ZipArchive(memory, ZipArchiveMode.Create, false);
         foreach (var item in filelist)
         {
-            var code = await CodeSnippetService.GetFileContentAsync(item);
-
             var fileInArchive = archive.CreateEntry(Path.GetFileName(item), CompressionLevel.Optimal);
             using var entryStream = fileInArchive.Open();
-            using var fileToCompressStream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(code));
+
+            var code = await CodeSnippetService.GetFileContentAsync(item);
+            using var fileToCompressStream = new MemoryStream(Encoding.UTF8.GetBytes(code));
             fileToCompressStream.CopyTo(entryStream);
         }
+        archive.Dispose();
         return memory.ToArray();
     }
 
