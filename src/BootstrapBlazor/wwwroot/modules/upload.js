@@ -1,6 +1,6 @@
-﻿import Data from "./data.js"
-import EventHandler from "./event-handler.js"
-import Viewer from "./viewer.js"
+﻿import Data from "./data.js?v=$version"
+import EventHandler from "./event-handler.js?v=$version"
+import Viewer from "./viewer.js?v=$version"
 
 export function init(id) {
     const el = document.getElementById(id)

@@ -1,4 +1,4 @@
-﻿import EventHandler from "../../modules/event-handler.js"
+﻿import EventHandler from "../../modules/event-handler.js?v=$version"
 
 export function handleKeyup(id, invoke, enter, enterCallbackMethod, esc, escCallbackMethod) {
     const el = document.getElementById(id)

@@ -20,7 +20,7 @@ public static class ServicesExtensions
     public static IServiceCollection AddWebSiteServices(this IServiceCollection services)
     {
         services.AddSingleton<WeatherForecastService>();
-        services.AddSingleton<VersionService>();
+        services.AddSingleton<PackageVersionService>();
         services.AddSingleton<CodeSnippetService>();
         services.AddSingleton<DashboardService>();
         services.AddSingleton(typeof(IDataService<>), typeof(TableDemoDataService<>));

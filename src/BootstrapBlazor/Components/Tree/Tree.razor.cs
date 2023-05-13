@@ -8,7 +8,6 @@ namespace BootstrapBlazor.Components;
 /// Tree 组件
 /// </summary>
 [ExcludeFromCodeCoverage]
-[Obsolete("请使用 TreeView 代替，未来几个版本后将会删除")]
 public partial class Tree
 {
     [NotNull]

@@ -1,4 +1,5 @@
 ﻿const elementMap = new Map()
+
 export default {
     set(element, instance) {
         if (!elementMap.has(element)) {

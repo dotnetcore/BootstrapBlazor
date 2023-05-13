@@ -1,7 +1,7 @@
-﻿import { getHeight, getInnerHeight } from "../../modules/utility.js"
-import Data from "../../modules/data.js"
-import Drag from "../../modules/drag.js"
-import EventHandler from "../../modules/event-handler.js"
+﻿import { getHeight, getInnerHeight } from "../../modules/utility.js?v=$version"
+import Data from "../../modules/data.js?v=$version"
+import Drag from "../../modules/drag.js?v=$version"
+import EventHandler from "../../modules/event-handler.js?v=$version"
 
 export function init(id) {
     const el = document.getElementById(id)

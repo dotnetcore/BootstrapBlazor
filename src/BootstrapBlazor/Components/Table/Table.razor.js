@@ -1,7 +1,7 @@
-﻿import { getResponsive } from "../../modules/responsive.js"
-import { copy, drag, getDescribedElement, getHeight, getWidth } from "../../modules/utility.js"
-import Data from "../../modules/data.js"
-import EventHandler from "../../modules/event-handler.js"
+﻿import { getResponsive } from "../../modules/responsive.js?v=$version"
+import { copy, drag, getDescribedElement, getHeight, getWidth } from "../../modules/utility.js?v=$version"
+import Data from "../../modules/data.js?v=$version"
+import EventHandler from "../../modules/event-handler.js?v=$version"
 
 const fixHeader = table => {
     const el = table.el

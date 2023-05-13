@@ -7,6 +7,12 @@
       "commands": [
         "bundle"
       ]
+    },
+    "jsversionmaker": {
+      "version": "1.0.2",
+      "commands": [
+        "jsver"
+      ]
     }
   }
 }

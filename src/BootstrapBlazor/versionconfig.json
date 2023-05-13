@@ -1,0 +1,7 @@
+﻿{
+  "exclude": [
+    "wwwroot/core/*.*",
+    "wwwroot/js/*.*",
+    "wwwroot/lib/*.*"
+  ]
+}

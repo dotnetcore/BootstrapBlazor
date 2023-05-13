@@ -1,0 +1,12 @@
+<Project>
+
+  <Target Name="Version" AfterTargets="CompileTypeScriptWithTSConfig" BeforeTargets="BeforeCompile" Condition="'$(Configuration)' == 'Release'">
+    <Exec Command="dotnet tool restore"></Exec>
+    <Exec Command="dotnet jsver $(MSBuildProjectFullPath)"></Exec>
+  </Target>
+
+  <Target Name="Revert" AfterTargets="Pack" Condition="'$(Configuration)' == 'Release'">
+    <Exec Command="dotnet jsver $(MSBuildProjectFullPath) revert"></Exec>
+  </Target>
+
+</Project>
