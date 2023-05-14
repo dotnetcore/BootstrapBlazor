@@ -1,0 +1,11 @@
+<Project>
+
+  <PropertyGroup>
+    <VersionProjectPath>$([System.IO.Path]::Combine($(MSBuildProjectDirectory), "..", "BootstrapBlazor", "BootstrapBlazor.csproj"))</VersionProjectPath>
+  </PropertyGroup>
+
+  <Target Name="Version" AfterTargets="CompileTypeScriptWithTSConfig" BeforeTargets="BeforeCompile" Condition="'$(Configuration)' == 'Release'">
+    <Exec Command="dotnet jsver $(MSBuildProjectDirectory) $(VersionProjectPath)"></Exec>
+  </Target>
+
+</Project>

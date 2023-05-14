@@ -13,6 +13,10 @@
     [NotNull]
     private IJSObjectReference? Module { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IVersionService? JSVersionService { get; set; }
+
     [NotNull]
     private DotNetObjectReference<TopologiesNormal>? Interop { get; set; }
 
@@ -51,7 +55,7 @@
         if(firstRender)
         {
             // import JavaScript
-            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Shared/Demos/Topologies/TopologiesNormal.razor.js");
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", $"./_content/BootstrapBlazor.Shared/Demos/Topologies/TopologiesNormal.razor.js?v={JSVersionService.GetVersion()}");
             Interop = DotNetObjectReference.Create(this);
             await Module.InvokeVoidAsync("init", Element, Interop, nameof(ToggleFan));
         }

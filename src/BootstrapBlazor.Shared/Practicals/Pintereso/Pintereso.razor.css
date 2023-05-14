@@ -1,8 +1,11 @@
 ﻿::deep .bb-img {
     margin-bottom: 0.75rem;
     overflow: hidden;
-    transition: transform .3s linear;
 }
+
+    ::deep .bb-img img {
+        transition: transform .5s linear;
+    }
 
     ::deep .bb-img:hover img {
         cursor: zoom-in;

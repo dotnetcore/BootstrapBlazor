@@ -1,4 +1,4 @@
-﻿import EventHandler from "../../../_content/BootstrapBlazor/modules/event-handler.js"
+﻿import EventHandler from "../../../_content/BootstrapBlazor/modules/event-handler.js?v=$version"
 
 export function init() {
     const scrollTop = () => (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop

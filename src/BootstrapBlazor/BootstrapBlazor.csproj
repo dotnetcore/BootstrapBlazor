@@ -41,10 +41,12 @@
 
   <ItemGroup>
     <Content Remove="bundleconfig.json" />
+    <Content Remove="versionconfig.json" />
     <Content Remove="wwwroot\core\**\*.*" />
     <Content Remove="wwwroot\lib\**\*.css" />
     <Content Remove="wwwroot\src\**\*.*" />
     <None Include="bundleconfig.json" />
+    <None Include="versionconfig.json" />
     <None Include="wwwroot\core\**\*.*" />
     <None Include="wwwroot\lib\**\*.css" />
     <None Include="wwwroot\src\**\*.*" />
