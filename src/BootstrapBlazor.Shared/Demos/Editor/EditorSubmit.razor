@@ -1,0 +1,17 @@
+﻿<Editor @bind-Value="@EditorValue" IsEditor="true" ShowSubmit="false" />
+
+<textarea class="form-control">@EditorValue</textarea>
+
+@code {
+    private string? EditorValue { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        EditorValue = "This is bind-Value demo";
+    }
+}

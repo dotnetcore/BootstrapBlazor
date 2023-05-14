@@ -14,8 +14,12 @@
 <PackageTips Name="BootstrapBlazor.SummerNote" />
 
 <DemoBlock Title="@Localizer["EditorNormalTitle"]" Introduction="@Localizer["EditorNormalIntro"]" Name="Normal" Demo="typeof(Demos.Editor.EditorNormal)">
-    <p>@((MarkupString)Localizer["PEditorNormalDescrption"].Value)</p>
+    <p>@((MarkupString)Localizer["EditorNormalDescrption"].Value)</p>
     <div class="form-control mb-3">@((MarkupString)Localizer["EditorNormalDiv"].Value)</div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["EditorSubmitTitle"]" Introduction="@Localizer["EditorSubmitIntro"]" Name="Submit" Demo="typeof(Demos.Editor.EditorSubmit)">
+    <p>@((MarkupString)Localizer["EditorSubmitDescrption"].Value)</p>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["EditorPlaceholderTitle"]" Introduction="@Localizer["EditorPlaceholderIntro"]" Name="Placeholder" Demo="typeof(Demos.Editor.EditorPlaceholder)">
