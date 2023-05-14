@@ -133,6 +133,7 @@ export function reset(id) {
 
 export function dispose(id) {
     const editor = Data.get(id)
+    Data.remove(id)
     if (editor) {
         disposeTooltip(editor.submitTooltip)
         disposeTooltip(editor.tooltip)
@@ -145,7 +146,6 @@ export function dispose(id) {
             delete editor[propertyName]
         }
     }
-    Data.remove(el)
 }
 
 const offEvent = eventEl => {
