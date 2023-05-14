@@ -32,9 +32,6 @@ export function init(id, method, obj) {
     }
 
     const keydown = e => {
-        e.preventDefault()
-        e.stopPropagation()
-
         if (popover.toggleElement.classList.contains('show')) {
             const items = popover.toggleMenu.querySelectorAll('.dropdown-item:not(.search, .disabled)')
             let activeItem = popover.toggleMenu.querySelector('.dropdown-item.preActive')
@@ -53,6 +50,8 @@ export function init(id, method, obj) {
                         }
                         activeItem.classList.add('preActive')
                         scrollToActive(popover.toggleMenu, activeItem)
+                        e.preventDefault()
+                        e.stopPropagation()
                     }
                     else if (e.key === "ArrowDown") {
                         do {
@@ -64,6 +63,8 @@ export function init(id, method, obj) {
                         }
                         activeItem.classList.add('preActive')
                         scrollToActive(popover.toggleMenu, activeItem)
+                        e.preventDefault()
+                        e.stopPropagation()
                     }
                 }
 
