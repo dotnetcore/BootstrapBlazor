@@ -20,11 +20,6 @@ public partial class Editor : IAsyncDisposable
     private DotNetObjectReference<Editor>? Interop { get; set; }
 
     /// <summary>
-    /// 获得/设置 EChart DOM 元素实例
-    /// </summary>
-    private ElementReference Element { get; set; }
-
-    /// <summary>
     /// 获得 Editor 样式
     /// </summary>
     private string? EditClassString => CssBuilder.Default("editor-body form-control")
@@ -64,6 +59,17 @@ public partial class Editor : IAsyncDisposable
     [NotNull]
     public IEnumerable<EditorToolbarButton>? CustomerToolbarButtons { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否显示工具栏提交按钮 默认 true 显示
+    /// </summary>
+    /// <remarks>工具栏提交按钮在工具栏最后位置，此按钮设计上是避免编辑内容变化时频繁提交代码到服务器，点击提交按钮后再发送到服务器，禁用此按钮时每次更新内容均提交代码到服务器端</remarks>
+    [Parameter]
+    public bool ShowSubmit { get; set; } = true;
+
+    private bool _lastShowSubmit = true;
+
+    private string? ShowSubmitString => ShowSubmit ? "true" : null;
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Editor>? Localizer { get; set; }
@@ -101,7 +107,7 @@ public partial class Editor : IAsyncDisposable
     public Func<string, Task<string>>? OnClickButton { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -124,7 +130,7 @@ public partial class Editor : IAsyncDisposable
     }
 
     /// <summary>
-    /// OnParametersSet
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -137,7 +143,7 @@ public partial class Editor : IAsyncDisposable
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -147,6 +153,8 @@ public partial class Editor : IAsyncDisposable
 
         if (firstRender)
         {
+            _lastShowSubmit = ShowSubmit;
+
             var methodGetPluginAttrs = "";
             var methodClickPluginItem = "";
             if (CustomerToolbarButtons.Any())
@@ -158,13 +166,21 @@ public partial class Editor : IAsyncDisposable
             // import JavaScript
             Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.SummerNote/Components/Editor/Editor.razor.js");
             Interop = DotNetObjectReference.Create(this);
-            await Module.InvokeVoidAsync("init", Element, Interop, methodGetPluginAttrs, methodClickPluginItem, Height, Value ?? "", Language);
+            await Module.InvokeVoidAsync("init", Id, Interop, methodGetPluginAttrs, methodClickPluginItem, Height, Value ?? "", Language);
         }
 
+        // ShowSubmiit 处理
+        if (_lastShowSubmit != ShowSubmit)
+        {
+            _lastShowSubmit = ShowSubmit;
+            await Module.InvokeVoidAsync("reset", Id, Value ?? "");
+        }
+
+        // Value 处理
         if (_lastValue != Value)
         {
             _lastValue = Value;
-            await Module.InvokeVoidAsync("update", Element, Value ?? "");
+            await Module.InvokeVoidAsync("update", Id, Value ?? "");
         }
     }
 
@@ -242,7 +258,7 @@ public partial class Editor : IAsyncDisposable
     {
         if (Module != null)
         {
-            await Module.InvokeVoidAsync("invoke", Element, method, value);
+            await Module.InvokeVoidAsync("invoke", Id, method, value);
         }
     }
 
@@ -259,7 +275,7 @@ public partial class Editor : IAsyncDisposable
 
             if (Module != null)
             {
-                await Module.InvokeVoidAsync("dispose", Element);
+                await Module.InvokeVoidAsync("dispose", Id);
                 await Module.DisposeAsync();
                 Module = null;
             }

@@ -9,13 +9,19 @@
 
 <p>@((MarkupString)Localizer["EditorsTips"].Value)</p>
 
+<Pre class="no-highlight">&lt;script src="_content/BootstrapBlazor.SummerNote/js/jquery-3.5.1.min.js"&gt;&lt;/script&gt;</Pre>
+
 <Pre class="no-highlight">builder.Services.Configure&lt;HubOptions&gt;(option => option.MaximumReceiveMessageSize = null);</Pre>
 
 <PackageTips Name="BootstrapBlazor.SummerNote" />
 
 <DemoBlock Title="@Localizer["EditorNormalTitle"]" Introduction="@Localizer["EditorNormalIntro"]" Name="Normal" Demo="typeof(Demos.Editor.EditorNormal)">
-    <p>@((MarkupString)Localizer["PEditorNormalDescrption"].Value)</p>
+    <p>@((MarkupString)Localizer["EditorNormalDescrption"].Value)</p>
     <div class="form-control mb-3">@((MarkupString)Localizer["EditorNormalDiv"].Value)</div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["EditorSubmitTitle"]" Introduction="@Localizer["EditorSubmitIntro"]" Name="Submit" Demo="typeof(Demos.Editor.EditorSubmit)">
+    <p>@((MarkupString)Localizer["EditorSubmitDescrption"].Value)</p>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["EditorPlaceholderTitle"]" Introduction="@Localizer["EditorPlaceholderIntro"]" Name="Placeholder" Demo="typeof(Demos.Editor.EditorPlaceholder)">

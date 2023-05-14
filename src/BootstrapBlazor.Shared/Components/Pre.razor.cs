@@ -108,7 +108,7 @@ public partial class Pre
 
         if (Loaded)
         {
-            await Hightlight();
+            await InvokeVoidAsync("highlight", Id);
         }
     }
 
@@ -134,6 +134,4 @@ public partial class Pre
         }
         Loaded = true;
     }
-
-    private Task Hightlight() => InvokeVoidAsync("execute", Id, "highlight");
 }

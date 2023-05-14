@@ -9,48 +9,52 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Editors
 {
-    private IEnumerable<AttributeItem> GetAttributes()
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        return new AttributeItem[]
+        // TODO: 移动到数据库中
+        new AttributeItem() {
+            Name = "Placeholder",
+            Description = Localizer["Att1"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = Localizer["Att1DefaultValue"]!
+        },
+        new AttributeItem() {
+            Name = "IsEditor",
+            Description = Localizer["Att2"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "ShowSubmit",
+            Description = Localizer["AttShowSubmit"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new AttributeItem() {
+            Name = "Height",
+            Description = Localizer["Att3"],
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem()
         {
-            // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = "Placeholder",
-                Description = Localizer["Att1"],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = Localizer["Att1DefaultValue"]!
-            },
-            new AttributeItem() {
-                Name = "IsEditor",
-                Description = Localizer["Att2"],
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem() {
-                Name = "Height",
-                Description = Localizer["Att3"],
-                Type = "int",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem()
-            {
-                Name = "ToolbarItems",
-                Description = Localizer["Att4"],
-                Type = "IEnumerable<object>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem()
-            {
-                Name = "CustomerToolbarButtons",
-                Description = Localizer["Att5"],
-                Type = "IEnumerable<EditorToolbarButton>",
-                ValueList = " — ",
-                DefaultValue = " — "
-            }
-        };
-    }
+            Name = "ToolbarItems",
+            Description = Localizer["Att4"],
+            Type = "IEnumerable<object>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem()
+        {
+            Name = "CustomerToolbarButtons",
+            Description = Localizer["Att5"],
+            Type = "IEnumerable<EditorToolbarButton>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    };
 }

@@ -1,0 +1,25 @@
+﻿<Button Text="@ButtonText" OnClick="ShowSubmit" class="mb-3"></Button>
+
+<Editor @bind-Value="@EditorValue" IsEditor="true" ShowSubmit="ShowSubmitButton" />
+
+<textarea class="form-control mt-3">@EditorValue</textarea>
+
+@code {
+    private string? EditorValue { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        EditorValue = "This is bind-Value demo";
+    }
+
+    private bool ShowSubmitButton { get; set; }
+
+    private void ShowSubmit() => ShowSubmitButton = !ShowSubmitButton;
+
+    private string ButtonText => ShowSubmitButton ? "Hide SubmitButton" : "Show SubmitButton";
+}

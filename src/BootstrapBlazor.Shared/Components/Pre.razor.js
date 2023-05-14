@@ -16,6 +16,7 @@ export async function init(id, title) {
         preElement: el.querySelector('pre'),
         code: el.querySelector('pre > code'),
         highlight: () => {
+            let count = 0
             pre.handler = setInterval(() => {
                 if (hljs) {
                     clearInterval(pre.handler)
@@ -23,7 +24,14 @@ export async function init(id, title) {
 
                     hljs.highlightBlock(el.querySelector('code'))
                 }
-            }, 30)
+                else {
+                    count++
+                    if (count > 10) {
+                        clearInterval(pre.handler)
+                        delete pre.handler
+                    }
+                }
+            }, 100)
         }
     }
     Data.set(id, pre)
@@ -64,10 +72,10 @@ export async function init(id, title) {
     }
 }
 
-export function execute(id, method) {
+export function highlight(id) {
     const pre = Data.get(id)
 
-    if (pre && method === 'highlight') {
+    if (pre) {
         pre.highlight()
     }
 }
