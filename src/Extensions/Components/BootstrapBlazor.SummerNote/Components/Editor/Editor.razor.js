@@ -70,6 +70,7 @@ export async function init(id, invoker, methodGetPluginAttrs, methodClickPluginI
                     container: 'body'
                 })
             }
+
             document.querySelector('.note-group-select-from-files [accept="image/*"]').setAttribute('accept', 'image/bmp,image/png,image/jpg,image/jpeg,image/gif')
         })
 
@@ -128,7 +129,21 @@ export function invoke(id, method, parameter) {
 }
 
 export function reset(id) {
+    const editor = Data.get(id)
+    const context = editor.$editor.data('summernote')
 
+    const showSubmit = editor.el.getAttribute("data-bb-submit") === "true"
+    if (showSubmit) {
+        editor.$submit = $('<div class="note-btn-group btn-group note-view note-right"><button type="button" class="note-btn btn btn-sm note-btn-close" tabindex="-1" data-method="submit" data-bs-placement="bottom"><i class="fa-solid fa-check"></i></button></div>').appendTo($(editor.editorToolbar)).find('button')
+
+        context.options.callbacks.onChange = null
+    }
+    else {
+        editor.$submit.remove()
+        context.options.callbacks.onChange = (contents, $editable) => {
+            editor.invoker.invokeMethodAsync('Update', contents)
+        }
+    }
 }
 
 export function dispose(id) {
