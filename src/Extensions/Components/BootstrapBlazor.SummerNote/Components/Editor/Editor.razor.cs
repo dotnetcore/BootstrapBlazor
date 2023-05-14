@@ -153,6 +153,8 @@ public partial class Editor : IAsyncDisposable
 
         if (firstRender)
         {
+            _lastShowSubmit = ShowSubmit;
+
             var methodGetPluginAttrs = "";
             var methodClickPluginItem = "";
             if (CustomerToolbarButtons.Any())
@@ -167,16 +169,18 @@ public partial class Editor : IAsyncDisposable
             await Module.InvokeVoidAsync("init", Id, Interop, methodGetPluginAttrs, methodClickPluginItem, Height, Value ?? "", Language);
         }
 
+        // ShowSubmiit 处理
+        if (_lastShowSubmit != ShowSubmit)
+        {
+            _lastShowSubmit = ShowSubmit;
+            await Module.InvokeVoidAsync("reset", Id, Value ?? "");
+        }
+
+        // Value 处理
         if (_lastValue != Value)
         {
             _lastValue = Value;
             await Module.InvokeVoidAsync("update", Id, Value ?? "");
-        }
-
-        if(_lastShowSubmit != ShowSubmit)
-        {
-            _lastShowSubmit = ShowSubmit;
-            await Module.InvokeVoidAsync("reset", Id, Value ?? "");
         }
     }
 
