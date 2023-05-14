@@ -12,6 +12,10 @@
 <Pre>@Code</Pre>
 
 @code {
+    [Inject]
+    [NotNull]
+    private IVersionService? JSVersionService { get; set; }
+
     /// <summary>
     /// JS 互操作实例
     /// </summary>
@@ -50,7 +54,7 @@
 
         if (firstRender)
         {
-            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Shared/Demos/Charts/Line/LineChartJS.razor.js");
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", $"./_content/BootstrapBlazor.Shared/Demos/Charts/Line/LineChartJS.razor.js?v={JSVersionService.GetVersion()}");
 
             //随机生成一组数据
             //Randomly generate a set of data
