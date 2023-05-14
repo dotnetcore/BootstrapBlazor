@@ -134,8 +134,17 @@ export function reset(id) {
 
     const showSubmit = editor.el.getAttribute("data-bb-submit") === "true"
     if (showSubmit) {
-        editor.$submit = $('<div class="note-btn-group btn-group note-view note-right"><button type="button" class="note-btn btn btn-sm note-btn-close" tabindex="-1" data-method="submit" data-bs-placement="bottom"><i class="fa-solid fa-check"></i></button></div>').appendTo($(editor.editorToolbar)).find('button')
+        const editorLangConfig = $.summernote.lang[context.options.lang].bb_editor
+        let title = ''
+        if (editorLangConfig) {
+            title = editorLangConfig.submit
+        }
 
+        editor.$submit = $('<div class="note-btn-group btn-group note-view note-right"><button type="button" class="note-btn btn btn-sm note-btn-close" tabindex="-1" data-method="submit" data-bs-placement="bottom"><i class="fa-solid fa-check"></i></button></div>').appendTo($(editor.editorToolbar)).find('button')
+        editor.submitTooltip = new bootstrap.Tooltip(editor.$submit[0], {
+            title: title,
+            container: 'body'
+        })
         context.options.callbacks.onChange = null
     }
     else {
