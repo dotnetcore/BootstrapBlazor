@@ -64,6 +64,17 @@ public partial class Editor : IAsyncDisposable
     [NotNull]
     public IEnumerable<EditorToolbarButton>? CustomerToolbarButtons { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否显示工具栏提交按钮 默认 true 显示
+    /// </summary>
+    /// <remarks>工具栏提交按钮在工具栏最后位置，此按钮设计上是避免编辑内容变化时频繁提交代码到服务器，点击提交按钮后再发送到服务器，禁用此按钮时每次更新内容均提交代码到服务器端</remarks>
+    [Parameter]
+    public bool ShowSubmit { get; set; } = true;
+
+    private bool _lastShowSubmit = true;
+
+    private string? ShowSubmitString => ShowSubmit ? "true" : null;
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Editor>? Localizer { get; set; }
@@ -101,7 +112,7 @@ public partial class Editor : IAsyncDisposable
     public Func<string, Task<string>>? OnClickButton { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -124,7 +135,7 @@ public partial class Editor : IAsyncDisposable
     }
 
     /// <summary>
-    /// OnParametersSet
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -137,7 +148,7 @@ public partial class Editor : IAsyncDisposable
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -165,6 +176,12 @@ public partial class Editor : IAsyncDisposable
         {
             _lastValue = Value;
             await Module.InvokeVoidAsync("update", Element, Value ?? "");
+        }
+
+        if(_lastShowSubmit != ShowSubmit)
+        {
+            _lastShowSubmit = ShowSubmit;
+            await Module.InvokeVoidAsync("reset", Element, Value ?? "");
         }
     }
 

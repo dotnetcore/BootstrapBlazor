@@ -34,9 +34,12 @@ export async function init(el, invoker, methodGetPluginAttrs, methodClickPluginI
             const toolbar = await editor.invoker.invokeMethodAsync('GetToolBar')
             editor.editorElement.classList.add('open')
 
-            option.callback = {
-                onChange: htmlString => {
-                    editor.invoker.invokeMethodAsync('Update', htmlString)
+            const showSubmit = el.getAttribute("data-bb-submit") === "true"
+            if (!showSubmit) {
+                option.callbacks = {
+                    onChange: (contents, $editable) => {
+                        editor.invoker.invokeMethodAsync('Update', contents)
+                    }
                 }
             }
             option.toolbar = toolbar
@@ -56,11 +59,13 @@ export async function init(el, invoker, methodGetPluginAttrs, methodClickPluginI
                 }
             })
 
-            editor.$submit = $('<div class="note-btn-group btn-group note-view note-right"><button type="button" class="note-btn btn btn-sm note-btn-close" tabindex="-1" data-method="submit" data-bs-placement="bottom"><i class="fa-solid fa-check"></i></button></div>').appendTo($(editor.editorToolbar)).find('button')
-            editor.submitTooltip = new bootstrap.Tooltip(editor.$submit[0], {
-                title: title,
-                container: 'body'
-            })
+            if (showSubmit) {
+                editor.$submit = $('<div class="note-btn-group btn-group note-view note-right"><button type="button" class="note-btn btn btn-sm note-btn-close" tabindex="-1" data-method="submit" data-bs-placement="bottom"><i class="fa-solid fa-check"></i></button></div>').appendTo($(editor.editorToolbar)).find('button')
+                editor.submitTooltip = new bootstrap.Tooltip(editor.$submit[0], {
+                    title: title,
+                    container: 'body'
+                })
+            }
             document.querySelector('.note-group-select-from-files [accept="image/*"]').setAttribute('accept', 'image/bmp,image/png,image/jpg,image/jpeg,image/gif')
         })
 
@@ -116,6 +121,10 @@ export function update(el, val) {
 export function invoke(el, method, parameter) {
     const editor = Data.get(el)
     editor.$editor.summernote(method, ...parameter)
+}
+
+export function reset(el) {
+
 }
 
 export function dispose(el) {
