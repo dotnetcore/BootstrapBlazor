@@ -1,7 +1,7 @@
 ﻿import '../../js/summernote-bs5.min.js'
 import { addLink } from '../../../BootstrapBlazor/modules/utility.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
-import EventHandler from "../../../BootstrapBlazor/modules/event-handler.js"
+import EventHandler from '../../../BootstrapBlazor/modules/event-handler.js'
 
 export async function init(el, invoker, methodGetPluginAttrs, methodClickPluginItem, height, value, lang) {
     await addLink('_content/BootstrapBlazor.SummerNote/css/bootstrap.blazor.editor.min.css')
@@ -14,7 +14,7 @@ export async function init(el, invoker, methodGetPluginAttrs, methodClickPluginI
     editor._editorElement = el.querySelector('.editor-body')
 
     const initEditor = () => {
-        let option = {focus: true, dialogsInBody: true, height, lang}
+        let option = { focus: true, dialogsInBody: true, height, lang }
         if (value !== '') {
             option.value = value
         }
@@ -45,8 +45,8 @@ export async function init(el, invoker, methodGetPluginAttrs, methodClickPluginI
             editor.$editor = $(editor._editorElement).summernote(option)
 
             editor._editorToolbar = editor._element.querySelector('.note-toolbar')
-            EventHandler.on(editor._editorToolbar, 'click', 'button[data-method]', () => {
-                switch (this.getAttribute('data-method')) {
+            EventHandler.on(editor._editorToolbar, 'click', 'button[data-method]', e => {
+                switch (e.delegateTarget.getAttribute('data-method')) {
                     case 'submit':
                         disposeTooltip(editor._submitTooltip)
                         offEvent(editor._editorToolbar)
@@ -60,13 +60,13 @@ export async function init(el, invoker, methodGetPluginAttrs, methodClickPluginI
 
             editor.$submit = $('<div class="note-btn-group btn-group note-view note-right"><button type="button" class="note-btn btn btn-sm note-btn-close" tabindex="-1" data-method="submit" data-bs-placement="bottom"><i class="fa-solid fa-check"></i></button></div>').appendTo($(editor._editorToolbar)).find('button')
             editor._submitTooltip = new bootstrap.Tooltip(editor.$submit[0], {
-                 title: title,
-                 container: 'body'
+                title: title,
+                container: 'body'
             })
             document.querySelector('.note-group-select-from-files [accept="image/*"]').setAttribute('accept', 'image/bmp,image/png,image/jpg,image/jpeg,image/gif')
         })
 
-        editor._tooltip = new bootstrap.Tooltip(editor._editorElement, {title: tooltip})
+        editor._tooltip = new bootstrap.Tooltip(editor._editorElement, { title: tooltip })
 
         if (option.value) editor._editorElement.innerHTML = option.value
         if (editor._editorElement.classList.contains('open')) {
@@ -88,7 +88,7 @@ export async function init(el, invoker, methodGetPluginAttrs, methodClickPluginI
                         tooltip: item.tooltip,
                         click: async () => {
                             const html = await editor._invoker.invokeMethodAsync(methodClickPluginItem, item.buttonName)
-                            if(html.length > 0) {
+                            if (html.length > 0) {
                                 context.invoke('editor.pasteHTML', html)
                             }
                         }
@@ -122,17 +122,18 @@ export function invoke(el, method, parameter) {
 
 export function dispose(el) {
     const editor = Data.get(el)
-    disposeTooltip(editor._submitTooltip)
-    disposeTooltip(editor._tooltip)
-    offEvent(editor._editorToolbar)
-    offEvent(editor._editorElement)
-    disposeEditor(editor)
+    if (editor) {
+        disposeTooltip(editor._submitTooltip)
+        disposeTooltip(editor._tooltip)
+        offEvent(editor._editorToolbar)
+        offEvent(editor._editorElement)
+        disposeEditor(editor)
 
-    for (const propertyName of Object.getOwnPropertyNames(editor)) {
-        editor[propertyName] = null
-        delete editor[propertyName]
+        for (const propertyName of Object.getOwnPropertyNames(editor)) {
+            editor[propertyName] = null
+            delete editor[propertyName]
+        }
     }
-
     Data.remove(el)
 }
 
@@ -157,7 +158,10 @@ const disposeEditor = editor => {
     }
 }
 
-const bb_lang = function () {
+const bb_lang = () => {
+    if (!$.summernote) {
+        return
+    }
     $.summernote.lang["zh-CN"] = {
         font: {
             bold: "粗体",
