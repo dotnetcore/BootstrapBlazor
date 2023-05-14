@@ -45,7 +45,7 @@ export async function init(el, invoker, methodGetPluginAttrs, methodClickPluginI
             editor.$editor = $(editor._editorElement).summernote(option)
 
             editor._editorToolbar = editor._element.querySelector('.note-toolbar')
-            EventHandler.on(editor._editorToolbar, 'click', 'button[data-method]', function() {
+            EventHandler.on(editor._editorToolbar, 'click', 'button[data-method]', () => {
                 switch (this.getAttribute('data-method')) {
                     case 'submit':
                         disposeTooltip(editor._submitTooltip)
