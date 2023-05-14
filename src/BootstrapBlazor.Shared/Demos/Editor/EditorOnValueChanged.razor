@@ -1,6 +1,6 @@
 ﻿@inject IStringLocalizer<EditorOnValueChanged> Localizer
 
-<Editor @bind-Value="@EditorValue" OnValueChanged="@OnValueChanged" />
+<Editor @bind-Value="@EditorValue" />
 
 <label class="form-label mt-3">@Localizer["EditorOnValueChangedLabel"]</label>
 <textarea class="form-control mt-3">@EditorValue</textarea>
@@ -11,19 +11,13 @@
 @code {
     private string? EditorValue { get; set; }
 
-    private Task OnValueChanged(string val)
-    {
-        EditorValue = val;
-        return Task.CompletedTask;
-    }
-
     private void SetValue()
     {
         EditorValue = Localizer["EditorOnValueChangedUpdateValue"];
     }
 
     /// <summary>
-    /// OnInitialized
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
