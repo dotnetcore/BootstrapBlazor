@@ -20,11 +20,6 @@ public partial class Editor : IAsyncDisposable
     private DotNetObjectReference<Editor>? Interop { get; set; }
 
     /// <summary>
-    /// 获得/设置 EChart DOM 元素实例
-    /// </summary>
-    private ElementReference Element { get; set; }
-
-    /// <summary>
     /// 获得 Editor 样式
     /// </summary>
     private string? EditClassString => CssBuilder.Default("editor-body form-control")
@@ -169,19 +164,19 @@ public partial class Editor : IAsyncDisposable
             // import JavaScript
             Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.SummerNote/Components/Editor/Editor.razor.js");
             Interop = DotNetObjectReference.Create(this);
-            await Module.InvokeVoidAsync("init", Element, Interop, methodGetPluginAttrs, methodClickPluginItem, Height, Value ?? "", Language);
+            await Module.InvokeVoidAsync("init", Id, Interop, methodGetPluginAttrs, methodClickPluginItem, Height, Value ?? "", Language);
         }
 
         if (_lastValue != Value)
         {
             _lastValue = Value;
-            await Module.InvokeVoidAsync("update", Element, Value ?? "");
+            await Module.InvokeVoidAsync("update", Id, Value ?? "");
         }
 
         if(_lastShowSubmit != ShowSubmit)
         {
             _lastShowSubmit = ShowSubmit;
-            await Module.InvokeVoidAsync("reset", Element, Value ?? "");
+            await Module.InvokeVoidAsync("reset", Id, Value ?? "");
         }
     }
 
@@ -259,7 +254,7 @@ public partial class Editor : IAsyncDisposable
     {
         if (Module != null)
         {
-            await Module.InvokeVoidAsync("invoke", Element, method, value);
+            await Module.InvokeVoidAsync("invoke", Id, method, value);
         }
     }
 
@@ -276,7 +271,7 @@ public partial class Editor : IAsyncDisposable
 
             if (Module != null)
             {
-                await Module.InvokeVoidAsync("dispose", Element);
+                await Module.InvokeVoidAsync("dispose", Id);
                 await Module.DisposeAsync();
                 Module = null;
             }

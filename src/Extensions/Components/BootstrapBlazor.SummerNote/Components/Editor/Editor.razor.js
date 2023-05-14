@@ -3,11 +3,15 @@ import { addLink } from '../../../BootstrapBlazor/modules/utility.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
 import EventHandler from '../../../BootstrapBlazor/modules/event-handler.js'
 
-export async function init(el, invoker, methodGetPluginAttrs, methodClickPluginItem, height, value, lang) {
-    await addLink('_content/BootstrapBlazor.SummerNote/css/bootstrap.blazor.editor.min.css')
+export async function init(id, invoker, methodGetPluginAttrs, methodClickPluginItem, height, value, lang) {
+    const el = document.getElementById(id)
+    if (el === null) {
+        return
+    }
 
+    await addLink('_content/BootstrapBlazor.SummerNote/css/bootstrap.blazor.editor.min.css')
     const editor = { el, invoker }
-    Data.set(el, editor)
+    Data.set(id, editor)
 
     editor.editorElement = el.querySelector('.editor-body')
 
@@ -108,8 +112,8 @@ export async function init(el, invoker, methodGetPluginAttrs, methodClickPluginI
     initEditor()
 }
 
-export function update(el, val) {
-    const editor = Data.get(el)
+export function update(id, val) {
+    const editor = Data.get(id)
     if (editor.$editor) {
         editor.$editor.summernote('code', val)
     }
@@ -118,17 +122,17 @@ export function update(el, val) {
     }
 }
 
-export function invoke(el, method, parameter) {
-    const editor = Data.get(el)
+export function invoke(id, method, parameter) {
+    const editor = Data.get(id)
     editor.$editor.summernote(method, ...parameter)
 }
 
-export function reset(el) {
+export function reset(id) {
 
 }
 
-export function dispose(el) {
-    const editor = Data.get(el)
+export function dispose(id) {
+    const editor = Data.get(id)
     if (editor) {
         disposeTooltip(editor.submitTooltip)
         disposeTooltip(editor.tooltip)

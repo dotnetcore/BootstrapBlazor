@@ -1,6 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits IdComponentBase
 
-<div @attributes="@AdditionalAttributes" class="editor" data-bb-submit="@ShowSubmitString" @ref="Element">
+<div @attributes="@AdditionalAttributes" id="@Id" class="editor" data-bb-submit="@ShowSubmitString">
     <div class="@EditClassString" placeholder="@PlaceHolder"></div>
 </div>
