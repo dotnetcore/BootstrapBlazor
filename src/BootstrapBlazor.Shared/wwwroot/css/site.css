@@ -146,6 +146,13 @@
     margin-left: 1rem;
 }
 
+.row-highlight {
+    background-color: #409eff;
+    color: #fff;
+    --bs-table-striped-bg: #409eff;
+    --bs-table-striped-color: #fff;
+}
+
 @media (min-width: 768px) {
     :root {
         --bs-header-height: 50px;
