@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Shared.Shared;
 /// <summary>
 /// 母版页基类
 /// </summary>
-public partial class BaseLayout : IAsyncDisposable
+public partial class BaseLayout
 {
     [Inject]
     [NotNull]
@@ -38,9 +38,6 @@ public partial class BaseLayout : IAsyncDisposable
 
     [NotNull]
     private string? Title { get; set; }
-
-    [NotNull]
-    private JSModule? Module { get; set; }
 
     private static bool Installable = false;
 
@@ -78,30 +75,5 @@ public partial class BaseLayout : IAsyncDisposable
     {
         Installable = false;
         await JSRuntime.InvokeVoidAsync("BlazorPWA.installPWA");
-    }
-
-    /// <summary>
-    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected virtual async ValueTask DisposeAsync(bool disposing)
-    {
-        if (Module != null && disposing)
-        {
-            await Module.InvokeVoidAsync($"Header.dispose");
-            await Module.DisposeAsync();
-            Module = null;
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsync(true);
-        GC.SuppressFinalize(this);
     }
 }
