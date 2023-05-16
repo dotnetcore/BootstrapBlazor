@@ -1,5 +1,6 @@
 ﻿import { getResponsive } from "../../modules/responsive.js?v=$version"
 import { copy, drag, getDescribedElement, getHeight, getWidth } from "../../modules/utility.js?v=$version"
+import * as browser from "../../modules/browser.js?v=$version"
 import Data from "../../modules/data.js?v=$version"
 import EventHandler from "../../modules/event-handler.js?v=$version"
 
@@ -15,7 +16,8 @@ const fixHeader = table => {
             if (prev.classList.contains('fixed-right') && !prev.classList.contains('modified')) {
                 let margin = prev.style.right
                 margin = margin.replace('px', '')
-                if ($.browser.versions.mobile) {
+                const b = window.browser()
+                if (b.device !== 'PC') {
                     margin = (parseFloat(margin) - 6) + 'px'
                 }
                 prev.classList.add('modified')
