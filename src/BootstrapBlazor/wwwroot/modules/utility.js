@@ -65,6 +65,22 @@ const getInnerWidth = element => getWidth(element, true)
 
 const getInnerHeight = element => getHeight(element, true)
 
+const getOuterHeight = element => {
+    let height = element.offsetHeight
+    const styles = getComputedStyle(element)
+    const marginTop = parseInt(styles.marginTop)
+    const marginBottom = parseInt(styles.marginBottom)
+    return height + marginTop + marginBottom
+}
+
+const getOuterWidth = element => {
+    let width = element.offsetWidth
+    const styles = getComputedStyle(element)
+    const marginLeft = parseInt(styles.marginLeft)
+    const marginRight = parseInt(styles.marginRight)
+    return width + marginLeft + marginRight
+}
+
 const getWindowScroll = node => {
     const win = getWindow(node)
     const scrollLeft = win.pageXOffset
@@ -405,6 +421,8 @@ export {
     getHeight,
     getInnerHeight,
     getInnerWidth,
+    getOuterHeight,
+    getOuterWidth,
     getTargetElement,
     getTransitionDelayDurationFromElement,
     getWidth,
