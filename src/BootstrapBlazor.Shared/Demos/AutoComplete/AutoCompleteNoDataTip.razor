@@ -1,6 +1,6 @@
 ﻿@inject IStringLocalizer<AutoCompleteNoDataTip> Localizer
 
-<p>@Localizer["Description"]</p>
+<p>@((MarkupString)Localizer["Description"].Value)</p>
 
 <div style="width: 200px;">
     <AutoComplete Items="@StaticItems" NoDataTip="@Localizer["NoDataTip"]" />

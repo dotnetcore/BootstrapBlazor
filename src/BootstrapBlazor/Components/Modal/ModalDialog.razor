@@ -21,7 +21,7 @@
                     }
                     @if (ShowPrintButton && ShowPrintButtonInHeader)
                     {
-                        <PrintButton Color="Color.Primary" class="btn-print" Text="@PrintButtonText" />
+                        <PrintButton Color="Color.Primary" class="btn-print" Text="@PrintButtonText"></PrintButton>
                     }
                     @if (ShowMaximizeButton)
                     {
@@ -44,15 +44,15 @@
                     <div class="modal-footer">
                         @if (ShowCloseButton)
                         {
-                            <DialogCloseButton Text="@CloseButtonText" Icon="@CloseButtonIcon" />
+                            <DialogCloseButton Text="@CloseButtonText" Icon="@CloseButtonIcon"></DialogCloseButton>
                         }
                         @if (ShowPrintButton && !ShowPrintButtonInHeader)
                         {
-                            <PrintButton Color="Color.Primary" class="btn-print" Text="@PrintButtonText" />
+                            <PrintButton Color="Color.Primary" class="btn-print" Text="@PrintButtonText"></PrintButton>
                         }
                         @if (ShowSaveButton)
                         {
-                            <Button Color="Color.Primary" Text="@SaveButtonText" Icon="@SaveIcon" OnClickWithoutRender="OnClickSave" />
+                            <Button Color="Color.Primary" Text="@SaveButtonText" Icon="@SaveIcon" OnClickWithoutRender="OnClickSave"></Button>
                         }
                         @if (FooterTemplate != null)
                         {

@@ -1,5 +1,5 @@
 ﻿import { getResponsive } from "../../modules/responsive.js?v=$version"
-import { copy, drag, getDescribedElement, getHeight, getWidth } from "../../modules/utility.js?v=$version"
+import { copy, drag, getDescribedElement, getOuterHeight, getWidth } from "../../modules/utility.js?v=$version"
 import * as browser from "../../modules/browser.js?v=$version"
 import Data from "../../modules/data.js?v=$version"
 import EventHandler from "../../modules/event-handler.js?v=$version"
@@ -35,23 +35,23 @@ const fixHeader = table => {
         table.search = search
         let searchHeight = 0
         if (search) {
-            searchHeight = getHeight(search)
+            searchHeight = getOuterHeight(search)
         }
         const pagination = el.querySelector('.nav-pages')
         let paginationHeight = 0
         if (pagination) {
-            paginationHeight = getHeight(pagination)
+            paginationHeight = getOuterHeight(pagination)
         }
         const toolbar = el.querySelector('.table-toolbar')
         let toolbarHeight = 0
         if (toolbar) {
-            toolbarHeight = getHeight(toolbar)
+            toolbarHeight = getOuterHeight(toolbar)
         }
         const bodyHeight = paginationHeight + toolbarHeight + searchHeight;
         if (bodyHeight > 0) {
             body.parentNode.style.height = `calc(100% - ${bodyHeight}px)`
         }
-        const headerHeight = getHeight(table.thead)
+        const headerHeight = getOuterHeight(table.thead)
         if (headerHeight > 0) {
             body.style.height = `calc(100% - ${headerHeight}px)`
         }

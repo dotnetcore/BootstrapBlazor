@@ -1,19 +1,26 @@
-﻿export function reconnect() {
+﻿export function reconnect(interval) {
     const reconnectHandler = setInterval(async () => {
         const com = document.getElementById('components-reconnect-modal')
         if (com) {
-            const cls = com.getAttribute("class");
-            if (cls === 'components-reconnect-show') {
+            if (com.classList.length === 0 || com.classList.contains('components-reconnect-hide')) {
+                return
+            }
+            else {
                 clearInterval(reconnectHandler)
 
+                async function attemptReload() {
+                    try {
+                        await fetch('')
+                        if (reloadHandler) {
+                            clearInterval(reloadHandler)
+                        }
+                        location.reload()
+                    }
+                    catch { }
+                }
                 await attemptReload()
-                setInterval(attemptReload, 5000)
+                const reloadHandler = setInterval(attemptReload, interval)
             }
         }
-    }, 2000)
-}
-
-async function attemptReload() {
-    await fetch('')
-    location.reload()
+    }, interval)
 }
