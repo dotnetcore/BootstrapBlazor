@@ -33,6 +33,12 @@ public partial class ReconnectorContent
     [Parameter]
     public bool AutoReconnect { get; set; } = true;
 
+    /// <summary>
+    /// 获得/设置 自动重连间隔 默认 5000 毫秒 最小值为 1000 毫秒
+    /// </summary>
+    [Parameter]
+    public int ReconnectInterval { get; set; } = 5000;
+
     [Inject]
     [NotNull]
     private IReconnectorProvider? Provider { get; set; }
@@ -56,7 +62,7 @@ public partial class ReconnectorContent
     {
         if (AutoReconnect)
         {
-            await InvokeVoidAsync("reconnect");
+            await InvokeVoidAsync("reconnect", Math.Max(1000, ReconnectInterval));
         }
     }
 
