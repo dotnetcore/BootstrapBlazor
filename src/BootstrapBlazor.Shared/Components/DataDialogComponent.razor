@@ -11,13 +11,13 @@
     <ValidateForm Model="@Model" OnValidSubmit="@OnValidSubmit">
         <EditorForm TModel="Foo">
             <FieldItems>
-                <EditorItem @bind-Field="@context.Id" Editable="false" />
-                <EditorItem @bind-Field="@context.Hobby" Items="@Hobbys" />
+                <EditorItem @bind-Field="@context.Id" Editable="false"></EditorItem>
+                <EditorItem @bind-Field="@context.Hobby" Items="@Hobbys"></EditorItem>
             </FieldItems>
         </EditorForm>
         <div class="form-footer mt-3">
-            <DialogCloseButton />
-            <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="保存" />
+            <DialogCloseButton></DialogCloseButton>
+            <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="保存"></Button>
         </div>
     </ValidateForm>
 }

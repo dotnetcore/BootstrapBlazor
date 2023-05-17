@@ -6,12 +6,12 @@
         IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
         ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true">
     <TableColumns>
-        <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
+        <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys"></TableColumn>
     </TableColumns>
     <EditFooterTemplate Context="model">
         <Button Text="Popup" Color="Color.Danger" Icon="fa-regular fa-comment-dots" OnClick="() => OnClick(model)"></Button>
-        <DialogCloseButton />
-        <DialogSaveButton Color="Color.Primary" Icon="fa-solid fa-floppy-disk" Text="Save" />
+        <DialogCloseButton></DialogCloseButton>
+        <DialogSaveButton Color="Color.Primary" Icon="fa-solid fa-floppy-disk" Text="Save"></DialogSaveButton>
     </EditFooterTemplate>
 </Table>
 
@@ -22,14 +22,13 @@
     private IEnumerable<SelectedItem>? Hobbys { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
         Hobbys = Foo.GenerateHobbys(LocalizerFoo);
-
         CustomerDataService = new FooDataService<Foo>(LocalizerFoo);
     }
 
@@ -44,5 +43,5 @@
         }
     }
 
-    private Task OnClick(Foo foo) => ToastService.Information("Custom button fucntion", $"{foo.Address}");
+    private Task OnClick(Foo foo) => ToastService.Information("Custom button fucntion", foo.Address);
 }
