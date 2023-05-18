@@ -65,6 +65,12 @@ public partial class AutoComplete
     public bool IsLikeMatch { get; set; } = false;
 
     /// <summary>
+    /// 获得/设置 OnFocus时是否过滤选择
+    /// </summary>
+    [Parameter]
+    public bool OnFocusFilter { get; set; } = false;
+
+    /// <summary>
     /// 获得/设置 匹配时是否忽略大小写，默认为 true
     /// </summary>
     [Parameter]
@@ -224,7 +230,15 @@ public partial class AutoComplete
     {
         if (ShowDropdownListOnFocus)
         {
-            await OnKeyUp(new KeyboardEventArgs());
+            if (OnFocusFilter)
+            {
+                await OnKeyUp(new KeyboardEventArgs());
+            }
+            else
+            {
+                FilterItems = Items.ToList();
+                IsShown = true;
+            }
         }
     }
 
