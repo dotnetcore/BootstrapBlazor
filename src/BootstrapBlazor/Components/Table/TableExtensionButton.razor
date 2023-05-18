@@ -11,6 +11,7 @@
             <Button AdditionalAttributes="b.AdditionalAttributes" Size="b.Size"
                     Color="@b.Color" Icon="@b.Icon" Text="@b.Text" IsAsync="@b.IsAsync"
                     TooltipText="@b.TooltipText" TooltipPlacement="@b.TooltipPlacement" TooltipTrigger="@b.TooltipTrigger"
+                    ChildContent="@b.ChildContent"
                     OnClickWithoutRender="() => OnClick(b)" IsDisabled="b.IsDisabled"></Button>
         }
         else if (button is TableCellPopconfirmButton pb && pb.IsShow)
@@ -22,6 +23,7 @@
                       ConfirmIcon="@pb.ConfirmIcon" ConfirmButtonColor="@pb.ConfirmButtonColor"
                       ConfirmButtonText="@pb.ConfirmButtonText" CloseButtonColor="@pb.CloseButtonColor"
                       Placement="@pb.Placement" Trigger="@pb.Trigger" CustomClass="@pb.CustomClass"
+                      BodyTemplate="@pb.BodyTemplate"
                       CloseButtonText="@pb.CloseButtonText" Content="@pb.Content">
             </PopConfirmButton>
         }

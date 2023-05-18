@@ -135,6 +135,7 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// 获得/设置 RenderFragment 实例
     /// </summary>
     [Parameter]
+    [NotNull]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
