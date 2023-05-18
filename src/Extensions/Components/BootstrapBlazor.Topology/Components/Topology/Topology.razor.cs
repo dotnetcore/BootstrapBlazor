@@ -83,6 +83,10 @@ public partial class Topology : IAsyncDisposable
     /// </summary>
     private ElementReference Element { get; set; }
 
+    private string? ClassString => CssBuilder.Default("bb-topology")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
