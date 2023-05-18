@@ -290,19 +290,43 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         });
 
         // 翻页下一月
-        var next = cut.Find(".picker-panel-icon-btn.pick-panel-arrow-right");
-        cut.InvokeAsync(() => next.Click());
+        cut.InvokeAsync(() =>
+        {
+            var next = cut.Find(".picker-panel-icon-btn.pick-panel-arrow-right");
+            next.Click();
+        });
 
-        var cells = cut.FindAll(".date-table tbody .cell");
-        // 选择开始时间
-        cells.ElementAt(7).Click();
-        // 选择结束时间
-        cells.ElementAt(37).Click();
+        cut.InvokeAsync(() =>
+        {
+            // 选择开始时间
+            var cells = cut.FindAll(".date-table tbody .cell");
+            cells.ElementAt(7).Click();
+        });
 
-        // 选择开始时间
-        cells.ElementAt(7).Click();
-        // 选择结束时间
-        cells.ElementAt(47).Click();
+        cut.InvokeAsync(() =>
+        {
+            // 选择结束时间
+            var cells = cut.FindAll(".date-table tbody .cell");
+            cells.ElementAt(37).Click();
+        });
+
+        cut.InvokeAsync(() =>
+        {
+            // 选择开始时间
+            var cells = cut.FindAll(".date-table tbody .cell");
+            cells.ElementAt(7).Click();
+        });
+
+        cut.InvokeAsync(() =>
+        {
+            // 选择结束时间
+            var cells = cut.FindAll(".date-table tbody .cell");
+            cells.ElementAt(47).Click();
+        });
+
+        // 没有点击确定 Value 值不变
+        Assert.Equal(new DateTime(2022, 11, 1), cut.Instance.Value.Start);
+        Assert.Equal(new DateTime(2022, 11, 14), cut.Instance.Value.End);
     }
 
     [Fact]
