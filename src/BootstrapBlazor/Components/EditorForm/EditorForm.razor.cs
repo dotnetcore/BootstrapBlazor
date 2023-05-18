@@ -1,4 +1,4 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
@@ -24,9 +24,19 @@ public partial class EditorForm<TModel> : IShowLabel
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    private string? GetCssString(IEditorItem item) => CssBuilder.Default("col-12")
-        .AddClass($"col-sm-6 col-md-{Math.Floor(12d / (ItemsPerRow ?? 1))}", item.Items == null && ItemsPerRow != null && item.Rows == 0)
+    private string? GetCssString(IEditorItem item)
+    {
+        int colSpan = 1;
+        if (item is AutoGenerateColumnAttribute a && a.ColSpan > 0)
+        {
+            colSpan = a.ColSpan;
+        }
+        var colCount = Math.Floor(12d / ((ItemsPerRow ?? 1) / colSpan));
+        if(colCount > 12) colCount = 12;
+        return CssBuilder.Default("col-12")
+        .AddClass($"col-sm-6 col-md-{ colCount }", item.Items == null && ItemsPerRow != null && item.Rows == 0)
         .Build();
+    }
 
     private string? FormClassString => CssBuilder.Default("row g-3")
         .AddClass("form-inline", RowType == RowType.Inline)

@@ -156,6 +156,11 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     public int Rows { get; set; }
 
     /// <summary>
+    /// 获得/设置 控件的跨列数
+    /// </summary>
+    public int ColSpan { get; set; }
+
+    /// <summary>
     /// 获得/设置 列过滤器
     /// </summary>
     IFilter? ITableColumn.Filter { get; set; }
