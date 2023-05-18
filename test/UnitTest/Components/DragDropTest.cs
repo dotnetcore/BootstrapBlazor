@@ -128,24 +128,28 @@ public class DragDropTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task OnDrop_Test()
+    public void OnDrop_Test()
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
             pb.Add(a => a.Items, new List<string> { "1", "2" });
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
         });
-        var divs = cut.FindAll(".bb-dd-dropzone > div");
-        var div = divs[^2];
-        await cut.InvokeAsync(() => div.DragStart());
-        await cut.InvokeAsync(() => div.DragEnd());
 
-        divs = cut.FindAll(".bb-dd-dropzone > div");
-        var divTarget = divs[0];
-        await cut.InvokeAsync(() => divTarget.DragEnter());
-        await cut.InvokeAsync(() => div.DragLeave());
-        await cut.InvokeAsync(() => divTarget.DragEnter());
-        await cut.InvokeAsync(() => div.Drop());
+        cut.InvokeAsync(() =>
+        {
+            var divs = cut.FindAll(".bb-dd-dropzone > div");
+            var div = divs[^2];
+            div.DragStart();
+            div.DragEnd();
+
+            divs = cut.FindAll(".bb-dd-dropzone > div");
+            var divTarget = divs[0];
+            divTarget.DragEnter();
+            div.DragLeave();
+            divTarget.DragEnter();
+            div.Drop();
+        });
     }
 
     [Theory]
@@ -187,7 +191,7 @@ public class DragDropTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task IsItemDragable_Ok()
+    public void IsItemDragable_Ok()
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
@@ -195,15 +199,22 @@ public class DragDropTest : BootstrapBlazorTestBase
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
             pb.Add(a => a.AllowsDrag, s => false);
         });
-        var divs = cut.FindAll(".bb-dd-dropzone > div");
-        var div = divs[^2];
-        await cut.InvokeAsync(() => div.DragStart());
-        await cut.InvokeAsync(() => div.DragEnd());
 
-        divs = cut.FindAll(".bb-dd-dropzone > div");
-        var divTarget = divs[0];
-        await cut.InvokeAsync(() => divTarget.DragEnter());
-        await cut.InvokeAsync(() => divTarget.Drop());
+        cut.InvokeAsync(() =>
+        {
+            var divs = cut.FindAll(".bb-dd-dropzone > div");
+            var div = divs[^2];
+            div.DragStart();
+            div.DragEnd();
+        });
+
+        cut.InvokeAsync(() =>
+        {
+            var divs = cut.FindAll(".bb-dd-dropzone > div");
+            var divTarget = divs[0];
+            divTarget.DragEnter();
+            divTarget.Drop();
+        });
     }
 
     [Fact]
