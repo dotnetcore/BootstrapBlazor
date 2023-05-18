@@ -109,8 +109,11 @@ public class SwalTest : SwalTestBase
             IsAutoHide = true,
             Delay = 1000
         }));
-        var button = cut.Find(".btn-secondary");
-        cut.InvokeAsync(() => button.Click());
+        cut.InvokeAsync(() =>
+        {
+            var button = cut.Find(".btn-secondary");
+            button.Click();
+        });
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // auto close
@@ -162,11 +165,14 @@ public class SwalTest : SwalTestBase
         cut.Contains("test-confirm-text");
 
         // 触发确认按钮
-        button = cut.Find(".btn-danger");
-        cut.InvokeAsync(() => button.Click());
+        cut.InvokeAsync(() =>
+        {
+            var button = cut.Find(".btn-danger");
+            button.Click();
+        });
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
-        //Assert.True(result);
-        //Assert.True(confirmed);
+        Assert.True(result);
+        Assert.True(confirmed);
 
         // OnCloseAsync 测试
         Task.Run(async () => await cut.InvokeAsync(async () =>
@@ -195,8 +201,11 @@ public class SwalTest : SwalTestBase
         }
 
         // 触发关闭按钮
-        button = cut.Find(".btn-secondary");
-        cut.InvokeAsync(() => button.Click());
+        cut.InvokeAsync(() =>
+        {
+            var button = cut.Find(".btn-secondary");
+            button.Click();
+        });
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 带确认框的 Select
@@ -228,8 +237,11 @@ public class SwalTest : SwalTestBase
                 break;
             }
         }
-        button = cut.Find(".btn-danger");
-        cut.InvokeAsync(() => button.Click());
+        cut.InvokeAsync(() =>
+        {
+            var button = cut.Find(".btn-danger");
+            button.Click();
+        });
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // test force
