@@ -260,6 +260,8 @@ public class TreeViewTest : BootstrapBlazorTestBase
         Assert.Single(item.Items);
     }
 
+    class MockTreeFoo : TreeFoo { }
+
     [Fact]
     public void CascadeSetCheck_Ok()
     {
@@ -449,7 +451,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task IsAccordion_Ok()
+    public void IsAccordion_Ok()
     {
         var items = new List<TreeFoo>
         {
@@ -470,15 +472,25 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsReset, true);
         });
 
-        var bars = cut.FindAll(".tree-root > .tree-item > .tree-content > .fa-caret-right.visible");
-        await cut.InvokeAsync(() => bars[0].Click());
+        cut.InvokeAsync(() =>
+        {
+            var bars = cut.FindAll(".tree-root > .tree-item > .tree-content > .fa-caret-right.visible");
+            bars[0].Click();
+        });
         Assert.Contains("fa-rotate-90", cut.Markup);
 
         // 点击第二个节点箭头开展
-        await cut.InvokeAsync(() => bars[bars.Count - 1].Click());
-        bars = cut.FindAll(".tree-root > .tree-item > .tree-content > .fa-caret-right.visible");
-        Assert.DoesNotContain("fa-rotate-90", bars[0].ClassName);
-        Assert.Contains("fa-rotate-90", bars[1].ClassName);
+        cut.InvokeAsync(() =>
+        {
+            var bars = cut.FindAll(".tree-root > .tree-item > .tree-content > .fa-caret-right.visible");
+            bars[bars.Count - 1].Click();
+        });
+        cut.InvokeAsync(() =>
+        {
+            var bars = cut.FindAll(".tree-root > .tree-item > .tree-content > .fa-caret-right.visible");
+            Assert.DoesNotContain("fa-rotate-90", bars[0].ClassName);
+            Assert.Contains("fa-rotate-90", bars[1].ClassName);
+        });
 
         items = new List<TreeFoo>
         {
@@ -493,17 +505,27 @@ public class TreeViewTest : BootstrapBlazorTestBase
         nodes = TreeFoo.CascadingTree(items).ToList();
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.Items, nodes));
-
-        // 子节点
-        bars = cut.FindAll(".tree-root > .tree-item > .tree-content + .tree-ul > .tree-item > .tree-content > .fa-caret-right.visible");
-        await cut.InvokeAsync(() => bars[0].Click());
+        cut.InvokeAsync(() =>
+        {
+            // 子节点
+            var bars = cut.FindAll(".tree-root > .tree-item > .tree-content + .tree-ul > .tree-item > .tree-content > .fa-caret-right.visible");
+            bars[0].Click();
+        });
         Assert.Contains("fa-rotate-90", cut.Markup);
 
-        // 点击第二个节点箭头开展
-        await cut.InvokeAsync(() => bars[bars.Count - 1].Click());
-        bars = cut.FindAll(".tree-root > .tree-item > .tree-content + .tree-ul > .tree-item > .tree-content > .fa-caret-right.visible");
-        Assert.DoesNotContain("fa-rotate-90", bars[0].ClassName);
-        Assert.Contains("fa-rotate-90", bars[1].ClassName);
+        cut.InvokeAsync(() =>
+        {
+            // 点击第二个节点箭头开展
+            var bars = cut.FindAll(".tree-root > .tree-item > .tree-content + .tree-ul > .tree-item > .tree-content > .fa-caret-right.visible");
+            bars[bars.Count - 1].Click();
+        });
+
+        cut.InvokeAsync(() =>
+        {
+            var bars = cut.FindAll(".tree-root > .tree-item > .tree-content + .tree-ul > .tree-item > .tree-content > .fa-caret-right.visible");
+            Assert.DoesNotContain("fa-rotate-90", bars[0].ClassName);
+            Assert.Contains("fa-rotate-90", bars[1].ClassName);
+        });
     }
 
     [Fact]
@@ -556,8 +578,6 @@ public class TreeViewTest : BootstrapBlazorTestBase
     {
         [CatKey]
         public int Id { get; set; }
-
-        public string? Name { get; set; }
     }
 
     [AttributeUsage(AttributeTargets.Property)]
@@ -589,8 +609,6 @@ public class TreeViewTest : BootstrapBlazorTestBase
             Items = Enumerable.Empty<IExpandableNode<TreeFoo>>();
         }
     }
-
-    class MockTreeFoo : TreeFoo { }
 
     private static async Task<IEnumerable<TreeViewItem<TreeFoo>>> OnExpandNodeAsync(TreeFoo item)
     {
@@ -626,8 +644,5 @@ public class TreeViewTest : BootstrapBlazorTestBase
         public int GetHashCode([DisallowNull] Dummy obj) => obj.GetHashCode();
     }
 
-    private class Dog
-    {
-        public int Id { get; set; }
-    }
+    private class Dog { }
 }

@@ -62,13 +62,13 @@ public partial class AutoComplete
     /// 获得/设置 是否开启模糊查询，默认为 false
     /// </summary>
     [Parameter]
-    public bool IsLikeMatch { get; set; } = false;
+    public bool IsLikeMatch { get; set; }
 
     /// <summary>
     /// 获得/设置 OnFocus时是否过滤选择
     /// </summary>
     [Parameter]
-    public bool OnFocusFilter { get; set; } = false;
+    public bool OnFocusFilter { get; set; }
 
     /// <summary>
     /// 获得/设置 匹配时是否忽略大小写，默认为 true

@@ -14,7 +14,7 @@ public abstract class PopoverDropdownBase<TValue> : ValidateBase<TValue>
     /// 获得/设置 弹窗位置 默认为 Bottom
     /// </summary>
     [Parameter]
-    public Placement Placement { get; set; }
+    public Placement Placement { get; set; } = Placement.Bottom;
 
     /// <summary>
     /// 获得/设置 自定义样式 参数 默认 null

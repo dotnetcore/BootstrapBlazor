@@ -176,7 +176,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task ShowDropdownListOnFocus_Ok()
+    public void ShowDropdownListOnFocus_Ok()
     {
         IEnumerable<string> items = new List<string>() { "test1", "test2" };
         var cut = Context.RenderComponent<AutoComplete>(pb =>
@@ -186,21 +186,45 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         });
 
         // 获得焦点时不会自动弹出下拉框
-        var input = cut.Find("input");
-        await cut.InvokeAsync(() => input.FocusAsync(new FocusEventArgs()));
-
-        var menu = cut.Find("ul");
-        Assert.Equal("dropdown-menu", menu.ClassList.ToString());
+        cut.InvokeAsync(() =>
+        {
+            var input = cut.Find("input");
+            input.FocusAsync(new FocusEventArgs());
+            var menu = cut.Find("ul");
+            Assert.Equal("dropdown-menu", menu.ClassList.ToString());
+        });
 
         // 获得焦点时自动弹出下拉框
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowDropdownListOnFocus, true);
         });
-        input = cut.Find("input");
-        await cut.InvokeAsync(() => input.FocusAsync(new FocusEventArgs()));
-        menu = cut.Find("ul");
-        Assert.Equal("dropdown-menu show", menu.ClassList.ToString());
+        cut.InvokeAsync(() =>
+        {
+            var input = cut.Find("input");
+            input.FocusAsync(new FocusEventArgs());
+            var menu = cut.Find("ul");
+            Assert.Equal("dropdown-menu show", menu.ClassList.ToString());
+        });
+
+        var filter = false;
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnFocusFilter, true);
+            pb.Add(a => a.OnCustomFilter, v =>
+            {
+                filter = true;
+                return Task.FromResult<IEnumerable<string>>(new List<string>() { "12", "34" });
+            });
+        });
+
+        // triger onfocus
+        cut.InvokeAsync(() =>
+        {
+            var input = cut.Find("input");
+            input.FocusAsync(new FocusEventArgs());
+            Assert.True(filter);
+        });
     }
 
     [Fact]
