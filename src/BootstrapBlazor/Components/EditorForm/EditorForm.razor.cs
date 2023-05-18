@@ -193,11 +193,6 @@ public partial class EditorForm<TModel> : IShowLabel
             Model = (TModel)CascadedEditContext.Model;
         }
 
-        if (Model == null)
-        {
-            throw new ArgumentNullException(nameof(Model));
-        }
-
         // 统一设置所有 IEditorItem 的 PlaceHolder
         PlaceHolderText ??= Localizer[nameof(PlaceHolderText)];
 
