@@ -567,6 +567,18 @@ public class EditorFormTest : BootstrapBlazorTestBase
         Assert.Contains("class=\"switch\"", cut.Markup);
     }
 
+    [Fact]
+    public void Cols_Ok()
+    {
+        var dummy = new Dummy();
+        var cut = Context.RenderComponent<EditorForm<Dummy>>(pb =>
+        {
+            pb.Add(a => a.Model, dummy);
+            pb.Add(a => a.AutoGenerateAllItem, true);
+        });
+        Assert.Contains("col-12 col-sm-12", cut.Markup);
+    }
+
     private class Dummy
     {
         public string? Name { get; }
@@ -584,7 +596,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
 
         public List<string>? Names { get; set; }
 
-        [AutoGenerateColumn(ComponentType = typeof(Select<string>))]
+        [AutoGenerateColumn(ComponentType = typeof(Select<string>), Cols = 12)]
         public string? Select { get; set; }
     }
 

@@ -156,9 +156,9 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     public int Rows { get; set; }
 
     /// <summary>
-    /// 获得/设置 控件的跨列数
+    /// 获得/设置 控件的占列数值范围 1-12
     /// </summary>
-    public int ColSpan { get; set; }
+    public int Cols { get; set; }
 
     /// <summary>
     /// 获得/设置 列过滤器
