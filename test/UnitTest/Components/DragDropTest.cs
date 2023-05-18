@@ -152,7 +152,7 @@ public class DragDropTest : BootstrapBlazorTestBase
     [InlineData(null)]
     [InlineData(1)]
     [InlineData(2)]
-    public async Task MaxItem_Ok(int? items)
+    public void MaxItem_Ok(int? items)
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
@@ -170,14 +170,20 @@ public class DragDropTest : BootstrapBlazorTestBase
             }));
         });
 
-        var divs = cut.FindAll(".bb-dd-dropzone > div");
-        var div = divs[1];
-        await cut.InvokeAsync(() => div.DragStart());
+        cut.InvokeAsync(() =>
+        {
+            var divs = cut.FindAll(".bb-dd-dropzone > div");
+            var div = divs[1];
+            div.DragStart();
+        });
 
-        divs = cut1.FindAll(".bb-dd-dropzone > div");
-        var divTarget = divs[0];
-        await cut.InvokeAsync(() => divTarget.DragEnter());
-        await cut.InvokeAsync(() => divTarget.Drop());
+        cut1.InvokeAsync(() =>
+        {
+            var divs = cut1.FindAll(".bb-dd-dropzone > div");
+            var divTarget = divs[0];
+            divTarget.DragEnter();
+            divTarget.Drop();
+        });
     }
 
     [Fact]
