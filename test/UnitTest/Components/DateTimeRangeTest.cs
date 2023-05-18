@@ -45,15 +45,27 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     public void RangeValue_Ok()
     {
         var cut = Context.RenderComponent<DateTimeRange>();
-        var cells = cut.FindAll(".date-table tbody span");
-        var end = cells.First(i => i.TextContent == "7");
-        var first = cells.First(i => i.TextContent == "1");
-        cut.InvokeAsync(() => end.Click());
-        cut.InvokeAsync(() => first.Click());
+        cut.InvokeAsync(() =>
+        {
+            var cells = cut.FindAll(".date-table tbody span");
+            var end = cells.First(i => i.TextContent == "7");
+            end.Click();
+        });
+
+        cut.InvokeAsync(() =>
+        {
+            var cells = cut.FindAll(".date-table tbody span");
+            var first = cells.First(i => i.TextContent == "1");
+            first.Click();
+        });
 
         // confirm
-        var confirm = cut.FindAll(".is-confirm")[cut.FindAll(".is-confirm").Count - 1];
-        cut.InvokeAsync(() => confirm.Click());
+        cut.InvokeAsync(() =>
+        {
+            var confirm = cut.FindAll(".is-confirm")[cut.FindAll(".is-confirm").Count - 1];
+            confirm.Click();
+        });
+
         var value = cut.Instance.Value;
         var startDate = DateTime.Today.AddDays(1 - DateTime.Today.Day);
         var endDate = startDate.AddDays(7).AddSeconds(-1);
@@ -106,6 +118,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now, End = DateTime.Now.AddDays(30) });
             builder.Add(a => a.AllowNull, true);
         });
+        Assert.True(cut.Instance.AllowNull);
     }
 
     [Fact]
