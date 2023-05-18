@@ -39,11 +39,6 @@ public abstract class PopoverSelectBase<TValue> : PopoverDropdownBase<TValue>
     {
         base.OnParametersSet();
 
-        if (IsPopover && Placement == Placement.Auto)
-        {
-            Placement = Placement.Bottom;
-        }
-
         Offset ??= "[0, 10]";
     }
 }
