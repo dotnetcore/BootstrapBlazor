@@ -35,5 +35,5 @@ public class ArchiveOptions
     /// <summary>
     /// 获得/设置 获取文件流回调方法
     /// </summary>
-    public Func<string, Task<Stream>>? ReadStreamAsync;
+    public Func<string, Task<Stream>>? ReadStreamAsync { get; set; }
 }
