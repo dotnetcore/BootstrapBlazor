@@ -175,14 +175,21 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
                 value = true; return Task.CompletedTask;
             });
         });
-        // 选择开始未选择结束
-        cut.Find(".cell").Click();
-        cut.FindAll(".is-confirm").First(s => s.TextContent == "确定").Click();
 
-        // 选择时间大于当前时间
-        cut.FindAll(".date-table .cell").Last().Click();
-        cut.FindAll(".is-confirm").First(s => s.TextContent == "确定").Click();
-        Assert.True(value);
+        cut.InvokeAsync(() =>
+        {
+            // 选择开始未选择结束
+            cut.Find(".cell").Click();
+            var cells = cut.FindAll(".is-confirm");
+            cells.First(s => s.TextContent == "确定").Click();
+
+            // 选择时间大于当前时间
+            cells = cut.FindAll(".date-table .cell");
+            cells[cells.Count - 1].Click();
+            cells = cut.FindAll(".is-confirm");
+            cells.First(s => s.TextContent == "确定").Click();
+            Assert.True(value);
+        });
     }
 
     [Fact]
