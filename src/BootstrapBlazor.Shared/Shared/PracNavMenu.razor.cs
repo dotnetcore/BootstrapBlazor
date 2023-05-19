@@ -26,6 +26,10 @@ public partial class PracNavMenu
     [NotNull]
     private CodeSnippetService? CodeSnippetService { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IZipArchiveService? ZipArchiveService { get; set; }
+
     [NotNull]
     private List<MenuItem>? Menus { get; set; }
 
@@ -64,7 +68,14 @@ public partial class PracNavMenu
     /// <returns></returns>
     private async Task DownloadZipArchive(string name, string[] fileList)
     {
-        using var stream = await PackageSourceFile(fileList);
+        using var stream = await ZipArchiveService.ArchiveAsync(fileList, new ArchiveOptions()
+        {
+            ReadStreamAsync = async file =>
+            {
+                var code = await CodeSnippetService.GetFileContentAsync(file);
+                return new MemoryStream(Encoding.UTF8.GetBytes(code));
+            }
+        });
         await DownloadService.DownloadFromStreamAsync($"BootstrapBlazor-{name}.zip", stream);
         stream.Close();
     }
