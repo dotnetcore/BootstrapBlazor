@@ -2,14 +2,11 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using OfficeOpenXml;
+using MiniExcelLibs;
 
 namespace BootstrapBlazor.Components;
 
-/// <summary>
-/// 
-/// </summary>
-internal class ExcelExport : ITableExcelExport
+class ExcelExport : ITableExcelExport
 {
     private DownloadService DownloadService { get; set; }
 
@@ -25,45 +22,30 @@ internal class ExcelExport : ITableExcelExport
     /// <summary>
     /// 导出 Excel 方法
     /// </summary>
+    /// <param name="items">导出数据集合</param>
+    /// <param name="cols">导出列集合 默认 null 全部导出</param>
+    /// <param name="fileName">导出后下载文件名</param>
     /// <returns></returns>
     public async Task<bool> ExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null) where TModel : class
     {
-        using var excelPackage = new ExcelPackage();
-        var worksheet = excelPackage.Workbook.Worksheets.Add("sheet1");
-
-        var rowIndex = 1;
+        var value = new List<Dictionary<string, object?>>();
         cols ??= Utility.GetTableColumns<TModel>();
         foreach (var item in items)
         {
-            var colIndex = 1;
+            var row = new Dictionary<string, object?>();
             foreach (var pi in cols)
             {
-                if (rowIndex == 1)
-                {
-                    if (pi.PropertyType.IsDateTime())
-                    {
-                        worksheet.Column(colIndex).Width = 18;
-                        worksheet.Column(colIndex).Style.Numberformat.Format = "yyyy/mm/dd hh:mm:ss";
-                    }
-                    else if (pi.PropertyType.IsTimeSpan())
-                    {
-                        worksheet.Column(colIndex).Width = 10;
-                        worksheet.Column(colIndex).Style.Numberformat.Format = "HH:mm:ss";
-                    }
-
-                    var thValue = pi.GetDisplayName();
-                    worksheet.SetValue(1, colIndex, thValue);
-                }
-                var value = await FormatValue(pi, Utility.GetPropertyValue(item, pi.GetFieldName()));
-                worksheet.SetValue(rowIndex + 1, colIndex, value);
-                colIndex++;
+                var val = await FormatValue(pi, Utility.GetPropertyValue(item, pi.GetFieldName()));
+                row.Add(pi.GetDisplayName(), val);
             }
-            rowIndex++;
+            value.Add(row);
         }
+        using var stream = new MemoryStream();
+        await MiniExcel.SaveAsAsync(stream, value);
 
-        var bytes = excelPackage.GetAsByteArray();
         fileName ??= $"ExportData_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
-        await DownloadService.DownloadFromByteArrayAsync(fileName, bytes);
+        stream.Position = 0;
+        await DownloadService.DownloadFromStreamAsync(fileName, stream);
         return true;
     }
 
