@@ -169,10 +169,10 @@ public class SwalTest : SwalTestBase
         {
             var button = cut.Find(".btn-danger");
             button.Click();
+            Assert.True(result);
+            Assert.True(confirmed);
         });
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
-        Assert.True(result);
-        Assert.True(confirmed);
 
         // OnCloseAsync 测试
         Task.Run(async () => await cut.InvokeAsync(async () =>

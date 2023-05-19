@@ -64,8 +64,9 @@ public partial class PracNavMenu
     /// <returns></returns>
     private async Task DownloadZipArchive(string name, string[] fileList)
     {
-        var data = await PackageSourceFile(fileList);
-        await DownloadService.DownloadFromByteArrayAsync($"BootstrapBlazor-{name}.zip", data);
+        using var stream = await PackageSourceFile(fileList);
+        await DownloadService.DownloadFromStreamAsync($"BootstrapBlazor-{name}.zip", stream);
+        stream.Close();
     }
 
     /// <summary>
@@ -100,10 +101,10 @@ public partial class PracNavMenu
     /// </summary>
     /// <param name="filelist"></param>
     /// <returns></returns>
-    private async Task<byte[]> PackageSourceFile(string[] filelist)
+    private async Task<Stream> PackageSourceFile(string[] filelist)
     {
-        using var memory = new MemoryStream();
-        using var archive = new ZipArchive(memory, ZipArchiveMode.Create, false);
+        var stream = new MemoryStream();
+        var archive = new ZipArchive(stream, ZipArchiveMode.Create, true);
         foreach (var item in filelist)
         {
             var fileInArchive = archive.CreateEntry(Path.GetFileName(item), CompressionLevel.Optimal);
@@ -114,7 +115,8 @@ public partial class PracNavMenu
             fileToCompressStream.CopyTo(entryStream);
         }
         archive.Dispose();
-        return memory.ToArray();
+        stream.Position = 0;
+        return stream;
     }
 
     private readonly string[] dashboardFileList = new[]
