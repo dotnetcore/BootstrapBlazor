@@ -262,19 +262,27 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
             builder.Add(a => a.Value, new DateTimeRangeValue());
         });
 
-        // 选择开始时间
-        cut.Find(".date-table .cell").Click();
-        // 选择结束时间
-        cut.FindAll(".date-table .cell").ElementAt(2).Click();
+        cut.InvokeAsync(() =>
+        {
+            // 选择开始时间
+            cut.Find(".date-table .cell").Click();
+            // 选择结束时间
+            cut.FindAll(".date-table .cell").ElementAt(2).Click();
 
-        cut.Find(".date-table .cell").Click();
-        cut.Find(".pick-panel-arrow-right").Click();
-        cut.FindAll(".date-table .cell").Last().Click();
+            cut.Find(".date-table .cell").Click();
+            cut.Find(".pick-panel-arrow-right").Click();
 
-        // 下一年
-        cut.FindAll(".picker-panel-icon-btn").Last().Click();
-        cut.Find(".date-table .cell").Click();
-        cut.FindAll(".date-table .cell").Last().Click();
+            var cells = cut.FindAll(".date-table .cell");
+            cells[cells.Count - 1].Click();
+
+            // 下一年
+            cells = cut.FindAll(".picker-panel-icon-btn");
+            cells[cells.Count - 1].Click();
+            cut.Find(".date-table .cell").Click();
+
+            cells = cut.FindAll(".date-table .cell");
+            cells[cells.Count - 1].Click();
+        });
     }
 
     [Fact]
