@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>7.3.0</Version>
-    <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Table Export</PackageTags>
+    <Version>7.4.0</Version>
+    <PackageTags>Bootstrap Blazor UI Components Table Export</PackageTags>
     <Description>Bootstrap UI components extensions of export</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="7.4.1" />
-    <PackageReference Include="EPPlus" Version="4.5.3.3" />
+    <PackageReference Include="BootstrapBlazor" Version="7.6.6" />
+    <PackageReference Include="MiniExcel" Version="1.30.3" />
   </ItemGroup>
 
   <ItemGroup>
