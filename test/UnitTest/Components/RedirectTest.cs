@@ -12,6 +12,7 @@ public class RedirectTest : TestBase
         var cut = Context.RenderComponent<Redirect>(pb =>
         {
             pb.Add(a => a.Url, "Account/Test");
+            pb.Add(a => a.ForceLoad, true);
         });
         Assert.Equal("Account/Test", cut.Instance.Url);
     }
