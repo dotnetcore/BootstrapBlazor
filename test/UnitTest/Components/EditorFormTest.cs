@@ -15,17 +15,14 @@ public class EditorFormTest : BootstrapBlazorTestBase
     public void CascadedEditContext_Error()
     {
         var foo = new Foo();
-        Assert.ThrowsAny<InvalidOperationException>(() =>
+        Assert.Throws<InvalidCastException>(() => Context.RenderComponent<ValidateForm>(pb =>
         {
-            Context.RenderComponent<ValidateForm>(pb =>
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<EditorForm<Dummy>>(pb =>
             {
-                pb.Add(a => a.Model, foo);
-                pb.AddChildContent<EditorForm<Dummy>>(pb =>
-                {
-                    pb.Add(a => a.Model, new Dummy());
-                });
+                pb.Add(a => a.Model, new Dummy());
             });
-        });
+        }));
     }
 
     [Fact]

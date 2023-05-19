@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 时间类型过滤条件
 /// </summary>
-public partial class DateTimeFilter
+public partial class DateTimeFilter : FilterBase
 {
     private DateTime? Value1 { get; set; }
 

@@ -7,9 +7,9 @@ using System.Collections;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// 单选框组合组件
 /// </summary>
-public partial class RadioList<TValue>
+public partial class RadioList<TValue> : CheckboxList<TValue>
 {
     /// <summary>
     /// 获得/设置 按钮颜色

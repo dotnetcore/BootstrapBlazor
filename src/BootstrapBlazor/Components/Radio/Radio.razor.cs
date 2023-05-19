@@ -5,9 +5,9 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Radio 单选框组件
 /// </summary>
-public partial class Radio<TValue>
+public partial class Radio<TValue> : Checkbox<TValue>
 {
     /// <summary>
     /// 获得/设置 点击回调方法
