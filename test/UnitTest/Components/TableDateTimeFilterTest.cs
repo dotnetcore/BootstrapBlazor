@@ -94,27 +94,27 @@ public class TableDateTimeFilterTest : BootstrapBlazorTestBase
             dt.FindAll(".is-confirm")[1].Click();
         });
 
-        // OnFilterValueChanged
-        var filterButton = cut.FindComponent<FilterButton<FilterAction>>();
-        var logics = filterButton.FindAll(".dropdown-item");
-        Assert.Equal(6, logics.Count);
         cut.InvokeAsync(() =>
         {
+            // OnFilterValueChanged
+            var filterButton = cut.FindComponent<FilterButton<FilterAction>>();
+            var logics = filterButton.FindAll(".dropdown-item");
+            Assert.Equal(6, logics.Count);
             logics[1].Click();
             condtions = filter.Instance.GetFilterConditions();
+            Assert.NotNull(condtions);
+            Assert.Single(condtions);
+            Assert.Equal(FilterAction.LessThanOrEqual, condtions?.First().FilterAction);
         });
-        Assert.NotNull(condtions);
-        Assert.Single(condtions);
-        Assert.Equal(FilterAction.LessThanOrEqual, condtions?.First().FilterAction);
 
         // OnClearFilter
         cut.InvokeAsync(() =>
         {
             dt.Find(".is-confirm").Click();
             condtions = filter.Instance.GetFilterConditions();
+            Assert.NotNull(condtions);
+            Assert.Empty(condtions);
         });
-        Assert.NotNull(condtions);
-        Assert.Empty(condtions);
     }
 
     [Fact]
