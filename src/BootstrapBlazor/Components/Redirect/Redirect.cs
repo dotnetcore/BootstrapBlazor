@@ -20,11 +20,18 @@ public class Redirect : ComponentBase
     public string Url { get; set; } = "Account/Login";
 
     /// <summary>
+    /// 获得/设置 是否强制导航 默认 true
+    /// </summary>
+    /// <remarks>设置 false 时适用 SPA 程序不会强制页面重新加载</remarks>
+    [Parameter]
+    public bool ForceLoad { get; set; } = true;
+
+    /// <summary>
     /// OnAfterRender 方法
     /// </summary>
     /// <param name="firstRender"></param>
     protected override void OnAfterRender(bool firstRender)
     {
-        Navigation.NavigateTo(Url, true);
+        Navigation.NavigateTo(Url, ForceLoad);
     }
 }
