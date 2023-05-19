@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Components.Web;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Button 按钮组件
 /// </summary>
-public partial class Button
+public partial class Button : ButtonBase
 {
     /// <summary>
     /// 获得/设置 是否自动获取焦点 默认 false 不自动获取焦点

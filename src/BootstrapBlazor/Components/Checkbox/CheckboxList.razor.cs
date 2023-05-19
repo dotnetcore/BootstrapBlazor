@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// CheckboxList 组件基类
 /// </summary>
-public partial class CheckboxList<TValue>
+public partial class CheckboxList<TValue> : ValidateBase<TValue>
 {
     /// <summary>
     /// 获得 组件样式

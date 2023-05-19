@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 数字类型过滤条件
 /// </summary>
-public partial class NumberFilter<TType>
+public partial class NumberFilter<TType> : FilterBase
 {
     private TType? Value1 { get; set; }
 

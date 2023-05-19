@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// FilterButton 组件
 /// </summary>
-public partial class FilterButton<TValue>
+public partial class FilterButton<TValue> : Dropdown<TValue>
 {
     /// <summary>
     /// 获得/设置 清除过滤条件时的回调方法

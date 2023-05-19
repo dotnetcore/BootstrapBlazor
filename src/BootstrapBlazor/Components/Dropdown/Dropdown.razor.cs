@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Dropdown 下拉框组件
 /// </summary>
-public partial class Dropdown<TValue>
+public partial class Dropdown<TValue> : ValidateBase<TValue>
 {
     /// <summary>
     /// 获得 按钮弹出方向集合

@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 字符串类型过滤条件
 /// </summary>
-public partial class StringFilter
+public partial class StringFilter : FilterBase
 {
     private string Value1 { get; set; } = "";
 

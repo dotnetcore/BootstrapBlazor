@@ -187,7 +187,7 @@ public partial class EditorForm<TModel> : IShowLabel
             var message = Localizer["ModelInvalidOperationExceptionMessage", nameof(EditorForm<TModel>)];
             if (!CascadedEditContext.Model.GetType().IsAssignableTo(typeof(TModel)))
             {
-                throw new InvalidOperationException(message);
+                throw new InvalidCastException(message);
             }
 
             Model = (TModel)CascadedEditContext.Model;

@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// Checkbox 组件
 /// </summary>
 [BootstrapModuleAutoLoader(ModuleName = "utility", AutoInvokeInit = false, AutoInvokeDispose = false)]
-public partial class Checkbox<TValue>
+public partial class Checkbox<TValue> : ValidateBase<TValue>
 {
     /// <summary>
     /// 获得 class 样式集合

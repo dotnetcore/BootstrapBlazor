@@ -10,6 +10,6 @@
     @foreach (var item in Items)
     {
         var content = GetChildContent(item);
-        <Radio TValue="SelectedItem" IsButton="IsButton" Value="@item" Color="@Color" GroupName="@GroupName" IsDisabled="@GetDisabledState(item)" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" State="@CheckState(item)" OnClick="OnClick" ChildContent="content!" />
+        <Radio TValue="SelectedItem" IsButton="IsButton" Value="@item" Color="@Color" GroupName="@GroupName" IsDisabled="@GetDisabledState(item)" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" State="@CheckState(item)" OnClick="OnClick" ChildContent="content!"></Radio>
     }
 </div>
