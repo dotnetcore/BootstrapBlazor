@@ -26,6 +26,10 @@ public partial class PracNavMenu
     [NotNull]
     private CodeSnippetService? CodeSnippetService { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IZipArchiveService? ZipArchiveService { get; set; }
+
     [NotNull]
     private List<MenuItem>? Menus { get; set; }
 
@@ -41,32 +45,22 @@ public partial class PracNavMenu
             new MenuItem()
             {
                 Template = CreateDownloadButtonComponent("仪表盘dashboard", dashboardFileList),
-                Text="仪表盘 Dashboard",Url="dashboard"
+                Text="仪表盘 Dashboard",
+                Url="dashboard"
             },
             new MenuItem()
             {
                 Template = CreateDownloadButtonComponent("登陆和注册praclogin", pracloginFileList),
-                Text="登陆和注册 Login & Register",Url="praclogin"
+                Text="登陆和注册 Login & Register",
+                Url="praclogin"
             },
             new MenuItem()
             {
                 Template = CreateDownloadButtonComponent("瀑布流图片pintereso", pinteresoFileList),
-                Text="瀑布流图片 Pintereso",Url="pintereso"
+                Text="瀑布流图片 Pintereso",
+                Url="pintereso"
             }
         };
-    }
-
-    /// <summary>
-    /// 打包并下载源码
-    /// </summary>
-    /// <param name="name"></param>
-    /// <param name="fileList"></param>
-    /// <returns></returns>
-    private async Task DownloadZipArchive(string name, string[] fileList)
-    {
-        using var stream = await PackageSourceFile(fileList);
-        await DownloadService.DownloadFromStreamAsync($"BootstrapBlazor-{name}.zip", stream);
-        stream.Close();
     }
 
     /// <summary>
@@ -97,26 +91,23 @@ public partial class PracNavMenu
     }).Render();
 
     /// <summary>
-    /// 打包源码文件
+    /// 打包并下载源码
     /// </summary>
-    /// <param name="filelist"></param>
+    /// <param name="name"></param>
+    /// <param name="fileList"></param>
     /// <returns></returns>
-    private async Task<Stream> PackageSourceFile(string[] filelist)
+    private async Task DownloadZipArchive(string name, string[] fileList)
     {
-        var stream = new MemoryStream();
-        var archive = new ZipArchive(stream, ZipArchiveMode.Create, true);
-        foreach (var item in filelist)
+        using var stream = await ZipArchiveService.ArchiveAsync(fileList, new ArchiveOptions()
         {
-            var fileInArchive = archive.CreateEntry(Path.GetFileName(item), CompressionLevel.Optimal);
-            using var entryStream = fileInArchive.Open();
-
-            var code = await CodeSnippetService.GetFileContentAsync(item);
-            using var fileToCompressStream = new MemoryStream(Encoding.UTF8.GetBytes(code));
-            fileToCompressStream.CopyTo(entryStream);
-        }
-        archive.Dispose();
-        stream.Position = 0;
-        return stream;
+            ReadStreamAsync = async file =>
+            {
+                var code = await CodeSnippetService.GetFileContentAsync(file);
+                return new MemoryStream(Encoding.UTF8.GetBytes(code));
+            }
+        });
+        await DownloadService.DownloadFromStreamAsync($"BootstrapBlazor-{name}.zip", stream);
+        stream.Close();
     }
 
     private readonly string[] dashboardFileList = new[]
