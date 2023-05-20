@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using System.IO.Compression;
+using System.Text;
 
 namespace BootstrapBlazor.Components;
 
@@ -32,7 +33,7 @@ class DefaultZipArchiveService : IZipArchiveService
     /// <param name="options">归档配置</param>
     public async Task ArchiveAsync(string archiveFileName, IEnumerable<string> files, ArchiveOptions? options = null)
     {
-        using var stream = File.OpenWrite(archiveFileName);
+        await using var stream = File.OpenWrite(archiveFileName);
         await ArchiveFilesAsync(stream, files, options);
     }
 
@@ -42,24 +43,51 @@ class DefaultZipArchiveService : IZipArchiveService
         using var archive = new ZipArchive(stream, options.Mode, options.LeaveOpen, options.Encoding);
         foreach (var f in files)
         {
-            var entry = archive.CreateEntry(Path.GetFileName(f), options.CompressionLevel);
-            using var entryStream = entry.Open();
-            using var content = await ReadAsync(f, options);
-            content.CopyTo(entryStream);
+            if (options.ReadStreamAsync != null)
+            {
+                var entry = archive.CreateEntry(Path.GetFileName(f), options.CompressionLevel);
+                await using var entryStream = entry.Open();
+                await using var content = await options.ReadStreamAsync(f);
+                await content.CopyToAsync(entryStream);
+            }
+            else
+            {
+                archive.CreateEntryFromFile(f, Path.GetFileName(f), options.CompressionLevel);
+            }
         }
     }
 
-    private static async Task<Stream> ReadAsync(string file, ArchiveOptions options)
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="archiveFile">归档文件</param>
+    /// <param name="destinationDirectoryName">解压缩文件夹</param>
+    /// <param name="overwriteFiles">是否覆盖文件 默认 false 不覆盖</param>
+    /// <param name="encoding">编码方式 默认 null 内部使用 UTF-8</param>
+    /// <returns></returns>
+    public async Task ExtractToDirectory(string archiveFile, string destinationDirectoryName, bool overwriteFiles = false, Encoding? encoding = null)
     {
-        Stream? content = null;
-        if (options.ReadStreamAsync != null)
+        if (!Directory.Exists(destinationDirectoryName))
         {
-            content = await options.ReadStreamAsync(file);
+            Directory.CreateDirectory(destinationDirectoryName);
         }
-        else
-        {
-            content = File.OpenRead(file);
-        }
-        return content;
+        await using var stream = File.OpenRead(archiveFile);
+        using var archive = new ZipArchive(stream, ZipArchiveMode.Read, overwriteFiles, encoding);
+        archive.ExtractToDirectory(destinationDirectoryName, overwriteFiles);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="archiveFile">归档文件</param>
+    /// <param name="entryFile">解压缩文件</param>
+    /// <param name="overwriteFiles">是否覆盖文件 默认 false 不覆盖</param>
+    /// <param name="encoding">编码方式 默认 null 内部使用 UTF-8</param>
+    /// <returns></returns>
+    public async Task<ZipArchiveEntry?> GetEntry(string archiveFile, string entryFile, bool overwriteFiles = false, Encoding? encoding = null)
+    {
+        await using var stream = File.OpenRead(archiveFile);
+        using var archive = new ZipArchive(stream, ZipArchiveMode.Read, overwriteFiles, encoding);
+        return archive.GetEntry(Path.GetFileName(entryFile));
     }
 }

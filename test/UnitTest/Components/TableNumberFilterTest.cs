@@ -102,29 +102,30 @@ public class TableNumberFilterTest : BootstrapBlazorTestBase
             input.Instance.SetValue(10);
         });
 
-        // OnFilterValueChanged
         var filterButton = cut.FindComponent<FilterButton<FilterAction>>();
-        var logics = filterButton.FindAll(".dropdown-item");
-        Assert.Equal(6, logics.Count);
         cut.InvokeAsync(() =>
         {
+            // OnFilterValueChanged
+            var logics = filterButton.FindAll(".dropdown-item");
+            Assert.Equal(6, logics.Count);
+
             logics[1].Click();
             condtions = filter.Instance.GetFilterConditions();
+            Assert.NotNull(condtions);
+            Assert.Single(condtions);
+            Assert.Equal(10, condtions!.First().FieldValue);
+            Assert.Equal(FilterAction.LessThanOrEqual, condtions!.First().FilterAction);
         });
-        Assert.NotNull(condtions);
-        Assert.Single(condtions);
-        Assert.Equal(10, condtions!.First().FieldValue);
-        Assert.Equal(FilterAction.LessThanOrEqual, condtions!.First().FilterAction);
 
         // OnClearFilter
         cut.InvokeAsync(() =>
         {
             filterButton.Find(".fa-ban").Click();
             condtions = filter.Instance.GetFilterConditions();
+            Assert.Single(condtions);
+            Assert.Equal(0, condtions!.First().FieldValue);
+            Assert.Equal(FilterAction.GreaterThanOrEqual, condtions!.First().FilterAction);
         });
-        Assert.Single(condtions);
-        Assert.Equal(0, condtions!.First().FieldValue);
-        Assert.Equal(FilterAction.GreaterThanOrEqual, condtions!.First().FilterAction);
     }
 
     [Fact]
