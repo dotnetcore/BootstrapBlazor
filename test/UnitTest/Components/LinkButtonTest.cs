@@ -95,8 +95,11 @@ public class LinkButtonTest : BootstrapBlazorTestBase
             return Task.CompletedTask;
         }));
 
-        cut.Find("a").Click();
-        Assert.True(click);
+        cut.InvokeAsync(() =>
+        {
+            cut.Find("a").Click();
+            Assert.True(click);
+        });
     }
 
     [Fact]
