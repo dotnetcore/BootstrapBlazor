@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <Version>7.4.0</Version>
-    <PackageTags>Bootstrap Blazor UI Components Table Export</PackageTags>
+    <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Table Export</PackageTags>
     <Description>Bootstrap UI components extensions of export</Description>
   </PropertyGroup>
 

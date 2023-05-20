@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageTags>Bootstrap Blazor Baidu Ocr Components</PackageTags>
+    <PackageTags>Bootstrap Blazor Baidu WebAssembly wasm Ocr Components</PackageTags>
     <Description>Bootstrap UI components extensions of Baidu Ocr</Description>
     <RootNamespace>BootstrapBlazor.Components</RootNamespace>
   </PropertyGroup>
