@@ -39,8 +39,11 @@ public class ToastTest : BootstrapBlazorTestBase
     public void SetPlacement_Ok(Placement placement, string css)
     {
         var cut = Context.RenderComponent<ToastContainer>();
-        cut.InvokeAsync(() => cut.Instance.SetPlacement(placement));
-        Assert.Contains(css, cut.Markup);
+        cut.InvokeAsync(() =>
+        {
+            cut.Instance.SetPlacement(placement);
+            Assert.Contains(css, cut.Markup);
+        });
     }
 
     [Fact]
