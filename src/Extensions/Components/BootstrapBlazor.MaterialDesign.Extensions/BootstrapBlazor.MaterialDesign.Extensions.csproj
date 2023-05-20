@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <Version>7.2.1</Version>
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageTags>Bootstrap Blazor Icon Extensions</PackageTags>
+    <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Icon Theme</PackageTags>
     <Description>Bootstrap UI components extensions of Meterial Icons</Description>
     <RootNamespace>BootstrapBlazor.Components</RootNamespace>
   </PropertyGroup>
