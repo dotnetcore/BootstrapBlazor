@@ -38,5 +38,18 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
         var archiveFile = Path.Combine(root, "test.zip");
         await archService.ArchiveAsync(archiveFile, files);
         Assert.True(File.Exists(archiveFile));
+
+        // GetEntry
+        var entry = await archService.GetEntry(archiveFile, files[0]);
+        Assert.NotNull(entry);
+
+        // ExtractToDirectory
+        var destFolder = Path.Combine(root, "test");
+        if (Directory.Exists(destFolder))
+        {
+            Directory.Delete(destFolder, true);
+        }
+        await archService.ExtractToDirectory(archiveFile, destFolder);
+        Assert.True(Directory.Exists(destFolder));
     }
 }
