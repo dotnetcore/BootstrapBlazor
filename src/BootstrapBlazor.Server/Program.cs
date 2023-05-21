@@ -3,9 +3,11 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Server.Extensions;
+using BootstrapBlazor.Shared.OAuth;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 using System.Text;
 
@@ -86,6 +88,17 @@ if (cors?.Any() ?? false)
 }
 
 app.UseBootstrapBlazor();
+
+app.MapWhen(context => context.Request.Path.StartsWithSegments("/signin-gitee"), app =>
+{
+    app.Run(async context =>
+    {
+        var services = context.RequestServices.GetRequiredService<OAuthService>();
+        var segs = QueryHelpers.ParseQuery(context.Request.QueryString.Value);
+        var code = segs["code"];
+        await services.ExchangeCodeAsync(code);
+    });
+});
 
 app.MapDefaultControllerRoute();
 app.MapBlazorHub();

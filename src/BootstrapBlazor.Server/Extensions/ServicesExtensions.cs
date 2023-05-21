@@ -4,7 +4,10 @@
 
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Server.Services;
+using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
+using System.Net.Http.Headers;
 using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -71,6 +74,9 @@ internal static class ServicesExtensions
                 localizerOption.SupportedUICultures = supportedCultures;
             }
         });
+
+        // 增加 AzureOpenAI 服务
+        services.AddBootstrapBlazorAzureOpenAIService();
 
         // 增加 PetaPoco ORM 数据服务操作类
         // 需要时打开下面代码
