@@ -1,0 +1,117 @@
+﻿@using Azure.AI.OpenAI
+@using BootstrapBlazor.Shared.OAuth;
+
+<div class="chat-title">@Localizer["ChatTitle"]</div>
+<div class="chat-body">
+    @if (Messages.Count == 0)
+    {
+        <div class="chat-welcome">
+            <div class="chat-welcome-icon">
+                <i class="fa-solid fa-robot"></i>
+            </div>
+            <div class="chat-welcome-body">
+                <div class="chat-welcome-title">Start chatting</div>
+                <div class="chat-welcome-content">Test your assistant by sending queries below. Then adjust your assistant setup to improve the assistant's responses.</div>
+            </div>
+        </div>
+    }
+    @foreach (var message in Messages)
+    {
+        <div class="@GetStackClass(message.Role)">
+            <div class="msg-role">
+                <i class="@GetRoleIcon(message.Role)"></i>
+            </div>
+            <div class="msg-body">
+                <div class="msg-time">@message.Time.ToString("HH:mm:ss")</div>
+                <div>@message.Content</div>
+                @if (message.Role == ChatRole.Assistant)
+                {
+                    <div class="msg-desc">AI-generated content may be incorrect</div>
+                }
+            </div>
+        </div>
+    }
+</div>
+<div class="chat-footer">
+    <div class="chat-footer-title">@Localizer["ChatUserMessageTitle"]</div>
+    <div class="d-flex">
+        <Textarea class="chat-footer-tx" rows="3" @bind-Value="@Context" PlaceHolder="Type user query here. (Shift + Enter for new line)" IsDisabled="NoAuth"></Textarea>
+        <div class="chat-buttons">
+            <Button Icon="fa-regular fa-paper-plane" Color="Color.Primary" OnClick="GetCompletionsAsync" IsDisabled="NoAuth" IsAsync="true" class="btn-send" TooltipText="发送问题" TooltipTrigger="hover"></Button>
+            <Button Icon="fa-solid fa-xmark" Color="Color.Danger" OnClick="CreateNewTopic" class="btn-clear" IsDisabled="NoAuth" TooltipText="创建新会话" TooltipTrigger="hover"></Button>
+        </div>
+    </div>
+</div>
+
+<a href="@ChallengeUrl" target="_blank" class="btn btn-primary">
+    <i class="fa-solid fa-user-shield"></i>
+    <span>授权</span>
+</a>
+
+@code {
+    [Inject]
+    [NotNull]
+    private IAzureOpenAIService? OpenAIService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<AzureOpenAIChat>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private OAuthService? OAuthService { get; set; }
+
+    private string? Context { get; set; }
+
+    private List<AzureOpenAIChatMessage> Messages { get; } = new();
+
+    private bool NoAuth { get; set; } = false;
+
+    private static string GetRoleIcon(ChatRole role) => role == ChatRole.User ? "fa-solid fa-user" : "fa-solid fa-robot";
+
+    private static string? GetStackClass(ChatRole role) => CssBuilder.Default("msg-stack")
+        .AddClass("msg-stack-assistant", role == ChatRole.Assistant)
+        .Build();
+
+    private string? ChallengeUrl { get; set; }
+
+    protected override void OnInitialized()
+    {
+        ChallengeUrl = OAuthService.BuildChallengeUrl("Gitee");
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        var isAuthenticated = await OAuthService.Authenticate();
+        NoAuth = !isAuthenticated;
+    }
+
+    private async Task GetCompletionsAsync()
+    {
+        if (!string.IsNullOrEmpty(Context))
+        {
+            Messages.Add(new AzureOpenAIChatMessage() { Role = ChatRole.User, Content = Context });
+            StateHasChanged();
+
+            await Task.Delay(2000);
+            var chatMessages = await OpenAIService.GetChatCompletionsAsync(Context);
+            Messages.AddRange(chatMessages);
+        }
+    }
+
+    private Task CreateNewTopic()
+    {
+        Context = null;
+        OpenAIService.CreateNewTopic();
+        Messages.Clear();
+        return Task.CompletedTask;
+    }
+
+    private async Task OnClaim()
+    {
+        await Task.CompletedTask;
+    }
+}

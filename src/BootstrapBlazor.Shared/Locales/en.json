@@ -5051,7 +5051,8 @@
     "PdfReader": "PDF Reader",
     "VideoPlayer": "VideoPlayer",
     "FileViewer": "FileViewer",
-    "BaiduOcr": "IBaiduOcr "
+    "BaiduOcr": "IBaiduOcr",
+    "AzureOpenAI": "AzureOpenAI"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
