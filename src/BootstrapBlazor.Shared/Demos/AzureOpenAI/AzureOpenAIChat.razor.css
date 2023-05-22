@@ -51,18 +51,22 @@
     flex: 1;
 }
 
+.chat-auth {
+    margin-top: .5rem;
+}
+
 .chat-buttons {
     margin-left: .5rem;
     display: flex;
     flex-direction: column;
 }
 
-::deep .btn {
-    padding: 0 4px;
-    width: 3rem;
-    height: 35px;
-    border-radius: 8px;
-}
+    .chat-buttons ::deep .btn {
+        padding: 0 4px;
+        width: 3rem;
+        height: 35px;
+        border-radius: 8px;
+    }
 
 ::deep .btn-clear {
     margin-top: 7px;
@@ -87,9 +91,13 @@
     text-align: center;
 }
 
-    .msg-role > i {
+    .msg-role i {
         font-size: 1.5rem;
         margin-top: 0.75rem;
+    }
+
+    .msg-role img {
+        width: 3rem;
     }
 
 .msg-body {
