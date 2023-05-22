@@ -118,7 +118,7 @@
             if (OAuthHelper.TryGet(UserName, out var user))
             {
                 AvatarUrl = user.Avatar_Url;
-                DisplayName = Localizer["ChatUserMessageTitle", user.Left];
+                DisplayName = Localizer["ChatUserMessageTitle", user.Name, user.Left];
             }
             else
             {
