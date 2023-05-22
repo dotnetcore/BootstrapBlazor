@@ -13,7 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 public static class BootstrapBlazorAzureOpenAIServiceExtensions
 {
     /// <summary>
-    /// 添加 Meterial 图标主题服务
+    /// 添加 AzureOpenAIService 服务
     /// </summary>
     /// <param name="services"></param>
     public static IServiceCollection AddBootstrapBlazorAzureOpenAIService(this IServiceCollection services)

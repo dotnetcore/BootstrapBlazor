@@ -14,7 +14,7 @@ class AzureOpenAIService : IAzureOpenAIService
 
     private OpenAIClient? Client { get; set; }
 
-    private ChatCompletionsOptions ChatCompletionsOptions { get; } = new ChatCompletionsOptions()
+    private ChatCompletionsOptions ChatCompletionsOptions { get; } = new ()
     {
         //Temperature = 0.5f, //浮点数，控制模型的输出的多样性。值越高，输出越多样化。值越低，输出越简单。默认值为 0.5
         //MaxTokens = 500,//完成时生成的最大令牌数
