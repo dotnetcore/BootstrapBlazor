@@ -109,7 +109,6 @@
     /// </summary>
     protected override async Task OnInitializedAsync()
     {
-        DisplayName = Localizer["ChatUserMessageTitle"];
         var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         UserName = state.User.Identity?.Name;
 
@@ -135,13 +134,15 @@
         {
             if (OAuthHelper.TryUpdate(UserName, out var user))
             {
-                DisplayName = Localizer["ChatUserMessageTitle", user.Left];
+                DisplayName = Localizer["ChatUserMessageTitle", user.Name, user.Left];
             }
 
-            Messages.Add(new AzureOpenAIChatMessage() { Role = ChatRole.User, Content = Context });
+            var context = Context;
+            Context = string.Empty;
+            Messages.Add(new AzureOpenAIChatMessage() { Role = ChatRole.User, Content = context });
             StateHasChanged();
 
-            var chatMessages = await OpenAIService.GetChatCompletionsAsync(Context);
+            var chatMessages = await OpenAIService.GetChatCompletionsAsync(context);
             Messages.AddRange(chatMessages);
         }
     }
