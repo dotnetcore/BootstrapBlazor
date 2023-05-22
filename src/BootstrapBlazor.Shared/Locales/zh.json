@@ -6265,6 +6265,9 @@
   },
   "BootstrapBlazor.Shared.Demos.AzureOpenAI.AzureOpenAIChat": {
     "ChatTitle": "聊天场景",
-    "ChatUserMessageTitle": "用户消息"
+    "ChatUserMessageTitle": "剩余提问次数 ({0})",
+    "ChatDemoDesc": "由于 <code>GPT</code> 无免费接口，本组件需要 <code>Gitee</code> 或者 <code>Github</code> 授权登录后对账户进行使用次数限制",
+    "ChatGitee": "Gitee 授权",
+    "ChatGithub": "Github 授权"
   }
 }
