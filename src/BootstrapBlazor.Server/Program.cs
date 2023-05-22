@@ -86,6 +86,7 @@ if (cors?.Any() ?? false)
 }
 
 app.UseBootstrapBlazor();
+app.UseAuthentication();
 
 app.MapDefaultControllerRoute();
 app.MapBlazorHub();

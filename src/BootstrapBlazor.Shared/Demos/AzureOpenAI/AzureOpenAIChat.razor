@@ -1,0 +1,156 @@
+﻿@using Azure.AI.OpenAI
+@using Bootstrap.Shared.OAuth;
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Http;
+
+<div class="chat-title">@Localizer["ChatTitle"]</div>
+<div class="chat-body">
+    @if (Messages.Count == 0)
+    {
+        <div class="chat-welcome">
+            <div class="chat-welcome-icon">
+                <i class="fa-solid fa-robot"></i>
+            </div>
+            <div class="chat-welcome-body">
+                <div class="chat-welcome-title">Start chatting</div>
+                <div class="chat-welcome-content">Test your assistant by sending queries below. Then adjust your assistant setup to improve the assistant's responses.</div>
+            </div>
+        </div>
+    }
+    @foreach (var message in Messages)
+    {
+        <div class="@GetStackClass(message.Role)">
+            <div class="msg-role">
+                @if (message.Role == ChatRole.User)
+                {
+                    <img src="@AvatarUrl">
+                }
+                else
+                {
+                    <i class="fa-solid fa-robot"></i>
+                }
+            </div>
+            <div class="msg-body">
+                <div class="msg-time">@message.Time.ToString("HH:mm:ss")</div>
+                <div>@message.Content</div>
+                @if (message.Role == ChatRole.Assistant)
+                {
+                    <div class="msg-desc">AI-generated content may be incorrect</div>
+                }
+            </div>
+        </div>
+    }
+</div>
+<div class="chat-footer">
+    <CascadingAuthenticationState>
+        <AuthorizeView>
+            <Authorized>
+                <div class="chat-footer-title">@DisplayName</div>
+                <div class="d-flex">
+                    <Textarea class="chat-footer-tx" rows="3" @bind-Value="@Context" PlaceHolder="Type user query here. (Shift + Enter for new line)" IsDisabled="!IsValid"></Textarea>
+                    <div class="chat-buttons">
+                        <Button Icon="fa-regular fa-paper-plane" Color="Color.Primary" OnClick="GetCompletionsAsync" IsAsync="true" class="btn-send" IsDisabled="!IsValid"></Button>
+                        <Button Icon="fa-solid fa-xmark" Color="Color.Danger" OnClick="CreateNewTopic" class="btn-clear" IsDisabled="!IsValid"></Button>
+                    </div>
+                </div>
+            </Authorized>
+            <NotAuthorized>
+                <div>@((MarkupString)Localizer["ChatDemoDesc"].Value)</div>
+                <div class="chat-auth">
+                    <a href="./Account/Gitee" class="btn btn-primary">
+                        <i class="fa-brands fa-google"></i>
+                        <span>@Localizer["ChatGitee"]</span>
+                    </a>
+                    <a href="./Account/Github" class="btn btn-primary">
+                        <i class="fa-brands fa-github"></i>
+                        <span>@Localizer["ChatGithub"]</span>
+                    </a>
+                </div>
+            </NotAuthorized>
+        </AuthorizeView>
+    </CascadingAuthenticationState>
+</div>
+
+@code {
+    [Inject]
+    [NotNull]
+    private IAzureOpenAIService? OpenAIService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<AzureOpenAIChat>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
+
+    [Inject]
+    [NotNull]
+    private NavigationManager? NavigationManager { get; set; }
+
+    private string? Context { get; set; }
+
+    private List<AzureOpenAIChatMessage> Messages { get; } = new();
+
+    [NotNull]
+    private string? DisplayName { get; set; }
+
+    [NotNull]
+    private string? UserName { get; set; }
+
+    private string? AvatarUrl { get; set; }
+
+    private static string? GetStackClass(ChatRole role) => CssBuilder.Default("msg-stack")
+        .AddClass("msg-stack-assistant", role == ChatRole.Assistant)
+        .Build();
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        DisplayName = Localizer["ChatUserMessageTitle"];
+        var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        UserName = state.User.Identity?.Name;
+
+        if (!string.IsNullOrEmpty(UserName))
+        {
+            if (OAuthHelper.TryGet(UserName, out var user))
+            {
+                AvatarUrl = user.Avatar_Url;
+                DisplayName = Localizer["ChatUserMessageTitle", user.Left];
+            }
+            else
+            {
+                NavigationManager.NavigateTo("./Account/Logout", true);
+            }
+        }
+    }
+
+    private bool IsValid => OAuthHelper.Validate(UserName);
+
+    private async Task GetCompletionsAsync()
+    {
+        if (!string.IsNullOrEmpty(Context) && IsValid)
+        {
+            if (OAuthHelper.TryUpdate(UserName, out var user))
+            {
+                DisplayName = Localizer["ChatUserMessageTitle", user.Left];
+            }
+
+            Messages.Add(new AzureOpenAIChatMessage() { Role = ChatRole.User, Content = Context });
+            StateHasChanged();
+
+            var chatMessages = await OpenAIService.GetChatCompletionsAsync(Context);
+            Messages.AddRange(chatMessages);
+        }
+    }
+
+    private Task CreateNewTopic()
+    {
+        Context = null;
+        OpenAIService.CreateNewTopic();
+        Messages.Clear();
+        return Task.CompletedTask;
+    }
+}

@@ -386,6 +386,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["AzureOpenAI"],
+                    Url = "ai-chat"
+                },
+                new()
+                {
                     Text = Localizer["Badge"],
                     Url = "badges"
                 },

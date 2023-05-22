@@ -4,6 +4,11 @@
     <Version>7.2.0</Version>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Icon</PackageTags>
+    <Description>Bootstrap UI components extensions of Cherry Markdown</Description>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="BootstrapBlazor" Version="7.5.4" />
   </ItemGroup>

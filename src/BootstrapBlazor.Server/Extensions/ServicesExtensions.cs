@@ -2,9 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Bootstrap.Shared.OAuth;
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Server.Services;
+using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
+using System.Net.Http.Headers;
 using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -71,6 +76,14 @@ internal static class ServicesExtensions
                 localizerOption.SupportedUICultures = supportedCultures;
             }
         });
+
+        // 增加 AzureOpenAI 服务
+        services.AddBootstrapBlazorAzureOpenAIService();
+
+        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie()
+            .AddGitee(OAuthHelper.Configure)
+            .AddGitHub(OAuthHelper.Configure);
 
         // 增加 PetaPoco ORM 数据服务操作类
         // 需要时打开下面代码

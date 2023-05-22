@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="7.0.0-beta01" />
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="7.1.0" />
     <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="7.1.1" />
     <PackageReference Include="BootstrapBlazor.BarCode" Version="7.1.5" />
@@ -37,9 +38,12 @@
     <PackageReference Include="BootstrapBlazor.PdfReader" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="7.3.0" />
-    <PackageReference Include="BootstrapBlazor.TableExport" Version="7.3.0" />
+    <PackageReference Include="BootstrapBlazor.TableExport" Version="7.4.0" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="7.4.1" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="7.*" />
+    <PackageReference Include="Longbow.GiteeAuth" Version="7.0.0" />
+    <PackageReference Include="Longbow.GitHubAuth" Version="7.0.1" />
+    <PackageReference Include="Longbow.OAuth" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>

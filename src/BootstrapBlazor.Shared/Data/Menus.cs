@@ -185,8 +185,7 @@ internal static class MenusDataGerator
         [nameof(Badge.IsPill)] = true,
         [nameof(Badge.ChildContent)] = new RenderFragment(builder =>
         {
-            var index = 0;
-            builder.AddContent(index++, "10");
+            builder.AddContent(0, "10");
         })
     });
 

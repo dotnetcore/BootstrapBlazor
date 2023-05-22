@@ -5063,7 +5063,8 @@
     "PdfReader": "PDF阅读器 PDF Reader",
     "VideoPlayer": "视频播放器 VideoPlayer",
     "FileViewer": "文件预览器 FileViewer",
-    "BaiduOcr": "文字识别服务 IBaiduOcr "
+    "BaiduOcr": "文字识别服务 IBaiduOcr",
+    "AzureOpenAI": "AI 聊天服务 AzureOpenAI"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6255,5 +6256,18 @@
     "EyeDropperTips2": "为防止恶意网站在用户不知情的情况下从用户屏幕获取像素数据，必须由用户操作（如单击按钮）时调用",
     "EyeDropperTips3": "为了帮助用户更容易注意到吸管模式，浏览器将其设置为显而易见。短暂延迟后，正常的鼠标光标消失，取而代之的是一个放大镜。在滴管模式启动和用户可以选择像素以确保用户有时间查看放大镜之间也存在延迟",
     "EyeDropperTips4": "用户也可以随时取消吸管模式（按键 <kbd>Escape</kbd>）"
+  },
+  "BootstrapBlazor.Shared.Samples.Chats": {
+    "ChatsTitle": "Azure OpenAI 服务",
+    "ChatsDescription": "Azure OpenAI 服务是一个基于 Azure 云服务的聊天机器人，可以通过对话的方式与用户进行交互",
+    "ChatNormalTitle": "Azure OpenAI 服务",
+    "ChatNormalIntro": "通过调用 <code>IAzureOpenAIService</code> 服务方法 <code>GetChatCompletionsAsync</code> 进行聊天对话"
+  },
+  "BootstrapBlazor.Shared.Demos.AzureOpenAI.AzureOpenAIChat": {
+    "ChatTitle": "聊天场景",
+    "ChatUserMessageTitle": "剩余提问次数 ({0})",
+    "ChatDemoDesc": "由于 <code>GPT</code> 无免费接口，本组件需要 <code>Gitee</code> 或者 <code>Github</code> 授权登录后对账户进行使用次数限制",
+    "ChatGitee": "Gitee 授权",
+    "ChatGithub": "Github 授权"
   }
 }
