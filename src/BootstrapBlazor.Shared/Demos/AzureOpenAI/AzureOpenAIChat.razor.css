@@ -8,15 +8,14 @@
     max-height: 786px;
     overflow-y: auto;
     background-color: #faf9f8;
-    padding: 1rem;
 }
 
 .chat-welcome {
     background-color: #fff;
     border-radius: .5rem;
-    padding: 1rem;
     display: flex;
-    margin: 2rem 2rem 0 2rem;
+    margin: 1rem 1rem 0 1rem;
+    padding: 0.5rem;
     box-shadow: rgb(210, 208, 206) 0 2px 4px, rgb(237, 235, 233) 0 0 2px;
 }
 
@@ -26,7 +25,7 @@
 
 .chat-welcome-body {
     flex: 1;
-    margin-left: 2rem;
+    margin-left: .75rem;
 }
 
 .chat-welcome-title {
@@ -44,7 +43,18 @@
 .chat-footer-title {
     font-weight: bold;
     margin-bottom: .5rem;
+    display: flex;
+    align-items: center;
 }
+
+    .chat-footer-title span {
+        flex: 1;
+    }
+
+    .chat-footer-title .btn {
+        white-space: nowrap;
+        align-self: center;
+    }
 
 ::deep .chat-footer-tx {
     resize: none;
@@ -75,7 +85,7 @@
 .msg-stack {
     display: flex;
     flex-flow: row-reverse nowrap;
-    margin: 1rem;
+    margin: 1rem .75rem;
 }
 
 .msg-desc {
@@ -147,3 +157,22 @@
             border-left: none;
             margin-left: 5px;
         }
+
+@media (min-width: 768px) {
+    .chat-body {
+        padding: 1rem;
+    }
+
+    .chat-welcome {
+        padding: 1rem;
+        margin: 2rem 2rem 0 2rem;
+    }
+
+    .chat-welcome-body {
+        margin-left: 2rem;
+    }
+
+    .msg-stack {
+        margin: 1rem;
+    }
+}
