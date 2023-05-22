@@ -43,7 +43,18 @@
 .chat-footer-title {
     font-weight: bold;
     margin-bottom: .5rem;
+    display: flex;
+    align-items: center;
 }
+
+    .chat-footer-title span {
+        flex: 1;
+    }
+
+    .chat-footer-title .btn {
+        white-space: nowrap;
+        align-self: center;
+    }
 
 ::deep .chat-footer-tx {
     resize: none;
