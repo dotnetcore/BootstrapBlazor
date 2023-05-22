@@ -41,7 +41,7 @@
     <PackageReference Include="BootstrapBlazor.Topology" Version="7.4.1" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="7.*" />
     <PackageReference Include="Longbow.GiteeAuth" Version="7.0.0" />
-    <PackageReference Include="Longbow.GitHubAuth" Version="7.0.0" />
+    <PackageReference Include="Longbow.GitHubAuth" Version="7.0.1" />
     <PackageReference Include="Longbow.OAuth" Version="7.0.0" />
   </ItemGroup>
 

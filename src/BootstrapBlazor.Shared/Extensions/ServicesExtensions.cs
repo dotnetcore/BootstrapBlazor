@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared;
-using BootstrapBlazor.Shared.OAuth;
 using BootstrapBlazor.Shared.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 
@@ -24,7 +23,6 @@ public static class ServicesExtensions
         services.AddSingleton<PackageVersionService>();
         services.AddSingleton<CodeSnippetService>();
         services.AddSingleton<DashboardService>();
-        services.AddSingleton<OAuthService>();
         services.AddSingleton(typeof(IDataService<>), typeof(TableDemoDataService<>));
         services.AddSingleton(typeof(ILookupService), typeof(DemoLookupService));
         services.AddSingleton<MockDataTableDynamicService>();
