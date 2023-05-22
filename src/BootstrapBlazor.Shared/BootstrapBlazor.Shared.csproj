@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="7.0.0-beta01" />
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="7.1.0" />
     <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="7.1.1" />
     <PackageReference Include="BootstrapBlazor.BarCode" Version="7.1.5" />
@@ -47,7 +48,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
-    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.AzureOpenAI\BootstrapBlazor.AzureOpenAI.csproj" />
   </ItemGroup>
 
   <ItemGroup>
