@@ -4,6 +4,7 @@
 
 using Longbow.GiteeAuth;
 using Longbow.GitHubAuth;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BootstrapBlazor.Server.Controllers
@@ -31,6 +32,17 @@ namespace BootstrapBlazor.Server.Controllers
         public IActionResult GitHub()
         {
             return Challenge(GitHubDefaults.AuthenticationScheme);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return LocalRedirect("~/ai-chat");
         }
     }
 }
