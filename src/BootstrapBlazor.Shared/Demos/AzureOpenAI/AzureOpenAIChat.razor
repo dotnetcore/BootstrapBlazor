@@ -1,7 +1,8 @@
 ﻿@using Azure.AI.OpenAI
 @using Bootstrap.Shared.OAuth;
 @using Microsoft.AspNetCore.Components.Authorization
-@using Microsoft.AspNetCore.Http;
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.Shared/Demos/AzureOpenAI/AzureOpenAIChat.razor.js")]
 
 <div class="chat-title">@Localizer["ChatTitle"]</div>
 <div class="chat-body">
@@ -47,7 +48,7 @@
             <Authorized>
                 <div class="chat-footer-title"><span>@DisplayName</span><a href="./Account/Logout" class="btn btn-primary"><i class="fa-solid fa-gear"></i><span>退出</span></a></div>
                 <div class="d-flex">
-                    <Textarea class="chat-footer-tx" rows="3" @bind-Value="@Context" PlaceHolder="Type user query here. (Shift + Enter for new line)" IsDisabled="!IsValid"></Textarea>
+                    <Textarea Id="@Id" class="chat-footer-tx" rows="3" @bind-Value="@Context" PlaceHolder="Type user query here. (Shift + Enter for new line)" IsDisabled="!IsValid"></Textarea>
                     <div class="chat-buttons">
                         <Button Icon="fa-regular fa-paper-plane" Color="Color.Primary" OnClick="GetCompletionsAsync" IsAsync="true" class="btn-send" IsDisabled="!IsValid"></Button>
                         <Button Icon="fa-solid fa-xmark" Color="Color.Danger" OnClick="CreateNewTopic" class="btn-clear" IsDisabled="!IsValid"></Button>
@@ -104,12 +105,14 @@
         .AddClass("msg-stack-assistant", role == ChatRole.Assistant)
         .Build();
 
+    ///<inheritdoc/>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id);
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override async Task OnInitializedAsync()
     {
-        DisplayName = Localizer["ChatUserMessageTitle"];
         var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
         UserName = state.User.Identity?.Name;
 
@@ -127,6 +130,19 @@
         }
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            await InvokeVoidAsync("scroll");
+        }
+    }
+
     private bool IsValid => OAuthHelper.Validate(UserName);
 
     private async Task GetCompletionsAsync()
@@ -135,13 +151,15 @@
         {
             if (OAuthHelper.TryUpdate(UserName, out var user))
             {
-                DisplayName = Localizer["ChatUserMessageTitle", user.Left];
+                DisplayName = Localizer["ChatUserMessageTitle", user.Name, user.Left];
             }
 
-            Messages.Add(new AzureOpenAIChatMessage() { Role = ChatRole.User, Content = Context });
+            var context = Context;
+            Context = string.Empty;
+            Messages.Add(new AzureOpenAIChatMessage() { Role = ChatRole.User, Content = context });
             StateHasChanged();
 
-            var chatMessages = await OpenAIService.GetChatCompletionsAsync(Context);
+            var chatMessages = await OpenAIService.GetChatCompletionsAsync(context);
             Messages.AddRange(chatMessages);
         }
     }
