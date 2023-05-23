@@ -5052,7 +5052,8 @@
     "VideoPlayer": "VideoPlayer",
     "FileViewer": "FileViewer",
     "BaiduOcr": "IBaiduOcr",
-    "AzureOpenAI": "AzureOpenAI"
+    "AzureOpenAI": "AzureOpenAI",
+    "HtmlRenderer": "HtmlRenderer"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",

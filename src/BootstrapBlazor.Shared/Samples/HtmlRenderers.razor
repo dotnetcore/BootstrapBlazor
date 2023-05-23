@@ -1,0 +1,8 @@
+﻿@page "/htmlrenderers"
+@inject IStringLocalizer<HtmlRenderers> Localizer
+
+<h3>@Localizer["Title"]</h3>
+
+<h4>@Localizer["SubTitle"]</h4>
+
+<DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["IntroText"]" Name="Normal" Demo="typeof(Demos.HtmlRenderers.HtmlRendererNormal)" />

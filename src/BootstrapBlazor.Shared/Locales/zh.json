@@ -5064,7 +5064,8 @@
     "VideoPlayer": "视频播放器 VideoPlayer",
     "FileViewer": "文件预览器 FileViewer",
     "BaiduOcr": "文字识别服务 IBaiduOcr",
-    "AzureOpenAI": "AI 聊天服务 AzureOpenAI"
+    "AzureOpenAI": "AI 聊天服务 AzureOpenAI",
+    "HtmlRenderers": "Html 转换器  HtmlRenderer"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
