@@ -67,7 +67,7 @@ partial class StaticHtmlRenderer : Renderer
 
         if (quiescenceTask.IsFaulted)
         {
-            ExceptionDispatchInfo.Capture(quiescenceTask.Exception.InnerException ?? quiescenceTask.Exception).Throw();
+            ExceptionDispatchInfo.Capture(quiescenceTask.Exception!.InnerException ?? quiescenceTask.Exception).Throw();
         }
 
         return new HtmlRootComponent(this, componentId, quiescenceTask);
