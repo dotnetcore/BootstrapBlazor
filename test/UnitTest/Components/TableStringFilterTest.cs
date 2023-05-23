@@ -62,15 +62,17 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
                 }));
             });
         });
-        var filter = cut.FindComponent<BootstrapInput<string>>().Instance;
-        cut.InvokeAsync(() => filter.SetValue("test"));
 
-        var items = cut.FindAll(".dropdown-item");
-        IEnumerable<FilterKeyValueAction>? condtions = null;
-        cut.InvokeAsync(() => items[1].Click());
-        cut.InvokeAsync(() => condtions = cut.FindComponent<StringFilter>().Instance.GetFilterConditions());
-        Assert.NotNull(condtions);
-        Assert.Single(condtions);
+        cut.InvokeAsync(() =>
+        {
+            var filter = cut.FindComponent<BootstrapInput<string>>().Instance;
+            filter.SetValue("test");
+
+            var items = cut.FindAll(".dropdown-item");
+            items[1].Click();
+            var condtions = cut.FindComponent<StringFilter>().Instance.GetFilterConditions();
+            Assert.Single(condtions);
+        });
     }
 
     [Fact]

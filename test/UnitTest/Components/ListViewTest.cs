@@ -258,9 +258,13 @@ public class ListViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.Pageable, true);
             pb.Add(a => a.PageItems, 2);
         });
-        var button = cut.Find(".accordion-button");
-        cut.InvokeAsync(() => button.Click());
-        Assert.NotNull(expect);
+
+        cut.InvokeAsync(() =>
+        {
+            var button = cut.Find(".accordion-button");
+            button.Click();
+            Assert.NotNull(expect);
+        });
     }
 
     private class Product
