@@ -1,0 +1,26 @@
+﻿@inject IComponentHtmlRenderer HtmlRenderer
+
+@if (!string.IsNullOrEmpty(RawString))
+{
+    <div class="mb-3">Component: @((MarkupString)RawString)</div>
+
+    <Display TValue="string" Value="@RawString"></Display>
+}
+
+@code {
+
+    private string? RawString { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        RawString = await HtmlRenderer.RenderAsync<Button>(new Dictionary<string, object?>()
+        {
+            { nameof(Button.Icon), "fa-solid fa-gear" },
+            { nameof(Button.Text), "ButtonText" }
+        });
+    }
+}

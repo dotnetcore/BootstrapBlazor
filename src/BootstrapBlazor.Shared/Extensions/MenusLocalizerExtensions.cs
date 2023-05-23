@@ -509,6 +509,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["HtmlRenderer"],
+                    Url = "htmlrenderers"
+                },
+                new()
+                {
                     Text = Localizer["LinkButton"],
                     Url = "linkbuttons"
                 },

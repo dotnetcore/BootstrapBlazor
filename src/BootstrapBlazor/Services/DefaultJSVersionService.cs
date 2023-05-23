@@ -22,15 +22,19 @@ class DefaultJSVersionService : IVersionService
         [ExcludeFromCodeCoverage]
         string GetVersionImpl()
         {
-            string? ver;
-            if (OperatingSystem.IsBrowser())
+            string? ver = null;
+            try
             {
-                ver = typeof(BootstrapComponentBase).Assembly.GetName().Version?.ToString();
+                if (OperatingSystem.IsBrowser())
+                {
+                    ver = typeof(BootstrapComponentBase).Assembly.GetName().Version?.ToString();
+                }
+                else
+                {
+                    ver = FileVersionInfo.GetVersionInfo(typeof(BootstrapComponentBase).Assembly.Location).ProductVersion;
+                }
             }
-            else
-            {
-                ver = FileVersionInfo.GetVersionInfo(typeof(BootstrapComponentBase).Assembly.Location).ProductVersion;
-            }
+            catch { }
             return ver ?? "7.0.0.0";
         }
     }

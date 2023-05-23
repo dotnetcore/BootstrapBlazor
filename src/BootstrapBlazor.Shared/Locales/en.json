@@ -5052,7 +5052,8 @@
     "VideoPlayer": "VideoPlayer",
     "FileViewer": "FileViewer",
     "BaiduOcr": "IBaiduOcr",
-    "AzureOpenAI": "AzureOpenAI"
+    "AzureOpenAI": "AzureOpenAI",
+    "HtmlRenderer": "HtmlRenderer"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -6256,5 +6257,11 @@
     "ChatDemoDesc": "Since <code>GPT</code> has no free interface, this component requires <code>Gitee</code> or <code>Github</code> to authorize and log in to limit the number of times the account can be used",
     "ChatGitee": "Gitee OAuth",
     "ChatGithub": "Github OAuth"
+  },
+  "BootstrapBlazor.Shared.Samples.HtmlRenderers": {
+    "Title": "Html Renderer",
+    "SubTitle": "Render components into Html strings",
+    "BaseUsageText": "Normal",
+    "IntroText": "Some application scenarios require us to obtain the <code>Html</code> code fragment finally output by <code>Component</code>, and call the <code>RenderAsync</code> instance method of <code>IComponentHtmlRenderer</code> service"
   }
 }
