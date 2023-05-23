@@ -159,10 +159,6 @@
         }
 
 @media (min-width: 768px) {
-    .chat-body {
-        padding: 1rem;
-    }
-
     .chat-welcome {
         padding: 1rem;
         margin: 2rem 2rem 0 2rem;
@@ -170,9 +166,5 @@
 
     .chat-welcome-body {
         margin-left: 2rem;
-    }
-
-    .msg-stack {
-        margin: 1rem;
     }
 }
