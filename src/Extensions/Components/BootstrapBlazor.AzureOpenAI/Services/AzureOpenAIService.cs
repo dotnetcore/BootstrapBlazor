@@ -5,6 +5,7 @@
 using Azure;
 using Azure.AI.OpenAI;
 using Microsoft.Extensions.Options;
+using System.Runtime.CompilerServices;
 
 namespace BootstrapBlazor.Components;
 
@@ -14,7 +15,7 @@ class AzureOpenAIService : IAzureOpenAIService
 
     private OpenAIClient? Client { get; set; }
 
-    private ChatCompletionsOptions ChatCompletionsOptions { get; } = new ()
+    private ChatCompletionsOptions ChatCompletionsOptions { get; } = new()
     {
         //Temperature = 0.5f, //浮点数，控制模型的输出的多样性。值越高，输出越多样化。值越低，输出越简单。默认值为 0.5
         //MaxTokens = 500,//完成时生成的最大令牌数
@@ -63,6 +64,37 @@ class AzureOpenAIService : IAzureOpenAIService
             Content = choice.Message.Content,
             Role = choice.Message.Role
         });
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="context"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public async IAsyncEnumerable<AzureOpenAIChatMessage> GetChatCompletionsStreamingAsync(string context, [EnumeratorCancellation] CancellationToken cancellationToken = default)
+    {
+        ChatCompletionsOptions.Messages.Add(new ChatMessage(ChatRole.User, context));
+        Client ??= new(new Uri(Options.Endpoint), new AzureKeyCredential(Options.Key));
+
+        var completionsResponse = await Client.GetChatCompletionsStreamingAsync(Options.DeploymentName, ChatCompletionsOptions, cancellationToken);
+        if (!cancellationToken.IsCancellationRequested)
+        {
+            await foreach (var choice in completionsResponse.Value.GetChoicesStreaming())
+            {
+                await foreach (var message in choice.GetMessageStreaming(cancellationToken))
+                {
+                    if (!cancellationToken.IsCancellationRequested)
+                    {
+                        yield return new AzureOpenAIChatMessage
+                        {
+                            Content = message.Content,
+                            Role = message.Role
+                        };
+                    }
+                }
+            }
+        }
     }
 
     /// <summary>
