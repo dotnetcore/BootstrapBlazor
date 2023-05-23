@@ -6270,5 +6270,11 @@
     "ChatDemoDesc": "由于 <code>GPT</code> 无免费接口，本组件需要 <code>Gitee</code> 或者 <code>Github</code> 授权登录后对账户进行使用次数限制",
     "ChatGitee": "Gitee 授权",
     "ChatGithub": "Github 授权"
+  },
+  "BootstrapBlazor.Shared.Samples.HtmlRenderers": {
+    "Title": "Html 转化器",
+    "SubTitle": "把组件渲染成 Html 字符串",
+    "BaseUsageText": "基础用法",
+    "IntroText": "有些应用场景需要我们获得 <code>Component</code> 最终输出的 <code>Html</code> 代码片段，调用 <code>IComponentHtmlRenderer</code> 服务的 <code>RenderAsync</code> 实例方法即可"
   }
 }
