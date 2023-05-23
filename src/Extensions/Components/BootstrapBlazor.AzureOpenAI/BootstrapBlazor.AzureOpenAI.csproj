@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>net6.0;net7.0</TargetFrameworks>
-    <Version>7.0.0-beta01</Version>
+    <Version>7.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup>
