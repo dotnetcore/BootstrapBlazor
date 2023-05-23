@@ -11,10 +11,16 @@ export function init(id) {
     })
 }
 
-export function scroll() {
+export function scroll(id) {
     const body = document.querySelector('.chat-body')
-    if(body.offsetHeight < body.scrollHeight) {
+    if (body.offsetHeight < body.scrollHeight) {
         body.scrollTop = body.scrollHeight
+    }
+
+    // focus input
+    const el = document.getElementById(id)
+    if (el) {
+        el.focus()
     }
 }
 
