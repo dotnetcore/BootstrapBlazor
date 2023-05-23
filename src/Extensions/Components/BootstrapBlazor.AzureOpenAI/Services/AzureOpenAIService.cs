@@ -78,21 +78,15 @@ class AzureOpenAIService : IAzureOpenAIService
         Client ??= new(new Uri(Options.Endpoint), new AzureKeyCredential(Options.Key));
 
         var completionsResponse = await Client.GetChatCompletionsStreamingAsync(Options.DeploymentName, ChatCompletionsOptions, cancellationToken);
-        if (!cancellationToken.IsCancellationRequested)
+        await foreach (var choice in completionsResponse.Value.GetChoicesStreaming(cancellationToken))
         {
-            await foreach (var choice in completionsResponse.Value.GetChoicesStreaming())
+            await foreach (var message in choice.GetMessageStreaming(cancellationToken))
             {
-                await foreach (var message in choice.GetMessageStreaming(cancellationToken))
+                yield return new AzureOpenAIChatMessage
                 {
-                    if (!cancellationToken.IsCancellationRequested)
-                    {
-                        yield return new AzureOpenAIChatMessage
-                        {
-                            Content = message.Content,
-                            Role = message.Role
-                        };
-                    }
-                }
+                    Content = message.Content,
+                    Role = message.Role
+                };
             }
         }
     }
