@@ -20,7 +20,7 @@
     }
     @foreach (var message in Messages)
     {
-        <div class="@GetStackClass(message.Role)">
+        <div class="@GetStackClass(message.Role)" @key="message">
             <div class="msg-role">
                 @if (message.Role == ChatRole.User)
                 {
@@ -139,7 +139,7 @@
 
         if (!firstRender)
         {
-            await InvokeVoidAsync("scroll");
+            await InvokeVoidAsync("scroll", Id);
         }
     }
 
@@ -159,8 +159,21 @@
             Messages.Add(new AzureOpenAIChatMessage() { Role = ChatRole.User, Content = context });
             StateHasChanged();
 
-            var chatMessages = await OpenAIService.GetChatCompletionsAsync(context);
-            Messages.AddRange(chatMessages);
+            var msg = new AzureOpenAIChatMessage() { Role = ChatRole.Assistant, Content = "Thinking ..." };
+            Messages.Add(msg);
+
+            bool first = true;
+            await foreach (var chatMessage in OpenAIService.GetChatCompletionsStreamingAsync(context))
+            {
+                if (first)
+                {
+                    first = false;
+                    msg.Content = string.Empty;
+                }
+                msg.Content += chatMessage.Content;
+                await Task.Delay(50);
+                StateHasChanged();
+            }
         }
     }
 
