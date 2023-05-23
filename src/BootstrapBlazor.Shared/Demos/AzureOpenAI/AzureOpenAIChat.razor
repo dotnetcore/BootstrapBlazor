@@ -147,6 +147,7 @@
 
     private async Task GetCompletionsAsync()
     {
+        Context = Context?.TrimEnd('\n') ?? string.Empty;
         if (!string.IsNullOrEmpty(Context) && IsValid)
         {
             if (OAuthHelper.TryUpdate(UserName, out var user))

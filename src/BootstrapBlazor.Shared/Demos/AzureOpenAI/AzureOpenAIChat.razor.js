@@ -4,7 +4,7 @@ export function init(id) {
     const el = document.getElementById(id)
 
     EventHandler.on(el, 'keyup', e => {
-        if (e.key === 'Enter' && !e.shiftKey) {
+        if (e.key === 'Enter' && !e.shiftKey && el.value.trim('\n').length > 0) {
             el.blur()
             document.querySelector('.btn-send').click()
         }
