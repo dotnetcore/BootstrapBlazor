@@ -23,7 +23,18 @@ export async function init(id, invoker, methodGetPluginAttrs, methodClickPluginI
 
         setLang()
 
+        if ($.summernote.lang[option.lang] === undefined) {
+            option.lang = 'en-US'
+        }
+        if ($.summernote.lang[option.lang].bb_editor === undefined) {
+            $.summernote.lang[option.lang].bb_editor = {
+                tooltip: "Click to edit",
+                submit: "submit"
+            }
+        }
+
         const editorLangConfig = $.summernote.lang[option.lang].bb_editor
+
         let title = ''
         let tooltip = ''
         if (editorLangConfig) {
