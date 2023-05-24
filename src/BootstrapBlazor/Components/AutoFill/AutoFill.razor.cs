@@ -213,6 +213,7 @@ public partial class AutoFill<TValue>
     /// </summary>
     protected virtual async Task OnClickItem(TValue val)
     {
+        _isShown = false;
         CurrentValue = val;
         InputString = OnGetDisplayText(val);
         ActiveSelectedItem = default;
