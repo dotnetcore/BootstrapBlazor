@@ -280,6 +280,12 @@ public partial class Layout : IHandlerException
     [Parameter]
     public Func<string, Task>? OnUpdateAsync { get; set; }
 
+    /// <summary>
+    /// 获得/设置 AuthorizeRouteView 参数
+    /// </summary>
+    [Parameter]
+    public object? Resource { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Layout>? Localizer { get; set; }
@@ -332,7 +338,7 @@ public partial class Layout : IHandlerException
             var context = RouteTableFactory.Create(AdditionalAssemblies, url);
             if (context.Handler != null)
             {
-                IsAuthenticated = await context.Handler.IsAuthorizedAsync(AuthenticationStateTask, AuthorizationPolicyProvider, AuthorizationService);
+                IsAuthenticated = await context.Handler.IsAuthorizedAsync(AuthenticationStateTask, AuthorizationPolicyProvider, AuthorizationService, Resource);
 
                 // 检查当前 Url
                 if (OnAuthorizing != null)
