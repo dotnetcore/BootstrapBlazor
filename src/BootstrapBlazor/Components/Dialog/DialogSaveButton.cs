@@ -22,17 +22,8 @@ public partial class DialogSaveButton : Button
     {
         base.OnInitialized();
 
-        ButtonType = ButtonType.Submit;
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnParametersSet()
-    {
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.DialogSaveButtonIcon);
         Text ??= Localizer[nameof(ModalDialog.SaveButtonText)];
-
-        base.OnParametersSet();
+        ButtonType = ButtonType.Submit;
     }
 }
