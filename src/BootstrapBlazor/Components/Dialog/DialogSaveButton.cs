@@ -30,9 +30,9 @@ public partial class DialogSaveButton : Button
     /// </summary>
     protected override void OnParametersSet()
     {
-        base.OnParametersSet();
-
-        ButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogSaveButtonIcon);
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.DialogSaveButtonIcon);
         Text ??= Localizer[nameof(ModalDialog.SaveButtonText)];
+
+        base.OnParametersSet();
     }
 }

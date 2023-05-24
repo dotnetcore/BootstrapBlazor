@@ -29,10 +29,10 @@ public partial class DialogCloseButton : Button
     /// </summary>
     protected override void OnParametersSet()
     {
-        base.OnParametersSet();
-
-        ButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogCloseButtonIcon);
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.DialogCloseButtonIcon);
         Text ??= Localizer[nameof(ModalDialog.CloseButtonText)];
+
+        base.OnParametersSet();
     }
 
     /// <summary>
