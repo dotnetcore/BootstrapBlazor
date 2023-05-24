@@ -12,18 +12,46 @@ const isFunction = object => {
     return typeof object === 'function'
 }
 
+function selectionSet(elem) {
+    const sel = document.getSelection();
+    if (sel) {
+        const range = document.createRange();
+        range.selectNodeContents(elem);
+        sel.removeAllRanges();
+        sel.addRange(range);
+    }
+}
+
+function selectionClear() {
+    const sel = document.getSelection();
+    if (sel) {
+        sel.removeAllRanges();
+    }
+}
+
+function copyTextUsingDOM(str) {
+    const tempElem = document.createElement("div");
+    tempElem.setAttribute("style", "-webkit-user-select: text !important");
+    let spanParent = tempElem;
+    if (tempElem.attachShadow) {
+        spanParent = tempElem.attachShadow({ mode: "open" });
+    }
+    const span = document.createElement("span");
+    span.innerText = str;
+    spanParent.appendChild(span);
+    document.body.appendChild(tempElem);
+    selectionSet(span);
+    const result = document.execCommand("copy");
+    selectionClear();
+    document.body.removeChild(tempElem);
+    return result;
+}
+
 const copy = (text = '') => {
     if (navigator.clipboard) {
         navigator.clipboard.writeText(text)
     } else {
-        const input = document.createElement('input')
-        input.setAttribute('type', 'text')
-        input.setAttribute('value', text)
-        input.setAttribute('hidden', 'true')
-        document.body.appendChild(input)
-        input.select()
-        document.execCommand('copy')
-        document.body.removeChild(input)
+        copyTextUsingDOM(text)
     }
 }
 
