@@ -89,6 +89,12 @@ public partial class Editor : IAsyncDisposable
     public string? Language { get; set; }
 
     /// <summary>
+    /// 获得/设置 语言扩展脚本路径 默认 null 如加载德语可设置为 
+    /// </summary>
+    [Parameter]
+    public string? LanguageUrl { get; set; }
+
+    /// <summary>
     /// 获得/设置 组件值变化后的回调委托
     /// </summary>
     [Parameter]
@@ -166,7 +172,7 @@ public partial class Editor : IAsyncDisposable
             // import JavaScript
             Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.SummerNote/Components/Editor/Editor.razor.js");
             Interop = DotNetObjectReference.Create(this);
-            await Module.InvokeVoidAsync("init", Id, Interop, methodGetPluginAttrs, methodClickPluginItem, Height, Value ?? "", Language);
+            await Module.InvokeVoidAsync("init", Id, Interop, methodGetPluginAttrs, methodClickPluginItem, Height, Value ?? "", Language, LanguageUrl);
         }
 
         // ShowSubmiit 处理
