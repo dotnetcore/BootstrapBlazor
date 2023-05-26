@@ -6277,5 +6277,11 @@
     "SubTitle": "把组件渲染成 Html 字符串",
     "BaseUsageText": "基础用法",
     "IntroText": "有些应用场景需要我们获得 <code>Component</code> 最终输出的 <code>Html</code> 代码片段，调用 <code>IComponentHtmlRenderer</code> 服务的 <code>RenderAsync</code> 实例方法即可"
+  },
+  "BootstrapBlazor.Shared.Samples.ContextMenus": {
+    "Title": "ContextMenu 右键菜单",
+    "Description": "用户点击鼠标右键时弹出的上下文关联菜单",
+    "NormalTitle": "基础用法",
+    "NormalIntro": "点击 <code>ContextMenuZone</code> 内区域右键，弹出上下文关联菜单"
   }
 }
