@@ -70,7 +70,6 @@ public partial class ContextMenuTrigger : IDisposable
     /// <summary>
     /// 释放资源
     /// </summary>
-    /// <exception cref="NotImplementedException"></exception>
     public void Dispose()
     {
         Dispose(true);

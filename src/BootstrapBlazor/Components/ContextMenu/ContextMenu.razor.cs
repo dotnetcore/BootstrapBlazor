@@ -9,4 +9,27 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class ContextMenu
 {
+    [CascadingParameter]
+    [NotNull]
+    private ContextMenuZone? ContextMenuZone { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        ContextMenuZone.ContextMenu = this;
+    }
+
+    /// <summary>
+    /// 弹出 ContextMenu
+    /// </summary>
+    /// <param name="contextItem"></param>
+    /// <returns></returns>
+    internal Task Show(object? contextItem)
+    {
+        return Task.CompletedTask;
+    }
 }

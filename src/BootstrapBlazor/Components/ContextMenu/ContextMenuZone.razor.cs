@@ -21,13 +21,21 @@ public partial class ContextMenuZone : BootstrapModuleComponentBase
     internal List<ContextMenuTrigger> Triggers { get; } = new();
 
     /// <summary>
+    /// 获得/设置 上下文菜单组件集合
+    /// </summary>
+    internal ContextMenu? ContextMenu { get; set; }
+
+    /// <summary>
     /// Trigger 调用
     /// </summary>
     /// <param name="contextItem"></param>
     /// <returns></returns>
-    internal Task OnContextMenu(object? contextItem)
+    internal async Task OnContextMenu(object? contextItem)
     {
         // 弹出关联菜单
-        return Task.CompletedTask;
+        if (ContextMenu != null)
+        {
+            await ContextMenu.Show(contextItem);
+        }
     }
 }
