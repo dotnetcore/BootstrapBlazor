@@ -23,7 +23,7 @@ class DefaultJSVersionService : IVersionService
     /// <returns></returns>
     public string GetVersion()
     {
-        Version ??= GetVersionImpl();
+        Version ??= ConfigVersion ?? GetVersionImpl();
         return Version;
 
         [ExcludeFromCodeCoverage]
@@ -42,10 +42,7 @@ class DefaultJSVersionService : IVersionService
                     ver = FileVersionInfo.GetVersionInfo(typeof(BootstrapComponentBase).Assembly.Location).ProductVersion;
                 }
             }
-            catch 
-            { 
-                ver = ConfigVersion;
-            }
+            catch { }
             return ver ?? "7.0.0.0";
         }
     }
