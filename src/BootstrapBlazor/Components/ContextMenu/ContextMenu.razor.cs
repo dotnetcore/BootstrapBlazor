@@ -9,9 +9,24 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class ContextMenu
 {
+    /// <summary>
+    /// 获得/设置 子组件
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     [CascadingParameter]
     [NotNull]
     private ContextMenuZone? ContextMenuZone { get; set; }
+
+    private string? ClassString => CssBuilder.Default("bb-cm")
+        .AddClass("show", IsShow)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private bool IsShow { get; set; }
+
+    private object? ContextItem { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -30,6 +45,9 @@ public partial class ContextMenu
     /// <returns></returns>
     internal Task Show(object? contextItem)
     {
+        IsShow = true;
+        ContextItem = contextItem;
+        StateHasChanged();
         return Task.CompletedTask;
     }
 }

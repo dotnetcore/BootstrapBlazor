@@ -25,6 +25,10 @@ public partial class ContextMenuZone : BootstrapModuleComponentBase
     /// </summary>
     internal ContextMenu? ContextMenu { get; set; }
 
+    private string? ClassString => CssBuilder.Default("bb-cm-zone")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
     /// <summary>
     /// Trigger 调用
     /// </summary>
