@@ -826,6 +826,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["ContextMenu"],
+                    Url = "contextmenus"
+                },
+                new()
+                {
                     Text = Localizer["Dialog"],
                     Url = "dialogs"
                 },

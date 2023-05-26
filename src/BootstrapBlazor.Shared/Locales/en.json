@@ -5053,7 +5053,8 @@
     "FileViewer": "FileViewer",
     "BaiduOcr": "IBaiduOcr",
     "AzureOpenAI": "AzureOpenAI",
-    "HtmlRenderer": "HtmlRenderer"
+    "HtmlRenderer": "HtmlRenderer",
+    "ContextMenu": "ContextMenu"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
