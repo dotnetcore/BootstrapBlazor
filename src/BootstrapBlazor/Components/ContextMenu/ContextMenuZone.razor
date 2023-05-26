@@ -2,14 +2,5 @@
 @inherits BootstrapModuleComponentBase
 
 <CascadingValue Value="this" IsFixed="true">
-    @if (string.IsNullOrEmpty(WrapperTag))
-    {
-        @ChildContent
-    }
-    else
-    {
-        <div @attributes="AdditionalAttributes" class="@ClassString" @oncontextmenu="OnContextMenu" @oncontextmenu:stopPropagation="@StopPropagation" @oncontextmenu:preventDefault="true">
-            @ChildContent
-        </div>
-    }
+    @ChildContent
 </CascadingValue>

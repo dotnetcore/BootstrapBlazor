@@ -2,9 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components.Rendering;
-using Microsoft.AspNetCore.Components.Web;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -19,23 +16,18 @@ public partial class ContextMenuZone : BootstrapModuleComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 包裹组件 TagName 默认为 div
+    /// 获得 Trigger 集合
     /// </summary>
-    [Parameter]
-    public string WrapperTag { get; set; } = "div";
+    internal List<ContextMenuTrigger> Triggers { get; } = new();
 
     /// <summary>
-    /// 获得/设置 是否停止广播 默认 true
+    /// Trigger 调用
     /// </summary>
-    [Parameter]
-    public bool StopPropagation { get; set; } = true;
-
-    private string? ClassString => CssBuilder.Default()
-        .AddClassFromAttributes(AdditionalAttributes)
-        .Build();
-
-    private Task OnContextMenu(MouseEventArgs args)
+    /// <param name="contextItem"></param>
+    /// <returns></returns>
+    internal Task OnContextMenu(object? contextItem)
     {
+        // 弹出关联菜单
         return Task.CompletedTask;
     }
 }

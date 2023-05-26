@@ -1,0 +1,6 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapModuleComponentBase
+
+<div @attributes="AdditionalAttributes" class="@ClassString" @oncontextmenu="OnClickContextMenu" @oncontextmenu:stopPropagation="@StopPropagation" @oncontextmenu:preventDefault="true">
+    @ChildContent
+</div>
