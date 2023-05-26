@@ -10,6 +10,13 @@ class DefaultJSVersionService : IVersionService
 {
     private string? Version { get; set; }
 
+    private string? ConfigVersion { get; set; }
+
+    public DefaultJSVersionService(IOptions<BootstrapBlazorOptions> options)
+    {
+        ConfigVersion = options.Value.JSModuleVersion;
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -31,10 +38,14 @@ class DefaultJSVersionService : IVersionService
                 }
                 else
                 {
+                    // 发布时选择单文件时 此代码报错
                     ver = FileVersionInfo.GetVersionInfo(typeof(BootstrapComponentBase).Assembly.Location).ProductVersion;
                 }
             }
-            catch { }
+            catch 
+            { 
+                ver = ConfigVersion;
+            }
             return ver ?? "7.0.0.0";
         }
     }
