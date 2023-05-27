@@ -28,6 +28,21 @@ public partial class ContextMenu
     private object? ContextItem { get; set; }
 
     /// <summary>
+    /// 获得/设置 自定义样式 参数 默认 null
+    /// </summary>
+    /// <remarks>由 data-bs-custom-class 实现</remarks>
+    [Parameter]
+    public string? CustomClass { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示阴影 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowShadow { get; set; } = true;
+
+    private string ZoneId => ContextMenuZone.Id;
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
@@ -40,12 +55,13 @@ public partial class ContextMenu
     /// <summary>
     /// 弹出 ContextMenu
     /// </summary>
+    /// <param name="triggerId">相关联 Tigger Id</param>
     /// <param name="args"></param>
     /// <param name="contextItem"></param>
     /// <returns></returns>
-    internal async Task Show(MouseEventArgs args, object? contextItem)
+    internal async Task Show(string triggerId, MouseEventArgs args, object? contextItem)
     {
         ContextItem = contextItem;
-        await InvokeVoidAsync("show", Id, args.ClientX, args.ClientY);
+        await InvokeVoidAsync("show", Id, triggerId, args);
     }
 }
