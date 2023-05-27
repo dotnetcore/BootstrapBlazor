@@ -16,11 +16,6 @@ public partial class ContextMenuZone : BootstrapModuleComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得 Trigger 集合
-    /// </summary>
-    internal List<ContextMenuTrigger> Triggers { get; } = new();
-
-    /// <summary>
     /// 获得/设置 上下文菜单组件集合
     /// </summary>
     internal ContextMenu? ContextMenu { get; set; }

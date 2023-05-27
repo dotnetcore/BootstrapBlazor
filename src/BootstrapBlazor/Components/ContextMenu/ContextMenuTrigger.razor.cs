@@ -2,14 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components.Web;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// ContextMenuTrigger 组件
 /// </summary>
-public partial class ContextMenuTrigger : IDisposable
+public partial class ContextMenuTrigger
 {
     /// <summary>
     /// 获得/设置 子组件
@@ -46,33 +44,13 @@ public partial class ContextMenuTrigger : IDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        ContextMenuZone.Triggers.Add(this);
-    }
-
-    private Task OnClickContextMenu() => ContextMenuZone.OnContextMenu(ContextItem);
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Interop, Id, nameof(Trigger));
 
     /// <summary>
-    /// 释放资源方法
+    /// 由 JavaScript 调用 点击 ContextMenu 菜单项时触发
     /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            ContextMenuZone.Triggers.Remove(this);
-        }
-    }
-
-    /// <summary>
-    /// 释放资源
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
+    /// <returns></returns>
+    [JSInvokable]
+    public Task Trigger() => ContextMenuZone.OnContextMenu(ContextItem);
 }

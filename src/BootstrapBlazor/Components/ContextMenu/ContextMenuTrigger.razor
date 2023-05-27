@@ -1,6 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader("ContextMenu/ContextMenuTrigger.razor.js", JSObjectReference = true)]
 
-<div @attributes="AdditionalAttributes" class="@ClassString" @oncontextmenu="OnClickContextMenu" @oncontextmenu:stopPropagation="@StopPropagation" @oncontextmenu:preventDefault="true">
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString">
     @ChildContent
 </div>
