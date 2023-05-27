@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Web;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -27,14 +29,15 @@ public partial class ContextMenuZone : BootstrapModuleComponentBase
     /// <summary>
     /// Trigger 调用
     /// </summary>
+    /// <param name="args"></param>
     /// <param name="contextItem"></param>
     /// <returns></returns>
-    internal async Task OnContextMenu(object? contextItem)
+    internal async Task OnContextMenu(MouseEventArgs args, object? contextItem)
     {
         // 弹出关联菜单
         if (ContextMenu != null)
         {
-            await ContextMenu.Show(contextItem);
+            await ContextMenu.Show(args, contextItem);
         }
     }
 }

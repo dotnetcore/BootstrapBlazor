@@ -2,12 +2,15 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Web;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// ContextMenuTrigger 组件
 /// </summary>
-public partial class ContextMenuTrigger
+public class ContextMenuTrigger : BootstrapComponentBase
 {
     /// <summary>
     /// 获得/设置 子组件
@@ -44,13 +47,19 @@ public partial class ContextMenuTrigger
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(Trigger));
+    /// <param name="builder"></param>
+    protected override void BuildRenderTree(RenderTreeBuilder builder)
+    {
+        builder.OpenElement(0, WrapperTag);
+        builder.AddMultipleAttributes(1, AdditionalAttributes);
+        builder.AddAttribute(2, "class", ClassString);
+        builder.AddAttribute(3, "oncontextmenu", EventCallback.Factory.Create<MouseEventArgs>(this, OnContextMenu));
+        builder.CloseElement();
+    }
 
     /// <summary>
-    /// 由 JavaScript 调用 点击 ContextMenu 菜单项时触发
+    /// 点击 ContextMenu 菜单项时触发
     /// </summary>
     /// <returns></returns>
-    [JSInvokable]
-    public Task Trigger() => ContextMenuZone.OnContextMenu(ContextItem);
+    public Task OnContextMenu(MouseEventArgs args) => ContextMenuZone.OnContextMenu(args, ContextItem);
 }
