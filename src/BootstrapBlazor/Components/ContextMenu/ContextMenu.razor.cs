@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Web;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -20,11 +22,8 @@ public partial class ContextMenu
     private ContextMenuZone? ContextMenuZone { get; set; }
 
     private string? ClassString => CssBuilder.Default("bb-cm")
-        .AddClass("show", IsShow)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
-
-    private bool IsShow { get; set; }
 
     private object? ContextItem { get; set; }
 
@@ -41,13 +40,12 @@ public partial class ContextMenu
     /// <summary>
     /// 弹出 ContextMenu
     /// </summary>
+    /// <param name="args"></param>
     /// <param name="contextItem"></param>
     /// <returns></returns>
-    internal Task Show(object? contextItem)
+    internal async Task Show(MouseEventArgs args, object? contextItem)
     {
-        IsShow = true;
         ContextItem = contextItem;
-        StateHasChanged();
-        return Task.CompletedTask;
+        await InvokeVoidAsync("show", Id, args.ClientX, args.ClientY);
     }
 }
