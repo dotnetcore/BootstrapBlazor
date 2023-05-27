@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapModuleComponentBase
+@inherits IdComponentBase
 
-<div @attributes="AdditionalAttributes" class="@ClassString">
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString">
     <CascadingValue Value="this" IsFixed="true">
         @ChildContent
     </CascadingValue>

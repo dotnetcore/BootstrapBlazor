@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// ContextMenuZone 组件
 /// </summary>
-public partial class ContextMenuZone : BootstrapModuleComponentBase
+public partial class ContextMenuZone
 {
     /// <summary>
     /// 获得/设置 子组件
@@ -29,15 +29,16 @@ public partial class ContextMenuZone : BootstrapModuleComponentBase
     /// <summary>
     /// Trigger 调用
     /// </summary>
+    /// <param name="triggerId">相关联 Tigger Id</param>
     /// <param name="args"></param>
     /// <param name="contextItem"></param>
     /// <returns></returns>
-    internal async Task OnContextMenu(MouseEventArgs args, object? contextItem)
+    internal async Task OnContextMenu(string triggerId, MouseEventArgs args, object? contextItem)
     {
         // 弹出关联菜单
         if (ContextMenu != null)
         {
-            await ContextMenu.Show(args, contextItem);
+            await ContextMenu.Show(triggerId, args, contextItem);
         }
     }
 }
