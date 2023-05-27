@@ -75,6 +75,11 @@ public class BootstrapBlazorOptions
     public bool? DisableAutoSubmitFormByEnter { get; set; }
 
     /// <summary>
+    /// 获得/设置 JavaScript 模块脚本版本号 默认为 null
+    /// </summary>
+    public string? JSModuleVersion { get; set; }
+
+    /// <summary>
     /// 获得/设置 网站主题集合
     /// </summary>
     public List<KeyValuePair<string, string>> Themes { get; } = new()
