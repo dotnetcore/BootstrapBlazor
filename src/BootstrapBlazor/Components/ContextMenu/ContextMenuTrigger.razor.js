@@ -7,10 +7,11 @@ export function init(id, invoker, callback) {
         return
     }
 
-    const trigger = { el, invoke, callback }
+    const trigger = { el, invoker, callback }
     Data.set(id, trigger)
 
-    EventHandler.on(el, 'oncontextmenu', e => {
+    EventHandler.on(el, 'contextmenu', e => {
+        e.preventDefault()
         console.log(e)
     })
 }
@@ -21,6 +22,6 @@ export function dispose(id) {
 
     if (trigger) {
         const el = trigger.el
-        EventHandler.off(el, 'oncontextmenu')
+        EventHandler.off(el, 'contextmenu')
     }
 }

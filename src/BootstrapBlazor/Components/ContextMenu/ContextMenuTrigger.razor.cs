@@ -45,7 +45,7 @@ public partial class ContextMenuTrigger
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Interop, Id, nameof(Trigger));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(Trigger));
 
     /// <summary>
     /// 由 JavaScript 调用 点击 ContextMenu 菜单项时触发
