@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// ContextMenuTrigger 组件
 /// </summary>
-public class ContextMenuTrigger : BootstrapComponentBase
+public class ContextMenuTrigger : IdComponentBase
 {
     /// <summary>
     /// 获得/设置 子组件
@@ -52,8 +52,11 @@ public class ContextMenuTrigger : BootstrapComponentBase
     {
         builder.OpenElement(0, WrapperTag);
         builder.AddMultipleAttributes(1, AdditionalAttributes);
-        builder.AddAttribute(2, "class", ClassString);
-        builder.AddAttribute(3, "oncontextmenu", EventCallback.Factory.Create<MouseEventArgs>(this, OnContextMenu));
+        builder.AddAttribute(2, "id", Id);
+        builder.AddAttribute(3, "class", ClassString);
+        builder.AddAttribute(4, "oncontextmenu", EventCallback.Factory.Create<MouseEventArgs>(this, OnContextMenu));
+        builder.AddEventPreventDefaultAttribute(5, "oncontextmenu", true);
+        builder.AddContent(6, ChildContent);
         builder.CloseElement();
     }
 
@@ -61,5 +64,5 @@ public class ContextMenuTrigger : BootstrapComponentBase
     /// 点击 ContextMenu 菜单项时触发
     /// </summary>
     /// <returns></returns>
-    public Task OnContextMenu(MouseEventArgs args) => ContextMenuZone.OnContextMenu(args, ContextItem);
+    public Task OnContextMenu(MouseEventArgs args) => ContextMenuZone.OnContextMenu(Id, args, ContextItem);
 }
