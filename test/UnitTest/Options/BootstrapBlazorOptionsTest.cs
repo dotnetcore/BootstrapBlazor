@@ -13,6 +13,7 @@ public class BootstrapBlazorOptionsTest
         {
             EnableErrorLogger = true,
             EnableFallbackCulture = true,
+            JSModuleVersion = "1.0",
             TableSettings = new()
         };
         Assert.NotNull(options.GetSupportedCultures());
