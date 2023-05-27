@@ -2,6 +2,7 @@
     position: absolute;
     display: none;
     z-index: 10;
+    background-color: #fff;
 }
 
     .bb-cm.show {
