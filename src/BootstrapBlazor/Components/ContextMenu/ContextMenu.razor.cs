@@ -64,4 +64,10 @@ public partial class ContextMenu
         ContextItem = contextItem;
         await InvokeVoidAsync("show", Id, args);
     }
+
+    /// <summary>
+    /// 获取 ContextItem 值
+    /// </summary>
+    /// <returns></returns>
+    internal object? GetContextItem() => ContextItem;
 }

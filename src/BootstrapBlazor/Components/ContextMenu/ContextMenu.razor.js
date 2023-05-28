@@ -1,6 +1,17 @@
 ﻿import Data from "../../modules/data.js?v=$version"
 import EventHandler from "../../modules/event-handler.js?v=$version"
 
+const hide = menu => {
+    const zoneId = menu.getAttribute('data-bb-zone-id')
+    if (zoneId) {
+        const zone = document.getElementById(zoneId)
+        if (zone) {
+            menu.classList.remove('show')
+            zone.appendChild(menu)
+        }
+    }
+}
+
 export function init(id) {
     const el = document.getElementById(id)
     const cm = {
@@ -15,21 +26,17 @@ export function init(id) {
             window.bb.cancelContextMenuHandler = e => {
                 const menu = document.querySelector('.bb-cm.show')
                 if (menu) {
-                    const zoneId = menu.getAttribute('data-bb-zone-id')
-                    if (zoneId) {
-                        const zone = document.getElementById(zoneId)
-                        if (zone) {
-                            menu.classList.remove('show')
-                            zone.appendChild(menu)
-                        }
-                    }
+                    hide(menu)
                 }
             }
             EventHandler.on(document, 'click', window.bb.cancelContextMenuHandler)
+            EventHandler.on(document, 'contextmenu', window.bb.cancelContextMenuHandler)
         }
 
         window.bb.contextMenus.push(el)
-        EventHandler.on(el, 'click', e => e.stopPropagation())
+        EventHandler.on(el, 'click', e => {
+            hide(el)
+        })
     }
 }
 
@@ -57,6 +64,7 @@ export function dispose(id) {
         if (window.bb.contextMenus.length === 0) {
             if (window.bb.cancelContextMenuHandler) {
                 EventHandler.off(document, 'click', window.bb.cancelContextMenuHandler)
+                EventHandler.off(document, 'contextmenu', window.bb.cancelContextMenuHandler)
             }
         }
     }
