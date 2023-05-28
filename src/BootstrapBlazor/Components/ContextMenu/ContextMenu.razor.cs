@@ -55,13 +55,12 @@ public partial class ContextMenu
     /// <summary>
     /// 弹出 ContextMenu
     /// </summary>
-    /// <param name="triggerId">相关联 Tigger Id</param>
     /// <param name="args"></param>
     /// <param name="contextItem"></param>
     /// <returns></returns>
-    internal async Task Show(string triggerId, MouseEventArgs args, object? contextItem)
+    internal async Task Show(MouseEventArgs args, object? contextItem)
     {
         ContextItem = contextItem;
-        await InvokeVoidAsync("show", Id, triggerId, args);
+        await InvokeVoidAsync("show", Id, args);
     }
 }

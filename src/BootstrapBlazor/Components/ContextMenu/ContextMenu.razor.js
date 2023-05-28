@@ -33,18 +33,15 @@ export function init(id) {
     }
 }
 
-export function show(id, triggerId, event) {
-    const trigger = document.getElementById(triggerId)
-    if (trigger) {
-        const menu = document.getElementById(id)
-        menu.style.top = `${event.clientY}px`
-        menu.style.left = `${event.clientX}px`
+export function show(id, event) {
+    const menu = document.getElementById(id)
+    menu.style.top = `${event.clientY}px`
+    menu.style.left = `${event.clientX}px`
 
-        const body = document.body
-        body.appendChild(menu)
+    const body = document.body
+    body.appendChild(menu)
 
-        menu.classList.add('show')
-    }
+    menu.classList.add('show')
 }
 
 export function dispose(id) {
