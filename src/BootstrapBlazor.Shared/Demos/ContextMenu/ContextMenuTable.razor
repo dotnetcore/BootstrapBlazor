@@ -9,8 +9,8 @@
         </TableColumns>
     </Table>
     <ContextMenu>
-        <div class="dropdown-item"><i class="fa-solid fa-copy"></i><span>拷贝</span></div>
-        <div class="dropdown-item"><i class="fa-solid fa-paste"></i><span>粘贴</span></div>
+        <ContextMenuItem Text="拷贝" OnClick="OnCopy"></ContextMenuItem>
+        <ContextMenuItem Icon="fa-solid fa-paste" Text="粘贴" OnClick="OnPaste"></ContextMenuItem>
     </ContextMenu>
 </ContextMenuZone>
 
@@ -24,5 +24,15 @@
     protected override void OnInitialized()
     {
         Items = Foo.GenerateFoo(Localizer);
+    }
+
+    private Task OnCopy(ContextMenuItem item, object value)
+    {
+        return Task.CompletedTask;
+    }
+
+    private Task OnPaste(ContextMenuItem item, object value)
+    {
+        return Task.CompletedTask;
     }
 }
