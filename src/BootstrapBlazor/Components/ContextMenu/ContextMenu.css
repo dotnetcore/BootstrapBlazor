@@ -1,5 +1,5 @@
 ﻿.bb-cm {
-    position: absolute;
+    position: fixed;
     display: none;
     z-index: 10;
     background-color: #fff;
