@@ -3,5 +3,7 @@
 @attribute [BootstrapModuleAutoLoader]
 
 <div @attributes="AdditionalAttributes" id="@Id" class="@ClassString" data-bb-zone-id="@ZoneId">
-    @ChildContent
+    <CascadingValue Value="ContextItem">
+        @ChildContent
+    </CascadingValue>
 </div>
