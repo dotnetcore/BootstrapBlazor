@@ -21,7 +21,8 @@ public partial class ContextMenu
     [NotNull]
     private ContextMenuZone? ContextMenuZone { get; set; }
 
-    private string? ClassString => CssBuilder.Default("bb-cm")
+    private string? ClassString => CssBuilder.Default("bb-cm dropdown-menu")
+        .AddClass("shadow", ShowShadow)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
