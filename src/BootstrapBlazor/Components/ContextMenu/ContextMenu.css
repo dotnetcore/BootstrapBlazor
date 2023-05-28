@@ -8,3 +8,13 @@
     .bb-cm.show {
         display: block;
     }
+
+    .bb-cm .cm-icon {
+        min-width: 14px;
+        min-height: 14px;
+        display: inline-block;
+    }
+
+    .bb-cm .dropdown-item {
+        --bs-dropdown-item-padding-x: 12px;
+    }
