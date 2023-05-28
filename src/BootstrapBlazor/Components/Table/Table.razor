@@ -196,7 +196,7 @@
                 foreach (var item in Rows)
                 {
 					OnBeforeRenderRow?.Invoke(item);
-					<DynamicElement class="@GetRowClassString(item, "table-row")"
+					<DynamicElement class="@GetRowClassString(item, "table-row")" OnContextMenu="e => OnContextMenu(e, item)"
                                     TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="() => ClickRow(item)">
                         @if (IsMultipleSelect)
                         {
@@ -584,7 +584,7 @@
     </thead>;
 
     RenderFragment<TItem> RenderRow => item =>
-    @<DynamicElement TagName="tr" class="@GetRowClassString(item)"
+    @<DynamicElement TagName="tr" class="@GetRowClassString(item)" OnContextMenu="e => OnContextMenu(e, item)"
                      TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="() => ClickRow(item)"
                      TriggerDoubleClick="@(DoubleClickToEdit || OnDoubleClickRowCallback != null)" OnDoubleClick="() => DoubleClickRow(item)">
         @if (ShowDetails())
