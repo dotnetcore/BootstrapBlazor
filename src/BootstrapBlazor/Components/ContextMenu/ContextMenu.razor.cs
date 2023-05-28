@@ -49,7 +49,7 @@ public partial class ContextMenu
     {
         base.OnInitialized();
 
-        ContextMenuZone.ContextMenu = this;
+        ContextMenuZone.RegisterContextMenu(this);
     }
 
     /// <summary>

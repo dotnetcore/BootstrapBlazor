@@ -20,7 +20,7 @@ public partial class ContextMenuZone
     /// <summary>
     /// 获得/设置 上下文菜单组件集合
     /// </summary>
-    internal ContextMenu? ContextMenu { get; set; }
+    private ContextMenu? ContextMenu { get; set; }
 
     private string? ClassString => CssBuilder.Default("bb-cm-zone")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -40,4 +40,10 @@ public partial class ContextMenuZone
             await ContextMenu.Show(args, contextItem);
         }
     }
+
+    /// <summary>
+    /// ContextMenu 组件调用
+    /// </summary>
+    /// <param name="contextMenu"></param>
+    internal void RegisterContextMenu(ContextMenu contextMenu) => ContextMenu = contextMenu;
 }
