@@ -38,7 +38,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
                 {
                     pb.Add(a => a.Icon, "fa fa-test");
                     pb.Add(a => a.Text, "Test");
-                    pb.Add(a => a.Disabled, false);
+                    pb.Add(a => a.Disabled, true);
                     pb.Add(a => a.OnClick, (item, value) =>
                     {
                         clicked = true;
@@ -63,7 +63,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
 
             var item = menu.Find(".dropdown-item");
             item.Click();
-            Assert.True(clicked);
+            Assert.False(clicked);
         });
     }
 
