@@ -29,13 +29,6 @@ public partial class ContextMenu
     private object? ContextItem { get; set; }
 
     /// <summary>
-    /// 获得/设置 自定义样式 参数 默认 null
-    /// </summary>
-    /// <remarks>由 data-bs-custom-class 实现</remarks>
-    [Parameter]
-    public string? CustomClass { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否显示阴影 默认 true
     /// </summary>
     [Parameter]
