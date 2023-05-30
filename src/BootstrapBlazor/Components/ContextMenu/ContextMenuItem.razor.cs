@@ -34,6 +34,7 @@ public partial class ContextMenuItem
     public Func<ContextMenuItem, object?, Task>? OnClick { get; set; }
 
     [CascadingParameter]
+    [NotNull]
     private ContextMenu? ContextMenu { get; set; }
 
     private string? ClassString => CssBuilder.Default("dropdown-item")
@@ -48,7 +49,7 @@ public partial class ContextMenuItem
     {
         if (!Disabled && OnClick != null)
         {
-            await OnClick(this, ContextMenu?.GetContextItem());
+            await OnClick(this, ContextMenu.GetContextItem());
         }
     }
 }
