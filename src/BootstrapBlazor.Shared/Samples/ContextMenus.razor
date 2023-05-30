@@ -1,0 +1,12 @@
+﻿@page "/contextmenus"
+@inject IStringLocalizer<ContextMenus> Localizer
+
+<h3>@Localizer["ContextMenuTitle"]</h3>
+
+<h4>@Localizer["ContextMenuDescription"]</h4>
+
+<DemoBlock Title="@Localizer["ContextMenuNormalTitle"]" Introduction="@Localizer["ContextMenuNormalIntro"]" Name="Normal" Demo="typeof(Demos.ContextMenu.ContextMenuNormal)" />
+
+<DemoBlock Title="@Localizer["ContextMenuTableTitle"]" Introduction="@Localizer["ContextMenuTableIntro"]" Name="Normal" Demo="typeof(Demos.ContextMenu.ContextMenuTable)" />
+
+<DemoBlock Title="@Localizer["ContextMenuTreeTitle"]" Introduction="@Localizer["ContextMenuTreeIntro"]" Name="Normal" Demo="typeof(Demos.ContextMenu.ContextMenuTree)" />

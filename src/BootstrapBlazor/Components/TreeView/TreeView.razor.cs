@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -172,6 +173,10 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// </summary>
     [Parameter]
     public string? ExpandNodeIcon { get; set; }
+
+    [CascadingParameter]
+    [NotNull]
+    private ContextMenuZone? ContextMenuZone { get; set; }
 
     [NotNull]
     private string? NotSetOnTreeExpandErrorMessage { get; set; }
@@ -436,4 +441,14 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <param name="y"></param>
     /// <returns></returns>
     public bool Equals(TItem? x, TItem? y) => this.Equals<TItem>(x, y);
+
+    private async Task OnContextMenu(MouseEventArgs e, TreeViewItem<TItem> item)
+    {
+        if (ContextMenuZone != null)
+        {
+            await ContextMenuZone.OnContextMenu(e, item.Value);
+        }
+    }
+
+    private bool IsPreventDefault => ContextMenuZone != null;
 }

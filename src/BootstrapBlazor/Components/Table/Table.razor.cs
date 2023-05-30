@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using System.Globalization;
 
@@ -534,6 +535,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     [Parameter]
     public Func<TItem, TItem, bool>? ModelEqualityComparer { get; set; }
+
+    [CascadingParameter]
+    [NotNull]
+    private ContextMenuZone? ContextMenuZone { get; set; }
 
     [Inject]
     [NotNull]
@@ -1168,6 +1173,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (ItemsChanged.HasDelegate)
         {
             await ItemsChanged.InvokeAsync(Rows);
+        }
+    }
+
+    private async Task OnContextMenu(MouseEventArgs e, TItem item)
+    {
+        if(ContextMenuZone != null)
+        {
+            await ContextMenuZone.OnContextMenu(e, item);
         }
     }
 

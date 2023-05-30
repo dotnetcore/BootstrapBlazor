@@ -31,9 +31,10 @@ export function init(id) {
 }
 
 export function dispose(id) {
-    const anchorLink = Data.get(id) || {}
+    const anchorLink = Data.get(id)
+    Data.remove(id)
 
-    if (anchorLink.element) {
+    if (anchorLink) {
         EventHandler.off(anchorLink.element, 'click')
 
         if (anchorLink.handler) {

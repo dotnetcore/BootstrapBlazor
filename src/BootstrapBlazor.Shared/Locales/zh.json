@@ -5065,7 +5065,8 @@
     "FileViewer": "文件预览器 FileViewer",
     "BaiduOcr": "文字识别服务 IBaiduOcr",
     "AzureOpenAI": "AI 聊天服务 AzureOpenAI",
-    "HtmlRenderers": "Html 转换器  HtmlRenderer"
+    "HtmlRenderers": "Html 转换器  HtmlRenderer",
+    "ContextMenu": "右键菜单 ContextMenu"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6276,5 +6277,15 @@
     "SubTitle": "把组件渲染成 Html 字符串",
     "BaseUsageText": "基础用法",
     "IntroText": "有些应用场景需要我们获得 <code>Component</code> 最终输出的 <code>Html</code> 代码片段，调用 <code>IComponentHtmlRenderer</code> 服务的 <code>RenderAsync</code> 实例方法即可"
+  },
+  "BootstrapBlazor.Shared.Samples.ContextMenus": {
+    "ContextMenuTitle": "ContextMenu 右键菜单",
+    "ContextMenuDescription": "用户点击鼠标右键时弹出的上下文关联菜单",
+    "ContextMenuNormalTitle": "基础用法",
+    "ContextMenuNormalIntro": "点击 <code>ContextMenuZone</code> 内区域右键，弹出上下文关联菜单",
+    "ContextMenuTableTitle": "Table 组件",
+    "ContextMenuTableIntro": "点击 <code>Table</code> 组件行数据右键，弹出上下文关联菜单",
+    "ContextMenuTreeTitle": "Tree 组件",
+    "ContextMenuTreeIntro": "点击 <code>Tree</code> 组件行数据右键，弹出上下文关联菜单"
   }
 }

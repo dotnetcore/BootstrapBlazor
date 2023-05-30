@@ -2004,7 +2004,7 @@ public class TableTest : TableTestBase
                     {
                         // 选择 true 的行是不禁用 否则都禁用
                         // 返回 true 禁用 返回 false 不禁用
-                        var ret = items.Any() && items.Where(i => i.Complete).Count() > 0;
+                        var ret = items.Any() && items.Where(i => i.Complete).Any();
                         return !ret;
                     }));
                     builder.CloseComponent();
@@ -2013,7 +2013,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(9, nameof(TableToolbarPopconfirmButton<Foo>.Text), "test-confirm");
                     builder.AddAttribute(11, nameof(TableToolbarPopconfirmButton<Foo>.IsDisabledCallback), new Func<IEnumerable<Foo>, bool>(items =>
                     {
-                        var ret = items.Any() && items.Where(i => !i.Complete).Count() > 0;
+                        var ret = items.Any() && items.Where(i => !i.Complete).Any();
                         return !ret;
                     }));
                     builder.CloseComponent();
