@@ -10,31 +10,25 @@ namespace BootstrapBlazor.Components;
 public partial class ContextMenuItem
 {
     /// <summary>
-    /// 
+    /// 获得/设置 显示文本
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
 
     /// <summary>
-    /// 
-    /// </summary>
-    [Parameter]
-    public string? Value { get; set; }
-
-    /// <summary>
-    /// 
+    /// 获得/设置 图标
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 是否被禁用 默认 false
     /// </summary>
     [Parameter]
     public bool Disabled { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 点击回调方法 默认 null
     /// </summary>
     [Parameter]
     public Func<ContextMenuItem, object?, Task>? OnClick { get; set; }
@@ -52,7 +46,7 @@ public partial class ContextMenuItem
 
     private async Task OnClickItem()
     {
-        if (OnClick != null)
+        if (!Disabled && OnClick != null)
         {
             await OnClick(this, ContextMenu?.GetContextItem());
         }
