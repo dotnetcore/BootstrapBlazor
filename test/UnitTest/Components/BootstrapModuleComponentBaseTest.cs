@@ -43,7 +43,7 @@ public class BootstrapModuleComponentBaseTest : BootstrapBlazorTestBase
     }
 
     [JSModuleAutoLoader("mock.js", JSObjectReference = true, AutoInvokeDispose = true, AutoInvokeInit = true)]
-    class MockObjectReferenceComponent : BootstrapModuleComponentBase
+    class MockObjectReferenceComponent : Select<string>
     {
         public bool InvokeRunner { get; set; }
 
