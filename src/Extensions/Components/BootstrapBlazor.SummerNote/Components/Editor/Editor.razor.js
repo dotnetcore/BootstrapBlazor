@@ -1,9 +1,9 @@
 ﻿import '../../js/summernote-bs5.min.js'
-import { addLink } from '../../../BootstrapBlazor/modules/utility.js'
+import { addLink, addScript } from '../../../BootstrapBlazor/modules/utility.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
 import EventHandler from '../../../BootstrapBlazor/modules/event-handler.js'
 
-export async function init(id, invoker, methodGetPluginAttrs, methodClickPluginItem, height, value, lang) {
+export async function init(id, invoker, methodGetPluginAttrs, methodClickPluginItem, height, value, lang, langUrl) {
     const el = document.getElementById(id)
     if (el === null) {
         return
@@ -15,23 +15,13 @@ export async function init(id, invoker, methodGetPluginAttrs, methodClickPluginI
 
     editor.editorElement = el.querySelector('.editor-body')
 
-    const initEditor = () => {
-        let option = { focus: true, dialogsInBody: true, height, lang }
+    const initEditor = async () => {
+        let option = { focus: true, dialogsInBody: true, height, lang, langUrl }
         if (value !== '') {
             option.value = value
         }
 
-        setLang()
-
-        if ($.summernote.lang[option.lang] === undefined) {
-            option.lang = 'en-US'
-        }
-        if ($.summernote.lang[option.lang].bb_editor === undefined) {
-            $.summernote.lang[option.lang].bb_editor = {
-                tooltip: "Click to edit",
-                submit: "submit"
-            }
-        }
+        await setLang(option)
 
         const editorLangConfig = $.summernote.lang[option.lang].bb_editor
 
@@ -204,7 +194,21 @@ const disposeEditor = editor => {
     }
 }
 
-const setLang = () => {
+const setLang = async option => {
+    if (option.langUrl) {
+        await addScript(option.langUrl)
+    }
+
+    if ($.summernote.lang[option.lang] === undefined) {
+        option.lang = 'en-US'
+    }
+    if ($.summernote.lang[option.lang].bb_editor === undefined) {
+        $.summernote.lang[option.lang].bb_editor = {
+            tooltip: "Click to edit",
+            submit: "submit"
+        }
+    }
+
     $.summernote.lang["zh-CN"] = {
         font: {
             bold: "粗体",

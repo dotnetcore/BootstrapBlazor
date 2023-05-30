@@ -79,9 +79,10 @@ public abstract class BootstrapModuleComponentBase : IdComponentBase, IAsyncDisp
         var inherited = type.GetCustomAttribute<JSModuleNotInheritedAttribute>() == null;
         if (inherited)
         {
-            var attr = type.GetCustomAttribute<JSModuleAutoLoaderAttribute>();
-            if (attr != null)
+            var attrs = type.GetCustomAttributes<JSModuleAutoLoaderAttribute>();
+            if (attrs != null && attrs.Any())
             {
+                var attr = attrs.First();
                 AutoInvokeDispose = attr.AutoInvokeDispose;
                 AutoInvokeInit = attr.AutoInvokeInit;
 

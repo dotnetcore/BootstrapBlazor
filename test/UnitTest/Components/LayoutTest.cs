@@ -134,7 +134,7 @@ public class LayoutTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Layout>(pb =>
         {
-            pb.Add(a => a.UseTabSet, true);
+            pb.Add(a => a.UseTabSet, false);
             pb.Add(a => a.Main, CreateMain());
             pb.Add(a => a.ExcludeUrls, new String[] { "/Index" });
             pb.Add(a => a.TabDefaultUrl, "/Index");
@@ -142,11 +142,16 @@ public class LayoutTest : BootstrapBlazorTestBase
             pb.Add(a => a.NotFoundTabText, "Test");
             pb.Add(a => a.NotAuthorized, (RenderFragment?)null);
             pb.Add(a => a.NotFound, (RenderFragment?)null);
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
         });
+        Assert.DoesNotContain("tabs", cut.Markup);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.UseTabSet, true));
         Assert.Contains("tabs", cut.Markup);
 
-        cut.SetParametersAndRender(pb => pb.Add(a => a.UseTabSet, false));
-        Assert.DoesNotContain("tabs", cut.Markup);
+        var nav = cut.Services.GetRequiredService<NavigationManager>();
+        nav.NavigateTo("/Cat");
+        cut.Contains(">Cat<");
     }
 
     [Fact]
@@ -179,12 +184,20 @@ public class LayoutTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
-        cut.Find("li").Click();
-        Assert.True(collapsed);
+
+        cut.InvokeAsync(() =>
+        {
+            cut.Find("li").Click();
+            Assert.True(collapsed);
+        });
 
         cut.Instance.SetCollapsed(700);
-        cut.Find("li").Click();
-        Assert.True(collapsed);
+
+        cut.InvokeAsync(() =>
+        {
+            cut.Find("li").Click();
+            Assert.True(collapsed);
+        });
     }
 
     [Fact]
@@ -193,6 +206,7 @@ public class LayoutTest : BootstrapBlazorTestBase
         var navMan = Context.Services.GetRequiredService<FakeNavigationManager>();
         var cut = Context.RenderComponent<Layout>(pb =>
         {
+            pb.Add(a => a.Resource, null);
             pb.Add(a => a.NotAuthorizeUrl, "/Test");
             pb.Add(a => a.OnAuthorizing, url =>
             {

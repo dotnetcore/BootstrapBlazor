@@ -154,9 +154,12 @@ public class ListViewTest : BootstrapBlazorTestBase
         var collapse = cut.FindComponent<Collapse>();
         Assert.NotNull(collapse);
 
-        var item = cut.Find(".listview-item");
-        cut.InvokeAsync(() => item.Click());
-        Assert.True(clicked);
+        cut.InvokeAsync(() =>
+        {
+            var item = cut.Find(".listview-item");
+            item.Click();
+            Assert.True(clicked);
+        });
     }
 
     [Fact]

@@ -224,6 +224,9 @@ public partial class Tab : IHandlerException
     [Parameter]
     public string? CloseIcon { get; set; }
 
+    [CascadingParameter]
+    private Layout? Layout { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Tab>? Localizer { get; set; }
@@ -578,6 +581,10 @@ public partial class Tab : IHandlerException
                 builder.AddAttribute(1, nameof(BootstrapBlazorAuthorizeView.Type), context.Handler);
                 builder.AddAttribute(2, nameof(BootstrapBlazorAuthorizeView.Parameters), context.Parameters);
                 builder.AddAttribute(3, nameof(BootstrapBlazorAuthorizeView.NotAuthorized), NotAuthorized);
+                if (Layout != null)
+                {
+                    builder.AddAttribute(4, nameof(BootstrapBlazorAuthorizeView.Resource), Layout.Resource);
+                }
                 builder.CloseComponent();
             }));
         }
