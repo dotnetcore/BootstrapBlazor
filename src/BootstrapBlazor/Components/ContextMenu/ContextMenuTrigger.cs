@@ -25,12 +25,6 @@ public class ContextMenuTrigger : BootstrapComponentBase
     public string WrapperTag { get; set; } = "div";
 
     /// <summary>
-    /// 获得/设置 是否停止广播 默认 true
-    /// </summary>
-    [Parameter]
-    public bool StopPropagation { get; set; } = true;
-
-    /// <summary>
     /// 获得/设置 上下文数据
     /// </summary>
     [Parameter]
