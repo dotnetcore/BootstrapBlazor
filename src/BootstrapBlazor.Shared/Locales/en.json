@@ -6269,6 +6269,10 @@
     "ContextMenuTitle": "ContextMenu",
     "ContextMenuDescription": "Context menu that pops up when the user clicks the right mouse button",
     "ContextMenuNormalTitle": "Table",
-    "ContextMenuNormalIntro": "Right click on the row of <code>Table</code> to pop up a context menu"
+    "ContextMenuNormalIntro": "Right click on the row of <code>Table</code> to pop up a context menu",
+    "ContextMenuTableTitle": "Table",
+    "ContextMenuTableIntro": "Right click on the <code>Table</code> to pop up a context menu",
+    "ContextMenuTreeTitle": "Tree",
+    "ContextMenuTreeIntro": "Right click on the <code>Tree</code> to pop up a context menu"
   }
 }
