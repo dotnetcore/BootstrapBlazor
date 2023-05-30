@@ -1,7 +1,7 @@
 ﻿@inject IStringLocalizer<Foo> Localizer
 
 <ContextMenuZone>
-    <Tree Items="@Items" />
+    <TreeView TItem="TreeFoo" Items="@Items" />
     <ContextMenu>
         <ContextMenuItem Text="拷贝" OnClick="OnCopy"></ContextMenuItem>
         <ContextMenuItem Icon="fa-solid fa-paste" Text="粘贴" OnClick="OnPaste"></ContextMenuItem>
@@ -9,7 +9,7 @@
 </ContextMenuZone>
 
 @code {
-    private List<TreeItem> Items { get; set; } = TreeDataFoo.GetTreeItems();
+    private List<TreeViewItem<TreeFoo>> Items { get; set; } = TreeFoo.GetTreeItems();
 
     private Task OnCopy(ContextMenuItem item, object value)
     {
