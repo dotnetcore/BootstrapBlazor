@@ -38,8 +38,15 @@ class DefaultJSVersionService : IVersionService
                 }
                 else
                 {
-                    // 发布时选择单文件时 此代码报错
-                    ver = FileVersionInfo.GetVersionInfo(typeof(BootstrapComponentBase).Assembly.Location).ProductVersion;
+                    if (string.IsNullOrEmpty(typeof(BootstrapComponentBase).Assembly.Location))
+                    {
+                        // 发布单文件
+                        ver = typeof(BootstrapComponentBase).Assembly.GetName().Version?.ToString();
+                    }
+                    else
+                    {
+                        ver = FileVersionInfo.GetVersionInfo(typeof(BootstrapComponentBase).Assembly.Location).ProductVersion;
+                    }
                 }
             }
             catch { }
