@@ -11,7 +11,7 @@
   },
   "BootstrapBlazor.Components.Camera": {
     "DeviceLabel": "Camera",
-    "InitDevicesString": "Initialzie ...",
+    "InitDevicesString": "Initializing ...",
     "PlayText": "Open",
     "StopText": "Close",
     "PhotoText": "Photo",
