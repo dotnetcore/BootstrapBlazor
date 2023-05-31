@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Frame 组件封装 Html iframe 元素
 /// </summary>
-public partial class Frame
+public partial class IFrame
 {
     /// <summary>
     /// 获得/设置 Frame 加载网页路径
