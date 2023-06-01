@@ -4,7 +4,12 @@ export function init(id) {
     const el = document.getElementById(id)
     if (el) {
         const tip = {
-            tooltip: new bootstrap.Tooltip(el, { sanitize: el.getAttribute('data-bs-sanitize') !== 'false', title: el.getAttribute('data-bs-original-title') })
+            tooltip: new bootstrap.Tooltip(el, {
+                sanitize: el.getAttribute('data-bs-sanitize') !== 'false',
+                title: () => {
+                    return el.getAttribute('data-bs-original-title')
+                }
+            })
         }
         Data.set(id, tip)
     }

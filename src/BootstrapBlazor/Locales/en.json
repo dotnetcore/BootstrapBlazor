@@ -5,17 +5,17 @@
   },
   "BootstrapBlazor.Components.Captcha": {
     "HeaderText": "Captcha",
-    "BarText": "Slide right to fill puzzle",
-    "FailedText": "Load failed",
+    "BarText": "Slide to the right to solve puzzle",
+    "FailedText": "Failed to load",
     "LoadText": "Loading ..."
   },
   "BootstrapBlazor.Components.Camera": {
     "DeviceLabel": "Camera",
-    "InitDevicesString": "Initialzie ...",
+    "InitDevicesString": "Initializing ...",
     "PlayText": "Open",
     "StopText": "Close",
     "PhotoText": "Photo",
-    "NotFoundDevicesString": "Not found video device"
+    "NotFoundDevicesString": "Video device not found"
   },
   "BootstrapBlazor.Components.Calendar": {
     "PreviousYear": "Previous Year",
@@ -63,7 +63,7 @@
     "Months": "January,February,March,April,May,June,July,August,September,October,November,December",
     "MonthLists": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
     "WeekLists": "Sun,Mon,Tue,Wed,Thu,Fri,Sat",
-    "GenericTypeErroMessage": "DateTimePicker only support DateTime or Nullable<DateTime>",
+    "GenericTypeErroMessage": "DateTimePicker only supports DateTime or Nullable<DateTime>",
     "Today": "Today",
     "Yesterday": "Yesterday",
     "Week": "A week ago"
@@ -96,7 +96,7 @@
     "PlaceHolder": "Click to edit"
   },
   "BootstrapBlazor.Components.EditorForm": {
-    "ModelInvalidOperationExceptionMessage": "ValidateForm MODEL not match {0} MODEL",
+    "ModelInvalidOperationExceptionMessage": "ValidateForm MODEL does not match {0} MODEL",
     "PlaceHolderText": "Please input ..."
   },
   "BootstrapBlazor.Components.Empty": {
@@ -198,7 +198,7 @@
     "SearchPlaceholderText": "Search",
     "SearchButtonText": "Search",
     "ResetSearchButtonText": "Reset",
-    "AdvanceButtonText": "Advance Search",
+    "AdvanceButtonText": "Advanced Search",
     "CheckboxDisplayText": "All",
     "EditModalTitle": "Edit",
     "AddModalTitle": "New",
@@ -230,7 +230,7 @@
     "EmptyText": "No Data",
     "ExportToastTitle": "Export",
     "ExportToastContent": "Export data {0}, auto close after {1}s",
-    "ExportToastInProgressContent": "Exporting data, please waiting a moment, auto close after {0}s",
+    "ExportToastInProgressContent": "Exporting data, please wait a moment, auto close after {0}s",
     "ExportExcelDropdownItemText": "MS-Excel",
     "PageInfoText": "{0} - {1} Total {2}",
     "PageItemsText": "{0}/page",
@@ -256,7 +256,7 @@
     "Contains": "Contains",
     "NotContains": "NotContains",
     "EnumFilter.AllText": "All",
-    "NotSupportedMessage": "Not supported filter type, Please custom filter use FilterTemplate"
+    "NotSupportedMessage": "Unsupported filter type, Please customize the filter use FilterTemplate"
   },
   "BootstrapBlazor.Components.FilterLogicItem": {
     "And": "And",
@@ -295,7 +295,7 @@
     "DeleteButtonText": "Delete",
     "BrowserButtonText": "Browser",
     "FileExtensions": "File must have one of the following extensions: {0}",
-    "FileSizeValidation": "File size must less {0}"
+    "FileSizeValidation": "File size must less than {0}"
   },
   "BootstrapBlazor.Components.Handwritten": {
     "SaveButtonText": "Save",
