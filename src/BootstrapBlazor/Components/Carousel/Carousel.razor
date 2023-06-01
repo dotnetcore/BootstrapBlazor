@@ -9,12 +9,12 @@
     <RenderTemplate>
         @if (ShowIndicators)
         {
-            <ol class="carousel-indicators">
+            <div class="carousel-indicators">
                 @for (var index = 0; index < Items.Count; index++)
                 {
-                    <li data-bs-slide-to="@index" class="@CheckActive(index)" data-bs-target="@TargetId"></li>
+                    <button data-bs-slide-to="@index" class="@CheckActive(index)" data-bs-target="@TargetId"></button>
                 }
-            </ol>
+            </div>
         }
         <div class="carousel-inner">
             @for (var index = 0; index < Items.Count; index++)

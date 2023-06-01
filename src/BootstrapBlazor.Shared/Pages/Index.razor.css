@@ -29,7 +29,7 @@
             right: 0;
         }
 
-        .welcome ::deep .carousel .carousel-indicators li {
+        .welcome ::deep .carousel .carousel-indicators [data-bs-target] {
             background-color: #607D8B;
         }
 
