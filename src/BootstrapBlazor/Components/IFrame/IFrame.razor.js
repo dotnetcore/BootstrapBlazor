@@ -2,7 +2,7 @@
 
 export function init(id, invoker, callback) {
     const handler = e => {
-        invoke.invokeMethodAsync(callback, e.data)
+        invoker.invokeMethodAsync(callback, e.data)
     }
     Data.set(id, handler)
 

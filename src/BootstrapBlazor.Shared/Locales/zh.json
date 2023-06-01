@@ -50,7 +50,7 @@
     "ContainerH3": "简单易用",
     "ContainerD3": "轻松掌握组件使用方法，快速将 BootstrapBlazor 控件融入到项目中",
     "ContainerH4": "免费开源",
-    "ContainerD4": "简单、直接、免费使用、无依赖组件，依赖 jQuery Bootstrap 均已内置",
+    "ContainerD4": "简单、直接、免费使用、无依赖组件，依赖 Bootstrap 均已内置",
     "ContainerH5": "演示与示例",
     "ContainerD5": "详细文档与在线演示，功能设置简单，直接拷贝代码开箱即用",
     "ContainerH6": "持续更新",
@@ -5906,7 +5906,7 @@
   "BootstrapBlazor.Shared.Pages.Introduction": {
     "Title": "简介",
     "P1": "BootstrapBlazor 是一套基于 Bootstrap 和 Blazor 的企业级组件库，可以认为是 Bootstrap 项目的 Blazor 版实现。",
-    "P2": "依赖关系为：BootstrapBlazor > Bootstrap > jQuery",
+    "P2": "依赖关系为：BootstrapBlazor > Bootstrap",
     "P3": "最新 <a href='template' target='_blank'>项目模板</a> 中将以上依赖进行了打包捆绑大大简化使用",
     "UpdateTitle": "更新日志",
     "UpdateLog": "为了修复组件 <code>bug</code> 每天可能有小版本发布，每个月第二个 <b><code>周四</code></b> 发布 <b><code>正式版</code></b> 更新日志",
