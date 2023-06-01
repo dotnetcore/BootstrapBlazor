@@ -50,7 +50,7 @@
     "ContainerH3": "Easy to use",
     "ContainerD3": "Easily grasp how to use components and quickly incorporate BootstrapBlazor controls into the project",
     "ContainerH4": "Free and open source",
-    "ContainerD4": "Simple, direct, free to use, no dependent components, dependent on jQuery Bootstrap are all built-in",
+    "ContainerD4": "Simple, direct, free to use, no dependent components, dependent on Bootstrap are all built-in",
     "ContainerH5": "Demos and examples",
     "ContainerD5": "Detailed documentation and online demonstration, simple function setting, direct copy code out of the box",
     "ContainerH6": "Continually updated",
@@ -5894,7 +5894,7 @@
   "BootstrapBlazor.Shared.Pages.Introduction": {
     "Title": "Introduction",
     "P1": "BootstrapBlazor is an enterprise-level component library based on Bootstrap and Blazor, which can be considered as the Blazor version of the Bootstrap project.",
-    "P2": "The dependency is：BootstrapBlazor > Bootstrap > jQuery",
+    "P2": "The dependency is：BootstrapBlazor > Bootstrap",
     "P3": "In the latest <a href='template' target='_blank'>Project Template</a> ,the above dependencies are packaged and bundled, which greatly simplifies use",
     "UpdateTitle": "Update Log",
     "UpdateLog": "In order to fix the components <b><code>bugs</code></b>, a small version of the component may be released every day. The second <b><code>Thursday</code></b> every month release <b><code>official version</code></b>",
