@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using System.Diagnostics;
-using System.Runtime.ConstrainedExecution;
 
 namespace BootstrapBlazor.Components;
 
@@ -35,25 +34,20 @@ class DefaultJSVersionService : IVersionService
             {
                 if (OperatingSystem.IsBrowser())
                 {
-                    ver = typeof(BootstrapComponentBase).Assembly.GetName().Version?.ToString();
+                    ver = GetAssemblyVersion();
                 }
                 else
                 {
-                    if (string.IsNullOrEmpty(typeof(BootstrapComponentBase).Assembly.Location))
-                    {
-                        // 发布单文件
-                        ver = typeof(BootstrapComponentBase).Assembly.GetName().Version?.ToString();
-                    }
-                    else
-                    {
-                        ver = FileVersionInfo.GetVersionInfo(typeof(BootstrapComponentBase).Assembly.Location).ProductVersion;
-                    }
+                    ver = string.IsNullOrEmpty(typeof(BootstrapComponentBase).Assembly.Location)
+                        ? GetAssemblyVersion()
+                        : FileVersionInfo.GetVersionInfo(typeof(BootstrapComponentBase).Assembly.Location).ProductVersion;
                 }
             }
             catch { }
-            ver = ver ?? "7.0.0.0";
-            ver = ver.Substring(0, ver.LastIndexOf("."));
+            ver ??= "7.0.0";
             return ver;
+
+            string? GetAssemblyVersion() => typeof(BootstrapComponentBase).Assembly.GetName().Version?.ToString(3);
         }
     }
 }
