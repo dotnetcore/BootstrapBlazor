@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using System.Diagnostics;
+using System.Runtime.ConstrainedExecution;
 
 namespace BootstrapBlazor.Components;
 
@@ -50,7 +51,9 @@ class DefaultJSVersionService : IVersionService
                 }
             }
             catch { }
-            return ver ?? "7.0.0.0";
+            ver = ver ?? "7.0.0.0";
+            ver = ver.Substring(0, ver.LastIndexOf("."));
+            return ver;
         }
     }
 }
