@@ -961,7 +961,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 pb.OpenComponent<Tooltip>(0);
                 pb.AddAttribute(1, nameof(Tooltip.Title), text);
                 pb.AddAttribute(2, nameof(Tooltip.ChildContent), RenderContent());
-                pb.SetKey(text);
                 pb.CloseComponent();
             }
             else
