@@ -3,7 +3,8 @@
 export function init(id, invoke, callback) {
     const el = document.getElementById(id)
     if (el) {
-        EventHandler.on(el, 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd', () => {
+        EventHandler.on(el, 'webkitAnimationEnd', e => {
+            console.log(el, e)
             invoke.invokeMethodAsync(callback);
         })
     }
@@ -12,6 +13,6 @@ export function init(id, invoke, callback) {
 export function dispose(id) {
     const el = document.getElementById(id)
     if (el) {
-        EventHandler.off(el, 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oAnimationEnd')
+        EventHandler.off(el, 'webkitAnimationEnd')
     }
 }
