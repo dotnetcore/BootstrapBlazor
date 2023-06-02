@@ -5,9 +5,11 @@
 <div>
     @Body
 
-    <LinkButton TooltipPlacement="Placement.Left" ButtonStyle="ButtonStyle.Circle" Color="Color.None" TooltipText="@Title" class="btn-fade btn-update" Url="@WebsiteOption.CurrentValue.WikiUrl" Target="_blank" ImageUrl="_content/BootstrapBlazor.Shared/images/log.svg" />
+    <AIChat></AIChat>
 
-    <ThemeChooser />
+    <ThemeChooser></ThemeChooser>
+
+    <LinkButton TooltipPlacement="Placement.Left" ButtonStyle="ButtonStyle.Circle" Color="Color.None" TooltipText="@Title" class="btn-fade btn-update" Url="@WebsiteOption.CurrentValue.WikiUrl" Target="_blank" ImageUrl="_content/BootstrapBlazor.Shared/images/log.svg"></LinkButton>
 </div>
 
 @if (Installable)
