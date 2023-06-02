@@ -3145,7 +3145,7 @@
     "MultiSelectVeryLongTextTitle": "选项超长文字",
     "MultiSelectVeryLongTextIntro": "候选项文字特别长",
     "MultiSelectButtonTitle": "全选与反选按钮",
-    "BMultiSelectButtonIntro": "通过参数 <code>ShowToolbar</code> 控制是否显示工具栏，通过参数 <code>ShowDefaultButtons</code> 控制是否显示内置的三个按钮，通过参数 <code>ShowSearch</code> 控制是否显示搜索栏",
+    "MultiSelectButtonIntro": "通过参数 <code>ShowToolbar</code> 控制是否显示工具栏，通过参数 <code>ShowDefaultButtons</code> 控制是否显示内置的三个按钮，通过参数 <code>ShowSearch</code> 控制是否显示搜索栏",
     "MultiSelectMaxMinTitle": "设置选项最大数与最小数",
     "MultiSelectMaxMinIntro": "通过设置 <code>Max</code> <code>Min</code> 值设置组件可选项数量限制",
     "MultiSelectExpandButtonTitle": "扩展工具栏按钮",
