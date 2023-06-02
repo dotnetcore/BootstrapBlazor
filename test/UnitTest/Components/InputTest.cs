@@ -244,11 +244,14 @@ public class InputTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
-        var input = cut.Find("input");
-        cut.InvokeAsync(() => input.Change("Test_Test"));
+        cut.InvokeAsync(() =>
+        {
+            var input = cut.Find("input");
+            input.Change("Test_Test");
 
-        // 保证 ValueChanged 先触发，再触发 OnValueChanged
-        Assert.Equal("Test_Test", foo.Name);
-        Assert.Equal("Test_Test-Test_Test", val);
+            // 保证 ValueChanged 先触发，再触发 OnValueChanged
+            Assert.Equal("Test_Test", foo.Name);
+            Assert.Equal("Test_Test-Test_Test", val);
+        });
     }
 }

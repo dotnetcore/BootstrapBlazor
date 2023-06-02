@@ -1,7 +1,7 @@
 ﻿.theme-list {
     position: fixed;
     z-index: 10;
-    bottom: 11rem;
+    bottom: 12rem;
     right: 1rem;
     background: #FFFFFF;
     box-shadow: 0 5px 24px 0 rgba(0, 0, 0, 0.2);
@@ -56,12 +56,10 @@
     --bs-btn-active-bg: #034995;
     right: 1rem;
     bottom: 9rem;
-    padding: 11px;
 }
 
     ::deep .btn-theme img {
         position: absolute;
-        width: 17px;
-        top: 10px;
-        left: 11px;
+        width: 20px;
+        transform: translate(-50%, -50%);
     }

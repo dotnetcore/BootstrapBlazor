@@ -4,9 +4,12 @@ const showTooltip = (id, title) => {
     const el = document.getElementById(id)
 
     if (el) {
-        bootstrap.Tooltip.getOrCreateInstance(el, {
+        const tooltip = bootstrap.Tooltip.getOrCreateInstance(el, {
             title: title
         })
+        if (tooltip._config.title !== title) {
+            tooltip._config.title = title
+        }
     }
 }
 
