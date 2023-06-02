@@ -39,6 +39,9 @@ public partial class BaseLayout
     [NotNull]
     private string? Title { get; set; }
 
+    [NotNull]
+    private string? ChatTooltip { get; set; }
+
     private static bool Installable = false;
 
     [NotNull]
@@ -56,6 +59,7 @@ public partial class BaseLayout
         InstallText ??= Localizer[nameof(InstallText)];
         CancelText ??= Localizer[nameof(CancelText)];
         Title ??= Localizer[nameof(Title)];
+        ChatTooltip ??= Localizer[nameof(ChatTooltip)];
         OnInstallable = () => InvokeAsync(StateHasChanged);
     }
 

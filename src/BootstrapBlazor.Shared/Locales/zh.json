@@ -4874,7 +4874,8 @@
     "InstallAppText": "安装小程序",
     "InstallText": "安装",
     "CancelText": "取消",
-    "Title": "点击查看更新日志"
+    "Title": "点击查看更新日志",
+    "ChatTooltip": "Azure OpenAI"
   },
   "BootstrapBlazor.Shared.Shared.NavMenu": {
     "GetStarted": "快速上手",

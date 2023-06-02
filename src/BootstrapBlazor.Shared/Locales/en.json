@@ -4866,7 +4866,8 @@
     "InstallAppText": "Install PWA App",
     "InstallText": "Install",
     "CancelText": "Cancel",
-    "Title": "View update log"
+    "Title": "View update log",
+    "ChatTooltip": "Azure OpenAI"
   },
   "BootstrapBlazor.Shared.Shared.NavMenu": {
     "GetStarted": "Getting Started",
