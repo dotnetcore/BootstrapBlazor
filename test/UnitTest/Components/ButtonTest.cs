@@ -334,6 +334,11 @@ public class ButtonTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Button>();
         await cut.InvokeAsync(() => cut.Instance.ShowTooltip());
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.TooltipText, "Tooltip");
+        });
     }
 
     [Fact]
