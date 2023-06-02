@@ -789,6 +789,26 @@ public class UploadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowDeletedButton_Ok()
+    {
+        var cut = Context.RenderComponent<CardUpload<string>>(pb =>
+        {
+            pb.Add(a => a.ShowDeletedButton, true);
+            pb.Add(a => a.DefaultFileList, new List<UploadFile>()
+            {
+                new UploadFile() { FileName  = "Test-File1.text" }
+            });
+        });
+        cut.Contains("aria-label=\"delete\"");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowDeletedButton, false);
+        });
+        cut.DoesNotContain("aria-label=\"delete\"");
+    }
+
+    [Fact]
     public void CardUpload_ValidateForm_Ok()
     {
         var foo = new Foo();
