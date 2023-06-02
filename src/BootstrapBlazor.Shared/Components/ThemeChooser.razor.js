@@ -40,8 +40,10 @@ export function addScript(args) {
 }
 
 export function dispose(id) {
-    const data = Data.get(id)
+    const chooser = Data.get(id)
     Data.remove(id)
 
-    EventHandler.off(data.el, 'click')
+    if (chooser) {
+        EventHandler.off(chooser.el, 'click')
+    }
 }
