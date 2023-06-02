@@ -41,11 +41,14 @@
                             </button>
                         }
                     </div>
-                    <DynamicElement TagName="button" type="button" class="btn btn-sm btn-outline-danger"
-                                    disabled="@GetDeleteButtonDiabledString(item)" aria-label="delete"
-                                    TriggerClick="@(!IsDisabled)" OnClick="@(() => OnCardFileDelete(item))">
-                        <i class="@RemoveIcon"></i>
-                    </DynamicElement>
+                    @if(ShowDeletedButton)
+                    {
+                        <DynamicElement TagName="button" type="button" class="btn btn-sm btn-outline-danger"
+                                        disabled="@GetDeleteButtonDiabledString(item)" aria-label="delete"
+                                TriggerClick="@(!IsDisabled)" OnClick="@(() => OnCardFileDelete(item))">
+                            <i class="@RemoveIcon"></i>
+                        </DynamicElement>
+                    }
                 </div>
                 @if (GetShowProgress(item))
                 {

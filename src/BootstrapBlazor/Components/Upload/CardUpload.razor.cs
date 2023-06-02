@@ -79,6 +79,12 @@ public partial class CardUpload<TValue>
     [Parameter]
     public bool ShowZoomButton { get; set; } = true;
 
+    /// <summary>
+    /// 获得/设置 是否显示删除按钮
+    /// </summary>
+    [Parameter]
+    public bool ShowDeletedButton { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
