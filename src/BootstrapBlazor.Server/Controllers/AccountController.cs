@@ -7,42 +7,41 @@ using Longbow.GitHubAuth;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BootstrapBlazor.Server.Controllers
+namespace BootstrapBlazor.Server.Controllers;
+
+/// <summary>
+/// Account controller.
+/// </summary>
+public class AccountController : Controller
 {
     /// <summary>
-    /// Account controller.
+    /// Gitee 认证
     /// </summary>
-    public class AccountController : Controller
+    /// <returns></returns>
+    [HttpGet]
+    public IActionResult Gitee()
     {
-        /// <summary>
-        /// Gitee 认证
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public IActionResult Gitee()
-        {
-            return Challenge(GiteeDefaults.AuthenticationScheme);
-        }
+        return Challenge(GiteeDefaults.AuthenticationScheme);
+    }
 
-        /// <summary>
-        /// GitHub 认证
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public IActionResult GitHub()
-        {
-            return Challenge(GitHubDefaults.AuthenticationScheme);
-        }
+    /// <summary>
+    /// GitHub 认证
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    public IActionResult GitHub()
+    {
+        return Challenge(GitHubDefaults.AuthenticationScheme);
+    }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public async Task<IActionResult> Logout()
-        {
-            await HttpContext.SignOutAsync();
-            return LocalRedirect("~/ai-chat");
-        }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    [HttpGet]
+    public async Task<IActionResult> Logout()
+    {
+        await HttpContext.SignOutAsync();
+        return LocalRedirect("~/ai-chat");
     }
 }
