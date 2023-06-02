@@ -55,6 +55,7 @@ public static class IEditItemExtensions
         if (source.ShowLabelTooltip != null) dest.ShowLabelTooltip = source.ShowLabelTooltip;
         if (!string.IsNullOrEmpty(source.GroupName)) dest.GroupName = source.GroupName;
         if (source.GroupOrder != 0) dest.GroupOrder = source.GroupOrder;
+        if (!string.IsNullOrEmpty(source.PlaceHolder)) dest.PlaceHolder = source.PlaceHolder;
 
         if (source is ITableColumn col)
         {
