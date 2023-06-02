@@ -1,8 +1,8 @@
 ﻿import Data from "../../modules/data.js?v=$version"
 
-export function init(id, invoker, callback) {
+export function init(id, invoke, callback) {
     const handler = e => {
-        invoker.invokeMethodAsync(callback, e.data)
+        invoke.invokeMethodAsync(callback, e.data)
     }
     Data.set(id, handler)
 
