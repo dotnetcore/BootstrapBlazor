@@ -80,7 +80,7 @@ public partial class CardUpload<TValue>
     public bool ShowZoomButton { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示删除按钮
+    /// 获得/设置 是否显示删除按钮 默认 true 显示
     /// </summary>
     [Parameter]
     public bool ShowDeletedButton { get; set; } = true;
