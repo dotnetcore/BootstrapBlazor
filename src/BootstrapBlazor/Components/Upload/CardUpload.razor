@@ -41,11 +41,11 @@
                             </button>
                         }
                     </div>
-                    @if(ShowDeletedButton)
+                    @if (ShowDeletedButton)
                     {
                         <DynamicElement TagName="button" type="button" class="btn btn-sm btn-outline-danger"
                                         disabled="@GetDeleteButtonDiabledString(item)" aria-label="delete"
-                                TriggerClick="@(!IsDisabled)" OnClick="@(() => OnCardFileDelete(item))">
+                                        TriggerClick="@(!IsDisabled)" OnClick="@(() => OnCardFileDelete(item))">
                             <i class="@RemoveIcon"></i>
                         </DynamicElement>
                     }
