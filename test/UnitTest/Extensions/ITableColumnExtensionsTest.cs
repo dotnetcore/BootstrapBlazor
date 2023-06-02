@@ -60,6 +60,7 @@ public class ITableColumnExtensionsTest
             ShowLabelTooltip = true,
             GroupName = "test-group",
             GroupOrder = 1,
+            PlaceHolder = "enter placeholder",
 
             Align = Alignment.Center,
             TextWrap = true,
