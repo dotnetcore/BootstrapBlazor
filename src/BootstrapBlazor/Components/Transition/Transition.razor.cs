@@ -15,7 +15,7 @@ public partial class Transition
         .Build();
 
     private string? StyleString => CssBuilder.Default()
-        .AddClass($"animate-duration: {Duration / 1000}s", Duration > 100)
+        .AddClass($"--animate-duration: {Duration / 1000}s;", Duration > 100)
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
