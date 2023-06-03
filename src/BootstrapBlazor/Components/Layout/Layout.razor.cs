@@ -15,10 +15,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class Layout : IHandlerException
 {
-    /// <summary>
-    ///
-    /// </summary>
-    protected bool IsSmallScreen { get; set; }
+    private bool IsSmallScreen { get; set; }
 
     /// <summary>
     /// 获得/设置 侧边栏状态
@@ -286,15 +283,15 @@ public partial class Layout : IHandlerException
     [Parameter]
     public object? Resource { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Layout>? Localizer { get; set; }
-
     /// <summary>
     /// 获得 登录授权信息
     /// </summary>
     [CascadingParameter]
     private Task<AuthenticationState>? AuthenticationStateTask { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Layout>? Localizer { get; set; }
 
     [Inject]
     private IAuthorizationPolicyProvider? AuthorizationPolicyProvider { get; set; }
