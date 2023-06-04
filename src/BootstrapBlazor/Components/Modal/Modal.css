@@ -22,6 +22,18 @@
         margin-right: .5rem;
     }
 
+.modal-resizer {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    cursor: row-resize;
+}
+
+    .modal-resizer svg {
+        width: 1.3rem;
+        height: auto;
+    }
+
 .bb-printview {
     background-color: #fff;
     padding: 1rem;
