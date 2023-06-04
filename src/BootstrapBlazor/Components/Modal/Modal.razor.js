@@ -22,9 +22,47 @@ export function init(id, invoke, shownCallback, closeCallback) {
     }
     Data.set(id, modal)
 
-    EventHandler.on(el, '.modal-resizer', e => {
-        console.log(e.delegateTarget)
-    })
+    const resizer = el.querySelector('.modal-resizer')
+    if(resizer) {
+        const dialog = el.querySelector('.modal-dialog')
+        drag(resizer,
+            e => {
+                dialog.originX = e.clientX || e.touches[0].clientX;
+                dialog.originY = e.clientY || e.touches[0].clientY;
+
+                const rect = dialog.getBoundingClientRect()
+                dialog.dialogWidth = rect.width
+                dialog.dialogHeight = rect.height
+
+                dialog.style.maxWidth = 'auto'
+                dialog.style.width = `${dialog.dialogWidth}px`
+                dialog.style.height = `${dialog.dialogHeight}px`
+                dialog.classList.add('is-resize')
+            },
+            e => {
+                if (dialog.classList.contains('is-resize')) {
+                    const eventX = e.clientX || e.changedTouches[0].clientX;
+                    const eventY = e.clientY || e.changedTouches[0].clientY;
+
+                    let newValX = dialog.dialogWidth + Math.ceil(eventX - dialog.originX);
+                    let newValY = dialog.dialogHeight + Math.ceil(eventY - dialog.originY);
+
+                    if (newValX > window.innerWidth) {
+                        newValX = window.innerWidth
+                    }
+                    if (newValY > window.innerHeight) {
+                        newValY = window.innerHeight
+                    }
+
+                    dialog.style.maxWidth = `${newValX}px`
+                    dialog.style.width = `${newValX}px`
+                    dialog.style.height = `${newValY}px`
+                }
+            },
+            () => {
+                dialog.classList.remove('is-drag')
+            })
+    }
 
     EventHandler.on(el, 'shown.bs.modal', () => {
         invoke.invokeMethodAsync(shownCallback)
@@ -78,7 +116,7 @@ export function init(id, invoke, shownCallback, closeCallback) {
             modal.header = modal.dialog.querySelector('.modal-header')
             drag(modal.header,
                 e => {
-                    if (e.srcElement.closest('.modal-header-buttons')) {
+                    if (e.target.closest('.modal-header-buttons')) {
                         return true
                     }
                     modal.originX = e.clientX || e.touches[0].clientX;
@@ -189,7 +227,6 @@ export function dispose(id) {
             modal.disposeDrag()
         }
 
-        EventHandler.off(modal.el, '.modal-resizer')
         EventHandler.off(modal.el, 'shown.bs.modal')
         EventHandler.off(modal.el, 'hide.bs.modal')
         EventHandler.off(modal.el, 'click')
