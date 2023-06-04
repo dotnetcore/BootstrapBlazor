@@ -5,7 +5,7 @@ import EventHandler from "../../modules/event-handler.js?v=$version"
 export function init(id, invoke, shownCallback, closeCallback) {
     const el = document.getElementById(id)
     const modal = {
-        element: el,
+        el,
         invoke,
         shownCallback,
         closeCallback,
@@ -39,16 +39,16 @@ export function init(id, invoke, shownCallback, closeCallback) {
     EventHandler.on(window, 'popstate', modal.pop)
 
     modal.show = () => {
-        const dialogs = modal.element.querySelectorAll('.modal-dialog')
+        const dialogs = el.querySelectorAll('.modal-dialog')
         if (dialogs.length === 1) {
-            let backdrop = modal.element.getAttribute('data-bs-backdrop') !== 'static'
+            let backdrop = el.getAttribute('data-bs-backdrop') !== 'static'
             if (!backdrop) {
                 backdrop = 'static'
             }
             if (!modal.modal) {
-                modal.modal = bootstrap.Modal.getOrCreateInstance(modal.element, { focus: false })
+                modal.modal = bootstrap.Modal.getOrCreateInstance(el, { focus: false })
             }
-            modal.modal._config.keyboard = modal.element.getAttribute('data-bs-keyboard') === 'true'
+            modal.modal._config.keyboard = el.getAttribute('data-bs-keyboard') === 'true'
             modal.modal._config.backdrop = backdrop
             modal.modal.show()
         } else {
@@ -109,14 +109,14 @@ export function init(id, invoke, shownCallback, closeCallback) {
                         }
                     }
                 },
-                e => {
+                () => {
                     modal.dialog.classList.remove('is-drag')
                 })
         }
     }
 
     modal.hide = () => {
-        if (modal.element.children.length === 1) {
+        if (el.children.length === 1) {
             modal.modal.hide()
         } else {
             modal.invoke.invokeMethodAsync(modal.closeCallback)
@@ -137,7 +137,7 @@ export function init(id, invoke, shownCallback, closeCallback) {
 
             modal.handlerEscape = e => {
                 if (e.key === 'Escape') {
-                    const keyboard = modal.element.getAttribute('data-bs-keyboard')
+                    const keyboard = el.getAttribute('data-bs-keyboard')
                     if (keyboard === 'true') {
                         modal.hide()
                     }
@@ -145,9 +145,9 @@ export function init(id, invoke, shownCallback, closeCallback) {
             }
 
             EventHandler.on(document, 'keyup', modal.handlerEscape)
-            EventHandler.on(modal.element, 'click', e => {
+            EventHandler.on(el, 'click', e => {
                 if (e.target.closest('.modal-dialog') === null) {
-                    const backdrop = modal.element.getAttribute('data-bs-backdrop')
+                    const backdrop = el.getAttribute('data-bs-backdrop')
                     if (backdrop !== 'static') {
                         modal.hide()
                     }
@@ -180,20 +180,22 @@ export function dispose(id) {
     const modal = Data.get(id)
     Data.remove(id)
 
-    if (modal.draggable) {
-        modal.disposeDrag()
-    }
+    if(modal) {
+        if (modal.draggable) {
+            modal.disposeDrag()
+        }
 
-    EventHandler.off(modal.element, 'shown.bs.modal')
-    EventHandler.off(modal.element, 'hide.bs.modal')
-    EventHandler.off(modal.element, 'click')
+        EventHandler.off(modal.el, 'shown.bs.modal')
+        EventHandler.off(modal.el, 'hide.bs.modal')
+        EventHandler.off(modal.el, 'click')
 
-    if (modal.hook_keyboard_backdrop) {
-        EventHandler.off(document, 'keyup', modal.handlerEscape)
-    }
+        if (modal.hook_keyboard_backdrop) {
+            EventHandler.off(document, 'keyup', modal.handlerEscape)
+        }
 
-    EventHandler.off(window, 'popstate', modal.pop)
-    if (modal.modal) {
-        modal.modal.dispose()
+        EventHandler.off(window, 'popstate', modal.pop)
+        if (modal.modal) {
+            modal.modal.dispose()
+        }
     }
 }
