@@ -22,6 +22,10 @@ export function init(id, invoke, shownCallback, closeCallback) {
     }
     Data.set(id, modal)
 
+    EventHandler.on(el, '.modal-resizer', e => {
+        console.log(e.delegateTarget)
+    })
+
     EventHandler.on(el, 'shown.bs.modal', () => {
         invoke.invokeMethodAsync(shownCallback)
     })
@@ -185,6 +189,7 @@ export function dispose(id) {
             modal.disposeDrag()
         }
 
+        EventHandler.off(modal.el, '.modal-resizer')
         EventHandler.off(modal.el, 'shown.bs.modal')
         EventHandler.off(modal.el, 'hide.bs.modal')
         EventHandler.off(modal.el, 'click')
