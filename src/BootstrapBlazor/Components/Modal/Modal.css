@@ -26,7 +26,8 @@
     position: absolute;
     bottom: 2px;
     right: 2px;
-    cursor: row-resize;
+    cursor: nwse-resize;
+    pointer-events: auto;
 }
 
     .modal-resizer svg {
