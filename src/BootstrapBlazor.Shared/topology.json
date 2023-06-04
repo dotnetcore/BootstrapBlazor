@@ -182,7 +182,7 @@
       },
       "events": [
         {
-          "name": "dblclick",
+          "name": "click",
           "action": 5,
           "value": "BlazorDemoTopology.handler(pen.tags[0]);",
           "fn": null
