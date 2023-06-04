@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// ModalDialog 组件
 /// </summary>
 public partial class ModalDialog : IHandlerException, IDisposable
 {
@@ -48,7 +48,7 @@ public partial class ModalDialog : IHandlerException, IDisposable
     /// 获得/设置 是否可以 Resize 弹窗 默认 false
     /// </summary>
     [Parameter]
-    public bool ShowResize { get; set; } = true;
+    public bool ShowResize { get; set; }
 
     /// <summary>
     /// 获得/设置 弹窗大小
