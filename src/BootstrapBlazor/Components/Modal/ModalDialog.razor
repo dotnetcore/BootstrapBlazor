@@ -1,7 +1,8 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader("Modal/ModalDialog.razor.js", JSObjectReference = true)]
 
-<div class="@ClassName">
+<div class="@ClassName" id="@Id">
     <div class="modal-content">
         @if (ShowHeader)
         {
