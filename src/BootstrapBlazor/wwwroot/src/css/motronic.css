@@ -465,12 +465,6 @@
     --bs-accordion-btn-padding-y: .5rem;
 }
 
-@media (min-width: 576px) {
-    .modal-content {
-        box-shadow: 0 0.5rem 1rem #0000001a;
-    }
-}
-
 @media (prefers-reduced-motion:reduce) {
     .btn {
         transition: none;

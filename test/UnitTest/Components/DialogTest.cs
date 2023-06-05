@@ -28,12 +28,14 @@ public class DialogTest : DialogTestBase
             Class = "test-class",
             ShowMaximizeButton = true,
             IsBackdrop = false,
+            ShowResize = true,
             OnCloseAsync = () =>
             {
                 closed = true;
                 return Task.CompletedTask;
             }
         }));
+        Assert.Contains("<svg", cut.Markup);
         Assert.Contains("data-bs-backdrop=\"static\"", cut.Markup);
 
         // 全屏按钮
