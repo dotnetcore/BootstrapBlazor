@@ -375,6 +375,8 @@
     "ModalsDialogSizeTitle": "Bullet size",
     "ModalsDialogSizeIntro": "Set the size of the popup component through <code>Size</code>",
     "ModalsResize": "Resize",
+    "ModalsDialogResizeTitle": "Resize",
+    "ModalsDialogResizeIntro": "Resize the modal box by setting the <code>ShowResize</code> property",
     "ModalsSmallPopup": "small popup",
     "ModalsBigPopup": "big popup",
     "ModalsOversizedPopup": "Oversized pop-up window",
