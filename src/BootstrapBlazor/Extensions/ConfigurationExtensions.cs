@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Collections.Specialized;
 using System.Runtime.InteropServices;
 
@@ -12,6 +14,17 @@ namespace Microsoft.Extensions.Configuration;
 /// </summary>
 internal static class ConfigurationExtensions
 {
+    [ExcludeFromCodeCoverage]
+    public static IServiceCollection AddConfiguration(this IServiceCollection services)
+    {
+        services.TryAddSingleton<IConfiguration>(_ =>
+        {
+            var builder = new ConfigurationBuilder();
+            return builder.Build();
+        });
+        return services;
+    }
+
     public static NameValueCollection GetEnvironmentInformation(this IConfiguration configuration)
     {
         var nv = new NameValueCollection

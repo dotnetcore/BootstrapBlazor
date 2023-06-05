@@ -29,11 +29,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.AddAuthorizationCore();
         services.AddJsonLocalization(localizationConfigure);
 
-        services.TryAddSingleton<IConfiguration>(provider =>
-        {
-            var builder = new ConfigurationBuilder();
-            return builder.Build();
-        });
+        services.AddConfiguration();
         services.TryAddSingleton<ICacheManager, CacheManager>();
         services.TryAddSingleton<IComponentIdGenerator, DefaultIdGenerator>();
         services.TryAddSingleton<ILookupService, NullLookupService>();
