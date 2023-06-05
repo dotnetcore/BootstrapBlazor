@@ -24,7 +24,7 @@ export function init(id, invoke, shownCallback, closeCallback) {
 
     const resizer = el.querySelector('.modal-resizer')
     if(resizer) {
-        const dialog = el.querySelector('.modal-dialog')
+        const dialog = el.querySelector('.modal-content')
         drag(resizer,
             e => {
                 dialog.originX = e.clientX || e.touches[0].clientX;
