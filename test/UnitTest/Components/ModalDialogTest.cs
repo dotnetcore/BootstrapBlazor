@@ -53,6 +53,22 @@ public class ModalDialogTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowResize_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Modal>(pb =>
+            {
+                pb.AddChildContent<ModalDialog>(pb =>
+                {
+                    pb.Add(d => d.ShowResize, true);
+                });
+            });
+        });
+        Assert.Contains("modal-resizer", cut.Markup);
+    }
+
+    [Fact]
     public void ShowMaximizeButton_Ok()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>

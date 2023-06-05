@@ -1,8 +1,8 @@
 ﻿import Data from "./data.js?v=$version"
 import EventHandler from "./event-handler.js?v=$version"
 
-export function init(id, invoker, interval, callback) {
-    var m = { invoker, interval, callback, mousePosition: {}, count: 1000 }
+export function init(id, invoke, interval, callback) {
+    const m = { invoke, interval, callback, mousePosition: {}, count: 1000 }
     Data.set(id, m)
 
     m.fnMouseHandler = e => {
@@ -26,7 +26,7 @@ export function init(id, invoker, interval, callback) {
             clearInterval(m.lockHandler)
             m.lockHandler = null
 
-            m.invoker.invokeMethodAsync(m.callback)
+            invoke.invokeMethodAsync(callback)
         }
     }, 1000)
 }
@@ -35,10 +35,12 @@ export function dispose(id) {
     const m = Data.get(id)
     Data.remove(id)
 
-    EventHandler.off(document, 'mousemove', m.fnMouseHandler)
-    EventHandler.off(document, 'keydown', m.fnKeyHandler)
+    if(m) {
+        EventHandler.off(document, 'mousemove', m.fnMouseHandler)
+        EventHandler.off(document, 'keydown', m.fnKeyHandler)
 
-    if (m.lockHandler) {
-        clearInterval(m.lockHandler)
+        if (m.lockHandler) {
+            clearInterval(m.lockHandler)
+        }
     }
 }

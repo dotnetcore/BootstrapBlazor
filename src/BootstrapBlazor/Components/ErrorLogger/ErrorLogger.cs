@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// ErrorLogger 全局异常组件
 /// </summary>
 public class ErrorLogger
 #if NET6_0_OR_GREATER
@@ -20,16 +20,10 @@ public class ErrorLogger
     : ComponentBase, IErrorLogger
 #endif
 {
-    /// <summary>
-    /// 
-    /// </summary>
     [Inject]
     [NotNull]
     private ILogger<ErrorLogger>? Logger { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
     [Inject]
     [NotNull]
     private IConfiguration? Configuration { get; set; }
@@ -79,15 +73,12 @@ public class ErrorLogger
     public RenderFragment<Exception>? ErrorContent { get; set; }
 #endif
 
-    /// <summary>
-    /// 
-    /// </summary>
-    protected Exception? Exception { get; set; }
+    private Exception? Exception { get; set; }
 
     private bool ShowErrorDetails { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -101,10 +92,13 @@ public class ErrorLogger
         {
             ErrorContent ??= RenderException();
         }
+#if NET6_0_OR_GREATER
+        MaximumErrorCount = 1;
+#endif
     }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {

@@ -3134,7 +3134,7 @@
     "MultiSelectVeryLongTextTitle": "Options for extra-long text",
     "MultiSelectVeryLongTextIntro": "The candidate text is particularly long",
     "MultiSelectButtonTitle": "Full and reverse buttons",
-    "BMultiSelectButtonIntro": "By setting <code>ShowToolbar</code> value settings component displays the toolbox, by setting <code>ShowDefaultButtons</code> value settings component displays the default buttons, by setting <code>ShowSearch</code> value settings component displays the search box",
+    "MultiSelectButtonIntro": "By setting <code>ShowToolbar</code> value settings component displays the toolbox, by setting <code>ShowDefaultButtons</code> value settings component displays the default buttons, by setting <code>ShowSearch</code> value settings component displays the search box",
     "MultiSelectMaxMinTitle": "Set the maximum and minimum number of options",
     "MultiSelectMaxMinIntro": "Set the limit on the number of options available to components by setting the <code>max</code> <code>Min</code> values",
     "MultiSelectExpandButtonTitle": "Extend the toolbar button",

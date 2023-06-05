@@ -10,6 +10,10 @@
         cursor: move;
     }
 
+.modal-content {
+    height: 100%;
+}
+
 .modal-footer {
     padding: 0.5rem 1rem;
 }
@@ -21,6 +25,16 @@
     .modal-footer button:not(:last-child) {
         margin-right: .5rem;
     }
+
+.modal-resizer {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    cursor: nwse-resize;
+    pointer-events: auto;
+    width: 1.3rem;
+    height: auto;
+}
 
 .bb-printview {
     background-color: #fff;

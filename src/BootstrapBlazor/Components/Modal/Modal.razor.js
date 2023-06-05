@@ -5,7 +5,7 @@ import EventHandler from "../../modules/event-handler.js?v=$version"
 export function init(id, invoke, shownCallback, closeCallback) {
     const el = document.getElementById(id)
     const modal = {
-        element: el,
+        el,
         invoke,
         shownCallback,
         closeCallback,
@@ -21,6 +21,48 @@ export function init(id, invoke, shownCallback, closeCallback) {
         }
     }
     Data.set(id, modal)
+
+    const resizer = el.querySelector('.modal-resizer')
+    if(resizer) {
+        const dialog = el.querySelector('.modal-dialog')
+        drag(resizer,
+            e => {
+                dialog.originX = e.clientX || e.touches[0].clientX;
+                dialog.originY = e.clientY || e.touches[0].clientY;
+
+                const rect = dialog.getBoundingClientRect()
+                dialog.dialogWidth = rect.width
+                dialog.dialogHeight = rect.height
+
+                dialog.style.maxWidth = 'auto'
+                dialog.style.width = `${dialog.dialogWidth}px`
+                dialog.style.height = `${dialog.dialogHeight}px`
+                dialog.classList.add('is-resize')
+            },
+            e => {
+                if (dialog.classList.contains('is-resize')) {
+                    const eventX = e.clientX || e.changedTouches[0].clientX;
+                    const eventY = e.clientY || e.changedTouches[0].clientY;
+
+                    let newValX = dialog.dialogWidth + Math.ceil(eventX - dialog.originX);
+                    let newValY = dialog.dialogHeight + Math.ceil(eventY - dialog.originY);
+
+                    if (newValX > window.innerWidth) {
+                        newValX = window.innerWidth
+                    }
+                    if (newValY > window.innerHeight) {
+                        newValY = window.innerHeight
+                    }
+
+                    dialog.style.maxWidth = `${newValX}px`
+                    dialog.style.width = `${newValX}px`
+                    dialog.style.height = `${newValY}px`
+                }
+            },
+            () => {
+                dialog.classList.remove('is-drag')
+            })
+    }
 
     EventHandler.on(el, 'shown.bs.modal', () => {
         invoke.invokeMethodAsync(shownCallback)
@@ -39,16 +81,16 @@ export function init(id, invoke, shownCallback, closeCallback) {
     EventHandler.on(window, 'popstate', modal.pop)
 
     modal.show = () => {
-        const dialogs = modal.element.querySelectorAll('.modal-dialog')
+        const dialogs = el.querySelectorAll('.modal-dialog')
         if (dialogs.length === 1) {
-            let backdrop = modal.element.getAttribute('data-bs-backdrop') !== 'static'
+            let backdrop = el.getAttribute('data-bs-backdrop') !== 'static'
             if (!backdrop) {
                 backdrop = 'static'
             }
             if (!modal.modal) {
-                modal.modal = bootstrap.Modal.getOrCreateInstance(modal.element, { focus: false })
+                modal.modal = bootstrap.Modal.getOrCreateInstance(el, { focus: false })
             }
-            modal.modal._config.keyboard = modal.element.getAttribute('data-bs-keyboard') === 'true'
+            modal.modal._config.keyboard = el.getAttribute('data-bs-keyboard') === 'true'
             modal.modal._config.backdrop = backdrop
             modal.modal.show()
         } else {
@@ -74,7 +116,7 @@ export function init(id, invoke, shownCallback, closeCallback) {
             modal.header = modal.dialog.querySelector('.modal-header')
             drag(modal.header,
                 e => {
-                    if (e.srcElement.closest('.modal-header-buttons')) {
+                    if (e.target.closest('.modal-header-buttons')) {
                         return true
                     }
                     modal.originX = e.clientX || e.touches[0].clientX;
@@ -109,14 +151,14 @@ export function init(id, invoke, shownCallback, closeCallback) {
                         }
                     }
                 },
-                e => {
+                () => {
                     modal.dialog.classList.remove('is-drag')
                 })
         }
     }
 
     modal.hide = () => {
-        if (modal.element.children.length === 1) {
+        if (el.children.length === 1) {
             modal.modal.hide()
         } else {
             modal.invoke.invokeMethodAsync(modal.closeCallback)
@@ -137,7 +179,7 @@ export function init(id, invoke, shownCallback, closeCallback) {
 
             modal.handlerEscape = e => {
                 if (e.key === 'Escape') {
-                    const keyboard = modal.element.getAttribute('data-bs-keyboard')
+                    const keyboard = el.getAttribute('data-bs-keyboard')
                     if (keyboard === 'true') {
                         modal.hide()
                     }
@@ -145,9 +187,9 @@ export function init(id, invoke, shownCallback, closeCallback) {
             }
 
             EventHandler.on(document, 'keyup', modal.handlerEscape)
-            EventHandler.on(modal.element, 'click', e => {
+            EventHandler.on(el, 'click', e => {
                 if (e.target.closest('.modal-dialog') === null) {
-                    const backdrop = modal.element.getAttribute('data-bs-backdrop')
+                    const backdrop = el.getAttribute('data-bs-backdrop')
                     if (backdrop !== 'static') {
                         modal.hide()
                     }
@@ -180,20 +222,22 @@ export function dispose(id) {
     const modal = Data.get(id)
     Data.remove(id)
 
-    if (modal.draggable) {
-        modal.disposeDrag()
-    }
+    if(modal) {
+        if (modal.draggable) {
+            modal.disposeDrag()
+        }
 
-    EventHandler.off(modal.element, 'shown.bs.modal')
-    EventHandler.off(modal.element, 'hide.bs.modal')
-    EventHandler.off(modal.element, 'click')
+        EventHandler.off(modal.el, 'shown.bs.modal')
+        EventHandler.off(modal.el, 'hide.bs.modal')
+        EventHandler.off(modal.el, 'click')
 
-    if (modal.hook_keyboard_backdrop) {
-        EventHandler.off(document, 'keyup', modal.handlerEscape)
-    }
+        if (modal.hook_keyboard_backdrop) {
+            EventHandler.off(document, 'keyup', modal.handlerEscape)
+        }
 
-    EventHandler.off(window, 'popstate', modal.pop)
-    if (modal.modal) {
-        modal.modal.dispose()
+        EventHandler.off(window, 'popstate', modal.pop)
+        if (modal.modal) {
+            modal.modal.dispose()
+        }
     }
 }
