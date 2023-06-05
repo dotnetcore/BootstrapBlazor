@@ -19,8 +19,6 @@ export function init(id) {
             }
         }
 
-        dialog.disposeDrag()
-
         dialog.originX = 0;
         dialog.originY = 0;
         dialog.dialogWidth = 0;
@@ -33,8 +31,8 @@ export function init(id) {
                 if (e.target.closest('.modal-header-buttons')) {
                     return true
                 }
-                dialog.originX = e.clientX || e.touches[0].clientX;
-                dialog.originY = e.clientY || e.touches[0].clientY;
+                dialog.originX = e.clientX || (e.touches != null && e.touches[0].clientX) || 0;
+                dialog.originY = e.clientY || (e.touches != null && e.touches[0].clientY) || 0;
 
                 const rect = el.querySelector('.modal-content').getBoundingClientRect()
                 dialog.dialogWidth = rect.width
@@ -97,8 +95,8 @@ export function init(id) {
             },
             e => {
                 if (content.classList.contains('is-resize')) {
-                    const eventX = e.clientX || e.changedTouches[0].clientX;
-                    const eventY = e.clientY || e.changedTouches[0].clientY;
+                    const eventX = e.clientX || (e.touches != null && e.touches[0].clientX) || 0;
+                    const eventY = e.clientY || (e.touches != null && e.touches[0].clientY) || 0;
 
                     let newValX = content.dialogWidth + Math.ceil(eventX - content.originX);
                     let newValY = content.dialogHeight + Math.ceil(eventY - content.originY);
