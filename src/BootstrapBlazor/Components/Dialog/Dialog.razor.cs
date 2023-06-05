@@ -149,7 +149,7 @@ public partial class Dialog : IDisposable
         CurrentParameter = parameters;
 
         // 添加 ModalDialog 到容器中
-        DialogParameters.Add(parameters, (IsKeyboard, IsKeyboard));
+        DialogParameters.Add(parameters, (IsKeyboard, IsBackdrop));
         StateHasChanged();
         return Task.CompletedTask;
     }

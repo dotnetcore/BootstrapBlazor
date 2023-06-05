@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// ModalDialog 组件
 /// </summary>
-public partial class ModalDialog : IHandlerException, IDisposable
+public partial class ModalDialog : IHandlerException
 {
     private string MaximizeAriaLabel => MaximizeStatus ? "maximize" : "restore";
 
@@ -325,21 +325,14 @@ public partial class ModalDialog : IHandlerException, IDisposable
     /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
+        await base.DisposeAsync(disposing);
+
         if (disposing)
         {
             ErrorLogger?.UnRegister(this);
             Modal.RemoveDialog(this);
         }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
     }
 }

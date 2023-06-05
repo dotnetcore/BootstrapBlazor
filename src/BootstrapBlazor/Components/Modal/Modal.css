@@ -11,7 +11,8 @@
     }
 
 .modal-content {
-    height: 100%;
+    min-height: 160px;
+    min-width: 210px;
 }
 
 .modal-footer {
@@ -32,8 +33,9 @@
     right: 2px;
     cursor: nwse-resize;
     pointer-events: auto;
-    width: 1.3rem;
+    width: 1rem;
     height: auto;
+    fill: #8a8a8a;
 }
 
 .bb-printview {

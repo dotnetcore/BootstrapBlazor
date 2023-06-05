@@ -50,6 +50,11 @@ public class DialogOption
     public bool IsScrolling { get; set; } = false;
 
     /// <summary>
+    /// 获得/设置 是否显示调整大小按钮 默认为 false
+    /// </summary>
+    public bool ShowResize { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示关闭按钮 默认为 true
     /// </summary>
     public bool ShowCloseButton { get; set; } = true;
@@ -186,6 +191,7 @@ public class DialogOption
             [nameof(ModalDialog.ShowSaveButton)] = ShowSaveButton,
             [nameof(ModalDialog.ShowHeaderCloseButton)] = ShowHeaderCloseButton,
             [nameof(ModalDialog.ShowFooter)] = ShowFooter,
+            [nameof(ModalDialog.ShowResize)] = ShowResize,
             [nameof(ModalDialog.ShowPrintButton)] = ShowPrintButton,
             [nameof(ModalDialog.ShowPrintButtonInHeader)] = ShowPrintButtonInHeader,
             [nameof(ModalDialog.IsAutoCloseAfterSave)] = IsAutoCloseAfterSave,
