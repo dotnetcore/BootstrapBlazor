@@ -1,5 +1,4 @@
-﻿import { drag } from "../../modules/utility.js?v=$version"
-import Data from "../../modules/data.js?v=$version"
+﻿import Data from "../../modules/data.js?v=$version"
 import EventHandler from "../../modules/event-handler.js?v=$version"
 
 export function init(id, invoke, shownCallback, closeCallback) {
@@ -46,7 +45,7 @@ export function init(id, invoke, shownCallback, closeCallback) {
                 backdrop = 'static'
             }
             if (!modal.modal) {
-                modal.modal = bootstrap.Modal.getOrCreateInstance(el, { focus: false })
+                modal.modal = bootstrap.Modal.getOrCreateInstance(el)
             }
             modal.modal._config.keyboard = el.getAttribute('data-bs-keyboard') === 'true'
             modal.modal._config.backdrop = backdrop
@@ -58,60 +57,6 @@ export function init(id, invoke, shownCallback, closeCallback) {
             modal.modal._config.backdrop = 'static'
 
             modal.handlerKeyboardAndBackdrop()
-        }
-
-        modal.dialog = dialogs[dialogs.length - 1]
-        modal.draggable = modal.dialog.classList.contains('is-draggable')
-        if (modal.draggable) {
-            modal.disposeDrag()
-
-            modal.originX = 0;
-            modal.originY = 0;
-            modal.dialogWidth = 0;
-            modal.dialogHeight = 0;
-            modal.pt = { top: 0, left: 0 };
-
-            modal.header = modal.dialog.querySelector('.modal-header')
-            drag(modal.header,
-                e => {
-                    if (e.target.closest('.modal-header-buttons')) {
-                        return true
-                    }
-                    modal.originX = e.clientX || e.touches[0].clientX;
-                    modal.originY = e.clientY || e.touches[0].clientY;
-
-                    const rect = modal.dialog.querySelector('.modal-content').getBoundingClientRect()
-                    modal.dialogWidth = rect.width
-                    modal.dialogHeight = rect.height
-                    modal.pt.top = rect.top
-                    modal.pt.left = rect.left
-
-                    modal.dialog.style.margin = `${modal.pt.top}px 0 0 ${modal.pt.left}px`
-                    modal.dialog.style.width = `${modal.dialogWidth}px`
-                    modal.dialog.classList.add('is-drag')
-                },
-                e => {
-                    if (modal.dialog.classList.contains('is-drag')) {
-                        const eventX = e.clientX || e.changedTouches[0].clientX;
-                        const eventY = e.clientY || e.changedTouches[0].clientY;
-
-                        let newValX = modal.pt.left + Math.ceil(eventX - modal.originX);
-                        let newValY = modal.pt.top + Math.ceil(eventY - modal.originY);
-
-                        if (newValX <= 0) newValX = 0;
-                        if (newValY <= 0) newValY = 0;
-
-                        if (newValX + modal.dialogWidth < window.innerWidth) {
-                            modal.dialog.style.marginLeft = `${newValX}px`
-                        }
-                        if (newValY + modal.dialogHeight < window.innerHeight) {
-                            modal.dialog.style.marginTop = `${newValY}px`
-                        }
-                    }
-                },
-                () => {
-                    modal.dialog.classList.remove('is-drag')
-                })
         }
     }
 
@@ -181,10 +126,6 @@ export function dispose(id) {
     Data.remove(id)
 
     if (modal) {
-        if (modal.draggable) {
-            modal.disposeDrag()
-        }
-
         EventHandler.off(modal.el, 'shown.bs.modal')
         EventHandler.off(modal.el, 'hide.bs.modal')
         EventHandler.off(modal.el, 'click')
