@@ -48,6 +48,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.Dock\BootstrapBlazor.Dock.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,8 @@
+﻿<DockView Config="@ViewConfigs"></DockView>
+
+@code{
+    private DockViewConfig ViewConfigs { get; set; } = new DockViewConfig()
+    {
+        Type = "row" , Content = new List<DockViewConfig>(){ new DockViewConfig() { Type = "component" , ComponentName = "ceshi1" }}
+    };
+}
