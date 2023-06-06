@@ -13,8 +13,8 @@ export async function init(id, option, invoke, callback) {
     const config = { content: [option] }
     const dock = { el, config, invoke, callback }
     const layout = new goldenLayout.GoldenLayout(config, el)
-    layout.registerComponent("component", (container, state) => {
-        container.getElement().innerHTMl = `<h2>test1</h2>`
+    layout.registerComponentFactoryFunction("component", (container, state) => {
+        container.element.innerHTMl = `<h2>test1</h2>`
     })
     dock.layout = layout
     layout.init()
