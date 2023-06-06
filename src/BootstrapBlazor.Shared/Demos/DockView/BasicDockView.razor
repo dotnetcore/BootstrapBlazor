@@ -1,8 +1,9 @@
-﻿<DockView Config="@ViewConfigs"></DockView>
-
-@code{
-    private DockViewConfig ViewConfigs { get; set; } = new DockViewConfig()
-    {
-        Type = "row" , Content = new List<DockViewConfig>(){ new DockViewConfig() { Type = "component" , ComponentName = "ceshi1" }}
-    };
-}
+﻿<DockView>
+    <DockContent Type="DockContentType.Row">
+        <DockContentItem Title="Test1"></DockContentItem>
+        <DockContent Type="DockContentType.Column">
+            <DockContentItem Title="Test2"></DockContentItem>
+            <DockContentItem Title="Test3"></DockContentItem>
+        </DockContent>
+    </DockContent>
+</DockView>
