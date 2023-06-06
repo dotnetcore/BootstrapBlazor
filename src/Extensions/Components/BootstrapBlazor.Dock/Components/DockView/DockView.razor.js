@@ -3,21 +3,32 @@ import { addLink } from '../../../BootstrapBlazor/modules/utility.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
 
 export async function init(id, option, invoke, callback) {
-    await addLink("./_content/BootstrapBlazor.Dock/css/goldenlayout-base.css")
-    await addLink("./_content/BootstrapBlazor.Dock/css/goldenlayout-light-theme.css")
+    await addLink("./_content/BootstrapBlazor.Dock/css/goldenlayout-bb.css")
 
     const el = document.getElementById(id)
     if (el === null) {
         return
     }
-    const config = { content: [option] }
+    const config = {
+        dimensions: {
+            borderWidth: 5,
+            minItemHeight: 10,
+            minItemWidth: 10,
+            headerHeight: 26,
+            dragProxyWidth: 300,
+            dragProxyHeight: 200
+        },
+        content: [option]
+    }
     const dock = { el, config, invoke, callback }
     const layout = new goldenLayout.GoldenLayout(config, el)
     layout.registerComponentFactoryFunction("component", (container, state) => {
-        container.element.innerHTMl = `<h2>test1</h2>`
+        const el = document.getElementById(state.id)
+        container.element.append(el)
     })
     dock.layout = layout
     layout.init()
+    layout.resizeWithContainerAutomatically = true
 }
 
 export function dispose(id) {
