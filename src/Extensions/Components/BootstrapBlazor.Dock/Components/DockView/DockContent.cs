@@ -30,7 +30,7 @@ public class DockContent : ComponentBase, IDockComponent
     /// <summary>
     /// 获得/设置 子项集合
     /// </summary>
-    [JsonConverter(typeof(JsonDockComponentConverter))]
+    [JsonConverter(typeof(DockComponentConverter))]
     [JsonPropertyName("content")]
     public List<IDockComponent> Items { get; } = new();
 
