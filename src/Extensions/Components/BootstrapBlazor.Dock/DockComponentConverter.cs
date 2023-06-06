@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-class JsonDockComponentConverter : JsonConverter<List<IDockComponent>>
+class DockComponentConverter : JsonConverter<List<IDockComponent>>
 {
     /// <summary>
     /// 
