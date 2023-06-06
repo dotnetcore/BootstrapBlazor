@@ -53,5 +53,4 @@ public class DockViewConfig
     /// 
     /// </summary>
     public string? Title { get; set; }
-
 }

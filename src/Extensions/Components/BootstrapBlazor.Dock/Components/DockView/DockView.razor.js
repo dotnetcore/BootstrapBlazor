@@ -1,35 +1,43 @@
-﻿import Data from '../../../BootstrapBlazor/modules/data.js'
+﻿import "../../js/golden-layout.min.js"
 import { addLink } from '../../../BootstrapBlazor/modules/utility.js'
-import "../../js/golden-layout.js"
+import Data from '../../../BootstrapBlazor/modules/data.js'
 
-let components = [];
+export async function init(id, config, invoke, callback) {
+    await addLink("./_content/BootstrapBlazor.Dock/css/goldenlayout-base.css")
+    await addLink("./_content/BootstrapBlazor.Dock/css/goldenlayout-light-theme.css")
 
-export function init(el, config) {
-    addLink("./_content/BootstrapBlazor.Dock/css/goldenlayout-base.css");
-    addLink("./_content/BootstrapBlazor.Dock/css/goldenlayout-light-theme.css")
-    try {
-        console.log(config)
-        expandConfig(config);
-        console.log(components)
-        const layout = new goldenLayout.GoldenLayout(config, el);
-        // 循环注册 component
-        for (var i = 0; i < components.length; i++) {
-            layout.registerComponent(components[i], (container, componentState) => {
-            })
-        }
-        layout.init();
-    } catch (e) {
-        console.error(e)
+    const el = document.getElementById(id)
+    if (el === null) {
+        return
     }
+    const dock = { el, config, invoke, callback }
+
+    const components = []
+    expandConfig(dock)
+
+    const layout = new goldenLayout.GoldenLayout(config, el)
+
+    // 循环注册 component
+    for (var i = 0; i < components.length; i++) {
+        layout.registerComponent(components[i], (container, componentState) => {
+        })
+    }
+    layout.init()
+    dock.layout = layout
 }
 
-function expandConfig(val) {
+export function dispose(id) {
+
+}
+
+function expandConfig(val, components) {
     if (val.content == null) {
         components.push(val.componentName)
-    } else {
+    }
+    else {
         if (val.content) {
             for (var i = 0; i < val.content.length; i++) {
-                expandConfig(val.content[i])
+                expandConfig(val.content[i], components)
             }
         }
     }
