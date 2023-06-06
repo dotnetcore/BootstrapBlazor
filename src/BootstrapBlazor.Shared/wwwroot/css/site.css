@@ -153,6 +153,11 @@
     --bs-table-striped-color: #fff;
 }
 
+.bb-dock {
+    min-height: 400px;
+    width: 100%;
+}
+
 @media (min-width: 768px) {
     :root {
         --bs-header-height: 50px;
