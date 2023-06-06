@@ -1,0 +1,40 @@
+﻿@import './goldenlayout-base.css';
+@import './goldenlayout-light-theme.css';
+
+.bb-dock {
+    --bb-gl-bg: #fafafa;
+    --bb-gl-header-height: 25px;
+    min-height: 400px;
+    width: 100%;
+}
+
+    .bb-dock .bb-dock-item {
+        display: none;
+    }
+
+    .bb-dock .lm_content {
+        background: var(--bb-gl-bg);
+        padding: 0.5rem;
+    }
+
+        .bb-dock .lm_content .bb-dock-item {
+            display: block;
+        }
+
+    .bb-dock .lm_header .lm_tab.lm_active {
+        padding-bottom: 0;
+        height: var(--bb-gl-header-height);
+        background-color: var(--bb-gl-bg);
+    }
+
+    .bb-dock .lm_header .lm_tab .lm_title {
+        line-height: var(--bb-gl-header-height);
+    }
+
+    .bb-dock .lm_header .lm_tab .lm_close_tab {
+        top: 7px;
+    }
+
+    .bb-dock .lm_header .lm_controls {
+        top: 5px;
+    }
