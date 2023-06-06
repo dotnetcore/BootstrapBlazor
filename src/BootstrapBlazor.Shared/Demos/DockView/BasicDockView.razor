@@ -1,9 +1,28 @@
-﻿<DockView>
+﻿@*<DockView>
+        <DockContent Type="DockContentType.Row">
+            <DockContentItem Title="Test1"></DockContentItem>
+            <DockContent Type="DockContentType.Column">
+                <DockContentItem Title="Test2"></DockContentItem>
+                <DockContentItem Title="Test3"></DockContentItem>
+            </DockContent>
+        </DockContent>
+    </DockView>*@
+<DockView>
     <DockContent Type="DockContentType.Row">
-        <DockContentItem Title="Test1"></DockContentItem>
         <DockContent Type="DockContentType.Column">
+            <DockContentItem Title="Test1"></DockContentItem>
             <DockContentItem Title="Test2"></DockContentItem>
-            <DockContentItem Title="Test3"></DockContentItem>
+        </DockContent>
+        <DockContent Type="DockContentType.Row">
+            <DockContentItem Title="test5"></DockContentItem>
+            <DockContent Type="DockContentType.Column">
+                <DockContent Type="DockContentType.Stack">
+                    <DockContentItem Title="Test6"></DockContentItem>
+                    <DockContentItem Title="Test7"></DockContentItem>
+                </DockContent>
+                <DockContentItem Title="Test3"></DockContentItem>
+                <DockContentItem Title="Test4"></DockContentItem>
+            </DockContent>
         </DockContent>
     </DockContent>
 </DockView>
