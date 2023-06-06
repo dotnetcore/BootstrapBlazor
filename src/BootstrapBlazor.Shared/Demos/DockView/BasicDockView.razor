@@ -32,7 +32,19 @@
         <DockContentItem Title="Test1"><div>Test1</div></DockContentItem>
         <DockContent Type="DockContentType.Column">
             <DockContentItem Title="Test2"><Button Text="Test2"></Button></DockContentItem>
-            <DockContentItem Title="Test3"><BootstrapInput TValue="string"></BootstrapInput></DockContentItem>
+            <DockContentItem Title="Test3">
+                <DockView>
+                    <DockContent Type="DockContentType.Row">
+                        <DockContentItem Title="Test1"><div>Test1</div></DockContentItem>
+                        <DockContent Type="DockContentType.Column">
+                            <DockContentItem Title="Test4"><Button Text="Test4"></Button></DockContentItem>
+                            <DockContentItem Title="Test5">
+                                <BootstrapInput TValue="string"></BootstrapInput>
+                            </DockContentItem>
+                        </DockContent>
+                    </DockContent>
+                </DockView>
+            </DockContentItem>
         </DockContent>
     </DockContent>
 </DockView>
