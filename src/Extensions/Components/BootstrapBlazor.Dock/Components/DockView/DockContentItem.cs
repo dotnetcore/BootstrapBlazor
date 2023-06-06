@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// DockContentItem 配置项子项对标 content 配置项内部 content 配置
 /// </summary>
-public class DockContentItem : ComponentBase, IDockComponent
+public class DockContentItem : IdComponentBase, IDockComponent
 {
     /// <summary>
     /// 获得/设置 默认 Component
@@ -31,10 +31,23 @@ public class DockContentItem : ComponentBase, IDockComponent
     public string? Title { get; set; }
 
     /// <summary>
+    /// 获得/设置 组件 Class
+    /// </summary>
+    [Parameter]
+    public string? Class { get; set; }
+
+    /// <summary>
     /// 获得/设置 组件状态
     /// </summary>
     [Parameter]
     public object? ComponentState { get; set; }
+
+    /// <summary>
+    /// 获得/设置 子组件
+    /// </summary>
+    [Parameter]
+    [JsonIgnore]
+    public RenderFragment? ChildContent { get; set; }
 
     [CascadingParameter]
     private DockContent? Content { get; set; }
@@ -46,6 +59,7 @@ public class DockContentItem : ComponentBase, IDockComponent
     {
         base.OnInitialized();
 
+        ComponentState = new { Id, Title, ComponentName };
         Content?.Items.Add(this);
     }
 }

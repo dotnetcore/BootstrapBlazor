@@ -23,6 +23,8 @@ public partial class DockView
 
     private DockContent Option { get; } = new();
 
+    private bool IsRendered { get; set; }
+
     private string? ClassString => CssBuilder.Default("bb-dock")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -30,11 +32,51 @@ public partial class DockView
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
-    protected override async Task InvokeInitAsync()
+    /// <param name="firstRender"></param>
+    protected override void OnAfterRender(bool firstRender)
     {
-        await InvokeVoidAsync("init", Id, Option, Interop, nameof(Demo));
+        base.OnAfterRender(firstRender);
+
+        if (firstRender)
+        {
+            IsRendered = true;
+            StateHasChanged();
+        }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (IsRendered)
+        {
+            await InvokeVoidAsync("init", Id, Option, Interop, nameof(Demo));
+        }
+    }
+
+    private RenderFragment RenderDockComponent(DockContent content) => new(builder =>
+    {
+        foreach (var item in content.Items)
+        {
+            if (item is DockContentItem com)
+            {
+                builder.OpenElement(0, "div");
+                builder.AddAttribute(1, "id", com.Id);
+                builder.AddAttribute(2, "class", CssBuilder.Default("bb-dock-item").AddClass(com.Class).Build());
+                builder.AddContent(3, com.ChildContent);
+                builder.CloseComponent();
+            }
+            else if (item is DockContent content)
+            {
+                builder.AddContent(4, RenderDockComponent(content));
+            }
+        }
+    });
 
     /// <summary>
     /// 
