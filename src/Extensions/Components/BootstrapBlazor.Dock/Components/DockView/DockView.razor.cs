@@ -31,7 +31,7 @@ public partial class DockView
     [NotNull]
     public RenderFragment? ChildContent { get; set; }
 
-    private string? ClassString => CssBuilder.Default("bb-topology")
+    private string? ClassString => CssBuilder.Default("bb-dock")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
