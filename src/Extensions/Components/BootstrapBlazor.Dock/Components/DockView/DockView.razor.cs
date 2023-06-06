@@ -12,16 +12,6 @@ namespace BootstrapBlazor.Components;
 public partial class DockView
 {
     /// <summary>
-    /// 获得/设置 配置信息
-    /// </summary>
-    [Parameter]
-#if NET6_0_OR_GREATER
-    [EditorRequired]
-#endif
-    [NotNull]
-    public DockViewConfig? Config { get; set; }
-
-    /// <summary>
     /// 获得/设置 RenderFragment 实例
     /// </summary>
     [Parameter]
@@ -31,6 +21,8 @@ public partial class DockView
     [NotNull]
     public RenderFragment? ChildContent { get; set; }
 
+    private DockContent Option { get; } = new();
+
     private string? ClassString => CssBuilder.Default("bb-dock")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -39,7 +31,10 @@ public partial class DockView
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Config, Interop, nameof(Demo));
+    protected override async Task InvokeInitAsync()
+    {
+        await InvokeVoidAsync("init", Id, Option, Interop, nameof(Demo));
+    }
 
     /// <summary>
     /// 
