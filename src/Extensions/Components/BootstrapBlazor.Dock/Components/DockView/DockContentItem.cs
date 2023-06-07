@@ -19,10 +19,10 @@ public class DockContentItem : IdComponentBase, IDockComponent
     public DockContentType Type { get; } = DockContentType.Component;
 
     /// <summary>
-    /// 获得/设置 组件名称
+    /// 获得/设置 组件名称 默认 component
     /// </summary>
     [Parameter]
-    public string? ComponentName { get; set; } = "component";
+    public string ComponentName { get; set; } = "component";
 
     /// <summary>
     /// 获得/设置 组件 Title
@@ -65,7 +65,7 @@ public class DockContentItem : IdComponentBase, IDockComponent
     {
         base.OnInitialized();
 
-        ComponentState = new { Id, Title, ComponentName };
+        ComponentState = new { Id, Title, ComponentName, Visible };
         Content?.Items.Add(this);
     }
 }
