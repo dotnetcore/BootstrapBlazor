@@ -1,4 +1,4 @@
-﻿import "../../js/golden-layout.min.js"
+﻿import "../../js/golden-layout.js"
 import { addLink } from '../../../BootstrapBlazor/modules/utility.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
 
