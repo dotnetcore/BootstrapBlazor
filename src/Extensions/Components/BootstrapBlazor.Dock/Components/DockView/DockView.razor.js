@@ -3,64 +3,13 @@ import { addLink } from '../../../BootstrapBlazor/modules/utility.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
 
 export async function init(id, option, invoke, callback) {
-    await addLink("./_content/BootstrapBlazor.Dock/css/goldenlayout-bb.css")
-
     const el = document.getElementById(id)
     if (el === null) {
         return
     }
 
-    console.log(option.content)
-
-    //option = {
-    //    type: 'row',
-    //    content: [
-    //        {
-    //            type: 'component',
-    //            componentName: 'component',
-    //            componentState: { text: 'Component 1' }
-    //        },
-    //        {
-    //            type: 'component',
-    //            componentName: 'component',
-    //            componentState: { text: 'Component 2' }
-    //        },
-    //        {
-    //            type: 'component',
-    //            componentName: 'component',
-    //            componentState: { text: 'Component 3' }
-    //        }
-    //    ]
-    //}
-
-    const config = {
-        dimensions: {
-            borderWidth: 5,
-            minItemHeight: 10,
-            minItemWidth: 10,
-            headerHeight: 26,
-            dragProxyWidth: 300,
-            dragProxyHeight: 200
-        },
-        content: option.content
-    }
-
-    const dock = { el, config, invoke, callback }
-
-    // config 应由外部给进来
-    var localConfig = localStorage.getItem("config");
-    if (localConfig) {
-        var item = JSON.parse(localConfig)
-        // 当tab全部关闭时，没有root节点
-        if (item.root) {
-            dock.layout = initialize(item, el);
-        } else {
-            dock.layout = initialize(config, el)
-        }
-    } else {
-        dock.layout = initialize(config, el)
-    }
-
+    await addLink("./_content/BootstrapBlazor.Dock/css/goldenlayout-bb.css")
+    const dock = { el, invoke, callback, layout: createGoldenLayout(option.content, el) }
     Data.set(id, dock)
 }
 
@@ -85,10 +34,7 @@ export function update(id, option) {
         comps.forEach(v => {
             const c = items.find(i => i.id == v.id)
             if (c === undefined) {
-                const item = document.getElementById(v.id)
-                item.classList.add('d-none')
-                v.remove();
-                dock.el.append(item)
+                closeItem(dock.el, v)
             }
         })
     }
@@ -113,7 +59,9 @@ const getAllContentItems = content => {
     return items
 }
 
-const initialize = (config, el) => {
+const createGoldenLayout = (content, el) => {
+    const config = getConfig(content)
+
     const layout = new goldenLayout.GoldenLayout(config, el)
     layout.registerComponentFactoryFunction("component", (container, state) => {
         // 当从缓存拿config时, id 为没刷新前的 id，页面元素已经改变
@@ -124,10 +72,43 @@ const initialize = (config, el) => {
     layout.init()
     layout.resizeWithContainerAutomatically = true
 
-    layout.on("stateChanged", () => {
-        localStorage.setItem("config", JSON.stringify(layout.toConfig()));
-    })
-    layout.on("tabClosed", tab => {
-        console.log(tab)
-    })
+    layout.on("stateChanged", () => saveConfig(layout))
+    layout.on("tabClosed", component => closeItem(el, component))
+    return layout
+}
+
+const closeItem = (el, component) => {
+    const item = document.getElementById(component.id)
+    item.classList.add('d-none')
+    component.remove();
+    el.append(item)
+}
+
+const getConfig = content => {
+    let config = null
+    const localConfig = localStorage.getItem("uni_gl_layout");
+    if (localConfig) {
+        // 当tab全部关闭时，没有root节点
+        const configItem = JSON.parse(localConfig)
+        if (configItem.root) {
+            config = configItem
+        }
+    }
+
+    config = config || {
+        dimensions: {
+            borderWidth: 5,
+            minItemHeight: 10,
+            minItemWidth: 10,
+            headerHeight: 26,
+            dragProxyWidth: 300,
+            dragProxyHeight: 200
+        },
+        content
+    }
+    return config
+}
+
+const saveConfig = layout => {
+    localStorage.setItem("uni_gl_layout", JSON.stringify(layout.toConfig()));
 }
