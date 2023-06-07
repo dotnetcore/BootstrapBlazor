@@ -29,6 +29,8 @@ public partial class DockView
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
+    private bool IsInit { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -53,9 +55,17 @@ public partial class DockView
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (IsRendered)
+        if (IsRendered && Module != null)
         {
-            await InvokeVoidAsync("init", Id, Option, Interop, nameof(Demo));
+            if (IsInit)
+            {
+                await InvokeVoidAsync("update", Id, Option);
+            }
+            else
+            {
+                IsInit = true;
+                await InvokeVoidAsync("init", Id, Option, Interop, nameof(Demo));
+            }
         }
     }
 
@@ -67,7 +77,7 @@ public partial class DockView
             {
                 builder.OpenElement(0, "div");
                 builder.AddAttribute(1, "id", com.Id);
-                builder.AddAttribute(2, "class", CssBuilder.Default("bb-dock-item").AddClass(com.Class).Build());
+                builder.AddAttribute(2, "class", CssBuilder.Default("bb-dock-item d-none").AddClass(com.Class).Build());
                 builder.AddContent(3, com.ChildContent);
                 builder.CloseComponent();
             }
