@@ -37,7 +37,10 @@ class DockComponentConverter : JsonConverter<List<IDockComponent>>
             }
             else if (item is DockContentItem contentItem)
             {
-                writer.WriteRawValue(JsonSerializer.Serialize(contentItem, options));
+                if (contentItem.Visible)
+                {
+                    writer.WriteRawValue(JsonSerializer.Serialize(contentItem, options));
+                }
             }
 #endif
         }
