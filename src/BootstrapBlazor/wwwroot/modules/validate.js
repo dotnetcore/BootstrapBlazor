@@ -20,7 +20,7 @@ export function dispose(id) {
         if (tip) {
             const handler = setTimeout(() => {
                 clearTimeout(handler)
-                if (tip) {
+                if (tip && tip._element) {
                     tip.dispose()
                 }
             }, 10)
