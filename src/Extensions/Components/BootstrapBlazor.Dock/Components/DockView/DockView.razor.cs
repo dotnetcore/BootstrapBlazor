@@ -21,6 +21,22 @@ public partial class DockView
     [NotNull]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// 获得/设置 DockView 名称 默认 null 用于本地存储识别
+    /// </summary>
+    [Parameter]
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
+    [NotNull]
+    public string? Name { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否启用本地存储布局 默认 true 启用
+    /// </summary>
+    [Parameter]
+    public bool EnableLocalStorage { get; set; } = true;
+
     private DockContent Option { get; } = new();
 
     private bool IsRendered { get; set; }
@@ -59,14 +75,22 @@ public partial class DockView
         {
             if (IsInit)
             {
-                await InvokeVoidAsync("update", Id, Option);
+                await InvokeVoidAsync("update", Id, GetOption());
             }
             else
             {
                 IsInit = true;
-                await InvokeVoidAsync("init", Id, Option, Interop, nameof(Demo));
+                await InvokeVoidAsync("init", Id, GetOption(), Interop, nameof(Demo));
             }
         }
+
+        object GetOption() => new
+        {
+            Version = "v1",
+            Name,
+            EnableLocalStorage,
+            Option
+        };
     }
 
     private RenderFragment RenderDockComponent(DockContent content) => new(builder =>
