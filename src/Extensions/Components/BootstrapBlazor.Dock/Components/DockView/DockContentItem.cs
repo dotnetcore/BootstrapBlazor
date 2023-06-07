@@ -37,6 +37,12 @@ public class DockContentItem : IdComponentBase, IDockComponent
     public string? Class { get; set; }
 
     /// <summary>
+    /// 获得/设置 组件是否可见 默认 true 可见
+    /// </summary>
+    [Parameter]
+    public bool Visible { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 组件状态
     /// </summary>
     [Parameter]
