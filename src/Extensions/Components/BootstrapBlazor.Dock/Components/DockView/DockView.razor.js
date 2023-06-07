@@ -45,16 +45,22 @@ export async function init(id, option, invoke, callback) {
         content: option.content
     }
 
-    const layout = new goldenLayout.GoldenLayout(config, el)
-    layout.registerComponentFactoryFunction("component", (container, state) => {
-        const el = document.getElementById(state.id)
-        el.classList.remove('d-none')
-        container.element.append(el)
-    })
-    layout.init()
-    layout.resizeWithContainerAutomatically = true
+    const dock = { el, config, invoke, callback }
 
-    const dock = { el, config, invoke, callback, layout }
+    // config 应由外部给进来
+    var localConfig = localStorage.getItem("config");
+    if (localConfig) {
+        var item = JSON.parse(localConfig)
+        // 当tab全部关闭时，没有root节点
+        if (item.root) {
+            dock.layout = initialize(item, el);
+        } else {
+            dock.layout = initialize(config, el)
+        }
+    } else {
+        dock.layout = initialize(config, el)
+    }
+
     Data.set(id, dock)
 }
 
@@ -105,4 +111,23 @@ const getAllContentItems = content => {
         }
     })
     return items
+}
+
+const initialize = (config, el) => {
+    const layout = new goldenLayout.GoldenLayout(config, el)
+    layout.registerComponentFactoryFunction("component", (container, state) => {
+        // 当从缓存拿config时, id 为没刷新前的 id，页面元素已经改变
+        //const el = document.getElementById(state.id)
+        //el.classList.remove('d-none')
+        //container.element.append(el)
+    })
+    layout.init()
+    layout.resizeWithContainerAutomatically = true
+
+    layout.on("stateChanged", () => {
+        localStorage.setItem("config", JSON.stringify(layout.toConfig()));
+    })
+    layout.on("tabClosed", tab => {
+        console.log(tab)
+    })
 }
