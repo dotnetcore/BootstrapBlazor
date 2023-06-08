@@ -38,7 +38,7 @@ export function update(id, option) {
             }
         })
     }
-    saveConfig(option, dock.layout.saveLayout())
+    saveConfig(option, dock.layout)
 }
 
 export function dispose(id) {
@@ -82,26 +82,32 @@ const createGoldenLayout = (option, el) => {
     })
     layout.init()
     layout.resizeWithContainerAutomatically = true
-    EventHandler.on(el, 'click', '.lm_close_tab', e => {
-        const stack = e.delegateTarget.closest('.lm_item.lm_stack')
-        const comp = stack.querySelector('.bb-dock-item')
-        if (comp) {
-            comp.classList.add('d-none')
-            el.append(comp)
-
-            const components = layout.getAllContentItems().filter(i => i.isComponent)
-            let times = 0
-            const handler = setInterval(() => {
-                times++
-                const currentComponents = layout.getAllContentItems().filter(i => i.isComponent)
-                if (currentComponents.length < components.length || times > 3) {
-                    clearInterval(handler)
-                    const layoutConfig = layout.saveLayout()
-                    saveConfig(option, layoutConfig)
-                }
-            }, 100)
+    layout.on('tabClosed', componentItem => {
+        if (el) {
+            el.append(componentItem)
+            saveConfig(option, layout)
         }
     })
+    //EventHandler.on(el, 'click', '.lm_close_tab', e => {
+    //    const stack = e.delegateTarget.closest('.lm_item.lm_stack')
+    //    const comp = stack.querySelector('.bb-dock-item')
+    //    if (comp) {
+    //        comp.classList.add('d-none')
+    //        el.append(comp)
+
+    //        const components = layout.getAllContentItems().filter(i => i.isComponent)
+    //        let times = 0
+    //        const handler = setInterval(() => {
+    //            times++
+    //            const currentComponents = layout.getAllContentItems().filter(i => i.isComponent)
+    //            if (currentComponents.length < components.length || times > 3) {
+    //                clearInterval(handler)
+    //                const layoutConfig = layout.saveLayout()
+    //                saveConfig(option, layoutConfig)
+    //            }
+    //        }, 100)
+    //    }
+    //})
     return layout
 }
 
@@ -149,14 +155,14 @@ const getConfig = option => {
     }
 }
 
-const saveConfig = (option, layoutConfig) => {
+const saveConfig = (option, layout) => {
     option = {
         enableLocalStorage: false,
         ...option
     }
     if (option.enableLocalStorage) {
         removeConfig(option)
-        localStorage.setItem(`uni_gl_layout_${option.name}_${option.version}`, JSON.stringify(layoutConfig));
+        localStorage.setItem(`uni_gl_layout_${option.name}_${option.version}`, JSON.stringify(layout.saveLayout()));
     }
 }
 
