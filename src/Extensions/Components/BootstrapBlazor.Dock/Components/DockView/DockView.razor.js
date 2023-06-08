@@ -50,6 +50,7 @@ export function dispose(id) {
     }
 
     saveConfig(dock.option, dock.layout.saveLayout())
+    dock.layout.destroy()
     EventHandler.off(dock.el, 'click', '.lm_close_tab')
 }
 
