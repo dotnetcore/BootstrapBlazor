@@ -89,11 +89,11 @@ const createGoldenLayout = (option, el) => {
             comp.classList.add('d-none')
             el.append(comp)
 
-            const components = dock.layout.getAllContentItems().filter(i => i.isComponent)
+            const components = layout.getAllContentItems().filter(i => i.isComponent)
             let times = 0
             const handler = setInterval(() => {
                 times++
-                const currentComponents = dock.layout.getAllContentItems().filter(i => i.isComponent)
+                const currentComponents = layout.getAllContentItems().filter(i => i.isComponent)
                 if (currentComponents.length < components.length || times > 3) {
                     clearInterval(handler)
                     const layoutConfig = layout.saveLayout()
