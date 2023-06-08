@@ -34,3 +34,7 @@
     .bb-dock .lm_header .lm_tab {
         height: 20px;
     }
+
+    .bb-dock .lm_controls {
+        display: none;
+    }
