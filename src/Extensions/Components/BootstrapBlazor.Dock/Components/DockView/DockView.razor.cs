@@ -102,7 +102,8 @@ public partial class DockView
                 builder.OpenElement(0, "div");
                 builder.AddAttribute(1, "id", com.Id);
                 builder.AddAttribute(2, "class", CssBuilder.Default("bb-dock-item d-none").AddClass(com.Class).Build());
-                builder.AddContent(3, com.ChildContent);
+                builder.AddAttribute(3, "data-bb-title", com.Title);
+                builder.AddContent(4, com.ChildContent);
                 builder.CloseComponent();
             }
             else if (item is DockContent content)

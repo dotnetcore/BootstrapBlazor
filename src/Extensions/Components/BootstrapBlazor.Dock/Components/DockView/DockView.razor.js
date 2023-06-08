@@ -38,6 +38,7 @@ export function update(id, option) {
             }
         })
     }
+    saveConfig(option, dock.layout.saveLayout())
 }
 
 export function dispose(id) {
@@ -48,8 +49,8 @@ export function dispose(id) {
         return
     }
 
-    saveConfig(dock.option, dock.layout)
-    EventHandler.off(el, 'click', '.lm_close_tab')
+    saveConfig(dock.option, dock.layout.saveLayout())
+    EventHandler.off(dock.el, 'click', '.lm_close_tab')
 }
 
 const getAllContentItems = content => {
@@ -73,6 +74,7 @@ const createGoldenLayout = (option, el) => {
     const layout = new goldenLayout.GoldenLayout(config, el)
     layout.registerComponentFactoryFunction("component", (container, state) => {
         const el = document.getElementById(state.id)
+        console.log(state.title)
         if (el) {
             el.classList.remove('d-none')
             container.element.append(el)
@@ -81,10 +83,18 @@ const createGoldenLayout = (option, el) => {
     layout.init()
     layout.resizeWithContainerAutomatically = true
     EventHandler.on(el, 'click', '.lm_close_tab', e => {
-        console.log(e.delegateTarget)
         const stack = e.delegateTarget.closest('.lm_item.lm_stack')
         const comp = stack.querySelector('.bb-dock-item')
-        console.log(comp)
+        if (comp) {
+            comp.classList.add('d-none')
+            el.append(comp)
+        }
+
+        const handler = setTimeout(() => {
+            clearTimeout(handler)
+            const layoutConfig = layout.saveLayout()
+            saveConfig(option, layoutConfig)
+        }, 200)
     })
     return layout
 }
@@ -98,6 +108,14 @@ const closeItem = (el, component) => {
 
 const getConfig = option => {
     let config = null
+    option = {
+        enableLocalStorage: false,
+        name: 'default',
+        option: {
+            content: []
+        },
+        ...option
+    }
     if (option.enableLocalStorage) {
         const localConfig = localStorage.getItem(`uni_gl_layout_${option.name}_${option.version}`);
         if (localConfig) {
@@ -130,9 +148,9 @@ const getConfig = option => {
     }
 }
 
-const saveConfig = (option, layout) => {
+const saveConfig = (option, layoutConfig) => {
     removeConfig(option)
-    localStorage.setItem(`uni_gl_layout_${option.name}_${option.version}`, JSON.stringify(layout.saveLayout()));
+    localStorage.setItem(`uni_gl_layout_${option.name}_${option.version}`, JSON.stringify(layoutConfig));
 }
 
 const removeConfig = option => {
@@ -145,12 +163,22 @@ const removeConfig = option => {
 }
 
 const resetComponentId = (config, content) => {
-    const items = getAllContentItems(content)
     const components = getAllContentItems(config.root.content)
+    const items = getAllContentItems(content)
     components.forEach((com, index) => {
-        if (index < items.length) {
-            com.componentState = items[index].componentState
-            com.id = items[index].id
+        const item = items.find(i => i.id === com.id)
+        if (item) {
+            // 原有 Component
+            com.componentState = item.componentState
+            com.title = item.title
+        }
+        else {
+            // 新的项目，由于 ID 是变化的暂时通过 title 来定位新 Component
+            const newEl = document.querySelector(`[data-bb-title='${com.title}']`)
+            if (newEl) {
+                com.id = newEl.getAttribute('id')
+                com.componentState.id = com.id
+            }
         }
     })
 }
