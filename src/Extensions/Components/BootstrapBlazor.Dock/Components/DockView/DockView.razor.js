@@ -49,6 +49,7 @@ export function dispose(id) {
     }
 
     saveConfig(dock.option, dock.layout)
+    EventHandler.off(el, 'click', '.lm_close_tab')
 }
 
 const getAllContentItems = content => {
@@ -79,9 +80,6 @@ const createGoldenLayout = (option, el) => {
     })
     layout.init()
     layout.resizeWithContainerAutomatically = true
-
-    //layout.on("tabClosed", component => closeItem(el, component))
-
     EventHandler.on(el, 'click', '.lm_close_tab', e => {
         console.log(e.delegateTarget)
         const stack = e.delegateTarget.closest('.lm_item.lm_stack')
