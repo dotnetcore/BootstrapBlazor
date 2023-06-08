@@ -30,3 +30,7 @@
     .bb-dock .lm_header .lm_controls {
         top: 5px;
     }
+
+    .bb-dock .lm_header .lm_tab {
+        height: 20px;
+    }
