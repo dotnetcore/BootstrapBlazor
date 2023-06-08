@@ -15,8 +15,8 @@ export async function init(id, option, invoke, callback) {
 
     layout.on('tabClosed', componentItem => {
         if (componentItem) {
-            componentItem.Element.classList.add('d-none')
-            el.append(componentItem.Element)
+            componentItem._element.classList.add('d-none')
+            el.append(componentItem._element)
             saveConfig(option, layout)
 
             invoke.invokeMethodAsync(callback, componentItem.title)
