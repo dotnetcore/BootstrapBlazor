@@ -15,11 +15,11 @@ export async function init(id, option, invoke, callback) {
 
     layout.on('tabClosed', componentItem => {
         if (componentItem) {
-            componentItem.classList.add('d-none')
-            el.append(componentItem)
+            componentItem.Element.classList.add('d-none')
+            el.append(componentItem.Element)
             saveConfig(option, layout)
 
-            invoke.invokeMethodAsync(callback, componentItem.getAttribute("id"))
+            invoke.invokeMethodAsync(callback, componentItem.title)
         }
     })
 }
