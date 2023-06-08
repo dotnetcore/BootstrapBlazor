@@ -144,11 +144,6 @@ const getConfig = option => {
                 headerHeight: 26,
                 dragProxyWidth: 300,
                 dragProxyHeight: 200
-            },
-            header: {
-                close: true,
-                maximise: false,
-                minimise: false
             }
         }
     }
