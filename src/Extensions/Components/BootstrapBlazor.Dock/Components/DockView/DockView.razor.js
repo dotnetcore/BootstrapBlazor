@@ -74,7 +74,6 @@ const createGoldenLayout = (option, el) => {
     const layout = new goldenLayout.GoldenLayout(config, el)
     layout.registerComponentFactoryFunction("component", (container, state) => {
         const el = document.getElementById(state.id)
-        console.log(state.title)
         if (el) {
             el.classList.remove('d-none')
             container.element.append(el)
@@ -88,13 +87,19 @@ const createGoldenLayout = (option, el) => {
         if (comp) {
             comp.classList.add('d-none')
             el.append(comp)
-        }
 
-        const handler = setTimeout(() => {
-            clearTimeout(handler)
-            const layoutConfig = layout.saveLayout()
-            saveConfig(option, layoutConfig)
-        }, 200)
+            const components = dock.layout.getAllContentItems().filter(i => i.isComponent)
+            let times = 0
+            const handler = setInterval(() => {
+                times++
+                const currentComponents = dock.layout.getAllContentItems().filter(i => i.isComponent)
+                if (currentComponents.length < components.length || times > 3) {
+                    clearInterval(handler)
+                    const layoutConfig = layout.saveLayout()
+                    saveConfig(option, layoutConfig)
+                }
+            }, 100)
+        }
     })
     return layout
 }
