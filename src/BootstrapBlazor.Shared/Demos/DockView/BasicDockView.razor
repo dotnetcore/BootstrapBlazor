@@ -28,14 +28,18 @@
 </DockView>
 *@
 <Button Text="Text" OnClick="OnClick"></Button>
-<DockView Name="Test">
-    <DockContent Type="DockContentType.Row">
-        <DockContentItem Title="Test100" Visible="Visible">
-            <div>Test100</div>
-            <BootstrapInput TValue="string"></BootstrapInput></DockContentItem>
-        <DockContentItem Title="Test1"><div>Test1</div></DockContentItem>
-        <DockContentItem Title="Test2" Visible="true"><div>Test2</div></DockContentItem>
-        @*        <DockContent Type="DockContentType.Column">
+<Button Text="Toggle" OnClick="OnToggleClick"></Button>
+@if (Toggle)
+{
+    <DockView Name="Test" OnCloseItemAsync="OnCloseAsync">
+        <DockContent Type="DockContentType.Row">
+            <DockContentItem Title="Test100" Visible="Visible">
+                <div>Test100</div>
+                <BootstrapInput TValue="string"></BootstrapInput>
+            </DockContentItem>
+            <DockContentItem Title="Test1"><div>Test1</div></DockContentItem>
+            <DockContentItem Title="Test2" Visible="true"><div>Test2</div></DockContentItem>
+            @*        <DockContent Type="DockContentType.Column">
         <DockContentItem Title="Test2"><Button Text="Test2"></Button></DockContentItem>
         <DockContentItem Title="Test3">
         <DockView>
@@ -51,14 +55,31 @@
         </DockView>
         </DockContentItem>
         </DockContent>*@
-    </DockContent>
-</DockView>
+        </DockContent>
+    </DockView>
+}
 
 @code {
     private bool Visible { get; set; }
 
+    private bool Toggle { get; set; } = true;
+
     private void OnClick()
     {
         Visible = !Visible;
+    }
+
+    private void OnToggleClick()
+    {
+        Toggle = !Toggle;
+    }
+
+    private Task OnCloseAsync(string title)
+    {
+        if (title == "Test100")
+        {
+            Visible = false;
+        }
+        return Task.CompletedTask;
     }
 }
