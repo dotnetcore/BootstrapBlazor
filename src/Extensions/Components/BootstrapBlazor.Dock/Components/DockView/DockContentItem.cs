@@ -68,4 +68,13 @@ public class DockContentItem : IdComponentBase, IDockComponent
         ComponentState = new { Id, Title, ComponentName, Visible };
         Content?.Items.Add(this);
     }
+
+    /// <summary>
+    /// 设置 Visible 参数方法
+    /// </summary>
+    /// <param name="visible"></param>
+    public void SetVisible(bool visible)
+    {
+        Visible = visible;
+    }
 }

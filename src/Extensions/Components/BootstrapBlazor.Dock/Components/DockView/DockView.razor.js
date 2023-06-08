@@ -9,8 +9,19 @@ export async function init(id, option, invoke, callback) {
     }
 
     await addLink("./_content/BootstrapBlazor.Dock/css/goldenlayout-bb.css")
-    const dock = { el, option, invoke, callback, layout: createGoldenLayout(option, el) }
+    const layout = createGoldenLayout(option, el)
+    const dock = { el, option, invoke, callback, layout }
     Data.set(id, dock)
+
+    layout.on('tabClosed', componentItem => {
+        if (componentItem) {
+            componentItem.classList.add('d-none')
+            el.append(componentItem)
+            saveConfig(option, layout)
+
+            invoke.invokeMethodAsync(callback, componentItem.getAttribute("id"))
+        }
+    })
 }
 
 export function update(id, option) {
@@ -80,13 +91,6 @@ const createGoldenLayout = (option, el) => {
     })
     layout.init()
     layout.resizeWithContainerAutomatically = true
-    layout.on('tabClosed', componentItem => {
-        if (componentItem) {
-            componentItem.classList.add('d-none')
-            el.append(componentItem)
-            saveConfig(option, layout)
-        }
-    })
     return layout
 }
 

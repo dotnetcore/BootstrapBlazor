@@ -32,6 +32,12 @@ public partial class DockView
     public string? Name { get; set; }
 
     /// <summary>
+    /// 获得/设置 标签关闭时回调方法
+    /// </summary>
+    [Parameter]
+    public Func<string, Task>? OnCloseItemAsync { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否启用本地存储布局 默认 true 启用
     /// </summary>
     [Parameter]
@@ -80,7 +86,7 @@ public partial class DockView
             else
             {
                 IsInit = true;
-                await InvokeVoidAsync("init", Id, GetOption(), Interop, nameof(Demo));
+                await InvokeVoidAsync("init", Id, GetOption(), Interop, nameof(Close));
             }
         }
 
@@ -114,12 +120,14 @@ public partial class DockView
     });
 
     /// <summary>
-    /// 
+    /// 标签页关闭回调方法 由 JavaScript 调用
     /// </summary>
-    /// <returns></returns>
     [JSInvokable]
-    public Task Demo()
+    public async Task Close(string title)
     {
-        return Task.CompletedTask;
+        if (OnCloseItemAsync != null)
+        {
+            await OnCloseItemAsync(title);
+        }
     }
 }
