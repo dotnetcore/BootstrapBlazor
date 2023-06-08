@@ -1,7 +1,6 @@
 ﻿import "../../js/golden-layout.js"
 import { addLink } from '../../../BootstrapBlazor/modules/utility.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
-import EventHandler from '../../../BootstrapBlazor/modules/event-handler.js'
 
 export async function init(id, option, invoke, callback) {
     const el = document.getElementById(id)
@@ -26,7 +25,7 @@ export function update(id, option) {
         items.forEach(v => {
             const c = comps.find(i => i.id === v.id)
             if (c === undefined) {
-                dock.layout.root.contentItems[0].addItem(v, 0)
+                dock.layout.addItem(v, 0)
             }
         })
 
@@ -49,9 +48,8 @@ export function dispose(id) {
         return
     }
 
-    saveConfig(dock.option, dock.layout.saveLayout())
+    saveConfig(dock.option, dock.layout)
     dock.layout.destroy()
-    EventHandler.off(dock.el, 'click', '.lm_close_tab')
 }
 
 const getAllContentItems = content => {
@@ -83,31 +81,12 @@ const createGoldenLayout = (option, el) => {
     layout.init()
     layout.resizeWithContainerAutomatically = true
     layout.on('tabClosed', componentItem => {
-        if (el) {
+        if (componentItem) {
+            componentItem.classList.add('d-none')
             el.append(componentItem)
             saveConfig(option, layout)
         }
     })
-    //EventHandler.on(el, 'click', '.lm_close_tab', e => {
-    //    const stack = e.delegateTarget.closest('.lm_item.lm_stack')
-    //    const comp = stack.querySelector('.bb-dock-item')
-    //    if (comp) {
-    //        comp.classList.add('d-none')
-    //        el.append(comp)
-
-    //        const components = layout.getAllContentItems().filter(i => i.isComponent)
-    //        let times = 0
-    //        const handler = setInterval(() => {
-    //            times++
-    //            const currentComponents = layout.getAllContentItems().filter(i => i.isComponent)
-    //            if (currentComponents.length < components.length || times > 3) {
-    //                clearInterval(handler)
-    //                const layoutConfig = layout.saveLayout()
-    //                saveConfig(option, layoutConfig)
-    //            }
-    //        }, 100)
-    //    }
-    //})
     return layout
 }
 
