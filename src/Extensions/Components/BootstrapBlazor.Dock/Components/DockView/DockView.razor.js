@@ -150,8 +150,14 @@ const getConfig = option => {
 }
 
 const saveConfig = (option, layoutConfig) => {
-    removeConfig(option)
-    localStorage.setItem(`uni_gl_layout_${option.name}_${option.version}`, JSON.stringify(layoutConfig));
+    option = {
+        enableLocalStorage: false,
+        ...option
+    }
+    if (option.enableLocalStorage) {
+        removeConfig(option)
+        localStorage.setItem(`uni_gl_layout_${option.name}_${option.version}`, JSON.stringify(layoutConfig));
+    }
 }
 
 const removeConfig = option => {
