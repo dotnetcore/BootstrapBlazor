@@ -17,7 +17,6 @@ export async function init(id, option, invoke, callback) {
     if (goldenLayout.Tab.prototype.isHack === undefined) {
         goldenLayout.Tab.prototype.isHack = true
 
-        const originalCloseClick = goldenLayout.Tab.prototype.onCloseClick
         goldenLayout.Tab.prototype.onCloseClick = function () {
             const component = document.getElementById(this._componentItem.id)
             const title = this._componentItem.title
