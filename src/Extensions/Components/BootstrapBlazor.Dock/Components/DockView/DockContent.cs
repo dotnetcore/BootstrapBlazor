@@ -35,7 +35,7 @@ public class DockContent : ComponentBase, IDockComponent
     public List<IDockComponent> Items { get; } = new();
 
     [CascadingParameter]
-    private List<DockContent>? Contents { get; set; }
+    private DockContent? Content { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -44,7 +44,7 @@ public class DockContent : ComponentBase, IDockComponent
     {
         base.OnInitialized();
 
-        Contents?.Add(this);
+        Content?.Items.Add(this);
     }
 
     /// <summary>

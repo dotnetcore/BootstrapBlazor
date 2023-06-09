@@ -45,6 +45,8 @@ public partial class DockView
 
     private DockViewConfig Config { get; } = new();
 
+    private DockContent Content { get; } = new();
+
     private bool IsRendered { get; set; }
 
     private string? ClassString => CssBuilder.Default("bb-dock")
@@ -64,6 +66,7 @@ public partial class DockView
         if (firstRender)
         {
             IsRendered = true;
+            Config.Contents.Add(Content);
             StateHasChanged();
         }
     }
