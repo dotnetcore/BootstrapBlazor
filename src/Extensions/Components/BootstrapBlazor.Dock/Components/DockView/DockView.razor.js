@@ -196,5 +196,10 @@ const hackGoldenLayout = () => {
             this.notifyClose();
             this._layoutManager.emit('tabClosed', component, title)
         }
+
+        const originFunc = goldenLayout.RowOrColumn.prototype.onSplitterDragStop;
+        goldenLayout.RowOrColumn.prototype.onSplitterDragStop = function (splitter) {
+            
+        }
     }
 }
