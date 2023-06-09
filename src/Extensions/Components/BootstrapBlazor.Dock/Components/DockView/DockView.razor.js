@@ -206,14 +206,16 @@ const hackGoldenLayout = layout => {
             layout.emit('saveLayout')
         }
 
-        const originStack = goldenLayout.Stack.prototype.onDrop;
+        const originStackDrop = goldenLayout.Stack.prototype.onDrop;
         goldenLayout.Stack.prototype.onDrop = function (contentItem, area) {
-            originStack.call(this, contentItem, area);
+            originStackDrop.call(this, contentItem, area);
             layout.emit('saveLayout')
         }
+    }
 
-        layout.root.onDrop = function (contentItem, area) {
-            console.log(contentItem)
-        }
+    const originRootDrop = layout.root.onDrop
+    layout.root.onDrop = function (contentItem, area) {
+        originRootDrop.call(this, contentItem, area)
+        layout.emit('saveLayout')
     }
 }
