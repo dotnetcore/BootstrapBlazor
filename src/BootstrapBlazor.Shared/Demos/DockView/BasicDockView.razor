@@ -1,60 +1,15 @@
-﻿@*<DockView>
-        <DockContent Type="DockContentType.Row">
-            <DockContentItem Title="Test1"></DockContentItem>
-            <DockContent Type="DockContentType.Column">
-                <DockContentItem Title="Test2"></DockContentItem>
-                <DockContentItem Title="Test3"></DockContentItem>
-            </DockContent>
-        </DockContent>
-    </DockView>*@
-@*<DockView>
-    <DockContent Type="DockContentType.Row">
-        <DockContent Type="DockContentType.Column">
-            <DockContentItem Title="Test1"></DockContentItem>
-            <DockContentItem Title="Test2"></DockContentItem>
-        </DockContent>
-        <DockContent Type="DockContentType.Row">
-            <DockContentItem Title="test5"></DockContentItem>
-            <DockContent Type="DockContentType.Column">
-                <DockContent Type="DockContentType.Stack">
-                    <DockContentItem Title="Test6"></DockContentItem>
-                    <DockContentItem Title="Test7"></DockContentItem>
-                </DockContent>
-                <DockContentItem Title="Test3"></DockContentItem>
-                <DockContentItem Title="Test4"></DockContentItem>
-            </DockContent>
-        </DockContent>
-    </DockContent>
-</DockView>
-*@
-<Button Text="Text" OnClick="OnClick"></Button>
+﻿<Button Text="Text" OnClick="OnClick"></Button>
 <Button Text="Toggle" OnClick="OnToggleClick"></Button>
 @if (Toggle)
 {
     <DockView Name="Test" OnCloseItemAsync="OnCloseAsync">
         <DockContent Type="DockContentType.Row">
-            <DockContentItem Title="Test100" Visible="Visible">
+            <DockComponent Title="Test100" Visible="Visible">
                 <div>Test100</div>
                 <BootstrapInput TValue="string"></BootstrapInput>
-            </DockContentItem>
-            <DockContentItem Title="Test1"><div>Test1</div></DockContentItem>
-            <DockContentItem Title="Test2" Visible="true"><div>Test2</div></DockContentItem>
-            @*        <DockContent Type="DockContentType.Column">
-        <DockContentItem Title="Test2"><Button Text="Test2"></Button></DockContentItem>
-        <DockContentItem Title="Test3">
-        <DockView>
-        <DockContent Type="DockContentType.Row">
-        <DockContentItem Title="Test1"><div>Test1</div></DockContentItem>
-        <DockContent Type="DockContentType.Column">
-        <DockContentItem Title="Test4"><Button Text="Test4"></Button></DockContentItem>
-        <DockContentItem Title="Test5">
-        <BootstrapInput TValue="string"></BootstrapInput>
-        </DockContentItem>
-        </DockContent>
-        </DockContent>
-        </DockView>
-        </DockContentItem>
-        </DockContent>*@
+            </DockComponent>
+            <DockComponent Title="Test1"><div>Test1</div></DockComponent>
+            <DockComponent Title="Test2" Visible="true"><div>Test2</div></DockComponent>
         </DockContent>
     </DockView>
 }
