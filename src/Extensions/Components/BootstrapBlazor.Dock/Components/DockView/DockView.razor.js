@@ -14,21 +14,15 @@ export async function init(id, option, invoke, callback) {
     const dock = { el, option, invoke, callback, layout }
     Data.set(id, dock)
 
-    if (goldenLayout.Tab.prototype.isHack === undefined) {
-        goldenLayout.Tab.prototype.isHack = true
+    hackGoldenLayout()
 
-        goldenLayout.Tab.prototype.onCloseClick = function () {
-            const component = document.getElementById(this._componentItem.id)
-            const title = this._componentItem.title
-            component.classList.add('d-none')
-            el.append(component)
+    layout.on('tabClosed', (component, title) => {
+        component.classList.add('d-none')
+        el.append(component)
 
-            this.notifyClose();
-
-            saveConfig(option, layout)
-            invoke.invokeMethodAsync(callback, title)
-        }
-    }
+        saveConfig(option, layout)
+        invoke.invokeMethodAsync(callback, title)
+    })
 }
 
 export function update(id, option) {
@@ -181,4 +175,19 @@ const resetComponentId = (config, content) => {
             }
         }
     })
+}
+
+
+const hackGoldenLayout = () => {
+    if (goldenLayout.Tab.prototype.isHack === undefined) {
+        goldenLayout.Tab.prototype.isHack = true
+
+        goldenLayout.Tab.prototype.onCloseClick = function () {
+            const component = document.getElementById(this._componentItem.id)
+            const title = this._componentItem.title
+
+            this.notifyClose();
+            this._layoutManager.emit('tabClosed', component, title)
+        }
+    }
 }
