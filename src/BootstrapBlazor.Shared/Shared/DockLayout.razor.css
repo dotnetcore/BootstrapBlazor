@@ -1,0 +1,21 @@
+﻿.dock-layout {
+    height: calc(100vh - var(--bs-header-height));
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+}
+
+    .dock-layout aside {
+        min-width: 120px;
+        height: 100%;
+    }
+
+    .dock-layout main {
+        height: 100%;
+        flex: 1;
+    }
+
+        .dock-layout main ::deep .bb-dock {
+            height: 100%;
+            width: 100%;
+        }
