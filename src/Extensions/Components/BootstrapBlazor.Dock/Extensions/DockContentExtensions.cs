@@ -14,12 +14,12 @@ public static class DockContentExtensions
     /// </summary>
     /// <param name="content"></param>
     /// <returns></returns>
-    public static List<DockContentItem> GetAllItems(this DockContent content)
+    public static List<DockComponent> GetAllItems(this DockContent content)
     {
-        var ret = new List<DockContentItem>();
+        var ret = new List<DockComponent>();
         foreach (var item in content.Items)
         {
-            if (item is DockContentItem dockContentItem)
+            if (item is DockComponent dockContentItem)
             {
                 ret.Add(dockContentItem);
             }

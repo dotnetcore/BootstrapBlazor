@@ -10,12 +10,12 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// DockContentItem 配置项子项对标 content 配置项内部 content 配置
 /// </summary>
-public class DockContentItem : IdComponentBase, IDockComponent
+public class DockComponent : IdComponentBase, IDockComponent
 {
     /// <summary>
     /// 获得/设置 默认 Component
     /// </summary>
-    [JsonConverter(typeof(DockContentTypeConverter))]
+    [JsonConverter(typeof(DockTypeConverter))]
     public DockContentType Type { get; } = DockContentType.Component;
 
     /// <summary>

@@ -8,7 +8,7 @@ using System.Text.Json.Serialization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// DockComponent 转化器
 /// </summary>
 class DockComponentConverter : JsonConverter<List<IDockComponent>>
 {
@@ -35,7 +35,7 @@ class DockComponentConverter : JsonConverter<List<IDockComponent>>
             {
                 writer.WriteRawValue(JsonSerializer.Serialize(content, options));
             }
-            else if (item is DockContentItem contentItem)
+            else if (item is DockComponent contentItem)
             {
                 if (contentItem.Visible)
                 {

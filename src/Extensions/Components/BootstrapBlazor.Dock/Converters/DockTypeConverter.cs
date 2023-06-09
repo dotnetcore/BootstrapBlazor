@@ -8,9 +8,9 @@ using System.Text.Json.Serialization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// DockType 转换器
 /// </summary>
-class DockContentTypeConverter : JsonConverter<DockContentType>
+class DockTypeConverter : JsonConverter<DockContentType>
 {
     /// <summary>
     /// 

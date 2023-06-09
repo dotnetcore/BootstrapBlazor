@@ -17,7 +17,7 @@ public class DockContent : ComponentBase, IDockComponent
     /// 获得/设置 排列方式 默认 Row 水平排列
     /// </summary>
     [Parameter]
-    [JsonConverter(typeof(DockContentTypeConverter))]
+    [JsonConverter(typeof(DockTypeConverter))]
     public DockContentType Type { get; set; }
 
     /// <summary>

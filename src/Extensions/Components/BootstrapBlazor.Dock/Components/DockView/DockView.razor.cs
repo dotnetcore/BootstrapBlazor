@@ -111,7 +111,7 @@ public partial class DockView
     {
         foreach (var item in items)
         {
-            if (item is DockContentItem com)
+            if (item is DockComponent com)
             {
                 builder.OpenElement(0, "div");
                 builder.AddAttribute(1, "id", com.Id);
