@@ -9,19 +9,27 @@ export async function init(id, option, invoke, callback) {
     }
 
     await addLink("./_content/BootstrapBlazor.Dock/css/goldenlayout-bb.css")
+
     const layout = createGoldenLayout(option, el)
     const dock = { el, option, invoke, callback, layout }
     Data.set(id, dock)
 
-    layout.on('tabClosed', componentItem => {
-        if (componentItem) {
-            componentItem._element.classList.add('d-none')
-            el.append(componentItem._element)
-            saveConfig(option, layout)
+    if (goldenLayout.Tab.prototype.isHack === undefined) {
+        goldenLayout.Tab.prototype.isHack = true
 
-            invoke.invokeMethodAsync(callback, componentItem.title)
+        const originalCloseClick = goldenLayout.Tab.prototype.onCloseClick
+        goldenLayout.Tab.prototype.onCloseClick = function () {
+            const component = document.getElementById(this._componentItem.id)
+            const title = this._componentItem.title
+            component.classList.add('d-none')
+            el.append(component)
+
+            this.notifyClose();
+
+            saveConfig(option, layout)
+            invoke.invokeMethodAsync(callback, title)
         }
-    })
+    }
 }
 
 export function update(id, option) {
@@ -36,7 +44,7 @@ export function update(id, option) {
         items.forEach(v => {
             const c = comps.find(i => i.id === v.id)
             if (c === undefined) {
-                dock.layout.addItem(v, 0)
+                dock.layout.root.contentItems[0].addItem(v, 0)
             }
         })
 
@@ -166,7 +174,7 @@ const resetComponentId = (config, content) => {
             com.title = item.title
         }
         else {
-            // 新的项目，由于 ID 是变化的暂时通过 title 来定位新 Component
+            // 本地存储中有，配置中没有，需要显示这个组件，由于 ID 是变化的暂时通过 title 来定位新 Component
             const newEl = document.querySelector(`[data-bb-title='${com.title}']`)
             if (newEl) {
                 com.id = newEl.getAttribute('id')
