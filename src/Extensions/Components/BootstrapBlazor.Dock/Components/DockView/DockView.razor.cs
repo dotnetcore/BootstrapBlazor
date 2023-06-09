@@ -43,7 +43,7 @@ public partial class DockView
     [Parameter]
     public bool EnableLocalStorage { get; set; } = true;
 
-    private DockContent Option { get; } = new();
+    private DockViewConfig Config { get; } = new();
 
     private bool IsRendered { get; set; }
 
@@ -90,18 +90,26 @@ public partial class DockView
             }
         }
 
-        object GetOption() => new
+        DockViewConfig GetOption() => new()
         {
             Version = "v1",
-            Name,
-            EnableLocalStorage,
-            Option
+            Name = Name,
+            EnableLocalStorage = EnableLocalStorage,
+            Contents = Config.Contents
         };
     }
 
-    private RenderFragment RenderDockComponent(DockContent content) => new(builder =>
+    private RenderFragment RenderDockContent(List<DockContent> contents) => new(builder =>
     {
-        foreach (var item in content.Items)
+        foreach (var content in contents)
+        {
+            builder.AddContent(0, RenderDockComponent(content.Items));
+        }
+    });
+
+    private RenderFragment RenderDockComponent(List<IDockComponent> items) => new(builder =>
+    {
+        foreach (var item in items)
         {
             if (item is DockContentItem com)
             {
@@ -114,7 +122,7 @@ public partial class DockView
             }
             else if (item is DockContent content)
             {
-                builder.AddContent(4, RenderDockComponent(content));
+                builder.AddContent(5, RenderDockComponent(content.Items));
             }
         }
     });

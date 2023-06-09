@@ -29,7 +29,7 @@ export function update(id, option) {
 
     if (dock) {
         // 处理 toogle 逻辑
-        const items = getAllContentItems(option.option.content)
+        const items = getAllContentItems(option.content)
         const comps = dock.layout.getAllContentItems().filter(s => s.isComponent);
 
         // gt 没有 items 有时添加
@@ -106,9 +106,6 @@ const getConfig = option => {
     option = {
         enableLocalStorage: false,
         name: 'default',
-        option: {
-            content: []
-        },
         ...option
     }
     if (option.enableLocalStorage) {
@@ -118,13 +115,13 @@ const getConfig = option => {
             const configItem = JSON.parse(localConfig)
             if (configItem.root) {
                 config = configItem
-                resetComponentId(config, option.option.content)
+                resetComponentId(config, option.content)
             }
         }
     }
 
     return {
-        ...(config || { content: option.option.content }),
+        ...(config || { content: option.content }),
         ...{
             dimensions: {
                 borderWidth: 5,
