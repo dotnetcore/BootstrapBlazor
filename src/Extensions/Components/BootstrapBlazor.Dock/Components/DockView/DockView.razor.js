@@ -205,5 +205,15 @@ const hackGoldenLayout = layout => {
             originSplitterDragStop.call(this, splitter)
             layout.emit('saveLayout')
         }
+
+        const originStack = goldenLayout.Stack.prototype.onDrop;
+        goldenLayout.Stack.prototype.onDrop = function (contentItem, area) {
+            originStack.call(this, contentItem, area);
+            layout.emit('saveLayout')
+        }
+
+        layout.root.onDrop = function (contentItem, area) {
+            console.log(contentItem)
+        }
     }
 }
