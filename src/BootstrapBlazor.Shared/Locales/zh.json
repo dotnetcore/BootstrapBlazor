@@ -6293,5 +6293,11 @@
     "ContextMenuTableIntro": "点击 <code>Table</code> 组件行数据右键，弹出上下文关联菜单",
     "ContextMenuTreeTitle": "Tree 组件",
     "ContextMenuTreeIntro": "点击 <code>Tree</code> 组件行数据右键，弹出上下文关联菜单"
+  },
+  "BootstrapBlazor.Shared.Samples.DockViews": {
+    "Title": "DockView 可停靠视图",
+    "Description": "多标签停靠布局管理器",
+    "BasicUsageTitle": "基础用法",
+    "BasicUsageIntro": "通过拖动标签自定义布局"
   }
 }

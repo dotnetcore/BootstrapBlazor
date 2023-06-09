@@ -6280,5 +6280,11 @@
     "ContextMenuTableIntro": "Right click on the <code>Table</code> to pop up a context menu",
     "ContextMenuTreeTitle": "Tree",
     "ContextMenuTreeIntro": "Right click on the <code>Tree</code> to pop up a context menu"
+  },
+  "BootstrapBlazor.Shared.Samples.DockViews": {
+    "Title": "DockView",
+    "Description": "A multi window layout manager for webapps",
+    "BasicUsageTitle": "Normal",
+    "BasicUsageIntro": "layout manager which enables you to layout components in a web page and re-arrange them with drag and drop"
   }
 }

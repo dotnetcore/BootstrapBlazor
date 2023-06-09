@@ -1,3 +1,8 @@
 ﻿@page "/dockviews"
+@inject IStringLocalizer<DockViews> Localizer
 
-<DemoBlock Title="" Introduction="" Name="Normal" Demo="typeof(Demos.DockView.BasicDockView)" />
+<h3>@Localizer["Title"]</h3>
+
+<h4>@Localizer["Description"]</h4>
+
+<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal" Demo="typeof(Demos.DockView.BasicDockView)" />
