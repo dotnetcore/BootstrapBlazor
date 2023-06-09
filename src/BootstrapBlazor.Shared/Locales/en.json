@@ -5060,7 +5060,8 @@
     "BaiduOcr": "IBaiduOcr",
     "AzureOpenAI": "AzureOpenAI",
     "HtmlRenderer": "HtmlRenderer",
-    "ContextMenu": "ContextMenu"
+    "ContextMenu": "ContextMenu",
+    "DockView": "DockView"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",

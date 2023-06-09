@@ -5072,7 +5072,8 @@
     "BaiduOcr": "文字识别服务 IBaiduOcr",
     "AzureOpenAI": "AI 聊天服务 AzureOpenAI",
     "HtmlRenderers": "Html 转换器  HtmlRenderer",
-    "ContextMenu": "右键菜单 ContextMenu"
+    "ContextMenu": "右键菜单 ContextMenu",
+    "DockView": "可停靠布局 DockView"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
