@@ -14,7 +14,7 @@ export async function init(id, option, invoke, callback) {
     const dock = { el, option, invoke, callback, layout }
     Data.set(id, dock)
 
-    hackGoldenLayout()
+    hackGoldenLayout(dock.layout)
 
     layout.on('tabClosed', (component, title) => {
         component.classList.add('d-none')
@@ -22,6 +22,9 @@ export async function init(id, option, invoke, callback) {
 
         saveConfig(option, layout)
         invoke.invokeMethodAsync(callback, title, false)
+    })
+    layout.on('saveLayout', () => {
+        saveConfig(option, layout)
     })
 }
 
@@ -185,7 +188,7 @@ const resetComponentId = (config, content) => {
     })
 }
 
-const hackGoldenLayout = () => {
+const hackGoldenLayout = layout => {
     if (goldenLayout.Tab.prototype.isHack === undefined) {
         goldenLayout.Tab.prototype.isHack = true
 
@@ -197,9 +200,10 @@ const hackGoldenLayout = () => {
             this._layoutManager.emit('tabClosed', component, title)
         }
 
-        const originFunc = goldenLayout.RowOrColumn.prototype.onSplitterDragStop;
+        const originSplitterDragStop = goldenLayout.RowOrColumn.prototype.onSplitterDragStop;
         goldenLayout.RowOrColumn.prototype.onSplitterDragStop = function (splitter) {
-            
+            originSplitterDragStop.call(this, splitter)
+            layout.emit('saveLayout')
         }
     }
 }
