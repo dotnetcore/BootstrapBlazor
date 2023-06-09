@@ -13,6 +13,10 @@
         padding: 0.5rem;
     }
 
+        .bb-dock .lm_content > .bb-dock-item {
+            height: 100%;
+        }
+
     .bb-dock .lm_header .lm_tab.lm_active {
         padding-bottom: 0;
         height: var(--bb-gl-header-height);
