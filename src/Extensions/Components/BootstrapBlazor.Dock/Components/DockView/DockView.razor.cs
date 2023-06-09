@@ -35,7 +35,7 @@ public partial class DockView
     /// 获得/设置 标签关闭时回调方法
     /// </summary>
     [Parameter]
-    public Func<string, Task>? OnCloseItemAsync { get; set; }
+    public Func<string, bool, Task>? OnVisibleStateChangedAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 是否启用本地存储布局 默认 true 启用
@@ -86,7 +86,7 @@ public partial class DockView
             else
             {
                 IsInit = true;
-                await InvokeVoidAsync("init", Id, GetOption(), Interop, nameof(Close));
+                await InvokeVoidAsync("init", Id, GetOption(), Interop, nameof(UpdateVisibleCallback));
             }
         }
 
@@ -131,11 +131,11 @@ public partial class DockView
     /// 标签页关闭回调方法 由 JavaScript 调用
     /// </summary>
     [JSInvokable]
-    public async Task Close(string title)
+    public async Task UpdateVisibleCallback(string title, bool visible)
     {
-        if (OnCloseItemAsync != null)
+        if (OnVisibleStateChangedAsync != null)
         {
-            await OnCloseItemAsync(title);
+            await OnVisibleStateChangedAsync(title, visible);
         }
     }
 }

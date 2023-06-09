@@ -21,7 +21,7 @@ export async function init(id, option, invoke, callback) {
         el.append(component)
 
         saveConfig(option, layout)
-        invoke.invokeMethodAsync(callback, title)
+        invoke.invokeMethodAsync(callback, title, false)
     })
 }
 
@@ -37,6 +37,14 @@ export function update(id, option) {
         items.forEach(v => {
             const c = comps.find(i => i.id === v.id)
             if (c === undefined) {
+                if (dock.layout.root.contentItems.length == 0) {
+                    //const row = new goldenLayout.RowOrColumn(false, dock.layout, { type: 'row', content: [] }, dock.layout.root)
+                    //dock.layout.root.contentItems.push(row)
+                    //row.init()
+                    const child = dock.layout.createAndInitContentItem({ type: 'row', content: [] }, dock.layout.root)
+                    dock.layout.root.addChild(child)
+                }
+
                 dock.layout.root.contentItems[0].addItem(v, 0)
             }
         })
@@ -176,7 +184,6 @@ const resetComponentId = (config, content) => {
         }
     })
 }
-
 
 const hackGoldenLayout = () => {
     if (goldenLayout.Tab.prototype.isHack === undefined) {

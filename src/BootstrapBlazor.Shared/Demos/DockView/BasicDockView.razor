@@ -2,7 +2,7 @@
 <Button Text="Toggle" OnClick="OnToggleClick"></Button>
 @if (Toggle)
 {
-    <DockView Name="Test" OnCloseItemAsync="OnCloseAsync">
+    <DockView Name="Test" OnVisibleStateChangedAsync="OnVisibleStateChangedAsync">
         <DockContent Type="DockContentType.Row">
             <DockComponent Title="Test100" Visible="Visible">
                 <div>Test100</div>
@@ -29,11 +29,11 @@
         Toggle = !Toggle;
     }
 
-    private Task OnCloseAsync(string title)
+    private Task OnVisibleStateChangedAsync(string title, bool visible)
     {
         if (title == "Test100")
         {
-            Visible = false;
+            Visible = visible;
         }
         return Task.CompletedTask;
     }
