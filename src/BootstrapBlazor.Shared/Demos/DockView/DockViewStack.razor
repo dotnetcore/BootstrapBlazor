@@ -1,8 +1,8 @@
-﻿@page "/dockview-normal"
+﻿@page "/dockview-stack"
 @layout DockLayout
 
-<DockView Name="BasicDockView">
-    <DockContent Type="DockContentType.Row">
+<DockView Name="DockViewRow" EnableLocalStorage="false">
+    <DockContent Type="DockContentType.Stack">
         <DockComponent Title="标签一">
             <BootstrapInput TValue="string"></BootstrapInput>
         </DockComponent>

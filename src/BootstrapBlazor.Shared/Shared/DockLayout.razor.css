@@ -6,7 +6,7 @@
 }
 
     .dock-layout aside {
-        min-width: 120px;
+        min-width: 260px;
         height: 100%;
     }
 
@@ -17,5 +17,25 @@
 
         .dock-layout main ::deep .bb-dock {
             height: 100%;
-            width: 100%;
         }
+
+ul {
+    list-style-type: none;
+    padding: 1rem .5rem;
+}
+
+li:not(:first-child) {
+    margin-top: 2px;
+}
+
+.nav-link {
+    border-radius: var(--bs-border-radius);
+    padding: 0.5rem;
+    color: #3f4254;
+    transition: background-color .3s linear, color .3s linear;
+}
+
+    .nav-link:hover {
+        background-color: #722df8;
+        color: var(--bs-white);
+    }
