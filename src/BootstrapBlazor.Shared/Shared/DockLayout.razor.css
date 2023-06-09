@@ -28,14 +28,19 @@ li:not(:first-child) {
     margin-top: 2px;
 }
 
-.nav-link {
+::deep .nav-link {
     border-radius: var(--bs-border-radius);
     padding: 0.5rem;
     color: #3f4254;
     transition: background-color .3s linear, color .3s linear;
 }
 
-    .nav-link:hover {
+    ::deep .nav-link:hover {
+        background-color: #722df8;
+        color: var(--bs-white);
+    }
+
+    ::deep .nav-link.active {
         background-color: #722df8;
         color: var(--bs-white);
     }
