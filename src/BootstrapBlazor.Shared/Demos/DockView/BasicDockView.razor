@@ -1,40 +1,13 @@
-﻿<Button Text="Text" OnClick="OnClick"></Button>
-<Button Text="Toggle" OnClick="OnToggleClick"></Button>
-@if (Toggle)
-{
-    <DockView Name="Test" OnVisibleStateChangedAsync="OnVisibleStateChangedAsync">
-        <DockContent Type="DockContentType.Row">
-            <DockComponent Title="Test100" Visible="Visible">
-                <div>Test100</div>
-                <BootstrapInput TValue="string"></BootstrapInput>
-            </DockComponent>
-            <DockComponent Title="Test1"><div>Test1</div></DockComponent>
-            <DockComponent Title="Test2" Visible="true"><div>Test2</div></DockComponent>
-        </DockContent>
-    </DockView>
-}
-
-@code {
-    private bool Visible { get; set; }
-
-    private bool Toggle { get; set; } = true;
-
-    private void OnClick()
-    {
-        Visible = !Visible;
-    }
-
-    private void OnToggleClick()
-    {
-        Toggle = !Toggle;
-    }
-
-    private Task OnVisibleStateChangedAsync(string title, bool visible)
-    {
-        if (title == "Test100")
-        {
-            Visible = visible;
-        }
-        return Task.CompletedTask;
-    }
-}
+﻿<DockView Name="BasicDockView">
+    <DockContent Type="DockContentType.Row">
+        <DockComponent Title="标签一">
+            <BootstrapInput TValue="string"></BootstrapInput>
+        </DockComponent>
+        <DockComponent Title="标签二">
+            <Button Text="Click"></Button>
+        </DockComponent>
+        <DockComponent Title="标签三">
+            <Counter></Counter>
+        </DockComponent>
+    </DockContent>
+</DockView>
