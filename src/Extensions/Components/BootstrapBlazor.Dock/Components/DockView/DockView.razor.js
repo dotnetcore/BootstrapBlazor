@@ -139,9 +139,7 @@ const getConfig = option => {
                 borderWidth: 5,
                 minItemHeight: 10,
                 minItemWidth: 10,
-                headerHeight: 26,
-                dragProxyWidth: 300,
-                dragProxyHeight: 200
+                headerHeight: 26
             }
         }
     }
