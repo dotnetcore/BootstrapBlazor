@@ -218,10 +218,10 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     List<IValidator>? IEditorItem.ValidateRules { get; set; }
 
     /// <summary>
-    /// 
+    /// 获取绑定字段显示名称方法
     /// </summary>
     /// <returns></returns>
-    public string GetDisplayName() => Text ?? "";
+    public virtual string GetDisplayName() => Text ?? "";
 
     /// <summary>
     /// 
