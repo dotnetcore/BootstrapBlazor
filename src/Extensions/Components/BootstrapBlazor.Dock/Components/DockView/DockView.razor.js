@@ -40,7 +40,7 @@ export function update(id, option) {
             const c = comps.find(i => i.id === v.id)
             if (c === undefined) {
                 if (dock.layout.root.contentItems.length == 0) {
-                    const compotentItem = dock.layout.createAndInitContentItem({ type: 'row', content: [] }, dock.layout.root)
+                    const compotentItem = dock.layout.createAndInitContentItem({ type: option.content[0].type, content: [] }, dock.layout.root)
                     dock.layout.root.addChild(compotentItem)
                 }
 
