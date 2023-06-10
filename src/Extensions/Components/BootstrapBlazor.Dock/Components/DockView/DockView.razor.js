@@ -14,7 +14,6 @@ export async function init(id, option, invoke, callback) {
     const dock = { el, option, invoke, callback, layout }
     Data.set(id, dock)
 
-    hackGoldenLayout(dock.layout)
 
     layout.on('tabClosed', (component, title) => {
         component.classList.add('d-none')
@@ -91,6 +90,8 @@ const createGoldenLayout = (option, el) => {
     const config = getConfig(option)
 
     const layout = new goldenLayout.GoldenLayout(config, el)
+    hackGoldenLayout(layout)
+
     layout.registerComponentFactoryFunction("component", (container, state) => {
         const el = document.getElementById(state.id)
         if (el) {
@@ -99,6 +100,8 @@ const createGoldenLayout = (option, el) => {
         }
     })
     layout.init()
+    hackGoldenLayoutOnDrop(layout)
+
     layout.resizeWithContainerAutomatically = true
     return layout
 }
@@ -184,8 +187,8 @@ const resetComponentId = (config, content) => {
 }
 
 const hackGoldenLayout = layout => {
-    if (goldenLayout.Tab.prototype.isHack === undefined) {
-        goldenLayout.Tab.prototype.isHack = true
+    if (goldenLayout.isHack === undefined) {
+        goldenLayout.isHack = true
 
         goldenLayout.Tab.prototype.onCloseClick = function () {
             const component = document.getElementById(this._componentItem.id)
@@ -206,8 +209,16 @@ const hackGoldenLayout = layout => {
             originStackDrop.call(this, contentItem, area);
             layout.emit('saveLayout')
         }
-    }
 
+        const originSetTitle = goldenLayout.Tab.prototype.setTitle
+        goldenLayout.Tab.prototype.setTitle = function (title) {
+            originSetTitle.call(this, title)
+            console.log(title)
+        }
+    }
+}
+
+const hackGoldenLayoutOnDrop = layout => {
     const originRootDrop = layout.root.onDrop
     layout.root.onDrop = function (contentItem, area) {
         originRootDrop.call(this, contentItem, area)
