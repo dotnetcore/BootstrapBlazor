@@ -1023,6 +1023,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["DockView"],
+                    Url = "dockviews"
+                },
+                new()
+                {
                     Text = Localizer["Layout"],
                     Url = "layouts"
                 },

@@ -1,0 +1,30 @@
+﻿@inherits LayoutComponentBase
+@layout BaseLayout
+
+<div class="dock-layout">
+    <aside>
+        <ul>
+            <li>
+                <NavLink href="dockview-row" class="nav-link">行布局</NavLink>
+            </li>
+            <li>
+                <NavLink href="dockview-col" class="nav-link">列布局</NavLink>
+            </li>
+            <li>
+                <NavLink href="dockview-stack" class="nav-link">并列布局</NavLink>
+            </li>
+            <li>
+                <NavLink href="dockview-complex" class="nav-link">组合布局</NavLink>
+            </li>
+            <li>
+                <NavLink href="dockview-nest" class="nav-link">嵌套布局</NavLink>
+            </li>
+            <li>
+                <NavLink href="dockview-visible" class="nav-link">切换标签</NavLink>
+            </li>
+        </ul>
+    </aside>
+    <main>
+        @Body
+    </main>
+</div>
