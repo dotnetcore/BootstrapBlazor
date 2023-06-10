@@ -43,6 +43,12 @@ public class DockComponent : IdComponentBase, IDockComponent
     public bool Visible { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 组件是否允许关闭 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowClose { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 组件状态
     /// </summary>
     [Parameter]
@@ -65,7 +71,7 @@ public class DockComponent : IdComponentBase, IDockComponent
     {
         base.OnInitialized();
 
-        ComponentState = new { Id, Title, ComponentName, Visible };
+        ComponentState = new { Id, Title, ComponentName, Visible, ShowClose };
         Content?.Items.Add(this);
     }
 

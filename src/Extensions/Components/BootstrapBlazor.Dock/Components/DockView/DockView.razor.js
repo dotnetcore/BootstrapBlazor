@@ -213,7 +213,10 @@ const hackGoldenLayout = layout => {
         const originSetTitle = goldenLayout.Tab.prototype.setTitle
         goldenLayout.Tab.prototype.setTitle = function (title) {
             originSetTitle.call(this, title)
-            console.log(title)
+            const showClose = this.contentItem.container.initialState.showClose
+            if (!showClose) {
+                this.closeElement.classList.add('d-none')
+            }
         }
     }
 }
