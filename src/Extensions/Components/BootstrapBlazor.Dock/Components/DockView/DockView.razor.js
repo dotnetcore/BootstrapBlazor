@@ -10,7 +10,9 @@ export async function init(id, option, invoke, callback) {
 
     await addLink("./_content/BootstrapBlazor.Dock/css/goldenlayout-bb.css")
 
-    const layout = createGoldenLayout(option, el)
+    const layout = createGoldenLayout(option, el, (title, visible) => {
+        invoke.invokeMethodAsync(callback, title, visible)
+    })
     const dock = { el, option, invoke, callback, layout }
     Data.set(id, dock)
 
@@ -90,8 +92,8 @@ const getAllContentItems = content => {
     return items
 }
 
-const createGoldenLayout = (option, el) => {
-    const config = getConfig(option)
+const createGoldenLayout = (option, el, callback) => {
+    const config = getConfig(option, callback)
 
     const layout = new goldenLayout.GoldenLayout(config, el)
     hackGoldenLayout(layout)
@@ -117,7 +119,7 @@ const closeItem = (el, component) => {
     el.append(item)
 }
 
-const getConfig = option => {
+const getConfig = (option, callback) => {
     let config = null
     option = {
         enableLocalStorage: false,
@@ -131,7 +133,7 @@ const getConfig = option => {
             const configItem = JSON.parse(localConfig)
             if (configItem.root) {
                 config = configItem
-                resetComponentId(config, option.content)
+                resetComponentId(config, option.content, callback)
             }
         }
     }
@@ -169,13 +171,12 @@ const removeConfig = option => {
     }
 }
 
-const resetComponentId = (config, content) => {
+const resetComponentId = (config, content, callback) => {
     const components = getAllContentItems(config.root.content)
     const items = getAllContentItems(content)
-    components.forEach((com, index) => {
+    components.forEach(com => {
         const item = items.find(i => i.id === com.id)
         if (item) {
-            // 原有 Component
             com.componentState = item.componentState
             com.title = item.title
         }
@@ -183,9 +184,18 @@ const resetComponentId = (config, content) => {
             // 本地存储中有，配置中没有，需要显示这个组件，由于 ID 是变化的暂时通过 title 来定位新 Component
             const newEl = document.querySelector(`[data-bb-title='${com.title}']`)
             if (newEl) {
+                callback(com.componentState.title, true)
                 com.id = newEl.getAttribute('id')
                 com.componentState.id = com.id
             }
+        }
+    })
+
+    items.forEach(com => {
+        // 更新服务器端组件可见状态
+        const item = components.find(i => i.id === com.id)
+        if (item === undefined) {
+            callback(com.title, false)
         }
     })
 }
