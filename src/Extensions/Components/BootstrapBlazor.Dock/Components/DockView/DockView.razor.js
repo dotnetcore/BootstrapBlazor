@@ -91,7 +91,7 @@ const getAllContentItems = content => {
     return items
 }
 
-const createGoldenLayout = (option, el, callback, subscriptions) => {
+const createGoldenLayout = (option, el, callback) => {
     const config = getConfig(option, callback)
 
     const layout = new goldenLayout.GoldenLayout(config, el)
