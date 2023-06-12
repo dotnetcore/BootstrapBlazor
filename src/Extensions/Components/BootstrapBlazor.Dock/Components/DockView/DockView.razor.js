@@ -172,7 +172,9 @@ const removeConfig = option => {
 }
 
 const resetComponentId = (config, content, callback) => {
+    // 本地配置
     const components = getAllContentItems(config.root.content)
+    // 服务器端配置
     const items = getAllContentItems(content)
     components.forEach(com => {
         const item = items.find(i => i.id === com.id)
@@ -188,6 +190,25 @@ const resetComponentId = (config, content, callback) => {
                 com.id = newEl.getAttribute('id')
                 com.componentState.id = com.id
             }
+            else {
+                var component = items.find(i => i.title === com.componentState.title)
+                if (component) {
+                    com.id = component.id
+                    com.title = component.title
+                    com.componentState.id = component.id
+                }
+                else {
+                    removeContent(config.root.content, com)
+                }
+
+                // remove empty stack
+                config.root.content.filter(v => v.content.length == 0).forEach(v => {
+                    var index = config.root.content.indexOf(v)
+                    if (index > -1) {
+                        config.root.content.splice(index, 1)
+                    }
+                })
+            }
         }
     })
 
@@ -195,7 +216,28 @@ const resetComponentId = (config, content, callback) => {
         // 更新服务器端组件可见状态
         const item = components.find(i => i.id === com.id)
         if (item === undefined) {
-            callback(com.title, false)
+            var component = components.find(i => i.componentState.title === com.title)
+            if (component) {
+
+            }
+            else {
+                callback(com.title, false)
+            }
+        }
+    })
+}
+
+const removeContent = (content, item) => {
+    content.forEach(v => {
+        if (Array.isArray(v.content)) {
+            var index = v.content.indexOf(item)
+            if (index > -1) {
+                v.content.splice(index, 1)
+            }
+            else {
+                removeContent(v.content, item)
+
+            }
         }
     })
 }
