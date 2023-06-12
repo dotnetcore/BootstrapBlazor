@@ -6,6 +6,9 @@ using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Shared.Shared;
 
+/// <summary>
+/// DockLayout 布局组件
+/// </summary>
 public partial class DockLayout : IAsyncDisposable
 {
     /// <summary>
