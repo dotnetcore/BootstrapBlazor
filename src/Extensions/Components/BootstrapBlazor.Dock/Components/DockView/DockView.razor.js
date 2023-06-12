@@ -12,14 +12,9 @@ export async function init(id, option, invoke, callback) {
 
     const layout = createGoldenLayout(option, el, (title, visible) => {
         invoke.invokeMethodAsync(callback, title, visible)
-    }, l => {
-        l.on('initialised', () => {
-            saveConfig(option, l)
-        })
     })
     const dock = { el, option, invoke, callback, layout }
     Data.set(id, dock)
-
 
     layout.on('tabClosed', (component, title) => {
         component.classList.add('d-none')
@@ -100,7 +95,7 @@ const createGoldenLayout = (option, el, callback, subscriptions) => {
     const config = getConfig(option, callback)
 
     const layout = new goldenLayout.GoldenLayout(config, el)
-    hackGoldenLayout(layout)
+    hackGoldenLayout(option, layout)
 
     layout.registerComponentFactoryFunction("component", (container, state) => {
         const el = document.getElementById(state.id)
@@ -109,7 +104,6 @@ const createGoldenLayout = (option, el, callback, subscriptions) => {
             container.element.append(el)
         }
     })
-    subscriptions(layout)
     layout.init()
     hackGoldenLayoutOnDrop(layout)
 
@@ -247,7 +241,7 @@ const removeContent = (content, item) => {
     })
 }
 
-const hackGoldenLayout = layout => {
+const hackGoldenLayout = (option, layout) => {
     if (goldenLayout.isHack === undefined) {
         goldenLayout.isHack = true
 
@@ -278,6 +272,14 @@ const hackGoldenLayout = layout => {
             if (!showClose) {
                 this.closeElement.classList.add('d-none')
             }
+        }
+
+        const originBindEvents = goldenLayout.GoldenLayout.prototype.bindEvents
+        goldenLayout.GoldenLayout.prototype.bindEvents = function () {
+            layout.on("initialised", () => {
+                saveConfig(option, layout)
+            })
+            originBindEvents.call(this)
         }
     }
 }
