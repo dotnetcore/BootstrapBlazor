@@ -184,4 +184,9 @@ public partial class RibbonTab
     }
 
     private static RenderFragment? RenderTemplate(RibbonTabItem item) => item.Component?.Render() ?? item.Template;
+
+    /// <summary>
+    /// 重新渲染组件
+    /// </summary>
+    public void Render() => StateHasChanged();
 }

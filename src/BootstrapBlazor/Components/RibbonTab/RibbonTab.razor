@@ -56,7 +56,9 @@
     @if (ChildContent != null)
     {
         <div class="ribbon-body">
-            @ChildContent
+            <CascadingValue Value="this" IsFixed="true">
+                @ChildContent
+            </CascadingValue>
         </div>
     }
 </div>
