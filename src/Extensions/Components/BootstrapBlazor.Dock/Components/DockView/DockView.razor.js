@@ -54,6 +54,10 @@ export function update(id, option) {
             if (c === undefined) {
                 closeItem(dock.el, v)
             }
+            else if (v.title !== c.title) {
+                // 更新 Title
+                v.setTitle(c.title)
+            }
         })
     }
     saveConfig(option, dock.layout)
