@@ -16,7 +16,6 @@ export async function init(id, option, invoke, callback) {
     const dock = { el, option, invoke, callback, layout }
     Data.set(id, dock)
 
-
     layout.on('tabClosed', (component, title) => {
         component.classList.add('d-none')
         el.append(component)
@@ -96,7 +95,7 @@ const createGoldenLayout = (option, el, callback) => {
     const config = getConfig(option, callback)
 
     const layout = new goldenLayout.GoldenLayout(config, el)
-    hackGoldenLayout(layout)
+    hackGoldenLayout(option, layout)
 
     layout.registerComponentFactoryFunction("component", (container, state) => {
         const el = document.getElementById(state.id)
@@ -165,14 +164,16 @@ const saveConfig = (option, layout) => {
 const removeConfig = option => {
     for (let index = localStorage.length; index > 0; index--) {
         const k = localStorage.key(index - 1);
-        if (k.indexOf(`uni_gl_layout_${option.name}`) > -1) {
+        if (k.indexOf(`uni_gl_layout_${option.name}_`) > -1) {
             localStorage.removeItem(k);
         }
     }
 }
 
 const resetComponentId = (config, content, callback) => {
+    // 本地配置
     const components = getAllContentItems(config.root.content)
+    // 服务器端配置
     const items = getAllContentItems(content)
     components.forEach(com => {
         const item = items.find(i => i.id === com.id)
@@ -188,6 +189,25 @@ const resetComponentId = (config, content, callback) => {
                 com.id = newEl.getAttribute('id')
                 com.componentState.id = com.id
             }
+            else {
+                var component = items.find(i => i.title === com.componentState.title)
+                if (component) {
+                    com.id = component.id
+                    com.title = component.title
+                    com.componentState.id = component.id
+                }
+                else {
+                    removeContent(config.root.content, com)
+                }
+
+                // remove empty stack
+                config.root.content.filter(v => v.content.length == 0).forEach(v => {
+                    var index = config.root.content.indexOf(v)
+                    if (index > -1) {
+                        config.root.content.splice(index, 1)
+                    }
+                })
+            }
         }
     })
 
@@ -195,12 +215,33 @@ const resetComponentId = (config, content, callback) => {
         // 更新服务器端组件可见状态
         const item = components.find(i => i.id === com.id)
         if (item === undefined) {
-            callback(com.title, false)
+            var component = components.find(i => i.componentState.title === com.title)
+            if (component) {
+
+            }
+            else {
+                callback(com.title, false)
+            }
         }
     })
 }
 
-const hackGoldenLayout = layout => {
+const removeContent = (content, item) => {
+    content.forEach(v => {
+        if (Array.isArray(v.content)) {
+            var index = v.content.indexOf(item)
+            if (index > -1) {
+                v.content.splice(index, 1)
+            }
+            else {
+                removeContent(v.content, item)
+
+            }
+        }
+    })
+}
+
+const hackGoldenLayout = (option, layout) => {
     if (goldenLayout.isHack === undefined) {
         goldenLayout.isHack = true
 
@@ -231,6 +272,14 @@ const hackGoldenLayout = layout => {
             if (!showClose) {
                 this.closeElement.classList.add('d-none')
             }
+        }
+
+        const originBindEvents = goldenLayout.GoldenLayout.prototype.bindEvents
+        goldenLayout.GoldenLayout.prototype.bindEvents = function () {
+            layout.on("initialised", () => {
+                saveConfig(option, layout)
+            })
+            originBindEvents.call(this)
         }
     }
 }
