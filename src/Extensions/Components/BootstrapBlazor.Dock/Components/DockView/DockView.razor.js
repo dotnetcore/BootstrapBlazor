@@ -12,6 +12,10 @@ export async function init(id, option, invoke, callback) {
 
     const layout = createGoldenLayout(option, el, (title, visible) => {
         invoke.invokeMethodAsync(callback, title, visible)
+    }, l => {
+        l.on('initialised', () => {
+            saveConfig(option, l)
+        })
     })
     const dock = { el, option, invoke, callback, layout }
     Data.set(id, dock)
@@ -92,7 +96,7 @@ const getAllContentItems = content => {
     return items
 }
 
-const createGoldenLayout = (option, el, callback) => {
+const createGoldenLayout = (option, el, callback, subscriptions) => {
     const config = getConfig(option, callback)
 
     const layout = new goldenLayout.GoldenLayout(config, el)
@@ -105,6 +109,7 @@ const createGoldenLayout = (option, el, callback) => {
             container.element.append(el)
         }
     })
+    subscriptions(layout)
     layout.init()
     hackGoldenLayoutOnDrop(layout)
 
@@ -165,7 +170,7 @@ const saveConfig = (option, layout) => {
 const removeConfig = option => {
     for (let index = localStorage.length; index > 0; index--) {
         const k = localStorage.key(index - 1);
-        if (k.indexOf(`uni_gl_layout_${option.name}`) > -1) {
+        if (k.indexOf(`uni_gl_layout_${option.name}_`) > -1) {
             localStorage.removeItem(k);
         }
     }
