@@ -49,6 +49,12 @@ public class DockComponent : IdComponentBase, IDockComponent
     public bool ShowClose { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 组件宽度百分比 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public int? Width { get; set; }
+
+    /// <summary>
     /// 获得/设置 组件状态
     /// </summary>
     [Parameter]
