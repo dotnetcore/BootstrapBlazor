@@ -13,19 +13,9 @@ export async function init(id, option, invoke) {
     option.invokeVisibleChangedCallback = (title, visible) => {
         invoke.invokeMethodAsync(option.visibleChangedCallback, title, visible)
     }
-    option.invokeInitializedCallback = () => {
-        invoke.invokeMethodAsync(option.initializedCallback)
-    }
-    option.invokeTabDropCallback = () => {
-        invoke.invokeMethodAsync(option.tabDropCallback)
-    }
-    option.invokeSplitterCallback = () => {
-        invoke.invokeMethodAsync(option.splitterCallback)
-    }
 
+    hackGoldenLayout()
     const layout = createGoldenLayout(option, el)
-    const dock = { el, option, layout }
-    Data.set(id, dock)
 
     layout.on('dockTabClosed', (component, title) => {
         component.classList.add('d-none')
@@ -36,12 +26,16 @@ export async function init(id, option, invoke) {
     })
     layout.on('itemDropped', () => {
         saveConfig(option, layout)
-        option.invokeTabDropCallback()
+        invoke.invokeMethodAsync(option.tabDropCallback)
     })
     layout.on('dockSplitterDragStop', () => {
         saveConfig(option, layout)
-        option.invokeSplitterCallback()
+        invoke.invokeMethodAsync(option.splitterCallback)
     })
+    invoke.invokeMethodAsync(option.initializedCallback)
+
+    const dock = { el, layout }
+    Data.set(id, dock)
 }
 
 export function update(id, option) {
@@ -88,7 +82,6 @@ export function dispose(id) {
         return
     }
 
-    saveConfig(dock.option, dock.layout)
     dock.layout.destroy()
 }
 
@@ -111,7 +104,6 @@ const createGoldenLayout = (option, el) => {
     const config = getConfig(option)
 
     const layout = new goldenLayout.GoldenLayout(config, el)
-    hackGoldenLayout(option, layout)
 
     layout.registerComponentFactoryFunction("component", (container, state) => {
         const el = document.getElementById(state.id)
@@ -162,7 +154,7 @@ const getConfig = option => {
                 borderWidth: 5,
                 minItemHeight: 10,
                 minItemWidth: 10,
-                headerHeight: 26
+                headerHeight: 25
             }
         }
     }
