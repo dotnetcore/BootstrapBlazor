@@ -83,7 +83,7 @@ public class DockComponent : IdComponentBase, IDockComponent
     {
         base.OnInitialized();
 
-        ComponentState = new { Id, Title, ComponentName, Visible, ShowClose };
+        ComponentState = new { Id, Title, ComponentName, Visible, ShowClose, Class };
         Content?.Items.Add(this);
     }
 
