@@ -124,7 +124,10 @@ public partial class Topology : IAsyncDisposable
                     {
                         var data = await OnQueryAsync(CancelToken.Token);
                         await PushData(data);
-                        await Task.Delay(Interval, CancelToken.Token);
+                        if (CancelToken != null)
+                        {
+                            await Task.Delay(Interval, CancelToken.Token);
+                        }
                     }
                     catch (TaskCanceledException)
                     {
@@ -140,7 +143,7 @@ public partial class Topology : IAsyncDisposable
     /// </summary>
     /// <param name="items"></param>
     /// <returns></returns>
-    public async ValueTask PushData(IEnumerable<TopologyItem> items)
+    public async Task PushData(IEnumerable<TopologyItem> items)
     {
         if (!_disposing)
         {
