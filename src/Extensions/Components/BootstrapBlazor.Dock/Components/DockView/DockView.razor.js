@@ -13,16 +13,13 @@ export async function init(id, option, invoke) {
     option.invokeVisibleChanged = (title, visible) => {
         invoke.invokeMethodAsync(option.visibleChangedCallback, title, visible)
     }
-    option.invokeInitializedCallback = layout => {
-        saveConfig(option, layout)
+    option.invokeInitializedCallback = () => {
         invoke.invokeMethodAsync(option.initializedCallback)
     }
-    option.invokeTabDropCallback = layout => {
-        saveConfig(option, layout)
+    option.invokeTabDropCallback = () => {
         invoke.invokeMethodAsync(option.tabDropCallback)
     }
-    option.invokeSplitterStopCallback = layout => {
-        saveConfig(option, layout)
+    option.invokeSplitterStopCallback = () => {
         invoke.invokeMethodAsync(option.splitterStopCallback)
     }
 
@@ -34,13 +31,16 @@ export async function init(id, option, invoke) {
         component.classList.add('d-none')
         el.append(component)
 
+        saveConfig(option, layout)
         option.invokeVisibleChanged(title, false)
     })
     layout.on('dockTabDrop', () => {
-        option.invokeTabDropCallback(layout)
+        saveConfig(option, layout)
+        option.invokeTabDropCallback()
     })
     layout.on('dockSplitterDragStop', () => {
-        option.invokeSplitterStopCallback(layout)
+        saveConfig(option, layout)
+        option.invokeSplitterStopCallback()
     })
 }
 
@@ -292,7 +292,8 @@ const hackGoldenLayout = (option, layout) => {
         const originBindEvents = goldenLayout.GoldenLayout.prototype.bindEvents
         goldenLayout.GoldenLayout.prototype.bindEvents = function () {
             layout.on("initialised", () => {
-                option.invokeInitializedCallback(layout)
+                saveConfig(option, layout)
+                option.invokeInitializedCallback()
             })
             originBindEvents.call(this)
         }
