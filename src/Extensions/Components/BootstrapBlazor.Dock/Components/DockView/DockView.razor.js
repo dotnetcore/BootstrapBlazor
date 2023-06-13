@@ -145,7 +145,7 @@ const getConfig = option => {
         ...option
     }
     if (option.enableLocalStorage) {
-        const localConfig = localStorage.getItem(`uni_gl_layout_${option.name}_${option.version}`);
+        const localConfig = localStorage.getItem(`uni_gl_${option.name}_${option.version}`);
         if (localConfig) {
             // 当tab全部关闭时，没有root节点
             const configItem = JSON.parse(localConfig)
@@ -176,14 +176,14 @@ const saveConfig = (option, layout) => {
     }
     if (option.enableLocalStorage) {
         removeConfig(option)
-        localStorage.setItem(`uni_gl_layout_${option.name}_${option.version}`, JSON.stringify(layout.saveLayout()));
+        localStorage.setItem(`uni_gl_${option.name}_${option.version}`, JSON.stringify(layout.saveLayout()));
     }
 }
 
 const removeConfig = option => {
     for (let index = localStorage.length; index > 0; index--) {
         const k = localStorage.key(index - 1);
-        if (k.indexOf(`uni_gl_layout_${option.name}_`) > -1) {
+        if (k.indexOf(`uni_gl_${option.name}_`) > -1) {
             localStorage.removeItem(k);
         }
     }
@@ -195,29 +195,22 @@ const resetComponentId = (config, option) => {
     // 服务器端配置
     const items = getAllContentItems(option.content)
     components.forEach(com => {
-        const item = items.find(i => i.id === com.id)
+        const item = items.find(i => i.key === com.componentState.key)
         if (item) {
             com.componentState = item.componentState
             com.title = item.title
+            com.id = item.id
         }
         else {
-            // 本地存储中有，配置中没有，需要显示这个组件，由于 ID 是变化的暂时通过 title 来定位新 Component
-            const newEl = document.querySelector(`[data-bb-title='${com.title}']`)
+            // 本地存储中有，配置中没有，需要显示这个组件，通过 key 来定位新 Component
+            const newEl = document.querySelector(`[data-bb-key='${com.componentState.key}']`)
             if (newEl) {
                 option.invokeVisibleChanged(com.componentState.title, true)
                 com.id = newEl.getAttribute('id')
                 com.componentState.id = com.id
             }
             else {
-                const component = items.find(i => i.title === com.componentState.title)
-                if (component) {
-                    com.id = component.id
-                    com.title = component.title
-                    com.componentState.id = component.id
-                }
-                else {
-                    removeContent(config.root.content, com)
-                }
+                removeContent(config.root.content, com)
 
                 // remove empty stack
                 config.root.content.filter(v => v.content.length === 0).forEach(v => {
@@ -230,15 +223,10 @@ const resetComponentId = (config, option) => {
         }
     })
 
-    items.forEach(com => {
+    items.forEach(item => {
         // 更新服务器端组件可见状态
-        const item = components.find(i => i.id === com.id)
-        if (item === undefined) {
-            const component = components.find(i => i.componentState.title === com.title)
-            if (!component) {
-                option.invokeVisibleChanged(com.title, false)
-            }
-        }
+        const com = components.find(i => i.componentState.key === item.key)
+        option.invokeVisibleChanged(item.title, com !== undefined)
     })
 }
 
