@@ -32,34 +32,36 @@ public partial class DockView
     public string? Name { get; set; }
 
     /// <summary>
-    /// 获得/设置 标签关闭时回调方法
+    /// 获得/设置 标签切换 Visible 状态时回调此方法
     /// </summary>
+    /// <remarks>可用于第三方组件显示标签页状态更新</remarks>
     [Parameter]
     public Func<string, bool, Task>? OnVisibleStateChangedAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件初始化完成回调方法
+    /// 获得/设置 客户端组件脚本初始化完成后回调此方法
     /// </summary>
     [Parameter]
     public Func<Task>? OnInitializedCallbackAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件初始化完成回调方法
-    /// </summary>
-    [Parameter]
-    public Func<Task>? OnSaveLayoutCallbackAsync { get; set; }
-
-    /// <summary>
-    /// 获得/设置 标签页拖动完成回调方法
+    /// 获得/设置 标签页拖动完成时回调此方法
     /// </summary>
     [Parameter]
     public Func<Task>? OnTabDropCallbackAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 标签页调整大小完成回调方法
+    /// 获得/设置 标签页调整大小完成时回调此方法
     /// </summary>
     [Parameter]
-    public Func<Task>? OnSplitterStopCallbackAsync { get; set; }
+    public Func<Task>? OnSplitterCallbackAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 标签页位置变化时回调此方法
+    /// </summary>
+    /// <remarks>拖动标签 <see cref="OnTabDropCallbackAsync"/> 或者调整标签  <see cref="OnSplitterCallbackAsync"/> 时均触发此方法</remarks>
+    [Parameter]
+    public Func<Task>? OnResizeCallbackAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 是否启用本地存储布局 默认 true 启用
@@ -125,9 +127,8 @@ public partial class DockView
             Contents = Config.Contents,
             VisibleChangedCallback = nameof(VisibleChangedCallbackAsync),
             InitializedCallback = nameof(InitializedCallbackAsync),
-            SaveLayoutCallback = nameof(SaveLayoutCallbackAsync),
             TabDropCallback = nameof(TabDropCallbackAsync),
-            SplitterStopCallback = nameof(SplitterStopCallbackAsync)
+            SplitterCallback = nameof(SplitterCallbackAsync)
         };
     }
 
@@ -187,18 +188,6 @@ public partial class DockView
     /// 标签页关闭回调方法 由 JavaScript 调用
     /// </summary>
     [JSInvokable]
-    public async Task SaveLayoutCallbackAsync()
-    {
-        if (OnSaveLayoutCallbackAsync != null)
-        {
-            await OnSaveLayoutCallbackAsync();
-        }
-    }
-
-    /// <summary>
-    /// 标签页关闭回调方法 由 JavaScript 调用
-    /// </summary>
-    [JSInvokable]
     public async Task TabDropCallbackAsync()
     {
         if (OnTabDropCallbackAsync != null)
@@ -211,11 +200,11 @@ public partial class DockView
     /// 标签页关闭回调方法 由 JavaScript 调用
     /// </summary>
     [JSInvokable]
-    public async Task SplitterStopCallbackAsync()
+    public async Task SplitterCallbackAsync()
     {
-        if (OnSplitterStopCallbackAsync != null)
+        if (OnSplitterCallbackAsync != null)
         {
-            await OnSplitterStopCallbackAsync();
+            await OnSplitterCallbackAsync();
         }
     }
 }

@@ -19,8 +19,8 @@ export async function init(id, option, invoke) {
     option.invokeTabDropCallback = () => {
         invoke.invokeMethodAsync(option.tabDropCallback)
     }
-    option.invokeSplitterStopCallback = () => {
-        invoke.invokeMethodAsync(option.splitterStopCallback)
+    option.invokeSplitterCallback = () => {
+        invoke.invokeMethodAsync(option.splitterCallback)
     }
 
     const layout = createGoldenLayout(option, el)
@@ -40,7 +40,7 @@ export async function init(id, option, invoke) {
     })
     layout.on('dockSplitterDragStop', () => {
         saveConfig(option, layout)
-        option.invokeSplitterStopCallback()
+        option.invokeSplitterCallback()
     })
 }
 
