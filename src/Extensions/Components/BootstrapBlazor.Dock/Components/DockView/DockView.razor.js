@@ -101,6 +101,9 @@ const createGoldenLayout = (option, el, callback) => {
         const el = document.getElementById(state.id)
         if (el) {
             el.classList.remove('d-none')
+            if (state.class) {
+                container.element.classList.add(state.class)
+            }
             container.element.append(el)
         }
     })
