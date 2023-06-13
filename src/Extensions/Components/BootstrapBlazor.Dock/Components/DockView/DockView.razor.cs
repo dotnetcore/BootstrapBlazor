@@ -38,6 +38,30 @@ public partial class DockView
     public Func<string, bool, Task>? OnVisibleStateChangedAsync { get; set; }
 
     /// <summary>
+    /// 获得/设置 组件初始化完成回调方法
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnInitializedCallbackAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组件初始化完成回调方法
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnSaveLayoutCallbackAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 标签页拖动完成回调方法
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnTabDropCallbackAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 标签页调整大小完成回调方法
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnSplitterStopCallbackAsync { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否启用本地存储布局 默认 true 启用
     /// </summary>
     [Parameter]
@@ -89,7 +113,7 @@ public partial class DockView
             else
             {
                 IsInit = true;
-                await InvokeVoidAsync("init", Id, GetOption(), Interop, nameof(UpdateVisibleCallback));
+                await InvokeVoidAsync("init", Id, GetOption(), Interop);
             }
         }
 
@@ -98,7 +122,12 @@ public partial class DockView
             Version = "v1",
             Name = Name,
             EnableLocalStorage = EnableLocalStorage,
-            Contents = Config.Contents
+            Contents = Config.Contents,
+            VisibleChangedCallback = nameof(VisibleChangedCallbackAsync),
+            InitializedCallback = nameof(InitializedCallbackAsync),
+            SaveLayoutCallback = nameof(SaveLayoutCallbackAsync),
+            TabDropCallback = nameof(TabDropCallbackAsync),
+            SplitterStopCallback = nameof(SplitterStopCallbackAsync)
         };
     }
 
@@ -134,11 +163,59 @@ public partial class DockView
     /// 标签页关闭回调方法 由 JavaScript 调用
     /// </summary>
     [JSInvokable]
-    public async Task UpdateVisibleCallback(string title, bool visible)
+    public async Task VisibleChangedCallbackAsync(string title, bool visible)
     {
         if (OnVisibleStateChangedAsync != null)
         {
             await OnVisibleStateChangedAsync(title, visible);
+        }
+    }
+
+    /// <summary>
+    /// 标签页关闭回调方法 由 JavaScript 调用
+    /// </summary>
+    [JSInvokable]
+    public async Task InitializedCallbackAsync()
+    {
+        if (OnInitializedCallbackAsync != null)
+        {
+            await OnInitializedCallbackAsync();
+        }
+    }
+
+    /// <summary>
+    /// 标签页关闭回调方法 由 JavaScript 调用
+    /// </summary>
+    [JSInvokable]
+    public async Task SaveLayoutCallbackAsync()
+    {
+        if (OnSaveLayoutCallbackAsync != null)
+        {
+            await OnSaveLayoutCallbackAsync();
+        }
+    }
+
+    /// <summary>
+    /// 标签页关闭回调方法 由 JavaScript 调用
+    /// </summary>
+    [JSInvokable]
+    public async Task TabDropCallbackAsync()
+    {
+        if (OnTabDropCallbackAsync != null)
+        {
+            await OnTabDropCallbackAsync();
+        }
+    }
+
+    /// <summary>
+    /// 标签页关闭回调方法 由 JavaScript 调用
+    /// </summary>
+    [JSInvokable]
+    public async Task SplitterStopCallbackAsync()
+    {
+        if (OnSplitterStopCallbackAsync != null)
+        {
+            await OnSplitterStopCallbackAsync();
         }
     }
 }

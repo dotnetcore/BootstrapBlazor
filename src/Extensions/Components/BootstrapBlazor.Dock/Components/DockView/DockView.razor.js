@@ -2,7 +2,7 @@
 import { addLink } from '../../../BootstrapBlazor/modules/utility.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
 
-export async function init(id, option, invoke, callback) {
+export async function init(id, option, invoke) {
     const el = document.getElementById(id)
     if (el === null) {
         return
@@ -10,21 +10,37 @@ export async function init(id, option, invoke, callback) {
 
     await addLink("./_content/BootstrapBlazor.Dock/css/goldenlayout-bb.css")
 
-    const layout = createGoldenLayout(option, el, (title, visible) => {
-        invoke.invokeMethodAsync(callback, title, visible)
-    })
-    const dock = { el, option, invoke, callback, layout }
+    option.invokeVisibleChanged = (title, visible) => {
+        invoke.invokeMethodAsync(option.visibleChangedCallback, title, visible)
+    }
+    option.invokeInitializedCallback = layout => {
+        saveConfig(option, layout)
+        invoke.invokeMethodAsync(option.initializedCallback)
+    }
+    option.invokeTabDropCallback = layout => {
+        saveConfig(option, layout)
+        invoke.invokeMethodAsync(option.tabDropCallback)
+    }
+    option.invokeSplitterStopCallback = layout => {
+        saveConfig(option, layout)
+        invoke.invokeMethodAsync(option.splitterStopCallback)
+    }
+
+    const layout = createGoldenLayout(option, el)
+    const dock = { el, option, layout }
     Data.set(id, dock)
 
-    layout.on('tabClosed', (component, title) => {
+    layout.on('dockTabClosed', (component, title) => {
         component.classList.add('d-none')
         el.append(component)
 
-        saveConfig(option, layout)
-        invoke.invokeMethodAsync(callback, title, false)
+        option.invokeVisibleChanged(title, false)
     })
-    layout.on('saveLayout', () => {
-        saveConfig(option, layout)
+    layout.on('dockTabDrop', () => {
+        option.invokeTabDropCallback(layout)
+    })
+    layout.on('dockSplitterDragStop', () => {
+        option.invokeSplitterStopCallback(layout)
     })
 }
 
@@ -40,7 +56,7 @@ export function update(id, option) {
         items.forEach(v => {
             const c = comps.find(i => i.id === v.id)
             if (c === undefined) {
-                if (dock.layout.root.contentItems.length == 0) {
+                if (dock.layout.root.contentItems.length === 0) {
                     const compotentItem = dock.layout.createAndInitContentItem({ type: option.content[0].type, content: [] }, dock.layout.root)
                     dock.layout.root.addChild(compotentItem)
                 }
@@ -91,8 +107,8 @@ const getAllContentItems = content => {
     return items
 }
 
-const createGoldenLayout = (option, el, callback) => {
-    const config = getConfig(option, callback)
+const createGoldenLayout = (option, el) => {
+    const config = getConfig(option)
 
     const layout = new goldenLayout.GoldenLayout(config, el)
     hackGoldenLayout(option, layout)
@@ -121,7 +137,7 @@ const closeItem = (el, component) => {
     el.append(item)
 }
 
-const getConfig = (option, callback) => {
+const getConfig = option => {
     let config = null
     option = {
         enableLocalStorage: false,
@@ -135,7 +151,7 @@ const getConfig = (option, callback) => {
             const configItem = JSON.parse(localConfig)
             if (configItem.root) {
                 config = configItem
-                resetComponentId(config, option.content, callback)
+                resetComponentId(config, option)
             }
         }
     }
@@ -173,11 +189,11 @@ const removeConfig = option => {
     }
 }
 
-const resetComponentId = (config, content, callback) => {
+const resetComponentId = (config, option) => {
     // 本地配置
     const components = getAllContentItems(config.root.content)
     // 服务器端配置
-    const items = getAllContentItems(content)
+    const items = getAllContentItems(option.content)
     components.forEach(com => {
         const item = items.find(i => i.id === com.id)
         if (item) {
@@ -188,12 +204,12 @@ const resetComponentId = (config, content, callback) => {
             // 本地存储中有，配置中没有，需要显示这个组件，由于 ID 是变化的暂时通过 title 来定位新 Component
             const newEl = document.querySelector(`[data-bb-title='${com.title}']`)
             if (newEl) {
-                callback(com.componentState.title, true)
+                option.invokeVisibleChanged(com.componentState.title, true)
                 com.id = newEl.getAttribute('id')
                 com.componentState.id = com.id
             }
             else {
-                var component = items.find(i => i.title === com.componentState.title)
+                const component = items.find(i => i.title === com.componentState.title)
                 if (component) {
                     com.id = component.id
                     com.title = component.title
@@ -204,8 +220,8 @@ const resetComponentId = (config, content, callback) => {
                 }
 
                 // remove empty stack
-                config.root.content.filter(v => v.content.length == 0).forEach(v => {
-                    var index = config.root.content.indexOf(v)
+                config.root.content.filter(v => v.content.length === 0).forEach(v => {
+                    const index = config.root.content.indexOf(v)
                     if (index > -1) {
                         config.root.content.splice(index, 1)
                     }
@@ -218,12 +234,9 @@ const resetComponentId = (config, content, callback) => {
         // 更新服务器端组件可见状态
         const item = components.find(i => i.id === com.id)
         if (item === undefined) {
-            var component = components.find(i => i.componentState.title === com.title)
-            if (component) {
-
-            }
-            else {
-                callback(com.title, false)
+            const component = components.find(i => i.componentState.title === com.title)
+            if (!component) {
+                option.invokeVisibleChanged(com.title, false)
             }
         }
     })
@@ -232,13 +245,12 @@ const resetComponentId = (config, content, callback) => {
 const removeContent = (content, item) => {
     content.forEach(v => {
         if (Array.isArray(v.content)) {
-            var index = v.content.indexOf(item)
+            const index = v.content.indexOf(item)
             if (index > -1) {
                 v.content.splice(index, 1)
             }
             else {
                 removeContent(v.content, item)
-
             }
         }
     })
@@ -253,19 +265,19 @@ const hackGoldenLayout = (option, layout) => {
             const title = this._componentItem.title
 
             this.notifyClose();
-            this._layoutManager.emit('tabClosed', component, title)
+            this._layoutManager.emit('dockTabClosed', component, title)
         }
 
         const originSplitterDragStop = goldenLayout.RowOrColumn.prototype.onSplitterDragStop;
         goldenLayout.RowOrColumn.prototype.onSplitterDragStop = function (splitter) {
             originSplitterDragStop.call(this, splitter)
-            layout.emit('saveLayout')
+            layout.emit('dockSplitterDragStop')
         }
 
         const originStackDrop = goldenLayout.Stack.prototype.onDrop;
         goldenLayout.Stack.prototype.onDrop = function (contentItem, area) {
             originStackDrop.call(this, contentItem, area);
-            layout.emit('saveLayout')
+            layout.emit('dockTabDrop')
         }
 
         const originSetTitle = goldenLayout.Tab.prototype.setTitle
@@ -280,7 +292,7 @@ const hackGoldenLayout = (option, layout) => {
         const originBindEvents = goldenLayout.GoldenLayout.prototype.bindEvents
         goldenLayout.GoldenLayout.prototype.bindEvents = function () {
             layout.on("initialised", () => {
-                saveConfig(option, layout)
+                option.invokeInitializedCallback(layout)
             })
             originBindEvents.call(this)
         }
@@ -291,6 +303,6 @@ const hackGoldenLayoutOnDrop = layout => {
     const originRootDrop = layout.root.onDrop
     layout.root.onDrop = function (contentItem, area) {
         originRootDrop.call(this, contentItem, area)
-        layout.emit('saveLayout')
+        layout.emit('dockTabDrop')
     }
 }

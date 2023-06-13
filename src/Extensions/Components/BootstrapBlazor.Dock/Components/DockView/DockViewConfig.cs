@@ -24,6 +24,31 @@ class DockViewConfig
     public string? Version { get; set; }
 
     /// <summary>
+    /// 获得 标签页可见状态改变事件回调
+    /// </summary>
+    public string? VisibleChangedCallback { get; set; }
+
+    /// <summary>
+    /// 获得 组件初始化完成事件回调
+    /// </summary>
+    public string? InitializedCallback { get; set; }
+
+    /// <summary>
+    /// 获得 关闭标签页事件回调
+    /// </summary>
+    public string? SaveLayoutCallback { get; set; }
+
+    /// <summary>
+    /// 获得 拖动标签页事件回调
+    /// </summary>
+    public string? TabDropCallback { get; set; }
+
+    /// <summary>
+    /// 获得 调整标签页分割线事件回调
+    /// </summary>
+    public string? SplitterStopCallback { get; set; }
+
+    /// <summary>
     /// 获得/设置 Golden-Layout 配置项集合 默认 空集合
     /// </summary>
     [JsonPropertyName("content")]
