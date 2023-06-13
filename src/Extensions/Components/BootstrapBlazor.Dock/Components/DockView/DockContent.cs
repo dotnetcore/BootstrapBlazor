@@ -40,6 +40,12 @@ public class DockContent : ComponentBase, IDockComponent
     [Parameter]
     public int? Width { get; set; }
 
+    /// <summary>
+    /// 获得/设置 组件高度百分比 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public int? Height { get; set; }
+
     [CascadingParameter]
     private DockContent? Content { get; set; }
 
