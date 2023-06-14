@@ -132,33 +132,35 @@ public partial class DockView
         };
     }
 
-    private RenderFragment RenderDockContent(List<DockContent> contents) => new(builder =>
+    private static RenderFragment RenderDockContent(List<DockContent> contents) => builder =>
     {
         foreach (var content in contents)
         {
             builder.AddContent(0, RenderDockComponent(content.Items));
         }
-    });
+    };
 
-    private RenderFragment RenderDockComponent(List<IDockComponent> items) => new(builder =>
+    private static RenderFragment RenderDockComponent(List<IDockComponent> items) => builder =>
     {
         foreach (var item in items)
         {
-            if (item is DockComponent com)
+            switch (item)
             {
-                builder.OpenElement(0, "div");
-                builder.AddAttribute(1, "id", com.Id);
-                builder.AddAttribute(2, "class", "bb-dock-item d-none");
-                builder.AddAttribute(3, "data-bb-key", com.Key);
-                builder.AddContent(4, com.ChildContent);
-                builder.CloseComponent();
-            }
-            else if (item is DockContent content)
-            {
-                builder.AddContent(5, RenderDockComponent(content.Items));
+                case DockComponent com:
+                    builder.OpenElement(0, "div");
+                    builder.AddAttribute(1, "id", com.Id);
+                    builder.AddAttribute(2, "class", "bb-dock-item d-none");
+                    builder.AddAttribute(3, "data-bb-key", com.Key);
+                    builder.AddAttribute(4, "data-bb-title", com.Title);
+                    builder.AddContent(5, com.ChildContent);
+                    builder.CloseComponent();
+                    break;
+                case DockContent content:
+                    builder.AddContent(6, RenderDockComponent(content.Items));
+                    break;
             }
         }
-    });
+    };
 
     /// <summary>
     /// 标签页关闭回调方法 由 JavaScript 调用
