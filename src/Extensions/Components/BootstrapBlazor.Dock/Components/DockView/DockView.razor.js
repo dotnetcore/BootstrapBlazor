@@ -16,6 +16,10 @@ export async function init(id, option, invoke) {
 
     hackGoldenLayout()
     const layout = createGoldenLayout(option, el)
+    layout.on('initialised', () => {
+        saveConfig(option, layout)
+    })
+    layout.init()
 
     layout.on('dockTabClosed', (component, title) => {
         component.classList.add('d-none')
@@ -115,8 +119,6 @@ const createGoldenLayout = (option, el) => {
             container.element.append(el)
         }
     })
-    layout.init()
-
     layout.resizeWithContainerAutomatically = true
     return layout
 }
