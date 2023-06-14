@@ -197,10 +197,10 @@ const resetComponentId = (config, option) => {
             // 本地存储中有，配置中没有，需要显示这个组件，通过 key 来定位新 Component
             const newEl = document.querySelector(`[data-bb-key='${com.componentState.key}']`)
             if (newEl) {
-                option.invokeVisibleChangedCallback(com.title, true)
                 com.id = newEl.getAttribute('id')
                 com.title = newEl.getAttribute('data-bb-title')
                 com.componentState.id = com.id
+                option.invokeVisibleChangedCallback(com.title, true)
             }
             else {
                 removeContent(config.root.content, com)
