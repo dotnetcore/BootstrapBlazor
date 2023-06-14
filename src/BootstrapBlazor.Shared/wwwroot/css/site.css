@@ -147,10 +147,12 @@
 }
 
 .row-highlight {
-    background-color: #409eff;
-    color: #fff;
     --bs-table-striped-bg: #409eff;
+    --bs-table-bg: #409eff;
+    --bs-table-hover-bg: #409eff;
     --bs-table-striped-color: #fff;
+    --bs-table-color-state: #fff;
+    --bs-table-hover-color: #fff;
 }
 
 @media (min-width: 768px) {
