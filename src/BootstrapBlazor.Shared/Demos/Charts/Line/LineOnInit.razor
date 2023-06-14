@@ -54,6 +54,7 @@
     {
         var ds = new ChartDataSource();
         ds.Options.Title = "Line Chart";
+        ds.Options.LegendLabelsFontSize = 16;
         ds.Options.X.Title = "days";
         ds.Options.Y.Title = "Numerical value";
         ds.Options.BorderWidth = Randomer.Next(1, 5);//设置折线图线宽,Options.BorderWidth优先级高于组件上设置的BorderWidth="1"
@@ -61,11 +62,11 @@
         for (var index = 0; index < LineDatasetCount; index++)
         {
             ds.Data.Add(new ChartDataset()
-            {
-                Tension = tension,
-                Label = $"Set {index}",
-                Data = Enumerable.Range(1, LineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)Randomer.Next(20, 37))
-            });
+                {
+                    Tension = tension,
+                    Label = $"Set {index}",
+                    Data = Enumerable.Range(1, LineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)Randomer.Next(20, 37))
+                });
         }
         return Task.FromResult(ds);
     }
