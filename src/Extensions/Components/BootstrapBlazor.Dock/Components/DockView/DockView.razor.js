@@ -148,7 +148,7 @@ const getConfig = option => {
     }
 
     return {
-        ...(config || { content: option.content }),
+        ...(config || { content: [] }),
         ...{
             dimensions: {
                 borderWidth: 5,
@@ -156,7 +156,8 @@ const getConfig = option => {
                 minItemWidth: 10,
                 headerHeight: 25
             }
-        }
+        },
+        ...option
     }
 }
 
@@ -196,8 +197,9 @@ const resetComponentId = (config, option) => {
             // 本地存储中有，配置中没有，需要显示这个组件，通过 key 来定位新 Component
             const newEl = document.querySelector(`[data-bb-key='${com.componentState.key}']`)
             if (newEl) {
-                option.invokeVisibleChangedCallback(com.componentState.title, true)
+                option.invokeVisibleChangedCallback(com.title, true)
                 com.id = newEl.getAttribute('id')
+                com.title = newEl.getAttribute('data-bb-title')
                 com.componentState.id = com.id
             }
             else {
