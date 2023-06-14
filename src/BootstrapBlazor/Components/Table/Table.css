@@ -373,7 +373,16 @@
 
 .table tbody tr.active:not(.is-edit),
 .table-row.active {
-    background-color: var(--bs-table-active-bg);
+    --bs-table-bg-type: #badafa;
+}
+
+
+.table-striped > tbody > tr.active:not(.is-edit):nth-of-type(odd) > * {
+    --bs-table-bg-type: #badafa;
+}
+
+tr.active:not(.is-edit):hover {
+    --bs-table-hover-bg: #409eff;
 }
 
 .table-hover > tbody > tr.is-detail:hover,
