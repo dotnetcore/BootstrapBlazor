@@ -1,0 +1,29 @@
+﻿.spinner-border-xs {
+    --bs-spinner-width: .75rem;
+    --bs-spinner-height: .75rem;
+    --bs-spinner-border-width: .1em;
+}
+
+.spinner-border-sm {
+    --bs-spinner-width: 1rem;
+    --bs-spinner-height: 1rem;
+    --bs-spinner-border-width: .125em;
+}
+
+.spinner-border-lg {
+    --bs-spinner-width: 3rem;
+    --bs-spinner-height: 3rem;
+    --bs-spinner-border-width: .25em;
+}
+
+.spinner-border-xl {
+    --bs-spinner-width: 4rem;
+    --bs-spinner-height: 4rem;
+    --bs-spinner-border-width: .25em;
+}
+
+.spinner-border-xxl {
+    --bs-spinner-width: 6rem;
+    --bs-spinner-height: 6rem;
+    --bs-spinner-border-width: .275em;
+}
