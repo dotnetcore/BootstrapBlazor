@@ -49,6 +49,27 @@ public class DockComponent : IdComponentBase, IDockComponent
     public bool ShowClose { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 组件宽度百分比 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public int? Width { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组件高度百分比 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public int? Height { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组件高度百分比 默认 null 未设置
+    /// </summary>
+    [Parameter]
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
+    public string? Key { get; set; }
+
+    /// <summary>
     /// 获得/设置 组件状态
     /// </summary>
     [Parameter]
@@ -71,7 +92,7 @@ public class DockComponent : IdComponentBase, IDockComponent
     {
         base.OnInitialized();
 
-        ComponentState = new { Id, Title, ComponentName, Visible, ShowClose };
+        ComponentState = new { Id, ShowClose, Class, Key };
         Content?.Items.Add(this);
     }
 
