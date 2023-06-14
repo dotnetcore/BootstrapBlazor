@@ -21,7 +21,7 @@ export async function init(id, option, invoke) {
     })
     layout.init()
 
-    layout.on('dockTabClosed', (component, title) => {
+    layout.on('tabClosed', (component, title) => {
         component.classList.add('d-none')
         el.append(component)
 
@@ -32,7 +32,7 @@ export async function init(id, option, invoke) {
         saveConfig(option, layout)
         invoke.invokeMethodAsync(option.tabDropCallback)
     })
-    layout.on('dockSplitterDragStop', () => {
+    layout.on('splitterDragStop', () => {
         saveConfig(option, layout)
         invoke.invokeMethodAsync(option.splitterCallback)
     })
@@ -247,13 +247,13 @@ const hackGoldenLayout = () => {
             const title = this._componentItem.title
 
             this.notifyClose();
-            this._layoutManager.emit('dockTabClosed', component, title)
+            this._layoutManager.emit('tabClosed', component, title)
         }
 
         const originSplitterDragStop = goldenLayout.RowOrColumn.prototype.onSplitterDragStop;
         goldenLayout.RowOrColumn.prototype.onSplitterDragStop = function (splitter) {
             originSplitterDragStop.call(this, splitter)
-            this.layoutManager.emit('dockSplitterDragStop')
+            this.layoutManager.emit('splitterDragStop')
         }
 
         const originSetTitle = goldenLayout.Tab.prototype.setTitle
