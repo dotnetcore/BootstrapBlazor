@@ -19,6 +19,16 @@ export function lineChart(canvasId, chartData) {
         type: 'line',
         data: data,
         options: {
+            plugins: {
+                legend: {
+                    labels: {
+                        font: {
+                            size: 26,
+                            style: 'italic'
+                        }
+                    }
+                }
+            },
             animations: {
                 tension: {
                     duration: 1000,
@@ -42,7 +52,7 @@ export function lineChart(canvasId, chartData) {
 
 export function randomize(canvasId, chartData) {
     const chart = Data.get(canvasId)
-    if(chart) {
+    if (chart) {
         chart.data.datasets.forEach(dataset => {
             dataset.data = chartData;
         });

@@ -17,6 +17,11 @@ public class ChartOptions
     public string? Title { get; set; }
 
     /// <summary>
+    /// 获得/设置 数据集合名称字体大小
+    /// </summary>
+    public int LegendLabelsFontSize { get; set; }
+
+    /// <summary>
     /// 获得 X 坐标轴实例集合
     /// </summary>
     public ChartAxes X { get; } = new ChartAxes();
