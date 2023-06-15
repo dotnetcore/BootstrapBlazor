@@ -1,7 +1,18 @@
-﻿export function init(id, title, content) {
+﻿export function init(id, content) {
     const el = document.getElementById(id)
     if (el) {
-        new bootstrap.Popover(el, { title, content })
+        var pop = bootstrap.Popover.getInstance(el)
+        if (pop) {
+            pop._config.content = content
+        }
+        else {
+            new bootstrap.Popover(el, {
+                content,
+                title: () => {
+                    return el.getAttribute('data-bs-original-title')
+                }
+            })
+        }
     }
 }
 
