@@ -92,7 +92,7 @@ export function init(id) {
     }
 
     if (!window.bb_confirm) {
-        window.bb_confirm = { 
+        window.bb_confirm = {
             handle: false,
             items: []
         }
@@ -102,13 +102,6 @@ export function init(id) {
         EventHandler.on(document, 'click', confirm.closeConfirm);
     }
     window.bb_confirm.items.push(id)
-}
-
-const toggle = id => {
-    const confirm = Data.get(id)
-    if (confirm && confirm.popover) {
-        confirm.popover.toggle()
-    }
 }
 
 export function showConfirm(id) {
