@@ -22,6 +22,8 @@ public class Popover : Tooltip
     [Parameter]
     public bool ShowShadow { get; set; } = true;
 
+    private string? _lastContent;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -47,7 +49,27 @@ public class Popover : Tooltip
     {
         if (!string.IsNullOrEmpty(Content))
         {
-            await InvokeVoidAsync("init", Id, Title, Content);
+            await InvokeVoidAsync("init", Id, Content);
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            _lastContent = Content;
+        }
+
+        if (_lastContent != Content)
+        {
+            await InvokeInitAsync();
         }
     }
 }
