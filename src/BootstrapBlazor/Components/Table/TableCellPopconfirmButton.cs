@@ -26,7 +26,7 @@ public class TableCellPopconfirmButton : PopConfirmButtonBase
     /// 获得/设置 点击按钮是否选中正行 默认 true 选中
     /// </summary>
     [Parameter]
-    public bool AutoSelectedRowWhenClick { get; set; } = true;
+    public bool AutoSelectedRowWhenClick { get; set; }
 
     /// <summary>
     /// 获得/设置 点击按钮是否选中正行 默认 true 选中
