@@ -101,7 +101,7 @@ public partial class TableToolbar<TItem> : ComponentBase
         }
         else if (button is ITableToolbarButton<TItem> tb)
         {
-            ret = tb.IsDisabledCallback == null ? (tb.IsEnableWhenSelectedOneRow && OnGetSelectedRows().Count() != 1) : tb.IsDisabledCallback(OnGetSelectedRows());
+            ret = tb.IsDisabledCallback == null ? !(tb.IsEnableWhenSelectedOneRow && OnGetSelectedRows().Count() == 1) : tb.IsDisabledCallback(OnGetSelectedRows());
         }
         return ret;
     }
