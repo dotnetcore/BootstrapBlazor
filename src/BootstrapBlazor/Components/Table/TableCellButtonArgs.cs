@@ -15,7 +15,8 @@ public class TableCellButtonArgs
     public bool AutoSelectedRowWhenClick { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 点击按钮是否选中正行 默认 false 选中
+    /// 获得/设置 点击按钮是否重新渲染 Table 组件 默认 false 不重新渲染
     /// </summary>
+    /// <remarks>设置 true 时会调用 <see cref="Table{TItem}.QueryAsync(int?)"/> 方法，触发 <see cref="Table{TItem}.OnQueryAsync"/> 回调</remarks>
     public bool AutoRenderTableWhenClick { get; set; }
 }
