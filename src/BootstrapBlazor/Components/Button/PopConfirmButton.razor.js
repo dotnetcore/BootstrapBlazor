@@ -119,6 +119,20 @@ export function showConfirm(id) {
         hackPopover(confirm.popover, config.class)
         confirm.popover.show()
     }
+
+    // close other confirm
+    document.querySelectorAll(config.popoverSelector).forEach(el => {
+        const owner = getDescribedOwner(el)
+        if (owner !== confirm.el) {
+            const id = owner.getAttribute('id')
+            if (id) {
+                const p = Data.get(id)
+                if (p) {
+                    p.hide()
+                }
+            }
+        }
+    })
 }
 
 export function submit(id) {
