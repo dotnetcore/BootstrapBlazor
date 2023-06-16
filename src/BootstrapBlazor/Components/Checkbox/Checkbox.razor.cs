@@ -30,7 +30,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     private bool IsShowAfterLabel => ShowAfterLabel && !string.IsNullOrEmpty(DisplayText);
 
     /// <summary>
-    /// 
+    /// Input 元素样式
     /// </summary>
     protected string? InputClassString => CssBuilder.Default("form-check-input")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None)
@@ -38,7 +38,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
         .Build();
 
     /// <summary>
-    /// 
+    /// Check 状态字符串
     /// </summary>
     protected string? CheckedString => State switch
     {
