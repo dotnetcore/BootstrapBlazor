@@ -30,6 +30,15 @@ public partial class Radio<TValue> : Checkbox<TValue>
 #endif
     public string? GroupName { get; set; }
 
+    private string? ClassString => CssBuilder.Default("form-check")
+        .AddClass("is-checked", State == CheckboxState.Checked)
+        .AddClass($"form-check-{Size.ToDescriptionString()}", Size != Size.None)
+        .AddClass($"form-check-{Color.ToDescriptionString()}", Color != Color.None && !IsButton)
+        .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None && State == CheckboxState.Checked && IsButton)
+        .AddClass("disabled", IsDisabled)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
     private async Task OnClickHandler()
     {
         if (OnClick != null)

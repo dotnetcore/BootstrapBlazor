@@ -44,9 +44,12 @@ public partial class RadioList<TValue> : CheckboxList<TValue>
 
     private string? GroupName => Id;
 
-    private string? RadioClassString => CssBuilder.Default("radio-list")
+    private string? ClassString => CssBuilder.Default("radio-list")
         .AddClass("form-control", !IsButton)
         .AddClass("is-button", IsButton)
+        .AddClass("no-border", !ShowBorder && ValidCss != "is-invalid")
+        .AddClass("is-vertical", IsVertical)
+        .AddClass(CssClass).AddClass(ValidCss)
         .Build();
 
     /// <summary>

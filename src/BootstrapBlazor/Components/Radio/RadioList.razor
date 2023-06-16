@@ -6,7 +6,7 @@
 {
     <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="@AdditionalAttributes" class="@GetClassString(RadioClassString)">
+<div @attributes="@AdditionalAttributes" class="@ClassString">
     @foreach (var item in Items)
     {
         var content = GetChildContent(item);
