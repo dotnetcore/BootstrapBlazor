@@ -33,10 +33,10 @@ public partial class Radio<TValue> : Checkbox<TValue>
     /// <summary>
     /// 获得/设置 是否为按钮样式 默认 false
     /// </summary>
-    [CascadingParameter]
-    private CheckboxList<TValue>? Parent { get; set; }
+    [CascadingParameter(Name = "RadioListIsButton")]
+    private bool? CascadeIsButton { get; set; }
 
-    private bool IsButton => Parent?.IsButton ?? false;
+    private bool IsButton => CascadeIsButton.HasValue ? CascadeIsButton.Value : false;
 
     private async Task OnClickHandler()
     {
