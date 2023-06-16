@@ -6,19 +6,26 @@
 {
     <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="@AdditionalAttributes" class="@ClassString">
-    @foreach (var item in Items)
-    {
-        var content = GetChildContent(item);
-        @if (IsButton)
+@if (IsButton)
+{
+    <div @attributes="@AdditionalAttributes">
+        <div class="@ButtonClassString" role="group">
+            @foreach (var item in Items)
+            {
+                <DynamicElement TagName="span" TriggerClick="!IsDisabled" OnClick="() => OnClick(item)" class="@GetButtonItemClassString(item)">
+                    @item.Text
+                </DynamicElement>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div @attributes="@AdditionalAttributes" class="@ClassString" role="group">
+        @foreach (var item in Items)
         {
-            <DynamicElement TagName="span" TriggerClick="!IsDisabled" OnClick="() => OnClick(item)" class="@GetButtonClassString(item)">
-                @item.Text
-            </DynamicElement>
-        }
-        else
-        {
+            var content = GetChildContent(item);
             <Radio TValue="SelectedItem" Value="@item" Color="@Color" GroupName="@GroupName" IsDisabled="@GetDisabledState(item)" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" State="@CheckState(item)" OnClick="OnClick" ChildContent="content!"></Radio>
         }
-    }
-</div>
+    </div>
+}

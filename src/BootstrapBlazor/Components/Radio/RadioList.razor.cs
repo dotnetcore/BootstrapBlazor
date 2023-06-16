@@ -44,6 +44,8 @@ public partial class RadioList<TValue> : CheckboxList<TValue>
 
     private string? GroupName => Id;
 
+    private string GetItemId(SelectedItem item) => $"{Id}_{item.Value}";
+
     private string? ClassString => CssBuilder.Default("radio-list")
         .AddClass("form-control", !IsButton)
         .AddClass("is-button", IsButton)
@@ -52,8 +54,14 @@ public partial class RadioList<TValue> : CheckboxList<TValue>
         .AddClass(CssClass).AddClass(ValidCss)
         .Build();
 
-    private string? GetButtonClassString(SelectedItem item) => CssBuilder.Default("radio-item-button")
-        .AddClass("active", CurrentValueAsString == item.Value)
+    private string? ButtonClassString => CssBuilder.Default("radio-list btn-group")
+        .AddClass("disabled", IsDisabled)
+        .AddClass("btn-group-vertical", IsVertical)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? GetButtonItemClassString(SelectedItem item) => CssBuilder.Default("btn")
+        .AddClass($"active bg-{Color.ToDescriptionString()}", CurrentValueAsString == item.Value)
         .Build();
 
     /// <summary>
@@ -74,6 +82,11 @@ public partial class RadioList<TValue> : CheckboxList<TValue>
         if (AutoSelectFirstWhenValueIsNull && !Items.Any(i => i.Value == CurrentValueAsString))
         {
             CurrentValueAsString = Items.FirstOrDefault()?.Value ?? "";
+        }
+
+        if (IsButton && Color == Color.None)
+        {
+            Color = Color.Primary;
         }
     }
 
