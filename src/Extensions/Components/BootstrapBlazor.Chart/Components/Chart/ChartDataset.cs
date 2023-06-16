@@ -41,4 +41,26 @@ public class ChartDataset
     /// Y坐标轴ID
     /// </summary> 
     public string? YAxisID { get => IsAxisY2 ? "y2" : "y"; }
+
+    /// <summary>
+    /// 数据点样式
+    /// </summary>
+    [JsonConverter(typeof(ChartEnumDescriptionConverter<ChartPointStyle>))]
+    public ChartPointStyle PointStyle { get; set; } = ChartPointStyle.Circle;
+
+    /// <summary>
+    /// 显示数据点样式
+    /// </summary>
+    public bool ShowPointStyle { get; set; } = true;
+
+    /// <summary>
+    /// 数据点半径
+    /// </summary>
+    public int PointRadius { get; set; } = 3;
+
+    /// <summary>
+    /// 数据点悬停半径，鼠标指向时的大小
+    /// </summary>
+    public int PointHoverRadius { get; set; } = 4;
+
 }

@@ -28,6 +28,20 @@
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
+    private ChartPointStyle[] chartPointStyles = new[]
+    {
+        ChartPointStyle.Circle,
+        ChartPointStyle.Cross,
+        ChartPointStyle.CrossRot,
+        ChartPointStyle.Dash,
+        ChartPointStyle.Line,
+        ChartPointStyle.Rect,
+        ChartPointStyle.RectRounded,
+        ChartPointStyle.RectRot,
+        ChartPointStyle.Star,
+        ChartPointStyle.Triangle,
+    };
+
     protected override void OnAfterRender(bool firstRender)
     {
         base.OnAfterRender(firstRender);
@@ -65,7 +79,11 @@
             {
                 Tension = tension,
                 Label = $"Set {index}",
-                Data = Enumerable.Range(1, LineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)Randomer.Next(20, 37))
+                Data = Enumerable.Range(1, LineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)Randomer.Next(20, 37)),
+                ShowPointStyle = true,
+                PointStyle = chartPointStyles[Randomer.Next(0, 9)],
+                PointRadius = 5,
+                PointHoverRadius = 10
             });
         }
         return Task.FromResult(ds);
