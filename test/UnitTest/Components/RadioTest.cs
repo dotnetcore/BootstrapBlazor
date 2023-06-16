@@ -17,7 +17,6 @@ public class RadioTest : BootstrapBlazorTestBase
             pb.Add(a => a.Value, v);
         });
         Assert.Contains("radio-list form-control", cut.Markup);
-        Assert.Contains("form-check is-label", cut.Markup);
         Assert.Contains("form-check-input", cut.Markup);
     }
 
@@ -228,14 +227,20 @@ public class RadioTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, typeof(EnumEducation).ToSelectList());
             pb.Add(a => a.Value, EnumEducation.Middle);
         });
-        cut.Contains("is-button");
-        cut.Contains("form-check is-label is-checked");
+        cut.Contains("radio-list btn-group");
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Color, Color.Danger);
         });
-        cut.Contains("form-check is-label is-checked bg-danger");
+        cut.Contains("btn active bg-danger");
+
+        cut.InvokeAsync(() =>
+        {
+            var btn = cut.Find("btn");
+            btn.Click();
+            cut.Contains("btn active bg-danger");
+        });
     }
 
     private class RadioListGenericMock<T>
