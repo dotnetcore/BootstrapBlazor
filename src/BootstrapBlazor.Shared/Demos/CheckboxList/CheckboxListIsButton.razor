@@ -1,7 +1,20 @@
 ﻿@inject IStringLocalizer<CheckboxListIsButton> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
 
-<CheckboxList IsButton="true" @bind-Value="@Value" Items="FooItems" ShowLabel="true" DisplayText="Test1"></CheckboxList>
+<div class="row g-3">
+    <div class="col-12 col-sm-6">
+        <CheckboxList IsButton="true" @bind-Value="@Value" Items="FooItems" ShowLabel="true" DisplayText="Test1"></CheckboxList>
+    </div>
+    <div class="col-12 col-sm-6">
+        <CheckboxList IsButton="true" @bind-Value="@Value" Items="FooItems" ShowLabel="true" DisplayText="Test2" Color="Color.Danger" IsDisabled="true"></CheckboxList>
+    </div>
+    <div class="col-12 col-sm-6">
+        <CheckboxList IsButton="true" @bind-Value="@Value" Items="FooItems" ShowLabel="true" DisplayText="Test3" Color="Color.Warning"></CheckboxList>
+    </div>
+    <div class="col-12 col-sm-6">
+        <CheckboxList IsButton="true" @bind-Value="@Value" Items="FooItems" ShowLabel="true" DisplayText="Test4" Color="Color.Info"></CheckboxList>
+    </div>
+</div>
 
 <ValidateForm Model="Model" class="mt-3">
     <div class="row g-3 form-inline">
@@ -24,7 +37,7 @@
     private Foo? Model { get; set; }
 
     [NotNull]
-    private IEnumerable<SelectedItem>? SelectedItems { get; set; }
+    private IEnumerable<string>? SelectedItems { get; set; }
 
     [NotNull]
     private IEnumerable<SelectedItem>? FooItems { get; set; }
