@@ -1,0 +1,57 @@
+﻿@inject IStringLocalizer<CheckboxListIsButton> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
+
+<div class="row g-3">
+    <div class="col-12 col-sm-6">
+        <Checkbox IsButton="true" @bind-Value="@Value" DisplayText="Test1"></Checkbox>
+    </div>
+    <div class="col-12 col-sm-6">
+        <Checkbox IsButton="true" @bind-Value="@Value" IsDisabled="true" Color="Color.Danger" DisplayText="Test2"></Checkbox>
+    </div>
+    <div class="col-12 col-sm-6">
+        <Checkbox IsButton="true" @bind-Value="@Value" Color="Color.Success" ShowLabel="true" DisplayText="Test3"></Checkbox>
+    </div>
+    <div class="col-12 col-sm-6">
+        <Checkbox IsButton="true" @bind-Value="@Value" Color="Color.Info" ShowLabel="true" DisplayText="Test4"></Checkbox>
+    </div>
+</div>
+
+<ValidateForm Model="Model" class="mt-3">
+    <div class="row g-3 form-inline">
+        <div class="col-12 col-sm-6">
+            <BootstrapInput @bind-Value="@Model.Name" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <CheckboxList @bind-Value="@SelectedItems" IsButton="true" Items="FooItems" />
+        </div>
+    </div>
+</ValidateForm>
+
+@code {
+    /// <summary>
+    /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
+    /// Foo class is used for Demo test, please download the source code if necessary
+    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Shared/Data/Foo.cs
+    /// </summary>
+    [NotNull]
+    private Foo? Model { get; set; }
+
+    [NotNull]
+    private IEnumerable<SelectedItem>? SelectedItems { get; set; }
+
+    [NotNull]
+    private List<SelectedItem>? FooItems { get; set; }
+
+    private string? Value { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Model = Foo.Generate(LocalizerFoo);
+        FooItems = Foo.GetCompleteItems(LocalizerFoo);
+    }
+}
