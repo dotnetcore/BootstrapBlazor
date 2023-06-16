@@ -12,12 +12,6 @@ namespace BootstrapBlazor.Components;
 public partial class RadioList<TValue> : CheckboxList<TValue>
 {
     /// <summary>
-    /// 获得/设置 按钮颜色
-    /// </summary>
-    [Parameter]
-    public Color Color { get; set; }
-
-    /// <summary>
     /// 获得/设置 值为可为空枚举类型时是否自动添加空值 默认 false 自定义空值显示文本请参考 <see cref="NullItemText"/>
     /// </summary>
     [Parameter]
@@ -82,11 +76,6 @@ public partial class RadioList<TValue> : CheckboxList<TValue>
         if (AutoSelectFirstWhenValueIsNull && !Items.Any(i => i.Value == CurrentValueAsString))
         {
             CurrentValueAsString = Items.FirstOrDefault()?.Value ?? "";
-        }
-
-        if (IsButton && Color == Color.None)
-        {
-            Color = Color.Primary;
         }
     }
 
