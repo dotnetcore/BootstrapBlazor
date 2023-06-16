@@ -12,18 +12,6 @@ namespace BootstrapBlazor.Components;
 public partial class RadioList<TValue> : CheckboxList<TValue>
 {
     /// <summary>
-    /// 获得/设置 按钮颜色
-    /// </summary>
-    [Parameter]
-    public Color Color { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否为按钮样式 默认 false
-    /// </summary>
-    [Parameter]
-    public bool IsButton { get; set; }
-
-    /// <summary>
     /// 获得/设置 值为可为空枚举类型时是否自动添加空值 默认 false 自定义空值显示文本请参考 <see cref="NullItemText"/>
     /// </summary>
     [Parameter]
@@ -50,13 +38,24 @@ public partial class RadioList<TValue> : CheckboxList<TValue>
 
     private string? GroupName => Id;
 
-    private string? RadioClassString => CssBuilder.Default("radio-list")
-        .AddClass("form-control", !IsButton)
-        .AddClass("is-button", IsButton)
+    private string? ClassString => CssBuilder.Default("radio-list form-control")
+        .AddClass("no-border", !ShowBorder && ValidCss != "is-invalid")
+        .AddClass("is-vertical", IsVertical)
+        .AddClass(CssClass).AddClass(ValidCss)
+        .Build();
+
+    private string? ButtonClassString => CssBuilder.Default("radio-list btn-group")
+        .AddClass("disabled", IsDisabled)
+        .AddClass("btn-group-vertical", IsVertical)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? GetButtonItemClassString(SelectedItem item) => CssBuilder.Default("btn")
+        .AddClass($"active bg-{Color.ToDescriptionString()}", CurrentValueAsString == item.Value)
         .Build();
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -77,11 +76,11 @@ public partial class RadioList<TValue> : CheckboxList<TValue>
     }
 
     /// <summary>
-    /// 格式化 Value 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
-    protected override string? FormatValueAsString(TValue value) => value is SelectedItem v ? v.Value : base.FormatValueAsString(value);
+    protected override string? FormatValueAsString(TValue value) => value is SelectedItem v ? v.Value : value?.ToString();
 
     /// <summary>
     /// <inheritdoc/>
