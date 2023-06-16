@@ -23,41 +23,26 @@
         padding: var(--bb-radio-item-padding);
     }
 
-.is-button {
-    flex-wrap: nowrap;
-    white-space: nowrap;
-}
-
-    .is-button .form-check {
-        text-align: center;
+    .radio-list.btn-group {
         border: 1px solid var(--bs-secondary);
-        width: auto;
+        display: inline-flex;
+        flex: 0 !important;
+        flex-wrap: nowrap;
+        white-space: nowrap;
     }
 
-        .is-button .form-check:first-child {
-            border-top-left-radius: var(--bs-border-radius);
-            border-bottom-left-radius: var(--bs-border-radius);
-            border-right: none;
-        }
-
-        .is-button .form-check:last-child {
-            border-top-right-radius: var(--bs-border-radius);
-            border-bottom-right-radius: var(--bs-border-radius);
-            border-left: none;
-        }
-
-        .is-button .form-check.is-checked {
-            background-color: #1890ff;
-            color: #fff;
-        }
-
-        .is-button .form-check > span {
-            cursor: pointer;
-            display: block;
-            padding: 0.375rem .75rem;
+        .radio-list.btn-group > .btn {
             white-space: nowrap;
         }
 
-    .is-button .disabled:not(.is-checked) > span {
-        background-color: var(--bb-disabled-bg);
-    }
+        .radio-list.btn-group .active {
+            color: #fff;
+        }
+
+        .radio-list.btn-group.disabled > span {
+            opacity: var(--bs-btn-disabled-opacity);
+        }
+
+            .radio-list.btn-group.disabled > span:not(.active) {
+                background-color: var(--bb-disabled-bg);
+            }

@@ -15,12 +15,11 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <summary>
     /// 获得 class 样式集合
     /// </summary>
-    protected string? GetClassString(bool isButton = false) => CssBuilder.Default("form-check")
+    private string? ClassString => CssBuilder.Default("form-check")
         .AddClass("is-label", IsShowAfterLabel)
-        .AddClass("is-checked", State == CheckboxState.Checked)
+        .AddClass("is-checked", State == CheckboxState.Checked && !IsBoolean)
         .AddClass("is-indeterminate", State == CheckboxState.Indeterminate)
-        .AddClass($"form-check-{Color.ToDescriptionString()}", Color != Color.None && !isButton)
-        .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None && isButton && State == CheckboxState.Checked)
+        .AddClass($"form-check-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass($"form-check-{Size.ToDescriptionString()}", Size != Size.None)
         .AddClass("disabled", IsDisabled)
         .AddClass(ValidCss)
@@ -30,7 +29,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     private bool IsShowAfterLabel => ShowAfterLabel && !string.IsNullOrEmpty(DisplayText);
 
     /// <summary>
-    /// 
+    /// Input 元素样式
     /// </summary>
     protected string? InputClassString => CssBuilder.Default("form-check-input")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None)
@@ -38,7 +37,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
         .Build();
 
     /// <summary>
-    /// 
+    /// Check 状态字符串
     /// </summary>
     protected string? CheckedString => State switch
     {

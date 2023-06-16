@@ -2560,20 +2560,20 @@
     "StatusText2": "未选",
     "StatusText3": "不确定"
   },
-  "BootstrapBlazor.Shared.Demos.CheckboxDisabled": {
+  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxDisabled": {
     "StatusText1": "选中",
     "StatusText2": "未选"
   },
-  "BootstrapBlazor.Shared.Demos.CheckboxShowLabel": {
+  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxShowLabel": {
     "StatusText1": "选中"
   },
-  "BootstrapBlazor.Shared.Demos.CheckboxOnStateChanged": {
+  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxOnStateChanged": {
     "Checkbox2Text": "双向绑定"
   },
-  "BootstrapBlazor.Shared.Demos.CheckboxBindString": {
+  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxBindString": {
     "Checkbox2Text": "双向绑定"
   },
-  "BootstrapBlazor.Shared.Demos.CheckboxValidateForm": {
+  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxValidateForm": {
     "Checkbox3Text": "手写标签"
   },
   "BootstrapBlazor.Shared.Samples.CheckboxLists": {

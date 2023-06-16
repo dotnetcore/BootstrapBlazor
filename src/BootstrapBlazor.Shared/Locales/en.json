@@ -2550,20 +2550,20 @@
     "StatusText2": "Not selected",
     "StatusText3": "Indeterminate"
   },
-  "BootstrapBlazor.Shared.Demos.CheckboxDisabled": {
+  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxDisabled": {
     "StatusText1": "Selected",
     "StatusText2": "Not selected"
   },
-  "BootstrapBlazor.Shared.Demos.CheckboxShowLabel": {
+  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxShowLabel": {
     "StatusText1": "Selected"
   },
-  "BootstrapBlazor.Shared.Demos.CheckboxOnStateChanged": {
+  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxOnStateChanged": {
     "Checkbox2Text": "Two-way binding"
   },
-  "BootstrapBlazor.Shared.Demos.CheckboxBindString": {
+  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxBindString": {
     "Checkbox2Text": "Two-way binding"
   },
-  "BootstrapBlazor.Shared.Demos.CheckboxValidateForm": {
+  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxValidateForm": {
     "Checkbox3Text": "Handwritten labels"
   },
   "BootstrapBlazor.Shared.Samples.CheckboxLists": {

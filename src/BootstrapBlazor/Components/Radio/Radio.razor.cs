@@ -16,12 +16,6 @@ public partial class Radio<TValue> : Checkbox<TValue>
     public Func<TValue, Task>? OnClick { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为按钮样式 默认 false
-    /// </summary>
-    [Parameter]
-    public bool IsButton { get; set; }
-
-    /// <summary>
     /// 获得/设置 子组件 RenderFragment 实例
     /// </summary>
     [Parameter]
@@ -35,6 +29,14 @@ public partial class Radio<TValue> : Checkbox<TValue>
     [EditorRequired]
 #endif
     public string? GroupName { get; set; }
+
+    private string? ClassString => CssBuilder.Default("form-check")
+        .AddClass("is-checked", State == CheckboxState.Checked)
+        .AddClass($"form-check-{Size.ToDescriptionString()}", Size != Size.None)
+        .AddClass($"form-check-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass("disabled", IsDisabled)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
 
     private async Task OnClickHandler()
     {
