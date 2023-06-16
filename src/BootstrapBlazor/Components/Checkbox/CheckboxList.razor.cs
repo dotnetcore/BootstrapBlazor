@@ -161,7 +161,7 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
         string? ret = null;
         if (ValueType == typeof(string))
         {
-            ret = CurrentValue?.ToString();
+            ret = value?.ToString();
         }
         else
         {
