@@ -15,12 +15,11 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <summary>
     /// 获得 class 样式集合
     /// </summary>
-    protected string? GetClassString(bool isButton = false) => CssBuilder.Default("form-check")
+    protected string? GetClassString() => CssBuilder.Default("form-check")
         .AddClass("is-label", IsShowAfterLabel)
         .AddClass("is-checked", State == CheckboxState.Checked)
         .AddClass("is-indeterminate", State == CheckboxState.Indeterminate)
-        .AddClass($"form-check-{Color.ToDescriptionString()}", Color != Color.None && !isButton)
-        .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None && isButton && State == CheckboxState.Checked)
+        .AddClass($"form-check-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass($"form-check-{Size.ToDescriptionString()}", Size != Size.None)
         .AddClass("disabled", IsDisabled)
         .AddClass(ValidCss)
