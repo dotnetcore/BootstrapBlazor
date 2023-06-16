@@ -237,10 +237,22 @@ public class RadioTest : BootstrapBlazorTestBase
 
         cut.InvokeAsync(() =>
         {
-            var btn = cut.Find("btn");
+            var btn = cut.Find(".btn");
             btn.Click();
             cut.Contains("btn active bg-danger");
         });
+    }
+
+    [Fact]
+    public void ShowBorder_Ok()
+    {
+        var cut = Context.RenderComponent<RadioList<EnumEducation>>(pb =>
+        {
+            pb.Add(a => a.ShowBorder, false);
+            pb.Add(a => a.Items, typeof(EnumEducation).ToSelectList());
+            pb.Add(a => a.Value, EnumEducation.Middle);
+        });
+        cut.Contains("no-border");
     }
 
     private class RadioListGenericMock<T>
