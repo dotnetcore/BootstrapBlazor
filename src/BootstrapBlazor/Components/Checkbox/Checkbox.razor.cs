@@ -21,6 +21,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
         .AddClass("is-indeterminate", State == CheckboxState.Indeterminate && !IsButton)
         .AddClass($"form-check-{Color.ToDescriptionString()}", Color != Color.None && !IsButton)
         .AddClass($"form-check-{Size.ToDescriptionString()}", Size != Size.None)
+        .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None && State == CheckboxState.Checked && IsButton)
         .AddClass("disabled", IsDisabled)
         .AddClass(ValidCss)
         .AddClassFromAttributes(AdditionalAttributes)
@@ -162,6 +163,12 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
             _peddingStateChanged = true;
             await InternalStateChanged(State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked);
         }
+    }
+
+    private async Task OnToggleButton()
+    {
+        await OnToggleClick();
+        StateHasChanged();
     }
 
     /// <summary>
