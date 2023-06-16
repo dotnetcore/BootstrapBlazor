@@ -7,9 +7,11 @@
     <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="@AdditionalAttributes" class="@GetClassString(RadioClassString)">
-    @foreach (var item in Items)
-    {
-        var content = GetChildContent(item);
-        <Radio TValue="SelectedItem" IsButton="IsButton" Value="@item" Color="@Color" GroupName="@GroupName" IsDisabled="@GetDisabledState(item)" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" State="@CheckState(item)" OnClick="OnClick" ChildContent="content!"></Radio>
-    }
+    <CascadingValue Value="this" IsFixed="true">
+        @foreach (var item in Items)
+        {
+            var content = GetChildContent(item);
+            <Radio TValue="SelectedItem" Value="@item" Color="@Color" GroupName="@GroupName" IsDisabled="@GetDisabledState(item)" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" State="@CheckState(item)" OnClick="OnClick" ChildContent="content!"></Radio>
+        }
+    </CascadingValue>
 </div>
