@@ -12,6 +12,9 @@ export function lineChart(canvasId, chartData) {
             data: chartData,
             fill: false,
             borderColor: 'rgb(75, 192, 192)',
+            pointStyle: 'circle',
+            pointRadius: 5,
+            pointHoverRadius: 10
         }]
     };
 

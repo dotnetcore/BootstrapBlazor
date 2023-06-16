@@ -81,7 +81,7 @@ public class ChartOptions
     /// <summary>
     /// 获得/设置 图例显示位置 默认 top 显示
     /// </summary>
-    [JsonConverter(typeof(ChartLegendPositionConverter))]
+    [JsonConverter(typeof(ChartEnumDescriptionConverter<ChartLegendPosition>))]
     public ChartLegendPosition LegendPosition { get; set; } = ChartLegendPosition.Top;
 
     /// <summary>
