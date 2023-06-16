@@ -15,7 +15,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <summary>
     /// 获得 class 样式集合
     /// </summary>
-    protected string? GetClassString() => CssBuilder.Default("form-check")
+    private string? ClassString => CssBuilder.Default("form-check")
         .AddClass("is-label", IsShowAfterLabel)
         .AddClass("is-checked", State == CheckboxState.Checked)
         .AddClass("is-indeterminate", State == CheckboxState.Indeterminate)
