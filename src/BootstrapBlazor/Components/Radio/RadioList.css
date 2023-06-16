@@ -54,7 +54,7 @@
         .is-button .form-check > span {
             cursor: pointer;
             display: block;
-            padding: 0.375rem .75rem;
+            padding: .375rem .75rem;
             white-space: nowrap;
         }
 
