@@ -38,11 +38,7 @@ public partial class RadioList<TValue> : CheckboxList<TValue>
 
     private string? GroupName => Id;
 
-    private string GetItemId(SelectedItem item) => $"{Id}_{item.Value}";
-
-    private string? ClassString => CssBuilder.Default("radio-list")
-        .AddClass("form-control", !IsButton)
-        .AddClass("is-button", IsButton)
+    private string? ClassString => CssBuilder.Default("radio-list form-control")
         .AddClass("no-border", !ShowBorder && ValidCss != "is-invalid")
         .AddClass("is-vertical", IsVertical)
         .AddClass(CssClass).AddClass(ValidCss)
@@ -59,7 +55,7 @@ public partial class RadioList<TValue> : CheckboxList<TValue>
         .Build();
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -80,11 +76,11 @@ public partial class RadioList<TValue> : CheckboxList<TValue>
     }
 
     /// <summary>
-    /// 格式化 Value 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
-    protected override string? FormatValueAsString(TValue value) => value is SelectedItem v ? v.Value : base.FormatValueAsString(value);
+    protected override string? FormatValueAsString(TValue value) => value is SelectedItem v ? v.Value : value?.ToString();
 
     /// <summary>
     /// <inheritdoc/>
