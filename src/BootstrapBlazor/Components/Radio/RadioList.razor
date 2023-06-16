@@ -10,6 +10,15 @@
     @foreach (var item in Items)
     {
         var content = GetChildContent(item);
-        <Radio TValue="SelectedItem" IsButton="IsButton" Value="@item" Color="@Color" GroupName="@GroupName" IsDisabled="@GetDisabledState(item)" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" State="@CheckState(item)" OnClick="OnClick" ChildContent="content!"></Radio>
+        @if (IsButton)
+        {
+            <DynamicElement TagName="span" TriggerClick="!IsDisabled" OnClick="() => OnClick(item)" class="@GetButtonClassString(item)">
+                @item.Text
+            </DynamicElement>
+        }
+        else
+        {
+            <Radio TValue="SelectedItem" Value="@item" Color="@Color" GroupName="@GroupName" IsDisabled="@GetDisabledState(item)" ShowAfterLabel="true" ShowLabel="false" DisplayText="@item.Text" State="@CheckState(item)" OnClick="OnClick" ChildContent="content!"></Radio>
+        }
     }
 </div>

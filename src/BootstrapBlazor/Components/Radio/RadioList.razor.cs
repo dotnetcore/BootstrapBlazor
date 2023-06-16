@@ -52,6 +52,10 @@ public partial class RadioList<TValue> : CheckboxList<TValue>
         .AddClass(CssClass).AddClass(ValidCss)
         .Build();
 
+    private string? GetButtonClassString(SelectedItem item) => CssBuilder.Default("radio-item-button")
+        .AddClass("active", CurrentValueAsString == item.Value)
+        .Build();
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
