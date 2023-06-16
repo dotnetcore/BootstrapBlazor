@@ -16,6 +16,12 @@ public partial class Radio<TValue> : Checkbox<TValue>
     public Func<TValue, Task>? OnClick { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否为按钮样式 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsButton { get; set; }
+
+    /// <summary>
     /// 获得/设置 子组件 RenderFragment 实例
     /// </summary>
     [Parameter]
@@ -29,14 +35,6 @@ public partial class Radio<TValue> : Checkbox<TValue>
     [EditorRequired]
 #endif
     public string? GroupName { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否为按钮样式 默认 false
-    /// </summary>
-    [CascadingParameter]
-    private CheckboxList<TValue>? Parent { get; set; }
-
-    private bool IsButton => Parent?.IsButton ?? false;
 
     private async Task OnClickHandler()
     {
