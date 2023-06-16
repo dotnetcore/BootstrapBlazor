@@ -58,6 +58,12 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     public Color Color { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否为按钮样式 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsButton { get; set; }
+
+    /// <summary>
     /// 获得/设置 Size 大小 默认为 None
     /// </summary>
     [Parameter]

@@ -18,12 +18,6 @@ public partial class RadioList<TValue> : CheckboxList<TValue>
     public Color Color { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否为按钮样式 默认 false
-    /// </summary>
-    [Parameter]
-    public bool IsButton { get; set; }
-
-    /// <summary>
     /// 获得/设置 值为可为空枚举类型时是否自动添加空值 默认 false 自定义空值显示文本请参考 <see cref="NullItemText"/>
     /// </summary>
     [Parameter]

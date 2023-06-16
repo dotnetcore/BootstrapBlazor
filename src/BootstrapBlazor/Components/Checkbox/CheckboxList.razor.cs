@@ -38,6 +38,12 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     public IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否为按钮样式 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsButton { get; set; }
+
+    /// <summary>
     /// 获得/设置 Checkbox 组件布局样式
     /// </summary>
     [Parameter]
