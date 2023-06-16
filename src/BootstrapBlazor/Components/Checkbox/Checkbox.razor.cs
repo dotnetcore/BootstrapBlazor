@@ -36,10 +36,6 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
         .AddClass("disabled", IsDisabled)
         .Build();
 
-    private string? ButtonClassString => CssBuilder.Default("form-check-button")
-        .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None && State == CheckboxState.Checked)
-        .Build();
-
     /// <summary>
     /// Check 状态字符串
     /// </summary>
@@ -160,12 +156,6 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
             _peddingStateChanged = true;
             await InternalStateChanged(State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked);
         }
-    }
-
-    private async Task OnToggleButton()
-    {
-        await OnToggleClick();
-        StateHasChanged();
     }
 
     /// <summary>
