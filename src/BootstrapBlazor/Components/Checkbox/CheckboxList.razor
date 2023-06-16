@@ -7,7 +7,7 @@
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <CascadingValue Value="this" IsFixed="true">
-    <div @attributes="@AdditionalAttributes" id="@Id" class="@GetClassString()" role="checkbox" tabindex="0" hidefocus="true">
+    <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" role="checkbox" tabindex="0" hidefocus="true">
         @foreach (var item in Items)
         {
             <div class="@CheckboxItemClassString">

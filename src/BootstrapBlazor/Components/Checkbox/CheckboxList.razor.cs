@@ -16,8 +16,7 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     /// <summary>
     /// 获得 组件样式
     /// </summary>
-    protected string? GetClassString(string? defaultClass = "checkbox-list form-control") => CssBuilder.Default()
-        .AddClass(defaultClass)
+    private string? ClassString => CssBuilder.Default("checkbox-list form-control")
         .AddClass("no-border", !ShowBorder && ValidCss != "is-invalid")
         .AddClass("is-vertical", IsVertical)
         .AddClass(CssClass).AddClass(ValidCss)
