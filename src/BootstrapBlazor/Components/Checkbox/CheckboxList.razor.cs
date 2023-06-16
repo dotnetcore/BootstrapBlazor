@@ -29,6 +29,19 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
         .AddClass(CheckboxItemClass)
         .Build();
 
+    private string? ButtonClassString => CssBuilder.Default("checkbox-list is-button")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? ButtonGroupClassString => CssBuilder.Default("btn-group")
+        .AddClass("disabled", IsDisabled)
+        .AddClass("btn-group-vertical", IsVertical)
+        .Build();
+
+    private string? GetButtonItemClassString(SelectedItem item) => CssBuilder.Default("btn")
+        .AddClass($"active bg-{Color.ToDescriptionString()}", CurrentValueAsString.Contains(item.Value))
+        .Build();
+
     /// <summary>
     /// 获得/设置 数据源
     /// </summary>
@@ -61,6 +74,12 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     public bool IsVertical { get; set; }
 
     /// <summary>
+    /// 获得/设置 按钮颜色 默认为 None 未设置
+    /// </summary>
+    [Parameter]
+    public Color Color { get; set; }
+
+    /// <summary>
     /// 获得/设置 SelectedItemChanged 方法
     /// </summary>
     [Parameter]
@@ -78,26 +97,13 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     protected bool GetDisabledState(SelectedItem item) => IsDisabled || item.IsDisabled;
 
     /// <summary>
-    /// SetParametersAsync 方法
-    /// </summary>
-    /// <param name="parameters"></param>
-    /// <returns></returns>
-    public override Task SetParametersAsync(ParameterView parameters)
-    {
-        parameters.SetParameterProperties(this);
-
-        EnsureParameterValid();
-
-        // For derived components, retain the usual lifecycle with OnInit/OnParametersSet/etc.
-        return base.SetParametersAsync(ParameterView.Empty);
-    }
-
-    /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
+
+        EnsureParameterValid();
 
         // 处理 Required 标签
         if (EditContext != null && FieldIdentifier != null)
@@ -126,6 +132,11 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     {
         base.OnParametersSet();
 
+        if (IsButton && Color == Color.None)
+        {
+            Color = Color.Primary;
+        }
+
         if (Items == null)
         {
             var t = typeof(TValue);
@@ -138,6 +149,25 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
         }
 
         InitValue();
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    protected override string? FormatValueAsString(TValue value)
+    {
+        string? ret = null;
+        if (ValueType == typeof(string))
+        {
+            ret = CurrentValue?.ToString();
+        }
+        else
+        {
+            ret = string.Join(",", Items.Where(i => i.Active).Select(i => i.Value));
+        }
+        return ret;
     }
 
     private void InitValue()
@@ -204,14 +234,13 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     {
         item.Active = v;
 
-        var typeValue = typeof(TValue);
-        if (typeValue == typeof(string))
+        if (ValueType == typeof(string))
         {
             CurrentValueAsString = string.Join(",", Items.Where(i => i.Active).Select(i => i.Value));
         }
-        else if (typeValue.IsGenericType)
+        else if (ValueType.IsGenericType)
         {
-            var t = typeValue.GenericTypeArguments;
+            var t = ValueType.GenericTypeArguments;
             if (Activator.CreateInstance(typeof(List<>).MakeGenericType(t)) is IList instance)
             {
                 foreach (var sl in Items.Where(i => i.Active))
@@ -232,20 +261,24 @@ public partial class CheckboxList<TValue> : ValidateBase<TValue>
     }
 
     /// <summary>
+    /// 点击选择框方法
+    /// </summary>
+    private Task OnClick(SelectedItem item) => OnStateChanged(item, !item.Active);
+
+    /// <summary>
     /// 泛型参数约束检查
     /// </summary>
     protected virtual void EnsureParameterValid()
     {
-        var typeValue = typeof(TValue);
-        if (typeValue.IsGenericType)
+        if (ValueType.IsGenericType)
         {
             // 泛型参数
-            if (!typeValue.IsAssignableTo(typeof(IEnumerable)))
+            if (!ValueType.IsAssignableTo(typeof(IEnumerable)))
             {
                 throw new NotSupportedException();
             }
         }
-        else if (typeValue != typeof(string))
+        else if (ValueType != typeof(string))
         {
             throw new NotSupportedException();
         }

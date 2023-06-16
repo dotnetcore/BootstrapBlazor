@@ -1,8 +1,5 @@
-﻿:root {
+﻿.checkbox-list {
     --bb-checkbox-item-width: 220px;
-}
-
-.checkbox-list {
     min-height: var(--bb-height);
     height: auto;
     display: flex;
@@ -36,3 +33,31 @@
 .checkbox-item .form-check-sm .form-check-input {
     margin: 3px 0 2px 0;
 }
+
+.checkbox-list.is-button {
+    padding: 0;
+}
+
+.checkbox-list .btn-group {
+    border: 1px solid var(--bs-secondary);
+    display: inline-flex;
+    flex: 0 !important;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+
+    .checkbox-list .btn-group > .btn {
+        white-space: nowrap;
+    }
+
+    .checkbox-list .btn-group .active {
+        color: #fff;
+    }
+
+    .checkbox-list .btn-group.disabled > span {
+        opacity: var(--bs-btn-disabled-opacity);
+    }
+
+        .checkbox-list .btn-group.disabled > span:not(.active) {
+            background-color: var(--bb-disabled-bg);
+        }
