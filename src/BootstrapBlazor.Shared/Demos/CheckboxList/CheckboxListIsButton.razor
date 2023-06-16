@@ -1,20 +1,7 @@
 ﻿@inject IStringLocalizer<CheckboxListIsButton> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
 
-<div class="row g-3">
-    <div class="col-12 col-sm-6">
-        <Checkbox IsButton="true" @bind-Value="@Value" ShowLabel="true" DisplayText="Test1"></Checkbox>
-    </div>
-    <div class="col-12 col-sm-6">
-        <Checkbox IsButton="true" @bind-Value="@Value" ShowLabel="true" DisplayText="Test2" Color="Color.Danger" IsDisabled="true"></Checkbox>
-    </div>
-    <div class="col-12 col-sm-6">
-        <Checkbox IsButton="true" @bind-Value="@Value" ShowLabel="true" DisplayText="Test3" Color="Color.Success"></Checkbox>
-    </div>
-    <div class="col-12 col-sm-6">
-        <Checkbox IsButton="true" @bind-Value="@Value" ShowLabel="true" DisplayText="Test4" Color="Color.Info"></Checkbox>
-    </div>
-</div>
+<CheckboxList IsButton="true" @bind-Value="@Value" Items="FooItems" ShowLabel="true" DisplayText="Test1"></CheckboxList>
 
 <ValidateForm Model="Model" class="mt-3">
     <div class="row g-3 form-inline">
@@ -40,7 +27,7 @@
     private IEnumerable<SelectedItem>? SelectedItems { get; set; }
 
     [NotNull]
-    private List<SelectedItem>? FooItems { get; set; }
+    private IEnumerable<SelectedItem>? FooItems { get; set; }
 
     private string? Value { get; set; }
 
@@ -52,6 +39,6 @@
         base.OnInitialized();
 
         Model = Foo.Generate(LocalizerFoo);
-        FooItems = Foo.GetCompleteItems(LocalizerFoo);
+        FooItems = Foo.GenerateHobbys(LocalizerFoo);
     }
 }
