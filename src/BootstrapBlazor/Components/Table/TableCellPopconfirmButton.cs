@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// 单元格内按钮组件
 /// </summary>
 [JSModuleNotInherited]
-public class TableCellPopconfirmButton : PopConfirmButtonBase
+public class TableCellPopconfirmButton : PopConfirmButtonBase, ITableCellButton
 {
     /// <summary>
     /// 获得/设置 Table 扩展按钮集合实例
@@ -23,15 +23,14 @@ public class TableCellPopconfirmButton : PopConfirmButtonBase
     private IStringLocalizer<PopConfirmButton>? Localizer { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击按钮是否选中正行 默认 true 选中
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool AutoSelectedRowWhenClick { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 点击按钮是否重新渲染 Table 组件 默认 false 不重新渲染
+    /// <inheritdoc/>
     /// </summary>
-    /// <remarks>设置 true 时会调用 <see cref="Table{TItem}.QueryAsync(int?)"/> 方法，触发 <see cref="Table{TItem}.OnQueryAsync"/> 回调</remarks>
     [Parameter]
     public bool AutoRenderTableWhenClick { get; set; }
 
