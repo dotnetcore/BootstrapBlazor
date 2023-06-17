@@ -145,6 +145,8 @@ public partial class Select<TValue> : ISelect
     /// </summary>
     private string? InputId => $"{Id}_input";
 
+    private string? _lastSelectedValueString;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -207,7 +209,7 @@ public partial class Select<TValue> : ISelect
 
             // 检查 Value 值是否在候选项中存在
             // Value 不等于 选中值即不存在
-            if (!string.IsNullOrEmpty(SelectedItem?.Value) && CurrentValueAsString != SelectedItem.Value)
+            if (SelectedItem != null)
             {
                 _ = SelectedItemChanged(SelectedItem);
             }
@@ -224,12 +226,6 @@ public partial class Select<TValue> : ISelect
     /// <returns></returns>
     protected override async Task InvokeInitAsync()
     {
-        // 首次加载是 Value 不为 null 时触发一次 OnSelectedItemChanged 回调
-        // 此逻辑与 ResetSelectedItem 逻辑互补
-        if (SelectedItem != null && OnSelectedItemChanged != null && !string.IsNullOrEmpty(SelectedItem.Value) && CurrentValueAsString != SelectedItem.Value)
-        {
-            await OnSelectedItemChanged.Invoke(SelectedItem);
-        }
         await InvokeVoidAsync("init", Id, nameof(ConfirmSelectedItem), Interop);
     }
 
@@ -288,11 +284,13 @@ public partial class Select<TValue> : ISelect
 
     private async Task SelectedItemChanged(SelectedItem item)
     {
-        item.Active = true;
-        SelectedItem = item;
-
-        if (CurrentValueAsString != item.Value)
+        if (_lastSelectedValueString != item.Value)
         {
+            _lastSelectedValueString = item.Value;
+
+            item.Active = true;
+            SelectedItem = item;
+
             // 触发 StateHasChanged
             CurrentValueAsString = item.Value;
 
