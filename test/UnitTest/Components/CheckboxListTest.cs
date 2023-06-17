@@ -236,8 +236,69 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         Assert.True(@checked);
     }
 
+    [Fact]
+    public void FormatValue_Ok()
+    {
+        var cut = Context.RenderComponent<FormatValueTestCheckboxList>();
+        cut.InvokeAsync(() =>
+        {
+            Assert.Null(cut.Instance.NullValueTest());
+            Assert.NotNull(cut.Instance.NotNullValueTest());
+        });
+    }
+
+    [Fact]
+    public void FormatGenericValue_Ok()
+    {
+        var cut = Context.RenderComponent<FormatValueTestGenericCheckboxList>();
+        cut.InvokeAsync(() =>
+        {
+            Assert.Equal(string.Empty, cut.Instance.NullValueTest());
+            Assert.Equal("test", cut.Instance.NotNullValueTest());
+        });
+    }
+
+    [Fact]
+    public void IsButton_Ok()
+    {
+        var cut = Context.RenderComponent<CheckboxList<IEnumerable<int>>>(pb =>
+        {
+            pb.Add(a => a.IsButton, true);
+            pb.Add(a => a.Color, Color.Danger);
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new SelectedItem("1", "Test 1"),
+                new SelectedItem("2", "Test 2")
+            });
+        });
+        cut.InvokeAsync(() =>
+        {
+            var item = cut.Find(".btn");
+            item.Click();
+            cut.Contains("btn active bg-danger");
+        });
+    }
+
     private class CheckboxListGenericMock<T>
     {
 
+    }
+
+    private class FormatValueTestCheckboxList : CheckboxList<string?>
+    {
+        public string? NullValueTest() => base.FormatValueAsString(null);
+
+        public string? NotNullValueTest() => base.FormatValueAsString("test");
+    }
+
+    private class FormatValueTestGenericCheckboxList : CheckboxList<IEnumerable<string>?>
+    {
+        public string? NullValueTest() => base.FormatValueAsString(null);
+
+        public string? NotNullValueTest()
+        {
+            Items = new List<SelectedItem>() { new("test", "test") { Active = true } };
+            return base.FormatValueAsString(new List<string>() { "test" });
+        }
     }
 }

@@ -6,8 +6,23 @@
 {
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<CascadingValue Value="this" IsFixed="true">
-    <div @attributes="@AdditionalAttributes" id="@Id" class="@GetClassString()" role="checkbox" tabindex="0" hidefocus="true">
+
+@if (IsButton)
+{
+    <div @attributes="@AdditionalAttributes" class="@ButtonClassString">
+        <div class="@ButtonGroupClassString" role="group">
+            @foreach (var item in Items)
+            {
+                <DynamicElement TagName="span" TriggerClick="!IsDisabled" OnClick="() => OnClick(item)" class="@GetButtonItemClassString(item)">
+                    @item.Text
+                </DynamicElement>
+            }
+        </div>
+    </div>
+}
+else
+{
+    <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" tabindex="0" hidefocus="true">
         @foreach (var item in Items)
         {
             <div class="@CheckboxItemClassString">
@@ -15,4 +30,4 @@
             </div>
         }
     </div>
-</CascadingValue>
+}
