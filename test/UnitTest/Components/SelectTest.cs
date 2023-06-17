@@ -221,14 +221,22 @@ public class SelectTest : BootstrapBlazorTestBase
                 });
             });
         });
-        var form = cut.Find("form");
-        form.Submit();
-        Assert.True(valid);
+
+        cut.InvokeAsync(() =>
+        {
+            var form = cut.Find("form");
+            form.Submit();
+            Assert.True(valid);
+        });
 
         var ctx = cut.FindComponent<Select<string>>();
-        ctx.InvokeAsync(() => ctx.Instance.ConfirmSelectedItem(0));
-        form.Submit();
-        Assert.True(invalid);
+        ctx.InvokeAsync(async () =>
+        {
+            await ctx.Instance.ConfirmSelectedItem(0);
+            var form = cut.Find("form");
+            form.Submit();
+            Assert.True(invalid);
+        });
     }
 
     [Fact]
