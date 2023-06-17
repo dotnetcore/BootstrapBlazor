@@ -1177,7 +1177,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private async Task OnContextMenu(MouseEventArgs e, TItem item)
     {
-        if(ContextMenuZone != null)
+        if (ContextMenuZone != null)
         {
             await ContextMenuZone.OnContextMenu(e, item);
         }
