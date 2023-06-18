@@ -80,7 +80,26 @@ export function dispose(id) {
     }
 }
 
-const showContextMenu = (zone, menu, event) => {
+const showContextMenu = async (zone, menu, event) => {
+    const vl = createVirtualElement(zone, event)
+
+    const pos = await computePosition(vl, menu, {
+        placement: 'bottom-start',
+        middleware: [
+            offset(),
+            hide$1(),
+            flip(),
+            shift({ padding: 5 }),
+        ],
+    })
+
+    Object.assign(menu.style, {
+        left: `${pos.x}px`,
+        top: `${pos.y}px`,
+    });
+}
+
+const createVirtualElement = (zone, event) => {
     const rect = zone.getBoundingClientRect()
     if (event.zoneY === undefined) {
         event.zoneY = rect.y
@@ -90,7 +109,7 @@ const showContextMenu = (zone, menu, event) => {
     }
     const top = event.clientY + rect.y - event.zoneY
     const left = event.clientX + rect.x - event.zoneX
-    const vl = {
+    return {
         getBoundingClientRect() {
             return {
                 x: left,
@@ -104,19 +123,4 @@ const showContextMenu = (zone, menu, event) => {
             };
         }
     }
-
-    computePosition(vl, menu, {
-        placement: 'bottom-start',
-        middleware: [
-            offset(),
-            hide$1(),
-            flip(),
-            shift({ padding: 5 }),
-        ],
-    }).then(({ x, y, placement, middlewareData }) => {
-        Object.assign(menu.style, {
-            left: `${x}px`,
-            top: `${y}px`,
-        });
-    });
 }
