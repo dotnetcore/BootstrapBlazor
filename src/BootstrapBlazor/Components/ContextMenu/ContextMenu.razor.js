@@ -35,9 +35,6 @@ export function init(id) {
         }
 
         bb.contextMenus.push(el)
-        EventHandler.on(el, 'click', e => {
-            hide(el)
-        })
     }
 }
 
@@ -78,7 +75,6 @@ export function dispose(id) {
 
     if (cm) {
         const el = cm.el
-        EventHandler.off(el, 'click')
 
         window.bb = window.bb || { contextMenus: [] }
         const index = bb.contextMenus.indexOf(el)
