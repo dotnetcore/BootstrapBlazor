@@ -61,12 +61,9 @@ public class DockComponent : IdComponentBase, IDockComponent
     public int? Height { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件高度百分比 默认 null 未设置
+    /// 获得/设置 组件唯一标识值 默认 null 未设置时取 Title 作为唯一标识
     /// </summary>
     [Parameter]
-#if NET6_0_OR_GREATER
-    [EditorRequired]
-#endif
     public string? Key { get; set; }
 
     /// <summary>
@@ -92,7 +89,7 @@ public class DockComponent : IdComponentBase, IDockComponent
     {
         base.OnInitialized();
 
-        ComponentState = new { Id, ShowClose, Class, Key };
+        ComponentState = new { Id, ShowClose, Class, Key = Key ?? Title };
         Content?.Items.Add(this);
     }
 
