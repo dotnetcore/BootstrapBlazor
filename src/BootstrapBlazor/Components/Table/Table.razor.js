@@ -182,7 +182,12 @@ const setResizeListener = table => {
             if (!tr.classList.contains('is-detail')) {
                 const td = tr.children.item(index)
                 if (toggle) td.classList.add('border-resize')
-                else td.classList.remove('border-resize')
+                else {
+                    td.classList.remove('border-resize')
+                    if (td.classList.length == 0) {
+                        td.removeAttribute('class')
+                    }
+                }
             }
         });
         return index

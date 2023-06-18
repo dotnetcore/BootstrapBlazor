@@ -16,16 +16,19 @@ public enum DockContentType
     /// </summary>
     [Description("row")]
     Row,
+
     /// <summary>
     /// 列排列 垂直排列
     /// </summary>
     [Description("column")]
     Column,
+
     /// <summary>
     /// 标签排列
     /// </summary>
     [Description("stack")]
     Stack,
+
     /// <summary>
     /// 组件
     /// </summary>

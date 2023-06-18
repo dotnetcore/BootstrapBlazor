@@ -21,19 +21,19 @@ export function init(id) {
 
     if (el) {
         window.bb = window.bb || {}
-        if (window.bb.cancelContextMenuHandler === undefined) {
-            window.bb.contextMenus = []
-            window.bb.cancelContextMenuHandler = e => {
+        if (bb.cancelContextMenuHandler === undefined) {
+            bb.contextMenus = []
+            bb.cancelContextMenuHandler = e => {
                 const menu = document.querySelector('.bb-cm.show')
                 if (menu) {
                     hide(menu)
                 }
             }
-            EventHandler.on(document, 'click', window.bb.cancelContextMenuHandler)
-            EventHandler.on(document, 'contextmenu', window.bb.cancelContextMenuHandler)
+            EventHandler.on(document, 'click', bb.cancelContextMenuHandler)
+            EventHandler.on(document, 'contextmenu', bb.cancelContextMenuHandler)
         }
 
-        window.bb.contextMenus.push(el)
+        bb.contextMenus.push(el)
         EventHandler.on(el, 'click', e => {
             hide(el)
         })
@@ -60,11 +60,15 @@ export function dispose(id) {
         EventHandler.off(el, 'click')
 
         window.bb = window.bb || { contextMenus: [] }
-        window.bb.contextMenus.pop(el)
-        if (window.bb.contextMenus.length === 0) {
-            if (window.bb.cancelContextMenuHandler) {
-                EventHandler.off(document, 'click', window.bb.cancelContextMenuHandler)
-                EventHandler.off(document, 'contextmenu', window.bb.cancelContextMenuHandler)
+        const index = bb.contextMenus.indexOf(el)
+        if (index > -1) {
+            bb.contextMenus.splice(index, 1)
+        }
+
+        if (bb.contextMenus.length === 0) {
+            if (bb.cancelContextMenuHandler) {
+                EventHandler.off(document, 'click', bb.cancelContextMenuHandler)
+                EventHandler.off(document, 'contextmenu', bb.cancelContextMenuHandler)
             }
         }
     }
