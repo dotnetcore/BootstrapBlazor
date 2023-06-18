@@ -1,5 +1,6 @@
 ﻿import Data from "../../modules/data.js?v=$version"
 import EventHandler from "../../modules/event-handler.js?v=$version"
+import { computePosition, flip, shift, offset, arrow, autoUpdate } from '../../js/floating-ui.dom.esm.js'
 
 const hide = menu => {
     const zoneId = menu.getAttribute('data-bb-zone-id')
@@ -42,13 +43,33 @@ export function init(id) {
 
 export function show(id, event) {
     const menu = document.getElementById(id)
-    menu.style.top = `${event.clientY}px`
-    menu.style.left = `${event.clientX}px`
+
+    if (menu === null) {
+        return
+    }
+    //menu.style.top = `${event.clientY}px`
+    //menu.style.left = `${event.clientX}px`
 
     const body = document.body
     body.appendChild(menu)
 
     menu.classList.add('show')
+
+    const virtualEl = {
+        getBoundingClientRect() {
+            return {
+                width: 0,
+                height: 0,
+                x: event.clientX,
+                y: event.clientY,
+                top: event.clientY,
+                left: event.clientX,
+                right: event.clientX,
+                bottom: event.clientY,
+            };
+        },
+    };
+    autoUpdate(virtualEl, menu, () => showContextMenu(virtualEl, menu))
 }
 
 export function dispose(id) {
@@ -72,4 +93,21 @@ export function dispose(id) {
             }
         }
     }
+}
+
+const showContextMenu = (zone, menu) => {
+    computePosition(zone, menu, {
+        placement: 'bottom',
+        middleware: [
+            offset(6),
+            flip(),
+            shift({ padding: 5 }),
+        ],
+    }).then(({ x, y, placement, middlewareData }) => {
+        console.log(x, y, placement, middlewareData)
+        Object.assign(menu.style, {
+            left: `${x}px`,
+            top: `${y}px`,
+        });
+    });
 }
