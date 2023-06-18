@@ -1,6 +1,6 @@
 ﻿import Data from "../../modules/data.js?v=$version"
 import EventHandler from "../../modules/event-handler.js?v=$version"
-import { computePosition, flip, shift, offset, arrow, autoUpdate } from '../../js/floating-ui.dom.esm.js'
+import { computePosition, flip, shift, offset, hide as hide$1, autoUpdate } from '../../js/floating-ui.dom.esm.js'
 
 const hide = menu => {
     const zoneId = menu.getAttribute('data-bb-zone-id')
@@ -40,33 +40,22 @@ export function init(id) {
 
 export function show(id, event) {
     const menu = document.getElementById(id)
-
     if (menu === null) {
         return
     }
-    //menu.style.top = `${event.clientY}px`
-    //menu.style.left = `${event.clientX}px`
 
     const body = document.body
     body.appendChild(menu)
 
-    menu.classList.add('show')
+    const zoneId = menu.getAttribute('data-bb-zone-id')
+    if (zoneId) {
+        const zone = document.getElementById(zoneId)
+        if (zone) {
+            menu.classList.add('show')
 
-    const virtualEl = {
-        getBoundingClientRect() {
-            return {
-                width: 0,
-                height: 0,
-                x: event.clientX,
-                y: event.clientY,
-                top: event.clientY,
-                left: event.clientX,
-                right: event.clientX,
-                bottom: event.clientY,
-            };
-        },
-    };
-    autoUpdate(virtualEl, menu, () => showContextMenu(virtualEl, menu))
+            autoUpdate(zone, menu, () => showContextMenu(zone, menu, event))
+        }
+    }
 }
 
 export function dispose(id) {
@@ -91,16 +80,40 @@ export function dispose(id) {
     }
 }
 
-const showContextMenu = (zone, menu) => {
-    computePosition(zone, menu, {
-        placement: 'bottom',
+const showContextMenu = (zone, menu, event) => {
+    const rect = zone.getBoundingClientRect()
+    if (event.zoneY === undefined) {
+        event.zoneY = rect.y
+    }
+    if (event.zoneX === undefined) {
+        event.zoneX = rect.x
+    }
+    const top = event.clientY + rect.y - event.zoneY
+    const left = event.clientX + rect.x - event.zoneX
+    const vl = {
+        getBoundingClientRect() {
+            return {
+                x: left,
+                y: top,
+                top: top,
+                bottom: top,
+                left: left,
+                right: left,
+                width: 0,
+                height: 0,
+            };
+        }
+    }
+
+    computePosition(vl, menu, {
+        placement: 'bottom-start',
         middleware: [
-            offset(6),
+            offset(),
+            hide$1(),
             flip(),
             shift({ padding: 5 }),
         ],
     }).then(({ x, y, placement, middlewareData }) => {
-        console.log(x, y, placement, middlewareData)
         Object.assign(menu.style, {
             left: `${x}px`,
             top: `${y}px`,
