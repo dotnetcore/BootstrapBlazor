@@ -1,17 +1,6 @@
 ﻿import Data from "../../modules/data.js?v=$version"
 import EventHandler from "../../modules/event-handler.js?v=$version"
-import { computePosition, flip, shift, offset, hide as hide$1, autoUpdate } from '../../js/floating-ui.dom.esm.js'
-
-const hide = menu => {
-    const zoneId = menu.getAttribute('data-bb-zone-id')
-    if (zoneId) {
-        const zone = document.getElementById(zoneId)
-        if (zone) {
-            menu.classList.remove('show')
-            zone.appendChild(menu)
-        }
-    }
-}
+import { createPopper, computePosition } from '../../modules/floating-ui.js'
 
 export function init(id) {
     const el = document.getElementById(id)
@@ -47,15 +36,8 @@ export function show(id, event) {
     const body = document.body
     body.appendChild(menu)
 
-    const zoneId = menu.getAttribute('data-bb-zone-id')
-    if (zoneId) {
-        const zone = document.getElementById(zoneId)
-        if (zone) {
-            menu.classList.add('show')
-
-            autoUpdate(zone, menu, () => showContextMenu(zone, menu, event))
-        }
-    }
+    const zone = getZone(menu)
+    createPopper(zone, menu, () => showContextMenu(zone, menu, event))
 }
 
 export function dispose(id) {
@@ -84,31 +66,29 @@ const showContextMenu = async (zone, menu, event) => {
     const vl = createVirtualElement(zone, event)
 
     const pos = await computePosition(vl, menu, {
-        placement: 'bottom-start',
-        middleware: [
-            offset(),
-            hide$1(),
-            flip(),
-            shift({ padding: 5 }),
-        ],
+        placement: 'bottom-start'
     })
 
     Object.assign(menu.style, {
         left: `${pos.x}px`,
         top: `${pos.y}px`,
-    });
+    })
+    menu.classList.add('show')
 }
 
 const createVirtualElement = (zone, event) => {
     const rect = zone.getBoundingClientRect()
-    if (event.zoneY === undefined) {
-        event.zoneY = rect.y
+
+    if (event.lastRect === void 0) {
+        Object.assign(event, {
+            lastRect: {
+                x: rect.x,
+                y: rect.y
+            }
+        })
     }
-    if (event.zoneX === undefined) {
-        event.zoneX = rect.x
-    }
-    const top = event.clientY + rect.y - event.zoneY
-    const left = event.clientX + rect.x - event.zoneX
+    const top = event.clientY + rect.y - event.lastRect.y
+    const left = event.clientX + rect.x - event.lastRect.x
     return {
         getBoundingClientRect() {
             return {
@@ -123,4 +103,21 @@ const createVirtualElement = (zone, event) => {
             };
         }
     }
+}
+
+const hide = menu => {
+    const zone = getZone(menu)
+    if (zone) {
+        menu.classList.remove('show')
+        zone.appendChild(menu)
+    }
+}
+
+const getZone = menu => {
+    let zone = null
+    const zoneId = menu.getAttribute('data-bb-zone-id')
+    if (zoneId) {
+        zone = document.getElementById(zoneId)
+    }
+    return zone
 }
