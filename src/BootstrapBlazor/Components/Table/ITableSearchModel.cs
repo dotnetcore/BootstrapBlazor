@@ -12,7 +12,13 @@ public interface ITableSearchModel
     /// <summary>
     /// 获得 搜索集合
     /// </summary>
-    IEnumerable<IFilterAction> GetSearchs();
+    [Obsolete("This method is obsolete. Use GetSearches instead. 已过期，请使用 GetSearches 方法")]
+    IEnumerable<IFilterAction> GetSearchs() => GetSearches();
+
+    /// <summary>
+    /// 获得 搜索集合
+    /// </summary>
+    IEnumerable<IFilterAction> GetSearches();
 
     /// <summary>
     /// 重置操作

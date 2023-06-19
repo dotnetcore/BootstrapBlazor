@@ -530,9 +530,9 @@ public partial class Table<TItem>
         };
 
         queryOption.Filters.AddRange(Filters.Values);
-        queryOption.Searchs.AddRange(GetSearchs());
-        queryOption.AdvanceSearchs.AddRange(GetAdvanceSearchs());
-        queryOption.CustomerSearchs.AddRange(GetCustomerSearchs());
+        queryOption.Searchs.AddRange(GetSearches());
+        queryOption.AdvanceSearchs.AddRange(GetAdvanceSearches());
+        queryOption.CustomerSearchs.AddRange(GetCustomerSearches());
 
         if (!string.IsNullOrEmpty(SortString))
         {
