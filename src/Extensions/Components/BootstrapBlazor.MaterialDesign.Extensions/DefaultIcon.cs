@@ -13,6 +13,8 @@ internal class DefaultIcon
 
         // Avatar 组件
         { ComponentIcons.AvatarIcon, "mdi mdi-account" },
+        { ComponentIcons.AutoFillIcon, "mdi mdi-chevron-up" },
+        { ComponentIcons.AutoCompleteIcon, "mdi mdi-chevron-up" },
 
         { ComponentIcons.ButtonLoadingIcon, "mdi mdi-loading mdi-spin" },
 
@@ -43,7 +45,7 @@ internal class DefaultIcon
 
         { ComponentIcons.DialogCloseButtonIcon, "mdi mdi-close" },
         { ComponentIcons.DialogSaveButtonIcon, "mdi mdi-content-save" },
-        { ComponentIcons.DialogMaxminzeWindowIcon, "mdi mdi-window-maximize" },
+        { ComponentIcons.DialogMaximizeWindowIcon, "mdi mdi-window-maximize" },
         { ComponentIcons.DialogRestoreWindowIcon, "mdi mdi-window-restore" },
 
         { ComponentIcons.TopMenuDropdownIcon, "mdi mdi-chevron-down" },
@@ -164,7 +166,7 @@ internal class DefaultIcon
         { ComponentIcons.TreeViewNodeIcon, "mdi mdi-menu-right" },
 
         // Upload
-        { ComponentIcons.AvatarUploadDelteIcon, "mdi mdi-trash-can-outline" },
+        { ComponentIcons.AvatarUploadDeleteIcon, "mdi mdi-trash-can-outline" },
         { ComponentIcons.AvatarUploadLoadingIcon, "mdi mdi-loading mdi-spin" },
         { ComponentIcons.AvatarUploadAddIcon, "mdi mdi-plus" },
         { ComponentIcons.AvatarUploadValidStatusIcon, "mdi mdi-check" },
