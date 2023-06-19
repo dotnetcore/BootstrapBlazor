@@ -23,11 +23,11 @@ class DefaultJSVersionService : IVersionService
     /// <returns></returns>
     public string GetVersion()
     {
-        Version ??= ConfigVersion ?? GetVersionImpl();
+        Version ??= ConfigVersion ?? GetVersionFromAssembly();
         return Version;
 
         [ExcludeFromCodeCoverage]
-        static string GetVersionImpl()
+        static string GetVersionFromAssembly()
         {
             string? ver = null;
             try
