@@ -340,7 +340,7 @@ public partial class Table<TItem>
     {
         if (IsExcel || DynamicContext != null)
         {
-            await AddDynamicOjbectExcelModelAsync();
+            await AddDynamicObjectExcelModelAsync();
         }
         else
         {
@@ -371,7 +371,7 @@ public partial class Table<TItem>
             await ToggleLoading(false);
         }
 
-        async Task AddDynamicOjbectExcelModelAsync()
+        async Task AddDynamicObjectExcelModelAsync()
         {
             if (DynamicContext != null)
             {
@@ -801,7 +801,7 @@ public partial class Table<TItem>
         else
         {
             await ToggleLoading(true);
-            var ret = await DelteItemsAsync();
+            var ret = await DeleteItemsAsync();
 
             if (ShowToastAfterSaveOrDeleteModel)
             {
@@ -816,7 +816,7 @@ public partial class Table<TItem>
             await ToggleLoading(false);
         }
 
-        async Task<bool> DelteItemsAsync()
+        async Task<bool> DeleteItemsAsync()
         {
             var ret = await InternalOnDeleteAsync();
             if (ret)
