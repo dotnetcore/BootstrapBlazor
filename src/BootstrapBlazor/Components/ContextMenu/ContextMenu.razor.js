@@ -4,10 +4,6 @@ import { createPopper, computePosition } from '../../modules/floating-ui.js'
 
 export function init(id) {
     const el = document.getElementById(id)
-    const cm = {
-        element: el
-    }
-    Data.set(id, cm)
 
     if (el) {
         window.bb = window.bb || {}
@@ -16,7 +12,11 @@ export function init(id) {
             bb.cancelContextMenuHandler = e => {
                 const menu = document.querySelector('.bb-cm.show')
                 if (menu) {
-                    hide(menu)
+                    menu.classList.remove('show')
+                    const zone = getZone(menu)
+                    if(zone) {
+                        zone.appendChild(menu)
+                    }
                 }
             }
             EventHandler.on(document, 'click', bb.cancelContextMenuHandler)
@@ -24,20 +24,24 @@ export function init(id) {
         }
 
         bb.contextMenus.push(el)
+
+        const cm = { el, zone : getZone(el) }
+        Data.set(id, cm)
     }
 }
 
 export function show(id, event) {
-    const menu = document.getElementById(id)
-    if (menu === null) {
-        return
+    const cm = Data.get(id)
+
+    if (cm) {
+        const el = cm.el
+        const zone = cm.zone
+
+        const body = document.body
+        body.appendChild(el)
+
+        createPopper(zone, el, () => showContextMenu(zone, el, event))
     }
-
-    const body = document.body
-    body.appendChild(menu)
-
-    const zone = getZone(menu)
-    createPopper(zone, menu, () => showContextMenu(zone, menu, event))
 }
 
 export function dispose(id) {
@@ -102,14 +106,6 @@ const createVirtualElement = (zone, event) => {
                 height: 0,
             };
         }
-    }
-}
-
-const hide = menu => {
-    const zone = getZone(menu)
-    if (zone) {
-        menu.classList.remove('show')
-        zone.appendChild(menu)
     }
 }
 
