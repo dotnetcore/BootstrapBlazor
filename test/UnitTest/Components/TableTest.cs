@@ -4942,7 +4942,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.OnQueryAsync, op =>
                 {
-                    op.CustomerSearchs.AddRange(new List<IFilterAction>() { new MockFilterAction() });
+                    op.CustomerSearches.AddRange(new List<IFilterAction>() { new MockFilterAction() });
                     op.Filters.AddRange(new List<IFilterAction>() { new MockFilterAction() });
                     return OnQueryAsync(localizer, isAdvanceSearch: false, isFilter: false)(op);
                 });

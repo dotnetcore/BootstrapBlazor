@@ -123,23 +123,23 @@
 
         var isAdvanceSearch = false;
         // 处理高级搜索
-        if (options.AdvanceSearchs.Any())
+        if (options.AdvanceSearches.Any())
         {
-            items = items.Where(options.AdvanceSearchs.GetFilterFunc<Foo>());
+            items = items.Where(options.AdvanceSearches.GetFilterFunc<Foo>());
             isAdvanceSearch = true;
         }
 
         // 处理 自定义 高级搜索 CustomerSearchModel 过滤条件
-        if (options.CustomerSearchs.Any())
+        if (options.CustomerSearches.Any())
         {
-            items = items.Where(options.CustomerSearchs.GetFilterFunc<Foo>());
+            items = items.Where(options.CustomerSearches.GetFilterFunc<Foo>());
             isAdvanceSearch = true;
         }
 
         // 处理 Searchable=true 列与 SeachText 模糊搜索
-        if (options.Searchs.Any())
+        if (options.Searches.Any())
         {
-            items = items.Where(options.Searchs.GetFilterFunc<Foo>(FilterLogic.Or));
+            items = items.Where(options.Searches.GetFilterFunc<Foo>(FilterLogic.Or));
         }
 
         // 过滤
@@ -171,7 +171,7 @@
             TotalCount = total,
             IsSorted = isSorted,
             IsFiltered = isFiltered,
-            IsSearch = options.CustomerSearchs.Any() || !string.IsNullOrEmpty(options.SearchText),
+            IsSearch = options.CustomerSearches.Any() || !string.IsNullOrEmpty(options.SearchText),
             IsAdvanceSearch = isAdvanceSearch
         });
     }

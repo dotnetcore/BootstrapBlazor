@@ -106,9 +106,9 @@
         }
 
         // 处理 Searchable=true 列与 SeachText 模糊搜索
-        if (options.Searchs.Any())
+        if (options.Searches.Any())
         {
-            items = items.Where(options.Searchs.GetFilterFunc<Foo>(FilterLogic.Or));
+            items = items.Where(options.Searches.GetFilterFunc<Foo>(FilterLogic.Or));
         }
         else
         {
