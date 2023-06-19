@@ -1,19 +1,24 @@
 ﻿/*divider*/
 .divider {
-    background-color: #dcdfe6;
+    --bb-divider-bg: #dcdfe6;
+    --bb-divider-margin: 1rem 0;
+    --bb-divider-text-bg: #fff;
+    --bb-divider-text-color: #303133;
+    --bb-divider-text-padding: 0 20px;
+    background-color: var(--bb-divider-bg);
+    margin: var(--bb-divider-margin);
     position: relative;
-    margin: 1rem 0;
     display: block;
     height: 1px;
     width: 100%;
 }
 
     .divider .divider-text {
+        background-color: var(--bb-divider-text-bg);
+        padding: var(--bb-divider-text-padding);
+        color: var(--bb-divider-text-color);
         position: absolute;
-        background-color: #fff;
-        padding: 0 20px;
         font-weight: 500;
-        color: #303133;
         font-size: 14px;
     }
 
@@ -43,7 +48,7 @@
 }
 
 .divider.divider-vertical .divider-text {
-    padding: 20px 0;
+    --bb-divider-text-padding: 20px 0;
 }
 
     .divider.divider-vertical .divider-text.is-left {
@@ -63,3 +68,7 @@
         transform: translateY(0);
         transform: translateX(50%);
     }
+
+.dropdown-menu .divider {
+    --bb-divider-margin: .25rem 0;
+}
