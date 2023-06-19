@@ -4,7 +4,7 @@
 
 namespace BootstrapBlazor.Components;
 
-internal class InternalTableColumn : ITableColumn
+class InternalTableColumn : ITableColumn
 {
     private string FieldName { get; }
 

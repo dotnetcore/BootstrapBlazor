@@ -85,8 +85,8 @@ export function dispose(id) {
     if (camera) {
         EventHandler.off(camera.el, 'click')
 
-        if (camera.track) {
-            stop(camera.video, camera.track)
+        if (camera.mediaStreamTrack) {
+            stop(camera.video, camera.mediaStreamTrack)
         }
     }
 }

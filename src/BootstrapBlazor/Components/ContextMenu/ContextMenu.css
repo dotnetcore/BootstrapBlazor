@@ -1,13 +1,7 @@
 ﻿.bb-cm {
-    position: fixed;
-    display: none;
     z-index: 1000;
     background-color: #fff;
 }
-
-    .bb-cm.show {
-        display: block;
-    }
 
     .bb-cm .cm-icon {
         min-width: 14px;

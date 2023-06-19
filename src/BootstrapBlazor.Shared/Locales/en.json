@@ -50,7 +50,7 @@
     "ContainerH3": "Easy to use",
     "ContainerD3": "Easily grasp how to use components and quickly incorporate BootstrapBlazor controls into the project",
     "ContainerH4": "Free and open source",
-    "ContainerD4": "Simple, direct, free to use, no dependent components, dependent on jQuery Bootstrap are all built-in",
+    "ContainerD4": "Simple, direct, free to use, no dependent components, dependent on Bootstrap are all built-in",
     "ContainerH5": "Demos and examples",
     "ContainerD5": "Detailed documentation and online demonstration, simple function setting, direct copy code out of the box",
     "ContainerH6": "Continually updated",
@@ -374,6 +374,9 @@
     "ModalsTitlePopupWindowText": "I am the text in the pop-up window",
     "ModalsDialogSizeTitle": "Bullet size",
     "ModalsDialogSizeIntro": "Set the size of the popup component through <code>Size</code>",
+    "ModalsResize": "Resize",
+    "ModalsDialogResizeTitle": "Resize",
+    "ModalsDialogResizeIntro": "Resize the modal box by setting the <code>ShowResize</code> property",
     "ModalsSmallPopup": "small popup",
     "ModalsBigPopup": "big popup",
     "ModalsOversizedPopup": "Oversized pop-up window",
@@ -509,7 +512,7 @@
   },
   "BootstrapBlazor.Shared.Samples.Charts.Line": {
     "LineOnInitTitle": "Line graph",
-    "LineOnInitIntro": "Use <code>OnInit</code> to call back the delegate method, and after assigning the initialization data, the drawing operation can be performed, By setting the <code>BorderWidth</code> attribute, you can set the line width of the line chart, with a default value of 3",
+    "LineOnInitIntro": "Use <code>OnInit</code> to call back the delegate method, and after assigning the initialization data, the drawing operation can be performed, By setting the <code>BorderWidth</code> attribute, you can set the line width of the line chart, with a default value of 3, you can set the font size of Legend Labels by setting the <code>ChartOptions.LegendLabelsFontSize</code> property",
     "LineOnInitRandomData": "Random data",
     "LineOnInitAddDataset": "Add dataset",
     "LineOnInitRemoveDataset": "Remove dataset",
@@ -742,6 +745,8 @@
     "DialogTitle": "Data query window",
     "KeyboardTitle": "Basic usage",
     "KeyboardIntro": "Set the basic properties of the modal box by setting the <code>DialogOption</code> property",
+    "ResizeTitle": "Resize",
+    "ResizeIntro": "Resize the modal box by setting the <code>ShowResize</code> property",
     "CustomerHeaderTitle": "Custom title bar",
     "CustomerHeaderIntro": "Customize the title bar of the modal box by setting the <code>HeaderTemplate</code> property",
     "ComponentTitle": "Pop out complex components",
@@ -2545,20 +2550,20 @@
     "StatusText2": "Not selected",
     "StatusText3": "Indeterminate"
   },
-  "BootstrapBlazor.Shared.Demos.CheckboxDisabled": {
+  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxDisabled": {
     "StatusText1": "Selected",
     "StatusText2": "Not selected"
   },
-  "BootstrapBlazor.Shared.Demos.CheckboxShowLabel": {
+  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxShowLabel": {
     "StatusText1": "Selected"
   },
-  "BootstrapBlazor.Shared.Demos.CheckboxOnStateChanged": {
+  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxOnStateChanged": {
     "Checkbox2Text": "Two-way binding"
   },
-  "BootstrapBlazor.Shared.Demos.CheckboxBindString": {
+  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxBindString": {
     "Checkbox2Text": "Two-way binding"
   },
-  "BootstrapBlazor.Shared.Demos.CheckboxValidateForm": {
+  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxValidateForm": {
     "Checkbox3Text": "Handwritten labels"
   },
   "BootstrapBlazor.Shared.Samples.CheckboxLists": {
@@ -3134,7 +3139,7 @@
     "MultiSelectVeryLongTextTitle": "Options for extra-long text",
     "MultiSelectVeryLongTextIntro": "The candidate text is particularly long",
     "MultiSelectButtonTitle": "Full and reverse buttons",
-    "BMultiSelectButtonIntro": "By setting <code>ShowToolbar</code> value settings component displays the toolbox, by setting <code>ShowDefaultButtons</code> value settings component displays the default buttons, by setting <code>ShowSearch</code> value settings component displays the search box",
+    "MultiSelectButtonIntro": "By setting <code>ShowToolbar</code> value settings component displays the toolbox, by setting <code>ShowDefaultButtons</code> value settings component displays the default buttons, by setting <code>ShowSearch</code> value settings component displays the search box",
     "MultiSelectMaxMinTitle": "Set the maximum and minimum number of options",
     "MultiSelectMaxMinIntro": "Set the limit on the number of options available to components by setting the <code>max</code> <code>Min</code> values",
     "MultiSelectExpandButtonTitle": "Extend the toolbar button",
@@ -4866,7 +4871,8 @@
     "InstallAppText": "Install PWA App",
     "InstallText": "Install",
     "CancelText": "Cancel",
-    "Title": "View update log"
+    "Title": "View update log",
+    "ChatTooltip": "Azure OpenAI"
   },
   "BootstrapBlazor.Shared.Shared.NavMenu": {
     "GetStarted": "Getting Started",
@@ -5054,7 +5060,8 @@
     "BaiduOcr": "IBaiduOcr",
     "AzureOpenAI": "AzureOpenAI",
     "HtmlRenderer": "HtmlRenderer",
-    "ContextMenu": "ContextMenu"
+    "ContextMenu": "ContextMenu",
+    "DockView": "DockView"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -5894,7 +5901,7 @@
   "BootstrapBlazor.Shared.Pages.Introduction": {
     "Title": "Introduction",
     "P1": "BootstrapBlazor is an enterprise-level component library based on Bootstrap and Blazor, which can be considered as the Blazor version of the Bootstrap project.",
-    "P2": "The dependency is：BootstrapBlazor > Bootstrap > jQuery",
+    "P2": "The dependency is：BootstrapBlazor > Bootstrap",
     "P3": "In the latest <a href='template' target='_blank'>Project Template</a> ,the above dependencies are packaged and bundled, which greatly simplifies use",
     "UpdateTitle": "Update Log",
     "UpdateLog": "In order to fix the components <b><code>bugs</code></b>, a small version of the component may be released every day. The second <b><code>Thursday</code></b> every month release <b><code>official version</code></b>",
@@ -6222,12 +6229,12 @@
     "Tips": "<div class=\"code-label\">Precautions</div><div>This component relies on <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>, which needs to reference its component package when using this component</div><div class=\"code-label mt-2\">Nuget Install</div><div>Use nuget.org to install <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a> component</div>"
   },
   "BootstrapBlazor.Shared.Samples.FileViewers": {
-    "VideoPlayersTitle": "FileViewer",
-    "VideoPlayersNomalTitle": "Basic usage",
-    "VideoPlayersNomalIntro": "Excel/Word file path or URL",
-    "VideoPlayersChangeURLTitle": "Reload file",
-    "VideoPlayersChangeURLIntro2": "Using the Reload method",
-    "VideoPlayersTips": "Currently supports Excel(.docx) and Word(.xlsx) formats.<br/><b>Note</b>:<br/>If throw <code>The type initializer for 'Gdip' threw an exception.<code> error under Linux, please install libgdiplus and enable System. Drawing support.<br/>Enable System.Drawing support for non-Windows platforms in your project file (*.csproj), add:"
+    "Title": "FileViewer",
+    "BaseUsageText": "Basic usage",
+    "BaseUsageIntro": "Excel/Word file path or URL",
+    "BaseUsageText2": "Reload file",
+    "BaseUsageIntro2": "Using the Reload method",
+    "Tips": "Currently supports Excel(.docx) and Word(.xlsx) formats.<br/><b>Note</b>:<br/>If throw <code>The type initializer for 'Gdip' threw an exception.<code> error under Linux, please install libgdiplus and enable System. Drawing support.<br/>Enable System.Drawing support for non-Windows platforms in your project file (*.csproj), add:"
   },
   "BootstrapBlazor.Shared.Samples.CountUps": {
     "Title": "CountUp",
@@ -6274,5 +6281,11 @@
     "ContextMenuTableIntro": "Right click on the <code>Table</code> to pop up a context menu",
     "ContextMenuTreeTitle": "Tree",
     "ContextMenuTreeIntro": "Right click on the <code>Tree</code> to pop up a context menu"
+  },
+  "BootstrapBlazor.Shared.Samples.DockViews": {
+    "Title": "DockView",
+    "Description": "A multi window layout manager for webapps",
+    "BasicUsageTitle": "Normal",
+    "BasicUsageIntro": "layout manager which enables you to layout components in a web page and re-arrange them with drag and drop"
   }
 }

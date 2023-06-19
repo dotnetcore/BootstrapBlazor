@@ -7,15 +7,15 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 单元格内按钮组件
 /// </summary>
-public class TableCellButtonArgs
+public class TableCellButtonArgs : ITableCellButton
 {
     /// <summary>
-    /// 获得/设置 点击按钮是否选中正行 默认 true 选中
+    /// <inheritdoc/>
     /// </summary>
     public bool AutoSelectedRowWhenClick { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 点击按钮是否选中正行 默认 false 选中
+    /// <inheritdoc/>
     /// </summary>
     public bool AutoRenderTableWhenClick { get; set; }
 }

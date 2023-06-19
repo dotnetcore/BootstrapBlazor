@@ -7,9 +7,9 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// ModalDialog 组件
 /// </summary>
-public partial class ModalDialog : IHandlerException, IDisposable
+public partial class ModalDialog : IHandlerException
 {
     private string MaximizeAriaLabel => MaximizeStatus ? "maximize" : "restore";
 
@@ -43,6 +43,12 @@ public partial class ModalDialog : IHandlerException, IDisposable
     /// </summary>
     [Parameter]
     public string? Class { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否可以 Resize 弹窗 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowResize { get; set; }
 
     /// <summary>
     /// 获得/设置 弹窗大小
@@ -123,7 +129,7 @@ public partial class ModalDialog : IHandlerException, IDisposable
     public bool ShowPrintButtonInHeader { get; set; }
 
     /// <summary>
-    /// 获得/设置 Header 中打印按钮显示文字 默认为资源文件中 打印 
+    /// 获得/设置 Header 中打印按钮显示文字 默认为资源文件中 打印
     /// </summary>
     [Parameter]
     public string? PrintButtonText { get; set; }
@@ -319,21 +325,14 @@ public partial class ModalDialog : IHandlerException, IDisposable
     /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
+        await base.DisposeAsync(disposing);
+
         if (disposing)
         {
             ErrorLogger?.UnRegister(this);
             Modal.RemoveDialog(this);
         }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
     }
 }

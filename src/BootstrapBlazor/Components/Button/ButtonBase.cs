@@ -156,6 +156,8 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// </summary>
     protected bool IsAsyncLoading { get; set; }
 
+    private string? _lastTooltipText;
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -205,6 +207,7 @@ public abstract class ButtonBase : TooltipWrapperBase
         if (firstRender)
         {
             _prevDisable = IsDisabled;
+            _lastTooltipText = TooltipText;
             if (!IsDisabled)
             {
                 await ShowTooltip();
@@ -218,6 +221,14 @@ public abstract class ButtonBase : TooltipWrapperBase
                 await RemoveTooltip();
             }
             else
+            {
+                await ShowTooltip();
+            }
+        }
+        else if(Tooltip == null && _lastTooltipText != TooltipText )
+        {
+            _lastTooltipText = TooltipText;
+            if (!IsDisabled)
             {
                 await ShowTooltip();
             }

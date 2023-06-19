@@ -50,7 +50,7 @@
     "ContainerH3": "简单易用",
     "ContainerD3": "轻松掌握组件使用方法，快速将 BootstrapBlazor 控件融入到项目中",
     "ContainerH4": "免费开源",
-    "ContainerD4": "简单、直接、免费使用、无依赖组件，依赖 jQuery Bootstrap 均已内置",
+    "ContainerD4": "简单、直接、免费使用、无依赖组件，依赖 Bootstrap 均已内置",
     "ContainerH5": "演示与示例",
     "ContainerD5": "详细文档与在线演示，功能设置简单，直接拷贝代码开箱即用",
     "ContainerH6": "持续更新",
@@ -374,6 +374,9 @@
     "ModalsTitlePopupWindowText": "我是弹窗内正文",
     "ModalsDialogSizeTitle": "弹框大小",
     "ModalsDialogSizeIntro": "通过 <code>Size</code> 设置弹框组件的大小",
+    "ModalsResize": "弹框大小",
+    "ModalsDialogResizeTitle": "调整大小弹窗",
+    "ModalsDialogResizeIntro": "通过设置 <code>ShowResize=\"true\"</code> 可以通过鼠标拉动弹窗右下角进行窗口大小调整",
     "ModalsSmallPopup": "小弹窗",
     "ModalsBigPopup": "大弹窗",
     "ModalsOversizedPopup": "超大弹窗",
@@ -509,7 +512,7 @@
   },
   "BootstrapBlazor.Shared.Samples.Charts.Line": {
     "LineOnInitTitle": "Line 图",
-    "LineOnInitIntro": "使用 <code>OnInit</code> 回调委托方法，对初始化数据进行赋值后，即可进行绘图操作，通过设置 <code>BorderWidth</code> 属性，可以设置折线图线宽，默认值3。",
+    "LineOnInitIntro": "使用 <code>OnInit</code> 回调委托方法，对初始化数据进行赋值后，即可进行绘图操作，通过设置 <code>BorderWidth</code> 属性，可以设置折线图线宽，默认值3，通过设置 <code>ChartOptions.LegendLabelsFontSize</code> 属性，可以设置图例Lables字体大小",
     "LineOnInitRandomData": "随机数据",
     "LineOnInitAddDataset": "添加数据集",
     "LineOnInitRemoveDataset": "移除数据集",
@@ -742,6 +745,8 @@
     "DialogTitle": "数据查询窗口",
     "KeyboardTitle": "基本用法",
     "KeyboardIntro": "通过设置 <code>DialogOption</code> 属性对模态框进行基本属性设置",
+    "ResizeTitle": "调整大小",
+    "ResizeIntro": "通过设置 <code>ShowResize=\"true\"</code> 可以通过鼠标拉动弹窗右下角进行窗口大小调整",
     "CustomerHeaderTitle": "自定义标题栏",
     "CustomerHeaderIntro": "通过设置 <code>HeaderTemplate</code> 属性对模态框标题栏进行自定义设置",
     "ComponentTitle": "弹出复杂组件",
@@ -2555,20 +2560,20 @@
     "StatusText2": "未选",
     "StatusText3": "不确定"
   },
-  "BootstrapBlazor.Shared.Demos.CheckboxDisabled": {
+  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxDisabled": {
     "StatusText1": "选中",
     "StatusText2": "未选"
   },
-  "BootstrapBlazor.Shared.Demos.CheckboxShowLabel": {
+  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxShowLabel": {
     "StatusText1": "选中"
   },
-  "BootstrapBlazor.Shared.Demos.CheckboxOnStateChanged": {
+  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxOnStateChanged": {
     "Checkbox2Text": "双向绑定"
   },
-  "BootstrapBlazor.Shared.Demos.CheckboxBindString": {
+  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxBindString": {
     "Checkbox2Text": "双向绑定"
   },
-  "BootstrapBlazor.Shared.Demos.CheckboxValidateForm": {
+  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxValidateForm": {
     "Checkbox3Text": "手写标签"
   },
   "BootstrapBlazor.Shared.Samples.CheckboxLists": {
@@ -3145,7 +3150,7 @@
     "MultiSelectVeryLongTextTitle": "选项超长文字",
     "MultiSelectVeryLongTextIntro": "候选项文字特别长",
     "MultiSelectButtonTitle": "全选与反选按钮",
-    "BMultiSelectButtonIntro": "通过参数 <code>ShowToolbar</code> 控制是否显示工具栏，通过参数 <code>ShowDefaultButtons</code> 控制是否显示内置的三个按钮，通过参数 <code>ShowSearch</code> 控制是否显示搜索栏",
+    "MultiSelectButtonIntro": "通过参数 <code>ShowToolbar</code> 控制是否显示工具栏，通过参数 <code>ShowDefaultButtons</code> 控制是否显示内置的三个按钮，通过参数 <code>ShowSearch</code> 控制是否显示搜索栏",
     "MultiSelectMaxMinTitle": "设置选项最大数与最小数",
     "MultiSelectMaxMinIntro": "通过设置 <code>Max</code> <code>Min</code> 值设置组件可选项数量限制",
     "MultiSelectExpandButtonTitle": "扩展工具栏按钮",
@@ -4874,7 +4879,8 @@
     "InstallAppText": "安装小程序",
     "InstallText": "安装",
     "CancelText": "取消",
-    "Title": "点击查看更新日志"
+    "Title": "点击查看更新日志",
+    "ChatTooltip": "Azure OpenAI"
   },
   "BootstrapBlazor.Shared.Shared.NavMenu": {
     "GetStarted": "快速上手",
@@ -5066,7 +5072,8 @@
     "BaiduOcr": "文字识别服务 IBaiduOcr",
     "AzureOpenAI": "AI 聊天服务 AzureOpenAI",
     "HtmlRenderers": "Html 转换器  HtmlRenderer",
-    "ContextMenu": "右键菜单 ContextMenu"
+    "ContextMenu": "右键菜单 ContextMenu",
+    "DockView": "可停靠布局 DockView"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -5906,7 +5913,7 @@
   "BootstrapBlazor.Shared.Pages.Introduction": {
     "Title": "简介",
     "P1": "BootstrapBlazor 是一套基于 Bootstrap 和 Blazor 的企业级组件库，可以认为是 Bootstrap 项目的 Blazor 版实现。",
-    "P2": "依赖关系为：BootstrapBlazor > Bootstrap > jQuery",
+    "P2": "依赖关系为：BootstrapBlazor > Bootstrap",
     "P3": "最新 <a href='template' target='_blank'>项目模板</a> 中将以上依赖进行了打包捆绑大大简化使用",
     "UpdateTitle": "更新日志",
     "UpdateLog": "为了修复组件 <code>bug</code> 每天可能有小版本发布，每个月第二个 <b><code>周四</code></b> 发布 <b><code>正式版</code></b> 更新日志",
@@ -6235,12 +6242,12 @@
     "Tips": "<div class=\"code-label\">注意事项 ：</div><div>本组件依赖于 <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>，使用本组件时需要引用其组件包</div><div class=\"code-label mt-2\">Nuget 包安装</div><div>使用 <a href='https://www.nuget.org/packages?q={0}' target='_blank'>nuget.org</a> 进行 <code>{0}</code> 组件的安装</div>"
   },
   "BootstrapBlazor.Shared.Samples.FileViewers": {
-    "VideoPlayersTitle": "FileViewer 文件预览器",
-    "VideoPlayersNomalTitle": "基础用法",
-    "VideoPlayersNomalIntro": "Excel/Word 文件路径或者URL",
-    "VideoPlayersChangeURLTitle": "重新载入文件",
-    "VideoPlayersChangeURLIntro2": "使用 Reload 方法重新载入文件",
-    "VideoPlayersTips": "目前支支持 Excel(.docx) 和 Word(.xlsx) 格式.<br/><b>特别说明:</b><br/>如果 Linux 下提示 <code>The type initializer for 'Gdip' threw an exception.</code> 错误, 则使用需要安装 libgdiplus 并开启 System.Drawing 支持.<br/> 为非 Windows 平台启用 System.Drawing 支持,在你的项目文件中 (*.csproj), 添加:"
+    "Title": "FileViewer 文件预览器",
+    "BaseUsageText": "基础用法",
+    "BaseUsageIntro": "Excel/Word 文件路径或者URL",
+    "BaseUsageText2": "重新载入文件",
+    "BaseUsageIntro2": "使用 Reload 方法重新载入文件",
+    "Tips": "目前支支持 Excel(.docx) 和 Word(.xlsx) 格式.<br/><b>特别说明:</b><br/>如果 Linux 下提示 <code>The type initializer for 'Gdip' threw an exception.</code> 错误, 则使用需要安装 libgdiplus 并开启 System.Drawing 支持.<br/> 为非 Windows 平台启用 System.Drawing 支持,在你的项目文件中 (*.csproj), 添加:"
   },
   "BootstrapBlazor.Shared.Samples.CountUps": {
     "Title": "计数器 CountUp",
@@ -6287,5 +6294,11 @@
     "ContextMenuTableIntro": "点击 <code>Table</code> 组件行数据右键，弹出上下文关联菜单",
     "ContextMenuTreeTitle": "Tree 组件",
     "ContextMenuTreeIntro": "点击 <code>Tree</code> 组件行数据右键，弹出上下文关联菜单"
+  },
+  "BootstrapBlazor.Shared.Samples.DockViews": {
+    "Title": "DockView 可停靠视图",
+    "Description": "多标签停靠布局管理器",
+    "BasicUsageTitle": "基础用法",
+    "BasicUsageIntro": "通过拖动标签自定义布局"
   }
 }

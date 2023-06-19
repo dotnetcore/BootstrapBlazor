@@ -961,7 +961,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 pb.OpenComponent<Tooltip>(0);
                 pb.AddAttribute(1, nameof(Tooltip.Title), text);
                 pb.AddAttribute(2, nameof(Tooltip.ChildContent), RenderContent());
-                pb.SetKey(text);
                 pb.CloseComponent();
             }
             else
@@ -1178,7 +1177,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private async Task OnContextMenu(MouseEventArgs e, TItem item)
     {
-        if(ContextMenuZone != null)
+        if (ContextMenuZone != null)
         {
             await ContextMenuZone.OnContextMenu(e, item);
         }

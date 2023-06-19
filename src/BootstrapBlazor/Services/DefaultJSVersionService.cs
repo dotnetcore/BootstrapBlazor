@@ -34,16 +34,19 @@ class DefaultJSVersionService : IVersionService
             {
                 if (OperatingSystem.IsBrowser())
                 {
-                    ver = typeof(BootstrapComponentBase).Assembly.GetName().Version?.ToString();
+                    ver = GetAssemblyVersion();
                 }
                 else
                 {
-                    // 发布时选择单文件时 此代码报错
-                    ver = FileVersionInfo.GetVersionInfo(typeof(BootstrapComponentBase).Assembly.Location).ProductVersion;
+                    ver = string.IsNullOrEmpty(typeof(BootstrapComponentBase).Assembly.Location)
+                        ? GetAssemblyVersion()
+                        : FileVersionInfo.GetVersionInfo(typeof(BootstrapComponentBase).Assembly.Location).ProductVersion;
                 }
             }
             catch { }
-            return ver ?? "7.0.0.0";
+            return ver ?? "7.0.0";
+
+            string? GetAssemblyVersion() => typeof(BootstrapComponentBase).Assembly.GetName().Version?.ToString(3);
         }
     }
 }

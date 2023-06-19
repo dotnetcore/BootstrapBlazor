@@ -78,11 +78,6 @@ public partial class Topology : IAsyncDisposable
     [NotNull]
     private DotNetObjectReference<Topology>? Interop { get; set; }
 
-    /// <summary>
-    /// 获得/设置 EChart DOM 元素实例
-    /// </summary>
-    private ElementReference Element { get; set; }
-
     private string? ClassString => CssBuilder.Default("bb-topology")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -99,7 +94,7 @@ public partial class Topology : IAsyncDisposable
             // import JavaScript
             Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Topology/Components/Topology/Topology.razor.js");
             Interop = DotNetObjectReference.Create(this);
-            await Module.InvokeVoidAsync("init", Element, Interop, Content, nameof(PushData));
+            await Module.InvokeVoidAsync("init", Id, Interop, Content, nameof(PushData));
         }
     }
 
@@ -129,7 +124,10 @@ public partial class Topology : IAsyncDisposable
                     {
                         var data = await OnQueryAsync(CancelToken.Token);
                         await PushData(data);
-                        await Task.Delay(Interval, CancelToken.Token);
+                        if (CancelToken != null)
+                        {
+                            await Task.Delay(Interval, CancelToken.Token);
+                        }
                     }
                     catch (TaskCanceledException)
                     {
@@ -145,11 +143,11 @@ public partial class Topology : IAsyncDisposable
     /// </summary>
     /// <param name="items"></param>
     /// <returns></returns>
-    public async ValueTask PushData(IEnumerable<TopologyItem> items)
+    public async Task PushData(IEnumerable<TopologyItem> items)
     {
         if (!_disposing)
         {
-            await Module.InvokeVoidAsync("update", Element, items);
+            await Module.InvokeVoidAsync("update", Id, items);
         }
     }
 
@@ -158,19 +156,19 @@ public partial class Topology : IAsyncDisposable
     /// </summary>
     /// <param name="rate"></param>
     /// <returns></returns>
-    public ValueTask Scale(int rate = 1) => Module.InvokeVoidAsync("scale", Element, rate);
+    public ValueTask Scale(int rate = 1) => Module.InvokeVoidAsync("scale", Id, rate);
 
     /// <summary>
     /// 重置视图 自适应大小并且居中显示
     /// </summary>
     /// <returns></returns>
-    public ValueTask Reset() => Module.InvokeVoidAsync("reset", Element);
+    public ValueTask Reset() => Module.InvokeVoidAsync("reset", Id);
 
     /// <summary>
     /// 重置可视化引擎大小
     /// </summary>
     /// <returns></returns>
-    public ValueTask Resize(int? width = null, int? height = null) => Module.InvokeVoidAsync("resize", Element, width, height);
+    public ValueTask Resize(int? width = null, int? height = null) => Module.InvokeVoidAsync("resize", Id, width, height);
 
     #region Dispose
     private bool _disposing;
@@ -195,7 +193,7 @@ public partial class Topology : IAsyncDisposable
 
             if (Module != null)
             {
-                await Module.InvokeVoidAsync("dispose", Element);
+                await Module.InvokeVoidAsync("dispose", Id);
                 await Module.DisposeAsync();
                 Module = null;
             }

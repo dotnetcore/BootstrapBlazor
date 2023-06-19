@@ -1,7 +1,7 @@
-﻿@inherits BootstrapComponentBase
+﻿@inherits WebSiteModuleComponentBase
 @inject FanControllerDataService DataService
 @inject SwalService SwalService
-@implements IAsyncDisposable
+@attribute [JSModuleAutoLoader("Demos/Topologies/TopologiesNormal.razor.js", JSObjectReference = true, AutoInvokeDispose = false)]
 
 <Button OnClickWithoutRender="OnResize" Text="Resize" />
 
@@ -10,16 +10,6 @@
 </div>
 
 @code {
-    [NotNull]
-    private IJSObjectReference? Module { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IVersionService? JSVersionService { get; set; }
-
-    [NotNull]
-    private DotNetObjectReference<TopologiesNormal>? Interop { get; set; }
-
     /// <summary>
     /// 获得/设置 EChart DOM 元素实例
     /// </summary>
@@ -35,6 +25,8 @@
     /// </summary>
     protected override void OnInitialized()
     {
+        base.OnInitialized();
+
         var assembly = typeof(TopologiesNormal).Assembly;
         var strName = assembly.GetName().Name + ".topology.json";
         var stream = assembly.GetManifestResourceStream(strName);
@@ -48,18 +40,7 @@
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if(firstRender)
-        {
-            // import JavaScript
-            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", $"./_content/BootstrapBlazor.Shared/Demos/Topologies/TopologiesNormal.razor.js?v={JSVersionService.GetVersion()}");
-            Interop = DotNetObjectReference.Create(this);
-            await Module.InvokeVoidAsync("init", Element, Interop, nameof(ToggleFan));
-        }
-    }
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Interop, nameof(ToggleFan));
 
     private Task OnResize()
     {
@@ -92,7 +73,7 @@
 
     private async Task OnBeforePushData()
     {
-        await Module.InvokeVoidAsync("execute");
+        await InvokeVoidAsync("execute");
 
         // 推送数据
         var data = DataService.GetDatas();
@@ -100,32 +81,5 @@
 
         // 数据订阅
         DataService.OnDataChange = async datas => await TopologyElement.PushData(datas);
-    }
-
-    /// <summary>
-    /// Dispose
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual async ValueTask DisposeAsync(bool disposing)
-    {
-        if (disposing)
-        {
-            Interop?.Dispose();
-
-            if (Module != null)
-            {
-                await Module.InvokeVoidAsync("dispose", Element);
-                await Module.DisposeAsync();
-            }
-        }
-    }
-
-    /// <summary>
-    /// Dispose
-    /// </summary>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsync(true);
-        GC.SuppressFinalize(this);
     }
 }

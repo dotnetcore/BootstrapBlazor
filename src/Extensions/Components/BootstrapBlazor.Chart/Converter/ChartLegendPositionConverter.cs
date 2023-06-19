@@ -6,15 +6,9 @@ using BootstrapBlazor.Components;
 
 namespace System.Text.Json.Serialization;
 
-class ChartLegendPositionConverter : JsonConverter<ChartLegendPosition>
+class ChartEnumDescriptionConverter<T> : JsonConverter<T> where T : Enum
 {
-    public override ChartLegendPosition Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-    {
-        throw new NotImplementedException();
-    }
+    public override T Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) => throw new NotImplementedException();
 
-    public override void Write(Utf8JsonWriter writer, ChartLegendPosition value, JsonSerializerOptions options)
-    {
-        writer.WriteStringValue(value.ToDescriptionString());
-    }
+    public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options) => writer.WriteStringValue(value.ToDescriptionString());
 }

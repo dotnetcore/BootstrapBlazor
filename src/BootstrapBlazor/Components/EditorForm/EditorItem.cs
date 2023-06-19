@@ -224,7 +224,7 @@ public class EditorItem<TValue> : ComponentBase, IEditorItem
     /// <summary>
     /// 获取绑定字段显示名称方法
     /// </summary>
-    public string GetDisplayName() => Text ?? _fieldIdentifier?.GetDisplayName() ?? string.Empty;
+    public virtual string GetDisplayName() => Text ?? _fieldIdentifier?.GetDisplayName() ?? string.Empty;
 
     /// <summary>
     /// 获取绑定字段信息方法

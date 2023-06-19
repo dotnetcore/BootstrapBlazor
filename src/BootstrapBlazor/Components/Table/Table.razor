@@ -45,7 +45,7 @@
                         }
                         @if (!IsExcel && ShowEditButton)
                         {
-                            <TableToolbarButton TItem="TItem" IsDisabled="GetEditButtonStatus()" Color="Color.Primary" OnClick="EditAsync" Icon="@EditButtonIcon" Text="@EditButtonText" />
+                            <TableToolbarButton TItem="TItem" IsDisabled="GetEditButtonStatus()" Color="Color.Primary" OnClick="EditAsync" Icon="@EditButtonIcon" Text="@EditButtonText" IsEnableWhenSelectedOneRow="true" />
                         }
                         @if (ShowDeleteButton)
                         {

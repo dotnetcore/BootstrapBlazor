@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Localization.Json;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Globalization;
 
@@ -28,6 +29,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.AddAuthorizationCore();
         services.AddJsonLocalization(localizationConfigure);
 
+        services.AddConfiguration();
         services.TryAddSingleton<ICacheManager, CacheManager>();
         services.TryAddSingleton<IComponentIdGenerator, DefaultIdGenerator>();
         services.TryAddSingleton<ILookupService, NullLookupService>();

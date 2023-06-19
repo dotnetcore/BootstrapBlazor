@@ -30,6 +30,19 @@
         margin-left: 2px;
     }
 
+::deep .btn-chat {
+    --bs-btn-bg: #562fff;
+    --bs-btn-hover-bg: #562fff;
+    --bs-btn-active-bg: #562fff;
+    box-shadow: 0 0 8px #6143e2;
+    right: 1rem;
+    bottom: 13rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ddd;
+}}
+
 .install-prompt {
     position: fixed;
     bottom: 0.5rem;

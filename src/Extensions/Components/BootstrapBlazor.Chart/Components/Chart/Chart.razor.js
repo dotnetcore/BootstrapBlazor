@@ -91,8 +91,19 @@ const getChartOption = function (option) {
         position: option.options.legendPosition
     }
 
+    if (option.options.legendLabelsFontSize > 0) {
+        legend.labels = {
+            font: {
+                size: option.options.legendLabelsFontSize
+            }
+        }
+    }
+
     if (option.type === 'line') {
         option.data.forEach(function (v, i) {
+            if (!v.showPointStyle) {
+                v.PointStyle = false;
+            }
             v.data.forEach(function (d, j) {
                 if (d === null) {
                     option.data[i].data[j] = NaN
