@@ -22,7 +22,7 @@ public enum ComponentIcons
     /// <summary>
     /// AvatarUpload 组件 DeleteIcon 属性图标
     /// </summary>
-    AvatarUploadDelteIcon,
+    AvatarUploadDeleteIcon,
 
     /// <summary>
     /// AvatarUpload 组件 LoadingIcon 属性图标
@@ -210,12 +210,12 @@ public enum ComponentIcons
     DialogSaveButtonIcon,
 
     /// <summary>
-    /// Dialog 组件 MaxminzeIcon 属性图标
+    /// Dialog 组件 MaximizeIcon 属性图标
     /// </summary>
-    DialogMaxminzeWindowIcon,
+    DialogMaximizeWindowIcon,
 
     /// <summary>
-    /// Dialog 组件 MaxminzeIcon 属性图标
+    /// Dialog 组件 MaximizeIcon 属性图标
     /// </summary>
     DialogRestoreWindowIcon,
 
@@ -515,7 +515,7 @@ public enum ComponentIcons
     SweetAlertCloseIcon,
 
     /// <summary>
-    /// SweetAlertBody 组件 ConfirmuttonIcon 属性图标
+    /// SweetAlertBody 组件 SweetAlertConfirmIcon 属性图标
     /// </summary>
     SweetAlertConfirmIcon,
 

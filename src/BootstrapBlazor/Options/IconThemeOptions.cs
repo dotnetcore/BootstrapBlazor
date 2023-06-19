@@ -66,7 +66,7 @@ public class IconThemeOptions
 
         { ComponentIcons.DialogCloseButtonIcon, "fa-solid fa-xmark" },
         { ComponentIcons.DialogSaveButtonIcon, "fa-solid fa-floppy-disk" },
-        { ComponentIcons.DialogMaxminzeWindowIcon, "fa-regular fa-window-maximize" },
+        { ComponentIcons.DialogMaximizeWindowIcon, "fa-regular fa-window-maximize" },
         { ComponentIcons.DialogRestoreWindowIcon, "fa-regular fa-window-restore" },
 
         { ComponentIcons.TopMenuDropdownIcon, "fa-solid fa-angle-down" },
@@ -187,7 +187,7 @@ public class IconThemeOptions
         { ComponentIcons.TreeViewNodeIcon, "fa-solid fa-caret-right" },
 
         // Upload
-        { ComponentIcons.AvatarUploadDelteIcon, "fa-regular fa-trash-can" },
+        { ComponentIcons.AvatarUploadDeleteIcon, "fa-regular fa-trash-can" },
         { ComponentIcons.AvatarUploadLoadingIcon, "fa-solid fa-spinner fa-spin" },
         { ComponentIcons.AvatarUploadAddIcon, "fa-solid fa-plus" },
         { ComponentIcons.AvatarUploadValidStatusIcon, "fa-solid fa-check" },

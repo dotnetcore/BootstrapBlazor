@@ -258,7 +258,7 @@ public partial class ModalDialog : IHandlerException
         PrintButtonText ??= Localizer[nameof(PrintButtonText)];
 
         CloseButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogCloseButtonIcon);
-        MaximizeWindowIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogMaxminzeWindowIcon);
+        MaximizeWindowIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogMaximizeWindowIcon);
         SaveIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogSaveButtonIcon);
         RestoreWindowIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogRestoreWindowIcon);
 
