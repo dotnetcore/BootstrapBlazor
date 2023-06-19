@@ -34,7 +34,7 @@ public class FooSearchModel : ITableSearchModel
     /// </summary>
     /// <returns></returns>
     /// <exception cref="System.NotImplementedException"></exception>
-    public IEnumerable<IFilterAction> GetSearchs()
+    public IEnumerable<IFilterAction> GetSearches()
     {
         var ret = new List<IFilterAction>();
         if (!string.IsNullOrEmpty(Name))

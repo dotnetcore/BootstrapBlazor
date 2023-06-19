@@ -58,17 +58,38 @@ public class QueryPageOptions
     /// <summary>
     /// 获得 通过列集合中的 <see cref="ITableColumn.Searchable"/> 列与 <see cref="SearchText"/> 拼装 IFilterAction 集合
     /// </summary>
-    public List<IFilterAction> Searchs { get; } = new(20);
+    [Obsolete("This property is obsolete. Use Searches instead. 已过期，请使用 Searches 参数")]
+    [ExcludeFromCodeCoverage]
+    public List<IFilterAction> Searchs => Searches;
+
+    /// <summary>
+    /// 获得 通过列集合中的 <see cref="ITableColumn.Searchable"/> 列与 <see cref="SearchText"/> 拼装 IFilterAction 集合
+    /// </summary>
+    public List<IFilterAction> Searches { get; } = new(20);
 
     /// <summary>
     /// 获得 获得 <see cref="Table{TItem}.CustomerSearchModel"/> 中过滤条件 <see cref="Table{TItem}.SearchTemplate"/> 模板中的条件请使用 <see cref="AdvanceSearchs" />获得
     /// </summary>
-    public List<IFilterAction> CustomerSearchs { get; } = new(20);
+    [Obsolete("This property is obsolete. Use CustomerSearches instead. 已过期，请使用 CustomerSearches 参数")]
+    [ExcludeFromCodeCoverage]
+    public List<IFilterAction> CustomerSearchs => CustomerSearches;
+
+    /// <summary>
+    /// 获得 获得 <see cref="Table{TItem}.CustomerSearchModel"/> 中过滤条件 <see cref="Table{TItem}.SearchTemplate"/> 模板中的条件请使用 <see cref="AdvanceSearchs" />获得
+    /// </summary>
+    public List<IFilterAction> CustomerSearches { get; } = new(20);
 
     /// <summary>
     /// 获得 获得 <see cref="Table{TItem}.SearchModel"/> 中过滤条件
     /// </summary>
-    public List<IFilterAction> AdvanceSearchs { get; } = new(20);
+    [Obsolete("This property is obsolete. Use AdvanceSearches instead. 已过期，请使用 AdvanceSearches 参数")]
+    [ExcludeFromCodeCoverage]
+    public List<IFilterAction> AdvanceSearchs => AdvanceSearches;
+
+    /// <summary>
+    /// 获得 获得 <see cref="Table{TItem}.SearchModel"/> 中过滤条件
+    /// </summary>
+    public List<IFilterAction> AdvanceSearches { get; } = new(20);
 
     /// <summary>
     /// 获得/设置 过滤条件集合 等同于 <see cref="Table{TItem}.Filters"/> 值

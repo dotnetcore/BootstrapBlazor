@@ -136,7 +136,7 @@
                                 @if (ShowSearchTextTooltip)
                                 {
                                     <Tooltip Placement="Placement.Top" Title="@SearchTooltip" Sanitize="false" IsHtml="true">
-                                        <BootstrapInput class="table-toolbar-search" @onkeyup="OnSearchKeyup" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" ShowLabel="false" />
+                                        <BootstrapInput class="table-toolbar-search" @onkeyup="OnSearchKeyUp" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" ShowLabel="false" />
                                     </Tooltip>
                                 }
                                 else
@@ -789,11 +789,11 @@
                     @BeforeRowButtonTemplate.Invoke(item)
                 </TableExtensionButton>
             }
-            @if (GetShowEditButton(item))
+            @if (GetShowExtendEditButton(item))
             {
                 <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" Icon="@EditButtonIcon" Text="@EditButtonText"></Button>
             }
-            @if (GetShowDeleteButton(item))
+            @if (GetShowExtendDeleteButton(item))
             {
                 <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
                                   Color="Color.Danger" Icon="@DeleteButtonIcon" Text="@DeleteButtonText"
@@ -826,7 +826,7 @@
                         @BeforeRowButtonTemplate?.Invoke(item)
                     </TableExtensionButton>
                 }
-                @if (!IsExcel && GetShowEditButton(item))
+                @if (!IsExcel && GetShowExtendEditButton(item))
                 {
                     @if (isInCell)
                     {
@@ -841,7 +841,7 @@
                         <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" Icon="@EditButtonIcon" Text="@EditButtonText"></Button>
                     }
                 }
-                @if (!isInCell && GetShowDeleteButton(item))
+                @if (!isInCell && GetShowExtendDeleteButton(item))
                 {
                     <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
                                       Color="Color.Danger" Icon="@DeleteButtonIcon" Text="@DeleteButtonText"
@@ -869,13 +869,13 @@
                     @if (ShowSearchTextTooltip)
                     {
                         <Tooltip Placement="Placement.Top" Title="@SearchTooltip" Sanitize="false" IsHtml="true">
-                            <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @onkeyup="OnSearchKeyup" @bind-Value="@SearchText">
+                            <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @onkeyup="OnSearchKeyUp" @bind-Value="@SearchText">
                             </BootstrapInput>
                         </Tooltip>
                     }
                     else
                     {
-                        <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @onkeyup="OnSearchKeyup" @bind-Value="@SearchText" >
+                        <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @onkeyup="OnSearchKeyUp" @bind-Value="@SearchText" >
                         </BootstrapInput>
                     }
                     @if (ShowResetButton)

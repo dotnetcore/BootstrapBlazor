@@ -444,16 +444,16 @@ public partial class Table<TItem>
                 var searched = queryData.IsSearch;
 
                 // 外部未处理 SearchText 模糊查询
-                if (!searched && queryOption.Searchs.Any())
+                if (!searched && queryOption.Searches.Any())
                 {
-                    QueryItems = QueryItems.Where(queryOption.Searchs.GetFilterFunc<TItem>(FilterLogic.Or));
+                    QueryItems = QueryItems.Where(queryOption.Searches.GetFilterFunc<TItem>(FilterLogic.Or));
                     TotalCount = QueryItems.Count();
                 }
 
                 // 外部未处理自定义高级搜索 内部进行高级自定义搜索过滤
-                if (!IsAdvanceSearch && queryOption.CustomerSearchs.Any())
+                if (!IsAdvanceSearch && queryOption.CustomerSearches.Any())
                 {
-                    QueryItems = QueryItems.Where(queryOption.CustomerSearchs.GetFilterFunc<TItem>());
+                    QueryItems = QueryItems.Where(queryOption.CustomerSearches.GetFilterFunc<TItem>());
                     TotalCount = QueryItems.Count();
                     IsAdvanceSearch = true;
                 }
@@ -530,9 +530,9 @@ public partial class Table<TItem>
         };
 
         queryOption.Filters.AddRange(Filters.Values);
-        queryOption.Searchs.AddRange(GetSearchs());
-        queryOption.AdvanceSearchs.AddRange(GetAdvanceSearchs());
-        queryOption.CustomerSearchs.AddRange(GetCustomerSearchs());
+        queryOption.Searches.AddRange(GetSearches());
+        queryOption.AdvanceSearches.AddRange(GetAdvanceSearches());
+        queryOption.CustomerSearches.AddRange(GetCustomerSearches());
 
         if (!string.IsNullOrEmpty(SortString))
         {

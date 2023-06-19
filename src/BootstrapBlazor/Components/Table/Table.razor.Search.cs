@@ -225,24 +225,24 @@ public partial class Table<TItem>
     /// 获得 <see cref="CustomerSearchModel"/> 中过滤条件 <see cref="SearchTemplate"/> 模板中的条件无法获得
     /// </summary>
     /// <returns></returns>
-    protected IEnumerable<IFilterAction> GetCustomerSearchs()
+    protected IEnumerable<IFilterAction> GetCustomerSearches()
     {
-        var searchs = new List<IFilterAction>();
+        var searches = new List<IFilterAction>();
         // 处理自定义 SearchModel 条件
         if (CustomerSearchModel != null)
         {
-            searchs.AddRange(CustomerSearchModel.GetSearchs());
+            searches.AddRange(CustomerSearchModel.GetSearches());
         }
-        return searchs;
+        return searches;
     }
 
     /// <summary>
     /// 获得 <see cref="SearchModel"/> 中过滤条件
     /// </summary>
     /// <returns></returns>
-    protected List<IFilterAction> GetAdvanceSearchs()
+    protected List<IFilterAction> GetAdvanceSearches()
     {
-        var searchs = new List<IFilterAction>();
+        var searches = new List<IFilterAction>();
         if (ShowAdvancedSearch && CustomerSearchModel == null && SearchModel != null)
         {
             var searchColumns = Columns.Where(i => i.Searchable);
@@ -251,20 +251,20 @@ public partial class Table<TItem>
                 var v = property.GetValue(SearchModel);
                 if (v != null && v.ToString() != string.Empty)
                 {
-                    searchs.Add(new SearchFilterAction(property.Name, v, FilterAction.Equal));
+                    searches.Add(new SearchFilterAction(property.Name, v, FilterAction.Equal));
                 }
             }
         }
-        return searchs;
+        return searches;
     }
 
     /// <summary>
     /// 通过列集合中的 <see cref="ITableColumn.Searchable"/> 列与 <see cref="SearchText"/> 拼装 IFilterAction 集合
     /// </summary>
     /// <returns></returns>
-    protected List<IFilterAction> GetSearchs() => Columns.Where(col => col.Searchable).ToSearchs(SearchText);
+    protected List<IFilterAction> GetSearches() => Columns.Where(col => col.Searchable).ToSearchs(SearchText);
 
-    private async Task OnSearchKeyup(KeyboardEventArgs args)
+    private async Task OnSearchKeyUp(KeyboardEventArgs args)
     {
         if (args.Key == "Enter")
         {
