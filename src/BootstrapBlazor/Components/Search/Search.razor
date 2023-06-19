@@ -10,7 +10,7 @@
         }
         <Button Color="SearchButtonColor" Text="@SearchButtonText" Icon="@ButtonIcon" OnClick="OnSearchClick" aria-label="Search" />
     </div>
-    <ul class="@DropdownMenuClassString">
+    <ul class="dropdown-menu">
         @if (FilterItems.Any())
         {
             @foreach (var item in FilterItems)
