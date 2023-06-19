@@ -46,6 +46,7 @@ class DefaultJSVersionService : IVersionService
             catch { }
             return ver ?? "7.0.0";
 
+            [ExcludeFromCodeCoverage]
             string? GetAssemblyVersion() => typeof(BootstrapComponentBase).Assembly.GetName().Version?.ToString(3);
         }
     }
