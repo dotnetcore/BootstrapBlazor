@@ -27,7 +27,7 @@ class DefaultJSVersionService : IVersionService
         return Version;
 
         [ExcludeFromCodeCoverage]
-        string GetVersionImpl()
+        static string GetVersionImpl()
         {
             string? ver = null;
             try
