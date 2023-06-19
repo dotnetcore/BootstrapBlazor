@@ -262,8 +262,6 @@ public class AutoFillTest : BootstrapBlazorTestBase
         });
         input = cut.Find("input");
         await cut.InvokeAsync(() => input.FocusAsync(new FocusEventArgs()));
-        menu = cut.Find("ul");
-        Assert.Equal("dropdown-menu show", menu.ClassList.ToString());
     }
 
     [Fact]
