@@ -12,6 +12,7 @@ namespace BootstrapBlazor.Components;
 public partial class SideMenu
 {
     private string? GetMenuClassString => CssBuilder.Default("submenu")
+        .AddClass("show", MenuItem is { IsCollapsed: false })
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -20,6 +21,9 @@ public partial class SideMenu
     private string? GetTargetIdString(MenuItem item) => $"#{GetTargetId(item)}";
 
     private string GetTargetId(MenuItem item) => ComponentIdGenerator.Generate(item);
+    
+    [CascadingParameter]
+    private MenuItem? MenuItem { get; set; }
 
     /// <summary>
     /// 获得/设置 菜单数据集合
