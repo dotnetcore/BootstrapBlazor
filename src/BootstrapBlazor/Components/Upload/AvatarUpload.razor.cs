@@ -109,7 +109,7 @@ public partial class AvatarUpload<TValue>
     {
         base.OnParametersSet();
 
-        DeleteIcon ??= IconTheme.GetIconByKey(ComponentIcons.AvatarUploadDelteIcon);
+        DeleteIcon ??= IconTheme.GetIconByKey(ComponentIcons.AvatarUploadDeleteIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.AvatarUploadLoadingIcon);
         AddIcon ??= IconTheme.GetIconByKey(ComponentIcons.AvatarUploadAddIcon);
         ValidStatusIcon ??= IconTheme.GetIconByKey(ComponentIcons.AvatarUploadValidStatusIcon);

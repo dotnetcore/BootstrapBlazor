@@ -42,6 +42,7 @@ public class ConfigureIconMapperOptionsTest
 
         var iconService = context.Services.GetRequiredService<IIconTheme>();
         Assert.Equal("mdi mdi-link-variant", iconService.GetIconByKey(ComponentIcons.AnchorLinkIcon));
+        Assert.Null(iconService.GetIconByKey(ComponentIcons.AutoFillIcon));
     }
 
     internal class MockIconTheme : IIconTheme

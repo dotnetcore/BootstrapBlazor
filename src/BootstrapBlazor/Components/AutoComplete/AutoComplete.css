@@ -4,9 +4,9 @@
     --bb-ac-menu-left: 0;
     --bb-ac-menu-right: 0;
     --bb-ac-menu-shadow: 0 2px 8px rgba(0, 0, 0, 0.176);
-    --bb-ac-menu-spin-top: 10.5px;
-    --bb-ac-menu-spin-right: .5rem;
     --bb-ac-dropdown-max-height: var(--bb-dropdown-max-height);
+    --bb-select-append-width: 30px;
+    --bb-select-append-color: #c0c4cc;
     position: relative;
 }
 
@@ -22,18 +22,19 @@
         max-height: var(--bb-ac-dropdown-max-height);
     }
 
+    .auto-complete.is-loading .ac-loading {
+        display: flex;
+    }
+
     .auto-complete .ac-loading {
-        position: absolute;
-        top: var(--bb-ac-menu-spin-top);
-        right: var(--bb-ac-menu-spin-right);
         display: none;
     }
 
-    .auto-complete.is-loading .ac-loading {
-        display: inline-block;
+    .auto-complete.is-loading .form-select-append:not(.ac-loading) {
+        display: none;
     }
 
 .search .auto-complete .ac-loading {
     position: unset;
-    display: inline-block;
+    display: flex;
 }
