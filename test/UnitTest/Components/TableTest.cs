@@ -5167,7 +5167,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.Items, items);
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowExtendButtons, true);
-                pb.Add(a => a.ShowEditButtonCallback, foo => true);
+                pb.Add(a => a.ShowExtendEditButtonCallback, foo => true);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -5183,7 +5183,7 @@ public class TableTest : TableTestBase
 
         table.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.ShowEditButtonCallback, foo => false);
+            pb.Add(a => a.ShowExtendEditButtonCallback, foo => false);
         });
         Assert.DoesNotContain("fa-regular fa-pen-to-square", table.Find("tbody").ToMarkup());
     }
@@ -5201,7 +5201,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.Items, items);
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowExtendButtons, true);
-                pb.Add(a => a.ShowDeleteButtonCallback, foo => true);
+                pb.Add(a => a.ShowExtendDeleteButtonCallback, foo => true);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -5217,7 +5217,7 @@ public class TableTest : TableTestBase
 
         table.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.ShowDeleteButtonCallback, foo => false);
+            pb.Add(a => a.ShowExtendDeleteButtonCallback, foo => false);
         });
         Assert.DoesNotContain("fa-solid fa-xmark", table.Find("tbody").ToMarkup());
     }
@@ -5260,7 +5260,7 @@ public class TableTest : TableTestBase
         {
             pb.Add(a => a.ShowExtendEditButton, true);
             pb.Add(a => a.ShowDefaultButtons, false);
-            pb.Add(a => a.ShowEditButtonCallback, foo => true);
+            pb.Add(a => a.ShowExtendEditButtonCallback, foo => true);
         });
         Assert.Contains("fa-regular fa-pen-to-square", table.Find("tbody").ToMarkup());
     }
@@ -5302,7 +5302,7 @@ public class TableTest : TableTestBase
         {
             pb.Add(a => a.ShowExtendDeleteButton, true);
             pb.Add(a => a.ShowDefaultButtons, false);
-            pb.Add(a => a.ShowDeleteButtonCallback, foo => true);
+            pb.Add(a => a.ShowExtendDeleteButtonCallback, foo => true);
         });
         Assert.Contains("fa-solid fa-xmark", table.Find("tbody").ToMarkup());
     }
@@ -5346,7 +5346,7 @@ public class TableTest : TableTestBase
 
         table.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.ShowEditButtonCallback, foo => false);
+            pb.Add(a => a.ShowExtendEditButtonCallback, foo => false);
         });
         await cut.InvokeAsync(() => table.Instance.EditAsync());
         await cut.InvokeAsync(() => modal.Instance.CloseCallback());
@@ -5434,7 +5434,7 @@ public class TableTest : TableTestBase
 
         table.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.ShowDeleteButtonCallback, foo => false);
+            pb.Add(a => a.ShowExtendDeleteButtonCallback, foo => false);
         });
         await cut.InvokeAsync(() => deleteButton.Instance.OnBeforeClick());
     }
