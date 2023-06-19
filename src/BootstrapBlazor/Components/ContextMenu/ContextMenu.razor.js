@@ -1,6 +1,6 @@
 ﻿import Data from "../../modules/data.js?v=$version"
 import EventHandler from "../../modules/event-handler.js?v=$version"
-import { createPopper, computePosition } from '../../modules/floating-ui.js'
+import { createPopper, computePosition } from '../../modules/floating-ui.js?v=$version'
 
 export function init(id) {
     const el = document.getElementById(id)
@@ -12,9 +12,15 @@ export function init(id) {
             bb.cancelContextMenuHandler = e => {
                 const menu = document.querySelector('.bb-cm.show')
                 if (menu) {
+                    const menuId = menu.getAttribute('id')
+                    const cm = Data.get(menuId)
+                    if (cm.popper) {
+                        cm.popper()
+                    }
+
                     menu.classList.remove('show')
                     const zone = getZone(menu)
-                    if(zone) {
+                    if (zone) {
                         zone.appendChild(menu)
                     }
                 }
@@ -22,10 +28,9 @@ export function init(id) {
             EventHandler.on(document, 'click', bb.cancelContextMenuHandler)
             EventHandler.on(document, 'contextmenu', bb.cancelContextMenuHandler)
         }
-
         bb.contextMenus.push(el)
 
-        const cm = { el, zone : getZone(el) }
+        const cm = { el, zone: getZone(el) }
         Data.set(id, cm)
     }
 }
@@ -40,7 +45,11 @@ export function show(id, event) {
         const body = document.body
         body.appendChild(el)
 
-        createPopper(zone, el, () => showContextMenu(zone, el, event))
+        if (cm.popper) {
+            cm.popper()
+        }
+
+        cm.popper = createPopper(zone, el, () => showContextMenu(zone, el, event))
     }
 }
 
@@ -50,6 +59,10 @@ export function dispose(id) {
 
     if (cm) {
         const el = cm.el
+        const popper = cm.popper
+        if (popper) {
+            cm.popper()
+        }
 
         window.bb = window.bb || { contextMenus: [] }
         const index = bb.contextMenus.indexOf(el)

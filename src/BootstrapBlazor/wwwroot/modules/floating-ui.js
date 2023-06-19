@@ -2,7 +2,7 @@
 export { arrow, autoPlacement, detectOverflow, flip, hide, inline, limitShift, offset, shift, size } from '../lib/floating-ui/floating-ui.core.esm.js';
 
 export function createPopper(reference, floating, update, options) {
-    autoUpdate(reference, floating, update, options)
+    return autoUpdate(reference, floating, update, options)
 }
 
 export function computePosition(reference, floating, options) {
