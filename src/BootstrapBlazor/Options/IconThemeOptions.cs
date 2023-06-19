@@ -36,6 +36,7 @@ public class IconThemeOptions
     {
         { ComponentIcons.AnchorLinkIcon, "fa-solid fa-link" },
         { ComponentIcons.AvatarIcon, "fa-solid fa-user" },
+        { ComponentIcons.AutoFillIcon, "fa-solid fa-angle-up" },
 
         { ComponentIcons.ButtonLoadingIcon, "fa-solid fa-spin fa-spinner" },
 
