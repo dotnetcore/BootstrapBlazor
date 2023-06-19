@@ -1,5 +1,5 @@
-import { rectToClientRect, computePosition as computePosition$1 } from '@floating-ui/core';
-export { arrow, autoPlacement, detectOverflow, flip, hide, inline, limitShift, offset, shift, size } from '@floating-ui/core';
+﻿import { rectToClientRect, computePosition as computePosition$1 } from './floating-ui.core.esm.js';
+export { arrow, autoPlacement, detectOverflow, flip, hide, inline, limitShift, offset, shift, size } from './floating-ui.core.esm.js';
 
 function getWindow(node) {
   var _node$ownerDocument;
