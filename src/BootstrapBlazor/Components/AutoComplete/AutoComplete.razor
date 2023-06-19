@@ -7,8 +7,9 @@
 }
 <div class="@ClassString" @ref="AutoCompleteElement">
     <input @attributes="AdditionalAttributes" id="@Id" class="@ClassName" autocomplete="off" type="@Type" placeholder="@PlaceHolder" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="oninput" @onblur="OnBlur" @onfocus="OnFocus" @onkeyup="OnKeyUp" @ref="FocusElement" />
-    <i class="@IconString"></i>
-    <ul class="@DropdownMenuClassString">
+    <span class="form-select-append"><i class="@Icon"></i></span>
+    <span class="form-select-append ac-loading"><i class="@LoadingIcon"></i></span>
+    <ul class="dropdown-menu">
         @if (FilterItems.Any())
         {
             @foreach (var item in FilterItems)

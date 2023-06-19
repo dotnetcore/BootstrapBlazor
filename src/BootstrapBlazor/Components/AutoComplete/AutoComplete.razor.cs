@@ -15,6 +15,9 @@ public partial class AutoComplete
 {
     private bool IsLoading { get; set; }
 
+    /// <summary>
+    /// 获得/设置 当前下拉框是否显示
+    /// </summary>
     private bool IsShown { get; set; }
 
     /// <summary>
@@ -22,12 +25,6 @@ public partial class AutoComplete
     /// </summary>
     protected virtual string? ClassString => CssBuilder.Default("auto-complete")
         .AddClass("is-loading", IsLoading)
-        .Build();
-
-    /// <summary>
-    /// Dropdown Menu 下拉菜单样式
-    /// </summary>
-    protected string? DropdownMenuClassString => CssBuilder.Default("dropdown-menu")
         .AddClass("show", IsShown)
         .Build();
 
@@ -119,10 +116,16 @@ public partial class AutoComplete
     public RenderFragment<string>? ItemTemplate { get; set; }
 
     /// <summary>
-    /// 图标
+    /// 获得/设置 图标
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 加载图标
+    /// </summary>
+    [Parameter]
+    public string? LoadingIcon { get; set; }
 
     /// <summary>
     /// IStringLocalizer 服务实例
@@ -147,10 +150,6 @@ public partial class AutoComplete
     /// </summary>
     protected int? CurrentItemIndex { get; set; }
 
-    private string? IconString => CssBuilder.Default("ac-loading")
-        .AddClass(Icon, !string.IsNullOrEmpty(Icon))
-        .Build();
-
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -173,6 +172,7 @@ public partial class AutoComplete
     {
         base.OnParametersSet();
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
+        LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
     }
 
     /// <summary>
