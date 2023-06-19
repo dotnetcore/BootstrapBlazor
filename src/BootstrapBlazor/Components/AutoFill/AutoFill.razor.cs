@@ -21,12 +21,6 @@ public partial class AutoFill<TValue>
     /// </summary>
     protected virtual string? ClassString => CssBuilder.Default("auto-complete auto-fill")
         .AddClass("is-loading", _isLoading)
-        .Build();
-
-    /// <summary>
-    /// Dropdown Menu 下拉菜单样式
-    /// </summary>
-    protected string? DropdownMenuClassString => CssBuilder.Default("dropdown-menu")
         .AddClass("show", _isShown)
         .Build();
 
@@ -124,6 +118,12 @@ public partial class AutoFill<TValue>
     [Parameter]
     public string? Icon { get; set; }
 
+    /// <summary>
+    /// 获得/设置 加载图标
+    /// </summary>
+    [Parameter]
+    public string? LoadingIcon { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
@@ -161,6 +161,7 @@ public partial class AutoFill<TValue>
         base.OnParametersSet();
 
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoFillIcon);
+        LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
 
         OnGetDisplayText ??= v => v?.ToString() ?? "";
         InputString = OnGetDisplayText(Value);
