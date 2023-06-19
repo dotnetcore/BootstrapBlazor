@@ -46,22 +46,10 @@ public partial class Table<TItem>
     public bool ShowEditButton { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示行内编辑按钮 默认为 null 未设置时使用 <see cref="ShowExtendEditButton"/> 值
-    /// </summary>
-    [Parameter]
-    public Func<TItem, bool>? ShowEditButtonCallback { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否显示删除按钮 默认为 true 行内是否显示请使用 <see cref="ShowExtendDeleteButton"/> 与 <see cref="ShowDeleteButtonCallback" />
     /// </summary>
     [Parameter]
     public bool ShowDeleteButton { get; set; } = true;
-
-    /// <summary>
-    /// 获得/设置 是否显示行内删除按钮 默认为 null 未设置时使用 <see cref="ShowExtendDeleteButton"/> 值
-    /// </summary>
-    [Parameter]
-    public Func<TItem, bool>? ShowDeleteButtonCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示导出按钮 默认为 false 不显示
@@ -142,10 +130,46 @@ public partial class Table<TItem>
     public bool ShowExtendEditButton { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示行内扩展编辑按钮 默认 true 显示
+    /// 获得/设置 是否显示行内扩展编辑按钮 默认为 null 未设置时使用 <see cref="ShowExtendEditButton"/> 值
+    /// </summary>
+    [Parameter]
+    public Func<TItem, bool>? ShowExtendEditButtonCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示行内扩展编辑按钮 默认为 null 未设置时使用 <see cref="ShowExtendEditButton"/> 值
+    /// </summary>
+    [Parameter]
+    [Obsolete("This callback is obsolete. Use ShowExtendEditButtonCallback instead. 已过期，请使用 ShowExtendEditButtonCallback 参数")]
+    [ExcludeFromCodeCoverage]
+    public Func<TItem, bool>? ShowEditButtonCallback
+    {
+        get => ShowExtendEditButtonCallback;
+        set => ShowExtendEditButtonCallback = value;
+    }
+
+    /// <summary>
+    /// 获得/设置 是否显示行内扩展删除按钮 默认 true 显示
     /// </summary>
     [Parameter]
     public bool ShowExtendDeleteButton { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否显示行内扩展删除按钮 默认为 null 未设置时使用 <see cref="ShowExtendDeleteButton"/> 值
+    /// </summary>
+    [Parameter]
+    public Func<TItem, bool>? ShowExtendDeleteButtonCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示行内扩展删除按钮 默认为 null 未设置时使用 <see cref="ShowExtendDeleteButton"/> 值
+    /// </summary>
+    [Parameter]
+    [Obsolete("This callback is obsolete. Use ShowExtendDeleteButtonCallback instead. 已过期，请使用 ShowExtendDeleteButtonCallback 参数")]
+    [ExcludeFromCodeCoverage]
+    public Func<TItem, bool>? ShowDeleteButtonCallback
+    {
+        get => ShowExtendDeleteButtonCallback;
+        set => ShowExtendDeleteButtonCallback = value;
+    }
 
     /// <summary>
     /// 获得/设置 是否固定扩展按钮列 默认为 false 不固定
@@ -401,7 +425,7 @@ public partial class Table<TItem>
         if (SelectedRows.Count == 1)
         {
             // 检查是否选中了不可编辑行（行内无编辑按钮）
-            if (ShowEditButtonCallback != null && !ShowEditButtonCallback(SelectedRows[0]))
+            if (ShowExtendEditButtonCallback != null && !ShowExtendEditButtonCallback(SelectedRows[0]))
             {
                 // 提示不可编辑
                 await ShowToastAsync(EditButtonToastReadonlyContent);
@@ -766,7 +790,7 @@ public partial class Table<TItem>
         }
         else
         {
-            if (ShowDeleteButtonCallback != null && SelectedRows.Any(i => !ShowDeleteButtonCallback(i)))
+            if (ShowExtendDeleteButtonCallback != null && SelectedRows.Any(i => !ShowExtendDeleteButtonCallback(i)))
             {
                 await ShowToastAsync(DeleteButtonToastCanNotDeleteContent);
             }
@@ -945,11 +969,11 @@ public partial class Table<TItem>
     /// 是否显示行内编辑按钮
     /// </summary>
     /// <returns></returns>
-    protected bool GetShowEditButton(TItem item) => ShowEditButtonCallback?.Invoke(item) ?? ShowExtendEditButton;
+    protected bool GetShowExtendEditButton(TItem item) => ShowExtendEditButtonCallback?.Invoke(item) ?? ShowExtendEditButton;
 
     /// <summary>
     /// 是否显示行内删除按钮
     /// </summary>
     /// <returns></returns>
-    protected bool GetShowDeleteButton(TItem item) => ShowDeleteButtonCallback?.Invoke(item) ?? ShowExtendDeleteButton;
+    protected bool GetShowExtendDeleteButton(TItem item) => ShowExtendDeleteButtonCallback?.Invoke(item) ?? ShowExtendDeleteButton;
 }
