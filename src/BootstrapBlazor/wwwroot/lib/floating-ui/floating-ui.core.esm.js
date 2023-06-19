@@ -161,6 +161,10 @@ const computePosition = async (reference, floating, config) => {
   };
 };
 
+function evaluate(value, param) {
+  return typeof value === 'function' ? value(param) : value;
+}
+
 function expandPaddingObject(padding) {
   return {
     top: 0,
@@ -217,7 +221,7 @@ async function detectOverflow(state, options) {
     elementContext = 'floating',
     altBoundary = false,
     padding = 0
-  } = options;
+  } = evaluate(options, state);
   const paddingObject = getSideObjectFromPadding(padding);
   const altContext = elementContext === 'floating' ? 'reference' : 'floating';
   const element = elements[altBoundary ? altContext : elementContext];
@@ -269,11 +273,6 @@ const arrow = options => ({
   name: 'arrow',
   options,
   async fn(state) {
-    // Since `element` is required, we don't Partial<> the type.
-    const {
-      element,
-      padding = 0
-    } = options || {};
     const {
       x,
       y,
@@ -282,6 +281,11 @@ const arrow = options => ({
       platform,
       elements
     } = state;
+    // Since `element` is required, we don't Partial<> the type.
+    const {
+      element,
+      padding = 0
+    } = evaluate(options, state) || {};
     if (element == null) {
       return {};
     }
@@ -308,24 +312,30 @@ const arrow = options => ({
     }
     const centerToReference = endDiff / 2 - startDiff / 2;
 
+    // If the padding is large enough that it causes the arrow to no longer be
+    // centered, modify the padding so that it is centered.
+    const largestPossiblePadding = clientSize / 2 - arrowDimensions[length] / 2 - 1;
+    const minPadding = min(paddingObject[minProp], largestPossiblePadding);
+    const maxPadding = min(paddingObject[maxProp], largestPossiblePadding);
+
     // Make sure the arrow doesn't overflow the floating element if the center
     // point is outside the floating element's bounds.
-    const min = paddingObject[minProp];
-    const max = clientSize - arrowDimensions[length] - paddingObject[maxProp];
+    const min$1 = minPadding;
+    const max = clientSize - arrowDimensions[length] - maxPadding;
     const center = clientSize / 2 - arrowDimensions[length] / 2 + centerToReference;
-    const offset = within(min, center, max);
+    const offset = within(min$1, center, max);
 
     // If the reference is small enough that the arrow's padding causes it to
     // to point to nothing for an aligned placement, adjust the offset of the
     // floating element itself. This stops `shift()` from taking action, but can
     // be worked around by calling it again after the `arrow()` if desired.
-    const shouldAddOffset = getAlignment(placement) != null && center != offset && rects.reference[length] / 2 - (center < min ? paddingObject[minProp] : paddingObject[maxProp]) - arrowDimensions[length] / 2 < 0;
-    const alignmentOffset = shouldAddOffset ? center < min ? min - center : max - center : 0;
+    const shouldAddOffset = getAlignment(placement) != null && center != offset && rects.reference[length] / 2 - (center < min$1 ? minPadding : maxPadding) - arrowDimensions[length] / 2 < 0;
+    const alignmentOffset = shouldAddOffset ? center < min$1 ? min$1 - center : max - center : 0;
     return {
       [axis]: coords[axis] - alignmentOffset,
       data: {
         [axis]: offset,
-        centerOffset: center - offset
+        centerOffset: center - offset + alignmentOffset
       }
     };
   }
@@ -406,7 +416,7 @@ const autoPlacement = function (options) {
         allowedPlacements = allPlacements,
         autoAlignment = true,
         ...detectOverflowOptions
-      } = options;
+      } = evaluate(options, state);
       const placements = alignment !== undefined || allowedPlacements === allPlacements ? getPlacementList(alignment || null, autoAlignment, allowedPlacements) : allowedPlacements;
       const overflow = await detectOverflow(state, detectOverflowOptions);
       const currentIndex = ((_middlewareData$autoP = middlewareData.autoPlacement) == null ? void 0 : _middlewareData$autoP.index) || 0;
@@ -540,7 +550,7 @@ const flip = function (options) {
         fallbackAxisSideDirection = 'none',
         flipAlignment = true,
         ...detectOverflowOptions
-      } = options;
+      } = evaluate(options, state);
       const side = getSide(placement);
       const isBasePlacement = getSide(initialPlacement) === initialPlacement;
       const rtl = await (platform.isRTL == null ? void 0 : platform.isRTL(elements.floating));
@@ -644,12 +654,12 @@ const hide = function (options) {
     options,
     async fn(state) {
       const {
-        strategy = 'referenceHidden',
-        ...detectOverflowOptions
-      } = options;
-      const {
         rects
       } = state;
+      const {
+        strategy = 'referenceHidden',
+        ...detectOverflowOptions
+      } = evaluate(options, state);
       switch (strategy) {
         case 'referenceHidden':
           {
@@ -742,7 +752,7 @@ const inline = function (options) {
         padding = 2,
         x,
         y
-      } = options;
+      } = evaluate(options, state);
       const nativeClientRects = Array.from((await (platform.getClientRects == null ? void 0 : platform.getClientRects(elements.reference))) || []);
       const clientRects = getRectsByLine(nativeClientRects);
       const fallback = rectToClientRect(getBoundingRect(nativeClientRects));
@@ -819,7 +829,7 @@ const inline = function (options) {
   };
 };
 
-async function convertValueToCoords(state, value) {
+async function convertValueToCoords(state, options) {
   const {
     placement,
     platform,
@@ -831,7 +841,7 @@ async function convertValueToCoords(state, value) {
   const isVertical = getMainAxisFromPlacement(placement) === 'x';
   const mainAxisMulti = ['left', 'top'].includes(side) ? -1 : 1;
   const crossAxisMulti = rtl && isVertical ? -1 : 1;
-  const rawValue = typeof value === 'function' ? value(state) : value;
+  const rawValue = evaluate(options, state);
 
   // eslint-disable-next-line prefer-const
   let {
@@ -867,19 +877,19 @@ async function convertValueToCoords(state, value) {
  * object may be passed.
  * @see https://floating-ui.com/docs/offset
  */
-const offset = function (value) {
-  if (value === void 0) {
-    value = 0;
+const offset = function (options) {
+  if (options === void 0) {
+    options = 0;
   }
   return {
     name: 'offset',
-    options: value,
+    options,
     async fn(state) {
       const {
         x,
         y
       } = state;
-      const diffCoords = await convertValueToCoords(state, value);
+      const diffCoords = await convertValueToCoords(state, options);
       return {
         x: x + diffCoords.x,
         y: y + diffCoords.y,
@@ -927,7 +937,7 @@ const shift = function (options) {
           }
         },
         ...detectOverflowOptions
-      } = options;
+      } = evaluate(options, state);
       const coords = {
         x,
         y
@@ -987,7 +997,7 @@ const limitShift = function (options) {
         offset = 0,
         mainAxis: checkMainAxis = true,
         crossAxis: checkCrossAxis = true
-      } = options;
+      } = evaluate(options, state);
       const coords = {
         x,
         y
@@ -996,7 +1006,7 @@ const limitShift = function (options) {
       const crossAxis = getCrossAxis(mainAxis);
       let mainAxisCoord = coords[mainAxis];
       let crossAxisCoord = coords[crossAxis];
-      const rawOffset = typeof offset === 'function' ? offset(state) : offset;
+      const rawOffset = evaluate(offset, state);
       const computedOffset = typeof rawOffset === 'number' ? {
         mainAxis: rawOffset,
         crossAxis: 0
@@ -1058,7 +1068,7 @@ const size = function (options) {
       const {
         apply = () => {},
         ...detectOverflowOptions
-      } = options;
+      } = evaluate(options, state);
       const overflow = await detectOverflow(state, detectOverflowOptions);
       const side = getSide(placement);
       const alignment = getAlignment(placement);
@@ -1079,18 +1089,17 @@ const size = function (options) {
       }
       const overflowAvailableHeight = height - overflow[heightSide];
       const overflowAvailableWidth = width - overflow[widthSide];
+      const noShift = !state.middlewareData.shift;
       let availableHeight = overflowAvailableHeight;
       let availableWidth = overflowAvailableWidth;
       if (isXAxis) {
-        availableWidth = min(
-        // Maximum clipping viewport width
-        width - overflow.right - overflow.left, overflowAvailableWidth);
+        const maximumClippingWidth = width - overflow.left - overflow.right;
+        availableWidth = alignment || noShift ? min(overflowAvailableWidth, maximumClippingWidth) : maximumClippingWidth;
       } else {
-        availableHeight = min(
-        // Maximum clipping viewport height
-        height - overflow.bottom - overflow.top, overflowAvailableHeight);
+        const maximumClippingHeight = height - overflow.top - overflow.bottom;
+        availableHeight = alignment || noShift ? min(overflowAvailableHeight, maximumClippingHeight) : maximumClippingHeight;
       }
-      if (!state.middlewareData.shift && !alignment) {
+      if (noShift && !alignment) {
         const xMin = max(overflow.left, 0);
         const xMax = max(overflow.right, 0);
         const yMin = max(overflow.top, 0);
