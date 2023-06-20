@@ -1,1 +1,12 @@
-﻿<Editor />
+﻿<div class="line-height">
+    <Editor />
+</div>
+
+@*
+将下面的css放在隔离样式中，用于缩短行间距
+.line-height ::deep div p {
+        line-height: 0;
+        padding-top: 3px;
+        padding-bottom: 3px;
+    }
+*@
