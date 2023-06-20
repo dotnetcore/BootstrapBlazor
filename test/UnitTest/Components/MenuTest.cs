@@ -415,19 +415,19 @@ public class MenuTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void TopMenu_Erorr()
+    public void TopMenu_Error()
     {
         Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<TopMenu>());
     }
 
     [Fact]
-    public void SideMenu_Erorr()
+    public void SideMenu_Error()
     {
         Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<SideMenu>());
     }
 
     [Fact]
-    public void SubMenu_Erorr()
+    public void SubMenu_Error()
     {
         Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<SubMenu>());
     }
@@ -481,6 +481,6 @@ public class MenuItemTest_Ok : DialogTestBase
         var nav = Context.Services.GetRequiredService<FakeNavigationManager>();
         nav.NavigateTo("/menu22");
         cut.SetParametersAndRender();
-        cut.Contains("<a href=\"menu22\" class=\"nav-link active\">");
+        cut.Contains("<a href=\"menu22\" aria-expanded=\"false\" class=\"nav-link active\">");
     }
 }
