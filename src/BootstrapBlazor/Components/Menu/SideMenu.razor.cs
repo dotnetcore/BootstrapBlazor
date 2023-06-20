@@ -12,7 +12,6 @@ namespace BootstrapBlazor.Components;
 public partial class SideMenu
 {
     private string? GetMenuClassString => CssBuilder.Default("submenu")
-        .AddClass("show", Item != null && !Item.IsCollapsed)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -28,11 +27,6 @@ public partial class SideMenu
     [Parameter]
     [NotNull]
     public IEnumerable<MenuItem>? Items { get; set; }
-    /// <summary>
-    /// 
-    /// </summary>
-    [Parameter]
-    public MenuItem? Item { get; set; }
 
     /// <summary>
     /// 获得/设置 组件数据源
@@ -78,16 +72,6 @@ public partial class SideMenu
         if (Parent == null)
         {
             throw new InvalidOperationException(Localizer["InvalidOperationExceptionMessage"]);
-        }
-
-        if (Item != null)
-        {
-            Items = Item.Items;
-        }
-
-        if (Items == null)
-        {
-            Items = new MenuItem[0];
         }
     }
 
