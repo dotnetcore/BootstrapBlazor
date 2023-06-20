@@ -7,10 +7,12 @@
         if (item.Items.Any())
         {
             <li>
-                <MenuLink Item="@item" ArrowIcon="@ArrowIcon" data-bs-toggle="collapse" data-bs-target="@GetTargetIdString(item)" aria-expanded="@(item.IsCollapsed?"false":"true")" />
+                <MenuLink Item="@item" ArrowIcon="@ArrowIcon" data-bs-toggle="collapse" data-bs-target="@GetTargetIdString(item)" />
                 @if (!item.IsDisabled)
                 {
-                    <SideMenu Item="@item" OnClick="@OnClickItem" Id="@GetTargetId(item)" DropdownIcon="@DropdownIcon" class="collapse" data-bs-parent="@ParentIdString" />
+                    <CascadingValue Value="item" IsFixed="true">
+                        <SideMenu Items="@item.Items" OnClick="@OnClickItem" Id="@GetTargetId(item)" DropdownIcon="@DropdownIcon" class="collapse" data-bs-parent="@ParentIdString" />
+                    </CascadingValue>
                 }
             </li>
         }

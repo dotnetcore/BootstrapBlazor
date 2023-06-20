@@ -16,7 +16,6 @@ public sealed partial class MenuLink
         .AddClass(Item.CssClass, !string.IsNullOrEmpty(Item.CssClass))
         .AddClass("active", Parent.DisableNavigation && Item.IsActive && !Item.IsDisabled)
         .AddClass("disabled", Item.IsDisabled)
-        .AddClass("expand", Parent.IsVertical && !Item.IsCollapsed)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -29,6 +28,8 @@ public sealed partial class MenuLink
     private string? TargetString => string.IsNullOrEmpty(Item.Target) ? null : Item.Target;
 
     private bool PreventDefault => HrefString == "#";
+
+    private string? AriaExpandedString => (Parent.IsVertical && !Item.IsCollapsed ? "true" : "false");
 
     /// <summary>
     /// 获得/设置 MenuItem 实例 不可为空
