@@ -59,7 +59,7 @@ export function update(id, option) {
                     dock.layout.root.addChild(compotentItem)
                 }
 
-                dock.layout.root.contentItems[0].addItem(v, 0)
+                dock.layout.root.contentItems[0].addItem(v)
             }
         })
 

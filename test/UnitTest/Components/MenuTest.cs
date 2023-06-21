@@ -482,5 +482,31 @@ public class MenuItemTest_Ok : DialogTestBase
         nav.NavigateTo("/menu22");
         cut.SetParametersAndRender();
         cut.Contains("<a href=\"menu22\" aria-expanded=\"false\" class=\"nav-link active\">");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsVertical, true);
+            pb.Add(m => m.Items, new MenuItem[]
+            {
+                new("Menu1")
+                {
+                    Icon = "fa-solid fa-font-awesome",
+                    Url = "/menu22",
+                    IsCollapsed = false,
+                    Items = new MenuItem[] {
+                        new("Menu2")
+                        {
+                            Icon = "fa-solid fa-font-awesome",
+                            Url = "/menu23"
+                        }
+                    }
+                },
+            });
+        });
+        cut.InvokeAsync(() =>
+        {
+            var menu = cut.Find(".nav-link");
+            Assert.Equal("true", menu.GetAttribute("aria-expanded"));
+        });
     }
 }

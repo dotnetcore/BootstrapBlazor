@@ -8,8 +8,7 @@ using System.Reflection;
 
 namespace BootstrapBlazor.Components;
 
-[ExcludeFromCodeCoverage]
-internal static class TypeEextensions
+internal static class TypeExtensions
 {
     public static PropertyInfo? GetPropertyByName(this Type type, string propertyName) => type.GetRuntimeProperties().FirstOrDefault(p => p.Name == propertyName);
 
@@ -37,6 +36,7 @@ internal static class TypeEextensions
         }
         return ret;
 
+        [ExcludeFromCodeCoverage]
         void EnsureNoAuthenticationSchemeSpecified()
         {
             // It's not meaningful to specify a nonempty scheme, since by the time Components
