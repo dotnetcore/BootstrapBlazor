@@ -228,12 +228,12 @@ const setResizeListener = table => {
                 el.querySelectorAll('table colgroup').forEach(group => {
                     const curCol = group.children.item(colIndex)
                     curCol.style.width = `${colWidth + marginX}px`
-                    const table = curCol.closest('table')
+                    const tableEl = curCol.closest('table')
                     const width = tableWidth + marginX
                     if (table.fixedHeader) {
-                        table.style.width = `${width}px;`
+                        tableEl.style.width = `${width}px;`
                     } else {
-                        curCol.closest('table').style.width = (width - 6) + 'px'
+                        tableEL.style.width = (width - 6) + 'px'
                     }
                 })
             },
