@@ -284,7 +284,7 @@ public partial class Select<TValue> : ISelect
 
     private async Task SelectedItemChanged(SelectedItem item)
     {
-        if (_lastSelectedValueString != item.Value)
+        if (!string.IsNullOrEmpty(item.Value) && _lastSelectedValueString != item.Value)
         {
             _lastSelectedValueString = item.Value;
 
