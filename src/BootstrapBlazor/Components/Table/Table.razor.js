@@ -60,10 +60,11 @@ const fixHeader = table => {
     setBodyHeight()
 
     if (table.search) {
-        // handler collapse event
-        // TODO: 搜索栏初始化是转圈的，要先计算高度，转圈结束后再次计算，展开收缩时需要再次计算
-        EventHandler.on(table.search, 'shown.bs.collapse', () => setBodyHeight())
-        EventHandler.on(table.search, 'hidden.bs.collapse', () => setBodyHeight())
+        const observer = new ResizeObserver(() => {
+            setBodyHeight()
+        });
+        observer.observe(table.search)
+        table.observer = observer
     }
 }
 
@@ -395,9 +396,8 @@ export function dispose(id) {
 
         EventHandler.off(table.element, 'click', '.col-copy')
 
-        if (table.search) {
-            EventHandler.off(table.search, 'shown.bs.collapse')
-            EventHandler.off(table.search, 'hidden.bs.collapse')
+        if (table.observer) {
+            table.observer.disconnect()
         }
     }
 }
