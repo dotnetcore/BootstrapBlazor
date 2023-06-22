@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Shared;
+
 using Microsoft.AspNetCore.Components.Routing;
 
 namespace BootstrapBlazor.Shared.Extensions;
@@ -79,6 +80,13 @@ internal static class MenusLocalizerExtensions
 
         item = new DemoMenuItem()
         {
+            Text = Localizer["MousePointerComponents"],
+            Icon = "fa-fw fa-solid fas fa-arrow-pointer"
+        };
+        AddMousePointer(item);
+
+        item = new DemoMenuItem()
+        {
             Text = Localizer["Components"],
             Icon = "text-info fa-solid fa-fw fa-heart fa-beat",
             Url = "components"
@@ -86,6 +94,19 @@ internal static class MenusLocalizerExtensions
         AddSummary(item);
 
         return Menus;
+
+        void AddMousePointer(DemoMenuItem item)
+        {
+            item.Items = new List<DemoMenuItem>
+            {
+                new()
+                {
+                    Text = Localizer["MouseFollowerIntro"],
+                    Url = "mouseFollowers"
+                },
+            };
+            AddBadge(item, count: 1);
+        }
 
         void AddSpeech(DemoMenuItem item)
         {

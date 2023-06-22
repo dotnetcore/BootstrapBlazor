@@ -5061,7 +5061,9 @@
     "AzureOpenAI": "AzureOpenAI",
     "HtmlRenderer": "HtmlRenderer",
     "ContextMenu": "ContextMenu",
-    "DockView": "DockView"
+    "DockView": "DockView",
+    "MousePointerComponents": "MousePointer",
+    "MouseFollowerIntro": "MouseFollower"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
