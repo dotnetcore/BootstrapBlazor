@@ -158,7 +158,7 @@ public class SelectTest : BootstrapBlazorTestBase
     {
         var triggered = false;
 
-        // 候选项有空值时，不触发 OnSelectedItemChanged 回调
+        // 空值时，不触发 OnSelectedItemChanged 回调
         var cut = Context.RenderComponent<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
@@ -184,18 +184,21 @@ public class SelectTest : BootstrapBlazorTestBase
 
             var item = items[1];
             item.Click();
-            Assert.True(triggered);
-
-            // 切换回 空值 触发 OnSelectedItemChanged 回调测试
-            triggered = false;
-            items = cut.FindAll(".dropdown-item");
-            item = items[1];
-            item.Click();
-            Assert.True(triggered);
         });
+        Assert.True(triggered);
 
+        // 切换回 空值 触发 OnSelectedItemChanged 回调测试
         triggered = false;
+        cut.InvokeAsync(() =>
+        {
+            var items = cut.FindAll(".dropdown-item");
+            var item = items[0];
+            item.Click();
+        });
+        Assert.True(triggered);
+
         // 首次加载值不为空时触发 OnSelectedItemChanged 回调测试
+        triggered = false;
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
@@ -205,25 +208,20 @@ public class SelectTest : BootstrapBlazorTestBase
                 new SelectedItem("2", "Test2")
             });
             pb.Add(a => a.Value, "2");
-            pb.Add(a => a.OnSelectedItemChanged, item =>
-            {
-                triggered = true;
-                return Task.CompletedTask;
-            });
         });
         Assert.True(triggered);
 
+        // 切换回 空值 触发 OnSelectedItemChanged 回调测试
+        triggered = false;
         cut.InvokeAsync(() =>
         {
-            // 切换回 空值 触发 OnSelectedItemChanged 回调测试
-            triggered = false;
             var items = cut.FindAll(".dropdown-item");
             var count = items.Count;
             Assert.Equal(3, count);
             var item = items[0];
             item.Click();
-            Assert.True(triggered);
         });
+        Assert.True(triggered);
     }
 
     [Fact]
