@@ -157,11 +157,50 @@ public class SelectTest : BootstrapBlazorTestBase
     public void OnSelectedItemChanged_OK()
     {
         var triggered = false;
-        // 首次加载触发 OnSelectedItemChanged 回调测试
+
+        // 候选项有空值时，不触发 OnSelectedItemChanged 回调
         var cut = Context.RenderComponent<Select<string>>(pb =>
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
+                new SelectedItem("", "Test"),
+                new SelectedItem("1", "Test2")
+            });
+            pb.Add(a => a.Value, "");
+            pb.Add(a => a.OnSelectedItemChanged, item =>
+            {
+                triggered = true;
+                return Task.CompletedTask;
+            });
+        });
+        Assert.False(triggered);
+
+        // 切换候选项时触发 OnSelectedItemChanged 回调测试
+        cut.InvokeAsync(() =>
+        {
+            var items = cut.FindAll(".dropdown-item");
+            var count = items.Count;
+            Assert.Equal(2, count);
+
+            var item = items[1];
+            item.Click();
+            Assert.True(triggered);
+
+            // 切换回 空值 触发 OnSelectedItemChanged 回调测试
+            triggered = false;
+            items = cut.FindAll(".dropdown-item");
+            item = items[1];
+            item.Click();
+            Assert.True(triggered);
+        });
+
+        triggered = false;
+        // 首次加载值不为空时触发 OnSelectedItemChanged 回调测试
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new SelectedItem("", "Test"),
                 new SelectedItem("1", "Test1"),
                 new SelectedItem("2", "Test2")
             });
@@ -173,6 +212,18 @@ public class SelectTest : BootstrapBlazorTestBase
             });
         });
         Assert.True(triggered);
+
+        cut.InvokeAsync(() =>
+        {
+            // 切换回 空值 触发 OnSelectedItemChanged 回调测试
+            triggered = false;
+            var items = cut.FindAll(".dropdown-item");
+            var count = items.Count;
+            Assert.Equal(3, count);
+            var item = items[0];
+            item.Click();
+            Assert.True(triggered);
+        });
     }
 
     [Fact]
