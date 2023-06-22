@@ -145,7 +145,7 @@ public partial class Select<TValue> : ISelect
     /// </summary>
     private string? InputId => $"{Id}_input";
 
-    private string? _lastSelectedValueString;
+    private string _lastSelectedValueString = string.Empty;
 
     /// <summary>
     /// <inheritdoc/>
@@ -209,8 +209,6 @@ public partial class Select<TValue> : ISelect
 
             if (SelectedItem != null)
             {
-                _lastSelectedValueString ??= string.Empty;
-                SelectedItem.Value ??= string.Empty;
                 _ = SelectedItemChanged(SelectedItem);
             }
         }
