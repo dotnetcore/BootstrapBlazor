@@ -3,7 +3,7 @@ import Data from "../../modules/data.js?v=$version"
 import EventHandler from "../../modules/event-handler.js?v=$version"
 import Popover from "../../modules/base-popover.js?v=$version"
 
-export function init(id, method, obj) {
+export function init(id, invoke, method) {
     const el = document.getElementById(id)
 
     if (el == null) {
@@ -12,13 +12,6 @@ export function init(id, method, obj) {
 
     const search = el.querySelector("input.search-text")
     const popover = Popover.init(el)
-    const select = {
-        el,
-        search,
-        method,
-        obj,
-        popover
-    }
 
     const shown = () => {
         if (search) {
@@ -71,7 +64,7 @@ export function init(id, method, obj) {
                 if (e.key === "Enter") {
                     popover.toggleMenu.classList.remove('show')
                     let index = indexOf(el, activeItem)
-                    obj.invokeMethodAsync(method, index)
+                    invoke.invokeMethodAsync(method, index)
                 }
             }
         }
@@ -80,18 +73,23 @@ export function init(id, method, obj) {
     EventHandler.on(el, 'shown.bs.dropdown', shown);
     EventHandler.on(el, 'keydown', keydown)
 
+    const select = {
+        el,
+        popover
+    }
     Data.set(id, select)
 }
 
 
 export function dispose(id) {
-    const data = Data.get(id)
-    if (data) {
-        EventHandler.off(data.el, 'shown.bs.dropdown')
-        EventHandler.off(data.el, 'keydown')
-        Popover.dispose(data.popover)
-    }
+    const select = Data.get(id)
     Data.remove(id)
+
+    if (select) {
+        EventHandler.off(select.el, 'shown.bs.dropdown')
+        EventHandler.off(select.el, 'keydown')
+        Popover.dispose(select.popover)
+    }
 }
 
 
