@@ -207,10 +207,10 @@ public partial class Select<TValue> : ISelect
                 ?? DataSource.FirstOrDefault(i => i.Active)
                 ?? DataSource.FirstOrDefault();
 
-            // 检查 Value 值是否在候选项中存在
-            // Value 不等于 选中值即不存在
             if (SelectedItem != null)
             {
+                _lastSelectedValueString ??= string.Empty;
+                SelectedItem.Value ??= string.Empty;
                 _ = SelectedItemChanged(SelectedItem);
             }
         }
@@ -224,10 +224,7 @@ public partial class Select<TValue> : ISelect
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task InvokeInitAsync()
-    {
-        await InvokeVoidAsync("init", Id, nameof(ConfirmSelectedItem), Interop);
-    }
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(ConfirmSelectedItem));
 
     /// <summary>
     /// 客户端回车回调方法
@@ -284,7 +281,7 @@ public partial class Select<TValue> : ISelect
 
     private async Task SelectedItemChanged(SelectedItem item)
     {
-        if (!string.IsNullOrEmpty(item.Value) && _lastSelectedValueString != item.Value)
+        if (_lastSelectedValueString != item.Value)
         {
             _lastSelectedValueString = item.Value;
 
