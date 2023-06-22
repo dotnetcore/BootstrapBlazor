@@ -88,12 +88,9 @@
 
 .mf-cursor-media {
     position: absolute;
-    width: auto;
-    height: auto;
-    margin-top: 0;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-right: -200px;
+    width: 400px;
+    height: 400px;
+    margin: -200px 0 0 -200px
 }
 
     .mf-cursor-media img, .mf-cursor-media video {

@@ -159,9 +159,4 @@ public class MouseFollowerOptions
     /// </summary>
     public decimal HideMediaTimeout { get; set; } = 300;
 
-    /// <summary>
-    /// 获得/设置 Text 文本
-    /// </summary>
-    public string? Text { get; set; }
-
 }

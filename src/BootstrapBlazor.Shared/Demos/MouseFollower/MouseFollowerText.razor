@@ -1,14 +1,9 @@
-﻿<MouseFollower Options="followerOptions">
+﻿@using BootstrapBlazor.Enums;
+
+<MouseFollower Text="Hello" FollowerMode="MouseFollowerMode.Text">
     <FollowerBody>
         <div style="height:400px;">
             <h2>欢迎使用BootstrapBlazor组件库</h2>
         </div>
     </FollowerBody>
 </MouseFollower>
-
-@code {
-    private MouseFollowerOptions followerOptions = new MouseFollowerOptions()
-    {
-        Text = "Hello"
-    };
-}

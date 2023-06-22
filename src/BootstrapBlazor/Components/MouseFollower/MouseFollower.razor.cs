@@ -1,4 +1,6 @@
-﻿namespace BootstrapBlazor.Components;
+﻿using BootstrapBlazor.Enums;
+
+namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// MouseFollower
@@ -13,10 +15,40 @@ public partial class MouseFollower
     private ElementReference? Container { get; set; }
 
     /// <summary>
+    /// 获得/设置 MouseFollowerMode 模式
+    /// </summary>
+    [Parameter]
+    public MouseFollowerMode FollowerMode { get; set; } = MouseFollowerMode.Normal;
+
+    /// <summary>
     /// 获得/设置 GlobalMode 全局模式
     /// </summary>
     [Parameter]
     public bool GlobalMode { get; set; } = false;
+
+    /// <summary>
+    /// 获得/设置 Text 文本
+    /// </summary>
+    [Parameter]
+    public string? Text { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Icon 图标
+    /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 ImagePath 路径
+    /// </summary>
+    [Parameter]
+    public string? ImagePath { get; set; }
+
+    /// <summary>
+    /// 获得/设置 VideoPath 路径
+    /// </summary>
+    [Parameter]
+    public string? VideoPath { get; set; }
 
     /// <summary>
     /// 存在游标元素。如果未指定，将自动创建游标。
@@ -41,11 +73,28 @@ public partial class MouseFollower
     protected override async Task InvokeInitAsync()
     {
         //await base.InvokeInitAsync();
-        if (Options is null)
-        {
-            Options = new MouseFollowerOptions();
-        }
+        Options ??= new MouseFollowerOptions();
 
-        await InvokeVoidAsync("init", GlobalMode, FollowerTemplate, Container, Options);
+        await InvokeVoidAsync("init", GlobalMode, FollowerTemplate, Container, Options, Text);
+
+        switch (FollowerMode)
+        {
+            case MouseFollowerMode.Normal:
+                break;
+            case MouseFollowerMode.Text:
+                await InvokeVoidAsync("SetText", Container, Text);
+                break;
+            case MouseFollowerMode.Icon:
+                await InvokeVoidAsync("SetIcon", Container, Icon);
+                break;
+            case MouseFollowerMode.Image:
+                await InvokeVoidAsync("SetImage", Container, ImagePath);
+                break;
+            case MouseFollowerMode.Video:
+                await InvokeVoidAsync("SetVideo", Container, VideoPath);
+                break;
+            default:
+                break;
+        }
     }
 }

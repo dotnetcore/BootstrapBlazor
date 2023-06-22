@@ -16,25 +16,56 @@ export async function init(globalMode, followerElement, container, options) {
     options.el = followerElement;
 
     const cursor = new MouseFollower(options);
+    Data.set(container, cursor)
+}
 
+export function SetText(container, text) {
+    const cursor = Data.get(container);
     container.addEventListener('mouseenter', () => {
-        cursor.show();
-        if (options.text) {
-            cursor.setText(options.text);
-        }
+        cursor.setText(text);
     });
 
     container.addEventListener('mouseleave', () => {
         cursor.removeText();
-        cursor.hide();
+    });
+}
+
+export function SetIcon(container, icon) {
+    const cursor = Data.get(container);
+    container.addEventListener('mouseenter', () => {
+        cursor.setIcon(icon);
     });
 
-    Data.set(container, cursor)
+    container.addEventListener('mouseleave', () => {
+        cursor.removeIcon();
+    });
+}
+
+export function SetImage(container, path) {
+    const cursor = Data.get(container);
+    container.addEventListener('mouseenter', () => {
+        cursor.setImg(path)
+    });
+
+    container.addEventListener('mouseleave', () => {
+        cursor.removeImg()
+    });
+}
+
+export function SetVideo(container, path) {
+    const cursor = Data.get(container);
+    container.addEventListener('mouseenter', () => {
+        cursor.setVideo(path);
+    });
+
+    container.addEventListener('mouseleave', () => {
+        cursor.removeVideo();
+    });
 }
 
 //Destroy the cursor completely and remove all event listeners.
 export function destory(container) {
-    const cursor = Data.get(container)
-    Data.remove(container)
+    const cursor = Data.get(container);
+    Data.remove(container);
     cursor.destroy();
 }
