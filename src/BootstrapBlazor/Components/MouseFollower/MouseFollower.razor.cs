@@ -75,7 +75,7 @@ public partial class MouseFollower
         //await base.InvokeInitAsync();
         Options ??= new MouseFollowerOptions();
 
-        await InvokeVoidAsync("init", GlobalMode, FollowerTemplate, Container, Options, Text);
+        await InvokeVoidAsync("init", GlobalMode, FollowerTemplate, Container, Options);
 
         switch (FollowerMode)
         {

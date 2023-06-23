@@ -6,17 +6,10 @@ await addScript("_content/BootstrapBlazor/lib/mouseFollower/gsap.min.js");
 await addScript("_content/BootstrapBlazor/lib/mouseFollower/mouse-follower.min.js");
 
 export async function init(globalMode, followerElement, container, options) {
-
-    if (globalMode) {
-        options.container = document.body;
-    } else {
-        options.container = container;
-    }
-
+    options.container = globalMode ? document.body : container;
     options.el = followerElement;
-
     const cursor = new MouseFollower(options);
-    Data.set(container, cursor)
+    Data.set(container, cursor);
 }
 
 export function SetText(container, text) {
@@ -44,11 +37,11 @@ export function SetIcon(container, icon) {
 export function SetImage(container, path) {
     const cursor = Data.get(container);
     container.addEventListener('mouseenter', () => {
-        cursor.setImg(path)
+        cursor.setImg(path);
     });
 
     container.addEventListener('mouseleave', () => {
-        cursor.removeImg()
+        cursor.removeImg();
     });
 }
 
