@@ -1,9 +1,18 @@
 ﻿@using BootstrapBlazor.Enums;
 
-<MouseFollower Text="Hi" FollowerMode="MouseFollowerMode.Text">
-    <FollowerBody>
-        <div class="mouseFollower-demo">
-            <h2>欢迎使用BootstrapBlazor组件库</h2>
-        </div>
-    </FollowerBody>
+<MouseFollower Text="Hi"
+               Options="@followerOptions"
+               FollowerMode="MouseFollowerMode.Text">
+    <div class="mouseFollower-demo">欢迎使用BootstrapBlazor组件库</div>
 </MouseFollower>
+
+@code {
+    private MouseFollowerOptions followerOptions = new() { ClassName = "mf-cursor bb-cursor" };
+}
+
+<style>
+    .bb-cursor {
+        color: orangered
+    }
+</style>
+

@@ -1,17 +1,12 @@
 ﻿@using BootstrapBlazor.Enums;
 
-<MouseFollower FollowerMode="MouseFollowerMode.Icon" Icon="icon">
-    <FollowerBody>
-        <div class="mouseFollower-demo">
-            <h2>欢迎使用BootstrapBlazor组件库</h2>
-        </div>
-    </FollowerBody>
+<MouseFollower FollowerMode="MouseFollowerMode.Icon" Icon="icon" Options="@followerOptions">
+    <div class="mouseFollower-demo">欢迎使用BootstrapBlazor组件库</div>
 </MouseFollower>
 
-@code{
+@code {
     private MouseFollowerOptions followerOptions = new MouseFollowerOptions()
-    {
-        IconSvgSrc = "./_content/BootstrapBlazor.Shared/images/mousefollower/cloud.svg",
-            IconSvgClassName = "cloud"
-    };
+        {
+            IconSvgSrc = "./_content/BootstrapBlazor.Shared/images/mousefollower/cloud.svg",
+        };
 }

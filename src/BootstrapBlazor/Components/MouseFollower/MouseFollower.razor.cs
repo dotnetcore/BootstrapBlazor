@@ -58,10 +58,11 @@ public partial class MouseFollower
     public RenderFragment? FollowerTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 Body 子元素
+    /// 获得/设置 RenderFragment 实例
     /// </summary>
     [Parameter]
-    public RenderFragment? FollowerBody { get; set; }
+    [NotNull]
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// MouseFollowerOptions
@@ -72,15 +73,12 @@ public partial class MouseFollower
     /// <inheritdoc/>
     protected override async Task InvokeInitAsync()
     {
-        //await base.InvokeInitAsync();
         Options ??= new MouseFollowerOptions();
 
         await InvokeVoidAsync("init", GlobalMode, FollowerTemplate, Container, Options);
 
         switch (FollowerMode)
         {
-            case MouseFollowerMode.Normal:
-                break;
             case MouseFollowerMode.Text:
                 await InvokeVoidAsync("SetText", Container, Text);
                 break;
@@ -93,7 +91,11 @@ public partial class MouseFollower
             case MouseFollowerMode.Video:
                 await InvokeVoidAsync("SetVideo", Container, VideoPath);
                 break;
+            case MouseFollowerMode.Normal:
+                await InvokeVoidAsync("SetNormal", Container, Options);
+                break;
             default:
+                await InvokeVoidAsync("SetNormal", Container, Options);
                 break;
         }
     }

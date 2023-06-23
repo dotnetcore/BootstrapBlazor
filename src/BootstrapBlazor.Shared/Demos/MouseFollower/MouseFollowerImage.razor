@@ -1,10 +1,30 @@
 ﻿@using BootstrapBlazor.Enums;
 
-<MouseFollower FollowerMode="MouseFollowerMode.Image"
+<MouseFollower Options="@followerOptions"
+               FollowerMode="MouseFollowerMode.Image"
                ImagePath="./_content/BootstrapBlazor.Shared/images/mousefollower/cat.gif">
-    <FollowerBody>
-        <div class="mouseFollower-demo">
-            <h2>欢迎使用BootstrapBlazor组件库</h2>
-        </div>
-    </FollowerBody>
+    <div class="mouseFollower-demo">欢迎使用BootstrapBlazor组件库</div>
 </MouseFollower>
+
+@code {
+    private MouseFollowerOptions followerOptions = new MouseFollowerOptions()
+        {
+            ClassName = "mf-cursor bb-cursor",
+            MediaClassName = "mf-cursor-media bb-cursor-media"
+        };
+}
+
+<style>
+    .bb-cursor {
+        color: orangered;
+        height: auto;
+        width: auto;
+    }
+
+    .bb-cursor-media {
+        position: absolute;
+        width: auto;
+        height: auto;
+        margin: -50px -100px 0 0;
+    }
+</style>

@@ -1,3 +1,8 @@
 ﻿::deep .mouseFollower-demo {
     height: 400px;
+    display: grid;
+    align-content: center;
+    text-align: center;
+    font-size: 60px;
+    color: #7532F9
 }

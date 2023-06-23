@@ -12,6 +12,29 @@ export async function init(globalMode, followerElement, container, options) {
     Data.set(container, cursor);
 }
 
+export function SetNormal(container, options) {
+    const cursor = Data.get(container);
+    container.addEventListener('mouseenter', () => {
+        cursor.show();
+    });
+
+    container.addEventListener('mouseleave', () => {
+        cursor.hide();
+    });
+
+    container.addEventListener('mousedown', () => {
+        cursor.addState(options.activeState);
+    });
+
+    container.addEventListener('mouseup', () => {
+        cursor.removeState(options.activeState);
+    });
+
+    container.addEventListener('mousemoveOnce', () => {
+        cursor.show();
+    });
+}
+
 export function SetText(container, text) {
     const cursor = Data.get(container);
     container.addEventListener('mouseenter', () => {

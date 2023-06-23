@@ -6,7 +6,8 @@
     direction: ltr;
     contain: layout style size;
     pointer-events: none;
-    transition: opacity .3s,color .4s
+    transition: opacity .3s,color .4s;
+    color: #7532F9
 }
 
     .mf-cursor:before {
@@ -17,7 +18,7 @@
         display: block;
         width: 48px;
         height: 48px;
-        transform: scale(0.2);
+        transform: scale(0.25);
         background: currentColor;
         border-radius: 50%;
         transition: transform .25s ease-in-out,opacity .1s
@@ -39,6 +40,10 @@
 
 .mf-cursor.-pointer:before {
     transform: scale(0.15)
+}
+.mf-cursor.-active:before {
+    transform: scale(.2);
+    transition-duration: .2s
 }
 
 .mf-cursor.-text:before {
