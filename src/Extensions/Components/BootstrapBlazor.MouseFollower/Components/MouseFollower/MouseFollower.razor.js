@@ -79,7 +79,7 @@ export function SetVideo(container, path) {
 }
 
 //Destroy the cursor completely and remove all event listeners.
-export function destroy(container) {
+export function dispose(id) {
     const cursor = Data.get(container);
     Data.remove(container);
     cursor.destroy();

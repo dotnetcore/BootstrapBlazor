@@ -9,19 +9,14 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// MouseFollower 鼠标跟随器组件
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor.MouseFollower/Components/MouseFollower/MouseFollower.razor.js", JSObjectReference = true)]
+[JSModuleAutoLoader("./_content/BootstrapBlazor.MouseFollower/Components/MouseFollower/MouseFollower.razor.js")]
 public partial class MouseFollower
 {
-    /// <summary>
-    /// 获得/设置 Container 容器
-    /// </summary>
-    private ElementReference? Container { get; set; }
-
     /// <summary>
     /// 获得/设置 MouseFollowerMode 模式
     /// </summary>
     [Parameter]
-    public MouseFollowerMode FollowerMode { get; set; } = MouseFollowerMode.Normal;
+    public MouseFollowerMode FollowerMode { get; set; }
 
     /// <summary>
     /// 获得/设置 GlobalMode 全局模式
@@ -46,6 +41,10 @@ public partial class MouseFollower
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
+    private string? ModeString => FollowerMode == MouseFollowerMode.Normal ? null : FollowerMode.ToDescriptionString();
+
+    private string? GlobalString => GlobalMode ? "true" : null;
+
     /// <summary>
     /// 获得/设置 MouseFollowerOptions
     /// </summary>
@@ -60,35 +59,6 @@ public partial class MouseFollower
     {
         Options ??= new MouseFollowerOptions();
 
-        await InvokeVoidAsync("init", GlobalMode, Container, Options);
-
-        switch (FollowerMode)
-        {
-            case MouseFollowerMode.Text:
-                await InvokeVoidAsync("SetText", Container, Content);
-                break;
-            case MouseFollowerMode.Icon:
-                await InvokeVoidAsync("SetIcon", Container, Content);
-                break;
-            case MouseFollowerMode.Image:
-                await InvokeVoidAsync("SetImage", Container, Content);
-                break;
-            case MouseFollowerMode.Video:
-                await InvokeVoidAsync("SetVideo", Container, Content);
-                break;
-            case MouseFollowerMode.Normal:
-                await InvokeVoidAsync("SetNormal", Container, Options);
-                break;
-            default:
-                await InvokeVoidAsync("SetNormal", Container, Options);
-                break;
-        }
-    }
-
-    /// <inheritdoc/>
-    protected override async ValueTask DisposeAsync(bool disposing)
-    {
-        await InvokeVoidAsync("destroy", Container);
-        await base.DisposeAsync(disposing);
+        await InvokeVoidAsync("init", Id, Options);
     }
 }
