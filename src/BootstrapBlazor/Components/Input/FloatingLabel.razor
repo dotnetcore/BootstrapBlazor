@@ -2,7 +2,7 @@
 @typeparam TValue
 @inherits BootstrapInputBase<TValue>
 
-<div class="form-floating">
-    <input @attributes="@AdditionalAttributes" type="@Type" id="@Id" placeholder="blazor" class="@ClassName" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" @ref="FocusElement" />
+<div class="@ClassString">
+    <input @attributes="@AdditionalAttributes" type="@Type" id="@Id" placeholder="@PlaceHolder" class="@ClassName" disabled="@Disabled" @bind-value="@CurrentValueAsString" @ref="FocusElement" />
     <label for="@Id">@DisplayText</label>
 </div>
