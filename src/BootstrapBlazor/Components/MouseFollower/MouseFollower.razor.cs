@@ -99,4 +99,11 @@ public partial class MouseFollower
                 break;
         }
     }
+
+    /// <inheritdoc/>
+    protected override async ValueTask DisposeAsync(bool disposing)
+    {
+        await InvokeVoidAsync("destory", Container);
+        await base.DisposeAsync(disposing);
+    }
 }
