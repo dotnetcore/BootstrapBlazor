@@ -78,7 +78,7 @@ public partial class MouseFollower
     /// <inheritdoc/>
     protected override async ValueTask DisposeAsync(bool disposing)
     {
-        await InvokeVoidAsync("destory", Container);
+        await InvokeVoidAsync("destroy", Container);
         await base.DisposeAsync(disposing);
     }
 }
