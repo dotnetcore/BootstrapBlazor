@@ -2883,7 +2883,9 @@
     "FloatingLabelsFormatString": "The numerically formatted string",
     "FloatingLabelsFormatter": "TableHeader instance",
     "FloatingLabelsType": "The type of control",
-    "FloatingLabelsIsDisabled": "Whether to disable,Default is fasle"
+    "FloatingLabelsIsDisabled": "Whether to disable,Default is fasle",
+    "FloatingLabelGroupBoxTitle": "GroupBox",
+    "FloatingLabelGroupBoxIntro": "By setting <code>IsGroupBox=\"true\"</code>. Group box wrapper label"
   },
   "BootstrapBlazor.Shared.Samples.Inputs": {
     "InputsTitle": "Input",

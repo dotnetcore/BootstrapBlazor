@@ -2893,7 +2893,9 @@
     "FloatingLabelsFormatString": "数值格式化字符串",
     "FloatingLabelsFormatter": "TableHeader 实例",
     "FloatingLabelsType": "控件类型",
-    "FloatingLabelsIsDisabled": "是否禁用 默认为 fasle"
+    "FloatingLabelsIsDisabled": "是否禁用 默认为 fasle",
+    "FloatingLabelGroupBoxTitle": "GroupBox 样式",
+    "FloatingLabelGroupBoxIntro": "设置 <code>IsGroupBox</code> 属性，组件显示为 GroupBox 样式"
   },
   "BootstrapBlazor.Shared.Samples.Inputs": {
     "InputsTitle": "Input 输入框",
