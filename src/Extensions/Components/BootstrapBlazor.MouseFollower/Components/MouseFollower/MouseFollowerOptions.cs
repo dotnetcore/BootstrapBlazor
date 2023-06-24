@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -12,7 +14,7 @@ public class MouseFollowerOptions
     /// <summary>
     /// Existed cursor element. If not specified, the cursor will be created automatically.
     /// </summary>
-    public ElementReference? El { get; set; } = null;
+    public ElementReference? El { get; set; }
 
     /// <summary>
     /// Cursor root element class name.
