@@ -1,33 +1,79 @@
 ﻿@page "/mouseFollowers"
+@inject IStringLocalizer<MouseFollowers> Localizer
 
-<div class="mouseFollower-demo">
-    <DemoBlock Title="普通模式"
-               Introduction=""
-               Name="mouseFollowerText"
+<div>
+    <h3>@Localizer["MouseFollowersTitle"]</h3>
+
+    <h4>@Localizer["MouseFollowersDescription"]</h4>
+
+    <DemoBlock Title="@Localizer["MouseFollowerNormalTitle"]"
+               Introduction="@Localizer["MouseFollowerNormalIntro"]"
+               Name="MouseFollowerNormal"
                Demo="typeof(Demos.MouseFollower.MouseFollowerNormal)">
     </DemoBlock>
 
-    <DemoBlock Title="文本模式"
-               Introduction=""
-               Name="mouseFollowerText"
+    <DemoBlock Title="@Localizer["MouseFollowerTextTitle"]"
+               Introduction="@Localizer["MouseFollowerTextIntro"]"
+               Name="MouseFollowerText"
                Demo="typeof(Demos.MouseFollower.MouseFollowerText)">
     </DemoBlock>
 
-    <DemoBlock Title="图标模式"
-               Introduction=""
-               Name="mouseFollowerIcon"
+    <DemoBlock Title="@Localizer["MouseFollowerIconTitle"]"
+               Introduction="@Localizer["MouseFollowerIconIntro"]"
+               Name="MouseFollowerIcon"
                Demo="typeof(Demos.MouseFollower.MouseFollowerIcon)">
     </DemoBlock>
 
-    <DemoBlock Title="图片模式"
-               Introduction=""
-               Name="mouseFollowerImage"
+    <DemoBlock Title="@Localizer["MouseFollowerImageTitle"]"
+               Introduction="@Localizer["MouseFollowerImageIntro"]"
+               Name="MouseFollowerImage"
                Demo="typeof(Demos.MouseFollower.MouseFollowerImage)">
     </DemoBlock>
 
-    <DemoBlock Title="视频模式"
-               Introduction=""
-               Name="mouseFollowerVideo"
+    <DemoBlock Title="@Localizer["MouseFollowerVideoTitle"]"
+               Introduction="@Localizer["MouseFollowerVideoIntro"]"
+               Name="MouseFollowerVideo"
                Demo="typeof(Demos.MouseFollower.MouseFollowerVideo)">
     </DemoBlock>
+
+    <AttributeTable Items="@GetAttributes()" />
 </div>
+
+@code {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
+        // TODO: 移动到数据库中
+        new AttributeItem() {
+            Name = "Images",
+            Description = Localizer["Images"],
+            Type = "IEnumerable<string>",
+            ValueList = "—",
+            DefaultValue = "—"
+        },
+        new AttributeItem() {
+            Name = "IsFade",
+            Description = Localizer["IsFade"],
+            Type = "boolean",
+            ValueList = " — ",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "Width",
+            Description = Localizer["Width"],
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = "—"
+        },
+        new AttributeItem() {
+            Name = "OnClick",
+            Description = Localizer["OnClick"],
+            Type = "Func<string, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    };
+}

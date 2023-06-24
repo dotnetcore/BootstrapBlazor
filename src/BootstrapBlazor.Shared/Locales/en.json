@@ -6289,5 +6289,19 @@
     "Description": "A multi window layout manager for webapps",
     "BasicUsageTitle": "Normal",
     "BasicUsageIntro": "layout manager which enables you to layout components in a web page and re-arrange them with drag and drop"
+  },
+  "BootstrapBlazor.Shared.Samples.MouseFollowers": {
+    "MouseFollowersTitle": "Mouse Follower",
+    "MouseFollowersDescription": "create amazing and smooth effects for the mouse cursor on your website.。",
+    "MouseFollowerNormalTitle": "Normal mode",
+    "MouseFollowerNormalIntro": "A Mouse Follower pointer",
+    "MouseFollowerTextTitle": "Text mode",
+    "MouseFollowerTextIntro": "To display text in the cursor use this method",
+    "MouseFollowerIconTitle": "Icon mode",
+    "MouseFollowerIconIntro": "If you use SVG spritesheet in your project and want to display them in the cursor, then you can use this method. In this case, you need to specify the path to the SVG sprite in the options and set class names.",
+    "MouseFollowerImageTitle": "Image mode",
+    "MouseFollowerImageIntro": "This method allows you to show any picture in the cursor",
+    "MouseFollowerVideoTitle": "Video mode",
+    "MouseFollowerVideoIntro": "You can also play videos"
   }
 }
