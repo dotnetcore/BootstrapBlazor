@@ -3,8 +3,9 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Services;
+
 using Microsoft.AspNetCore.Components.Web;
-using System.IO.Compression;
+
 using System.Text;
 
 namespace BootstrapBlazor.Shared.Shared;
@@ -50,9 +51,35 @@ public partial class PracNavMenu
             },
             new MenuItem()
             {
-                Template = CreateDownloadButtonComponent("登陆和注册praclogin", pracloginFileList),
                 Text="登陆和注册 Login & Register",
-                Url="praclogin"
+                Url="praclogin",
+                Items = new List<MenuItem>()
+                {
+                    new()
+                    {
+                        Template = CreateDownloadButtonComponent("登陆和注册模板1", pracloginFileList),
+                        Text = "模板 template 1",
+                        Url = "praclogintemplate1"
+                    },
+                    new()
+                    {
+                        Template = CreateDownloadButtonComponent("登陆和注册模板2", pracloginFileList),
+                        Text = "模板 template 2",
+                        Url = "praclogintemplate2",
+                    },
+                    new()
+                    {
+                        Template = CreateDownloadButtonComponent("登陆和注册模板3", pracloginFileList),
+                        Text = "模板 template 3",
+                        Url = "praclogintemplate3"
+                    },
+                    new()
+                    {
+                        Template = CreateDownloadButtonComponent("登陆和注册模板4", pracloginFileList),
+                        Text = "模板 template 4",
+                        Url = "praclogintemplate4"
+                    }
+                }
             },
             new MenuItem()
             {
