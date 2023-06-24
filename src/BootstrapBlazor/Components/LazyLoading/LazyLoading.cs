@@ -47,7 +47,7 @@ public partial class LazyLoading : ComponentBase
 
         if (_show)
         {
-            await BeforeShowCallbackAsync();
+            await BeforeLoadCallbackAsync();
         }
     }
 
@@ -63,7 +63,7 @@ public partial class LazyLoading : ComponentBase
         }
     }
 
-    private async Task BeforeShowCallbackAsync()
+    private async Task BeforeLoadCallbackAsync()
     {
         if (!_init)
         {
