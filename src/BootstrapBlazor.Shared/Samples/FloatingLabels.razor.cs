@@ -26,6 +26,13 @@ public partial class FloatingLabels
             DefaultValue = "false"
         },
         new AttributeItem() {
+            Name = nameof(FloatingLabel<string>.IsGroupBox),
+            Description = Localizer["FloatingLabelsGroupBox"].Value,
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
             Name = "DisplayText",
             Description = Localizer["FloatingLabelsDisplayText"].Value,
             Type = "string",

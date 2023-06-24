@@ -2879,6 +2879,7 @@
     "FloatingLabelsTestName": "Tom",
     "FloatingLabelsChildContent": "Validate the control",
     "FloatingLabelsShowLabel": "Whether to display the front label",
+    "FloatingLabelsGroupBox": "Whether to display group box style",
     "FloatingLabelsDisplayText": "The front label displays text",
     "FloatingLabelsFormatString": "The numerically formatted string",
     "FloatingLabelsFormatter": "TableHeader instance",

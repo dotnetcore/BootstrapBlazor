@@ -2889,6 +2889,7 @@
     "FloatingLabelsTestName": "张三",
     "FloatingLabelsChildContent": "验证控件",
     "FloatingLabelsShowLabel": "是否显示前置标签",
+    "FloatingLabelsGroupBox": "是否显示为 GroupBox 样式",
     "FloatingLabelsDisplayText": "前置标签显示文本",
     "FloatingLabelsFormatString": "数值格式化字符串",
     "FloatingLabelsFormatter": "TableHeader 实例",
