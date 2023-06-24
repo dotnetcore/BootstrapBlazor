@@ -14,6 +14,7 @@ public enum MouseFollowerMode
     /// <summary>
     /// Normal 默认模式
     /// </summary>
+    [Description("normal")]
     Normal,
 
     /// <summary>
@@ -21,6 +22,12 @@ public enum MouseFollowerMode
     /// </summary>
     [Description("text")]
     Text,
+
+    /// <summary>
+    /// Icon 图标模式
+    /// </summary>
+    [Description("icon")]
+    Icon,
 
     /// <summary>
     /// Image 图片模式

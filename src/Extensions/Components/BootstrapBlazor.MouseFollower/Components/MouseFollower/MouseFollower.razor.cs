@@ -41,10 +41,6 @@ public partial class MouseFollower
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? ModeString => FollowerMode == MouseFollowerMode.Normal ? null : FollowerMode.ToDescriptionString();
-
-    private string? GlobalString => GlobalMode ? "true" : null;
-
     /// <summary>
     /// 获得/设置 MouseFollowerOptions
     /// </summary>
@@ -59,6 +55,6 @@ public partial class MouseFollower
     {
         Options ??= new MouseFollowerOptions();
 
-        await InvokeVoidAsync("init", Id, Options);
+        await InvokeVoidAsync("init", Id, new { Options, Global = GlobalMode, Mode = FollowerMode.ToDescriptionString(), Content });
     }
 }

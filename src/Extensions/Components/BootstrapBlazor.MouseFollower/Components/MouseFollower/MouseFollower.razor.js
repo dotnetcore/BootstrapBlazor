@@ -1,86 +1,122 @@
-﻿import Data from '../../../BootstrapBlazor/modules/data.js'
-import { addLink, addScript } from "../../modules/utility.js?v=$version"
+﻿import { addLink, addScript } from '../../../BootstrapBlazor/modules/utility.js'
+import Data from '../../../BootstrapBlazor/modules/data.js'
+import EventHandler from '../../../BootstrapBlazor/modules/event-handler.js'
 
-await addLink("_content/BootstrapBlazor/lib/mouseFollower/mouse-follower.min.css")
-await addScript("_content/BootstrapBlazor/lib/mouseFollower/gsap.min.js");
-await addScript("_content/BootstrapBlazor/lib/mouseFollower/mouse-follower.min.js");
+const setNormal = (cursor, op) => {
+    const el = op.options.container
+    EventHandler.on(el, 'mouseenter', () => {
+        cursor.show()
+    })
 
-export async function init(globalMode, container, options) {
-    options.container = globalMode ? document.body : container;
-    const cursor = new MouseFollower(options);
-    Data.set(container, cursor);
+    EventHandler.on(el, 'mouseleave', () => {
+        cursor.hide()
+    })
+
+    EventHandler.on(el, 'mousedown', () => {
+        cursor.addState(op.options.activeState)
+    })
+
+    EventHandler.on(el, 'mouseup', () => {
+        cursor.removeState(op.options.activeState)
+    })
+
+    EventHandler.on(el, 'mousemoveOnce', () => {
+        cursor.show()
+    })
 }
 
-export function SetNormal(container, options) {
-    const cursor = Data.get(container);
-    container.addEventListener('mouseenter', () => {
-        cursor.show();
-    });
+const setText = (cursor, op) => {
+    const el = op.options.container
+    EventHandler.on(el, 'mouseenter', () => {
+        cursor.setText(op.content)
+    })
 
-    container.addEventListener('mouseleave', () => {
-        cursor.hide();
-    });
-
-    container.addEventListener('mousedown', () => {
-        cursor.addState(options.activeState);
-    });
-
-    container.addEventListener('mouseup', () => {
-        cursor.removeState(options.activeState);
-    });
-
-    container.addEventListener('mousemoveOnce', () => {
-        cursor.show();
-    });
+    EventHandler.on(el, 'mouseleave', () => {
+        cursor.removeText()
+    })
 }
 
-export function SetText(container, text) {
-    const cursor = Data.get(container);
-    container.addEventListener('mouseenter', () => {
-        cursor.setText(text);
-    });
+const setIcon = (cursor, op) => {
+    const el = op.options.container
+    EventHandler.on(el, 'mouseenter', () => {
+        cursor.setIcon(op.content)
+    })
 
-    container.addEventListener('mouseleave', () => {
-        cursor.removeText();
-    });
+    EventHandler.on(el, 'mouseleave', () => {
+        cursor.removeIcon()
+    })
 }
 
-export function SetIcon(container, icon) {
-    const cursor = Data.get(container);
-    container.addEventListener('mouseenter', () => {
-        cursor.setIcon(icon);
-    });
+const setImage = (cursor, op) => {
+    const el = op.options.container
+    EventHandler.on(el, 'mouseenter', () => {
+        cursor.setImg(op.content)
+    })
 
-    container.addEventListener('mouseleave', () => {
-        cursor.removeIcon();
-    });
+    EventHandler.on(el, 'mouseleave', () => {
+        cursor.removeImg()
+    })
 }
 
-export function SetImage(container, path) {
-    const cursor = Data.get(container);
-    container.addEventListener('mouseenter', () => {
-        cursor.setImg(path);
-    });
+const setVideo = (cursor, op) => {
+    const el = op.options.container
+    EventHandler.on(el, 'mouseenter', () => {
+        cursor.setVideo(op.content)
+    })
 
-    container.addEventListener('mouseleave', () => {
-        cursor.removeImg();
-    });
+    EventHandler.on(el, 'mouseleave', () => {
+        cursor.removeVideo()
+    })
 }
 
-export function SetVideo(container, path) {
-    const cursor = Data.get(container);
-    container.addEventListener('mouseenter', () => {
-        cursor.setVideo(path);
-    });
+export async function init(id, op) {
+    const el = document.getElementById(id)
+    if (el === null) {
+        return
+    }
 
-    container.addEventListener('mouseleave', () => {
-        cursor.removeVideo();
-    });
+    await addLink("./_content/BootstrapBlazor.MouseFollower/mouse-follower.min.css")
+    await addScript("./_content/BootstrapBlazor.MouseFollower/gsap.min.js")
+    await addScript("./_content/BootstrapBlazor.MouseFollower/mouse-follower.min.js")
+
+    op.options.container = op.global ? document.body : el
+    const cursor = new MouseFollower(op.options)
+    Data.set(id, { el, cursor, op })
+
+    const mode = op.mode
+    if (mode === 'normal') {
+        setNormal(cursor, op)
+    }
+    else if (mode === 'image') {
+        setImage(cursor, op)
+    }
+    else if (mode === 'text') {
+        setText(cursor, op)
+    }
+    else if (mode === 'icon') {
+        setIcon(cursor, op)
+    }
+    else if (mode === 'video') {
+        setVideo(cursor, op)
+    }
 }
 
-//Destroy the cursor completely and remove all event listeners.
 export function dispose(id) {
-    const cursor = Data.get(container);
-    Data.remove(container);
-    cursor.destroy();
+    const mf = Data.get(id)
+    Data.remove(id)
+
+    if (mf) {
+        mf.cursor.destroy()
+
+        const el = mf.op.options.container
+        const mode = mf.op.mode
+        EventHandler.off(el, 'mouseenter')
+        EventHandler.off(el, 'mouseleave')
+
+        if (mode === 'normal') {
+            EventHandler.off(el, 'mousedown')
+            EventHandler.off(el, 'mouseup')
+            EventHandler.off(el, 'mousemoveOnce')
+        }
+    }
 }
