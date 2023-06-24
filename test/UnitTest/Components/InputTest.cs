@@ -170,8 +170,13 @@ public class InputTest : BootstrapBlazorTestBase
     public void FloatingLabel_Ok()
     {
         var cut = Context.RenderComponent<FloatingLabel<string>>();
+        cut.Contains("<div class=\"form-floating\">");
 
-        Assert.NotEmpty(cut.Markup);
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsGroupBox, true);
+        });
+        cut.Contains("<div class=\"form-floating is-group\">");
     }
 
     [Fact]
