@@ -57,6 +57,10 @@
     <None Include="wwwroot\js\bootstrap.blazor.bundle.js" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(Configuration)' == 'Release'">
+    <Content Include="build\*.targets" PackagePath="build\" />
+  </ItemGroup>
+
   <ItemGroup>
     <Using Include="BootstrapBlazor.Components" />
     <Using Include="Microsoft.AspNetCore.Components" />
