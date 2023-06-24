@@ -6302,6 +6302,9 @@
     "MouseFollowerImageTitle": "Image mode",
     "MouseFollowerImageIntro": "This method allows you to show any picture in the cursor",
     "MouseFollowerVideoTitle": "Video mode",
-    "MouseFollowerVideoIntro": "You can also play videos"
+    "MouseFollowerVideoIntro": "You can also play videos",
+    "MouseFollowersFollowerMode": "MouseFollowerMode.Normal，MouseFollowerMode.Text ，MouseFollowerMode.Icon ，MouseFollowerMode.Image ，MouseFollowerMode.Video ",
+    "MouseFollowersGlobalMode": "Global | Local, Mode",
+    "MouseFollowersContent": "Text | icon | imagepath | videopath"
   }
 }

@@ -27,35 +27,10 @@ public partial class MouseFollower
     public bool GlobalMode { get; set; } = false;
 
     /// <summary>
-    /// 获得/设置 Text 文本
+    /// 获得/设置 Content 文本，图标，图片路径，视频路径
     /// </summary>
     [Parameter]
-    public string? Text { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Icon 图标
-    /// </summary>
-    [Parameter]
-    public string? Icon { get; set; }
-
-    /// <summary>
-    /// 获得/设置 ImagePath 路径
-    /// </summary>
-    [Parameter]
-    public string? ImagePath { get; set; }
-
-    /// <summary>
-    /// 获得/设置 VideoPath 路径
-    /// </summary>
-    [Parameter]
-    public string? VideoPath { get; set; }
-
-    /// <summary>
-    /// 存在游标元素。如果未指定，将自动创建游标。
-    /// Existed cursor element. If not specified, the cursor will be created automatically.
-    /// </summary>
-    [Parameter]
-    public RenderFragment? FollowerTemplate { get; set; }
+    public string? Content { get; set; }
 
     /// <summary>
     /// 获得/设置 RenderFragment 实例
@@ -75,21 +50,21 @@ public partial class MouseFollower
     {
         Options ??= new MouseFollowerOptions();
 
-        await InvokeVoidAsync("init", GlobalMode, FollowerTemplate, Container, Options);
+        await InvokeVoidAsync("init", GlobalMode, Container, Options);
 
         switch (FollowerMode)
         {
             case MouseFollowerMode.Text:
-                await InvokeVoidAsync("SetText", Container, Text);
+                await InvokeVoidAsync("SetText", Container, Content);
                 break;
             case MouseFollowerMode.Icon:
-                await InvokeVoidAsync("SetIcon", Container, Icon);
+                await InvokeVoidAsync("SetIcon", Container, Content);
                 break;
             case MouseFollowerMode.Image:
-                await InvokeVoidAsync("SetImage", Container, ImagePath);
+                await InvokeVoidAsync("SetImage", Container, Content);
                 break;
             case MouseFollowerMode.Video:
-                await InvokeVoidAsync("SetVideo", Container, VideoPath);
+                await InvokeVoidAsync("SetVideo", Container, Content);
                 break;
             case MouseFollowerMode.Normal:
                 await InvokeVoidAsync("SetNormal", Container, Options);

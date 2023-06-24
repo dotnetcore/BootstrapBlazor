@@ -1,4 +1,5 @@
 ﻿::deep .mouseFollower-demo:before {
+    cursor: none;
     height: 400px;
     display: grid;
     align-content: center;

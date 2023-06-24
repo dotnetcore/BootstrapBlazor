@@ -10,6 +10,11 @@ namespace BootstrapBlazor.Components;
 public class MouseFollowerOptions
 {
     /// <summary>
+    /// Existed cursor element. If not specified, the cursor will be created automatically.
+    /// </summary>
+    public ElementReference? El { get; set; } = null;
+
+    /// <summary>
     /// Cursor root element class name.
     /// </summary>
     public string ClassName { get; set; } = "mf-cursor";

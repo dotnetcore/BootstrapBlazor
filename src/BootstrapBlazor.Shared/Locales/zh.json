@@ -6315,6 +6315,9 @@
     "MouseFollowerImageTitle": "图片模式",
     "MouseFollowerImageIntro": "在光标中显示图片",
     "MouseFollowerVideoTitle": "视频模式",
-    "MouseFollowerVideoIntro": "在光标中播放视频"
+    "MouseFollowerVideoIntro": "在光标中播放视频",
+    "MouseFollowersFollowerMode": "MouseFollowerMode.Normal 默认模式，MouseFollowerMode.Text 文本模式，MouseFollowerMode.Icon 图标模式，MouseFollowerMode.Image 图片模式，MouseFollowerMode.Video 视频模式",
+    "MouseFollowersGlobalMode": "全局|局部，模式",
+    "MouseFollowersContent": "文本，图标，图片路径，视频路径"
   }
 }

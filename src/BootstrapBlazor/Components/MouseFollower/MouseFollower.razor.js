@@ -5,9 +5,8 @@ await addLink("_content/BootstrapBlazor/lib/mouseFollower/mouse-follower.min.css
 await addScript("_content/BootstrapBlazor/lib/mouseFollower/gsap.min.js");
 await addScript("_content/BootstrapBlazor/lib/mouseFollower/mouse-follower.min.js");
 
-export async function init(globalMode, followerElement, container, options) {
+export async function init(globalMode, container, options) {
     options.container = globalMode ? document.body : container;
-    options.el = followerElement;
     const cursor = new MouseFollower(options);
     Data.set(container, cursor);
 }
