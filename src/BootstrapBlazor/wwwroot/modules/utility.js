@@ -132,11 +132,24 @@ const getWindow = node => {
     return node
 }
 
+const normalizeLink = link => {
+    let url = link
+    if (url.indexOf('./') === 0) {
+        url = url.substring(2)
+    }
+    while (url.indexOf('../') === 0) {
+
+        url = url.substring(3)
+    }
+    return url
+}
+
 const addScript = content => {
     // content 文件名
     const links = [...document.getElementsByTagName('script')]
+    const url = normalizeLink(content)
     let link = links.filter(function (link) {
-        return link.src.indexOf(content) > -1
+        return link.src.indexOf(url) > -1
     })
     let done = link.length > 0;
     if (link.length === 0) {
@@ -159,8 +172,9 @@ const addScript = content => {
 
 const removeScript = content => {
     const links = [...document.getElementsByTagName('script')]
+    const url = normalizeLink(content)
     const nodes = links.filter(function (link) {
-        return link.src.indexOf(content) > -1
+        return link.src.indexOf(url) > -1
     })
     for (let index = 0; index < nodes.length; index++) {
         document.body.removeChild(nodes[index])
@@ -169,14 +183,7 @@ const removeScript = content => {
 
 const addLink = href => {
     const links = [...document.getElementsByTagName('link')]
-    let url = href
-    if (url.indexOf('./') === 0) {
-        url = url.substring(2)
-    }
-    while (url.indexOf('../') === 0) {
-
-        url = url.substring(3)
-    }
+    const url = normalizeLink(href)
     let link = links.filter(function (link) {
         return link.href.indexOf(url) > -1
     })
@@ -202,8 +209,9 @@ const addLink = href => {
 
 const removeLink = href => {
     const links = [...document.getElementsByTagName('link')]
+    const url = normalizeLink(href)
     const nodes = links.filter(function (link) {
-        return link.href.indexOf(href) > -1
+        return link.href.indexOf(url) > -1
     })
     for (let index = 0; index < nodes.length; index++) {
         document.getElementsByTagName("head")[0].removeChild(nodes[index])
