@@ -169,8 +169,16 @@ const removeScript = content => {
 
 const addLink = href => {
     const links = [...document.getElementsByTagName('link')]
+    let url = href
+    if (url.indexOf('./') === 0) {
+        url = url.substring(2)
+    }
+    while (url.indexOf('../') === 0) {
+
+        url = url.substring(3)
+    }
     let link = links.filter(function (link) {
-        return link.href.indexOf(href) > -1
+        return link.href.indexOf(url) > -1
     })
     let done = link.length > 0;
     if (link.length === 0) {
