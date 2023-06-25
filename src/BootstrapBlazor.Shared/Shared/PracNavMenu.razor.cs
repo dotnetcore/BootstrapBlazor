@@ -121,6 +121,7 @@ public partial class PracNavMenu
     private readonly string[] pracloginFileList = new[]
     {
         "Practicals/LoginAndRegister/PracLogin.razor",
+        "Practicals/LoginAndRegister/PracLogin.razor.css",
         "Practicals/LoginAndRegister/PracRegister.razor"
     };
 

@@ -3,58 +3,108 @@
 @inject MessageService MessageService
 @using System.ComponentModel;
 
-<style>
-    .border-radius {
-        font-size: .8rem;
-        border-radius: 10rem;
-        padding: .75rem 1rem;
-    }
-</style>
-
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-9 col-lg-12 col-xl-10">
-            <Card class="shadow-lg o-hidden border-0 my-5">
+    <div class="row">
+        <div class="col-12">
+            <Card class="shadow-lg border-0 my-5">
                 <BodyTemplate>
-                    <div class="row">
-                        <div class="col-lg-6 d-none d-lg-flex">
-                            <div class="flex-grow-1 bg-login-image">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                     xmlns:xlink="http://www.w3.org/1999/xlink"
-                                     width="100%" height="100%" shape-rendering="crispEdges">
-                                    <image x="0px" y="0px" width="100%" height="100%" xlink:href="data:img/png;base64,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" />
-                                </svg>
-                            </div>
+                    <div class="login-item">
+                        <div class="text-center">
+                            <h4 class="text-dark">欢迎使用 BootstrapBlazor 组件库</h4>
+                            <h4 class="text-dark">用户登录!</h4>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="p-5">
-                                <div class="text-center">
-                                    <h4 class="text-dark mb-4">欢迎使用BootstrapBlazor组件库!</h4>
-                                    <h4 class="text-dark mb-4">用户登陆!</h4>
+                        <ValidateForm Model="@Model" @ref="ValidatorForm">
+                            <BootstrapInput @bind-Value="Model.UserName" ShowLabel="false" PlaceHolder="请输入账号" />
+                            <BootstrapPassword @bind-Value="Model.Password" ShowLabel="false" PlaceHolder="请输入密码" />
+                            <Checkbox @bind-Value="@Model.RememberMe" ShowLabel="false" ShowAfterLabel="true" DisplayText="记住登录状态" />
+                            <Button Text="登录" OnClickWithoutRender="OnValidator" Color="Color.Primary"></Button>
+                            <hr />
+                            <Button Text="忘记密码" Color="Color.Danger" OnClick="@ForgotPassword"></Button>
+                            <Button Text="用户注册" Color="Color.Info" OnClick="@UserRegistration"></Button>
+                        </ValidateForm>
+                    </div>
+                </BodyTemplate>
+            </Card>
+        </div>
+        <div class="col-12">
+            <Card class="shadow-lg border-0 my-5">
+                <BodyTemplate>
+                    <div class="login-item login-item-floating">
+                        <div class="text-center">
+                            <h4 class="text-dark">欢迎使用 BootstrapBlazor 组件库</h4>
+                            <h4 class="text-dark">用户登录!</h4>
+                        </div>
+                        <ValidateForm Model="@Model">
+                            <FloatingLabel DisplayText="邮箱" TValue="string" IsGroupBox="true" PlaceHolder="user@blazor.zone" />
+                            <FloatingLabel DisplayText="密码" TValue="string" type="password" IsGroupBox="true" PlaceHolder="password" />
+                            <Checkbox TValue="bool" ShowLabel="false" ShowAfterLabel="true" DisplayText="记住登录状态" />
+                            <Button Text="登录" Color="Color.Primary"></Button>
+                            <hr />
+                            <Button Text="忘记密码" Color="Color.Danger"></Button>
+                            <Button Text="用户注册" Color="Color.Info"></Button>
+                        </ValidateForm>
+                    </div>
+                </BodyTemplate>
+            </Card>
+        </div>
+        <div class="col-12">
+            <Card class="shadow-lg border-0 my-5">
+                <BodyTemplate>
+                    <div class="login-item login-item-avatar">
+                        <div class="text-center">
+                            <Avatar Url="_content/BootstrapBlazor.Shared/images/Argo-C.png" IsCircle="true" Size="Size.ExtraExtraLarge" />
+                            <h4 class="text-dark">欢迎使用 BootstrapBlazor 组件库</h4>
+                        </div>
+                        <ValidateForm Model="@Model">
+                            <BootstrapInput TValue="string" ShowLabel="false" PlaceHolder="请输入账号" />
+                            <BootstrapPassword ShowLabel="false" PlaceHolder="请输入密码" />
+                            <Checkbox TValue="bool" ShowLabel="false" ShowAfterLabel="true" DisplayText="记住登录状态" />
+                            <Button Text="登录" Color="Color.Primary"></Button>
+                            <hr />
+                            <div class="d-flex">
+                                <Button Text="忘记密码" Color="Color.Danger"></Button>
+                                <Button Text="用户注册" Color="Color.Info"></Button>
+                            </div>
+                        </ValidateForm>
+                    </div>
+                </BodyTemplate>
+            </Card>
+        </div>
+        <div class="col-12">
+            <Card class="shadow-lg border-0 my-5">
+                <BodyTemplate>
+                    <div class="login-item login-item-gitee">
+                        <div class="login-header">
+                            <span>登录</span>
+                            <div class="login-register">没有账号？<a href="#">点此注册</a></div>
+                        </div>
+                        <ValidateForm Model="@Model">
+                            <BootstrapInput TValue="string" ShowLabel="false" PlaceHolder="请输入账号" />
+                            <BootstrapPassword ShowLabel="false" PlaceHolder="请输入密码" />
+                            <div class="login-sms">
+                                <Checkbox TValue="bool" ShowLabel="false" ShowAfterLabel="true" DisplayText="记住我" />
+                                <a href="#">短信验证登录</a>
+                            </div>
+                            <Button Text="登录" Color="Color.Primary"></Button>
+                            <div class="text-center my-4">
+                                <a href="#">已有账号，忘记密码</a>
+                            </div>
+                            <Divider Text="其他登录方式" />
+                            <div class="login-oauth">
+                                <div class="login-oauth-item">
+                                    <i class="fa-brands fa-github"></i>
                                 </div>
-                                <ValidateForm Model="@Model" @ref="ValidatorForm">
-                                    <div class="mb-3">
-                                        <BootstrapInput @bind-Value="Model.UserName" class="border-radius" ShowLabel="false" PlaceHolder="请输入账号" />
-                                    </div>
-                                    <div class="mb-3">
-                                        <BootstrapPassword @bind-Value="Model.Password" class="border-radius" ShowLabel="false" PlaceHolder="请输入密码" />
-                                    </div>
-                                    <div class="mb-3">
-                                        <Checkbox @bind-Value="@Model.RememberMe" class="border-radius" TValue="bool" ShowLabel="false" ShowAfterLabel="true" DisplayText="记住登陆状态" />
-                                    </div>
-                                    <Button Text="登陆" OnClickWithoutRender="OnValidator" Color="Color.Primary" class="border-radius w-100"></Button>
-                                    <hr />
-                                    <a>
-                                        <i class="fab" />
-                                        <Button Text="忘记密码" Color="Color.Danger" class="border-radius w-100" OnClick="@ForgotPassword"></Button>
-                                    </a>
-                                    <a>
-                                        <i class="fab" />
-                                        <Button Text="用户注册" Color="Color.Info" class="border-radius w-100" OnClick="@UserRegistration"></Button>
-                                    </a>
-                                </ValidateForm>
+                                <div class="login-oauth-item">
+                                    <i class="fa-brands fa-twitter"></i>
+                                </div>
+                                <div class="login-oauth-item">
+                                    <i class="fa-brands fa-apple"></i>
+                                </div>
+                                <div class="login-oauth-item">
+                                    <i class="fa-brands fa-facebook"></i>
+                                </div>
                             </div>
-                        </div>
+                        </ValidateForm>
                     </div>
                 </BodyTemplate>
             </Card>
@@ -74,7 +124,7 @@
         var result = ValidatorForm.Validate();
         if (result)
         {
-            await MessageService.Show(new MessageOption() { Content = "登陆成功" });
+            await MessageService.Show(new MessageOption() { Content = "登录成功" });
         }
     }
 

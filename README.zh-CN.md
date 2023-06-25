@@ -38,6 +38,23 @@ Blazor 是一个使用 .NET 生成交互式客户端 Web UI 的框架：
 
 本项目是利用 Bootstrap 样式进行封装的 UI 组件库
 
+## 社区与项目
+
+目前 `BootstrapBlazor` 团队由六名热爱开源的技术达人组成，其中有四名 **微软最有价值专家(Microsoft MVP)** ；成立了大约 2000 人的 `Blazor 中文社区` 积极响应，只讨论 Blazor 相关技术
+
+本组件库内置 **120** 多个组件，作者所在几家公司的项目均在重度使用，大多数组件都是在实际项目中提炼出来，非常适合国人操作习惯，大大节约开发时间，不像有些开源作品甚至作者本人都不使用，遇到问题从根本上无法解决，提交 Issue 也是让其自行解决并帮忙 PR 到其仓库
+
+作者与团队积极处理 Issue 社区中积极回答问题，绝对不会一个开源仓库有几百上千 Issue 不予处理，当需求合理，即使是新功能也会积极响应并尽快提供新版本不会出现让提交者自己实现功能并提交 PR 的行为
+
+针对个别白嫖党、伸手党会亮出杀手锏口号（付费提供远程支持），其实给钱也没时间搭理，逼不得已只能在这里明确一下，一些黑粉跑去其他社区说我们有卖课广告
+
+微软 MVP 列表（按字母排序）
+
+- Argo Zhang [链接地址](!https://mvp.microsoft.com/en-us/PublicProfile/5004174)
+- Chuanglin Zhou [链接地址](!https://mvp.microsoft.com/en-us/PublicProfile/5005078)
+- Guohao Wang [链接地址](!https://mvp.microsoft.com/en-us/PublicProfile/5005089)
+- Xiang ju [链接地址](!https://mvp.microsoft.com/en-us/PublicProfile/5005108)
+
 ## 生态伙伴
 
 WTM 快速开发框架，设计的核心理念就是 "尽一切可能提高开发效率"。WTM框架把常规编码结构化，重复编码自动化，它不仅是一个框架，它是强有力的生产力工具！目前 WTM 快速开发框架已深度集成 Blazor 欢迎大家使用 [传送门](https://wtmdoc.walkingtec.cn)

@@ -145,7 +145,7 @@ public partial class Select<TValue> : ISelect
     /// </summary>
     private string? InputId => $"{Id}_input";
 
-    private string? _lastSelectedValueString;
+    private string _lastSelectedValueString = string.Empty;
 
     /// <summary>
     /// <inheritdoc/>
@@ -207,8 +207,6 @@ public partial class Select<TValue> : ISelect
                 ?? DataSource.FirstOrDefault(i => i.Active)
                 ?? DataSource.FirstOrDefault();
 
-            // 检查 Value 值是否在候选项中存在
-            // Value 不等于 选中值即不存在
             if (SelectedItem != null)
             {
                 _ = SelectedItemChanged(SelectedItem);
@@ -224,10 +222,7 @@ public partial class Select<TValue> : ISelect
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task InvokeInitAsync()
-    {
-        await InvokeVoidAsync("init", Id, nameof(ConfirmSelectedItem), Interop);
-    }
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(ConfirmSelectedItem));
 
     /// <summary>
     /// 客户端回车回调方法
