@@ -62,6 +62,12 @@ public class DynamicElement : BootstrapComponentBase
     public Func<MouseEventArgs, Task>? OnContextMenu { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否触发 OnContextMenu 事件 默认 false
+    /// </summary>
+    [Parameter]
+    public bool TriggerContextMenu { get; set; }
+
+    /// <summary>
     /// 获得/设置 内容组件
     /// </summary>
     [Parameter]
@@ -104,7 +110,7 @@ public class DynamicElement : BootstrapComponentBase
             builder.AddEventStopPropagationAttribute(5, "onclick", StopPropagation);
         }
 
-        if (OnContextMenu != null)
+        if (TriggerContextMenu && OnContextMenu != null)
         {
             builder.AddAttribute(6, "oncontextmenu", EventCallback.Factory.Create<MouseEventArgs>(this, e => OnContextMenu(e)));
             builder.AddEventPreventDefaultAttribute(7, "oncontextmenu", true);
