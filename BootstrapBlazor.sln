@@ -119,7 +119,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.AzureOpenAI
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Dock", "src\Extensions\Components\BootstrapBlazor.Dock\BootstrapBlazor.Dock.csproj", "{608A9F47-A719-4DE7-9967-C25565534F57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.FloatingUI", "src\Extensions\Components\BootstrapBlazor.FloatingUI\BootstrapBlazor.FloatingUI.csproj", "{19D6EF90-31A9-4E1C-942D-E6052205CA1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.FloatingUI", "src\Extensions\Components\BootstrapBlazor.FloatingUI\BootstrapBlazor.FloatingUI.csproj", "{19D6EF90-31A9-4E1C-942D-E6052205CA1C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.MouseFollower", "src\Extensions\Components\BootstrapBlazor.MouseFollower\BootstrapBlazor.MouseFollower.csproj", "{71FDF312-4195-4218-A941-754BDF5BAB82}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -239,6 +241,10 @@ Global
 		{19D6EF90-31A9-4E1C-942D-E6052205CA1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19D6EF90-31A9-4E1C-942D-E6052205CA1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19D6EF90-31A9-4E1C-942D-E6052205CA1C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71FDF312-4195-4218-A941-754BDF5BAB82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71FDF312-4195-4218-A941-754BDF5BAB82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71FDF312-4195-4218-A941-754BDF5BAB82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71FDF312-4195-4218-A941-754BDF5BAB82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -280,6 +286,7 @@ Global
 		{2A125023-86C5-4300-BC6E-775D32FF8E1D} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{608A9F47-A719-4DE7-9967-C25565534F57} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{19D6EF90-31A9-4E1C-942D-E6052205CA1C} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
+		{71FDF312-4195-4218-A941-754BDF5BAB82} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}

@@ -5076,7 +5076,9 @@
     "AzureOpenAI": "AI 聊天服务 AzureOpenAI",
     "HtmlRenderers": "Html 转换器  HtmlRenderer",
     "ContextMenu": "右键菜单 ContextMenu",
-    "DockView": "可停靠布局 DockView"
+    "DockView": "可停靠布局 DockView",
+    "MousePointerComponents": "鼠标指针",
+    "MouseFollowerIntro": "鼠标跟随"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6303,5 +6305,22 @@
     "Description": "多标签停靠布局管理器",
     "BasicUsageTitle": "基础用法",
     "BasicUsageIntro": "通过拖动标签自定义布局"
+  },
+  "BootstrapBlazor.Shared.Samples.MouseFollowers": {
+    "MouseFollowersTitle": "鼠标跟随器",
+    "MouseFollowersDescription": "可以为网站上的鼠标光标创建惊人而流畅的效果。",
+    "MouseFollowerNormalTitle": "普通模式",
+    "MouseFollowerNormalIntro": "显示一个跟随元素",
+    "MouseFollowerTextTitle": "文本模式",
+    "MouseFollowerTextIntro": "在光标中显示文本",
+    "MouseFollowerIconTitle": "图标模式",
+    "MouseFollowerIconIntro": "在光标中显示SVG图",
+    "MouseFollowerImageTitle": "图片模式",
+    "MouseFollowerImageIntro": "在光标中显示图片",
+    "MouseFollowerVideoTitle": "视频模式",
+    "MouseFollowerVideoIntro": "在光标中播放视频",
+    "MouseFollowersFollowerMode": "MouseFollowerMode.Normal 默认模式，MouseFollowerMode.Text 文本模式，MouseFollowerMode.Icon 图标模式，MouseFollowerMode.Image 图片模式，MouseFollowerMode.Video 视频模式",
+    "MouseFollowersGlobalMode": "全局|局部，模式",
+    "MouseFollowersContent": "文本，图标，图片路径，视频路径"
   }
 }
