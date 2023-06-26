@@ -126,9 +126,13 @@ const createGoldenLayout = (option, el) => {
 
 const closeItem = (el, component) => {
     const item = document.getElementById(component.id)
-    item.classList.add('d-none')
-    component.remove();
-    el.append(item)
+    if (item) {
+        item.classList.add('d-none')
+        el.append(item)
+    }
+    const parent = component.parent
+    parent.removeChild(component)
+
 }
 
 const getConfig = option => {
