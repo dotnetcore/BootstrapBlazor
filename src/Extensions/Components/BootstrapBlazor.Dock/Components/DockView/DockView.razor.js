@@ -74,8 +74,9 @@ export function update(id, option) {
                 v.setTitle(c.title)
             }
         })
+
+        saveConfig(option, dock.layout)
     }
-    saveConfig(option, dock.layout)
 }
 
 export function dispose(id) {
