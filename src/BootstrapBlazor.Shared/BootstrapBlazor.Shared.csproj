@@ -42,6 +42,7 @@
     <PackageReference Include="BootstrapBlazor.TableExport" Version="7.4.0" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="7.4.4" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="7.*" />
+    <PackageReference Include="BootstrapBlazor.MouseFollower" Version="7.0.0" />
     <PackageReference Include="Longbow.GiteeAuth" Version="7.0.0" />
     <PackageReference Include="Longbow.GitHubAuth" Version="7.0.1" />
     <PackageReference Include="Longbow.OAuth" Version="7.0.0" />
@@ -49,7 +50,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
-    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.MouseFollower\BootstrapBlazor.MouseFollower.csproj" />
   </ItemGroup>
 
   <ItemGroup>

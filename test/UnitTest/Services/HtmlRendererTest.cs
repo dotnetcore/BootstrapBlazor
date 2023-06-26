@@ -14,5 +14,8 @@ public class HtmlRendererTest : BootstrapBlazorTestBase
         var renderService = Context.Services.GetRequiredService<IComponentHtmlRenderer>();
         var html = await renderService.RenderAsync<Button>();
         Assert.NotEmpty(html);
+
+        html = await renderService.RenderAsync(typeof(Button));
+        Assert.NotEmpty(html);
     }
 }

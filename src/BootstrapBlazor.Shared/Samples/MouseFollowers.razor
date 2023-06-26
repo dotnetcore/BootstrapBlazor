@@ -6,6 +6,8 @@
 
     <h4>@Localizer["MouseFollowersDescription"]</h4>
 
+    <PackageTips Name="@NugetPackageName"></PackageTips>
+
     <DemoBlock Title="@Localizer["MouseFollowerNormalTitle"]"
                Introduction="@Localizer["MouseFollowerNormalIntro"]"
                Name="MouseFollowerNormal"
@@ -40,6 +42,9 @@
 </div>
 
 @code {
+    [NotNull]
+    private static string NugetPackageName => "BootstrapBlazor.MouseFollower";
+
     /// <summary>
     /// 获得属性方法
     /// </summary>

@@ -121,7 +121,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Dock", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.FloatingUI", "src\Extensions\Components\BootstrapBlazor.FloatingUI\BootstrapBlazor.FloatingUI.csproj", "{19D6EF90-31A9-4E1C-942D-E6052205CA1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.MouseFollower", "src\Extensions\Components\BootstrapBlazor.MouseFollower\BootstrapBlazor.MouseFollower.csproj", "{71FDF312-4195-4218-A941-754BDF5BAB82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.MouseFollower", "src\Extensions\Components\BootstrapBlazor.MouseFollower\BootstrapBlazor.MouseFollower.csproj", "{71FDF312-4195-4218-A941-754BDF5BAB82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.Html2Pdf", "src\Extensions\Components\BootstrapBlazor.Html2Pdf\BootstrapBlazor.Html2Pdf.csproj", "{CA5BF6FD-257E-4D4B-8DF0-F4035B0C7CA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -245,6 +247,10 @@ Global
 		{71FDF312-4195-4218-A941-754BDF5BAB82}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71FDF312-4195-4218-A941-754BDF5BAB82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71FDF312-4195-4218-A941-754BDF5BAB82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA5BF6FD-257E-4D4B-8DF0-F4035B0C7CA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA5BF6FD-257E-4D4B-8DF0-F4035B0C7CA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA5BF6FD-257E-4D4B-8DF0-F4035B0C7CA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA5BF6FD-257E-4D4B-8DF0-F4035B0C7CA2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -287,6 +293,7 @@ Global
 		{608A9F47-A719-4DE7-9967-C25565534F57} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{19D6EF90-31A9-4E1C-942D-E6052205CA1C} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{71FDF312-4195-4218-A941-754BDF5BAB82} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
+		{CA5BF6FD-257E-4D4B-8DF0-F4035B0C7CA2} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}
