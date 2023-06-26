@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// IDockComponent 接口定义
 /// </summary>
-public interface IDockComponent
+public interface IDockComponent : IDisposable
 {
     /// <summary>
     /// 获得/设置 组件类型
