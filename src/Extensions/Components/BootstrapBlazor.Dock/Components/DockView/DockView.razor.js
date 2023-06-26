@@ -58,8 +58,18 @@ export function update(id, option) {
                     const compotentItem = dock.layout.createAndInitContentItem({ type: option.content[0].type, content: [] }, dock.layout.root)
                     dock.layout.root.addChild(compotentItem)
                 }
-
-                dock.layout.root.contentItems[0].addItem(v)
+                if (dock.layout.root.contentItems[0].isStack) {
+                    const typeConfig = goldenLayout.ResolvedItemConfig.createDefault(option.content[0].type)
+                    const rowOrColumn = dock.layout.root.layoutManager.createContentItem(typeConfig, dock.layout.root)
+                    const stack = dock.layout.root.contentItems[0]
+                    dock.layout.root.replaceChild(stack, rowOrColumn)
+                    rowOrColumn.addChild(stack)
+                    rowOrColumn.addItem(v)
+                    rowOrColumn.updateSize()
+                }
+                else {
+                    dock.layout.root.contentItems[0].addItem(v)
+                }
             }
         })
 
