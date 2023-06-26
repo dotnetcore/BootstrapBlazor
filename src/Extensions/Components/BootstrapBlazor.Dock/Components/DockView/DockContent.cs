@@ -11,15 +11,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// DockContent 类对标 content 配置项
 /// </summary>
-public class DockContent : ComponentBase, IDockComponent
+public class DockContent : DockComponentBase
 {
-    /// <summary>
-    /// 获得/设置 排列方式 默认 Row 水平排列
-    /// </summary>
-    [Parameter]
-    [JsonConverter(typeof(DockTypeConverter))]
-    public DockContentType Type { get; set; }
-
     /// <summary>
     /// 获得/设置 子组件
     /// </summary>
@@ -45,19 +38,6 @@ public class DockContent : ComponentBase, IDockComponent
     /// </summary>
     [Parameter]
     public int? Height { get; set; }
-
-    [CascadingParameter]
-    private DockContent? Content { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        Content?.Items.Add(this);
-    }
 
     /// <summary>
     /// <inheritdoc/>
