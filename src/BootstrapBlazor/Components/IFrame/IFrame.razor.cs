@@ -55,7 +55,7 @@ public partial class IFrame
     /// </summary>
     /// <param name="data"></param>
     /// <returns></returns>
-    private async Task PushData(object? data)
+    public async Task PushData(object? data)
     {
         if (_lastData != data)
         {
