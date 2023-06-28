@@ -5,16 +5,12 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components</PackageTags>
-    <Description>Bootstrap UI components extensions of Floating UI</Description>
+    <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components Icon</PackageTags>
+    <Description>Bootstrap UI components extensions of MouseFollwer</Description>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="BootstrapBlazor" Version="7.7.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Using Include="Microsoft.JSInterop" />
   </ItemGroup>
 
 </Project>

@@ -234,7 +234,7 @@ const setResizeListener = table => {
                     if (table.fixedHeader) {
                         tableEl.style.width = `${width}px;`
                     } else {
-                        tableEL.style.width = (width - 6) + 'px'
+                        tableEl.style.width = (width - 6) + 'px'
                     }
                 })
             },
