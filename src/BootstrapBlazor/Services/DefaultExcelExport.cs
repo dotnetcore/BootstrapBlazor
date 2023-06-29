@@ -4,13 +4,10 @@
 
 namespace BootstrapBlazor.Components;
 
-/// <summary>
-/// 
-/// </summary>
-internal class DefaultExcelExport : ITableExcelExport
+class DefaultExcelExport : ITableExcelExport
 {
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public Task<bool> ExportAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null) where TItem : class
