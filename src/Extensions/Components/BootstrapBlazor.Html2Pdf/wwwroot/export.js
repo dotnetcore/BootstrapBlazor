@@ -11,11 +11,11 @@ export function exportPdfById(id, fileName) {
     let ret = false
     const element = document.getElementById(id)
     if (element) {
-        const html = element.outerHTML.replace('\x3C', '<');
+        const html = element.outerHTML.replace(/(?:<!--!-->+)+/g, '');
         ret = exportPdf(html, fileName)
     }
     return ret
-}
+} 
 
 export function exportPdfByElement(el, fileName) {
     let ret = false
