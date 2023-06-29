@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components;
+
 using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
@@ -62,5 +64,12 @@ public class ChartDataset
     /// 数据点悬停半径，鼠标指向时的大小
     /// </summary>
     public int PointHoverRadius { get; set; } = 4;
+
+
+    /// <summary>
+    /// 获得/设置 折线图(Line) 宽度 默认 3 个像素
+    /// </summary>
+    public double BorderWidth { get; set; } = 3;
+
 
 }
