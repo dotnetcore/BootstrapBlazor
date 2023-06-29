@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Table 组件导出接口
 /// </summary>
 public interface ITableExcelExport
 {
