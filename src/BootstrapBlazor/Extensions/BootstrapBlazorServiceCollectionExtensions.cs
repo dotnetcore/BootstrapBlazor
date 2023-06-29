@@ -37,7 +37,8 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddSingleton<IZipArchiveService, DefaultZipArchiveService>();
         services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchService<>));
 
-        services.TryAddTransient<ITableExcelExport, DefaultExcelExport>();
+        services.TryAddSingleton<ITableExcelExport, DefaultExcelExport>();
+        services.TryAddSingleton<ITablePdfExport, DefaultPdfExport>();
         services.TryAddTransient<IJSRuntimeEventHandler, JSRuntimeEventHandler>();
 
         services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
