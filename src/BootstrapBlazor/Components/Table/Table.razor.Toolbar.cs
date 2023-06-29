@@ -58,6 +58,18 @@ public partial class Table<TItem>
     public bool ShowExportButton { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示 Excel 导出按钮 默认为 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowExportExcelButton { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示 Pdf 导出按钮 默认为 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowExportPdfButton { get; set; }
+
+    /// <summary>
     /// 获得/设置 导出按钮图标
     /// </summary>
     [Parameter]
@@ -68,6 +80,12 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     public string? ExcelExportIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 内置导出 Pdf 按钮图标
+    /// </summary>
+    [Parameter]
+    public string? PdfExportIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 导出数据后是否弹出 Toast 提示框 默认 true
@@ -86,6 +104,12 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     public string? ExportExcelDropdownItemText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 内置导出 Pdf 按钮文本 默认 null 读取资源文件
+    /// </summary>
+    [Parameter]
+    public string? ExportPdfDropdownItemText { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示扩展按钮 默认为 false
@@ -333,6 +357,10 @@ public partial class Table<TItem>
     [Inject]
     [NotNull]
     private ITableExcelExport? ExcelExport { get; set; }
+
+    [Inject]
+    [NotNull]
+    private ITablePdfExport? PdfExport { get; set; }
 
     /// <summary>
     /// 获得/设置 各列是否显示状态集合
