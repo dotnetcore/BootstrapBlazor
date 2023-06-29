@@ -43,4 +43,20 @@ public interface IHtml2Pdf
     /// <param name="fileName">the file name of pdf</param>
     /// <returns></returns>
     Task<bool> ExportAsync(Type componentType, IDictionary<string, object?>? parameters = null, string? fileName = null);
+
+    /// <summary>
+    /// Export element by id
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="fileName"></param>
+    /// <returns></returns>
+    Task<bool> ExportByIdAsync(string id, string? fileName = null);
+
+    /// <summary>
+    /// Export element by reference
+    /// </summary>
+    /// <param name="element"></param>
+    /// <param name="fileName"></param>
+    /// <returns></returns>
+    Task<bool> ExportByElementAsync(ElementReference element, string? fileName = null);
 }

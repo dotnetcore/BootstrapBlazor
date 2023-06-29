@@ -7,7 +7,7 @@ using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Components;
 
-internal class DefaultPdfService : IHtml2Pdf
+class DefaultPdfService : IHtml2Pdf
 {
     private IComponentHtmlRenderer HtmlRender { get; }
 
@@ -40,19 +40,6 @@ internal class DefaultPdfService : IHtml2Pdf
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="snippets"></param>
-    /// <param name="fileName"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public async Task<bool> ExportAsync(List<string> snippets, string? fileName = null)
-    {
-        await Task.Delay(200);
-        return true;
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
     /// <param name="componentType"></param>
     /// <param name="parameters"></param>
     /// <param name="fileName"></param>
@@ -74,5 +61,42 @@ internal class DefaultPdfService : IHtml2Pdf
     {
         var html = await HtmlRender.RenderAsync<TComponent>(parameters);
         return await ExportAsync(html, fileName);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="snippets"></param>
+    /// <param name="fileName"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task<bool> ExportAsync(List<string> snippets, string? fileName = null)
+    {
+        var module = await JSRuntime.LoadModule("./_content/BootstrapBlazor.Html2Pdf/export.js");
+        return await module.InvokeAsync<bool>("exportPdf", string.Join("", snippets), fileName);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="fileName"></param>
+    /// <returns></returns>
+    public async Task<bool> ExportByIdAsync(string id, string? fileName = null)
+    {
+        var module = await JSRuntime.LoadModule("./_content/BootstrapBlazor.Html2Pdf/export.js");
+        return await module.InvokeAsync<bool>("exportPdfById", id, fileName);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="element"></param>
+    /// <param name="fileName"></param>
+    /// <returns></returns>
+    public async Task<bool> ExportByElementAsync(ElementReference element, string? fileName = null)
+    {
+        var module = await JSRuntime.LoadModule("./_content/BootstrapBlazor.Html2Pdf/export.js");
+        return await module.InvokeAsync<bool>("exportPdfByElement", element, fileName);
     }
 }

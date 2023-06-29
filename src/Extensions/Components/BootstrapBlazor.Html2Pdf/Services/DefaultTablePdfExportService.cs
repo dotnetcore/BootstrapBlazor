@@ -6,6 +6,17 @@ namespace BootstrapBlazor.Components;
 
 class DefaultTablePdfExportService : ITablePdfExport
 {
+    private IHtml2Pdf PdfService { get; }
+
+    /// <summary>
+    /// 构造函数
+    /// </summary>
+    /// <param name="html2Pdf"></param>
+    public DefaultTablePdfExportService(IHtml2Pdf html2Pdf)
+    {
+        PdfService = html2Pdf;
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -15,8 +26,14 @@ class DefaultTablePdfExportService : ITablePdfExport
     /// <param name="fileName"></param>
     /// <returns></returns>
     /// <exception cref="NotImplementedException"></exception>
-    public Task<bool> ExportAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn>? cols, string? fileName = null) where TItem : class
-    {
-        return Task.FromResult(true);
-    }
+    public Task<bool> ExportAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn>? cols, string? fileName = null) where TItem : class => PdfService.ExportAsync("<div>Test</div>", fileName);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="fileName"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public Task<bool> ExportAsync(string id, string? fileName = null) => PdfService.ExportByIdAsync(id, fileName);
 }

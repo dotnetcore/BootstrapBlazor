@@ -18,8 +18,8 @@ public static class BootstrapBlazorHtml2PdfServiceExtensions
     /// <param name="services"></param>
     public static IServiceCollection AddBootstrapBlazorHtml2PdfService(this IServiceCollection services)
     {
-        services.TryAddTransient<IHtml2Pdf, DefaultPdfService>();
-        services.TryAddTransient<ITablePdfExport, DefaultTablePdfExportService>();
+        services.AddTransient<IHtml2Pdf, DefaultPdfService>();
+        services.AddTransient<ITablePdfExport, DefaultTablePdfExportService>();
 
         return services;
     }
