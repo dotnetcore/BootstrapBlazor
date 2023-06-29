@@ -1,0 +1,20 @@
+﻿@page "/l2dwidgets"
+@inject IStringLocalizer<L2Dwidgets> Localizer
+
+<h3>@Localizer["L2DwidgetsTitle"]</h3>
+
+<h4>@Localizer["L2DwidgetsDescription"]</h4>
+
+<PackageTips Name="@NugetPackageName"></PackageTips>
+
+<DemoBlock Title="@Localizer["L2DwidgetsNormalTitle"]"
+           Introduction="@Localizer["L2DwidgetsNormalIntro"]"
+           Name="L2DwidgetNormal"
+           Demo="typeof(Demos.L2Dwidget.L2DwidgetNormal)">
+</DemoBlock>
+
+@code {
+    [NotNull]
+    private static string NugetPackageName => "BootstrapBlazor.L2Dwidgets";
+
+}

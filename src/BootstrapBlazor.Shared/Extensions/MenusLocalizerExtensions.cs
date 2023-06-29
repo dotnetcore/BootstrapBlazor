@@ -87,6 +87,13 @@ internal static class MenusLocalizerExtensions
 
         item = new DemoMenuItem()
         {
+            Text = Localizer["L2DwidgetComponents"],
+            Icon = "fa-fw fa-solid fas fa-cat"
+        };
+        AddL2Dwidget(item);
+
+        item = new DemoMenuItem()
+        {
             Text = Localizer["Components"],
             Icon = "text-info fa-solid fa-fw fa-heart fa-beat",
             Url = "components"
@@ -94,6 +101,19 @@ internal static class MenusLocalizerExtensions
         AddSummary(item);
 
         return Menus;
+
+        void AddL2Dwidget(DemoMenuItem item)
+        {
+            item.Items = new List<DemoMenuItem>
+            {
+                new()
+                {
+                    Text = Localizer["L2DwidgetIntro"],
+                    Url = "l2dwidgets"
+                },
+            };
+            AddBadge(item, count: 1);
+        }
 
         void AddMousePointer(DemoMenuItem item)
         {
