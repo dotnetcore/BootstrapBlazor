@@ -3,8 +3,9 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Services;
+
 using Microsoft.AspNetCore.Components.Web;
-using System.IO.Compression;
+
 using System.Text;
 
 namespace BootstrapBlazor.Shared.Shared;
@@ -50,9 +51,41 @@ public partial class PracNavMenu
             },
             new MenuItem()
             {
-                Template = CreateDownloadButtonComponent("登陆和注册praclogin", pracloginFileList),
                 Text="登陆和注册 Login & Register",
-                Url="praclogin"
+                Url="praclogin",
+                Items = new List<MenuItem>()
+                {
+                    new()
+                    {
+                        Template = CreateDownloadButtonComponent("登陆和注册模板1", praclogintemplate1),
+                        Text = "模板 template 1",
+                        Url = "praclogintemplate1"
+                    },
+                    new()
+                    {
+                        Template = CreateDownloadButtonComponent("登陆和注册模板2", praclogintemplate2),
+                        Text = "模板 template 2",
+                        Url = "praclogintemplate2",
+                    },
+                    new()
+                    {
+                        Template = CreateDownloadButtonComponent("登陆和注册模板3", praclogintemplate3),
+                        Text = "模板 template 3",
+                        Url = "praclogintemplate3"
+                    },
+                    new()
+                    {
+                        Template = CreateDownloadButtonComponent("登陆和注册模板4", praclogintemplate4),
+                        Text = "模板 template 4",
+                        Url = "praclogintemplate4"
+                    },
+                    new()
+                    {
+                        Template = CreateDownloadButtonComponent("登陆和注册模板5", praclogintemplate5),
+                        Text = "模板 template 5",
+                        Url = "praclogintemplate5"
+                    }
+                }
             },
             new MenuItem()
             {
@@ -118,11 +151,36 @@ public partial class PracNavMenu
         "Services/DashboardService.cs"
     };
 
-    private readonly string[] pracloginFileList = new[]
+    private readonly string[] praclogintemplate1 = new[]
     {
-        "Practicals/LoginAndRegister/PracLogin.razor",
-        "Practicals/LoginAndRegister/PracLogin.razor.css",
-        "Practicals/LoginAndRegister/PracRegister.razor"
+        "Practicals/LoginAndRegister/PracLoginTemplate1.razor",
+        "Practicals/LoginAndRegister/PracLoginTemplate1.razor.css",
+    };
+
+    private readonly string[] praclogintemplate2 = new[]
+    {
+        "Practicals/LoginAndRegister/PracLoginTemplate2.razor",
+        "Practicals/LoginAndRegister/PracLoginTemplate2.razor.css",
+    };
+
+    private readonly string[] praclogintemplate3 = new[]
+    {
+        "Practicals/LoginAndRegister/PracLoginTemplate3.razor",
+        "Practicals/LoginAndRegister/PracLoginTemplate3.razor.css",
+    };
+
+    private readonly string[] praclogintemplate4 = new[]
+    {
+        "Practicals/LoginAndRegister/PracLoginTemplate4.razor",
+        "Practicals/LoginAndRegister/PracLoginTemplate4.razor.css",
+        "Practicals/LoginAndRegister/PracLoginTemplate4.razor.js",
+    };
+
+    private readonly string[] praclogintemplate5 = new[]
+    {
+        "Practicals/LoginAndRegister/PracLoginTemplate5.razor",
+        "Practicals/LoginAndRegister/PracLoginTemplate5.razor.css",
+        "Practicals/LoginAndRegister/PracLoginTemplate5.razor.js",
     };
 
     private readonly string[] pinteresoFileList = new[]

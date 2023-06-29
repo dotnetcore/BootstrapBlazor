@@ -1,0 +1,55 @@
+﻿@page "/praclogintemplate5"
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.Shared/Practicals/LoginAndRegister/PracLoginTemplate5.razor.js", JSObjectReference = true, AutoInvokeInit = false, AutoInvokeDispose = false)]
+
+<div class="logintemplate5">
+    <section class="forms-section">
+        <h1 class="section-title">Welcome to BootstrapBlazor</h1>
+        <div class="forms">
+            <div class="form-wrapper is-active">
+                <button type="button" class="switcher switcher-login">
+                    登录
+                    <span class="underline"></span>
+                </button>
+                <form class="form form-login">
+                    <fieldset>
+                        <legend>请输入您的电子邮件和密码以登录.</legend>
+                        <div class="input-block">
+                            <label for="login-email">邮箱</label>
+                            <input id="login-email" type="email" required>
+                        </div>
+                        <div class="input-block">
+                            <label for="login-password">密码</label>
+                            <input id="login-password" type="password" required>
+                        </div>
+                    </fieldset>
+                    <button type="submit" class="btn-login">登录</button>
+                </form>
+            </div>
+            <div class="form-wrapper">
+                <button type="button" class="switcher switcher-signup">
+                    注册
+                    <span class="underline"></span>
+                </button>
+                <form class="form form-signup">
+                    <fieldset>
+                        <legend>请输入您的电子邮件、密码和密码确认以进行注册.</legend>
+                        <div class="input-block">
+                            <label for="signup-email">邮箱</label>
+                            <input id="signup-email" type="email" required>
+                        </div>
+                        <div class="input-block">
+                            <label for="signup-password">密码</label>
+                            <input id="signup-password" type="password" required>
+                        </div>
+                        <div class="input-block">
+                            <label for="signup-password-confirm">确认密码</label>
+                            <input id="signup-password-confirm" type="password" required>
+                        </div>
+                    </fieldset>
+                    <button type="submit" class="btn-signup">提交</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
