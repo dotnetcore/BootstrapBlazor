@@ -11,8 +11,8 @@ export function exportPdfById(id, fileName) {
     let ret = false
     const element = document.getElementById(id)
     if (element) {
-        html2pdf().from(element).save(fileName)
-        ret = true
+        const html = element.outerHTML.replace('\x3C', '<');
+        ret = exportPdf(html, fileName)
     }
     return ret
 }
