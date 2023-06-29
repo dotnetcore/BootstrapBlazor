@@ -168,11 +168,11 @@
             padding: .5rem;
         }
 
-            .menu .submenu .nav-link .fa-angle-left {
+            .menu .submenu .nav-link .arrow {
                 transition: transform .3s linear;
             }
 
-            .menu .submenu .nav-link[aria-expanded="true"] > .fa-angle-left {
+            .menu .submenu .nav-link[aria-expanded="true"] > .arrow {
                 transform: rotate(-90deg);
             }
 
