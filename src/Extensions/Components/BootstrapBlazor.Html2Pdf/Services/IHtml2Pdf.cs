@@ -22,14 +22,6 @@ public interface IHtml2Pdf
     /// <summary>
     /// Export method
     /// </summary>
-    /// <param name="snippets">the collection of snippet html</param>
-    /// <param name="fileName">the file name of pdf</param>
-    /// <returns></returns>
-    Task<bool> ExportAsync(List<string> snippets, string? fileName = null);
-
-    /// <summary>
-    /// Export method
-    /// </summary>
     /// <param name="parameters">blazor component</param>
     /// <param name="fileName">the file name of pdf</param>
     /// <returns></returns>
