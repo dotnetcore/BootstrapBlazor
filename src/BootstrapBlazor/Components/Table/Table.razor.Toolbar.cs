@@ -88,10 +88,28 @@ public partial class Table<TItem>
     public string? PdfExportIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 导出数据前是否弹出 Toast 提示框 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowToastBeforeExport { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 导出数据后是否弹出 Toast 提示框 默认 true
     /// </summary>
     [Parameter]
     public bool ShowToastAfterExport { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 导出数据前回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<Task>? BeforeExportCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 导出数据后回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<bool, Task>? AfterExportCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 导出按钮下拉菜单模板 默认 null
