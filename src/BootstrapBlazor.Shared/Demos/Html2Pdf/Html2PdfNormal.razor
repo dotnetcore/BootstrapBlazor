@@ -1,0 +1,13 @@
+﻿<Button OnClick="OnExport" Text="PDF"></Button>
+
+@code {
+    [Inject]
+    [NotNull]
+    private IHtml2Pdf? PdfService { get; set; }
+
+    private async Task OnExport()
+    {
+        var html = "<div style=\"padding: 1rem;\"><h2>Header</h2><div>this is html</div></div>";
+        var ret = await PdfService.ExportAsync(html, "test.pdf");
+    }
+}

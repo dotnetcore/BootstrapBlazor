@@ -6326,5 +6326,11 @@
     "MouseFollowersFollowerMode": "MouseFollowerMode.Normal 默认模式，MouseFollowerMode.Text 文本模式，MouseFollowerMode.Icon 图标模式，MouseFollowerMode.Image 图片模式，MouseFollowerMode.Video 视频模式",
     "MouseFollowersGlobalMode": "全局|局部，模式",
     "MouseFollowersContent": "文本，图标，图片路径，视频路径"
+  },
+  "BootstrapBlazor.Shared.Samples.Html2Pdfs": {
+    "Html2PdfTitle": "Html 导出为 Pdf",
+    "Html2PdfDescription": "将 Html 片段或者网页元素导出为 Pdf",
+    "BasicUsageTitle": "基本用法",
+    "BasicUsageIntro": "将 <code>Html</code> 代码片段导出为 <code>Pdf</code> 文件"
   }
 }
