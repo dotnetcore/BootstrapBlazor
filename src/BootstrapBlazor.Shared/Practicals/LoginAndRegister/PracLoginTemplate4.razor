@@ -1,91 +1,27 @@
 ﻿@page "/praclogintemplate4"
-@inject NavigationManager Navigation
-@inject MessageService MessageService
-@using System.ComponentModel;
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.Shared/Practicals/LoginAndRegister/PracLoginTemplate4.razor.js", JSObjectReference = true, AutoInvokeInit = false, AutoInvokeDispose = false)]
 
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <Card class="shadow-lg border-0 my-5">
-                <BodyTemplate>
-                    <div class="login-item login-item-gitee">
-                        <div class="login-header">
-                            <span>登录</span>
-                            <div class="login-register">没有账号？<a href="#">点此注册</a></div>
-                        </div>
-                        <ValidateForm Model="@Model">
-                            <BootstrapInput TValue="string" ShowLabel="false" PlaceHolder="请输入账号" />
-                            <BootstrapPassword ShowLabel="false" PlaceHolder="请输入密码" />
-                            <div class="login-sms">
-                                <Checkbox TValue="bool" ShowLabel="false" ShowAfterLabel="true" DisplayText="记住我" />
-                                <a href="#">短信验证登录</a>
-                            </div>
-                            <Button Text="登录" Color="Color.Primary"></Button>
-                            <div class="text-center my-4">
-                                <a href="#">已有账号，忘记密码</a>
-                            </div>
-                            <Divider Text="其他登录方式" />
-                            <div class="login-oauth">
-                                <div class="login-oauth-item">
-                                    <i class="fa-brands fa-github"></i>
-                                </div>
-                                <div class="login-oauth-item">
-                                    <i class="fa-brands fa-twitter"></i>
-                                </div>
-                                <div class="login-oauth-item">
-                                    <i class="fa-brands fa-apple"></i>
-                                </div>
-                                <div class="login-oauth-item">
-                                    <i class="fa-brands fa-facebook"></i>
-                                </div>
-                            </div>
-                        </ValidateForm>
-                    </div>
-                </BodyTemplate>
-            </Card>
+<div class="logintemplate4">
+    <div class="form-structor">
+        <div class="signup">
+            <h2 class="form-title" id="signup"><span>or</span>注册</h2>
+            <div class="form-holder">
+                <input type="text" class="input" placeholder="用户名" />
+                <input type="email" class="input" placeholder="邮箱" />
+                <input type="password" class="input" placeholder="密码" />
+            </div>
+            <button class="submit-btn">注册</button>
+        </div>
+        <div class="login slide-up">
+            <div class="center">
+                <h2 class="form-title" id="login"><span>or</span>登录</h2>
+                <div class="form-holder">
+                    <input type="email" class="input" placeholder="邮箱" />
+                    <input type="password" class="input" placeholder="密码" />
+                </div>
+                <button class="submit-btn">登录</button>
+            </div>
         </div>
     </div>
 </div>
-
-@code {
-    [NotNull]
-    private LoginModel? Model { get; set; } = new();
-
-    [NotNull]
-    private ValidateForm? ValidatorForm { get; set; }
-
-    private async Task OnValidator()
-    {
-        var result = ValidatorForm.Validate();
-        if (result)
-        {
-            await MessageService.Show(new MessageOption() { Content = "登录成功" });
-        }
-    }
-
-    private async Task ForgotPassword()
-    {
-        await MessageService.Show(new MessageOption() { Content = "忘了就忘了吧..." });
-    }
-
-    private Task UserRegistration()
-    {
-        Navigation.NavigateTo("pracregister");
-        return Task.CompletedTask;
-    }
-
-    class LoginModel
-    {
-        [DataType(DataType.Text)]
-        [Display(Name = "账号")]
-        [Required(ErrorMessage = "{0}不能为空")]
-        public string? UserName { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "密码")]
-        [Required(ErrorMessage = "{0}不能为空")]
-        public string? Password { get; set; }
-
-        public bool RememberMe { get; set; }
-    }
-}

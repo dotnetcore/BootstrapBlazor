@@ -1,75 +1,11 @@
 ﻿@page "/praclogintemplate3"
-@inject NavigationManager Navigation
-@inject MessageService MessageService
-@using System.ComponentModel;
 
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <Card class="shadow-lg border-0 my-5">
-                <BodyTemplate>
-                    <div class="login-item login-item-avatar">
-                        <div class="text-center">
-                            <Avatar Url="_content/BootstrapBlazor.Shared/images/Argo-C.png" IsCircle="true" Size="Size.ExtraExtraLarge" />
-                            <h4 class="text-dark">欢迎使用 BootstrapBlazor 组件库</h4>
-                        </div>
-                        <ValidateForm Model="@Model">
-                            <BootstrapInput TValue="string" ShowLabel="false" PlaceHolder="请输入账号" />
-                            <BootstrapPassword ShowLabel="false" PlaceHolder="请输入密码" />
-                            <Checkbox TValue="bool" ShowLabel="false" ShowAfterLabel="true" DisplayText="记住登录状态" />
-                            <Button Text="登录" Color="Color.Primary"></Button>
-                            <hr />
-                            <div class="d-flex">
-                                <Button Text="忘记密码" Color="Color.Danger"></Button>
-                                <Button Text="用户注册" Color="Color.Info"></Button>
-                            </div>
-                        </ValidateForm>
-                    </div>
-                </BodyTemplate>
-            </Card>
+<div class="logintemplate3">
+    <div class="blurred-box">
+        <div class="user-login-box">
+            <span class="user-icon"></span>
+            <div class="user-name">Argo</div>
+            <input class="user-password" type="text" />
         </div>
     </div>
 </div>
-
-@code {
-    [NotNull]
-    private LoginModel? Model { get; set; } = new();
-
-    [NotNull]
-    private ValidateForm? ValidatorForm { get; set; }
-
-    private async Task OnValidator()
-    {
-        var result = ValidatorForm.Validate();
-        if (result)
-        {
-            await MessageService.Show(new MessageOption() { Content = "登录成功" });
-        }
-    }
-
-    private async Task ForgotPassword()
-    {
-        await MessageService.Show(new MessageOption() { Content = "忘了就忘了吧..." });
-    }
-
-    private Task UserRegistration()
-    {
-        Navigation.NavigateTo("pracregister");
-        return Task.CompletedTask;
-    }
-
-    class LoginModel
-    {
-        [DataType(DataType.Text)]
-        [Display(Name = "账号")]
-        [Required(ErrorMessage = "{0}不能为空")]
-        public string? UserName { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "密码")]
-        [Required(ErrorMessage = "{0}不能为空")]
-        public string? Password { get; set; }
-
-        public bool RememberMe { get; set; }
-    }
-}

@@ -78,6 +78,12 @@ public partial class PracNavMenu
                         Template = CreateDownloadButtonComponent("登陆和注册模板4", praclogintemplate4),
                         Text = "模板 template 4",
                         Url = "praclogintemplate4"
+                    },
+                    new()
+                    {
+                        Template = CreateDownloadButtonComponent("登陆和注册模板5", praclogintemplate5),
+                        Text = "模板 template 5",
+                        Url = "praclogintemplate5"
                     }
                 }
             },
@@ -167,6 +173,14 @@ public partial class PracNavMenu
     {
         "Practicals/LoginAndRegister/PracLoginTemplate4.razor",
         "Practicals/LoginAndRegister/PracLoginTemplate4.razor.css",
+        "Practicals/LoginAndRegister/PracLoginTemplate4.razor.js",
+    };
+
+    private readonly string[] praclogintemplate5 = new[]
+    {
+        "Practicals/LoginAndRegister/PracLoginTemplate5.razor",
+        "Practicals/LoginAndRegister/PracLoginTemplate5.razor.css",
+        "Practicals/LoginAndRegister/PracLoginTemplate5.razor.js",
     };
 
     private readonly string[] pinteresoFileList = new[]

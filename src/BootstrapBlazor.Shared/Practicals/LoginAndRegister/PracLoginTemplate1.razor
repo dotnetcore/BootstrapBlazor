@@ -3,30 +3,25 @@
 @inject MessageService MessageService
 @using System.ComponentModel;
 
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <Card class="shadow-lg border-0 my-5">
-                <BodyTemplate>
-                    <div class="login-item">
-                        <div class="text-center">
-                            <h4 class="text-dark">欢迎使用 BootstrapBlazor 组件库</h4>
-                            <h4 class="text-dark">用户登录!</h4>
-                        </div>
-                        <ValidateForm Model="@Model" @ref="ValidatorForm">
-                            <BootstrapInput @bind-Value="Model.UserName" ShowLabel="false" PlaceHolder="请输入账号" />
-                            <BootstrapPassword @bind-Value="Model.Password" ShowLabel="false" PlaceHolder="请输入密码" />
-                            <Checkbox @bind-Value="@Model.RememberMe" ShowLabel="false" ShowAfterLabel="true" DisplayText="记住登录状态" />
-                            <Button Text="登录" OnClickWithoutRender="OnValidator" Color="Color.Primary"></Button>
-                            <hr />
-                            <Button Text="忘记密码" Color="Color.Danger" OnClick="@ForgotPassword"></Button>
-                            <Button Text="用户注册" Color="Color.Info" OnClick="@UserRegistration"></Button>
-                        </ValidateForm>
-                    </div>
-                </BodyTemplate>
-            </Card>
+<div class="login-box">
+    <h2>Welcome to BootstrapBlazor</h2>
+    <ValidateForm Model="@Model" @ref="ValidatorForm" Id="logintemplate1">
+        <div class="user-box">
+            <input @bind-value="Model.UserName" type="text" name="" required>
+            <label>账号</label>
         </div>
-    </div>
+        <div class="user-box">
+            <input @bind-value="Model.Password" type="password" name="" required>
+            <label>密码</label>
+        </div>
+        <a href="#">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <Button type="submit">登录</Button>
+        </a>
+    </ValidateForm>
 </div>
 
 @code {
@@ -45,17 +40,6 @@
         }
     }
 
-    private async Task ForgotPassword()
-    {
-        await MessageService.Show(new MessageOption() { Content = "忘了就忘了吧..." });
-    }
-
-    private Task UserRegistration()
-    {
-        Navigation.NavigateTo("pracregister");
-        return Task.CompletedTask;
-    }
-
     class LoginModel
     {
         [DataType(DataType.Text)]
@@ -67,7 +51,5 @@
         [Display(Name = "密码")]
         [Required(ErrorMessage = "{0}不能为空")]
         public string? Password { get; set; }
-
-        public bool RememberMe { get; set; }
     }
 }
