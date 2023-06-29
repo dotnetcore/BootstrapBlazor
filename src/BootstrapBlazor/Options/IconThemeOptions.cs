@@ -166,6 +166,7 @@ public class IconThemeOptions
         { ComponentIcons.TableCardViewButtonIcon, "fa-solid fa-bars" },
         { ComponentIcons.TableColumnListButtonIcon, "fa-solid fa-table-list" },
         { ComponentIcons.TableExcelExportIcon, "fa-regular fa-file-excel" },
+        { ComponentIcons.TablePdfExportIcon, "fa-regular fa-file-pdf" },
         { ComponentIcons.TableSearchButtonIcon, "fa-solid fa-magnifying-glass" },
         { ComponentIcons.TableResetSearchButtonIcon, "fa-regular fa-trash-can" },
         { ComponentIcons.TableCloseButtonIcon, "fa-solid fa-xmark" },

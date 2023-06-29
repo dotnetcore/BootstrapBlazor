@@ -555,6 +555,11 @@ public enum ComponentIcons
     TableExcelExportIcon,
 
     /// <summary>
+    /// Table 组件 PdfExportIcon 属性图标
+    /// </summary>
+    TablePdfExportIcon,
+
+    /// <summary>
     /// Table 组件 SearchButtonIcon 属性图标
     /// </summary>
     TableSearchButtonIcon,
