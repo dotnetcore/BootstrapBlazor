@@ -16,9 +16,10 @@ public static class BootstrapBlazorHtml2PdfServiceExtensions
     /// 添加 AzureOpenAIService 服务
     /// </summary>
     /// <param name="services"></param>
-    public static IServiceCollection AddBootstrapBlazorAzureOpenAIService(this IServiceCollection services)
+    public static IServiceCollection AddBootstrapBlazorHtml2PdfService(this IServiceCollection services)
     {
         services.TryAddTransient<IHtml2Pdf, DefaultPdfService>();
+        services.TryAddTransient<ITablePdfExport, DefaultTablePdfExportService>();
 
         return services;
     }
