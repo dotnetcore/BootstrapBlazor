@@ -50,6 +50,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.Html2Pdf\BootstrapBlazor.Html2Pdf.csproj" />
+    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.MaterialDesign.Extensions\BootstrapBlazor.MaterialDesign.Extensions.csproj" />
   </ItemGroup>
 
   <ItemGroup>
