@@ -18,4 +18,15 @@ class DefaultPdfExport : ITablePdfExport
     {
         return Task.FromResult(false);
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="fileName"></param>
+    /// <returns></returns>
+    public Task<bool> ExportAsync(string id, string? fileName = null)
+    {
+        return Task.FromResult(false);
+    }
 }
