@@ -232,6 +232,7 @@
     "ExportToastContent": "Export data {0}, auto close after {1}s",
     "ExportToastInProgressContent": "Exporting data, please wait a moment, auto close after {0}s",
     "ExportExcelDropdownItemText": "MS-Excel",
+    "ExportPdfDropdownItemText": "Pdf",
     "PageInfoText": "{0} - {1} Total {2}",
     "PageItemsText": "{0}/page",
     "CopyColumnTooltipText": "Copy entire column data to clipboard",
