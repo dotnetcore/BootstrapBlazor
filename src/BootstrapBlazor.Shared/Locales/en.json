@@ -6317,7 +6317,9 @@
   "BootstrapBlazor.Shared.Samples.Html2Pdfs": {
     "Html2PdfTitle": "Html export to Pdf",
     "Html2PdfDescription": "Export Html fragments or web page elements as Pdf",
-    "BasicUsageTitle": "Noraml",
-    "BasicUsageIntro": "Export <code>Html</code> fragment as <code>Pdf</code> file"
+    "Html2PdfNormalTitle": "Noraml",
+    "Html2PdfNormalIntro": "Export <code>Html</code> fragment as <code>Pdf</code> file",
+    "Html2PdfByIdTitle": "Noraml",
+    "Html2PdfByIdIntro": "Export <code>Html</code> fragment as <code>Pdf</code> file"
   }
 }

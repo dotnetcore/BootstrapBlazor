@@ -6330,7 +6330,9 @@
   "BootstrapBlazor.Shared.Samples.Html2Pdfs": {
     "Html2PdfTitle": "Html 导出为 Pdf",
     "Html2PdfDescription": "将 Html 片段或者网页元素导出为 Pdf",
-    "BasicUsageTitle": "基本用法",
-    "BasicUsageIntro": "将 <code>Html</code> 代码片段导出为 <code>Pdf</code> 文件"
+    "Html2PdfNormalTitle": "基本用法",
+    "Html2PdfNormalIntro": "将 <code>Html</code> 代码片段导出为 <code>Pdf</code> 文件",
+    "Html2PdfByIdTitle": "基本用法",
+    "Html2PdfByIdIntro": "将 <code>Html</code> 代码片段导出为 <code>Pdf</code> 文件"
   }
 }
