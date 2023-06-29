@@ -80,6 +80,9 @@ internal static class ServicesExtensions
         // 增加 AzureOpenAI 服务
         services.AddBootstrapBlazorAzureOpenAIService();
 
+        // 增加 Pdf 导出服务
+        services.AddBootstrapBlazorHtml2PdfService();
+
         services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie()
             .AddGitee(OAuthHelper.Configure)
