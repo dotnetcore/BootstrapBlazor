@@ -4,6 +4,8 @@
 
 using Microsoft.AspNetCore.Components;
 
+using System.Reflection.Metadata;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -13,21 +15,16 @@ namespace BootstrapBlazor.Components;
 public partial class L2Dwidget
 {
     /// <summary>
-    /// 获得/设置 RenderFragment 实例
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public RenderFragment? ChildContent { get; set; }
-
-    private string? ClassString => CssBuilder.Default()
-        .AddClassFromAttributes(AdditionalAttributes)
-        .Build();
-
-    /// <summary>
     /// 获得/设置 L2DwidgetOptions
     /// </summary>
     [Parameter]
     public L2DwidgetOptions? Options { get; set; }
+
+    /// <summary>
+    /// 获得/设置 JsonPath 模型路径
+    /// </summary>
+    [Parameter]
+    public string? JsonPath { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -36,7 +33,10 @@ public partial class L2Dwidget
     protected override async Task InvokeInitAsync()
     {
         Options ??= new L2DwidgetOptions();
-
-        await InvokeVoidAsync("init", Id, Options);
+        if (!string.IsNullOrWhiteSpace(JsonPath))
+        {
+            Options.Model.JsonPath = JsonPath;
+        }
+        await InvokeVoidAsync("init", Options);
     }
 }

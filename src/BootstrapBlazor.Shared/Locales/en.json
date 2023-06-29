@@ -5065,8 +5065,9 @@
     "HtmlRenderer": "HtmlRenderer",
     "ContextMenu": "ContextMenu",
     "DockView": "DockView",
-    "MousePointerComponents": "MousePointer",
-    "MouseFollowerIntro": "MouseFollower"
+    "OtherComponents": "Others",
+    "MouseFollowerIntro": "MouseFollower",
+    "L2DwidgetIntro": "Live2D Widget"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",

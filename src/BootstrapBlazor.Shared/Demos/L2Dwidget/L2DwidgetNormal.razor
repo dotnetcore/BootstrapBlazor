@@ -1,1 +1,28 @@
-﻿<L2Dwidget />
+﻿<div>
+
+</div>
+
+<L2Dwidget Options="@options" />
+
+@code {
+    private L2DwidgetOptions options = new L2DwidgetOptions()
+    {
+        Model = new L2DwidgetModel()
+        {
+            JsonPath = "https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/bilibili-22/index.json"
+        },
+        Display = new L2DwidgetDisplay()
+        {
+            Position = L2DwidgetDisplayPosition.LeftBottom
+        },
+        Dialog = new L2DwidgetDialog()
+        {
+            Enable = true,
+            Script = new Dictionary<string, string>()
+            {
+                ["tap body"] = "哎呀！别碰我！",
+                ["tap face"] = "嘻嘻！",
+            }
+        }
+    };
+}
