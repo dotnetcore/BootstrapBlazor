@@ -117,10 +117,20 @@
                                 }
                                 else
                                 {
-                                    <div class="dropdown-item" @onclick="@ExportAsync">
-                                        <i class="@ExcelExportIcon"></i>
-                                        <span>@ExportExcelDropdownItemText</span>
-                                    </div>
+                                    if (ShowExportExcelButton)
+                                    {
+                                        <div class="dropdown-item" @onclick="@ExportExcelAsync">
+                                            <i class="@ExcelExportIcon"></i>
+                                            <span>@ExportExcelDropdownItemText</span>
+                                        </div>
+                                    }
+                                    if(ShowExportPdfButton)
+                                    {
+                                        <div class="dropdown-item" @onclick="@ExportPdfAsync">
+                                            <i class="@PdfExportIcon"></i>
+                                            <span>@ExportPdfDropdownItemText</span>
+                                        </div>
+                                    }
                                 }
                             </div>
                         </div>
