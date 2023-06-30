@@ -1,27 +1,20 @@
 ﻿import './html2pdf.bundle.min.js'
 
 export function exportPdf(html, fileName) {
+    const opt = {
+        ...{
+            image: { type: 'jpeg', quality: 0.95 },
+            pagebreak: { mode: ['avoid-all', 'css', 'legacy'] },
+            html2canvas: {
+                scale: 2,
+                useCORS: true,
+            },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+        },
+        ...{ filename: fileName }
+    };
     const element = document.createElement("div")
     element.innerHTML = html
-    html2pdf().from(element).save(fileName)
+    html2pdf(element, opt)
     return true
-}
-
-export function exportPdfById(id, fileName) {
-    let ret = false
-    const element = document.getElementById(id)
-    if (element) {
-        const html = element.outerHTML.replace(/(?:<!--!-->+)+/g, '');
-        ret = exportPdf(html, fileName)
-    }
-    return ret
-} 
-
-export function exportPdfByElement(el, fileName) {
-    let ret = false
-    if (el) {
-        html2pdf().from(el).save(fileName)
-        ret = true
-    }
-    return ret
 }

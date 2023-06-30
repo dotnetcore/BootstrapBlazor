@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -19,7 +18,6 @@ public static class BootstrapBlazorHtml2PdfServiceExtensions
     public static IServiceCollection AddBootstrapBlazorHtml2PdfService(this IServiceCollection services)
     {
         services.AddTransient<IHtml2Pdf, DefaultPdfService>();
-        services.AddTransient<ITablePdfExport, DefaultTablePdfExportService>();
 
         return services;
     }
