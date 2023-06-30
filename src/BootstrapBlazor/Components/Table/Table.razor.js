@@ -179,18 +179,28 @@ const setResizeListener = table => {
         else th.classList.remove('border-resize')
 
         const index = [].indexOf.call(th.parentNode.children, th);
-        th.closest('.table-resize').querySelectorAll('.table > tbody > tr').forEach(tr => {
-            if (!tr.classList.contains('is-detail')) {
-                const td = tr.children.item(index)
-                if (toggle) td.classList.add('border-resize')
-                else {
-                    td.classList.remove('border-resize')
-                    if (td.classList.length == 0) {
-                        td.removeAttribute('class')
+        const rows = []
+        table.tables.forEach(t => {
+            const body = [...t.children].filter(i => i.nodeName === 'TBODY')
+            if (body.length > 0) {
+                const tr = [...body[0].children].filter(i => i.nodeName === 'TR')
+                tr.forEach(i => {
+                    if (!i.classList.contains('is-detail')) {
+                        rows.push(i)
                     }
+                })
+            }
+        })
+        rows.forEach(tr => {
+            const td = tr.children.item(index)
+            if (toggle) td.classList.add('border-resize')
+            else {
+                td.classList.remove('border-resize')
+                if (td.classList.length == 0) {
+                    td.removeAttribute('class')
                 }
             }
-        });
+        })
         return index
     }
 
@@ -214,7 +224,8 @@ const setResizeListener = table => {
         drag(col,
             e => {
                 colIndex = eff(col, true)
-                const currentCol = el.querySelectorAll('table colgroup col')[colIndex]
+                const table = col.closest('table')
+                const currentCol = table.querySelectorAll('colgroup col')[colIndex]
                 const width = currentCol.style.width
                 if (width) {
                     colWidth = parseInt(width)
@@ -226,14 +237,16 @@ const setResizeListener = table => {
             },
             e => {
                 const marginX = e.clientX - originalX
-                el.querySelectorAll('table colgroup').forEach(group => {
+                table.tables.forEach(t => {
+                    const group = [...t.children].filter(i => i.nodeName === 'COLGROUP')[0]
                     const curCol = group.children.item(colIndex)
                     curCol.style.width = `${colWidth + marginX}px`
                     const tableEl = curCol.closest('table')
                     const width = tableWidth + marginX
-                    if (table.fixedHeader) {
+                    if (t.classList.contains('table-fixed')) {
                         tableEl.style.width = `${width}px;`
-                    } else {
+                    }
+                    else {
                         tableEl.style.width = (width - 6) + 'px'
                     }
                 })
@@ -326,19 +339,25 @@ export function init(id) {
         fixedHeader: el.querySelector('.table-fixed') != null,
         isExcel: el.querySelector('.table-excel') != null,
         isResizeColumn: el.querySelector('.col-resizer') != null,
-        columns: []
+        columns: [],
+        tables: []
     }
     Data.set(id, table)
 
     if (table.fixedHeader) {
         table.thead = el.querySelector('.table-fixed-header')
         table.body = el.querySelector('.table-fixed-body')
+        table.tables.push(table.thead.children[0])
+        table.tables.push(table.body.children[0])
         fixHeader(table)
 
         EventHandler.on(table.body, 'scroll', () => {
             const left = table.body.scrollLeft
             table.thead.scrollTo(left, 0)
         });
+    }
+    else {
+        table.tables.push(table.el.querySelector('.table-wrapper').children[0])
     }
 
     if (table.isExcel) {
