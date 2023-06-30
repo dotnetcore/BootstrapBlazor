@@ -1,0 +1,8 @@
+﻿@page "/html2pdf"
+@inject IStringLocalizer<Html2Pdfs> Localizer
+
+<h3>@Localizer["Html2PdfTitle"]</h3>
+
+<h4>@Localizer["Html2PdfDescription"]</h4>
+
+<DemoBlock Title="@Localizer["Html2PdfNormalTitle"]" Introduction="@Localizer["Html2PdfNormalIntro"]" Name="Normal" Demo="typeof(Demos.Html2Pdf.Html2PdfNormal)" />

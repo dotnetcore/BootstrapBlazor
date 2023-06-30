@@ -6313,5 +6313,11 @@
     "MouseFollowersFollowerMode": "MouseFollowerMode.Normal，MouseFollowerMode.Text ，MouseFollowerMode.Icon ，MouseFollowerMode.Image ，MouseFollowerMode.Video ",
     "MouseFollowersGlobalMode": "Global | Local, Mode",
     "MouseFollowersContent": "Text | icon | imagepath | videopath"
+  },
+  "BootstrapBlazor.Shared.Samples.Html2Pdfs": {
+    "Html2PdfTitle": "Html export to Pdf",
+    "Html2PdfDescription": "Export Html fragments or web page elements as Pdf",
+    "Html2PdfNormalTitle": "Noraml",
+    "Html2PdfNormalIntro": "Export <code>Html</code> fragment as <code>Pdf</code> file"
   }
 }
