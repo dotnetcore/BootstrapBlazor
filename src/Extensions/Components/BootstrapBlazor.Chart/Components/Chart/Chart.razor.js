@@ -125,9 +125,6 @@ const getChartOption = function (option) {
             ...genericOptions
         }
 
-        if (option.options.borderWidth > 0) {
-            chartOption.options.borderWidth = option.options.borderWidth
-        }
         config = chartOption
         colorFunc = function (data) {
             const color = chartColors[colors.shift()]
