@@ -16,11 +16,4 @@ public interface ITablePdfExport
     /// <param name="cols">当前可见列数据集合 默认 null 导出全部列</param>
     /// <param name="fileName">文件名 默认 null ExportData_{DateTime.Now:yyyyMMddHHmmss}.pdf</param>
     Task<bool> ExportAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn>? cols, string? fileName = null) where TItem : class;
-
-    /// <summary>
-    /// 导出 Pdf 方法
-    /// </summary>
-    /// <param name="id">导出数据所在</param>
-    /// <param name="fileName">文件名 默认 null ExportData_{DateTime.Now:yyyyMMddHHmmss}.pdf</param>
-    Task<bool> ExportAsync(string id, string? fileName = null);
 }
