@@ -29,12 +29,12 @@
     <PackageReference Include="BootstrapBlazor.Bluetooth" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.Chart" Version="7.5.4" />
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="7.2.1" />
-    <PackageReference Include="BootstrapBlazor.Dock" Version="7.0.2" />
+    <PackageReference Include="BootstrapBlazor.Dock" Version="7.0.4" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="7.4.2" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="7.2.1" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="7.0.0" />
-    <PackageReference Include="BootstrapBlazor.MaterialDesign.Extensions" Version="7.2.1" />
+    <PackageReference Include="BootstrapBlazor.MaterialDesign.Extensions" Version="7.3.0" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.PdfReader" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="7.*" />
