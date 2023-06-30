@@ -50,7 +50,7 @@ class ComponentHtmlRenderer : IComponentHtmlRenderer
         var html = await htmlRenderer.Dispatcher.InvokeAsync(async () =>
         {
             parameters ??= new Dictionary<string, object?>();
-            var paras = ParameterView.FromDictionary(parameters);
+            var paras = ParameterView.FromDictionary(parameters!);
             var output = await htmlRenderer.RenderComponentAsync(componentType, paras);
             return output.ToHtmlString();
         });
