@@ -1,0 +1,77 @@
+﻿@page "/mouseFollowers"
+@inject IStringLocalizer<MouseFollowers> Localizer
+
+<div>
+    <h3>@Localizer["MouseFollowersTitle"]</h3>
+
+    <h4>@Localizer["MouseFollowersDescription"]</h4>
+
+    <PackageTips Name="@NugetPackageName"></PackageTips>
+
+    <DemoBlock Title="@Localizer["MouseFollowerNormalTitle"]"
+               Introduction="@Localizer["MouseFollowerNormalIntro"]"
+               Name="MouseFollowerNormal"
+               Demo="typeof(Demos.MouseFollower.MouseFollowerNormal)">
+    </DemoBlock>
+
+    <DemoBlock Title="@Localizer["MouseFollowerTextTitle"]"
+               Introduction="@Localizer["MouseFollowerTextIntro"]"
+               Name="MouseFollowerText"
+               Demo="typeof(Demos.MouseFollower.MouseFollowerText)">
+    </DemoBlock>
+
+    <DemoBlock Title="@Localizer["MouseFollowerIconTitle"]"
+               Introduction="@Localizer["MouseFollowerIconIntro"]"
+               Name="MouseFollowerIcon"
+               Demo="typeof(Demos.MouseFollower.MouseFollowerIcon)">
+    </DemoBlock>
+
+    <DemoBlock Title="@Localizer["MouseFollowerImageTitle"]"
+               Introduction="@Localizer["MouseFollowerImageIntro"]"
+               Name="MouseFollowerImage"
+               Demo="typeof(Demos.MouseFollower.MouseFollowerImage)">
+    </DemoBlock>
+
+    <DemoBlock Title="@Localizer["MouseFollowerVideoTitle"]"
+               Introduction="@Localizer["MouseFollowerVideoIntro"]"
+               Name="MouseFollowerVideo"
+               Demo="typeof(Demos.MouseFollower.MouseFollowerVideo)">
+    </DemoBlock>
+
+    <AttributeTable Items="@GetAttributes()" />
+</div>
+
+@code {
+    [NotNull]
+    private static string NugetPackageName => "BootstrapBlazor.MouseFollower";
+
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
+        // TODO: 移动到数据库中
+        new AttributeItem() {
+            Name = "FollowerMode",
+            Description = Localizer["MouseFollowersFollowerMode"],
+            Type = "Enum",
+            ValueList = " — ",
+            DefaultValue = "MouseFollowerMode.Normal"
+        },
+        new AttributeItem() {
+            Name = "GlobalMode",
+            Description = Localizer["MouseFollowersGlobalMode"],
+            Type = "bool",
+            ValueList = " — ",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "Content",
+            Description = Localizer["MouseFollowersContent"],
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    };
+}

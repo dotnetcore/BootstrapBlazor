@@ -231,6 +231,7 @@
     "ExportToastContent": "Exportar datos {0}, cierre automático en {0} segundos",
     "ExportToastInProgressContent": "Exportar datos, cierre automático en {0} segundos",
     "ExportExcelDropdownItemText": "MS-Excel",
+    "ExportPdfDropdownItemText": "Pdf",
     "PageInfoText": "{0} - {1} Total {2}",
     "PageItemsText": "{0}/page"
   },

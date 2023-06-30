@@ -41,12 +41,7 @@ public partial class IFrame
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (_lastData != Data)
-        {
-            _lastData = Data;
-
-            await InvokeVoidAsync("execute", Id, Data);
-        }
+        await PushData(Data);
     }
 
     /// <summary>
@@ -54,6 +49,20 @@ public partial class IFrame
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(CallbackAsync));
+
+    /// <summary>
+    /// 推送数据方法
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
+    public async Task PushData(object? data)
+    {
+        if (_lastData != data)
+        {
+            _lastData = Data = data;
+            await InvokeVoidAsync("execute", Id, data);
+        }
+    }
 
     /// <summary>
     /// 由 JavaScript 调用

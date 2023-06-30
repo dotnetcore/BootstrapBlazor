@@ -15,5 +15,13 @@ public interface IComponentHtmlRenderer
     /// <typeparam name="TComponent"></typeparam>
     /// <param name="parameters"></param>
     /// <returns></returns>
-    Task<string> RenderAsync<TComponent>(IDictionary<string, object?>? parameters = null) where TComponent : ComponentBase;
+    Task<string> RenderAsync<TComponent>(IDictionary<string, object?>? parameters = null) where TComponent : IComponent;
+
+    /// <summary>
+    /// 转化成 Html 片段方法
+    /// </summary>
+    /// <param name="type">Blazor 组件类型</param>
+    /// <param name="parameters"></param>
+    /// <returns></returns>
+    Task<string> RenderAsync(Type type, IDictionary<string, object?>? parameters = null);
 }

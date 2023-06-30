@@ -5064,7 +5064,9 @@
     "AzureOpenAI": "AzureOpenAI",
     "HtmlRenderer": "HtmlRenderer",
     "ContextMenu": "ContextMenu",
-    "DockView": "DockView"
+    "DockView": "DockView",
+    "MousePointerComponents": "MousePointer",
+    "MouseFollowerIntro": "MouseFollower"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -5215,6 +5217,10 @@
     "OnColumnVisibleChangedAttr": "Trigger this callback when switch show/hide column in the list",
     "ShowEmptyAttr": "Show no data prompts",
     "ShowToastAfterSaveOrDeleteModelAttr": "Do you show a toast prompt box after a save/delete failure",
+    "ShowToastBeforeExport": "Whether show the Toast popup before export",
+    "ShowToastAfterExport": "Whether show the Toast popup after export",
+    "BeforeExportCallback": "The callback before export",
+    "AfterExportCallback": "The callback after export",
     "TreeIconAttr": "Small arrow for tree data rows",
     "ScrollingDialogContentAttr": "Edit whether the pop-up box appears inside the scroll bar",
     "FixedExtendButtonsColumnAttr": "Whether to fix the extended button column",
@@ -6290,5 +6296,28 @@
     "Description": "A multi window layout manager for webapps",
     "BasicUsageTitle": "Normal",
     "BasicUsageIntro": "layout manager which enables you to layout components in a web page and re-arrange them with drag and drop"
+  },
+  "BootstrapBlazor.Shared.Samples.MouseFollowers": {
+    "MouseFollowersTitle": "Mouse Follower",
+    "MouseFollowersDescription": "create amazing and smooth effects for the mouse cursor on your website.。",
+    "MouseFollowerNormalTitle": "Normal mode",
+    "MouseFollowerNormalIntro": "A Mouse Follower pointer",
+    "MouseFollowerTextTitle": "Text mode",
+    "MouseFollowerTextIntro": "To display text in the cursor use this method",
+    "MouseFollowerIconTitle": "Icon mode",
+    "MouseFollowerIconIntro": "If you use SVG spritesheet in your project and want to display them in the cursor, then you can use this method. In this case, you need to specify the path to the SVG sprite in the options and set class names.",
+    "MouseFollowerImageTitle": "Image mode",
+    "MouseFollowerImageIntro": "This method allows you to show any picture in the cursor",
+    "MouseFollowerVideoTitle": "Video mode",
+    "MouseFollowerVideoIntro": "You can also play videos",
+    "MouseFollowersFollowerMode": "MouseFollowerMode.Normal，MouseFollowerMode.Text ，MouseFollowerMode.Icon ，MouseFollowerMode.Image ，MouseFollowerMode.Video ",
+    "MouseFollowersGlobalMode": "Global | Local, Mode",
+    "MouseFollowersContent": "Text | icon | imagepath | videopath"
+  },
+  "BootstrapBlazor.Shared.Samples.Html2Pdfs": {
+    "Html2PdfTitle": "Html export to Pdf",
+    "Html2PdfDescription": "Export Html fragments or web page elements as Pdf",
+    "Html2PdfNormalTitle": "Noraml",
+    "Html2PdfNormalIntro": "Export <code>Html</code> fragment as <code>Pdf</code> file"
   }
 }

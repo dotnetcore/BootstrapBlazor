@@ -117,10 +117,20 @@
                                 }
                                 else
                                 {
-                                    <div class="dropdown-item" @onclick="@ExportAsync">
-                                        <i class="@ExcelExportIcon"></i>
-                                        <span>@ExportExcelDropdownItemText</span>
-                                    </div>
+                                    if (ShowExportExcelButton)
+                                    {
+                                        <div class="dropdown-item" @onclick="@ExportExcelAsync">
+                                            <i class="@ExcelExportIcon"></i>
+                                            <span>@ExportExcelDropdownItemText</span>
+                                        </div>
+                                    }
+                                    if(ShowExportPdfButton)
+                                    {
+                                        <div class="dropdown-item" @onclick="@ExportPdfAsync">
+                                            <i class="@PdfExportIcon"></i>
+                                            <span>@ExportPdfDropdownItemText</span>
+                                        </div>
+                                    }
                                 }
                             </div>
                         </div>
@@ -196,7 +206,8 @@
                 foreach (var item in Rows)
                 {
 					OnBeforeRenderRow?.Invoke(item);
-					<DynamicElement class="@GetRowClassString(item, "table-row")" OnContextMenu="e => OnContextMenu(e, item)"
+					<DynamicElement class="@GetRowClassString(item, "table-row")"
+                                    TriggerContextMenu="ContextMenuZone != null" OnContextMenu="e => OnContextMenu(e, item)"
                                     TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="() => ClickRow(item)">
                         @if (IsMultipleSelect)
                         {
@@ -584,7 +595,8 @@
     </thead>;
 
     RenderFragment<TItem> RenderRow => item =>
-    @<DynamicElement TagName="tr" class="@GetRowClassString(item)" OnContextMenu="e => OnContextMenu(e, item)"
+    @<DynamicElement TagName="tr" class="@GetRowClassString(item)"
+                     TriggerContextMenu="ContextMenuZone != null" OnContextMenu="e => OnContextMenu(e, item)"
                      TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="() => ClickRow(item)"
                      TriggerDoubleClick="@(DoubleClickToEdit || OnDoubleClickRowCallback != null)" OnDoubleClick="() => DoubleClickRow(item)">
         @if (ShowDetails())

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>7.7.6-beta02</Version>
+    <Version>7.8.0</Version>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
@@ -53,6 +53,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
+    <Content Include="build\*.targets" PackagePath="build\" />
     <Content Remove="wwwroot\js\bootstrap.blazor.bundle.js" />
     <None Include="wwwroot\js\bootstrap.blazor.bundle.js" />
   </ItemGroup>

@@ -12,8 +12,14 @@ export function init(id, invoke, callback) {
 export function execute(id, data) {
     const frame = document.getElementById(id)
     if (frame) {
-        frame.onload = () => {
+        if (frame.loaded) {
             frame.contentWindow.postMessage(data)
+        }
+        else {
+            frame.onload = () => {
+                frame.loaded = true
+                frame.contentWindow.postMessage(data)
+            }
         }
     }
 }

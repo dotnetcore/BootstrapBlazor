@@ -58,8 +58,18 @@ export function update(id, option) {
                     const compotentItem = dock.layout.createAndInitContentItem({ type: option.content[0].type, content: [] }, dock.layout.root)
                     dock.layout.root.addChild(compotentItem)
                 }
-
-                dock.layout.root.contentItems[0].addItem(v)
+                if (dock.layout.root.contentItems[0].isStack) {
+                    const typeConfig = goldenLayout.ResolvedItemConfig.createDefault(option.content[0].type)
+                    const rowOrColumn = dock.layout.root.layoutManager.createContentItem(typeConfig, dock.layout.root)
+                    const stack = dock.layout.root.contentItems[0]
+                    dock.layout.root.replaceChild(stack, rowOrColumn)
+                    rowOrColumn.addChild(stack)
+                    rowOrColumn.addItem(v)
+                    rowOrColumn.updateSize()
+                }
+                else {
+                    dock.layout.root.contentItems[0].addItem(v)
+                }
             }
         })
 
@@ -74,8 +84,9 @@ export function update(id, option) {
                 v.setTitle(c.title)
             }
         })
+
+        saveConfig(option, dock.layout)
     }
-    saveConfig(option, dock.layout)
 }
 
 export function dispose(id) {
@@ -125,9 +136,13 @@ const createGoldenLayout = (option, el) => {
 
 const closeItem = (el, component) => {
     const item = document.getElementById(component.id)
-    item.classList.add('d-none')
-    component.remove();
-    el.append(item)
+    if (item) {
+        item.classList.add('d-none')
+        el.append(item)
+    }
+    const parent = component.parent
+    parent.removeChild(component)
+
 }
 
 const getConfig = option => {

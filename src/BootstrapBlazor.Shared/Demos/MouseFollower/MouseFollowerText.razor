@@ -1,0 +1,16 @@
+﻿<MouseFollower Content="Hi"
+               Options="@followerOptions"
+               FollowerMode="MouseFollowerMode.Text">
+    <div class="mouseFollower-demo" />
+</MouseFollower>
+
+@code {
+    private MouseFollowerOptions followerOptions = new() { ClassName = "mf-cursor bb-cursor" };
+}
+
+<style>
+    .bb-cursor {
+        color: orangered
+    }
+</style>
+
