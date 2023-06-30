@@ -6318,10 +6318,6 @@
     "Html2PdfTitle": "Html export to Pdf",
     "Html2PdfDescription": "Export Html fragments or web page elements as Pdf",
     "Html2PdfNormalTitle": "Noraml",
-    "Html2PdfNormalIntro": "Export <code>Html</code> fragment as <code>Pdf</code> file",
-    "Html2PdfByIdTitle": "By ID",
-    "Html2PdfByIdIntro": "Export <code>Html</code> fragment as <code>Pdf</code> file",
-    "Html2PdfByElementTitle": "By Element",
-    "Html2PdfByElementIntro": "Export <code>Html</code> fragment as <code>Pdf</code> file"
+    "Html2PdfNormalIntro": "Export <code>Html</code> fragment as <code>Pdf</code> file"
   }
 }
