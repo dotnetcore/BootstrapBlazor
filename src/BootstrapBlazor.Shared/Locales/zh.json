@@ -5248,6 +5248,10 @@
     "OnColumnVisibleChangedAttr": "改变列是否显示时触发此回调",
     "ShowEmptyAttr": "是否显示无数据提示",
     "ShowToastAfterSaveOrDeleteModelAttr": "保存/删除失败后是否显示 Toast 提示框",
+    "ShowToastBeforeExport": "导出数据前是否弹出 Toast 提示框",
+    "ShowToastAfterExport": "导出数据后是否弹出 Toast 提示框",
+    "BeforeExportCallback": "导出数据前回调方法",
+    "AfterExportCallback": "导出数据后回调方法",
     "TreeIconAttr": "树形数据行小箭头",
     "ScrollingDialogContentAttr": "编辑弹窗框是否为内部出现滚动条",
     "FixedExtendButtonsColumnAttr": "是否固定扩展按钮列",
@@ -6322,5 +6326,11 @@
     "MouseFollowersFollowerMode": "MouseFollowerMode.Normal 默认模式，MouseFollowerMode.Text 文本模式，MouseFollowerMode.Icon 图标模式，MouseFollowerMode.Image 图片模式，MouseFollowerMode.Video 视频模式",
     "MouseFollowersGlobalMode": "全局|局部，模式",
     "MouseFollowersContent": "文本，图标，图片路径，视频路径"
+  },
+  "BootstrapBlazor.Shared.Samples.Html2Pdfs": {
+    "Html2PdfTitle": "Html 导出为 Pdf",
+    "Html2PdfDescription": "将 Html 片段或者网页元素导出为 Pdf",
+    "Html2PdfNormalTitle": "基本用法",
+    "Html2PdfNormalIntro": "将 <code>Html</code> 代码片段导出为 <code>Pdf</code> 文件"
   }
 }

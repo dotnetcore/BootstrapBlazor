@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -16,9 +15,9 @@ public static class BootstrapBlazorHtml2PdfServiceExtensions
     /// 添加 AzureOpenAIService 服务
     /// </summary>
     /// <param name="services"></param>
-    public static IServiceCollection AddBootstrapBlazorAzureOpenAIService(this IServiceCollection services)
+    public static IServiceCollection AddBootstrapBlazorHtml2PdfService(this IServiceCollection services)
     {
-        services.TryAddTransient<IHtml2Pdf, DefaultPdfService>();
+        services.AddTransient<IHtml2Pdf, DefaultPdfService>();
 
         return services;
     }

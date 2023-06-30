@@ -232,6 +232,7 @@
     "ExportToastContent": "导出数据 {0}，{1} 秒后自动关闭",
     "ExportToastInProgressContent": "正在导出数据，请稍后, {0} 秒后自动关闭",
     "ExportExcelDropdownItemText": "微软 Excel 格式",
+    "ExportPdfDropdownItemText": "Pdf 格式",
     "PageInfoText": "{0} - {1} 共 {2} 条",
     "PageItemsText": "{0} 条/页",
     "CopyColumnTooltipText": "拷贝列内容到剪切板",

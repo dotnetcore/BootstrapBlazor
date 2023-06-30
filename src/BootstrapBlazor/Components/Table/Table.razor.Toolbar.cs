@@ -58,6 +58,18 @@ public partial class Table<TItem>
     public bool ShowExportButton { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示 Excel 导出按钮 默认为 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowExportExcelButton { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否显示 Pdf 导出按钮 默认为 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowExportPdfButton { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 导出按钮图标
     /// </summary>
     [Parameter]
@@ -70,10 +82,34 @@ public partial class Table<TItem>
     public string? ExcelExportIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 内置导出 Pdf 按钮图标
+    /// </summary>
+    [Parameter]
+    public string? PdfExportIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 导出数据前是否弹出 Toast 提示框 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowToastBeforeExport { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 导出数据后是否弹出 Toast 提示框 默认 true
     /// </summary>
     [Parameter]
     public bool ShowToastAfterExport { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 导出数据前回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<Task>? BeforeExportCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 导出数据后回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<bool, Task>? AfterExportCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 导出按钮下拉菜单模板 默认 null
@@ -86,6 +122,12 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     public string? ExportExcelDropdownItemText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 内置导出 Pdf 按钮文本 默认 null 读取资源文件
+    /// </summary>
+    [Parameter]
+    public string? ExportPdfDropdownItemText { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示扩展按钮 默认为 false
@@ -333,6 +375,10 @@ public partial class Table<TItem>
     [Inject]
     [NotNull]
     private ITableExcelExport? ExcelExport { get; set; }
+
+    [Inject]
+    [NotNull]
+    private ITablePdfExport? PdfExport { get; set; }
 
     /// <summary>
     /// 获得/设置 各列是否显示状态集合
@@ -922,34 +968,32 @@ public partial class Table<TItem>
         ResetSelectedRows(QueryItems);
     }
 
-    /// <summary>
-    /// 导出数据方法
-    /// </summary>
-    protected async Task ExportAsync()
+    private async Task ExecuteExportAsync(Func<Task<bool>> callback)
     {
-        var option = new ToastOption
+        if (BeforeExportCallback != null)
         {
-            Title = ExportToastTitle,
-            Category = ToastCategory.Information
-        };
-        option.Content = string.Format(ExportToastInProgressContent, Math.Ceiling(option.Delay / 1000.0));
-        await Toast.Show(option);
-
-        var ret = false;
-        if (OnExportAsync != null)
-        {
-            // 通过 OnExportAsync 回调导出数据
-            ret = await OnExportAsync(Rows, BuildQueryPageOptions());
+            await BeforeExportCallback();
         }
-        else
+        else if (ShowToastBeforeExport)
         {
-            // 通过 ITableExcelExport 服务导出数据
-            ret = await ExcelExport.ExportAsync(Rows, GetVisibleColumns());
+            var option = new ToastOption
+            {
+                Title = ExportToastTitle,
+                Category = ToastCategory.Information
+            };
+            option.Content = string.Format(ExportToastInProgressContent, Math.Ceiling(option.Delay / 1000.0));
+            await Toast.Show(option);
         }
 
-        if (ShowToastAfterExport)
+        var ret = await callback();
+
+        if (AfterExportCallback != null)
         {
-            option = new ToastOption
+            await AfterExportCallback(ret);
+        }
+        else if (ShowToastAfterExport)
+        {
+            var option = new ToastOption
             {
                 Title = ExportToastTitle,
                 Category = ret ? ToastCategory.Success : ToastCategory.Error
@@ -958,6 +1002,24 @@ public partial class Table<TItem>
             await Toast.Show(option);
         }
     }
+
+    private Task ExportAsync() => ExecuteExportAsync(async () =>
+    {
+        var ret = false;
+        if (OnExportAsync != null)
+        {
+            // 通过 OnExportAsync 回调导出数据
+            ret = await OnExportAsync(Rows, BuildQueryPageOptions());
+        }
+        return ret;
+    });
+
+    private Task ExportPdfAsync() => ExecuteExportAsync(() => PdfExport.ExportAsync(Rows, GetVisibleColumns()));
+
+    /// <summary>
+    /// 导出数据方法
+    /// </summary>
+    private Task ExportExcelAsync() => ExecuteExportAsync(() => ExcelExport.ExportAsync(Rows, GetVisibleColumns()));
 
     /// <summary>
     /// 获取当前 Table 选中的所有行数据
