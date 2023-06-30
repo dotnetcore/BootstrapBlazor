@@ -326,19 +326,25 @@ export function init(id) {
         fixedHeader: el.querySelector('.table-fixed') != null,
         isExcel: el.querySelector('.table-excel') != null,
         isResizeColumn: el.querySelector('.col-resizer') != null,
-        columns: []
+        columns: [],
+        tables: []
     }
     Data.set(id, table)
 
     if (table.fixedHeader) {
         table.thead = el.querySelector('.table-fixed-header')
         table.body = el.querySelector('.table-fixed-body')
+        table.tables.push(table.thead.children[0])
+        table.tables.push(table.body.children[0])
         fixHeader(table)
 
         EventHandler.on(table.body, 'scroll', () => {
             const left = table.body.scrollLeft
             table.thead.scrollTo(left, 0)
         });
+    }
+    else {
+        table.tables.push(table.el.querySelector('.table-wrapper').children[0])
     }
 
     if (table.isExcel) {
