@@ -18,11 +18,11 @@ export async function init(id, title) {
         highlight: () => {
             let count = 0
             pre.handler = setInterval(() => {
-                if (hljs) {
+                if (window.hljs) {
                     clearInterval(pre.handler)
                     delete pre.handler
 
-                    hljs.highlightBlock(el.querySelector('code'))
+                    window.hljs.highlightBlock(el.querySelector('code'))
                 }
                 else {
                     count++

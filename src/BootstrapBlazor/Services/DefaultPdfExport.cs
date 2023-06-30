@@ -4,11 +4,15 @@
 
 namespace BootstrapBlazor.Components;
 
-class DefaultExcelExport : ITableExcelExport
+class DefaultPdfExport : ITablePdfExport
 {
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <typeparam name="TItem"></typeparam>
+    /// <param name="items"></param>
+    /// <param name="cols"></param>
+    /// <param name="fileName"></param>
     /// <returns></returns>
     public Task<bool> ExportAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null) where TItem : class
     {
