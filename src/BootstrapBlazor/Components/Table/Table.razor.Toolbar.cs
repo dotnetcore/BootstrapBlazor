@@ -1014,7 +1014,7 @@ public partial class Table<TItem>
         return ret;
     });
 
-    private Task ExportPdfAsync() => ExecuteExportAsync(() => PdfExport.ExportAsync(Id));
+    private Task ExportPdfAsync() => ExecuteExportAsync(() => PdfExport.ExportAsync(Rows, GetVisibleColumns()));
 
     /// <summary>
     /// 导出数据方法
