@@ -178,10 +178,10 @@ public static class Utility
         var v = new TModel();
         foreach (var pi in source.GetType().GetRuntimeProperties().Where(p => p.CanWrite))
         {
-            var pinfo = v.GetType().GetPropertyByName(pi.Name);
-            if (pinfo != null)
+            var pInfo = v.GetType().GetPropertyByName(pi.Name);
+            if (pInfo != null)
             {
-                pi.SetValue(source, pinfo.GetValue(v));
+                pi.SetValue(source, pInfo.GetValue(v));
             }
         }
     }
@@ -452,7 +452,7 @@ public static class Utility
             builder.AddAttribute(9, nameof(CheckboxList<IEnumerable<string>>.Items), item.Items.Clone());
         }
 
-        // Nullabl<bool?>
+        // Nullable<bool?>
         if (item.ComponentType == typeof(Select<bool?>) && fieldType == typeof(bool?) && lookup == null && item.Items == null)
         {
             builder.AddAttribute(10, nameof(Select<bool?>.Items), GetNullableBoolItems(model, fieldName));
