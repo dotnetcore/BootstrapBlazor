@@ -40,7 +40,7 @@
     <PackageReference Include="BootstrapBlazor.PdfReader" Version="7.1.10" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="7.0.3" />
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="7.3.2" />
-    <PackageReference Include="BootstrapBlazor.TableExport" Version="7.4.0" />
+    <PackageReference Include="BootstrapBlazor.TableExport" Version="7.5.0" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="7.4.4" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="7.0.4" />
     <PackageReference Include="BootstrapBlazor.MouseFollower" Version="7.0.0" />
