@@ -474,7 +474,7 @@ public static class Utility
         }
 
         // 设置 SkipValidate 参数
-        if (IsValidatableComponent(componentType))
+        if (IsValidComponent(componentType))
         {
             builder.AddAttribute(16, nameof(IEditorItem.SkipValidate), item.SkipValidate);
         }
@@ -629,7 +629,7 @@ public static class Utility
         return ret;
     }
 
-    private static bool IsValidatableComponent(Type componentType) => componentType.GetProperties().FirstOrDefault(p => p.Name == nameof(IEditorItem.SkipValidate)) != null;
+    private static bool IsValidComponent(Type componentType) => componentType.GetProperties().FirstOrDefault(p => p.Name == nameof(IEditorItem.SkipValidate)) != null;
 
     /// <summary>
     /// 通过模型与指定数据类型生成组件参数集合
