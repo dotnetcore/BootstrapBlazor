@@ -2,21 +2,22 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.Extensions.DependencyInjection;
 using MiniExcelLibs;
 
 namespace BootstrapBlazor.Components;
 
 class ExcelExport : ITableExcelExport
 {
-    private DownloadService DownloadService { get; set; }
+    private IServiceProvider ServiceProvider { get; set; }
 
     /// <summary>
     /// 构造函数
     /// </summary>
-    /// <param name="downloadService"></param>
-    public ExcelExport(DownloadService downloadService)
+    /// <param name="serviceProvider"></param>
+    public ExcelExport(IServiceProvider serviceProvider)
     {
-        DownloadService = downloadService;
+        ServiceProvider = serviceProvider;
     }
 
     /// <summary>
@@ -45,13 +46,18 @@ class ExcelExport : ITableExcelExport
 
         fileName ??= $"ExportData_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
         stream.Position = 0;
-        await DownloadService.DownloadFromStreamAsync(fileName, stream);
+        var downloadService = ServiceProvider.GetRequiredService<DownloadService>();
+        await downloadService.DownloadFromStreamAsync(fileName, stream);
         return true;
     }
 
-    private static async Task<object?> FormatValue(ITableColumn col, object? value)
+    private async Task<object?> FormatValue(ITableColumn col, object? value)
     {
         var ret = value;
+        if (col.Lookup != null)
+        {
+            ret = col.Lookup.FirstOrDefault(i => i.Value.Equals(value?.ToString(), col.LookupStringComparison))?.Text;
+        }
         if (col.Formatter != null)
         {
             // 格式化回调委托

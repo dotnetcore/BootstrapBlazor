@@ -1,10 +1,10 @@
 ﻿@inject IStringLocalizer<Foo> LocalizerFoo
 
 <Table TItem="Foo"
-        IsPagination="true" PageItemsSource="@PageItemsSource"
-        IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-        ShowToolbar="true" ShowDefaultButtons="false" ShowExportButton="true"
-        OnQueryAsync="@OnQueryAsync">
+       IsPagination="true" PageItemsSource="@PageItemsSource"
+       IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+       ShowToolbar="true" ShowDefaultButtons="false" ShowExportButton="true"
+       OnQueryAsync="@OnQueryAsync">
     <TableColumns>
         <TableColumn @bind-Field="@context.DateTime" Width="180" />
         <TableColumn @bind-Field="@context.Name" Width="100" />
