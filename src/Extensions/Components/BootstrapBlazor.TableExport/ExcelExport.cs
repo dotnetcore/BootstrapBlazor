@@ -51,9 +51,13 @@ class ExcelExport : ITableExcelExport
         return true;
     }
 
-    private static async Task<object?> FormatValue(ITableColumn col, object? value)
+    private async Task<object?> FormatValue(ITableColumn col, object? value)
     {
         var ret = value;
+        if (col.Lookup != null)
+        {
+            ret = col.Lookup.FirstOrDefault(i => i.Value.Equals(value?.ToString(), col.LookupStringComparison))?.Text;
+        }
         if (col.Formatter != null)
         {
             // 格式化回调委托
