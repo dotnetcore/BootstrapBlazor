@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Live2DDisplay Live2D组件
 /// </summary>
-[JSModuleAutoLoader("./_content/BootstrapBlazor.L2Dwidget/Components/L2Dwidget/L2Dwidget.razor.js")]
+[JSModuleAutoLoader("./_content/BootstrapBlazor.Live2DDisplay/Components/Live2DDisplay/Live2DDisplay.razor.js")]
 public partial class Live2DDisplay
 {
     /// <summary>

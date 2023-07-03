@@ -50,7 +50,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
-    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.L2Dwidget\BootstrapBlazor.Live2DDisplay.csproj" />
+    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.Live2DDisplay\BootstrapBlazor.Live2DDisplay.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,20 @@
+﻿@page "/live2ddisplay"
+@inject IStringLocalizer<Live2DDisplays> Localizer
+
+<h3>@Localizer["Live2DDisplayTitle"]</h3>
+
+<h4>@Localizer["Live2DDisplayDescription"]</h4>
+
+<PackageTips Name="@NugetPackageName"></PackageTips>
+
+<DemoBlock Title="@Localizer["Live2DDisplayNormalTitle"]"
+           Introduction="@Localizer["Live2DDisplayNormalIntro"]"
+           Name="Live2DDisplayNormal"
+           Demo="typeof(Demos.Live2DDisplay.Live2DDisplayNormal)">
+</DemoBlock>
+
+@code {
+    [NotNull]
+    private static string NugetPackageName => "BootstrapBlazor.Live2DDisplay";
+
+}

@@ -106,8 +106,8 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["L2DwidgetIntro"],
-                    Url = "l2dwidgets"
+                    Text = Localizer["Live2DDisplayIntro"],
+                    Url = "live2ddisplay"
                 },
             };
 

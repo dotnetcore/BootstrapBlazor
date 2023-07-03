@@ -1,0 +1,93 @@
+﻿<div class="row g-3">
+    <div class="col-auto">
+        <RadioList Items="@CssItems" @bind-Value="@BindCssItem" />
+    </div>
+    <div class="col-auto">
+        <RadioList Items="@SrcItems" @bind-Value="@BindSrcItem" />
+    </div>
+    <div class="col-12 col-sm-6">
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel DisplayText="比例" />
+            <BootstrapInputNumber @bind-Value="@Scale" IsSelectAllTextOnFocus="true" />
+        </BootstrapInputGroup>
+    </div>
+    <div class="col-12 col-sm-6">
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel DisplayText="X" />
+            <BootstrapInputNumber @bind-Value="@x" IsSelectAllTextOnFocus="true" />
+        </BootstrapInputGroup>
+    </div>
+    <div class="col-12 col-sm-6">
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel DisplayText="Y" />
+            <BootstrapInputNumber @bind-Value="@y" IsSelectAllTextOnFocus="true" />
+        </BootstrapInputGroup>
+    </div>
+</div>
+
+<Live2DDisplay class="@BindCssItem.Value"
+               Scale="@Scale"
+               X="@x"
+               Y="@y"
+               Source="@BindSrcItem.Value" />
+@code {
+    private double Scale { get; set; } = 0.2;
+
+    private int x { get; set; }
+    private int y { get; set; }
+
+    private IEnumerable<SelectedItem> CssItems { get; set; } = new SelectedItem[]
+    {
+        new SelectedItem("","父元素位置"),
+        new SelectedItem("bb-bottomleft","页面左下角"),
+        new SelectedItem("bb-bottomright", "页面右下角"),
+        new SelectedItem("bb-topleft", "页面左上角"),
+        new SelectedItem("bb-topright", "页面右上角")
+    };
+
+    private SelectedItem BindCssItem { get; set; } = new SelectedItem();
+
+    private IEnumerable<SelectedItem>? SrcItems { get; set; } = new SelectedItem[]
+    {
+        new SelectedItem("https://cdn.jsdelivr.net/gh/guansss/pixi-live2d-display/test/assets/haru/haru_greeter_t03.model3.json","cubism4Model"),
+        new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/bilibili-22/index.json","bilibili-22"),
+        new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/bilibili-33/index.json","bilibili-33"),
+        new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/chiaki_kitty/chiaki_kitty.model.json","chiaki_kitty"),
+        new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/chitose/chitose.model.json","chitose"),
+        new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/date_16/date_16.model.json","date_16"),
+        new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/hallo_16/hallo_16.model.json","hallo_16"),
+        new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/haru01/haru01.model.json","haru01"),
+        new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/haru02/haru02.model.json","haru02"),
+        new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/haruto/haruto.model.json","haruto"),
+    };
+
+    private SelectedItem BindSrcItem { get; set; } = new SelectedItem();
+
+
+}
+
+<style>
+    .bb-bottomleft {
+        position: fixed;
+        left: 0px;
+        bottom: 0px;
+    }
+
+    .bb-bottomright {
+        position: fixed;
+        right: 0px;
+        bottom: 0px;
+    }
+
+    .bb-topleft {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+    }
+
+    .bb-topright {
+        position: fixed;
+        right: 0px;
+        top: 0px;
+    }
+</style>

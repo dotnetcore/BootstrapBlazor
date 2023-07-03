@@ -5067,7 +5067,7 @@
     "DockView": "DockView",
     "OtherComponents": "Others",
     "MouseFollowerIntro": "MouseFollower",
-    "L2DwidgetIntro": "Live2D Widget"
+    "Live2DDisplayIntro": "Live2D"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",

@@ -5079,7 +5079,7 @@
     "DockView": "可停靠布局 DockView",
     "OtherComponents": "其他组件",
     "MouseFollowerIntro": "鼠标跟随",
-    "L2DwidgetIntro": "Live2D小部件"
+    "Live2DDisplayIntro": "Live2D组件"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",

@@ -125,7 +125,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.MouseFollow
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Html2Pdf", "src\Extensions\Components\BootstrapBlazor.Html2Pdf\BootstrapBlazor.Html2Pdf.csproj", "{CA5BF6FD-257E-4D4B-8DF0-F4035B0C7CA2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Live2DDisplay", "src\Extensions\Components\BootstrapBlazor.L2Dwidget\BootstrapBlazor.Live2DDisplay.csproj", "{033009BE-3504-4008-B1D1-E0D2642473AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Live2DDisplay", "src\Extensions\Components\BootstrapBlazor.Live2DDisplay\BootstrapBlazor.Live2DDisplay.csproj", "{9ACDC2E4-426B-4B74-9F47-826F6FE156FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -253,10 +253,10 @@ Global
 		{CA5BF6FD-257E-4D4B-8DF0-F4035B0C7CA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA5BF6FD-257E-4D4B-8DF0-F4035B0C7CA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA5BF6FD-257E-4D4B-8DF0-F4035B0C7CA2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{033009BE-3504-4008-B1D1-E0D2642473AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{033009BE-3504-4008-B1D1-E0D2642473AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{033009BE-3504-4008-B1D1-E0D2642473AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{033009BE-3504-4008-B1D1-E0D2642473AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ACDC2E4-426B-4B74-9F47-826F6FE156FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ACDC2E4-426B-4B74-9F47-826F6FE156FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ACDC2E4-426B-4B74-9F47-826F6FE156FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ACDC2E4-426B-4B74-9F47-826F6FE156FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -300,7 +300,7 @@ Global
 		{19D6EF90-31A9-4E1C-942D-E6052205CA1C} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{71FDF312-4195-4218-A941-754BDF5BAB82} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{CA5BF6FD-257E-4D4B-8DF0-F4035B0C7CA2} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
-		{033009BE-3504-4008-B1D1-E0D2642473AA} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
+		{9ACDC2E4-426B-4B74-9F47-826F6FE156FE} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}
