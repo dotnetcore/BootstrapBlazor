@@ -13,8 +13,8 @@
     <p>@((MarkupString)Localizer["TableLookupNormalTips1"].Value)</p>
     <Pre>DataSource = new List&lt;SelectedItem&gt;
 {
-    new SelectedItem { Value = "True", Text = @FooLocalizer["True"].Value },
-    new SelectedItem { Value = "False", Text = @FooLocalizer["False"].Value }
+    new SelectedItem { Value = "True", Text = "@FooLocalizer["True"].Value" },
+    new SelectedItem { Value = "False", Text = "@FooLocalizer["False"].Value" }
 };</Pre>
     <p>@((MarkupString)Localizer["TableLookupNormalTips2"].Value)</p>
     <p>@((MarkupString)Localizer["TableLookupNormalTips3"].Value)</p>
