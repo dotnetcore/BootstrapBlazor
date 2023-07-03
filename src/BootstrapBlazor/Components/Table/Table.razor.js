@@ -357,7 +357,7 @@ export function init(id) {
         });
     }
     else {
-        table.tables.push(table.el.querySelector('.table-wrapper').children[0])
+        table.tables.push(el.querySelector('.table'))
     }
 
     if (table.isExcel) {
