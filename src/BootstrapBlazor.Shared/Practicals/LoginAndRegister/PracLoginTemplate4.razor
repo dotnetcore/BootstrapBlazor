@@ -1,0 +1,27 @@
+﻿@page "/praclogintemplate4"
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.Shared/Practicals/LoginAndRegister/PracLoginTemplate4.razor.js", JSObjectReference = true, AutoInvokeInit = false, AutoInvokeDispose = false)]
+
+<div class="logintemplate4">
+    <div class="form-structor">
+        <div class="signup">
+            <h2 class="form-title" id="signup"><span>or</span>注册</h2>
+            <div class="form-holder">
+                <input type="text" class="input" placeholder="用户名" />
+                <input type="email" class="input" placeholder="邮箱" />
+                <input type="password" class="input" placeholder="密码" />
+            </div>
+            <button class="submit-btn">注册</button>
+        </div>
+        <div class="login slide-up">
+            <div class="center">
+                <h2 class="form-title" id="login"><span>or</span>登录</h2>
+                <div class="form-holder">
+                    <input type="email" class="input" placeholder="邮箱" />
+                    <input type="password" class="input" placeholder="密码" />
+                </div>
+                <button class="submit-btn">登录</button>
+            </div>
+        </div>
+    </div>
+</div>

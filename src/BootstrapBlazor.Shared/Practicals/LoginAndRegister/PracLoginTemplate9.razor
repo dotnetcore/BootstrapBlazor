@@ -1,0 +1,42 @@
+﻿@page "/praclogintemplate9"
+@layout PracLoginLayout
+
+<div class="login-item login-item-gitee">
+    <div class="login-header">
+        <span>登录</span>
+        <div class="login-register">没有账号？<a href="#">点此注册</a></div>
+    </div>
+    <ValidateForm Model="@Model">
+        <BootstrapInput TValue="string" ShowLabel="false" PlaceHolder="请输入账号" />
+        <BootstrapPassword ShowLabel="false" PlaceHolder="请输入密码" />
+        <div class="login-sms">
+            <Checkbox TValue="bool" ShowLabel="false" ShowAfterLabel="true" DisplayText="记住我" />
+            <a href="#">短信验证登录</a>
+        </div>
+        <Button Text="登录" Color="Color.Primary"></Button>
+        <div class="text-center my-4">
+            <a href="#">已有账号，忘记密码</a>
+        </div>
+        <Divider Text="其他登录方式" />
+        <div class="login-oauth">
+            <div class="login-oauth-item">
+                <i class="fa-brands fa-github"></i>
+            </div>
+            <div class="login-oauth-item">
+                <i class="fa-brands fa-twitter"></i>
+            </div>
+            <div class="login-oauth-item">
+                <i class="fa-brands fa-apple"></i>
+            </div>
+            <div class="login-oauth-item">
+                <i class="fa-brands fa-facebook"></i>
+            </div>
+        </div>
+    </ValidateForm>
+</div>
+
+@code {
+    [CascadingParameter]
+    [NotNull]
+    private LoginModel? Model { get; set; }
+}
