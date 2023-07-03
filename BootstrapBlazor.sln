@@ -125,7 +125,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.MouseFollow
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Html2Pdf", "src\Extensions\Components\BootstrapBlazor.Html2Pdf\BootstrapBlazor.Html2Pdf.csproj", "{CA5BF6FD-257E-4D4B-8DF0-F4035B0C7CA2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.L2Dwidget", "src\Extensions\Components\BootstrapBlazor.L2Dwidget\BootstrapBlazor.L2Dwidget.csproj", "{033009BE-3504-4008-B1D1-E0D2642473AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Live2DDisplay", "src\Extensions\Components\BootstrapBlazor.L2Dwidget\BootstrapBlazor.Live2DDisplay.csproj", "{033009BE-3504-4008-B1D1-E0D2642473AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
