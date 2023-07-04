@@ -170,6 +170,19 @@ const setExcelKeyboardListener = table => {
     })
 }
 
+const resetTableWidth = table => {
+    table.tables.forEach(t => {
+        const group = [...t.children].find(i => i.nodeName === 'COLGROUP')
+        if (group) {
+            let width = 0;
+            [...group.children].forEach(col => {
+                width += parseInt(col.style.width)
+            })
+            t.style.width = `${width}px`
+        }
+    })
+}
+
 const setResizeListener = table => {
     const eff = (col, toggle) => {
         const th = col.closest('th')
@@ -211,6 +224,9 @@ const setResizeListener = table => {
             col.classList.add('last')
             return
         }
+        else {
+            col.classList.remove('last')
+        }
         table.columns.push(col)
         drag(col,
             e => {
@@ -229,16 +245,17 @@ const setResizeListener = table => {
             e => {
                 const marginX = e.clientX - originalX
                 table.tables.forEach(t => {
-                    const group = [...t.children].filter(i => i.nodeName === 'COLGROUP')[0]
-                    const curCol = group.children.item(colIndex)
-                    curCol.style.width = `${colWidth + marginX}px`
-                    const tableEl = curCol.closest('table')
-                    const width = tableWidth + marginX
-                    if (t.classList.contains('table-fixed')) {
-                        tableEl.style.width = `${width}px;`
-                    }
-                    else {
-                        tableEl.style.width = (width - 6) + 'px'
+                    const group = [...t.children].find(i => i.nodeName === 'COLGROUP')
+                    if (group) {
+                        const curCol = group.children.item(colIndex)
+                        curCol.style.width = `${colWidth + marginX}px`
+                        const tableEl = curCol.closest('table')
+                        const width = tableWidth + marginX
+                        if (t.classList.contains('table-fixed')) {
+                            tableEl.style.width = `${width}px;`
+                        } else {
+                            tableEl.style.width = (width - 6) + 'px'
+                        }
                     }
                 })
             },
@@ -320,7 +337,7 @@ const setCopyColumn = table => {
     })
 }
 
-const disposeColumnDrag = columns  => {
+const disposeColumnDrag = columns => {
     columns = columns || []
     columns.forEach(col => {
         EventHandler.off(col, 'mousedown')
@@ -376,6 +393,7 @@ export function init(id) {
 export function resetColumn(id) {
     const table = Data.get(id)
     setResizeListener(table)
+    resetTableWidth(table)
 }
 
 export function sort(id) {
