@@ -22,8 +22,7 @@ const fixHeader = table => {
                 prev.classList.add('modified')
                 prev.style.right = margin
                 prev = prev.previousElementSibling
-            }
-            else {
+            } else {
                 break
             }
         }
@@ -204,7 +203,14 @@ const setResizeListener = table => {
     let colIndex = 0
     let originalX = 0
 
-    table.resizeColumns.forEach(col => {
+    disposeColumnDrag(table.columns)
+    table.columns = []
+    const columns = [...table.tables[0].querySelectorAll('.col-resizer')]
+    columns.forEach((col, index) => {
+        if (table.thead && index === columns.length - 1) {
+            col.classList.add('last')
+            return
+        }
         table.columns.push(col)
         drag(col,
             e => {
@@ -314,6 +320,14 @@ const setCopyColumn = table => {
     })
 }
 
+const disposeColumnDrag = columns  => {
+    columns = columns || []
+    columns.forEach(col => {
+        EventHandler.off(col, 'mousedown')
+        EventHandler.off(col, 'touchstart')
+    })
+}
+
 export function init(id) {
     const el = document.getElementById(id)
     if (el === null) {
@@ -330,13 +344,9 @@ export function init(id) {
         return
     }
     table.thead = [...shim.children].find(i => i.classList.contains('table-fixed-header'))
+    table.isResizeColumn = shim.classList.contains('table-resize')
     if (table.thead) {
         table.isExcel = table.thead.firstChild.classList.contains('table-excel')
-        table.resizeColumns = [...table.thead.firstChild.querySelectorAll('.col-resizer')]
-        const last = table.resizeColumns.pop()
-        if (last) {
-            last.remove()
-        }
         table.body = [...shim.children].find(i => i.classList.contains('table-fixed-body'))
         table.tables.push(table.thead.firstChild)
         table.tables.push(table.body.firstChild)
@@ -349,7 +359,6 @@ export function init(id) {
     }
     else {
         table.isExcel = shim.firstChild.classList.contains('table-excel')
-        table.resizeColumns = [...shim.firstChild.querySelectorAll('.col-resizer')]
         table.tables.push(shim.firstChild)
     }
 
@@ -357,11 +366,16 @@ export function init(id) {
         setExcelKeyboardListener(table)
     }
 
-    if (table.resizeColumns.length > 0) {
+    if (table.isResizeColumn) {
         setResizeListener(table)
     }
 
     setCopyColumn(table)
+}
+
+export function resetColumn(id) {
+    const table = Data.get(id)
+    setResizeListener(table)
 }
 
 export function sort(id) {
@@ -401,10 +415,7 @@ export function dispose(id) {
             EventHandler.off(table.element, 'keydown')
         }
 
-        table.columns.forEach(col => {
-            EventHandler.off(col, 'mousedown')
-            EventHandler.off(col, 'touchstart')
-        })
+        disposeColumnDrag(table.columns)
 
         EventHandler.off(table.element, 'click', '.col-copy')
 
