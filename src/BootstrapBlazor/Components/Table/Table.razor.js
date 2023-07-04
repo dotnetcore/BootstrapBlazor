@@ -178,27 +178,21 @@ const setResizeListener = table => {
         else th.classList.remove('border-resize')
 
         const index = [].indexOf.call(th.parentNode.children, th);
-        const rows = []
         table.tables.forEach(t => {
-            const body = [...t.children].filter(i => i.nodeName === 'TBODY')
-            if (body.length > 0) {
-                const tr = [...body[0].children].filter(i => i.nodeName === 'TR')
-                tr.forEach(i => {
-                    if (!i.classList.contains('is-detail')) {
-                        rows.push(i)
+            const body = [...t.children].find(i => i.nodeName === 'TBODY')
+            const rows = [...body.children].filter(i => i.nodeName === 'TR')
+            rows.forEach(row => {
+                if (!row.classList.contains('is-detail')) {
+                    const td = row.children.item(index)
+                    if (toggle) td.classList.add('border-resize')
+                    else {
+                        td.classList.remove('border-resize')
+                        if (td.classList.length === 0) {
+                            td.removeAttribute('class')
+                        }
                     }
-                })
-            }
-        })
-        rows.forEach(tr => {
-            const td = tr.children.item(index)
-            if (toggle) td.classList.add('border-resize')
-            else {
-                td.classList.remove('border-resize')
-                if (td.classList.length === 0) {
-                    td.removeAttribute('class')
                 }
-            }
+            })
         })
         return index
     }
@@ -208,17 +202,7 @@ const setResizeListener = table => {
     let colIndex = 0
     let originalX = 0
 
-    // 固定表头的最后一列禁止列宽调整
-    const el = table.el
-    const columns = [...el.querySelectorAll('.col-resizer')]
-    if (table.thead) {
-        const last = columns.pop()
-        if (last) {
-            last.remove();
-        }
-    }
-
-    columns.forEach(col => {
+    table.resizeColumns.forEach(col => {
         table.columns.push(col)
         drag(col,
             e => {
@@ -335,15 +319,20 @@ export function init(id) {
     }
     const table = {
         el,
-        isExcel: el.querySelector('.table-excel') != null,
-        isResizeColumn: el.querySelector('.col-resizer') != null,
         columns: [],
         tables: []
     }
     Data.set(id, table)
     const shim = [...el.children].find(i => i.classList.contains('table-shim'))
+    if(shim === undefined) {
+        return
+    }
     table.thead = [...shim.children].find(i => i.classList.contains('table-fixed-header'))
     if (table.thead) {
+        table.isExcel = table.thead.firstChild.classList.contains('table-excel')
+        table.resizeColumns = table.thead.firstChild.querySelectorAll('.col-resizer')
+        const last = table.resizeColumns.pop()
+        last.remove()
         table.body = [...shim.children].find(i => i.classList.contains('table-fixed-body'))
         table.tables.push(table.thead.firstChild)
         table.tables.push(table.body.firstChild)
@@ -355,6 +344,8 @@ export function init(id) {
         });
     }
     else {
+        table.isExcel = shim.firstChild.classList.contains('table-excel')
+        table.resizeColumns = shim.firstChild.querySelectorAll('.col-resizer')
         table.tables.push(shim.firstChild)
     }
 
@@ -362,7 +353,7 @@ export function init(id) {
         setExcelKeyboardListener(table)
     }
 
-    if (table.isResizeColumn) {
+    if (table.resizeColumns.length > 0) {
         setResizeListener(table)
     }
 
