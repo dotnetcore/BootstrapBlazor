@@ -782,6 +782,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await InvokeVoidAsync("init", Id);
         }
 
+        if (_resetColumns)
+        {
+            _resetColumns = false;
+            await InvokeVoidAsync("resetColumn", Id);
+        }
+
         if (UpdateSortTooltip)
         {
             UpdateSortTooltip = false;
