@@ -41,6 +41,10 @@
         border: none;
     }
 
+    .card-footer-code ::deep .pre-code {
+        margin: .5rem;
+    }
+
 .card-footer-control {
     text-align: center;
     color: #d3dce6;
