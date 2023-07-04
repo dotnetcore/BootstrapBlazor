@@ -326,15 +326,17 @@ export function init(id) {
     }
     Data.set(id, table)
     const shim = [...el.children].find(i => i.classList.contains('table-shim'))
-    if(shim === undefined) {
+    if (shim === undefined) {
         return
     }
     table.thead = [...shim.children].find(i => i.classList.contains('table-fixed-header'))
     if (table.thead) {
         table.isExcel = table.thead.firstChild.classList.contains('table-excel')
-        table.resizeColumns = table.thead.firstChild.querySelectorAll('.col-resizer')
+        table.resizeColumns = [...table.thead.firstChild.querySelectorAll('.col-resizer')]
         const last = table.resizeColumns.pop()
-        last.remove()
+        if (last) {
+            last.remove()
+        }
         table.body = [...shim.children].find(i => i.classList.contains('table-fixed-body'))
         table.tables.push(table.thead.firstChild)
         table.tables.push(table.body.firstChild)
@@ -347,7 +349,7 @@ export function init(id) {
     }
     else {
         table.isExcel = shim.firstChild.classList.contains('table-excel')
-        table.resizeColumns = shim.firstChild.querySelectorAll('.col-resizer')
+        table.resizeColumns = [...shim.firstChild.querySelectorAll('.col-resizer')]
         table.tables.push(shim.firstChild)
     }
 
