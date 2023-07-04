@@ -1,35 +1,33 @@
 ﻿@inject IStringLocalizer<TablesSearchTable> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
 
-<div>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource"
-           IsStriped="true" IsBordered="true"
-           ShowToolbar="true" ShowSearch="true" IsMultipleSelect="true" ShowExtendButtons="true"
-           AddModalTitle="@Localizer["AddModelTitle"]" EditModalTitle="@Localizer["EditModelTitle"]"
-           SearchModel="@SearchModel" ShowEmpty="true" SearchMode="SearchMode.Top"
-           OnQueryAsync="@OnSearchModelQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
-           OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Education" />
-        </TableColumns>
-        <SearchTemplate>
-            <GroupBox Title="@Localizer["SearchTableGroupBoxText"]">
-                <div class="row g-3 form-inline">
-                    <div class="col-12 col-sm-6">
-                        <BootstrapInput @bind-Value="@context.Name" PlaceHolder="@Localizer["NamePlaceholder"]" maxlength="50" ShowLabel="true" DisplayText="@FooLocalizer[nameof(context.Name)]" />
-                    </div>
-                    <div class="col-12 col-sm-6">
-                        <BootstrapInput @bind-Value="@context.Address" PlaceHolder="@Localizer["AddressPlaceholder"]" maxlength="500" ShowLabel="true" DisplayText="@FooLocalizer[nameof(context.Address)]" />
-                    </div>
+<Table TItem="Foo"
+        IsPagination="true" PageItemsSource="@PageItemsSource"
+        IsStriped="true" IsBordered="true"
+        ShowToolbar="true" ShowSearch="true" IsMultipleSelect="true" ShowExtendButtons="true"
+        AddModalTitle="@Localizer["AddModelTitle"]" EditModalTitle="@Localizer["EditModelTitle"]"
+        SearchModel="@SearchModel" ShowEmpty="true" SearchMode="SearchMode.Top"
+        OnQueryAsync="@OnSearchModelQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
+        OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.DateTime" Width="180" />
+        <TableColumn @bind-Field="@context.Name" />
+        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.Education" />
+    </TableColumns>
+    <SearchTemplate>
+        <GroupBox Title="@Localizer["SearchTableGroupBoxText"]">
+            <div class="row g-3 form-inline">
+                <div class="col-12 col-sm-6">
+                    <BootstrapInput @bind-Value="@context.Name" PlaceHolder="@Localizer["NamePlaceholder"]" maxlength="50" ShowLabel="true" DisplayText="@FooLocalizer[nameof(context.Name)]" />
                 </div>
-            </GroupBox>
-        </SearchTemplate>
-    </Table>
-</div>
+                <div class="col-12 col-sm-6">
+                    <BootstrapInput @bind-Value="@context.Address" PlaceHolder="@Localizer["AddressPlaceholder"]" maxlength="500" ShowLabel="true" DisplayText="@FooLocalizer[nameof(context.Address)]" />
+                </div>
+            </div>
+        </GroupBox>
+    </SearchTemplate>
+</Table>
 
 @code {
     /// <summary>
