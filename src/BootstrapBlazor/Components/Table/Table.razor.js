@@ -1,4 +1,4 @@
-﻿import { getResponsive } from '../../modules/responsive.js?v=$version'
+﻿export { getResponsive } from '../../modules/responsive.js?v=$version'
 import { copy, drag, getDescribedElement, getOuterHeight, getWidth } from '../../modules/utility.js?v=$version'
 import '../../modules/browser.js?v=$version'
 import Data from '../../modules/data.js?v=$version'
@@ -412,8 +412,4 @@ export function dispose(id) {
             table.observer.disconnect()
         }
     }
-}
-
-export {
-    getResponsive
 }
