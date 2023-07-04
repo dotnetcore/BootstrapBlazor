@@ -26,13 +26,11 @@
            Demo="typeof(Demos.Table.TablesSearch.TablesAutoGenerateSearch)">
     <p>@((MarkupString)Localizer["AutoGenerateSearchP"].Value)</p>
     <Tips>@((MarkupString)Localizer["AutoGenerateSearchTips"].Value)</Tips>
-    <Pre>
-    if (options.Searchs.Any())
+    <Pre>if (options.Searchs.Any())
     {
         //@Localizer["AutoGenerateSearchCommnt"] FilterLogic.Or
         items = items.Where(options.Searchs.GetFilterFunc&lt;Foo&gt;(FilterLogic.Or));
-    }
-    </Pre>
+    }</Pre>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["CustomColSearchTitle"]"
