@@ -7,7 +7,6 @@ import EventHandler from "../../modules/event-handler.js?v=$version"
 const fixHeader = table => {
     const el = table.el
     const body = table.body
-    const thead = table.thead
 
     const fs = el.querySelector('.fixed-scroll')
     if (fs) {
@@ -16,7 +15,7 @@ const fixHeader = table => {
             if (prev.classList.contains('fixed-right') && !prev.classList.contains('modified')) {
                 let margin = prev.style.right
                 margin = margin.replace('px', '')
-                const b = window.browser()
+                const b = browser()
                 if (b.device !== 'PC') {
                     margin = (parseFloat(margin) - 6) + 'px'
                 }
@@ -196,7 +195,7 @@ const setResizeListener = table => {
             if (toggle) td.classList.add('border-resize')
             else {
                 td.classList.remove('border-resize')
-                if (td.classList.length == 0) {
+                if (td.classList.length === 0) {
                     td.removeAttribute('class')
                 }
             }
@@ -212,7 +211,7 @@ const setResizeListener = table => {
     // 固定表头的最后一列禁止列宽调整
     const el = table.el
     const columns = [...el.querySelectorAll('.col-resizer')]
-    if (table.fixedHeader) {
+    if (table.thead) {
         const last = columns.pop()
         if (last) {
             last.remove();
@@ -260,7 +259,7 @@ const setResizeListener = table => {
 
 const setCopyColumn = table => {
     const copyCellValue = td => {
-        let ret = null;
+        let ret;
         let input = td.querySelector('.datetime-picker-input')
         if (input === null) {
             input = td.querySelector('.form-select')
@@ -290,7 +289,7 @@ const setCopyColumn = table => {
     EventHandler.on(el, 'click', '.col-copy', e => {
         const index = e.delegateTarget.closest('th').cellIndex
         let rows
-        if (table.fixedHeader) {
+        if (table.thead) {
             rows = table.body.querySelectorAll('table > tbody > tr')
         }
         else if (el.querySelector('.table-fixed-column')) {
@@ -336,19 +335,18 @@ export function init(id) {
     }
     const table = {
         el,
-        fixedHeader: el.querySelector('.table-fixed') != null,
         isExcel: el.querySelector('.table-excel') != null,
         isResizeColumn: el.querySelector('.col-resizer') != null,
         columns: [],
         tables: []
     }
     Data.set(id, table)
-
-    if (table.fixedHeader) {
-        table.thead = el.querySelector('.table-fixed-header')
-        table.body = el.querySelector('.table-fixed-body')
-        table.tables.push(table.thead.children[0])
-        table.tables.push(table.body.children[0])
+    const shim = [...el.children].find(i => i.classList.contains('table-shim'))
+    table.thead = [...shim.children].find(i => i.classList.contains('table-fixed-header'))
+    if (table.thead) {
+        table.body = [...shim.children].find(i => i.classList.contains('table-fixed-body'))
+        table.tables.push(table.thead.firstChild)
+        table.tables.push(table.body.firstChild)
         fixHeader(table)
 
         EventHandler.on(table.body, 'scroll', () => {
@@ -357,7 +355,7 @@ export function init(id) {
         });
     }
     else {
-        table.tables.push(el.querySelector('.table'))
+        table.tables.push(shim.firstChild)
     }
 
     if (table.isExcel) {
@@ -400,7 +398,7 @@ export function dispose(id) {
     Data.remove(id)
 
     if (table) {
-        if (table.fixedHeader) {
+        if (table.thead) {
             EventHandler.off(table.body, 'scroll')
         }
 
