@@ -21,7 +21,7 @@ private DialogService? DialogService { get; set; }
 };
 op.Component = BootstrapDynamicComponent.CreateComponent&lt;DataDialogComponent&gt;(new Dictionary&lt;string, object?&gt;
 {
-    [nameof(DataDialogComponent.OnClose)] = new Action(async () => await op.OnCloseAsync())
+    [nameof(DataDialogComponent.OnCloseAsync)] = new Action(() => op.CloseDialogAsync())
 });
 await DialogService.Show(op);</Pre>
 <p class="code-label">@((MarkupString)Localizer["Tip4"].Value)</p>

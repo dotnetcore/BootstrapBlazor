@@ -759,7 +759,7 @@
     "ApplyIntro": "In this example, by passing a primary key, the components in the pop-up window perform data query through this primary key, and display the results in the pop-up window",
     "CloseDialogByCodeTitle": "Code to close the popup",
     "CloseDialogByCodeIntro": "This example explains how to open and close a popup window through code",
-    "CloseDialogByCodeTip": "Use popup parameters  <code>DialogOption</code> Instance, in the instance after the pop-up window pops up <code>Dialog</code> The property value is the handle of the current popup window. By calling its <code>Toggle/Close</code> method to close the popup",
+    "CloseDialogByCodeTip": "Use <code>DialogOption</code> instance method <code>CloseDialogAsync</code> to close the popup",
     "DisableHeaderCloseButtonTitle": "Disable close button in Header",
     "DisableHeaderCloseButtonIntro": "This example explains how to open and close a popup window through code",
     "DisableHeaderCloseButtonTip": "Setting parameters <code>ShowHeaderCloseButton</code> Ban pop-ups <code>Header</code> Shows the <b>Close</b> button on the right",
