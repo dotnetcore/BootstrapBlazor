@@ -275,7 +275,7 @@ public partial class ModalDialog : IHandlerException
         StateHasChanged();
     }
 
-    private async Task OnClickClose() => await Modal.Close();
+    private Task OnClickCloseAsync() => Modal.Close();
 
     private bool MaximizeStatus { get; set; }
 
@@ -294,7 +294,7 @@ public partial class ModalDialog : IHandlerException
         }
         if (IsAutoCloseAfterSave && ret)
         {
-            await OnClickClose();
+            await OnClickCloseAsync();
         }
     }
 

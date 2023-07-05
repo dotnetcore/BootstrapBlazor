@@ -30,13 +30,13 @@
                     }
                     @if (ShowHeaderCloseButton)
                     {
-                        <Button Color="Color.None" class="btn-close" aria-label="Close" OnClickWithoutRender="@OnClickClose"></Button>
+                        <Button Color="Color.None" class="btn-close" aria-label="Close" OnClickWithoutRender="@OnClickCloseAsync"></Button>
                     }
                 </div>
             </div>
         }
         <CascadingValue Name="BodyContext" Value="@BodyContext" IsFixed="true">
-            <CascadingValue Value="OnClickClose" IsFixed="true">
+            <CascadingValue Value="OnClickCloseAsync" IsFixed="true">
                 <div class="modal-body">
                     @RenderBodyTemplate()
                 </div>
