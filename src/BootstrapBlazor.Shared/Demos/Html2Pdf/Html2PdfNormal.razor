@@ -7,7 +7,7 @@
 
     private async Task OnExport()
     {
-        var html = "<div style=\"padding: 1rem;\"><h2>头</h2><div>this is 示例模板</div></div>";
+        var html = "<div style=\"padding: 1rem;\"><h2>标题</h2><div>this is 示例模板</div></div>";
         var ret = await PdfService.ExportAsync(html, "test.pdf");
     }
 }
