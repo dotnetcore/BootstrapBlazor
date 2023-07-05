@@ -5063,6 +5063,7 @@
     "BaiduOcr": "IBaiduOcr",
     "AzureOpenAI": "AzureOpenAI",
     "HtmlRenderer": "HtmlRenderer",
+    "Html2Pdf": "Html2Pdf",
     "ContextMenu": "ContextMenu",
     "DockView": "DockView",
     "MousePointerComponents": "MousePointer",

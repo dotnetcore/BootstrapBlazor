@@ -5075,6 +5075,7 @@
     "BaiduOcr": "文字识别服务 IBaiduOcr",
     "AzureOpenAI": "AI 聊天服务 AzureOpenAI",
     "HtmlRenderer": "Html 转换器  HtmlRenderer",
+    "Html2Pdf": "Html 转 Pdf",
     "ContextMenu": "右键菜单 ContextMenu",
     "DockView": "可停靠布局 DockView",
     "MousePointerComponents": "鼠标指针",
