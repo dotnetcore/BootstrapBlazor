@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Configuration;
+using System.Reflection;
 
 namespace BootstrapBlazor.Shared;
 
@@ -114,6 +115,11 @@ public class WebsiteOptions
     public Dictionary<string, string?> Links { get; set; }
 
     /// <summary>
+    /// 获得/设置 额外路由程序集
+    /// </summary>
+    public IEnumerable<Assembly>? AdditionalAssemblies { get; set; }
+
+    /// <summary>
     /// 构造函数
     /// </summary>
     public WebsiteOptions()
@@ -138,8 +144,8 @@ public class WebsiteOptions
     private IConfiguration GetConfiguration(string jsonFileName)
     {
         var assembly = GetType().Assembly;
-        var assemlbyName = assembly.GetName().Name;
-        using var res = assembly.GetManifestResourceStream($"{assemlbyName}.{jsonFileName}") ?? throw new InvalidOperationException();
+        var assemblyName = assembly.GetName().Name;
+        using var res = assembly.GetManifestResourceStream($"{assemblyName}.{jsonFileName}") ?? throw new InvalidOperationException();
 
         return new ConfigurationBuilder()
             .AddJsonStream(res)

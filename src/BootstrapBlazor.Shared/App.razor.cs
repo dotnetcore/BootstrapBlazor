@@ -3,6 +3,8 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Extensions;
+using Microsoft.Extensions.Options;
+using System.Reflection;
 
 namespace BootstrapBlazor.Shared;
 
@@ -17,11 +19,18 @@ public partial class App
 
     [Inject]
     [NotNull]
+    private IOptions<WebsiteOptions>? WebsiteOptions { get; set; }
+
+    [Inject]
+    [NotNull]
     private IDispatchService<GiteePostBody>? DispatchService { get; set; }
 
     [Inject]
     [NotNull]
     private ToastService? Toast { get; set; }
+
+    [NotNull]
+    private IEnumerable<Assembly>? AdditionalAssemblies { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -30,6 +39,7 @@ public partial class App
     {
         base.OnInitialized();
 
+        AdditionalAssemblies = WebsiteOptions.Value.AdditionalAssemblies;
         DispatchService.Subscribe(Notify);
     }
 

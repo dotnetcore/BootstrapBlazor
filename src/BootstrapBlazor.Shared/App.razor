@@ -3,7 +3,7 @@
 @attribute [JSModuleAutoLoader("App.razor.js", AutoInvokeDispose = false)]
 
 <BootstrapBlazorRoot>
-    <Router AppAssembly="@typeof(App).Assembly">
+    <Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="AdditionalAssemblies">
         <Found Context="routeData">
             <PageTitle>@AppLocalizer["Title"]</PageTitle>
             <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
