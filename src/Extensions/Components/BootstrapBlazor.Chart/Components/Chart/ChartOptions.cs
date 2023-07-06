@@ -69,11 +69,6 @@ public class ChartOptions
     public string? Width { get; set; }
 
     /// <summary>
-    /// 获得/设置 折线图(Line) 宽度 默认 3 个像素
-    /// </summary>
-    public double BorderWidth { get; set; } = 3;
-
-    /// <summary>
     /// 获得/设置 是否显示图例 默认 true 显示
     /// </summary>
     public bool ShowLegend { get; set; } = true;

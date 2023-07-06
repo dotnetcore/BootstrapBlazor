@@ -542,6 +542,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["Html2Pdf"],
+                    Url = "html2pdfs"
+                },
+                new()
+                {
                     Text = Localizer["LinkButton"],
                     Url = "linkbuttons"
                 },

@@ -9,7 +9,7 @@
     }
 </style>
 
-<Button Text="@Localizer["DialogButtonText"]" OnClick="OnClickDialog" class="mt-1"></Button>
+<Button Text="@Localizer["DialogButtonText"]" OnClick="OnClickDialog" class="mt-3"></Button>
 
 @code {
     [NotNull]
@@ -28,11 +28,11 @@
     private async Task OnClickDialog()
     {
         var op = new DialogOption
-                {
-                    Class = "dialog-table",
-                    Title = Localizer["DialogTitle"],
-                    BodyTemplate = RenderTable()
-                };
+        {
+            Class = "dialog-table",
+            Title = Localizer["DialogTitle"],
+            BodyTemplate = RenderTable()
+        };
 
         await DialogService.Show(op);
     }

@@ -651,6 +651,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowColumnList, true);
+                pb.Add(a => a.AllowResizing, true);
                 pb.Add(a => a.ColumnButtonText, "Test_Column_List");
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
                 pb.Add(a => a.OnColumnVisibleChanged, (colName, visible) =>
@@ -715,6 +716,9 @@ public class TableTest : TableTestBase
             {
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowExportButton, true);
+                pb.Add(a => a.ShowExportExcelButton, false);
+                pb.Add(a => a.ShowExportPdfButton, false);
+                pb.Add(a => a.ShowToastBeforeExport, true);
                 pb.Add(a => a.ShowToastAfterExport, true);
                 pb.Add(a => a.ExportButtonText, "Test_Export");
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
@@ -737,12 +741,25 @@ public class TableTest : TableTestBase
         });
         cut.DoesNotContain("fa-solid fa-download");
         cut.Contains("test-export-icon");
+
+        // Excel 导出图标监测
+        // Pdf 导出图标监测
+        table.DoesNotContain("fa-regular fa-file-excel");
+        table.DoesNotContain("fa-regular fa-file-pdf");
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowExportExcelButton, true);
+            pb.Add(a => a.ShowExportPdfButton, true);
+        });
+        table.Contains("fa-regular fa-file-excel");
+        table.Contains("fa-regular fa-file-pdf");
     }
 
     [Fact]
     public void ExportButtonDropdownTemplate_Ok()
     {
         ITableExportContext<Foo>? context = null;
+        bool exported = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -755,7 +772,8 @@ public class TableTest : TableTestBase
                 {
                     context = c;
                     builder.OpenElement(0, "div");
-                    builder.AddContent(1, "test-export-dropdown-item");
+                    builder.AddAttribute(1, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, c.ExportAsync));
+                    builder.AddContent(2, "test-export-dropdown-item");
                     builder.CloseElement();
                 });
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
@@ -765,6 +783,11 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(1, "Field", "Name");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
+                });
+                pb.Add(a => a.OnExportAsync, (cols, options) =>
+                {
+                    exported = true;
+                    return Task.FromResult(true);
                 });
             });
         });
@@ -776,6 +799,21 @@ public class TableTest : TableTestBase
         Assert.NotNull(context.BuildQueryPageOptions());
         Assert.Equal(80, context.Rows.Count());
         Assert.NotNull(context.ExportAsync());
+
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.BeforeExportCallback, () =>
+            {
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.AfterExportCallback, b =>
+            {
+                return Task.CompletedTask;
+            });
+        });
+        cut.InvokeAsync(() => context.ExportAsync());
+        Assert.True(exported);
     }
 
     [Fact]
@@ -5479,7 +5517,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public async Task ExportAsync_Ok()
+    public void ExportAsync_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -5500,16 +5538,28 @@ public class TableTest : TableTestBase
             });
         });
 
-        var button = cut.Find(".dropdown-menu-end .dropdown-item");
-        await cut.InvokeAsync(() => button.Click());
+        cut.InvokeAsync(() =>
+        {
+            var button = cut.Find(".dropdown-menu-end .dropdown-item");
+            button.Click();
+        });
 
-        // 
+        cut.InvokeAsync(() =>
+        {
+            var buttons = cut.FindAll(".dropdown-menu-end .dropdown-item");
+            buttons.Last().Click();
+        });
+
         var table = cut.FindComponent<Table<Foo>>();
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.OnExportAsync, (_, _) => Task.FromResult(true));
         });
-        await cut.InvokeAsync(() => button.Click());
+        cut.InvokeAsync(() =>
+        {
+            var button = cut.Find(".dropdown-menu-end .dropdown-item");
+            button.Click();
+        });
     }
 
     [Fact]

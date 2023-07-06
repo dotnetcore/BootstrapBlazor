@@ -48,7 +48,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// 获得 wrapper 样式表集合
     /// </summary>
-    protected string? WrapperClassName => CssBuilder.Default()
+    protected string? WrapperClassName => CssBuilder.Default("table-shim")
         .AddClass("table-wrapper", IsBordered)
         .AddClass("is-clickable", ClickToSelect || DoubleClickToEdit || OnClickRowCallback != null || OnDoubleClickRowCallback != null)
         .AddClass("table-scroll", !IsFixedHeader || FixedColumn)
@@ -650,6 +650,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         CardViewButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableCardViewButtonIcon);
         ColumnListButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableColumnListButtonIcon);
         ExcelExportIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableExcelExportIcon);
+        PdfExportIcon ??= IconTheme.GetIconByKey(ComponentIcons.TablePdfExportIcon);
         SearchButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableSearchButtonIcon);
         ResetSearchButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableResetSearchButtonIcon);
         CloseButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableCloseButtonIcon);
@@ -779,6 +780,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             _init = false;
             await InvokeVoidAsync("init", Id);
+        }
+
+        if (_resetColumns)
+        {
+            _resetColumns = false;
+            await InvokeVoidAsync("resetColumn", Id);
         }
 
         if (UpdateSortTooltip)

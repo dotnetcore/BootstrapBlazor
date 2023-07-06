@@ -9,10 +9,6 @@
     --bs-navbar-hover-color: rgb(255,255,255);
 }
 
-.layout {
-    --bb-layout-sidebar-banner-background: #702cf8;
-}
-
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;

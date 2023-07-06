@@ -759,7 +759,7 @@
     "ApplyIntro": "In this example, by passing a primary key, the components in the pop-up window perform data query through this primary key, and display the results in the pop-up window",
     "CloseDialogByCodeTitle": "Code to close the popup",
     "CloseDialogByCodeIntro": "This example explains how to open and close a popup window through code",
-    "CloseDialogByCodeTip": "Use popup parameters  <code>DialogOption</code> Instance, in the instance after the pop-up window pops up <code>Dialog</code> The property value is the handle of the current popup window. By calling its <code>Toggle/Close</code> method to close the popup",
+    "CloseDialogByCodeTip": "Use <code>DialogOption</code> instance method <code>CloseDialogAsync</code> to close the popup",
     "DisableHeaderCloseButtonTitle": "Disable close button in Header",
     "DisableHeaderCloseButtonIntro": "This example explains how to open and close a popup window through code",
     "DisableHeaderCloseButtonTip": "Setting parameters <code>ShowHeaderCloseButton</code> Ban pop-ups <code>Header</code> Shows the <b>Close</b> button on the right",
@@ -5063,6 +5063,7 @@
     "BaiduOcr": "IBaiduOcr",
     "AzureOpenAI": "AzureOpenAI",
     "HtmlRenderer": "HtmlRenderer",
+    "Html2Pdf": "Html2Pdf",
     "ContextMenu": "ContextMenu",
     "DockView": "DockView",
     "OtherComponents": "Others",
@@ -5218,6 +5219,10 @@
     "OnColumnVisibleChangedAttr": "Trigger this callback when switch show/hide column in the list",
     "ShowEmptyAttr": "Show no data prompts",
     "ShowToastAfterSaveOrDeleteModelAttr": "Do you show a toast prompt box after a save/delete failure",
+    "ShowToastBeforeExport": "Whether show the Toast popup before export",
+    "ShowToastAfterExport": "Whether show the Toast popup after export",
+    "BeforeExportCallback": "The callback before export",
+    "AfterExportCallback": "The callback after export",
     "TreeIconAttr": "Small arrow for tree data rows",
     "ScrollingDialogContentAttr": "Edit whether the pop-up box appears inside the scroll bar",
     "FixedExtendButtonsColumnAttr": "Whether to fix the extended button column",
@@ -6310,5 +6315,11 @@
     "MouseFollowersFollowerMode": "MouseFollowerMode.Normal，MouseFollowerMode.Text ，MouseFollowerMode.Icon ，MouseFollowerMode.Image ，MouseFollowerMode.Video ",
     "MouseFollowersGlobalMode": "Global | Local, Mode",
     "MouseFollowersContent": "Text | icon | imagepath | videopath"
+  },
+  "BootstrapBlazor.Shared.Samples.Html2Pdfs": {
+    "Html2PdfTitle": "Html export to Pdf",
+    "Html2PdfDescription": "Export Html fragments or web page elements as Pdf",
+    "Html2PdfNormalTitle": "Noraml",
+    "Html2PdfNormalIntro": "Export <code>Html</code> fragment as <code>Pdf</code> file"
   }
 }

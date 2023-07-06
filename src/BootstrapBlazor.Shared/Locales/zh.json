@@ -759,7 +759,7 @@
     "ApplyIntro": "本例中通过传递一个主键，在弹窗内的组件通过此主键进行数据查询，并将结果显示在弹窗内",
     "CloseDialogByCodeTitle": "代码关闭弹窗",
     "CloseDialogByCodeIntro": "本例讲解如何通过代码打开与关闭弹窗",
-    "CloseDialogByCodeTip": "利用弹窗参数 <code>DialogOption</code> 实例，弹窗弹出后实例中的 <code>Dialog</code> 属性值即为当前弹窗句柄，通过调用其 <code>Toggle/Close</code> 方法即可关闭弹窗",
+    "CloseDialogByCodeTip": "利用弹窗参数 <code>DialogOption</code> 实例方法 <code>CloseDialogAsync</code> 即可关闭弹窗",
     "DisableHeaderCloseButtonTitle": "禁用 Header 中的关闭按钮",
     "DisableHeaderCloseButtonIntro": "本例讲解如何通过代码打开与关闭弹窗",
     "DisableHeaderCloseButtonTip": "设置参数 <code>ShowHeaderCloseButton</code> 禁止弹窗 <code>Header</code> 右侧显示 <b>关闭</b> 按钮",
@@ -5074,7 +5074,8 @@
     "FileViewer": "文件预览器 FileViewer",
     "BaiduOcr": "文字识别服务 IBaiduOcr",
     "AzureOpenAI": "AI 聊天服务 AzureOpenAI",
-    "HtmlRenderers": "Html 转换器  HtmlRenderer",
+    "HtmlRenderer": "Html 转换器  HtmlRenderer",
+    "Html2Pdf": "Html 转 Pdf",
     "ContextMenu": "右键菜单 ContextMenu",
     "DockView": "可停靠布局 DockView",
     "OtherComponents": "其他组件",
@@ -5249,6 +5250,10 @@
     "OnColumnVisibleChangedAttr": "改变列是否显示时触发此回调",
     "ShowEmptyAttr": "是否显示无数据提示",
     "ShowToastAfterSaveOrDeleteModelAttr": "保存/删除失败后是否显示 Toast 提示框",
+    "ShowToastBeforeExport": "导出数据前是否弹出 Toast 提示框",
+    "ShowToastAfterExport": "导出数据后是否弹出 Toast 提示框",
+    "BeforeExportCallback": "导出数据前回调方法",
+    "AfterExportCallback": "导出数据后回调方法",
     "TreeIconAttr": "树形数据行小箭头",
     "ScrollingDialogContentAttr": "编辑弹窗框是否为内部出现滚动条",
     "FixedExtendButtonsColumnAttr": "是否固定扩展按钮列",
@@ -6323,5 +6328,11 @@
     "MouseFollowersFollowerMode": "MouseFollowerMode.Normal 默认模式，MouseFollowerMode.Text 文本模式，MouseFollowerMode.Icon 图标模式，MouseFollowerMode.Image 图片模式，MouseFollowerMode.Video 视频模式",
     "MouseFollowersGlobalMode": "全局|局部，模式",
     "MouseFollowersContent": "文本，图标，图片路径，视频路径"
+  },
+  "BootstrapBlazor.Shared.Samples.Html2Pdfs": {
+    "Html2PdfTitle": "Html 导出为 Pdf",
+    "Html2PdfDescription": "将 Html 片段或者网页元素导出为 Pdf",
+    "Html2PdfNormalTitle": "基本用法",
+    "Html2PdfNormalIntro": "将 <code>Html</code> 代码片段导出为 <code>Pdf</code> 文件"
   }
 }

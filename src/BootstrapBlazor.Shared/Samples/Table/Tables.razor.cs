@@ -834,6 +834,38 @@ public partial class Tables
         },
         new()
         {
+            Name = "ShowToastBeforeExport",
+            Description = Localizer["ShowToastBeforeExport"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = "ShowToastAfterExport",
+            Description = Localizer["ShowToastAfterExport"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = "BeforeExportCallback",
+            Description = Localizer["BeforeExportCallback"],
+            Type = "Func<Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "AfterExportCallback",
+            Description = Localizer["AfterExportCallback"],
+            Type = "Func<bool, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
             Name = "TreeIcon",
             Description = Localizer["TreeIconAttr"],
             Type = "string",

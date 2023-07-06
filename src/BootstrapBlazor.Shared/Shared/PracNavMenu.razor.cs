@@ -84,6 +84,30 @@ public partial class PracNavMenu
                         Template = CreateDownloadButtonComponent("登陆和注册模板5", praclogintemplate5),
                         Text = "模板 template 5",
                         Url = "praclogintemplate5"
+                    },
+                    new()
+                    {
+                        Template = CreateDownloadButtonComponent("登陆模板6", praclogintemplate6),
+                        Text = "模板 template 6",
+                        Url = "praclogintemplate6"
+                    },
+                    new()
+                    {
+                        Template = CreateDownloadButtonComponent("登陆模板7", praclogintemplate7),
+                        Text = "模板 template 7",
+                        Url = "praclogintemplate7"
+                    },
+                    new()
+                    {
+                        Template = CreateDownloadButtonComponent("登陆模板8", praclogintemplate8),
+                        Text = "模板 template 8",
+                        Url = "praclogintemplate8"
+                    },
+                    new()
+                    {
+                        Template = CreateDownloadButtonComponent("登陆模板9", praclogintemplate9),
+                        Text = "模板 template 9",
+                        Url = "praclogintemplate9"
                     }
                 }
             },
@@ -181,6 +205,50 @@ public partial class PracNavMenu
         "Practicals/LoginAndRegister/PracLoginTemplate5.razor",
         "Practicals/LoginAndRegister/PracLoginTemplate5.razor.css",
         "Practicals/LoginAndRegister/PracLoginTemplate5.razor.js",
+    };
+
+    private readonly string[] praclogintemplate6 = new[]
+    {
+        "Practicals/LoginAndRegister/PracLoginTemplate6.razor",
+        "Practicals/LoginAndRegister/PracLoginTemplate6.razor.css",
+        "Shared/PracLayout.razor",
+        "Shared/PracLayout.razor.cs",
+        "Shared/PracLayout.razor.css",
+        "Shared/PracLoginLayout.razor",
+        "Shared/PracLoginLayout.razor.css"
+    };
+
+    private readonly string[] praclogintemplate7 = new[]
+    {
+        "Practicals/LoginAndRegister/PracLoginTemplate7.razor",
+        "Practicals/LoginAndRegister/PracLoginTemplate7.razor.css",
+        "Shared/PracLayout.razor",
+        "Shared/PracLayout.razor.cs",
+        "Shared/PracLayout.razor.css",
+        "Shared/PracLoginLayout.razor",
+        "Shared/PracLoginLayout.razor.css"
+    };
+
+    private readonly string[] praclogintemplate8 = new[]
+    {
+        "Practicals/LoginAndRegister/PracLoginTemplate8.razor",
+        "Practicals/LoginAndRegister/PracLoginTemplate8.razor.css",
+        "Shared/PracLayout.razor",
+        "Shared/PracLayout.razor.cs",
+        "Shared/PracLayout.razor.css",
+        "Shared/PracLoginLayout.razor",
+        "Shared/PracLoginLayout.razor.css"
+    };
+
+    private readonly string[] praclogintemplate9 = new[]
+    {
+        "Practicals/LoginAndRegister/PracLoginTemplate9.razor",
+        "Practicals/LoginAndRegister/PracLoginTemplate9.razor.css",
+        "Shared/PracLayout.razor",
+        "Shared/PracLayout.razor.cs",
+        "Shared/PracLayout.razor.css",
+        "Shared/PracLoginLayout.razor",
+        "Shared/PracLoginLayout.razor.css"
     };
 
     private readonly string[] pinteresoFileList = new[]

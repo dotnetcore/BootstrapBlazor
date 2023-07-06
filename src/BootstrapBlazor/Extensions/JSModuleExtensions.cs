@@ -16,9 +16,13 @@ public static class JSModuleExtensions
     /// <param name="fileName"></param>
     /// <param name="version"></param>
     /// <returns></returns>
-    public static async Task<JSModule> LoadModule(this IJSRuntime jsRuntime, string fileName, string version)
+    public static async Task<JSModule> LoadModule(this IJSRuntime jsRuntime, string fileName, string? version = null)
     {
-        var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", $"{fileName}?v={version}");
+        if (!string.IsNullOrEmpty(version))
+        {
+            fileName = $"{fileName}?v={version}";
+        }
+        var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", fileName);
         return new JSModule(jSObjectReference);
     }
 

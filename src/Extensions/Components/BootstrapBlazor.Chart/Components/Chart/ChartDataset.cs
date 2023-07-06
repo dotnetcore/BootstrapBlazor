@@ -63,4 +63,11 @@ public class ChartDataset
     /// </summary>
     public int PointHoverRadius { get; set; } = 4;
 
+
+    /// <summary>
+    /// 获得/设置 折线图(Line) 宽度 默认 3 个像素
+    /// </summary>
+    public double BorderWidth { get; set; } = 3;
+
+
 }
