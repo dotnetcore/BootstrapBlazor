@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <Import Project="..\..\Framework.props" />
+
+  <PropertyGroup>
+    <Version>7.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+  </ItemGroup>
+
+</Project>
