@@ -1,5 +1,5 @@
-﻿import Data from "../../../_content/BootstrapBlazor/modules/data.js?v=$version"
-import EventHandler from "../../../_content/BootstrapBlazor/modules/event-handler.js?v=$version"
+﻿import Data from "../../../_content/BootstrapBlazor/modules/data.js?v=7.8.3"
+import EventHandler from "../../../_content/BootstrapBlazor/modules/event-handler.js?v=7.8.3"
 
 export function init(id) {
     const navmenu = {

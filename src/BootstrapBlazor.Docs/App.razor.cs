@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Extensions;
+using System.Reflection;
 
 namespace BootstrapBlazor.Shared;
 
@@ -23,6 +24,9 @@ public partial class App
     [NotNull]
     private ToastService? Toast { get; set; }
 
+    [NotNull]
+    private IEnumerable<Assembly>? AdditionalAssemblies { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -30,6 +34,10 @@ public partial class App
     {
         base.OnInitialized();
 
+        AdditionalAssemblies = new Assembly[]
+        {
+            typeof(BootstrapBlazor.Shared.Pages.Index).Assembly
+        };
         DispatchService.Subscribe(Notify);
     }
 
