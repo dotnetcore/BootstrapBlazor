@@ -4,7 +4,10 @@
 
 namespace BootstrapBlazor.Shared.Extensions;
 
-internal static class DispatchEntryExtensions
+/// <summary>
+/// DispatchEntry 扩展方法
+/// </summary>
+public static class DispatchEntryExtensions
 {
     /// <summary>
     /// 

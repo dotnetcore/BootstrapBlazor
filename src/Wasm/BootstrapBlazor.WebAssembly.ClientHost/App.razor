@@ -1,0 +1,21 @@
+﻿@namespace BootstrapBlazor.Shared
+@inject IStringLocalizer<App> AppLocalizer
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.Docs/App.razor.js", AutoInvokeDispose = false)]
+
+<BootstrapBlazorRoot>
+    <Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="AdditionalAssemblies">
+        <Found Context="routeData">
+            <PageTitle>@AppLocalizer["Title"]</PageTitle>
+            <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+        </Found>
+        <NotFound>
+            <PageTitle>Not found</PageTitle>
+            <LayoutView Layout="@typeof(MainLayout)">
+                <p>正在玩命开发中 ...</p>
+            </LayoutView>
+        </NotFound>
+    </Router>
+</BootstrapBlazorRoot>
+
+<BlazorReconnector />
