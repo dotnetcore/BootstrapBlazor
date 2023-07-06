@@ -23,7 +23,7 @@ public partial class NavMenu
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Index>? IndexLocalizer { get; set; }
+    private IStringLocalizer<App>? AppLocalizer { get; set; }
 
     [Inject]
     [NotNull]
@@ -65,7 +65,7 @@ public partial class NavMenu
     {
         if (!item.Items.Any() && !string.IsNullOrEmpty(item.Text))
         {
-            await TitleService.SetTitle($"{item.Text} - {IndexLocalizer["Title"]}");
+            await TitleService.SetTitle($"{item.Text} - {AppLocalizer["Title"]}");
         }
     }
 }
