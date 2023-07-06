@@ -138,8 +138,8 @@ public class WebsiteOptions
     private IConfiguration GetConfiguration(string jsonFileName)
     {
         var assembly = GetType().Assembly;
-        var assemlbyName = assembly.GetName().Name;
-        using var res = assembly.GetManifestResourceStream($"{assemlbyName}.{jsonFileName}") ?? throw new InvalidOperationException();
+        var assemblyName = assembly.GetName().Name;
+        using var res = assembly.GetManifestResourceStream($"{assemblyName}.{jsonFileName}") ?? throw new InvalidOperationException();
 
         return new ConfigurationBuilder()
             .AddJsonStream(res)
