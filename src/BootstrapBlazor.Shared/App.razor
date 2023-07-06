@@ -1,6 +1,6 @@
 ﻿@inject IStringLocalizer<App> AppLocalizer
-@inherits BootstrapModuleComponentBase
-@attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.Docs/App.razor.js", AutoInvokeDispose = false)]
+@inherits WebSiteModuleComponentBase
+@attribute [JSModuleAutoLoader("App.razor.js", AutoInvokeDispose = false)]
 
 <BootstrapBlazorRoot>
     <Router AppAssembly="@typeof(App).Assembly" AdditionalAssemblies="AdditionalAssemblies">
