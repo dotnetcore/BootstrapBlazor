@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!--<PackageReference Include="BootstrapBlazor.Shared" Version="7.0.0" />-->
+    <PackageReference Include="BootstrapBlazor.Shared" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.*" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.*" PrivateAssets="all" />
     <PackageReference Include="System.Net.Http.Json" Version="7.*" />
@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\BootstrapBlazor.Shared\BootstrapBlazor.Shared.csproj" />
+    <ProjectReference Include="..\..\BootstrapBlazor\BootstrapBlazor.csproj" />
   </ItemGroup>
 
   <ItemGroup>
