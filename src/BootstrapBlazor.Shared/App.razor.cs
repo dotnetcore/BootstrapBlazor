@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Extensions;
+using Microsoft.Extensions.Options;
 using System.Reflection;
 
 namespace BootstrapBlazor.Shared;
@@ -15,6 +16,10 @@ public partial class App
     [Inject]
     [NotNull]
     private IStringLocalizer<App>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptions<WebsiteOptions>? WebsiteOptions { get; set; }
 
     [Inject]
     [NotNull]
@@ -34,10 +39,7 @@ public partial class App
     {
         base.OnInitialized();
 
-        AdditionalAssemblies = new Assembly[]
-        {
-            typeof(BootstrapBlazor.Shared.Pages.Index).Assembly
-        };
+        AdditionalAssemblies = WebsiteOptions.Value.AdditionalAssemblies;
         DispatchService.Subscribe(Notify);
     }
 

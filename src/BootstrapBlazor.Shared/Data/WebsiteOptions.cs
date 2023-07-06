@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Configuration;
+using System.Reflection;
 
 namespace BootstrapBlazor.Shared;
 
@@ -112,6 +113,11 @@ public class WebsiteOptions
     /// 获得/设置 当前网站友联集合
     /// </summary>
     public Dictionary<string, string?> Links { get; set; }
+
+    /// <summary>
+    /// 获得/设置 额外路由程序集
+    /// </summary>
+    public IEnumerable<Assembly>? AdditionalAssemblies { get; set; }
 
     /// <summary>
     /// 构造函数

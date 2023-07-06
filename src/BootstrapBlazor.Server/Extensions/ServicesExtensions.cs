@@ -5,6 +5,7 @@
 using Bootstrap.Shared.OAuth;
 using BootstrapBlazor.Components;
 using BootstrapBlazor.Server.Services;
+using BootstrapBlazor.Shared;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.WebUtilities;
@@ -35,6 +36,12 @@ internal static class ServicesExtensions
 
         // 增加演示网站服务
         services.AddWebSiteServices();
+
+        // 配置网站路由表
+        services.Configure<WebsiteOptions>(op =>
+        {
+            op.AdditionalAssemblies = new Assembly[] { typeof(BootstrapBlazor.Shared.OAuth.AzureOpenAIUser).Assembly };
+        });
 
         // 增加 BootstrapBlazor 组件
         services.AddBootstrapBlazor(configureOptions);
