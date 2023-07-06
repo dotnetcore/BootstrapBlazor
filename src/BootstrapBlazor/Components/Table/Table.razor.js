@@ -228,6 +228,7 @@ const setResizeListener = table => {
             col.classList.remove('last')
         }
         table.columns.push(col)
+        EventHandler.on(col, 'click', e => e.stopPropagation())
         drag(col,
             e => {
                 colIndex = eff(col, true)
@@ -340,6 +341,7 @@ const setCopyColumn = table => {
 const disposeColumnDrag = columns => {
     columns = columns || []
     columns.forEach(col => {
+        EventHandler.off(col, 'click')
         EventHandler.off(col, 'mousedown')
         EventHandler.off(col, 'touchstart')
     })

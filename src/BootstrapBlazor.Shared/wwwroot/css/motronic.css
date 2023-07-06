@@ -10,19 +10,24 @@
     background-color: #fff5f8 !important;
 }
 
-.layout.is-page .layout-side {
-    color: #3f4254;
-    background-color: #fff;
-    box-shadow: 0 0 28px 0 rgb(82 63 105 / 5%);
+.layout {
+    --bb-layout-sidebar-banner-background: #702cf8;
+    --bb-layout-header-backgound: #702cf8;
 }
 
-.layout.is-page .layout-user .layout-title {
-    color: #3f4254;
-}
+    .layout.is-page .layout-side {
+        color: #3f4254;
+        background-color: #fff;
+        box-shadow: 0 0 28px 0 rgb(82 63 105 / 5%);
+    }
 
-.layout.is-page .layout-footer {
-    background-color: #f8f9fa;
-}
+    .layout.is-page .layout-user .layout-title {
+        color: #3f4254;
+    }
+
+    .layout.is-page .layout-footer {
+        background-color: #f8f9fa;
+    }
 
 .layout-gotop {
     background: #e9ecef;
