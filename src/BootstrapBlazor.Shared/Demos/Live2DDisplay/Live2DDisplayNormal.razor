@@ -1,54 +1,71 @@
-﻿<div class="row g-3">
+﻿@page "/"
+@using System.Diagnostics.CodeAnalysis;
+
+<div class="row g-3">
     <div class="col-auto">
-        <RadioList Items="@CssItems" @bind-Value="@BindCssItem" />
-    </div>
-    <div class="col-auto">
-        <RadioList Items="@SrcItems" @bind-Value="@BindSrcItem" />
-    </div>
-    <div class="col-12 col-sm-6">
-        <BootstrapInputGroup>
-            <BootstrapInputGroupLabel DisplayText="比例" />
+        <RadioList class="mb-1" @bind-Value="@position" />
+        <RadioList class="mb-1" Items="@SrcItems" @bind-Value="@BindSrcItem" />
+        <BootstrapInputGroup class="mb-1">
+            <BootstrapInputGroupLabel DisplayText="Scale" />
             <BootstrapInputNumber @bind-Value="@Scale" IsSelectAllTextOnFocus="true" />
         </BootstrapInputGroup>
-    </div>
-    <div class="col-12 col-sm-6">
-        <BootstrapInputGroup>
-            <BootstrapInputGroupLabel DisplayText="X" />
+        <BootstrapInputGroup class="mb-1">
+            <BootstrapInputGroupLabel DisplayText="X offset" />
             <BootstrapInputNumber @bind-Value="@x" IsSelectAllTextOnFocus="true" />
         </BootstrapInputGroup>
-    </div>
-    <div class="col-12 col-sm-6">
-        <BootstrapInputGroup>
-            <BootstrapInputGroupLabel DisplayText="Y" />
+        <BootstrapInputGroup class="mb-1">
+            <BootstrapInputGroupLabel DisplayText="Y offset" />
             <BootstrapInputNumber @bind-Value="@y" IsSelectAllTextOnFocus="true" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup class="mb-1">
+            <BootstrapInputGroupLabel DisplayText="IsDraggble" />
+            <Checkbox TValue="bool" @bind-Value="@isDraggble" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup class="mb-1">
+            <BootstrapInputGroupLabel DisplayText="Hit Area Frames" />
+            <Checkbox TValue="bool" @bind-Value="@addHitAreaFrames" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup class="mb-1">
+            <BootstrapInputGroupLabel DisplayText="BackgroundAlpha" />
+            <Checkbox TValue="bool" @bind-Value="@backgroundAlpha" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup class="mb-1">
+            <BootstrapInputGroupLabel DisplayText="BackgroundColor" />
+            <ColorPicker @bind-Value="@backgroundColor" />
         </BootstrapInputGroup>
     </div>
 </div>
 
-<Live2DDisplay class="@BindCssItem.Value"
-               Scale="@Scale"
-               X="@x"
-               Y="@y"
-               Source="@BindSrcItem.Value" />
+<Live2DDisplay class=@BindCssItem.Value
+               Scale=@Scale
+               X=@x BackgroundColor="@backgroundColor"
+               Y=@y BackgroundAlpha="@backgroundAlpha"
+               Position=@position
+               IsDraggble=@isDraggble
+               AddHitAreaFrames=@addHitAreaFrames
+               Source=@BindSrcItem.Value />
+
 @code {
+
+    private string backgroundColor { get; set; } = "#DDDDDD";
+    private bool backgroundAlpha { get; set; }
+    private bool addHitAreaFrames { get; set; }
+
+    private bool isDraggble { get; set; }
+
     private double Scale { get; set; } = 0.2;
 
     private int x { get; set; }
     private int y { get; set; }
 
-    private IEnumerable<SelectedItem> CssItems { get; set; } = new SelectedItem[]
-    {
-        new SelectedItem("","父元素位置"),
-        new SelectedItem("bb-bottomleft","页面左下角"),
-        new SelectedItem("bb-bottomright", "页面右下角"),
-        new SelectedItem("bb-topleft", "页面左上角"),
-        new SelectedItem("bb-topright", "页面右上角")
-    };
+    private LivePosition position { get; set; }
 
     private SelectedItem BindCssItem { get; set; } = new SelectedItem();
 
+
     private IEnumerable<SelectedItem>? SrcItems { get; set; } = new SelectedItem[]
     {
+        new SelectedItem("https://cdn.jsdelivr.net/gh/guansss/pixi-live2d-display/test/assets/shizuku/shizuku.model.json","cubism2Model"),
         new SelectedItem("https://cdn.jsdelivr.net/gh/guansss/pixi-live2d-display/test/assets/haru/haru_greeter_t03.model3.json","cubism4Model"),
         new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/bilibili-22/index.json","bilibili-22"),
         new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/bilibili-33/index.json","bilibili-33"),
@@ -62,32 +79,4 @@
     };
 
     private SelectedItem BindSrcItem { get; set; } = new SelectedItem();
-
-
 }
-
-<style>
-    .bb-bottomleft {
-        position: fixed;
-        left: 0px;
-        bottom: 0px;
-    }
-
-    .bb-bottomright {
-        position: fixed;
-        right: 0px;
-        bottom: 0px;
-    }
-
-    .bb-topleft {
-        position: fixed;
-        left: 0px;
-        top: 0px;
-    }
-
-    .bb-topright {
-        position: fixed;
-        right: 0px;
-        top: 0px;
-    }
-</style>

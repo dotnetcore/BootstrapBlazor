@@ -1,94 +1,141 @@
 ﻿import { addScript } from '../../../BootstrapBlazor/modules/utility.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
 
-export async function init(id, src, scale, x, y) {
+export async function init(op) {
     await addScript("_content/BootstrapBlazor.Live2DDisplay/live2dcubismcore.min.js")
     await addScript("_content/BootstrapBlazor.Live2DDisplay/live2d.min.js")
     await addScript("_content/BootstrapBlazor.Live2DDisplay/pixi.min.js")
     await addScript("_content/BootstrapBlazor.Live2DDisplay/index.min.js")
     await addScript("_content/BootstrapBlazor.Live2DDisplay/extra.min.js")
 
-    const model = await createModel(src, scale, x, y);
+    const model = await createModel(op);
 
-    var h = Math.ceil(model.height) + 'px';
-    var w = Math.ceil(model.width) + 'px';
-
-    const el = document.getElementById(id);
-    el.style.width = w;
-    el.style.height = h;
+    const el = document.getElementById(op.id);
     el.style.zIndex = '99999';
     el.style.opacity = '1';
     el.style.pointerEvents = 'none';
 
     const canvas = document.createElement('canvas');
-    canvas.style.width = w;
-    canvas.style.height = h;
 
     el.appendChild(canvas);
 
     const app = new PIXI.Application({
         view: canvas,
-        autoStart: true,
-        resizeTo: el,
-        backgroundAlpha: 0
+        autoStart: true
     });
     app.stage.addChild(model);
 
-    addHitAreaFrames(model);
+    const data = { app, model, el, canvas, op };
+    Data.set(op.id, data);
 
-    Data.set(id, { app, model, src, scale, el, canvas });
+    resizeTo(data);
+    changebackground(op.id, op.backgroundAlpha, op.backgroundColor)
 }
 
-export async function reload(id, src, scale, x, y) {
-    const op = Data.get(id);
-    if (op.src != src) {
-        op.src = src;
-        op.app.stage.removeChild(op.model);
-        op.model = await createModel(op.src, scale, x, y);
-        op.app.stage.addChild(op.model);
+function createHitAreaFrames(op, model) {
+    model.children = [];
+    if (op.addHitAreaFrames) {
+        // handle tapping
+        model.on("hit", (hitAreas) => {
+            if (hitAreas.includes("Body")) {
+                model.motion("Tap");
+                model.motion("tap_body");
+            }
+
+            if (hitAreas.includes("Head")) {
+                model.expression();
+            }
+        });
+        const hitAreaFrames = new PIXI.live2d.HitAreaFrames();
+        model.addChild(hitAreaFrames);
+        hitAreaFrames.visible = op.addHitAreaFrames
     }
-    if (op.scale != scale) {
-        op.scale = scale;
-        op.model.scale.set(scale);
-    }
-
-    var h = Math.ceil(op.model.height);
-    var w = Math.ceil(op.model.width);
-
-    op.el.style.width = w + 'px';
-    op.el.style.height = h + 'px';
-
-    op.canvas.style.width = w + 'px';
-    op.canvas.style.height = h + 'px';
-
-    op.canvas.width = w;
-    op.canvas.height = h;
-    op.app.resizeTo = op.el;
 }
 
-async function createModel(src, scale, x, y) {
-    const model = await PIXI.live2d.Live2DModel.from(src);
-    model.scale.set(scale);
-    model.x = x;
-    model.y = y;
+function resizeTo(data) {
+    if (data.op.isDraggble) {
+        data.app.resizeTo = window;
+    }
+    else {
+        var h = Math.ceil(data.model.height);
+        var w = Math.ceil(data.model.width);
 
-    // handle tapping
-    model.on("hit", (hitAreas) => {
-        if (hitAreas.includes("Body")) {
-            model.motion("Tap");
-            model2.motion("tap_body");
-        }
+        data.el.style.width = w + 'px';
+        data.el.style.height = h + 'px';
 
-        if (hitAreas.includes("Head")) {
-            model.expression();
-        }
-    });
+        data.canvas.style.width = data.el.style.width;
+        data.canvas.style.height = data.el.style.height;
+
+        data.canvas.width = w;
+        data.canvas.height = h;
+
+        data.app.resizeTo = data.el;
+    }
+}
+
+export async function changeSource(op) {
+    const data = Data.get(op.id);
+    data.op = op;
+
+    data.app.stage.removeChild(data.model);
+    data.model = await createModel(op);
+    data.app.stage.addChild(data.model);
+
+    data.model.scale.set(data.op.scale);
+
+    resizeTo(data);
+}
+
+export function changeScale(id, scale) {
+    const data = Data.get(id);
+    data.op.scale = scale;
+    data.model.scale.set(data.op.scale);
+    resizeTo(data);
+}
+
+export function changeXY(id, x, y) {
+    const data = Data.get(id);
+    data.op.x = x;
+    data.op.y = y;
+    data.model.x = x;
+    data.model.y = y;
+    resizeTo(data);
+}
+
+export function changebackground(id, backgroundAlpha, backgroundColor) {
+    const data = Data.get(id);
+
+    if (backgroundColor.startsWith('#')) {
+        backgroundColor = backgroundColor.replace("#", "0x");
+    }
+
+    data.op.backgroundAlpha = backgroundAlpha;
+    data.op.backgroundColor = backgroundColor;
+    data.app.renderer.backgroundColor = backgroundColor;
+    data.app.renderer.backgroundAlpha = backgroundAlpha;
+}
+
+export function changeDraggble(id, draggble) {
+    const data = Data.get(id);
+    data.op.isDraggble = draggble;
+    //Not currently supported
+}
+
+export function addHitAreaFrames(id, isaddHitAreaFrames) {
+    const data = Data.get(id);
+    data.op.addHitAreaFrames = isaddHitAreaFrames;
+    createHitAreaFrames(data.op, data.model);
+}
+
+async function createModel(op) {
+    const model = await PIXI.live2d.Live2DModel.from(op.source);
+    model.scale.set(op.scale);
+    model.x = op.x;
+    model.y = op.y;
+    model.dragging = op.isDraggble;
+    if (op.addHitAreaFrames) {
+        createHitAreaFrames(op, model);
+    }
 
     return model;
-}
-
-function addHitAreaFrames(model) {
-    const hitAreaFrames = new PIXI.live2d.HitAreaFrames();
-
-    model.addChild(hitAreaFrames);
 }
