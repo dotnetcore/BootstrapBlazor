@@ -213,7 +213,10 @@
                         {
                             <div class="table-cell">
                                 <label>@CheckboxDisplayText</label>
-                                <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="OnCheck" @onclick:stopPropagation></Checkbox>
+                                @if (GetShowRowCheckbox(item))
+                                {
+                                    <Checkbox TValue="TItem" Value="@item" State="@RowCheckState(item)" OnStateChanged="OnCheck" @onclick:stopPropagation></Checkbox>
+                                }
                             </div>
                         }
                         @if (ShowLineNo)
