@@ -1,67 +1,90 @@
-﻿@page "/"
-@using System.Diagnostics.CodeAnalysis;
-
-<div class="row g-3">
+﻿<div class="row g-3">
     <div class="col-auto">
-        <RadioList class="mb-1" @bind-Value="@position" />
-        <RadioList class="mb-1" Items="@SrcItems" @bind-Value="@BindSrcItem" />
-        <BootstrapInputGroup class="mb-1">
-            <BootstrapInputGroupLabel DisplayText="Scale" />
-            <BootstrapInputNumber @bind-Value="@Scale" IsSelectAllTextOnFocus="true" />
-        </BootstrapInputGroup>
-        <BootstrapInputGroup class="mb-1">
-            <BootstrapInputGroupLabel DisplayText="X offset" />
-            <BootstrapInputNumber @bind-Value="@x" IsSelectAllTextOnFocus="true" />
-        </BootstrapInputGroup>
-        <BootstrapInputGroup class="mb-1">
-            <BootstrapInputGroupLabel DisplayText="Y offset" />
-            <BootstrapInputNumber @bind-Value="@y" IsSelectAllTextOnFocus="true" />
-        </BootstrapInputGroup>
-        <BootstrapInputGroup class="mb-1">
-            <BootstrapInputGroupLabel DisplayText="IsDraggble" />
-            <Checkbox TValue="bool" @bind-Value="@isDraggble" />
-        </BootstrapInputGroup>
-        <BootstrapInputGroup class="mb-1">
-            <BootstrapInputGroupLabel DisplayText="Hit Area Frames" />
-            <Checkbox TValue="bool" @bind-Value="@addHitAreaFrames" />
-        </BootstrapInputGroup>
-        <BootstrapInputGroup class="mb-1">
-            <BootstrapInputGroupLabel DisplayText="BackgroundAlpha" />
-            <Checkbox TValue="bool" @bind-Value="@backgroundAlpha" />
-        </BootstrapInputGroup>
-        <BootstrapInputGroup class="mb-1">
-            <BootstrapInputGroupLabel DisplayText="BackgroundColor" />
-            <ColorPicker @bind-Value="@backgroundColor" />
-        </BootstrapInputGroup>
+        <h4>Positions</h4>
+        <RadioList @bind-Value="@position" />
+        <h4>Models</h4>
+        <RadioList Items="@SrcItems" @bind-Value="@BindSrcItem" />
+    </div>
+    <div class="col-12">
+        <Slider @bind-Value="@Scale" Max=100 Label="Model Scale"></Slider>
+    </div>
+    <div class="col-12 col-sm-6">
+        <Slider @bind-Value="@Xoffset" Max=500 Label="X offset"></Slider>
+    </div>
+    <div class="col-12 col-sm-6">
+        <Slider @bind-Value="@Yoffset" Max=500 Label="Y offset"></Slider>
+    </div>
+    <div class="col-12">
+        <div class="d-flex flex-row mb-3">
+            <div class="p-2">
+                <Checkbox TValue="bool" @bind-Value="@isDraggble" ShowLabel="true" DisplayText="IsDraggble" />
+            </div>
+            <div class="p-2">
+                <Checkbox TValue="bool" @bind-Value="@addHitAreaFrames" ShowLabel="true" DisplayText="HitAreaFrames" />
+            </div>
+            <div class="p-2">
+                <Checkbox TValue="bool" @bind-Value="@backgroundAlpha" ShowLabel="true" DisplayText="BackgroundAlpha" />
+            </div>
+            <div class="p-2">
+                <ColorPicker @bind-Value="@backgroundColor" ShowLabel="true" DisplayText="BackgroundColor" />
+            </div>
+        </div>
     </div>
 </div>
 
-<Live2DDisplay class=@BindCssItem.Value
-               Scale=@Scale
-               X=@x BackgroundColor="@backgroundColor"
-               Y=@y BackgroundAlpha="@backgroundAlpha"
-               Position=@position
-               IsDraggble=@isDraggble
-               AddHitAreaFrames=@addHitAreaFrames
-               Source=@BindSrcItem.Value />
+<Live2DDisplay class=@BindCssItem.Value Source=@BindSrcItem.Value
+               Scale=@_scale Position=@position
+               Xoffset=@_xoffset BackgroundColor="@backgroundColor"
+               Yoffset=@_yoffset BackgroundAlpha="@backgroundAlpha"
+               IsDraggble=@isDraggble AddHitAreaFrames=@addHitAreaFrames />
 
 @code {
+    private string backgroundColor { get; set; } = "#000000";
 
-    private string backgroundColor { get; set; } = "#DDDDDD";
     private bool backgroundAlpha { get; set; }
+
     private bool addHitAreaFrames { get; set; }
 
     private bool isDraggble { get; set; }
 
-    private double Scale { get; set; } = 0.2;
+    private double _scale { get; set; } = 0.2;
 
-    private int x { get; set; }
-    private int y { get; set; }
+    private double Scale
+    {
+        get => _scale * 100;
+        set
+        {
+            _scale = value / 100;
+        }
+    }
+
+    private int _xoffset { get; set; } = 0;
+
+    private double Xoffset
+    {
+        get => _xoffset;
+        set
+        {
+            _xoffset = Convert.ToInt32(value);
+        }
+    }
+
+    private int _yoffset { get; set; } = 0;
+
+    private double Yoffset
+    {
+        get => _yoffset;
+        set
+        {
+            _yoffset = Convert.ToInt32(value);
+        }
+    }
 
     private LivePosition position { get; set; }
 
     private SelectedItem BindCssItem { get; set; } = new SelectedItem();
 
+    private SelectedItem BindSrcItem { get; set; } = new SelectedItem();
 
     private IEnumerable<SelectedItem>? SrcItems { get; set; } = new SelectedItem[]
     {
@@ -70,13 +93,10 @@
         new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/bilibili-22/index.json","bilibili-22"),
         new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/bilibili-33/index.json","bilibili-33"),
         new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/chiaki_kitty/chiaki_kitty.model.json","chiaki_kitty"),
-        new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/chitose/chitose.model.json","chitose"),
         new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/date_16/date_16.model.json","date_16"),
         new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/hallo_16/hallo_16.model.json","hallo_16"),
         new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/haru01/haru01.model.json","haru01"),
         new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/haru02/haru02.model.json","haru02"),
         new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/haruto/haruto.model.json","haruto"),
     };
-
-    private SelectedItem BindSrcItem { get; set; } = new SelectedItem();
 }
