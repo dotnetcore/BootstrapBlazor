@@ -12,8 +12,7 @@ provider.Mappings[".moc"] = "application/x-msdownload";
 provider.Mappings[".moc3"] = "application/x-msdownload";
 provider.Mappings[".mtn"] = "application/x-msdownload";
 
-app.UseStaticFiles(new StaticFileOptions { ContentTypeProvider = provider });
-</Pre>
+app.UseStaticFiles(new StaticFileOptions { ContentTypeProvider = provider });</Pre>
 
 <DemoBlock Title="@Localizer["Live2DDisplayNormalTitle"]"
            Introduction="@Localizer["Live2DDisplayNormalIntro"]"
@@ -46,21 +45,21 @@ app.UseStaticFiles(new StaticFileOptions { ContentTypeProvider = provider });
             DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = "Xoffset",
+            Name = "XOffset",
             Description = Localizer["Live2DDisplaysXoffset"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = "Yoffset",
+            Name = "YOffset",
             Description = Localizer["Live2DDisplaysYoffset"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = "IsDraggble(not yet implemented)",
+            Name = "IsDraggable(not yet implemented)",
             Description = Localizer["Live2DDisplaysIsDraggble"],
             Type = "bool",
             ValueList = " — ",
