@@ -11,9 +11,9 @@ public partial class Live2DDisplay
 
     private string? _source;
     private double _scale;
-    private int _xoffset;
-    private int _yoffset;
-    private bool _isDraggble;
+    private int _xOffset;
+    private int _yOffset;
+    private bool _isDraggable;
     private bool _addHitAreaFrames;
     private string? _backgroundColor;
     private bool _backgroundAlpha;
@@ -35,22 +35,22 @@ public partial class Live2DDisplay
     public double Scale { get; set; }
 
     /// <summary>
-    /// 获得/设置 Xoffset 模型X轴偏移
+    /// 获得/设置 XOffset 模型X轴偏移
     /// </summary>
     [Parameter]
-    public int Xoffset { get; set; }
+    public int XOffset { get; set; }
 
     /// <summary>
-    /// 获得/设置 Yoffset 模型Y轴偏移
+    /// 获得/设置 YOffset 模型Y轴偏移
     /// </summary>
     [Parameter]
-    public int Yoffset { get; set; }
+    public int YOffset { get; set; }
 
     /// <summary>
-    /// 获得/设置 IsDraggble 是否可以拖动模型 unrealized
+    /// 获得/设置 IsDraggable 是否可以拖动模型
     /// </summary>
     //[Parameter]
-    private bool IsDraggble { get; set; } = false;
+    private bool IsDraggable { get; set; }
 
     /// <summary>
     /// 获得/设置 HitAreaFrames 是否渲染鼠标命中区域框
@@ -92,7 +92,7 @@ public partial class Live2DDisplay
         {
             if (Source != _source)
             {
-                await InvokeVoidAsync("changeSource", new { Id, Source, Scale, X = Xoffset, Y = Yoffset, IsDraggble, AddHitAreaFrames });
+                await InvokeVoidAsync("changeSource", new { Id, Source, Scale, X = XOffset, Y = YOffset, IsDraggable, AddHitAreaFrames });
                 _source = Source;
             }
             if (Scale != _scale)
@@ -100,21 +100,21 @@ public partial class Live2DDisplay
                 await InvokeVoidAsync("changeScale", Id, Scale);
                 _scale = Scale;
             }
-            if (Xoffset != _xoffset || Yoffset != _yoffset)
+            if (XOffset != _xOffset || YOffset != _yOffset)
             {
-                await InvokeVoidAsync("changeXY", Id, Xoffset, Yoffset);
-                _xoffset = Xoffset;
-                _yoffset = Yoffset;
+                await InvokeVoidAsync("changeXY", Id, XOffset, YOffset);
+                _xOffset = XOffset;
+                _yOffset = YOffset;
             }
-            if (!(IsDraggble && _isDraggble))
+            if (!(IsDraggable && _isDraggable))
             {
-                await InvokeVoidAsync("changeDraggble", Id, IsDraggble);
-                _isDraggble = IsDraggble;
+                await InvokeVoidAsync("changeDraggable", Id, IsDraggable);
+                _isDraggable = IsDraggable;
             }
             if (!(AddHitAreaFrames && _addHitAreaFrames))
             {
                 await InvokeVoidAsync("addHitAreaFrames", Id, AddHitAreaFrames);
-                _isDraggble = IsDraggble;
+                _isDraggable = IsDraggable;
             }
             if (Position != _position)
             {
@@ -123,7 +123,7 @@ public partial class Live2DDisplay
             }
             if ((BackgroundColor != _backgroundColor) || (BackgroundAlpha != _backgroundAlpha))
             {
-                await InvokeVoidAsync("changebackground", Id, BackgroundAlpha, BackgroundColor);
+                await InvokeVoidAsync("changeBackground", Id, BackgroundAlpha, BackgroundColor);
                 _backgroundColor = BackgroundColor;
                 _backgroundAlpha = BackgroundAlpha;
             }
@@ -133,16 +133,16 @@ public partial class Live2DDisplay
     /// <inheritdoc/>
     protected override async Task InvokeInitAsync()
     {
-        await InvokeVoidAsync("init", new { Id, Source, Scale, X = Xoffset, Y = Yoffset, IsDraggble, AddHitAreaFrames, BackgroundAlpha, BackgroundColor });
+        await InvokeVoidAsync("init", new { Id, Source, Scale, X = XOffset, Y = YOffset, IsDraggable, AddHitAreaFrames, BackgroundAlpha, BackgroundColor });
         _isInit = true;
         _source = Source;
         _scale = Scale;
-        _xoffset = Xoffset;
-        _yoffset = Yoffset;
+        _xOffset = XOffset;
+        _yOffset = YOffset;
         _position = Position;
         _backgroundColor = BackgroundColor;
         _backgroundAlpha = BackgroundAlpha;
         _addHitAreaFrames = AddHitAreaFrames;
-        _isDraggble = IsDraggble;
+        _isDraggable = IsDraggable;
     }
 }

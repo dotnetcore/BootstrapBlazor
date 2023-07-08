@@ -1,12 +1,13 @@
-﻿import { addScript } from '../../../BootstrapBlazor/modules/utility.js'
+﻿import { addLink, addScript } from '../../../BootstrapBlazor/modules/utility.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
 
 export async function init(op) {
-    await addScript("_content/BootstrapBlazor.Live2DDisplay/live2dcubismcore.min.js")
-    await addScript("_content/BootstrapBlazor.Live2DDisplay/live2d.min.js")
-    await addScript("_content/BootstrapBlazor.Live2DDisplay/pixi.min.js")
-    await addScript("_content/BootstrapBlazor.Live2DDisplay/index.min.js")
-    await addScript("_content/BootstrapBlazor.Live2DDisplay/extra.min.js")
+    await addLink("./_content/BootstrapBlazor.Live2DDisplay/BootstrapBlazor.Live2DDisplay.bundle.scp.css")
+    await addScript("./_content/BootstrapBlazor.Live2DDisplay/live2dcubismcore.min.js")
+    await addScript("./_content/BootstrapBlazor.Live2DDisplay/live2d.min.js")
+    await addScript("./_content/BootstrapBlazor.Live2DDisplay/pixi.min.js")
+    await addScript("./_content/BootstrapBlazor.Live2DDisplay/index.min.js")
+    await addScript("./_content/BootstrapBlazor.Live2DDisplay/extra.min.js")
 
     const model = await createModel(op);
 
@@ -102,7 +103,7 @@ export function changeXY(id, x, y) {
     resizeTo(data);
 }
 
-export function changebackground(id, backgroundAlpha, backgroundColor) {
+export function changeBackground(id, backgroundAlpha, backgroundColor) {
     if (backgroundColor) {
         if (backgroundColor.startsWith('#')) {
             const data = Data.get(id);
@@ -115,7 +116,7 @@ export function changebackground(id, backgroundAlpha, backgroundColor) {
     }
 }
 
-export function changeDraggble(id, draggble) {
+export function changeDraggable(id, draggble) {
     const data = Data.get(id);
     data.op.isDraggble = draggble;
     //Not currently supported
