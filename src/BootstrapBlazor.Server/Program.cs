@@ -3,12 +3,10 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Server.Extensions;
-
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Options;
-
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
