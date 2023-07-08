@@ -6,6 +6,14 @@
 <h4>@Localizer["Live2DDisplayDescription"]</h4>
 
 <PackageTips Name="BootstrapBlazor.Live2DDisplay" />
+<div class="code-label">@Localizer["Live2DDisplayNormalTips"]</div>
+<Pre>var provider = new FileExtensionContentTypeProvider();
+provider.Mappings[".moc"] = "application/x-msdownload";
+provider.Mappings[".moc3"] = "application/x-msdownload";
+provider.Mappings[".mtn"] = "application/x-msdownload";
+
+app.UseStaticFiles(new StaticFileOptions { ContentTypeProvider = provider });
+</Pre>
 
 <DemoBlock Title="@Localizer["Live2DDisplayNormalTitle"]"
            Introduction="@Localizer["Live2DDisplayNormalIntro"]"

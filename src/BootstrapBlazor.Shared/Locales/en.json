@@ -6327,6 +6327,7 @@
     "Live2DDisplayDescription": "Live2D Widget plugin based on pixi live2d display, supporting all versions of Live2D models.",
     "Live2DDisplayNormalTitle": "usage",
     "Live2DDisplayNormalIntro": "By adjusting the default parameter options, achieve dynamic changes in the model.",
+    "Live2DDisplayNormalTips": "Add the following code to Program.cs.",
     "Live2DDisplaysSource": "Model data source, CDN path or local path.",
     "Live2DDisplaysScale": "Model Display Scale.",
     "Live2DDisplaysXoffset": "The X-axis offset of the model on the canvas canvas canvas.",

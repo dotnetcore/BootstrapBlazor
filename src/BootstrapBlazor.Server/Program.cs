@@ -3,10 +3,12 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Server.Extensions;
+
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Options;
+
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -70,6 +72,9 @@ else
 
 var provider = new FileExtensionContentTypeProvider();
 provider.Mappings[".properties"] = "application/octet-stream";
+provider.Mappings[".moc"] = "application/x-msdownload";
+provider.Mappings[".moc3"] = "application/x-msdownload";
+provider.Mappings[".mtn"] = "application/x-msdownload";
 
 app.UseStaticFiles(new StaticFileOptions { ContentTypeProvider = provider });
 app.UseStaticFiles();

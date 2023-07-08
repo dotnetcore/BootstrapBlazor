@@ -9,27 +9,28 @@ export async function init(op) {
     await addScript("_content/BootstrapBlazor.Live2DDisplay/extra.min.js")
 
     const model = await createModel(op);
+    if (model) {
+        const el = document.getElementById(op.id);
+        el.style.zIndex = '99999';
+        el.style.opacity = '1';
+        el.style.pointerEvents = 'none';
 
-    const el = document.getElementById(op.id);
-    el.style.zIndex = '99999';
-    el.style.opacity = '1';
-    el.style.pointerEvents = 'none';
+        const canvas = document.createElement('canvas');
 
-    const canvas = document.createElement('canvas');
+        el.appendChild(canvas);
 
-    el.appendChild(canvas);
+        const app = new PIXI.Application({
+            view: canvas,
+            autoStart: true
+        });
+        app.stage.addChild(model);
 
-    const app = new PIXI.Application({
-        view: canvas,
-        autoStart: true
-    });
-    app.stage.addChild(model);
+        const data = { app, model, el, canvas, op };
+        Data.set(op.id, data);
 
-    const data = { app, model, el, canvas, op };
-    Data.set(op.id, data);
-
-    resizeTo(data);
-    changebackground(op.id, op.backgroundAlpha, op.backgroundColor)
+        resizeTo(data);
+        changebackground(op.id, op.backgroundAlpha, op.backgroundColor)
+    }
 }
 
 function createHitAreaFrames(op, model) {
@@ -76,14 +77,13 @@ function resizeTo(data) {
 export async function changeSource(op) {
     const data = Data.get(op.id);
     data.op = op;
-
     data.app.stage.removeChild(data.model);
     data.model = await createModel(op);
-    data.app.stage.addChild(data.model);
-
-    data.model.scale.set(data.op.scale);
-
-    resizeTo(data);
+    if (data.model) {
+        data.app.stage.addChild(data.model);
+        data.model.scale.set(data.op.scale);
+        resizeTo(data);
+    }
 }
 
 export function changeScale(id, scale) {
@@ -128,14 +128,18 @@ export function addHitAreaFrames(id, isaddHitAreaFrames) {
 }
 
 async function createModel(op) {
-    const model = await PIXI.live2d.Live2DModel.from(op.source);
-    model.scale.set(op.scale);
-    model.x = op.x;
-    model.y = op.y;
-    model.dragging = op.isDraggble;
-    if (op.addHitAreaFrames) {
-        createHitAreaFrames(op, model);
+    try {
+        const model = await PIXI.live2d.Live2DModel.from(op.source);
+        model.scale.set(op.scale);
+        model.x = op.x;
+        model.y = op.y;
+        model.dragging = op.isDraggble;
+        if (op.addHitAreaFrames) {
+            createHitAreaFrames(op, model);
+        }
+        return model;
+    } catch (e) {
+        console.log(e);
+        return null;
     }
-
-    return model;
 }
