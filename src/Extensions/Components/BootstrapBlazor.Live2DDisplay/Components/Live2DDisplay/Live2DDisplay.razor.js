@@ -29,9 +29,6 @@ export async function init(op) {
         const data = { app, model, el, canvas, op };
         Data.set(op.id, data);
 
-        const data = { app, model, el, canvas, op };
-        Data.set(op.id, data);
-
         resizeTo(data);
         changeBackground(op.id, op.backgroundAlpha, op.backgroundColor)
     }
