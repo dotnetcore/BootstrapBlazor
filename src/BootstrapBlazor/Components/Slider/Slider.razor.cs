@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Silder 组件
+/// Slider 组件
 /// </summary>
 public partial class Slider
 {
