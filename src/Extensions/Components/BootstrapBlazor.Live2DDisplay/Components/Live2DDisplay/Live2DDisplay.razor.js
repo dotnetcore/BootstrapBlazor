@@ -103,16 +103,16 @@ export function changeXY(id, x, y) {
 }
 
 export function changebackground(id, backgroundAlpha, backgroundColor) {
-    const data = Data.get(id);
-
-    if (backgroundColor.startsWith('#')) {
-        backgroundColor = backgroundColor.replace("#", "0x");
+    if (backgroundColor) {
+        if (backgroundColor.startsWith('#')) {
+            const data = Data.get(id);
+            backgroundColor = backgroundColor.replace("#", "0x");
+            data.op.backgroundAlpha = backgroundAlpha;
+            data.op.backgroundColor = backgroundColor;
+            data.app.renderer.backgroundColor = backgroundColor;
+            data.app.renderer.backgroundAlpha = backgroundAlpha;
+        }
     }
-
-    data.op.backgroundAlpha = backgroundAlpha;
-    data.op.backgroundColor = backgroundColor;
-    data.app.renderer.backgroundColor = backgroundColor;
-    data.app.renderer.backgroundAlpha = backgroundAlpha;
 }
 
 export function changeDraggble(id, draggble) {

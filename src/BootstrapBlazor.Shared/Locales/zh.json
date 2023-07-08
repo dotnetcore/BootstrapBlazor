@@ -5080,7 +5080,7 @@
     "DockView": "可停靠布局 DockView",
     "OtherComponents": "其他组件",
     "MouseFollowerIntro": "鼠标跟随",
-    "Live2DDisplayIntro": "Live2D组件"
+    "Live2DDisplayIntro": "Live2D 插件"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6334,5 +6334,20 @@
     "Html2PdfDescription": "将 Html 片段或者网页元素导出为 Pdf",
     "Html2PdfNormalTitle": "基本用法",
     "Html2PdfNormalIntro": "将 <code>Html</code> 代码片段导出为 <code>Pdf</code> 文件"
+  },
+  "BootstrapBlazor.Shared.Samples.Live2DDisplays": {
+    "Live2DDisplayTitle": "Live2D 插件",
+    "Live2DDisplayDescription": "基于pixi-live2d-display的Live2D 插件，支持所有版本的 Live2D 模型。",
+    "Live2DDisplayNormalTitle": "基本用法",
+    "Live2DDisplayNormalIntro": "通过调节默认的参数选项，实现模型的动态变化。",
+    "Live2DDisplaysSource": "模型数据源，cdn路径或者本地路径。",
+    "Live2DDisplaysScale": "模型显示比例。",
+    "Live2DDisplaysXoffset": "模型在canvas画板上的X轴偏移。",
+    "Live2DDisplaysYoffset": "模型在canvas画板上的Y轴偏移。",
+    "Live2DDisplaysIsDraggble": "模型是否可以拖动（暂未实现）。",
+    "Live2DDisplaysAddHitAreaFrames": "显示模型可点击区域框。",
+    "Live2DDisplaysPosition": "模型默认显示位置枚举。",
+    "Live2DDisplaysBackgroundColor": "canvas画板背景颜色。",
+    "Live2DDisplaysBackgroundAlpha": "canvas画板背景是否透明。"
   }
 }

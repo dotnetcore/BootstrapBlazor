@@ -5,7 +5,7 @@
 
 <h4>@Localizer["Live2DDisplayDescription"]</h4>
 
-<PackageTips Name="@NugetPackageName"></PackageTips>
+<PackageTips Name="BootstrapBlazor.Live2DDisplay" />
 
 <DemoBlock Title="@Localizer["Live2DDisplayNormalTitle"]"
            Introduction="@Localizer["Live2DDisplayNormalIntro"]"
@@ -14,6 +14,75 @@
 </DemoBlock>
 
 @code {
-    [NotNull]
-    private static string NugetPackageName => "BootstrapBlazor.Live2DDisplay";
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
+        // TODO: 移动到数据库中
+        new AttributeItem() {
+            Name = "Source",
+            Description = Localizer["Live2DDisplaysSource"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "empty"
+        },
+        new AttributeItem() {
+            Name = "Scale",
+            Description = Localizer["Live2DDisplaysScale"],
+            Type = "double",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "Xoffset",
+            Description = Localizer["Live2DDisplaysXoffset"],
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "Yoffset",
+            Description = Localizer["Live2DDisplaysYoffset"],
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new AttributeItem() {
+            Name = "IsDraggble(not yet implemented)",
+            Description = Localizer["Live2DDisplaysIsDraggble"],
+            Type = "bool",
+            ValueList = " — ",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "AddHitAreaFrames",
+            Description = Localizer["Live2DDisplaysAddHitAreaFrames"],
+            Type = "bool",
+            ValueList = " — ",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "Position",
+            Description = Localizer["Live2DDisplaysPosition"],
+            Type = "enum",
+            ValueList = "Default|BottomLeft|BottomRight|TopLeft|TopRight",
+            DefaultValue = "Default"
+        },
+        new AttributeItem() {
+            Name = "BackgroundColor",
+            Description = Localizer["Live2DDisplaysBackgroundColor"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = "#000000"
+        },
+        new AttributeItem() {
+            Name = "BackgroundAlpha",
+            Description = Localizer["Live2DDisplaysBackgroundAlpha"],
+            Type = "bool",
+            ValueList = " — ",
+            DefaultValue = "false"
+        }
+    };
 }

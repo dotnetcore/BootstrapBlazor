@@ -47,10 +47,10 @@ public partial class Live2DDisplay
     public int Yoffset { get; set; }
 
     /// <summary>
-    /// 获得/设置 IsDraggble 是否可以拖动模型
+    /// 获得/设置 IsDraggble 是否可以拖动模型 unrealized
     /// </summary>
-    [Parameter]
-    public bool IsDraggble { get; set; }
+    //[Parameter]
+    private bool IsDraggble { get; set; } = false;
 
     /// <summary>
     /// 获得/设置 HitAreaFrames 是否渲染鼠标命中区域框
@@ -68,7 +68,7 @@ public partial class Live2DDisplay
     /// 获得/设置 BackgroundColor 模型画板背景颜色
     /// </summary>
     [Parameter]
-    public string? BackgroundColor { get; set; }
+    public string BackgroundColor { get; set; } = "#000000";
 
     /// <summary>
     /// 获得/设置 BackgroundAlpha 模型画板是否透明
