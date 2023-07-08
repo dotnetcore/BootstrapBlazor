@@ -9,7 +9,7 @@ export async function init(id, invoker, methodGetPluginAttrs, methodClickPluginI
         return
     }
 
-    await addLink('_content/BootstrapBlazor.SummerNote/css/bootstrap.blazor.editor.min.css')
+    await addLink('./_content/BootstrapBlazor.SummerNote/css/bootstrap.blazor.editor.min.css')
     const editor = { el, invoker }
     Data.set(id, editor)
 

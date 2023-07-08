@@ -1,21 +1,22 @@
 ﻿<div class="row g-3">
-    <div class="col-auto">
+    <div class="col-12">
         <h4>Positions</h4>
         <RadioList @bind-Value="@position" />
         <h4>Models</h4>
-        <p>所有模型均来自github开源项目，仅供展示之用，本组件并不包含任何模型。</p>
+        <p>所有模型均来自 github 开源项目，仅供展示之用，本组件并不包含任何模型。</p>
         <RadioList Items="@SrcItems" @bind-Value="@BindSrcItem" />
     </div>
     <div class="col-12">
         <h4>Scale</h4>
-        <Slider @bind-Value="@Scale" Max=100 Label="Model Scale"></Slider>
-    </div>
-    <h4>Offset</h4>
-    <div class="col-12 col-sm-6">
-        <Slider @bind-Value="@Xoffset" Max=500 Label="X offset"></Slider>
+        <Slider @bind-Value="@Scale" Max="100"></Slider>
     </div>
     <div class="col-12 col-sm-6">
-        <Slider @bind-Value="@Yoffset" Max=500 Label="Y offset"></Slider>
+        <h4>X Offset</h4>
+        <Slider @bind-Value="@XOffset" Max="500"></Slider>
+    </div>
+    <div class="col-12 col-sm-6">
+        <h4>Y Offset</h4>
+        <Slider @bind-Value="@YOffset" Max="500"></Slider>
     </div>
     <div class="col-12">
         <h4>Other options</h4>
@@ -35,8 +36,8 @@
 
 <Live2DDisplay class=@BindCssItem.Value Source=@BindSrcItem.Value
                Scale=@_scale Position=@position AddHitAreaFrames=@addHitAreaFrames
-               Xoffset=@_xoffset BackgroundColor=@backgroundColor
-               Yoffset=@_yoffset BackgroundAlpha=@backgroundAlpha />
+               XOffset=@_xOffset BackgroundColor=@backgroundColor
+               YOffset=@_yOffset BackgroundAlpha=@backgroundAlpha />
 
 @code {
     private string backgroundColor { get; set; } = "#000000";
@@ -56,25 +57,25 @@
         }
     }
 
-    private int _xoffset { get; set; } = 0;
+    private int _xOffset { get; set; }
 
-    private double Xoffset
+    private double XOffset
     {
-        get => _xoffset;
+        get => _xOffset;
         set
         {
-            _xoffset = Convert.ToInt32(value);
+            _xOffset = Convert.ToInt32(value);
         }
     }
 
-    private int _yoffset { get; set; } = 0;
+    private int _yOffset { get; set; }
 
-    private double Yoffset
+    private double YOffset
     {
-        get => _yoffset;
+        get => _yOffset;
         set
         {
-            _yoffset = Convert.ToInt32(value);
+            _yOffset = Convert.ToInt32(value);
         }
     }
 
@@ -84,7 +85,7 @@
 
     private SelectedItem BindSrcItem { get; set; } = new SelectedItem();
 
-    private IEnumerable<SelectedItem>? SrcItems { get; set; } = new SelectedItem[]
+    private IEnumerable<SelectedItem>? SrcItems { get; } = new SelectedItem[]
     {
         new SelectedItem("./_content/BootstrapBlazor.Live2DDisplay/models/shizuku/shizuku.model.json","shizuku"),
         new SelectedItem("./_content/BootstrapBlazor.Live2DDisplay/models/haru/haru_greeter_t03.model3.json","haru"),
