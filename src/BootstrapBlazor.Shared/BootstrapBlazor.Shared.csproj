@@ -2,6 +2,10 @@
 
   <Import Project="..\..\Framework.props" />
 
+  <PropertyGroup>
+    <Version>7.0.2</Version>
+  </PropertyGroup>
+
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
@@ -22,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BootstrapBlazor" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="7.0.0" />
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="7.1.0" />
     <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="7.1.1" />
@@ -39,19 +44,11 @@
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="7.0.1" />
     <PackageReference Include="BootstrapBlazor.PdfReader" Version="7.1.10" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="7.0.3" />
-    <PackageReference Include="BootstrapBlazor.SummerNote" Version="7.3.2" />
+    <PackageReference Include="BootstrapBlazor.SummerNote" Version="7.3.3" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="7.5.0" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="7.4.4" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="7.0.4" />
     <PackageReference Include="BootstrapBlazor.MouseFollower" Version="7.0.0" />
-    <PackageReference Include="Longbow.GiteeAuth" Version="7.0.0" />
-    <PackageReference Include="Longbow.GitHubAuth" Version="7.0.1" />
-    <PackageReference Include="Longbow.OAuth" Version="7.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
-    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.Live2DDisplay\BootstrapBlazor.Live2DDisplay.csproj" />
   </ItemGroup>
 
   <ItemGroup>

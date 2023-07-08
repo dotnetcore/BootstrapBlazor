@@ -41,7 +41,11 @@ public partial class IFrame
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        await PushData(Data);
+        if (_lastData != Data)
+        {
+            _lastData = Data;
+            await PushData(Data);
+        }
     }
 
     /// <summary>
@@ -55,14 +59,7 @@ public partial class IFrame
     /// </summary>
     /// <param name="data"></param>
     /// <returns></returns>
-    public async Task PushData(object? data)
-    {
-        if (_lastData != data)
-        {
-            _lastData = Data = data;
-            await InvokeVoidAsync("execute", Id, data);
-        }
-    }
+    public Task PushData(object? data) => InvokeVoidAsync("execute", Id, data);
 
     /// <summary>
     /// 由 JavaScript 调用

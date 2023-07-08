@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BootstrapBlazor.Shared\BootstrapBlazor.Shared.csproj" />
+    <ProjectReference Include="..\BootstrapBlazor.Docs\BootstrapBlazor.Docs.csproj" />
   </ItemGroup>
 
 </Project>

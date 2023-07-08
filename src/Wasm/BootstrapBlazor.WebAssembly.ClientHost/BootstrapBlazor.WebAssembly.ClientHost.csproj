@@ -6,13 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BootstrapBlazor.Shared" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.*" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.*" PrivateAssets="all" />
     <PackageReference Include="System.Net.Http.Json" Version="7.*" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\BootstrapBlazor.Shared\BootstrapBlazor.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,7 +22,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\BootstrapBlazor\BootstrapBlazor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="BootstrapBlazor.Components" />
+    <Using Include="BootstrapBlazor.Shared.Components" />
+    <Using Include="Microsoft.AspNetCore.Components" />
+    <Using Include="Microsoft.Extensions.Localization" />
+    <Using Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
 
 </Project>

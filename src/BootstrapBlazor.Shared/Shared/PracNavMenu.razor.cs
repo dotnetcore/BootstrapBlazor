@@ -46,13 +46,13 @@ public partial class PracNavMenu
             new MenuItem()
             {
                 Template = CreateDownloadButtonComponent("仪表盘dashboard", dashboardFileList),
-                Text="仪表盘 Dashboard",
-                Url="dashboard"
+                Text = "仪表盘 Dashboard",
+                Url = "dashboard"
             },
             new MenuItem()
             {
-                Text="登陆和注册 Login & Register",
-                Url="praclogin",
+                Text = "登陆和注册 Login & Register",
+                Url = "praclogin",
                 Items = new List<MenuItem>()
                 {
                     new()
@@ -114,8 +114,8 @@ public partial class PracNavMenu
             new MenuItem()
             {
                 Template = CreateDownloadButtonComponent("瀑布流图片pintereso", pinteresoFileList),
-                Text="瀑布流图片 Pintereso",
-                Url="pintereso"
+                Text = "瀑布流图片 Pintereso",
+                Url = "pintereso"
             }
         };
     }
