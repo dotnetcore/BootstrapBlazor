@@ -1,7 +1,0 @@
-<Project>
-
-  <ItemGroup>
-    <PackageReference Include="BootstrapBlazor.Analyzers" Version="*" PrivateAssets="all" />
-  </ItemGroup>
-
-</Project>
