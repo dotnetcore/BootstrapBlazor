@@ -1,0 +1,97 @@
+{
+  "Version": 3,
+  "FileReferences": {
+    "Moc": "haru_greeter_t03.moc3",
+    "Textures": [
+      "haru_greeter_t03.2048/texture_00.png",
+      "haru_greeter_t03.2048/texture_01.png"
+    ],
+    "Physics": "haru_greeter_t03.physics3.json",
+    "Pose": "haru_greeter_t03.pose3.json",
+    "DisplayInfo": "haru_greeter_t03.cdi3.json",
+    "Expressions": [
+      {
+        "Name": "f00",
+        "File": "expressions/F01.exp3.json"
+      },
+      {
+        "Name": "f01",
+        "File": "expressions/F02.exp3.json"
+      },
+      {
+        "Name": "f02",
+        "File": "expressions/F03.exp3.json"
+      },
+      {
+        "Name": "f03",
+        "File": "expressions/F04.exp3.json"
+      },
+      {
+        "Name": "f04",
+        "File": "expressions/F05.exp3.json"
+      },
+      {
+        "Name": "f05",
+        "File": "expressions/F06.exp3.json"
+      },
+      {
+        "Name": "f06",
+        "File": "expressions/F07.exp3.json"
+      },
+      {
+        "Name": "f07",
+        "File": "expressions/F08.exp3.json"
+      }
+    ],
+    "Motions": {
+      "Idle": [
+        {
+          "File": "motion/haru_g_idle.motion3.json"
+        },
+        {
+          "File": "motion/haru_g_m07.motion3.json"
+        },
+        {
+          "File": "motion/haru_g_m15.motion3.json"
+        }
+      ],
+      "Tap": [
+        {
+          "File": "motion/haru_g_m14.motion3.json",
+          "Sound": "../shizuku/sounds/flickHead_00.mp3"
+        },
+        {
+          "File": "motion/haru_g_m05.motion3.json",
+          "Sound": "../shizuku/sounds/flickHead_01.mp3"
+        }
+      ]
+    }
+  },
+  "Groups": [
+    {
+      "Target": "Parameter",
+      "Name": "EyeBlink",
+      "Ids": [
+        "ParamEyeLOpen",
+        "ParamEyeROpen"
+      ]
+    },
+    {
+      "Target": "Parameter",
+      "Name": "LipSync",
+      "Ids": [
+        "ParamMouthOpenY"
+      ]
+    }
+  ],
+  "HitAreas": [
+    {
+      "Id": "HitArea",
+      "Name": "Head"
+    },
+    {
+      "Id": "HitArea2",
+      "Name": "Body"
+    }
+  ]
+}

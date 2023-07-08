@@ -1,0 +1,99 @@
+﻿<div class="row g-3">
+    <div class="col-12">
+        <h4>Positions</h4>
+        <RadioList @bind-Value="@position" />
+        <h4>Models</h4>
+        <p>所有模型均来自 github 开源项目，仅供展示之用，本组件并不包含任何模型。</p>
+        <RadioList Items="@SrcItems" @bind-Value="@BindSrcItem" />
+    </div>
+    <div class="col-12">
+        <h4>Scale</h4>
+        <Slider @bind-Value="@Scale" Max="100"></Slider>
+    </div>
+    <div class="col-12 col-sm-6">
+        <h4>X Offset</h4>
+        <Slider @bind-Value="@XOffset" Max="500"></Slider>
+    </div>
+    <div class="col-12 col-sm-6">
+        <h4>Y Offset</h4>
+        <Slider @bind-Value="@YOffset" Max="500"></Slider>
+    </div>
+    <div class="col-12">
+        <h4>Other options</h4>
+        <div class="d-flex flex-row mb-3">
+            <div class="p-2">
+                <Checkbox TValue="bool" @bind-Value="@addHitAreaFrames" ShowLabel="true" DisplayText="HitAreaFrames" />
+            </div>
+            <div class="p-2">
+                <Checkbox TValue="bool" @bind-Value="@backgroundAlpha" ShowLabel="true" DisplayText="BackgroundAlpha" />
+            </div>
+            <div class="p-2">
+                <ColorPicker @bind-Value="@backgroundColor" ShowLabel="true" DisplayText="BackgroundColor" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<Live2DDisplay class=@BindCssItem.Value Source=@BindSrcItem.Value
+               Scale=@_scale Position=@position AddHitAreaFrames=@addHitAreaFrames
+               XOffset=@_xOffset BackgroundColor=@backgroundColor
+               YOffset=@_yOffset BackgroundAlpha=@backgroundAlpha />
+
+@code {
+    private string backgroundColor { get; set; } = "#000000";
+
+    private bool backgroundAlpha { get; set; } = false;
+
+    private bool addHitAreaFrames { get; set; } = false;
+
+    private double _scale { get; set; } = 0.2;
+
+    private double Scale
+    {
+        get => _scale * 100;
+        set
+        {
+            _scale = value / 100;
+        }
+    }
+
+    private int _xOffset { get; set; }
+
+    private double XOffset
+    {
+        get => _xOffset;
+        set
+        {
+            _xOffset = Convert.ToInt32(value);
+        }
+    }
+
+    private int _yOffset { get; set; }
+
+    private double YOffset
+    {
+        get => _yOffset;
+        set
+        {
+            _yOffset = Convert.ToInt32(value);
+        }
+    }
+
+    private LivePosition position { get; set; }
+
+    private SelectedItem BindCssItem { get; set; } = new SelectedItem();
+
+    private SelectedItem BindSrcItem { get; set; } = new SelectedItem();
+
+    private IEnumerable<SelectedItem>? SrcItems { get; } = new SelectedItem[]
+    {
+        new SelectedItem("./_content/BootstrapBlazor.Live2DDisplay/models/shizuku/shizuku.model.json","shizuku"),
+        new SelectedItem("./_content/BootstrapBlazor.Live2DDisplay/models/haru/haru_greeter_t03.model3.json","haru"),
+        new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/bilibili-22/index.json","bilibili-22"),
+        new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/bilibili-33/index.json","bilibili-33"),
+        new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/chiaki_kitty/chiaki_kitty.model.json","chiaki_kitty"),
+        new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/date_16/date_16.model.json","date_16"),
+        new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/hallo_16/hallo_16.model.json","hallo_16"),
+        new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/haruto/haruto.model.json","haruto"),
+    };
+}
