@@ -30,7 +30,7 @@ export async function init(op) {
     Data.set(op.id, data);
 
     resizeTo(data);
-    changebackground(op.id, op.backgroundAlpha, op.backgroundColor)
+    changeBackground(op.id, op.backgroundAlpha, op.backgroundColor)
 }
 
 function createHitAreaFrames(op, model) {
