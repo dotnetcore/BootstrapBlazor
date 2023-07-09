@@ -1,4 +1,4 @@
-﻿###############################################################################
+###############################################################################
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
 * text=auto
@@ -61,3 +61,5 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+*.razor linguist-language=csharp
