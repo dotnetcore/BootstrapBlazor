@@ -1,45 +1,81 @@
 ﻿<div class="row g-3">
-    <div class="col-12">
+    <div class="col-auto">
         <BootstrapInputGroup>
-            <BootstrapInputGroupLabel DisplayText="currentValue" />
+            <BootstrapInputGroupLabel DisplayText="CurrentValue" />
             <BootstrapInput @bind-Value="@currentValue" />
         </BootstrapInputGroup>
     </div>
-    <div class="col-12">
+    <div class="col-auto">
         <BootstrapInputGroup>
-            <BootstrapInputGroupLabel DisplayText="minValue" />
+            <BootstrapInputGroupLabel DisplayText="MinValue" />
             <BootstrapInput @bind-Value="@minValue" />
         </BootstrapInputGroup>
     </div>
-    <div class="col-12">
+    <div class="col-auto">
         <BootstrapInputGroup>
-            <BootstrapInputGroupLabel DisplayText="maxValue" />
+            <BootstrapInputGroupLabel DisplayText="MaxValue" />
             <BootstrapInput @bind-Value="@maxValue" />
         </BootstrapInputGroup>
     </div>
-    <div class="col-12">
-        <Checkbox TValue="bool" @bind-Value="@isDisabled" DisplayText="isDisabled" ShowLabel="true" />
+    <div class="col-auto">
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel DisplayText="DisplayText" />
+            <BootstrapInput @bind-Value="@displayText" />
+        </BootstrapInputGroup>
+    </div>
+    <div class="col-auto">
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel DisplayText="Step" />
+            <BootstrapInput @bind-Value="@step" />
+        </BootstrapInputGroup>
+    </div>
+    <div class="col-auto">
+        <div class="input-group mb-3">
+            <span class="input-group-text">IsDisabled</span>
+            <div class="form-control">
+                <Checkbox TValue="bool" @bind-Value="@isDisabled" />
+            </div>
+        </div>
+    </div>
+    <div class="col-auto">
+        <div class="input-group mb-3">
+            <span class="input-group-text">ShowValueInput</span>
+            <div class="form-control">
+                <Checkbox TValue="bool" @bind-Value="@showValueInput" />
+            </div>
+        </div>
+    </div>
+    <div class="col-auto">
+        <div class="input-group mb-3">
+            <span class="input-group-text">ShowLabel</span>
+            <div class="form-control">
+                <Checkbox TValue="bool" @bind-Value="@showLabel" />
+            </div>
+        </div>
     </div>
     <div class="col-12">
-        <Checkbox TValue="bool" @bind-Value="@showValueInput" DisplayText="showValueLabel" ShowLabel="true" />
+        <RangeSlider @bind-Value="@currentValue"
+                     Max="@maxValue" Min="@minValue" Step="@step"
+                     DisplayText="@displayText" ShowLabel="@showLabel"
+                     IsDisabled="@isDisabled" ShowValueInput="@showValueInput"
+                     OnValueChanged="OnRangeSliderValueChanged" />
+    </div>
+    <div class="col-12">
+        <ConsoleLogger @ref="Logger" class="mt-3" />
     </div>
 </div>
 
-<RangeSlider @bind-Value="@currentValue"
-             Max="@maxValue"
-             Min="@minValue"
-             IsDisabled="@isDisabled"
-             ShowValueInput="@showValueInput"
-             OnValueChanged="OnRangeSliderValueChanged" />
-
-<ConsoleLogger @ref="Logger" class="mt-3" />
-
 @code {
+    private string displayText { get; set; } = "RangeSlider";
+
     private double maxValue { get; set; } = 500;
     private double minValue { get; set; } = -500;
     private double currentValue { get; set; } = 0;
+    private string step { get; set; } = "1";
+
     private bool isDisabled { get; set; }
     private bool showValueInput { get; set; } = true;
+    private bool showLabel { get; set; } = true;
 
     [NotNull] private ConsoleLogger? Logger { get; set; }
 

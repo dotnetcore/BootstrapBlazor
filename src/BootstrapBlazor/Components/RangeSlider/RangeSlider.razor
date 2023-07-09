@@ -1,12 +1,22 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits IdComponentBase
 
-<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassName">
-    <input class="range-slider_range" id="@("slider_range"+Id)" @oninput=OninputAsync disabled="@IsDisabled" type="range" value="@Value" min="@Min" max="@Max">
+<div class="input-group mb-3">
+    @if (ShowLabel)
+    {
+        <span class="input-group-text">@DisplayText</span>
+    }
     @if (ShowValueInput)
     {
-        <input class="range-slider_value" id="@("slider_value"+Id)" @bind-value="@Value" disabled="@IsDisabled" min="@Min" max="@Max" />
-    }
+        <div >
+            <BootstrapInputNumber style="border-radius: 0;" Step="@Step" TValue="double" @bind-Value="@Value" IsSelectAllTextOnFocus="true" IsDisabled="@IsDisabled" Max="@($"{Max}")" Min="@($"{Min}")" />
+        </div>
+   }
+    <div class="form-control">
+        <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassName">
+            <input class="range-slider_range" id="@("slider_range"+Id)" step="@Step" @oninput=OninputAsync disabled="@IsDisabled" type="range" value="@Value" min="@Min" max="@Max">
+        </div>
+    </div>
 </div>
 
 @code {
@@ -47,10 +57,28 @@
     public double Min { get; set; } = 0;
 
     /// <summary>
+    /// 获得/设置 步长
+    /// </summary>
+    [Parameter]
+    public string Step { get; set; } = "1";
+
+    /// <summary>
     /// 获得/设置 显示Value值
     /// </summary>
     [Parameter]
     public bool ShowValueInput { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 显示名称
+    /// </summary>
+    [Parameter]
+    public string? DisplayText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示前置标签 默认显示标签
+    /// </summary>
+    [Parameter]
+    public bool ShowLabel { get; set; } = true;
 
     /// <summary>
     /// 获得 样式集合

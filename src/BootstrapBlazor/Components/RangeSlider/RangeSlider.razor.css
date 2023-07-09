@@ -8,7 +8,7 @@
 
 .range-slider_range {
     -webkit-appearance: none;
-    width: calc(100% - (73px));
+    width: 100%;
     height: 10px;
     border-radius: 5px;
     background: #d7dcdf;
@@ -56,15 +56,6 @@
     .range-slider_range:focus::-webkit-slider-thumb {
         box-shadow: 0 0 0 3px #fff, 0 0 0 6px #1abc9c;
     }
-
-.range-slider_value {
-    display: inline-block;
-    position: relative;
-    width: 60px;
-    line-height: 20px;
-    text-align: center;
-    margin-left: 8px;
-}
 
 ::-moz-range-track {
     background: #d7dcdf;
