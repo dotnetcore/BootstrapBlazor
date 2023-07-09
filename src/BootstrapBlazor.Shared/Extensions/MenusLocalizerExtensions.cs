@@ -80,10 +80,10 @@ internal static class MenusLocalizerExtensions
 
         item = new DemoMenuItem()
         {
-            Text = Localizer["MousePointerComponents"],
-            Icon = "fa-fw fa-solid fas fa-arrow-pointer"
+            Text = Localizer["OtherComponents"],
+            Icon = "fa-fw fa-solid fas fa-share-nodes"
         };
-        AddMousePointer(item);
+        AddOtherComponent(item);
 
         item = new DemoMenuItem()
         {
@@ -95,7 +95,7 @@ internal static class MenusLocalizerExtensions
 
         return Menus;
 
-        void AddMousePointer(DemoMenuItem item)
+        void AddOtherComponent(DemoMenuItem item)
         {
             item.Items = new List<DemoMenuItem>
             {
@@ -104,8 +104,14 @@ internal static class MenusLocalizerExtensions
                     Text = Localizer["MouseFollowerIntro"],
                     Url = "mouseFollowers"
                 },
+                new()
+                {
+                    Text = Localizer["Live2DDisplayIntro"],
+                    Url = "live2ddisplay"
+                },
             };
-            AddBadge(item, count: 1);
+
+            AddBadge(item, count: 2);
         }
 
         void AddSpeech(DemoMenuItem item)

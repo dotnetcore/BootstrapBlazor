@@ -5066,8 +5066,9 @@
     "Html2Pdf": "Html2Pdf",
     "ContextMenu": "ContextMenu",
     "DockView": "DockView",
-    "MousePointerComponents": "MousePointer",
-    "MouseFollowerIntro": "MouseFollower"
+    "OtherComponents": "Others",
+    "MouseFollowerIntro": "MouseFollower",
+    "Live2DDisplayIntro": "Live2D Widget"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -6320,5 +6321,21 @@
     "Html2PdfDescription": "Export Html fragments or web page elements as Pdf",
     "Html2PdfNormalTitle": "Noraml",
     "Html2PdfNormalIntro": "Export <code>Html</code> fragment as <code>Pdf</code> file"
+  },
+  "BootstrapBlazor.Shared.Samples.Live2DDisplays": {
+    "Live2DDisplayTitle": "Live2D Widget",
+    "Live2DDisplayDescription": "Live2D Widget plugin based on pixi live2d display, supporting all versions of Live2D models.",
+    "Live2DDisplayNormalTitle": "usage",
+    "Live2DDisplayNormalIntro": "By adjusting the default parameter options, achieve dynamic changes in the model.",
+    "Live2DDisplayNormalTips": "Add the following code to Program.cs.",
+    "Live2DDisplaysSource": "Model data source, CDN path or local path.",
+    "Live2DDisplaysScale": "Model Display Scale.",
+    "Live2DDisplaysXoffset": "The X-axis offset of the model on the canvas canvas canvas.",
+    "Live2DDisplaysYoffset": "The Y-axis offset of the model on the canvas canvas canvas.",
+    "Live2DDisplaysIsDraggble": "Can the model be dragged (not yet implemented).",
+    "Live2DDisplaysAddHitAreaFrames": "Display the model by clicking on the area box.",
+    "Live2DDisplaysPosition": "The default display location enumeration for the model.",
+    "Live2DDisplaysBackgroundColor": "Canvas palette background color.",
+    "Live2DDisplaysBackgroundAlpha": "Is the canvas canvas canvas background transparent."
   }
 }
