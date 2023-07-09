@@ -6,6 +6,14 @@
         color: var(--bs-btn-color);
     }
 
+        .accordion .accordion-button:active {
+            background-color: var(--bs-accordion-btn-bg);
+        }
+
+        .accordion .accordion-button:hover {
+            background-color: var(--bs-accordion-btn-hover-bg);
+        }
+
         .accordion .accordion-button.btn-primary {
             background-color: var(--bs-primary);
         }
