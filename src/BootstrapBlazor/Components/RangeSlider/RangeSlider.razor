@@ -2,10 +2,74 @@
 @inherits IdComponentBase
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassName">
-    <input class="range-slider_range" id="@("slider_range"+Id)" @oninput=oninputAsync disabled="@IsDisabled" type="range" value="@Value" min="@Min" max="@Max">
-    @if (ShowValueLabel)
+    <input class="range-slider_range" id="@("slider_range"+Id)" @oninput=OninputAsync disabled="@IsDisabled" type="range" value="@Value" min="@Min" max="@Max">
+    @if (ShowValueInput)
     {
-        <input class="range-slider_value" id="@("slider_value"+Id)" @bind-value="@Value" />
-        @*         <span class="range-slider_value" id="@("slider_value"+Id)">@Value</span> *@
+        <input class="range-slider_value" id="@("slider_value"+Id)" @bind-value="@Value" disabled="@IsDisabled" min="@Min" max="@Max" />
     }
 </div>
+
+@code {
+    /// <summary>
+    /// 获得/设置 组件当前值
+    /// </summary>
+    [Parameter]
+    public double Value { get; set; }
+
+    /// <summary>
+    /// ValueChanged 回调方法
+    /// </summary>
+    [Parameter]
+    public EventCallback<double> ValueChanged { get; set; }
+
+    /// <summary>
+    /// 获得/设置 值变化时回调方法
+    /// </summary>
+    [Parameter]
+    public Func<double, Task>? OnValueChanged { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否禁用
+    /// </summary>
+    [Parameter]
+    public bool IsDisabled { get; set; }
+
+    /// <summary>
+    /// 获得/设置 最大值
+    /// </summary>
+    [Parameter]
+    public double Max { get; set; } = 100;
+
+    /// <summary>
+    /// 获得/设置 最小值
+    /// </summary>
+    [Parameter]
+    public double Min { get; set; } = 0;
+
+    /// <summary>
+    /// 获得/设置 显示Value值
+    /// </summary>
+    [Parameter]
+    public bool ShowValueInput { get; set; } = true;
+
+    /// <summary>
+    /// 获得 样式集合
+    /// </summary>
+    private string? ClassName => CssBuilder.Default("range-slider")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private async Task OninputAsync(ChangeEventArgs args)
+    {
+        Value = Convert.ToDouble(args.Value);
+        if (OnValueChanged != null)
+        {
+            await OnValueChanged(Value);
+        }
+
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(Value);
+        }
+    }
+}

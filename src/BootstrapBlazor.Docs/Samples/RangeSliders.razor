@@ -1,46 +1,12 @@
 ﻿@page "/rangesliders"
 
-<div class="row g-3">
-    <div class="col-12">
-        <BootstrapInputGroup>
-            <BootstrapInputGroupLabel DisplayText="currentValue" />
-            <BootstrapInput @bind-Value="@currentValue" />
-        </BootstrapInputGroup>
-    </div>
-    <div class="col-12">
-        <BootstrapInputGroup>
-            <BootstrapInputGroupLabel DisplayText="minValue" />
-            <BootstrapInput @bind-Value="@minValue" />
-        </BootstrapInputGroup>
-    </div>
-    <div class="col-12">
-        <BootstrapInputGroup>
-            <BootstrapInputGroupLabel DisplayText="maxValue" />
-            <BootstrapInput @bind-Value="@maxValue" />
-        </BootstrapInputGroup>
-    </div>
-    <div class="col-12">
-        <Checkbox TValue="bool" @bind-Value="@isDisabled" DisplayText="isDisabled" ShowLabel="true"/>
-    </div>
-    <div class="col-12">
-        <Checkbox TValue="bool" @bind-Value="@showValueLabel" DisplayText="showValueLabel" ShowLabel="true" />
-    </div>
-</div>
+@inject IStringLocalizer<RangeSliders> Localizer
 
-<div class="input-group mb-3">
-    <span class="input-group-text">RangeSlider</span>
-    <RangeSlider @bind-Value="@currentValue"
-                 Max="@maxValue"
-                 Min="@minValue"
-                 IsDisabled="@isDisabled"
-                 ShowValueLabel="@showValueLabel" />
-</div>
+<h3>@Localizer["RangeSlidersTitle"]</h3>
 
+<h4>@Localizer["RangeSlidersDescription"]</h4>
 
-@code {
-    private double maxValue { get; set; } = 500;
-    private double minValue { get; set; } = -500;
-    private double currentValue { get; set; } = 0;
-    private bool isDisabled { get; set; }
-    private bool showValueLabel { get; set; } = true;
-}
+<DemoBlock Title="@Localizer["RangeSliderNormalTitle"]"
+           Introduction="@Localizer["RangeSliderNormalIntro"]"
+           Name="RangeSliderNormal"
+           Demo="typeof(Demos.RangeSliders.RangeSliderNormal)" />
