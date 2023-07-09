@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits IdComponentBase
 
-<div class="input-group mb-3">
+<div id="@Id" class="input-group mb-3">
     @if (ShowLabel)
     {
         <span class="input-group-text">@DisplayText</span>
@@ -13,9 +13,7 @@
         </div>
     }
     <div class="form-control">
-        <div @attributes="@AdditionalAttributes" id="@Id" class="@ClassName">
-            <input class="range-slider_range" id="@("slider_range"+Id)" step="@Step" @oninput=OninputAsync disabled="@IsDisabled" type="range" value="@Value" min="@Min" max="@Max">
-        </div>
+        <input type="range" class="form-range" style="height:auto;" step="@Step" @oninput=OninputAsync disabled="@IsDisabled" value="@Value" min="@Min" max="@Max">
     </div>
 </div>
 
