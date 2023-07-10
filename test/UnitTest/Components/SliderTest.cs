@@ -9,14 +9,14 @@ public class SliderTest : BootstrapBlazorTestBase
     [Fact]
     public void Value_OK()
     {
-        var cut = Context.RenderComponent<Slider>(builder => builder.Add(s => s.Value, 10));
+        var cut = Context.RenderComponent<Slider<double>>(builder => builder.Add(s => s.Value, 10));
     }
 
     [Fact]
     public async Task ValueChanged_OK()
     {
         var ret = false;
-        var cut = Context.RenderComponent<Slider>(builder =>
+        var cut = Context.RenderComponent<Slider<double>>(builder =>
         {
             builder.Add(s => s.Value, 10);
             builder.Add(s => s.ValueChanged, v =>
@@ -32,7 +32,7 @@ public class SliderTest : BootstrapBlazorTestBase
     [Fact]
     public void IsDisabled_OK()
     {
-        var cut = Context.RenderComponent<Slider>(builder =>
+        var cut = Context.RenderComponent<Slider<double>>(builder =>
         {
             builder.Add(s => s.Value, 10);
             builder.Add(s => s.IsDisabled, true);
@@ -44,7 +44,7 @@ public class SliderTest : BootstrapBlazorTestBase
     public async Task OnValueChanged_OK()
     {
         var expected = 0d;
-        var cut = Context.RenderComponent<Slider>(builder =>
+        var cut = Context.RenderComponent<Slider<double>>(builder =>
         {
             builder.Add(s => s.Value, 10);
             builder.Add(s => s.Min, 0);
