@@ -1,0 +1,12 @@
+﻿@page "/ranges"
+
+@inject IStringLocalizer<Ranges> Localizer
+
+<h3>@Localizer["RangeSlidersTitle"]</h3>
+
+<h4>@Localizer["RangeSlidersDescription"]</h4>
+
+<DemoBlock Title="@Localizer["RangeNormalTitle"]"
+           Introduction="@Localizer["RangeNormalIntro"]"
+           Name="RangeSliderNormal"
+           Demo="typeof(Demos.Ranges.RangeNormal)" />

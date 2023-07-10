@@ -30,35 +30,29 @@
         </BootstrapInputGroup>
     </div>
     <div class="col-auto">
-        <div class="input-group mb-3">
-            <span class="input-group-text">IsDisabled</span>
-            <div class="form-control">
-                <Checkbox TValue="bool" @bind-Value="@isDisabled" />
-            </div>
-        </div>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel DisplayText="IsDisabled" />
+            <Checkbox @bind-Value="@isDisabled" />
+        </BootstrapInputGroup>
     </div>
     <div class="col-auto">
-        <div class="input-group mb-3">
-            <span class="input-group-text">ShowValueInput</span>
-            <div class="form-control">
-                <Checkbox TValue="bool" @bind-Value="@showValueInput" />
-            </div>
-        </div>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel DisplayText="UseInput" />
+            <Checkbox @bind-Value="@useInput" />
+        </BootstrapInputGroup>
     </div>
     <div class="col-auto">
-        <div class="input-group mb-3">
-            <span class="input-group-text">ShowLabel</span>
-            <div class="form-control">
-                <Checkbox TValue="bool" @bind-Value="@showLabel" />
-            </div>
-        </div>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel DisplayText="ShowLabel" />
+            <Checkbox @bind-Value="@showLabel" />
+        </BootstrapInputGroup>
     </div>
     <div class="col-12">
-        <RangeSlider @bind-Value="@currentValue"
-                     Max="@maxValue" Min="@minValue" Step="@step"
-                     DisplayText="@displayText" ShowLabel="@showLabel"
-                     IsDisabled="@isDisabled" ShowValueInput="@showValueInput"
-                     OnValueChanged="OnRangeSliderValueChanged" />
+        <Range @bind-Value="@currentValue"
+               Max="@maxValue" Min="@minValue" Step="@step"
+               DisplayText="@displayText" ShowLabel="@showLabel"
+               IsDisabled="@isDisabled" UseInputEvent="useInput"
+               OnValueChanged="OnRangeSliderValueChanged" />
     </div>
     <div class="col-12">
         <ConsoleLogger @ref="Logger" class="mt-3" />
@@ -66,7 +60,7 @@
 </div>
 
 @code {
-    private string displayText { get; set; } = "RangeSlider";
+    private string displayText { get; set; } = "Range";
 
     private double maxValue { get; set; } = 500;
     private double minValue { get; set; } = -500;
@@ -74,7 +68,7 @@
     private string step { get; set; } = "1";
 
     private bool isDisabled { get; set; }
-    private bool showValueInput { get; set; } = true;
+    private bool useInput { get; set; }
     private bool showLabel { get; set; } = true;
 
     [NotNull] private ConsoleLogger? Logger { get; set; }
