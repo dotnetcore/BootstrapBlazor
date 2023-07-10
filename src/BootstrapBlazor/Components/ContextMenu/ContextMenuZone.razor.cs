@@ -27,6 +27,16 @@ public partial class ContextMenuZone
         .Build();
 
     /// <summary>
+    /// 是否触摸
+    /// </summary>
+    bool TouchStart { get; set; } = false;
+
+    /// <summary>
+    /// 触摸定时器工作指示
+    /// </summary>
+    bool IsBusy { get; set; } = false;
+
+    /// <summary>
     /// Trigger 调用
     /// </summary>
     /// <param name="args"></param>
@@ -46,4 +56,50 @@ public partial class ContextMenuZone
     /// </summary>
     /// <param name="contextMenu"></param>
     internal void RegisterContextMenu(ContextMenu contextMenu) => ContextMenu = contextMenu;
+
+    /// <summary>
+    /// 触摸事件
+    /// </summary>
+    /// <param name="e"></param>
+    private async void TouchEvent(TouchEventArgs e)
+    {
+        switch (e.Type)
+        {
+            case "touchstart":
+                System.Console.WriteLine( "start");
+                TouchStart = true;
+                if (!IsBusy) { 
+                    var args = new MouseEventArgs() {
+                        ClientX = e.Touches[0].ClientX,
+                        ClientY = e.Touches[0].ClientY,
+                        ScreenX = e.Touches[0].ScreenX,
+                        ScreenY = e.Touches[0].ScreenY,
+                    };
+                    await TimerShow(args);
+                }
+                break;
+            case "touchend":
+                System.Console.WriteLine("stop");  
+                TouchStart = false;
+                break;
+            default:
+                break;
+        } 
+
+    }
+
+    private async Task TimerShow(MouseEventArgs args)
+    {
+        IsBusy = true;
+        await Task.Delay(200);
+        if (!TouchStart) { return; }
+        // 弹出关联菜单
+        if (ContextMenu != null)
+        {
+            await ContextMenu.Show(args, null);
+        }
+        //延时防止重复激活菜单功能
+        await Task.Delay(200);
+        IsBusy = false; 
+    }
 }
