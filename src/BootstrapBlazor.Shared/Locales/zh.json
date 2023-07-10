@@ -3994,11 +3994,13 @@
     "NotFoundDevicesString": "未找到视频相关设备文字",
     "NotFoundDevicesStringDefaultValue": "未找到视频相关设备",
     "OnInit": "初始化摄像头回调方法",
-    "OnStart": "开始扫码回调方法",
-    "OnClose": "关闭扫码回调方法",
-    "OnCapture": "扫码成功回调方法",
+    "OnStart": "开始拍照回调方法",
+    "OnClose": "关闭拍照回调方法",
+    "OnCapture": "拍照成功回调方法",
     "VideoWidth": "视频窗口宽度",
-    "VideoHeight": "视频窗口高度"
+    "VideoHeight": "视频窗口高度",
+    "CaptureJpeg": "拍照格式为Jpeg,默认为Png",
+    "Quality": "拍照图像质量,默认为 0.9"
   },
   "BootstrapBlazor.Shared.Demos.Camera.CameraNormal": {
     "TraceOnInit": "初始化摄像头完成",

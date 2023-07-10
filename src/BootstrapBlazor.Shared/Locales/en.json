@@ -3989,11 +3989,13 @@
     "NotFoundDevicesString": "No video related device text found",
     "NotFoundDevicesStringDefaultValue": "Video related equipment not found",
     "OnInit": "Initialize the camera callback method",
-    "OnStart": "Start scanning code callback method",
-    "OnClose": "Turn off the scan code callback method",
-    "OnCapture": "Callback method for successful scan code",
+    "OnStart": "Start capture callback method",
+    "OnClose": "Turn off the capture callback method",
+    "OnCapture": "Callback method for successful capture",
     "VideoWidth": "The width of Video window",
-    "VideoHeight": "The height of Video window"
+    "VideoHeight": "The height of Video window",
+    "CaptureJpeg": "Set the capture image format as Jpeg, default is Png",
+    "Quality": "Capture image quality, default is 0.9"
   },
   "BootstrapBlazor.Shared.Demos.Camera.CameraNormal": {
     "TraceOnInit": "Initialized carmera",
