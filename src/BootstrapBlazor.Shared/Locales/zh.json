@@ -3377,14 +3377,14 @@
     "SelectsPopoverTitle": "悬浮弹窗",
     "SelectsPopoverIntro": "通过设置 <code>IsPopover</code> 参数，组件使用 <code>popover</code> 渲染 <code>UI</code> 防止由于父容器设置 <code>overflow: hidden;</code> 使弹窗无法显示问题"
   },
-  "BootstrapBlazor.Shared.Samples.Ranges": {
-    "RangeTitle": "Range 滑块",
-    "RangeDescription": "通过拖动滑块在一个固定区间内进行选择",
-    "RangeNormalTitle": "基础用法",
-    "RangeNormalIntro": "在拖动滑块时，改变当前值",
-    "RangeIsDisabled": "是否禁用",
-    "RangeValue": "组件当前值",
-    "RangeValueChanged": "ValueChanged 回调方法"
+  "BootstrapBlazor.Shared.Samples.Sliders": {
+    "SliderTitle": "Range 滑块",
+    "SliderDescription": "通过拖动滑块在一个固定区间内进行选择",
+    "SliderNormalTitle": "基础用法",
+    "SliderNormalIntro": "在拖动滑块时，改变当前值",
+    "SliderIsDisabled": "是否禁用",
+    "SliderValue": "组件当前值",
+    "SliderValueChanged": "ValueChanged 回调方法"
   },
   "BootstrapBlazor.Shared.Samples.Switchs": {
     "SwitchsTitle": "Switch 开关",

@@ -1,15 +1,15 @@
-﻿@page "/ranges"
+﻿@page "/sliders"
 
-@inject IStringLocalizer<Ranges> Localizer
+@inject IStringLocalizer<Sliders> Localizer
 
-<h3>@Localizer["RangeTitle"]</h3>
+<h3>@Localizer["SliderTitle"]</h3>
 
-<h4>@Localizer["RangeDescription"]</h4>
+<h4>@Localizer["SliderDescription"]</h4>
 
-<DemoBlock Title="@Localizer["RangeNormalTitle"]"
-           Introduction="@Localizer["RangeNormalIntro"]"
-           Name="RangeNormal"
-           Demo="typeof(Demos.Ranges.RangeNormal)" />
+<DemoBlock Title="@Localizer["SliderNormalTitle"]"
+           Introduction="@Localizer["SliderNormalIntro"]"
+           Name="Normal"
+           Demo="typeof(Demos.Sliders.SliderNormal)" />
 
 <AttributeTable Items="@GetAttributes()" />
 
@@ -25,14 +25,14 @@
         // TODO: 移动到数据库中
         new AttributeItem() {
             Name = "IsDisabled",
-            Description = Localizer["RangeIsDisabled"],
+            Description = Localizer["SliderIsDisabled"],
             Type = "boolean",
             ValueList = " — ",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "Value",
-            Description = Localizer["RangeValue"],
+            Description = Localizer["SliderValue"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
@@ -48,7 +48,7 @@
         new EventItem()
         {
             Name = "ValueChanged",
-            Description = Localizer["RangeValueChanged"],
+            Description = Localizer["SliderValueChanged"],
             Type ="EventCallback<int>"
         }
     };
