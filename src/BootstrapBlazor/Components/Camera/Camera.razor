@@ -5,7 +5,16 @@
 <div @attributes="@AdditionalAttributes" id="@Id" class="camera" data-device-id="@DeviceId">
     <div class="row g-3">
         <div class="col-12">
-            <video class="camera-header" style="width: @VideoWidthString height: @VideoHeightString"></video>
+            <video class="camera-header" style="width: @VideoWidthString height: @VideoHeightString"
+                   muted
+                   webkit-playsinline
+                   playsinline
+                   x-webkit-airplay="allow"
+                   x5-video-player-type="h5"
+                   x5-video-player-fullscreen="true"
+                   x5-video-orientation="portraint">
+                Video stream not available.
+            </video>
             <canvas style="display:none"></canvas>
         </div>
         @if (ShowPreview && !string.IsNullOrEmpty(PreviewData))
