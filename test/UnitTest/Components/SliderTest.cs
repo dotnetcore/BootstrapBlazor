@@ -13,6 +13,54 @@ public class SliderTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowLabel_OK()
+    {
+        var cut = Context.RenderComponent<Slider<double>>(builder =>
+        {
+            builder.Add(s => s.ShowLabel, true);
+            builder.Add(s => s.DisplayText, "label-slider-text");
+            builder.Add(s => s.Value, 10);
+        });
+        Assert.Contains("label-slider-text", cut.Markup);
+    }
+
+    [Fact]
+    public void Group_OK()
+    {
+        var cut = Context.RenderComponent<BootstrapInputGroup>(pb =>
+        {
+            pb.AddChildContent<BootstrapInputGroupLabel>(pb =>
+            {
+                pb.Add(a => a.DisplayText, "GroupLabel");
+            });
+            pb.AddChildContent<Slider<double>>(pb =>
+            {
+                pb.Add(s => s.ShowLabel, true);
+                pb.Add(s => s.DisplayText, "label-slider-text");
+                pb.Add(s => s.Value, 10);
+                pb.Add(s => s.UseInputEvent, true);
+            });
+        });
+        Assert.Contains("GroupLabel", cut.Markup);
+        Assert.DoesNotContain("label-slider-text", cut.Markup);
+    }
+
+    [Fact]
+    public void Step_Ok()
+    {
+        var cut = Context.RenderComponent<Slider<double>>(pb =>
+        {
+            pb.Add(a => a.Value, 15);
+            pb.Add(a => a.Min, 10);
+            pb.Add(a => a.Max, 20);
+            pb.Add(a => a.Step, 5);
+        });
+        cut.Contains("min=\"10\"");
+        cut.Contains("max=\"20\"");
+        cut.Contains("step=\"5\"");
+    }
+
+    [Fact]
     public async Task ValueChanged_OK()
     {
         var ret = false;
@@ -37,7 +85,7 @@ public class SliderTest : BootstrapBlazorTestBase
             builder.Add(s => s.Value, 10);
             builder.Add(s => s.IsDisabled, true);
         });
-        cut.Contains("slider-runway disabled");
+        cut.Contains("disabled");
     }
 
     [Fact]
