@@ -759,6 +759,7 @@ public class TableTest : TableTestBase
     public void ExportButtonDropdownTemplate_Ok()
     {
         ITableExportContext<Foo>? context = null;
+        ITableExportDataContext<Foo>? exportContext = null;
         bool exported = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -784,8 +785,9 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
                 });
-                pb.Add(a => a.OnExportAsync, (cols, options) =>
+                pb.Add(a => a.OnExportAsync, context =>
                 {
+                    exportContext = context;
                     exported = true;
                     return Task.FromResult(true);
                 });
@@ -814,6 +816,17 @@ public class TableTest : TableTestBase
         });
         cut.InvokeAsync(() => context.ExportAsync());
         Assert.True(exported);
+        Assert.NotNull(exportContext?.ExportType);
+        Assert.NotNull(exportContext?.Rows);
+        Assert.NotNull(exportContext?.Columns);
+        Assert.NotNull(exportContext?.Options);
+
+        // 设置模板不显示导出按钮
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnExportAsync, null);
+        });
+        cut.InvokeAsync(() => context.ExportAsync());
     }
 
     [Fact]
@@ -5547,18 +5560,23 @@ public class TableTest : TableTestBase
         cut.InvokeAsync(() =>
         {
             var buttons = cut.FindAll(".dropdown-menu-end .dropdown-item");
-            buttons.Last().Click();
+            buttons[buttons.Count - 1].Click();
         });
 
         var table = cut.FindComponent<Table<Foo>>();
         table.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.OnExportAsync, (_, _) => Task.FromResult(true));
+            pb.Add(a => a.OnExportAsync, _ => Task.FromResult(true));
         });
         cut.InvokeAsync(() =>
         {
             var button = cut.Find(".dropdown-menu-end .dropdown-item");
             button.Click();
+        });
+        cut.InvokeAsync(() =>
+        {
+            var buttons = cut.FindAll(".dropdown-menu-end .dropdown-item");
+            buttons[buttons.Count - 1].Click();
         });
     }
 

@@ -51,7 +51,7 @@ class ExcelExport : ITableExcelExport
         return true;
     }
 
-    private async Task<object?> FormatValue(ITableColumn col, object? value)
+    private static async Task<object?> FormatValue(ITableColumn col, object? value)
     {
         var ret = value;
         if (col.Lookup != null)
