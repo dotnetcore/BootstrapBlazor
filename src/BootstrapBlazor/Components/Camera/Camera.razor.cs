@@ -286,6 +286,15 @@ public partial class Camera
         StateHasChanged();
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public async Task SelectDevice()
+    {
+        await InvokeInitAsync(); 
+    }
+
     private readonly StringBuilder _sb = new();
     private string? PreviewData { get; set; }
 

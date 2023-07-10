@@ -26,7 +26,7 @@
             </div>
         }
         <div class="col-12">
-            <Select Items="@Devices" @bind-Value="@DeviceId" DisplayText="@DeviceLabel" ShowLabel="true" PlaceHolder="@InitDevicesString"></Select>
+            <Select Items="@Devices" @bind-Value="@DeviceId" DisplayText="@DeviceLabel" ShowLabel="true" PlaceHolder="@InitDevicesString" OnSelectedItemChanged="_ => SelectDevice()"></Select>
         </div>
         <div class="col-12">
             <div class="btn-group">
