@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Slider 组件
 /// </summary>
-public class Slider<TValue> : Range<TValue>
+public class Slider : Range<double>
 {
 
 }
