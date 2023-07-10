@@ -29,6 +29,25 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Group_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapInputGroup>(pb =>
+        {
+            pb.AddChildContent<BootstrapInputGroupLabel>(pb =>
+            {
+                pb.Add(a => a.DisplayText, "GroupLabel");
+            });
+            pb.AddChildContent<Checkbox<string>>(pb =>
+            {
+                pb.Add(a => a.ShowLabel, true);
+                pb.Add(a => a.DisplayText, "TestLabel");
+            });
+        });
+        Assert.DoesNotContain("TestLabel", cut.Markup);
+        Assert.Contains("GroupLabel", cut.Markup);
+    }
+
+    [Fact]
     public void EditorForm_Ok()
     {
         var foo = Foo.Generate(Localizer);

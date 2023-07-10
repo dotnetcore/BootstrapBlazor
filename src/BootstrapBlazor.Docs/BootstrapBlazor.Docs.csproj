@@ -8,14 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor.Shared" Version="7.0.3" />
+    <!--<PackageReference Include="BootstrapBlazor.Shared" Version="7.0.4" />-->
     <PackageReference Include="Longbow.GiteeAuth" Version="7.0.0" />
     <PackageReference Include="Longbow.GitHubAuth" Version="7.0.1" />
     <PackageReference Include="Longbow.OAuth" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+    <ProjectReference Include="..\BootstrapBlazor.Shared\BootstrapBlazor.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
