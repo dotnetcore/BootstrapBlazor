@@ -1,0 +1,8 @@
+﻿.range-group {
+    display: flex;
+    align-items: center;
+}
+
+    .range-group .form-range {
+        height: 1rem;
+    }
