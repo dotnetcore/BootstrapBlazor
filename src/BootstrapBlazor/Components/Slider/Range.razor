@@ -1,0 +1,11 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TValue
+@inherits BootstrapInputNumberBase<TValue>
+@attribute [JSModuleNotInherited]
+
+@if (IsShowLabel)
+{
+    <BootstrapLabel Value="@DisplayText" ShowLabelTooltip="ShowLabelTooltip" for="@Id" />
+}
+
+<input type="range" id="@Id" @attributes="@AdditionalAttributes" class="@ClassString" disabled="@IsDisabled" @bind-value="CurrentValueAsString" @bind-value:event="@eventName">
