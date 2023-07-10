@@ -3977,6 +3977,8 @@
     "BasicUsageLi3": "点击关闭按钮关闭摄像头",
     "ShowPreviewTitle": "显示预览",
     "ShowPreviewIntro": "通过设置 <code>ShowPreview</code> 属性控制是否显示照片预览",
+    "CaptureJpegTitle": "拍照格式为Jpeg,默认为Png",
+    "CaptureJpegIntro": "通过设置 <code>CaptureJpeg</code> 属性控制拍照格式为Jpeg,默认为Png. <code>Quality</code> 属性控制图像质量,默认为 0.9",
     "AutoStartTitle": "自动开始",
     "AutoStartIntro": "通过设置 <code>AutoStart</code> 属性控制是否组件运行时直接开启摄像头",
     "ShowPreview": "是否显示 照片预览",
