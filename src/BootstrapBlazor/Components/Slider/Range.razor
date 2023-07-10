@@ -20,5 +20,5 @@ else
 
 @code {
     RenderFragment RenderRange =>
-    @<input type="range" id="@Id" @attributes="@AdditionalAttributes" class="@ClassString" disabled="@IsDisabled" @bind-value="CurrentValueAsString" @bind-value:event="@eventName">;
+    @<input type="range" id="@Id" @attributes="@AdditionalAttributes" class="@ClassString" disabled="@IsDisabled" @bind-value="CurrentValueAsString" @bind-value:event="@eventName" step="@StepString" min="@MinString" max="@MaxString">;
 }
