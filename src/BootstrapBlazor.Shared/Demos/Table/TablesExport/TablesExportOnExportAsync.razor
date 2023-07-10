@@ -1,10 +1,10 @@
 ﻿@inject IStringLocalizer<Foo> LocalizerFoo
 
 <Table TItem="Foo"
-        IsPagination="true" PageItemsSource="@PageItemsSource"
-        IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-        ShowToolbar="true" ShowDefaultButtons="false" ShowExportButton="true"
-        OnExportAsync="OnExportAsync" OnQueryAsync="@OnQueryAsync">
+       IsPagination="true" PageItemsSource="@PageItemsSource"
+       IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+       ShowToolbar="true" ShowDefaultButtons="false" ShowExportButton="true"
+       OnExportAsync="OnExportAsync" OnQueryAsync="@OnQueryAsync">
     <TableColumns>
         <TableColumn @bind-Field="@context.DateTime" Width="180" />
         <TableColumn @bind-Field="@context.Name" Width="100" />
@@ -49,18 +49,18 @@
         items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
 
         return Task.FromResult(new QueryData<Foo>()
-        {
-            Items = items,
-            TotalCount = total
-        });
+            {
+                Items = items,
+                TotalCount = total
+            });
     }
 
-    private async Task<bool> OnExportAsync(IEnumerable<Foo> items, QueryPageOptions options)
+    private async Task<bool> OnExportAsync(ITableExportDataContext<Foo> context)
     {
         // your code ...
-        await Exporter.ExportAsync(items, null, "Test.xlsx");
+        var ret = await Exporter.ExportAsync(context.Rows, context.Columns, "Test.xlsx");
 
         // 返回 true 时自动弹出提示框
-        return true;
+        return ret;
     }
 }
