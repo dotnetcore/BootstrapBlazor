@@ -1019,7 +1019,15 @@ public partial class Table<TItem>
     /// <summary>
     /// 导出数据方法
     /// </summary>
-    private Task ExportExcelAsync() => ExecuteExportAsync(() => ExcelExport.ExportAsync(Rows, GetVisibleColumns()));
+    private Task ExportExcelAsync() => ExecuteExportAsync(() =>
+    {
+        if (OnExportAsync != null)
+        {
+            return OnExportAsync(Rows, BuildQueryPageOptions());
+        }
+
+        return ExcelExport.ExportAsync(Rows, GetVisibleColumns());
+    });
 
     /// <summary>
     /// 获取当前 Table 选中的所有行数据
