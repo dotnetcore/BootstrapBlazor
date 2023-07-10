@@ -323,7 +323,7 @@ public partial class Table<TItem>
     /// 获得/设置 导出按钮异步回调方法
     /// </summary>
     [Parameter]
-    public Func<IEnumerable<TItem>, QueryPageOptions, Task<bool>>? OnExportAsync { get; set; }
+    public Func<ITableExportDataContext<TItem>, Task<bool>>? OnExportAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 保存弹窗中的保存按钮显示文本 默认为资源文件中的 保存
@@ -1003,11 +1003,11 @@ public partial class Table<TItem>
         }
     }
 
-    private Task ExportAsync() => ExecuteExportAsync(() => OnExportAsync != null ? OnExportAsync(Rows, BuildQueryPageOptions()) : Task.FromResult(false));
+    private Task ExportAsync() => ExecuteExportAsync(() => OnExportAsync != null ? OnExportAsync(new TableExportDataContext<TItem>("", Rows, GetVisibleColumns(), BuildQueryPageOptions())) : Task.FromResult(false));
 
-    private Task ExportPdfAsync() => ExecuteExportAsync(() => OnExportAsync != null ? OnExportAsync(Rows, BuildQueryPageOptions()) : PdfExport.ExportAsync(Rows, GetVisibleColumns()));
+    private Task ExportPdfAsync() => ExecuteExportAsync(() => OnExportAsync != null ? OnExportAsync(new TableExportDataContext<TItem>("Excel", Rows, GetVisibleColumns(), BuildQueryPageOptions())) : PdfExport.ExportAsync(Rows, GetVisibleColumns()));
 
-    private Task ExportExcelAsync() => ExecuteExportAsync(() => OnExportAsync != null ? OnExportAsync(Rows, BuildQueryPageOptions()) : ExcelExport.ExportAsync(Rows, GetVisibleColumns()));
+    private Task ExportExcelAsync() => ExecuteExportAsync(() => OnExportAsync != null ? OnExportAsync(new TableExportDataContext<TItem>("Pdf", Rows, GetVisibleColumns(), BuildQueryPageOptions())) : ExcelExport.ExportAsync(Rows, GetVisibleColumns()));
 
     /// <summary>
     /// 获取当前 Table 选中的所有行数据
