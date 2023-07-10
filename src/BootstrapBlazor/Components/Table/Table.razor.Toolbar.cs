@@ -1014,7 +1014,15 @@ public partial class Table<TItem>
         return ret;
     });
 
-    private Task ExportPdfAsync() => ExecuteExportAsync(() => PdfExport.ExportAsync(Rows, GetVisibleColumns()));
+    private Task ExportPdfAsync() => ExecuteExportAsync(() =>
+    {
+        if (OnExportAsync != null)
+        {
+            return OnExportAsync(Rows, BuildQueryPageOptions());
+        }
+
+        return PdfExport.ExportAsync(Rows, GetVisibleColumns());
+    });
 
     /// <summary>
     /// 导出数据方法
