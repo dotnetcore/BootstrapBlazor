@@ -28,4 +28,10 @@
     <Using Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="Samples\CameraAlex.razor">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </Content>
+  </ItemGroup>
+
 </Project>
