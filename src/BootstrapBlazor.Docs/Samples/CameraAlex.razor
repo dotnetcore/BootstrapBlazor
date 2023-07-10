@@ -1,7 +1,7 @@
-﻿@page "/alex"
+﻿@page "/Home/Index"
 @inject IStringLocalizer<CameraAlex> Localizer
 
-<Camera OnInit="@OnInit" OnStart="@OnStart" OnClose="@OnClose" OnError="@OnError" OnCapture="@OnCapture" VideoWidth="640" VideoHeight="480" />
+<Camera OnInit="@OnInit" OnStart="@OnStart" OnClose="@OnClose" OnError="@OnError" OnCapture="@OnCapture" VideoWidth="640" VideoHeight="480" CaptureJpeg />
 @if (ImageUrl != null)
 {
     <img src="@ImageUrl" class="mt-3" />

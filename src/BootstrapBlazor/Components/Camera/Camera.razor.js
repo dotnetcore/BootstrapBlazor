@@ -9,7 +9,7 @@ const stop = (video, track) => {
     }
 }
 
-export function init(id, invoke, auto, videoWidth, videoHeight) {
+export function init(id, invoke, auto, videoWidth, videoHeight, captureJpeg, quality) {
     const el = document.getElementById(id)
     if (el === null) {
         return
@@ -61,13 +61,20 @@ export function init(id, invoke, auto, videoWidth, videoHeight) {
             }
             else if (data_method === 'capture') {
                 context.drawImage(camera.video, 0, 0, videoWidth, videoHeight)
-                let url = canvas.toDataURL()
-                const maxLength = 30 * 1024
-                while (url.length > maxLength) {
-                    const data = url.substring(0, maxLength)
-                    await invoke.invokeMethodAsync("Capture", data)
-                    url = url.substring(data.length)
-                }
+                let url = "";
+                if (captureJpeg)
+                {
+                    url = canvas.toDataURL("image/jpeg", quality);
+
+                } else {
+                    url = canvas.toDataURL()
+                    const maxLength = 30 * 1024
+                    while (url.length > maxLength) {
+                        const data = url.substring(0, maxLength)
+                        await invoke.invokeMethodAsync("Capture", data)
+                        url = url.substring(data.length)
+                    } 
+                } 
 
                 if (url.length > 0) {
                     await invoke.invokeMethodAsync("Capture", url)
