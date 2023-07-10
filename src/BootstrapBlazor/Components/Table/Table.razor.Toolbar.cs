@@ -1003,11 +1003,11 @@ public partial class Table<TItem>
         }
     }
 
-    private Task ExportAsync() => ExecuteExportAsync(() => OnExportAsync != null ? OnExportAsync(new TableExportDataContext<TItem>("", Rows, GetVisibleColumns(), BuildQueryPageOptions())) : Task.FromResult(false));
+    private Task ExportAsync() => ExecuteExportAsync(() => OnExportAsync != null ? OnExportAsync(new TableExportDataContext<TItem>(string.Empty, Rows, GetVisibleColumns(), BuildQueryPageOptions())) : Task.FromResult(false));
 
-    private Task ExportPdfAsync() => ExecuteExportAsync(() => OnExportAsync != null ? OnExportAsync(new TableExportDataContext<TItem>("Excel", Rows, GetVisibleColumns(), BuildQueryPageOptions())) : PdfExport.ExportAsync(Rows, GetVisibleColumns()));
+    private Task ExportPdfAsync() => ExecuteExportAsync(() => OnExportAsync != null ? OnExportAsync(new TableExportDataContext<TItem>("Pdf", Rows, GetVisibleColumns(), BuildQueryPageOptions())) : PdfExport.ExportAsync(Rows, GetVisibleColumns()));
 
-    private Task ExportExcelAsync() => ExecuteExportAsync(() => OnExportAsync != null ? OnExportAsync(new TableExportDataContext<TItem>("Pdf", Rows, GetVisibleColumns(), BuildQueryPageOptions())) : ExcelExport.ExportAsync(Rows, GetVisibleColumns()));
+    private Task ExportExcelAsync() => ExecuteExportAsync(() => OnExportAsync != null ? OnExportAsync(new TableExportDataContext<TItem>("Excel", Rows, GetVisibleColumns(), BuildQueryPageOptions())) : ExcelExport.ExportAsync(Rows, GetVisibleColumns()));
 
     /// <summary>
     /// 获取当前 Table 选中的所有行数据
