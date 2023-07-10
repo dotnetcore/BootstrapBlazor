@@ -1,6 +1,6 @@
 ﻿import EventHandler from "../../modules/event-handler.js?v=$version"
 
-export function handleKeyup(id, invoke, enter, enterCallbackMethod, esc, escCallbackMethod) {
+export function handleKeyUp(id, invoke, enter, enterCallbackMethod, esc, escCallbackMethod) {
     const el = document.getElementById(id)
     if (el) {
         EventHandler.on(el, 'keyup', e => {

@@ -143,7 +143,7 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
         {
             if (!SkipRegisterEnterEscJSInvoke && (OnEnterAsync != null || OnEscAsync != null))
             {
-                await InvokeVoidAsync("handleKeyup", Id, Interop, OnEnterAsync != null, nameof(EnterCallback), OnEscAsync != null, nameof(EscCallback));
+                await InvokeVoidAsync("handleKeyUp", Id, Interop, OnEnterAsync != null, nameof(EnterCallback), OnEscAsync != null, nameof(EscCallback));
             }
             if (IsSelectAllTextOnFocus)
             {

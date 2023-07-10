@@ -1,5 +1,5 @@
 ﻿import { getHeight } from "../../modules/utility.js?v=$version"
-import { handleKeyup, select, selectAllByFocus, selectAllByEnter } from "../Input/BootstrapInput.razor.js?v=$version"
+import { handleKeyUp, select, selectAllByFocus, selectAllByEnter } from "../Input/BootstrapInput.razor.js?v=$version"
 import Data from "../../modules/data.js?v=$version"
 import Debounce from "../../modules/debounce.js?v=$version"
 import EventHandler from "../../modules/event-handler.js?v=$version"
@@ -71,4 +71,4 @@ export function dispose(id) {
     }
 }
 
-export { handleKeyup, select, selectAllByFocus, selectAllByEnter }
+export { handleKeyUp, select, selectAllByFocus, selectAllByEnter }
