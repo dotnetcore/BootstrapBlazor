@@ -49,10 +49,10 @@
         items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
 
         return Task.FromResult(new QueryData<Foo>()
-            {
-                Items = items,
-                TotalCount = total
-            });
+        {
+            Items = items,
+            TotalCount = total
+        });
     }
 
     private async Task<bool> OnExportAsync(ITableExportDataContext<Foo> context)
