@@ -82,7 +82,7 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     /// <summary>
     /// 获得 IShowLabel 实例
     /// </summary>
-    [CascadingParameter(Name = "EidtorForm")]
+    [CascadingParameter(Name = "EditorForm")]
     protected IShowLabel? EditorForm { get; set; }
 
     /// <summary>
