@@ -3366,20 +3366,14 @@
     "SelectsPopoverTitle": "Popover dropdown menu",
     "SelectsPopoverIntro": "Set <code>IsPopover</code> to <b>true</b>, use <code>popover</code> render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>"
   },
-  "BootstrapBlazor.Shared.Samples.Sliders": {
-    "SlidersTitle": "Slider",
-    "SlidersDescription": "Select within a fixed interval by dragging the slider",
-    "SlidersNormalTitle": "Basic usage",
-    "SlidersNormalIntro": "Change the current value as you drag the slider",
-    "SlidersNormalLabel1": "Customize the initial value",
-    "SlidersNormalLabel2": "Disable",
-    "SlidersBindingTitle": "Slider bidirectional binding",
-    "SlidersBindingIntro": "Select within a fixed interval by dragging the slider",
-    "SlidersBindingLabel": "Customize the initial value",
-    "SlidersClass": "Style",
-    "SlidersIsDisabled": "Whether to disable it",
-    "SlidersValue": "The current value of the component",
-    "SlidersValueChanged": "ValueChanged callback method"
+  "BootstrapBlazor.Shared.Samples.Ranges": {
+    "RangeTitle": "Range",
+    "RangeDescription": "Select within a fixed interval by dragging the slider",
+    "RangeNormalTitle": "Basic usage",
+    "RangeNormalIntro": "Change the current value as you drag the slider",
+    "RangeIsDisabled": "Whether to disable it",
+    "RangeValue": "The current value of the component",
+    "RangeValueChanged": "ValueChanged callback method"
   },
   "BootstrapBlazor.Shared.Samples.Switchs": {
     "SwitchsTitle": "Switch",

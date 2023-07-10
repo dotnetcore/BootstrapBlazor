@@ -2,13 +2,13 @@
 
 @inject IStringLocalizer<Ranges> Localizer
 
-<h3>@Localizer["RangeSlidersTitle"]</h3>
+<h3>@Localizer["RangeTitle"]</h3>
 
-<h4>@Localizer["RangeSlidersDescription"]</h4>
+<h4>@Localizer["RangeDescription"]</h4>
 
 <DemoBlock Title="@Localizer["RangeNormalTitle"]"
            Introduction="@Localizer["RangeNormalIntro"]"
-           Name="RangeSliderNormal"
+           Name="RangeNormal"
            Demo="typeof(Demos.Ranges.RangeNormal)" />
 
 <AttributeTable Items="@GetAttributes()" />
@@ -24,22 +24,15 @@
     {
         // TODO: 移动到数据库中
         new AttributeItem() {
-            Name = "Class",
-            Description = Localizer["SlidersClass"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new AttributeItem() {
             Name = "IsDisabled",
-            Description = Localizer["SlidersIsDisabled"],
+            Description = Localizer["RangeIsDisabled"],
             Type = "boolean",
             ValueList = " — ",
             DefaultValue = "false"
         },
         new AttributeItem() {
             Name = "Value",
-            Description = Localizer["SlidersValue"],
+            Description = Localizer["RangeValue"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
@@ -55,7 +48,7 @@
         new EventItem()
         {
             Name = "ValueChanged",
-            Description = Localizer["SlidersValueChanged"],
+            Description = Localizer["RangeValueChanged"],
             Type ="EventCallback<int>"
         }
     };
