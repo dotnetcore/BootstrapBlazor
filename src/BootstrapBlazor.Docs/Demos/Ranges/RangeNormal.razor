@@ -2,57 +2,69 @@
     <div class="col-auto">
         <BootstrapInputGroup>
             <BootstrapInputGroupLabel DisplayText="CurrentValue" />
-            <BootstrapInput @bind-Value="@currentValue" />
+            <BootstrapInput @bind-Value="@CurrentValue" />
         </BootstrapInputGroup>
     </div>
     <div class="col-auto">
         <BootstrapInputGroup>
             <BootstrapInputGroupLabel DisplayText="MinValue" />
-            <BootstrapInput @bind-Value="@minValue" />
+            <BootstrapInput @bind-Value="@MinValue" />
         </BootstrapInputGroup>
     </div>
     <div class="col-auto">
         <BootstrapInputGroup>
             <BootstrapInputGroupLabel DisplayText="MaxValue" />
-            <BootstrapInput @bind-Value="@maxValue" />
+            <BootstrapInput @bind-Value="@MaxValue" />
         </BootstrapInputGroup>
     </div>
     <div class="col-auto">
         <BootstrapInputGroup>
             <BootstrapInputGroupLabel DisplayText="DisplayText" />
-            <BootstrapInput @bind-Value="@displayText" />
+            <BootstrapInput @bind-Value="@DisplayText" />
         </BootstrapInputGroup>
     </div>
     <div class="col-auto">
         <BootstrapInputGroup>
             <BootstrapInputGroupLabel DisplayText="Step" />
-            <BootstrapInput @bind-Value="@step" />
+            <BootstrapInput @bind-Value="@Step" />
         </BootstrapInputGroup>
     </div>
     <div class="col-auto">
         <BootstrapInputGroup>
             <BootstrapInputGroupLabel DisplayText="IsDisabled" />
-            <Checkbox @bind-Value="@isDisabled" />
+            <Checkbox @bind-Value="@IsDisabled" />
         </BootstrapInputGroup>
     </div>
     <div class="col-auto">
         <BootstrapInputGroup>
             <BootstrapInputGroupLabel DisplayText="UseInput" />
-            <Checkbox @bind-Value="@useInput" />
+            <Checkbox @bind-Value="@UseInput" />
         </BootstrapInputGroup>
     </div>
     <div class="col-auto">
         <BootstrapInputGroup>
             <BootstrapInputGroupLabel DisplayText="ShowLabel" />
-            <Checkbox @bind-Value="@showLabel" />
+            <Checkbox @bind-Value="@ShowLabel" />
+        </BootstrapInputGroup>
+    </div>
+    <div class="col-auto">
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel DisplayText="UseGroup" />
+            <Checkbox @bind-Value="@UseGroup" />
         </BootstrapInputGroup>
     </div>
     <div class="col-12">
-        <Range @bind-Value="@currentValue"
-               Max="@maxValue" Min="@minValue" Step="@step"
-               DisplayText="@displayText" ShowLabel="@showLabel"
-               IsDisabled="@isDisabled" UseInputEvent="useInput"
-               OnValueChanged="OnRangeSliderValueChanged" />
+        @if(UseGroup)
+        {
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="@DisplayText" />
+                @RenderRange
+            </BootstrapInputGroup>
+        }
+        else
+        {
+            @RenderRange
+        }
     </div>
     <div class="col-12">
         <ConsoleLogger @ref="Logger" class="mt-3" />
@@ -60,16 +72,17 @@
 </div>
 
 @code {
-    private string displayText { get; set; } = "Range";
+    private string DisplayText { get; set; } = "Range";
 
-    private double maxValue { get; set; } = 500;
-    private double minValue { get; set; } = -500;
-    private double currentValue { get; set; } = 0;
-    private string step { get; set; } = "1";
+    private double MaxValue { get; set; } = 500;
+    private double MinValue { get; set; } = -500;
+    private double CurrentValue { get; set; } = 0;
+    private string Step { get; set; } = "1";
 
-    private bool isDisabled { get; set; }
-    private bool useInput { get; set; }
-    private bool showLabel { get; set; } = true;
+    private bool IsDisabled { get; set; }
+    private bool UseInput { get; set; }
+    private bool UseGroup { get; set; }
+    private bool ShowLabel { get; set; } = true;
 
     [NotNull] private ConsoleLogger? Logger { get; set; }
 
@@ -78,4 +91,11 @@
         Logger.Log($"RangeSlider: Bind Value: {value}");
         return Task.CompletedTask;
     }
+
+    RenderFragment RenderRange =>
+    @<Range @bind-Value="@CurrentValue"
+            Max="MaxValue" Min="MinValue" Step="Step"
+            DisplayText="@DisplayText" ShowLabel="ShowLabel"
+            IsDisabled="IsDisabled" UseInputEvent="UseInput"
+            OnValueChanged="OnRangeSliderValueChanged" />;
 }
