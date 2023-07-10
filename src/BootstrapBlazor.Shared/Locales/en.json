@@ -3367,7 +3367,7 @@
     "SelectsPopoverIntro": "Set <code>IsPopover</code> to <b>true</b>, use <code>popover</code> render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>"
   },
   "BootstrapBlazor.Shared.Samples.Sliders": {
-    "SliderTitle": "Range",
+    "SliderTitle": "Slider",
     "SliderDescription": "Select within a fixed interval by dragging the slider",
     "SliderNormalTitle": "Basic usage",
     "SliderNormalIntro": "Change the current value as you drag the slider",
