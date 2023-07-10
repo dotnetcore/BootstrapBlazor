@@ -3371,12 +3371,6 @@
     "SlidersDescription": "Select within a fixed interval by dragging the slider",
     "SlidersNormalTitle": "Basic usage",
     "SlidersNormalIntro": "Change the current value as you drag the slider",
-    "SlidersNormalLabel1": "Customize the initial value",
-    "SlidersNormalLabel2": "Disable",
-    "SlidersBindingTitle": "Slider bidirectional binding",
-    "SlidersBindingIntro": "Select within a fixed interval by dragging the slider",
-    "SlidersBindingLabel": "Customize the initial value",
-    "SlidersClass": "Style",
     "SlidersIsDisabled": "Whether to disable it",
     "SlidersValue": "The current value of the component",
     "SlidersValueChanged": "ValueChanged callback method"
