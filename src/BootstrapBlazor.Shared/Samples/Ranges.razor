@@ -1,14 +1,21 @@
-﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
-// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
-// Website: https://www.blazor.zone or https://argozhang.github.io/
+﻿@page "/ranges"
 
-namespace BootstrapBlazor.Shared.Samples;
+@inject IStringLocalizer<Ranges> Localizer
 
-/// <summary>
-/// Sliders
-/// </summary>
-public sealed partial class Sliders
-{
+<h3>@Localizer["RangeSlidersTitle"]</h3>
+
+<h4>@Localizer["RangeSlidersDescription"]</h4>
+
+<DemoBlock Title="@Localizer["RangeNormalTitle"]"
+           Introduction="@Localizer["RangeNormalIntro"]"
+           Name="RangeSliderNormal"
+           Demo="typeof(Demos.Ranges.RangeNormal)" />
+
+<AttributeTable Items="@GetAttributes()" />
+
+<EventTable Items="@GetEvents()" />
+
+@code {
     /// <summary>
     /// 获得属性方法
     /// </summary>

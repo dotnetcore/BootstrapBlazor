@@ -360,8 +360,8 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["Slider"],
-                    Url = "sliders"
+                    Text = Localizer["Range"],
+                    Url = "ranges"
                 },
                 new()
                 {

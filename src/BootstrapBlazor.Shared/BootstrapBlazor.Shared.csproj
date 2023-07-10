@@ -53,6 +53,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="BootstrapBlazor.Components" />
     <Using Include="BootstrapBlazor.Shared.Common" />
     <Using Include="BootstrapBlazor.Shared.Components" />
