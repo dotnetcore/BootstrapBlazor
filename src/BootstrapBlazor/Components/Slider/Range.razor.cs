@@ -26,25 +26,28 @@ public partial class Range<TValue>
     /// 获得/设置 最小值 默认为 null 未设置
     /// </summary>
     [Parameter]
+    [NotNull]
     public TValue? Min { get; set; }
 
     /// <summary>
     /// 获得/设置 最大值 默认为 null 未设置
     /// </summary>
     [Parameter]
+    [NotNull]
     public TValue? Max { get; set; }
 
     /// <summary>
     /// 获得/设置 步长 默认为 null 未设置
     /// </summary>
     [Parameter]
+    [NotNull]
     public TValue? Step { get; set; }
 
     private string eventName => UseInputEvent ? "oninput" : "onchange";
 
-    private string? MinString => Min?.ToString();
+    private string? MinString => Min.ToString() == "0" ? null : Min.ToString();
 
-    private string? MaxString => Max?.ToString();
+    private string? MaxString => Max.ToString() == "0" ? null : Max.ToString();
 
-    private string? StepString => Step?.ToString();
+    private string? StepString => Step.ToString() == "0" ? null : Step.ToString();
 }
