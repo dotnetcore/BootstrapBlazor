@@ -1003,39 +1003,11 @@ public partial class Table<TItem>
         }
     }
 
-    private Task ExportAsync() => ExecuteExportAsync(async () =>
-    {
-        var ret = false;
-        if (OnExportAsync != null)
-        {
-            // 通过 OnExportAsync 回调导出数据
-            ret = await OnExportAsync(Rows, BuildQueryPageOptions());
-        }
-        return ret;
-    });
+    private Task ExportAsync() => ExecuteExportAsync(() => OnExportAsync != null ? OnExportAsync(Rows, BuildQueryPageOptions()) : Task.FromResult(false));
 
-    private Task ExportPdfAsync() => ExecuteExportAsync(() =>
-    {
-        if (OnExportAsync != null)
-        {
-            return OnExportAsync(Rows, BuildQueryPageOptions());
-        }
+    private Task ExportPdfAsync() => ExecuteExportAsync(() => OnExportAsync != null ? OnExportAsync(Rows, BuildQueryPageOptions()) : PdfExport.ExportAsync(Rows, GetVisibleColumns()));
 
-        return PdfExport.ExportAsync(Rows, GetVisibleColumns());
-    });
-
-    /// <summary>
-    /// 导出数据方法
-    /// </summary>
-    private Task ExportExcelAsync() => ExecuteExportAsync(() =>
-    {
-        if (OnExportAsync != null)
-        {
-            return OnExportAsync(Rows, BuildQueryPageOptions());
-        }
-
-        return ExcelExport.ExportAsync(Rows, GetVisibleColumns());
-    });
+    private Task ExportExcelAsync() => ExecuteExportAsync(() => OnExportAsync != null ? OnExportAsync(Rows, BuildQueryPageOptions()) : ExcelExport.ExportAsync(Rows, GetVisibleColumns()));
 
     /// <summary>
     /// 获取当前 Table 选中的所有行数据
