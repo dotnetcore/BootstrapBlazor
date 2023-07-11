@@ -14,30 +14,34 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     public bool AllowDragOrder { get; set; }
+
     /// <summary>
     /// 拖放源项
     /// </summary>
     private ITableColumn? dragItem;
+
     /// <summary>
     /// 拖放目标项
     /// </summary>
     private ITableColumn? dragOverItem;
+
     /// <summary>
     /// 拖放效果
     /// </summary>
     private string? dragEffect = "move";
+
     /// <summary>
     /// 是否接受拖放
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    private bool isAllowDrop(ITableColumn item)
+    private bool IsAllowDrop(ITableColumn item)
     {
         var ret = false;
         if (dragItem != null && dragOverItem == item && dragItem != item)
         {
-            var visableColumns = GetVisibleColumns().ToList();
-            if (visableColumns.IndexOf(dragItem) != visableColumns.IndexOf(item) - 1)
+            var visibleColumns = GetVisibleColumns().ToList();
+            if (visibleColumns.IndexOf(dragItem) != visibleColumns.IndexOf(item) - 1)
             {
                 ret = true;
             }
@@ -45,6 +49,7 @@ public partial class Table<TItem>
         dragEffect = ret ? "move" : "none";
         return ret;
     }
+
     /// <summary>
     /// 拖放开始
     /// </summary>
@@ -55,6 +60,7 @@ public partial class Table<TItem>
         dragItem = item;
         return Task.CompletedTask;
     }
+
     /// <summary>
     /// 拖放进入
     /// </summary>
@@ -65,6 +71,7 @@ public partial class Table<TItem>
         dragOverItem = item;
         return Task.CompletedTask;
     }
+
     /// <summary>
     /// 拖放释放至目标
     /// </summary>
@@ -72,7 +79,7 @@ public partial class Table<TItem>
     /// <returns></returns>
     protected Task OnDrop(ITableColumn item)
     {
-        if (dragItem != null && dragItem != item && isAllowDrop(item))
+        if (dragItem != null && dragItem != item && IsAllowDrop(item))
         {
             Columns.Remove(dragItem);
             var dropIndex = Columns.IndexOf(item);
