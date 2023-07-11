@@ -480,13 +480,11 @@
                     {
                         var fieldName = col.GetFieldName();
                         var displayName = col.GetDisplayName();
-                        <th class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, 6)" draggable="@AllowDragOrder.ToString().ToLower()"
-                        ondragover="let e=window.event;e.preventDefault ? e.preventDefault() : (e.returnValue = true);e.dataTransfer.dropEffect ='@dragEffect';"
-                        @ondragstart="()=>OnDragStart(col)"
-                        @ondragenter="()=>OnDragEnter(col)" 
-                        @ondrop="()=>OnDrop(col)"
-                        @ondragend="OnDragEnd">
-                            <DynamicElement TagName="div" class="@GetHeaderWrapperClassString(col)" TriggerClick="col.Sortable" OnClick="@OnClickHeader(col)">
+                        <DynamicElement TagName="th" class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, 6)"
+                                        TriggerClick="col.Sortable" OnClick="@OnClickHeader(col)"
+                                        
+                                        draggable="@DraggableString" @ondragstart="()=>OnDragStart(col)" @ondragenter="()=>OnDragEnter(col)" @ondragend="OnDragEnd" @ondrop="()=>OnDrop(col)">
+                            <div class="@GetHeaderWrapperClassString(col)">
                                 @if(col.ShowCopyColumn)
                                 {
                                     if (ShowCopyColumnTooltip)
@@ -528,12 +526,12 @@
                                 {
                                     <i class="@GetIconClassString(fieldName)"></i>
                                 }
-                            </DynamicElement>
+                            </div>
                             @if (!col.Fixed && AllowResizing)
                             {
                                 <span class="col-resizer"></span>
                             }
-                        </th>
+                        </DynamicElement>
                     }
                 }
                 @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)

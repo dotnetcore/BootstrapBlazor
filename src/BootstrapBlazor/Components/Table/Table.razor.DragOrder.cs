@@ -30,6 +30,8 @@ public partial class Table<TItem>
     /// </summary>
     private string? dragEffect = "move";
 
+    private string? DraggableString => AllowDragOrder ? "true" : null;
+
     /// <summary>
     /// 是否接受拖放
     /// </summary>
