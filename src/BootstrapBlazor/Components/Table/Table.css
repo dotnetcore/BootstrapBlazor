@@ -19,6 +19,7 @@
     --bb-table-copy-column-margin-right: .5rem;
     --bb-table-column-fixed-border-color: #dee2e6;
     --bb-loader-bg: #f8f9fa;
+    --bb-table-drop-bg: #409eff;
 }
 
     .table-container .table:not(.table-excel) .switch {
