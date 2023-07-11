@@ -34,7 +34,7 @@
     </div>
 </div>
 
-<Live2DDisplay class=@BindCssItem.Value Source=@BindSrcItem.Value
+<Live2DDisplay Source=@BindSrcItem.Value
                Scale=@_scale Position=@position AddHitAreaFrames=@addHitAreaFrames
                XOffset=@_xOffset BackgroundColor=@backgroundColor
                YOffset=@_yOffset BackgroundAlpha=@backgroundAlpha />
@@ -79,16 +79,14 @@
         }
     }
 
-    private LivePosition position { get; set; }
-
-    private SelectedItem BindCssItem { get; set; } = new SelectedItem();
+    private LivePosition position { get; set; } = LivePosition.BottomLeft;
 
     private SelectedItem BindSrcItem { get; set; } = new SelectedItem();
 
     private IEnumerable<SelectedItem>? SrcItems { get; } = new SelectedItem[]
     {
-        new SelectedItem("./_content/BootstrapBlazor.Live2DDisplay/models/shizuku/shizuku.model.json","shizuku"),
-        new SelectedItem("./_content/BootstrapBlazor.Live2DDisplay/models/haru/haru_greeter_t03.model3.json","haru"),
+        new SelectedItem("./_content/BootstrapBlazor.Shared/models/shizuku/shizuku.model.json","shizuku"),
+        new SelectedItem("./_content/BootstrapBlazor.Shared/models/haru/haru_greeter_t03.model3.json","haru"),
         new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/bilibili-22/index.json","bilibili-22"),
         new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/bilibili-33/index.json","bilibili-33"),
         new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/chiaki_kitty/chiaki_kitty.model.json","chiaki_kitty"),
