@@ -40,12 +40,6 @@ export function init(id) {
             buttons.item(1).click()
         }
     });
-
-    // hack input in modal
-    tableFilter.body = el.querySelector('.card-body')
-    EventHandler.on(tableFilter.body, 'focusin', 'input', e => {
-        e.stopPropagation()
-    })
 }
 
 export function dispose(id) {
@@ -55,6 +49,5 @@ export function dispose(id) {
     if (tableFilter) {
         EventHandler.off(tableFilter.action, 'click', tableFilter.dismissSelector)
         Popover.dispose(tableFilter.dropdown)
-        EventHandler.off(tableFilter.body, 'focusin')
     }
 }
