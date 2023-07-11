@@ -83,6 +83,10 @@ public partial class Live2DDisplay
         ClassString = CssBuilder.Default("bb-model-default")
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
+        if(Position != LivePosition.Default)
+        {
+            ClassString = $"bb-model-{Position}";
+        }
     }
 
     /// <inheritdoc/>
