@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits IdComponentBase
 
-<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString" @ontouchstart="TouchEvent" @ontouchend="TouchEvent">
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString" @ontouchstart="OnTouchStart" @ontouchend="OnTouchEnd">
     <CascadingValue Value="this" IsFixed="true">
         @ChildContent
     </CascadingValue>
