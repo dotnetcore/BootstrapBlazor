@@ -441,8 +441,7 @@
     </colgroup>;
 
     RenderFragment<bool> RenderHeader => hasScroll =>
-    @<RenderTemplate>
-    <thead class="@HeaderClass">
+    @<thead class="@HeaderClass">
         @if (MultiHeaderTemplate != null)
         {
             @MultiHeaderTemplate
@@ -600,7 +599,7 @@
                 }
             </tr>
         }
-    </thead></RenderTemplate>;
+    </thead>;
 
     RenderFragment<TItem> RenderRow => item =>
     @<DynamicElement TagName="tr" class="@GetRowClassString(item)"
