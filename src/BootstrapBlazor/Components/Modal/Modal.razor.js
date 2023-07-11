@@ -46,6 +46,8 @@ export function init(id, invoke, shownCallback, closeCallback) {
             }
             if (!modal.modal) {
                 modal.modal = bootstrap.Modal.getOrCreateInstance(el)
+                // hack: fix focusin event
+                modal.modal._focustrap._handleFocusin = e => { }
             }
             modal.modal._config.keyboard = el.getAttribute('data-bs-keyboard') === 'true'
             modal.modal._config.backdrop = backdrop
