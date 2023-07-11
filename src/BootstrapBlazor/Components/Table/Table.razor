@@ -441,7 +441,8 @@
     </colgroup>;
 
     RenderFragment<bool> RenderHeader => hasScroll =>
-    @<thead class="@HeaderClass">
+    @<RenderTemplate>
+    <thead class="@HeaderClass">
         @if (MultiHeaderTemplate != null)
         {
             @MultiHeaderTemplate
@@ -480,9 +481,12 @@
                     {
                         var fieldName = col.GetFieldName();
                         var displayName = col.GetDisplayName();
-                        <DynamicElement TagName="th" class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, 6)"
-                                        TriggerClick="col.Sortable" OnClick="@OnClickHeader(col)">
-                            <div class="@GetHeaderWrapperClassString(col)">
+                        <th class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, 6)" draggable="@AllowDragOrder.ToString().ToLower()"
+                        ondragover="let e=window.event;e.preventDefault ? e.preventDefault() : (e.returnValue = true);e.dataTransfer.dropEffect ='@dragEffect';"
+                        @ondragstart="()=>OnDragStart(col)"
+                        @ondragenter="()=>OnDragEnter(col)" 
+                        @ondrop="()=>OnDrop(col)">
+                            <DynamicElement TagName="div" class="@GetHeaderWrapperClassString(col)" TriggerClick="col.Sortable" OnClick="@OnClickHeader(col)">
                                 @if(col.ShowCopyColumn)
                                 {
                                     if (ShowCopyColumnTooltip)
@@ -524,12 +528,12 @@
                                 {
                                     <i class="@GetIconClassString(fieldName)"></i>
                                 }
-                            </div>
+                            </DynamicElement>
                             @if (!col.Fixed && AllowResizing)
                             {
                                 <span class="col-resizer"></span>
                             }
-                        </DynamicElement>
+                        </th>
                     }
                 }
                 @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
@@ -595,7 +599,7 @@
                 }
             </tr>
         }
-    </thead>;
+    </thead></RenderTemplate>;
 
     RenderFragment<TItem> RenderRow => item =>
     @<DynamicElement TagName="tr" class="@GetRowClassString(item)"

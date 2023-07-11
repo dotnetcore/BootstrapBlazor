@@ -816,3 +816,7 @@ form .table .table-cell > textarea {
     cursor: pointer;
     margin-right: var(--bb-table-copy-column-margin-right);
 }
+
+.bb-dd-col-drag, .table-wrapper th.bb-dd-col-drag {
+    border-left: 4px solid red
+}
