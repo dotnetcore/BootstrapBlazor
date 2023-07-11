@@ -73,6 +73,17 @@ public partial class Table<TItem>
     }
 
     /// <summary>
+    /// 拖放结束
+    /// </summary>
+    /// <returns></returns>
+    protected Task OnDragEnd()
+    {
+        dragItem = null;
+        dragOverItem = null;
+        return Task.CompletedTask;
+    }
+
+    /// <summary>
     /// 拖放释放至目标
     /// </summary>
     /// <param name="item"></param>
@@ -88,6 +99,7 @@ public partial class Table<TItem>
 
         dragItem = null;
         dragOverItem = null;
+
         return Task.CompletedTask;
     }
 }

@@ -5300,7 +5300,8 @@
     "GotoNavigatorLabelTextAttr": "Goto label text",
     "ShowPageInfoAttr": "Whethere show the pagination info",
     "PageInfoTemplateAttr": "The template for custom page info",
-    "PageInfoTextAttr": "Pagination label text"
+    "PageInfoTextAttr": "Pagination label text",
+    "AllowDragOrderAttr": "Allow dragging column headings to adjust table column order"
   },
   "BootstrapBlazor.Shared.Demos.Table.TablesBase.TableBaseNormal": {
     "TableBaseNormalRefreshText": "Refresh"
@@ -5384,7 +5385,10 @@
     "CustomerButtonTitle": "Custom button processing method",
     "CustomerButtonContent": "The button processing logic is distinguished by different functions. The parameter Items is the selected row data collection in the Table component, and the currently selected data is {0}",
     "OnRowButtonClickContent": "The button processing logic is distinguished by different functions, and the parameter Item is the current row data",
-    "ResetVisibleColumnsDesc": "Call the instancel method <code>ResetVisibleColumns</code> of <code>Table</code> for set the multiple columns visible value"
+    "ResetVisibleColumnsDesc": "Call the instancel method <code>ResetVisibleColumns</code> of <code>Table</code> for set the multiple columns visible value",
+    "AllowDragOrderTitle": "Allow dragging column headings to adjust table column order",
+    "AllowDragOrderIntro": "By specifying <code>AllowDragOrder</code>, set the table columns to allow dragging column headings to adjust the table column order",
+    "AllowDragOrderDesc": "Pressing the mouse over a column heading and dragging it to another column heading position can adjust the column to be in front of the target column, but the built-in columns in the Table component, such as DetailRow, LineNo, MultipleSelect, and Operation columns, cannot be adjusted"
   },
   "BootstrapBlazor.Shared.Demos.Table.TablesColumn.TablesColumnVisible": {
     "ResetVisibleColumnsButtonText": "Set Columns"

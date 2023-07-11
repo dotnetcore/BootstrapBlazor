@@ -819,5 +819,6 @@ form .table .table-cell > textarea {
 }
 
 .bb-dd-col-drag, .table-wrapper th.bb-dd-col-drag {
-    border-left: 4px solid red
+    border-left: 4px solid red;
+    background-color: var(--bb-table-drop-bg)
 }

@@ -485,7 +485,8 @@
                         ondragover="let e=window.event;e.preventDefault ? e.preventDefault() : (e.returnValue = true);e.dataTransfer.dropEffect ='@dragEffect';"
                         @ondragstart="()=>OnDragStart(col)"
                         @ondragenter="()=>OnDragEnter(col)" 
-                        @ondrop="()=>OnDrop(col)">
+                        @ondrop="()=>OnDrop(col)"
+                        @ondragend="OnDragEnd">
                             <DynamicElement TagName="div" class="@GetHeaderWrapperClassString(col)" TriggerClick="col.Sortable" OnClick="@OnClickHeader(col)">
                                 @if(col.ShowCopyColumn)
                                 {
