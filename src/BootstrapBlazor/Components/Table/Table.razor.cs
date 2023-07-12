@@ -43,7 +43,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .AddClass("table-bordered", IsBordered)
         .AddClass("table-striped table-hover", IsStriped)
         .AddClass("table-layout-fixed", IsFixedHeader)
-        .AddClass("table-draggable", IsDraggable)
+        .AddClass("table-draggable", AllowDragColumn)
         .Build();
 
     /// <summary>
@@ -1190,6 +1190,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await ContextMenuZone.OnContextMenu(e, item);
         }
     }
+
+    /// <summary>
+    /// 获得/设置 是否允许拖放标题栏更改栏位顺序，默认为 false
+    /// </summary>
+    [Parameter]
+    public bool AllowDragColumn { get; set; }
+
+    private string? DraggableString => AllowDragColumn ? "true" : null;
 
     /// <summary>
     /// Dispose 方法
