@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// ContextMenuTrigger 组件
 /// </summary>
-public class ContextMenuTrigger : BootstrapComponentBase, IDisposable
+public class ContextMenuTrigger : BootstrapComponentBase
 {
     /// <summary>
     /// 获得/设置 子组件
@@ -80,56 +80,29 @@ public class ContextMenuTrigger : BootstrapComponentBase, IDisposable
             IsBusy = true;
             TouchStart = true;
 
-            try
+            // 延时保持 TouchStart 状态
+            await Task.Delay(200);
+            if (TouchStart)
             {
-                // 延时保持 TouchStart 状态
-                await Task.Delay(200, CancellationSource.Token);
-                if (TouchStart)
+                var args = new MouseEventArgs()
                 {
-                    var args = new MouseEventArgs()
-                    {
-                        ClientX = e.Touches[0].ClientX,
-                        ClientY = e.Touches[0].ClientY,
-                        ScreenX = e.Touches[0].ScreenX,
-                        ScreenY = e.Touches[0].ScreenY,
-                    };
-                    // 弹出关联菜单
-                    await OnContextMenu(args);
+                    ClientX = e.Touches[0].ClientX,
+                    ClientY = e.Touches[0].ClientY,
+                    ScreenX = e.Touches[0].ScreenX,
+                    ScreenY = e.Touches[0].ScreenY,
+                };
+                // 弹出关联菜单
+                await OnContextMenu(args);
 
-                    //延时防止重复激活菜单功能
-                    await Task.Delay(200, CancellationSource.Token);
-                }
-                IsBusy = false;
+                //延时防止重复激活菜单功能
+                await Task.Delay(200);
             }
-            catch (TaskCanceledException) { }
+            IsBusy = false;
         }
     }
 
     private void OnTouchEnd()
     {
         TouchStart = false;
-    }
-
-    /// <summary>
-    /// 释放资源
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            CancellationSource.Cancel();
-            CancellationSource.Dispose();
-        }
-    }
-
-    /// <summary>
-    /// 释放资源
-    /// </summary>
-    /// <returns></returns>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
     }
 }
