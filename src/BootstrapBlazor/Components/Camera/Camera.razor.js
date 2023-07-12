@@ -4,12 +4,12 @@ import EventHandler from "../../modules/event-handler.js?v=$version"
 const stop = (video, track) => {
     video.pause()
     video.srcObject = null
-    if(track) {
+    if (track) {
         track.stop()
     }
 }
 
-export function init(id, invoke, auto, videoWidth, videoHeight) {
+export function init(id, invoke, auto, videoWidth, videoHeight, captureJpeg, quality) {
     const el = document.getElementById(id)
     if (el === null) {
         return
@@ -19,63 +19,80 @@ export function init(id, invoke, auto, videoWidth, videoHeight) {
 
     camera.playButton = el.querySelector('button[data-method="play"]')
 
-    navigator.mediaDevices.enumerateDevices().then(videoInputDevices => {
-        const videoInputs = videoInputDevices.filter(device => {
-            return device.kind === 'videoinput'
-        })
-        invoke.invokeMethodAsync("InitDevices", videoInputs).then(() => {
-            if (auto && videoInputs.length > 0) {
-                camera.playButton.click()
-            }
-        })
+    let constrains = {
+        video: { facingMode: 'environment', focusMode: "continuous", width: videoWidth, height: videoHeight },
+        audio: false
+    }
 
-        // handler button click event
-        camera.video = el.querySelector('video')
-        const canvas = el.querySelector('canvas')
-        camera.canvas = canvas
-        canvas.width = videoWidth
-        canvas.height = videoHeight
-        const context = canvas.getContext('2d')
+    navigator.mediaDevices.getUserMedia(constrains).then(s => {
+        navigator.mediaDevices.enumerateDevices().then(videoInputDevices => {
+            const videoInputs = videoInputDevices.filter(device => {
+                return device.kind === 'videoinput'
+            })
+            invoke.invokeMethodAsync("InitDevices", videoInputs).then(() => {
+                if (auto && videoInputs.length > 0) {
+                    camera.playButton.click()
+                }
+            })
 
-        EventHandler.on(el, 'click', 'button[data-method]', async e => {
-            const button = e.delegateTarget
-            const data_method = button.getAttribute('data-method')
-            if (data_method === 'play') {
-                const deviceId = el.getAttribute('data-device-id')
-                const constrains = { video: { facingMode: 'environment', width: videoWidth, height: videoHeight }, audio: false }
-                if (deviceId) {
-                    constrains.video.deviceId = { exact: deviceId }
-                }
-                navigator.mediaDevices.getUserMedia(constrains).then(stream => {
-                    camera.video.srcObject = stream
-                    camera.video.play()
-                    camera.mediaStreamTrack = stream.getTracks()[0]
-                    invoke.invokeMethodAsync("Start")
-                }).catch(err => {
-                    invoke.invokeMethodAsync("GetError", err.message)
-                })
-            }
-            else if (data_method === 'stop') {
-                stop(camera.video, camera.mediaStreamTrack)
-                invoke.invokeMethodAsync("Stop")
-            }
-            else if (data_method === 'capture') {
-                context.drawImage(camera.video, 0, 0, videoWidth, videoHeight)
-                let url = canvas.toDataURL()
-                const maxLength = 30 * 1024
-                while (url.length > maxLength) {
-                    const data = url.substring(0, maxLength)
-                    await invoke.invokeMethodAsync("Capture", data)
-                    url = url.substring(data.length)
-                }
+            // handler button click event
+            camera.video = el.querySelector('video')
+            const canvas = el.querySelector('canvas')
+            camera.canvas = canvas
+            canvas.width = videoWidth
+            canvas.height = videoHeight
+            const context = canvas.getContext('2d')
 
-                if (url.length > 0) {
-                    await invoke.invokeMethodAsync("Capture", url)
+            EventHandler.on(el, 'click', 'button[data-method]', async e => {
+                const button = e.delegateTarget
+                const data_method = button.getAttribute('data-method')
+                if (data_method === 'play') {
+                    const deviceId = el.getAttribute('data-device-id')
+                    constrains = { video: { facingMode: 'environment', focusMode: "continuous", width: videoWidth, height: videoHeight }, audio: false }
+                    if (deviceId) {
+                        constrains.video.deviceId = { exact: deviceId }
+                    }
+                    navigator.mediaDevices.getUserMedia(constrains).then(stream => {
+                        camera.video.srcObject = stream
+                        camera.video.play()
+                        camera.mediaStreamTrack = stream.getTracks()[0]
+                        invoke.invokeMethodAsync("Start")
+                    }).catch(err => {
+                        invoke.invokeMethodAsync("GetError", err.message)
+                    })
                 }
-                await invoke.invokeMethodAsync("Capture", "__BB__%END%__BB__")
-            }
+                else if (data_method === 'stop') {
+                    stop(camera.video, camera.mediaStreamTrack)
+                    invoke.invokeMethodAsync("Stop")
+                }
+                else if (data_method === 'capture') {
+                    context.drawImage(camera.video, 0, 0, videoWidth, videoHeight)
+                    let url = "";
+                    if (captureJpeg) {
+                        url = canvas.toDataURL("image/jpeg", quality);
+
+                    }
+                    else {
+                        url = canvas.toDataURL()
+                        const maxLength = 30 * 1024
+                        while (url.length > maxLength) {
+                            const data = url.substring(0, maxLength)
+                            await invoke.invokeMethodAsync("Capture", data)
+                            url = url.substring(data.length)
+                        }
+                    }
+
+                    if (url.length > 0) {
+                        await invoke.invokeMethodAsync("Capture", url)
+                    }
+                    await invoke.invokeMethodAsync("Capture", "__BB__%END%__BB__")
+                }
+            })
         })
+    }).catch(err => {
+        invoke.invokeMethodAsync("GetError", err.message)
     })
+
 }
 
 export function dispose(id) {

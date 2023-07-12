@@ -7,37 +7,69 @@
         <RadioList Items="@SrcItems" @bind-Value="@BindSrcItem" />
     </div>
     <div class="col-12">
-        <h4>Scale</h4>
-        <Slider @bind-Value="@Scale" Max="100"></Slider>
-    </div>
-    <div class="col-12 col-sm-6">
-        <h4>X Offset</h4>
-        <Slider @bind-Value="@XOffset" Max="500"></Slider>
-    </div>
-    <div class="col-12 col-sm-6">
-        <h4>Y Offset</h4>
-        <Slider @bind-Value="@YOffset" Max="500"></Slider>
-    </div>
-    <div class="col-12">
-        <h4>Other options</h4>
-        <div class="d-flex flex-row mb-3">
-            <div class="p-2">
-                <Checkbox TValue="bool" @bind-Value="@addHitAreaFrames" ShowLabel="true" DisplayText="HitAreaFrames" />
+        <div class="row g-3 mb-3">
+            <div class="col-6">
+                <h4>Model options</h4>
+                <div class="mb-2">
+                    <BootstrapInputGroup>
+                        <BootstrapInputGroupLabel class="labelwidth" DisplayText="Scale" />
+                        <Slider @bind-Value="@Scale" Max="100" />
+                    </BootstrapInputGroup>
+                </div>
+                <div class="mb-2">
+                    <BootstrapInputGroup>
+                        <BootstrapInputGroupLabel class="labelwidth" DisplayText="X Offset" />
+                        <Slider @bind-Value="@XOffset" Min="-500" Max="500"></Slider>
+                    </BootstrapInputGroup>
+                </div>
+                <div class="mb-2">
+                    <BootstrapInputGroup>
+                        <BootstrapInputGroupLabel class="labelwidth" DisplayText="Y Offset" />
+                        <Slider @bind-Value="@YOffset" Min="-500" Max="500" />
+                    </BootstrapInputGroup>
+                </div>
             </div>
-            <div class="p-2">
-                <Checkbox TValue="bool" @bind-Value="@backgroundAlpha" ShowLabel="true" DisplayText="BackgroundAlpha" />
-            </div>
-            <div class="p-2">
-                <ColorPicker @bind-Value="@backgroundColor" ShowLabel="true" DisplayText="BackgroundColor" />
+            <div class="col-auto">
+                <h4>Other options</h4>
+                <div class="mb-2">
+                    <BootstrapInputGroup>
+                        <BootstrapInputGroupLabel class="labelwidth" DisplayText="HitAreaFrames" />
+                        <Checkbox TValue="bool" @bind-Value="@addHitAreaFrames" />
+                    </BootstrapInputGroup>
+                </div>
+                <div class="mb-2">
+                    <BootstrapInputGroup>
+                        <BootstrapInputGroupLabel class="labelwidth" DisplayText="BackgroundAlpha" />
+                        <Checkbox TValue="bool" @bind-Value="@backgroundAlpha" ShowLabel="true" DisplayText="BackgroundAlpha" />
+                    </BootstrapInputGroup>
+                </div>
+                <div class="mb-2">
+                    <div class="input-group input-group-sm mb-3">
+                        <span class="input-group-text labelwidth">BackgroundColor</span>
+                        <div class="pick-radius">
+                            <ColorPicker @bind-Value="@backgroundColor" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<Live2DDisplay class=@BindCssItem.Value Source=@BindSrcItem.Value
-               Scale=@_scale Position=@position AddHitAreaFrames=@addHitAreaFrames
+<Live2DDisplay Source=@BindSrcItem.Value Scale=@_scale
+               Position=@position AddHitAreaFrames=@addHitAreaFrames
                XOffset=@_xOffset BackgroundColor=@backgroundColor
                YOffset=@_yOffset BackgroundAlpha=@backgroundAlpha />
+
+<style>
+    .labelwidth {
+        width: 150px;
+    }
+
+    .pick-radius :first-child {
+        border-radius: 0px;
+    }
+</style>
 
 @code {
     private string backgroundColor { get; set; } = "#000000";
@@ -79,16 +111,14 @@
         }
     }
 
-    private LivePosition position { get; set; }
-
-    private SelectedItem BindCssItem { get; set; } = new SelectedItem();
+    private LivePosition position { get; set; } = LivePosition.BottomLeft;
 
     private SelectedItem BindSrcItem { get; set; } = new SelectedItem();
 
     private IEnumerable<SelectedItem>? SrcItems { get; } = new SelectedItem[]
     {
-        new SelectedItem("./_content/BootstrapBlazor.Live2DDisplay/models/shizuku/shizuku.model.json","shizuku"),
-        new SelectedItem("./_content/BootstrapBlazor.Live2DDisplay/models/haru/haru_greeter_t03.model3.json","haru"),
+        new SelectedItem("./_content/BootstrapBlazor.Shared/models/shizuku/shizuku.model.json","shizuku"),
+        new SelectedItem("./_content/BootstrapBlazor.Shared/models/haru/haru_greeter_t03.model3.json","haru"),
         new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/bilibili-22/index.json","bilibili-22"),
         new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/bilibili-33/index.json","bilibili-33"),
         new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/chiaki_kitty/chiaki_kitty.model.json","chiaki_kitty"),

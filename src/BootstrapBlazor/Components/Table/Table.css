@@ -816,3 +816,21 @@ form .table .table-cell > textarea {
     cursor: pointer;
     margin-right: var(--bb-table-copy-column-margin-right);
 }
+
+.table-drag-over {
+    animation: drag-column 1s linear infinite;
+}
+
+.table-dragging th[draggable] * {
+    pointer-events: none;
+}
+
+.table-drag {
+    background-color: #ddd !important;
+}
+
+@keyframes drag-column {
+    50% {
+        border-bottom-color: var(--bs-primary);
+    }
+}

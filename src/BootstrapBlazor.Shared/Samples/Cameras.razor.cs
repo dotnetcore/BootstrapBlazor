@@ -128,6 +128,21 @@ public sealed partial class Cameras
             Type = "Func<string, Task>",
             ValueList = " — ",
             DefaultValue = " — "
-        }
+        },
+        new AttributeItem() {
+            Name = nameof(Camera.CaptureJpeg),
+            Description = Localizer["CaptureJpeg"],
+            Type = "bool",
+            ValueList = " — ",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = nameof(Camera.Quality),
+            Description = Localizer["Quality"],
+            Type = "double",
+            ValueList = " — ",
+            DefaultValue = " 0.9d"
+        },
+
     };
 }
