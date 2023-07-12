@@ -3,13 +3,14 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Options;
+using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Shared.Shared;
 
 /// <summary>
 /// 
 /// </summary>
-public sealed partial class ComponentLayout
+public partial class ComponentLayout : IAsyncDisposable
 {
     [NotNull]
     private string? VideoFileName { get; set; }
@@ -27,6 +28,22 @@ public sealed partial class ComponentLayout
     [Inject]
     [NotNull]
     private NavigationManager? Navigator { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IJSRuntime? JSRuntime { get; set; }
+
+    /// <summary>
+    /// Instance of <see cref="JSModule"/>
+    /// </summary>
+    private JSModule? Module { get; set; }
+
+    /// <summary>
+    /// 获得 IVersionService 服务实例
+    /// </summary>
+    [Inject]
+    [NotNull]
+    private IVersionService? JSVersionService { get; set; }
 
     [Inject]
     [NotNull]
@@ -70,11 +87,56 @@ public sealed partial class ComponentLayout
         VideoFileName = comName;
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Module = await JSRuntime.LoadModule("./_content/BootstrapBlazor.Shared/Shared/ComponentLayout.razor.js", JSVersionService.GetVersion());
+        }
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync("init");
+        }
+    }
+
     private Task OnIconThemeChanged(string key)
     {
         IconThemeOptions.Value.ThemeKey = key;
 
         Navigator.NavigateTo(Navigator.Uri, true);
         return Task.CompletedTask;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected virtual async ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            // 销毁 JSModule
+            if (Module != null)
+            {
+                await Module.DisposeAsync();
+                Module = null;
+            }
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
     }
 }
