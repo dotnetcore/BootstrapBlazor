@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="7.*" />
+    <!--<PackageReference Include="BootstrapBlazor" Version="7.*" />-->
     <PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="7.0.0" />
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="7.1.0" />
     <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="7.1.1" />
@@ -50,6 +50,10 @@
     <PackageReference Include="BootstrapBlazor.Topology" Version="7.4.4" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="7.0.4" />
     <PackageReference Include="BootstrapBlazor.MouseFollower" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
   </ItemGroup>
 
   <ItemGroup>
