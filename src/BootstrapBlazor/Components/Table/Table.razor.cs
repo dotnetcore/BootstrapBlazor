@@ -43,6 +43,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .AddClass("table-bordered", IsBordered)
         .AddClass("table-striped table-hover", IsStriped)
         .AddClass("table-layout-fixed", IsFixedHeader)
+        .AddClass("table-draggable", IsDraggable)
         .Build();
 
     /// <summary>
