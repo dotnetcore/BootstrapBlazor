@@ -1190,6 +1190,16 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
+    private async Task OnTouchStart(TouchEventArgs e, TItem item)
+    {
+
+    }
+
+    private void OnTouchEnd()
+    {
+
+    }
+
     /// <summary>
     /// Dispose 方法
     /// </summary>
