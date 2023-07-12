@@ -38,7 +38,7 @@
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="7.0.3" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="7.4.2" />
     <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="7.0.0" />
-    <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="7.0.0" />
+    <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="7.0.1" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="7.2.1" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="7.0.0" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign.Extensions" Version="7.3.0" />
