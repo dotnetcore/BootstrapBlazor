@@ -375,10 +375,18 @@ const setDraggable = table => {
         })
         EventHandler.on(col, 'dragenter', e => {
             e.preventDefault()
-            col.classList.add('table-drag-over')
+            if (dragItem !== col) {
+                col.classList.add('table-drag-over')
+            }
         })
         EventHandler.on(col, 'dragover', e => {
             e.preventDefault()
+            if (dragItem !== col) {
+                e.dataTransfer.dropEffect = 'move'
+            }
+            else {
+                e.dataTransfer.dropEffect = 'none'
+            }
             return false
         })
         EventHandler.on(col, 'dragleave', e => {
