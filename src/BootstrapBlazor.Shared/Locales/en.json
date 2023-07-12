@@ -3967,6 +3967,8 @@
     "BasicUsageLi3": "Click the close button to close the camera",
     "ShowPreviewTitle": "Show preview",
     "ShowPreviewIntro": "Set the <code>ShowPreview</code> property to control whether to display the photo preview",
+    "CaptureJpegTitle": "Set photo format as <code>Jpeg</code>, default is <code>Png</code>",
+    "CaptureJpegIntro": "Set the <code>CaptureJpeg</code> property to control the photo format as <code>Jpeg</code>, default is <code>Png</code>. The <code>Quality</code> property controls the image quality, default is <code>0.9</code>",
     "AutoStartTitle": "Start automatically",
     "AutoStartIntro": "Set the <code>AutoStart</code> property to control whether the camera is directly turned on when the component is running",
     "ShowPreview": "Whether to show photo preview",
@@ -3981,11 +3983,13 @@
     "NotFoundDevicesString": "No video related device text found",
     "NotFoundDevicesStringDefaultValue": "Video related equipment not found",
     "OnInit": "Initialize the camera callback method",
-    "OnStart": "Start scanning code callback method",
-    "OnClose": "Turn off the scan code callback method",
-    "OnCapture": "Callback method for successful scan code",
+    "OnStart": "Start capture callback method",
+    "OnClose": "Turn off the capture callback method",
+    "OnCapture": "Callback method for successful capture",
     "VideoWidth": "The width of Video window",
-    "VideoHeight": "The height of Video window"
+    "VideoHeight": "The height of Video window",
+    "CaptureJpeg": "Set the capture image format as Jpeg, default is Png",
+    "Quality": "Capture image quality, default is 0.9"
   },
   "BootstrapBlazor.Shared.Demos.Camera.CameraNormal": {
     "TraceOnInit": "Initialized carmera",

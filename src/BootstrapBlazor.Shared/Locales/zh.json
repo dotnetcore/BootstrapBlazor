@@ -3971,6 +3971,8 @@
     "BasicUsageLi3": "点击关闭按钮关闭摄像头",
     "ShowPreviewTitle": "显示预览",
     "ShowPreviewIntro": "通过设置 <code>ShowPreview</code> 属性控制是否显示照片预览",
+    "CaptureJpegTitle": "拍照格式为 Jpeg",
+    "CaptureJpegIntro": "通过设置 <code>CaptureJpeg</code> 属性控制拍照格式为 <code>Jpeg</code>，默认为 <code>Png</code>. <code>Quality</code> 属性控制图像质量，默认为 <code>0.9</code>",
     "AutoStartTitle": "自动开始",
     "AutoStartIntro": "通过设置 <code>AutoStart</code> 属性控制是否组件运行时直接开启摄像头",
     "ShowPreview": "是否显示 照片预览",
@@ -3986,11 +3988,13 @@
     "NotFoundDevicesString": "未找到视频相关设备文字",
     "NotFoundDevicesStringDefaultValue": "未找到视频相关设备",
     "OnInit": "初始化摄像头回调方法",
-    "OnStart": "开始扫码回调方法",
-    "OnClose": "关闭扫码回调方法",
-    "OnCapture": "扫码成功回调方法",
+    "OnStart": "开始拍照回调方法",
+    "OnClose": "关闭拍照回调方法",
+    "OnCapture": "拍照成功回调方法",
     "VideoWidth": "视频窗口宽度",
-    "VideoHeight": "视频窗口高度"
+    "VideoHeight": "视频窗口高度",
+    "CaptureJpeg": "拍照格式为 Jpeg",
+    "Quality": "拍照图像质量"
   },
   "BootstrapBlazor.Shared.Demos.Camera.CameraNormal": {
     "TraceOnInit": "初始化摄像头完成",
