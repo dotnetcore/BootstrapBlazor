@@ -4,7 +4,7 @@ import EventHandler from "../../modules/event-handler.js?v=$version"
 const stop = (video, track) => {
     video.pause()
     video.srcObject = null
-    if(track) {
+    if (track) {
         track.stop()
     }
 }
@@ -42,7 +42,10 @@ export function init(id, invoke, auto, videoWidth, videoHeight) {
             const data_method = button.getAttribute('data-method')
             if (data_method === 'play') {
                 const deviceId = el.getAttribute('data-device-id')
-                const constrains = { video: { facingMode: 'environment', focusMode: "continuous", width: videoWidth, height: videoHeight }, audio: false }
+                const constrains = {
+                    video: { facingMode: 'environment', focusMode: "continuous", width: videoWidth, height: videoHeight },
+                    audio: false
+                }
                 if (deviceId) {
                     constrains.video.deviceId = { exact: deviceId }
                 }
