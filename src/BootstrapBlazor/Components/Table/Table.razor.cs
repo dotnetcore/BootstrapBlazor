@@ -49,7 +49,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// 获得 wrapper 样式表集合
     /// </summary>
-    protected string? WrapperClassName => CssBuilder.Default("table-shim")
+    protected string? WrapperClassName => CssBuilder.Default()
+        .AddClass("table-shim", ActiveRenderMode == TableRenderMode.Table)
         .AddClass("table-wrapper", IsBordered)
         .AddClass("is-clickable", ClickToSelect || DoubleClickToEdit || OnClickRowCallback != null || OnDoubleClickRowCallback != null)
         .AddClass("table-scroll", !IsFixedHeader || FixedColumn)
