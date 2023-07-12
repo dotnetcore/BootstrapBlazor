@@ -19,7 +19,10 @@ export function init(id, invoke, auto, videoWidth, videoHeight, captureJpeg, qua
 
     camera.playButton = el.querySelector('button[data-method="play"]')
 
-    let constrains = { video: { facingMode: 'environment', focusMode: "continuous", width: videoWidth, height: videoHeight }, audio: false }
+    let constrains = {
+        video: { facingMode: 'environment', focusMode: "continuous", width: videoWidth, height: videoHeight },
+        audio: false
+    }
 
     navigator.mediaDevices.getUserMedia(constrains).then(s => {
 
@@ -69,7 +72,8 @@ export function init(id, invoke, auto, videoWidth, videoHeight, captureJpeg, qua
                     if (captureJpeg) {
                         url = canvas.toDataURL("image/jpeg", quality);
 
-                    } else {
+                    }
+                    else {
                         url = canvas.toDataURL()
                         const maxLength = 30 * 1024
                         while (url.length > maxLength) {
@@ -89,7 +93,6 @@ export function init(id, invoke, auto, videoWidth, videoHeight, captureJpeg, qua
     }).catch(err => {
         invoke.invokeMethodAsync("GetError", err.message)
     })
-
 }
 
 export function dispose(id) {
