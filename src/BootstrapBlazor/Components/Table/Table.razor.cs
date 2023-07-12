@@ -1190,14 +1190,47 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
+    /// <summary>
+    /// 是否触摸
+    /// </summary>
+    private bool TouchStart { get; set; }
+
+    /// <summary>
+    /// 触摸定时器工作指示
+    /// </summary>
+    private bool IsBusy { get; set; }
+
     private async Task OnTouchStart(TouchEventArgs e, TItem item)
     {
+        if (!IsBusy && ContextMenuZone != null)
+        {
+            IsBusy = true;
+            TouchStart = true;
 
+            // 延时保持 TouchStart 状态
+            await Task.Delay(200);
+            if (TouchStart)
+            {
+                var args = new MouseEventArgs()
+                {
+                    ClientX = e.Touches[0].ClientX,
+                    ClientY = e.Touches[0].ClientY,
+                    ScreenX = e.Touches[0].ScreenX,
+                    ScreenY = e.Touches[0].ScreenY,
+                };
+                // 弹出关联菜单
+                await OnContextMenu(args, item);
+
+                //延时防止重复激活菜单功能
+                await Task.Delay(200);
+            }
+            IsBusy = false;
+        }
     }
 
     private void OnTouchEnd()
     {
-
+        TouchStart = false;
     }
 
     /// <summary>
