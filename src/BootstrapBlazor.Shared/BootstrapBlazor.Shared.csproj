@@ -3,7 +3,7 @@
   <Import Project="..\..\Framework.props" />
 
   <PropertyGroup>
-    <Version>7.0.4</Version>
+    <Version>7.0.5</Version>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!--<PackageReference Include="BootstrapBlazor" Version="7.*" />-->
+    <PackageReference Include="BootstrapBlazor" Version="7.*" />
     <PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="7.0.0" />
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="7.1.0" />
     <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="7.1.1" />
@@ -34,11 +34,11 @@
     <PackageReference Include="BootstrapBlazor.Bluetooth" Version="7.0.1" />
     <PackageReference Include="BootstrapBlazor.Chart" Version="7.6.0" />
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="7.2.1" />
-    <PackageReference Include="BootstrapBlazor.Dock" Version="7.0.4" />
+    <PackageReference Include="BootstrapBlazor.Dock" Version="7.0.5" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="7.0.3" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="7.4.2" />
     <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="7.0.0" />
-    <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="7.0.0" />
+    <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="7.0.1" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="7.2.1" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="7.0.0" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign.Extensions" Version="7.3.0" />
@@ -50,10 +50,6 @@
     <PackageReference Include="BootstrapBlazor.Topology" Version="7.4.4" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="7.0.4" />
     <PackageReference Include="BootstrapBlazor.MouseFollower" Version="7.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
   </ItemGroup>
 
   <ItemGroup>
