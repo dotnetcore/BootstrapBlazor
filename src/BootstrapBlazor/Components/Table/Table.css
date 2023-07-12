@@ -817,18 +817,8 @@ form .table .table-cell > textarea {
     margin-right: var(--bb-table-copy-column-margin-right);
 }
 
-th[draggable]:after {
-    content: '';
-    width: 3px;
-    background-color: var(--bs-primary);
-    position: absolute;
-    top: 0;
-    margin-left: calc(0px - var(--bb-table-td-padding-x));
-    animation: blinker 1s linear infinite;
-}
-
-.table-drag-over:after {
-    height: 38px;
+.table-drag-over {
+    animation: drag-column 1s linear infinite;
 }
 
 .table-dragging th[draggable] * {
@@ -837,4 +827,10 @@ th[draggable]:after {
 
 .table-drag {
     background-color: #ddd !important;
+}
+
+@keyframes drag-column {
+    50% {
+        border-bottom-color: var(--bs-primary);
+    }
 }
