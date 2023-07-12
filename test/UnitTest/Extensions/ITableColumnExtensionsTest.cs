@@ -147,7 +147,7 @@ public class ITableColumnExtensionsTest
     }
 
     [Fact]
-    public void ToSearchs_Ok()
+    public void ToSearches_Ok()
     {
         var cols = new MockTableColumn[]
         {
