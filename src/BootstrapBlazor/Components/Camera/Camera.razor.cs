@@ -60,7 +60,7 @@ public partial class Camera
     public int VideoHeight { get; set; } = 240;
 
     /// <summary>
-    /// 获得/设置 拍照格式为Jpeg,默认为Png
+    /// 获得/设置 拍照格式为 Jpeg 默认为 false 使用 png 格式
     /// </summary>
     [Parameter]
     public bool CaptureJpeg { get; set; }
