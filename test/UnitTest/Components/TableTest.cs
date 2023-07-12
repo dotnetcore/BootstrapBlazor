@@ -6743,15 +6743,11 @@ public class TableTest : TableTestBase
         {
             var table = cut.FindComponent<Table<Foo>>();
             table.Instance.ResetColumnsCallback(1, 0);
-        });
 
-        var columns = cut.FindAll("th");
-        Assert.Contains("地址", columns[0].InnerHtml);
-        Assert.Contains("姓名", columns[1].InnerHtml);
+            var columns = cut.FindAll("th");
+            Assert.Contains("地址", columns[0].InnerHtml);
+            Assert.Contains("姓名", columns[1].InnerHtml);
 
-        cut.InvokeAsync(() =>
-        {
-            var table = cut.FindComponent<Table<Foo>>();
             table.Instance.ResetColumnsCallback(2, 3);
         });
     }
