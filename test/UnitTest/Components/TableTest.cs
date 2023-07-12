@@ -6713,6 +6713,49 @@ public class TableTest : TableTestBase
         Assert.Single(table.Instance.SelectedRows);
     }
 
+    [Fact]
+    public void AllowDragColumn_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.AllowDragColumn, true);
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(3, "Field", "Address");
+                    builder.AddAttribute(4, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        cut.InvokeAsync(() =>
+        {
+            var table = cut.FindComponent<Table<Foo>>();
+            table.Instance.ResetColumnsCallback(1, 0);
+        });
+
+        var columns = cut.FindAll("th");
+        Assert.Contains("地址", columns[0].InnerHtml);
+        Assert.Contains("姓名", columns[1].InnerHtml);
+
+        cut.InvokeAsync(() =>
+        {
+            var table = cut.FindComponent<Table<Foo>>();
+            table.Instance.ResetColumnsCallback(2, 3);
+        });
+    }
+
     private static DataTable CreateDataTable(IStringLocalizer<Foo> localizer)
     {
         var userData = new DataTable();
