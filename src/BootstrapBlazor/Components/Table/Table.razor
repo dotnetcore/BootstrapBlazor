@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TItem
 @inherits BootstrapModuleComponentBase
-@attribute [BootstrapModuleAutoLoader]
+@attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
 <div @attributes="@AdditionalAttributes" class="@ClassName" style="@StyleString" id="@Id">
     <CascadingValue Value="this" IsFixed="true">
@@ -480,8 +480,8 @@
                     {
                         var fieldName = col.GetFieldName();
                         var displayName = col.GetDisplayName();
-                        <DynamicElement TagName="th" class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, 6)"
-                                        TriggerClick="col.Sortable" OnClick="@OnClickHeader(col)">
+                        <DynamicElement TagName="th" class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, 7)"
+                                        TriggerClick="col.Sortable" OnClick="@OnClickHeader(col)" draggable="@DraggableString">
                             <div class="@GetHeaderWrapperClassString(col)">
                                 @if(col.ShowCopyColumn)
                                 {
@@ -573,7 +573,7 @@
                 {
                     if (CheckShownWithBreakpoint(col))
                     {
-                        <th class="@GetHeaderClassString(col, true)" style="@GetFixedCellStyleString(col, 6)">
+                        <th class="@GetHeaderClassString(col, true)" style="@GetFixedCellStyleString(col, 7)">
                             <div class="table-cell">
                                 @if(col.Filterable)
                                 {
@@ -585,7 +585,7 @@
                 }
                 @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
                 {
-                    <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(6)">
+                    <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(7)">
                         <div class="table-cell">&nbsp;</div>
                     </th>
                 }
@@ -788,7 +788,7 @@
     </Button>;
 
     RenderFragment RenderExtendButtonsHeader =>
-    @<th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(6)">
+    @<th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(7)">
         <div class="@ExtendButtonsCellClassString">
             @ColumnButtonTemplateHeaderText
         </div>

@@ -120,7 +120,7 @@ public class ListViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Collapsable_Ok()
+    public void Collapsible_Ok()
     {
         var clicked = false;
         var items = Enumerable.Range(1, 6).Select(i => new Product()
