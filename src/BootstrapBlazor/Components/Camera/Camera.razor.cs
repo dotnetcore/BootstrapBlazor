@@ -65,9 +65,8 @@ public partial class Camera
     [Parameter]
     public bool CaptureJpeg { get; set; }
 
-
     /// <summary>
-    /// 获得/设置 图像质量,默认为 0.9
+    /// 获得/设置 图像质量 默认为 0.9
     /// </summary>
     [Parameter]
     public double Quality { get; set; } = 0.9d;
