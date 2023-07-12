@@ -599,7 +599,7 @@
 
     RenderFragment<TItem> RenderRow => item =>
     @<DynamicElement TagName="tr" class="@GetRowClassString(item)"
-                     TriggerContextMenu="ContextMenuZone != null" OnContextMenu="e => OnContextMenu(e, item)"
+                     TriggerContextMenu="ContextMenuZone != null" OnContextMenu="e => OnContextMenu(e, item)" @ontouchstart="e => OnTouchStart(e, item)" @ontouchend="OnTouchEnd"
                      TriggerClick="@(ClickToSelect || OnClickRowCallback != null)" OnClick="() => ClickRow(item)"
                      TriggerDoubleClick="@(DoubleClickToEdit || OnDoubleClickRowCallback != null)" OnDoubleClick="() => DoubleClickRow(item)">
         @if (ShowDetails())
