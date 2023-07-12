@@ -17,7 +17,7 @@ const fixHeader = table => {
                 margin = margin.replace('px', '')
                 const b = window.browser()
                 if (b.device !== 'PC') {
-                    margin = (parseFloat(margin) - 6) + 'px'
+                    margin = (parseFloat(margin) - 7) + 'px'
                 }
                 prev.classList.add('modified')
                 prev.style.right = margin
@@ -255,7 +255,7 @@ const setResizeListener = table => {
                         if (t.classList.contains('table-fixed')) {
                             tableEl.style.width = `${width}px;`
                         } else {
-                            tableEl.style.width = (width - 6) + 'px'
+                            tableEl.style.width = (width - 7) + 'px'
                         }
                     }
                 })

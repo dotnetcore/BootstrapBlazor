@@ -1336,9 +1336,9 @@ public class TableTest : TableTestBase
         {
             if (isFixedHeader)
             {
-                cut.Contains("right: 236px;");
-                cut.Contains("right: 136px;");
-                cut.Contains("right: 6px;");
+                cut.Contains("right: 237px;");
+                cut.Contains("right: 137px;");
+                cut.Contains("right: 7px;");
             }
             else
             {
@@ -1354,8 +1354,8 @@ public class TableTest : TableTestBase
 
             if (isFixedHeader)
             {
-                cut.Contains("right: 106px;");
-                cut.Contains("right: 6px;");
+                cut.Contains("right: 107px;");
+                cut.Contains("right: 7px;");
             }
         }
     }
