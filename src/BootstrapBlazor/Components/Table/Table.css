@@ -19,7 +19,6 @@
     --bb-table-copy-column-margin-right: .5rem;
     --bb-table-column-fixed-border-color: #dee2e6;
     --bb-loader-bg: #f8f9fa;
-    --bb-table-drop-bg: #409eff;
 }
 
     .table-container .table:not(.table-excel) .switch {
@@ -818,7 +817,24 @@ form .table .table-cell > textarea {
     margin-right: var(--bb-table-copy-column-margin-right);
 }
 
-.bb-dd-col-drag, .table-wrapper th.bb-dd-col-drag {
-    border-left: 4px solid red;
-    background-color: var(--bb-table-drop-bg)
+th[draggable]:after {
+    content: '';
+    width: 3px;
+    background-color: var(--bs-primary);
+    position: absolute;
+    top: 0;
+    margin-left: calc(0px - var(--bb-table-td-padding-x));
+    animation: blinker 1s linear infinite;
+}
+
+.table-drag-over:after {
+    height: 38px;
+}
+
+.table-dragging th[draggable] * {
+    pointer-events: none;
+}
+
+.table-drag {
+    background-color: #ddd !important;
 }

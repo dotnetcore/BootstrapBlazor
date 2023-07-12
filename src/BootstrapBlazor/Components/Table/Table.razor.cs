@@ -780,7 +780,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (_init)
         {
             _init = false;
-            await InvokeVoidAsync("init", Id);
+            await InvokeVoidAsync("init", Id, Interop, nameof(ResetColumnsCallback));
         }
 
         if (_resetColumns)
@@ -1198,6 +1198,26 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public bool AllowDragColumn { get; set; }
 
     private string? DraggableString => AllowDragColumn ? "true" : null;
+
+    /// <summary>
+    /// 重置列方法 由 JavaScript 脚本调用
+    /// </summary>
+    /// <param name="originIndex"></param>
+    /// <param name="currentIndex"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public void ResetColumnsCallback(int originIndex, int currentIndex)
+    {
+        var firstColumn = GetVisibleColumns().ElementAtOrDefault(originIndex);
+        var targetColumn = GetVisibleColumns().ElementAtOrDefault(currentIndex);
+        if (firstColumn != null && targetColumn != null)
+        {
+            var index = Columns.IndexOf(targetColumn);
+            Columns.Remove(firstColumn);
+            Columns.Insert(index, firstColumn);
+            StateHasChanged();
+        }
+    }
 
     /// <summary>
     /// Dispose 方法
