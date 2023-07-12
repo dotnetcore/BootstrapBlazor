@@ -102,7 +102,6 @@ public partial class Table<TItem>
         .AddClass("sortable", col.Sortable && !isFilterHeader)
         .AddClass("filterable", col.Filterable)
         .AddClass(GetFixedCellClassString(col))
-        .AddClass(" bb-dd-col-drag bb-dd-dragged-over", dragOverItem == col && IsAllowDrop(col))
         .Build();
 
     /// <summary>
