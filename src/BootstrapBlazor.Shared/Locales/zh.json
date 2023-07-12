@@ -3382,12 +3382,6 @@
     "SlidersDescription": "通过拖动滑块在一个固定区间内进行选择",
     "SlidersNormalTitle": "基础用法",
     "SlidersNormalIntro": "在拖动滑块时，改变当前值",
-    "SlidersNormalLabel1": "自定义初始值",
-    "SlidersNormalLabel2": "禁用",
-    "SlidersBindingTitle": "Slider 双向绑定",
-    "SlidersBindingIntro": "通过拖动滑块在一个固定区间内进行选择",
-    "SlidersBindingLabel": "自定义初始值",
-    "SlidersClass": "样式",
     "SlidersIsDisabled": "是否禁用",
     "SlidersValue": "组件当前值",
     "SlidersValueChanged": "ValueChanged 回调方法"
@@ -3977,6 +3971,8 @@
     "BasicUsageLi3": "点击关闭按钮关闭摄像头",
     "ShowPreviewTitle": "显示预览",
     "ShowPreviewIntro": "通过设置 <code>ShowPreview</code> 属性控制是否显示照片预览",
+    "CaptureJpegTitle": "拍照格式为 Jpeg",
+    "CaptureJpegIntro": "通过设置 <code>CaptureJpeg</code> 属性控制拍照格式为 <code>Jpeg</code>，默认为 <code>Png</code>. <code>Quality</code> 属性控制图像质量，默认为 <code>0.9</code>",
     "AutoStartTitle": "自动开始",
     "AutoStartIntro": "通过设置 <code>AutoStart</code> 属性控制是否组件运行时直接开启摄像头",
     "ShowPreview": "是否显示 照片预览",
@@ -3992,11 +3988,13 @@
     "NotFoundDevicesString": "未找到视频相关设备文字",
     "NotFoundDevicesStringDefaultValue": "未找到视频相关设备",
     "OnInit": "初始化摄像头回调方法",
-    "OnStart": "开始扫码回调方法",
-    "OnClose": "关闭扫码回调方法",
-    "OnCapture": "扫码成功回调方法",
+    "OnStart": "开始拍照回调方法",
+    "OnClose": "关闭拍照回调方法",
+    "OnCapture": "拍照成功回调方法",
     "VideoWidth": "视频窗口宽度",
-    "VideoHeight": "视频窗口高度"
+    "VideoHeight": "视频窗口高度",
+    "CaptureJpeg": "拍照格式为 Jpeg",
+    "Quality": "拍照图像质量"
   },
   "BootstrapBlazor.Shared.Demos.Camera.CameraNormal": {
     "TraceOnInit": "初始化摄像头完成",
@@ -5338,7 +5336,8 @@
     "GotoNavigatorLabelTextAttr": "Goto 导航标签文字",
     "ShowPageInfoAttr": "是否显示分页详细信息",
     "PageInfoTemplateAttr": "分页详细信息自定义组件",
-    "PageInfoTextAttr": "分页信息显示文字"
+    "PageInfoTextAttr": "分页信息显示文字",
+    "AllowDragOrderAttr": "是否允许拖动列标题调整表格列顺序"
   },
   "BootstrapBlazor.Shared.Demos.Table.TablesBase.TableBaseNormal": {
     "TableBaseNormalRefreshText": "刷新"
@@ -5421,7 +5420,10 @@
     "CustomerButtonTitle": "自定义按钮处理方法",
     "CustomerButtonContent": "通过不同的函数区分按钮处理逻辑，参数 Items 为 Table 组件中选中的行数据集合，当前选择数据 {0} 条",
     "OnRowButtonClickContent": "通过不同的函数区分按钮处理逻辑，参数 Item 为当前行数据",
-    "ResetVisibleColumnsDesc": "通过调用 <code>Table</code> 实例方法 <code>ResetVisibleColumns</code> 可设置任意列显示隐藏属性"
+    "ResetVisibleColumnsDesc": "通过调用 <code>Table</code> 实例方法 <code>ResetVisibleColumns</code> 可设置任意列显示隐藏属性",
+    "AllowDragOrderTitle": "允许拖动列标题调整表格列顺序",
+    "AllowDragOrderIntro": "通过指定 <code>AllowDragOrder</code> 设置表格列允许拖动列标题调整表格列顺序",
+    "AllowDragOrderDesc": "在列标题上按下鼠标拖动到其他列标题位置可将该列调整至目标列之前，但Table组件内置的列如明细行列、行号列、选择列、操作列等不可被调整"
   },
   "BootstrapBlazor.Shared.Demos.Table.TablesColumn.TablesColumnVisible": {
     "ResetVisibleColumnsButtonText": "设置列隐藏信息"

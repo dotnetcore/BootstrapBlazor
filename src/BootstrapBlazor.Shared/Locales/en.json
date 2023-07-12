@@ -3371,12 +3371,6 @@
     "SlidersDescription": "Select within a fixed interval by dragging the slider",
     "SlidersNormalTitle": "Basic usage",
     "SlidersNormalIntro": "Change the current value as you drag the slider",
-    "SlidersNormalLabel1": "Customize the initial value",
-    "SlidersNormalLabel2": "Disable",
-    "SlidersBindingTitle": "Slider bidirectional binding",
-    "SlidersBindingIntro": "Select within a fixed interval by dragging the slider",
-    "SlidersBindingLabel": "Customize the initial value",
-    "SlidersClass": "Style",
     "SlidersIsDisabled": "Whether to disable it",
     "SlidersValue": "The current value of the component",
     "SlidersValueChanged": "ValueChanged callback method"
@@ -3973,6 +3967,8 @@
     "BasicUsageLi3": "Click the close button to close the camera",
     "ShowPreviewTitle": "Show preview",
     "ShowPreviewIntro": "Set the <code>ShowPreview</code> property to control whether to display the photo preview",
+    "CaptureJpegTitle": "Set photo format as <code>Jpeg</code>, default is <code>Png</code>",
+    "CaptureJpegIntro": "Set the <code>CaptureJpeg</code> property to control the photo format as <code>Jpeg</code>, default is <code>Png</code>. The <code>Quality</code> property controls the image quality, default is <code>0.9</code>",
     "AutoStartTitle": "Start automatically",
     "AutoStartIntro": "Set the <code>AutoStart</code> property to control whether the camera is directly turned on when the component is running",
     "ShowPreview": "Whether to show photo preview",
@@ -3987,11 +3983,13 @@
     "NotFoundDevicesString": "No video related device text found",
     "NotFoundDevicesStringDefaultValue": "Video related equipment not found",
     "OnInit": "Initialize the camera callback method",
-    "OnStart": "Start scanning code callback method",
-    "OnClose": "Turn off the scan code callback method",
-    "OnCapture": "Callback method for successful scan code",
+    "OnStart": "Start capture callback method",
+    "OnClose": "Turn off the capture callback method",
+    "OnCapture": "Callback method for successful capture",
     "VideoWidth": "The width of Video window",
-    "VideoHeight": "The height of Video window"
+    "VideoHeight": "The height of Video window",
+    "CaptureJpeg": "Set the capture image format as Jpeg, default is Png",
+    "Quality": "Capture image quality, default is 0.9"
   },
   "BootstrapBlazor.Shared.Demos.Camera.CameraNormal": {
     "TraceOnInit": "Initialized carmera",
@@ -5306,7 +5304,8 @@
     "GotoNavigatorLabelTextAttr": "Goto label text",
     "ShowPageInfoAttr": "Whethere show the pagination info",
     "PageInfoTemplateAttr": "The template for custom page info",
-    "PageInfoTextAttr": "Pagination label text"
+    "PageInfoTextAttr": "Pagination label text",
+    "AllowDragOrderAttr": "Allow dragging column headings to adjust table column order"
   },
   "BootstrapBlazor.Shared.Demos.Table.TablesBase.TableBaseNormal": {
     "TableBaseNormalRefreshText": "Refresh"
@@ -5390,7 +5389,10 @@
     "CustomerButtonTitle": "Custom button processing method",
     "CustomerButtonContent": "The button processing logic is distinguished by different functions. The parameter Items is the selected row data collection in the Table component, and the currently selected data is {0}",
     "OnRowButtonClickContent": "The button processing logic is distinguished by different functions, and the parameter Item is the current row data",
-    "ResetVisibleColumnsDesc": "Call the instancel method <code>ResetVisibleColumns</code> of <code>Table</code> for set the multiple columns visible value"
+    "ResetVisibleColumnsDesc": "Call the instancel method <code>ResetVisibleColumns</code> of <code>Table</code> for set the multiple columns visible value",
+    "AllowDragOrderTitle": "Allow dragging column headings to adjust table column order",
+    "AllowDragOrderIntro": "By specifying <code>AllowDragOrder</code>, set the table columns to allow dragging column headings to adjust the table column order",
+    "AllowDragOrderDesc": "Pressing the mouse over a column heading and dragging it to another column heading position can adjust the column to be in front of the target column, but the built-in columns in the Table component, such as DetailRow, LineNo, MultipleSelect, and Operation columns, cannot be adjusted"
   },
   "BootstrapBlazor.Shared.Demos.Table.TablesColumn.TablesColumnVisible": {
     "ResetVisibleColumnsButtonText": "Set Columns"
