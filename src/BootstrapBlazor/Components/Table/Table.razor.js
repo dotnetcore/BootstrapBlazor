@@ -350,19 +350,19 @@ const disposeColumnDrag = columns => {
 const setDraggable = table => {
     let dragItem = null;
     let index = 0
-    const columns = [...table.tables[0].querySelectorAll('thead > tr > th')].filter(i => i.draggable)
-    columns.forEach(col => {
+    table.dragColumns = [...table.tables[0].querySelectorAll('thead > tr > th')].filter(i => i.draggable)
+    table.dragColumns.forEach(col => {
         EventHandler.on(col, 'dragstart', e => {
             col.parentNode.classList.add('table-dragging')
             col.classList.add('table-drag')
-            index = columns.indexOf(col)
+            index = table.dragColumns.indexOf(col)
             dragItem = col
             e.dataTransfer.effectAllowed = 'move'
         })
         EventHandler.on(col, 'dragend', e => {
             col.parentNode.classList.remove('table-dragging')
             dragItem.classList.remove('table-drag')
-            columns.forEach(i => {
+            table.dragColumns.forEach(i => {
                 i.classList.remove('table-drag-over')
             })
             dragItem = null
@@ -370,7 +370,7 @@ const setDraggable = table => {
         EventHandler.on(col, 'drop', e => {
             e.stopPropagation()
             e.preventDefault()
-            table.invoke.invokeMethodAsync(table.callback, index, columns.indexOf(col))
+            table.invoke.invokeMethodAsync(table.callback, index, table.dragColumns.indexOf(col))
             return false
         })
         EventHandler.on(col, 'dragenter', e => {
@@ -396,6 +396,18 @@ const setDraggable = table => {
     })
 }
 
+const disposeDragColumns = columns => {
+    columns = columns || []
+    columns.forEach(col => {
+        EventHandler.off(col, 'dragstart')
+        EventHandler.off(col, 'dragend')
+        EventHandler.off(col, 'drop')
+        EventHandler.off(col, 'dragenter')
+        EventHandler.off(col, 'dragover')
+        EventHandler.off(col, 'dragleave')
+    })
+}
+
 export function init(id, invoke, callback) {
     const el = document.getElementById(id)
     if (el === null) {
@@ -406,7 +418,8 @@ export function init(id, invoke, callback) {
         invoke,
         callback,
         columns: [],
-        tables: []
+        tables: [],
+        dragColumns: []
     }
     Data.set(id, table)
     const shim = [...el.children].find(i => i.classList.contains('table-shim'))
@@ -493,7 +506,7 @@ export function dispose(id) {
         }
 
         disposeColumnDrag(table.columns)
-
+        disposeDragColumns(table.dragColumns)
         EventHandler.off(table.element, 'click', '.col-copy')
 
         if (table.observer) {
