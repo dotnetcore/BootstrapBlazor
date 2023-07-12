@@ -1,13 +1,24 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapModuleComponentBase
-@attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
+@typeparam TValue
+@inherits BootstrapInputNumberBase<TValue>
+@attribute [JSModuleNotInherited]
 
-<div @attributes="@AdditionalAttributes" id="@Id" role="slider" class="@ClassName" aria-valuemin="@Min" aria-valuemax="@Max" aria-valuetext="@Value" aria-disabled="@Disabled" aria-orientation="horizontal" aria-label="slider between @Min and @Max">
-    <div class="@SliderClassName">
-        <div class="slider-bar" style="@BarStyle"></div>
-        <div tabindex="0" class="slider-button-wrapper" style="@ButtonStyle">
-            <div class="slider-button" tabindex="0">
-            </div>
-        </div>
+@if (IsShowLabel)
+{
+    <BootstrapLabel Value="@DisplayText" ShowLabelTooltip="ShowLabelTooltip" for="@Id" />
+}
+@if (InputGroup == null)
+{
+    @RenderRange
+}
+else
+{
+    <div class="form-control range-group">
+        @RenderRange
     </div>
-</div>
+}
+
+@code {
+    RenderFragment RenderRange =>
+    @<input type="range" id="@Id" @attributes="@AdditionalAttributes" class="@ClassString" disabled="@IsDisabled" @bind-value="CurrentValueAsString" @bind-value:event="@eventName" step="@StepString" min="@MinString" max="@MaxString">;
+}

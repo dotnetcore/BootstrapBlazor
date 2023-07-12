@@ -17,7 +17,7 @@ const fixHeader = table => {
                 margin = margin.replace('px', '')
                 const b = window.browser()
                 if (b.device !== 'PC') {
-                    margin = (parseFloat(margin) - 6) + 'px'
+                    margin = (parseFloat(margin) - 7) + 'px'
                 }
                 prev.classList.add('modified')
                 prev.style.right = margin
@@ -255,7 +255,7 @@ const setResizeListener = table => {
                         if (t.classList.contains('table-fixed')) {
                             tableEl.style.width = `${width}px;`
                         } else {
-                            tableEl.style.width = (width - 6) + 'px'
+                            tableEl.style.width = (width - 7) + 'px'
                         }
                     }
                 })
@@ -347,15 +347,79 @@ const disposeColumnDrag = columns => {
     })
 }
 
-export function init(id) {
+const setDraggable = table => {
+    let dragItem = null;
+    let index = 0
+    table.dragColumns = [...table.tables[0].querySelectorAll('thead > tr > th')].filter(i => i.draggable)
+    table.dragColumns.forEach(col => {
+        EventHandler.on(col, 'dragstart', e => {
+            col.parentNode.classList.add('table-dragging')
+            col.classList.add('table-drag')
+            index = table.dragColumns.indexOf(col)
+            dragItem = col
+            e.dataTransfer.effectAllowed = 'move'
+        })
+        EventHandler.on(col, 'dragend', e => {
+            col.parentNode.classList.remove('table-dragging')
+            dragItem.classList.remove('table-drag')
+            table.dragColumns.forEach(i => {
+                i.classList.remove('table-drag-over')
+            })
+            dragItem = null
+        })
+        EventHandler.on(col, 'drop', e => {
+            e.stopPropagation()
+            e.preventDefault()
+            table.invoke.invokeMethodAsync(table.callback, index, table.dragColumns.indexOf(col))
+            return false
+        })
+        EventHandler.on(col, 'dragenter', e => {
+            e.preventDefault()
+            if (dragItem !== col) {
+                col.classList.add('table-drag-over')
+            }
+        })
+        EventHandler.on(col, 'dragover', e => {
+            e.preventDefault()
+            if (dragItem !== col) {
+                e.dataTransfer.dropEffect = 'move'
+            }
+            else {
+                e.dataTransfer.dropEffect = 'none'
+            }
+            return false
+        })
+        EventHandler.on(col, 'dragleave', e => {
+            e.preventDefault()
+            col.classList.remove('table-drag-over')
+        })
+    })
+}
+
+const disposeDragColumns = columns => {
+    columns = columns || []
+    columns.forEach(col => {
+        EventHandler.off(col, 'dragstart')
+        EventHandler.off(col, 'dragend')
+        EventHandler.off(col, 'drop')
+        EventHandler.off(col, 'dragenter')
+        EventHandler.off(col, 'dragover')
+        EventHandler.off(col, 'dragleave')
+    })
+}
+
+export function init(id, invoke, callback) {
     const el = document.getElementById(id)
     if (el === null) {
         return
     }
     const table = {
         el,
+        invoke,
+        callback,
         columns: [],
-        tables: []
+        tables: [],
+        dragColumns: []
     }
     Data.set(id, table)
     const shim = [...el.children].find(i => i.classList.contains('table-shim'))
@@ -367,6 +431,7 @@ export function init(id) {
     if (table.thead) {
         table.isExcel = table.thead.firstChild.classList.contains('table-excel')
         table.body = [...shim.children].find(i => i.classList.contains('table-fixed-body'))
+        table.isDraggable = table.thead.firstChild.classList.contains('table-draggable')
         table.tables.push(table.thead.firstChild)
         table.tables.push(table.body.firstChild)
         fixHeader(table)
@@ -378,6 +443,7 @@ export function init(id) {
     }
     else {
         table.isExcel = shim.firstChild.classList.contains('table-excel')
+        table.isDraggable = shim.firstChild.classList.contains('table-draggable')
         table.tables.push(shim.firstChild)
     }
 
@@ -387,6 +453,10 @@ export function init(id) {
 
     if (table.isResizeColumn) {
         setResizeListener(table)
+    }
+
+    if (table.isDraggable) {
+        setDraggable(table)
     }
 
     setCopyColumn(table)
@@ -436,7 +506,7 @@ export function dispose(id) {
         }
 
         disposeColumnDrag(table.columns)
-
+        disposeDragColumns(table.dragColumns)
         EventHandler.off(table.element, 'click', '.col-copy')
 
         if (table.observer) {

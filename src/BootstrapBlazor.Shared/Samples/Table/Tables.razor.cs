@@ -1175,7 +1175,15 @@ public partial class Tables
             Type = "Alignment",
             ValueList = "None|Left|Center|Right",
             DefaultValue = "None"
-        }
+        },
+        new()
+        {
+            Name = "AllowDragOrder",
+            Description = Localizer["AllowDragOrderAttr"],
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
     };
 
     private IEnumerable<MethodItem> GetMethods() => new MethodItem[]

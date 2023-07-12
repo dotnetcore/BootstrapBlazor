@@ -3,8 +3,8 @@
     scrollbar-color: rgba(0,0,0,0.3) rgba(0,0,0,0);
     scrollbar-width: thin;
     overflow: auto;
-    --bb-scroll-width: 6px;
-    --bb-scorll-height: 6px;
+    --bb-scroll-width: 7px;
+    --bb-scorll-height: 7px;
     --bb-scorll-thumb-radius: 3px;
     --bb-scorll-thumb-bg: rgba(0,0,0,0.2);
     --bb-scorll-thumb-hover-bg: rgba(0,0,0,0.3);

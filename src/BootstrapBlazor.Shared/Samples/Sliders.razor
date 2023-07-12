@@ -1,4 +1,5 @@
 ﻿@page "/sliders"
+
 @inject IStringLocalizer<Sliders> Localizer
 
 <h3>@Localizer["SlidersTitle"]</h3>
@@ -8,15 +9,47 @@
 <DemoBlock Title="@Localizer["SlidersNormalTitle"]"
            Introduction="@Localizer["SlidersNormalIntro"]"
            Name="Normal"
-           Demo="typeof(Demos.Sliders.SliderNormal)">
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["SlidersBindingTitle"]"
-           Introduction="@Localizer["SlidersBindingIntro"]"
-           Name="SlidersBinding"
-           Demo="typeof(Demos.Sliders.SliderBinding)">
-</DemoBlock>
+           Demo="typeof(Demos.Sliders.SliderNormal)" />
 
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />
+
+@code {
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
+        // TODO: 移动到数据库中
+        new AttributeItem() {
+            Name = "IsDisabled",
+            Description = Localizer["SlidersIsDisabled"],
+            Type = "boolean",
+            ValueList = " — ",
+            DefaultValue = "false"
+        },
+        new AttributeItem() {
+            Name = "Value",
+            Description = Localizer["SlidersValue"],
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+    };
+
+    /// <summary>
+    /// 获得事件方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<EventItem> GetEvents() => new EventItem[]
+    {
+        new EventItem()
+        {
+            Name = "ValueChanged",
+            Description = Localizer["SlidersValueChanged"],
+            Type ="EventCallback<int>"
+        }
+    };
+}
