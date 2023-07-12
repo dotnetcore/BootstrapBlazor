@@ -481,9 +481,7 @@
                         var fieldName = col.GetFieldName();
                         var displayName = col.GetDisplayName();
                         <DynamicElement TagName="th" class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, 6)"
-                                        TriggerClick="col.Sortable" OnClick="@OnClickHeader(col)"
-                                        
-                                        draggable="@DraggableString" @ondragstart="()=>OnDragStart(col)" @ondragenter="()=>OnDragEnter(col)" @ondragend="OnDragEnd" @ondrop="()=>OnDrop(col)">
+                                        TriggerClick="col.Sortable" OnClick="@OnClickHeader(col)" draggable="@DraggableString">
                             <div class="@GetHeaderWrapperClassString(col)">
                                 @if(col.ShowCopyColumn)
                                 {
