@@ -64,16 +64,17 @@ public partial class DockView
     public Func<Task>? OnResizeCallbackAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否锁定当前布局
-    /// </summary>
-    [Parameter]
-    public bool Lock { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否启用本地存储布局 默认 true 启用
     /// </summary>
     [Parameter]
     public bool EnableLocalStorage { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否锁定 默认 false
+    /// </summary>
+    /// <remarks>锁定后无法拖动</remarks>
+    [Parameter]
+    public bool IsLock { get; set; }
 
     private DockViewConfig Config { get; } = new();
 
@@ -81,7 +82,7 @@ public partial class DockView
 
     private bool IsRendered { get; set; }
 
-    private bool _isLock = false;
+    private bool _isLock;
 
     private string? ClassString => CssBuilder.Default("bb-dock")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -116,25 +117,20 @@ public partial class DockView
                 await InvokeVoidAsync("init", Id, GetOption(), Interop);
             }
         }
-
-        DockViewConfig GetOption() => new()
-        {
-            Version = "v1",
-            Name = Name,
-            EnableLocalStorage = EnableLocalStorage,
-            Contents = Config.Contents,
-            VisibleChangedCallback = nameof(VisibleChangedCallbackAsync),
-            InitializedCallback = nameof(InitializedCallbackAsync),
-            TabDropCallback = nameof(TabDropCallbackAsync),
-            SplitterCallback = nameof(SplitterCallbackAsync)
-        };
-
-        if (_isLock != Lock)
-        {
-            _isLock = Lock;
-            await InvokeVoidAsync("lock", Id);
-        }
     }
+
+    private DockViewConfig GetOption() => new()
+    {
+        Version = "v1",
+        Name = Name,
+        EnableLocalStorage = EnableLocalStorage,
+        IsLock = IsLock,
+        Contents = Config.Contents,
+        VisibleChangedCallback = nameof(VisibleChangedCallbackAsync),
+        InitializedCallback = nameof(InitializedCallbackAsync),
+        TabDropCallback = nameof(TabDropCallbackAsync),
+        SplitterCallback = nameof(SplitterCallbackAsync)
+    };
 
     private static RenderFragment RenderDockContent(List<DockContent> contents) => builder =>
     {
@@ -167,10 +163,19 @@ public partial class DockView
     };
 
     /// <summary>
-    /// 锁定当前布局
+    /// 锁定/解锁当前布局
     /// </summary>
+    /// <param name="lock">true 时锁定 false 时解锁</param>
     /// <returns></returns>
-    //public Task Lock() => InvokeVoidAsync("lock", Id);
+    public async Task Lock(bool @lock)
+    {
+        IsLock = @lock;
+        if (_isLock != IsLock)
+        {
+            _isLock = IsLock;
+            await InvokeVoidAsync("lock", Id, _isLock);
+        }
+    }
 
     /// <summary>
     /// 标签页关闭回调方法 由 JavaScript 调用

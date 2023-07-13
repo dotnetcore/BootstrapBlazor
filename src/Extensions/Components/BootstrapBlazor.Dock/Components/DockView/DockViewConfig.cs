@@ -19,6 +19,13 @@ class DockViewConfig
     public bool EnableLocalStorage { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否锁定 默认 false
+    /// </summary>
+    /// <remarks>锁定后无法拖动</remarks>
+    [JsonPropertyName("lock")]
+    public bool IsLock { get; set; }
+
+    /// <summary>
     /// 获得/设置 配置信息版本号 默认 null
     /// </summary>
     public string? Version { get; set; }
