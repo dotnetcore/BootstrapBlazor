@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using AngleSharp.Dom;
 using BootstrapBlazor.Shared;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
@@ -67,25 +68,10 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             Assert.False(clicked);
 
             // 测试 Touch 事件
-            row.TouchStart(new TouchEventArgs()
-            {
-                Touches = new TouchPoint[]
-                {
-                     new()
-                     {
-                         ClientX = 10,
-                         ClientY = 10,
-                         ScreenX = 10,
-                         ScreenY = 10
-                     }
-                }
-            });
+            TriggerTouchStart(row);
+
             await Task.Delay(500);
-        });
-        await cut.InvokeAsync(() =>
-        {
-            var row = cut.Find(".context-trigger");
-            row.TouchEnd(new TouchEventArgs());
+            row.TouchEnd();
         });
     }
 
@@ -144,19 +130,9 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             item.Click();
             Assert.True(clicked);
 
-            row.TouchStart(new TouchEventArgs()
-            {
-                Touches = new TouchPoint[]
-                {
-                    new()
-                    {
-                        ClientX = 10,
-                        ClientY = 10,
-                        ScreenX = 10,
-                        ScreenY = 10
-                    }
-                }
-            });
+            TriggerTouchStart(row);
+            TriggerTouchStart(row);
+
             await Task.Delay(500);
             row.TouchEnd();
         });
@@ -219,21 +195,28 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             item.Click();
             Assert.True(clicked);
 
-            row.TouchStart(new TouchEventArgs()
-            {
-                Touches = new TouchPoint[]
-                {
-                    new()
-                    {
-                        ClientX = 10,
-                        ClientY = 10,
-                        ScreenX = 10,
-                        ScreenY = 10
-                    }
-                }
-            });
+            TriggerTouchStart(row);
+            TriggerTouchStart(row);
+
             await Task.Delay(500);
             row.TouchEnd();
+        });
+    }
+
+    private void TriggerTouchStart(IElement row)
+    {
+        row.TouchStart(new TouchEventArgs()
+        {
+            Touches = new TouchPoint[]
+            {
+                new()
+                {
+                    ClientX = 10,
+                    ClientY = 10,
+                    ScreenX = 10,
+                    ScreenY = 10
+                }
+            }
         });
     }
 }
