@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 
@@ -11,7 +12,7 @@ namespace UnitTest.Components;
 public class ContextMenuTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void ContextMenu_Ok()
+    public async Task ContextMenu_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var foo = Foo.Generate(localizer);
@@ -48,7 +49,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             });
         });
 
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(async () =>
         {
             var row = cut.Find(".context-trigger");
             row.ContextMenu(0, 10, 10, 10, 10, 2, 2);
@@ -64,6 +65,27 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             var item = menu.Find(".dropdown-item");
             item.Click();
             Assert.False(clicked);
+
+            // 测试 Touch 事件
+            row.TouchStart(new TouchEventArgs()
+            {
+                Touches = new TouchPoint[]
+                {
+                     new()
+                     {
+                         ClientX = 10,
+                         ClientY = 10,
+                         ScreenX = 10,
+                         ScreenY = 10
+                     }
+                }
+            });
+            await Task.Delay(500);
+        });
+        await cut.InvokeAsync(() =>
+        {
+            var row = cut.Find(".context-trigger");
+            row.TouchEnd(new TouchEventArgs());
         });
     }
 
