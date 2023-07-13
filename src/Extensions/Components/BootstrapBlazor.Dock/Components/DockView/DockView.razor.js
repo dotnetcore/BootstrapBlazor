@@ -90,15 +90,15 @@ export function update(id, option) {
     }
 }
 
-export function lock(id) {
+export function lock(id, isLock) {
     const dock = Data.get(id)
     const stacks = dock.layout.getAllStacks()
     if (dock) {
-        if (dock.dragEvent.size == 0) {
+        if (isLock) {
+            dock.dragEvent.clear()
             for (var i = 0; i < stacks.length; i++) {
                 dock.dragEvent.set(stacks[i], stacks[i].header.handleTabInitiatedDragStartEvent)
-                stacks[i].header.handleTabInitiatedDragStartEvent = function () {
-                }
+                stacks[i].header.handleTabInitiatedDragStartEvent = function () { }
             }
         } else {
             for (var i = 0; i < stacks.length; i++) {
