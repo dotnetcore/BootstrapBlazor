@@ -64,6 +64,12 @@ public partial class DockView
     public Func<Task>? OnResizeCallbackAsync { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否锁定当前布局
+    /// </summary>
+    [Parameter]
+    public bool Lock { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否启用本地存储布局 默认 true 启用
     /// </summary>
     [Parameter]
@@ -74,6 +80,8 @@ public partial class DockView
     private DockContent Content { get; } = new();
 
     private bool IsRendered { get; set; }
+
+    private bool _isLock = false;
 
     private string? ClassString => CssBuilder.Default("bb-dock")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -120,6 +128,12 @@ public partial class DockView
             TabDropCallback = nameof(TabDropCallbackAsync),
             SplitterCallback = nameof(SplitterCallbackAsync)
         };
+
+        if (_isLock != Lock)
+        {
+            _isLock = Lock;
+            await InvokeVoidAsync("lock", Id);
+        }
     }
 
     private static RenderFragment RenderDockContent(List<DockContent> contents) => builder =>
@@ -156,7 +170,7 @@ public partial class DockView
     /// 锁定当前布局
     /// </summary>
     /// <returns></returns>
-    public Task Lock() => InvokeVoidAsync("lock", Id);
+    //public Task Lock() => InvokeVoidAsync("lock", Id);
 
     /// <summary>
     /// 标签页关闭回调方法 由 JavaScript 调用
