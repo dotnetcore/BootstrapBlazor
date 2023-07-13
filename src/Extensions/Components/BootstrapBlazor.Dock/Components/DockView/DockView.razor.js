@@ -38,8 +38,7 @@ export async function init(id, option, invoke) {
     })
     invoke.invokeMethodAsync(option.initializedCallback)
 
-    const dragEvent = new Map()
-    const dock = { el, layout, dragEvent }
+    const dock = { el, layout, lock: option.lock }
     Data.set(id, dock)
 }
 
@@ -47,46 +46,15 @@ export function update(id, option) {
     const dock = Data.get(id)
 
     if (dock) {
-        // 处理 toogle 逻辑
-        const items = getAllContentItems(option.content)
-        const comps = dock.layout.getAllContentItems().filter(s => s.isComponent);
-
-        // gt 没有 items 有时添加
-        items.forEach(v => {
-            const c = comps.find(i => i.id === v.id)
-            if (c === undefined) {
-                if (dock.layout.root.contentItems.length === 0) {
-                    const compotentItem = dock.layout.createAndInitContentItem({ type: option.content[0].type, content: [] }, dock.layout.root)
-                    dock.layout.root.addChild(compotentItem)
-                }
-                if (dock.layout.root.contentItems[0].isStack) {
-                    const typeConfig = goldenLayout.ResolvedItemConfig.createDefault(option.content[0].type)
-                    const rowOrColumn = dock.layout.root.layoutManager.createContentItem(typeConfig, dock.layout.root)
-                    const stack = dock.layout.root.contentItems[0]
-                    dock.layout.root.replaceChild(stack, rowOrColumn)
-                    rowOrColumn.addChild(stack)
-                    rowOrColumn.addItem(v)
-                    rowOrColumn.updateSize()
-                }
-                else {
-                    dock.layout.root.contentItems[0].addItem(v)
-                }
-            }
-        })
-
-        // gt 有 items 没有时移除
-        comps.forEach(v => {
-            const c = items.find(i => i.id === v.id)
-            if (c === undefined) {
-                closeItem(dock.el, v)
-            }
-            else if (v.title !== c.title) {
-                // 更新 Title
-                v.setTitle(c.title)
-            }
-        })
-
-        saveConfig(option, dock.layout)
+        if (dock.lock !== option.lock) {
+            // 处理 Lock 逻辑
+            dock.lock = option.lock
+            lockDock(dock)
+        }
+        else {
+            // 处理 toogle 逻辑
+            toggleComponent(dock, option)
+        }
     }
 }
 
@@ -118,6 +86,64 @@ export function dispose(id) {
     }
 
     dock.layout.destroy()
+}
+
+const lockDock = dock => {
+    const lock = dock.lock
+    const stacks = dock.layout.getAllStacks()
+    dock.dragEvents = dock.dragEvents || new Map()
+    stacks.forEach(stack => {
+        if (lock) {
+            dock.dragEvents.set(stack, stack.header.handleTabInitiatedDragStartEvent)
+            stack.header.handleTabInitiatedDragStartEvent = () => { }
+        }
+        else {
+            stack.header.handleTabInitiatedDragStartEvent = dock.dragEvents.get(stack)
+            dock.dragEvents.delete(stack)
+        }
+    })
+}
+
+const toggleComponent = (dock, option) => {
+    const items = getAllContentItems(option.content)
+    const comps = dock.layout.getAllContentItems().filter(s => s.isComponent);
+
+    // gt 没有 items 有时添加
+    items.forEach(v => {
+        const c = comps.find(i => i.id === v.id)
+        if (c === undefined) {
+            if (dock.layout.root.contentItems.length === 0) {
+                const compotentItem = dock.layout.createAndInitContentItem({ type: option.content[0].type, content: [] }, dock.layout.root)
+                dock.layout.root.addChild(compotentItem)
+            }
+            if (dock.layout.root.contentItems[0].isStack) {
+                const typeConfig = goldenLayout.ResolvedItemConfig.createDefault(option.content[0].type)
+                const rowOrColumn = dock.layout.root.layoutManager.createContentItem(typeConfig, dock.layout.root)
+                const stack = dock.layout.root.contentItems[0]
+                dock.layout.root.replaceChild(stack, rowOrColumn)
+                rowOrColumn.addChild(stack)
+                rowOrColumn.addItem(v)
+                rowOrColumn.updateSize()
+            }
+            else {
+                dock.layout.root.contentItems[0].addItem(v)
+            }
+        }
+    })
+
+    // gt 有 items 没有时移除
+    comps.forEach(v => {
+        const c = items.find(i => i.id === v.id)
+        if (c === undefined) {
+            closeItem(dock.el, v)
+        }
+        else if (v.title !== c.title) {
+            // 更新 Title
+            v.setTitle(c.title)
+        }
+    })
+
+    saveConfig(option, dock.layout)
 }
 
 const getAllContentItems = content => {
