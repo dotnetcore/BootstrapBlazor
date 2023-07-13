@@ -38,7 +38,8 @@ export async function init(id, option, invoke) {
     })
     invoke.invokeMethodAsync(option.initializedCallback)
 
-    const dock = { el, layout }
+    const dragEvent = new Map()
+    const dock = { el, layout, dragEvent }
     Data.set(id, dock)
 }
 
@@ -86,6 +87,25 @@ export function update(id, option) {
         })
 
         saveConfig(option, dock.layout)
+    }
+}
+
+export function lock(id) {
+    const dock = Data.get(id)
+    const stacks = dock.layout.getAllStacks()
+    if (dock) {
+        if (dock.dragEvent.size == 0) {
+            for (var i = 0; i < stacks.length; i++) {
+                dock.dragEvent.set(stacks[i], stacks[i].header.handleTabInitiatedDragStartEvent)
+                stacks[i].header.handleTabInitiatedDragStartEvent = function () {
+                }
+            }
+        } else {
+            for (var i = 0; i < stacks.length; i++) {
+                stacks[i].header.handleTabInitiatedDragStartEvent = dock.dragEvent.get(stacks[i])
+            }
+            dock.dragEvent.clear()
+        }
     }
 }
 

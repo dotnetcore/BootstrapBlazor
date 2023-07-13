@@ -153,6 +153,12 @@ public partial class DockView
     };
 
     /// <summary>
+    /// 锁定当前布局
+    /// </summary>
+    /// <returns></returns>
+    public Task Lock() => InvokeVoidAsync("lock", Id);
+
+    /// <summary>
     /// 标签页关闭回调方法 由 JavaScript 调用
     /// </summary>
     [JSInvokable]
