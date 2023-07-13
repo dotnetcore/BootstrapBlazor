@@ -74,13 +74,20 @@ public class DockComponent : DockComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否锁定 默认 false
+    /// </summary>
+    /// <remarks>锁定后无法拖动</remarks>
+    [Parameter]
+    public bool IsLock { get; set; }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
-        ComponentState = new { Id, ShowClose, Class, Key = Key ?? Title };
+        ComponentState = new { Id, ShowClose, Class, Key = Key ?? Title, Lock = IsLock };
         Type = DockContentType.Component;
     }
 
