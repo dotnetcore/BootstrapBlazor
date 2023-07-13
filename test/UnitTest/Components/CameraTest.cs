@@ -121,8 +121,13 @@ public class CameraTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.VideoWidth, 30);
             pb.Add(a => a.VideoHeight, 20);
+            pb.Add(a => a.CaptureJpeg, true);
+            pb.Add(a => a.Quality, 0.9);
         });
         Assert.Equal(40, cut.Instance.VideoWidth);
         Assert.Equal(30, cut.Instance.VideoHeight);
+
+        Assert.True(cut.Instance.CaptureJpeg);
+        Assert.Equal(0.9, cut.Instance.Quality);
     }
 }
