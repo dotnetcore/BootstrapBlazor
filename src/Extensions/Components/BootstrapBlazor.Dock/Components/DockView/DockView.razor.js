@@ -96,9 +96,11 @@ const lockDock = dock => {
         if (lock) {
             dock.dragEvents.set(stack, stack.header.handleTabInitiatedDragStartEvent)
             stack.header.handleTabInitiatedDragStartEvent = () => { }
+            stack.header._element.classList.add('bb-dock-lock')
         }
         else {
             stack.header.handleTabInitiatedDragStartEvent = dock.dragEvents.get(stack)
+            stack.header._element.classList.remove('bb-dock-lock')
             dock.dragEvents.delete(stack)
         }
     })

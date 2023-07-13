@@ -47,3 +47,7 @@
     .bb-dock .lm_controls {
         display: none;
     }
+
+.bb-dock-lock > .lm_tabs .lm_close_tab {
+    background-image: url(../images/lock.svg);
+}
