@@ -58,23 +58,10 @@ export function update(id, option) {
     }
 }
 
-export function lock(id, isLock) {
+export function lock(id, lock) {
     const dock = Data.get(id)
-    const stacks = dock.layout.getAllStacks()
-    if (dock) {
-        if (isLock) {
-            dock.dragEvent.clear()
-            for (var i = 0; i < stacks.length; i++) {
-                dock.dragEvent.set(stacks[i], stacks[i].header.handleTabInitiatedDragStartEvent)
-                stacks[i].header.handleTabInitiatedDragStartEvent = function () { }
-            }
-        } else {
-            for (var i = 0; i < stacks.length; i++) {
-                stacks[i].header.handleTabInitiatedDragStartEvent = dock.dragEvent.get(stacks[i])
-            }
-            dock.dragEvent.clear()
-        }
-    }
+    dock.lock = lock
+    lockDock(dock)
 }
 
 export function dispose(id) {
@@ -96,12 +83,24 @@ const lockDock = dock => {
         if (lock) {
             dock.dragEvents.set(stack, stack.header.handleTabInitiatedDragStartEvent)
             stack.header.handleTabInitiatedDragStartEvent = () => { }
+
+            // hack close button
             stack.header._element.classList.add('bb-dock-lock')
+            stack.header.tabs.forEach(tab => {
+                dock.dragEvents.set(tab, tab.onCloseClick)
+                tab.onCloseClick = () => { }
+            })
         }
         else {
             stack.header.handleTabInitiatedDragStartEvent = dock.dragEvents.get(stack)
             stack.header._element.classList.remove('bb-dock-lock')
             dock.dragEvents.delete(stack)
+
+            // restore close button
+            stack.header.tabs.forEach(tab => {
+                tab.onCloseClick = dock.dragEvents.get(tab)
+                dock.dragEvents.delete(tab)
+            })
         }
     })
 }
