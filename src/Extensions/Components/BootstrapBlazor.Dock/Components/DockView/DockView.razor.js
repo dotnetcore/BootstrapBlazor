@@ -173,7 +173,7 @@ const getConfig = option => {
         ...option
     }
     if (option.enableLocalStorage) {
-        const localConfig = localStorage.getItem(`uni_gl_${option.name}_${option.version}`);
+        const localConfig = localStorage.getItem(getLocalStorageKey(option));
         if (localConfig) {
             // 当tab全部关闭时，没有root节点
             const configItem = JSON.parse(localConfig)
@@ -198,6 +198,14 @@ const getConfig = option => {
     }
 }
 
+const getLocalStorageKey = option => {
+    return `${option.prefix}-${option.version}`
+}
+
+const indexOfKey = (key, option) => {
+    return key.indexOf(`${option.prefix}-`) > -1
+}
+
 const saveConfig = (option, layout) => {
     option = {
         enableLocalStorage: false,
@@ -205,14 +213,14 @@ const saveConfig = (option, layout) => {
     }
     if (option.enableLocalStorage) {
         removeConfig(option)
-        localStorage.setItem(`uni_gl_${option.name}_${option.version}`, JSON.stringify(layout.saveLayout()));
+        localStorage.setItem(getLocalStorageKey(option), JSON.stringify(layout.saveLayout()));
     }
 }
 
 const removeConfig = option => {
     for (let index = localStorage.length; index > 0; index--) {
         const k = localStorage.key(index - 1);
-        if (k.indexOf(`uni_gl_${option.name}_`) > -1) {
+        if (indexOfKey(k, option)) {
             localStorage.removeItem(k);
         }
     }
