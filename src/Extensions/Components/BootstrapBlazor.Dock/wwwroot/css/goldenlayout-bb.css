@@ -48,6 +48,6 @@
         display: none;
     }
 
-.bb-dock-lock > .lm_tabs .lm_close_tab {
+.lm_header .lm_tab.bb-dock-tab-lock .lm_close_tab {
     background-image: url(../images/lock.svg);
 }
