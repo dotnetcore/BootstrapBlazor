@@ -92,7 +92,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
     [Theory]
     [InlineData(TableRenderMode.Table)]
     [InlineData(TableRenderMode.CardView)]
-    public void ContextMenu_Table(TableRenderMode renderMode)
+    public async Task ContextMenu_Table(TableRenderMode renderMode)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -128,7 +128,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             });
         });
 
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(async () =>
         {
             var row = renderMode == TableRenderMode.CardView ? cut.Find(".table-row") : cut.Find("tbody tr");
             row.ContextMenu(0, 10, 10, 10, 10, 2, 2);
@@ -143,6 +143,22 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             var item = menu.Find(".dropdown-item");
             item.Click();
             Assert.True(clicked);
+
+            row.TouchStart(new TouchEventArgs()
+            {
+                Touches = new TouchPoint[]
+                {
+                    new()
+                    {
+                        ClientX = 10,
+                        ClientY = 10,
+                        ScreenX = 10,
+                        ScreenY = 10
+                    }
+                }
+            });
+            await Task.Delay(500);
+            row.TouchEnd();
         });
     }
 
