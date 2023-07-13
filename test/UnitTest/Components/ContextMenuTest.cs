@@ -2,7 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using AngleSharp.Dom;
 using BootstrapBlazor.Shared;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 
@@ -11,7 +13,7 @@ namespace UnitTest.Components;
 public class ContextMenuTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void ContextMenu_Ok()
+    public async Task ContextMenu_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var foo = Foo.Generate(localizer);
@@ -48,7 +50,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             });
         });
 
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(async () =>
         {
             var row = cut.Find(".context-trigger");
             row.ContextMenu(0, 10, 10, 10, 10, 2, 2);
@@ -64,13 +66,19 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             var item = menu.Find(".dropdown-item");
             item.Click();
             Assert.False(clicked);
+
+            // 测试 Touch 事件
+            TriggerTouchStart(row);
+
+            await Task.Delay(500);
+            row.TouchEnd();
         });
     }
 
     [Theory]
     [InlineData(TableRenderMode.Table)]
     [InlineData(TableRenderMode.CardView)]
-    public void ContextMenu_Table(TableRenderMode renderMode)
+    public async Task ContextMenu_Table(TableRenderMode renderMode)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -106,7 +114,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             });
         });
 
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(async () =>
         {
             var row = renderMode == TableRenderMode.CardView ? cut.Find(".table-row") : cut.Find("tbody tr");
             row.ContextMenu(0, 10, 10, 10, 10, 2, 2);
@@ -121,11 +129,17 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             var item = menu.Find(".dropdown-item");
             item.Click();
             Assert.True(clicked);
+
+            TriggerTouchStart(row);
+            TriggerTouchStart(row);
+
+            await Task.Delay(500);
+            row.TouchEnd();
         });
     }
 
     [Fact]
-    public void ContextMenu_TreeView()
+    public async Task ContextMenu_TreeView()
     {
         var items = new List<TreeFoo>
         {
@@ -165,7 +179,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             });
         });
 
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(async () =>
         {
             var row = cut.Find(".tree-content");
             row.ContextMenu(0, 10, 10, 10, 10, 2, 2);
@@ -180,6 +194,29 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             var item = menu.Find(".dropdown-item");
             item.Click();
             Assert.True(clicked);
+
+            TriggerTouchStart(row);
+            TriggerTouchStart(row);
+
+            await Task.Delay(500);
+            row.TouchEnd();
+        });
+    }
+
+    private void TriggerTouchStart(IElement row)
+    {
+        row.TouchStart(new TouchEventArgs()
+        {
+            Touches = new TouchPoint[]
+            {
+                new()
+                {
+                    ClientX = 10,
+                    ClientY = 10,
+                    ScreenX = 10,
+                    ScreenY = 10
+                }
+            }
         });
     }
 }

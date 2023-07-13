@@ -45,11 +45,13 @@ public class ContextMenuTrigger : BootstrapComponentBase
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         builder.OpenElement(0, WrapperTag);
-        builder.AddMultipleAttributes(1, AdditionalAttributes);
-        builder.AddAttribute(2, "class", ClassString);
-        builder.AddAttribute(3, "oncontextmenu", EventCallback.Factory.Create<MouseEventArgs>(this, OnContextMenu));
-        builder.AddEventPreventDefaultAttribute(4, "oncontextmenu", true);
-        builder.AddContent(5, ChildContent);
+        builder.AddMultipleAttributes(10, AdditionalAttributes);
+        builder.AddAttribute(20, "class", ClassString);
+        builder.AddAttribute(30, "oncontextmenu", EventCallback.Factory.Create<MouseEventArgs>(this, OnContextMenu));
+        builder.AddAttribute(35, "ontouchstart", EventCallback.Factory.Create<TouchEventArgs>(this, OnTouchStart));
+        builder.AddAttribute(36, "ontouchend", EventCallback.Factory.Create<TouchEventArgs>(this, OnTouchEnd));
+        builder.AddEventPreventDefaultAttribute(40, "oncontextmenu", true);
+        builder.AddContent(50, ChildContent);
         builder.CloseElement();
     }
 
@@ -58,4 +60,47 @@ public class ContextMenuTrigger : BootstrapComponentBase
     /// </summary>
     /// <returns></returns>
     public Task OnContextMenu(MouseEventArgs args) => ContextMenuZone.OnContextMenu(args, ContextItem);
+
+    /// <summary>
+    /// 是否触摸
+    /// </summary>
+    private bool TouchStart { get; set; }
+
+    /// <summary>
+    /// 触摸定时器工作指示
+    /// </summary>
+    private bool IsBusy { get; set; }
+
+    private async Task OnTouchStart(TouchEventArgs e)
+    {
+        if (!IsBusy)
+        {
+            IsBusy = true;
+            TouchStart = true;
+
+            // 延时保持 TouchStart 状态
+            await Task.Delay(200);
+            if (TouchStart)
+            {
+                var args = new MouseEventArgs()
+                {
+                    ClientX = e.Touches[0].ClientX,
+                    ClientY = e.Touches[0].ClientY,
+                    ScreenX = e.Touches[0].ScreenX,
+                    ScreenY = e.Touches[0].ScreenY,
+                };
+                // 弹出关联菜单
+                await OnContextMenu(args);
+
+                //延时防止重复激活菜单功能
+                await Task.Delay(200);
+            }
+            IsBusy = false;
+        }
+    }
+
+    private void OnTouchEnd()
+    {
+        TouchStart = false;
+    }
 }
