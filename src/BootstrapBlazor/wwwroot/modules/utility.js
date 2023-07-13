@@ -146,22 +146,23 @@ const normalizeLink = link => {
 
 const addScript = content => {
     // content 文件名
-    const links = [...document.getElementsByTagName('script')]
+    const scripts = [...document.getElementsByTagName('script')]
     const url = normalizeLink(content)
-    let link = links.filter(function (link) {
+    let link = scripts.filter(function (link) {
         return link.src.indexOf(url) > -1
     })
-    let done = link.length > 0;
     if (link.length === 0) {
-        link = document.createElement('script')
-        link.setAttribute('src', content)
-        document.body.appendChild(link)
-        link.onload = () => {
-            done = true
+        const script = document.createElement('script')
+        link.push(script)
+        script.setAttribute('src', content)
+        document.body.appendChild(script)
+        script.onload = () => {
+            script.setAttribute('loaded', true)
         }
     }
     return new Promise((resolve, reject) => {
         const handler = setInterval(() => {
+            const done = link[0].getAttribute('loaded') === 'true'
             if (done) {
                 clearInterval(handler)
                 resolve()
@@ -187,18 +188,19 @@ const addLink = href => {
     let link = links.filter(function (link) {
         return link.href.indexOf(url) > -1
     })
-    let done = link.length > 0;
     if (link.length === 0) {
-        link = document.createElement('link')
-        link.setAttribute('href', href)
-        link.setAttribute("rel", "stylesheet")
-        document.getElementsByTagName("head")[0].appendChild(link)
-        link.onload = () => {
-            done = true
+        const css = document.createElement('link')
+        link.push(css)
+        css.setAttribute('href', href)
+        css.setAttribute("rel", "stylesheet")
+        document.getElementsByTagName("head")[0].appendChild(css)
+        css.onload = () => {
+            css.setAttribute('loaded', true)
         }
     }
     return new Promise((resolve, reject) => {
         const handler = setInterval(() => {
+            const done = link[0].getAttribute('loaded') === 'true'
             if (done) {
                 clearInterval(handler)
                 resolve()
