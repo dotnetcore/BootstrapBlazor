@@ -71,8 +71,6 @@ public class ContextMenuTrigger : BootstrapComponentBase
     /// </summary>
     private bool IsBusy { get; set; }
 
-    private CancellationTokenSource CancellationSource { get; } = new();
-
     private async Task OnTouchStart(TouchEventArgs e)
     {
         if (!IsBusy)
