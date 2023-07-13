@@ -78,6 +78,7 @@ public class DockComponent : DockComponentBase
     /// </summary>
     /// <remarks>锁定后无法拖动</remarks>
     [Parameter]
+    [JsonIgnore]
     public bool IsLock { get; set; }
 
     /// <summary>
