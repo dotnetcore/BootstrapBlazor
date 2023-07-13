@@ -163,7 +163,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ContextMenu_TreeView()
+    public async Task ContextMenu_TreeView()
     {
         var items = new List<TreeFoo>
         {
@@ -203,7 +203,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             });
         });
 
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(async () =>
         {
             var row = cut.Find(".tree-content");
             row.ContextMenu(0, 10, 10, 10, 10, 2, 2);
@@ -218,6 +218,22 @@ public class ContextMenuTest : BootstrapBlazorTestBase
             var item = menu.Find(".dropdown-item");
             item.Click();
             Assert.True(clicked);
+
+            row.TouchStart(new TouchEventArgs()
+            {
+                Touches = new TouchPoint[]
+                {
+                    new()
+                    {
+                        ClientX = 10,
+                        ClientY = 10,
+                        ScreenX = 10,
+                        ScreenY = 10
+                    }
+                }
+            });
+            await Task.Delay(500);
+            row.TouchEnd();
         });
     }
 }
