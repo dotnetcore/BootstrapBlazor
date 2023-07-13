@@ -142,7 +142,7 @@ public partial class DockView
         EnableLocalStorage = EnableLocalStorage,
         IsLock = IsLock,
         Contents = Config.Contents,
-        LocalStoragePrefix = LocalStoragePrefix,
+        LocalStorageKeyPrefix = $"{LocalStoragePrefix}-{Name}",
         VisibleChangedCallback = nameof(VisibleChangedCallbackAsync),
         InitializedCallback = nameof(InitializedCallbackAsync),
         TabDropCallback = nameof(TabDropCallbackAsync),
