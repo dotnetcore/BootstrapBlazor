@@ -93,39 +93,44 @@ const lockDock = dock => {
     dock.dragEvents = dock.dragEvents || new Map()
     stacks.forEach(stack => {
         if (lock) {
-            if (!dock.dragEvents.get(stack)) {
-                lockTab(stack, dock.dragEvents)
-            }
+            lockStack(stack, dock.dragEvents)
         }
         else {
-            unLock(stack, dock.dragEvents)
+            unLockStack(stack, dock.dragEvents)
         }
     })
 }
 
-const lockTab = (stack, dragEvents) => {
-    dragEvents.set(stack, stack.header.handleTabInitiatedDragStartEvent)
-    stack.header.handleTabInitiatedDragStartEvent = () => { }
+const lockStack = (stack, dragEvents) => {
+    if (!dragEvents.has(stack)) {
+        dragEvents.set(stack, stack.header.handleTabInitiatedDragStartEvent)
+        stack.header.handleTabInitiatedDragStartEvent = () => { }
+    }
 
     // hack close button
     stack.header._element.classList.add('bb-dock-lock')
     stack.header.tabs.forEach(tab => {
-        dragEvents.set(tab, tab.onCloseClick)
-        tab.onCloseClick = () => {
-            unLock(stack, dragEvents)
+        if (!dragEvents.has(tab)) {
+            dragEvents.set(tab, tab.onCloseClick)
+            tab.onCloseClick = () => {
+                unLockStack(stack, dragEvents)
+            }
         }
     })
 }
 
-const unLock = (stack, dragEvents) => {
-    stack.header.handleTabInitiatedDragStartEvent = dragEvents.get(stack)
-    stack.header._element.classList.remove('bb-dock-lock')
-    dragEvents.delete(stack)
-
+const unLockStack = (stack, dragEvents) => {
+    if (dragEvents.has(stack)) {
+        stack.header.handleTabInitiatedDragStartEvent = dragEvents.get(stack)
+        stack.header._element.classList.remove('bb-dock-lock')
+        dragEvents.delete(stack)
+    }
     // restore close button
     stack.header.tabs.forEach(tab => {
-        tab.onCloseClick = dragEvents.get(tab)
-        dragEvents.delete(tab)
+        if (dragEvents.has(tab)) {
+            tab.onCloseClick = dragEvents.get(tab)
+            dragEvents.delete(tab)
+        }
     })
 }
 
@@ -138,8 +143,8 @@ const toggleComponent = (dock, option) => {
         const c = comps.find(i => i.id === v.id)
         if (c === undefined) {
             if (dock.layout.root.contentItems.length === 0) {
-                const compotentItem = dock.layout.createAndInitContentItem({ type: option.content[0].type, content: [] }, dock.layout.root)
-                dock.layout.root.addChild(compotentItem)
+                const componentItem = dock.layout.createAndInitContentItem({ type: option.content[0].type, content: [] }, dock.layout.root)
+                dock.layout.root.addChild(componentItem)
             }
             if (dock.layout.root.contentItems[0].isStack) {
                 const typeConfig = goldenLayout.ResolvedItemConfig.createDefault(option.content[0].type)
