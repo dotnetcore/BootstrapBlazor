@@ -76,6 +76,12 @@ public partial class DockView
     [Parameter]
     public bool IsLock { get; set; }
 
+    /// <summary>
+    /// 获得/设置 本地存储前缀 默认 bb-dock
+    /// </summary>
+    [Parameter]
+    public string? LocalStoragePrefix { get; set; }
+
     private DockViewConfig Config { get; } = new();
 
     private DockContent Content { get; } = new();
@@ -89,6 +95,16 @@ public partial class DockView
         .Build();
 
     private bool IsInit { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        LocalStoragePrefix ??= "bb-dock";
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -126,6 +142,7 @@ public partial class DockView
         EnableLocalStorage = EnableLocalStorage,
         IsLock = IsLock,
         Contents = Config.Contents,
+        LocalStoragePrefix = LocalStoragePrefix,
         VisibleChangedCallback = nameof(VisibleChangedCallbackAsync),
         InitializedCallback = nameof(InitializedCallbackAsync),
         TabDropCallback = nameof(TabDropCallbackAsync),

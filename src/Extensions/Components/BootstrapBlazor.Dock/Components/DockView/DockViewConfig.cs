@@ -19,6 +19,12 @@ class DockViewConfig
     public bool EnableLocalStorage { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 本地存储前缀
+    /// </summary>
+    [JsonPropertyName("prefix")]
+    public string? LocalStoragePrefix { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否锁定 默认 false
     /// </summary>
     /// <remarks>锁定后无法拖动</remarks>
