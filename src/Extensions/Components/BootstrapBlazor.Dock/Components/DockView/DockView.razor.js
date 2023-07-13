@@ -21,6 +21,18 @@ export async function init(id, option, invoke) {
     })
     layout.init()
 
+    const dragEvents = new Map()
+    layout.getAllStacks().forEach(stack => {
+        var components = getAllContentItems(option.content)
+        components.forEach(com => {
+            if (stack.contentItems[0].title == com.title) {
+                if (com.isLock) {
+                    lockTab(stack, dragEvents)
+                }
+            }
+        })
+    })
+
     layout.on('tabClosed', (component, title) => {
         component.classList.add('d-none')
         el.append(component)
@@ -38,7 +50,7 @@ export async function init(id, option, invoke) {
     })
     invoke.invokeMethodAsync(option.initializedCallback)
 
-    const dock = { el, layout, lock: option.lock }
+    const dock = { el, layout, lock: option.lock, dragEvents }
     Data.set(id, dock)
 }
 
@@ -81,27 +93,39 @@ const lockDock = dock => {
     dock.dragEvents = dock.dragEvents || new Map()
     stacks.forEach(stack => {
         if (lock) {
-            dock.dragEvents.set(stack, stack.header.handleTabInitiatedDragStartEvent)
-            stack.header.handleTabInitiatedDragStartEvent = () => { }
-
-            // hack close button
-            stack.header._element.classList.add('bb-dock-lock')
-            stack.header.tabs.forEach(tab => {
-                dock.dragEvents.set(tab, tab.onCloseClick)
-                tab.onCloseClick = () => { }
-            })
+            if (!dock.dragEvents.get(stack)) {
+                lockTab(stack, dock.dragEvents)
+            }
         }
         else {
-            stack.header.handleTabInitiatedDragStartEvent = dock.dragEvents.get(stack)
-            stack.header._element.classList.remove('bb-dock-lock')
-            dock.dragEvents.delete(stack)
-
-            // restore close button
-            stack.header.tabs.forEach(tab => {
-                tab.onCloseClick = dock.dragEvents.get(tab)
-                dock.dragEvents.delete(tab)
-            })
+            unLock(stack, dock.dragEvents)
         }
+    })
+}
+
+const lockTab = (stack, dragEvents) => {
+    dragEvents.set(stack, stack.header.handleTabInitiatedDragStartEvent)
+    stack.header.handleTabInitiatedDragStartEvent = () => { }
+
+    // hack close button
+    stack.header._element.classList.add('bb-dock-lock')
+    stack.header.tabs.forEach(tab => {
+        dragEvents.set(tab, tab.onCloseClick)
+        tab.onCloseClick = () => {
+            unLock(stack, dragEvents)
+        }
+    })
+}
+
+const unLock = (stack, dragEvents) => {
+    stack.header.handleTabInitiatedDragStartEvent = dragEvents.get(stack)
+    stack.header._element.classList.remove('bb-dock-lock')
+    dragEvents.delete(stack)
+
+    // restore close button
+    stack.header.tabs.forEach(tab => {
+        tab.onCloseClick = dragEvents.get(tab)
+        dragEvents.delete(tab)
     })
 }
 
