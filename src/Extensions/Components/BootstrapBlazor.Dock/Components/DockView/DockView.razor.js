@@ -21,16 +21,13 @@ export async function init(id, option, invoke) {
     })
     layout.init()
 
-    const dragEvents = new Map()
-    layout.getAllStacks().forEach(stack => {
-        var components = getAllContentItems(option.content)
-        components.forEach(com => {
-            if (stack.contentItems[0].title == com.title) {
-                if (com.isLock) {
-                    lockTab(stack, dragEvents)
-                }
-            }
-        })
+    const eventsData = new Map()
+    const components = getAllContentItems(option.content)
+    layout.getAllContentItems().filter(i => i.isComponent).forEach(com => {
+        const component = components.find(c => c.id === com.id)
+        if(component && component.componentState.lock) {
+            lockTab(com.tab, eventsData)
+        }
     })
 
     layout.on('tabClosed', (component, title) => {
@@ -50,7 +47,7 @@ export async function init(id, option, invoke) {
     })
     invoke.invokeMethodAsync(option.initializedCallback)
 
-    const dock = { el, layout, lock: option.lock, dragEvents }
+    const dock = { el, layout, lock: option.lock, eventsData }
     Data.set(id, dock)
 }
 
@@ -64,7 +61,7 @@ export function update(id, option) {
             lockDock(dock)
         }
         else {
-            // 处理 toogle 逻辑
+            // 处理 toggle 逻辑
             toggleComponent(dock, option)
         }
     }
@@ -84,54 +81,68 @@ export function dispose(id) {
         return
     }
 
+    dock.eventsData.clear()
     dock.layout.destroy()
 }
 
 const lockDock = dock => {
     const lock = dock.lock
     const stacks = dock.layout.getAllStacks()
-    dock.dragEvents = dock.dragEvents || new Map()
+    dock.eventsData = dock.eventsData || new Map()
     stacks.forEach(stack => {
         if (lock) {
-            lockStack(stack, dock.dragEvents)
+            lockStack(stack, dock.eventsData)
         }
         else {
-            unLockStack(stack, dock.dragEvents)
+            unLockStack(stack, dock.eventsData)
         }
     })
 }
 
-const lockStack = (stack, dragEvents) => {
-    if (!dragEvents.has(stack)) {
-        dragEvents.set(stack, stack.header.handleTabInitiatedDragStartEvent)
+const lockStack = (stack, eventsData) => {
+    if (!eventsData.has(stack)) {
+        eventsData.set(stack, stack.header.handleTabInitiatedDragStartEvent)
         stack.header.handleTabInitiatedDragStartEvent = () => { }
     }
 
     // hack close button
-    stack.header._element.classList.add('bb-dock-lock')
     stack.header.tabs.forEach(tab => {
-        if (!dragEvents.has(tab)) {
-            dragEvents.set(tab, tab.onCloseClick)
-            tab.onCloseClick = () => {
-                unLockStack(stack, dragEvents)
-            }
-        }
+        lockTab(tab, eventsData)
     })
 }
 
-const unLockStack = (stack, dragEvents) => {
-    if (dragEvents.has(stack)) {
-        stack.header.handleTabInitiatedDragStartEvent = dragEvents.get(stack)
-        stack.header._element.classList.remove('bb-dock-lock')
-        dragEvents.delete(stack)
+const unLockStack = (stack, eventsData) => {
+    if (eventsData.has(stack)) {
+        stack.header.handleTabInitiatedDragStartEvent = eventsData.get(stack)
+        eventsData.delete(stack)
     }
     // restore close button
     stack.header.tabs.forEach(tab => {
-        if (dragEvents.has(tab)) {
-            tab.onCloseClick = dragEvents.get(tab)
-            dragEvents.delete(tab)
-        }
+        unLockTab(tab, eventsData)
     })
+}
+
+const lockTab = (tab, eventsData) => {
+    if (!eventsData.has(tab)) {
+        eventsData.set(tab, tab.onCloseClick)
+        tab.element.classList.add('bb-dock-tab-lock')
+        tab.onCloseClick = () => {
+            const stack = tab.componentItem.parentItem
+            if (eventsData.has(stack)) {
+                stack.header.handleTabInitiatedDragStartEvent = eventsData.get(stack)
+                eventsData.delete(stack)
+            }
+            unLockTab(tab, eventsData)
+        }
+    }
+}
+
+const unLockTab = (tab, eventsData) => {
+    if (eventsData.has(tab)) {
+        tab.element.classList.remove('bb-dock-tab-lock')
+        tab.onCloseClick = eventsData.get(tab)
+        eventsData.delete(tab)
+    }
 }
 
 const toggleComponent = (dock, option) => {
