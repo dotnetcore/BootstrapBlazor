@@ -8,11 +8,23 @@
   <ItemGroup>
     <PackageReference Include="BootstrapBlazor.Middleware" Version="7.*" />
     <PackageReference Include="Longbow.Logging" Version="6.0.6" />
+    <PackageReference Include="Longbow.GiteeAuth" Version="7.0.0" />
+    <PackageReference Include="Longbow.GitHubAuth" Version="7.0.1" />
+    <PackageReference Include="Longbow.OAuth" Version="7.0.0" />
     <PackageReference Include="Longbow.Tasks" Version="5.*" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BootstrapBlazor.Docs\BootstrapBlazor.Docs.csproj" />
+    <ProjectReference Include="..\BootstrapBlazor.Shared\BootstrapBlazor.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="BootstrapBlazor.Components" />
+    <Using Include="BootstrapBlazor.Shared.Common" />
+    <Using Include="BootstrapBlazor.Shared.Components" />
+    <Using Include="BootstrapBlazor.Shared.Samples" />
+    <Using Include="Microsoft.Extensions.Localization" />
+    <Using Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
 
 </Project>
