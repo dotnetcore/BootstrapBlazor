@@ -371,7 +371,13 @@ const hackGoldenLayout = eventsData => {
             }
         }
 
-        const originSplitterDragStop = goldenLayout.RowOrColumn.prototype.onSplitterDragStop;
+        const originprocessTabDropdownActiveChanged = goldenLayout.Header.prototype.processTabDropdownActiveChanged
+        goldenLayout.Header.prototype.processTabDropdownActiveChanged = function () {
+            this._popoutButton.element.setAttribute('title', 'lock/unlock stack');
+            originprocessTabDropdownActiveChanged.call(this)
+        }
+
+        const originSplitterDragStop = goldenLayout.RowOrColumn.prototype.onSplitterDragStop
         goldenLayout.RowOrColumn.prototype.onSplitterDragStop = function (splitter) {
             originSplitterDragStop.call(this, splitter)
             this.layoutManager.emit('splitterDragStop')
