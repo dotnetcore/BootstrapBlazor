@@ -1,5 +1,4 @@
 ﻿@using static BootstrapBlazor.Shared.Samples.ListViews;
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 @inject IStringLocalizer<BootstrapBlazor.Shared.Samples.ListViews> Localizer
 
 <ListView TItem="Product" GroupName="@(p => p.Category)" OnQueryAsync="@OnQueryAsync" Collapsable="true" CollapsedGroupCallback="CollapsedGroupCallback">
@@ -29,7 +28,7 @@
 
         Products = Enumerable.Range(1, 100).Select(i => new Product()
         {
-            ImageUrl = $"{WebsiteOption.CurrentValue.ImageLibUrl}/images/Pic{i}.jpg",
+            ImageUrl = $"./images/Pic{i}.jpg",
             Description = $"Pic{i}.jpg",
             Category = $"Group{(i % 4) + 1}"
         });
