@@ -38,7 +38,11 @@ export async function init(id, option, invoke) {
         saveConfig(option, layout)
         option.invokeVisibleChangedCallback(title, false)
     })
-    layout.on('itemDropped', () => {
+    layout.on('itemDropped', item => {
+        const stack = item.parentItem
+        if (eventsData.has(stack)) {
+            lockTab(item.tab, eventsData)
+        }
         saveConfig(option, layout)
         invoke.invokeMethodAsync(option.tabDropCallback)
     })
