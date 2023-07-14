@@ -1,0 +1,12 @@
+<Project>
+
+  <ItemGroup>
+    <ContentFiles Include="$(MSBuildThisFileDirectory)../../BootstrapBlazor.Server/wwwroot/**/*.*" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Message Text="Copy server static files ..." Importance="high" />
+    <Copy SourceFiles="@(ContentFiles)" DestinationFolder="wwwroot/%(RecursiveDir)" SkipUnchangedFiles="true" />
+  </Target>
+
+</Project>
