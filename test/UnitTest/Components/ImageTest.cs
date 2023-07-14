@@ -11,7 +11,7 @@ public class ImageTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<ImageViewer>(pb =>
         {
-            pb.Add(a => a.Url, "https://www.blazor.zone/./images/logo.png");
+            pb.Add(a => a.Url, "https://www.blazor.zone/images/logo.png");
             pb.Add(a => a.ZIndex, 2000);
             pb.Add(a => a.FitMode, ObjectFitMode.Fill);
         });
