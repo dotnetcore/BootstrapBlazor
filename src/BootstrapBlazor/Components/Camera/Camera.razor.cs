@@ -60,31 +60,43 @@ public partial class Camera
     public int VideoHeight { get; set; } = 240;
 
     /// <summary>
+    /// 获得/设置 拍照格式为 Jpeg 默认为 false 使用 png 格式
+    /// </summary>
+    [Parameter]
+    public bool CaptureJpeg { get; set; }
+
+    /// <summary>
+    /// 获得/设置 图像质量 默认为 0.9
+    /// </summary>
+    [Parameter]
+    public double Quality { get; set; } = 0.9d;
+
+    /// <summary>
     /// 获得/设置 初始化摄像头回调方法
     /// </summary>
     [Parameter]
     public Func<IEnumerable<DeviceItem>, Task>? OnInit { get; set; }
 
     /// <summary>
-    /// 获得/设置 扫码出错回调方法
+    /// 获得/设置 拍照出错回调方法
     /// </summary>
     [Parameter]
     public Func<string, Task>? OnError { get; set; }
 
     /// <summary>
-    /// 获得/设置 开始扫码回调方法
+    /// 获得/设置 开始拍照回调方法
     /// </summary>
     [Parameter]
     public Func<Task>? OnStart { get; set; }
 
     /// <summary>
-    /// 获得/设置 关闭扫码回调方法
+    /// 获得/设置 关闭拍照回调方法
     /// </summary>
     [Parameter]
     public Func<Task>? OnClose { get; set; }
 
     /// <summary>
-    /// 获得/设置 扫码成功回调方法
+    /// 获得/设置 拍照成功回调方法
     /// </summary>
     [Parameter]
     public Func<string, Task>? OnCapture { get; set; }
@@ -193,7 +205,7 @@ public partial class Camera
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, AutoStart, VideoWidth, VideoHeight);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, AutoStart, VideoWidth, VideoHeight, CaptureJpeg, Quality);
 
     /// <summary>
     /// 初始化设备方法

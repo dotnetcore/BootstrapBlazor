@@ -21,6 +21,15 @@ export async function init(id, option, invoke) {
     })
     layout.init()
 
+    const eventsData = new Map()
+    const components = getAllContentItems(option.content)
+    layout.getAllContentItems().filter(i => i.isComponent).forEach(com => {
+        const component = components.find(c => c.id === com.id)
+        if (component && component.componentState.lock) {
+            lockTab(com.tab, eventsData)
+        }
+    })
+
     layout.on('tabClosed', (component, title) => {
         component.classList.add('d-none')
         el.append(component)
@@ -38,7 +47,7 @@ export async function init(id, option, invoke) {
     })
     invoke.invokeMethodAsync(option.initializedCallback)
 
-    const dock = { el, layout }
+    const dock = { el, layout, lock: option.lock, eventsData }
     Data.set(id, dock)
 }
 
@@ -46,47 +55,22 @@ export function update(id, option) {
     const dock = Data.get(id)
 
     if (dock) {
-        // 处理 toogle 逻辑
-        const items = getAllContentItems(option.content)
-        const comps = dock.layout.getAllContentItems().filter(s => s.isComponent);
-
-        // gt 没有 items 有时添加
-        items.forEach(v => {
-            const c = comps.find(i => i.id === v.id)
-            if (c === undefined) {
-                if (dock.layout.root.contentItems.length === 0) {
-                    const compotentItem = dock.layout.createAndInitContentItem({ type: option.content[0].type, content: [] }, dock.layout.root)
-                    dock.layout.root.addChild(compotentItem)
-                }
-                if (dock.layout.root.contentItems[0].isStack) {
-                    const typeConfig = goldenLayout.ResolvedItemConfig.createDefault(option.content[0].type)
-                    const rowOrColumn = dock.layout.root.layoutManager.createContentItem(typeConfig, dock.layout.root)
-                    const stack = dock.layout.root.contentItems[0]
-                    dock.layout.root.replaceChild(stack, rowOrColumn)
-                    rowOrColumn.addChild(stack)
-                    rowOrColumn.addItem(v)
-                    rowOrColumn.updateSize()
-                }
-                else {
-                    dock.layout.root.contentItems[0].addItem(v)
-                }
-            }
-        })
-
-        // gt 有 items 没有时移除
-        comps.forEach(v => {
-            const c = items.find(i => i.id === v.id)
-            if (c === undefined) {
-                closeItem(dock.el, v)
-            }
-            else if (v.title !== c.title) {
-                // 更新 Title
-                v.setTitle(c.title)
-            }
-        })
-
-        saveConfig(option, dock.layout)
+        if (dock.lock !== option.lock) {
+            // 处理 Lock 逻辑
+            dock.lock = option.lock
+            lockDock(dock)
+        }
+        else {
+            // 处理 toggle 逻辑
+            toggleComponent(dock, option)
+        }
     }
+}
+
+export function lock(id, lock) {
+    const dock = Data.get(id)
+    dock.lock = lock
+    lockDock(dock)
 }
 
 export function dispose(id) {
@@ -97,7 +81,102 @@ export function dispose(id) {
         return
     }
 
+    dock.eventsData.clear()
     dock.layout.destroy()
+}
+
+const lockDock = dock => {
+    const lock = dock.lock
+    const stacks = dock.layout.getAllStacks()
+    dock.eventsData = dock.eventsData || new Map()
+    stacks.forEach(stack => {
+        if (lock) {
+            lockStack(stack, dock.eventsData)
+        }
+        else {
+            unLockStack(stack, dock.eventsData)
+        }
+    })
+}
+
+const lockStack = (stack, eventsData) => {
+    stack.header.tabs.forEach(tab => {
+        lockTab(tab, eventsData)
+    })
+}
+
+const unLockStack = (stack, eventsData) => {
+    stack.header.tabs.forEach(tab => {
+        unLockTab(tab, eventsData)
+    })
+}
+
+const lockTab = (tab, eventsData) => {
+    if (!eventsData.has(tab)) {
+        tab.disableReorder()
+        eventsData.set(tab, tab.onCloseClick)
+        tab.element.classList.add('bb-dock-tab-lock')
+        tab.onCloseClick = () => {
+            tab.enableReorder()
+            unLockTab(tab, eventsData)
+        }
+    }
+}
+
+const unLockTab = (tab, eventsData) => {
+    if (eventsData.has(tab)) {
+        tab.enableReorder()
+        tab.element.classList.remove('bb-dock-tab-lock')
+        tab.onCloseClick = eventsData.get(tab)
+        eventsData.delete(tab)
+    }
+}
+
+const toggleComponent = (dock, option) => {
+    const items = getAllContentItems(option.content)
+    const comps = dock.layout.getAllContentItems().filter(s => s.isComponent);
+
+    // gt 没有 items 有时添加
+    items.forEach(v => {
+        const c = comps.find(i => i.id === v.id)
+        if (c === undefined) {
+            if (dock.layout.root.contentItems.length === 0) {
+                const componentItem = dock.layout.createAndInitContentItem({ type: option.content[0].type, content: [] }, dock.layout.root)
+                dock.layout.root.addChild(componentItem)
+            }
+            if (dock.layout.root.contentItems[0].isStack) {
+                const typeConfig = goldenLayout.ResolvedItemConfig.createDefault(option.content[0].type)
+                const rowOrColumn = dock.layout.root.layoutManager.createContentItem(typeConfig, dock.layout.root)
+                const stack = dock.layout.root.contentItems[0]
+                dock.layout.root.replaceChild(stack, rowOrColumn)
+                rowOrColumn.addChild(stack)
+                rowOrColumn.addItem(v)
+                rowOrColumn.updateSize()
+            }
+            else {
+                dock.layout.root.contentItems[0].addItem(v)
+            }
+
+            if (v.componentState.lock) {
+                var component = dock.layout.getAllContentItems().find(i => i.isComponent && i.id === v.id)
+                lockTab(component.tab, dock.eventsData)
+            }
+        }
+    })
+
+    // gt 有 items 没有时移除
+    comps.forEach(v => {
+        const c = items.find(i => i.id === v.id)
+        if (c === undefined) {
+            closeItem(dock.el, v)
+        }
+        else if (v.title !== c.title) {
+            // 更新 Title
+            v.setTitle(c.title)
+        }
+    })
+
+    saveConfig(option, dock.layout)
 }
 
 const getAllContentItems = content => {
@@ -153,7 +232,7 @@ const getConfig = option => {
         ...option
     }
     if (option.enableLocalStorage) {
-        const localConfig = localStorage.getItem(`uni_gl_${option.name}_${option.version}`);
+        const localConfig = localStorage.getItem(getLocalStorageKey(option));
         if (localConfig) {
             // 当tab全部关闭时，没有root节点
             const configItem = JSON.parse(localConfig)
@@ -178,6 +257,14 @@ const getConfig = option => {
     }
 }
 
+const getLocalStorageKey = option => {
+    return `${option.prefix}-${option.version}`
+}
+
+const indexOfKey = (key, option) => {
+    return key.indexOf(`${option.prefix}-`) > -1
+}
+
 const saveConfig = (option, layout) => {
     option = {
         enableLocalStorage: false,
@@ -185,14 +272,14 @@ const saveConfig = (option, layout) => {
     }
     if (option.enableLocalStorage) {
         removeConfig(option)
-        localStorage.setItem(`uni_gl_${option.name}_${option.version}`, JSON.stringify(layout.saveLayout()));
+        localStorage.setItem(getLocalStorageKey(option), JSON.stringify(layout.saveLayout()));
     }
 }
 
 const removeConfig = option => {
     for (let index = localStorage.length; index > 0; index--) {
         const k = localStorage.key(index - 1);
-        if (k.indexOf(`uni_gl_${option.name}_`) > -1) {
+        if (indexOfKey(k, option)) {
             localStorage.removeItem(k);
         }
     }

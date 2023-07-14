@@ -47,3 +47,11 @@
     .bb-dock .lm_controls {
         display: none;
     }
+
+.lm_header .lm_tab.bb-dock-tab-lock .lm_close_tab {
+    background-image: url(../images/lock.svg);
+}
+
+    .lm_header .lm_tab.bb-dock-tab-lock .lm_close_tab.d-none {
+        display: block !important;
+    }

@@ -99,7 +99,7 @@ public partial class Steps
     {
         base.OnParametersSet();
 
-        Items = Enumerable.Empty<StepItem>();
+        Items ??= Enumerable.Empty<StepItem>();
     }
 
     /// <summary>
