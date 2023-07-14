@@ -375,6 +375,12 @@ const hackGoldenLayout = eventsData => {
         goldenLayout.Header.prototype.processTabDropdownActiveChanged = function () {
             this._popoutButton.element.setAttribute('title', 'lock/unlock stack');
             originprocessTabDropdownActiveChanged.call(this)
+
+            this._closeButton.onClick = function (ev) {
+                if (!eventsData.has(this._header.parent)) {
+                    this._pushEvent(ev)
+                }
+            }
         }
 
         const originSplitterDragStop = goldenLayout.RowOrColumn.prototype.onSplitterDragStop
