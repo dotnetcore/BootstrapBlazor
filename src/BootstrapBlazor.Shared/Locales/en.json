@@ -1140,7 +1140,7 @@
     "N61": "Configure whether to display missing localized resource information",
     "N62": "Add BootstrapBlazor service",
     "N63": "Ignore the loss of localized key-value culture information",
-    "LocalizationFileDesc": "The component built-in localization resource files are <code>en</code> <code>zh</code>. The other localization resource files <code>de</code> <code>es</code> <code>pt</code> <code>zh-TW</code> which are placed in the project folder <code>localization</code>. you can be downloaded by yourself and imported into the project through the injection service <a href=\"https://gitee.com/LongbowEnterprise/BootstrapBlazor/tree/main/localization\" target=\"_blank\"><img src=\"_content/BootstrapBlazor.Shared/images/gitee.svg\" class=\"gitee-icon\"></a> <a href=\"https://github.com/dotnetcore/BootstrapBlazor/tree/main/localization\" target=\"_blank\"><i class=\"fa-brands fa-github github-icon\"></i></a>",
+    "LocalizationFileDesc": "The component built-in localization resource files are <code>en</code> <code>zh</code>. The other localization resource files <code>de</code> <code>es</code> <code>pt</code> <code>zh-TW</code> which are placed in the project folder <code>localization</code>. you can be downloaded by yourself and imported into the project through the injection service <a href=\"https://gitee.com/LongbowEnterprise/BootstrapBlazor/tree/main/localization\" target=\"_blank\"><img src=\"./images/gitee.svg\" class=\"gitee-icon\"></a> <a href=\"https://github.com/dotnetcore/BootstrapBlazor/tree/main/localization\" target=\"_blank\"><i class=\"fa-brands fa-github github-icon\"></i></a>",
     "AdditionalJsonFile": "Additional <code>json</code> localization file",
     "ES": "Spanish (es)",
     "TW": "中國台灣 (zh-TW)"
