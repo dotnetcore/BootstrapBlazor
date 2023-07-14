@@ -1,8 +1,7 @@
 ﻿@using Azure.AI.OpenAI
-@using Bootstrap.Shared.OAuth;
-@using Microsoft.AspNetCore.Components.Authorization
+@using BootstrapBlazor.Server.OAuth;
 @inherits BootstrapModuleComponentBase
-@attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.Docs/Demos/AzureOpenAI/AzureOpenAIChat.razor.js")]
+@attribute [JSModuleAutoLoader("./AIChat/AzureOpenAI/AzureOpenAIChat.razor.js")]
 
 <div class="chat-title">@Localizer["ChatTitle"]</div>
 <div class="chat-body">

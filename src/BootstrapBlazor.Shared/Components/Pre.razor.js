@@ -8,8 +8,8 @@ export async function init(id, title) {
         return
     }
 
-    await addScript('./_content/BootstrapBlazor.Shared/lib/highlight/highlight.min.js')
-    await addLink('./_content/BootstrapBlazor.Shared/lib/highlight/vs.min.css')
+    await addScript('./lib/highlight/highlight.min.js')
+    await addLink('./lib/highlight/vs.min.css')
 
     const pre = {
         element: el,

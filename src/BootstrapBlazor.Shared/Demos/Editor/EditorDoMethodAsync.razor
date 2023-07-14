@@ -4,7 +4,7 @@
 <div class="mt-3">
     <Button OnClick="InsertHtmlAsync">@Localizer["DoMethodAsyncButton1"]</Button>
     <Button OnClick="@(async () => await Editor.DoMethodAsync("formatH2", ""))">@Localizer["DoMethodAsyncButton2"]</Button>
-    <Button OnClick="@(async () => await Editor.DoMethodAsync("insertImage", "https://www.blazor.zone/_content/BootstrapBlazor.Shared/images/avatars/150-1.jpg", "tree"))">@Localizer["DoMethodAsyncButton3"]</Button>
+    <Button OnClick="@(async () => await Editor.DoMethodAsync("insertImage", "https://www.blazor.zone/images/avatars/150-1.jpg", "tree"))">@Localizer["DoMethodAsyncButton3"]</Button>
 </div>
 
 @code {

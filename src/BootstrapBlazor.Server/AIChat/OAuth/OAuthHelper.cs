@@ -2,19 +2,13 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared.OAuth;
-using Longbow.GiteeAuth;
 using Longbow.GitHubAuth;
 using Longbow.OAuth;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Linq;
 using System.Collections.Concurrent;
 using System.Net.Http.Headers;
-using System.Security.Policy;
 
-namespace Bootstrap.Shared.OAuth;
+namespace BootstrapBlazor.Server.OAuth;
 
 /// <summary>
 /// Gitee 授权帮助类

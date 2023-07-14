@@ -30,11 +30,6 @@ public class WebsiteOptions
     /// <summary>
     /// 
     /// </summary>
-    public string ImageLibUrl { get; set; } = "https://imgs.blazor.zone";
-
-    /// <summary>
-    /// 
-    /// </summary>
     public string BootstrapAdminLink { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapAdmin";
 
     /// <summary>

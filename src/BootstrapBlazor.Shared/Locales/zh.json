@@ -1140,7 +1140,7 @@
     "N61": "配置是否显示缺失本地化资源信息",
     "N62": "增加 BootstrapBlazor 服务",
     "N63": "忽略本地化键值文化信息丢失",
-    "LocalizationFileDesc": "组件内置本地化资源文件为 <code>en</code> <code>zh</code> 由网友提供的其他本地化资源文件 <code>de</code> <code>es</code> <code>pt</code> <code>zh-TW</code> 放置在项目文件夹 <code>localization</code> 内，可自行下载通过注入服务引入到项目中 <a href=\"https://gitee.com/LongbowEnterprise/BootstrapBlazor/tree/main/localization\" target=\"_blank\"><img src=\"_content/BootstrapBlazor.Shared/images/gitee.svg\" class=\"gitee-icon\"></a> <a href=\"https://github.com/dotnetcore/BootstrapBlazor/tree/main/localization\" target=\"_blank\"><i class=\"fa-brands fa-github github-icon\"></i></a>",
+    "LocalizationFileDesc": "组件内置本地化资源文件为 <code>en</code> <code>zh</code> 由网友提供的其他本地化资源文件 <code>de</code> <code>es</code> <code>pt</code> <code>zh-TW</code> 放置在项目文件夹 <code>localization</code> 内，可自行下载通过注入服务引入到项目中 <a href=\"https://gitee.com/LongbowEnterprise/BootstrapBlazor/tree/main/localization\" target=\"_blank\"><img src=\"./images/gitee.svg\" class=\"gitee-icon\"></a> <a href=\"https://github.com/dotnetcore/BootstrapBlazor/tree/main/localization\" target=\"_blank\"><i class=\"fa-brands fa-github github-icon\"></i></a>",
     "AdditionalJsonFile": "额外本地化语言 <code>json</code> 文件",
     "ES": "西班牙语（es）",
     "TW": "中國台灣（zh-TW）"
@@ -1171,7 +1171,7 @@
   "BootstrapBlazor.Shared.Pages.Golbalization": {
     "Title": "全球化",
     "SubTitle": "ASP.NET Core Blazor 全球化",
-    "P1": "阅读以下知识点前请先查看 <a href='https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?view=aspnetcore-3.1' target='_blank'>微软官方文档</a>"
+    "P1": "阅读以下知识点前请先查看 <a href='https://learn.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?WT.mc_id=DT-MVP-5004174' target='_blank'>微软官方文档</a>"
   },
   "BootstrapBlazor.Shared.Components.InstallContent": {
     "Heading": "环境准备",
@@ -6279,13 +6279,13 @@
     "EyeDropperTips3": "为了帮助用户更容易注意到吸管模式，浏览器将其设置为显而易见。短暂延迟后，正常的鼠标光标消失，取而代之的是一个放大镜。在滴管模式启动和用户可以选择像素以确保用户有时间查看放大镜之间也存在延迟",
     "EyeDropperTips4": "用户也可以随时取消吸管模式（按键 <kbd>Escape</kbd>）"
   },
-  "BootstrapBlazor.Shared.Samples.Chats": {
+  "BootstrapBlazor.Server.AIChat.Chats": {
     "ChatsTitle": "Azure OpenAI 服务",
     "ChatsDescription": "Azure OpenAI 服务是一个基于 Azure 云服务的聊天机器人，可以通过对话的方式与用户进行交互",
     "ChatNormalTitle": "Azure OpenAI 服务",
     "ChatNormalIntro": "通过调用 <code>IAzureOpenAIService</code> 服务方法 <code>GetChatCompletionsAsync</code> 进行聊天对话"
   },
-  "BootstrapBlazor.Shared.Demos.AzureOpenAI.AzureOpenAIChat": {
+  "BootstrapBlazor.Server.AIChat.AzureOpenAI.AzureOpenAIChat": {
     "ChatTitle": "聊天场景",
     "ChatUserMessageTitle": "你好 {0} (剩余提问次数 {1})",
     "ChatDemoDesc": "由于 <code>GPT</code> 无免费接口，本组件需要 <code>Gitee</code> 或者 <code>Github</code> 授权登录后对账户进行使用次数限制",

@@ -4,7 +4,7 @@
 
 using Longbow.OAuth;
 
-namespace BootstrapBlazor.Shared.OAuth;
+namespace BootstrapBlazor.Server.OAuth;
 
 /// <summary>
 /// 

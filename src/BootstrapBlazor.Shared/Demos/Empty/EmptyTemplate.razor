@@ -2,7 +2,7 @@
 @inject IStringLocalizer<EmptyTemplate> Localizer
 
 <div>
-    <Empty Image="_content/BootstrapBlazor.Shared/images/empty.svg">
+    <Empty Image="./images/empty.svg">
         <Template>
             <Button OnClick="@(()=>NavigationManager.NavigateTo("components"))">@Localizer["TemplateIButtonText"]</Button>
         </Template>

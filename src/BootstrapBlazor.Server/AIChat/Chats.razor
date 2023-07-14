@@ -1,0 +1,8 @@
+﻿@page "/ai-chat"
+@inject IStringLocalizer<Chats> Localizer
+
+<h3>@Localizer["ChatsTitle"]</h3>
+
+<h4>@Localizer["ChatsDescription"]</h4>
+
+<DemoBlock Title="@Localizer["ChatNormalTitle"]" Introduction="@Localizer["ChatNormalIntro"]" Name="Normal" Demo="typeof(AIChat.AzureOpenAI.AzureOpenAIChat)" ShowCode="false" />
