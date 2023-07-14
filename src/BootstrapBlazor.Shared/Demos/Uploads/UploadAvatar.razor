@@ -56,7 +56,7 @@
 
     private Person Foo { get; set; } = new Person();
 
-    private List<UploadFile> PreviewFileList { get; } = new(new[] { new UploadFile { PrevUrl = "_content/BootstrapBlazor.Shared/images/Argo.png" } });
+    private List<UploadFile> PreviewFileList { get; } = new(new[] { new UploadFile { PrevUrl = "./images/Argo.png" } });
 
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
