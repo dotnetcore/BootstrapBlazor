@@ -25,7 +25,7 @@ export async function init(id, option, invoke) {
     const components = getAllContentItems(option.content)
     layout.getAllContentItems().filter(i => i.isComponent).forEach(com => {
         const component = components.find(c => c.id === com.id)
-        if(component && component.componentState.lock) {
+        if (component && component.componentState.lock) {
             lockTab(com.tab, eventsData)
         }
     })
@@ -100,10 +100,9 @@ const lockDock = dock => {
 }
 
 const lockStack = (stack, eventsData) => {
-    if (!eventsData.has(stack)) {
-        eventsData.set(stack, stack.header.handleTabInitiatedDragStartEvent)
-        stack.header.handleTabInitiatedDragStartEvent = () => { }
-    }
+    stack.header.tabs.forEach(tab => {
+        tab.disableReorder()
+    })
 
     // hack close button
     stack.header.tabs.forEach(tab => {
@@ -112,10 +111,10 @@ const lockStack = (stack, eventsData) => {
 }
 
 const unLockStack = (stack, eventsData) => {
-    if (eventsData.has(stack)) {
-        stack.header.handleTabInitiatedDragStartEvent = eventsData.get(stack)
-        eventsData.delete(stack)
-    }
+    stack.header.tabs.forEach(tab => {
+        tab.enableReorder()
+    })
+
     // restore close button
     stack.header.tabs.forEach(tab => {
         unLockTab(tab, eventsData)
@@ -124,14 +123,11 @@ const unLockStack = (stack, eventsData) => {
 
 const lockTab = (tab, eventsData) => {
     if (!eventsData.has(tab)) {
+        tab.disableReorder()
         eventsData.set(tab, tab.onCloseClick)
         tab.element.classList.add('bb-dock-tab-lock')
         tab.onCloseClick = () => {
-            const stack = tab.componentItem.parentItem
-            if (eventsData.has(stack)) {
-                stack.header.handleTabInitiatedDragStartEvent = eventsData.get(stack)
-                eventsData.delete(stack)
-            }
+            tab.enableReorder()
             unLockTab(tab, eventsData)
         }
     }
