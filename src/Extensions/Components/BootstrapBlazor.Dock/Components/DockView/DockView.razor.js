@@ -101,11 +101,6 @@ const lockDock = dock => {
 
 const lockStack = (stack, eventsData) => {
     stack.header.tabs.forEach(tab => {
-        tab.disableReorder()
-    })
-
-    // hack close button
-    stack.header.tabs.forEach(tab => {
         lockTab(tab, eventsData)
     })
 }
@@ -113,10 +108,6 @@ const lockStack = (stack, eventsData) => {
 const unLockStack = (stack, eventsData) => {
     stack.header.tabs.forEach(tab => {
         tab.enableReorder()
-    })
-
-    // restore close button
-    stack.header.tabs.forEach(tab => {
         unLockTab(tab, eventsData)
     })
 }
