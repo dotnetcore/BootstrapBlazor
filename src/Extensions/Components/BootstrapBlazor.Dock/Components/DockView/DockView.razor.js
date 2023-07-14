@@ -107,7 +107,6 @@ const lockStack = (stack, eventsData) => {
 
 const unLockStack = (stack, eventsData) => {
     stack.header.tabs.forEach(tab => {
-        tab.enableReorder()
         unLockTab(tab, eventsData)
     })
 }
@@ -126,6 +125,7 @@ const lockTab = (tab, eventsData) => {
 
 const unLockTab = (tab, eventsData) => {
     if (eventsData.has(tab)) {
+        tab.enableReorder()
         tab.element.classList.remove('bb-dock-tab-lock')
         tab.onCloseClick = eventsData.get(tab)
         eventsData.delete(tab)
