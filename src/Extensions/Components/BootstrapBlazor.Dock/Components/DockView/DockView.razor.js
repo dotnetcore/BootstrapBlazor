@@ -100,12 +100,14 @@ const lockDock = dock => {
 }
 
 const lockStack = (stack, eventsData) => {
+    stack.header.controlsContainerElement.classList.add('bb-dock-lock')
     stack.header.tabs.forEach(tab => {
         lockTab(tab, eventsData)
     })
 }
 
 const unLockStack = (stack, eventsData) => {
+    stack.header.controlsContainerElement.classList.remove('bb-dock-lock')
     stack.header.tabs.forEach(tab => {
         unLockTab(tab, eventsData)
     })
@@ -115,7 +117,6 @@ const lockTab = (tab, eventsData) => {
     if (!eventsData.has(tab)) {
         tab.disableReorder()
         eventsData.set(tab, tab.onCloseClick)
-        tab.element.classList.add('bb-dock-tab-lock')
         tab.onCloseClick = () => {
             tab.enableReorder()
             unLockTab(tab, eventsData)
@@ -126,7 +127,6 @@ const lockTab = (tab, eventsData) => {
 const unLockTab = (tab, eventsData) => {
     if (eventsData.has(tab)) {
         tab.enableReorder()
-        tab.element.classList.remove('bb-dock-tab-lock')
         tab.onCloseClick = eventsData.get(tab)
         eventsData.delete(tab)
     }
