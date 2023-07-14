@@ -156,6 +156,11 @@ const toggleComponent = (dock, option) => {
             else {
                 dock.layout.root.contentItems[0].addItem(v)
             }
+
+            if (v.componentState.lock) {
+                var component = dock.layout.getAllContentItems().find(i => i.isComponent && i.id === v.id)
+                lockTab(component.tab, dock.eventsData)
+            }
         }
     })
 
