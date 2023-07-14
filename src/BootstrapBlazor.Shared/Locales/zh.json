@@ -1171,7 +1171,7 @@
   "BootstrapBlazor.Shared.Pages.Golbalization": {
     "Title": "全球化",
     "SubTitle": "ASP.NET Core Blazor 全球化",
-    "P1": "阅读以下知识点前请先查看 <a href='https://docs.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?view=aspnetcore-3.1' target='_blank'>微软官方文档</a>"
+    "P1": "阅读以下知识点前请先查看 <a href='https://learn.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?WT.mc_id=DT-MVP-5004174' target='_blank'>微软官方文档</a>"
   },
   "BootstrapBlazor.Shared.Components.InstallContent": {
     "Heading": "环境准备",
