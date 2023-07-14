@@ -14,14 +14,14 @@ export async function init(id, option, invoke) {
         invoke.invokeMethodAsync(option.visibleChangedCallback, title, visible)
     }
 
-    hackGoldenLayout()
+    const eventsData = new Map()
+    hackGoldenLayout(eventsData)
     const layout = createGoldenLayout(option, el)
     layout.on('initialised', () => {
         saveConfig(option, layout)
     })
     layout.init()
 
-    const eventsData = new Map()
     const components = getAllContentItems(option.content)
     layout.getAllContentItems().filter(i => i.isComponent).forEach(com => {
         const component = components.find(c => c.id === com.id)
@@ -29,6 +29,7 @@ export async function init(id, option, invoke) {
             lockTab(com.tab, eventsData)
         }
     })
+
 
     layout.on('tabClosed', (component, title) => {
         component.classList.add('d-none')
@@ -100,27 +101,34 @@ const lockDock = dock => {
 }
 
 const lockStack = (stack, eventsData) => {
-    stack.header.controlsContainerElement.classList.add('bb-dock-lock')
-    stack.header.tabs.forEach(tab => {
-        lockTab(tab, eventsData)
-    })
+    if (!eventsData.has(stack)) {
+        eventsData.set(stack, stack)
+
+        const header = stack.header
+        header.controlsContainerElement.classList.add('bb-dock-lock')
+        header.tabs.forEach(tab => {
+            lockTab(tab, eventsData)
+        })
+    }
 }
 
 const unLockStack = (stack, eventsData) => {
-    stack.header.controlsContainerElement.classList.remove('bb-dock-lock')
-    stack.header.tabs.forEach(tab => {
-        unLockTab(tab, eventsData)
-    })
+    if (eventsData.has(stack)) {
+        eventsData.delete(stack)
+
+        const header = stack.header
+        header.controlsContainerElement.classList.remove('bb-dock-lock')
+        header.tabs.forEach(tab => {
+            unLockTab(tab, eventsData)
+        })
+    }
 }
 
 const lockTab = (tab, eventsData) => {
     if (!eventsData.has(tab)) {
         tab.disableReorder()
         eventsData.set(tab, tab.onCloseClick)
-        tab.onCloseClick = () => {
-            tab.enableReorder()
-            unLockTab(tab, eventsData)
-        }
+        tab.onCloseClick = () => { }
     }
 }
 
@@ -341,7 +349,7 @@ const removeContent = (content, item) => {
     })
 }
 
-const hackGoldenLayout = () => {
+const hackGoldenLayout = eventsData => {
     if (!goldenLayout.isHack) {
         goldenLayout.isHack = true
         goldenLayout.Tab.prototype.onCloseClick = function () {
@@ -350,6 +358,17 @@ const hackGoldenLayout = () => {
 
             this.notifyClose();
             this._layoutManager.emit('tabClosed', component, title)
+        }
+
+        goldenLayout.Header.prototype.handleButtonPopoutEvent = function () {
+            const stack = this.parent
+            const lock = eventsData.has(stack)
+            if (lock) {
+                unLockStack(stack, eventsData)
+            }
+            else {
+                lockStack(stack, eventsData)
+            }
         }
 
         const originSplitterDragStop = goldenLayout.RowOrColumn.prototype.onSplitterDragStop;
