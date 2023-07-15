@@ -169,7 +169,7 @@ const toggleComponent = (dock, option) => {
             }
 
             if (v.componentState.lock) {
-                var component = dock.layout.getAllContentItems().find(i => i.isComponent && i.id === v.id)
+                const component = dock.layout.getAllContentItems().find(i => i.isComponent && i.id === v.id)
                 lockStack(component.parentItem, dock.eventsData)
             }
         }
@@ -358,8 +358,8 @@ const hackGoldenLayout = eventsData => {
 
         // hack Tab
         goldenLayout.Tab.prototype.onCloseClick = function () {
-            const component = document.getElementById(this._componentItem.id)
-            const title = this._componentItem.title
+            const component = document.getElementById(this.componentItem.id)
+            const title = this.componentItem.title
 
             this.notifyClose();
             this._layoutManager.emit('tabClosed', component, title)
@@ -408,11 +408,11 @@ const hackGoldenLayout = eventsData => {
             })
             originpDestroy.call(this)
 
-            setTimeout(() => {
-                tabs.forEach(tab => {
-                    this.layoutManager.emit('tabClosed', tab.element, tab.title)
-                })
-            }, 100)
+            //setTimeout(() => {
+            //    tabs.forEach(tab => {
+            //        this.layoutManager.emit('tabClosed', tab.element, tab.title)
+            //    })
+            //}, 100)
         }
 
         // hack RowOrColumn
