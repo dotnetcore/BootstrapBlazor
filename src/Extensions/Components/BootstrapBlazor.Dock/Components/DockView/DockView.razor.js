@@ -26,7 +26,10 @@ export async function init(id, option, invoke) {
     layout.getAllContentItems().filter(i => i.isComponent).forEach(com => {
         const component = components.find(c => c.id === com.id)
         if (component && component.componentState.lock) {
-            lockTab(com.tab, eventsData)
+            const tabs = com.parent.header.tabs
+            if(tabs.find(i => !i.componentItem.container.initialState.lock) === void 0) {
+                lockStack(com.parent, eventsData)
+            }
         }
     })
 
@@ -130,8 +133,9 @@ const unLockStack = (stack, eventsData) => {
 const lockTab = (tab, eventsData) => {
     if (!eventsData.has(tab)) {
         tab.disableReorder()
-        eventsData.set(tab, tab.onCloseClick)
         tab.onCloseClick = () => { }
+        eventsData.set(tab, tab.onCloseClick)
+        tab.componentItem.container.initialState.lock = true
     }
 }
 
@@ -140,6 +144,7 @@ const unLockTab = (tab, eventsData) => {
         tab.enableReorder()
         tab.onCloseClick = eventsData.get(tab)
         eventsData.delete(tab)
+        tab.componentItem.container.initialState.lock = true
     }
 }
 
@@ -310,9 +315,11 @@ const resetComponentId = (config, option) => {
     components.forEach(com => {
         const item = items.find(i => i.key === com.componentState.key)
         if (item) {
+            const lock = com.componentState.lock || item.componentState.lock
             com.componentState = item.componentState
             com.title = item.title
             com.id = item.id
+            com.componentState.lock = lock
         }
         else {
             // 本地存储中有，配置中没有，需要显示这个组件，通过 key 来定位新 Component
