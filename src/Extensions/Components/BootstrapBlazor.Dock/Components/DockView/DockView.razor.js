@@ -392,27 +392,19 @@ const hackGoldenLayout = eventsData => {
             originprocessTabDropdownActiveChanged.call(this)
 
             this._closeButton.onClick = function (ev) {
+                const tabs = this._header.tabs.map(tab => {
+                    return { element: tab.componentItem.element, title: tab.componentItem.title }
+                })
                 if (!eventsData.has(this._header.parent)) {
                     this._pushEvent(ev)
+
+                    setTimeout(() => {
+                        tabs.forEach(tab => {
+                            this._header.layoutManager.emit('tabClosed', tab.element, tab.title)
+                        })
+                    }, 100)
                 }
             }
-        }
-
-        // hack ContentItem
-        const originpDestroy = goldenLayout.ContentItem.prototype.destroy
-        goldenLayout.ContentItem.prototype.destroy = function () {
-            const tabs = this.contentItems.map(item => {
-                const element = document.getElementById(item.id)
-                const title = item.title
-                return { element, title }
-            })
-            originpDestroy.call(this)
-
-            //setTimeout(() => {
-            //    tabs.forEach(tab => {
-            //        this.layoutManager.emit('tabClosed', tab.element, tab.title)
-            //    })
-            //}, 100)
         }
 
         // hack RowOrColumn
