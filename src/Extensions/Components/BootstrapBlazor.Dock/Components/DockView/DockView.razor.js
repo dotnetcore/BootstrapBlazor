@@ -27,7 +27,7 @@ export async function init(id, option, invoke) {
         const component = components.find(c => c.id === com.id)
         if (component && component.componentState.lock) {
             const tabs = com.parent.header.tabs
-            if(tabs.find(i => !i.componentItem.container.initialState.lock) === void 0) {
+            if (tabs.find(i => !i.componentItem.container.initialState.lock) === void 0) {
                 lockStack(com.parent, eventsData)
             }
         }
@@ -107,6 +107,7 @@ const lockDock = dock => {
             unLockStack(stack, dock.eventsData)
         }
     })
+    dock.layout.emit('lockChanged')
 }
 
 const lockStack = (stack, eventsData) => {
