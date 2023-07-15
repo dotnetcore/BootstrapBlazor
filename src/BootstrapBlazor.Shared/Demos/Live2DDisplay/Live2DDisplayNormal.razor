@@ -33,6 +33,12 @@
                 <h4>Other options</h4>
                 <div class="mb-2">
                     <BootstrapInputGroup>
+                        <BootstrapInputGroupLabel class="labelwidth" DisplayText="IsDraggable" />
+                        <Checkbox TValue="bool" @bind-Value="@isDraggable" />
+                    </BootstrapInputGroup>
+                </div>
+                <div class="mb-2">
+                    <BootstrapInputGroup>
                         <BootstrapInputGroupLabel class="labelwidth" DisplayText="HitAreaFrames" />
                         <Checkbox TValue="bool" @bind-Value="@addHitAreaFrames" />
                     </BootstrapInputGroup>
@@ -56,7 +62,7 @@
     </div>
 </div>
 
-<Live2DDisplay Source=@BindSrcItem.Value Scale=@_scale
+<Live2DDisplay Source=@BindSrcItem.Value Scale=@_scale IsDraggable=@isDraggable
                Position=@position AddHitAreaFrames=@addHitAreaFrames
                XOffset=@_xOffset BackgroundColor=@backgroundColor
                YOffset=@_yOffset BackgroundAlpha=@backgroundAlpha />
@@ -72,6 +78,8 @@
 </style>
 
 @code {
+    private bool isDraggable { get; set; } = true;
+
     private string backgroundColor { get; set; } = "#000000";
 
     private bool backgroundAlpha { get; set; } = false;
@@ -117,8 +125,8 @@
 
     private IEnumerable<SelectedItem>? SrcItems { get; } = new SelectedItem[]
     {
-        new SelectedItem("./_content/BootstrapBlazor.Shared/models/shizuku/shizuku.model.json","shizuku"),
-        new SelectedItem("./_content/BootstrapBlazor.Shared/models/haru/haru_greeter_t03.model3.json","haru"),
+        new SelectedItem("./models/shizuku/shizuku.model.json","shizuku"),
+        new SelectedItem("./models/haru/haru_greeter_t03.model3.json","haru"),
         new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/bilibili-22/index.json","bilibili-22"),
         new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/bilibili-33/index.json","bilibili-33"),
         new SelectedItem("https://raw.githubusercontent.com/iCharlesZ/vscode-live2d-models/master/model-library/chiaki_kitty/chiaki_kitty.model.json","chiaki_kitty"),
