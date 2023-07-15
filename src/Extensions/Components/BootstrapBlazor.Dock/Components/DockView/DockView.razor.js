@@ -30,7 +30,6 @@ export async function init(id, option, invoke) {
         }
     })
 
-
     layout.on('tabClosed', (component, title) => {
         component.classList.add('d-none')
         el.append(component)
@@ -171,7 +170,7 @@ const toggleComponent = (dock, option) => {
 
             if (v.componentState.lock) {
                 var component = dock.layout.getAllContentItems().find(i => i.isComponent && i.id === v.id)
-                lockTab(component.tab, dock.eventsData)
+                lockStack(component.parentItem, dock.eventsData)
             }
         }
     })
@@ -356,6 +355,8 @@ const removeContent = (content, item) => {
 const hackGoldenLayout = eventsData => {
     if (!goldenLayout.isHack) {
         goldenLayout.isHack = true
+
+        // hack Tab
         goldenLayout.Tab.prototype.onCloseClick = function () {
             const component = document.getElementById(this._componentItem.id)
             const title = this._componentItem.title
@@ -364,6 +365,16 @@ const hackGoldenLayout = eventsData => {
             this._layoutManager.emit('tabClosed', component, title)
         }
 
+        const originSetTitle = goldenLayout.Tab.prototype.setTitle
+        goldenLayout.Tab.prototype.setTitle = function (title) {
+            originSetTitle.call(this, title)
+            const showClose = this.contentItem.container.initialState.showClose
+            if (!showClose) {
+                this.closeElement.classList.add('d-none')
+            }
+        }
+
+        // hack Header
         goldenLayout.Header.prototype.handleButtonPopoutEvent = function () {
             const stack = this.parent
             const lock = eventsData.has(stack)
@@ -387,19 +398,28 @@ const hackGoldenLayout = eventsData => {
             }
         }
 
+        // hack ContentItem
+        const originpDestroy = goldenLayout.ContentItem.prototype.destroy
+        goldenLayout.ContentItem.prototype.destroy = function () {
+            const tabs = this.contentItems.map(item => {
+                const element = document.getElementById(item.id)
+                const title = item.title
+                return { element, title }
+            })
+            originpDestroy.call(this)
+
+            setTimeout(() => {
+                tabs.forEach(tab => {
+                    this.layoutManager.emit('tabClosed', tab.element, tab.title)
+                })
+            }, 100)
+        }
+
+        // hack RowOrColumn
         const originSplitterDragStop = goldenLayout.RowOrColumn.prototype.onSplitterDragStop
         goldenLayout.RowOrColumn.prototype.onSplitterDragStop = function (splitter) {
             originSplitterDragStop.call(this, splitter)
             this.layoutManager.emit('splitterDragStop')
-        }
-
-        const originSetTitle = goldenLayout.Tab.prototype.setTitle
-        goldenLayout.Tab.prototype.setTitle = function (title) {
-            originSetTitle.call(this, title)
-            const showClose = this.contentItem.container.initialState.showClose
-            if (!showClose) {
-                this.closeElement.classList.add('d-none')
-            }
         }
     }
 }
