@@ -12,19 +12,19 @@
                 <h4>Model options</h4>
                 <div class="mb-2">
                     <BootstrapInputGroup>
-                        <BootstrapInputGroupLabel class="labelwidth" DisplayText="Scale" />
+                        <BootstrapInputGroupLabel class="label-width" DisplayText="Scale" />
                         <Slider @bind-Value="@Scale" Max="100" />
                     </BootstrapInputGroup>
                 </div>
                 <div class="mb-2">
                     <BootstrapInputGroup>
-                        <BootstrapInputGroupLabel class="labelwidth" DisplayText="X Offset" />
+                        <BootstrapInputGroupLabel class="label-width" DisplayText="X Offset" />
                         <Slider @bind-Value="@XOffset" Min="-500" Max="500"></Slider>
                     </BootstrapInputGroup>
                 </div>
                 <div class="mb-2">
                     <BootstrapInputGroup>
-                        <BootstrapInputGroupLabel class="labelwidth" DisplayText="Y Offset" />
+                        <BootstrapInputGroupLabel class="label-width" DisplayText="Y Offset" />
                         <Slider @bind-Value="@YOffset" Min="-500" Max="500" />
                     </BootstrapInputGroup>
                 </div>
@@ -33,27 +33,27 @@
                 <h4>Other options</h4>
                 <div class="mb-2">
                     <BootstrapInputGroup>
-                        <BootstrapInputGroupLabel class="labelwidth" DisplayText="IsDraggable" />
-                        <Checkbox TValue="bool" @bind-Value="@isDraggable" />
+                        <BootstrapInputGroupLabel class="label-width" DisplayText="IsDraggable" />
+                        <Checkbox TValue="bool" @bind-Value="@IsDraggable" />
                     </BootstrapInputGroup>
                 </div>
                 <div class="mb-2">
                     <BootstrapInputGroup>
-                        <BootstrapInputGroupLabel class="labelwidth" DisplayText="HitAreaFrames" />
-                        <Checkbox TValue="bool" @bind-Value="@addHitAreaFrames" />
+                        <BootstrapInputGroupLabel class="label-width" DisplayText="HitAreaFrames" />
+                        <Checkbox TValue="bool" @bind-Value="@AddHitAreaFrames" />
                     </BootstrapInputGroup>
                 </div>
                 <div class="mb-2">
                     <BootstrapInputGroup>
-                        <BootstrapInputGroupLabel class="labelwidth" DisplayText="BackgroundAlpha" />
-                        <Checkbox TValue="bool" @bind-Value="@backgroundAlpha" ShowLabel="true" DisplayText="BackgroundAlpha" />
+                        <BootstrapInputGroupLabel class="label-width" DisplayText="BackgroundAlpha" />
+                        <Checkbox TValue="bool" @bind-Value="@BackgroundAlpha" ShowLabel="true" DisplayText="BackgroundAlpha" />
                     </BootstrapInputGroup>
                 </div>
                 <div class="mb-2">
                     <div class="input-group input-group-sm mb-3">
-                        <span class="input-group-text labelwidth">BackgroundColor</span>
+                        <span class="input-group-text label-width">BackgroundColor</span>
                         <div class="pick-radius">
-                            <ColorPicker @bind-Value="@backgroundColor" />
+                            <ColorPicker @bind-Value="@BackgroundColor" />
                         </div>
                     </div>
                 </div>
@@ -62,13 +62,13 @@
     </div>
 </div>
 
-<Live2DDisplay Source=@BindSrcItem.Value Scale=@_scale IsDraggable=@isDraggable
-               Position=@position AddHitAreaFrames=@addHitAreaFrames
-               XOffset=@_xOffset BackgroundColor=@backgroundColor
-               YOffset=@_yOffset BackgroundAlpha=@backgroundAlpha />
+<Live2DDisplay Source=@BindSrcItem.Value Scale=@_scale IsDraggable="@IsDraggable"
+               Position=@position AddHitAreaFrames=@AddHitAreaFrames
+               XOffset=@_xOffset BackgroundColor=@BackgroundColor
+               YOffset=@_yOffset BackgroundAlpha=@BackgroundAlpha />
 
 <style>
-    .labelwidth {
+    .label-width {
         width: 150px;
     }
 
@@ -78,34 +78,28 @@
 </style>
 
 @code {
-    private bool isDraggable { get; set; } = true;
+    private bool IsDraggable { get; set; } = true;
 
-    private string backgroundColor { get; set; } = "#000000";
+    private string BackgroundColor { get; set; } = "#000000";
 
-    private bool backgroundAlpha { get; set; } = false;
+    private bool BackgroundAlpha { get; set; }
 
-    private bool addHitAreaFrames { get; set; } = false;
+    private bool AddHitAreaFrames { get; set; }
 
-    private double _scale { get; set; } = 0.2;
+    private double _scale = 0.2;
 
     private double Scale
     {
         get => _scale * 100;
-        set
-        {
-            _scale = value / 100;
-        }
+        set => _scale = value / 100;
     }
 
-    private int _xOffset { get; set; }
+    private int _xOffset;
 
     private double XOffset
     {
         get => _xOffset;
-        set
-        {
-            _xOffset = Convert.ToInt32(value);
-        }
+        set => _xOffset = Convert.ToInt32(value);
     }
 
     private int _yOffset { get; set; }
@@ -113,17 +107,14 @@
     private double YOffset
     {
         get => _yOffset;
-        set
-        {
-            _yOffset = Convert.ToInt32(value);
-        }
+        set => _yOffset = Convert.ToInt32(value);
     }
 
     private LivePosition position { get; set; } = LivePosition.BottomLeft;
 
     private SelectedItem BindSrcItem { get; set; } = new SelectedItem();
 
-    private IEnumerable<SelectedItem>? SrcItems { get; } = new SelectedItem[]
+    private IEnumerable<SelectedItem> SrcItems { get; } = new SelectedItem[]
     {
         new SelectedItem("./models/shizuku/shizuku.model.json","shizuku"),
         new SelectedItem("./models/haru/haru_greeter_t03.model3.json","haru"),
