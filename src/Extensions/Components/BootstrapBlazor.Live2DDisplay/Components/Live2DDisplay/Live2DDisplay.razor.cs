@@ -49,8 +49,8 @@ public partial class Live2DDisplay
     /// <summary>
     /// 获得/设置 IsDraggable 是否可以拖动模型
     /// </summary>
-    //[Parameter]
-    private bool IsDraggable { get; set; }
+    [Parameter]
+    public bool IsDraggable { get; set; }
 
     /// <summary>
     /// 获得/设置 HitAreaFrames 是否渲染鼠标命中区域框
@@ -83,7 +83,7 @@ public partial class Live2DDisplay
         ClassString = CssBuilder.Default("bb-model-default")
             .AddClassFromAttributes(AdditionalAttributes)
             .Build();
-        if(Position != LivePosition.Default)
+        if (Position != LivePosition.Default)
         {
             ClassString = $"bb-model-{Position}";
         }
