@@ -262,6 +262,12 @@ const getConfig = option => {
                 minItemHeight: 10,
                 minItemWidth: 10,
                 headerHeight: 25
+            },
+            labels: {
+                close: 'close',
+                maximise: 'maximise',
+                minimise: 'minimise',
+                popout: 'lock/unlock'
             }
         },
         ...option
@@ -388,7 +394,6 @@ const hackGoldenLayout = eventsData => {
 
         const originprocessTabDropdownActiveChanged = goldenLayout.Header.prototype.processTabDropdownActiveChanged
         goldenLayout.Header.prototype.processTabDropdownActiveChanged = function () {
-            this._popoutButton.element.setAttribute('title', 'lock/unlock stack');
             originprocessTabDropdownActiveChanged.call(this)
 
             this._closeButton.onClick = function (ev) {
@@ -398,7 +403,8 @@ const hackGoldenLayout = eventsData => {
                 if (!eventsData.has(this._header.parent)) {
                     this._pushEvent(ev)
 
-                    setTimeout(() => {
+                    const handler = setTimeout(() => {
+                        clearTimeout(handler)
                         tabs.forEach(tab => {
                             this._header.layoutManager.emit('tabClosed', tab.element, tab.title)
                         })
