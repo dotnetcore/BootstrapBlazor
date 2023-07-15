@@ -52,6 +52,9 @@ export async function init(id, option, invoke) {
         saveConfig(option, layout)
         invoke.invokeMethodAsync(option.splitterCallback)
     })
+    layout.on('lockChanged', () => {
+        saveConfig(option, layout)
+    })
     invoke.invokeMethodAsync(option.initializedCallback)
 
     const dock = { el, layout, lock: option.lock, eventsData }
@@ -144,7 +147,7 @@ const unLockTab = (tab, eventsData) => {
         tab.enableReorder()
         tab.onCloseClick = eventsData.get(tab)
         eventsData.delete(tab)
-        tab.componentItem.container.initialState.lock = true
+        tab.componentItem.container.initialState.lock = false
     }
 }
 
@@ -397,6 +400,7 @@ const hackGoldenLayout = eventsData => {
             else {
                 lockStack(stack, eventsData)
             }
+            this.layoutManager.emit('lockChanged')
         }
 
         const originprocessTabDropdownActiveChanged = goldenLayout.Header.prototype.processTabDropdownActiveChanged
