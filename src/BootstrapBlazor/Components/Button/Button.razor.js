@@ -28,7 +28,12 @@ const dispose = id => {
     removeTooltip(id)
 }
 
+const share = context => {
+    navigator.share(context)
+}
+
 export {
+    share,
     showTooltip,
     removeTooltip,
     dispose
