@@ -57,6 +57,12 @@ public partial class DockView
     public Func<Task>? OnSplitterCallbackAsync { get; set; }
 
     /// <summary>
+    /// 获得/设置 锁定状态回调此方法
+    /// </summary>
+    [Parameter]
+    public Func<bool, Task>? OnLockChangedCallbackAsync { get; set; }
+
+    /// <summary>
     /// 获得/设置 标签页位置变化时回调此方法
     /// </summary>
     /// <remarks>拖动标签 <see cref="OnTabDropCallbackAsync"/> 或者调整标签  <see cref="OnSplitterCallbackAsync"/> 时均触发此方法</remarks>
@@ -146,7 +152,8 @@ public partial class DockView
         VisibleChangedCallback = nameof(VisibleChangedCallbackAsync),
         InitializedCallback = nameof(InitializedCallbackAsync),
         TabDropCallback = nameof(TabDropCallbackAsync),
-        SplitterCallback = nameof(SplitterCallbackAsync)
+        SplitterCallback = nameof(SplitterCallbackAsync),
+        LockChangedCallback = nameof(LockChangedCallbackAsync)
     };
 
     private static RenderFragment RenderDockContent(List<DockContent> contents) => builder =>
@@ -239,6 +246,18 @@ public partial class DockView
         if (OnSplitterCallbackAsync != null)
         {
             await OnSplitterCallbackAsync();
+        }
+    }
+
+    /// <summary>
+    /// 锁定回调方法 由 JavaScript 调用
+    /// </summary>
+    [JSInvokable]
+    public async Task LockChangedCallbackAsync(bool state)
+    {
+        if (OnLockChangedCallbackAsync != null)
+        {
+            await OnLockChangedCallbackAsync(state);
         }
     }
 }

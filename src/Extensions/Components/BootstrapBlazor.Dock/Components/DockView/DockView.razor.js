@@ -23,6 +23,7 @@ export async function init(id, option, invoke) {
     layout.init()
 
     const components = getAllContentItems(option.content)
+    let lock = true
     layout.getAllContentItems().filter(i => i.isComponent).forEach(com => {
         const component = components.find(c => c.id === com.id)
         if (component && component.componentState.lock) {
@@ -31,7 +32,14 @@ export async function init(id, option, invoke) {
                 lockStack(com.parent, eventsData)
             }
         }
+        else {
+            lock = false
+        }
     })
+    if (option.lock != lock) {
+        option.lock = lock
+        invoke.invokeMethodAsync(option.lockChangedCallback, lock)
+    }
 
     layout.on('tabClosed', (component, title) => {
         component.classList.add('d-none')
@@ -52,12 +60,12 @@ export async function init(id, option, invoke) {
         saveConfig(option, layout)
         invoke.invokeMethodAsync(option.splitterCallback)
     })
-    layout.on('lockChanged', () => {
+    layout.on('lockChanged', state => {
         saveConfig(option, layout)
     })
     invoke.invokeMethodAsync(option.initializedCallback)
 
-    const dock = { el, layout, lock: option.lock, eventsData }
+    const dock = { el, layout, lock, eventsData }
     Data.set(id, dock)
 }
 

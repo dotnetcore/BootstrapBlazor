@@ -51,6 +51,11 @@ class DockViewConfig
     public string? SplitterCallback { get; set; }
 
     /// <summary>
+    /// 获得/设置 锁定事件回调
+    /// </summary>
+    public string? LockChangedCallback { get; set; }
+
+    /// <summary>
     /// 获得/设置 客户端缓存键值
     /// </summary>
     [JsonPropertyName("prefix")]
