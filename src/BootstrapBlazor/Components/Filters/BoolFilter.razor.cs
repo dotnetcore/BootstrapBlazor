@@ -13,26 +13,16 @@ public partial class BoolFilter
 {
     private string Value { get; set; } = "";
 
-    [NotNull]
-    private IEnumerable<SelectedItem>? Items { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<TableFilter>? Localizer { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
-
-        Items = new SelectedItem[]
-        {
-            new SelectedItem("", Localizer["BoolFilter.AllText"].Value),
-            new SelectedItem("true", Localizer["BoolFilter.TrueText"].Value),
-            new SelectedItem("false", Localizer["BoolFilter.FalseText"].Value)
-        };
 
         if (TableFilter != null)
         {
@@ -41,7 +31,22 @@ public partial class BoolFilter
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        Items ??= new SelectedItem[]
+        {
+            new SelectedItem("", Localizer["BoolFilter.AllText"].Value),
+            new SelectedItem("true", Localizer["BoolFilter.TrueText"].Value),
+            new SelectedItem("false", Localizer["BoolFilter.FalseText"].Value)
+        };
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     public override void Reset()
     {
@@ -50,7 +55,7 @@ public partial class BoolFilter
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
@@ -69,7 +74,7 @@ public partial class BoolFilter
     }
 
     /// <summary>
-    /// Override existing filter conditions
+    /// <inheritdoc/>
     /// </summary>
     public override async Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions)
     {

@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 时间类型过滤条件
 /// </summary>
-public partial class DateTimeFilter : FilterBase
+public partial class DateTimeFilter
 {
     private DateTime? Value1 { get; set; }
 
@@ -19,21 +19,18 @@ public partial class DateTimeFilter : FilterBase
 
     private FilterAction Action2 { get; set; } = FilterAction.LessThanOrEqual;
 
-    [NotNull]
-    private IEnumerable<SelectedItem>? Items { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<TableFilter>? Localizer { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
-        Items = new SelectedItem[]
+        Items ??= new SelectedItem[]
         {
             new SelectedItem("GreaterThanOrEqual", Localizer["GreaterThanOrEqual"].Value),
             new SelectedItem("LessThanOrEqual", Localizer["LessThanOrEqual"].Value),
@@ -59,7 +56,7 @@ public partial class DateTimeFilter : FilterBase
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
@@ -89,7 +86,7 @@ public partial class DateTimeFilter : FilterBase
     }
 
     /// <summary>
-    /// Override existing filter conditions
+    /// <inheritdoc/>
     /// </summary>
     public override async Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions)
     {
