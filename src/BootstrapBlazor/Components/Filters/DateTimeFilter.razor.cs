@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 时间类型过滤条件
 /// </summary>
-public partial class DateTimeFilter : FilterBase
+public partial class DateTimeFilter
 {
     private DateTime? Value1 { get; set; }
 
@@ -18,12 +18,6 @@ public partial class DateTimeFilter : FilterBase
     private DateTime? Value2 { get; set; }
 
     private FilterAction Action2 { get; set; } = FilterAction.LessThanOrEqual;
-
-    /// <summary>
-    /// 获得/设置 条件候选项
-    /// </summary>
-    [Parameter]
-    public IEnumerable<SelectedItem>? Items { get; set; }
 
     [Inject]
     [NotNull]

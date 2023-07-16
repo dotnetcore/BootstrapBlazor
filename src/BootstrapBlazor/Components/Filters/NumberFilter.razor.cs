@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 数字类型过滤条件
 /// </summary>
-public partial class NumberFilter<TType> : FilterBase
+public partial class NumberFilter<TType>
 {
     private TType? Value1 { get; set; }
 
@@ -23,9 +23,6 @@ public partial class NumberFilter<TType> : FilterBase
     [NotNull]
     private IStringLocalizer<TableFilter>? Localizer { get; set; }
 
-    [NotNull]
-    private IEnumerable<SelectedItem>? Items { get; set; }
-
     /// <summary>
     /// 获得/设置 步长 默认 0.01
     /// </summary>
@@ -33,13 +30,13 @@ public partial class NumberFilter<TType> : FilterBase
     public string Step { get; set; } = "0.01";
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
-        Items = new SelectedItem[]
+        Items ??= new SelectedItem[]
         {
             new SelectedItem("GreaterThanOrEqual", Localizer["GreaterThanOrEqual"].Value),
             new SelectedItem("LessThanOrEqual", Localizer["LessThanOrEqual"].Value),
@@ -51,7 +48,7 @@ public partial class NumberFilter<TType> : FilterBase
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     public override void Reset()
     {
@@ -65,7 +62,7 @@ public partial class NumberFilter<TType> : FilterBase
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
@@ -95,7 +92,7 @@ public partial class NumberFilter<TType> : FilterBase
     }
 
     /// <summary>
-    /// Override existing filter conditions
+    /// <inheritdoc/>
     /// </summary>
     public override async Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions)
     {

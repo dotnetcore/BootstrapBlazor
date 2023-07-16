@@ -13,8 +13,6 @@ public partial class EnumFilter
 {
     private string? Value { get; set; }
 
-    private IEnumerable<SelectedItem> Items { get; set; } = Enumerable.Empty<SelectedItem>();
-
     /// <summary>
     /// 内部使用
     /// </summary>
@@ -36,7 +34,7 @@ public partial class EnumFilter
     private IStringLocalizer<TableFilter>? Localizer { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -50,11 +48,20 @@ public partial class EnumFilter
         }
 
         EnumType = Nullable.GetUnderlyingType(Type) ?? Type;
-        Items = EnumType.ToSelectList(new SelectedItem("", Localizer["EnumFilter.AllText"].Value));
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        Items ??= EnumType.ToSelectList(new SelectedItem("", Localizer["EnumFilter.AllText"].Value));
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     public override void Reset()
     {
@@ -63,7 +70,7 @@ public partial class EnumFilter
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
@@ -82,7 +89,7 @@ public partial class EnumFilter
     }
 
     /// <summary>
-    /// Override existing filter conditions
+    /// <inheritdoc/>
     /// </summary>
     public override async Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions)
     {

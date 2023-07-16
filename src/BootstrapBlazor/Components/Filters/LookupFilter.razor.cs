@@ -13,8 +13,6 @@ public partial class LookupFilter
 {
     private string? Value { get; set; }
 
-    private List<SelectedItem> Items { get; } = new List<SelectedItem>();
-
     /// <summary>
     /// 获得/设置 相关枚举类型
     /// </summary>
@@ -46,7 +44,7 @@ public partial class LookupFilter
     private IStringLocalizer<TableFilter>? Localizer { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -66,12 +64,28 @@ public partial class LookupFilter
         {
             TableFilter.ShowMoreButton = false;
         }
-        Items.Add(new SelectedItem("", Localizer["EnumFilter.AllText"].Value));
-        Items.AddRange(Lookup);
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (Items == null)
+        {
+            var items = new List<SelectedItem>
+            {
+                new SelectedItem("", Localizer["EnumFilter.AllText"].Value)
+            };
+            items.AddRange(Lookup);
+            Items = items;
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     public override void Reset()
     {
@@ -80,7 +94,7 @@ public partial class LookupFilter
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
@@ -101,7 +115,7 @@ public partial class LookupFilter
     }
 
     /// <summary>
-    /// Override existing filter conditions
+    /// <inheritdoc/>
     /// </summary>
     public override async Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions)
     {
