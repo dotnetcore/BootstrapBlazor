@@ -23,12 +23,23 @@ export async function init(id, option, invoke) {
     layout.init()
 
     const components = getAllContentItems(option.content)
+    let lock = true
     layout.getAllContentItems().filter(i => i.isComponent).forEach(com => {
         const component = components.find(c => c.id === com.id)
         if (component && component.componentState.lock) {
-            lockTab(com.tab, eventsData)
+            const tabs = com.parent.header.tabs
+            if (tabs.find(i => !i.componentItem.container.initialState.lock) === void 0) {
+                lockStack(com.parent, eventsData)
+            }
+        }
+        else {
+            lock = false
         }
     })
+    if (option.lock != lock) {
+        option.lock = lock
+        invoke.invokeMethodAsync(option.lockChangedCallback, lock)
+    }
 
     layout.on('tabClosed', (component, title) => {
         component.classList.add('d-none')
@@ -49,9 +60,12 @@ export async function init(id, option, invoke) {
         saveConfig(option, layout)
         invoke.invokeMethodAsync(option.splitterCallback)
     })
+    layout.on('lockChanged', state => {
+        saveConfig(option, layout)
+    })
     invoke.invokeMethodAsync(option.initializedCallback)
 
-    const dock = { el, layout, lock: option.lock, eventsData }
+    const dock = { el, layout, lock, eventsData }
     Data.set(id, dock)
 }
 
@@ -101,6 +115,7 @@ const lockDock = dock => {
             unLockStack(stack, dock.eventsData)
         }
     })
+    dock.layout.emit('lockChanged')
 }
 
 const lockStack = (stack, eventsData) => {
@@ -130,8 +145,9 @@ const unLockStack = (stack, eventsData) => {
 const lockTab = (tab, eventsData) => {
     if (!eventsData.has(tab)) {
         tab.disableReorder()
-        eventsData.set(tab, tab.onCloseClick)
         tab.onCloseClick = () => { }
+        eventsData.set(tab, tab.onCloseClick)
+        tab.componentItem.container.initialState.lock = true
     }
 }
 
@@ -140,6 +156,7 @@ const unLockTab = (tab, eventsData) => {
         tab.enableReorder()
         tab.onCloseClick = eventsData.get(tab)
         eventsData.delete(tab)
+        tab.componentItem.container.initialState.lock = false
     }
 }
 
@@ -169,7 +186,7 @@ const toggleComponent = (dock, option) => {
             }
 
             if (v.componentState.lock) {
-                var component = dock.layout.getAllContentItems().find(i => i.isComponent && i.id === v.id)
+                const component = dock.layout.getAllContentItems().find(i => i.isComponent && i.id === v.id)
                 lockStack(component.parentItem, dock.eventsData)
             }
         }
@@ -262,6 +279,12 @@ const getConfig = option => {
                 minItemHeight: 10,
                 minItemWidth: 10,
                 headerHeight: 25
+            },
+            labels: {
+                close: 'close',
+                maximise: 'maximise',
+                minimise: 'minimise',
+                popout: 'lock/unlock'
             }
         },
         ...option
@@ -304,9 +327,11 @@ const resetComponentId = (config, option) => {
     components.forEach(com => {
         const item = items.find(i => i.key === com.componentState.key)
         if (item) {
+            const lock = com.componentState.lock || item.componentState.lock
             com.componentState = item.componentState
             com.title = item.title
             com.id = item.id
+            com.componentState.lock = lock
         }
         else {
             // 本地存储中有，配置中没有，需要显示这个组件，通过 key 来定位新 Component
@@ -358,8 +383,8 @@ const hackGoldenLayout = eventsData => {
 
         // hack Tab
         goldenLayout.Tab.prototype.onCloseClick = function () {
-            const component = document.getElementById(this._componentItem.id)
-            const title = this._componentItem.title
+            const component = document.getElementById(this.componentItem.id)
+            const title = this.componentItem.title
 
             this.notifyClose();
             this._layoutManager.emit('tabClosed', component, title)
@@ -384,35 +409,28 @@ const hackGoldenLayout = eventsData => {
             else {
                 lockStack(stack, eventsData)
             }
+            this.layoutManager.emit('lockChanged')
         }
 
         const originprocessTabDropdownActiveChanged = goldenLayout.Header.prototype.processTabDropdownActiveChanged
         goldenLayout.Header.prototype.processTabDropdownActiveChanged = function () {
-            this._popoutButton.element.setAttribute('title', 'lock/unlock stack');
             originprocessTabDropdownActiveChanged.call(this)
 
             this._closeButton.onClick = function (ev) {
+                const tabs = this._header.tabs.map(tab => {
+                    return { element: tab.componentItem.element, title: tab.componentItem.title }
+                })
                 if (!eventsData.has(this._header.parent)) {
                     this._pushEvent(ev)
+
+                    const handler = setTimeout(() => {
+                        clearTimeout(handler)
+                        tabs.forEach(tab => {
+                            this._header.layoutManager.emit('tabClosed', tab.element, tab.title)
+                        })
+                    }, 100)
                 }
             }
-        }
-
-        // hack ContentItem
-        const originpDestroy = goldenLayout.ContentItem.prototype.destroy
-        goldenLayout.ContentItem.prototype.destroy = function () {
-            const tabs = this.contentItems.map(item => {
-                const element = document.getElementById(item.id)
-                const title = item.title
-                return { element, title }
-            })
-            originpDestroy.call(this)
-
-            setTimeout(() => {
-                tabs.forEach(tab => {
-                    this.layoutManager.emit('tabClosed', tab.element, tab.title)
-                })
-            }, 100)
         }
 
         // hack RowOrColumn
