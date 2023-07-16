@@ -3,4 +3,9 @@
 <div class="btn-group" role="group">
     <Button Color="Color.Primary">@Localizer["ButtonOne"]</Button>
     <Button Color="Color.Success">@Localizer["ButtonTwo"]</Button>
+    <ShareButton Color="Color.Success" ShareContext="@Context">@Localizer["ButtonTwo"]</ShareButton>
 </div>
+
+@code {
+    private ShareButtonContext Context=new ShareButtonContext() { Text = "Learn", Title = "test Title", Url = "https://www.blazor.zone" };
+}
