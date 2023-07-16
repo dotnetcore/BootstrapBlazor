@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 移动端分享按钮
+/// 分享按钮
 /// </summary>
 public class ShareButton : Button
 {
