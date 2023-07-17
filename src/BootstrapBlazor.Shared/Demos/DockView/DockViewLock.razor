@@ -7,7 +7,7 @@
 
 <Button OnClick="OnToggleLock" Text="@LockText" class="mt-3"></Button>
 
-<DockView Name="DockViewLock" EnableLocalStorage="false" IsLock="@IsLock" class="mt-3">
+<DockView Name="DockViewLock" EnableLocalStorage="false" OnLockChangedCallbackAsync="OnLockChangedCallbackAsync" IsLock="@IsLock" class="mt-3">
     <DockContent Type="DockContentType.Row">
         <DockComponent Title="标签一" IsLock="true">
             <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
@@ -53,8 +53,8 @@
     </DockContent>
 </DockView>
 
-@code{
-    private bool IsLock { get; set; } = false;
+@code {
+    private bool IsLock { get; set; } = true;
 
     private string? LockText { get; set; }
 
@@ -76,5 +76,11 @@
         {
             LockText = "锁定";
         }
+    }
+
+    private Task OnLockChangedCallbackAsync(bool state)
+    {
+        IsLock = state;
+        return Task.CompletedTask;
     }
 }
