@@ -37,10 +37,10 @@
             <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
                    Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand" IsFixedHeader="true">
                 <TableColumns>
-                    <TableColumn @bind-Field="@context.Name" Width="360" />
-                    <TableColumn @bind-Field="@context.DateTime" Width="180" />
-                    <TableColumn @bind-Field="@context.Address" />
-                    <TableColumn @bind-Field="@context.Count" />
+                    <TableColumn @bind-Field="@context.Name" Width="140" />
+                    <TableColumn @bind-Field="@context.DateTime" />
+                    <TableColumn @bind-Field="@context.Address" Width="260" TextEllipsis="true" IsPopover="true" />
+                    <TableColumn @bind-Field="@context.Count" Width="80" />
                 </TableColumns>
             </Table>
         </DockComponent>
