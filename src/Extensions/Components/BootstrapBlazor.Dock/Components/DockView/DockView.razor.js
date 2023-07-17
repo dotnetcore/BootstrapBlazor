@@ -26,7 +26,6 @@ export async function init(id, option, invoke) {
     })
     layout.init()
 
-
     layout.on('tabClosed', (component, title) => {
         component.classList.add('d-none')
         el.append(component)
@@ -103,11 +102,9 @@ export function dispose(id) {
 }
 
 const lockDock = dock => {
-    const lock = dock.lock
     const stacks = dock.layout.getAllStacks()
-    dock.eventsData = dock.eventsData || new Map()
     stacks.forEach(stack => {
-        if (lock) {
+        if (dock.lock) {
             lockStack(stack, dock)
         }
         else {
@@ -128,7 +125,6 @@ const lockStack = (stack, dock) => {
         header.tabs.forEach(tab => {
             lockTab(tab, eventsData)
         })
-        resetDockLock(stack.layoutManager, dock)
     }
 }
 
@@ -143,13 +139,11 @@ const unLockStack = (stack, dock) => {
         header.tabs.forEach(tab => {
             unLockTab(tab, eventsData)
         })
-
-        resetDockLock(stack.layoutManager, dock)
     }
 }
 
-const resetDockLock = (layout, dock) => {
-    const unlocks = layout.getAllContentItems().filter(com => com.isComponent && !com.container.initialState.lock)
+const resetDockLock = dock => {
+    const unlocks = dock.layout.getAllContentItems().filter(com => com.isComponent && !com.container.initialState.lock)
     const lock = unlocks.length === 0
     if (dock.lock != lock) {
         dock.lock = lock
@@ -239,6 +233,12 @@ const getAllContentItems = content => {
 
 const createGoldenLayout = (option, el) => {
     const config = getConfig(option)
+
+    if (option.lock) {
+        getAllContentItems(option.content).forEach(i => {
+            i.componentState.lock = option.lock
+        })
+    }
 
     const layout = new goldenLayout.GoldenLayout(config, el)
 
@@ -425,6 +425,8 @@ const hackGoldenLayout = dock => {
             else {
                 lockStack(stack, dock)
             }
+
+            resetDockLock(dock)
             this.layoutManager.emit('lockChanged')
         }
 
