@@ -30,6 +30,6 @@
     }
 
         .scroll:hover {
-            overflow-y: auto;
+            overflow: auto;
         }
 }
