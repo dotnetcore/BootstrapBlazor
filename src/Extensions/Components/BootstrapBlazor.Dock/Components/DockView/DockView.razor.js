@@ -10,36 +10,22 @@ export async function init(id, option, invoke) {
 
     await addLink("./_content/BootstrapBlazor.Dock/css/goldenlayout-bb.css")
 
+    const eventsData = new Map()
+    const dock = { el, eventsData, lock: option.lock }
+    Data.set(id, dock)
+
     option.invokeVisibleChangedCallback = (title, visible) => {
         invoke.invokeMethodAsync(option.visibleChangedCallback, title, visible)
     }
 
-    const eventsData = new Map()
-    hackGoldenLayout(eventsData)
+    hackGoldenLayout(dock)
     const layout = createGoldenLayout(option, el)
+    dock.layout = layout
     layout.on('initialised', () => {
         saveConfig(option, layout)
     })
     layout.init()
 
-    const components = getAllContentItems(option.content)
-    let lock = true
-    layout.getAllContentItems().filter(i => i.isComponent).forEach(com => {
-        const component = components.find(c => c.id === com.id)
-        if (component && component.componentState.lock) {
-            const tabs = com.parent.header.tabs
-            if (tabs.find(i => !i.componentItem.container.initialState.lock) === void 0) {
-                lockStack(com.parent, eventsData)
-            }
-        }
-        else {
-            lock = false
-        }
-    })
-    if (option.lock != lock) {
-        option.lock = lock
-        invoke.invokeMethodAsync(option.lockChangedCallback, lock)
-    }
 
     layout.on('tabClosed', (component, title) => {
         component.classList.add('d-none')
@@ -63,10 +49,23 @@ export async function init(id, option, invoke) {
     layout.on('lockChanged', state => {
         saveConfig(option, layout)
     })
-    invoke.invokeMethodAsync(option.initializedCallback)
 
-    const dock = { el, layout, lock, eventsData }
-    Data.set(id, dock)
+    invoke.invokeMethodAsync(option.initializedCallback)
+    dock.invokeLockAsync = state => {
+        invoke.invokeMethodAsync(option.lockChangedCallback, state)
+    }
+
+    // lock stack
+    const components = getAllContentItems(option.content)
+    layout.getAllContentItems().filter(i => i.isComponent).forEach(com => {
+        const component = components.find(c => c.id === com.id)
+        if (component && component.componentState.lock) {
+            const tabs = com.parent.header.tabs
+            if (tabs.find(i => !i.componentItem.container.initialState.lock) === void 0) {
+                lockStack(com.parent, dock)
+            }
+        }
+    })
 }
 
 export function update(id, option) {
@@ -109,16 +108,18 @@ const lockDock = dock => {
     dock.eventsData = dock.eventsData || new Map()
     stacks.forEach(stack => {
         if (lock) {
-            lockStack(stack, dock.eventsData)
+            lockStack(stack, dock)
         }
         else {
-            unLockStack(stack, dock.eventsData)
+            unLockStack(stack, dock)
         }
     })
     dock.layout.emit('lockChanged')
 }
 
-const lockStack = (stack, eventsData) => {
+const lockStack = (stack, dock) => {
+    const eventsData = dock.eventsData
+
     if (!eventsData.has(stack)) {
         eventsData.set(stack, stack)
 
@@ -127,10 +128,13 @@ const lockStack = (stack, eventsData) => {
         header.tabs.forEach(tab => {
             lockTab(tab, eventsData)
         })
+        resetDockLock(stack.layoutManager, dock)
     }
 }
 
-const unLockStack = (stack, eventsData) => {
+const unLockStack = (stack, dock) => {
+    const eventsData = dock.eventsData
+
     if (eventsData.has(stack)) {
         eventsData.delete(stack)
 
@@ -139,6 +143,17 @@ const unLockStack = (stack, eventsData) => {
         header.tabs.forEach(tab => {
             unLockTab(tab, eventsData)
         })
+
+        resetDockLock(stack.layoutManager, dock)
+    }
+}
+
+const resetDockLock = (layout, dock) => {
+    const unlocks = layout.getAllContentItems().filter(com => com.isComponent && !com.container.initialState.lock)
+    const lock = unlocks.length === 0
+    if (dock.lock != lock) {
+        dock.lock = lock
+        dock.invokeLockAsync(lock)
     }
 }
 
@@ -187,7 +202,7 @@ const toggleComponent = (dock, option) => {
 
             if (v.componentState.lock) {
                 const component = dock.layout.getAllContentItems().find(i => i.isComponent && i.id === v.id)
-                lockStack(component.parentItem, dock.eventsData)
+                lockStack(component.parentItem, dock)
             }
         }
     })
@@ -377,9 +392,10 @@ const removeContent = (content, item) => {
     })
 }
 
-const hackGoldenLayout = eventsData => {
+const hackGoldenLayout = dock => {
     if (!goldenLayout.isHack) {
         goldenLayout.isHack = true
+        const eventsData = dock.eventsData
 
         // hack Tab
         goldenLayout.Tab.prototype.onCloseClick = function () {
@@ -404,10 +420,10 @@ const hackGoldenLayout = eventsData => {
             const stack = this.parent
             const lock = eventsData.has(stack)
             if (lock) {
-                unLockStack(stack, eventsData)
+                unLockStack(stack, dock)
             }
             else {
-                lockStack(stack, eventsData)
+                lockStack(stack, dock)
             }
             this.layoutManager.emit('lockChanged')
         }
