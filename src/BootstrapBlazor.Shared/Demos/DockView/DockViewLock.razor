@@ -45,7 +45,7 @@
                 <TableColumns>
                     <TableColumn @bind-Field="@context.Name" Width="140" />
                     <TableColumn @bind-Field="@context.DateTime" Width="180" />
-                    <TableColumn @bind-Field="@context.Address" Width="260" TextEllipsis="true" IsPopover="true" />
+                    <TableColumn @bind-Field="@context.Address" TextEllipsis="true" IsPopover="true" />
                     <TableColumn @bind-Field="@context.Count" Width="80" />
                 </TableColumns>
             </Table>
@@ -54,10 +54,16 @@
 </DockView>
 
 @code{
-
-    private string? LockText { get; set; } = "锁定";
-
     private bool IsLock { get; set; } = false;
+
+    private string? LockText { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        LockText = IsLock ? "解锁" : "锁定";
+    }
 
     private void OnToggleLock()
     {
