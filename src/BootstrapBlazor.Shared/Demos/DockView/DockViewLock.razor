@@ -1,0 +1,74 @@
+﻿@page "/dockview-lock"
+@inherits BaseDockView
+
+<h4 class="mt-3">锁定面板</h4>
+<p>通过设置 <code>DockView</code> 的属性 <code>IsLock</code>,控制所有面板是否能拖动</p>
+<p>通过设置 <code>DockComponent</code> 的属性 <code>IsLock</code>,控制某个面板是否能拖动</p>
+
+<Button OnClick="OnToggleLock" Text="@LockText" class="mt-3"></Button>
+
+<DockView Name="DockViewLock" EnableLocalStorage="false" IsLock="@IsLock" class="mt-3">
+    <DockContent Type="DockContentType.Row">
+        <DockComponent Title="标签一" IsLock="true">
+            <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
+                   IsStriped="true" IsBordered="true" IsExcel="true" ShowRefresh="false"
+                   ShowToolbar="true" ShowDefaultButtons="false" IsFixedHeader="true">
+                <DetailRowTemplate>
+                    @{
+                        var detailContext = GetDetailDataTableDynamicContext(context);
+                    }
+                    <div class="p-2 w-100">
+                        <Table TItem="DynamicObject" DynamicContext="detailContext" IsStriped="true" IsBordered="true" IsExcel="true">
+                        </Table>
+                    </div>
+                </DetailRowTemplate>
+            </Table>
+        </DockComponent>
+        <DockComponent Title="标签二">
+            <Table TItem="Foo" @bind-Items="Items"
+                   IsStriped="true" IsBordered="true" IsMultipleSelect="true" IsFixedHeader="true"
+                   ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
+                   OnAddAsync="@OnAddAsync">
+                <TableColumns>
+                    <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                    <TableColumn @bind-Field="@context.Name" />
+                    <TableColumn @bind-Field="@context.Address" Width="180" TextEllipsis="true" IsPopover="true" />
+                    <TableColumn @bind-Field="@context.Education" />
+                    <TableColumn @bind-Field="@context.Count" />
+                    <TableColumn @bind-Field="@context.Complete" />
+                </TableColumns>
+            </Table>
+        </DockComponent>
+        <DockComponent Title="标签三">
+            <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
+                   Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand" IsFixedHeader="true">
+                <TableColumns>
+                    <TableColumn @bind-Field="@context.Name" Width="360" />
+                    <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                    <TableColumn @bind-Field="@context.Address" />
+                    <TableColumn @bind-Field="@context.Count" />
+                </TableColumns>
+            </Table>
+        </DockComponent>
+    </DockContent>
+</DockView>
+
+@code{
+
+    private string? LockText { get; set; } = "锁定";
+
+    private bool IsLock { get; set; } = false;
+
+    private void OnToggleLock()
+    {
+        IsLock = !IsLock;
+        if (IsLock == true)
+        {
+            LockText = "解锁";
+        }
+        else
+        {
+            LockText = "锁定";
+        }
+    }
+}
