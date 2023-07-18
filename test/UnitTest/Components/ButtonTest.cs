@@ -393,4 +393,25 @@ public class ButtonTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<DialogSaveButton>();
         cut.Contains("button type=\"submit\"");
     }
+
+    [Fact]
+    public void ShareButton_Ok()
+    {
+        Context.JSInterop.SetupModule("share");
+        var cut = Context.RenderComponent<ShareButton>(pb =>
+        {
+            pb.Add(a => a.ShareContext, new ShareButtonContext() { Text = "test-share-text", Title = "test-share-title", Url = "www.blazor.zone" });
+        });
+
+        cut.InvokeAsync(() =>
+        {
+            var button = cut.Find("button");
+            button.Click();
+        });
+
+        var context = Context.JSInterop.VerifyInvoke("share").Arguments[0] as ShareButtonContext;
+        Assert.Equal("test-share-text", context?.Text);
+        Assert.Equal("test-share-title", context?.Title);
+        Assert.Equal("www.blazor.zone", context?.Url);
+    }
 }
