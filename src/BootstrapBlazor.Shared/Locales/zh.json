@@ -5396,7 +5396,7 @@
     "VisibleP4": "更改 <b>列</b> 状态后触发 <code>OnColumnVisibleChanged</code> 回调委托",
     "AllowResizingTitle": "允许列调整",
     "AllowResizingIntro": "通过指定 <code>AllowResizing</code> 设置表格列允许调整宽度",
-    "AllowResizingDesc": "屏幕过小出现滚动条时才可以进行列调整",
+    "AllowResizingDesc": "<b>注意：</b> <code>Table</code> 父容器有有效宽度值时 <code>Table</code> 才会出现滚动条",
     "ShowCopyColumnTitle": "允许拷贝列数据",
     "ShowCopyColumnIntro": "通过设置 <code>ShowCopyColumn</code> 设置表格列允许拷贝整列数据",
     "ShowCopyColumnDesc": "可以通过设置 <code>ShowCopyColumnTooltip</code> <code>CopyColumnTooltipText</code> <code>CopyColumnCopiedTooltipText</code> 等设置微调拷贝列数据图标的 <code>Tooltip</code> 相关参数",
