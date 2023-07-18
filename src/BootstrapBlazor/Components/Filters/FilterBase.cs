@@ -43,6 +43,12 @@ public abstract class FilterBase : ComponentBase, IFilterAction
     public int Count { get; set; }
 
     /// <summary>
+    /// 获得/设置 条件候选项
+    /// </summary>
+    [Parameter]
+    public IEnumerable<SelectedItem>? Items { get; set; }
+
+    /// <summary>
     /// 获得/设置 所属 TableFilter 实例
     /// </summary>
     [CascadingParameter]

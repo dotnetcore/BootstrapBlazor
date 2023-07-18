@@ -53,7 +53,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .AddClass("table-shim", ActiveRenderMode == TableRenderMode.Table)
         .AddClass("table-wrapper", IsBordered)
         .AddClass("is-clickable", ClickToSelect || DoubleClickToEdit || OnClickRowCallback != null || OnDoubleClickRowCallback != null)
-        .AddClass("table-scroll", !IsFixedHeader || FixedColumn)
+        .AddClass("table-scroll scroll", !IsFixedHeader || FixedColumn)
         .AddClass("table-fixed", IsFixedHeader)
         .AddClass("table-fixed-column", FixedColumn)
         .AddClass("table-resize", AllowResizing)

@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 字符串类型过滤条件
 /// </summary>
-public partial class StringFilter : FilterBase
+public partial class StringFilter
 {
     private string Value1 { get; set; } = "";
 
@@ -24,21 +24,18 @@ public partial class StringFilter : FilterBase
     private IStringLocalizer<TableFilter>? Localizer { get; set; }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     protected override FilterLogic Logic { get; set; } = FilterLogic.Or;
 
-    [NotNull]
-    private IEnumerable<SelectedItem>? Items { get; set; }
-
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
-        Items = new SelectedItem[]
+        Items ??= new SelectedItem[]
         {
             new SelectedItem("Contains", Localizer["Contains"].Value),
             new SelectedItem("Equal", Localizer["Equal"].Value),
@@ -48,7 +45,7 @@ public partial class StringFilter : FilterBase
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     public override void Reset()
     {
@@ -62,7 +59,7 @@ public partial class StringFilter : FilterBase
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
@@ -92,7 +89,7 @@ public partial class StringFilter : FilterBase
     }
 
     /// <summary>
-    /// Override existing filter conditions
+    /// <inheritdoc/>
     /// </summary>
     public override async Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions)
     {
