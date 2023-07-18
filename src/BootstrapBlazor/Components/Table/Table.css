@@ -1,5 +1,4 @@
 ﻿.table-container {
-    position: relative;
     --bb-table-td-padding-x: .5rem;
     --bb-table-td-padding-y: .5rem;
     --bb-table-cardview-label-width: 30%;
@@ -19,6 +18,8 @@
     --bb-table-copy-column-margin-right: .5rem;
     --bb-table-column-fixed-border-color: #dee2e6;
     --bb-loader-bg: #f8f9fa;
+    position: relative;
+    height: 100%;
 }
 
     .table-container .table:not(.table-excel) .switch {
@@ -316,17 +317,18 @@
 }
 
 .table-fixed-body {
-    overflow-x: auto !important;
+    overflow: auto !important;
     overflow-y: scroll !important;
 }
 
-.table-scroll {
-    overflow: auto;
-}
-
-    .table-scroll .table tbody td .table-cell:not(.is-wrap) {
-        white-space: nowrap;
+    .table-fixed-body > .table > tbody > tr > td,
+    .table-fixed-header > .table > thead > tr > th {
+        overflow: hidden;
     }
+
+.table tbody td .table-cell:not(.is-wrap) {
+    white-space: nowrap;
+}
 
 .table-cell.is-ellips {
     display: block;

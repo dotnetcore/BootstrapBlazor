@@ -305,7 +305,11 @@ public partial class Table<TItem>
     /// </summary>
     /// <param name="col"></param>
     /// <returns></returns>
-    protected string? GetCellStyleString(ITableColumn col) => col.TextEllipsis && !AllowResizing ? $"width: {col.Width ?? 200}px" : null;
+    protected string? GetCellStyleString(ITableColumn col) => col.TextEllipsis && !AllowResizing
+        ? IsFixedHeader
+            ? $"width: calc({col.Width ?? 200}px - 2 * var(--bb-table-td-padding-x));"
+            : $"width: {col.Width ?? 200}px;"
+        : null;
 
     /// <summary>
     /// 获得指定列头固定列样式
