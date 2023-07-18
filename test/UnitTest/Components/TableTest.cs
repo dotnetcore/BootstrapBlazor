@@ -6745,12 +6745,12 @@ public class TableTest : TableTestBase
             });
         });
 
+        var table = cut.FindComponent<Table<Foo>>();
+        cut.InvokeAsync(() => table.Instance.ResetColumnsCallback(1, 0));
+        Assert.Equal("Address", name);
+
         cut.InvokeAsync(async () =>
         {
-            var table = cut.FindComponent<Table<Foo>>();
-            await table.Instance.ResetColumnsCallback(1, 0);
-            Assert.Equal("Name", name);
-
             var columns = cut.FindAll("th");
             Assert.Contains("地址", columns[0].InnerHtml);
             Assert.Contains("姓名", columns[1].InnerHtml);
