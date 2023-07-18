@@ -4,11 +4,42 @@ import '../../modules/browser.js?v=$version'
 import Data from '../../modules/data.js?v=$version'
 import EventHandler from '../../modules/event-handler.js?v=$version'
 
+const setBodyHeight = table => {
+    const el = table.el
+    const body = table.body || table.tables[0]
+    const search = el.querySelector('.table-search')
+    table.search = search
+    let searchHeight = 0
+    if (search) {
+        searchHeight = getOuterHeight(search)
+    }
+    const pagination = el.querySelector('.nav-pages')
+    let paginationHeight = 0
+    if (pagination) {
+        paginationHeight = getOuterHeight(pagination)
+    }
+    const toolbar = el.querySelector('.table-toolbar')
+    let toolbarHeight = 0
+    if (toolbar) {
+        toolbarHeight = getOuterHeight(toolbar)
+    }
+    const bodyHeight = paginationHeight + toolbarHeight + searchHeight;
+    if (bodyHeight > 0) {
+        body.parentNode.style.height = `calc(100% - ${bodyHeight}px)`
+    }
+    let headerHeight = 0
+    if (table.thead) {
+        headerHeight = getOuterHeight(table.thead)
+    }
+    if (headerHeight > 0) {
+        body.style.height = `calc(100% - ${headerHeight}px)`
+    }
+}
+
 const fixHeader = table => {
     const el = table.el
-    const body = table.body
-
     const fs = el.querySelector('.fixed-scroll')
+
     if (fs) {
         let prev = fs.previousElementSibling
         while (prev) {
@@ -28,42 +59,7 @@ const fixHeader = table => {
         }
     }
 
-    const setBodyHeight = () => {
-        const search = el.querySelector('.table-search')
-        table.search = search
-        let searchHeight = 0
-        if (search) {
-            searchHeight = getOuterHeight(search)
-        }
-        const pagination = el.querySelector('.nav-pages')
-        let paginationHeight = 0
-        if (pagination) {
-            paginationHeight = getOuterHeight(pagination)
-        }
-        const toolbar = el.querySelector('.table-toolbar')
-        let toolbarHeight = 0
-        if (toolbar) {
-            toolbarHeight = getOuterHeight(toolbar)
-        }
-        const bodyHeight = paginationHeight + toolbarHeight + searchHeight;
-        if (bodyHeight > 0) {
-            body.parentNode.style.height = `calc(100% - ${bodyHeight}px)`
-        }
-        const headerHeight = getOuterHeight(table.thead)
-        if (headerHeight > 0) {
-            body.style.height = `calc(100% - ${headerHeight}px)`
-        }
-    }
-
-    setBodyHeight()
-
-    if (table.search) {
-        const observer = new ResizeObserver(() => {
-            setBodyHeight()
-        });
-        observer.observe(table.search)
-        table.observer = observer
-    }
+    setBodyHeight(table)
 }
 
 const setExcelKeyboardListener = table => {
@@ -445,6 +441,7 @@ export function init(id, invoke, callback) {
         table.isExcel = shim.firstChild.classList.contains('table-excel')
         table.isDraggable = shim.firstChild.classList.contains('table-draggable')
         table.tables.push(shim.firstChild)
+        setBodyHeight(table)
     }
 
     if (table.isExcel) {
@@ -460,6 +457,14 @@ export function init(id, invoke, callback) {
     }
 
     setCopyColumn(table)
+
+    if (table.search) {
+        const observer = new ResizeObserver(() => {
+            setBodyHeight(table)
+        });
+        observer.observe(table.search)
+        table.observer = observer
+    }
 }
 
 export function resetColumn(id) {
