@@ -48,7 +48,7 @@ const fixHeader = table => {
                 margin = margin.replace('px', '')
                 const b = window.browser()
                 if (b.device !== 'PC') {
-                    margin = (parseFloat(margin) - 7) + 'px'
+                    margin = (parseFloat(margin) - 6) + 'px'
                 }
                 prev.classList.add('modified')
                 prev.style.right = margin
@@ -233,7 +233,8 @@ const setResizeListener = table => {
                 const width = currentCol.style.width
                 if (width) {
                     colWidth = parseInt(width)
-                } else {
+                }
+                else {
                     colWidth = getWidth(col.closest('th'))
                 }
                 tableWidth = getWidth(col.closest('table'))
@@ -247,12 +248,11 @@ const setResizeListener = table => {
                         const curCol = group.children.item(colIndex)
                         curCol.style.width = `${colWidth + marginX}px`
                         const tableEl = curCol.closest('table')
-                        const width = tableWidth + marginX
-                        if (t.classList.contains('table-fixed')) {
-                            tableEl.style.width = `${width}px;`
-                        } else {
-                            tableEl.style.width = (width - 7) + 'px'
+                        let width = tableWidth + marginX
+                        if (t.closest('.table-fixed-body')) {
+                            width = width - 6
                         }
+                        tableEl.setAttribute('style', `width: ${width}px;`)
                     }
                 })
             },
