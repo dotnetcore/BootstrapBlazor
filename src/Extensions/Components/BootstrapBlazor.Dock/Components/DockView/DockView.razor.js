@@ -38,6 +38,7 @@ export async function init(id, option, invoke) {
         if (eventsData.has(stack)) {
             lockTab(item.tab, eventsData)
         }
+        resetDockLock(dock)
         saveConfig(option, layout)
         invoke.invokeMethodAsync(option.tabDropCallback)
     })
