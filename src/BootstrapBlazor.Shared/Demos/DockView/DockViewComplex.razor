@@ -6,7 +6,7 @@
         <DockComponent Title="标签一">
             <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
                    IsStriped="true" IsBordered="true" IsExcel="true" ShowRefresh="false"
-                   ShowToolbar="true" ShowDefaultButtons="false" IsFixedHeader="true">
+                   ShowDefaultButtons="false" IsFixedHeader="true">
                 <DetailRowTemplate>
                     @{
                         var detailContext = GetDetailDataTableDynamicContext(context);
@@ -26,7 +26,7 @@
                 <TableColumns>
                     <TableColumn @bind-Field="@context.DateTime" Width="180" />
                     <TableColumn @bind-Field="@context.Name" />
-                    <TableColumn @bind-Field="@context.Address" Width="180" TextEllipsis="true" IsPopover="true" />
+                    <TableColumn @bind-Field="@context.Address" Width="180" TextEllipsis="true" ShowTips="true" />
                     <TableColumn @bind-Field="@context.Education" />
                     <TableColumn @bind-Field="@context.Count" />
                     <TableColumn @bind-Field="@context.Complete" />
@@ -43,7 +43,7 @@
                     <TableColumns>
                         <TableColumn @bind-Field="@context.Name" Width="140" />
                         <TableColumn @bind-Field="@context.DateTime" Width="180" />
-                        <TableColumn @bind-Field="@context.Address" Width="260" TextEllipsis="true" IsPopover="true" />
+                        <TableColumn @bind-Field="@context.Address" Width="260" TextEllipsis="true" ShowTips="true" />
                         <TableColumn @bind-Field="@context.Count" Width="80" />
                     </TableColumns>
                 </Table>
