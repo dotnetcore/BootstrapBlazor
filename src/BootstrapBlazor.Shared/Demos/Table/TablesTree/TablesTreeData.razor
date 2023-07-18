@@ -56,7 +56,7 @@
         }
     }
 
-    private Task<IEnumerable<TableTreeNode<TreeFoo>>> OnTreeExpand(TreeFoo foo) => CacheManager.GetOrCreateAsync($"{foo.Id}", async entry =>
+    private Task<IEnumerable<TableTreeNode<TreeFoo>>> OnTreeExpand(TreeFoo foo) => CacheManager.GetOrCreateAsync($"TablesTreeData-{foo.Id}", async entry =>
     {
         // 模拟从数据库中查询
         await Task.Delay(1000);
