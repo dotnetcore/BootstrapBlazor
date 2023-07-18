@@ -11,19 +11,16 @@ namespace BootstrapBlazor.Shared.Demos.DockView;
 /// </summary>
 public abstract class BaseDockView : ComponentBase
 {
-    /// <summary>
-    /// 
-    /// </summary>
     [Inject]
     [NotNull]
-    protected ICacheManager? CacheManager { get; set; }
+    private ICacheManager? CacheManager { get; set; }
 
     /// <summary>
     /// 
     /// </summary>
     [Inject]
     [NotNull]
-    protected IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
     /// <summary>
     /// 
@@ -31,37 +28,6 @@ public abstract class BaseDockView : ComponentBase
     [Inject]
     [NotNull]
     private MockDataTableDynamicService? DataTableDynamicService { get; set; }
-
-    private Random Randomer { get; } = new();
-
-    private int LineDatasetCount = 2;
-
-    private int LineDataCount = 7;
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="tension"></param>
-    /// <param name="hasNull"></param>
-    /// <returns></returns>
-    protected Task<ChartDataSource> OnInitLine(float tension, bool hasNull)
-    {
-        var ds = new ChartDataSource();
-        ds.Options.Title = "Line Chart";
-        ds.Options.X.Title = "days";
-        ds.Options.Y.Title = "Numerical value";
-        ds.Labels = Enumerable.Range(1, LineDataCount).Select(i => i.ToString());
-        for (var index = 0; index < LineDatasetCount; index++)
-        {
-            ds.Data.Add(new ChartDataset()
-            {
-                Tension = tension,
-                Label = $"Set {index}",
-                Data = Enumerable.Range(1, LineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)Randomer.Next(20, 37))
-            });
-        }
-        return Task.FromResult(ds);
-    }
 
     /// <summary>
     /// 

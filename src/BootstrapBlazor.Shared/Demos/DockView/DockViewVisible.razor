@@ -12,7 +12,7 @@
             <DockComponent Title="标签一" Visible="Visible">
                 <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
                        IsStriped="true" IsBordered="true" IsExcel="true" ShowRefresh="false"
-                       ShowDefaultButtons="false" IsFixedHeader="true">
+                       ShowDefaultButtons="false">
                     <DetailRowTemplate>
                         @{
                             var detailContext = GetDetailDataTableDynamicContext(context);
@@ -26,7 +26,7 @@
             </DockComponent>
             <DockComponent Title="标签二" ShowClose="false">
                 <Table TItem="Foo" @bind-Items="Items"
-                       IsStriped="true" IsBordered="true" IsMultipleSelect="true" IsFixedHeader="true"
+                       IsStriped="true" IsBordered="true" IsMultipleSelect="true"
                        ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
                        OnAddAsync="@OnAddAsync">
                     <TableColumns>

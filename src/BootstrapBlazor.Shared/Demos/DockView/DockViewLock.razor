@@ -12,8 +12,8 @@
         <DockContent Type="DockContentType.Row">
             <DockComponent Title="标签一" IsLock="true">
                 <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
-                       IsStriped="true" IsBordered="true" IsExcel="true" ShowRefresh="false"
-                       ShowDefaultButtons="false" IsFixedHeader="true">
+                       IsStriped="true" IsBordered="true" IsExcel="true" ShowRefresh="true"
+                       ShowDefaultButtons="false" IsFixedHeader="false">
                     <DetailRowTemplate>
                         @{
                             var detailContext = GetDetailDataTableDynamicContext(context);
