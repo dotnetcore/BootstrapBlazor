@@ -1,8 +1,4 @@
-﻿.tooltip {
-    --bs-tooltip-max-width: 260px;
-}
-
-:not(.is-tips) > span[data-bs-toggle="tooltip"] {
+﻿:not(.is-tips) > span[data-bs-toggle="tooltip"] {
     display: inline-block;
 }
 
