@@ -98,7 +98,7 @@
     }
 
     .main {
-        flex: 1;
         height: 100%;
+        width: calc(100% - var(--bb-sidebar-width));
     }
 }

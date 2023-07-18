@@ -1287,6 +1287,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.ShowExtendButtons, showExtendButton);
                 pb.Add(a => a.FixedExtendButtonsColumn, true);
                 pb.Add(a => a.IsFixedHeader, isFixedHeader);
+                pb.Add(a => a.ScrollWidth, 7);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -1336,9 +1337,9 @@ public class TableTest : TableTestBase
         {
             if (isFixedHeader)
             {
-                cut.Contains("right: 237px;");
-                cut.Contains("right: 137px;");
-                cut.Contains("right: 7px;");
+                cut.Contains("right: 236px;");
+                cut.Contains("right: 136px;");
+                cut.Contains("right: 6px;");
             }
             else
             {
@@ -1354,8 +1355,8 @@ public class TableTest : TableTestBase
 
             if (isFixedHeader)
             {
-                cut.Contains("right: 107px;");
-                cut.Contains("right: 7px;");
+                cut.Contains("right: 106px;");
+                cut.Contains("right: 6px;");
             }
         }
     }

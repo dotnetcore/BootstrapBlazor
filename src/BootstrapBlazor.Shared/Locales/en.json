@@ -5364,7 +5364,7 @@
     "VisibleP4": "Trigger the <code>OnColumnVisibleChanged</code> callback when switch the column state <b>Show/Hide</b>",
     "AllowResizingTitle": "Allow column resizing",
     "AllowResizingIntro": "Set table columns to allow resizing by specifying <code>AllowResizing</code>",
-    "AllowResizingDesc": "Column resizing can only be done when the screen is too small and the scroll bar appears",
+    "AllowResizingDesc": "<b>Note:</b> <code>Table</code> scrollbar only appears when the parent container has valid width values",
     "ShowCopyColumnTitle": "Show copy column icon",
     "ShowCopyColumnIntro": "Set <code>ShowCopyColumn</code> show the icon for copy entire column data",
     "ShowCopyColumnDesc": "可以通过设置 <code>ShowCopyColumnTooltip</code> <code>CopyColumnTooltipText</code> <code>CopyColumnCopiedTooltipText</code> 等设置微调拷贝列数据图标的 <code>Tooltip</code> 相关参数",

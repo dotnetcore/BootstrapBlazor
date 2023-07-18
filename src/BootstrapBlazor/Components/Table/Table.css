@@ -316,7 +316,8 @@
     border-top-right-radius: var(--bs-border-radius);
 }
 
-.table-fixed-body {
+.table-fixed-body,
+.table-scroll {
     overflow-x: auto !important;
     overflow-y: scroll !important;
 }
