@@ -781,7 +781,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (_init)
         {
             _init = false;
-            await InvokeVoidAsync("init", Id, Interop, nameof(ResetColumnsCallback));
+            await InvokeVoidAsync("init", Id, Interop, new { DragColumnCallback = nameof(DragColumnCallback), ResizeColumnCallback = nameof(ResizeColumnCallback) });
         }
 
         if (_resetColumns)
@@ -1207,13 +1207,19 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public Func<string, Task>? OnDragColumnEndAsync { get; set; }
 
     /// <summary>
+    /// 获得/设置 设置列宽回调方法 
+    /// </summary>
+    [Parameter]
+    public Func<string, int, Task>? OnResizeColumnAsync { get; set; }
+
+    /// <summary>
     /// 重置列方法 由 JavaScript 脚本调用
     /// </summary>
     /// <param name="originIndex"></param>
     /// <param name="currentIndex"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task ResetColumnsCallback(int originIndex, int currentIndex)
+    public async Task DragColumnCallback(int originIndex, int currentIndex)
     {
         var firstColumn = GetVisibleColumns().ElementAtOrDefault(originIndex);
         var targetColumn = GetVisibleColumns().ElementAtOrDefault(currentIndex);
@@ -1228,6 +1234,25 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 await OnDragColumnEndAsync(firstColumn.GetFieldName());
             }
             StateHasChanged();
+        }
+    }
+
+    /// <summary>
+    /// 设置列宽方法 由 JavaScript 脚本调用
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="width"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task ResizeColumnCallback(int index, int width)
+    {
+        var column = GetVisibleColumns().ElementAtOrDefault(index);
+        if (column != null)
+        {
+            if (OnResizeColumnAsync != null)
+            {
+                await OnResizeColumnAsync(column.GetFieldName(), width);
+            }
         }
     }
 

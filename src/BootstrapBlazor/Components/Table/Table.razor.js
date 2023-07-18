@@ -258,6 +258,8 @@ const setResizeListener = table => {
             },
             () => {
                 eff(col, false)
+                const width = getWidth(col.parentNode);
+                table.invoke.invokeMethodAsync(table.callbacks.resizeColumnCallback, index, width)
             }
         )
     })
@@ -366,7 +368,7 @@ const setDraggable = table => {
         EventHandler.on(col, 'drop', e => {
             e.stopPropagation()
             e.preventDefault()
-            table.invoke.invokeMethodAsync(table.callback, index, table.dragColumns.indexOf(col))
+            table.invoke.invokeMethodAsync(table.callbacks.dragColumnCallback, index, table.dragColumns.indexOf(col))
             return false
         })
         EventHandler.on(col, 'dragenter', e => {
@@ -404,7 +406,7 @@ const disposeDragColumns = columns => {
     })
 }
 
-export function init(id, invoke, callback) {
+export function init(id, invoke, callbacks) {
     const el = document.getElementById(id)
     if (el === null) {
         return
@@ -412,7 +414,7 @@ export function init(id, invoke, callback) {
     const table = {
         el,
         invoke,
-        callback,
+        callbacks,
         columns: [],
         tables: [],
         dragColumns: []

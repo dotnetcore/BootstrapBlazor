@@ -6746,7 +6746,7 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        cut.InvokeAsync(() => table.Instance.ResetColumnsCallback(1, 0));
+        cut.InvokeAsync(() => table.Instance.DragColumnCallback(1, 0));
         Assert.Equal("Address", name);
 
         cut.InvokeAsync(async () =>
@@ -6755,8 +6755,48 @@ public class TableTest : TableTestBase
             Assert.Contains("地址", columns[0].InnerHtml);
             Assert.Contains("姓名", columns[1].InnerHtml);
 
-            await table.Instance.ResetColumnsCallback(2, 3);
+            await table.Instance.DragColumnCallback(2, 3);
         });
+    }
+
+    [Fact]
+    public void OnResizeColumnCallback_Ok()
+    {
+        var name = "";
+        var width = 0;
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.AllowResizing, true);
+                pb.Add(a => a.OnResizeColumnAsync, (field, colWidth) =>
+                {
+                    name = field;
+                    width = colWidth;
+                    return Task.CompletedTask;
+                });
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(3, "Field", "Address");
+                    builder.AddAttribute(4, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(1, 100));
+        Assert.Equal("Address", name);
+        Assert.Equal(100, width);
     }
 
     [Theory]
