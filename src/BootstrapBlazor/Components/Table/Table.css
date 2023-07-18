@@ -317,7 +317,7 @@
 }
 
 .table-fixed-body {
-    overflow: auto !important;
+    overflow-x: auto !important;
     overflow-y: scroll !important;
 }
 
