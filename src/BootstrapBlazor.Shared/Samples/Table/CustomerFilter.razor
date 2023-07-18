@@ -3,8 +3,6 @@
 <Select Items="@Items" @bind-Value="@Value" OnSelectedItemChanged="_ => OnFilterValueChanged()"></Select>
 
 @code {
-    private List<SelectedItem> Items { get; set; } = new List<SelectedItem>();
-
     private int Value = 10;
 
     /// <summary>
@@ -16,12 +14,12 @@
 
         if (TableFilter != null) TableFilter.ShowMoreButton = false;
 
-        Items.AddRange(new SelectedItem[]
+        Items = new SelectedItem[]
         {
             new SelectedItem { Value = "10", Text = "大于 10" },
             new SelectedItem { Value = "50", Text = "大于 50" },
             new SelectedItem { Value = "100", Text = "大于 100" }
-        });
+        };
     }
 
     /// <summary>
