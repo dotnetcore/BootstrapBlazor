@@ -6716,6 +6716,7 @@ public class TableTest : TableTestBase
     [Fact]
     public void AllowDragColumn_Ok()
     {
+        var name = "";
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -6724,6 +6725,11 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.AllowDragColumn, true);
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.OnDragColumnEndAsync, fieldName =>
+                {
+                    name = fieldName;
+                    return Task.CompletedTask;
+                });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -6739,16 +6745,17 @@ public class TableTest : TableTestBase
             });
         });
 
-        cut.InvokeAsync(() =>
-        {
-            var table = cut.FindComponent<Table<Foo>>();
-            table.Instance.ResetColumnsCallback(1, 0);
+        var table = cut.FindComponent<Table<Foo>>();
+        cut.InvokeAsync(() => table.Instance.ResetColumnsCallback(1, 0));
+        Assert.Equal("Address", name);
 
+        cut.InvokeAsync(async () =>
+        {
             var columns = cut.FindAll("th");
             Assert.Contains("地址", columns[0].InnerHtml);
             Assert.Contains("姓名", columns[1].InnerHtml);
 
-            table.Instance.ResetColumnsCallback(2, 3);
+            await table.Instance.ResetColumnsCallback(2, 3);
         });
     }
 

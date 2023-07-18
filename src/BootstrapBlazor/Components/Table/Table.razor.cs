@@ -1201,13 +1201,19 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private string? DraggableString => AllowDragColumn ? "true" : null;
 
     /// <summary>
+    /// 获得/设置 拖动列结束回调方法 
+    /// </summary>
+    [Parameter]
+    public Func<string, Task>? OnDragColumnEndAsync { get; set; }
+
+    /// <summary>
     /// 重置列方法 由 JavaScript 脚本调用
     /// </summary>
     /// <param name="originIndex"></param>
     /// <param name="currentIndex"></param>
     /// <returns></returns>
     [JSInvokable]
-    public void ResetColumnsCallback(int originIndex, int currentIndex)
+    public async Task ResetColumnsCallback(int originIndex, int currentIndex)
     {
         var firstColumn = GetVisibleColumns().ElementAtOrDefault(originIndex);
         var targetColumn = GetVisibleColumns().ElementAtOrDefault(currentIndex);
@@ -1216,6 +1222,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             var index = Columns.IndexOf(targetColumn);
             Columns.Remove(firstColumn);
             Columns.Insert(index, firstColumn);
+
+            if (OnDragColumnEndAsync != null)
+            {
+                await OnDragColumnEndAsync(firstColumn.GetFieldName());
+            }
             StateHasChanged();
         }
     }
