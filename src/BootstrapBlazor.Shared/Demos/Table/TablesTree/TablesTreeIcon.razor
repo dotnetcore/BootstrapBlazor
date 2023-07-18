@@ -2,7 +2,7 @@
 @inject ICacheManager CacheManager
 
 <div>
-    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light" TreeIcon="fa-solid fa-circle-chevron-right"
+    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light" TreeIcon="fa-solid fa-circle-chevron-right" TreeExpandIcon="fa-solid fa-circle-chevron-right fa-rotate-90"
            Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="360" />
