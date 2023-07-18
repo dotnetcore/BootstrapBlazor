@@ -65,24 +65,6 @@ public sealed partial class MenuLink
         : null;
 
     /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        if (Parent.IsVertical && Item.IsActive)
-        {
-            var parent = Item.Parent;
-            while (parent != null)
-            {
-                parent.IsCollapsed = false;
-                parent = parent.Parent;
-            }
-        }
-    }
-
-    /// <summary>
     /// SetParametersAsync 方法
     /// </summary>
     /// <param name="parameters"></param>
