@@ -53,7 +53,8 @@ const fixHeader = table => {
                 prev.classList.add('modified')
                 prev.style.right = margin
                 prev = prev.previousElementSibling
-            } else {
+            }
+            else {
                 break
             }
         }
