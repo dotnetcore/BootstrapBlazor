@@ -6752,6 +6752,41 @@ public class TableTest : TableTestBase
         });
     }
 
+    [Theory]
+    [InlineData(null, true)]
+    [InlineData(180, true)]
+    [InlineData(null, false)]
+    [InlineData(180, false)]
+    public void ColumnWidth_Ok(int? width, bool fixedHeader)
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.IsFixedHeader, fixedHeader);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Width", width);
+                    builder.AddAttribute(4, "TextEllipsis", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        cut.InvokeAsync(() =>
+        {
+            var td = cut.Find("tbody td");
+            var expected = string.Format(fixedHeader ? "style=\"width: calc({0}px  - 2 * var(--bb-table-td-padding-x));\"" : "style=\"width: {0}px;\"", width.HasValue ? width.Value : 200);
+            Assert.Contains(expected, td.OuterHtml);
+        });
+    }
+
     private static DataTable CreateDataTable(IStringLocalizer<Foo> localizer)
     {
         var userData = new DataTable();
