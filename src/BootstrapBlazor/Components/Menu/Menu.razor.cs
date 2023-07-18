@@ -191,6 +191,9 @@ public partial class Menu
             {
                 // 未禁用导航时 使用地址栏激活菜单
                 item.IsActive = true;
+
+                // 设置父菜单展开
+                item.SetCollapse(false);
             }
 
             if (item.IsActive)

@@ -71,6 +71,19 @@ public class MenuItem : NodeItem
     }
 
     /// <summary>
+    /// 设置当前节点父节点展开
+    /// </summary>
+    protected internal virtual void SetCollapse(bool collapsed)
+    {
+        var parent = Parent;
+        while (parent != null)
+        {
+            parent.IsCollapsed = collapsed;
+            parent = parent.Parent;
+        }
+    }
+
+    /// <summary>
     /// 获得 所有子项集合
     /// </summary>
     /// <returns></returns>
