@@ -1178,7 +1178,7 @@ public partial class Tables
         },
         new()
         {
-            Name = "AllowDragOrder",
+            Name = "AllowDragColumn",
             Description = Localizer["AllowDragOrderAttr"],
             Type = "boolean",
             ValueList = "true|false",
