@@ -3726,13 +3726,9 @@
     "GotoTitle": "页面跳转",
     "GotoIntro": "用 <code>Js</code> 实现页面跳转，解决了 <code>Blazor</code> 页面作为 <b>SPA</b> 跳转时不会真正刷新页面的问题",
     "InvokeAsync": "执行 fetch 方法",
-    "Goto": "执行 goto 方法"
-  },
-  "BootstrapBlazor.Shared.Demos.Ajax.AjaxNormal": {
+    "Goto": "执行 goto 方法",
     "NormalButtonText1": "登录成功",
-    "NormalButtonText2": "登录失败"
-  },
-  "BootstrapBlazor.Shared.Demos.Ajax.AjaxGoto": {
+    "NormalButtonText2": "登录失败",
     "GotoButtonText1": "跳转到文档首页",
     "GotoButtonText2": "跳转到自己（刷新页面）"
   },

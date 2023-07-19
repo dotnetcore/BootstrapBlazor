@@ -3715,13 +3715,9 @@
     "GotoTitle": "Page jump",
     "GotoIntro": "Implementing page jumps with<code> Js </code> addresses an issue where <code> Blazor </code> pages don't really refresh when they're jumped as <b> SPA </b>",
     "InvokeAsync": "Execute fetch",
-    "Goto": "Execute goto"
-  },
-  "BootstrapBlazor.Shared.Demos.Ajax.AjaxNormal": {
+    "Goto": "Execute goto",
     "NormalButtonText1": "Login successful",
-    "NormalButtonText2": "Login failed"
-  },
-  "BootstrapBlazor.Shared.Demos.Ajax.AjaxGoto": {
+    "NormalButtonText2": "Login failed",
     "GotoButtonText1": "Jump to the first page of the document",
     "GotoButtonText2": "Jump to yourself (refresh page)"
   },
