@@ -1,4 +1,5 @@
 ﻿@inject IStringLocalizer<ValidateForms> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
 
 <ValidateForm @ref="FooForm" Model="@Model" OnValidSubmit="@OnValidSetError">
     <div class="row g-3">
@@ -15,7 +16,7 @@
             <Select @bind-Value="@Model.Education" />
         </div>
         <div class="col-12">
-            <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbys" />
+            <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbies" />
         </div>
         <div class="col-12">
             <Button ButtonType="@ButtonType.Submit" Text="@Localizer["ValidateFormsSubmitButtonText"]" />
@@ -28,7 +29,7 @@
     private Foo? Model { get; set; }
 
     [NotNull]
-    private IEnumerable<SelectedItem>? Hobbys { get; set; }
+    private IEnumerable<SelectedItem>? Hobbies { get; set; }
 
     [NotNull]
     private ValidateForm? FooForm { get; set; }
@@ -47,8 +48,11 @@
     {
         await base.OnInitializedAsync();
 
-    // 切换线程 模拟异步通过 webapi 加载数据
+        // 切换线程 模拟异步通过 webapi 加载数据
         await Task.Yield();
+
+        // 初始化参数
+        Hobbies = Foo.GenerateHobbys(LocalizerFoo);
 
         Model = new() { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
     }
