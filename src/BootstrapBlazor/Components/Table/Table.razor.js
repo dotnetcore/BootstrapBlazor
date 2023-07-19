@@ -259,8 +259,10 @@ const setResizeListener = table => {
             },
             () => {
                 eff(col, false)
-                const width = getWidth(col.parentNode);
-                table.invoke.invokeMethodAsync(table.callbacks.resizeColumnCallback, index, width)
+                if (table.callbacks.resizeColumnCallback) {
+                    const width = getWidth(col.parentNode);
+                    table.invoke.invokeMethodAsync(table.callbacks.resizeColumnCallback, index, width)
+                }
             }
         )
     })
@@ -369,7 +371,9 @@ const setDraggable = table => {
         EventHandler.on(col, 'drop', e => {
             e.stopPropagation()
             e.preventDefault()
-            table.invoke.invokeMethodAsync(table.callbacks.dragColumnCallback, index, table.dragColumns.indexOf(col))
+            if (table.callbacks.dragColumnCallback) {
+                table.invoke.invokeMethodAsync(table.callbacks.dragColumnCallback, index, table.dragColumns.indexOf(col))
+            }
             return false
         })
         EventHandler.on(col, 'dragenter', e => {
