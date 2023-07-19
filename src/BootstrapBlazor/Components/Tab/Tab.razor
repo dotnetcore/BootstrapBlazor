@@ -95,7 +95,9 @@ else
                 {
                     foreach (var item in Items)
                     {
-                        @RenderTabItem(item)
+                        <div @key="@item" class="@GetContentClassString(item)">
+                            @RenderTabItem(item)
+                        </div>
                     }
                 }
             </CascadingValue>
@@ -105,9 +107,7 @@ else
 
 @code {
     RenderFragment<TabItem> RenderTabItem => item =>
-    @<div @key="@item" class="@GetContentClassString(item)">
-        <CascadingValue Value="item" IsFixed="true">
-            @RenderTabItemContent(item)
-        </CascadingValue>
-    </div>;
+    @<CascadingValue Value="item" IsFixed="true">
+        @RenderTabItemContent(item)
+    </CascadingValue>;
 }
