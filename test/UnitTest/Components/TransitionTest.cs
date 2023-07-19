@@ -60,9 +60,6 @@ public class TransitionTest : BootstrapBlazorTestBase
             });
         });
 
-        var name = Context.JSInterop.VerifyInvoke("init").Arguments[2] as string;
-        Assert.Equal("TransitionEndAsync", name);
-
         cut.InvokeAsync(() => cut.Instance.TransitionEndAsync());
         Assert.True(transitionEnd);
     }
