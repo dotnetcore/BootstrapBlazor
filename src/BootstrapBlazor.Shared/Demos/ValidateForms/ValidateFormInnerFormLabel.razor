@@ -4,7 +4,7 @@
     <EditorForm TModel="Foo" ItemsPerRow="2" RowType="RowType.Inline" LabelAlign="Alignment.Right">
         <FieldItems>
             <EditorItem @bind-Field="@context.Address" ValidateRules="@CustomerRules" />
-            <EditorItem @bind-Field="@context.Hobby" Items="@Hobbys" />
+            <EditorItem @bind-Field="@context.Hobby" Items="@Hobbies" />
         </FieldItems>
     </EditorForm>
 </ValidateForm>
@@ -14,7 +14,7 @@
     private Foo? Model { get; set; }
 
     [NotNull]
-    private IEnumerable<SelectedItem>? Hobbys { get; set; }
+    private IEnumerable<SelectedItem>? Hobbies { get; set; }
 
     private List<IValidator> CustomerRules { get; } = new();
 
@@ -42,6 +42,6 @@
         Model = new() { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
 
         // 初始化参数
-        Hobbys = Foo.GenerateHobbys(LocalizerFoo);
+        Hobbies = Foo.GenerateHobbys(LocalizerFoo);
     }
 }
