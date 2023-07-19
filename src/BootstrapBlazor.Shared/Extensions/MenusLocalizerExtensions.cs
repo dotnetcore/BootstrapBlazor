@@ -672,6 +672,41 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = "列选择",
+                    Url = "tables/column/checkbox"
+                },
+                new()
+                {
+                    Text = Localizer["TableColumn"],
+                    Url = "tables/column/drag"
+                },
+                new()
+                {
+                    Text = "动态列宽",
+                    Url = "tables/column/resieing"
+                },
+                new()
+                {
+                    Text = "自定义显示/隐藏列",
+                    Url = "tables/column/list"
+                },
+                new()
+                {
+                    Text = "根据屏幕宽度自动显示/隐藏列",
+                    Url = "tables/column/breakpoint"
+                },
+                new()
+                {
+                    Text = "列对齐",
+                    Url = "tables/column/align"
+                },
+                 new()
+                {
+                    Text = "列格式",
+                    Url = "tables/column/fomatter"
+                },
+                new()
+                {
                     Text = Localizer["TableCell"],
                     Url = "tables/cell"
                 },

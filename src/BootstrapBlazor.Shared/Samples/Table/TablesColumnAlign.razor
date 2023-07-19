@@ -1,0 +1,15 @@
+﻿@page "/tables/column/align"
+@inject IStringLocalizer<TablesColumn> Localizer
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+
+<h3>@Localizer["TablesColumnTitle"]</h3>
+
+<h4>@Localizer["TablesColumnDescription"]</h4>
+
+<DemoBlock Title="@Localizer["AlignTitle"]"
+           Introduction="@Localizer["AlignIntro"]"
+           Name="Align"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnAlign)">
+    <p>@((MarkupString)Localizer["AlignP1"].Value)</p>
+    <p>@((MarkupString)Localizer["AlignP2"].Value)</p>
+</DemoBlock>

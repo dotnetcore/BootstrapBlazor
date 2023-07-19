@@ -1,0 +1,14 @@
+﻿@page "/tables/column/resieing"
+@inject IStringLocalizer<TablesColumn> Localizer
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+
+<h3>@Localizer["TablesColumnTitle"]</h3>
+
+<h4>@Localizer["TablesColumnDescription"]</h4>
+
+<DemoBlock Title="@Localizer["AllowResizingTitle"]"
+           Introduction="@Localizer["AllowResizingIntro"]"
+           Name="AllowResizing"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnAllowResizing)">
+    <p>@((MarkupString)Localizer["AllowResizingDesc"].Value)</p>
+</DemoBlock>

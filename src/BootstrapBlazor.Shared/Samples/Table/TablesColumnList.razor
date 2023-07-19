@@ -1,0 +1,14 @@
+﻿@page "/tables/column/list"
+@inject IStringLocalizer<TablesColumn> Localizer
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+
+<DemoBlock Title="@Localizer["VisibleTitle"]"
+           Introduction="@Localizer["VisibleIntro"]"
+           Name="Visible"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnVisible)">
+    <p>@((MarkupString)Localizer["VisibleP1"].Value)</p>
+    <p>@((MarkupString)Localizer["VisibleP2"].Value)</p>
+    <p>@((MarkupString)Localizer["VisibleP3"].Value)</p>
+    <p>@((MarkupString)Localizer["VisibleP4"].Value)</p>
+    <p>@((MarkupString)Localizer["ResetVisibleColumnsDesc"].Value)</p>
+</DemoBlock>
