@@ -16,8 +16,9 @@
     </div>
 </ValidateForm>
 <ConsoleLogger @ref="Logger" class="mt-3" />
+
 <p class=mt-3>
-    @foreach (var key in GetValueChagnedFieldCollection())
+    @foreach (var key in GetValueChangedFieldCollection())
     {
         <div>
             <span>@key.Key.Model.GetType().Name</span>.<span>@key.Key.FieldName</span>: <span>@key.Value</span>
@@ -35,7 +36,7 @@
     [NotNull]
     private ComplexFoo? ComplexModel { get; set; }
 
-    private ConcurrentDictionary<FieldIdentifier, object?> GetValueChagnedFieldCollection() => ComplexForm?.ValueChagnedFields ?? new ConcurrentDictionary<FieldIdentifier, object?>();
+    private ConcurrentDictionary<FieldIdentifier, object?> GetValueChangedFieldCollection() => ComplexForm?.ValueChagnedFields ?? new ConcurrentDictionary<FieldIdentifier, object?>();
 
     private class ComplexFoo : Foo
     {
