@@ -4831,7 +4831,7 @@
     "Education.Required": "{0}是必选项",
     "Hobby.Required": "请选择一种{0}",
     "Name.PlaceHolder": "不可为空",
-    "Hobbys": "游泳,登山,打球,下棋",
+    "Hobbies": "游泳,登山,打球,下棋",
     "Foo.Name": "张三 {0}",
     "Foo.Address": "上海市普陀区金沙江路 {0} 弄",
     "Foo.Address2": "地球、中国、上海市普陀区金沙江路 {0} 弄 这里是超长单元格示例",

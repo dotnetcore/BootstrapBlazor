@@ -121,7 +121,7 @@ public class Foo
     /// 生成 Foo 类 Hobbies 数据
     /// </summary>
     /// <returns></returns>
-    public static IEnumerable<SelectedItem> GenerateHobbys(IStringLocalizer<Foo> localizer) => localizer["Hobbys"].Value.Split(",").Select(i => new SelectedItem(i, i)).ToList();
+    public static IEnumerable<SelectedItem> GenerateHobbies(IStringLocalizer<Foo> localizer) => localizer["Hobbies"].Value.Split(",").Select(i => new SelectedItem(i, i)).ToList();
 
 
     /// <summary>

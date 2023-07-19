@@ -32,7 +32,7 @@
     {
         var items = Utility.GenerateEditorItems<Foo>();
         var item = items.First(i => i.GetFieldName() == nameof(Foo.Hobby));
-        item.Items = Foo.GenerateHobbys(FooLocalizer);
+        item.Items = Foo.GenerateHobbies(FooLocalizer);
 
         item = items.First(i => i.GetFieldName() == nameof(Foo.Address));
         item.Editable = false;
