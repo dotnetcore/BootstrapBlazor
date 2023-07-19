@@ -102,7 +102,7 @@ public class Foo
     };
 
     /// <summary>
-    /// 生成Foo类,随机数据
+    /// 生成 Foo 类,随机数据
     /// Generate Foo class, random data
     /// </summary>
     /// <returns>返回一个Foo类的List，Return a List of Foo class</returns>
@@ -118,7 +118,7 @@ public class Foo
     }).ToList();
 
     /// <summary>
-    /// 
+    /// 生成 Foo 类 Hobbies 数据
     /// </summary>
     /// <returns></returns>
     public static IEnumerable<SelectedItem> GenerateHobbys(IStringLocalizer<Foo> localizer) => localizer["Hobbys"].Value.Split(",").Select(i => new SelectedItem(i, i)).ToList();
