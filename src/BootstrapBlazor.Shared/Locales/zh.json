@@ -3703,7 +3703,7 @@
     "Validate": "表单认证方法",
     "OnInvalidSubmitLog": "OnInvalidSubmit 回调委托: 验证未通过",
     "OnValidSubmitLog": "OnValidSubmit 回调委托: 验证通过",
-    "OnValidSubmitSatringLog": "OnValidSubmit 回调委托: Starting ...",
+    "OnValidSubmitStartingLog": "OnValidSubmit 回调委托: Starting ...",
     "OnValidSubmitDoneLog": "OnValidSubmit 回调委托: Done!",
     "OnInvalidSubmitCallBackLog": "OnInvalidSubmit 回调委托",
     "OnValidSubmitCallBackLog": "OnValidSubmit 回调委托",

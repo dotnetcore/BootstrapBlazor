@@ -20,7 +20,7 @@
             <Select @bind-Value="@Model.Education" />
         </div>
         <div class="col-12">
-            <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbys" />
+            <CheckboxList @bind-Value="@Model.Hobby" Items="@Hobbies" />
         </div>
         <div class="col-12">
             <Button ButtonType="@ButtonType.Submit" Icon="fa-fw fa-solid fa-floppy-disk" IsAsync="true" Text="@Localizer["ValidateFormsSubmitButtonText"]" />
@@ -34,7 +34,7 @@
     private Foo? Model { get; set; }
 
     [NotNull]
-    private IEnumerable<SelectedItem>? Hobbys { get; set; }
+    private IEnumerable<SelectedItem>? Hobbies { get; set; }
 
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
@@ -53,12 +53,12 @@
         Model = new() { Name = "Name", Education = EnumEducation.Primary, DateTime = DateTime.Now };
 
         // 初始化参数
-        Hobbys = Foo.GenerateHobbys(LocalizerFoo);
+        Hobbies = Foo.GenerateHobbys(LocalizerFoo);
     }
 
     private async Task OnValidSubmit(EditContext context)
     {
-        Logger.Log(Localizer["OnValidSubmitSatringLog"]);
+        Logger.Log(Localizer["OnValidSubmitStartingLog"]);
         await Task.Delay(3000);
         Logger.Log(Localizer["OnValidSubmitDoneLog"]);
     }
