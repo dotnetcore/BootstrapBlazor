@@ -88,9 +88,7 @@ else
                     var item = Items.FirstOrDefault(i => i.IsActive);
                     if (item != null)
                     {
-                        <CascadingValue Value="item" IsFixed="true">
-                            @RenderTabItemContent(item)
-                        </CascadingValue>
+                        @RenderTabItem(item)
                     }
                 }
                 else
@@ -98,13 +96,18 @@ else
                     foreach (var item in Items)
                     {
                         <div @key="@item" class="@GetContentClassString(item)">
-                            <CascadingValue Value="item" IsFixed="true">
-                                @RenderTabItemContent(item)
-                            </CascadingValue>
+                            @RenderTabItem(item)
                         </div>
                     }
                 }
             </CascadingValue>
         </div>
     </div>
+}
+
+@code {
+    RenderFragment<TabItem> RenderTabItem => item =>
+    @<CascadingValue Value="item" IsFixed="true">
+        @RenderTabItemContent(item)
+    </CascadingValue>;
 }
