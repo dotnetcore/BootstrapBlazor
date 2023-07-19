@@ -63,8 +63,18 @@ const getUID = (prefix = '') => {
     return prefix
 }
 
+const getInnerWidth = element => getWidth(element, true)
+
+const getOuterWidth = element => {
+    let width = element.getBoundingClientRect().width
+    const styles = getComputedStyle(element)
+    const marginLeft = parseFloat(styles.marginLeft)
+    const marginRight = parseFloat(styles.marginRight)
+    return width + marginLeft + marginRight
+}
+
 const getWidth = (element, self = false) => {
-    let width = element.offsetWidth
+    let width = element.getBoundingClientRect().width
     if (self) {
         const styles = getComputedStyle(element)
         const borderLeftWidth = parseFloat(styles.borderLeftWidth)
@@ -76,8 +86,18 @@ const getWidth = (element, self = false) => {
     return width
 }
 
+const getInnerHeight = element => getHeight(element, true)
+
+const getOuterHeight = element => {
+    let height = element.getBoundingClientRect().height
+    const styles = getComputedStyle(element)
+    const marginTop = parseFloat(styles.marginTop)
+    const marginBottom = parseFloat(styles.marginBottom)
+    return height + marginTop + marginBottom
+}
+
 const getHeight = (element, self = false) => {
-    let height = element.offsetHeight
+    let height = element.getBoundingClientRect().height
     if (self) {
         const styles = getComputedStyle(element)
         const borderTopWidth = parseFloat(styles.borderTopWidth)
@@ -87,26 +107,6 @@ const getHeight = (element, self = false) => {
         height = height - borderBottomWidth - borderTopWidth - paddingTop - paddingBottom
     }
     return height
-}
-
-const getInnerWidth = element => getWidth(element, true)
-
-const getInnerHeight = element => getHeight(element, true)
-
-const getOuterHeight = element => {
-    let height = element.offsetHeight
-    const styles = getComputedStyle(element)
-    const marginTop = parseInt(styles.marginTop)
-    const marginBottom = parseInt(styles.marginBottom)
-    return height + marginTop + marginBottom
-}
-
-const getOuterWidth = element => {
-    let width = element.offsetWidth
-    const styles = getComputedStyle(element)
-    const marginLeft = parseInt(styles.marginLeft)
-    const marginRight = parseInt(styles.marginRight)
-    return width + marginLeft + marginRight
 }
 
 const getWindowScroll = node => {

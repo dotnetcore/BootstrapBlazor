@@ -789,7 +789,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (_init)
         {
             _init = false;
-            await InvokeVoidAsync("init", Id, Interop, new { DragColumnCallback = nameof(DragColumnCallback), ResizeColumnCallback = nameof(ResizeColumnCallback) });
+            await InvokeVoidAsync("init", Id, Interop, new
+            {
+                DragColumnCallback = OnDragColumnEndAsync != null ? nameof(DragColumnCallback) : null,
+                ResizeColumnCallback = OnResizeColumnAsync != null ? nameof(ResizeColumnCallback) : null
+            });
         }
 
         if (_resetColumns)
@@ -1218,7 +1222,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 获得/设置 设置列宽回调方法 
     /// </summary>
     [Parameter]
-    public Func<string, int, Task>? OnResizeColumnAsync { get; set; }
+    public Func<string, float, Task>? OnResizeColumnAsync { get; set; }
 
     /// <summary>
     /// 重置列方法 由 JavaScript 脚本调用
@@ -1252,7 +1256,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <param name="width"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task ResizeColumnCallback(int index, int width)
+    public async Task ResizeColumnCallback(int index, float width)
     {
         var column = GetVisibleColumns().ElementAtOrDefault(index);
         if (column != null)
