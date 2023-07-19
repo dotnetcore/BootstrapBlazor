@@ -677,23 +677,18 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["TableColumn"],
+                    Text = "列拖动",
                     Url = "tables/column/drag"
                 },
                 new()
                 {
-                    Text = "动态列宽",
+                    Text = "列宽调整",
                     Url = "tables/column/resieing"
                 },
                 new()
                 {
-                    Text = "自定义显示/隐藏列",
+                    Text = "列显示/隐藏",
                     Url = "tables/column/list"
-                },
-                new()
-                {
-                    Text = "根据屏幕宽度自动显示/隐藏列",
-                    Url = "tables/column/breakpoint"
                 },
                 new()
                 {
@@ -704,6 +699,11 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = "列格式",
                     Url = "tables/column/fomatter"
+                },
+                new()
+                {
+                    Text = Localizer["TableFixColumn"],
+                    Url = "tables/fix-column"
                 },
                 new()
                 {
@@ -754,11 +754,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["TableHeaderGroup"],
                     Url = "tables/multi-header"
-                },
-                new()
-                {
-                    Text = Localizer["TableFixColumn"],
-                    Url = "tables/fix-column"
                 },
                 new()
                 {
