@@ -316,8 +316,11 @@
     border-top-right-radius: var(--bs-border-radius);
 }
 
-.table-fixed-body,
 .table-scroll {
+    overflow: auto;
+}
+
+.table-fixed-body {
     overflow-x: auto !important;
     overflow-y: scroll !important;
 }
@@ -484,6 +487,7 @@ tr.active:not(.is-edit):hover {
     .table-fixed-column .table .fixed {
         position: sticky;
         z-index: 2;
+        overflow: unset;
     }
 
         .table-fixed-column .table .fixed.fr {
