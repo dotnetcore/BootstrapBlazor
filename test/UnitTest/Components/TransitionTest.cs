@@ -56,9 +56,12 @@ public class TransitionTest : BootstrapBlazorTestBase
             builder.Add(a => a.OnTransitionEnd, () =>
             {
                 transitionEnd = true;
-                return Task.FromResult(true);
+                return Task.CompletedTask;
             });
         });
+
+        var name = Context.JSInterop.VerifyInvoke("init").Arguments[2] as string;
+        Assert.Equal("TransitionEndAsync", name);
 
         cut.InvokeAsync(() => cut.Instance.TransitionEndAsync());
         Assert.True(transitionEnd);
