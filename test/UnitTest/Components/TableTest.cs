@@ -6764,7 +6764,7 @@ public class TableTest : TableTestBase
     public void OnResizeColumnCallback_Ok()
     {
         var name = "";
-        var width = 0;
+        var width = 0f;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
