@@ -317,7 +317,7 @@ public class TabTest : TabTestBase
     }
 
     [Fact]
-    public void IsOnlyRenderActiveTab_Ok()
+    public void IsOnlyRenderActiveTab_True()
     {
         var cut = Context.RenderComponent<Tab>(pb =>
         {
@@ -337,10 +337,41 @@ public class TabTest : TabTestBase
                 pb.Add(a => a.ChildContent, "Tab2-Content");
             });
         });
-        Assert.Equal(1, cut.FindAll(".tabs-body-content").Count);
+        Assert.Contains("Tab1-Content", cut.Markup);
+        Assert.DoesNotContain("Tab2-Content", cut.Markup);
+        Assert.DoesNotContain("tabs-body-content", cut.Markup);
 
         // 提高代码覆盖率
         cut.InvokeAsync(() => cut.Instance.CloseOtherTabs());
+    }
+
+    [Fact]
+    public void IsOnlyRenderActiveTab_False()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.IsOnlyRenderActiveTab, false);
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab1");
+                pb.Add(a => a.Url, "/Cat");
+                pb.Add(a => a.ChildContent, "Tab1-Content");
+            });
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab2");
+                pb.Add(a => a.Url, "/");
+                pb.Add(a => a.Closable, false);
+                pb.Add(a => a.ChildContent, "Tab2-Content");
+            });
+        });
+
+        cut.InvokeAsync(() =>
+        {
+            var count = cut.FindAll("tabs-body-content").Count;
+            Assert.Equal(2, count);
+        });
     }
 
     [Fact]
