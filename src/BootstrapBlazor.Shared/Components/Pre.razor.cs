@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Services;
+using NPOI.SS.Formula.Functions;
 
 namespace BootstrapBlazor.Shared.Components;
 
@@ -106,7 +107,7 @@ public partial class Pre
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (Loaded)
+        if (Loaded && !string.IsNullOrEmpty(Demo))
         {
             await InvokeVoidAsync("highlight", Id);
         }
@@ -131,6 +132,14 @@ public partial class Pre
                 };
             }
             CanCopy = !string.IsNullOrEmpty(code) && !code.StartsWith("Error: ");
+        }
+        else
+        {
+            ChildContent = builder =>
+            {
+                builder.AddContent(0, "网站改版中 ... Refactoring website. Coming soon ...");
+            };
+            CanCopy = false;
         }
         Loaded = true;
     }
