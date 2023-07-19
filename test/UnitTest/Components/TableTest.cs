@@ -6747,8 +6747,11 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        cut.InvokeAsync(() => table.Instance.DragColumnCallback(1, 0));
-        Assert.Equal("Address", name);
+        cut.InvokeAsync(async () =>
+        {
+            await table.Instance.DragColumnCallback(1, 0);
+            Assert.Equal("Address", name);
+        });
 
         cut.InvokeAsync(async () =>
         {
