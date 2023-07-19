@@ -38,8 +38,8 @@
     <p>@((MarkupString)Localizer["ValidateFormInnerComponentInnerComponentDescription2"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ValidateFormCustomDisplsyErrorTitle"]" Introduction="@Localizer["ValidateFormCustomDisplsyErrorIntro"]" Name="CustomDisplsyError" Demo="typeof(Demos.ValidateForms.ValidateFormCustomDisplsyError)">
-    <p>@((MarkupString)Localizer["ValidateFormCustomDisplsyErrorDescription"].Value)</p>
+<DemoBlock Title="@Localizer["ValidateFormCustomDisplayErrorTitle"]" Introduction="@Localizer["ValidateFormCustomDisplayErrorIntro"]" Name="CustomDisplayError" Demo="typeof(Demos.ValidateForms.ValidateFormCustomDisplsyError)">
+    <p>@((MarkupString)Localizer["ValidateFormCustomDisplayErrorDescription"].Value)</p>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ValidateFormValidatorAllFieldTitle"]" Introduction="@Localizer["ValidateFormValidatorAllFieldIntro"]" Name="ValidatorAllField" Demo="typeof(Demos.ValidateForms.ValidateFormValidatorAllField)">
@@ -48,7 +48,7 @@
 
 <DemoBlock Title="@Localizer["ValidateFormComplexValidationTitle"]" Introduction="@Localizer["ValidateFormComplexValidationIntro"]" Name="ComplexValidation" Demo="typeof(Demos.ValidateForms.ValidateFormComplexValidation)">
     <p>@((MarkupString)Localizer["ValidateFormComplexValidationDescription"].Value)</p>
-    <Pre>@Localizer["ValidateFormComplexValidationPre"]</Pre>
+    <Pre class="mb-3">@Localizer["ValidateFormComplexValidationPre"]</Pre>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ValidateFormDynamicFormTitle"]" Introduction="@Localizer["ValidateFormDynamicFormIntro"]" Name="DynamicForm" Demo="typeof(Demos.ValidateForms.ValidateFormDynamicForm)">
@@ -57,12 +57,12 @@
 
 <DemoBlock Title="@Localizer["ValidateFormInnerFormLabelTitle"]" Introduction="@Localizer["ValidateFormInnerFormLabelIntro"]" Name="InnerFormLabel" Demo="typeof(Demos.ValidateForms.ValidateFormInnerFormLabel)">
     <p>@((MarkupString)Localizer["ValidateFormInnerFormLabelDescription"].Value)</p>
-    <Pre>&lt;EditorItem @@bind-Field="@@context.Address" ValidateRules="@@CustomerRules" /&gt;</Pre>
+    <Pre class="mb-3">&lt;EditorItem @@bind-Field="@@context.Address" ValidateRules="@@CustomerRules" /&gt;</Pre>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ValidateFormCustomValidationFormTitle"]" Introduction="@Localizer["ValidateFormCustomValidationFormIntro"]" Name="CustomValidationForm" Demo="typeof(Demos.ValidateForms.ValidateFormCustomValidationForm)">
     <p>@((MarkupString)Localizer["CustomValidationFormP1"].Value)</p>
-    <Pre>protected override void OnInitialized()
+    <Pre class="mb-3">protected override void OnInitialized()
 {
     base.OnInitialized();
     // @Localizer["CustomValidationFormComment1"]
@@ -75,7 +75,7 @@
 
 <DemoBlock Title="@Localizer["ValidateFormValidateTitle"]" Introduction="@Localizer["ValidateFormValidateIntro"]" Name="Validate" Demo="typeof(Demos.ValidateForms.ValidateFormValidate)">
     <p>@((MarkupString)Localizer["ValidateFormValidateDescription"].Value)</p>
-    <Pre>[NotNull]
+    <Pre class="mb-3">[NotNull]
 private ValidateForm? ValidatorForm { get; set; }
 
 private Task OnClickValidate()

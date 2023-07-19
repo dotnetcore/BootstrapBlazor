@@ -30,6 +30,6 @@
         base.OnInitialized();
 
         Model = Foo.Generate(FooLocalizer);
-        Model.Hobby = Foo.GenerateHobbys(FooLocalizer).Take(3).Select(i => i.Text);
+        Model.Hobby = Foo.GenerateHobbies(FooLocalizer).Take(3).Select(i => i.Text);
     }
 }

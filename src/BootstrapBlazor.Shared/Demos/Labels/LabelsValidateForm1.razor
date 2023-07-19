@@ -9,7 +9,7 @@
         <ValidateForm Model="@Dummy">
             <EditorForm TModel="Foo" RowType="RowType.Inline" ItemsPerRow="2">
                 <FieldItems>
-                    <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbys(LocalizerFoo)">
+                    <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbies(LocalizerFoo)">
                     </EditorItem>
                 </FieldItems>
             </EditorForm>
@@ -21,7 +21,7 @@
         <ValidateForm Model="@Dummy" ShowLabel="false">
             <EditorForm TModel="Foo" RowType="RowType.Inline" ItemsPerRow="2">
                 <FieldItems>
-                    <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbys(LocalizerFoo)">
+                    <EditorItem @bind-Field="context.Hobby" Items="@Foo.GenerateHobbies(LocalizerFoo)">
                     </EditorItem>
                 </FieldItems>
             </EditorForm>
