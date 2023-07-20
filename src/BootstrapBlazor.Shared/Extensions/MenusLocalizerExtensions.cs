@@ -697,16 +697,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["TableCell"],
-                    Url = "tables/cell"
-                },
-                new()
-                {
-                    Text = Localizer["TableLookup"],
-                    Url = "tables/lookup"
-                },
-                new()
-                {
                     Text = Localizer["TableRow"],
                     Url = "tables/row"
                 },
@@ -714,6 +704,26 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["TableDetail"],
                     Url = "tables/detail"
+                },
+                new()
+                {
+                    Text = Localizer["TableSelection"],
+                    Url = "tables/selection"
+                },
+                new()
+                {
+                    Text = Localizer["TableWrap"],
+                    Url = "tables/wrap"
+                },
+                new()
+                {
+                    Text = Localizer["TableCell"],
+                    Url = "tables/cell"
+                },
+                new()
+                {
+                    Text = Localizer["TableLookup"],
+                    Url = "tables/lookup"
                 },
                 new()
                 {
@@ -782,11 +792,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["TableSelection"],
-                    Url = "tables/selection"
-                },
-                new()
-                {
                     Text = Localizer["TableAutoRefresh"],
                     Url = "tables/autorefresh"
                 },
@@ -799,11 +804,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["TableDialog"],
                     Url = "tables/dialog"
-                },
-                new()
-                {
-                    Text = Localizer["TableWrap"],
-                    Url = "tables/wrap"
                 },
                 new()
                 {
