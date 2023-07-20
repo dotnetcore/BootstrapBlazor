@@ -672,52 +672,52 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = "列选择",
-                    Url = "tables/column/checkbox"
+                    Text = Localizer["TableColumnSelection"],
+                    Url = "tables/column/selection"
                 },
                 new()
                 {
-                    Text = "列拖动",
+                    Text = Localizer["TableColumnDrag"],
                     Url = "tables/column/drag"
                 },
                 new()
                 {
-                    Text = "列宽调整",
+                    Text = Localizer["TableColumnResieing"],
                     Url = "tables/column/resieing"
                 },
                 new()
                 {
-                    Text = "列显示/隐藏",
+                    Text = Localizer["TableColumnList"],
                     Url = "tables/column/list"
                 },
                 new()
                 {
-                    Text = "列对齐",
+                    Text = Localizer["TableColumnAlign"],
                     Url = "tables/column/align"
                 },
                  new()
                 {
-                    Text = "列格式",
+                    Text = Localizer["TableColumnFomatter"],
                     Url = "tables/column/fomatter"
                 },
                   new()
                 {
-                    Text = "复制列",
+                    Text = Localizer["TableColumnCopy"],
                     Url = "tables/column/copy"
                 },
                    new()
                 {
-                    Text = "列模板",
+                    Text = Localizer["TableColumnTemplate"],
                     Url = "tables/column/template"
                 },
                    new()
                 {
-                    Text = "生成列",
+                    Text = Localizer["TableColumnGenerate"],
                     Url = "tables/column/generate"
                 },
                    new()
                 {
-                    Text = "当前列设置",
+                    Text = Localizer["TableColumnColumnCreating"],
                     Url = "tables/column/columncreating"
                 },
                 new()
