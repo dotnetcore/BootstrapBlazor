@@ -8,7 +8,7 @@
     <TableColumns>
         <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" Align="Alignment.Center" />
         <TableColumn @bind-Field="@context.Name" Width="100" />
-        <TableColumn @bind-Field="@context.Address" />
+        <TableColumn @bind-Field="@context.Address" ShownWithBreakPoint="BreakPoint.Medium" />
         <TableColumn @bind-Field="@context.Count" ShownWithBreakPoint="BreakPoint.Large" Formatter="@IntFormatter" Width="60" />
     </TableColumns>
 </Table>

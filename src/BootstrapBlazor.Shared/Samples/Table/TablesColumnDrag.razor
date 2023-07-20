@@ -1,0 +1,14 @@
+﻿@page "/tables/column/drag"
+@inject IStringLocalizer<TablesColumn> Localizer
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+
+<h3>@Localizer["TablesColumnTitle"]</h3>
+
+<h4>@Localizer["TablesColumnDescription"]</h4>
+
+<DemoBlock Title="@Localizer["AllowDragOrderTitle"]"
+           Introduction="@Localizer["AllowDragOrderIntro"]"
+           Name="AllowDragColumn"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnDragColumn)">
+    <p>@((MarkupString)Localizer["AllowDragOrderDesc"].Value)</p>
+</DemoBlock>
