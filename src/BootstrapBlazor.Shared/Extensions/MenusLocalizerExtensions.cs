@@ -687,33 +687,8 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["TableColumnAlign"],
-                    Url = "tables/column/align"
-                },
-                 new()
-                {
-                    Text = Localizer["TableColumnFomatter"],
-                    Url = "tables/column/fomatter"
-                },
-                  new()
-                {
-                    Text = Localizer["TableColumnCopy"],
-                    Url = "tables/column/copy"
-                },
-                   new()
-                {
                     Text = Localizer["TableColumnTemplate"],
                     Url = "tables/column/template"
-                },
-                   new()
-                {
-                    Text = Localizer["TableColumnGenerate"],
-                    Url = "tables/column/generate"
-                },
-                   new()
-                {
-                    Text = Localizer["TableColumnColumnCreating"],
-                    Url = "tables/column/columncreating"
                 },
                 new()
                 {

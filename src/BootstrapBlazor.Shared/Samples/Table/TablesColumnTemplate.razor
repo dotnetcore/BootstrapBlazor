@@ -14,8 +14,8 @@
     <p>@((MarkupString)Localizer["TableColumnP2"].Value)</p>
     <p>@((MarkupString)Localizer["TableColumnP3"].Value)</p>
     <ul>
-        <li>@((MarkupString)Localizer["TableColumnli1"].Value)</li>
-        <li>@((MarkupString)Localizer["TableColumnli2"].Value)</li>
+        <li>@((MarkupString)Localizer["TableColumnLi1"].Value)</li>
+        <li>@((MarkupString)Localizer["TableColumnLi2"].Value)</li>
     </ul>
 </DemoBlock>
 
@@ -23,4 +23,19 @@
            Introduction="@Localizer["TemplateIntro"]"
            Name="Template"
            Demo="typeof(Demos.Table.TablesColumn.TablesColumnTemplate)">
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["AutoGenerateColumnsTitle"]"
+           Introduction="@Localizer["AutoGenerateColumnsIntro"]"
+           Name="AutoGenerateColumns"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnAutoGenerateColumns)">
+    <p>
+        @((MarkupString)Localizer["AutoGenerateColumnsP1"].Value)
+        <ul class="ul-demo mb-3">
+            <li>@((MarkupString)Localizer["AutoGenerateColumnsLi1"].Value)</li>
+            <li>@((MarkupString)Localizer["AutoGenerateColumnsLi2"].Value)</li>
+            <li>@((MarkupString)string.Format(Localizer["AutoGenerateColumnsLi3"].Value, WebsiteOption.CurrentValue.BootstrapBlazorLink))</li>
+        </ul>
+        @((MarkupString)Localizer["AutoGenerateColumnsP2"].Value)
+    </p>
 </DemoBlock>

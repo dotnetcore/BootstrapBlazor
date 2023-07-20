@@ -31,6 +31,43 @@
            Demo="typeof(Demos.Table.TablesColumn.TablesColumnDisabled)">
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["ShowCopyColumnTitle"]"
+           Introduction="@Localizer["ShowCopyColumnIntro"]"
+           Name="ShowCopyColumn"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnShowCopyColumn)">
+    <p>@((MarkupString)Localizer["ShowCopyColumnDesc"].Value)</p>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["AlignTitle"]"
+           Introduction="@Localizer["AlignIntro"]"
+           Name="Align"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnAlign)">
+    <p>@((MarkupString)Localizer["AlignP1"].Value)</p>
+    <p>@((MarkupString)Localizer["AlignP2"].Value)</p>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["FormatterTitle"]"
+           Introduction="@Localizer["FormatterIntro"]"
+           Name="Formatter"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnFormatter)">
+    <p>@((MarkupString)Localizer["FormatterP1"].Value)</p>
+    <p>@((MarkupString)Localizer["FormatterP2"].Value)</p>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["OnColumnCreatingTitle"]"
+           Introduction="@Localizer["OnColumnCreatingIntro"]"
+           Name="OnColumnCreating"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnOnColumnCreating)">
+    <Tips>
+        <p>@((MarkupString)Localizer["OnColumnCreatingP1"].Value)</p>
+        <ol>
+            <li>@Localizer["OnColumnCreatingLi1"]</li>
+            <li>@((MarkupString)Localizer["OnColumnCreatingLi2"].Value)</li>
+        </ol>
+        <p>@((MarkupString)Localizer["OnColumnCreatingP2"].Value)</p>
+    </Tips>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["AdvanceTitle"]"
            Introduction="@Localizer["AdvanceIntro"]"
            Name="Advance"
