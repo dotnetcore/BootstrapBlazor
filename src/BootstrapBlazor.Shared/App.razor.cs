@@ -30,7 +30,7 @@ public partial class App
     private ToastService? Toast { get; set; }
 
     [NotNull]
-    private IEnumerable<Assembly>? AdditionalAssemblies { get; set; } = new();
+    private IEnumerable<Assembly>? AdditionalAssemblies { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -39,7 +39,7 @@ public partial class App
     {
         base.OnInitialized();
 
-        //AdditionalAssemblies = WebsiteOptions.Value.AdditionalAssemblies;
+        AdditionalAssemblies = WebsiteOptions.Value.AdditionalAssemblies;
         DispatchService.Subscribe(Notify);
     }
 
