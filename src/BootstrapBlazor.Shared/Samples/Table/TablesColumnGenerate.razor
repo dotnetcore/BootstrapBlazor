@@ -1,0 +1,22 @@
+﻿@page "/tables/column/generate"
+@inject IStringLocalizer<TablesColumn> Localizer
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+
+<h3>@Localizer["TablesColumnTitle"]</h3>
+
+<h4>@Localizer["TablesColumnDescription"]</h4>
+
+<DemoBlock Title="@Localizer["AutoGenerateColumnsTitle"]"
+           Introduction="@Localizer["AutoGenerateColumnsIntro"]"
+           Name="AutoGenerateColumns"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnAutoGenerateColumns)">
+    <p>
+        @((MarkupString)Localizer["AutoGenerateColumnsP1"].Value)
+        <ul class="ul-demo mb-3">
+            <li>@((MarkupString)Localizer["AutoGenerateColumnsLi1"].Value)</li>
+            <li>@((MarkupString)Localizer["AutoGenerateColumnsLi2"].Value)</li>
+            <li>@((MarkupString)string.Format(Localizer["AutoGenerateColumnsLi3"].Value, WebsiteOption.CurrentValue.BootstrapBlazorLink))</li>
+        </ul>
+        @((MarkupString)Localizer["AutoGenerateColumnsP2"].Value)
+    </p>
+</DemoBlock>

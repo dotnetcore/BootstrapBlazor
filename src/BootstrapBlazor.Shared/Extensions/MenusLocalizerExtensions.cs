@@ -700,6 +700,21 @@ internal static class MenusLocalizerExtensions
                     Text = "列格式",
                     Url = "tables/column/fomatter"
                 },
+                  new()
+                {
+                    Text = "复制列",
+                    Url = "tables/column/copy"
+                },
+                   new()
+                {
+                    Text = "列模板",
+                    Url = "tables/column/template"
+                },
+                   new()
+                {
+                    Text = "生成列",
+                    Url = "tables/column/generate"
+                },
                 new()
                 {
                     Text = Localizer["TableFixColumn"],

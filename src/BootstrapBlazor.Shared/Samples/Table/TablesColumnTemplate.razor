@@ -1,0 +1,13 @@
+﻿@page "/tables/column/template"
+@inject IStringLocalizer<TablesColumn> Localizer
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+
+<h3>@Localizer["TablesColumnTitle"]</h3>
+
+<h4>@Localizer["TablesColumnDescription"]</h4>
+
+<DemoBlock Title="@Localizer["TemplateTitle"]"
+           Introduction="@Localizer["TemplateIntro"]"
+           Name="Template"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnTemplate)">
+</DemoBlock>
