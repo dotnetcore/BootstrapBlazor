@@ -48,6 +48,7 @@ public partial class NavMenu
         base.OnInitialized();
 
         Menus = MenuService.GetMenus();
+        Menus.ForEach(m => m.IsCollapsed = true);
         AccordionText ??= Localizer["MenuAccordion"];
         ExpandAllText ??= Localizer["MenuExpandAll"];
     }
