@@ -286,7 +286,7 @@
             <Spinner Color="Color.Primary" />
         </div>
 
-        @if (RenderMode == TableRenderMode.Auto)
+        @if (Columns.Any(col => col.ShownWithBreakPoint != BreakPoint.None))
         {
             <Responsive OnBreakPointChanged="OnBreakPointChanged" />
         }
