@@ -16,6 +16,10 @@ public partial class Steps
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
+    private static string? GetContentClassString(StepItem item) => CssBuilder.Default("step-body")
+        .AddClass("d-none", !item.IsActive)
+        .Build();
+
     private StepItem? CurrentStep { get; set; }
 
     /// <summary>
@@ -23,7 +27,7 @@ public partial class Steps
     /// </summary>
     [Parameter]
     [NotNull]
-    public IEnumerable<StepItem>? Items { get; set; }
+    public List<StepItem>? Items { get; set; }
 
     /// <summary>
     /// 获得/设置 是否垂直渲染 默认 false 水平渲染
@@ -46,8 +50,7 @@ public partial class Steps
     /// <summary>
     /// 获得/设置 组件内容实例
     /// </summary>
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
+    private RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// 获得/设置 步骤组件状态改变时回调委托
@@ -66,7 +69,6 @@ public partial class Steps
     {
         base.OnInitialized();
 
-        var origiContent = ChildContent;
         ChildContent = new RenderFragment(builder =>
         {
             var index = 0;
@@ -79,14 +81,13 @@ public partial class Steps
             {
                 builder.AddContent(index++, RenderStep(item));
             }
-            builder.AddContent(index++, origiContent);
             builder.CloseElement();
 
-            if (CurrentStep?.Template != null)
+            foreach (var item in Items)
             {
                 builder.OpenElement(index++, "div");
-                builder.AddAttribute(index++, "class", "steps-body");
-                builder.AddContent(index++, CurrentStep.Template);
+                builder.AddAttribute(index++, "class", GetContentClassString(item));
+                builder.AddContent(index++, item.Template);
                 builder.CloseElement();
             }
         });
@@ -99,7 +100,7 @@ public partial class Steps
     {
         base.OnParametersSet();
 
-        Items ??= Enumerable.Empty<StepItem>();
+        Items ??= new List<StepItem>();
     }
 
     /// <summary>
@@ -112,7 +113,7 @@ public partial class Steps
         CurrentStep = null;
         if (Items.Any())
         {
-            CurrentStep = Items.Where(i => i.Status != StepStatus.Wait).LastOrDefault();
+            CurrentStep = Items.FirstOrDefault(i => i.IsActive);
             var status = CurrentStep?.Status ?? StepStatus.Wait;
             if (Status != status)
             {
@@ -143,7 +144,7 @@ public partial class Steps
         builder.AddAttribute(index++, nameof(Step.Status), item.Status);
         builder.AddAttribute(index++, nameof(Step.IsLast), item == Items.Last());
         builder.AddAttribute(index++, nameof(Step.IsCenter), IsCenter);
-        builder.AddAttribute(index++, nameof(Step.StepIndex), Items.ToList().IndexOf(item));
+        builder.AddAttribute(index, nameof(Step.StepIndex), Items.ToList().IndexOf(item));
         builder.CloseComponent();
     });
 
@@ -152,5 +153,70 @@ public partial class Steps
         if (!string.IsNullOrEmpty(space) && !double.TryParse(space.TrimEnd('%'), out _)) space = null;
         if (string.IsNullOrEmpty(space)) space = $"{Math.Round(100 * 1.0d / Math.Max(1, Items.Count() - 1), 2)}%";
         return space;
+    }
+
+    /// <summary>
+    /// 上一步
+    /// </summary>
+    /// <param name="status">当前要设定的状态</param>
+    public void Prev(StepStatus status = StepStatus.Wait)
+    {
+        var item = Items.FirstOrDefault(x => x.IsActive);
+        if (item != null)
+        {
+            var index = Items.IndexOf(item);
+            if (index <= 0)
+            {
+                return;
+            }
+
+            index--;
+            item.IsActive = false;
+            item.Status = status;
+            item = Items.ElementAt(index);
+            item.Status = StepStatus.Process;
+            item.IsActive = true;
+            StateHasChanged();
+            OnStatusChanged?.Invoke(status);
+        }
+        else
+        {
+            item = Items.LastOrDefault();
+            if (item == null)
+            {
+                return;
+            }
+            item.IsActive = true;
+            item.Status = StepStatus.Process;
+            StateHasChanged();
+        }
+    }
+
+    /// <summary>
+    /// 下一步
+    /// </summary>
+    /// <param name="status">当前要设定的状态</param>
+    public void Next(StepStatus status = StepStatus.Success)
+    {
+        var item = Items.FirstOrDefault(x => x.IsActive);
+        if (item != null)
+        {
+            var index = Items.IndexOf(item);
+            if (index >= Items.Count)
+            {
+                return;
+            }
+            item.IsActive = false;
+            item.Status = status;
+            index++;
+            if (index < Items.Count)
+            {
+                item = Items.ElementAt(index);
+                item.Status = StepStatus.Process;
+                item.IsActive = true;
+            }
+            StateHasChanged();
+            OnStatusChanged?.Invoke(status);
+        }
     }
 }

@@ -44,4 +44,9 @@ public class StepItem
     /// 获得/设置 每个 step 的模板
     /// </summary>
     public RenderFragment? Template { get; set; }
+
+    /// <summary>
+    /// 获得/设置 当前步骤是否为活动步骤
+    /// </summary>
+    public bool IsActive { get; set; }
 }

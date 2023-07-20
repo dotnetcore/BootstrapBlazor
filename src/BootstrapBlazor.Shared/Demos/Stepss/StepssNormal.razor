@@ -1,8 +1,9 @@
 ﻿@using BootstrapBlazor.Shared.Samples;
 @inject IStringLocalizer<Stepss> Localizer
 
-<Steps Items="@Items" OnStatusChanged="@OnStatusChanged" />
+<Steps @ref="@_steps" Items="@Items" OnStatusChanged="@OnStatusChanged" />
 <div class="mt-1">
+    <Button OnClick="@PrevStep" IsOutline="true">上一步</Button>
     <Button OnClick="@NextStep" IsOutline="true">@Localizer["StepssNormalButton1Text"]</Button>
     <Button OnClick="@ResetStep" IsOutline="true">@Localizer["StepssNormalButton2Text"]</Button>
 </div>
@@ -12,35 +13,28 @@
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
-    private IEnumerable<StepItem> Items { get; set; } = new StepItem[3];
+    private Steps _steps;
+
+    private List<StepItem> Items { get; set; } = new List<StepItem>();
 
     protected override void OnInitialized()
     {
         Items = new StepItem[3]
         {
-            new StepItem() { Title = Localizer["StepItemI1Text"], Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, Localizer["StepItemI1TextC"]); builder.CloseElement(); } },
-            new StepItem() { Title = Localizer["StepItemI2Text"], Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, Localizer["StepItemI2TextC"]); builder.CloseElement(); } },
-            new StepItem() { Title = Localizer["StepItemI3Text"], Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, Localizer["StepItemI3TextC"]); builder.CloseElement(); } }
-        };
+            new StepItem() { Title = Localizer["StepItemI1Text"], Template = BootstrapDynamicComponent.CreateComponent<Counter>().Render(), IsActive = true },
+            new StepItem() { Title = Localizer["StepItemI2Text"], Template = BootstrapDynamicComponent.CreateComponent<Counter>().Render() },
+            new StepItem() { Title = Localizer["StepItemI3Text"], Template = BootstrapDynamicComponent.CreateComponent<Counter>().Render() }
+        }.ToList();
+    }
+
+    private void PrevStep()
+    {
+        _steps.Prev();
     }
 
     private void NextStep()
     {
-        var item = Items.FirstOrDefault(i => i.Status == StepStatus.Process);
-        if (item != null)
-        {
-            item.Status = StepStatus.Success;
-            var index = Items.ToList().IndexOf(item) + 1;
-            if (index < Items.Count())
-            {
-                Items.ElementAt(index).Status = StepStatus.Process;
-            }
-        }
-        else
-        {
-            ResetStep();
-            Items.ElementAt(0).Status = StepStatus.Process;
-        }
+        _steps.Next();
     }
 
     private void ResetStep()
