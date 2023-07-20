@@ -672,11 +672,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["TableColumnSelection"],
-                    Url = "tables/column/selection"
-                },
-                new()
-                {
                     Text = Localizer["TableColumnDrag"],
                     Url = "tables/column/drag"
                 },

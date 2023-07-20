@@ -5008,7 +5008,6 @@
     "TableBase": "Base",
     "TableRow": "Row",
     "TableColumn": "Column",
-    "TableColumnSelection": "Column Selection",
     "TableColumnDrag": "Column Dragging",
     "TableColumnResieing": "Column width Adjustment",
     "TableColumnList": "Columns Show/Hide",

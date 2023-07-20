@@ -5017,7 +5017,6 @@
     "TableBase": "基本功能",
     "TableRow": "行设置",
     "TableColumn": "列设置",
-    "TableColumnSelection": "列选择",
     "TableColumnDrag": "列拖动",
     "TableColumnResieing": "列宽调整",
     "TableColumnList": "列显示/隐藏",
