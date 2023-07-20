@@ -286,7 +286,10 @@
             <Spinner Color="Color.Primary" />
         </div>
 
-        <Responsive OnBreakPointChanged="OnBreakPointChanged" />
+        @if (Columns.Any(col => col.ShownWithBreakPoint != BreakPoint.None))
+        {
+            <Responsive OnBreakPointChanged="OnBreakPointChanged" />
+        }
     }
 </div>
 
