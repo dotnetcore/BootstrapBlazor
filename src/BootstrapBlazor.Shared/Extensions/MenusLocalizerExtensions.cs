@@ -715,6 +715,11 @@ internal static class MenusLocalizerExtensions
                     Text = "生成列",
                     Url = "tables/column/generate"
                 },
+                   new()
+                {
+                    Text = "当前列设置",
+                    Url = "tables/column/columncreating"
+                },
                 new()
                 {
                     Text = Localizer["TableFixColumn"],

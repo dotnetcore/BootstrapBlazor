@@ -1,0 +1,21 @@
+﻿@page "/tables/column/columncreating"
+@inject IStringLocalizer<TablesColumn> Localizer
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+
+<h3>@Localizer["TablesColumnTitle"]</h3>
+
+<h4>@Localizer["TablesColumnDescription"]</h4>
+
+<DemoBlock Title="@Localizer["OnColumnCreatingTitle"]"
+           Introduction="@Localizer["OnColumnCreatingIntro"]"
+           Name="OnColumnCreating"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnOnColumnCreating)">
+    <Tips>
+        <p>@((MarkupString)Localizer["OnColumnCreatingP1"].Value)</p>
+        <ol>
+            <li>@Localizer["OnColumnCreatingLi1"]</li>
+            <li>@((MarkupString)Localizer["OnColumnCreatingLi2"].Value)</li>
+        </ol>
+        <p>@((MarkupString)Localizer["OnColumnCreatingP2"].Value)</p>
+    </Tips>
+</DemoBlock>
