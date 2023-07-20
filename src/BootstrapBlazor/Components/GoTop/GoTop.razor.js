@@ -1,6 +1,14 @@
 ﻿import Data from "../../modules/data.js?v=$version"
 import EventHandler from "../../modules/event-handler.js?v=$version"
 
+const getScrollElement = el => {
+    let ele = el
+    while (ele && ele.scrollHeight <= ele.clientHeight) {
+        ele = ele.parentNode
+    }
+    return ele || window
+}
+
 export function init(id, target) {
     const el = document.getElementById(id)
     if (el === null) {
@@ -12,7 +20,8 @@ export function init(id, target) {
     go.tip = new bootstrap.Tooltip(el)
     EventHandler.on(el, 'click', e => {
         e.preventDefault();
-        const element = document.querySelector(target) || window
+
+        const element = (target && document.querySelector(target)) || getScrollElement(el)
         element.scrollTop = 0
         go.tip.hide()
     })

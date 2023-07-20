@@ -53,6 +53,6 @@ public partial class GoTop
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Target ?? "");
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Target);
 
 }
