@@ -5018,7 +5018,7 @@
     "TableRow": "行设置",
     "TableColumn": "列设置",
     "TableColumnDrag": "列拖动",
-    "TableColumnResieing": "列宽调整",
+    "TableColumnResizing": "列宽调整",
     "TableColumnList": "列显示/隐藏",
     "TableColumnAlign": "列对齐",
     "TableColumnFomatter": "列对齐",

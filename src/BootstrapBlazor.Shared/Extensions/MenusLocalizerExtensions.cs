@@ -677,8 +677,8 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["TableColumnResieing"],
-                    Url = "tables/column/resieing"
+                    Text = Localizer["TableColumnResizing"],
+                    Url = "tables/column/resizing"
                 },
                 new()
                 {

@@ -5009,7 +5009,7 @@
     "TableRow": "Row",
     "TableColumn": "Column",
     "TableColumnDrag": "Column Dragging",
-    "TableColumnResieing": "Column width Adjustment",
+    "TableColumnResizing": "Column Resize",
     "TableColumnList": "Columns Show/Hide",
     "TableColumnAlign": "Column Alignment",
     "TableColumnFomatter": "Column Format",
