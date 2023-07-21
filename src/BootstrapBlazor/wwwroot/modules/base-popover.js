@@ -143,6 +143,16 @@ const Popover = {
 
                 EventHandler.on(document, 'click', closePopover);
             }
+
+            // update handler
+            if (popover.toggleMenu) {
+                const observer = new ResizeObserver(() => {
+                    popover.popover && popover.popover.update()
+                });
+                observer.observe(popover.toggleMenu)
+                popover.observer = observer
+            }
+
         }
         else {
             const show = e => {
@@ -160,6 +170,13 @@ const Popover = {
 
     dispose(popover) {
         if (popover.isPopover) {
+            popover.observer.disconnect()
+            delete popover.observer
+
+            if (popover.popover) {
+                popover.popover.dispose()
+                delete popover.popover
+            }
             EventHandler.off(popover.el, 'show.bs.popover')
             EventHandler.off(popover.el, 'inserted.bs.popover')
             EventHandler.off(popover.el, 'hide.bs.popover')
