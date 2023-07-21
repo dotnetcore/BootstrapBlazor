@@ -4,14 +4,22 @@ import Data from "../../modules/data.js?v=$version"
 import Debounce from "../../modules/debounce.js?v=$version"
 import EventHandler from "../../modules/event-handler.js?v=$version"
 import Input from "../../modules/input.js?v=$version"
+import Popover from "../../modules/base-popover.js?v=$version"
 
 export function init(id) {
     const el = document.getElementById(id)
     var ac = { el }
     Data.set(id, ac)
+
+    if (el.getAttribute("data-bs-toggle") === "bb.dropdown") {
+        ac.popover = Popover.init(el.parentNode, {
+            toggleClass: '[data-bs-toggle="bb.dropdown"]'
+        })
+    }
 }
 
-export function autoScroll(el, index) {
+export function autoScroll(id, index) {
+    const el = document.getElementById(id)
     const menu = el.querySelector('.dropdown-menu')
     const styles = getComputedStyle(menu)
     const maxHeight = parseInt(styles.maxHeight) / 2
@@ -58,6 +66,9 @@ export function dispose(id) {
     Data.remove(id)
 
     if (ac) {
+        if (ac.popover) {
+            Popover.dispose(ac.popover)
+        }
         if (ac.el) {
             EventHandler.off(ac.el, 'keyup')
             EventHandler.off(ac.el, 'focus')
