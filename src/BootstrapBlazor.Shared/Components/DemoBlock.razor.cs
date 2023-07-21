@@ -38,7 +38,7 @@ public sealed partial class DemoBlock
     /// 获得/设置 是否显示代码块 默认 true 显示
     /// </summary>
     [Parameter]
-    public bool ShowCode { get; set; } = true;
+    public bool? ShowCode { get; set; }
 
     /// <summary>
     /// 获得/设置 Tooltip 提示信息文本
@@ -69,6 +69,11 @@ public sealed partial class DemoBlock
 
         Title ??= Localizer[nameof(Title)];
         TooltipText ??= Localizer[nameof(TooltipText)];
+
+        if (!ShowCode.HasValue && Demo != null)
+        {
+            ShowCode = true;
+        }
     }
 
     private RenderFragment RenderChildContent => builder =>

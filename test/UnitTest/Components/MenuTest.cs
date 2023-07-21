@@ -515,5 +515,36 @@ public class MenuItemTest_Ok : DialogTestBase
         });
         var menus = cut.FindAll("[aria-expanded=\"true\"]");
         Assert.Equal(2, menus.Count);
+
+        nav.NavigateTo("/menu1#Normal");
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(m => m.Items, new MenuItem[]
+            {
+                new("Menu1")
+                {
+                    Icon = "fa-solid fa-font-awesome",
+                    Url = "/menu1",
+                },
+                 new("Menu2")
+                {
+                    Icon = "fa-solid fa-font-awesome",
+                    Url = "/menu2",
+                },
+           });
+        });
+        cut.InvokeAsync(() =>
+        {
+            var link = cut.Find(".nav-link.active");
+            Assert.Contains("href=\"menu1\"", link.OuterHtml);
+        });
+
+        nav.NavigateTo("/menu2?id=Normal");
+        cut.SetParametersAndRender();
+        cut.InvokeAsync(() =>
+        {
+            var link = cut.Find(".nav-link.active");
+            Assert.Contains("href=\"menu2\"", link.OuterHtml);
+        });
     }
 }
