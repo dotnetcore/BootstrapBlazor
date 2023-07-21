@@ -21,7 +21,6 @@ public partial class AutoFill<TValue>
     /// </summary>
     protected virtual string? ClassString => CssBuilder.Default("auto-complete auto-fill")
         .AddClass("is-loading", _isLoading)
-        .AddClass("show", _isShown)
         .Build();
 
     /// <summary>
@@ -136,8 +135,6 @@ public partial class AutoFill<TValue>
 
     private TValue? ActiveSelectedItem { get; set; }
 
-    private ElementReference AutoFillElement { get; set; }
-
     private int? CurrentItemIndex { get; set; }
 
     /// <summary>
@@ -178,7 +175,7 @@ public partial class AutoFill<TValue>
 
         if (CurrentItemIndex.HasValue)
         {
-            await InvokeVoidAsync("autoScroll", AutoFillElement, CurrentItemIndex.Value);
+            await InvokeVoidAsync("autoScroll", Id, CurrentItemIndex.Value);
         }
 
         if (firstRender)
