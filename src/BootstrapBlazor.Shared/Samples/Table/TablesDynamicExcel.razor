@@ -22,7 +22,7 @@
         col.Items = typeof(EnumEducation).ToSelectList(new SelectedItem("", @Localizer["TablesDynamicExcelEnumNotSet"]));
     }
 });</Pre>
-    <div>
+    <div class="mt-3">
         @((MarkupString)Localizer["TablesDynamicExcelEnumTip"].Value)
     </div>
 </DemoBlock>
@@ -63,7 +63,7 @@
     });
 }</Pre>
 
-<p>
+<p class="mt-2">
     <div class="code-label">@((MarkupString)Localizer["TablesDynamicExcelKeyboardTips2_Title"].Value)</div>
     <div class="mt-2">@((MarkupString)Localizer["TablesDynamicExcelKeyboardTips2_note1"].Value)</div>
 </p>
@@ -73,12 +73,12 @@
     DataTableDynamicContext.OnChanged = args =>
     {
         // @Localizer["TablesDynamicExcelKeyboardTips2_note2"]
-        Logger.Log($"# valueS: {args.Items.Count()} - type: {args.ChangedType}");
+        Logger.Log($"# values: {args.Items.Count()} - type: {args.ChangedType}");
         return Task.CompletedTask;
     };
 }</Pre>
 
-<p>
+<p class="mt-2">
     <div class="code-label">@((MarkupString)Localizer["TablesDynamicExcelKeyboardTips3_Title"].Value)</div>
     <div class="mt-2">@((MarkupString)Localizer["TablesDynamicExcelKeyboardTips3_note1"].Value)</div>
 </p>
