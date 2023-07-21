@@ -12,9 +12,9 @@ export function init(id) {
     var ac = { el, menu }
     Data.set(id, ac)
 
-    ac.popover = Popover.init(el, {
-        toggleClass: '[data-bs-toggle="bb.dropdown"]'
-    })
+    if (el.querySelector('[data-bs-toggle="bb.dropdown"]')) {
+        ac.popover = Popover.init(el)
+    }
 }
 
 export function autoScroll(id, index) {

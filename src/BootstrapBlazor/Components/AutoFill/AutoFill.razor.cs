@@ -21,6 +21,7 @@ public partial class AutoFill<TValue>
     /// </summary>
     protected virtual string? ClassString => CssBuilder.Default("auto-complete auto-fill")
         .AddClass("is-loading", _isLoading)
+        .AddClass("show", _isShown && !IsPopover)
         .Build();
 
     /// <summary>
