@@ -218,7 +218,7 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
             });
         });
 
-        // triger onfocus
+        // trigger focus
         cut.InvokeAsync(() =>
         {
             var input = cut.Find("input");
@@ -266,5 +266,24 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
         comp.TriggerOnChange("v");
 
         Assert.Equal("v", comp.Value);
+    }
+
+    [Fact]
+    public void IsPopover_Ok()
+    {
+        IEnumerable<string> items = new List<string>() { "test1", "test2" };
+        var cut = Context.RenderComponent<AutoComplete>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.IsPopover, true);
+            pb.Add(a => a.Placement, Placement.Auto);
+            pb.Add(a => a.CustomClass, "ac-pop-test");
+            pb.Add(a => a.ShowShadow, true);
+        });
+
+        // data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" data-bs-offset="@OffsetString" data-bs-custom-class="@CustomClassString"
+        cut.Contains("data-bs-toggle=\"bb.dropdown\"");
+        cut.DoesNotContain("data-bs-placement");
+        cut.Contains("data-bs-custom-class=\"ac-pop-test shadow\"");
     }
 }

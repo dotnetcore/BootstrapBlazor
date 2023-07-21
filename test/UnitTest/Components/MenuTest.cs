@@ -540,6 +540,7 @@ public class MenuItemTest_Ok : DialogTestBase
         });
 
         nav.NavigateTo("/menu2?id=Normal");
+        cut.SetParametersAndRender();
         cut.InvokeAsync(() =>
         {
             var link = cut.Find("nav-link active");
