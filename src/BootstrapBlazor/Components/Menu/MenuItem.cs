@@ -34,7 +34,7 @@ public class MenuItem : NodeItem
     /// <summary>
     /// 获得/设置 匹配方式 默认 NavLinkMatch.All
     /// </summary>
-    public NavLinkMatch Match { get; set; } = NavLinkMatch.All;
+    public NavLinkMatch Match { get; set; } = NavLinkMatch.Prefix;
 
     /// <summary>
     /// 获得 当前菜单所在层次 从 0 开始

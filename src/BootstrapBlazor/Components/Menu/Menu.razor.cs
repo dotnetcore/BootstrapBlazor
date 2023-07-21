@@ -123,13 +123,27 @@ public partial class Menu
         base.OnParametersSet();
 
         Items ??= Enumerable.Empty<MenuItem>();
-        InitMenus(null, Items, Navigator.ToBaseRelativePath(Navigator.Uri));
+        InitMenus(null, Items, GetUrl());
         if (!DisableNavigation)
         {
             Options.Text = ActiveMenu?.Text;
             Options.Icon = ActiveMenu?.Icon;
             Options.IsActive = true;
         }
+    }
+
+    private string GetUrl()
+    {
+        var url = Navigator.ToBaseRelativePath(Navigator.Uri);
+        if (url.Contains('?'))
+        {
+            url = url[..url.IndexOf("?")];
+        }
+        if (url.Contains('#'))
+        {
+            url = url[..url.IndexOf("#")];
+        }
+        return url;
     }
 
     /// <summary>
