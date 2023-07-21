@@ -79,6 +79,7 @@ public class JSModule : IAsyncDisposable
             catch (InvalidOperationException) { }
 #endif
             catch (TaskCanceledException) { }
+            catch (ObjectDisposedException) { }
         }
     }
 
