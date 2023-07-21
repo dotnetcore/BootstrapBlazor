@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits AutoComplete
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" @ref="AutoCompleteElement">
+<div @attributes="@AdditionalAttributes" class="@ClassString">
     <div class="input-group">
         <input @attributes="AdditionalAttributes" id="@Id" @ref="FocusElement" class="@ClassName" autocomplete="off" type="@Type" placeholder="@PlaceHolder" @bind-value="@CurrentValueAsString" @bind-value:event="oninput" @onblur="OnBlur" @onkeyup="OnKeyUp" />
         @if (ShowClearButton)
