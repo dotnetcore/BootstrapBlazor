@@ -8,15 +8,12 @@ import Popover from "../../modules/base-popover.js?v=$version"
 
 export function init(id) {
     const el = document.getElementById(id)
-    const menu = el.parentNode.querySelector('.dropdown-menu')
+    const menu = el.querySelector('.dropdown-menu')
     var ac = { el, menu }
     Data.set(id, ac)
 
-
-    if (el.getAttribute("data-bs-toggle") === "bb.dropdown") {
-        ac.popover = Popover.init(el.parentNode, {
-            toggleClass: '[data-bs-toggle="bb.dropdown"]'
-        })
+    if (el.querySelector('[data-bs-toggle="bb.dropdown"]')) {
+        ac.popover = Popover.init(el, { toggleClass: '[data-bs-toggle="bb.dropdown"]' })
     }
 }
 
