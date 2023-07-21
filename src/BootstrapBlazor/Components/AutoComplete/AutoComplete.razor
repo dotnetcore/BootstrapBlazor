@@ -5,8 +5,8 @@
 {
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div class="@ClassString">
-    <input @attributes="AdditionalAttributes" id="@Id" class="@ClassName" autocomplete="off" type="@Type" data-bs-toggle="bb.dropdown" placeholder="@PlaceHolder" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="oninput" @onblur="OnBlur" @onfocus="OnFocus" @onkeyup="OnKeyUp" @ref="FocusElement" />
+<div class="@ClassString" id="@Id">
+    <input @attributes="AdditionalAttributes" class="@ClassName" autocomplete="off" type="@Type" data-bs-toggle="bb.dropdown" placeholder="@PlaceHolder" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="oninput" @onblur="OnBlur" @onfocus="OnFocus" @onkeyup="OnKeyUp" @ref="FocusElement" />
     <span class="form-select-append"><i class="@Icon"></i></span>
     <span class="form-select-append ac-loading"><i class="@LoadingIcon"></i></span>
     <ul class="dropdown-menu">
