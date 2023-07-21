@@ -13,7 +13,7 @@ export function init(id) {
     Data.set(id, ac)
 
     if (el.querySelector('[data-bs-toggle="bb.dropdown"]')) {
-        ac.popover = Popover.init(el)
+        ac.popover = Popover.init(el, { toggleClass: '[data-bs-toggle="bb.dropdown"]' })
     }
 }
 
