@@ -535,16 +535,16 @@ public class MenuItemTest_Ok : DialogTestBase
         });
         cut.InvokeAsync(() =>
         {
-            var link = cut.Find("nav-link active");
-            Assert.Contains("/menu1", link.OuterHtml);
+            var link = cut.Find(".nav-link.active");
+            Assert.Contains("href=\"menu1\"", link.OuterHtml);
         });
 
         nav.NavigateTo("/menu2?id=Normal");
         cut.SetParametersAndRender();
         cut.InvokeAsync(() =>
         {
-            var link = cut.Find("nav-link active");
-            Assert.Contains("/menu2", link.OuterHtml);
+            var link = cut.Find(".nav-link.active");
+            Assert.Contains("href=\"menu2\"", link.OuterHtml);
         });
     }
 }
