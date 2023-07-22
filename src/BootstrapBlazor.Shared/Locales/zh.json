@@ -2202,32 +2202,18 @@
     "OnSelectedItemChanged": "下拉菜单选择回调方法",
     "OnSelectedItemChangedTitle": "下拉菜单选选中回调",
     "OnSelectedItemChangedIntro": "点击下拉菜单或者 <kbd>Enter</kbd> 回车时触发此回调方法",
-    "OnValueChanged": "Value 改变时回调方法"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteNormal": {
-    "Description": "本例中请键入 123 字符串显示查看效果，自动完成组件初始化时给了自动提示数据集并且数据集无变化"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteLikeMatch": {
-    "Description": "本例中请键入 123 字符串显示查看效果，自动完成组件初始化时给了自动提示数据集并且数据集无变化"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteNoDataTip": {
-    "Description": "本例中请键入 567 字符串由于自动完成信息中心无数据显示自定义提示信息 - <code>没有找到你想要的数据</code>",
-    "NoDataTip": "没有找到你想要的数据"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteValueChanged": {
-    "Description": "本例中请键入任意字符串显示查看效果，自动完成组件根据键入的字符串从新获取提示信息数据集动态变化"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteShowLabel": {
-    "Description": "前置标签显式规则与 <code>BootstrapInput</code> 组件一致 <a href='inputs'>[传送门]</a>",
+    "OnValueChanged": "Value 改变时回调方法",
+    "NormalDescription": "本例中请键入 123 字符串显示查看效果，自动完成组件初始化时给了自动提示数据集并且数据集无变化",
+    "LikeMatchDescription": "本例中请键入 123 字符串显示查看效果，自动完成组件初始化时给了自动提示数据集并且数据集无变化",
+    "NoDataTipDescription": "本例中请键入 567 字符串由于自动完成信息中心无数据显示自定义提示信息 - <code>没有找到你想要的数据</code>",
+    "NoDataTip": "没有找到你想要的数据",
+    "ValueChangedDescription": "本例中请键入任意字符串显示查看效果，自动完成组件根据键入的字符串从新获取提示信息数据集动态变化",
+    "ShowLabelDescription": "前置标签显式规则与 <code>BootstrapInput</code> 组件一致 <a href='inputs'>[传送门]</a>",
     "Divider1Text": "双向绑定显示标签",
     "Divider2Text": "双向绑定不显示标签",
     "Divider3Text": "自定义 DisplayText",
-    "AutoText": "自定义城市"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteDebounce": {
-    "Description": "本例中请键入任意字符串显示查看效果，自动完成组件在防抖时间内，只在最后一次录入后将结果发送到后端，这将大大提高性能"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteGroup": {
+    "AutoText": "自定义城市",
+    "DebounceDescription": "本例中请键入任意字符串显示查看效果，自动完成组件在防抖时间内，只在最后一次录入后将结果发送到后端，这将大大提高性能",
     "BlockGroupPrevLabel": "前置标签",
     "BlockGroupSuffixLabel": "后置标签"
   },

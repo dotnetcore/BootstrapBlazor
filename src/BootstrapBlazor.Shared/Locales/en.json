@@ -2198,32 +2198,18 @@
     "OnSelectedItemChanged": "Callback for the selected item changed",
     "OnSelectedItemChangedTitle": "OnSelectedItemChanged",
     "OnSelectedItemChangedIntro": "Click the dropdown item or <kbd>Enter</kbd> trigger the callback",
-    "OnValueChanged": "Callback for the Value changed"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteNormal": {
-    "Description": "In this example, type 123 strings to display the viewing effect, automatically give the component initialization to the auto-prompt dataset, and the dataset does not change"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteLikeMatch": {
-    "Description": "In this example, type the abc string to display the viewing effect and select all matches in the collection that contain abc and have the same case"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteNoDataTip": {
-    "Description": "In this example, type 567 strings because the autocomplete information center does not display custom prompt information - <code>the data you want is not found</code>",
-    "NoDataTip": "There is nothing"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteValueChanged": {
-    "Description": "In this example, type any string to display the viewing effect, and automatically complete the component's dynamic changes from the newly obtained prompt dataset based on the string you type"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteShowLabel": {
-    "Description": "The pre-label explicit rules are consistent with the <code>BootstrapInput</code> component of the <a href='inputs'>[portal]</a>",
+    "OnValueChanged": "Callback for the Value changed",
+    "NormalDescription": "In this example, type 123 strings to display the viewing effect, automatically give the component initialization to the auto-prompt dataset, and the dataset does not change",
+    "LikeMatchDescription": "In this example, type the abc string to display the viewing effect and select all matches in the collection that contain abc and have the same case",
+    "NoDataTipDescription": "In this example, type 567 strings because the autocomplete information center does not display custom prompt information - <code>the data you want is not found</code>",
+    "NoDataTip": "There is nothing",
+    "ValueChangedDescription": "In this example, type any string to display the viewing effect, and automatically complete the component's dynamic changes from the newly obtained prompt dataset based on the string you type",
+    "ShowLabelDescription": "The pre-label explicit rules are consistent with the <code>BootstrapInput</code> component of the <a href='inputs'>[portal]</a>",
     "Divider1Text": "Bidirectional binding displays labels",
     "Divider2Text": "Bidirectional bindings do not display labels",
     "Divider3Text": "Customize DisplayText",
-    "AutoText": "Custom city"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteDebounce": {
-    "Description": "In this example, please type any string to display the viewing effect. Within the anti shake time, the auto completion component will only send the results to the back end after the last entry, which will greatly improve the performance"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteGroup": {
+    "AutoText": "Custom city",
+    "DebounceDescription": "In this example, please type any string to display the viewing effect. Within the anti shake time, the auto completion component will only send the results to the back end after the last entry, which will greatly improve the performance",
     "BlockGroupPrevLabel": "Prev",
     "BlockGroupSuffixLabel": "Suffix"
   },
