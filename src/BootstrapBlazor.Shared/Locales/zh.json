@@ -3737,12 +3737,8 @@
     "Icon": "头像框显示图标",
     "Text": "头像框显示文字",
     "Url": "Image 头像路径地址",
-    "GetUrlAsync": "获取 Image 头像路径地址异步回调委托"
-  },
-  "BootstrapBlazor.Shared.Demos.Avatar.AvatarNormal": {
-    "BasicUsageDivider": "分割线"
-  },
-  "BootstrapBlazor.Shared.Demos.Avatar.AvatarBorder": {
+    "GetUrlAsync": "获取 Image 头像路径地址异步回调委托",
+    "BasicUsageDivider": "分割线",
     "BorderDiv1": "第一幅圆角正方形头像框加载正确，所以边框为 <b class='text-info'>蓝色</b>",
     "BorderDiv2": "第二幅圆形头像加载图片路径错误，所以边框为 <b class='text-danger'>红色</b>，图片显示为默认图标"
   },

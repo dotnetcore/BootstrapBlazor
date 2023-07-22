@@ -3726,12 +3726,8 @@
     "Icon": "The avatar box displays an icon",
     "Text": "The avatar box displays text",
     "Url": "Image avatar path address",
-    "GetUrlAsync": "Gets the Image avatar path address asynchronous callback delegate"
-  },
-  "BootstrapBlazor.Shared.Demos.Avatar.AvatarNormal": {
-    "BasicUsageDivider": "Split the line"
-  },
-  "BootstrapBlazor.Shared.Demos.Avatar.AvatarBorder": {
+    "GetUrlAsync": "Gets the Image avatar path address asynchronous callback delegate",
+    "BasicUsageDivider": "Split the line",
     "BorderDiv1": "The first fillet square avatar box is loaded correctly, so the border is <b class='text-info' > blue </b>",
     "BorderDiv2": "The second circular avatar loads the picture path incorrectly, so the border is <b class='text-danger'> red </b>and the picture appears as the default icon"
   },
