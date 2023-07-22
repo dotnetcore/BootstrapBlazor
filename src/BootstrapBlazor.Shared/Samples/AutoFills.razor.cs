@@ -9,6 +9,40 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 partial class AutoFills
 {
+    [NotNull]
+    private Foo Model { get; set; } = new();
+
+    private Task OnSelectedItemChanged(Foo foo)
+    {
+        Model = Utility.Clone(foo);
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private static string OnGetDisplayText(Foo foo) => foo.Name ?? "";
+
+    [NotNull]
+    private IEnumerable<Foo>? Items { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+    /// <inheritdoc/>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Items = Foo.GenerateFoo(LocalizerFoo);
+        Model = Items.First();
+    }
+
+    private Task<IEnumerable<Foo>> OnCustomFilter(string searchText)
+    {
+        var items = string.IsNullOrEmpty(searchText) ? Items : Items.Where(i => i.Count > 50 && i.Name!.Contains(searchText));
+        return Task.FromResult(items);
+    }
+
     /// <summary>
     /// Get property method
     /// </summary>
