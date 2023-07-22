@@ -3801,9 +3801,7 @@
     "ScanCodeLog": "扫描到条码",
     "ErrorLog": "发生错误",
     "OpenCameraLog": "打开摄像头",
-    "CloseCameraLog": "关闭摄像头",
-    "ScanCodeLog": "扫描到条码",
-    "ErrorLog": "发生错误"
+    "CloseCameraLog": "关闭摄像头"
   },
   "BootstrapBlazor.Shared.Samples.Blocks": {
     "Title": "Block 条件块",
@@ -3822,34 +3820,18 @@
     "OnQueryCondition": "是否显示此 Block",
     "ChildContent": "Block 块内显示内容",
     "Authorized": "Block 块内符合条件显示内容",
-    "NotAuthorized": "Block 块内不符合条件显示内容"
-  },
-  "BootstrapBlazor.Shared.Demos.Block.BlockNormal": {
+    "NotAuthorized": "Block 块内不符合条件显示内容",
     "IsShow": "显示",
     "IsHide": "隐藏",
-    "Content": "我是组件内容"
-  },
-  "BootstrapBlazor.Shared.Demos.Block.BlockAuthorizate": {
+    "Content": "我是组件内容",
     "Login": "登入",
     "Logout": "登出",
     "AuthorizateDiv1": "我是 <code>CondtionBlock</code> 组件内容，当前登录用户：<code>{0}</code>",
     "AuthorizateDiv2": "我是 <code>AuthorizeView</code> 组件内容，当前登录用户：<code>{0}</code>",
-    "AuthorizateDiv3": "我是 <code>AuthorizeView</code> 组件内容，当前未登录"
-  },
-  "BootstrapBlazor.Shared.Demos.Block.BlockTemplate": {
-    "IsShow": "显示",
-    "IsHide": "隐藏",
+    "AuthorizateDiv3": "我是 <code>AuthorizeView</code> 组件内容，当前未登录",
     "TemplateDiv1": "我是 <b>符合</b> 条件显示的组件内容",
-    "TemplateDiv2": "我是 <b>不符合</b> 条件显示的组件内容"
-  },
-  "BootstrapBlazor.Shared.Demos.Block.BlockUsers": {
-    "Login": "登入",
-    "Logout": "登出",
-    "UsersDiv1": "当前用户 <code>{0}</code> 允许看到此内容"
-  },
-  "BootstrapBlazor.Shared.Demos.Block.BlockRoles": {
-    "Login": "登入",
-    "Logout": "登出",
+    "TemplateDiv2": "我是 <b>不符合</b> 条件显示的组件内容",
+    "UsersDiv1": "当前用户 <code>{0}</code> 允许看到此内容",
     "RolesDiv1": "当前角色 <code>User</code> 允许看到此内容"
   },
   "BootstrapBlazor.Shared.Samples.Cards": {

@@ -3790,14 +3790,7 @@
     "ScanCodeLog": "Scan to barcode",
     "ErrorLog": "An error has occurred",
     "OpenCameraLog": "Turn on the camera",
-    "CloseCameraLog": "Turn off the camera",
-    "InitLog": "Initialize the camera to complete",
-    "ScanCodeLog": "Scan to barcode",
-    "ErrorLog": "An error has occurred",
-    "OpenCameraLog": "Turn on the camera",
-    "CloseCameraLog": "Turn off the camera",
-    "ScanCodeLog": "Scan to barcode",
-    "ErrorLog": "An error has occurred"
+    "CloseCameraLog": "Turn off the camera"
   },
   "BootstrapBlazor.Shared.Samples.Blocks": {
     "Title": "Block",
@@ -3820,34 +3813,14 @@
     "IsShow": "Show",
     "IsHide": "Hide",
     "Login": "Login",
-    "Logout": "Logout"
-  },
-  "BootstrapBlazor.Shared.Demos.Block.BlockNormal": {
-    "IsShow": "Show",
-    "IsHide": "Hide",
-    "Content": "I am component content"
-  },
-  "BootstrapBlazor.Shared.Demos.Block.BlockAuthorizate": {
-    "Login": "Login",
     "Logout": "Logout",
+    "Content": "I am component content",
     "AuthorizateDiv1": "I am the contents of the component of the <code>CondtionBlock</code>, and the current logged-in user: <code>{0}</code>",
     "AuthorizateDiv2": "I am the contents of the <code>AuthorizeView</code> component and the current logged-in user: <code>{0}</code>",
-    "AuthorizateDiv3": "I am the contents of the <code>AuthorizeView</code> component and are not currently logged in"
-  },
-  "BootstrapBlazor.Shared.Demos.Block.BlockTemplate": {
-    "IsShow": "Show",
-    "IsHide": "Hide",
+    "AuthorizateDiv3": "I am the contents of the <code>AuthorizeView</code> component and are not currently logged in",
     "TemplateDiv1": "I am the component content that  displayed in <b>accordance</b>with the criteria",
-    "TemplateDiv2": "I am the component content that  displayed that <b>not accordance</b>the  criteria"
-  },
-  "BootstrapBlazor.Shared.Demos.Block.BlockUsers": {
-    "Login": "Login",
-    "Logout": "Logout",
-    "UsersDiv1": "The current user <code>{0}</code> allows you to see this content"
-  },
-  "BootstrapBlazor.Shared.Demos.Block.BlockRoles": {
-    "Login": "Login",
-    "Logout": "Logout",
+    "TemplateDiv2": "I am the component content that  displayed that <b>not accordance</b>the  criteria",
+    "UsersDiv1": "The current user <code>{0}</code> allows you to see this content",
     "RolesDiv1": "The current role <code>User</code> allow this content to be seen"
   },
   "BootstrapBlazor.Shared.Samples.Cards": {
