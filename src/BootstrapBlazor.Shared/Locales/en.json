@@ -3843,12 +3843,8 @@
     "ChildContent": "Subcomponents",
     "ValueChanged": "Call back the delegate when the value changes",
     "CellTemplateDemoTitle": "Example of actual man hour system",
-    "CellTemplateDemoIntro": "Click the cell pop-up window to edit the working hours, and then close the pop-up window to re summarize the statistical data"
-  },
-  "BootstrapBlazor.Shared.Demos.Calendar.CalendarCellTemplateDemo": {
-    "CellTemplateDemoSummary": "Work hour statistics of the month"
-  },
-  "BootstrapBlazor.Shared.Demos.Calendar.CalendarApp": {
+    "CellTemplateDemoIntro": "Click the cell pop-up window to edit the working hours, and then close the pop-up window to re summarize the statistical data",
+    "CellTemplateDemoSummary": "Work hour statistics of the month",
     "None": "None",
     "Chinese": "Chinese",
     "Math": "Math",
