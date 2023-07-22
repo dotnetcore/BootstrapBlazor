@@ -51,12 +51,8 @@ export function scale(id, rate) {
 export function reset(id) {
     const meta = Data.get(id)
     if (meta) {
-        if (meta.option.isFit) {
-            meta.topology.fitView()
-        }
-        if (meta.option.isCenter) {
-            meta.topology.centerView()
-        }
+        meta.topology.fitView()
+        meta.topology.centerView()
     }
 }
 
