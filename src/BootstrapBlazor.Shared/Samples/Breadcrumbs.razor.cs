@@ -1,15 +1,16 @@
-﻿<Breadcrumb Value="@DataSource" />
+﻿namespace BootstrapBlazor.Shared.Samples;
 
-@code {
+public partial class Breadcrumbs
+{
     [NotNull]
     private IEnumerable<BreadcrumbItem>? DataSource { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
-
         DataSource = new List<BreadcrumbItem>
         {
             new BreadcrumbItem("Home", "#"),
