@@ -3790,16 +3790,12 @@
     "ScanCodeLog": "Scan to barcode",
     "ErrorLog": "An error has occurred",
     "OpenCameraLog": "Turn on the camera",
-    "CloseCameraLog": "Turn off the camera"
-  },
-  "BootstrapBlazor.Shared.Demos.BarcodeReader.BarcodeReaderNormal": {
+    "CloseCameraLog": "Turn off the camera",
     "InitLog": "Initialize the camera to complete",
     "ScanCodeLog": "Scan to barcode",
     "ErrorLog": "An error has occurred",
     "OpenCameraLog": "Turn on the camera",
-    "CloseCameraLog": "Turn off the camera"
-  },
-  "BootstrapBlazor.Shared.Demos.BarcodeReader.BarcodeReaderImage": {
+    "CloseCameraLog": "Turn off the camera",
     "ScanCodeLog": "Scan to barcode",
     "ErrorLog": "An error has occurred"
   },
