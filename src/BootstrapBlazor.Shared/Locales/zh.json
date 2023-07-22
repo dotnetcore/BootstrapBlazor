@@ -2274,9 +2274,7 @@
     "TooltipIntro": "通过设置 <code>TooltipText</code> <code>TooltipPlacement</code> <code>TooltipTrigger</code> 快捷设置按钮提示栏信息、位置、触发方式，更多功能请使用 <code>Tooltip</code> 组件实现，本例中第二个按钮是 <b>禁用</b> 状态，提示栏仍然可用",
     "PluseButtonHeader": "PulseButton 心跳按钮",
     "PluseButtonPara": "适用于突出显示功能吸引使用者关注，按钮默认为圆形",
-    "PluseButtonPara2": "心跳按钮组件继承于按钮，所以在按钮原有功能基础上增加了一个心跳环，可参见网站右下角切换样式按钮"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonNormal": {
+    "PluseButtonPara2": "心跳按钮组件继承于按钮，所以在按钮原有功能基础上增加了一个心跳环，可参见网站右下角切换样式按钮",
     "PrimaryButton": "主要按钮",
     "SecondaryButton": "次要按钮",
     "SuccessButton": "成功按钮",
@@ -2286,27 +2284,7 @@
     "DarkButton": "黑暗按钮",
     "HighlightButton": "高亮按钮",
     "LinkButton": "链接按钮",
-    "NoneButtonColor": "None 按钮"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonRound": {
-    "PrimaryButton": "主要按钮",
-    "SecondaryButton": "次要按钮",
-    "SuccessButton": "成功按钮",
-    "DangerButton": "危险按钮",
-    "WarningButton": "警告按钮"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonOutline": {
-    "PrimaryButton": "主要按钮",
-    "SecondaryButton": "次要按钮",
-    "SuccessButton": "成功按钮",
-    "DangerButton": "危险按钮",
-    "WarningButton": "警告按钮",
-    "InformationButton": "信息按钮",
-    "DarkButton": "黑暗按钮",
-    "HighlightButton": "高亮按钮",
-    "LinkButton": "链接按钮"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonSize": {
+    "NoneButtonColor": "None 按钮",
     "ExtraSmallButton": "超小按钮",
     "SmallButton": "小按钮",
     "NormalButton": "按钮",
@@ -2314,18 +2292,7 @@
     "LargeButton": "大按钮",
     "ExtraLargeButton": "超大按钮",
     "ButtonExtraExtraLargeText": "超超大按钮",
-    "BlockButton": "Block 按钮"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonIsDisabled": {
-    "PrimaryButton": "主要按钮",
-    "SecondaryButton": "次要按钮",
-    "SuccessButton": "成功按钮",
-    "DangerButton": "危险按钮",
-    "WarningButton": "警告按钮",
-    "InformationButton": "信息按钮",
-    "DarkButton": "黑暗按钮",
-    "HighlightButton": "高亮按钮",
-    "LinkButton": "链接按钮",
+    "BlockButton": "Block 按钮",
     "Description1": "通过 <code>OnClick</code> 回调方法中设置自身 <code>IsDisabled</code> 属性，或者调用组件实例方法 <code>SetDisable</code> 均可实现按钮禁用效果",
     "Description2": "由于使用 <code>IsDisabled</code> 属性时，需要显式手动调用 <code>StateHasChanged</code> 方法，会导致按钮所在组件整体刷新，建议使用实例方法 <code>SetDisable</code> 仅对按钮进行刷新",
     "SubTitle": "性能比较：",
@@ -2333,24 +2300,12 @@
     "SetDisableTip": "使用 <code>SetDisable</code> 方法设置时本页面传输量为 <code>280B</code>",
     "ButtonDisabled": "点击被禁用",
     "ButtonAvailable": "点击后使第一个按钮可用",
-    "TooltiTitle": "点击按钮后由于被禁用 Tooltip 被销毁"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonColor": {
+    "TooltiTitle": "点击按钮后由于被禁用 Tooltip 被销毁",
     "ButtonOne": "按钮一",
-    "ButtonTwo": "按钮二"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonIcon": {
+    "ButtonTwo": "按钮二",
     "ButtonStatus": "状态按钮",
-    "ButtonProgress": "进度按钮"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonExtension": {
-    "ButtonOne": "按钮一",
-    "ButtonTwo": "按钮二"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonAsync": {
-    "ButtonAsync": "异步请求"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonTooltip": {
+    "ButtonProgress": "进度按钮",
+    "ButtonAsync": "异步请求",
     "TooltipText": "按钮",
     "TooltipDisabledText": "禁用按钮"
   },

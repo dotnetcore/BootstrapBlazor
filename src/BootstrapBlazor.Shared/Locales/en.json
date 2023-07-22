@@ -2268,9 +2268,8 @@
     "MethodDesc1": "set whether the button is available",
     "PluseButtonHeader": "PulseButton (heartbeat) button",
     "PluseButtonPara": "It is suitable for highlighting function to attract users' attention. The default button is circular",
-    "PluseButtonPara2": "The heartbeat button component is inherited from the button, so a heartbeat ring is added on the basis of the original function of the button. Please refer to the switch style button in the lower right corner of the website."
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonNormal": {
+    "PluseButtonPara2": "The heartbeat button component is inherited from the button, so a heartbeat ring is added on the basis of the original function of the button. Please refer to the switch style button in the lower right corner of the website.",
+    "NoneButtonColor": "None",
     "PrimaryButton": "Primary",
     "SecondaryButton": "Secondary",
     "SuccessButton": "Success",
@@ -2280,27 +2279,6 @@
     "DarkButton": "Dark",
     "HighlightButton": "Highlight",
     "LinkButton": "Link",
-    "NoneButtonColor": "None"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonRound": {
-    "PrimaryButton": "Primary",
-    "SecondaryButton": "Secondary",
-    "SuccessButton": "Success",
-    "DangerButton": "Danger",
-    "WarningButton": "Warning"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonOutline": {
-    "PrimaryButton": "Primary",
-    "SecondaryButton": "Secondary",
-    "SuccessButton": "Success",
-    "DangerButton": "Danger",
-    "WarningButton": "Warning",
-    "InformationButton": "Information",
-    "DarkButton": "Dark",
-    "HighlightButton": "Highlight",
-    "LinkButton": "Link"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonSize": {
     "ExtraSmallButton": "ExtraSmall",
     "SmallButton": "Small",
     "NormalButton": "Button",
@@ -2308,18 +2286,6 @@
     "LargeButton": "Large",
     "ExtraLargeButton": "ExtraLarge",
     "ButtonExtraExtraLargeText": "ExtraExtraLarge",
-    "BlockButton": "Block"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonIsDisabled": {
-    "PrimaryButton": "Primary",
-    "SecondaryButton": "Secondary",
-    "SuccessButton": "Success",
-    "DangerButton": "Danger",
-    "WarningButton": "Warning",
-    "InformationButton": "Information",
-    "DarkButton": "Dark",
-    "HighlightButton": "Highlight",
-    "LinkButton": "Link",
     "Description1": "Button disable effects can be achieved by setting its own <code>IsDisabled</code> property in the <code>OnClick</code> callback method, or by calling the component instance method <code>SetDisable</code>",
     "Description2": "Because using the <code>IsDisabled</code> property requires an explicit manual call to the <code>StateHasChanged</code> method, which causes the component where the button is located to refresh as a whole, it is recommended that you use the instance method <code>SetDisable</code> refresh the button only",
     "SubTitle": "Performance comparison:",
@@ -2327,21 +2293,11 @@
     "SetDisableTip": "This page transfer is <code>280B</code> when set up using the <code>SetDisable</code> method",
     "ButtonDisabled": "Click to be disabled",
     "ButtonAvailable": "Click to make the first button available",
-    "TooltiTitle": "Tooltip is destroyed when the button is clicked"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonColor": {
-    "ButtonOne": "Button one",
-    "ButtonTwo": "Button two"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonIcon": {
+    "TooltiTitle": "Tooltip is destroyed when the button is clicked",
     "ButtonStatus": "Status button",
-    "ButtonProgress": "Progress button"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonExtension": {
+    "ButtonProgress": "Progress button",
     "ButtonOne": "Button one",
-    "ButtonTwo": "Button two"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonAsync": {
+    "ButtonTwo": "Button two",
     "ButtonAsync": "Asynchronous"
   },
   "BootstrapBlazor.Shared.Samples.Cascaders": {
