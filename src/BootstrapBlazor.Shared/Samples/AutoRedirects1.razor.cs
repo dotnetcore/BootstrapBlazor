@@ -1,8 +1,7 @@
-﻿<AutoRedirect Interval="3000" RedirectUrl="/" OnBeforeRedirectAsync="@OnBeforeRedirectAsync" />
-<ConsoleLogger @ref="Logger" />
+﻿namespace BootstrapBlazor.Shared.Samples;
 
-@code {
-
+public partial class AutoRedirects
+{
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
