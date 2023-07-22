@@ -3754,9 +3754,7 @@
     "ChildContent": "内容",
     "Class": "样式",
     "Color": "颜色",
-    "IsPill": "胶囊样式"
-  },
-  "BootstrapBlazor.Shared.Demos.Badge.BadgeButton": {
+    "IsPill": "胶囊样式",
     "ButtonSpan": "主要按钮"
   },
   "BootstrapBlazor.Shared.Samples.BarcodeReaders": {

@@ -3743,9 +3743,7 @@
     "ChildContent": "Content",
     "Class": "Style",
     "Color": "Color",
-    "IsPill": "Capsule style"
-  },
-  "BootstrapBlazor.Shared.Demos.Badge.BadgeButton": {
+    "IsPill": "Capsule style",
     "ButtonSpan": "The primary button"
   },
   "BootstrapBlazor.Shared.Samples.BarcodeReaders": {
