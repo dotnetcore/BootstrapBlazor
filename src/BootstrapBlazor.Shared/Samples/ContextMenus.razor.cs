@@ -1,5 +1,8 @@
 ﻿namespace BootstrapBlazor.Shared.Samples;
 
+/// <summary>
+/// ContextMenu 组件示例
+/// </summary>
 public partial class ContextMenus
 {
     private List<TreeViewItem<TreeFoo>> TreeItems { get; set; } = TreeFoo.GetTreeItems();

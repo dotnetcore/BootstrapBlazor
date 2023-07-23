@@ -1,5 +1,8 @@
 ﻿namespace BootstrapBlazor.Shared.Samples;
 
+/// <summary>
+/// Anchors 组件示例
+/// </summary>
 public partial class Anchors
 {
     [Inject]

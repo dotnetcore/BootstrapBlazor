@@ -1,5 +1,8 @@
 ﻿namespace BootstrapBlazor.Shared.Samples;
 
+/// <summary>
+/// Client 组件示例
+/// </summary>
 public partial class Client
 {
     [Inject]
