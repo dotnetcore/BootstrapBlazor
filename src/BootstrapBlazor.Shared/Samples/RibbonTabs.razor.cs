@@ -9,6 +9,85 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class RibbonTabs
 {
+    [NotNull]
+    private IEnumerable<RibbonTabItem>? NormalItems { get; set; }
+
+    [NotNull]
+    private IEnumerable<RibbonTabItem>? FloatItems { get; set; }
+
+    [NotNull]
+    private IEnumerable<RibbonTabItem>? RightItems { get; set; }
+
+    [NotNull]
+    private IEnumerable<RibbonTabItem>? HeaderItems { get; set; }
+
+    [NotNull]
+    private ConsoleLogger? Logger { get; set; }
+
+    /// <summary>
+    /// OnInitialized method
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        NormalItems = GenerateRibbonTabs();
+        FloatItems = GenerateRibbonTabs();
+        RightItems = GenerateRibbonTabs();
+        HeaderItems = GenerateRibbonTabs();
+    }
+
+    private string? FileClassString => CssBuilder.Default("collapse")
+    .AddClass("show", ActiveTabText == Localizer["RibbonTabsItemsText1"])
+    .Build();
+
+    private string? EditClassString => CssBuilder.Default("collapse")
+        .AddClass("show", ActiveTabText == Localizer["RibbonTabsItemsText2"])
+        .Build();
+
+    private Task OnMenuClickAsync(RibbonTabItem item)
+    {
+        ActiveTabText = item.Text;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private string? ActiveTabText { get; set; }
+
+    private Task OnFloatChanged(bool @float)
+    {
+        Logger.Log($"Float: {@float}");
+        return Task.CompletedTask;
+    }
+
+    private List<RibbonTabItem> GenerateRibbonTabs() => new()
+    {
+        new()
+        {
+            Text = Localizer["RibbonTabsItemsText1"],
+            Items = new List<RibbonTabItem>()
+            {
+                new() { Text = Localizer["RibbonTabsItems1"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
+                new() { Text = Localizer["RibbonTabsItems2"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
+                new() { Text = Localizer["RibbonTabsItems3"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
+                new() { Text = Localizer["RibbonTabsItems4"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
+                new() { Text = Localizer["RibbonTabsItems5"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] },
+                new() { Text = Localizer["RibbonTabsItems6"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName1"] }
+            }
+        },
+        new()
+        {
+            Text = Localizer["RibbonTabsItemsText2"],
+            Items = new List<RibbonTabItem>()
+            {
+                new() { Text = Localizer["RibbonTabsItems7"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
+                new() { Text = Localizer["RibbonTabsItems8"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
+                new() { Text = Localizer["RibbonTabsItems9"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
+                new() { Text = Localizer["RibbonTabsItems10"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
+                new() { Text = Localizer["RibbonTabsItems11"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] },
+                new() { Text = Localizer["RibbonTabsItems12"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] }
+            }
+        }
+    };
+
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new AttributeItem()

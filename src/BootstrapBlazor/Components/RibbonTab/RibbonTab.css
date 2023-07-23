@@ -1,12 +1,12 @@
 ﻿.ribbon-tab {
     --bb-ribbon-menu-height: 30px;
-    --bb-ribbon-menu-margin-top: 10px;
+    --bb-ribbon-menu-margin-top: 5px;
     --bb-ribbon-menu-body-height: 82.5px;
     --bb-ribbon-menu-body-padding: .5rem;
     --bb-ribbon-menu-radius: var(--bs-border-radius);
     --bb-ribbon-menu-padding: .5rem;
     --bb-ribbon-menu-border-color: var(--bs-border-color);
-    --bb-ribbon-menu-bg: #f5f7fa;
+    --bb-ribbon-menu-bg: #f5f5f5;
     --bb-ribbon-menu-color: #343a40;
     --bb-ribbon-menu-hover-color: #409eff;
     --bb-ribbon-button-hover-bg: #d0e7ff;

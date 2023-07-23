@@ -1044,7 +1044,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["RibbonTab"],
-                    Url = "ribbontabs"
+                    Url = "ribbon-tabs"
                 },
                 new()
                 {
