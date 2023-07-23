@@ -2402,27 +2402,11 @@
     "Att4": "是否禁用",
     "Att5": "控件类型",
     "Event1": "选择框状态改变时回调此方法",
-    "Event2": "State 状态改变回调方法"
-  },
-  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxNormal": {
+    "Event2": "State 状态改变回调方法",
     "StatusText1": "选中",
     "StatusText2": "未选",
-    "StatusText3": "不确定"
-  },
-  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxDisabled": {
-    "StatusText1": "选中",
-    "StatusText2": "未选"
-  },
-  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxShowLabel": {
-    "StatusText1": "选中"
-  },
-  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxOnStateChanged": {
-    "Checkbox2Text": "双向绑定"
-  },
-  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxBindString": {
-    "Checkbox2Text": "双向绑定"
-  },
-  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxValidateForm": {
+    "StatusText3": "不确定",
+    "Checkbox2Text": "双向绑定",
     "Checkbox3Text": "手写标签"
   },
   "BootstrapBlazor.Shared.Samples.CheckboxLists": {
