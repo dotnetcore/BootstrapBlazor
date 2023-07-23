@@ -3803,25 +3803,10 @@
     "IsCollapsible": "Collapse card body by set IsCollapsible to true",
     "Collapsed": "Collapsed by default",
     "IsShadow": "Add shadow effect by set IsShadow to true",
-    "Compare": "CardCompare"
-  },
-  "BootstrapBlazor.Shared.Demos.Card.CardCollapsible": {
+    "Compare": "CardCompare",
     "CollapsibleTitle": "Collapsible",
     "CollapsibleHeaderTemplate": "Header Template",
-    "CollapsibleBody": "Click card hader for collapse/expand card body"
-  },
-  "BootstrapBlazor.Shared.Demos.Card.CardCompare": {
-    "CollapsibleTitle": "Collapsible",
-    "CollapsibleHeaderTemplate": "Header Template",
-    "CollapsibleBody": "Click card hader for collapse/expand card body"
-  },
-  "BootstrapBlazor.Shared.Demos.Card.CardHeaderTemplate": {
-    "CollapsibleTitle": "Collapsible",
-    "CollapsibleHeaderTemplate": "Header Template",
-    "CollapsibleHeaderTemplateTitle": "Header Template"
-  },
-  "BootstrapBlazor.Shared.Demos.Card.CardShadow": {
-    "ShadowTitle": "Shadow effect",
+    "CollapsibleBody": "Click card hader for collapse/expand card body",
     "ShadowBody": "Shadow effect sample"
   },
   "BootstrapBlazor.Shared.Samples.Calendars": {

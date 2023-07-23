@@ -3815,25 +3815,10 @@
     "IsCollapsible": "是否可以收缩",
     "Collapsed": "默认是否收缩",
     "IsShadow": "是否开启阴影特效",
-    "Compare": "对比设置"
-  },
-  "BootstrapBlazor.Shared.Demos.Card.CardCollapsible": {
+    "Compare": "对比设置",
     "CollapsibleTitle": "可以收缩展开的卡片",
+    "CollapsibleBody": "点击 Header 收缩/展开",
     "CollapsibleHeaderTemplate": "这里是模板",
-    "CollapsibleBody": "点击 Header 收缩/展开"
-  },
-  "BootstrapBlazor.Shared.Demos.Card.CardCompare": {
-    "CollapsibleTitle": "可以收缩展开的卡片",
-    "CollapsibleHeaderTemplate": "这里是模板",
-    "CollapsibleBody": "点击 Header 收缩/展开"
-  },
-  "BootstrapBlazor.Shared.Demos.Card.CardHeaderTemplate": {
-    "CollapsibleTitle": "可以收缩展开的卡片",
-    "CollapsibleHeaderTemplate": "这里是模板",
-    "CollapsibleHeaderTemplateTitle": "Header 模板"
-  },
-  "BootstrapBlazor.Shared.Demos.Card.CardShadow": {
-    "ShadowTitle": "带有阴影的卡片",
     "ShadowBody": "阴影特效示例"
   },
   "BootstrapBlazor.Shared.Samples.Calendars": {
