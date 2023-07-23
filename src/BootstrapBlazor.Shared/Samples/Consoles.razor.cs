@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Collections.Concurrent;
+
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
@@ -9,6 +11,110 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Consoles
 {
+    private ConcurrentQueue<ConsoleMessageItem> Messages { get; set; } = new();
+
+    private ConcurrentQueue<ConsoleMessageItem> ColorMessages { get; set; } = new();
+
+    private readonly AutoResetEvent _locker = new(true);
+
+    private CancellationTokenSource? CancelTokenSource { get; set; }
+
+    /// <summary>
+    /// OnClear
+    /// </summary>
+    private void OnClear()
+    {
+        _locker.WaitOne();
+        while (!Messages.IsEmpty)
+        {
+            Messages.TryDequeue(out var _);
+        }
+        _locker.Set();
+    }
+
+    /// <summary>
+    /// GetColor
+    /// </summary>
+    /// <returns></returns>
+    private static Color GetColor()
+    {
+        var second = DateTime.Now.Second;
+        return (second % 3) switch
+        {
+            1 => Color.Danger,
+            2 => Color.Info,
+            _ => Color.None
+        };
+    }
+
+    /// <summary>
+    /// OnAfterRender
+    /// </summary>
+    /// <param name="firstRender"></param>
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            Task.Run(async () =>
+            {
+                CancelTokenSource ??= new();
+                while (CancelTokenSource != null && !CancelTokenSource.IsCancellationRequested)
+                {
+                    _locker.WaitOne();
+
+                    Messages.Enqueue(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message" });
+
+                    if (Messages.Count > 8)
+                    {
+                        Messages.TryDequeue(out var _);
+                    }
+
+                    ColorMessages.Enqueue(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message", Color = GetColor() });
+
+                    if (ColorMessages.Count > 12)
+                    {
+                        ColorMessages.TryDequeue(out var _);
+                    }
+
+                    await InvokeAsync(StateHasChanged);
+                    _locker.Set();
+
+                    try
+                    {
+                        if (CancelTokenSource != null)
+                        {
+                            await Task.Delay(2000, CancelTokenSource.Token);
+                        }
+                    }
+                    catch { }
+                }
+            });
+        }
+    }
+
+    /// <summary>
+    /// Dispose
+    /// </summary>
+    /// <param name="disposing"></param>
+    private void Dispose(bool disposing)
+    {
+        if (disposing && CancelTokenSource != null)
+        {
+            CancelTokenSource.Cancel();
+            CancelTokenSource.Dispose();
+            CancelTokenSource = null;
+        }
+    }
+
+    /// <summary>
+    /// Dispose
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Consoles>? Localizer { get; set; }

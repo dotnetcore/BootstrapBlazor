@@ -9,6 +9,21 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class CountUps
 {
+    private int Value { get; set; }
+
+    private static Random Rnd { get; } = new();
+
+    /// <inheritdoc/>
+    protected override void OnInitialized()
+    {
+        OnUpdate();
+    }
+
+    private void OnUpdate()
+    {
+        Value = Rnd.Next(1234, 99999);
+    }
+
     /// <summary>
     /// 获得属性方法
     /// </summary>

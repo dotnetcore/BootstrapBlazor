@@ -2327,100 +2327,8 @@
     "Att5": "Color",
     "Att6": "Whether to disable it",
     "Att7": "The data collection",
-    "Event1": "This event is triggered when the cascading selection option changes"
-  },
-  "BootstrapBlazor.Shared.Demos.Cascader.CascaderNormal": {
-    "item1": "Melbourne",
-    "item1_child1": "Brunswick",
-    "item1_child1_child": "so-and-so street",
-    "item1_child2": "Fitzroy",
-    "item1_child3": "Carlton",
-    "item1_child4": "Thornbury",
-    "item2": "Sydney",
-    "item2_child1": "Millsons Point",
-    "item2_child2": "Potts Point",
-    "item2_child3": "North Sydney",
-    "item3": "Brisbane",
-    "item3_child1": "Brisbane",
-    "item3_child2": "Gold Cost"
-  },
-  "BootstrapBlazor.Shared.Demos.Cascader.CascaderDisabled": {
-    "item1": "Melbourne",
-    "item1_child1": "Brunswick",
-    "item1_child1_child": "so-and-so street",
-    "item1_child2": "Fitzroy",
-    "item1_child3": "Carlton",
-    "item1_child4": "Thornbury",
-    "item2": "Sydney",
-    "item2_child1": "Millsons Point",
-    "item2_child2": "Potts Point",
-    "item2_child3": "North Sydney",
-    "item3": "Brisbane",
-    "item3_child1": "Brisbane",
-    "item3_child2": "Gold Cost"
-  },
-  "BootstrapBlazor.Shared.Demos.Cascader.CascaderBind": {
-    "item1": "Melbourne",
-    "item1_child1": "Brunswick",
-    "item1_child1_child": "so-and-so street",
-    "item1_child2": "Fitzroy",
-    "item1_child3": "Carlton",
-    "item1_child4": "Thornbury",
-    "item2": "Sydney",
-    "item2_child1": "Millsons Point",
-    "item2_child2": "Potts Point",
-    "item2_child3": "North Sydney",
-    "item3": "Brisbane",
-    "item3_child1": "Brisbane",
-    "item3_child2": "Gold Cost"
-  },
-  "BootstrapBlazor.Shared.Demos.Cascader.CascaderValidateForm": {
-    "item1": "Melbourne",
-    "item1_child1": "Brunswick",
-    "item1_child1_child": "so-and-so street",
-    "item1_child2": "Fitzroy",
-    "item1_child3": "Carlton",
-    "item1_child4": "Thornbury",
-    "item2": "Sydney",
-    "item2_child1": "Millsons Point",
-    "item2_child2": "Potts Point",
-    "item2_child3": "North Sydney",
-    "item3": "Brisbane",
-    "item3_child1": "Brisbane",
-    "item3_child2": "Gold Cost",
-    "SubmitButtonText": "Submit"
-  },
-  "BootstrapBlazor.Shared.Demos.Cascader.CascaderParentSelectable": {
-    "item1": "Melbourne",
-    "item1_child1": "Brunswick",
-    "item1_child1_child": "so-and-so street",
-    "item1_child2": "Fitzroy",
-    "item1_child3": "Carlton",
-    "item1_child4": "Thornbury",
-    "item2": "Sydney",
-    "item2_child1": "Millsons Point",
-    "item2_child2": "Potts Point",
-    "item2_child3": "North Sydney",
-    "item3": "Brisbane",
-    "item3_child1": "Brisbane",
-    "item3_child2": "Gold Cost"
-  },
-  "BootstrapBlazor.Shared.Demos.Cascader.CascaderShowFullLevels": {
-    "item1": "Melbourne",
-    "item1_child1": "Brunswick",
-    "item1_child1_child": "so-and-so street",
-    "item1_child2": "Fitzroy",
-    "item1_child3": "Carlton",
-    "item1_child4": "Thornbury",
-    "item2": "Sydney",
-    "item2_child1": "Millsons Point",
-    "item2_child2": "Potts Point",
-    "item2_child3": "North Sydney",
-    "item3": "Brisbane",
-    "item3_child1": "Brisbane",
-    "item3_child2": "Gold Cost"
-  },
-  "BootstrapBlazor.Shared.Demos.Cascader.CascaderLabels": {
+    "Event1": "This event is triggered when the cascading selection option changes",
+    "SubmitButtonText": "Submit",
     "item1": "Melbourne",
     "item1_child1": "Brunswick",
     "item1_child1_child": "so-and-so street",
@@ -2452,9 +2360,7 @@
     "ViewTitle": "browse mode",
     "ViewIntro": "Pure browsing mode, no editor",
     "ApiTitle": "External control components",
-    "ApiIntro": "Control content externally using CherryMarkdown's Api"
-  },
-  "BootstrapBlazor.Shared.Demos.CherryMarkdown.CherryMarkdownApi": {
+    "ApiIntro": "Control content externally using CherryMarkdown's Api",
     "InsertCheckListButtonText": "Insert a CheckList",
     "InsertPictureButtonText": "insert a picture"
   },
@@ -2485,27 +2391,11 @@
     "Att4": "Whether to disable it",
     "Att5": "The type of control",
     "Event1": "This method is called back when the selection box state changes",
-    "Event2": "The state changes the callback method"
-  },
-  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxNormal": {
+    "Event2": "The state changes the callback method",
     "StatusText1": "Selected",
     "StatusText2": "Not selected",
-    "StatusText3": "Indeterminate"
-  },
-  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxDisabled": {
-    "StatusText1": "Selected",
-    "StatusText2": "Not selected"
-  },
-  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxShowLabel": {
-    "StatusText1": "Selected"
-  },
-  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxOnStateChanged": {
-    "Checkbox2Text": "Two-way binding"
-  },
-  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxBindString": {
-    "Checkbox2Text": "Two-way binding"
-  },
-  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxValidateForm": {
+    "StatusText3": "Indeterminate",
+    "Checkbox2Text": "Two-way binding",
     "Checkbox3Text": "Handwritten labels"
   },
   "BootstrapBlazor.Shared.Samples.CheckboxLists": {
@@ -2538,42 +2428,15 @@
     "Att2": "Disable",
     "Att3": "Component values are used for bidirectional binding",
     "Att4": "Whether to arrange vertically",
-    "Event1": "Call back this method when the state of the check box changes"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListNormal": {
+    "Event1": "Call back this method when the state of the check box changes",
     "Header": "common",
-    "Counter": "item is selected component binding value"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListValidateForm": {
+    "Counter": "item is selected component binding value",
     "item1": "Pat",
     "item2": "Argo",
     "item3": "Doom",
     "item4": "Simon",
-    "Foo": "Pat,Argo"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListShowLabel": {
+    "Foo": "Pat,Argo",
     "Description": "TValue is set to <code>IEnumerable&lt;string&gt;</code> generic collection"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListNoBorder": {
-    "item1": "Pat",
-    "item2": "Argo",
-    "item3": "Doom",
-    "item4": "Simon",
-    "Foo": "Pat,Argo"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListVertical": {
-    "item1": "Pat",
-    "item2": "Argo",
-    "item3": "Doom",
-    "item4": "Simon",
-    "Foo": "Pat,Argo"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListDisabled": {
-    "item1": "Pat",
-    "item2": "Argo",
-    "item3": "Doom",
-    "item4": "Simon",
-    "Foo": "Pat,Argo"
   },
   "BootstrapBlazor.Shared.Samples.ColorPickers": {
     "Title": "ColorPicker",
@@ -3803,25 +3666,10 @@
     "IsCollapsible": "Collapse card body by set IsCollapsible to true",
     "Collapsed": "Collapsed by default",
     "IsShadow": "Add shadow effect by set IsShadow to true",
-    "Compare": "CardCompare"
-  },
-  "BootstrapBlazor.Shared.Demos.Card.CardCollapsible": {
+    "Compare": "CardCompare",
     "CollapsibleTitle": "Collapsible",
     "CollapsibleHeaderTemplate": "Header Template",
-    "CollapsibleBody": "Click card hader for collapse/expand card body"
-  },
-  "BootstrapBlazor.Shared.Demos.Card.CardCompare": {
-    "CollapsibleTitle": "Collapsible",
-    "CollapsibleHeaderTemplate": "Header Template",
-    "CollapsibleBody": "Click card hader for collapse/expand card body"
-  },
-  "BootstrapBlazor.Shared.Demos.Card.CardHeaderTemplate": {
-    "CollapsibleTitle": "Collapsible",
-    "CollapsibleHeaderTemplate": "Header Template",
-    "CollapsibleHeaderTemplateTitle": "Header Template"
-  },
-  "BootstrapBlazor.Shared.Demos.Card.CardShadow": {
-    "ShadowTitle": "Shadow effect",
+    "CollapsibleBody": "Click card hader for collapse/expand card body",
     "ShadowBody": "Shadow effect sample"
   },
   "BootstrapBlazor.Shared.Samples.Calendars": {
@@ -3961,9 +3809,7 @@
     "BasicUsageP1": "Introduction to usage",
     "BasicUsageP2": "1. The <code>UseBootstrapBlazor</code> middleware in the <b>Startup.cs</b> file that client information collection is performed.",
     "BasicUsageTips": "<code>app.UseBootstrapBlazor</code> Middleware is located assembly <code>BootstrapBlazor.Middleware</code>, please refer to this package yourself for proper use",
-    "BasicUsageP3": "2. The component uses the injection service <code>WebClientService</code> to call the <code>GetClientInfo</code> method."
-  },
-  "BootstrapBlazor.Shared.Demos.Client.ClientNormal": {
+    "BasicUsageP3": "2. The component uses the injection service <code>WebClientService</code> to call the <code>GetClientInfo</code> method.",
     "GroupBoxTitle": "Connection information",
     "Id": "Connection ID",
     "RequestUrl": "RequestUrl",
@@ -3992,13 +3838,9 @@
     "Value": "Current progress",
     "Color": "The color of the progress bar",
     "ShowProgress": "Whether to display progress bar information",
-    "ChildContent": "ChildContent"
-  },
-  "BootstrapBlazor.Shared.Demos.Circle.CircleNormal": {
+    "ChildContent": "ChildContent",
     "IncreaseSpan": "Increase",
-    "DecreaseSpan": "Decrease"
-  },
-  "BootstrapBlazor.Shared.Demos.Circle.CircleChildContent": {
+    "DecreaseSpan": "Decrease",
     "ChildContentP1": "The size of the consumer population",
     "ChildContentSpan": "Total number of people"
   },
@@ -4017,9 +3859,7 @@
     "ItemsIntro": "The <code>CollapseItems</code> is set by conditional logic",
     "CollapseItems": "Content",
     "IsAccordion": "Whether the accordion effect",
-    "OnCollapseChanged": "The callback of switch expand/collapse item state"
-  },
-  "BootstrapBlazor.Shared.Demos.Collapse.CollapseNormal": {
+    "OnCollapseChanged": "The callback of switch expand/collapse item state",
     "Consistency": "Consistency",
     "ConsistencyItem1": "Consistent with real life: consistent with real-life processes, logic, follow the user's habits of language and concepts;",
     "ConsistencyItem2": "Consistent in the interface: All elements and structures need to be consistent, such as design styles, icons and text, the location of elements, and so on.",
@@ -4032,64 +3872,8 @@
     "EfficiencyItem3": "Help users identify: The interface is straightforward, allowing users to quickly identify rather than recall, reducing the user's memory burden.",
     "Controllability": "Controllability",
     "ControllabilityItem1": "User decision-making: according to the scene can give the user action advice or security tips, but can not replace the user to make decisions;",
-    "ControllabilityItem2": "Results controllable: Users are free to perform actions, including undoing, falling back, and terminating the current operation."
-  },
-  "BootstrapBlazor.Shared.Demos.Collapse.CollapseAccordion": {
-    "Consistency": "Consistency",
-    "ConsistencyItem1": "Consistent with real life: consistent with real-life processes, logic, follow the user's habits of language and concepts;",
-    "ConsistencyItem2": "Consistent in the interface: All elements and structures need to be consistent, such as design styles, icons and text, the location of elements, and so on.",
-    "Feedback": "Feedback",
-    "FeedbackItem1": "Control feedback: through the interface style and interactive effect so that users can clearly perceive their own actions;",
-    "FeedbackItem2": "Page feedback: After the operation, the current state is clearly represented by changes in the page elements.",
-    "Efficiency": "Efficiency",
-    "EfficiencyItem1": "Simplify the process: design simple and intuitive operating process;",
-    "EfficiencyItem2": "Clear and clear: clear language and clear expression, so that users quickly understand and then make decisions;",
-    "EfficiencyItem3": "Help users identify: The interface is straightforward, allowing users to quickly identify rather than recall, reducing the user's memory burden.",
-    "Controllability": "Controllability",
-    "ControllabilityItem1": "User decision-making: according to the scene can give the user action advice or security tips, but can not replace the user to make decisions;",
-    "ControllabilityItem2": "Results controllable: Users are free to perform actions, including undoing, falling back, and terminating the current operation."
-  },
-  "BootstrapBlazor.Shared.Demos.Collapse.CollapseColor": {
-    "Consistency": "Consistency",
-    "ConsistencyItem1": "Consistent with real life: consistent with real-life processes, logic, follow the user's habits of language and concepts;",
-    "ConsistencyItem2": "Consistent in the interface: All elements and structures need to be consistent, such as design styles, icons and text, the location of elements, and so on.",
-    "Feedback": "Feedback",
-    "FeedbackItem1": "Control feedback: through the interface style and interactive effect so that users can clearly perceive their own actions;",
-    "FeedbackItem2": "Page feedback: After the operation, the current state is clearly represented by changes in the page elements.",
-    "Efficiency": "Efficiency",
-    "EfficiencyItem1": "Simplify the process: design simple and intuitive operating process;",
-    "EfficiencyItem2": "Clear and clear: clear language and clear expression, so that users quickly understand and then make decisions;",
-    "EfficiencyItem3": "Help users identify: The interface is straightforward, allowing users to quickly identify rather than recall, reducing the user's memory burden.",
-    "Controllability": "Controllability",
-    "ControllabilityItem1": "User decision-making: according to the scene can give the user action advice or security tips, but can not replace the user to make decisions;",
-    "ControllabilityItem2": "Results controllable: Users are free to perform actions, including undoing, falling back, and terminating the current operation."
-  },
-  "BootstrapBlazor.Shared.Demos.Collapse.CollapseItems": {
-    "ButtonText": "Toggle",
-    "Consistency": "Consistency",
-    "ConsistencyItem1": "Consistent with real life: consistent with real-life processes, logic, follow the user's habits of language and concepts;",
-    "ConsistencyItem2": "Consistent in the interface: All elements and structures need to be consistent, such as design styles, icons and text, the location of elements, and so on.",
-    "Feedback": "Feedback",
-    "FeedbackItem1": "Control feedback: through the interface style and interactive effect so that users can clearly perceive their own actions;",
-    "FeedbackItem2": "Page feedback: After the operation, the current state is clearly represented by changes in the page elements.",
-    "Efficiency": "Efficiency",
-    "EfficiencyItem1": "Simplify the process: design simple and intuitive operating process;",
-    "EfficiencyItem2": "Clear and clear: clear language and clear expression, so that users quickly understand and then make decisions;",
-    "EfficiencyItem3": "Help users identify: The interface is straightforward, allowing users to quickly identify rather than recall, reducing the user's memory burden.",
-    "Controllability": "Controllability",
-    "ControllabilityItem1": "User decision-making: according to the scene can give the user action advice or security tips, but can not replace the user to make decisions;",
-    "ControllabilityItem2": "Results controllable: Users are free to perform actions, including undoing, falling back, and terminating the current operation."
-  },
-  "BootstrapBlazor.Shared.Demos.Collapse.CollapseIcon": {
-    "Consistency": "Consistency",
-    "ConsistencyItem1": "Consistent with real life: consistent with real-life processes, logic, follow the user's habits of language and concepts;",
-    "ConsistencyItem2": "Consistent in the interface: All elements and structures need to be consistent, such as design styles, icons and text, the location of elements, and so on.",
-    "Feedback": "Feedback",
-    "FeedbackItem1": "Control feedback: through the interface style and interactive effect so that users can clearly perceive their own actions;",
-    "FeedbackItem2": "Page feedback: After the operation, the current state is clearly represented by changes in the page elements.",
-    "Controllability": "Controllability",
-    "ControllabilityItem1": "User decision-making: according to the scene can give the user action advice or security tips, but can not replace the user to make decisions;",
-    "ControllabilityItem2": "Results controllable: Users are free to perform actions, including undoing, falling back, and terminating the current operation."
+    "ControllabilityItem2": "Results controllable: Users are free to perform actions, including undoing, falling back, and terminating the current operation.",
+    "ButtonText": "Toggle"
   },
   "BootstrapBlazor.Shared.Samples.DateTimeRanges": {
     "Title": "Date Time Range Picker",

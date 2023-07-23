@@ -5,6 +5,11 @@
 
 <h4>@Localizer["Description"]</h4>
 
-<DemoBlock Title="@Localizer["CountUpsNormalTitle"]" Introduction="@Localizer["CountUpsNormalIntro"]" Name="Normal" Demo="typeof(Demos.CountUp.CountUpNormal)" />
+<DemoBlock Title="@Localizer["CountUpsNormalTitle"]" Introduction="@Localizer["CountUpsNormalIntro"]" Name="Normal" >
+    <div class="mb-3">
+        <CountUp TValue="int" Value="@Value" class="fw-bold fs-1"></CountUp>
+    </div>
+    <Button Icon="fa-solid fa-gear" Text="Update" OnClick="OnUpdate"></Button>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

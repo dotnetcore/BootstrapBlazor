@@ -2336,100 +2336,8 @@
     "Att5": "颜色",
     "Att6": "是否禁用",
     "Att7": "数据集合",
-    "Event1": "级联选择选项改变时触发此事件"
-  },
-  "BootstrapBlazor.Shared.Demos.Cascader.CascaderNormal": {
-    "item1": "北京",
-    "item1_child1": "Brunswick",
-    "item1_child1_child": "so-and-so street",
-    "item1_child2": "Fitzroy",
-    "item1_child3": "Carlton",
-    "item1_child4": "Thornbury",
-    "item2": "上海",
-    "item2_child1": "Millsons Point",
-    "item2_child2": "Potts Point",
-    "item2_child3": "North Sydney",
-    "item3": "广州",
-    "item3_child1": "Brisbane",
-    "item3_child2": "Gold Cost"
-  },
-  "BootstrapBlazor.Shared.Demos.Cascader.CascaderDisabled": {
-    "item1": "北京",
-    "item1_child1": "Brunswick",
-    "item1_child1_child": "so-and-so street",
-    "item1_child2": "Fitzroy",
-    "item1_child3": "Carlton",
-    "item1_child4": "Thornbury",
-    "item2": "上海",
-    "item2_child1": "Millsons Point",
-    "item2_child2": "Potts Point",
-    "item2_child3": "North Sydney",
-    "item3": "广州",
-    "item3_child1": "Brisbane",
-    "item3_child2": "Gold Cost"
-  },
-  "BootstrapBlazor.Shared.Demos.Cascader.CascaderBind": {
-    "item1": "北京",
-    "item1_child1": "Brunswick",
-    "item1_child1_child": "so-and-so street",
-    "item1_child2": "Fitzroy",
-    "item1_child3": "Carlton",
-    "item1_child4": "Thornbury",
-    "item2": "上海",
-    "item2_child1": "Millsons Point",
-    "item2_child2": "Potts Point",
-    "item2_child3": "North Sydney",
-    "item3": "广州",
-    "item3_child1": "Brisbane",
-    "item3_child2": "Gold Cost"
-  },
-  "BootstrapBlazor.Shared.Demos.Cascader.CascaderValidateForm": {
-    "item1": "北京",
-    "item1_child1": "Brunswick",
-    "item1_child1_child": "so-and-so street",
-    "item1_child2": "Fitzroy",
-    "item1_child3": "Carlton",
-    "item1_child4": "Thornbury",
-    "item2": "上海",
-    "item2_child1": "Millsons Point",
-    "item2_child2": "Potts Point",
-    "item2_child3": "North Sydney",
-    "item3": "广州",
-    "item3_child1": "Brisbane",
-    "item3_child2": "Gold Cost",
-    "SubmitButtonText": "提交"
-  },
-  "BootstrapBlazor.Shared.Demos.Cascader.CascaderParentSelectable": {
-    "item1": "北京",
-    "item1_child1": "Brunswick",
-    "item1_child1_child": "so-and-so street",
-    "item1_child2": "Fitzroy",
-    "item1_child3": "Carlton",
-    "item1_child4": "Thornbury",
-    "item2": "上海",
-    "item2_child1": "Millsons Point",
-    "item2_child2": "Potts Point",
-    "item2_child3": "North Sydney",
-    "item3": "广州",
-    "item3_child1": "Brisbane",
-    "item3_child2": "Gold Cost"
-  },
-  "BootstrapBlazor.Shared.Demos.Cascader.CascaderShowFullLevels": {
-    "item1": "北京",
-    "item1_child1": "Brunswick",
-    "item1_child1_child": "so-and-so street",
-    "item1_child2": "Fitzroy",
-    "item1_child3": "Carlton",
-    "item1_child4": "Thornbury",
-    "item2": "上海",
-    "item2_child1": "Millsons Point",
-    "item2_child2": "Potts Point",
-    "item2_child3": "North Sydney",
-    "item3": "广州",
-    "item3_child1": "Brisbane",
-    "item3_child2": "Gold Cost"
-  },
-  "BootstrapBlazor.Shared.Demos.Cascader.CascaderLabels": {
+    "Event1": "级联选择选项改变时触发此事件",
+    "SubmitButtonText": "提交",
     "item1": "北京",
     "item1_child1": "Brunswick",
     "item1_child1_child": "so-and-so street",
@@ -2461,9 +2369,7 @@
     "ViewTitle": "浏览模式",
     "ViewIntro": "纯浏览模式，没有编辑器",
     "ApiTitle": "外部控制组件",
-    "ApiIntro": "使用CherryMarkdown的Api在外部控制内容"
-  },
-  "BootstrapBlazor.Shared.Demos.CherryMarkdown.CherryMarkdownApi": {
+    "ApiIntro": "使用CherryMarkdown的Api在外部控制内容",
     "InsertCheckListButtonText": "插入一个CheckList",
     "InsertPictureButtonText": "插入一张图片"
   },
@@ -2494,27 +2400,11 @@
     "Att4": "是否禁用",
     "Att5": "控件类型",
     "Event1": "选择框状态改变时回调此方法",
-    "Event2": "State 状态改变回调方法"
-  },
-  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxNormal": {
+    "Event2": "State 状态改变回调方法",
     "StatusText1": "选中",
     "StatusText2": "未选",
-    "StatusText3": "不确定"
-  },
-  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxDisabled": {
-    "StatusText1": "选中",
-    "StatusText2": "未选"
-  },
-  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxShowLabel": {
-    "StatusText1": "选中"
-  },
-  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxOnStateChanged": {
-    "Checkbox2Text": "双向绑定"
-  },
-  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxBindString": {
-    "Checkbox2Text": "双向绑定"
-  },
-  "BootstrapBlazor.Shared.Demos.Checkbox.CheckboxValidateForm": {
+    "StatusText3": "不确定",
+    "Checkbox2Text": "双向绑定",
     "Checkbox3Text": "手写标签"
   },
   "BootstrapBlazor.Shared.Samples.CheckboxLists": {
@@ -2547,42 +2437,15 @@
     "Att2": "是否禁用",
     "Att3": "组件值用于双向绑定",
     "Att4": "是否竖向排列",
-    "Event1": "复选框状态改变时回调此方法"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListNormal": {
+    "Event1": "复选框状态改变时回调此方法",
     "Header": "共",
-    "Counter": "项被选中 组件绑定值 value"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListValidateForm": {
+    "Counter": "项被选中 组件绑定值 value",
     "item1": "张三",
     "item2": "李四",
     "item3": "王五",
     "item4": "赵六",
-    "Foo": "张三,李四"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListShowLabel": {
+    "Foo": "张三,李四",
     "Description": "TValue 设置为 <code>IEnumerable&lt;string&gt;</code> 泛型集合"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListNoBorder": {
-    "item1": "张三",
-    "item2": "李四",
-    "item3": "王五",
-    "item4": "赵六",
-    "Foo": "张三,李四"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListVertical": {
-    "item1": "张三",
-    "item2": "李四",
-    "item3": "王五",
-    "item4": "赵六",
-    "Foo": "张三,李四"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListDisabled": {
-    "item1": "张三",
-    "item2": "李四",
-    "item3": "王五",
-    "item4": "赵六",
-    "Foo": "张三,李四"
   },
   "BootstrapBlazor.Shared.Samples.ColorPickers": {
     "Title": "ColorPicker 颜色拾取器",
@@ -3815,25 +3678,10 @@
     "IsCollapsible": "是否可以收缩",
     "Collapsed": "默认是否收缩",
     "IsShadow": "是否开启阴影特效",
-    "Compare": "对比设置"
-  },
-  "BootstrapBlazor.Shared.Demos.Card.CardCollapsible": {
+    "Compare": "对比设置",
     "CollapsibleTitle": "可以收缩展开的卡片",
+    "CollapsibleBody": "点击 Header 收缩/展开",
     "CollapsibleHeaderTemplate": "这里是模板",
-    "CollapsibleBody": "点击 Header 收缩/展开"
-  },
-  "BootstrapBlazor.Shared.Demos.Card.CardCompare": {
-    "CollapsibleTitle": "可以收缩展开的卡片",
-    "CollapsibleHeaderTemplate": "这里是模板",
-    "CollapsibleBody": "点击 Header 收缩/展开"
-  },
-  "BootstrapBlazor.Shared.Demos.Card.CardHeaderTemplate": {
-    "CollapsibleTitle": "可以收缩展开的卡片",
-    "CollapsibleHeaderTemplate": "这里是模板",
-    "CollapsibleHeaderTemplateTitle": "Header 模板"
-  },
-  "BootstrapBlazor.Shared.Demos.Card.CardShadow": {
-    "ShadowTitle": "带有阴影的卡片",
     "ShadowBody": "阴影特效示例"
   },
   "BootstrapBlazor.Shared.Samples.Calendars": {
@@ -3974,9 +3822,7 @@
     "BasicUsageP1": "用法介绍",
     "BasicUsageP2": "1. <b>Startup.cs</b> 文件中使用 <code>UseBootstrapBlazor</code> 中间件进行客户端信息收集",
     "BasicUsageTips": "<code>app.UseBootstrapBlazor</code> 中间件位于程序集 <code>BootstrapBlazor.Middleware</code>，请自行引用此包才能正常使用",
-    "BasicUsageP3": "2. 组件中使用注入服务 <code>WebClientService</code> 调用 <code>GetClientInfo</code> 方法"
-  },
-  "BootstrapBlazor.Shared.Demos.Client.ClientNormal": {
+    "BasicUsageP3": "2. 组件中使用注入服务 <code>WebClientService</code> 调用 <code>GetClientInfo</code> 方法",
     "GroupBoxTitle": "您的连接信息",
     "Id": "连接 ID",
     "RequestUrl": "请求地址",
@@ -4005,13 +3851,9 @@
     "Value": "当前进度",
     "Color": "进度条颜色",
     "ShowProgress": "是否显示进度条信息",
-    "ChildContent": "子组件"
-  },
-  "BootstrapBlazor.Shared.Demos.Circle.CircleNormal": {
+    "ChildContent": "子组件",
     "IncreaseSpan": "增加",
-    "DecreaseSpan": "减少"
-  },
-  "BootstrapBlazor.Shared.Demos.Circle.CircleChildContent": {
+    "DecreaseSpan": "减少",
     "ChildContentP1": "消费人群规模",
     "ChildContentSpan": "总占人数"
   },
@@ -4030,9 +3872,7 @@
     "ItemsIntro": "通过条件逻辑设置 <code>CollapseItems</code> 模板",
     "CollapseItems": "内容",
     "IsAccordion": "是否手风琴效果",
-    "OnCollapseChanged": "项目收起展开状态改变回调方法"
-  },
-  "BootstrapBlazor.Shared.Demos.Collapse.CollapseNormal": {
+    "OnCollapseChanged": "项目收起展开状态改变回调方法",
     "Consistency": "一致性 Consistency",
     "ConsistencyItem1": "与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；",
     "ConsistencyItem2": "在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。",
@@ -4045,64 +3885,8 @@
     "EfficiencyItem3": "帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。",
     "Controllability": "可控 Controllability",
     "ControllabilityItem1": "用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；",
-    "ControllabilityItem2": "结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。"
-  },
-  "BootstrapBlazor.Shared.Demos.Collapse.CollapseAccordion": {
-    "Consistency": "一致性 Consistency",
-    "ConsistencyItem1": "与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；",
-    "ConsistencyItem2": "在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。",
-    "Feedback": "反馈 Feedback",
-    "FeedbackItem1": "控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；",
-    "FeedbackItem2": "页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。",
-    "Efficiency": "效率 Efficiency",
-    "EfficiencyItem1": "简化流程：设计简洁直观的操作流程；",
-    "EfficiencyItem2": "清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；",
-    "EfficiencyItem3": "帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。",
-    "Controllability": "可控 Controllability",
-    "ControllabilityItem1": "用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；",
-    "ControllabilityItem2": "结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。"
-  },
-  "BootstrapBlazor.Shared.Demos.Collapse.CollapseColor": {
-    "Consistency": "一致性 Consistency",
-    "ConsistencyItem1": "与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；",
-    "ConsistencyItem2": "在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。",
-    "Feedback": "反馈 Feedback",
-    "FeedbackItem1": "控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；",
-    "FeedbackItem2": "页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。",
-    "Efficiency": "效率 Efficiency",
-    "EfficiencyItem1": "简化流程：设计简洁直观的操作流程；",
-    "EfficiencyItem2": "清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；",
-    "EfficiencyItem3": "帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。",
-    "Controllability": "可控 Controllability",
-    "ControllabilityItem1": "用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；",
-    "ControllabilityItem2": "结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。"
-  },
-  "BootstrapBlazor.Shared.Demos.Collapse.CollapseItems": {
-    "ButtonText": "切换",
-    "Consistency": "一致性 Consistency",
-    "ConsistencyItem1": "与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；",
-    "ConsistencyItem2": "在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。",
-    "Feedback": "反馈 Feedback",
-    "FeedbackItem1": "控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；",
-    "FeedbackItem2": "页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。",
-    "Efficiency": "效率 Efficiency",
-    "EfficiencyItem1": "简化流程：设计简洁直观的操作流程；",
-    "EfficiencyItem2": "清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；",
-    "EfficiencyItem3": "帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。",
-    "Controllability": "可控 Controllability",
-    "ControllabilityItem1": "用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；",
-    "ControllabilityItem2": "结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。"
-  },
-  "BootstrapBlazor.Shared.Demos.Collapse.CollapseIcon": {
-    "Consistency": "一致性 Consistency",
-    "ConsistencyItem1": "与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；",
-    "ConsistencyItem2": "在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。",
-    "Feedback": "反馈 Feedback",
-    "FeedbackItem1": "控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；",
-    "FeedbackItem2": "页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。",
-    "Controllability": "可控 Controllability",
-    "ControllabilityItem1": "用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；",
-    "ControllabilityItem2": "结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。"
+    "ControllabilityItem2": "结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。",
+    "ButtonText": "切换"
   },
   "BootstrapBlazor.Shared.Samples.DateTimeRanges": {
     "Title": "DateTimeRange 日期时间段选择器",

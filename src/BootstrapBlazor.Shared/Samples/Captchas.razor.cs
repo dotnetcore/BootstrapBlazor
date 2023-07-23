@@ -9,6 +9,48 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Captchas
 {
+    private static Random ImageRandomer { get; set; } = new Random();
+
+    /// <summary>
+    /// GetImageName
+    /// </summary>
+    /// <returns></returns>
+    private string GetImageName()
+    {
+        var index = Convert.ToInt32(ImageRandomer.Next(0, 8) / 1.0);
+        var imageName = Path.GetFileNameWithoutExtension(ImagesName);
+        var extendName = Path.GetExtension(ImagesName);
+        var fileName = $"{imageName}{index}{extendName}";
+        return Path.Combine(ImagesPath, fileName);
+    }
+
+    /// <summary>
+    /// 获得/设置 图床路径 默认值为 Pic.jpg 通过设置 Max 取 Pic0.jpg ... Pic8.jpg
+    /// </summary>
+    public string ImagesName { get; set; } = "Pic.jpg";
+
+    /// <summary>
+    /// 获得/设置 图床路径 默认值为 images
+    /// </summary>
+    public string ImagesPath { get; set; } = "./images";
+
+    [NotNull]
+    private Captcha? NormalCaptcha { get; set; }
+
+    [NotNull]
+    private ConsoleLogger? NormalLogger { get; set; }
+
+    private async Task OnValidAsync(bool ret)
+    {
+        var result = ret ? "成功" : "失败";
+        NormalLogger.Log($"验证码结果 -> {result}");
+        if (ret)
+        {
+            await Task.Delay(1000);
+            await NormalCaptcha.Reset();
+        }
+    }
+
     /// <summary>
     /// 获得属性方法
     /// </summary>
