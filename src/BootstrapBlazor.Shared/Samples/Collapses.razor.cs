@@ -9,6 +9,22 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Collapses
 {
+    [NotNull]
+    private ConsoleLogger? NormalLogger { get; set; }
+
+    private Task OnChanged(CollapseItem item)
+    {
+        NormalLogger.Log($"{item.Text}: {item.IsCollapsed}");
+        return Task.CompletedTask;
+    }
+
+    private bool State { get; set; }
+
+    private void OnToggle()
+    {
+        State = !State;
+    }
+
     /// <summary>
     /// 获得属性方法
     /// </summary>

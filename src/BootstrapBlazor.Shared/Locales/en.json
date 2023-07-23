@@ -3859,9 +3859,7 @@
     "ItemsIntro": "The <code>CollapseItems</code> is set by conditional logic",
     "CollapseItems": "Content",
     "IsAccordion": "Whether the accordion effect",
-    "OnCollapseChanged": "The callback of switch expand/collapse item state"
-  },
-  "BootstrapBlazor.Shared.Demos.Collapse.CollapseNormal": {
+    "OnCollapseChanged": "The callback of switch expand/collapse item state",
     "Consistency": "Consistency",
     "ConsistencyItem1": "Consistent with real life: consistent with real-life processes, logic, follow the user's habits of language and concepts;",
     "ConsistencyItem2": "Consistent in the interface: All elements and structures need to be consistent, such as design styles, icons and text, the location of elements, and so on.",
@@ -3874,64 +3872,8 @@
     "EfficiencyItem3": "Help users identify: The interface is straightforward, allowing users to quickly identify rather than recall, reducing the user's memory burden.",
     "Controllability": "Controllability",
     "ControllabilityItem1": "User decision-making: according to the scene can give the user action advice or security tips, but can not replace the user to make decisions;",
-    "ControllabilityItem2": "Results controllable: Users are free to perform actions, including undoing, falling back, and terminating the current operation."
-  },
-  "BootstrapBlazor.Shared.Demos.Collapse.CollapseAccordion": {
-    "Consistency": "Consistency",
-    "ConsistencyItem1": "Consistent with real life: consistent with real-life processes, logic, follow the user's habits of language and concepts;",
-    "ConsistencyItem2": "Consistent in the interface: All elements and structures need to be consistent, such as design styles, icons and text, the location of elements, and so on.",
-    "Feedback": "Feedback",
-    "FeedbackItem1": "Control feedback: through the interface style and interactive effect so that users can clearly perceive their own actions;",
-    "FeedbackItem2": "Page feedback: After the operation, the current state is clearly represented by changes in the page elements.",
-    "Efficiency": "Efficiency",
-    "EfficiencyItem1": "Simplify the process: design simple and intuitive operating process;",
-    "EfficiencyItem2": "Clear and clear: clear language and clear expression, so that users quickly understand and then make decisions;",
-    "EfficiencyItem3": "Help users identify: The interface is straightforward, allowing users to quickly identify rather than recall, reducing the user's memory burden.",
-    "Controllability": "Controllability",
-    "ControllabilityItem1": "User decision-making: according to the scene can give the user action advice or security tips, but can not replace the user to make decisions;",
-    "ControllabilityItem2": "Results controllable: Users are free to perform actions, including undoing, falling back, and terminating the current operation."
-  },
-  "BootstrapBlazor.Shared.Demos.Collapse.CollapseColor": {
-    "Consistency": "Consistency",
-    "ConsistencyItem1": "Consistent with real life: consistent with real-life processes, logic, follow the user's habits of language and concepts;",
-    "ConsistencyItem2": "Consistent in the interface: All elements and structures need to be consistent, such as design styles, icons and text, the location of elements, and so on.",
-    "Feedback": "Feedback",
-    "FeedbackItem1": "Control feedback: through the interface style and interactive effect so that users can clearly perceive their own actions;",
-    "FeedbackItem2": "Page feedback: After the operation, the current state is clearly represented by changes in the page elements.",
-    "Efficiency": "Efficiency",
-    "EfficiencyItem1": "Simplify the process: design simple and intuitive operating process;",
-    "EfficiencyItem2": "Clear and clear: clear language and clear expression, so that users quickly understand and then make decisions;",
-    "EfficiencyItem3": "Help users identify: The interface is straightforward, allowing users to quickly identify rather than recall, reducing the user's memory burden.",
-    "Controllability": "Controllability",
-    "ControllabilityItem1": "User decision-making: according to the scene can give the user action advice or security tips, but can not replace the user to make decisions;",
-    "ControllabilityItem2": "Results controllable: Users are free to perform actions, including undoing, falling back, and terminating the current operation."
-  },
-  "BootstrapBlazor.Shared.Demos.Collapse.CollapseItems": {
-    "ButtonText": "Toggle",
-    "Consistency": "Consistency",
-    "ConsistencyItem1": "Consistent with real life: consistent with real-life processes, logic, follow the user's habits of language and concepts;",
-    "ConsistencyItem2": "Consistent in the interface: All elements and structures need to be consistent, such as design styles, icons and text, the location of elements, and so on.",
-    "Feedback": "Feedback",
-    "FeedbackItem1": "Control feedback: through the interface style and interactive effect so that users can clearly perceive their own actions;",
-    "FeedbackItem2": "Page feedback: After the operation, the current state is clearly represented by changes in the page elements.",
-    "Efficiency": "Efficiency",
-    "EfficiencyItem1": "Simplify the process: design simple and intuitive operating process;",
-    "EfficiencyItem2": "Clear and clear: clear language and clear expression, so that users quickly understand and then make decisions;",
-    "EfficiencyItem3": "Help users identify: The interface is straightforward, allowing users to quickly identify rather than recall, reducing the user's memory burden.",
-    "Controllability": "Controllability",
-    "ControllabilityItem1": "User decision-making: according to the scene can give the user action advice or security tips, but can not replace the user to make decisions;",
-    "ControllabilityItem2": "Results controllable: Users are free to perform actions, including undoing, falling back, and terminating the current operation."
-  },
-  "BootstrapBlazor.Shared.Demos.Collapse.CollapseIcon": {
-    "Consistency": "Consistency",
-    "ConsistencyItem1": "Consistent with real life: consistent with real-life processes, logic, follow the user's habits of language and concepts;",
-    "ConsistencyItem2": "Consistent in the interface: All elements and structures need to be consistent, such as design styles, icons and text, the location of elements, and so on.",
-    "Feedback": "Feedback",
-    "FeedbackItem1": "Control feedback: through the interface style and interactive effect so that users can clearly perceive their own actions;",
-    "FeedbackItem2": "Page feedback: After the operation, the current state is clearly represented by changes in the page elements.",
-    "Controllability": "Controllability",
-    "ControllabilityItem1": "User decision-making: according to the scene can give the user action advice or security tips, but can not replace the user to make decisions;",
-    "ControllabilityItem2": "Results controllable: Users are free to perform actions, including undoing, falling back, and terminating the current operation."
+    "ControllabilityItem2": "Results controllable: Users are free to perform actions, including undoing, falling back, and terminating the current operation.",
+    "ButtonText": "Toggle"
   },
   "BootstrapBlazor.Shared.Samples.DateTimeRanges": {
     "Title": "Date Time Range Picker",

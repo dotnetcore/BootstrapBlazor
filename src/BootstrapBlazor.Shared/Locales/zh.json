@@ -3872,9 +3872,7 @@
     "ItemsIntro": "通过条件逻辑设置 <code>CollapseItems</code> 模板",
     "CollapseItems": "内容",
     "IsAccordion": "是否手风琴效果",
-    "OnCollapseChanged": "项目收起展开状态改变回调方法"
-  },
-  "BootstrapBlazor.Shared.Demos.Collapse.CollapseNormal": {
+    "OnCollapseChanged": "项目收起展开状态改变回调方法",
     "Consistency": "一致性 Consistency",
     "ConsistencyItem1": "与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；",
     "ConsistencyItem2": "在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。",
@@ -3887,64 +3885,8 @@
     "EfficiencyItem3": "帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。",
     "Controllability": "可控 Controllability",
     "ControllabilityItem1": "用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；",
-    "ControllabilityItem2": "结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。"
-  },
-  "BootstrapBlazor.Shared.Demos.Collapse.CollapseAccordion": {
-    "Consistency": "一致性 Consistency",
-    "ConsistencyItem1": "与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；",
-    "ConsistencyItem2": "在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。",
-    "Feedback": "反馈 Feedback",
-    "FeedbackItem1": "控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；",
-    "FeedbackItem2": "页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。",
-    "Efficiency": "效率 Efficiency",
-    "EfficiencyItem1": "简化流程：设计简洁直观的操作流程；",
-    "EfficiencyItem2": "清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；",
-    "EfficiencyItem3": "帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。",
-    "Controllability": "可控 Controllability",
-    "ControllabilityItem1": "用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；",
-    "ControllabilityItem2": "结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。"
-  },
-  "BootstrapBlazor.Shared.Demos.Collapse.CollapseColor": {
-    "Consistency": "一致性 Consistency",
-    "ConsistencyItem1": "与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；",
-    "ConsistencyItem2": "在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。",
-    "Feedback": "反馈 Feedback",
-    "FeedbackItem1": "控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；",
-    "FeedbackItem2": "页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。",
-    "Efficiency": "效率 Efficiency",
-    "EfficiencyItem1": "简化流程：设计简洁直观的操作流程；",
-    "EfficiencyItem2": "清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；",
-    "EfficiencyItem3": "帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。",
-    "Controllability": "可控 Controllability",
-    "ControllabilityItem1": "用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；",
-    "ControllabilityItem2": "结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。"
-  },
-  "BootstrapBlazor.Shared.Demos.Collapse.CollapseItems": {
-    "ButtonText": "切换",
-    "Consistency": "一致性 Consistency",
-    "ConsistencyItem1": "与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；",
-    "ConsistencyItem2": "在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。",
-    "Feedback": "反馈 Feedback",
-    "FeedbackItem1": "控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；",
-    "FeedbackItem2": "页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。",
-    "Efficiency": "效率 Efficiency",
-    "EfficiencyItem1": "简化流程：设计简洁直观的操作流程；",
-    "EfficiencyItem2": "清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；",
-    "EfficiencyItem3": "帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。",
-    "Controllability": "可控 Controllability",
-    "ControllabilityItem1": "用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；",
-    "ControllabilityItem2": "结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。"
-  },
-  "BootstrapBlazor.Shared.Demos.Collapse.CollapseIcon": {
-    "Consistency": "一致性 Consistency",
-    "ConsistencyItem1": "与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；",
-    "ConsistencyItem2": "在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。",
-    "Feedback": "反馈 Feedback",
-    "FeedbackItem1": "控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；",
-    "FeedbackItem2": "页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。",
-    "Controllability": "可控 Controllability",
-    "ControllabilityItem1": "用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；",
-    "ControllabilityItem2": "结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。"
+    "ControllabilityItem2": "结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。",
+    "ButtonText": "切换"
   },
   "BootstrapBlazor.Shared.Samples.DateTimeRanges": {
     "Title": "DateTimeRange 日期时间段选择器",
