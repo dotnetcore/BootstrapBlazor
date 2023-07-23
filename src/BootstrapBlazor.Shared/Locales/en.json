@@ -2198,32 +2198,18 @@
     "OnSelectedItemChanged": "Callback for the selected item changed",
     "OnSelectedItemChangedTitle": "OnSelectedItemChanged",
     "OnSelectedItemChangedIntro": "Click the dropdown item or <kbd>Enter</kbd> trigger the callback",
-    "OnValueChanged": "Callback for the Value changed"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteNormal": {
-    "Description": "In this example, type 123 strings to display the viewing effect, automatically give the component initialization to the auto-prompt dataset, and the dataset does not change"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteLikeMatch": {
-    "Description": "In this example, type the abc string to display the viewing effect and select all matches in the collection that contain abc and have the same case"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteNoDataTip": {
-    "Description": "In this example, type 567 strings because the autocomplete information center does not display custom prompt information - <code>the data you want is not found</code>",
-    "NoDataTip": "There is nothing"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteValueChanged": {
-    "Description": "In this example, type any string to display the viewing effect, and automatically complete the component's dynamic changes from the newly obtained prompt dataset based on the string you type"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteShowLabel": {
-    "Description": "The pre-label explicit rules are consistent with the <code>BootstrapInput</code> component of the <a href='inputs'>[portal]</a>",
+    "OnValueChanged": "Callback for the Value changed",
+    "NormalDescription": "In this example, type 123 strings to display the viewing effect, automatically give the component initialization to the auto-prompt dataset, and the dataset does not change",
+    "LikeMatchDescription": "In this example, type the abc string to display the viewing effect and select all matches in the collection that contain abc and have the same case",
+    "NoDataTipDescription": "In this example, type 567 strings because the autocomplete information center does not display custom prompt information - <code>the data you want is not found</code>",
+    "NoDataTip": "There is nothing",
+    "ValueChangedDescription": "In this example, type any string to display the viewing effect, and automatically complete the component's dynamic changes from the newly obtained prompt dataset based on the string you type",
+    "ShowLabelDescription": "The pre-label explicit rules are consistent with the <code>BootstrapInput</code> component of the <a href='inputs'>[portal]</a>",
     "Divider1Text": "Bidirectional binding displays labels",
     "Divider2Text": "Bidirectional bindings do not display labels",
     "Divider3Text": "Customize DisplayText",
-    "AutoText": "Custom city"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteDebounce": {
-    "Description": "In this example, please type any string to display the viewing effect. Within the anti shake time, the auto completion component will only send the results to the back end after the last entry, which will greatly improve the performance"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteGroup": {
+    "AutoText": "Custom city",
+    "DebounceDescription": "In this example, please type any string to display the viewing effect. Within the anti shake time, the auto completion component will only send the results to the back end after the last entry, which will greatly improve the performance",
     "BlockGroupPrevLabel": "Prev",
     "BlockGroupSuffixLabel": "Suffix"
   },
@@ -2282,9 +2268,8 @@
     "MethodDesc1": "set whether the button is available",
     "PluseButtonHeader": "PulseButton (heartbeat) button",
     "PluseButtonPara": "It is suitable for highlighting function to attract users' attention. The default button is circular",
-    "PluseButtonPara2": "The heartbeat button component is inherited from the button, so a heartbeat ring is added on the basis of the original function of the button. Please refer to the switch style button in the lower right corner of the website."
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonNormal": {
+    "PluseButtonPara2": "The heartbeat button component is inherited from the button, so a heartbeat ring is added on the basis of the original function of the button. Please refer to the switch style button in the lower right corner of the website.",
+    "NoneButtonColor": "None",
     "PrimaryButton": "Primary",
     "SecondaryButton": "Secondary",
     "SuccessButton": "Success",
@@ -2294,27 +2279,6 @@
     "DarkButton": "Dark",
     "HighlightButton": "Highlight",
     "LinkButton": "Link",
-    "NoneButtonColor": "None"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonRound": {
-    "PrimaryButton": "Primary",
-    "SecondaryButton": "Secondary",
-    "SuccessButton": "Success",
-    "DangerButton": "Danger",
-    "WarningButton": "Warning"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonOutline": {
-    "PrimaryButton": "Primary",
-    "SecondaryButton": "Secondary",
-    "SuccessButton": "Success",
-    "DangerButton": "Danger",
-    "WarningButton": "Warning",
-    "InformationButton": "Information",
-    "DarkButton": "Dark",
-    "HighlightButton": "Highlight",
-    "LinkButton": "Link"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonSize": {
     "ExtraSmallButton": "ExtraSmall",
     "SmallButton": "Small",
     "NormalButton": "Button",
@@ -2322,18 +2286,6 @@
     "LargeButton": "Large",
     "ExtraLargeButton": "ExtraLarge",
     "ButtonExtraExtraLargeText": "ExtraExtraLarge",
-    "BlockButton": "Block"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonIsDisabled": {
-    "PrimaryButton": "Primary",
-    "SecondaryButton": "Secondary",
-    "SuccessButton": "Success",
-    "DangerButton": "Danger",
-    "WarningButton": "Warning",
-    "InformationButton": "Information",
-    "DarkButton": "Dark",
-    "HighlightButton": "Highlight",
-    "LinkButton": "Link",
     "Description1": "Button disable effects can be achieved by setting its own <code>IsDisabled</code> property in the <code>OnClick</code> callback method, or by calling the component instance method <code>SetDisable</code>",
     "Description2": "Because using the <code>IsDisabled</code> property requires an explicit manual call to the <code>StateHasChanged</code> method, which causes the component where the button is located to refresh as a whole, it is recommended that you use the instance method <code>SetDisable</code> refresh the button only",
     "SubTitle": "Performance comparison:",
@@ -2341,21 +2293,11 @@
     "SetDisableTip": "This page transfer is <code>280B</code> when set up using the <code>SetDisable</code> method",
     "ButtonDisabled": "Click to be disabled",
     "ButtonAvailable": "Click to make the first button available",
-    "TooltiTitle": "Tooltip is destroyed when the button is clicked"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonColor": {
-    "ButtonOne": "Button one",
-    "ButtonTwo": "Button two"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonIcon": {
+    "TooltiTitle": "Tooltip is destroyed when the button is clicked",
     "ButtonStatus": "Status button",
-    "ButtonProgress": "Progress button"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonExtension": {
+    "ButtonProgress": "Progress button",
     "ButtonOne": "Button one",
-    "ButtonTwo": "Button two"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonAsync": {
+    "ButtonTwo": "Button two",
     "ButtonAsync": "Asynchronous"
   },
   "BootstrapBlazor.Shared.Samples.Cascaders": {
@@ -3715,13 +3657,9 @@
     "GotoTitle": "Page jump",
     "GotoIntro": "Implementing page jumps with<code> Js </code> addresses an issue where <code> Blazor </code> pages don't really refresh when they're jumped as <b> SPA </b>",
     "InvokeAsync": "Execute fetch",
-    "Goto": "Execute goto"
-  },
-  "BootstrapBlazor.Shared.Demos.Ajax.AjaxNormal": {
+    "Goto": "Execute goto",
     "NormalButtonText1": "Login successful",
-    "NormalButtonText2": "Login failed"
-  },
-  "BootstrapBlazor.Shared.Demos.Ajax.AjaxGoto": {
+    "NormalButtonText2": "Login failed",
     "GotoButtonText1": "Jump to the first page of the document",
     "GotoButtonText2": "Jump to yourself (refresh page)"
   },
@@ -3744,12 +3682,8 @@
     "Icon": "The avatar box displays an icon",
     "Text": "The avatar box displays text",
     "Url": "Image avatar path address",
-    "GetUrlAsync": "Gets the Image avatar path address asynchronous callback delegate"
-  },
-  "BootstrapBlazor.Shared.Demos.Avatar.AvatarNormal": {
-    "BasicUsageDivider": "Split the line"
-  },
-  "BootstrapBlazor.Shared.Demos.Avatar.AvatarBorder": {
+    "GetUrlAsync": "Gets the Image avatar path address asynchronous callback delegate",
+    "BasicUsageDivider": "Split the line",
     "BorderDiv1": "The first fillet square avatar box is loaded correctly, so the border is <b class='text-info' > blue </b>",
     "BorderDiv2": "The second circular avatar loads the picture path incorrectly, so the border is <b class='text-danger'> red </b>and the picture appears as the default icon"
   },
@@ -3765,9 +3699,7 @@
     "ChildContent": "Content",
     "Class": "Style",
     "Color": "Color",
-    "IsPill": "Capsule style"
-  },
-  "BootstrapBlazor.Shared.Demos.Badge.BadgeButton": {
+    "IsPill": "Capsule style",
     "ButtonSpan": "The primary button"
   },
   "BootstrapBlazor.Shared.Samples.BarcodeReaders": {
@@ -3816,17 +3748,6 @@
     "OpenCameraLog": "Turn on the camera",
     "CloseCameraLog": "Turn off the camera"
   },
-  "BootstrapBlazor.Shared.Demos.BarcodeReader.BarcodeReaderNormal": {
-    "InitLog": "Initialize the camera to complete",
-    "ScanCodeLog": "Scan to barcode",
-    "ErrorLog": "An error has occurred",
-    "OpenCameraLog": "Turn on the camera",
-    "CloseCameraLog": "Turn off the camera"
-  },
-  "BootstrapBlazor.Shared.Demos.BarcodeReader.BarcodeReaderImage": {
-    "ScanCodeLog": "Scan to barcode",
-    "ErrorLog": "An error has occurred"
-  },
   "BootstrapBlazor.Shared.Samples.Blocks": {
     "Title": "Block",
     "SubTitle": "Depending on the parameter conditions, the contents of the block are determined to be displayed, usually in conjunction with permission authorization",
@@ -3848,34 +3769,14 @@
     "IsShow": "Show",
     "IsHide": "Hide",
     "Login": "Login",
-    "Logout": "Logout"
-  },
-  "BootstrapBlazor.Shared.Demos.Block.BlockNormal": {
-    "IsShow": "Show",
-    "IsHide": "Hide",
-    "Content": "I am component content"
-  },
-  "BootstrapBlazor.Shared.Demos.Block.BlockAuthorizate": {
-    "Login": "Login",
     "Logout": "Logout",
+    "Content": "I am component content",
     "AuthorizateDiv1": "I am the contents of the component of the <code>CondtionBlock</code>, and the current logged-in user: <code>{0}</code>",
     "AuthorizateDiv2": "I am the contents of the <code>AuthorizeView</code> component and the current logged-in user: <code>{0}</code>",
-    "AuthorizateDiv3": "I am the contents of the <code>AuthorizeView</code> component and are not currently logged in"
-  },
-  "BootstrapBlazor.Shared.Demos.Block.BlockTemplate": {
-    "IsShow": "Show",
-    "IsHide": "Hide",
+    "AuthorizateDiv3": "I am the contents of the <code>AuthorizeView</code> component and are not currently logged in",
     "TemplateDiv1": "I am the component content that  displayed in <b>accordance</b>with the criteria",
-    "TemplateDiv2": "I am the component content that  displayed that <b>not accordance</b>the  criteria"
-  },
-  "BootstrapBlazor.Shared.Demos.Block.BlockUsers": {
-    "Login": "Login",
-    "Logout": "Logout",
-    "UsersDiv1": "The current user <code>{0}</code> allows you to see this content"
-  },
-  "BootstrapBlazor.Shared.Demos.Block.BlockRoles": {
-    "Login": "Login",
-    "Logout": "Logout",
+    "TemplateDiv2": "I am the component content that  displayed that <b>not accordance</b>the  criteria",
+    "UsersDiv1": "The current user <code>{0}</code> allows you to see this content",
     "RolesDiv1": "The current role <code>User</code> allow this content to be seen"
   },
   "BootstrapBlazor.Shared.Samples.Cards": {
@@ -3942,12 +3843,8 @@
     "ChildContent": "Subcomponents",
     "ValueChanged": "Call back the delegate when the value changes",
     "CellTemplateDemoTitle": "Example of actual man hour system",
-    "CellTemplateDemoIntro": "Click the cell pop-up window to edit the working hours, and then close the pop-up window to re summarize the statistical data"
-  },
-  "BootstrapBlazor.Shared.Demos.Calendar.CalendarCellTemplateDemo": {
-    "CellTemplateDemoSummary": "Work hour statistics of the month"
-  },
-  "BootstrapBlazor.Shared.Demos.Calendar.CalendarApp": {
+    "CellTemplateDemoIntro": "Click the cell pop-up window to edit the working hours, and then close the pop-up window to re summarize the statistical data",
+    "CellTemplateDemoSummary": "Work hour statistics of the month",
     "None": "None",
     "Chinese": "Chinese",
     "Math": "Math",
@@ -4630,9 +4527,7 @@
     "ShowBorderTitle": "Border",
     "ShowBorderIntro": "Set <code>ShowBorder=\"true\"</code> show border",
     "ShowShadowTitle": "Shadow",
-    "ShowShadowIntro": "Set <code>ShowShadow=\"true\"</code> Show shadow"
-  },
-  "BootstrapBlazor.Shared.Demos.Alert.AlertNormal": {
+    "ShowShadowIntro": "Set <code>ShowShadow=\"true\"</code> Show shadow",
     "AlertPrimaryText": "A simple primary alert—check it out!",
     "AlertSecondaryText": "A simple secondary alert—check it out!",
     "AlertSuccessText": "A simple success alert—check it out!",
@@ -4640,42 +4535,6 @@
     "AlertWarningText": "A simple warning alert—check it out!",
     "AlertInfoText": "A simple info alert—check it out!",
     "AlertDarkText": "A simple dark alert—check it out!"
-  },
-  "BootstrapBlazor.Shared.Demos.Alert.AlertClose": {
-    "AlertPrimaryText": "A simple primary alert—check it out!",
-    "AlertSecondaryText": "A simple secondary alert—check it out!",
-    "AlertSuccessText": "A simple success alert—check it out!",
-    "AlertDangerText": "A simple danger alert—check it out!",
-    "AlertWarningText": "A simple warning alert—check it out!",
-    "AlertInfoText": "A simple info alert—check it out!",
-    "AlertDarkText": "A simple dark alert—check it out!"
-  },
-  "BootstrapBlazor.Shared.Demos.Alert.AlertIcon": {
-    "AlertPrimaryText": "A simple primary alert—check it out!",
-    "AlertWarningText": "A simple warning alert—check it out!",
-    "AlertInfoText": "A simple info alert—check it out!",
-    "AlertDangerText": "A simple danger alert—check it out!"
-  },
-  "BootstrapBlazor.Shared.Demos.Alert.AlertBorder": {
-    "AlertPrimaryText": "A simple primary alert—check it out!",
-    "AlertSuccessText": "A simple success alert—check it out!",
-    "AlertWarningText": "A simple warning alert—check it out!",
-    "AlertInfoText": "A simple info alert—check it out!",
-    "AlertDangerText": "A simple danger alert—check it out!"
-  },
-  "BootstrapBlazor.Shared.Demos.Alert.AlertShadow": {
-    "AlertInfoText": "A simple info alert—check it out!",
-    "AlertSuccessText": "A simple success alert—check it out!",
-    "AlertPrimaryText": "A simple primary alert—check it out!",
-    "AlertWarningText": "A simple warning alert—check it out!",
-    "AlertDangerText": "A simple danger alert—check it out!"
-  },
-  "BootstrapBlazor.Shared.Demos.Alert.AlertShowBar": {
-    "AlertPrimaryText": "A simple primary alert—check it out!",
-    "AlertSuccessText": "A simple success alert—check it out!",
-    "AlertWarningText": "A simple warning alert—check it out!",
-    "AlertInfoText": "A simple info alert—check it out!",
-    "AlertDangerText": "A simple danger alert—check it out!"
   },
   "BootstrapBlazor.Shared.Samples.RibbonTabs": {
     "RibbonTabsTitle": "RibbonTab",
@@ -4756,9 +4615,7 @@
     "AttrId": "Id",
     "AttrIcon": "Icon",
     "AttrText": "Display text",
-    "AttrTooltipText": "Tooltip text"
-  },
-  "BootstrapBlazor.Shared.Demos.AnchorLink.AnchorLinkNormal": {
+    "AttrTooltipText": "Tooltip text",
     "AnchorLinkText": "I am a clickable anchor link"
   },
   "BootstrapBlazor.Shared.Samples.QRCodes": {
@@ -4792,9 +4649,7 @@
     "Title": "Anchor",
     "SubTitle": "Hyperlinks to scroll on one page.",
     "BaseUsageText": "Basic usage",
-    "IntroText1": "For displaying anchor hyperlinks on page and jumping between them."
-  },
-  "BootstrapBlazor.Shared.Demos.Anchor.AnchorNormal": {
+    "IntroText1": "For displaying anchor hyperlinks on page and jumping between them.",
     "IntroText2": "Click <code>Anchor</code> item try it",
     "ContentText1": "<p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p><p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p><p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p><p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p><p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>",
     "Desc1": "Anchor Target Id",

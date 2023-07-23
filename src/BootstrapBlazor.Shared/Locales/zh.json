@@ -2202,32 +2202,18 @@
     "OnSelectedItemChanged": "下拉菜单选择回调方法",
     "OnSelectedItemChangedTitle": "下拉菜单选选中回调",
     "OnSelectedItemChangedIntro": "点击下拉菜单或者 <kbd>Enter</kbd> 回车时触发此回调方法",
-    "OnValueChanged": "Value 改变时回调方法"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteNormal": {
-    "Description": "本例中请键入 123 字符串显示查看效果，自动完成组件初始化时给了自动提示数据集并且数据集无变化"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteLikeMatch": {
-    "Description": "本例中请键入 123 字符串显示查看效果，自动完成组件初始化时给了自动提示数据集并且数据集无变化"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteNoDataTip": {
-    "Description": "本例中请键入 567 字符串由于自动完成信息中心无数据显示自定义提示信息 - <code>没有找到你想要的数据</code>",
-    "NoDataTip": "没有找到你想要的数据"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteValueChanged": {
-    "Description": "本例中请键入任意字符串显示查看效果，自动完成组件根据键入的字符串从新获取提示信息数据集动态变化"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteShowLabel": {
-    "Description": "前置标签显式规则与 <code>BootstrapInput</code> 组件一致 <a href='inputs'>[传送门]</a>",
+    "OnValueChanged": "Value 改变时回调方法",
+    "NormalDescription": "本例中请键入 123 字符串显示查看效果，自动完成组件初始化时给了自动提示数据集并且数据集无变化",
+    "LikeMatchDescription": "本例中请键入 123 字符串显示查看效果，自动完成组件初始化时给了自动提示数据集并且数据集无变化",
+    "NoDataTipDescription": "本例中请键入 567 字符串由于自动完成信息中心无数据显示自定义提示信息 - <code>没有找到你想要的数据</code>",
+    "NoDataTip": "没有找到你想要的数据",
+    "ValueChangedDescription": "本例中请键入任意字符串显示查看效果，自动完成组件根据键入的字符串从新获取提示信息数据集动态变化",
+    "ShowLabelDescription": "前置标签显式规则与 <code>BootstrapInput</code> 组件一致 <a href='inputs'>[传送门]</a>",
     "Divider1Text": "双向绑定显示标签",
     "Divider2Text": "双向绑定不显示标签",
     "Divider3Text": "自定义 DisplayText",
-    "AutoText": "自定义城市"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteDebounce": {
-    "Description": "本例中请键入任意字符串显示查看效果，自动完成组件在防抖时间内，只在最后一次录入后将结果发送到后端，这将大大提高性能"
-  },
-  "BootstrapBlazor.Shared.Demos.AutoComplete.AutoCompleteGroup": {
+    "AutoText": "自定义城市",
+    "DebounceDescription": "本例中请键入任意字符串显示查看效果，自动完成组件在防抖时间内，只在最后一次录入后将结果发送到后端，这将大大提高性能",
     "BlockGroupPrevLabel": "前置标签",
     "BlockGroupSuffixLabel": "后置标签"
   },
@@ -2288,9 +2274,7 @@
     "TooltipIntro": "通过设置 <code>TooltipText</code> <code>TooltipPlacement</code> <code>TooltipTrigger</code> 快捷设置按钮提示栏信息、位置、触发方式，更多功能请使用 <code>Tooltip</code> 组件实现，本例中第二个按钮是 <b>禁用</b> 状态，提示栏仍然可用",
     "PluseButtonHeader": "PulseButton 心跳按钮",
     "PluseButtonPara": "适用于突出显示功能吸引使用者关注，按钮默认为圆形",
-    "PluseButtonPara2": "心跳按钮组件继承于按钮，所以在按钮原有功能基础上增加了一个心跳环，可参见网站右下角切换样式按钮"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonNormal": {
+    "PluseButtonPara2": "心跳按钮组件继承于按钮，所以在按钮原有功能基础上增加了一个心跳环，可参见网站右下角切换样式按钮",
     "PrimaryButton": "主要按钮",
     "SecondaryButton": "次要按钮",
     "SuccessButton": "成功按钮",
@@ -2300,27 +2284,7 @@
     "DarkButton": "黑暗按钮",
     "HighlightButton": "高亮按钮",
     "LinkButton": "链接按钮",
-    "NoneButtonColor": "None 按钮"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonRound": {
-    "PrimaryButton": "主要按钮",
-    "SecondaryButton": "次要按钮",
-    "SuccessButton": "成功按钮",
-    "DangerButton": "危险按钮",
-    "WarningButton": "警告按钮"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonOutline": {
-    "PrimaryButton": "主要按钮",
-    "SecondaryButton": "次要按钮",
-    "SuccessButton": "成功按钮",
-    "DangerButton": "危险按钮",
-    "WarningButton": "警告按钮",
-    "InformationButton": "信息按钮",
-    "DarkButton": "黑暗按钮",
-    "HighlightButton": "高亮按钮",
-    "LinkButton": "链接按钮"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonSize": {
+    "NoneButtonColor": "None 按钮",
     "ExtraSmallButton": "超小按钮",
     "SmallButton": "小按钮",
     "NormalButton": "按钮",
@@ -2328,18 +2292,7 @@
     "LargeButton": "大按钮",
     "ExtraLargeButton": "超大按钮",
     "ButtonExtraExtraLargeText": "超超大按钮",
-    "BlockButton": "Block 按钮"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonIsDisabled": {
-    "PrimaryButton": "主要按钮",
-    "SecondaryButton": "次要按钮",
-    "SuccessButton": "成功按钮",
-    "DangerButton": "危险按钮",
-    "WarningButton": "警告按钮",
-    "InformationButton": "信息按钮",
-    "DarkButton": "黑暗按钮",
-    "HighlightButton": "高亮按钮",
-    "LinkButton": "链接按钮",
+    "BlockButton": "Block 按钮",
     "Description1": "通过 <code>OnClick</code> 回调方法中设置自身 <code>IsDisabled</code> 属性，或者调用组件实例方法 <code>SetDisable</code> 均可实现按钮禁用效果",
     "Description2": "由于使用 <code>IsDisabled</code> 属性时，需要显式手动调用 <code>StateHasChanged</code> 方法，会导致按钮所在组件整体刷新，建议使用实例方法 <code>SetDisable</code> 仅对按钮进行刷新",
     "SubTitle": "性能比较：",
@@ -2347,24 +2300,12 @@
     "SetDisableTip": "使用 <code>SetDisable</code> 方法设置时本页面传输量为 <code>280B</code>",
     "ButtonDisabled": "点击被禁用",
     "ButtonAvailable": "点击后使第一个按钮可用",
-    "TooltiTitle": "点击按钮后由于被禁用 Tooltip 被销毁"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonColor": {
+    "TooltiTitle": "点击按钮后由于被禁用 Tooltip 被销毁",
     "ButtonOne": "按钮一",
-    "ButtonTwo": "按钮二"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonIcon": {
+    "ButtonTwo": "按钮二",
     "ButtonStatus": "状态按钮",
-    "ButtonProgress": "进度按钮"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonExtension": {
-    "ButtonOne": "按钮一",
-    "ButtonTwo": "按钮二"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonAsync": {
-    "ButtonAsync": "异步请求"
-  },
-  "BootstrapBlazor.Shared.Demos.Button.ButtonTooltip": {
+    "ButtonProgress": "进度按钮",
+    "ButtonAsync": "异步请求",
     "TooltipText": "按钮",
     "TooltipDisabledText": "禁用按钮"
   },
@@ -3726,13 +3667,9 @@
     "GotoTitle": "页面跳转",
     "GotoIntro": "用 <code>Js</code> 实现页面跳转，解决了 <code>Blazor</code> 页面作为 <b>SPA</b> 跳转时不会真正刷新页面的问题",
     "InvokeAsync": "执行 fetch 方法",
-    "Goto": "执行 goto 方法"
-  },
-  "BootstrapBlazor.Shared.Demos.Ajax.AjaxNormal": {
+    "Goto": "执行 goto 方法",
     "NormalButtonText1": "登录成功",
-    "NormalButtonText2": "登录失败"
-  },
-  "BootstrapBlazor.Shared.Demos.Ajax.AjaxGoto": {
+    "NormalButtonText2": "登录失败",
     "GotoButtonText1": "跳转到文档首页",
     "GotoButtonText2": "跳转到自己（刷新页面）"
   },
@@ -3755,12 +3692,8 @@
     "Icon": "头像框显示图标",
     "Text": "头像框显示文字",
     "Url": "Image 头像路径地址",
-    "GetUrlAsync": "获取 Image 头像路径地址异步回调委托"
-  },
-  "BootstrapBlazor.Shared.Demos.Avatar.AvatarNormal": {
-    "BasicUsageDivider": "分割线"
-  },
-  "BootstrapBlazor.Shared.Demos.Avatar.AvatarBorder": {
+    "GetUrlAsync": "获取 Image 头像路径地址异步回调委托",
+    "BasicUsageDivider": "分割线",
     "BorderDiv1": "第一幅圆角正方形头像框加载正确，所以边框为 <b class='text-info'>蓝色</b>",
     "BorderDiv2": "第二幅圆形头像加载图片路径错误，所以边框为 <b class='text-danger'>红色</b>，图片显示为默认图标"
   },
@@ -3776,9 +3709,7 @@
     "ChildContent": "内容",
     "Class": "样式",
     "Color": "颜色",
-    "IsPill": "胶囊样式"
-  },
-  "BootstrapBlazor.Shared.Demos.Badge.BadgeButton": {
+    "IsPill": "胶囊样式",
     "ButtonSpan": "主要按钮"
   },
   "BootstrapBlazor.Shared.Samples.BarcodeReaders": {
@@ -3820,18 +3751,12 @@
     "OnStart": "打开摄像头回调方法",
     "OnClose": "关闭摄像头回调方法",
     "OnError": "发生错误回调方法",
-    "OnDeviceChanged": "设备切换时回调方法"
-  },
-  "BootstrapBlazor.Shared.Demos.BarcodeReader.BarcodeReaderNormal": {
+    "OnDeviceChanged": "设备切换时回调方法",
     "InitLog": "初始化摄像头完成",
     "ScanCodeLog": "扫描到条码",
     "ErrorLog": "发生错误",
     "OpenCameraLog": "打开摄像头",
     "CloseCameraLog": "关闭摄像头"
-  },
-  "BootstrapBlazor.Shared.Demos.BarcodeReader.BarcodeReaderImage": {
-    "ScanCodeLog": "扫描到条码",
-    "ErrorLog": "发生错误"
   },
   "BootstrapBlazor.Shared.Samples.Blocks": {
     "Title": "Block 条件块",
@@ -3850,34 +3775,18 @@
     "OnQueryCondition": "是否显示此 Block",
     "ChildContent": "Block 块内显示内容",
     "Authorized": "Block 块内符合条件显示内容",
-    "NotAuthorized": "Block 块内不符合条件显示内容"
-  },
-  "BootstrapBlazor.Shared.Demos.Block.BlockNormal": {
+    "NotAuthorized": "Block 块内不符合条件显示内容",
     "IsShow": "显示",
     "IsHide": "隐藏",
-    "Content": "我是组件内容"
-  },
-  "BootstrapBlazor.Shared.Demos.Block.BlockAuthorizate": {
+    "Content": "我是组件内容",
     "Login": "登入",
     "Logout": "登出",
     "AuthorizateDiv1": "我是 <code>CondtionBlock</code> 组件内容，当前登录用户：<code>{0}</code>",
     "AuthorizateDiv2": "我是 <code>AuthorizeView</code> 组件内容，当前登录用户：<code>{0}</code>",
-    "AuthorizateDiv3": "我是 <code>AuthorizeView</code> 组件内容，当前未登录"
-  },
-  "BootstrapBlazor.Shared.Demos.Block.BlockTemplate": {
-    "IsShow": "显示",
-    "IsHide": "隐藏",
+    "AuthorizateDiv3": "我是 <code>AuthorizeView</code> 组件内容，当前未登录",
     "TemplateDiv1": "我是 <b>符合</b> 条件显示的组件内容",
-    "TemplateDiv2": "我是 <b>不符合</b> 条件显示的组件内容"
-  },
-  "BootstrapBlazor.Shared.Demos.Block.BlockUsers": {
-    "Login": "登入",
-    "Logout": "登出",
-    "UsersDiv1": "当前用户 <code>{0}</code> 允许看到此内容"
-  },
-  "BootstrapBlazor.Shared.Demos.Block.BlockRoles": {
-    "Login": "登入",
-    "Logout": "登出",
+    "TemplateDiv2": "我是 <b>不符合</b> 条件显示的组件内容",
+    "UsersDiv1": "当前用户 <code>{0}</code> 允许看到此内容",
     "RolesDiv1": "当前角色 <code>User</code> 允许看到此内容"
   },
   "BootstrapBlazor.Shared.Samples.Cards": {
@@ -3946,12 +3855,8 @@
     "ChildContent": "子组件",
     "ValueChanged": "值改变时回调委托",
     "CellTemplateDemoTitle": "实战工时系统示例",
-    "CellTemplateDemoIntro": "点击单元格弹窗编辑工时，关闭弹窗后重新汇总统计数据"
-  },
-  "BootstrapBlazor.Shared.Demos.Calendar.CalendarCellTemplateDemo": {
-    "CellTemplateDemoSummary": "当月工时统计"
-  },
-  "BootstrapBlazor.Shared.Demos.Calendar.CalendarApp": {
+    "CellTemplateDemoIntro": "点击单元格弹窗编辑工时，关闭弹窗后重新汇总统计数据",
+    "CellTemplateDemoSummary": "当月工时统计",
     "None": "无",
     "Chinese": "语文",
     "Math": "数学",
@@ -4638,9 +4543,7 @@
     "ShowBorderTitle": "边框效果",
     "ShowBorderIntro": "设置 <code>ShowBorder=\"true\"</code> 开启边框效果",
     "ShowShadowTitle": "阴影效果",
-    "ShowShadowIntro": "设置 <code>ShowShadow=\"true\"</code> 开启阴影效果"
-  },
-  "BootstrapBlazor.Shared.Demos.Alert.AlertNormal": {
+    "ShowShadowIntro": "设置 <code>ShowShadow=\"true\"</code> 开启阴影效果",
     "AlertPrimaryText": "主要的警告框",
     "AlertSecondaryText": "次要的警告框",
     "AlertSuccessText": "成功的警告框",
@@ -4648,42 +4551,6 @@
     "AlertWarningText": "警告的警告框",
     "AlertInfoText": "信息的警告框",
     "AlertDarkText": "黑暗的警告框"
-  },
-  "BootstrapBlazor.Shared.Demos.Alert.AlertClose": {
-    "AlertPrimaryText": "主要的警告框",
-    "AlertSecondaryText": "次要的警告框",
-    "AlertSuccessText": "成功的警告框",
-    "AlertDangerText": "危险的警告框",
-    "AlertWarningText": "警告的警告框",
-    "AlertInfoText": "信息的警告框",
-    "AlertDarkText": "黑暗的警告框"
-  },
-  "BootstrapBlazor.Shared.Demos.Alert.AlertIcon": {
-    "AlertPrimaryText": "主要的警告框",
-    "AlertWarningText": "警告的警告框",
-    "AlertInfoText": "信息的警告框",
-    "AlertDangerText": "危险的警告框"
-  },
-  "BootstrapBlazor.Shared.Demos.Alert.AlertBorder": {
-    "AlertPrimaryText": "主要的警告框",
-    "AlertSuccessText": "成功的警告框",
-    "AlertWarningText": "警告的警告框",
-    "AlertInfoText": "信息的警告框",
-    "AlertDangerText": "危险的警告框"
-  },
-  "BootstrapBlazor.Shared.Demos.Alert.AlertShadow": {
-    "AlertInfoText": "信息的警告框",
-    "AlertSuccessText": "成功的警告框",
-    "AlertPrimaryText": "主要的警告框",
-    "AlertWarningText": "警告的警告框",
-    "AlertDangerText": "危险的警告框"
-  },
-  "BootstrapBlazor.Shared.Demos.Alert.AlertShowBar": {
-    "AlertPrimaryText": "主要的警告框",
-    "AlertSuccessText": "成功的警告框",
-    "AlertWarningText": "警告的警告框",
-    "AlertInfoText": "信息的警告框",
-    "AlertDangerText": "危险的警告框"
   },
   "BootstrapBlazor.Shared.Samples.RibbonTabs": {
     "RibbonTabsTitle": "RibbonTab 选项卡",
@@ -4764,9 +4631,7 @@
     "AttrId": "Id",
     "AttrIcon": "图标",
     "AttrText": "文本",
-    "AttrTooltipText": "提示栏文本"
-  },
-  "BootstrapBlazor.Shared.Demos.AnchorLink.AnchorLinkNormal": {
+    "AttrTooltipText": "提示栏文本",
     "AnchorLinkText": "我是一个可以点击的锚点链接"
   },
   "BootstrapBlazor.Shared.Samples.QRCodes": {
@@ -4800,9 +4665,7 @@
     "Title": "Anchor 锚点",
     "SubTitle": "用于跳转到页面指定位置",
     "BaseUsageText": "基础用法",
-    "IntroText1": "需要展现当前页面上可供跳转的锚点链接，以及快速在锚点之间跳转"
-  },
-  "BootstrapBlazor.Shared.Demos.Anchor.AnchorNormal": {
+    "IntroText1": "需要展现当前页面上可供跳转的锚点链接，以及快速在锚点之间跳转",
     "IntroText2": "点击下面 <code>Anchor</code> 项目，页面滚动到相对应的章节",
     "ContentText1": "<p>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</p><p>控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；</p><p>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</p><p>简化流程：设计简洁直观的操作流程；</p><p>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</p><p>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</p>",
     "Desc1": "锚点目标 Id",

@@ -1,22 +1,17 @@
-﻿@using BootstrapBlazor.Components
-@using System.Text.Json
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
-<div class="mt-3">
-    <Button OnClick="Success">@Localizer["NormalButtonText1"]</Button>
-    <Button OnClick="Fail">@Localizer["NormalButtonText2"]</Button>
-    @if (!string.IsNullOrEmpty(ResultMessage))
-    {
-        <div class="mt-2"><code>@ResultMessage</code></div>
-    }
-</div>
+namespace BootstrapBlazor.Shared.Samples;
 
-@code
+/// <summary>
+/// Ajax 组件代码
+/// </summary>
+public partial class Ajaxs
 {
-    private string? ResultMessage { get; set; }
-
     [Inject]
     [NotNull]
-    private IStringLocalizer<AjaxNormal>? Localizer { get; set; }
+    private IStringLocalizer<Ajaxs>? Localizer { get; set; }
 
     [Inject]
     [NotNull]
@@ -25,6 +20,8 @@
     [Inject]
     [NotNull]
     private SwalService? SwalService { get; set; }
+
+    private string? ResultMessage { get; set; }
 
     private Task Success() => ProcessResponse("admin", "123456");
 
@@ -61,4 +58,30 @@
 
         public string? Password { get; set; }
     }
+
+    private Task Goto() => AjaxService.Goto("/introduction");
+
+    private Task GotoSelf() => AjaxService.Goto("/ajaxs");
+
+    /// <summary>
+    /// 获得属性方法
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+    {
+        new MethodItem()
+        {
+            Name = "InvokeAsync",
+            Description = Localizer["InvokeAsync"],
+            Parameters = "AjaxOption",
+            ReturnValue = "string"
+        },
+        new MethodItem()
+        {
+            Name = "Goto",
+            Description = Localizer["Goto"],
+            Parameters = "string",
+            ReturnValue = " — "
+        }
+    };
 }

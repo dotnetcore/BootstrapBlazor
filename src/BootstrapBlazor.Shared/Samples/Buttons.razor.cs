@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Web;
+
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
@@ -9,6 +11,47 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Buttons
 {
+    [NotNull]
+    private ConsoleLogger? NormalLogger { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    /// <param name="e"></param>
+    private void ButtonClick(MouseEventArgs e)
+    {
+        NormalLogger.Log($"Button Clicked");
+    }
+
+    private bool IsDisable { get; set; }
+
+    [NotNull]
+    private Button? ButtonDisableDemo { get; set; }
+
+    private void ClickButton1()
+    {
+        IsDisable = !IsDisable;
+        StateHasChanged();
+    }
+
+    private Task ClickButton2()
+    {
+        IsDisable = false;
+        ButtonDisableDemo.SetDisable(false);
+        return Task.CompletedTask;
+    }
+
+    private string ButtonText { get; set; } = "";
+
+    private Task ClickButtonShowText(string text)
+    {
+        ButtonText = text;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private static Task ClickAsyncButton() => Task.Delay(5000);
+
     /// <summary>
     /// 获得事件方法
     /// </summary>

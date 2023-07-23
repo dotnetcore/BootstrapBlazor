@@ -12,19 +12,31 @@
     <li>@((MarkupString)Localizer["Li1"].Value)</li>
 </ul>
 
-<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal" Demo="typeof(Demos.Camera.CameraNormal)">
+<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
     <p>@Localizer["BasicUsageStep"]</p>
     <ul class="ul-demo mb-3">
         <li>@Localizer["BasicUsageLi1"]</li>
         <li>@Localizer["BasicUsageLi2"]</li>
         <li>@Localizer["BasicUsageLi3"]</li>
     </ul>
+    <Camera OnInit="@OnInit" OnStart="@OnStart" OnClose="@OnClose" OnError="@OnError" OnCapture="@OnCapture" />
+    @if (ImageUrl != null)
+    {
+        <img src="@ImageUrl" class="mt-3" />
+    }
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ShowPreviewTitle"]" Introduction="@Localizer["ShowPreviewIntro"]" Name="ShowPreview" Demo="typeof(Demos.Camera.CameraShowPreview)" />
+<DemoBlock Title="@Localizer["ShowPreviewTitle"]" Introduction="@Localizer["ShowPreviewIntro"]" Name="ShowPreview" >
+    <Camera ShowPreview="true" />
+</DemoBlock>
 
-<DemoBlock Title="@Localizer["CaptureJpegTitle"]" Introduction="@Localizer["CaptureJpegIntro"]" Name="CaptureJpeg" Demo="typeof(Demos.Camera.CameraCaptureJpeg)" />
+<DemoBlock Title="@Localizer["CaptureJpegTitle"]" Introduction="@Localizer["CaptureJpegIntro"]" Name="CaptureJpeg" >
+    <Camera CaptureJpeg="true" VideoHeight="640" VideoWidth="480" />
+</DemoBlock>
 
-<DemoBlock Title="@Localizer["AutoStartTitle"]" Introduction="@Localizer["AutoStartIntro"]" Name="AutoStart" Demo="typeof(Demos.Camera.CameraAutoStart)" />
+<DemoBlock Title="@Localizer["AutoStartTitle"]" Introduction="@Localizer["AutoStartIntro"]" Name="AutoStart" >
+    <Camera AutoStart="false" />
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

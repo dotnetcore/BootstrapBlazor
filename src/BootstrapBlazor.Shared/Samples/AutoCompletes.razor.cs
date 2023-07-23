@@ -9,6 +9,40 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class AutoCompletes
 {
+    private Foo Model { get; set; } = new Foo() { Name = "" };
+
+    private static List<string> StaticItems => new() { "1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG" };
+
+    private readonly List<string> _items = new();
+    private IEnumerable<string> Items => _items;
+    private Task OnValueChanged(string val)
+    {
+        _items.Clear();
+        _items.Add($"{val}@163.com");
+        _items.Add($"{val}@126.com");
+        _items.Add($"{val}@sina.com");
+        _items.Add($"{val}@hotmail.com");
+        return Task.CompletedTask;
+    }
+
+    [NotNull]
+    private ConsoleLogger? Logger { get; set; }
+
+    private Task OnSelectedItemChanged(string val)
+    {
+        Logger.Log($"Value: {val}");
+        return Task.CompletedTask;
+    }
+
+    [NotNull]
+    private ConsoleLogger? GroupLogger { get; set; }
+
+    private Task GroupOnSelectedItemChanged(string val)
+    {
+        GroupLogger.Log($"Value: {val}");
+        return Task.CompletedTask;
+    }
+
     /// <summary>
     /// 获得属性方法
     /// </summary>

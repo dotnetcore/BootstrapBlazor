@@ -9,6 +9,13 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Avatars
 {
+    private static async Task<string> GetUrlAsync()
+    {
+        // 模拟异步获取图像地址
+        await Task.Delay(500);
+        return "./images/Argo-C.png";
+    }
+
     /// <summary>
     /// 获得属性方法
     /// </summary>

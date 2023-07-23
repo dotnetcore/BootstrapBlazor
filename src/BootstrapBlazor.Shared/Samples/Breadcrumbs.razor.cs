@@ -1,15 +1,20 @@
-﻿<Breadcrumb Value="@DataSource" />
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
-@code {
+namespace BootstrapBlazor.Shared.Samples;
+
+public partial class Breadcrumbs
+{
     [NotNull]
     private IEnumerable<BreadcrumbItem>? DataSource { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
-
         DataSource = new List<BreadcrumbItem>
         {
             new BreadcrumbItem("Home", "#"),

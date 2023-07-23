@@ -5,27 +5,154 @@
 
 <h4>@Localizer["Description"]</h4>
 
-<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal" Demo="typeof(Demos.Button.ButtonNormal)" />
-
-<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Round" Demo="typeof(Demos.Button.ButtonRound)" />
-
-<DemoBlock Title="@Localizer["Block3Title"]" Introduction='@Localizer["Block3Intro"]' Name="Outline" Demo="typeof(Demos.Button.ButtonOutline)" />
-
-<DemoBlock Title="@Localizer["Block4Title"]" Introduction='@Localizer["Block4Intro"]' Name="Size" Demo="typeof(Demos.Button.ButtonSize)" />
-
-<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="IsDisabled" Demo="typeof(Demos.Button.ButtonIsDisabled)" />
-
-<DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Color" Demo="typeof(Demos.Button.ButtonColor)" />
-
-<DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="Icon" Demo="typeof(Demos.Button.ButtonIcon)" />
-
-<DemoBlock Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]" Name="Extension" Demo="typeof(Demos.Button.ButtonExtension)" />
-
-<DemoBlock Title="@Localizer["Block9Title"]" Introduction="@Localizer["Block9Intro"]" Name="Async" Demo="typeof(Demos.Button.ButtonAsync)">
-    <p>@((MarkupString)Localizer["ButtonAsyncDescription"].Value)</p>
+<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button OnClick="@ButtonClick" Color="Color.Primary">@Localizer["PrimaryButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button OnClick="@ButtonClick" Color="Color.Secondary">@Localizer["SecondaryButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button OnClick="@ButtonClick" Color="Color.Success">@Localizer["SuccessButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button OnClick="@ButtonClick" Color="Color.Danger">@Localizer["DangerButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button OnClick="@ButtonClick" Color="Color.Warning">@Localizer["WarningButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button OnClick="@ButtonClick" Color="Color.Info">@Localizer["InformationButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button OnClick="@ButtonClick" Color="Color.Dark">@Localizer["DarkButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button OnClick="@ButtonClick" Color="Color.Light">@Localizer["HighlightButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button OnClick="@ButtonClick" Color="Color.Link">@Localizer["LinkButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button OnClick="@ButtonClick" Color="Color.None">@Localizer["NoneButtonColor"]</Button></div>
+    </div>
+    <ConsoleLogger @ref="NormalLogger" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["TooltipTitle"]" Introduction="@Localizer["TooltipIntro"]" Name="Tooltip" Demo="typeof(Demos.Button.ButtonTooltip)" />
+<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Round">
+
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Button ButtonStyle="ButtonStyle.Round" Color="Color.Primary">@Localizer["PrimaryButton"]</Button>
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Button ButtonStyle="ButtonStyle.Round" Color="Color.Secondary">@Localizer["SecondaryButton"]</Button>
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Button ButtonStyle="ButtonStyle.Round" Color="Color.Success">@Localizer["SuccessButton"]</Button>
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Button ButtonStyle="ButtonStyle.Round" Color="Color.Danger">@Localizer["DangerButton"]</Button>
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Button ButtonStyle="ButtonStyle.Round" Color="Color.Warning">@Localizer["WarningButton"]</Button>
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Button ButtonStyle="ButtonStyle.Circle" Icon="fa-fw fa-solid fa-cubes">
+            </Button>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["Block3Title"]" Introduction='@Localizer["Block3Intro"]' Name="Outline">
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsOutline="true" Color="Color.Primary">@Localizer["PrimaryButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsOutline="true" Color="Color.Secondary">@Localizer["SecondaryButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsOutline="true" Color="Color.Success">@Localizer["SuccessButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsOutline="true" Color="Color.Danger">@Localizer["DangerButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsOutline="true" Color="Color.Warning">@Localizer["WarningButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsOutline="true" Color="Color.Info">@Localizer["InformationButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsOutline="true" Color="Color.Dark">@Localizer["DarkButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsOutline="true" Color="Color.Light">@Localizer["HighlightButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsOutline="true" Color="Color.Link">@Localizer["LinkButton"]</Button></div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["Block4Title"]" Introduction='@Localizer["Block4Intro"]' Name="Size">
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button Size="Size.ExtraSmall" Color="Color.Primary">@Localizer["ExtraSmallButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button Size="Size.Small" Color="Color.Secondary">@Localizer["SmallButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button Size="Size.None" Color="Color.Info">@Localizer["NormalButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button Size="Size.Medium" Color="Color.Success">@Localizer["MediumButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button Size="Size.Large" Color="Color.Danger">@Localizer["LargeButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button Size="Size.ExtraLarge" Color="Color.Warning">@Localizer["ExtraLargeButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button Size="Size.ExtraExtraLarge" Color="Color.Warning">@Localizer["ButtonExtraExtraLargeText"]</Button></div>
+        <div class="col-12"><Button IsBlock="true" Color="Color.Primary">@Localizer["BlockButton"]</Button></div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["Block5Title"]" Introduction="@Localizer["Block5Intro"]" Name="IsDisabled">
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsDisabled="true" Color="Color.Primary">@Localizer["PrimaryButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsDisabled="true" Color="Color.Secondary">@Localizer["SecondaryButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsDisabled="true" Color="Color.Success">@Localizer["SuccessButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsDisabled="true" Color="Color.Danger">@Localizer["DangerButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsDisabled="true" Color="Color.Warning">@Localizer["WarningButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsDisabled="true" Color="Color.Info">@Localizer["InformationButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsDisabled="true" Color="Color.Dark">@Localizer["DarkButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsDisabled="true" Color="Color.Light">@Localizer["HighlightButton"]</Button></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button IsDisabled="true" Color="Color.Link">@Localizer["LinkButton"]</Button></div>
+    </div>
+
+    <p class="mt-3">@((MarkupString)Localizer["Description1"].Value)</p>
+    <p>@((MarkupString)Localizer["Description2"].Value)</p>
+
+    <p><b>@Localizer["SubTitle"]</b></p>
+    <ul class="ul-demo mb-3">
+        <li>@((MarkupString)Localizer["IsDisabledTip"].Value)</li>
+        <li>@((MarkupString)Localizer["SetDisableTip"].Value)</li>
+    </ul>
+    <div class="row g-3">
+        <div class="col-12">
+            <Button Text="@Localizer["ButtonDisabled"]" OnClick="@ClickButton1" @ref="ButtonDisableDemo" IsDisabled="@IsDisable">
+                <Tooltip Title="@Localizer["TooltiTitle"]" Placement="Placement.Top" Trigger="hover" />
+            </Button>
+            <Button Color="Color.Info" Text="@Localizer["ButtonAvailable"]" OnClickWithoutRender="@ClickButton2" class="ms-3"></Button>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["Block6Title"]" Introduction="@Localizer["Block6Intro"]" Name="Color">
+    <div class="btn-group" role="group">
+        <Button Color="Color.Primary">@Localizer["ButtonOne"]</Button>
+        <Button Color="Color.Success">@Localizer["ButtonTwo"]</Button>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["Block7Title"]" Introduction="@Localizer["Block7Intro"]" Name="Icon">
+    <div class="row g-3">
+        <div class="col-auto">
+            <Button Color="Color.Primary" Icon="fa-solid fa-font-awesome" Text="@Localizer["ButtonStatus"]"></Button>
+        </div>
+        <div class="col-auto">
+            <Button Color="Color.Info" Icon="fa-solid fa-spinner fa-spin fa-fw" Text="@Localizer["ButtonProgress"]"></Button>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["Block8Title"]" Introduction="@Localizer["Block8Intro"]" Name="Extension">
+    <div class="row">
+        <div class="col-auto">
+            <WinButton Text="@Localizer["ButtonOne"]" OnClick="@ClickButtonShowText"></WinButton>
+        </div>
+        <div class="col-auto">
+            <WinButton Text="@Localizer["ButtonTwo"]" OnClick="@ClickButtonShowText"></WinButton>
+        </div>
+        <div class="col-auto" style="padding: 7px 0;">
+            @ButtonText
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["Block9Title"]" Introduction="@Localizer["Block9Intro"]" Name="Async">
+    <p>@((MarkupString)Localizer["ButtonAsyncDescription"].Value)</p>
+    <Button Text="@Localizer["ButtonAsync"]" IsAsync="true" Icon="fa-solid fa-fw fa-font-awesome" OnClick="@ClickAsyncButton" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TooltipTitle"]" Introduction="@Localizer["TooltipIntro"]" Name="Tooltip">
+    <div class="row row-cols-2">
+        <div class="col">
+            <Button Text="@Localizer["TooltipText"]" TooltipText="This is a Tooltip" TooltipPlacement="Placement.Top" TooltipTrigger="hover" />
+        </div>
+        <div class="col">
+            <Tooltip Trigger="hover" Title="This is a Tooltip">
+                <Button Text="@Localizer["TooltipDisabledText"]" IsDisabled="true" />
+            </Tooltip>
+        </div>
+    </div>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
 
