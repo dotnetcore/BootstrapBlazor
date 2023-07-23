@@ -2360,9 +2360,7 @@
     "ViewTitle": "browse mode",
     "ViewIntro": "Pure browsing mode, no editor",
     "ApiTitle": "External control components",
-    "ApiIntro": "Control content externally using CherryMarkdown's Api"
-  },
-  "BootstrapBlazor.Shared.Demos.CherryMarkdown.CherryMarkdownApi": {
+    "ApiIntro": "Control content externally using CherryMarkdown's Api",
     "InsertCheckListButtonText": "Insert a CheckList",
     "InsertPictureButtonText": "insert a picture"
   },

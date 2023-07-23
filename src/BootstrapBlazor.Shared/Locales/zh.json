@@ -2369,9 +2369,7 @@
     "ViewTitle": "浏览模式",
     "ViewIntro": "纯浏览模式，没有编辑器",
     "ApiTitle": "外部控制组件",
-    "ApiIntro": "使用CherryMarkdown的Api在外部控制内容"
-  },
-  "BootstrapBlazor.Shared.Demos.CherryMarkdown.CherryMarkdownApi": {
+    "ApiIntro": "使用CherryMarkdown的Api在外部控制内容",
     "InsertCheckListButtonText": "插入一个CheckList",
     "InsertPictureButtonText": "插入一张图片"
   },
