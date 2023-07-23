@@ -791,7 +791,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             _init = false;
             await InvokeVoidAsync("init", Id, Interop, new
             {
-                DragColumnCallback = OnDragColumnEndAsync != null ? nameof(DragColumnCallback) : null,
+                DragColumnCallback = nameof(DragColumnCallback),
                 ResizeColumnCallback = OnResizeColumnAsync != null ? nameof(ResizeColumnCallback) : null
             });
         }

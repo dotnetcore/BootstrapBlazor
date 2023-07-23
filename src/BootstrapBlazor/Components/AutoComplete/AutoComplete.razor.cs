@@ -25,7 +25,7 @@ public partial class AutoComplete
     /// </summary>
     protected virtual string? ClassString => CssBuilder.Default("auto-complete")
         .AddClass("is-loading", IsLoading)
-        .AddClass("show", IsShown)
+        .AddClass("show", IsShown && !IsPopover)
         .Build();
 
     /// <summary>
@@ -141,11 +141,6 @@ public partial class AutoComplete
     private string CurrentSelectedItem { get; set; } = "";
 
     /// <summary>
-    /// 获得/设置 组件 Element 实例
-    /// </summary>
-    protected ElementReference AutoCompleteElement { get; set; }
-
-    /// <summary>
     /// CurrentItemIndex 当前选中项索引
     /// </summary>
     protected int? CurrentItemIndex { get; set; }
@@ -186,7 +181,7 @@ public partial class AutoComplete
 
         if (CurrentItemIndex.HasValue)
         {
-            await InvokeVoidAsync("autoScroll", AutoCompleteElement, CurrentItemIndex.Value);
+            await InvokeVoidAsync("autoScroll", Id, CurrentItemIndex.Value);
         }
 
         if (firstRender)

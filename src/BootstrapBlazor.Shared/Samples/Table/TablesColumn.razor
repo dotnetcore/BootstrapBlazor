@@ -31,34 +31,11 @@
            Demo="typeof(Demos.Table.TablesColumn.TablesColumnDisabled)">
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["WidthTitle"]"
-           Introduction="@Localizer["WidthIntro"]"
-           Name="Width"
-           Demo="typeof(Demos.Table.TablesColumn.TablesColumnWidth)">
-    <p>@((MarkupString)Localizer["WidthP1"].Value)</p>
-    <p>@((MarkupString)Localizer["WidthP2"].Value)</p>
-    <p>@((MarkupString)Localizer["WidthP3"].Value)</p>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["TableColumnTitle"]"
-           Introduction="@Localizer["TableColumnIntro"]"
-           Name="TableColumnNormal"
-           Demo="typeof(Demos.Table.TablesColumn.TablesColumnNormal)">
-    <p>@((MarkupString)Localizer["TableColumnP1"].Value)</p>
-    <p>@((MarkupString)Localizer["TableColumnP2"].Value)</p>
-    <p>@((MarkupString)Localizer["TableColumnP3"].Value)</p>
-    <ul>
-        <li>@((MarkupString)Localizer["TableColumnli1"].Value)</li>
-        <li>@((MarkupString)Localizer["TableColumnli2"].Value)</li>
-    </ul>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["FormatterTitle"]"
-           Introduction="@Localizer["FormatterIntro"]"
-           Name="Formatter"
-           Demo="typeof(Demos.Table.TablesColumn.TablesColumnFormatter)">
-    <p>@((MarkupString)Localizer["FormatterP1"].Value)</p>
-    <p>@((MarkupString)Localizer["FormatterP2"].Value)</p>
+<DemoBlock Title="@Localizer["ShowCopyColumnTitle"]"
+           Introduction="@Localizer["ShowCopyColumnIntro"]"
+           Name="ShowCopyColumn"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnShowCopyColumn)">
+    <p>@((MarkupString)Localizer["ShowCopyColumnDesc"].Value)</p>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["AlignTitle"]"
@@ -69,74 +46,12 @@
     <p>@((MarkupString)Localizer["AlignP2"].Value)</p>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ShownWithBreakPointTitle"]"
-           Introduction="@Localizer["ShownWithBreakPointIntro"]"
-           Name="ShownWithBreakPoint"
-           Demo="typeof(Demos.Table.TablesColumn.TablesColumnShownWithBreakPoint)">
-    <p>@((MarkupString)Localizer["ShownWithBreakPointP1"].Value)</p>
-    <ul class="ul-demo mb-3">
-        <li>@((MarkupString)Localizer["ShownWithBreakPointLi1"].Value)</li>
-        <li>@((MarkupString)Localizer["ShownWithBreakPointLi2"].Value)</li>
-        <li>@((MarkupString)Localizer["ShownWithBreakPointLi3"].Value)</li>
-        <li>@((MarkupString)Localizer["ShownWithBreakPointLi4"].Value)</li>
-        <li>@((MarkupString)Localizer["ShownWithBreakPointLi5"].Value)</li>
-    </ul>
-    <p>@((MarkupString)Localizer["ShownWithBreakPointP2"].Value)</p>
-    <p>@((MarkupString)Localizer["ShownWithBreakPointP3"].Value)</p>
-    <p>@((MarkupString)Localizer["ShownWithBreakPointP4"].Value)</p>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["VisibleTitle"]"
-           Introduction="@Localizer["VisibleIntro"]"
-           Name="Visible"
-           Demo="typeof(Demos.Table.TablesColumn.TablesColumnVisible)">
-    <p>@((MarkupString)Localizer["VisibleP1"].Value)</p>
-    <p>@((MarkupString)Localizer["VisibleP2"].Value)</p>
-    <p>@((MarkupString)Localizer["VisibleP3"].Value)</p>
-    <p>@((MarkupString)Localizer["VisibleP4"].Value)</p>
-    <p>@((MarkupString)Localizer["ResetVisibleColumnsDesc"].Value)</p>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["AllowResizingTitle"]"
-           Introduction="@Localizer["AllowResizingIntro"]"
-           Name="AllowResizing"
-           Demo="typeof(Demos.Table.TablesColumn.TablesColumnAllowResizing)">
-    <p>@((MarkupString)Localizer["AllowResizingDesc"].Value)</p>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["AllowDragOrderTitle"]"
-           Introduction="@Localizer["AllowDragOrderIntro"]"
-           Name="AllowDragColumn"
-           Demo="typeof(Demos.Table.TablesColumn.TablesColumnDragOrder)">
-    <p>@((MarkupString)Localizer["AllowDragOrderDesc"].Value)</p>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["ShowCopyColumnTitle"]"
-           Introduction="@Localizer["ShowCopyColumnIntro"]"
-           Name="ShowCopyColumn"
-           Demo="typeof(Demos.Table.TablesColumn.TablesColumnShowCopyColumn)">
-    <p>@((MarkupString)Localizer["ShowCopyColumnDesc"].Value)</p>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["TemplateTitle"]"
-           Introduction="@Localizer["TemplateIntro"]"
-           Name="Template"
-           Demo="typeof(Demos.Table.TablesColumn.TablesColumnTemplate)">
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["AutoGenerateColumnsTitle"]"
-           Introduction="@Localizer["AutoGenerateColumnsIntro"]"
-           Name="AutoGenerateColumns"
-           Demo="typeof(Demos.Table.TablesColumn.TablesColumnAutoGenerateColumns)">
-    <p>
-        @((MarkupString)Localizer["AutoGenerateColumnsP1"].Value)
-        <ul class="ul-demo mb-3">
-            <li>@((MarkupString)Localizer["AutoGenerateColumnsLi1"].Value)</li>
-            <li>@((MarkupString)Localizer["AutoGenerateColumnsLi2"].Value)</li>
-            <li>@((MarkupString)string.Format(Localizer["AutoGenerateColumnsLi3"].Value, WebsiteOption.CurrentValue.BootstrapBlazorLink))</li>
-        </ul>
-        @((MarkupString)Localizer["AutoGenerateColumnsP2"].Value)
-    </p>
+<DemoBlock Title="@Localizer["FormatterTitle"]"
+           Introduction="@Localizer["FormatterIntro"]"
+           Name="Formatter"
+           Demo="typeof(Demos.Table.TablesColumn.TablesColumnFormatter)">
+    <p>@((MarkupString)Localizer["FormatterP1"].Value)</p>
+    <p>@((MarkupString)Localizer["FormatterP2"].Value)</p>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["OnColumnCreatingTitle"]"

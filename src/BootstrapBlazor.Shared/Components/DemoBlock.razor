@@ -11,7 +11,7 @@
         <div class="card-body">
             @RenderChildContent
         </div>
-        @if (ShowCode)
+        @if (ShowCode.HasValue && ShowCode.Value)
         {
             <div class="card-footer">
                 <div class="card-footer-code collapse" id="@Id">

@@ -1,12 +1,18 @@
 ﻿import '../../topology.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
 
-export function init(id, invoker, data, callback) {
+export function init(id, invoker, data, callback, isSupportTouch, isFit, isCenter) {
     const el = document.getElementById(id)
+    if (el === null) { return }
 
     const initCanvas = () => {
-        const topology = createTopology(el, data)
-        Data.set(id, { topology, el })
+        const option = { isFit, isCenter, isSupportTouch }
+        const topology = createTopology(el, data, option)
+        Data.set(id, {
+            el,
+            topology,
+            option
+        })
 
         invoker.invokeMethodAsync(callback)
     }
@@ -36,7 +42,9 @@ export function scale(id, rate) {
     const meta = Data.get(id)
     if (meta) {
         meta.topology.scale(rate)
-        meta.topology.centerView()
+        if (meta.option.isCenter) {
+            meta.topology.centerView()
+        }
     }
 }
 
@@ -48,13 +56,14 @@ export function reset(id) {
     }
 }
 
-export function resize(id, width, height, el) {
+export function resize(id, width, height, el, option) {
     let topology = id
     if (typeof (id) === 'string') {
         const meta = Data.get(id)
         if (meta) {
             topology = meta.topology
             el = meta.el
+            option = meta.option
         }
     }
     if (el.offsetHeight > 0 && el.offsetWidth > 0) {
@@ -65,8 +74,10 @@ export function resize(id, width, height, el) {
         else {
             topology.resize()
         }
-        topology.fitView()
-        topology.centerView()
+
+        if (option.isCenter) {
+            topology.centerView()
+        }
     }
 }
 
@@ -80,23 +91,19 @@ export function dispose(id) {
     }
 }
 
-const createTopology = (el, data) => {
-    const isSupportTouch = el.getAttribute('data-bb-support-touch') === 'true'
-    const isFitView = el.getAttribute('data-bb-fit-view') === 'true'
-    const isCenterView = el.getAttribute('data-bb-center-view') === 'true'
-
-    const topology = hackTopology(el, isSupportTouch)
+const createTopology = (el, data, option) => {
+    const topology = hackTopology(el, option.isSupportTouch)
     topology.open(JSON.parse(data))
     topology.lock(1)
 
-    if (isFitView) {
+    if (option.isFit) {
         topology.fitView()
     }
-    if (isCenterView) {
+    if (option.isCenter) {
         topology.centerView()
     }
     el.observer = new ResizeObserver(() => {
-        resize(topology, null, null, el)
+        resize(topology, null, null, el, option)
     })
     el.observer.observe(el)
     return topology
