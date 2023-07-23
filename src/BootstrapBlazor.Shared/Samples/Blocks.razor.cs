@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Services;
-
 using Microsoft.AspNetCore.Components.Authorization;
 
 namespace BootstrapBlazor.Shared.Samples;
@@ -18,6 +17,7 @@ public partial class Blocks
     private string GetIcon() => IsShow ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
 
     private string GetText() => IsShow ? Localizer["IsHide"] : Localizer["IsShow"];
+
     private void ToggleCondition() => IsShow = !IsShow;
 
     private Task<bool> OnQueryCondition(string name) => Task.FromResult(IsShow);
