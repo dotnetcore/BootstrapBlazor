@@ -3853,13 +3853,9 @@
     "Value": "当前进度",
     "Color": "进度条颜色",
     "ShowProgress": "是否显示进度条信息",
-    "ChildContent": "子组件"
-  },
-  "BootstrapBlazor.Shared.Demos.Circle.CircleNormal": {
+    "ChildContent": "子组件",
     "IncreaseSpan": "增加",
-    "DecreaseSpan": "减少"
-  },
-  "BootstrapBlazor.Shared.Demos.Circle.CircleChildContent": {
+    "DecreaseSpan": "减少",
     "ChildContentP1": "消费人群规模",
     "ChildContentSpan": "总占人数"
   },

@@ -3840,13 +3840,9 @@
     "Value": "Current progress",
     "Color": "The color of the progress bar",
     "ShowProgress": "Whether to display progress bar information",
-    "ChildContent": "ChildContent"
-  },
-  "BootstrapBlazor.Shared.Demos.Circle.CircleNormal": {
+    "ChildContent": "ChildContent",
     "IncreaseSpan": "Increase",
-    "DecreaseSpan": "Decrease"
-  },
-  "BootstrapBlazor.Shared.Demos.Circle.CircleChildContent": {
+    "DecreaseSpan": "Decrease",
     "ChildContentP1": "The size of the consumer population",
     "ChildContentSpan": "Total number of people"
   },
