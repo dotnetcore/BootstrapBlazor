@@ -35,10 +35,13 @@
         position: relative;
     }
 
+        .ribbon-tab .ribbon-header .tabs-header {
+            background-color: var(--bb-ribbon-menu-bg);
+        }
+
         .ribbon-tab .ribbon-header .tabs-border-card.tabs-top .tabs-header {
             border-top-left-radius: 0;
             border-top-right-radius: 0;
-            background-color: var(--bb-ribbon-menu-bg);
         }
 
         .ribbon-tab .ribbon-header .tabs-border-card {
