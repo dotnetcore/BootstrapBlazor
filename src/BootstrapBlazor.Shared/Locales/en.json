@@ -2430,42 +2430,15 @@
     "Att2": "Disable",
     "Att3": "Component values are used for bidirectional binding",
     "Att4": "Whether to arrange vertically",
-    "Event1": "Call back this method when the state of the check box changes"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListNormal": {
+    "Event1": "Call back this method when the state of the check box changes",
     "Header": "common",
-    "Counter": "item is selected component binding value"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListValidateForm": {
+    "Counter": "item is selected component binding value",
     "item1": "Pat",
     "item2": "Argo",
     "item3": "Doom",
     "item4": "Simon",
-    "Foo": "Pat,Argo"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListShowLabel": {
+    "Foo": "Pat,Argo",
     "Description": "TValue is set to <code>IEnumerable&lt;string&gt;</code> generic collection"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListNoBorder": {
-    "item1": "Pat",
-    "item2": "Argo",
-    "item3": "Doom",
-    "item4": "Simon",
-    "Foo": "Pat,Argo"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListVertical": {
-    "item1": "Pat",
-    "item2": "Argo",
-    "item3": "Doom",
-    "item4": "Simon",
-    "Foo": "Pat,Argo"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListDisabled": {
-    "item1": "Pat",
-    "item2": "Argo",
-    "item3": "Doom",
-    "item4": "Simon",
-    "Foo": "Pat,Argo"
   },
   "BootstrapBlazor.Shared.Samples.ColorPickers": {
     "Title": "ColorPicker",

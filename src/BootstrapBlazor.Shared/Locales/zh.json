@@ -2439,42 +2439,15 @@
     "Att2": "是否禁用",
     "Att3": "组件值用于双向绑定",
     "Att4": "是否竖向排列",
-    "Event1": "复选框状态改变时回调此方法"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListNormal": {
+    "Event1": "复选框状态改变时回调此方法",
     "Header": "共",
-    "Counter": "项被选中 组件绑定值 value"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListValidateForm": {
+    "Counter": "项被选中 组件绑定值 value",
     "item1": "张三",
     "item2": "李四",
     "item3": "王五",
     "item4": "赵六",
-    "Foo": "张三,李四"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListShowLabel": {
+    "Foo": "张三,李四",
     "Description": "TValue 设置为 <code>IEnumerable&lt;string&gt;</code> 泛型集合"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListNoBorder": {
-    "item1": "张三",
-    "item2": "李四",
-    "item3": "王五",
-    "item4": "赵六",
-    "Foo": "张三,李四"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListVertical": {
-    "item1": "张三",
-    "item2": "李四",
-    "item3": "王五",
-    "item4": "赵六",
-    "Foo": "张三,李四"
-  },
-  "BootstrapBlazor.Shared.Demos.CheckboxList.CheckboxListDisabled": {
-    "item1": "张三",
-    "item2": "李四",
-    "item3": "王五",
-    "item4": "赵六",
-    "Foo": "张三,李四"
   },
   "BootstrapBlazor.Shared.Samples.ColorPickers": {
     "Title": "ColorPicker 颜色拾取器",
