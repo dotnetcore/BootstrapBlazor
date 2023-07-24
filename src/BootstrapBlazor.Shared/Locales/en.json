@@ -5876,12 +5876,24 @@
     "PdfReaderCompatibilityModeTips": "- Chrome < 97 automatically uses version 2.4.456<br/>- Chrome < 109 automatically uses version 2.6.347<br/>- Note: ReadOnly and Watermark cannot be used in these two compatibility modes"
   },
   "BootstrapBlazor.Shared.Samples.VideoPlayers": {
-    "Title": "VideoPlayer",
-    "BaseUsageText": "Basic usage",
-    "BaseUsageIntro": "",
-    "BaseUsageText2": "Switch playback resources",
-    "BaseUsageIntro2": "Use the Reload method to switch playback resources",
-    "Tips": "Silent mode enabled by default, this is the way for autoplay follow the modern browser standards."
+    "VideoPlayersTitle": "VideoPlayer",
+    "VideoPlayersNomalTitle": "Basic usage",
+    "VideoPlayersNomalIntro": "",
+    "VideoPlayersChangeURLTitle": "Switch playback resources",
+    "VideoPlayersChangeURLIntro": "Use the Reload method to switch playback resources",
+    "VideoPlayersTips": "Silent mode enabled by default, this is the way for autoplay follow the modern browser standards.",
+    "MineType": "MineType",
+    "ResourceUrl": "Resource Address",
+    "MineTypeDesc": "Resource types",
+    "ValueList": "(see footer)",
+    "Width": "Width",
+    "Height": "Height",
+    "ShowControls": "Displays the control bar",
+    "AutoPaly": "Autoplay",
+    "Poster": "Set the cover resource, relative or absolute path",
+    "SwitchResource": "Toggle playback resources",
+    "SetPoster": "Set the cover",
+    "OnError": "Error callback"
   },
   "BootstrapBlazor.Shared.Components.PackageTips": {
     "Tips": "<div class=\"code-label\">Precautions</div><div>This component relies on <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>, which needs to reference its component package when using this component</div><div class=\"code-label mt-2\">Nuget Install</div><div>Use nuget.org to install <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a> component</div>"

@@ -5897,12 +5897,24 @@
     "PdfReaderCompatibilityModeTips": "- Chrome < 97 自动使用 2.4.456 版本<br/>- Chrome < 109 自动使用 2.6.347 版本<br/>- 注:ReadOnly 和 Watermark 在这两种兼容模式下不能使用"
   },
   "BootstrapBlazor.Shared.Samples.VideoPlayers": {
-    "Title": "VideoPlayer 视频播放器",
-    "BaseUsageText": "基础用法",
-    "BaseUsageIntro": "",
-    "BaseUsageText2": "切换播放资源",
-    "BaseUsageIntro2": "使用 Reload 方法切换播放资源",
-    "Tips": "默认启用静音模式,只有这样自动播放功能才符合现代浏览器标准."
+    "VideoPlayersTitle": "VideoPlayer 视频播放器",
+    "VideoPlayersNomalTitle": "基础用法",
+    "VideoPlayersNomalIntro": "",
+    "VideoPlayersChangeURLTitle": "切换播放资源",
+    "VideoPlayersChangeURLIntro": "使用 Reload 方法切换播放资源",
+    "VideoPlayersTips": "默认启用静音模式,只有这样自动播放功能才符合现代浏览器标准.",
+    "MineType": "MineType 类型",
+    "ResourceUrl": "资源地址",
+    "MineTypeDesc": "资源类型,video/mp4, application/x-mpegURL, video/ogg .. ",
+    "ValueList": "(见页脚)",
+    "Width": "宽度",
+    "Height": "高度",
+    "ShowControls": "显示控制条",
+    "AutoPaly": "自动播放",
+    "Poster": "设置封面资源,相对或者绝对路径",
+    "SwitchResource": "切换播放资源",
+    "SetPoster": "设置封面",
+    "OnError": "错误回调"
   },
   "BootstrapBlazor.Shared.Components.PackageTips": {
     "Tips": "<div class=\"code-label\">注意事项 ：</div><div>本组件依赖于 <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>，使用本组件时需要引用其组件包</div><div class=\"code-label mt-2\">Nuget 包安装</div><div>使用 <a href='https://www.nuget.org/packages?q={0}' target='_blank'>nuget.org</a> 进行 <code>{0}</code> 组件的安装</div>"
