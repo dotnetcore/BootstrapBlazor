@@ -13,7 +13,13 @@ namespace BootstrapBlazor.Shared.Samples;
 public sealed partial class TreeViews
 {
     [NotNull]
-    private ConsoleLogger? Logger { get; set; }
+    private ConsoleLogger? Logger1 { get; set; }
+
+    [NotNull]
+    private ConsoleLogger? Logger2 { get; set; }
+
+    [NotNull]
+    private ConsoleLogger? Logger3 { get; set; }
 
     private List<TreeViewItem<TreeFoo>> Items { get; set; } = TreeFoo.GetTreeItems();
 
@@ -41,7 +47,7 @@ public sealed partial class TreeViews
 
     private Task OnTreeItemClick(TreeViewItem<TreeFoo> item)
     {
-        Logger.Log($"TreeItem: {item.Text} clicked");
+        Logger1.Log($"TreeItem: {item.Text} clicked");
         return Task.CompletedTask;
     }
 
@@ -68,7 +74,7 @@ public sealed partial class TreeViews
 
     private Task OnTreeItemChecked(List<TreeViewItem<TreeFoo>> items)
     {
-        Logger.Log($"当前共选中{items.Count}项");
+        Logger2.Log($"当前共选中{items.Count}项");
         return Task.CompletedTask;
     }
 
@@ -146,7 +152,7 @@ public sealed partial class TreeViews
 
     private Task OnTreeItemChecked2(List<TreeViewItem<TreeFoo>> items)
     {
-        Logger.Log($"当前共选中{items.Count}项");
+        Logger3.Log($"当前共选中{items.Count}项");
         return Task.CompletedTask;
     }
 
