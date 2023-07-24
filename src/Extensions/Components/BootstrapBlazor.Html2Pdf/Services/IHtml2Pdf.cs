@@ -16,4 +16,11 @@ public interface IHtml2Pdf
     /// <param name="fileName">the file name of pdf</param>
     /// <returns></returns>
     Task<bool> ExportAsync(string html, string? fileName = null);
+
+    /// <summary>
+    /// 导出流
+    /// </summary>
+    /// <param name="html"></param>
+    /// <returns></returns>
+    Task<Stream> ExportStreamAsync(string html);
 }

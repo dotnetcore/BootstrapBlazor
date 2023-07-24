@@ -17,7 +17,7 @@ public static class BootstrapBlazorHtml2PdfServiceExtensions
     /// <param name="services"></param>
     public static IServiceCollection AddBootstrapBlazorHtml2PdfService(this IServiceCollection services)
     {
-        services.AddTransient<IHtml2Pdf, DefaultPdfService>();
+        services.AddScoped<IHtml2Pdf, DefaultPdfService>();
 
         return services;
     }
