@@ -16,7 +16,7 @@
         @((MarkupString)Localizer["TreesNormalDescription"].Value)
     </p>
     <Tree Items="@Items" OnTreeItemClick="@OnTreeItemClick" />
-    <ConsoleLogger @ref="Logger" class="mt-3" />
+    <ConsoleLogger @ref="Logger1" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreesCheckboxTitle"]"
@@ -26,7 +26,7 @@
         @((MarkupString)Localizer["TreesCheckboxDescription"].Value)
     </p>
     <Tree Items="@CheckedItems" ShowCheckbox="true" OnTreeItemChecked="@OnTreeItemChecked" />
-    <ConsoleLogger @ref="Logger" class="mt-3" />
+    <ConsoleLogger @ref="Logger2" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreesShowRadioTitle"]"
@@ -54,11 +54,11 @@
     <Tree Items="@AccordionItems" ShowCheckbox="true" IsAccordion="true" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["TreesDefauleExpandTitle"]"
-           Introduction="@Localizer["TreesDefauleExpandIntro"]"
-           Name="DefauleExpand">
+<DemoBlock Title="@Localizer["TreesDefaultExpandTitle"]"
+           Introduction="@Localizer["TreesDefaultExpandIntro"]"
+           Name="DefaultExpand">
     <p class="mb-3">
-        @((MarkupString)Localizer["TreesDefauleExpandDescription"].Value)
+        @((MarkupString)Localizer["TreesDefaultExpandDescription"].Value)
     </p>
     <Tree Items="@ExpandItems" ShowCheckbox="true" />
 </DemoBlock>
@@ -117,7 +117,7 @@
            Introduction="@Localizer["TreesCheckedItemsIntro"]"
            Name="CheckedItems">
     <Tree ShowCheckbox="true" Items="@Items2" OnTreeItemChecked="@OnTreeItemChecked2" />
-    <ConsoleLogger @ref="Logger2" class="mt-3" />
+    <ConsoleLogger @ref="Logger3" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreesShowSkeletonTitle"]"

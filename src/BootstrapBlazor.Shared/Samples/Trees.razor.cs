@@ -13,10 +13,13 @@ namespace BootstrapBlazor.Shared.Samples;
 public sealed partial class Trees
 {
     [NotNull]
-    private ConsoleLogger? Logger { get; set; }
+    private ConsoleLogger? Logger1 { get; set; }
 
     [NotNull]
     private ConsoleLogger? Logger2 { get; set; }
+
+    [NotNull]
+    private ConsoleLogger? Logger3 { get; set; }
 
     private List<TreeItem> Items { get; set; } = TreeDataFoo.GetTreeItems();
 
@@ -65,7 +68,7 @@ public sealed partial class Trees
 
     private Task OnTreeItemClick(TreeItem item)
     {
-        Logger.Log($"TreeItem: {item.Text} clicked");
+        Logger1.Log($"TreeItem: {item.Text} clicked");
         return Task.CompletedTask;
     }
 
@@ -78,7 +81,7 @@ public sealed partial class Trees
 
     private Task OnTreeItemChecked(List<TreeItem> items)
     {
-        Logger.Log($"Currently selected {items.Count} item");
+        Logger2.Log($"Currently selected {items.Count} item");
         return Task.CompletedTask;
     }
 
@@ -140,7 +143,7 @@ public sealed partial class Trees
 
     private Task OnTreeItemChecked2(List<TreeItem> items)
     {
-        Logger2.Log($"Currently selected {items.Count} item");
+        Logger3.Log($"Currently selected {items.Count} item");
         return Task.CompletedTask;
     }
 
