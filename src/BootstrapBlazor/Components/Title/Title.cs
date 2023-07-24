@@ -39,13 +39,24 @@ public class Title : BootstrapModuleComponentBase
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (Text != null)
+        if (firstRender && Text != null)
         {
-            await SetTitle(new TitleOption() { Title = Text });
+            var op = new TitleOption() { Title = Text };
+            await SetTitle(op);
         }
     }
 
-    private Task SetTitle(TitleOption op) => InvokeVoidAsync("setTitle", op.Title);
+    private async Task SetTitle(TitleOption op)
+    {
+        if (Module != null)
+        {
+            await InvokeVoidAsync("setTitle", op.Title);
+        }
+        else
+        {
+            Text = op.Title;
+        }
+    }
 
     /// <summary>
     /// <inheritdoc/>
