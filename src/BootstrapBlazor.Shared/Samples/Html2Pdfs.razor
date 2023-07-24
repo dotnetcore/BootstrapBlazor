@@ -1,4 +1,5 @@
 ﻿@page "/html2pdfs"
+@inject ToastService ToastService
 
 @inject IStringLocalizer<Html2Pdfs> Localizer
 
@@ -6,4 +7,31 @@
 
 <h4>@Localizer["Html2PdfDescription"]</h4>
 
-<DemoBlock Title="@Localizer["Html2PdfNormalTitle"]" Introduction="@Localizer["Html2PdfNormalIntro"]" Name="Normal" Demo="typeof(Demos.Html2Pdf.Html2PdfNormal)" />
+<DemoBlock Title="@Localizer["Html2PdfNormalTitle"]" Introduction="@Localizer["Html2PdfNormalIntro"]" Name="Normal">
+    <Button OnClickWithoutRender="OnExport" Text="PDF"></Button>
+    <Button OnClickWithoutRender="OnExportStream" Text="PDFStream"></Button>
+</DemoBlock>
+
+@code {
+    [Inject]
+    [NotNull]
+    private IHtml2Pdf? PdfService { get; set; }
+
+    private async Task OnExport()
+    {
+        var html = "<div style=\"padding: 1rem;\"><h2>标题</h2><div>this is 示例模板</div></div>";
+        var ret = await PdfService.ExportAsync(html, "test.pdf");
+    }
+
+    private async Task OnExportStream()
+    {
+        var html = "<div style=\"padding: 1rem;\"><h2>标题</h2><div>this is 示例模板</div></div>";
+
+        // using var stream = await PdfService.ExportStreamAsync(html);
+        // using var fs = File.OpenWrite("d:\\Argo\\test.pdf");
+        // await stream.CopyToAsync(fs);
+        // fs.Close();
+
+        await ToastService.Success("Pdf Export", "Export pdf stream success.")
+    }
+}
