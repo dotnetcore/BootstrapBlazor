@@ -29,7 +29,7 @@
             <InputUpload TValue="string" ShowDeleteButton="true" OnChange="@OnFileChange" OnDelete="@OnFileDelete"></InputUpload>
         </div>
     </div>
-    <ConsoleLogger @ref="Logger" class="mt-3" />
+    <ConsoleLogger @ref="Logger1" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["UploadFormSettingsTitle"]"
@@ -39,13 +39,13 @@
         <li>@((MarkupString)Localizer["UploadFormSettingsLi1"].Value)</li>
         <li>@((MarkupString)Localizer["UploadFormSettingsLi2"].Value)</li>
     </ul>
-    <ValidateForm Model="Foo" OnValidSubmit="OnSubmit">
+    <ValidateForm Model="Foo1" OnValidSubmit="OnSubmit">
         <div class="row g-3">
             <div class="col-12">
-                <BootstrapInput @bind-Value="@Foo.Name" />
+                <BootstrapInput @bind-Value="@Foo1.Name" />
             </div>
             <div class="col-12">
-                <InputUpload @bind-Value="@Foo.Picture" />
+                <InputUpload @bind-Value="@Foo1.Picture" />
             </div>
             <div class="col-12">
                 <Button ButtonType="@ButtonType.Submit" Text="@Localizer["UploadFormSettingsButtonText"]"></Button>
@@ -115,13 +115,13 @@
         </div>
         <div class="col-12">
             <p>@((MarkupString)Localizer["AvatarUploadTips7"].Value)</p>
-            <ValidateForm Model="Foo" OnValidSubmit="OnAvatarValidSubmit">
+            <ValidateForm Model="Foo2" OnValidSubmit="OnAvatarValidSubmit">
                 <div class="row g-3">
                     <div class="col-12">
-                        <BootstrapInput @bind-Value="@Foo.Name" />
+                        <BootstrapInput @bind-Value="@Foo2.Name" />
                     </div>
                     <div class="col-12">
-                        <AvatarUpload @bind-Value="@Foo.Picture" IsSingle="true" />
+                        <AvatarUpload @bind-Value="@Foo2.Picture" IsSingle="true" />
                     </div>
                     <div class="col-12">
                         <Button ButtonType="@ButtonType.Submit" Text="@Localizer["AvatarUploadButtonText"]"></Button>
@@ -130,7 +130,7 @@
             </ValidateForm>
         </div>
     </div>
-    <ConsoleLogger @ref="Logger" class="mt-3" />
+    <ConsoleLogger @ref="Logger2" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["UploadPreCardStyleTitle"]"

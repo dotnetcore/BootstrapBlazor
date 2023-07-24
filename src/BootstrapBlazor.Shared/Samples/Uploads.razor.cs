@@ -12,7 +12,10 @@ namespace BootstrapBlazor.Shared.Samples;
 public sealed partial class Uploads
 {
     [NotNull]
-    private ConsoleLogger? Logger { get; set; }
+    private ConsoleLogger? Logger1 { get; set; }
+
+    [NotNull]
+    private ConsoleLogger? Logger2 { get; set; }
 
     private static readonly Random random = new();
 
@@ -20,7 +23,9 @@ public sealed partial class Uploads
 
     private static long MaxFileLength => 200 * 1024 * 1024;
 
-    private Person Foo { get; set; } = new Person();
+    private Person Foo1 { get; set; } = new Person();
+
+    private Person Foo2 { get; set; } = new Person();
 
     private List<UploadFile> PreviewFileList { get; } = new(new[] { new UploadFile { PrevUrl = "./images/Argo.png" } });
 
@@ -49,13 +54,13 @@ public sealed partial class Uploads
     {
         // 未真正保存文件
         // file.SaveToFile()
-        Logger.Log($"{file.File!.Name} {Localizer["UploadsSuccess"]}");
+        Logger1.Log($"{file.File!.Name} {Localizer["UploadsSuccess"]}");
         return Task.FromResult("");
     }
 
     private Task<bool> OnFileDelete(UploadFile item)
     {
-        Logger.Log($"{item.OriginFileName} {Localizer["UploadsRemoveMsg"]}");
+        Logger1.Log($"{item.OriginFileName} {Localizer["UploadsRemoveMsg"]}");
         return Task.FromResult(true);
     }
 
@@ -171,7 +176,7 @@ public sealed partial class Uploads
 
     private Task OnAvatarValidSubmit(EditContext context)
     {
-        Logger.Log(Foo.Picture?.Name ?? "");
+        Logger2.Log(Foo2.Picture?.Name ?? "");
         return Task.CompletedTask;
     }
 
