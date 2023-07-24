@@ -1,15 +1,18 @@
 ﻿namespace BootstrapBlazor.Shared.Samples;
 
+/// <summary>
+/// ContextMenu 组件示例
+/// </summary>
 public partial class ContextMenus
 {
     private List<TreeViewItem<TreeFoo>> TreeItems { get; set; } = TreeFoo.GetTreeItems();
 
-    private Task OnCopy(ContextMenuItem item, object value)
+    private static Task OnCopy(ContextMenuItem item, object value)
     {
         return Task.CompletedTask;
     }
 
-    private Task OnPaste(ContextMenuItem item, object value)
+    private static Task OnPaste(ContextMenuItem item, object value)
     {
         return Task.CompletedTask;
     }

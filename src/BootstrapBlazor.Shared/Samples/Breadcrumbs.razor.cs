@@ -4,6 +4,9 @@
 
 namespace BootstrapBlazor.Shared.Samples;
 
+/// <summary>
+/// Breadcrumbs 组件示例
+/// </summary>
 public partial class Breadcrumbs
 {
     [NotNull]
