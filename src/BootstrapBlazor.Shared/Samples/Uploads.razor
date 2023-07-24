@@ -1,6 +1,8 @@
 ﻿@page "/uploads"
 @inject IOptionsMonitor<WebsiteOptions> SiteOptions
 @inject IStringLocalizer<Uploads> Localizer
+@inject ToastService ToastService
+@implements IDisposable
 
 <h3>@Localizer["UploadsTitle"]</h3>
 
@@ -12,48 +14,128 @@
 
 <DemoBlock Title="@Localizer["UploadNormalTitle"]"
            Introduction="@Localizer["UploadNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Uploads.UploadNormal)">
+           Name="Normal">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <label for="text1" class="form-label">@Localizer["UploadNormalLabelName"]</label>
+            <input id="text1" class="form-control">
+        </div>
+        <div class="col-12 col-sm-6">
+            <label for="text2" class="form-label">@Localizer["UploadNormalLabelAdress"]</label>
+            <input id="text2" class="form-control">
+        </div>
+        <div class="col-12">
+            <label for="text3" class="form-label">@Localizer["UploadNormalLabelPhoto"]</label>
+            <InputUpload TValue="string" ShowDeleteButton="true" OnChange="@OnFileChange" OnDelete="@OnFileDelete"></InputUpload>
+        </div>
+    </div>
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["UploadFormSettingsTitle"]"
            Introduction="@Localizer["UploadFormSettingsIntro"]"
-           Name="FormSettings"
-           Demo="typeof(Demos.Uploads.UploadFormSettings)">
+           Name="FormSettings">
     <ul class="ul-demo mb-3">
         <li>@((MarkupString)Localizer["UploadFormSettingsLi1"].Value)</li>
         <li>@((MarkupString)Localizer["UploadFormSettingsLi2"].Value)</li>
     </ul>
+    <ValidateForm Model="Foo" OnValidSubmit="OnSubmit">
+        <div class="row g-3">
+            <div class="col-12">
+                <BootstrapInput @bind-Value="@Foo.Name" />
+            </div>
+            <div class="col-12">
+                <InputUpload @bind-Value="@Foo.Picture" />
+            </div>
+            <div class="col-12">
+                <Button ButtonType="@ButtonType.Submit" Text="@Localizer["UploadFormSettingsButtonText"]"></Button>
+            </div>
+        </div>
+    </ValidateForm>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["UploadClickUploadTitle"]"
            Introduction="@Localizer["UploadClickUploadIntro"]"
-           Name="ClickUpload"
-           Demo="typeof(Demos.Uploads.UploadClickUpload)">
+           Name="ClickUpload">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <p>@((MarkupString)Localizer["UploadClickUploadTips1"].Value)</p>
+            <ButtonUpload TValue="string" IsMultiple="true" ShowProgress="true" OnChange="@OnClickToUpload" OnDelete="@(fileName => Task.FromResult(true))"></ButtonUpload>
+        </div>
+    </div>
+    <p class="mt-3">@((MarkupString)Localizer["UploadClickUploadTips2"].Value)</p>
+    <ButtonUpload TValue="string" IsSingle="true" OnChange="@OnClickToUpload" OnDelete="@(fileName => Task.FromResult(true))" class="mt-3"></ButtonUpload>
+    <p class="mt-3">@((MarkupString)Localizer["UploadClickUploadTips3ShowUploadList"].Value)</p>
+    <ButtonUpload TValue="string" OnChange="@OnClickToUploadNoUploadList" ShowUploadFileList="false" BrowserButtonText="Upload" BrowserButtonIcon="fa-solid fa-cloud-arrow-up" class="mt-3"></ButtonUpload>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["UploadedFilesTitle"]"
            Introduction="@Localizer["UploadedFilesIntro"]"
-           Name="UploadedFiles"
-           Demo="typeof(Demos.Uploads.UploadedFiles)">
+           Name="UploadedFiles">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <ButtonUpload TValue="string" ShowDownloadButton="true" OnDownload="OnDownload" OnDelete="@(fileName => Task.FromResult(true))" DefaultFileList="@DefaultFormatFileList"></ButtonUpload>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["UploadFolderTitle"]"
            Introduction="@Localizer["UploadFolderIntro"]"
-           Name="UploadFolder"
-           Demo="typeof(Demos.Uploads.UploadFolder)">
+           Name="UploadFolder">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <ButtonUpload TValue="string" IsDirectory="true" OnChange="@OnUploadFolder" OnDelete="@(fileName => Task.FromResult(true))"></ButtonUpload>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["AvatarUploadTitle"]"
            Introduction="@Localizer["AvatarUploadIntro"]"
-           Name="AvatarUpload"
-           Demo="typeof(Demos.Uploads.UploadAvatar)">
+           Name="AvatarUpload">
+    <div class="row g-3">
+        <div class="col-12">
+            <p>@Localizer["AvatarUploadTips1"]</p>
+            <AvatarUpload TValue="string" Accept="image/*" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></AvatarUpload>
+        </div>
+        <div class="col-12">
+            <p>@Localizer["AvatarUploadTips2"]</p>
+            <AvatarUpload TValue="string" Accept="image/*" ShowProgress="true" IsCircle="true" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></AvatarUpload>
+        </div>
+        <div class="col-12">
+            <p>@((MarkupString)Localizer["AvatarUploadTips3"].Value)</p>
+            <AvatarUpload TValue="string" IsSingle="true" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></AvatarUpload>
+            <p>@((MarkupString)Localizer["AvatarUploadTips5"].Value)</p>
+            <p></p>
+            <AvatarUpload TValue="string" Accept="image/gif, image/jpeg" IsSingle="true" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></AvatarUpload>
+        </div>
+        <div class="col-12">
+            <p>@((MarkupString)Localizer["AvatarUploadTips6"].Value)</p>
+            <AvatarUpload TValue="string" Accept="image/gif, image/jpeg" IsSingle="true" DefaultFileList="@PreviewFileList"
+                          OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))" />
+        </div>
+        <div class="col-12">
+            <p>@((MarkupString)Localizer["AvatarUploadTips7"].Value)</p>
+            <ValidateForm Model="Foo" OnValidSubmit="OnAvatarValidSubmit">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <BootstrapInput @bind-Value="@Foo.Name" />
+                    </div>
+                    <div class="col-12">
+                        <AvatarUpload @bind-Value="@Foo.Picture" IsSingle="true" />
+                    </div>
+                    <div class="col-12">
+                        <Button ButtonType="@ButtonType.Submit" Text="@Localizer["AvatarUploadButtonText"]"></Button>
+                    </div>
+                </div>
+            </ValidateForm>
+        </div>
+    </div>
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["UploadPreCardStyleTitle"]"
            Introduction="@Localizer["UploadPreCardStyleIntro"]"
-           Name="PreCardStyle"
-           Demo="typeof(Demos.Uploads.UploadPreCardStyle)">
+           Name="PreCardStyle">
     <p>
         <div>@((MarkupString)Localizer["UploadPreCardStyleSSR"].Value)</div>
         <div>@((MarkupString)Localizer["UploadPreCardStyleServerSide"].Value)</div>
@@ -62,24 +144,42 @@
         <div>@((MarkupString)Localizer["UploadPreCardStyleLink", SiteOptions.CurrentValue.VideoLibUrl].Value)</div>
         <div>@((MarkupString)Localizer["UploadPreCardStyleValidation"].Value)</div>
     </p>
+    <div class="row g-3 mt-3">
+        <div class="col-12">
+            <p>@((MarkupString)Localizer["UploadPreCardStyleTips1"].Value)</p>
+            <CardUpload TValue="string" ShowProgress="true" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></CardUpload>
+        </div>
+        <div class="col-12">
+            <p>@((MarkupString)Localizer["UploadPreCardStyleTips2"].Value)</p>
+            <CardUpload TValue="string" IsSingle="true" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></CardUpload>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["UploadFileIconTitle"]"
            Introduction="@Localizer["UploadFileIconIntro"]"
-           Name="FileIcon"
-           Demo="typeof(Demos.Uploads.UploadFileIcon)">
+           Name="FileIcon">
+    <CardUpload TValue="string" ShowDownloadButton="true" DefaultFileList="@DefaultFormatFileList" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))"></CardUpload>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["UploadFileIconTemplateTitle"]"
            Introduction="@Localizer["UploadFileIconTemplateIntro"]"
-           Name="IconTemplate"
-           Demo="typeof(Demos.Uploads.UploadIconTemplate)">
+           Name="IconTemplate">
+    <CardUpload TValue="string" ShowDownloadButton="true" DefaultFileList="@DefaultFormatFileList" OnChange="@OnCardUpload" OnDelete="@(fileName => Task.FromResult(true))">
+        <IconTemplate>
+            <FileIcon Extension="@context.GetExtension()">
+                <BackgroundTemplate>
+                    <i class="fa-regular fa-clipboard fa-4x" />
+                </BackgroundTemplate>
+            </FileIcon>
+        </IconTemplate>
+    </CardUpload>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["UploadBase64Title"]"
            Introduction="@Localizer["UploadBase64Intro"]"
-           Name="Base64"
-           Demo="typeof(Demos.Uploads.UploadBase64)">
+           Name="Base64">
+    <CardUpload TValue="string" DefaultFileList="@Base64FormatFileList" IsSingle="true" />
 </DemoBlock>
 
 <AttributeTable Items="@GetInputAttributes()" Title="InputUpload" />
