@@ -9,6 +9,15 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Tags
 {
+    [NotNull]
+    private ConsoleLogger? Logger { get; set; }
+
+    private Task DismissClick()
+    {
+        Logger.Log($"Tag Dismissed");
+        return Task.CompletedTask;
+    }
+
     /// <summary>
     /// 获得事件方法
     /// </summary>

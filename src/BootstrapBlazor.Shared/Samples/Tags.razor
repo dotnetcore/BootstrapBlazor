@@ -7,20 +7,84 @@
 
 <DemoBlock Title="@Localizer["TagsNormalTitle"]"
            Introduction="@Localizer["TagsNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Tags.TagsNormal)">
+           Name="Normal">
+    <div class="row g-3">
+        <div class="col-4 col-sm-auto">
+            <Tag Color="Color.Primary">@Localizer["Tag1"]</Tag>
+        </div>
+        <div class="col-4 col-sm-auto">
+            <Tag Color="Color.Secondary">@Localizer["Tag2"]</Tag>
+        </div>
+        <div class="col-4 col-sm-auto">
+            <Tag Color="Color.Success">@Localizer["Tag3"]</Tag>
+        </div>
+        <div class="col-4 col-sm-auto">
+            <Tag Color="Color.Danger">@Localizer["Tag4"]</Tag>
+        </div>
+        <div class="col-4 col-sm-auto">
+            <Tag Color="Color.Warning">@Localizer["Tag5"]</Tag>
+        </div>
+        <div class="col-4 col-sm-auto">
+            <Tag Color="Color.Info">@Localizer["Tag6"]</Tag>
+        </div>
+        <div class="col-4 col-sm-auto">
+            <Tag Color="Color.Dark">@Localizer["Tag7"]</Tag>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TagsCloseButtonTitle"]"
            Introduction="@Localizer["TagsCloseButtonIntro"]"
-           Name="CloseButton"
-           Demo="typeof(Demos.Tags.TagsCloseButton)">
+           Name="CloseButton">
+    <div class="row g-3">
+        <div class="col-4 col-sm-auto">
+            <Tag Color="Color.Primary" ShowDismiss="true" OnDismiss="@DismissClick">@Localizer["Tag1"]</Tag>
+        </div>
+        <div class="col-4 col-sm-auto">
+            <Tag Color="Color.Secondary" ShowDismiss="true" OnDismiss="@DismissClick">@Localizer["Tag2"]</Tag>
+        </div>
+        <div class="col-4 col-sm-auto">
+            <Tag Color="Color.Success" ShowDismiss="true" OnDismiss="@DismissClick">@Localizer["Tag3"]</Tag>
+        </div>
+        <div class="col-4 col-sm-auto">
+            <Tag Color="Color.Danger" ShowDismiss="true" OnDismiss="@DismissClick">@Localizer["Tag4"]</Tag>
+        </div>
+        <div class="col-4 col-sm-auto">
+            <Tag Color="Color.Warning" ShowDismiss="true" OnDismiss="@DismissClick">@Localizer["Tag5"]</Tag>
+        </div>
+        <div class="col-4 col-sm-auto">
+            <Tag Color="Color.Info" ShowDismiss="true" OnDismiss="@DismissClick">@Localizer["Tag6"]</Tag>
+        </div>
+        <div class="col-4 col-sm-auto">
+            <Tag Color="Color.Dark" ShowDismiss="true" OnDismiss="@DismissClick">@Localizer["Tag7"]</Tag>
+        </div>
+    </div>
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TagsIconTitle"]"
            Introduction="@Localizer["TagsIconIntro"]"
-           Name="Icon"
-           Demo="typeof(Demos.Tags.TagsIcon)">
+           Name="Icon">
+    <div class="row g-3">
+        <div class="col-4 col-sm-auto">
+            <Tag Icon="fa-fw fa-solid fa-circle-check" Color="Color.Success">@Localizer["Tag1"]</Tag>
+        </div>
+        <div class="col-4 col-sm-auto">
+            <Tag Icon="fa-fw fa-solid fa-triangle-exclamation" Color="Color.Warning">@Localizer["Tag2"]</Tag>
+        </div>
+        <div class="col-4 col-sm-auto">
+            <Tag Icon="fa-fw fa-solid fa-circle-question" Color="Color.Info">@Localizer["Tag3"]</Tag>
+        </div>
+        <div class="col-4 col-sm-auto">
+            <Tag Icon="fa-fw fa-solid fa-circle-xmark" Color="Color.Danger">@Localizer["Tag4"]</Tag>
+        </div>
+        <div class="col-4 col-sm-auto">
+            <Tag Icon="fa-fw fa-solid fa-angle-left" Color="Color.Primary">@Localizer["Tag5"]</Tag>
+        </div>
+        <div class="col-4 col-sm-auto">
+            <Tag Icon="fa-fw fa-solid fa-user" Color="Color.Dark">@Localizer["Tag6"]</Tag>
+        </div>
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
