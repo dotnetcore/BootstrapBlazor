@@ -24,7 +24,7 @@ public sealed partial class Tags
     /// <returns></returns>
     private IEnumerable<EventItem> GetEvents() => new EventItem[]
     {
-        new EventItem()
+        new()
         {
             Name = "OnDismiss",
             Description = Localizer["TagsOnDismiss"],
@@ -39,35 +39,40 @@ public sealed partial class Tags
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         // TODO: 移动到数据库中
-        new AttributeItem() {
+        new()
+        {
             Name = "ChildContent",
             Description = Localizer["TagsChildContent"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Class",
             Description = Localizer["TagsClass"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Color",
             Description = Localizer["TagsColor"],
             Type = "Color",
             ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
             DefaultValue = "Primary"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Icon",
             Description = Localizer["TagsIcon"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ShowDismiss",
             Description = Localizer["TagsShowDismiss"],
             Type = "boolean",
