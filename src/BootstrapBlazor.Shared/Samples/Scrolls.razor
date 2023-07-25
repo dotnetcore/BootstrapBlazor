@@ -7,6 +7,13 @@
 
 <p>@((MarkupString)Localizer["ScrollTips"].Value)</p>
 
-<DemoBlock Title="@Localizer["ScrollNormalTitle"]" Introduction="@Localizer["ScrollNormalIntro"]" Name="Normal" Demo="typeof(Demos.Scroll.ScrollNormal)" />
+<DemoBlock Title="@Localizer["ScrollNormalTitle"]" Introduction="@Localizer["ScrollNormalIntro"]" Name="Normal">
+    <div>
+        <Scroll class="scroll-demo" Height="200px">
+            <div style="height: 400px;">@Localizer["ScrollNormalDescription"]</div>
+            <div>@Localizer["ScrollNormalBottom"]</div>
+        </Scroll>
+    </div>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
