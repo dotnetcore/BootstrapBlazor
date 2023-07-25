@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.ComponentModel;
+
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
@@ -9,6 +11,24 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Toggles
 {
+    [NotNull]
+    private ConsoleLogger? Logger { get; set; }
+
+    private bool BindValue { get; set; } = true;
+
+    private Foo Model { get; set; } = new Foo();
+
+    private void OnValueChanged(bool val)
+    {
+        BindValue = val;
+        Logger.Log($"Toggle CurrentValue: {val}");
+    }
+
+    private class Foo
+    {
+        [DisplayName("绑定标签")]
+        public bool BindValue { get; set; }
+    }
     /// <summary>
     /// 获得事件方法
     /// </summary>
