@@ -117,8 +117,8 @@
   "BootstrapBlazor.Shared.Samples.Tooltips": {
     "TooltipsTitle": "Tooltip 提示工具条",
     "TooltipsDescription": "提供鼠标悬停或者获得焦点后显示提示框",
-    "TooltipsNomalTitle": "基础用法",
-    "TooltipsNomalIntro": "常用于展示鼠标 hover 时的提示信息",
+    "TooltipsNormalTitle": "基础用法",
+    "TooltipsNormalIntro": "常用于展示鼠标 hover 时的提示信息",
     "TooltipsButtonTitle": "Button 组件提示框",
     "TooltipsButtonIntro": "提供鼠标悬停或者获得焦点后显示提示框",
     "BootstrapTooltipTitle": "测试组件",

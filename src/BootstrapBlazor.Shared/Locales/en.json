@@ -117,8 +117,8 @@
   "BootstrapBlazor.Shared.Samples.Tooltips": {
     "TooltipsTitle": "Tooltip",
     "TooltipsDescription": "Provides a tooltip after hovering over the mouse or gaining focus",
-    "TooltipsNomalTitle": "Basic usage",
-    "TooltipsNomalIntro": "Often used to display the prompt information when the mouse hovers",
+    "TooltipsNormalTitle": "Basic usage",
+    "TooltipsNormalIntro": "Often used to display the prompt information when the mouse hovers",
     "TooltipsButtonTitle": "Button component tooltip",
     "TooltipsButtonIntro": "Provides a tooltip after hovering over the mouse or gaining focus",
     "BootstrapTooltipTitle": "test component",
