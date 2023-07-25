@@ -55,8 +55,6 @@ public sealed partial class DateTimePickers
 
     private bool IsDisabled { get; set; } = true;
 
-
-
     private DateTime? BindValue { get; set; } = DateTime.Today;
 
     private string BindValueString

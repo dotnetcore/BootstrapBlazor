@@ -3902,15 +3902,8 @@
     "ValidateFormTitle": "表单中使用",
     "ValidateFormIntro": "将组件内置到 <code>ValidateForm</code> 中使用",
     "AutoCloseTitle": "自动关闭",
-    "AutoCloseIntro": "点击侧边栏快捷方式自动关闭弹窗"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimeRange.DateTimeRangeValidateForm": {
-    "Submit": "提交"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimeRange.DateTimeRangeMaxMinValue": {
-    "Limit": "时间范围"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimeRange.DateTimeRangeBindValue": {
+    "AutoCloseIntro": "点击侧边栏快捷方式自动关闭弹窗",
+    "Submit": "提交",
     "Limit": "时间范围"
   },
   "BootstrapBlazor.Shared.Samples.Ips": {

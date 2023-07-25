@@ -3889,15 +3889,8 @@
     "ValidateFormTitle": "Used in the form",
     "ValidateFormIntro": "Build components into <code>ValidateForm</code> used in",
     "AutoCloseTitle": "AutoClose",
-    "AutoCloseIntro": "Click on the sidebar shortcuts to Close the pop-up automatically"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimeRange.DateTimeRangeValidateForm": {
-    "Submit": "Submit"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimeRange.DateTimeRangeMaxMinValue": {
-    "Limit": "time limit"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimeRange.DateTimeRangeBindValue": {
+    "AutoCloseIntro": "Click on the sidebar shortcuts to Close the pop-up automatically",
+    "Submit": "Submit",
     "Limit": "time limit"
   },
   "BootstrapBlazor.Shared.Samples.Ips": {

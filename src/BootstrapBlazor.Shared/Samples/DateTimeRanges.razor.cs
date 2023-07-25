@@ -9,6 +9,112 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class DateTimeRanges
 {
+    [NotNull]
+    private ConsoleLogger? NormalLogger { get; set; }
+
+    private DateTimeRangeValue NormalDateTimeRangeValue { get; set; } = new();
+
+    private Task NormalOnConfirm(DateTimeRangeValue value)
+    {
+        NormalLogger.Log($"选择的时间范围是: {value.Start:yyyy-MM-dd} - {value.End:yyyy-MM-dd}");
+        return Task.CompletedTask;
+    }
+
+    private DateTimeRangeValue BindValueDemoDateTimeRangeValue { get; set; } = new();
+
+    private string? BindValueDemoRange;
+
+    private Task BindValueDemoOnValueChanged(DateTimeRangeValue val, int index)
+    {
+        var ret = "";
+        if (val.Start != DateTime.MinValue)
+        {
+            ret = val.Start.ToString("yyyy-MM-dd");
+        }
+        if (val.End != DateTime.MinValue)
+        {
+            ret = $"{ret} - {val.End:yyyy-MM-dd}";
+        }
+        if (index == 1)
+        {
+            BindValueDemoRange = ret;
+        }
+        return Task.CompletedTask;
+    }
+
+    private DateTimeRangeValue MaxMinDateTimeRangeValue { get; set; } = new()
+    {
+        Start = DateTime.Today,
+        End = DateTime.Today.AddDays(3)
+    };
+
+    private string? MaxMinRange;
+
+    private Task MaxMinOnValueChanged(DateTimeRangeValue val, int index)
+    {
+        var ret = "";
+        if (val.Start != DateTime.MinValue)
+        {
+            ret = val.Start.ToString("yyyy-MM-dd");
+        }
+        if (val.End != DateTime.MinValue)
+        {
+            ret = $"{ret} - {val.End:yyyy-MM-dd}";
+        }
+        if (index != 1)
+        {
+            MaxMinRange = ret;
+        }
+        return Task.CompletedTask;
+    }
+
+    private bool IsDisabled { get; set; } = true;
+
+    private DateTimeRangeValue DisabledDateTimeRangeValue { get; set; } = new();
+
+    private DateTimeRangeValue SidebarDateTimeRangeValue { get; set; } = new();
+
+    private DateTimeRangeValue TodayDateTimeRangeValue { get; set; } = new();
+
+    [NotNull]
+    private ValidateFormRangeFoo? ValidateFormModel { get; set; }
+
+    private RowType ValidateFormRowType { get; set; }
+
+    private string? ValidateFormClassString => CssBuilder.Default("row g-3")
+        .AddClass("form-inline", ValidateFormRowType == RowType.Inline)
+        .Build();
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        ValidateFormModel = new ValidateFormRangeFoo()
+        {
+            DateTime = DateTime.Now,
+            Range = new DateTimeRangeValue()
+            {
+                Start = DateTime.Today.AddMonths(-1),
+                End = DateTime.Today
+            }
+        };
+    }
+
+    /// <summary>
+    /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
+    /// Foo class is used for Demo test, please download the source code if necessary
+    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Shared/Data/Foo.cs
+    /// </summary>
+    private class ValidateFormRangeFoo : Foo
+    {
+        [Required(ErrorMessage = "{0}不可为空")]
+        [Display(Name = "时间范围")]
+        public DateTimeRangeValue Range { get; set; } = new();
+    }
+
+    private DateTimeRangeValue AutoCloseDateTimeRangeValue { get; set; } = new();
+
     /// <summary>
     /// 获得事件方法
     /// </summary>
