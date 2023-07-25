@@ -94,7 +94,7 @@ public sealed partial class Tabs
     private IEnumerable<MenuItem> GetSideMenuItems()
     {
         return new List<MenuItem>
-{
+        {
             new MenuItem() { Text = Localizer["BackText1"]  },
             new MenuItem() { Text = Localizer["BackText2"] }
         };
