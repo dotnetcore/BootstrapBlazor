@@ -885,9 +885,7 @@
     "NormalTips5": "used in this example <code>Toast</code> component for notification, and any other built-in message component or custom component can be used for notification operation in actual combat",
     "DispatchTitle": "Practical application",
     "DispatchIntro": "Click the button to distribute the message, all people who open this page can receive the message distributed by this button",
-    "DispatchTip": "Since this function is a site-wide push notification, in order to prevent malicious use, in the example below, the button notification is disabled for <b>30</b> seconds; the message injection code is in the <code>MainLayout</code> template"
-  },
-  "BootstrapBlazor.Shared.Demos.Dispatch.DispatchNormal": {
+    "DispatchTip": "Since this function is a site-wide push notification, in order to prevent malicious use, in the example below, the button notification is disabled for <b>30</b> seconds; the message injection code is in the <code>MainLayout</code> template",
     "DispatchNoticeButtonText": "Notice",
     "DispatchNoticeMessage": "Test dispatch message"
   },

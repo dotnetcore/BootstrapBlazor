@@ -885,9 +885,7 @@
     "NormalTips5": "本例中使用 <code>Toast</code> 组件进行通知，实战中可以使用其他任意内置消息组件或者自定义组件进行通知提示操作",
     "DispatchTitle": "实战应用",
     "DispatchIntro": "点击按钮进行消息分发，所有打开此页面的人均能收到此按钮分发的消息",
-    "DispatchTip": "由于本功能为全站推送通知，为防止恶意使用，下例中按钮通知后禁用 <b>30</b> 秒；消息注入代码在 <code>MainLayout</code> 模板中，注意订阅与分发的泛型对象要一致"
-  },
-  "BootstrapBlazor.Shared.Demos.Dispatch.DispatchNormal": {
+    "DispatchTip": "由于本功能为全站推送通知，为防止恶意使用，下例中按钮通知后禁用 <b>30</b> 秒；消息注入代码在 <code>MainLayout</code> 模板中，注意订阅与分发的泛型对象要一致",
     "DispatchNoticeButtonText": "通知",
     "DispatchNoticeMessage": "测试通知消息"
   },
