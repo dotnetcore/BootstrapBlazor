@@ -93,42 +93,47 @@ public sealed partial class DateTimePickers
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new()
+        {
             Name = "ShowLabel",
             Description = Localizer["Att1"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ShowSidebar",
             Description = Localizer["Att2"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "DisplayText",
             Description = Localizer["Att3"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Format",
             Description = Localizer["Att4"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "yyyy-MM-dd"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "IsShown",
             Description = Localizer["Att5"],
             Type = "boolean",
             ValueList = "",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "IsDisabled",
             Description = Localizer["Att6"],
@@ -136,21 +141,23 @@ public sealed partial class DateTimePickers
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Value",
             Description = Localizer["Att8"],
             Type = "TValue",
             ValueList = "DateTime | DateTime?",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ViewMode",
             Description = Localizer["Att9"],
             Type = "DatePickerViewMode",
             ValueList = " Date / DateTime / Year / Month",
             DefaultValue = "Date"
         },
-        new AttributeItem() {
+        new() {
             Name = "AutoClose",
             Description = Localizer["AttrAutoClose"],
             Type = "bool",

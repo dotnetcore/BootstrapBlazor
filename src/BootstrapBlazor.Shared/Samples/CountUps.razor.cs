@@ -30,14 +30,16 @@ public partial class CountUps
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new()
+        {
             Name = "Value",
             Description = Localizer["Value"],
             Type = "TValue",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "OnCompleted",
             Description = Localizer["OnCompleted"],
             Type = "Func<Task>",
