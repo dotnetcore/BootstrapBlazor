@@ -15,30 +15,30 @@
     <Timeline Items="TimelineItems" IsReverse="@IsReverse"></Timeline>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["TimelinesCutomNodeStyleTitle"]"
-           Introduction="@Localizer["TimelinesCutomNodeStyleIntro"]"
-           Name="CutomNodeStyle">
+<DemoBlock Title="@Localizer["TimelinesCustomNodeStyleTitle"]"
+           Introduction="@Localizer["TimelinesCustomNodeStyleIntro"]"
+           Name="CustomStyle">
     <Timeline Items="CustomerTimelineItems" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TimelinesLeftTitle"]"
            Introduction="@Localizer["TimelinesLeftIntro"]"
-           Name="Left">
+           Name="IsLeft">
     <p class="mb-3">@((MarkupString)Localizer["TimelinesLeftDescription"].Value)</p>
     <Timeline Items="AlternateTimelineItems" IsLeft="true" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TimelinesAlternateTitle"]"
            Introduction="@Localizer["TimelinesAlternateIntro"]"
-           Name="Alternate">
+           Name="IsAlternate">
     <p class="mb-3">@((MarkupString)Localizer["TimelinesAlternateDescription"].Value)</p>
     <Timeline Items="AlternateTimelineItems" IsAlternate="true" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["TimelinesDispalyCustomComponentTitle"]"
-           Introduction="@Localizer["TimelinesDispalyCustomComponentIntro"]"
-           Name="DispalyCustomComponent">
-    <p class="mb-3">@((MarkupString)Localizer["TimelinesDispalyCustomComponentDescription"].Value)</p>
+<DemoBlock Title="@Localizer["TimelinesDisplayCustomComponentTitle"]"
+           Introduction="@Localizer["TimelinesDisplayCustomComponentIntro"]"
+           Name="CustomComponent">
+    <p class="mb-3">@((MarkupString)Localizer["TimelinesDisplayCustomComponentDescription"].Value)</p>
     <Timeline Items="GetCustomerComponentTimelineItems()" />
 </DemoBlock>
 
