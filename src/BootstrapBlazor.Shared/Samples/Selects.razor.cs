@@ -9,6 +9,32 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Selects
 {
+    [NotNull]
+    private List<Foo>? Items { get; set; }
+
+    private SelectedItem? VirtualItem { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Items = Foo.GenerateFoo(LocalizerFoo);
+    }
+
+    private async Task<QueryData<SelectedItem>> OnQueryData(int startIndex, int length)
+    {
+        await Task.Delay(200);
+
+        return new QueryData<SelectedItem>
+        {
+            Items = Items.Skip(startIndex).Take(length).Select(i => new SelectedItem(i.Name!, i.Name!)),
+            TotalCount = 80
+        };
+    }
+
     /// <summary>
     /// 获得事件方法
     /// </summary>

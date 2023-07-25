@@ -1,6 +1,7 @@
 ﻿@page "/selects"
 @inject DialogService Dialog
 @inject IStringLocalizer<Selects> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
 
 <h3>@Localizer["SelectsTitle"]</h3>
 
@@ -11,6 +12,14 @@
            Name="Normal"
            Demo="typeof(Demos.Selects.SelectsNormal)">
     <p>@((MarkupString)Localizer["SelectsNormalDescription"].Value)</p>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SelectsNormalTitle"]"
+           Introduction="@Localizer["SelectsNormalIntro"]"
+           Name="IsVirtualize">
+    <p>@((MarkupString)Localizer["SelectsNormalDescription"].Value)</p>
+    <Select IsVirtualize="true" OnQueryData="OnQueryData" @bind-Value="VirtualItem"></Select>
+    <div>@VirtualItem?.Text</div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsDisableTitle"]"
