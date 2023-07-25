@@ -221,6 +221,8 @@ public partial class Select<TValue> : ISelect
     /// </summary>
     private int TotalCount { get; set; }
 
+    private IEnumerable<SelectedItem>? VirtualItems { get; set; }
+
     /// <summary>
     /// 虚拟滚动数据加载回调方法
     /// </summary>
@@ -235,11 +237,12 @@ public partial class Select<TValue> : ISelect
         }
 
         StartIndex = request.StartIndex;
-        var count = TotalCount == 0 ? request.Count : Math.Min(request.Count, TotalCount - request.StartIndex);
+        var count = TotalCount == 0 ? request.Count : Math.Min(request.Count, TotalCount - StartIndex);
         var data = await OnQueryData(StartIndex, count);
+
         TotalCount = data.TotalCount;
-        var items = data.Items ?? Enumerable.Empty<SelectedItem>();
-        return new ItemsProviderResult<SelectedItem>(items, TotalCount);
+        VirtualItems = data.Items ?? Enumerable.Empty<SelectedItem>();
+        return new ItemsProviderResult<SelectedItem>(VirtualItems, TotalCount);
     }
 
     /// <summary>
@@ -275,6 +278,10 @@ public partial class Select<TValue> : ISelect
         {
             DataSource.AddRange(Items);
             DataSource.AddRange(Children);
+            if (VirtualItems != null)
+            {
+                DataSource.AddRange(VirtualItems);
+            }
 
             SelectedItem = DataSource.FirstOrDefault(i => i.Value.Equals(CurrentValueAsString, StringComparison))
                 ?? DataSource.FirstOrDefault(i => i.Active)

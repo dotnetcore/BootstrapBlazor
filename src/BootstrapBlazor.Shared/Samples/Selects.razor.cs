@@ -14,7 +14,9 @@ public sealed partial class Selects
 
     private IEnumerable<SelectedItem> VirtualItems => Items.Select(i => new SelectedItem(i.Name!, i.Name!)).ToList();
 
-    private SelectedItem? VirtualItem { get; set; }
+    private SelectedItem? VirtualItem1 { get; set; }
+
+    private SelectedItem? VirtualItem2 { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
