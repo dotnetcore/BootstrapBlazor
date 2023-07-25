@@ -2075,7 +2075,7 @@
     "TabsAddTabItemTitle": "自定义增加标签页触发器",
     "TabsAddTabItemIntro": "通过调用组件 api 动态添加/删除 <code>TabItem</code>",
     "AddButtonText": "添加",
-    "RmoveButtonText": "移除",
+    "RemoveButtonText": "移除",
     "ActiveButtonText": "激活第一个",
     "TabsComponentTitle": "内置其他组件",
     "TabsComponentIntro": "<code>TabItem</code> 中内置其他组件",

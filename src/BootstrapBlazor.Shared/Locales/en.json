@@ -2071,7 +2071,7 @@
     "TabsAddTabItemTitle": "Custom add tab triggers",
     "TabsAddTabItemIntro": "Dynamically add/remove <code>TabItem</code> by calling the component api",
     "AddButtonText": "Add",
-    "RmoveButtonText": "Rmove",
+    "RemoveButtonText": "Rmove",
     "ActiveButtonText": "Activate the first one",
     "TabsComponentTitle": "Additional components are built in",
     "TabsComponentIntro": "other components are built into the <code>TabItem</code>",
