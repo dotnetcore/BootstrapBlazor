@@ -34,7 +34,7 @@ public partial class TextAreas
 
     private bool IsRunMock { get; set; }
 
-    private string ChatLocalizerName => IsRunMock ? "TextAreasMockChatStop" : "TextAreasMockChatRun";
+    private string ChatLocalizerName => IsRunMock ? "TextAreaMockChatStop" : "TextAreaMockChatRun";
 
     /// <summary>
     /// <inheritdoc/>
@@ -45,7 +45,7 @@ public partial class TextAreas
 
         for (int i = 0; i < Index; i++)
         {
-            ChatText += $"{((i % 2 == 0) ? "A" : "B")} : {Localizer["TextAreasMockChat"]}{i}{Environment.NewLine}";
+            ChatText += $"{((i % 2 == 0) ? "A" : "B")} : {Localizer["TextAreaMockChat"]}{i}{Environment.NewLine}";
         }
     }
 
