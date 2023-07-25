@@ -3299,9 +3299,9 @@
     "DisplayName": "Binding label"
   },
   "BootstrapBlazor.Shared.Samples.Transfers": {
-    "LeftPannelText": "The list on the left",
+    "LeftPanelText": "The list on the left",
     "LeftButtonText": "To the left",
-    "RightPannelText": "The list on the right",
+    "RightPanelText": "The list on the right",
     "RightButtonText": "To the Right",
     "PlaceHolder": "Please enter",
     "TransfersTitle": "Transfer",
@@ -3333,8 +3333,8 @@
     "RightPanelTextAttr": "The right panel Header displays text",
     "RightPanelTextDefaultValue": "List 2",
     "ShowSearch": "The right panel Header displays text ...",
-    "LeftPannelSearchPlaceHolderString": "The search box placeholder string in the left panel",
-    "RightPannelSearchPlaceHolderString": "The search box placeholder string in the right panel",
+    "LeftPanelSearchPlaceHolderString": "The search box placeholder string in the left panel",
+    "RightPanelSearchPlaceHolderString": "The search box placeholder string in the right panel",
     "IsDisabled": "Whether to disable it",
     "OnSelectedItemsChanged": "The callback method when the component binding data item collection options change",
     "OnSetItemClass": "Set the Item style callback method",
