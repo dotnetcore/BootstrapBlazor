@@ -821,54 +821,24 @@
     "EmailInput": "请输入 ...",
     "HeaderToolbarTemplateTitle": "标题栏自定义按钮",
     "HeaderToolbarTemplateIntro": "通过设置 <code>HeaderToolbarTemplate</code> 自定义 <code>Header</code> 中工具栏按钮",
-    "KeyboardTip": "通过设置 <code>DialogOption</code> <code>IsKeyboard</code> 参数，开启弹窗是否支持 <kbd>ESC</kbd>，请点击后面按钮设置后再点击 <b>弹窗</b> 按钮测试效果"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogKeyboard": {
-    "KeyboardOpenDialogButton": "点击打开弹窗"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogCustomerHeader": {
-    "CustomerHeaderOpenDialogButton": "弹窗"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogHeaderToolbarTemplate": {
+    "KeyboardTip": "通过设置 <code>DialogOption</code> <code>IsKeyboard</code> 参数，开启弹窗是否支持 <kbd>ESC</kbd>，请点击后面按钮设置后再点击 <b>弹窗</b> 按钮测试效果",
+    "KeyboardOpenDialogButton": "点击打开弹窗",
+    "CustomerHeaderOpenDialogButton": "弹窗",
     "HeaderToolbarTemplateButtonText": "打印",
     "HeaderToolbarTemplateDialogTitle": "自定义工具栏示例",
-    "HeaderToolbarTemplateToastContent": "打印按钮被点击，可以处理自己的业务逻辑"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogComponent": {
-    "ComponentOpenDialogButton": "点击打开 Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogBodyContext": {
-    "BodyContextOpenDialogButton": "Dialog 传参示例"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogApply": {
+    "HeaderToolbarTemplateToastContent": "打印按钮被点击，可以处理自己的业务逻辑",
+    "ComponentOpenDialogButton": "点击打开 Dialog",
+    "BodyContextOpenDialogButton": "Dialog 传参示例",
     "ApplyDisplayText": "主键参数",
-    "ApplyOpenDialogButton": "弹窗"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogMultipleDialog": {
-    "MultipleDialogButton": "弹窗"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogModalDialog": {
-    "ModalDialogButton": "点击打开 Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogEditDialog": {
-    "EditDialogButton": "编辑弹窗"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogSearchDialog": {
-    "SearchDialogButton": "搜索弹窗"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogSaveDialog": {
-    "SaveDialogButton": "保存弹窗"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogSize": {
-    "SizeButton": "全屏弹窗(&lt; 1200px)"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogPrintDialog": {
-    "PrintDialogButton": "点击打开 Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogShowMaximizeButton": {
-    "ShowMaximizeButton": "点击打开 Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogErrorLogger": {
+    "ApplyOpenDialogButton": "弹窗",
+    "MultipleDialogButton": "弹窗",
+    "ModalDialogButton": "点击打开 Dialog",
+    "EditDialogButton": "编辑弹窗",
+    "SearchDialogButton": "搜索弹窗",
+    "SaveDialogButton": "保存弹窗",
+    "SizeButton": "全屏弹窗(&lt; 1200px)",
+    "PrintDialogButton": "点击打开 Dialog",
+    "ShowMaximizeButton": "点击打开 Dialog",
     "ErrorLoggerButton": "全局异常测试"
   },
   "BootstrapBlazor.Shared.Samples.Dispatches": {

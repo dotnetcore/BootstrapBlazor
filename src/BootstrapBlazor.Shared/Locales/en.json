@@ -821,54 +821,24 @@
     "EmailInput": "please enter ...",
     "HeaderToolbarTemplateTitle": "Header Toolbar Template",
     "HeaderToolbarTemplateIntro": "Set <code>HeaderToolbarTemplate</code> custom the buttons on <code>Header</code>",
-    "KeyboardTip": "by setting <code>DialogOption</code> <code>IsKeyboard</code> parameter, whether the pop-up window supports <kbd>ESC</kbd>, please click the back button to set and then click the <b>pop-up window</b> button to test the effect"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogKeyboard": {
-    "KeyboardOpenDialogButton": "Click to open Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogCustomerHeader": {
-    "CustomerHeaderOpenDialogButton": "Pop-ups"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogHeaderToolbarTemplate": {
+    "KeyboardTip": "by setting <code>DialogOption</code> <code>IsKeyboard</code> parameter, whether the pop-up window supports <kbd>ESC</kbd>, please click the back button to set and then click the <b>pop-up window</b> button to test the effect",
+    "KeyboardOpenDialogButton": "Click to open Dialog",
+    "CustomerHeaderOpenDialogButton": "Pop-ups",
     "HeaderToolbarTemplateButtonText": "Print",
     "HeaderToolbarTemplateDialogTitle": "Custom toolbar sample",
-    "HeaderToolbarTemplateToastContent": "Print button clicked"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogComponent": {
-    "ComponentOpenDialogButton": "Click to open Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogBodyContext": {
-    "BodyContextOpenDialogButton": "Dialog parameter passing example"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogApply": {
+    "HeaderToolbarTemplateToastContent": "Print button clicked",
+    "ComponentOpenDialogButton": "Click to open Dialog",
+    "BodyContextOpenDialogButton": "Dialog parameter passing example",
     "ApplyDisplayText": "Primary key parameter",
-    "ApplyOpenDialogButton": "Pop-ups"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogMultipleDialog": {
-    "MultipleDialogButton": "Pop-ups"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogModalDialog": {
-    "ModalDialogButton": "Click to open Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogEditDialog": {
-    "EditDialogButton": "Edit popup"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogSearchDialog": {
-    "SearchDialogButton": "Search popup"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogSaveDialog": {
-    "SaveDialogButton": "Save popup"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogSize": {
-    "SizeButton": "Fullscreen popup (&lt; 1200px)"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogPrintDialog": {
-    "PrintDialogButton": "Click to open Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogShowMaximizeButton": {
-    "ShowMaximizeButton": "Click to open Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogErrorLogger": {
+    "ApplyOpenDialogButton": "Pop-ups",
+    "MultipleDialogButton": "Pop-ups",
+    "ModalDialogButton": "Click to open Dialog",
+    "EditDialogButton": "Edit popup",
+    "SearchDialogButton": "Search popup",
+    "SaveDialogButton": "Save popup",
+    "SizeButton": "Fullscreen popup (&lt; 1200px)",
+    "PrintDialogButton": "Click to open Dialog",
+    "ShowMaximizeButton": "Click to open Dialog",
     "ErrorLoggerButton": "global exception test"
   },
   "BootstrapBlazor.Shared.Samples.Dispatches": {
