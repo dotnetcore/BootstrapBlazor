@@ -1,5 +1,6 @@
 ﻿@page "/textareas"
 @inject IStringLocalizer<Textareas> Localizer
+@implements IDisposable
 
 <h3>@Localizer["TextareasTitle"]</h3>
 
@@ -7,42 +8,60 @@
 
 <DemoBlock Title="@Localizer["TextareasNormalTitle"]"
            Introduction="@Localizer["TextareasNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Textareas.TextareasNormal)">
-    <label class="form-label">@Localizer["TextareasLabel"]</label>
+           Name="Normal">
+    <label class="form-label mb-3">@Localizer["TextareasLabel"]</label>
+    <Textarea placeholder="@Localizer["TextareasPlaceHolder"]" rows="4" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TextareasDisableTitle"]"
            Introduction="@Localizer["TextareasDisableIntro"]"
-           Name="Disable"
-           Demo="typeof(Demos.Textareas.TextareasDisable)">
-    <label class="form-label">@Localizer["TextareasLabel"]</label>
+           Name="Disable">
+    <label class="form-label mb-3">@Localizer["TextareasLabel"]</label>
+    <Textarea placeholder="@Localizer["TextareasPlaceHolder"]" rows="4" IsDisabled="true" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TextareasReadonlyTitle"]"
            Introduction="@Localizer["TextareasReadonlyIntro"]"
-           Name="Readonly"
-           Demo="typeof(Demos.Textareas.TextareasReadonly)">
-    <label class="form-label">@Localizer["TextareasLabel"]</label>
+           Name="Readonly">
+    <label class="form-label mb-3">@Localizer["TextareasLabel"]</label>
+<Textarea placeholder="@Localizer["TextareasPlaceHolder"]" rows="4" readonly />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TextareasHeightTitle"]"
            Introduction="@Localizer["TextareasHeightIntro"]"
-           Name="Height"
-           Demo="typeof(Demos.Textareas.TextareasHeight)">
-    <label class="form-label">@Localizer["TextareasLabel"]</label>
+           Name="Height">
+    <label class="form-label mb-3">@Localizer["TextareasLabel"]</label>
+
+<Textarea placeholder="@Localizer["TextareasPlaceHolder"]" rows="4" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TextareasBindWayTitle"]"
            Introduction="@Localizer["TextareasBindWayIntro"]"
-           Name="BindToWay"
-           Demo="typeof(Demos.Textareas.TextareasBindToWay)">
+           Name="BindToWay">
+    <div class="row g-3">
+        <div class="col-12">
+            <label class="form-label">@Localizer["TextareasLabel"]</label>
+            <Textarea placeholder="@Localizer["TextareasPlaceHolder"]" rows="4" @bind-Value="@Text"></Textarea>
+        </div>
+        <div class="col-12">
+            <label class="form-label">@Localizer["TextareasBindWayBindValue"]</label>
+            <div class="form-control textarea-demo">@Text</div>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TextareasScrollTitle"]"
            Introduction="@Localizer["TextareasScrollIntro"]"
-           Name="Scroll"
-           Demo="typeof(Demos.Textareas.TextareasScroll)">
+           Name="Scroll">
+    <Textarea class="mb-3" placeholder="@Localizer["TextareasPlaceHolder"]" rows="10" @ref="TextareaElement" @bind-Value="@ChatText" IsAutoScroll="IsAutoScroll" />
+
+    <BootstrapInputGroup>
+        <Button Text="@Localizer[ChatLocalizerName]" OnClick="MockChat" Icon="fa-fw fas fa-comments" />
+        <Button Text="@Localizer["TextareasScrollToTop"]" OnClick="ScrollToTop" />
+        <Button Text="@Localizer["TextareasScrollToBottom"]" OnClick="ScrollToBottom" />
+        <Button Text="@Localizer["TextareasScrollTo"]" OnClick="ScrollTo20" />
+        <Button Text="@($"{Localizer["TextareasAutoScroll"]}{(IsAutoScroll ? " On":" Off")}" )" OnClick="SwitchAutoScroll" />
+    </BootstrapInputGroup>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
