@@ -6,37 +6,86 @@
 
 <DemoBlock Title="@Localizer["TooltipsNomalTitle"]"
            Introduction="@Localizer["TooltipsNomalIntro"]"
-           Name="Nomal"
-           Demo="typeof(Demos.Tooltips.TooltipsNomal)">
+           Name="Nomal">
+    <div class="d-flex flex-column w-100 tooltip-demo">
+        <div class="d-flex justify-content-center">
+            <Tooltip Placement="Placement.Bottom" Title="Tootip">
+                <BootstrapInput Value="@BottomString" aria-label="@BottomString" />
+            </Tooltip>
+        </div>
+        <div class="d-flex justify-content-between align-items-center flex-fill">
+            <Tooltip Placement="Placement.Right" Title="Tootip">
+                <BootstrapInput Value="@RightString" aria-label="@RightString" />
+            </Tooltip>
+            <Tooltip Placement="Placement.Left" Title="Tootip">
+                <BootstrapInput Value="@LeftString" aria-label="@LeftString" />
+            </Tooltip>
+        </div>
+        <div class="d-flex justify-content-center">
+            <Tooltip Placement="Placement.Top" Title="Tootip">
+                <BootstrapInput Value="@TopString" aria-label="@TopString" />
+            </Tooltip>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TooltipsButtonTitle"]"
            Introduction="@Localizer["TooltipsButtonIntro"]"
-           Name="Button"
-           Demo="typeof(Demos.Tooltips.TooltipsButton)">
+           Name="Button">
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3">
+            <Tooltip Placement="Placement.Top" Title="Tootip" Trigger="click">
+                <Button Text="@TopString" />
+            </Tooltip>
+        </div>
+        <div class="col-6 col-sm-4 col-md-3">
+            <Tooltip Placement="Placement.Left" Title="Tootip" Trigger="click">
+                <Button Text="@LeftString" />
+            </Tooltip>
+        </div>
+        <div class="col-6 col-sm-4 col-md-3">
+            <Tooltip Placement="Placement.Bottom" Title="Tootip" Trigger="click">
+                <Button Text="@BottomString" />
+            </Tooltip>
+        </div>
+        <div class="col-6 col-sm-4 col-md-3">
+            <Tooltip Placement="Placement.Right" Title="Tootip" Trigger="click">
+                <Button Text="@RightString" />
+            </Tooltip>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BootstrapTooltipTitle"]"
            Introduction="@Localizer["BootstrapTooltipIntro"]"
-           Name="BootstrapTooltip"
-           Demo="typeof(Demos.Tooltips.BootstrapTooltip )">
+           Name="BootstrapTooltip">
     <p>@((MarkupString)Localizer["BootstrapTooltipTips1"].Value)</p>
     <p>@((MarkupString)Localizer["BootstrapTooltipTips2"].Value)</p>
     <Pre class="mb-3">&lt;BootstrapTooltip Title="Test tooltip"&gt;
     &lt;i class="fa-solid fa-flag" /&gt;
 &lt;/BootstrapTooltip&gt;</Pre>
+    <Tooltip Title="Test tooltip">
+        <i class="fa-solid fa-flag" />
+    </Tooltip>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TooltipsSelectorTitle"]"
            Introduction="@Localizer["TooltipsSelectorIntro"]"
-           Name="Selector"
-           Demo="typeof(Demos.Tooltips.TooltipsSelector)">
+           Name="Selector">
+    <Tooltip Title="@HtmlString" IsHtml="true" Sanitize="false" Selector=".tooltip-selector">
+        <div>
+            <i class="fa-solid fa-flag" />
+            <span class="tooltip-selector ms-2">This is Tooltip</span>
+        </div>
+    </Tooltip>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TooltipsCustomClassTitle"]"
            Introduction="@Localizer["TooltipsCustomClassIntro"]"
-           Name="CustomClass"
-           Demo="typeof(Demos.Tooltips.TooltipsCustomClass)">
+           Name="CustomClass">
+    <Tooltip Title="Test tooltip" CustomClass="is-invalid">
+        <i class="fa-solid fa-flag" />
+    </Tooltip>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
