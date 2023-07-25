@@ -3299,9 +3299,9 @@
     "DisplayName": "Binding label"
   },
   "BootstrapBlazor.Shared.Samples.Transfers": {
-    "LeftPannelText": "The list on the left",
+    "LeftPanelText": "The list on the left",
     "LeftButtonText": "To the left",
-    "RightPannelText": "The list on the right",
+    "RightPanelText": "The list on the right",
     "RightButtonText": "To the Right",
     "PlaceHolder": "Please enter",
     "TransfersTitle": "Transfer",

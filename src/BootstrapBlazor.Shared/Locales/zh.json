@@ -3309,9 +3309,9 @@
     "DisplayName": "绑定标签"
   },
   "BootstrapBlazor.Shared.Samples.Transfers": {
-    "LeftPannelText": "左侧列表",
+    "LeftPanelText": "左侧列表",
     "LeftButtonText": "到左边",
-    "RightPannelText": "右侧列表",
+    "RightPanelText": "右侧列表",
     "RightButtonText": "到右边",
     "PlaceHolder": "请输入",
     "TransfersTitle": "Transfer 穿梭框",
