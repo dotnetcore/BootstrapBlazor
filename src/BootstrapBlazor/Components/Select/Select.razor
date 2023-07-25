@@ -1,4 +1,5 @@
 ﻿@namespace BootstrapBlazor.Components
+@using Microsoft.AspNetCore.Components.Web.Virtualization
 @typeparam TValue
 @inherits SingleSelectBase<TValue>
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
@@ -12,7 +13,8 @@
         @Options
     </CascadingValue>
     <RenderTemplate>
-        @{
+        @if (!IsVirtualize)
+        {
             ResetSelectedItem();
         }
         <div class="dropdown-toggle" data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" data-bs-offset="@OffsetString" data-bs-custom-class="@CustomClassString">
@@ -40,29 +42,37 @@
                     <i class="@SearchIconString"></i>
                 </div>
             }
-            @foreach (var itemGroup in DataSource.GroupBy(i => i.GroupName))
+            @if (IsVirtualize)
             {
-                if (!string.IsNullOrEmpty(itemGroup.Key))
-                {
-                    <Divider Text="@itemGroup.Key" />
-                }
-                @foreach (var item in itemGroup)
-                {
-                    <div class="@ActiveItem(item)" @onclick="@(e => OnClickItem(item))">
-                        @if (ItemTemplate != null)
-                        {
-                            @ItemTemplate(item)
-                        }
-                        else
-                        {
-                            @item.Text
-                        }
-                    </div>
-                }
+                <Virtualize @ref="Element" ItemSize="RowHeight" OverscanCount="OverscanCount" ItemsProvider="LoadItems" Placeholder="RenderPlaceHolderRow" ItemContent="RenderRow" Context="item">
+                </Virtualize>
             }
-            @if (!DataSource.Any())
+            else
             {
-                <div class="dropdown-item">@NoSearchDataText</div>
+                @foreach (var itemGroup in DataSource.GroupBy(i => i.GroupName))
+                {
+                    if (!string.IsNullOrEmpty(itemGroup.Key))
+                    {
+                        <Divider Text="@itemGroup.Key" />
+                    }
+                    @foreach (var item in itemGroup)
+                    {
+                        <div class="@ActiveItem(item)" @onclick="@(e => OnClickItem(item))">
+                            @if (ItemTemplate != null)
+                            {
+                                @ItemTemplate(item)
+                            }
+                            else
+                            {
+                                @item.Text
+                            }
+                        </div>
+                    }
+                }
+                @if (!DataSource.Any())
+                {
+                    <div class="dropdown-item">@NoSearchDataText</div>
+                }
             }
         </div>
         @if (!IsPopover)
@@ -71,3 +81,22 @@
         }
     </RenderTemplate>
 </div>
+
+@code {
+    RenderFragment<SelectedItem> RenderRow => item =>
+    @<div class="@ActiveItem(item)" @onclick="() => OnClickItem(item)">
+        @if (ItemTemplate != null)
+        {
+            @ItemTemplate(item)
+        }
+        else
+        {
+            @item.Text
+        }
+    </div>;
+
+    RenderFragment<PlaceholderContext> RenderPlaceHolderRow => context =>
+    @<div class="dropdown-item">
+        <div class="is-ph"></div>
+    </div>;
+}

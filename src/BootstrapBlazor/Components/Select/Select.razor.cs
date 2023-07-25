@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -130,6 +131,29 @@ public partial class Select<TValue> : ISelect
     [Parameter]
     public RenderFragment<SelectedItem?>? DisplayTemplate { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否开启虚拟滚动 默认 false 未开启
+    /// </summary>
+    [Parameter]
+    public bool IsVirtualize { get; set; }
+
+    /// <summary>
+    /// 获得/设置 虚拟滚动行高 默认为 33
+    /// </summary>
+    /// <remarks>需要设置 <see cref="IsVirtualize"/> 值为 true 时生效</remarks>
+    [Parameter]
+    public float RowHeight { get; set; } = 33f;
+
+    /// <summary>
+    /// 获得/设置 过载阈值数 默认为 4
+    /// </summary>
+    /// <remarks>需要设置 <see cref="IsVirtualize"/> 值为 true 时生效</remarks>
+    [Parameter]
+    public int OverscanCount { get; set; } = 4;
+
+    [NotNull]
+    private Virtualize<SelectedItem>? Element { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Select<TValue>>? Localizer { get; set; }
@@ -146,6 +170,21 @@ public partial class Select<TValue> : ISelect
     private string? InputId => $"{Id}_input";
 
     private string _lastSelectedValueString = string.Empty;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender && IsVirtualize)
+        {
+            await Element.RefreshDataAsync();
+            StateHasChanged();
+        }
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -167,6 +206,37 @@ public partial class Select<TValue> : ISelect
             var item = NullableUnderlyingType == null ? "" : PlaceHolder;
             Items = ValueType.ToSelectList(string.IsNullOrEmpty(item) ? null : new SelectedItem("", item));
         }
+    }
+
+    /// <summary>
+    /// 获得/设置 当前行
+    /// </summary>
+    private int StartIndex { get; set; }
+
+    /// <summary>
+    /// 获得/设置 数据总条目
+    /// </summary>
+    private int TotalCount { get; set; }
+
+    /// <summary>
+    /// 虚拟滚动数据加载回调方法
+    /// </summary>
+    [Parameter]
+    public Func<int, int, Task<QueryData<SelectedItem>>>? OnQueryData { get; set; }
+
+    private async ValueTask<ItemsProviderResult<SelectedItem>> LoadItems(ItemsProviderRequest request)
+    {
+        if (OnQueryData == null)
+        {
+            throw new InvalidOperationException("the parameter OnQueryData must be assign a value");
+        }
+
+        StartIndex = request.StartIndex;
+        var count = TotalCount == 0 ? request.Count : Math.Min(request.Count, TotalCount - request.StartIndex);
+        var data = await OnQueryData(StartIndex, count);
+        TotalCount = data.TotalCount;
+        var items = data.Items ?? Enumerable.Empty<SelectedItem>();
+        return new ItemsProviderResult<SelectedItem>(items, TotalCount);
     }
 
     /// <summary>
