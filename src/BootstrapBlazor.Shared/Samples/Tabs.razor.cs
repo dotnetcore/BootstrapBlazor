@@ -9,6 +9,162 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Tabs
 {
+
+    [NotNull]
+    private Tab? TabSet { get; set; }
+
+    private Placement BindPlacement = Placement.Top;
+
+    private bool RemoveEndable => (TabSet?.Items.Count() ?? 4) < 4;
+
+    [NotNull]
+    private Menu? TabMenu { get; set; }
+
+    [NotNull]
+    private Tab? TabSetMenu { get; set; }
+
+    [NotNull]
+    private Tab? TabSetApp { get; set; }
+
+    private bool ShowButtons { get; set; } = true;
+
+    [NotNull]
+    private Tab? TabSetTemplate { get; set; }
+
+    private string TabItemText { get; set; } = "Test";
+
+    private void SetPlacement(Placement placement)
+    {
+        BindPlacement = placement;
+    }
+
+    private Task AddTab(Tab tabset)
+    {
+        var text = $"Tab {tabset.Items.Count() + 1}";
+        tabset.AddTab(new Dictionary<string, object?>
+        {
+            [nameof(TabItem.Text)] = text,
+            [nameof(TabItem.IsActive)] = true,
+            [nameof(TabItem.ChildContent)] = new RenderFragment(builder =>
+            {
+                var index = 0;
+                builder.OpenElement(index++, "div");
+                builder.AddContent(index++, Localizer["BackAddTabText", text]);
+                builder.CloseElement();
+            })
+        });
+        return Task.CompletedTask;
+    }
+
+    private static Task Active(Tab tabset)
+    {
+        tabset.ActiveTab(0);
+        return Task.CompletedTask;
+    }
+
+    private static async Task RemoveTab(Tab tabset)
+    {
+        if (tabset.Items.Count() > 4)
+        {
+            var item = tabset.Items.Last();
+            await tabset.RemoveTab(item);
+        }
+    }
+
+    /// <summary>
+    /// OnAfterRenderAsync
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var menuItem = TabMenu?.Items.FirstOrDefault();
+            if (menuItem != null)
+            {
+                await InvokeAsync(() =>
+                {
+                    var _ = TabMenu?.OnClick?.Invoke(menuItem);
+                });
+            }
+        }
+    }
+
+    private IEnumerable<MenuItem> GetSideMenuItems()
+    {
+        return new List<MenuItem>
+{
+            new MenuItem() { Text = Localizer["BackText1"]  },
+            new MenuItem() { Text = Localizer["BackText2"] }
+        };
+    }
+
+    private Task OnClickMenuItem(MenuItem item)
+    {
+        var text = item.Text;
+        var tabItem = TabSetMenu.Items.FirstOrDefault(i => i.Text == text);
+        if (tabItem == null) AddTabItem(text ?? "");
+        else TabSetMenu.ActiveTab(tabItem);
+        return Task.CompletedTask;
+    }
+
+    private void AddTabItem(string text) => TabSetMenu.AddTab(new Dictionary<string, object?>
+    {
+        [nameof(TabItem.Text)] = text,
+        [nameof(TabItem.IsActive)] = true,
+        [nameof(TabItem.ChildContent)] = text == Localizer["BackText1"] ? BootstrapDynamicComponent.CreateComponent<Counter>().Render() : BootstrapDynamicComponent.CreateComponent<FetchData>().Render()
+    });
+
+    private void OnClick()
+    {
+        ShowButtons = !ShowButtons;
+    }
+
+    private async Task RemoveTab()
+    {
+        if (TabSetApp.Items.Count() > 4)
+        {
+            var item = TabSet.Items.Last();
+            await TabSet.RemoveTab(item);
+        }
+    }
+
+    private Task AddTab()
+    {
+        var text = $"Tab {TabSetApp.Items.Count() + 1}";
+        TabSet.AddTab(new Dictionary<string, object?>
+        {
+            [nameof(TabItem.Text)] = text,
+            [nameof(TabItem.IsActive)] = true,
+            [nameof(TabItem.ChildContent)] = new RenderFragment(builder =>
+            {
+                var index = 0;
+                builder.OpenElement(index++, "div");
+                builder.AddContent(index++, Localizer["BackAddTabText", text]);
+                builder.CloseElement();
+            })
+        });
+        return Task.CompletedTask;
+    }
+
+    private static string? GetClassString(TabItem tabItem) => CssBuilder.Default("tabs-item")
+        .AddClass("active", tabItem.IsActive)
+        .Build();
+
+    private async Task OnClickTabItem(TabItem tabItem)
+    {
+        TabSetTemplate.ActiveTab(tabItem);
+        await ToastService.Information("Click TabItem", $"{tabItem.Text} clicked");
+    }
+
+    private Task OnSetTitle(string text)
+    {
+        TabItemText = text;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
     /// <summary>
     /// 获得属性方法
     /// </summary>
