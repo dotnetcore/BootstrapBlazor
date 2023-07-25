@@ -25,6 +25,6 @@ public partial class ContextMenus
     /// </summary>
     protected override void OnInitialized()
     {
-        Items = Foo.GenerateFoo(Localizer);
+        Items = Foo.GenerateFoo(LocalizerFoo);
     }
 }
