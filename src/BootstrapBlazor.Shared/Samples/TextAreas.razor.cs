@@ -5,9 +5,9 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// Textareas
+/// TextAreas
 /// </summary>
-public partial class Textareas
+public partial class TextAreas
 {
     [NotNull]
     private Textarea? TextareaElement { get; set; }
@@ -34,7 +34,7 @@ public partial class Textareas
 
     private bool IsRunMock { get; set; }
 
-    private string ChatLocalizerName => IsRunMock ? "TextareasMockChatStop" : "TextareasMockChatRun";
+    private string ChatLocalizerName => IsRunMock ? "TextAreasMockChatStop" : "TextAreasMockChatRun";
 
     /// <summary>
     /// <inheritdoc/>
@@ -45,7 +45,7 @@ public partial class Textareas
 
         for (int i = 0; i < Index; i++)
         {
-            ChatText += $"{((i % 2 == 0) ? "A" : "B")} : {Localizer["TextareasMockChat"]}{i}{Environment.NewLine}";
+            ChatText += $"{((i % 2 == 0) ? "A" : "B")} : {Localizer["TextAreasMockChat"]}{i}{Environment.NewLine}";
         }
     }
 
@@ -70,7 +70,7 @@ public partial class Textareas
                 CancelTokenSource ??= new();
                 while (CancelTokenSource != null && !CancelTokenSource.IsCancellationRequested)
                 {
-                    ChatText += $"{((Index % 2 == 0) ? "A" : "B")} : {Localizer["TextareasMockChat"]}{Index}{Environment.NewLine}";
+                    ChatText += $"{((Index % 2 == 0) ? "A" : "B")} : {Localizer["TextAreaMockChat"]}{Index}{Environment.NewLine}";
                     Index++;
                     await InvokeAsync(StateHasChanged);
 
@@ -112,55 +112,58 @@ public partial class Textareas
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new()
+        {
             Name = "ShowLabel",
-            Description = Localizer["TextareasShowLabel"],
+            Description = Localizer["TextAreaShowLabel"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "DisplayText",
-            Description = Localizer["TextareasDisplayText"],
+            Description = Localizer["TextAreaDisplayText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "IsDisabled",
-            Description = Localizer["TextareasIsDisabled"],
+            Description = Localizer["TextAreaIsDisabled"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ScrollToTop",
-            Description = Localizer["TextareasScrollToTop"],
+            Description = Localizer["TextAreaScrollToTop"],
             Type = "Task",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ScrollTo",
-            Description = Localizer["TextareasScrollTo"],
+            Description = Localizer["TextAreaScrollTo"],
             Type = "Task",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ScrollToBottom",
-            Description = Localizer["TextareasScrollToBottom"],
+            Description = Localizer["TextAreaScrollToBottom"],
             Type = "Task",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new AttributeItem(){
+        new()
+        {
             Name = nameof(BootstrapBlazor.Components.Textarea.IsAutoScroll),
-            Description = Localizer["TextareasAutoScroll"],
+            Description = Localizer["TextAreaAutoScroll"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
