@@ -38,7 +38,7 @@
 ::deep .code-label {
     font-weight: bold;
     color: #333;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
 }
 
 ::deep h4 {
