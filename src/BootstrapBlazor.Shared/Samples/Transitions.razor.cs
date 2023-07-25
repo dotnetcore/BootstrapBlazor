@@ -9,6 +9,52 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class Transitions
 {
+    [NotNull]
+    private ConsoleLogger? Logger { get; set; }
+
+    private bool TransitionEndShow { get; set; }
+
+    private bool Show { get; set; }
+
+    private bool FadeInShow { get; set; }
+
+    private void OnShow()
+    {
+        Show = true;
+    }
+
+    private Task OnShowEnd()
+    {
+        Show = false;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private void OnTransitionShow()
+    {
+        TransitionEndShow = true;
+    }
+
+    private Task OnTransitionEndShow()
+    {
+        TransitionEndShow = false;
+        Logger.Log("animation ends");
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private void OnFadeInShow()
+    {
+        FadeInShow = true;
+    }
+
+    private Task OnFadeInEndShow()
+    {
+        FadeInShow = false;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
     private static IEnumerable<AttributeItem> GetAttributes() => new[]
     {
         new AttributeItem() {

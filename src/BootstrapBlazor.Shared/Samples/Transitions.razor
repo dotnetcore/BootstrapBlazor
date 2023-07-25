@@ -6,20 +6,30 @@
 
 <DemoBlock Title="@Localizer["TransitionsNormalTitle"]"
            Introduction="@Localizer["TransitionsNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Transitions.TransitionsNormal)">
+           Name="Normal">
+    <Button Color="Color.Primary" OnClick="OnShow" Text="FadeOut" />
+    <Transition TransitionType="TransitionType.FadeOut" Show="Show" OnTransitionEnd="OnShowEnd">
+        <div class="my-3">FadeOut</div>
+    </Transition>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TransitionsEndCallbackTitle"]"
            Introduction="@Localizer["TransitionsEndCallbackIntro"]"
-           Name="EndCallback"
-           Demo="typeof(Demos.Transitions.TransitionsEndCallback)">
+           Name="EndCallback">
+    <Button Color="Color.Primary" OnClick="OnTransitionShow" Text="FadeOut"></Button>
+    <Transition TransitionType="TransitionType.FadeOut" Show="TransitionEndShow" OnTransitionEnd="OnTransitionEndShow">
+        <div class="my-3">FadeOut</div>
+    </Transition>
+    <ConsoleLogger @ref="Logger"></ConsoleLogger>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TransitionsDurationTitle"]"
            Introduction="@Localizer["TransitionsDurationIntro"]"
-           Name="Duration"
-           Demo="typeof(Demos.Transitions.TransitionsDuration)">
+           Name="Duration">
+    <Button Color="Color.Primary" OnClick="OnFadeInShow" Text="FadeIn"></Button>
+    <Transition TransitionType="TransitionType.FadeIn" Show="FadeInShow" Duration="3000" OnTransitionEnd="OnFadeInEndShow">
+        <div class="my-3">FadeIn</div>
+    </Transition>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
