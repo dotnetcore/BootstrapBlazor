@@ -3285,7 +3285,7 @@
     "TogglesBindToWayTitle": "双向绑定数据",
     "TogglesBindToWayIntro": "绑定组件内变量，数据自动同步",
     "BindToWayP1": "<code>Switch</code> 组件开启双向绑定时，会根据绑定的 <code>Model</code> 属性值去自动获取 <code>DisplayName</code> 标签值并且显示为前置 <code>Label</code>，通过 <code>DisplayText</code> 属性可以自定义显示前置标签，或者通过 <code>ShowLabel</code> 属性关闭前置标签是否显示",
-    "BindToWayDiaspalyText1": "双向绑定示例",
+    "BindToWayDisplayText1": "双向绑定示例",
     "BindToWayDiv": "绑定数值:",
     "CustomLabelText": "自定义标签",
     "BindToWayP2": "设置 <code>DisplayText</code> 值为 <b>自定义标签</b>",
