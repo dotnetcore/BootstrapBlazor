@@ -3275,7 +3275,7 @@
     "TogglesBindToWayTitle": "Bind data in both directions",
     "TogglesBindToWayIntro": "Binding variables within a component, data is automatically synchronized",
     "BindToWayP1": "when the <code>Switch</code> component turns on bidirectional binding, the <code>DisplayName</code> label value is automatically obtained based on the bound <code>Model</code> property value and appears as a <code>pre-Label</code>, which can be customized to display the pre-label through the <code>DispalyText</code> property, or through the <code>ShowLabel</code> property turns off the display of the prelabel",
-    "BindToWayDiaspalyText1": "An example of a two-way binding",
+    "BindToWayDisplayText1": "An example of a two-way binding",
     "BindToWayDiv": "The binding value:",
     "CustomLabelText": "Custom labels",
     "BindToWayP2": "Set the <code>DisplayText</code> value to <b>custom label </b>",

@@ -40,7 +40,7 @@
 
 <DemoBlock Title="@Localizer["TogglesDisableTitle"]"
            Introduction="@Localizer["TogglesDisableIntro"]"
-           Name="Disable">
+           Name="IsDisabled">
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
             <Toggle IsDisabled="true" Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Primary" />
@@ -71,11 +71,11 @@
 
 <DemoBlock Title="@Localizer["TogglesBindToWayTitle"]"
            Introduction="@Localizer["TogglesBindToWayIntro"]"
-           Name="BindToWay">
+           Name="BindValue">
     <p class="mb-3">@((MarkupString)Localizer["BindToWayP1"].Value)</p>
     <div class="row g-3">
         <div class="col-12">
-            <Toggle OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" @bind-Value="@Model.BindValue" DisplayText="@Localizer["BindToWayDiaspalyText1"]" />
+            <Toggle OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" @bind-Value="@Model.BindValue" DisplayText="@Localizer["BindToWayDisplayText1"]" />
         </div>
         <div class="col-12">
             <div>@Localizer["BindToWayDiv"] @Model.BindValue</div>
