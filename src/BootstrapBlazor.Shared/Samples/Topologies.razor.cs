@@ -11,11 +11,6 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class Topologies
 {
-    /// <summary>
-    /// 获得/设置 EChart DOM 元素实例
-    /// </summary>
-    private ElementReference Element { get; set; }
-
     private string? Content { get; set; }
 
     [NotNull]
@@ -81,14 +76,14 @@ public partial class Topologies
         await TopologyElement.PushData(data);
 
         // 数据订阅
-        DataService.OnDataChange = async datas => await TopologyElement.PushData(datas);
+        DataService.OnDataChange = data => TopologyElement.PushData(data);
     }
 
     /// <summary>
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new AttributeItem() {
             Name = nameof(Topology.Content),
