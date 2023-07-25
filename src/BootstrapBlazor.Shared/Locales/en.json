@@ -351,11 +351,11 @@
     "ProgresssDecimalsIntro": "Adjust the number of decimal places by setting the <code>Round</code> parameter, which defaults to <code>0</code>. Adjust the rounding mode by setting the <code>MidpointRounding</code >parameter, which defaults to <code>MidpointRounding. AwayFromZero</code> rounding"
   },
   "BootstrapBlazor.Shared.Samples.Responsives": {
-    "ResponsivesTitle": "Responsive breakpoint monitoring",
-    "ResponsivesDescription": "Determines whether to re-render the content of a responsive layout based on parameter conditions, usually used for responsive layouts",
-    "ResponsivesNormalTitle": "Basic usage",
-    "ResponsivesNormalIntro": "Resize the browser window and observe the change of <code>Breakpoint</code>",
-    "ResponsivesNormalIntroCurrentText": "current"
+    "ResponsiveTitle": "Responsive breakpoint monitoring",
+    "ResponsiveDescription": "Determines whether to re-render the content of a responsive layout based on parameter conditions, usually used for responsive layouts",
+    "ResponsiveNormalTitle": "Basic usage",
+    "ResponsiveNormalIntro": "Resize the browser window and observe the change of <code>Breakpoint</code>",
+    "ResponsiveNormalIntroCurrentText": "current"
   },
   "BootstrapBlazor.Shared.Samples.Modals": {
     "ModalsTitle": "Modal box",

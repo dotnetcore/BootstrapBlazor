@@ -9,9 +9,18 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class Responsives
 {
+    private BreakPoint Size { get; set; }
+
+    private Task OnChanged(BreakPoint size)
+    {
+        Size = size;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem()
+        new()
         {
             Name = nameof(Responsive.OnBreakPointChanged),
             Description = "Callback method when breakpoint threshold changes",

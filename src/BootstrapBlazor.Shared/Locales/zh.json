@@ -351,11 +351,11 @@
     "ProgresssDecimalsIntro": "通过设置 <code>Round</code> 参数调整保留小数点位数，默认为 <code>0</code>，通过设置 <code>MidpointRounding</code> 参数调整四舍五入模式，默认为 <code>MidpointRounding.AwayFromZero</code> 四舍五入"
   },
   "BootstrapBlazor.Shared.Samples.Responsives": {
-    "ResponsivesTitle": "Responsive 断点监听",
-    "ResponsivesDescription": "根据参数条件，确定是否重新渲染响应布局的内容，通常用于响应布局",
-    "ResponsivesNormalTitle": "基础用法",
-    "ResponsivesNormalIntro": "调整浏览器窗口大小，观察 <code>Breakpoint</code> 的变化",
-    "ResponsivesNormalIntroCurrentText": "当前"
+    "ResponsiveTitle": "Responsive 断点监听",
+    "ResponsiveDescription": "根据参数条件，确定是否重新渲染响应布局的内容，通常用于响应布局",
+    "ResponsiveNormalTitle": "基础用法",
+    "ResponsiveNormalIntro": "调整浏览器窗口大小，观察 <code>Breakpoint</code> 的变化",
+    "ResponsiveNormalIntroCurrentText": "当前"
   },
   "BootstrapBlazor.Shared.Samples.Modals": {
     "ModalsTitle": "Modal 模态框",
