@@ -47,10 +47,7 @@ public sealed partial class Drawers
 
     private bool IsShowBackdropOpen { get; set; }
 
-    private void OpenNoBackdropDrawer()
-    {
-        IsShowBackdropOpen = true;
-    }
+    private void OpenNoBackdropDrawer() => IsShowBackdropOpen = true;
 
     /// <summary>
     /// Get property method
@@ -58,49 +55,56 @@ public sealed partial class Drawers
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new()
+        {
             Name = "Width",
             Description = "drawer width",
             Type = "string",
             ValueList = " — ",
             DefaultValue = "360px"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Height",
             Description = "drawer height",
             Type = "string",
             ValueList = " — ",
             DefaultValue = "290px"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "IsOpen",
             Description = "Is the drawer open?",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "IsBackdrop",
             Description = "Whether click on the mask closes the drawer",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "OnClickBackdrop",
             Description = "Callback delegate method when background mask is clicked",
             Type = "Action",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Placement",
             Description = "Where the component appears",
             Type = "Placement",
             ValueList = "Left|Right|Top|Bottom",
             DefaultValue = "Left"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ChildContent",
             Description = "Subassembly",
             Type = "RenderFragment",
