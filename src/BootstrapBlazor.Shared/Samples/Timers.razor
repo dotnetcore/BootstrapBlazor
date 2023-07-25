@@ -6,14 +6,15 @@
 
 <DemoBlock Title="@Localizer["TimersNormalTitle"]"
            Introduction="@Localizer["TimersNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Timers.TimersNormal)">
+           Name="Normal">
+    <Timer OnTimeout="@OnTimeout" OnCancel="OnCancel" />
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TimersColorTitle"]"
            Introduction="@Localizer["TimersColorIntro"]"
-           Name="Color"
-           Demo="typeof(Demos.Timers.TimersColor)">
+           Name="Color">
+    <Timer Color="Color.Warning" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

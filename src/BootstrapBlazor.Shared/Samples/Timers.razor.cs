@@ -9,6 +9,21 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Timers
 {
+    [NotNull]
+    private ConsoleLogger? Logger { get; set; }
+
+    private Task OnTimeout()
+    {
+        Logger.Log("timer time up");
+        return Task.CompletedTask;
+    }
+
+    private Task OnCancel()
+    {
+        Logger.Log("timer canceled");
+        return Task.CompletedTask;
+    }
+
     private static IEnumerable<AttributeItem> GetAttributes()
     {
         return new AttributeItem[]
