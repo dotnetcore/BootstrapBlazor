@@ -147,28 +147,31 @@ public sealed partial class DateTimeRanges
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new()
+        {
             Name = "ShowLabel",
             Description = "Whether to show the pre-label",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ShowSidebar",
             Description = "Whether to show the shortcut sidebar",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ShowToday",
             Description = "Whether to show today shortcut button",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "IsDisabled",
             Description = "Whether to disable default is false",
@@ -176,15 +179,15 @@ public sealed partial class DateTimeRanges
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ShowSidebar",
-            Description = "Whether to display the shortcut sidebar The default is fasle",
+            Description = "Whether to display the shortcut sidebar The default is false",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "Placement",
             Description = "Set the popup location",
@@ -192,32 +195,36 @@ public sealed partial class DateTimeRanges
             ValueList = "top|bottom|left|right",
             DefaultValue = "auto"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "DisplayText",
             Description = "Pre-label display text",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "DateFormat",
             Description = "Date format string defaults to yyyy-MM-dd",
             Type = "string",
             ValueList = " — ",
             DefaultValue = "yyyy-MM-dd"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Value",
             Description = "Custom class containing start time end time",
             Type = "DateTimeRangeValue",
-            ValueList = "",
+            ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "SidebarItems",
             Description = "Sidebar shortcut options collection",
             Type = "IEnumerable<DateTimeRangeSidebarItem>",
-            ValueList = "",
+            ValueList = " — ",
             DefaultValue = " — "
         }
     };
