@@ -150,15 +150,15 @@ public sealed partial class Transfers : ComponentBase
             DefaultValue = "false"
         },
         new AttributeItem() {
-            Name = "LeftPannelSearchPlaceHolderString",
-            Description = Localizer["LeftPannelSearchPlaceHolderString"],
+            Name = "LeftPanelSearchPlaceHolderString",
+            Description = Localizer["LeftPanelSearchPlaceHolderString"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new AttributeItem() {
-            Name = "RightPannelSearchPlaceHolderString",
-            Description = Localizer["RightPannelSearchPlaceHolderString"],
+            Name = "RightPanelSearchPlaceHolderString",
+            Description = Localizer["RightPanelSearchPlaceHolderString"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
