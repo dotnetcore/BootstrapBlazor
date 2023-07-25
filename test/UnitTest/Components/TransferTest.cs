@@ -168,8 +168,8 @@ public class TransferTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowSearch, true);
             pb.Add(a => a.LeftButtonText, "LeftButtonText");
             pb.Add(a => a.RightButtonText, "RightButtonText");
-            pb.Add(a => a.LeftPannelSearchPlaceHolderString, "LeftPannelSearchPlaceHolderString");
-            pb.Add(a => a.RightPannelSearchPlaceHolderString, "RightPannelSearchPlaceHolderString");
+            pb.Add(a => a.LeftPanelSearchPlaceHolderString, "LeftPanelSearchPlaceHolderString");
+            pb.Add(a => a.RightPanelSearchPlaceHolderString, "RightPanelSearchPlaceHolderString");
         });
 
         // ShowSearch
@@ -177,8 +177,8 @@ public class TransferTest : BootstrapBlazorTestBase
 
         cut.Contains("LeftButtonText");
         cut.Contains("RightButtonText");
-        cut.Contains("LeftPannelSearchPlaceHolderString");
-        cut.Contains("RightPannelSearchPlaceHolderString");
+        cut.Contains("LeftPanelSearchPlaceHolderString");
+        cut.Contains("RightPanelSearchPlaceHolderString");
     }
 
     [Fact]
