@@ -179,10 +179,13 @@ public partial class Select<TValue> : ISelect
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (firstRender && IsVirtualize)
+        if (firstRender)
         {
-            await Element.RefreshDataAsync();
-            StateHasChanged();
+            if (IsVirtualize && !Items.Any())
+            {
+                await Element.RefreshDataAsync();
+                StateHasChanged();
+            }
         }
     }
 

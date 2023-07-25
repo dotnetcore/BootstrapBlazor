@@ -44,8 +44,15 @@
             }
             @if (IsVirtualize)
             {
-                <Virtualize @ref="Element" ItemSize="RowHeight" OverscanCount="OverscanCount" ItemsProvider="LoadItems" Placeholder="RenderPlaceHolderRow" ItemContent="RenderRow" Context="item">
-                </Virtualize>
+                if (Items.Any())
+                {
+                    <Virtualize @ref="Element" ItemSize="RowHeight" OverscanCount="OverscanCount" Items="@Items.ToList()" ChildContent="RenderRow" />
+                }
+                else
+                {
+                    <Virtualize @ref="Element" ItemSize="RowHeight" OverscanCount="OverscanCount" ItemsProvider="LoadItems" Placeholder="RenderPlaceHolderRow" ItemContent="RenderRow">
+                    </Virtualize>
+                }
             }
             else
             {
@@ -57,16 +64,7 @@
                     }
                     @foreach (var item in itemGroup)
                     {
-                        <div class="@ActiveItem(item)" @onclick="@(e => OnClickItem(item))">
-                            @if (ItemTemplate != null)
-                            {
-                                @ItemTemplate(item)
-                            }
-                            else
-                            {
-                                @item.Text
-                            }
-                        </div>
+                        @RenderRow(item)
                     }
                 }
                 @if (!DataSource.Any())
