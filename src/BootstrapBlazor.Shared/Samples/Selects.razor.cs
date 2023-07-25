@@ -12,6 +12,8 @@ public sealed partial class Selects
     [NotNull]
     private List<Foo>? Items { get; set; }
 
+    private IEnumerable<SelectedItem> VirtualItems => Items.Select(i => new SelectedItem(i.Name!, i.Name!)).ToList();
+
     private SelectedItem? VirtualItem { get; set; }
 
     /// <summary>

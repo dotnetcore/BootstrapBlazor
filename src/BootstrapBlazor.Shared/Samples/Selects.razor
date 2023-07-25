@@ -19,6 +19,7 @@
            Name="IsVirtualize">
     <p>@((MarkupString)Localizer["SelectsNormalDescription"].Value)</p>
     <Select IsVirtualize="true" OnQueryData="OnQueryData" @bind-Value="VirtualItem"></Select>
+    <Select IsVirtualize="true" Items="VirtualItems" @bind-Value="VirtualItem"></Select>
     <div>@VirtualItem?.Text</div>
 </DemoBlock>
 
