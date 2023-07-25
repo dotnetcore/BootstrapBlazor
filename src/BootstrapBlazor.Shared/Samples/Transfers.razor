@@ -5,52 +5,94 @@
 
 <DemoBlock Title="@Localizer["TransferNormalTitle"]"
            Introduction="@Localizer["TransferNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Transfers.TransferNormal)">
+           Name="Normal">
+    <Transfer TValue="string" Items="@Items" OnSelectedItemsChanged="@OnSelectedItemsChanged" />
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TransferCustomerTitle"]"
            Introduction="@Localizer["TransferCustomerIntro"]"
-           Name="Customer"
-           Demo="typeof(Demos.Transfers.TransferCustomer)">
+           Name="Customer">
+    <Transfer TValue="string"
+              Items="@Items1"
+              LeftPanelText="@Localizer["LeftPannelText"]" RightPanelText="@Localizer["RightPannelText"]"
+              LeftButtonText="@Localizer["LeftButtonText"]" RightButtonText="@Localizer["RightButtonText"]" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TransferSearchTitle"]"
            Introduction="@Localizer["TransferSearchIntro"]"
-           Name="Search"
-           Demo="typeof(Demos.Transfers.TransferSearch)">
+           Name="Search">
+    <Transfer TValue="string"
+              Items="@Items2"
+              LeftPanelText="@Localizer["LeftPannelText"]"
+              RightPanelText="@Localizer["RightPannelText"]"
+              LeftButtonText="@Localizer["LeftButtonText"]"
+              RightButtonText="@Localizer["RightButtonText"]"
+              LeftPannelSearchPlaceHolderString="@Localizer["PlaceHolder"]"
+              RightPannelSearchPlaceHolderString="@Localizer["PlaceHolder"]"
+              ShowSearch="true" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TransferBindTitle"]"
            Introduction="@Localizer["TransferBindIntro"]"
-           Name="Bind"
-           Demo="typeof(Demos.Transfers.TransferBind)">
-    <p>@((MarkupString)Localizer["TransferBindDescription"].Value)</p>
+           Name="Bind">
+    <p class="mb-3">@((MarkupString)Localizer["TransferBindDescription"].Value)</p>
+    <Transfer Items="@Items3" @bind-Value="@SelectedValue" />
+    <div class="my-3">Value：@string.Join(";", SelectedValue.Select(i => i.Text))</div>
+    <Button Text="@Localizer["BindToWayButtonText1"]" OnClick="@OnAddItem" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TransferValidateTitle"]"
            Introduction="@Localizer["TransferValidateIntro"]"
-           Name="Validate"
-           Demo="typeof(Demos.Transfers.TransferValidate)">
-    <p>@((MarkupString)Localizer["ClientValidationP1"].Value)</p>
+           Name="Validate">
+    <p class="mb-3">@((MarkupString)Localizer["ClientValidationP1"].Value)</p>
+    <ValidateForm Model="@Model">
+        <div class="row g-3">
+            <div class="col-12">
+                <Transfer Items="@Items5" @bind-Value="@Model.Hobby" />
+            </div>
+            <div class="col-12">
+                <Button ButtonType="ButtonType.Submit">@Localizer["ClientValidationButtonText"]</Button>
+            </div>
+        </div>
+    </ValidateForm>
+    <div class="mt-3">Hobby: @string.Join(",", Model.Hobby)</div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TransferMinMaxTitle"]"
            Introduction="@Localizer["TransferMinMaxIntro"]"
-           Name="MinMax"
-           Demo="typeof(Demos.Transfers.TransferMinMax)">
+           Name="MinMax">
+    <ValidateForm Model="@Model6">
+        <div class="row g-3">
+            <div class="col-12">
+                <Transfer Items="@Items6" @bind-Value="@Model6.Hobby" Min="2" Max="4" />
+            </div>
+            <div class="col-12">
+                <Button ButtonType="ButtonType.Submit">@Localizer["ClientValidationButtonText"]</Button>
+            </div>
+        </div>
+    </ValidateForm>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TransferDisableTitle"]"
            Introduction="@Localizer["TransferDisableIntro"]"
-           Name="Disable"
-           Demo="typeof(Demos.Transfers.TransferDisable)">
+           Name="Disable">
+    <Transfer TValue="string"
+              Items="@Items4"
+              IsDisabled="true"
+              LeftPanelText="@Localizer["LeftPannelText"]"
+              RightPanelText="@Localizer["RightPannelText"]"
+              LeftButtonText="@Localizer["LeftButtonText"]"
+              RightButtonText="@Localizer["RightButtonText"]"
+              LeftPannelSearchPlaceHolderString="@Localizer["PlaceHolder"]"
+              RightPannelSearchPlaceHolderString="@Localizer["PlaceHolder"]"
+              ShowSearch="true" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TransferItemClassTitle"]"
            Introduction="@Localizer["TransferItemClassIntro"]"
-           Name="ItemClass"
-           Demo="typeof(Demos.Transfers.TransferItemClass)">
+           Name="ItemClass">
+    <Transfer TValue="string" Items="@Items4" OnSetItemClass="SetItemClass" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
