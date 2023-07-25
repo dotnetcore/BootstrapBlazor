@@ -24,50 +24,47 @@ public sealed partial class Timers
         return Task.CompletedTask;
     }
 
-    private static IEnumerable<AttributeItem> GetAttributes()
+    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        return new AttributeItem[]
+        new()
         {
-            new AttributeItem()
-            {
-                Name = "Width",
-                Description = "Component width",
-                Type = "int",
-                ValueList = " — ",
-                DefaultValue = "300"
-            },
-            new AttributeItem()
-            {
-                Name = "StrokeWidth",
-                Description = "Progress bar width",
-                Type = "int",
-                ValueList = " — ",
-                DefaultValue = "6"
-            },
-            new AttributeItem()
-            {
-                Name = "IsVibrate",
-                Description = "Device vibrates when countdown ends",
-                Type = "bool",
-                ValueList = "true/false",
-                DefaultValue = "true"
-            },
-            new AttributeItem()
-            {
-                Name = "Value",
-                Description = "Countdown time",
-                Type = "Timespan",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem()
-            {
-                Name = "Color",
-                Description = "Progress bar color",
-                Type = "Color",
-                ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
-                DefaultValue = "Primary"
-            }
-        };
-    }
+            Name = "Width",
+            Description = "Component width",
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = "300"
+        },
+        new()
+        {
+            Name = "StrokeWidth",
+            Description = "Progress bar width",
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = "6"
+        },
+        new()
+        {
+            Name = "IsVibrate",
+            Description = "Device vibrates when countdown ends",
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = "Value",
+            Description = "Countdown time",
+            Type = "Timespan",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "Color",
+            Description = "Progress bar color",
+            Type = "Color",
+            ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
+            DefaultValue = "Primary"
+        }
+    };
 }
