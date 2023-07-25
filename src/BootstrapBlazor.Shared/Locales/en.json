@@ -867,21 +867,11 @@
     "PlacementTitle": "Click to close the mask",
     "PlacementIntro": "By setting the <code>IsBackdrop</code> property to <code>true</code>, the drawer is automatically closed when the mask part is clicked",
     "NoBackdropTitle": "No backdrop",
-    "NoBackdropIntro": "By setting the <code>ShowBackdrop=\"false\"</code> do not show the backdrop"
-  },
-  "BootstrapBlazor.Shared.Demos.Drawer.DrawerNormal": {
+    "NoBackdropIntro": "By setting the <code>ShowBackdrop=\"false\"</code> do not show the backdrop",
     "Open": "click me to open",
-    "Description": "The layout, components, etc. in the drawer are fully customizable",
-    "Close": "close the drawer"
-  },
-  "BootstrapBlazor.Shared.Demos.Drawer.DrawerPlacement": {
-    "Open": "click me to open",
+    "Content": "The layout, components, etc. in the drawer are fully customizable",
+    "Close": "close the drawer",
     "PlacementContent": "Click on the shaded part of the mask to automatically close the drawer"
-  },
-  "BootstrapBlazor.Shared.Demos.Drawer.DrawerNoBackdrop": {
-    "Open": "click me to open",
-    "Description": "The layout, components, etc. in the drawer are fully customizable",
-    "Close": "close the drawer"
   },
   "BootstrapBlazor.Shared.Samples.Consoles": {
     "Title": "Console",
