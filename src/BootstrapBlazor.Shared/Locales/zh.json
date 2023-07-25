@@ -172,7 +172,7 @@
     "ToastsHeaderTemplateIntro": "通过设置 <code>HeaderTemplate</code> 自定义标题栏内容",
     "ToastsAttrCategory": "Toast 类型",
     "ToastsAttrTitle": "Toast 标题",
-    "ToastsAttrCotent": "Toast 内容",
+    "ToastsAttrContent": "Toast 内容",
     "ToastsAttrDelay": "自动关闭时间",
     "ToastsAttrIsAutoHide": "是否自动关闭提示框",
     "ToastsAttrIsHtml": "内容是否包含 HTML",

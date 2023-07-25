@@ -150,8 +150,8 @@ public sealed partial class Toasts
             DefaultValue = ""
         },
         new AttributeItem() {
-            Name = "Cotent",
-            Description = Localizer["ToastsAttrCotent"],
+            Name = "Content",
+            Description = Localizer["ToastsAttrContent"],
             Type = "string",
             ValueList = "—",
             DefaultValue = ""

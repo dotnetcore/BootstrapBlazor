@@ -172,7 +172,7 @@
     "ToastsHeaderTemplateIntro": "set <code>HeaderTemplate</code> custom the header content",
     "ToastsAttrCategory": "Toast type",
     "ToastsAttrTitle": "Toast title",
-    "ToastsAttrCotent": "Toast content",
+    "ToastsAttrContent": "Toast content",
     "ToastsAttrDelay": "Auto hide interval",
     "ToastsAttrIsAutoHide": "Whether to automatically hide",
     "ToastsAttrIsHtml": "Whether the content contains Html code",
