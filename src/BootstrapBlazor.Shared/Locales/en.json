@@ -1357,11 +1357,9 @@
     "ScrollNormalTitle": "Common usage",
     "ScrollNormalIntro": "Add a scroll bar to the component. By setting the height of <code>Height</code> to 200px, the scroll bar appears when the height of the inner child element is 400px",
     "Desc1": "Subassembly",
-    "Desc2": "Component height"
-  },
-  "BootstrapBlazor.Shared.Demos.Scroll.ScrollNormal": {
+    "Desc2": "Component height",
     "ScrollNormalDescription": "Please scroll the scroll bar on the right",
-    "ScrollNormalbottom": "bottom"
+    "ScrollNormalBottom": "bottom"
   },
   "BootstrapBlazor.Shared.Samples.LayoutPages": {
     "H1": "full page level components",

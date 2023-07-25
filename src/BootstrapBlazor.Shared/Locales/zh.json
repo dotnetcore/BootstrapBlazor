@@ -1359,11 +1359,9 @@
     "ScrollNormalTitle": "普通用法",
     "ScrollNormalIntro": "给组件增加滚动条，通过设置 <code>Height</code> 高度值为 200px 使内部子元素高度为 400px 时出现滚动条",
     "Desc1": "子组件",
-    "Desc2": "组件高度"
-  },
-  "BootstrapBlazor.Shared.Demos.Scroll.ScrollNormal": {
+    "Desc2": "组件高度",
     "ScrollNormalDescription": "请滚动右侧滚动条",
-    "ScrollNormalbottom": "我是最底端"
+    "ScrollNormalBottom": "我是最底端"
   },
   "BootstrapBlazor.Shared.Samples.LayoutPages": {
     "H1": "整页面级别组件",
