@@ -821,54 +821,24 @@
     "EmailInput": "please enter ...",
     "HeaderToolbarTemplateTitle": "Header Toolbar Template",
     "HeaderToolbarTemplateIntro": "Set <code>HeaderToolbarTemplate</code> custom the buttons on <code>Header</code>",
-    "KeyboardTip": "by setting <code>DialogOption</code> <code>IsKeyboard</code> parameter, whether the pop-up window supports <kbd>ESC</kbd>, please click the back button to set and then click the <b>pop-up window</b> button to test the effect"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogKeyboard": {
-    "KeyboardOpenDialogButton": "Click to open Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogCustomerHeader": {
-    "CustomerHeaderOpenDialogButton": "Pop-ups"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogHeaderToolbarTemplate": {
+    "KeyboardTip": "by setting <code>DialogOption</code> <code>IsKeyboard</code> parameter, whether the pop-up window supports <kbd>ESC</kbd>, please click the back button to set and then click the <b>pop-up window</b> button to test the effect",
+    "KeyboardOpenDialogButton": "Click to open Dialog",
+    "CustomerHeaderOpenDialogButton": "Pop-ups",
     "HeaderToolbarTemplateButtonText": "Print",
     "HeaderToolbarTemplateDialogTitle": "Custom toolbar sample",
-    "HeaderToolbarTemplateToastContent": "Print button clicked"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogComponent": {
-    "ComponentOpenDialogButton": "Click to open Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogBodyContext": {
-    "BodyContextOpenDialogButton": "Dialog parameter passing example"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogApply": {
+    "HeaderToolbarTemplateToastContent": "Print button clicked",
+    "ComponentOpenDialogButton": "Click to open Dialog",
+    "BodyContextOpenDialogButton": "Dialog parameter passing example",
     "ApplyDisplayText": "Primary key parameter",
-    "ApplyOpenDialogButton": "Pop-ups"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogMultipleDialog": {
-    "MultipleDialogButton": "Pop-ups"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogModalDialog": {
-    "ModalDialogButton": "Click to open Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogEditDialog": {
-    "EditDialogButton": "Edit popup"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogSearchDialog": {
-    "SearchDialogButton": "Search popup"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogSaveDialog": {
-    "SaveDialogButton": "Save popup"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogSize": {
-    "SizeButton": "Fullscreen popup (&lt; 1200px)"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogPrintDialog": {
-    "PrintDialogButton": "Click to open Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogShowMaximizeButton": {
-    "ShowMaximizeButton": "Click to open Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogErrorLogger": {
+    "ApplyOpenDialogButton": "Pop-ups",
+    "MultipleDialogButton": "Pop-ups",
+    "ModalDialogButton": "Click to open Dialog",
+    "EditDialogButton": "Edit popup",
+    "SearchDialogButton": "Search popup",
+    "SaveDialogButton": "Save popup",
+    "SizeButton": "Fullscreen popup (&lt; 1200px)",
+    "PrintDialogButton": "Click to open Dialog",
+    "ShowMaximizeButton": "Click to open Dialog",
     "ErrorLoggerButton": "global exception test"
   },
   "BootstrapBlazor.Shared.Samples.Dispatches": {
@@ -885,9 +855,7 @@
     "NormalTips5": "used in this example <code>Toast</code> component for notification, and any other built-in message component or custom component can be used for notification operation in actual combat",
     "DispatchTitle": "Practical application",
     "DispatchIntro": "Click the button to distribute the message, all people who open this page can receive the message distributed by this button",
-    "DispatchTip": "Since this function is a site-wide push notification, in order to prevent malicious use, in the example below, the button notification is disabled for <b>30</b> seconds; the message injection code is in the <code>MainLayout</code> template"
-  },
-  "BootstrapBlazor.Shared.Demos.Dispatch.DispatchNormal": {
+    "DispatchTip": "Since this function is a site-wide push notification, in order to prevent malicious use, in the example below, the button notification is disabled for <b>30</b> seconds; the message injection code is in the <code>MainLayout</code> template",
     "DispatchNoticeButtonText": "Notice",
     "DispatchNoticeMessage": "Test dispatch message"
   },
@@ -2477,8 +2445,8 @@
     "ShowLabelIntro": "When you are a form component, the label in front of the component is displayed",
     "ShowLabelTip1": "Set the <code>DisplayText</code> property value to <code>select time</code>",
     "ShowLabelTip2": "The pre-label explicit rules are consistent with the <code>BootstrapInput</code> component  of the <a href='inputs'>[portal]</a>",
-    "DisalbedTitle": "Disable",
-    "DisalbedIntro": "When you set the <code>IsDisabled</code> property value to <code>true</code>, the component suppresses input",
+    "DisabledTitle": "Disable",
+    "DisabledIntro": "When you set the <code>IsDisabled</code> property value to <code>true</code>, the component suppresses input",
     "ShowSidebarTitle": "Sidebar with shortcuts",
     "ShowSidebarIntro": "When you set the <code>ShowSidebar</code> property value to <code>true</code>, the component displays the shortcut sidebar",
     "MinValueTitle": "Set the range of values",
@@ -2497,16 +2465,10 @@
     "Att9": "Get/Set Component display mode The default is the month-to-day display mode",
     "AttrAutoClose": "Whether auto close the popup window",
     "Event1": "Confirm that the button calls back the delegate",
-    "Event2": "Callback delegates are used for bidirectional binding when component values change"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerGroup": {
-    "BlockGroupPrevLabel": "Prev",
-    "BlockGroupSuffixLabel": "Suffix"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerShowLabel": {
-    "DisplayText": "Select the time"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerValidateDemo": {
+    "Event2": "Callback delegates are used for bidirectional binding when component values change",
+    "BlockGroupLabel": "Prev",
+    "BlockGroupSuffixLabel": "Suffix",
+    "DisplayText": "Select the time",
     "SubmitText": "Save",
     "Value": "Value",
     "Value.Required": "{0} is required."
@@ -3893,15 +3855,8 @@
     "ValidateFormTitle": "Used in the form",
     "ValidateFormIntro": "Build components into <code>ValidateForm</code> used in",
     "AutoCloseTitle": "AutoClose",
-    "AutoCloseIntro": "Click on the sidebar shortcuts to Close the pop-up automatically"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimeRange.DateTimeRangeValidateForm": {
-    "Submit": "Submit"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimeRange.DateTimeRangeMaxMinValue": {
-    "Limit": "time limit"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimeRange.DateTimeRangeBindValue": {
+    "AutoCloseIntro": "Click on the sidebar shortcuts to Close the pop-up automatically",
+    "Submit": "Submit",
     "Limit": "time limit"
   },
   "BootstrapBlazor.Shared.Samples.Ips": {

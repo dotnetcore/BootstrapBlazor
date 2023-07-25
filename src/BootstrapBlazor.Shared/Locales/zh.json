@@ -821,54 +821,24 @@
     "EmailInput": "请输入 ...",
     "HeaderToolbarTemplateTitle": "标题栏自定义按钮",
     "HeaderToolbarTemplateIntro": "通过设置 <code>HeaderToolbarTemplate</code> 自定义 <code>Header</code> 中工具栏按钮",
-    "KeyboardTip": "通过设置 <code>DialogOption</code> <code>IsKeyboard</code> 参数，开启弹窗是否支持 <kbd>ESC</kbd>，请点击后面按钮设置后再点击 <b>弹窗</b> 按钮测试效果"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogKeyboard": {
-    "KeyboardOpenDialogButton": "点击打开弹窗"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogCustomerHeader": {
-    "CustomerHeaderOpenDialogButton": "弹窗"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogHeaderToolbarTemplate": {
+    "KeyboardTip": "通过设置 <code>DialogOption</code> <code>IsKeyboard</code> 参数，开启弹窗是否支持 <kbd>ESC</kbd>，请点击后面按钮设置后再点击 <b>弹窗</b> 按钮测试效果",
+    "KeyboardOpenDialogButton": "点击打开弹窗",
+    "CustomerHeaderOpenDialogButton": "弹窗",
     "HeaderToolbarTemplateButtonText": "打印",
     "HeaderToolbarTemplateDialogTitle": "自定义工具栏示例",
-    "HeaderToolbarTemplateToastContent": "打印按钮被点击，可以处理自己的业务逻辑"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogComponent": {
-    "ComponentOpenDialogButton": "点击打开 Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogBodyContext": {
-    "BodyContextOpenDialogButton": "Dialog 传参示例"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogApply": {
+    "HeaderToolbarTemplateToastContent": "打印按钮被点击，可以处理自己的业务逻辑",
+    "ComponentOpenDialogButton": "点击打开 Dialog",
+    "BodyContextOpenDialogButton": "Dialog 传参示例",
     "ApplyDisplayText": "主键参数",
-    "ApplyOpenDialogButton": "弹窗"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogMultipleDialog": {
-    "MultipleDialogButton": "弹窗"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogModalDialog": {
-    "ModalDialogButton": "点击打开 Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogEditDialog": {
-    "EditDialogButton": "编辑弹窗"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogSearchDialog": {
-    "SearchDialogButton": "搜索弹窗"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogSaveDialog": {
-    "SaveDialogButton": "保存弹窗"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogSize": {
-    "SizeButton": "全屏弹窗(&lt; 1200px)"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogPrintDialog": {
-    "PrintDialogButton": "点击打开 Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogShowMaximizeButton": {
-    "ShowMaximizeButton": "点击打开 Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogErrorLogger": {
+    "ApplyOpenDialogButton": "弹窗",
+    "MultipleDialogButton": "弹窗",
+    "ModalDialogButton": "点击打开 Dialog",
+    "EditDialogButton": "编辑弹窗",
+    "SearchDialogButton": "搜索弹窗",
+    "SaveDialogButton": "保存弹窗",
+    "SizeButton": "全屏弹窗(&lt; 1200px)",
+    "PrintDialogButton": "点击打开 Dialog",
+    "ShowMaximizeButton": "点击打开 Dialog",
     "ErrorLoggerButton": "全局异常测试"
   },
   "BootstrapBlazor.Shared.Samples.Dispatches": {
@@ -885,9 +855,7 @@
     "NormalTips5": "本例中使用 <code>Toast</code> 组件进行通知，实战中可以使用其他任意内置消息组件或者自定义组件进行通知提示操作",
     "DispatchTitle": "实战应用",
     "DispatchIntro": "点击按钮进行消息分发，所有打开此页面的人均能收到此按钮分发的消息",
-    "DispatchTip": "由于本功能为全站推送通知，为防止恶意使用，下例中按钮通知后禁用 <b>30</b> 秒；消息注入代码在 <code>MainLayout</code> 模板中，注意订阅与分发的泛型对象要一致"
-  },
-  "BootstrapBlazor.Shared.Demos.Dispatch.DispatchNormal": {
+    "DispatchTip": "由于本功能为全站推送通知，为防止恶意使用，下例中按钮通知后禁用 <b>30</b> 秒；消息注入代码在 <code>MainLayout</code> 模板中，注意订阅与分发的泛型对象要一致",
     "DispatchNoticeButtonText": "通知",
     "DispatchNoticeMessage": "测试通知消息"
   },
@@ -2486,8 +2454,8 @@
     "ShowLabelIntro": "作为表单组件时，显示组件前方标签",
     "ShowLabelTip1": "设置 <code>DisplayText</code> 属性值为 <code>选择时间</code>",
     "ShowLabelTip2": "前置标签显式规则与 <code>BootstrapInput</code> 组件一致 <a href='inputs'>[传送门]</a>",
-    "DisalbedTitle": "禁用",
-    "DisalbedIntro": "设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入",
+    "DisabledTitle": "禁用",
+    "DisabledIntro": "设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入",
     "ShowSidebarTitle": "带快捷键侧边栏",
     "ShowSidebarIntro": "设置 <code>ShowSidebar</code> 属性值为 <code>true</code> 时，组件显示快捷方式侧边栏",
     "MinValueTitle": "设置值范围",
@@ -2506,16 +2474,10 @@
     "Att9": "获得/设置 组件显示模式 默认为显示年月日模式",
     "AttrAutoClose": "选中日期后是否自动关闭弹窗",
     "Event1": "确认按钮回调委托",
-    "Event2": "组件值改变时回调委托供双向绑定使用"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerGroup": {
-    "BlockGroupPrevLabel": "前置标签",
-    "BlockGroupSuffixLabel": "后置标签"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerShowLabel": {
-    "DisplayText": "选择时间"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerValidateDemo": {
+    "Event2": "组件值改变时回调委托供双向绑定使用",
+    "BlockGroupLabel": "前置标签",
+    "BlockGroupSuffixLabel": "后置标签",
+    "DisplayText": "选择时间",
     "SubmitText": "保存",
     "Value": "属性",
     "Value.Required": "{0}为必填项"
@@ -3906,15 +3868,8 @@
     "ValidateFormTitle": "表单中使用",
     "ValidateFormIntro": "将组件内置到 <code>ValidateForm</code> 中使用",
     "AutoCloseTitle": "自动关闭",
-    "AutoCloseIntro": "点击侧边栏快捷方式自动关闭弹窗"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimeRange.DateTimeRangeValidateForm": {
-    "Submit": "提交"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimeRange.DateTimeRangeMaxMinValue": {
-    "Limit": "时间范围"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimeRange.DateTimeRangeBindValue": {
+    "AutoCloseIntro": "点击侧边栏快捷方式自动关闭弹窗",
+    "Submit": "提交",
     "Limit": "时间范围"
   },
   "BootstrapBlazor.Shared.Samples.Ips": {

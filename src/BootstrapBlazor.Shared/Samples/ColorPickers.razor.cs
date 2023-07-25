@@ -30,7 +30,7 @@ public partial class ColorPickers
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem()
+        new()
         {
             Name = "OnValueChanged",
             Description = Localizer["Event1"],
