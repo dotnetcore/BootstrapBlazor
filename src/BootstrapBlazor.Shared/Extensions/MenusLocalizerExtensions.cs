@@ -946,7 +946,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Responsive"],
-                    Url = "responsives"
+                    Url = "responsive"
                 },
                 new()
                 {

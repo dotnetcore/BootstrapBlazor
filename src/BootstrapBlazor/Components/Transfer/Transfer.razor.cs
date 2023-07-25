@@ -106,7 +106,23 @@ public partial class Transfer<TValue>
     /// 获得/设置 左侧面板搜索框 placeholder 文字
     /// </summary>
     [Parameter]
+    [Obsolete("已过期，请使用 LeftPanelSearchPlaceHolderString 代替 Please use LeftPanelSearchPlaceHolderString")]
+    [ExcludeFromCodeCoverage]
+    public string? LeftPannelSearchPlaceHolderString { get => LeftPanelSearchPlaceHolderString; set => LeftPanelSearchPlaceHolderString = value; }
+
+    /// <summary>
+    /// 获得/设置 左侧面板搜索框 placeholder 文字
+    /// </summary>
+    [Parameter]
     public string? LeftPanelSearchPlaceHolderString { get; set; }
+
+    /// <summary>
+    /// 获得/设置 右侧面板搜索框 placeholder 文字
+    /// </summary>
+    [Parameter]
+    [Obsolete("已过期，请使用 RightPanelSearchPlaceHolderString 代替 Please use RightPanelSearchPlaceHolderString")]
+    [ExcludeFromCodeCoverage]
+    public string? RightPannelSearchPlaceHolderString { get => RightPanelSearchPlaceHolderString; set => RightPanelSearchPlaceHolderString = value; }
 
     /// <summary>
     /// 获得/设置 右侧面板搜索框 placeholder 文字
