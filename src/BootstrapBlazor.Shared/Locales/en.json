@@ -2499,16 +2499,10 @@
     "Att9": "Get/Set Component display mode The default is the month-to-day display mode",
     "AttrAutoClose": "Whether auto close the popup window",
     "Event1": "Confirm that the button calls back the delegate",
-    "Event2": "Callback delegates are used for bidirectional binding when component values change"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerGroup": {
+    "Event2": "Callback delegates are used for bidirectional binding when component values change",
     "BlockGroupPrevLabel": "Prev",
-    "BlockGroupSuffixLabel": "Suffix"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerShowLabel": {
-    "DisplayText": "Select the time"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerValidateDemo": {
+    "BlockGroupSuffixLabel": "Suffix",
+    "DisplayText": "Select the time",
     "SubmitText": "Save",
     "Value": "Value",
     "Value.Required": "{0} is required."

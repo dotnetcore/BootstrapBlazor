@@ -2508,16 +2508,10 @@
     "Att9": "获得/设置 组件显示模式 默认为显示年月日模式",
     "AttrAutoClose": "选中日期后是否自动关闭弹窗",
     "Event1": "确认按钮回调委托",
-    "Event2": "组件值改变时回调委托供双向绑定使用"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerGroup": {
+    "Event2": "组件值改变时回调委托供双向绑定使用",
     "BlockGroupPrevLabel": "前置标签",
-    "BlockGroupSuffixLabel": "后置标签"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerShowLabel": {
-    "DisplayText": "选择时间"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerValidateDemo": {
+    "BlockGroupSuffixLabel": "后置标签",
+    "DisplayText": "选择时间",
     "SubmitText": "保存",
     "Value": "属性",
     "Value.Required": "{0}为必填项"

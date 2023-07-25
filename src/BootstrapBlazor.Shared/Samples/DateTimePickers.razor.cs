@@ -9,6 +9,62 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class DateTimePickers
 {
+    [NotNull]
+    private ConsoleLogger? NormalLogger { get; set; }
+
+    private DateTime Value { get; set; } = DateTime.Today;
+
+    private Task NormalOnConfirm()
+    {
+        NormalLogger.Log($"Value: {Value:yyyy-MM-dd}");
+        return Task.CompletedTask;
+    }
+
+    [NotNull]
+    private ConsoleLogger? ValueChangedLogger { get; set; }
+
+    private TimeSpan ValueChangedValue { get; set; } = DateTime.Now - DateTime.Today;
+
+    private void ValueChangedOnConfirm()
+    {
+        ValueChangedLogger.Log($"Value: {ValueChangedValue:hh\\:mm\\:ss}");
+    }
+
+    /// <summary>
+    /// ModelValidateValue
+    /// </summary>
+    [Required]
+    public DateTime? ValidateFormValue { get; set; }
+
+    private DateTimeOffset? DateTimeOffsetValue { get; set; } = DateTimeOffset.Now;
+
+    private TimeSpan TimeValue { get; set; } = DateTime.Now - DateTime.Today;
+
+    private TimeSpan SpanValue { get; set; } = DateTime.Now.Subtract(DateTime.Today);
+
+    private static string FormatterSpanString(TimeSpan ts)
+    {
+        return ts.ToString("hh\\:mm\\:ss");
+    }
+
+    private DateTime? BindNullValue { get; set; }
+
+    private string GetNullValueString => BindNullValue.HasValue ? BindNullValue.Value.ToString("yyyy-MM-dd") : "";
+
+    private DateTime? ShowLabelValue { get; set; }
+
+    private bool IsDisabled { get; set; } = true;
+
+
+
+    private DateTime? BindValue { get; set; } = DateTime.Today;
+
+    private string BindValueString
+    {
+        get => BindValue.HasValue ? BindValue.Value.ToString("yyyy-MM-dd") : "";
+        set => BindValue = DateTime.TryParse(value, out var d) ? d : null;
+    }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePickers>? Localizer { get; set; }
