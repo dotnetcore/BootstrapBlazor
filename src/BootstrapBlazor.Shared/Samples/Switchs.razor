@@ -7,42 +7,116 @@
 
 <DemoBlock Title="@Localizer["SwitchsNormalTitle"]"
            Introduction="@Localizer["SwitchsNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Switchs.SwitchsNormal)">
-    <p>@Localizer["SwitchsNormalDescription"]</p>
+           Name="Normal">
+    <p class="mb-3">@Localizer["SwitchsNormalDescription"]</p>
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Switch ValueChanged="@OnValueChanged" Value="@BindValue" OnColor="Color.Secondary" OnText="@Localizer["SwitchsOnText"]" OffText="@Localizer["SwitchsOffText"]"></Switch>
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Switch Value="true" OnColor="Color.Success" OnText="@Localizer["SwitchsOnText"]" OffText="@Localizer["SwitchsOffText"]"></Switch>
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Switch Value="true" OnColor="Color.Danger" OnText="@Localizer["SwitchsOnText"]" OffText="@Localizer["SwitchsOffText"]"></Switch>
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Switch Value="true" OnColor="Color.Warning" OnText="@Localizer["SwitchsOnText"]" OffText="@Localizer["SwitchsOffText"]"></Switch>
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Switch Value="true" OnColor="Color.Info" OnText="@Localizer["SwitchsOnText"]" OffText="@Localizer["SwitchsOffText"]"></Switch>
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Switch Value="true" OnColor="Color.Dark" OnText="@Localizer["SwitchsOnText"]" OffText="@Localizer["SwitchsOffText"]"></Switch>
+        </div>
+    </div>
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SwitchsDisableTitle"]"
            Introduction="@Localizer["SwitchsDisableIntro"]"
-           Name="Disable"
-           Demo="typeof(Demos.Switchs.SwitchsDisable)">
+           Name="Disable">
+    <Switch OnColor="Color.Primary"
+            IsDisabled="true"
+            OnText="@Localizer["SwitchsOnText"]"
+            OffText="@Localizer["SwitchsOffText"]" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SwitchsColorTitle"]"
            Introduction="@Localizer["SwitchsColorIntro"]"
-           Name="Color"
-           Demo="typeof(Demos.Switchs.SwitchsColor)">
+           Name="Color">
+    <Switch OnColor="Color.Danger"
+            OffColor="Color.Success"
+            OnText="@Localizer["SwitchsOnText"]"
+            OffText="@Localizer["SwitchsOffText"]" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SwitchsBindingTitle"]"
            Introduction="@Localizer["SwitchsBindingIntro"]"
-           Name="Binding"
-           Demo="typeof(Demos.Switchs.SwitchsBinding)">
+           Name="Binding">
     <p>@((MarkupString)Localizer["SwitchsBindingDescription1"].Value)</p>
-    <p>@((MarkupString)Localizer["SwitchsBindingDescription2"].Value)</p>
+    <p class="mb-3">@((MarkupString)Localizer["SwitchsBindingDescription2"].Value)</p>
+    <div class="row g-3">
+        <div class="col-12">
+            <Switch OnColor="Color.Success" OffColor="Color.Danger" OnText="@Localizer["SwitchsOnText"]" OffText="@Localizer["SwitchsOffText"]" @bind-Value="@Model.BindValue" DisplayText="@Localizer["SwitchsBindingDisplayText1"]"></Switch>
+        </div>
+        <div class="col-12">
+            <div>@Localizer["SwitchsBindingDivText1"]: @Model.BindValue</div>
+        </div>
+        <Divider Text="@Localizer["SwitchsBindingDividerText1"]" />
+        <div class="col-12">
+            <p>@((MarkupString)Localizer["SwitchsBindingTips1"].Value)</p>
+        </div>
+        <div class="col-12">
+            <Switch OnColor="Color.Success" OffColor="Color.Danger" OnText="@Localizer["SwitchsOnText"]" OffText="@Localizer["SwitchsOffText"]" @bind-Value="@Model.BindValue" DisplayText="@Localizer["SwitchsBindingDisplayText2"]" ShowLabel="true"></Switch>
+        </div>
+        <Divider Text="@Localizer["SwitchsBindingDividerText2"]" />
+        <div class="col-12">
+            <p>@((MarkupString)Localizer["SwitchsBindingTips2"].Value)</p>
+        </div>
+        <div class="col-12">
+            <Switch OnColor="Color.Success" OffColor="Color.Danger" OnText="@Localizer["SwitchsOnText"]" OffText="@Localizer["SwitchsOffText"]" @bind-Value="@Model.BindValue" ShowLabel="true"></Switch>
+        </div>
+        <Divider Text="@Localizer["SwitchsBindingDividerText3"]" />
+        <div class="col-12">
+            <p>@((MarkupString)Localizer["SwitchsBindingTips3"].Value)</p>
+        </div>
+        <div class="col-12">
+            <Switch OnColor="Color.Success" OffColor="Color.Danger" OnText="@Localizer["SwitchsOnText"]" OffText="@Localizer["SwitchsOffText"]" @bind-Value="@Model.BindValue" DisplayText="@Localizer["SwitchsBindingDisplayText3"]" ShowLabel="false"></Switch>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SwitchsInnerTextTitle"]"
            Introduction="@Localizer["SwitchsInnerTextIntro"]"
-           Name="InnerText"
-           Demo="typeof(Demos.Switchs.SwitchsInnerText)">
-    <p>@((MarkupString)Localizer["SwitchsInnerTextDescription"].Value)</p>
+           Name="InnerText">
+    <p class="mb-3">@((MarkupString)Localizer["SwitchsInnerTextDescription"].Value)</p>
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <label class="form-label">@Localizer["SwitchsInnerTextLabelText1"]</label>
+            <Switch OnColor="Color.Primary"
+                    ShowInnerText="true" />
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <label class="form-label">@Localizer["SwitchsInnerTextLabelText2"]</label>
+            <Switch OnColor="Color.Primary"
+                    ShowInnerText="true"
+                    OnInnerText="@Localizer["SwitchsInnerTextOnInnerText"]"
+                    OffInnerText="@Localizer["SwitchsInnerTextOffInnerText"]" />
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SwitchsNuallableTitle"]"
            Introduction="@Localizer["SwitchsNuallableIntro"]"
-           Name="Nuallable"
-           Demo="typeof(Demos.Switchs.SwitchsNuallable)">
+           Name="Nuallable">
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <NullSwitch @bind-Value="@NullValue"
+                        OnColor="Color.Dark"
+                        OnText="@Localizer["SwitchsOnText"]"
+                        OffText="@Localizer["SwitchsOffText"]" />
+        </div>
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
