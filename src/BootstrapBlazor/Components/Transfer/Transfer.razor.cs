@@ -106,13 +106,27 @@ public partial class Transfer<TValue>
     /// 获得/设置 左侧面板搜索框 placeholder 文字
     /// </summary>
     [Parameter]
-    public string? LeftPannelSearchPlaceHolderString { get; set; }
+    [Obsolete("已过期，请使用 LeftPanelSearchPlaceHolderString 代替 Please use LeftPanelSearchPlaceHolderString")]
+    public string? LeftPannelSearchPlaceHolderString { get { return LeftPanelSearchPlaceHolderString; } set { LeftPanelSearchPlaceHolderString = value; } }
+
+    /// <summary>
+    /// 获得/设置 左侧面板搜索框 placeholder 文字
+    /// </summary>
+    [Parameter]
+    public string? LeftPanelSearchPlaceHolderString { get; set; }
 
     /// <summary>
     /// 获得/设置 右侧面板搜索框 placeholder 文字
     /// </summary>
     [Parameter]
-    public string? RightPannelSearchPlaceHolderString { get; set; }
+    [Obsolete("已过期，请使用 RightPanelSearchPlaceHolderString 代替 Please use RightPanelSearchPlaceHolderString")]
+    public string? RightPannelSearchPlaceHolderString { get { return RightPanelSearchPlaceHolderString; } set { RightPanelSearchPlaceHolderString = value; } }
+
+    /// <summary>
+    /// 获得/设置 右侧面板搜索框 placeholder 文字
+    /// </summary>
+    [Parameter]
+    public string? RightPanelSearchPlaceHolderString { get; set; }
 
     /// <summary>
     /// 获得/设置 右侧面板包含的最大数量, 默认为 0 不限制
@@ -148,25 +162,25 @@ public partial class Transfer<TValue>
     public Func<SelectedItem, string?>? OnSetItemClass { get; set; }
 
     /// <summary>
-    /// 获得/设置 左侧 Pannel Header 模板
+    /// 获得/设置 左侧 Panel Header 模板
     /// </summary>
     [Parameter]
     public RenderFragment<List<SelectedItem>>? LeftHeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 左侧 Pannel Item 模板
+    /// 获得/设置 左侧 Panel Item 模板
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem>? LeftItemTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 右侧 Pannel Header 模板
+    /// 获得/设置 右侧 Panel Header 模板
     /// </summary>
     [Parameter]
     public RenderFragment<List<SelectedItem>>? RightHeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 右侧 Pannel Item 模板
+    /// 获得/设置 右侧 Panel Item 模板
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem>? RightItemTemplate { get; set; }
