@@ -45,7 +45,7 @@ public partial class Textareas
 
         for (int i = 0; i < Index; i++)
         {
-            Text += $"{((i % 2 == 0) ? "A" : "B")} : {Localizer["TextareasMockChat"]}{i}{Environment.NewLine}";
+            ChatText += $"{((i % 2 == 0) ? "A" : "B")} : {Localizer["TextareasMockChat"]}{i}{Environment.NewLine}";
         }
     }
 
@@ -70,7 +70,7 @@ public partial class Textareas
                 CancelTokenSource ??= new();
                 while (CancelTokenSource != null && !CancelTokenSource.IsCancellationRequested)
                 {
-                    Text += $"{((Index % 2 == 0) ? "A" : "B")} : {Localizer["TextareasMockChat"]}{Index}{Environment.NewLine}";
+                    ChatText += $"{((Index % 2 == 0) ? "A" : "B")} : {Localizer["TextareasMockChat"]}{Index}{Environment.NewLine}";
                     Index++;
                     await InvokeAsync(StateHasChanged);
 
