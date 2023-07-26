@@ -1,7 +1,6 @@
 ﻿@page "/select"
 @inject DialogService Dialog
 @inject IStringLocalizer<Selects> Localizer
-@inject DialogService Dialog
 
 <h3>@Localizer["SelectsTitle"]</h3>
 
@@ -334,15 +333,15 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["SelectsTimezoneTitle"]"
-           Introduction="@Localizer["SelectsTimezoneIntro"]"
-           Name="Timezone">
+<DemoBlock Title="@Localizer["SelectsTimeZoneTitle"]"
+           Introduction="@Localizer["SelectsTimeZoneIntro"]"
+           Name="TimeZone">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Value="@TimezoneId" Items="TimezoneItems" OnValueChanged="OnTimezoneValueChanged" />
+            <Select TValue="string" Value="@TimeZoneId" Items="TimeZoneItems" OnValueChanged="OnTimeZoneValueChanged" />
         </div>
         <div class="col-12 col-sm-6">
-            <Display TValue="TimeSpan" Value="@TimezoneValue" />
+            <Display TValue="TimeSpan" Value="@TimeZoneValue" />
         </div>
     </div>
 </DemoBlock>
