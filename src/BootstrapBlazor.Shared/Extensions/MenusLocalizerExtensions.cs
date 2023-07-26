@@ -956,7 +956,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Spinner"],
-                    Url = "spinners"
+                    Url = "spinner"
                 },
                 new()
                 {
