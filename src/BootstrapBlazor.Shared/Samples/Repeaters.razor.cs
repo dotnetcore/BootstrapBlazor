@@ -9,6 +9,31 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class Repeaters
 {
+    [NotNull]
+    private List<Foo>? Items { get; set; }
+
+    [NotNull]
+    private List<Foo>? EmptyItems { get; set; } = new();
+
+    protected override void OnInitialized()
+    {
+        // 生成数据
+        Items = Foo.GenerateFoo(FooLocalizer, 4);
+    }
+
+    private void OnClick()
+    {
+        var id = Items.Any() ? Items.Max(i => i.Id) : 0;
+        var foo = Foo.Generate(FooLocalizer);
+        foo.Id = id + 1;
+        Items.Add(foo);
+    }
+
+    private void OnDelete(Foo foo)
+    {
+        Items.Remove(foo);
+    }
+
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new AttributeItem()
