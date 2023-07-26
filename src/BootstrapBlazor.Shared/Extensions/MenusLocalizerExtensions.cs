@@ -356,7 +356,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["SelectTree"],
-                    Url = "select-trees"
+                    Url = "select-tree"
                 },
                 new()
                 {
@@ -604,7 +604,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["SwitchButton"],
-                    Url = "switchbuttons"
+                    Url = "switch-button"
                 },
                 new()
                 {
@@ -961,7 +961,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["SweetAlert"],
-                    Url = "swals"
+                    Url = "sweet-alert"
                 },
                 new()
                 {
@@ -1103,7 +1103,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Skeleton"],
-                    Url = "skeletons"
+                    Url = "skeleton"
                 },
                 new()
                 {
