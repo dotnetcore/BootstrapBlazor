@@ -124,84 +124,96 @@ public partial class SweetAlerts
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new()
+        {
             Name = "Category",
             Description = Localizer["AttrCategory"],
             Type = "SwalCategory",
             ValueList = "Success/Error/Information/Warning/Question",
             DefaultValue = "Success"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Title",
             Description = Localizer["AttrTitle"],
             Type = "string",
             ValueList = "—",
             DefaultValue = ""
         },
-        new AttributeItem() {
-            Name = "Cotent",
+        new()
+        {
+            Name = "Content",
             Description = Localizer["AttrContent"],
             Type = "string",
             ValueList = "—",
             DefaultValue = ""
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Delay",
             Description = Localizer["AttrDelay"],
             Type = "int",
             ValueList = "—",
             DefaultValue = "4000"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "IsAutoHide",
             Description = Localizer["AttrAutoHide"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ShowClose",
             Description = Localizer["AttrShowClose"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ShowFooter",
             Description = Localizer["AttrShowFooter"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "IsConfirm",
             Description = Localizer["AttrIsConfirm"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "BodyContext",
             Description = Localizer["AttrBodyContext"],
             Type = "object",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "BodyTemplate",
             Description = Localizer["AttrBodyTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "FooterTemplate",
             Description = Localizer["AttrFooterTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ButtonTemplate",
             Description = Localizer["AttrButtonTemplate"],
             Type = "RenderFragment",
