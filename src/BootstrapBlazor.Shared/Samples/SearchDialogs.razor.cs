@@ -89,77 +89,88 @@ public sealed partial class SearchDialogs
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new()
+        {
             Name = "ShowLabel",
             Description = "Whether to show labels",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Model",
             Description = "Generic parameters are used for rendering UI",
             Type = "TModel",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Items",
             Description = "Set of search criteria",
             Type = "IEnumerable<IEditorItem>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "DialogBodyTemplate",
             Description = "SearchDialog Body Template",
             Type = "RenderFragment<TModel>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ResetButtonText",
             Description = "Reset button text",
             Type = "string",
             ValueList = " — ",
             DefaultValue = "reset"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "QueryButtonText",
             Description = "Query button text",
             Type = "string",
             ValueList = " — ",
             DefaultValue = "Inquire"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "OnResetSearchClick",
-            Description = "Rreset callback delegate",
+            Description = "Reset callback delegate",
             Type = "Func<Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "OnSearchClick",
             Description = "Search callback delegate",
             Type = "Func<Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ItemsPerRow",
             Description = "Displays the number of components per line",
             Type = "int?",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "RowType",
             Description = "Set the component layout",
             Type = "RowType",
             ValueList = "Row|Inline",
             DefaultValue = "Row"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "LabelAlign",
             Description = "Inline Label alignment in layout mode",
             Type = "Alignment",

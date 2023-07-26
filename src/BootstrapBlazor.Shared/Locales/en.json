@@ -267,7 +267,7 @@
     "SearchDialogsTitle": "SearchDialog search popup",
     "SearchDialogsSubTitle": "Automatically render search popups by binding the data model",
     "SearchDialogsDescription": "<code>SearchDialog</code> component is <code>Dialog</code> An extension of the component, suitable for setting search criteria in the data popup.",
-    "SearchDialogstTips": "Inject the service by calling <code>DialogService</code> of <code>ShowSearchDialog</code> The method directly pops up the search criteria pop-up window, which greatly reduces the amount of code. <code>SearchDialogOption</code> Configuration class inheritance <code>DialogOption</code> , for more parameter settings, please click <a href=\"dialogs\" target=\"_blank\">[portal]</a>",
+    "SearchDialogsTips": "Inject the service by calling <code>DialogService</code> of <code>ShowSearchDialog</code> The method directly pops up the search criteria pop-up window, which greatly reduces the amount of code. <code>SearchDialogOption</code> Configuration class inheritance <code>DialogOption</code> , for more parameter settings, please click <a href=\"dialogs\" target=\"_blank\">[portal]</a>",
     "SearchDialogsNormalTitle": "Basic usage",
     "SearchDialogsNormalIntro": "By binding the <code>TModel</code> data model, the search form for each field of the model is automatically generated",
     "SearchDialogsNormalButtonText": "Click to pop up search popup",
