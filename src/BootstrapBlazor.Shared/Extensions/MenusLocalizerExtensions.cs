@@ -584,7 +584,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Repeater"],
-                    Url = "repeaters"
+                    Url = "repeater"
                 },
                 new()
                 {
