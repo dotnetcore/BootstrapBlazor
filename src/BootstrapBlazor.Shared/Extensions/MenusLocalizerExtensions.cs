@@ -336,7 +336,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["PulseButton"],
-                    Url = "pulsebuttons"
+                    Url = "pulse-button"
                 },
                 new()
                 {
@@ -346,7 +346,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Rate"],
-                    Url = "rates"
+                    Url = "rate"
                 },
                 new()
                 {
@@ -356,7 +356,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["SelectTree"],
-                    Url = "select-trees"
+                    Url = "select-tree"
                 },
                 new()
                 {
@@ -579,17 +579,17 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["QRCode"],
-                    Url = "qrcodes"
+                    Url = "qr-code"
                 },
                 new()
                 {
                     Text = Localizer["Repeater"],
-                    Url = "repeaters"
+                    Url = "repeater"
                 },
                 new()
                 {
                     Text = Localizer["Search"],
-                    Url = "searchs"
+                    Url = "search"
                 },
                 new()
                 {
@@ -604,7 +604,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["SwitchButton"],
-                    Url = "switchbuttons"
+                    Url = "switch-button"
                 },
                 new()
                 {
@@ -951,7 +951,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["SearchDialog"],
-                    Url = "searchdialogs"
+                    Url = "search-dialog"
                 },
                 new()
                 {
@@ -961,7 +961,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["SweetAlert"],
-                    Url = "swals"
+                    Url = "sweet-alert"
                 },
                 new()
                 {
@@ -1049,7 +1049,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Steps"],
-                    Url = "stepss"
+                    Url = "steps"
                 },
                 new()
                 {
@@ -1093,7 +1093,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Row"],
-                    Url = "rows"
+                    Url = "row"
                 },
                 new()
                 {
@@ -1103,7 +1103,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Skeleton"],
-                    Url = "skeletons"
+                    Url = "skeleton"
                 },
                 new()
                 {
