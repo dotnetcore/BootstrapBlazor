@@ -97,7 +97,7 @@
 
 <DemoBlock Title="@Localizer["SelectsBindingSelectedItemTitle"]"
            Introduction="@Localizer["SelectsBindingSelectedItemIntro"]"
-           Name="BingdingSelectedItem">
+           Name="BindingSelectedItem">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select Color="Color.Primary" Items="Items" @bind-Value="Item"></Select>
@@ -170,11 +170,11 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["SelectsDispalyLabelTitle"]"
-           Introduction="@Localizer["SelectsDispalyLabelIntro"]"
-           Name="DispalyLabel">
-    <p class="mb-3">@((MarkupString)Localizer["SelectsDispalyLabelDescription"].Value)</p>
-    <Divider Text="@Localizer["SelectsDispalyLabelDivider1"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+<DemoBlock Title="@Localizer["SelectsDisplayLabelTitle"]"
+           Introduction="@Localizer["SelectsDisplayLabelIntro"]"
+           Name="DisplayLabel">
+    <p class="mb-3">@((MarkupString)Localizer["SelectsDisplayLabelDescription"].Value)</p>
+    <Divider Text="@Localizer["SelectsDisplayLabelDivider1"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
     <ValidateForm Model="LabelModel">
         <div class="row">
             <div class="col-12">
@@ -182,16 +182,16 @@
             </div>
         </div>
     </ValidateForm>
-    <Divider Text="@Localizer["SelectsDispalyLabelDivider2"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
+    <Divider Text="@Localizer["SelectsDisplayLabelDivider2"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
     <div class="row">
         <div class="col-12">
             <Select Color="Color.Primary" Items="Items" @bind-Value="LabelModel.Name" />
         </div>
     </div>
-    <Divider Text="@Localizer["SelectsDispalyLabelDivider3"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+    <Divider Text="@Localizer["SelectsDisplayLabelDivider3"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
     <div class="row">
         <div class="col-12">
-            <Select Color="Color.Primary" Items="Items" @bind-Value="LabelModel.Name" DisplayText="@Localizer["SelectsDispalyLabelSelectText"]" ShowLabel="true" />
+            <Select Color="Color.Primary" Items="Items" @bind-Value="LabelModel.Name" DisplayText="@Localizer["SelectsDisplayLabelSelectText"]" ShowLabel="true" />
         </div>
     </div>
 </DemoBlock>
@@ -267,9 +267,9 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["SelectsCunstomTemplateTitle"]"
-           Introduction="@Localizer["SelectsCunstomTemplateIntro"]"
-           Name="CunstomTemplate">
+<DemoBlock Title="@Localizer["SelectsCustomTemplateTitle"]"
+           Introduction="@Localizer["SelectsCustomTemplateIntro"]"
+           Name="CustomTemplate">
     <div class="row">
         <div class="col-12 col-sm-6">
             <Select TValue="string" Items="Items">
