@@ -52,7 +52,7 @@ public sealed partial class Rates
 
     private IEnumerable<EventItem> GetEvents() => new EventItem[]
     {
-        new EventItem()
+        new()
         {
             Name = "ValueChanged",
             Description =Localizer["RatesEvent1"],
@@ -62,22 +62,23 @@ public sealed partial class Rates
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new AttributeItem() {
+        new()
+        {
             Name = "Value",
             Description = Localizer["RatesValue"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Max",
             Description = Localizer["RatesMax"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "IsDisabled",
             Description = Localizer["RatesIsDisabled"],
@@ -85,7 +86,7 @@ public sealed partial class Rates
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "IsReadonly",
             Description = Localizer["RatesIsReadonly"],
@@ -93,7 +94,7 @@ public sealed partial class Rates
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "IsWrap",
             Description = Localizer["RatesIsWrap"],
@@ -101,7 +102,7 @@ public sealed partial class Rates
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ShowValue",
             Description = Localizer["RatesShowValue"],
@@ -109,7 +110,7 @@ public sealed partial class Rates
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ItemTemplate",
             Description = Localizer["RatesItemTemplate"],
