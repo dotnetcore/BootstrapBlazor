@@ -62,7 +62,7 @@
     <p class="mb-3">@((MarkupString)Localizer["RowFormInlineDescription"].Value)</p>
     <ValidateForm Model="@Model">
         <Row ItemsPerRow="ItemsPerRow.Two" RowType="RowType.Inline">
-            <CheckboxList @bind-Value="@Model.Hobby" Items="Hobbys" />
+            <CheckboxList @bind-Value="@Model.Hobby" Items="Hobbies" />
             <BootstrapInput @bind-Value="@Model.Address" />
             <DateTimePicker @bind-Value="@Model.DateTime" />
             <BootstrapInputNumber @bind-Value="@Model.Count" />
@@ -78,7 +78,7 @@
     <p class="mb-3">@((MarkupString)Localizer["RowFormInlineDescription"].Value)</p>
     <ValidateForm Model="@RowFormModel">
         <Row ItemsPerRow="ItemsPerRow.Three">
-            <CheckboxList @bind-Value="@RowFormModel.Hobby" Items="Hobbys" />
+            <CheckboxList @bind-Value="@RowFormModel.Hobby" Items="Hobbies" />
             <BootstrapInput @bind-Value="@RowFormModel.Address" />
             <DateTimePicker @bind-Value="@RowFormModel.DateTime" />
             <BootstrapInputNumber @bind-Value="@RowFormModel.Count" />
