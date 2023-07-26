@@ -20,7 +20,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 获得/设置 内置虚拟化组件实例
     /// </summary>
     [NotNull]
-    private Virtualize<TItem>? VirtualizeElement { get; set; }
+    protected Virtualize<TItem>? VirtualizeElement { get; set; }
 
     /// <summary>
     /// 获得 Table 组件样式表
