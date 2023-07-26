@@ -5,10 +5,58 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// Searchs
+/// Searches
 /// </summary>
-public sealed partial class Searchs
+public sealed partial class Searches
 {
+    [NotNull]
+    private ConsoleLogger? Logger { get; set; }
+
+    [NotNull]
+    private ConsoleLogger? ClearLogger { get; set; }
+
+    private static IEnumerable<string> Items => new string[] { "1", "12", "123", "1234" };
+
+    private Task OnSearch(string searchText)
+    {
+        Logger.Log($"SearchText: {searchText}");
+        return Task.CompletedTask;
+    }
+
+    private Task OnClearSearch(string searchText)
+    {
+        ClearLogger.Log($"SearchText: {searchText}");
+        return Task.CompletedTask;
+    }
+
+    [NotNull]
+    private ConsoleLogger? DispalyLogger { get; set; }
+
+    private Task OnDispalySearch(string searchText)
+    {
+        DispalyLogger.Log($"SearchText: {searchText}");
+        return Task.CompletedTask;
+    }
+
+    private Task OnClear(string searchText)
+    {
+        DispalyLogger.Log($"OnClear: {searchText}");
+        return Task.CompletedTask;
+    }
+
+    [NotNull]
+    private ConsoleLogger? KeyboardLogger { get; set; }
+
+    private Task OnKeyboardSearch(string searchText)
+    {
+        KeyboardLogger.Log($"SearchText: {searchText}");
+        return Task.CompletedTask;
+    }
+
+    private Foo Model { get; set; } = new Foo() { Name = "" };
+
+    private static List<string> StaticItems => new() { "1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG" };
+
     /// <summary>
     /// 获得属性方法
     /// </summary>

@@ -336,7 +336,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["PulseButton"],
-                    Url = "pulsebuttons"
+                    Url = "pulse-button"
                 },
                 new()
                 {
@@ -346,12 +346,12 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Rate"],
-                    Url = "rates"
+                    Url = "rate"
                 },
                 new()
                 {
                     Text = Localizer["Select"],
-                    Url = "selects"
+                    Url = "select"
                 },
                 new()
                 {
@@ -579,17 +579,17 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["QRCode"],
-                    Url = "qrcodes"
+                    Url = "qr-code"
                 },
                 new()
                 {
                     Text = Localizer["Repeater"],
-                    Url = "repeaters"
+                    Url = "repeater"
                 },
                 new()
                 {
                     Text = Localizer["Search"],
-                    Url = "searchs"
+                    Url = "search"
                 },
                 new()
                 {
@@ -951,7 +951,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["SearchDialog"],
-                    Url = "searchdialogs"
+                    Url = "search-dialog"
                 },
                 new()
                 {
@@ -1049,7 +1049,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Steps"],
-                    Url = "stepss"
+                    Url = "steps"
                 },
                 new()
                 {
@@ -1093,7 +1093,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Row"],
-                    Url = "rows"
+                    Url = "row"
                 },
                 new()
                 {
