@@ -1938,7 +1938,7 @@
     "PaginationsNextPageIconAttr": "下一页图标",
     "PaginationsNextEllipsisPageIconAttr": "向后翻页图标"
   },
-  "BootstrapBlazor.Shared.Samples.Stepses": {
+  "BootstrapBlazor.Shared.Samples.Steps": {
     "StepsesTitle": "Steps 步骤条",
     "StepsesDescription": "引导用户按照流程完成任务的导航条",
     "StepsesTipsTitle": "引导用户按照流程完成任务的分步导航条，可根据实际应用场景设定步骤，步骤不得少于 2 步",

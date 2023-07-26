@@ -5,9 +5,9 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// Stepses
+/// Steps
 /// </summary>
-public sealed partial class Stepses
+public sealed partial class Steps
 {
     [NotNull]
     private ConsoleLogger? Logger { get; set; }

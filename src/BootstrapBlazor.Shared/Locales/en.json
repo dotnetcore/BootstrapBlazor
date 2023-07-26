@@ -1934,7 +1934,7 @@
     "PaginationsNextPageIconAttr": "Next page icon",
     "PaginationsNextEllipsisPageIconAttr": "The page down icon"
   },
-  "BootstrapBlazor.Shared.Samples.Stepses": {
+  "BootstrapBlazor.Shared.Samples.Steps": {
     "StepsesTitle": "Steps",
     "StepsesDescription": "A navigation bar that guides the user through the process",
     "StepsesTipsTitle": "Step-by-step navigation bar that guides the user through the process, setting steps of no less than 2 steps based on the actual scenario",
