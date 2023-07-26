@@ -1,5 +1,6 @@
 ﻿@page "/rows"
 @inject IStringLocalizer<Rows> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
 
 <h3>@Localizer["RowsTitle"]</h3>
 
@@ -7,37 +8,171 @@
 
 <DemoBlock Title="@Localizer["RowCommonTitle"]"
            Introduction="@Localizer["RowCommonIntro"]"
-           Name="Common"
-           Demo="typeof(Demos.Rows.RowCommon)">
-    <p><b>@((MarkupString)Localizer["RowCommonDescription"].Value)</b></p>
+           Name="Common">
+    <p class="mb-3"><b>@((MarkupString)Localizer["RowCommonDescription"].Value)</b></p>
+    <Row ItemsPerRow="ItemsPerRow.Three">
+        <Card>
+            <BodyTemplate>
+                <h5 class="card-title">Card 1</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </BodyTemplate>
+        </Card>
+        <Card>
+            <BodyTemplate>
+                <h5 class="card-title">Card 2</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </BodyTemplate>
+        </Card>
+        <Card>
+            <BodyTemplate>
+                <h5 class="card-title">Card 3</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </BodyTemplate>
+        </Card>
+        <Card>
+            <BodyTemplate>
+                <h5 class="card-title">Card 1</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </BodyTemplate>
+        </Card>
+        <Card>
+            <BodyTemplate>
+                <h5 class="card-title">Card 2</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </BodyTemplate>
+        </Card>
+        <Card>
+            <BodyTemplate>
+                <h5 class="card-title">Card 3</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+            </BodyTemplate>
+        </Card>
+    </Row>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["RowFormInlineTitle"]"
            Introduction="@Localizer["RowFormInlineIntro"]"
-           Name="FormInline"
-           Demo="typeof(Demos.Rows.RowFormInline)">
-    <p>@((MarkupString)Localizer["RowFormInlineDescription"].Value)</p>
+           Name="FormInline">
+    <p class="mb-3">@((MarkupString)Localizer["RowFormInlineDescription"].Value)</p>
+    <ValidateForm Model="@Model">
+        <Row ItemsPerRow="ItemsPerRow.Two" RowType="RowType.Inline">
+            <CheckboxList @bind-Value="@Model.Hobby" Items="Hobbys" />
+            <BootstrapInput @bind-Value="@Model.Address" />
+            <DateTimePicker @bind-Value="@Model.DateTime" />
+            <BootstrapInputNumber @bind-Value="@Model.Count" />
+            <Switch @bind-Value="@Model.Complete" />
+            <Select @bind-Value="@Model.Education" />
+        </Row>
+    </ValidateForm>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["RowFormTitle"]"
            Introduction="@Localizer["RowFormIntro"]"
-           Name="Form"
-           Demo="typeof(Demos.Rows.RowForm)">
-    <p>@((MarkupString)Localizer["RowFormInlineDescription"].Value)</p>
+           Name="Form">
+    <p class="mb-3">@((MarkupString)Localizer["RowFormInlineDescription"].Value)</p>
+    <ValidateForm Model="@RowFormModel">
+        <Row ItemsPerRow="ItemsPerRow.Three">
+            <CheckboxList @bind-Value="@RowFormModel.Hobby" Items="Hobbys" />
+            <BootstrapInput @bind-Value="@RowFormModel.Address" />
+            <DateTimePicker @bind-Value="@RowFormModel.DateTime" />
+            <BootstrapInputNumber @bind-Value="@RowFormModel.Count" />
+            <Switch @bind-Value="@RowFormModel.Complete" />
+            <Select @bind-Value="@RowFormModel.Education" />
+        </Row>
+    </ValidateForm>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["RowNestedTitle"]"
            Introduction="@Localizer["RowNestedIntro"]"
-           Name="Nested"
-           Demo="typeof(Demos.Rows.RowNested)">
-    <p>@((MarkupString)Localizer["RowFormInlineDescription"].Value)</p>
+           Name="Nested">
+    <p class="mb-3">@((MarkupString)Localizer["RowFormInlineDescription"].Value)</p>
+    <ValidateForm Model="@NestedModel">
+        <Row ItemsPerRow="ItemsPerRow.Two">
+            <BootstrapInput @bind-Value="@NestedModel.Name" />
+            <Row ItemsPerRow="ItemsPerRow.Two">
+                <Switch @bind-Value="@NestedModel.Complete" />
+                <BootstrapInput @bind-Value="@NestedModel.Address" />
+            </Row>
+        </Row>
+    </ValidateForm>
+    <div class="mt-3">
+        <Row>
+            <Row ItemsPerRow="ItemsPerRow.Two">
+                <BootstrapInput @bind-Value="@NestedModel.Name" />
+                <BootstrapInput @bind-Value="@NestedModel.Address" />
+            </Row>
+            <Row ItemsPerRow="ItemsPerRow.Three">
+                <BootstrapInput @bind-Value="@NestedModel.Name" />
+                <BootstrapInput @bind-Value="@NestedModel.Address" />
+                <Row ItemsPerRow="ItemsPerRow.Two">
+                    <BootstrapInput @bind-Value="@NestedModel.Name" />
+                    <BootstrapInput @bind-Value="@NestedModel.Address" />
+                </Row>
+            </Row>
+        </Row>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["RowspanTitle"]"
            Introduction="@Localizer["RowspanIntro"]"
-           Name="Rowspan"
-           Demo="typeof(Demos.Rows.Rowspan)">
-    <p>@((MarkupString)Localizer["RowFormInlineDescription"].Value)</p>
+           Name="Rowspan">
+    <p class="mb-3">@((MarkupString)Localizer["RowFormInlineDescription"].Value)</p>
+    <p><b>@Localizer["RowspanTips1"]</b></p>
+    <ValidateForm Model="@SpanModel">
+        <Row ItemsPerRow="ItemsPerRow.Four">
+            <BootstrapInput @bind-Value="@SpanModel.Name" />
+            <BootstrapInput @bind-Value="@SpanModel.Address" />
+            <BootstrapInputNumber @bind-Value="@SpanModel.Count" />
+            <Select @bind-Value="@SpanModel.Education" />
+        </Row>
+    </ValidateForm>
+    <p class="mt-3"><b>@Localizer["RowspanTips2"]</b></p>
+    <ValidateForm Model="@SpanModel">
+        <Row ItemsPerRow="ItemsPerRow.Two">
+            <BootstrapInput @bind-Value="@SpanModel.Name" />
+            <BootstrapInput @bind-Value="@SpanModel.Address" />
+        </Row>
+    </ValidateForm>
+    <p class="mt-3"><b>@((MarkupString)Localizer["RowspanTips3"].Value)</b></p>
+    <ValidateForm Model="@SpanModel">
+        <Row ItemsPerRow="ItemsPerRow.Four">
+            <BootstrapInput @bind-Value="@SpanModel.Name" />
+            <Row ColSpan="2">
+                <BootstrapInput @bind-Value="@SpanModel.Address" />
+            </Row>
+            <Select @bind-Value="@SpanModel.Education" />
+        </Row>
+    </ValidateForm>
+    <p class="mt-3"><b>@((MarkupString)Localizer["RowspanTips4"].Value)</b></p>
+    <ValidateForm Model="@SpanModel">
+        <Row ItemsPerRow="ItemsPerRow.Four">
+            <BootstrapInput @bind-Value="@SpanModel.Name" />
+            <Row ColSpan="3">
+                <BootstrapInput @bind-Value="@SpanModel.Address" />
+            </Row>
+        </Row>
+    </ValidateForm>
+    <p class="mt-3"><b>@((MarkupString)Localizer["RowspanTips5"].Value)</b></p>
+    <ValidateForm Model="@SpanModel">
+        <Row ItemsPerRow="ItemsPerRow.Four">
+            <Row ColSpan="3">
+                <CheckboxList @bind-Value="@SpanModel.Hobby" Items="@Hobbys" />
+            </Row>
+            <BootstrapInput @bind-Value="@SpanModel.Address" />
+        </Row>
+    </ValidateForm>
+    <p class="mt-3"><b>@Localizer["RowspanTips6"]</b></p>
+    <ValidateForm Model="@SpanModel">
+        <Row ItemsPerRow="ItemsPerRow.One">
+            <BootstrapInput @bind-Value="@SpanModel.Address" />
+        </Row>
+    </ValidateForm>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
