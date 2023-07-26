@@ -255,12 +255,12 @@
     "SpinnersGrowingColorIntro": "提供基本颜色的旋转图标",
     "SpinnersSizeTitle": "Spinner 旋转图标大小",
     "SpinnersSizeIntro": "图标样式大小",
-    "SpinnersFlexTitle": "Spinner Flex",
+    "SpinnersFlexTitle": "Flex 布局",
     "SpinnersFlexIntro": "自定义布局",
-    "SpinnersCustomTitle": "Spinner Flex",
+    "SpinnersCustomTitle": "自定义标题",
     "SpinnersCustomIntro": "带有文字的自定义布局",
     "SpinnersCustomLoading": "Loading...",
-    "SpinnersFloatTitle": "Spinner Floats",
+    "SpinnersFloatTitle": "悬浮",
     "SpinnersFloatIntro": "使用 Float 布局"
   },
   "BootstrapBlazor.Shared.Samples.SearchDialogs": {
