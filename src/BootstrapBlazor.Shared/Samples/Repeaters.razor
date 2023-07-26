@@ -1,5 +1,6 @@
-﻿@page "/repeaters"
+﻿@page "/repeater"
 @inject IStringLocalizer<Repeaters> Localizer
+@inject IStringLocalizer<Foo> FooLocalizer
 
 <h3>@Localizer["RepeaterTitle"]</h3>
 
@@ -7,26 +8,62 @@
 
 <DemoBlock Title="@Localizer["RepeaterNormalTitle"]"
            Introduction="@Localizer["RepeaterNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Repeaters.RepeaterNormal)">
+           Name="Normal">
+    <Repeater TItem="Foo" Items="Items">
+        <ItemTemplate>
+            <div class="d-flex">
+                @context.Name
+            </div>
+        </ItemTemplate>
+    </Repeater>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["RepeaterLoadingTitle"]"
            Introduction="@Localizer["RepeaterLoadingIntro"]"
-           Name="Loading"
-           Demo="typeof(Demos.Repeaters.RepeaterLoading)">
+           Name="Loading">
+    <Repeater TItem="Foo" Items="Items">
+        <ItemTemplate>
+            <div class="d-flex">
+                @context.Name
+            </div>
+        </ItemTemplate>
+    </Repeater>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["RepeaterEmptyTitle"]"
            Introduction="@Localizer["RepeaterEmptyIntro"]"
-           Name="Loading"
-           Demo="typeof(Demos.Repeaters.RepeaterEmpty)">
+           Name="Loading">
+    <Repeater TItem="Foo" Items="EmptyItems" EmptyText="No Data">
+    </Repeater>
+
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["RepeaterContainerTitle"]"
            Introduction="@Localizer["RepeaterContainerIntro"]"
-           Name="Loading"
-           Demo="typeof(Demos.Repeaters.RepeaterContainer)">
+           Name="Loading">
+    <div>
+        <Button OnClick="OnClick" Icon="fa-solid fa-plus" Text="Add"></Button>
+    </div>
+
+    <Repeater TItem="Foo" Items="Items">
+        <ContainerTemplate>
+            <table class="table">
+                <thead>
+                    <tr><th>@FooLocalizer[nameof(Foo.Name)]</th><th>@FooLocalizer[nameof(Foo.Address)]</th><th></th></tr>
+                </thead>
+                <tbody>
+                    @context
+                </tbody>
+            </table>
+        </ContainerTemplate>
+        <ItemTemplate>
+            <tr>
+                <td>@context.Name</td>
+                <td>@context.Address</td>
+                <td><Button Size="Size.ExtraSmall" Color="Color.Danger" Icon="fa-solid fa-xmark" Text="Delete" OnClick="() => OnDelete(context)"></Button></td>
+            </tr>
+        </ItemTemplate>
+    </Repeater>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
