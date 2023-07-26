@@ -19,7 +19,7 @@ public sealed partial class Rows
     };
 
     [NotNull]
-    private IEnumerable<SelectedItem>? Hobbys { get; set; }
+    private IEnumerable<SelectedItem>? Hobbies { get; set; }
 
     private RowFoo RowFormModel { get; } = new()
     {
@@ -68,28 +68,32 @@ public sealed partial class Rows
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new()
+        {
             Name = "ItemsPerRow",
             Description = Localizer["RowsItemsPerRow"],
             Type = "enum",
             ValueList = " One,Two,Three,Four,Six,Twelve ",
             DefaultValue = " One "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "RowType",
             Description = Localizer["RowsRowType"],
             Type = "enum?",
             ValueList = "Normal, Inline",
             DefaultValue = "null"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ColSpan",
             Description = Localizer["RowsColSpan"],
             Type = "int?",
             ValueList = "-",
             DefaultValue = "null"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "MaxCount",
             Description = Localizer["RowsMaxCount"],
             Type = "int?",

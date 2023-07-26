@@ -119,11 +119,11 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["RowspanTitle"]"
-           Introduction="@Localizer["RowspanIntro"]"
-           Name="Rowspan">
+<DemoBlock Title="@Localizer["RowSpanTitle"]"
+           Introduction="@Localizer["RowSpanIntro"]"
+           Name="RowSpan">
     <p class="mb-3">@((MarkupString)Localizer["RowFormInlineDescription"].Value)</p>
-    <p><b>@Localizer["RowspanTips1"]</b></p>
+    <p><b>@Localizer["RowSpanTips1"]</b></p>
     <ValidateForm Model="@SpanModel">
         <Row ItemsPerRow="ItemsPerRow.Four">
             <BootstrapInput @bind-Value="@SpanModel.Name" />
@@ -132,14 +132,14 @@
             <Select @bind-Value="@SpanModel.Education" />
         </Row>
     </ValidateForm>
-    <p class="mt-3"><b>@Localizer["RowspanTips2"]</b></p>
+    <p class="mt-3"><b>@Localizer["RowSpanTips2"]</b></p>
     <ValidateForm Model="@SpanModel">
         <Row ItemsPerRow="ItemsPerRow.Two">
             <BootstrapInput @bind-Value="@SpanModel.Name" />
             <BootstrapInput @bind-Value="@SpanModel.Address" />
         </Row>
     </ValidateForm>
-    <p class="mt-3"><b>@((MarkupString)Localizer["RowspanTips3"].Value)</b></p>
+    <p class="mt-3"><b>@((MarkupString)Localizer["RowSpanTips3"].Value)</b></p>
     <ValidateForm Model="@SpanModel">
         <Row ItemsPerRow="ItemsPerRow.Four">
             <BootstrapInput @bind-Value="@SpanModel.Name" />
@@ -149,7 +149,7 @@
             <Select @bind-Value="@SpanModel.Education" />
         </Row>
     </ValidateForm>
-    <p class="mt-3"><b>@((MarkupString)Localizer["RowspanTips4"].Value)</b></p>
+    <p class="mt-3"><b>@((MarkupString)Localizer["RowSpanTips4"].Value)</b></p>
     <ValidateForm Model="@SpanModel">
         <Row ItemsPerRow="ItemsPerRow.Four">
             <BootstrapInput @bind-Value="@SpanModel.Name" />
@@ -158,16 +158,16 @@
             </Row>
         </Row>
     </ValidateForm>
-    <p class="mt-3"><b>@((MarkupString)Localizer["RowspanTips5"].Value)</b></p>
+    <p class="mt-3"><b>@((MarkupString)Localizer["RowSpanTips5"].Value)</b></p>
     <ValidateForm Model="@SpanModel">
         <Row ItemsPerRow="ItemsPerRow.Four">
             <Row ColSpan="3">
-                <CheckboxList @bind-Value="@SpanModel.Hobby" Items="@Hobbys" />
+                <CheckboxList @bind-Value="@SpanModel.Hobby" Items="@Hobbies" />
             </Row>
             <BootstrapInput @bind-Value="@SpanModel.Address" />
         </Row>
     </ValidateForm>
-    <p class="mt-3"><b>@Localizer["RowspanTips6"]</b></p>
+    <p class="mt-3"><b>@Localizer["RowSpanTips6"]</b></p>
     <ValidateForm Model="@SpanModel">
         <Row ItemsPerRow="ItemsPerRow.One">
             <BootstrapInput @bind-Value="@SpanModel.Address" />
