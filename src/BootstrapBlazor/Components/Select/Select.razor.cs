@@ -194,8 +194,8 @@ public partial class Select<TValue> : ISelect
 
         if (IsVirtualize)
         {
-            IsPopover = false;
-            ShowSearch = false;
+            //IsPopover = false;
+            //ShowSearch = false;
         }
     }
 
@@ -226,6 +226,13 @@ public partial class Select<TValue> : ISelect
         TotalCount = data.TotalCount;
         VirtualItems = data.Items ?? Enumerable.Empty<SelectedItem>();
         return new ItemsProviderResult<SelectedItem>(VirtualItems, TotalCount);
+    }
+
+    private async Task SearchTextChanged(string? val)
+    {
+        SearchText = val;
+        await Element.RefreshDataAsync();
+        StateHasChanged();
     }
 
     /// <summary>
