@@ -589,7 +589,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Search"],
-                    Url = "searchs"
+                    Url = "search"
                 },
                 new()
                 {
