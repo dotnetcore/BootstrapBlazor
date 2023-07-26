@@ -1,6 +1,7 @@
 ﻿@page "/selects"
 @inject DialogService Dialog
 @inject IStringLocalizer<Selects> Localizer
+@inject DialogService Dialog
 
 <h3>@Localizer["SelectsTitle"]</h3>
 
@@ -8,115 +9,343 @@
 
 <DemoBlock Title="@Localizer["SelectsNormalTitle"]"
            Introduction="@Localizer["SelectsNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Selects.SelectsNormal)">
-    <p>@((MarkupString)Localizer["SelectsNormalDescription"].Value)</p>
+           Name="Normal">
+    <p class="mb-3">@((MarkupString)Localizer["SelectsNormalDescription"].Value)</p>
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <Select Items="Items" OnSelectedItemChanged="OnItemChanged" @bind-Value="Model.Name"></Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select Color="Color.Primary" Items="Items" OnSelectedItemChanged="OnItemChanged" @bind-Value="Model.Name"></Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select Color="Color.Success" Items="Items" OnSelectedItemChanged="OnItemChanged" @bind-Value="Model.Name"></Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select Color="Color.Danger" Items="Items" OnSelectedItemChanged="OnItemChanged" @bind-Value="Model.Name"></Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select Color="Color.Warning" Items="Items" OnSelectedItemChanged="OnItemChanged" @bind-Value="Model.Name"></Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select Color="Color.Info" Items="Items" OnSelectedItemChanged="OnItemChanged" @bind-Value="Model.Name"></Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select Color="Color.Secondary" Items="Items" OnSelectedItemChanged="OnItemChanged" @bind-Value="Model.Name"></Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select Color="Color.Dark" Items="Items" OnSelectedItemChanged="OnItemChanged" @bind-Value="Model.Name"></Select>
+        </div>
+    </div>
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsDisableTitle"]"
            Introduction="@Localizer["SelectsDisableIntro"]"
-           Name="Disable"
-           Demo="typeof(Demos.Selects.SelectsDisable)" />
+           Name="Disable">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <Select TValue="string" Color="Color.Primary" Items="Items" IsDisabled="true"></Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select TValue="string" Color="Color.Success" Items="Items" IsDisabled="true"></Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select TValue="string" Color="Color.Danger" Items="Items" IsDisabled="true"></Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select TValue="string" Color="Color.Warning" Items="Items" IsDisabled="true"></Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select TValue="string" Color="Color.Info" Items="Items" IsDisabled="true"></Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select TValue="string" Color="Color.Secondary" Items="Items" IsDisabled="true"></Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select TValue="string" Color="Color.Dark" Items="Items" IsDisabled="true"></Select>
+        </div>
+    </div>
+    <p class="mt-3">@((MarkupString)Localizer["SelectsDisableOption"].Value)</p>
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <Select TValue="string" Items="Items4" />
+        </div>
+    </div>
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsBindingTitle"]"
            Introduction="@Localizer["SelectsBindingIntro"]"
-           Name="Binding"
-           Demo="typeof(Demos.Selects.SelectsBinding)" />
+           Name="Binding">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <Select Color="Color.Primary" Items="Items" @bind-Value="BindingModel.Name"></Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInput readonly @bind-Value="BindingModel.Name" />
+        </div>
+    </div>
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsClearableTitle"]"
            Introduction="@Localizer["SelectsClearableIntro"]"
-           Name="Binding"
-           Demo="typeof(Demos.Selects.SelectsClearable)" />
+           Name="Binding">
+    <div style="width: 120px;">
+        <Select Color="Color.Primary" IsClearable="true" Items="Items" Value="ClearableModel.Name"></Select>
+    </div>
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsBindingSelectedItemTitle"]"
            Introduction="@Localizer["SelectsBindingSelectedItemIntro"]"
-           Name="BingdingSelectedItem"
-           Demo="typeof(Demos.Selects.SelectsBindingSelectedItem)" />
+           Name="BingdingSelectedItem">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <Select Color="Color.Primary" Items="Items" @bind-Value="Item"></Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display Value="@ItemString"></Display>
+        </div>
+    </div>
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsCascadingTitle"]"
            Introduction="@Localizer["SelectsCascadingIntro"]"
-           Name="Cascading"
-           Demo="typeof(Demos.Selects.SelectsCascading)" />
+           Name="Cascading">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <Select TValue="string" Items="Items3" OnSelectedItemChanged="OnCascadeBindSelectClick" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select TValue="string" Items="Items2" />
+        </div>
+        <div class="col-12">
+            <Button Text="@Localizer["SelectsCascadingButtonText1"]" OnClickWithoutRender="OnShowDialog" />
+        </div>
+    </div>
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsClientValidationTitle"]"
            Introduction="@Localizer["SelectsClientValidationIntro"]"
-           Name="ClientValidation"
-           Demo="typeof(Demos.Selects.SelectsClientValidation)" />
+           Name="ClientValidation">
+    <ValidateForm Model="ValidateModel">
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">
+                <Select @bind-Value="ValidateModel.Name">
+                    <Options>
+                        <SelectOption Text="@Localizer["SelectsOption1"]" Value="" />
+                        <SelectOption Text="@Localizer["SelectsOption2"]" Value="1" />
+                        <SelectOption Text="@Localizer["SelectsOption3"]" Value="2" />
+                        <SelectOption Text="@Localizer["SelectsOption4"]" Value="3" />
+                    </Options>
+                </Select>
+            </div>
+            <div class="col-12 col-sm-6 align-self-end">
+                <Button ButtonType="ButtonType.Submit">@Localizer["SelectsClientValidationButtonText2"]</Button>
+            </div>
+        </div>
+    </ValidateForm>
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsGroupTitle"]"
            Introduction="@Localizer["SelectsGroupIntro"]"
-           Name="Group"
-           Demo="typeof(Demos.Selects.SelectsGroup)" />
+           Name="Group">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <Select TValue="string" Color="Color.Primary" Items="GroupItems">
+            </Select>
+        </div>
+    </div>
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsGuidTitle"]"
            Introduction="@Localizer["SelectsGuidIntro"]"
-           Name="Guid"
-           Demo="typeof(Demos.Selects.SelectsGuid)" />
+           Name="Guid">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <Select Color="Color.Primary" Items="GuidItems" @bind-Value="CurrentGuid" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="form-control">@CurrentGuid</div>
+        </div>
+    </div>
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsDispalyLabelTitle"]"
            Introduction="@Localizer["SelectsDispalyLabelIntro"]"
-           Name="DispalyLabel"
-           Demo="typeof(Demos.Selects.SelectsDispalyLabel)">
-    <p>@((MarkupString)Localizer["SelectsDispalyLabelDescription"].Value)</p>
+           Name="DispalyLabel">
+    <p class="mb-3">@((MarkupString)Localizer["SelectsDispalyLabelDescription"].Value)</p>
+    <Divider Text="@Localizer["SelectsDispalyLabelDivider1"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+    <ValidateForm Model="LabelModel">
+        <div class="row">
+            <div class="col-12">
+                <Select Color="Color.Primary" Items="Items" @bind-Value="LabelModel.Name" />
+            </div>
+        </div>
+    </ValidateForm>
+    <Divider Text="@Localizer["SelectsDispalyLabelDivider2"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
+    <div class="row">
+        <div class="col-12">
+            <Select Color="Color.Primary" Items="Items" @bind-Value="LabelModel.Name" />
+        </div>
+    </div>
+    <Divider Text="@Localizer["SelectsDispalyLabelDivider3"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+    <div class="row">
+        <div class="col-12">
+            <Select Color="Color.Primary" Items="Items" @bind-Value="LabelModel.Name" DisplayText="@Localizer["SelectsDispalyLabelSelectText"]" ShowLabel="true" />
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsStaticTitle"]"
            Introduction="@Localizer["SelectsStaticIntro"]"
-           Name="Static"
-           Demo="typeof(Demos.Selects.SelectsStatic)" />
+           Name="Static">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <Select TValue="string">
+                <Options>
+                    <SelectOption Text="@Localizer["SelectsOption1"]" Value="1" />
+                    <SelectOption Text="@Localizer["SelectsOption2"]" Value="2" Active="true" />
+                    <SelectOption Text="@Localizer["SelectsOption3"]" Value="3" />
+                </Options>
+            </Select>
+        </div>
+    </div>
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsEnumTitle"]"
            Introduction="@Localizer["SelectsEnumIntro"]"
-           Name="Enum"
-           Demo="typeof(Demos.Selects.SelectsEnum)">
+           Name="Enum">
     <p>@((MarkupString)Localizer["SelectsEnumDescription1"].Value)</p>
-    <p>@((MarkupString)Localizer["SelectsEnumDescription2"].Value)</p>
+    <p class="mb-3">@((MarkupString)Localizer["SelectsEnumDescription2"].Value)</p>
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <Select @bind-Value="SelectedEnumItem1" PlaceHolder="@Localizer["SelectsPlaceHolder"]" ShowLabel="true" DisplayText="@Localizer["SelectsEnumSelectText1"]">
+            </Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select @bind-Value="SelectedEnumItem1" ShowLabel="true" DisplayText="@Localizer["SelectsEnumSelectText1"]">
+            </Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select @bind-Value="SelectedEnumItem" ShowLabel="true" DisplayText="@Localizer["SelectsEnumSelectText2"]">
+            </Select>
+        </div>
+        <div class="col-12 col-sm-6 align-self-end">
+            <div class="form-control">@SelectedEnumItem</div>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsNullableTitle"]"
            Introduction="@Localizer["SelectsNullableIntro"]"
-           Name="Nullable"
-           Demo="typeof(Demos.Selects.SelectsNullable)">
-    <p>@((MarkupString)Localizer["SelectsNullableDescription"].Value)</p>
+           Name="Nullable">
+    <p class="mb-3">@((MarkupString)Localizer["SelectsNullableDescription"].Value)</p>
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <Select Items="NullableIntItems" @bind-Value="NullableSelectedIntItem">
+            </Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="form-control">@GetSelectedIntItemString()</div>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsNullableBooleanTitle"]"
            Introduction="@Localizer["SelectsNullableBooleanIntro"]"
-           Name="NullableBoolean"
-           Demo="typeof(Demos.Selects.SelectsNullableBoolean)">
+           Name="NullableBoolean">
     <p>@((MarkupString)Localizer["SelectsNullableBooleanDescription1"].Value)</p>
-    <p>@((MarkupString)Localizer["SelectsNullableBooleanDescription2"].Value)</p>
+    <p class="mb-3">@((MarkupString)Localizer["SelectsNullableBooleanDescription2"].Value)</p>
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <Select Items="NullableBoolItems" @bind-Value="SelectedBoolItem">
+            </Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="form-control">@GetSelectedBoolItemString()</div>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsCunstomTemplateTitle"]"
            Introduction="@Localizer["SelectsCunstomTemplateIntro"]"
-           Name="CunstomTemplate"
-           Demo="typeof(Demos.Selects.SelectsCunstomTemplate)" />
+           Name="CunstomTemplate">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <Select TValue="string" Items="Items">
+                <ItemTemplate>
+                    <div class="dropdown-item-demo">
+                        <i class="fa-solid fa-font-awesome"></i>
+                        <span>@context.Text</span>
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                </ItemTemplate>
+            </Select>
+        </div>
+    </div>
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsShowSearchTitle"]"
            Introduction="@Localizer["SelectsShowSearchIntro"]"
-           Name="ShowSearch"
-           Demo="typeof(Demos.Selects.SelectsShowSearch)" />
+           Name="ShowSearch">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <Select TValue="string" Items="Items" ShowSearch="true" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Select TValue="string" Items="StringItems" ShowSearch="true" />
+        </div>
+    </div>
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsConfirmSelectTitle"]"
            Introduction="@Localizer["SelectsConfirmSelectIntro"]"
-           Name="ConfirmSelect"
-           Demo="typeof(Demos.Selects.SelectsConfirmSelect)" />
+           Name="ConfirmSelect">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <Select TValue="string" Items="Items" OnBeforeSelectedItemChange="@OnBeforeSelectedItemChange"
+                    SwalTitle="@Localizer["SwalTitle"]" SwalContent="@Localizer["SwalContent"]" SwalFooter="@Localizer["SwalFooter"]" />
+        </div>
+    </div>
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsDisplayTemplateTitle"]"
            Introduction="@Localizer["SelectsDisplayTemplateIntro"]"
-           Name="DisplayTemplate"
-           Demo="typeof(Demos.Selects.SelectsDisplayTemplate)" />
+           Name="DisplayTemplate">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <Select TValue="string" Items="Items">
+                <DisplayTemplate>
+                    <i class="fa-solid fa-flag"></i>
+                    <span>@context?.Text</span>
+                </DisplayTemplate>
+            </Select>
+        </div>
+    </div>
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsTimezoneTitle"]"
            Introduction="@Localizer["SelectsTimezoneIntro"]"
-           Name="Timezone"
-           Demo="typeof(Demos.Selects.SelectsTimezone)" />
+           Name="Timezone">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <Select TValue="string" Value="@TimezoneId" Items="TimezoneItems" OnValueChanged="OnTimezoneValueChanged" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display TValue="TimeSpan" Value="@TimezoneValue" />
+        </div>
+    </div>
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsPopoverTitle"]"
            Introduction="@Localizer["SelectsPopoverIntro"]"
-           Name="Popover"
-           Demo="typeof(Demos.Selects.SelectsPopover)" />
+           Name="Popover">
+    <div class="row">
+        <div class="col-12 col-sm-6 overflow-hidden">
+            <Select TValue="string" Items="Items" IsPopover="true" ShowSearch="true" />
+        </div>
+    </div>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
 
