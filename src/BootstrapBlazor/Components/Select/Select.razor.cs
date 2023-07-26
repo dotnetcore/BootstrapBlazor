@@ -228,10 +228,19 @@ public partial class Select<TValue> : ISelect
         return new ItemsProviderResult<SelectedItem>(VirtualItems, TotalCount);
     }
 
-    private async Task SearchTextChanged(string? val)
+    private async Task SearchTextChanged(string val)
     {
         SearchText = val;
-        await Element.RefreshDataAsync();
+        if (Items.Any())
+        {
+            // 通过 Items 提供数据
+            VirtualItems = Items = OnSearchTextChanged(SearchText);
+        }
+        else
+        {
+            // 通过 ItemProvider 提供数据
+            await Element.RefreshDataAsync();
+        }
         StateHasChanged();
     }
 
@@ -280,6 +289,13 @@ public partial class Select<TValue> : ISelect
             if (SelectedItem != null)
             {
                 _ = SelectedItemChanged(SelectedItem);
+            }
+        }
+        else if (IsVirtualize)
+        {
+            if (Items.Any())
+            {
+                VirtualItems = Items = OnSearchTextChanged(SearchText);
             }
         }
         else

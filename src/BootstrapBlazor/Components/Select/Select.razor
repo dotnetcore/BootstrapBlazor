@@ -39,7 +39,7 @@
                 @if (ShowSearch)
                 {
                     <div class="@SearchClassString">
-                        <input type="text" class="search-text form-control" autocomplete="off" value="@SearchText" @oninput="EventCallback.Factory.CreateBinder<string?>(this, async v => await SearchTextChanged(v), SearchText)" aria-label="Search">
+                        <input type="text" class="search-text form-control" autocomplete="off" value="@SearchText" @oninput="EventCallback.Factory.CreateBinder<string>(this, async v => await SearchTextChanged(v), SearchText)" aria-label="Search">
                         <i class="@SearchIconString"></i>
                     </div>
                 }
