@@ -62,28 +62,32 @@ public sealed partial class Stepses
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new()
+        {
             Name = "Items",
             Description = Localizer["StepssItems"],
             Type = "IEnumerable<StepItem>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "IsVertical",
             Description = Localizer["StepssIsVertical"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "IsCenter",
             Description = Localizer["StepssIsCenter"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Status",
             Description = Localizer["StepssStatus"],
             Type = "StepStatus",
@@ -94,70 +98,80 @@ public sealed partial class Stepses
 
     private IEnumerable<AttributeItem> GetStepItemAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new()
+        {
             Name = "IsCenter",
             Description = Localizer["StepssAttrIsCenter"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "IsIcon",
             Description = Localizer["StepssAttrIsIcon"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "IsLast",
             Description = Localizer["StepssAttrIsLast"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "StepIndex",
             Description = Localizer["StepssAttrStepIndex"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "0"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Space",
             Description = Localizer["StepssAttrSpace"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "—"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Title",
             Description = Localizer["StepssAttrTitle"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Icon",
             Description = Localizer["StepssAttrIcon"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Description",
             Description = Localizer["StepssAttrDescription"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Status",
             Description = Localizer["StepssAttrStatus"],
             Type = "StepStatus",
             ValueList = "Wait|Process|Finish|Error|Success",
             DefaultValue = "Wait"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Template",
             Description = Localizer["StepssAttrTemplate"],
             Type = "RenderFragment",
@@ -168,7 +182,7 @@ public sealed partial class Stepses
 
     private IEnumerable<EventItem> GetEvents() => new List<EventItem>()
     {
-        new EventItem()
+        new()
         {
             Name = "OnStatusChanged",
             Description = Localizer["StepssEventOnStatusChanged"],
