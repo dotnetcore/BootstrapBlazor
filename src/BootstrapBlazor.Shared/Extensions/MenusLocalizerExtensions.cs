@@ -951,7 +951,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["SearchDialog"],
-                    Url = "searchdialogs"
+                    Url = "search-dialog"
                 },
                 new()
                 {

@@ -267,7 +267,7 @@
     "SearchDialogsTitle": "SearchDialog 搜索弹窗",
     "SearchDialogsSubTitle": "通过绑定数据模型自动呈现搜索弹窗",
     "SearchDialogsDescription": "<code>SearchDialog</code> 组件是 <code>Dialog</code> 组件的扩展，适用于数据弹出窗设置搜索条件。",
-    "SearchDialogstTips": "通过调用注入服务 <code>DialogService</code> 的 <code>ShowSearchDialog</code> 方法直接弹出搜索条件弹窗，大大减少代码量。<code>SearchDialogOption</code> 配置类继承 <code>DialogOption</code> ，更多参数设置请点击 <a href=\"dialogs\" target=\"_blank\">[传送门]</a>",
+    "SearchDialogsTips": "通过调用注入服务 <code>DialogService</code> 的 <code>ShowSearchDialog</code> 方法直接弹出搜索条件弹窗，大大减少代码量。<code>SearchDialogOption</code> 配置类继承 <code>DialogOption</code> ，更多参数设置请点击 <a href=\"dialogs\" target=\"_blank\">[传送门]</a>",
     "SearchDialogsNormalTitle": "基础用法",
     "SearchDialogsNormalIntro": "通过绑定 <code>TModel</code> 数据模型，自动生成模型各个字段的搜索表单",
     "SearchDialogsNormalButtonText": "点击弹出搜索弹窗",
