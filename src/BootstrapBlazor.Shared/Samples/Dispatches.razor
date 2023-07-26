@@ -1,5 +1,6 @@
 ﻿@page "/dispatches"
 @inject IStringLocalizer<Dispatches> Localizer
+@inject IDispatchService<BootstrapBlazor.Shared.MessageItem> DispatchService
 
 <h3>@Localizer["Title"]</h3>
 <h4>@Localizer["Description"]</h4>
@@ -43,10 +44,11 @@ private IDispatchService&lt;GiteePostBody&gt;? DispatchService { get; set; }</Pr
 }</Pre>
 <div>@((MarkupString)Localizer["NormalTips5"].Value)</div>
 
-<DemoBlock Title="@Localizer["DispatchTitle"]" Introduction="@Localizer["DispatchIntro"]" Name="Dispatch" Demo="typeof(Demos.Dispatch.DispatchNormal)">
+<DemoBlock Title="@Localizer["DispatchTitle"]" Introduction="@Localizer["DispatchIntro"]" Name="Dispatch">
     <p>@((MarkupString)Localizer["DispatchTip"].Value)</p>
     <Pre class="mb-3">public class MessageItem
 {
     public string? Message { get; set; }
 }</Pre>
+    <Button IsAsync="true" Icon="fa-regular fa-paper-plane" Text="@Localizer["DispatchNoticeButtonText"]" OnClickWithoutRender="OnDispatch" />
 </DemoBlock>

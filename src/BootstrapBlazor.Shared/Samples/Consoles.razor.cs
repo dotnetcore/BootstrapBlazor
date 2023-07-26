@@ -125,14 +125,14 @@ public sealed partial class Consoles
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetItemAttributes() => new AttributeItem[]
     {
-        new AttributeItem(){
+        new(){
             Name = "Message",
             Description = "控制台输出消息",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem(){
+        new(){
             Name = "Color",
             Description = "消息颜色",
             Type = "Color",
@@ -147,105 +147,118 @@ public sealed partial class Consoles
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem(){
+        new()
+        {
             Name = nameof(BootstrapBlazor.Components.Console.Items),
             Description = "组件数据源",
             Type = "IEnumerable<ConsoleMessageItem>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem(){
+        new()
+        {
             Name = "Height",
             Description = "组件高度",
             Type = "int",
             ValueList = " — ",
             DefaultValue = "0"
         },
-        new AttributeItem(){
+        new()
+        {
             Name = nameof(BootstrapBlazor.Components.Console.IsAutoScroll),
             Description = "是否自动滚屏",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem(){
+        new(){
             Name = "ShowAutoScroll",
             Description = "是否显示自动滚屏选项",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem(){
+        new()
+        {
             Name = "OnClear",
             Description = "组件清屏回调方法",
             Type = "int",
             ValueList = " — ",
             DefaultValue = "0"
         },
-        new AttributeItem(){
+        new()
+        {
             Name = "HeaderText",
             Description = "Header 显示文字",
             Type = "string",
             ValueList = " — ",
             DefaultValue = "系统监控"
         },
-        new AttributeItem(){
+        new()
+        {
             Name = "HeaderTemplate",
             Description = "Header 模板",
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem(){
+        new(){
             Name = "LightTitle",
             Description = "指示灯 Title",
             Type = "string",
             ValueList = " — ",
             DefaultValue = "通讯指示灯"
         },
-        new AttributeItem(){
+        new()
+        {
             Name = "IsFlashLight",
             Description = "指示灯是否闪烁",
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "true"
         },
-        new AttributeItem(){
+        new()
+        {
             Name = "LightColor",
             Description = "指示灯颜色",
             Type = "Color",
             ValueList = " — ",
             DefaultValue = "Color.Success"
         },
-        new AttributeItem(){
+        new()
+        {
             Name = "ShowLight",
             Description = "是否显示指示灯",
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "true"
         },
-        new AttributeItem(){
+        new()
+        {
             Name = "ClearButtonText",
             Description = "按钮显示文字",
             Type = "string",
             ValueList = " — ",
             DefaultValue = "清屏"
         },
-        new AttributeItem(){
+        new()
+        {
             Name = "ClearButtonIcon",
             Description = "按钮显示图标",
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-fw fa-solid fa-xmark"
         },
-        new AttributeItem(){
+        new()
+        {
             Name = "ClearButtonColor",
             Description = "按钮颜色",
             Type = "Color",
             ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
             DefaultValue = "Secondary"
         },
-        new AttributeItem(){
+        new()
+        {
             Name = "FooterTemplate",
             Description = "Footer 模板",
             Type = "RenderFragment",

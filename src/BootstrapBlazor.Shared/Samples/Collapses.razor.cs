@@ -31,22 +31,24 @@ public sealed partial class Collapses
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new AttributeItem() {
+        new()
+        {
             Name = "CollapseItems",
             Description = Localizer["CollapseItems"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "IsAccordion",
             Description = Localizer["IsAccordion"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "OnCollapseChanged",
             Description = Localizer["OnCollapseChanged"],
             Type = "Func<CollapseItem, Task>",

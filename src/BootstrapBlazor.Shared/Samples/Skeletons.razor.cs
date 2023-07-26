@@ -15,35 +15,40 @@ public partial class Skeletons
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new()
+        {
             Name = nameof(SkeletonTable.Round),
             Description = "是否显示圆角",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = nameof(SkeletonTable.Active),
             Description = "是否显示动画",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = nameof(SkeletonTable.Rows),
             Description = "骨架屏默认显示行数",
             Type = "bool",
             ValueList = "int",
             DefaultValue = "7"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = nameof(SkeletonTable.Columns),
             Description = "骨架屏默认显示列数",
             Type = "bool",
             ValueList = "int",
             DefaultValue = "3"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = nameof(SkeletonTable.ShowToolbar),
             Description = "是否显示 Toolbar",
             Type = "bool",

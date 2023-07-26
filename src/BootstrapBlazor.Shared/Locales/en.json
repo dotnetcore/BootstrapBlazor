@@ -202,8 +202,8 @@
     "SweetAlertsNormalWarn": "warn",
     "SweetAlertsNormalHint": "hint",
     "SweetAlertsNormalDoubt": "doubt",
-    "SweetAlertsDispalyTitle": "Set display content",
-    "SweetAlertsDispalyIntro": "By setting <code>Title</code> <code>Content</code> is used to display the title and content of the pop-up window",
+    "SweetAlertsDisplayTitle": "Set display content",
+    "SweetAlertsDisplayIntro": "By setting <code>Title</code> <code>Content</code> is used to display the title and content of the pop-up window",
     "SweetAlertsButtonTitle": "Custom button",
     "SweetAlertsButtonIntro": "Customize the buttons in the pop-up window by setting <code>ButtonTemplate</code>",
     "SweetAlertsComponentTitle": "Show custom components",
@@ -257,7 +257,7 @@
     "SpinnersSizeIntro": "Icon style size",
     "SpinnersFlexTitle": "Spinner Flex",
     "SpinnersFlexIntro": "Custom layout",
-    "SpinnersCustomTitle": "Spinner Flex",
+    "SpinnersCustomTitle": "Custom Title",
     "SpinnersCustomIntro": "Custom layout with text",
     "SpinnersCustomLoading": "Loading...",
     "SpinnersFloatTitle": "Spinner Floats",
@@ -267,7 +267,7 @@
     "SearchDialogsTitle": "SearchDialog search popup",
     "SearchDialogsSubTitle": "Automatically render search popups by binding the data model",
     "SearchDialogsDescription": "<code>SearchDialog</code> component is <code>Dialog</code> An extension of the component, suitable for setting search criteria in the data popup.",
-    "SearchDialogstTips": "Inject the service by calling <code>DialogService</code> of <code>ShowSearchDialog</code> The method directly pops up the search criteria pop-up window, which greatly reduces the amount of code. <code>SearchDialogOption</code> Configuration class inheritance <code>DialogOption</code> , for more parameter settings, please click <a href=\"dialogs\" target=\"_blank\">[portal]</a>",
+    "SearchDialogsTips": "Inject the service by calling <code>DialogService</code> of <code>ShowSearchDialog</code> The method directly pops up the search criteria pop-up window, which greatly reduces the amount of code. <code>SearchDialogOption</code> Configuration class inheritance <code>DialogOption</code> , for more parameter settings, please click <a href=\"dialogs\" target=\"_blank\">[portal]</a>",
     "SearchDialogsNormalTitle": "Basic usage",
     "SearchDialogsNormalIntro": "By binding the <code>TModel</code> data model, the search form for each field of the model is automatically generated",
     "SearchDialogsNormalButtonText": "Click to pop up search popup",
@@ -821,54 +821,24 @@
     "EmailInput": "please enter ...",
     "HeaderToolbarTemplateTitle": "Header Toolbar Template",
     "HeaderToolbarTemplateIntro": "Set <code>HeaderToolbarTemplate</code> custom the buttons on <code>Header</code>",
-    "KeyboardTip": "by setting <code>DialogOption</code> <code>IsKeyboard</code> parameter, whether the pop-up window supports <kbd>ESC</kbd>, please click the back button to set and then click the <b>pop-up window</b> button to test the effect"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogKeyboard": {
-    "KeyboardOpenDialogButton": "Click to open Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogCustomerHeader": {
-    "CustomerHeaderOpenDialogButton": "Pop-ups"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogHeaderToolbarTemplate": {
+    "KeyboardTip": "by setting <code>DialogOption</code> <code>IsKeyboard</code> parameter, whether the pop-up window supports <kbd>ESC</kbd>, please click the back button to set and then click the <b>pop-up window</b> button to test the effect",
+    "KeyboardOpenDialogButton": "Click to open Dialog",
+    "CustomerHeaderOpenDialogButton": "Pop-ups",
     "HeaderToolbarTemplateButtonText": "Print",
     "HeaderToolbarTemplateDialogTitle": "Custom toolbar sample",
-    "HeaderToolbarTemplateToastContent": "Print button clicked"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogComponent": {
-    "ComponentOpenDialogButton": "Click to open Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogBodyContext": {
-    "BodyContextOpenDialogButton": "Dialog parameter passing example"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogApply": {
+    "HeaderToolbarTemplateToastContent": "Print button clicked",
+    "ComponentOpenDialogButton": "Click to open Dialog",
+    "BodyContextOpenDialogButton": "Dialog parameter passing example",
     "ApplyDisplayText": "Primary key parameter",
-    "ApplyOpenDialogButton": "Pop-ups"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogMultipleDialog": {
-    "MultipleDialogButton": "Pop-ups"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogModalDialog": {
-    "ModalDialogButton": "Click to open Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogEditDialog": {
-    "EditDialogButton": "Edit popup"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogSearchDialog": {
-    "SearchDialogButton": "Search popup"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogSaveDialog": {
-    "SaveDialogButton": "Save popup"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogSize": {
-    "SizeButton": "Fullscreen popup (&lt; 1200px)"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogPrintDialog": {
-    "PrintDialogButton": "Click to open Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogShowMaximizeButton": {
-    "ShowMaximizeButton": "Click to open Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Dialog.DialogErrorLogger": {
+    "ApplyOpenDialogButton": "Pop-ups",
+    "MultipleDialogButton": "Pop-ups",
+    "ModalDialogButton": "Click to open Dialog",
+    "EditDialogButton": "Edit popup",
+    "SearchDialogButton": "Search popup",
+    "SaveDialogButton": "Save popup",
+    "SizeButton": "Fullscreen popup (&lt; 1200px)",
+    "PrintDialogButton": "Click to open Dialog",
+    "ShowMaximizeButton": "Click to open Dialog",
     "ErrorLoggerButton": "global exception test"
   },
   "BootstrapBlazor.Shared.Samples.Dispatches": {
@@ -885,9 +855,7 @@
     "NormalTips5": "used in this example <code>Toast</code> component for notification, and any other built-in message component or custom component can be used for notification operation in actual combat",
     "DispatchTitle": "Practical application",
     "DispatchIntro": "Click the button to distribute the message, all people who open this page can receive the message distributed by this button",
-    "DispatchTip": "Since this function is a site-wide push notification, in order to prevent malicious use, in the example below, the button notification is disabled for <b>30</b> seconds; the message injection code is in the <code>MainLayout</code> template"
-  },
-  "BootstrapBlazor.Shared.Demos.Dispatch.DispatchNormal": {
+    "DispatchTip": "Since this function is a site-wide push notification, in order to prevent malicious use, in the example below, the button notification is disabled for <b>30</b> seconds; the message injection code is in the <code>MainLayout</code> template",
     "DispatchNoticeButtonText": "Notice",
     "DispatchNoticeMessage": "Test dispatch message"
   },
@@ -899,21 +867,11 @@
     "PlacementTitle": "Click to close the mask",
     "PlacementIntro": "By setting the <code>IsBackdrop</code> property to <code>true</code>, the drawer is automatically closed when the mask part is clicked",
     "NoBackdropTitle": "No backdrop",
-    "NoBackdropIntro": "By setting the <code>ShowBackdrop=\"false\"</code> do not show the backdrop"
-  },
-  "BootstrapBlazor.Shared.Demos.Drawer.DrawerNormal": {
+    "NoBackdropIntro": "By setting the <code>ShowBackdrop=\"false\"</code> do not show the backdrop",
     "Open": "click me to open",
-    "Description": "The layout, components, etc. in the drawer are fully customizable",
-    "Close": "close the drawer"
-  },
-  "BootstrapBlazor.Shared.Demos.Drawer.DrawerPlacement": {
-    "Open": "click me to open",
+    "Content": "The layout, components, etc. in the drawer are fully customizable",
+    "Close": "close the drawer",
     "PlacementContent": "Click on the shaded part of the mask to automatically close the drawer"
-  },
-  "BootstrapBlazor.Shared.Demos.Drawer.DrawerNoBackdrop": {
-    "Open": "click me to open",
-    "Description": "The layout, components, etc. in the drawer are fully customizable",
-    "Close": "close the drawer"
   },
   "BootstrapBlazor.Shared.Samples.Consoles": {
     "Title": "Console",
@@ -1719,23 +1677,23 @@
     "SplitsTitle": "Split",
     "SplitsNormalTitle": "Basic usage",
     "SplitsNormalIntro": "Left and Right",
-    "SplitsPannel1": "I am the left panel",
-    "SplitsPannel2": "I am the right panel",
+    "SplitsPanel1": "I am the left panel",
+    "SplitsPanel2": "I am the right panel",
     "SplitsPercentTitle": "Set initialization percentage",
     "SplitsPercentIntro": "Set the proportion of the initial position by setting the <code>Basis</code> attribute",
     "SplitsVerticalTitle": "Vertical split",
     "SplitsVerticalIntro": "Control the vertical split panel by setting the <code>IsVertical</code> property",
-    "SplitsPannel3": "I am the upper panel",
-    "SplitsPannel4": "I am the bottom panel",
+    "SplitsPanel3": "I am the upper panel",
+    "SplitsPanel4": "I am the bottom panel",
     "SplitsNestedTitle": "Nested use",
     "SplitsNestedIntro": "Combine layout by nesting <code>Split</code> components",
-    "SplitsPannel5": "Upper",
-    "SplitsPannel6": "Lower",
-    "SplitsPannel7": "Right",
+    "SplitsPanel5": "Upper",
+    "SplitsPanel6": "Lower",
+    "SplitsPanel7": "Right",
     "SplitsIsVertical": "style",
     "SplitsBasis": "Percentage of first pane position",
-    "SplitsFirstPaneTemplate": "First pane template",
-    "SplitsSecondPaneTemplate": "Second pane template"
+    "SplitsFirstPanelTemplate": "First pane template",
+    "SplitsSecondPanelTemplate": "Second pane template"
   },
   "BootstrapBlazor.Shared.Samples.Dropdowns": {
     "Title": "Dropdown",
@@ -1976,17 +1934,17 @@
     "PaginationsNextPageIconAttr": "Next page icon",
     "PaginationsNextEllipsisPageIconAttr": "The page down icon"
   },
-  "BootstrapBlazor.Shared.Samples.Stepss": {
-    "StepssTitle": "Steps",
-    "StepssDescription": "A navigation bar that guides the user through the process",
-    "StepssTipsTitle": "Step-by-step navigation bar that guides the user through the process, setting steps of no less than 2 steps based on the actual scenario",
-    "StepssTips": "<code>Steps</code> component supports UI rendering by setting the <code>Items</code> property or by embedding the <code>Step</code> component directly",
-    "StepssNormalTitle": "Basic usage",
-    "StepssNormalIntro": "Simple step bar, by directly binding the data source <code>Items</code>",
-    "StepssNormalButton1Text": "Next",
-    "StepssNormalButton2Text": "Reset",
-    "StepssStepTitle": "Basic usage",
-    "StepssStepIntro": "A simple step bar that uses the <code>Step</code> component setup step directly inside the component",
+  "BootstrapBlazor.Shared.Samples.Steps": {
+    "StepsTitle": "Steps",
+    "StepsDescription": "A navigation bar that guides the user through the process",
+    "StepsTipsTitle": "Step-by-step navigation bar that guides the user through the process, setting steps of no less than 2 steps based on the actual scenario",
+    "StepsTips": "<code>Steps</code> component supports UI rendering by setting the <code>Items</code> property or by embedding the <code>Step</code> component directly",
+    "StepsNormalTitle": "Basic usage",
+    "StepsNormalIntro": "Simple step bar, by directly binding the data source <code>Items</code>",
+    "StepsNormalButton1Text": "Next",
+    "StepsNormalButton2Text": "Reset",
+    "StepsStepTitle": "Basic usage",
+    "StepsStepIntro": "A simple step bar that uses the <code>Step</code> component setup step directly inside the component",
     "Step1Title": "Step 1",
     "Step2Title": "Step 2",
     "Step3Title": "Step 3",
@@ -1994,28 +1952,28 @@
     "Step5Title": "Step 5",
     "StepDesc1": "This is a long descriptive text",
     "StepDesc2": "Conclusion",
-    "StepssDescTitle": "There is a description of the step bar",
-    "StepssDescIntro": "Each step described has its own description bar of step status",
-    "StepssMiddleTitle": "Center the step bar",
-    "StepssMiddleIntro": "Both the title and description will be centered",
-    "StepssTitleCenterTitle": "Step bar with icon",
-    "StepssTitleCenterIntro": "Various custom icons can be enabled within the step bar",
+    "StepsDescTitle": "There is a description of the step bar",
+    "StepsDescIntro": "Each step described has its own description bar of step status",
+    "StepsMiddleTitle": "Center the step bar",
+    "StepsMiddleIntro": "Both the title and description will be centered",
+    "StepsTitleCenterTitle": "Step bar with icon",
+    "StepsTitleCenterIntro": "Various custom icons can be enabled within the step bar",
     "AttributeTitle": "StepItem Atributes",
-    "StepssItems": "Set up a collection of step data",
-    "StepssIsVertical": "The direction of the display",
-    "StepssIsCenter": "Center alignment",
-    "StepssStatus": "Set the status of the current step",
-    "StepssAttrIsCenter": "Center alignment",
-    "StepssAttrIsIcon": "Make steps to display using the icon",
-    "StepssAttrIsLast": "Whether it is the last step",
-    "StepssAttrStepIndex": "Step order number",
-    "StepssAttrSpace": "Spacing is not filled in to support the percentage of adaptive spacing",
-    "StepssAttrTitle": "The steps display text",
-    "StepssAttrIcon": "The step displays an icon",
-    "StepssAttrDescription": "Describe the information",
-    "StepssAttrStatus": "Set the status of the current step",
-    "StepssAttrTemplate": "Set up the content template for the current step",
-    "StepssEventOnStatusChanged": "Call back the delegate when the component state changes",
+    "StepsItems": "Set up a collection of step data",
+    "StepsIsVertical": "The direction of the display",
+    "StepsIsCenter": "Center alignment",
+    "StepsStatus": "Set the status of the current step",
+    "StepsAttrIsCenter": "Center alignment",
+    "StepsAttrIsIcon": "Make steps to display using the icon",
+    "StepsAttrIsLast": "Whether it is the last step",
+    "StepsAttrStepIndex": "Step order number",
+    "StepsAttrSpace": "Spacing is not filled in to support the percentage of adaptive spacing",
+    "StepsAttrTitle": "The steps display text",
+    "StepsAttrIcon": "The step displays an icon",
+    "StepsAttrDescription": "Describe the information",
+    "StepsAttrStatus": "Set the status of the current step",
+    "StepsAttrTemplate": "Set up the content template for the current step",
+    "StepsEventOnStatusChanged": "Call back the delegate when the component state changes",
     "StepItemI1Text": "Step 1",
     "StepItemI1TextC": "Step 1",
     "StepItemI2Text": "Step 2",
@@ -2071,7 +2029,7 @@
     "TabsAddTabItemTitle": "Custom add tab triggers",
     "TabsAddTabItemIntro": "Dynamically add/remove <code>TabItem</code> by calling the component api",
     "AddButtonText": "Add",
-    "RmoveButtonText": "Rmove",
+    "RemoveButtonText": "Rmove",
     "ActiveButtonText": "Activate the first one",
     "TabsComponentTitle": "Additional components are built in",
     "TabsComponentIntro": "other components are built into the <code>TabItem</code>",
@@ -2264,9 +2222,9 @@
     "Att12": "button style",
     "Att13": "The type of button",
     "MethodDesc1": "set whether the button is available",
-    "PluseButtonHeader": "PulseButton (heartbeat) button",
-    "PluseButtonPara": "It is suitable for highlighting function to attract users' attention. The default button is circular",
-    "PluseButtonPara2": "The heartbeat button component is inherited from the button, so a heartbeat ring is added on the basis of the original function of the button. Please refer to the switch style button in the lower right corner of the website.",
+    "PulseButtonHeader": "PulseButton (heartbeat) button",
+    "PulseButtonPara": "It is suitable for highlighting function to attract users' attention. The default button is circular",
+    "PulseButtonPara2": "The heartbeat button component is inherited from the button, so a heartbeat ring is added on the basis of the original function of the button. Please refer to the switch style button in the lower right corner of the website.",
     "NoneButtonColor": "None",
     "PrimaryButton": "Primary",
     "SecondaryButton": "Secondary",
@@ -2477,8 +2435,8 @@
     "ShowLabelIntro": "When you are a form component, the label in front of the component is displayed",
     "ShowLabelTip1": "Set the <code>DisplayText</code> property value to <code>select time</code>",
     "ShowLabelTip2": "The pre-label explicit rules are consistent with the <code>BootstrapInput</code> component  of the <a href='inputs'>[portal]</a>",
-    "DisalbedTitle": "Disable",
-    "DisalbedIntro": "When you set the <code>IsDisabled</code> property value to <code>true</code>, the component suppresses input",
+    "DisabledTitle": "Disable",
+    "DisabledIntro": "When you set the <code>IsDisabled</code> property value to <code>true</code>, the component suppresses input",
     "ShowSidebarTitle": "Sidebar with shortcuts",
     "ShowSidebarIntro": "When you set the <code>ShowSidebar</code> property value to <code>true</code>, the component displays the shortcut sidebar",
     "MinValueTitle": "Set the range of values",
@@ -2497,16 +2455,10 @@
     "Att9": "Get/Set Component display mode The default is the month-to-day display mode",
     "AttrAutoClose": "Whether auto close the popup window",
     "Event1": "Confirm that the button calls back the delegate",
-    "Event2": "Callback delegates are used for bidirectional binding when component values change"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerGroup": {
-    "BlockGroupPrevLabel": "Prev",
-    "BlockGroupSuffixLabel": "Suffix"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerShowLabel": {
-    "DisplayText": "Select the time"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimePicker.DateTimePickerValidateDemo": {
+    "Event2": "Callback delegates are used for bidirectional binding when component values change",
+    "BlockGroupLabel": "Prev",
+    "BlockGroupSuffixLabel": "Suffix",
+    "DisplayText": "Select the time",
     "SubmitText": "Save",
     "Value": "Value",
     "Value.Required": "{0} is required."
@@ -3061,8 +3013,8 @@
     "RatesNormalIntro": "<code>Rate</code> component represents the numeric level with 1 - 5 stars, and the value can be bound in both directions in the background by <code>bind-Value</code> Through the <code>Rate</code> component changes its value, the mouse swipe changes the value, and confirms its value when you click on the star",
     "RatesDisableTitle": "Disable",
     "RatesDisableIntro": "Disable components by setting <code>IsDisable</code> property to <code>true</code>",
-    "RatesReadonlyTitle": "Readonly",
-    "RatesReadonlyIntro": "Readonly components by setting <code>IsReadonly</code> property to <code>true</code>",
+    "RatesReadOnlyTitle": "Readonly",
+    "RatesReadOnlyIntro": "Readonly components by setting <code>IsReadonly</code> property to <code>true</code>",
     "RatesIconTitle": "Item Template",
     "RatesIconIntro": "Set <code>ItemTemplate</code> and <code>custom-rate</code> custom the UI",
     "RatesSwitchOn": "Disable",
@@ -3115,13 +3067,13 @@
     "SelectsGroupIntro": "Alternatives are presented in groups",
     "SelectsGuidTitle": "The binding generic is the Guid structure",
     "SelectsGuidIntro": "The component binding value is an example of a Guid structure",
-    "SelectsDispalyLabelTitle": "The label is displayed",
-    "SelectsDispalyLabelIntro": "When a component binds in both directions, it automatically determines whether label text is displayed based on the conditions",
-    "SelectsDispalyLabelDescription": "The pre-label explicit rules are consistent with the <code>BootstrapInput</code> component of the  of the <a href='inputs'>[The portal]</a>",
-    "SelectsDispalyLabelDivider1": "Bidirectional binding displays labels",
-    "SelectsDispalyLabelDivider2": "Bidirectional bindings show that bidirectional bindings do not display labels",
-    "SelectsDispalyLabelDivider3": "Customize DisplayText",
-    "SelectsDispalyLabelSelectText": "Custom city",
+    "SelectsDisplayLabelTitle": "The label is displayed",
+    "SelectsDisplayLabelIntro": "When a component binds in both directions, it automatically determines whether label text is displayed based on the conditions",
+    "SelectsDisplayLabelDescription": "The pre-label explicit rules are consistent with the <code>BootstrapInput</code> component of the  of the <a href='inputs'>[The portal]</a>",
+    "SelectsDisplayLabelDivider1": "Bidirectional binding displays labels",
+    "SelectsDisplayLabelDivider2": "Bidirectional bindings show that bidirectional bindings do not display labels",
+    "SelectsDisplayLabelDivider3": "Customize DisplayText",
+    "SelectsDisplayLabelSelectText": "Custom city",
     "SelectsStaticTitle": "Static data",
     "SelectsStaticIntro": "Hard-coded writing directly inside the <code>Select</code> component is suitable for static data drop-down boxes",
     "SelectsEnumTitle": "Enumerate the data",
@@ -3137,8 +3089,8 @@
     "SelectsNullableBooleanIntro": "an example of the <code>bool?</code> type of <code>select</code> component binding",
     "SelectsNullableBooleanDescription1": "Can be used for the empty boolean type more than in the conditional search box",
     "SelectsNullableBooleanDescription2": "When the first option is selected, the binding value <code>SelectIntItem</code> to <code>null</code>",
-    "SelectsCunstomTemplateTitle": "Custom option templates",
-    "SelectsCunstomTemplateIntro": "By setting the <code>ItemTemplate</code> you can customize the option rendering style",
+    "SelectsCustomTemplateTitle": "Custom option templates",
+    "SelectsCustomTemplateIntro": "By setting the <code>ItemTemplate</code> you can customize the option rendering style",
     "SelectsShowSearchTitle": "Drop-down box with search box",
     "SelectsShowSearchIntro": "Controls whether the search box is displayed by setting the <code>ShowSearch</code> property, which is not displayed by default false",
     "SelectsConfirmSelectTitle": "Drop-down box with confirmation",
@@ -3893,15 +3845,8 @@
     "ValidateFormTitle": "Used in the form",
     "ValidateFormIntro": "Build components into <code>ValidateForm</code> used in",
     "AutoCloseTitle": "AutoClose",
-    "AutoCloseIntro": "Click on the sidebar shortcuts to Close the pop-up automatically"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimeRange.DateTimeRangeValidateForm": {
-    "Submit": "Submit"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimeRange.DateTimeRangeMaxMinValue": {
-    "Limit": "time limit"
-  },
-  "BootstrapBlazor.Shared.Demos.DateTimeRange.DateTimeRangeBindValue": {
+    "AutoCloseIntro": "Click on the sidebar shortcuts to Close the pop-up automatically",
+    "Submit": "Submit",
     "Limit": "time limit"
   },
   "BootstrapBlazor.Shared.Samples.Ips": {
@@ -4198,38 +4143,38 @@
     "TimelinesComponent": "Node custom components",
     "TimelinesAttributeTitle": "TimelineItem attributes"
   },
-  "BootstrapBlazor.Shared.Samples.Searchs": {
-    "SearchsTitle": "Search box",
-    "SearchsSubTitle": "Used for data search",
-    "SearchsPlaceHolder": "Search for examples",
-    "SearchsNormalTitle": "Basic usage",
-    "SearchsNormalIntro": "Enter some of the data to search",
-    "SearchsNormalDescription": "Please enter <code>1234</code> to get the Smart Prompt and turn on auto focus by setting <code>IsAutoFocus='true'</code>",
-    "SearchsClearValueTitle": "Values are automatically emptied after searching",
-    "SearchsClearValueIntro": "Turn on the automatic emptying of the search box after search by setting <code>IsAutoClearAfterSearch=&quot;true&quot;</code>",
-    "SearchsDispalyButtonTitle": "The Empty button is displayed",
-    "SearchsDispalyButtonIntro": "Control whether the Empty button is displayed by setting the <code>ShowClearButton</code> parameter",
-    "SearchskeyboardsTitle": "Keyboard input instant search",
-    "SearchskeyboardsIntro": "Control whether search operations are performed in real time by setting <code>the IsOnInputTrigger</code> parameter",
-    "SearchsValidateFormTitle": "ValidateForm",
-    "SearchsValidateFormIntro": "Inside <code>ValidateForm</code>",
-    "SearchsChildContent": "Content",
-    "SearchsItems": "Data source",
-    "SearchsNoDataTip": "Auto-complete data prompts when there is no match",
-    "SearchsNoDataTipDefaultValue": "No matching data",
-    "SearchsButtonLoadingIcon": "Searching for button icon",
-    "SearchsClearButtonIcon": "Clear the button color",
-    "SearchsClearButtonText": "Empty the button text",
-    "SearchsClearButtonColor": "Clear the button color",
-    "SearchsButtonColor": "Search for button color",
-    "SearchsIsLikeMatch": "Whether fuzzy matching is turned on",
-    "SearchsIsAutoFocus": "Whether to get the focus automatically",
-    "SearchsIsAutoClearAfterSearch": "Click Search to automatically empty the search box",
-    "SearchsIsOnInputTrigger": "Whether the search mode is triggered by input, it is triggered by clicking the search button by default",
-    "SearchsIgnoreCase": "Whether case is ignored when matching",
-    "SearchsShowClearButton": "Whether the Clear button is displayed",
-    "SearchsOnSearch": "Call back this delegate when you click Search",
-    "SearchsOnClear": "Click Recall this order when emptying"
+  "BootstrapBlazor.Shared.Samples.Searches": {
+    "SearchesTitle": "Search box",
+    "SearchesSubTitle": "Used for data search",
+    "SearchesPlaceHolder": "Search for examples",
+    "SearchesNormalTitle": "Basic usage",
+    "SearchesNormalIntro": "Enter some of the data to search",
+    "SearchesNormalDescription": "Please enter <code>1234</code> to get the Smart Prompt and turn on auto focus by setting <code>IsAutoFocus='true'</code>",
+    "SearchesClearValueTitle": "Values are automatically emptied after searching",
+    "SearchesClearValueIntro": "Turn on the automatic emptying of the search box after search by setting <code>IsAutoClearAfterSearch=&quot;true&quot;</code>",
+    "SearchesDisplayButtonTitle": "The Empty button is displayed",
+    "SearchesDisplayButtonIntro": "Control whether the Empty button is displayed by setting the <code>ShowClearButton</code> parameter",
+    "SearchesKeyboardsTitle": "Keyboard input instant search",
+    "SearchesKeyboardsIntro": "Control whether search operations are performed in real time by setting <code>the IsOnInputTrigger</code> parameter",
+    "SearchesValidateFormTitle": "ValidateForm",
+    "SearchesValidateFormIntro": "Inside <code>ValidateForm</code>",
+    "SearchesChildContent": "Content",
+    "SearchesItems": "Data source",
+    "SearchesNoDataTip": "Auto-complete data prompts when there is no match",
+    "SearchesNoDataTipDefaultValue": "No matching data",
+    "SearchesButtonLoadingIcon": "Searching for button icon",
+    "SearchesClearButtonIcon": "Clear the button color",
+    "SearchesClearButtonText": "Empty the button text",
+    "SearchesClearButtonColor": "Clear the button color",
+    "SearchesButtonColor": "Search for button color",
+    "SearchesIsLikeMatch": "Whether fuzzy matching is turned on",
+    "SearchesIsAutoFocus": "Whether to get the focus automatically",
+    "SearchesIsAutoClearAfterSearch": "Click Search to automatically empty the search box",
+    "SearchesIsOnInputTrigger": "Whether the search mode is triggered by input, it is triggered by clicking the search button by default",
+    "SearchesIgnoreCase": "Whether case is ignored when matching",
+    "SearchesShowClearButton": "Whether the Clear button is displayed",
+    "SearchesOnSearch": "Call back this delegate when you click Search",
+    "SearchesOnClear": "Click Recall this order when emptying"
   },
   "BootstrapBlazor.Shared.Samples.Titles": {
     "Title": "Title",
@@ -5443,7 +5388,7 @@
     "AutoGenerateSearchTitle": "Auto-generate search function table",
     "AutoGenerateSearchIntro": "When <code>ShowSearch</code> is set, if <code>SearchTemplate</code> is not set when editing template, the component will try to automatically generate search criteria UI",
     "AutoGenerateSearchP": "When the column information is bound, set the <code>Searchable</code> property and set the search criteria to automatically build the UI. You can set the <code>SearchDialogShowMaximizeButton</code> to maximize the search pop-up window display <b>Maximize</b> button",
-    "AutoGenerateSearchTips": "<p>When building a search popup window automatically, since each column is set to <code>Searchable</code>, the component will pass <code>SearchText</code> and set <code>Searchable</code> Each column whose value is <code>true</code> automatically builds a search lambda expression, which is obtained through the attribute <code>Searchs</code> of <code>QueryPageOptions</code></p>",
+    "AutoGenerateSearchTips": "<p>When building a search popup window automatically, since each column is set to <code>Searchable</code>, the component will pass <code>SearchText</code> and set <code>Searchable</code> Each column whose value is <code>true</code> automatically builds a search lambda expression, which is obtained through the attribute <code>Searches</code> of <code>QueryPageOptions</code></p>",
     "AutoGenerateSearchCommnt": "Logical relationship usage",
     "CustomColSearchTitle": "Custom Column Search Template",
     "CustomColSearchIntro": "When <code>SearchTemplate</code> is set, the component automatically generates the search UI using this template as the rendering UI",
