@@ -6,22 +6,23 @@
 
 <DemoBlock Title="@Localizer["SwitchButtonsNormalTitle"]"
            Introduction="@Localizer["SwitchButtonsNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.SwitchButtons.SwitchButtonsNormal)">
+           Name="Normal">
+    <SwitchButton />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SwitchButtonsToggleStateTitle"]"
            Introduction="@Localizer["SwitchButtonsToggleStateIntro"]"
-           Name="ToggleState"
-           Demo="typeof(Demos.SwitchButtons.SwitchButtonsToggleState)">
-    <p>@((MarkupString)Localizer["SwitchButtonsToggleStateDescription"].Value)</p>
+           Name="ToggleState">
+    <p class="mb-3">@((MarkupString)Localizer["SwitchButtonsToggleStateDescription"].Value)</p>
+    <SwitchButton ToggleState="ToggleState" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SwitchButtonsOnClickTitle"]"
            Introduction="@Localizer["SwitchButtonsOnClickIntro"]"
-           Name="OnClick"
-           Demo="typeof(Demos.SwitchButtons.SwitchButtonsOnClick)">
-    <p>@((MarkupString)Localizer["SwitchButtonsOnClickDescription"].Value)</p>
+           Name="OnClick">
+    <p class="mb-3">@((MarkupString)Localizer["SwitchButtonsOnClickDescription"].Value)</p>
+    <SwitchButton OnClick="OnClick" />
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

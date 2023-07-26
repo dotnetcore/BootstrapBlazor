@@ -9,6 +9,16 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class SwitchButtons
 {
+    private bool ToggleState { get; set; } = true;
+
+    [NotNull]
+    private ConsoleLogger? Logger { get; set; }
+
+    private void OnClick()
+    {
+        Logger.Log("Clicked");
+    }
+
     /// <summary>
     /// 获得属性方法
     /// </summary>
