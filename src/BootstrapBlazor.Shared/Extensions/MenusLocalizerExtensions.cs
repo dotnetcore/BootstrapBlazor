@@ -1049,7 +1049,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Steps"],
-                    Url = "stepss"
+                    Url = "steps"
                 },
                 new()
                 {
