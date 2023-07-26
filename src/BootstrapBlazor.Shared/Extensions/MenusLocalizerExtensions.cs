@@ -579,7 +579,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["QRCode"],
-                    Url = "qrcodes"
+                    Url = "qr-code"
                 },
                 new()
                 {
