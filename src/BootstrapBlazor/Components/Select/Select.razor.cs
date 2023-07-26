@@ -210,7 +210,7 @@ public partial class Select<TValue> : ISelect
     /// 虚拟滚动数据加载回调方法
     /// </summary>
     [Parameter]
-    public Func<int, int, Task<QueryData<SelectedItem>>>? OnQueryData { get; set; }
+    public Func<VirtualizeQueryOption, Task<QueryData<SelectedItem>>>? OnQueryData { get; set; }
 
     private async ValueTask<ItemsProviderResult<SelectedItem>> LoadItems(ItemsProviderRequest request)
     {
@@ -221,7 +221,7 @@ public partial class Select<TValue> : ISelect
 
         System.Console.WriteLine($"StartIndex: {request.StartIndex} Count: {request.Count}");
         var count = TotalCount == 0 ? request.Count : Math.Min(request.Count, TotalCount - request.StartIndex);
-        var data = await OnQueryData(request.StartIndex, count);
+        var data = await OnQueryData(new() { StartIndex = request.StartIndex, Count = count, SearchText = SearchText });
 
         TotalCount = data.TotalCount;
         VirtualItems = data.Items ?? Enumerable.Empty<SelectedItem>();
