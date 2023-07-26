@@ -132,7 +132,7 @@ public partial class Select<TValue> : ISelect
     public RenderFragment<SelectedItem?>? DisplayTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否开启虚拟滚动 默认 false 未开启
+    /// 获得/设置 是否开启虚拟滚动 默认 false 未开启 注意：开启虚拟滚动后不支持 <see cref="SelectBase{TValue}.ShowSearch"/> <see cref="PopoverSelectBase{TValue}.IsPopover"/> <seealso cref="IsFixedSearch"/> 参数设置
     /// </summary>
     [Parameter]
     public bool IsVirtualize { get; set; }
@@ -174,24 +174,6 @@ public partial class Select<TValue> : ISelect
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            if (IsVirtualize && !Items.Any())
-            {
-                await Element.RefreshDataAsync();
-                StateHasChanged();
-            }
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
@@ -209,12 +191,13 @@ public partial class Select<TValue> : ISelect
             var item = NullableUnderlyingType == null ? "" : PlaceHolder;
             Items = ValueType.ToSelectList(string.IsNullOrEmpty(item) ? null : new SelectedItem("", item));
         }
-    }
 
-    /// <summary>
-    /// 获得/设置 当前行
-    /// </summary>
-    private int StartIndex { get; set; }
+        if (IsVirtualize)
+        {
+            IsPopover = false;
+            ShowSearch = false;
+        }
+    }
 
     /// <summary>
     /// 获得/设置 数据总条目
@@ -236,9 +219,9 @@ public partial class Select<TValue> : ISelect
             throw new InvalidOperationException("the parameter OnQueryData must be assign a value");
         }
 
-        StartIndex = request.StartIndex;
-        var count = TotalCount == 0 ? request.Count : Math.Min(request.Count, TotalCount - StartIndex);
-        var data = await OnQueryData(StartIndex, count);
+        System.Console.WriteLine($"StartIndex: {request.StartIndex} Count: {request.Count}");
+        var count = TotalCount == 0 ? request.Count : Math.Min(request.Count, TotalCount - request.StartIndex);
+        var data = await OnQueryData(request.StartIndex, count);
 
         TotalCount = data.TotalCount;
         VirtualItems = data.Items ?? Enumerable.Empty<SelectedItem>();
@@ -258,7 +241,7 @@ public partial class Select<TValue> : ISelect
 
     private bool TryParseSelectItem(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
     {
-        SelectedItem = DataSource.FirstOrDefault(i => i.Value == value);
+        SelectedItem = (VirtualItems ?? DataSource).FirstOrDefault(i => i.Value == value);
 
         // support SelectedItem? type
         result = default;

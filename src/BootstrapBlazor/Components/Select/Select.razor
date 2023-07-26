@@ -43,15 +43,16 @@
             }
             @if (IsVirtualize)
             {
-                if (Items.Any())
-                {
-                    <Virtualize @ref="Element" ItemSize="RowHeight" OverscanCount="OverscanCount" Items="@Items.ToList()" ChildContent="RenderRow" />
-                }
-                else
-                {
-                    <Virtualize @ref="Element" ItemSize="RowHeight" OverscanCount="OverscanCount" ItemsProvider="LoadItems" Placeholder="RenderPlaceHolderRow" ItemContent="RenderRow">
-                    </Virtualize>
-                }
+                <div class="dropdown-virtual">
+                    @if (Items.Any())
+                    {
+                        <Virtualize @ref="Element" ItemSize="RowHeight" OverscanCount="OverscanCount" Items="@Items.ToList()" ChildContent="RenderRow" />
+                    }
+                    else
+                    {
+                        <Virtualize @ref="Element" ItemSize="RowHeight" OverscanCount="OverscanCount" ItemsProvider="LoadItems" Placeholder="RenderPlaceHolderRow" ItemContent="RenderRow" />
+                    }
+                </div>
             }
             else
             {
