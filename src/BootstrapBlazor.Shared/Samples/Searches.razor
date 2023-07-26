@@ -1,0 +1,67 @@
+﻿@page "/searches"
+@inject IStringLocalizer<Searches> Localizer
+
+<h3>@Localizer["SearchesTitle"]</h3>
+
+<h4>@Localizer["SearchesSubTitle"]</h4>
+
+<DemoBlock Title="@Localizer["SearchesNormalTitle"]"
+           Introduction="@Localizer["SearchesNormalIntro"]"
+           Name="Normal">
+    <p class="mb-3">@((MarkupString)Localizer["SearchesNormalDescription"].Value)</p>
+    <Search IgnoreCase="true"
+            IsLikeMatch="true"
+            IsAutoFocus="true"
+            PlaceHolder="@Localizer["SearchesPlaceHolder"]"
+            Items="@Items"
+            OnSearch="@OnSearch"
+            IsSelectAllTextOnFocus="true" />
+    <ConsoleLogger @ref="Logger" class="mt-3" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SearchesClearValueTitle"]"
+           Introduction="@Localizer["SearchesClearValueIntro"]"
+           Name="ClearValue">
+    <Search IgnoreCase="true"
+            IsLikeMatch="true"
+            IsAutoClearAfterSearch="true"
+            PlaceHolder="@Localizer["SearchesPlaceHolder"]"
+            Items="@Items"
+            OnSearch="@OnClearSearch" />
+    <ConsoleLogger @ref="ClearLogger" class="mt-3" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SearchesDispalyButtonTitle"]"
+           Introduction="@Localizer["SearchesDispalyButtonIntro"]"
+           Name="DispalyButton">
+    <Search IgnoreCase="true"
+            IsLikeMatch="true"
+            PlaceHolder="@Localizer["SearchesPlaceHolder"]"
+            ShowClearButton="true"
+            Items="@Items"
+            OnSearch="@OnDispalySearch"
+            OnClear="@OnClear"></Search>
+    <ConsoleLogger @ref="DispalyLogger" class="mt-3" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SearcheskeyboardsTitle"]"
+           Introduction="@Localizer["SearcheskeyboardsIntro"]"
+           Name="keyboards">
+    <Search IgnoreCase="true"
+            IsLikeMatch="true"
+            PlaceHolder="@Localizer["SearchesPlaceHolder"]"
+            IsOnInputTrigger="true"
+            Items="@Items"
+            OnSearch="@OnKeyboardSearch" />
+    <ConsoleLogger @ref="KeyboardLogger" class="mt-3" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SearchesValidateFormTitle"]"
+           Introduction="@Localizer["SearchesValidateFormIntro"]"
+           Name="ValidateForm">
+    <ValidateForm Model="@Model">
+        <Search Items="StaticItems" IsOnInputTrigger="true" @bind-Value="Model.Name" />
+    </ValidateForm>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />
