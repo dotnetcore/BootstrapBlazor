@@ -65,7 +65,7 @@ public sealed partial class Steps
         new()
         {
             Name = "Items",
-            Description = Localizer["StepssItems"],
+            Description = Localizer["StepsItems"],
             Type = "IEnumerable<StepItem>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -73,7 +73,7 @@ public sealed partial class Steps
         new()
         {
             Name = "IsVertical",
-            Description = Localizer["StepssIsVertical"],
+            Description = Localizer["StepsIsVertical"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -81,7 +81,7 @@ public sealed partial class Steps
         new()
         {
             Name = "IsCenter",
-            Description = Localizer["StepssIsCenter"],
+            Description = Localizer["StepsIsCenter"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -89,7 +89,7 @@ public sealed partial class Steps
         new()
         {
             Name = "Status",
-            Description = Localizer["StepssStatus"],
+            Description = Localizer["StepsStatus"],
             Type = "StepStatus",
             ValueList = "Wait|Process|Finish|Error|Success",
             DefaultValue = "Wait"
@@ -101,7 +101,7 @@ public sealed partial class Steps
         new()
         {
             Name = "IsCenter",
-            Description = Localizer["StepssAttrIsCenter"],
+            Description = Localizer["StepsAttrIsCenter"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -109,7 +109,7 @@ public sealed partial class Steps
         new()
         {
             Name = "IsIcon",
-            Description = Localizer["StepssAttrIsIcon"],
+            Description = Localizer["StepsAttrIsIcon"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -117,7 +117,7 @@ public sealed partial class Steps
         new()
         {
             Name = "IsLast",
-            Description = Localizer["StepssAttrIsLast"],
+            Description = Localizer["StepsAttrIsLast"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -125,7 +125,7 @@ public sealed partial class Steps
         new()
         {
             Name = "StepIndex",
-            Description = Localizer["StepssAttrStepIndex"],
+            Description = Localizer["StepsAttrStepIndex"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "0"
@@ -133,7 +133,7 @@ public sealed partial class Steps
         new()
         {
             Name = "Space",
-            Description = Localizer["StepssAttrSpace"],
+            Description = Localizer["StepsAttrSpace"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "—"
@@ -141,7 +141,7 @@ public sealed partial class Steps
         new()
         {
             Name = "Title",
-            Description = Localizer["StepssAttrTitle"],
+            Description = Localizer["StepsAttrTitle"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -149,7 +149,7 @@ public sealed partial class Steps
         new()
         {
             Name = "Icon",
-            Description = Localizer["StepssAttrIcon"],
+            Description = Localizer["StepsAttrIcon"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -157,7 +157,7 @@ public sealed partial class Steps
         new()
         {
             Name = "Description",
-            Description = Localizer["StepssAttrDescription"],
+            Description = Localizer["StepsAttrDescription"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -165,7 +165,7 @@ public sealed partial class Steps
         new()
         {
             Name = "Status",
-            Description = Localizer["StepssAttrStatus"],
+            Description = Localizer["StepsAttrStatus"],
             Type = "StepStatus",
             ValueList = "Wait|Process|Finish|Error|Success",
             DefaultValue = "Wait"
@@ -173,7 +173,7 @@ public sealed partial class Steps
         new()
         {
             Name = "Template",
-            Description = Localizer["StepssAttrTemplate"],
+            Description = Localizer["StepsAttrTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
@@ -185,7 +185,7 @@ public sealed partial class Steps
         new()
         {
             Name = "OnStatusChanged",
-            Description = Localizer["StepssEventOnStatusChanged"],
+            Description = Localizer["StepsEventOnStatusChanged"],
             Type ="Func<StepStatus, Task>"
         }
     };
