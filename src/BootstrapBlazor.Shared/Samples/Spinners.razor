@@ -12,50 +12,82 @@
 
 <DemoBlock Title="@Localizer["SpinnersNormalTitle"]"
            Introduction="@Localizer["SpinnersNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Spinners.SpinnerNormal)">
+           Name="Normal">
+    <Spinner></Spinner>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SpinnersColorTitle"]"
            Introduction="@Localizer["SpinnersColorIntro"]"
-           Name="Color"
-           Demo="typeof(Demos.Spinners.SpinnerColor)">
+           Name="Color">
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Primary"></Spinner></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Secondary"></Spinner></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Success"></Spinner></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Danger"></Spinner></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Warning"></Spinner></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Info"></Spinner></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Light"></Spinner></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Color="Color.Dark"></Spinner></div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SpinnersGrowingTitle"]"
            Introduction="@Localizer["SpinnersGrowingIntro"]"
-           Name="Growing"
-           Demo="typeof(Demos.Spinners.SpinnerGrowing)">
+           Name="Growing">
+    <Spinner SpinnerType="SpinnerType.Grow"></Spinner>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SpinnersGrowingColorTitle"]"
            Introduction="@Localizer["SpinnersGrowingColorIntro"]"
-           Name="GrowingColor"
-           Demo="typeof(Demos.Spinners.SpinnerGrowingColor)">
+           Name="GrowingColor">
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Primary"></Spinner></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Secondary"></Spinner></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Success"></Spinner></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Danger"></Spinner></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Warning"></Spinner></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Info"></Spinner></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Light"></Spinner></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner SpinnerType="SpinnerType.Grow" Color="Color.Dark"></Spinner></div>
+    </div>
+
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SpinnersSizeTitle"]"
            Introduction="@Localizer["SpinnersSizeIntro"]"
-           Name="Size"
-           Demo="typeof(Demos.Spinners.SpinnerSize)">
+           Name="Size">
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Size="Size.ExtraSmall"></Spinner></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Size="Size.Small"></Spinner></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Size="Size.Medium"></Spinner></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Size="Size.Large"></Spinner></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Size="Size.ExtraLarge"></Spinner></div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Spinner Size="Size.ExtraExtraLarge"></Spinner></div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SpinnersFlexTitle"]"
            Introduction="@Localizer["SpinnersFlexIntro"]"
-           Name="Flex"
-           Demo="typeof(Demos.Spinners.SpinnerFlex)">
+           Name="Flex">
+    <div class="d-flex justify-content-center">
+        <Spinner></Spinner>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SpinnersCustomTitle"]"
            Introduction="@Localizer["SpinnersCustomIntro"]"
-           Name="Custom"
-           Demo="typeof(Demos.Spinners.SpinnerCustom)">
+           Name="Custom">
+    <div class="d-flex align-items-center">
+        <strong>@Localizer["SpinnersCustomLoading"]</strong>
+        <Spinner Class="ms-auto"></Spinner>
+    </div>
+
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SpinnersFloatTitle"]"
            Introduction="@Localizer["SpinnersFloatIntro"]"
-           Name="Float"
-           Demo="typeof(Demos.Spinners.SpinnerFloat)">
+           Name="Float">
+    <Spinner Class="float-end"></Spinner>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
