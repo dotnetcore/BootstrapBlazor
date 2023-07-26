@@ -961,7 +961,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["SweetAlert"],
-                    Url = "swals"
+                    Url = "sweet-alert"
                 },
                 new()
                 {

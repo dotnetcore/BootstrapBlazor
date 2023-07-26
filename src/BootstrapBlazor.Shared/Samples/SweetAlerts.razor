@@ -1,5 +1,6 @@
-﻿@page "/swals"
+﻿@page "/sweet-alert"
 @inject IStringLocalizer<SweetAlerts> Localizer
+@inject SwalService SwalService
 
 <h3>@Localizer["SweetAlertsTitle"]</h3>
 <h4>@Localizer["SweetAlertsDescription"]</h4>
@@ -24,56 +25,130 @@ await SwalService.Show(op);</Pre>
 
 <DemoBlock Title="@Localizer["SweetAlertsNormalTitle"]"
            Introduction="@Localizer["SweetAlertsNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.SweetAlerts.SweetAlertsNormal)">
+           Name="Normal">
+    <div class="row g-3">
+        <div class="col-4 align-self-center text-center">
+            <div class="text-success">@Localizer["SweetAlertsNormalSuccess"]</div>
+        </div>
+        <div class="col-4">
+            <div class="swal2-icon swal2-success">
+                <div class="swal2-success-circular-line-left"></div>
+                <span class="swal2-success-line-tip"></span><span class="swal2-success-line-long"></span>
+                <div class="swal2-success-ring"></div><div class="swal2-success-fix"></div>
+                <div class="swal2-success-circular-line-right"></div>
+            </div>
+        </div>
+        <div class="col-4 align-self-center text-center">
+            <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsPopups"]" Color="Color.Success" OnClick="@(e => OnSwal(SwalCategory.Success))" />
+        </div>
+    </div>
+    <div class="row g-3">
+        <div class="col-4 align-self-center text-center">
+            <div class="text-danger">@Localizer["SweetAlertsNormalFail"]</div>
+        </div>
+        <div class="col-4">
+            <div class="swal2-icon swal2-error">
+                <span class="swal2-x-mark">
+                    <span class="swal2-x-mark-line-left"></span>
+                    <span class="swal2-x-mark-line-right"></span>
+                </span>
+            </div>
+        </div>
+        <div class="col-4 align-self-center text-center">
+            <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsPopups"]" Color="Color.Danger" OnClick="@(e => OnSwal(SwalCategory.Error))" />
+        </div>
+    </div>
+    <div class="row g-3">
+        <div class="col-4 align-self-center text-center">
+            <div class="text-warning">@Localizer["SweetAlertsNormalWarn"]</div>
+        </div>
+        <div class="col-4">
+            <div class="swal2-icon swal2-warning"></div>
+        </div>
+        <div class="col-4 align-self-center text-center">
+            <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsPopups"]" Color="Color.Warning" OnClick="@(e => OnSwal(SwalCategory.Warning))" />
+        </div>
+    </div>
+    <div class="row g-3">
+        <div class="col-4 align-self-center text-center">
+            <div class="text-info">@Localizer["SweetAlertsNormalHint"]</div>
+        </div>
+        <div class="col-4">
+            <div class="swal2-icon swal2-info"></div>
+        </div>
+        <div class="col-4 align-self-center text-center">
+            <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsPopups"]" Color="Color.Info" OnClick="@(e => OnSwal(SwalCategory.Information))" />
+        </div>
+    </div>
+    <div class="row g-3">
+        <div class="col-4 align-self-center text-center">
+            <div class="text-secondary">@Localizer["SweetAlertsNormalDoubt"]</div>
+        </div>
+        <div class="col-4">
+            <div class="swal2-icon swal2-question"></div>
+        </div>
+        <div class="col-4 align-self-center text-center">
+            <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsPopups"]" Color="Color.Secondary" OnClick="@(e => OnSwal(SwalCategory.Question))" />
+        </div>
+    </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["SweetAlertsDispalyTitle"]"
-           Introduction="@Localizer["SweetAlertsDispalyIntro"]"
-           Name="Dispaly"
-           Demo="typeof(Demos.SweetAlerts.SweetAlertsDispaly)">
+<DemoBlock Title="@Localizer["SweetAlertsDisplayTitle"]"
+           Introduction="@Localizer["SweetAlertsDisplayIntro"]"
+           Name="Display">
+
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <Button Icon="fa-solid fa-font-awesome" Text="Title" Color="Color.Success" OnClick="@ShowTitle" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Button Icon="fa-solid fa-font-awesome" Text="Content" Color="Color.Success" OnClick="@ShowContent" />
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SweetAlertsButtonTitle"]"
            Introduction="@Localizer["SweetAlertsButtonIntro"]"
-           Name="Button"
-           Demo="typeof(Demos.SweetAlerts.SweetAlertsButton)">
+           Name="Button">
+    <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsPopups"]" Color="Color.Success" OnClick="@ShowButtons" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SweetAlertsComponentTitle"]"
            Introduction="@Localizer["SweetAlertsComponentIntro"]"
-           Name="Component"
-           Demo="typeof(Demos.SweetAlerts.SweetAlertsComponent)">
+           Name="Component">
+    <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsPopups"]" Color="Color.Success" OnClick="@ShowComponent" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["SweetAlertsModalTitle"]" Introduction="@Localizer["SweetAlertsModalIntro"]" Name="Modal" Demo="typeof(Demos.SweetAlerts.SweetAlertsModal)">
+<DemoBlock Title="@Localizer["SweetAlertsModalTitle"]" Introduction="@Localizer["SweetAlertsModalIntro"]" Name="Modal">
     <p>@((MarkupString)Localizer["SweetAlertsModalDescription"].Value)</p>
     <p>@((MarkupString)Localizer["SweetAlertsModalTips"].Value)</p>
-    <Pre class="no-highlight">var ret = await SwalService.ShowModal(op);
-
-Logger.Log(ret);
-</Pre>
+    <Pre class="no-highlight mb-3">
+        var ret = await SwalService.ShowModal(op);
+        Logger.Log(ret);
+    </Pre>
+    <Button class="mt-3" Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsPopups"]" Color="Color.Success" OnClick="@ShowModal" />
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SweetAlertsFooterTitle"]"
            Introduction="@Localizer["SweetAlertsFooterIntro"]"
-           Name="Footer"
-           Demo="typeof(Demos.SweetAlerts.SweetAlertsFooter)">
-    <p>@((MarkupString)Localizer["SweetAlertsFooterDescription"].Value)</p>
+           Name="Footer">
+    <p class="mb-3">@((MarkupString)Localizer["SweetAlertsFooterDescription"].Value)</p>
+    <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsFooterButtonText"]" Color="Color.Success" OnClick="@ShowFooterComponent" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SweetAlertsAutoCloseTitle"]"
            Introduction="@Localizer["SweetAlertsAutoCloseIntro"]"
-           Name="Close"
-           Demo="typeof(Demos.SweetAlerts.SweetAlertsAutoClose)">
-    <p>@((MarkupString)Localizer["SweetAlertsAutoCloseDescription"].Value)</p>
+           Name="Close">
+    <p class="mb-3">@((MarkupString)Localizer["SweetAlertsAutoCloseDescription"].Value)</p>
+    <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsAutoCloseButtonText"]" Color="Color.Success" OnClick="@ShowAutoCloseSwal" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SweetAlertsCloseTitle"]"
            Introduction="@Localizer["SweetAlertsCloseIntro"]"
-           Name="Close"
-           Demo="typeof(Demos.SweetAlerts.SweetAlertsClose)">
-    <p>@((MarkupString)Localizer["SweetAlertsCloseDescription"].Value)</p>
+           Name="Close">
+    <p class="mb-3">@((MarkupString)Localizer["SweetAlertsCloseDescription"].Value)</p>
+    <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["SweetAlertsCloseButtonText"]" Color="Color.Success" OnClick="@ShowCloseSwal" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
