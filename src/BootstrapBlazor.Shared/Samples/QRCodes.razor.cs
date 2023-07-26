@@ -9,6 +9,21 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class QRCodes
 {
+    [NotNull]
+    private ConsoleLogger? Logger { get; set; }
+
+    private Task OnGenerated()
+    {
+        Logger.Log(Localizer["SuccessText"]);
+        return Task.CompletedTask;
+    }
+
+    private Task OnCleared()
+    {
+        Logger.Log(Localizer["ClearText"]);
+        return Task.CompletedTask;
+    }
+
     /// <summary>
     /// 获得属性方法
     /// </summary>
