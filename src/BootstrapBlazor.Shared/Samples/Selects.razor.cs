@@ -45,13 +45,13 @@ public sealed partial class Selects
     /// <returns></returns>
     private IEnumerable<EventItem> GetEvents() => new EventItem[]
     {
-        new EventItem()
+        new()
         {
             Name = "OnSelectedItemChanged",
             Description = Localizer["SelectsOnSelectedItemChanged"],
             Type = "Func<SelectedItem, Task>"
         },
-        new EventItem()
+        new()
         {
             Name = "OnBeforeSelectedItemChange",
             Description = Localizer["SelectsOnBeforeSelectedItemChange"],
@@ -65,85 +65,94 @@ public sealed partial class Selects
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new AttributeItem() {
+        new() {
             Name = "ShowLabel",
             Description = Localizer["SelectsShowLabel"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new() {
             Name = "ShowSearch",
             Description = Localizer["SelectsShowSearch"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "DisplayText",
             Description = Localizer["SelectsDisplayText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Class",
             Description = Localizer["SelectsClass"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Color",
             Description = Localizer["SelectsColor"],
             Type = "Color",
             ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
             DefaultValue = "Primary"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "IsDisabled",
             Description = Localizer["SelectsIsDisabled"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Items",
             Description = Localizer["SelectsItems"],
             Type = "IEnumerable<SelectedItem>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "SelectItems",
             Description = Localizer["SelectItems"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ItemTemplate",
             Description = Localizer["SelectsItemTemplate"],
             Type = "RenderFragment<SelectedItem>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ChildContent",
             Description = Localizer["SelectsChildContent"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Category",
             Description = Localizer["SelectsCategory"],
             Type = "SwalCategory",
             ValueList = " — ",
             DefaultValue = " SwalCategory.Information "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Content",
             Description = Localizer["SelectsContent"],
             Type = "string?",
