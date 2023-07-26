@@ -3887,26 +3887,18 @@
     "DisplayText": "前置标签显示文本",
     "FormatString": "数值格式化字符串",
     "Formatter": "TableHeader 实例",
-    "TypeResolver": "类型解析回调方法 TValue 为 Array 实例时内部使用"
-  },
-  "BootstrapBlazor.Shared.Demos.Display.DisplayNormal": {
-    "BasicUsage": "基础用法"
-  },
-  "BootstrapBlazor.Shared.Demos.Display.DisplayLabels": {
+    "TypeResolver": "类型解析回调方法 TValue 为 Array 实例时内部使用",
+    "BasicUsage": "基础用法",
     "BindWayCustomLabel": "自定义标签",
     "BindWayP2": "设置 <code>DisplayText</code> 值为 <b>自定义标签</b>",
     "BindWayOccupants": "占位",
     "BindWayP3": "无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>true</code> 时均显示",
     "BindWayNotccupants": "不占位",
-    "BindWayP4": "无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>false</code> 时均不显示"
-  },
-  "BootstrapBlazor.Shared.Demos.Display.DisplayDataType": {
+    "BindWayP4": "无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>false</code> 时均不显示",
     "Integer": "整型",
     "Enum": "枚举",
     "Collection": "集合",
-    "Arr": "数组"
-  },
-  "BootstrapBlazor.Shared.Demos.Display.DisplayFormatString": {
+    "Arr": "数组",
     "FormatStringettingText": "设置",
     "FormatStringP": "<code>Display</code> 组件绑定 <code>byte[]</code> 数组，格式化成 <code>base64</code> 编码字符串示例"
   },

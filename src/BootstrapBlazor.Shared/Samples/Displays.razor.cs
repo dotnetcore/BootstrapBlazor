@@ -9,6 +9,52 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class Displays
 {
+    private IEnumerable<int> IntValue { get; set; } = new[] { 1, 2, 3 };
+
+    private IEnumerable<SelectedItem> IntValueSource { get; set; } = new[]
+    {
+        new SelectedItem("1", "Text1"),
+        new SelectedItem("2", "Text2"),
+        new SelectedItem("3", "Text3")
+    };
+
+    private static Task<string> DateTimeFormatter(DateTime source) => Task.FromResult(source.ToString("yyyy-MM-dd"));
+
+    private static async Task<string> ByteArrayFormatter(byte[] source)
+    {
+        await Task.Delay(10);
+        return Convert.ToBase64String(source);
+    }
+
+    [NotNull]
+    private IEnumerable<SelectedItem>? Hobbys { get; set; }
+
+    private byte[] ByteArray { get; set; } = { 0x01, 0x12, 0x34, 0x56 };
+
+    /// <summary>
+    /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
+    /// Foo class is used for Demo test, please download the source code if necessary
+    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Shared/Data/Foo.cs
+    /// </summary>
+    [NotNull]
+    private Foo? Model { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? FooLocalizer { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Model = Foo.Generate(FooLocalizer);
+        Model.Hobby = Foo.GenerateHobbies(FooLocalizer).Take(3).Select(i => i.Text);
+        Hobbys = Foo.GenerateHobbies(FooLocalizer);
+    }
+
     private IEnumerable<AttributeItem> GetAttributes() => new[]
     {
         new AttributeItem() {
