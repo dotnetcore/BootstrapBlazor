@@ -1093,7 +1093,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Row"],
-                    Url = "rows"
+                    Url = "row"
                 },
                 new()
                 {
