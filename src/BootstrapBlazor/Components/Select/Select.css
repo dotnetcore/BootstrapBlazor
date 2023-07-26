@@ -52,14 +52,10 @@
     max-height: var(--bb-dropdown-max-height);
 }
 
-    .dropdown-menu.is-virtual {
-        overflow: hidden;
-        padding: 0;
-    }
-
     .dropdown-menu .dropdown-virtual {
         overflow-y: auto;
-        padding: var(--bs-dropdown-padding-y) var(--bs-dropdown-padding-x);
+        margin: calc(0px - var(--bs-dropdown-padding-y)) var(--bs-dropdown-padding-x);
+        max-height: calc(var(--bb-dropdown-max-height) - 2px);
     }
 
 .dropdown-item {
