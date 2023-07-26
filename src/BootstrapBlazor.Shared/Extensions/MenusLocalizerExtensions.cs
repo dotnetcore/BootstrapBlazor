@@ -336,7 +336,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["PulseButton"],
-                    Url = "pulsebuttons"
+                    Url = "pulse-button"
                 },
                 new()
                 {
