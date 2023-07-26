@@ -19,7 +19,13 @@ public sealed partial class Rows
     };
 
     [NotNull]
-    private IEnumerable<SelectedItem>? Hobbies { get; set; }
+    private IEnumerable<SelectedItem>? Hobbies1 { get; set; }
+
+    [NotNull]
+    private IEnumerable<SelectedItem>? Hobbies2 { get; set; }
+
+    [NotNull]
+    private IEnumerable<SelectedItem>? Hobbies3 { get; set; }
 
     private RowFoo RowFormModel { get; } = new()
     {
@@ -55,7 +61,9 @@ public sealed partial class Rows
     {
         base.OnInitialized();
 
-        Hobbys = Foo.GenerateHobbies(LocalizerFoo);
+        Hobbies1 = Foo.GenerateHobbies(LocalizerFoo);
+        Hobbies2 = Foo.GenerateHobbies(LocalizerFoo);
+        Hobbies3 = Foo.GenerateHobbies(LocalizerFoo);
     }
 
     private class RowFoo : Foo
