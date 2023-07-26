@@ -5,10 +5,61 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// Stepss
+/// Stepses
 /// </summary>
-public sealed partial class Stepss
+public sealed partial class Stepses
 {
+    [NotNull]
+    private ConsoleLogger? Logger { get; set; }
+
+    private IEnumerable<StepItem> Items { get; set; } = new StepItem[3];
+
+    /// <summary>
+    /// 
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        Items = new StepItem[3]
+        {
+            new StepItem() { Title = Localizer["StepItemI1Text"], Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, Localizer["StepItemI1TextC"]); builder.CloseElement(); } },
+            new StepItem() { Title = Localizer["StepItemI2Text"], Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, Localizer["StepItemI2TextC"]); builder.CloseElement(); } },
+            new StepItem() { Title = Localizer["StepItemI3Text"], Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, Localizer["StepItemI3TextC"]); builder.CloseElement(); } }
+                    };
+    }
+
+    private void NextStep()
+    {
+        var item = Items.FirstOrDefault(i => i.Status == StepStatus.Process);
+        if (item != null)
+        {
+            item.Status = StepStatus.Success;
+            var index = Items.ToList().IndexOf(item) + 1;
+            if (index < Items.Count())
+            {
+                Items.ElementAt(index).Status = StepStatus.Process;
+            }
+        }
+        else
+        {
+            ResetStep();
+            Items.ElementAt(0).Status = StepStatus.Process;
+        }
+    }
+
+    private void ResetStep()
+    {
+        Items.ToList().ForEach(i =>
+        {
+            i.Status = StepStatus.Wait;
+        });
+    }
+
+    private Task OnStatusChanged(StepStatus status)
+    {
+        Logger.Log($"Steps Status: {status}");
+        return Task.CompletedTask;
+    }
+
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new AttributeItem() {
