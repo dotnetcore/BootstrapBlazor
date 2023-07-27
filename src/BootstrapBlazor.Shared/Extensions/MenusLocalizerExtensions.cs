@@ -341,7 +341,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Radio"],
-                    Url = "radios"
+                    Url = "radio"
                 },
                 new()
                 {
