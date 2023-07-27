@@ -4065,7 +4065,7 @@
     "LocatorsNormalDisplayText": "Geographical location",
     "LocatorsNormalButtonText": "Locating"
   },
-  "BootstrapBlazor.Shared.Samples.Prints": {
+  "BootstrapBlazor.Shared.Samples.Print": {
     "PrintsTitle": "Print",
     "PrintsSubTitle": "Used to print a document or a local view",
     "PrintsTips1": "Set up <code style='margin-left: 14px;' > PreviewUrl</code>, open a new page for print preview and click the print button on this page for page printing",

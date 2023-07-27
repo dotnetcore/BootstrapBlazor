@@ -4081,7 +4081,7 @@
   "BootstrapBlazor.Shared.Samples.Images": {
     "BasicUsageTitle": "基础用法"
   },
-  "BootstrapBlazor.Shared.Samples.Prints": {
+  "BootstrapBlazor.Shared.Samples.Print": {
     "PrintsTitle": "Print 打印组件",
     "PrintsSubTitle": "用于打印文档或者局部视图",
     "PrintsTips1": "设置 <code style='margin-left: 14px;'>PreviewUrl</code> 时，单开一个新网页进行打印预览，点击此页面的打印按钮进行网页打印",
