@@ -630,16 +630,30 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void InvalidOperationException_Ok()
+    public void TryParseValueFromString_Ok()
     {
-        Assert.Throws<InvalidOperationException>(() => Context.RenderComponent<Select<string>>(pb =>
+        var items = new SelectedItem[]
         {
-            pb.Add(a => a.OnQueryAsync, option =>
-            {
-                return Task.FromResult(new QueryData<SelectedItem>());
-            });
-            pb.Add(a => a.Items, Array.Empty<SelectedItem>());
+            new SelectedItem("1", "Test1"),
+            new SelectedItem("2", "Test2")
+        };
+        var cut = Context.RenderComponent<Select<SelectedItem>>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.Value, new SelectedItem("1", "Test1"));
             pb.Add(a => a.IsVirtualize, true);
-        }));
+        });
+        var select = cut.Instance;
+        var mi = select.GetType().GetMethod("TryParseSelectItem", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        string value = "";
+        SelectedItem result = new();
+        string? msg = null;
+        mi?.Invoke(select, new object?[] { value, result, msg });
+
+        var p = select.GetType().GetProperty("VirtualItems", BindingFlags.NonPublic | BindingFlags.Instance);
+        p?.SetValue(select, items);
+        value = "1";
+        mi?.Invoke(select, new object?[] { value, result, msg });
     }
 }

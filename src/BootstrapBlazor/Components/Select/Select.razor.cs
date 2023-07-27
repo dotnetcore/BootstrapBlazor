@@ -178,18 +178,6 @@ public partial class Select<TValue> : ISelect
     {
         base.OnParametersSet();
 
-        if (IsVirtualize)
-        {
-            if (OnQueryAsync != null)
-            {
-                if (Items != null)
-                {
-                    throw new InvalidOperationException(
-                        $"{GetType()} can only accept one item source from its parameters. Do not supply both '{nameof(Items)}' and '{nameof(OnQueryAsync)}'.");
-                }
-            }
-        }
-
         Items ??= Enumerable.Empty<SelectedItem>();
         OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison));
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
