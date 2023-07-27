@@ -1789,9 +1789,7 @@
     "Description": "Click to return to the top of the specified container",
     "NormalTitle": "Basic usage",
     "NormalIntro": "Click to return to the top usage",
-    "Desc1": "The scroll bar component ID controlled by the footer component"
-  },
-  "BootstrapBlazor.Shared.Demos.GoTop.GoTopNormal": {
+    "Desc1": "The scroll bar component ID controlled by the footer component",
     "Description1": "The Footer component appears at the bottom, and the page automatically scrolls back to the top when you click Back to the Top",
     "Description2": "This example passes the component client ID"
   },

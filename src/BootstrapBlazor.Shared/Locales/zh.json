@@ -1793,9 +1793,7 @@
     "Description": "点击后返回指定容器的顶端",
     "NormalTitle": "基础用法",
     "NormalIntro": "点击后返回顶端",
-    "Desc1": "页脚组件控制的滚动条组件 ID"
-  },
-  "BootstrapBlazor.Shared.Demos.GoTop.GoTopNormal": {
+    "Desc1": "页脚组件控制的滚动条组件 ID",
     "Description1": "底部显示 Footer 组件，点击返回顶端时页面自动滚动回顶端",
     "Description2": "本示例传递的是组件客户端 ID"
   },
