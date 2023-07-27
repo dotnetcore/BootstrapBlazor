@@ -34,14 +34,14 @@ public partial class PdfReaders
     private bool StreamMode { get; set; }
 
     [DisplayName("禁用复制/打印/下载")]
-    public bool ReadOnly { get; set; }
+    private bool ReadOnly { get; set; }
 
     [DisplayName("水印内容")]
-    public string Watermark { get; set; } = "www.blazor.zone";
+    private string Watermark { get; set; } = "www.blazor.zone";
 
     private EnumZoomMode Zoom { get; set; } = EnumZoomMode.PageHeight;
 
-    private EnumPageMode Pagemode { get; set; } = EnumPageMode.None;
+    private EnumPageMode PageMode { get; set; } = EnumPageMode.None;
 
     [DisplayName("搜索")]
     private string? Search { get; set; } = "Performance";
@@ -67,9 +67,9 @@ public partial class PdfReaders
         await Refresh();
     }
 
-    private async Task ApplyPagemode()
+    private async Task ApplyPageMode()
     {
-        Pagemode = Pagemode switch
+        PageMode = PageMode switch
         {
             EnumPageMode.Thumbs => EnumPageMode.Outline,
             EnumPageMode.Outline => EnumPageMode.Attachments,
@@ -83,7 +83,7 @@ public partial class PdfReaders
     async Task Refresh()
     {
         if (PdfReader != null)
-            await PdfReader.Refresh(Search, Page, Pagemode, Zoom, ReadOnly, Watermark);
+            await PdfReader.Refresh(Search, Page, PageMode, Zoom, ReadOnly, Watermark);
     }
 
     private async Task ApplyPage()
@@ -106,7 +106,7 @@ public partial class PdfReaders
         await Refresh();
     }
 
-    private async Task ApplySearch() => await Refresh();
+    private Task ApplySearch() => Refresh();
 
     /// <summary>
     /// GetAttributes
@@ -114,140 +114,157 @@ public partial class PdfReaders
     /// <returns></returns>
     protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new AttributeItem() {
+        new()
+        {
             Name = "Filename",
             Description = Localizer["AttributesPdfReaderFilename"],
             Type = "string?",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "StreamMode",
             Description = Localizer["AttributesPdfReaderStreamMode"],
             Type = "bool",
             ValueList = "-",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Width",
             Description = Localizer["AttributesPdfReaderWidth"],
             Type = "string",
             ValueList = "-",
             DefaultValue = "100%"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Height",
             Description = Localizer["AttributesPdfReaderHeight"],
             Type = "string",
             ValueList = "-",
             DefaultValue = "700px"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "StyleString",
             Description = Localizer["AttributesPdfReaderStyleString"],
             Type = "string",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Page",
             Description = Localizer["AttributesPdfReaderPage"],
             Type = "int",
             ValueList = "-",
             DefaultValue = "1"
         },
-        new AttributeItem() {
-            Name = "Pagemode",
-            Description = Localizer["AttributesPdfReaderPagemode"],
+        new()
+        {
+            Name = "PageMode",
+            Description = Localizer["AttributesPdfReaderPageMode"],
             Type = "EnumPageMode",
             ValueList = "-",
             DefaultValue = "Thumbs"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Zoom",
             Description = Localizer["AttributesPdfReaderZoom"],
             Type = "EnumZoomMode",
             ValueList = "-",
             DefaultValue = "Auto"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Search",
             Description = Localizer["AttributesPdfReaderSearch"],
             Type = "string?",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Refresh()",
             Description = Localizer["AttributesPdfReaderRefresh"],
             Type = "Task",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "NavigateToPage(int page)",
             Description = Localizer["AttributesPdfReaderNavigateToPage"],
             Type = "Task",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Refresh(int page)",
             Description = Localizer["AttributesPdfReaderRefreshPage"],
             Type = "Task",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new AttributeItem() {
-            Name = "Refresh(string? search, int? page, EnumPageMode? pagemode, EnumZoomMode? zoom)",
+        new()
+        {
+            Name = "Refresh(string? search, int? page, EnumPageMode? pageMode, EnumZoomMode? zoom)",
             Description = Localizer["AttributesPdfReaderRefreshComponent"],
             Type = "Task",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Stream",
             Description = Localizer["AttributesPdfReaderStream"],
             Type = "Stream?",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ViewerBase",
             Description = Localizer["AttributesPdfReaderViewerBase"],
             Type = "string",
             ValueList = "-",
             DefaultValue = Localizer["AttributesPdfReaderViewerBaseDefaultValue"],
         },
-        new AttributeItem() {
-            Name = "Navpanes",
-            Description = Localizer["AttributesPdfReaderNavpanes"],
+        new()
+        {
+            Name = "NavPanels",
+            Description = Localizer["AttributesPdfReaderNavPanels"],
             Type = "bool",
             ValueList = "-",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Toolbar",
             Description = Localizer["AttributesPdfReaderToolbar"],
             Type = "bool",
             ValueList = "-",
             DefaultValue = "true"
         },
-        new AttributeItem() {
-            Name = "Statusbar",
-            Description = Localizer["AttributesPdfReaderStatusbar"],
+        new()
+        {
+            Name = "StatusBar",
+            Description = Localizer["AttributesPdfReaderStatusBar"],
             Type = "bool",
             ValueList = "-",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Debug",
             Description = Localizer["AttributesPdfReaderDebug"],
             Type = "bool",
             ValueList = "-",
             DefaultValue = "false"
-        },
+        }
     };
-
 }
