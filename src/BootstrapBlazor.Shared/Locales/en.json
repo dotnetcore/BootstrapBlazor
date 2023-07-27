@@ -461,9 +461,7 @@
     "LightsColorTitle": "discoloration",
     "LightsColorIntro": "Color the light by setting the value of the property <code>Color</code>",
     "LightsTooltipTextTitle": "prompt text",
-    "LightsTooltipTextIntro": "By setting the value of the attribute <code>TooltipText</code> to make the <code>tooltip</code> text prompt when the mouse hovers over the indicator light"
-  },
-  "BootstrapBlazor.Shared.Demos.Lights.LightsTooltipText": {
+    "LightsTooltipTextIntro": "By setting the value of the attribute <code>TooltipText</code> to make the <code>tooltip</code> text prompt when the mouse hovers over the indicator light",
     "TooltipText": "I am prompt text message"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Index": {

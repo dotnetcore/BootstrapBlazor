@@ -461,9 +461,7 @@
     "LightsColorTitle": "变色",
     "LightsColorIntro": "通过设置属性 <code>Color</code> 值使指示灯进行变色",
     "LightsTooltipTextTitle": "提示文字",
-    "LightsTooltipTextIntro": "通过设置属性 <code>TooltipText</code> 值使鼠标悬浮指示灯上时提示 <code>tooltip</code> 文字"
-  },
-  "BootstrapBlazor.Shared.Demos.Lights.LightsTooltipText": {
+    "LightsTooltipTextIntro": "通过设置属性 <code>TooltipText</code> 值使鼠标悬浮指示灯上时提示 <code>tooltip</code> 文字",
     "TooltipText": "我是提示文字信息"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Index": {
