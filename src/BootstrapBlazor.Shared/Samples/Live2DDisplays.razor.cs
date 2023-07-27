@@ -51,8 +51,7 @@ public partial class Live2DDisplays
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new AttributeItem()
+        new()
         {
             Name = "Source",
             Description = Localizer["Live2DDisplaysSource"],
@@ -60,7 +59,7 @@ public partial class Live2DDisplays
             ValueList = " — ",
             DefaultValue = "empty"
         },
-        new AttributeItem()
+        new()
         {
             Name = "Scale",
             Description = Localizer["Live2DDisplaysScale"],
@@ -68,31 +67,31 @@ public partial class Live2DDisplays
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "XOffset",
-            Description = Localizer["Live2DDisplaysXoffset"],
+            Description = Localizer["Live2DDisplaysXOffset"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "YOffset",
-            Description = Localizer["Live2DDisplaysYoffset"],
+            Description = Localizer["Live2DDisplaysYOffset"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "IsDraggable(not yet implemented)",
-            Description = Localizer["Live2DDisplaysIsDraggble"],
+            Description = Localizer["Live2DDisplaysIsDraggable"],
             Type = "bool",
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "AddHitAreaFrames",
             Description = Localizer["Live2DDisplaysAddHitAreaFrames"],
@@ -100,7 +99,7 @@ public partial class Live2DDisplays
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "Position",
             Description = Localizer["Live2DDisplaysPosition"],
@@ -108,7 +107,7 @@ public partial class Live2DDisplays
             ValueList = "Default|BottomLeft|BottomRight|TopLeft|TopRight",
             DefaultValue = "Default"
         },
-        new AttributeItem()
+        new()
         {
             Name = "BackgroundColor",
             Description = Localizer["Live2DDisplaysBackgroundColor"],
@@ -116,7 +115,7 @@ public partial class Live2DDisplays
             ValueList = " — ",
             DefaultValue = "#000000"
         },
-        new AttributeItem()
+        new()
         {
             Name = "BackgroundAlpha",
             Description = Localizer["Live2DDisplaysBackgroundAlpha"],
