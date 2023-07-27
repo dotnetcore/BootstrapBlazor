@@ -1277,38 +1277,28 @@
     "Desc2": "设置分割线显示图标",
     "Desc3": "设置分割线显示文字对齐方式",
     "Desc4": "设置分割线是否为垂直分割",
-    "Desc5": "ChildContent 模板"
-  },
-  "BootstrapBlazor.Shared.Demos.Divider.DividerNormal": {
-    "Content1": "青春是一个短暂的美梦, 当你醒来时, 它早已消失无踪",
-    "Content2": "少量的邪恶足以抵消全部高贵的品质, 害得人声名狼藉"
-  },
-  "BootstrapBlazor.Shared.Demos.Divider.DividerAlignment": {
-    "Divider1": "少年包青天",
-    "Divider2": "英雄联盟",
-    "Divider3": "学习语录",
-    "Content1": "头上一片晴天，心中一个想念",
-    "Content2": "骑士归来之时，断剑重铸之日",
-    "Content3": "一只萌萌哒图标",
-    "Content4": "学习使我快乐"
-  },
-  "BootstrapBlazor.Shared.Demos.Divider.DividerIcon": {
-    "Content1": "头上一片晴天，心中一个想念",
-    "Content2": "骑士归来之时，断剑重铸之日",
-    "Content3": "一只萌萌哒图标",
-    "Content4": "学习使我快乐",
-    "Bookmark": "书签"
-  },
-  "BootstrapBlazor.Shared.Demos.Divider.DividerVertical": {
-    "Content1": "雨纷纷",
-    "Content2": "旧故里",
-    "Content3": "草木深",
-    "Divider": "分割线"
-  },
-  "BootstrapBlazor.Shared.Demos.Divider.DividerChildContent": {
-    "Content1": "头上一片晴天，心中一个想念",
-    "Content2": "骑士归来之时，断剑重铸之日",
-    "DividerContent": "我是自定义内容 <code>div</code> 元素"
+    "Desc5": "ChildContent 模板",
+    "NormalContent1": "青春是一个短暂的美梦, 当你醒来时, 它早已消失无踪",
+    "NormalContent2": "少量的邪恶足以抵消全部高贵的品质, 害得人声名狼藉",
+    "AlignmentDivider1": "少年包青天",
+    "AlignmentDivider2": "英雄联盟",
+    "AlignmentDivider3": "学习语录",
+    "AlignmentContent1": "头上一片晴天，心中一个想念",
+    "AlignmentContent2": "骑士归来之时，断剑重铸之日",
+    "AlignmentContent3": "一只萌萌哒图标",
+    "AlignmentContent4": "学习使我快乐",
+    "IconContent1": "头上一片晴天，心中一个想念",
+    "IconContent2": "骑士归来之时，断剑重铸之日",
+    "IconContent3": "一只萌萌哒图标",
+    "IconContent4": "学习使我快乐",
+    "IconBookmark": "书签",
+    "VerticalContent1": "雨纷纷",
+    "VerticalContent2": "旧故里",
+    "VerticalContent3": "草木深",
+    "VerticalDivider": "分割线",
+    "ChildContent1": "头上一片晴天，心中一个想念",
+    "ChildContent2": "骑士归来之时，断剑重铸之日",
+    "DividerChildContent": "我是自定义内容 <code>div</code> 元素"
   },
   "BootstrapBlazor.Shared.Samples.Scrolls": {
     "ScrollTitle": "Scroll 滚动条",
@@ -3887,27 +3877,19 @@
     "DisplayText": "前置标签显示文本",
     "FormatString": "数值格式化字符串",
     "Formatter": "TableHeader 实例",
-    "TypeResolver": "类型解析回调方法 TValue 为 Array 实例时内部使用"
-  },
-  "BootstrapBlazor.Shared.Demos.Display.DisplayNormal": {
-    "BasicUsage": "基础用法"
-  },
-  "BootstrapBlazor.Shared.Demos.Display.DisplayLabels": {
+    "TypeResolver": "类型解析回调方法 TValue 为 Array 实例时内部使用",
+    "BasicUsage": "基础用法",
     "BindWayCustomLabel": "自定义标签",
     "BindWayP2": "设置 <code>DisplayText</code> 值为 <b>自定义标签</b>",
     "BindWayOccupants": "占位",
     "BindWayP3": "无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>true</code> 时均显示",
-    "BindWayNotccupants": "不占位",
-    "BindWayP4": "无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>false</code> 时均不显示"
-  },
-  "BootstrapBlazor.Shared.Demos.Display.DisplayDataType": {
+    "BindWayNotOccupants": "不占位",
+    "BindWayP4": "无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>false</code> 时均不显示",
     "Integer": "整型",
     "Enum": "枚举",
     "Collection": "集合",
-    "Arr": "数组"
-  },
-  "BootstrapBlazor.Shared.Demos.Display.DisplayFormatString": {
-    "FormatStringettingText": "设置",
+    "Arr": "数组",
+    "FormatStringSettingText": "设置",
     "FormatStringP": "<code>Display</code> 组件绑定 <code>byte[]</code> 数组，格式化成 <code>base64</code> 编码字符串示例"
   },
   "BootstrapBlazor.Shared.Samples.DropdownWidgets": {
