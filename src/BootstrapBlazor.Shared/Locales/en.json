@@ -5772,8 +5772,8 @@
   },
   "BootstrapBlazor.Shared.Samples.PdfReaders": {
     "Title": "PDF Reader",
-    "PdfReaderNomalText": "Basic usage",
-    "PdfReaderNomalIntro": "Use Filename parameter displays pdf file from local server, or Stream parameter use file stream for rendering",
+    "PdfReaderNormalText": "Basic usage",
+    "PdfReaderNormalIntro": "Use Filename parameter displays pdf file from local server, or Stream parameter use file stream for rendering",
     "PdfReaderStreamModeText": "Stream mode",
     "PdfReaderStreamModeIntro": "read remote files by cross-domain",
     "PdfReaderCompatibilityModeText": "Compatibility mode",
@@ -5787,7 +5787,7 @@
     "AttributesPdfReaderHeight": "High unit (px/%)",
     "AttributesPdfReaderStyleString": "Component appearance Css Style",
     "AttributesPdfReaderPage": "Page",
-    "AttributesPdfReaderPagemode": "Page mode",
+    "AttributesPdfReaderPageMode": "Page mode",
     "AttributesPdfReaderZoom": "Zoom mode",
     "AttributesPdfReaderSearch": "Query String",
     "AttributesPdfReaderRefresh": "Refresh Components",
@@ -5797,9 +5797,9 @@
     "AttributesPdfReaderStream": "The file stream used for rendering. If it is empty, the URL parameter is used to read the file",
     "AttributesPdfReaderViewerBase": "Browser page path",
     "AttributesPdfReaderViewerBaseDefaultValue": "built-in",
-    "AttributesPdfReaderNavpanes": "Show Navigation Pane",
+    "AttributesPdfReaderNavPanels": "Show Navigation Pane",
     "AttributesPdfReaderToolbar": "Show Toolbar",
-    "AttributesPdfReaderStatusbar": "show the status bar",
+    "AttributesPdfReaderStatusBar": "show the status bar",
     "AttributesPdfReaderDebug": "Display debugging information"
   },
   "BootstrapBlazor.Shared.Demos.PdfReader.PdfReaderAdvanced": {

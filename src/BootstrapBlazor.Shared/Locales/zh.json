@@ -5793,8 +5793,8 @@
   },
   "BootstrapBlazor.Shared.Samples.PdfReaders": {
     "Title": "PDF Reader PDF阅读器",
-    "PdfReaderNomalText": "基础用法",
-    "PdfReaderNomalIntro": "Filename 参数显示本服务器pdf文件,或 Stream 参数指定用于渲染的文件流",
+    "PdfReaderNormalText": "基础用法",
+    "PdfReaderNormalIntro": "Filename 参数显示本服务器pdf文件,或 Stream 参数指定用于渲染的文件流",
     "PdfReaderStreamModeText": "流模式",
     "PdfReaderStreamModeIntro": "可跨域读取文件",
     "PdfReaderCompatibilityModeText": "兼容模式",
@@ -5808,7 +5808,7 @@
     "AttributesPdfReaderHeight": "高 单位(px/%)",
     "AttributesPdfReaderStyleString": "组件外观 Css Style",
     "AttributesPdfReaderPage": "页码",
-    "AttributesPdfReaderPagemode": "页面模式",
+    "AttributesPdfReaderPageMode": "页面模式",
     "AttributesPdfReaderZoom": "缩放模式",
     "AttributesPdfReaderSearch": "查询字符串",
     "AttributesPdfReaderRefresh": "刷新组件",
@@ -5818,9 +5818,9 @@
     "AttributesPdfReaderStream": "用于渲染的文件流,为空则用URL参数读取文件",
     "AttributesPdfReaderViewerBase": "浏览器页面路径",
     "AttributesPdfReaderViewerBaseDefaultValue": "内置",
-    "AttributesPdfReaderNavpanes": "显示导航窗格",
+    "AttributesPdfReaderNavPanels": "显示导航窗格",
     "AttributesPdfReaderToolbar": "显示工具栏",
-    "AttributesPdfReaderStatusbar": "显示状态栏",
+    "AttributesPdfReaderStatusBar": "显示状态栏",
     "AttributesPdfReaderDebug": "显示调试信息"
   },
   "BootstrapBlazor.Shared.Demos.PdfReader.PdfReaderAdvanced": {

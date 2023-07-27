@@ -569,7 +569,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["PdfReader"],
-                    Url = "PdfReaders"
+                    Url = "PdfReader"
                 },
                 new()
                 {
