@@ -13,53 +13,55 @@ public partial class Empties
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes()
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        return new[]
+        new()
         {
-            // TODO: 移动到数据库中
-            new AttributeItem() {
-                Name = "Image",
-                Description = Localizer["Image"],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "Text",
-                Description =  Localizer["Text"],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = Localizer["TextDefaultValue"]
-            },
-            new AttributeItem() {
-                Name = "Width",
-                Description =  Localizer["Width"],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " 100 "
-            },
-            new AttributeItem() {
-                Name = "Height",
-                Description =  Localizer["Height"],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " 100 "
-            },
-            new AttributeItem() {
-                Name = "Template",
-                Description =  Localizer["Template"],
-                Type = "RenderFragment",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "ChildContent",
-                Description =  Localizer["ChildContent"],
-                Type = "RenderFragment",
-                ValueList = " — ",
-                DefaultValue = " — "
-            }
-        };
-    }
+            Name = "Image",
+            Description = Localizer["Image"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "Text",
+            Description =  Localizer["Text"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = Localizer["TextDefaultValue"]
+        },
+        new()
+        {
+            Name = "Width",
+            Description =  Localizer["Width"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " 100 "
+        },
+        new()
+        {
+            Name = "Height",
+            Description =  Localizer["Height"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " 100 "
+        },
+        new()
+        {
+            Name = "Template",
+            Description =  Localizer["Template"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "ChildContent",
+            Description =  Localizer["ChildContent"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    };
 }
