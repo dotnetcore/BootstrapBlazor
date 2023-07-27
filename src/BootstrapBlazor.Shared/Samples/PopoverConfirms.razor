@@ -6,50 +6,139 @@
 
 <DemoBlock Title="@Localizer["PopoverConfirmsNormalTitle"]"
            Introduction="@Localizer["PopoverConfirmsNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.PopoverConfirms.PopoverConfirmsNormal)">
+           Name="Normal">
+    <div class="d-flex justify-content-center border p-3 rounded">
+        <div class="d-flex flex-column w-100" style="height: 240px;">
+            <div class="d-flex justify-content-center">
+                <PopConfirmButton Placement="Placement.Bottom"
+                                  ConfirmButtonColor="Color.Danger"
+                                  Text="@Localizer["PopoverConfirmsNormalPopupBoxText"]"
+                                  Content="@Localizer["PopoverConfirmsNormalPopupBoxContent"]"
+                                  OnConfirm="@OnConfirm"
+                                  OnClose="@OnClose" />
+            </div>
+            <div class="d-flex justify-content-between m-4 align-items-center flex-fill">
+                <PopConfirmButton Placement="Placement.Right"
+                                  Text="@Localizer["PopoverConfirmsNormalRightPopup"]"
+                                  Content="@Localizer["PopoverConfirmsNormalRightPopupContent"]"
+                                  OnConfirm="@OnConfirm"
+                                  OnClose="@OnClose" />
+                <PopConfirmButton Placement="Placement.Left"
+                                  Text="@Localizer["PopoverConfirmsNormalLeftPopup"]"
+                                  Content="@Localizer["PopoverConfirmsNormalLeftPopupContent"]"
+                                  OnConfirm="@OnConfirm"
+                                  OnClose="@OnClose" />
+            </div>
+            <div class="d-flex justify-content-center">
+                <PopConfirmButton Placement="Placement.Top"
+                                  Text="@Localizer["PopoverConfirmsNormalPopupAbove"]"
+                                  Content="@Localizer["PopoverConfirmsNormalPopupAboveContent"]"
+                                  OnConfirm="@OnConfirm"
+                                  OnClose="@OnClose" />
+            </div>
+        </div>
+    </div>
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PopoverConfirmsContentTitle"]"
            Introduction="@Localizer["PopoverConfirmsContentIntro"]"
-           Name="Content"
-           Demo="typeof(Demos.PopoverConfirms.PopoverConfirmsContent)">
+           Name="Content">
+    <PopConfirmButton Placement="Placement.Top"
+                      Color="Color.Danger"
+                      ConfirmIcon="fa-solid fa-triangle-exclamation text-danger"
+                      ConfirmButtonColor="Color.Danger"
+                      Text="@Localizer["PopoverConfirmsContentDelete"]"
+                      Content="@Localizer["PopoverConfirmsContentDeleteContent"]" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PopoverConfirmsIsAsyncTitle"]"
            Introduction="@Localizer["PopoverConfirmsIsAsyncIntro"]"
-           Name="IsAsync"
-           Demo="typeof(Demos.PopoverConfirms.PopoverConfirmsIsAsync)">
+           Name="IsAsync">
+    <PopConfirmButton Placement="Placement.Top"
+                      Color="Color.Danger"
+                      ConfirmIcon="fa-solid fa-triangle-exclamation text-danger"
+                      ConfirmButtonColor="Color.Danger"
+                      Text="@Localizer["PopoverConfirmsIsAsyncConfirmationText"]"
+                      Content="@Localizer["PopoverConfirmsIsAsyncConfirmationContent"]"
+                      Icon="fa-solid fa-font-awesome fa-fw"
+                      IsAsync="true"
+                      OnConfirm="OnAsyncConfirm" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PopoverConfirmsFormTitle"]"
            Introduction="@Localizer["PopoverConfirmsFormIntro"]"
-           Name="Form"
-           Demo="typeof(Demos.PopoverConfirms.PopoverConfirmsForm)">
+           Name="Form">
+    <ValidateForm Model="@Model" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnInValidSubmit">
+        <div class="row g-3 form-inline">
+            <div class="col-12">
+                <BootstrapInput @bind-Value="@Model.Name" />
+            </div>
+            <div class="col-12">
+                <BootstrapInput @bind-Value="@Model.Address" />
+            </div>
+            <div class="col-12">
+                <PopConfirmButton Placement="Placement.Top"
+                                  Color="Color.Primary"
+                                  ConfirmIcon="fa-solid fa-triangle-exclamation text-info"
+                                  ConfirmButtonColor="Color.Success"
+                                  Text="@Localizer["PopoverConfirmsFormSubmitFormText"]"
+                                  Content="@Localizer["PopoverConfirmsFormSubmitFormContent"]"
+                                  Icon="fa-solid fa-floppy-disk fa-fw"
+                                  ButtonType="ButtonType.Submit"
+                                  IsAsync="true"
+                                  OnConfirm="OnAsyncSubmit" />
+            </div>
+        </div>
+    </ValidateForm>
+    <ConsoleLogger @ref="FormLogger" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PopoverConfirmsIsLinkTitle"]"
            Introduction="@Localizer["PopoverConfirmsIsLinkIntro"]"
-           Name="IsLink"
-           Demo="typeof(Demos.PopoverConfirms.PopoverConfirmsIsLink)">
+           Name="IsLink">
+    <PopConfirmButton Placement="Placement.Top"
+                      ConfirmIcon="fa-solid fa-triangle-exclamation text-danger"
+                      Color="Color.Danger"
+                      ConfirmButtonColor="Color.Danger"
+                      Text="@Localizer["PopoverConfirmsIsLinkHyperLinkText"]"
+                      Content="@Localizer["PopoverConfirmsIsLinkHyperLinkContent"]"
+                      IsLink="true" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PopoverConfirmsCustomClassTitle"]"
            Introduction="@Localizer["PopoverConfirmsCustomClassIntro"]"
-           Name="CustomClass"
-           Demo="typeof(Demos.PopoverConfirms.PopoverConfirmsCustomClass)">
+           Name="CustomClass">
     <Pre class="mb-3">.custom-popover {
     --bs-popover-border-color: var(--bs-primary);
     --bs-popover-body-padding-x: 1rem;
     --bs-popover-body-padding-y: 1rem;
 }
 </Pre>
+    <PopConfirmButton Placement="Placement.Top"
+                      ConfirmIcon="fa-solid fa-triangle-exclamation text-danger"
+                      Color="Color.Danger"
+                      ConfirmButtonColor="Color.Danger"
+                      Text="@Localizer["PopoverConfirmsCustomClassCustomButtonText"]"
+                      Content="@Localizer["PopoverConfirmsCustomClassCustomButtonContent"]"
+                      CustomClass="custom-popover" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PopoverConfirmsBodyTemplateTitle"]"
            Introduction="@Localizer["PopoverConfirmsBodyTemplateIntro"]"
-           Name="BodyTemplate"
-           Demo="typeof(Demos.PopoverConfirms.PopoverConfirmsBodyTemplate)">
+           Name="BodyTemplate">
+    <PopConfirmButton Placement="Placement.Top"
+                      ConfirmIcon="fa-solid fa-triangle-exclamation text-info"
+                      Color="Color.Primary"
+                      ConfirmButtonColor="Color.Info"
+                      Text="@Localizer["PopoverConfirmsBodyTemplateButtonText"]">
+        <BodyTemplate>
+            <div class="d-flex align-items-center">
+                <span class="me-2">Label: </span>
+                <BootstrapInput TValue="string" />
+            </div>
+        </BodyTemplate>
+    </PopConfirmButton>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
