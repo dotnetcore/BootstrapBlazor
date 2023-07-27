@@ -628,4 +628,18 @@ public class SelectTest : BootstrapBlazorTestBase
         totalCountProperty?.SetValue(select, 2);
         mi?.Invoke(select, new object[] { new ItemsProviderRequest(0, 1, CancellationToken.None) });
     }
+
+    [Fact]
+    public void InvalidOperationException_Ok()
+    {
+        Assert.Throws<InvalidOperationException>(() => Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.OnQueryAsync, option =>
+            {
+                return Task.FromResult(new QueryData<SelectedItem>());
+            });
+            pb.Add(a => a.Items, Array.Empty<SelectedItem>());
+            pb.Add(a => a.IsVirtualize, true);
+        }));
+    }
 }

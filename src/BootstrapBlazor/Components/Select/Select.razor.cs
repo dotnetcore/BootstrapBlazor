@@ -178,6 +178,18 @@ public partial class Select<TValue> : ISelect
     {
         base.OnParametersSet();
 
+        if (IsVirtualize)
+        {
+            if (OnQueryAsync != null)
+            {
+                if (Items != null)
+                {
+                    throw new InvalidOperationException(
+                        $"{GetType()} can only accept one item source from its parameters. Do not supply both '{nameof(Items)}' and '{nameof(OnQueryAsync)}'.");
+                }
+            }
+        }
+
         Items ??= Enumerable.Empty<SelectedItem>();
         OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison));
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
@@ -206,15 +218,11 @@ public partial class Select<TValue> : ISelect
     /// 虚拟滚动数据加载回调方法
     /// </summary>
     [Parameter]
+    [NotNull]
     public Func<VirtualizeQueryOption, Task<QueryData<SelectedItem>>>? OnQueryAsync { get; set; }
 
     private async ValueTask<ItemsProviderResult<SelectedItem>> LoadItems(ItemsProviderRequest request)
     {
-        if (OnQueryAsync == null)
-        {
-            throw new InvalidOperationException("the parameter OnQueryData must be assign a value");
-        }
-
         // 有搜索条件时使用原生请求数量
         // 有总数时请求剩余数量
         var count = !string.IsNullOrEmpty(SearchText)
