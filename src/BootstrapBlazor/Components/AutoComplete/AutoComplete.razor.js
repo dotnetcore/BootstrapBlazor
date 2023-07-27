@@ -57,8 +57,8 @@ export function composition(id, invoke, method) {
     const ac = Data.get(id)
     if (ac) {
         ac.composition = true
+        Input.composition(`${id}_input`, invoke, method)
     }
-    Input.composition(id, invoke, method)
 }
 
 export function dispose(id) {
@@ -74,7 +74,7 @@ export function dispose(id) {
             EventHandler.off(ac.el, 'focus')
         }
         if (ac.composition) {
-            Input.dispose(id)
+            Input.dispose(`${id}_input`)
         }
         if (ac.debounce) {
             Debounce.dispose(id)
