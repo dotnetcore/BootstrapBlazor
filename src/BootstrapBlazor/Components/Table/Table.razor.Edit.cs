@@ -335,7 +335,7 @@ public partial class Table<TItem>
 
     private async Task QueryAsync(bool shouldRender, int? pageIndex = null)
     {
-        if (ScrollMode == ScrollMode.Virtual)
+        if (ScrollMode == ScrollMode.Virtual && VirtualizeElement != null)
         {
             await VirtualizeElement.RefreshDataAsync();
         }

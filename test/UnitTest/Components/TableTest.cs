@@ -6837,7 +6837,7 @@ public class TableTest : TableTestBase
         cut.InvokeAsync(() =>
         {
             var td = cut.Find("tbody td");
-            var expected = string.Format(fixedHeader ? "style=\"width: calc({0}px  - 2 * var(--bb-table-td-padding-x));\"" : "style=\"width: {0}px;\"", width.HasValue ? width.Value : 200);
+            var expected = string.Format(fixedHeader ? "style=\"width: calc({0}px  - 2 * var(--bb-table-td-padding-x));\"" : "style=\"width: {0}px;\"", width ?? 200);
             Assert.Contains(expected, td.OuterHtml);
         });
     }
