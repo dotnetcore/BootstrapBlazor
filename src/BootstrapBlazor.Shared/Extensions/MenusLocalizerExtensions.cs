@@ -926,7 +926,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Popconfirm"],
-                    Url = "popconfirms"
+                    Url = "pop-confirm"
                 },
                 new()
                 {
