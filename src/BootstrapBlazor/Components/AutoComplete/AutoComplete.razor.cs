@@ -145,6 +145,8 @@ public partial class AutoComplete
     /// </summary>
     protected int? CurrentItemIndex { get; set; }
 
+    private string InputId => $"{Id}_input";
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
