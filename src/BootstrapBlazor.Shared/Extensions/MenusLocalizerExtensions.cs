@@ -594,7 +594,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["SignaturePad"],
-                    Url = "signaturepads",
+                    Url = "signature-pad",
                 },
                 new()
                 {

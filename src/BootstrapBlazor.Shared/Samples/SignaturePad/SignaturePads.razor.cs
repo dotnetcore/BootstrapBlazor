@@ -51,8 +51,7 @@ public partial class SignaturePads
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new AttributeItem()
+        new()
         {
             Name = "OnResult",
             Description = "签名结果回调方法",
@@ -60,7 +59,7 @@ public partial class SignaturePads
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "OnAlert",
             Description = "手写签名警告信息回调",
@@ -68,7 +67,7 @@ public partial class SignaturePads
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "OnError",
             Description = "错误回调方法",
@@ -76,7 +75,7 @@ public partial class SignaturePads
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "OnClose",
             Description = "手写签名关闭信息回调",
@@ -84,7 +83,7 @@ public partial class SignaturePads
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "SignAboveLabel",
             Description = "在框内签名标签文本",
@@ -92,7 +91,7 @@ public partial class SignaturePads
             ValueList = " — ",
             DefaultValue = "在框内签名"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ClearBtnTitle",
             Description = "清除按钮文本",
@@ -100,7 +99,7 @@ public partial class SignaturePads
             ValueList = " — ",
             DefaultValue = "清除"
         },
-        new AttributeItem()
+        new()
         {
             Name = "SignatureAlertText",
             Description = "请先签名提示文本",
@@ -108,7 +107,7 @@ public partial class SignaturePads
             ValueList = " — ",
             DefaultValue = "请先签名"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ChangeColorBtnTitle",
             Description = "换颜色按钮文本",
@@ -116,7 +115,7 @@ public partial class SignaturePads
             ValueList = " — ",
             DefaultValue = "换颜色"
         },
-        new AttributeItem()
+        new()
         {
             Name = "UndoBtnTitle",
             Description = "撤消按钮文本",
@@ -124,7 +123,7 @@ public partial class SignaturePads
             ValueList = " — ",
             DefaultValue = "撤消"
         },
-        new AttributeItem()
+        new()
         {
             Name = "SaveBase64BtnTitle",
             Description = "保存为 base64 按钮文本",
@@ -132,7 +131,7 @@ public partial class SignaturePads
             ValueList = " — ",
             DefaultValue = "确定"
         },
-        new AttributeItem()
+        new()
         {
             Name = "SavePNGBtnTitle",
             Description = "保存为 PNG 按钮文本",
@@ -140,7 +139,7 @@ public partial class SignaturePads
             ValueList = " — ",
             DefaultValue = "PNG"
         },
-        new AttributeItem()
+        new()
         {
             Name = "SaveJPGBtnTitle",
             Description = "保存为 JPG 按钮文本",
@@ -148,7 +147,7 @@ public partial class SignaturePads
             ValueList = " — ",
             DefaultValue = "JPG"
         },
-        new AttributeItem()
+        new()
         {
             Name = "SaveSVGBtnTitle",
             Description = "保存为 SVG 按钮文本",
@@ -156,7 +155,7 @@ public partial class SignaturePads
             ValueList = " — ",
             DefaultValue = "SVG"
         },
-        new AttributeItem()
+        new()
         {
             Name = "EnableChangeColorBtn",
             Description = "启用换颜色按钮",
@@ -164,7 +163,7 @@ public partial class SignaturePads
             ValueList = " — ",
             DefaultValue = "true"
         },
-        new AttributeItem()
+        new()
         {
             Name = "EnableAlertJS",
             Description = "启用 JS 错误弹窗",
@@ -172,7 +171,7 @@ public partial class SignaturePads
             ValueList = " — ",
             DefaultValue = "true"
         },
-        new AttributeItem()
+        new()
         {
             Name = "EnableSaveBase64Btn",
             Description = "启用保存为 base64",
@@ -180,7 +179,7 @@ public partial class SignaturePads
             ValueList = " — ",
             DefaultValue = "true"
         },
-        new AttributeItem()
+        new()
         {
             Name = "EnableSavePNGBtn",
             Description = "启用保存为 PNG",
@@ -188,7 +187,7 @@ public partial class SignaturePads
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "EnableSaveJPGBtn",
             Description = "启用保存为 JPG",
@@ -196,7 +195,7 @@ public partial class SignaturePads
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "EnableAlertJS",
             Description = "启用保存为 SVG",
@@ -204,7 +203,7 @@ public partial class SignaturePads
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "CssClass",
             Description = "组件 CSS 式样",
@@ -212,7 +211,7 @@ public partial class SignaturePads
             ValueList = " — ",
             DefaultValue = "signature-pad-body"
         },
-        new AttributeItem()
+        new()
         {
             Name = "BtnCssClass",
             Description = "按钮 CSS 式样",
@@ -220,7 +219,7 @@ public partial class SignaturePads
             ValueList = " — ",
             DefaultValue = "btn btn-light"
         },
-        new AttributeItem()
+        new()
         {
             Name = "Responsive",
             Description = "启用响应式 css 界面",
@@ -228,10 +227,10 @@ public partial class SignaturePads
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "BackgroundColor",
-            Description = "组件背景,设置 rgba(0,0,0,0)为透明",
+            Description = "组件背景,设置 #0000000 为透明",
             Type = "string",
             ValueList = " — ",
             DefaultValue = "rgb(255, 255, 255)"
