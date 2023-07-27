@@ -3302,7 +3302,7 @@
     "UploadNormalTitle": "基础用法",
     "UploadNormalIntro": "<code>InputUpload</code> 组件与其他表单组件一起使用，显示文件名称，点击 <b>浏览</b> 按钮后选择文件并上传；通过设置 <code>ShowRemoveButton</code> 参数，显示 <b>删除</b> 按钮，点击删除按钮时回调 <code>OnDelete</code> 委托方法",
     "UploadNormalLabelName": "姓名:",
-    "UploadNormalLabelAdress": "地址:",
+    "UploadNormalLabelAddress": "地址:",
     "UploadNormalLabelPhoto": "照片:",
     "UploadFormSettingsTitle": "表单应用",
     "UploadFormSettingsIntro": "在表单内使用文件上传组件对文件格式进行约束",
