@@ -3914,12 +3914,8 @@
     "Width": "Customize the width of the picture",
     "Height": "Customize the height of the picture",
     "Template": "Custom templates",
-    "ChildContent": "ChildContent"
-  },
-  "BootstrapBlazor.Shared.Demos.Empty.EmptyImage": {
-    "ImageText": "No data at this time"
-  },
-  "BootstrapBlazor.Shared.Demos.Empty.EmptyTemplate": {
+    "ChildContent": "ChildContent",
+    "ImageText": "No data at this time",
     "TemplateIButtonText": "Go back to the previous page"
   },
   "BootstrapBlazor.Shared.Samples.GroupBoxs": {
