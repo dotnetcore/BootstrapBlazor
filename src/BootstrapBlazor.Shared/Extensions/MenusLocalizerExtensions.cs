@@ -512,7 +512,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["FileIcon"],
-                    Url = "fileicons"
+                    Url = "file-icon"
                 },
                 new()
                 {
