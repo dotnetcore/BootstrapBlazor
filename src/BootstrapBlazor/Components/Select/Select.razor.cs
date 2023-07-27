@@ -191,12 +191,6 @@ public partial class Select<TValue> : ISelect
             var item = NullableUnderlyingType == null ? "" : PlaceHolder;
             Items = ValueType.ToSelectList(string.IsNullOrEmpty(item) ? null : new SelectedItem("", item));
         }
-
-        if (IsVirtualize)
-        {
-            //IsPopover = false;
-            //ShowSearch = false;
-        }
     }
 
     /// <summary>
@@ -238,7 +232,7 @@ public partial class Select<TValue> : ISelect
         if (Items.Any())
         {
             // 通过 Items 提供数据
-            VirtualItems = Items = OnSearchTextChanged(SearchText);
+            Items = OnSearchTextChanged(SearchText);
         }
         else
         {
@@ -264,11 +258,7 @@ public partial class Select<TValue> : ISelect
         SelectedItem = (VirtualItems ?? DataSource).FirstOrDefault(i => i.Value == value);
 
         // support SelectedItem? type
-        result = default;
-        if (SelectedItem != null)
-        {
-            result = (TValue)(object)SelectedItem;
-        }
+        result = SelectedItem != null ? (TValue)(object)SelectedItem : default;
         validationErrorMessage = "";
         return SelectedItem != null;
     }
@@ -299,7 +289,7 @@ public partial class Select<TValue> : ISelect
         {
             if (Items.Any())
             {
-                VirtualItems = Items = OnSearchTextChanged(SearchText);
+                VirtualItems = OnSearchTextChanged(SearchText);
             }
         }
         else
