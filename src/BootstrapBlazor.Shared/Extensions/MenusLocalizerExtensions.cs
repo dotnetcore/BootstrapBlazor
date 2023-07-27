@@ -1019,7 +1019,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["GoTop"],
-                    Url = "gotops"
+                    Url = "go-top"
                 },
                 new()
                 {
