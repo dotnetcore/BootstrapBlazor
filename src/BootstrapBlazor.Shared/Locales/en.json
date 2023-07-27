@@ -3295,7 +3295,7 @@
     "UploadNormalTitle": "Basic usage",
     "UploadNormalIntro": "The <code>InputUpload</code> component is used with other form components to display the file name, select the file and upload it by clicking the <b>browse button</b>, and by setting the <code>ShowRemoveButton</code> parameter, display the <b>delete button</b>, click the delete button to call back <code>onDelete</code> delegate method",
     "UploadNormalLabelName": "Name:",
-    "UploadNormalLabelAdress": "Adress:",
+    "UploadNormalLabelAddress": "Adress:",
     "UploadNormalLabelPhoto": "Photo:",
     "UploadFormSettingsTitle": "FormSettings",
     "UploadFormSettingsIntro": "Use the file upload component to constrain the file format within the form",
@@ -5906,8 +5906,16 @@
   "BootstrapBlazor.Shared.Samples.Html2Pdfs": {
     "Html2PdfTitle": "Html export to Pdf",
     "Html2PdfDescription": "Export Html fragments or web page elements as Pdf",
+    "Html2PdfNote": "If you export too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
     "Html2PdfNormalTitle": "Noraml",
-    "Html2PdfNormalIntro": "Export <code>Html</code> fragment as <code>Pdf</code> file"
+    "Html2PdfNormalIntro": "Export <code>Html</code> fragment as <code>Pdf</code> file",
+    "Html2PdfNormalDesc": "Call the <code>IHtml2Pdf</code> service instance method <code>ExportAsync</code>",
+    "Html2PdfStreamTitle": "Export as Stream",
+    "Html2PdfStreamIntro": "Export <code>Html</code> as <code>Pdf</code> stream",
+    "Html2PdfStreamDesc": "Call <code>IHtml2Pdf</code> service instance method <code>ExportStreamAsync</code>. you can download file via <code>DownLoadService</code>",
+    "Html2PdfElementTitle": "Export DOM",
+    "Html2PdfElementIntro": "Export <code>Html</code> element content as <code>Pdf</code> stream",
+    "Html2PdfElementDesc": "Call <code>IHtml2Pdf</code> service instance method <code>ExportByElementIdAsync</code>. Use html DOM id as parameter"
   },
   "BootstrapBlazor.Shared.Samples.Live2DDisplays": {
     "Live2DDisplayTitle": "Live2D Widget",
