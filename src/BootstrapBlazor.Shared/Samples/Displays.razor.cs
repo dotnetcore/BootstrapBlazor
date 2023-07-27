@@ -27,7 +27,7 @@ public partial class Displays
     }
 
     [NotNull]
-    private IEnumerable<SelectedItem>? Hobbys { get; set; }
+    private IEnumerable<SelectedItem>? Hobbies { get; set; }
 
     private byte[] ByteArray { get; set; } = { 0x01, 0x12, 0x34, 0x56 };
 
@@ -52,40 +52,45 @@ public partial class Displays
 
         Model = Foo.Generate(FooLocalizer);
         Model.Hobby = Foo.GenerateHobbies(FooLocalizer).Take(3).Select(i => i.Text);
-        Hobbys = Foo.GenerateHobbies(FooLocalizer);
+        Hobbies = Foo.GenerateHobbies(FooLocalizer);
     }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new[]
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new()
+        {
             Name = "ShowLabel",
             Description = Localizer["ShowLabel"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "DisplayText",
             Description = Localizer["DisplayText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "FormatString",
             Description = Localizer["FormatString"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Formatter",
             Description = Localizer["Formatter"],
             Type = "RenderFragment<TItem>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = nameof(Display<string>.TypeResolver),
             Description = Localizer["TypeResolver"],
             Type = "Func<Assembly?, string, bool, Type?>",

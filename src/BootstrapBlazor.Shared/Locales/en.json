@@ -3870,13 +3870,13 @@
     "BindWayP2": "Set the <code>DisplayText</code> value to <b>custom label </b>",
     "BindWayOccupants": "Occupants",
     "BindWayP3": "The value of <code>DisplayText</code> is displayed when <code>ShowLabel</code> is <code>true</code>, regardless of whether the value is set",
-    "BindWayNotccupants": "Do not occupy seats",
+    "BindWayNotOccupants": "Do not occupy seats",
     "BindWayP4": "The value of <code>DisplayText</code> is not displayed when the <code>ShowLabel</code> is <code>false</code>",
     "Integer": "Integer",
     "Enum": "Enumerate",
     "Collection": "Collection",
     "Arr": "Array",
-    "FormatStringettingText": "Set up",
+    "FormatStringSettingText": "Set up",
     "FormatStringP": "The <code>Dispaly</code> component binding <code>byte[]</code> array, formatted as an example of <code>base64</code> encoded string"
   },
   "BootstrapBlazor.Shared.Samples.DropdownWidgets": {
