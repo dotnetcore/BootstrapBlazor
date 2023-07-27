@@ -3932,9 +3932,7 @@
     "SubTitle": "模拟 WinForm 的 GroupBox 组件",
     "BasicUsageTitle": "基础用法",
     "BasicUsageIntro": "将自己的组件放到 <code>GroupBox</code> 内部即可",
-    "AttTitle": "设置组件标题"
-  },
-  "BootstrapBlazor.Shared.Demos.GroupBox.GroupBoxNormal": {
+    "AttTitle": "设置组件标题",
     "GroupTitle": "表单示例",
     "GroupP1": "我是 <code>GroupBox</code> 示例",
     "GroupP2": "更多示例请参考 <code>EditorForms</code> 表单示例 <a href='editorforms' target='_blank'>[传送门]</a>"

@@ -3921,9 +3921,7 @@
     "SubTitle": "Simulate WinForm's GroupBox components",
     "BasicUsageTitle": "Basic usage",
     "BasicUsageIntro": "Put your own components inside the <code>GroupBox</code>",
-    "AttTitle": "Set the component title"
-  },
-  "BootstrapBlazor.Shared.Demos.GroupBox.GroupBoxNormal": {
+    "AttTitle": "Set the component title",
     "GroupTitle": "An example of a form",
     "GroupP1": "I'm an example of <code>GroupBox</code>",
     "GroupP2": "For more examples, please refer to the <code>EditorForms</code> Form Example <a href='editorforms' target='_blank'>[the portal]</a>"
