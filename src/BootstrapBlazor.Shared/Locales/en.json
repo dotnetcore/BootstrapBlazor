@@ -1277,36 +1277,26 @@
     "Desc2": "Set the split line display icon",
     "Desc3": "Set the split line display text alignment",
     "Desc4": "Set whether the dividing line is vertical division",
-    "Desc5": "ChildContent template"
-  },
-  "BootstrapBlazor.Shared.Demos.Divider.DividerNormal": {
-    "Content1": "Youth is a short dream, when you wake up, it has long since disappeared.",
-    "Content2": "A small amount of evil is enough to cancel out all the noble qualities, causing people to be infamous."
-  },
-  "BootstrapBlazor.Shared.Demos.Divider.DividerAlignment": {
-    "Divider1": "Young Bao Qingtian",
-    "Divider2": "League of Legends",
-    "Divider3": "Learning Quotations",
-    "Content3": "A cute icon",
-    "Content4": "Learning makes me happy"
-  },
-  "BootstrapBlazor.Shared.Demos.Divider.DividerIcon": {
-    "Content1": "A sunny day above my head, I missed one in my heart",
-    "Content2": "When the knight returns, the day the broken sword is reforged",
-    "Content3": "A cute icon",
-    "Content4": "Learning makes me happy",
-    "Bookmark": "Bookmarks"
-  },
-  "BootstrapBlazor.Shared.Demos.Divider.DividerVertical": {
-    "Content1": "Rain",
-    "Content2": "Old hometown",
-    "Content3": "Deep vegetation",
-    "Divider": "Dividing line"
-  },
-  "BootstrapBlazor.Shared.Demos.Divider.DividerChildContent": {
-    "Content1": "A sunny day above my head, I missed one in my heart",
-    "Content2": "When the knight returns, the day the broken sword is reforged",
-    "DividerContent": "I am a custom content <code>div</code> element"
+    "Desc5": "ChildContent template",
+    "NormalContent1": "Youth is a short dream, when you wake up, it has long since disappeared.",
+    "NormalContent2": "A small amount of evil is enough to cancel out all the noble qualities, causing people to be infamous.",
+    "AlignmentDivider1": "Young Bao Qingtian",
+    "AlignmentDivider2": "League of Legends",
+    "AlignmentDivider3": "Learning Quotations",
+    "AlignmentContent3": "A cute icon",
+    "AlignmentContent4": "Learning makes me happy",
+    "IconContent1": "A sunny day above my head, I missed one in my heart",
+    "IconContent2": "When the knight returns, the day the broken sword is reforged",
+    "IconContent3": "A cute icon",
+    "IconContent4": "Learning makes me happy",
+    "IconBookmark": "Bookmarks",
+    "VerticalContent1": "Rain",
+    "VerticalContent2": "Old hometown",
+    "VerticalContent3": "Deep vegetation",
+    "VerticalDivider": "Dividing line",
+    "ChildContent1": "A sunny day above my head, I missed one in my heart",
+    "ChildContent2": "When the knight returns, the day the broken sword is reforged",
+    "DividerChildContent": "I am a custom content <code>div</code> element"
   },
   "BootstrapBlazor.Shared.Samples.Scrolls": {
     "ScrollTitle": "Scroll",
