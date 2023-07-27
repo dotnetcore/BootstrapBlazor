@@ -507,7 +507,7 @@ internal static class MenusLocalizerExtensions
                 {
                     IsNew = true,
                     Text=Localizer["EyeDropper"],
-                    Url = "eye-droppers"
+                    Url = "eye-dropper"
                 },
                 new()
                 {
