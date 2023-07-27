@@ -3914,7 +3914,7 @@
     "ImageText": "No data at this time",
     "TemplateIButtonText": "Go back to the previous page"
   },
-  "BootstrapBlazor.Shared.Samples.GroupBoxs": {
+  "BootstrapBlazor.Shared.Samples.GroupBoxes": {
     "Title": "GroupBox",
     "SubTitle": "Simulate WinForm's GroupBox components",
     "BasicUsageTitle": "Basic usage",

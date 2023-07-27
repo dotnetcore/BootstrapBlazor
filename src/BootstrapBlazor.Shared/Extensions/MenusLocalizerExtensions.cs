@@ -527,7 +527,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["GroupBox"],
-                    Url = "groupboxs"
+                    Url = "group-box"
                 },
                 new()
                 {

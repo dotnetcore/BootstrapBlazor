@@ -5,13 +5,14 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// GroupBoxs
+/// GroupBoxes
 /// </summary>
-public sealed partial class GroupBoxs
+public sealed partial class GroupBoxes
 {
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new()
+        {
             Name = "Title",
             Description = Localizer["AttTitle"],
             Type = "string",

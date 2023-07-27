@@ -3925,7 +3925,7 @@
     "ImageText": "暂无数据",
     "TemplateIButtonText": "返回上一页"
   },
-  "BootstrapBlazor.Shared.Samples.GroupBoxs": {
+  "BootstrapBlazor.Shared.Samples.GroupBoxes": {
     "Title": "GroupBox 集合组件",
     "SubTitle": "模拟 WinForm 的 GroupBox 组件",
     "BasicUsageTitle": "基础用法",
