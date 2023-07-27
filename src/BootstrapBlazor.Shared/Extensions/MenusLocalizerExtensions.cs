@@ -496,12 +496,12 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["DropdownWidget"],
-                    Url = "dropdownwidgets"
+                    Url = "dropdown-widget"
                 },
                 new ()
                 {
                     Text=Localizer["Empty"],
-                    Url = "empties"
+                    Url = "empty"
                 },
                 new ()
                 {
