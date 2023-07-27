@@ -4,6 +4,9 @@
 
 namespace BootstrapBlazor.Shared.Samples;
 
+/// <summary>
+/// Live2DDisplays
+/// </summary>
 public partial class Live2DDisplays
 {
     private bool IsDraggable { get; set; } = true;

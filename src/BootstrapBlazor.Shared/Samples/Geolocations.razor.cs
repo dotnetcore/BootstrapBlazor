@@ -4,6 +4,9 @@
 
 namespace BootstrapBlazor.Shared.Samples;
 
+/// <summary>
+/// Geolocations
+/// </summary>
 public partial class Geolocations
 {
     [NotNull]

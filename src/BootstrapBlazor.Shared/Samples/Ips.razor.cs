@@ -4,6 +4,9 @@
 
 namespace BootstrapBlazor.Shared.Samples;
 
+/// <summary>
+/// Ips
+/// </summary>
 public partial class Ips
 {
     private string? Value { get; set; }

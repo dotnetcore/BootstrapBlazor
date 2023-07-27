@@ -4,6 +4,9 @@
 
 namespace BootstrapBlazor.Shared.Samples;
 
+/// <summary>
+/// Locators
+/// </summary>
 public partial class Locators
 {
     private string? Ip { get; set; }

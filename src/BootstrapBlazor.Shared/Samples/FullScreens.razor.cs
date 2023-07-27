@@ -4,6 +4,9 @@
 
 namespace BootstrapBlazor.Shared.Samples;
 
+/// <summary>
+/// FullScreens
+/// </summary>
 public partial class FullScreens
 {
     [Inject]

@@ -4,6 +4,9 @@
 
 namespace BootstrapBlazor.Shared.Samples;
 
+/// <summary>
+/// HtmlRenderers
+/// </summary>
 public partial class HtmlRenderers
 {
     private string? RawString { get; set; }
