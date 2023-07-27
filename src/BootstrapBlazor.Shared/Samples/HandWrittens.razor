@@ -1,12 +1,12 @@
-﻿@page "/handwrittenpage"
-@inject IStringLocalizer<HandwrittenPage> Localizer
+﻿@page "/handwritten"
+@inject IStringLocalizer<HandWrittens> Localizer
 
 <h3>@Localizer["Title"]</h3>
 
 <h4>@Localizer["SubTitle"]</h4>
 
 <DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["IntroText1"]" Name="Normal">
-    <Handwritten HandwrittenBase64="(e => DrawBase64 = e)" />
+    <Handwritten HandwrittenBase64="e => DrawBase64 = e" />
     <textarea type="text" class="form-control mt-3" readonly rows="5" @bind="DrawBase64" />
 </DemoBlock>
 

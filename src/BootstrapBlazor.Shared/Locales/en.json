@@ -4532,7 +4532,7 @@
     "Display": "Display",
     "DropdownWidget": "DropdownWidget",
     "GroupBox": "GroupBox",
-    "HandwrittenPage": "HandwrittenPage",
+    "HandWritten": "HandWritten",
     "LinkButton": "LinkButton",
     "ListView": "ListView",
     "Locator": "Locator",
@@ -5506,7 +5506,7 @@
   "BootstrapBlazor.Shared.Components.EventTable": {
     "Title": "Event"
   },
-  "BootstrapBlazor.Shared.Samples.HandwrittenPage": {
+  "BootstrapBlazor.Shared.Samples.HandWrittens": {
     "Title": "Handwritten",
     "SubTitle": "Used to save the mobile terminal signature as Base64 encoded string",
     "BaseUsageText": "Basic usage",

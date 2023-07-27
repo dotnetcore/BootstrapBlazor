@@ -531,8 +531,8 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["HandwrittenPage"],
-                    Url = "handwrittenpage"
+                    Text = Localizer["HandWritten"],
+                    Url = "handwritten"
                 },
                 new()
                 {

@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Shared.Samples;
 /// <summary>
 /// HandwrittenPage
 /// </summary>
-public sealed partial class HandwrittenPage
+public sealed partial class HandWrittens
 {
     /// <summary>
     /// 签名Base64
@@ -16,7 +16,7 @@ public sealed partial class HandwrittenPage
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem()
+        new()
         {
             Name = "SaveButtonText",
             Description = Localizer["SaveButtonText"],
@@ -24,7 +24,7 @@ public sealed partial class HandwrittenPage
             ValueList = " — ",
             DefaultValue = Localizer["SaveButtonTextDefaultValue"]
         },
-        new AttributeItem()
+        new()
         {
             Name = "ClearButtonText",
             Description = Localizer["ClearButtonText"],
@@ -32,7 +32,7 @@ public sealed partial class HandwrittenPage
             ValueList = " — ",
             DefaultValue = Localizer["ClearButtonTextDefaultValue"]
         },
-        new AttributeItem()
+        new()
         {
             Name = "Result",
             Description = Localizer["Result"],
@@ -40,7 +40,7 @@ public sealed partial class HandwrittenPage
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "HandwrittenBase64",
             Description = Localizer["HandwrittenBase64"],
