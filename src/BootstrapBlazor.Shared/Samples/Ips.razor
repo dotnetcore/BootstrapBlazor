@@ -1,4 +1,7 @@
 ﻿@page "/ips"
 @inject IStringLocalizer<Ips> Localizer
 
-<DemoBlock Title="@Localizer["IpNormalTitle"]" Introduction="@Localizer["IpNormalIntro"]" Name="Normal" Demo="typeof(Demos.Ip.IpNormal)" />
+<DemoBlock Title="@Localizer["IpNormalTitle"]" Introduction="@Localizer["IpNormalIntro"]" Name="Normal" >
+    <IpAddress @bind-Value="@Value" />
+    <div class="mt-3">@Value</div>
+</DemoBlock>

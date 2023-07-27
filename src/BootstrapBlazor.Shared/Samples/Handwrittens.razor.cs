@@ -5,41 +5,46 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// Footers
+/// HandwrittenPage
 /// </summary>
-public sealed partial class Footers
+public sealed partial class Handwrittens
 {
+    /// <summary>
+    /// 签名Base64
+    /// </summary>
+    public string? DrawBase64 { get; set; }
+
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new()
         {
-            Name = "Text",
-            Description = Localizer["Desc1"],
+            Name = "SaveButtonText",
+            Description = Localizer["SaveButtonText"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = Localizer["SaveButtonTextDefaultValue"]
+        },
+        new()
+        {
+            Name = "ClearButtonText",
+            Description = Localizer["ClearButtonText"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = Localizer["ClearButtonTextDefaultValue"]
+        },
+        new()
+        {
+            Name = "Result",
+            Description = Localizer["Result"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new()
         {
-            Name = "Target",
-            Description = Localizer["Desc2"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(Footer.ShowGoto),
-            Description = Localizer["ShowGotoDesc"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = nameof(Footer.ChildContent),
-            Description = Localizer["ChildContentDesc"],
-            Type = "string",
+            Name = "HandwrittenBase64",
+            Description = Localizer["HandwrittenBase64"],
+            Type = "EventCallback<string>",
             ValueList = " — ",
             DefaultValue = " — "
         }

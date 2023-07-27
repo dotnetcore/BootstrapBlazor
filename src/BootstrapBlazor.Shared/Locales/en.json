@@ -461,9 +461,7 @@
     "LightsColorTitle": "discoloration",
     "LightsColorIntro": "Color the light by setting the value of the property <code>Color</code>",
     "LightsTooltipTextTitle": "prompt text",
-    "LightsTooltipTextIntro": "By setting the value of the attribute <code>TooltipText</code> to make the <code>tooltip</code> text prompt when the mouse hovers over the indicator light"
-  },
-  "BootstrapBlazor.Shared.Demos.Lights.LightsTooltipText": {
+    "LightsTooltipTextIntro": "By setting the value of the attribute <code>TooltipText</code> to make the <code>tooltip</code> text prompt when the mouse hovers over the indicator light",
     "TooltipText": "I am prompt text message"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Index": {
@@ -567,7 +565,10 @@
     "NormalIntro": "Automatically generate editable forms for each field of the model by binding the <code>TModel</code> data model",
     "NoRenderTitle": "Setting bound model part property does not show",
     "NoRenderIntro": "By setting the <code>Editable=false</code> of the <code>IEditorItem</code> instance, the editable pop-up window cannot be edited.",
-    "EditDialogOption": "EditDialogOption property"
+    "EditDialogOption": "EditDialogOption property",
+    "LeftAlignedButton": "Edit popup (left-aligned)",
+    "RightAlignedButton": "Edit popup (right aligned)",
+    "PopupButton": "Pop-ups"
   },
   "BootstrapBlazor.Shared.Samples.BaiduOcr": {
     "Title": "IBaiduOcr",
@@ -580,13 +581,6 @@
     "BaiduOcrStep2": "2. Call <code>IBaiduOcr</code> instance method",
     "VerifyVatInvoiceTitle": "增值税验真",
     "VerifyVatInvoiceIntro": "通过调用 <code>IBaiduOcr</code> 服务实例的发票验真方法 <code>VerifyInvoiceAsync</code> 返回 <code>InvoiceVerifyResult</code> 其属性 <code>Valid</code> 为 <code>true</code> 时为真"
-  },
-  "BootstrapBlazor.Shared.Demos.EditDialog.EditDialogNormal": {
-    "LeftAlignedButton": "Edit popup (left-aligned)",
-    "RightAlignedButton": "Edit popup (right aligned)"
-  },
-  "BootstrapBlazor.Shared.Demos.EditDialog.EditDialogNoRender": {
-    "PopupButton": "Pop-ups"
   },
   "BootstrapBlazor.Shared.Samples.Topologies": {
     "TopologiesTitle": "Topology HMI",
@@ -1495,7 +1489,7 @@
     "LayoutText": "Layout",
     "FooterText": "Footer",
     "RowText": "Row",
-    "ScorllText": "Scroll",
+    "ScrollText": "Scroll",
     "SkeletonText": "Skeleton",
     "SplitText": "Split",
     "Text2": "Navigation",
@@ -1793,9 +1787,7 @@
     "Description": "Click to return to the top of the specified container",
     "NormalTitle": "Basic usage",
     "NormalIntro": "Click to return to the top usage",
-    "Desc1": "The scroll bar component ID controlled by the footer component"
-  },
-  "BootstrapBlazor.Shared.Demos.GoTop.GoTopNormal": {
+    "Desc1": "The scroll bar component ID controlled by the footer component",
     "Description1": "The Footer component appears at the bottom, and the page automatically scrolls back to the top when you click Back to the Top",
     "Description2": "This example passes the component client ID"
   },
@@ -3886,8 +3878,8 @@
     "Title": "DropdownWidget",
     "SubTitle": "More for head information summary presentation",
     "BasicUsageTitle": "Basic usage",
-    "BasicUsageIntro": "Write pendant content directly on the page through <code>childContent</code>",
-    "AttrTitle": "DropdownWidgetItem",
+    "BasicUsageIntro": "Write pendant content directly on the page through <code>ChildContent</code>",
+    "AttributeTitle": "DropdownWidgetItem",
     "Icon": "Widget icon",
     "BadgeColor": "Badge color",
     "HeaderColor": "Header color",
@@ -3921,22 +3913,16 @@
     "Width": "Customize the width of the picture",
     "Height": "Customize the height of the picture",
     "Template": "Custom templates",
-    "ChildContent": "ChildContent"
-  },
-  "BootstrapBlazor.Shared.Demos.Empty.EmptyImage": {
-    "ImageText": "No data at this time"
-  },
-  "BootstrapBlazor.Shared.Demos.Empty.EmptyTemplate": {
+    "ChildContent": "ChildContent",
+    "ImageText": "No data at this time",
     "TemplateIButtonText": "Go back to the previous page"
   },
-  "BootstrapBlazor.Shared.Samples.GroupBoxs": {
+  "BootstrapBlazor.Shared.Samples.GroupBoxes": {
     "Title": "GroupBox",
     "SubTitle": "Simulate WinForm's GroupBox components",
     "BasicUsageTitle": "Basic usage",
     "BasicUsageIntro": "Put your own components inside the <code>GroupBox</code>",
-    "AttTitle": "Set the component title"
-  },
-  "BootstrapBlazor.Shared.Demos.GroupBox.GroupBoxNormal": {
+    "AttTitle": "Set the component title",
     "GroupTitle": "An example of a form",
     "GroupP1": "I'm an example of <code>GroupBox</code>",
     "GroupP2": "For more examples, please refer to the <code>EditorForms</code> Form Example <a href='editorforms' target='_blank'>[the portal]</a>"
@@ -4034,18 +4020,16 @@
     "LocatorsNormalIntro": "The injection service displays client geographic location information",
     "LocatorsNormalDescription": "Introduction to usage",
     "LocatorsNormalInjectIPLocator": "The component uses the injection service <code>IIPLocatorProvider</code> call the <code>Locate</code> method",
-    "LocatorsNormalTipsTilte": "Because the geo-location query interface returns character sets that may be other character sets such as <code>gbk</code>, the program will report an error;",
+    "LocatorsNormalTipsTiltle": "Because the geo-location query interface returns character sets that may be other character sets such as <code>gbk</code>, the program will report an error;",
     "LocatorsNormalTips1": "Solution:",
     "LocatorsNormalTips2": "The <code>Startup</code> file add the following phrase to the  <code>ConfigureServices</code> method",
     "LocatorsNormalExtendDescription": "Extend the custom geo-location query interface",
     "LocatorsNormalExtend1": "1. Implement a custom locator",
     "LocatorsNormalExtend2": "2. Configure a custom locator",
-    "LocatorsNormalCustomerLocator": "Customize the locator <code>CustomerLocator</code> configuration with the callback delegate parameters the <code>AddBootstrapBlazor</code> method"
-  },
-  "BootstrapBlazor.Shared.Demos.Locators.LocatorsNormal": {
-    "LocatorsNormalTipsTitle": "IP test data",
-    "LocatorsNormalTips1": "Jinan City, Shandong Province Unicom",
-    "LocatorsNormalTips2": "Hefei, Anhui Province, telecommunications",
+    "LocatorsNormalCustomerLocator": "Customize the locator <code>CustomerLocator</code> configuration with the callback delegate parameters the <code>AddBootstrapBlazor</code> method",
+    "LocatorsNormalIpTitle": "IP test data",
+    "LocatorsNormalTips3": "Jinan City, Shandong Province Unicom",
+    "LocatorsNormalTips4": "Hefei, Anhui Province, telecommunications",
     "LocatorsNormalInputText": "IpAddress",
     "LocatorsNormalDisplayText": "Geographical location",
     "LocatorsNormalButtonText": "Locating"
@@ -4551,7 +4535,7 @@
     "Display": "Display",
     "DropdownWidget": "DropdownWidget",
     "GroupBox": "GroupBox",
-    "HandwrittenPage": "HandwrittenPage",
+    "HandWritten": "HandWritten",
     "LinkButton": "LinkButton",
     "ListView": "ListView",
     "Locator": "Locator",
@@ -5525,7 +5509,7 @@
   "BootstrapBlazor.Shared.Components.EventTable": {
     "Title": "Event"
   },
-  "BootstrapBlazor.Shared.Samples.HandwrittenPage": {
+  "BootstrapBlazor.Shared.Samples.Handwrittens": {
     "Title": "Handwritten",
     "SubTitle": "Used to save the mobile terminal signature as Base64 encoded string",
     "BaseUsageText": "Basic usage",
@@ -5925,9 +5909,9 @@
     "Live2DDisplayNormalTips": "Add the following code to Program.cs.",
     "Live2DDisplaysSource": "Model data source, CDN path or local path.",
     "Live2DDisplaysScale": "Model Display Scale.",
-    "Live2DDisplaysXoffset": "The X-axis offset of the model on the canvas canvas canvas.",
-    "Live2DDisplaysYoffset": "The Y-axis offset of the model on the canvas canvas canvas.",
-    "Live2DDisplaysIsDraggble": "Can the model be dragged (not yet implemented).",
+    "Live2DDisplaysXOffset": "The X-axis offset of the model on the canvas canvas canvas.",
+    "Live2DDisplaysYOffset": "The Y-axis offset of the model on the canvas canvas canvas.",
+    "Live2DDisplaysIsDraggable": "Can the model be dragged (not yet implemented).",
     "Live2DDisplaysAddHitAreaFrames": "Display the model by clicking on the area box.",
     "Live2DDisplaysPosition": "The default display location enumeration for the model.",
     "Live2DDisplaysBackgroundColor": "Canvas palette background color.",

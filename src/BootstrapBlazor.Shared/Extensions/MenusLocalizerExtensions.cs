@@ -107,7 +107,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Live2DDisplayIntro"],
-                    Url = "live2ddisplay"
+                    Url = "live2d-display"
                 },
             };
 
@@ -496,23 +496,23 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["DropdownWidget"],
-                    Url = "dropdownwidgets"
+                    Url = "dropdown-widget"
                 },
                 new ()
                 {
                     Text=Localizer["Empty"],
-                    Url = "empties"
+                    Url = "empty"
                 },
                 new ()
                 {
                     IsNew = true,
                     Text=Localizer["EyeDropper"],
-                    Url = "eye-droppers"
+                    Url = "eye-dropper"
                 },
                 new()
                 {
                     Text = Localizer["FileIcon"],
-                    Url = "fileicons"
+                    Url = "file-icon"
                 },
                 new()
                 {
@@ -527,18 +527,18 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["GroupBox"],
-                    Url = "groupboxs"
+                    Url = "group-box"
                 },
                 new()
                 {
-                    Text = Localizer["HandwrittenPage"],
-                    Url = "handwrittenpage"
+                    Text = Localizer["Handwritten"],
+                    Url = "handwritten"
                 },
                 new()
                 {
                     IsNew = true,
                     Text = Localizer["HtmlRenderer"],
-                    Url = "htmlrenderers"
+                    Url = "html-renderer"
                 },
                 new()
                 {
@@ -549,7 +549,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["LinkButton"],
-                    Url = "linkbuttons"
+                    Url = "link-button"
                 },
                 new()
                 {
@@ -901,7 +901,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["EditDialog"],
-                    Url = "editdialogs"
+                    Url = "edit-dialog"
                 },
                 new()
                 {
@@ -1014,12 +1014,12 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["FullScreen"],
-                    Url = "fullscreens"
+                    Url = "fullscreen"
                 },
                 new()
                 {
                     Text = Localizer["GoTop"],
-                    Url = "gotops"
+                    Url = "go-top"
                 },
                 new()
                 {
@@ -1072,7 +1072,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Dragdrop"],
-                    Url = "dragdrops"
+                    Url = "drag-drop"
                 },
                 new()
                 {
