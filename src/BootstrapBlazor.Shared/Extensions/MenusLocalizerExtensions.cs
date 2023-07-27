@@ -549,7 +549,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["LinkButton"],
-                    Url = "linkbuttons"
+                    Url = "link-button"
                 },
                 new()
                 {
