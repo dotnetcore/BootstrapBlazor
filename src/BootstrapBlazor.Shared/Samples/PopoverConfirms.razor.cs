@@ -70,84 +70,96 @@ public sealed partial class PopoverConfirms
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new()
+        {
             Name = nameof(PopConfirmButton.IsLink),
             Description = "Whether to render the component for the A tag",
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Text",
             Description = "Show title",
             Type = "string",
             ValueList = "",
             DefaultValue = "Delete"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Icon",
             Description = "Button icon",
             Type = "string",
             ValueList = "",
             DefaultValue = "fa-solid fa-xmark"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "CloseButtonText",
             Description = "Close button display text",
             Type = "string",
             ValueList = "",
             DefaultValue = "Close"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "CloseButtonColor",
             Description = "Confirm button color",
             Type = "Color",
             ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
             DefaultValue = "Secondary"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Color",
             Description = "Color",
             Type = "Color",
             ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
             DefaultValue = "None"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ConfirmButtonText",
             Description = "Confirm button display text",
             Type = "string",
             ValueList = "",
             DefaultValue = "Ok"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ConfirmButtonColor",
             Description = "Confirm button color",
             Type = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
             ValueList = "",
             DefaultValue = "Primary"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ConfirmIcon",
             Description = "Confirmation box icon",
             Type = "string",
             ValueList = "",
             DefaultValue = "fa-solid fa-circle-exclamation text-info"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Content",
             Description = "Display text",
             Type = "string",
             ValueList = "",
             DefaultValue = "Confirm delete?"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Placement",
             Description = "Location",
             Type = "Placement",
             ValueList = "Auto / Top / Left / Bottom / Right",
             DefaultValue = "Auto"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Title",
             Description = "Popover Popup title",
             Type = "string",
@@ -162,19 +174,19 @@ public sealed partial class PopoverConfirms
     /// <returns></returns>
     private static IEnumerable<EventItem> GetEvents() => new EventItem[]
     {
-        new EventItem()
+        new()
         {
             Name = "OnConfirm",
             Description="Callback method when confirm is clicked",
             Type ="Func<Task>"
         },
-        new EventItem()
+        new()
         {
             Name = "OnClose",
             Description="Callback method when click close",
             Type ="Func<Task>"
         },
-        new EventItem()
+        new()
         {
             Name = "OnBeforeClick",
             Description="Click the callback method before confirming the pop-up window",

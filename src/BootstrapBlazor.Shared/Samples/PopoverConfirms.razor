@@ -1,4 +1,4 @@
-﻿@page "/popconfirms"
+﻿@page "/pop-confirm"
 @inject IStringLocalizer<PopoverConfirms> Localizer
 
 <h3>@Localizer["PopoverConfirmsTitle"]</h3>
@@ -68,7 +68,7 @@
 
 <DemoBlock Title="@Localizer["PopoverConfirmsFormTitle"]"
            Introduction="@Localizer["PopoverConfirmsFormIntro"]"
-           Name="Form">
+           Name="ValidateForm">
     <ValidateForm Model="@Model" OnValidSubmit="OnValidSubmit" OnInvalidSubmit="OnInValidSubmit">
         <div class="row g-3 form-inline">
             <div class="col-12">

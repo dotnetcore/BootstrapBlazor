@@ -1597,7 +1597,7 @@
     "MessageText": "Message",
     "ModalText": "Modal",
     "LightText": "Light",
-    "PopconfirmText": "Popconfirm",
+    "PopoverConfirmText": "Popconfirm",
     "ProgressText": "Progress",
     "ReconnectorText": "Reconnector",
     "ResponsiveText": "Responsive",

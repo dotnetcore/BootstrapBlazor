@@ -1600,7 +1600,7 @@
     "MessageText": "消息框 Message",
     "ModalText": "模态框 Modal",
     "LightText": "指示灯 Light",
-    "PopconfirmText": "确认框 Popconfirm",
+    "PopoverConfirmText": "确认框 Popconfirm",
     "ProgressText": "进度条 Progress",
     "ReconnectorText": "重连组件 Reconnector",
     "ResponsiveText": "断点通知 Responsive",
