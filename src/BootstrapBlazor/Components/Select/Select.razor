@@ -44,13 +44,13 @@
                     </div>
                 }
                 <div class="dropdown-virtual">
-                    @if (Items.Any())
+                    @if (OnQueryData == null)
                     {
-                        <Virtualize @ref="Element" ItemSize="RowHeight" OverscanCount="OverscanCount" Items="@Items.ToList()" ChildContent="RenderRow" />
+                        <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" Items="@VirtualCollection" ChildContent="RenderRow" />
                     }
                     else
                     {
-                        <Virtualize @ref="Element" ItemSize="RowHeight" OverscanCount="OverscanCount" ItemsProvider="LoadItems" Placeholder="RenderPlaceHolderRow" ItemContent="RenderRow" />
+                        <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" ItemsProvider="LoadItems" Placeholder="RenderPlaceHolderRow" ItemContent="RenderRow" @ref="VirtualizeElement" />
                     }
                 </div>
             }

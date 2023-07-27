@@ -152,7 +152,7 @@ public partial class Select<TValue> : ISelect
     public int OverscanCount { get; set; } = 4;
 
     [NotNull]
-    private Virtualize<SelectedItem>? Element { get; set; }
+    private Virtualize<SelectedItem>? VirtualizeElement { get; set; }
 
     [Inject]
     [NotNull]
@@ -200,6 +200,8 @@ public partial class Select<TValue> : ISelect
 
     private IEnumerable<SelectedItem>? VirtualItems { get; set; }
 
+    private ICollection<SelectedItem> VirtualCollection => (VirtualItems ?? Items).ToList();
+
     /// <summary>
     /// 虚拟滚动数据加载回调方法
     /// </summary>
@@ -213,7 +215,8 @@ public partial class Select<TValue> : ISelect
             throw new InvalidOperationException("the parameter OnQueryData must be assign a value");
         }
 
-        System.Console.WriteLine($"StartIndex: {request.StartIndex} Count: {request.Count}");
+        // 有搜索条件时使用原生请求数量
+        // 有总数时请求剩余数量
         var count = !string.IsNullOrEmpty(SearchText)
             ? request.Count
             : TotalCount == 0
@@ -229,15 +232,15 @@ public partial class Select<TValue> : ISelect
     private async Task SearchTextChanged(string val)
     {
         SearchText = val;
-        if (Items.Any())
+        if (OnQueryData == null)
         {
             // 通过 Items 提供数据
-            Items = OnSearchTextChanged(SearchText);
+            VirtualItems = OnSearchTextChanged(SearchText);
         }
         else
         {
             // 通过 ItemProvider 提供数据
-            await Element.RefreshDataAsync();
+            await VirtualizeElement.RefreshDataAsync();
         }
         StateHasChanged();
     }
