@@ -3906,9 +3906,7 @@
     "MenuAlignment": "菜单对齐方式",
     "HeaderTemplate": "Header 模板",
     "BodyTemplate": "Body 模板",
-    "FooterTemplate": "Footer 模板"
-  },
-  "BootstrapBlazor.Shared.Demos.DropdownWidget.DropdownWidgetNormal": {
+    "FooterTemplate": "Footer 模板",
     "BasicUsageMessage": "您有 4 个未读消息",
     "BasicUsageViewMessage": "查看所有消息",
     "BasicUsageNotify": "您有 10 个未读通知",

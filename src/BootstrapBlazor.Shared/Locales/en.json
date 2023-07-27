@@ -3893,9 +3893,7 @@
     "MenuAlignment": "Menu alignment",
     "HeaderTemplate": "Header template",
     "BodyTemplate": "Body template",
-    "FooterTemplate": "Footer template"
-  },
-  "BootstrapBlazor.Shared.Demos.DropdownWidget.DropdownWidgetNormal": {
+    "FooterTemplate": "Footer template",
     "BasicUsageMessage": "You have 4 unread messages",
     "BasicUsageViewMessage": "View all messages",
     "BasicUsageNotify": "You have 10 unread notifications",
