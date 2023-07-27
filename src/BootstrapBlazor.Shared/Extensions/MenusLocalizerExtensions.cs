@@ -1014,7 +1014,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["FullScreen"],
-                    Url = "fullscreens"
+                    Url = "fullscreen"
                 },
                 new()
                 {

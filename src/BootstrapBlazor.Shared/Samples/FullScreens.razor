@@ -1,12 +1,13 @@
-﻿@page "/fullscreens"
+﻿@page "/fullscreen"
 @inject IStringLocalizer<FullScreens> Localizer
+@inject FullScreenService FullScreenService
 
 <h3>@Localizer["FullScreensTitle"]</h3>
 
 <h4>@((MarkupString)Localizer["FullScreensDescription"].Value)</h4>
 
 <DemoBlock Title="@Localizer["FullScreenNormalTitle"]" Introduction="@Localizer["FullScreenNormalIntro"]" Name="Normal">
-    <Button Text="@Localizer["FullScreenNormalButtonText1"]" OnClick="ToggleFullScreen"></Button>
+    <Button Text="@Localizer["FullScreenNormalButtonText1"]" OnClick="() => FullScreenService.Toggle()"></Button>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["FullScreenTitleTitle"]" Introduction="@Localizer["FullScreenTitleIntro"]" Name="Title">
