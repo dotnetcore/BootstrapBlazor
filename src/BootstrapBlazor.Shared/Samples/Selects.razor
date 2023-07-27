@@ -10,11 +10,26 @@
            Introduction="@Localizer["SelectsVirtualizeIntro"]"
            Name="IsVirtualize">
     <p>@((MarkupString)Localizer["SelectsVirtualizeDescription"].Value)</p>
-    <Select IsVirtualize="true" OnQueryAsync="OnQueryAsync" @bind-Value="VirtualItem1" ShowSearch="true"></Select>
-    <div>@VirtualItem1?.Text</div>
-    <Select IsVirtualize="true" Items="VirtualItems" @bind-Value="VirtualItem2"
-            OnSearchTextChanged="OnSearchTextChanged" ShowSearch="true"></Select>
-    <div>@VirtualItem2?.Text</div>
+
+    <p class="code-label">1. 使用 OnQueryAsync 作为数据源</p>
+    <div class="row">
+        <div class="col-6">
+            <Select IsVirtualize="true" OnQueryAsync="OnQueryAsync" @bind-Value="VirtualItem1" ShowSearch="true"></Select>
+        </div>
+        <div class="col-6">
+            <Display TValue="string" Value="@VirtualItem1?.Text"></Display>
+        </div>
+    </div>
+
+    <p class="code-label mt-3">2. 使用 Items 作为数据源</p>
+    <div class="row">
+        <div class="col-6">
+            <Select IsVirtualize="true" Items="VirtualItems" @bind-Value="VirtualItem2" OnSearchTextChanged="OnSearchTextChanged" ShowSearch="true"></Select>
+        </div>
+        <div class="col-6">
+            <Display TValue="string" Value="@VirtualItem2?.Text"></Display>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsNormalTitle"]"
