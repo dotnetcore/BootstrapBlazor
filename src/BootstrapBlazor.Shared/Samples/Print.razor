@@ -1,4 +1,4 @@
-﻿@page "/prints"
+﻿@page "/print"
 @inject IStringLocalizer<Prints> Localizer
 @inject DialogService DialogService
 @inject PrintService PrintService
@@ -20,13 +20,13 @@
     &lt;/app&gt;
 &lt;/body&gt;</Pre>
 
-<Pre>&lt;PrintButton Icon="fa-solid fa-print" Text="@Localizer["PrintsButtonText"]" PreviewUrl="/printview" /&gt;</Pre>
+<Pre>&lt;PrintButton Icon="fa-solid fa-print" Text="@Localizer["PrintsButtonText"]" PreviewUrl="/print-view" /&gt;</Pre>
 
 <DemoBlock Title="@Localizer["PrintButtonTitle"]"
            Introduction="@Localizer["PrintButtonIntro"]"
            Name="PrintButton">
     <p class="mb-3">@Localizer["PrintsButtonDescription"]</p>
-    <PrintButton Icon="fa-solid fa-print" Text="@Localizer["PrintsButtonText"]" PreviewUrl="/printview" />
+    <PrintButton Icon="fa-solid fa-print" Text="@Localizer["PrintsButtonText"]" PreviewUrl="/print-view" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PrintDialogTitle"]"
@@ -43,7 +43,6 @@
 </DemoBlock>
 
 @code {
-
     private async Task OnClickPrint()
     {
         var op = new DialogOption()
