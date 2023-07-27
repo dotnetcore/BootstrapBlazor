@@ -3889,7 +3889,7 @@
     "SubTitle": "多用于头部信息汇总展示",
     "BasicUsageTitle": "基础用法",
     "BasicUsageIntro": "直接在页面上通过 <code>ChildContent</code> 编写挂件内容",
-    "AttrTitle": "DropdownWidgetItem 组件",
+    "AttributeTitle": "DropdownWidgetItem 组件",
     "Icon": "挂件图标",
     "BadgeColor": "徽章颜色",
     "HeaderColor": "Header 颜色",

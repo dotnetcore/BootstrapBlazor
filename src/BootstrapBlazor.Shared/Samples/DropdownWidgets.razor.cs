@@ -11,64 +11,72 @@ public partial class DropdownWidgets
 {
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new AttributeItem() {
+        new()
+        {
             Name = "Icon",
             Description = Localizer["Icon"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-regular fa-bell"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "BadgeColor",
             Description = Localizer["BadgeColor"],
             Type = "Color",
             ValueList = " — ",
             DefaultValue = "Success"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "HeaderColor",
             Description = Localizer["HeaderColor"],
             Type = "Color",
             ValueList = "Primary / Secondary / Info / Warning / Danger ",
             DefaultValue = "Primary"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "BadgeNumber",
             Description = Localizer["BadgeNumber"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ShowArrow",
             Description = Localizer["ShowArrow"],
             Type = "boolean",
             ValueList = "true/false",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "MenuAlignment",
             Description = Localizer["MenuAlignment"],
             Type = "Alignment",
             ValueList = "None / Left / Center / Right ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "HeaderTemplate",
             Description = Localizer["HeaderTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "BodyTemplate",
             Description = Localizer["BodyTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "FooterTemplate",
             Description = Localizer["FooterTemplate"],
             Type = "RenderFragment",
