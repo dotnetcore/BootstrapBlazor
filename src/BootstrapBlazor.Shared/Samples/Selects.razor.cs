@@ -33,6 +33,10 @@ public sealed partial class Selects
     [NotNull]
     private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
+    private bool ShowSearch { get; set; }
+
+    private bool IsPopover { get; set; }
+
     /// <summary>
     /// 
     /// </summary>
