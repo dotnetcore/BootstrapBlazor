@@ -2,20 +2,62 @@
 @inject ToastService ToastService
 
 @inject IStringLocalizer<Html2Pdfs> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
 
 <h3>@Localizer["Html2PdfTitle"]</h3>
 
 <h4>@Localizer["Html2PdfDescription"]</h4>
 
+<Tips class="mt-3">
+    <p>@((MarkupString)Localizer["Html2PdfNote"].Value)</p>
+    <div>导出 PDF 已知问题：当导出内容中包含 &lg;!--!--&gt; 等字符时，会出现导出文件是空白问题，还未找到解决办法</div>
+</Tips>
+
+<Pre class="no-highlight">builder.Services.Configure&lt;HubOptions&gt;(option => option.MaximumReceiveMessageSize = null);</Pre>
+
 <DemoBlock Title="@Localizer["Html2PdfNormalTitle"]" Introduction="@Localizer["Html2PdfNormalIntro"]" Name="Normal">
+    <p>@((MarkupString)Localizer["Html2PdfNormalDesc"].Value)</p>
     <Button OnClickWithoutRender="OnExport" Text="PDF"></Button>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["Html2PdfStreamTitle"]" Introduction="@Localizer["Html2PdfStreamIntro"]" Name="Stream">
+    <p>@((MarkupString)Localizer["Html2PdfStreamDesc"].Value)</p>
     <Button OnClickWithoutRender="OnExportStream" Text="PDFStream"></Button>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["Html2PdfElementTitle"]" Introduction="@Localizer["Html2PdfElementIntro"]" Name="Element">
+    <p>@((MarkupString)Localizer["Html2PdfElementDesc"].Value)</p>
+    <Button OnClickWithoutRender="OnExportByElementId" Text="导出下方表格"></Button>
+    <Table TItem="Foo" Items="@Items.Take(3)" Id="table_9527">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
 
 @code {
     [Inject]
     [NotNull]
     private IHtml2Pdf? PdfService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private DownloadService? DownloadService { get; set; }
+
+    [NotNull]
+    private List<Foo>? Items { get; set; }
+
+    /// <summary>
+    /// OnInitialized
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Items = Foo.GenerateFoo(LocalizerFoo);
+    }
 
     private async Task OnExport()
     {
@@ -25,13 +67,17 @@
 
     private async Task OnExportStream()
     {
-        // var html = "<div style=\"padding: 1rem;\"><h2>标题</h2><div>this is 示例模板</div></div>";
+        var html = "<div style=\"padding: 1rem;\"><h2>标题</h2><div>this is 示例模板 By Stream</div></div>";
 
-        // using var stream = await PdfService.ExportStreamAsync(html);
-        // using var fs = File.OpenWrite("d:\\Argo\\test.pdf");
-        // await stream.CopyToAsync(fs);
-        // fs.Close();
-
+        using var stream = await PdfService.ExportStreamAsync(html);
+        await DownloadService.DownloadFromStreamAsync("test-stream.pdf", stream);
         await ToastService.Success("Pdf Export", "Export pdf stream success.");
+    }
+
+    private async Task OnExportByElementId()
+    {
+        using var stream = await PdfService.ExportByElementIdAsync("table_9527");
+        await DownloadService.DownloadFromStreamAsync("test-table.pdf", stream);
+        await ToastService.Success("Pdf Export", "Export pdf element success.");
     }
 }

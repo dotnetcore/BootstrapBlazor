@@ -5924,8 +5924,16 @@
   "BootstrapBlazor.Shared.Samples.Html2Pdfs": {
     "Html2PdfTitle": "Html 导出为 Pdf",
     "Html2PdfDescription": "将 Html 片段或者网页元素导出为 Pdf",
+    "Html2PdfNote": "如果导出内容过多，可能会触发 <code>signalR</code> 通讯中断问题，请自行调整 <code>HubOptions</code> 配置即可。",
     "Html2PdfNormalTitle": "基本用法",
-    "Html2PdfNormalIntro": "将 <code>Html</code> 代码片段导出为 <code>Pdf</code> 文件"
+    "Html2PdfNormalIntro": "将 <code>Html</code> 代码片段导出为 <code>Pdf</code> 文件",
+    "Html2PdfNormalDesc": "调用 <code>IHtml2Pdf</code> 服务实例方法 <code>ExportAsync</code>",
+    "Html2PdfStreamTitle": "导出流",
+    "Html2PdfStreamIntro": "将 <code>Html</code> 代码片段导出为 <code>Pdf</code> 流",
+    "Html2PdfStreamDesc": "调用 <code>IHtml2Pdf</code> 服务实例方法 <code>ExportStreamAsync</code> 可使用 <code>DownLoadService</code> 自行下载",
+    "Html2PdfElementTitle": "导出指定网页元素",
+    "Html2PdfElementIntro": "将 <code>Html</code> 元素内容导出为 <code>Pdf</code> 流",
+    "Html2PdfElementDesc": "调用 <code>IHtml2Pdf</code> 服务实例方法 <code>ExportByElementIdAsync</code> 导出指定 <code>Id</code> 的网页任意元素"
   },
   "BootstrapBlazor.Shared.Samples.Live2DDisplays": {
     "Live2DDisplayTitle": "Live2D 插件",
