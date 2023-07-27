@@ -330,25 +330,25 @@
     "PopoversCssClassDescription": "set up <code>Popover</code> parameter <code>CssClass=\"custom-popover\"</code> make custom styles",
     "PopoversCssClassButtonText": "Click to activate/deactivate"
   },
-  "BootstrapBlazor.Shared.Samples.Progresss": {
-    "ProgresssTitle": "Progress progress bar",
-    "ProgresssDescription": "Used to display the progress of the operation, inform the user of the current status and expectations",
-    "ProgresssNormalTitle": "Progress bar component",
-    "ProgresssNormalIntro": "Common progress bar",
-    "ProgresssDispalyValueTitle": "Display value",
-    "ProgresssDispalyValueIntro": "Set the progress bar value display through <code>IsShowValue</code>",
-    "ProgresssHeightTitle": "Set the progress bar height",
-    "ProgresssHeightIntro": "Set the progress bar height via <code>Height</code>",
-    "ProgresssColorTitle": "Progress bar with color",
-    "ProgresssColorIntro": "Set the progress bar color",
-    "ProgresssStripeTitle": "Whether to show stripes",
-    "ProgresssStripeIntro": "Set the stripe setting of the progress bar via <code>IsStriped</code>",
-    "ProgresssDynamicTitle": "Whether to display dynamically",
-    "ProgresssDynamicIntro": "Set the dynamic display of the progress bar through <code>IsAnimated</code>",
-    "ProgresssBindingTitle": "Two-way binding data",
-    "ProgresssBindingIntro": "Bind data",
-    "ProgresssDecimalsTitle": "Decimals",
-    "ProgresssDecimalsIntro": "Adjust the number of decimal places by setting the <code>Round</code> parameter, which defaults to <code>0</code>. Adjust the rounding mode by setting the <code>MidpointRounding</code >parameter, which defaults to <code>MidpointRounding. AwayFromZero</code> rounding"
+  "BootstrapBlazor.Shared.Samples.Progress": {
+    "ProgressTitle": "Progress progress bar",
+    "ProgressDescription": "Used to display the progress of the operation, inform the user of the current status and expectations",
+    "ProgressNormalTitle": "Progress bar component",
+    "ProgressNormalIntro": "Common progress bar",
+    "ProgressDisplayValueTitle": "Display value",
+    "ProgressDisplayValueIntro": "Set the progress bar value display through <code>IsShowValue</code>",
+    "ProgressHeightTitle": "Set the progress bar height",
+    "ProgressHeightIntro": "Set the progress bar height via <code>Height</code>",
+    "ProgressColorTitle": "Progress bar with color",
+    "ProgressColorIntro": "Set the progress bar color",
+    "ProgressStripeTitle": "Whether to show stripes",
+    "ProgressStripeIntro": "Set the stripe setting of the progress bar via <code>IsStriped</code>",
+    "ProgressDynamicTitle": "Whether to display dynamically",
+    "ProgressDynamicIntro": "Set the dynamic display of the progress bar through <code>IsAnimated</code>",
+    "ProgressBindingTitle": "Two-way binding data",
+    "ProgressBindingIntro": "Bind data",
+    "ProgressDecimalsTitle": "Decimals",
+    "ProgressDecimalsIntro": "Adjust the number of decimal places by setting the <code>Round</code> parameter, which defaults to <code>0</code>. Adjust the rounding mode by setting the <code>MidpointRounding</code >parameter, which defaults to <code>MidpointRounding. AwayFromZero</code> rounding"
   },
   "BootstrapBlazor.Shared.Samples.Responsives": {
     "ResponsiveTitle": "Responsive breakpoint monitoring",
@@ -1277,36 +1277,26 @@
     "Desc2": "Set the split line display icon",
     "Desc3": "Set the split line display text alignment",
     "Desc4": "Set whether the dividing line is vertical division",
-    "Desc5": "ChildContent template"
-  },
-  "BootstrapBlazor.Shared.Demos.Divider.DividerNormal": {
-    "Content1": "Youth is a short dream, when you wake up, it has long since disappeared.",
-    "Content2": "A small amount of evil is enough to cancel out all the noble qualities, causing people to be infamous."
-  },
-  "BootstrapBlazor.Shared.Demos.Divider.DividerAlignment": {
-    "Divider1": "Young Bao Qingtian",
-    "Divider2": "League of Legends",
-    "Divider3": "Learning Quotations",
-    "Content3": "A cute icon",
-    "Content4": "Learning makes me happy"
-  },
-  "BootstrapBlazor.Shared.Demos.Divider.DividerIcon": {
-    "Content1": "A sunny day above my head, I missed one in my heart",
-    "Content2": "When the knight returns, the day the broken sword is reforged",
-    "Content3": "A cute icon",
-    "Content4": "Learning makes me happy",
-    "Bookmark": "Bookmarks"
-  },
-  "BootstrapBlazor.Shared.Demos.Divider.DividerVertical": {
-    "Content1": "Rain",
-    "Content2": "Old hometown",
-    "Content3": "Deep vegetation",
-    "Divider": "Dividing line"
-  },
-  "BootstrapBlazor.Shared.Demos.Divider.DividerChildContent": {
-    "Content1": "A sunny day above my head, I missed one in my heart",
-    "Content2": "When the knight returns, the day the broken sword is reforged",
-    "DividerContent": "I am a custom content <code>div</code> element"
+    "Desc5": "ChildContent template",
+    "NormalContent1": "Youth is a short dream, when you wake up, it has long since disappeared.",
+    "NormalContent2": "A small amount of evil is enough to cancel out all the noble qualities, causing people to be infamous.",
+    "AlignmentDivider1": "Young Bao Qingtian",
+    "AlignmentDivider2": "League of Legends",
+    "AlignmentDivider3": "Learning Quotations",
+    "AlignmentContent3": "A cute icon",
+    "AlignmentContent4": "Learning makes me happy",
+    "IconContent1": "A sunny day above my head, I missed one in my heart",
+    "IconContent2": "When the knight returns, the day the broken sword is reforged",
+    "IconContent3": "A cute icon",
+    "IconContent4": "Learning makes me happy",
+    "IconBookmark": "Bookmarks",
+    "VerticalContent1": "Rain",
+    "VerticalContent2": "Old hometown",
+    "VerticalContent3": "Deep vegetation",
+    "VerticalDivider": "Dividing line",
+    "ChildContent1": "A sunny day above my head, I missed one in my heart",
+    "ChildContent2": "When the knight returns, the day the broken sword is reforged",
+    "DividerChildContent": "I am a custom content <code>div</code> element"
   },
   "BootstrapBlazor.Shared.Samples.Scrolls": {
     "ScrollTitle": "Scroll",
@@ -1597,7 +1587,7 @@
     "MessageText": "Message",
     "ModalText": "Modal",
     "LightText": "Light",
-    "PopconfirmText": "Popconfirm",
+    "PopoverConfirmText": "Popconfirm",
     "ProgressText": "Progress",
     "ReconnectorText": "Reconnector",
     "ResponsiveText": "Responsive",
@@ -3874,27 +3864,19 @@
     "DisplayText": "The front label displays text",
     "FormatString": "The numerically formatted string",
     "Formatter": "TableHeader instance",
-    "TypeResolver": "It is used internally when the type resolution callback method tvalue is an array instance"
-  },
-  "BootstrapBlazor.Shared.Demos.Display.DisplayNormal": {
-    "BasicUsage": "Basic usage"
-  },
-  "BootstrapBlazor.Shared.Demos.Display.DisplayLabels": {
+    "TypeResolver": "It is used internally when the type resolution callback method tvalue is an array instance",
+    "BasicUsage": "Basic usage",
     "BindWayCustomLabel": "Custom labels",
     "BindWayP2": "Set the <code>DisplayText</code> value to <b>custom label </b>",
     "BindWayOccupants": "Occupants",
     "BindWayP3": "The value of <code>DisplayText</code> is displayed when <code>ShowLabel</code> is <code>true</code>, regardless of whether the value is set",
-    "BindWayNotccupants": "Do not occupy seats",
-    "BindWayP4": "The value of <code>DisplayText</code> is not displayed when the <code>ShowLabel</code> is <code>false</code>"
-  },
-  "BootstrapBlazor.Shared.Demos.Display.DisplayDataType": {
+    "BindWayNotOccupants": "Do not occupy seats",
+    "BindWayP4": "The value of <code>DisplayText</code> is not displayed when the <code>ShowLabel</code> is <code>false</code>",
     "Integer": "Integer",
     "Enum": "Enumerate",
     "Collection": "Collection",
-    "Arr": "Array"
-  },
-  "BootstrapBlazor.Shared.Demos.Display.DisplayFormatString": {
-    "FormatStringettingText": "Set up",
+    "Arr": "Array",
+    "FormatStringSettingText": "Set up",
     "FormatStringP": "The <code>Dispaly</code> component binding <code>byte[]</code> array, formatted as an example of <code>base64</code> encoded string"
   },
   "BootstrapBlazor.Shared.Samples.DropdownWidgets": {
@@ -4065,7 +4047,7 @@
     "LocatorsNormalDisplayText": "Geographical location",
     "LocatorsNormalButtonText": "Locating"
   },
-  "BootstrapBlazor.Shared.Samples.Prints": {
+  "BootstrapBlazor.Shared.Samples.Print": {
     "PrintsTitle": "Print",
     "PrintsSubTitle": "Used to print a document or a local view",
     "PrintsTips1": "Set up <code style='margin-left: 14px;' > PreviewUrl</code>, open a new page for print preview and click the print button on this page for page printing",
@@ -5772,8 +5754,8 @@
   },
   "BootstrapBlazor.Shared.Samples.PdfReaders": {
     "Title": "PDF Reader",
-    "PdfReaderNomalText": "Basic usage",
-    "PdfReaderNomalIntro": "Use Filename parameter displays pdf file from local server, or Stream parameter use file stream for rendering",
+    "PdfReaderNormalText": "Basic usage",
+    "PdfReaderNormalIntro": "Use Filename parameter displays pdf file from local server, or Stream parameter use file stream for rendering",
     "PdfReaderStreamModeText": "Stream mode",
     "PdfReaderStreamModeIntro": "read remote files by cross-domain",
     "PdfReaderCompatibilityModeText": "Compatibility mode",
@@ -5787,7 +5769,7 @@
     "AttributesPdfReaderHeight": "High unit (px/%)",
     "AttributesPdfReaderStyleString": "Component appearance Css Style",
     "AttributesPdfReaderPage": "Page",
-    "AttributesPdfReaderPagemode": "Page mode",
+    "AttributesPdfReaderPageMode": "Page mode",
     "AttributesPdfReaderZoom": "Zoom mode",
     "AttributesPdfReaderSearch": "Query String",
     "AttributesPdfReaderRefresh": "Refresh Components",
@@ -5797,9 +5779,9 @@
     "AttributesPdfReaderStream": "The file stream used for rendering. If it is empty, the URL parameter is used to read the file",
     "AttributesPdfReaderViewerBase": "Browser page path",
     "AttributesPdfReaderViewerBaseDefaultValue": "built-in",
-    "AttributesPdfReaderNavpanes": "Show Navigation Pane",
+    "AttributesPdfReaderNavPanels": "Show Navigation Pane",
     "AttributesPdfReaderToolbar": "Show Toolbar",
-    "AttributesPdfReaderStatusbar": "show the status bar",
+    "AttributesPdfReaderStatusBar": "show the status bar",
     "AttributesPdfReaderDebug": "Display debugging information"
   },
   "BootstrapBlazor.Shared.Demos.PdfReader.PdfReaderAdvanced": {

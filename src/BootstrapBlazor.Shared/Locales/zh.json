@@ -330,25 +330,25 @@
     "PopoversCssClassDescription": "设置 <code>Popover</code> 参数 <code>CssClass=\"custom-popover\"</code> 进行自定义样式",
     "PopoversCssClassButtonText": "Click 激活/关闭"
   },
-  "BootstrapBlazor.Shared.Samples.Progresss": {
-    "ProgresssTitle": "Progress 进度条",
-    "ProgresssDescription": "用于展示操作进度，告知用户当前状态和预期",
-    "ProgresssNormalTitle": "进度条组件",
-    "ProgresssNormalIntro": "常用的进度条",
-    "ProgresssDispalyValueTitle": "显示值",
-    "ProgresssDispalyValueIntro": "通过 <code>IsShowValue</code> 设置进度条值显示",
-    "ProgresssHeightTitle": "设置进度条高度",
-    "ProgresssHeightIntro": "通过 <code>Height</code> 进度条高度设置",
-    "ProgresssColorTitle": "带颜色进度条",
-    "ProgresssColorIntro": "设置进度条颜色",
-    "ProgresssStripeTitle": "是否显示条纹",
-    "ProgresssStripeIntro": "通过 <code>IsStriped</code> 设置进度条的条纹设置",
-    "ProgresssDynamicTitle": "是否动态显示",
-    "ProgresssDynamicIntro": "通过 <code>IsAnimated</code> 设置进度条的动态显示",
-    "ProgresssBindingTitle": "双向绑定数据",
-    "ProgresssBindingIntro": "绑定数据",
-    "ProgresssDecimalsTitle": "小数",
-    "ProgresssDecimalsIntro": "通过设置 <code>Round</code> 参数调整保留小数点位数，默认为 <code>0</code>，通过设置 <code>MidpointRounding</code> 参数调整四舍五入模式，默认为 <code>MidpointRounding.AwayFromZero</code> 四舍五入"
+  "BootstrapBlazor.Shared.Samples.Progress": {
+    "ProgressTitle": "Progress 进度条",
+    "ProgressDescription": "用于展示操作进度，告知用户当前状态和预期",
+    "ProgressNormalTitle": "进度条组件",
+    "ProgressNormalIntro": "常用的进度条",
+    "ProgressDisplayValueTitle": "显示值",
+    "ProgressDisplayValueIntro": "通过 <code>IsShowValue</code> 设置进度条值显示",
+    "ProgressHeightTitle": "设置进度条高度",
+    "ProgressHeightIntro": "通过 <code>Height</code> 进度条高度设置",
+    "ProgressColorTitle": "带颜色进度条",
+    "ProgressColorIntro": "设置进度条颜色",
+    "ProgressStripeTitle": "是否显示条纹",
+    "ProgressStripeIntro": "通过 <code>IsStriped</code> 设置进度条的条纹设置",
+    "ProgressDynamicTitle": "是否动态显示",
+    "ProgressDynamicIntro": "通过 <code>IsAnimated</code> 设置进度条的动态显示",
+    "ProgressBindingTitle": "双向绑定数据",
+    "ProgressBindingIntro": "绑定数据",
+    "ProgressDecimalsTitle": "小数",
+    "ProgressDecimalsIntro": "通过设置 <code>Round</code> 参数调整保留小数点位数，默认为 <code>0</code>，通过设置 <code>MidpointRounding</code> 参数调整四舍五入模式，默认为 <code>MidpointRounding.AwayFromZero</code> 四舍五入"
   },
   "BootstrapBlazor.Shared.Samples.Responsives": {
     "ResponsiveTitle": "Responsive 断点监听",
@@ -1277,38 +1277,28 @@
     "Desc2": "设置分割线显示图标",
     "Desc3": "设置分割线显示文字对齐方式",
     "Desc4": "设置分割线是否为垂直分割",
-    "Desc5": "ChildContent 模板"
-  },
-  "BootstrapBlazor.Shared.Demos.Divider.DividerNormal": {
-    "Content1": "青春是一个短暂的美梦, 当你醒来时, 它早已消失无踪",
-    "Content2": "少量的邪恶足以抵消全部高贵的品质, 害得人声名狼藉"
-  },
-  "BootstrapBlazor.Shared.Demos.Divider.DividerAlignment": {
-    "Divider1": "少年包青天",
-    "Divider2": "英雄联盟",
-    "Divider3": "学习语录",
-    "Content1": "头上一片晴天，心中一个想念",
-    "Content2": "骑士归来之时，断剑重铸之日",
-    "Content3": "一只萌萌哒图标",
-    "Content4": "学习使我快乐"
-  },
-  "BootstrapBlazor.Shared.Demos.Divider.DividerIcon": {
-    "Content1": "头上一片晴天，心中一个想念",
-    "Content2": "骑士归来之时，断剑重铸之日",
-    "Content3": "一只萌萌哒图标",
-    "Content4": "学习使我快乐",
-    "Bookmark": "书签"
-  },
-  "BootstrapBlazor.Shared.Demos.Divider.DividerVertical": {
-    "Content1": "雨纷纷",
-    "Content2": "旧故里",
-    "Content3": "草木深",
-    "Divider": "分割线"
-  },
-  "BootstrapBlazor.Shared.Demos.Divider.DividerChildContent": {
-    "Content1": "头上一片晴天，心中一个想念",
-    "Content2": "骑士归来之时，断剑重铸之日",
-    "DividerContent": "我是自定义内容 <code>div</code> 元素"
+    "Desc5": "ChildContent 模板",
+    "NormalContent1": "青春是一个短暂的美梦, 当你醒来时, 它早已消失无踪",
+    "NormalContent2": "少量的邪恶足以抵消全部高贵的品质, 害得人声名狼藉",
+    "AlignmentDivider1": "少年包青天",
+    "AlignmentDivider2": "英雄联盟",
+    "AlignmentDivider3": "学习语录",
+    "AlignmentContent1": "头上一片晴天，心中一个想念",
+    "AlignmentContent2": "骑士归来之时，断剑重铸之日",
+    "AlignmentContent3": "一只萌萌哒图标",
+    "AlignmentContent4": "学习使我快乐",
+    "IconContent1": "头上一片晴天，心中一个想念",
+    "IconContent2": "骑士归来之时，断剑重铸之日",
+    "IconContent3": "一只萌萌哒图标",
+    "IconContent4": "学习使我快乐",
+    "IconBookmark": "书签",
+    "VerticalContent1": "雨纷纷",
+    "VerticalContent2": "旧故里",
+    "VerticalContent3": "草木深",
+    "VerticalDivider": "分割线",
+    "ChildContent1": "头上一片晴天，心中一个想念",
+    "ChildContent2": "骑士归来之时，断剑重铸之日",
+    "DividerChildContent": "我是自定义内容 <code>div</code> 元素"
   },
   "BootstrapBlazor.Shared.Samples.Scrolls": {
     "ScrollTitle": "Scroll 滚动条",
@@ -1600,7 +1590,7 @@
     "MessageText": "消息框 Message",
     "ModalText": "模态框 Modal",
     "LightText": "指示灯 Light",
-    "PopconfirmText": "确认框 Popconfirm",
+    "PopoverConfirmText": "确认框 Popconfirm",
     "ProgressText": "进度条 Progress",
     "ReconnectorText": "重连组件 Reconnector",
     "ResponsiveText": "断点通知 Responsive",
@@ -3887,27 +3877,19 @@
     "DisplayText": "前置标签显示文本",
     "FormatString": "数值格式化字符串",
     "Formatter": "TableHeader 实例",
-    "TypeResolver": "类型解析回调方法 TValue 为 Array 实例时内部使用"
-  },
-  "BootstrapBlazor.Shared.Demos.Display.DisplayNormal": {
-    "BasicUsage": "基础用法"
-  },
-  "BootstrapBlazor.Shared.Demos.Display.DisplayLabels": {
+    "TypeResolver": "类型解析回调方法 TValue 为 Array 实例时内部使用",
+    "BasicUsage": "基础用法",
     "BindWayCustomLabel": "自定义标签",
     "BindWayP2": "设置 <code>DisplayText</code> 值为 <b>自定义标签</b>",
     "BindWayOccupants": "占位",
     "BindWayP3": "无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>true</code> 时均显示",
-    "BindWayNotccupants": "不占位",
-    "BindWayP4": "无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>false</code> 时均不显示"
-  },
-  "BootstrapBlazor.Shared.Demos.Display.DisplayDataType": {
+    "BindWayNotOccupants": "不占位",
+    "BindWayP4": "无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>false</code> 时均不显示",
     "Integer": "整型",
     "Enum": "枚举",
     "Collection": "集合",
-    "Arr": "数组"
-  },
-  "BootstrapBlazor.Shared.Demos.Display.DisplayFormatString": {
-    "FormatStringettingText": "设置",
+    "Arr": "数组",
+    "FormatStringSettingText": "设置",
     "FormatStringP": "<code>Display</code> 组件绑定 <code>byte[]</code> 数组，格式化成 <code>base64</code> 编码字符串示例"
   },
   "BootstrapBlazor.Shared.Samples.DropdownWidgets": {
@@ -4081,7 +4063,7 @@
   "BootstrapBlazor.Shared.Samples.Images": {
     "BasicUsageTitle": "基础用法"
   },
-  "BootstrapBlazor.Shared.Samples.Prints": {
+  "BootstrapBlazor.Shared.Samples.Print": {
     "PrintsTitle": "Print 打印组件",
     "PrintsSubTitle": "用于打印文档或者局部视图",
     "PrintsTips1": "设置 <code style='margin-left: 14px;'>PreviewUrl</code> 时，单开一个新网页进行打印预览，点击此页面的打印按钮进行网页打印",
@@ -5793,8 +5775,8 @@
   },
   "BootstrapBlazor.Shared.Samples.PdfReaders": {
     "Title": "PDF Reader PDF阅读器",
-    "PdfReaderNomalText": "基础用法",
-    "PdfReaderNomalIntro": "Filename 参数显示本服务器pdf文件,或 Stream 参数指定用于渲染的文件流",
+    "PdfReaderNormalText": "基础用法",
+    "PdfReaderNormalIntro": "Filename 参数显示本服务器pdf文件,或 Stream 参数指定用于渲染的文件流",
     "PdfReaderStreamModeText": "流模式",
     "PdfReaderStreamModeIntro": "可跨域读取文件",
     "PdfReaderCompatibilityModeText": "兼容模式",
@@ -5808,7 +5790,7 @@
     "AttributesPdfReaderHeight": "高 单位(px/%)",
     "AttributesPdfReaderStyleString": "组件外观 Css Style",
     "AttributesPdfReaderPage": "页码",
-    "AttributesPdfReaderPagemode": "页面模式",
+    "AttributesPdfReaderPageMode": "页面模式",
     "AttributesPdfReaderZoom": "缩放模式",
     "AttributesPdfReaderSearch": "查询字符串",
     "AttributesPdfReaderRefresh": "刷新组件",
@@ -5818,9 +5800,9 @@
     "AttributesPdfReaderStream": "用于渲染的文件流,为空则用URL参数读取文件",
     "AttributesPdfReaderViewerBase": "浏览器页面路径",
     "AttributesPdfReaderViewerBaseDefaultValue": "内置",
-    "AttributesPdfReaderNavpanes": "显示导航窗格",
+    "AttributesPdfReaderNavPanels": "显示导航窗格",
     "AttributesPdfReaderToolbar": "显示工具栏",
-    "AttributesPdfReaderStatusbar": "显示状态栏",
+    "AttributesPdfReaderStatusBar": "显示状态栏",
     "AttributesPdfReaderDebug": "显示调试信息"
   },
   "BootstrapBlazor.Shared.Demos.PdfReader.PdfReaderAdvanced": {
