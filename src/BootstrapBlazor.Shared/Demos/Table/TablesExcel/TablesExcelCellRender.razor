@@ -21,7 +21,7 @@
             <EditTemplate Context="row">
                 <div class="disabled">
                     <div>@row!.Count %</div>
-                    <Progress Value="@row.Count" Color="@Foo.GetProgressColor(row.Count)"></Progress>
+                    <BootstrapBlazor.Components.Progress Value="@row.Count" Color="@Foo.GetProgressColor(row.Count)"></BootstrapBlazor.Components.Progress>
                 </div>
             </EditTemplate>
         </TableColumn>

@@ -1,4 +1,5 @@
 ﻿@page "/dashboard"
+@using Progress = BootstrapBlazor.Components.Progress
 
 @if (Data != null)
 {
@@ -25,7 +26,7 @@
                                         <CountUp Value="@Data.TestApprovedAllCount"></CountUp>
                                     </div>
                                 </div>
-                                <div class="col"><div class="db-progress"><Progress Value="@Data.TestApprovedAllScale" IsShowValue="true" Round="1"></Progress></div></div>
+                                <div class="col"><div class="db-progress"><BootstrapBlazor.Components.Progress Value="@Data.TestApprovedAllScale" IsShowValue="true" Round="1"></BootstrapBlazor.Components.Progress></div></div>
                             </div>
                         </div>
                         <div class="col-auto"><i class="fa-regular fa-calendar-check fa-2x"></i></div>
@@ -49,7 +50,7 @@
                                         <CountUp Value="@Data.TestApprovedYearCount"></CountUp>
                                     </div>
                                 </div>
-                                <div class="col"><div class="db-progress"><Progress Value="@Data.TestApprovedYearScale" IsShowValue="true" Round="1"></Progress></div></div>
+                                <div class="col"><div class="db-progress"><BootstrapBlazor.Components.Progress Value="@Data.TestApprovedYearScale" IsShowValue="true" Round="1"></BootstrapBlazor.Components.Progress></div></div>
                             </div>
                         </div>
                         <div class="col-auto"><i class="fa-regular fa-calendar-check fa-2x"></i></div>
@@ -73,7 +74,7 @@
                                         <CountUp Value="@Data.TestApprovedMonthCount"></CountUp>
                                     </div>
                                 </div>
-                                <div class="col"><div class="db-progress"><Progress Value="@Data.TestApprovedMonthScale" IsShowValue="true" Round="1"></Progress></div></div>
+                                <div class="col"><div class="db-progress"><BootstrapBlazor.Components.Progress Value="@Data.TestApprovedMonthScale" IsShowValue="true" Round="1"></BootstrapBlazor.Components.Progress></div></div>
                             </div>
                         </div>
                         <div class="col-auto"><i class="fa-regular fa-calendar-check fa-2x"></i></div>
@@ -97,7 +98,7 @@
                                         <CountUp Value="@Data.TestApprovedDayCount"></CountUp>
                                     </div>
                                 </div>
-                                <div class="col"><div class="db-progress"><Progress Value="@Data.TestApprovedDayScale" IsShowValue="true" Round="1"></Progress></div></div>
+                                <div class="col"><div class="db-progress"><BootstrapBlazor.Components.Progress Value="@Data.TestApprovedDayScale" IsShowValue="true" Round="1"></BootstrapBlazor.Components.Progress></div></div>
                             </div>
                         </div>
                         <div class="col-auto"><i class="fa-regular fa-calendar-check fa-2x"></i></div>
@@ -140,7 +141,7 @@
                                                 )%
                                         </span>
                                     </h4>
-                                    <Progress Value="@item.Percent" IsAnimated="true" Color="@GetColor(item.Percent)" IsShowValue="true" Round="1"></Progress>
+                                    <BootstrapBlazor.Components.Progress Value="@item.Percent" IsAnimated="true" Color="@GetColor(item.Percent)" IsShowValue="true" Round="1"></BootstrapBlazor.Components.Progress>
                                 }
                             }
                         </div>
