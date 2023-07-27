@@ -5,20 +5,16 @@
 
 <h4>@((MarkupString)Localizer["FullScreensDescription"].Value)</h4>
 
-<DemoBlock Title="@Localizer["FullScreenNormalTitle"]"
-           Introduction="@Localizer["FullScreenNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.FullScreens.FullScreenNormal)">
+<DemoBlock Title="@Localizer["FullScreenNormalTitle"]" Introduction="@Localizer["FullScreenNormalIntro"]" Name="Normal">
+    <Button Text="@Localizer["FullScreenNormalButtonText1"]" OnClick="ToggleFullScreen"></Button>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["FullScreenTitleTitle"]"
-           Introduction="@Localizer["FullScreenTitleIntro"]"
-           Name="Title"
-           Demo="typeof(Demos.FullScreens.FullScreenTitle)">
+<DemoBlock Title="@Localizer["FullScreenTitleTitle"]" Introduction="@Localizer["FullScreenTitleIntro"]" Name="Title">
     <ul class="ul-demo mb-3">
         <li>@((MarkupString)Localizer["FullScreenTitleLi1"].Value)</li>
         <li>@((MarkupString)Localizer["FullScreenTitleLi2"].Value)</li>
         <li>@((MarkupString)Localizer["FullScreenTitleLi3"].Value)</li>
     </ul>
     <Pre class="mt-3">&lt;@Localizer["Pre"] /&gt;</Pre>
+    <FullScreenButton Title="@Localizer["FullScreenTitleButton1Text"]" FullScreenIcon="fa-solid fa-font-awesome" />
 </DemoBlock>
