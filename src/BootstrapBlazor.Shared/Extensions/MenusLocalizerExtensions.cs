@@ -901,7 +901,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["EditDialog"],
-                    Url = "editdialogs"
+                    Url = "edit-dialog"
                 },
                 new()
                 {
