@@ -1,5 +1,7 @@
 ﻿@page "/prints"
 @inject IStringLocalizer<Prints> Localizer
+@inject DialogService DialogService
+@inject PrintService PrintService
 
 <h3>@Localizer["PrintsTitle"]</h3>
 
@@ -22,20 +24,51 @@
 
 <DemoBlock Title="@Localizer["PrintButtonTitle"]"
            Introduction="@Localizer["PrintButtonIntro"]"
-           Name="PrintButton"
-           Demo="typeof(Demos.Prints.PrintsButton)">
-    <p>@Localizer["PrintsButtonDescription"]</p>
+           Name="PrintButton">
+    <p class="mb-3">@Localizer["PrintsButtonDescription"]</p>
+    <PrintButton Icon="fa-solid fa-print" Text="@Localizer["PrintsButtonText"]" PreviewUrl="/printview" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PrintDialogTitle"]"
            Introduction="@Localizer["PrintDialogIntro"]"
-           Name="PrintDialog"
-           Demo="typeof(Demos.Prints.PrintsDialog)">
-    <p>@((MarkupString)Localizer["PrintDialogP", nameof(DataDialogComponent), nameof(DialogOption.ShowPrintButtonInHeader)].Value)</p>
+           Name="PrintDialog">
+    <p class="mb-3">@((MarkupString)Localizer["PrintDialogP", nameof(DataDialogComponent), nameof(DialogOption.ShowPrintButtonInHeader)].Value)</p>
+    <Button Icon="fa-solid fa-print" Text="@Localizer["PrintsButtonText"]" OnClick="OnClickPrint" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PrintServiceTitle"]"
            Introduction="@Localizer["PrintServiceIntro"]"
-           Name="PrintService"
-           Demo="typeof(Demos.Prints.PrintsService)">
+           Name="PrintService">
+    <Button Icon="fa-solid fa-print" Text="@Localizer["PrintsButtonText"]" OnClick="OnClickPrintService" />
 </DemoBlock>
+
+@code {
+
+    private async Task OnClickPrint()
+    {
+        var op = new DialogOption()
+        {
+            Title = Localizer["PrintsDialogTitle"],
+            ShowPrintButton = true,
+            ShowPrintButtonInHeader = true,
+            ShowFooter = false,
+            BodyContext = 1
+        };
+        op.Component = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>();
+
+        await DialogService.Show(op);
+    }
+
+    private Task OnClickPrintService() => PrintService.PrintAsync<DataDialogComponent>(op =>
+    {
+        // 弹窗配置
+        op.Title = Localizer["PrintsDialogTitle"];
+        op.ShowPrintButton = true;
+        op.ShowPrintButtonInHeader = true;
+        op.ShowFooter = false;
+        op.BodyContext = 2;
+
+        // 弹窗组件所需参数
+        return new Dictionary<string, object?>();
+    });
+}
