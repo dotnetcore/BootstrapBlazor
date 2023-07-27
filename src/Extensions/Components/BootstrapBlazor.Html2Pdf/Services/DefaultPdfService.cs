@@ -43,5 +43,14 @@ class DefaultPdfService : IHtml2Pdf
         return new MemoryStream(buffer);
     }
 
+    public async Task<Stream> ExportByElementIdAsync(string id)
+    {
+        Module ??= await LoadModule();
+
+        var payload = await Module.InvokeAsync<string>("exportPdfById", id);
+        var buffer = Convert.FromBase64String(payload);
+        return new MemoryStream(buffer);
+    }
+
     private Task<JSModule> LoadModule() => JSRuntime.LoadModule("./_content/BootstrapBlazor.Html2Pdf/export.js");
 }

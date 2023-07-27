@@ -19,6 +19,18 @@ export async function exportPdfAsBase64(html) {
     return btoa(payload)
 }
 
+export async function exportPdfById(id) {
+    let ret = null
+    const opt = getDefaultOption()
+
+    const element = document.getElementById(id)
+    if (element) {
+        const payload = await html2pdf().set(opt).from(element).outputPdf()
+        ret = btoa(payload)
+    }
+    return ret
+}
+
 const getDefaultOption = () => {
     return {
         ...{

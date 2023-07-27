@@ -23,4 +23,11 @@ public interface IHtml2Pdf
     /// <param name="html"></param>
     /// <returns></returns>
     Task<Stream> ExportStreamAsync(string html);
+
+    /// <summary>
+    /// 通过指定 id 元素导出 Pdf
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    Task<Stream> ExportByElementIdAsync(string id);
 }
