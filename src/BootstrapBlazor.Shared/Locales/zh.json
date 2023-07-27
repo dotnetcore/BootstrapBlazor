@@ -4547,7 +4547,7 @@
     "CountUp": "计数器 CountUp",
     "DropdownWidget": "挂件 DropdownWidget",
     "GroupBox": "集合 GroupBox",
-    "HandWritten": "手写组件 HandWritten",
+    "Handwritten": "手写组件 Handwritten",
     "LinkButton": "链接按钮 LinkButton",
     "ListView": "列表组件 ListView",
     "Locator": "位置定位 Locator",
@@ -5524,7 +5524,7 @@
   "BootstrapBlazor.Shared.Components.EventTable": {
     "Title": "事件 Event"
   },
-  "BootstrapBlazor.Shared.Samples.HandWrittens": {
+  "BootstrapBlazor.Shared.Samples.Handwrittens": {
     "Title": "Handwritten 手写签名",
     "SubTitle": "用于移动终端签名保存为 Base64 编码字符串",
     "BaseUsageText": "基础用法",

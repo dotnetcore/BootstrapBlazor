@@ -5506,7 +5506,7 @@
   "BootstrapBlazor.Shared.Components.EventTable": {
     "Title": "Event"
   },
-  "BootstrapBlazor.Shared.Samples.HandWrittens": {
+  "BootstrapBlazor.Shared.Samples.Handwrittens": {
     "Title": "Handwritten",
     "SubTitle": "Used to save the mobile terminal signature as Base64 encoded string",
     "BaseUsageText": "Basic usage",

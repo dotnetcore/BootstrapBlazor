@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Shared.Samples;
 /// <summary>
 /// HandwrittenPage
 /// </summary>
-public sealed partial class HandWrittens
+public sealed partial class Handwrittens
 {
     /// <summary>
     /// 签名Base64
