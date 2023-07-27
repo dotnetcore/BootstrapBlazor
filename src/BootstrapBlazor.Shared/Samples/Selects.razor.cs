@@ -20,15 +20,49 @@ public sealed partial class Selects
         new SelectedItem ("Shanghai", "上海") { Active = true },
     };
 
+    private IEnumerable<SelectedItem> VirtualItems => Foos.Select(i => new SelectedItem(i.Name!, i.Name!)).ToList();
+
+    private SelectedItem? VirtualItem1 { get; set; }
+
+    private SelectedItem? VirtualItem2 { get; set; }
+
+    [NotNull]
+    private List<Foo>? Foos { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
     /// <summary>
     /// 
     /// </summary>
     protected override void OnInitialized()
     {
         TimeZoneInfo.ClearCachedData();
-        TimezoneItems = TimeZoneInfo.GetSystemTimeZones().Select(i => new SelectedItem(i.Id, i.DisplayName));
-        TimezoneId = TimeZoneInfo.Local.Id;
-        TimezoneValue = TimeZoneInfo.Local.BaseUtcOffset;
+        TimeZoneItems = TimeZoneInfo.GetSystemTimeZones().Select(i => new SelectedItem(i.Id, i.DisplayName));
+        TimeZoneId = TimeZoneInfo.Local.Id;
+        TimeZoneValue = TimeZoneInfo.Local.BaseUtcOffset;
+        Foos = Foo.GenerateFoo(LocalizerFoo);
+    }
+
+    private IEnumerable<SelectedItem> OnSearchTextChanged(string searchText)
+    {
+        return Foos.Where(i => i.Name!.Contains(searchText, StringComparison.OrdinalIgnoreCase)).Select(i => new SelectedItem(i.Name!, i.Name!));
+    }
+
+    private async Task<QueryData<SelectedItem>> OnQueryData(VirtualizeQueryOption option)
+    {
+        await Task.Delay(200);
+        var items = Foos;
+        if (!string.IsNullOrEmpty(option.SearchText))
+        {
+            items = items.Where(i => i.Name!.Contains(option.SearchText, StringComparison.OrdinalIgnoreCase)).ToList();
+        }
+        return new QueryData<SelectedItem>
+        {
+            Items = items.Skip(option.StartIndex).Take(option.Count).Select(i => new SelectedItem(i.Name!, i.Name!)),
+            TotalCount = items.Count
+        };
     }
 
     private Task OnItemChanged(SelectedItem item)
@@ -169,17 +203,17 @@ public sealed partial class Selects
     }
 
     [NotNull]
-    private IEnumerable<SelectedItem>? TimezoneItems { get; set; }
+    private IEnumerable<SelectedItem>? TimeZoneItems { get; set; }
 
-    private string? TimezoneId { get; set; }
+    private string? TimeZoneId { get; set; }
 
     [NotNull]
-    private TimeSpan TimezoneValue { get; set; }
+    private TimeSpan TimeZoneValue { get; set; }
 
-    private Task OnTimezoneValueChanged(string timezoneId)
+    private Task OnTimeZoneValueChanged(string timeZoneId)
     {
-        TimezoneId = timezoneId;
-        TimezoneValue = TimeZoneInfo.GetSystemTimeZones().First(i => i.Id == timezoneId).BaseUtcOffset;
+        TimeZoneId = timeZoneId;
+        TimeZoneValue = TimeZoneInfo.GetSystemTimeZones().First(i => i.Id == timeZoneId).BaseUtcOffset;
         StateHasChanged();
         return Task.CompletedTask;
     }

@@ -8,6 +8,17 @@
 
 <DemoBlock Title="@Localizer["SelectsNormalTitle"]"
            Introduction="@Localizer["SelectsNormalIntro"]"
+           Name="IsVirtualize">
+    <p>@((MarkupString)Localizer["SelectsNormalDescription"].Value)</p>
+    <Select IsVirtualize="true" OnQueryData="OnQueryData" @bind-Value="VirtualItem1" ShowSearch="true"></Select>
+    <div>@VirtualItem1?.Text</div>
+    <Select IsVirtualize="true" Items="VirtualItems" @bind-Value="VirtualItem2"
+            OnSearchTextChanged="OnSearchTextChanged" ShowSearch="true"></Select>
+    <div>@VirtualItem2?.Text</div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SelectsNormalTitle"]"
+           Introduction="@Localizer["SelectsNormalIntro"]"
            Name="Normal">
     <p class="mb-3">@((MarkupString)Localizer["SelectsNormalDescription"].Value)</p>
     <div class="row g-3">
@@ -37,16 +48,6 @@
         </div>
     </div>
     <ConsoleLogger @ref="Logger" class="mt-3" />
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["SelectsNormalTitle"]"
-           Introduction="@Localizer["SelectsNormalIntro"]"
-           Name="IsVirtualize">
-    <p>@((MarkupString)Localizer["SelectsNormalDescription"].Value)</p>
-    <Select IsVirtualize="true" OnQueryData="OnQueryData" @bind-Value="VirtualItem1"></Select>
-    <div>@VirtualItem1?.Text</div>
-    <Select IsVirtualize="true" Items="VirtualItems" @bind-Value="VirtualItem2"></Select>
-    <div>@VirtualItem2?.Text</div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsDisableTitle"]"
