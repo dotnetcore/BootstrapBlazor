@@ -39,7 +39,7 @@ class DefaultPdfService : IHtml2Pdf
         Module ??= await LoadModule();
 
         var payload = await Module.InvokeAsync<string>("exportPdfAsBase64", html);
-        var buffer = Convert.FromBase64String(payload.Split(",")[1]);
+        var buffer = Convert.FromBase64String(payload);
         return new MemoryStream(buffer);
     }
 
