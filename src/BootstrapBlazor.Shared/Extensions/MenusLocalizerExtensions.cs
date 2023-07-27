@@ -936,7 +936,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Progress"],
-                    Url = "progresss"
+                    Url = "progress"
                 },
                 new()
                 {
