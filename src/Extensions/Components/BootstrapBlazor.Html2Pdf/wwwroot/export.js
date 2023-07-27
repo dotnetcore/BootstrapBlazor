@@ -9,17 +9,26 @@ export function exportPdf(html, fileName) {
     return true
 }
 
-export function exportPdfAsBase64(html) {
+export async function exportPdfAsBase64(html) {
     const opt = getDefaultOption()
 
     const element = document.createElement("div")
     element.innerHTML = html
 
-    return new Promise((resolve) => {
-        html2pdf().set(opt).from(element).output('datauristring').then(pdfBase64 => {
-            resolve(pdfBase64)
-        })
-    })
+    const payload = await html2pdf().set(opt).from(element).outputPdf()
+    return btoa(payload)
+}
+
+export async function exportPdfById(id) {
+    let ret = null
+    const opt = getDefaultOption()
+
+    const element = document.getElementById(id)
+    if (element) {
+        const payload = await html2pdf().set(opt).from(element).outputPdf()
+        ret = btoa(payload)
+    }
+    return ret
 }
 
 const getDefaultOption = () => {
