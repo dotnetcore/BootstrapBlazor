@@ -341,7 +341,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Radio"],
-                    Url = "radios"
+                    Url = "radio"
                 },
                 new()
                 {
@@ -574,7 +574,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Print"],
-                    Url = "prints"
+                    Url = "print"
                 },
                 new()
                 {
@@ -594,7 +594,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["SignaturePad"],
-                    Url = "signaturepads",
+                    Url = "signature-pad",
                 },
                 new()
                 {
@@ -926,7 +926,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Popconfirm"],
-                    Url = "popconfirms"
+                    Url = "pop-confirm"
                 },
                 new()
                 {
@@ -936,7 +936,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Progress"],
-                    Url = "progresss"
+                    Url = "progress"
                 },
                 new()
                 {

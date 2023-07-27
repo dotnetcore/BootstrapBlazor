@@ -6,20 +6,40 @@
 
 <DemoBlock Title="@Localizer["PopoversNormalTitle"]"
            Introduction="@Localizer["PopoversNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Popovers.PopoversNormal)">
+           Name="Normal">
+    <div class="d-flex flex-column w-100 popover-demo">
+        <div class="d-flex justify-content-center">
+            <Popover Placement="Placement.Bottom" Title="@Title" Content="@Content" IsHtml="true">
+                <BootstrapInput Value="@ValueString" aria-label="@ValueString" />
+            </Popover>
+        </div>
+        <div class="d-flex justify-content-between align-items-center flex-fill">
+            <Popover Placement="Placement.Right" Title="@Title" Content="@Content" IsHtml="true">
+                <BootstrapInput Value="@ValueString" aria-label="@ValueString" />
+            </Popover>
+            <Popover Placement="Placement.Left" Title="@Title" Content="@Content" IsHtml="true">
+                <BootstrapInput Value="@ValueString" aria-label="@ValueString" />
+            </Popover>
+        </div>
+        <div class="d-flex justify-content-center">
+            <Popover Placement="Placement.Top" Title="@Title" Content="@Content" IsHtml="true">
+                <BootstrapInput Value="@ValueString" aria-label="@ValueString" />
+            </Popover>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PopoversButtonTitle"]"
            Introduction="@Localizer["PopoversButtonIntro"]"
-           Name="Button"
-           Demo="typeof(Demos.Popovers.PopoversButton)">
+           Name="Button">
+    <Popover Placement="Placement.Auto" Title="@Title" Content="@Content" IsHtml="true" Trigger="click">
+        <Button Text="@Localizer["PopoversButtonButtonText"]" />
+    </Popover>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PopoversCssClassTitle"]"
            Introduction="@Localizer["PopoversCssClassIntro"]"
-           Name="CssClass"
-           Demo="typeof(Demos.Popovers.PopoversCssClass)">
+           Name="CssClass">
     <p>@((MarkupString)Localizer["PopoversCssClassDescription"].Value)</p>
     <Pre class="mb-3">.custom-popover {
     --bs-popover-border-color: var(--bs-primary);
@@ -28,6 +48,18 @@
     --bs-popover-body-padding-x: 1rem;
     --bs-popover-body-padding-y: 1rem;
 }</Pre>
+    <Popover Placement="Placement.Auto" Title="@Title" Content="@Content" IsHtml="true" Trigger="click" CustomClass="custom-popover">
+        <Button Text="@Localizer["PopoversCssClassButtonText"]" />
+    </Popover>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
+
+@code {
+
+    private static readonly string ValueString = "Pop-up box";
+
+    private static readonly string Title = "popup title";
+
+    private static readonly string Content = "Here is the text of the pop-up box, the <code>html</code> tag is supported here, or a <code>Table</code> can be built-in";
+}
