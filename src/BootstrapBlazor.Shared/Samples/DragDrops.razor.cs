@@ -99,7 +99,7 @@ public partial class DragDrops
             Type = "RenderFragment<TItem>?",
             ValueList = " — ",
             DefaultValue = " — "
-        },
+        }
     };
 
     /// <summary>

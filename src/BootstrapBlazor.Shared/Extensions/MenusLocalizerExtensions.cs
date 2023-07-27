@@ -1072,7 +1072,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Dragdrop"],
-                    Url = "dragdrops"
+                    Url = "drag-drop"
                 },
                 new()
                 {
