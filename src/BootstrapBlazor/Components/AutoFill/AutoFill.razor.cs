@@ -139,6 +139,11 @@ public partial class AutoFill<TValue>
     private int? CurrentItemIndex { get; set; }
 
     /// <summary>
+    /// 输入框 Id
+    /// </summary>
+    private string InputId => $"{Id}_input";
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
