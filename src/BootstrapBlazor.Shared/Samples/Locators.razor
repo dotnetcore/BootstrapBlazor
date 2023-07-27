@@ -1,5 +1,7 @@
 ﻿@page "/locators"
 @inject IStringLocalizer<Locators> Localizer
+@inject WebClientService ClientService
+@inject IIPLocatorProvider IPLocator
 
 <h3>@Localizer["LocatorsTitle"]</h3>
 
@@ -42,5 +44,22 @@ private IIPLocatorProvider? IPLocator { get; set; }
     });
 }</Pre>
         <div>@((MarkupString)Localizer["LocatorsNormalCustomerLocator "].Value)</div>
+    </div>
+
+    <div>
+        <div class="mb-2">@Localizer["LocatorsNormalTipsTitle"]</div>
+        <div><code>112.224.74.239</code> @Localizer["LocatorsNormalTips3"]</div>
+        <div class="mb-3"><code>183.160.236.53</code> @Localizer["LocatorsNormalTips4"]</div>
+        <div class="row g-3 form-inline">
+            <div class="col-12 col-sm-6">
+                <BootstrapInput @bind-Value="Ip" DisplayText="@Localizer["LocatorsNormalInputText"]" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display Value="Location" DisplayText="@Localizer["LocatorsNormalDisplayText"]" ShowLabel="true" />
+            </div>
+            <div class="col-12">
+                <Button Icon="fa-solid fa-location-arrow" Text="@Localizer["LocatorsNormalButtonText"]" OnClick="OnClick" />
+            </div>
+        </div>
     </div>
 </DemoBlock>

@@ -4034,12 +4034,10 @@
     "LocatorsNormalExtendDescription": "扩展自定义地理位置查询接口",
     "LocatorsNormalExtend1": "1. 实现自定义定位器",
     "LocatorsNormalExtend2": "2. 配置自定义定位器",
-    "LocatorsNormalCustomerLocator": "通过 <code>AddBootstrapBlazor</code> 方法的回调委托参数进行自定义定位器 <code>CustomerLocator</code> 配置"
-  },
-  "BootstrapBlazor.Shared.Demos.Locators.LocatorsNormal": {
+    "LocatorsNormalCustomerLocator": "通过 <code>AddBootstrapBlazor</code> 方法的回调委托参数进行自定义定位器 <code>CustomerLocator</code> 配置",
     "LocatorsNormalTipsTitle": "IP 测试数据",
-    "LocatorsNormalTips1": "山东省济南市 联通",
-    "LocatorsNormalTips2": "安徽省合肥市 电信",
+    "LocatorsNormalTips3": "山东省济南市 联通",
+    "LocatorsNormalTips4": "安徽省合肥市 电信",
     "LocatorsNormalInputText": "Ip 地址",
     "LocatorsNormalDisplayText": "地理位置",
     "LocatorsNormalButtonText": "定位"

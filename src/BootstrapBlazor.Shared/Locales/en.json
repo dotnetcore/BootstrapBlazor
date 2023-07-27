@@ -4023,12 +4023,10 @@
     "LocatorsNormalExtendDescription": "Extend the custom geo-location query interface",
     "LocatorsNormalExtend1": "1. Implement a custom locator",
     "LocatorsNormalExtend2": "2. Configure a custom locator",
-    "LocatorsNormalCustomerLocator": "Customize the locator <code>CustomerLocator</code> configuration with the callback delegate parameters the <code>AddBootstrapBlazor</code> method"
-  },
-  "BootstrapBlazor.Shared.Demos.Locators.LocatorsNormal": {
+    "LocatorsNormalCustomerLocator": "Customize the locator <code>CustomerLocator</code> configuration with the callback delegate parameters the <code>AddBootstrapBlazor</code> method",
     "LocatorsNormalTipsTitle": "IP test data",
-    "LocatorsNormalTips1": "Jinan City, Shandong Province Unicom",
-    "LocatorsNormalTips2": "Hefei, Anhui Province, telecommunications",
+    "LocatorsNormalTips3": "Jinan City, Shandong Province Unicom",
+    "LocatorsNormalTips4": "Hefei, Anhui Province, telecommunications",
     "LocatorsNormalInputText": "IpAddress",
     "LocatorsNormalDisplayText": "Geographical location",
     "LocatorsNormalButtonText": "Locating"
