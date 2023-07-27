@@ -538,7 +538,7 @@ internal static class MenusLocalizerExtensions
                 {
                     IsNew = true,
                     Text = Localizer["HtmlRenderer"],
-                    Url = "htmlrenderers"
+                    Url = "html-renderer"
                 },
                 new()
                 {
