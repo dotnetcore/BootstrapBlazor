@@ -206,11 +206,11 @@ public partial class Select<TValue> : ISelect
     /// 虚拟滚动数据加载回调方法
     /// </summary>
     [Parameter]
-    public Func<VirtualizeQueryOption, Task<QueryData<SelectedItem>>>? OnQueryData { get; set; }
+    public Func<VirtualizeQueryOption, Task<QueryData<SelectedItem>>>? OnQueryAsync { get; set; }
 
     private async ValueTask<ItemsProviderResult<SelectedItem>> LoadItems(ItemsProviderRequest request)
     {
-        if (OnQueryData == null)
+        if (OnQueryAsync == null)
         {
             throw new InvalidOperationException("the parameter OnQueryData must be assign a value");
         }
@@ -222,7 +222,7 @@ public partial class Select<TValue> : ISelect
             : TotalCount == 0
                 ? request.Count
                 : Math.Min(request.Count, TotalCount - request.StartIndex);
-        var data = await OnQueryData(new() { StartIndex = request.StartIndex, Count = count, SearchText = SearchText });
+        var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = count, SearchText = SearchText });
 
         TotalCount = data.TotalCount;
         VirtualItems = data.Items ?? Enumerable.Empty<SelectedItem>();
@@ -232,7 +232,7 @@ public partial class Select<TValue> : ISelect
     private async Task SearchTextChanged(string val)
     {
         SearchText = val;
-        if (OnQueryData == null)
+        if (OnQueryAsync == null)
         {
             // 通过 Items 提供数据
             VirtualItems = OnSearchTextChanged(SearchText);

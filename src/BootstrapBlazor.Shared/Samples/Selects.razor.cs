@@ -50,7 +50,7 @@ public sealed partial class Selects
         return Foos.Where(i => i.Name!.Contains(searchText, StringComparison.OrdinalIgnoreCase)).Select(i => new SelectedItem(i.Name!, i.Name!));
     }
 
-    private async Task<QueryData<SelectedItem>> OnQueryData(VirtualizeQueryOption option)
+    private async Task<QueryData<SelectedItem>> OnQueryAsync(VirtualizeQueryOption option)
     {
         await Task.Delay(200);
         var items = Foos;

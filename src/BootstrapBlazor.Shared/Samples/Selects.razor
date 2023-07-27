@@ -6,11 +6,11 @@
 
 <h4>@Localizer["SelectsDescription"]</h4>
 
-<DemoBlock Title="@Localizer["SelectsNormalTitle"]"
-           Introduction="@Localizer["SelectsNormalIntro"]"
+<DemoBlock Title="@Localizer["SelectsVirtualizeTitle"]"
+           Introduction="@Localizer["SelectsVirtualizeIntro"]"
            Name="IsVirtualize">
-    <p>@((MarkupString)Localizer["SelectsNormalDescription"].Value)</p>
-    <Select IsVirtualize="true" OnQueryData="OnQueryData" @bind-Value="VirtualItem1" ShowSearch="true"></Select>
+    <p>@((MarkupString)Localizer["SelectsVirtualizeDescription"].Value)</p>
+    <Select IsVirtualize="true" OnQueryAsync="OnQueryAsync" @bind-Value="VirtualItem1" ShowSearch="true"></Select>
     <div>@VirtualItem1?.Text</div>
     <Select IsVirtualize="true" Items="VirtualItems" @bind-Value="VirtualItem2"
             OnSearchTextChanged="OnSearchTextChanged" ShowSearch="true"></Select>
