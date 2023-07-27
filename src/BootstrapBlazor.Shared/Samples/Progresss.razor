@@ -6,50 +6,119 @@
 
 <DemoBlock Title="@Localizer["ProgresssNormalTitle"]"
            Introduction="@Localizer["ProgresssNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Progresss.ProgressNormal)">
+           Name="Normal">
+    <div class="row g-3">
+        <div class="col-12">
+            <Progress Value="0"></Progress>
+        </div>
+        <div class="col-12">
+            <Progress Value="25"></Progress>
+        </div>
+        <div class="col-12">
+            <Progress Value="50"></Progress>
+        </div>
+        <div class="col-12">
+            <Progress Value="75"></Progress>
+        </div>
+        <div class="col-12">
+            <Progress Value="100"></Progress>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ProgresssDispalyValueTitle"]"
            Introduction="@Localizer["ProgresssDispalyValueIntro"]"
-           Name="DispalyValue"
-           Demo="typeof(Demos.Progresss.ProgressDispalyValue)">
+           Name="DispalyValue">
+    <Progress Value="25" IsShowValue="true"></Progress>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ProgresssHeightTitle"]"
            Introduction="@Localizer["ProgresssHeightIntro"]"
-           Name="Height"
-           Demo="typeof(Demos.Progresss.ProgressHeight)">
+           Name="Height">
+    ﻿<Progress Value="25" IsShowValue="true" Height="32"></Progress>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ProgresssColorTitle"]"
            Introduction="@Localizer["ProgresssColorIntro"]"
-           Name="Color"
-           Demo="typeof(Demos.Progresss.ProgressColor)">
+           Name="Color">
+    <div class="row g-3">
+        <div class="col-12">
+            <Progress Value="25" Color="Color.Success" IsShowValue="true"></Progress>
+        </div>
+        <div class="col-12">
+            <Progress Value="50" Color="Color.Info" IsShowValue="true"></Progress>
+        </div>
+        <div class="col-12">
+            <Progress Value="75" Color="Color.Warning" IsShowValue="true"></Progress>
+        </div>
+        <div class="col-12">
+            <Progress Value="100" Color="Color.Danger" IsShowValue="true"></Progress>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ProgresssStripeTitle"]"
            Introduction="@Localizer["ProgresssStripeIntro"]"
-           Name="Stripe"
-           Demo="typeof(Demos.Progresss.ProgressStripe)">
+           Name="Stripe">
+    <div class="row g-3">
+        <div class="col-12">
+            <Progress IsStriped="true" Value="25" Color="Color.Success" IsShowValue="true"></Progress>
+        </div>
+        <div class="col-12">
+            <Progress IsStriped="true" Value="50" Color="Color.Info" IsShowValue="true"></Progress>
+        </div>
+        <div class="col-12">
+            <Progress IsStriped="true" Value="75" Color="Color.Warning" IsShowValue="true"></Progress>
+        </div>
+        <div class="col-12">
+            <Progress IsStriped="true" Value="100" Color="Color.Danger" IsShowValue="true"></Progress>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ProgresssDynamicTitle"]"
            Introduction="@Localizer["ProgresssDynamicIntro"]"
-           Name="Dynamic"
-           Demo="typeof(Demos.Progresss.ProgressDynamic)">
+           Name="Dynamic">
+    <div class="row g-3">
+        <div class="col-12">
+            <Progress IsAnimated="true" IsStriped="true" Value="25" Color="Color.Success" IsShowValue="true"></Progress>
+        </div>
+        <div class="col-12">
+            <Progress IsAnimated="true" IsStriped="true" Value="50" Color="Color.Info" IsShowValue="true"></Progress>
+        </div>
+        <div class="col-12">
+            <Progress IsAnimated="true" IsStriped="true" Value="75" Color="Color.Warning" IsShowValue="true"></Progress>
+        </div>
+        <div class="col-12">
+            <Progress IsAnimated="true" IsStriped="true" Value="100" Color="Color.Danger" IsShowValue="true"></Progress>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ProgresssBindingTitle"]"
            Introduction="@Localizer["ProgresssBindingIntro"]"
-           Name="Binding"
-           Demo="typeof(Demos.Progresss.ProgressBinding)">
+           Name="Binding">
+    <div class="row g-3">
+        <div class="col-12">
+            <BootstrapInput @bind-Value="@Value" />
+        </div>
+        <div class="col-12">
+            <Progress IsAnimated="true" IsStriped="true" @bind-Value="@Value" Color="Color.Danger" IsShowValue="true"></Progress>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ProgresssDecimalsTitle"]"
            Introduction="@Localizer["ProgresssDecimalsIntro"]"
-           Name="Binding"
-           Demo="typeof(Demos.Progresss.ProgressDecimals)">
+           Name="Binding">
+    <Progress @bind-Value="@Value2" IsShowValue="true" Round="2"></Progress>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
+
+@code {
+
+    private double Value { get; set; } = 75;
+
+    private double Value2 { get; set; } = 75.34;
+}
