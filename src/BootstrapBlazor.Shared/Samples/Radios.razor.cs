@@ -99,58 +99,66 @@ public sealed partial class Radios
         public string? Icon { get; set; }
     }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new[]
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new()
+        {
             Name = "DisplayText",
             Description = Localizer["RadiosDisplayText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "—"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "GroupName",
             Description = Localizer["RadiosGroupName"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "—"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "NullItemText",
             Description = Localizer["RadiosNullItemText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "—"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "IsDisabled",
             Description = Localizer["RadiosIsDisabled"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "IsVertical",
             Description = Localizer["RadiosIsVertical"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = nameof(RadioList<string>.IsButton),
             Description = Localizer["RadiosIsButton"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "IsAutoAddNullItem",
             Description = Localizer["RadiosIsAutoAddNullItem"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Items",
             Description = Localizer["RadiosItems"],
             Type = "IEnumerable<TItem>",
@@ -165,7 +173,7 @@ public sealed partial class Radios
     /// <returns></returns>
     private IEnumerable<EventItem> GetEvents() => new EventItem[]
     {
-        new EventItem()
+        new()
         {
             Name = "OnSelectedChanged",
             Description = Localizer["RadiosOnSelectedChangedEvent"],
