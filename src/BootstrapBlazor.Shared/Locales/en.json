@@ -567,7 +567,10 @@
     "NormalIntro": "Automatically generate editable forms for each field of the model by binding the <code>TModel</code> data model",
     "NoRenderTitle": "Setting bound model part property does not show",
     "NoRenderIntro": "By setting the <code>Editable=false</code> of the <code>IEditorItem</code> instance, the editable pop-up window cannot be edited.",
-    "EditDialogOption": "EditDialogOption property"
+    "EditDialogOption": "EditDialogOption property",
+    "LeftAlignedButton": "Edit popup (left-aligned)",
+    "RightAlignedButton": "Edit popup (right aligned)",
+    "PopupButton": "Pop-ups"
   },
   "BootstrapBlazor.Shared.Samples.BaiduOcr": {
     "Title": "IBaiduOcr",
@@ -580,13 +583,6 @@
     "BaiduOcrStep2": "2. Call <code>IBaiduOcr</code> instance method",
     "VerifyVatInvoiceTitle": "增值税验真",
     "VerifyVatInvoiceIntro": "通过调用 <code>IBaiduOcr</code> 服务实例的发票验真方法 <code>VerifyInvoiceAsync</code> 返回 <code>InvoiceVerifyResult</code> 其属性 <code>Valid</code> 为 <code>true</code> 时为真"
-  },
-  "BootstrapBlazor.Shared.Demos.EditDialog.EditDialogNormal": {
-    "LeftAlignedButton": "Edit popup (left-aligned)",
-    "RightAlignedButton": "Edit popup (right aligned)"
-  },
-  "BootstrapBlazor.Shared.Demos.EditDialog.EditDialogNoRender": {
-    "PopupButton": "Pop-ups"
   },
   "BootstrapBlazor.Shared.Samples.Topologies": {
     "TopologiesTitle": "Topology HMI",
@@ -3893,7 +3889,9 @@
     "MenuAlignment": "Menu alignment",
     "HeaderTemplate": "Header template",
     "BodyTemplate": "Body template",
-    "FooterTemplate": "Footer template",
+    "FooterTemplate": "Footer template"
+  },
+  "BootstrapBlazor.Shared.Demos.DropdownWidget.DropdownWidgetNormal": {
     "BasicUsageMessage": "You have 4 unread messages",
     "BasicUsageViewMessage": "View all messages",
     "BasicUsageNotify": "You have 10 unread notifications",
