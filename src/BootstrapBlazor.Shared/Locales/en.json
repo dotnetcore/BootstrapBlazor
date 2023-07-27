@@ -5772,8 +5772,8 @@
   },
   "BootstrapBlazor.Shared.Samples.PdfReaders": {
     "Title": "PDF Reader",
-    "PdfReaderNomalText": "Basic usage",
-    "PdfReaderNomalIntro": "Use Filename parameter displays pdf file from local server, or Stream parameter use file stream for rendering",
+    "PdfReaderNormalText": "Basic usage",
+    "PdfReaderNormalIntro": "Use Filename parameter displays pdf file from local server, or Stream parameter use file stream for rendering",
     "PdfReaderStreamModeText": "Stream mode",
     "PdfReaderStreamModeIntro": "read remote files by cross-domain",
     "PdfReaderCompatibilityModeText": "Compatibility mode",

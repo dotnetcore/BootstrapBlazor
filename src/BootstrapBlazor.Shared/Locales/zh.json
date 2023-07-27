@@ -5793,8 +5793,8 @@
   },
   "BootstrapBlazor.Shared.Samples.PdfReaders": {
     "Title": "PDF Reader PDF阅读器",
-    "PdfReaderNomalText": "基础用法",
-    "PdfReaderNomalIntro": "Filename 参数显示本服务器pdf文件,或 Stream 参数指定用于渲染的文件流",
+    "PdfReaderNormalText": "基础用法",
+    "PdfReaderNormalIntro": "Filename 参数显示本服务器pdf文件,或 Stream 参数指定用于渲染的文件流",
     "PdfReaderStreamModeText": "流模式",
     "PdfReaderStreamModeIntro": "可跨域读取文件",
     "PdfReaderCompatibilityModeText": "兼容模式",
