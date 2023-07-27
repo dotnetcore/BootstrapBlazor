@@ -220,7 +220,11 @@ public partial class Select<TValue> : ISelect
         }
 
         System.Console.WriteLine($"StartIndex: {request.StartIndex} Count: {request.Count}");
-        var count = TotalCount == 0 ? request.Count : Math.Min(request.Count, TotalCount - request.StartIndex);
+        var count = !string.IsNullOrEmpty(SearchText)
+            ? request.Count
+            : TotalCount == 0
+                ? request.Count
+                : Math.Min(request.Count, TotalCount - request.StartIndex);
         var data = await OnQueryData(new() { StartIndex = request.StartIndex, Count = count, SearchText = SearchText });
 
         TotalCount = data.TotalCount;
