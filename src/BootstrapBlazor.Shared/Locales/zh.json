@@ -1492,7 +1492,7 @@
     "LayoutText": "布局组件 Layout",
     "FooterText": "页脚组件 Footer",
     "RowText": "行组件 Row",
-    "ScorllText": "滚动条 Scroll",
+    "ScrollText": "滚动条 Scroll",
     "SkeletonText": "骨架屏 Skeleton",
     "SplitText": "分割面板 Split",
     "Text2": "导航组件",
