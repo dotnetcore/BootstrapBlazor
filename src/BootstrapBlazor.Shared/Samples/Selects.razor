@@ -1,11 +1,51 @@
 ﻿@page "/select"
 @inject DialogService Dialog
 @inject IStringLocalizer<Selects> Localizer
-@inject DialogService Dialog
 
 <h3>@Localizer["SelectsTitle"]</h3>
 
 <h4>@Localizer["SelectsDescription"]</h4>
+
+<DemoBlock Title="@Localizer["SelectsVirtualizeTitle"]"
+           Introduction="@Localizer["SelectsVirtualizeIntro"]"
+           Name="IsVirtualize">
+    <p>@((MarkupString)Localizer["SelectsVirtualizeDescription"].Value)</p>
+
+    <div class="row mb-2">
+        <div class="col-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="ShowSearch" />
+                <Checkbox @bind-Value="@ShowSearch" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="IsPopover" />
+                <Checkbox @bind-Value="@IsPopover" />
+            </BootstrapInputGroup>
+        </div>
+    </div>
+
+    <p class="code-label">1. 使用 OnQueryAsync 作为数据源</p>
+    <div class="row">
+        <div class="col-6">
+            <Select IsVirtualize="true" OnQueryAsync="OnQueryAsync" @bind-Value="VirtualItem1" ShowSearch="ShowSearch" IsPopover="IsPopover"></Select>
+        </div>
+        <div class="col-6">
+            <Display TValue="string" Value="@VirtualItem1?.Text"></Display>
+        </div>
+    </div>
+
+    <p class="code-label mt-3">2. 使用 Items 作为数据源</p>
+    <div class="row">
+        <div class="col-6">
+            <Select IsVirtualize="true" Items="VirtualItems" @bind-Value="VirtualItem2" OnSearchTextChanged="OnSearchTextChanged" ShowSearch="ShowSearch" IsPopover="IsPopover"></Select>
+        </div>
+        <div class="col-6">
+            <Display TValue="string" Value="@VirtualItem2?.Text"></Display>
+        </div>
+    </div>
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["SelectsNormalTitle"]"
            Introduction="@Localizer["SelectsNormalIntro"]"
@@ -324,15 +364,15 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["SelectsTimezoneTitle"]"
-           Introduction="@Localizer["SelectsTimezoneIntro"]"
-           Name="Timezone">
+<DemoBlock Title="@Localizer["SelectsTimeZoneTitle"]"
+           Introduction="@Localizer["SelectsTimeZoneIntro"]"
+           Name="TimeZone">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <Select TValue="string" Value="@TimezoneId" Items="TimezoneItems" OnValueChanged="OnTimezoneValueChanged" />
+            <Select TValue="string" Value="@TimeZoneId" Items="TimeZoneItems" OnValueChanged="OnTimeZoneValueChanged" />
         </div>
         <div class="col-12 col-sm-6">
-            <Display TValue="TimeSpan" Value="@TimezoneValue" />
+            <Display TValue="TimeSpan" Value="@TimeZoneValue" />
         </div>
     </div>
 </DemoBlock>

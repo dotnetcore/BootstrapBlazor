@@ -3085,8 +3085,8 @@
     "SelectsShowSearchIntro": "Controls whether the search box is displayed by setting the <code>ShowSearch</code> property, which is not displayed by default false",
     "SelectsConfirmSelectTitle": "Drop-down box with confirmation",
     "SelectsConfirmSelectIntro": "Block changes to the current value by setting the <code>OnBeforeSelectedItemChange</code> delegate.",
-    "SelectsTimezoneTitle": "Timezone",
-    "SelectsTimezoneIntro": "Display data of Timezone",
+    "SelectsTimeZoneTitle": "Timezone",
+    "SelectsTimeZoneIntro": "Display data of Timezone",
     "SwalTitle": "The drop-down box value changes",
     "SwalContent": "Are you sure you want to change the option value?",
     "SwalFooter": "Click Confirm to change the option value and select Cancel to leave the value unchanged",
@@ -3109,7 +3109,10 @@
     "SelectsDisplayTemplateTitle": "Display Template",
     "SelectsDisplayTemplateIntro": "Custom <code>UI</code> of display template",
     "SelectsPopoverTitle": "Popover dropdown menu",
-    "SelectsPopoverIntro": "Set <code>IsPopover</code> to <b>true</b>, use <code>popover</code> render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>"
+    "SelectsPopoverIntro": "Set <code>IsPopover</code> to <b>true</b>, use <code>popover</code> render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>",
+    "SelectsVirtualizeTitle": "Virtualize",
+    "SelectsVirtualizeIntro": "Set <code>IsVirtualize</code> to <b>true</b> enable virtual scroll for larg data",
+    "SelectsVirtualizeDescription": "Component virtual scrolling supports two ways of providing data through <code>Items</code> or <code>OnQueryAsync</code> callback methods"
   },
   "BootstrapBlazor.Shared.Samples.Sliders": {
     "SlidersTitle": "Slider",

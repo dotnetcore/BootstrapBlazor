@@ -3095,8 +3095,8 @@
     "SelectsShowSearchIntro": "通过设置 <code>ShowSearch</code> 属性控制是否显示搜索框，默认为 false 不显示搜索框",
     "SelectsConfirmSelectTitle": "带确认的下拉框",
     "SelectsConfirmSelectIntro": "通过设置 <code>OnBeforeSelectedItemChange</code> 委托，阻止当前值的改变",
-    "SelectsTimezoneTitle": "时区下拉框",
-    "SelectsTimezoneIntro": "下拉框展现时区数据",
+    "SelectsTimeZoneTitle": "时区下拉框",
+    "SelectsTimeZoneIntro": "下拉框展现时区数据",
     "SwalTitle": "下拉框值变更",
     "SwalContent": "您确认要改变选项值吗？",
     "SwalFooter": "点击确认改变选项值，选择取消后值不变",
@@ -3119,7 +3119,10 @@
     "SelectsDisplayTemplateTitle": "显示模板",
     "SelectsDisplayTemplateIntro": "自定义选项显示 <code>UI</code>",
     "SelectsPopoverTitle": "悬浮弹窗",
-    "SelectsPopoverIntro": "通过设置 <code>IsPopover</code> 参数，组件使用 <code>popover</code> 渲染 <code>UI</code> 防止由于父容器设置 <code>overflow: hidden;</code> 使弹窗无法显示问题"
+    "SelectsPopoverIntro": "通过设置 <code>IsPopover</code> 参数，组件使用 <code>popover</code> 渲染 <code>UI</code> 防止由于父容器设置 <code>overflow: hidden;</code> 使弹窗无法显示问题",
+    "SelectsVirtualizeTitle": "虚拟滚动",
+    "SelectsVirtualizeIntro": "通过设置 <code>IsVirtualize</code> 参数开启组件虚拟功能特性",
+    "SelectsVirtualizeDescription": "组件虚拟滚动支持两种形式通过 <code>Items</code> 或者 <code>OnQueryAsync</code> 回调方法提供数据"
   },
   "BootstrapBlazor.Shared.Samples.Sliders": {
     "SlidersTitle": "Slider 滑块",

@@ -731,7 +731,7 @@ form .table .table-cell > textarea {
     flex: 1;
 }
 
-.table-cell.is-ph {
+.is-ph {
     height: 12.5px;
     background-color: #e9ecef;
     border-radius: var(--bs-border-radius);

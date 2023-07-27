@@ -16,6 +16,7 @@
     --bb-select-search-icon-color: var(--bb-select-search-border-color);
     --bb-select-search-icon-right: 18px;
     --bb-select-search-icon-top: 18px;
+    --bb-select-search-height: 60px;
 }
 
     .select:not(.cascade) .dropdown-menu {
@@ -51,6 +52,16 @@
     overflow: auto;
     max-height: var(--bb-dropdown-max-height);
 }
+
+    .dropdown-menu .dropdown-virtual {
+        overflow-y: auto;
+        margin: calc(0px - var(--bs-dropdown-padding-y)) var(--bs-dropdown-padding-x);
+        max-height: calc(var(--bb-dropdown-max-height) - 2px);
+    }
+
+    .dropdown-menu .search + .dropdown-virtual {
+        max-height: calc(var(--bb-dropdown-max-height) - var(--bb-select-search-height));
+    }
 
 .dropdown-item {
     cursor: pointer;
