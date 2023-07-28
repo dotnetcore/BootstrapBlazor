@@ -366,7 +366,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Switch"],
-                    Url = "switchs"
+                    Url = "switches"
                 },
                 new()
                 {
