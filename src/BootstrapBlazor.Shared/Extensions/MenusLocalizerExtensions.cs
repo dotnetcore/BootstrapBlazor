@@ -186,13 +186,11 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["ServerBlazor"],
                     Url = "install-server",
-                    Match = NavLinkMatch.All
                 },
                 new()
                 {
                     Text = Localizer["ClientBlazor"],
                     Url = "install-wasm",
-                    Match = NavLinkMatch.All
                 },
                 new()
                 {
@@ -218,7 +216,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["FAIcon"],
-                    Url = "fa-icons"
+                    Url = "fa-icon"
                 },
                 new()
                 {
