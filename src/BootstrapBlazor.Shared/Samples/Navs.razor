@@ -8,38 +8,82 @@
 
 <DemoBlock Title="@Localizer["NavsNormalTitle"]"
            Introduction="@Localizer["NavsNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Navs.NavsNormal)">
+           Name="Normal">
+    <Nav Items="@Items">
+        <a class="nav-link active" href="#" @onclick:preventDefault>Active</a>
+        <NavLink class="nav-link" href="#" @onclick:preventDefault>Link</NavLink>
+        <a class="nav-link" href="#" @onclick:preventDefault>Link</a>
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true" @onclick:preventDefault>Disabled</a>
+    </Nav>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["NavsAlignTitle"]"
            Introduction="@Localizer["NavsAlignIntro"]"
-           Name="Align"
-           Demo="typeof(Demos.Navs.NavsAlign)">
+           Name="Align">
+    <Nav Items="@Items" Alignment="Alignment.Center">
+        <a class="nav-link active" href="#" @onclick:preventDefault>Active</a>
+        <NavLink class="nav-link" href="#" @onclick:preventDefault>Link</NavLink>
+        <a class="nav-link" href="#" @onclick:preventDefault>Link</a>
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true" @onclick:preventDefault>Disabled</a>
+    </Nav>
+    <Divider Text="@Localizer["NavsDivider"]" />
+    <Nav Items="@Items" Alignment="Alignment.Right">
+        <a class="nav-link active" href="#" @onclick:preventDefault>Active</a>
+        <NavLink class="nav-link" href="#" @onclick:preventDefault>Link</NavLink>
+        <a class="nav-link" href="#" @onclick:preventDefault>Link</a>
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true" @onclick:preventDefault>Disabled</a>
+    </Nav>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["NavsVerticalTitle"]"
            Introduction="@Localizer["NavsVerticalIntro"]"
-           Name="Vertical"
-           Demo="typeof(Demos.Navs.NavsVertical)">
+           Name="Vertical">
+    <Nav Items="@Items" IsVertical="true">
+        <a class="nav-link active" href="#" @onclick:preventDefault>Active</a>
+        <NavLink class="nav-link" href="#" @onclick:preventDefault>Link</NavLink>
+        <a class="nav-link" href="#" @onclick:preventDefault>Link</a>
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true" @onclick:preventDefault>Disabled</a>
+    </Nav>
+    <Divider Text="@Localizer["NavsDivider"]" />
+    <Nav Items="@Items" IsVertical="true" Alignment="Alignment.Right">
+        <a class="nav-link active" href="#" @onclick:preventDefault>Active</a>
+        <NavLink class="nav-link" href="#" @onclick:preventDefault>Link</NavLink>
+        <a class="nav-link" href="#" @onclick:preventDefault>Link</a>
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true" @onclick:preventDefault>Disabled</a>
+    </Nav>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["NavsPillsTitle"]"
            Introduction="@Localizer["NavsPillsIntro"]"
-           Name="Pills"
-           Demo="typeof(Demos.Navs.NavsPills)">
+           Name="Pills">
+    <Nav Items="@Items" IsPills="true">
+        <a class="nav-link active" href="#" @onclick:preventDefault>Active</a>
+        <NavLink class="nav-link" href="#" @onclick:preventDefault>Link</NavLink>
+        <a class="nav-link" href="#" @onclick:preventDefault>Link</a>
+        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true" @onclick:preventDefault>Disabled</a>
+    </Nav>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["NavsFillAndAlignTitle"]"
            Introduction="@Localizer["NavsFillAndAlignIntro"]"
-           Name="FillAndAlign"
-           Demo="typeof(Demos.Navs.NavsFillAndAlign)">
+           Name="FillAndAlign">
+    <Nav Items="@Items" IsPills="true" IsFill="true">
+        <a class="nav-link nav-item active" href="#" @onclick:preventDefault>Active</a>
+        <NavLink class="nav-link nav-item" href="#" @onclick:preventDefault>Link</NavLink>
+        <a class="nav-link nav-item" href="#" @onclick:preventDefault>Link</a>
+        <a class="nav-link nav-item disabled" href="#" tabindex="-1" aria-disabled="true" @onclick:preventDefault>Disabled</a>
+    </Nav>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["NavsWideTitle"]"
            Introduction="@Localizer["NavsWideIntro"]"
-           Name="Wide"
-           Demo="typeof(Demos.Navs.NavsWide)">
+           Name="Wide">
+    <Nav Items="@Items" IsPills="true" IsFill="true" IsJustified="true">
+        <a class="nav-link nav-item active" href="#" @onclick:preventDefault>Active</a>
+        <NavLink class="nav-link nav-item" href="#" @onclick:preventDefault>Link</NavLink>
+        <a class="nav-link nav-item" href="#" @onclick:preventDefault>Link</a>
+        <a class="nav-link nav-item disabled" href="#" tabindex="-1" aria-disabled="true" @onclick:preventDefault>Disabled</a>
+    </Nav>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
