@@ -9,12 +9,16 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class Notifications
 {
+    [Inject]
+    [NotNull]
+    private NotificationService? BrowserNotification { get; set; }
+
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
     private bool Permission { get; set; }
 
-    private NotificationItem Model { get; set; } = new NotificationItem()
+    private NotificationItem Model { get; set; } = new()
     {
         Icon = "./images/Argo-C.png"
     };
@@ -79,7 +83,8 @@ public partial class Notifications
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "Icon",
             Description = Localizer["NotificationsIconText"],
             Type = "string",

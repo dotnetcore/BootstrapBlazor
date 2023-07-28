@@ -1,4 +1,4 @@
-﻿@page "/notifications"
+﻿@page "/notification"
 @inject IStringLocalizer<Notifications> Localizer
 
 <h3>@Localizer["NotificationsTitle"]</h3>
@@ -48,4 +48,4 @@ public void ShowNotificationCallback(bool result)
     <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
-<AttributeTable Items="GetNotificationItem()" Title="NotificationItem" />
+<AttributeTable Items="GetNotificationItem()" Title="@nameof(NotificationItem)" />
