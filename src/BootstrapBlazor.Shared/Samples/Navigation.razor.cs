@@ -2,13 +2,36 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Routing;
+
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// Navs
+/// navigation
 /// </summary>
-public sealed partial class Navs
+public sealed partial class Navigation
 {
+    private IEnumerable<NavLink> Items => GetItems();
+
+    private IEnumerable<NavLink> GetItems()
+    {
+        var ret = new List<NavLink>();
+        var link = new NavLink();
+        var parameters = new Dictionary<string, object?>()
+        {
+            ["href"] = WebsiteOption.CurrentValue.AdminUrl,
+            ["class"] = "nav-link nav-item",
+            ["target"] = "_blank",
+            ["ChildContent"] = new RenderFragment(builder =>
+            {
+                builder.AddContent(0, "BootstrapAdmin");
+            })
+        };
+        link.SetParametersAsync(ParameterView.FromDictionary(parameters));
+        ret.Add(link);
+        return ret;
+    }
+
     /// <summary>
     /// 获得属性方法
     /// </summary>
@@ -16,7 +39,8 @@ public sealed partial class Navs
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         // TODO: 移动到数据库中
-        new AttributeItem() {
+        new()
+        {
             Name = "ChildContent",
             Description = Localizer["NavsChildContent"],
             Type = "RenderFragment",
