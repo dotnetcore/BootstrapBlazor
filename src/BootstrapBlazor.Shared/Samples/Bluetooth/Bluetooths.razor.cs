@@ -15,7 +15,7 @@ public partial class Bluetooths
     /// <returns></returns>
     protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
+
         new() {
             Name = "Commands",
             Description = "打印指令(cpcl/esp/pos代码)",
@@ -87,7 +87,7 @@ public partial class Bluetooths
     /// <returns></returns>
     protected IEnumerable<AttributeItem> GetPrinterOptionAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
+
         new() {
             Name = "NamePrefix",
             Description = "初始搜索设备名称前缀,默认null",
@@ -110,80 +110,86 @@ public partial class Bluetooths
     /// <returns></returns>
     protected IEnumerable<AttributeItem> GetBluetoothDeviceAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new() {
+        new()
+        {
             Name = "Name",
             Description = "设备名称",
             Type = "string?",
             ValueList = "-",
             DefaultValue = "null"
         },
-        new() {
+        new()
+        {
             Name = "Value",
             Description = "设备数值:例如心率/电量%",
             Type = "decimal?",
             ValueList = "-",
             DefaultValue = "null"
         },
-        new() {
+        new()
+        {
             Name = "Status",
             Description = "状态",
             Type = "string?",
             ValueList = "-",
             DefaultValue = "null"
         },
-        new() {
+        new()
+        {
             Name = "Error",
             Description = "错误",
             Type = "string?",
             ValueList = "-",
             DefaultValue = "null"
-        },
-
+        }
     };
 
     /// <summary>
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    protected IEnumerable<AttributeItem> GetAttributesBatteryLevel() => new AttributeItem[]
+    protected static IEnumerable<AttributeItem> GetAttributesBatteryLevel() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new() {
+        new()
+        {
             Name = "GetBatteryLevel",
             Description = "查询电量",
             Type = "async Task",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new() {
+        new()
+        {
             Name = "OnUpdateValue",
             Description = "数值更新回调方法",
             Type = "Func<string, Task>?",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new() {
+        new()
+        {
             Name = "OnUpdateStatus",
             Description = "状态更新回调方法",
             Type = "Func<string, Task>?",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new() {
+        new()
+        {
             Name = "OnUpdateError",
             Description = "错误更新回调方法",
             Type = "Func<string, Task>?",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new() {
+        new()
+        {
             Name = "BatteryLevelElement",
             Description = "UI界面元素的引用对象",
             Type = "ElementReference",
             ValueList = "-",
             DefaultValue = "-"
-        },
+        }
     };
 
 
@@ -193,49 +199,53 @@ public partial class Bluetooths
     /// <returns></returns>
     protected IEnumerable<AttributeItem> GetAttributesHeartrate() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new() {
+        new()
+        {
             Name = "GetHeartrate",
             Description = "连接心率带",
             Type = "async Task",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new() {
+        new()
+        {
             Name = "StopHeartrate",
             Description = "停止监听心率",
             Type = "async Task",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new() {
+        new()
+        {
             Name = "OnUpdateValue",
             Description = "数值更新回调方法",
             Type = "Func<string, Task>?",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new() {
+        new()
+        {
             Name = "OnUpdateStatus",
             Description = "状态更新回调方法",
             Type = "Func<string, Task>?",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new() {
+        new()
+        {
             Name = "OnUpdateError",
             Description = "错误更新回调方法",
             Type = "Func<string, Task>?",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new() {
+        new()
+        {
             Name = "HeartrateElement",
             Description = "UI界面元素的引用对象",
             Type = "ElementReference",
             ValueList = "-",
             DefaultValue = "-"
-        },
+        }
     };
-
 }

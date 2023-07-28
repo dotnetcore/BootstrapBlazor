@@ -22,30 +22,34 @@ public partial class AutoRedirects
     /// Get property method
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new[]
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new() {
+        new()
+        {
             Name = nameof(AutoRedirect.Interval),
             Description = "Time interval",
             Type = "int",
             ValueList = " — ",
             DefaultValue = "60000"
         },
-        new() {
+        new()
+        {
             Name = nameof(AutoRedirect.RedirectUrl),
             Description = "Redirect address",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = nameof(AutoRedirect.IsForceLoad),
             Description = "Whether to force redirection",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = nameof(AutoRedirect.OnBeforeRedirectAsync),
             Description = "Callback method before address jump",
             Type = "Func<Task<bool>>",

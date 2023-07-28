@@ -39,29 +39,33 @@ public sealed partial class Carousels
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new() {
+
+        new()
+        {
             Name = "Images",
             Description = Localizer["Images"],
             Type = "IEnumerable<string>",
             ValueList = "—",
             DefaultValue = "—"
         },
-        new() {
+        new()
+        {
             Name = "IsFade",
             Description = Localizer["IsFade"],
             Type = "boolean",
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new() {
+        new()
+        {
             Name = "Width",
             Description = Localizer["Width"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "—"
         },
-        new() {
+        new()
+        {
             Name = "OnClick",
             Description = Localizer["OnClick"],
             Type = "Func<string, Task>",

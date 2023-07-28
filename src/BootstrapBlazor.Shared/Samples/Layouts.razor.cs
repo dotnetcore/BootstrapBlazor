@@ -9,9 +9,9 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Layouts
 {
-    private IEnumerable<AttributeItem> GetAttributes() => new[]
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
+
         new() {
             Name = "Header",
             Description = Localizer["Layouts_Header_Description"],

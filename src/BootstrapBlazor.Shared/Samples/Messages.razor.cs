@@ -11,7 +11,8 @@ public sealed partial class Messages
 {
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new()
+        {
             Name = "Placement",
             Description = "message popup location",
             Type = "Placement",
@@ -26,42 +27,48 @@ public sealed partial class Messages
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetMessageItemAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new AttributeItem()
+        {
             Name = "ChildContent",
             Description = "Content",
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new AttributeItem()
+        {
             Name = "Class",
             Description = "Style",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new AttributeItem()
+        {
             Name = "Color",
             Description = "Color",
             Type = "Color",
             ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
             DefaultValue = "Primary"
         },
-        new AttributeItem() {
+        new AttributeItem()
+        {
             Name = "Icon",
             Description = "Icon",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new AttributeItem()
+        {
             Name = "ShowDismiss",
             Description = "Show close button",
             Type = "bool",
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new AttributeItem()
+        {
             Name = "ShowBar",
             Description = "Whether to show the left Bar",
             Type = "bool",

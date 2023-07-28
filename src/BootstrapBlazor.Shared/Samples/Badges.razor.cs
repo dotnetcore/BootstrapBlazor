@@ -15,29 +15,32 @@ public sealed partial class Badges
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new() {
+        new()
+        {
             Name = "ChildContent",
             Description = Localizer["ChildContent"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "Class",
             Description = Localizer["Class"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "Color",
             Description = Localizer["Color"],
             Type = "Color",
             ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
             DefaultValue = "Primary"
         },
-        new() {
+        new()
+        {
             Name = "IsPill",
             Description = Localizer["IsPill"],
             Type = "boolean",

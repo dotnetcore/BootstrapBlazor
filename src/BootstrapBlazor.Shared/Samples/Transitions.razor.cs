@@ -55,7 +55,7 @@ public partial class Transitions
         return Task.CompletedTask;
     }
 
-    private static IEnumerable<AttributeItem> GetAttributes() => new[]
+    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new() {
             Name = "TransitionType",

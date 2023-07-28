@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class FloatingLabels
 {
-    private IEnumerable<AttributeItem> GetAttributes() => new[]
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new() {
             Name = "ChildContent",

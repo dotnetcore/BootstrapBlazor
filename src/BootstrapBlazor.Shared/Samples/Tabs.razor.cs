@@ -171,7 +171,7 @@ public sealed partial class Tabs
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
+
         new() {
             Name = "IsBorderCard",
             Description = Localizer["TabsAtt1IsBorderCard"].Value,
@@ -278,7 +278,7 @@ public sealed partial class Tabs
     /// <returns></returns>
     private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
     {
-        // TODO: 移动到数据库中
+
         new MethodItem() {
             Name = "AddTab",
             Description = Localizer["TabMethod1AddTab"].Value,

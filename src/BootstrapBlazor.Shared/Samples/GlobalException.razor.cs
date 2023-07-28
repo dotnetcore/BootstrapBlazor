@@ -35,24 +35,26 @@ public partial class GlobalException
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new[]
+    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new() {
+        new()
+        {
             Name = nameof(ErrorLogger.ChildContent),
             Description = "子组件模板",
             Type = nameof(RenderTemplate),
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = nameof(ErrorLogger.ErrorContent),
             Description = "异常显示模板",
             Type = nameof(RenderTemplate),
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = nameof(ErrorLogger.ShowToast),
             Description = "是否显示错误消息弹窗",
             Type = "bool",

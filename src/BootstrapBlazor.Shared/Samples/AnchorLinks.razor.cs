@@ -13,31 +13,34 @@ public partial class AnchorLinks
     [NotNull]
     private IStringLocalizer<AnchorLinks>? Localizer { get; set; }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new[]
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new() {
+        new()
+        {
             Name = nameof(AnchorLink.Id),
             Description = Localizer[$"Attr{nameof(AnchorLink.Id)}"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = nameof(AnchorLink.Icon),
             Description = Localizer[$"Attr{nameof(AnchorLink.Icon)}"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-solid fa-link"
         },
-        new() {
+        new()
+        {
             Name = nameof(AnchorLink.Text),
             Description = Localizer[$"Attr{nameof(AnchorLink.Text)}"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = nameof(AnchorLink.TooltipText),
             Description = Localizer[$"Attr{nameof(AnchorLink.TooltipText)}"],
             Type = "string",

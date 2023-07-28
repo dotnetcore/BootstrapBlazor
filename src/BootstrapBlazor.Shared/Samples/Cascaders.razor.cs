@@ -90,50 +90,56 @@ public sealed partial class Cascaders
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new() {
+        new()
+        {
             Name = "ShowLabel",
             Description = Localizer["Att1"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new() {
+        new()
+        {
             Name = "DisplayText",
             Description = Localizer["Att2"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "PlaceHolder",
             Description = Localizer["Att3"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = Localizer["Att3Default"]!
         },
-        new() {
+        new()
+        {
             Name = "Class",
             Description = Localizer["Att4"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "Color",
             Description = Localizer["Att5"],
             Type = "Color",
             ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
             DefaultValue = "Primary"
         },
-        new() {
+        new()
+        {
             Name = "IsDisabled",
             Description = Localizer["Att6"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
         },
-        new() {
+        new()
+        {
             Name = "Items",
             Description = Localizer["Att7"],
             Type = "IEnumerable<CascaderItem>",

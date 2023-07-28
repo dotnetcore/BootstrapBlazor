@@ -104,7 +104,7 @@ public partial class Alerts
     /// <returns></returns>
     private static IEnumerable<EventItem> GetEvents() => new EventItem[]
     {
-        new EventItem()
+        new()
         {
             Name = "OnDismiss",
             Description = "Close the alert box callback method",

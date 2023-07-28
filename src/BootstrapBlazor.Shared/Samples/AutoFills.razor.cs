@@ -47,38 +47,42 @@ partial class AutoFills
     /// Get property method
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new[]
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: move to database
-        new() {
+        new()
+        {
             Name = "DisplayCount",
             Description = Localizer["Att1"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "NoDataTip",
             Description = Localizer["Att2"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = Localizer["Def2"]
         },
-        new() {
+        new()
+        {
             Name = "IgnoreCase",
             Description = Localizer["Att3"],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "true"
         },
-        new() {
+        new()
+        {
             Name = "IsLikeMatch",
             Description = Localizer["Att4"],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "false"
         },
-        new() {
+        new()
+        {
             Name = "Items",
             Description = Localizer["Att5"],
             Type = "IEnumerable<TValue>",
@@ -93,35 +97,40 @@ partial class AutoFills
             ValueList = " — ",
             DefaultValue = "0"
         },
-        new() {
+        new()
+        {
             Name = "OnCustomFilter",
             Description = Localizer["Att7"],
             Type = "Func<string, Task<IEnumerable<TValue>>>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "OnGetDisplayText",
             Description = Localizer["Att8"],
             Type = "Func<TValue, string>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "OnSelectedItemChanged",
             Description = Localizer["Att9"],
             Type = "Func<TValue, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = nameof(AutoFill<Foo>.ShowDropdownListOnFocus),
             Description = Localizer["Att10"],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "true"
         },
-        new() {
+        new()
+        {
             Name = "Template",
             Description = Localizer["Att11"],
             Type = "RenderFragment<TValue>",
