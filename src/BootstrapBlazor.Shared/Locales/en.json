@@ -1888,8 +1888,8 @@
     "PaginationsDescription": "When there is too much data, use paging to break down the data.",
     "PaginationsNormalTitle": "Basic usage",
     "PaginationsNormalIntro": "You can select the amount of data displayed per page by the drop-down box",
-    "PaginationsDispalyTextTitle": "Only text prompts are displayed",
-    "PaginationsDispalyTextIntro": "Only one page does not display the switch page number component, only text prompts",
+    "PaginationsDisplayTextTitle": "Only text prompts are displayed",
+    "PaginationsDisplayTextIntro": "Only one page does not display the switch page number component, only text prompts",
     "PaginationsMaxPageLinkCountTitle": "Only paginated components are displayed",
     "PaginationsMaxPageLinkCountIntro": "By <code>ShowPaginationInfo = 'false'</code> setting does not display text prompts",
     "PaginationsAlignmentTitle": "Alignment",
@@ -2452,7 +2452,7 @@
     "EditorsTips": "The <code>Editor</code> component is a secondary package of <a href='https://summernote.org/' target='_blank'><code>Summernote component</code></a>, such as If you need to use the localization function, please download the corresponding language pack from the official website and quote it by yourself. <code>zh-CN</code> <code>en-US</code> has been built in；the required <code>css</code> <code>javascript</code> dynamically loaded on demand. If you edit too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
     "EditorNormalTitle": "Basic usage",
     "EditorNormalIntro": "The default rendering is <code>div</code> and it becomes a rich text edit box when clicked",
-    "EditorNormalDescrption": "Set the <code>IsEditor</code> attribute value to control whether the component defaults to <code>div</code> or <code>editor</code>",
+    "EditorNormalDescription": "Set the <code>IsEditor</code> attribute value to control whether the component defaults to <code>div</code> or <code>editor</code>",
     "EditorNormalDiv": "I am a normal <code>div</code> click and can’t edit",
     "EditorPlaceholderTitle": "Custom prompt message",
     "EditorPlaceholderIntro": "The prompt message when a null value is set by setting the <code>Placeholder</code> attribute",
@@ -2466,13 +2466,13 @@
     "EditorOnValueChangedDescription": "Use <code>bind-Value</code> to bind the backend properties of <code>EditorValue</code> in two ways. After editing in the edit box, click the <b>Finish</b> button, and then enter the text box below. Show edited result",
     "EditorCustomerToolbarButtonsTitle": "Customize the extended edit box button",
     "EditorCustomerToolbarButtonsIntro": "Customize the extension of the edit box toolbar by setting the <code>CustomerPluginItems</code> property, and do the function by setting the <code>OnClickPluginItem</code> callback delegate",
-    "EditorCustomerToolbarButtonsDescrition": "In this example, two buttons are added to the toolbar by extending the <code>CustomerPluginItems</code> property. Click the button to pop up the <code>SweetAlert</code> modal box, click the modal box confirmation button and insert the text box A piece of content",
+    "EditorCustomerToolbarButtonsDescription": "In this example, two buttons are added to the toolbar by extending the <code>CustomerPluginItems</code> property. Click the button to pop up the <code>SweetAlert</code> modal box, click the modal box confirmation button and insert the text box A piece of content",
     "EditorToolbarItemsTitle": "Customize the rich text edit box of the toolbar",
     "EditorToolbarItemsIntro": "Customize the toolbar content by setting the <code>ToolbarItems</code> property. For the currently supported toolbar values, please refer to <a href='https://summernote.org/' target='_blank'>Summernote</a> Official website",
-    "EditorToolbarItemsDescrition": "In this example, by setting the <code>ToolbarItems</code> property, the default available toolbar buttons are changed",
+    "EditorToolbarItemsDescription": "In this example, by setting the <code>ToolbarItems</code> property, the default avaiLabel toolbar buttons are changed",
     "EditorSubmitTitle": "Show submit",
     "EditorSubmitIntro": "Use <code>ShowSubmit</code> control the <b>Submit</b> button display or not",
-    "EditorSubmitDescrption": "<code>ShowSubmit</code> The default value is <code>true</code> to display the submit button. The <code>OnValueChanged</code> callback method is triggered after the submit button is clicked on the design. This design greatly improves performance and saves server computing Force, after setting the value to <code>false</code>, it will use the <code>summernode</code> library <code>onChange</code> to trigger, which is applicable to the scene where the edited content needs to be obtained in real time",
+    "EditorSubmitDescription": "<code>ShowSubmit</code> The default value is <code>true</code> to display the submit button. The <code>OnValueChanged</code> callback method is triggered after the submit button is clicked on the design. This design greatly improves performance and saves server computing Force, after setting the value to <code>false</code>, it will use the <code>summernode</code> library <code>onChange</code> to trigger, which is applicable to the scene where the edited content needs to be obtained in real time",
     "Att1": "Prompt message when the value is empty",
     "Att1DefaultValue": "Click to edit",
     "Att2": "Whether to directly display as a rich text edit box",
@@ -2482,7 +2482,7 @@
     "Att5": "Custom button",
     "DoMethodAsync": "Instance Method",
     "DoMethodAsyncIntro": "Call the instance method, please refer <a href='https://summernote.org/deep-dive'>summernote api</a>",
-    "DoMethodAsyncDescrition": "In this example, by setting the <code>ToolbarItems</code> property, the default available toolbar buttons are changed"
+    "DoMethodAsyncDescription": "In this example, by setting the <code>ToolbarItems</code> property, the default available toolbar buttons are changed"
   },
   "BootstrapBlazor.Shared.Demos.Editor.EditorPlaceholder": {
     "EditorEmptyPlaceholder": "Customize the prompt message for empty values"
@@ -2777,7 +2777,7 @@
   },
   "BootstrapBlazor.Shared.Samples.InputGroups": {
     "InputGroupsTitle": "InputGroup",
-    "InputGroupsDescription": "Input can add lables and buttons before or after it to make as a group",
+    "InputGroupsDescription": "Input can add labels and buttons before or after it to make as a group",
     "InputGroupsNormalTitle": "Basic usage",
     "InputGroupsNormalIntro": "Add a label before the <code>Input</code>, or Add a <code>Button</code> after the <code>Input</code>",
     "InputGroupsMultipleTitle": "Add multiple components",
@@ -2854,7 +2854,7 @@
     "MultiSelectBindingStringDescription": "<div>The <code>mutltiSelect</code> component data source <code>Items</code> and <b>selected values</b> the <code>SelectItemsValue</code> support bidirectional binding;In this example, the <code>SelectItemsValue</code> variable by binding bidirectionally, and chooses to change its value through the drop-down box. </div>",
     "MultiSelectBindingCollectionTitle": "A collection of bidirectional binding values",
     "MultiSelectBindingCollectionIntro": "Bind a generic <code>a collection of IEnumerable<T></code>",
-    "MultiSelectBindingCollectionDescrition": "In this example, the <code>SelectArrayValues</code> collection variable by binding bidirectionally, and selects to change its value through the drop-down box",
+    "MultiSelectBindingCollectionDescription": "In this example, the <code>SelectArrayValues</code> collection variable by binding bidirectionally, and selects to change its value through the drop-down box",
     "MultiSelectBindingNumberTitle": "An array of two-way bound values",
     "MultiSelectBindingNumberIntro": "Bind an array <code>int[]</code>",
     "MultiSelectBindingNumberDescription": "In this example, an array variable <code>SelectedIntArrayValues</code>  selected by a bidirectional binding, selects to change its value through a drop-down box",
@@ -2874,9 +2874,9 @@
     "MultiSelectClientValidationTitle": "Client validation",
     "MultiSelectClientValidationIntro": "When the drop-down box is not selected, it is blocked when the submit button is clicked.",
     "MultiSelectClientValidationDescription": "When built into the <code>ValidateForm</code> component, client authentication is automatically turned on, and the binding model has <code>Required</code> tags",
-    "MultiSelectDispalyLabelTitle": "The label is displayed",
-    "MultiSelectDispalyLabelIntro": "When a component binds in both directions, it automatically determines whether label text is displayed based on the conditions",
-    "MultiSelectDispalyLabelDescription": "The pre-label explicit rules are consistent with the <code>BootstrapInput</code> component of the of the <a href='inputs'>[The portal]</a>",
+    "MultiSelectDisplayLabelTitle": "The label is displayed",
+    "MultiSelectDisplayLabelIntro": "When a component binds in both directions, it automatically determines whether label text is displayed based on the conditions",
+    "MultiSelectDisplayLabelDescription": "The pre-label explicit rules are consistent with the <code>BootstrapInput</code> component of the of the <a href='inputs'>[The portal]</a>",
     "MultiSelectVeryLongTextTitle": "Options for extra-long text",
     "MultiSelectVeryLongTextIntro": "The candidate text is particularly long",
     "MultiSelectButtonTitle": "Full and reverse buttons",
@@ -2926,11 +2926,11 @@
   "BootstrapBlazor.Shared.Demos.MultiSelect.MultiSelectClientValidation": {
     "MultiSelectClientValidationSubmit": "Submit"
   },
-  "BootstrapBlazor.Shared.Demos.MultiSelect.MultiSelectDispalyLabel": {
-    "MultiSelectDispalyLabelShowLable": "Bidirectional binding displays labels",
-    "MultiSelectDispalyLabelHideLable": "Bidirectional bindings do not display labels",
-    "MultiSelectDispalyLabelCustomDisplayText": "Customize DisplayText",
-    "MultiSelectDispalyLabelCustomText": "Custom name"
+  "BootstrapBlazor.Shared.Demos.MultiSelect.MultiSelectDisplayLabel": {
+    "MultiSelectDisplayLabelShowLabel": "Bidirectional binding displays labels",
+    "MultiSelectDisplayLabelHideLabel": "Bidirectional bindings do not display labels",
+    "MultiSelectDisplayLabelCustomDisplayText": "Customize DisplayText",
+    "MultiSelectDisplayLabelCustomText": "Custom name"
   },
   "BootstrapBlazor.Shared.Demos.MultiSelect.MultiSelectExpandButton": {
     "MultiSelectExpandButtonText": "Test"
@@ -3210,7 +3210,7 @@
     "TogglesDisableIntro": "The switch is not available.",
     "TogglesBindToWayTitle": "Bind data in both directions",
     "TogglesBindToWayIntro": "Binding variables within a component, data is automatically synchronized",
-    "BindToWayP1": "when the <code>Switch</code> component turns on bidirectional binding, the <code>DisplayName</code> label value is automatically obtained based on the bound <code>Model</code> property value and appears as a <code>pre-Label</code>, which can be customized to display the pre-label through the <code>DispalyText</code> property, or through the <code>ShowLabel</code> property turns off the display of the prelabel",
+    "BindToWayP1": "when the <code>Switch</code> component turns on bidirectional binding, the <code>DisplayName</code> label value is automatically obtained based on the bound <code>Model</code> property value and appears as a <code>pre-Label</code>, which can be customized to display the pre-label through the <code>DisplayText</code> property, or through the <code>ShowLabel</code> property turns off the display of the prelabel",
     "BindToWayDisplayText1": "An example of a two-way binding",
     "BindToWayDiv": "The binding value:",
     "CustomLabelText": "Custom labels",
@@ -3846,11 +3846,11 @@
     "BasicUsageIntro": "Show only",
     "BindWayTitle": "Bind data in both directions",
     "BindWayIntro": "Two-way binding automatically gets the display labels in the resource file",
-    "BindWayP1": "When the <code>Dispaly</code> components turn on bidirectional binding, the <code>Display/DisplayName</code> label value is automatically obtained based on the <code>Model</code> property value of the binding and appears as a <code>pre-Label</code>, with <code>DisplayText</code> properties you can customize the display of the pre-label, or by turning off the display of the pre-label through the <code>ShowLabel</code> property",
+    "BindWayP1": "When the <code>Display</code> components turn on bidirectional binding, the <code>Display/DisplayName</code> label value is automatically obtained based on the <code>Model</code> property value of the binding and appears as a <code>pre-Label</code>, with <code>DisplayText</code> properties you can customize the display of the pre-label, or by turning off the display of the pre-label through the <code>ShowLabel</code> property",
     "DataTypeTitle": "Generic binding",
     "DataTypeIntro": "The <code>Display</code> component has built-in processing of <code>enumerated</code> <code>collections</code> <code>array</code>, customize formatting or callback delegate methods if they do not meet the criteria",
     "EditorFormTitle": "Used within the form",
-    "EditorFormIntro": "The <code>Dispaly</code> component is used in form components <code>EditorForm</code>, and is used in detail pages and is not editable",
+    "EditorFormIntro": "The <code>Display</code> component is used in form components <code>EditorForm</code>, and is used in detail pages and is not editable",
     "FormatStringTitle": "Custom format",
     "FormatStringIntro": "When you set the <code>FormatString</code> property value to <code>yyyy-MM-dd</code>, the component displays a time format of the year and day",
     "LookupTitle": "Automatically translated into Text",
@@ -3873,7 +3873,7 @@
     "Collection": "Collection",
     "Arr": "Array",
     "FormatStringSettingText": "Set up",
-    "FormatStringP": "The <code>Dispaly</code> component binding <code>byte[]</code> array, formatted as an example of <code>base64</code> encoded string"
+    "FormatStringP": "The <code>Display</code> component binding <code>byte[]</code> array, formatted as an example of <code>base64</code> encoded string"
   },
   "BootstrapBlazor.Shared.Samples.DropdownWidgets": {
     "Title": "DropdownWidget",
@@ -5261,8 +5261,8 @@
     "TablesToolbarCustomButtonTips1_note1": "A progress bar is displayed in the foreground, and it is being packaged and exported. During this period, other transactions can be processed.",
     "TablesToolbarCustomButtonTips1_note2": "After the data processing is completed, close the foreground prompt pop-up window, <code>restore</code> download button",
     "TablesToolbarCustomButtonTips2_title": "In this example, by setting the <code>IsAsync</code> property of the <code>TableToolbarButton</code> button to enable <b>asynchronous operation mode</b>, please note that <code>OnClickCallback</code> needs to be in the callback delegate Use true <b>async operations</b> otherwise no effect",
-    "TablesToolbarCustomDispalyButtonTitle": "Custom display function buttons",
-    "TablesToolbarCustomDispalyButtonIntro": "By setting the <code>ShowAddButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> attribute value to control whether the individual function button is displayed, when <code>ShowDefaultButtons</code> is set to <code> When false</code>, all buttons are not displayed"
+    "TablesToolbarCustomDisplayButtonTitle": "Custom display function buttons",
+    "TablesToolbarCustomDisplayButtonIntro": "By setting the <code>ShowAddButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> attribute value to control whether the individual function button is displayed, when <code>ShowDefaultButtons</code> is set to <code> When false</code>, all buttons are not displayed"
   },
   "BootstrapBlazor.Shared.Demos.Table.TablesToolbar.TablesToolbarCustomButton": {
     "TablesToolbarCustomButton1": "Download 1",

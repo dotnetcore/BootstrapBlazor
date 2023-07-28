@@ -510,7 +510,7 @@
   },
   "BootstrapBlazor.Shared.Samples.Charts.Line": {
     "LineOnInitTitle": "Line 图",
-    "LineOnInitIntro": "使用 <code>OnInit</code> 回调委托方法，对初始化数据进行赋值后，即可进行绘图操作，通过设置 <code>BorderWidth</code> 属性，可以设置折线图线宽，默认值3，通过设置 <code>ChartOptions.LegendLabelsFontSize</code> 属性，可以设置图例Lables字体大小",
+    "LineOnInitIntro": "使用 <code>OnInit</code> 回调委托方法，对初始化数据进行赋值后，即可进行绘图操作，通过设置 <code>BorderWidth</code> 属性，可以设置折线图线宽，默认值3，通过设置 <code>ChartOptions.LegendLabelsFontSize</code> 属性，可以设置图例Labels字体大小",
     "LineOnInitRandomData": "随机数据",
     "LineOnInitAddDataset": "添加数据集",
     "LineOnInitRemoveDataset": "移除数据集",
@@ -1892,8 +1892,8 @@
     "PaginationsDescription": "当数据量过多时，使用分页分解数据。",
     "PaginationsNormalTitle": "基础用法",
     "PaginationsNormalIntro": "可以通过下拉框选取每页显示数据数量",
-    "PaginationsDispalyTextTitle": "仅显示文本提示",
-    "PaginationsDispalyTextIntro": "只有一页时不显示切换页码组件，仅显示文本提示",
+    "PaginationsDisplayTextTitle": "仅显示文本提示",
+    "PaginationsDisplayTextIntro": "只有一页时不显示切换页码组件，仅显示文本提示",
     "PaginationsMaxPageLinkCountTitle": "仅显示分页组件",
     "PaginationsMaxPageLinkCountIntro": "通过 <code>ShowPaginationInfo='false'</code> 设置不显示文本提示",
     "PaginationsAlignmentTitle": "对齐方式",
@@ -2461,7 +2461,7 @@
     "EditorsTips": "<code>Editor</code> 组件是对 <a href='https://summernote.org/' target='_blank'><code>Summernote 组件</code></a> 的二次封装，如需使用本地化功能请自行官网下载相对应语言包，自行引用即可，<code>zh-CN</code> <code>en-US</code> 已内置；组件所需 <code>css</code> <code>javascript</code> 均按需动态加载，使用者无需设置。由于 <code>summernote</code> 组件依赖 <b>jQuery</b>，所以需要自行引用 <code>jQuery</code> 脚本包。如果编辑内容过多，可能会触发 <code>signalR</code> 通讯中断问题，请自行调整 <code>HubOptions</code> 配置即可。",
     "EditorNormalTitle": "基础用法",
     "EditorNormalIntro": "默认呈现为 <code>div</code> 点击后变为富文本编辑框",
-    "EditorNormalDescrption": "通过设置 <code>IsEditor</code> 属性值来控制组件默认是 <code>div</code> 还是 <code>editor</code>",
+    "EditorNormalDescription": "通过设置 <code>IsEditor</code> 属性值来控制组件默认是 <code>div</code> 还是 <code>editor</code>",
     "EditorNormalDiv": "我是一个普通的 <code>div</code> 点击无法编辑",
     "EditorPlaceholderTitle": "自定义提示信息",
     "EditorPlaceholderIntro": "通过设置 <code>Placeholder</code> 属性来设置空值时的提示消息",
@@ -2475,13 +2475,13 @@
     "EditorOnValueChangedDescription": "通过 <code>bind-Value</code> 对 <code>EditorValue</code> 后台属性进行双向绑定，编辑框内进行编辑后点击 <b>完成</b> 按钮，下方文本框内即可显示编辑后结果",
     "EditorCustomerToolbarButtonsTitle": "自定义扩展编辑框按钮",
     "EditorCustomerToolbarButtonsIntro": "通过设置 <code>CustomerPluginItems</code> 属性对编辑框工具栏进行自定义扩展， 通过设置 <code>OnClickPluginItem</code> 回调委托做功能",
-    "EditorCustomerToolbarButtonsDescrition": "本例中通过扩展 <code>CustomerPluginItems</code> 属性在工具栏中增加了两个按钮，点击按钮弹出 <code>SweetAlert</code> 模态框，点击模态框确认按钮后文本框中插入一段内容",
+    "EditorCustomerToolbarButtonsDescription": "本例中通过扩展 <code>CustomerPluginItems</code> 属性在工具栏中增加了两个按钮，点击按钮弹出 <code>SweetAlert</code> 模态框，点击模态框确认按钮后文本框中插入一段内容",
     "EditorToolbarItemsTitle": "自定义工具栏的富文本编辑框",
     "EditorToolbarItemsIntro": "通过设置 <code>ToolbarItems</code> 属性自定义工具栏内容，目前支持的工具栏值请参见 <a href='https://summernote.org/' target='_blank'>Summernote</a> 官网",
-    "EditorToolbarItemsDescrition": "本例中通过设置 <code>ToolbarItems</code> 属性，更改默认可用的工具栏按钮",
+    "EditorToolbarItemsDescription": "本例中通过设置 <code>ToolbarItems</code> 属性，更改默认可用的工具栏按钮",
     "EditorSubmitTitle": "提交按钮",
     "EditorSubmitIntro": "通过设置 <code>ShowSubmit</code> 控制是否显示工具栏最后的 <b>提交</b> 按钮",
-    "EditorSubmitDescrption": "<code>ShowSubmit</code> 默认值为 <code>true</code> 显示提交按钮，设计上点击提交按钮后，才触发 <code>OnValueChanged</code> 回调方法此设计大大提高性能节约服务器算力，设置值为 <code>false</code> 后将使用 <code>summernode</code> 库 <code>onChange</code> 触发，适用需要实时获取编辑内容场景",
+    "EditorSubmitDescription": "<code>ShowSubmit</code> 默认值为 <code>true</code> 显示提交按钮，设计上点击提交按钮后，才触发 <code>OnValueChanged</code> 回调方法此设计大大提高性能节约服务器算力，设置值为 <code>false</code> 后将使用 <code>summernode</code> 库 <code>onChange</code> 触发，适用需要实时获取编辑内容场景",
     "Att1": "空值时的提示信息",
     "Att1DefaultValue": "点击后进行编辑",
     "Att2": "是否直接显示为富文本编辑框",
@@ -2491,7 +2491,7 @@
     "Att5": "自定义按钮",
     "DoMethodAsync": "实例方法",
     "DoMethodAsyncIntro": "使用实例方法从外部操作 <code>Editor</code>，具体的参数参照 <a href='https://summernote.org/deep-dive'>summernote api</a>",
-    "DoMethodAsyncDescrition": "本例中通过设置 <code>ToolbarItems</code> 属性，更改默认可用的工具栏按钮"
+    "DoMethodAsyncDescription": "本例中通过设置 <code>ToolbarItems</code> 属性，更改默认可用的工具栏按钮"
   },
   "BootstrapBlazor.Shared.Demos.Editor.EditorPlaceholder": {
     "EditorEmptyPlaceholder": "自定义空值的提示信息"
@@ -2864,7 +2864,7 @@
     "MultiSelectBindingStringDescription": "<div><code>MutltiSelect</code> 组件数据源 <code>Items</code> 与 <b>选中值</b> <code>SelectedItemsValue</code> 均支持双向绑定；本例中通过双向绑定 <code>SelectedItemsValue</code> 变量，通过下拉框选择更改其值</div>",
     "MultiSelectBindingCollectionTitle": "双向绑定值集合",
     "MultiSelectBindingCollectionIntro": "绑定一个泛型 <code>IEnumerable<T></code> 集合",
-    "MultiSelectBindingCollectionDescrition": "本例中通过双向绑定 <code>SelectedArrayValues</code> 集合变量，通过下拉框选择更改其值",
+    "MultiSelectBindingCollectionDescription": "本例中通过双向绑定 <code>SelectedArrayValues</code> 集合变量，通过下拉框选择更改其值",
     "MultiSelectBindingNumberTitle": "双向绑定值数组",
     "MultiSelectBindingNumberIntro": "绑定一个数组 <code>int[]</code>",
     "MultiSelectBindingNumberDescription": "本例中通过双向绑定 <code>SelectedIntArrayValues</code> 数组变量，通过下拉框选择更改其值",
@@ -2884,9 +2884,9 @@
     "MultiSelectClientValidationTitle": "客户端验证",
     "MultiSelectClientValidationIntro": "下拉框未选择时，点击提交按钮时拦截。",
     "MultiSelectClientValidationDescription": "内置到 <code>ValidateForm</code> 组件时，自动开启客户端验证功能，绑定模型拥有 <code>Required</code> 标签",
-    "MultiSelectDispalyLabelTitle": "显示标签",
-    "MultiSelectDispalyLabelIntro": "组件双向绑定时会根据条件自动判断是否显示标签文字",
-    "MultiSelectDispalyLabelDescription": "前置标签显式规则与 <code>BootstrapInput</code> 组件一致 <a href='inputs'>[传送门]</a>",
+    "MultiSelectDisplayLabelTitle": "显示标签",
+    "MultiSelectDisplayLabelIntro": "组件双向绑定时会根据条件自动判断是否显示标签文字",
+    "MultiSelectDisplayLabelDescription": "前置标签显式规则与 <code>BootstrapInput</code> 组件一致 <a href='inputs'>[传送门]</a>",
     "MultiSelectVeryLongTextTitle": "选项超长文字",
     "MultiSelectVeryLongTextIntro": "候选项文字特别长",
     "MultiSelectButtonTitle": "全选与反选按钮",
@@ -2936,11 +2936,11 @@
   "BootstrapBlazor.Shared.Demos.MultiSelect.MultiSelectClientValidation": {
     "MultiSelectClientValidationSubmit": "提交"
   },
-  "BootstrapBlazor.Shared.Demos.MultiSelect.MultiSelectDispalyLabel": {
-    "MultiSelectDispalyLabelShowLable": "双向绑定显示标签",
-    "MultiSelectDispalyLabelHideLable": "双向绑定不显示标签",
-    "MultiSelectDispalyLabelCustomDisplayText": "自定义 DisplayText",
-    "MultiSelectDispalyLabelCustomText": "自定义姓名"
+  "BootstrapBlazor.Shared.Demos.MultiSelect.MultiSelectDisplayLabel": {
+    "MultiSelectDisplayLabelShowLabel": "双向绑定显示标签",
+    "MultiSelectDisplayLabelHideLabel": "双向绑定不显示标签",
+    "MultiSelectDisplayLabelCustomDisplayText": "自定义 DisplayText",
+    "MultiSelectDisplayLabelCustomText": "自定义姓名"
   },
   "BootstrapBlazor.Shared.Demos.MultiSelect.MultiSelectExpandButton": {
     "MultiSelectExpandButtonText": "测试"
@@ -5279,8 +5279,8 @@
     "TablesToolbarCustomButtonTips1_note1": "前台显示进度条提示，正在打包导出，此期间可以处理其他事务",
     "TablesToolbarCustomButtonTips1_note2": "数据处理完成后，关闭前台提示弹窗，<code>恢复</code> 下载按钮",
     "TablesToolbarCustomButtonTips2_title": "本例中通过设置 <code>TableToolbarButton</code> 按钮的 <code>IsAsync</code> 属性开启 <b>异步操作模式</b>，请注意 <code>OnClickCallback</code> 回调委托内需要使用真正的 <b>异步操作</b> 否则无效果",
-    "TablesToolbarCustomDispalyButtonTitle": "自定义显示功能按钮",
-    "TablesToolbarCustomDispalyButtonIntro": "通过设置 <code>ShowAddButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> 属性值来控制单独功能按钮是否显示，当 <code>ShowDefaultButtons</code> 设置为 <code>false</code> 时，所有按钮均不显示"
+    "TablesToolbarCustomDisplayButtonTitle": "自定义显示功能按钮",
+    "TablesToolbarCustomDisplayButtonIntro": "通过设置 <code>ShowAddButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> 属性值来控制单独功能按钮是否显示，当 <code>ShowDefaultButtons</code> 设置为 <code>false</code> 时，所有按钮均不显示"
   },
   "BootstrapBlazor.Shared.Demos.Table.TablesToolbar.TablesToolbarCustomButton": {
     "TablesToolbarCustomButton1": "下载1",

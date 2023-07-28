@@ -1,7 +1,7 @@
-﻿@inject IStringLocalizer<MultiSelectDispalyLabel> Localizer
+﻿@inject IStringLocalizer<MultiSelectDisplayLabel> Localizer
 
 <div>
-    <Divider Text="@Localizer["MultiSelectDispalyLabelShowLable"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
+    <Divider Text="@Localizer["MultiSelectDisplayLabelShowLabel"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
     <ValidateForm Model="@Foo">
         <div class="row g-3">
             <div class="col-12">
@@ -9,10 +9,10 @@
             </div>
         </div>
     </ValidateForm>
-    <Divider Text="@Localizer["MultiSelectDispalyLabelHideLable"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
+    <Divider Text="@Localizer["MultiSelectDisplayLabelHideLabel"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
     <MultiSelect Color="Color.Primary" Items="@Items2" @bind-Value="@Foo.Name" />
-    <Divider Text="@Localizer["MultiSelectDispalyLabelCustomDisplayText"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
-    <MultiSelect Color="Color.Primary" Items="@Items3" @bind-Value="@Foo.Name" DisplayText="@Localizer["MultiSelectDispalyLabelCustomText"]" ShowLabel="true" />
+    <Divider Text="@Localizer["MultiSelectDisplayLabelCustomDisplayText"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
+    <MultiSelect Color="Color.Primary" Items="@Items3" @bind-Value="@Foo.Name" DisplayText="@Localizer["MultiSelectDisplayLabelCustomText"]" ShowLabel="true" />
 </div>
 
 @code {
