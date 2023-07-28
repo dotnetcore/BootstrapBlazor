@@ -102,7 +102,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["MouseFollowerIntro"],
-                    Url = "mouseFollowers"
+                    Url = "mouse-follower"
                 },
                 new()
                 {
@@ -552,7 +552,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["ListView"],
-                    Url = "listviews"
+                    Url = "list-view"
                 },
                 new()
                 {
@@ -562,7 +562,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["ImageViewer"],
-                    Url = "imageviewers"
+                    Url = "image-viewer"
                 },
                 new()
                 {
@@ -597,7 +597,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["SpeechWave"],
-                    Url = "speechwaves"
+                    Url = "speech-wave"
                 },
                 new()
                 {
@@ -607,7 +607,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Tag"],
-                    Url = "tags"
+                    Url = "tag"
                 },
                 new()
                 {
