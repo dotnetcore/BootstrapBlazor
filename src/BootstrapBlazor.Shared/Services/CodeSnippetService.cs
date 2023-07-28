@@ -92,7 +92,7 @@ class CodeSnippetService
             else
             {
                 // 读取硬盘文件
-                payload = await ReadFileAsync(fileName);
+                payload = await CacheManager.GetContentFromFileAsync(fileName, _ => ReadFileAsync(fileName));
             }
 
             // 源码修正

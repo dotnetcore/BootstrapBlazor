@@ -27,9 +27,9 @@ internal static class CacheManagerExtensions
         return cache.GetOrCreate(key, entry => Utility.GetJsonStringByTypeName(options, typeof(CodeSnippetService).Assembly, $"BootstrapBlazor.Shared.Samples.{typeName}"));
     }
 
-    public static Task<string> GetContentFromDemoAsync(this ICacheManager cache, string demo, Func<ICacheEntry, Task<string>> factory)
+    public static Task<string> GetContentFromFileAsync(this ICacheManager cache, string fileName, Func<ICacheEntry, Task<string>> factory)
     {
-        var key = $"{nameof(GetContentFromDemoAsync)}-{demo}";
+        var key = $"Snippet-{CultureInfo.CurrentUICulture.Name}-{nameof(GetContentFromFileAsync)}-{fileName}";
         return cache.GetOrCreateAsync(key, entry => factory(entry));
     }
 }
