@@ -241,7 +241,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["AutoFill"],
-                    Url = "autofills"
+                    Url = "auto-fill"
                 },
                 new()
                 {
@@ -251,7 +251,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Cascader"],
-                    Url = "cascaders"
+                    Url = "cascader"
                 },
                 new()
                 {
@@ -261,22 +261,22 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["CheckboxList"],
-                    Url = "checkboxlists"
+                    Url = "checkbox-list"
                 },
                 new()
                 {
                     Text = Localizer["ColorPicker"],
-                    Url = "colorpickers"
+                    Url = "color-picker"
                 },
                 new()
                 {
                     Text = Localizer["DateTimePicker"],
-                    Url = "datetimepickers"
+                    Url = "datetime-picker"
                 },
                 new()
                 {
                     Text = Localizer["DateTimeRange"],
-                    Url = "datetimeranges"
+                    Url = "datetime-range"
                 },
                 new()
                 {
@@ -286,7 +286,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["EditorForm"],
-                    Url = "editorforms"
+                    Url = "editor-form"
                 },
                 new()
                 {
