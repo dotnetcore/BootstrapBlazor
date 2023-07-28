@@ -55,12 +55,27 @@ class CodeSnippetService
     /// 获得示例源码方法
     /// </summary>
     /// <returns></returns>
-    public async Task<string> GetCodeAsync(string demo)
+    public async Task<string> GetDemoAsync(string demo)
     {
         string? content;
         try
         {
             content = await GetContentFromDemo(demo);
+        }
+        catch (Exception ex) { content = $"Error: {ex.Message}"; }
+        return content;
+    }
+
+    /// <summary>
+    /// 获得示例源码方法
+    /// </summary>
+    /// <returns></returns>
+    public async Task<string> GetCodeAsync(string codeFile)
+    {
+        string? content;
+        try
+        {
+            content = await GetFileContentAsync($"Samples\\{codeFile}");
         }
         catch (Exception ex) { content = $"Error: {ex.Message}"; }
         return content;
@@ -73,31 +88,34 @@ class CodeSnippetService
     /// <returns></returns>
     public async Task<string> GetFileContentAsync(string fileName)
     {
-        var payload = "";
-        if (!string.IsNullOrEmpty(fileName))
+        string? payload;
+        var file = $"{ContentRootPath}\\..\\BootstrapBlazor.Shared\\{fileName}";
+        if (!OperatingSystem.IsWindows())
         {
-            if (IsDevelopment)
-            {
-                var file = $"{ContentRootPath}\\..\\BootstrapBlazor.Shared\\{fileName}";
-                if (!OperatingSystem.IsWindows())
-                {
-                    file = file.Replace('\\', '/');
-                }
-                if (File.Exists(file))
-                {
-                    payload = await File.ReadAllTextAsync(file);
-                }
-            }
-            else
-            {
-                payload = await ReadFileContent(fileName);
-            }
+            file = file.Replace('\\', '/');
+        }
+        if (File.Exists(file))
+        {
+            payload = await File.ReadAllTextAsync(file);
+        }
+        else
+        {
+            payload = "File not found.";
+        }
+
+        var typeName = fileName.Split('.').FirstOrDefault()?.Replace('\\', '/').Replace('/', '.');
+        if (!string.IsNullOrEmpty(typeName))
+        {
+            CacheManager.GetDemoLocalizedStrings(typeName, LocalizerOptions).ToList().ForEach(l => payload = ReplacePayload(payload, l));
+            payload = ReplaceSymbols(payload);
+            payload = RemoveBlockStatement(payload, "@inject IStringLocalizer<");
         }
         return payload;
     }
 
     private Task<string> GetContentFromDemo(string demo) => CacheManager.GetContentFromDemoAsync(demo, async entry =>
     {
+        // TODO: 改版后移除此方法
         var payload = "";
         var fileName = demo.Replace('.', Path.DirectorySeparatorChar);
         fileName = $"{fileName}.razor";
@@ -108,7 +126,7 @@ class CodeSnippetService
         }
         else
         {
-            payload = await ReadFileContent(fileName);
+            payload = await ReadFileContentAsync(fileName);
         }
 
         // 将资源文件信息替换
@@ -118,21 +136,20 @@ class CodeSnippetService
         return payload;
     });
 
-    private async Task<string> ReadFileContent(string fileName)
+    private async Task<string> ReadFileContentAsync(string fileName)
     {
-        var client = Factory.CreateClient();
-        client.Timeout = TimeSpan.FromSeconds(5);
-
         string? payload;
         if (OperatingSystem.IsBrowser())
         {
+            var client = Factory.CreateClient();
+            client.Timeout = TimeSpan.FromSeconds(5);
             client.BaseAddress = new Uri($"{ServerUrl}/api/");
             payload = await client.GetStringAsync($"Code?fileName=BootstrapBlazor.Shared/{fileName}");
         }
         else
         {
-            client.BaseAddress = new Uri(DemoUrl);
-            payload = await client.GetStringAsync(fileName.Replace('\\', '/'));
+            // 读取硬盘文件
+            payload = "";
         }
         return payload;
     }

@@ -46,6 +46,12 @@ public partial class Pre
     public string? Demo { get; set; }
 
     /// <summary>
+    /// 获得/设置 示例代码片段 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public string? CodeFile { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示工具按钮组
     /// </summary>
     [Parameter]
@@ -66,13 +72,24 @@ public partial class Pre
     private string? CopiedText { get; set; }
 
     /// <summary>
-    /// OnInitializedAsync 方法
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        LoadingText ??= Localizer[nameof(LoadingText)];
+        TooltipTitle ??= Localizer[nameof(TooltipTitle)];
+        PlusTooltipTitle ??= Localizer[nameof(PlusTooltipTitle)];
+        MinusTooltipTitle ??= Localizer[nameof(MinusTooltipTitle)];
+        CopiedText ??= Localizer[nameof(CopiedText)];
+    }
+
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
-        await base.OnInitializedAsync();
-
         if (ChildContent == null)
         {
             await GetCodeAsync();
@@ -82,20 +99,6 @@ public partial class Pre
             Loaded = true;
             CanCopy = true;
         }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        LoadingText ??= Localizer[nameof(LoadingText)];
-        TooltipTitle ??= Localizer[nameof(TooltipTitle)];
-        PlusTooltipTitle ??= Localizer[nameof(PlusTooltipTitle)];
-        MinusTooltipTitle ??= Localizer[nameof(MinusTooltipTitle)];
-        CopiedText ??= Localizer[nameof(CopiedText)];
     }
 
     /// <summary>
@@ -122,7 +125,24 @@ public partial class Pre
     {
         if (!string.IsNullOrEmpty(Demo))
         {
-            var code = await Example.GetCodeAsync(Demo);
+            // TODO: 改版后移除以下代码
+            var code = await Example.GetDemoAsync(Demo);
+            if (!string.IsNullOrEmpty(code))
+            {
+                ChildContent = builder =>
+                {
+                    builder.AddContent(0, code);
+                };
+            }
+            CanCopy = !string.IsNullOrEmpty(code) && !code.StartsWith("Error: ");
+        }
+        else if (!string.IsNullOrEmpty(CodeFile))
+        {
+            if (CodeFile == "ajax.razor")
+            {
+                CodeFile = "Ajaxs.razor";
+            }
+            var code = await Example.GetCodeAsync(CodeFile);
             if (!string.IsNullOrEmpty(code))
             {
                 ChildContent = builder =>
