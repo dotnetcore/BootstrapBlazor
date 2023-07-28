@@ -55,73 +55,82 @@ public sealed partial class Captchas
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new[]
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new AttributeItem() {
+        new()
+        {
             Name = "ImagesPath",
             Description = Localizer["ImagesPath"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "images"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ImagesName",
             Description = Localizer["ImagesName"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "Pic.jpg"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "HeaderText",
             Description = Localizer["HeaderText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = Localizer["HeaderTextDefaultValue"]
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "BarText",
             Description = Localizer["BarText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = Localizer["BarTextDefaultValue"]
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "FailedText",
             Description = Localizer["FailedText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = Localizer["FailedTextDefaultValue"]
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "LoadText",
             Description = Localizer["LoadText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = Localizer["LoadTextDefaultValue"]
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "TryText",
             Description = Localizer["TryText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = Localizer["TryTextDefaultValue"]
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Offset",
             Description = Localizer["Offset"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "5"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Width",
             Description = Localizer["Width"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "280"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Height",
             Description = Localizer["Height"],
             Type = "int",
@@ -134,9 +143,9 @@ public sealed partial class Captchas
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<EventItem> GetEvents() => new[]
+    private IEnumerable<EventItem> GetEvents() => new EventItem[]
     {
-        new EventItem()
+        new()
         {
             Name = "OnValid",
             Description = Localizer["OnValid"],
@@ -148,9 +157,9 @@ public sealed partial class Captchas
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<MethodItem> GetMethods() => new[]
+    private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
     {
-        new MethodItem()
+        new()
         {
             Name = "GetImageName",
             Description = Localizer["GetImageName"],

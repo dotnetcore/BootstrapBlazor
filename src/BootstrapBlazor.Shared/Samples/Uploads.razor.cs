@@ -210,84 +210,84 @@ public sealed partial class Uploads
 
     private IEnumerable<AttributeItem> GetInputAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new() {
             Name = "ShowDeleteButton",
             Description = Localizer["UploadsShowDeleteButton"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsDisabled",
             Description = Localizer["UploadsUploadsIsDisabled"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "PlaceHolder",
             Description = Localizer["UploadsPlaceHolder"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "Accept",
             Description = Localizer["UploadsAccept"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "BrowserButtonClass",
             Description = Localizer["UploadsBrowserButtonClass"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "btn-primary"
         },
-        new AttributeItem() {
+        new() {
             Name = "BrowserButtonIcon",
             Description = Localizer["UploadsBrowserButtonIcon"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-regular fa-folder-open"
         },
-        new AttributeItem() {
+        new() {
             Name = "BrowserButtonText",
             Description = Localizer["UploadsBrowserButtonText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = ""
         },
-        new AttributeItem() {
+        new() {
             Name = "DeleteButtonClass",
             Description = Localizer["UploadsDeleteButtonClass"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "btn-danger"
         },
-        new AttributeItem() {
+        new() {
             Name = "DeleteButtonIcon",
             Description = Localizer["UploadsDeleteButtonIcon"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-regular fa-trash"
         },
-        new AttributeItem() {
+        new() {
             Name = "DeleteButtonText",
             Description = Localizer["UploadsDeleteButtonText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = Localizer["UploadsDeleteButtonTextDefaultValue"]
         },
-        new AttributeItem() {
+        new() {
             Name = "OnDelete",
             Description = Localizer["UploadsOnDelete"],
             Type = "Func<string, Task<bool>>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "OnChange",
             Description = Localizer["UploadsOnChange"],
             Type = "Func<UploadFile, Task>",
@@ -298,98 +298,98 @@ public sealed partial class Uploads
 
     private IEnumerable<AttributeItem> GetButtonAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new() {
             Name = "IsDirectory",
             Description = Localizer["UploadsIsDirectory"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsMultiple",
             Description = Localizer["UploadsIsMultiple"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsSingle",
             Description = Localizer["UploadsIsSingle"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "ShowProgress",
             Description = Localizer["UploadsShowProgress"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "Accept",
             Description = Localizer["UploadsAccept"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "BrowserButtonClass",
             Description = Localizer["UploadsBrowserButtonClass"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "btn-primary"
         },
-        new AttributeItem() {
+        new() {
             Name = "BrowserButtonIcon",
             Description = Localizer["UploadsBrowserButtonIcon"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-regular fa-folder-open"
         },
-        new AttributeItem() {
+        new() {
             Name = "BrowserButtonText",
             Description = Localizer["UploadsBrowserButtonText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = ""
         },
-        new AttributeItem() {
+        new() {
             Name = "DefaultFileList",
             Description = Localizer["UploadsDefaultFileList"],
             Type = "List<UploadFile>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "OnGetFileFormat",
             Description = Localizer["UploadsOnGetFileFormat"],
             Type = "Func<string, string>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "OnDelete",
             Description = Localizer["UploadsOnDelete"],
             Type = "Func<string, Task<bool>>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "OnChange",
             Description = Localizer["UploadsOnChange"],
             Type = "Func<UploadFile, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "OnDownload",
             Description = Localizer["UploadsOnDownload"],
             Type = "Func<UploadFile, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "IconTemplate",
             Description = Localizer["UploadsIconTemplate"],
             Type = "RenderFragment<UploadFile>",
@@ -400,63 +400,63 @@ public sealed partial class Uploads
 
     private IEnumerable<AttributeItem> GetAvatarAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new() {
             Name = "Width",
             Description = Localizer["UploadsWidth"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "0"
         },
-        new AttributeItem() {
+        new() {
             Name = "Height",
             Description = Localizer["UploadsHeight"],
             Type = "int",
             ValueList = "—",
             DefaultValue = "0"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsCircle",
             Description = Localizer["UploadsIsCircle"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsSingle",
             Description = Localizer["UploadsIsSingle"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "ShowProgress",
             Description = Localizer["UploadsShowProgress"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "Accept",
             Description = Localizer["UploadsAccept"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "DefaultFileList",
             Description = Localizer["UploadsDefaultFileList"],
             Type = "List<UploadFile>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "OnDelete",
             Description = Localizer["UploadsOnDelete"],
             Type = "Func<string, Task<bool>>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "OnChange",
             Description = Localizer["UploadsOnChange"],
             Type = "Func<UploadFile, Task>",

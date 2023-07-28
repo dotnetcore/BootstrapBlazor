@@ -83,85 +83,94 @@ public sealed partial class Cameras
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new AttributeItem() {
+        new() {
             Name = nameof(Camera.VideoWidth),
             Description = Localizer["VideoWidth"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "320"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = nameof(Camera.VideoHeight),
             Description = Localizer["VideoHeight"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "240"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ShowPreview",
             Description = Localizer["ShowPreview"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "AutoStart",
             Description = Localizer["AutoStart"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "DeviceLabel",
             Description = Localizer["DeviceLabel"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "FrontText",
             Description = Localizer["FrontText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "BackText",
             Description = Localizer["FrontText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "PlayText",
             Description = "",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "StopText",
             Description = Localizer["FrontText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "PhotoText",
             Description = Localizer["FrontText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "InitDevicesString",
             Description = Localizer["InitDevicesString"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = Localizer["InitDevicesStringDefaultValue"]
         },
-        new AttributeItem()
+        new()
         {
             Name = "NotFoundDevicesString",
             Description = Localizer["NotFoundDevicesString"],
@@ -169,48 +178,53 @@ public sealed partial class Cameras
             ValueList = " — ",
             DefaultValue = Localizer["NotFoundDevicesStringDefaultValue"]
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "OnInit",
             Description = Localizer["OnInit"],
             Type = "Func<IEnumerable<DeviceItem>, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "OnStart",
             Description = Localizer["OnStart"],
             Type = "Func<Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "OnClose",
             Description = Localizer["OnClose"],
             Type = "Func<Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "OnCapture",
             Description = Localizer["OnCapture"],
             Type = "Func<string, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = nameof(Camera.CaptureJpeg),
             Description = Localizer["CaptureJpeg"],
             Type = "bool",
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = nameof(Camera.Quality),
             Description = Localizer["Quality"],
             Type = "double",
             ValueList = " — ",
             DefaultValue = " 0.9d"
-        },
-
+        }
     };
 }

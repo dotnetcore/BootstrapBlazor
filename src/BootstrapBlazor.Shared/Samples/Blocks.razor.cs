@@ -73,7 +73,7 @@ public partial class Blocks
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem()
+        new()
         {
             Name = nameof(Block.OnQueryCondition),
             Description = Localizer["OnQueryCondition"],
@@ -81,7 +81,7 @@ public partial class Blocks
             ValueList = " — ",
             DefaultValue = "true"
         },
-        new AttributeItem()
+        new()
         {
             Name = nameof(Block.ChildContent),
             Description = Localizer["ChildContent"],
@@ -89,7 +89,7 @@ public partial class Blocks
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = nameof(Block.Authorized),
             Description = Localizer["Authorized"],
@@ -97,7 +97,7 @@ public partial class Blocks
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = nameof(Block.NotAuthorized),
             Description = Localizer["NotAuthorized"],

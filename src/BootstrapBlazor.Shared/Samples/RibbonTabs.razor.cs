@@ -90,7 +90,7 @@ public partial class RibbonTabs
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem()
+        new()
         {
             Name = nameof(RibbonTab.ShowFloatButton),
             Description = Localizer["RibbonTabsShowFloatButtonAttr"],
@@ -98,7 +98,7 @@ public partial class RibbonTabs
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = nameof(RibbonTab.OnFloatChanged),
             Description = Localizer["RibbonTabsOnFloatChanged"],
@@ -106,7 +106,7 @@ public partial class RibbonTabs
             ValueList = "Func<bool, Task>",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = nameof(RibbonTab.RibbonArrowUpIcon),
             Description = Localizer["RibbonTabsRibbonArrowUpIcon"],
@@ -114,7 +114,7 @@ public partial class RibbonTabs
             ValueList = " — ",
             DefaultValue = "fa-solid fa-angle-up fa-2x"
         },
-        new AttributeItem()
+        new()
         {
             Name = nameof(RibbonTab.RibbonArrowDownIcon),
             Description = Localizer["RibbonTabsRibbonArrowDownIcon"],
@@ -122,7 +122,7 @@ public partial class RibbonTabs
             ValueList = " — ",
             DefaultValue = "fa-solid fa-angle-down fa-2x"
         },
-        new AttributeItem()
+        new()
         {
             Name = nameof(RibbonTab.RibbonArrowPinIcon),
             Description = Localizer["RibbonTabsRibbonArrowPinIcon"],
@@ -130,7 +130,7 @@ public partial class RibbonTabs
             ValueList = " — ",
             DefaultValue = "fa-solid fa-thumbtack fa-rotate-90"
         },
-        new AttributeItem()
+        new()
         {
             Name = nameof(RibbonTab.ShowFloatButton),
             Description = Localizer["RibbonTabsShowFloatButton"],
@@ -138,7 +138,7 @@ public partial class RibbonTabs
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = nameof(RibbonTab.Items),
             Description = Localizer["RibbonTabsItems"],
@@ -146,7 +146,7 @@ public partial class RibbonTabs
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = nameof(RibbonTab.OnItemClickAsync),
             Description = Localizer["RibbonTabsOnItemClickAsync"],
@@ -154,7 +154,7 @@ public partial class RibbonTabs
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = nameof(RibbonTab.OnMenuClickAsync),
             Description = Localizer["OnMenuClickAsyncAttr"],
@@ -162,7 +162,7 @@ public partial class RibbonTabs
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = nameof(RibbonTab.RightButtonsTemplate),
             Description = Localizer["RibbonTabsRightButtonsTemplate"],

@@ -55,30 +55,30 @@ public partial class Transitions
         return Task.CompletedTask;
     }
 
-    private static IEnumerable<AttributeItem> GetAttributes() => new[]
+    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new() {
             Name = "TransitionType",
             Description = "Animation effect name",
             Type = "TransitionType",
             ValueList = " — ",
             DefaultValue = "FadeIn"
         },
-        new AttributeItem() {
+        new() {
             Name = "Show",
             Description = "Control animation execution",
             Type = "Boolean",
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new() {
             Name = "Duration",
             Description = "Control animation duration",
             Type = "int",
             ValueList = " — ",
             DefaultValue = "0"
         },
-        new AttributeItem() {
+        new() {
             Name = "OnTransitionEnd",
             Description = "Animation execution complete callback",
             Type = "Func<Task>",

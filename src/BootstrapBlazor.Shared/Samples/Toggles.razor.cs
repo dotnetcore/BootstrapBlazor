@@ -49,64 +49,64 @@ public sealed partial class Toggles
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new AttributeItem() {
+
+        new() {
             Name = "Color",
             Description = Localizer["Color"],
             Type = "Color",
             ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
             DefaultValue = "Success"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsDisabled",
             Description = Localizer["IsDisabled"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "OffText",
             Description = Localizer["OffTextAttr"],
             Type = "string",
             ValueList = "—",
             DefaultValue = Localizer["OffTextDefautValue"]!
         },
-        new AttributeItem() {
+        new() {
             Name = "OnText",
             Description = Localizer["OnTextAttr"],
             Type = "string",
             ValueList = "—",
             DefaultValue = Localizer["OnTextDefautValue"]!
         },
-        new AttributeItem() {
+        new() {
             Name = "Width",
             Description = Localizer["Width"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "120"
         },
-        new AttributeItem() {
+        new() {
             Name = "Value",
             Description = Localizer["Value"],
             Type = "boolean",
             ValueList = " ",
             DefaultValue = "None"
         },
-        new AttributeItem() {
+        new() {
             Name = "ShowLabel",
             Description = Localizer["ShowLabel"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new() {
             Name = "DisplayText",
             Description = Localizer["DisplayText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "OnValueChanged",
             Description = Localizer["OnValueChanged"],
             Type = "Func<bool, Task>",

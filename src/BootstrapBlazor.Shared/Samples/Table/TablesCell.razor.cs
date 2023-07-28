@@ -9,45 +9,47 @@ namespace BootstrapBlazor.Shared.Samples.Table;
 /// </summary>
 public partial class TablesCell
 {
-    private IEnumerable<AttributeItem> GetAttributes()
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        return new[]
+        new()
         {
-            new AttributeItem() {
-                Name = "Row",
-                Description = Localizer["RowAttr"],
-                Type = "object",
-                ValueList = " — ",
-                DefaultValue = "<TModel>"
-            },
-            new AttributeItem() {
-                Name = "ColumnName",
-                Description = Localizer["ColumnNameAttr"],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "Colspan",
-                Description = Localizer["ColspanAttr"],
-                Type = "int",
-                ValueList = " — ",
-                DefaultValue = "0"
-            },
-            new AttributeItem() {
-                Name = "Class",
-                Description = Localizer["ClassAttr"],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            },
-            new AttributeItem() {
-                Name = "Value",
-                Description = Localizer["ValueAttr"],
-                Type = "string",
-                ValueList = " — ",
-                DefaultValue = " — "
-            }
-        };
-    }
+            Name = "Row",
+            Description = Localizer["RowAttr"],
+            Type = "object",
+            ValueList = " — ",
+            DefaultValue = "<TModel>"
+        },
+        new()
+        {
+            Name = "ColumnName",
+            Description = Localizer["ColumnNameAttr"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "Colspan",
+            Description = Localizer["ColspanAttr"],
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = "0"
+        },
+        new()
+        {
+            Name = "Class",
+            Description = Localizer["ClassAttr"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "Value",
+            Description = Localizer["ValueAttr"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    };
 }

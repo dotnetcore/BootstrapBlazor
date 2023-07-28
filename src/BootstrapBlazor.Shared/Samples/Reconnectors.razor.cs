@@ -13,7 +13,7 @@ public partial class Reconnectors
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem()
+        new()
         {
             Name = nameof(Reconnector.ReconnectingTemplate),
             Description = Localizer["ReconnectingTemplateAttr"],
@@ -21,7 +21,7 @@ public partial class Reconnectors
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = nameof(Reconnector.ReconnectFailedTemplate),
             Description = Localizer["ReconnectFailedTemplateAttr"],
@@ -29,7 +29,7 @@ public partial class Reconnectors
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = nameof(Reconnector.ReconnectRejectedTemplate),
             Description = Localizer["ReconnectRejectedTemplateAttr"],

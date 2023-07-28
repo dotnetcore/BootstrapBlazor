@@ -221,57 +221,57 @@ public partial class ValidateForms
     #region 参数说明
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new AttributeItem() {
+
+        new() {
             Name = "Model",
             Description = Localizer["Model"],
             Type = "object",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "ValidateAllProperties",
             Description = Localizer["ValidateAllProperties"],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = nameof(ValidateForm.DisableAutoSubmitFormByEnter),
             Description = Localizer[nameof(ValidateForm.DisableAutoSubmitFormByEnter)],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "ShowRequiredMark",
             Description = Localizer["ShowRequiredMark"],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new() {
             Name = "ShowLabelTooltip",
             Description = Localizer["ShowLabelTooltip"],
             Type = "bool?",
             ValueList = "true/false/null",
             DefaultValue = "null"
         },
-        new AttributeItem() {
+        new() {
             Name = "ChildContent",
             Description = Localizer["ChildContent"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "OnValidSubmit",
             Description = Localizer["OnValidSubmit"],
             Type = "EventCallback<EditContext>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "OnInvalidSubmit",
             Description = Localizer["OnInvalidSubmit"],
             Type = "EventCallback<EditContext>",

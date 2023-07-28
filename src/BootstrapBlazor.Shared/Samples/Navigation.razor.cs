@@ -38,7 +38,7 @@ public sealed partial class Navigation
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
+
         new()
         {
             Name = "ChildContent",
@@ -47,35 +47,35 @@ public sealed partial class Navigation
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "Alignment",
             Description = Localizer["NavsAlignment"],
             Type = "Alignment",
             ValueList = "Left|Center|Right",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "IsVertical",
             Description = Localizer["NavsIsVertical"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsPills",
             Description = Localizer["NavsIsPills"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsFill",
             Description = Localizer["NavsIsFill"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsJustified",
             Description = Localizer["NavsIsJustified"],
             Type = "bool",

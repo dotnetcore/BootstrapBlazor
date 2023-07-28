@@ -57,48 +57,49 @@ public sealed partial class Checkboxs
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes()
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        return new AttributeItem[]
+        new()
         {
-                new AttributeItem() {
-                    Name = "ShowLabel",
-                    Description = Localizer["Att1"],
-                    Type = "bool",
-                    ValueList = "true|false",
-                    DefaultValue = "false"
-                },
-                new AttributeItem() {
-                    Name = "ShowAfterLabel",
-                    Description = Localizer["Att2"],
-                    Type = "bool",
-                    ValueList = "true|false",
-                    DefaultValue = "false"
-                },
-                new AttributeItem() {
-                    Name = "DisplayText",
-                    Description = Localizer["Att3"],
-                    Type = "string",
-                    ValueList = " — ",
-                    DefaultValue = " — "
-                },
-                new AttributeItem(){
-                    Name = "IsDisabled",
-                    Description = Localizer["Att4"],
-                    Type = "boolean",
-                    ValueList = "true / false",
-                    DefaultValue = "false"
-                },
-                new AttributeItem()
-                {
-                    Name = "State",
-                    Description = Localizer["Att5"],
-                    Type = "CheckboxState",
-                    ValueList = "Mixed / Checked / UnChecked",
-                    DefaultValue = "UnChecked"
-                },
-        };
-    }
+            Name = "ShowLabel",
+            Description = Localizer["Att1"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "ShowAfterLabel",
+            Description = Localizer["Att2"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "DisplayText",
+            Description = Localizer["Att3"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new(){
+            Name = "IsDisabled",
+            Description = Localizer["Att4"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "false"
+        },
+        new()
+
+        {
+            Name = "State",
+            Description = Localizer["Att5"],
+            Type = "CheckboxState",
+            ValueList = "Mixed / Checked / UnChecked",
+            DefaultValue = "UnChecked"
+        },
+    };
 
     /// <summary>
     /// 获得事件方法
@@ -106,17 +107,17 @@ public sealed partial class Checkboxs
     /// <returns></returns>
     private IEnumerable<EventItem> GetEvents() => new EventItem[]
     {
-            new EventItem()
-            {
-                Name = "OnStateChanged",
-                Description = Localizer["Event1"],
-                Type ="Action<CheckboxState, TItem>"
-            },
-            new EventItem()
-            {
-                Name = "StateChanged",
-                Description = Localizer["Event2"],
-                Type ="EventCallback<CheckboxState>"
-            }
+        new()
+        {
+            Name = "OnStateChanged",
+            Description = Localizer["Event1"],
+            Type ="Action<CheckboxState, TItem>"
+        },
+        new()
+        {
+            Name = "StateChanged",
+            Description = Localizer["Event2"],
+            Type ="EventCallback<CheckboxState>"
+        }
     };
 }

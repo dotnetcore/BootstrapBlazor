@@ -75,7 +75,7 @@ public sealed partial class Modals
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem()
+        new()
         {
             Name = "FirstAfterRenderCallbackAsync",
             Description = Localizer["ModalsAttributesFirstAfterRenderCallbackAsync"],
@@ -83,7 +83,7 @@ public sealed partial class Modals
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "HeaderTemplate",
             Description = Localizer["ModalsAttributeHeaderTemplate"],
@@ -91,7 +91,7 @@ public sealed partial class Modals
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "BodyTemplate",
             Description = Localizer["ModalsAttributeBodyTemplate"],
@@ -99,7 +99,7 @@ public sealed partial class Modals
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "ChildContent",
                 Description = Localizer["ModalsAttributeChildContent"],
@@ -107,7 +107,7 @@ public sealed partial class Modals
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "FooterTemplate",
             Description = Localizer["ModalsAttributeFooterTemplate"],
@@ -115,7 +115,7 @@ public sealed partial class Modals
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "IsBackdrop",
               Description = Localizer["ModalsAttributeIsBackdrop"],
@@ -123,7 +123,7 @@ public sealed partial class Modals
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "IsKeyboard",
             Description = Localizer["ModalsAttributeIsKeyboard"],
@@ -131,7 +131,7 @@ public sealed partial class Modals
             ValueList = " — ",
             DefaultValue = "true"
         },
-        new AttributeItem()
+        new()
         {
             Name = "IsCentered",
             Description = Localizer["ModalsAttributeIsCentered"],
@@ -139,7 +139,7 @@ public sealed partial class Modals
             ValueList = " — ",
             DefaultValue = "true"
         },
-        new AttributeItem()
+        new()
         {
             Name = "IsScrolling",
                     Description = Localizer["ModalsAttributeIsScrolling"],
@@ -147,7 +147,7 @@ public sealed partial class Modals
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "IsFade",
                        Description = Localizer["ModalsAttributeIsFade"],
@@ -155,7 +155,7 @@ public sealed partial class Modals
             ValueList = " — ",
             DefaultValue = "true"
         },
-        new AttributeItem()
+        new()
         {
             Name = "IsDraggable",
                      Description = Localizer["ModalsAttributeIsDraggable"],
@@ -163,7 +163,7 @@ public sealed partial class Modals
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ShowCloseButton",
               Description = Localizer["ModalsAttributeShowCloseButton"],
@@ -171,7 +171,7 @@ public sealed partial class Modals
             ValueList = " — ",
             DefaultValue = "true"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ShowFooter",
             Description = Localizer["ModalsAttributeShowFooter"],
@@ -179,7 +179,7 @@ public sealed partial class Modals
             ValueList = " — ",
             DefaultValue = "true"
         },
-        new AttributeItem()
+        new()
         {
             Name = "Size",
             Description = Localizer["ModalsAttributeSize"],
@@ -187,7 +187,7 @@ public sealed partial class Modals
             ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge / ExtraExtraLarge",
             DefaultValue = "ExtraExtraLarge"
         },
-        new AttributeItem()
+        new()
         {
             Name = nameof(ModalDialog.FullScreenSize),
             Description = Localizer["ModalsAttributeFullScreenSize"],
@@ -195,7 +195,7 @@ public sealed partial class Modals
             ValueList = "None / Always / Small / Medium / Large / ExtraLarge / ExtraExtraLarge",
             DefaultValue = "None"
         },
-        new AttributeItem()
+        new()
         {
             Name = "Title",
             Description = Localizer["ModalsAttributeTitle"],
@@ -203,7 +203,7 @@ public sealed partial class Modals
             ValueList = " — ",
             DefaultValue = " not set "
         },
-        new AttributeItem()
+        new()
         {
             Name = nameof(ModalDialog.ShowMaximizeButton),
             Description = Localizer["ModalsAttributeShowMaximizeButton"],
@@ -211,7 +211,7 @@ public sealed partial class Modals
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ShownCallbackAsync",
             Description = Localizer["ModalsAttributeShownCallbackAsync"],

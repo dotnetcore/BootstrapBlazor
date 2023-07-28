@@ -291,10 +291,10 @@ public partial class MultiSelects
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new[]
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new AttributeItem()
+
+        new()
         {
             Name = "ShowLabel",
             Description = Localizer["MultiSelectsAttribute_ShowLabel"],
@@ -302,7 +302,7 @@ public partial class MultiSelects
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ShowCloseButton",
             Description = Localizer["MultiSelectsAttribute_ShowCloseButton"],
@@ -310,7 +310,7 @@ public partial class MultiSelects
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ShowToolbar",
             Description = Localizer["MultiSelectsAttribute_ShowToolbar"],
@@ -318,7 +318,7 @@ public partial class MultiSelects
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ShowDefaultButtons",
             Description = Localizer["MultiSelectsAttribute_ShowDefaultButtons"],
@@ -326,7 +326,7 @@ public partial class MultiSelects
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem()
+        new()
         {
             Name = "DisplayText",
             Description = Localizer["MultiSelectsAttribute_DisplayText"],
@@ -334,7 +334,7 @@ public partial class MultiSelects
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "PlaceHolder",
             Description = Localizer["MultiSelectsAttribute_PlaceHolder"],
@@ -342,7 +342,7 @@ public partial class MultiSelects
             ValueList = " — ",
             DefaultValue = Localizer["MultiSelectsAttribute_PlaceHolder_DefaultValue"]!
         },
-        new AttributeItem()
+        new()
         {
             Name = "Class",
             Description = Localizer["MultiSelectsAttribute_Class"],
@@ -350,7 +350,7 @@ public partial class MultiSelects
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "Color",
             Description = Localizer["MultiSelectsAttribute_Color"],
@@ -358,7 +358,7 @@ public partial class MultiSelects
             ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
             DefaultValue = "Primary"
         },
-        new AttributeItem()
+        new()
         {
             Name = "IsDisabled",
             Description = Localizer["MultiSelectsAttribute_IsDisabled"],
@@ -366,7 +366,7 @@ public partial class MultiSelects
             ValueList = "true / false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "Items",
             Description = Localizer["MultiSelectsAttribute_Items"],
@@ -374,7 +374,7 @@ public partial class MultiSelects
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "ButtonTemplate",
             Description = Localizer["MultiSelectsAttribute_ButtonTemplate"],
@@ -382,7 +382,7 @@ public partial class MultiSelects
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "ItemTemplate",
             Description = Localizer["MultiSelectsAttribute_ItemTemplate"],

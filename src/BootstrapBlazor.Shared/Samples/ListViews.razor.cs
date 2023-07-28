@@ -20,70 +20,70 @@ public sealed partial class ListViews
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem(){
+        new(){
             Name = "Items",
             Description = Localizer["Items"],
             Type = "IEnumerable<TItem>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem(){
+        new(){
             Name = "Pageable",
             Description = Localizer["Pageable"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem(){
+        new(){
             Name = "HeaderTemplate",
             Description = Localizer["HeaderTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem(){
+        new(){
             Name = "BodyTemplate",
             Description = Localizer["BodyTemplate"],
             Type = "RenderFragment<TItem>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem(){
+        new(){
             Name = "FooterTemplate",
             Description = Localizer["FooterTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem(){
+        new(){
             Name = nameof(ListView<Foo>.Collapsable),
             Description = Localizer["Collapsable"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem(){
+        new(){
             Name = nameof(ListView<Foo>.IsAccordion),
             Description = Localizer["IsAccordion"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "OnQueryAsync",
             Description = Localizer["OnQueryAsync"],
             Type = "Func<QueryPageOptions, Task<QueryData<TItem>>>",
             ValueList = "—",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "OnListViewItemClick",
             Description = Localizer["OnListViewItemClick"],
             Type = "Func<TItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = nameof(ListView<Foo>.CollapsedGroupCallback),
             Description = Localizer["CollapsedGroupCallback"],
             Type = "Func<object?, bool>",

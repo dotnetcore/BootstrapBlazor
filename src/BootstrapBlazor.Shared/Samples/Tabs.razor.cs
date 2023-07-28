@@ -171,99 +171,99 @@ public sealed partial class Tabs
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new AttributeItem() {
+
+        new() {
             Name = "IsBorderCard",
             Description = Localizer["TabsAtt1IsBorderCard"].Value,
             Type = "boolean",
             ValueList = "true/false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsCard",
             Description = Localizer["TabAtt2IsCard"].Value,
             Type = "boolean",
             ValueList = "true/false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsOnlyRenderActiveTab",
             Description = Localizer["TabAtt3IsOnlyRenderActiveTab"].Value,
             Type = "boolean",
             ValueList = "true/false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "ShowClose",
             Description = Localizer["TabAtt4ShowClose"].Value,
             Type = "boolean",
             ValueList = "true/false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "ShowExtendButtons",
             Description = Localizer["TabAtt5ShowExtendButtons"].Value,
             Type = "boolean",
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "ClickTabToNavigation",
             Description = Localizer["TabAtt6ClickTabToNavigation"].Value,
             Type = "boolean",
             ValueList = "true/false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "Placement",
             Description = Localizer["TabAtt7Placement"].Value,
             Type = "Placement",
             ValueList = "Top|Right|Bottom|Left",
             DefaultValue = "Top"
         },
-        new AttributeItem() {
+        new() {
             Name = "Height",
             Description = Localizer["TabAtt8Height"].Value,
             Type = "int",
             ValueList = " — ",
             DefaultValue = "0"
         },
-        new AttributeItem() {
+        new() {
             Name = "Items",
             Description = Localizer["TabAtt9Items"].Value,
             Type = "IEnumerable<TabItemBase>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "DefaultUrl",
             Description = Localizer["TabDefaultUrl"].Value,
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "HeaderTemplate",
             Description = Localizer["TabAttHeaderTemplate"].Value,
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "ChildContent",
             Description = Localizer["TabAtt10ChildContent"].Value,
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "AdditionalAssemblies",
             Description = Localizer["TabAtt11AdditionalAssemblies"].Value,
             Type = "IEnumerable<Assembly>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "OnClickTab",
             Description = Localizer["TabAtt12OnClickTab"].Value,
             Type = "Func<TabItem, Task>",
@@ -278,7 +278,7 @@ public sealed partial class Tabs
     /// <returns></returns>
     private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
     {
-        // TODO: 移动到数据库中
+
         new MethodItem() {
             Name = "AddTab",
             Description = Localizer["TabMethod1AddTab"].Value,

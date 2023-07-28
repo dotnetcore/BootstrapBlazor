@@ -51,22 +51,24 @@ public sealed partial class Calendars
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new AttributeItem() {
+        new()
+        {
             Name = "Value",
             Description = Localizer["Value"],
             Type = "DateTime",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ChildContent",
             Description = Localizer["ChildContent"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "CellTemplate",
             Description = Localizer["CellTemplate"],
             Type = "RenderFragment<CalendarCellValue>",

@@ -104,7 +104,7 @@ public partial class Alerts
     /// <returns></returns>
     private static IEnumerable<EventItem> GetEvents() => new EventItem[]
     {
-        new EventItem()
+        new()
         {
             Name = "OnDismiss",
             Description = "Close the alert box callback method",
@@ -118,7 +118,7 @@ public partial class Alerts
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem()
+        new()
         {
             Name = "ChildContent",
             Description = "Content",
@@ -126,7 +126,7 @@ public partial class Alerts
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "Class",
             Description = "Style",
@@ -134,7 +134,7 @@ public partial class Alerts
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "Color",
             Description = "Color",
@@ -142,7 +142,7 @@ public partial class Alerts
             ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
             DefaultValue = "Primary"
         },
-        new AttributeItem()
+        new()
         {
             Name = "Icon",
             Description = "Icon",
@@ -150,7 +150,7 @@ public partial class Alerts
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "ShowDismiss",
             Description = "Close Button",
@@ -158,7 +158,7 @@ public partial class Alerts
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ShowBar",
             Description = "Show the left Bar",
@@ -166,7 +166,7 @@ public partial class Alerts
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ShowBorder",
             Description = "Show border",
@@ -174,7 +174,7 @@ public partial class Alerts
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ShowShadow",
             Description = "Show Shadow",
