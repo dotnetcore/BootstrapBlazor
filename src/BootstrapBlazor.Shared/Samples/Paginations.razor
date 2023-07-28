@@ -7,44 +7,51 @@
 
 <DemoBlock Title="@Localizer["PaginationsNormalTitle"]"
            Introduction="@Localizer["PaginationsNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Paginations.PaginationsNormal)">
+           Name="Normal">
+    <Pagination PageCount="30" OnPageLinkClick="@OnPageClick" />
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["PaginationsDispalyTextTitle"]"
-           Introduction="@Localizer["PaginationsDispalyTextIntro"]"
-           Name="DispalyText"
-           Demo="typeof(Demos.Paginations.PaginationsDispalyText)">
+<DemoBlock Title="@Localizer["PaginationsDisplayTextTitle"]"
+           Introduction="@Localizer["PaginationsDisplayTextIntro"]"
+           Name="DisplayText">
+    <Pagination PageCount="1" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PaginationsMaxPageLinkCountTitle"]"
            Introduction="@Localizer["PaginationsMaxPageLinkCountIntro"]"
-           Name="MaxPageLinkCount"
-           Demo="typeof(Demos.Paginations.PaginationsMaxPageLinkCount)">
+           Name="MaxPageLinkCount">
+    <Pagination PageCount="2000" MaxPageLinkCount="10" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PaginationsAlignmentTitle"]"
            Introduction="@Localizer["PaginationsAlignmentIntro"]"
-           Name="Alignment"
-           Demo="typeof(Demos.Paginations.PaginationsAlignment)">
+           Name="Alignment">
+    <RadioList @bind-Value="Alignment" Items="AlignmentItems" />
+    <Pagination PageCount="20" Alignment="@Alignment" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PaginationsGotoTitle"]"
            Introduction="@Localizer["PaginationsGotoIntro"]"
-           Name="Goto"
-           Demo="typeof(Demos.Paginations.PaginationsGoto)">
+           Name="ShowGotoNavigator">
+    <Pagination PageCount="20" ShowGotoNavigator="true" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PaginationsPageInfoTextTitle"]"
            Introduction="@Localizer["PaginationsPageInfoTextIntro"]"
-           Name="PageInfoText"
-           Demo="typeof(Demos.Paginations.PaginationsPageInfoText)">
+           Name="PageInfoText">
+    <Pagination PageCount="20" ShowPageInfo="true" PageInfoText="@Localizer["PaginationsInfoTotal"]" ShowGotoNavigator="true" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PaginationsInfoTemplateTitle"]"
            Introduction="@Localizer["PaginationsInfoTemplateIntro"]"
-           Name="InfoTemplate"
-           Demo="typeof(Demos.Paginations.PaginationsInfoTemplate)">
+           Name="InfoTemplate">
+    <Pagination PageCount="@PageCount" ShowPageInfo="true" ShowGotoNavigator="true">
+        <PageInfoTemplate>
+            <div class="page-info me-2">@PageInfoText</div>
+            <Select @bind-Value="PageItems" Items="PageItemsSource" style="width: 120px;" />
+        </PageInfoTemplate>
+    </Pagination>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
