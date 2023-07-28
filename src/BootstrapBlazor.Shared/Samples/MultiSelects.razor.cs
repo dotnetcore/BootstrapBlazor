@@ -230,7 +230,7 @@ public partial class MultiSelects
 
     private static void OnClickButton()
     {
-        //do someting ...
+        //do something ...
         //your code
     }
 
