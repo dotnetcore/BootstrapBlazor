@@ -13,45 +13,71 @@
 
 <DemoBlock Title="@Localizer["OnScreenKeyboardsNormalText"]"
            Introduction="@Localizer["OnScreenKeyboardsNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.OnScreenKeyboards.OnScreenKeyboardsNormal)">
+           Name="Normal">
+    <input class="form-control virtualkeyboard"
+           data-kioskboard-type="@KeyboardType.all.ToString()"
+           data-kioskboard-specialcharacters="true"
+           placeholder='@Localizer["OnScreenKeyboardsNormalIntro"]' />
+    <OnScreenKeyboard ClassName="virtualkeyboard" KeyboardKeys="KeyboardKeysType.english" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["OnScreenKeyboardsTypekeyboardTitle"]"
            Introduction=""
-           Name="Typekeyboard"
-           Demo="typeof(Demos.OnScreenKeyboards.OnScreenKeyboardsTypekeyboard)">
+           Name="Typekeyboard">
+    <input class="form-control virtualkeyboard"
+           data-kioskboard-type="@KeyboardType.keyboard.ToString()"
+           data-kioskboard-placement="@KeyboardPlacement.bottom.ToString()"
+           placeholder='@Localizer["OnScreenKeyboardsTypekeyboardTitle"]' />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["OnScreenKeyboardsTypeNumpadTitle"]"
            Introduction=""
-           Name="TypeNumpadTitle"
-           Demo="typeof(Demos.OnScreenKeyboards.OnScreenKeyboardsTypeNumpadTitle)">
+           Name="TypeNumpadTitle">
+    <input class="form-control virtualkeyboard"
+           data-kioskboard-type="@KeyboardType.numpad.ToString()"
+           data-kioskboard-placement="@(KeyboardPlacement.bottom.ToString())"
+           placeholder='@Localizer["OnScreenKeyboardsTypeNumpadTitle"]' />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["OnScreenKeyboardsThemeDarkTitle"]"
            Introduction=""
-           Name="ThemeDarkTitle"
-           Demo="typeof(Demos.OnScreenKeyboards.OnScreenKeyboardsThemeDarkTitle)">
+           Name="ThemeDarkTitle">
+    <input class="form-control virtualkeyboard1"
+           data-kioskboard-type="@KeyboardType.keyboard.ToString()"
+           placeholder='@Localizer["OnScreenKeyboardsThemeDarkTitle"]' />
+    <OnScreenKeyboard ClassName="virtualkeyboard1" Option="Option" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["OnScreenKeyboardsSpecialcharactersTitle"]"
            Introduction=""
-           Name="SpecialcharactersTitle"
-           Demo="typeof(Demos.OnScreenKeyboards.OnScreenKeyboardsSpecialcharactersTitle)">
+           Name="SpecialcharactersTitle">
+    <input class="form-control virtualkeyboard3"
+           data-kioskboard-specialcharacters="true"
+           placeholder='@Localizer["OnScreenKeyboardsSpecialcharactersCustomerTitle"]' />
+    <input class="form-control virtualkeyboard2"
+           data-kioskboard-specialcharacters="true"
+           placeholder='@Localizer["OnScreenKeyboardsSpecialcharactersTitle"]' />
+    <OnScreenKeyboard ClassName="virtualkeyboard2" Option="CustomerOption" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["OnScreenKeyboardsSpecialcharactersCustomerTitle"]"
            Introduction="[- + =]"
-           Name="SpecialcharactersCustomerTitle"
-           Demo="typeof(Demos.OnScreenKeyboards.OnScreenKeyboardsSpecialcharactersCustomerTitle)">
+           Name="SpecialcharactersCustomerTitle">
+    <OnScreenKeyboard ClassName="virtualkeyboard3" Option="SpecialcharactersOption" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["OnScreenKeyboardsAppTitle"]"
            Introduction=""
-           Name="App"
-           Demo="typeof(Demos.OnScreenKeyboards.OnScreenKeyboardsApp)">
-    <p>@Localizer["OnScreenKeyboardsAppDescription"]</p>
+           Name="App">
+    <p class="mb-3">@Localizer["OnScreenKeyboardsAppDescription"]</p>
+    <OnScreenKeyboard ClassName="virtualkeyboardbb" Option="AppOption" />
+    <div class="form-control textarea-demo"> @BindValue</div>
+    <p>BootstrapInput</p>
+    <BootstrapInput class="virtualkeyboardbb" data-kioskboard-specialcharacters="true" placeholder="BootstrapInput" @bind-Value="@BindValue" />
+    <p>BootstrapPassword</p>
+    <BootstrapPassword class="virtualkeyboardbb" data-kioskboard-specialcharacters="true" placeholder="BootstrapPassword" @bind-Value="@BindValue" />
+    <p>Textarea</p>
+<Textarea class="virtualkeyboardbb" data-kioskboard-specialcharacters="true" placeholder="Textarea" rows="4" @bind-Value="@BindValue" />
 </DemoBlock>
 
 <Tips class="mt-3">
@@ -64,3 +90,30 @@
 <AttributeTable Items="@GetKeyboardOptionAttributes()" Title="KeyboardOption" />
 
 <AttributeTable Items="@GetKeyboardEnumAttributes()" Title="KeyboardEnum" />
+
+@code {
+
+    static KeyboardOption CustomerOption => new()
+    {
+        KeyboardSpecialcharacters = KeyboardSpecialcharacters.europe
+    };
+
+    static KeyboardOption SpecialcharactersOption => new()
+    {
+        CustomerKeyboardSpecialcharacters = new string[] { "中", "国", "女", "足", "牛啊" }
+    };
+
+    static KeyboardOption Option => new()
+    {
+        keysFontFamily = "Barlow",
+        keysFontWeight = "500",
+        Theme = KeyboardTheme.dark,
+    };
+
+    string BindValue { get; set; } = "virtualkeyboard";
+
+    static KeyboardOption AppOption => new()
+    {
+        autoScroll = true
+    };
+}
