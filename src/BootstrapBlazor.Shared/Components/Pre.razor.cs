@@ -109,7 +109,7 @@ public partial class Pre
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (Loaded && !string.IsNullOrEmpty(Demo))
+        if (Loaded)
         {
             await InvokeVoidAsync("highlight", Id);
         }
