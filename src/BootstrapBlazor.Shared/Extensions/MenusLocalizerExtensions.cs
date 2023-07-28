@@ -1033,8 +1033,8 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["Nav"],
-                    Url = "navs"
+                    Text = Localizer["Navigation"],
+                    Url = "navigation"
                 },
                 new()
                 {
