@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Components.Routing;
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// Navs
+/// navigation
 /// </summary>
-public sealed partial class Navs
+public sealed partial class Navigation
 {
     private IEnumerable<NavLink> Items => GetItems();
 
@@ -39,7 +39,8 @@ public sealed partial class Navs
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         // TODO: 移动到数据库中
-        new AttributeItem() {
+        new()
+        {
             Name = "ChildContent",
             Description = Localizer["NavsChildContent"],
             Type = "RenderFragment",

@@ -1864,7 +1864,7 @@
     "SubMenu41": "曾曾孙菜单 41",
     "SubMenu42": "曾曾孙菜单 42"
   },
-  "BootstrapBlazor.Shared.Samples.Navs": {
+  "BootstrapBlazor.Shared.Samples.Navigation": {
     "NavsTitle": "Nav 导航组件",
     "NavsDescription": "为网站提供导航功能的菜单。",
     "NavsNormalTitle": "基本导航样式",

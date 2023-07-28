@@ -1860,7 +1860,7 @@
     "SubMenu41": "Sub Menu 41",
     "SubMenu42": "Sub Menu 42"
   },
-  "BootstrapBlazor.Shared.Samples.Navs": {
+  "BootstrapBlazor.Shared.Samples.Navigation": {
     "NavsTitle": "Nav",
     "NavsDescription": "A menu that provides navigation for your site.",
     "NavsNormalTitle": "Basic navigation style.",
