@@ -121,22 +121,22 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["SpeechIntro"],
-                    Url = "speechs"
+                    Url = "speech"
                 },
                 new()
                 {
                     Text = Localizer["Recognizer"],
-                    Url = "recognizers"
+                    Url = "recognizer"
                 },
                 new()
                 {
                     Text = Localizer["Synthesizer"],
-                    Url = "synthesizers"
+                    Url = "synthesizer"
                 },
                 new()
                 {
                     Text = Localizer["SpeechWave"],
-                    Url = "speechwaves"
+                    Url = "speech-wave"
                 }
             };
             AddBadge(item, count: 3);
