@@ -6,62 +6,270 @@
 
 <DemoBlock Title="@Localizer["ModalsNormalTitle"]"
            Introduction="@Localizer["ModalsNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Modals.ModalsNormal)">
+           Name="Normal">
+    <div class="modal d-block position-relative" style="z-index: 2;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@Localizer["ModalsNormalPopupTitle"]</h5>
+                    <button type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>@Localizer["ModalsNormalPopupText"]</p>
+                </div>
+                <div class="modal-footer">
+                    <Button Color="Color.Secondary" Text="Close" Icon="fa-solid fa-xmark"></Button>
+                    <Button Text="Save" Icon="fa-solid fa-floppy-disk"></Button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-3">
+        <p>@((MarkupString)Localizer["ModalsNormalIsKeyboard"].Value)</p>
+        <Button OnClick="() => Modal.Toggle()">@Localizer["ModalsNormalPopups"]</Button>
+    </div>
+    <Modal @ref="Modal" IsKeyboard="true">
+        <ModalDialog Title="@Localizer["ModalsNormalDefaultPopup"]">
+            <BodyTemplate>
+                <div>@Localizer["ModalsNormalDefaultPopupText"]</div>
+            </BodyTemplate>
+        </ModalDialog>
+    </Modal>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ModalsIsBackdropTitle"]"
            Introduction="@Localizer["ModalsIsBackdropIntro"]"
-           Name="IsBackdrop"
-           Demo="typeof(Demos.Modals.ModalsIsBackdrop)">
+           Name="IsBackdrop">
+    <Button OnClick="() => BackdropModal.Toggle()">@Localizer["ModalsNormalPopups"]</Button>
+    <Modal @ref="BackdropModal" IsBackdrop="true">
+        <ModalDialog Title="@Localizer["ModalsIsBackdropToClose"]">
+            <BodyTemplate>
+                <div>@Localizer["ModalsTitlePopupWindowText"]</div>
+            </BodyTemplate>
+        </ModalDialog>
+    </Modal>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ModalsDialogResizeTitle"]"
            Introduction="@Localizer["ModalsDialogResizeIntro"]"
-           Name="DialogResize"
-           Demo="typeof(Demos.Modals.ModalsDialogResize)">
+           Name="DialogResize">
+    <Button OnClick="() => SmailModal.Toggle()">@Localizer["ModalsResize"]</Button>
+
+    <Modal @ref="SmailModal">
+        <ModalDialog Size="Size.Small" ShowResize="true" Title="@Localizer["ModalsResize"]">
+            <BodyTemplate>
+                <div>@Localizer["ModalsTitlePopupWindowText"]</div>
+            </BodyTemplate>
+        </ModalDialog>
+    </Modal>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ModalsDialogSizeTitle"]"
            Introduction="@Localizer["ModalsDialogSizeIntro"]"
-           Name="DialogSize"
-           Demo="typeof(Demos.Modals.ModalsDialogSize)">
+           Name="DialogSize">
+    <div class="row g-3">
+        <div class="col-12 col-sm-4 col-lg-auto">
+            <Button OnClick="() => SizeSmailModal.Toggle()">@Localizer["ModalsSmallPopup"]</Button>
+            <Modal @ref="SizeSmailModal">
+                <ModalDialog Size="Size.Small" Title="@Localizer["ModalsSmallPopup"]">
+                    <BodyTemplate>
+                        <div>@Localizer["ModalsTitlePopupWindowText"]</div>
+                    </BodyTemplate>
+                </ModalDialog>
+            </Modal>
+        </div>
+        <div class="col-12 col-sm-4 col-lg-auto">
+            <Button OnClick="() => LargeModal.Toggle()">@Localizer["ModalsBigPopup"]</Button>
+            <Modal @ref="LargeModal">
+                <ModalDialog Size="Size.Large" Title="@Localizer["ModalsBigPopup"]">
+                    <BodyTemplate>
+                        <div>@Localizer["ModalsTitlePopupWindowText"]</div>
+                    </BodyTemplate>
+                </ModalDialog>
+            </Modal>
+        </div>
+        <div class="col-12 col-sm-4 col-lg-auto">
+            <Button OnClick="() => ExtraLargeModal.Toggle()">@Localizer["ModalsOversizedPopup"]</Button>
+            <Modal @ref="ExtraLargeModal">
+                <ModalDialog Size="Size.ExtraLarge" Title="@Localizer["ModalsOversizedPopup"]">
+                    <BodyTemplate>
+                        <div>@Localizer["ModalsTitlePopupWindowText"]</div>
+                    </BodyTemplate>
+                </ModalDialog>
+            </Modal>
+        </div>
+        <div class="col-12 col-sm-4 col-lg-auto">
+            <Button OnClick="() => ExtraExtraLargeModal.Toggle()">@Localizer["ModalsSuperLargePopup"]</Button>
+            <Modal @ref="ExtraExtraLargeModal">
+                <ModalDialog Size="Size.ExtraExtraLarge" Title="@Localizer["ModalsSuperLargePopup"]">
+                    <BodyTemplate>
+                        <div>@Localizer["ModalsTitlePopupWindowText"]</div>
+                    </BodyTemplate>
+                </ModalDialog>
+            </Modal>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ModalsFullScreenSizeTitle"]"
            Introduction="@Localizer["ModalsFullScreenSizeIntro"]"
-           Name="FullScreenSize"
-           Demo="typeof(Demos.Modals.ModalsFullScreenSize)">
+           Name="FullScreenSize">
+    <div class="row g-3">
+        <div class="col-12 col-sm-4 col-lg-auto">
+            <Button OnClick="() => SmailFullScreenModal.Toggle()">@Localizer["ModalsFullScreenPopup"]</Button>
+            <Modal @ref="SmailFullScreenModal">
+                <ModalDialog FullScreenSize="FullScreenSize.Always" Title="@Localizer["ModalsFullScreenPopup"]">
+                    <BodyTemplate>
+                        <div>@Localizer["ModalsTitlePopupWindowText"]</div>
+                    </BodyTemplate>
+                </ModalDialog>
+            </Modal>
+        </div>
+        <div class="col-12 col-sm-4 col-lg-auto">
+            <Button OnClick="() => LargeFullScreenModal.Toggle()">@Localizer["ModalsFullScreenPopup992"]</Button>
+            <Modal @ref="LargeFullScreenModal">
+                <ModalDialog FullScreenSize="FullScreenSize.Large" Title="@Localizer["ModalsLargeFullScreenPopup"]">
+                    <BodyTemplate>
+                        <div>@Localizer["ModalsTitlePopupWindowText"]</div>
+                    </BodyTemplate>
+                </ModalDialog>
+            </Modal>
+        </div>
+        <div class="col-12 col-sm-4 col-lg-auto">
+            <Button OnClick="() => ExtraLargeFullScreenModal.Toggle()">@Localizer["ModalsFullScreenPopup1200"]</Button>
+            <Modal @ref="ExtraLargeFullScreenModal">
+                <ModalDialog FullScreenSize="FullScreenSize.ExtraLarge" Title="@Localizer["ModalsLargeFullScreenPopupWindow"]">
+                    <BodyTemplate>
+                        <div>@Localizer["ModalsTitlePopupWindowText"]</div>
+                    </BodyTemplate>
+                </ModalDialog>
+            </Modal>
+        </div>
+        <div class="col-12 col-sm-4 col-lg-auto">
+            <Button OnClick="() => ExtraExtraLargeFullScreenModal.Toggle()">@Localizer["ModalsFullScreenPopup1400"]</Button>
+            <Modal @ref="ExtraExtraLargeFullScreenModal">
+                <ModalDialog FullScreenSize="FullScreenSize.ExtraExtraLarge" Title="@Localizer["ModalsSuperLargeFullScreenPopupWindow"]">
+                    <BodyTemplate>
+                        <div>@Localizer["ModalsTitlePopupWindowText"]</div>
+                    </BodyTemplate>
+                </ModalDialog>
+            </Modal>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ModalsCenterVerticallyTitle"]"
            Introduction="@Localizer["ModalsCenterVerticallyIntro"]"
-           Name="CenterVertically"
-           Demo="typeof(Demos.Modals.ModalsCenterVertically)">
+           Name="CenterVertically">
+    <Button OnClick="() => CenterModal.Toggle()">@Localizer["ModalsVerticallyCenteredPopup"]</Button>
+    <Modal @ref="CenterModal">
+        <ModalDialog IsCentered="true" Title="@Localizer["ModalsVerticallyCenteredPopup"]">
+            <BodyTemplate>
+                <div>@Localizer["ModalsTitlePopupWindowText"]</div>
+            </BodyTemplate>
+        </ModalDialog>
+    </Modal>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ModalsLongContentTitle"]"
            Introduction="@Localizer["ModalsLongContentIntro"]"
-           Name="LongContent"
-           Demo="typeof(Demos.Modals.ModalsLongContent)">
+           Name="LongContent">
+    <div class="row g-3">
+        <div class="col-12 col-sm-4 col-lg-auto">
+            <Button OnClick="() => LongContentModal.Toggle()">@Localizer["ModalsVeryLongContent"]</Button>
+            <Modal @ref="LongContentModal">
+                <ModalDialog IsCentered="true" Title="@Localizer["ModalsVeryLongContent"]">
+                    <BodyTemplate>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                    </BodyTemplate>
+                </ModalDialog>
+            </Modal>
+        </div>
+        <div class="col-12 col-sm-4 col-lg-auto">
+            <Button OnClick="() => ScrollModal.Toggle()">@Localizer["ModalsScrollBarPopup"]</Button>
+            <Modal @ref="ScrollModal">
+                <ModalDialog IsCentered="true" IsScrolling="true" Title="@Localizer["ModalsScrollBarPopup"]">
+                    <BodyTemplate>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                        <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+                        <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+                    </BodyTemplate>
+                </ModalDialog>
+            </Modal>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ModalsIsDraggableTitle"]"
            Introduction="@Localizer["ModalsIsDraggableIntro"]"
-           Name="IsDraggable"
-           Demo="typeof(Demos.Modals.ModalsIsDraggable)">
+           Name="IsDraggable">
+    <Button OnClick="() => DragModal.Toggle()">@Localizer["ModalsNormalPopups"]</Button>
+    <Modal @ref="DragModal">
+        <ModalDialog Title="@Localizer["ModalsNormalDefaultPopup"]" IsDraggable="true" ShowMaximizeButton="true">
+            <BodyTemplate>
+                <div>@Localizer["ModalsTitlePopupWindowText"]</div>
+            </BodyTemplate>
+        </ModalDialog>
+    </Modal>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ModalsMaximizeTitle"]"
            Introduction="@Localizer["ModalsMaximizeIntro"]"
-           Name="Maximize"
-           Demo="typeof(Demos.Modals.ModalsMaximize)">
+           Name="Maximize">
+    <Button OnClick="() => MaximizeModal.Toggle()">@Localizer["ModalsNormalPopups"]</Button>
+    <Modal @ref="MaximizeModal">
+        <ModalDialog Title="@Localizer["ModalsMaximizePopup"]" ShowMaximizeButton="true">
+            <BodyTemplate>
+                <div>@Localizer["ModalsTitlePopupWindowText"]</div>
+            </BodyTemplate>
+        </ModalDialog>
+    </Modal>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ModalsShownCallbackAsyncTitle"]"
            Introduction="@Localizer["ModalsShownCallbackAsyncIntro"]"
-           Name="ShownCallbackAsync"
-           Demo="typeof(Demos.Modals.ModalsShownCallbackAsync)">
+           Name="ShownCallbackAsync">
+    <Button OnClick="() => ShownCallbackModal.Toggle()">@Localizer["ModalsNormalPopups"]</Button>
+    <Modal @ref="ShownCallbackModal" OnShownAsync="OnShownCallbackAsync">
+        <ModalDialog Title="ShownCallbackAsync 回调示例">
+            <BodyTemplate>
+                <div>@((MarkupString)Localizer["ModalsShownCallbackAsyncIntro"].Value)</div>
+            </BodyTemplate>
+        </ModalDialog>
+    </Modal>
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
