@@ -123,25 +123,8 @@ public partial class Pre
 
     private async Task GetCodeAsync()
     {
-        if (!string.IsNullOrEmpty(Demo))
+        if (!string.IsNullOrEmpty(CodeFile))
         {
-            // TODO: 改版后移除以下代码
-            var code = await Example.GetDemoAsync(Demo);
-            if (!string.IsNullOrEmpty(code))
-            {
-                ChildContent = builder =>
-                {
-                    builder.AddContent(0, code);
-                };
-            }
-            CanCopy = !string.IsNullOrEmpty(code) && !code.StartsWith("Error: ");
-        }
-        else if (!string.IsNullOrEmpty(CodeFile))
-        {
-            if (CodeFile == "ajax.razor")
-            {
-                CodeFile = "Ajaxs.razor";
-            }
             var code = await Example.GetCodeAsync(CodeFile);
             if (!string.IsNullOrEmpty(code))
             {
