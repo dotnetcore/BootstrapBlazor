@@ -1,4 +1,7 @@
 ﻿{
+  "src": {
+    "ajax": "Ajaxs"
+  },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",
     "column": "BV1ap4y1x7Qn?p=2",
@@ -42,5 +45,15 @@
     "reconnectors": "BV1Dr4y1J7Z5;BV193411P7Dz",
     "speechwaves": "BV1Dr4y1J7Z5",
     "topologies": "BV1eY4y167jn;BV13Z4y1h7MA"
+  },
+  "link": {
+    "Ant design of blazor": "https://ant-design-blazor.github.io/",
+    "Bulma": "https://gitee.com/loogn/bulmarazor",
+    "CCFlow": "http://ccflow.org/?from=blazor",
+    "Dotnet9": "https://dotnet9.com/",
+    "Lin Dexi's Blog": "https://blog.lindexi.com",
+    "M&J": "http://www.mrhuo.com/",
+    "Pear Admin": "http://www.pearadmin.com",
+    "SAPHP": "https://www.swiftadmin.net/"
   }
 }

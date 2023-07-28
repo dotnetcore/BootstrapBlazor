@@ -120,20 +120,9 @@ public class WebsiteOptions
     public WebsiteOptions()
     {
         var config = GetConfiguration("docs.json");
-        SourceCodes = config.GetSection("src").GetChildren().SelectMany(c => new KeyValuePair<string, string?>[]
-        {
-            new(c.Key, c.Value)
-        }).ToDictionary(item => item.Key, item => item.Value);
-        Videos = config.GetSection("video").GetChildren().SelectMany(c => new KeyValuePair<string, string?>[]
-        {
-            new(c.Key, c.Value)
-        }).ToDictionary(item => item.Key, item => item.Value);
-
-        config = GetConfiguration("links.json");
-        Links = config.GetChildren().SelectMany(c => new KeyValuePair<string, string?>[]
-        {
-            new (c.Key, c.Value)
-        }).ToDictionary(item => item.Key, item => item.Value);
+        SourceCodes = config.GetSection("src").GetChildren().Select(c => new KeyValuePair<string, string?>(c.Key, c.Value)).ToDictionary(item => item.Key, item => item.Value);
+        Videos = config.GetSection("video").GetChildren().Select(c => new KeyValuePair<string, string?>(c.Key, c.Value)).ToDictionary(item => item.Key, item => item.Value);
+        Links = config.GetSection("link").GetChildren().Select(c => new KeyValuePair<string, string?>(c.Key, c.Value)).ToDictionary(item => item.Key, item => item.Value);
     }
 
     private IConfiguration GetConfiguration(string jsonFileName)
