@@ -11,7 +11,7 @@ public sealed partial class Menus
 {
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem()
+        new()
         {
             Name = "Items",
             Description = Localizer["MenusAttr_Items"],
@@ -19,7 +19,7 @@ public sealed partial class Menus
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "IsVertical",
             Description = Localizer["MenusAttr_IsVertical"],
@@ -27,7 +27,7 @@ public sealed partial class Menus
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "IsBottom",
             Description = Localizer["MenusAttr_IsBottom"],
@@ -35,21 +35,21 @@ public sealed partial class Menus
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsAccordion",
             Description = Localizer["MenusAttr_IsAccordion"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "DisableNavigation",
             Description = Localizer["MenusAttr_DisableNavigation"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "OnClick",
             Description = Localizer["MenusAttr_OnClick"],
             Type = "Func<MenuItem, Task>",

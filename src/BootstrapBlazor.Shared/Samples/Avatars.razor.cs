@@ -23,63 +23,63 @@ public sealed partial class Avatars
     private IEnumerable<AttributeItem> GetAttributes() => new[]
     {
         // TODO: 移动到数据库中
-        new AttributeItem() {
+        new() {
             Name = "Size",
             Description = Localizer["Size"],
             Type = "Size",
             ValueList = "ExtraSmall|Small|Medium|Large|ExtraLarge|ExtraExtraLarge",
             DefaultValue = "None"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsBorder",
             Description = Localizer["IsBorder"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsCircle",
             Description = Localizer["IsCircle"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsIcon",
             Description = Localizer["IsIcon"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsText",
             Description = Localizer["IsText"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "Icon",
             Description = Localizer["Icon"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-solid fa-user"
         },
-        new AttributeItem() {
+        new() {
             Name = "Text",
             Description = Localizer["Text"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "Url",
             Description = Localizer["Url"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "GetUrlAsync",
             Description = Localizer["GetUrlAsync"],
             Type = "Func<Task<string>>",

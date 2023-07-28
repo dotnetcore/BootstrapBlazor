@@ -13,35 +13,35 @@ public partial class TablesCell
     {
         return new[]
         {
-            new AttributeItem() {
+            new() {
                 Name = "Row",
                 Description = Localizer["RowAttr"],
                 Type = "object",
                 ValueList = " — ",
                 DefaultValue = "<TModel>"
             },
-            new AttributeItem() {
+            new() {
                 Name = "ColumnName",
                 Description = Localizer["ColumnNameAttr"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
-            new AttributeItem() {
+            new() {
                 Name = "Colspan",
                 Description = Localizer["ColspanAttr"],
                 Type = "int",
                 ValueList = " — ",
                 DefaultValue = "0"
             },
-            new AttributeItem() {
+            new() {
                 Name = "Class",
                 Description = Localizer["ClassAttr"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
-            new AttributeItem() {
+            new() {
                 Name = "Value",
                 Description = Localizer["ValueAttr"],
                 Type = "string",

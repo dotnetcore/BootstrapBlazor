@@ -16,84 +16,84 @@ public sealed partial class Dropdowns
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         // TODO: 移动到数据库中
-        new AttributeItem() {
+        new() {
             Name = "Value",
             Description = Localizer["ADesc1"],
             Type = "TValue",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "Class",
             Description = Localizer["ADesc2"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "Color",
             Description = Localizer["ADesc3"],
             Type = "Color",
             ValueList = "Primary / Secondary / Info / Warning / Danger ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "Direction",
             Description = Localizer["ADesc4"],
             Type = "Direction",
             ValueList = "Dropup / Dropright /  Dropleft",
             DefaultValue = " None "
         },
-        new AttributeItem() {
+        new() {
             Name = "Items",
             Description = Localizer["ADesc5"],
             Type = "list",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "MenuAlignment",
             Description = Localizer["ADesc6"],
             Type = "Alignment",
             ValueList = "None / Left / Center / Right ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "MenuItem",
             Description = Localizer["ADesc7"],
             Type = "string",
             ValueList = "button / a ",
             DefaultValue = " a "
         },
-        new AttributeItem() {
+        new() {
             Name = "Responsive",
             Description = Localizer["ADesc8"],
             Type = "string",
             ValueList = "dropdown-menu / dropdown-menu-end / dropdown-menu-{lg | md | sm }-{right | left}",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "ShowSplit",
             Description = Localizer["ADesc9"],
             Type = "bool",
             ValueList = "true / false ",
             DefaultValue = " false "
         },
-        new AttributeItem() {
+        new() {
             Name = "Size",
             Description = Localizer["ADesc10"],
             Type = "Size",
             ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge / ExtraExtraLarge",
             DefaultValue = "None"
         },
-        new AttributeItem() {
+        new() {
             Name = "TagName",
             Description = Localizer["ADesc11"],
             Type = "string",
             ValueList = " a / button ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = nameof(Dropdown<string>.FixedButtonText),
             Description = Localizer["FixedButtonText"],
             Type = "string",

@@ -26,7 +26,7 @@ public partial class Tooltips
     protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         // TODO: 移动到数据库中
-        new AttributeItem() {
+        new() {
             Name = "Placement",
             Description = "Location",
             Type = "Placement",

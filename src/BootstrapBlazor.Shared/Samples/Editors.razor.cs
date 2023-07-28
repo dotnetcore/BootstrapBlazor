@@ -12,35 +12,35 @@ public sealed partial class Editors
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         // TODO: 移动到数据库中
-        new AttributeItem() {
+        new() {
             Name = "Placeholder",
             Description = Localizer["Att1"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = Localizer["Att1DefaultValue"]!
         },
-        new AttributeItem() {
+        new() {
             Name = "IsEditor",
             Description = Localizer["Att2"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "ShowSubmit",
             Description = Localizer["AttShowSubmit"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new() {
             Name = "Height",
             Description = Localizer["Att3"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "ToolbarItems",
             Description = Localizer["Att4"],
@@ -48,7 +48,7 @@ public sealed partial class Editors
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "CustomerToolbarButtons",
             Description = Localizer["Att5"],

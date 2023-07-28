@@ -135,49 +135,49 @@ public sealed partial class Toasts
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new() {
             Name = "Category",
             Description = Localizer["ToastsAttrCategory"],
             Type = "ToastCategory",
             ValueList = "Success/Information/Error/Warning",
             DefaultValue = "Success"
         },
-        new AttributeItem() {
+        new() {
             Name = "Title",
             Description = Localizer["ToastsAttrTitle"],
             Type = "string",
             ValueList = "—",
             DefaultValue = ""
         },
-        new AttributeItem() {
+        new() {
             Name = "Content",
             Description = Localizer["ToastsAttrContent"],
             Type = "string",
             ValueList = "—",
             DefaultValue = ""
         },
-        new AttributeItem() {
+        new() {
             Name = "Delay",
             Description = Localizer["ToastsAttrDelay"],
             Type = "int",
             ValueList = "—",
             DefaultValue = "4000"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsAutoHide",
             Description = Localizer["ToastsAttrIsAutoHide"],
             Type = "boolean",
             ValueList = "",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsHtml",
             Description = Localizer["ToastsAttrIsHtml"],
             Type = "boolean",
             ValueList = "",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "Placement",
             Description = Localizer["ToastsAttrPlacement"],
             Type = "Placement",

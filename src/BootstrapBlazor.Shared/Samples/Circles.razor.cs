@@ -25,21 +25,21 @@ public sealed partial class Circles
     {
         return new AttributeItem[]
         {
-                new AttributeItem(){
+                new(){
                     Name = "Width",
                     Description = Localizer["Width"],
                     Type = "int",
                     ValueList = "",
                     DefaultValue = "120"
                 },
-                new AttributeItem(){
+                new(){
                     Name = "StrokeWidth",
                     Description = Localizer["StrokeWidth"],
                     Type = "int",
                     ValueList = "",
                     DefaultValue = "2"
                 },
-                new AttributeItem()
+                new()
                 {
                     Name = "Value",
                     Description = Localizer["Value"],
@@ -47,14 +47,14 @@ public sealed partial class Circles
                     ValueList = "0-100",
                     DefaultValue = "0"
                 },
-                new AttributeItem(){
+                new(){
                     Name = "Color",
                     Description = Localizer["Color"],
                     Type = "Color",
                     ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
                     DefaultValue = "Primary"
                 },
-                new AttributeItem()
+                new()
                 {
                     Name = "ShowProgress",
                     Description = Localizer["ShowProgress"],
@@ -62,7 +62,7 @@ public sealed partial class Circles
                     ValueList = "true / false",
                     DefaultValue = "true"
                 },
-                new AttributeItem()
+                new()
                 {
                     Name = "ChildContent",
                     Description = Localizer["ChildContent"],

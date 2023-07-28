@@ -64,28 +64,28 @@ public sealed partial class Searches
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         // TODO: 移动到数据库中
-        new AttributeItem() {
+        new() {
             Name = "ChildContent",
             Description = Localizer["SearchsChildContent"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "Items",
             Description = Localizer["SearchsItems"],
             Type = "IEnumerable<string>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "NoDataTip",
             Description = Localizer["SearchsNoDataTip"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = Localizer["SearchsNoDataTipDefaultValue"]
         },
-        new AttributeItem()
+        new()
         {
             Name="SearchButtonLoadingIcon",
             Description = Localizer["SearchsButtonLoadingIcon"],
@@ -93,63 +93,63 @@ public sealed partial class Searches
             ValueList = " — ",
             DefaultValue = "fa-fw fa-spin fa-solid fa-spinner"
         },
-        new AttributeItem() {
+        new() {
             Name = "ClearButtonIcon",
             Description = Localizer["SearchsClearButtonIcon"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-solid fa-trash"
         },
-        new AttributeItem() {
+        new() {
             Name = "ClearButtonText",
             Description = Localizer["SearchsClearButtonText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "ClearButtonColor",
             Description = Localizer["SearchsClearButtonColor"],
             Type = "Color",
             ValueList = " — ",
             DefaultValue = "Secondary"
         },
-        new AttributeItem() {
+        new() {
             Name = "SearchButtonColor",
             Description = Localizer["SearchsButtonColor"],
             Type = "Color",
             ValueList = " — ",
             DefaultValue = "Primary"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsLikeMatch",
             Description = Localizer["SearchsIsLikeMatch"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsAutoFocus",
             Description = Localizer["SearchsIsAutoFocus"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsAutoClearAfterSearch",
             Description = Localizer["SearchsIsAutoClearAfterSearch"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsOnInputTrigger",
             Description = Localizer["SearchsIsOnInputTrigger"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "IgnoreCase",
             Description = Localizer["SearchsIgnoreCase"],
@@ -157,7 +157,7 @@ public sealed partial class Searches
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ShowClearButton",
             Description = Localizer["SearchsShowClearButton"],
@@ -165,7 +165,7 @@ public sealed partial class Searches
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name="OnSearch",
             Description = Localizer["SearchsOnSearch"],
@@ -173,7 +173,7 @@ public sealed partial class Searches
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name="OnClear",
             Description = Localizer["SearchsOnClear"],

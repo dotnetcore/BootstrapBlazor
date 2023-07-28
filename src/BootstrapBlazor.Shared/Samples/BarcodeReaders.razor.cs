@@ -63,7 +63,7 @@ public sealed partial class BarcodeReaders
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem()
+        new()
         {
             Name = "ButtonScanText",
             Description = Localizer["ButtonScanText"],
@@ -71,7 +71,7 @@ public sealed partial class BarcodeReaders
             ValueList = " — ",
             DefaultValue = Localizer["ButtonScanTextDefaultValue"]
         },
-        new AttributeItem()
+        new()
         {
             Name = "ButtonStopText",
             Description = Localizer["ButtonStopText"],
@@ -79,7 +79,7 @@ public sealed partial class BarcodeReaders
             ValueList = " — ",
             DefaultValue = Localizer["ButtonStopTextDefaultValue"]
         },
-        new AttributeItem()
+        new()
         {
             Name = "AutoStopText",
             Description = Localizer["AutoStopText"],
@@ -87,7 +87,7 @@ public sealed partial class BarcodeReaders
             ValueList = " — ",
             DefaultValue = Localizer["AutoStopTextDefaultValue"]
         },
-        new AttributeItem()
+        new()
         {
             Name = "DeviceLabel",
             Description = Localizer["DeviceLabel"],
@@ -95,7 +95,7 @@ public sealed partial class BarcodeReaders
             ValueList = " — ",
             DefaultValue = Localizer["DeviceLabelDefaultValue"]
         },
-        new AttributeItem()
+        new()
         {
             Name = "InitDevicesString",
             Description = Localizer["InitDevicesString"],
@@ -103,7 +103,7 @@ public sealed partial class BarcodeReaders
             ValueList = " — ",
             DefaultValue = Localizer["InitDevicesStringDefaultValue"]
         },
-        new AttributeItem()
+        new()
         {
             Name = "NotFoundDevicesString",
             Description = Localizer["NotFoundDevicesString"],
@@ -111,7 +111,7 @@ public sealed partial class BarcodeReaders
             ValueList = " — ",
             DefaultValue = Localizer["NotFoundDevicesStringDefaultValue"]
         },
-        new AttributeItem()
+        new()
         {
             Name = "AutoStart",
             Description = Localizer["AutoStart"],
@@ -119,7 +119,7 @@ public sealed partial class BarcodeReaders
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "AutoStop",
             Description = Localizer["AutoStart"],
@@ -127,7 +127,7 @@ public sealed partial class BarcodeReaders
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ScanType",
             Description = "",
@@ -135,7 +135,7 @@ public sealed partial class BarcodeReaders
             ValueList = "Camera|Image",
             DefaultValue = "Camera"
         },
-        new AttributeItem()
+        new()
         {
             Name = "OnInit",
             Description = Localizer["OnInit"],
@@ -143,7 +143,7 @@ public sealed partial class BarcodeReaders
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "OnResult",
             Description = Localizer["OnResult"],
@@ -151,7 +151,7 @@ public sealed partial class BarcodeReaders
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "OnStart",
             Description = Localizer["OnStart"],
@@ -159,7 +159,7 @@ public sealed partial class BarcodeReaders
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "OnClose",
             Description = Localizer["OnClose"],
@@ -167,7 +167,7 @@ public sealed partial class BarcodeReaders
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "OnError",
             Description = Localizer["OnError"],
@@ -175,7 +175,7 @@ public sealed partial class BarcodeReaders
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "OnDeviceChanged",
             Description = Localizer["OnDeviceChanged"],

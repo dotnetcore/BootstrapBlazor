@@ -125,28 +125,28 @@ public partial class CheckboxLists
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new() {
             Name = "Items",
             Description = Localizer["Att1"],
             Type = "IEnumerable<SelectedItem>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "IsDisabled",
             Description = Localizer["Att1"],
             Type = "boolean",
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new AttributeItem(){
+        new(){
             Name = "Value",
             Description = Localizer["Att1"],
             Type = "TValue",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem(){
+        new(){
             Name = "IsVertical",
             Description = Localizer["Att1"],
             Type = "boolean",

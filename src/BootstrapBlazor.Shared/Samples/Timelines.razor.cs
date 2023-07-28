@@ -188,28 +188,28 @@ public sealed partial class Timelines
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         // TODO: 移动到数据库中
-        new AttributeItem() {
+        new() {
             Name = "Items",
             Description = Localizer["TimelinesItems"],
             Type = "IEnumerable<TimelineItem>",
             ValueList = "—",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "IsReverse",
             Description = Localizer["TimelinesIsReverse"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsLeft",
             Description = Localizer["TimelinesIsLeft"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "IsAlternate",
             Description = Localizer["TimelinesIsAlternate"],
             Type = "boolean",
@@ -224,35 +224,35 @@ public sealed partial class Timelines
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetTimelineItemAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new() {
             Name = nameof(TimelineItem.Color),
             Description = Localizer["TimelinesColor"],
             Type = "Color",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = nameof(TimelineItem.Content),
             Description = Localizer["TimelinesContent"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = nameof(TimelineItem.Icon),
             Description = Localizer["TimelinesIcon"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = nameof(TimelineItem.Description),
             Description = Localizer["TimelinesDescription"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = nameof(TimelineItem.Component),
             Description = Localizer["TimelinesComponent"],
             Type = nameof(BootstrapDynamicComponent),

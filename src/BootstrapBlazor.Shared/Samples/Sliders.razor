@@ -118,14 +118,14 @@
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         // TODO: 移动到数据库中
-        new AttributeItem() {
+        new() {
             Name = "IsDisabled",
             Description = Localizer["SlidersIsDisabled"],
             Type = "boolean",
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "Value",
             Description = Localizer["SlidersValue"],
             Type = "int",

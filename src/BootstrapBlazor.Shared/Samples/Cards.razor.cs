@@ -23,7 +23,7 @@ public sealed partial class Cards
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "FooterTemplate",
             Description = Localizer["FooterTemplate"],
             Type = "RenderFragment",

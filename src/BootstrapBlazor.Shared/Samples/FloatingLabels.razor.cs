@@ -11,49 +11,49 @@ public partial class FloatingLabels
 {
     private IEnumerable<AttributeItem> GetAttributes() => new[]
     {
-        new AttributeItem() {
+        new() {
             Name = "ChildContent",
             Description = Localizer["FloatingLabelsChildContent"].Value,
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "ShowLabel",
             Description = Localizer["FloatingLabelsShowLabel"].Value,
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = nameof(FloatingLabel<string>.IsGroupBox),
             Description = Localizer["FloatingLabelsGroupBox"].Value,
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "DisplayText",
             Description = Localizer["FloatingLabelsDisplayText"].Value,
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "FormatString",
             Description = Localizer["FloatingLabelsFormatString"].Value,
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "Formatter",
             Description = Localizer["FloatingLabelsFormatter"].Value,
             Type = "RenderFragment<TItem>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "type",
             Description = Localizer["FloatingLabelsType"].Value,
@@ -61,7 +61,7 @@ public partial class FloatingLabels
             ValueList = "text / number / email / url / password",
             DefaultValue = "text"
         },
-        new AttributeItem()
+        new()
         {
             Name = "IsDisabled",
             Description = Localizer["FloatingLabelsIsDisabled"].Value,

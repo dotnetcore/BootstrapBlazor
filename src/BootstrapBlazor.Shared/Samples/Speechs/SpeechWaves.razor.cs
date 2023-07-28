@@ -16,28 +16,28 @@ public partial class SpeechWaves
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         // TODO: 移动到数据库中
-        new AttributeItem() {
+        new() {
             Name = nameof(SpeechWave.Show),
             Description = Localizer["ShowAttr"],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = nameof(SpeechWave.ShowUsedTime),
             Description = Localizer["ShowUsedTimeAttr"],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new() {
             Name = nameof(SpeechWave.OnTimeout),
             Description = Localizer["OnTimeoutAttr"],
             Type = "Func<Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = nameof(SpeechWave.TotalTime),
             Description = Localizer["TotalTimeSecondAttr"],
             Type = "int",

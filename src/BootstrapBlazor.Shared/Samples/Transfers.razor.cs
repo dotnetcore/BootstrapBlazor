@@ -107,91 +107,91 @@ public sealed partial class Transfers : ComponentBase
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         // TODO: 移动到数据库中
-        new AttributeItem() {
+        new() {
             Name = "Items",
             Description = Localizer["Items"],
             Type = "IEnumerable<SelectedItem>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "LeftButtonText",
             Description = Localizer["LeftButtonTextAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "LeftPanelText",
             Description = Localizer["LeftPanelTextAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = Localizer["LeftPanelDefaultValue"]!
         },
-        new AttributeItem() {
+        new() {
             Name = "RightButtonText",
             Description = Localizer["RightButtonTextAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "RightPanelText",
             Description = Localizer["RightPanelTextAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = Localizer["RightPanelTextDefaultValue"]!
         },
-        new AttributeItem() {
+        new() {
             Name = "ShowSearch",
             Description = "",
             Type = "boolean",
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "LeftPanelSearchPlaceHolderString",
             Description = Localizer["LeftPanelSearchPlaceHolderString"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "RightPanelSearchPlaceHolderString",
             Description = Localizer["RightPanelSearchPlaceHolderString"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "IsDisabled",
             Description = Localizer["IsDisabled"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new() {
             Name = "LeftHeaderTemplate",
             Description = Localizer["LeftHeaderTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "LeftItemTemplate",
             Description = Localizer["LeftItemTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "RightHeaderTemplate",
             Description = Localizer["RightHeaderTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new() {
             Name = "RightItemTemplate",
             Description = Localizer["RightItemTemplate"],
             Type = "RenderFragment",

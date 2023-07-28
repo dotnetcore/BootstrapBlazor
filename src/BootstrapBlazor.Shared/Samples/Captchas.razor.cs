@@ -58,70 +58,70 @@ public sealed partial class Captchas
     private IEnumerable<AttributeItem> GetAttributes() => new[]
     {
         // TODO: 移动到数据库中
-        new AttributeItem() {
+        new() {
             Name = "ImagesPath",
             Description = Localizer["ImagesPath"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "images"
         },
-        new AttributeItem() {
+        new() {
             Name = "ImagesName",
             Description = Localizer["ImagesName"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "Pic.jpg"
         },
-        new AttributeItem() {
+        new() {
             Name = "HeaderText",
             Description = Localizer["HeaderText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = Localizer["HeaderTextDefaultValue"]
         },
-        new AttributeItem() {
+        new() {
             Name = "BarText",
             Description = Localizer["BarText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = Localizer["BarTextDefaultValue"]
         },
-        new AttributeItem() {
+        new() {
             Name = "FailedText",
             Description = Localizer["FailedText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = Localizer["FailedTextDefaultValue"]
         },
-        new AttributeItem() {
+        new() {
             Name = "LoadText",
             Description = Localizer["LoadText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = Localizer["LoadTextDefaultValue"]
         },
-        new AttributeItem() {
+        new() {
             Name = "TryText",
             Description = Localizer["TryText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = Localizer["TryTextDefaultValue"]
         },
-        new AttributeItem() {
+        new() {
             Name = "Offset",
             Description = Localizer["Offset"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "5"
         },
-        new AttributeItem() {
+        new() {
             Name = "Width",
             Description = Localizer["Width"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "280"
         },
-        new AttributeItem() {
+        new() {
             Name = "Height",
             Description = Localizer["Height"],
             Type = "int",

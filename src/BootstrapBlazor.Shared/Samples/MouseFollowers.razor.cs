@@ -31,7 +31,7 @@ public partial class MouseFollowers
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         // TODO: 移动到数据库中
-        new AttributeItem()
+        new()
         {
             Name = "FollowerMode",
             Description = Localizer["MouseFollowersFollowerMode"],
@@ -39,7 +39,7 @@ public partial class MouseFollowers
             ValueList = " — ",
             DefaultValue = "MouseFollowerMode.Normal"
         },
-        new AttributeItem()
+        new()
         {
             Name = "GlobalMode",
             Description = Localizer["MouseFollowersGlobalMode"],
@@ -47,7 +47,7 @@ public partial class MouseFollowers
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "Content",
             Description = Localizer["MouseFollowersContent"],

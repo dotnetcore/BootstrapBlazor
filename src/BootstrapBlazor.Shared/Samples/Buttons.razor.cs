@@ -79,91 +79,91 @@ public sealed partial class Buttons
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
             // TODO: 移动到数据库中
-            new AttributeItem() {
+            new() {
                 Name = "Color",
                 Description = Localizer["Att1"],
                 Type = "Color",
                 ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
                 DefaultValue = "Primary"
             },
-            new AttributeItem() {
+            new() {
                 Name = "Icon",
                 Description = Localizer["Att2"],
                 Type = "string",
                 ValueList = "",
                 DefaultValue = ""
             },
-            new AttributeItem() {
+            new() {
                 Name = "LoadingIcon",
                 Description = Localizer["Att3"],
                 Type = "string",
                 ValueList = "",
                 DefaultValue = "fa-fw fa-spin fa-solid fa-spinner"
             },
-            new AttributeItem() {
+            new() {
                 Name = "Text",
                 Description = Localizer["Att4"],
                 Type = "string",
                 ValueList = "",
                 DefaultValue = ""
             },
-            new AttributeItem() {
+            new() {
                 Name = "Size",
                 Description = Localizer["Att5"],
                 Type = "Size",
                 ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge",
                 DefaultValue = "None"
             },
-            new AttributeItem() {
+            new() {
                 Name = "Class",
                 Description = Localizer["Att6"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
-            new AttributeItem() {
+            new() {
                 Name = "IsBlock",
                 Description = Localizer["Att7"],
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
             },
-            new AttributeItem() {
+            new() {
                 Name = "IsDisabled",
                 Description = Localizer["Att8"],
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
             },
-            new AttributeItem() {
+            new() {
                 Name = "IsOutline",
                 Description = Localizer["Att9"],
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
             },
-            new AttributeItem() {
+            new() {
                 Name = "IsAsync",
                 Description = Localizer["Att10"],
                 Type = "boolean",
                 ValueList = " — ",
                 DefaultValue = "false"
             },
-            new AttributeItem() {
+            new() {
                 Name = "ChildContent",
                 Description = Localizer["Att11"],
                 Type = "RenderFragment",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
-            new AttributeItem() {
+            new() {
                 Name = "ButtonStyle",
                 Description = Localizer["Att12"],
                 Type = "ButtonStyle",
                 ValueList = "None / Circle / Round",
                 DefaultValue = "None"
             },
-            new AttributeItem() {
+            new() {
                 Name = "ButtonType",
                 Description = Localizer["Att13"],
                 Type = "ButtonType",

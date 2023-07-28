@@ -50,7 +50,7 @@ public sealed partial class AutoCompletes
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         // TODO: 移动到数据库中
-        new AttributeItem()
+        new()
         {
             Name = "ShowLabel",
             Description = Localizer["Att1"],
@@ -58,7 +58,7 @@ public sealed partial class AutoCompletes
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ChildContent",
             Description = Localizer["Att2"],
@@ -66,7 +66,7 @@ public sealed partial class AutoCompletes
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "ItemTemplate",
             Description = Localizer["AttItemTemplate"],
@@ -74,7 +74,7 @@ public sealed partial class AutoCompletes
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "Items",
             Description = Localizer["Att3"],
@@ -82,7 +82,7 @@ public sealed partial class AutoCompletes
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "NoDataTip",
             Description = Localizer["Att4"],
@@ -90,7 +90,7 @@ public sealed partial class AutoCompletes
             ValueList = " — ",
             DefaultValue = Localizer["Att4DefaultValue"]!
         },
-        new AttributeItem()
+        new()
         {
             Name = "DisplayCount",
             Description = Localizer["Att5"],
@@ -98,7 +98,7 @@ public sealed partial class AutoCompletes
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "ValueChanged",
             Description = Localizer["Att6"],
@@ -106,7 +106,7 @@ public sealed partial class AutoCompletes
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "IsLikeMatch",
             Description = Localizer["Att7"],
@@ -114,7 +114,7 @@ public sealed partial class AutoCompletes
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "IgnoreCase",
             Description = Localizer["Att8"],
@@ -122,7 +122,7 @@ public sealed partial class AutoCompletes
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem()
+        new()
         {
             Name = "OnCustomFilter",
             Description = Localizer["Att9"],
@@ -130,7 +130,7 @@ public sealed partial class AutoCompletes
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "Debounce",
             Description = Localizer["Debounce"],
@@ -138,7 +138,7 @@ public sealed partial class AutoCompletes
             ValueList = " — ",
             DefaultValue = "0"
         },
-        new AttributeItem()
+        new()
         {
             Name = nameof(AutoComplete.SkipEnter),
             Description = Localizer[nameof(AutoComplete.SkipEnter)],
@@ -146,7 +146,7 @@ public sealed partial class AutoCompletes
             ValueList = "true/false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = nameof(AutoComplete.SkipEsc),
             Description = Localizer[nameof(AutoComplete.SkipEsc)],
@@ -154,7 +154,7 @@ public sealed partial class AutoCompletes
             ValueList = "true/false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = nameof(AutoComplete.OnValueChanged),
             Description = Localizer[nameof(AutoComplete.OnValueChanged)],
@@ -162,7 +162,7 @@ public sealed partial class AutoCompletes
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = nameof(AutoComplete.OnSelectedItemChanged),
             Description = Localizer[nameof(AutoComplete.OnSelectedItemChanged)],

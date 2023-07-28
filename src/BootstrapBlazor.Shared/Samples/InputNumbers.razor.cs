@@ -13,21 +13,21 @@ public sealed partial class InputNumbers
     {
         return new[]
         {
-            new AttributeItem() {
+            new() {
                 Name = "Value",
                 Description = Localizer["InputNumbersAtt1"],
                 Type = "sbyte|byte|int|long|short|float|double|decimal",
                 ValueList = " — ",
                 DefaultValue = "0"
             },
-            new AttributeItem() {
+            new() {
                 Name = "Max",
                 Description = Localizer["InputNumbersAtt2"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
-            new AttributeItem()
+            new()
             {
                 Name = "Min",
                 Description = Localizer["InputNumbersAtt3"],
@@ -35,7 +35,7 @@ public sealed partial class InputNumbers
                 ValueList = " — ",
                 DefaultValue = " — "
             },
-            new AttributeItem()
+            new()
             {
                 Name = "Step",
                 Description = Localizer["InputNumbersAtt4"],
@@ -43,7 +43,7 @@ public sealed partial class InputNumbers
                 ValueList = " — ",
                 DefaultValue = "1"
             },
-            new AttributeItem()
+            new()
             {
                 Name = "IsDisabled",
                 Description = Localizer["InputNumbersAtt5"],
@@ -51,14 +51,14 @@ public sealed partial class InputNumbers
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
-            new AttributeItem() {
+            new() {
                 Name = "ShowLabel",
                 Description = Localizer["InputNumbersAtt6"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
-            new AttributeItem() {
+            new() {
                 Name = "DisplayText",
                 Description = Localizer["InputNumbersAtt7"],
                 Type = "string",

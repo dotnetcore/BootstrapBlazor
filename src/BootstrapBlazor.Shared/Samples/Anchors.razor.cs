@@ -15,7 +15,7 @@ public partial class Anchors
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new[]
     {
-        new AttributeItem()
+        new()
         {
             Name = "Target",
             Description = Localizer["Desc1"],
@@ -23,7 +23,7 @@ public partial class Anchors
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "Container",
             Description = Localizer["Desc2"],
@@ -31,7 +31,7 @@ public partial class Anchors
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "Offset",
             Description = Localizer["Desc3"],
@@ -39,7 +39,7 @@ public partial class Anchors
             ValueList = " — ",
             DefaultValue = "0"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ChildContent",
             Description = Localizer["Desc4"],
