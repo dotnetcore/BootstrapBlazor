@@ -434,7 +434,7 @@
     "MessagesNormalIntro": "从顶部出现，4 秒后自动消失",
     "MessagesMessagePrompt": "打开消息提示",
     "MessagesIconTitle": "带图标的消息框",
-    "MessagesIconiNTRO": "通过设置 <code>MessageOption</code> 的 <code>Icon</code> 属性，更改消息框左侧小图标",
+    "MessagesIconIntro": "通过设置 <code>MessageOption</code> 的 <code>Icon</code> 属性，更改消息框左侧小图标",
     "MessagesCloseButtonTitle": "带关闭按钮的消息框",
     "MessagesCloseButtonIntro": "通过设置 <code>MessageOption</code> 的 <code>ShowDismiss</code> 属性，更改消息框右侧出现关闭按钮",
     "MessagesLeftBoardTitle": "左侧带边框的消息框",

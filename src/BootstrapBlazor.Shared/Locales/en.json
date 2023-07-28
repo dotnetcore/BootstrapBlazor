@@ -434,7 +434,7 @@
     "MessagesNormalIntro": "Appears from the top and automatically disappears after 4 seconds",
     "MessagesMessagePrompt": "Open the message prompt",
     "MessagesIconTitle": "message box with icon",
-    "MessagesIconiNTRO": "Change the small icon on the left side of the message box by setting the <code>Icon</code> property of <code>MessageOption</code>",
+    "MessagesIconIntro": "Change the small icon on the left side of the message box by setting the <code>Icon</code> property of <code>MessageOption</code>",
     "MessagesCloseButtonTitle": "message box with close button",
     "MessagesCloseButtonIntro": "Change the close button to appear on the right side of the message box by setting the <code>ShowDismiss</code> property of <code>MessageOption</code>",
     "MessagesLeftBoardTitle": "message box with border on the left",
