@@ -9,6 +9,69 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Messages
 {
+    [NotNull]
+    private Message? Message { get; set; }
+
+    [NotNull]
+    private Message? Message1 { get; set; }
+
+    private async Task ShowMessage()
+    {
+        Message.SetPlacement(Placement.Top);
+        await MessageService.Show(new MessageOption()
+        {
+            Content = "This is a reminder message"
+        });
+    }
+
+    private async Task ShowIconMessage()
+    {
+        await MessageService.Show(new MessageOption()
+        {
+            Content = "This is a reminder message",
+            Icon = "fa-solid fa-circle-info"
+        });
+    }
+
+    private async Task ShowCloseMessage()
+    {
+        await MessageService.Show(new MessageOption()
+        {
+            Content = "This is a reminder message",
+            Icon = "fa-solid fa-circle-info",
+            ShowDismiss = true,
+        });
+    }
+
+    private async Task ShowBarMessage()
+    {
+        await MessageService.Show(new MessageOption()
+        {
+            Content = "This is a reminder message",
+            Icon = "fa-solid fa-circle-info",
+            ShowBar = true,
+        });
+    }
+
+    private async Task ShowColorMessage(Color color)
+    {
+        await MessageService.Show(new MessageOption()
+        {
+            Content = "This is a colored message",
+            Icon = "fa-solid fa-circle-info",
+            Color = color
+        });
+    }
+
+    private async Task ShowBottomMessage()
+    {
+        await MessageService.Show(new MessageOption()
+        {
+            Content = "This is a reminder message",
+            Icon = "fa-solid fa-circle-info",
+        }, Message1);
+    }
+
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new()
@@ -27,7 +90,7 @@ public sealed partial class Messages
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetMessageItemAttributes() => new AttributeItem[]
     {
-        new AttributeItem()
+        new()
         {
             Name = "ChildContent",
             Description = "Content",
@@ -35,7 +98,7 @@ public sealed partial class Messages
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "Class",
             Description = "Style",
@@ -43,7 +106,7 @@ public sealed partial class Messages
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "Color",
             Description = "Color",
@@ -51,7 +114,7 @@ public sealed partial class Messages
             ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
             DefaultValue = "Primary"
         },
-        new AttributeItem()
+        new()
         {
             Name = "Icon",
             Description = "Icon",
@@ -59,7 +122,7 @@ public sealed partial class Messages
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "ShowDismiss",
             Description = "Show close button",
@@ -67,7 +130,7 @@ public sealed partial class Messages
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ShowBar",
             Description = "Whether to show the left Bar",

@@ -9,6 +9,66 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Modals
 {
+    [NotNull]
+    private Modal? Modal { get; set; }
+
+    [NotNull]
+    private Modal? BackdropModal { get; set; }
+
+    [NotNull]
+    private Modal? SmallModal { get; set; }
+
+    [NotNull]
+    private Modal? SizeSmallModal { get; set; }
+
+    [NotNull]
+    private Modal? LargeModal { get; set; }
+
+    [NotNull]
+    private Modal? ExtraLargeModal { get; set; }
+
+    [NotNull]
+    private Modal? ExtraExtraLargeModal { get; set; }
+
+    [NotNull]
+    private Modal? SmallFullScreenModal { get; set; }
+
+    [NotNull]
+    private Modal? LargeFullScreenModal { get; set; }
+
+    [NotNull]
+    private Modal? ExtraLargeFullScreenModal { get; set; }
+
+    [NotNull]
+    private Modal? ExtraExtraLargeFullScreenModal { get; set; }
+
+    [NotNull]
+    private Modal? CenterModal { get; set; }
+
+    [NotNull]
+    private Modal? LongContentModal { get; set; }
+
+    [NotNull]
+    private Modal? ScrollModal { get; set; }
+
+    [NotNull]
+    private Modal? DragModal { get; set; }
+
+    [NotNull]
+    private Modal? MaximizeModal { get; set; }
+
+    [NotNull]
+    private Modal? ShownCallbackModal { get; set; }
+
+    [NotNull]
+    private ConsoleLogger? Logger { get; set; }
+
+    private Task OnShownCallbackAsync()
+    {
+        Logger.Log("弹窗已显示");
+        return Task.CompletedTask;
+    }
+
     /// <summary>
     /// GetAttributes
     /// </summary>
