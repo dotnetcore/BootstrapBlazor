@@ -7,9 +7,9 @@ using BootstrapBlazor.Shared.Services;
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// Speechs 示例
+/// Speeches 示例
 /// </summary>
-public partial class Speechs
+public partial class Speeches
 {
     [Inject]
     [NotNull]
@@ -25,7 +25,7 @@ public partial class Speechs
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Speechs>? Localizer { get; set; }
+    private IStringLocalizer<Speeches>? Localizer { get; set; }
 
     private List<ConsoleMessageItem> ConsoleMessages { get; } = new();
 

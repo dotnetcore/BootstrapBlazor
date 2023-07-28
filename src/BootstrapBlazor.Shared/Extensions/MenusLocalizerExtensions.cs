@@ -121,22 +121,22 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["SpeechIntro"],
-                    Url = "speechs"
+                    Url = "speech"
                 },
                 new()
                 {
                     Text = Localizer["Recognizer"],
-                    Url = "recognizers"
+                    Url = "recognizer"
                 },
                 new()
                 {
                     Text = Localizer["Synthesizer"],
-                    Url = "synthesizers"
+                    Url = "synthesizer"
                 },
                 new()
                 {
                     Text = Localizer["SpeechWave"],
-                    Url = "speechwaves"
+                    Url = "speech-wave"
                 }
             };
             AddBadge(item, count: 3);
@@ -180,7 +180,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["GlobalException"],
-                    Url = "globalexception"
+                    Url = "global-exception"
                 },
                 new()
                 {
@@ -241,7 +241,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["AutoFill"],
-                    Url = "autofills"
+                    Url = "auto-fill"
                 },
                 new()
                 {
@@ -251,7 +251,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Cascader"],
-                    Url = "cascaders"
+                    Url = "cascader"
                 },
                 new()
                 {
@@ -261,22 +261,22 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["CheckboxList"],
-                    Url = "checkboxlists"
+                    Url = "checkbox-list"
                 },
                 new()
                 {
                     Text = Localizer["ColorPicker"],
-                    Url = "colorpickers"
+                    Url = "color-picker"
                 },
                 new()
                 {
                     Text = Localizer["DateTimePicker"],
-                    Url = "datetimepickers"
+                    Url = "datetime-picker"
                 },
                 new()
                 {
                     Text = Localizer["DateTimeRange"],
-                    Url = "datetimeranges"
+                    Url = "datetime-range"
                 },
                 new()
                 {
@@ -286,12 +286,12 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["EditorForm"],
-                    Url = "editorforms"
+                    Url = "editor-form"
                 },
                 new()
                 {
                     Text = Localizer["FloatingLabel"],
-                    Url = "floatinglabels"
+                    Url = "floating-label"
                 },
                 new()
                 {
@@ -301,12 +301,12 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["InputNumber"],
-                    Url = "inputnumbers"
+                    Url = "input-number"
                 },
                 new()
                 {
                     Text = Localizer["InputGroup"],
-                    Url = "inputgroups"
+                    Url = "input-group"
                 },
                 new()
                 {
@@ -326,12 +326,12 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["MultiSelect"],
-                    Url = "multiselects"
+                    Url = "multi-select"
                 },
                 new()
                 {
                     Text = Localizer["OnScreenKeyboard"],
-                    Url = "onscreenkeyboards"
+                    Url = "onscreen-keyboard"
                 },
                 new()
                 {
@@ -366,12 +366,12 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Switch"],
-                    Url = "switchs"
+                    Url = "switches"
                 },
                 new()
                 {
                     Text = Localizer["Textarea"],
-                    Url = "textareas"
+                    Url = "textarea"
                 },
                 new()
                 {
@@ -391,7 +391,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["ValidateForm"],
-                    Url = "validateforms"
+                    Url = "validate-form"
                 }
             };
             AddBadge(item);
@@ -404,7 +404,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Ajax"],
-                    Url = "ajaxs"
+                    Url = "ajax"
                 },
                 new()
                 {
@@ -425,7 +425,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["BarcodeReader"],
-                    Url = "barcodereaders"
+                    Url = "barcode-reader"
                 },
                 new()
                 {
@@ -435,7 +435,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Bluetooth"],
-                    Url = "bluetooths"
+                    Url = "blue-tooth"
                 },
                 new()
                 {
@@ -629,12 +629,12 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Tree"],
-                    Url = "trees"
+                    Url = "tree"
                 },
                 new()
                 {
                     Text = Localizer["TreeView"],
-                    Url = "treeviews"
+                    Url = "tree-view"
                 },
                 new()
                 {

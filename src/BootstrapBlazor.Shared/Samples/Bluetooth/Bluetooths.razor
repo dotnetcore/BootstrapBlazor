@@ -1,4 +1,4 @@
-﻿@page "/bluetooths"
+﻿@page "/blue-tooth"
 @namespace BootstrapBlazor.Shared.Samples
 @inject IStringLocalizer<Bluetooths> Localizer
 
@@ -14,25 +14,25 @@
     <p>@((MarkupString)Localizer["Tips"].Value)</p>
 </Tips>
 
-<DemoBlock Title="@Localizer["BaseUsagTitle"]"
+<DemoBlock Title="@Localizer["BaseUsageTitle"]"
            Introduction="@Localizer["BaseUsageIntro"]"
-           Name="Nomal"
+           Name="Normal"
            Demo="typeof(Demos.Bluetooths.BluetoothNomal)">
 </DemoBlock>
 
-<h4>@Localizer["BluetoothsTitle"]</h4>
+<h4>@Localizer["BluetoothTitle"]</h4>
 
-<DemoBlock Title="@Localizer["BaseUsagTitle"]"
+<DemoBlock Title="@Localizer["BluetoothBatteryLevelTitle"]"
            Introduction="@Localizer["BluetoothBatteryLevelIntro"]"
-           Name="Nomal"
+           Name="BatteryLevel"
            Demo="typeof(Demos.Bluetooths.BluetoothBatteryLevel)">
 </DemoBlock>
 
-<h4>@Localizer["BluetoothsTitle2"]</h4>
+<h4>@Localizer["BluetoothTitle2"]</h4>
 
-<DemoBlock Title="@Localizer["BaseUsagTitle"]"
+<DemoBlock Title="@Localizer["BaseUsageTitle"]"
            Introduction="@Localizer["BluetoothBatteryLevelIntro"]"
-           Name="Nomal"
+           Name="HeartRate"
            Demo="typeof(Demos.Bluetooths.BluetoothHeartRate)">
 </DemoBlock>
 

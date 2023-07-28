@@ -7,9 +7,9 @@ using System.ComponentModel;
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// Switchs
+/// Switches
 /// </summary>
-public sealed partial class Switchs
+public sealed partial class Switches
 {
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
@@ -38,108 +38,122 @@ public sealed partial class Switchs
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new AttributeItem() {
+        new()
+        {
             Name = "Class",
-            Description = Localizer["SwitchsAttributeClass"],
+            Description = Localizer["SwitchesAttributeClass"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Height",
-            Description = Localizer["SwitchsAttributeHeight"],
+            Description = Localizer["SwitchesAttributeHeight"],
             Type = "int",
             ValueList = "—",
             DefaultValue = "20"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "IsDisabled",
-            Description = Localizer["SwitchsAttributeIsDisabled"],
+            Description = Localizer["SwitchesAttributeIsDisabled"],
             Type = "boolean",
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "OffColor",
-            Description = Localizer["SwitchsAttributeOffColor"],
+            Description = Localizer["SwitchesAttributeOffColor"],
             Type = "Color",
             ValueList = " Primary / Secondary / Success / Danger / Warning / Info / Dark ",
             DefaultValue = "None"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "OnColor",
-            Description = Localizer["SwitchsAttributeOnColor"],
+            Description = Localizer["SwitchesAttributeOnColor"],
             Type = "Color",
             ValueList = " Primary / Secondary / Success / Danger / Warning / Info / Dark ",
             DefaultValue = "Color.Success"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "OnText",
-            Description = Localizer["SwitchsAttributeOnTextAttr"],
+            Description = Localizer["SwitchesAttributeOnTextAttr"],
             Type = "string",
             ValueList = "—",
             DefaultValue = "—"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "OffText",
-            Description = Localizer["SwitchsAttributeOffTextAttr"],
+            Description = Localizer["SwitchesAttributeOffTextAttr"],
             Type = "string",
             ValueList = "—",
             DefaultValue = "—"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "OnInnerText",
-            Description = Localizer["SwitchsAttributeOnInnerTextAttr"],
+            Description = Localizer["SwitchesAttributeOnInnerTextAttr"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = Localizer["SwitchsAttributeOnInnerTextDefaultValue"]!
+            DefaultValue = Localizer["SwitchesAttributeOnInnerTextDefaultValue"]!
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "OffInnerText",
-            Description = Localizer["SwitchsAttributeOffInnerTextAttr"],
+            Description = Localizer["SwitchesAttributeOffInnerTextAttr"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = Localizer["SwitchsAttributeOffInnerTextDefaultValue"]!
+            DefaultValue = Localizer["SwitchesAttributeOffInnerTextDefaultValue"]!
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ShowInnerText",
-            Description = Localizer["SwitchsAttributeShowInnerText"],
+            Description = Localizer["SwitchesAttributeShowInnerText"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Width",
-            Description = Localizer["SwitchsAttributeWidth"],
+            Description = Localizer["SwitchesAttributeWidth"],
             Type = "int",
             ValueList = "—",
             DefaultValue = "40"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Value",
-            Description = Localizer["SwitchsAttributeValue"],
+            Description = Localizer["SwitchesAttributeValue"],
             Type = "boolean",
             ValueList = " ",
             DefaultValue = "None"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ShowLabel",
-            Description = Localizer["SwitchsAttributeShowLabel"],
+            Description = Localizer["SwitchesAttributeShowLabel"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "DisplayText",
-            Description = Localizer["SwitchsAttributeDisplayText"],
+            Description = Localizer["SwitchesAttributeDisplayText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "OnValueChanged",
-            Description = Localizer["SwitchsAttributeOnValueChanged"],
+            Description = Localizer["SwitchesAttributeOnValueChanged"],
             Type = "Func<bool, Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -152,10 +166,10 @@ public sealed partial class Switchs
     /// <returns></returns>
     private IEnumerable<EventItem> GetEvents() => new EventItem[]
     {
-        new EventItem()
+        new()
         {
             Name = "ValueChanged",
-            Description = Localizer["SwitchsEventValueChanged"],
+            Description = Localizer["SwitchesEventValueChanged"],
             Type = "EventCallback<bool>"
         }
     };
