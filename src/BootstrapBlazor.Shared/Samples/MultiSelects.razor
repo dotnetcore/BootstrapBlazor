@@ -1,4 +1,4 @@
-﻿@page "/multiselects"
+﻿@page "/multi-select"
 @inject IStringLocalizer<MultiSelects> Localizer
 
 <h3>@Localizer["MultiSelectsTitle"]</h3>
@@ -54,7 +54,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MultiSelectBindingCollectionTitle"]" Introduction="@Localizer["MultiSelectBindingCollectionIntro"]" Name="BindingCollection">
-    <p class="mb-3">@((MarkupString)Localizer["MultiSelectBindingCollectionDescrition"].Value)</p>
+    <p class="mb-3">@((MarkupString)Localizer["MultiSelectBindingCollectionDescription"].Value)</p>
     <div>
         <div class="row g-3">
             <div class="col-12 col-sm-6">
@@ -130,9 +130,9 @@
     </ValidateForm>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["MultiSelectDispalyLabelTitle"]" Introduction="@Localizer["MultiSelectDispalyLabelIntro"]" Name="DispalyLabel">
-    <p class="mb-3">@((MarkupString)Localizer["MultiSelectDispalyLabelDescription"].Value)</p>
-    <Divider Text="@Localizer["MultiSelectDispalyLabelShowLable"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
+<DemoBlock Title="@Localizer["MultiSelectDisplayLabelTitle"]" Introduction="@Localizer["MultiSelectDisplayLabelIntro"]" Name="DisplayLabel">
+    <p class="mb-3">@((MarkupString)Localizer["MultiSelectDisplayLabelDescription"].Value)</p>
+    <Divider Text="@Localizer["MultiSelectDisplayLabelShowLabel"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
     <ValidateForm Model="@Foo">
         <div class="row g-3">
             <div class="col-12">
@@ -140,10 +140,10 @@
             </div>
         </div>
     </ValidateForm>
-    <Divider Text="@Localizer["MultiSelectDispalyLabelHideLable"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
+    <Divider Text="@Localizer["MultiSelectDisplayLabelHideLabel"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
     <MultiSelect Color="Color.Primary" Items="@Items2" @bind-Value="@Foo.Name" />
-    <Divider Text="@Localizer["MultiSelectDispalyLabelCustomDisplayText"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
-    <MultiSelect Color="Color.Primary" Items="@Items3" @bind-Value="@Foo.Name" DisplayText="@Localizer["MultiSelectDispalyLabelCustomText"]" ShowLabel="true" />
+    <Divider Text="@Localizer["MultiSelectDisplayLabelCustomDisplayText"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
+    <MultiSelect Color="Color.Primary" Items="@Items3" @bind-Value="@Foo.Name" DisplayText="@Localizer["MultiSelectDisplayLabelCustomText"]" ShowLabel="true" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MultiSelectVeryLongTextTitle"]" Introduction="@Localizer["MultiSelectVeryLongTextIntro"]" Name="VeryLongText">
