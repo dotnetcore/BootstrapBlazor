@@ -629,12 +629,12 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Tree"],
-                    Url = "trees"
+                    Url = "tree"
                 },
                 new()
                 {
                     Text = Localizer["TreeView"],
-                    Url = "treeviews"
+                    Url = "tree-view"
                 },
                 new()
                 {
