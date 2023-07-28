@@ -35,8 +35,6 @@ public sealed partial class Selects
 
     private bool ShowSearch { get; set; }
 
-    private bool IsPopover { get; set; }
-
     /// <summary>
     /// 
     /// </summary>
