@@ -921,7 +921,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Notification"],
-                    Url = "notifications"
+                    Url = "notification"
                 },
                 new()
                 {
@@ -1039,7 +1039,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Pagination"],
-                    Url = "paginations"
+                    Url = "pagination"
                 },
                 new()
                 {

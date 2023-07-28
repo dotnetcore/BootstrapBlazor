@@ -30,17 +30,17 @@ public sealed partial class Searches
     }
 
     [NotNull]
-    private ConsoleLogger? DispalyLogger { get; set; }
+    private ConsoleLogger? DisplayLogger { get; set; }
 
-    private Task OnDispalySearch(string searchText)
+    private Task OnDisplaySearch(string searchText)
     {
-        DispalyLogger.Log($"SearchText: {searchText}");
+        DisplayLogger.Log($"SearchText: {searchText}");
         return Task.CompletedTask;
     }
 
     private Task OnClear(string searchText)
     {
-        DispalyLogger.Log($"OnClear: {searchText}");
+        DisplayLogger.Log($"OnClear: {searchText}");
         return Task.CompletedTask;
     }
 
