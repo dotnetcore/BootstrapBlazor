@@ -1,4 +1,4 @@
-﻿@page "/ajaxs"
+﻿@page "/ajax"
 
 <h3>@Localizer["AjaxTitle"]</h3>
 
@@ -26,9 +26,9 @@ var result = await AjaxService.InvokeAsync(option);</Pre>
     </div>
 </DemoBlock>
 
-<DemoBlock Introduction="@Localizer["GotoIntro"]" Title="@Localizer["GotoTitle"]" Name="Goto">
-    <Button OnClick="Goto">@Localizer["GotoButtonText1"]</Button>
-    <Button OnClick="GotoSelf">@Localizer["GotoButtonText2"]</Button>
+<DemoBlock Introduction="@Localizer["GoToIntro"]" Title="@Localizer["GoToTitle"]" Name="GoTo">
+    <Button OnClick="Goto">@Localizer["GoToButtonText1"]</Button>
+    <Button OnClick="GotoSelf">@Localizer["GoToButtonText2"]</Button>
 </DemoBlock>
 
 <MethodTable Items="@GetMethods()" />
