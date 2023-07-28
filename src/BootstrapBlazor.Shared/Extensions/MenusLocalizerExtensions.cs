@@ -234,7 +234,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["AutoComplete"],
-                    Url = "autocompletes"
+                    Url = "auto-complete"
                 },
                 new()
                 {
@@ -244,7 +244,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Button"],
-                    Url = "buttons"
+                    Url = "button"
                 },
                 new()
                 {
@@ -254,7 +254,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Checkbox"],
-                    Url = "checkboxs"
+                    Url = "checkbox"
                 },
                 new()
                 {
@@ -279,7 +279,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Editor"],
-                    Url = "editors"
+                    Url = "editor"
                 },
                 new()
                 {
