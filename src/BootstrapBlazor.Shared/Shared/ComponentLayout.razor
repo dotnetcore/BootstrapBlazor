@@ -28,24 +28,21 @@
 
 <hr />
 
-<Tab IsBorderCard="true">
-    <TabItem Text="Example" Icon="fa-solid fa-desktop">
-        @Body
-        @*             <CascadingValue Value="@RazorFileName" Name="RazorFileName" IsFixed="true">
-        </CascadingValue>
-        *@
-    </TabItem>
-    <TabItem Text="Razor" Icon="fa-brands fa-html5">
-        @* <Pre @key="@RazorFileName" CodeFile="@RazorFileName"></Pre> *@
-        <div>文档系统改版中 ... Coming soon ...</div>
-    </TabItem>
-    <TabItem Text="C#" Icon="fa-regular fa-file-code">
-        @* <Pre @key="@CSharpFileName" CodeFile="@CSharpFileName"></Pre> *@
-        <div>文档系统改版中 ... Coming soon ...</div>
-    </TabItem>
-    <TabItem Text="@Video" Icon="fa-regular fa-file-video">
-        <Video @key="@VideoFileName" Name="@VideoFileName"></Video>
-        <p><b>交流群</b></p>
-        <QQGroup />
-    </TabItem>
-</Tab>
+<div class="tabs-coms">
+    <Tab IsBorderCard="true">
+        <TabItem Text="Example" Icon="fa-solid fa-desktop">
+            @Body
+        </TabItem>
+        <TabItem Text="Razor" Icon="fa-brands fa-html5">
+            <Pre CodeFile="@RazorFileName" class="code-razor"></Pre>
+        </TabItem>
+        <TabItem Text="C#" Icon="fa-regular fa-file-code">
+            <Pre CodeFile="@CSharpFileName" class="code-cs"></Pre>
+        </TabItem>
+        <TabItem Text="@Video" Icon="fa-regular fa-file-video">
+            <Video @key="@VideoFileName" Name="@VideoFileName"></Video>
+            <p><b>交流群</b></p>
+            <QQGroup />
+        </TabItem>
+    </Tab>
+</div>
