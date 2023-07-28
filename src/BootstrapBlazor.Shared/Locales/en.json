@@ -1898,6 +1898,7 @@
     "PaginationsGotoIntro": "Set <code>ShowGotoNavigator</code> show/hide the Goto，can <code>GotoTemplate</code> custom the Goto navigator",
     "PaginationsPageInfoTextTitle": "Pager info",
     "PaginationsPageInfoTextIntro": "Set <code>ShowInfo</code> show/hide the pager info",
+    "PaginationsInfoTotal": "Total 20 pages",
     "PaginationsInfoTemplateTitle": "Pager info template",
     "PaginationsInfoTemplateIntro": "Set <code>PageInfoTemplate</code> curstom the template of page info",
     "PaginationsPageIndexAttr": "Current page index",
