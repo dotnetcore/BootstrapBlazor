@@ -57,6 +57,7 @@
         overflow-y: auto;
         margin: calc(0px - var(--bs-dropdown-padding-y)) var(--bs-dropdown-padding-x);
         max-height: calc(var(--bb-dropdown-max-height) - 2px);
+        padding: var(--bs-dropdown-padding-y) var(--bs-dropdown-padding-x);
     }
 
     .dropdown-menu .search + .dropdown-virtual {

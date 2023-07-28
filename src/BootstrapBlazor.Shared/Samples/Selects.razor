@@ -12,16 +12,10 @@
     <p>@((MarkupString)Localizer["SelectsVirtualizeDescription"].Value)</p>
 
     <div class="row mb-2">
-        <div class="col-6">
+        <div class="col-12 col-sm-12">
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="ShowSearch" />
                 <Checkbox @bind-Value="@ShowSearch" />
-            </BootstrapInputGroup>
-        </div>
-        <div class="col-6">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="IsPopover" />
-                <Checkbox @bind-Value="@IsPopover" />
             </BootstrapInputGroup>
         </div>
     </div>
@@ -29,7 +23,7 @@
     <p class="code-label">1. 使用 OnQueryAsync 作为数据源</p>
     <div class="row">
         <div class="col-6">
-            <Select IsVirtualize="true" OnQueryAsync="OnQueryAsync" @bind-Value="VirtualItem1" ShowSearch="ShowSearch" IsPopover="IsPopover"></Select>
+            <Select IsVirtualize="true" OnQueryAsync="OnQueryAsync" @bind-Value="VirtualItem1" ShowSearch="ShowSearch"></Select>
         </div>
         <div class="col-6">
             <Display TValue="string" Value="@VirtualItem1?.Text"></Display>
@@ -39,7 +33,7 @@
     <p class="code-label mt-3">2. 使用 Items 作为数据源</p>
     <div class="row">
         <div class="col-6">
-            <Select IsVirtualize="true" Items="VirtualItems" @bind-Value="VirtualItem2" OnSearchTextChanged="OnSearchTextChanged" ShowSearch="ShowSearch" IsPopover="IsPopover"></Select>
+            <Select IsVirtualize="true" Items="VirtualItems" @bind-Value="VirtualItem2" OnSearchTextChanged="OnSearchTextChanged" ShowSearch="ShowSearch"></Select>
         </div>
         <div class="col-6">
             <Display TValue="string" Value="@VirtualItem2?.Text"></Display>
