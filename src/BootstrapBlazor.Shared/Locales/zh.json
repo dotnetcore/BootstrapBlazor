@@ -3463,14 +3463,14 @@
     "NormalIntro": "模拟登录",
     "NormalB": "特别注意：",
     "NormalDiv": "这里只是进行了登录模拟，并没有真正的调用 <code>HttpContext.SignInAsync</code>，真实使用时需要在登录完成后对页面进行刷新，否则无法真正的登录成功。",
-    "GotoTitle": "页面跳转",
-    "GotoIntro": "用 <code>Js</code> 实现页面跳转，解决了 <code>Blazor</code> 页面作为 <b>SPA</b> 跳转时不会真正刷新页面的问题",
+    "GoToTitle": "页面跳转",
+    "GoToIntro": "用 <code>Js</code> 实现页面跳转，解决了 <code>Blazor</code> 页面作为 <b>SPA</b> 跳转时不会真正刷新页面的问题",
     "InvokeAsync": "执行 fetch 方法",
-    "Goto": "执行 goto 方法",
+    "GoTo": "执行 goto 方法",
     "NormalButtonText1": "登录成功",
     "NormalButtonText2": "登录失败",
-    "GotoButtonText1": "跳转到文档首页",
-    "GotoButtonText2": "跳转到自己（刷新页面）"
+    "GoToButtonText1": "跳转到文档首页",
+    "GoToButtonText2": "跳转到自己（刷新页面）"
   },
   "BootstrapBlazor.Shared.Samples.Avatars": {
     "Title": "Avatar 头像",

@@ -404,7 +404,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Ajax"],
-                    Url = "ajaxs"
+                    Url = "ajax"
                 },
                 new()
                 {
@@ -425,7 +425,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["BarcodeReader"],
-                    Url = "barcodereaders"
+                    Url = "barcode-reader"
                 },
                 new()
                 {
@@ -435,7 +435,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Bluetooth"],
-                    Url = "bluetooths"
+                    Url = "blue-tooth"
                 },
                 new()
                 {

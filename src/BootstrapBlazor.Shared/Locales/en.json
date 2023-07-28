@@ -3453,14 +3453,14 @@
     "NormalIntro": "Impersonate a login",
     "NormalB": "Special attention:",
     "NormalDiv": "Here is only a login simulation, and there is no real call to<code> HttpContext.SignInAsync </code>, the real use needs to refresh the page after the login is completed, otherwise the real login can not be successful.",
-    "GotoTitle": "Page jump",
-    "GotoIntro": "Implementing page jumps with<code> Js </code> addresses an issue where <code> Blazor </code> pages don't really refresh when they're jumped as <b> SPA </b>",
+    "GoToTitle": "Page jump",
+    "GoToIntro": "Implementing page jumps with<code> Js </code> addresses an issue where <code> Blazor </code> pages don't really refresh when they're jumped as <b> SPA </b>",
     "InvokeAsync": "Execute fetch",
-    "Goto": "Execute goto",
+    "GoTo": "Execute goto",
     "NormalButtonText1": "Login successful",
     "NormalButtonText2": "Login failed",
-    "GotoButtonText1": "Jump to the first page of the document",
-    "GotoButtonText2": "Jump to yourself (refresh page)"
+    "GoToButtonText1": "Jump to the first page of the document",
+    "GoToButtonText2": "Jump to yourself (refresh page)"
   },
   "BootstrapBlazor.Shared.Samples.Avatars": {
     "Title": "Avatar",
