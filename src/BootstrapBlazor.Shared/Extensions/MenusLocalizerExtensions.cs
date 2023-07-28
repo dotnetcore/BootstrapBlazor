@@ -291,7 +291,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["FloatingLabel"],
-                    Url = "floatinglabels"
+                    Url = "floating-label"
                 },
                 new()
                 {
@@ -301,12 +301,12 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["InputNumber"],
-                    Url = "inputnumbers"
+                    Url = "input-number"
                 },
                 new()
                 {
                     Text = Localizer["InputGroup"],
-                    Url = "inputgroups"
+                    Url = "input-group"
                 },
                 new()
                 {
@@ -331,7 +331,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["OnScreenKeyboard"],
-                    Url = "onscreenkeyboards"
+                    Url = "onscreen-keyboard"
                 },
                 new()
                 {
@@ -391,7 +391,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["ValidateForm"],
-                    Url = "validateforms"
+                    Url = "validate-form"
                 }
             };
             AddBadge(item);
