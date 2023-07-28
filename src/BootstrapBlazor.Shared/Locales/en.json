@@ -2906,46 +2906,20 @@
     "MultiSelectsAttribute_ButtonTemplate": "Extend the button template",
     "MultiSelectsAttribute_ItemTemplate": "The template of selected item",
     "MultiSelectsEvent_OnSelectedItemsChanged": "This event is triggered when the drop-down option changes",
-    "MultiSelectsEvent_OnSearchTextChanged": "Call back this method when the search text changes"
-  },
-  "BootstrapBlazor.Shared.Demos.MultiSelect.MultiSelectBindingCollection": {
-    "MultiSelectBindingCollectionAdd": "Add",
-    "MultiSelectBindingCollectionDecrease": "Decrease",
-    "MultiSelectBindingCollectionClean": "Clear"
-  },
-  "BootstrapBlazor.Shared.Demos.MultiSelect.MultiSelectBindingNumber": {
-    "MultiSelectBindingNumberAdd": "Add",
-    "MultiSelectBindingNumberDecrease": "Decrease",
-    "MultiSelectBindingNumberClean": "Clear"
-  },
-  "BootstrapBlazor.Shared.Demos.MultiSelect.MultiSelectBindingString": {
-    "MultiSelectBindingStringAdd": "Add",
-    "MultiSelectBindingStringDecrease": "Decrease",
-    "MultiSelectBindingStringClean": "Clear"
-  },
-  "BootstrapBlazor.Shared.Demos.MultiSelect.MultiSelectClientValidation": {
-    "MultiSelectClientValidationSubmit": "Submit"
-  },
-  "BootstrapBlazor.Shared.Demos.MultiSelect.MultiSelectDisplayLabel": {
-    "MultiSelectDisplayLabelShowLabel": "Bidirectional binding displays labels",
-    "MultiSelectDisplayLabelHideLabel": "Bidirectional bindings do not display labels",
-    "MultiSelectDisplayLabelCustomDisplayText": "Customize DisplayText",
-    "MultiSelectDisplayLabelCustomText": "Custom name"
-  },
-  "BootstrapBlazor.Shared.Demos.MultiSelect.MultiSelectExpandButton": {
-    "MultiSelectExpandButtonText": "Test"
-  },
-  "BootstrapBlazor.Shared.Demos.MultiSelect.MultiSelectMaxMin": {
+    "MultiSelectsEvent_OnSearchTextChanged": "Call back this method when the search text changes",
+    "MultiSelectAdd": "Add",
+    "MultiSelectDecrease": "Decrease",
+    "MultiSelectClean": "Clear",
+    "MultiSelectClientValidationSubmit": "Submit",
+    "MultiSelectDispalyLabelShowLable": "Bidirectional binding displays labels",
+    "MultiSelectDispalyLabelHideLable": "Bidirectional bindings do not display labels",
+    "MultiSelectDispalyLabelCustomDisplayText": "Customize DisplayText",
+    "MultiSelectDispalyLabelCustomText": "Custom name",
+    "MultiSelectExpandButtonText": "Test",
     "MultiSelectMaxMinMax": "You can select up to two options",
-    "MultiSelectMaxMinMin": "Select at least two options"
-  },
-  "BootstrapBlazor.Shared.Demos.MultiSelect.MultiSelectSearch": {
-    "MultiSelectSearchLog": "Search for text"
-  },
-  "BootstrapBlazor.Shared.Demos.MultiSelect.MultiSelectVeryLongText": {
-    "MultiSelectVeryLongTextDisplayText": "Extra long text"
-  },
-  "BootstrapBlazor.Shared.Demos.MultiSelect.MultiSelectOptionChange": {
+    "MultiSelectMaxMinMin": "Select at least two options",
+    "MultiSelectSearchLog": "Search for text",
+    "MultiSelectVeryLongTextDisplayText": "Extra long text",
     "MultiSelectOptionChangeLog": "Select the collection of items"
   },
   "BootstrapBlazor.Shared.Samples.Radios": {
