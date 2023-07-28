@@ -16,10 +16,10 @@ public sealed partial class Modals
     private Modal? BackdropModal { get; set; }
 
     [NotNull]
-    private Modal? SmailModal { get; set; }
+    private Modal? SmallModal { get; set; }
 
     [NotNull]
-    private Modal? SizeSmailModal { get; set; }
+    private Modal? SizeSmallModal { get; set; }
 
     [NotNull]
     private Modal? LargeModal { get; set; }
@@ -31,7 +31,7 @@ public sealed partial class Modals
     private Modal? ExtraExtraLargeModal { get; set; }
 
     [NotNull]
-    private Modal? SmailFullScreenModal { get; set; }
+    private Modal? SmallFullScreenModal { get; set; }
 
     [NotNull]
     private Modal? LargeFullScreenModal { get; set; }
