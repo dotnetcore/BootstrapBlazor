@@ -180,7 +180,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["GlobalException"],
-                    Url = "globalexception"
+                    Url = "global-exception"
                 },
                 new()
                 {
@@ -371,7 +371,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Textarea"],
-                    Url = "textareas"
+                    Url = "textarea"
                 },
                 new()
                 {
