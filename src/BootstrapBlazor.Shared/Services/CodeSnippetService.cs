@@ -16,6 +16,8 @@ class CodeSnippetService
 
     private string SampleUrl { get; set; }
 
+    private Dictionary<string, string?> SourceCodes { get; set; }
+
     private bool IsDevelopment { get; }
 
     private string ContentRootPath { get; }
@@ -45,6 +47,7 @@ class CodeSnippetService
         IsDevelopment = options.CurrentValue.IsDevelopment;
         ContentRootPath = options.CurrentValue.ContentRootPath;
         ServerUrl = options.CurrentValue.ServerUrl;
+        SourceCodes = options.CurrentValue.SourceCodes;
         SampleUrl = $"{options.CurrentValue.SourceUrl}BootstrapBlazor.Shared\\Samples\\";
     }
 
@@ -66,31 +69,40 @@ class CodeSnippetService
     /// <summary>
     /// 获得指定文件源码
     /// </summary>
-    /// <param name="fileName"></param>
+    /// <param name="codeFile"></param>
     /// <returns></returns>
-    public async Task<string> GetFileContentAsync(string fileName)
+    public async Task<string> GetFileContentAsync(string codeFile)
     {
+        // codeFile = ajax.razor.cs
         string? payload;
-        if (OperatingSystem.IsBrowser())
-        {
-            var client = Factory.CreateClient();
-            client.Timeout = TimeSpan.FromSeconds(5);
-            client.BaseAddress = new Uri($"{ServerUrl}/api/");
-            payload = await client.GetStringAsync($"Code?fileName=BootstrapBlazor.Shared/Samples/{fileName}");
-        }
-        else
-        {
-            // 读取硬盘文件
-            payload = await ReadFileAsync(fileName);
-        }
+        var segs = codeFile.Split('.');
+        var key = segs.First();
+        var typeName = SourceCodes.ContainsKey(key) ? SourceCodes[key] : string.Empty;
 
-        // 源码修正
-        var typeName = fileName.Split('.').FirstOrDefault()?.Replace('\\', '/').Replace('/', '.');
         if (!string.IsNullOrEmpty(typeName))
         {
+            var fileName = codeFile.Replace(key, typeName);
+            if (OperatingSystem.IsBrowser())
+            {
+                var client = Factory.CreateClient();
+                client.Timeout = TimeSpan.FromSeconds(5);
+                client.BaseAddress = new Uri($"{ServerUrl}/api/");
+                payload = await client.GetStringAsync($"Code?fileName=BootstrapBlazor.Shared/Samples/{fileName}");
+            }
+            else
+            {
+                // 读取硬盘文件
+                payload = await ReadFileAsync(fileName);
+            }
+
+            // 源码修正
             CacheManager.GetLocalizedStrings(typeName, LocalizerOptions).ToList().ForEach(l => payload = ReplacePayload(payload, l));
             payload = ReplaceSymbols(payload);
             payload = RemoveBlockStatement(payload, "@inject IStringLocalizer<");
+        }
+        else
+        {
+            payload = "Please config docs.json";
         }
         return payload;
     }
