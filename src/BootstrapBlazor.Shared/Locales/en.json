@@ -5764,8 +5764,8 @@
   },
   "BootstrapBlazor.Shared.Samples.VideoPlayers": {
     "VideoPlayersTitle": "VideoPlayer",
-    "VideoPlayersNomalTitle": "Basic usage",
-    "VideoPlayersNomalIntro": "",
+    "VideoPlayersNormalTitle": "Basic usage",
+    "VideoPlayersNormalIntro": "",
     "VideoPlayersChangeURLTitle": "Switch playback resources",
     "VideoPlayersChangeURLIntro": "Use the Reload method to switch playback resources",
     "VideoPlayersTips": "Silent mode enabled by default, this is the way for autoplay follow the modern browser standards.",

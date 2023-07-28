@@ -5782,8 +5782,8 @@
   },
   "BootstrapBlazor.Shared.Samples.VideoPlayers": {
     "VideoPlayersTitle": "VideoPlayer 视频播放器",
-    "VideoPlayersNomalTitle": "基础用法",
-    "VideoPlayersNomalIntro": "",
+    "VideoPlayersNormalTitle": "基础用法",
+    "VideoPlayersNormalIntro": "",
     "VideoPlayersChangeURLTitle": "切换播放资源",
     "VideoPlayersChangeURLIntro": "使用 Reload 方法切换播放资源",
     "VideoPlayersTips": "默认启用静音模式,只有这样自动播放功能才符合现代浏览器标准.",
