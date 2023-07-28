@@ -43,9 +43,14 @@ public class WebsiteOptions
     public string VideoLibUrl { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/%E8%A7%86%E9%A2%91%E8%B5%84%E6%BA%90?sort_id=3300624";
 
     /// <summary>
-    /// 
+    /// 仓库源码地址
     /// </summary>
     public string SourceUrl { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/raw/main/src/";
+
+    /// <summary>
+    /// 源码地址
+    /// </summary>
+    public string SourceCodePath { get; set; } = "/root/BootstrapBlazor/src/";
 
     /// <summary>
     /// 

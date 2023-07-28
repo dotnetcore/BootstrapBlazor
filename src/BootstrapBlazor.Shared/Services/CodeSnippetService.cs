@@ -14,7 +14,7 @@ class CodeSnippetService
 
     private string ServerUrl { get; set; }
 
-    private string SampleUrl { get; set; }
+    private string SourceCodePath { get; set; }
 
     private Dictionary<string, string?> SourceCodes { get; set; }
 
@@ -48,7 +48,7 @@ class CodeSnippetService
         ContentRootPath = options.CurrentValue.ContentRootPath;
         ServerUrl = options.CurrentValue.ServerUrl;
         SourceCodes = options.CurrentValue.SourceCodes;
-        SampleUrl = $"{options.CurrentValue.SourceUrl}BootstrapBlazor.Shared\\Samples\\";
+        SourceCodePath = options.CurrentValue.SourceCodePath;
     }
 
     /// <summary>
@@ -102,7 +102,7 @@ class CodeSnippetService
         }
         else
         {
-            payload = "Please config docs.json";
+            payload = "Error: Please config docs.json";
         }
         return payload;
     }
@@ -112,7 +112,7 @@ class CodeSnippetService
         string? payload;
         var file = IsDevelopment
             ? $"{ContentRootPath}\\..\\BootstrapBlazor.Shared\\Samples\\{fileName}"
-            : $"{SampleUrl}{fileName}";
+            : $"{SourceCodePath}BootstrapBlazor.Shared\\Samples\\{fileName}";
         if (!OperatingSystem.IsWindows())
         {
             file = file.Replace('\\', '/');
@@ -123,7 +123,7 @@ class CodeSnippetService
         }
         else
         {
-            payload = "File not found.";
+            payload = "Error: File not found";
         }
         return payload;
     }
