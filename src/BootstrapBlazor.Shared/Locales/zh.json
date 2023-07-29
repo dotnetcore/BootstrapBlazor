@@ -898,7 +898,7 @@
     "RecognizerNormalDescription": "使用说明",
     "RecognizerNormalTips": "点击 <b>开始识别</b> 后，脚本运行可能会提示要求录音权限，授权后开始讲话，5秒后（可配置）右侧文本框显示语音识别结果，请勿讲完话后直接点击 <p>结束识别</p>"
   },
-  "BootstrapBlazor.Shared.Samples.Speeches": {
+  "BootstrapBlazor.Shared.Samples.Speeches.Index": {
     "SpeechTitle": "Speech 语音识别与合成",
     "SpeechDescription": "通过麦克风语音采集转换为文字（STT），或者通过文字通过语音朗读出来（TTS）",
     "SpeechDescription1": "本套组件内置 <code>Azure</code> 与 <code>Baidu</code> 语音服务，本示例依赖于",

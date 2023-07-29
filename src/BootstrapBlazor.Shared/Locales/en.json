@@ -898,7 +898,7 @@
     "RecognizerNormalDescription": "Instructions for use",
     "RecognizerNormalTips": "click <p>start to identify</p> After the script runs, it may prompt for recording permission. After authorization, start speaking. After 5 seconds (configurable), the text box on the right will display the speech recognition result. Do not click directly after speaking. <p>end recognition</p>"
   },
-  "BootstrapBlazor.Shared.Samples.Speeches": {
+  "BootstrapBlazor.Shared.Samples.Speeches.Index": {
     "SpeechTitle": "Speech Recognition and Synthesis",
     "SpeechDescription": "Converted to text (STT) through microphone voice capture, or read aloud through text (TTS)",
     "SpeechDescription1": "This set of components is built-in <code>Azure</code> and <code>Baidu</code> Speech service, this example relies on",

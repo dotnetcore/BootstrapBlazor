@@ -1,6 +1,5 @@
-﻿@page "/synthesizer"
+﻿@page "/speech/synthesizer"
 @inherits BootstrapComponentBase
-@namespace BootstrapBlazor.Shared.Samples
 @inject IStringLocalizer<Synthesizers> Localizer
 
 <h3>@Localizer["SynthesizersTitle"]</h3>
@@ -9,5 +8,5 @@
 <DemoBlock Title="@Localizer["SynthesizerNormalTitle"]"
            Introduction="@Localizer["SynthesizerNormalIntro"]"
            Name="Normal"
-           Demo="typeof(Demos.Speechs.Synthesizers.SynthesizerNormal)">
+           Demo="typeof(Demos.Speeches.Synthesizers.SynthesizerNormal)">
 </DemoBlock>
