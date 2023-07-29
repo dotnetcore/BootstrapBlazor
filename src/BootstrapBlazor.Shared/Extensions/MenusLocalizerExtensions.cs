@@ -429,6 +429,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["BaiduOcr"],
+                    Url = "ocr"
+                },
+                new()
+                {
                     Text = Localizer["BarcodeReader"],
                     Url = "barcode-reader"
                 },
@@ -645,11 +650,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Transition"],
                     Url = "transition"
-                },
-                new()
-                {
-                    Text = Localizer["BaiduOcr"],
-                    Url = "ocr"
                 },
                 new()
                 {
