@@ -666,157 +666,157 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["TableColumn"],
-                    Url = "tables/column"
+                    Url = "table/column"
                 },
                 new()
                 {
                     Text = Localizer["TableColumnDrag"],
-                    Url = "tables/column/drag"
+                    Url = "table/column/drag"
                 },
                 new()
                 {
                     Text = Localizer["TableColumnResizing"],
-                    Url = "tables/column/resizing"
+                    Url = "table/column/resizing"
                 },
                 new()
                 {
                     Text = Localizer["TableColumnList"],
-                    Url = "tables/column/list"
+                    Url = "table/column/list"
                 },
                 new()
                 {
                     Text = Localizer["TableColumnTemplate"],
-                    Url = "tables/column/template"
+                    Url = "table/column/template"
                 },
                 new()
                 {
                     Text = Localizer["TableFixColumn"],
-                    Url = "tables/fix-column"
+                    Url = "table/fix-column"
                 },
                 new()
                 {
                     Text = Localizer["TableRow"],
-                    Url = "tables/row"
+                    Url = "table/row"
                 },
                 new()
                 {
                     Text = Localizer["TableDetail"],
-                    Url = "tables/detail"
+                    Url = "table/detail"
                 },
                 new()
                 {
                     Text = Localizer["TableSelection"],
-                    Url = "tables/selection"
+                    Url = "table/selection"
                 },
                 new()
                 {
                     Text = Localizer["TableWrap"],
-                    Url = "tables/wrap"
+                    Url = "table/wrap"
                 },
                 new()
                 {
                     Text = Localizer["TableCell"],
-                    Url = "tables/cell"
+                    Url = "table/cell"
                 },
                 new()
                 {
                     Text = Localizer["TableLookup"],
-                    Url = "tables/lookup"
+                    Url = "table/lookup"
                 },
                 new()
                 {
                     Text = Localizer["TableDynamic"],
-                    Url = "tables/dynamic"
+                    Url = "table/dynamic"
                 },
                 new()
                 {
                     Text = Localizer["TableDynamicObject"],
-                    Url = "tables/dynamic-object"
+                    Url = "table/dynamic-object"
                 },
                 new()
                 {
                     Text = Localizer["TableSearch"],
-                    Url = "tables/search"
+                    Url = "table/search"
                 },
                 new()
                 {
                     Text = Localizer["TableFilter"],
-                    Url = "tables/filter"
+                    Url = "table/filter"
                 },
                 new()
                 {
                     Text = Localizer["TableFixHeader"],
-                    Url = "tables/header"
+                    Url = "table/header"
                 },
                 new()
                 {
                     Text = Localizer["TableHeaderGroup"],
-                    Url = "tables/multi-header"
+                    Url = "table/multi-header"
                 },
                 new()
                 {
                     Text = Localizer["TablePage"],
-                    Url = "tables/pages"
+                    Url = "table/page"
                 },
                 new()
                 {
                     Text = Localizer["TableToolbar"],
-                    Url = "tables/toolbar"
+                    Url = "table/toolbar"
                 },
                 new()
                 {
                     Text = Localizer["TableEdit"],
-                    Url = "tables/edit"
+                    Url = "table/edit"
                 },
                 new()
                 {
                     Text = Localizer["TableTracking"],
-                    Url = "tables/tracking"
+                    Url = "table/tracking"
                 },
                 new()
                 {
                     Text = Localizer["TableExcel"],
-                    Url = "tables/excel"
+                    Url = "table/excel"
                 },
                 new()
                 {
                     Text = Localizer["TableDynamicExcel"],
-                    Url = "tables/dynamic-excel"
+                    Url = "table/dynamic-excel"
                 },
                 new()
                 {
                     Text = Localizer["TableExport"],
-                    Url = "tables/export"
+                    Url = "table/export"
                 },
                 new()
                 {
                     Text = Localizer["TableAutoRefresh"],
-                    Url = "tables/auto-refresh"
+                    Url = "table/auto-refresh"
                 },
                 new()
                 {
                     Text = Localizer["TableFooter"],
-                    Url = "tables/footer"
+                    Url = "table/footer"
                 },
                 new()
                 {
                     Text = Localizer["TableDialog"],
-                    Url = "tables/dialog"
+                    Url = "table/dialog"
                 },
                 new()
                 {
                     Text = Localizer["TableTree"],
-                    Url = "tables/tree"
+                    Url = "table/tree"
                 },
                 new()
                 {
                     Text = Localizer["TableLoading"],
-                    Url = "tables/loading"
+                    Url = "table/loading"
                 },
                 new()
                 {
                     Text = Localizer["TableVirtualization"],
-                    Url = "tables/virtualization"
+                    Url = "table/virtualization"
                 }
             };
             item.CssClass = "nav-table";
