@@ -15,7 +15,6 @@ public sealed partial class Scrolls
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-
         new()
         {
             Name = "ChildContent",
