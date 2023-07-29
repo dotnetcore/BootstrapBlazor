@@ -1,5 +1,8 @@
 ﻿@page "/download"
 @inject IStringLocalizer<Downloads> Localizer
+@inject IOptionsMonitor<WebsiteOptions> SiteOptions
+@inject ToastService ToastService
+@inject DownloadService DownloadService
 
 <h3>@Localizer["DownloadsTitle"]</h3>
 <h4>@Localizer["DownloadsSubTitle"]</h4>
@@ -11,7 +14,7 @@
     </div>
 </Tips>
 
-<div class="mb-3">
+<div class="my-2">
     @((@MarkupString)Localizer["DownloadsExample"].Value)：
     <Button Icon="fa-solid fa-download" Text="@Localizer["DownloadsExampleButtonText"]" OnClick="@DownloadFileAsync"></Button>
 </div>
@@ -38,29 +41,30 @@
 {
     <DemoBlock Title="@Localizer["DownloadNormalTitle"]"
                Introduction="@Localizer["DownloadNormalIntro"]"
-               Name="Normal"
-               Demo="typeof(Demos.Downloads.DownloadNormal)">
+               Name="Normal">
+        <Button IsAsync="true" Icon="fa-solid fa-download" Text="@Localizer["DownloadNormalButtonText"]" OnClickWithoutRender="DownloadPhysicalFileAsync"></Button>
     </DemoBlock>
 
     <DemoBlock Title="@Localizer["DownloadFolderTitle"]"
                Introduction="@Localizer["DownloadFolderIntro"]"
-               Name="Folder"
-               Demo="typeof(Demos.Downloads.DownloadFolder)">
+               Name="Folder">
+        <Button IsAsync="true" Icon="fa-solid fa-download" Text="@Localizer["DownloadFolderButtonText"]" OnClickWithoutRender="DownloadFolderAsync"></Button>
     </DemoBlock>
 }
 
 <DemoBlock Title="@Localizer["DownloadBigFileTitle"]"
            Introduction="@Localizer["DownloadBigFileIntro"]"
-           Name="BigFile"
-           Demo="typeof(Demos.Downloads.DownloadBigFile)">
+           Name="BigFile">
     <p>@((MarkupString)Localizer["DownloadBigFileButtonText"].Value)</p>
+    <Button IsAsync="true" Icon="fa-solid fa-download" Text="Download" OnClickWithoutRender="DownloadLargeFileAsync"></Button>
 </DemoBlock>
 
 @if (!IsWasm)
 {
     <DemoBlock Title="@Localizer["DownloadImageTitle"]"
                Introduction="@Localizer["DownloadImageIntro"]"
-               Name="Image"
-               Demo="typeof(Demos.Downloads.DownloadImage)">
+               Name="Image">
+        <p>@((MarkupString)Localizer["DownloadImageButtonText"].Value)</p>
+        <img src="@TempUrl" style="width: 120px; height: auto;" />
     </DemoBlock>
 }
