@@ -31,6 +31,13 @@ internal static class MenusLocalizerExtensions
 
         item = new DemoMenuItem()
         {
+            Text = Localizer["DockViewComponents"],
+            Icon = "fa-fw fa-solid fa-table-cells-large"
+        };
+        AddDockView(item);
+
+        item = new DemoMenuItem()
+        {
             Text = Localizer["NavigationComponents"],
             Icon = "fa-fw fa-solid fa-bars"
         };
@@ -651,6 +658,49 @@ internal static class MenusLocalizerExtensions
                 }
             };
             AddBadge(item);
+        }
+
+        void AddDockView(DemoMenuItem item)
+        {
+            item.Items = new List<DemoMenuItem>
+            {
+                new()
+                {
+                    Text = Localizer["DockViewColumn"],
+                    Url = "dock-view/col"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewRow"],
+                    Url = "dock-view/row"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewStack"],
+                    Url = "dock-view/stack"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewComplex"],
+                    Url = "dock-view/complex"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewNest"],
+                    Url = "dock-view/nest"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewVisible"],
+                    Url = "dock-view/visible"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewLock"],
+                    Url = "dock-view/lock"
+                }
+            };
+            AddBadge(item, count: 1);
         }
 
         void AddTable(DemoMenuItem item)

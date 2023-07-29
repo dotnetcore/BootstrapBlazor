@@ -4628,7 +4628,14 @@
     "HtmlRenderer": "Html 转换器  HtmlRenderer",
     "Html2Pdf": "Html 转 Pdf",
     "ContextMenu": "右键菜单 ContextMenu",
-    "DockView": "可停靠布局 DockView",
+    "DockViewComponents": "可停靠布局",
+    "DockViewColumn": "列布局",
+    "DockViewRow": "行布局",
+    "DockViewStack": "堆栈布局",
+    "DockViewNest": "嵌套布局",
+    "DockViewComplex": "组合布局",
+    "DockViewVisible": "可见性切换",
+    "DockViewLock": "布局锁定",
     "OtherComponents": "其他组件",
     "MouseFollowerIntro": "鼠标跟随",
     "Live2DDisplayIntro": "Live2D 插件"
@@ -5857,11 +5864,9 @@
     "ContextMenuTreeTitle": "Tree 组件",
     "ContextMenuTreeIntro": "点击 <code>Tree</code> 组件行数据右键，弹出上下文关联菜单"
   },
-  "BootstrapBlazor.Shared.Samples.DockViews": {
-    "Title": "DockView 可停靠视图",
-    "Description": "多标签停靠布局管理器",
-    "BasicUsageTitle": "基础用法",
-    "BasicUsageIntro": "通过拖动标签自定义布局"
+  "BootstrapBlazor.Shared.Samples.DockViews.DockViewIndex": {
+    "DockViewTitle": "DockView 可停靠视图",
+    "DockViewDescription": "多标签停靠布局管理器"
   },
   "BootstrapBlazor.Shared.Samples.MouseFollowers": {
     "MouseFollowersTitle": "鼠标跟随器",
