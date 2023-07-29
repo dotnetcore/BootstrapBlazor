@@ -1,6 +1,10 @@
 ﻿{
   "src": {
-    "ajax": "Ajaxs"
+    "ajax": "Ajaxs",
+    "table": "Table\\Tables",
+    "tables/auto-refresh": "Table\\TablesAutoRefresh",
+    "table/column": "Tables\\TablesColumn",
+    "table/column/drag": "Table\\TablesColumnDrag"
   },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",
