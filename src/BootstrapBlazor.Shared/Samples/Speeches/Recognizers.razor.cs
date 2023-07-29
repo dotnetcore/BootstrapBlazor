@@ -1,16 +1,11 @@
-﻿@inject RecognizerService RecognizerService
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
-<div class="row">
-    <div class="col-12 col-sm-6 text-center">
-        <SpeechWave Show="Start" TotalTime="5000" OnTimeout="OnTimeout" class="my-3" />
-        <Button Text="@ButtonText" Icon="fa-fw fa-solid fa-microphone" OnClick="OnStart" />
-    </div>
-    <div class="col-12 col-sm-6">
-        <Textarea Value="@Result" rows="6" />
-    </div>
-</div>
+namespace BootstrapBlazor.Shared.Samples.Speeches;
 
-@code {
+public partial class Recognizers
+{
     private bool Start { get; set; }
 
     private string? Result { get; set; }

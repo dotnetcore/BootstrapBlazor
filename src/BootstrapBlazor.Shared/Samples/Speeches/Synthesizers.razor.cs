@@ -1,16 +1,11 @@
-﻿@inject SynthesizerService SynthesizerService
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
-<div class="row">
-    <div class="col-12 col-sm-6">
-        <Textarea @bind-Value="InputText" rows="6" />
-    </div>
-    <div class="col-12 col-sm-6 text-center">
-        <SpeechWave Show="Start" ShowUsedTime="false" class="my-3" />
-        <Button Text="@ButtonText" OnClick="OnStart" Icon="fa-fw fa-solid fa-microphone" />
-    </div>
-</div>
+namespace BootstrapBlazor.Shared.Samples.Speeches;
 
-@code {
+public partial class Synthesizers
+{
     private bool Start { get; set; }
 
     private string? InputText { get; set; }

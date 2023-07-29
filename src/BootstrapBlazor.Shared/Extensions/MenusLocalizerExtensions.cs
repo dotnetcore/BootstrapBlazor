@@ -121,22 +121,22 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["SpeechIntro"],
-                    Url = "speech"
+                    Url = "speech/index"
                 },
                 new()
                 {
                     Text = Localizer["Recognizer"],
-                    Url = "recognizer"
+                    Url = "speech/recognizer"
                 },
                 new()
                 {
                     Text = Localizer["Synthesizer"],
-                    Url = "synthesizer"
+                    Url = "speech/synthesizer"
                 },
                 new()
                 {
                     Text = Localizer["SpeechWave"],
-                    Url = "speech-wave"
+                    Url = "speech/wave"
                 }
             };
             AddBadge(item, count: 3);
@@ -448,7 +448,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Camera"],
-                    Url = "Camera"
+                    Url = "camera"
                 },
                 new()
                 {
@@ -567,7 +567,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["PdfReader"],
-                    Url = "PdfReader"
+                    Url = "pdf-reader"
                 },
                 new()
                 {
@@ -1047,7 +1047,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Steps"],
-                    Url = "steps"
+                    Url = "step"
                 },
                 new()
                 {

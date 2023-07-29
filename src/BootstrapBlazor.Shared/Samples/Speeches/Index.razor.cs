@@ -4,12 +4,12 @@
 
 using BootstrapBlazor.Shared.Services;
 
-namespace BootstrapBlazor.Shared.Samples;
+namespace BootstrapBlazor.Shared.Samples.Speeches;
 
 /// <summary>
 /// Speeches 示例
 /// </summary>
-public partial class Speeches
+public partial class Index
 {
     [Inject]
     [NotNull]
@@ -25,7 +25,7 @@ public partial class Speeches
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Speeches>? Localizer { get; set; }
+    private IStringLocalizer<Index>? Localizer { get; set; }
 
     private List<ConsoleMessageItem> ConsoleMessages { get; } = new();
 
