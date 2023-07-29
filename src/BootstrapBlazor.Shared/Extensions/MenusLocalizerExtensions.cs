@@ -830,32 +830,32 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["ChartSummary"],
-                    Url = "charts/index"
+                    Url = "chart/index"
                 },
                 new()
                 {
                     Text = Localizer["ChartLine"],
-                    Url = "charts/line"
+                    Url = "chart/line"
                 },
                 new()
                 {
                     Text = Localizer["ChartBar"],
-                    Url = "charts/bar"
+                    Url = "chart/bar"
                 },
                 new()
                 {
                     Text = Localizer["ChartPie"],
-                    Url = "charts/pie"
+                    Url = "chart/pie"
                 },
                 new()
                 {
                     Text = Localizer["ChartDoughnut"],
-                    Url = "charts/doughnut"
+                    Url = "chart/doughnut"
                 },
                 new()
                 {
                     Text = Localizer["ChartBubble"],
-                    Url = "charts/bubble"
+                    Url = "chart/bubble"
                 }
             };
             AddBadge(item, count: 5);
