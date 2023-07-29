@@ -91,9 +91,9 @@ public partial class ComponentLayout : IAsyncDisposable
     {
         base.OnParametersSet();
 
-        var page = Navigator.ToBaseRelativePath(Navigator.Uri);
-        var comNameWithHash = page.Split("/").LastOrDefault() ?? string.Empty;
-        var comName = comNameWithHash.Split("#").FirstOrDefault() ?? string.Empty;
+        var url = Navigator.ToBaseRelativePath(Navigator.Uri);
+        var comNameWithHash = url.Split('#').First();
+        var comName = comNameWithHash.Split('?').First();
         RazorFileName = $"{comName}.razor";
         CSharpFileName = $"{comName}.razor.cs";
         VideoFileName = comName;
