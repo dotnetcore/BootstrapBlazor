@@ -1,5 +1,4 @@
-﻿@page "/speech-wave"
-@namespace BootstrapBlazor.Shared.Samples
+﻿@page "/speech/wave"
 @inject IStringLocalizer<SpeechWaves> Localizer
 
 <h3>@Localizer["SpeechWaveTitle"]</h3>
@@ -9,16 +8,16 @@
 <DemoBlock Title="@Localizer["NormalTitle"]"
            Introduction="@Localizer["NormalIntro"]"
            Name="Normal"
-           Demo="typeof(Demos.Speechs.SpeechWaves.SpeechWaveNormal)" />
+           Demo="typeof(Demos.Speeches.SpeechWaves.SpeechWaveNormal)" />
 
 <DemoBlock Title="@Localizer["ShowUsedTimeTitle"]"
            Introduction="@Localizer["ShowUsedTimeIntro"]"
            Name="ShowUsedTime"
-           Demo="typeof(Demos.Speechs.SpeechWaves.SpeechWaveShowUsedTime)" />
+           Demo="typeof(Demos.Speeches.SpeechWaves.SpeechWaveShowUsedTime)" />
 
 <DemoBlock Title="@Localizer["ValueTitle"]"
            Introduction="@Localizer["ValueIntro"]"
            Name="Value"
-           Demo="typeof(Demos.Speechs.SpeechWaves.SpeechWaveShow)" />
+           Demo="typeof(Demos.Speeches.SpeechWaves.SpeechWaveShow)" />
 
 <AttributeTable Items="@GetAttributes()" />
