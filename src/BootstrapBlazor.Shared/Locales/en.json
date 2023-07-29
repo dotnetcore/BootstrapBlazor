@@ -4611,7 +4611,14 @@
     "HtmlRenderer": "HtmlRenderer",
     "Html2Pdf": "Html2Pdf",
     "ContextMenu": "ContextMenu",
-    "DockView": "DockView",
+    "DockViewComponents": "DockView",
+    "DockViewColumn": "Column",
+    "DockViewRow": "Row",
+    "DockViewStack": "Stack",
+    "DockViewNest": "Nest",
+    "DockViewComplex": "Complex",
+    "DockViewVisible": "Visible",
+    "DockViewLock": "Lock",
     "OtherComponents": "Others",
     "MouseFollowerIntro": "MouseFollower",
     "Live2DDisplayIntro": "Live2D Widget"
@@ -5839,11 +5846,9 @@
     "ContextMenuTreeTitle": "Tree",
     "ContextMenuTreeIntro": "Right click on the <code>Tree</code> to pop up a context menu"
   },
-  "BootstrapBlazor.Shared.Samples.DockViews": {
-    "Title": "DockView",
-    "Description": "A multi window layout manager for webapps",
-    "BasicUsageTitle": "Normal",
-    "BasicUsageIntro": "layout manager which enables you to layout components in a web page and re-arrange them with drag and drop"
+  "BootstrapBlazor.Shared.Samples.DockViews.DockViewIndex": {
+    "DockViewTitle": "DockView",
+    "DockViewDescription": "A multi window layout manager for webapps"
   },
   "BootstrapBlazor.Shared.Samples.MouseFollowers": {
     "MouseFollowersTitle": "Mouse Follower",

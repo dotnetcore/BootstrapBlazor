@@ -465,11 +465,11 @@ export function init(id, invoke, callbacks) {
 
     setCopyColumn(table)
 
-    if (table.search) {
+    if (table.thead) {
         const observer = new ResizeObserver(() => {
             setBodyHeight(table)
         });
-        observer.observe(table.search)
+        observer.observe(table.el)
         table.observer = observer
     }
 }
