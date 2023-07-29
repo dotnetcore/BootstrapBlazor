@@ -4,6 +4,9 @@
 
 namespace BootstrapBlazor.Shared.Samples.Speeches;
 
+/// <summary>
+/// 语音合成组件示例代码
+/// </summary>
 public partial class Synthesizers
 {
     private bool Start { get; set; }
