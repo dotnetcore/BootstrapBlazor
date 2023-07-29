@@ -9,6 +9,15 @@ namespace BootstrapBlazor.Shared.Samples.Speeches;
 /// </summary>
 public partial class SpeechWaves
 {
+    private bool IsShow { get; set; }
+
+    private string ButtonText => IsShow ? Localizer["ValueButtonText1"] : Localizer["ValueButtonText2"];
+
+    private void OnClickShow()
+    {
+        IsShow = !IsShow;
+    }
+
     /// <summary>
     /// 获得属性方法
     /// </summary>

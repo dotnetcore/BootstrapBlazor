@@ -884,20 +884,6 @@
     "ShowAutoScrollTitle": "自动滚屏控制",
     "ShowAutoScrollIntro": "通过设置 <code>ShowAutoScroll</code> 显示 <code>Checkbox</code> 控制是否自动滚动屏幕"
   },
-  "BootstrapBlazor.Shared.Samples.Synthesizers": {
-    "SynthesizersTitle": "Synthesizer 语音合成",
-    "SynthesizersSubTitle": "将文本内容转化为语音",
-    "SynthesizerNormalTitle": "普通用法",
-    "SynthesizerNormalIntro": "点击开始合成后对文本内容进行语音合成"
-  },
-  "BootstrapBlazor.Shared.Samples.Recognizers": {
-    "RecognizersTitle": "Recognizer 语音识别",
-    "RecognizersSubTitle": "通过语音采集设备将语音转化为文本",
-    "RecognizerNormalTitle": "普通用法",
-    "RecognizerNormalIntro": "点击开始识别后对录入语音进行识别",
-    "RecognizerNormalDescription": "使用说明",
-    "RecognizerNormalTips": "点击 <b>开始识别</b> 后，脚本运行可能会提示要求录音权限，授权后开始讲话，5秒后（可配置）右侧文本框显示语音识别结果，请勿讲完话后直接点击 <p>结束识别</p>"
-  },
   "BootstrapBlazor.Shared.Samples.Speeches.Index": {
     "SpeechTitle": "Speech 语音识别与合成",
     "SpeechDescription": "通过麦克风语音采集转换为文字（STT），或者通过文字通过语音朗读出来（TTS）",
@@ -916,6 +902,36 @@
     "SpeechTips2": "2. 使用服务",
     "SpeechTips2Text1": "语音识别服务",
     "SpeechTips2Text2": "语音合成服务"
+  },
+  "BootstrapBlazor.Shared.Samples.Speeches.SpeechWaves": {
+    "SpeechWaveTitle": "SpeechWave 语音波形图",
+    "SpeechWavesDescription": "开始采集语音时显示的波形动态图",
+    "NormalTitle": "基础用法",
+    "NormalIntro": "显示波形图",
+    "ShowUsedTimeTitle": "显示时长",
+    "ShowUsedTimeIntro": "通过 <code>ShowUsedTime</code>",
+    "ValueTitle": "参数控制是否显示",
+    "ValueIntro": "通过 <code>Show</code> 值控制是否显示波形图",
+    "ValueButtonText1": "隐藏",
+    "ValueButtonText2": "显示",
+    "ShowAttr": "是否开始",
+    "ShowUsedTimeAttr": "是否显示时长",
+    "OnTimeoutAttr": "识别结束后超时回调方法",
+    "TotalTimeSecondAttr": "语音识别设置总时长超出过调用 OnTimeout 回调"
+  },
+  "BootstrapBlazor.Shared.Samples.Speeches.Synthesizers": {
+    "SynthesizersTitle": "Synthesizer 语音合成",
+    "SynthesizersSubTitle": "将文本内容转化为语音",
+    "SynthesizerNormalTitle": "普通用法",
+    "SynthesizerNormalIntro": "点击开始合成后对文本内容进行语音合成"
+  },
+  "BootstrapBlazor.Shared.Samples.Speeches.Recognizers": {
+    "RecognizersTitle": "Recognizer 语音识别",
+    "RecognizersSubTitle": "通过语音采集设备将语音转化为文本",
+    "RecognizerNormalTitle": "普通用法",
+    "RecognizerNormalIntro": "点击开始识别后对录入语音进行识别",
+    "RecognizerNormalDescription": "使用说明",
+    "RecognizerNormalTips": "点击 <b>开始识别</b> 后，脚本运行可能会提示要求录音权限，授权后开始讲话，5秒后（可配置）右侧文本框显示语音识别结果，请勿讲完话后直接点击 <p>结束识别</p>"
   },
   "BootstrapBlazor.Shared.Samples.DragDrops": {
     "Title": "DragDrop 拖拽",
@@ -5643,22 +5659,6 @@
     "Title": "SignaturePad 手写签名",
     "SignatureText": "签名",
     "CleanText": "清除"
-  },
-  "BootstrapBlazor.Shared.Samples.SpeechWaves": {
-    "SpeechWaveTitle": "SpeechWave 语音波形图",
-    "SpeechWavesDescription": "开始采集语音时显示的波形动态图",
-    "NormalTitle": "基础用法",
-    "NormalIntro": "显示波形图",
-    "ShowUsedTimeTitle": "显示时长",
-    "ShowUsedTimeIntro": "通过 <code>ShowUsedTime</code>",
-    "ValueTitle": "参数控制是否显示",
-    "ValueIntro": "通过 <code>Show</code> 值控制是否显示波形图",
-    "ValueButtonText1": "隐藏",
-    "ValueButtonText2": "显示",
-    "ShowAttr": "是否开始",
-    "ShowUsedTimeAttr": "是否显示时长",
-    "OnTimeoutAttr": "识别结束后超时回调方法",
-    "TotalTimeSecondAttr": "语音识别设置总时长超出过调用 OnTimeout 回调"
   },
   "BootstrapBlazor.Shared.Samples.Reconnectors": {
     "Title": "Reconnector 重连组件",
