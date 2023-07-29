@@ -9,13 +9,13 @@
 
     <div class="card">
         <div class="card-body">
-            @RenderChildContent
+            @ChildContent
         </div>
-        @if (ShowCode.HasValue && ShowCode.Value)
+        @if (ShowCode)
         {
             <div class="card-footer">
                 <div class="card-footer-code collapse" id="@Id">
-                    <Pre BlockTitle="@BlockTitle" Demo="@DemoString" ShowToolbar="true"></Pre>
+                    <Pre BlockTitle="@BlockTitle" ShowToolbar="true"></Pre>
                 </div>
                 <a class="card-footer-control collapsed" href="#@Id" data-bs-toggle="collapse" role="button" aria-label="show code">
                     <i class="fa-solid fa-caret-up"></i>

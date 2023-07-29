@@ -35,10 +35,10 @@ public sealed partial class DemoBlock
     public Type? Demo { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示代码块 默认 true 显示
+    /// 获得/设置 是否显示代码块 默认 false 显示
     /// </summary>
     [Parameter]
-    public bool? ShowCode { get; set; }
+    public bool ShowCode { get; set; }
 
     /// <summary>
     /// 获得/设置 Tooltip 提示信息文本
@@ -58,8 +58,6 @@ public sealed partial class DemoBlock
 
     private string BlockTitle => Name ?? Title;
 
-    private string? DemoString => Demo?.ToString().Replace("BootstrapBlazor.Shared.", "");
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -69,22 +67,5 @@ public sealed partial class DemoBlock
 
         Title ??= Localizer[nameof(Title)];
         TooltipText ??= Localizer[nameof(TooltipText)];
-
-        if (!ShowCode.HasValue && Demo != null)
-        {
-            ShowCode = true;
-        }
     }
-
-    private RenderFragment RenderChildContent => builder =>
-    {
-        builder.AddContent(0, ChildContent);
-
-        // TODO: 改造完成后删除一下代码
-        if (Demo != null)
-        {
-            builder.OpenComponent(1, Demo);
-            builder.CloseComponent();
-        }
-    };
 }
