@@ -8,6 +8,7 @@
     }
     else
     {
+        <pre><code>@ChildContent</code></pre>
         @if (CanCopy)
         {
             @if (ShowToolbar)
@@ -19,6 +20,5 @@
             }
             <Button TooltipPlacement="Placement.Top" TooltipText="@TooltipTitle" TooltipTrigger="hover" class="btn-copy">Copy</Button>
         }
-        <pre><code>@ChildContent</code></pre>
     }
 </div>

@@ -31,21 +31,8 @@
     z-index: 2;
 }
 
-::deep :is(.code-razor, .code-cs) {
-    overflow: unset;
-}
-
-    ::deep :is(.code-razor, .code-cs) pre {
-        max-height: unset;
-        overflow: unset;
-    }
-
-::deep .code-cs .btn-copy {
-    position: sticky;
-    top: 4rem;
-    float: right;
-    margin-top: 0.65rem;
-    margin-right: 1.5rem;
+::deep :is(.code-razor, .code-cs) pre {
+    max-height: unset;
 }
 
 ::deep .bb-icon {
