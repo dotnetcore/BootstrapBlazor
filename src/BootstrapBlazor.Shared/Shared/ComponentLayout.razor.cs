@@ -13,6 +13,12 @@ namespace BootstrapBlazor.Shared.Shared;
 public partial class ComponentLayout : IAsyncDisposable
 {
     [NotNull]
+    private string? RazorFileName { get; set; }
+
+    [NotNull]
+    private string? CSharpFileName { get; set; }
+
+    [NotNull]
     private string? VideoFileName { get; set; }
 
     [NotNull]
@@ -28,6 +34,10 @@ public partial class ComponentLayout : IAsyncDisposable
     [Inject]
     [NotNull]
     private NavigationManager? Navigator { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<WebsiteOptions>? SiteOptions { get; set; }
 
     [Inject]
     [NotNull]
@@ -81,9 +91,11 @@ public partial class ComponentLayout : IAsyncDisposable
     {
         base.OnParametersSet();
 
-        var page = Navigator.ToBaseRelativePath(Navigator.Uri);
-        var comNameWithHash = page.Split("/").LastOrDefault() ?? string.Empty;
-        var comName = comNameWithHash.Split("#").FirstOrDefault() ?? string.Empty;
+        var url = Navigator.ToBaseRelativePath(Navigator.Uri);
+        var comNameWithHash = url.Split('#').First();
+        var comName = comNameWithHash.Split('?').First();
+        RazorFileName = $"{comName}.razor";
+        CSharpFileName = $"{comName}.razor.cs";
         VideoFileName = comName;
     }
 

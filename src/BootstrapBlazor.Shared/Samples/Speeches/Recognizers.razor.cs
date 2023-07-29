@@ -4,6 +4,9 @@
 
 namespace BootstrapBlazor.Shared.Samples.Speeches;
 
+/// <summary>
+/// 语音识别组件示例代码
+/// </summary>
 public partial class Recognizers
 {
     private bool Start { get; set; }

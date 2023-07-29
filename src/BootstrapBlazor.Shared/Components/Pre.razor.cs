@@ -46,6 +46,12 @@ public partial class Pre
     public string? Demo { get; set; }
 
     /// <summary>
+    /// 获得/设置 示例代码片段 默认 null 未设置
+    /// </summary>
+    [Parameter]
+    public string? CodeFile { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示工具按钮组
     /// </summary>
     [Parameter]
@@ -66,13 +72,24 @@ public partial class Pre
     private string? CopiedText { get; set; }
 
     /// <summary>
-    /// OnInitializedAsync 方法
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        LoadingText ??= Localizer[nameof(LoadingText)];
+        TooltipTitle ??= Localizer[nameof(TooltipTitle)];
+        PlusTooltipTitle ??= Localizer[nameof(PlusTooltipTitle)];
+        MinusTooltipTitle ??= Localizer[nameof(MinusTooltipTitle)];
+        CopiedText ??= Localizer[nameof(CopiedText)];
+    }
+
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
-        await base.OnInitializedAsync();
-
         if (ChildContent == null)
         {
             await GetCodeAsync();
@@ -85,20 +102,6 @@ public partial class Pre
     }
 
     /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        LoadingText ??= Localizer[nameof(LoadingText)];
-        TooltipTitle ??= Localizer[nameof(TooltipTitle)];
-        PlusTooltipTitle ??= Localizer[nameof(PlusTooltipTitle)];
-        MinusTooltipTitle ??= Localizer[nameof(MinusTooltipTitle)];
-        CopiedText ??= Localizer[nameof(CopiedText)];
-    }
-
-    /// <summary>
     /// OnAfterRender 方法
     /// </summary>
     /// <param name="firstRender"></param>
@@ -106,7 +109,7 @@ public partial class Pre
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (Loaded && !string.IsNullOrEmpty(Demo))
+        if (Loaded)
         {
             await InvokeVoidAsync("highlight", Id);
         }
@@ -120,9 +123,9 @@ public partial class Pre
 
     private async Task GetCodeAsync()
     {
-        if (!string.IsNullOrEmpty(Demo))
+        if (!string.IsNullOrEmpty(CodeFile))
         {
-            var code = await Example.GetCodeAsync(Demo);
+            var code = await Example.GetCodeAsync(CodeFile);
             if (!string.IsNullOrEmpty(code))
             {
                 ChildContent = builder =>

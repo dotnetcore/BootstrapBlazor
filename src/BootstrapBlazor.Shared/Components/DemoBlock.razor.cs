@@ -80,6 +80,7 @@ public sealed partial class DemoBlock
     {
         builder.AddContent(0, ChildContent);
 
+        // TODO: 改造完成后删除一下代码
         if (Demo != null)
         {
             builder.OpenComponent(1, Demo);

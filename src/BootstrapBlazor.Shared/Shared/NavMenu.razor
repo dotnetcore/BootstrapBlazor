@@ -9,7 +9,7 @@
 </div>
 
 <div class="sidebar-content collapse d-md-block">
-    <div class="switchs">
+    <div class="sidebar-switch">
         <Switch @bind-Value="@IsAccordion" ShowLabel="true" DisplayText="@AccordionText" OnValueChanged="@OnValueChanged" />
         <div style="width:1rem;"></div>
         <Switch @bind-Value="@IsExpandAll" IsDisabled="@IsAccordion" ShowLabel="true" DisplayText="@ExpandAllText" />
