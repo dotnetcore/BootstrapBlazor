@@ -1,15 +1,15 @@
-﻿.switchs {
+﻿.sidebar-switch {
     display: flex;
     border-bottom: solid 1px #c0c4cc;
     justify-content: center;
     align-items: center;
 }
 
-    .switchs ::deep .form-label {
+    .sidebar-switch ::deep .form-label {
         margin: 0 0.5rem 0 0;
     }
 
-    .switchs ::deep .switch {
+    .sidebar-switch ::deep .switch {
         width: auto;
     }
 
