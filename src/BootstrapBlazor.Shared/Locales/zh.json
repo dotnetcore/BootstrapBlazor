@@ -5705,9 +5705,9 @@
     "OnScreenKeyboardsCss": "<code> .kioskboard-body-padding { padding-top: unset !important;} </code>",
     "OnScreenKeyboardsBasicTitle": "基础用法"
   },
-  "BootstrapBlazor.Shared.Samples.Bluetooths": {
-    "Title": "Bluetooth & Printer 蓝牙和打印",
-    "BaseUsagTitle": "基础用法",
+  "BootstrapBlazor.Shared.Samples.Bluetooth": {
+    "BluetoothTitle": "Bluetooth & Printer 蓝牙和打印",
+    "BaseUsageTitle": "基础用法",
     "BaseUsageIntro": "连接设备后再执行打印等操作,根据打印机特性写入相应ESC/POS/CPCL命令",
     "BluetoothBatteryLevelIntro": "点击连接设备",
     "ConnectButtonText": "连接",
@@ -5719,7 +5719,7 @@
     "GetHeartrateButtonText": "查询心率",
     "StopHeartrateButtonText": "停止读取",
     "Url2": "2. 蓝牙心率带 Heart Rate",
-    "BluetoothsTitle": "Bluetooth Battery Level 蓝牙设备电量",
+    "BluetoothBatteryLevel": "Bluetooth Battery Level 蓝牙设备电量",
     "GetBatteryLevelButtonText": "查询电量",
     "Url3": "3. 蓝牙设备电量 Battery Level",
     "Tips": "服务UUID/ServiceUUID, 默认0xff00<br/>常见打印机ServiceUUID:<br/><code>0000ff00-0000-1000-8000-00805f9b34fb</code><br/><code>e7810a71-73ae-499d-8c15-faa9aef0c3f2</code><br/><code>0000fee7-0000-1000-8000-00805f9b34fb</code><br/>设置组件服务UUID : <code>printer.Opt.ServiceUuid=?</code>"

@@ -5687,9 +5687,9 @@
     "OnScreenKeyboardsCss": "<code> .kioskboard-body-padding { padding-top: unset !important;} </code>",
     "OnScreenKeyboardsBasicTitle": "Basic"
   },
-  "BootstrapBlazor.Shared.Samples.Bluetooths": {
-    "Title": "Bluetooth & Printer",
-    "BaseUsagTitle": "Basic usage",
+  "BootstrapBlazor.Shared.Samples.Bluetooth": {
+    "BluetoothTitle": "Bluetooth & Printer",
+    "BaseUsageTitle": "Basic usage",
     "BaseUsageIntro": "After connecting the device, perform operations such as printing, and write the corresponding commands(ESC/POS/CPCL) according to the characteristics of the printer",
     "BluetoothBatteryLevelIntro": "Click to connect device",
     "ConnectButtonText": "Connect",
@@ -5701,7 +5701,7 @@
     "GetHeartrateButtonText": "Get heart rate",
     "StopHeartrateButtonText": "Stop heart rate",
     "Url2": "2. Heart Rate",
-    "BluetoothsTitle": "Bluetooth Battery Level",
+    "BluetoothBatteryLevel": "Bluetooth Battery Level",
     "GetBatteryLevelButtonText": "Get Battery Level",
     "Url3": "3. Battery Level",
     "Tips": "ServiceUUID, Default <code>0xff00</code><br/>Common Printers ServiceUUID:<br/><code>0000ff00-0000-1000-8000-00805f9b34fb</code><br/><code>e7810a71-73ae-499d-8c15-faa9aef0c3f2</code><br/><code>0000fee7-0000-1000-8000-00805f9b34fb</code><br/>Set up component services UUID : <code>printer.Opt.ServiceUuid=?</code>"

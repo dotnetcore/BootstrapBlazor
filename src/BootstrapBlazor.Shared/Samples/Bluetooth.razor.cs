@@ -5,9 +5,9 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// Bluetooths
+/// Bluetooth
 /// </summary>
-public partial class Bluetooths
+public partial class Bluetooth
 {
     Printer printer { get; set; } = new Printer();
 

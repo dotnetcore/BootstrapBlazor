@@ -1,15 +1,11 @@
 ﻿@page "/blue-tooth"
-@inject IStringLocalizer<Bluetooths> Localizer
+@inject IStringLocalizer<Bluetooth> Localizer
 
-<h3>@Localizer["Title"]</h3>
+<h3>@Localizer["BluetoothTitle"]</h3>
 
 <PackageTips Name="BootstrapBlazor.Bluetooth" />
 
-<h5><a href="/bluetooths">@Localizer["Url1"]</a></h5>
-<h5><a href="/bluetoothheartrates">@Localizer["Url2"]</a></h5>
-<h5><a href="/bluetoothbatterylevels">@Localizer["Url3"]</a></h5>
-
-<Tips>
+<Tips class="mt-2">
     <p>@((MarkupString)Localizer["Tips"].Value)</p>
 </Tips>
 
@@ -25,14 +21,11 @@
     }
     else
     {
-        <span>
-            基本用法
-        </span>
+        <p>基本用法</p>
         <Printer @ref="printer" OnResult="OnResult" OnError="OnError" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" OnGetDevices="OnGetDevices" />
         <div @ref="printer.PrinterElement">
             <button data-action="btnConnect" class="btn btn-outline-primary">@Localizer["ConnectButtonText"]</button>
             <button data-action="btnDisconnect" class="btn btn-outline-danger">@Localizer["DisconnectButtonText"]</button>
-            @*<button data-action="btnReconnect" class="btn btn-outline-secondary">@Localizer["ReconnectButtonText"]</button>*@
             <button data-action="tools" class="btn btn-outline-primary" @onclick="printer.Print">@Localizer["PrintButtonText"]</button>
         </div>
     }
@@ -58,10 +51,10 @@
     <pre style="color:red">@errmessage</pre>
 </DemoBlock>
 
-<h4>@Localizer["BluetoothTitle2"]</h4>
+<h4>@Localizer["BluetoothBatteryLevel"]</h4>
 
-<DemoBlock Title="@Localizer["BaseUsageTitle"]"
-           Introduction="@Localizer["BluetoothBatteryLevelIntro"]"
+<DemoBlock Title="@Localizer["BatteryLevelTitle"]"
+           Introduction="@Localizer["BatteryLevelIntro"]"
            Name="HeartRate">
     <button class="btn btn-outline-primary" @onclick="GetHeartrate ">@Localizer["GetHeartrateButtonText"]</button>
     <button class="btn btn-outline-danger" @onclick="StopHeartrate ">@Localizer["StopHeartrateButtonText"]</button>
