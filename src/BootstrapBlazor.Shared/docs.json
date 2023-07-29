@@ -2,8 +2,8 @@
   "src": {
     "ajax": "Ajaxs",
     "table": "Table\\Tables",
-    "tables/auto-refresh": "Table\\TablesAutoRefresh",
-    "table/column": "Tables\\TablesColumn",
+    "table/auto-refresh": "Table\\TablesAutoRefresh",
+    "table/column": "Table\\TablesColumn",
     "table/column/drag": "Table\\TablesColumnDrag"
   },
   "video": {
