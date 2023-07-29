@@ -884,20 +884,6 @@
     "ShowAutoScrollTitle": "ShowAutoScroll",
     "ShowAutoScrollIntro": "Switch auto scroll the data by set <code>ShowAutoScroll</code> parameter"
   },
-  "BootstrapBlazor.Shared.Samples.Synthesizers": {
-    "SynthesizersTitle": "Synthesizer speech synthesis",
-    "SynthesizersSubTitle": "Convert text content to speech",
-    "SynthesizerNormalTitle": "Common usage",
-    "SynthesizerNormalIntro": "After clicking to start synthesis, perform speech synthesis on the text content"
-  },
-  "BootstrapBlazor.Shared.Samples.Recognizers": {
-    "RecognizersTitle": "Recognizer Speech Recognition",
-    "RecognizersSubTitle": "Convert speech to text with a voice capture device",
-    "RecognizerNormalTitle": "Common usage",
-    "RecognizerNormalIntro": "Click to start recognition to recognize the input voice",
-    "RecognizerNormalDescription": "Instructions for use",
-    "RecognizerNormalTips": "click <p>start to identify</p> After the script runs, it may prompt for recording permission. After authorization, start speaking. After 5 seconds (configurable), the text box on the right will display the speech recognition result. Do not click directly after speaking. <p>end recognition</p>"
-  },
   "BootstrapBlazor.Shared.Samples.Speeches.Index": {
     "SpeechTitle": "Speech Recognition and Synthesis",
     "SpeechDescription": "Converted to text (STT) through microphone voice capture, or read aloud through text (TTS)",
@@ -916,6 +902,36 @@
     "SpeechTips2": "2. use the service",
     "SpeechTips2Text1": "speech recognition service",
     "SpeechTips2Text2": "speech synthesis service"
+  },
+  "BootstrapBlazor.Shared.Samples.Speeches.SpeechWaves": {
+    "SpeechWaveTitle": "SpeechWave",
+    "SpeechWavesDescription": "The dynamic plot of the waveform that is displayed when you start acquiring speech",
+    "NormalTitle": "Basic usage",
+    "NormalIntro": "Displays the waveform plot",
+    "ShowUsedTimeTitle": "The length of the display",
+    "ShowUsedTimeIntro": "Via <code>ShowUsedTime</code>",
+    "ValueTitle": "Parameters control whether it is displayed",
+    "ValueIntro": "Use the <code>Show</code> value to control whether the waveform plot is displayed",
+    "ValueButtonText1": "Hide",
+    "ValueButtonText2": "Show",
+    "ShowAttr": "Whether to start",
+    "ShowUsedTimeAttr": "Whether to display the duration",
+    "OnTimeoutAttr": "Identify the end-of-timeout callback method",
+    "TotalTimeSecondAttr": "Speech recognition is set for a total time longer than calling the OnTimeout callback"
+  },
+  "BootstrapBlazor.Shared.Samples.Speeches.Synthesizers": {
+    "SynthesizersTitle": "Synthesizer speech synthesis",
+    "SynthesizersSubTitle": "Convert text content to speech",
+    "SynthesizerNormalTitle": "Common usage",
+    "SynthesizerNormalIntro": "After clicking to start synthesis, perform speech synthesis on the text content"
+  },
+  "BootstrapBlazor.Shared.Samples.Speeches.Recognizers": {
+    "RecognizersTitle": "Recognizer Speech Recognition",
+    "RecognizersSubTitle": "Convert speech to text with a voice capture device",
+    "RecognizerNormalTitle": "Common usage",
+    "RecognizerNormalIntro": "Click to start recognition to recognize the input voice",
+    "RecognizerNormalDescription": "Instructions for use",
+    "RecognizerNormalTips": "click <p>start to identify</p> After the script runs, it may prompt for recording permission. After authorization, start speaking. After 5 seconds (configurable), the text box on the right will display the speech recognition result. Do not click directly after speaking. <p>end recognition</p>"
   },
   "BootstrapBlazor.Shared.Samples.DragDrops": {
     "Title": "DragDrop",
@@ -5625,22 +5641,6 @@
     "Title": "SignaturePad",
     "SignatureText": "Signature",
     "CleanText": "Clean"
-  },
-  "BootstrapBlazor.Shared.Samples.SpeechWaves": {
-    "SpeechWaveTitle": "SpeechWave",
-    "SpeechWavesDescription": "The dynamic plot of the waveform that is displayed when you start acquiring speech",
-    "NormalTitle": "Basic usage",
-    "NormalIntro": "Displays the waveform plot",
-    "ShowUsedTimeTitle": "The length of the display",
-    "ShowUsedTimeIntro": "Via <code>ShowUsedTime</code>",
-    "ValueTitle": "Parameters control whether it is displayed",
-    "ValueIntro": "Use the <code>Show</code> value to control whether the waveform plot is displayed",
-    "ValueButtonText1": "Hide",
-    "ValueButtonText2": "Show",
-    "ShowAttr": "Whether to start",
-    "ShowUsedTimeAttr": "Whether to display the duration",
-    "OnTimeoutAttr": "Identify the end-of-timeout callback method",
-    "TotalTimeSecondAttr": "Speech recognition is set for a total time longer than calling the OnTimeout callback"
   },
   "BootstrapBlazor.Shared.Samples.Reconnectors": {
     "Title": "Reconnector",
