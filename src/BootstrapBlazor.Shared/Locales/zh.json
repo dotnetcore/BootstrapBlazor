@@ -100,7 +100,7 @@
     "TablesPageShowTopPaginationTitle": "显示在顶端",
     "TablesPageShowTopPaginationIntro": "设置 <code>ShowTopPagination</code> 为 <code>true</code> 是顶端显示分页组件"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesFixedColumn": {
+  "BootstrapBlazor.Shared.Samples.Table.TablesColumnFix": {
     "TablesFixedColumnTitle": "固定列功能",
     "TablesFixedColumnDescription": "对于列数很多的数据，可以固定前后的列，横向滚动查看其它数据",
     "TablesFixedColumnNote": "固定列用法请尽可能的设置固定列宽度，本页面如果宽度过长，请 <kbd>F12</kbd> 人为减小可视页面宽度",
@@ -109,7 +109,7 @@
     "TablesFixedColHeaderDescription": "本例中设置 <code>Name</code> <code>DateTime</code> <code>Complete</code> 前两列和最后一列为固定列，中间各列进行水平滚动",
     "TablesFixedColTableHeaderTitle": "固定表头与列",
     "TablesFixedColTableHeaderIntro": "设置 <code>IsFixedHeader=\"true\"</code> 固定表头，设置 <code>Fixed</code> 对列进行固定",
-    "TablesFixedExtendButtonsColumnTtile": "固定按钮操作列",
+    "TablesFixedExtendButtonsColumnTitle": "固定按钮操作列",
     "TablesFixedExtendButtonsColumnIntro": "设置 <code>FixedExtendButtonsColumn</code> 对操作列进行固定",
     "TablesFixedHeaderAndExtendButtonsColumnTitle": "固定表头与按钮操作列",
     "TablesFixedHeaderAndExtendButtonsColumnIntro": "设置 <code>IsFixedHeader=\"true\"</code> 固定表头，设置 <code>FixedMultipleColumn</code> 对选择列进行固定，设置 <code>FixedExtendButtonsColumn</code> 对操作列进行固定"
@@ -5545,28 +5545,20 @@
     "ImageViewersAttrZIndex": "原生 z-index 属性",
     "ImageViewersAttrPreviewList": "预览大图链接集合",
     "ImageViewersAttrOnLoadAsync": "图片加载成功时回调方法",
-    "ImageViewersAttrOnErrorAsync": "图片加载失败时回调方法"
-  },
-  "BootstrapBlazor.Shared.Demos.ImageViewer.ImageViewerNormal": {
+    "ImageViewersAttrOnErrorAsync": "图片加载失败时回调方法",
     "ImageViewerNormalTips1": "<code>object-fit: fill</code> 填充 默认值 使图片拉伸填满整个容器, 不保证保持原有的比例",
     "ImageViewerNormalTips2": "<code>object-fit: contain</code> 包含 保持原有尺寸比例缩放 保证整个图片都可以出现在容器中，因此此参数可能会在容器内留下空白",
     "ImageViewerNormalTips3": "<code>object-fit: cover</code> 覆盖 保持原有尺寸比例缩放，宽度和高度至少有一个和容器一致（尺寸小的一致）因此此参数可能会让图片部分区域不可见",
     "ImageViewerNormalTips4": "<code>object-fit: none</code> 无 保持原有尺寸比例，同时保持图片原始尺寸大小，多出的部分隐藏",
-    "ImageViewerNormalTips5": "<code>object-fit: scale-down</code> 降低 就好像依次设置了 <b>none</b> 或 <b>contain</b> 最终呈现的是尺寸比较小的那个"
-  },
-  "BootstrapBlazor.Shared.Demos.ImageViewer.ImageViewerPlaceHolder": {
+    "ImageViewerNormalTips5": "<code>object-fit: scale-down</code> 降低 就好像依次设置了 <b>none</b> 或 <b>contain</b> 最终呈现的是尺寸比较小的那个",
     "ImageViewerPlaceHolderTips1": "图片加载后浏览器默认会缓存，建议 <kbd>F12</kbd> 关闭缓存体验此功能",
     "ImageViewerPlaceHolderDefault": "默认",
     "ImageViewerPlaceHolderCustom": "自定义",
-    "ImageViewerPlaceHolderLoading": "加载中 ..."
-  },
-  "BootstrapBlazor.Shared.Demos.ImageViewer.ImageViewerPlaceHolderTemplate": {
+    "ImageViewerPlaceHolderLoading": "加载中 ...",
     "ImageViewerPlaceHolderTemplateTips1": "图片加载后浏览器默认会缓存，建议 <kbd>F12</kbd> 关闭缓存体验此功能",
     "ImageViewerPlaceHolderTemplateUrl": "未设置 Url",
-    "ImageViewerPlaceHolderTemplateplaceholder": "占位模板",
-    "ImageViewerPlaceHolderTemplateLoadingShow": "加载时显示"
-  },
-  "BootstrapBlazor.Shared.Demos.ImageViewer.ImageViewerErrorTemplate": {
+    "ImageViewerPlaceHolderTemplatePlaceholder": "占位模板",
+    "ImageViewerPlaceHolderTemplateLoadingShow": "加载时显示",
     "ImageViewerErrorTemplateUrlError": "Url 路径错误",
     "ImageViewerErrorTemplateCustom": "自定义",
     "ImageViewerErrorTemplateLoadFailed": "加载失败"

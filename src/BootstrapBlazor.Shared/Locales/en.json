@@ -100,7 +100,7 @@
     "TablesPageShowTopPaginationTitle": "Show on top",
     "TablesPageShowTopPaginationIntro": "Set <code>ShowTopPagination</code> to <code>true</code> is the top display pagination component"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesFixedColumn": {
+  "BootstrapBlazor.Shared.Samples.Table.TablesColumnFix": {
     "TablesFixedColumnTitle": "Fixed column",
     "TablesFixedColumnDescription": "For data with a large number of columns, you can fix the front and rear columns and scroll horizontally to view other data",
     "TablesFixedColumnNote": "For fixed column usage, please set the fixed column width as much as possible",
@@ -109,7 +109,7 @@
     "TablesFixedColHeaderDescription": "In this example, set <code>Name</code> <code>DateTime</code> <code>Complete</code> The first two columns and the last column are fixed columns, and the middle columns are scrolled horizontally",
     "TablesFixedColTableHeaderTitle": "Fixed headers and columns",
     "TablesFixedColTableHeaderIntro": "Set <code>IsFixedHeader=\"true\"</code> to fix the header, set <code>Fixed</code> to fix the column",
-    "TablesFixedExtendButtonsColumnTtile": "Fixed button action column",
+    "TablesFixedExtendButtonsColumnTitle": "Fixed button action column",
     "TablesFixedExtendButtonsColumnIntro": "Set <code>FixedExtendButtonsColumn</code> to fix the action column",
     "TablesFixedHeaderAndExtendButtonsColumnTitle": "Fixed header and button action columns",
     "TablesFixedHeaderAndExtendButtonsColumnIntro": "Set <code>IsFixedHeader=\"true\"</code> to fix the header, set <code>FixedMultipleColumn</code> to fix the checkbox column, set <code>FixedExtendButtonsColumn</code> to fix the operation column"
@@ -5528,28 +5528,20 @@
     "ImageViewersAttrZIndex": "Native z-the index attribute",
     "ImageViewersAttrPreviewList": "A larger preview link set",
     "ImageViewersAttrOnLoadAsync": "The callback method picture when it is loaded successfully",
-    "ImageViewersAttrOnErrorAsync": "Images load failed callback methods"
-  },
-  "BootstrapBlazor.Shared.Demos.ImageViewer.ImageViewerNormal": {
+    "ImageViewersAttrOnErrorAsync": "Images load failed callback methods",
     "ImageViewerNormalTips1": "<code>object-fit: fill</code> Fill the default drawing picture to fill the whole container, does not guarantee that keep the original proportion",
     "ImageViewerNormalTips2": "<code>object-fit: contain</code> Contains keep original size scaling to ensure the whole image can be appeared in the container, so this parameter may be left blank in the container",
     "ImageViewerNormalTips3": "<code>object-fit: cover</code> Cover to keep the original size scaling, width and height of at least one consistent and containers (size small) so this parameter may let image section area is not visible",
     "ImageViewerNormalTips4": "<code>object-fit: none</code> No keep original size proportion, while maintaining the original size, hidden extra parts",
-    "ImageViewerNormalTips5": "<code>object-fit: scale-down</code> To reduce as if, in turn, set the <b>none</b> or <b>contain the</b> is the relatively small size of the ultimate"
-  },
-  "BootstrapBlazor.Shared.Demos.ImageViewer.ImageViewerPlaceHolder": {
+    "ImageViewerNormalTips5": "<code>object-fit: scale-down</code> To reduce as if, in turn, set the <b>none</b> or <b>contain the</b> is the relatively small size of the ultimate",
     "ImageViewerPlaceHolderTips1": "Pictures after loading the default browser caches, suggest <KBD>F12</KBD> turn off caching experience this functionality",
     "ImageViewerPlaceHolderDefault": "Default",
     "ImageViewerPlaceHolderCustom": "Custom",
-    "ImageViewerPlaceHolderLoading": "Loading ..."
-  },
-  "BootstrapBlazor.Shared.Demos.ImageViewer.ImageViewerPlaceHolderTemplate": {
+    "ImageViewerPlaceHolderLoading": "Loading ...",
     "ImageViewerPlaceHolderTemplateTips1": "Pictures after loading the default browser caches, suggest <KBD>F12</KBD> turn off caching experience this functionality",
     "ImageViewerPlaceHolderTemplateUrl": "Is not set Url",
-    "ImageViewerPlaceHolderTemplateplaceholder": "The placeholder template",
-    "ImageViewerPlaceHolderTemplateLoadingShow": "When loading show"
-  },
-  "BootstrapBlazor.Shared.Demos.ImageViewer.ImageViewerErrorTemplate": {
+    "ImageViewerPlaceHolderTemplatePlaceholder": "The placeholder template",
+    "ImageViewerPlaceHolderTemplateLoadingShow": "When loading show",
     "ImageViewerErrorTemplateUrlError": "Url The path error",
     "ImageViewerErrorTemplateCustom": "The custom",
     "ImageViewerErrorTemplateLoadFailed": "Load failed"
