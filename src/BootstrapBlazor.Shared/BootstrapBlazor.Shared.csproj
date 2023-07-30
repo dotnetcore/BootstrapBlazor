@@ -14,6 +14,10 @@
     <Content Remove="Locales\*.json" />
     <Content Remove="docs.json" />
     <Content Remove="menus.json" />
+    <Content Remove="Samples\Charts\Bubble.razor" />
+    <Content Remove="Samples\Charts\Doughnut.razor" />
+    <Content Remove="Samples\Charts\Line.razor" />
+    <Content Remove="Samples\Charts\Pie.razor" />
     <Content Remove="topology.json" />
     <Content Remove="versionconfig.json" />
     <None Include="menus.json" />
