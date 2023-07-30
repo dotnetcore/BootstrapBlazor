@@ -100,7 +100,7 @@
     "TablesPageShowTopPaginationTitle": "Show on top",
     "TablesPageShowTopPaginationIntro": "Set <code>ShowTopPagination</code> to <code>true</code> is the top display pagination component"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesFixedColumn": {
+  "BootstrapBlazor.Shared.Samples.Table.TablesColumnFix": {
     "TablesFixedColumnTitle": "Fixed column",
     "TablesFixedColumnDescription": "For data with a large number of columns, you can fix the front and rear columns and scroll horizontally to view other data",
     "TablesFixedColumnNote": "For fixed column usage, please set the fixed column width as much as possible",
@@ -109,7 +109,7 @@
     "TablesFixedColHeaderDescription": "In this example, set <code>Name</code> <code>DateTime</code> <code>Complete</code> The first two columns and the last column are fixed columns, and the middle columns are scrolled horizontally",
     "TablesFixedColTableHeaderTitle": "Fixed headers and columns",
     "TablesFixedColTableHeaderIntro": "Set <code>IsFixedHeader=\"true\"</code> to fix the header, set <code>Fixed</code> to fix the column",
-    "TablesFixedExtendButtonsColumnTtile": "Fixed button action column",
+    "TablesFixedExtendButtonsColumnTitle": "Fixed button action column",
     "TablesFixedExtendButtonsColumnIntro": "Set <code>FixedExtendButtonsColumn</code> to fix the action column",
     "TablesFixedHeaderAndExtendButtonsColumnTitle": "Fixed header and button action columns",
     "TablesFixedHeaderAndExtendButtonsColumnIntro": "Set <code>IsFixedHeader=\"true\"</code> to fix the header, set <code>FixedMultipleColumn</code> to fix the checkbox column, set <code>FixedExtendButtonsColumn</code> to fix the operation column"
