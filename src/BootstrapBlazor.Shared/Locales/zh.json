@@ -4621,6 +4621,7 @@
     "Html2Pdf": "Html 转 Pdf",
     "ContextMenu": "右键菜单 ContextMenu",
     "DockViewComponents": "可停靠布局",
+    "DockViewIndex": "简介",
     "DockViewColumn": "列布局",
     "DockViewRow": "行布局",
     "DockViewStack": "堆栈布局",

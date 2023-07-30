@@ -4604,6 +4604,7 @@
     "Html2Pdf": "Html2Pdf",
     "ContextMenu": "ContextMenu",
     "DockViewComponents": "DockView",
+    "DockViewIndex": "Overview",
     "DockViewColumn": "Column",
     "DockViewRow": "Row",
     "DockViewStack": "Stack",

@@ -176,7 +176,6 @@
     "dock-view/stack": "DockViews\\DockViewStack",
     "dock-view/lock": "DockViews\\DockViewLock",
     "dock-view/visible": "DockViews\\DockViewVisible",
-    "chart/index": "Charts\\Index",
     "chart/bar": "Charts\\Bar",
     "chart/bubble": "Charts\\Bubble",
     "chart/doughnut": "Charts\\Doughnut",

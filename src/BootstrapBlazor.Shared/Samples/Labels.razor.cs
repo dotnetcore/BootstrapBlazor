@@ -4,6 +4,9 @@
 
 namespace BootstrapBlazor.Shared.Samples;
 
+/// <summary>
+/// Label 组件示例
+/// </summary>
 public partial class Labels
 {
     [NotNull]
