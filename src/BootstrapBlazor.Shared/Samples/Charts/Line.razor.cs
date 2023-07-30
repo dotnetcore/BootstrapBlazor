@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Services;
-using DocumentFormat.OpenXml.Office2010.Excel;
 using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Shared.Samples.Charts;
