@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Shared.Shared;
 /// <summary>
 /// 
 /// </summary>
-public partial class PracLayout : IDisposable
+public partial class PracticeLayout : IDisposable
 {
     [Inject]
     [NotNull]
@@ -65,7 +65,7 @@ public partial class PracLayout : IDisposable
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     public void Dispose()
     {

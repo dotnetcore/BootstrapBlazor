@@ -3,9 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Services;
-
 using Microsoft.AspNetCore.Components.Web;
-
 using System.Text;
 
 namespace BootstrapBlazor.Shared.Shared;
@@ -13,7 +11,7 @@ namespace BootstrapBlazor.Shared.Shared;
 /// <summary>
 /// 实战栏目侧边菜单
 /// </summary>
-public partial class PracNavMenu
+public partial class PracticeNavMenu
 {
     [Inject]
     [NotNull]
@@ -45,14 +43,14 @@ public partial class PracNavMenu
         {
             new MenuItem()
             {
-                Template = CreateDownloadButtonComponent("仪表盘dashboard", dashboardFileList),
+                Template = CreateDownloadButtonComponent("dashboard", dashboardFileList),
                 Text = "仪表盘 Dashboard",
-                Url = "dashboard"
+                Url = "practice/dashboard"
             },
             new MenuItem()
             {
                 Text = "登陆和注册 Login & Register",
-                Url = "praclogin",
+                Url = "practice/praclogin",
                 Items = new List<MenuItem>()
                 {
                     new()
@@ -113,9 +111,9 @@ public partial class PracNavMenu
             },
             new MenuItem()
             {
-                Template = CreateDownloadButtonComponent("瀑布流图片pintereso", pinteresoFileList),
-                Text = "瀑布流图片 Pintereso",
-                Url = "pintereso"
+                Template = CreateDownloadButtonComponent("waterfall", pinteresoFileList),
+                Text = "瀑布流图片 Waterfall",
+                Url = "practice/waterfall"
             }
         };
     }

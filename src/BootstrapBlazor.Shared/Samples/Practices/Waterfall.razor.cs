@@ -4,12 +4,12 @@
 
 using BootstrapBlazor.Components;
 
-namespace BootstrapBlazor.Shared.Practicals.Pintereso;
+namespace BootstrapBlazor.Shared.Practices;
 
 /// <summary>
 /// 瀑布流图片
 /// </summary>
-public partial class Pintereso : IAsyncDisposable
+public partial class Waterfall : IAsyncDisposable
 {
     private readonly Random random = new();
 
