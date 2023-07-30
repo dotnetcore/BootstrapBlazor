@@ -9,6 +9,50 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class EditorForms
 {
+    /// <summary>
+    /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
+    /// Foo class is used for Demo test, please download the source code if necessary
+    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Shared/Data/Foo.cs
+    /// </summary>
+    [NotNull]
+    private Foo? Model { get; set; }
+
+    [NotNull]
+    private IEnumerable<SelectedItem>? Hobbies { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? FooLocalizer { get; set; }
+
+    private List<SelectedItem> DummyItems { get; } = new List<SelectedItem>()
+    {
+        new SelectedItem("1", "1"),
+        new SelectedItem("2", "2"),
+        new SelectedItem("3", "3"),
+        new SelectedItem("4", "4"),
+        new SelectedItem("5", "5")
+    };
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        Hobbies = Foo.GenerateHobbies(FooLocalizer);
+        Model = new Foo()
+        {
+            Name = Localizer["TestName"],
+            Count = 1,
+            Address = Localizer["TestAddress"],
+            DateTime = new DateTime(1997, 12, 05),
+            Education = EnumEducation.Middle
+        };
+    }
+
+    [NotNull]
+    private Foo? ValidateModel { get; set; }
+
+
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new()
