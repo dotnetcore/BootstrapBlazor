@@ -7,27 +7,117 @@
 
 <DemoBlock Title="@Localizer["ImageViewerNormalTitle"]"
            Introduction="@Localizer["ImageViewerNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.ImageViewer.ImageViewerNormal)" />
+           Name="Normal">
+    <ul class="ul-demo">
+        <li>@((MarkupString)Localizer["ImageViewerNormalTips1"].Value)</li>
+        <li>@((MarkupString)Localizer["ImageViewerNormalTips2"].Value)</li>
+        <li>@((MarkupString)Localizer["ImageViewerNormalTips3"].Value)</li>
+        <li>@((MarkupString)Localizer["ImageViewerNormalTips4"].Value)</li>
+        <li>@((MarkupString)Localizer["ImageViewerNormalTips5"].Value)</li>
+    </ul>
+    <div class="images mt-3">
+        <div class="images-item">
+            <div>Fill</div>
+            <ImageViewer Url="./images/bird.jpeg" FitMode="ObjectFitMode.Fill" />
+        </div>
+        <div class="images-item">
+            <div>Contain</div>
+            <ImageViewer Url="./images/bird.jpeg" FitMode="ObjectFitMode.Contain" />
+        </div>
+        <div class="images-item">
+            <div>Cover</div>
+            <ImageViewer Url="./images/bird.jpeg" FitMode="ObjectFitMode.Cover" />
+        </div>
+        <div class="images-item">
+            <div>None</div>
+            <ImageViewer Url="./images/bird.jpeg" FitMode="ObjectFitMode.None" />
+        </div>
+        <div class="images-item">
+            <div>ScaleDown</div>
+            <ImageViewer Url="./images/bird.jpeg" FitMode="ObjectFitMode.ScaleDown" />
+        </div>
+    </div>
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["ImageViewerPlaceHolderTitle"]"
            Introduction="@Localizer["ImageViewerPlaceHolderIntro"]"
-           Name="PlaceHolder"
-           Demo="typeof(Demos.ImageViewer.ImageViewerPlaceHolder)" />
+           Name="PlaceHolder">
+    <div>@((MarkupString)Localizer["ImageViewerPlaceHolderTips1"].Value)</div>
+    <div class="images img-ph mt-3">
+        <div class="images-item">
+            <div>@Localizer["ImageViewerPlaceHolderDefault"]</div>
+            <ImageViewer Url="./images/image-ph.jpeg" ShowPlaceHolder="true" />
+        </div>
+        <div class="images-item">
+            <div>@Localizer["ImageViewerPlaceHolderCustom"]</div>
+            <ImageViewer Url="./images/image-ph.jpeg" ShowPlaceHolder="true">
+                <PlaceHolderTemplate>
+                    <div class="bb-img-holder">
+                        <div class="bb-img-loading">@Localizer["ImageViewerPlaceHolderLoading"]</div>
+                    </div>
+                </PlaceHolderTemplate>
+            </ImageViewer>
+        </div>
+    </div>
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["ImageViewerPlaceHolderTemplateTitle"]"
            Introduction="@Localizer["ImageViewerPlaceHolderTemplateIntro"]"
-           Name="PlaceHolderTemplate"
-           Demo="typeof(Demos.ImageViewer.ImageViewerPlaceHolderTemplate)" />
+           Name="PlaceHolderTemplate">
+    <div>@((MarkupString)Localizer["ImageViewerPlaceHolderTemplateTips1"].Value)</div>
+    <div class="images img-ph mt-3">
+        <div class="images-item">
+            <div>@Localizer["ImageViewerPlaceHolderTemplateUrl"]</div>
+            <ImageViewer Url="">
+                <PlaceHolderTemplate>
+                    <div class="bb-img-holder">
+                        <div class="bb-img-loading">@Localizer["ImageViewerPlaceHolderTemplatePlaceholder"]</div>
+                    </div>
+                </PlaceHolderTemplate>
+            </ImageViewer>
+        </div>
+        <div class="images-item">
+            <div>@Localizer["ImageViewerPlaceHolderTemplateLoadingShow"]</div>
+            <ImageViewer Url="./images/image-ph.jpeg" ShowPlaceHolder="true">
+                <PlaceHolderTemplate>
+                    <div class="bb-img-holder">
+                        <div class="bb-img-loading">@Localizer["ImageViewerPlaceHolderTemplatePlaceholder"]</div>
+                    </div>
+                </PlaceHolderTemplate>
+            </ImageViewer>
+        </div>
+    </div>
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["ImageViewerErrorTemplateTitle"]"
            Introduction="@Localizer["ImageViewerErrorTemplateIntro"]"
-           Name="ErrorTemplate"
-           Demo="typeof(Demos.ImageViewer.ImageViewerErrorTemplate)" />
+           Name="ErrorTemplate">
+    <div class="images img-ph mt-3">
+        <div class="images-item">
+            <div>@Localizer["ImageViewerErrorTemplateUrlError"]</div>
+            <ImageViewer Url="./images/error-image.jpeg" HandleError="true" />
+        </div>
+        <div class="images-item">
+            <div>@Localizer["ImageViewerErrorTemplateCustom"]</div>
+            <ImageViewer Url="./images/error-image.jpeg">
+                <ErrorTemplate>
+                    <div class="bb-img-holder">
+                        <div class="bb-img-loading">@Localizer["ImageViewerErrorTemplateLoadFailed"]</div>
+                    </div>
+                </ErrorTemplate>
+            </ImageViewer>
+        </div>
+    </div>
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["ImageViewerPreviewListTitle"]"
            Introduction="@Localizer["ImageViewerPreviewListIntro"]"
-           Name="PreviewList"
-           Demo="typeof(Demos.ImageViewer.ImageViewerPreviewList)" />
+           Name="PreviewList">
+    <div class="images img-ph mt-3">
+        <div class="images-item">
+            <ImageViewer Url="./images/bird.jpeg" PreviewList="PreviewList" />
+        </div>
+    </div>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

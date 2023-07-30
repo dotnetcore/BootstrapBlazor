@@ -9,6 +9,22 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class ImageViewers
 {
+    private List<string> PreviewList { get; } = new();
+
+    /// <summary>
+    /// OnInitialized
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        PreviewList.AddRange(new string[]
+        {
+            "./images/ImageList1.jpeg",
+            "./images/ImageList2.jpeg"
+        });
+    }
+
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new() {
