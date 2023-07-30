@@ -38,7 +38,7 @@
             <EditorForm TModel="Foo">
                 <FieldItems>
                     <EditorItem @bind-Field="@context.DateTime" Readonly="true" />
-                    <EditorItem @bind-Field="@context.Hobby" Items="@Hobbys" />
+                    <EditorItem @bind-Field="@context.Hobby" Items="@Hobbies" />
                 </FieldItems>
                 <Buttons>
                     <Button ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text='@Localizer["SubButtonText"]' />
@@ -78,7 +78,7 @@
                             </div>
                         </EditTemplate>
                     </EditorItem>
-                    <EditorItem @bind-Field="@context.Hobby" Items="@Hobbys" />
+                    <EditorItem @bind-Field="@context.Hobby" Items="@Hobbies" />
                 </FieldItems>
                 <Buttons>
                     <Button ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="@Localizer["SubButtonText"]" />
@@ -94,7 +94,7 @@
         <ValidateForm Model="@Model">
             <EditorForm TModel="Foo" ItemsPerRow="3">
                 <FieldItems>
-                    <EditorItem @bind-Field="@context.Hobby" Items="@Hobbys" />
+                    <EditorItem @bind-Field="@context.Hobby" Items="@Hobbies" />
                 </FieldItems>
                 <Buttons>
                     <Button ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="@Localizer["SubButtonText"]" />
@@ -112,7 +112,7 @@
     <ValidateForm Model="@Model">
         <EditorForm TModel="Foo" ItemsPerRow="2" RowType="RowType.Inline" LabelAlign="Alignment.Right">
             <FieldItems>
-                <EditorItem @bind-Field="@context.Hobby" Items="@Hobbys" />
+                <EditorItem @bind-Field="@context.Hobby" Items="@Hobbies" />
             </FieldItems>
             <Buttons>
                 <div class="text-end">
