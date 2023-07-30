@@ -71,10 +71,6 @@
         --ad-margin-bottom: 0;
     }
 
-::deep .table-fix-column-demo {
-    width: calc(100vw - var(--bb-sidebar-width) - 83px);
-}
-
 @media (min-width: 768px) {
     .section {
         --bb-sidebar-width: 300px;

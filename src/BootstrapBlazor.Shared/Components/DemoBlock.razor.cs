@@ -68,4 +68,15 @@ public sealed partial class DemoBlock
         Title ??= Localizer[nameof(Title)];
         TooltipText ??= Localizer[nameof(TooltipText)];
     }
+
+    private RenderFragment RenderChildContent => builder =>
+    {
+        builder.AddContent(0, ChildContent);
+
+        if (Demo != null)
+        {
+            builder.OpenComponent(1, Demo);
+            builder.CloseComponent();
+        }
+    };
 }

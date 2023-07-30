@@ -2,7 +2,7 @@
 
 <div style="height: 300px;">
     <Table TItem="Foo" Items="@Items.Take(10)" RenderMode="TableRenderMode.Table" ShowColumnList="true" ShowToolbar="true" ShowDefaultButtons="false" ShowRefresh="false"
-           IsBordered="true" IsMultipleSelect="true" IsPagination="true" IsFixedHeader="true" AllowResizing="true" class="table-fix-column-demo">
+           IsBordered="true" IsMultipleSelect="true" IsPagination="true" IsFixedHeader="true" AllowResizing="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" Width="100" />
