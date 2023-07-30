@@ -1,4 +1,4 @@
-﻿namespace BootstrapBlazor.Shared.Practicals.Dashboard;
+﻿namespace BootstrapBlazor.Shared.Samples.Practices;
 
 /// <summary>
 /// 仪表盘数据

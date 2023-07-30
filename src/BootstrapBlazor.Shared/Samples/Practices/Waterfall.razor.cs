@@ -4,18 +4,18 @@
 
 using BootstrapBlazor.Components;
 
-namespace BootstrapBlazor.Shared.Practicals.Pintereso;
+namespace BootstrapBlazor.Shared.Samples.Practices;
 
 /// <summary>
 /// 瀑布流图片
 /// </summary>
-public partial class Pintereso : IAsyncDisposable
+public partial class Waterfall : IAsyncDisposable
 {
     private readonly Random random = new();
 
-    private readonly List<string> IamgeList = new();
+    private readonly List<string> ImageList = new();
 
-    private readonly List<string> _IamgeList = new()
+    private readonly List<string> _imageList = new()
     {
         "https://images.unsplash.com/photo-1489743342057-3448cc7c3bb9?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6d284a2efbca5f89528546307f7e7b87&auto=format&fit=crop&w=500&q=60",
         "https://images.unsplash.com/photo-1519996521430-02b798c1d881?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=79f770fc1a5d8ff9b0eb033d0f09e15d&auto=format&fit=crop&w=500&q=60",
@@ -38,8 +38,6 @@ public partial class Pintereso : IAsyncDisposable
         "https://images.unsplash.com/photo-1506706435692-290e0c5b4505?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=0bb464bb1ceea5155bc079c4f50bc36a&auto=format&fit=crop&w=500&q=60",
         "https://images.unsplash.com/photo-1512355144108-e94a235b10af?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c622d56d975113a08c71c912618b5f83&auto=format&fit=crop&w=500&q=60"
     };
-
-    private bool disposedValue;
 
     [NotNull]
     [Inject]
@@ -97,18 +95,20 @@ public partial class Pintereso : IAsyncDisposable
     /// <summary>
     /// 加载图片
     /// </summary>
-    /// <param name="firstload"></param>
+    /// <param name="firstRender"></param>
     /// <returns></returns>
-    private async Task LoadImages(bool firstload)
+    private async Task LoadImages(bool firstRender)
     {
-        var num = firstload ? _IamgeList.Count : 5;
+        var num = firstRender ? _imageList.Count : 5;
         for (int i = 0; i < num; i++)
         {
             await Task.Delay(200);
-            IamgeList.Add(_IamgeList[random.Next(0, _IamgeList.Count)]);
+            ImageList.Add(_imageList[random.Next(0, _imageList.Count)]);
             StateHasChanged();
         }
     }
+
+    private bool disposedValue;
 
     /// <summary>
     /// <inheritdoc/>

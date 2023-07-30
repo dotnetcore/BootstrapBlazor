@@ -1,6 +1,8 @@
 ﻿::deep .bb-img {
     margin-bottom: 0.75rem;
     overflow: hidden;
+    min-height: 100px;
+    min-width: 200px;
 }
 
     ::deep .bb-img img {
