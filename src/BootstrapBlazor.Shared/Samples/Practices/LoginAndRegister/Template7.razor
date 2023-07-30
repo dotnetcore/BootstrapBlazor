@@ -1,15 +1,15 @@
-﻿@page "/praclogintemplate6"
+﻿@page "/template7"
 @layout PracticeLoginLayout
 
-<div class="login-item login-item-floating">
+<div class="login-item">
     <div class="text-center">
         <h4 class="text-dark">欢迎使用 BootstrapBlazor 组件库</h4>
         <h4 class="text-dark">用户登录!</h4>
     </div>
     <ValidateForm Model="@Model">
-        <FloatingLabel DisplayText="邮箱" TValue="string" IsGroupBox="true" PlaceHolder="user@blazor.zone" />
-        <FloatingLabel DisplayText="密码" TValue="string" type="password" IsGroupBox="true" PlaceHolder="password" />
-        <Checkbox TValue="bool" ShowLabel="false" ShowAfterLabel="true" DisplayText="记住登录状态" />
+        <BootstrapInput @bind-Value="Model.UserName" ShowLabel="false" PlaceHolder="请输入账号" />
+        <BootstrapPassword @bind-Value="Model.Password" ShowLabel="false" PlaceHolder="请输入密码" />
+        <Checkbox @bind-Value="@Model.RememberMe" ShowLabel="false" ShowAfterLabel="true" DisplayText="记住登录状态" />
         <Button Text="登录" Color="Color.Primary"></Button>
         <hr />
         <Button Text="忘记密码" Color="Color.Danger"></Button>
