@@ -969,9 +969,7 @@
     "LabelsValidateForm1Title": "Use in EditorForm built-in ValidateForm",
     "LabelsValidateForm1Intro": "Used in external <code>ValidateForm</code>",
     "LabelsValidateForm2Title": "Used in ValidateForm",
-    "LabelsValidateForm2Intro": "Show labels are automatically turned on by default"
-  },
-  "BootstrapBlazor.Shared.Demos.Labels.LabelsNormal": {
+    "LabelsValidateForm2Intro": "Show labels are automatically turned on by default",
     "LabelsNormalDescription": "When two-way binding is not used",
     "LabelsNormalTips1": "<code>Label</code> will not be displayed by default",
     "LabelsNormalTips2": "Control whether to display through the <code>ShowLabel</code> property",
@@ -987,19 +985,13 @@
     "LabelsNormalGroupBox2Tips1": "The first text box is set to <code>@bind-Value='Dummy.Name'</code>, no label is displayed",
     "LabelsNormalGroupBox2Tips2": "The second text box setting <code>@bind-Value='Dummy.Name' ShowLabel='true' DisplayText='@Localizer[nameof(Foo.Address)]'</code> Display the contents of the setting",
     "LabelsNormalGroupBox2Tips3": "The third text box setting <code>@bind-Value='Dummy.Name' ShowLabel='true' DisplayText=``</code> Show no content placeholder label",
-    "LabelsNormalGroupBox2Tips4": "The fourth text box setting <code>@bind-Value='Dummy.Name' ShowLabel='true' DisplayText='@null'</code> Display the label content under the resource file mechanism<code>Label</code> code>"
-  },
-  "BootstrapBlazor.Shared.Demos.Labels.LabelsEditorForm": {
+    "LabelsNormalGroupBox2Tips4": "The fourth text box setting <code>@bind-Value='Dummy.Name' ShowLabel='true' DisplayText='@null'</code> Display the label content under the resource file mechanism<code>Label</code> code>",
     "LabelsEditorFormDescription2": "<b>Show label</b><div>The <code>ShowLabel</code> property of the <coe>EditorForm</coe> component is not set. If it is not set, it is equivalent to set to <code>true</code>. All components <b>display</b> tags</div>",
     "LabelsEditorFormDescription1": "<b>Do not display labels</b><div>Set <code>ShowLabel=\"false\"</code>, all form components in the component <b>Do not display</b> tags</div>",
     "EditorFormLabelAlignRight": "<b>Alignment</b><div><code>LabelAlign=\"Alignment.Right\"</code> set the label alignment is right</div>",
-    "EditorFormLabelAlignCenter": "<b>Alignment</b><div><code>LabelAlign=\"Alignment.Center\"</code> set the label alignment is center</div>"
-  },
-  "BootstrapBlazor.Shared.Demos.Labels.LabelsValidateForm1": {
+    "EditorFormLabelAlignCenter": "<b>Alignment</b><div><code>LabelAlign=\"Alignment.Center\"</code> set the label alignment is center</div>",
     "LabelsValidateForm1Description1": "<b>Show label</b><div>The <code>ShowLabel</code> property of the <coe>EditorForm</coe> component is not set. If it is not set, it is equivalent to set to <code>true</code>. All components <b>display</b> tags</div>",
-    "LabelsValidateForm1Description2": "<b>Do not display labels</b><div>Set <code>ShowLabel=\"false\"</code>, all form components in the component <b>Do not display</b> tags</div>"
-  },
-  "BootstrapBlazor.Shared.Demos.Labels.LabelsValidateForm2": {
+    "LabelsValidateForm1Description2": "<b>Do not display labels</b><div>Set <code>ShowLabel=\"false\"</code>, all form components in the component <b>Do not display</b> tags</div>",
     "LabelsValidateForm2Description1": "<b>Show label</b><div>The <code>ShowLabel</code> property of the <coe>EditorForm</coe> component is not set. If it is not set, it is equivalent to set to <code>true</code>. All components <b>display</b> tags</div>",
     "LabelsValidateForm2Description2": "<b>Do not display labels</b><div>Set <code>ShowLabel=\"false\"</code>, all form components in the component <b>Do not display</b> tags</div>",
     "LabelsValidateForm2Description3": "<b>Show labels</b><div>set class <code>form-inline</code> for the all labels within the component are prefixed</div>",

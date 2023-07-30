@@ -969,9 +969,7 @@
     "LabelsValidateForm1Title": "EditorForm 内置 ValidateForm 中使用",
     "LabelsValidateForm1Intro": "内置 <code>ValidateForm</code> 中使用",
     "LabelsValidateForm2Title": "ValidateForm 中使用",
-    "LabelsValidateForm2Intro": "默认自动开启显示标签"
-  },
-  "BootstrapBlazor.Shared.Demos.Labels.LabelsNormal": {
+    "LabelsValidateForm2Intro": "默认自动开启显示标签",
     "LabelsNormalDescription": "未使用双向绑定时",
     "LabelsNormalTips1": "默认不会显示 <code>Label</code>",
     "LabelsNormalTips2": "通过 <code>ShowLabel</code> 属性进行控制是否显示",
@@ -987,19 +985,13 @@
     "LabelsNormalGroupBox2Tips1": "第一个文本框设置 <code>@bind-Value='Dummy.Name'</code>，不显示标签",
     "LabelsNormalGroupBox2Tips2": "第二个文本框设置 <code>@bind-Value='Dummy.Name' ShowLabel='true' DisplayText='@Localizer[nameof(Foo.Address)]'</code> 显示设置的内容",
     "LabelsNormalGroupBox2Tips3": "第三个文本框设置 <code>@bind-Value='Dummy.Name' ShowLabel='true' DisplayText=''</code> 显示无内容占位标签",
-    "LabelsNormalGroupBox2Tips4": "第四个文本框设置 <code>@bind-Value='Dummy.Name' ShowLabel='true' DisplayText='@null'</code> 显示资源文件机制下的标签内容 <code>Label</code>"
-  },
-  "BootstrapBlazor.Shared.Demos.Labels.LabelsEditorForm": {
+    "LabelsNormalGroupBox2Tips4": "第四个文本框设置 <code>@bind-Value='Dummy.Name' ShowLabel='true' DisplayText='@null'</code> 显示资源文件机制下的标签内容 <code>Label</code>",
     "LabelsEditorFormDescription2": "<b>显示标签</b><div>未设置 <coe>EditorForm</coe> 组件的 <code>ShowLabel</code> 属性等同于设置为 <code>true</code>，所有组件 <b>显示</b> 标签</div>",
     "LabelsEditorFormDescription1": "<b>不显示标签</b><div>设置 <code>ShowLabel=\"false\"</code>，组件内的所有表单组件 <b>不显示</b> 标签</div>",
     "EditorFormLabelAlignRight": "<b>右对齐</b><div>通过 <code>LabelAlign=\"Alignment.Right\"</code> 设置标签右对齐</div>",
-    "EditorFormLabelAlignCenter": "<b>居中对齐</b><div>通过 <code>LabelAlign=\"Alignment.Center\"</code> 设置标签居中对齐</div>"
-  },
-  "BootstrapBlazor.Shared.Demos.Labels.LabelsValidateForm1": {
+    "EditorFormLabelAlignCenter": "<b>居中对齐</b><div>通过 <code>LabelAlign=\"Alignment.Center\"</code> 设置标签居中对齐</div>",
     "LabelsValidateForm1Description1": "<b>显示标签</b><div>未设置 <coe>EditorForm</coe> 组件的 <code>ShowLabel</code> 属性，未设置时等同于设置为 <code>ShowLabel=\"true\"</code>，所有组件 <b>显示</b> 标签</div>",
-    "LabelsValidateForm1Description2": "<b>不显示标签</b><div>设置 <code>ShowLabel=\"false\"</code>，组件内的所有表单组件 <b>不显示</b> 标签</div>"
-  },
-  "BootstrapBlazor.Shared.Demos.Labels.LabelsValidateForm2": {
+    "LabelsValidateForm1Description2": "<b>不显示标签</b><div>设置 <code>ShowLabel=\"false\"</code>，组件内的所有表单组件 <b>不显示</b> 标签</div>",
     "LabelsValidateForm2Description1": "<b>显示标签</b><div>未设置 <coe>EditorForm</coe> 组件的 <code>ShowLabel</code> 属性，未设置时等同于设置为 <code>true</code>，所有组件 <b>显示</b> 标签</div>",
     "LabelsValidateForm2Description2": "<b>不显示标签</b><div>设置 <code>ShowLabel=\"false\"</code>，组件内的所有表单组件 <b>不显示</b> 标签</div>",
     "LabelsValidateForm2Description3": "<b>显示标签</b><div>设置样式 <code>form-inline</code>，组件内的所有表单组件标签前置</div>",
