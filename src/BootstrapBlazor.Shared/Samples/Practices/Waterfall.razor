@@ -3,7 +3,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="card-columns">
-            @foreach (var item in IamgeList)
+            @foreach (var item in ImageList)
             {
                 <ImageViewer class="card-img" Url="@item" PreviewList="@(new List<string>(){item})" ShowPlaceHolder="true" />
             }
