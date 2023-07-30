@@ -83,7 +83,6 @@ public partial class Pre
         CopiedText ??= Localizer[nameof(CopiedText)];
     }
 
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
