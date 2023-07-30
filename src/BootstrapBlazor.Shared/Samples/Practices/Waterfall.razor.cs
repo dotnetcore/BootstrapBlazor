@@ -4,7 +4,7 @@
 
 using BootstrapBlazor.Components;
 
-namespace BootstrapBlazor.Shared.Practices;
+namespace BootstrapBlazor.Shared.Samples.Practices;
 
 /// <summary>
 /// 瀑布流图片

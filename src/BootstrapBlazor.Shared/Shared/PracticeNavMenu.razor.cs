@@ -212,8 +212,8 @@ public partial class PracticeNavMenu
         "Shared/PracLayout.razor",
         "Shared/PracLayout.razor.cs",
         "Shared/PracLayout.razor.css",
-        "Shared/PracLoginLayout.razor",
-        "Shared/PracLoginLayout.razor.css"
+        "Shared/PracticeLoginLayout.razor",
+        "Shared/PracticeLoginLayout.razor.css"
     };
 
     private readonly string[] praclogintemplate7 = new[]
@@ -223,8 +223,8 @@ public partial class PracticeNavMenu
         "Shared/PracLayout.razor",
         "Shared/PracLayout.razor.cs",
         "Shared/PracLayout.razor.css",
-        "Shared/PracLoginLayout.razor",
-        "Shared/PracLoginLayout.razor.css"
+        "Shared/PracticeLoginLayout.razor",
+        "Shared/PracticeLoginLayout.razor.css"
     };
 
     private readonly string[] praclogintemplate8 = new[]
@@ -234,8 +234,8 @@ public partial class PracticeNavMenu
         "Shared/PracLayout.razor",
         "Shared/PracLayout.razor.cs",
         "Shared/PracLayout.razor.css",
-        "Shared/PracLoginLayout.razor",
-        "Shared/PracLoginLayout.razor.css"
+        "Shared/PracticeLoginLayout.razor",
+        "Shared/PracticeLoginLayout.razor.css"
     };
 
     private readonly string[] praclogintemplate9 = new[]
@@ -245,8 +245,8 @@ public partial class PracticeNavMenu
         "Shared/PracLayout.razor",
         "Shared/PracLayout.razor.cs",
         "Shared/PracLayout.razor.css",
-        "Shared/PracLoginLayout.razor",
-        "Shared/PracLoginLayout.razor.css"
+        "Shared/PracticeLoginLayout.razor",
+        "Shared/PracticeLoginLayout.razor.css"
     };
 
     private readonly string[] pinteresoFileList = new[]
