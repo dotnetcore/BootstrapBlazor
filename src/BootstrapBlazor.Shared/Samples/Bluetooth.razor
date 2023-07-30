@@ -31,8 +31,8 @@
     }
     <hr />
 <pre>@message</pre>
-<pre style="color:green">@statusmessage</pre>
-<pre style="color:red">@errmessage</pre>
+<pre style="color:green">@statusMessage</pre>
+<pre style="color:red">@errorMessage</pre>
     <p />
     <button class="btn btn-link" @onclick="SwitchUI ">切换界面</button>
 </DemoBlock>
@@ -47,8 +47,8 @@
     <br />
     <progress max="100" value="@value"> @value % </progress>
     <pre>@message</pre>
-    <pre style="color:green">@statusmessage</pre>
-    <pre style="color:red">@errmessage</pre>
+    <pre style="color:green">@statusMessage</pre>
+    <pre style="color:red">@errorMessage</pre>
 </DemoBlock>
 
 <h4>@Localizer["BluetoothBatteryLevel"]</h4>
@@ -61,8 +61,8 @@
     <Heartrate @ref="heartrate" OnUpdateValue="OnUpdateValue" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" />
     <h3 style="color:red" data-action="heartrate"></h3>
     <pre>@message</pre>
-    <pre style="color:green">@statusmessage</pre>
-    <pre style="color:red">@errmessage</pre>
+    <pre style="color:green">@statusMessage</pre>
+    <pre style="color:red">@errorMessage</pre>
 </DemoBlock>
 
 <AttributeTable Title="Printer 组件" Items="@GetAttributes()" />
