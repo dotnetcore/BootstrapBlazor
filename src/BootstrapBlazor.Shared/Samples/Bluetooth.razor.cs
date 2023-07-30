@@ -17,26 +17,26 @@ public partial class Bluetooth
     bool ShowUI { get; set; } = false;
 
     private string? message;
-    private string? statusmessage;
-    private string? errmessage;
+    private string? statusMessage;
+    private string? errorMessage;
 
-    private Task OnResult(string message)
+    private Task OnResult(string? result)
     {
-        message = message;
+        message = result;
         StateHasChanged();
         return Task.CompletedTask;
     }
 
     private Task OnUpdateStatus(string message)
     {
-        statusmessage = message;
+        statusMessage = message;
         StateHasChanged();
         return Task.CompletedTask;
     }
 
     private Task OnError(string message)
     {
-        errmessage = message;
+        errorMessage = message;
         StateHasChanged();
         return Task.CompletedTask;
     }
@@ -52,6 +52,9 @@ public partial class Bluetooth
         return Task.CompletedTask;
     }
 
+    /// <summary>
+    /// 切换 UI 方法
+    /// </summary>
     public void SwitchUI()
     {
         ShowUI = !ShowUI;
@@ -59,11 +62,10 @@ public partial class Bluetooth
 
     Heartrate heartrate { get; set; } = new Heartrate();
 
-
-    private Task OnUpdateValue(int value)
+    private Task OnUpdateValue(int v)
     {
-        value = value;
-        statusmessage = $"心率{value}";
+        value = v;
+        statusMessage = $"心率{value}";
         StateHasChanged();
         return Task.CompletedTask;
     }
@@ -88,18 +90,17 @@ public partial class Bluetooth
 
     private decimal? value = 0;
 
-
     private Task OnUpdateValue(decimal value)
     {
         this.value = value;
-        this.statusmessage = $"设备电量{value}%";
+        this.statusMessage = $"设备电量{value}%";
         StateHasChanged();
         return Task.CompletedTask;
     }
 
     private Task OnUpdateStatus(BluetoothDevice device)
     {
-        this.statusmessage = device.Status;
+        this.statusMessage = device.Status;
         StateHasChanged();
         return Task.CompletedTask;
     }
@@ -178,14 +179,14 @@ public partial class Bluetooth
         new()
         {
             Name = "Debug",
-            Description = "获得/设置 显示log",
+            Description = "获得/设置 显示Log",
             Type = "bool",
             ValueList = "True|False",
             DefaultValue = "False"
         },
         new()
         {
-            Name = "Devicename",
+            Name = "DeviceName",
             Description = "获得/设置 设备名称",
             Type = "string?",
             ValueList = "-",
@@ -202,7 +203,7 @@ public partial class Bluetooth
         new()
         {
             Name = "NamePrefix",
-            Description = "初始搜索设备名称前缀,默认null",
+            Description = "初始搜索设备名称前缀,默认 null",
             Type = "string?",
             ValueList = "-",
             DefaultValue = "null"

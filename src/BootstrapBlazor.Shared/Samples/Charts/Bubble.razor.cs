@@ -1,21 +1,14 @@
-﻿@using BootstrapBlazor.Shared.Samples.Charts
-@using Utility = BootstrapBlazor.Shared.Samples.Charts.Utility;
-@inject IStringLocalizer<Bubble> Localizer
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
-<Chart ChartType="ChartType.Bubble" OnInitAsync="@OnInit" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" @ref="BubbleChart" />
-<div class="text-center mt-2 chart">
-    <div class="btn-group">
-        <button class="btn btn-primary" @onclick="e => Utility.RandomData(BubbleChart)"><i class="fa-regular fa-snowflake"></i><span>@Localizer["BubbleNormalRandomData"]</span></button>
-        <button class="btn btn-primary" @onclick="OnReloadChart"><i class="fa-solid fa-chart-column"></i><span>@Localizer["BubbleNormalReload"]</span></button>
-        <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(BubbleChart, ref BubbleDatasetCount)"><i class="fa-solid fa-circle-plus"></i><span>@Localizer["BubbleNormalAddDataSet"]</span></button>
-        <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(BubbleChart, ref BubbleDatasetCount)"><i class="fa-solid fa-circle-minus"></i><span>@Localizer["BubbleNormalRemoveDataset"]</span></button>
-        <button class="btn btn-primary" @onclick="e => Utility.AddData(BubbleChart, ref BubbleDataCount)"><i class="fa-solid fa-plus"></i><span>@Localizer["BubbleNormalAddData"]</span></button>
-        <button class="btn btn-primary" @onclick="e => Utility.RemoveData(BubbleChart, ref BubbleDataCount)"><i class="fa-solid fa-minus"></i><span>@Localizer["BubbleNormalRemoveData"]</span></button>
-    </div>
-</div>
-<ConsoleLogger @ref="Logger" class="mt-3" />
+namespace BootstrapBlazor.Shared.Samples.Charts;
 
-@code {
+/// <summary>
+/// Bubble 图例示例
+/// </summary>
+public partial class Bubble
+{
     private Random Randomer { get; } = new();
 
     private int BubbleDatasetCount = 2;
@@ -28,6 +21,10 @@
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
     protected override void OnAfterRender(bool firstRender)
     {
         base.OnAfterRender(firstRender);
@@ -79,5 +76,29 @@
         BubbleDataCount = Randomer.Next(5, 15);
         BubbleChart?.Reload();
         return Task.CompletedTask;
+    }
+
+    private Task<ChartDataSource> OnInitAspectRatio()
+    {
+        var ds = new ChartDataSource
+        {
+            Labels = Enumerable.Range(1, BubbleDataCount).Select(i => i.ToString())
+        };
+        ds.Options.Title = "Bubble chart";
+
+        for (var index = 0; index < BubbleDatasetCount; index++)
+        {
+            ds.Data.Add(new ChartDataset()
+            {
+                Label = $"Set {index}",
+                Data = Enumerable.Range(1, BubbleDataCount).Select(i => new
+                {
+                    x = Randomer.Next(10, 40),
+                    y = Randomer.Next(10, 40),
+                    r = Randomer.Next(1, 20)
+                })
+            });
+        }
+        return Task.FromResult(ds);
     }
 }

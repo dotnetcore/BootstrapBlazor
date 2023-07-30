@@ -3,18 +3,29 @@
 
 <DemoBlock Title="@Localizer["PieNormalTitle"]"
            Introduction="@Localizer["PieNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Charts.Pie.PieNormal)">
+           Name="Normal">
+    <Chart ChartType="ChartType.Pie" OnInitAsync="@OnInit" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" @ref="PieChart" />
+    <div class="text-center mt-2 chart">
+        <div class="btn-group">
+            <button class="btn btn-primary" @onclick="e => Utility.RandomData(PieChart)"><i class="fa-solid fa-chart-pie"></i><span>@Localizer["PieNormalRandomData"]</span></button>
+            <button class="btn btn-primary" @onclick="OnReloadChart"><i class="fa-solid fa-chart-column"></i><span>@Localizer["PieNormalReload"]</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(PieChart, ref PieDatasetCount)"><i class="fa-solid fa-circle-plus"></i><span>@Localizer["PieNormalAddDataset"]</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(PieChart, ref PieDatasetCount)"><i class="fa-solid fa-circle-minus"></i><span>@Localizer["PieNormalRemoveDataset"]</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.AddData(PieChart, ref PieDataCount)"><i class="fa-solid fa-plus"></i><span>@Localizer["PieNormalAddingData"]</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RemoveData(PieChart, ref PieDataCount)"><i class="fa-solid fa-minus"></i><span>@Localizer["PieNormalRemoveData"]</span></button>
+        </div>
+    </div>
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PieAspectRatioTitle"]"
            Introduction="@Localizer["PieAspectRatioIntro"]"
-           Name="AspectRatio"
-           Demo="typeof(Demos.Charts.Pie.PieAspectRatio)">
+           Name="AspectRatio">
+    <Chart ChartType="ChartType.Pie" OnInitAsync="@OnInitAspectRatio" Height="400px" Width="400px" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["PieLegendPostionTitle"]"
-           Introduction="@Localizer["PieLegendPostionIntro"]"
-           Name="LegendPostion"
-           Demo="typeof(Demos.Charts.Pie.PieLegendPostion)">
+<DemoBlock Title="@Localizer["PieLegendPositionTitle"]"
+           Introduction="@Localizer["PieLegendPositionIntro"]"
+           Name="LegendPosition">
+    <Chart ChartType="ChartType.Pie" OnInitAsync="@OnInitLegendPosition" Height="400px" Width="400px" />
 </DemoBlock>
