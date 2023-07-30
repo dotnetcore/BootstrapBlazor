@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 懒加载组件
 /// </summary>
-public partial class LazyLoading : ComponentBase
+public partial class LazyLoad : ComponentBase
 {
     /// <summary>
     /// 获得/设置 子组件

@@ -43,6 +43,9 @@ public partial class ComponentLayout : IAsyncDisposable
     [NotNull]
     private IJSRuntime? JSRuntime { get; set; }
 
+    [NotNull]
+    private Tab? Tab { get; set; }
+
     /// <summary>
     /// Instance of <see cref="JSModule"/>
     /// </summary>
@@ -97,6 +100,8 @@ public partial class ComponentLayout : IAsyncDisposable
         RazorFileName = $"{comName}.razor";
         CSharpFileName = $"{comName}.razor.cs";
         VideoFileName = comName;
+
+        Tab?.ActiveTab(0);
     }
 
     /// <summary>
