@@ -60,7 +60,24 @@ class CodeSnippetService
         string? content;
         try
         {
-            content = await GetFileContentAsync(codeFile);
+            // codeFile = ajax.razor.cs
+            var segs = codeFile.Split('.');
+            var key = segs.First();
+            var typeName = SourceCodes.ContainsKey(key) ? SourceCodes[key] : string.Empty;
+            if (!string.IsNullOrEmpty(typeName))
+            {
+                var fileName = codeFile.Replace(key, typeName);
+                content = await GetFileContentAsync(fileName);
+
+                // 源码修正
+                CacheManager.GetLocalizedStrings(typeName, LocalizerOptions).ToList().ForEach(l => content = ReplacePayload(content, l));
+                content = ReplaceSymbols(content);
+                content = RemoveBlockStatement(content, "@inject IStringLocalizer<");
+            }
+            else
+            {
+                content = "Error: Please config docs.json";
+            }
         }
         catch (Exception ex) { content = $"Error: {ex.Message}"; }
         return content;
@@ -69,40 +86,22 @@ class CodeSnippetService
     /// <summary>
     /// 获得指定文件源码
     /// </summary>
-    /// <param name="codeFile"></param>
+    /// <param name="fileName"></param>
     /// <returns></returns>
-    public async Task<string> GetFileContentAsync(string codeFile)
+    public async Task<string> GetFileContentAsync(string fileName)
     {
-        // codeFile = ajax.razor.cs
         string? payload;
-        var segs = codeFile.Split('.');
-        var key = segs.First();
-        var typeName = SourceCodes.ContainsKey(key) ? SourceCodes[key] : string.Empty;
-
-        if (!string.IsNullOrEmpty(typeName))
+        if (OperatingSystem.IsBrowser())
         {
-            var fileName = codeFile.Replace(key, typeName);
-            if (OperatingSystem.IsBrowser())
-            {
-                var client = Factory.CreateClient();
-                client.Timeout = TimeSpan.FromSeconds(5);
-                client.BaseAddress = new Uri($"{ServerUrl}/api/");
-                payload = await client.GetStringAsync($"Code?fileName=BootstrapBlazor.Shared/Samples/{fileName}");
-            }
-            else
-            {
-                // 读取硬盘文件
-                payload = await CacheManager.GetContentFromFileAsync(fileName, _ => ReadFileAsync(fileName));
-            }
-
-            // 源码修正
-            CacheManager.GetLocalizedStrings(typeName, LocalizerOptions).ToList().ForEach(l => payload = ReplacePayload(payload, l));
-            payload = ReplaceSymbols(payload);
-            payload = RemoveBlockStatement(payload, "@inject IStringLocalizer<");
+            var client = Factory.CreateClient();
+            client.Timeout = TimeSpan.FromSeconds(5);
+            client.BaseAddress = new Uri($"{ServerUrl}/api/");
+            payload = await client.GetStringAsync($"Code?fileName=BootstrapBlazor.Shared/Samples/{fileName}");
         }
         else
         {
-            payload = "Error: Please config docs.json";
+            // 读取硬盘文件
+            payload = await CacheManager.GetContentFromFileAsync(fileName, _ => ReadFileAsync(fileName));
         }
         return payload;
     }
