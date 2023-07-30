@@ -9,6 +9,45 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class ListViews
 {
+    [NotNull]
+    private ConsoleLogger? Logger { get; set; }
+
+    [NotNull]
+    private IEnumerable<Product>? Products { get; set; }
+
+    /// <summary>
+    /// OnInitialized
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Products = Enumerable.Range(1, 100).Select(i => new Product()
+        {
+            ImageUrl = $"./images/Pic{i}.jpg",
+            Description = $"Pic{i}.jpg",
+            Category = $"Group{(i % 4) + 1}"
+        });
+    }
+
+    private Task OnListViewItemClick(Product item)
+    {
+        Logger.Log($"ListViewItem: {item.Description} clicked");
+        return Task.CompletedTask;
+    }
+
+    private Task<QueryData<Product>> OnQueryAsync(QueryPageOptions options)
+    {
+        var items = Products.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems);
+        return Task.FromResult(new QueryData<Product>()
+        {
+            Items = items,
+            TotalCount = Products.Count()
+        });
+    }
+
+    private static bool CollapsedGroupCallback(object? groupKey) => groupKey?.ToString() != "Group1";
+
     internal class Product
     {
         public string ImageUrl { get; set; } = "";
