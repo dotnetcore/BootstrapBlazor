@@ -285,6 +285,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Match = NavLinkMatch.All,
                     Text = Localizer["Editor"],
                     Url = "editor"
                 },
@@ -664,6 +665,11 @@ internal static class MenusLocalizerExtensions
         {
             item.Items = new List<DemoMenuItem>
             {
+                new()
+                {
+                    Text = Localizer["DockViewIndex"],
+                    Url = "dock-view/index"
+                },
                 new()
                 {
                     Text = Localizer["DockViewColumn"],
@@ -1121,12 +1127,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["DragDrop"],
                     Url = "drag-drop"
-                },
-                new()
-                {
-                    IsNew = true,
-                    Text = Localizer["DockView"],
-                    Url = "dock-view"
                 },
                 new()
                 {
