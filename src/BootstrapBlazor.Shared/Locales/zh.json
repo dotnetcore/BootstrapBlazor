@@ -2793,26 +2793,17 @@
   },
   "BootstrapBlazor.Shared.Samples.InputGroups": {
     "InputGroupsTitle": "InputGroup 组件",
-    "InputGroupsDescription": "Input的前后可以增加与一些标签和按钮，拼成一组。其排版格式紧凑，非常适合单行多列的场景，比如搜索等。",
+    "InputGroupsDescription": "Input 的前后可以增加与一些标签和按钮，拼成一组。其排版格式紧凑，非常适合单行多列的场景，比如搜索等。",
     "InputGroupsNormalTitle": "基础用法",
-    "InputGroupsNormalIntro": "在<code>Input</code>前增加标签，或者在<code>Input</code>后增加<code>Button</code>",
+    "InputGroupsNormalIntro": "在 <code>Input</code> 前增加标签，或者在 <code>Input</code> 后增加 <code>Button</code>",
     "InputGroupsMultipleTitle": "增加多个组件",
-    "InputGroupsMultipleIntro": "<code>InputGroup</code>里面可以增加很多组件",
-    "InputGroupsSelectTitle": "增加Select",
-    "InputGroupsSelectIntro": "往<code>InputGroup</code>里面增加<code>Select</code>",
-    "UserName": "用户名",
-    "Distance": "距离",
+    "InputGroupsMultipleIntro": "<code>InputGroup</code> 里面可以增加很多组件",
+    "InputGroupsSelectTitle": "下拉框组合",
+    "InputGroupsSelectIntro": "往<code>InputGroup</code> 里面增加 <code>Select</code>",
     "InputGroupsValidateFormTitle": "验证表单中",
-    "InputGroupsValidateFormIntro": "内置到 <code>ValidateForm</code> 中使用"
-  },
-  "BootstrapBlazor.Shared.Demos.InputGroups.InputGroupsNormal": {
-    "InputGroupsNormalUserName": "用户名"
-  },
-  "BootstrapBlazor.Shared.Demos.InputGroups.InputGroupsMultiple": {
+    "InputGroupsValidateFormIntro": "内置到 <code>ValidateForm</code> 中使用",
+    "InputGroupsNormalUserName": "用户名",
     "InputGroupsMultipleDistance": "距离"
-  },
-  "BootstrapBlazor.Shared.Demos.InputGroups.InputGroupsSelect": {
-    "InputGroupsSelectUserName": "用户名"
   },
   "BootstrapBlazor.Shared.Samples.Markdowns": {
     "MarkdownsTitle": "Markdown 编辑器",

@@ -2792,19 +2792,10 @@
     "InputGroupsMultipleIntro": "The <code>InputGroup</code> can have lots of children",
     "InputGroupsSelectTitle": "Add Select",
     "InputGroupsSelectIntro": "Add <code>Select</code> component to the <code>InputGroup</code>",
-    "UserName": "UserName",
-    "Distance": "Distance",
     "InputGroupsValidateFormTitle": "ValidateForm",
-    "InputGroupsValidateFormIntro": "Inside <code>ValidateForm</code>"
-  },
-  "BootstrapBlazor.Shared.Demos.InputGroups.InputGroupsNormal": {
-    "InputGroupsNormalUserName": "UserName"
-  },
-  "BootstrapBlazor.Shared.Demos.InputGroups.InputGroupsMultiple": {
+    "InputGroupsValidateFormIntro": "Inside <code>ValidateForm</code>",
+    "InputGroupsNormalUserName": "UserName",
     "InputGroupsMultipleDistance": "Distance"
-  },
-  "BootstrapBlazor.Shared.Demos.InputGroups.InputGroupsSelect": {
-    "InputGroupsSelectUserName": "UserName"
   },
   "BootstrapBlazor.Shared.Samples.Markdowns": {
     "MarkdownsTitle": "Markdown",
