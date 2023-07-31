@@ -1,19 +1,14 @@
-﻿@inject IStringLocalizer<Foo> LocalizerFoo
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
-<div class="table-virtualize-demo">
-    <Table TItem="Foo" IsBordered="true" IsStriped="true" ScrollMode="ScrollMode.Virtual" OnQueryAsync="OnQueryAsync">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" Readonly="true" />
-            <TableColumn @bind-Field="@context.Education" />
-            <TableColumn @bind-Field="@context.Count" Editable="false" />
-            <TableColumn @bind-Field="@context.Complete" />
-        </TableColumns>
-    </Table>
-</div>
+namespace BootstrapBlazor.Shared.Samples.Table;
 
-@code {
+/// <summary>
+/// 虚拟滚动示例代码
+/// </summary>
+public partial class TablesVirtualization
+{
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
     /// Foo class is used for Demo test, please download the source code if necessary

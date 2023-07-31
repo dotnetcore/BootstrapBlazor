@@ -4884,11 +4884,11 @@
   "BootstrapBlazor.Shared.Samples.Table.TablesVirtualization": {
     "TablesVirtualizationTitle": "Table 虚拟滚动行",
     "TablesVirtualizationDescription": "Table 组件显示大数据时通常采用分页加载数据，还有一种虚拟行的技术类似手机滚动到底部时后台自动加载数据",
-    "VirtualizationNormalTitle": "正常使用",
-    "VirtualizationNormalIntro": "无需分页滚动数据时后台按需加载",
+    "VirtualizationNormalTitle": "基础用法",
+    "VirtualizationNormalIntro": "设置 <code>Items</code> 参数组件自动实现虚拟滚动",
     "VirtualizationNormalDescription": "需要设置 <code>ScrollMode</code> <code>Height</code> <code>RowHeight</code> <code>PageItems</code> 参数对虚拟滚动进行设置",
     "VirtualizationDynamicTitle": "动态获取数据",
-    "VirtualizationDynamicIntro": "无需分页滚动数据时后台按需加载",
+    "VirtualizationDynamicIntro": "设置 <code>OnQueryAsync</code> 回调通过参数 <code>StartIndex</code> <code>PageItems</code> 获取数据",
     "VirtualizationDynamicDescription": "快速滚动时显示行占位，提升用户体验"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesLoading": {
