@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// Layouts
+/// Layout 组件示例
 /// </summary>
 public sealed partial class Layouts
 {
