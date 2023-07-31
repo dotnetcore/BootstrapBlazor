@@ -26,8 +26,8 @@ public partial class Markdowns
     private Markdown? Markdown { get; set; }
 
     private string JsString { get; set; } = @"```js
-                   console.log('test');
-                   ```";
+        console.log('test');
+        ```";
 
     [NotNull]
     private Foo? Model { get; set; }
