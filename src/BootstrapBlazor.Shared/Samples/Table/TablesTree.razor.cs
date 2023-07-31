@@ -1,19 +1,14 @@
-﻿@inject IStringLocalizer<Foo> LocalizerFoo
-@inject ICacheManager CacheManager
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
-<div>
-    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light" IndentSize="8"
-           Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Name" Width="360" />
-            <TableColumn @bind-Field="@context.DateTime" Width="180" />
-            <TableColumn @bind-Field="@context.Address" />
-            <TableColumn @bind-Field="@context.Count" />
-        </TableColumns>
-    </Table>
-</div>
+namespace BootstrapBlazor.Shared.Samples.Table;
 
-@code {
+/// <summary>
+/// 树形数据示例代码
+/// </summary>
+public partial class TablesTree
+{
     [NotNull]
     private List<TreeFoo>? TreeItems { get; set; }
 
@@ -32,6 +27,52 @@
 
         // 插入 Id 为 101 的子项
         TreeItems.AddRange(TreeFoo.GenerateFoos(LocalizerFoo, 3, 101, 1010));
+    }
+
+    private static Task<TreeFoo> OnAddAsync() => Task.FromResult(new TreeFoo() { DateTime = DateTime.Now });
+
+    private Task<bool> OnSaveAsync(TreeFoo item, ItemChangedType changedType)
+    {
+        if (changedType == ItemChangedType.Add)
+        {
+            item.Id = TreeItems.Max(i => i.Id) + 1;
+            TreeItems.Add(item);
+        }
+        else
+        {
+            var oldItem = TreeItems.FirstOrDefault(i => i.Id == item.Id);
+            if (oldItem != null)
+            {
+                oldItem.Name = item.Name;
+                oldItem.DateTime = item.DateTime;
+                oldItem.Address = item.Address;
+                oldItem.Count = item.Count;
+            }
+        }
+        return Task.FromResult(true);
+    }
+
+    private Task<bool> OnDeleteAsync(IEnumerable<TreeFoo> items)
+    {
+        TreeItems.RemoveAll(foo => items.Any(i => i.Id == foo.Id));
+        return Task.FromResult(true);
+    }
+
+    private Task<QueryData<TreeFoo>> OnQueryAsync(QueryPageOptions _)
+    {
+        var items = TreeFoo.GenerateFoos(LocalizerFoo, 4);
+
+        // 插入 Id 为 1 的子项
+        items.AddRange(TreeFoo.GenerateFoos(LocalizerFoo, 2, 1, 100));
+
+        // 插入 Id 为 101 的子项
+        items.AddRange(TreeFoo.GenerateFoos(LocalizerFoo, 3, 101, 1010));
+
+        var data = new QueryData<TreeFoo>()
+        {
+            Items = items
+        };
+        return Task.FromResult(data);
     }
 
     private static Task<IEnumerable<TableTreeNode<TreeFoo>>> TreeNodeConverter(IEnumerable<TreeFoo> items)
@@ -56,7 +97,7 @@
         }
     }
 
-    private Task<IEnumerable<TableTreeNode<TreeFoo>>> OnTreeExpand(TreeFoo foo) => CacheManager.GetOrCreateAsync($"TablesTreeLevel-{foo.Id}", async entry =>
+    private Task<IEnumerable<TableTreeNode<TreeFoo>>> OnTreeExpand(TreeFoo foo) => CacheManager.GetOrCreateAsync($"TablesTreeIcon-{foo.Id}", async entry =>
     {
         // 模拟从数据库中查询
         await Task.Delay(1000);
