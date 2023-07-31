@@ -1,12 +1,4 @@
-﻿.menu-demo-header {
-    background-color: #17a2b8;
-    line-height: 50px;
-    color: #fff;
-    flex: 1;
-    padding-left: 80px;
-}
-
-.layout-menu-demo ::deep .layout-side {
+﻿.layout-menu-demo ::deep .layout-side {
     background-color: var(--bb-disabled-bg);
     color: #dcdfe6;
     height: 100%;
@@ -14,6 +6,14 @@
 
 .layout-menu-demo ::deep .menu.is-vertical:not(.is-collapsed) {
     width: 156px;
+}
+
+.layout-menu-demo ::deep .menu-demo-header {
+    background-color: #17a2b8;
+    line-height: 50px;
+    color: #fff;
+    flex: 1;
+    padding-left: 80px;
 }
 
 .layout-menu-demo ::deep .layout-banner {
