@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Shared.Samples.Table;
 
 /// <summary>
-/// TablesTree
+/// 树形数据示例代码
 /// </summary>
 public partial class TablesTree
 {
