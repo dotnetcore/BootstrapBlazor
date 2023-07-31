@@ -2495,17 +2495,11 @@
     "Att5": "自定义按钮",
     "DoMethodAsync": "实例方法",
     "DoMethodAsyncIntro": "使用实例方法从外部操作 <code>Editor</code>，具体的参数参照 <a href='https://summernote.org/deep-dive'>summernote api</a>",
-    "DoMethodAsyncDescrition": "本例中通过设置 <code>ToolbarItems</code> 属性，更改默认可用的工具栏按钮"
-  },
-  "BootstrapBlazor.Shared.Demos.Editor.EditorPlaceholder": {
-    "EditorEmptyPlaceholder": "自定义空值的提示信息"
-  },
-  "BootstrapBlazor.Shared.Demos.Editor.EditorOnValueChanged": {
+    "DoMethodAsyncDescrition": "本例中通过设置 <code>ToolbarItems</code> 属性，更改默认可用的工具栏按钮",
+    "EditorEmptyPlaceholder": "自定义空值的提示信息",
     "EditorOnValueChangedLabel": "显示编辑内容：",
     "EditorOnValueChangedUpdateValue": "更改后的值",
-    "EditorOnValueChangedInitValue": "初始值 Test"
-  },
-  "BootstrapBlazor.Shared.Demos.Editor.EditorCustomerToolbarButtons": {
+    "EditorOnValueChangedInitValue": "初始值 Test",
     "ToolTip1": "这是 plugin1 的提示",
     "ToolTip2": "这是 plugin2 提示",
     "Swal1Title": "点击plugin1按钮后弹窗",
@@ -2513,9 +2507,7 @@
     "Ret1": "<div class='text-danger'>从plugin1返回的数据</div>",
     "Swal2Title": "点击 plugin2 按钮后弹窗",
     "Swal2Content": "点击插件按钮后弹窗并确认后才进行下一步处理",
-    "Ret2": "从plugin2返回的数据"
-  },
-  "BootstrapBlazor.Shared.Demos.Editor.EditorDoMethodAsync": {
+    "Ret2": "从plugin2返回的数据",
     "DoMethodAsyncButton1": "插入一段 Html",
     "DoMethodAsyncButton2": "将段落修改为 H2",
     "DoMethodAsyncButton3": "添加一张图片",

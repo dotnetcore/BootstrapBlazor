@@ -2488,17 +2488,11 @@
     "Att5": "Custom button",
     "DoMethodAsync": "Instance Method",
     "DoMethodAsyncIntro": "Call the instance method, please refer <a href='https://summernote.org/deep-dive'>summernote api</a>",
-    "DoMethodAsyncDescription": "In this example, by setting the <code>ToolbarItems</code> property, the default available toolbar buttons are changed"
-  },
-  "BootstrapBlazor.Shared.Demos.Editor.EditorPlaceholder": {
-    "EditorEmptyPlaceholder": "Customize the prompt message for empty values"
-  },
-  "BootstrapBlazor.Shared.Demos.Editor.EditorOnValueChanged": {
+    "DoMethodAsyncDescription": "In this example, by setting the <code>ToolbarItems</code> property, the default available toolbar buttons are changed",
+    "EditorEmptyPlaceholder": "Customize the prompt message for empty values",
     "EditorOnValueChangedLabel": "Show edit content:",
     "EditorOnValueChangedUpdateValue": "Changed value",
-    "EditorOnValueChangedInitValue": "Initial value Test"
-  },
-  "BootstrapBlazor.Shared.Demos.Editor.EditorCustomerToolbarButtons": {
+    "EditorOnValueChangedInitValue": "Initial value Test",
     "ToolTip1": "This is the tip of plugin1",
     "ToolTip2": "This is the tip of plugin2",
     "Swal1Title": "A pop-up window will pop up after clicking the plugin1 button",
@@ -2506,9 +2500,7 @@
     "Ret1": "<div class='text-danger'>Data returned from plugin1</div>",
     "Swal2Title": "After clicking the plugin2 button, a pop-up window will appear",
     "Swal2Content": "After clicking the plug-in button, the window will pop up and confirm before proceeding to the next step.",
-    "Ret2": "Data returned from plugin2"
-  },
-  "BootstrapBlazor.Shared.Demos.Editor.EditorDoMethodAsync": {
+    "Ret2": "Data returned from plugin2",
     "DoMethodAsyncButton1": "Insert Html",
     "DoMethodAsyncButton2": "Update to  H2",
     "DoMethodAsyncButton3": "Insert Image",

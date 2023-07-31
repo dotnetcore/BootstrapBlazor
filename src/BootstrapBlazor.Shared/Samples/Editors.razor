@@ -9,43 +9,67 @@
 
 <p>@((MarkupString)Localizer["EditorsTips"].Value)</p>
 
-<Pre class="no-highlight">&lt;script src="_content/BootstrapBlazor.SummerNote/js/jquery-3.5.1.min.js"&gt;&lt;/script&gt;</Pre>
+<Pre class="no-highlight mb-3">&lt;script src="_content/BootstrapBlazor.SummerNote/js/jquery-3.5.1.min.js"&gt;&lt;/script&gt;</Pre>
 
-<Pre class="no-highlight">builder.Services.Configure&lt;HubOptions&gt;(option => option.MaximumReceiveMessageSize = null);</Pre>
+<Pre class="no-highlight mb-3">builder.Services.Configure&lt;HubOptions&gt;(option => option.MaximumReceiveMessageSize = null);</Pre>
 
 <PackageTips Name="BootstrapBlazor.SummerNote" />
 
-<DemoBlock Title="@Localizer["EditorNormalTitle"]" Introduction="@Localizer["EditorNormalIntro"]" Name="Normal" Demo="typeof(Demos.Editor.EditorNormal)">
+<DemoBlock Title="@Localizer["EditorNormalTitle"]" Introduction="@Localizer["EditorNormalIntro"]" Name="Normal">
     <p>@((MarkupString)Localizer["EditorNormalDescription"].Value)</p>
     <div class="form-control mb-3">@((MarkupString)Localizer["EditorNormalDiv"].Value)</div>
+    <Editor />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["EditorSubmitTitle"]" Introduction="@Localizer["EditorSubmitIntro"]" Name="Submit" Demo="typeof(Demos.Editor.EditorSubmit)">
-    <p>@((MarkupString)Localizer["EditorSubmitDescription"].Value)</p>
+<DemoBlock Title="@Localizer["EditorSubmitTitle"]" Introduction="@Localizer["EditorSubmitIntro"]" Name="Submit">
+    <p class="mb-3">@((MarkupString)Localizer["EditorSubmitDescription"].Value)</p>
+    <Button Text="@ButtonText" OnClick="ShowSubmit" class="mb-3"></Button>
+    <Editor @bind-Value="@EditorValue" IsEditor="true" ShowSubmit="ShowSubmitButton" />
+    <textarea class="form-control mt-3">@EditorValue</textarea>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["EditorPlaceholderTitle"]" Introduction="@Localizer["EditorPlaceholderIntro"]" Name="Placeholder" Demo="typeof(Demos.Editor.EditorPlaceholder)">
-    <p>@((MarkupString)Localizer["EditorPlaceholderDescription"].Value)</p>
+<DemoBlock Title="@Localizer["EditorPlaceholderTitle"]" Introduction="@Localizer["EditorPlaceholderIntro"]" Name="Placeholder">
+    <p class="mb-3">@((MarkupString)Localizer["EditorPlaceholderDescription"].Value)</p>
+    <Editor PlaceHolder="@Localizer["EditorEmptyPlaceholder"]" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["EditorIsEditorTitle"]" Introduction="@Localizer["EditorIsEditorIntro"]" Name="IsEditor" Demo="typeof(Demos.Editor.EditorIsEditor)" />
-
-<DemoBlock Title="@Localizer["EditorHeightTitle"]" Introduction="@Localizer["EditorHeightIntro"]" Name="Height" Demo="typeof(Demos.Editor.EditorHeight)" />
-
-<DemoBlock Title="@Localizer["EditorOnValueChangedTitle"]" Introduction="@Localizer["EditorOnValueChangedIntro"]" Name="OnValueChanged" Demo="typeof(Demos.Editor.EditorOnValueChanged)">
-    <p>@((MarkupString)Localizer["EditorOnValueChangedDescription"].Value)</p>
+<DemoBlock Title="@Localizer["EditorIsEditorTitle"]" Introduction="@Localizer["EditorIsEditorIntro"]" Name="IsEditor">
+    <Editor IsEditor="true" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["EditorCustomerToolbarButtonsTitle"]" Introduction="@Localizer["EditorCustomerToolbarButtonsIntro"]" Name="CustomerToolbarButtons" Demo="typeof(Demos.Editor.EditorCustomerToolbarButtons)">
-    <p>@((MarkupString)Localizer["EditorCustomerToolbarButtonsDescription"].Value)</p>
+<DemoBlock Title="@Localizer["EditorHeightTitle"]" Introduction="@Localizer["EditorHeightIntro"]" Name="Height">
+    <Editor IsEditor="true" Height="400" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["EditorToolbarItemsTitle"]" Introduction="@Localizer["EditorToolbarItemsIntro"]" Name="ToolbarItems" Demo="typeof(Demos.Editor.EditorToolbarItems)">
-    <p>@((MarkupString)Localizer["EditorToolbarItemsDescription"].Value)</p>
+<DemoBlock Title="@Localizer["EditorOnValueChangedTitle"]" Introduction="@Localizer["EditorOnValueChangedIntro"]" Name="OnValueChanged">
+    <p class="mb-3">@((MarkupString)Localizer["EditorOnValueChangedDescription"].Value)</p>
+    <Editor @bind-Value="@ValueChangedValue" />
+
+    <label class="form-label mt-3">@Localizer["EditorOnValueChangedLabel"]</label>
+    <textarea class="form-control mt-3">@ValueChangedValue</textarea>
+    <div class="mt-3">
+        <Button OnClick="SetValue">Reset</Button>
+    </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["DoMethodAsync"]" Introduction="@Localizer["DoMethodAsyncIntro"]" Name="DoMethodAsync" Demo="typeof(Demos.Editor.EditorDoMethodAsync)">
-    <p>@((MarkupString)Localizer["DoMethodAsyncDescription"].Value)</p>
+<DemoBlock Title="@Localizer["EditorCustomerToolbarButtonsTitle"]" Introduction="@Localizer["EditorCustomerToolbarButtonsIntro"]" Name="CustomerToolbarButtons">
+    <p class="mb-3">@((MarkupString)Localizer["EditorCustomerToolbarButtonsDescription"].Value)</p>
+    <Editor IsEditor="true" OnClickButton="@PluginClick" CustomerToolbarButtons="@EditorPluginItems" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["EditorToolbarItemsTitle"]" Introduction="@Localizer["EditorToolbarItemsIntro"]" Name="ToolbarItems">
+    <p class="mb-3">@((MarkupString)Localizer["EditorToolbarItemsDescription"].Value)</p>
+    <Editor IsEditor="true" ToolbarItems="@ToolbarItems" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["DoMethodAsync"]" Introduction="@Localizer["DoMethodAsyncIntro"]" Name="DoMethodAsync">
+    <p class="mb-3">@((MarkupString)Localizer["DoMethodAsyncDescription"].Value)</p>
+    <Editor IsEditor="true" @ref="Editor" />
+    <div class="mt-3">
+        <Button OnClick="InsertHtmlAsync">@Localizer["DoMethodAsyncButton1"]</Button>
+        <Button OnClick="@(async () => await Editor.DoMethodAsync("formatH2", ""))">@Localizer["DoMethodAsyncButton2"]</Button>
+        <Button OnClick="@(async () => await Editor.DoMethodAsync("insertImage", "https://www.blazor.zone/images/avatars/150-1.jpg", "tree"))">@Localizer["DoMethodAsyncButton3"]</Button>
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
