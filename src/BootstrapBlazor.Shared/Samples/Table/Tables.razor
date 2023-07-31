@@ -18,7 +18,7 @@
 
 <DemoBlock Title="@Localizer["TableBaseNormalTitle"]"
            Introduction="@Localizer["TableBaseNormalIntro"]"
-           Name="TableBaseNormal">
+           Name="Normal">
     <div class="mb-3">@((MarkupString)Localizer["TableBaseNormalDescription"].Value)</div>
 
     <Button Icon="fa-solid fa-arrows-rotate" Text="@RefreshText" OnClick="OnClick" class="my-2" />
@@ -34,7 +34,7 @@
 
 <DemoBlock Title="@Localizer["TableBaseStripedTitle"]"
            Introduction="@Localizer["TableBaseStripedIntro"]"
-           Name="TableBaseStriped">
+           Name="IsStriped">
     <Table TItem="Foo" Items="@Items.Take(3)" IsStriped="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -46,7 +46,7 @@
 
 <DemoBlock Title="@Localizer["TableBaseBorderedTitle"]"
            Introduction="@Localizer["TableBaseBorderedIntro"]"
-           Name="TableBaseBordered">
+           Name="IsBordered">
     <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -58,7 +58,7 @@
 
 <DemoBlock Title="@Localizer["TableBaseSizeTitle"]"
            Introduction="@Localizer["TableBaseSizeIntro"]"
-           Name="TableBaseSize">
+           Name="TableSize">
     <p class="mb-3">@((MarkupString)Localizer["TableBaseSizeDescription"].Value)</p>
     <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true" IsStriped="true" TableSize="TableSize.Compact">
         <TableColumns>
@@ -71,7 +71,7 @@
 
 <DemoBlock Title="@Localizer["TableBaseHeaderStyleTitle"]"
            Introduction="@Localizer["TableBaseHeaderStyleIntro"]"
-           Name="TableBaseHeaderStyle">
+           Name="HeaderStyle">
     <p class="mb-3">@((MarkupString)Localizer["TableBaseHeaderStyleDescription"].Value)</p>
     <div class="code-label"><code>Light</code> @Localizer["TableBaseHeaderStyleMode"]</div>
     <Table TItem="Foo" Items="@Items.Take(3)" HeaderStyle="TableHeaderStyle.Light" IsBordered="true">
