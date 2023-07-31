@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Shared.Samples.Table;
 
 /// <summary>
-/// TablesVirtualization
+/// 虚拟滚动示例代码
 /// </summary>
 public partial class TablesVirtualization
 {
