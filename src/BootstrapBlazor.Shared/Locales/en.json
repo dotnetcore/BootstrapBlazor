@@ -3903,31 +3903,10 @@
     "TooltipPlacement": "Tooltip placement",
     "ChildContent": "ChildContent",
     "OnClick": "OnClick",
-    "Icon": "Icon"
-  },
-  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsText": {
-    "LinkButtonText": "LinkButton"
-  },
-  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsUrl": {
-    "LinkButtonText": "LinkButton"
-  },
-  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsTitle": {
-    "LinkButtonText": "LinkButton",
-    "LinkButtonTitleTooltip": "this is Tooltip title"
-  },
-  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsChildContent": {
-    "LinkButtonText": "LinkButton"
-  },
-  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsOnClick": {
-    "LinkButtonText": "LinkButton"
-  },
-  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsIsDisabled": {
-    "LinkButtonIsDisabledText": "Disabled"
-  },
-  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsColor": {
-    "LinkButtonColorText": "Button"
-  },
-  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsIsVertical": {
+    "Icon": "Icon",
+    "LinkButtonTitleTooltip": "this is Tooltip title",
+    "LinkButtonIsDisabledText": "Disabled",
+    "LinkButtonColorText": "Button",
     "LinkButtonVerticalText": "TestButton"
   },
   "BootstrapBlazor.Shared.Samples.ListViews": {

@@ -3913,31 +3913,10 @@
     "TooltipPlacement": "Tooltip 显示位置",
     "ChildContent": "子组件",
     "OnClick": "点击事件回调方法",
-    "Icon": "按钮 Icon"
-  },
-  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsText": {
-    "LinkButtonText": "链接按钮"
-  },
-  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsUrl": {
-    "LinkButtonText": "链接按钮"
-  },
-  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsTitle": {
-    "LinkButtonText": "链接按钮",
-    "LinkButtonTitleTooltip": "我是提示信息条"
-  },
-  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsChildContent": {
-    "LinkButtonText": "链接按钮"
-  },
-  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsOnClick": {
-    "LinkButtonText": "链接按钮"
-  },
-  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsIsDisabled": {
-    "LinkButtonIsDisabledText": "禁用"
-  },
-  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsColor": {
-    "LinkButtonColorText": "颜色按钮"
-  },
-  "BootstrapBlazor.Shared.Demos.LinkButtons.LinkButtonsIsVertical": {
+    "Icon": "按钮 Icon",
+    "LinkButtonTitleTooltip": "我是提示信息条",
+    "LinkButtonIsDisabledText": "禁用",
+    "LinkButtonColorText": "颜色按钮",
     "LinkButtonVerticalText": "测试按钮"
   },
   "BootstrapBlazor.Shared.Samples.ListViews": {
