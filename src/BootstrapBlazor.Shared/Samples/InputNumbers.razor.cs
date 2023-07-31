@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// InputNumbers
+/// InputNumber 组件示例代码
 /// </summary>
 public sealed partial class InputNumbers
 {
