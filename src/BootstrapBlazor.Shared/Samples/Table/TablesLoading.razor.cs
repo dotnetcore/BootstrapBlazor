@@ -1,17 +1,14 @@
-﻿@inject IStringLocalizer<Foo> LocalizerFoo
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
-<Table TItem="Foo" PageItemsSource="@PageItemsSource" AutoGenerateColumns="true"
-       IsPagination="true" IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-       ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" ShowSearch="true"
-       OnAddAsync="@OnAddAsync" OnEditAsync="@OnEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
-       OnQueryAsync="@OnQueryAsync">
-    <TableColumns>
-        <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
-    </TableColumns>
-</Table>
+namespace BootstrapBlazor.Shared.Samples.Table;
 
-@code {
-
+/// <summary>
+/// TablesLoading
+/// </summary>
+public partial class TablesLoading
+{
     private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
 
     [NotNull]
@@ -152,4 +149,5 @@
             IsSearch = isSearch
         };
     }
+
 }
