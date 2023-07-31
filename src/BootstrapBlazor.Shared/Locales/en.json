@@ -2579,7 +2579,7 @@
     "FloatingLabelPasswordDescription": "In order to support more text box properties this component can be written directly to <code>type's 'email'</code> <code>type'number'</code> <code>type'phone'</code> and so on<code>httpl5</code> all property values supported by the new standard, the component does not set the <code>type</code> value using the default <code>type='text'</code>",
     "FloatingLabelPasswordDisplayText": "The password box",
     "FloatingLabelFormatStringTitle": "Generic binding",
-    "FloatingLabelFormatStringIntro": "<code>BootstrapInput</code> component bidirectional binding value is generic, in this case a two-way binding of an int type value",
+    "FloatingLabelFormatStringIntro": "<code>BootstrapInput</code> component bidirectional binding value is generic, in this case a two-way binding of an <code>int</code> type value",
     "FloatingLabelFormatStringDisplayText": "Generic binding",
     "FloatingLabelFormatStringDiv1": "The binding value: {0}",
     "FloatingLabelDisabledTitle": "Disable",
