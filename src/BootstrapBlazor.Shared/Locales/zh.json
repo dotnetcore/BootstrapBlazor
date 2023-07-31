@@ -2741,18 +2741,12 @@
     "InputNumbersAtt4": "步长",
     "InputNumbersAtt5": "是否禁用 默认为 fasle",
     "InputNumbersAtt6": "是否显示前置标签",
-    "InputNumbersAtt7": "前置标签显示文本"
-  },
-  "BootstrapBlazor.Shared.Demos.InputNumbers.InputNumbersStep": {
+    "InputNumbersAtt7": "前置标签显示文本",
     "InputNumbersStep1": "步长默认为 1",
     "InputNumbersStep10": "步长设置为 10",
-    "InputNumbersStep0.1": "步长设置为 0.1"
-  },
-  "BootstrapBlazor.Shared.Demos.InputNumbers.InputNumbersColor": {
+    "InputNumbersStep0.1": "步长设置为 0.1",
     "InputNumbersColorDescription1": "显示按钮",
-    "InputNumbersColorDescription2": "无按钮"
-  },
-  "BootstrapBlazor.Shared.Demos.InputNumbers.InputNumbersValidateForm": {
+    "InputNumbersColorDescription2": "无按钮",
     "InputNumbersValidateFormDivider1": "双向绑定显示标签",
     "InputNumbersValidateFormDivider2": "双向绑定不显示标签",
     "InputNumbersValidateFormDivider3": "自定义  DisplayText",
