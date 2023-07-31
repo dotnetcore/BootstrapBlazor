@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// LinkButtons
+/// LinkButton 组件示例
 /// </summary>
 public sealed partial class LinkButtons
 {
