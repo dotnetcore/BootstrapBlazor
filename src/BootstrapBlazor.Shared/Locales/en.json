@@ -77,9 +77,7 @@
     "TableDialogNormalDescription": "In this example, if the <code>Modal</code> component is linked with <code>Table</code>, the data is selected in the pop-up window, and then edited",
     "TableDialogNormalTips1": "Click the <code>Select</code> button to pop up a dialog box to select the product <code>Product</code>",
     "TableDialogNormalTips2": "After selecting the product in the pop-up window, click the <code>OK</code> button to close the pop-up window",
-    "TableDialogNormalTips3": "Click the <code>Edit</code> button, since some data are set as read-only, only the <code>Count</code> field can be changed"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesDialog.TableDialogNormal": {
+    "TableDialogNormalTips3": "Click the <code>Edit</code> button, since some data are set as read-only, only the <code>Count</code> field can be changed",
     "TableDialogNormalChoose": "Choose",
     "TableDialogNormalSelectitem": "Select item",
     "TableDialogNormalSure": "Sure"
