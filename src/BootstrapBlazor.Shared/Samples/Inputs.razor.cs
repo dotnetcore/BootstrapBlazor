@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// Inputs
+/// Input 组件示例代码
 /// </summary>
 public partial class Inputs
 {
@@ -48,19 +48,12 @@ public partial class Inputs
         base.OnInitialized();
 
         PlaceHolderText = Localizer["PlaceHolder"];
-
         Model = new Foo() { Name = Localizer["TestName"] };
-
         PlaceholderModel = new Foo() { Name = Localizer["TestName"] };
-
         LabelsModel = new Foo() { Name = Localizer["TestName"] };
-
         ValidateModel = new Foo() { Name = Localizer["TestName"] };
-
         GenericModel = new Foo() { Name = Localizer["TestName"] };
-
         FormatModel = new Foo() { Name = Localizer["TestName"] };
-
         TrimModel = new Foo() { Name = Localizer["TestName"] };
     }
 
