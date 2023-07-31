@@ -7,52 +7,204 @@
 
 <DemoBlock Title="@Localizer["InputNumbersNormalTitle"]"
            Introduction="@Localizer["InputNumbersNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.InputNumbers.InputNumbersNormal)">
+           Name="Normal">
+    <div class="demo-input-number">
+        <BootstrapInputNumber Value="@BindValue" IsSelectAllTextOnFocus="true" />
+    </div>
+
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["InputNumbersRangeTitle"]"
            Introduction="@Localizer["InputNumbersRangeIntro"]"
-           Name="Range"
-           Demo="typeof(Demos.InputNumbers.InputNumbersRange)">
+           Name="Range">
+    <div class="demo-input-number">
+        <BootstrapInputNumber Value="@BindValue" Max="10" Min="1" />
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["InputNumbersShowButtonTitle"]"
            Introduction="@Localizer["InputNumbersShowButtonIntro"]"
-           Name="ShowButton"
-           Demo="typeof(Demos.InputNumbers.InputNumbersShowButton)">
-    <p>@Localizer["InputNumbersShowButtonDescription"]</p>
+           Name="ShowButton">
+    <p class="mb-3">@Localizer["InputNumbersShowButtonDescription"]</p>
+    <div class="demo-input-number">
+        <BootstrapInputNumber ShowButton="true" Value="@BindValue" Max="10" Min="0" />
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["InputNumbersStepTitle"]"
            Introduction="@Localizer["InputNumbersStepIntro"]"
-           Name="Step"
-           Demo="typeof(Demos.InputNumbers.InputNumbersStep)">
+           Name="Step">
+    <div>
+        <div class="demo-input-number">
+            <p>@Localizer["InputNumbersStep1"]</p>
+            <BootstrapInputNumber ShowButton="true" Value="5" Color="Color.Danger" />
+        </div>
+        <div class="demo-input-number mt-3">
+            <p>@Localizer["InputNumbersStep10"]</p>
+            <BootstrapInputNumber ShowButton="true" Value="10" Step="10" Color="Color.Success" />
+        </div>
+        <div class="demo-input-number mt-3">
+            <p>@Localizer["InputNumbersStep0.1"]</p>
+            <BootstrapInputNumber ShowButton="true" Value="0.5" Step="0.1" Formatter="@Formatter" Color="Color.Warning" />
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["InputNumbersColorTitle"]"
            Introduction="@Localizer["InputNumbersColorIntro"]"
-           Name="Color"
-           Demo="typeof(Demos.InputNumbers.InputNumbersColor)">
+           Name="Color">
+    <p>@Localizer["InputNumbersColorDescription1"]</p>
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <div class="demo-input-number">
+                <BootstrapInputNumber ShowButton="true" Value="10" Color="Color.None" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="demo-input-number">
+                <BootstrapInputNumber ShowButton="true" Value="10" Color="Color.Primary" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="demo-input-number">
+                <BootstrapInputNumber ShowButton="true" Value="10" Color="Color.Success" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="demo-input-number">
+                <BootstrapInputNumber ShowButton="true" Value="10" Color="Color.Info" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="demo-input-number">
+                <BootstrapInputNumber ShowButton="true" Value="10" Color="Color.Warning" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="demo-input-number">
+                <BootstrapInputNumber ShowButton="true" Value="10" Color="Color.Danger" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="demo-input-number">
+                <BootstrapInputNumber ShowButton="true" Value="10" Color="Color.Dark" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="demo-input-number">
+                <BootstrapInputNumber ShowButton="true" Value="10" Color="Color.Secondary" />
+            </div>
+        </div>
+    </div>
+    <p class="mt-3">@Localizer["InputNumbersColorDescription2"]</p>
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <div class="demo-input-number">
+                <BootstrapInputNumber Value="10" Color="Color.None" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="demo-input-number">
+                <BootstrapInputNumber Value="10" Color="Color.Primary" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="demo-input-number">
+                <BootstrapInputNumber Value="10" Color="Color.Success" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="demo-input-number">
+                <BootstrapInputNumber Value="10" Color="Color.Info" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="demo-input-number">
+                <BootstrapInputNumber Value="10" Color="Color.Warning" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="demo-input-number">
+                <BootstrapInputNumber Value="@BindFloatValue" Color="Color.Danger" FormatString="#.##" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="demo-input-number">
+                <BootstrapInputNumber Value="@BindDoubleValue" Color="Color.Dark" FormatString="#.##" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="demo-input-number">
+                <BootstrapInputNumber Value="@BindDecimalValue" Color="Color.Secondary" FormatString="#.##" />
+            </div>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["InputNumbersDateTypeTitle"]"
            Introduction="@Localizer["InputNumbersDateTypeIntro"]"
-           Name="DateType"
-           Demo="typeof(Demos.InputNumbers.InputNumbersDateType)">
+           Name="DataType">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <div class="demo-input-number">
+                <BootstrapInputNumber Value="@BindShortValue" DisplayText="Short" ShowLabel="true" ShowButton="true" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="demo-input-number">
+                <BootstrapInputNumber Value="@BindValue" DisplayText="Int" ShowLabel="true" ShowButton="true" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="demo-input-number">
+                <BootstrapInputNumber Value="@BindLongValue" DisplayText="Long" ShowLabel="true" ShowButton="true" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="demo-input-number">
+                <BootstrapInputNumber Value="@BindFloatValue" DisplayText="Float" ShowLabel="true" ShowButton="true" FormatString="#.##" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="demo-input-number">
+                <BootstrapInputNumber Value="@BindDoubleValue" DisplayText="Double" ShowLabel="true" ShowButton="true" FormatString="#.##" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="demo-input-number">
+                <BootstrapInputNumber Value="@BindDecimalValue" DisplayText="Decimal" ShowLabel="true" ShowButton="true" FormatString="#.##" />
+            </div>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["InputNumbersDisabledTitle"]"
            Introduction="@Localizer["InputNumbersDisabledIntro"]"
-           Name="Disabled"
-           Demo="typeof(Demos.InputNumbers.InputNumbersDisabled)">
+           Name="IsDisabled">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <BootstrapInputNumber Value="10" IsDisabled="true" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputNumber Value="20" IsDisabled="true" ShowButton="true" />
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["InputNumbersValidateFormTitle"]"
            Introduction="@Localizer["InputNumbersValidateFormIntro"]"
-           Name="ValidateForm"
-           Demo="typeof(Demos.InputNumbers.InputNumbersValidateForm)">
-    <p>@((MarkupString)Localizer["InputNumbersValidateFormDescription"].Value)</p>
+           Name="ValidateForm">
+    <p class="mb-3">@((MarkupString)Localizer["InputNumbersValidateFormDescription"].Value)</p>
+    <div>
+        <Divider Text="@Localizer["InputNumbersValidateFormDivider1"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+        <ValidateForm Model="@Model">
+            <BootstrapInputNumber @bind-Value="@Model.Count" ShowLabel="true" />
+        </ValidateForm>
+        <Divider Text="@Localizer["InputNumbersValidateFormDivider2"]" Alignment="Alignment.Left" style="margin: 2rem 0;" />
+        <BootstrapInputNumber @bind-Value="@Model.Count" ShowLabel="false" />
+        <Divider Text="@Localizer["InputNumbersValidateFormDivider3"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
+        <BootstrapInputNumber @bind-Value="@Model.Count" ShowLabel="true" DisplayText="@Localizer["InputNumbersValidateFormInputText"]" />
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

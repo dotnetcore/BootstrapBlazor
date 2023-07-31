@@ -5,10 +5,44 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// InputNumbers
+/// InputNumber 组件示例代码
 /// </summary>
 public sealed partial class InputNumbers
 {
+    /// <summary>
+    /// BindValue
+    /// </summary>
+    public int BindValue { get; set; } = 5;
+
+    /// <summary>
+    /// BindDoubleValue
+    /// </summary>
+    public double BindDoubleValue { get; set; } = 10;
+
+    /// <summary>
+    /// BindFloatValue
+    /// </summary>
+    public float BindFloatValue { get; set; } = 10;
+
+    /// <summary>
+    /// BindDecimalValue
+    /// </summary>
+    public decimal BindDecimalValue { get; set; } = 10;
+
+    /// <summary>
+    /// BindLongValue
+    /// </summary>
+    public long BindLongValue { get; set; } = 10;
+
+    /// <summary>
+    /// BindShortValue
+    /// </summary>
+    public short BindShortValue { get; set; } = 10;
+
+    private Foo Model { get; set; } = new Foo() { Count = 10 };
+
+    private static string Formatter(double val) => val.ToString("0.0");
+
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new()
