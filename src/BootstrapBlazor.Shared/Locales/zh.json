@@ -2600,26 +2600,16 @@
     "IsSelectAllTextOnEnter": "Enter 键自动选择输入框内所有字符串",
     "SelectAllTextAsync": "选择输入框内所有字符串方法",
     "ValidateRules": "自定义验证集合",
-    "P8": "可通过设置 <code>IsSelectAllTextOnEnter</code> 用户按下 Enter 键自动选择输入框内所有字符串 "
-  },
-  "BootstrapBlazor.Shared.Demos.Inputs.InputsNormal": {
-    "PlaceHolder": "请输入 ...",
+    "P8": "可通过设置 <code>IsSelectAllTextOnEnter</code> 用户按下 Enter 键自动选择输入框内所有字符串 ",
+    "NormalPlaceHolder": "请输入 ...",
     "IsSelectAllTextOnFocusLabel": "获得焦点时全选",
-    "IsSelectAllTextOnEnterLabel": "回车时全选"
-  },
-  "BootstrapBlazor.Shared.Demos.Inputs.InputsKeyboard": {
+    "IsSelectAllTextOnEnterLabel": "回车时全选",
     "InputsKeyboardSpan": "基础用法",
     "InputsKeyboardTips1": "请按键盘 <kbd>Enter</kbd> 或者 <kbd>Esc</kbd> 进行测试",
     "InputsKeyboardTips2": "执行 <code>@ref.SelectAllTextAsync()</code> 选择输入框内所有字符串",
     "PlaceHolder": "请输入 ...",
-    "InputsKeyboardLog": "按键触发 当前文本框值"
-  },
-  "BootstrapBlazor.Shared.Demos.Inputs.InputsPlaceholder": {
+    "InputsKeyboardLog": "按键触发 当前文本框值",
     "InputsPlaceholderSpan": "单向绑定",
-    "PlaceHolder": "请输入 ...",
-    "TestName": "张三"
-  },
-  "BootstrapBlazor.Shared.Demos.Inputs.InputsLabels": {
     "InputsLabelsDivider1": "自定义标签",
     "InputsLabelsTips1": "设置 <code>DisplayText</code> 值为 <b>自定义标签</b>",
     "InputLabelsText": "自定义标签",
@@ -2627,35 +2617,10 @@
     "InputsLabelsTps2": "无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>true</code> 时均显示",
     "InputsLabelsDivider3": "不占位",
     "InputsLabelsTips3": "无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>false</code> 时均不显示",
-    "PlaceHolder": "请输入 ...",
-    "TestName": "张三"
-  },
-  "BootstrapBlazor.Shared.Demos.Inputs.InputsValidateForm": {
-    "TestName": "张三"
-  },
-  "BootstrapBlazor.Shared.Demos.Inputs.InputsPassword": {
-    "PlaceHolder": "请输入 ...",
-    "TestName": "张三"
-  },
-  "BootstrapBlazor.Shared.Demos.Inputs.InputsGeneric": {
-    "InputsGenericBindValue": "绑定数值",
-    "PlaceHolder": "请输入 ...",
-    "TestName": "张三"
-  },
-  "BootstrapBlazor.Shared.Demos.Inputs.InputsFormatString": {
+    "TestName": "张三",
     "InputsFormatStringSetting": "设置",
     "InputsFormatStringTips": "<code>BootstrapInput</code> 组件绑定 <code>byte[]</code> 数组，格式化成 <code>base64</code> 编码字符串示例",
-    "TestName": "张三"
-  },
-  "BootstrapBlazor.Shared.Demos.Inputs.InputsPassword2": {
-    "InputsPassword2Span": "基础用法",
-    "PlaceHolder": "请输入 ...",
-    "TestName": "张三"
-  },
-  "BootstrapBlazor.Shared.Demos.Inputs.InputsTrim": {
-    "InputsTrimSpan": "基础用法",
-    "PlaceHolder": "请输入 ...",
-    "TestName": "张三"
+    "InputsPassword2Span": "基础用法"
   },
   "BootstrapBlazor.Shared.Samples.InputNumbers": {
     "InputNumbersTitle": "InputNumber 组件",

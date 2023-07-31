@@ -5,48 +5,124 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// Inputs
+/// Input 组件示例代码
 /// </summary>
 public partial class Inputs
 {
+    private string? PlaceHolderText { get; set; }
+
+    [NotNull]
+    private Foo? Model { get; set; }
+
+    [NotNull]
+    private ConsoleLogger? Logger { get; set; }
+
+    [NotNull]
+    private BootstrapInput<string>? Input { get; set; }
+
+    [NotNull]
+    private Foo? PlaceholderModel { get; set; }
+
+    [NotNull]
+    private Foo? LabelsModel { get; set; }
+
+    [NotNull]
+    private Foo? ValidateModel { get; set; }
+
+    [NotNull]
+    private Foo? GenericModel { get; set; }
+
+    private byte[] ByteArray { get; set; } = new byte[] { 0x01, 0x12, 0x34, 0x56 };
+
+    [NotNull]
+    private Foo? FormatModel { get; set; }
+
+    [NotNull]
+    private Foo? TrimModel { get; set; }
+
+    /// <summary>
+    /// OnInitialized
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        PlaceHolderText = Localizer["PlaceHolder"];
+        Model = new Foo() { Name = Localizer["TestName"] };
+        PlaceholderModel = new Foo() { Name = Localizer["TestName"] };
+        LabelsModel = new Foo() { Name = Localizer["TestName"] };
+        ValidateModel = new Foo() { Name = Localizer["TestName"] };
+        GenericModel = new Foo() { Name = Localizer["TestName"] };
+        FormatModel = new Foo() { Name = Localizer["TestName"] };
+        TrimModel = new Foo() { Name = Localizer["TestName"] };
+    }
+
+    private Task OnEnterAsync(string val)
+    {
+        Logger.Log($"Enter {Localizer["InputsKeyboardLog"]}: {val}");
+        return Task.CompletedTask;
+    }
+
+    private Task OnEscAsync(string val)
+    {
+        Logger.Log($"Esc {Localizer["InputsKeyboardLog"]}: {val}");
+        return Task.CompletedTask;
+    }
+
+    private async Task OnEnterSelectAllAsync(string val)
+    {
+        Logger.Log($"Enter call SelectAllText {Localizer["InputsKeyboardLog"]}: {val}");
+        await Input.SelectAllTextAsync();
+    }
+
+    private static string DateTimeFormatter(DateTime source) => source.ToString("yyyy-MM-dd");
+
+    private static string ByteArrayFormatter(byte[] source) => Convert.ToBase64String(source);
+
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new() {
+        new()
+        {
             Name = "ChildContent",
             Description = Localizer["InputsAtt1"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "ShowLabel",
             Description = Localizer["InputsAtt2"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new() {
+        new()
+        {
             Name = "DisplayText",
             Description = Localizer["InputsAtt3"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "Color",
             Description = Localizer["InputsAtt4"],
             Type = "Color",
             ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
             DefaultValue = "Primary"
         },
-        new() {
+        new()
+        {
             Name = "FormatString",
             Description = Localizer["InputsAtt5"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "Formatter",
             Description = Localizer["InputsAtt6"],
             Type = "RenderFragment<TItem>",

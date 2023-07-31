@@ -2594,26 +2594,15 @@
     "IsSelectAllTextOnEnter": "Whether auto select the all text after presses enter",
     "SelectAllTextAsync": "Select the all text method",
     "ValidateRules": "Customer validation collection",
-    "P8": "Use <code>IsSelectAllTextOnEnter</code> The user presses enter to select the all text"
-  },
-  "BootstrapBlazor.Shared.Demos.Inputs.InputsNormal": {
+    "P8": "Use <code>IsSelectAllTextOnEnter</code> The user presses enter to select the all text",
     "PlaceHolder": "Please enter ...",
     "IsSelectAllTextOnFocusLabel": "Select all on focus",
-    "IsSelectAllTextOnEnterLabel": "Select all on enter"
-  },
-  "BootstrapBlazor.Shared.Demos.Inputs.InputsKeyboard": {
+    "IsSelectAllTextOnEnterLabel": "Select all on enter",
     "InputsKeyboardSpan": "Basic usage",
     "InputsKeyboardTips1": "Press the keyboard <kbd>Enter</kbd> or <kbd>Esc</kbd> test",
     "InputsKeyboardTips2": "Execute <code>@ref.SelectAllTextAsync()</code> method select the all text",
-    "PlaceHolder": "Please enter ...",
-    "InputsKeyboardLog": "The key triggers the current text box value"
-  },
-  "BootstrapBlazor.Shared.Demos.Inputs.InputsPlaceholder": {
+    "InputsKeyboardLog": "The key triggers the current text box value",
     "InputsPlaceholderSpan": "One-way binding",
-    "PlaceHolder": "Please enter ...",
-    "TestName": "Tom"
-  },
-  "BootstrapBlazor.Shared.Demos.Inputs.InputsLabels": {
     "InputsLabelsDivider1": "Custom labels",
     "InputsLabelsTips1": "Set the <code>DisplayText</code> value to <b>custom label</b>",
     "InputLabelsText": "Custom labels",
@@ -2621,35 +2610,10 @@
     "InputsLabelsTps2": "The value of <code>DisplayText</code>  is displayed when <code>ShowLabel</code> is <code>true</code>, regardless of whether the value is set",
     "InputsLabelsDivider3": "Do not occupy seats",
     "InputsLabelsTips3": "The value of <code>DisplayText</code> is not displayed when the <code>ShowLabel</code> is <code>false</code>",
-    "PlaceHolder": "Please enter ...",
-    "TestName": "Tom"
-  },
-  "BootstrapBlazor.Shared.Demos.Inputs.InputsValidateForm": {
-    "TestName": "Tom"
-  },
-  "BootstrapBlazor.Shared.Demos.Inputs.InputsPassword": {
-    "PlaceHolder": "Please enter ...",
-    "TestName": "Tom"
-  },
-  "BootstrapBlazor.Shared.Demos.Inputs.InputsGeneric": {
-    "InputsGenericBindValue": "The binding value",
-    "PlaceHolder": "Please enter ...",
-    "TestName": "Tom"
-  },
-  "BootstrapBlazor.Shared.Demos.Inputs.InputsFormatString": {
+    "TestName": "Tom",
     "InputsFormatStringSetting": "Set up",
     "InputsFormatStringTips": "The <code>BootstrapInput</code> component binds <code>byte[]</code> array and formats it as an example of <code>base64</code> encoded string",
-    "TestName": "Tom"
-  },
-  "BootstrapBlazor.Shared.Demos.Inputs.InputsPassword2": {
-    "InputsPassword2Span": "Basic usage",
-    "PlaceHolder": "Please enter ...",
-    "TestName": "Tom"
-  },
-  "BootstrapBlazor.Shared.Demos.Inputs.InputsTrim": {
-    "InputsTrimSpan": "Basic usage",
-    "PlaceHolder": "Please enter ...",
-    "TestName": "Tom"
+    "InputsTrimSpan": "Basic usage"
   },
   "BootstrapBlazor.Shared.Samples.InputNumbers": {
     "InputNumbersTitle": "InputNumber",
