@@ -77,9 +77,7 @@
     "TableDialogNormalDescription": "本例中展示如果通过 <code>Modal</code> 组件与 <code>Table</code> 进行联动，通过弹窗中选择数据，然后再进行编辑",
     "TableDialogNormalTips1": "点击 <code>选择</code> 按钮弹出对话框选择产品 <code>Product</code>",
     "TableDialogNormalTips2": "弹窗中选择产品后点击 <code>确定</code> 按钮关闭弹窗",
-    "TableDialogNormalTips3": "点击 <code>编辑</code> 按钮，由于设置部分数据为只读，只能更改 <code>Count</code> 字段"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesDialog.TableDialogNormal": {
+    "TableDialogNormalTips3": "点击 <code>编辑</code> 按钮，由于设置部分数据为只读，只能更改 <code>Count</code> 字段",
     "TableDialogNormalChoose": "选择",
     "TableDialogNormalSelectitem": "选择项目",
     "TableDialogNormalSure": "确定"

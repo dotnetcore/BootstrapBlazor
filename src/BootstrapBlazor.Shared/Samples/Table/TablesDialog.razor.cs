@@ -1,40 +1,14 @@
-﻿@inject IStringLocalizer<Foo> LocalizerFoo
-@inject IStringLocalizer<TableDialogNormal> Localizer
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
-<Table TItem="Foo" @ref="ProductTable"
-        IsStriped="true" IsBordered="true"
-        ShowToolbar="true" ShowDefaultButtons="true" ShowAddButton="false" IsMultipleSelect="true" ShowExtendButtons="true"
-        OnQueryAsync="@OnQueryEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
-    <TableToolbarTemplate>
-        <TableToolbarButton TItem="Foo" Color="Color.Primary" Icon="fa-fw fa-solid fa-pen-to-square" Text="@Localizer["TableDialogNormalChoose"]" OnClickCallback="@ShowDialog" />
-    </TableToolbarTemplate>
-    <TableColumns>
-        <TableColumn @bind-Field="@context.DateTime" Readonly="true" />
-        <TableColumn @bind-Field="@context.Name" Readonly="true" />
-        <TableColumn @bind-Field="@context.Count" Width="80" />
-    </TableColumns>
-</Table>
+namespace BootstrapBlazor.Shared.Samples.Table;
 
-<Modal @ref="Modal">
-    <ModalDialog Title="@Localizer["TableDialogNormalSelectitem"]" IsCentered="true">
-        <BodyTemplate>
-            <Table TItem="Foo" IsStriped="true" @bind-SelectedRows="@SelectedRows" ClickToSelect="true"
-                    ShowToolbar="true" ShowDefaultButtons="false" IsMultipleSelect="true"
-                    OnQueryAsync="@OnQueryProductAsync" HeaderStyle="TableHeaderStyle.Light">
-                <TableColumns>
-                    <TableColumn @bind-Field="@context.DateTime" />
-                    <TableColumn @bind-Field="@context.Name" />
-                    <TableColumn @bind-Field="@context.Count" />
-                </TableColumns>
-            </Table>
-        </BodyTemplate>
-        <FooterTemplate>
-            <Button Text="@Localizer["TableDialogNormalSure"]" Icon="fa-regular fa-square-check" OnClick="@OnConfirm" />
-        </FooterTemplate>
-    </ModalDialog>
-</Modal>
-
-@code {
+/// <summary>
+/// 弹窗示例代码
+/// </summary>
+public partial class TablesDialog
+{
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
     /// Foo class is used for Demo test, please download the source code if necessary
@@ -56,7 +30,7 @@
 
     private static readonly Random random = new();
 
-    private List<Foo> SelectedRows { get; set; } = new List<Foo>();
+    private List<Foo> SelectedRows { get; set; } = new();
 
     /// <summary>
     /// OnInitialized
@@ -80,10 +54,7 @@
         }).ToList();
     }
 
-    private async Task ShowDialog(IEnumerable<Foo> items)
-    {
-        await Modal.Toggle();
-    }
+    private Task ShowDialog(IEnumerable<Foo> items) => Modal.Toggle();
 
     private async Task OnConfirm()
     {
