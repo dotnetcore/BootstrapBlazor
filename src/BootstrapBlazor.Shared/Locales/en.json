@@ -1399,9 +1399,7 @@
     "Layouts_OnCollapsed_Description": "Contract expand callback delegate",
     "Layouts_OnClickMenu_Description": "Call back the delegate when the menu item is clicked",
     "Layouts_TabDefaultUrl_Description": "Set the default url of Tab",
-    "Layouts_IsAccordion_Description": "Whether to set the accordion menu"
-  },
-  "BootstrapBlazor.Shared.Demos.Layouts.LayoutsApp": {
+    "Layouts_IsAccordion_Description": "Whether to set the accordion menu",
     "LayoutsAppTips1": "In actual use, the sidebar generally has two uses",
     "LayoutsAppTips2": "The sidebar fills the entire screen, and scroll bars appear when the overall height of the menu exceeds the screen",
     "LayoutsAppTips3": "The sidebar is not processed and the height is automatically opened by the content",
