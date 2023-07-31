@@ -1,5 +1,6 @@
 ﻿@page "/table"
 @inject IStringLocalizer<Tables> Localizer
+@inject IStringLocalizer<Foo> FooLocalizer
 
 <h3>@Localizer["TableBaseTitle"]</h3>
 <h4>@Localizer["TableBaseDescription"]</h4>
@@ -17,33 +18,78 @@
 
 <DemoBlock Title="@Localizer["TableBaseNormalTitle"]"
            Introduction="@Localizer["TableBaseNormalIntro"]"
-           Name="TableBaseNormal"
-           Demo="typeof(Demos.Table.TablesBase.TableBaseNormal)">
-    <div>@((MarkupString)Localizer["TableBaseNormalDescription"].Value)</div>
+           Name="TableBaseNormal">
+    <div class="mb-3">@((MarkupString)Localizer["TableBaseNormalDescription"].Value)</div>
+
+    <Button Icon="fa-solid fa-arrows-rotate" Text="@RefreshText" OnClick="OnClick" class="my-2" />
+
+    <Table TItem="Foo" Items="@Items.Take(3)">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TableBaseStripedTitle"]"
            Introduction="@Localizer["TableBaseStripedIntro"]"
-           Name="TableBaseStriped"
-           Demo="typeof(Demos.Table.TablesBase.TableBaseStriped)" />
+           Name="TableBaseStriped">
+    <Table TItem="Foo" Items="@Items.Take(3)" IsStriped="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["TableBaseBorderedTitle"]"
            Introduction="@Localizer["TableBaseBorderedIntro"]"
-           Name="TableBaseBordered"
-           Demo="typeof(Demos.Table.TablesBase.TableBaseBordered)" />
+           Name="TableBaseBordered">
+    <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
 
 <DemoBlock Title="@Localizer["TableBaseSizeTitle"]"
            Introduction="@Localizer["TableBaseSizeIntro"]"
-           Name="TableBaseSize"
-           Demo="typeof(Demos.Table.TablesBase.TableBaseSize)">
-    <p>@((MarkupString)Localizer["TableBaseSizeDescription"].Value)</p>
+           Name="TableBaseSize">
+    <p class="mb-3">@((MarkupString)Localizer["TableBaseSizeDescription"].Value)</p>
+    <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true" IsStriped="true" TableSize="TableSize.Compact">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" Sortable="true" />
+            <TableColumn @bind-Field="@context.Name" Filterable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TableBaseHeaderStyleTitle"]"
            Introduction="@Localizer["TableBaseHeaderStyleIntro"]"
-           Name="TableBaseHeaderStyle"
-           Demo="typeof(Demos.Table.TablesBase.TableBaseHeaderStyle)">
-    <p>@((MarkupString)Localizer["TableBaseHeaderStyleDescription"].Value)</p>
+           Name="TableBaseHeaderStyle">
+    <p class="mb-3">@((MarkupString)Localizer["TableBaseHeaderStyleDescription"].Value)</p>
+    <div class="code-label"><code>Light</code> @Localizer["TableBaseHeaderStyleMode"]</div>
+    <Table TItem="Foo" Items="@Items.Take(3)" HeaderStyle="TableHeaderStyle.Light" IsBordered="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+
+    <div class="code-label mt-3"><code>Dark</code> @Localizer["TableBaseHeaderStyleMode"]</div>
+    <Table TItem="Foo" Items="@Items.Take(3)" HeaderStyle="TableHeaderStyle.Dark" IsBordered="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
 
 <AttributeTable Items="GetAttributes()" />

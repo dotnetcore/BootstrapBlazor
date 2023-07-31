@@ -4729,12 +4729,8 @@
     "ShowPageInfoAttr": "Whethere show the pagination info",
     "PageInfoTemplateAttr": "The template for custom page info",
     "PageInfoTextAttr": "Pagination label text",
-    "AllowDragOrderAttr": "Allow dragging column headings to adjust table column order"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesBase.TableBaseNormal": {
-    "TableBaseNormalRefreshText": "Refresh"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesBase.TableBaseHeaderStyle": {
+    "AllowDragOrderAttr": "Allow dragging column headings to adjust table column order",
+    "TableBaseNormalRefreshText": "Refresh",
     "TableBaseHeaderStyleMode": "Pattern"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesColumn": {

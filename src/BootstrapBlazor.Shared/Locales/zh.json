@@ -4764,12 +4764,8 @@
     "ShowPageInfoAttr": "是否显示分页详细信息",
     "PageInfoTemplateAttr": "分页详细信息自定义组件",
     "PageInfoTextAttr": "分页信息显示文字",
-    "AllowDragOrderAttr": "是否允许拖动列标题调整表格列顺序"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesBase.TableBaseNormal": {
-    "TableBaseNormalRefreshText": "刷新"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesBase.TableBaseHeaderStyle": {
+    "AllowDragOrderAttr": "是否允许拖动列标题调整表格列顺序",
+    "TableBaseNormalRefreshText": "刷新",
     "TableBaseHeaderStyleMode": "模式"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesColumn": {

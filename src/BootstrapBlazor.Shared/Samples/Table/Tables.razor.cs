@@ -9,6 +9,35 @@ namespace BootstrapBlazor.Shared.Samples.Table;
 /// </summary>
 public partial class Tables
 {
+    /// <summary>
+    /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
+    /// Foo class is used for Demo test, please download the source code if necessary
+    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Shared/Data/Foo.cs
+    /// </summary>
+    [NotNull]
+    private List<Foo>? Items { get; set; }
+
+    [NotNull]
+    private string? RefreshText { get; set; }
+
+    /// <summary>
+    /// OnInitialized
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        //获取随机数据
+        //Get random data
+        Items = Foo.GenerateFoo(FooLocalizer);
+
+        RefreshText ??= Localizer["TableBaseNormalRefreshText"];
+    }
+
+    private void OnClick()
+    {
+        Items = Foo.GenerateFoo(FooLocalizer);
+    }
+
     private IEnumerable<AttributeItem> GetTableColumnAttributes() => new AttributeItem[]
     {
         new()
