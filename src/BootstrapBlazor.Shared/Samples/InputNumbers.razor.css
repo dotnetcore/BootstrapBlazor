@@ -1,0 +1,7 @@
+﻿.demo-inputnumber {
+    width: 160px;
+}
+
+    .demo-inputnumber > ::deep .form-control {
+        width: inherit;
+    }
