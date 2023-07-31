@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// Editors
+/// Editor 组件示例代码
 /// </summary>
 public sealed partial class Editors
 {
@@ -112,7 +112,6 @@ public sealed partial class Editors
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-
         new()
         {
             Name = "Placeholder",
