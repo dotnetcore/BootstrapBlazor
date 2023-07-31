@@ -1724,69 +1724,21 @@
     "ADesc10": "Size",
     "ADesc11": "Label",
     "EDesc1": "Triggered when the value of the drop-down box changes",
-    "FixedButtonText": "The text of fixed button"
-  },
-  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownNormal": {
-    "Item1": "Melbourne",
-    "Item2": "Sydney",
-    "Item3": "Queensland"
-  },
-  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownColor": {
-    "Item1": "Melbourne",
-    "Item2": "Sydney",
-    "Item3": "Queensland"
-  },
-  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownSplit": {
-    "Item1": "Melbourne",
-    "Item2": "Sydney",
-    "Item3": "Queensland"
-  },
-  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownSize": {
-    "Item1": "Melbourne",
-    "Item2": "Sydney",
-    "Item3": "Queensland"
-  },
-  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownDirection": {
-    "Item1": "Melbourne",
-    "Item2": "Sydney",
-    "Item3": "Queensland"
-  },
-  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownAlignment": {
-    "Item1": "Melbourne",
-    "Item2": "Sydney",
-    "Item3": "Queensland"
-  },
-  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownItems": {
+    "FixedButtonText": "The text of fixed button",
     "Item1": "Melbourne",
     "Item2": "Sydney",
     "Item3": "Queensland",
     "AddItem": "Add",
     "RemoveItem": "Remove",
-    "City": "City"
-  },
-  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownRadio": {
-    "Item1": "Melbourne",
-    "Item2": "Sydney",
-    "Item3": "Queensland"
-  },
-  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownCascade": {
-    "Item1": "Select ...",
-    "Item2": "Melbourne",
-    "Item3": "Sydney",
-    "Item4": "Hangzhou",
-    "Item5": "chaoyang",
-    "Item6": "haidian",
-    "Item7": "jingan",
-    "Item8": "huangpu"
-  },
-  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownIsFixedButtonText": {
-    "Item1": "Melbourne",
-    "Item2": "Sydney"
-  },
-  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownFixedButtonText": {
-    "Item1": "Melbourne",
-    "Item2": "Sydney",
-    "City": "City"
+    "City": "City",
+    "DropdownCascadeItem1": "Select ...",
+    "DropdownCascadeItem2": "Melbourne",
+    "DropdownCascadeItem3": "Sydney",
+    "DropdownCascadeItem4": "Hangzhou",
+    "DropdownCascadeItem5": "chaoyang",
+    "DropdownCascadeItem6": "haidian",
+    "DropdownCascadeItem7": "jingan",
+    "DropdownCascadeItem8": "huangpu"
   },
   "BootstrapBlazor.Shared.Samples.GoTops": {
     "Title": "GoTop",
