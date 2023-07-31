@@ -5,14 +5,14 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// Dropdowns
+/// Dropdown 组件示例代码
 /// </summary>
 public sealed partial class Dropdowns
 {
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
-    private List<SelectedItem> Items { get; set; } = new List<SelectedItem> { };
+    private List<SelectedItem> Items { get; set; } = new();
 
     /// <summary>
     /// ShowMessage
@@ -149,15 +149,16 @@ public sealed partial class Dropdowns
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-
-        new() {
+        new()
+        {
             Name = "Value",
             Description = Localizer["ADesc1"],
             Type = "TValue",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "Class",
             Description = Localizer["ADesc2"],
             Type = "string",
@@ -171,63 +172,72 @@ public sealed partial class Dropdowns
             ValueList = "Primary / Secondary / Info / Warning / Danger ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "Direction",
             Description = Localizer["ADesc4"],
             Type = "Direction",
             ValueList = "Dropup / Dropright /  Dropleft",
             DefaultValue = " None "
         },
-        new() {
+        new()
+        {
             Name = "Items",
             Description = Localizer["ADesc5"],
             Type = "list",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "MenuAlignment",
             Description = Localizer["ADesc6"],
             Type = "Alignment",
             ValueList = "None / Left / Center / Right ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "MenuItem",
             Description = Localizer["ADesc7"],
             Type = "string",
             ValueList = "button / a ",
             DefaultValue = " a "
         },
-        new() {
+        new()
+        {
             Name = "Responsive",
             Description = Localizer["ADesc8"],
             Type = "string",
             ValueList = "dropdown-menu / dropdown-menu-end / dropdown-menu-{lg | md | sm }-{right | left}",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "ShowSplit",
             Description = Localizer["ADesc9"],
             Type = "bool",
             ValueList = "true / false ",
             DefaultValue = " false "
         },
-        new() {
+        new()
+        {
             Name = "Size",
             Description = Localizer["ADesc10"],
             Type = "Size",
             ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge / ExtraExtraLarge",
             DefaultValue = "None"
         },
-        new() {
+        new()
+        {
             Name = "TagName",
             Description = Localizer["ADesc11"],
             Type = "string",
             ValueList = " a / button ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = nameof(Dropdown<string>.FixedButtonText),
             Description = Localizer["FixedButtonText"],
             Type = "string",
