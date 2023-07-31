@@ -5182,9 +5182,7 @@
     "TablesDynamicDynamicColTitle": "动态列",
     "TablesDynamicDynamicColIntro": "通过代码动态调整 <code>DataTable</code> 表格组件自动更新",
     "TablesDynamicPageTitle": "分页",
-    "TablesDynamicPageIntro": "通过与 <code>Pagination</code> 组件配合实现分页功能"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesDynamic.TablesDynamicDynamicCol": {
+    "TablesDynamicPageIntro": "通过与 <code>Pagination</code> 组件配合实现分页功能",
     "TablesDynamicDynamicColButtonAddColumnText": "增加列",
     "TablesDynamicDynamicColButtonRemoveColumnText": "移除列"
   },
