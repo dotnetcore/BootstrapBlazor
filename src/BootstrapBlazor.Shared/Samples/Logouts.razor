@@ -7,32 +7,60 @@
 
 <DemoBlock Title="@Localizer["LogoutsNormalTitle"]"
            Introduction="@Localizer["LogoutsNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Logouts.LogoutNormal)">
+           Name="Normal">
+    <Logout ImageUrl="./images/Argo.png" DisplayName="Administrators" UserName="Admin" class="bg-secondary" />
+    <div style="height: 80px;"></div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LogoutsShowUserNameTitle"]"
            Introduction="@Localizer["LogoutsShowUserNameIntro"]"
-           Name="ShowUserName"
-           Demo="typeof(Demos.Logouts.LogoutShowUserName)">
+           Name="ShowUserName">
+    <Logout ImageUrl="./images/Argo.png" DisplayName="Administrators" UserName="Admin" ShowUserName="false" class="bg-secondary" />
+    <div style="height: 80px;"></div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LogoutsChildContentTitle"]"
            Introduction="@Localizer["LogoutsChildContentIntro"]"
-           Name="ChildContent"
-           Demo="typeof(Demos.Logouts.LogoutChildContent)">
+           Name="ChildContent">
+    <Logout ImageUrl="./images/Argo.png" DisplayName="Administrators" UserName="Admin">
+        <i class="fa-fw fa-solid fa-user"></i>
+        <span>@Localizer["LogoutsChildContentCustomDisplay"]</span>
+    </Logout>
+    <div style="height: 80px;"></div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LogoutsHeaderTemplateTitle"]"
            Introduction="@Localizer["LogoutsHeaderTemplateIntro"]"
-           Name="HeaderTemplate"
-           Demo="typeof(Demos.Logouts.LogoutHeaderTemplate)">
+           Name="HeaderTemplate">
+    <Logout ImageUrl="./images/Argo.png" DisplayName="Administrators" UserName="Admin" class="bg-warning">
+        <HeaderTemplate>
+            <div class="d-flex flex-fill align-items-center">
+                <img alt="avatar" src="./images/Argo-C.png" style="border-radius: 50%;">
+                <div class="flex-fill">
+                    <div class="logout-dn">@Localizer["LogoutsHeaderTemplateUser1"]</div>
+                    <div class="logout-un">@Localizer["LogoutsHeaderTemplateUser2"]</div>
+                </div>
+            </div>
+        </HeaderTemplate>
+    </Logout>
+    <div style="height: 80px;"></div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LogoutsLinkTemplateTitle"]"
            Introduction="@Localizer["LogoutsLinkTemplateIntro"]"
-           Name="LinkTemplate"
-           Demo="typeof(Demos.Logouts.LogoutLinkTemplate)">
+           Name="LinkTemplate">
+    <Logout ImageUrl="./images/Argo.png" DisplayName="Administrators" UserName="Admin" class="bg-primary">
+        <LinkTemplate>
+            <a href="#">
+                <i class="fa-solid fa-user"></i><span>@Localizer["LogoutsLinkTemplatePersonalCenter"]</span>
+            </a>
+            <a href="#">
+                <i class="fa-solid fa-gear"></i><span>@Localizer["LogoutsLinkTemplateSetup"]</span>
+            </a>
+            <LogoutLink Url="/logouts" />
+        </LinkTemplate>
+    </Logout>
+    <div style="height: 220px;"></div>
 </DemoBlock>
 
 <AttributeTable Items="GetAttributes()"></AttributeTable>
