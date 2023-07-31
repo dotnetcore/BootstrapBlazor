@@ -1,5 +1,4 @@
 ﻿@page "/markdown"
-@using Microsoft.Extensions.DependencyInjection
 @inject IStringLocalizer<Markdowns> Localizer
 
 <h3>@Localizer["MarkdownsTitle"]</h3>
@@ -8,7 +7,7 @@
 
 <p>@((MarkupString)Localizer["MarkdownsNote"].Value)</p>
 
-<Pre class="no-highlight">builder.Services.Configure&lt;HubOptions&gt;(option => option.MaximumReceiveMessageSize = null);</Pre>
+<Pre class="no-highlight mb-3">builder.Services.Configure&lt;HubOptions&gt;(option => option.MaximumReceiveMessageSize = null);</Pre>
 
 <PackageTips Name="BootstrapBlazor.Markdown" />
 
@@ -26,53 +25,80 @@
 
 <DemoBlock Title="@Localizer["MarkdownsNormalTitle"]"
            Introduction="@Localizer["MarkdownsNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Markdowns.MarkdownsNormal)">
-    <p>@((MarkupString)Localizer["MarkdownsNormalDescription"].Value)</p>
+           Name="Normal">
+    <p class="mb-3">@((MarkupString)Localizer["MarkdownsNormalDescription"].Value)</p>
+    <div style="width: 100%; height: 300px;">
+        <Markdown Language="@Language" @bind-Value="@MarkdownString" @bind-Html="@HtmlString" />
+    </div>
+    <div class="mt-3">
+        <textarea class="form-control" rows="6" disabled="disabled">
+        @MarkdownString
+        </textarea>
+    </div>
+    <div class="mt-3">
+        <textarea class="form-control" rows="6" disabled="disabled">
+        @HtmlString
+        </textarea>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MarkdownsAsyncTitle"]"
            Introduction="@Localizer["MarkdownsAsyncIntro"]"
-           Name="Async"
-           Demo="typeof(Demos.Markdowns.MarkdownsAsync)">
+           Name="Async">
+    <Button Text="@Localizer["MarkdownsAsyncButtonText"]" IsAsync="true" OnClick="GetAsyncString" Icon="fa-solid fa-font-awesome" class="mb-3" />
+    <Markdown Value="@AsyncValue" @ref="MarkdownSetValue"></Markdown>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MarkdownsCommonPropertyTitle"]"
            Introduction="@Localizer["MarkdownsCommonPropertyIntro"]"
-           Name="CommonProperty"
-           Demo="typeof(Demos.Markdowns.MarkdownsCommonProperty)">
-    <p>@((MarkupString)Localizer["MarkdownsCommonPropertyDescription"].Value)</p>
+           Name="CommonProperty">
+    <p class="mb-3">@((MarkupString)Localizer["MarkdownsCommonPropertyDescription"].Value)</p>
+    <Markdown Height="500" MinHeight="300" Placeholder="@Localizer["MarkdownsCommonPropertyPlaceHolder"]" PreviewStyle="PreviewStyle.Tab" InitialEditType="InitialEditType.Wysiwyg" Language="@Language"></Markdown>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MarkdownsIsViewerTitle"]"
            Introduction="@Localizer["MarkdownsIsViewerIntro"]"
-           Name="IsViewer"
-           Demo="typeof(Demos.Markdowns.MarkdownsIsViewer)">
-    <p>@((MarkupString)Localizer["MarkdownsIsViewerDescription"].Value)</p>
+           Name="IsViewer">
+    <p class="mb-3">@((MarkupString)Localizer["MarkdownsIsViewerDescription"].Value)</p>
+    <Markdown IsViewer="true" Value="# Viewer Mode"></Markdown>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MarkdownsIsDarkTitle"]"
            Introduction="@Localizer["MarkdownsIsDarkTitle"]"
-           Name="IsDark"
-           Demo="typeof(Demos.Markdowns.MarkdownsIsDark)">
+           Name="IsDark">
+    <Markdown IsDark="true" Value="# Dark Mode"></Markdown>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MarkdownsEnableHighlightTitle"]"
            Introduction="@Localizer["MarkdownsEnableHighlightIntro"]"
-           Name="EnableHighlight"
-           Demo="typeof(Demos.Markdowns.MarkdownsEnableHighlight)">
+           Name="EnableHighlight">
+    <Markdown EnableHighlight="true" Value="@JsString"></Markdown>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MarkdownsBrowserTitle"]"
            Introduction="@Localizer["MarkdownsBrowserIntro"]"
-           Name="Browser"
-           Demo="typeof(Demos.Markdowns.MarkdownsBrowser)">
+           Name="Browser">
+    <Markdown @ref="Markdown"></Markdown>
+    <div class="mt-3">
+        <Button OnClickWithoutRender="@(async () => await Markdown.DoMethodAsync("insertText", "# test"))">@Localizer["MarkdownsBrowserButtonText1"]</Button>
+        <Button OnClickWithoutRender="@(async () => await Markdown.DoMethodAsync("insertText", $"![{Localizer["MarkdownsBrowserText"]}](https://i.niupic.com/images/2022/04/01/9Y6T.jpg)"))">@Localizer["MarkdownsBrowserButtonText2"]</Button>
+        <Button OnClickWithoutRender="@(async () => await Markdown.DoMethodAsync("moveCursorToEnd"))">@Localizer["MarkdownsBrowserButtonText3"]</Button>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MarkdownsValidateTitle"]"
            Introduction="@Localizer["MarkdownsValidateIntro"]"
-           Name="Validate"
-           Demo="typeof(Demos.Markdowns.MarkdownsValidate)">
+           Name="Validate">
+    <ValidateForm Model="@Model">
+        <div class="row g-3 form-inline">
+            <div class="col-12">
+                <Markdown @bind-Value="Model.Name"></Markdown>
+            </div>
+            <div class="col-12">
+                <Button ButtonType="ButtonType.Submit" Icon="fa-fw fa-solid fa-floppy-disk" Text="@Localizer["MarkdownsValidateSubmitText"]" />
+            </div>
+        </div>
+    </ValidateForm>
 </DemoBlock>
 
 <AttributeTable Items="GetAttributes()"></AttributeTable>
