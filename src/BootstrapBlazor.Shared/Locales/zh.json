@@ -1401,9 +1401,7 @@
     "Layouts_OnCollapsed_Description": "收缩展开回调委托",
     "Layouts_OnClickMenu_Description": "点击菜单项时回调委托",
     "Layouts_TabDefaultUrl_Description": "设置 Tab 组件默认标签页",
-    "Layouts_IsAccordion_Description": "是否设置手风琴菜单"
-  },
-  "BootstrapBlazor.Shared.Demos.Layouts.LayoutsApp": {
+    "Layouts_IsAccordion_Description": "是否设置手风琴菜单",
     "LayoutsAppTips1": "实际使用过程中，侧边栏一般有两种用法",
     "LayoutsAppTips2": "侧边栏充满整个屏幕，当菜单总体高度超出屏幕后出现滚动条",
     "LayoutsAppTips3": "侧边栏不做处理高度由内容自动撑开",
@@ -1413,7 +1411,6 @@
     "LayoutsAppTips7": "右侧面板中可用区域默认为全部，适用于带 <code>Tab</code> 组件的布局，本例中为了美观 <code>Main</code> 模板中内置了一个 <code>div</code> 并且设置样式为 <code>style='padding: 1rem;'</code>",
     "LayoutsAppTips8": "本例点击左侧菜单展开后不出现滚动条会撑开父容器高度",
     "LayoutsAppTips9": " <code>Layout</code> 组件与 <code>Tab</code> 组件配合使用实战示例请参阅 <a href='/tabs'>Tab 组件</a>"
-
   },
   "BootstrapBlazor.Shared.Samples.Footers": {
     "FootersTitle": "Footer 页脚组件",
