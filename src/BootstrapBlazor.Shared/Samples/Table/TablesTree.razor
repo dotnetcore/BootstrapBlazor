@@ -1,6 +1,8 @@
 ﻿@inherits BootstrapComponentBase
 @page "/table/tree"
 @inject IStringLocalizer<TablesTree> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
+@inject ICacheManager CacheManager
 
 <h3>@Localizer["TablesTreeTitle"]</h3>
 <h4>@Localizer["TablesTreeDescription"]</h4>
@@ -22,32 +24,67 @@
 
 <DemoBlock Title="@Localizer["TablesTreeDataTitle"]"
            Introduction="@Localizer["TablesTreeDataIntro"]"
-           Name="TreeData"
-           Demo="typeof(Demos.Table.TablesTree.TablesTreeData)">
+           Name="TreeData">
+    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
+           Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Name" Width="360" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TablesTreeLevelTitle"]"
            Introduction="@Localizer["TablesTreeLevelIntro"]"
-           Name="Level"
-           Demo="typeof(Demos.Table.TablesTree.TablesTreeLevel)">
+           Name="Level">
     <Tips>
         <div>@((MarkupString)Localizer["TablesTreeLevelTips1"].Value)</div>
     </Tips>
     <p>@((MarkupString)Localizer["TablesTreeLevelTips2"].Value)</p>
+    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light" IndentSize="8"
+           Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Name" Width="360" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TablesTreeEditTitle"]"
            Introduction="@Localizer["TablesTreeEditIntro"]"
-           Name="EditTree"
-           Demo="typeof(Demos.Table.TablesTree.TablesTreeEdit)">
+           Name="EditTree">
+    <Table TItem="TreeFoo" IsBordered="true" HeaderStyle="@TableHeaderStyle.Light"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" IsStriped="true"
+           OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
+           IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Id" />
+            <TableColumn @bind-Field="@context.Name" Width="360" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TablesTreeIconTitle"]"
            Introduction="@Localizer["TablesTreeIconIntro"]"
-           Name="Icon"
-           Demo="typeof(Demos.Table.TablesTree.TablesTreeIcon)">
+           Name="Icon">
     <Tips>
         <div>@((MarkupString)Localizer["TablesTreeIconTips1"].Value)</div>
     </Tips>
     <p>@((MarkupString)Localizer["TablesTreeIconTips2"].Value)</p>
+    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light" TreeIcon="fa-solid fa-circle-chevron-right" TreeExpandIcon="fa-solid fa-circle-chevron-right fa-rotate-90"
+           Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Name" Width="360" />
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
