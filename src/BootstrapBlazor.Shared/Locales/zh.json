@@ -1726,70 +1726,21 @@
     "ADesc10": "尺寸",
     "ADesc11": "标签",
     "EDesc1": "下拉框值发生改变时触发",
-    "FixedButtonText": "固定按钮显示文字"
-  },
-  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownNormal": {
-    "Item1": "北京",
-    "Item2": "上海",
-    "Item3": "广州"
-  },
-  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownColor": {
-    "Item1": "北京",
-    "Item2": "上海",
-    "Item3": "广州"
-  },
-  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownSplit": {
-    "Item1": "北京",
-    "Item2": "上海",
-    "Item3": "广州"
-  },
-  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownSize": {
-    "Item1": "北京",
-    "Item2": "上海",
-    "Item3": "广州"
-  },
-  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownDirection": {
-    "Item1": "北京",
-    "Item2": "上海",
-    "Item3": "广州"
-  },
-  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownAlignment": {
-    "Item1": "北京",
-    "Item2": "上海",
-    "Item3": "广州"
-  },
-  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownItems": {
+    "FixedButtonText": "固定按钮显示文字",
     "Item1": "北京",
     "Item2": "上海",
     "Item3": "广州",
     "AddItem": "添加",
     "RemoveItem": "删除",
-    "City": "城市"
-  },
-  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownRadio": {
-    "Item1": "北京",
-    "Item2": "上海",
-    "Item3": "广州",
-    "City": "城市"
-  },
-  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownCascade": {
-    "Item1": "请选择 ...",
-    "Item2": "北京",
-    "Item3": "上海",
-    "Item4": "杭州",
-    "Item5": "朝阳区",
-    "Item6": "海淀区",
-    "Item7": "静安区",
-    "Item8": "黄浦区"
-  },
-  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownIsFixedButtonText": {
-    "Item1": "北京",
-    "Item2": "上海"
-  },
-  "BootstrapBlazor.Shared.Demos.Dropdown.DropdownFixedButtonText": {
-    "Item1": "北京",
-    "Item2": "上海",
-    "City": "城市"
+    "City": "城市",
+    "DropdownCascadeItem1": "请选择 ...",
+    "DropdownCascadeItem2": "北京",
+    "DropdownCascadeItem3": "上海",
+    "DropdownCascadeItem4": "杭州",
+    "DropdownCascadeItem5": "朝阳区",
+    "DropdownCascadeItem6": "海淀区",
+    "DropdownCascadeItem7": "静安区",
+    "DropdownCascadeItem8": "黄浦区"
   },
   "BootstrapBlazor.Shared.Samples.GoTops": {
     "Title": "GoTop 返回顶端组件",
