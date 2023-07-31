@@ -4892,7 +4892,7 @@
     "VirtualizationDynamicDescription": "快速滚动时显示行占位，提升用户体验"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesLoading": {
-    "TablesLoadingTitile": "显示数据加载功能",
+    "TablesLoadingTitle": "显示数据加载功能",
     "TablesLoadingDescription": "调用远端数据接口时，由于网络原因可能出现延时情况，可使用显示加载功能进行屏蔽",
     "TablesLoadingShowLoadingTitle": "基础用法",
     "TablesLoadingShowLoadingIntro": "设置 <code>ShowLoading</code> 即可",

@@ -1,21 +1,18 @@
-﻿@inject IStringLocalizer<Foo> LocalizerFoo
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
-<Table TItem="Foo" PageItemsSource="@PageItemsSource" AutoGenerateColumns="true"
-       IsPagination="true" IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-       ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" ShowSearch="true"
-       OnAddAsync="@OnAddAsync" OnEditAsync="@OnEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
-       OnQueryAsync="@OnQueryAsync">
-    <TableColumns>
-        <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
-    </TableColumns>
-</Table>
+namespace BootstrapBlazor.Shared.Samples.Table;
 
-@code {
-
+/// <summary>
+/// 加载示例代码
+/// </summary>
+public partial class TablesLoading
+{
     private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
 
     [NotNull]
-    private IEnumerable<SelectedItem>? Hobbys { get; set; }
+    private IEnumerable<SelectedItem>? Hobbies { get; set; }
 
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
@@ -32,7 +29,7 @@
     {
         base.OnInitialized();
 
-        Hobbys = Foo.GenerateHobbies(LocalizerFoo);
+        Hobbies = Foo.GenerateHobbies(LocalizerFoo);
         Items = Foo.GenerateFoo(LocalizerFoo);
     }
 
@@ -105,7 +102,7 @@
             isSearch = true;
         }
 
-        // 处理 Searchable=true 列与 SeachText 模糊搜索
+        // 处理 Searchable=true 列与 SearchText 模糊搜索
         if (options.Searches.Any())
         {
             items = items.Where(options.Searches.GetFilterFunc<Foo>(FilterLogic.Or));

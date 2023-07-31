@@ -4857,7 +4857,7 @@
     "VirtMultiSelectsualizationDynamicDescription": "Display row placeholders when scrolling quickly to improve user experience"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesLoading": {
-    "TablesLoadingTitile": "Display data loading function",
+    "TablesLoadingTitle": "Display data loading function",
     "TablesLoadingDescription": "When calling the remote data interface, there may be a delay due to network reasons, you can use the display loading function to shield",
     "TablesLoadingShowLoadingTitle": "Basic usage",
     "TablesLoadingShowLoadingIntro": "Just set <code>ShowLoading</code>",
