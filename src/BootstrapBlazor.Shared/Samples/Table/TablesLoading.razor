@@ -2,7 +2,7 @@
 @inject IStringLocalizer<TablesLoading> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
 
-<h3>@Localizer["TablesLoadingTitile"]</h3>
+<h3>@Localizer["TablesLoadingTitle"]</h3>
 <h4>@Localizer["TablesLoadingDescription"]</h4>
 
 <DemoBlock Title="@Localizer["TablesLoadingShowLoadingTitle"]"
@@ -13,7 +13,7 @@
            OnAddAsync="@OnAddAsync" OnEditAsync="@OnEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
+            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbies" />
         </TableColumns>
     </Table>
 </DemoBlock>
@@ -27,7 +27,7 @@
            OnAddAsync="@OnAddAsync" OnEditAsync="@OnEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
+            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbies" />
         </TableColumns>
     </Table>
 </DemoBlock>
@@ -41,7 +41,7 @@
            OnAddAsync="@OnAddAsync" OnEditAsync="@OnEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
-            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
+            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbies" />
         </TableColumns>
     </Table>
 </DemoBlock>
