@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// FloatingLabels
+/// FloatingLabel 组件示例代码
 /// </summary>
 public partial class FloatingLabels
 {
@@ -32,9 +32,7 @@ public partial class FloatingLabels
         base.OnInitialized();
 
         Model = new Foo() { Name = Localizer["FloatingLabelsTestName"] };
-
         BindValueModel = new Foo() { Name = Localizer["FloatingLabelsTestName"] };
-
         FormatStringModel = new Foo() { Name = Localizer["FloatingLabelsTestName"] };
     }
 
