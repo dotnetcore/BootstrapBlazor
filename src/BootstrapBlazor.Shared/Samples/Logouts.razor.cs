@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// Logouts
+/// Logout 组件示例
 /// </summary>
 public partial class Logouts
 {
