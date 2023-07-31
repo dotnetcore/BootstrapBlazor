@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Shared.Samples.Table;
 
 /// <summary>
-/// TablesDialog
+/// 弹窗示例代码
 /// </summary>
 public partial class TablesDialog
 {
@@ -54,10 +54,7 @@ public partial class TablesDialog
         }).ToList();
     }
 
-    private async Task ShowDialog(IEnumerable<Foo> items)
-    {
-        await Modal.Toggle();
-    }
+    private Task ShowDialog(IEnumerable<Foo> items) => Modal.Toggle();
 
     private async Task OnConfirm()
     {
