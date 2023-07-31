@@ -5164,9 +5164,7 @@
     "TablesDynamicDynamicColTitle": "Dynamic Column",
     "TablesDynamicDynamicColIntro": "Dynamic adjustment of the <code>DataTable</code> table component automatically updates via code",
     "TablesDynamicPageTitle": "Pagination",
-    "TablesDynamicPageIntro": "Use <code>Pagination</code> component"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesDynamic.TablesDynamicDynamicCol": {
+    "TablesDynamicPageIntro": "Use <code>Pagination</code> component",
     "TablesDynamicDynamicColButtonAddColumnText": "Add Column",
     "TablesDynamicDynamicColButtonRemoveColumnText": "Remove Column"
   },
