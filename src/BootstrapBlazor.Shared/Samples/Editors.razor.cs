@@ -31,7 +31,7 @@ public sealed partial class Editors
     {
         base.OnInitialized();
 
-        EditorValue = "This is bind-Value demo";
+        EditorValue = "This is ShowSubmit demo";
 
         ValueChangedValue = Localizer["EditorOnValueChangedInitValue"];
 
