@@ -4976,9 +4976,7 @@
     "TablesAutoRefreshNormalTips1": "The auto refresh function is enabled by setting the value of the <code>IsAutoRefresh</code> property. The default value of the <code>AutoRefreshInterval</code> property is 2000 milliseconds, which is the auto refresh interval, and the component's <code>QueryAsync is called periodically. The </code> method makes the table auto-refresh",
     "TablesAutoRefreshNormalTips2": "In this example, a new piece of data is added every 2 seconds and a maximum of 10 pieces of data are maintained",
     "TablesAutoRefreshControlTitle": "Control whether to update automatically by setting a variable",
-    "TablesAutoRefreshControlIntro": "This example controls whether to automatically update by setting a variable"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesAutoRefresh.TablesAutoRefreshControl": {
+    "TablesAutoRefreshControlIntro": "This example controls whether to automatically update by setting a variable",
     "TablesAutoRefreshControlDescription": "Enable/disable automatic update function by clicking the button",
     "TablesAutoRefreshControlToggleAuto": "Change Auto",
     "TablesAutoRefreshControlIsAutoRefresh": "The current value"

@@ -4992,9 +4992,7 @@
     "TablesAutoRefreshNormalTips1": "通过设置 <code>IsAutoRefresh</code> 属性值来开启自动刷新功能，<code>AutoRefreshInterval</code> 属性值默认为 2000 毫秒，此值为自动刷新时间间隔，周期性调用组件的 <code>QueryAsync</code> 方法使表格具有自动刷新功能",
     "TablesAutoRefreshNormalTips2": "本例中每间隔 2 秒钟数据增加一条新数据并保持最多 10 条数据",
     "TablesAutoRefreshControlTitle": "通过设置变量控制是否自动更新",
-    "TablesAutoRefreshControlIntro": "本示例通过设置变量控制是否自动更新"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesAutoRefresh.TablesAutoRefreshControl": {
+    "TablesAutoRefreshControlIntro": "本示例通过设置变量控制是否自动更新",
     "TablesAutoRefreshControlDescription": "通过点击按钮开始/关闭是否自动更新功能",
     "TablesAutoRefreshControlToggleAuto": "更改 Auto",
     "TablesAutoRefreshControlIsAutoRefresh": "当前值"
