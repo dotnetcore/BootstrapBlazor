@@ -4889,29 +4889,19 @@
     "TablesWrapDataResizingTips4": "After the text in the cell is omitted, you can use the <code>ShowTips</code> property to control whether to display all the text on mouse hover, the default is <code>false</code>",
     "TablesWrapDataResizingTips5": "Drag the address column, the cell display content will automatically increase and decrease",
     "TablesWrapCustomCellTitle": "Custom in-cell typography",
-    "TablesWrapCustomCellIntro": "Use templates for special layout of in-cell data"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesWrap.TablesWrapNormal": {
+    "TablesWrapCustomCellIntro": "Use templates for special layout of in-cell data",
     "TablesWrapNormalColumHeaderText_DateTime": "I'm a super long schedule head",
     "TablesWrapNormalColumHeaderText_Name": "I am a super long name header",
-    "TablesWrapNormalColumHeaderText_Address": "I am a super long address header"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesWrap.TablesWrapHeaderTextWrap": {
+    "TablesWrapNormalColumHeaderText_Address": "I am a super long address header",
     "TablesWrapHeaderTextWrapColumHeaderText_DateTime": "I'm a super long schedule head",
     "TablesWrapHeaderTextWrapColumHeaderText_Name": "I am a super long name header",
-    "TablesWrapHeaderTextWrapColumHeaderText_Address": "I am a super long address header"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesWrap.TablesWrapLongData": {
+    "TablesWrapHeaderTextWrapColumHeaderText_Address": "I am a super long address header",
     "TablesWrapLongDataColumHeaderText_DateTime": "Time",
     "TablesWrapLongDataColumHeaderText_Name": "Name",
-    "TablesWrapLongDataColumHeaderText_Address": "Address"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesWrap.TablesWrapDataResizing": {
+    "TablesWrapLongDataColumHeaderText_Address": "Address",
     "TablesWrapDataResizingColumHeaderText_DateTime": "time",
     "TablesWrapDataResizingColumHeaderText_Name": "Name",
-    "TablesWrapDataResizingColumHeaderText_Address": "Address"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesWrap.TablesWrapCustomCell": {
+    "TablesWrapDataResizingColumHeaderText_Address": "Address",
     "TablesWrapCustomCellColumHeaderText_DateTime": "time",
     "TablesWrapCustomCellColumHeaderText_Name": "Name",
     "TablesWrapCustomCellColumHeaderText_Address": "Address",
