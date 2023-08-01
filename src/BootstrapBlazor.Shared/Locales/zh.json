@@ -4795,23 +4795,16 @@
     "ResetVisibleColumnsDesc": "通过调用 <code>Table</code> 实例方法 <code>ResetVisibleColumns</code> 可设置任意列显示隐藏属性",
     "AllowDragOrderTitle": "允许拖动列标题调整表格列顺序",
     "AllowDragOrderIntro": "通过指定 <code>AllowDragColumn</code> 设置表格列允许拖动列标题调整表格列顺序",
-    "AllowDragOrderDesc": "在列标题上按下鼠标拖动到其他列标题位置可将该列调整至目标列之前，但 <code>Table</code> 组件内置的列如明细行列、行号列、选择列、操作列等不可被调整"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesColumn.TablesColumnVisible": {
-    "ResetVisibleColumnsButtonText": "设置列隐藏信息"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesColumn.TablesColumnWidth": {
+    "AllowDragOrderDesc": "在列标题上按下鼠标拖动到其他列标题位置可将该列调整至目标列之前，但 <code>Table</code> 组件内置的列如明细行列、行号列、选择列、操作列等不可被调整",
+    "CustomColText1": "自定义列名1",
+    "CustomColText2": "自定义列名2",
+    "CustomColText3": "自定义列名3",
     "WidthButtonText1": "明细",
     "WidthButtonText2": "编辑",
     "WidthButtonText3": "权限",
     "WidthButtonText4": "审批",
-    "WidthConfirmButtonText": "确认"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesColumn.TablesColumnVisible": {
-
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesColumn.TablesColumnWidth": {
-
+    "WidthConfirmButtonText": "确认",
+    "ResetVisibleColumnsButtonText": "设置列隐藏信息"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesEdit": {
     "TablesEditTitle": "Table 表格",
@@ -4912,7 +4905,7 @@
     "TablesTreeIconTips2": "本例中更改缩进宽度为 <code>8px</code>"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesWrap": {
-    "TablesWrapTitile": "Table 换行示例",
+    "TablesWrapTitle": "Table 换行示例",
     "TablesWrapDescription": "当表头或者行内单元格内容超长时，通过样式更改实现省略、换行等效果",
     "TablesWrapTip": "<b>注意：</b>由于 <code>Table</code> 组件已实现适配移动端功能，此演示需在电脑端查看",
     "TablesWrapNormalTitle": "表头超长示例",
@@ -4934,29 +4927,19 @@
     "TablesWrapDataResizingTips4": "单元格内文本被省略后，可以通过 <code>ShowTips</code> 属性来控制鼠标悬停是否显示全部文本，默认为 <code>false</code>",
     "TablesWrapDataResizingTips5": "拖动地址列，单元格显示内容自动增加与减少",
     "TablesWrapCustomCellTitle": "自定义单元格内排版",
-    "TablesWrapCustomCellIntro": "使用模板对单元格内数据进行特殊布局"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesWrap.TablesWrapNormal": {
+    "TablesWrapCustomCellIntro": "使用模板对单元格内数据进行特殊布局",
     "TablesWrapNormalColumHeaderText_DateTime": "我是超级长的时间表头",
     "TablesWrapNormalColumHeaderText_Name": "我是超级长的姓名表头",
-    "TablesWrapNormalColumHeaderText_Address": "我是超级长的地址表头"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesWrap.TablesWrapHeaderTextWrap": {
+    "TablesWrapNormalColumHeaderText_Address": "我是超级长的地址表头",
     "TablesWrapHeaderTextWrapColumHeaderText_DateTime": "我是超级长的时间表头",
     "TablesWrapHeaderTextWrapColumHeaderText_Name": "我是超级长的姓名表头",
-    "TablesWrapHeaderTextWrapColumHeaderText_Address": "我是超级长的地址表头"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesWrap.TablesWrapLongData": {
+    "TablesWrapHeaderTextWrapColumHeaderText_Address": "我是超级长的地址表头",
     "TablesWrapLongDataColumHeaderText_DateTime": "时间",
     "TablesWrapLongDataColumHeaderText_Name": "姓名",
-    "TablesWrapLongDataColumHeaderText_Address": "地址"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesWrap.TablesWrapDataResizing": {
+    "TablesWrapLongDataColumHeaderText_Address": "地址",
     "TablesWrapDataResizingColumHeaderText_DateTime": "时间",
     "TablesWrapDataResizingColumHeaderText_Name": "姓名",
-    "TablesWrapDataResizingColumHeaderText_Address": "地址"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesWrap.TablesWrapCustomCell": {
+    "TablesWrapDataResizingColumHeaderText_Address": "地址",
     "TablesWrapCustomCellColumHeaderText_DateTime": "时间",
     "TablesWrapCustomCellColumHeaderText_Name": "姓名",
     "TablesWrapCustomCellColumHeaderText_Address": "地址",
