@@ -7,7 +7,7 @@ using BootstrapBlazor.Shared.Services;
 namespace BootstrapBlazor.Shared.Samples.Table;
 
 /// <summary>
-/// 
+/// 表格编辑示例代码
 /// </summary>
 public partial class TablesEdit
 {
@@ -28,7 +28,7 @@ public partial class TablesEdit
     private IDataService<Foo>? CustomerDataService { get; set; }
 
     [NotNull]
-    private IEnumerable<SelectedItem>? Hobbys { get; set; }
+    private IEnumerable<SelectedItem>? Hobbies { get; set; }
 
     [NotNull]
     private IEnumerable<Foo>? BindItems { get; set; }
@@ -45,15 +45,10 @@ public partial class TablesEdit
     protected override void OnInitialized()
     {
         Items = Foo.GenerateFoo(LocalizerFoo, 4);
-
         EditItems = Foo.GenerateFoo(LocalizerFoo, 4);
-
-        Hobbys = Foo.GenerateHobbies(LocalizerFoo);
-
+        Hobbies = Foo.GenerateHobbies(LocalizerFoo);
         CustomerDataService = new FooDataService<Foo>(LocalizerFoo);
-
         BindItems = Foo.GenerateFoo(LocalizerFoo).Take(5).ToList();
-
         PlaceHolderString ??= Localizer["TablesEditShowSearchPlaceHolderString"];
     }
 
@@ -61,7 +56,7 @@ public partial class TablesEdit
 
     private int GenerateId()
     {
-        var id = Items.Count();
+        var id = Items.Count;
         while (Items.Any(i => i.Id == id))
         {
             id++;
@@ -143,5 +138,5 @@ public partial class TablesEdit
         }
     }
 
-    private Task OnClick(Foo foo) => ToastService.Information("Custom button fucntion", foo.Address);
+    private Task OnClick(Foo foo) => ToastService.Information("Custom button function", foo.Address);
 }

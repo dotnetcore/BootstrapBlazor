@@ -35,7 +35,7 @@
            IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true">
         <TableColumns>
-            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys"></TableColumn>
+            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbies"></TableColumn>
         </TableColumns>
         <EditFooterTemplate Context="model">
             <Button Text="Popup" Color="Color.Danger" Icon="fa-regular fa-comment-dots" OnClick="() => OnClick(model)"></Button>
@@ -164,7 +164,7 @@
            IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true">
         <TableColumns>
-            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
+            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbies" />
         </TableColumns>
     </Table>
 </DemoBlock>
@@ -183,7 +183,7 @@
            IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true">
         <TableColumns>
-            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbys" />
+            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbies" />
         </TableColumns>
     </Table>
 </DemoBlock>
