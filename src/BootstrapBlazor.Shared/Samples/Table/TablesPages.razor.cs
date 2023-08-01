@@ -1,15 +1,14 @@
-﻿@inject IStringLocalizer<Foo> LocalizerFoo
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
-<Table TItem="Foo"
-        IsPagination="true" PageItemsSource="@PageItemsSource" OnQueryAsync="@OnQueryAsync">
-    <TableColumns>
-        <TableColumn @bind-Field="@context.DateTime" Width="180" />
-        <TableColumn @bind-Field="@context.Name" />
-        <TableColumn @bind-Field="@context.Address" />
-    </TableColumns>
-</Table>
+namespace BootstrapBlazor.Shared.Samples.Table;
 
-@code {
+/// <summary>
+/// 分页示例代码
+/// </summary>
+public partial class TablesPages
+{
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
     /// Foo class is used for Demo test, please download the source code if necessary
@@ -17,8 +16,15 @@
     /// </summary>
     [NotNull]
     private List<Foo>? Items { get; set; }
-
-    private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20, 40, 80, 100 };
+    private static IEnumerable<int> PageItemsSource => new int[]
+    {
+        4,
+        10,
+        20,
+        40,
+        80,
+        100
+    };
 
     /// <summary>
     /// OnInitialized
@@ -26,7 +32,6 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-
         Items = Foo.GenerateFoo(LocalizerFoo);
     }
 
@@ -35,14 +40,6 @@
         IEnumerable<Foo> items = Items;
         var total = items.Count();
         items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
-
-        return Task.FromResult(new QueryData<Foo>()
-        {
-            Items = items,
-            TotalCount = total,
-            IsSorted = true,
-            IsFiltered = true,
-            IsSearch = true
-        });
+        return Task.FromResult(new QueryData<Foo>() { Items = items, TotalCount = total, IsSorted = true, IsFiltered = true, IsSearch = true });
     }
 }
