@@ -5176,7 +5176,7 @@
     "AutoGenerateSearchIntro": "When <code>ShowSearch</code> is set, if <code>SearchTemplate</code> is not set when editing template, the component will try to automatically generate search criteria UI",
     "AutoGenerateSearchP": "When the column information is bound, set the <code>Searchable</code> property and set the search criteria to automatically build the UI. You can set the <code>SearchDialogShowMaximizeButton</code> to maximize the search pop-up window display <b>Maximize</b> button",
     "AutoGenerateSearchTips": "<p>When building a search popup window automatically, since each column is set to <code>Searchable</code>, the component will pass <code>SearchText</code> and set <code>Searchable</code> Each column whose value is <code>true</code> automatically builds a search lambda expression, which is obtained through the attribute <code>Searches</code> of <code>QueryPageOptions</code></p>",
-    "AutoGenerateSearchCommnt": "Logical relationship usage",
+    "AutoGenerateSearchComment": "Logical relationship usage",
     "CustomColSearchTitle": "Custom Column Search Template",
     "CustomColSearchIntro": "When <code>SearchTemplate</code> is set, the component automatically generates the search UI using this template as the rendering UI",
     "CustomColSearchP": "By setting the <code>SearchTemplate</code> of the name column to customize the edit, use the drop-down box to select the name",
@@ -5186,42 +5186,22 @@
     "CustomColSearchP4": "Make the search popup draggable by setting <code>SearchDialogDraggable=\"true\"</code>",
     "CustomerSearchModelTitle": "Custom Search Model",
     "CustomerSearchModelIntro": "Set <code>CustomerSearchModel</code> and <code>CustomerSearchTemplate</code> to fully control the search criteria UI",
-    "CustomerSearchModelP": "Due to a certain application scenario, our form entity class <code>TItem</code> is not ideal as a search model, for example, we have an attribute that is <code>int</code> or <code> enum</code>, we need a blank condition item of <b>all</b> or <b>please select...</b> as a search condition. It is very difficult to use the default model at this time , you can use the custom search model <code>CustomerSearchModel</code> and <code>CustomerSearchTemplate</code> to customize the control search interface"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesSearch.TablesCustomColSearch": {
+    "CustomerSearchModelP": "Due to a certain application scenario, our form entity class <code>TItem</code> is not ideal as a search model, for example, we have an attribute that is <code>int</code> or <code> enum</code>, we need a blank condition item of <b>all</b> or <b>please select...</b> as a search condition. It is very difficult to use the default model at this time , you can use the custom search model <code>CustomerSearchModel</code> and <code>CustomerSearchTemplate</code> to customize the control search interface",
     "AddModelTitle": "Add Test Data Window",
     "EditModelTitle": "Edit Test Data Window",
     "SelectedItemText": "Please select...",
     "SelectedItemText1": "Name1",
     "SelectedItemText2": "Name2",
     "SelectedItemValue1": "Name1",
-    "SelectedItemValue2": "Name2"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesSearch.TablesAutoGenerateSearch": {
+    "SelectedItemValue2": "Name2",
     "AutoGenerateSearchGroupBoxTitle": "Search function experience area",
     "DisplayText1": "Search Mode",
     "DisplayText2": "Fuzzy Search",
     "DisplayText3": "Display reset",
     "DisplayText4": "Display Search",
-    "AddModelTitle": "Add Test Data Window",
-    "EditModelTitle": "Edit Test Data Window",
-    "SelectedItemText": "Please select...",
-    "SelectedItemText1": "Name1",
-    "SelectedItemText2": "Name2",
-    "SelectedItemValue1": "Name1",
-    "SelectedItemValue2": "Name2"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesSearch.TablesSearchTable": {
-    "AddModelTitle": "Add Test Data Window",
-    "EditModelTitle": "Edit Test Data Window",
     "SearchTableGroupBoxText": "Search Criteria",
     "NamePlaceholder": "Please enter your name within 50 characters",
-    "AddressPlaceholder": "Please enter the address within 500 characters",
-    "SelectedItemText": "Please select...",
-    "SelectedItemText1": "Name1",
-    "SelectedItemText2": "Name2",
-    "SelectedItemValue1": "Name1",
-    "SelectedItemValue2": "Name2"
+    "AddressPlaceholder": "Please enter the address within 500 characters"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFilter": {
     "TablesFilterTitle": "Filter and sort function",

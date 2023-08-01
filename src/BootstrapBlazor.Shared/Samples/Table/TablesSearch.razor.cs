@@ -1,8 +1,14 @@
-﻿@inject IStringLocalizer<TablesAutoGenerateSearch> Localizer
-@inject IStringLocalizer<Foo> FooLocalizer
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
+namespace BootstrapBlazor.Shared.Samples.Table;
 
-@code {
+/// <summary>
+/// 搜索示例代码
+/// </summary>
+public partial class TablesSearch
+{
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
     /// Foo class is used for Demo test, please download the source code if necessary
@@ -10,11 +16,16 @@
     /// </summary>
     [NotNull]
     private List<Foo>? Items { get; set; }
-
     private Foo SearchModel { get; set; } = new Foo();
+    private static IEnumerable<int> PageItemsSource => new int[]
+    {
+        4,
+        10,
+        20
+    };
+    private IEnumerable<SelectedItem>? SearchItems { get; set; }
 
-    private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
-
+    private ITableSearchModel CustomerSearchModel { get; set; } = new FooSearchModel();
 
     private bool ShowResetButton { get; set; } = true;
 
@@ -24,7 +35,11 @@
 
     private SearchMode SearchModeValue { get; set; }
 
-    private IEnumerable<SelectedItem>? SearchItems { get; set; }
+    private bool SearchModeFlag
+    {
+        get => SearchModeValue == SearchMode.Popup;
+        set => SearchModeValue = value ? SearchMode.Popup : SearchMode.Top;
+    }
 
     /// <summary>
     /// OnInitialized 方法
@@ -32,19 +47,28 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-
         Items = Foo.GenerateFoo(FooLocalizer);
-
         SearchItems = new List<SelectedItem>()
         {
-            new SelectedItem { Text = Localizer["SelectedItemText"].Value, Value = "" },
-            new SelectedItem { Text = Localizer["SelectedItemText1"].Value, Value = Localizer["SelectedItemValue1"].Value },
-            new SelectedItem { Text = Localizer["SelectedItemText2"].Value, Value = Localizer["SelectedItemValue2"].Value },
+            new SelectedItem
+            {
+                Text = Localizer["SelectedItemText"].Value,
+                Value = ""
+            },
+            new SelectedItem
+            {
+                Text = Localizer["SelectedItemText1"].Value,
+                Value = Localizer["SelectedItemValue1"].Value
+            },
+            new SelectedItem
+            {
+                Text = Localizer["SelectedItemText2"].Value,
+                Value = Localizer["SelectedItemValue2"].Value
+            },
         };
     }
 
     private static Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { DateTime = DateTime.Now });
-
     private Task<bool> OnSaveAsync(Foo item, ItemChangedType changedType)
     {
         // 增加数据演示代码
@@ -66,6 +90,7 @@
                 oldItem.Education = item.Education;
             }
         }
+
         return Task.FromResult(true);
     }
 
@@ -75,10 +100,40 @@
         return Task.FromResult(true);
     }
 
+    private static Task OnResetSearchAsync(Foo item)
+    {
+        item.Name = "";
+        item.Address = "";
+        return Task.CompletedTask;
+    }
+
+    private Task<QueryData<Foo>> OnSearchModelQueryAsync(QueryPageOptions options)
+    {
+        // 自定义了 SearchModel
+        IEnumerable<Foo> items = Items;
+        if (!string.IsNullOrEmpty(options.SearchText))
+        {
+            items = items.Where(i => (i.Name?.Contains(options.SearchText, StringComparison.OrdinalIgnoreCase) ?? false) || (i.Address?.Contains(options.SearchText, StringComparison.OrdinalIgnoreCase) ?? false));
+        }
+        else if (!string.IsNullOrEmpty(SearchModel.Name))
+        {
+            items = items.Where(i => i.Name == SearchModel.Name);
+        }
+        else if (!string.IsNullOrEmpty(SearchModel.Address))
+        {
+            items = items.Where(i => i.Address == SearchModel.Address);
+        }
+
+        // 设置记录总数
+        var total = items.Count();
+        // 内存分页
+        items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
+        return Task.FromResult(new QueryData<Foo>() { Items = items, TotalCount = total, IsSorted = true, IsFiltered = true, IsSearch = true, IsAdvanceSearch = true });
+    }
+
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
     {
         IEnumerable<Foo> items = Items;
-
         var isAdvanceSearch = false;
         // 处理高级搜索
         if (options.AdvanceSearches.Any())
@@ -94,7 +149,7 @@
             isAdvanceSearch = true;
         }
 
-        // 处理 Searchable=true 列与 SeachText 模糊搜索
+        // 处理 Searchable=true 列与 SearchText 模糊搜索
         if (options.Searches.Any())
         {
             items = items.Where(options.Searches.GetFilterFunc<Foo>(FilterLogic.Or));
@@ -119,18 +174,8 @@
 
         // 设置记录总数
         var total = items.Count();
-
         // 内存分页
         items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
-
-        return Task.FromResult(new QueryData<Foo>()
-        {
-            Items = items,
-            TotalCount = total,
-            IsSorted = isSorted,
-            IsFiltered = isFiltered,
-            IsSearch = options.CustomerSearches.Any() || !string.IsNullOrEmpty(options.SearchText),
-            IsAdvanceSearch = isAdvanceSearch
-        });
+        return Task.FromResult(new QueryData<Foo>() { Items = items, TotalCount = total, IsSorted = isSorted, IsFiltered = isFiltered, IsSearch = options.CustomerSearches.Any() || !string.IsNullOrEmpty(options.SearchText), IsAdvanceSearch = isAdvanceSearch });
     }
 }
