@@ -133,9 +133,9 @@ class CodeSnippetService
         .Replace("&gt;", ">");
 
     private static string ReplacePayload(string payload, LocalizedString l) => payload
-        .Replace($"@(((MarkupString)Localizer[\"{l.Name}\"].Value).ToString())", l.Value)
         .Replace($"@((MarkupString)Localizer[\"{l.Name}\"].Value)", l.Value)
-        .Replace($"@Localizer[\"{l.Name}\"]", l.Value);
+        .Replace($"@Localizer[\"{l.Name}\"]", l.Value)
+        .Replace($"Localizer[\"{l.Name}\"]", $"\"{l.Value}\"");
 
     private static string RemoveBlockStatement(string payload, string removeString)
     {
