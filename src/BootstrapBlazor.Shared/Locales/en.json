@@ -4867,7 +4867,7 @@
     "TablesTreeIconTips2": "In this example change the indent width to <code>8px</code>"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesWrap": {
-    "TablesWrapTitile": "Table wrapping example",
+    "TablesWrapTitle": "Table wrapping example",
     "TablesWrapDescription": "When the content of the header or the cell in the row is too long, the effect of omitting, wrapping, etc. can be realized by changing the style",
     "TablesWrapTip": "<b>Note:</b>Because the <code>Table</code> component has realized the function of adapting to the mobile terminal, this demo needs to be viewed on the computer side",
     "TablesWrapNormalTitle": "Example of super long header",
@@ -4889,29 +4889,19 @@
     "TablesWrapDataResizingTips4": "After the text in the cell is omitted, you can use the <code>ShowTips</code> property to control whether to display all the text on mouse hover, the default is <code>false</code>",
     "TablesWrapDataResizingTips5": "Drag the address column, the cell display content will automatically increase and decrease",
     "TablesWrapCustomCellTitle": "Custom in-cell typography",
-    "TablesWrapCustomCellIntro": "Use templates for special layout of in-cell data"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesWrap.TablesWrapNormal": {
+    "TablesWrapCustomCellIntro": "Use templates for special layout of in-cell data",
     "TablesWrapNormalColumHeaderText_DateTime": "I'm a super long schedule head",
     "TablesWrapNormalColumHeaderText_Name": "I am a super long name header",
-    "TablesWrapNormalColumHeaderText_Address": "I am a super long address header"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesWrap.TablesWrapHeaderTextWrap": {
+    "TablesWrapNormalColumHeaderText_Address": "I am a super long address header",
     "TablesWrapHeaderTextWrapColumHeaderText_DateTime": "I'm a super long schedule head",
     "TablesWrapHeaderTextWrapColumHeaderText_Name": "I am a super long name header",
-    "TablesWrapHeaderTextWrapColumHeaderText_Address": "I am a super long address header"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesWrap.TablesWrapLongData": {
+    "TablesWrapHeaderTextWrapColumHeaderText_Address": "I am a super long address header",
     "TablesWrapLongDataColumHeaderText_DateTime": "Time",
     "TablesWrapLongDataColumHeaderText_Name": "Name",
-    "TablesWrapLongDataColumHeaderText_Address": "Address"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesWrap.TablesWrapDataResizing": {
+    "TablesWrapLongDataColumHeaderText_Address": "Address",
     "TablesWrapDataResizingColumHeaderText_DateTime": "time",
     "TablesWrapDataResizingColumHeaderText_Name": "Name",
-    "TablesWrapDataResizingColumHeaderText_Address": "Address"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesWrap.TablesWrapCustomCell": {
+    "TablesWrapDataResizingColumHeaderText_Address": "Address",
     "TablesWrapCustomCellColumHeaderText_DateTime": "time",
     "TablesWrapCustomCellColumHeaderText_Name": "Name",
     "TablesWrapCustomCellColumHeaderText_Address": "Address",
