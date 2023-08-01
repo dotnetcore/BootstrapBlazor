@@ -6,7 +6,80 @@
 
 <DemoBlock Title="@Localizer["TablesSelectionNormalTitle"]"
            Introduction="@Localizer["TablesSelectionNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Table.TablesSelection.TablesSelectionNormal)">
+           Name="Normal">
+    <div>
+        <Table TItem="Foo" @bind-SelectedRows="SelectedItems"
+               IsPagination="true" PageItemsSource="@PageItemsSource"
+               IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+               ShowToolbar="true" ShowDefaultButtons="false" OnQueryAsync="@OnQueryAsync">
+            <TableColumns>
+                <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                <TableColumn @bind-Field="@context.Name" Width="100" />
+                <TableColumn @bind-Field="@context.Address" />
+                <TableColumn @bind-Field="@context.Count" />
+            </TableColumns>
+        </Table>
+
+        <Tips class="mt-3">
+            <div>@((MarkupString)Localizer["TablesSelectionNormalTips"].Value)</div>
+        </Tips>
+
+        <p class="mt-3">@Localizer["TablesSelectionNormalSelectRow"]：</p>
+        <ul class="ul-demo mb-3">
+            @foreach (var item in SelectedItems)
+            {
+                <li>@item.Name</li>
+            }
+        </ul>
+
+        <Button OnClick="OnClick" Color="Color.Primary">@Localizer["TablesSelectionNormalButtonText"]</Button>
+
+    </div>
 </DemoBlock>
+
+@code {
+    /// <summary>
+    /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
+    /// Foo class is used for Demo test, please download the source code if necessary
+    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Shared/Data/Foo.cs
+    /// </summary>
+    [NotNull]
+    private List<Foo>? Items { get; set; }
+
+    [NotNull]
+    private List<Foo>? SelectedItems { get; set; }
+
+    private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
+
+    /// <summary>
+    /// OnInitialized
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Items = Foo.GenerateFoo(LocalizerFoo);
+        SelectedItems = Items.Take(4).ToList();
+    }
+
+    private void OnClick()
+    {
+        SelectedItems.Clear();
+    }
+
+    private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
+    {
+        var total = Items.Count;
+        var items = Items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
+
+        return Task.FromResult(new QueryData<Foo>()
+        {
+            Items = items,
+            TotalCount = total,
+            IsSorted = true,
+            IsFiltered = true,
+            IsSearch = true
+        });
+    }
+}
 
