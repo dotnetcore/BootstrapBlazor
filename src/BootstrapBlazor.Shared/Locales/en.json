@@ -5093,8 +5093,8 @@
   "BootstrapBlazor.Shared.Samples.Table.TablesRow": {
     "TablesRowTitle": "Table Row",
     "TablesRowDesc": "Used to display multiple pieces of data with similar structures, data can be sorted, filtered, compared or other custom operations.",
-    "RowNubmerTitle": "Show row numbers",
-    "RowNubmerIntro": "By setting the <code>ShowLineNo</code> property to <code>true</code>, the table displays the row number, the default value is <code>false</code>",
+    "RowNumberTitle": "Show row numbers",
+    "RowNumberIntro": "By setting the <code>ShowLineNo</code> property to <code>true</code>, the table displays the row number, the default value is <code>false</code>",
     "RowNumberP": "Set the <code>LineNoText</code> property value to set the line number column header display text, the default is <code>line number</code>",
     "ClickToSelectTitle": "Click the cell to select the entire row effect",
     "ClickToSelectIntro": "By setting the <code>ClickToSelect</code> property value, you can click any cell to select the entire row, and the selected row style is set to <code>active</code>",

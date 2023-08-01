@@ -5122,8 +5122,8 @@
   "BootstrapBlazor.Shared.Samples.Table.TablesRow": {
     "TablesRowTitle": "Table 表格",
     "TablesRowDesc": "用于展示多条结构类似的数据，可对数据进行排序、筛选、对比或其他自定义操作。",
-    "RowNubmerTitle": "显示行号",
-    "RowNubmerIntro": "通过设置 <code>ShowLineNo</code> 属性为 <code>true</code> 时表格显示行号了，默认值为 <code>false</code>",
+    "RowNumberTitle": "显示行号",
+    "RowNumberIntro": "通过设置 <code>ShowLineNo</code> 属性为 <code>true</code> 时表格显示行号了，默认值为 <code>false</code>",
     "RowNumberP": "设置 <code>LineNoText</code> 属性值来设置行号列头显示文本，默认为 <code>行号</code>",
     "ClickToSelectTitle": "点击单元格选中整行效果",
     "ClickToSelectIntro": "通过设置 <code>ClickToSelect</code> 属性值可以实现点击任意单元格选中整行效果，选中行样式被设置为 <code>active</code>",
@@ -5222,7 +5222,6 @@
     "DefaultSortLi1": "设置 <code>DefaultSort=true</code> 开启默认排序功能，当多列设置此属性时，第一列起作用",
     "DefaultSortLi2": "设置 <code>DefaultSortOrder</code> 值，设置默认排序规则",
     "DefaultSortP": "本例中默认排序为最后一列倒序排序",
-    "SortListTitle": "多列排序",
     "SortListTitle": "多列排序",
     "SortListIntro": "设置 <code>SortList</code> 属性，表格加载时使用此参数进行多列排序",
     "SortListP": "本例中默认排序规则为：<code>DeteTime desc</code> <code>Address</code>，无需自己处理排序逻辑，组件内部已经内置",
