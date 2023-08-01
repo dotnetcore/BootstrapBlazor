@@ -1,25 +1,14 @@
-﻿@inject IStringLocalizer<TablesHeaderNormal> Localizer
-@inject IStringLocalizer<Foo> LocalizerFoo
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
-<Table TItem="Foo" OnQueryAsync="@OnQueryAsync" IsBordered="true" IsStriped="true" ShowMultiFilterHeader="false">
-    <MultiHeaderTemplate>
-        <tr>
-            <th rowspan="2" class="table-header-group-th1"><div class="table-cell">@Localizer["TablesHeaderNormal_Time"]</div></th>
-            <th colspan="2" class="table-header-group-th2"><div class="table-cell">@Localizer["TablesHeaderNormal_Info"]</div></th>
-        </tr>
-        <tr>
-            <th><div class="table-cell">@Localizer["TablesHeaderNormal_Name"]</div></th>
-            <th><div class="table-cell">@Localizer["TablesHeaderNormal_Address"]</div></th>
-        </tr>
-    </MultiHeaderTemplate>
-    <TableColumns>
-        <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" Sortable="true" />
-        <TableColumn @bind-Field="@context.Name" Width="100" Filterable="true" Sortable="true" />
-        <TableColumn @bind-Field="@context.Address" Filterable="true" Sortable="true" />
-    </TableColumns>
-</Table>
+namespace BootstrapBlazor.Shared.Samples.Table;
 
-@code {
+/// <summary>
+/// 表头示例组件
+/// </summary>
+public partial class TablesHeader
+{
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
     /// Foo class is used for Demo test, please download the source code if necessary

@@ -4476,9 +4476,7 @@
     "TablesHeaderNormalTitle": "基础用法",
     "TablesHeaderNormalIntro": "设置 <code>MultiHeaderTemplate</code> 模板即可",
     "TablesHeaderNormalTips1": "通过设置 <code>ShowMultiFilterHeader</code> 值，来控制是否显示过滤行头",
-    "TablesHeaderNormalTips2": "注意细节，首列单元格合并后导致最后一行表头第一列无单元格，所以需要自行设置样式 <code>border-bottom</code> 与其他单元格一致"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesHeader.TablesHeaderNormal": {
+    "TablesHeaderNormalTips2": "注意细节，首列单元格合并后导致最后一行表头第一列无单元格，所以需要自行设置样式 <code>border-bottom</code> 与其他单元格一致",
     "TablesHeaderNormal_Time": "时间",
     "TablesHeaderNormal_Info": "个人信息",
     "TablesHeaderNormal_Name": "个人姓名",
