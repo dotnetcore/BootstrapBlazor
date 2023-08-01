@@ -18,11 +18,12 @@ public partial class TablesCell
     private List<Foo>? Items { get; set; }
 
     /// <summary>
-    /// OnInitialized
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
+
         //获取随机数据
         //Get random data
         Items = Foo.GenerateFoo(FooLocalizer);
@@ -32,7 +33,7 @@ public partial class TablesCell
     {
         if (args.Row is Foo foo && args.ColumnName == "Name")
         {
-            if (foo.Name == "张三 0002" || foo.Name == "Zhangsan 0002")
+            if (foo.Name == "张三 0002" || foo.Name == "ZhangSan 0002")
             {
                 args.Colspan = 2;
                 args.Class = "cell-demo";

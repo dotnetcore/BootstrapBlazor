@@ -3,12 +3,6 @@
 @inject IStringLocalizer<Foo> FooLocalizer
 @inject ToastService ToastService
 
-<style>
-    .cell-demo {
-        --bs-table-bg: #e9ecef;
-    }
-</style>
-
 <h3>@Localizer["TablesCellTitle"]</h3>
 
 <h4>@Localizer["TablesCellDescription"]</h4>
@@ -20,13 +14,15 @@
     <Pre class="mb-3">.cell-demo {
     --bs-table-bg: #e9ecef;
 }</Pre>
-    <Table TItem="Foo" Items="@Items.Take(3)">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.DateTime" Width="140" />
-            <TableColumn @bind-Field="@context.Name" OnCellRender="@OnCellRenderHandler" />
-            <TableColumn @bind-Field="@context.Address" />
-        </TableColumns>
-    </Table>
+    <div class="table-demo">
+        <Table TItem="Foo" Items="@Items.Take(3)">
+            <TableColumns>
+                <TableColumn @bind-Field="@context.DateTime" Width="140" />
+                <TableColumn @bind-Field="@context.Name" OnCellRender="@OnCellRenderHandler" />
+                <TableColumn @bind-Field="@context.Address" />
+            </TableColumns>
+        </Table>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TableCellOnDoubleClickCellTitle"]"
@@ -45,4 +41,4 @@
     </Table>
 </DemoBlock>
 
-<AttributeTable Items="GetAttributes()" Title="TableCellArgs" />
+<AttributeTable Items="GetAttributes()" Title="TableCell" />
