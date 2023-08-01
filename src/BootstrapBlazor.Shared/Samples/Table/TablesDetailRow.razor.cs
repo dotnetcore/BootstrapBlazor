@@ -7,6 +7,9 @@ using System.ComponentModel;
 
 namespace BootstrapBlazor.Shared.Samples.Table;
 
+/// <summary>
+/// 明细行示例代码
+/// </summary>
 public partial class TablesDetailRow
 {
     private ConcurrentDictionary<string, List<DetailRow>> Cache { get; } = new();
