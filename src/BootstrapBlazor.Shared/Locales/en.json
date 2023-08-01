@@ -5114,7 +5114,6 @@
     "TablesLookupDescription": "Used to automatically convert foreign key columns to <code>Text</code> display text",
     "TableLookupNormalTitle": "Lookup external data source",
     "TableLookupNormalIntro": "Auto-translate display text by setting <code>Lookup</code>",
-    "TableLookupNormalTips1": "In this example, by setting the <code>Lookup</code> value of the <code>Complete</code> column to the value",
     "TableLookupNormalTips2": "The component automatically converts <code>Complete</code> to a preset in the <code>DataSource</code> collection",
     "TableLookupNormalTips3": "In this example, the <code>ILookupService</code> service is used for unified processing, and the <code>Lookup</code> data collection is obtained from the service by setting the <code>LookupServiceKey</code> value"
   },
