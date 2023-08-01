@@ -3,6 +3,10 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 namespace BootstrapBlazor.Shared.Samples.Table;
+
+/// <summary>
+/// 行设置示例代码
+/// </summary>
 public partial class TablesRow
 {
     /// <summary>
