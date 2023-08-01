@@ -1,13 +1,16 @@
-﻿@using System.Data;
-@using BootstrapBlazor.Shared.Samples.Table;
-@inject IStringLocalizer<Foo> LocalizerFoo
-@inject IStringLocalizer<Tables> TablesLocalizer
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
-<Table TItem="DynamicObject" DynamicContext="DataTableKeyboardDynamicContext"
-        IsBordered="true" IsMultipleSelect="true" IsExcel="true" ShowExtendButtons="true">
-</Table>
+using System.Data;
 
-@code {
+namespace BootstrapBlazor.Shared.Samples.Table;
+
+/// <summary>
+/// 动态表格示例代码
+/// </summary>
+public partial class TablesDynamicExcel
+{
     [NotNull]
     private DataTableDynamicContext? DataTableDynamicContext { get; set; }
 
@@ -21,6 +24,9 @@
     private string? ButtonAddColumnText { get; set; }
 
     private string? ButtonRemoveColumnText { get; set; }
+
+    [NotNull]
+    private ConsoleLogger? Logger { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -81,6 +87,15 @@
                 // 内部方法会更新原始数据源 DataTable
                 await method(model, col, val);
             }
+
+            // 输出日志信息
+            Logger.Log($"单元格变化通知 列: {col.GetFieldName()} - 值: {val?.ToString()}");
+        };
+        DataTableDynamicContext.OnChanged = args =>
+        {
+            // 输出日志信息
+            Logger.Log($"集合值变化通知 行: {args.Items.Count()} - 类型: {args.ChangedType}");
+            return Task.CompletedTask;
         };
     }
 

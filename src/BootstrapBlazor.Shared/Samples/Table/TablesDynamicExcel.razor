@@ -1,14 +1,20 @@
 ﻿@page "/table/dynamic-excel"
 @inject IStringLocalizer<TablesDynamicExcel> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
+@inject IStringLocalizer<Tables> TablesLocalizer
 
 <h3>@Localizer["TablesDynamicExcelTitle"]</h3>
 <h4>@Localizer["TablesDynamicExcelDescription"]</h4>
 
 <DemoBlock Title="@Localizer["TablesDynamicExcelNormalTitle"]"
            Introduction="@Localizer["TablesDynamicExcelNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Table.TablesDynamicExcel.TablesDynamicExcelNormal)">
-    <p>@((MarkupString)Localizer["TablesDynamicExcelNormalDescription"].Value)</p>
+           Name="Normal">
+    <p class="mb-3">@((MarkupString)Localizer["TablesDynamicExcelNormalDescription"].Value)</p>
+    <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
+           IsBordered="true" IsMultipleSelect="true" IsExcel="true" ShowToolbar="true">
+    </Table>
+
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TablesDynamicExcelEnumTitle"]"
@@ -29,9 +35,11 @@
 
 <DemoBlock Title="@Localizer["TablesDynamicExcelKeyboardTitle"]"
            Introduction="@Localizer["TablesDynamicExcelKeyboardIntro"]"
-           Name="Keyboard"
-           Demo="typeof(Demos.Table.TablesDynamicExcel.TablesDynamicExcelKeyboard)">
-    <p>@Localizer["TablesDynamicExcelKeyboardDescription"] <kbd><i class="fa-solid fa-arrow-up"></i></kbd> <kbd><i class="fa-solid fa-arrow-down"></i></kbd> <kbd><i class="fa-solid fa-arrow-left"></i></kbd> <kbd><i class="fa-solid fa-arrow-right"></i></kbd> <kbd>Tab</kbd></p>
+           Name="Keyboard">
+    <p class="mb-3">@Localizer["TablesDynamicExcelKeyboardDescription"] <kbd><i class="fa-solid fa-arrow-up"></i></kbd> <kbd><i class="fa-solid fa-arrow-down"></i></kbd> <kbd><i class="fa-solid fa-arrow-left"></i></kbd> <kbd><i class="fa-solid fa-arrow-right"></i></kbd> <kbd>Tab</kbd></p>
+    <Table TItem="DynamicObject" DynamicContext="DataTableKeyboardDynamicContext"
+           IsBordered="true" IsMultipleSelect="true" IsExcel="true" ShowExtendButtons="true">
+    </Table>
 </DemoBlock>
 
 <Tips class="mt-3">
