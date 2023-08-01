@@ -4958,9 +4958,7 @@
     "TablesSelectionTitle": "Table Selection",
     "TablesSelectionDescription": "Set the table row state by setting <code>SelectedRows</code>, and set the highlight by selecting the style",
     "TablesSelectionNormalTitle": "Set row selection function",
-    "TablesSelectionNormalIntro": "Defaults to the selected state when the table is initialized by setting the <code>SelectedRows</code> property collection"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesSelection.TablesSelectionNormal": {
+    "TablesSelectionNormalIntro": "Defaults to the selected state when the table is initialized by setting the <code>SelectedRows</code> property collection",
     "TablesSelectionNormalTips": "Maintain line state fallback mechanism, <code>ModelEqualityComparer</code> <code>CustomKeyAttribute</code> <code>IEqualityComparer&lt;TItem&gt;</code> <code>Equals</code> overloaded method",
     "TablesSelectionNormalSelectRow": "selected row record",
     "TablesSelectionNormalButtonText": "clear selection"
