@@ -1,19 +1,96 @@
 ﻿@page "/table/auto-refresh"
 @inject IStringLocalizer<TablesAutoRefresh> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
 
 <h3>@Localizer["TablesAutoRefreshTitle"]</h3>
 <h4>@Localizer["TablesAutoRefreshDescription"]</h4>
 
 <DemoBlock Title="@Localizer["TablesAutoRefreshNormalTitle"]"
            Introduction="@Localizer["TablesAutoRefreshNormalIntro"]"
-           Name="TablesAutoRefreshNormal"
-           Demo="typeof(Demos.Table.TablesAutoRefresh.TablesAutoRefreshNormal)">
+           Name="TablesAutoRefreshNormal">
     <p>@((MarkupString)Localizer["TablesAutoRefreshNormalTips1"].Value)</p>
-    <p>@((MarkupString)Localizer["TablesAutoRefreshNormalTips2"].Value)</p>
+    <p class="mb-3">@((MarkupString)Localizer["TablesAutoRefreshNormalTips2"].Value)</p>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@(new int[] { 2, 4 })"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           IsAutoRefresh="true" AutoRefreshInterval="2000"
+           OnQueryAsync="@OnAutoQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Complete" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
 
 
 <DemoBlock Title="@Localizer["TablesAutoRefreshControlTitle"]"
            Introduction="@Localizer["TablesAutoRefreshControlIntro"]"
-           Name="TablesAutoRefreshControl"
-           Demo="typeof(Demos.Table.TablesAutoRefresh.TablesAutoRefreshControl)" />
+           Name="TablesAutoRefreshControl">
+
+
+    <p>
+        <div>@Localizer["TablesAutoRefreshControlDescription"]</div>
+        <Button Text="@Localizer["TablesAutoRefreshControlToggleAuto"]" OnClick="@ToggleAuto" /> <span><code>IsAutoRefresh</code> @Localizer["TablesAutoRefreshControlIsAutoRefresh"]：<code>@IsAutoRefresh</code></span>
+    </p>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@(new int[] { 2, 4 })"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           IsAutoRefresh="@IsAutoRefresh" AutoRefreshInterval="2000"
+           OnQueryAsync="@OnManualQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Complete" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+@code {
+    /// <summary>
+    /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
+    /// Foo class is used for Demo test, please download the source code if necessary
+    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Shared/Data/Foo.cs
+    /// </summary>
+    private List<Foo> Items { get; set; } = new List<Foo>();
+
+    private bool IsAutoRefresh { get; set; }
+
+    private static readonly Random random = new();
+
+    private void ToggleAuto() => IsAutoRefresh = !IsAutoRefresh;
+
+    private Task<QueryData<Foo>> OnAutoQueryAsync(QueryPageOptions options) => GenerateFoos(options, Items);
+
+    private Task<QueryData<Foo>> OnManualQueryAsync(QueryPageOptions options) => GenerateFoos(options, Items);
+
+    private Task<QueryData<Foo>> GenerateFoos(QueryPageOptions options, List<Foo> foos)
+    {
+        // 设置记录总数
+        var total = foos.Count;
+        var foo = Foo.Generate(LocalizerFoo);
+        foo.Id = total++;
+        foo.Name = LocalizerFoo["Foo.Name", total.ToString("D4")];
+        foo.Address = LocalizerFoo["Foo.Address", $"{random.Next(1000, 2000)}"];
+
+        foos.Insert(0, foo);
+
+        if (foos.Count > 10)
+        {
+            foos.RemoveRange(10, 1);
+            total = 10;
+        }
+
+        // 内存分页
+        var items = foos.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
+
+        return Task.FromResult(new QueryData<Foo>()
+        {
+            Items = items,
+            TotalCount = total
+        });
+    }
+}
