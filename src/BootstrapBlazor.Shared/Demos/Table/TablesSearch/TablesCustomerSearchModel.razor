@@ -1,24 +1,5 @@
 ﻿@inject IStringLocalizer<Foo> FooLocalizer
 
-<Table TItem="Foo"
-        IsPagination="true" PageItemsSource="@PageItemsSource" SearchMode="SearchMode.Top"
-        IsStriped="true" IsBordered="true" CustomerSearchModel="@CustomerSearchModel" ShowSearch="true" ShowSearchText="true"
-        ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
-        OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
-    <TableColumns>
-        <TableColumn @bind-Field="@context.DateTime" Width="180" />
-        <TableColumn @bind-Field="@context.Name" Searchable="true" />
-        <TableColumn @bind-Field="@context.Address" Searchable="true" />
-        <TableColumn @bind-Field="@context.Count" />
-        <TableColumn @bind-Field="@context.Education" />
-    </TableColumns>
-    <CustomerSearchTemplate>
-        @if (context is FooSearchModel model)
-        {
-            <FooSearch @bind-Value="@model" />
-        }
-    </CustomerSearchTemplate>
-</Table>
 
 @code {
     /// <summary>
@@ -73,64 +54,5 @@
     {
         items.ToList().ForEach(i => Items.Remove(i));
         return Task.FromResult(true);
-    }
-
-    private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
-    {
-        IEnumerable<Foo> items = Items;
-
-        var isAdvanceSearch = false;
-        // 处理高级搜索
-        if (options.AdvanceSearches.Any())
-        {
-            items = items.Where(options.AdvanceSearches.GetFilterFunc<Foo>());
-            isAdvanceSearch = true;
-        }
-
-        // 处理 自定义 高级搜索 CustomerSearchModel 过滤条件
-        if (options.CustomerSearches.Any())
-        {
-            items = items.Where(options.CustomerSearches.GetFilterFunc<Foo>());
-            isAdvanceSearch = true;
-        }
-
-        // 处理 Searchable=true 列与 SeachText 模糊搜索
-        if (options.Searches.Any())
-        {
-            items = items.Where(options.Searches.GetFilterFunc<Foo>(FilterLogic.Or));
-        }
-
-        // 过滤
-        var isFiltered = false;
-        if (options.Filters.Any())
-        {
-            items = items.Where(options.Filters.GetFilterFunc<Foo>());
-            isFiltered = true;
-        }
-
-        // 排序
-        var isSorted = false;
-        if (!string.IsNullOrEmpty(options.SortName))
-        {
-            var invoker = Foo.GetNameSortFunc();
-            items = invoker(items, options.SortName, options.SortOrder);
-            isSorted = true;
-        }
-
-        // 设置记录总数
-        var total = items.Count();
-
-        // 内存分页
-        items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
-
-        return Task.FromResult(new QueryData<Foo>()
-        {
-            Items = items,
-            TotalCount = total,
-            IsSorted = isSorted,
-            IsFiltered = isFiltered,
-            IsSearch = options.CustomerSearches.Any() || !string.IsNullOrEmpty(options.SearchText),
-            IsAdvanceSearch = isAdvanceSearch
-        });
     }
 }

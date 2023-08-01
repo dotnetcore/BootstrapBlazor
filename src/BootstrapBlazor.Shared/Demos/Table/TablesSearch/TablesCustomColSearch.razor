@@ -1,25 +1,6 @@
 ﻿@inject IStringLocalizer<TablesCustomColSearch> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
 
-<Table TItem="Foo"
-        IsPagination="true" PageItemsSource="@PageItemsSource"
-        IsStriped="true" IsBordered="true" SearchModel="@SearchModel" ShowSearch="true" ShowSearchText="false"
-        ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true" SearchDialogIsDraggable="true"
-        AddModalTitle="@Localizer["AddModelTitle"]" EditModalTitle="@Localizer["EditModelTitle"]" SearchDialogShowMaximizeButton="true"
-        OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
-    <TableColumns>
-        <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" />
-        <TableColumn @bind-Field="@context.Name" Searchable="true">
-            <SearchTemplate Context="model">
-                <div class="col-12 col-sm-6">
-                    <Select Items="SearchItems" @bind-Value="@model!.Name" ShowLabel="true" DisplayText="姓名" ></Select>
-                </div>
-            </SearchTemplate>
-        </TableColumn>
-        <TableColumn @bind-Field="@context.Address" Searchable="true" />
-        <TableColumn @bind-Field="@context.Education" />
-    </TableColumns>
-</Table>
 
 @code {
     /// <summary>

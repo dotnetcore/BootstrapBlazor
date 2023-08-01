@@ -5192,7 +5192,7 @@
     "AutoGenerateSearchIntro": "当设置了 <code>ShowSearch</code> 时，如果未设置 <code>SearchTemplate</code> 编辑模板时，组件会尝试自动生成搜索条件 UI",
     "AutoGenerateSearchP": "列信息绑定时通过设置 <code>Searchable</code> 属性，设置搜索条件自动构建 UI，可通过设置 <code>SearchDialogShowMaximizeButton</code> 使搜索弹窗显示 <b>最大化</b> 按钮",
     "AutoGenerateSearchTips": "<p>自动构建搜索弹窗时，由于各列设置 <code>Searchable</code> 此时组件会通过 <code>SearchText</code> 与设置 <code>Searchable</code> 值为 <code>true</code> 的各列自动构建搜索拉姆达表达式，通过 <code>QueryPageOptions</code> 的属性 <code>Searches</code> 获得</p>",
-    "AutoGenerateSearchCommnt": "逻辑关系使用",
+    "AutoGenerateSearchComment": "逻辑关系使用",
     "CustomColSearchTitle": "自定义列搜索模板",
     "CustomColSearchIntro": "当设置了 <code>SearchTemplate</code> 时，组件自动生成搜索 UI 时使用此模板作为呈现 UI",
     "CustomColSearchP": "通过设置姓名列的 <code>SearchTemplate</code> 自定义编辑时使用下拉框来选择姓名",
@@ -5202,42 +5202,22 @@
     "CustomColSearchP4": "通过设置 <code>SearchDialogDraggable=\"true\"</code> 使搜索弹出框可拖拽",
     "CustomerSearchModelTitle": "自定义搜索模型",
     "CustomerSearchModelIntro": "设置了 <code>CustomerSearchModel</code> 与 <code>CustomerSearchTemplate</code>，完全自主控制搜索条件 UI",
-    "CustomerSearchModelP": "由于某种应用场景我们的表格实体类 <code>TItem</code> 来充当搜索模型时并不理想，比如我们有一个属性是 <code>int</code> 或者 <code>enum</code> 时，我们作为搜索条件时需要有一个 <b>全部</b> 或者 <b>请选择 ...</b> 的空白条件项。此时使用默认模型时非常难用，就可以使用自定义搜索模型 <code>CustomerSearchModel</code> 与 <code>CustomerSearchTemplate</code> 来自定义控制搜索界面"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesSearch.TablesCustomColSearch": {
+    "CustomerSearchModelP": "由于某种应用场景我们的表格实体类 <code>TItem</code> 来充当搜索模型时并不理想，比如我们有一个属性是 <code>int</code> 或者 <code>enum</code> 时，我们作为搜索条件时需要有一个 <b>全部</b> 或者 <b>请选择 ...</b> 的空白条件项。此时使用默认模型时非常难用，就可以使用自定义搜索模型 <code>CustomerSearchModel</code> 与 <code>CustomerSearchTemplate</code> 来自定义控制搜索界面",
     "AddModelTitle": "增加测试数据窗口",
     "EditModelTitle": "编辑测试数据窗口",
     "SelectedItemText": "请选择 ...",
     "SelectedItemText1": "姓名1",
     "SelectedItemText2": "姓名2",
     "SelectedItemValue1": "姓名1",
-    "SelectedItemValue2": "姓名2"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesSearch.TablesAutoGenerateSearch": {
+    "SelectedItemValue2": "姓名2",
     "AutoGenerateSearchGroupBoxTitle": "搜索功能体验区",
     "DisplayText1": "搜索模式",
     "DisplayText2": "模糊搜索",
     "DisplayText3": "显示重置",
     "DisplayText4": "显示搜索",
-    "AddModelTitle": "增加测试数据窗口",
-    "EditModelTitle": "编辑测试数据窗口",
-    "SelectedItemText": "请选择 ...",
-    "SelectedItemText1": "姓名1",
-    "SelectedItemText2": "姓名2",
-    "SelectedItemValue1": "姓名1",
-    "SelectedItemValue2": "姓名2"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesSearch.TablesSearchTable": {
-    "AddModelTitle": "增加测试数据窗口",
-    "EditModelTitle": "编辑测试数据窗口",
     "SearchTableGroupBoxText": "搜索条件",
     "NamePlaceholder": "请输入姓名，50字以内",
-    "AddressPlaceholder": "请输入地址，500字以内",
-    "SelectedItemText": "请选择 ...",
-    "SelectedItemText1": "姓名1",
-    "SelectedItemText2": "姓名2",
-    "SelectedItemValue1": "姓名1",
-    "SelectedItemValue2": "姓名2"
+    "AddressPlaceholder": "请输入地址，500字以内"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFilter": {
     "TablesFilterTitle": "筛选和排序功能",
