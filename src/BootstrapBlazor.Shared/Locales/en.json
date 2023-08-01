@@ -4460,9 +4460,7 @@
     "TablesHeaderNormalTitle": "Basic usage",
     "TablesHeaderNormalIntro": "Set the <code>MultiHeaderTemplate</code> template",
     "TablesHeaderNormalTips1": "By setting <code>ShowMultiFilterHeader</code> value to control whether to display the filter header",
-    "TablesHeaderNormalTips2": "Pay attention to the details. After the first column of cells is merged, there will be no cells in the first column of the last row header, so you need to set the style yourself  <code>border-bottom</code> consistent with other cells"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesHeader.TablesHeaderNormal": {
+    "TablesHeaderNormalTips2": "Pay attention to the details. After the first column of cells is merged, there will be no cells in the first column of the last row header, so you need to set the style yourself  <code>border-bottom</code> consistent with other cells",
     "TablesHeaderNormal_Time": "time",
     "TablesHeaderNormal_Info": "Personal information",
     "TablesHeaderNormal_Name": "personal name",

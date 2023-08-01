@@ -1,15 +1,32 @@
 ﻿@page "/table/multi-header"
 @inject IStringLocalizer<TablesHeader> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
 
 <h3>@Localizer["TablesHeaderTitle"]</h3>
 <h4>@Localizer["TablesHeaderDescription"]</h4>
 
 <DemoBlock Title="@Localizer["TablesHeaderNormalTitle"]"
            Introduction="@Localizer["TablesHeaderNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Table.TablesHeader.TablesHeaderNormal)">
+           Name="Normal">
     <p>
         <div>@((MarkupString)Localizer["TablesHeaderNormalTips1"].Value)</div>
         <div>@((MarkupString)Localizer["TablesHeaderNormalTips2"].Value)</div>
     </p>
+    <Table TItem="Foo" OnQueryAsync="@OnQueryAsync" IsBordered="true" IsStriped="true" ShowMultiFilterHeader="false">
+        <MultiHeaderTemplate>
+            <tr>
+                <th rowspan="2" class="table-header-group-th1"><div class="table-cell">@Localizer["TablesHeaderNormal_Time"]</div></th>
+                <th colspan="2" class="table-header-group-th2"><div class="table-cell">@Localizer["TablesHeaderNormal_Info"]</div></th>
+            </tr>
+            <tr>
+                <th><div class="table-cell">@Localizer["TablesHeaderNormal_Name"]</div></th>
+                <th><div class="table-cell">@Localizer["TablesHeaderNormal_Address"]</div></th>
+            </tr>
+        </MultiHeaderTemplate>
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" Sortable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Filterable="true" Sortable="true" />
+            <TableColumn @bind-Field="@context.Address" Filterable="true" Sortable="true" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
