@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Shared.Samples.Table;
 
 /// <summary>
-/// 表头固定
+/// 表头固定示例代码
 /// </summary>
 public partial class TablesFixedHeader
 {
@@ -18,7 +18,7 @@ public partial class TablesFixedHeader
     private List<Foo>? Items { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
