@@ -782,6 +782,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Match = NavLinkMatch.All,
                     Text = Localizer["TableDynamic"],
                     Url = "table/dynamic"
                 },
