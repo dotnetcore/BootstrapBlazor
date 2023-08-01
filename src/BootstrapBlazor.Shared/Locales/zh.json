@@ -5277,9 +5277,7 @@
     "AutoHeightP": "本例中 <code>Table</code> 表格组件由于可能未知高度，所以无法设置高度，父级容器可能通过样式得到高度，此时 <code>Table</code> 组件会尝试使用自适应填充满高度，实战中这种应用场景是最多的，本例模拟父级高度为 <code>300px</code>",
     "DialogIntro": "<code>Table</code> 组件在弹窗 <code>Dialog</code> 内使用",
     "DialogDesc": "<p>在弹窗中使用固定表头的 <code>Table</code> 注意事项：</p><div>弹窗要给 <code>DialogOption</code> 的 <code>Class</code> 参数赋值，本例中设置为 <code>dialog-table</code>，这个操作是为了让我们自定义样式能够定位到弹窗中 <code>Table</code> 组件的父容器 <code>modal-body</code> 并设置其高度，这里可以使用自适应高度的写法 <code>height: calc(100vh - 400px);</code>；当 <code>Table</code> 组件的父级容器有高度后，组件自己就会通过计算进行自适应高度适配了</div>",
-    "DialogTitle": "弹窗内使用"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesFixedHeader.TablesFixedHeaderDialog": {
+    "DialogTitle": "弹窗内使用",
     "DialogButtonText": "弹窗"
   },
   "BootstrapBlazor.Shared.Pages.Introduction": {
