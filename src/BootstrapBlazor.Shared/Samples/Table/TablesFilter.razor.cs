@@ -4,6 +4,9 @@
 
 namespace BootstrapBlazor.Shared.Samples.Table;
 
+/// <summary>
+/// 数据过滤示例代码
+/// </summary>
 public partial class TablesFilter
 {
     /// <summary>
