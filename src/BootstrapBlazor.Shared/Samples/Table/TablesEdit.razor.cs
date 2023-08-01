@@ -1,22 +1,16 @@
-﻿@inject IStringLocalizer<Foo> LocalizerFoo
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
-<Table TItem="Foo"
-        IsPagination="true" PageItemsSource="@PageItemsSource"
-        IsStriped="true" IsBordered="true" IsMultipleSelect="true" EditDialogIsDraggable="true"
-        ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" IsExtendButtonsInRowHeader="true"
-        OnQueryAsync="@OnQueryAsync"
-        OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
-    <TableColumns>
-        <TableColumn @bind-Field="@context.DateTime" Width="180" />
-        <TableColumn @bind-Field="@context.Name" />
-        <TableColumn @bind-Field="@context.Address" Readonly="true" />
-        <TableColumn @bind-Field="@context.Education" />
-        <TableColumn @bind-Field="@context.Count" Editable="false" />
-        <TableColumn @bind-Field="@context.Complete" />
-    </TableColumns>
-</Table>
+using BootstrapBlazor.Shared.Services;
 
-@code {
+namespace BootstrapBlazor.Shared.Samples.Table;
+
+/// <summary>
+/// 表格编辑示例代码
+/// </summary>
+public partial class TablesEdit
+{
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
     /// Foo class is used for Demo test, please download the source code if necessary
@@ -25,19 +19,50 @@
     [NotNull]
     private List<Foo>? Items { get; set; }
 
+    [NotNull]
+    private IEnumerable<Foo>? EditItems { get; set; }
+
     private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
 
+    [NotNull]
+    private IDataService<Foo>? CustomerDataService { get; set; }
+
+    [NotNull]
+    private IEnumerable<SelectedItem>? Hobbies { get; set; }
+
+    [NotNull]
+    private IEnumerable<Foo>? BindItems { get; set; }
+
+    private InsertRowMode InsertMode { get; set; } = InsertRowMode.Last;
+
+    private string? PlaceHolderString { get; set; }
+
+    private string DataServiceUrl => $"{WebsiteOption.CurrentValue.BootstrapBlazorLink}/wikis/Table%20%E7%BB%84%E4%BB%B6%E6%95%B0%E6%8D%AE%E6%9C%8D%E5%8A%A1%E4%BB%8B%E7%BB%8D?sort_id=3207977";
+
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
-        base.OnInitialized();
-
-        Items = Foo.GenerateFoo(LocalizerFoo);
+        Items = Foo.GenerateFoo(LocalizerFoo, 4);
+        EditItems = Foo.GenerateFoo(LocalizerFoo, 4);
+        Hobbies = Foo.GenerateHobbies(LocalizerFoo);
+        CustomerDataService = new FooDataService<Foo>(LocalizerFoo);
+        BindItems = Foo.GenerateFoo(LocalizerFoo).Take(5).ToList();
+        PlaceHolderString ??= Localizer["TablesEditShowSearchPlaceHolderString"];
     }
 
-    private static Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { DateTime = DateTime.Now, Address = $"Custom address  {DateTime.Now.Second}" });
+    private Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { Id = GenerateId(), DateTime = DateTime.Now, Address = $"Custom address  {DateTime.Now.Second}" });
+
+    private int GenerateId()
+    {
+        var id = Items.Count;
+        while (Items.Any(i => i.Id == id))
+        {
+            id++;
+        }
+        return id;
+    }
 
     private Task<bool> OnSaveAsync(Foo item, ItemChangedType changedType)
     {
@@ -104,4 +129,14 @@
             IsSearch = true
         });
     }
+
+    private class FooDataService<TModel> : TableDemoDataService<TModel> where TModel : class, new()
+    {
+        public FooDataService(IStringLocalizer<TModel> localizer) : base(localizer)
+        {
+
+        }
+    }
+
+    private Task OnClick(Foo foo) => ToastService.Information("Custom button function", foo.Address);
 }

@@ -4810,17 +4810,11 @@
     "TablesEditDataServiceTips2": "In this example, by setting the <code>EditDialogShowMaximizeButton</code> parameter, the <b>Maximize</b> button is displayed in the edit pop-up window",
     "TablesEditFooterTemplateTitle": "Custom button in EditDialog footer",
     "TablesEditFooterTemplateIntro": "Set <code>EditFooterTemplate</code> custom button in <code>EditDialog</code> <code>Footer</code>",
-    "TablesEditFooterTemplateDescription": "Click the Edit button in the table to pop up the Edit pop-up window. The buttons in the pop-up window <code>Footer</code> are user-defined buttons. In order to keep the functions of the original <b>Close</b> and <b>Save</b> buttons while facilitating the second opening, two corresponding components <code>DialogCloseButton</code> <code>DialogSaveButton</code> These two buttons do not need to write the click related processing methods"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesEdit.TablesEditMode": {
+    "TablesEditFooterTemplateDescription": "Click the Edit button in the table to pop up the Edit pop-up window. The buttons in the pop-up window <code>Footer</code> are user-defined buttons. In order to keep the functions of the original <b>Close</b> and <b>Save</b> buttons while facilitating the second opening, two corresponding components <code>DialogCloseButton</code> <code>DialogSaveButton</code> These two buttons do not need to write the click related processing methods",
     "TablesEditModeAddModalTitle": "Add test data window",
     "TablesEditModeEditModalTitle": "Edit Test Data Window",
-    "TablesEditModeInCell": "<code>InCell</code> Pattern example"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesEdit.TablesEditShowSearch": {
-    "TablesEditShowSearchPlaceHolderString": "Cannot be empty, within 50 characters"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesEdit.TablesEditInjectDataService": {
+    "TablesEditModeInCell": "<code>InCell</code> Pattern example",
+    "TablesEditShowSearchPlaceHolderString": "Cannot be empty, within 50 characters",
     "TablesEditInjectDataServiceDescription": "The database operations of adding, deleting, modifying and checking are performed by registering the data service without assigning the following callback delegates. The priority level is that the callback method is called first if there is a callback method.",
     "TablesEditInjectDataServiceTips1": "Startup file injects data service",
     "TablesEditInjectDataServiceTips2": "Implementation principle and usage introduction",
