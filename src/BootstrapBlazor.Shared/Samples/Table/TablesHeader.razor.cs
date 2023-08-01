@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Shared.Samples.Table;
 
 /// <summary>
-/// 表头分组
+/// 表头示例组件
 /// </summary>
 public partial class TablesHeader
 {
