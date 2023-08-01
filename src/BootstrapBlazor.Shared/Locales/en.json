@@ -4867,7 +4867,7 @@
     "TablesTreeIconTips2": "In this example change the indent width to <code>8px</code>"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesWrap": {
-    "TablesWrapTitile": "Table wrapping example",
+    "TablesWrapTitle": "Table wrapping example",
     "TablesWrapDescription": "When the content of the header or the cell in the row is too long, the effect of omitting, wrapping, etc. can be realized by changing the style",
     "TablesWrapTip": "<b>Note:</b>Because the <code>Table</code> component has realized the function of adapting to the mobile terminal, this demo needs to be viewed on the computer side",
     "TablesWrapNormalTitle": "Example of super long header",

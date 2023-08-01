@@ -1,9 +1,8 @@
-﻿@inherits BootstrapComponentBase
-@page "/table/wrap"
+﻿@page "/table/wrap"
 @inject IStringLocalizer<TablesWrap> Localizer
 @inject IStringLocalizer<Foo> LocalizerFoo
 
-<h3>@Localizer["TablesWrapTitile"]</h3>
+<h3>@Localizer["TablesWrapTitle"]</h3>
 <h4>@Localizer["TablesWrapDescription"]</h4>
 
 <p>@((MarkupString)Localizer["TablesWrapTip"].Value)</p>
@@ -99,43 +98,3 @@
         </TableColumns>
     </Table>
 </DemoBlock>
-
-@code {
-    /// <summary>
-    /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
-    /// Foo class is used for Demo test, please download the source code if necessary
-    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Shared/Data/Foo.cs
-    /// </summary>
-    [NotNull]
-    private IEnumerable<Foo>? CellItems { get; set; }
-
-    /// <summary>
-    /// OnInitialized
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        CellItems = Foo.GenerateFoo(LocalizerFoo, 4);
-    }
-
-    private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
-    {
-        var items = Foo.GenerateFoo(LocalizerFoo);
-
-        // 设置记录总数
-        var total = items.Count;
-
-        // 内存分页
-        items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
-
-        return Task.FromResult(new QueryData<Foo>()
-        {
-            Items = items,
-            TotalCount = total,
-            IsSorted = true,
-            IsFiltered = true,
-            IsSearch = true
-        });
-    }
-}
