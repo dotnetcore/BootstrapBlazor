@@ -4807,10 +4807,11 @@
     "WidthButtonText4": "审批",
     "WidthConfirmButtonText": "确认"
   },
-  "BootstrapBlazor.Shared.Demos.Table.TablesColumn.TablesColumnText": {
-    "CustomColText1": "自定义列名1",
-    "CustomColText2": "自定义列名2",
-    "CustomColText3": "自定义列名3"
+  "BootstrapBlazor.Shared.Demos.Table.TablesColumn.TablesColumnVisible": {
+
+  },
+  "BootstrapBlazor.Shared.Demos.Table.TablesColumn.TablesColumnWidth": {
+
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesEdit": {
     "TablesEditTitle": "Table 表格",
@@ -5074,12 +5075,10 @@
     "TablesToolbarCustomButtonTips1_note2": "数据处理完成后，关闭前台提示弹窗，<code>恢复</code> 下载按钮",
     "TablesToolbarCustomButtonTips2_title": "本例中通过设置 <code>TableToolbarButton</code> 按钮的 <code>IsAsync</code> 属性开启 <b>异步操作模式</b>，请注意 <code>OnClickCallback</code> 回调委托内需要使用真正的 <b>异步操作</b> 否则无效果",
     "TablesToolbarCustomDisaplayButtonTitle": "自定义显示功能按钮",
-    "TablesToolbarCustomDisaplayButtonIntro": "通过设置 <code>ShowAddButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> 属性值来控制单独功能按钮是否显示，当 <code>ShowDefaultButtons</code> 设置为 <code>false</code> 时，所有按钮均不显示"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesToolbar.TablesToolbarCustomButton": {
+    "TablesToolbarCustomDisaplayButtonIntro": "通过设置 <code>ShowAddButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> 属性值来控制单独功能按钮是否显示，当 <code>ShowDefaultButtons</code> 设置为 <code>false</code> 时，所有按钮均不显示",
     "TablesToolbarCustomButton1": "下载1",
     "TablesToolbarCustomButton2": "下载2",
-    "TableToolbarPopconfirmButton1": "确认下载"
+    "TableToolbarPopConfirmButton1": "确认下载"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesCell": {
     "TablesCellTitle": "Table 表格",

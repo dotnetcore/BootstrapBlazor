@@ -5045,12 +5045,10 @@
     "TablesToolbarCustomButtonTips1_note2": "After the data processing is completed, close the foreground prompt pop-up window, <code>restore</code> download button",
     "TablesToolbarCustomButtonTips2_title": "In this example, by setting the <code>IsAsync</code> property of the <code>TableToolbarButton</code> button to enable <b>asynchronous operation mode</b>, please note that <code>OnClickCallback</code> needs to be in the callback delegate Use true <b>async operations</b> otherwise no effect",
     "TablesToolbarCustomDisplayButtonTitle": "Custom display function buttons",
-    "TablesToolbarCustomDisplayButtonIntro": "By setting the <code>ShowAddButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> attribute value to control whether the individual function button is displayed, when <code>ShowDefaultButtons</code> is set to <code> When false</code>, all buttons are not displayed"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesToolbar.TablesToolbarCustomButton": {
+    "TablesToolbarCustomDisplayButtonIntro": "By setting the <code>ShowAddButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> attribute value to control whether the individual function button is displayed, when <code>ShowDefaultButtons</code> is set to <code> When false</code>, all buttons are not displayed",
     "TablesToolbarCustomButton1": "Download 1",
     "TablesToolbarCustomButton2": "Download 2",
-    "TableToolbarPopconfirmButton1": "Confirm"
+    "TableToolbarPopConfirmButton1": "Confirm"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesCell": {
     "TablesCellTitle": "Table Cell",
