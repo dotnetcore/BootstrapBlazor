@@ -39,7 +39,7 @@ public partial class TablesFooter
     private AggregateType Aggregate { get; set; }
 
     /// <summary>
-    ///
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
