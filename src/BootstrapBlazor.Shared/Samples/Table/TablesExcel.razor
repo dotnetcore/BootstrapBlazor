@@ -1,13 +1,27 @@
 ﻿@page "/table/excel"
 @inject IStringLocalizer<TablesExcel> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
 
 <h3>@Localizer["TablesExcelTitle"]</h3>
 <h4>@Localizer["TablesExcelDescription"]</h4>
 
 <DemoBlock Title="@Localizer["TablesExcelOnQueryTitle"]"
            Introduction="@Localizer["TablesExcelOnQueryIntro"]"
-           Name="OnQuery"
-           Demo="typeof(Demos.Table.TablesExcel.TablesExcelOnQuery)">
+           Name="OnQuery">
+    <Table TItem="Foo" ShowToolbar="true" ShowRefresh="true" ShowColumnList="true" ShowExtendButtons="true"
+           IsExcel="true" IsPagination="true" PageItemsSource="@PageItemsSource"
+           OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" Readonly="true" />
+            <TableColumn @bind-Field="@context.Education" />
+            <TableColumn @bind-Field="@context.Count" Editable="false" Align="Alignment.Right" />
+            <TableColumn @bind-Field="@context.Complete" Align="Alignment.Center" />
+        </TableColumns>
+    </Table>
+
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
 <p class="mt-3">@((MarkupString)Localizer["TablesExcelTips"].Value)</p>
@@ -70,10 +84,37 @@
 
 <DemoBlock Title="@Localizer["TablesExcelCellRenderTitle"]"
            Introduction="@Localizer["TablesExcelCellRenderIntro"]"
-           Name="CellRender"
-           Demo="typeof(Demos.Table.TablesExcel.TablesExcelCellRender)">
+           Name="CellRender">
     <ul class="ul-demo mb-3">
         <li>@((MarkupString)Localizer["TablesExcelCellRenderTips1"].Value)</li>
         <li>@((MarkupString)Localizer["TablesExcelCellRenderTips2"].Value)</li>
     </ul>
+    <Table TItem="Foo" Items="@Items" IsBordered="true" IsExcel="true" IsFixedHeader="true" Height="500">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Name" Width="200">
+                <EditTemplate Context="row">
+                    <div class="d-flex disabled">
+                        <div>
+                            <img src="@Foo.GetAvatarUrl(row!.Id)" class="bb-avatar" />
+                        </div>
+                        <div class="ps-2">
+                            <div>@row.Name</div>
+                            <div class="bb-sub">@Foo.GetTitle(row!.Id)</div>
+                        </div>
+                    </div>
+                </EditTemplate>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Education" Width="160" />
+            <TableColumn @bind-Field="@context.Count" Width="160">
+                <EditTemplate Context="row">
+                    <div class="disabled">
+                        <div>@row!.Count %</div>
+                        <BootstrapBlazor.Components.Progress Value="@row.Count" Color="@Foo.GetProgressColor(row.Count)"></BootstrapBlazor.Components.Progress>
+                    </div>
+                </EditTemplate>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Complete" Align="Alignment.Center" Width="80" />
+        </TableColumns>
+    </Table>
 </DemoBlock>

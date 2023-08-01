@@ -1,21 +1,14 @@
-﻿@inject IStringLocalizer<Foo> LocalizerFoo
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
-<Table TItem="Foo" ShowToolbar="true" ShowRefresh="true" ShowColumnList="true" ShowExtendButtons="true"
-        IsExcel="true" IsPagination="true" PageItemsSource="@PageItemsSource"
-        OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
-    <TableColumns>
-        <TableColumn @bind-Field="@context.DateTime" Width="180" />
-        <TableColumn @bind-Field="@context.Name" />
-        <TableColumn @bind-Field="@context.Address" Readonly="true" />
-        <TableColumn @bind-Field="@context.Education" />
-        <TableColumn @bind-Field="@context.Count" Editable="false" Align="Alignment.Right" />
-        <TableColumn @bind-Field="@context.Complete" Align="Alignment.Center" />
-    </TableColumns>
-</Table>
+namespace BootstrapBlazor.Shared.Samples.Table;
 
-<ConsoleLogger @ref="Logger" class="mt-3" />
-
-@code {
+/// <summary>
+/// Excel 示例代码
+/// </summary>
+public partial class TablesExcel
+{
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
     /// Foo class is used for Demo test, please download the source code if necessary
@@ -26,11 +19,15 @@
 
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
-
     /// <summary>
     /// 绑定数据源代码
     /// </summary>
-    private static IEnumerable<int> PageItemsSource => new int[] { 10, 20, 40 };
+    private static IEnumerable<int> PageItemsSource => new int[]
+    {
+        10,
+        20,
+        40
+    };
 
     /// <summary>
     /// OnInitialized 方法
@@ -38,14 +35,12 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
-
         Items = Foo.GenerateFoo(LocalizerFoo);
     }
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
     {
         IEnumerable<Foo> items = Items;
-
         // 过滤
         var isFiltered = false;
         if (options.Filters.Any())
@@ -65,26 +60,20 @@
 
         // 设置记录总数
         var total = items.Count();
-
         // 内存分页
         items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
-
-        return Task.FromResult(new QueryData<Foo>()
-        {
-            Items = items,
-            TotalCount = total,
-            IsSorted = isSorted,
-            IsFiltered = isFiltered,
-            IsSearch = true
-        });
+        return Task.FromResult(new QueryData<Foo>() { Items = items, TotalCount = total, IsSorted = isSorted, IsFiltered = isFiltered, IsSearch = true });
     }
 
     private Task<Foo> OnAddAsync()
     {
         // Excel 模式下新建要求更改数据源
-        var foo = new Foo() { DateTime = DateTime.Now, Address = $"自定义地址  {DateTime.Now.Second}" };
+        var foo = new Foo()
+        {
+            DateTime = DateTime.Now,
+            Address = $"自定义地址  {DateTime.Now.Second}"
+        };
         Items.Insert(0, foo);
-
         // 输出日志信息
         Logger.Log($"集合值变化通知 列: {Items.Count} - 类型: Add");
         return Task.FromResult(foo);
@@ -101,7 +90,6 @@
     private Task<bool> OnDeleteAsync(IEnumerable<Foo> items)
     {
         Items.RemoveAll(i => items.Contains(i));
-
         // 输出日志信息
         Logger.Log($"集合值变化通知 列: {Items.Count} - 类型: Delete");
         return Task.FromResult(true);
