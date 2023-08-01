@@ -4,6 +4,9 @@
 
 namespace BootstrapBlazor.Shared.Samples.Table;
 
+/// <summary>
+/// 列设置示例代码
+/// </summary>
 public partial class TablesColumn
 {
     /// <summary>
@@ -26,7 +29,7 @@ public partial class TablesColumn
         Items = Foo.GenerateFoo(FooLocalizer);
     }
 
-    private bool ShowCheckbox(Foo foo) => foo.Complete;
+    private static bool ShowCheckbox(Foo foo) => foo.Complete;
 
     /// <summary>
     /// IntFormatter
