@@ -8,8 +8,8 @@
 <DemoBlock Title="@Localizer["TablesTrackingNormalTitle"]"
            Introduction="@Localizer["TablesTrackingNormalIntro"]"
            Name="Normal">
-    <p>@((MarkupString)Localizer["TablesTrackingNormaltips1"].Value)</p>
-    <p class="mb-3">@((MarkupString)Localizer["TablesTrackingNormaltips2"].Value)</p>
+    <p>@((MarkupString)Localizer["TablesTrackingNormalTips1"].Value)</p>
+    <p class="mb-3">@((MarkupString)Localizer["TablesTrackingNormalTips2"].Value)</p>
     <Table TItem="Foo" IsTracking="true" @bind-Items="Items" ShowToastAfterSaveOrDeleteModel="false"
            IsBordered="true" IsMultipleSelect="true" ShowToolbar="true" ShowExtendButtons="true">
         <TableColumns>
@@ -20,22 +20,4 @@
     </Table>
 </DemoBlock>
 
-@code {
-    /// <summary>
-    /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
-    /// Foo class is used for Demo test, please download the source code if necessary
-    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Shared/Data/Foo.cs
-    /// </summary>
-    [NotNull]
-    private IEnumerable<Foo>? Items { get; set; }
 
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        Items = Foo.GenerateFoo(LocalizerFoo, 4);
-    }
-}

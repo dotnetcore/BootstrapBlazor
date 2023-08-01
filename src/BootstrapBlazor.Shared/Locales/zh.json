@@ -4807,10 +4807,10 @@
     "ResetVisibleColumnsButtonText": "设置列隐藏信息"
   },
   "BootstrapBlazor.Shared.Demos.Table.TablesColumn.TablesColumnVisible": {
-    
+
   },
   "BootstrapBlazor.Shared.Demos.Table.TablesColumn.TablesColumnWidth": {
-    
+
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesEdit": {
     "TablesEditTitle": "Table 表格",
@@ -4961,8 +4961,8 @@
     "TablesTrackingDescription": "适用于父子表一起提交的应用场景",
     "TablesTrackingNormalTitle": "跟踪模式",
     "TablesTrackingNormalIntro": "设置 <code>IsTracking</code> 配合 <code>Items</code> 可以不需要设置 <code>OnSaveAsync</code> 等回调方法",
-    "TablesTrackingNormaltips1": "可通过设置 <code>ShowToastAfterSaveOrDeleteModel='false'</code> 关闭 <b>保存</b> <b>删除</b> 按钮的提示信息",
-    "TablesTrackingNormaltips2": "此模式下所有数据编辑均编辑原始数据，通过 <code>bind-Items</code> 更新数据源，所以不提供 <b>取消</b> 按钮"
+    "TablesTrackingNormalTips1": "可通过设置 <code>ShowToastAfterSaveOrDeleteModel='false'</code> 关闭 <b>保存</b> <b>删除</b> 按钮的提示信息",
+    "TablesTrackingNormalTips2": "此模式下所有数据编辑均编辑原始数据，通过 <code>bind-Items</code> 更新数据源，所以不提供 <b>取消</b> 按钮"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesAutoRefresh": {
     "TablesAutoRefreshTitle": "自动刷新表格功能",
