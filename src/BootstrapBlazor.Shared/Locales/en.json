@@ -5242,9 +5242,7 @@
     "AutoHeightP": "In this example, the <code>Table</code> table component cannot set the height because the height may not be known. The parent container may get the height through the style. At this time, the <code>Table</code> component will try to Use adaptive fill to fill the height, this application scenario is the most in actual combat, in this example, the simulated parent height is <code>300px</code>",
     "DialogIntro": "<code>Table</code> inside <code>Dialog</code>",
     "DialogDesc": "<p>Tips for using the<code>Table</code> with a fixed header in the <code>Dialog</code>:</p><div>The <code>Dialog</code> should assign values to the<code>Class</code> parameter of <code>DialogOption</code>. In this example, it is set to<code>dialog-table</code>. This operation is to enable us to customize the style to locate the<code>Table</code> component's parent container in the <code>Dialog</code> and set its height, Here you can use the writing method of adaptive height <code>height: calc (100vh - 400px);</code>; When the parent container of a <code>Table</code>component has a height, the component itself will perform adaptive height adaptation through calculation</div>",
-    "DialogTitle": "In Dialog"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesFixedHeader.TablesFixedHeaderDialog": {
+    "DialogTitle": "In Dialog",
     "DialogButtonText": "Dialog"
   },
   "BootstrapBlazor.Shared.Pages.Introduction": {
