@@ -4977,9 +4977,7 @@
     "TablesSelectionTitle": "Table 表格",
     "TablesSelectionDescription": "通过设置 <code>SelectedRows</code> 设置表格行状态，通过选中样式可以设置高亮",
     "TablesSelectionNormalTitle": "设置选中行功能",
-    "TablesSelectionNormalIntro": "通过设置 <code>SelectedRows</code> 属性集合初始化表格时默认为选中状态"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesSelection.TablesSelectionNormal": {
+    "TablesSelectionNormalIntro": "通过设置 <code>SelectedRows</code> 属性集合初始化表格时默认为选中状态",
     "TablesSelectionNormalTips": "保持行状态回落机制，<code>ModelEqualityComparer</code> <code>CustomKeyAttribute</code> <code>IEqualityComparer&lt;TItem&gt;</code> <code>Equals</code> 重载方法",
     "TablesSelectionNormalSelectRow": "选中的行记录",
     "TablesSelectionNormalButtonText": "清除选择"
