@@ -1,33 +1,14 @@
-﻿@using BootstrapBlazor.Shared.Samples.Table
-@inject IStringLocalizer<TablesFilterTemplate> Localizer
-@inject IStringLocalizer<Foo> FooLocalizer
-@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
-<p>@((MarkupString)Localizer["TablesFilterTemplateDescription", ComponentSourceCodeUrl].Value)</p>
+namespace BootstrapBlazor.Shared.Samples.Table;
 
-<Table TItem="Foo"
-        IsPagination="true" PageItemsSource="@PageItemsSource"
-        IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-        ShowSkeleton="true"
-        OnQueryAsync="@OnQueryAsync">
-    <TableColumns>
-        <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true"/>
-        <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true"/>
-        <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true"/>
-        <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true">
-            <Template Context="value">
-                <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
-            </Template>
-        </TableColumn>
-        <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" Filterable="true">
-            <FilterTemplate>
-                <CustomerFilter></CustomerFilter>
-            </FilterTemplate>
-        </TableColumn>
-    </TableColumns>
-</Table>
-
-@code {
+/// <summary>
+/// 数据过滤示例代码
+/// </summary>
+public partial class TablesFilter
+{
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
     /// Foo class is used for Demo test, please download the source code if necessary
@@ -38,7 +19,12 @@
 
     private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
 
+    private string SortString { get; set; } = "DateTime desc, Address";
+
     private string ComponentSourceCodeUrl => $"{WebsiteOption.CurrentValue.BootstrapBlazorLink}/blob/main/src/BootstrapBlazor.Shared/Samples/Table/CustomerFilter.razor";
+
+    [NotNull]
+    private Table<Foo>? TableSetFilter { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -94,4 +80,46 @@
             IsFiltered = isFiltered
         });
     }
+
+    private static string OnSort(string sortName, SortOrder sortOrder)
+    {
+        string sortString = "";
+        if (sortName == nameof(Foo.DateTime))
+        {
+            if (sortOrder == SortOrder.Asc)
+            {
+                sortString = "DateTime, Count";
+            }
+            else if (sortOrder == SortOrder.Desc)
+            {
+                sortString = "DateTime desc, Count desc";
+            }
+            else
+            {
+                sortString = "DateTime desc, Count";
+            }
+        }
+        return sortString;
+    }
+
+    private async Task SetFilterInCode()
+    {
+        //Find Column
+        var column = TableSetFilter.Columns.First(x => x.GetFieldName() == nameof(Foo.Name));
+
+        //Build Filter
+        var filters = new List<FilterKeyValueAction>()
+    {
+        new FilterKeyValueAction { FieldValue = "01", FilterAction = FilterAction.Contains }
+    };
+
+        //Set Filter
+        var filterAction = column.Filter?.FilterAction;
+        if (filterAction != null)
+        {
+            await filterAction.SetFilterConditionsAsync(filters);
+        }
+    }
+
+    private Task ResetAllFilters() => TableSetFilter.ResetFilters();
 }

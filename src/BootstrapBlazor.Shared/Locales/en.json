@@ -5206,13 +5206,9 @@
     "OnSortIntro": "Set <code>OnSort</code> Parameters",
     "OnSortP": "When clicking the column header to sort, the component calls the<code> OnSort </code>callback internally, where its return value can be set according to the business logic to achieve dynamic multi-column sorting, in this case, when clicking the <b>time</b> column header for positive order sorting, use <code>DateTime,Count</code>  internally, use<code>DateTime desc, Count desc</code>when Count reverse order",
     "SetFilterInCodeTitle": "Set filters by code",
-    "SetFilterInCodeIntro": "Example shows how to set filters through code"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesFilter.TablesSetFilterInCode": {
+    "SetFilterInCodeIntro": "Example shows how to set filters through code",
     "SetFilterInCodeButtonText1": "Name contains 01",
-    "SetFilterInCodeButtonText2": "Reset All Filter"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesFilter.TablesFilterTemplate": {
+    "SetFilterInCodeButtonText2": "Reset All Filter",
     "TablesFilterTemplateDescription": "<code>The FilterTemplate</code> type is <code>RenderFragment</code>: <span>its value is a custom component, and the component must inherit</span> <code>the filterBase</code> In this case, the last column in this case<b>, the Quantity column</b>, uses the <code>custom component by filtering the template CustomerFilter</code> <a href=\"{0}\" target=\"_blank\">[portal] CustomerFilter component source code</a>"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFixedHeader": {
