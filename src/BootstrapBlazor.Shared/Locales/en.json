@@ -5083,8 +5083,8 @@
   "BootstrapBlazor.Shared.Samples.Table.TablesRow": {
     "TablesRowTitle": "Table Row",
     "TablesRowDesc": "Used to display multiple pieces of data with similar structures, data can be sorted, filtered, compared or other custom operations.",
-    "RowNubmerTitle": "Show row numbers",
-    "RowNubmerIntro": "By setting the <code>ShowLineNo</code> property to <code>true</code>, the table displays the row number, the default value is <code>false</code>",
+    "RowNumberTitle": "Show row numbers",
+    "RowNumberIntro": "By setting the <code>ShowLineNo</code> property to <code>true</code>, the table displays the row number, the default value is <code>false</code>",
     "RowNumberP": "Set the <code>LineNoText</code> property value to set the line number column header display text, the default is <code>line number</code>",
     "ClickToSelectTitle": "Click the cell to select the entire row effect",
     "ClickToSelectIntro": "By setting the <code>ClickToSelect</code> property value, you can click any cell to select the entire row, and the selected row style is set to <code>active</code>",
@@ -5099,16 +5099,10 @@
     "DoubleClickRowCallbackP": "The mobile terminal (CardView) mode temporarily does not support double-click editing of the current row function",
     "SetRowClassFormatterTitle": "Custom row highlighting",
     "SetRowClassFormatterIntro": "By setting the <code>SetRowClassFormatter</code> attribute value, you can set the row style through the row data logic, and realize the function of your own highlighting requirements",
-    "SetRowClassFormatterP": "In this example, the <code>SetRowClassFormatter</code> method will highlight the row by judging the <code>Count > 60</code> of the bound data"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesRow.TablesRowNubmer": {
-    "RowNumberText": "Number"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesRow.TablesRowClickToSelect": {
+    "SetRowClassFormatterP": "In this example, the <code>SetRowClassFormatter</code> method will highlight the row by judging the <code>Count > 60</code> of the bound data",
+    "RowNumberText": "Number",
     "ClickToSelectP3": "Currently selected row:",
-    "ClickToSelectNoneText": "None"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesRow.TablesRowDoubleClickToEdit": {
+    "ClickToSelectNoneText": "None",
     "PlaceHolder": "Cannot be empty, within 50 characters"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesDynamic": {
