@@ -24,7 +24,11 @@ internal static class CacheManagerExtensions
     public static IEnumerable<LocalizedString> GetLocalizedStrings(this ICacheManager cache, string typeName, JsonLocalizationOptions options)
     {
         var key = $"Snippet-{CultureInfo.CurrentUICulture.Name}-{nameof(GetLocalizedStrings)}-{typeName}";
-        return cache.GetOrCreate(key, entry => Utility.GetJsonStringByTypeName(options, typeof(CodeSnippetService).Assembly, $"BootstrapBlazor.Shared.Samples.{typeName}"));
+        return cache.GetOrCreate(key, entry =>
+        {
+            var type = typeName.Replace('\\', '.');
+            return Utility.GetJsonStringByTypeName(options, typeof(CodeSnippetService).Assembly, $"BootstrapBlazor.Shared.Samples.{type}");
+        });
     }
 
     public static Task<string> GetContentFromFileAsync(this ICacheManager cache, string fileName, Func<ICacheEntry, Task<string>> factory)
