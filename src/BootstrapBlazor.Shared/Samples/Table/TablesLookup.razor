@@ -1,5 +1,5 @@
 ﻿@page "/table/lookup"
-@inject IStringLocalizer<Foo> FooLocalizer
+@inject IStringLocalizer<Foo> LocalizerFoo
 @inject IStringLocalizer<TablesLookup> Localizer
 
 <h3>@Localizer["TablesLookupTitle"]</h3>
@@ -8,14 +8,17 @@
 
 <DemoBlock Title="@Localizer["TableLookupNormalTitle"]"
            Introduction="@Localizer["TableLookupNormalIntro"]"
-           Name="Lookup"
-           Demo="typeof(Demos.Table.TablesLookup.TableLookupNormal)">
-    <p>@((MarkupString)Localizer["TableLookupNormalTips1"].Value)</p>
-    <Pre>DataSource = new List&lt;SelectedItem&gt;
-{
-    new SelectedItem { Value = "True", Text = "@FooLocalizer["True"].Value" },
-    new SelectedItem { Value = "False", Text = "@FooLocalizer["False"].Value" }
-};</Pre>
+           Name="Lookup">
     <p>@((MarkupString)Localizer["TableLookupNormalTips2"].Value)</p>
     <p>@((MarkupString)Localizer["TableLookupNormalTips3"].Value)</p>
+    @if (Items != null)
+    {
+        <Table TItem="Foo" Items="@Items.Take(3)">
+            <TableColumns>
+                <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                <TableColumn @bind-Field="@context.Name" />
+                <TableColumn @bind-Field="@context.Complete" LookupServiceKey="Foo.Complete" />
+            </TableColumns>
+        </Table>
+    }
 </DemoBlock>

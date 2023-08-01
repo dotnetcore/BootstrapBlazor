@@ -5130,7 +5130,6 @@
     "TablesLookupDescription": "用于自动将外键列转换成 <code>Text</code> 显示文字",
     "TableLookupNormalTitle": "Lookup 外置数据源",
     "TableLookupNormalIntro": "通过设置 <code>Lookup</code> 自动翻译显示文字",
-    "TableLookupNormalTips1": "本例中通过设置 <code>Complete</code> 列 <code>Lookup</code> 值为",
     "TableLookupNormalTips2": "组件自动将 <code>Complete</code> 转换为 <code>DataSource</code> 集合中的预设值",
     "TableLookupNormalTips3": "本例中使用 <code>ILookupService</code> 服务进行统一处理，通过设置 <code>LookupServiceKey</code> 值，从服务中获取 <code>Lookup</code> 数据集合"
   },
