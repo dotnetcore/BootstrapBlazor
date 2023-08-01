@@ -25,7 +25,7 @@ public partial class TablesCell
         base.OnInitialized();
         //获取随机数据
         //Get random data
-        Items = Foo.GenerateFoo(Localizer);
+        Items = Foo.GenerateFoo(FooLocalizer);
     }
 
     private static void OnCellRenderHandler(TableCellArgs args)
