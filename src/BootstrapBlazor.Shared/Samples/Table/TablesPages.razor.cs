@@ -1,30 +1,12 @@
-﻿using global::System;
-using global::System.Collections.Generic;
-using global::System.Linq;
-using global::Microsoft.AspNetCore.Components;
-using BootstrapBlazor.Components;
-using BootstrapBlazor.Shared;
-using BootstrapBlazor.Shared.Common;
-using BootstrapBlazor.Shared.Components;
-using BootstrapBlazor.Shared.Samples;
-using BootstrapBlazor.Shared.Services;
-using BootstrapBlazor.Shared.Shared;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Routing;
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Options;
-using Microsoft.JSInterop;
-using System.Diagnostics.CodeAnalysis;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Globalization;
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
 namespace BootstrapBlazor.Shared.Samples.Table;
 
+/// <summary>
+/// 分页示例代码
+/// </summary>
 public partial class TablesPages
 {
     /// <summary>
