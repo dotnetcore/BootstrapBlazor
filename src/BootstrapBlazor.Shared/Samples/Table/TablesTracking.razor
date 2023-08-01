@@ -1,13 +1,41 @@
 ﻿@page "/table/tracking"
 @inject IStringLocalizer<TablesTracking> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
 
 <h3>@Localizer["TablesTrackingTitle"]</h3>
 <h4>@Localizer["TablesTrackingDescription"]</h4>
 
 <DemoBlock Title="@Localizer["TablesTrackingNormalTitle"]"
            Introduction="@Localizer["TablesTrackingNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Table.TablesTracking.TablesTrackingNormal)">
+           Name="Normal">
     <p>@((MarkupString)Localizer["TablesTrackingNormaltips1"].Value)</p>
-    <p>@((MarkupString)Localizer["TablesTrackingNormaltips2"].Value)</p>
+    <p class="mb-3">@((MarkupString)Localizer["TablesTrackingNormaltips2"].Value)</p>
+    <Table TItem="Foo" IsTracking="true" @bind-Items="Items" ShowToastAfterSaveOrDeleteModel="false"
+           IsBordered="true" IsMultipleSelect="true" ShowToolbar="true" ShowExtendButtons="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
+
+@code {
+    /// <summary>
+    /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
+    /// Foo class is used for Demo test, please download the source code if necessary
+    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Shared/Data/Foo.cs
+    /// </summary>
+    [NotNull]
+    private IEnumerable<Foo>? Items { get; set; }
+
+    /// <summary>
+    /// OnInitialized 方法
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Items = Foo.GenerateFoo(LocalizerFoo, 4);
+    }
+}
