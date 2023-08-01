@@ -1,19 +1,14 @@
-﻿@inject IStringLocalizer<Foo> FooLocalizer
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
-<Table TItem="Foo"
-        IsPagination="true" PageItemsSource="@PageItemsSource"
-        IsStriped="true" IsBordered="true"
-        ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
-        OnQueryAsync="@OnQueryAsync">
-    <TableColumns>
-        <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" />
-        <TableColumn @bind-Field="@context.Name" Width="100" />
-        <TableColumn @bind-Field="@context.Address" />
-        <TableColumn @bind-Field="@context.Count" Formatter="@IntFormatter" />
-    </TableColumns>
-</Table>
+namespace BootstrapBlazor.Shared.Samples.Table;
 
-@code {
+/// <summary>
+/// 列设置示例代码
+/// </summary>
+public partial class TablesColumn
+{
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
     /// Foo class is used for Demo test, please download the source code if necessary
@@ -33,6 +28,8 @@
 
         Items = Foo.GenerateFoo(FooLocalizer);
     }
+
+    private static bool ShowCheckbox(Foo foo) => foo.Complete;
 
     /// <summary>
     /// IntFormatter
@@ -85,5 +82,19 @@
             IsFiltered = isFiltered,
             IsSearch = true
         });
+    }
+
+    private static Task<bool> OnSaveAsync(Foo foo, ItemChangedType changedType)
+    {
+        return Task.FromResult(true);
+    }
+
+    private static Task OnColumnCreating(List<ITableColumn> columns)
+    {
+        foreach (var item in columns.Where(item => item.GetFieldName() == nameof(Foo.Name)))
+        {
+            item.Readonly = true;
+        }
+        return Task.CompletedTask;
     }
 }
