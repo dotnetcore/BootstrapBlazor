@@ -1,21 +1,79 @@
 ﻿@page "/table/footer"
 @inject IStringLocalizer<TablesFooter> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
 
 <h3>@Localizer["TablesFooterTitle"]</h3>
 <h4>@Localizer["TablesFooterDescription"]</h4>
 
 <DemoBlock Title="@Localizer["TablesFooterStatisticsTitle"]"
            Introduction="@Localizer["TablesFooterStatisticsIntro"]"
-           Name="Statistics"
-           Demo="typeof(Demos.Table.TablesFooter.TablesFooterStatistics)">
+           Name="Statistics">
     <p>@((MarkupString)Localizer["TablesFooterStatisticsTips1"].Value)</p>
     <p>@((MarkupString)Localizer["TablesFooterStatisticsTips2"].Value)</p>
     <p>@((MarkupString)Localizer["TablesFooterStatisticsTips3"].Value)</p>
+    <Table TItem="Foo" ShowFooter="true" class="footer-demo"
+           IsPagination="true" PageItemsSource="@PageItemsSource" OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+        <TableFooter>
+            <TableFooterCell Text="@Localizer["TablesFooterStatisticsTotal"]" colspan="3" Align="@Align" />
+            <TableFooterCell Aggregate="@Aggregate" Field="@nameof(Foo.Count)" />
+        </TableFooter>
+    </Table>
+    <div class="mt-3 btn-group">
+        <Button Icon="fa-solid fa-align-left" Text="@Left" OnClick="() => Align = Alignment.Left" />
+        <Button Icon="fa-solid fa-align-center" Text="@Center" OnClick="() => Align = Alignment.Center" />
+        <Button Icon="fa-solid fa-align-right" Text="@Right" OnClick="() => Align = Alignment.Right" />
+    </div>
+    <div class="mt-3 btn-group">
+        <Button Text="Sum" OnClick="() => Aggregate = AggregateType.Sum" />
+        <Button Text="Average" OnClick="() => Aggregate = AggregateType.Average" />
+        <Button Text="Count" OnClick="() => Aggregate = AggregateType.Count" />
+        <Button Text="Min" OnClick="() => Aggregate = AggregateType.Min" />
+        <Button Text="Max" OnClick="() => Aggregate = AggregateType.Max" />
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TablesFooterTemplateTitle"]"
            Introduction="@Localizer["TablesFooterTemplateIntro"]"
-           Name="FooterTemplate"
-           Demo="typeof(Demos.Table.TablesFooter.TablesFooterTemplate)">
+           Name="FooterTemplate">
     <p>@((MarkupString)Localizer["TablesFooterTemplateDescription"].Value)</p>
+    <Table TItem="Foo" ShowFooter="true" class="footer-demo"
+           IsPagination="true" PageItemsSource="@PageItemsSource" OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+        <FooterTemplate>
+            <tr>
+                <td colspan="4">
+                    <div style="text-align: right;">
+                        <span>@Localizer["TablesFooterTemplateSentences"]</span>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <div class="d-flex align-items-center justify-content-end" style="line-height: 3;">@Localizer["TablesFooterTemplateTotal"]</div>
+                </td>
+                <td>
+                    <div class="footer-customer">
+                        <div>
+                            Average: @GetAverage(context)
+                        </div>
+                        <hr />
+                        <div>
+                            Sum: @GetSum(context)
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </FooterTemplate>
+    </Table>
 </DemoBlock>

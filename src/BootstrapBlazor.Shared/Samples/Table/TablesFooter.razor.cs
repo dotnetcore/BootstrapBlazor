@@ -1,42 +1,20 @@
-﻿@inject IStringLocalizer<TablesFooterTemplate> Localizer
-@inject IStringLocalizer<Foo> LocalizerFoo
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
-<Table TItem="Foo" ShowFooter="true" class="footer-demo"
-       IsPagination="true" PageItemsSource="@PageItemsSource" OnQueryAsync="@OnQueryAsync">
-    <TableColumns>
-        <TableColumn @bind-Field="@context.DateTime" Width="180" />
-        <TableColumn @bind-Field="@context.Name" />
-        <TableColumn @bind-Field="@context.Address" />
-        <TableColumn @bind-Field="@context.Count" />
-    </TableColumns>
-    <FooterTemplate>
-        <tr>
-            <td colspan="4">
-                <div style="text-align: right;">
-                    <span>@Localizer["TablesFooterTemplateSentences"]</span>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <div class="d-flex align-items-center justify-content-end" style="line-height: 3;">@Localizer["TablesFooterTemplateTotal"]</div>
-            </td>
-            <td>
-                <div class="footer-customer">
-                    <div>
-                        Average: @GetAverage(context)
-                    </div>
-                    <hr />
-                    <div>
-                        Sum: @GetSum(context)
-                    </div>
-                </div>
-            </td>
-        </tr>
-    </FooterTemplate>
-</Table>
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-@code {
+namespace BootstrapBlazor.Shared.Samples.Table;
+
+/// <summary>
+/// 统计合并文档
+/// </summary>
+public partial class TablesFooter
+{
     private static IEnumerable<int> PageItemsSource => new int[] { 2, 4, 10, 20 };
 
     /// <summary>
