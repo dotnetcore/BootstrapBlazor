@@ -70,7 +70,7 @@ class CodeSnippetService
                 content = await GetFileContentAsync(fileName);
 
                 // 源码修正
-                CacheManager.GetLocalizedStrings(typeName, LocalizerOptions).ToList().ForEach(l => content = ReplacePayload(content, l));
+                CacheManager.GetLocalizedStrings(typeName, LocalizerOptions).AsParallel().ForAll(l => content = ReplacePayload(content, l));
                 content = ReplaceSymbols(content);
                 content = RemoveBlockStatement(content, "@inject IStringLocalizer<");
             }
