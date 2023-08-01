@@ -4502,19 +4502,11 @@
     "DetailRowTemplate3Intro": "Set the detail row content by setting the <code>DetailRowTemplate</code> template",
     "DetailRowTemplate3P": "In this example, the <code>Tab</code> component is used in the detail row to split the data into two <code>TabItem</code> contents again to demonstrate the data splitting again",
     "DynamicTitle": "Detail row of dynamic data",
-    "DynamicIntro": "Data source is <code>DataTable</code>"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesDetailRow.TablesDetailRowIsDetails": {
+    "DynamicIntro": "Data source is <code>DataTable</code>",
     "EducationText": "Education:",
     "DetailTextTrue": "Enable",
-    "DetailTextFalse": "Disable"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesDetailRow.TablesDetailRowHeight": {
-    "EducationText": "Education:"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesDetailRow.TablesDetailRowTemplate": {
-    "TabItemText": "Associated Data",
-    "EducationText": "Education:"
+    "DetailTextFalse": "Disable",
+    "TabItemText": "Associated Data"
   },
   "BootstrapBlazor.Shared.Samples.Table.Tables": {
     "ButtonAddColumnText": "Add Column",

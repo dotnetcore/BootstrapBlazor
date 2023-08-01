@@ -1,39 +1,33 @@
-﻿@using System.ComponentModel;
-@using System.Collections.Concurrent;
-@inject IStringLocalizer<TablesDetailRowTemplate> Localizer
-@inject IStringLocalizer<Foo> FooLocalizer
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
-<Table TItem="Foo" IsPagination="true" PageItemsSource="@PageItemsSource"
-       IsStriped="true" IsBordered="true"
-       ShowToolbar="true" ShowDefaultButtons="false"
-       OnQueryAsync="@OnQueryAsync">
-    <TableColumns>
-        <TableColumn @bind-Field="@context.DateTime" Width="180" />
-        <TableColumn @bind-Field="@context.Name" Width="100" />
-        <TableColumn @bind-Field="@context.Address" />
-        <TableColumn @bind-Field="@context.Count" />
-    </TableColumns>
-    <DetailRowTemplate>
-        <Tab>
-            <TabItem Text="明细数据">
-                <Table TItem="DetailRow" IsBordered="true" ShowToolbar="false" Items="@GetDetailDataSource(context)" AutoGenerateColumns="true"></Table>
-            </TabItem>
-            <TabItem Text="@Localizer["TabItemText"]">
-                <div>@Localizer["EducationText"] @typeof(EnumEducation).ToDescriptionString(context.Education.ToString())</div>
-            </TabItem>
-        </Tab>
-    </DetailRowTemplate>
-</Table>
+using System.Collections.Concurrent;
+using System.ComponentModel;
 
-@code {
+namespace BootstrapBlazor.Shared.Samples.Table;
+
+/// <summary>
+/// 明细行示例代码
+/// </summary>
+public partial class TablesDetailRow
+{
     private ConcurrentDictionary<string, List<DetailRow>> Cache { get; } = new();
 
     private static readonly Random random = new();
 
     private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
 
+    private DataTableDynamicContext? DataTableDynamicContext { get; set; }
+
     [NotNull]
     private List<Foo>? Items { get; set; }
+
+    [NotNull]
+    private string? DetailText { get; set; }
+
+    [NotNull]
+    private Table<Foo>? Table { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -43,15 +37,19 @@
         base.OnInitialized();
 
         Items = Foo.GenerateFoo(FooLocalizer);
+
+        DetailText = Localizer[$"{nameof(DetailText)}{IsDetails}"];
+
+        DataTableDynamicContext = DataTableDynamicService.CreateContext();
     }
 
     private static List<DetailRow> GetDetailRowsByName(string name) => Enumerable.Range(1, 4).Select(i => new DetailRow()
-        {
-            Id = i,
-            Name = name,
-            DateTime = DateTime.Now.AddDays(i - 1),
-            Complete = random.Next(1, 100) > 50
-        }).ToList();
+    {
+        Id = i,
+        Name = name,
+        DateTime = DateTime.Now.AddDays(i - 1),
+        Complete = random.Next(1, 100) > 50
+    }).ToList();
 
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
@@ -65,10 +63,10 @@
         items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
 
         return Task.FromResult(new QueryData<Foo>()
-            {
-                Items = items,
-                TotalCount = total
-            });
+        {
+            Items = items,
+            TotalCount = total
+        });
     }
 
     private bool IsDetails { get; set; } = true;
@@ -78,6 +76,30 @@
         var cacheKey = foo.Name ?? "";
         return Cache.GetOrAdd(cacheKey, key => GetDetailRowsByName(cacheKey));
     }
+
+    private Func<Foo, Task>? OnDoubleClickRowCallback()
+    {
+        Func<Foo, Task>? ret = null;
+        if (IsDetails)
+        {
+            ret = foo =>
+            {
+                Table.ExpandDetailRow(foo);
+                return Task.CompletedTask;
+            };
+        }
+        return ret;
+    }
+
+    private static bool ShowDetailRow(Foo item) => item.Complete;
+
+    private void OnClickDetailRow()
+    {
+        DetailText = Localizer[$"{nameof(DetailText)}{IsDetails}"];
+        IsDetails = !IsDetails;
+    }
+
+    private DynamicObjectContext GetDetailDataTableDynamicContext(DynamicObject context) => DataTableDynamicService.CreateDetailContext(context);
 
     private class DetailRow
     {

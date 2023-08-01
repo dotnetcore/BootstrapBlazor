@@ -4533,19 +4533,11 @@
     "DetailRowTemplate3Intro": "通过设置 <code>DetailRowTemplate</code> 模板设置明细行内容",
     "DetailRowTemplate3P": "本例中明细行内使用 <code>Tab</code> 组件再次将数据分割成两个 <code>TabItem</code> 内容，进行再次数据拆分演示",
     "DynamicTitle": "动态数据明细行",
-    "DynamicIntro": "数据源为 <code>DataTable</code>"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesDetailRow.TablesDetailRowIsDetails": {
+    "DynamicIntro": "数据源为 <code>DataTable</code>",
     "EducationText": "学历:",
     "DetailTextTrue": "关闭明细行",
-    "DetailTextFalse": "开启明细行"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesDetailRow.TablesDetailRowHeight": {
-    "EducationText": "学历:"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesDetailRow.TablesDetailRowTemplate": {
-    "TabItemText": "关联数据",
-    "EducationText": "学历:"
+    "DetailTextFalse": "开启明细行",
+    "TabItemText": "关联数据"
   },
   "BootstrapBlazor.Shared.Samples.Table.Tables": {
     "ButtonAddColumnText": "增加列",
