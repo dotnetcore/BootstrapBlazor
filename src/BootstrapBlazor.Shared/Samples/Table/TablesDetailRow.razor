@@ -1,5 +1,7 @@
 ﻿@page "/table/detail"
 @inject IStringLocalizer<TablesDetailRow> Localizer
+@inject IStringLocalizer<Foo> FooLocalizer
+@inject MockDataTableDynamicService DataTableDynamicService
 
 <h3>@Localizer["TablesDetailRowTitle"]</h3>
 
@@ -7,34 +9,115 @@
 
 <DemoBlock Title="@Localizer["DetailRowTemplateTitle"]"
            Introduction="@Localizer["DetailRowTemplateIntro"]"
-           Name="IsDetails"
-           Demo="typeof(Demos.Table.TablesDetailRow.TablesDetailRowIsDetails)">
-    <p>@((MarkupString)Localizer["DetailRowTemplateP"].Value)</p>
+           Name="IsDetails">
+    <p class="mb-3">@((MarkupString)Localizer["DetailRowTemplateP"].Value)</p>
+    <Table TItem="Foo" @ref="@Table"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsDetails="IsDetails"
+           ShowToolbar="true" ShowDefaultButtons="false" ShowRefresh="false" OnDoubleClickRowCallback="OnDoubleClickRowCallback()!"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+        <DetailRowTemplate>
+            <div>@Localizer["EducationText"] @typeof(EnumEducation).ToDescriptionString(context.Education.ToString())</div>
+        </DetailRowTemplate>
+    </Table>
+
+    <Button Text="@DetailText" OnClick="OnClickDetailRow" class="mt-3"></Button>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["DetailRowTemplate2Title"]"
            Introduction="@Localizer["DetailRowTemplate2Intro"]"
-           Name="Show"
-           Demo="typeof(Demos.Table.TablesDetailRow.TablesDetailRowShow)">
-    <p>@((MarkupString)Localizer["DetailRowTemplate2P"].Value)</p>
+           Name="Show">
+    <p class="mb-3">@((MarkupString)Localizer["DetailRowTemplate2P"].Value)</p>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowDefaultButtons="false"
+           OnQueryAsync="@OnQueryAsync" ShowDetailRow="ShowDetailRow">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+        <DetailRowTemplate>
+            <Table TItem="DetailRow" IsBordered="true" ShowToolbar="false" Items="@GetDetailDataSource(context)">
+                <TableColumns Context="Detail">
+                    <TableColumn @bind-Field="@Detail.Name" />
+                    <TableColumn @bind-Field="@Detail.DateTime" Width="180" />
+                    <TableColumn @bind-Field="@Detail.Complete" Width="70" />
+                </TableColumns>
+            </Table>
+        </DetailRowTemplate>
+    </Table>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["HeightTitle"]"
            Introduction="@Localizer["HeightIntro"]"
-           Name="Height"
-           Demo="typeof(Demos.Table.TablesDetailRow.TablesDetailRowHeight)">
-    <p>@Localizer["HeightP"]</p>
+           Name="Height">
+    <p class="mb-3">@Localizer["HeightP"]</p>
+    <Table TItem="Foo" Height="400" IsFixedHeader="true"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowDefaultButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+        <DetailRowTemplate>
+            <div>@Localizer["EducationText"] @typeof(EnumEducation).ToDescriptionString(context.Education.ToString())</div>
+        </DetailRowTemplate>
+    </Table>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["DetailRowTemplate3Title"]"
            Introduction="@Localizer["DetailRowTemplate3Intro"]"
-           Name="DetailRowTemplate"
-           Demo="typeof(Demos.Table.TablesDetailRow.TablesDetailRowTemplate)">
-    <p>@((MarkupString)Localizer["DetailRowTemplate3P"].Value)</p>
+           Name="DetailRowTemplate">
+    <p class="mb-3">@((MarkupString)Localizer["DetailRowTemplate3P"].Value)</p>
+    <Table TItem="Foo" IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowDefaultButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+        <DetailRowTemplate>
+            <Tab>
+                <TabItem Text="@Localizer["TabItemText"]">
+                    <Table TItem="DetailRow" IsBordered="true" ShowToolbar="false" Items="@GetDetailDataSource(context)" AutoGenerateColumns="true"></Table>
+                </TabItem>
+                <TabItem Text="@Localizer["TabItemText"]">
+                    <div>@Localizer["EducationText"] @typeof(EnumEducation).ToDescriptionString(context.Education.ToString())</div>
+                </TabItem>
+            </Tab>
+        </DetailRowTemplate>
+    </Table>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["DynamicTitle"]"
            Introduction="@Localizer["DynamicIntro"]"
-           Name="Excel"
-           Demo="typeof(Demos.Table.TablesDetailRow.TablesDetailRowExcel)">
+           Name="Excel">
+    <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
+           IsStriped="true" IsBordered="true" IsExcel="true"
+           ShowToolbar="true" ShowDefaultButtons="false">
+        <DetailRowTemplate>
+            @{
+                var detailContext = GetDetailDataTableDynamicContext(context);
+            }
+            <div class="p-2 w-100">
+                <Table TItem="DynamicObject" DynamicContext="detailContext" IsStriped="true" IsBordered="true" IsExcel="true">
+                </Table>
+            </div>
+        </DetailRowTemplate>
+    </Table>
 </DemoBlock>
