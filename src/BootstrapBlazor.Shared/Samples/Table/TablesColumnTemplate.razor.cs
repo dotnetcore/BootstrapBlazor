@@ -5,9 +5,9 @@
 namespace BootstrapBlazor.Shared.Samples.Table;
 
 /// <summary>
-/// 拖动列示例代码
+/// 列模板示例代码
 /// </summary>
-public partial class TablesColumnDrag
+public partial class TablesColumnTemplate
 {
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
@@ -23,22 +23,13 @@ public partial class TablesColumnDrag
         20
     };
 
-    [NotNull]
-    private ConsoleLogger? Logger { get; set; }
-
     /// <summary>
-    /// <inheritdoc/>
+    /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
         Items = Foo.GenerateFoo(FooLocalizer);
-    }
-
-    private Task OnDragColumnEndAsync(string? columnName)
-    {
-        Logger.Log($"Column: {columnName}");
-        return Task.CompletedTask;
     }
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)

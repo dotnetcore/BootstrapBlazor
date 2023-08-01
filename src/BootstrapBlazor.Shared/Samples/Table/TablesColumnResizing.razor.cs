@@ -5,9 +5,9 @@
 namespace BootstrapBlazor.Shared.Samples.Table;
 
 /// <summary>
-/// 拖动列示例代码
+/// 设置列宽示例代码
 /// </summary>
-public partial class TablesColumnDrag
+public partial class TablesColumnResizing
 {
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
@@ -23,22 +23,13 @@ public partial class TablesColumnDrag
         20
     };
 
-    [NotNull]
-    private ConsoleLogger? Logger { get; set; }
-
     /// <summary>
-    /// <inheritdoc/>
+    /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
         Items = Foo.GenerateFoo(FooLocalizer);
-    }
-
-    private Task OnDragColumnEndAsync(string? columnName)
-    {
-        Logger.Log($"Column: {columnName}");
-        return Task.CompletedTask;
     }
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
@@ -66,5 +57,29 @@ public partial class TablesColumnDrag
         // 内存分页
         items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
         return Task.FromResult(new QueryData<Foo>() { Items = items, TotalCount = total, IsSorted = isSorted, IsFiltered = isFiltered, IsSearch = true });
+    }
+
+    /// <summary>
+    /// CustomerButton
+    /// </summary>
+    /// <param name = "items"></param>
+    private async Task CustomerButton(IEnumerable<Foo> items)
+    {
+        var cate = ToastCategory.Information;
+        var title = Localizer["CustomerButtonTitle"];
+        var content = Localizer["CustomerButtonContent", items.Count()];
+        await ToastService.Show(new ToastOption() { Category = cate, Title = title, Content = content });
+    }
+
+    [NotNull]
+    private Table<Foo>? TableRows { get; set; }
+
+    private async Task OnRowButtonClick(Foo item, string text)
+    {
+        var cate = ToastCategory.Success;
+        var title = $"{text} {item.Name}";
+        var content = Localizer["OnRowButtonClickContent"];
+        await ToastService.Show(new ToastOption() { Category = cate, Title = title, Content = content });
+        await TableRows.QueryAsync();
     }
 }

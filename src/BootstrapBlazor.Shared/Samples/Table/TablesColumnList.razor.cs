@@ -5,9 +5,9 @@
 namespace BootstrapBlazor.Shared.Samples.Table;
 
 /// <summary>
-/// 拖动列示例代码
+/// 列视图示例代码
 /// </summary>
-public partial class TablesColumnDrag
+public partial class TablesColumnList
 {
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
@@ -24,10 +24,27 @@ public partial class TablesColumnDrag
     };
 
     [NotNull]
-    private ConsoleLogger? Logger { get; set; }
+    private Table<Foo>? TableColumnVisible { get; set; }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// IntFormatter
+    /// </summary>
+    /// <param name = "d"></param>
+    /// <returns></returns>
+    private static Task<string> IntFormatter(object? d)
+    {
+        var ret = "";
+        if (d is TableColumnContext<Foo, object?> data && data.Value != null)
+        {
+            var val = (int)data.Value;
+            ret = val.ToString("0.00");
+        }
+
+        return Task.FromResult(ret);
+    }
+
+    /// <summary>
+    /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()
     {
@@ -35,9 +52,9 @@ public partial class TablesColumnDrag
         Items = Foo.GenerateFoo(FooLocalizer);
     }
 
-    private Task OnDragColumnEndAsync(string? columnName)
+    private Task ResetVisibleColumns()
     {
-        Logger.Log($"Column: {columnName}");
+        TableColumnVisible.ResetVisibleColumns(new ColumnVisibleItem[] { new(nameof(Foo.DateTime), true), new(nameof(Foo.Name), false), new(nameof(Foo.Address), false), new(nameof(Foo.Education), false), new(nameof(Foo.Count), false), new(nameof(Foo.Complete), true) });
         return Task.CompletedTask;
     }
 
