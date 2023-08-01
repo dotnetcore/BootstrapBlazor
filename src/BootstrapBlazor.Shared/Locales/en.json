@@ -4959,12 +4959,8 @@
     "TablesFooterStatisticsTips3": "The content of the cell <code>td</code> can be customized in the <code>TableFooter</code> template, or the built-in <code>TableFooterCell</code> component can be used for data display",
     "TablesFooterTemplateTitle": "Footer template",
     "TablesFooterTemplateIntro": "Set <code>FooterTemplate</code> to customize the content displayed at the bottom of the table",
-    "TablesFooterTemplateDescription": "<code>Footer</code> is displayed by default when there is no data. You can hide <code>Footer</code> by setting the <code>@nameof(Table<Foo>.IsHideFooterWhenNoData)</code> parameter"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesFooter.TablesFooterStatistics": {
-    "TablesFooterStatisticsTotal": "Total:"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesFooter.TablesFooterTemplate": {
+    "TablesFooterTemplateDescription": "<code>Footer</code> is displayed by default when there is no data. You can hide <code>Footer</code> by setting the <code>@nameof(Table<Foo>.IsHideFooterWhenNoData)</code> parameter",
+    "TablesFooterStatisticsTotal": "Total:",
     "TablesFooterTemplateSentences": "Here you can write some descriptive sentences",
     "TablesFooterTemplateTotal": "Total:"
   },

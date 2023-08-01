@@ -4511,12 +4511,8 @@
     "TablesFooterStatisticsTips3": "<code>TableFooter</code> 模板内可以自定义单元格 <code>td</code> 内容，也可以使用内置的 <code>TableFooterCell</code> 组件进行数据显示",
     "TablesFooterTemplateTitle": "Footer 模板",
     "TablesFooterTemplateIntro": "设置 <code>FooterTemplate</code> 自定义表格底部显示内容",
-    "TablesFooterTemplateDescription": "无数据时默认显示 <code>Footer</code> 可通过设置 <code>@nameof(Table<Foo>.IsHideFooterWhenNoData)</code> 参数隐藏 <code>Footer</code>"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesFooter.TablesFooterStatistics": {
-    "TablesFooterStatisticsTotal": "合计："
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesFooter.TablesFooterTemplate": {
+    "TablesFooterTemplateDescription": "无数据时默认显示 <code>Footer</code> 可通过设置 <code>@nameof(Table<Foo>.IsHideFooterWhenNoData)</code> 参数隐藏 <code>Footer</code>",
+    "TablesFooterStatisticsTotal": "合计：",
     "TablesFooterTemplateSentences": "这里可以写一些描述性的语句",
     "TablesFooterTemplateTotal": "合计："
   },
