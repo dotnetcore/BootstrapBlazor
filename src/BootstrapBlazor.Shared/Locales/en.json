@@ -5104,9 +5104,7 @@
     "ColumnNameAttr": "Current cell binding column name",
     "ColspanAttr": "Number of merged cells",
     "ClassAttr": "Current cell style",
-    "ValueAttr": "Current cell display content"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesCell.TableCellOnDoubleClickCell": {
+    "ValueAttr": "Current cell display content",
     "TableCellOnDoubleClickCellToastTitle": "Double-click cell callback",
     "TableCellOnDoubleClickCellCurrentCellName": "Current cell name:",
     "TableCellOnDoubleClickCellCurrentValue": "Current Value:"

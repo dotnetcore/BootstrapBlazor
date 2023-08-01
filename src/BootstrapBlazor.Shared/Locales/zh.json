@@ -5120,9 +5120,7 @@
     "ColumnNameAttr": "当前单元格绑定列名称",
     "ColspanAttr": "合并单元格数量",
     "ClassAttr": "当前单元格样式",
-    "ValueAttr": "当前单元格显示内容"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesCell.TableCellOnDoubleClickCell": {
+    "ValueAttr": "当前单元格显示内容",
     "TableCellOnDoubleClickCellToastTitle": "双击单元格回调",
     "TableCellOnDoubleClickCellCurrentCellName": "当前单元格名称：",
     "TableCellOnDoubleClickCellCurrentValue": "当前值："
