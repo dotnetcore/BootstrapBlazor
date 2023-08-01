@@ -76,7 +76,7 @@ public partial class SpeechWave : IDisposable
             IsRun = true;
             UsedTimeSpan = TimeSpan.Zero;
             Token ??= new CancellationTokenSource();
-            while (!Token.IsCancellationRequested)
+            while (Token != null && !Token.IsCancellationRequested)
             {
                 try
                 {
