@@ -1,5 +1,7 @@
 ﻿@page "/table/export"
 @inject IStringLocalizer<TablesExport> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
+@inject ToastService ToastService
 
 <h3>@Localizer["TablesExportTitle"]</h3>
 <h4>@((MarkupString)Localizer["TablesExportDescription1"].Value)</h4>
@@ -7,7 +9,6 @@
 <p>@((MarkupString)@Localizer["TablesExportDescription2"].Value)</p>
 
 <PackageTips Name="BootstrapBlazor.TableExport" />
-
 
 <p><b>@Localizer["TablesExportTips"]：</b></p>
 
@@ -22,18 +23,61 @@
 
 <DemoBlock Title="@Localizer["TablesExportShowExportButtonTitle"]"
            Introduction="@Localizer["TablesExportShowExportButtonIntro"]"
-           Name="ShowExportButton"
-           Demo="typeof(Demos.Table.TablesExport.TablesExportShowExportButton)">
+           Name="ShowExportButton">
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowDefaultButtons="false" ShowExportButton="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TablesExportOnExportAsyncTitle"]"
            Introduction="@Localizer["TablesExportOnExportAsyncIntro"]"
-           Name="OnExportAsync"
-           Demo="typeof(Demos.Table.TablesExport.TablesExportOnExportAsync)">
+           Name="OnExportAsync">
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowDefaultButtons="false" ShowExportButton="true"
+           OnExportAsync="OnExportAsync" OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TablesExportButtonDropdownTemplateTitle"]"
            Introduction="@Localizer["TablesExportButtonDropdownTemplateIntro"]"
-           Name="ExportButtonDropdownTemplate"
-           Demo="typeof(Demos.Table.TablesExport.TablesExportButtonDropdownTemplate)">
+           Name="ExportButtonDropdownTemplate">
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowDefaultButtons="false" ShowExportButton="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+        <ExportButtonDropdownTemplate Context="ExportContext">
+            <div class="dropdown-item" @onclick="ExportContext.ExportAsync">
+                <i class="fa-regular fa-file-excel"></i>
+                <span>MS-Excel</span>
+            </div>
+            <div class="dropdown-item" @onclick="@CsvExportAsync">
+                <i class="fa-regular fa-file-excel"></i>
+                <span>MS-CSV</span>
+            </div>
+        </ExportButtonDropdownTemplate>
+    </Table>
 </DemoBlock>
