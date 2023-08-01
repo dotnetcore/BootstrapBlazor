@@ -5109,16 +5109,10 @@
     "DoubleClickRowCallbackP": "The mobile terminal (CardView) mode temporarily does not support double-click editing of the current row function",
     "SetRowClassFormatterTitle": "Custom row highlighting",
     "SetRowClassFormatterIntro": "By setting the <code>SetRowClassFormatter</code> attribute value, you can set the row style through the row data logic, and realize the function of your own highlighting requirements",
-    "SetRowClassFormatterP": "In this example, the <code>SetRowClassFormatter</code> method will highlight the row by judging the <code>Count > 60</code> of the bound data"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesRow.TablesRowNubmer": {
-    "RowNumberText": "Number"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesRow.TablesRowClickToSelect": {
+    "SetRowClassFormatterP": "In this example, the <code>SetRowClassFormatter</code> method will highlight the row by judging the <code>Count > 60</code> of the bound data",
+    "RowNumberText": "Number",
     "ClickToSelectP3": "Currently selected row:",
-    "ClickToSelectNoneText": "None"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesRow.TablesRowDoubleClickToEdit": {
+    "ClickToSelectNoneText": "None",
     "PlaceHolder": "Cannot be empty, within 50 characters"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesDynamic": {

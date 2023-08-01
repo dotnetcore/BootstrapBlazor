@@ -1,21 +1,10 @@
-﻿@inject IStringLocalizer<Foo> FooLocalizer
-@inject ToastService ToastService
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
-<Table TItem="Foo"
-       IsPagination="true" PageItemsSource="@PageItemsSource"
-       IsStriped="true" IsBordered="true"
-       ShowToolbar="true"
-       ShowDefaultButtons="false" OnDoubleClickRowCallback="@DoubleClickRowCallback"
-       OnQueryAsync="@OnQueryAsync">
-    <TableColumns>
-        <TableColumn @bind-Field="@context.DateTime" Width="180" />
-        <TableColumn @bind-Field="@context.Name" Width="100" />
-        <TableColumn @bind-Field="@context.Address" />
-        <TableColumn @bind-Field="@context.Count" />
-    </TableColumns>
-</Table>
-
-@code {
+namespace BootstrapBlazor.Shared.Samples.Table;
+public partial class TablesRow
+{
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
     /// Foo class is used for Demo test, please download the source code if necessary
@@ -34,6 +23,32 @@
         base.OnInitialized();
 
         Items = Foo.GenerateFoo(FooLocalizer);
+    }
+
+    private static Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { DateTime = DateTime.Now });
+
+    private Task<bool> OnSaveAsync(Foo item, ItemChangedType changedType)
+    {
+        // 增加数据演示代码
+        if (changedType == ItemChangedType.Add)
+        {
+            item.Id = Items.Max(i => i.Id) + 1;
+            Items.Add(item);
+        }
+        else
+        {
+            var oldItem = Items.FirstOrDefault(i => i.Id == item.Id);
+            if (oldItem != null)
+            {
+                oldItem.Name = item.Name;
+                oldItem.Address = item.Address;
+                oldItem.DateTime = item.DateTime;
+                oldItem.Count = item.Count;
+                oldItem.Complete = item.Complete;
+                oldItem.Education = item.Education;
+            }
+        }
+        return Task.FromResult(true);
     }
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
@@ -56,6 +71,15 @@
         });
     }
 
+    private Foo? CurrentItem { get; set; }
+
+    private Task ClickRow(Foo item)
+    {
+        CurrentItem = item;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
     private async Task DoubleClickRowCallback(Foo item)
     {
         var cate = ToastCategory.Success;
@@ -68,4 +92,6 @@
             Content = content
         });
     }
+
+    private static string? SetRowClassFormatter(Foo item) => item.Count > 60 ? "row-highlight" : null;
 }
