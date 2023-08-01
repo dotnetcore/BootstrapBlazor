@@ -5060,7 +5060,7 @@
     "TablesToolbarCustomDisplayButtonIntro": "By setting the <code>ShowAddButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> attribute value to control whether the individual function button is displayed, when <code>ShowDefaultButtons</code> is set to <code> When false</code>, all buttons are not displayed",
     "TablesToolbarCustomButton1": "Download 1",
     "TablesToolbarCustomButton2": "Download 2",
-    "TableToolbarPopconfirmButton1": "Confirm"
+    "TableToolbarPopConfirmButton1": "Confirm"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesCell": {
     "TablesCellTitle": "Table Cell",

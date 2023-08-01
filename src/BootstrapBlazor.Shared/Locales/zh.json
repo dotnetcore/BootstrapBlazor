@@ -4807,10 +4807,10 @@
     "ResetVisibleColumnsButtonText": "设置列隐藏信息"
   },
   "BootstrapBlazor.Shared.Demos.Table.TablesColumn.TablesColumnVisible": {
-    
+
   },
   "BootstrapBlazor.Shared.Demos.Table.TablesColumn.TablesColumnWidth": {
-    
+
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesEdit": {
     "TablesEditTitle": "Table 表格",
@@ -5083,7 +5083,7 @@
     "TablesToolbarCustomDisaplayButtonIntro": "通过设置 <code>ShowAddButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> 属性值来控制单独功能按钮是否显示，当 <code>ShowDefaultButtons</code> 设置为 <code>false</code> 时，所有按钮均不显示",
     "TablesToolbarCustomButton1": "下载1",
     "TablesToolbarCustomButton2": "下载2",
-    "TableToolbarPopconfirmButton1": "确认下载"
+    "TableToolbarPopConfirmButton1": "确认下载"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesCell": {
     "TablesCellTitle": "Table 表格",
