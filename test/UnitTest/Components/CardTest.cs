@@ -84,11 +84,16 @@ public class CardTest : BootstrapBlazorTestBase
     [Fact]
     public void Collapsed_Ok()
     {
+        bool collapsed = false;
         var cut = Context.RenderComponent<Card>(builder =>
         {
             builder.Add(a => a.IsCollapsible, true);
             builder.Add(a => a.HeaderText, "Header");
             builder.Add(a => a.Collapsed, true);
+            builder.Add(a => a.CollapsedChanged, v =>
+            {
+                collapsed = v;
+            });
         });
         Assert.Contains("data-bs-toggle=\"collapse\"", cut.Markup);
         Assert.Contains("collapse", cut.Markup);
@@ -101,6 +106,7 @@ public class CardTest : BootstrapBlazorTestBase
             var header = cut.Find(".card-collapse-bar");
             header.Click();
             Assert.True(cut.Instance.Collapsed);
+            Assert.True(collapsed);
 
             header.Click();
             Assert.False(cut.Instance.Collapsed);
