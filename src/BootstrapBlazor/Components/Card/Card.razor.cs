@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Card组件基类
+/// Card 组件
 /// </summary>
 public partial class Card
 {
@@ -103,6 +103,12 @@ public partial class Card
     public bool Collapsed { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否收缩 默认 false 展开
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> CollapsedChanged { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示阴影 默认 false
     /// </summary>
     [Parameter]
@@ -122,5 +128,16 @@ public partial class Card
         CollapseIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardCollapseIcon);
     }
 
-    private void ToggleCollapse() => Collapsed = !Collapsed;
+    /// <summary>
+    /// The callback click collapse button
+    /// </summary>
+    /// <returns></returns>
+    protected virtual async Task ToggleCollapse()
+    {
+        Collapsed = !Collapsed;
+        if (CollapsedChanged.HasDelegate)
+        {
+            await CollapsedChanged.InvokeAsync(Collapsed);
+        }
+    }
 }
