@@ -6,7 +6,7 @@ using BootstrapBlazor.Components;
 using PetaPoco;
 using PetaPoco.Extensions;
 
-namespace BootstrapBlazor.DataAcces.PetaPoco;
+namespace BootstrapBlazor.DataAccess.PetaPoco;
 
 /// <summary>
 /// PetaPoco ORM 的 IDataService 接口实现

@@ -5,7 +5,7 @@
 using BootstrapBlazor.Components;
 using Microsoft.EntityFrameworkCore;
 
-namespace BootstrapBlazor.DataAcces.EntityFrameworkCore;
+namespace BootstrapBlazor.DataAccess.EntityFrameworkCore;
 
 /// <summary>
 /// Entity Framework ORM 的 IDataService 接口实现

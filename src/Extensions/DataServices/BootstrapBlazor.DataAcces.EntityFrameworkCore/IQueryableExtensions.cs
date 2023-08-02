@@ -5,7 +5,7 @@
 using BootstrapBlazor.Components;
 using System.Linq.Expressions;
 
-namespace BootstrapBlazor.DataAcces.EntityFrameworkCore;
+namespace BootstrapBlazor.DataAccess.EntityFrameworkCore;
 
 /// <summary>
 /// IQueryable 扩展方法

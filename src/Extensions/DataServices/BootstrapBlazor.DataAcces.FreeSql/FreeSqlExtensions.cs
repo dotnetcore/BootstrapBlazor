@@ -5,7 +5,7 @@
 using BootstrapBlazor.Components;
 using FreeSql.Internal.Model;
 
-namespace BootstrapBlazor.DataAcces.FreeSql;
+namespace BootstrapBlazor.DataAccess.FreeSql;
 
 /// <summary>
 /// 

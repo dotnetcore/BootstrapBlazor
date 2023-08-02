@@ -3,7 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
-using BootstrapBlazor.DataAcces.FreeSql;
+using BootstrapBlazor.DataAccess.FreeSql;
 using FreeSql;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 

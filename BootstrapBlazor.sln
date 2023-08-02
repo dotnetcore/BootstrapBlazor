@@ -50,11 +50,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "components", "components", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data-services", "data-services", "{56FEFF09-85FC-408D-A397-6E264E68414E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.DataAcces.EntityFrameworkCore", "src\Extensions\DataServices\BootstrapBlazor.DataAcces.EntityFrameworkCore\BootstrapBlazor.DataAcces.EntityFrameworkCore.csproj", "{A6C321C4-CDB4-4432-8137-6D09D815261B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.DataAccess.EntityFrameworkCore", "src\Extensions\DataServices\BootstrapBlazor.DataAcces.EntityFrameworkCore\BootstrapBlazor.DataAccess.EntityFrameworkCore.csproj", "{A6C321C4-CDB4-4432-8137-6D09D815261B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.DataAcces.PetaPoco", "src\Extensions\DataServices\BootstrapBlazor.DataAcces.PetaPoco\BootstrapBlazor.DataAcces.PetaPoco.csproj", "{90989C67-C908-41BD-ADF8-58A51F1CE612}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.DataAccess.PetaPoco", "src\Extensions\DataServices\BootstrapBlazor.DataAcces.PetaPoco\BootstrapBlazor.DataAccess.PetaPoco.csproj", "{90989C67-C908-41BD-ADF8-58A51F1CE612}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.DataAcces.FreeSql", "src\Extensions\DataServices\BootstrapBlazor.DataAcces.FreeSql\BootstrapBlazor.DataAcces.FreeSql.csproj", "{D501B535-B6CC-46FD-A497-08AA87731ED6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.DataAccess.FreeSql", "src\Extensions\DataServices\BootstrapBlazor.DataAcces.FreeSql\BootstrapBlazor.DataAccess.FreeSql.csproj", "{D501B535-B6CC-46FD-A497-08AA87731ED6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Chart", "src\Extensions\Components\BootstrapBlazor.Chart\BootstrapBlazor.Chart.csproj", "{337FABF3-4318-408E-8544-C0F20D0197A1}"
 EndProject
@@ -127,7 +127,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Html2Pdf", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Live2DDisplay", "src\Extensions\Components\BootstrapBlazor.Live2DDisplay\BootstrapBlazor.Live2DDisplay.csproj", "{975D45E4-C354-4AFD-8D6F-571938E19105}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestDocs", "test\UnitTestDocs\UnitTestDocs.csproj", "{6D73FED6-0086-460B-84FA-1FA78176BF59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestDocs", "test\UnitTestDocs\UnitTestDocs.csproj", "{6D73FED6-0086-460B-84FA-1FA78176BF59}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
