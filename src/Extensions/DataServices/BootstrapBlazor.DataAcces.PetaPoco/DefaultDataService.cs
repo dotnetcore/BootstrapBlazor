@@ -64,14 +64,14 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel> where TModel
 
         if (option.IsPage)
         {
-            var items = await _db.PageAsync<TModel>(option.PageIndex, option.PageItems, option.Filters.Concat(option.Searchs), option.SortName, option.SortOrder);
+            var items = await _db.PageAsync<TModel>(option.PageIndex, option.PageItems, option.Filters.Concat(option.Searches), option.SortName, option.SortOrder);
 
             ret.TotalCount = int.Parse(items.TotalItems.ToString());
             ret.Items = items.Items;
         }
         else
         {
-            var items = await _db.FetchAsync<TModel>(option.Filters.Concat(option.Searchs), option.SortName, option.SortOrder);
+            var items = await _db.FetchAsync<TModel>(option.Filters.Concat(option.Searches), option.SortName, option.SortOrder);
             ret.TotalCount = items.Count;
             ret.Items = items;
         }
