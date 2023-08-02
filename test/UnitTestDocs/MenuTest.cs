@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace UnitTestDocs;
 
-public class MenuTest
+public partial class MenuTest
 {
     private ITestOutputHelper _logger;
     private IServiceProvider _serviceProvider;
@@ -76,12 +76,10 @@ public class MenuTest
 
                 // razor file
                 var razorFile = $"{file}.razor";
-                var regex = new Regex("@Localizer\\[\"(\\w+)\"\\]");
-                ReplaceContent(razorFile, typeName, regex);
+                ReplaceContent(razorFile, typeName, RazorRegex());
 
-                var csharpFile = $"{file}.razor.cs";
-                regex = new Regex("Localizer\\[\"(\\w+)\"\\]");
-                ReplaceContent(csharpFile, typeName, regex);
+                var srcFile = $"{file}.razor.cs";
+                ReplaceContent(srcFile, typeName, SourceCodeRegex());
             }
         }
 
@@ -127,4 +125,10 @@ public class MenuTest
         }
         return payload;
     }
+
+    [GeneratedRegex("@Localizer\\[\"(\\w+)\"\\]")]
+    private static partial Regex RazorRegex();
+
+    [GeneratedRegex("Localizer\\[\"(\\w+)\"\\]")]
+    private static partial Regex SourceCodeRegex();
 }
