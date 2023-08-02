@@ -79,7 +79,7 @@ public partial class Ajaxs
         new MethodItem()
         {
             Name = "Goto",
-            Description = Localizer["Goto"],
+            Description = Localizer["GoTo"],
             Parameters = "string",
             ReturnValue = " — "
         }

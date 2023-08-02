@@ -6,9 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\src\BootstrapBlazor.Shared\Extensions\CacheManagerExtensions.cs" Link="Extensions\CacheManagerExtensions.cs" />
     <Compile Include="..\..\src\BootstrapBlazor.Shared\Extensions\MenusLocalizerExtensions.cs" Link="Extensions\MenusLocalizerExtensions.cs" />
-    <Compile Include="..\..\src\BootstrapBlazor.Shared\Services\CodeSnippetService.cs" Link="Services\CodeSnippetService.cs" />
     <Compile Include="..\..\src\BootstrapBlazor.Shared\Services\MenuService.cs" Link="Services\MenuService.cs" />
   </ItemGroup>
 
