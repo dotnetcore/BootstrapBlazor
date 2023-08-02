@@ -152,10 +152,18 @@ public partial class Pre
             {
                 content = match.Groups[1].Value.Replace("\r\n", "\n").Replace("\n    ", "\n").TrimStart('\n');
             }
+
+            // 移除 ConsoleLogger
+            regex = ConsoleLoggerRegex();
+            match = regex.Match(content);
+            if (match.Success)
+            {
+                content = content.Replace(match.Value, "");
+            }
         }
-        return content;
+        return content.TrimEnd('\n');
     }
 
-    [GeneratedRegex("<DemoBlock \\w+ Name=\"\\w+\"")]
-    private static partial Regex DemoBlockNameRegex();
+    [GeneratedRegex("<ConsoleLogger [\\s\\S]* />")]
+    private static partial Regex ConsoleLoggerRegex();
 }
