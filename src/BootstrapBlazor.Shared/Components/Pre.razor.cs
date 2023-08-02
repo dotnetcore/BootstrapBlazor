@@ -160,10 +160,21 @@ public partial class Pre
             {
                 content = content.Replace(match.Value, "");
             }
+
+            // 移除 Tips
+            regex = TipsRegex();
+            match = regex.Match(content);
+            if (match.Success)
+            {
+                content = content.Replace(match.Value, "").TrimStart('\n');
+            }
         }
         return content.TrimEnd('\n');
     }
 
     [GeneratedRegex("<ConsoleLogger [\\s\\S]* />")]
     private static partial Regex ConsoleLoggerRegex();
+
+    [GeneratedRegex("<Tips[\\s\\S]*>[\\s\\S]*?</Tips>")]
+    private static partial Regex TipsRegex();
 }
