@@ -4929,8 +4929,8 @@
     "TablesTrackingDescription": "Applicable to application scenarios where parent and child tables are submitted together",
     "TablesTrackingNormalTitle": "tracking mode",
     "TablesTrackingNormalIntro": "Set <code>IsTracking</code> with <code>Items</code> without setting <code>OnSaveAsync</code> and other callback methods",
-    "TablesTrackingNormaltips1": "The prompt information of the <b>Save</b> <b>Delete</b> button can be turned off by setting <code>ShowToastAfterSaveOrDeleteModel='false'</code>",
-    "TablesTrackingNormaltips2": "All data editing in this mode edits the original data and updates the data source through <code>bind-Items</code>, so no <b>Cancel</b> button is provided"
+    "TablesTrackingNormalTips1": "The prompt information of the <b>Save</b> <b>Delete</b> button can be turned off by setting <code>ShowToastAfterSaveOrDeleteModel='false'</code>",
+    "TablesTrackingNormalTips2": "All data editing in this mode edits the original data and updates the data source through <code>bind-Items</code>, so no <b>Cancel</b> button is provided"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {
     "TablesFooterTitle": "Table Footer",
