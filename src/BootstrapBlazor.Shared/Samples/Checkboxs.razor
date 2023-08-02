@@ -5,7 +5,7 @@
 
 <h4>@Localizer["Description"]</h4>
 
-<DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal" >
+<DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
     <div class="row g-3 form-inline">
         <div class="col-12 col-sm-4">
             <Checkbox TValue="string" OnStateChanged="@OnStateChanged" DisplayText="@Localizer["StatusText1"]" ShowLabel="true" Color="Color.Danger" State="CheckboxState.Checked" />
@@ -20,7 +20,7 @@
     <ConsoleLogger @ref="NormalLogger" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["DisabledTitle"]" Introduction="@Localizer["DisabledIntro"]" Name="Disabled" >
+<DemoBlock Title="@Localizer["DisabledTitle"]" Introduction="@Localizer["DisabledIntro"]" Name="Disabled">
     <div class="row g-3 form-inline">
         <div class="col-12 col-sm-4">
             <Checkbox TValue="string" IsDisabled="true" DisplayText="@Localizer["StatusText1"]" ShowLabel="true" State="CheckboxState.Checked" />
@@ -31,7 +31,7 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ShowLabelTitle"]" Introduction="@Localizer["ShowLabelIntro"]" Name="ShowLabel" >
+<DemoBlock Title="@Localizer["ShowLabelTitle"]" Introduction="@Localizer["ShowLabelIntro"]" Name="ShowLabel">
     <div class="row g-3 form-inline">
         <div class="col-12 col-md-4">
             <Checkbox TValue="string" State="CheckboxState.Checked" DisplayText="@Localizer["StatusText1"]" ShowLabel="true" Color="@Color.Primary" />
@@ -54,7 +54,7 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["DisplayTextTitle"]" Introduction="@Localizer["DisplayTextIntro"]" Name="DisplayText" >
+<DemoBlock Title="@Localizer["DisplayTextTitle"]" Introduction="@Localizer["DisplayTextIntro"]" Name="DisplayText">
     <div class="row g-3 form-inline">
         <div class="col-12 col-md-3">
             <Checkbox TValue="string" State="CheckboxState.Checked" ShowLabel="true" DisplayText="Default" />
@@ -77,7 +77,7 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ShowAfterLabelTitle"]" Introduction="@Localizer["ShowAfterLabelIntro"]" Name="ShowAfterLabel" >
+<DemoBlock Title="@Localizer["ShowAfterLabelTitle"]" Introduction="@Localizer["ShowAfterLabelIntro"]" Name="ShowAfterLabel">
     <p>@((MarkupString)Localizer["ShowAfterLabelDescription"].Value)</p>
     <div class="row g-3 form-inline">
         <div class="col-12 col-md-3">
@@ -102,7 +102,7 @@
 
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["OnStateChangedTitle"]" Introduction="@Localizer["OnStateChangedIntro"]" Name="OnStateChanged" >
+<DemoBlock Title="@Localizer["OnStateChangedTitle"]" Introduction="@Localizer["OnStateChangedIntro"]" Name="OnStateChanged">
     <div class="row g-3 form-inline">
         <div class="col-12">
             <Checkbox TValue="bool" DisplayText="@Localizer["Checkbox2Text"]" ShowLabel="true" @bind-Value="@BindValue" OnStateChanged="@OnItemChanged" />
@@ -114,7 +114,7 @@
     <ConsoleLogger @ref="OnStateChangedLogger" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["BindStringTitle"]" Introduction="@Localizer["BindStringIntro"]" Name="BindString" >
+<DemoBlock Title="@Localizer["BindStringTitle"]" Introduction="@Localizer["BindStringIntro"]" Name="BindString">
     <div class="row g-3 form-inline">
         <div class="col-12">
             <Checkbox TValue="string" DisplayText="@Localizer["Checkbox2Text"]" ShowLabel="true" @bind-Value="@BindString" OnStateChanged="@OnItemChangedString" />
@@ -126,7 +126,7 @@
     <ConsoleLogger @ref="BindStringLogger" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ValidateFormTitle"]" Introduction="@Localizer["ValidateFormIntro"]" Name="ValidateForm" >
+<DemoBlock Title="@Localizer["ValidateFormTitle"]" Introduction="@Localizer["ValidateFormIntro"]" Name="ValidateForm">
     <p>@((MarkupString)Localizer["ValidateFormDescription"].Value)</p>
     <ValidateForm Model="@Model">
         <div class="row g-3 form-inline">

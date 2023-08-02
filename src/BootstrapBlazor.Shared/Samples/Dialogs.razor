@@ -39,7 +39,7 @@ private async Task OnClick()
 <p class="code-label">@((MarkupString)Localizer["Tip5"].Value)</p>
 <Pre>&lt;DialogCloseButton /&gt;</Pre>
 
-<DemoBlock Title="@Localizer["KeyboardTitle"]" Introduction="@Localizer["KeyboardIntro"]" Name="Keyboard" >
+<DemoBlock Title="@Localizer["KeyboardTitle"]" Introduction="@Localizer["KeyboardIntro"]" Name="Keyboard">
     <p>@((MarkupString)Localizer["KeyboardTip"].Value)</p>
     <Button OnClick="@KeyboardOnClick">@Localizer["KeyboardOpenDialogButton"]</Button>
 <Button OnClick="@OnClickKeyboard" Text="@($"Keyboard: {IsKeyboard}")" class="ms-3" />
@@ -49,25 +49,25 @@ private async Task OnClick()
     <Button OnClick="@OnResizeDialogClick" Text="Resize"></Button>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["CustomerHeaderTitle"]" Introduction="@Localizer["CustomerHeaderIntro"]" Name="CustomerHeader" >
+<DemoBlock Title="@Localizer["CustomerHeaderTitle"]" Introduction="@Localizer["CustomerHeaderIntro"]" Name="CustomerHeader">
     <Button OnClick="@OnCustomerHeaderClick" Text="@Localizer["CustomerHeaderOpenDialogButton"]" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["HeaderToolbarTemplateTitle"]" Introduction="@Localizer["HeaderToolbarTemplateIntro"]" Name="HeaderToolbarTemplate" >
+<DemoBlock Title="@Localizer["HeaderToolbarTemplateTitle"]" Introduction="@Localizer["HeaderToolbarTemplateIntro"]" Name="HeaderToolbarTemplate">
     <Button OnClick="@OnCustomerHeaderToolbarClick" Text="@Localizer["HeaderToolbarTemplateButtonText"]" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ComponentTitle"]" Introduction="@Localizer["ComponentIntro"]" Name="Component" >
+<DemoBlock Title="@Localizer["ComponentTitle"]" Introduction="@Localizer["ComponentIntro"]" Name="Component">
     <div class="mb-2">@((MarkupString)Localizer["ComponentTip"].Value)</div>
     <Button @onclick="@ComponentOnClick">@Localizer["ComponentOpenDialogButton"]</Button>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["BodyContextTitle"]" Introduction="@Localizer["BodyContextIntro"]" Name="BodyContext" >
+<DemoBlock Title="@Localizer["BodyContextTitle"]" Introduction="@Localizer["BodyContextIntro"]" Name="BodyContext">
     <p>@((MarkupString)Localizer["BodyContextTip"].Value)</p>
     <Button @onclick="@BodyContextOnClick">@Localizer["BodyContextOpenDialogButton"]</Button>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ApplyTitle"]" Introduction="@Localizer["ApplyIntro"]" Name="Apply" >
+<DemoBlock Title="@Localizer["ApplyTitle"]" Introduction="@Localizer["ApplyIntro"]" Name="Apply">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <Select @bind-Value="@ApplyDataPrimaryId" DisplayText="@Localizer["ApplyDisplayText"]" ShowLabel="true">
@@ -126,7 +126,7 @@ private async Task OnClick()
     <ConsoleLogger @ref="ModalDialogLogger" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["EditDialogTitle"]" Introduction="@Localizer["EditDialogIntro"]" Name="EditDialog" >
+<DemoBlock Title="@Localizer["EditDialogTitle"]" Introduction="@Localizer["EditDialogIntro"]" Name="EditDialog">
     <div class="mb-2">@Localizer["EditDialogTip1"]</div>
     <ul class="ul-demo mb-2">
         <li>@Localizer["EditDialogTip2"]</li>
@@ -146,7 +146,7 @@ private async Task OnClick()
     <Button OnClick="@OnSearchDialogClick">@Localizer["SearchDialogButton"]</Button>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["SaveDialogTitle"]" Introduction="@Localizer["SaveDialogIntro"]" Name="SaveDialog" >
+<DemoBlock Title="@Localizer["SaveDialogTitle"]" Introduction="@Localizer["SaveDialogIntro"]" Name="SaveDialog">
     <div class="mb-2">@Localizer["SaveDialogTip1"]</div>
     <ul class="ul-demo mb-2">
         <li>@Localizer["SaveDialogTip2"]</li>
@@ -156,24 +156,24 @@ private async Task OnClick()
     <Button OnClick="@OnSaveDialogClick">@Localizer["SaveDialogButton"]</Button>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["SizeTitle"]" Introduction="@Localizer["SizeIntro"]" Name="Size" >
+<DemoBlock Title="@Localizer["SizeTitle"]" Introduction="@Localizer["SizeIntro"]" Name="Size">
     <Button OnClick="@OnSizeDialogClick">@((MarkupString)Localizer["SizeButton"].Value)</Button>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["PrintDialogTitle"]" Introduction="@Localizer["PrintDialogIntro"]" Name="PrintDialog" >
+<DemoBlock Title="@Localizer["PrintDialogTitle"]" Introduction="@Localizer["PrintDialogIntro"]" Name="PrintDialog">
     <div class="mb-2">@((MarkupString)Localizer["PrintDialogTip"].Value)</div>
     <Button OnClick="@OnPrintDialogClick">@Localizer["PrintDialogButton"]</Button>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ShowMaximizeButtonTitle"]" Introduction="@Localizer["ShowMaximizeButtonIntro"]" Name="ShowMaximizeButton" >
+<DemoBlock Title="@Localizer["ShowMaximizeButtonTitle"]" Introduction="@Localizer["ShowMaximizeButtonIntro"]" Name="ShowMaximizeButton">
     <Button OnClick="@OnMaximizeDialogClick">@Localizer["ShowMaximizeButton"]</Button>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ErrorLoggerTitle"]" Introduction="@Localizer["ErrorLoggerIntro"]" Name="ErrorLogger" >
+<DemoBlock Title="@Localizer["ErrorLoggerTitle"]" Introduction="@Localizer["ErrorLoggerIntro"]" Name="ErrorLogger">
     <Button OnClick="@OnErrorDialog" Text="@Localizer["ErrorLoggerButton"]" Icon="fa-solid fa-bug" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["EmailTitle"]" Introduction="@Localizer["EmailIntro"]" Name="Email" >
+<DemoBlock Title="@Localizer["EmailTitle"]" Introduction="@Localizer["EmailIntro"]" Name="Email">
     <div class="mb-2">@Localizer["EmailTip1"]</div>
     <ul class="ul-demo mb-2">
         <li>@((MarkupString)Localizer["EmailTip2"].Value)</li>
