@@ -127,6 +127,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Html2Pdf", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Live2DDisplay", "src\Extensions\Components\BootstrapBlazor.Live2DDisplay\BootstrapBlazor.Live2DDisplay.csproj", "{975D45E4-C354-4AFD-8D6F-571938E19105}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestDocs", "test\UnitTestDocs\UnitTestDocs.csproj", "{6D73FED6-0086-460B-84FA-1FA78176BF59}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -257,6 +259,10 @@ Global
 		{975D45E4-C354-4AFD-8D6F-571938E19105}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{975D45E4-C354-4AFD-8D6F-571938E19105}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{975D45E4-C354-4AFD-8D6F-571938E19105}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D73FED6-0086-460B-84FA-1FA78176BF59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D73FED6-0086-460B-84FA-1FA78176BF59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D73FED6-0086-460B-84FA-1FA78176BF59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D73FED6-0086-460B-84FA-1FA78176BF59}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -301,6 +307,7 @@ Global
 		{71FDF312-4195-4218-A941-754BDF5BAB82} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{CA5BF6FD-257E-4D4B-8DF0-F4035B0C7CA2} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{975D45E4-C354-4AFD-8D6F-571938E19105} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
+		{6D73FED6-0086-460B-84FA-1FA78176BF59} = {7C1D79F1-87BC-42C1-BD5A-CDE4044AC1BD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}

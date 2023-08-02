@@ -1,20 +1,20 @@
 ﻿@page "/table/row"
-@inject IStringLocalizer<TablesRow> RowLocalizer
+@inject IStringLocalizer<TablesRow> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
 @inject ToastService ToastService
 
-<h3>@RowLocalizer["TablesRowTitle"]</h3>
+<h3>@Localizer["TablesRowTitle"]</h3>
 
-<h4>@RowLocalizer["TablesRowDesc"]</h4>
+<h4>@Localizer["TablesRowDesc"]</h4>
 
-<DemoBlock Title="@RowLocalizer["RowNumberTitle"]"
-           Introduction="@RowLocalizer["RowNumberIntro"]"
+<DemoBlock Title="@Localizer["RowNumberTitle"]"
+           Introduction="@Localizer["RowNumberIntro"]"
            Name="LineNoText">
-    <p class="mb-3">@((MarkupString)RowLocalizer["RowNumberP"].Value)</p>
+    <p class="mb-3">@((MarkupString)Localizer["RowNumberP"].Value)</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
-           ShowToolbar="true" ShowLineNo="true" LineNoText="@RowLocalizer["RowNumberText"]"
+           ShowToolbar="true" ShowLineNo="true" LineNoText="@Localizer["RowNumberText"]"
            ShowDefaultButtons="false" ClickToSelect="true"
            OnQueryAsync="@OnQueryAsync">
         <TableColumns>
@@ -26,11 +26,11 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="@RowLocalizer["ClickToSelectTitle"]"
-           Introduction="@RowLocalizer["ClickToSelectIntro"]"
+<DemoBlock Title="@Localizer["ClickToSelectTitle"]"
+           Introduction="@Localizer["ClickToSelectIntro"]"
            Name="ClickToSelect">
-    <p>@((MarkupString)RowLocalizer["ClickToSelectP"].Value)</p>
-    <p class="mb-3">@((MarkupString)RowLocalizer["ClickToSelectP2"].Value)</p>
+    <p>@((MarkupString)Localizer["ClickToSelectP"].Value)</p>
+    <p class="mb-3">@((MarkupString)Localizer["ClickToSelectP2"].Value)</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
@@ -45,14 +45,14 @@
         </TableColumns>
     </Table>
 
-    <p>@((MarkupString)RowLocalizer["ClickToSelectP3"].Value) @(CurrentItem?.Name ?? RowLocalizer["ClickToSelectNoneText"])</p>
+    <p>@((MarkupString)Localizer["ClickToSelectP3"].Value) @(CurrentItem?.Name ?? Localizer["ClickToSelectNoneText"])</p>
 </DemoBlock>
 
-<DemoBlock Title="@RowLocalizer["DoubleClickToEditTitle"]"
-           Introduction="@RowLocalizer["DoubleClickToEditIntro"]"
+<DemoBlock Title="@Localizer["DoubleClickToEditTitle"]"
+           Introduction="@Localizer["DoubleClickToEditIntro"]"
            Name="DoubleClickToEdit">
-    <p>@((MarkupString)RowLocalizer["DoubleClickToEditP"].Value)</p>
-    <p class="mb-3">@((MarkupString)RowLocalizer["DoubleClickToEditP1"].Value)</p>
+    <p>@((MarkupString)Localizer["DoubleClickToEditP"].Value)</p>
+    <p class="mb-3">@((MarkupString)Localizer["DoubleClickToEditP1"].Value)</p>
 
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
@@ -69,11 +69,11 @@
         <EditTemplate>
             <div class="row g-3">
                 <div class="col-12 col-sm-6">
-                    <BootstrapInput @bind-Value="@context.Name" placeholder="@RowLocalizer["PlaceHolder"].Value" maxlength="50">
+                    <BootstrapInput @bind-Value="@context.Name" placeholder="@Localizer["PlaceHolder"].Value" maxlength="50">
                     </BootstrapInput>
                 </div>
                 <div class="col-12 col-sm-6">
-                    <BootstrapInput @bind-Value="@context.Address" placeholder="@RowLocalizer["PlaceHolder"].Value" maxlength="50">
+                    <BootstrapInput @bind-Value="@context.Address" placeholder="@Localizer["PlaceHolder"].Value" maxlength="50">
                     </BootstrapInput>
                 </div>
                 <div class="col-12 col-sm-6">
@@ -90,10 +90,10 @@
 
 </DemoBlock>
 
-<DemoBlock Title="@RowLocalizer["DoubleClickRowCallbackTitle"]"
-           Introduction="@RowLocalizer["DoubleClickRowCallbackIntro"]"
+<DemoBlock Title="@Localizer["DoubleClickRowCallbackTitle"]"
+           Introduction="@Localizer["DoubleClickRowCallbackIntro"]"
            Name="DoubleClickRowCallback">
-    <p class="mb-3">@RowLocalizer["DoubleClickRowCallbackP"]</p>
+    <p class="mb-3">@Localizer["DoubleClickRowCallbackP"]</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
@@ -109,10 +109,10 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="@RowLocalizer["SetRowClassFormatterTitle"]"
-           Introduction="@RowLocalizer["SetRowClassFormatterIntro"]"
+<DemoBlock Title="@Localizer["SetRowClassFormatterTitle"]"
+           Introduction="@Localizer["SetRowClassFormatterIntro"]"
            Name="SetRowClassFormatter">
-    <p class="mb-3">@((MarkupString)RowLocalizer["SetRowClassFormatterP"].Value)</p>
+    <p class="mb-3">@((MarkupString)Localizer["SetRowClassFormatterP"].Value)</p>
 
     <Table TItem="Foo" SetRowClassFormatter="@SetRowClassFormatter"
            IsPagination="true" PageItemsSource="@PageItemsSource"

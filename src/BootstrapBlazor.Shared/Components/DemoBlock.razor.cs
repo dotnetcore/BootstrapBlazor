@@ -29,16 +29,10 @@ public sealed partial class DemoBlock
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 示例代码片段 默认 null 未设置
+    /// 获得/设置 是否显示代码块 默认 true 显示
     /// </summary>
     [Parameter]
-    public Type? Demo { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否显示代码块 默认 false 显示
-    /// </summary>
-    [Parameter]
-    public bool ShowCode { get; set; }
+    public bool ShowCode { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 Tooltip 提示信息文本
@@ -46,17 +40,18 @@ public sealed partial class DemoBlock
     [Parameter]
     public string? TooltipText { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<DemoBlock>? Localizer { get; set; }
-
     /// <summary>
     /// 获得/设置 友好链接锚点名称
     /// </summary>
     [Parameter]
     public string? Name { get; set; }
 
-    private string BlockTitle => Name ?? Title;
+    [CascadingParameter(Name = "RazorFileName")]
+    private string? CodeFile { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<DemoBlock>? Localizer { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -69,14 +64,12 @@ public sealed partial class DemoBlock
         TooltipText ??= Localizer[nameof(TooltipText)];
     }
 
-    private RenderFragment RenderChildContent => builder =>
-    {
-        builder.AddContent(0, ChildContent);
+    private bool _showPreCode;
 
-        if (Demo != null)
-        {
-            builder.OpenComponent(1, Demo);
-            builder.CloseComponent();
-        }
-    };
+    private void ShowPreCode()
+    {
+        _showPreCode = true;
+    }
+
+    private Task<bool> OnLoadConditionCheckAsync() => Task.FromResult(_showPreCode);
 }

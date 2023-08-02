@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Services;
+using System.Text.RegularExpressions;
 
 namespace BootstrapBlazor.Shared.Components;
 
@@ -25,7 +26,7 @@ public partial class Pre
 
     [Inject]
     [NotNull]
-    private CodeSnippetService? Example { get; set; }
+    private CodeSnippetService? CodeSnippetService { get; set; }
 
     /// <summary>
     /// 获得/设置 子组件 CodeFile 为空时生效
@@ -37,13 +38,7 @@ public partial class Pre
     /// 获得/设置 代码段的标题
     /// </summary>
     [Parameter]
-    public string? BlockTitle { get; set; }
-
-    /// <summary>
-    /// 获得/设置 示例代码片段 默认 null 未设置
-    /// </summary>
-    [Parameter]
-    public string? Demo { get; set; }
+    public string? BlockName { get; set; }
 
     /// <summary>
     /// 获得/设置 示例代码片段 默认 null 未设置
@@ -124,9 +119,10 @@ public partial class Pre
     {
         if (!string.IsNullOrEmpty(CodeFile))
         {
-            var code = await Example.GetCodeAsync(CodeFile);
+            var code = await CodeSnippetService.GetCodeAsync(CodeFile);
             if (!string.IsNullOrEmpty(code))
             {
+                code = FindCodeSnippetByName(code);
                 ChildContent = builder =>
                 {
                     builder.AddContent(0, code);
@@ -144,4 +140,41 @@ public partial class Pre
         }
         Loaded = true;
     }
+
+    private string FindCodeSnippetByName(string code)
+    {
+        var content = code;
+        if (!string.IsNullOrEmpty(BlockName))
+        {
+            var regex = new Regex($"<DemoBlock [\\s\\S]* Name=\"{BlockName}\">([\\s\\S]*?)</DemoBlock>");
+            var match = regex.Match(content);
+            if (match.Success && match.Groups.Count == 2)
+            {
+                content = match.Groups[1].Value.Replace("\r\n", "\n").Replace("\n    ", "\n").TrimStart('\n');
+            }
+
+            // 移除 ConsoleLogger
+            regex = ConsoleLoggerRegex();
+            match = regex.Match(content);
+            if (match.Success)
+            {
+                content = content.Replace(match.Value, "");
+            }
+
+            // 移除 Tips
+            regex = TipsRegex();
+            match = regex.Match(content);
+            if (match.Success)
+            {
+                content = content.Replace(match.Value, "").TrimStart('\n');
+            }
+        }
+        return content.TrimEnd('\n');
+    }
+
+    [GeneratedRegex("<ConsoleLogger [\\s\\S]* />")]
+    private static partial Regex ConsoleLoggerRegex();
+
+    [GeneratedRegex("<Tips[\\s\\S]*>[\\s\\S]*?</Tips>")]
+    private static partial Regex TipsRegex();
 }

@@ -716,12 +716,13 @@ internal static class MenusLocalizerExtensions
             {
                 new()
                 {
+                    Match = NavLinkMatch.All,
                     Text = Localizer["TableBase"],
-                    Url = "table",
-                    Match = NavLinkMatch.All
+                    Url = "table"
                 },
                 new()
                 {
+                    Match = NavLinkMatch.All,
                     Text = Localizer["TableColumn"],
                     Url = "table/column"
                 },
@@ -1044,6 +1045,7 @@ internal static class MenusLocalizerExtensions
             {
                 new()
                 {
+                    Match = NavLinkMatch.All,
                     Text = Localizer["Anchor"],
                     Url = "anchor"
                 },

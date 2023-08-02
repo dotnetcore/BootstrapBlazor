@@ -1,5 +1,5 @@
 ﻿@page "/table/column/drag"
-@inject IStringLocalizer<TablesColumn> Localizer
+@inject IStringLocalizer<TablesColumnDrag> Localizer
 @inject IStringLocalizer<Foo> FooLocalizer
 @inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
@@ -24,5 +24,5 @@
         </TableColumns>
     </Table>
 
-    <ConsoleLogger @ref="Logger" class="mt-3"></ConsoleLogger>
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>

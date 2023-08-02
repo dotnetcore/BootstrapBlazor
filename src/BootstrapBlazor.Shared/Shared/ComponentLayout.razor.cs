@@ -37,10 +37,6 @@ public partial class ComponentLayout : IAsyncDisposable
 
     [Inject]
     [NotNull]
-    private IOptionsMonitor<WebsiteOptions>? SiteOptions { get; set; }
-
-    [Inject]
-    [NotNull]
     private IJSRuntime? JSRuntime { get; set; }
 
     [NotNull]

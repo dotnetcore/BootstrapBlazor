@@ -17,11 +17,11 @@ public class LazyLoadTest : TestBase
     }
 
     [Fact]
-    public void OnLoadCallbackAsync_Ok()
+    public void OnLoadConditionCheckAsync_Ok()
     {
         var cut = Context.RenderComponent<LazyLoad>(pb =>
         {
-            pb.Add(a => a.OnLoadCallbackAsync, () => Task.FromResult(false));
+            pb.Add(a => a.OnLoadConditionCheckAsync, () => Task.FromResult(false));
             pb.Add(a => a.ChildContent, "<div>content</div>");
         });
         Assert.Equal("", cut.Markup);
@@ -33,7 +33,7 @@ public class LazyLoadTest : TestBase
         var load = false;
         var cut = Context.RenderComponent<LazyLoad>(pb =>
         {
-            pb.Add(a => a.OnLoadCallbackAsync, () => Task.FromResult(true));
+            pb.Add(a => a.OnLoadConditionCheckAsync, () => Task.FromResult(true));
             pb.Add(a => a.OnFirstLoadCallbackAsync, () =>
             {
                 load = true;
