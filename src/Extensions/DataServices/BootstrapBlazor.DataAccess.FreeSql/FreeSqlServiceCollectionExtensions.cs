@@ -3,9 +3,8 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
-using BootstrapBlazor.DataAcces.FreeSql;
+using BootstrapBlazor.DataAccess.FreeSql;
 using FreeSql;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -23,7 +22,7 @@ public static class FreeSqlServiceCollectionExtensions
     /// <returns></returns>
     public static IServiceCollection AddFreeSql(this IServiceCollection services, Action<FreeSqlBuilder> optionsAction, Action<IFreeSql>? configureAction = null)
     {
-        services.TryAddSingleton<IFreeSql>(sp =>
+        services.AddSingleton<IFreeSql>(sp =>
         {
             var builder = new FreeSqlBuilder();
             optionsAction(builder);
@@ -32,7 +31,7 @@ public static class FreeSqlServiceCollectionExtensions
             return instance;
         });
 
-        services.TryAddSingleton(typeof(IDataService<>), typeof(DefaultDataService<>));
+        services.AddScoped(typeof(IDataService<>), typeof(DefaultDataService<>));
         return services;
     }
 }

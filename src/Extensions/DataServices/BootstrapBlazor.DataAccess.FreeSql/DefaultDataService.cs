@@ -4,7 +4,7 @@
 
 using BootstrapBlazor.Components;
 
-namespace BootstrapBlazor.DataAcces.FreeSql;
+namespace BootstrapBlazor.DataAccess.FreeSql;
 
 /// <summary>
 /// FreeSql ORM 的 IDataService 接口实现

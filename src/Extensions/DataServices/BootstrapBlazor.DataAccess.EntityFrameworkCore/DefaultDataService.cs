@@ -5,7 +5,7 @@
 using BootstrapBlazor.Components;
 using Microsoft.EntityFrameworkCore;
 
-namespace BootstrapBlazor.DataAcces.EntityFrameworkCore;
+namespace BootstrapBlazor.DataAccess.EntityFrameworkCore;
 
 /// <summary>
 /// Entity Framework ORM 的 IDataService 接口实现
@@ -106,7 +106,7 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel>, IEntityFram
     {
         // 处理过滤与快捷搜索框逻辑
         var query = _db.Set<TModel>()
-            .Where(option.Searchs.GetFilterLambda<TModel>(FilterLogic.Or), option.Searchs.Any())
+            .Where(option.Searches.GetFilterLambda<TModel>(FilterLogic.Or), option.Searches.Any())
             .Where(option.Filters.GetFilterLambda<TModel>(), option.Filters.Any())
             .Sort(option.SortName!, option.SortOrder, !string.IsNullOrEmpty(option.SortName))
             .Count(out var count)

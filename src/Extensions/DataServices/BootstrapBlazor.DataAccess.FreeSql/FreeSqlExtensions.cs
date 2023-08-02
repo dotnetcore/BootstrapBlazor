@@ -5,7 +5,7 @@
 using BootstrapBlazor.Components;
 using FreeSql.Internal.Model;
 
-namespace BootstrapBlazor.DataAcces.FreeSql;
+namespace BootstrapBlazor.DataAccess.FreeSql;
 
 /// <summary>
 /// 
@@ -27,27 +27,27 @@ public static class FreeSqlExtensions
             ret.Filters.Add(filter.ToDynamicFilter());
         }
 
-        foreach (var search in option.CustomerSearchs)
+        foreach (var search in option.CustomerSearches)
         {
             // 自定义搜索条件 之间默认为 and
             ret.Filters.Add(search.ToDynamicFilter());
         }
 
-        foreach (var search in option.AdvanceSearchs)
+        foreach (var search in option.AdvanceSearches)
         {
             // 高级搜索条件 之间默认为 and
             ret.Filters.Add(search.ToDynamicFilter());
         }
 
-        if (option.Searchs.Any())
+        if (option.Searches.Any())
         {
-            // Searchs 之间默认为 or
+            // Searches 之间默认为 or
             var searchTextFilter = new DynamicFilterInfo()
             {
                 Logic = DynamicFilterLogic.Or,
                 Filters = new List<DynamicFilterInfo>()
             };
-            foreach (var search in option.Searchs)
+            foreach (var search in option.Searches)
             {
                 searchTextFilter.Filters.Add(search.ToDynamicFilter());
             }

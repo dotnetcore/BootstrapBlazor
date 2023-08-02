@@ -3,8 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Components;
-using BootstrapBlazor.DataAcces.PetaPoco;
-using Microsoft.Extensions.DependencyInjection.Extensions;
+using BootstrapBlazor.DataAccess.PetaPoco;
 using PetaPoco;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -28,7 +27,7 @@ public static class PetaPocoServiceCollectionExtensions
             optionsAction(builder);
             return new Database(builder);
         });
-        services.TryAddSingleton(typeof(IDataService<>), typeof(DefaultDataService<>));
+        services.AddScoped(typeof(IDataService<>), typeof(DefaultDataService<>));
         return services;
     }
 }

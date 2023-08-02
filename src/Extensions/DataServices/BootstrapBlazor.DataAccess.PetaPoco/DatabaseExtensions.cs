@@ -7,7 +7,7 @@ using PetaPoco;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace BootstrapBlazor.DataAcces.PetaPoco;
+namespace BootstrapBlazor.DataAccess.PetaPoco;
 
 /// <summary>
 /// 
