@@ -35,10 +35,10 @@ public sealed partial class DemoBlock
     public Type? Demo { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示代码块 默认 false 显示
+    /// 获得/设置 是否显示代码块 默认 true 显示
     /// </summary>
     [Parameter]
-    public bool ShowCode { get; set; }
+    public bool ShowCode { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 Tooltip 提示信息文本
@@ -56,8 +56,6 @@ public sealed partial class DemoBlock
     [Parameter]
     public string? Name { get; set; }
 
-    private string BlockTitle => Name ?? Title;
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -68,15 +66,4 @@ public sealed partial class DemoBlock
         Title ??= Localizer[nameof(Title)];
         TooltipText ??= Localizer[nameof(TooltipText)];
     }
-
-    private RenderFragment RenderChildContent => builder =>
-    {
-        builder.AddContent(0, ChildContent);
-
-        if (Demo != null)
-        {
-            builder.OpenComponent(1, Demo);
-            builder.CloseComponent();
-        }
-    };
 }
