@@ -60,4 +60,13 @@ public sealed partial class DemoBlock
         Title ??= Localizer[nameof(Title)];
         TooltipText ??= Localizer[nameof(TooltipText)];
     }
+
+    private bool _showPreCode;
+
+    private void ShowPreCode()
+    {
+        _showPreCode = true;
+    }
+
+    private Task<bool> OnLoadConditionCheckAsync() => Task.FromResult(_showPreCode);
 }
