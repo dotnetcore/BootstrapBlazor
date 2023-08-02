@@ -2181,6 +2181,7 @@
     "LargeButton": "Large",
     "ExtraLargeButton": "ExtraLarge",
     "ButtonExtraExtraLargeText": "ExtraExtraLarge",
+    "BlockButton": "Block",
     "Description1": "Button disable effects can be achieved by setting its own <code>IsDisabled</code> property in the <code>OnClick</code> callback method, or by calling the component instance method <code>SetDisable</code>",
     "Description2": "Because using the <code>IsDisabled</code> property requires an explicit manual call to the <code>StateHasChanged</code> method, which causes the component where the button is located to refresh as a whole, it is recommended that you use the instance method <code>SetDisable</code> refresh the button only",
     "SubTitle": "Performance comparison:",
@@ -2188,12 +2189,15 @@
     "SetDisableTip": "This page transfer is <code>280B</code> when set up using the <code>SetDisable</code> method",
     "ButtonDisabled": "Click to be disabled",
     "ButtonAvailable": "Click to make the first button available",
-    "TooltiTitle": "Tooltip is destroyed when the button is clicked",
-    "ButtonStatus": "Status button",
-    "ButtonProgress": "Progress button",
     "ButtonOne": "Button one",
     "ButtonTwo": "Button two",
-    "ButtonAsync": "Asynchronous"
+    "ButtonStatus": "Status button",
+    "ButtonProgress": "Progress button",
+    "ButtonAsync": "Asynchronous",
+    "TooltipText": "Button",
+    "TooltipTitle": "Tooltip",
+    "TooltipIntro": "Set <code>TooltipText</code> <code>TooltipPlacement</code> <code>TooltipTrigger</code> shortcut button prompt bar information, position, and triggering method. For more functions, please use the <code>Tooltip</code> component to implement. In this example, the second button is in the <b>disabled</b> state, and the prompt bar is still available",
+    "TooltipDisabledText": "Disabled"
   },
   "BootstrapBlazor.Shared.Samples.Cascaders": {
     "Title": "Cascader",

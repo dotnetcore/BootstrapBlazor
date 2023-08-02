@@ -96,9 +96,7 @@
     </ul>
     <div class="row g-3">
         <div class="col-12">
-            <Button Text="@Localizer["ButtonDisabled"]" OnClick="@ClickButton1" @ref="ButtonDisableDemo" IsDisabled="@IsDisable">
-                <Tooltip Title="@Localizer["TooltiTitle"]" Placement="Placement.Top" Trigger="hover" />
-            </Button>
+            <Button Text="@Localizer["ButtonDisabled"]" OnClick="@ClickButton1" @ref="ButtonDisableDemo" IsDisabled="@IsDisable"></Button>
             <Button Color="Color.Info" Text="@Localizer["ButtonAvailable"]" OnClickWithoutRender="@ClickButton2" class="ms-3"></Button>
         </div>
     </div>
