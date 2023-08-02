@@ -16,7 +16,7 @@
             <div class="card-footer">
                 <div class="card-footer-code collapse" id="@Id">
                     <LazyLoad OnLoadConditionCheckAsync="OnLoadConditionCheckAsync">
-                        <Pre BlockName="@Name" ShowToolbar="true"></Pre>
+                        <Pre BlockName="@Name" ShowToolbar="true" CodeFile="@CodeFile"></Pre>
                     </LazyLoad>
                 </div>
                 <a class="card-footer-control collapsed" href="#@Id" data-bs-toggle="collapse" role="button" aria-label="show code" @onclick="ShowPreCode">

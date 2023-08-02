@@ -40,15 +40,18 @@ public sealed partial class DemoBlock
     [Parameter]
     public string? TooltipText { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<DemoBlock>? Localizer { get; set; }
-
     /// <summary>
     /// 获得/设置 友好链接锚点名称
     /// </summary>
     [Parameter]
     public string? Name { get; set; }
+
+    [CascadingParameter(Name = "RazorFileName")]
+    private string? CodeFile { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<DemoBlock>? Localizer { get; set; }
 
     /// <summary>
     /// <inheritdoc/>

@@ -31,7 +31,9 @@
 <div class="tabs-coms">
     <Tab IsBorderCard="true" IsLazyLoadTabItem="true" @ref="Tab">
         <TabItem Text="Example" Icon="fa-solid fa-desktop">
-            @Body
+            <CascadingValue Value="@RazorFileName" Name="RazorFileName">
+                @Body
+            </CascadingValue>
         </TabItem>
         <TabItem Text="Razor" Icon="fa-brands fa-html5">
             <Pre @key="@RazorFileName" CodeFile="@RazorFileName" class="code-razor"></Pre>
