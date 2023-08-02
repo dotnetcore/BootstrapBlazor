@@ -29,12 +29,6 @@ public sealed partial class DemoBlock
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 示例代码片段 默认 null 未设置
-    /// </summary>
-    [Parameter]
-    public Type? Demo { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否显示代码块 默认 true 显示
     /// </summary>
     [Parameter]
