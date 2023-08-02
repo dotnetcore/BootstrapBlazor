@@ -121,4 +121,6 @@ public partial class Card
 
         CollapseIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardCollapseIcon);
     }
+
+    private void ToggleCollapse() => Collapsed = !Collapsed;
 }
