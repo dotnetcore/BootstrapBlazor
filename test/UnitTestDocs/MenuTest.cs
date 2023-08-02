@@ -37,9 +37,11 @@ public class MenuTest
     [Fact]
     public void Route_Ok()
     {
-        var json = "D:\\Argo\\src\\BootstrapBlazor\\src\\BootstrapBlazor.Shared\\docs.json";
+        var stream = typeof(App).Assembly.GetManifestResourceStream("BootstrapBlazor.Shared.docs.json");
+        Assert.NotNull(stream);
+
         var builder = new ConfigurationBuilder();
-        builder.AddJsonFile(json);
+        builder.AddJsonStream(stream);
 
         var config = builder.Build();
         var urls = config.GetRequiredSection("src").GetChildren();
@@ -64,7 +66,7 @@ public class MenuTest
         var localizerOption = _serviceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
         var localizer = _serviceProvider.GetRequiredService<IStringLocalizer<NavMenu>>();
 
-        var rootPath = "D:\\Argo\\src\\BootstrapBlazor\\src\\BootstrapBlazor.Shared\\Samples\\";
+        var rootPath = Path.Combine(AppContext.BaseDirectory, "../../../../../", "src/BootstrapBlazor.Shared/Samples/");
         foreach (var router in _routerTable)
         {
             var typeName = router.FullName?.Replace("BootstrapBlazor.Shared.Samples.", "").Replace(".", "/");
