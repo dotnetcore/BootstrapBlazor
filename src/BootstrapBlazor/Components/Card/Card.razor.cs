@@ -16,7 +16,7 @@ public partial class Card
         .AddClass("text-center", IsCenter)
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass("card-shadow", IsShadow)
-        .AddClass("is-collapsable", IsCollapsible)
+        .AddClass("is-collapsible", IsCollapsible)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 

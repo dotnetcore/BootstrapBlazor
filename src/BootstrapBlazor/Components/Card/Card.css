@@ -50,10 +50,10 @@
     transform: rotate(90deg);
 }
 
-.is-collapsable > .card-body {
+.is-collapsible > .card-body {
     padding: 0;
 }
 
-    .is-collapsable > .card-body > .card-body-wrapper {
+    .is-collapsible > .card-body > .card-body-wrapper {
         padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
     }
