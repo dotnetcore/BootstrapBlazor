@@ -4,25 +4,24 @@
 
 using BootstrapBlazor.Localization.Json;
 using BootstrapBlazor.Shared;
-using BootstrapBlazor.Shared.Extensions;
-using BootstrapBlazor.Shared.Services;
 using BootstrapBlazor.Shared.Shared;
-using DocumentFormat.OpenXml.Wordprocessing;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace UnitTestDocs;
 
 public class MenuTest
 {
     private ITestOutputHelper _logger;
+    private IServiceProvider _serviceProvider;
+    private IEnumerable<Type> _routerTable;
 
-    public MenuTest(ITestOutputHelper logger) => _logger = logger;
-
-    [Fact]
-    public void Menu_Ok()
+    public MenuTest(ITestOutputHelper logger)
     {
+        _logger = logger;
         var serviceCollection = new ServiceCollection();
         var assembly = typeof(App).Assembly;
         serviceCollection.AddBootstrapBlazor(localizationConfigure: option =>
@@ -30,15 +29,43 @@ public class MenuTest
             option.AdditionalJsonAssemblies = new[] { assembly };
         });
 
-        var provider = serviceCollection.BuildServiceProvider();
-        var localizerOption = provider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
-        var localizer = provider.GetRequiredService<IStringLocalizer<NavMenu>>();
-
-        var routers = assembly.GetExportedTypes()
+        _serviceProvider = serviceCollection.BuildServiceProvider();
+        _routerTable = assembly.GetExportedTypes()
             .Where(t => t.IsDefined(typeof(RouteAttribute)) && t.GetCustomAttribute<LayoutAttribute>()?.LayoutType == typeof(ComponentLayout) && (t.FullName?.StartsWith("BootstrapBlazor.Shared.Samples.") ?? false));
+    }
+
+    [Fact]
+    public void Route_Ok()
+    {
+        var json = "D:\\Argo\\src\\BootstrapBlazor\\src\\BootstrapBlazor.Shared\\docs.json";
+        var builder = new ConfigurationBuilder();
+        builder.AddJsonFile(json);
+
+        var config = builder.Build();
+        var urls = config.GetRequiredSection("src").GetChildren();
+
+        // 检查未配置的路由
+        var invalidRoute = _routerTable.Where(router =>
+        {
+            var template = router.GetCustomAttribute<RouteAttribute>()?.Template.TrimStart('/');
+            var url = urls.FirstOrDefault(i => i.Key == template)?.Key;
+            return string.IsNullOrEmpty(url);
+        });
+        Assert.Empty(invalidRoute);
+
+        // 检查 docs.json 冗余路由
+        var invalidUrls = urls.Where(url => _routerTable.FirstOrDefault(router => router.GetCustomAttribute<RouteAttribute>()?.Template.TrimStart('/') == url.Key) == null);
+        Assert.Empty(invalidRoute);
+    }
+
+    [Fact]
+    public void Localizer_Ok()
+    {
+        var localizerOption = _serviceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
+        var localizer = _serviceProvider.GetRequiredService<IStringLocalizer<NavMenu>>();
 
         var rootPath = "D:\\Argo\\src\\BootstrapBlazor\\src\\BootstrapBlazor.Shared\\Samples\\";
-        foreach (var router in routers)
+        foreach (var router in _routerTable)
         {
             var typeName = router.FullName?.Replace("BootstrapBlazor.Shared.Samples.", "").Replace(".", "/");
             if (!string.IsNullOrEmpty(typeName))
@@ -47,45 +74,33 @@ public class MenuTest
 
                 // razor file
                 var razorFile = $"{file}.razor";
-                ReplaceContent(razorFile, typeName, "@Localizer[\"");
+                var regex = new Regex("@Localizer\\[\"(\\w+)\"\\]");
+                ReplaceContent(razorFile, typeName, regex);
 
                 var csharpFile = $"{file}.razor.cs";
-                ReplaceContent(csharpFile, typeName, "Localizer[\"");
+                regex = new Regex("Localizer\\[\"(\\w+)\"\\]");
+                ReplaceContent(csharpFile, typeName, regex);
             }
         }
 
-        void ReplaceContent(string fileName, string typeName, string key)
+        void ReplaceContent(string fileName, string typeName, Regex regex)
         {
             if (File.Exists(fileName))
             {
                 var content = File.ReadAllText(fileName);
-                Utility.GetJsonStringByTypeName(localizerOption.Value, assembly, $"BootstrapBlazor.Shared.Samples.{typeName}").ToList().ForEach(l => content = ReplacePayload(content, l)); ;
+                Utility.GetJsonStringByTypeName(localizerOption.Value, typeof(App).Assembly, $"BootstrapBlazor.Shared.Samples.{typeName}").ToList().ForEach(l => content = ReplacePayload(content, l)); ;
                 content = ReplaceSymbols(content);
                 content = RemoveBlockStatement(content, "@inject IStringLocalizer<");
-                if (content.Contains(key))
+
+                // 利用这则表达式获取键值
+                var matches = regex.Matches(content);
+                if (matches.Count > 0)
                 {
-                    _logger.WriteLine($"{fileName} -- {typeName}");
+                    var v = string.Join(",", matches.Select(i => i.Value));
+                    _logger.WriteLine($"{fileName} -- {typeName} - {v}");
                 }
             }
         }
-
-        //using var fs = new StreamWriter(File.OpenWrite("d:\\argo\\src\\docs.json"));
-        //fs.WriteLine("{");
-        //foreach (var router in routers)
-        //{
-        //    var url = router.GetCustomAttributes<RouteAttribute>().FirstOrDefault()?.Template.TrimStart('/');
-        //    var typeName = router.FullName!.Replace("BootstrapBlazor.Shared.Samples.", "").Replace(".", "\\\\");
-        //    fs.WriteLine($"\"{url}\": \"{typeName}\",");
-
-        //    // 错误检查
-        //    var menu = menus.FirstOrDefault(i => i == url);
-        //    if (menu == null)
-        //    {
-        //        fs.WriteLine($"\"{menu}\": \"\",");
-        //    }
-        //}
-        //fs.WriteLine("}");
-        //fs.Close();
     }
 
     static string ReplaceSymbols(string payload) => payload
