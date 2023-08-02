@@ -1045,6 +1045,7 @@ internal static class MenusLocalizerExtensions
             {
                 new()
                 {
+                    Match = NavLinkMatch.All,
                     Text = Localizer["Anchor"],
                     Url = "anchor"
                 },
