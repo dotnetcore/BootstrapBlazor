@@ -16,7 +16,7 @@ public partial class Card
         .AddClass("text-center", IsCenter)
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass("card-shadow", IsShadow)
-        .AddClass("is-collapsable", IsCollapsible)
+        .AddClass("is-collapsible", IsCollapsible)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -121,4 +121,6 @@ public partial class Card
 
         CollapseIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardCollapseIcon);
     }
+
+    private void ToggleCollapse() => Collapsed = !Collapsed;
 }

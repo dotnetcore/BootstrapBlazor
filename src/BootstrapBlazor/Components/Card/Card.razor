@@ -7,7 +7,7 @@
         <div class="card-header">
             @if (IsCollapsible)
             {
-                <div class="card-collapse-bar" data-bs-toggle="collapse" data-bs-target="#@Id" aria-expanded="@ExpandedString">
+                <div class="card-collapse-bar" data-bs-toggle="collapse" data-bs-target="#@Id" aria-expanded="@ExpandedString" @onclick="ToggleCollapse">
                     <i class="@ArrowClassString"></i>
                     @if (!string.IsNullOrEmpty(HeaderText))
                     {
