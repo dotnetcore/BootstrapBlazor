@@ -22,7 +22,7 @@ public partial class LazyLoad : ComponentBase
     /// </summary>
     [Parameter]
     [NotNull]
-    public Func<Task<bool>>? OnLoadCallbackAsync { get; set; }
+    public Func<Task<bool>>? OnLoadConditionCheckAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 首次显示时回调方法 可用于组件初始化数据 仅触发一次
@@ -41,9 +41,9 @@ public partial class LazyLoad : ComponentBase
     {
         await base.OnParametersSetAsync();
 
-        OnLoadCallbackAsync ??= () => Task.FromResult(true);
+        OnLoadConditionCheckAsync ??= () => Task.FromResult(true);
 
-        _show = _show || await OnLoadCallbackAsync();
+        _show = _show || await OnLoadConditionCheckAsync();
 
         if (_show)
         {
