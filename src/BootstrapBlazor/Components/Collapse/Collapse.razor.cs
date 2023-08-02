@@ -13,8 +13,8 @@ public partial class Collapse
         .AddClass("collapsed", item.IsCollapsed)
         .Build();
 
-    private static string? GetClassString(bool collpased) => CssBuilder.Default("accordion-collapse collapse")
-        .AddClass("show", !collpased)
+    private static string? GetClassString(bool collapsed) => CssBuilder.Default("accordion-collapse collapse")
+        .AddClass("show", !collapsed)
         .Build();
 
     private string? ClassString => CssBuilder.Default("accordion")
