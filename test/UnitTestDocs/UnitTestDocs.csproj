@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\src\BootstrapBlazor.Shared\Extensions\CacheManagerExtensions.cs" Link="Extensions\CacheManagerExtensions.cs" />
+    <Compile Include="..\..\src\BootstrapBlazor.Shared\Extensions\MenusLocalizerExtensions.cs" Link="Extensions\MenusLocalizerExtensions.cs" />
+    <Compile Include="..\..\src\BootstrapBlazor.Shared\Services\CodeSnippetService.cs" Link="Services\CodeSnippetService.cs" />
+    <Compile Include="..\..\src\BootstrapBlazor.Shared\Services\MenuService.cs" Link="Services\MenuService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
+    <PackageReference Include="xunit" Version="2.5.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector" Version="6.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\BootstrapBlazor.Shared\BootstrapBlazor.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="BootstrapBlazor.Components" />
+    <Using Include="BootstrapBlazor.Shared.Common" />
+    <Using Include="BootstrapBlazor.Shared.Components" />
+    <Using Include="BootstrapBlazor.Shared.Samples" />
+    <Using Include="Microsoft.AspNetCore.Components" />
+    <Using Include="Microsoft.Extensions.Localization" />
+    <Using Include="System.ComponentModel.DataAnnotations" />
+    <Using Remove="Bunit" />
+    <Using Remove="UnitTest.Core" />
+  </ItemGroup>
+
+</Project>
