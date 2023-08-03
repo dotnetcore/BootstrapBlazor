@@ -98,7 +98,7 @@ public partial class MenuTest
                 if (matches.Count > 0)
                 {
                     var v = string.Join(",", matches.Select(i => i.Value));
-                    _logger.WriteLine($"{fileName} -- {typeName} - {v}");
+                    _logger.WriteLine($"{Path.GetFileName(fileName)} - {v}");
                 }
             }
         }
