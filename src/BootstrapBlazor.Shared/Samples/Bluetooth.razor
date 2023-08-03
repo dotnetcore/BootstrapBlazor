@@ -14,14 +14,14 @@
            Name="Normal">
     @if (ShowUI)
     {
-        <span>内置UI</span>
+        <span>@Localizer["InnerUI"]</span>
 
         <Printer OnResult="OnResult" ShowUI="true" OnError="OnError" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" OnGetDevices="OnGetDevices" />
 
     }
     else
     {
-        <p>基本用法</p>
+        <p>@Localizer["BasicUsage"]</p>
         <Printer @ref="printer" OnResult="OnResult" OnError="OnError" OnUpdateStatus="OnUpdateStatus" OnUpdateError="OnError" OnGetDevices="OnGetDevices" />
         <div @ref="printer.PrinterElement">
             <button data-action="btnConnect" class="btn btn-outline-primary">@Localizer["ConnectButtonText"]</button>
@@ -51,7 +51,7 @@
     <pre style="color:red">@errorMessage</pre>
 </DemoBlock>
 
-<h4>@Localizer["BluetoothBatteryLevel"]</h4>
+<h4>@Localizer["BluetoothHeartRate"]</h4>
 
 <DemoBlock Title="@Localizer["BatteryLevelTitle"]"
            Introduction="@Localizer["BatteryLevelIntro"]"
@@ -65,12 +65,12 @@
     <pre style="color:red">@errorMessage</pre>
 </DemoBlock>
 
-<AttributeTable Title="Printer 组件" Items="@GetAttributes()" />
+<AttributeTable Title="@Localizer["PrinterComponent"]" Items="@GetAttributes()" />
 
-<AttributeTable Title="BatteryLevel 组件" Items="@GetAttributesBatteryLevel()" />
+<AttributeTable Title="@Localizer["BatteryLevelComponent"]" Items="@GetAttributesBatteryLevel()" />
 
-<AttributeTable Title="Heartrate 组件" Items="@GetAttributesHeartrate()" />
+<AttributeTable Title="@Localizer["HeartrateComponent"]" Items="@GetAttributesHeartrate()" />
 
-<AttributeTable Title="BluetoothDevice 类" Items="@GetBluetoothDeviceAttributes()" />
+<AttributeTable Title="@Localizer["BluetoothDeviceClass"]" Items="@GetBluetoothDeviceAttributes()" />
 
-<AttributeTable Title="PrinterOption 类" Items="@GetPrinterOptionAttributes()" />
+<AttributeTable Title="@Localizer["PrinterOptionClass"]" Items="@GetPrinterOptionAttributes()" />
