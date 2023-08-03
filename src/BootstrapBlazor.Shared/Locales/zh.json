@@ -3476,6 +3476,7 @@
     "Value": "组件值",
     "ChildContent": "子组件",
     "ValueChanged": "值改变时回调委托",
+    "CellTemplate": "单元格模板",
     "CellTemplateDemoTitle": "实战工时系统示例",
     "CellTemplateDemoIntro": "点击单元格弹窗编辑工时，关闭弹窗后重新汇总统计数据",
     "CellTemplateDemoSummary": "当月工时统计",
