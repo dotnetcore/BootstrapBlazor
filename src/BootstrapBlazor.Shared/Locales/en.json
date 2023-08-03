@@ -1283,6 +1283,8 @@
     "AlignmentDivider1": "Young Bao Qingtian",
     "AlignmentDivider2": "League of Legends",
     "AlignmentDivider3": "Learning Quotations",
+    "AlignmentContent1": "Just a Content Test 1",
+    "AlignmentContent2": "Just a Content Test 2",
     "AlignmentContent3": "A cute icon",
     "AlignmentContent4": "Learning makes me happy",
     "IconContent1": "A sunny day above my head, I missed one in my heart",
@@ -5591,6 +5593,7 @@
     "Poster": "Set the cover resource, relative or absolute path",
     "SwitchResource": "Toggle playback resources",
     "SetPoster": "Set the cover",
+    "ShowBar": "Wether show bar",
     "OnError": "Error callback"
   },
   "BootstrapBlazor.Shared.Components.PackageTips": {

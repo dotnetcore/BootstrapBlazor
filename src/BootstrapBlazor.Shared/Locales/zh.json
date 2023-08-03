@@ -5609,6 +5609,7 @@
     "Poster": "设置封面资源,相对或者绝对路径",
     "SwitchResource": "切换播放资源",
     "SetPoster": "设置封面",
+    "ShowBar": "是否显示 bar",
     "OnError": "错误回调"
   },
   "BootstrapBlazor.Shared.Components.PackageTips": {
