@@ -2705,6 +2705,7 @@
     "MarkdownsValidateTitle": "Validate",
     "MarkdownsValidateIntro": "Check data validity and prompt automatically based on custom validation rules",
     "MarkdownsValidateSubmitText": "Save",
+    "MarkdownString": "Test",
     "MarkdownsIsViewerDescription": "Set the <code>markdown</code> editor to browse-only mode, <code>IsViewer='true'</code>",
     "Att1": "Control height",
     "Att2": "The minimum height of the control",
