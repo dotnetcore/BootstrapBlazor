@@ -219,7 +219,7 @@ public sealed partial class Uploads
         },
         new() {
             Name = "IsDisabled",
-            Description = Localizer["UploadsUploadsIsDisabled"],
+            Description = Localizer["UploadsIsDisabled"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
