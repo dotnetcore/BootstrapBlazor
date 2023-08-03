@@ -5605,6 +5605,7 @@
     "ChatUserTitle": "聊天场景",
     "ChatUserMessageTitle": "你好 {0} (剩余提问次数 {1})",
     "ChatDemoDesc": "由于 <code>GPT</code> 无免费接口，本组件需要 <code>Gitee</code> 或者 <code>Github</code> 授权登录后对账户进行使用次数限制",
+    "ChatExit": "退出",
     "ChatGitee": "Gitee 授权",
     "ChatGithub": "Github 授权"
   },

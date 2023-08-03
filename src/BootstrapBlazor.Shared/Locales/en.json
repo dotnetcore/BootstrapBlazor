@@ -5584,6 +5584,7 @@
     "ChatUserTitle": "Chat session",
     "ChatUserMessageTitle": "{0} (remaining times {1})",
     "ChatDemoDesc": "Since <code>GPT</code> has no free interface, this component requires <code>Gitee</code> or <code>Github</code> to authorize and log in to limit the number of times the account can be used",
+    "ChatExit": "Exit",
     "ChatGitee": "Gitee OAuth",
     "ChatGithub": "Github OAuth"
   },
