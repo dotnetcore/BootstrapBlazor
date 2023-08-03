@@ -5560,9 +5560,7 @@
     "AttributesPdfReaderNavPanels": "Show Navigation Pane",
     "AttributesPdfReaderToolbar": "Show Toolbar",
     "AttributesPdfReaderStatusBar": "show the status bar",
-    "AttributesPdfReaderDebug": "Display debugging information"
-  },
-  "BootstrapBlazor.Shared.Demos.PdfReader.PdfReaderAdvanced": {
+    "AttributesPdfReaderDebug": "Display debugging information",
     "PdfReaderAdvancedViewMode": "ViewMode",
     "PdfReaderAdvancedPageMode": "PageMode",
     "PdfReaderAdvancedPagePrevious": "PagePrevious",
@@ -5573,9 +5571,7 @@
     "PdfReaderAdvancedFilenameLabel": "The file in the wwwroot relative path or url",
     "PdfReaderAdvancedSearchLabel": "Search",
     "PdfReaderAdvancedReadOnlyLabel": "Disable copy/print/download",
-    "PdfReaderAdvancedWatermarkLabel": "Watermark content"
-  },
-  "BootstrapBlazor.Shared.Demos.PdfReader.PdfReaderCompatibilityMode": {
+    "PdfReaderAdvancedWatermarkLabel": "Watermark content",
     "PdfReaderCompatibilityModeTips": "- Chrome < 97 automatically uses version 2.4.456<br/>- Chrome < 109 automatically uses version 2.6.347<br/>- Note: ReadOnly and Watermark cannot be used in these two compatibility modes"
   },
   "BootstrapBlazor.Shared.Samples.VideoPlayers": {

@@ -5573,11 +5573,9 @@
     "AttributesPdfReaderNavPanels": "显示导航窗格",
     "AttributesPdfReaderToolbar": "显示工具栏",
     "AttributesPdfReaderStatusBar": "显示状态栏",
-    "AttributesPdfReaderDebug": "显示调试信息"
-  },
-  "BootstrapBlazor.Shared.Demos.PdfReader.PdfReaderAdvanced": {
+    "AttributesPdfReaderDebug": "显示调试信息",
     "PdfReaderAdvancedViewMode": "视图模式",
-    "PdfReaderAdvancedPagemode": "页面模式",
+    "PdfReaderAdvancedPageMode": "页面模式",
     "PdfReaderAdvancedPagePrevious": "页码-",
     "PdfReaderAdvancedPageNext": "页码+",
     "PdfReaderAdvancedGoToPage": "跳转",
@@ -5586,9 +5584,7 @@
     "PdfReaderAdvancedFilenameLabel": "文件相对路径或者URL",
     "PdfReaderAdvancedSearchLabel": "搜索",
     "PdfReaderAdvancedReadOnlyLabel": "禁用复制/打印/下载",
-    "PdfReaderAdvancedWatermarkLabel": "水印内容"
-  },
-  "BootstrapBlazor.Shared.Demos.PdfReader.PdfReaderCompatibilityMode": {
+    "PdfReaderAdvancedWatermarkLabel": "水印内容",
     "PdfReaderCompatibilityModeTips": "- Chrome < 97 自动使用 2.4.456 版本<br/>- Chrome < 109 自动使用 2.6.347 版本<br/>- 注:ReadOnly 和 Watermark 在这两种兼容模式下不能使用"
   },
   "BootstrapBlazor.Shared.Samples.VideoPlayers": {
