@@ -5602,7 +5602,9 @@
     "Title": "CountUp",
     "Description": "Animates a numerical value by counting to it",
     "CountUpsNormalTitle": "Normal",
-    "CountUpsNormalIntro": "Set <code>Value</code>"
+    "CountUpsNormalIntro": "Set <code>Value</code>",
+    "Value": "Obtain/Set Value Value",
+    "OnCompleted": "Counting end callback method"
   },
   "BootstrapBlazor.Shared.Samples.EyeDroppers": {
     "EyeDropperTitle": "EyeDropper",
