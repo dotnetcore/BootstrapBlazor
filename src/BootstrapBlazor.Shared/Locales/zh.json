@@ -3765,6 +3765,7 @@
     "Template": "自定义模板",
     "ChildContent": "子组件",
     "ImageText": "暂无数据",
+    "TemplateText": "自定义空状态模板",
     "TemplateIButtonText": "返回上一页"
   },
   "BootstrapBlazor.Shared.Samples.GroupBoxes": {
