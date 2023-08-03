@@ -10,7 +10,8 @@
     <DemoBlock Title="@Localizer["BasicUsageTitle"]"
                Introduction="@Localizer["BasicUsageIntro"]"
                Name="Normal">
-        <p>@((MarkupString)Localizer["BasicUsageP1"].Value)</p><ListView TItem="Product" Items="@Products" OnListViewItemClick="OnListViewItemClick">
+        <p>@((MarkupString)Localizer["BasicUsageP1"].Value)</p>
+        <ListView TItem="Product" Items="@Products" OnListViewItemClick="OnListViewItemClick">
             <HeaderTemplate>
                 <div>@Localizer["ProductListText"]</div>
             </HeaderTemplate>

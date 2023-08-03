@@ -3828,6 +3828,7 @@
     "GroupIntro": "设置 <code>GroupName</code> 数据进行分组显示",
     "CollapseTitle": "分组折叠",
     "CollapseIntro": "设置 <code>Collapsable=\"true\"</code> 使分组信息可折叠",
+    "Collapsable": "是否可折叠",
     "IsAccordionTitle": "分组手风琴",
     "IsAccordionIntro": "设置 <code>IsAccordion=\"true\"</code> 使分组信息折叠手风琴效果",
     "Items": "组件数据源",
