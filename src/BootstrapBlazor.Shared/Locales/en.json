@@ -3825,6 +3825,7 @@
     "GroupIntro": "Set up grouping <code>GroupName</code> data",
     "CollapseTitle": "Collapsable",
     "CollapseIntro": "Set up grouping can collapable via <code>Collapsable=\"true\"</code>",
+    "Collapsable": "Whether to collapsable",
     "IsAccordionTitle": "Group accordion",
     "IsAccordionIntro": "Set up grouping can accordion via <code>IsAccordion=\"true\"</code>",
     "Items": "Component data source",
