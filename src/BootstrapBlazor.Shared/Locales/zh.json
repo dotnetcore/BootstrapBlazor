@@ -2550,9 +2550,9 @@
     "FloatingLabelGroupBoxIntro": "设置 <code>IsGroupBox</code> 属性，组件显示为 GroupBox 样式"
   },
   "BootstrapBlazor.Shared.Samples.Inputs": {
+    "InputsBaseUsage": "基础用法",
     "InputsTitle": "Input 输入框",
     "InputsDescription": "通过鼠标或键盘输入字符",
-    "InputsNormalTitle": "基础用法",
     "InputsNormalIntro": "提供基本的文本录入组件",
     "InputsNormalDescription": "可通过设置 <code>IsAutoFocus</code> 是否自动获取焦点，多个文本框设置自动获取焦点时最后执行的组件将会获得焦点",
     "InputsColorTitle": "颜色",
@@ -2580,7 +2580,6 @@
     "InputsPassword2Intro": "使用 <code>BootstrapPassword</code> 组件",
     "InputsTrimTitle": "修剪空白",
     "InputsTrimIntro": "使用 <code>IsTrim=\"true\"</code> 可在输入内容的时候自动修剪空白",
-    "InputsTrimSpan": "基础用法",
     "TrimDescription": "设置参数 <code>IsTrim</code> 值为 <code>true</code> 后，组件内的前后空格将会被裁减",
     "InputsAtt1": "验证控件",
     "InputsAtt2": "是否显示前置标签",
@@ -2601,7 +2600,6 @@
     "NormalPlaceHolder": "请输入 ...",
     "IsSelectAllTextOnFocusLabel": "获得焦点时全选",
     "IsSelectAllTextOnEnterLabel": "回车时全选",
-    "InputsKeyboardSpan": "基础用法",
     "InputsKeyboardTips1": "请按键盘 <kbd>Enter</kbd> 或者 <kbd>Esc</kbd> 进行测试",
     "InputsKeyboardTips2": "执行 <code>@ref.SelectAllTextAsync()</code> 选择输入框内所有字符串",
     "PlaceHolder": "请输入 ...",
@@ -2617,7 +2615,7 @@
     "TestName": "张三",
     "InputsFormatStringSetting": "设置",
     "InputsFormatStringTips": "<code>BootstrapInput</code> 组件绑定 <code>byte[]</code> 数组，格式化成 <code>base64</code> 编码字符串示例",
-    "InputsPassword2Span": "基础用法"
+    "InputsBaseUseage": "基础用法"
   },
   "BootstrapBlazor.Shared.Samples.InputNumbers": {
     "InputNumbersTitle": "InputNumber 组件",
