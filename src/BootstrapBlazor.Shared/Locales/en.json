@@ -5498,7 +5498,8 @@
     "BatteryLevelElementAttr": "Reference objects for UI interface elements",
     "GetHeartrateAttr": "Connect the heart rate band",
     "StopHeartrateAttr": "Stop monitoring heart rate",
-    "HeartrateElementAttr": "Reference objects for UI interface elements"
+    "HeartrateElementAttr": "Reference objects for UI interface elements",
+    "SwitchUI": "Switch UI"
   },
   "BootstrapBlazor.Shared.Samples.FileIcons": {
     "Title": "File Icon",

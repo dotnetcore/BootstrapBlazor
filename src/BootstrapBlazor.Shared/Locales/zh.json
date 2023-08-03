@@ -5519,7 +5519,8 @@
     "BatteryLevelElementAttr": "UI界面元素的引用对象",
     "GetHeartrateAttr": "连接心率带",
     "StopHeartrateAttr": "停止监听心率",
-    "HeartrateElementAttr": "UI界面元素的引用对象"
+    "HeartrateElementAttr": "UI界面元素的引用对象",
+    "SwitchUI": "切换界面"
   },
   "BootstrapBlazor.Shared.Samples.FileIcons": {
     "Title": "File Icon 文件图标",
