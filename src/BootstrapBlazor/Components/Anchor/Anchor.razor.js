@@ -1,4 +1,4 @@
-﻿import { getDescribedElement, getWindowScroll } from "../../modules/utility.js?v=$version"
+﻿import { getDescribedElement, getOverflowParent } from "../../modules/utility.js?v=$version"
 import EventHandler from "../../modules/event-handler.js?v=$version"
 
 export function init(id) {
@@ -12,9 +12,10 @@ export function init(id) {
         e.preventDefault()
         const target = getDescribedElement(el, targetSelector)
         if (target) {
-            const container = getDescribedElement(el, containerSelector) || document.defaultView
+            const container = getDescribedElement(el, containerSelector) || getOverflowParent(target)
+            const containerRect = container.getBoundingClientRect()
             const rect = target.getBoundingClientRect()
-            let margin = rect.top
+            let margin = rect.top - containerRect.top + container.scrollTop
             let marginTop = getComputedStyle(target).getPropertyValue('margin-top').replace('px', '')
             if (marginTop) {
                 margin = margin - parseInt(marginTop)
@@ -23,34 +24,10 @@ export function init(id) {
             if (offset) {
                 margin = margin - parseInt(offset)
             }
-            let winScroll = container
-            if (winScroll.scrollTop === undefined) {
-                winScroll = getWindowScroll(container)
+            if (animation && 'style' in container) {
+                container.style.scrollBehavior = 'smooth'
             }
-            if (animation) {
-                const top = margin + winScroll.scrollTop
-                margin = winScroll.scrollTop
-                const step = (top - margin) / 10
-                let handler = window.setInterval(() => {
-                    if (margin === top) {
-                        window.clearInterval(handler)
-                        handler = null
-                    }
-                    else {
-                        margin += step
-                        if (step > 0 && margin >= top) {
-                            margin = top
-                        }
-                        else if (step < 0 && margin <= top) {
-                            margin = top
-                        }
-                        container.scrollTo(0, margin)
-                    }
-                }, 10)
-            }
-            else {
-                container.scrollTo(0, margin + winScroll.scrollTop)
-            }
+            container.scrollTo(0, margin)
         }
     })
 }

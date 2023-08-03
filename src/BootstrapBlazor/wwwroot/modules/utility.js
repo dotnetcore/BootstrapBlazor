@@ -449,6 +449,22 @@ const setIndeterminate = (object, state) => {
     }
 }
 
+const getOverflowParent = element => {
+    let parent = element.parentNode
+    while (parent.nodeType === 1) {
+        const style = getComputedStyle(parent)
+        const overflowY = style.getPropertyValue('overflow-y')
+        if (overflowY === 'auto' || overflowY === 'scroll') {
+            break;
+        }
+        parent = parent.parentNode
+    }
+    if (parent.nodeType !== 1) {
+        parent = getWindow()
+    }
+    return parent
+}
+
 export {
     addLink,
     addScript,
@@ -469,6 +485,7 @@ export {
     getInnerWidth,
     getOuterHeight,
     getOuterWidth,
+    getOverflowParent,
     getTargetElement,
     getTransitionDelayDurationFromElement,
     getWidth,
