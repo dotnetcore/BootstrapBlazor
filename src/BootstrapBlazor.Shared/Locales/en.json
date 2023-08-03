@@ -4174,10 +4174,11 @@
     "IntroText1": "For displaying anchor hyperlinks on page and jumping between them.",
     "IntroText2": "Click <code>Anchor</code> item try it",
     "ContentText1": "<p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p><p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p><p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p><p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p><p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>",
-    "Desc1": "Anchor Target Id",
-    "Desc2": "Id of the element where the scroll bar is located",
-    "Desc3": "The offset is used to adjust the gap use",
-    "Desc4": "Content"
+    "DescTarget": "Anchor Target Id",
+    "DescIsAnimation": "Enable scroll smooth",
+    "DescContainer": "Id of the element where the scroll bar is located",
+    "DescOffset": "The offset is used to adjust the gap use",
+    "DescChildContent": "Content"
   },
   "BootstrapBlazor.Shared.Samples.Breadcrumbs": {
     "Title": "Breadcrumb",
@@ -5581,12 +5582,11 @@
     "ChatsTitle": "Azure OpenAI",
     "ChatsDescription": "Azure OpenAI service is a chatbot based on Azure cloud service, which can interact with users through dialogue",
     "ChatNormalTitle": "Azure OpenAI",
-    "ChatNormalIntro": "Chat dialog by calling <code>IAzureOpenAIService</code> service method <code>GetChatCompletionsAsync</code>"
-  },
-  "BootstrapBlazor.Server.AIChat.AzureOpenAI.AzureOpenAIChat": {
-    "ChatTitle": "Chat session",
+    "ChatNormalIntro": "Chat dialog by calling <code>IAzureOpenAIService</code> service method <code>GetChatCompletionsAsync</code>",
+    "ChatUserTitle": "Chat session",
     "ChatUserMessageTitle": "{0} (remaining times {1})",
     "ChatDemoDesc": "Since <code>GPT</code> has no free interface, this component requires <code>Gitee</code> or <code>Github</code> to authorize and log in to limit the number of times the account can be used",
+    "ChatExit": "Exit",
     "ChatGitee": "Gitee OAuth",
     "ChatGithub": "Github OAuth"
   },

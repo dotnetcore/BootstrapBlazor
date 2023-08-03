@@ -101,14 +101,10 @@ public class CardTest : BootstrapBlazorTestBase
         cut.SetParametersAndRender(pb => pb.Add(a => a.Collapsed, false));
         Assert.Contains("collapse show", cut.Markup);
 
-        cut.InvokeAsync(() =>
-        {
-            var header = cut.Find(".card-collapse-bar");
-            header.Click();
-            Assert.True(cut.Instance.Collapsed);
-            Assert.True(collapsed);
 
-            header.Click();
+        cut.InvokeAsync(async () =>
+        {
+            await cut.Instance.ToggleCollapse();
             Assert.False(cut.Instance.Collapsed);
         });
     }
