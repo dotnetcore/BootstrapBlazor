@@ -104,8 +104,8 @@ public class CardTest : BootstrapBlazorTestBase
 
         cut.InvokeAsync(async () =>
         {
-            await cut.Instance.ToggleCollapse();
-            Assert.False(cut.Instance.Collapsed);
+            await cut.Instance.ToggleCollapse(true);
+            Assert.True(cut.Instance.Collapsed);
         });
     }
 
