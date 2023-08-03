@@ -7,8 +7,15 @@ export function init(id, invoke, callback) {
         return
     }
 
-    EventHandler.on(el, 'click', '.card-collapse-bar', e => {
-        invoke.invokeMethodAsync(callback)
+    EventHandler.on(el, 'hidden.bs.collapse', e => {
+        e.preventDefault()
+        e.stopPropagation()
+        invoke.invokeMethodAsync(callback, true)
+    })
+    EventHandler.on(el, 'shown.bs.collapse', e => {
+        e.preventDefault()
+        e.stopPropagation()
+        invoke.invokeMethodAsync(callback, false)
     })
     Data.set(id, { el, invoke, callback })
 }
@@ -21,5 +28,6 @@ export function dispose(id) {
         return
     }
 
-    EventHandler.off(card.el, 'click', '.card-collapse-bar')
+    EventHandler.off(card.el, 'hidden.bs.collapse')
+    EventHandler.off(card.el, 'shown.bs.collapse')
 }
