@@ -129,10 +129,19 @@ public partial class Card
     }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(ToggleCollapse));
+
+    private string? BodyId => $"{Id}_body";
+
+    /// <summary>
     /// The callback click collapse button
     /// </summary>
     /// <returns></returns>
-    protected virtual async Task ToggleCollapse()
+    [JSInvokable]
+    public async Task ToggleCollapse()
     {
         Collapsed = !Collapsed;
         if (CollapsedChanged.HasDelegate)
