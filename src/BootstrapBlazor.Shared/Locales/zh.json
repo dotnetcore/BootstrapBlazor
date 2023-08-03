@@ -503,8 +503,8 @@
     "PieNormalReload": "重载",
     "PieAspectRatioTitle": "图表比例",
     "PieAspectRatioIntro": "设置了高度和宽度,会自动禁用约束图表比例, 图表充满容器",
-    "PieLegendPostionTitle": "图例位置",
-    "PieLegendPostionIntro": "通过 <code>LegendPostion</code> 设置图例位置"
+    "PieLegendPositionTitle": "图例位置",
+    "PieLegendPositionIntro": "通过 <code>LegendPostion</code> 设置图例位置"
   },
   "BootstrapBlazor.Shared.Samples.Charts.Line": {
     "LineOnInitTitle": "Line 图",
@@ -2324,6 +2324,8 @@
     "VerticalIntro": "通过设置 <code>IsVertical=true</code> 使checkbox竖向排列",
     "DisabledTitle": "禁用",
     "DisabledIntro": "通过设置 <code>IsDisabled=true</code> 禁用",
+    "IsButtonTitle": "按钮复选框",
+    "IsButtonIntro": "设置 <code> IsButton=\"true\"</code>,将复选框样式改为按钮样式",
     "Att1": "数据源",
     "Att2": "是否禁用",
     "Att3": "组件值用于双向绑定",
@@ -4741,8 +4743,6 @@
     "ShowCopyColumnTitle": "允许拷贝列数据",
     "ShowCopyColumnIntro": "通过设置 <code>ShowCopyColumn</code> 设置表格列允许拷贝整列数据",
     "ShowCopyColumnDesc": "可以通过设置 <code>ShowCopyColumnTooltip</code> <code>CopyColumnTooltipText</code> <code>CopyColumnCopiedTooltipText</code> 等设置微调拷贝列数据图标的 <code>Tooltip</code> 相关参数",
-    "AutoGenerateColumnsTitle": "自动生成列",
-    "AutoGenerateColumnsIntro": "通过指定 <code>AutoGenerateColumns</code> 属性值为 <code>true</code>，开启根据绑定模型自动生成列信息功能",
     "AutoGenerateColumnsP1": "本例中通过设置 <code>AutoGenerateColumns</code> 值为 <code>true</code> 开启自动生成列功能，默认绑定模型实体类所有属性全部生成，实体类可以通过 <code>AutoGenerateColumnAttribute</code> 标签类进行功能设置，如：",
     "AutoGenerateColumnsLi1": "<code>Ignore</code> 表示忽略此属性，即不生成",
     "AutoGenerateColumnsLi2": "<code>Readonly</code> 表示只读",
@@ -4821,7 +4821,9 @@
     "TableColumnLi1": "<code>Value</code> 为当前绑定列的数据值",
     "TableColumnLi2": "<code>Row</code> 为当前绑定列所在行的数据值",
     "TemplateTitle": "自定义列模板",
-    "TemplateIntro": "通过指定 <code>Template</code> 设置最后一列内显示为自定义按钮"
+    "TemplateIntro": "通过指定 <code>Template</code> 设置最后一列内显示为自定义按钮",
+    "AutoGenerateColumnsTitle": "自动生成列",
+    "AutoGenerateColumnsIntro": "通过指定 <code>AutoGenerateColumns</code> 属性值为 <code>true</code>，开启根据绑定模型自动生成列信息功能"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesEdit": {
     "TablesEditTitle": "Table 表格",
@@ -4994,7 +4996,7 @@
     "TablesSelectionNormalButtonText": "清除选择"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesExcel": {
-    "TablesExcel": "Table 表格",
+    "TablesExcelTitle": "Table 表格",
     "TablesExcelDescription": "常用于大数据单表维护",
     "TablesExcelOnQueryTitle": "绑定集合",
     "TablesExcelOnQueryIntro": "通过 <code>OnQueryAsync</code> 回调获得数据集合",
