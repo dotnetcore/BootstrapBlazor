@@ -2506,7 +2506,7 @@
     "Att14": "列编辑模板",
     "IsDisplay": "是否显示为 Display 组件",
     "ShowLabelTooltip": "鼠标悬停标签时显示完整信息",
-    "GroupBoxTile": "表单示例",
+    "GroupBoxTitle": "表单示例",
     "SubButtonText": "提交",
     "TestName": "张三",
     "TestAddress": "测试地址",
