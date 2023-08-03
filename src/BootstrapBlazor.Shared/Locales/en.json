@@ -4852,7 +4852,7 @@
     "VirtualizationNormalDescription": "Need to set <code>ScrollMode</code> <code>Height</code> <code>RowHeight</code> <code>PageItems</code> parameters to set virtual scrolling",
     "VirtualizationDynamicTitle": "Get data dynamically",
     "VirtualizationDynamicIntro": "Background on-demand loading when scrolling data without paging",
-    "VirtMultiSelectsualizationDynamicDescription": "Display row placeholders when scrolling quickly to improve user experience"
+    "VirtualizationDynamicDescription": "Display row placeholders when scrolling quickly to improve user experience"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesLoading": {
     "TablesLoadingTitle": "Display data loading function",
