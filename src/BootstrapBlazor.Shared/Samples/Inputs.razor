@@ -5,7 +5,7 @@
 
 <h4>@Localizer["InputsDescription"]</h4>
 
-<DemoBlock Title="@Localizer["InputsNormalTitle"]"
+<DemoBlock Title="@Localizer["InputsBaseUsage"]"
            Introduction="@Localizer["InputsNormalIntro"]"
            Name="Normal">
     <p class="mb-3">@((MarkupString)Localizer["InputsNormalDescription"].Value)</p>
@@ -59,7 +59,7 @@
     <div>
         <div class="row g-3">
             <div class="col-auto col-form-label">
-                <span>@Localizer["InputsKeyboardSpan"]</span>
+                <span>@Localizer["InputsBaseUsage"]</span>
             </div>
             <div class="col-6">
                 <BootstrapInput TValue="string" PlaceHolder="@PlaceHolderText" OnEnterAsync="OnEnterAsync" OnEscAsync="OnEscAsync" />
@@ -71,7 +71,7 @@
         <p>@((MarkupString)Localizer["InputsKeyboardTips2"].Value)</p>
         <div class="row g-3">
             <div class="col-auto col-form-label">
-                <span>@Localizer["InputsKeyboardSpan"]</span>
+                <span>@Localizer["InputsBaseUsage"]</span>
             </div>
             <div class="col-6">
                 <BootstrapInput TValue="string" PlaceHolder="@PlaceHolderText" @ref="Input" OnEnterAsync="OnEnterSelectAllAsync" />
@@ -186,7 +186,7 @@
            Name="Password2">
     <div class="row g-3">
         <div class="col-auto col-form-label">
-            <span>@Localizer["InputsPassword2Span"]</span>
+            <span>@Localizer["InputsBaseUsage"]</span>
         </div>
         <div class="col-6">
             <BootstrapPassword PlaceHolder="@Localizer["PlaceHolder"]" IsSelectAllTextOnFocus="true" />
@@ -200,7 +200,7 @@
     <p class="mb-3">@((MarkupString)Localizer["TrimDescription"].Value)</p>
     <div class="row g-3">
         <div class="col-auto col-form-label">
-            <span>@Localizer["InputsTrimSpan"]</span>
+            <span>@Localizer["InputsBaseUsage"]</span>
         </div>
         <div class="col-6">
             <BootstrapInput @bind-Value="TrimModel.Name" PlaceHolder="@Localizer["PlaceHolder"]" IsTrim="true" />

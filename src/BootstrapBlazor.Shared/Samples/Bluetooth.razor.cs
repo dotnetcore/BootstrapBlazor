@@ -93,7 +93,7 @@ public partial class Bluetooth
     private Task OnUpdateValue(decimal value)
     {
         this.value = value;
-        this.statusMessage = $"设备电量{value}%";
+        this.statusMessage = Localizer["DeviceBattery", value];
         StateHasChanged();
         return Task.CompletedTask;
     }
@@ -117,13 +117,13 @@ public partial class Bluetooth
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
 
         new()
         {
             Name = "Commands",
-            Description = "打印指令(cpcl/esp/pos代码)",
+            Description = Localizer["CommandsAttr"],
             Type = "string?",
             ValueList = "-",
             DefaultValue = "-"
@@ -131,7 +131,7 @@ public partial class Bluetooth
         new()
         {
             Name = "Print",
-            Description = "打印",
+            Description = Localizer["PrintAttr"],
             Type = "async Task",
             ValueList = "-",
             DefaultValue = "-"
@@ -139,7 +139,7 @@ public partial class Bluetooth
         new()
         {
             Name = "OnUpdateStatus",
-            Description = "状态更新回调方法",
+            Description = Localizer["OnUpdateStatusAttr"],
             Type = "Func<string, Task>?",
             ValueList = "-",
             DefaultValue = "-"
@@ -147,7 +147,7 @@ public partial class Bluetooth
         new()
         {
             Name = "OnUpdateError",
-            Description = "错误更新回调方法",
+            Description = Localizer["OnUpdateErrorAttr"],
             Type = "Func<string, Task>?",
             ValueList = "-",
             DefaultValue = "-"
@@ -155,7 +155,7 @@ public partial class Bluetooth
         new()
         {
             Name = "PrinterElement",
-            Description = "UI界面元素的引用对象,为空则使用整个页面",
+            Description = Localizer["PrinterElementAttr"],
             Type = "ElementReference",
             ValueList = "-",
             DefaultValue = "-"
@@ -163,7 +163,7 @@ public partial class Bluetooth
         new()
         {
             Name = "Opt",
-            Description = "打印机选项",
+            Description = Localizer["OptAttr"],
             Type = "PrinterOption",
             ValueList = "-",
             DefaultValue = "-"
@@ -171,7 +171,7 @@ public partial class Bluetooth
         new()
         {
             Name = "ShowUI",
-            Description = "获得/设置 显示内置UI",
+            Description = Localizer["ShowUIAttr"],
             Type = "bool",
             ValueList = "True|False",
             DefaultValue = "False"
@@ -179,7 +179,7 @@ public partial class Bluetooth
         new()
         {
             Name = "Debug",
-            Description = "获得/设置 显示Log",
+            Description = Localizer["DebugAttr"],
             Type = "bool",
             ValueList = "True|False",
             DefaultValue = "False"
@@ -187,7 +187,7 @@ public partial class Bluetooth
         new()
         {
             Name = "DeviceName",
-            Description = "获得/设置 设备名称",
+            Description = Localizer["DeviceNameAttr"],
             Type = "string?",
             ValueList = "-",
             DefaultValue = "-"
@@ -198,12 +198,12 @@ public partial class Bluetooth
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetPrinterOptionAttributes() => new AttributeItem[]
+    private IEnumerable<AttributeItem> GetPrinterOptionAttributes() => new AttributeItem[]
     {
         new()
         {
             Name = "NamePrefix",
-            Description = "初始搜索设备名称前缀,默认 null",
+            Description = Localizer["NamePrefixAttr"],
             Type = "string?",
             ValueList = "-",
             DefaultValue = "null"
@@ -211,7 +211,7 @@ public partial class Bluetooth
         new()
         {
             Name = "MaxChunk",
-            Description = "数据切片大小,默认100",
+            Description = Localizer["MaxChunkAttr"],
             Type = "int",
             ValueList = "-",
             DefaultValue = "100"
@@ -222,12 +222,12 @@ public partial class Bluetooth
     /// 获得蓝牙设备类
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetBluetoothDeviceAttributes() => new AttributeItem[]
+    private IEnumerable<AttributeItem> GetBluetoothDeviceAttributes() => new AttributeItem[]
     {
         new()
         {
             Name = "Name",
-            Description = "设备名称",
+            Description = Localizer["NameAttr"],
             Type = "string?",
             ValueList = "-",
             DefaultValue = "null"
@@ -235,7 +235,7 @@ public partial class Bluetooth
         new()
         {
             Name = "Value",
-            Description = "设备数值:例如心率/电量%",
+            Description = Localizer["ValueAttr"],
             Type = "decimal?",
             ValueList = "-",
             DefaultValue = "null"
@@ -243,7 +243,7 @@ public partial class Bluetooth
         new()
         {
             Name = "Status",
-            Description = "状态",
+            Description = Localizer["StatusAttr"],
             Type = "string?",
             ValueList = "-",
             DefaultValue = "null"
@@ -251,7 +251,7 @@ public partial class Bluetooth
         new()
         {
             Name = "Error",
-            Description = "错误",
+            Description = Localizer["ErrorAttr"],
             Type = "string?",
             ValueList = "-",
             DefaultValue = "null"
@@ -262,12 +262,12 @@ public partial class Bluetooth
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributesBatteryLevel() => new AttributeItem[]
+    private IEnumerable<AttributeItem> GetAttributesBatteryLevel() => new AttributeItem[]
     {
         new()
         {
             Name = "GetBatteryLevel",
-            Description = "查询电量",
+            Description = Localizer["GetBatteryLevelAttr"],
             Type = "async Task",
             ValueList = "-",
             DefaultValue = "-"
@@ -275,7 +275,7 @@ public partial class Bluetooth
         new()
         {
             Name = "OnUpdateValue",
-            Description = "数值更新回调方法",
+            Description = Localizer["OnUpdateValueAttr"],
             Type = "Func<string, Task>?",
             ValueList = "-",
             DefaultValue = "-"
@@ -283,7 +283,7 @@ public partial class Bluetooth
         new()
         {
             Name = "OnUpdateStatus",
-            Description = "状态更新回调方法",
+            Description = Localizer["OnUpdateStatusAttr"],
             Type = "Func<string, Task>?",
             ValueList = "-",
             DefaultValue = "-"
@@ -291,7 +291,7 @@ public partial class Bluetooth
         new()
         {
             Name = "OnUpdateError",
-            Description = "错误更新回调方法",
+            Description = Localizer["OnUpdateErrorAttr"],
             Type = "Func<string, Task>?",
             ValueList = "-",
             DefaultValue = "-"
@@ -299,7 +299,7 @@ public partial class Bluetooth
         new()
         {
             Name = "BatteryLevelElement",
-            Description = "UI界面元素的引用对象",
+            Description = Localizer["BatteryLevelElementAttr"],
             Type = "ElementReference",
             ValueList = "-",
             DefaultValue = "-"
@@ -311,12 +311,12 @@ public partial class Bluetooth
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributesHeartrate() => new AttributeItem[]
+    private IEnumerable<AttributeItem> GetAttributesHeartrate() => new AttributeItem[]
     {
         new()
         {
             Name = "GetHeartrate",
-            Description = "连接心率带",
+            Description = Localizer["GetHeartrateAttr"],
             Type = "async Task",
             ValueList = "-",
             DefaultValue = "-"
@@ -324,7 +324,7 @@ public partial class Bluetooth
         new()
         {
             Name = "StopHeartrate",
-            Description = "停止监听心率",
+            Description = Localizer["StopHeartrateAttr"],
             Type = "async Task",
             ValueList = "-",
             DefaultValue = "-"
@@ -332,7 +332,7 @@ public partial class Bluetooth
         new()
         {
             Name = "OnUpdateValue",
-            Description = "数值更新回调方法",
+            Description = Localizer["OnUpdateValueAttr"],
             Type = "Func<string, Task>?",
             ValueList = "-",
             DefaultValue = "-"
@@ -340,7 +340,7 @@ public partial class Bluetooth
         new()
         {
             Name = "OnUpdateStatus",
-            Description = "状态更新回调方法",
+            Description = Localizer["OnUpdateStatusAttr"],
             Type = "Func<string, Task>?",
             ValueList = "-",
             DefaultValue = "-"
@@ -348,7 +348,7 @@ public partial class Bluetooth
         new()
         {
             Name = "OnUpdateError",
-            Description = "错误更新回调方法",
+            Description = Localizer["OnUpdateErrorAttr"],
             Type = "Func<string, Task>?",
             ValueList = "-",
             DefaultValue = "-"
@@ -356,7 +356,7 @@ public partial class Bluetooth
         new()
         {
             Name = "HeartrateElement",
-            Description = "UI界面元素的引用对象",
+            Description = Localizer["HeartrateElementAttr"],
             Type = "ElementReference",
             ValueList = "-",
             DefaultValue = "-"
