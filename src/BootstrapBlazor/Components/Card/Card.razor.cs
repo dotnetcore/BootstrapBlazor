@@ -141,9 +141,9 @@ public partial class Card
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task ToggleCollapse()
+    public async Task ToggleCollapse(bool collapsed)
     {
-        Collapsed = !Collapsed;
+        Collapsed = collapsed;
         if (CollapsedChanged.HasDelegate)
         {
             await CollapsedChanged.InvokeAsync(Collapsed);
