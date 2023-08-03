@@ -3039,6 +3039,7 @@
     "TextAreaIsDisabled": "是否禁用 默认为 fasle",
     "TextAreaScrollTitle": "内容滚动",
     "TextAreaScrollIntro": "滚动到底部/顶部/指定位置",
+    "TextAreaMockChat": "模拟聊天 ",
     "TextAreaMockChatRun": "开始模拟聊天",
     "TextAreaMockChatStop": "停止模拟聊天",
     "TextAreaScrollToBottom": "滚动到底部",

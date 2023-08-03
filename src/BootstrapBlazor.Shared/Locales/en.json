@@ -3037,6 +3037,7 @@
     "TextAreaIsDisabled": "Whether to disable Default is fasle",
     "TextAreaScrollTitle": "Content scrolling",
     "TextAreaScrollIntro": "Scroll to bottom/top/position",
+    "TextAreaMockChat": "Mock chat ",
     "TextAreaMockChatRun": "Mock chat Run",
     "TextAreaMockChatStop": "Mock chat Stop",
     "TextAreaScrollToBottom": "Scroll to bottom",
