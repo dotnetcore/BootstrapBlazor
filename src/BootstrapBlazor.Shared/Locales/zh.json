@@ -4994,7 +4994,7 @@
     "TablesSelectionNormalButtonText": "清除选择"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesExcel": {
-    "TablesExcel": "Table 表格",
+    "TablesExcelTitle": "Table 表格",
     "TablesExcelDescription": "常用于大数据单表维护",
     "TablesExcelOnQueryTitle": "绑定集合",
     "TablesExcelOnQueryIntro": "通过 <code>OnQueryAsync</code> 回调获得数据集合",

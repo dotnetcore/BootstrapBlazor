@@ -4977,7 +4977,7 @@
     "TablesSelectionNormalButtonText": "clear selection"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesExcel": {
-    "TablesExcel": "Table Excel",
+    "TablesExcelTitle": "Table Excel",
     "TablesExcelDescription": "Commonly used for large data sheet maintenance",
     "TablesExcelOnQueryTitle": "binding collection",
     "TablesExcelOnQueryIntro": "Get data collection through <code>OnQueryAsync</code> callback",
