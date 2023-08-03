@@ -87,8 +87,9 @@ public partial class MenuTest
         {
             if (File.Exists(fileName))
             {
+                var type = typeName.Replace('/', '.');
                 var content = File.ReadAllText(fileName);
-                Utility.GetJsonStringByTypeName(localizerOption.Value, typeof(App).Assembly, $"BootstrapBlazor.Shared.Samples.{typeName}").ToList().ForEach(l => content = ReplacePayload(content, l)); ;
+                Utility.GetJsonStringByTypeName(localizerOption.Value, typeof(App).Assembly, $"BootstrapBlazor.Shared.Samples.{type}").ToList().ForEach(l => content = ReplacePayload(content, l)); ;
                 content = ReplaceSymbols(content);
                 content = RemoveBlockStatement(content, "@inject IStringLocalizer<");
 
