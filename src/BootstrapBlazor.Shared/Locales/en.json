@@ -1283,6 +1283,8 @@
     "AlignmentDivider1": "Young Bao Qingtian",
     "AlignmentDivider2": "League of Legends",
     "AlignmentDivider3": "Learning Quotations",
+    "AlignmentContent1": "Just a Content Test 1",
+    "AlignmentContent2": "Just a Content Test 2",
     "AlignmentContent3": "A cute icon",
     "AlignmentContent4": "Learning makes me happy",
     "IconContent1": "A sunny day above my head, I missed one in my heart",
@@ -2161,9 +2163,6 @@
     "Att12": "button style",
     "Att13": "The type of button",
     "MethodDesc1": "set whether the button is available",
-    "PulseButtonHeader": "PulseButton (heartbeat) button",
-    "PulseButtonPara": "It is suitable for highlighting function to attract users' attention. The default button is circular",
-    "PulseButtonPara2": "The heartbeat button component is inherited from the button, so a heartbeat ring is added on the basis of the original function of the button. Please refer to the switch style button in the lower right corner of the website.",
     "NoneButtonColor": "None",
     "PrimaryButton": "Primary",
     "SecondaryButton": "Secondary",
@@ -2198,6 +2197,13 @@
     "TooltipTitle": "Tooltip",
     "TooltipIntro": "Set <code>TooltipText</code> <code>TooltipPlacement</code> <code>TooltipTrigger</code> shortcut button prompt bar information, position, and triggering method. For more functions, please use the <code>Tooltip</code> component to implement. In this example, the second button is in the <b>disabled</b> state, and the prompt bar is still available",
     "TooltipDisabledText": "Disabled"
+  },
+  "BootstrapBlazor.Shared.Samples.PulseButtons": {
+    "Block1Title": "Basic usage",
+    "Block1Intro": "The underlying button usage.",
+    "PulseButtonHeader": "PulseButton (heartbeat) button",
+    "PulseButtonPara": "It is suitable for highlighting function to attract users' attention. The default button is circular",
+    "PulseButtonPara2": "The heartbeat button component is inherited from the button, so a heartbeat ring is added on the basis of the original function of the button. Please refer to the switch style button in the lower right corner of the website."
   },
   "BootstrapBlazor.Shared.Samples.Cascaders": {
     "Title": "Cascader",
@@ -2310,8 +2316,8 @@
     "ValidateFormTips1": "You can experience adaptive layout by changing the window size",
     "ValidateFormTips2": "In this example, the <code>Name</code> field of the binding model <code>binditem</code> is automatically changed by checking the option",
     "ValidateFormTips3": "Because it is built into the <code>ValidateForm</code> form, in this example, <code>RequiredAttribute</code> required for verification is added. When all options are cancelled, the verification result will be prompted",
-    "ShowLabelTipTitle": "Bidirectional binding collection",
-    "ShowLabelTipIntro": "Binding values are collections",
+    "ShowLabelTitle": "Bidirectional binding collection",
+    "ShowLabelIntro": "Binding values are collections",
     "ShowLabelTip": "Tvalue is set to <code>IEnumerable&lt;int&gt;</code> generic collection, the <Code>ValueField</Code> specified field of the bound collection must be consistent with the generic type",
     "EnumTitle": "Bidirectional binding enumeration",
     "EnumIntro": "The binding value is enumeration",
@@ -3433,6 +3439,8 @@
     "BasicUsageIntro": "Card is a simple example",
     "FooterTitle": "Header & Footer",
     "FooterIntro": "You can show the content by adding the HeaderTemplate and FooterTemplate elements",
+    "IsCenterTitle": "Center",
+    "IsCenterIntro": "Make content center by <code>IsCenter=true</code>",
     "ColorTitle": "A card with a border color",
     "ColorIntro": "By setting, <code>The</code> makes the border and Body color appropriate",
     "CollapsibleIntro": "Card body can collapse/expand by set <code>IsCollapsible</code> to true",
@@ -3502,6 +3510,7 @@
     "AutoStartTitle": "Start automatically",
     "AutoStartIntro": "Set the <code>AutoStart</code> property to control whether the camera is directly turned on when the component is running",
     "ShowPreview": "Whether to show photo preview",
+    "AutoStart": "Whether open the camera auto",
     "DeviceLabel": "Device list front label text",
     "FrontText": "Front display text",
     "BackText": "Display text behind",
@@ -5587,6 +5596,7 @@
     "Poster": "Set the cover resource, relative or absolute path",
     "SwitchResource": "Toggle playback resources",
     "SetPoster": "Set the cover",
+    "ShowBar": "Wether show bar",
     "OnError": "Error callback"
   },
   "BootstrapBlazor.Shared.Components.PackageTips": {

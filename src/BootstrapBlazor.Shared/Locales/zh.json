@@ -2162,9 +2162,6 @@
     "Att12": "按钮风格",
     "Att13": "按钮类型",
     "MethodDesc1": "设置按钮是否可用",
-    "PulseButtonHeader": "PulseButton 心跳按钮",
-    "PulseButtonPara": "适用于突出显示功能吸引使用者关注，按钮默认为圆形",
-    "PulseButtonPara2": "心跳按钮组件继承于按钮，所以在按钮原有功能基础上增加了一个心跳环，可参见网站右下角切换样式按钮",
     "NoneButtonColor": "None 按钮",
     "PrimaryButton": "主要按钮",
     "SecondaryButton": "次要按钮",
@@ -2199,6 +2196,13 @@
     "TooltipTitle": "按钮提示栏",
     "TooltipIntro": "通过设置 <code>TooltipText</code> <code>TooltipPlacement</code> <code>TooltipTrigger</code> 快捷设置按钮提示栏信息、位置、触发方式，更多功能请使用 <code>Tooltip</code> 组件实现，本例中第二个按钮是 <b>禁用</b> 状态，提示栏仍然可用",
     "TooltipDisabledText": "禁用按钮"
+  },
+  "BootstrapBlazor.Shared.Samples.PulseButtons": {
+    "Block1Title": "基础用法",
+    "Block1Intro": "基础的按钮用法。",
+    "PulseButtonHeader": "PulseButton 心跳按钮",
+    "PulseButtonPara": "适用于突出显示功能吸引使用者关注，按钮默认为圆形",
+    "PulseButtonPara2": "心跳按钮组件继承于按钮，所以在按钮原有功能基础上增加了一个心跳环，可参见网站右下角切换样式按钮"
   },
   "BootstrapBlazor.Shared.Samples.Cascaders": {
     "Title": "Cascader 级联选择",
@@ -5605,6 +5609,7 @@
     "Poster": "设置封面资源,相对或者绝对路径",
     "SwitchResource": "切换播放资源",
     "SetPoster": "设置封面",
+    "ShowBar": "是否显示 bar",
     "OnError": "错误回调"
   },
   "BootstrapBlazor.Shared.Components.PackageTips": {

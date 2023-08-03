@@ -131,7 +131,7 @@ public sealed partial class Editors
         new()
         {
             Name = "ShowSubmit",
-            Description = Localizer["AttShowSubmit"],
+            Description = Localizer["AttrShowSubmit"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
