@@ -2503,7 +2503,7 @@
     "Att14": "Column editing template",
     "IsDisplay": "Shown as Display component",
     "ShowLabelTooltip": "Show complete information when mouse hover over the label",
-    "GroupBoxTile": "An example of a form",
+    "GroupBoxTitle": "An example of a form",
     "SubButtonText": "Submit",
     "TestName": "Tom",
     "TestAddress": "The test address",
