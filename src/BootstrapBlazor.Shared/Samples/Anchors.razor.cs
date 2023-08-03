@@ -18,7 +18,7 @@ public partial class Anchors
         new()
         {
             Name = "Target",
-            Description = Localizer["Desc1"],
+            Description = Localizer["DescTarget"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
@@ -26,15 +26,23 @@ public partial class Anchors
         new()
         {
             Name = "Container",
-            Description = Localizer["Desc2"],
+            Description = Localizer["DescContainer"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new()
         {
+            Name = "IsAnimation",
+            Description = Localizer["DescIsAnimation"],
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new()
+        {
             Name = "Offset",
-            Description = Localizer["Desc3"],
+            Description = Localizer["DescOffset"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "0"
@@ -42,7 +50,7 @@ public partial class Anchors
         new()
         {
             Name = "ChildContent",
-            Description = Localizer["Desc4"],
+            Description = Localizer["DescChildContent"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
