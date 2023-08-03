@@ -2323,6 +2323,8 @@
     "VerticalIntro": "Arrange checkboxes vertically by setting <code>IsVertical = 'true' </code >",
     "DisabledTitle": "Disable",
     "DisabledIntro": "Disable by setting <code>IsDisabled='true'</code>",
+    "IsButtonTitle": "Button CheckboxList",
+    "IsButtonIntro": "Set <code>IsButton= \"true\"</code> to change the checkbox style to a button style",
     "Att1": "Data source",
     "Att2": "Disable",
     "Att3": "Component values are used for bidirectional binding",

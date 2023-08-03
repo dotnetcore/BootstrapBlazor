@@ -2324,6 +2324,8 @@
     "VerticalIntro": "通过设置 <code>IsVertical=true</code> 使checkbox竖向排列",
     "DisabledTitle": "禁用",
     "DisabledIntro": "通过设置 <code>IsDisabled=true</code> 禁用",
+    "IsButtonTitle": "按钮复选框",
+    "IsButtonIntro": "设置 <code> IsButton=\"true\"</code>,将复选框样式改为按钮样式",
     "Att1": "数据源",
     "Att2": "是否禁用",
     "Att3": "组件值用于双向绑定",
