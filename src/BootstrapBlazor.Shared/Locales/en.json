@@ -2580,6 +2580,7 @@
     "InputsPassword2Intro": "Use the <code>BootstrapPassword</code> component",
     "InputsTrimTitle": "Trim",
     "InputsTrimIntro": "Use <code>IsTrim=\"true\"</code> to automatically trim white space when entering content",
+    "InputsTrimSpan": "Basic usage",
     "TrimDescription": "The front and back spaces in the component will be trimmed when set <code>IsTrim</code> to <code>true</code>",
     "InputsAtt1": "Validate the control",
     "InputsAtt2": "Whether to display the front label",
@@ -2597,12 +2598,13 @@
     "SelectAllTextAsync": "Select the all text method",
     "ValidateRules": "Customer validation collection",
     "P8": "Use <code>IsSelectAllTextOnEnter</code> The user presses enter to select the all text",
-    "PlaceHolder": "Please enter ...",
+    "NormalPlaceHolder": "Please enter ...",
     "IsSelectAllTextOnFocusLabel": "Select all on focus",
     "IsSelectAllTextOnEnterLabel": "Select all on enter",
     "InputsKeyboardSpan": "Basic usage",
     "InputsKeyboardTips1": "Press the keyboard <kbd>Enter</kbd> or <kbd>Esc</kbd> test",
     "InputsKeyboardTips2": "Execute <code>@ref.SelectAllTextAsync()</code> method select the all text",
+    "PlaceHolder": "Please enter ...",
     "InputsKeyboardLog": "The key triggers the current text box value",
     "InputsPlaceholderSpan": "One-way binding",
     "InputsLabelsDivider1": "Custom labels",
@@ -2615,7 +2617,7 @@
     "TestName": "Tom",
     "InputsFormatStringSetting": "Set up",
     "InputsFormatStringTips": "The <code>BootstrapInput</code> component binds <code>byte[]</code> array and formats it as an example of <code>base64</code> encoded string",
-    "InputsTrimSpan": "Basic usage"
+    "InputsPassword2Span": "Basic usage"
   },
   "BootstrapBlazor.Shared.Samples.InputNumbers": {
     "InputNumbersTitle": "InputNumber",
