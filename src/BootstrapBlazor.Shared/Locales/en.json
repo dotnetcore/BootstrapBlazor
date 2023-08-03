@@ -2161,9 +2161,6 @@
     "Att12": "button style",
     "Att13": "The type of button",
     "MethodDesc1": "set whether the button is available",
-    "PulseButtonHeader": "PulseButton (heartbeat) button",
-    "PulseButtonPara": "It is suitable for highlighting function to attract users' attention. The default button is circular",
-    "PulseButtonPara2": "The heartbeat button component is inherited from the button, so a heartbeat ring is added on the basis of the original function of the button. Please refer to the switch style button in the lower right corner of the website.",
     "NoneButtonColor": "None",
     "PrimaryButton": "Primary",
     "SecondaryButton": "Secondary",
@@ -2198,6 +2195,13 @@
     "TooltipTitle": "Tooltip",
     "TooltipIntro": "Set <code>TooltipText</code> <code>TooltipPlacement</code> <code>TooltipTrigger</code> shortcut button prompt bar information, position, and triggering method. For more functions, please use the <code>Tooltip</code> component to implement. In this example, the second button is in the <b>disabled</b> state, and the prompt bar is still available",
     "TooltipDisabledText": "Disabled"
+  },
+  "BootstrapBlazor.Shared.Samples.PulseButtons": {
+    "Block1Title": "Basic usage",
+    "Block1Intro": "The underlying button usage.",
+    "PulseButtonHeader": "PulseButton (heartbeat) button",
+    "PulseButtonPara": "It is suitable for highlighting function to attract users' attention. The default button is circular",
+    "PulseButtonPara2": "The heartbeat button component is inherited from the button, so a heartbeat ring is added on the basis of the original function of the button. Please refer to the switch style button in the lower right corner of the website."
   },
   "BootstrapBlazor.Shared.Samples.Cascaders": {
     "Title": "Cascader",
