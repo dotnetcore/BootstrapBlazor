@@ -63,6 +63,7 @@ public partial class MenuTest
     [Fact]
     public void Localizer_Ok()
     {
+        var result = new List<string>();
         var localizerOption = _serviceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
         var localizer = _serviceProvider.GetRequiredService<IStringLocalizer<NavMenu>>();
 
@@ -82,6 +83,7 @@ public partial class MenuTest
                 ReplaceContent(srcFile, typeName, SourceCodeRegex());
             }
         }
+        Assert.Empty(result);
 
         void ReplaceContent(string fileName, string typeName, Regex regex)
         {
@@ -99,6 +101,7 @@ public partial class MenuTest
                 {
                     var v = string.Join(",", matches.Select(i => i.Value));
                     _logger.WriteLine($"{Path.GetFileName(fileName)} - {v}");
+                    result.Add(v);
                 }
             }
         }
