@@ -66,85 +66,85 @@ public sealed partial class Searches
 
         new() {
             Name = "ChildContent",
-            Description = Localizer["SearchsChildContent"],
+            Description = Localizer["SearchesChildContent"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new() {
             Name = "Items",
-            Description = Localizer["SearchsItems"],
+            Description = Localizer["SearchesItems"],
             Type = "IEnumerable<string>",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new() {
             Name = "NoDataTip",
-            Description = Localizer["SearchsNoDataTip"],
+            Description = Localizer["SearchesNoDataTip"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = Localizer["SearchsNoDataTipDefaultValue"]
+            DefaultValue = Localizer["SearchesNoDataTipDefaultValue"]
         },
         new()
         {
             Name="SearchButtonLoadingIcon",
-            Description = Localizer["SearchsButtonLoadingIcon"],
+            Description = Localizer["SearchesButtonLoadingIcon"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-fw fa-spin fa-solid fa-spinner"
         },
         new() {
             Name = "ClearButtonIcon",
-            Description = Localizer["SearchsClearButtonIcon"],
+            Description = Localizer["SearchesClearButtonIcon"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "fa-solid fa-trash"
         },
         new() {
             Name = "ClearButtonText",
-            Description = Localizer["SearchsClearButtonText"],
+            Description = Localizer["SearchesClearButtonText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new() {
             Name = "ClearButtonColor",
-            Description = Localizer["SearchsClearButtonColor"],
+            Description = Localizer["SearchesClearButtonColor"],
             Type = "Color",
             ValueList = " — ",
             DefaultValue = "Secondary"
         },
         new() {
             Name = "SearchButtonColor",
-            Description = Localizer["SearchsButtonColor"],
+            Description = Localizer["SearchesButtonColor"],
             Type = "Color",
             ValueList = " — ",
             DefaultValue = "Primary"
         },
         new() {
             Name = "IsLikeMatch",
-            Description = Localizer["SearchsIsLikeMatch"],
+            Description = Localizer["SearchesIsLikeMatch"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new() {
             Name = "IsAutoFocus",
-            Description = Localizer["SearchsIsAutoFocus"],
+            Description = Localizer["SearchesIsAutoFocus"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new() {
             Name = "IsAutoClearAfterSearch",
-            Description = Localizer["SearchsIsAutoClearAfterSearch"],
+            Description = Localizer["SearchesIsAutoClearAfterSearch"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
         new() {
             Name = "IsOnInputTrigger",
-            Description = Localizer["SearchsIsOnInputTrigger"],
+            Description = Localizer["SearchesIsOnInputTrigger"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -152,7 +152,7 @@ public sealed partial class Searches
         new()
         {
             Name = "IgnoreCase",
-            Description = Localizer["SearchsIgnoreCase"],
+            Description = Localizer["SearchesIgnoreCase"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
@@ -160,7 +160,7 @@ public sealed partial class Searches
         new()
         {
             Name = "ShowClearButton",
-            Description = Localizer["SearchsShowClearButton"],
+            Description = Localizer["SearchesShowClearButton"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -168,7 +168,7 @@ public sealed partial class Searches
         new()
         {
             Name="OnSearch",
-            Description = Localizer["SearchsOnSearch"],
+            Description = Localizer["SearchesOnSearch"],
             Type = "Func<string, Task>",
             ValueList = " — ",
             DefaultValue = " — "
@@ -176,7 +176,7 @@ public sealed partial class Searches
         new()
         {
             Name="OnClear",
-            Description = Localizer["SearchsOnClear"],
+            Description = Localizer["SearchesOnClear"],
             Type = "Func<string, Task>",
             ValueList = " — ",
             DefaultValue = " — "
