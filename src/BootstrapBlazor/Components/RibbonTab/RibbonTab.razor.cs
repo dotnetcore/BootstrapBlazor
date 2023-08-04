@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Xml.Linq;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -38,6 +40,12 @@ public partial class RibbonTab
     /// </summary>
     [Parameter]
     public string? RibbonArrowPinIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否开启 Url 锚点
+    /// </summary>
+    [Parameter]
+    public bool IsAnchorPoint { get; set; }
 
     private bool IsFloat { get; set; }
 
@@ -91,6 +99,10 @@ public partial class RibbonTab
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
+    [Inject]
+    [NotNull]
+    private NavigationManager? NavigationManager { get; set; }
+
     private bool IsExpand { get; set; }
 
     private string? HeaderClassString => CssBuilder.Default("ribbon-tab")
@@ -122,12 +134,39 @@ public partial class RibbonTab
         RibbonArrowPinIcon ??= IconTheme.GetIconByKey(ComponentIcons.RibbonTabArrowPinIcon);
 
         Items ??= Enumerable.Empty<RibbonTabItem>();
-        if (!Items.Any(i => i.IsActive))
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+        if (firstRender && !IsAnchorPoint)
         {
-            var item = Items.FirstOrDefault();
-            if (item != null)
+            if (!Items.Any(i => i.IsActive))
             {
-                item.IsActive = true;
+                var item = Items.Last();
+                if (item != null)
+                {
+                    item.IsActive = true;
+                }
+            }
+        }
+        else
+        {
+            var url = NavigationManager.Uri;
+            if (url != null && url.Contains("#"))
+            {
+                var arr = url.Split("#");
+                await InvokeVoidAsync("addAnchor", arr.Last(), Interop, nameof(SetActive));
+            }
+            else
+            {
+                var item = Items.FirstOrDefault();
+                await InvokeVoidAsync("addAnchor", item?.Text, Interop, nameof(SetActive));
             }
         }
     }
@@ -140,6 +179,27 @@ public partial class RibbonTab
     {
         IsExpand = false;
         StateHasChanged();
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [JSInvokable]
+    public void SetActive(string name)
+    {
+
+        var activeItem = Items.FirstOrDefault(i => i.IsActive);
+        if (activeItem != null)
+        {
+            activeItem.IsActive = false;
+        }
+        var item1 = Items.FirstOrDefault(s => s.Text == name);
+        if (item1 != null)
+        {
+            item1.IsActive = true;
+        }
+        // 会陷入无限刷新
+        //StateHasChanged();
     }
 
     private async Task OnClick(RibbonTabItem item)
@@ -167,6 +227,10 @@ public partial class RibbonTab
         {
             IsExpand = true;
             StateHasChanged();
+        }
+        if (IsAnchorPoint)
+        {
+            await InvokeVoidAsync("addAnchor", item.Text, Interop, nameof(SetActive));
         }
     }
 

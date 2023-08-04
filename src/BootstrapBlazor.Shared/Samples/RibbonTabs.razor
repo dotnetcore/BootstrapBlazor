@@ -8,40 +8,40 @@
 <DemoBlock Title="@Localizer["RibbonTabsNormalTitle"]"
            Introduction="@Localizer["RibbonTabsNormalIntro"]"
            Name="Normal">
-    <RibbonTab Items="@NormalItems" />
+    <RibbonTab Items="@NormalItems" IsAnchorPoint="true" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["RibbonTabsFloatTitle"]"
-           Introduction="@Localizer["RibbonTabsFloatIntro"]"
-           Name="Float">
-    <div style="height: 178.5px;">
-        <RibbonTab Items="@FloatItems" ShowFloatButton="true" OnFloatChanged="OnFloatChanged">
-            @Localizer["RibbonTabsFloatContent"]
+@*<DemoBlock Title="@Localizer["RibbonTabsFloatTitle"]"
+               Introduction="@Localizer["RibbonTabsFloatIntro"]"
+               Name="Float">
+        <div style="height: 178.5px;">
+            <RibbonTab Items="@FloatItems" ShowFloatButton="true" OnFloatChanged="OnFloatChanged">
+                @Localizer["RibbonTabsFloatContent"]
+            </RibbonTab>
+        </div>
+        <ConsoleLogger @ref="Logger" class="mt-3" />
+    </DemoBlock>
+
+    <DemoBlock Title="@Localizer["RibbonTabsRightButtonsTemplateTitle"]"
+               Introduction="@Localizer["RibbonTabsRightButtonsTemplateIntro"]"
+               Name="RightButtonsTemplate">
+        <RibbonTab Items="@RightItems" ShowFloatButton="true">
+            <RightButtonsTemplate>
+                <div class="ribbon-button">
+                    <i class="fa-regular fa-circle-question"></i>
+                    <span>@Localizer["RibbonTabsRightButtonsTemplateContent"]</span>
+                </div>
+            </RightButtonsTemplate>
         </RibbonTab>
-    </div>
-    <ConsoleLogger @ref="Logger" class="mt-3" />
-</DemoBlock>
+    </DemoBlock>
 
-<DemoBlock Title="@Localizer["RibbonTabsRightButtonsTemplateTitle"]"
-           Introduction="@Localizer["RibbonTabsRightButtonsTemplateIntro"]"
-           Name="RightButtonsTemplate">
-    <RibbonTab Items="@RightItems" ShowFloatButton="true">
-        <RightButtonsTemplate>
-            <div class="ribbon-button">
-                <i class="fa-regular fa-circle-question"></i>
-                <span>@Localizer["RibbonTabsRightButtonsTemplateContent"]</span>
-            </div>
-        </RightButtonsTemplate>
-    </RibbonTab>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["RibbonTabsHeaderClickTitle"]"
-           Introduction="@Localizer["RibbonTabsHeaderClickIntro"]"
-           Name="HeaderClick">
-    <RibbonTab Items="@HeaderItems" OnMenuClickAsync="@OnMenuClickAsync">
-        <div class="@FileClassString">@Localizer["RibbonTabsItemsText1"]</div>
-        <div class="@EditClassString">@Localizer["RibbonTabsItemsText2"]</div>
-    </RibbonTab>
-</DemoBlock>
+    <DemoBlock Title="@Localizer["RibbonTabsHeaderClickTitle"]"
+               Introduction="@Localizer["RibbonTabsHeaderClickIntro"]"
+               Name="HeaderClick">
+        <RibbonTab Items="@HeaderItems" OnMenuClickAsync="@OnMenuClickAsync">
+            <div class="@FileClassString">@Localizer["RibbonTabsItemsText1"]</div>
+            <div class="@EditClassString">@Localizer["RibbonTabsItemsText2"]</div>
+        </RibbonTab>
+    </DemoBlock>*@
 
 <AttributeTable Items="@GetAttributes()" />
