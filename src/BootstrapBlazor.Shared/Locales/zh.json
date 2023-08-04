@@ -1856,6 +1856,7 @@
     "PaginationsGotoIntro": "通过设置 <code>ShowGotoNavigator</code> 参数控制是否显示跳转导航，可以通过 <code>GotoTemplate</code> 自定义跳转组件",
     "PaginationsPageInfoTextTitle": "分页信息",
     "PaginationsPageInfoTextIntro": "通过设置 <code>ShowInfo</code> 参数控制是否显示分页信息",
+    "PaginationsInfoTotal": "共 20 页",
     "PaginationsInfoTemplateTitle": "分页模板",
     "PaginationsInfoTemplateIntro": "通过 <code>PageInfoTemplate</code> 自定义分页信息",
     "PaginationsPageIndexAttr": "当前页码",

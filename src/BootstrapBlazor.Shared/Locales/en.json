@@ -3747,9 +3747,7 @@
     "MenuAlignment": "Menu alignment",
     "HeaderTemplate": "Header template",
     "BodyTemplate": "Body template",
-    "FooterTemplate": "Footer template"
-  },
-  "BootstrapBlazor.Shared.Demos.DropdownWidget.DropdownWidgetNormal": {
+    "FooterTemplate": "Footer template",
     "BasicUsageMessage": "You have 4 unread messages",
     "BasicUsageViewMessage": "View all messages",
     "BasicUsageNotify": "You have 10 unread notifications",
@@ -5418,11 +5416,12 @@
     "Tips": "Complex signatures will cause a large amount of data to be transmitted, and ssr will show a reload error. The configuration changes the maximum size of a single incoming hub message (default 32KB) to solve this problem. <code> builder.Services.AddServerSideBlazor().AddHubOptions(o => o.MaximumReceiveMessageSize = null); </code> ",
     "Title": "SignaturePad",
     "CleanText": "Clean",
-    "BackText": "Back",
     "ResponsiveInterfaceText": "Responsive signature interface",
     "ResultBase64Text": "Your signature in base64",
     "ResultText": "Your signature",
-    "SignatureText": "Signature"
+    "SignatureText": "Signature",
+    "BackText": "Back",
+    "TipsResponsive": "When device width is less than 640px (such as mobile phones) automatically topless without borders, the width is less than 500px the button is automatically rotated. Optional transparent background."
   },
   "BootstrapBlazor.Shared.Samples.SignaturePadPageResponsive": {
     "BackText": "Back",
