@@ -61,7 +61,7 @@ public partial class MenuTest
     }
 
     [Fact]
-    public void Localizer_Ok()
+    public void Localizer_En()
     {
         var result = new List<string>();
         var localizerOption = _serviceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
@@ -91,7 +91,7 @@ public partial class MenuTest
             {
                 var type = typeName.Replace('/', '.');
                 var content = File.ReadAllText(fileName);
-                Utility.GetJsonStringByTypeName(localizerOption.Value, typeof(App).Assembly, $"BootstrapBlazor.Shared.Samples.{type}").ToList().ForEach(l => content = ReplacePayload(content, l)); ;
+                Utility.GetJsonStringByTypeName(localizerOption.Value, typeof(App).Assembly, $"BootstrapBlazor.Shared.Samples.{type}", "en").ToList().ForEach(l => content = ReplacePayload(content, l)); ;
                 content = ReplaceSymbols(content);
                 content = RemoveBlockStatement(content, "@inject IStringLocalizer<");
 
@@ -105,6 +105,21 @@ public partial class MenuTest
                 }
             }
         }
+    }
+
+    [Fact]
+    public void Localizer_Compare()
+    {
+        using var configZh = new ConfigurationManager();
+        configZh.AddJsonStream(typeof(App).Assembly.GetManifestResourceStream("BootstrapBlazor.Shared.Locales.zh.json")!);
+
+        using var configEn = new ConfigurationManager();
+        configEn.AddJsonStream(typeof(App).Assembly.GetManifestResourceStream("BootstrapBlazor.Shared.Locales.en.json")!);
+
+        var source = configZh.GetChildren().SelectMany(section => section.GetChildren().Select(i => $"{section.Key} - {i.Key}")).ToList();
+        var target = configEn.GetChildren().SelectMany(section => section.GetChildren().Select(i => $"{section.Key} - {i.Key}")).ToList();
+
+        source.Where(i => !target.Contains(i)).ToList().ForEach(i => _logger.WriteLine(i));
     }
 
     static string ReplaceSymbols(string payload) => payload
