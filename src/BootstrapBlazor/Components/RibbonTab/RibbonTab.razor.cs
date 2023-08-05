@@ -48,16 +48,16 @@ public partial class RibbonTab
     public bool IsSupportAnchor { get; set; }
 
     /// <summary>
-    /// 编码锚点回调方法
+    /// 编码锚点回调方法 第一参数是当前地址 Url 第二个参数是当前选项 Text 属性 返回值为地址全路径
     /// </summary>
     [Parameter]
-    public Func<string, string>? EncodeAnchorCallback { get; set; }
+    public Func<string, string?, string?>? EncodeAnchorCallback { get; set; }
 
     /// <summary>
     /// 解码锚点回调方法
     /// </summary>
     [Parameter]
-    public Func<string, string>? DecodeAnchorCallback { get; set; }
+    public Func<string, string?>? DecodeAnchorCallback { get; set; }
 
     private bool IsFloat { get; set; }
 
@@ -201,10 +201,10 @@ public partial class RibbonTab
     {
         if (IsSupportAnchor)
         {
-            var url = EncodeAnchorCallback?.Invoke(NavigationManager.Uri) ?? NavigationManager.Uri.Split('#').FirstOrDefault();
+            var url = EncodeAnchorCallback?.Invoke(NavigationManager.Uri, item.Text) ?? $"{NavigationManager.Uri.Split('#').FirstOrDefault()}#{HttpUtility.UrlEncode(item.Text)}";
             if (!string.IsNullOrEmpty(url))
             {
-                NavigationManager.NavigateTo($"{url}#{HttpUtility.UrlEncode(item.Text)}");
+                NavigationManager.NavigateTo(url);
             }
         }
 
