@@ -47,6 +47,18 @@ public partial class RibbonTab
     [Parameter]
     public bool IsSupportAnchor { get; set; }
 
+    /// <summary>
+    /// 编码锚点回调方法
+    /// </summary>
+    [Parameter]
+    public Func<string, string>? EncodeAnchorCallback { get; set; }
+
+    /// <summary>
+    /// 解码锚点回调方法
+    /// </summary>
+    [Parameter]
+    public Func<string, string>? DecodeAnchorCallback { get; set; }
+
     private bool IsFloat { get; set; }
 
     private string? ArrowIconClassString => CssBuilder.Default()
@@ -137,7 +149,7 @@ public partial class RibbonTab
 
         if (IsSupportAnchor)
         {
-            var hash = HttpUtility.UrlDecode(NavigationManager.Uri.Split('#').LastOrDefault());
+            var hash = DecodeAnchorCallback?.Invoke(NavigationManager.Uri) ?? HttpUtility.UrlDecode(NavigationManager.Uri.Split('#').LastOrDefault());
             if (!string.IsNullOrEmpty(hash))
             {
                 var item = Items.FirstOrDefault(i => i.Text == hash);
@@ -189,8 +201,11 @@ public partial class RibbonTab
     {
         if (IsSupportAnchor)
         {
-            var url = NavigationManager.Uri.Split('#').FirstOrDefault();
-            NavigationManager.NavigateTo($"{url}#{HttpUtility.UrlEncode(item.Text)}");
+            var url = EncodeAnchorCallback?.Invoke(NavigationManager.Uri) ?? NavigationManager.Uri.Split('#').FirstOrDefault();
+            if (!string.IsNullOrEmpty(url))
+            {
+                NavigationManager.NavigateTo($"{url}#{HttpUtility.UrlEncode(item.Text)}");
+            }
         }
 
         ResetActiveTabItem();
