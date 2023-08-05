@@ -892,7 +892,7 @@
     "SpeechLi2": "电脑接收到指令后，会询问 <b><i>您确认要把灯打开吗？请您确认！</i></b>",
     "SpeechLi3": "您对着电脑说： <b><i>确认</i></b>",
     "SpeechLi4": "电脑执行指令，在下方文本框内输入 <b><i>已经为您打开</i></b> 文本",
-    "SpeechButonText": "开始体验",
+    "SpeechButtonText": "开始体验",
     "SpeechGroupBoxTitle": "指令输出区",
     "SpeechGroupBoxHeaderText": "指令面板",
     "SpeechTips1": "1. 注册服务",
@@ -1846,8 +1846,8 @@
     "PaginationsDescription": "当数据量过多时，使用分页分解数据。",
     "PaginationsNormalTitle": "基础用法",
     "PaginationsNormalIntro": "可以通过下拉框选取每页显示数据数量",
-    "PaginationsDisaplayTextTitle": "仅显示文本提示",
-    "PaginationsDisaplayTextIntro": "只有一页时不显示切换页码组件，仅显示文本提示",
+    "PaginationsDisplayTextTitle": "仅显示文本提示",
+    "PaginationsDisplayTextIntro": "只有一页时不显示切换页码组件，仅显示文本提示",
     "PaginationsMaxPageLinkCountTitle": "仅显示分页组件",
     "PaginationsMaxPageLinkCountIntro": "通过 <code>ShowPaginationInfo='false'</code> 设置不显示文本提示",
     "PaginationsAlignmentTitle": "对齐方式",
@@ -1856,6 +1856,7 @@
     "PaginationsGotoIntro": "通过设置 <code>ShowGotoNavigator</code> 参数控制是否显示跳转导航，可以通过 <code>GotoTemplate</code> 自定义跳转组件",
     "PaginationsPageInfoTextTitle": "分页信息",
     "PaginationsPageInfoTextIntro": "通过设置 <code>ShowInfo</code> 参数控制是否显示分页信息",
+    "PaginationsInfoTotal": "共 20 页",
     "PaginationsInfoTemplateTitle": "分页模板",
     "PaginationsInfoTemplateIntro": "通过 <code>PageInfoTemplate</code> 自定义分页信息",
     "PaginationsPageIndexAttr": "当前页码",
@@ -2578,6 +2579,7 @@
     "InputsPasswordDescription": "为了支持更多的文本框属性本组件可以直接写入 <code>type='email'</code> <code>type=number'</code> <code>type='phone'</code> 等 <code>html5</code> 新标准支持的全部属性值，组件未设置 <code>type</code> 值时使用默认的 <code>type='text'</code>",
     "InputsGenericTitle": "泛型绑定",
     "InputsGenericIntro": "<code>BootstrapInput</code> 组件双向绑定值是泛型的，本例中双向绑定一个 int 类型数值",
+    "InputsGenericBindValue": "绑定值",
     "InputsDisabledTitle": "禁用",
     "InputsDisabledIntro": "设置 <code>IsDisabled</code> 属性值为 <code>true</code> 时，组件禁止输入",
     "InputsFormatStringTitle": "自定义格式",
@@ -2620,8 +2622,7 @@
     "InputsLabelsTips3": "无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>false</code> 时均不显示",
     "TestName": "张三",
     "InputsFormatStringSetting": "设置",
-    "InputsFormatStringTips": "<code>BootstrapInput</code> 组件绑定 <code>byte[]</code> 数组，格式化成 <code>base64</code> 编码字符串示例",
-    "InputsBaseUseage": "基础用法"
+    "InputsFormatStringTips": "<code>BootstrapInput</code> 组件绑定 <code>byte[]</code> 数组，格式化成 <code>base64</code> 编码字符串示例"
   },
   "BootstrapBlazor.Shared.Samples.InputNumbers": {
     "InputNumbersTitle": "InputNumber 组件",
@@ -3871,9 +3872,6 @@
     "LocatorsNormalDisplayText": "地理位置",
     "LocatorsNormalButtonText": "定位"
   },
-  "BootstrapBlazor.Shared.Samples.Images": {
-    "BasicUsageTitle": "基础用法"
-  },
   "BootstrapBlazor.Shared.Samples.Print": {
     "PrintsTitle": "Print 打印组件",
     "PrintsSubTitle": "用于打印文档或者局部视图",
@@ -4377,7 +4375,7 @@
     "CountUp": "计数器 CountUp",
     "DropdownWidget": "挂件 DropdownWidget",
     "GroupBox": "集合 GroupBox",
-    "Handwritten": "手写组件 Handwritten",
+    "Handwritten": "手写组件 HandWritten",
     "LinkButton": "链接按钮 LinkButton",
     "ListView": "列表组件 ListView",
     "Locator": "位置定位 Locator",
@@ -4866,22 +4864,16 @@
     "TablesEditDataServiceTips2": "本例中通过设置 <code>EditDialogShowMaximizeButton</code> 参数，使编辑弹窗中显示 <b>最大化</b> 按钮",
     "TablesEditFooterTemplateTitle": "自定义编辑弹窗按钮",
     "TablesEditFooterTemplateIntro": "通过设置 <code>EditFooterTemplate</code> 自定义编辑弹窗 <code>Footer</code>",
-    "TablesEditFooterTemplateDescription": "点击表格内编辑按钮，弹出编辑弹窗，弹窗内 <code>Footer</code> 内按钮均为自定义按钮。为方便二开的同时保留原有 <b>关闭</b> 与 <b>保存</b> 两个按钮功能，额外内置提供了两个与之相对应的组件 <code>DialogCloseButton</code> <code>DialogSaveButton</code> 这两个按钮无需编写点击相关处理方法"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesEdit.TablesEditMode": {
+    "TablesEditFooterTemplateDescription": "点击表格内编辑按钮，弹出编辑弹窗，弹窗内 <code>Footer</code> 内按钮均为自定义按钮。为方便二开的同时保留原有 <b>关闭</b> 与 <b>保存</b> 两个按钮功能，额外内置提供了两个与之相对应的组件 <code>DialogCloseButton</code> <code>DialogSaveButton</code> 这两个按钮无需编写点击相关处理方法",
     "TablesEditModeAddModalTitle": "增加测试数据窗口",
     "TablesEditModeEditModalTitle": "编辑测试数据窗口",
-    "TablesEditModeInCell": "<code>InCell</code> 模式示例"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesEdit.TablesEditShowSearch": {
-    "TablesEditShowSearchPlaceHolderString": "不可为空，50字以内"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesEdit.TablesEditInjectDataService": {
+    "TablesEditModeInCell": "<code>InCell</code> 模式示例",
     "TablesEditInjectDataServiceDescription": "通过注册数据服务进行增、删、改、查的数据库操作，而无需对以下回调委托进行赋值，优先级别为有回调方法优先调用回调方法，如无则调用注入服务进行数据操作",
     "TablesEditInjectDataServiceTips1": "Startup 文件注入数据服务",
     "TablesEditInjectDataServiceTips2": "实现原理与用法介绍",
     "TablesEditInjectDataServiceTips3": "自定义数据服务",
-    "TablesEditInjectDataServiceTips4": "开启使用注入数据服务后，可通过设置 <code>DataServices</code> 参数对组件进行单独设置，如未设置内部使用注入服务提供的实例"
+    "TablesEditInjectDataServiceTips4": "开启使用注入数据服务后，可通过设置 <code>DataServices</code> 参数对组件进行单独设置，如未设置内部使用注入服务提供的实例",
+    "TablesEditShowSearchPlaceHolderString": "不可为空，50字以内"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesVirtualization": {
     "TablesVirtualizationTitle": "Table 虚拟滚动行",
@@ -5091,8 +5083,8 @@
     "TablesToolbarCustomButtonTips1_note1": "前台显示进度条提示，正在打包导出，此期间可以处理其他事务",
     "TablesToolbarCustomButtonTips1_note2": "数据处理完成后，关闭前台提示弹窗，<code>恢复</code> 下载按钮",
     "TablesToolbarCustomButtonTips2_title": "本例中通过设置 <code>TableToolbarButton</code> 按钮的 <code>IsAsync</code> 属性开启 <b>异步操作模式</b>，请注意 <code>OnClickCallback</code> 回调委托内需要使用真正的 <b>异步操作</b> 否则无效果",
-    "TablesToolbarCustomDisaplayButtonTitle": "自定义显示功能按钮",
-    "TablesToolbarCustomDisaplayButtonIntro": "通过设置 <code>ShowAddButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> 属性值来控制单独功能按钮是否显示，当 <code>ShowDefaultButtons</code> 设置为 <code>false</code> 时，所有按钮均不显示",
+    "TablesToolbarCustomDisplayButtonTitle": "自定义显示功能按钮",
+    "TablesToolbarCustomDisplayButtonIntro": "通过设置 <code>ShowAddButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> 属性值来控制单独功能按钮是否显示，当 <code>ShowDefaultButtons</code> 设置为 <code>false</code> 时，所有按钮均不显示",
     "TablesToolbarCustomButton1": "下载1",
     "TablesToolbarCustomButton2": "下载2",
     "TableToolbarPopConfirmButton1": "确认下载"
@@ -5257,9 +5249,7 @@
     "AutoHeightP": "本例中 <code>Table</code> 表格组件由于可能未知高度，所以无法设置高度，父级容器可能通过样式得到高度，此时 <code>Table</code> 组件会尝试使用自适应填充满高度，实战中这种应用场景是最多的，本例模拟父级高度为 <code>300px</code>",
     "DialogIntro": "<code>Table</code> 组件在弹窗 <code>Dialog</code> 内使用",
     "DialogDesc": "<p>在弹窗中使用固定表头的 <code>Table</code> 注意事项：</p><div>弹窗要给 <code>DialogOption</code> 的 <code>Class</code> 参数赋值，本例中设置为 <code>dialog-table</code>，这个操作是为了让我们自定义样式能够定位到弹窗中 <code>Table</code> 组件的父容器 <code>modal-body</code> 并设置其高度，这里可以使用自适应高度的写法 <code>height: calc(100vh - 400px);</code>；当 <code>Table</code> 组件的父级容器有高度后，组件自己就会通过计算进行自适应高度适配了</div>",
-    "DialogTitle": "弹窗内使用"
-  },
-  "BootstrapBlazor.Shared.Demos.Table.TablesFixedHeader.TablesFixedHeaderDialog": {
+    "DialogTitle": "弹窗内使用",
     "DialogButtonText": "弹窗"
   },
   "BootstrapBlazor.Shared.Pages.Introduction": {
@@ -5411,7 +5401,6 @@
   "BootstrapBlazor.Shared.Samples.FAIcons": {
     "Title": "FA 图标选择器",
     "BaseUsageText": "目前 <code>BootstrapBlazor</code> 使用 <code>Font Awesome 6.1.2</code> 作为内置图标库，所有图标如下",
-    "SwitchButtonText": "",
     "SwitchButtonTextOff": "点击拷贝",
     "SwitchButtonTextOn": "显示高级拷贝",
     "P1": "通过引用扩展组件包",

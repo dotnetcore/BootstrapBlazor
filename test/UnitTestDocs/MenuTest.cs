@@ -60,9 +60,16 @@ public partial class MenuTest
         Assert.Empty(invalidRoute);
     }
 
-    [Fact]
-    public void Localizer_Ok()
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="cultureName"></param>
+    [Theory]
+    [InlineData("en")]
+    [InlineData("zh")]
+    public void Localizer_En(string cultureName)
     {
+        var result = new List<string>();
         var localizerOption = _serviceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
         var localizer = _serviceProvider.GetRequiredService<IStringLocalizer<NavMenu>>();
 
@@ -82,6 +89,7 @@ public partial class MenuTest
                 ReplaceContent(srcFile, typeName, SourceCodeRegex());
             }
         }
+        Assert.Empty(result);
 
         void ReplaceContent(string fileName, string typeName, Regex regex)
         {
@@ -89,7 +97,7 @@ public partial class MenuTest
             {
                 var type = typeName.Replace('/', '.');
                 var content = File.ReadAllText(fileName);
-                Utility.GetJsonStringByTypeName(localizerOption.Value, typeof(App).Assembly, $"BootstrapBlazor.Shared.Samples.{type}").ToList().ForEach(l => content = ReplacePayload(content, l)); ;
+                Utility.GetJsonStringByTypeName(localizerOption.Value, typeof(App).Assembly, $"BootstrapBlazor.Shared.Samples.{type}", cultureName).ToList().ForEach(l => content = ReplacePayload(content, l)); ;
                 content = ReplaceSymbols(content);
                 content = RemoveBlockStatement(content, "@inject IStringLocalizer<");
 
@@ -99,9 +107,33 @@ public partial class MenuTest
                 {
                     var v = string.Join(",", matches.Select(i => i.Value));
                     _logger.WriteLine($"{Path.GetFileName(fileName)} - {v}");
+                    result.Add(v);
                 }
             }
         }
+    }
+
+    [Theory]
+    [InlineData("en", "zh")]
+    [InlineData("zh", "en")]
+    public void Localizer_Compare(string sourceLanguage, string targetLanguage)
+    {
+        using var configZh = new ConfigurationManager();
+        configZh.AddJsonStream(typeof(App).Assembly.GetManifestResourceStream($"BootstrapBlazor.Shared.Locales.{sourceLanguage}.json")!);
+
+        using var configEn = new ConfigurationManager();
+        configEn.AddJsonStream(typeof(App).Assembly.GetManifestResourceStream($"BootstrapBlazor.Shared.Locales.{targetLanguage}.json")!);
+
+        var source = configZh.GetChildren().SelectMany(section => section.GetChildren().Select(i => $"{section.Key} - {i.Key}")).ToList();
+        var target = configEn.GetChildren().SelectMany(section => section.GetChildren().Select(i => $"{section.Key} - {i.Key}")).ToList();
+
+        var result = new List<string>();
+        source.Where(i => !target.Contains(i)).ToList().ForEach(i =>
+        {
+            result.Add(i);
+            _logger.WriteLine(i);
+        });
+        Assert.Empty(result);
     }
 
     static string ReplaceSymbols(string payload) => payload
