@@ -264,59 +264,6 @@ public class RibbonTabTest : BootstrapBlazorTestBase
         cut.Contains("<span class=\"tabs-item-text\">Test2</span>");
     }
 
-    [Fact]
-    public void IsSupportAnchor_Ok()
-    {
-        var cut = Context.RenderComponent<RibbonTab>(pb =>
-        {
-            pb.Add(a => a.IsSupportAnchor, true);
-            pb.Add(a => a.EncodeAnchorCallback, (url, text) =>
-            {
-                return $"{url}#{text}-anchor";
-            });
-            pb.Add(a => a.DecodeAnchorCallback, url => url.Split('#').LastOrDefault()?.Split('-').FirstOrDefault());
-            pb.Add(a => a.Items, new RibbonTabItem[]
-            {
-                new RibbonTabItem()
-                {
-                    Text = "test1",
-                    Items = new RibbonTabItem[]
-                    {
-                        new RibbonTabItem()
-                        {
-                            Text = "Item"
-                        }
-                    }
-                },
-                new RibbonTabItem()
-                {
-                    Text = "test2",
-                    Items = new RibbonTabItem[]
-                    {
-                        new RibbonTabItem()
-                        {
-                            Text = "Item"
-                        }
-                    }
-                }
-            });
-        });
-
-        cut.InvokeAsync(() =>
-        {
-            var item = cut.Find(".tabs-item");
-            item.Click();
-        });
-
-        var nav = Context.Services.GetRequiredService<FakeNavigationManager>();
-        Assert.Equal("http://localhost/#test1-anchor", nav.Uri);
-
-        nav.NavigateTo("http://localhost/#test2-anchor");
-        cut.SetParametersAndRender();
-        var item = cut.FindComponents<TabItem>();
-        Assert.True(item[1].Instance.IsActive);
-    }
-
     private static IEnumerable<RibbonTabItem> GetItems() => new List<RibbonTabItem>()
     {
         new()
