@@ -4108,7 +4108,10 @@
     "ItemsGroupName1": "Group one",
     "ItemsGroupName2": "Group two",
     "RibbonTabsHeaderClickTitle": "Header click callback",
-    "RibbonTabsHeaderClickIntro": "Handler the event of click header via <code>OnHeaderClickAsync</code>"
+    "RibbonTabsHeaderClickIntro": "Handler the event of click header via <code>OnHeaderClickAsync</code>",
+    "RibbonTabsAnchorTitle": "Anchor",
+    "RibbonTabsAnchorIntro": "Set <code>IsSupportAnchor=\"true\"</code> enable anchor support",
+    "RibbonTabsAnchorDesc": "Set <code>EncodeAnchorCallback</code> custom the encode hash rule, set <code>DecodeAnchorCallback</code> custom the decode hash rule"
   },
   "BootstrapBlazor.Shared.Samples.Logouts": {
     "LogoutsTitle": "Logout component",

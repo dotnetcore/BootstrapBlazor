@@ -4108,7 +4108,10 @@
     "ItemsGroupName1": "操作组一",
     "ItemsGroupName2": "操作组三",
     "RibbonTabsHeaderClickTitle": "Header 点击回调",
-    "RibbonTabsHeaderClickIntro": "通过设置 <code>OnHeaderClickAsync</code> 回调方法处理点击 <code>Header</code> 部分逻辑"
+    "RibbonTabsHeaderClickIntro": "通过设置 <code>OnHeaderClickAsync</code> 回调方法处理点击 <code>Header</code> 部分逻辑",
+    "RibbonTabsAnchorTitle": "锚点支持",
+    "RibbonTabsAnchorIntro": "通过设置 <code>IsSupportAnchor</code> 开启是否支持锚点功能",
+    "RibbonTabsAnchorDesc": "通过设置 <code>EncodeAnchorCallback</code> 自定义哈希编码规则，通过设置 <code>DecodeAnchorCallback</code> 自定义哈希解码规则，通过这两个方法支持自定义多级哈希，本例中特意使用组合 <code>Hash</code> 使页面滚动到下方"
   },
   "BootstrapBlazor.Shared.Samples.Logouts": {
     "LogoutsTitle": "Logout 登出组件",

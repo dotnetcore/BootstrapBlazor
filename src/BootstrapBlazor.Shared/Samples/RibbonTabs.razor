@@ -44,4 +44,11 @@
     </RibbonTab>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["RibbonTabsAnchorTitle"]"
+           Introduction="@Localizer["RibbonTabsAnchorIntro"]"
+           Name="IsSupportAnchor">
+    <p>@((MarkupString)Localizer["RibbonTabsAnchorDesc"].Value)</p>
+    <RibbonTab Items="@AnchorItems" IsSupportAnchor="true" EncodeAnchorCallback="EncodeAnchorCallback" DecodeAnchorCallback="DecodeAnchorCallback"></RibbonTab>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />
