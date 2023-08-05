@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.Xml.Linq;
+using System.Web;
 
 namespace BootstrapBlazor.Components;
 
@@ -45,7 +45,7 @@ public partial class RibbonTab
     /// 获得/设置 是否开启 Url 锚点
     /// </summary>
     [Parameter]
-    public bool IsAnchorPoint { get; set; }
+    public bool IsSupportAnchor { get; set; }
 
     private bool IsFloat { get; set; }
 
@@ -134,40 +134,36 @@ public partial class RibbonTab
         RibbonArrowPinIcon ??= IconTheme.GetIconByKey(ComponentIcons.RibbonTabArrowPinIcon);
 
         Items ??= Enumerable.Empty<RibbonTabItem>();
-    }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-        if (firstRender && !IsAnchorPoint)
+        if (IsSupportAnchor)
         {
-            if (!Items.Any(i => i.IsActive))
+            var hash = HttpUtility.UrlDecode(NavigationManager.Uri.Split('#').LastOrDefault());
+            if (!string.IsNullOrEmpty(hash))
             {
-                var item = Items.Last();
+                var item = Items.FirstOrDefault(i => i.Text == hash);
                 if (item != null)
                 {
+                    ResetActiveTabItem();
                     item.IsActive = true;
                 }
             }
         }
-        else
+        else if (!Items.Any(i => i.IsActive))
         {
-            var url = NavigationManager.Uri;
-            if (url != null && url.Contains("#"))
+            var item = Items.FirstOrDefault();
+            if (item != null)
             {
-                var arr = url.Split("#");
-                await InvokeVoidAsync("addAnchor", arr.Last(), Interop, nameof(SetActive));
+                item.IsActive = true;
             }
-            else
-            {
-                var item = Items.FirstOrDefault();
-                await InvokeVoidAsync("addAnchor", item?.Text, Interop, nameof(SetActive));
-            }
+        }
+    }
+
+    private void ResetActiveTabItem()
+    {
+        var activeItem = Items.FirstOrDefault(item => item.IsActive);
+        if (activeItem != null)
+        {
+            activeItem.IsActive = false;
         }
     }
 
@@ -181,27 +177,6 @@ public partial class RibbonTab
         StateHasChanged();
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    [JSInvokable]
-    public void SetActive(string name)
-    {
-
-        var activeItem = Items.FirstOrDefault(i => i.IsActive);
-        if (activeItem != null)
-        {
-            activeItem.IsActive = false;
-        }
-        var item1 = Items.FirstOrDefault(s => s.Text == name);
-        if (item1 != null)
-        {
-            item1.IsActive = true;
-        }
-        // 会陷入无限刷新
-        //StateHasChanged();
-    }
-
     private async Task OnClick(RibbonTabItem item)
     {
         if (OnItemClickAsync != null)
@@ -212,12 +187,14 @@ public partial class RibbonTab
 
     private async Task OnClickTabItemAsync(TabItem item)
     {
-        var tab = Items.FirstOrDefault(i => i.IsActive);
-        if (tab != null)
+        if (IsSupportAnchor)
         {
-            tab.IsActive = false;
+            var url = NavigationManager.Uri.Split('#').FirstOrDefault();
+            NavigationManager.NavigateTo($"{url}#{HttpUtility.UrlEncode(item.Text)}");
         }
-        tab = Items.First(i => i.Text == item.Text);
+
+        ResetActiveTabItem();
+        var tab = Items.First(i => i.Text == item.Text);
         tab.IsActive = true;
         if (OnMenuClickAsync != null)
         {
@@ -227,10 +204,6 @@ public partial class RibbonTab
         {
             IsExpand = true;
             StateHasChanged();
-        }
-        if (IsAnchorPoint)
-        {
-            await InvokeVoidAsync("addAnchor", item.Text, Interop, nameof(SetActive));
         }
     }
 
