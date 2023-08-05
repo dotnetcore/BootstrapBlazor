@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Web;
+
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
@@ -22,6 +24,9 @@ public partial class RibbonTabs
     private IEnumerable<RibbonTabItem>? HeaderItems { get; set; }
 
     [NotNull]
+    private IEnumerable<RibbonTabItem>? AnchorItems { get; set; }
+
+    [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
     /// <summary>
@@ -33,6 +38,7 @@ public partial class RibbonTabs
         FloatItems = GenerateRibbonTabs();
         RightItems = GenerateRibbonTabs();
         HeaderItems = GenerateRibbonTabs();
+        AnchorItems = GenerateRibbonTabs();
     }
 
     private string? FileClassString => CssBuilder.Default("collapse")
@@ -57,6 +63,19 @@ public partial class RibbonTabs
         Logger.Log($"Float: {@float}");
         return Task.CompletedTask;
     }
+
+    private static string? EncodeAnchorCallback(string url, string? text)
+    {
+        // 获取地址栏中的锚点 取 - 前面一部分
+        var hash = url.Split('#').LastOrDefault()?.Split('-').FirstOrDefault();
+        if (!string.IsNullOrEmpty(hash))
+        {
+            hash = HttpUtility.UrlEncode($"{HttpUtility.UrlDecode(hash)}-{text}");
+        }
+        return $"{url.Split('#').FirstOrDefault()}#{hash}";
+    }
+
+    private static string? DecodeAnchorCallback(string url) => HttpUtility.UrlDecode(url.Split('#').LastOrDefault())?.Split('-').LastOrDefault();
 
     private List<RibbonTabItem> GenerateRibbonTabs() => new()
     {
