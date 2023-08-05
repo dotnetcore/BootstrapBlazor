@@ -29,19 +29,6 @@ export function init(id, invoke, callback) {
     EventHandler.on(document, 'click', rt.handlerClick)
 }
 
-export function addAnchor(name, invoke, callback) {
-    const location = window.location;
-    if (location.href.includes("#")) {
-        const url = location.origin + location.pathname + `#${name}`
-        history.pushState('', '', url);
-        invoke.invokeMethodAsync(callback, name)
-    } else {
-        const newUrl = location.href + `#${name}`
-        history.pushState('', '', newUrl);
-        invoke.invokeMethodAsync(callback, name)
-    }
-}
-
 export function dispose(id) {
     const rt = Data.get(id)
     Data.remove(id)
