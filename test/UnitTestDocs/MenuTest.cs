@@ -60,8 +60,14 @@ public partial class MenuTest
         Assert.Empty(invalidRoute);
     }
 
-    [Fact]
-    public void Localizer_En()
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="cultureName"></param>
+    [Theory]
+    [InlineData("en")]
+    [InlineData("zh")]
+    public void Localizer_En(string cultureName)
     {
         var result = new List<string>();
         var localizerOption = _serviceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
@@ -91,7 +97,7 @@ public partial class MenuTest
             {
                 var type = typeName.Replace('/', '.');
                 var content = File.ReadAllText(fileName);
-                Utility.GetJsonStringByTypeName(localizerOption.Value, typeof(App).Assembly, $"BootstrapBlazor.Shared.Samples.{type}", "en").ToList().ForEach(l => content = ReplacePayload(content, l)); ;
+                Utility.GetJsonStringByTypeName(localizerOption.Value, typeof(App).Assembly, $"BootstrapBlazor.Shared.Samples.{type}", cultureName).ToList().ForEach(l => content = ReplacePayload(content, l)); ;
                 content = ReplaceSymbols(content);
                 content = RemoveBlockStatement(content, "@inject IStringLocalizer<");
 
@@ -107,19 +113,27 @@ public partial class MenuTest
         }
     }
 
-    [Fact]
-    public void Localizer_Compare()
+    [Theory]
+    [InlineData("en", "zh")]
+    [InlineData("zh", "en")]
+    public void Localizer_Compare(string sourceLanguage, string targetLanguage)
     {
         using var configZh = new ConfigurationManager();
-        configZh.AddJsonStream(typeof(App).Assembly.GetManifestResourceStream("BootstrapBlazor.Shared.Locales.zh.json")!);
+        configZh.AddJsonStream(typeof(App).Assembly.GetManifestResourceStream($"BootstrapBlazor.Shared.Locales.{sourceLanguage}.json")!);
 
         using var configEn = new ConfigurationManager();
-        configEn.AddJsonStream(typeof(App).Assembly.GetManifestResourceStream("BootstrapBlazor.Shared.Locales.en.json")!);
+        configEn.AddJsonStream(typeof(App).Assembly.GetManifestResourceStream($"BootstrapBlazor.Shared.Locales.{targetLanguage}.json")!);
 
         var source = configZh.GetChildren().SelectMany(section => section.GetChildren().Select(i => $"{section.Key} - {i.Key}")).ToList();
         var target = configEn.GetChildren().SelectMany(section => section.GetChildren().Select(i => $"{section.Key} - {i.Key}")).ToList();
 
-        source.Where(i => !target.Contains(i)).ToList().ForEach(i => _logger.WriteLine(i));
+        var result = new List<string>();
+        source.Where(i => !target.Contains(i)).ToList().ForEach(i =>
+        {
+            result.Add(i);
+            _logger.WriteLine(i);
+        });
+        Assert.Empty(result);
     }
 
     static string ReplaceSymbols(string payload) => payload
