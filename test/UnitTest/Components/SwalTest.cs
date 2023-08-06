@@ -258,8 +258,11 @@ public class SwalTest : SwalTestBase
 
         forceOption.ForceDelay = false;
         cut.InvokeAsync(() => swal.Show(forceOption));
-        cut.InvokeAsync(() => modal.Instance.CloseCallback());
-        Assert.Equal(4000, forceOption.Delay);
+        cut.InvokeAsync(async () =>
+        {
+            await modal.Instance.CloseCallback();
+            Assert.Equal(4000, forceOption.Delay);
+        });
 
         // 自动关闭
         cut.InvokeAsync(() => swal.Show(new SwalOption()

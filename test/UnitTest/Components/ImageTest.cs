@@ -67,7 +67,7 @@ public class ImageTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task HandleError_Ok()
+    public void HandleError_Ok()
     {
         var error = false;
         var cut = Context.RenderComponent<ImageViewer>(pb =>
@@ -83,10 +83,14 @@ public class ImageTest : BootstrapBlazorTestBase
         cut.Contains("d-none");
 
         // trigger error event
-        var img = cut.Find("img");
-        await cut.InvokeAsync(() => img.Error());
+        cut.InvokeAsync(() =>
+        {
+            var img = cut.Find("img");
+            img.Error();
+        });
         Assert.True(error);
 
+        error = false;
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.HandleError, false);
@@ -95,6 +99,13 @@ public class ImageTest : BootstrapBlazorTestBase
                 builder.AddContent(0, "error-template");
             }));
         });
+
+        cut.InvokeAsync(() =>
+        {
+            var img = cut.Find("img");
+            img.Error();
+        });
+        Assert.True(error);
         cut.Contains("error-template");
     }
 
