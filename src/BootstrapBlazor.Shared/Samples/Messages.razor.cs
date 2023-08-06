@@ -67,7 +67,7 @@ public sealed partial class Messages
     {
         await MessageService.Show(new MessageOption()
         {
-            Content = "This is a reminder message",
+            Content = $"This is a reminder message - {DateTime.Now:mm:ss}",
             Icon = "fa-solid fa-circle-info",
         }, Message1);
     }

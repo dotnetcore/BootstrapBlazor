@@ -9,7 +9,7 @@ namespace UnitTest.Components;
 public class MessageTest : MessageTestBase
 {
     [Fact]
-    public async Task Message_Ok()
+    public void Message_Ok()
     {
         var dismiss = false;
         var service = Context.Services.GetRequiredService<MessageService>();
@@ -41,25 +41,25 @@ public class MessageTest : MessageTestBase
         Assert.NotNull(cut.Instance.MessageContainer);
 
         var btn = cut.Find("button");
-        await cut.InvokeAsync(() => btn.Click());
+        cut.InvokeAsync(() => btn.Click());
 
         var btnClose = cut.Find(".btn-close");
-        await cut.InvokeAsync(() => btnClose.Click());
+        cut.InvokeAsync(() => btnClose.Click());
         Assert.True(dismiss);
 
         var message = cut.FindComponent<Message>();
-        await message.InvokeAsync(() => message.Instance.Clear());
+        message.InvokeAsync(() => message.Instance.Clear());
     }
 
     [Fact]
-    public async Task SetPlacement_Ok()
+    public void SetPlacement_Ok()
     {
         var cut = Context.RenderComponent<Message>(pb =>
         {
-            pb.Add(a => a.Placement, Placement.Left);
+            pb.Add(a => a.Placement, Placement.Bottom);
         });
 
-        await cut.InvokeAsync(() => cut.Instance.SetPlacement(Placement.Top));
+        cut.InvokeAsync(() => cut.Instance.SetPlacement(Placement.Top));
         Assert.Equal(Placement.Top, cut.Instance.Placement);
     }
 
@@ -75,6 +75,30 @@ public class MessageTest : MessageTestBase
     }
 
     [Fact]
+    public void Placement_Ok()
+    {
+        var dismiss = false;
+        var service = Context.Services.GetRequiredService<MessageService>();
+        var cut = Context.RenderComponent<Message>(pb =>
+        {
+            pb.Add(a => a.Placement, Placement.Bottom);
+        });
+        cut.InvokeAsync(() => service.Show(new MessageOption()
+        {
+            Content = "Test Content",
+            ShowDismiss = true,
+            OnDismiss = () =>
+            {
+                dismiss = true;
+                return Task.CompletedTask;
+            }
+        }, cut.Instance));
+        var btnClose = cut.Find(".btn-close");
+        cut.InvokeAsync(() => btnClose.Click());
+        Assert.True(dismiss);
+    }
+
+    [Fact]
     public void ShowBorder_Ok()
     {
         var cut = Context.RenderComponent<MessageItem>(pb =>
@@ -86,7 +110,7 @@ public class MessageTest : MessageTestBase
     }
 
     [Fact]
-    public void Showshadow_Ok()
+    public void ShowShadow_Ok()
     {
         var cut = Context.RenderComponent<MessageItem>(pb =>
         {
