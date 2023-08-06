@@ -67,6 +67,13 @@ public partial class Menu
     public bool IsVertical { get; set; }
 
     /// <summary>
+    /// 获得/设置 自动滚动到可视区域 默认 true <see cref="IsVertical"/> 开启时生效
+    /// </summary>
+    /// <value></value>
+    [Parameter]
+    public bool IsScrollIntoView { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 侧边栏垂直模式在底部 默认 false
     /// </summary>
     [Parameter]

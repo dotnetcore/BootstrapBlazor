@@ -2,11 +2,11 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader]
 
-<nav @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" data-bb-expand="@ExpandString">
+<nav @attributes="@AdditionalAttributes" id="@Id" class="@ClassString" data-bb-expand="@ExpandString" data-bb-scroll-view="@(IsScrollIntoView && IsVertical)">
     <CascadingValue Value="this" IsFixed="true">
         @if (IsVertical)
         {
-            <SideMenu Items="@Items" Id="@SideMenuId" class="@SideMenuClassString" OnClick="@OnClickMenu" />
+            <SideMenu Items="@Items" Id="@SideMenuId" class="@SideMenuClassString" OnClick="@OnClickMenu" IsScrollToView="@IsScrollIntoView" />
         }
         else
         {
