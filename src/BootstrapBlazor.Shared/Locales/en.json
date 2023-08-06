@@ -5667,9 +5667,10 @@
     "ContextMenuTreeTitle": "Tree",
     "ContextMenuTreeIntro": "Right click on the <code>Tree</code> to pop up a context menu"
   },
-  "BootstrapBlazor.Shared.Samples.DockViews.DockViewIndex": {
+  "BootstrapBlazor.Shared.Samples.DockViews.Index": {
     "DockViewTitle": "DockView",
-    "DockViewDescription": "A multi window layout manager for webapps"
+    "DockViewDescription": "A multi window layout manager for webapps",
+    "DockViewIntro": "<div class=\"mb-2\"><code>DockView</code> component is wrapped <a href=\"https://github.com/golden-layout/golden-layout\" target=\"_blank\">Golden Layout</a> lib，it is a <code>Javascript</code> layout manager which enables you to layout components in a web page and re-arrange them with drag and drop. Its features include: </p><ul class=\"ul-demo\"><li>Native popup windows</li><li>Touch support</li><li>Support for application frameworks such as <code>Angular</code> and <code>Vue</code></li><li>Virtual components</li><li>Comprehensive API</li><li>Load and save layouts</li><li>Focus components</li><li>Completely themeable</li><li>Works in modern browsers (<code>Firefox</code>, <code>Chrome</code>)</li><li>Responsive design</li></ul>"
   },
   "BootstrapBlazor.Shared.Samples.MouseFollowers": {
     "MouseFollowersTitle": "Mouse Follower",
