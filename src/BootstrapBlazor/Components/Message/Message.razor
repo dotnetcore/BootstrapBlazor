@@ -4,9 +4,20 @@
 
 <div id="@Id" class="@ClassString" style="@StyleName">
     <CascadingValue Value="PushMessageIdAsync" IsFixed="true">
-        @foreach (var item in Messages)
+        @if (Placement == Placement.Top)
         {
-            <MessageItem @key="item" Icon="@item.Icon" Color="@item.Color" Content="@item.Content" Delay="@item.Delay" ShowBar="@item.ShowBar" ShowDismiss="@item.ShowDismiss" IsAutoHide="@item.IsAutoHide" OnDismiss="() => OnDismiss(item)" />
+            foreach (var item in Messages)
+            {
+                <MessageItem @key="item" Icon="@item.Icon" Color="@item.Color" Content="@item.Content" Delay="@item.Delay" ShowBar="@item.ShowBar" ShowDismiss="@item.ShowDismiss" IsAutoHide="@item.IsAutoHide" OnDismiss="() => OnDismiss(item)" />
+            }
+        }
+        else
+        {
+            for (var index = Messages.Count; index > 0; index--)
+            {
+                var item = Messages[index - 1];
+                <MessageItem @key="item" Icon="@item.Icon" Color="@item.Color" Content="@item.Content" Delay="@item.Delay" ShowBar="@item.ShowBar" ShowDismiss="@item.ShowDismiss" IsAutoHide="@item.IsAutoHide" OnDismiss="() => OnDismiss(item)" />
+            }
         }
     </CascadingValue>
 </div>
