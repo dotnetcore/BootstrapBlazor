@@ -5667,9 +5667,10 @@
     "ContextMenuTreeTitle": "Tree 组件",
     "ContextMenuTreeIntro": "点击 <code>Tree</code> 组件行数据右键，弹出上下文关联菜单"
   },
-  "BootstrapBlazor.Shared.Samples.DockViews.DockViewIndex": {
+  "BootstrapBlazor.Shared.Samples.DockViews.Index": {
     "DockViewTitle": "DockView 可停靠视图",
-    "DockViewDescription": "多标签停靠布局管理器"
+    "DockViewDescription": "多标签停靠布局管理器",
+    "DockViewIntro": "<div class=\"mb-2\"><code>DockView</code> 组件是封装的 <a href=\"https://github.com/golden-layout/golden-layout\" target=\"_blank\">Golden Layout</a> 库，它是一个 <code>Javascript</code> 布局管理器，它使您能够在网页中布局组件并通过拖放重新排列它们。其特点包括：</div><ul class=\"ul-demo\"><li>原生弹出窗口</li><li>触摸支持</li><li>支持 <code>Angular</code>、<code>Vue</code> 等应用框架</li><li>虚拟组件</li><li>全面的API</li><li>加载和保存布局</li><li>焦点组件</li><li>完全主题化</li><li>适用于现代浏览器（<code>Firefox</code>、<code>Chrome</code>）</li><li>响应式设计</li></ul>"
   },
   "BootstrapBlazor.Shared.Samples.MouseFollowers": {
     "MouseFollowersTitle": "鼠标跟随器",
