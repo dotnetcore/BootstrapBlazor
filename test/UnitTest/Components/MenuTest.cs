@@ -383,6 +383,24 @@ public class MenuTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void IsScrollIntoView_Ok()
+    {
+        var cut = Context.RenderComponent<Menu>(pb =>
+        {
+            pb.Add(m => m.IsVertical, false);
+            pb.Add(m => m.IsScrollIntoView, true);
+            pb.Add(m => m.Items, Items);
+        });
+        cut.DoesNotContain("data-bb-scroll-view");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsVertical, true);
+        });
+        cut.Contains("data-bb-scroll-view");
+    }
+
+    [Fact]
     public void GetAllSubItems_Ok()
     {
         var item = new MenuItem("Test");
