@@ -1,13 +1,13 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TValue
-@inherits BootstrapInputBase<TValue>
+@inherits PopoverCompleteBase<TValue>
 
 @if (IsShowLabel)
 {
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div class="@ClassString" @ref="AutoFillElement">
-    <input @attributes="AdditionalAttributes" id="@Id" class="@ClassName" autocomplete="off" type="@Type" placeholder="@PlaceHolder" @bind-value="@InputString" @bind-value:event="oninput" @onblur="OnBlur" @onkeyup="OnKeyUp" @onfocus="OnFocus" @ref="FocusElement" />
+<div class="@ClassString" id="@Id">
+    <input @attributes="AdditionalAttributes" id="@InputId" class="@ClassName" autocomplete="off" type="@Type" data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" data-bs-offset="@OffsetString" data-bs-custom-class="@CustomClassString" placeholder="@PlaceHolder" @bind-value="@InputString" @bind-value:event="oninput" @onblur="OnBlur" @onkeyup="OnKeyUp" @onfocus="OnFocus" @ref="FocusElement" />
     <span class="form-select-append"><i class="@Icon"></i></span>
     <span class="form-select-append ac-loading"><i class="@LoadingIcon"></i></span>
     <ul class="dropdown-menu">
@@ -15,7 +15,7 @@
         {
             foreach (var item in FilterItems)
             {
-                <li class="dropdown-item" @onmousedown="e => OnClickItem(item)">
+                <li class="dropdown-item" @onmousedown="() => OnClickItem(item)">
                     @if (Template != null)
                     {
                         @Template(item)

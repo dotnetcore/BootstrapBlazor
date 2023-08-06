@@ -1,7 +1,0 @@
-﻿@inject IStringLocalizer<ButtonAsync> Localizer
-
-<Button Text="@Localizer["ButtonAsync"]" IsAsync="true" Icon="fa-solid fa-fw fa-font-awesome" OnClick="@ClickAsyncButton" />
-
-@code {
-    private static Task ClickAsyncButton() => Task.Delay(5000);
-}

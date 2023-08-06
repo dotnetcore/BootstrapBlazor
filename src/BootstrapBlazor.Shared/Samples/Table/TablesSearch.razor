@@ -1,5 +1,6 @@
-﻿@page "/tables/search"
+﻿@page "/table/search"
 @inject IStringLocalizer<TablesSearch> Localizer
+@inject IStringLocalizer<Foo> FooLocalizer
 
 <h3>@Localizer["TablesSearchTitle"]</h3>
 
@@ -11,42 +12,134 @@
 
 <DemoBlock Title="@Localizer["SearchTableTitle"]"
            Introduction="@Localizer["SearchTableIntro"]"
-           Name="SearchTable"
-           Demo="typeof(Demos.Table.TablesSearch.TablesSearchTable)">
+           Name="SearchTable">
     <ul class="ul-demo mb-3">
         <li>@((MarkupString)Localizer["SearchTableLi1"].Value)</li>
         <li>@((MarkupString)Localizer["SearchTableLi2"].Value)</li>
         <li>@((MarkupString)Localizer["SearchTableLi3"].Value)</li>
     </ul>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowSearch="true" IsMultipleSelect="true" ShowExtendButtons="true"
+           AddModalTitle="@Localizer["AddModelTitle"]" EditModalTitle="@Localizer["EditModelTitle"]"
+           SearchModel="@SearchModel" ShowEmpty="true" SearchMode="SearchMode.Top"
+           OnQueryAsync="@OnSearchModelQueryAsync" OnResetSearchAsync="@OnResetSearchAsync"
+           OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Education" />
+        </TableColumns>
+        <SearchTemplate>
+            <GroupBox Title="@Localizer["SearchTableGroupBoxText"]">
+                <div class="row g-3 form-inline">
+                    <div class="col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Name" PlaceHolder="@Localizer["NamePlaceholder"]" maxlength="50" ShowLabel="true" DisplayText="@FooLocalizer[nameof(context.Name)]" />
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <BootstrapInput @bind-Value="@context.Address" PlaceHolder="@Localizer["AddressPlaceholder"]" maxlength="500" ShowLabel="true" DisplayText="@FooLocalizer[nameof(context.Address)]" />
+                    </div>
+                </div>
+            </GroupBox>
+        </SearchTemplate>
+    </Table>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["AutoGenerateSearchTitle"]"
            Introduction="@Localizer["AutoGenerateSearchIntro"]"
-           Name="AutoGenerateSearch"
-           Demo="typeof(Demos.Table.TablesSearch.TablesAutoGenerateSearch)">
+           Name="AutoGenerateSearch">
     <p>@((MarkupString)Localizer["AutoGenerateSearchP"].Value)</p>
     <Tips>@((MarkupString)Localizer["AutoGenerateSearchTips"].Value)</Tips>
-    <Pre>if (options.Searchs.Any())
+    <Pre>if (options.Searches.Any())
 {
-    //@Localizer["AutoGenerateSearchCommnt"] FilterLogic.Or
-    items = items.Where(options.Searchs.GetFilterFunc&lt;Foo&gt;(FilterLogic.Or));
+    //@Localizer["AutoGenerateSearchComment"] FilterLogic.Or
+    items = items.Where(options.Searches.GetFilterFunc&lt;Foo&gt;(FilterLogic.Or));
 }</Pre>
-</DemoBlock>
+        <GroupBox Title="@Localizer["AutoGenerateSearchGroupBoxTitle"]" class="mb-2 mt-3">
+            <div class="row g-3 form-inline">
+                <div class="col-12 col-sm-3">
+                    <Switch DisplayText="@Localizer["DisplayText1"]" ShowLabel="true" @bind-Value="SearchModeFlag" />
+                </div>
+                <div class="col-12 col-sm-3">
+                    <Switch DisplayText="@Localizer["DisplayText2"]" ShowLabel="true" @bind-Value="ShowSearchText" />
+                </div>
+                <div class="col-12 col-sm-3">
+                    <Switch DisplayText="@Localizer["DisplayText3"]" ShowLabel="true" @bind-Value="ShowResetButton" />
+                </div>
+                <div class="col-12 col-sm-3">
+                    <Switch DisplayText="@Localizer["DisplayText4"]" ShowLabel="true" @bind-Value="ShowSearchButton" IsDisabled="SearchModeFlag" />
+                </div>
+            </div>
+        </GroupBox>
+
+        <Table TItem="Foo"
+               IsPagination="true" PageItemsSource="@PageItemsSource" SearchDialogShowMaximizeButton="true"
+               IsStriped="true" IsBordered="true" SearchModel="@SearchModel" ShowSearch="true"
+               SearchMode="SearchModeValue" ShowResetButton="ShowResetButton" ShowSearchButton="ShowSearchButton"
+               ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true" ShowSearchText="ShowSearchText"
+               AddModalTitle="@Localizer["AddModelTitle"]" EditModalTitle="@Localizer["EditModelTitle"]"
+               OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+            <TableColumns>
+                <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" />
+                <TableColumn @bind-Field="@context.Name" Searchable="true" />
+                <TableColumn @bind-Field="@context.Address" Searchable="true" />
+                <TableColumn @bind-Field="@context.Education" />
+            </TableColumns>
+        </Table>
+    </DemoBlock>
 
 <DemoBlock Title="@Localizer["CustomColSearchTitle"]"
            Introduction="@Localizer["CustomColSearchIntro"]"
-           Name="CustomColSearch"
-           Demo="typeof(Demos.Table.TablesSearch.TablesCustomColSearch)">
+           Name="CustomColSearch">
         <p>@((MarkupString)Localizer["CustomColSearchP"].Value)</p>
     <p>@((MarkupString)Localizer["CustomColSearchP1"].Value)</p>
     <p>@((MarkupString)Localizer["CustomColSearchP2"].Value)</p>
     <p>@((MarkupString)Localizer["CustomColSearchP3"].Value)</p>
     <p>@((MarkupString)Localizer["CustomColSearchP4"].Value)</p>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" SearchModel="@SearchModel" ShowSearch="true" ShowSearchText="false"
+           ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true" SearchDialogIsDraggable="true"
+           AddModalTitle="@Localizer["AddModelTitle"]" EditModalTitle="@Localizer["EditModelTitle"]" SearchDialogShowMaximizeButton="true"
+           OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" />
+            <TableColumn @bind-Field="@context.Name" Searchable="true">
+                <SearchTemplate Context="model">
+                    <div class="col-12 col-sm-6">
+                        <Select Items="SearchItems" @bind-Value="@model!.Name" ShowLabel="true" DisplayText="姓名"></Select>
+                    </div>
+                </SearchTemplate>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Address" Searchable="true" />
+            <TableColumn @bind-Field="@context.Education" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["CustomerSearchModelTitle"]"
            Introduction="@Localizer["CustomerSearchModelIntro"]"
-           Name="CustomerSearchModel"
-           Demo="typeof(Demos.Table.TablesSearch.TablesCustomerSearchModel)">
+           Name="CustomerSearchModel">
     <p>@((MarkupString)Localizer["CustomerSearchModelP"].Value)</p>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource" SearchMode="SearchMode.Top"
+           IsStriped="true" IsBordered="true" CustomerSearchModel="@CustomerSearchModel" ShowSearch="true" ShowSearchText="true"
+           ShowToolbar="true" IsMultipleSelect="true" ShowExtendButtons="true"
+           OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Searchable="true" />
+            <TableColumn @bind-Field="@context.Address" Searchable="true" />
+            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Education" />
+        </TableColumns>
+        <CustomerSearchTemplate>
+            @if (context is FooSearchModel model)
+            {
+                <FooSearch @bind-Value="@model" />
+            }
+        </CustomerSearchTemplate>
+    </Table>
 </DemoBlock>

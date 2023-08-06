@@ -31,21 +31,21 @@ public partial class GlobalSearch
     [NotNull]
     private List<string>? ComponentItems { get; set; }
 
-    private IEnumerable<MenuItem> AvalidMenus => MenuService.GetMenus().SelectMany(i => i.Items).Where(i => !string.IsNullOrEmpty(i.Url));
+    private IEnumerable<MenuItem> Menus => MenuService.GetMenus().SelectMany(i => i.Items).Where(i => !string.IsNullOrEmpty(i.Url));
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
-        ComponentItems = AvalidMenus.Select(i => i.Text!).ToList();
+        ComponentItems = Menus.Select(i => i.Text!).ToList();
     }
 
     private Task OnSearch(string searchText)
     {
         if (!string.IsNullOrEmpty(searchText))
         {
-            var item = AvalidMenus.FirstOrDefault(i => i.Text!.Contains(searchText, StringComparison.OrdinalIgnoreCase));
+            var item = Menus.FirstOrDefault(i => i.Text!.Contains(searchText, StringComparison.OrdinalIgnoreCase));
             if (item != null && !string.IsNullOrEmpty(item.Url))
             {
                 NavigationManager.NavigateTo(item.Url);

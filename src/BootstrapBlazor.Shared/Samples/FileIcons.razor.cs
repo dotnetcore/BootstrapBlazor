@@ -13,23 +13,26 @@ public partial class FileIcons
     [NotNull]
     private IStringLocalizer<FileIcons>? Localizer { get; set; }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new[]
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new()
+        {
             Name = nameof(FileIcon.Extension),
             Description = Localizer["ExtensionAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = nameof(FileIcon.IconColor),
             Description = Localizer["IconColorAttr"].Value,
             Type = "Color",
             ValueList = " — ",
             DefaultValue = "Primary"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = nameof(FileIcon.BackgroundTemplate),
             Description = Localizer["BackgroundTemplateAttr"].Value,
             Type = "RenderFragment",

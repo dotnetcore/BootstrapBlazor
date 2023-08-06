@@ -1,46 +1,9 @@
-﻿.dock-layout {
-    height: calc(100vh - var(--bs-header-height));
+﻿.dock-tabs-body {
     overflow: hidden;
-    display: flex;
-    flex-direction: row;
+    margin: -0.5rem;
+    height: calc(100vh - 134px);
 }
 
-    .dock-layout aside {
-        min-width: 260px;
+    .dock-tabs-body ::deep .bb-dock {
         height: 100%;
-    }
-
-    .dock-layout main {
-        height: 100%;
-        flex: 1;
-    }
-
-        .dock-layout main ::deep .bb-dock {
-            height: 100%;
-        }
-
-ul {
-    list-style-type: none;
-    padding: 1rem .5rem;
-}
-
-li:not(:first-child) {
-    margin-top: 2px;
-}
-
-::deep .nav-link {
-    border-radius: var(--bs-border-radius);
-    padding: 0.5rem;
-    color: #3f4254;
-    transition: background-color .3s linear, color .3s linear;
-}
-
-    ::deep .nav-link:hover {
-        background-color: #722df8;
-        color: var(--bs-white);
-    }
-
-    ::deep .nav-link.active {
-        background-color: #722df8;
-        color: var(--bs-white);
     }

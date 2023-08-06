@@ -1,32 +1,210 @@
-﻿@page "/carousels"
+﻿@page "/carousel"
 @inject IStringLocalizer<Carousels> Localizer
 
 <h3>@Localizer["Title"]</h3>
 
 <h4>@Localizer["SubTitle"]</h4>
 
-<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal" Demo="typeof(Demos.Carousel.CarouselNormal)" />
-
-<DemoBlock Title="@Localizer["ShowControlsTitle"]" Introduction="@Localizer["ShowControlsIntro"]" Name="ShowControls" Demo="typeof(Demos.Carousel.CarouselShowControls)" />
-
-<DemoBlock Title="@Localizer["ShowIndicatorsTitle"]" Introduction="@Localizer["ShowIndicatorsIntro"]" Name="ShowIndicators" Demo="typeof(Demos.Carousel.CarouselShowIndicators)" />
-
-<DemoBlock Title="@Localizer["FadeTitle"]" Introduction="@Localizer["FadeIntro"]" Name="Fade" Demo="typeof(Demos.Carousel.CarouselFade)" />
-
-<DemoBlock Title="@Localizer["CaptionTitle"]" Introduction="@Localizer["CaptionIntro"]" Name="Caption" Demo="typeof(Demos.Carousel.CarouselCaption)" />
-
-<DemoBlock Title="@Localizer["IntervalTitle"]" Introduction="@Localizer["IntervalIntro"]" Name="Interval" Demo="typeof(Demos.Carousel.CarouselInterval)" />
-
-<DemoBlock Title="@Localizer["CaptionTemplateTitle"]" Introduction="@Localizer["CaptionTemplateIntro"]" Name="CaptionTemplate" Demo="typeof(Demos.Carousel.CarouselCaptionTemplate)" />
-
-<DemoBlock Title="@Localizer["CaptionClassTitle"]" Introduction="@Localizer["CaptionClassIntro"]" Name="CaptionClass" Demo="typeof(Demos.Carousel.CarouselCaptionClass)">
-    <p>@((MarkupString)Localizer["CaptionClassP1"].Value)</p>
+<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
+    <Carousel Images="@Images" Width="280" ShowControls="false" ShowIndicators="false" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["OnClickTitle"]" Introduction="@Localizer["OnClickIntro"]" Name="OnClick" Demo="typeof(Demos.Carousel.CarouselOnClick)" />
+<DemoBlock Title="@Localizer["ShowControlsTitle"]" Introduction="@Localizer["ShowControlsIntro"]" Name="ShowControls">
+    <Carousel Images="@Images" Width="280" ShowControls="true" ShowIndicators="false" />
+</DemoBlock>
 
-<DemoBlock Title="@Localizer["TouchSwipingTitle"]" Introduction="@Localizer["TouchSwipingIntro"]" Name="DisableTouchSwiping" Demo="typeof(Demos.Carousel.CarouselDisableTouchSwiping)" />
+<DemoBlock Title="@Localizer["ShowIndicatorsTitle"]" Introduction="@Localizer["ShowIndicatorsIntro"]" Name="ShowIndicators">
+    <Carousel Images="@Images" Width="280" ShowControls="true" ShowIndicators="true" />
+</DemoBlock>
 
-<DemoBlock Title="@Localizer["ChildContentTitle"]" Introduction="@Localizer["ChildContentIntro"]" Name="ChildContent" Demo="typeof(Demos.Carousel.CarouselChildContent)" />
+<DemoBlock Title="@Localizer["FadeTitle"]" Introduction="@Localizer["FadeIntro"]" Name="Fade">
+    <Carousel Images="@Images" Width="280" IsFade="true" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["CaptionTitle"]" Introduction="@Localizer["CaptionIntro"]" Name="Caption">
+    <Carousel Width="280" IsFade="true">
+        <CarouselItem Caption="First slide label">
+            <img src="./images/Pic0.jpg" alt="demo-image" />
+        </CarouselItem>
+        <CarouselItem Caption="Second slide label">
+            <img src="./images/Pic1.jpg" alt="demo-image" />
+        </CarouselItem>
+        <CarouselItem Caption="Thrid slide label">
+            <img src="./images/Pic2.jpg" alt="demo-image" />
+        </CarouselItem>
+    </Carousel>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["IntervalTitle"]" Introduction="@Localizer["IntervalIntro"]" Name="Interval">
+    <Carousel Width="280" IsFade="true">
+        <CarouselItem Caption="First slide label" Interval="5000">
+            <img src="./images/Pic0.jpg" alt="demo-image" />
+        </CarouselItem>
+        <CarouselItem Caption="Second slide label" Interval="2000">
+            <img src="./images/Pic1.jpg" alt="demo-image" />
+        </CarouselItem>
+        <CarouselItem Caption="Thrid slide label">
+            <img src="./images/Pic2.jpg" alt="demo-image" />
+        </CarouselItem>
+    </Carousel>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["CaptionTemplateTitle"]" Introduction="@Localizer["CaptionTemplateIntro"]" Name="CaptionTemplate">
+    <Carousel Width="280" IsFade="true">
+        <CarouselItem>
+            <CaptionTemplate>
+                <h5>First slide label</h5>
+                <p>Pic0.jpg</p>
+            </CaptionTemplate>
+            <ChildContent>
+                <img src="./images/Pic0.jpg" alt="demo-image" />
+            </ChildContent>
+        </CarouselItem>
+        <CarouselItem>
+            <CaptionTemplate>
+                <h5>Second slide label</h5>
+                <p>Pic1.jpg</p>
+            </CaptionTemplate>
+            <ChildContent>
+                <img src="./images/Pic1.jpg" alt="demo-image" />
+            </ChildContent>
+        </CarouselItem>
+        <CarouselItem>
+            <CaptionTemplate>
+                <h5>Third slide label</h5>
+                <p>Pic2.jpg</p>
+            </CaptionTemplate>
+            <ChildContent>
+                <img src="./images/Pic2.jpg" alt="demo-image" />
+            </ChildContent>
+        </CarouselItem>
+    </Carousel>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["CaptionClassTitle"]" Introduction="@Localizer["CaptionClassIntro"]" Name="CaptionClass">
+    <p>@((MarkupString)Localizer["CaptionClassP1"].Value)</p>
+    <Carousel Width="280" IsFade="true">
+        <CarouselItem CaptionClass="d-none d-md-block">
+            <CaptionTemplate>
+                <h5>First slide label</h5>
+                <p>Pic0.jpg</p>
+            </CaptionTemplate>
+            <ChildContent>
+                <img src="./images/Pic0.jpg" alt="demo-image" />
+            </ChildContent>
+        </CarouselItem>
+        <CarouselItem CaptionClass="d-none d-md-block">
+            <CaptionTemplate>
+                <h5>Second slide label</h5>
+                <p>Pic1.jpg</p>
+            </CaptionTemplate>
+            <ChildContent>
+                <img src="./images/Pic1.jpg" alt="demo-image" />
+            </ChildContent>
+        </CarouselItem>
+        <CarouselItem CaptionClass="d-none d-md-block">
+            <CaptionTemplate>
+                <h5>Third slide label</h5>
+                <p>Pic2.jpg</p>
+            </CaptionTemplate>
+            <ChildContent>
+                <img src="./images/Pic2.jpg" alt="demo-image" />
+            </ChildContent>
+        </CarouselItem>
+    </Carousel>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["OnClickTitle"]" Introduction="@Localizer["OnClickIntro"]" Name="OnClick">
+    <h3>CarouselOnClick</h3>
+    <Carousel Images="@Images" Width="280" IsFade="true" OnClick="@OnClick"></Carousel>
+    <ConsoleLogger @ref="OnClickLogger" class="mt-3" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TouchSwipingTitle"]" Introduction="@Localizer["TouchSwipingIntro"]" Name="DisableTouchSwiping">
+    <Carousel Width="280" IsFade="true" DisableTouchSwiping="true">
+        <CarouselItem Caption="First slide label" Interval="5000">
+            <img src="./images/Pic0.jpg" alt="demo-image" />
+        </CarouselItem>
+        <CarouselItem Caption="Second slide label" Interval="2000">
+            <img src="./images/Pic1.jpg" alt="demo-image" />
+        </CarouselItem>
+        <CarouselItem Caption="Thrid slide label">
+            <img src="./images/Pic2.jpg" alt="demo-image" />
+        </CarouselItem>
+    </Carousel>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ChildContentTitle"]" Introduction="@Localizer["ChildContentIntro"]" Name="ChildContent">
+    <Carousel Width="720" ShowIndicators="false">
+        <CarouselItem>
+            <div class="carousel-item-demo2">
+                <div class="demo-item">
+                    <div class="top">
+                        <div>Sales champion</div>
+                        <div>www.blazor.zone</div>
+                    </div>
+                    <img src="./images/avatars/150-5.jpg" alt="demo-image" />
+                    <div class="bottom">
+                        Carousel Item
+                    </div>
+                </div>
+                <div class="demo-item">
+                    <div class="top">
+                        <div>Sales champion</div>
+                        <div>www.blazor.zone</div>
+                    </div>
+                    <img src="./images/avatars/150-7.jpg" alt="demo-image" />
+                    <div class="bottom">
+                        Carousel Item
+                    </div>
+                </div>
+                <div class="demo-item">
+                    <div class="top">
+                        <div>Sales champion</div>
+                        <div>www.blazor.zone</div>
+                    </div>
+                    <img src="./images/avatars/150-11.jpg" alt="demo-image" />
+                    <div class="bottom">
+                        Carousel Item
+                    </div>
+                </div>
+            </div>
+        </CarouselItem>
+        <CarouselItem>
+            <div class="carousel-item-demo2">
+                <div class="demo-item">
+                    <div class="top">
+                        <div>Sales champion</div>
+                        <div>www.blazor.zone</div>
+                    </div>
+                    <img src="./images/avatars/150-6.jpg" alt="demo-image" />
+                    <div class="bottom">
+                        Carousel Item
+                    </div>
+                </div>
+                <div class="demo-item">
+                    <div class="top">
+                        <div>Sales champion</div>
+                        <div>www.blazor.zone</div>
+                    </div>
+                    <img src="./images/avatars/150-12.jpg" alt="demo-image" />
+                    <div class="bottom">
+                        Carousel Item
+                    </div>
+                </div>
+                <div class="demo-item">
+                    <div class="top">
+                        <div>Sales champion</div>
+                        <div>www.blazor.zone</div>
+                    </div>
+                    <img src="./images/avatars/150-15.jpg" alt="demo-image" />
+                    <div class="bottom">
+                        Carousel Item
+                    </div>
+                </div>
+            </div>
+        </CarouselItem>
+    </Carousel>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

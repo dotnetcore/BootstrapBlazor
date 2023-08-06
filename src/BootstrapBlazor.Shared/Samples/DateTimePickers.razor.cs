@@ -9,6 +9,60 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class DateTimePickers
 {
+    [NotNull]
+    private ConsoleLogger? NormalLogger { get; set; }
+
+    private DateTime Value { get; set; } = DateTime.Today;
+
+    private Task NormalOnConfirm()
+    {
+        NormalLogger.Log($"Value: {Value:yyyy-MM-dd}");
+        return Task.CompletedTask;
+    }
+
+    [NotNull]
+    private ConsoleLogger? ValueChangedLogger { get; set; }
+
+    private TimeSpan ValueChangedValue { get; set; } = DateTime.Now - DateTime.Today;
+
+    private void ValueChangedOnConfirm()
+    {
+        ValueChangedLogger.Log($"Value: {ValueChangedValue:hh\\:mm\\:ss}");
+    }
+
+    /// <summary>
+    /// ModelValidateValue
+    /// </summary>
+    [Required]
+    public DateTime? ValidateFormValue { get; set; }
+
+    private DateTimeOffset? DateTimeOffsetValue { get; set; } = DateTimeOffset.Now;
+
+    private TimeSpan TimeValue { get; set; } = DateTime.Now - DateTime.Today;
+
+    private TimeSpan SpanValue { get; set; } = DateTime.Now.Subtract(DateTime.Today);
+
+    private static string FormatterSpanString(TimeSpan ts)
+    {
+        return ts.ToString("hh\\:mm\\:ss");
+    }
+
+    private DateTime? BindNullValue { get; set; }
+
+    private string GetNullValueString => BindNullValue.HasValue ? BindNullValue.Value.ToString("yyyy-MM-dd") : "";
+
+    private DateTime? ShowLabelValue { get; set; }
+
+    private bool IsDisabled { get; set; } = true;
+
+    private DateTime? BindValue { get; set; } = DateTime.Today;
+
+    private string BindValueString
+    {
+        get => BindValue.HasValue ? BindValue.Value.ToString("yyyy-MM-dd") : "";
+        set => BindValue = DateTime.TryParse(value, out var d) ? d : null;
+    }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePickers>? Localizer { get; set; }
@@ -39,42 +93,47 @@ public sealed partial class DateTimePickers
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new()
+        {
             Name = "ShowLabel",
             Description = Localizer["Att1"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ShowSidebar",
             Description = Localizer["Att2"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "DisplayText",
             Description = Localizer["Att3"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Format",
             Description = Localizer["Att4"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "yyyy-MM-dd"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "IsShown",
             Description = Localizer["Att5"],
             Type = "boolean",
             ValueList = "",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "IsDisabled",
             Description = Localizer["Att6"],
@@ -82,21 +141,23 @@ public sealed partial class DateTimePickers
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Value",
             Description = Localizer["Att8"],
             Type = "TValue",
             ValueList = "DateTime | DateTime?",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ViewMode",
             Description = Localizer["Att9"],
             Type = "DatePickerViewMode",
             ValueList = " Date / DateTime / Year / Month",
             DefaultValue = "Date"
         },
-        new AttributeItem() {
+        new() {
             Name = "AutoClose",
             Description = Localizer["AttrAutoClose"],
             Type = "bool",

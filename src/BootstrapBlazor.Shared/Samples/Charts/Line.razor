@@ -1,38 +1,60 @@
-﻿@page "/charts/line"
+﻿@page "/chart/line"
 @inject IStringLocalizer<Line> Localizer
+@inject CodeSnippetService CodeSnippetService
+@inherits IdComponentBase
+@implements IAsyncDisposable
 
 <DemoBlock Title="@Localizer["LineOnInitTitle"]"
            Introduction="@Localizer["LineOnInitIntro"]"
-           Name="LineOnInit"
-           Demo="typeof(Demos.Charts.Line.LineOnInit)">
+           Name="LineOnInit">
+    <Chart @ref="LineChart" OnInitAsync="() => OnInit(0.4f, false)" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" />
+    <div class="text-center mt-2 chart">
+        <div class="btn-group">
+            <button class="btn btn-primary" @onclick="e => Utility.RandomData(LineChart)"><i class="fa-solid fa-chart-line"></i><span>@Localizer["LineOnInitRandomData"]</span></button>
+            <button class="btn btn-primary" @onclick="OnReloadChart"><i class="fa-solid fa-chart-column"></i><span>@Localizer["LineOnInitReload"]</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(LineChart, ref LineDatasetCount)"><i class="fa-solid fa-circle-plus"></i><span>@Localizer["LineOnInitAddDataset"]</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(LineChart, ref LineDatasetCount)"><i class="fa-solid fa-circle-minus"></i><span>@Localizer["LineOnInitRemoveDataset"]</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.AddData(LineChart, ref LineDataCount)"><i class="fa-solid fa-plus"></i><span>@Localizer["LineOnInitAddingData"]</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RemoveData(LineChart, ref LineDataCount)"><i class="fa-solid fa-minus"></i><span>@Localizer["LineOnInitRemoveData"]</span></button>
+        </div>
+    </div>
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LineTensionTitle"]"
            Introduction="@Localizer["LineTensionIntro"]"
-           Name="LineTension"
-           Demo="typeof(Demos.Charts.Line.LineTension)">
+           Name="LineTension">
+    <Chart OnInitAsync="() => OnInitTension(0f, false)" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LineNullableTitle"]"
            Introduction="@Localizer["LineNullableIntro"]"
-           Name="LineNullable"
-           Demo="typeof(Demos.Charts.Line.LineNullable)">
+           Name="LineNullable">
+    <Chart OnInitAsync="() => OnInitNullable(0f, true)" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["LineTwoYaxesTitle"]"
-           Introduction="@Localizer["LineTwoYaxesIntro"]"
-           Name="TwoYaxes"
-           Demo="typeof(Demos.Charts.Line.LineTwoYaxes)">
+<DemoBlock Title="@Localizer["LineTwoYAxesTitle"]"
+           Introduction="@Localizer["LineTwoYAxesIntro"]"
+           Name="TwoYAxes">
+    <Chart OnInitAsync="() => OnInitTwoAxes(0f, false)" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LineBarAspectRatioTitle"]"
            Introduction="@Localizer["LineBarAspectRatioIntro"]"
-           Name="BarAspectRatio"
-           Demo="typeof(Demos.Charts.Line.LineBarAspectRatio)">
+           Name="BarAspectRatio">
+    <Chart OnInitAsync="() => OnInitAspectRatio(0f, false)" Height="500px" Width="500px" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LineChartJSTitle"]"
            Introduction="@Localizer["LineChartJSIntro"]"
-           Name="LineChartJS"
-           Demo="typeof(Demos.Charts.Line.LineChartJS)">
+           Name="LineChartJS">
+    <div style="height:370px; width:740px;">
+        <canvas id="@Id"></canvas>
+    </div>
+
+    <Button class="mt-3" Text="Randomize" OnClick="Randomize" />
+
+    <h4>JavaScript Code</h4>
+    <Pre ShowToolbar="true">@Code</Pre>
 </DemoBlock>
+

@@ -15,15 +15,15 @@ public sealed partial class Popovers
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem()
+        new()
         {
-            Name = "Cotent",
+            Name = "Content",
             Description = "Popover content",
             Type = "string",
             ValueList = "",
             DefaultValue = "Popover"
         },
-        new AttributeItem()
+        new()
         {
             Name = "IsHtml",
             Description = "Whether the content contains Html code",
@@ -31,7 +31,7 @@ public sealed partial class Popovers
             ValueList = "",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "Placement",
             Description = "Location",
@@ -39,7 +39,7 @@ public sealed partial class Popovers
             ValueList = "Auto / Top / Left / Bottom / Right",
             DefaultValue = "Auto"
         },
-        new AttributeItem()
+        new()
         {
             Name = "Title",
             Description = "Popover title",

@@ -1,20 +1,43 @@
 ﻿@inherits BootstrapComponentBase
-@page "/tables/virtualization"
+@page "/table/virtualization"
 @inject IStringLocalizer<TablesVirtualization> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
 
 <h3>@Localizer["TablesVirtualizationTitle"]</h3>
 <h4>@Localizer["TablesVirtualizationDescription"]</h4>
 
 <DemoBlock Title="@Localizer["VirtualizationNormalTitle"]"
            Introduction="@Localizer["VirtualizationNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Table.TablesVirtualization.TablesVirtualizationNormal)">
+           Name="Normal">
     <p>@((MarkupString)Localizer["VirtualizationNormalDescription"].Value)</p>
+    <div class="table-virtualize-demo">
+        <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="Items" ScrollMode="ScrollMode.Virtual">
+            <TableColumns>
+                <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                <TableColumn @bind-Field="@context.Name" />
+                <TableColumn @bind-Field="@context.Address" Readonly="true" />
+                <TableColumn @bind-Field="@context.Education" />
+                <TableColumn @bind-Field="@context.Count" Editable="false" />
+                <TableColumn @bind-Field="@context.Complete" />
+            </TableColumns>
+        </Table>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["VirtualizationDynamicTitle"]"
            Introduction="@Localizer["VirtualizationDynamicIntro"]"
-           Name="Dynamic"
-           Demo="typeof(Demos.Table.TablesVirtualization.TablesVirtualizationDynamic)">
+           Name="Dynamic">
     <p>@Localizer["VirtualizationDynamicDescription"]</p>
+    <div class="table-virtualize-demo">
+        <Table TItem="Foo" IsBordered="true" IsStriped="true" ScrollMode="ScrollMode.Virtual" OnQueryAsync="OnQueryAsync">
+            <TableColumns>
+                <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                <TableColumn @bind-Field="@context.Name" />
+                <TableColumn @bind-Field="@context.Address" Readonly="true" />
+                <TableColumn @bind-Field="@context.Education" />
+                <TableColumn @bind-Field="@context.Count" Editable="false" />
+                <TableColumn @bind-Field="@context.Complete" />
+            </TableColumns>
+        </Table>
+    </div>
 </DemoBlock>

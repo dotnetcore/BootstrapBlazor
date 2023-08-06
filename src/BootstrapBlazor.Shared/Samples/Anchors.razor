@@ -1,57 +1,36 @@
-﻿@page "/anchors"
+﻿@page "/anchor"
 
 <h3>@Localizer["Title"]</h3>
 
 <h4>@Localizer["SubTitle"]</h4>
 
-<DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["IntroText1"]" Name="Normal" Demo="typeof(Demos.Anchor.AnchorNormal)"/>
+<DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["IntroText1"]" Name="Normal">
+    <div style="height: 400px; overflow: auto;">
+        <p>@((MarkupString)Localizer["IntroText2"].Value)</p>
+        <ul class="demo-ul">
+            <li>
+                <Anchor Target="anchor1" Offset="50">Anchor1</Anchor>
+            </li>
+            <li>
+                <Anchor Target="anchor2" Offset="50">Anchor2</Anchor>
+            </li>
+            <li>
+                <Anchor Target="anchor3" Offset="50">Anchor3</Anchor>
+            </li>
+            <li>
+                <Anchor Target="anchor4" Offset="50">Anchor4</Anchor>
+            </li>
+        </ul>
 
-<AttributeTable Items="@GetAttributes()"/>
+        <h4 id="anchor1">Anchor1</h4>
+        <div>@((MarkupString)Localizer["ContentText1"].Value)</div>
+        <h4 id="anchor2">Anchor2</h4>
+        <div>@((MarkupString)Localizer["ContentText1"].Value)</div>
+        <h4 id="anchor3">Anchor3</h4>
+        <div>@((MarkupString)Localizer["ContentText1"].Value)</div>
+        <h4 id="anchor4">Anchor4</h4>
+        <div>@((MarkupString)Localizer["ContentText1"].Value)</div>
+    </div>
+</DemoBlock>
 
-@code
-{
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Anchors>? Localizer { get; set; }
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new[]
-    {
-        new AttributeItem()
-        {
-            Name = "Target",
-            Description = Localizer["Desc1"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new AttributeItem()
-        {
-            Name = "Container",
-            Description = Localizer["Desc2"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new AttributeItem()
-        {
-            Name = "Offset",
-            Description = Localizer["Desc3"],
-            Type = "int",
-            ValueList = " — ",
-            DefaultValue = "0"
-        },
-        new AttributeItem()
-        {
-            Name = "ChildContent",
-            Description = Localizer["Desc4"],
-            Type = "RenderFragment",
-            ValueList = " — ",
-            DefaultValue = " — "
-        }
-    };
-
-}
+<AttributeTable Items="@GetAttributes()" />

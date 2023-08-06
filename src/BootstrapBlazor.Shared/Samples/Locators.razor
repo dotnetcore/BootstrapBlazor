@@ -1,16 +1,15 @@
-﻿@page "/locators"
+﻿@page "/locator"
 @inject IStringLocalizer<Locators> Localizer
+@inject WebClientService ClientService
+@inject IIPLocatorProvider IPLocator
 
 <h3>@Localizer["LocatorsTitle"]</h3>
 
 <h4>@Localizer["LocatorsSubTitle"]</h4>
 
-<DemoBlock Title="@Localizer["LocatorsNormalTitle"]"
-           Introduction="@Localizer["LocatorsNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Locators.LocatorsNormal)">
+<DemoBlock Title="@Localizer["LocatorsNormalTitle"]" Introduction="@Localizer["LocatorsNormalIntro"]" Name="Normal">
     <p><b>@Localizer["LocatorsNormalDescription"]</b></p>
-    <div class="mb-3">
+    <div class="mb-2">
         <p>@((MarkupString)Localizer["LocatorsNormalInjectIPLocator"].Value)</p>
         <Pre>[Inject]
 [NotNull]
@@ -18,29 +17,41 @@ private IIPLocatorProvider? IPLocator { get; set; }
 </Pre>
     </div>
     <Tips>
-        <div>@((MarkupString)Localizer["LocatorsNormalTipsTilte"].Value)</div>
+        <div>@((MarkupString)Localizer["LocatorsNormalTipsTitle"].Value)</div>
         <div><b>@Localizer["LocatorsNormalTips1"]</b></div>
         <div>@((MarkupString)Localizer["LocatorsNormalTips2"].Value)</div>
     </Tips>
     <Pre>Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)</Pre>
-    <p class="mt-3"><b>@Localizer["LocatorsNormalExtendDescription"]</b></p>
-    <div>
-        <p><b>@Localizer["LocatorsNormalExtend1"]</b></p>
-        <Pre>private class CustomerLocator : IIPLocator
+    <div class="my-2"><b>@Localizer["LocatorsNormalExtendDescription"]</b></div>
+    <div class="mb-2"><b>@Localizer["LocatorsNormalExtend1"]</b></div>
+    <Pre>private class CustomerLocator : IIPLocator
 {
     public Task&lt;string&gt; Locate(IPLocatorOption option)
     {
         throw new NotImplementedException();
     }
 }</Pre>
-        <p><b>@Localizer["LocatorsNormalExtend2"]</b></p>
-        <Pre>public void ConfigureServices(IServiceCollection services)
+    <div class="my-2"><b>@Localizer["LocatorsNormalExtend2"]</b></div>
+    <Pre>public void ConfigureServices(IServiceCollection services)
 {
     services.AddBootstrapBlazor(locatorAction: option =>
     {
         option.LocatorFactory = provider => new CustomerLocator();
     });
 }</Pre>
-        <div>@((MarkupString)Localizer["LocatorsNormalCustomerLocator "].Value)</div>
+    <div class="my-2">@((MarkupString)Localizer["LocatorsNormalCustomerLocator"].Value)</div>
+    <div class="mb-2">@Localizer["LocatorsNormalIpTitle"]</div>
+    <div><code>112.224.74.239</code> @Localizer["LocatorsNormalTips3"]</div>
+    <div class="mb-2"><code>183.160.236.53</code> @Localizer["LocatorsNormalTips4"]</div>
+    <div class="row g-3 form-inline">
+        <div class="col-12 col-sm-6">
+            <BootstrapInput @bind-Value="Ip" DisplayText="@Localizer["LocatorsNormalInputText"]" ShowLabel="true" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display Value="Location" DisplayText="@Localizer["LocatorsNormalDisplayText"]" ShowLabel="true" />
+        </div>
+        <div class="col-12">
+            <Button Icon="fa-solid fa-location-arrow" Text="@Localizer["LocatorsNormalButtonText"]" OnClick="OnClick" />
+        </div>
     </div>
 </DemoBlock>

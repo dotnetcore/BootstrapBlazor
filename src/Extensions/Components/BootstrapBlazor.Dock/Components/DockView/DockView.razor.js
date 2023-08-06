@@ -32,6 +32,8 @@ export async function init(id, option, invoke) {
 
         saveConfig(option, layout)
         option.invokeVisibleChangedCallback(title, false)
+
+        resetDockLock(dock)
     })
     layout.on('itemDropped', item => {
         const stack = item.parentItem

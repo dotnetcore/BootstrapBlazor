@@ -1,23 +1,125 @@
-﻿@page "/calendars"
+﻿@page "/calendar"
 @inject IStringLocalizer<Calendars> Localizer
 
 <h3>@Localizer["Title"]</h3>
 
 <h4>@Localizer["SubTitle"]</h4>
 
-<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal" Demo="typeof(Demos.Calendar.CalendarNormal)" />
-
-<DemoBlock Title="@Localizer["BindTitle"]" Introduction="@Localizer["BindIntro"]" Name="Bind" Demo="typeof(Demos.Calendar.CalendarBind)" />
-
-<DemoBlock Title="@Localizer["CellTemplateTitle"]" Introduction="@Localizer["CellTemplateIntro"]" Name="CellTemplate" Demo="typeof(Demos.Calendar.CalendarCellTemplate)" />
-
-<DemoBlock Title="@Localizer["ViewModeTitle"]" Introduction="@Localizer["ViewModeIntro"]" Name="ViewModel" Demo="typeof(Demos.Calendar.CalendarViewModel)" />
-
-<DemoBlock Title="@Localizer["AppTitle"]" Introduction="@Localizer["AppIntro"]" Name="App" Demo="typeof(Demos.Calendar.CalendarApp)">
-    <p>@((MarkupString)Localizer["AppText"].Value)</p>
+<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
+    <Calendar ValueChanged="@OnValueChanged" />
+    <ConsoleLogger @ref="NormalLogger" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["CellTemplateDemoTitle"]" Introduction="@Localizer["CellTemplateDemoIntro"]" Name="CellTemplateDemo" Demo="typeof(Demos.Calendar.CalendarCellTemplateDemo)" />
+<DemoBlock Title="@Localizer["BindTitle"]" Introduction="@Localizer["BindIntro"]" Name="Bind">
+    <Calendar @bind-Value="@BindValue" />
+    <BootstrapInput @bind-Value="@BindValue" Formatter="@Formatter" style="margin-top: 1rem;" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["CellTemplateTitle"]" Introduction="@Localizer["CellTemplateIntro"]" Name="CellTemplate">
+    <Calendar>
+        <CellTemplate>
+            <td class="@context.DefaultCss">
+                <div class="calendar-day">
+                    <div>@context.CellValue.Day</div>
+                </div>
+            </td>
+        </CellTemplate>
+    </Calendar>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ViewModeTitle"]" Introduction="@Localizer["ViewModeIntro"]" Name="ViewModel">
+    <Calendar ViewMode="CalendarViewMode.Week" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["AppTitle"]" Introduction="@Localizer["AppIntro"]" Name="App">
+    <p>@((MarkupString)Localizer["AppText"].Value)</p>
+    <Calendar ViewMode="CalendarViewMode.Week">
+        <tr>
+            <td class="none">@Localizer["None"]</td>
+            <td rowspan="4"><div class="less ch">@Localizer["Chinese"]</div></td>
+            <td>@Localizer["Math"]</td>
+            <td>@Localizer["Chinese"]</td>
+            <td>@Localizer["Math"]</td>
+            <td>@Localizer["English"]</td>
+            <td class="none">@Localizer["None"]</td>
+        </tr>
+        <tr>
+            <td class="none">@Localizer["None"]</td>
+            <td>@Localizer["Math"]</td>
+            <td rowspan="3"><div class="less en">@Localizer["English"]</div></td>
+            <td>@Localizer["Math"]</td>
+            <td>@Localizer["English"]</td>
+            <td class="none">@Localizer["None"]</td>
+        </tr>
+        <tr>
+            <td class="none">@Localizer["None"]</td>
+            <td>@Localizer["Math"]</td>
+            <td>@Localizer["Math"]</td>
+            <td>@Localizer["English"]</td>
+            <td class="none">@Localizer["None"]</td>
+        </tr>
+        <tr>
+            <td class="none">@Localizer["None"]</td>
+            <td>@Localizer["Math"]</td>
+            <td>@Localizer["Math"]</td>
+            <td>@Localizer["English"]</td>
+            <td class="none">@Localizer["None"]</td>
+        </tr>
+        <tr>
+            <td style="background-color: #f8f9fa;" colspan="7">午休</td>
+        </tr>
+        <tr>
+            <td class="none">@Localizer["None"]</td>
+            <td>@Localizer["Math"]</td>
+            <td>@Localizer["Chinese"]</td>
+            <td>@Localizer["English"]</td>
+            <td>@Localizer["Math"]</td>
+            <td>@Localizer["English"]</td>
+            <td class="none">@Localizer["None"]</td>
+        </tr>
+        <tr>
+            <td class="none">@Localizer["None"]</td>
+            <td>@Localizer["Study"]</td>
+            <td>@Localizer["Study"]</td>
+            <td>@Localizer["Study"]</td>
+            <td>@Localizer["Study"]</td>
+            <td>@Localizer["Study"]</td>
+            <td class="none">@Localizer["None"]</td>
+        </tr>
+        <tr>
+            <td class="none">@Localizer["None"]</td>
+            <td>@Localizer["Study"]</td>
+            <td>@Localizer["Study"]</td>
+            <td>@Localizer["Study"]</td>
+            <td>@Localizer["Study"]</td>
+            <td>@Localizer["Study"]</td>
+            <td class="none">@Localizer["None"]</td>
+        </tr>
+    </Calendar>
+
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["CellTemplateDemoTitle"]" Introduction="@Localizer["CellTemplateDemoIntro"]" Name="CellTemplateDemo">
+    <Calendar @bind-Value="CrewInfoValue">
+        <CellTemplate>
+            <td class="@context.DefaultCss">
+                <CalendarCrewCell @bind-Value="@context" Crews="GetCrewsByDate(context.CellValue)" />
+            </td>
+        </CellTemplate>
+    </Calendar>
+    <div class="mt-2 sum">
+        <b>@Localizer["CellTemplateDemoSummary"]</b>
+        <div class="row g-2 mt-1">
+            @foreach (var crew in CalendarDemoDataHelper.Crews)
+            {
+                <div class="col-12">
+                    <div>@crew.Name</div>
+                    <div>@GetSumByName(crew.Name)</div>
+                </div>
+            }
+        </div>
+    </div>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
 

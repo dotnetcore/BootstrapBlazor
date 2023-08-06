@@ -43,9 +43,14 @@ public class WebsiteOptions
     public string VideoLibUrl { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis/%E8%A7%86%E9%A2%91%E8%B5%84%E6%BA%90?sort_id=3300624";
 
     /// <summary>
-    /// 
+    /// 仓库源码地址
     /// </summary>
     public string SourceUrl { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor/raw/main/src/";
+
+    /// <summary>
+    /// 源码地址
+    /// </summary>
+    public string SourceCodePath { get; set; } = "/root/BootstrapBlazor/src/";
 
     /// <summary>
     /// 
@@ -120,20 +125,9 @@ public class WebsiteOptions
     public WebsiteOptions()
     {
         var config = GetConfiguration("docs.json");
-        SourceCodes = config.GetSection("src").GetChildren().SelectMany(c => new KeyValuePair<string, string?>[]
-        {
-            new(c.Key, c.Value)
-        }).ToDictionary(item => item.Key, item => item.Value);
-        Videos = config.GetSection("video").GetChildren().SelectMany(c => new KeyValuePair<string, string?>[]
-        {
-            new(c.Key, c.Value)
-        }).ToDictionary(item => item.Key, item => item.Value);
-
-        config = GetConfiguration("links.json");
-        Links = config.GetChildren().SelectMany(c => new KeyValuePair<string, string?>[]
-        {
-            new (c.Key, c.Value)
-        }).ToDictionary(item => item.Key, item => item.Value);
+        SourceCodes = config.GetSection("src").GetChildren().Select(c => new KeyValuePair<string, string?>(c.Key, c.Value)).ToDictionary(item => item.Key, item => item.Value);
+        Videos = config.GetSection("video").GetChildren().Select(c => new KeyValuePair<string, string?>(c.Key, c.Value)).ToDictionary(item => item.Key, item => item.Value);
+        Links = config.GetSection("link").GetChildren().Select(c => new KeyValuePair<string, string?>(c.Key, c.Value)).ToDictionary(item => item.Key, item => item.Value);
     }
 
     private IConfiguration GetConfiguration(string jsonFileName)

@@ -15,7 +15,7 @@ public sealed partial class Cards
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem
+        new()
         {
             Name = "BodyTemplate",
             Description = Localizer["BodyTemplate"],
@@ -23,14 +23,15 @@ public sealed partial class Cards
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "FooterTemplate",
             Description = Localizer["FooterTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem
+        new()
         {
             Name = "HeaderTemplate",
             Description = Localizer["HeaderTemplate"],
@@ -38,7 +39,7 @@ public sealed partial class Cards
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem
+        new()
         {
             Name = "Class",
             Description = Localizer["Class"],
@@ -46,21 +47,23 @@ public sealed partial class Cards
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem {
+        new()
+        {
             Name = "Color",
             Description = Localizer["Color"],
             Type = "Color",
             ValueList = "None / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark",
             DefaultValue = " — "
         },
-        new AttributeItem {
+        new()
+        {
             Name = "IsCenter",
             Description = Localizer["IsCenter"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
         },
-        new AttributeItem
+        new()
         {
             Name = "IsCollapsible",
             Description = Localizer["IsCollapsible"],
@@ -68,7 +71,7 @@ public sealed partial class Cards
             ValueList = "true / false",
             DefaultValue = "false"
         },
-        new AttributeItem
+        new()
         {
             Name = nameof(Card.Collapsed),
             Description = Localizer["Collapsed"],
@@ -76,7 +79,7 @@ public sealed partial class Cards
             ValueList = "true / false",
             DefaultValue = "false"
         },
-        new AttributeItem
+        new()
         {
             Name = "IsShadow",
             Description = Localizer["IsShadow"],

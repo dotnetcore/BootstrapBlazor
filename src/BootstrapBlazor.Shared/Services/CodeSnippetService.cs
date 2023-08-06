@@ -14,9 +14,9 @@ class CodeSnippetService
 
     private string ServerUrl { get; set; }
 
-    private string SampleUrl { get; set; }
+    private string SourceCodePath { get; set; }
 
-    private string DemoUrl { get; set; }
+    private Dictionary<string, string?> SourceCodes { get; set; }
 
     private bool IsDevelopment { get; }
 
@@ -47,20 +47,37 @@ class CodeSnippetService
         IsDevelopment = options.CurrentValue.IsDevelopment;
         ContentRootPath = options.CurrentValue.ContentRootPath;
         ServerUrl = options.CurrentValue.ServerUrl;
-        SampleUrl = $"{options.CurrentValue.SourceUrl}BootstrapBlazor.Shared/Samples/";
-        DemoUrl = $"{options.CurrentValue.SourceUrl}BootstrapBlazor.Shared/";
+        SourceCodes = options.CurrentValue.SourceCodes;
+        SourceCodePath = options.CurrentValue.SourceCodePath;
     }
 
     /// <summary>
     /// 获得示例源码方法
     /// </summary>
     /// <returns></returns>
-    public async Task<string> GetCodeAsync(string demo)
+    public async Task<string> GetCodeAsync(string codeFile)
     {
         string? content;
         try
         {
-            content = await GetContentFromDemo(demo);
+            // codeFile = ajax.razor.cs
+            var segs = codeFile.Split('.');
+            var key = segs.First();
+            var typeName = SourceCodes.ContainsKey(key) ? SourceCodes[key] : string.Empty;
+            if (!string.IsNullOrEmpty(typeName))
+            {
+                var fileName = codeFile.Replace(key, typeName);
+                content = await GetFileContentAsync(fileName);
+
+                // 源码修正
+                CacheManager.GetLocalizedStrings(typeName, LocalizerOptions).ToList().ForEach(l => content = ReplacePayload(content, l));
+                content = ReplaceSymbols(content);
+                content = RemoveBlockStatement(content, "@inject IStringLocalizer<");
+            }
+            else
+            {
+                content = "Error: Please config docs.json";
+            }
         }
         catch (Exception ex) { content = $"Error: {ex.Message}"; }
         return content;
@@ -73,66 +90,39 @@ class CodeSnippetService
     /// <returns></returns>
     public async Task<string> GetFileContentAsync(string fileName)
     {
-        var payload = "";
-        if (!string.IsNullOrEmpty(fileName))
+        string? payload;
+        if (OperatingSystem.IsBrowser())
         {
-            if (IsDevelopment)
-            {
-                var file = $"{ContentRootPath}\\..\\BootstrapBlazor.Shared\\{fileName}";
-                if (!OperatingSystem.IsWindows())
-                {
-                    file = file.Replace('\\', '/');
-                }
-                if (File.Exists(file))
-                {
-                    payload = await File.ReadAllTextAsync(file);
-                }
-            }
-            else
-            {
-                payload = await ReadFileContent(fileName);
-            }
+            var client = Factory.CreateClient();
+            client.Timeout = TimeSpan.FromSeconds(5);
+            client.BaseAddress = new Uri($"{ServerUrl}/api/");
+            payload = await client.GetStringAsync($"Code?fileName=BootstrapBlazor.Shared/Samples/{fileName}");
+        }
+        else
+        {
+            // 读取硬盘文件
+            payload = await CacheManager.GetContentFromFileAsync(fileName, _ => ReadFileAsync(fileName));
         }
         return payload;
     }
 
-    private Task<string> GetContentFromDemo(string demo) => CacheManager.GetContentFromDemoAsync(demo, async entry =>
+    private async Task<string> ReadFileAsync(string fileName)
     {
-        var payload = "";
-        var fileName = demo.Replace('.', Path.DirectorySeparatorChar);
-        fileName = $"{fileName}.razor";
-
-        if (IsDevelopment)
-        {
-            payload = await ReadDemoTextAsync(fileName);
-        }
-        else
-        {
-            payload = await ReadFileContent(fileName);
-        }
-
-        // 将资源文件信息替换
-        CacheManager.GetDemoLocalizedStrings(demo, LocalizerOptions).ToList().ForEach(l => payload = ReplacePayload(payload, l));
-        payload = ReplaceSymbols(payload);
-        payload = RemoveBlockStatement(payload, "@inject IStringLocalizer<");
-        return payload;
-    });
-
-    private async Task<string> ReadFileContent(string fileName)
-    {
-        var client = Factory.CreateClient();
-        client.Timeout = TimeSpan.FromSeconds(5);
-
         string? payload;
-        if (OperatingSystem.IsBrowser())
+        var file = IsDevelopment
+            ? $"{ContentRootPath}\\..\\BootstrapBlazor.Shared\\Samples\\{fileName}"
+            : $"{SourceCodePath}BootstrapBlazor.Shared\\Samples\\{fileName}";
+        if (!OperatingSystem.IsWindows())
         {
-            client.BaseAddress = new Uri($"{ServerUrl}/api/");
-            payload = await client.GetStringAsync($"Code?fileName=BootstrapBlazor.Shared/{fileName}");
+            file = file.Replace('\\', '/');
+        }
+        if (File.Exists(file))
+        {
+            payload = await File.ReadAllTextAsync(file);
         }
         else
         {
-            client.BaseAddress = new Uri(DemoUrl);
-            payload = await client.GetStringAsync(fileName.Replace('\\', '/'));
+            payload = "Error: File not found";
         }
         return payload;
     }
@@ -143,9 +133,9 @@ class CodeSnippetService
         .Replace("&gt;", ">");
 
     private static string ReplacePayload(string payload, LocalizedString l) => payload
-        .Replace($"@(((MarkupString)Localizer[\"{l.Name}\"].Value).ToString())", l.Value)
         .Replace($"@((MarkupString)Localizer[\"{l.Name}\"].Value)", l.Value)
-        .Replace($"@Localizer[\"{l.Name}\"]", l.Value);
+        .Replace($"@Localizer[\"{l.Name}\"]", l.Value)
+        .Replace($"Localizer[\"{l.Name}\"]", $"\"{l.Value}\"");
 
     private static string RemoveBlockStatement(string payload, string removeString)
     {
@@ -156,18 +146,6 @@ class CodeSnippetService
             var target = payload[index..(end + 1)];
             payload = payload.Replace(target, string.Empty);
             payload = payload.TrimStart('\r', '\n');
-        }
-        return payload;
-    }
-
-    private async Task<string> ReadDemoTextAsync(string codeFile)
-    {
-        var payload = "";
-        var paths = new string[] { "..", "BootstrapBlazor.Shared" };
-        var file = Path.Combine(ContentRootPath, string.Join(Path.DirectorySeparatorChar, paths), codeFile);
-        if (File.Exists(file))
-        {
-            payload = await File.ReadAllTextAsync(file);
         }
         return payload;
     }

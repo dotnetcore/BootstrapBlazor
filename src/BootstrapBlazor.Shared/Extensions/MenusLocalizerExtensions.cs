@@ -31,6 +31,13 @@ internal static class MenusLocalizerExtensions
 
         item = new DemoMenuItem()
         {
+            Text = Localizer["DockViewComponents"],
+            Icon = "fa-fw fa-solid fa-table-cells-large"
+        };
+        AddDockView(item);
+
+        item = new DemoMenuItem()
+        {
             Text = Localizer["NavigationComponents"],
             Icon = "fa-fw fa-solid fa-bars"
         };
@@ -102,12 +109,12 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["MouseFollowerIntro"],
-                    Url = "mouseFollowers"
+                    Url = "mouse-follower"
                 },
                 new()
                 {
                     Text = Localizer["Live2DDisplayIntro"],
-                    Url = "live2ddisplay"
+                    Url = "live2d-display"
                 },
             };
 
@@ -121,22 +128,22 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["SpeechIntro"],
-                    Url = "speechs"
+                    Url = "speech/index"
                 },
                 new()
                 {
                     Text = Localizer["Recognizer"],
-                    Url = "recognizers"
+                    Url = "speech/recognizer"
                 },
                 new()
                 {
                     Text = Localizer["Synthesizer"],
-                    Url = "synthesizers"
+                    Url = "speech/synthesizer"
                 },
                 new()
                 {
                     Text = Localizer["SpeechWave"],
-                    Url = "speechwaves"
+                    Url = "speech/wave"
                 }
             };
             AddBadge(item, count: 3);
@@ -175,24 +182,22 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Labels"],
-                    Url = "labels"
+                    Url = "label"
                 },
                 new()
                 {
                     Text = Localizer["GlobalException"],
-                    Url = "globalexception"
+                    Url = "global-exception"
                 },
                 new()
                 {
                     Text = Localizer["ServerBlazor"],
                     Url = "install-server",
-                    Match = NavLinkMatch.All
                 },
                 new()
                 {
                     Text = Localizer["ClientBlazor"],
                     Url = "install-wasm",
-                    Match = NavLinkMatch.All
                 },
                 new()
                 {
@@ -203,22 +208,22 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Breakpoints"],
-                    Url = "breakpoints"
+                    Url = "breakpoint"
                 },
                 new()
                 {
                     Text = Localizer["ZIndex"],
-                    Url = "layout"
+                    Url = "z-index"
                 },
                 new()
                 {
                     Text = Localizer["Theme"],
-                    Url = "themes"
+                    Url = "theme"
                 },
                 new()
                 {
                     Text = Localizer["FAIcon"],
-                    Url = "fa-icons"
+                    Url = "fa-icon"
                 },
                 new()
                 {
@@ -236,162 +241,164 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["AutoComplete"],
-                    Url = "autocompletes"
+                    Url = "auto-complete"
                 },
                 new()
                 {
                     Text = Localizer["AutoFill"],
-                    Url = "autofills"
+                    Url = "auto-fill"
                 },
                 new()
                 {
                     Text = Localizer["Button"],
-                    Url = "buttons"
+                    Url = "button"
                 },
                 new()
                 {
                     Text = Localizer["Cascader"],
-                    Url = "cascaders"
+                    Url = "cascader"
                 },
                 new()
                 {
                     Text = Localizer["Checkbox"],
-                    Url = "checkboxs"
+                    Url = "checkbox"
                 },
                 new()
                 {
                     Text = Localizer["CheckboxList"],
-                    Url = "checkboxlists"
+                    Url = "checkbox-list"
                 },
                 new()
                 {
                     Text = Localizer["ColorPicker"],
-                    Url = "colorpickers"
+                    Url = "color-picker"
                 },
                 new()
                 {
                     Text = Localizer["DateTimePicker"],
-                    Url = "datetimepickers"
+                    Url = "datetime-picker"
                 },
                 new()
                 {
                     Text = Localizer["DateTimeRange"],
-                    Url = "datetimeranges"
+                    Url = "datetime-range"
                 },
                 new()
                 {
+                    Match = NavLinkMatch.All,
                     Text = Localizer["Editor"],
-                    Url = "editors"
+                    Url = "editor"
                 },
                 new()
                 {
                     Text = Localizer["EditorForm"],
-                    Url = "editorforms"
+                    Url = "editor-form"
                 },
                 new()
                 {
                     Text = Localizer["FloatingLabel"],
-                    Url = "floatinglabels"
+                    Url = "floating-label"
                 },
                 new()
                 {
+                    Match = NavLinkMatch.All,
                     Text = Localizer["Input"],
-                    Url = "inputs"
+                    Url = "input"
                 },
                 new()
                 {
                     Text = Localizer["InputNumber"],
-                    Url = "inputnumbers"
+                    Url = "input-number"
                 },
                 new()
                 {
                     Text = Localizer["InputGroup"],
-                    Url = "inputgroups"
+                    Url = "input-group"
                 },
                 new()
                 {
                     Text = Localizer["Ip"],
-                    Url = "ips"
+                    Url = "ip"
                 },
                 new()
                 {
                     Text = Localizer["Markdown"],
-                    Url = "markdowns"
+                    Url = "markdown"
                 },
                 new()
                 {
                     Text = Localizer["CherryMarkdown"],
-                    Url = "cherry-markdowns"
+                    Url = "cherry-markdown"
                 },
                 new()
                 {
                     Text = Localizer["MultiSelect"],
-                    Url = "multiselects"
+                    Url = "multi-select"
                 },
                 new()
                 {
                     Text = Localizer["OnScreenKeyboard"],
-                    Url = "onscreenkeyboards"
+                    Url = "onscreen-keyboard"
                 },
                 new()
                 {
                     Text = Localizer["PulseButton"],
-                    Url = "pulsebuttons"
+                    Url = "pulse-button"
                 },
                 new()
                 {
                     Text = Localizer["Radio"],
-                    Url = "radios"
+                    Url = "radio"
                 },
                 new()
                 {
                     Text = Localizer["Rate"],
-                    Url = "rates"
+                    Url = "rate"
                 },
                 new()
                 {
                     Text = Localizer["Select"],
-                    Url = "selects"
+                    Url = "select"
                 },
                 new()
                 {
                     Text = Localizer["SelectTree"],
-                    Url = "select-trees"
+                    Url = "select-tree"
                 },
                 new()
                 {
                     Text = Localizer["Slider"],
-                    Url = "sliders"
+                    Url = "slider"
                 },
                 new()
                 {
                     Text = Localizer["Switch"],
-                    Url = "switchs"
+                    Url = "switch"
                 },
                 new()
                 {
                     Text = Localizer["Textarea"],
-                    Url = "textareas"
+                    Url = "textarea"
                 },
                 new()
                 {
                     Text = Localizer["Toggle"],
-                    Url = "toggles"
+                    Url = "toggle"
                 },
                 new()
                 {
                     Text = Localizer["Transfer"],
-                    Url = "transfers"
+                    Url = "transfer"
                 },
                 new()
                 {
                     Text = Localizer["Upload"],
-                    Url = "uploads"
+                    Url = "upload"
                 },
                 new()
                 {
                     Text = Localizer["ValidateForm"],
-                    Url = "validateforms"
+                    Url = "validate-form"
                 }
             };
             AddBadge(item);
@@ -404,12 +411,12 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Ajax"],
-                    Url = "ajaxs"
+                    Url = "ajax"
                 },
                 new()
                 {
                     Text = Localizer["Avatar"],
-                    Url = "avatars"
+                    Url = "avatar"
                 },
                 new()
                 {
@@ -420,47 +427,52 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Badge"],
-                    Url = "badges"
+                    Url = "badge"
+                },
+                new()
+                {
+                    Text = Localizer["BaiduOcr"],
+                    Url = "ocr"
                 },
                 new()
                 {
                     Text = Localizer["BarcodeReader"],
-                    Url = "barcodereaders"
+                    Url = "barcode-reader"
                 },
                 new()
                 {
                     Text = Localizer["Block"],
-                    Url = "blocks"
+                    Url = "block"
                 },
                 new()
                 {
                     Text = Localizer["Bluetooth"],
-                    Url = "bluetooths"
+                    Url = "blue-tooth"
                 },
                 new()
                 {
                     Text = Localizer["Card"],
-                    Url = "cards"
+                    Url = "card"
                 },
                 new()
                 {
                     Text = Localizer["Calendar"],
-                    Url = "calendars"
+                    Url = "calendar"
                 },
                 new()
                 {
                     Text = Localizer["Camera"],
-                    Url = "Cameras"
+                    Url = "camera"
                 },
                 new()
                 {
                     Text = Localizer["Captcha"],
-                    Url = "captchas"
+                    Url = "captcha"
                 },
                 new()
                 {
                     Text = Localizer["Carousel"],
-                    Url = "carousels"
+                    Url = "carousel"
                 },
                 new()
                 {
@@ -470,189 +482,232 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Circle"],
-                    Url = "circles"
+                    Url = "circle"
                 },
                 new()
                 {
                     Text = Localizer["Collapse"],
-                    Url = "collapses"
+                    Url = "collapse"
                 },
                 new()
                 {
                     IsNew = true,
                     Text = Localizer["CountUp"],
-                    Url = "count-ups"
+                    Url = "count-up"
                 },
                 new()
                 {
                     Text = Localizer["Display"],
-                    Url = "displays"
+                    Url = "display"
                 },
                 new()
                 {
                     Text = Localizer["Download"],
-                    Url = "downloads"
+                    Url = "download"
                 },
                 new()
                 {
                     Text = Localizer["DropdownWidget"],
-                    Url = "dropdownwidgets"
+                    Url = "dropdown-widget"
                 },
                 new ()
                 {
                     Text=Localizer["Empty"],
-                    Url = "empties"
+                    Url = "empty"
                 },
                 new ()
                 {
                     IsNew = true,
                     Text=Localizer["EyeDropper"],
-                    Url = "eye-droppers"
+                    Url = "eye-dropper"
                 },
                 new()
                 {
                     Text = Localizer["FileIcon"],
-                    Url = "fileicons"
+                    Url = "file-icon"
                 },
                 new()
                 {
                     Text = Localizer["FileViewer"],
-                    Url = "FileViewers"
+                    Url = "file-viewer"
                 },
                 new()
                 {
                     Text = Localizer["Geolocation"],
-                    Url = "geolocations"
+                    Url = "geolocation"
                 },
                 new()
                 {
                     Text = Localizer["GroupBox"],
-                    Url = "groupboxs"
+                    Url = "group-box"
                 },
                 new()
                 {
-                    Text = Localizer["HandwrittenPage"],
-                    Url = "handwrittenpage"
+                    Text = Localizer["Handwritten"],
+                    Url = "handwritten"
                 },
                 new()
                 {
                     IsNew = true,
                     Text = Localizer["HtmlRenderer"],
-                    Url = "htmlrenderers"
+                    Url = "html-renderer"
                 },
                 new()
                 {
                     IsNew = true,
                     Text = Localizer["Html2Pdf"],
-                    Url = "html2pdfs"
+                    Url = "html2pdf"
                 },
                 new()
                 {
                     Text = Localizer["LinkButton"],
-                    Url = "linkbuttons"
+                    Url = "link-button"
                 },
                 new()
                 {
                     Text = Localizer["ListView"],
-                    Url = "listviews"
+                    Url = "list-view"
                 },
                 new()
                 {
                     Text = Localizer["Locator"],
-                    Url = "locators"
+                    Url = "locator"
                 },
                 new()
                 {
                     Text = Localizer["ImageViewer"],
-                    Url = "imageviewers"
+                    Url = "image-viewer"
                 },
                 new()
                 {
                     Text = Localizer["PdfReader"],
-                    Url = "PdfReaders"
+                    Url = "pdf-reader"
                 },
                 new()
                 {
                     Text = Localizer["Print"],
-                    Url = "prints"
+                    Url = "print"
                 },
                 new()
                 {
                     Text = Localizer["QRCode"],
-                    Url = "qrcodes"
+                    Url = "qr-code"
                 },
                 new()
                 {
                     Text = Localizer["Repeater"],
-                    Url = "repeaters"
+                    Url = "repeater"
                 },
                 new()
                 {
                     Text = Localizer["Search"],
-                    Url = "searchs"
+                    Url = "search"
                 },
                 new()
                 {
                     Text = Localizer["SignaturePad"],
-                    Url = "signaturepads",
+                    Url = "signature-pad",
                 },
                 new()
                 {
                     Text = Localizer["SpeechWave"],
-                    Url = "speechwaves"
+                    Url = "speech-wave"
                 },
                 new()
                 {
                     Text = Localizer["SwitchButton"],
-                    Url = "switchbuttons"
+                    Url = "switch-button"
                 },
                 new()
                 {
                     Text = Localizer["Tag"],
-                    Url = "tags"
+                    Url = "tag"
                 },
                 new()
                 {
                     Text = Localizer["Timeline"],
-                    Url = "timelines"
+                    Url = "timeline"
                 },
                 new()
                 {
                     Text = Localizer["Title"],
-                    Url = "titles"
+                    Url = "title"
                 },
                 new()
                 {
                     Text = Localizer["Topology"],
-                    Url = "Topologies"
+                    Url = "topology"
                 },
                 new()
                 {
                     Text = Localizer["Tree"],
-                    Url = "trees"
+                    Url = "tree"
                 },
                 new()
                 {
                     Text = Localizer["TreeView"],
-                    Url = "treeviews"
+                    Url = "tree-view"
                 },
                 new()
                 {
                     Text = Localizer["Transition"],
-                    Url = "transitions"
-                },
-                new()
-                {
-                    Text = Localizer["BaiduOcr"],
-                    Url = "ocr"
+                    Url = "transition"
                 },
                 new()
                 {
                     Text = Localizer["VideoPlayer"],
-                    Url = "videoPlayers"
+                    Url = "video-player"
                 }
             };
             AddBadge(item);
+        }
+
+        void AddDockView(DemoMenuItem item)
+        {
+            item.Items = new List<DemoMenuItem>
+            {
+                new()
+                {
+                    Text = Localizer["DockViewIndex"],
+                    Url = "dock-view/index"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewColumn"],
+                    Url = "dock-view/col"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewRow"],
+                    Url = "dock-view/row"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewStack"],
+                    Url = "dock-view/stack"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewComplex"],
+                    Url = "dock-view/complex"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewNest"],
+                    Url = "dock-view/nest"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewVisible"],
+                    Url = "dock-view/visible"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewLock"],
+                    Url = "dock-view/lock"
+                }
+            };
+            AddBadge(item, count: 1);
         }
 
         void AddTable(DemoMenuItem item)
@@ -661,144 +716,166 @@ internal static class MenusLocalizerExtensions
             {
                 new()
                 {
+                    Match = NavLinkMatch.All,
                     Text = Localizer["TableBase"],
-                    Url = "tables",
-                    Match = NavLinkMatch.All
+                    Url = "table"
                 },
                 new()
                 {
+                    Match = NavLinkMatch.All,
                     Text = Localizer["TableColumn"],
-                    Url = "tables/column"
+                    Url = "table/column"
                 },
                 new()
                 {
-                    Text = Localizer["TableCell"],
-                    Url = "tables/cell"
+                    Text = Localizer["TableColumnDrag"],
+                    Url = "table/column/drag"
                 },
                 new()
                 {
-                    Text = Localizer["TableLookup"],
-                    Url = "tables/lookup"
+                    Text = Localizer["TableColumnResizing"],
+                    Url = "table/column/resizing"
                 },
                 new()
                 {
-                    Text = Localizer["TableRow"],
-                    Url = "tables/row"
+                    Text = Localizer["TableColumnList"],
+                    Url = "table/column/list"
                 },
                 new()
                 {
-                    Text = Localizer["TableDetail"],
-                    Url = "tables/detail"
-                },
-                new()
-                {
-                    Text = Localizer["TableDynamic"],
-                    Url = "tables/dynamic"
-                },
-                new()
-                {
-                    Text = Localizer["TableDynamicObject"],
-                    Url = "tables/dynamicobject"
-                },
-                new()
-                {
-                    Text = Localizer["TableSearch"],
-                    Url = "tables/search"
-                },
-                new()
-                {
-                    Text = Localizer["TableFilter"],
-                    Url = "tables/filter"
-                },
-                new()
-                {
-                    Text = Localizer["TableFixHeader"],
-                    Url = "tables/header"
-                },
-                new()
-                {
-                    Text = Localizer["TableHeaderGroup"],
-                    Url = "tables/multi-header"
+                    Text = Localizer["TableColumnTemplate"],
+                    Url = "table/column/template"
                 },
                 new()
                 {
                     Text = Localizer["TableFixColumn"],
-                    Url = "tables/fix-column"
+                    Url = "table/fix-column"
                 },
                 new()
                 {
-                    Text = Localizer["TablePage"],
-                    Url = "tables/pages"
+                    Text = Localizer["TableRow"],
+                    Url = "table/row"
                 },
                 new()
                 {
-                    Text = Localizer["TableToolbar"],
-                    Url = "tables/toolbar"
-                },
-                new()
-                {
-                    Text = Localizer["TableEdit"],
-                    Url = "tables/edit"
-                },
-                new()
-                {
-                    Text = Localizer["TableTracking"],
-                    Url = "tables/tracking"
-                },
-                new()
-                {
-                    Text = Localizer["TableExcel"],
-                    Url = "tables/excel"
-                },
-                new()
-                {
-                    Text = Localizer["TableDynamicExcel"],
-                    Url = "tables/dynamicexcel"
-                },
-                new()
-                {
-                    Text = Localizer["TableExport"],
-                    Url = "tables/export"
+                    Text = Localizer["TableDetail"],
+                    Url = "table/detail"
                 },
                 new()
                 {
                     Text = Localizer["TableSelection"],
-                    Url = "tables/selection"
-                },
-                new()
-                {
-                    Text = Localizer["TableAutoRefresh"],
-                    Url = "tables/autorefresh"
-                },
-                new()
-                {
-                    Text = Localizer["TableFooter"],
-                    Url = "tables/footer"
-                },
-                new()
-                {
-                    Text = Localizer["TableDialog"],
-                    Url = "tables/dialog"
+                    Url = "table/selection"
                 },
                 new()
                 {
                     Text = Localizer["TableWrap"],
-                    Url = "tables/wrap"
+                    Url = "table/wrap"
+                },
+                new()
+                {
+                    Text = Localizer["TableCell"],
+                    Url = "table/cell"
+                },
+                new()
+                {
+                    Text = Localizer["TableLookup"],
+                    Url = "table/lookup"
+                },
+                new()
+                {
+                    Match = NavLinkMatch.All,
+                    Text = Localizer["TableDynamic"],
+                    Url = "table/dynamic"
+                },
+                new()
+                {
+                    Text = Localizer["TableDynamicObject"],
+                    Url = "table/dynamic-object"
+                },
+                new()
+                {
+                    Text = Localizer["TableSearch"],
+                    Url = "table/search"
+                },
+                new()
+                {
+                    Text = Localizer["TableFilter"],
+                    Url = "table/filter"
+                },
+                new()
+                {
+                    Text = Localizer["TableFixHeader"],
+                    Url = "table/header"
+                },
+                new()
+                {
+                    Text = Localizer["TableHeaderGroup"],
+                    Url = "table/multi-header"
+                },
+                new()
+                {
+                    Text = Localizer["TablePage"],
+                    Url = "table/page"
+                },
+                new()
+                {
+                    Text = Localizer["TableToolbar"],
+                    Url = "table/toolbar"
+                },
+                new()
+                {
+                    Text = Localizer["TableEdit"],
+                    Url = "table/edit"
+                },
+                new()
+                {
+                    Text = Localizer["TableTracking"],
+                    Url = "table/tracking"
+                },
+                new()
+                {
+                    Text = Localizer["TableExcel"],
+                    Url = "table/excel"
+                },
+                new()
+                {
+                    Text = Localizer["TableDynamicExcel"],
+                    Url = "table/dynamic-excel"
+                },
+                new()
+                {
+                    Text = Localizer["TableExport"],
+                    Url = "table/export"
+                },
+                new()
+                {
+                    Text = Localizer["TableAutoRefresh"],
+                    Url = "table/auto-refresh"
+                },
+                new()
+                {
+                    Text = Localizer["TableFooter"],
+                    Url = "table/footer"
+                },
+                new()
+                {
+                    Text = Localizer["TableDialog"],
+                    Url = "table/dialog"
                 },
                 new()
                 {
                     Text = Localizer["TableTree"],
-                    Url = "tables/tree"
+                    Url = "table/tree"
                 },
                 new()
                 {
-                    Text = Localizer["TableLaoding"],
-                    Url = "tables/loading"
+                    Text = Localizer["TableLoading"],
+                    Url = "table/loading"
                 },
                 new()
                 {
                     Text = Localizer["TableVirtualization"],
-                    Url = "tables/virtualization"
+                    Url = "table/virtualization"
                 }
             };
             item.CssClass = "nav-table";
@@ -812,32 +889,32 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["ChartSummary"],
-                    Url = "charts/index"
+                    Url = "chart/index"
                 },
                 new()
                 {
                     Text = Localizer["ChartLine"],
-                    Url = "charts/line"
+                    Url = "chart/line"
                 },
                 new()
                 {
                     Text = Localizer["ChartBar"],
-                    Url = "charts/bar"
+                    Url = "chart/bar"
                 },
                 new()
                 {
                     Text = Localizer["ChartPie"],
-                    Url = "charts/pie"
+                    Url = "chart/pie"
                 },
                 new()
                 {
                     Text = Localizer["ChartDoughnut"],
-                    Url = "charts/doughnut"
+                    Url = "chart/doughnut"
                 },
                 new()
                 {
                     Text = Localizer["ChartBubble"],
-                    Url = "charts/bubble"
+                    Url = "chart/bubble"
                 }
             };
             AddBadge(item, count: 5);
@@ -850,113 +927,113 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Alert"],
-                    Url = "alerts"
+                    Url = "alert"
                 },
                 new()
                 {
                     Text = Localizer["Console"],
-                    Url = "consoles"
+                    Url = "console"
                 },
                 new()
                 {
                     IsNew = true,
                     Text = Localizer["ContextMenu"],
-                    Url = "contextmenus"
+                    Url = "context-menu"
                 },
                 new()
                 {
                     Text = Localizer["Dialog"],
-                    Url = "dialogs"
+                    Url = "dialog"
                 },
                 new()
                 {
                     Text = Localizer["Dispatch"],
-                    Url = "dispatches"
+                    Url = "dispatch"
                 },
                 new()
                 {
                     Text = Localizer["Drawer"],
-                    Url = "drawers"
+                    Url = "drawer"
                 },
                 new()
                 {
                     Text = Localizer["EditDialog"],
-                    Url = "editdialogs"
+                    Url = "edit-dialog"
                 },
                 new()
                 {
                     Text = Localizer["Light"],
-                    Url = "lights"
+                    Url = "light"
                 },
                 new()
                 {
                     Text = Localizer["Message"],
-                    Url = "messages"
+                    Url = "message"
                 },
                 new()
                 {
                     Text = Localizer["Modal"],
-                    Url = "modals"
+                    Url = "modal"
                 },
                 new()
                 {
                     Text = Localizer["Notification"],
-                    Url = "notifications"
+                    Url = "notification"
                 },
                 new()
                 {
-                    Text = Localizer["Popconfirm"],
-                    Url = "popconfirms"
+                    Text = Localizer["PopConfirm"],
+                    Url = "pop-confirm"
                 },
                 new()
                 {
                     Text = Localizer["Popover"],
-                    Url = "popovers"
+                    Url = "popover"
                 },
                 new()
                 {
                     Text = Localizer["Progress"],
-                    Url = "progresss"
+                    Url = "progress"
                 },
                 new()
                 {
                     Text = Localizer["Reconnector"],
-                    Url = "reconnectors"
+                    Url = "reconnector"
                 },
                 new()
                 {
                     Text = Localizer["Responsive"],
-                    Url = "responsives"
+                    Url = "responsive"
                 },
                 new()
                 {
                     Text = Localizer["SearchDialog"],
-                    Url = "searchdialogs"
+                    Url = "search-dialog"
                 },
                 new()
                 {
                     Text = Localizer["Spinner"],
-                    Url = "spinners"
+                    Url = "spinner"
                 },
                 new()
                 {
                     Text = Localizer["SweetAlert"],
-                    Url = "swals"
+                    Url = "sweet-alert"
                 },
                 new()
                 {
                     Text = Localizer["Timer"],
-                    Url = "timers"
+                    Url = "timer"
                 },
                 new()
                 {
                     Text = Localizer["Toast"],
-                    Url = "toasts"
+                    Url = "toast"
                 },
                 new()
                 {
                     Text = Localizer["Tooltip"],
-                    Url = "tooltips"
+                    Url = "tooltip"
                 }
             };
             AddBadge(item);
@@ -968,73 +1045,74 @@ internal static class MenusLocalizerExtensions
             {
                 new()
                 {
+                    Match = NavLinkMatch.All,
                     Text = Localizer["Anchor"],
-                    Url = "anchors"
+                    Url = "anchor"
                 },
                 new()
                 {
                     Text = Localizer["AnchorLink"],
-                    Url = "anchorlinks"
+                    Url = "anchor-link"
                 },
                 new()
                 {
                     Text = Localizer["AutoRedirect"],
-                    Url = "autoredirects"
+                    Url = "auto-redirect"
                 },
                 new()
                 {
                     Text = Localizer["Breadcrumb"],
-                    Url = "breadcrumbs"
+                    Url = "breadcrumb"
                 },
                 new()
                 {
                     Text = Localizer["Dropdown"],
-                    Url = "dropdowns"
+                    Url = "dropdown"
                 },
                 new()
                 {
                     Text = Localizer["FullScreen"],
-                    Url = "fullscreens"
+                    Url = "fullscreen"
                 },
                 new()
                 {
                     Text = Localizer["GoTop"],
-                    Url = "gotops"
+                    Url = "go-top"
                 },
                 new()
                 {
                     Text = Localizer["Logout"],
-                    Url = "logouts"
+                    Url = "logout"
                 },
                 new()
                 {
                     Text = Localizer["Menu"],
-                    Url = "menus"
+                    Url = "menu"
                 },
                 new()
                 {
-                    Text = Localizer["Nav"],
-                    Url = "navs"
+                    Text = Localizer["Navigation"],
+                    Url = "navigation"
                 },
                 new()
                 {
                     Text = Localizer["Pagination"],
-                    Url = "paginations"
+                    Url = "pagination"
                 },
                 new()
                 {
                     Text = Localizer["RibbonTab"],
-                    Url = "ribbontabs"
+                    Url = "ribbon-tab"
                 },
                 new()
                 {
                     Text = Localizer["Steps"],
-                    Url = "stepss"
+                    Url = "step"
                 },
                 new()
                 {
                     Text = Localizer["Tab"],
-                    Url = "tabs"
+                    Url = "tab"
                 }
             };
             AddBadge(item);
@@ -1047,48 +1125,42 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["Divider"],
-                    Url = "dividers"
+                    Url = "divider"
                 },
                 new()
                 {
-                    Text = Localizer["Dragdrop"],
-                    Url = "dragdrops"
-                },
-                new()
-                {
-                    IsNew = true,
-                    Text = Localizer["DockView"],
-                    Url = "dockviews"
+                    Text = Localizer["DragDrop"],
+                    Url = "drag-drop"
                 },
                 new()
                 {
                     Text = Localizer["Layout"],
-                    Url = "layouts"
+                    Url = "layout"
                 },
                 new()
                 {
                     Text = Localizer["Footer"],
-                    Url = "footers"
+                    Url = "footer"
                 },
                 new()
                 {
                     Text = Localizer["Row"],
-                    Url = "rows"
+                    Url = "row"
                 },
                 new()
                 {
                     Text = Localizer["Scroll"],
-                    Url = "scrolls"
+                    Url = "scroll"
                 },
                 new()
                 {
                     Text = Localizer["Skeleton"],
-                    Url = "skeletons"
+                    Url = "skeleton"
                 },
                 new()
                 {
                     Text = Localizer["Split"],
-                    Url = "splits"
+                    Url = "split"
                 }
             };
             AddBadge(item);

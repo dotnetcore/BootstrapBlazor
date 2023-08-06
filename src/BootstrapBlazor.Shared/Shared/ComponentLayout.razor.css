@@ -25,6 +25,16 @@
             margin-top: 1.5rem;
         }
 
+.tabs-coms ::deep > .tabs > .tabs-header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+::deep :is(.code-razor, .code-cs) pre {
+    max-height: unset;
+}
+
 ::deep .bb-icon {
     display: none;
 }

@@ -9,73 +9,126 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class EditorForms
 {
+    /// <summary>
+    /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
+    /// Foo class is used for Demo test, please download the source code if necessary
+    /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Shared/Data/Foo.cs
+    /// </summary>
+    [NotNull]
+    private Foo? Model { get; set; }
+
+    [NotNull]
+    private IEnumerable<SelectedItem>? Hobbies { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? FooLocalizer { get; set; }
+
+    private List<SelectedItem> DummyItems { get; } = new List<SelectedItem>()
+    {
+        new SelectedItem("1", "1"),
+        new SelectedItem("2", "2"),
+        new SelectedItem("3", "3"),
+        new SelectedItem("4", "4"),
+        new SelectedItem("5", "5")
+    };
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        Hobbies = Foo.GenerateHobbies(FooLocalizer);
+        Model = new Foo()
+        {
+            Name = Localizer["TestName"],
+            Count = 1,
+            Address = Localizer["TestAddress"],
+            DateTime = new DateTime(1997, 12, 05),
+            Education = EnumEducation.Middle
+        };
+    }
+
+    [NotNull]
+    private Foo? ValidateModel { get; set; }
+
+
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new AttributeItem() {
+        new()
+        {
             Name = "Model",
             Description = Localizer["Att1"],
             Type = "TModel",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "FieldItems",
             Description = Localizer["Att2"],
             Type = "RenderFragment<TModel>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Buttons",
             Description = Localizer["Att3"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = nameof(EditorForm<Foo>.IsDisplay),
             Description = Localizer["IsDisplay"],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ShowLabel",
             Description = Localizer["Att4"],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ShowLabelTooltip",
             Description = Localizer["ShowLabelTooltip"],
             Type = "bool?",
             ValueList = "true/false/null",
             DefaultValue = "null"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "AutoGenerateAllItem",
             Description = Localizer["Att5"],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ItemsPerRow",
             Description = Localizer["Att6"],
             Type = "int?",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "RowType",
             Description = Localizer["Att7"],
             Type = "RowType",
             ValueList = "Row|Inline",
             DefaultValue = "Row"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "LabelAlign",
             Description = Localizer["Att8"],
             Type = "Alignment",
@@ -86,43 +139,48 @@ public sealed partial class EditorForms
 
     private IEnumerable<AttributeItem> GetEditorItemAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new AttributeItem() {
+        new()
+        {
             Name = "Field",
             Description = Localizer["Att9"],
             Type = "TValue",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "FieldType",
             Description = Localizer["Att10"],
             Type = "Type",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Editable",
             Description = Localizer["Att11"],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Readonly",
             Description = Localizer["Att12"],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Text",
             Description = Localizer["Att13"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "EditTemplate",
             Description = Localizer["Att14"],
             Type = "RenderFragment<object>",

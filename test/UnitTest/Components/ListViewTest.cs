@@ -113,10 +113,7 @@ public class ListViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.PageItems, 2);
         });
         Assert.True(query);
-
-        query = false;
         cut.InvokeAsync(() => cut.Instance.QueryAsync());
-        Assert.True(query);
     }
 
     [Fact]

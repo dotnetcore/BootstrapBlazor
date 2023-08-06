@@ -151,6 +151,15 @@
     --bs-table-hover-color: #fff;
 }
 
+.bb-avatar {
+    width: 46px;
+    border-radius: var(--bs-border-radius);
+}
+
+.dock-layout.main > *:not(.tabs-coms) {
+    display: none !important;
+}
+
 @media (min-width: 768px) {
     :root {
         --bs-header-height: 50px;

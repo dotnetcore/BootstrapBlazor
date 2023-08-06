@@ -397,7 +397,6 @@ public class ButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void ShareButton_Ok()
     {
-        Context.JSInterop.SetupModule("share");
         var cut = Context.RenderComponent<ShareButton>(pb =>
         {
             pb.Add(a => a.ShareContext, new ShareButtonContext() { Text = "test-share-text", Title = "test-share-title", Url = "www.blazor.zone" });

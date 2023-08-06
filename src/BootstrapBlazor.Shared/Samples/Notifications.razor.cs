@@ -9,6 +9,62 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class Notifications
 {
+    [Inject]
+    [NotNull]
+    private NotificationService? BrowserNotification { get; set; }
+
+    [NotNull]
+    private ConsoleLogger? Logger { get; set; }
+
+    private bool Permission { get; set; }
+
+    private NotificationItem Model { get; set; } = new()
+    {
+        Icon = "./images/Argo-C.png"
+    };
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Model.Title ??= Localizer["NotificationsNormalTitleSampleText"];
+        Model.Message ??= Localizer["NotificationsNormalMessageSampleText"];
+        Model.OnClick = OnClickNotificationCallback;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await BrowserNotification.CheckPermission(false);
+        }
+    }
+
+    private async Task CheckPermission()
+    {
+        Permission = await BrowserNotification.CheckPermission();
+        Logger.Log(Localizer["NotificationsNormalGetPermissionCallbackText"] + (Permission ? "OK" : "No permission"));
+    }
+
+    private async Task Dispatch()
+    {
+        await BrowserNotification.Dispatch(Model);
+    }
+
+    private Task OnClickNotificationCallback()
+    {
+        Logger.Log($"{Localizer["NotificationsNormalOnClickText"]}");
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
     private IEnumerable<AttributeItem> GetNotificationItem() => new AttributeItem[]
     {
         new()
@@ -27,7 +83,8 @@ public partial class Notifications
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "Icon",
             Description = Localizer["NotificationsIconText"],
             Type = "string",

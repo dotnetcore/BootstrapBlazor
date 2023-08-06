@@ -3,6 +3,8 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared;
+using Microsoft.AspNetCore.Components.Web.Virtualization;
+using System.Reflection;
 
 namespace UnitTest.Components;
 
@@ -25,11 +27,14 @@ public class SelectTest : BootstrapBlazorTestBase
         });
 
         var ctx = cut.FindComponent<Select<string>>();
-        ctx.InvokeAsync(() => ctx.Instance.ConfirmSelectedItem(0));
+        ctx.InvokeAsync(async () =>
+        {
+            await ctx.Instance.ConfirmSelectedItem(0);
 
-        // 搜索 T
-        ctx.Find(".search-text").Input("T");
-        ctx.InvokeAsync(() => ctx.Instance.ConfirmSelectedItem(0));
+            // 搜索 T
+            ctx.Find(".search-text").Input("T");
+            await ctx.Instance.ConfirmSelectedItem(0);
+        });
 
         ctx.SetParametersAndRender(pb =>
         {
@@ -519,7 +524,7 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task ItemClick_Ok()
+    public void ItemClick_Ok()
     {
         var cut = Context.RenderComponent<Select<string>>(pb =>
         {
@@ -532,8 +537,123 @@ public class SelectTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsPopover, true);
         });
 
-        var item = cut.Find(".dropdown-item");
-        await cut.InvokeAsync(() => item.Click());
-        Assert.True(item.ClassList.Contains("active"));
+        cut.InvokeAsync(() =>
+        {
+            var item = cut.Find(".dropdown-item");
+            item.Click();
+            Assert.True(item.ClassList.Contains("active"));
+        });
+    }
+
+    [Fact]
+    public void IsVirtualize_Items()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new SelectedItem("1", "Test1"),
+                new SelectedItem("2", "Test2")
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.IsVirtualize, true);
+            pb.Add(a => a.RowHeight, 33f);
+            pb.Add(a => a.OverscanCount, 4);
+        });
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.ShowSearch, true));
+        cut.InvokeAsync(async () =>
+        {
+            // 搜索 T
+            cut.Find(".search-text").Input("T");
+            await cut.Instance.ConfirmSelectedItem(0);
+        });
+    }
+
+    [Fact]
+    public void IsVirtualize_OnQueryAsync()
+    {
+        var startIndex = 0;
+        var requestCount = 0;
+        var searchText = string.Empty;
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.OnQueryAsync, option =>
+            {
+                startIndex = option.StartIndex;
+                requestCount = option.Count;
+                searchText = option.SearchText;
+                return Task.FromResult(new QueryData<SelectedItem>()
+                {
+                    Items = new SelectedItem[]
+                    {
+                        new SelectedItem("1", "Test1"),
+                        new SelectedItem("2", "Test2")
+                    },
+                    TotalCount = 2
+                });
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.IsVirtualize, true);
+        });
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.ShowSearch, true));
+        cut.InvokeAsync(async () =>
+        {
+            // 搜索 T
+            cut.Find(".search-text").Input("T");
+            await cut.Instance.ConfirmSelectedItem(0);
+
+            Assert.Equal(string.Empty, searchText);
+        });
+    }
+
+    [Fact]
+    public void LoadItems_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.OnQueryAsync, option =>
+            {
+                return Task.FromResult(new QueryData<SelectedItem>());
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.IsVirtualize, true);
+        });
+        var select = cut.Instance;
+        var mi = select.GetType().GetMethod("LoadItems", BindingFlags.NonPublic | BindingFlags.Instance);
+        mi?.Invoke(select, new object[] { new ItemsProviderRequest(0, 1, CancellationToken.None) });
+
+        var totalCountProperty = select.GetType().GetProperty("TotalCount", BindingFlags.NonPublic | BindingFlags.Instance);
+        totalCountProperty?.SetValue(select, 2);
+        mi?.Invoke(select, new object[] { new ItemsProviderRequest(0, 1, CancellationToken.None) });
+    }
+
+    [Fact]
+    public void TryParseValueFromString_Ok()
+    {
+        var items = new SelectedItem[]
+        {
+            new SelectedItem("1", "Test1"),
+            new SelectedItem("2", "Test2")
+        };
+        var cut = Context.RenderComponent<Select<SelectedItem>>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+            pb.Add(a => a.Value, new SelectedItem("1", "Test1"));
+            pb.Add(a => a.IsVirtualize, true);
+        });
+        var select = cut.Instance;
+        var mi = select.GetType().GetMethod("TryParseSelectItem", BindingFlags.NonPublic | BindingFlags.Instance);
+
+        string value = "";
+        SelectedItem result = new();
+        string? msg = null;
+        mi?.Invoke(select, new object?[] { value, result, msg });
+
+        var p = select.GetType().GetProperty("VirtualItems", BindingFlags.NonPublic | BindingFlags.Instance);
+        p?.SetValue(select, items);
+        value = "1";
+        mi?.Invoke(select, new object?[] { value, result, msg });
     }
 }

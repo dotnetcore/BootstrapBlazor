@@ -15,36 +15,36 @@ public sealed partial class Dividers
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-            // TODO: 移动到数据库中
-            new AttributeItem() {
+    
+            new() {
                 Name = "Text",
                 Description = Localizer["Desc1"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
-            new AttributeItem() {
+            new() {
                 Name = "Icon",
                 Description = Localizer["Desc2"],
                 Type = "string",
                 ValueList = " — ",
                 DefaultValue = " — "
             },
-            new AttributeItem() {
+            new() {
                 Name = "Alignment",
                 Description = Localizer["Desc3"],
                 Type = "Aligment",
                 ValueList = "Left|Center|Right|Top|Bottom",
                 DefaultValue = "Center"
             },
-            new AttributeItem() {
+            new() {
                 Name = "IsVertical",
                 Description = Localizer["Desc4"],
                 Type = "bool",
                 ValueList = "true|false",
                 DefaultValue = "false"
             },
-            new AttributeItem() {
+            new() {
                 Name = "ChildContent",
                 Description = Localizer["Desc5"],
                 Type = "RenderFragment",

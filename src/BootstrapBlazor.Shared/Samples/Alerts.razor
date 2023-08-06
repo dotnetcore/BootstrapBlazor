@@ -1,158 +1,71 @@
-﻿@page "/alerts"
+﻿@page "/alert"
 
 <h3>@Title</h3>
 
 <h4>@SubTitle</h4>
 
-<DemoBlock Title="@BaseUsageText" Introduction="@IntroText1" Name="Normal" Demo="typeof(Demos.Alert.AlertNormal)" />
+<DemoBlock Title="@BaseUsageText" Introduction="@IntroText1" Name="Normal">
+    <Alert Color="Color.Primary">@AlertPrimaryText</Alert>
+    <Alert Color="Color.Secondary">@AlertSecondaryText</Alert>
+    <Alert Color="Color.Success">@AlertSuccessText</Alert>
+    <Alert Color="Color.Danger">@AlertDangerText</Alert>
+    <Alert Color="Color.Warning">@AlertWarningText</Alert>
+    <Alert Color="Color.Info">@AlertInfoText</Alert>
+    <Alert Color="Color.Dark">@AlertDarkText</Alert>
+</DemoBlock>
 
-<DemoBlock Title="@CloseButtonUsageText" Introduction="@IntroText2" Name="Close" Demo="typeof(Demos.Alert.AlertClose)" />
+<DemoBlock Title="@CloseButtonUsageText" Introduction="@IntroText2" Name="Close">
+    <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Primary">@AlertPrimaryText</Alert>
+    <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Secondary">@AlertSecondaryText</Alert>
+    <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Success">@AlertSuccessText</Alert>
+    <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Danger">@AlertDangerText</Alert>
+    <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Warning">@AlertWarningText</Alert>
+    <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Info">@AlertInfoText</Alert>
+    <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Dark">@AlertDarkText</Alert>
+    <ConsoleLogger @ref="Logger" class="mt-3" />
+</DemoBlock>
 
-<DemoBlock Title="@WithIconUsageText" Introduction="@IntroText3" Name="Icon" Demo="typeof(Demos.Alert.AlertIcon)" />
+<DemoBlock Title="@WithIconUsageText" Introduction="@IntroText3" Name="Icon">
+    <Alert Icon="fa-solid fa-circle-check" Color="Color.Success">@AlertPrimaryText</Alert>
+    <Alert Icon="fa-solid fa-triangle-exclamation" Color="Color.Warning">@AlertWarningText</Alert>
+    <Alert Icon="fa-solid fa-circle-question" Color="Color.Info">@AlertInfoText</Alert>
+    <Alert Icon="fa-solid fa-circle-xmark" Color="Color.Danger">@AlertDangerText</Alert>
+</DemoBlock>
 
-<DemoBlock Title="@Localizer["ShowBorderTitle"]" Introduction="@Localizer["ShowBorderIntro"]" Name="Border" Demo="typeof(Demos.Alert.AlertBorder)" />
+<DemoBlock Title="@Localizer["ShowBorderTitle"]" Introduction="@Localizer["ShowBorderIntro"]">
+    <Alert Icon="fa-solid fa-circle-check" Color="Color.Primary" ShowBorder="true">@AlertPrimaryText</Alert>
+    <Alert Icon="fa-solid fa-circle-check" Color="Color.Success" ShowBorder="true">@AlertSuccessText</Alert>
+    <Alert Icon="fa-solid fa-triangle-exclamation" Color="Color.Warning" ShowBorder="true">@AlertWarningText</Alert>
+    <Alert Icon="fa-solid fa-circle-question" Color="Color.Info" ShowBorder="true">@AlertInfoText</Alert>
+    <Alert Icon="fa-solid fa-circle-xmark" Color="Color.Danger" ShowBorder="true">@AlertDangerText</Alert>
+</DemoBlock>
 
-<DemoBlock Title="@Localizer["ShowShadowTitle"]" Introduction="@Localizer["ShowShadowIntro"]" Name="Shadow" Demo="typeof(Demos.Alert.AlertShadow)" />
+<DemoBlock Title="@Localizer["ShowShadowTitle"]" Introduction="@Localizer["ShowShadowIntro"]">
+    <Alert Icon="fa-solid fa-circle-check" Color="Color.Primary" ShowShadow="true">@AlertPrimaryText</Alert>
+    <Alert Icon="fa-solid fa-circle-check" Color="Color.Success" ShowShadow="true">@AlertSuccessText</Alert>
+    <Alert Icon="fa-solid fa-triangle-exclamation" Color="Color.Warning" ShowShadow="true">@AlertWarningText</Alert>
+    <Alert Icon="fa-solid fa-circle-question" Color="Color.Info" ShowShadow="true">@AlertInfoText</Alert>
+    <Alert Icon="fa-solid fa-circle-xmark" Color="Color.Danger" ShowShadow="true">@AlertDangerText</Alert>
+</DemoBlock>
 
-<DemoBlock Title="@ShowBarUsageText" Introduction="@IntroText4" Name="ShowBar" Demo="typeof(Demos.Alert.AlertShowBar)" />
+<DemoBlock Title="@ShowBarUsageText" Introduction="@IntroText4" Name="ShowBar">
+    <Alert ShowBar="true" ShowBorder="true" Color="Color.Info">
+        <div>@AlertInfoText</div>
+    </Alert>
+    <Alert ShowBar="true" ShowBorder="true" Color="Color.Success">
+        <div>@AlertSuccessText</div>
+    </Alert>
+    <Alert ShowBar="true" ShowBorder="true" Color="Color.Primary">
+        <div>@AlertPrimaryText</div>
+    </Alert>
+    <Alert ShowBar="true" ShowBorder="true" Color="Color.Warning">
+        <div>@AlertWarningText</div>
+    </Alert>
+    <Alert ShowBar="true" ShowBorder="true" Color="Color.Danger">
+        <div>@AlertDangerText</div>
+    </Alert>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
 
 <EventTable Items="@GetEvents()" />
-
-@code
-{
-    [NotNull]
-    private string? Title { get; set; }
-
-    [NotNull]
-    private string? SubTitle { get; set; }
-
-    [NotNull]
-    private string? BaseUsageText { get; set; }
-
-    [NotNull]
-    private string? CloseButtonUsageText { get; set; }
-
-    [NotNull]
-    private string? WithIconUsageText { get; set; }
-
-    [NotNull]
-    private string? ShowBarUsageText { get; set; }
-
-    [NotNull]
-    private string? IntroText1 { get; set; }
-
-    [NotNull]
-    private string? IntroText2 { get; set; }
-
-    [NotNull]
-    private string? IntroText3 { get; set; }
-
-    [NotNull]
-    private string? IntroText4 { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Alerts>? Localizer { get; set; }
-
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        Title ??= Localizer[nameof(Title)];
-        SubTitle ??= Localizer[nameof(SubTitle)];
-        BaseUsageText ??= Localizer[nameof(BaseUsageText)];
-        IntroText1 ??= Localizer[nameof(IntroText1)];
-
-        CloseButtonUsageText ??= Localizer[nameof(CloseButtonUsageText)];
-        IntroText2 ??= Localizer[nameof(IntroText2)];
-
-        WithIconUsageText ??= Localizer[nameof(WithIconUsageText)];
-        IntroText3 ??= Localizer[nameof(IntroText3)];
-
-        ShowBarUsageText ??= Localizer[nameof(ShowBarUsageText)];
-        IntroText4 ??= Localizer[nameof(IntroText4)];
-    }
-
-    /// <summary>
-    /// 获得事件方法
-    /// </summary>
-    /// <returns></returns>
-    private static IEnumerable<EventItem> GetEvents() => new EventItem[]
-    {
-        new EventItem()
-        {
-            Name = "OnDismiss",
-            Description="Close the alert box callback method",
-            Type ="EventCallback<MouseEventArgs>"
-        }
-    };
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
-        new AttributeItem() {
-            Name = "ChildContent",
-            Description = "Content",
-            Type = "RenderFragment",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new AttributeItem() {
-            Name = "Class",
-            Description = "Style",
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new AttributeItem() {
-            Name = "Color",
-            Description = "Color",
-            Type = "Color",
-            ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
-            DefaultValue = "Primary"
-        },
-        new AttributeItem() {
-            Name = "Icon",
-            Description = "Icon",
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new AttributeItem() {
-            Name = "ShowDismiss",
-            Description = "Close Button",
-            Type = "bool",
-            ValueList = " — ",
-            DefaultValue = "false"
-        },
-        new AttributeItem() {
-            Name = "ShowBar",
-            Description = "Show the left Bar",
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new AttributeItem() {
-            Name = "ShowBorder",
-            Description = "Show border",
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new AttributeItem() {
-            Name = "ShowShadow",
-            Description = "Show Shadow",
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        }
-    };
-}

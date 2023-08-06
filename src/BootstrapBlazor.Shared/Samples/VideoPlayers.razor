@@ -1,4 +1,4 @@
-﻿@page "/VideoPlayers"
+﻿@page "/video-player"
 @namespace BootstrapBlazor.Shared.Samples
 @inject IStringLocalizer<VideoPlayers> Localizer
 
@@ -6,24 +6,46 @@
 
 <PackageTips Name="BootstrapBlazor.VideoPlayer" />
 
-<Tips>
+<Tips class="mt-3">
     <p>@((MarkupString)Localizer["VideoPlayersTips"].Value)</p>
 </Tips>
-<DemoBlock Title="@Localizer["VideoPlayersNomalTitle"]"
-           Introduction="@Localizer["VideoPlayersNomalIntro"]"
-           Name="Nomal"
-           Demo="typeof(Demos.VideoPlayers.VideoPlayersNomal)">
+<DemoBlock Title="@Localizer["VideoPlayersNormalTitle"]"
+           Introduction="@Localizer["VideoPlayersNormalIntro"]"
+           Name="Normal">
+    <div class="row g-3">
+        <div class="col-6 col-sm-6 col-md-3 col-xl-auto">
+            <Dropdown TValue="string" Items="Items" OnSelectedItemChanged="@ChangeURL" />
+        </div>
+        <div class="col-6 col-sm-6 col-md-6  col-xl-auto">
+            <BootstrapInput @bind-Value="@Url" />
+        </div>
+        <div class="col-6 col-sm-6 col-md-4 col-xl-auto">
+            <BootstrapInput @bind-Value="@MineType" />
+        </div>
+        <div class="col-6 col-sm-6 col-md-2 col-xl-auto">
+            <Button Color="Color.Primary" OnClick="Apply">加载</Button>
+        </div>
+    </div>
+    <br />
+    <VideoPlayer @ref="Player" MineType="@MineType" Url="@Url" Width="500" Height="380" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["VideoPlayersChangeURLTitle"]"
            Introduction="@Localizer["VideoPlayersChangeURLIntro"]"
-           Name="ChangeURL"
-           Demo="typeof(Demos.VideoPlayers.VideoPlayersChangeURL)">
+           Name="ChangeURL">
+    <div class="row g-3">
+        <div class="col-6">
+            <VideoPlayer MineType="application/x-mpegURL" Url="https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8" />
+        </div>
+        <div class="col-6">
+            <VideoPlayer MineType="video/mp4" Url="//vjs.zencdn.net/v/oceans.mp4" />
+        </div>
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
 <br />
-<h5>MineType 类型</h5>
+<h5>@Localizer["MineType"]</h5>
 <ol>
     <li>opus: 'video/ogg'</li>
     <li>ogv: 'video/ogg'</li>

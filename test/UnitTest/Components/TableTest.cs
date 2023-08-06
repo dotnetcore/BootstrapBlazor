@@ -4825,20 +4825,24 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.RenderMode, TableRenderMode.Auto);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.Items, items);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
                     builder.AddAttribute(1, "Field", "Name");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "ShownWithBreakPoint", BreakPoint.Large);
                     builder.CloseComponent();
                 });
             });
         });
 
-        var resp = cut.FindComponent<ResizeNotification>().Instance;
-        cut.InvokeAsync(() => resp.OnResize(BreakPoint.Large));
+        cut.InvokeAsync(() =>
+        {
+            var resp = cut.FindComponent<ResizeNotification>().Instance;
+            resp.OnResize(BreakPoint.Large);
+        });
     }
 
     [Fact]
@@ -6747,8 +6751,11 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        cut.InvokeAsync(() => table.Instance.DragColumnCallback(1, 0));
-        Assert.Equal("Address", name);
+        cut.InvokeAsync(async () =>
+        {
+            await table.Instance.DragColumnCallback(1, 0);
+            Assert.Equal("Address", name);
+        });
 
         cut.InvokeAsync(async () =>
         {
@@ -6830,7 +6837,7 @@ public class TableTest : TableTestBase
         cut.InvokeAsync(() =>
         {
             var td = cut.Find("tbody td");
-            var expected = string.Format(fixedHeader ? "style=\"width: calc({0}px  - 2 * var(--bb-table-td-padding-x));\"" : "style=\"width: {0}px;\"", width.HasValue ? width.Value : 200);
+            var expected = string.Format(fixedHeader ? "style=\"width: calc({0}px  - 2 * var(--bb-table-td-padding-x));\"" : "style=\"width: {0}px;\"", width ?? 200);
             Assert.Contains(expected, td.OuterHtml);
         });
     }

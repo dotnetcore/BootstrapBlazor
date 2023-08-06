@@ -1,12 +1,39 @@
-﻿@page "/tables/selection"
+﻿@page "/table/selection"
 @inject IStringLocalizer<TablesSelection> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
 
 <h3>@Localizer["TablesSelectionTitle"]</h3>
 <h4>@((MarkupString)Localizer["TablesSelectionDescription"].Value)</h4>
 
 <DemoBlock Title="@Localizer["TablesSelectionNormalTitle"]"
            Introduction="@Localizer["TablesSelectionNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Table.TablesSelection.TablesSelectionNormal)">
-</DemoBlock>
+           Name="Normal">
+    <div>
+        <Table TItem="Foo" @bind-SelectedRows="SelectedItems"
+               IsPagination="true" PageItemsSource="@PageItemsSource"
+               IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+               ShowToolbar="true" ShowDefaultButtons="false" OnQueryAsync="@OnQueryAsync">
+            <TableColumns>
+                <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                <TableColumn @bind-Field="@context.Name" Width="100" />
+                <TableColumn @bind-Field="@context.Address" />
+                <TableColumn @bind-Field="@context.Count" />
+            </TableColumns>
+        </Table>
 
+        <Tips class="mt-3">
+            <div>@((MarkupString)Localizer["TablesSelectionNormalTips"].Value)</div>
+        </Tips>
+
+        <p class="mt-3">@Localizer["TablesSelectionNormalSelectRow"]：</p>
+        <ul class="ul-demo mb-3">
+            @foreach (var item in SelectedItems)
+            {
+                <li>@item.Name</li>
+            }
+        </ul>
+
+        <Button OnClick="OnClick" Color="Color.Primary">@Localizer["TablesSelectionNormalButtonText"]</Button>
+
+    </div>
+</DemoBlock>

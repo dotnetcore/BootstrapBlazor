@@ -25,7 +25,7 @@ public partial class AutoComplete
     /// </summary>
     protected virtual string? ClassString => CssBuilder.Default("auto-complete")
         .AddClass("is-loading", IsLoading)
-        .AddClass("show", IsShown)
+        .AddClass("show", IsShown && !IsPopover)
         .Build();
 
     /// <summary>
@@ -62,7 +62,7 @@ public partial class AutoComplete
     public bool IsLikeMatch { get; set; }
 
     /// <summary>
-    /// 获得/设置 OnFocus时是否过滤选择
+    /// 获得/设置 OnFocus 时是否过滤选择 默认 false
     /// </summary>
     [Parameter]
     public bool OnFocusFilter { get; set; }
@@ -74,7 +74,7 @@ public partial class AutoComplete
     public bool IgnoreCase { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 自定义集合过滤规则
+    /// 获得/设置 自定义集合过滤规则 默认 null
     /// </summary>
     [Parameter]
     public Func<string, Task<IEnumerable<string>>>? OnCustomFilter { get; set; }
@@ -141,14 +141,14 @@ public partial class AutoComplete
     private string CurrentSelectedItem { get; set; } = "";
 
     /// <summary>
-    /// 获得/设置 组件 Element 实例
-    /// </summary>
-    protected ElementReference AutoCompleteElement { get; set; }
-
-    /// <summary>
     /// CurrentItemIndex 当前选中项索引
     /// </summary>
     protected int? CurrentItemIndex { get; set; }
+
+    /// <summary>
+    /// 输入框 Id
+    /// </summary>
+    private string InputId => $"{Id}_input";
 
     /// <summary>
     /// OnInitialized 方法
@@ -186,7 +186,7 @@ public partial class AutoComplete
 
         if (CurrentItemIndex.HasValue)
         {
-            await InvokeVoidAsync("autoScroll", AutoCompleteElement, CurrentItemIndex.Value);
+            await InvokeVoidAsync("autoScroll", Id, CurrentItemIndex.Value);
         }
 
         if (firstRender)

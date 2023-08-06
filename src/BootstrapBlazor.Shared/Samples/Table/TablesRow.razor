@@ -1,43 +1,130 @@
-﻿@page "/tables/row"
-@inject IStringLocalizer<TablesRow> RowLocalizer
+﻿@page "/table/row"
+@inject IStringLocalizer<TablesRow> Localizer
+@inject IStringLocalizer<Foo> FooLocalizer
+@inject ToastService ToastService
 
-<h3>@RowLocalizer["TablesRowTitle"]</h3>
+<h3>@Localizer["TablesRowTitle"]</h3>
 
-<h4>@RowLocalizer["TablesRowDesc"]</h4>
+<h4>@Localizer["TablesRowDesc"]</h4>
 
-<DemoBlock Title="@RowLocalizer["RowNubmerTitle"]"
-           Introduction="@RowLocalizer["RowNubmerIntro"]"
-           Name="RowNubmer"
-           Demo="typeof(Demos.Table.TablesRow.TablesRowNubmer)">
-    <p>@((MarkupString)RowLocalizer["RowNumberP"].Value)</p>
+<DemoBlock Title="@Localizer["RowNumberTitle"]"
+           Introduction="@Localizer["RowNumberIntro"]"
+           Name="LineNoText">
+    <p class="mb-3">@((MarkupString)Localizer["RowNumberP"].Value)</p>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowLineNo="true" LineNoText="@Localizer["RowNumberText"]"
+           ShowDefaultButtons="false" ClickToSelect="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
 
-<DemoBlock Title="@RowLocalizer["ClickToSelectTitle"]"
-           Introduction="@RowLocalizer["ClickToSelectIntro"]"
-           Name="ClickToSelect"
-           Demo="typeof(Demos.Table.TablesRow.TablesRowClickToSelect)">
-    <p>@((MarkupString)RowLocalizer["ClickToSelectP"].Value)</p>
-    <p>@((MarkupString)RowLocalizer["ClickToSelectP2"].Value)</p>
+<DemoBlock Title="@Localizer["ClickToSelectTitle"]"
+           Introduction="@Localizer["ClickToSelectIntro"]"
+           Name="ClickToSelect">
+    <p>@((MarkupString)Localizer["ClickToSelectP"].Value)</p>
+    <p class="mb-3">@((MarkupString)Localizer["ClickToSelectP2"].Value)</p>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true"
+           ShowDefaultButtons="false" ClickToSelect="true" OnClickRowCallback="@ClickRow"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
+
+    <p>@((MarkupString)Localizer["ClickToSelectP3"].Value) @(CurrentItem?.Name ?? Localizer["ClickToSelectNoneText"])</p>
 </DemoBlock>
 
-<DemoBlock Title="@RowLocalizer["DoubleClickToEditTitle"]"
-           Introduction="@RowLocalizer["DoubleClickToEditIntro"]"
-           Name="DoubleClickToEdit"
-           Demo="typeof(Demos.Table.TablesRow.TablesRowDoubleClickToEdit)">
-    <p>@((MarkupString)RowLocalizer["DoubleClickToEditP"].Value)</p>
-    <p>@((MarkupString)RowLocalizer["DoubleClickToEditP1"].Value)</p>
+<DemoBlock Title="@Localizer["DoubleClickToEditTitle"]"
+           Introduction="@Localizer["DoubleClickToEditIntro"]"
+           Name="DoubleClickToEdit">
+    <p>@((MarkupString)Localizer["DoubleClickToEditP"].Value)</p>
+    <p class="mb-3">@((MarkupString)Localizer["DoubleClickToEditP1"].Value)</p>
+
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowDeleteButton="false"
+           ClickToSelect="true" DoubleClickToEdit="true"
+           OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+        <EditTemplate>
+            <div class="row g-3">
+                <div class="col-12 col-sm-6">
+                    <BootstrapInput @bind-Value="@context.Name" placeholder="@Localizer["PlaceHolder"].Value" maxlength="50">
+                    </BootstrapInput>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <BootstrapInput @bind-Value="@context.Address" placeholder="@Localizer["PlaceHolder"].Value" maxlength="50">
+                    </BootstrapInput>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <DateTimePicker @bind-Value="@context.DateTime">
+                    </DateTimePicker>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <BootstrapInput @bind-Value="@context.Count">
+                    </BootstrapInput>
+                </div>
+            </div>
+        </EditTemplate>
+    </Table>
+
 </DemoBlock>
 
-<DemoBlock Title="@RowLocalizer["DoubleClickRowCallbackTitle"]"
-           Introduction="@RowLocalizer["DoubleClickRowCallbackIntro"]"
-           Name="DoubleClickRowCallback"
-           Demo="typeof(Demos.Table.TablesRow.TablesRowDoubleClickRowCallback)">
-    <p>@RowLocalizer["DoubleClickRowCallbackP"]</p>
+<DemoBlock Title="@Localizer["DoubleClickRowCallbackTitle"]"
+           Introduction="@Localizer["DoubleClickRowCallbackIntro"]"
+           Name="DoubleClickRowCallback">
+    <p class="mb-3">@Localizer["DoubleClickRowCallbackP"]</p>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true"
+           ShowDefaultButtons="false" OnDoubleClickRowCallback="@DoubleClickRowCallback"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
 
-<DemoBlock Title="@RowLocalizer["SetRowClassFormatterTitle"]"
-           Introduction="@RowLocalizer["SetRowClassFormatterIntro"]"
-           Name="SetRowClassFormatter"
-           Demo="typeof(Demos.Table.TablesRow.TablesRowSetRowClassFormatter)">
-    <p>@((MarkupString)RowLocalizer["SetRowClassFormatterP"].Value)</p>
+<DemoBlock Title="@Localizer["SetRowClassFormatterTitle"]"
+           Introduction="@Localizer["SetRowClassFormatterIntro"]"
+           Name="SetRowClassFormatter">
+    <p class="mb-3">@((MarkupString)Localizer["SetRowClassFormatterP"].Value)</p>
+
+    <Table TItem="Foo" SetRowClassFormatter="@SetRowClassFormatter"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true"
+           ShowDefaultButtons="false" OnDoubleClickRowCallback="@DoubleClickRowCallback"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
 </DemoBlock>

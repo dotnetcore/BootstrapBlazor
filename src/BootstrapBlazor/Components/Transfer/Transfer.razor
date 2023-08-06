@@ -8,7 +8,7 @@
 }
 <div @attributes="@AdditionalAttributes" class="transfer">
     <TransferPanel Items="@LeftItems" Text="@LeftPanelText" IsDisabled="@IsDisabled"
-                   ShowSearch="@ShowSearch" SearchPlaceHolderString="@LeftPannelSearchPlaceHolderString"
+                   ShowSearch="@ShowSearch" SearchPlaceHolderString="@LeftPanelSearchPlaceHolderString"
                    OnSelectedItemsChanged="@SelectedItemsChanged" OnSetItemClass="OnSetItemClass"
                    HeaderTemplate="LeftHeaderTemplate!" ItemTemplate="LeftItemTemplate!">
     </TransferPanel>
@@ -23,7 +23,7 @@
         </Button>
     </div>
     <TransferPanel Items="@RightItems" Text="@RightPanelText" IsDisabled="@IsDisabled" class="@ValidateClass" Id="@Id"
-                   ShowSearch="@ShowSearch" SearchPlaceHolderString="@RightPannelSearchPlaceHolderString"
+                   ShowSearch="@ShowSearch" SearchPlaceHolderString="@RightPanelSearchPlaceHolderString"
                    OnSelectedItemsChanged="@SelectedItemsChanged" OnSetItemClass="OnSetItemClass"
                    HeaderTemplate="RightHeaderTemplate!" ItemTemplate="RightItemTemplate!">
     </TransferPanel>

@@ -15,31 +15,34 @@ public sealed partial class Splits
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new AttributeItem() {
+        new()
+        {
             Name = "IsVertical",
             Description = Localizer["SplitsIsVertical"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Basis",
             Description = Localizer["SplitsBasis"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = "50%"
         },
-        new AttributeItem() {
-            Name = "FirstPaneTemplate",
-            Description = Localizer["SplitsFirstPaneTemplate"],
+        new()
+        {
+            Name = "FirstPanelTemplate",
+            Description = Localizer["SplitsFirstPanelTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
-            Name = "SecondPaneTemplate",
-            Description = Localizer["SplitsSecondPaneTemplate"],
+        new()
+        {
+            Name = "SecondPanelTemplate",
+            Description = Localizer["SplitsSecondPanelTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "

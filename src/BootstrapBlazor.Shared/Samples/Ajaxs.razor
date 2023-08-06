@@ -1,11 +1,10 @@
-﻿@page "/ajaxs"
-@inject IStringLocalizer<Ajaxs> Localizer
+﻿@page "/ajax"
 
 <h3>@Localizer["AjaxTitle"]</h3>
 
 <h4>@Localizer["AjaxDescribe"]</h4>
 
-<DemoBlock Introduction="@Localizer["NormalIntro"]" Title="@Localizer["NormalTitle"]" Name="Normal" Demo="typeof(Demos.Ajax.AjaxNormal)">
+<DemoBlock Introduction="@Localizer["NormalIntro"]" Title="@Localizer["NormalTitle"]" Name="Normal">
     <p>
         <b>@Localizer["NormalB"]</b>
         <div>@((MarkupString)Localizer["NormalDiv"].Value)</div>
@@ -16,33 +15,20 @@
     Data = new User() { UserName = "admin", Password = "1234567" }
 };
 var result = await AjaxService.InvokeAsync(option);</Pre>
+
+    <div class="mt-3">
+        <Button OnClick="Success">@Localizer["NormalButtonText1"]</Button>
+        <Button OnClick="Fail">@Localizer["NormalButtonText2"]</Button>
+        @if (!string.IsNullOrEmpty(ResultMessage))
+        {
+            <div class="mt-2"><code>@ResultMessage</code></div>
+        }
+    </div>
 </DemoBlock>
 
-<DemoBlock Introduction="@Localizer["GotoIntro"]" Title="@Localizer["GotoTitle"]" Name="Goto" Demo="typeof(Demos.Ajax.AjaxGoto)" />
+<DemoBlock Introduction="@Localizer["GoToIntro"]" Title="@Localizer["GoToTitle"]" Name="GoTo">
+    <Button OnClick="Goto">@Localizer["GoToButtonText1"]</Button>
+    <Button OnClick="GotoSelf">@Localizer["GoToButtonText2"]</Button>
+</DemoBlock>
 
 <MethodTable Items="@GetMethods()" />
-
-@code
-{
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
-    {
-        new MethodItem()
-        {
-            Name = "InvokeAsync",
-            Description = Localizer["InvokeAsync"],
-            Parameters = "AjaxOption",
-            ReturnValue = "string"
-        },
-        new MethodItem()
-        {
-            Name = "Goto",
-            Description = Localizer["Goto"],
-            Parameters = "string",
-            ReturnValue = " — "
-        }
-    };
-}

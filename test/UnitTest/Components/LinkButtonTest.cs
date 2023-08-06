@@ -81,8 +81,11 @@ public class LinkButtonTest : BootstrapBlazorTestBase
         var click = false;
         var cut = Context.RenderComponent<LinkButton>(builder => builder.Add(s => s.OnClick, () => click = true));
 
-        cut.Find("a").Click();
-        Assert.True(click);
+        cut.InvokeAsync(() =>
+        {
+            cut.Find("a").Click();
+            Assert.True(click);
+        });
     }
 
     [Fact]
