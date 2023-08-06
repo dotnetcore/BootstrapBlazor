@@ -134,6 +134,13 @@ public sealed partial class Menus
             DefaultValue = "false"
         },
         new() {
+            Name = "IsScrollIntoView",
+            Description = Localizer["MenusAttr_IsScrollIntoView"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new() {
             Name = "DisableNavigation",
             Description = Localizer["MenusAttr_DisableNavigation"],
             Type = "bool",

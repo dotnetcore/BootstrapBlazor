@@ -47,6 +47,8 @@ export function init(id) {
         }
     }
     Data.set(id, menu)
+
+    scrollToView(menu.element)
 }
 
 export function update(id) {
@@ -71,6 +73,8 @@ export function update(id) {
             });
         }
     });
+
+    scrollToView(menu.element)
 }
 
 export function dispose(id) {
@@ -86,3 +90,13 @@ export function dispose(id) {
     })
 }
 
+const scrollToView = element => {
+    const scroll = element.hasAttribute('data-bb-scroll-view')
+    if (scroll) {
+        var links = [...element.querySelectorAll('.nav-link.active')]
+        if (links.length > 0) {
+            var link = links.pop()
+            link.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'start' });
+        }
+    }
+}
