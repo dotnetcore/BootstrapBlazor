@@ -43,7 +43,7 @@ public partial class Message
     public MessageService? MessageService { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
