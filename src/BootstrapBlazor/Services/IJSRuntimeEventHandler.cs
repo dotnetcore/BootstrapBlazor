@@ -44,10 +44,19 @@ public interface IJSRuntimeEventHandler : IAsyncDisposable
 
     /// <summary>
     /// 动态运行js脚本
+    /// Run the JavaScript script
     /// </summary>
-    /// <param name="scripts">js代码</param>
+    /// <param name="scripts">JavaScript Code</param>
     /// <returns></returns>
     ValueTask RunEval(string scripts);
+
+    /// <summary>
+    /// 动态运行js脚本,并返回值
+    /// Run the JavaScript script and return a value
+    /// </summary>
+    /// <param name="scripts">JavaScript Code</param>
+    /// <returns></returns>
+    ValueTask<T?> RunEval<T>(string scripts);
 
     #region Event
     /// <summary>
