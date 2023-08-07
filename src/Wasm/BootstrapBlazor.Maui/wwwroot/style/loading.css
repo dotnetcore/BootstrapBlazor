@@ -1,0 +1,61 @@
+﻿.loading-progress {
+    position: relative;
+    display: block;
+    width: 8rem;
+    height: 8rem;
+    margin: 20vh auto 1rem auto;
+}
+
+    .loading-progress circle {
+        fill: none;
+        stroke: #e0e0e0;
+        stroke-width: 0.6rem;
+        transform-origin: 50% 50%;
+        transform: rotate(-90deg);
+    }
+
+        .loading-progress circle:last-child {
+            stroke: #1b6ec2;
+            stroke-dasharray: calc(3.141 * var(--blazor-load-percentage, 0%) * 0.8), 500%;
+            transition: stroke-dasharray 0.05s ease-in-out;
+        }
+
+.loading-progress-text {
+    position: absolute;
+    text-align: center;
+    font-weight: bold;
+    inset: calc(20vh + 3.25rem) 0 auto 0.2rem;
+}
+
+    .loading-progress-text:after {
+        content: var(--blazor-load-percentage-text, "Loading");
+    }
+
+.install-prompt {
+    position: fixed;
+    bottom: 0.5rem;
+    left: 0;
+    right: 0;
+    z-index: 1071;
+}
+
+    .install-prompt .row {
+        justify-content: center;
+    }
+
+.install-prompt-body {
+    background-color: #54595f;
+    color: #fff;
+    padding: 0.5rem;
+    display: flex;
+    font-size: 1.5rem;
+    border-radius: var(--bs-border-radius);
+}
+
+    .install-prompt-body .installButton {
+        margin-left: auto;
+    }
+
+    .install-prompt-body .cancelButton {
+        margin-left: 0.3rem;
+    }
