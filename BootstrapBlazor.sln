@@ -129,6 +129,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.DataAccess.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.DataAccess.PetaPoco", "src\Extensions\DataServices\BootstrapBlazor.DataAccess.PetaPoco\BootstrapBlazor.DataAccess.PetaPoco.csproj", "{8F189E6D-EC14-479F-8411-B5D967229D78}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "maui", "maui", "{C42EFBEF-7038-4D53-B8BA-998D6889AD5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.Maui", "src\maui\BootstrapBlazor.Maui\BootstrapBlazor.Maui.csproj", "{28DA0B9C-11A0-4144-A909-D95BDAD7787D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -263,6 +267,12 @@ Global
 		{8F189E6D-EC14-479F-8411-B5D967229D78}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F189E6D-EC14-479F-8411-B5D967229D78}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F189E6D-EC14-479F-8411-B5D967229D78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28DA0B9C-11A0-4144-A909-D95BDAD7787D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28DA0B9C-11A0-4144-A909-D95BDAD7787D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28DA0B9C-11A0-4144-A909-D95BDAD7787D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{28DA0B9C-11A0-4144-A909-D95BDAD7787D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28DA0B9C-11A0-4144-A909-D95BDAD7787D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28DA0B9C-11A0-4144-A909-D95BDAD7787D}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -308,6 +318,8 @@ Global
 		{45AD6614-EA04-46E0-B71C-2B12D5F326FE} = {56FEFF09-85FC-408D-A397-6E264E68414E}
 		{DC144D99-C0A9-41CC-92A6-034D7E1E0363} = {56FEFF09-85FC-408D-A397-6E264E68414E}
 		{8F189E6D-EC14-479F-8411-B5D967229D78} = {56FEFF09-85FC-408D-A397-6E264E68414E}
+		{C42EFBEF-7038-4D53-B8BA-998D6889AD5F} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
+		{28DA0B9C-11A0-4144-A909-D95BDAD7787D} = {C42EFBEF-7038-4D53-B8BA-998D6889AD5F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}

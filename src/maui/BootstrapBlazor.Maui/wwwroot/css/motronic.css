@@ -1,0 +1,48 @@
+﻿@media (min-width: 768px) {
+    .sidebar {
+        background-color: #fff !important;
+    }
+}
+
+.content code.highlight,
+.alert-content code,
+.content p code, .content li code {
+    background-color: #fff5f8 !important;
+}
+
+.layout.is-page .layout-side {
+    color: #3f4254;
+    background-color: #fff;
+    box-shadow: 0 0 28px 0 rgb(82 63 105 / 5%);
+}
+
+.layout.is-page .layout-user .layout-title {
+    color: #3f4254;
+}
+
+.tabs-body {
+    background-color: #fff;
+    overflow: auto;
+}
+
+.tabs-body-content .tabs-body-content {
+    background-color: #f5f8fa;
+}
+
+.layout.is-page .layout-footer {
+    background-color: #e9ecef;
+}
+
+.page-layout-demo-footer-link {
+    color: #3f4254;
+}
+
+.layout-gotop {
+    background: #e9ecef;
+    color: #3f4254;
+}
+
+.layout-main,
+.layout-footer {
+    border-left: 1px solid #e6e6e6;
+}
