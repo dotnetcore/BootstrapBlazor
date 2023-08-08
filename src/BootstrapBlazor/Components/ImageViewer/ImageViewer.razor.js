@@ -2,7 +2,7 @@
 import EventHandler from "../../modules/event-handler.js?v=$version"
 
 const setListeners = viewer => {
-    if (viewer.prevList.length > 0) {
+    if (viewer.prevList && viewer.prevList.length > 0) {
         EventHandler.on(viewer.img, 'click', () => {
             if (!viewer.previewer) {
                 viewer.previewer = Data.get(viewer.previewerId)
