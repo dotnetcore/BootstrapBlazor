@@ -1,0 +1,36 @@
+﻿@page "/slide-button"
+@inject IStringLocalizer<SlideButtons> Localizer
+
+<h3>@Localizer["SlideButtonTitle"]</h3>
+
+<h4>@Localizer["SlideButtonIntro"]</h4>
+
+<DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Normal">
+    <div class="row g-3">
+        <div class="col-12 col-md-6 col-lg-4 xl-3">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="Placement" />
+                <Select @bind-Value="@CurrentValue" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 xl-3">
+            <SlideButton Icon="fa-solid fa-flag" Placement="CurrentValue">
+                <SlideTemplate>
+                    <div class="slide-header">
+                        <div class="flex-fill">Text</div>
+                        <button class="btn-close btn-close-white" type="button" aria-label="Close"></button>
+                    </div>
+                    <div class="slide-item">
+                        Text 1
+                    </div>
+                    <div class="slide-item">
+                        Text 2
+                    </div>
+                </SlideTemplate>
+            </SlideButton>
+        </div>
+    </div>
+
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />
