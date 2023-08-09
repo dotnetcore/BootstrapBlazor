@@ -13,13 +13,13 @@ public class RecordTest
     public void With_Ok()
     {
         var foo = new Foo("Test");
-
         var foo1 = foo with { };
-
         var foo2 = new Foo("Test");
+        var foo3 = new Foo("Test1");
 
         Assert.Equal(foo, foo1);
         Assert.Equal(foo, foo2);
+        Assert.NotEqual(foo3, foo2);
     }
 
     record Foo
