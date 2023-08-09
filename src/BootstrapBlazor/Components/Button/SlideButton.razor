@@ -2,7 +2,7 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader("Button/SlideButton.razor.js")]
 
-<span @attributes="AdditionalAttributes" id="@Id" class="slide-button" data-bb-placement="@Placement.ToDescriptionString()">
+<span @attributes="AdditionalAttributes" id="@Id" class="slide-button" data-bb-placement="@Placement.ToDescriptionString()" data-bb-offset="@Offset">
     @if (ButtonTemplate == null)
     {
         <button type="button" class="@ClassName" disabled="@Disabled" role="button" id="@ButtonId">

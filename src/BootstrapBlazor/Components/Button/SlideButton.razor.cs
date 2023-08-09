@@ -50,6 +50,12 @@ public partial class SlideButton
     public Placement Placement { get; set; }
 
     /// <summary>
+    /// 获得/设置 弹窗便宜量 默认 4
+    /// </summary>
+    [Parameter]
+    public float Offset { get; set; } = 4;
+
+    /// <summary>
     /// 获得/设置 Size 大小
     /// </summary>
     [Parameter]

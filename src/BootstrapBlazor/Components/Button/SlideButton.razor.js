@@ -30,11 +30,11 @@ export function dispose(id) {
 
 const reset = (el, button, list) => {
     const placement = el.getAttribute('data-bb-placement') || 'auto'
+    const offset = parseFloat(el.getAttribute('data-bb-offset') || '4')
     const buttonHeight = button.offsetHeight
     const buttonWidth = button.offsetWidth
     const listHeight = list.offsetHeight
     const listWidth = list.offsetWidth
-    const offset = 8
     if (placement === 'top' || placement === 'top-start') {
         list.setAttribute('style', `bottom: ${buttonHeight + offset}px; left: 0;`)
     }
@@ -47,6 +47,6 @@ const reset = (el, button, list) => {
     else if (placement === 'left') {
         const width = button.offsetWidth
         const listWidth = list.offsetWidth
-        list.setAttribute('style', `left: ${0 - width - listWidth - 8}px;`)
+        list.setAttribute('style', `left: ${0 - width - listWidth - offset}px;`)
     }
 }
