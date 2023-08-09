@@ -111,7 +111,7 @@ public abstract class ButtonBase : TooltipWrapperBase
     /// 获得/设置 Size 大小
     /// </summary>
     [Parameter]
-    public Size Size { get; set; } = Size.None;
+    public Size Size { get; set; }
 
     /// <summary>
     /// 获得/设置 Block 模式
@@ -225,7 +225,7 @@ public abstract class ButtonBase : TooltipWrapperBase
                 await ShowTooltip();
             }
         }
-        else if(Tooltip == null && _lastTooltipText != TooltipText )
+        else if (Tooltip == null && _lastTooltipText != TooltipText)
         {
             _lastTooltipText = TooltipText;
             if (!IsDisabled)
