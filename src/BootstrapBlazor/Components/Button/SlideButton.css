@@ -1,0 +1,71 @@
+﻿.slide-button {
+    --bb-slide-list-bg: #fff;
+    --bb-slide-list-shadow: 0 0 12px #211b50;
+    --bb-slide-list-width: 260px;
+    --bb-slide-list-height: 306px;
+    --bb-slide-item-header-bg: #8759ff;
+    --bb-slide-item-header-color: #fff;
+    --bb-slide-item-header-padding: 0.75rem 1rem;
+    --bb-slide-item-header-border-radius: 5px 5px 0 0;
+    --bb-slide-item-body-padding: 0.75rem 1rem;
+    --bb-slide-item-active-bg:;
+    --bb-slide-item-active-color:;
+    --bb-slide-item-hover-bg:;
+    --bb-slide-item-hover-color:;
+    position: relative;
+}
+
+    .slide-button .slide-list {
+        background: var(--bb-slide-list-bg);
+        box-shadow: var(--bb-slide-list-shadow);
+        border-radius: var(--bs-border-radius);
+        width: var(--bb-slide-list-width);
+        height: 0;
+        overflow: hidden;
+        transition: height .3s ease-in-out;
+        position: absolute;
+        z-index: 5;
+    }
+
+        .slide-button .slide-list.show {
+            height: var(--bb-slide-list-height);
+        }
+
+        .slide-button .slide-list .slide-header {
+            padding: var(--bb-slide-item-header-padding);
+            background-color: var(--bb-slide-item-header-bg);
+            color: var(--bb-slide-item-header-color);
+            border-radius: var(--bb-slide-item-header-border-radius);
+            display: flex;
+        }
+
+        .slide-button .slide-list .slide-body {
+            padding: var(--bb-slide-item-body-padding);
+        }
+
+        .slide-button .slide-list .btn-close {
+            transition: opacity .3s linear;
+        }
+
+            .slide-button .slide-list .btn-close:hover {
+                opacity: 1;
+            }
+
+        .slide-button .slide-list .slide-item {
+            cursor: pointer;
+            padding: 6px 15px;
+            background-color: #f6f6f6;
+            color: #005980;
+            transition: background-color .3s linear;
+            margin: 0 1rem 1rem 1rem;
+        }
+
+            .slide-button .slide-list .slide-item.active {
+                background-color: var(--bb-slide-item-active-bg);
+                color: var(--bb-slide-item-active-color);
+            }
+
+            .slide-button .slide-list .slide-item:hover {
+                background-color: var(--bb-slide-item-hover-bg);
+                color: var(--bb-slide-item-hover-color);
+            }
