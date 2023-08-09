@@ -9,7 +9,20 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class SlideButtons
 {
-    private Placement CurrentValue { get; set; }
+    private Placement Placement { get; set; }
+
+    private readonly IEnumerable<SelectedItem> _items = new List<SelectedItem>()
+    {
+        new("Auto","auto"),
+        new("Top", "top"),
+        new("TopStart", "top-start"),
+        new("TopCenter", "top-center"),
+        new("TopEnd", "top-end"),
+        new("Bottom", "bottom"),
+        new("BottomStart", "bottom-start"),
+        new("BottomCenter", "bottom-center"),
+        new("BottomEnd", "bottom-end")
+    };
 
     /// <summary>
     /// GetAttributes

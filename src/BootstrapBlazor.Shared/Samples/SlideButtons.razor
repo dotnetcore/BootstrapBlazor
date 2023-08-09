@@ -7,24 +7,59 @@
 
 <DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Normal">
     <div class="row g-3">
-        <div class="col-12 col-md-6 col-lg-4 xl-3">
+        <div class="col-12">
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="Placement" />
-                <Select @bind-Value="@CurrentValue" />
+                <RadioList Items="_items" @bind-Value="Placement" />
             </BootstrapInputGroup>
         </div>
-        <div class="col-12 col-md-6 col-lg-4 xl-3">
-            <SlideButton Icon="fa-solid fa-flag" Placement="CurrentValue">
+        <div class="col-12">
+            <SlideButton Icon="fa-solid fa-flag" Placement="Placement">
                 <SlideTemplate>
                     <div class="slide-header">
                         <div class="flex-fill">Text</div>
                         <button class="btn-close btn-close-white" type="button" aria-label="Close"></button>
                     </div>
-                    <div class="slide-item">
-                        Text 1
-                    </div>
-                    <div class="slide-item">
-                        Text 2
+                    <div class="slide-body scroll">
+                        <div class="slide-item">
+                            Text 1
+                        </div>
+                        <div class="slide-item active">
+                            Text 2
+                        </div>
+                        <div class="slide-item">
+                            Text 1
+                        </div>
+                        <div class="slide-item">
+                            Text 1
+                        </div>
+                        <div class="slide-item">
+                            Text 1
+                        </div>
+                        <div class="slide-item">
+                            Text 1
+                        </div>
+                        <div class="slide-item">
+                            Text 1
+                        </div>
+                        <div class="slide-item">
+                            Text 1
+                        </div>
+                        <div class="slide-item">
+                            Text 1
+                        </div>
+                        <div class="slide-item">
+                            Text 1
+                        </div>
+                        <div class="slide-item">
+                            Text 1
+                        </div>
+                        <div class="slide-item">
+                            Text 1
+                        </div>
+                        <div class="slide-item">
+                            Text 1
+                        </div>
                     </div>
                 </SlideTemplate>
             </SlideButton>
