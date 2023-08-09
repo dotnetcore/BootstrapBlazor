@@ -25,7 +25,7 @@ public partial class Button : ButtonBase
     /// <summary>
     /// 获得/设置 html button 实例
     /// </summary>
-    protected ElementReference ButtonElement { get; set; }
+    private ElementReference ButtonElement { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
