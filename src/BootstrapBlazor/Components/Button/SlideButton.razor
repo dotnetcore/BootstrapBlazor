@@ -27,7 +27,7 @@
                 <div class="flex-fill">@HeaderText</div>
                 <button class="btn-close btn-close-white" type="button" aria-label="Close"></button>
             </div>
-            <div class="slide-body">
+            <div class="slide-body scroll">
                 @foreach (var item in Items)
                 {
                     <div @key="@item" class="@GetItemClass(item)" @onclick="@(e => OnClickItem(item))">

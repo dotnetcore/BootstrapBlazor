@@ -35,18 +35,24 @@ const reset = (el, button, list) => {
     const buttonWidth = button.offsetWidth
     const listHeight = list.offsetHeight
     const listWidth = list.offsetWidth
-    if (placement === 'top' || placement === 'top-start') {
-        list.setAttribute('style', `bottom: ${buttonHeight + offset}px; left: 0;`)
+    let style = null
+    if (placement === 'auto' || placement === 'top' || placement === 'top-start') {
+        style = `bottom: ${buttonHeight + offset}px; left: 0;`
     }
     else if (placement === 'top-center') {
-        list.setAttribute('style', `bottom: ${buttonHeight + offset}px; left: ${(buttonWidth - listWidth) / 2}px;`)
+        style = `bottom: ${buttonHeight + offset}px; left: ${(buttonWidth - listWidth) / 2}px;`
     }
     else if (placement === 'top-end') {
-        list.setAttribute('style', `bottom: ${buttonHeight + offset}px; right: 0;`)
+        style = `bottom: ${buttonHeight + offset}px; right: 0;`
     }
-    else if (placement === 'left') {
-        const width = button.offsetWidth
-        const listWidth = list.offsetWidth
-        list.setAttribute('style', `left: ${0 - width - listWidth - offset}px;`)
+    else if (placement === 'bottom' || placement === 'bottom-start') {
+        style = `top: ${buttonHeight + offset}px; left: 0;`
     }
+    else if (placement === 'bottom' || placement === 'bottom-center') {
+        style = `top: ${buttonHeight + offset}px; left: ${(buttonWidth - listWidth) / 2}px;`
+    }
+    else if (placement === 'bottom' || placement === 'bottom-end') {
+        style = `top: ${buttonHeight + offset}px; right: 0;`
+    }
+    list.setAttribute('style', style)
 }
