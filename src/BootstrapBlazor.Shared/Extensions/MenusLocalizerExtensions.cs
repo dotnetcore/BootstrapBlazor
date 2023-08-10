@@ -1012,6 +1012,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["SlideButton"],
+                    Url = "slide-button"
+                },
+                new()
+                {
                     Text = Localizer["Spinner"],
                     Url = "spinner"
                 },

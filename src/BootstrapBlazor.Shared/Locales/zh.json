@@ -4478,7 +4478,8 @@
     "DockViewLock": "布局锁定",
     "OtherComponents": "其他组件",
     "MouseFollowerIntro": "鼠标跟随",
-    "Live2DDisplayIntro": "Live2D 插件"
+    "Live2DDisplayIntro": "Live2D 插件",
+    "SlideButton": "快捷菜单 SlideButton"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -5705,7 +5706,7 @@
   },
   "BootstrapBlazor.Shared.Samples.Live2DDisplays": {
     "Live2DDisplayTitle": "Live2D 插件",
-    "Live2DDisplayDescription": "基于pixi-live2d-display的Live2D 插件，支持所有版本的 Live2D 模型。",
+    "Live2DDisplayDescription": "基于 pixi-live2d-display 的 Live2D 插件，支持所有版本的 Live2D 模型。",
     "Live2DDisplayNormalTitle": "基本用法",
     "Live2DDisplayNormalIntro": "通过调节默认的参数选项，实现模型的动态变化。",
     "Live2DDisplayNormalTips": "添加以下代码到Program.cs中。",
@@ -5718,5 +5719,20 @@
     "Live2DDisplaysPosition": "模型默认显示位置枚举。",
     "Live2DDisplaysBackgroundColor": "canvas画板背景颜色。",
     "Live2DDisplaysBackgroundAlpha": "canvas画板背景是否透明。"
+  },
+  "BootstrapBlazor.Shared.Samples.SlideButtons": {
+    "SlideButtonTitle": "SlideButton 抽屉式弹窗",
+    "SlideButtonIntro": "点击按钮后弹出功能菜单等信息，多用于二级功能展示",
+    "SlideButtonHeaderText": "Foo 数据一览",
+    "BaseUsageText": "基本用法",
+    "BaseUsageIntro": "通过设置 <code>Items</code> 给出二级功能菜单数据项",
+    "ShowHeaderText": "显示标题",
+    "ShowHeaderIntro": "通过设置 <code>ShowHeader</code> 控制是否显示一个标题栏，默认值为 <code>false</code>",
+    "AutoCloseText": "自动关闭",
+    "AutoCloseIntro": "通过设置 <code>IsAutoClose</code> 控制是否点击弹窗以外区域自动关闭弹窗",
+    "SlideButtonItemsText": "选项集合",
+    "SlideButtonItemsIntro": "在页面中直接录入 <code>SlideButtonItems</code> 集合当数据源",
+    "BodyTemplateText": "自定义模板",
+    "BodyTemplateIntro": "通过设置 <code>BodyTemplate</code> 自定义弹窗内数据"
   }
 }
