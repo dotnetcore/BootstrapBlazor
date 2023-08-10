@@ -107,10 +107,17 @@ public partial class SlideButton
     /// 获得 按钮样式集合
     /// </summary>
     /// <returns></returns>
-    private string? ClassString => CssBuilder.Default("btn")
+    private string? ClassString => CssBuilder.Default("slide-button")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    /// <summary>
+    /// 获得 按钮样式集合
+    /// </summary>
+    /// <returns></returns>
+    private string? ButtonClassString => CssBuilder.Default("btn")
         .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
-        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     private string? SlideListClassString => CssBuilder.Default("slide-list d-none")

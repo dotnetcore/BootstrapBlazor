@@ -2,14 +2,14 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader("Button/SlideButton.razor.js")]
 
-<div @attributes="AdditionalAttributes" id="@Id" class="slide-button" data-bb-placement="@Placement.ToDescriptionString()" data-bb-auto-close="@IsAutoCloseString" data-bb-offset="@Offset">
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString" data-bb-placement="@Placement.ToDescriptionString()" data-bb-auto-close="@IsAutoCloseString" data-bb-offset="@Offset">
     <CascadingValue Value="_buttonItems" IsFixed="true">
         @SlideButtonItems
     </CascadingValue>
     <RenderTemplate>
         @if (ButtonTemplate == null)
         {
-            <button type="button" class="@ClassString" disabled="@Disabled" role="button" id="@ButtonId">
+            <button type="button" class="@ButtonClassString" disabled="@Disabled" role="button" id="@ButtonId">
                 @if (!string.IsNullOrEmpty(Icon))
                 {
                     <i class="@Icon"></i>
