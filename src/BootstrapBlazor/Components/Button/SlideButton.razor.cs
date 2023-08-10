@@ -12,6 +12,12 @@ namespace BootstrapBlazor.Components;
 public partial class SlideButton
 {
     /// <summary>
+    /// 数据项模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? SlideButtonItems { get; set; }
+
+    /// <summary>
     /// 按钮模板
     /// </summary>
     [Parameter]
@@ -21,7 +27,7 @@ public partial class SlideButton
     /// 展开部分模板
     /// </summary>
     [Parameter]
-    public RenderFragment? SlideTemplate { get; set; }
+    public RenderFragment? BodyTemplate { get; set; }
 
     /// <summary>
     /// 展开项集合
@@ -119,6 +125,8 @@ public partial class SlideButton
     private string? Disabled => IsDisabled ? "disabled" : null;
 
     private SelectedItem? _selectedItem;
+
+    private List<SlideButtonItem> _buttonItems = new();
 
     private string ButtonId => $"{Id}_button";
 

@@ -3,27 +3,29 @@
 @attribute [BootstrapModuleAutoLoader("Button/SlideButton.razor.js")]
 
 <div @attributes="AdditionalAttributes" id="@Id" class="slide-button" data-bb-placement="@Placement.ToDescriptionString()" data-bb-auto-close="@IsAutoCloseString" data-bb-offset="@Offset">
-    @if (ButtonTemplate == null)
-    {
-        <button type="button" class="@ClassString" disabled="@Disabled" role="button" id="@ButtonId">
-            @if (!string.IsNullOrEmpty(Icon))
-            {
-                <i class="@Icon"></i>
-            }
-            @if (!string.IsNullOrEmpty(Text))
-            {
-                <span>@Text</span>
-            }
-        </button>
-    }
-    else
-    {
-        @ButtonTemplate
-    }
-    <div class="@SlideListClassString">
-        @if (SlideTemplate == null)
+    <CascadingValue Value="_buttonItems" IsFixed="true">
+        @SlideButtonItems
+    </CascadingValue>
+    <RenderTemplate>
+        @if (ButtonTemplate == null)
         {
-            if (ShowHeader)
+            <button type="button" class="@ClassString" disabled="@Disabled" role="button" id="@ButtonId">
+                @if (!string.IsNullOrEmpty(Icon))
+                {
+                    <i class="@Icon"></i>
+                }
+                @if (!string.IsNullOrEmpty(Text))
+                {
+                    <span>@Text</span>
+                }
+            </button>
+        }
+        else
+        {
+            @ButtonTemplate
+        }
+        <div class="@SlideListClassString">
+            @if (ShowHeader)
             {
                 <div class="slide-header">
                     <div class="flex-fill">@HeaderText</div>
@@ -31,17 +33,26 @@
                 </div>
             }
             <div class="slide-body scroll">
-                @foreach (var item in Items)
+                @foreach (var item in _buttonItems.Select(i => new SelectedItem(i.Value, i.Text)))
                 {
-                    <div @key="@item" class="@GetItemClass(item)" @onclick="@(e => OnClickItem(item))">
+                    <div @key="@item.Value" class="@GetItemClass(item)" @onclick="@(e => OnClickItem(item))">
                         @item.Text
                     </div>
                 }
+                @if (BodyTemplate == null)
+                {
+                    foreach (var item in Items)
+                    {
+                        <div @key="@item" class="@GetItemClass(item)" @onclick="@(e => OnClickItem(item))">
+                            @item.Text
+                        </div>
+                    }
+                }
+                else
+                {
+                    @BodyTemplate
+                }
             </div>
-        }
-        else
-        {
-            @SlideTemplate
-        }
-    </div>
+        </div>
+    </RenderTemplate>
 </div>
