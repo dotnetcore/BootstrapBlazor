@@ -80,6 +80,12 @@ public partial class SlideButton
     public bool IsDisabled { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否自动关闭弹窗 默认为 true
+    /// </summary>
+    [Parameter]
+    public bool IsAutoClose { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 OnClick 事件
     /// </summary>
     [Parameter]
@@ -104,6 +110,8 @@ public partial class SlideButton
     private string? SlideListClassString => CssBuilder.Default("slide-list d-none")
         .AddClass("is-horizontal", Placement.ToDescriptionString().StartsWith("left") || Placement.ToDescriptionString().StartsWith("right"))
         .Build();
+
+    private string? IsAutoCloseString => IsAutoClose ? "true" : null;
 
     /// <summary>
     /// 获得 按钮 disabled 属性
@@ -154,6 +162,10 @@ public partial class SlideButton
     private async Task OnClickItem(SelectedItem item)
     {
         _selectedItem = item;
+        if (IsAutoClose)
+        {
+            await InvokeVoidAsync("close", Id);
+        }
         if (OnClick.HasDelegate)
         {
             await OnClick.InvokeAsync(item);

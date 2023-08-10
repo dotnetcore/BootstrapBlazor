@@ -18,12 +18,25 @@ export function init(id) {
     EventHandler.on(list, 'click', '.btn-close', () => {
         list.classList.remove('show')
     })
+    EventHandler.on(document, 'click', e => {
+        const autoClose = el.getAttribute('data-bb-auto-close') === 'true'
+        if (autoClose && e.target.closest('.slide-button') !== el) {
+            list.classList.remove('show')
+        }
+    })
 }
 
 export function update(id) {
     const slide = Data.get(id)
     if (slide) {
         reset(slide)
+    }
+}
+
+export function close(id) {
+    const slide = Data.get(id)
+    if (slide) {
+        slide.list.classList.remove('show')
     }
 }
 
