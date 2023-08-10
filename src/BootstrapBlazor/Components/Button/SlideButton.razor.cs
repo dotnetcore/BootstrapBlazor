@@ -86,6 +86,12 @@ public partial class SlideButton
     public EventCallback<SelectedItem> OnClick { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示标题 默认 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowHeader { get; set; }
+
+    /// <summary>
     /// 获得 按钮样式集合
     /// </summary>
     /// <returns></returns>
