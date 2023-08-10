@@ -4478,7 +4478,8 @@
     "DockViewLock": "Lock",
     "OtherComponents": "Others",
     "MouseFollowerIntro": "MouseFollower",
-    "Live2DDisplayIntro": "Live2D Widget"
+    "Live2DDisplayIntro": "Live2D Widget",
+    "SlideButton": "SlideButton"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",

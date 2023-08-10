@@ -180,7 +180,8 @@
     "chart/bubble": "Charts\\Bubble",
     "chart/doughnut": "Charts\\Doughnut",
     "chart/line": "Charts\\Line",
-    "chart/pie": "Charts\\Pie"
+    "chart/pie": "Charts\\Pie",
+    "slide-button": "SlideButtons"
   },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",
