@@ -50,10 +50,10 @@ public partial class SlideButton
     public Placement Placement { get; set; }
 
     /// <summary>
-    /// 获得/设置 弹窗便宜量 默认 4
+    /// 获得/设置 弹窗便宜量 默认 8px
     /// </summary>
     [Parameter]
-    public float Offset { get; set; } = 4;
+    public float Offset { get; set; } = 8;
 
     /// <summary>
     /// 获得/设置 Size 大小
@@ -89,10 +89,14 @@ public partial class SlideButton
     /// 获得 按钮样式集合
     /// </summary>
     /// <returns></returns>
-    private string? ClassName => CssBuilder.Default("btn")
+    private string? ClassString => CssBuilder.Default("btn")
         .AddClass($"btn-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
         .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? SlideListClassString => CssBuilder.Default("slide-list d-none")
+        .AddClass("is-horizontal", Placement.ToDescriptionString().StartsWith("left") || Placement.ToDescriptionString().StartsWith("right"))
         .Build();
 
     /// <summary>
@@ -103,6 +107,8 @@ public partial class SlideButton
     private SelectedItem? _selectedItem;
 
     private string ButtonId => $"{Id}_button";
+
+    private Placement _lastPlacement;
 
     /// <summary>
     /// <inheritdoc/>
@@ -117,6 +123,27 @@ public partial class SlideButton
     private string? GetItemClass(SelectedItem item) => CssBuilder.Default("slide-item")
         .AddClass("active", _selectedItem?.Value == item.Value)
         .Build();
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _lastPlacement = Placement;
+        }
+
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (_lastPlacement != Placement)
+        {
+            _lastPlacement = Placement;
+            await InvokeVoidAsync("update", Id);
+        }
+    }
 
     private async Task OnClickItem(SelectedItem item)
     {

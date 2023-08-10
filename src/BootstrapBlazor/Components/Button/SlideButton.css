@@ -14,24 +14,37 @@
     --bb-slide-item-hover-bg: var(--bs-tertiary-bg);
     --bb-slide-item-hover-color: var(--bs-body-color);
     position: relative;
+    display: inline-flex;
 }
 
     .slide-button .slide-list {
         background: var(--bb-slide-list-bg);
         box-shadow: var(--bb-slide-list-shadow);
         border-radius: var(--bs-border-radius);
-        width: var(--bb-slide-list-width);
-        height: 0;
         overflow: hidden;
-        transition: height .3s ease-in-out;
         position: absolute;
         z-index: 5;
         display: flex;
         flex-direction: column;
+        transition: width .3s ease-in-out, height .3s ease-in-out;
     }
 
-        .slide-button .slide-list.show {
+        .slide-button .slide-list:not(.is-horizontal) {
+            height: 0;
+            width: var(--bb-slide-list-width);
+        }
+
+        .slide-button .slide-list.is-horizontal {
             height: var(--bb-slide-list-height);
+            width: 0;
+        }
+
+        .slide-button .slide-list:not(.is-horizontal).show {
+            height: var(--bb-slide-list-height);
+        }
+
+        .slide-button .slide-list.is-horizontal.show {
+            width: var(--bb-slide-list-width);
         }
 
         .slide-button .slide-list .slide-header {
@@ -58,6 +71,7 @@
         .slide-button .slide-list .slide-item {
             padding: var(--bb-slide-item-padding);
             cursor: pointer;
+            white-space: nowrap;
             transition: background-color .3s linear;
         }
 

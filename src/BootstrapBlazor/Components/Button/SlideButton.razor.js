@@ -10,13 +10,18 @@ export function init(id) {
     const list = el.querySelector('.slide-list')
     const slide = { el, button, list }
     Data.set(id, slide);
+    reset(slide)
 
     EventHandler.on(button, 'click', () => {
-        if (!list.classList.contains('show')) {
-            reset(el, button, list)
-        }
         list.classList.toggle('show')
     })
+}
+
+export function update(id) {
+    const slide = Data.get(id)
+    if (slide) {
+        reset(slide)
+    }
 }
 
 export function dispose(id) {
@@ -28,13 +33,17 @@ export function dispose(id) {
     }
 }
 
-const reset = (el, button, list) => {
+const reset = slide => {
+    const { el, button, list } = slide
     const placement = el.getAttribute('data-bb-placement') || 'auto'
-    const offset = parseFloat(el.getAttribute('data-bb-offset') || '4')
+    let offset = parseFloat(el.getAttribute('data-bb-offset') || '8')
+
     const buttonHeight = button.offsetHeight
     const buttonWidth = button.offsetWidth
-    const listHeight = list.offsetHeight
-    const listWidth = list.offsetWidth
+
+    const listStyle = getComputedStyle(list)
+    const listHeight = parseFloat(listStyle.height)
+    const listWidth = parseFloat(listStyle.width)
     let style = null
     if (placement === 'auto' || placement === 'top' || placement === 'top-start') {
         style = `bottom: ${buttonHeight + offset}px; left: 0;`
@@ -54,5 +63,27 @@ const reset = (el, button, list) => {
     else if (placement === 'bottom' || placement === 'bottom-end') {
         style = `top: ${buttonHeight + offset}px; right: 0;`
     }
-    list.setAttribute('style', style)
+    else if (placement === 'left') {
+        style = `top: ${(buttonHeight - listHeight) / 2}px; right: ${buttonWidth + offset}px;`
+    }
+    else if (placement === 'left-start') {
+        style = `top: 0; right: ${buttonWidth + offset}px;`
+    }
+    else if (placement === 'left-end') {
+        style = `bottom: 0; right: ${buttonWidth + offset}px;`
+    }
+    else if (placement === 'right') {
+        style = `top: ${(buttonHeight - listHeight) / 2}px; left: ${buttonWidth + offset}px;`
+    }
+    else if (placement === 'right-start') {
+        style = `top: 0; left: ${buttonWidth + offset}px;`
+    }
+    else if (placement === 'right-end') {
+        style = `bottom: 0; left: ${buttonWidth + offset}px;`
+    }
+
+    if (style) {
+        list.setAttribute('style', style)
+    }
+    list.classList.remove('d-none')
 }
