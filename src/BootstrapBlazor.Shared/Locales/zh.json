@@ -5705,7 +5705,7 @@
   },
   "BootstrapBlazor.Shared.Samples.Live2DDisplays": {
     "Live2DDisplayTitle": "Live2D 插件",
-    "Live2DDisplayDescription": "基于pixi-live2d-display的Live2D 插件，支持所有版本的 Live2D 模型。",
+    "Live2DDisplayDescription": "基于 pixi-live2d-display 的 Live2D 插件，支持所有版本的 Live2D 模型。",
     "Live2DDisplayNormalTitle": "基本用法",
     "Live2DDisplayNormalIntro": "通过调节默认的参数选项，实现模型的动态变化。",
     "Live2DDisplayNormalTips": "添加以下代码到Program.cs中。",
