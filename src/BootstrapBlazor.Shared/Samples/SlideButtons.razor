@@ -39,66 +39,46 @@
         </BootstrapInputGroup>
     </div>
     <div class="mt-2">
-        <SlideButton Icon="fa-solid fa-flag" Items="Items" HeaderText="@Localizer["SlideButtonHeaderText"]">
+        <SlideButton Icon="fa-solid fa-flag" Items="Items" Placement="Placement" HeaderText="@Localizer["SlideButtonHeaderText"]" ShowHeader="true">
         </SlideButton>
     </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ShowHeaderText"]" Introduction="@Localizer["ShowHeaderIntro"]" Name="ShowHeader">
-        <SlideButton Icon="fa-solid fa-flag" ShowHeader="false">
-        </SlideButton>
+    <SlideButton Icon="fa-solid fa-flag" HeaderText="@Localizer["SlideButtonHeaderText"]" ShowHeader="true"></SlideButton>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["SlideTemplateText"]" Introduction="@Localizer["SlideTemplateIntro"]" Name="SlideTemplate">
-    <div class="mt-2">
-        <SlideButton Icon="fa-solid fa-flag" Placement="Placement">
-            <SlideTemplate>
-                <div class="slide-header">
-                    <div class="flex-fill">弹窗标题</div>
-                    <button class="btn-close btn-close-white" type="button" aria-label="Close"></button>
-                </div>
-                <div class="slide-body scroll">
-                    <div class="slide-item">
-                        Text 1
+<DemoBlock Title="@Localizer["AutoCloseText"]" Introduction="@Localizer["AutoCloseIntro"]" Name="IsAutoClose">
+    <SlideButton Icon="fa-solid fa-flag" HeaderText="@Localizer["SlideButtonHeaderText"]" ShowHeader="true" IsAutoClose="false">
+    </SlideButton>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SlideButtonItemsText"]" Introduction="@Localizer["SlideButtonItemsIntro"]" Name="SlideButtonItemsTemplate">
+    <SlideButton Icon="fa-solid fa-flag">
+        <SlideButtonItems>
+            <SlideButtonItem Value="1" Text="Text 1"></SlideButtonItem>
+            <SlideButtonItem Value="2" Text="Text 2"></SlideButtonItem>
+            <SlideButtonItem Value="3" Text="Text 3"></SlideButtonItem>
+        </SlideButtonItems>
+    </SlideButton>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["BodyTemplateText"]" Introduction="@Localizer["BodyTemplateIntro"]" Name="BodyTemplate">
+    <div class="slide-button-custom">
+        <SlideButton Icon="fa-solid fa-flag" HeaderText="@Localizer["SlideButtonHeaderText"]" ShowHeader="true">
+            <BodyTemplate>
+                <div class="slide-button-custom-group">
+                    <div class="slide-item-custom">
+                        <i class="fa-solid fa-copy"></i>
                     </div>
-                    <div class="slide-item active">
-                        Text 2
+                    <div class="slide-item-custom">
+                        <i class="fa-solid fa-cut"></i>
                     </div>
-                    <div class="slide-item">
-                        Text 1
-                    </div>
-                    <div class="slide-item">
-                        Text 1
-                    </div>
-                    <div class="slide-item">
-                        Text 1
-                    </div>
-                    <div class="slide-item">
-                        Text 1
-                    </div>
-                    <div class="slide-item">
-                        Text 1
-                    </div>
-                    <div class="slide-item">
-                        Text 1
-                    </div>
-                    <div class="slide-item">
-                        Text 1
-                    </div>
-                    <div class="slide-item">
-                        Text 1
-                    </div>
-                    <div class="slide-item">
-                        Text 1
-                    </div>
-                    <div class="slide-item">
-                        Text 1
-                    </div>
-                    <div class="slide-item">
-                        Text 1
+                    <div class="slide-item-custom">
+                        <i class="fa-solid fa-paste"></i>
                     </div>
                 </div>
-            </SlideTemplate>
+            </BodyTemplate>
         </SlideButton>
     </div>
 </DemoBlock>
