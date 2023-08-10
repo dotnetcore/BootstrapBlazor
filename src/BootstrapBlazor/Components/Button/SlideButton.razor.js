@@ -15,6 +15,9 @@ export function init(id) {
     EventHandler.on(button, 'click', () => {
         list.classList.toggle('show')
     })
+    EventHandler.on(list, 'click', '.btn-close', () => {
+        list.classList.remove('show')
+    })
 }
 
 export function update(id) {
@@ -30,6 +33,7 @@ export function dispose(id) {
 
     if (slide) {
         EventHandler.off(slide.button, 'click')
+        EventHandler.off(slide.list, 'click', '.btn-close')
     }
 }
 
