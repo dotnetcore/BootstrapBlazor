@@ -5706,7 +5706,7 @@
   "BootstrapBlazor.Shared.Samples.Live2DDisplays": {
     "Live2DDisplayTitle": "Live2D Widget",
     "Live2DDisplayDescription": "Live2D Widget plugin based on pixi live2d display, supporting all versions of Live2D models.",
-    "Live2DDisplayNormalTitle": "usage",
+    "Live2DDisplayNormalTitle": "Usage",
     "Live2DDisplayNormalIntro": "By adjusting the default parameter options, achieve dynamic changes in the model.",
     "Live2DDisplayNormalTips": "Add the following code to Program.cs.",
     "Live2DDisplaysSource": "Model data source, CDN path or local path.",
@@ -5718,5 +5718,20 @@
     "Live2DDisplaysPosition": "The default display location enumeration for the model.",
     "Live2DDisplaysBackgroundColor": "Canvas palette background color.",
     "Live2DDisplaysBackgroundAlpha": "Is the canvas canvas canvas background transparent."
+  },
+  "BootstrapBlazor.Shared.Samples.SlideButtons": {
+    "SlideButtonTitle": "SlideButton",
+    "SlideButtonIntro": "After clicking the button, a function menu and other information will pop up, mostly used for displaying secondary functions",
+    "SlideButtonHeaderText": "Foo List",
+    "BaseUsageText": "Basic usage",
+    "BaseUsageIntro": "Provide secondary function menu data items by setting <code>Items</code>",
+    "ShowHeaderText": "ShowHeader",
+    "ShowHeaderIntro": "By setting <code>ShowHeader</code> to control whether a title bar is displayed, the default value is <code>false</code>",
+    "AutoCloseText": "IsAutoClose",
+    "AutoCloseIntro": "By setting <code>IsAutoClose</code> to control whether to click on areas outside the pop-up window to automatically close the pop-up window",
+    "SlideButtonItemsText": "SlideButtonItems",
+    "SlideButtonItemsIntro": "Directly enter the <code>SlideButtonItems</code> collection as the data source on the page",
+    "BodyTemplateText": "BodyTemplate",
+    "BodyTemplateIntro": "Customize the pop-up data by setting <code>BodyTemplate</code>"
   }
 }
