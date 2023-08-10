@@ -6,66 +6,101 @@
 <h4>@Localizer["SlideButtonIntro"]</h4>
 
 <DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Normal">
-    <div class="row g-3">
-        <div class="col-12">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="Placement" />
-                <RadioList Items="_items" @bind-Value="Placement" />
-            </BootstrapInputGroup>
-        </div>
-        <div class="col-12">
-            <SlideButton Icon="fa-solid fa-flag" Placement="Placement">
-                <SlideTemplate>
-                    <div class="slide-header">
-                        <div class="flex-fill">Text</div>
-                        <button class="btn-close btn-close-white" type="button" aria-label="Close"></button>
-                    </div>
-                    <div class="slide-body scroll">
-                        <div class="slide-item">
-                            Text 1
-                        </div>
-                        <div class="slide-item active">
-                            Text 2
-                        </div>
-                        <div class="slide-item">
-                            Text 1
-                        </div>
-                        <div class="slide-item">
-                            Text 1
-                        </div>
-                        <div class="slide-item">
-                            Text 1
-                        </div>
-                        <div class="slide-item">
-                            Text 1
-                        </div>
-                        <div class="slide-item">
-                            Text 1
-                        </div>
-                        <div class="slide-item">
-                            Text 1
-                        </div>
-                        <div class="slide-item">
-                            Text 1
-                        </div>
-                        <div class="slide-item">
-                            Text 1
-                        </div>
-                        <div class="slide-item">
-                            Text 1
-                        </div>
-                        <div class="slide-item">
-                            Text 1
-                        </div>
-                        <div class="slide-item">
-                            Text 1
-                        </div>
-                    </div>
-                </SlideTemplate>
-            </SlideButton>
-        </div>
+    <div class="slide-buttons">
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel DisplayText="Placement" />
+            <div class="row slide-placement">
+                <div class="col-12">
+                    <Radio Value="Placement" GroupName="Placement" DisplayText="Auto" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("auto")" OnClick="_ => OnClickPlacement(Placement.Auto)"></Radio>
+                </div>
+                <div class="col-12">
+                    <Radio Value="Placement" GroupName="Placement" DisplayText="Top" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("top")" OnClick="_ => OnClickPlacement(Placement.Top)"></Radio>
+                    <Radio Value="Placement" GroupName="Placement" DisplayText="Top-Start" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("top-start")" OnClick="_ => OnClickPlacement(Placement.TopStart)"></Radio>
+                    <Radio Value="Placement" GroupName="Placement" DisplayText="Top-Center" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("top-center")" OnClick="_ => OnClickPlacement(Placement.TopCenter)"></Radio>
+                    <Radio Value="Placement" GroupName="Placement" DisplayText="Top-End" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("top-end")" OnClick="_ => OnClickPlacement(Placement.TopEnd)"></Radio>
+                </div>
+                <div class="col-12">
+                    <Radio Value="Placement" GroupName="Placement" DisplayText="Bottom" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("bottom")" OnClick="_ => OnClickPlacement(Placement.Bottom)"></Radio>
+                    <Radio Value="Placement" GroupName="Placement" DisplayText="Bottom-Start" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("bottom-start")" OnClick="_ => OnClickPlacement(Placement.BottomStart)"></Radio>
+                    <Radio Value="Placement" GroupName="Placement" DisplayText="Bottom-Center" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("bottom-center")" OnClick="_ => OnClickPlacement(Placement.BottomCenter)"></Radio>
+                    <Radio Value="Placement" GroupName="Placement" DisplayText="Bottom-End" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("bottom-end")" OnClick="_ => OnClickPlacement(Placement.BottomEnd)"></Radio>
+                </div>
+                <div class="col-12">
+                    <Radio Value="Placement" GroupName="Placement" DisplayText="Left" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("left")" OnClick="_ => OnClickPlacement(Placement.Left)"></Radio>
+                    <Radio Value="Placement" GroupName="Placement" DisplayText="Left-Start" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("left-start")" OnClick="_ => OnClickPlacement(Placement.LeftStart)"></Radio>
+                    <Radio Value="Placement" GroupName="Placement" DisplayText="Left-End" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("left-end")" OnClick="_ => OnClickPlacement(Placement.LeftEnd)"></Radio>
+                </div>
+                <div class="col-12">
+                    <Radio Value="Placement" GroupName="Placement" DisplayText="Right" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("right")" OnClick="_ => OnClickPlacement(Placement.Right)"></Radio>
+                    <Radio Value="Placement" GroupName="Placement" DisplayText="Right-Start" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("right-start")" OnClick="_ => OnClickPlacement(Placement.RightStart)"></Radio>
+                    <Radio Value="Placement" GroupName="Placement" DisplayText="Right-End" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("right-end")" OnClick="_ => OnClickPlacement(Placement.RightEnd)"></Radio>
+                </div>
+            </div>
+        </BootstrapInputGroup>
     </div>
+    <div class="mt-2">
+        <SlideButton Icon="fa-solid fa-flag" Items="Items" HeaderText="@Localizer["SlideButtonHeaderText"]">
+        </SlideButton>
+    </div>
+</DemoBlock>
 
+<DemoBlock Title="@Localizer["ShowHeaderText"]" Introduction="@Localizer["ShowHeaderIntro"]" Name="ShowHeader">
+        <SlideButton Icon="fa-solid fa-flag" ShowHeader="false">
+        </SlideButton>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SlideTemplateText"]" Introduction="@Localizer["SlideTemplateIntro"]" Name="SlideTemplate">
+    <div class="mt-2">
+        <SlideButton Icon="fa-solid fa-flag" Placement="Placement">
+            <SlideTemplate>
+                <div class="slide-header">
+                    <div class="flex-fill">弹窗标题</div>
+                    <button class="btn-close btn-close-white" type="button" aria-label="Close"></button>
+                </div>
+                <div class="slide-body scroll">
+                    <div class="slide-item">
+                        Text 1
+                    </div>
+                    <div class="slide-item active">
+                        Text 2
+                    </div>
+                    <div class="slide-item">
+                        Text 1
+                    </div>
+                    <div class="slide-item">
+                        Text 1
+                    </div>
+                    <div class="slide-item">
+                        Text 1
+                    </div>
+                    <div class="slide-item">
+                        Text 1
+                    </div>
+                    <div class="slide-item">
+                        Text 1
+                    </div>
+                    <div class="slide-item">
+                        Text 1
+                    </div>
+                    <div class="slide-item">
+                        Text 1
+                    </div>
+                    <div class="slide-item">
+                        Text 1
+                    </div>
+                    <div class="slide-item">
+                        Text 1
+                    </div>
+                    <div class="slide-item">
+                        Text 1
+                    </div>
+                    <div class="slide-item">
+                        Text 1
+                    </div>
+                </div>
+            </SlideTemplate>
+        </SlideButton>
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

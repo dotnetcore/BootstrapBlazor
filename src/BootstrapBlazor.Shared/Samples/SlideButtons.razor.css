@@ -1,0 +1,19 @@
+﻿.slide-placement {
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: 0 var(--bs-border-radius) var(--bs-border-radius) 0;
+    padding: 0.25rem;
+    flex: 1;
+}
+
+    .slide-placement > *:not(:first-child) {
+        margin-top: .25rem;
+        display: flex;
+    }
+
+::deep .form-check {
+    width: 120px;
+}
+
+    ::deep .form-check:not(:first-child) {
+        margin-left: 1rem;
+    }

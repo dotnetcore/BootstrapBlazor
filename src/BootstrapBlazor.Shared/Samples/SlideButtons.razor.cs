@@ -9,20 +9,22 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class SlideButtons
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
     private Placement Placement { get; set; }
 
-    private readonly IEnumerable<SelectedItem> _items = new List<SelectedItem>()
+    private IEnumerable<SelectedItem> Items => Foo.GenerateFoo(LocalizerFoo).Select(i => new SelectedItem(i.Id.ToString(), i.Name!));
+
+    private Task OnClickPlacement(Placement placement)
     {
-        new("Auto","auto"),
-        new("Top", "top"),
-        new("TopStart", "top-start"),
-        new("TopCenter", "top-center"),
-        new("TopEnd", "top-end"),
-        new("Bottom", "bottom"),
-        new("BottomStart", "bottom-start"),
-        new("BottomCenter", "bottom-center"),
-        new("BottomEnd", "bottom-end")
-    };
+        Placement = placement;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private CheckboxState CheckState(string state) => Placement.ToDescriptionString() == state ? CheckboxState.Checked : CheckboxState.UnChecked;
 
     /// <summary>
     /// GetAttributes

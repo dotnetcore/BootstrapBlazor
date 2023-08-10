@@ -5718,5 +5718,12 @@
     "Live2DDisplaysPosition": "模型默认显示位置枚举。",
     "Live2DDisplaysBackgroundColor": "canvas画板背景颜色。",
     "Live2DDisplaysBackgroundAlpha": "canvas画板背景是否透明。"
+  },
+  "BootstrapBlazor.Shared.Samples.SlideButtons": {
+    "SlideButtonTitle": "SlideButton 抽屉式弹窗",
+    "SlideButtonIntro": "点击按钮后弹出功能菜单等信息，多用于二级功能展示",
+    "BaseUsageText": "基本用法",
+    "BaseUsageIntro": "通过设置 <code>Items</code> 给出二级功能菜单数据项",
+    "SlideButtonHeaderText": "Foo 数据一览"
   }
 }
