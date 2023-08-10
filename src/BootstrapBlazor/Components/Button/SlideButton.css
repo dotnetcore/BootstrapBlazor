@@ -1,6 +1,7 @@
 ﻿.slide-button {
     --bb-slide-list-bg: #fff;
-    --bb-slide-list-shadow: 0 0 12px #211b50;
+    --bb-slide-list-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+    --bb-slide-list-border: var(--bs-border-width) solid var(--bs-border-color-translucent);
     --bb-slide-list-width: 260px;
     --bb-slide-list-height: 306px;
     --bb-slide-item-header-bg: var(--bs-primary);
@@ -19,8 +20,8 @@
 
     .slide-button .slide-list {
         background: var(--bb-slide-list-bg);
-        box-shadow: var(--bb-slide-list-shadow);
         border-radius: var(--bs-border-radius);
+        box-shadow: var(--bb-slide-list-shadow);
         overflow: hidden;
         position: absolute;
         z-index: 5;
@@ -55,9 +56,15 @@
             display: flex;
         }
 
+            .slide-button .slide-list .slide-header + .slide-body {
+                border-radius: 0 0 var(--bs-border-radius) var(--bs-border-radius);
+            }
+
         .slide-button .slide-list .slide-body {
             padding: var(--bb-slide-item-body-padding);
             overflow: auto;
+            border-radius: var(--bs-border-radius);
+            border: var(--bb-slide-list-border);
         }
 
         .slide-button .slide-list .btn-close {
