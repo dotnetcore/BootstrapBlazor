@@ -305,16 +305,40 @@
            Introduction="@Localizer["SelectsCustomTemplateIntro"]"
            Name="CustomTemplate">
     <div class="row">
-        <div class="col-12 col-sm-6">
-            <Select TValue="string" Items="Items">
+        <div class="col-12 col-sm-6 select-custom">
+            <Select @bind-Value="@_fooName" Items="VirtualItems">
                 <ItemTemplate>
+                    @{
+                        var foo = Foos.First(i => i.Name == context.Text);
+                    }
                     <div class="dropdown-item-demo">
-                        <i class="fa-solid fa-font-awesome"></i>
-                        <span>@context.Text</span>
-                        <i class="fa-solid fa-star"></i>
+                        <div class="select-custom-header">
+                            <div class="id">@foo.Id</div>
+                            <div class="name">@foo.Name</div>
+                            <Light Color="@(foo.Complete ? Color.Success : Color.Warning)"></Light>
+                        </div>
+                        <Divider />
+                        <div class="select-custom-body">
+                            <img src="@Foo.GetAvatarUrl(foo.Id)" class="bb-avatar" />
+                            <div class="select-custom-detail">
+                                <div class="d-flex">
+                                    <div class="flex-fill">
+                                        <div>@Foo.GetTitle(foo.Id)</div>
+                                        <div class="mt-3">@foo.Address</div>
+                                    </div>
+                                    <div>
+                                        <Circle Width="80" Value="@foo.Count" Color="Color.Info" StrokeWidth="3" />
+                                    </div>
+                                </div>
+                                <BootstrapBlazor.Components.Progress Value="@foo.Count"></BootstrapBlazor.Components.Progress>
+                            </div>
+                        </div>
                     </div>
                 </ItemTemplate>
             </Select>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display TValue="string" Value="@_fooName" />
         </div>
     </div>
 </DemoBlock>

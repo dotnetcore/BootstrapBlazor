@@ -15,15 +15,16 @@ export function init(id) {
     EventHandler.on(button, 'click', () => {
         list.classList.toggle('show')
     })
-    EventHandler.on(list, 'click', '.btn-close', () => {
+    EventHandler.on(list, 'click', '.btn-close', e => {
+        e.stopPropagation()
         list.classList.remove('show')
     })
-    EventHandler.on(document, 'click', e => {
-        const autoClose = el.getAttribute('data-bb-auto-close') === 'true'
-        if (autoClose && e.target.closest('.slide-button') !== el) {
-            list.classList.remove('show')
-        }
-    })
+
+    if (!window.bb_slide_button) {
+        window.bb_slide_button = true
+
+        EventHandler.on(document, 'click', e => closePopup(e));
+    }
 }
 
 export function update(id) {
@@ -103,4 +104,18 @@ const reset = slide => {
         list.setAttribute('style', style)
     }
     list.classList.remove('d-none')
+}
+
+const closePopup = e => {
+    document.querySelectorAll('.slide-button').forEach(el => {
+        if (e.target.closest('.slide-button') !== el) {
+            const list = el.querySelector('.slide-list')
+            if (list && list.classList.contains('show')) {
+                const autoClose = el.getAttribute('data-bb-auto-close') === 'true'
+                if (autoClose) {
+                    list.classList.remove('show')
+                }
+            }
+        }
+    })
 }

@@ -8,11 +8,7 @@
                 const handler = setTimeout(() => {
                     el.scrollIntoView({ behavior: 'smooth', block: 'center' })
                     clearTimeout(handler)
-                    console.log(el, hash)
                 }, 1000)
-            }
-            else {
-                console.log(hash)
             }
         }
         catch (e) {
