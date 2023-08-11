@@ -10,7 +10,8 @@
     position: relative;
 }
 
-    .auto-complete input {
+    .auto-complete .form-control {
+        background-image: none;
         padding-right: var(--bb-ac-padding-right);
     }
 
