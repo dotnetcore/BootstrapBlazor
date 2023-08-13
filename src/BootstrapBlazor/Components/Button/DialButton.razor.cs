@@ -89,6 +89,12 @@ public partial class DialButton
     public EventCallback<DialButtonItem> OnClick { get; set; }
 
     /// <summary>
+    /// 获得/设置 呈现方式 默认为 直线
+    /// </summary>
+    [Parameter]
+    public DialMode DialMode { get; set; }
+
+    /// <summary>
     /// 获得 按钮样式集合
     /// </summary>
     /// <returns></returns>
