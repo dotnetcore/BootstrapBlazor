@@ -13,15 +13,23 @@ export function init(id) {
     reset(slide)
 
     EventHandler.on(button, 'click', () => {
-        toggle(list)
+        toggle(el, list)
     })
 
     EventHandler.on(list, 'animationend', e => {
         if (list.classList.contains('closing')) {
-            list.classList.remove('show')
-            list.classList.remove('closing')
+            e.target.style.setProperty('visibility', 'hidden')
+
+            const items = [...list.querySelectorAll('.dial-item')];
+            if (items.indexOf(e.target) === items.length - 1) {
+                list.classList.remove('closing')
+                list.classList.remove('show')
+                items.forEach(item => {
+                    item.style.removeProperty('visibility')
+                })
+            }
         }
-        list.style.removeProperty('--bb-dial-list-animation-name')
+        e.target.style.removeProperty('animation')
     })
 
     if (!window.bb_slide_button) {
@@ -34,7 +42,7 @@ export function init(id) {
 export function close(id) {
     const slide = Data.get(id)
     if (slide) {
-        toggle(slide.list)
+        toggle(slide.el, slide.list)
     }
 }
 
@@ -42,17 +50,37 @@ export function dispose(id) {
     const dial = Data.get(id)
     Data.remove(id)
 
-    if (slide) {
+    if (dial) {
     }
 }
 
-const toggle = list => {
-    list.style.setProperty('--bb-dial-list-animation-name', 'dial')
+const animate = (item, value, delay, fn) => {
+    const handler = setTimeout(() => {
+        clearTimeout(handler)
+        if (fn) {
+            fn()
+        }
+        item.style.setProperty('animation', value)
+    }, delay)
+}
+
+const toggle = (el, list) => {
     if (list.classList.contains('show')) {
-        list.classList.add('closing');
+        list.classList.add('closing')
+        var items = list.querySelectorAll('.dial-item')
+        for (var index = 0; index < items.length; index++) {
+            var item = items[items.length - index - 1]
+            animate(item, '200ms cubic-bezier(0, 0, 0.58, 1) 0s 1 normal none running FadeOut', index * 100)
+        }
     }
     else {
         list.classList.add('show')
+        list.querySelectorAll('.dial-item').forEach((item, index) => {
+            item.style.setProperty('visibility', 'hidden')
+            animate(item, '.2s cubic-bezier(0.42, 0, 1, 1) 0s 1 normal none running FadeIn', index * 100, () => {
+                item.style.removeProperty('visibility')
+            })
+        })
     }
 }
 
@@ -80,12 +108,17 @@ const reset = slide => {
     else if (placement === 'auto' || placement === 'right') {
         style = `top: ${(buttonHeight - listHeight) / 2}px; left: ${buttonWidth + offset}px;`
     }
-    // calc items count
-    const items = list.querySelectorAll('.dial-item')
-    style = `${style} --bb-dial-items-count: ${items.length}; --bs-dial-list-width: ${listWidth}px;`
 
     if (style) {
         list.setAttribute('style', style)
+    }
+    // calc items count
+    const items = list.querySelectorAll('.dial-item')
+    if (placement === 'top' || placement === 'bottom') {
+        list.style.setProperty('--bs-dial-list-height', `${listHeight}px`)
+    }
+    else {
+        list.style.setProperty('--bs-dial-list-width', `${listWidth}px`)
     }
 }
 
@@ -96,7 +129,7 @@ const closePopup = e => {
             if (list && list.classList.contains('show')) {
                 const autoClose = el.getAttribute('data-bb-auto-close') === 'true'
                 if (autoClose) {
-                    toggle(list)
+                    toggle(el, list)
                 }
             }
         }

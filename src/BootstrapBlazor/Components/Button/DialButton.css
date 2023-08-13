@@ -1,6 +1,5 @@
 ﻿.dial-button {
     --bb-dial-list-zindex: 5;
-    --bb-dial-list-animation-duration: .3s;
     --bb-dial-item-padding: 0.25rem 1rem;
     --bb-dial-item-bg: #fff;
     --bb-dial-item-hover-bg: #e9ecef;
@@ -22,20 +21,10 @@
         z-index: var(--bb-dial-list-zindex);
         pointer-events: none;
         display: flex;
-        animation-name: var(--bb-dial-list-animation-name);
-        animation-duration: var(--bb-dial-list-animation-duration);
     }
 
         .dial-button .dial-list:not(.show) {
             visibility: hidden;
-        }
-
-        .dial-button .dial-list.show {
-            animation-timing-function: steps(var(--bb-dial-items-count), start);
-        }
-
-        .dial-button .dial-list.closing {
-            animation-direction: reverse;
         }
 
         .dial-button .dial-list .dial-list-content {
@@ -71,16 +60,40 @@
                 color: var(--bb-dial-item-hover-color);
             }
 
-:is(.dial-button[data-bb-placement="bottom"], .dial-button[data-bb-placement="top"]) .dial-list-content {
-    flex-direction: column;
-}
+    .dial-button[data-bb-placement="bottom"] .dial-list-content {
+        flex-direction: column;
+        height: var(--bs-dial-list-height);
+    }
 
-@keyframes dial {
+    .dial-button[data-bb-placement="top"] .dial-list-content {
+        flex-direction: column-reverse;
+        height: var(--bs-dial-list-height);
+    }
+
+    .dial-button[data-bb-placement="left"] .dial-list-content {
+        flex-direction: row-reverse;
+    }
+
+@keyframes FadeIn {
     0% {
-        width: 0;
+        filter: alpha(opacity=0);
+        opacity: 0
     }
 
     100% {
-        width: var(--bs-dial-list-width);
+        filter: alpha(opacity=100);
+        opacity: 1
+    }
+}
+
+@keyframes FadeOut {
+    from {
+        filter: alpha(opacity=100);
+        opacity: 1
+    }
+
+    to {
+        filter: alpha(opacity=0);
+        opacity: 0
     }
 }
