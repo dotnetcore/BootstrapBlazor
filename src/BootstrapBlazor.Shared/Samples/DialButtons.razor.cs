@@ -9,4 +9,38 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class DialButtons
 {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
+
+    private Placement Placement { get; set; }
+
+    //private IEnumerable<SelectedItem> Items => Foo.GenerateFoo(LocalizerFoo, _buttonCount).Select(i => new DialButtonItem(i.Id.ToString(), i.Name!));
+
+    private int _buttonCount = 5;
+
+    private Task OnClickPlacement(Placement placement)
+    {
+        Placement = placement;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private CheckboxState CheckState(string state) => Placement.ToDescriptionString() == state ? CheckboxState.Checked : CheckboxState.UnChecked;
+
+    /// <summary>
+    /// GetAttributes
+    /// </summary>
+    /// <returns></returns>
+    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
+        new()
+        {
+            Name = nameof(FileViewer.Filename),
+            Description = "Excel/Word 文件路径或者URL",
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    };
 }
