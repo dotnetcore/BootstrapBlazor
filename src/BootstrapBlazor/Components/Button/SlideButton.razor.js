@@ -6,7 +6,7 @@ export function init(id) {
     if (el === null) {
         return
     }
-    const button = document.getElementById(`${id}_button`)
+    const button = el.querySelector('.btn-slide')
     const list = el.querySelector('.slide-list')
     const slide = { el, button, list }
     Data.set(id, slide);

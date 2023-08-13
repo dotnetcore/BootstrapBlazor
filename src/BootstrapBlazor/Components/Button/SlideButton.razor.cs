@@ -135,8 +135,6 @@ public partial class SlideButton
 
     private List<SlideButtonItem> _buttonItems = new();
 
-    private string ButtonId => $"{Id}_button";
-
     private Placement _lastPlacement;
 
     /// <summary>
