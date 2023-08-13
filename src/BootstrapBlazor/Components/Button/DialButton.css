@@ -39,7 +39,8 @@
         }
 
         .dial-button .dial-list .dial-list-content {
-            white-space: nowrap;
+            display: flex;
+            flex-wrap: nowrap;
         }
 
         .dial-button .dial-list .dial-item {
@@ -69,6 +70,10 @@
                 border-color: var(--bb-dial-item-hover-border-color);
                 color: var(--bb-dial-item-hover-color);
             }
+
+:is(.dial-button[data-bb-placement="bottom"], .dial-button[data-bb-placement="top"]) .dial-list-content {
+    flex-direction: column;
+}
 
 @keyframes dial {
     0% {

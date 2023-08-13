@@ -69,10 +69,10 @@ const reset = slide => {
     const listWidth = parseFloat(listStyle.width)
     let style = null
     if (placement === 'top') {
-        style = `bottom: ${buttonHeight + offset}px; left: 0;`
+        style = `bottom: ${buttonHeight + offset}px; left: ${(buttonWidth - listWidth) / 2}px;`
     }
     else if (placement === 'bottom') {
-        style = `top: ${buttonHeight + offset}px; left: 0;`
+        style = `top: ${buttonHeight + offset}px; left: ${(buttonWidth - listWidth) / 2}px;`
     }
     else if (placement === 'left') {
         style = `top: ${(buttonHeight - listHeight) / 2}px; right: ${buttonWidth + offset}px;`
@@ -96,7 +96,7 @@ const closePopup = e => {
             if (list && list.classList.contains('show')) {
                 const autoClose = el.getAttribute('data-bb-auto-close') === 'true'
                 if (autoClose) {
-                    list.classList.remove('show')
+                    toggle(list)
                 }
             }
         }
