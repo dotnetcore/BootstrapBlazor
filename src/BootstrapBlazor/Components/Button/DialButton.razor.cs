@@ -13,7 +13,7 @@ public partial class DialButton
     /// 数据项模板
     /// </summary>
     [Parameter]
-    public RenderFragment? SlideButtonItems { get; set; }
+    public RenderFragment? DialButtonItems { get; set; }
 
     /// <summary>
     /// 按钮模板
@@ -105,7 +105,7 @@ public partial class DialButton
         .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
         .Build();
 
-    private string? DialButtonListClassString => CssBuilder.Default("dial-list")
+    private string? DialButtonListClassString => CssBuilder.Default("dial-list d-none")
         .Build();
 
     private string? IsAutoCloseString => IsAutoClose ? "true" : null;
@@ -117,7 +117,7 @@ public partial class DialButton
 
     private SelectedItem? _selectedItem;
 
-    private List<SlideButtonItem> _buttonItems = new();
+    private List<DialButtonItem> _buttonItems = new();
 
     private string ButtonId => $"{Id}_button";
 
