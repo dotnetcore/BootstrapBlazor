@@ -13,7 +13,7 @@ public partial class DialButton
     /// 数据项模板
     /// </summary>
     [Parameter]
-    public RenderFragment? DialButtonItems { get; set; }
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// 按钮模板
@@ -32,7 +32,7 @@ public partial class DialButton
     /// </summary>
     [Parameter]
     [NotNull]
-    public IEnumerable<SelectedItem>? Items { get; set; }
+    public IEnumerable<DialButtonItem>? Items { get; set; }
 
     /// <summary>
     /// 获得/设置 按钮颜色
@@ -86,7 +86,7 @@ public partial class DialButton
     /// 获得/设置 OnClick 事件
     /// </summary>
     [Parameter]
-    public EventCallback<SelectedItem> OnClick { get; set; }
+    public EventCallback<DialButtonItem> OnClick { get; set; }
 
     /// <summary>
     /// 获得 按钮样式集合
@@ -105,7 +105,7 @@ public partial class DialButton
         .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
         .Build();
 
-    private string? DialButtonListClassString => CssBuilder.Default("dial-list d-none")
+    private string? DialButtonListClassString => CssBuilder.Default("dial-list")
         .Build();
 
     private string? IsAutoCloseString => IsAutoClose ? "true" : null;
@@ -115,11 +115,9 @@ public partial class DialButton
     /// </summary>
     private string? Disabled => IsDisabled ? "disabled" : null;
 
-    private SelectedItem? _selectedItem;
-
     private List<DialButtonItem> _buttonItems = new();
 
-    private string ButtonId => $"{Id}_button";
+    private IEnumerable<DialButtonItem> _list => _buttonItems.Concat(Items);
 
     private Placement _lastPlacement;
 
@@ -130,12 +128,8 @@ public partial class DialButton
     {
         base.OnParametersSet();
 
-        Items ??= Enumerable.Empty<SelectedItem>();
+        Items ??= Enumerable.Empty<DialButtonItem>();
     }
-
-    private string? GetItemClass(SelectedItem item) => CssBuilder.Default("slide-item")
-        .AddClass("active", _selectedItem?.Value == item.Value)
-        .Build();
 
     /// <summary>
     /// <inheritdoc/>
@@ -158,9 +152,8 @@ public partial class DialButton
         }
     }
 
-    private async Task OnClickItem(SelectedItem item)
+    private async Task OnClickItem(DialButtonItem item)
     {
-        _selectedItem = item;
         if (IsAutoClose)
         {
             await InvokeVoidAsync("close", Id);

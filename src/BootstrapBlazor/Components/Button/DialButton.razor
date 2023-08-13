@@ -4,40 +4,36 @@
 
 <div @attributes="AdditionalAttributes" id="@Id" class="@ClassString" data-bb-placement="@Placement.ToDescriptionString()" data-bb-auto-close="@IsAutoCloseString" data-bb-offset="@Offset">
     <CascadingValue Value="_buttonItems" IsFixed="true">
-        @DialButtonItems
+        @ChildContent
     </CascadingValue>
     <RenderTemplate>
-        @if (ButtonTemplate == null)
-        {
-            <button type="button" class="@ButtonClassString" disabled="@Disabled" role="button" id="@ButtonId">
-                @if (!string.IsNullOrEmpty(Icon))
-                {
-                    <i class="@Icon"></i>
-                }
-                @if (!string.IsNullOrEmpty(Text))
-                {
-                    <span>@Text</span>
-                }
-            </button>
-        }
-        else
-        {
-            @ButtonTemplate
-        }
-        <div class="@DialButtonListClassString">
-            @foreach (var item in _buttonItems.Select(i => new SelectedItem(i.Value, i.Text)))
+        <div class="btn-dial">
+            @if (ButtonTemplate == null)
             {
-                <div @key="@item.Value" class="@GetItemClass(item)" @onclick="@(e => OnClickItem(item))">
-                    @item.Text
-                </div>
+                <button type="button" class="@ButtonClassString" disabled="@Disabled" role="button">
+                    @if (!string.IsNullOrEmpty(Icon))
+                    {
+                        <i class="@Icon"></i>
+                    }
+                    @if (!string.IsNullOrEmpty(Text))
+                    {
+                        <span>@Text</span>
+                    }
+                </button>
             }
+            else
+            {
+                @ButtonTemplate
+            }
+        </div>
+        <div class="@DialButtonListClassString">
             @if (BodyTemplate == null)
             {
-                foreach (var item in Items)
+                foreach (var item in _list)
                 {
-                    <div @key="@item" class="@GetItemClass(item)" @onclick="@(e => OnClickItem(item))">
-                        @item.Text
-                    </div>
+                    <span @key="@item" class="dial-item" @onclick="@(e => OnClickItem(item))">
+                        <i class="@item.Icon"></i>
+                    </span>
                 }
             }
             else

@@ -17,7 +17,7 @@ public class DialButtonItem : ComponentBase, IDisposable
 #if NET6_0_OR_GREATER
     [EditorRequired]
 #endif
-    public string? Text { get; set; }
+    public string? Icon { get; set; }
 
     /// <summary>
     /// 选项值
