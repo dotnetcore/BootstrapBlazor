@@ -32,8 +32,8 @@ export function init(id) {
         e.target.style.removeProperty('animation')
     })
 
-    if (!window.bb_slide_button) {
-        window.bb_slide_button = true
+    if (!window.bb_dial_button) {
+        window.bb_dial_button = true
 
         EventHandler.on(document, 'click', e => closePopup(e));
     }
@@ -51,6 +51,8 @@ export function dispose(id) {
     Data.remove(id)
 
     if (dial) {
+        EventHandler.off(dial.button, 'click')
+        EventHandler.off(dial.list, 'animationend')
     }
 }
 
