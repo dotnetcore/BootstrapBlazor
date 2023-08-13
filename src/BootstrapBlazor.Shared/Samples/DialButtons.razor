@@ -6,69 +6,80 @@
 <h4>@Localizer["DialButtonIntro"]</h4>
 
 <DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Normal">
-    <div class="dial-buttons row g-2">
-        <div class="col-4 justify-content-start align-items-start">
-            <DialButton Icon="fa-solid fa-flag" Placement="Placement.Bottom">
-                <DialButtonItem Icon="fa-solid fa-cut" Value="cut" />
-                <DialButtonItem Icon="fa-solid fa-copy" Value="copy" />
-                <DialButtonItem Icon="fa-solid fa-paste" Value="paste" />
-            </DialButton>
-        </div>
-        <div class="col-4 justify-content-center align-items-start">
-            <DialButton Icon="fa-solid fa-flag" Placement="Placement.Bottom">
-                <DialButtonItem Icon="fa-solid fa-cut" Value="cut" />
-                <DialButtonItem Icon="fa-solid fa-copy" Value="copy" />
-                <DialButtonItem Icon="fa-solid fa-paste" Value="paste" />
-            </DialButton>
-        </div>
-        <div class="col-4 justify-content-end align-items-start">
-            <DialButton Icon="fa-solid fa-flag" Placement="Placement.Bottom">
-                <DialButtonItem Icon="fa-solid fa-cut" Value="cut" />
-                <DialButtonItem Icon="fa-solid fa-copy" Value="copy" />
-                <DialButtonItem Icon="fa-solid fa-paste" Value="paste" />
-            </DialButton>
-        </div>
-        <div class="col-4 justify-content-start align-items-center">
-            <DialButton Icon="fa-solid fa-flag" Placement="Placement.Right">
-                <DialButtonItem Icon="fa-solid fa-cut" Value="cut" />
-                <DialButtonItem Icon="fa-solid fa-copy" Value="copy" />
-                <DialButtonItem Icon="fa-solid fa-paste" Value="paste" />
-            </DialButton>
-        </div>
-        <div class="col-4 justify-content-center align-items-center">
-            <DialButton Icon="fa-solid fa-flag" Placement="Placement.Top">
-                <DialButtonItem Icon="fa-solid fa-cut" Value="cut" />
-                <DialButtonItem Icon="fa-solid fa-copy" Value="copy" />
-                <DialButtonItem Icon="fa-solid fa-paste" Value="paste" />
-            </DialButton>
-        </div>
-        <div class="col-4 justify-content-end align-items-center">
-            <DialButton Icon="fa-solid fa-flag" Placement="Placement.Left">
-                <DialButtonItem Icon="fa-solid fa-cut" Value="cut" />
-                <DialButtonItem Icon="fa-solid fa-copy" Value="copy" />
-                <DialButtonItem Icon="fa-solid fa-paste" Value="paste" />
-            </DialButton>
-        </div>
-        <div class="col-4 justify-content-start align-items-end">
-            <DialButton Icon="fa-solid fa-flag" Placement="Placement.Top">
-                <DialButtonItem Icon="fa-solid fa-cut" Value="cut" />
-                <DialButtonItem Icon="fa-solid fa-copy" Value="copy" />
-                <DialButtonItem Icon="fa-solid fa-paste" Value="paste" />
-            </DialButton>
-        </div>
-        <div class="col-4 justify-content-center align-items-end">
-            <DialButton Icon="fa-solid fa-flag" Placement="Placement.Top">
-                <DialButtonItem Icon="fa-solid fa-cut" Value="cut" />
-                <DialButtonItem Icon="fa-solid fa-copy" Value="copy" />
-                <DialButtonItem Icon="fa-solid fa-paste" Value="paste" />
-            </DialButton>
-        </div>
-        <div class="col-4 justify-content-end align-items-end">
-            <DialButton Icon="fa-solid fa-flag" Placement="Placement.Top">
-                <DialButtonItem Icon="fa-solid fa-cut" Value="cut" />
-                <DialButtonItem Icon="fa-solid fa-copy" Value="copy" />
-                <DialButtonItem Icon="fa-solid fa-paste" Value="paste" />
-            </DialButton>
+    <div class="mb-3">
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel DisplayText="Mode" />
+            <div class="dial-mode">
+                <Radio Value="Mode" GroupName="Mode" DisplayText="Linear" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("Linear")" OnClick="_ => OnClick(DialMode.Linear)"></Radio>
+                <Radio Value="Mode" GroupName="Mode" DisplayText="Radial" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("Radial")" OnClick="_ => OnClick(DialMode.Radial)"></Radio>
+            </div>
+        </BootstrapInputGroup>
+    </div>
+    <div class="dial-buttons p-3">
+        <div class="row">
+            <div class="col-4 justify-content-start align-items-start">
+                <DialButton Icon="fa-solid fa-flag" Placement="Placement.Bottom" DialMode="Mode">
+                    <DialButtonItem Icon="fa-solid fa-cut" Value="cut" />
+                    <DialButtonItem Icon="fa-solid fa-copy" Value="copy" />
+                    <DialButtonItem Icon="fa-solid fa-paste" Value="paste" />
+                </DialButton>
+            </div>
+            <div class="col-4 justify-content-center align-items-start">
+                <DialButton Icon="fa-solid fa-flag" Placement="Placement.Bottom" DialMode="Mode">
+                    <DialButtonItem Icon="fa-solid fa-cut" Value="cut" />
+                    <DialButtonItem Icon="fa-solid fa-copy" Value="copy" />
+                    <DialButtonItem Icon="fa-solid fa-paste" Value="paste" />
+                </DialButton>
+            </div>
+            <div class="col-4 justify-content-end align-items-start">
+                <DialButton Icon="fa-solid fa-flag" Placement="Placement.Bottom" DialMode="Mode">
+                    <DialButtonItem Icon="fa-solid fa-cut" Value="cut" />
+                    <DialButtonItem Icon="fa-solid fa-copy" Value="copy" />
+                    <DialButtonItem Icon="fa-solid fa-paste" Value="paste" />
+                </DialButton>
+            </div>
+            <div class="col-4 justify-content-start align-items-center">
+                <DialButton Icon="fa-solid fa-flag" Placement="Placement.Right" DialMode="Mode">
+                    <DialButtonItem Icon="fa-solid fa-cut" Value="cut" />
+                    <DialButtonItem Icon="fa-solid fa-copy" Value="copy" />
+                    <DialButtonItem Icon="fa-solid fa-paste" Value="paste" />
+                </DialButton>
+            </div>
+            <div class="col-4 justify-content-center align-items-center">
+                <DialButton Icon="fa-solid fa-flag" Placement="Placement.Top" DialMode="Mode">
+                    <DialButtonItem Icon="fa-solid fa-cut" Value="cut" />
+                    <DialButtonItem Icon="fa-solid fa-copy" Value="copy" />
+                    <DialButtonItem Icon="fa-solid fa-paste" Value="paste" />
+                </DialButton>
+            </div>
+            <div class="col-4 justify-content-end align-items-center">
+                <DialButton Icon="fa-solid fa-flag" Placement="Placement.Left" DialMode="Mode">
+                    <DialButtonItem Icon="fa-solid fa-cut" Value="cut" />
+                    <DialButtonItem Icon="fa-solid fa-copy" Value="copy" />
+                    <DialButtonItem Icon="fa-solid fa-paste" Value="paste" />
+                </DialButton>
+            </div>
+            <div class="col-4 justify-content-start align-items-end">
+                <DialButton Icon="fa-solid fa-flag" Placement="Placement.Top" DialMode="Mode">
+                    <DialButtonItem Icon="fa-solid fa-cut" Value="cut" />
+                    <DialButtonItem Icon="fa-solid fa-copy" Value="copy" />
+                    <DialButtonItem Icon="fa-solid fa-paste" Value="paste" />
+                </DialButton>
+            </div>
+            <div class="col-4 justify-content-center align-items-end">
+                <DialButton Icon="fa-solid fa-flag" Placement="Placement.Top" DialMode="Mode">
+                    <DialButtonItem Icon="fa-solid fa-cut" Value="cut" />
+                    <DialButtonItem Icon="fa-solid fa-copy" Value="copy" />
+                    <DialButtonItem Icon="fa-solid fa-paste" Value="paste" />
+                </DialButton>
+            </div>
+            <div class="col-4 justify-content-end align-items-end">
+                <DialButton Icon="fa-solid fa-flag" Placement="Placement.Top" DialMode="Mode">
+                    <DialButtonItem Icon="fa-solid fa-cut" Value="cut" />
+                    <DialButtonItem Icon="fa-solid fa-copy" Value="copy" />
+                    <DialButtonItem Icon="fa-solid fa-paste" Value="paste" />
+                </DialButton>
+            </div>
         </div>
     </div>
 </DemoBlock>

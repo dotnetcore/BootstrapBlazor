@@ -13,20 +13,20 @@ public partial class DialButtons
     [NotNull]
     private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
-    private Placement Placement { get; set; }
+    private DialMode Mode { get; set; }
 
     //private IEnumerable<SelectedItem> Items => Foo.GenerateFoo(LocalizerFoo, _buttonCount).Select(i => new DialButtonItem(i.Id.ToString(), i.Name!));
 
     private int _buttonCount = 5;
 
-    private Task OnClickPlacement(Placement placement)
+    private Task OnClick(DialMode mode)
     {
-        Placement = placement;
+        Mode = mode;
         StateHasChanged();
         return Task.CompletedTask;
     }
 
-    private CheckboxState CheckState(string state) => Placement.ToDescriptionString() == state ? CheckboxState.Checked : CheckboxState.UnChecked;
+    private CheckboxState CheckState(string state) => Mode.ToString() == state ? CheckboxState.Checked : CheckboxState.UnChecked;
 
     /// <summary>
     /// GetAttributes
