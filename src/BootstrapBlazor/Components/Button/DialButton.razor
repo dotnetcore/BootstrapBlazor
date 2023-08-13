@@ -27,19 +27,21 @@
             }
         </div>
         <div class="@DialButtonListClassString">
-            @if (BodyTemplate == null)
-            {
-                foreach (var item in _list)
+            <div class="dial-list-content">
+                @foreach (var item in _list)
                 {
-                    <span @key="@item" class="dial-item" @onclick="@(e => OnClickItem(item))">
-                        <i class="@item.Icon"></i>
-                    </span>
+                    <div @key="@item" class="dial-item" @onclick="@(e => OnClickItem(item))">
+                        @if (ItemTemplate == null)
+                        {
+                            <i class="@item.Icon"></i>
+                        }
+                        else
+                        {
+                            @ItemTemplate
+                        }
+                    </div>
                 }
-            }
-            else
-            {
-                @BodyTemplate
-            }
+            </div>
         </div>
     </RenderTemplate>
 </div>

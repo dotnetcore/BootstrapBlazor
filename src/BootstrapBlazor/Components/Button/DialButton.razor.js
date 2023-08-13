@@ -13,7 +13,15 @@ export function init(id) {
     reset(slide)
 
     EventHandler.on(button, 'click', () => {
-        list.classList.toggle('show')
+        toggle(list)
+    })
+
+    EventHandler.on(list, 'animationend', e => {
+        if (list.classList.contains('closing')) {
+            list.classList.remove('show')
+            list.classList.remove('closing')
+        }
+        list.style.removeProperty('--bb-dial-list-animation-name')
     })
 
     if (!window.bb_slide_button) {
@@ -26,7 +34,7 @@ export function init(id) {
 export function close(id) {
     const slide = Data.get(id)
     if (slide) {
-        slide.list.classList.remove('show')
+        toggle(slide.list)
     }
 }
 
@@ -35,6 +43,16 @@ export function dispose(id) {
     Data.remove(id)
 
     if (slide) {
+    }
+}
+
+const toggle = list => {
+    list.style.setProperty('--bb-dial-list-animation-name', 'dial')
+    if (list.classList.contains('show')) {
+        list.classList.add('closing');
+    }
+    else {
+        list.classList.add('show')
     }
 }
 
@@ -62,6 +80,9 @@ const reset = slide => {
     else if (placement === 'auto' || placement === 'right') {
         style = `top: ${(buttonHeight - listHeight) / 2}px; left: ${buttonWidth + offset}px;`
     }
+    // calc items count
+    const items = list.querySelectorAll('.dial-item')
+    style = `${style} --bb-dial-items-count: ${items.length}; --bs-dial-list-width: ${listWidth}px;`
 
     if (style) {
         list.setAttribute('style', style)

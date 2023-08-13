@@ -1,26 +1,45 @@
 ﻿.dial-button {
-    --bb-dial-list-padding: 6px;
+    --bb-dial-list-zindex: 5;
+    --bb-dial-list-animation-duration: .3s;
     --bb-dial-item-padding: 0.25rem 1rem;
+    --bb-dial-item-bg: #fff;
     --bb-dial-item-hover-bg: #e9ecef;
     --bb-dial-item-hover-color: var(--bs-body-color);
     --bb-dial-item-hover-border-color: #c0c4cc;
     --bb-dial-item-border: 1px solid #dee2e6;
     --bb-dial-item-margin: 6px;
+    --bb-dial-item-width: 40px;
+    --bb-dial-item-height: 40px;
+    --bb-dial-item-radius: 50%;
+    --bb-dial-item-shadow: 0 1px 6px #c0c4cc;
     position: relative;
     display: inline-flex;
 }
 
     .dial-button .dial-list {
-        padding: var(--bb-dial-list-padding);
         overflow: hidden;
         position: absolute;
-        z-index: 5;
+        z-index: var(--bb-dial-list-zindex);
         pointer-events: none;
         display: flex;
+        animation-name: var(--bb-dial-list-animation-name);
+        animation-duration: var(--bb-dial-list-animation-duration);
     }
 
         .dial-button .dial-list:not(.show) {
             visibility: hidden;
+        }
+
+        .dial-button .dial-list.show {
+            animation-timing-function: steps(var(--bb-dial-items-count), start);
+        }
+
+        .dial-button .dial-list.closing {
+            animation-direction: reverse;
+        }
+
+        .dial-button .dial-list .dial-list-content {
+            white-space: nowrap;
         }
 
         .dial-button .dial-list .dial-item {
@@ -28,16 +47,17 @@
             padding: var(--bb-dial-item-padding);
             cursor: pointer;
             white-space: nowrap;
-            box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px rgba(0,0,0,.14), 0 1px 18px rgba(0,0,0,.12);
-            background: #fff;
+            overflow: hidden;
+            background-color: var(--bb-dial-item-bg);
             border: var(--bb-dial-item-border);
-            width: 40px;
-            height: 40px;
+            width: var(--bb-dial-item-width);
+            height: var(--bb-dial-item-height);
+            border-radius: var(--bb-dial-item-radius);
             display: inline-flex;
-            border-radius: 50%;
             justify-content: center;
             align-items: center;
-            transition: background-color .3s linear;
+            box-shadow: var(--bb-dial-item-shadow);
+            transition: background-color .3s linear, border-color .3s linear;
         }
 
         .dial-button .dial-list .dial-item {
@@ -49,3 +69,13 @@
                 border-color: var(--bb-dial-item-hover-border-color);
                 color: var(--bb-dial-item-hover-color);
             }
+
+@keyframes dial {
+    0% {
+        width: 0;
+    }
+
+    100% {
+        width: var(--bs-dial-list-width);
+    }
+}
