@@ -25,7 +25,7 @@ public partial class DialButton
     /// 展开部分模板
     /// </summary>
     [Parameter]
-    public RenderFragment? ItemTemplate { get; set; }
+    public RenderFragment<DialButtonItem>? ItemTemplate { get; set; }
 
     /// <summary>
     /// 展开项集合
