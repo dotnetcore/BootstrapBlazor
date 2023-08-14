@@ -2,7 +2,7 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader("Button/DialButton.razor.js")]
 
-<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString" data-bb-placement="@Placement.ToDescriptionString()" data-bb-auto-close="@IsAutoCloseString" data-bb-offset="@Offset">
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString" data-bb-placement="@Placement.ToDescriptionString()" data-bb-auto-close="@IsAutoCloseString" data-bb-offset="@Offset" data-bb-radius="@RadiusString">
     <CascadingValue Value="_buttonItems" IsFixed="true">
         @ChildContent
     </CascadingValue>
@@ -26,11 +26,11 @@
                 @ButtonTemplate
             }
         </div>
-        <div class="@DialButtonListClassString">
-            <div class="dial-list-content">
+        <div class="dial-list">
+            <div class="dial-list-content" role="menu">
                 @foreach (var item in _list)
                 {
-                    <div @key="@item" class="dial-item" @onclick="@(e => OnClickItem(item))">
+                    <div @key="@item" class="dial-item" role="menuitem" @onclick="@(e => OnClickItem(item))">
                         @if (ItemTemplate == null)
                         {
                             <i class="@item.Icon"></i>

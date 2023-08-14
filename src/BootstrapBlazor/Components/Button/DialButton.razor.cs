@@ -47,6 +47,12 @@ public partial class DialButton
     public Placement Placement { get; set; }
 
     /// <summary>
+    /// 获得/设置 <see cref="DialMode"/> 为 <seealso cref="DialMode.Radial"/> 时扇形分布半径值 默认 150;
+    /// </summary>
+    [Parameter]
+    public int Radius { get; set; } = 150;
+
+    /// <summary>
     /// 获得/设置 弹窗便宜量 默认 8px
     /// </summary>
     [Parameter]
@@ -112,9 +118,6 @@ public partial class DialButton
         .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
         .Build();
 
-    private string? DialButtonListClassString => CssBuilder.Default("dial-list")
-        .Build();
-
     private string? IsAutoCloseString => IsAutoClose ? "true" : null;
 
     /// <summary>
@@ -122,11 +125,13 @@ public partial class DialButton
     /// </summary>
     private string? Disabled => IsDisabled ? "disabled" : null;
 
+    private string? RadiusString => DialMode == DialMode.Radial ? Radius.ToString() : null;
+
     private List<DialButtonItem> _buttonItems = new();
 
     private IEnumerable<DialButtonItem> _list => _buttonItems.Concat(Items);
 
-    private Placement _lastPlacement;
+    private bool _shouldRender;
 
     /// <summary>
     /// <inheritdoc/>
@@ -136,6 +141,7 @@ public partial class DialButton
         base.OnParametersSet();
 
         Items ??= Enumerable.Empty<DialButtonItem>();
+        _shouldRender = true;
     }
 
     /// <summary>
@@ -145,16 +151,10 @@ public partial class DialButton
     /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
-        {
-            _lastPlacement = Placement;
-        }
-
         await base.OnAfterRenderAsync(firstRender);
 
-        if (_lastPlacement != Placement)
+        if (!firstRender && _shouldRender)
         {
-            _lastPlacement = Placement;
             await InvokeVoidAsync("update", Id);
         }
     }

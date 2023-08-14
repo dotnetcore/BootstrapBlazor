@@ -39,6 +39,13 @@ export function init(id) {
     }
 }
 
+export function update(id) {
+    const dial = Data.get(id)
+    if (dial) {
+        reset(dial)
+    }
+}
+
 export function close(id) {
     const slide = Data.get(id)
     if (slide) {
@@ -96,6 +103,32 @@ const reset = slide => {
     }
 }
 
+const resetRadial = slide => {
+    const { el, button, list } = slide
+    const placement = el.getAttribute('data-bb-placement') || 'middle-center'
+    let offset = parseFloat(el.getAttribute('data-bb-offset') || '8')
+
+    const buttonHeight = button.offsetHeight
+    const buttonWidth = button.offsetWidth
+
+    const dialRadius = parseFloat(el.getAttribute('data-bb-dial-radius') || '150')
+
+    if (placement === 'top-start') {
+        list.style.setProperty('top', '0px')
+        list.style.setProperty('left', '0px')
+        list.style.setProperty('--bb-dial-list-radial-radius', `${dialRadius}px`)
+    }
+
+    const items = list.querySelectorAll('.dial-item')
+    if (items.length > 0) {
+        for (let index = 0; index < items.length; index++) {
+            const item = items[index]
+            item.style.setProperty('--bb-dial-list-radial-radius', `${dialRadius - item.offsetWidth * 1.5}px`)
+            item.style.setProperty('--bb-dial-item-angle', `${(90 / (items.length - 1)) * index}deg`)
+        }
+    }
+}
+
 const resetLinear = slide => {
     const { el, button, list } = slide
     const placement = el.getAttribute('data-bb-placement') || 'middle-end'
@@ -109,10 +142,10 @@ const resetLinear = slide => {
     const listWidth = parseFloat(listStyle.width)
 
     let style = null
-    if (placement.startsWith('top')) {
+    if (placement.startsWith('bottom')) {
         style = `bottom: ${buttonHeight + offset}px; left: ${(buttonWidth - listWidth) / 2}px;`
     }
-    else if (placement.startsWith('bottom')) {
+    else if (placement.startsWith('top')) {
         style = `top: ${buttonHeight + offset}px; left: ${(buttonWidth - listWidth) / 2}px;`
     }
     else if (placement === 'middle-end') {
@@ -124,13 +157,6 @@ const resetLinear = slide => {
 
     if (style) {
         list.setAttribute('style', style)
-    }
-    // calc items count
-    if (placement === 'top' || placement === 'bottom') {
-        list.style.setProperty('--bs-dial-list-height', `${listHeight}px`)
-    }
-    else {
-        list.style.setProperty('--bs-dial-list-width', `${listWidth}px`)
     }
 }
 
