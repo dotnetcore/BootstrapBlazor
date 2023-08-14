@@ -47,10 +47,10 @@ public partial class DialButton
     public Placement Placement { get; set; }
 
     /// <summary>
-    /// 获得/设置 <see cref="DialMode"/> 为 <seealso cref="DialMode.Radial"/> 时扇形分布半径值 默认 150;
+    /// 获得/设置 <see cref="DialMode"/> 为 <seealso cref="DialMode.Radial"/> 时扇形分布半径值 默认 75;
     /// </summary>
     [Parameter]
-    public int Radius { get; set; } = 150;
+    public int Radius { get; set; } = 75;
 
     /// <summary>
     /// 获得/设置 弹窗便宜量 默认 8px
