@@ -111,20 +111,36 @@ const resetRadial = slide => {
     const buttonHeight = button.offsetHeight
     const buttonWidth = button.offsetWidth
 
-    const dialRadius = parseFloat(el.getAttribute('data-bb-dial-radius') || '150')
+    const dialRadius = parseFloat(el.getAttribute('data-bb-radius') || '150')
 
+    let area = 90
     if (placement === 'top-start') {
+        const radialOffset = dialRadius - buttonWidth * 1.5
+        list.style.setProperty('--bb-dial-radial-offset', `${radialOffset}px`)
+        list.style.setProperty('--bb-dial-list-width', `${dialRadius}px`)
+        list.style.setProperty('--bb-dial-list-height', `${dialRadius}px`)
         list.style.setProperty('top', '0px')
         list.style.setProperty('left', '0px')
-        list.style.setProperty('--bb-dial-list-radial-radius', `${dialRadius}px`)
+    }
+    else if (placement === 'top-center') {
+        area = 180
+        const radialOffset = dialRadius / 2 - buttonWidth * 1.5
+        list.style.setProperty('--bb-dial-radial-offset', `${radialOffset}px`)
+        list.style.setProperty('--bb-dial-list-width', `${dialRadius}px`)
+        list.style.setProperty('--bb-dial-list-height', `${dialRadius / 2}px`)
+        list.style.setProperty('top', '0px')
+        list.style.setProperty('left', `${(buttonWidth - dialRadius) / 2}px`)
     }
 
     const items = list.querySelectorAll('.dial-item')
     if (items.length > 0) {
         for (let index = 0; index < items.length; index++) {
             const item = items[index]
-            item.style.setProperty('--bb-dial-list-radial-radius', `${dialRadius - item.offsetWidth * 1.5}px`)
-            item.style.setProperty('--bb-dial-item-angle', `${(90 / (items.length - 1)) * index}deg`)
+            item.style.setProperty('--bb-dial-item-angle', `${(area / (items.length - 1)) * index}deg`)
+
+            if (placement === 'top-center') {
+                item.style.setProperty('left', `calc(${(dialRadius - buttonWidth) / 2}px - 2 * var(--bb-dial-item-margin))`)
+            }
         }
     }
 }

@@ -79,10 +79,16 @@
         border-bottom-right-radius: 100%;
     }
 
+    .dial-button.is-radial[data-bb-placement="top-center"] .dial-list {
+        border-bottom-left-radius: 100%;
+        border-bottom-right-radius: 100%;
+    }
+
     .dial-button.is-radial .dial-list {
-        width: var(--bb-dial-list-radial-radius);
-        height: var(--bb-dial-list-radial-radius);
+        width: var(--bb-dial-list-width);
+        height: var(--bb-dial-list-height);
         --bb-dial-item-margin: 2px;
+        border: 1px solid #ddd;
     }
 
         .dial-button.is-radial .dial-list .dial-list-content {
@@ -94,7 +100,7 @@
 
             .dial-button.is-radial .dial-list .dial-list-content .dial-item {
                 position: absolute;
-                transform: rotate(var(--bb-dial-item-angle)) translate(var(--bb-dial-list-radial-radius)) rotate(calc(-1 * var(--bb-dial-item-angle)));
+                transform: rotate(var(--bb-dial-item-angle)) translate(var(--bb-dial-radial-offset)) rotate(calc(-1 * var(--bb-dial-item-angle)));
             }
 
 @keyframes FadeIn {
