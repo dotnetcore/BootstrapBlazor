@@ -182,7 +182,7 @@
     "chart/line": "Charts\\Line",
     "chart/pie": "Charts\\Pie",
     "slide-button": "SlideButtons",
-    "diag-button": "DialButtons"
+    "dial-button": "DialButtons"
   },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",
