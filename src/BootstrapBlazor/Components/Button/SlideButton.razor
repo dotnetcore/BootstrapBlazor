@@ -7,23 +7,25 @@
         @SlideButtonItems
     </CascadingValue>
     <RenderTemplate>
-        @if (ButtonTemplate == null)
-        {
-            <button type="button" class="@ButtonClassString" disabled="@Disabled" role="button" id="@ButtonId">
-                @if (!string.IsNullOrEmpty(Icon))
-                {
-                    <i class="@Icon"></i>
-                }
-                @if (!string.IsNullOrEmpty(Text))
-                {
-                    <span>@Text</span>
-                }
-            </button>
-        }
-        else
-        {
-            @ButtonTemplate
-        }
+        <div class="btn-slide">
+            @if (ButtonTemplate == null)
+            {
+                <button type="button" class="@ButtonClassString" disabled="@Disabled" role="button">
+                    @if (!string.IsNullOrEmpty(Icon))
+                    {
+                        <i class="@Icon"></i>
+                    }
+                    @if (!string.IsNullOrEmpty(Text))
+                    {
+                        <span>@Text</span>
+                    }
+                </button>
+            }
+            else
+            {
+                @ButtonTemplate
+            }
+        </div>
         <div class="@SlideListClassString">
             @if (ShowHeader)
             {

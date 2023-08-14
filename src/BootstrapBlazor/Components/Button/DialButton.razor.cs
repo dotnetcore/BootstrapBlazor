@@ -2,20 +2,18 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components.Web;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// SlideButton 组件
+/// 拨号按钮组件
 /// </summary>
-public partial class SlideButton
+public partial class DialButton
 {
     /// <summary>
     /// 数据项模板
     /// </summary>
     [Parameter]
-    public RenderFragment? SlideButtonItems { get; set; }
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// 按钮模板
@@ -27,21 +25,14 @@ public partial class SlideButton
     /// 展开部分模板
     /// </summary>
     [Parameter]
-    public RenderFragment? BodyTemplate { get; set; }
+    public RenderFragment<DialButtonItem>? ItemTemplate { get; set; }
 
     /// <summary>
     /// 展开项集合
     /// </summary>
     [Parameter]
     [NotNull]
-    public IEnumerable<SelectedItem>? Items { get; set; }
-
-    /// <summary>
-    /// 展开项 Header 文本
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? HeaderText { get; set; }
+    public IEnumerable<DialButtonItem>? Items { get; set; }
 
     /// <summary>
     /// 获得/设置 按钮颜色
@@ -54,6 +45,12 @@ public partial class SlideButton
     /// </summary>
     [Parameter]
     public Placement Placement { get; set; }
+
+    /// <summary>
+    /// 获得/设置 <see cref="DialMode"/> 为 <seealso cref="DialMode.Radial"/> 时扇形分布半径值 默认 75;
+    /// </summary>
+    [Parameter]
+    public int Radius { get; set; } = 75;
 
     /// <summary>
     /// 获得/设置 弹窗便宜量 默认 8px
@@ -74,12 +71,6 @@ public partial class SlideButton
     public string? Icon { get; set; }
 
     /// <summary>
-    /// 获得/设置 显示文本
-    /// </summary>
-    [Parameter]
-    public string? Text { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否禁用 默认为 false
     /// </summary>
     [Parameter]
@@ -95,19 +86,20 @@ public partial class SlideButton
     /// 获得/设置 OnClick 事件
     /// </summary>
     [Parameter]
-    public EventCallback<SelectedItem> OnClick { get; set; }
+    public EventCallback<DialButtonItem> OnClick { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示标题 默认 false 不显示
+    /// 获得/设置 呈现方式 默认为 直线
     /// </summary>
     [Parameter]
-    public bool ShowHeader { get; set; }
+    public DialMode DialMode { get; set; }
 
     /// <summary>
     /// 获得 按钮样式集合
     /// </summary>
     /// <returns></returns>
-    private string? ClassString => CssBuilder.Default("slide-button")
+    private string? ClassString => CssBuilder.Default("dial-button")
+        .AddClass("is-radial", DialMode == DialMode.Radial)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -120,10 +112,6 @@ public partial class SlideButton
         .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
         .Build();
 
-    private string? SlideListClassString => CssBuilder.Default("slide-list d-none")
-        .AddClass("is-horizontal", Placement.ToDescriptionString().StartsWith("left") || Placement.ToDescriptionString().StartsWith("right"))
-        .Build();
-
     private string? IsAutoCloseString => IsAutoClose ? "true" : null;
 
     /// <summary>
@@ -131,11 +119,13 @@ public partial class SlideButton
     /// </summary>
     private string? Disabled => IsDisabled ? "disabled" : null;
 
-    private SelectedItem? _selectedItem;
+    private string? RadiusString => DialMode == DialMode.Radial ? Radius.ToString() : null;
 
-    private List<SlideButtonItem> _buttonItems = new();
+    private List<DialButtonItem> _buttonItems = new();
 
-    private Placement _lastPlacement;
+    private IEnumerable<DialButtonItem> _list => _buttonItems.Concat(Items);
+
+    private bool _shouldRender;
 
     /// <summary>
     /// <inheritdoc/>
@@ -144,12 +134,9 @@ public partial class SlideButton
     {
         base.OnParametersSet();
 
-        Items ??= Enumerable.Empty<SelectedItem>();
+        Items ??= Enumerable.Empty<DialButtonItem>();
+        _shouldRender = true;
     }
-
-    private string? GetItemClass(SelectedItem item) => CssBuilder.Default("slide-item")
-        .AddClass("active", _selectedItem?.Value == item.Value)
-        .Build();
 
     /// <summary>
     /// <inheritdoc/>
@@ -158,23 +145,16 @@ public partial class SlideButton
     /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
-        {
-            _lastPlacement = Placement;
-        }
-
         await base.OnAfterRenderAsync(firstRender);
 
-        if (_lastPlacement != Placement)
+        if (!firstRender && _shouldRender)
         {
-            _lastPlacement = Placement;
             await InvokeVoidAsync("update", Id);
         }
     }
 
-    private async Task OnClickItem(SelectedItem item)
+    private async Task OnClickItem(DialButtonItem item)
     {
-        _selectedItem = item;
         if (IsAutoClose)
         {
             await InvokeVoidAsync("close", Id);

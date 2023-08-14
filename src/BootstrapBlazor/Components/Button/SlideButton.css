@@ -23,6 +23,7 @@
         border-radius: var(--bs-border-radius);
         box-shadow: var(--bb-slide-list-shadow);
         overflow: hidden;
+        white-space: nowrap;
         position: absolute;
         z-index: 5;
         display: flex;

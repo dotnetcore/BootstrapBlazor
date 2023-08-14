@@ -5734,5 +5734,11 @@
     "SlideButtonItemsIntro": "在页面中直接录入 <code>SlideButtonItems</code> 集合当数据源",
     "BodyTemplateText": "自定义模板",
     "BodyTemplateIntro": "通过设置 <code>BodyTemplate</code> 自定义弹窗内数据"
+  },
+  "BootstrapBlazor.Shared.Samples.DialButtons": {
+    "DialButtonTitle": "DialButton 拨号按钮",
+    "DialButtonIntro": "点击按钮后弹出功能菜单等信息，多用于二级功能展示",
+    "BaseUsageText": "基本用法",
+    "BaseUsageIntro": "通过设置 <code>Placement</code> 枚举值设置弹窗与按钮位置关系"
   }
 }
