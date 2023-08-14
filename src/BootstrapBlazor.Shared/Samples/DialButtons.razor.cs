@@ -9,15 +9,7 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class DialButtons
 {
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
-
     private DialMode Mode { get; set; }
-
-    //private IEnumerable<SelectedItem> Items => Foo.GenerateFoo(LocalizerFoo, _buttonCount).Select(i => new DialButtonItem(i.Id.ToString(), i.Name!));
-
-    private int _buttonCount = 5;
 
     private Task OnClick(DialMode mode)
     {
@@ -36,9 +28,25 @@ public partial class DialButtons
     {
         new()
         {
-            Name = nameof(FileViewer.Filename),
-            Description = "Excel/Word 文件路径或者URL",
-            Type = "string",
+            Name = nameof(DialButton.Placement),
+            Description = "the dial button placement",
+            Type = "Placement",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(DialButton.DialMode),
+            Description = "the dial button placement",
+            Type = "DialMode",
+            ValueList = "Linear/Radial",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(DialButton.Radius),
+            Description = "the dial popup radius",
+            Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
         }
