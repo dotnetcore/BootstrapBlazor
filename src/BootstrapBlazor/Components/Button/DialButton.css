@@ -88,6 +88,20 @@
         border-bottom-left-radius: 100%;
     }
 
+    .dial-button.is-radial[data-bb-placement="middle-start"] .dial-list {
+        border-top-right-radius: 100%;
+        border-bottom-right-radius: 100%;
+    }
+
+    .dial-button.is-radial[data-bb-placement="middle-center"] .dial-list {
+        border-radius: 50%;
+    }
+
+    .dial-button.is-radial[data-bb-placement="middle-end"] .dial-list {
+        border-top-left-radius: 100%;
+        border-bottom-left-radius: 100%;
+    }
+
     .dial-button.is-radial .dial-list {
         width: var(--bb-dial-list-width);
         height: var(--bb-dial-list-height);
