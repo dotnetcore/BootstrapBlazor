@@ -60,12 +60,12 @@
                 color: var(--bb-dial-item-hover-color);
             }
 
-    .dial-button[data-bb-placement="bottom"] .dial-list-content {
+    .dial-button[data-bb-placement*="bottom"] .dial-list-content {
         flex-direction: column;
         height: var(--bs-dial-list-height);
     }
 
-    .dial-button[data-bb-placement="top"] .dial-list-content {
+    .dial-button[data-bb-placement*="top"] .dial-list-content {
         flex-direction: column-reverse;
         height: var(--bs-dial-list-height);
     }

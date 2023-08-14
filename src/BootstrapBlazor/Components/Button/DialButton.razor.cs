@@ -99,6 +99,7 @@ public partial class DialButton
     /// </summary>
     /// <returns></returns>
     private string? ClassString => CssBuilder.Default("dial-button")
+        .AddClass("is-radial", DialMode == DialMode.Radial)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 

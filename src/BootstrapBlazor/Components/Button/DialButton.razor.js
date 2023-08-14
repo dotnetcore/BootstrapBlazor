@@ -67,17 +67,17 @@ const animate = (item, value, delay, fn) => {
 }
 
 const toggle = (el, list) => {
+    const items = list.querySelectorAll('.dial-item')
     if (list.classList.contains('show')) {
         list.classList.add('closing')
-        var items = list.querySelectorAll('.dial-item')
-        for (var index = 0; index < items.length; index++) {
-            var item = items[items.length - index - 1]
+        for (let index = 0; index < items.length; index++) {
+            const item = items[items.length - index - 1]
             animate(item, '200ms cubic-bezier(0, 0, 0.58, 1) 0s 1 normal none running FadeOut', index * 100)
         }
     }
     else {
         list.classList.add('show')
-        list.querySelectorAll('.dial-item').forEach((item, index) => {
+        items.forEach((item, index) => {
             item.style.setProperty('visibility', 'hidden')
             animate(item, '.2s cubic-bezier(0.42, 0, 1, 1) 0s 1 normal none running FadeIn', index * 100, () => {
                 item.style.removeProperty('visibility')
@@ -87,8 +87,18 @@ const toggle = (el, list) => {
 }
 
 const reset = slide => {
+    const isRadial = slide.el.classList.contains('is-radial')
+    if (isRadial) {
+        resetRadial(slide)
+    }
+    else {
+        resetLinear(slide)
+    }
+}
+
+const resetLinear = slide => {
     const { el, button, list } = slide
-    const placement = el.getAttribute('data-bb-placement') || 'auto'
+    const placement = el.getAttribute('data-bb-placement') || 'middle-end'
     let offset = parseFloat(el.getAttribute('data-bb-offset') || '8')
 
     const buttonHeight = button.offsetHeight
@@ -97,17 +107,18 @@ const reset = slide => {
     const listStyle = getComputedStyle(list)
     const listHeight = parseFloat(listStyle.height)
     const listWidth = parseFloat(listStyle.width)
+
     let style = null
-    if (placement === 'top') {
+    if (placement.startsWith('top')) {
         style = `bottom: ${buttonHeight + offset}px; left: ${(buttonWidth - listWidth) / 2}px;`
     }
-    else if (placement === 'bottom') {
+    else if (placement.startsWith('bottom')) {
         style = `top: ${buttonHeight + offset}px; left: ${(buttonWidth - listWidth) / 2}px;`
     }
-    else if (placement === 'left') {
+    else if (placement === 'middle-end') {
         style = `top: ${(buttonHeight - listHeight) / 2}px; right: ${buttonWidth + offset}px;`
     }
-    else if (placement === 'auto' || placement === 'right') {
+    else if (placement === 'middle-center' || placement === 'middle-start') {
         style = `top: ${(buttonHeight - listHeight) / 2}px; left: ${buttonWidth + offset}px;`
     }
 
@@ -115,7 +126,6 @@ const reset = slide => {
         list.setAttribute('style', style)
     }
     // calc items count
-    const items = list.querySelectorAll('.dial-item')
     if (placement === 'top' || placement === 'bottom') {
         list.style.setProperty('--bs-dial-list-height', `${listHeight}px`)
     }
