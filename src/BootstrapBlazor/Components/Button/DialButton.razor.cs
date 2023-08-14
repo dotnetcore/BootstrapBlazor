@@ -71,12 +71,6 @@ public partial class DialButton
     public string? Icon { get; set; }
 
     /// <summary>
-    /// 获得/设置 显示文本
-    /// </summary>
-    [Parameter]
-    public string? Text { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否禁用 默认为 false
     /// </summary>
     [Parameter]
