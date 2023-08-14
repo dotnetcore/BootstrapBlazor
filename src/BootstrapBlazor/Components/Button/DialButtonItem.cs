@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 public class DialButtonItem : ComponentBase, IDisposable
 {
     /// <summary>
-    /// 显示文本
+    /// 显示图标
     /// </summary>
     [Parameter]
     [NotNull]
