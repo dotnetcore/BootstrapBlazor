@@ -12,6 +12,7 @@
     --bb-dial-item-radius: 50%;
     --bb-dial-item-shadow: 0 1px 6px #c0c4cc;
     --bb-dial-list-radial-offset: 8px;
+    --bb-dial-list-animation-duration: .2s;
     position: relative;
     display: inline-flex;
 }
@@ -61,6 +62,27 @@
                 color: var(--bb-dial-item-hover-color);
             }
 
+    .dial-button[data-bb-placement*="top"] .dial-list {
+        top: var(--bb-dial-list-vertical-offset);
+        left: var(--bb-dial-list-horizontal-offset);
+    }
+
+    .dial-button[data-bb-placement*="bottom"] .dial-list {
+        bottom: var(--bb-dial-list-vertical-offset);
+        left: var(--bb-dial-list-horizontal-offset);
+    }
+
+    .dial-button[data-bb-placement="middle-end"] .dial-list {
+        top: var(--bb-dial-list-vertical-offset);
+        right: var(--bb-dial-list-horizontal-offset);
+    }
+
+    .dial-button[data-bb-placement="middle-center"] .dial-list,
+    .dial-button[data-bb-placement="middle-start"] .dial-list {
+        top: var(--bb-dial-list-vertical-offset);
+        left: var(--bb-dial-list-horizontal-offset);
+    }
+
     .dial-button[data-bb-placement*="top"] .dial-list-content {
         flex-direction: column;
         height: var(--bs-dial-list-height);
@@ -102,11 +124,23 @@
         border-bottom-left-radius: 100%;
     }
 
+    .dial-button.is-radial[data-bb-placement="bottom-start"] .dial-list {
+        border-top-right-radius: 100%;
+    }
+
+    .dial-button.is-radial[data-bb-placement="bottom-center"] .dial-list {
+        border-top-left-radius: 100%;
+        border-top-right-radius: 100%;
+    }
+
+    .dial-button.is-radial[data-bb-placement="bottom-end"] .dial-list {
+        border-top-left-radius: 100%;
+    }
+
     .dial-button.is-radial .dial-list {
         width: var(--bb-dial-list-width);
         height: var(--bb-dial-list-height);
         --bb-dial-item-margin: 2px;
-        border: 1px solid #ddd;
     }
 
         .dial-button.is-radial .dial-list .dial-list-content {
@@ -120,6 +154,14 @@
                 position: absolute;
                 transform: rotate(var(--bb-dial-item-angle)) translate(var(--bb-dial-radial-offset)) rotate(calc(-1 * var(--bb-dial-item-angle)));
             }
+
+.bb-animation-fadein {
+    animation: .2s cubic-bezier(0.42, 0, 1, 1) 0s 1 normal none running FadeIn
+}
+
+.bb-animation-fadeout {
+    animation: .2s cubic-bezier(0, 0, 0.58, 1) 0s 1 normal none running FadeOut
+}
 
 @keyframes FadeIn {
     0% {

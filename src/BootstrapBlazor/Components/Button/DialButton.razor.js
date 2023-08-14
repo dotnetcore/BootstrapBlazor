@@ -79,14 +79,14 @@ const toggle = (el, list) => {
         list.classList.add('closing')
         for (let index = 0; index < items.length; index++) {
             const item = items[items.length - index - 1]
-            animate(item, '200ms cubic-bezier(0, 0, 0.58, 1) 0s 1 normal none running FadeOut', index * 100)
+            animate(item, 'var(--bb-dial-list-animation-duration) cubic-bezier(0, 0, 0.58, 1) 0s 1 normal none running FadeOut', index * 100)
         }
     }
     else {
         list.classList.add('show')
         items.forEach((item, index) => {
             item.style.setProperty('visibility', 'hidden')
-            animate(item, '.2s cubic-bezier(0.42, 0, 1, 1) 0s 1 normal none running FadeIn', index * 100, () => {
+            animate(item, 'var(--bb-dial-list-animation-duration) cubic-bezier(0.42, 0, 1, 1) 0s 1 normal none running FadeIn', index * 100, () => {
                 item.style.removeProperty('visibility')
             })
         })
@@ -133,7 +133,6 @@ const resetRadial = slide => {
         list.style.setProperty('left', `${buttonWidth / 2 - dialRadius}px`)
     }
     else if (placement === 'top-end') {
-        area = 90
         const radialOffset = dialRadius - buttonWidth * 1.5
         list.style.setProperty('--bb-dial-radial-offset', `${radialOffset}px`)
         list.style.setProperty('--bb-dial-list-width', `${dialRadius}px`)
@@ -168,6 +167,31 @@ const resetRadial = slide => {
         list.style.setProperty('top', `${buttonHeight / 2 - dialRadius}px`)
         list.style.setProperty('right', '0')
     }
+    else if (placement === 'bottom-start') {
+        const radialOffset = dialRadius - buttonWidth * 1.5
+        list.style.setProperty('--bb-dial-radial-offset', `${radialOffset}px`)
+        list.style.setProperty('--bb-dial-list-width', `${dialRadius}px`)
+        list.style.setProperty('--bb-dial-list-height', `${dialRadius}px`)
+        list.style.setProperty('bottom', '0')
+        list.style.setProperty('left', '0')
+    }
+    else if (placement === 'bottom-center') {
+        area = 180
+        const radialOffset = dialRadius - buttonWidth * 1.5
+        list.style.setProperty('--bb-dial-radial-offset', `${radialOffset}px`)
+        list.style.setProperty('--bb-dial-list-width', `${dialRadius * 2}px`)
+        list.style.setProperty('--bb-dial-list-height', `${dialRadius}px`)
+        list.style.setProperty('bottom', '0')
+        list.style.setProperty('left', `${buttonWidth / 2 - dialRadius}px`)
+    }
+    else if (placement === 'bottom-end') {
+        const radialOffset = dialRadius - buttonWidth * 1.5
+        list.style.setProperty('--bb-dial-radial-offset', `${radialOffset}px`)
+        list.style.setProperty('--bb-dial-list-width', `${dialRadius}px`)
+        list.style.setProperty('--bb-dial-list-height', `${dialRadius}px`)
+        list.style.setProperty('bottom', '0px')
+        list.style.setProperty('right', '0')
+    }
 
     const items = list.querySelectorAll('.dial-item')
     if (items.length > 0) {
@@ -187,7 +211,7 @@ const resetRadial = slide => {
                 item.style.setProperty('right', '0')
             }
             else if (placement === 'middle-start') {
-                item.style.setProperty('--bb-dial-item-angle', `${(area / (items.length - 1)) * index -90}deg`)
+                item.style.setProperty('--bb-dial-item-angle', `${(area / (items.length - 1)) * index - 90}deg`)
                 item.style.setProperty('top', `calc(${dialRadius - buttonHeight / 2}px - 2 * var(--bb-dial-item-margin))`)
             }
             else if (placement === 'middle-center') {
@@ -198,6 +222,21 @@ const resetRadial = slide => {
             else if (placement === 'middle-end') {
                 item.style.setProperty('--bb-dial-item-angle', `${(area / (items.length - 1)) * index + 90}deg`)
                 item.style.setProperty('top', `calc(${dialRadius - buttonHeight / 2}px - 2 * var(--bb-dial-item-margin))`)
+                item.style.setProperty('right', '0')
+            }
+            else if (placement === 'bottom-start') {
+                item.style.setProperty('--bb-dial-item-angle', `${(area / (items.length - 1)) * index - 90}deg`)
+                item.style.setProperty('bottom', '0')
+                item.style.setProperty('left', '0')
+            }
+            else if (placement === 'bottom-center') {
+                item.style.setProperty('--bb-dial-item-angle', `${(area / (items.length - 1)) * index - 180}deg`)
+                item.style.setProperty('bottom', '0')
+                item.style.setProperty('left', `calc(${dialRadius - buttonWidth / 2}px - 2 * var(--bb-dial-item-margin))`)
+            }
+            else if (placement === 'bottom-end') {
+                item.style.setProperty('--bb-dial-item-angle', `${(area / (items.length - 1)) * index - 180}deg`)
+                item.style.setProperty('bottom', '0')
                 item.style.setProperty('right', '0')
             }
         }
@@ -216,22 +255,14 @@ const resetLinear = slide => {
     const listHeight = parseFloat(listStyle.height)
     const listWidth = parseFloat(listStyle.width)
 
-    let style = null
-    if (placement.startsWith('bottom')) {
-        style = `bottom: ${buttonHeight + offset}px; left: ${(buttonWidth - listWidth) / 2}px;`
+    list.setAttribute('style', '')
+    if (placement.startsWith('middle')) {
+        list.style.setProperty('--bb-dial-list-vertical-offset', `${(buttonHeight - listHeight) / 2}px`)
+        list.style.setProperty('--bb-dial-list-horizontal-offset', `${buttonWidth + offset}px`)
     }
-    else if (placement.startsWith('top')) {
-        style = `top: ${buttonHeight + offset}px; left: ${(buttonWidth - listWidth) / 2}px;`
-    }
-    else if (placement === 'middle-end') {
-        style = `top: ${(buttonHeight - listHeight) / 2}px; right: ${buttonWidth + offset}px;`
-    }
-    else if (placement === 'middle-center' || placement === 'middle-start') {
-        style = `top: ${(buttonHeight - listHeight) / 2}px; left: ${buttonWidth + offset}px;`
-    }
-
-    if (style) {
-        list.setAttribute('style', style)
+    else {
+        list.style.setProperty('--bb-dial-list-vertical-offset', `${buttonHeight + offset}px`)
+        list.style.setProperty('--bb-dial-list-horizontal-offset', `${(buttonWidth - listWidth) / 2}px`)
     }
 }
 
