@@ -264,6 +264,9 @@ const resetLinear = slide => {
         list.style.setProperty('--bb-dial-list-vertical-offset', `${buttonHeight + offset}px`)
         list.style.setProperty('--bb-dial-list-horizontal-offset', `${(buttonWidth - listWidth) / 2}px`)
     }
+    list.querySelectorAll('.dial-item').forEach(item => {
+        item.removeAttribute('style')
+    })
 }
 
 const closePopup = e => {
