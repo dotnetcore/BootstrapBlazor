@@ -113,6 +113,7 @@ const resetRadial = slide => {
 
     const dialRadius = parseFloat(el.getAttribute('data-bb-radius') || '150')
 
+    list.style = ''
     let area = 90
     if (placement === 'top-start') {
         const radialOffset = dialRadius - buttonWidth * 1.5
@@ -131,15 +132,34 @@ const resetRadial = slide => {
         list.style.setProperty('top', '0px')
         list.style.setProperty('left', `${(buttonWidth - dialRadius) / 2}px`)
     }
+    else if (placement === 'top-end') {
+        area = 90
+        const radialOffset = dialRadius - buttonWidth * 1.5
+        list.style.setProperty('--bb-dial-radial-offset', `${radialOffset}px`)
+        list.style.setProperty('--bb-dial-list-width', `${dialRadius}px`)
+        list.style.setProperty('--bb-dial-list-height', `${dialRadius}px`)
+        list.style.setProperty('top', '0px')
+        list.style.setProperty('right', '0px')
+    }
 
     const items = list.querySelectorAll('.dial-item')
     if (items.length > 0) {
         for (let index = 0; index < items.length; index++) {
             const item = items[index]
-            item.style.setProperty('--bb-dial-item-angle', `${(area / (items.length - 1)) * index}deg`)
+            item.style = ''
 
-            if (placement === 'top-center') {
+            if (placement === 'top-start') {
+                item.style.setProperty('--bb-dial-item-angle', `${(area / (items.length - 1)) * index}deg`)
+            }
+            else if (placement === 'top-center') {
+                item.style.setProperty('--bb-dial-item-angle', `${(area / (items.length - 1)) * index}deg`)
                 item.style.setProperty('left', `calc(${(dialRadius - buttonWidth) / 2}px - 2 * var(--bb-dial-item-margin))`)
+                item.style.removeProperty('right')
+            }
+            else if (placement === 'top-end') {
+                item.style.setProperty('--bb-dial-item-angle', `${(area / (items.length - 1)) * index + 90}deg`)
+                item.style.setProperty('right', '0')
+                item.style.removeProperty('left')
             }
         }
     }

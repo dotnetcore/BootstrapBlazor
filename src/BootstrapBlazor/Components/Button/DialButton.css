@@ -84,6 +84,10 @@
         border-bottom-right-radius: 100%;
     }
 
+    .dial-button.is-radial[data-bb-placement="top-end"] .dial-list {
+        border-bottom-left-radius: 100%;
+    }
+
     .dial-button.is-radial .dial-list {
         width: var(--bb-dial-list-width);
         height: var(--bb-dial-list-height);
