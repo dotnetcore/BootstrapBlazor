@@ -91,6 +91,22 @@ public class DialButtonTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Duration_Ok()
+    {
+        var cut = Context.RenderComponent<DialButton>(pb =>
+        {
+            pb.Add(a => a.Duration, 400);
+        });
+        cut.DoesNotContain("data-bb-duration");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Duration, 500);
+        });
+        cut.Contains("data-bb-duration=\"500\"");
+    }
+
+    [Fact]
     public void Icon_Ok()
     {
         var cut = Context.RenderComponent<DialButton>(pb =>
