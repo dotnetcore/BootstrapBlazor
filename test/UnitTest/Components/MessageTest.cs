@@ -91,6 +91,7 @@ public class MessageTest : MessageTestBase
             Content = "Test Content",
             IsAutoHide = false,
             ShowDismiss = true,
+            Icon = "fa-solid fa-font-awesome",
             OnDismiss = () =>
             {
                 dismiss = true;
