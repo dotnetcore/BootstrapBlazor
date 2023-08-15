@@ -16,22 +16,6 @@ export function init(id) {
         toggle(el, list)
     })
 
-    EventHandler.on(list, 'animationend', e => {
-        if (list.classList.contains('closing')) {
-            e.target.style.setProperty('visibility', 'hidden')
-
-            const items = [...list.querySelectorAll('.dial-item')];
-            if (items.indexOf(e.target) === items.length - 1) {
-                list.classList.remove('closing')
-                list.classList.remove('show')
-                items.forEach(item => {
-                    item.style.removeProperty('visibility')
-                })
-            }
-        }
-        e.target.style.removeProperty('animation')
-    })
-
     if (!window.bb_dial_button) {
         window.bb_dial_button = true
 
@@ -63,50 +47,120 @@ export function dispose(id) {
     }
 }
 
-const animate = (item, value, delay, fn) => {
-    const handler = setTimeout(() => {
-        clearTimeout(handler)
-        if (fn) {
-            fn()
-        }
-        item.style.setProperty('animation', value)
-    }, delay)
-}
-
 const toggle = (el, list) => {
     const items = list.querySelectorAll('.dial-item')
-    if (list.classList.contains('show')) {
-        list.classList.add('closing')
-        for (let index = 0; index < items.length; index++) {
-            const item = items[items.length - index - 1]
-            animate(item, 'var(--bb-dial-list-animation-duration) cubic-bezier(0, 0, 0.58, 1) 0s 1 normal none running FadeOut', index * 100)
+    if (items.length > 0) {
+        const duration = parseInt(el.getAttribute('data-bb-duration') || '400')
+        const interval = duration / (items.length + 1)
+
+        if (list.classList.contains('show')) {
+            animateClose(el, list, items, interval)
         }
-    }
-    else {
-        list.classList.add('show')
-        items.forEach((item, index) => {
-            item.style.setProperty('visibility', 'hidden')
-            animate(item, 'var(--bb-dial-list-animation-duration) cubic-bezier(0.42, 0, 1, 1) 0s 1 normal none running FadeIn', index * 100, () => {
-                item.style.removeProperty('visibility')
-            })
-        })
+        else {
+            animateOpen(el, list, items, interval)
+        }
     }
 }
 
-const reset = slide => {
-    const isRadial = slide.el.classList.contains('is-radial')
+const animateOpen = (el, list, items, interval) => {
+    items.forEach(item => {
+        item.style.setProperty('visibility', 'hidden')
+    })
+    list.classList.add('show')
+
+    const run = item => {
+        let start = void 0
+        const step = ts => {
+            if (start === void 0) {
+                start = ts
+                item.style.removeProperty('visibility')
+                item.style.setProperty('animation', '200ms cubic-bezier(0.42, 0, 1, 1) 0s 1 normal none running FadeIn')
+            }
+            const elapsed = ts - start;
+            if (elapsed < 200) {
+                requestAnimationFrame(step);
+            }
+            else {
+                item.style.removeProperty('animation')
+            }
+        }
+        requestAnimationFrame(step)
+    }
+
+    const animateItem = index => {
+        const handler = setTimeout(() => {
+            clearTimeout(handler)
+            if (items.length > index) {
+                const item = items[index]
+                run(item)
+                animateItem(index + 1)
+            }
+        }, interval);
+    }
+
+    animateItem(0);
+}
+
+const animateClose = (el, list, items, interval) => {
+    list.classList.add('closing')
+    items[0].setAttribute('bb-animate', 'true')
+
+    const run = item => {
+        let start = void 0
+        const step = ts => {
+            if (start === void 0) {
+                start = ts
+                item.style.setProperty('animation', '200ms cubic-bezier(0, 0, 0.58, 1) 0s 1 normal none running FadeOut')
+            }
+            const elapsed = ts - start;
+            if (elapsed < 200) {
+                requestAnimationFrame(step);
+            }
+            else {
+                item.style.removeProperty('animation')
+
+                if (item.getAttribute('bb-animate') === 'true') {
+                    list.classList.remove('closing')
+                    list.classList.remove('show')
+                    item.removeAttribute('bb-animate')
+                    items.forEach(item => {
+                        item.style.removeProperty('visibility')
+                    })
+                }
+                else {
+                    item.style.setProperty('visibility', 'hidden')
+                }
+            }
+        }
+        requestAnimationFrame(step)
+    }
+
+    const animateItem = index => {
+        const handler = setTimeout(() => {
+            clearTimeout(handler)
+            if (index > -1) {
+                const item = items[index]
+                run(item)
+                animateItem(index - 1)
+            }
+        }, interval);
+    }
+    animateItem(items.length - 1);
+}
+
+const reset = dial => {
+    const isRadial = dial.el.classList.contains('is-radial')
     if (isRadial) {
-        resetRadial(slide)
+        resetRadial(dial)
     }
     else {
-        resetLinear(slide)
+        resetLinear(dial)
     }
 }
 
 const resetRadial = slide => {
     const { el, button, list } = slide
     const placement = el.getAttribute('data-bb-placement') || 'middle-center'
-    let offset = parseFloat(el.getAttribute('data-bb-offset') || '8')
 
     const buttonHeight = button.offsetHeight
     const buttonWidth = button.offsetWidth
@@ -168,8 +222,8 @@ const resetRadial = slide => {
     }
 }
 
-const resetLinear = slide => {
-    const { el, button, list } = slide
+const resetLinear = dial => {
+    const { el, button, list } = dial
     const placement = el.getAttribute('data-bb-placement') || 'middle-end'
     let offset = parseFloat(el.getAttribute('data-bb-offset') || '8')
 
@@ -180,6 +234,10 @@ const resetLinear = slide => {
     const listHeight = parseFloat(listStyle.height)
     const listWidth = parseFloat(listStyle.width)
 
+    list.querySelectorAll('.dial-item').forEach(item => {
+        item.removeAttribute('style')
+    })
+
     list.setAttribute('style', '')
     if (placement.startsWith('middle')) {
         list.style.setProperty('--bb-dial-list-vertical-offset', `${(buttonHeight - listHeight) / 2}px`)
@@ -189,9 +247,6 @@ const resetLinear = slide => {
         list.style.setProperty('--bb-dial-list-vertical-offset', `${buttonHeight + offset}px`)
         list.style.setProperty('--bb-dial-list-horizontal-offset', `${(buttonWidth - listWidth) / 2}px`)
     }
-    list.querySelectorAll('.dial-item').forEach(item => {
-        item.removeAttribute('style')
-    })
 }
 
 const closePopup = e => {
