@@ -4479,7 +4479,8 @@
     "OtherComponents": "其他组件",
     "MouseFollowerIntro": "鼠标跟随",
     "Live2DDisplayIntro": "Live2D 插件",
-    "SlideButton": "快捷菜单 SlideButton"
+    "SlideButton": "快捷菜单 SlideButton",
+    "DialButton": "拨号菜单 DialButton"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",

@@ -41,6 +41,12 @@ public partial class DialButton
     public Color Color { get; set; } = Color.Primary;
 
     /// <summary>
+    /// 获得/设置 动画延时 默认 400 单位 ms 毫秒
+    /// </summary>
+    [Parameter]
+    public int Duration { get; set; } = 400;
+
+    /// <summary>
     /// 获得/设置 按钮颜色
     /// </summary>
     [Parameter]
@@ -121,9 +127,11 @@ public partial class DialButton
 
     private string? RadiusString => DialMode == DialMode.Radial ? Radius.ToString() : null;
 
-    private List<DialButtonItem> _buttonItems = new();
+    private readonly List<DialButtonItem> _buttonItems = new();
 
     private IEnumerable<DialButtonItem> _list => _buttonItems.Concat(Items);
+
+    private string? DurationString => Duration == 400 ? null : $"{Duration}";
 
     private bool _shouldRender;
 
@@ -135,6 +143,7 @@ public partial class DialButton
         base.OnParametersSet();
 
         Items ??= Enumerable.Empty<DialButtonItem>();
+        Duration = Math.Max(400, Duration);
         _shouldRender = true;
     }
 

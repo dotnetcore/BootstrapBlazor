@@ -249,4 +249,14 @@ public class SlideButtonTest : BootstrapBlazorTestBase
             Assert.Equal(3, items.Count);
         });
     }
+
+    [Fact]
+    public void SlideButtonItem_Ok()
+    {
+        var cut = Context.RenderComponent<SlideButtonItem>(pb =>
+        {
+            pb.Add(a => a.Text, "text");
+        });
+        Assert.Empty(cut.Markup);
+    }
 }

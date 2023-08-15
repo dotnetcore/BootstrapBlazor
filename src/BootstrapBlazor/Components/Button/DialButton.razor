@@ -2,7 +2,7 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader("Button/DialButton.razor.js")]
 
-<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString" data-bb-placement="@Placement.ToDescriptionString()" data-bb-auto-close="@IsAutoCloseString" data-bb-offset="@Offset" data-bb-radius="@RadiusString">
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString" data-bb-placement="@Placement.ToDescriptionString()" data-bb-auto-close="@IsAutoCloseString" data-bb-offset="@Offset" data-bb-radius="@RadiusString" data-bb-duration="@DurationString">
     <CascadingValue Value="_buttonItems" IsFixed="true">
         @ChildContent
     </CascadingValue>

@@ -4479,7 +4479,8 @@
     "OtherComponents": "Others",
     "MouseFollowerIntro": "MouseFollower",
     "Live2DDisplayIntro": "Live2D Widget",
-    "SlideButton": "SlideButton"
+    "SlideButton": "SlideButton",
+    "DialButton": "DialButton"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
