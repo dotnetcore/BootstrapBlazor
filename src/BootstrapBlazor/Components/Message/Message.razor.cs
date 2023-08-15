@@ -24,10 +24,7 @@ public partial class Message
         .AddClass("bottom: 1rem;", Placement == Placement.Bottom)
         .Build();
 
-    /// <summary>
-    /// 获得 弹出窗集合
-    /// </summary>
-    private List<MessageOption> Messages { get; } = new();
+    private readonly List<MessageOption> _messages = new();
 
     /// <summary>
     /// 获得/设置 显示位置 默认为 Top
@@ -99,7 +96,7 @@ public partial class Message
 
     private Task Show(MessageOption option)
     {
-        Messages.Add(option);
+        _messages.Add(option);
         _msgId = GetItemId(option);
         StateHasChanged();
         return Task.CompletedTask;
@@ -111,7 +108,7 @@ public partial class Message
     [JSInvokable]
     public Task Clear()
     {
-        Messages.Clear();
+        _messages.Clear();
         StateHasChanged();
         return Task.CompletedTask;
     }

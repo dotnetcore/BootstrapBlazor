@@ -5,7 +5,7 @@
 <div id="@Id" class="@ClassString" style="@StyleName" role="alert">
     @if (Placement == Placement.Top)
     {
-        foreach (var item in Messages)
+        foreach (var item in _messages)
         {
             <div @key="item" id="@GetItemId(item)" role="alertdialog" class="@GetItemClassString(item)" data-bb-autohide="@GetAutoHideString(item)" data-bb-delay="@item.Delay">
                 @if (!string.IsNullOrEmpty(item.Icon))
@@ -22,9 +22,9 @@
     }
     else
     {
-        for (var index = Messages.Count; index > 0; index--)
+        for (var index = _messages.Count; index > 0; index--)
         {
-            var item = Messages[index - 1];
+            var item = _messages[index - 1];
             <div @key="item" id="@GetItemId(item)" role="alertdialog" class="@GetItemClassString(item)" data-bb-autohide="@GetAutoHideString(item)" data-bb-delay="@item.Delay">
                 @if (!string.IsNullOrEmpty(item.Icon))
                 {
