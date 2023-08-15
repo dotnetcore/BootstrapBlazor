@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace UnitTest.Components;
@@ -17,7 +18,7 @@ public class MessageTest : MessageTestBase
         {
             pb.AddChildContent<Button>(pb =>
             {
-                pb.Add(a => a.OnClick, async () =>
+                pb.Add(a => a.OnClick, EventCallback.Factory.Create<MouseEventArgs>(this, async e =>
                 {
                     await service.Show(new MessageOption()
                     {
@@ -28,6 +29,8 @@ public class MessageTest : MessageTestBase
                         Icon = "fa-solid fa-font-awesome",
                         IsAutoHide = true,
                         ShowBar = true,
+                        ShowBorder = true,
+                        ShowShadow = true,
                         ShowDismiss = true,
                         OnDismiss = () =>
                         {
@@ -35,20 +38,31 @@ public class MessageTest : MessageTestBase
                             return Task.CompletedTask;
                         }
                     });
-                });
+                }));
             });
         });
         Assert.NotNull(cut.Instance.MessageContainer);
 
-        var btn = cut.Find("button");
-        cut.InvokeAsync(() => btn.Click());
+        cut.InvokeAsync(() =>
+        {
+            var btn = cut.Find("button");
+            btn.Click();
+        });
+        Assert.Contains("data-bb-autohide", cut.Markup);
+        Assert.Contains("data-bb-delay=\"4000\"", cut.Markup);
 
-        var btnClose = cut.Find(".btn-close");
-        cut.InvokeAsync(() => btnClose.Click());
+        cut.InvokeAsync(() =>
+        {
+            var btnClose = cut.Find(".btn-close");
+            btnClose.Click();
+        });
         Assert.True(dismiss);
 
-        var message = cut.FindComponent<Message>();
-        message.InvokeAsync(() => message.Instance.Clear());
+        cut.InvokeAsync(() =>
+        {
+            var message = cut.FindComponent<Message>();
+            message.Instance.Clear();
+        });
     }
 
     [Fact]
@@ -64,17 +78,6 @@ public class MessageTest : MessageTestBase
     }
 
     [Fact]
-    public void AutoHide_Ok()
-    {
-        var cut = Context.RenderComponent<MessageItem>(pb =>
-        {
-            pb.Add(a => a.IsAutoHide, false);
-        });
-
-        cut.DoesNotContain("data-autohide");
-    }
-
-    [Fact]
     public void Placement_Ok()
     {
         var dismiss = false;
@@ -86,6 +89,7 @@ public class MessageTest : MessageTestBase
         cut.InvokeAsync(() => service.Show(new MessageOption()
         {
             Content = "Test Content",
+            IsAutoHide = false,
             ShowDismiss = true,
             OnDismiss = () =>
             {
@@ -93,30 +97,13 @@ public class MessageTest : MessageTestBase
                 return Task.CompletedTask;
             }
         }, cut.Instance));
-        var btnClose = cut.Find(".btn-close");
-        cut.InvokeAsync(() => btnClose.Click());
+        Assert.DoesNotContain("data-bb-autohide", cut.Markup);
+
+        cut.InvokeAsync(() =>
+        {
+            var btnClose = cut.Find(".btn-close");
+            btnClose.Click();
+        });
         Assert.True(dismiss);
-    }
-
-    [Fact]
-    public void ShowBorder_Ok()
-    {
-        var cut = Context.RenderComponent<MessageItem>(pb =>
-        {
-            pb.Add(a => a.ShowBorder, true);
-        });
-
-        cut.Contains("border-primary");
-    }
-
-    [Fact]
-    public void ShowShadow_Ok()
-    {
-        var cut = Context.RenderComponent<MessageItem>(pb =>
-        {
-            pb.Add(a => a.ShowShadow, true);
-        });
-
-        cut.Contains("shadow");
     }
 }
