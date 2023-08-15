@@ -40,7 +40,7 @@ export function show(id, msgId) {
             clearTimeout(hideHandler);
 
             // remove Id
-            msg.items.pop(el);
+            msg.items.pop();
             if (msg.items.length === 0) {
                 // call server method prepare remove dom
                 msg.invoke.invokeMethodAsync(msg.callback);
