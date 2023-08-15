@@ -59,7 +59,33 @@ public partial class Message
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(Clear));
 
-    private Task PushMessageIdAsync(string msgId) => InvokeVoidAsync("show", Id, msgId);
+    private static string? GetAutoHideString(MessageOption option) => option.IsAutoHide ? "true" : null;
+
+    private static string? GetItemClassString(MessageOption option) => CssBuilder.Default("alert")
+        .AddClass($"alert-{option.Color.ToDescriptionString()}", option.Color != Color.None)
+        .AddClass($"border-{option.Color.ToDescriptionString()}", option.ShowBorder)
+        .AddClass("shadow", option.ShowShadow)
+        .AddClass("alert-bar", option.ShowBar)
+        .Build();
+
+    private string? GetItemId(MessageOption option) => $"{Id}_{option.GetHashCode()}";
+
+    private string? _msgId;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!string.IsNullOrEmpty(_msgId))
+        {
+            await InvokeVoidAsync("show", Id, _msgId);
+        }
+    }
 
     /// <summary>
     /// 设置 Toast 容器位置方法
@@ -71,10 +97,12 @@ public partial class Message
         StateHasChanged();
     }
 
-    private async Task Show(MessageOption option)
+    private Task Show(MessageOption option)
     {
         Messages.Add(option);
-        await InvokeAsync(StateHasChanged);
+        _msgId = GetItemId(option);
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 
     /// <summary>

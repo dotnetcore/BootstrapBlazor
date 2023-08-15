@@ -2,22 +2,40 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
-<div id="@Id" class="@ClassString" style="@StyleName">
-    <CascadingValue Value="PushMessageIdAsync" IsFixed="true">
-        @if (Placement == Placement.Top)
+<div id="@Id" class="@ClassString" style="@StyleName" role="alert">
+    @if (Placement == Placement.Top)
+    {
+        foreach (var item in Messages)
         {
-            foreach (var item in Messages)
-            {
-                <MessageItem @key="item" Icon="@item.Icon" Color="@item.Color" Content="@item.Content" Delay="@item.Delay" ShowBar="@item.ShowBar" ShowDismiss="@item.ShowDismiss" IsAutoHide="@item.IsAutoHide" OnDismiss="() => OnDismiss(item)" />
-            }
+            <div @key="item" id="@GetItemId(item)" role="alertdialog" class="@GetItemClassString(item)" data-bb-autohide="@GetAutoHideString(item)" data-bb-delay="@item.Delay">
+                @if (!string.IsNullOrEmpty(item.Icon))
+                {
+                    <i class="@item.Icon"></i>
+                }
+                <span>@item.Content</span>
+                @if (item.ShowDismiss)
+                {
+                    <button type="button" class="btn-close" aria-label="Close" @onclick="() => OnDismiss(item)"></button>
+                }
+            </div>
         }
-        else
+    }
+    else
+    {
+        for (var index = Messages.Count; index > 0; index--)
         {
-            for (var index = Messages.Count; index > 0; index--)
-            {
-                var item = Messages[index - 1];
-                <MessageItem @key="item" Icon="@item.Icon" Color="@item.Color" Content="@item.Content" Delay="@item.Delay" ShowBar="@item.ShowBar" ShowDismiss="@item.ShowDismiss" IsAutoHide="@item.IsAutoHide" OnDismiss="() => OnDismiss(item)" />
-            }
+            var item = Messages[index - 1];
+            <div @key="item" id="@GetItemId(item)" role="alertdialog" class="@GetItemClassString(item)" data-bb-autohide="@GetAutoHideString(item)" data-bb-delay="@item.Delay">
+                @if (!string.IsNullOrEmpty(item.Icon))
+                {
+                    <i class="@item.Icon"></i>
+                }
+                <span>@item.Content</span>
+                @if (item.ShowDismiss)
+                {
+                    <button type="button" class="btn-close" aria-label="Close" @onclick="() => OnDismiss(item)"></button>
+                }
+            </div>
         }
-    </CascadingValue>
+    }
 </div>
