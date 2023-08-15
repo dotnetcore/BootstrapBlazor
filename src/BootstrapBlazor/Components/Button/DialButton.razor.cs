@@ -127,7 +127,7 @@ public partial class DialButton
 
     private string? RadiusString => DialMode == DialMode.Radial ? Radius.ToString() : null;
 
-    private List<DialButtonItem> _buttonItems = new();
+    private readonly List<DialButtonItem> _buttonItems = new();
 
     private IEnumerable<DialButtonItem> _list => _buttonItems.Concat(Items);
 
