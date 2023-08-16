@@ -38,8 +38,9 @@ body:
   attributes:
     label: 截图或者视频
     description: 此问题相关截图或者视频，如果是截图请画框与箭头标注
-    value: |
+    placeholder: |
       [在这里上传图片或视频]
+      [图片截图后此处直接粘贴即可]
   validations:
     required: false
 - type: textarea
@@ -47,9 +48,10 @@ body:
     label: 复现工程或者仓库地址
     description: 最小代码示例
     placeholder: |
-      1. 提供公开的仓库地址链接
+      1. 提供公开的仓库地址链接。
       2. 以文件夹或者压缩包形式提交复现工程，请务必删除工程目录下的bin和obj。
-         声明：请勿以其他任何方式提供复现工程，不符合要求的提交，一律视为无效问题，不予处理。
+
+      声明：请勿以其他任何方式提供复现工程，不符合要求的提交，一律视为无效问题，不予处理。
   validations:
     required: true
 - type: textarea
