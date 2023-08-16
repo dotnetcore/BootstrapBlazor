@@ -15,7 +15,7 @@ public partial class Scroll
 
     private string? StyleString => CssBuilder.Default()
         .AddClass($"height: {Height};", !string.IsNullOrEmpty(Height))
-        .AddClass($"width: {Width};", !string.IsNullOrEmpty(Height))
+        .AddClass($"width: {Width};", !string.IsNullOrEmpty(Width))
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
