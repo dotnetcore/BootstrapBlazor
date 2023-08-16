@@ -3,15 +3,20 @@ description: 对本项目提出一个功能建议
 title: "[功能建议]: "
 labels: ["enhancement"]
 body:
-  - type: textarea
+  - type: input
     attributes:
-      value: |
-        感谢提出功能建议，我们将仔细考虑！
+      label: 相关组件名称
+      placeholder: |
+        [现有组件填写组件名称，新组件请帮忙想一个组件名称。] 
+      validations:
+        required: false
   - type: textarea
     id: related-problem
     attributes:
-      label: 你的功能建议是否和某个问题相关？
-      description: 清晰并简洁地描述问题是什么，例如，当我...时，我总是感到困扰。
+      label: 开发过程中我们现有组件或者组件功能无法实现的功能
+      description: 请清晰的描述现有组件或者新组件的使用场景，以及开发中遇到的难处。
+      placeholder: |
+        如果是现有组件，请先仔细阅读文档与示例，确定想要的功能无法实现后再提交。
     validations:
       required: false
   - type: textarea
@@ -33,11 +38,14 @@ body:
     attributes:
       label: 你有其他上下文或截图吗？
       description: 在此处添加有关功能请求的任何其他上下文或截图。
+      placeholder: |
+        [在这里上传图片或视频]
+        [图片截图后此处直接粘贴即可]
     validations:
-      required: false
+      required: true    
   - type: checkboxes
     attributes:
       label: 意向参与贡献
       options:
-        - label: 我有意向参与具体功能的开发实现并将代码贡献到社区
+        - label: 我有意向参与具体功能的开发实现，并且提交 PR 到仓库
           required: false
