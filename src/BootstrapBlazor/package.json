@@ -1,10 +1,10 @@
-{
+﻿{
   "name": "bootstrapblazor",
   "version": "1.0.0",
   "description": "[![License](https://img.shields.io/github/license/argozhang/bootstrapblazor.svg?logo=git&logoColor=red)](https://github.com/ArgoZhang/BootstrapBlazor/blob/main/LICENSE)\r [![Github build](https://img.shields.io/github/actions/workflow/status/ArgoZhang/BootstrapBlazor/build.yml?branch=main&?label=main&logo=github)](https://github.com/ArgoZhang/BootstrapBlazor/actions?query=workflow%3A%22Build+Project%22+branch%3Amain)\r [![Repo Size](https://img.shields.io/github/repo-size/ArgoZhang/BootstrapBlazor.svg?logo=github&logoColor=green&label=repo)](https://github.com/ArgoZhang/BootstrapBlazor)\r [![Commit Date](https://img.shields.io/github/last-commit/ArgoZhang/BootstrapBlazor/main.svg?logo=github&logoColor=green&label=commit)](https://github.com/ArgoZhang/BootstrapBlazor)\r [![codecov](https://codecov.io/gh/dotnetcore/BootstrapBlazor/branch/main/graph/badge.svg?token=5SXIWHXZC3)](https://codecov.io/gh/dotnetcore/BootstrapBlazor)",
   "main": "index.js",
   "scripts": {
-    "build": "sass --style expanded --no-source-map --no-error-css ./wwwroot/scss/:./wwwroot/css/"
+    "build": "sass --style expanded --no-source-map --no-error-css ./wwwroot/scss/:./wwwroot/scss/"
   },
   "author": "",
   "license": "ISC",
