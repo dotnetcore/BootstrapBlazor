@@ -15,6 +15,8 @@ body:
     attributes:
       label: 开发过程中我们现有组件或者组件功能无法实现的功能
       description: 请清晰的描述现有组件或者新组件的使用场景，以及开发中遇到的难处。
+      placeholder: |
+        如果是现有组件，请先仔细阅读文档与示例，确定想要的功能无法实现后再提交。
     validations:
       required: false
   - type: textarea
