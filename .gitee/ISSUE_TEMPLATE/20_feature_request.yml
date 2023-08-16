@@ -3,11 +3,14 @@ description: 对本项目提出一个功能建议
 title: "[功能建议]: "
 labels: ["enhancement"]
 body:
-  - type: textarea
+  - type: input
     attributes:
-      label: 感谢
-      value: |
-        感谢提出功能建议，我们将仔细考虑！
+      label: 相关组件名称
+      placeholder: |
+        [如: button]
+        [如新组件请帮忙给出新组件名称] 
+      validations:
+        required: false
   - type: textarea
     id: related-problem
     attributes:
@@ -34,11 +37,14 @@ body:
     attributes:
       label: 你有其他上下文或截图吗？
       description: 在此处添加有关功能请求的任何其他上下文或截图。
+      placeholder: |
+        [在这里上传图片或视频]
+        [图片截图后此处直接粘贴即可]
     validations:
-      required: false
+      required: true    
   - type: checkboxes
     attributes:
       label: 意向参与贡献
       options:
-        - label: 我有意向参与具体功能的开发实现并将代码贡献到社区
+        - label: 我有意向参与具体功能的开发实现，并且提交 PR 到仓库
           required: false
