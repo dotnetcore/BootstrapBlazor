@@ -7,15 +7,14 @@ body:
     attributes:
       label: 相关组件名称
       placeholder: |
-        [如: button]
-        [如新组件请帮忙给出新组件名称] 
+        [现有组件填写组件名称，新组件请帮忙想一个组件名称。] 
       validations:
         required: false
   - type: textarea
     id: related-problem
     attributes:
-      label: 你的功能建议是否和某个问题相关？
-      description: 清晰并简洁地描述问题是什么，例如，当我...时，我总是感到困扰。
+      label: 开发过程中我们现有组件或者组件功能无法实现的功能
+      description: 请清晰的描述你使用现有组件的场景，或者新组件的使用场景，以及功能无法的痛点。
     validations:
       required: false
   - type: textarea
