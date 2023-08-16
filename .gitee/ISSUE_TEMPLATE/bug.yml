@@ -47,7 +47,9 @@ body:
     label: 复现工程或者仓库地址
     description: 最小代码示例
     placeholder: |
-      [无 bin/obj 等无用文件夹代码压缩包，或者仓库地址，不要上传网盘地址，一律视为无效问题不予处理]
+      1. 提供公开的仓库地址链接
+      2. 以文件夹或者压缩包形式提交复现工程，请务必删除工程目录下的bin和obj。
+         声明：请勿以其他任何方式提供复现工程，不符合要求的提交，一律视为无效问题，不予处理。
   validations:
     required: true
 - type: textarea
@@ -60,7 +62,7 @@ body:
         [这里粘贴执行结果]
   validations:
     required: false
-- type: textarea
+- type: input
   attributes:
     label: Bootstrap Blazor Version
     description: BootstrapBlazor 组件包版本号
