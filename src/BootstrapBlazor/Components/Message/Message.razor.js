@@ -14,27 +14,33 @@ export function show(id, msgId) {
         return
     }
 
-    msg.items.push(el)
+    const msgItem = { el, animationId: null }
+    msg.items.push(msgItem)
     const autoHide = el.getAttribute('data-bb-autohide') === 'true';
-    const delay = parseInt(el.getAttribute('data-bb-delay'));
-    let autoHideHandler = null;
 
-    const showHandler = setTimeout(() => {
-        clearTimeout(showHandler);
-        if (autoHide) {
-            // auto close
-            autoHideHandler = setTimeout(() => {
-                clearTimeout(autoHideHandler);
+    if (autoHide) {
+        // auto close
+        const delay = parseInt(el.getAttribute('data-bb-delay'));
+        let start = void 0
+        const autoCloseAnimation = ts => {
+            if (start === void 0) {
+                start = ts
+            }
+
+            const elapsed = ts - start;
+            if (elapsed > delay) {
                 close();
-            }, delay);
+            }
+            else {
+                msgItem.animationId = requestAnimationFrame(autoCloseAnimation);
+            }
         }
-        el.classList.add('show');
-    }, 50);
+        msgItem.animationId = requestAnimationFrame(autoCloseAnimation)
+    }
+    el.classList.add('show');
 
     const close = () => {
-        if (autoHideHandler != null) {
-            clearTimeout(autoHideHandler);
-        }
+        EventHandler.off(el, 'click')
         el.classList.remove('show');
         const hideHandler = setTimeout(function () {
             clearTimeout(hideHandler);
@@ -57,5 +63,13 @@ export function show(id, msgId) {
 }
 
 export function dispose(id) {
+    const msg = Data.get(id)
+    if (msg) {
+        msg.items.forEach(item => {
+            if (item.animationId) {
+                cancelAnimationFrame(item.animationId);
+            }
+        });
+    }
     Data.remove(id)
 }
