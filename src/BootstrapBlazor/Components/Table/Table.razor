@@ -627,7 +627,7 @@
         @if (ShowLineNo)
         {
             <td class="@LineNoColumnClassString" style="@LineNoColumnStyleString">
-                <div class="@LineCellClassString">@(Rows.IndexOf(item) + 1 + (PageIndex -1) * PageItems)</div>
+                <div class="@LineCellClassString">@GetLineNo(item)</div>
             </td>
         }
         @{
