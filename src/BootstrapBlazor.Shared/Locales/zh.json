@@ -5179,7 +5179,7 @@
     "CustomColSearchIntro": "当设置了 <code>SearchTemplate</code> 时，组件自动生成搜索 UI 时使用此模板作为呈现 UI",
     "CustomColSearchP": "通过设置姓名列的 <code>SearchTemplate</code> 自定义编辑时使用下拉框来选择姓名",
     "CustomColSearchP1": "由于是搜索条件，本例中姓名搜索列下拉框增加了 请选择... 项",
-    "CustomColSearchP2": "生成列搜索模板是查找顺序为 SearchTemplate -> AutoGenerate 优先查找是否设置了搜索模板，然后根据绑定字段类型自动生成",
+    "CustomColSearchP2": "生成列搜索模板是查找顺序为 <code>SearchTemplate</code> -> <code>AutoGenerate</code> 优先查找是否设置了搜索模板，然后根据绑定字段类型自动生成",
     "CustomColSearchP3": "通过设置 <code>ShowSearch=\"true\"</code> <code>ShowSearchText=\"false\"</code> 设置搜索栏仅显示 <b>高级搜索</b>",
     "CustomColSearchP4": "通过设置 <code>SearchDialogDraggable=\"true\"</code> 使搜索弹出框可拖拽",
     "CustomerSearchModelTitle": "自定义搜索模型",

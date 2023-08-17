@@ -5179,7 +5179,7 @@
     "CustomColSearchIntro": "When <code>SearchTemplate</code> is set, the component automatically generates the search UI using this template as the rendering UI",
     "CustomColSearchP": "By setting the <code>SearchTemplate</code> of the name column to customize the edit, use the drop-down box to select the name",
     "CustomColSearchP1": "Because it is a search condition, in this example, the drop-down box of the name search column is added. Please select... item",
-    "CustomColSearchP2": "The column search template is generated in the search order SearchTemplate -> AutoGenerate first to find out whether the search template is set, and then automatically generated according to the bound field type",
+    "CustomColSearchP2": "The column search template is generated in the search order <code>SearchTemplate</code> -> <code>AutoGenerate</code> first to find out whether the search template is set, and then automatically generated according to the bound field type",
     "CustomColSearchP3": "Set the search bar to show only <b>Advanced Search</b> by setting <code>ShowSearch=\"true\"</code> <code>ShowSearchText=\"false\"</code>",
     "CustomColSearchP4": "Make the search popup draggable by setting <code>SearchDialogDraggable=\"true\"</code>",
     "CustomerSearchModelTitle": "Custom Search Model",
