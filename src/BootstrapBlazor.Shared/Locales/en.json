@@ -5179,7 +5179,7 @@
     "CustomColSearchIntro": "When <code>SearchTemplate</code> is set, the component automatically generates the search UI using this template as the rendering UI",
     "CustomColSearchP": "By setting the <code>SearchTemplate</code> of the name column to customize the edit, use the drop-down box to select the name",
     "CustomColSearchP1": "Because it is a search condition, in this example, the drop-down box of the name search column is added. Please select... item",
-    "CustomColSearchP2": "The column search template is generated in the search order SearchTemplate -> AutoGenerate first to find out whether the search template is set, and then automatically generated according to the bound field type",
+    "CustomColSearchP2": "The column search template is generated in the search order <code>SearchTemplate</code> -> <code>AutoGenerate</code> first to find out whether the search template is set, and then automatically generated according to the bound field type",
     "CustomColSearchP3": "Set the search bar to show only <b>Advanced Search</b> by setting <code>ShowSearch=\"true\"</code> <code>ShowSearchText=\"false\"</code>",
     "CustomColSearchP4": "Make the search popup draggable by setting <code>SearchDialogDraggable=\"true\"</code>",
     "CustomerSearchModelTitle": "Custom Search Model",
@@ -5199,7 +5199,8 @@
     "DisplayText4": "Display Search",
     "SearchTableGroupBoxText": "Search Criteria",
     "NamePlaceholder": "Please enter your name within 50 characters",
-    "AddressPlaceholder": "Please enter the address within 500 characters"
+    "AddressPlaceholder": "Please enter the address within 500 characters",
+    "AutoHeightIntro": "<div class=\"mb-2\"><b>Highly Adaptive</b></div><p>In this example, when the parent container height is set to <code>400px</code> expand/collapse the search bar, the table automatically fills the parent container</p>"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFilter": {
     "TablesFilterTitle": "Filter and sort function",
@@ -5249,10 +5250,10 @@
     "FixedWidthP": "All columns are set to width, and a horizontal scroll bar will automatically appear when the screen is too small",
     "AllowResizingTitle": "Width Adjustable",
     "AllowResizingIntro": "Set the <code>AllowResizing</code> property while fixing the header so that the column width can be adjusted",
-    "AllowResizingP": "By setting the <code>Height</code> parameter to fix the header, <br />, by setting <code>AllowResizing </code>, the parameter allows the column width to be adjusted",
+    "AllowResizingP": "By setting the <code>Height</code> parameter to fix the header, by setting <code>AllowResizing</code>, the parameter allows the column width to be adjusted",
     "AutoHeightTitle": "Automatic Height",
     "AutoHeightIntro": "Do not set the <code>Height</code> value to adapt the height through the parent container",
-    "AutoHeightP": "In this example, the <code>Table</code> table component cannot set the height because the height may not be known. The parent container may get the height through the style. At this time, the <code>Table</code> component will try to Use adaptive fill to fill the height, this application scenario is the most in actual combat, in this example, the simulated parent height is <code>300px</code>",
+    "AutoHeightP": "In this example, when the height of the parent container of the <code>Table</code> changes, the component will adapt to the height and width",
     "DialogIntro": "<code>Table</code> inside <code>Dialog</code>",
     "DialogDesc": "<p>Tips for using the<code>Table</code> with a fixed header in the <code>Dialog</code>:</p><div>The <code>Dialog</code> should assign values to the<code>Class</code> parameter of <code>DialogOption</code>. In this example, it is set to<code>dialog-table</code>. This operation is to enable us to customize the style to locate the<code>Table</code> component's parent container in the <code>Dialog</code> and set its height, Here you can use the writing method of adaptive height <code>height: calc (100vh - 400px);</code>; When the parent container of a <code>Table</code>component has a height, the component itself will perform adaptive height adaptation through calculation</div>",
     "DialogTitle": "In Dialog",

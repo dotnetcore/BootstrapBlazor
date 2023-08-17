@@ -75,7 +75,11 @@ public class LayoutTest : BootstrapBlazorTestBase
             });
             pb.Add(a => a.IsCollapsedChanged, v => collapsed = v);
         });
-        cut.Find("header > a").Click();
+
+        cut.InvokeAsync(() =>
+        {
+            cut.Find("header > a").Click();
+        });
         Assert.True(collapsed);
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.ShowCollapseBar, false));
