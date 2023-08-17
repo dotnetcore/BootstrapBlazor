@@ -1,11 +1,3 @@
-.alert {
-    --bb-alert-icon-margin-right: #{$alert-icon-margin-right};
-}
-
-.alert-bar {
-    --bb-alert-bar-width: #{$alert-bar-width};
-}
-
 .alert-icon {
     margin-right: var(--bb-alert-icon-margin-right);
 }

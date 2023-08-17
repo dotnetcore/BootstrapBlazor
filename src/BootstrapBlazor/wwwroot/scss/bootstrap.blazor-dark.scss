@@ -1,2 +1,10 @@
-@import "./variables-dark.scss";
-@import "./components.scss";
+$alert-bar-width: 8px;
+$alert-icon-margin-right: 1rem;
+
+.alert {
+    --bb-alert-icon-margin-right: #{$alert-icon-margin-right};
+}
+
+.alert-bar {
+    --bb-alert-bar-width: #{$alert-bar-width};
+}
