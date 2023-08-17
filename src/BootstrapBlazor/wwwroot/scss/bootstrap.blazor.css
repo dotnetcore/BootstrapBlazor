@@ -1,0 +1,27 @@
+﻿.alert {
+  --bb-alert-icon-margin-right: 0.5rem;
+}
+
+.alert-bar {
+  --bb-alert-bar-width: 4px;
+}
+
+.alert-icon {
+  margin-right: var(--bb-alert-icon-margin-right);
+}
+
+.alert-bar.alert-info {
+  border-left: var(--bb-alert-bar-width) solid var(--bs-info);
+}
+.alert-bar.alert-success {
+  border-left: var(--bb-alert-bar-width) solid var(--bs-success);
+}
+.alert-bar.alert-primary {
+  border-left: var(--bb-alert-bar-width) solid var(--bs-primary);
+}
+.alert-bar.alert-warning {
+  border-left: var(--bb-alert-bar-width) solid var(--bs-warning);
+}
+.alert-bar.alert-danger {
+  border-left: var(--bb-alert-bar-width) solid var(--bs-danger);
+}

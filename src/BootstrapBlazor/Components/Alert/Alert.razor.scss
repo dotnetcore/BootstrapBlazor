@@ -1,29 +1,33 @@
-@import '../../wwwroot/scss/variables.scss';
-
 .alert {
-    --bb-alert-icon-margin-right: .5rem;
+    --bb-alert-icon-margin-right: #{$alert-icon-margin-right};
+}
+
+.alert-bar {
+    --bb-alert-bar-width: #{$alert-bar-width};
 }
 
 .alert-icon {
     margin-right: var(--bb-alert-icon-margin-right);
 }
 
-.alert-bar.alert-info {
-    border-left: var(--bb-alert-bar-width) solid var(--bs-info);
-}
+.alert-bar {
+    &.alert-info {
+        border-left: var(--bb-alert-bar-width) solid var(--bs-info);
+    }
 
-.alert-bar.alert-success {
-    border-left: var(--bb-alert-bar-width) solid var(--bs-success);
-}
+    &.alert-success {
+        border-left: var(--bb-alert-bar-width) solid var(--bs-success);
+    }
 
-.alert-bar.alert-primary {
-    border-left: var(--bb-alert-bar-width) solid var(--bs-primary);
-}
+    &.alert-primary {
+        border-left: var(--bb-alert-bar-width) solid var(--bs-primary);
+    }
 
-.alert-bar.alert-warning {
-    border-left: var(--bb-alert-bar-width) solid var(--bs-warning);
-}
+    &.alert-warning {
+        border-left: var(--bb-alert-bar-width) solid var(--bs-warning);
+    }
 
-.alert-bar.alert-danger {
-    border-left: var(--bb-alert-bar-width) solid var(--bs-danger);
+    &.alert-danger {
+        border-left: var(--bb-alert-bar-width) solid var(--bs-danger);
+    }
 }

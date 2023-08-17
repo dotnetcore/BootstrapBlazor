@@ -2,5 +2,9 @@
   {
     "outputFile": "wwwroot/scss/bootstrap.blazor.css",
     "inputFile": "wwwroot/scss/bootstrap.blazor.scss"
+  },
+  {
+    "outputFile": "wwwroot/scss/bootstrap.blazor-dark.css",
+    "inputFile": "wwwroot/scss/bootstrap.blazor-dark.scss"
   }
 ]

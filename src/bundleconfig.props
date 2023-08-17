@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifierPlus2022" Version="5.2.2" Condition="'$(Configuration)'=='Debug'" />
+    <PackageReference Include="BuildWebCompiler2022" Version="1.14.10" Condition="'$(Configuration)'=='Debug'" />
   </ItemGroup>
 
 </Project>
