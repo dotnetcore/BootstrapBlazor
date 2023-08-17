@@ -472,14 +472,6 @@ export function init(id, invoke, callbacks) {
         observerSearch.observe(table.search)
         table.observerSearch = observerSearch
     }
-
-    if (table.thead) {
-        const observerBody = new ResizeObserver(() => {
-            setBodyHeight(table)
-        });
-        observerBody.observe(table.el)
-        table.observerBody = observerBody
-    }
 }
 
 export function resetColumn(id) {
@@ -531,10 +523,6 @@ export function dispose(id) {
 
         if (table.observerSearch) {
             table.observerSearch.disconnect()
-        }
-
-        if (table.observerBody) {
-            table.observerBody.disconnect()
         }
     }
 }
