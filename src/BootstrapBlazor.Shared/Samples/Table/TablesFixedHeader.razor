@@ -55,7 +55,12 @@
            Introduction="@Localizer["AutoHeightIntro"]"
            Name="AutoHeight">
     <p>@((MarkupString)Localizer["AutoHeightP"].Value)</p>
-    <div style="height: 300px;">
+    <div class="d-flex align-items-center mb-2">
+        <span class="me-3">父容器高度：</span>
+        <Display @bind-Value="Height" class="w-auto"></Display>
+    </div>
+    <Slider @bind-Value="Height" Min="300" Max="600"></Slider>
+    <div style="height: @($"{Height}px;")">
         <Table TItem="Foo" Items="@Items.Take(10)" RenderMode="TableRenderMode.Table" ShowColumnList="true" ShowToolbar="true" ShowDefaultButtons="false" ShowRefresh="false"
                IsBordered="true" IsMultipleSelect="true" IsPagination="true" IsFixedHeader="true" AllowResizing="true">
             <TableColumns>
@@ -85,8 +90,9 @@
     </style>
 
     <Button Text="@Localizer["DialogButtonText"]" OnClick="OnClickDialog" class="mt-3"></Button>
+</DemoBlock>
 
-    @code {
+@code {
     RenderFragment RenderTable() =>
         @<Table TItem="Foo" Items="@Items" ShowColumnList="true" ShowToolbar="true" ShowDefaultButtons="false" ShowRefresh="false"
            IsBordered="true" IsMultipleSelect="true" IsPagination="true" IsFixedHeader="true" AllowResizing="true" RenderMode="TableRenderMode.Table">
@@ -97,5 +103,3 @@
         </TableColumns>
     </Table>;
 }
-</DemoBlock>
-
