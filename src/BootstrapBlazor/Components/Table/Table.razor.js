@@ -466,11 +466,19 @@ export function init(id, invoke, callbacks) {
     setCopyColumn(table)
 
     if(table.search) {
-        const observer = new ResizeObserver(() => {
+        const observerSearch = new ResizeObserver(() => {
             setBodyHeight(table)
         });
-        observer.observe(table.search)
-        table.observer = observer
+        observerSearch.observe(table.search)
+        table.observerSearch = observerSearch
+    }
+
+    if (table.thead) {
+        const observerBody = new ResizeObserver(() => {
+            setBodyHeight(table)
+        });
+        observerBody.observe(table.el)
+        table.observerBody = observerBody
     }
 }
 
@@ -521,8 +529,12 @@ export function dispose(id) {
         disposeDragColumns(table.dragColumns)
         EventHandler.off(table.element, 'click', '.col-copy')
 
-        if (table.observer) {
-            table.observer.disconnect()
+        if (table.observerSearch) {
+            table.observerSearch.disconnect()
+        }
+
+        if (table.observerBody) {
+            table.observerBody.disconnect()
         }
     }
 }
