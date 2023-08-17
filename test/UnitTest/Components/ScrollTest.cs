@@ -9,9 +9,17 @@ public class ScrollTest : TestBase
     [Fact]
     public void Height_Ok()
     {
-        var cut = Context.RenderComponent<Scroll>(builder => builder.Add(a => a.Height, "500"));
+        var cut = Context.RenderComponent<Scroll>(builder => builder.Add(a => a.Height, "500px"));
 
-        Assert.Contains("height: 500", cut.Markup);
+        Assert.Contains("height: 500px;", cut.Markup);
+    }
+
+    [Fact]
+    public void Width_Ok()
+    {
+        var cut = Context.RenderComponent<Scroll>(builder => builder.Add(a => a.Width, "500px"));
+
+        Assert.Contains("width: 500px;", cut.Markup);
     }
 
     [Fact]

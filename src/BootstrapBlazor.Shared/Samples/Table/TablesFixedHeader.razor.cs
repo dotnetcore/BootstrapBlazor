@@ -17,6 +17,8 @@ public partial class TablesFixedHeader
     [NotNull]
     private List<Foo>? Items { get; set; }
 
+    private int Height { get; set; } = 300;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>

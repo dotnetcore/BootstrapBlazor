@@ -2270,7 +2270,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public async Task ScrollMode_Query_Ok()
+    public void ScrollMode_Query_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -2279,6 +2279,7 @@ public class TableTest : TableTestBase
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ScrollMode, ScrollMode.Virtual);
+                pb.Add(a => a.ShowLineNo, true);
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -2291,12 +2292,26 @@ public class TableTest : TableTestBase
             });
         });
 
-        var th = cut.Find("th");
-        await cut.InvokeAsync(() => th.Click());
-        // desc
-        await cut.InvokeAsync(() => th.Click());
-        // desc
-        await cut.InvokeAsync(() => th.Click());
+        cut.InvokeAsync(() =>
+        {
+            var ths = cut.FindAll("th");
+            var th = ths[1];
+            th.Click();
+        });
+
+        cut.InvokeAsync(() =>
+        {
+            var ths = cut.FindAll("th");
+            var th = ths[1];
+            th.Click();
+        });
+
+        cut.InvokeAsync(() =>
+        {
+            var ths = cut.FindAll("th");
+            var th = ths[1];
+            th.Click();
+        });
     }
 
     [Theory]

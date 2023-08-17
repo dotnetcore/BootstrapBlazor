@@ -5179,7 +5179,7 @@
     "CustomColSearchIntro": "当设置了 <code>SearchTemplate</code> 时，组件自动生成搜索 UI 时使用此模板作为呈现 UI",
     "CustomColSearchP": "通过设置姓名列的 <code>SearchTemplate</code> 自定义编辑时使用下拉框来选择姓名",
     "CustomColSearchP1": "由于是搜索条件，本例中姓名搜索列下拉框增加了 请选择... 项",
-    "CustomColSearchP2": "生成列搜索模板是查找顺序为 SearchTemplate -> AutoGenerate 优先查找是否设置了搜索模板，然后根据绑定字段类型自动生成",
+    "CustomColSearchP2": "生成列搜索模板是查找顺序为 <code>SearchTemplate</code> -> <code>AutoGenerate</code> 优先查找是否设置了搜索模板，然后根据绑定字段类型自动生成",
     "CustomColSearchP3": "通过设置 <code>ShowSearch=\"true\"</code> <code>ShowSearchText=\"false\"</code> 设置搜索栏仅显示 <b>高级搜索</b>",
     "CustomColSearchP4": "通过设置 <code>SearchDialogDraggable=\"true\"</code> 使搜索弹出框可拖拽",
     "CustomerSearchModelTitle": "自定义搜索模型",
@@ -5199,7 +5199,8 @@
     "DisplayText4": "显示搜索",
     "SearchTableGroupBoxText": "搜索条件",
     "NamePlaceholder": "请输入姓名，50字以内",
-    "AddressPlaceholder": "请输入地址，500字以内"
+    "AddressPlaceholder": "请输入地址，500字以内",
+    "AutoHeightIntro": "<div class=\"mb-2\"><b>高度自适应</b></div><p>本例中设置父容器高度为 <code>400px</code> 展开/收起搜索栏时，表格自动充满父容器</p>"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFilter": {
     "TablesFilterTitle": "筛选和排序功能",
@@ -5249,10 +5250,10 @@
     "FixedWidthP": "所有列均设置宽度，当屏幕过小时会自动出现横向滚动条",
     "AllowResizingTitle": "宽度可调整",
     "AllowResizingIntro": "固定表头的同时设置 <code>AllowResizing</code> 属性，使列宽可以调整",
-    "AllowResizingP": "通过设置 <code>Height</code> 参数固定表头,<br />,通过设置 <code>AllowResizing </code>,参数允许调整列宽",
+    "AllowResizingP": "通过设置 <code>Height</code> 参数固定表头，通过设置 <code>AllowResizing</code> 参数允许调整列宽",
     "AutoHeightTitle": "自适应高度",
     "AutoHeightIntro": "不设置 <code>Height</code> 值通过父容器自适应高度",
-    "AutoHeightP": "本例中 <code>Table</code> 表格组件由于可能未知高度，所以无法设置高度，父级容器可能通过样式得到高度，此时 <code>Table</code> 组件会尝试使用自适应填充满高度，实战中这种应用场景是最多的，本例模拟父级高度为 <code>300px</code>",
+    "AutoHeightP": "本例中 <code>Table</code> 表格父容器高度改变时，组件会自适应高度与宽度",
     "DialogIntro": "<code>Table</code> 组件在弹窗 <code>Dialog</code> 内使用",
     "DialogDesc": "<p>在弹窗中使用固定表头的 <code>Table</code> 注意事项：</p><div>弹窗要给 <code>DialogOption</code> 的 <code>Class</code> 参数赋值，本例中设置为 <code>dialog-table</code>，这个操作是为了让我们自定义样式能够定位到弹窗中 <code>Table</code> 组件的父容器 <code>modal-body</code> 并设置其高度，这里可以使用自适应高度的写法 <code>height: calc(100vh - 400px);</code>；当 <code>Table</code> 组件的父级容器有高度后，组件自己就会通过计算进行自适应高度适配了</div>",
     "DialogTitle": "弹窗内使用",

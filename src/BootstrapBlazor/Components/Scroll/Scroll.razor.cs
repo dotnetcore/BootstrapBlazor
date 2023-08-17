@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Scroll 组件
 /// </summary>
 public partial class Scroll
 {
@@ -15,6 +15,7 @@ public partial class Scroll
 
     private string? StyleString => CssBuilder.Default()
         .AddClass($"height: {Height};", !string.IsNullOrEmpty(Height))
+        .AddClass($"width: {Width};", !string.IsNullOrEmpty(Width))
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -29,4 +30,10 @@ public partial class Scroll
     /// </summary>
     [Parameter]
     public string? Height { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组件宽度
+    /// </summary>
+    [Parameter]
+    public string? Width { get; set; }
 }
