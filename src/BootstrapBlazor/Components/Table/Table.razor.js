@@ -465,7 +465,7 @@ export function init(id, invoke, callbacks) {
 
     setCopyColumn(table)
 
-    if(table.search) {
+    if (table.search) {
         const observer = new ResizeObserver(() => {
             setBodyHeight(table)
         });
