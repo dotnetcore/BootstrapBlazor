@@ -1,22 +1,36 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits PopConfirmButtonBase
 
-<DynamicElement TagName="@TagName" OnClick="Show" id="@Id" type="@ElementType"
-                data-bs-custom-class="@CustomClassString" data-bs-trigger="@TriggerString" data-bs-placement="@PlacementString"
-                class="@ClassString" role="dialog" tabindex="@Tab">
-    @if (!string.IsNullOrEmpty(ButtonIcon))
-    {
-        <i class="@ButtonIcon"></i>
-    }
-    @if (!string.IsNullOrEmpty(Text))
-    {
-        <span>@Text</span>
-    }
-    <CascadingValue Value="this" IsFixed="true">
-        @ChildContent
-    </CascadingValue>
-    <PopConfirmButtonContent Title="@Title" Content="@Content" Icon="@ConfirmIcon"
-                             CloseButtonColor="@CloseButtonColor" CloseButtonText="@CloseButtonText"
-                             ConfirmButtonColor="@ConfirmButtonColor" ConfirmButtonText="@ConfirmButtonText"
-                             OnClose="@OnClose" OnConfirm="@OnClickConfirm" ChildContent="@BodyTemplate" />
-</DynamicElement>
+@if (_renderTooltip)
+{
+    <Tooltip Title="@TooltipText" Placement="TooltipPlacement" Trigger="@TooltipTrigger">
+        @RenderComponent
+    </Tooltip>
+}
+else
+{
+    @RenderComponent
+}
+
+@code {
+    RenderFragment RenderComponent =>
+    @<DynamicElement Name="@TagName" OnClick="Show" id="@Id" type="@ElementType"
+                             data-bs-custom-class="@CustomClassString" data-bs-trigger="@TriggerString" data-bs-placement="@PlacementString"
+                             class="@ClassString" role="dialog" tabindex="@Tab">
+        @if (!string.IsNullOrEmpty(ButtonIcon))
+        {
+            <i class="@ButtonIcon"></i>
+        }
+        @if (!string.IsNullOrEmpty(Text))
+        {
+            <span>@Text</span>
+        }
+        <CascadingValue Value="this" IsFixed="true">
+            @ChildContent
+        </CascadingValue>
+        <PopConfirmButtonContent Title="@Title" Content="@Content" Icon="@ConfirmIcon"
+                                 CloseButtonColor="@CloseButtonColor" CloseButtonText="@CloseButtonText"
+                                 ConfirmButtonColor="@ConfirmButtonColor" ConfirmButtonText="@ConfirmButtonText"
+                                 OnClose="@OnClose" OnConfirm="@OnClickConfirm" ChildContent="@BodyTemplate" />
+    </DynamicElement>;
+}
