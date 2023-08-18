@@ -98,7 +98,7 @@
     "TablesPageShowTopPaginationTitle": "Show on top",
     "TablesPageShowTopPaginationIntro": "Set <code>ShowTopPagination</code> to <code>true</code> is the top display pagination component"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesColumnFix": {
+  "BootstrapBlazor.Shared.Samples.Table.TablesFixedColumn": {
     "TablesFixedColumnTitle": "Fixed column",
     "TablesFixedColumnDescription": "For data with a large number of columns, you can fix the front and rear columns and scroll horizontally to view other data",
     "TablesFixedColumnNote": "For fixed column usage, please set the fixed column width as much as possible",

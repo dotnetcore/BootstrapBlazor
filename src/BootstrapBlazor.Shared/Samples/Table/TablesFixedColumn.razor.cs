@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Shared.Samples.Table;
 /// <summary>
 /// 固定列示例代码
 /// </summary>
-public partial class TablesColumnFix
+public partial class TablesFixedColumn
 {
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
@@ -18,7 +18,7 @@ public partial class TablesColumnFix
     private List<Foo>? Items { get; set; }
 
     /// <summary>
-    /// OnInitialized method
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {

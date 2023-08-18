@@ -39,6 +39,7 @@ public sealed partial class EditorForms
     protected override void OnInitialized()
     {
         Hobbies = Foo.GenerateHobbies(FooLocalizer);
+        ValidateModel = Foo.Generate(FooLocalizer);
         Model = new Foo()
         {
             Name = Localizer["TestName"],
