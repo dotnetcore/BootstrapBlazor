@@ -1,0 +1,6 @@
+/*!
+ * Bootstrap Blazor v6 (https://www.blazor.zone/)
+ * Copyright 2020-2022 The Longbow Argo (argo@163.com)
+ * Licensed under MIT (https://github.com/dotnetcore/BootstrapBlazor/blob/main/LICENSE)
+ */
+:root{--bb-disabled-bg:#ebeef5;--bb-border-focus-color:#86b7fe;--bb-border-hover-color:#86b7fe;--bb-height:35px;--bb-disabled-opactiy:.65;--bb-dropdown-max-height:274px;--bb-shadow:0 0 8px 0 #e8edfa99,0 2px 4px 0 #e8edfa80;--bb-hover-shadow:0 1px 7px 0 #0000000d,0 2px 8px 0 #00000012,0 3px 9px 0 #0000000f,0 5px 10px 0 #00000008}body,.form-control,.dropdown-menu,.form-select,.input-group-text{font-size:.875rem}a,[for]{cursor:pointer}a,a:hover,a:focus{text-decoration:none}[disabled],:disabled,.disabled,.disabled>*{cursor:not-allowed !important}.disabled>i,.disabled .range-separator,:disabled,.form-control:disabled{opacity:var(--bb-disabled-opactiy)}:focus-visible,:focus{outline:none}.btn-group>.btn:not(.dropdown-toggle):not(:last-child){border-top-right-radius:0;border-bottom-right-radius:0}
