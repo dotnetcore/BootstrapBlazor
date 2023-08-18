@@ -49,7 +49,7 @@
                         }
                         @if (ShowDeleteButton)
                         {
-                            <TableToolbarPopconfirmButton TItem="TItem" Color="Color.Danger"
+                            <TableToolbarPopConfirmButton TItem="TItem" Color="Color.Danger"
                                                           Icon="@DeleteButtonIcon" Text="@DeleteButtonText" IsDisabled="GetDeleteButtonStatus()"
                                                           OnBeforeClick="ConfirmDelete" OnConfirm="DeleteAsync"
                                                           CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"

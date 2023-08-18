@@ -7,10 +7,10 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// TableToolbarPopconfirmButton 组件
+/// TableToolbarPopConfirmButton 组件
 /// </summary>
 [JSModuleNotInherited]
-public class TableToolbarPopconfirmButton<TItem> : PopConfirmButtonBase, ITableToolbarButton<TItem>
+public class TableToolbarPopConfirmButton<TItem> : PopConfirmButtonBase, ITableToolbarButton<TItem>
 {
     /// <summary>
     /// 获得/设置 按钮点击后回调委托
