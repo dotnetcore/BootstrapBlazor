@@ -98,7 +98,7 @@
     "TablesPageShowTopPaginationTitle": "显示在顶端",
     "TablesPageShowTopPaginationIntro": "设置 <code>ShowTopPagination</code> 为 <code>true</code> 是顶端显示分页组件"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesColumnFix": {
+  "BootstrapBlazor.Shared.Samples.Table.TablesFixedColumn": {
     "TablesFixedColumnTitle": "固定列功能",
     "TablesFixedColumnDescription": "对于列数很多的数据，可以固定前后的列，横向滚动查看其它数据",
     "TablesFixedColumnNote": "固定列用法请尽可能的设置固定列宽度，本页面如果宽度过长，请 <kbd>F12</kbd> 人为减小可视页面宽度",
