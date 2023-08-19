@@ -584,6 +584,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         OnFilterAsync = async () =>
         {
             PageIndex = 1;
+            TotalCount = 0;
             await QueryAsync();
         };
     }
@@ -1110,6 +1111,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         if (TotalCount > 0)
         {
             PageItems = Math.Min(request.Count, TotalCount - request.StartIndex);
+        }
+        else
+        {
+            PageItems = request.Count;
         }
         await QueryData();
         return new ItemsProviderResult<TItem>(QueryItems, TotalCount);
