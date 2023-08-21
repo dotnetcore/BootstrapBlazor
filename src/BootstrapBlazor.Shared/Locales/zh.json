@@ -3182,7 +3182,7 @@
     "UploadFileIconTitle": "文件图标",
     "UploadFileIconIntro": "不同文件格式显示的图标不同",
     "UploadFileIconTemplateTitle": "自定义文件图标",
-    "UploadFileIconTemplateIntro": "通过设置 <code>IconTemplate</code> 参数，使用 <code>FileIcon</code> 组件可以对文件图标进行进一步自定义 <a href=\"/fileicons\">[FileIcon 示例]</a>",
+    "UploadFileIconTemplateIntro": "通过设置 <code>IconTemplate</code> 参数，使用 <code>FileIcon</code> 组件可以对文件图标进行进一步自定义 <a href=\"/file-icon\">[FileIcon 示例]</a>",
     "UploadBase64Title": "Base64 格式文件",
     "UploadBase64Intro": "使用 <code>data:image/xxx;base64,XXXXX</code> 格式图片内容字符串作为预览文件路径",
     "UploadsShowDeleteButton": "是否显示删除按钮",
