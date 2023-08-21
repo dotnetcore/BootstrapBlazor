@@ -1,4 +1,8 @@
 .anchor-link {
+    --bb-anchor-link-margin-left: .5rem;
+    --bb-anchor-link-opacity: 0;
+    --bb-anchor-link-opacity-hover: 1;
+    --bb-anchor-link-opacity-transition: opacity .3s linear;
     cursor: pointer;
     display: inline-block;
 

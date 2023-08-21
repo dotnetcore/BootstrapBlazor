@@ -1,30 +1,4 @@
 $alert-bar-width: 4px !default;
 $alert-icon-margin-right: .5rem !default;
 
-.alert {
-    --bb-alert-icon-margin-right: #{$alert-icon-margin-right};
-}
-
-.alert-bar {
-    --bb-alert-bar-width: #{$alert-bar-width};
-}
-
-.anchor-link {
-    --bb-anchor-link-margin-left: .5rem;
-    --bb-anchor-link-opacity: 0;
-    --bb-anchor-link-opacity-hover: 1;
-    --bb-anchor-link-opacity-transition: opacity .3s linear;
-}
-
-.auto-complete {
-    --bb-ac-padding-right: 30px;
-    --bb-ac-menu-top: 40px;
-    --bb-ac-menu-left: 0;
-    --bb-ac-menu-right: 0;
-    --bb-ac-menu-shadow: 0 2px 8px rgba(0, 0, 0, 0.176);
-    --bb-ac-dropdown-max-height: var(--bb-dropdown-max-height);
-    --bb-select-append-width: 30px;
-    --bb-select-append-color: #c0c4cc;
-}
-
 @import "./components.scss";
