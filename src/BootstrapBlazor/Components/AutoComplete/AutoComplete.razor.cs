@@ -150,8 +150,10 @@ public partial class AutoComplete
     /// </summary>
     private string InputId => $"{Id}_input";
 
+    private string? DurationString => Debounce > 0 ? $"{Debounce}" : null;
+
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -176,7 +178,7 @@ public partial class AutoComplete
     }
 
     /// <summary>
-    /// firstRender
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
