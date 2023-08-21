@@ -133,6 +133,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "maui", "maui", "{C42EFBEF-7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.Maui", "src\maui\BootstrapBlazor.Maui\BootstrapBlazor.Maui.csproj", "{28DA0B9C-11A0-4144-A909-D95BDAD7787D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniTest.Sass", "test\UniTest.Sass\UniTest.Sass.csproj", "{D8AEAFE7-10AF-4A5B-BC67-FE740A2CA1DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -273,6 +275,10 @@ Global
 		{28DA0B9C-11A0-4144-A909-D95BDAD7787D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28DA0B9C-11A0-4144-A909-D95BDAD7787D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{28DA0B9C-11A0-4144-A909-D95BDAD7787D}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{D8AEAFE7-10AF-4A5B-BC67-FE740A2CA1DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8AEAFE7-10AF-4A5B-BC67-FE740A2CA1DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8AEAFE7-10AF-4A5B-BC67-FE740A2CA1DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8AEAFE7-10AF-4A5B-BC67-FE740A2CA1DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -320,6 +326,7 @@ Global
 		{8F189E6D-EC14-479F-8411-B5D967229D78} = {56FEFF09-85FC-408D-A397-6E264E68414E}
 		{C42EFBEF-7038-4D53-B8BA-998D6889AD5F} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
 		{28DA0B9C-11A0-4144-A909-D95BDAD7787D} = {C42EFBEF-7038-4D53-B8BA-998D6889AD5F}
+		{D8AEAFE7-10AF-4A5B-BC67-FE740A2CA1DF} = {7C1D79F1-87BC-42C1-BD5A-CDE4044AC1BD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}
