@@ -3182,7 +3182,7 @@
     "UploadFileIconTitle": "The file icon",
     "UploadFileIconIntro": "Icons are displayed in different file formats",
     "UploadFileIconTemplateTitle": "Custom file icon",
-    "UploadFileIconTemplateIntro": "By setting the <code>IconTemplate</code> parameter and using the <code>FileIcon</code> component, you can further customize the file icon <a href=\"/fileicons\">[FileIcon example]</a>",
+    "UploadFileIconTemplateIntro": "By setting the <code>IconTemplate</code> parameter and using the <code>FileIcon</code> component, you can further customize the file icon <a href=\"/file-icon\">[FileIcon example]</a>",
     "UploadBase64Title": "Base64 format",
     "UploadBase64Intro": "use <code>data:image/xxx;base64,XXXXX</code> format data string as PrevUrl value",
     "UploadsShowDeleteButton": "Whether to display the Delete button",
