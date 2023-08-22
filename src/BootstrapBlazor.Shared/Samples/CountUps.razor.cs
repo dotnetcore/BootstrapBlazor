@@ -123,7 +123,7 @@ public partial class CountUps
             Description = Localizer["UseIndianSeparators"],
             Type = "boolean",
             ValueList = " — ",
-            DefaultValue = "true"
+            DefaultValue = "false"
         },
         new()
         {
