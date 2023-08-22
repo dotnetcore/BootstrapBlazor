@@ -31,6 +31,10 @@ public partial class CountUp<TValue>
     [NotNull]
     private TValue? PreviousValue { get; set; }
 
+    private string? ClassString => CssBuilder.Default()
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
