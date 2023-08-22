@@ -50,160 +50,193 @@
                 border-color: var(--bb-dial-item-hover-border-color);
                 color: var(--bb-dial-item-hover-color);
             }
+        }
 
-            &:not(.show) {
-                visibility: hidden;
-            }
+        &:not(.show) {
+            visibility: hidden;
         }
     }
 
-    [data-bb-placement*="top"], [data-bb-placement*="bottom"],
-    [data-bb-placement="middle-end"], [data-bb-placement="middle-center"],
-    [data-bb-placement="middle-start"] {
+    &[data-bb-placement*="top"] {
         .dial-list {
             top: var(--bb-dial-list-vertical-offset);
             left: var(--bb-dial-list-horizontal-offset);
         }
     }
 
-    [data-bb-placement*="top"], [data-bb-placement*="bottom"] {
+    &[data-bb-placement*="bottom"] {
+        .dial-list {
+            top: var(--bb-dial-list-vertical-offset);
+            left: var(--bb-dial-list-horizontal-offset);
+        }
+    }
+
+    &[data-bb-placement="middle-end"] {
+        .dial-list {
+            top: var(--bb-dial-list-vertical-offset);
+            left: var(--bb-dial-list-horizontal-offset);
+        }
+    }
+
+    &[data-bb-placement="middle-center"] {
+        .dial-list {
+            top: var(--bb-dial-list-vertical-offset);
+            left: var(--bb-dial-list-horizontal-offset);
+        }
+    }
+
+    &[data-bb-placement="middle-start"] {
+        .dial-list {
+            top: var(--bb-dial-list-vertical-offset);
+            left: var(--bb-dial-list-horizontal-offset);
+        }
+    }
+
+    &[data-bb-placement*="top"] {
         .dial-list-content {
             flex-direction: column;
             height: var(--bs-dial-list-height);
         }
     }
 
-    [data-bb-placement="middle-end"] {
+    &[data-bb-placement*="bottom"] {
+        .dial-list-content {
+            flex-direction: column;
+            height: var(--bs-dial-list-height);
+        }
+    }
+
+    &[data-bb-placement="middle-end"] {
         .dial-list-content {
             flex-direction: row-reverse;
         }
     }
+}
 
-    .is-radial {
+.dial-button.is-radial {
+    .dial-list {
+        width: calc(var(--bb-dial-radial-radius) + 1.5 * var(--bb-dial-item-width));
+        height: calc(var(--bb-dial-radial-radius) + 1.5 * var(--bb-dial-item-height));
+        --bb-dial-item-margin: 2px;
+
+        .dial-list-content {
+            position: relative;
+            height: inherit;
+            width: inherit;
+            border-radius: 100%;
+
+            .dial-item {
+                position: absolute;
+                transform: rotate(var(--bb-dial-item-angle)) translate(var(--bb-dial-radial-radius)) rotate(calc(-1 * var(--bb-dial-item-angle)));
+            }
+        }
+    }
+
+    &[data-bb-placement="top-start"] {
         .dial-list {
-            width: calc(var(--bb-dial-radial-radius) + 1.5 * var(--bb-dial-item-width));
-            height: calc(var(--bb-dial-radial-radius) + 1.5 * var(--bb-dial-item-height));
-            --bb-dial-item-margin: 2px;
+            border-bottom-right-radius: 100%;
+        }
+    }
 
-            .dial-list-content {
-                position: relative;
-                height: inherit;
-                width: inherit;
-                border-radius: 100%;
-
-                .dial-item {
-                    position: absolute;
-                    transform: rotate(var(--bb-dial-item-angle)) translate(var(--bb-dial-radial-radius)) rotate(calc(-1 * var(--bb-dial-item-angle)));
-                }
-            }
+    &[data-bb-placement="top-center"] {
+        .dial-list {
+            border-bottom-left-radius: 100%;
+            border-bottom-right-radius: 100%;
+            width: calc(2 * (var(--bb-dial-radial-radius) + 1.5 * var(--bb-dial-item-width)));
+            left: var(--bb-dial-list-horizontal-offset);
         }
 
-        [data-bb-placement="top-start"] {
-            .dial-list {
-                border-bottom-right-radius: 100%;
-            }
+        .dial-item {
+            left: calc(0px - 2 * var(--bb-dial-item-margin) - var(--bb-dial-list-horizontal-offset));
+        }
+    }
+
+    &[data-bb-placement="top-end"] {
+        .dial-list {
+            border-bottom-left-radius: 100%;
+            right: 0;
         }
 
-        [data-bb-placement="top-center"] {
-            .dial-list {
-                border-bottom-left-radius: 100%;
-                border-bottom-right-radius: 100%;
-                width: calc(2 * (var(--bb-dial-radial-radius) + 1.5 * var(--bb-dial-item-width)));
-                left: var(--bb-dial-list-horizontal-offset);
-            }
+        .dial-item {
+            right: 0;
+        }
+    }
 
-            .dial-item {
-                left: calc(0px - 2 * var(--bb-dial-item-margin) - var(--bb-dial-list-horizontal-offset));
-            }
+    &[data-bb-placement="middle-start"] {
+        .dial-list {
+            border-top-right-radius: 100%;
+            border-bottom-right-radius: 100%;
+            height: calc(2 * (var(--bb-dial-radial-radius) + 1.5 * var(--bb-dial-item-height)));
+            top: var(--bb-dial-list-vertical-offset);
         }
 
-        [data-bb-placement="top-end"] {
-            .dial-list {
-                border-bottom-left-radius: 100%;
-                right: 0;
-            }
+        .dial-item {
+            top: calc(0px - 2 * var(--bb-dial-item-margin) - var(--bb-dial-list-vertical-offset));
+        }
+    }
 
-            .dial-item {
-                right: 0;
-            }
+    &[data-bb-placement="middle-center"] {
+        .dial-list {
+            border-radius: 50%;
+            width: calc(2 * (var(--bb-dial-radial-radius) + 1.5 * var(--bb-dial-item-width)));
+            height: calc(2 * (var(--bb-dial-radial-radius) + 1.5 * var(--bb-dial-item-height)));
+            top: var(--bb-dial-list-vertical-offset);
+            left: var(--bb-dial-list-horizontal-offset);
         }
 
-        [data-bb-placement="middle-start"] {
-            .dial-list {
-                border-top-right-radius: 100%;
-                border-bottom-right-radius: 100%;
-                height: calc(2 * (var(--bb-dial-radial-radius) + 1.5 * var(--bb-dial-item-height)));
-                top: var(--bb-dial-list-vertical-offset);
-            }
+        .dial-item {
+            top: calc(0px - 2 * var(--bb-dial-item-margin) - var(--bb-dial-list-vertical-offset));
+            left: calc(0px - 2 * var(--bb-dial-item-margin) - var(--bb-dial-list-horizontal-offset));
+        }
+    }
 
-            .dial-item {
-                top: calc(0px - 2 * var(--bb-dial-item-margin) - var(--bb-dial-list-vertical-offset));
-            }
+    &[data-bb-placement="middle-end"] {
+        .dial-list {
+            border-top-left-radius: 100%;
+            border-bottom-left-radius: 100%;
+            height: calc(2 * (var(--bb-dial-radial-radius) + 1.5 * var(--bb-dial-item-height)));
+            top: var(--bb-dial-list-vertical-offset);
+            right: 0;
         }
 
-        [data-bb-placement="middle-center"] {
-            .dial-list {
-                border-radius: 50%;
-                width: calc(2 * (var(--bb-dial-radial-radius) + 1.5 * var(--bb-dial-item-width)));
-                height: calc(2 * (var(--bb-dial-radial-radius) + 1.5 * var(--bb-dial-item-height)));
-                top: var(--bb-dial-list-vertical-offset);
-                left: var(--bb-dial-list-horizontal-offset);
-            }
+        .dial-item {
+            top: calc(0px - 2 * var(--bb-dial-item-margin) - var(--bb-dial-list-vertical-offset));
+        }
+    }
 
-            .dial-item {
-                top: calc(0px - 2 * var(--bb-dial-item-margin) - var(--bb-dial-list-vertical-offset));
-                left: calc(0px - 2 * var(--bb-dial-item-margin) - var(--bb-dial-list-horizontal-offset));
-            }
+    &[data-bb-placement="bottom-start"] {
+        .dial-list {
+            border-top-right-radius: 100%;
+            bottom: 0;
+            left: 0;
+        }
+    }
+
+    &[data-bb-placement="bottom-center"] {
+        .dial-list {
+            border-top-left-radius: 100%;
+            border-top-right-radius: 100%;
+            width: calc(2 * (var(--bb-dial-radial-radius) + 1.5 * var(--bb-dial-item-width)));
+            bottom: 0;
+            left: var(--bb-dial-list-horizontal-offset);
         }
 
-        [data-bb-placement="middle-end"] {
-            .dial-list {
-                border-top-left-radius: 100%;
-                border-bottom-left-radius: 100%;
-                height: calc(2 * (var(--bb-dial-radial-radius) + 1.5 * var(--bb-dial-item-height)));
-                top: var(--bb-dial-list-vertical-offset);
-                right: 0;
-            }
+        .dial-item {
+            bottom: 0;
+            left: calc(0px - 2 * var(--bb-dial-item-margin) - var(--bb-dial-list-horizontal-offset));
+        }
+    }
 
-            .dial-item {
-                top: calc(0px - 2 * var(--bb-dial-item-margin) - var(--bb-dial-list-vertical-offset));
-            }
+    &[data-bb-placement="bottom-end"] {
+        .dial-list {
+            border-top-left-radius: 100%;
+            bottom: 0;
+            right: 0;
         }
 
-        [data-bb-placement="bottom-start"] {
-            .dial-list {
-                border-top-right-radius: 100%;
-                bottom: 0;
-                left: 0;
-            }
-        }
-
-        [data-bb-placement="bottom-center"] {
-            .dial-list {
-                border-top-left-radius: 100%;
-                border-top-right-radius: 100%;
-                width: calc(2 * (var(--bb-dial-radial-radius) + 1.5 * var(--bb-dial-item-width)));
-                bottom: 0;
-                left: var(--bb-dial-list-horizontal-offset);
-            }
-
-            .dial-item {
-                bottom: 0;
-                left: calc(0px - 2 * var(--bb-dial-item-margin) - var(--bb-dial-list-horizontal-offset));
-            }
-        }
-
-        [data-bb-placement="bottom-end"] {
-            .dial-list {
-                border-top-left-radius: 100%;
-                bottom: 0;
-                right: 0;
-            }
-
-            .dial-item {
-                bottom: 0;
-                right: 0;
-            }
+        .dial-item {
+            bottom: 0;
+            right: 0;
         }
     }
 }
