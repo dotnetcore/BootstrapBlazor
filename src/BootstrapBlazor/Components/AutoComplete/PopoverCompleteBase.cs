@@ -7,6 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 弹窗可悬浮组件基类
 /// </summary>
+[BootstrapModuleAutoLoader("AutoComplete/AutoComplete.razor.js", JSObjectReference = true)]
 public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, IPopoverBaseComponent
 {
     /// <summary>
@@ -132,11 +133,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
             if (ValidateForm != null)
             {
                 await InvokeVoidAsync("composition", Id);
-            }
-
-            if (Debounce > 0)
-            {
-                await InvokeVoidAsync("debounce", Id);
             }
         }
     }
