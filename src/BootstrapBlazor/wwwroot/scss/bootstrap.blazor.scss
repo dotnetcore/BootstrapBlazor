@@ -1,4 +1,21 @@
 $alert-bar-width: 4px !default;
 $alert-icon-margin-right: .5rem !default;
 
+/*
+    DialogButton
+*/
+$dial-list-zindex: 5;
+$dial-item-padding: 0.25rem 1rem;
+$dial-item-bg: #fff;
+$dial-item-hover-bg: #e9ecef;
+$dial-item-hover-color: var(--bs-body-color);
+$dial-item-hover-border-color: #c0c4cc;
+$dial-item-border: 1px solid #dee2e6;
+$dial-item-margin: 6px;
+$dial-item-width: 40px;
+$dial-item-height: 40px;
+$dial-item-radius: 50%;
+$dial-item-shadow: 0 1px 6px #c0c4cc;
+$dial-list-radial-offset: 8px;
+
 @import "./components.scss";
