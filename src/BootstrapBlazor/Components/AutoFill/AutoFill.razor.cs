@@ -177,16 +177,17 @@ public partial class AutoFill<TValue>
     {
         if (ShowDropdownListOnFocus)
         {
-            await OnKeyUp(new KeyboardEventArgs());
+            await OnKeyUp("");
         }
     }
 
     /// <summary>
     /// OnKeyUp 方法
     /// </summary>
-    /// <param name="args"></param>
+    /// <param name="key"></param>
     /// <returns></returns>
-    protected virtual async Task OnKeyUp(KeyboardEventArgs args)
+    [JSInvokable]
+    public virtual async Task OnKeyUp(string key)
     {
         if (!_isLoading)
         {
@@ -209,7 +210,7 @@ public partial class AutoFill<TValue>
         {
             _isShown = true;
             // 键盘向上选择
-            if (args.Key == "ArrowUp")
+            if (key == "ArrowUp")
             {
                 var index = 0;
                 if (ActiveSelectedItem != null)
@@ -223,7 +224,7 @@ public partial class AutoFill<TValue>
                 ActiveSelectedItem = source[index];
                 CurrentItemIndex = index;
             }
-            else if (args.Key == "ArrowDown")
+            else if (key == "ArrowDown")
             {
                 var index = 0;
                 if (ActiveSelectedItem != null)
@@ -237,7 +238,7 @@ public partial class AutoFill<TValue>
                 ActiveSelectedItem = source[index];
                 CurrentItemIndex = index;
             }
-            else if (args.Key == "Escape")
+            else if (key == "Escape")
             {
                 await OnBlur();
                 if (!SkipEsc && OnEscAsync != null)
@@ -245,7 +246,7 @@ public partial class AutoFill<TValue>
                     await OnEscAsync(Value);
                 }
             }
-            else if (args.Key == "Enter")
+            else if (key == "Enter")
             {
                 ActiveSelectedItem ??= FindItem().FirstOrDefault();
                 if (ActiveSelectedItem != null)
@@ -259,6 +260,7 @@ public partial class AutoFill<TValue>
                 }
             }
         }
+        StateHasChanged();
 
         IEnumerable<TValue> FindItem()
         {
@@ -270,7 +272,7 @@ public partial class AutoFill<TValue>
     }
 
     /// <summary>
-    ///
+    /// TriggerOnChange 方法
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]

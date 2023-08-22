@@ -174,7 +174,7 @@ public partial class AutoComplete
         {
             if (OnFocusFilter)
             {
-                await OnKeyUp(new KeyboardEventArgs());
+                await OnKeyUp("");
             }
             else
             {
@@ -187,9 +187,10 @@ public partial class AutoComplete
     /// <summary>
     /// OnKeyUp 方法
     /// </summary>
-    /// <param name="args"></param>
+    /// <param name="key"></param>
     /// <returns></returns>
-    protected virtual async Task OnKeyUp(KeyboardEventArgs args)
+    [JSInvokable]
+    public virtual async Task OnKeyUp(string key)
     {
         if (!IsLoading)
         {
@@ -216,7 +217,7 @@ public partial class AutoComplete
         if (source.Any())
         {
             // 键盘向上选择
-            if (args.Key == "ArrowUp")
+            if (key == "ArrowUp")
             {
                 var index = source.IndexOf(CurrentSelectedItem) - 1;
                 if (index < 0)
@@ -226,7 +227,7 @@ public partial class AutoComplete
                 CurrentSelectedItem = source[index];
                 CurrentItemIndex = index;
             }
-            else if (args.Key == "ArrowDown")
+            else if (key == "ArrowDown")
             {
                 var index = source.IndexOf(CurrentSelectedItem) + 1;
                 if (index > source.Count - 1)
@@ -236,7 +237,7 @@ public partial class AutoComplete
                 CurrentSelectedItem = source[index];
                 CurrentItemIndex = index;
             }
-            else if (args.Key == "Escape")
+            else if (key == "Escape")
             {
                 OnBlur();
                 if (!SkipEsc && OnEscAsync != null)
@@ -244,7 +245,7 @@ public partial class AutoComplete
                     await OnEscAsync(Value);
                 }
             }
-            else if (args.Key == "Enter")
+            else if (key == "Enter")
             {
                 if (!string.IsNullOrEmpty(CurrentSelectedItem))
                 {
@@ -262,28 +263,24 @@ public partial class AutoComplete
                 }
             }
         }
+        await CustomKeyUp(key);
+        StateHasChanged();
     }
 
     /// <summary>
-    ///
+    /// 
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    protected virtual Task CustomKeyUp(string key) => Task.CompletedTask;
+
+    /// <summary>
+    /// TriggerOnChange 方法
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
     public void TriggerOnChange(string val)
     {
         CurrentValueAsString = val;
-    }
-
-    /// <summary>
-    /// 注册汉字多次触发问题脚本
-    /// </summary>
-    /// <returns></returns>
-    protected virtual async Task RegisterComposition()
-    {
-        // 汉字多次触发问题
-        if (ValidateForm != null)
-        {
-            await InvokeVoidAsync("composition", Id);
-        }
     }
 }
