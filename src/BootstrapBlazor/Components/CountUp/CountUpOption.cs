@@ -7,23 +7,15 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// CountUp 配置类
 /// </summary>
-public struct CountUpOption
+public class CountUpOption
 {
     /// <summary>
-    /// 构造方法
-    /// </summary>
-    public CountUpOption()
-    {
-
-    }
-
-    /// <summary>
-    /// 开始计数值
+    /// 开始计数值 默认 0
     /// </summary>
     public decimal StartValue { get; set; }
 
     /// <summary>
-    /// 小数位数
+    /// 小数位数 默认 0
     /// </summary>
     public int DecimalPlaces { get; set; }
 
@@ -58,14 +50,14 @@ public struct CountUpOption
     public string Decimal { get; set; } = ".";
 
     /// <summary>
-    /// 前缀文本 默认 null 未设置
+    /// 前缀文本 默认 string.Empty 未设置
     /// </summary>
-    public string? Prefix { get; set; }
+    public string Prefix { get; set; } = string.Empty;
 
     /// <summary>
-    /// 后缀文本 默认 null 未设置
+    /// 后缀文本 默认 string.Empty 未设置
     /// </summary>
-    public string? Suffix { get; set; }
+    public string Suffix { get; set; } = string.Empty;
 
     /// <summary>
     /// 动画阈值 默认 999
