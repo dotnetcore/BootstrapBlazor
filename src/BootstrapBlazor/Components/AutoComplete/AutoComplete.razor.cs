@@ -42,13 +42,6 @@ public partial class AutoComplete
     public IEnumerable<string>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 无匹配数据时显示提示信息 默认提示"无匹配数据"
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? NoDataTip { get; set; }
-
-    /// <summary>
     /// 获得/设置 匹配数据时显示的数量
     /// </summary>
     [Parameter]
@@ -96,12 +89,6 @@ public partial class AutoComplete
     /// </summary>
     [Parameter]
     public bool SkipEsc { get; set; }
-
-    /// <summary>
-    /// 获得/设置 获得焦点时是否展开下拉候选菜单 默认 true
-    /// </summary>
-    [Parameter]
-    public bool ShowDropdownListOnFocus { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 候选项模板 默认 null

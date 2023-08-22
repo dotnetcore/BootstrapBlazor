@@ -38,13 +38,6 @@ public partial class AutoFill<TValue>
     public IEnumerable<TValue>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 无匹配数据时显示提示信息 默认提示"无匹配数据"
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? NoDataTip { get; set; }
-
-    /// <summary>
     /// 获得/设置 匹配数据时显示的数量 默认 null 未设置
     /// </summary>
     [Parameter]
@@ -99,12 +92,6 @@ public partial class AutoFill<TValue>
     /// </summary>
     [Parameter]
     public Func<TValue, Task>? OnSelectedItemChanged { get; set; }
-
-    /// <summary>
-    /// 获得/设置 获得焦点时是否展开下拉候选菜单 默认 true
-    /// </summary>
-    [Parameter]
-    public bool ShowDropdownListOnFocus { get; set; } = true;
 
     /// <summary>
     /// 图标

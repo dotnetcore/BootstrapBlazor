@@ -35,6 +35,13 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     public bool ShowShadow { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 无匹配数据时显示提示信息 默认提示"无匹配数据"
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? NoDataTip { get; set; }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     [Parameter]
@@ -45,6 +52,12 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     /// </summary>
     [Parameter]
     public string? Offset { get; set; }
+
+    /// <summary>
+    /// 获得/设置 获得焦点时是否展开下拉候选菜单 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowDropdownListOnFocus { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 防抖时间 默认为 0 即不开启
@@ -102,12 +115,6 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
-    protected override string? GetInputId() => InputId;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -133,6 +140,12 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
             }
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override string? GetInputId() => InputId;
 
     /// <summary>
     /// <inheritdoc/>
