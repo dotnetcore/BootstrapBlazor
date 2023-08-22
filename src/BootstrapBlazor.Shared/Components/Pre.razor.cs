@@ -153,12 +153,20 @@ public partial class Pre
                 content = match.Groups[1].Value.Replace("\r\n", "\n").Replace("\n    ", "\n").TrimStart('\n');
             }
 
+            // 移除 ignore 节点
+            regex = IgnoreRegex();
+            match = regex.Match(content);
+            if (match.Success)
+            {
+                content = content.Replace(match.Value, "").TrimStart('\n');
+            }
+
             // 移除 ConsoleLogger
             regex = ConsoleLoggerRegex();
             match = regex.Match(content);
             if (match.Success)
             {
-                content = content.Replace(match.Value, "");
+                content = content.Replace(match.Value, "").TrimStart('\n');
             }
 
             // 移除 Tips
@@ -171,6 +179,9 @@ public partial class Pre
         }
         return content.TrimEnd('\n');
     }
+
+    [GeneratedRegex("<section ignore>[\\s\\S]*?</section>")]
+    private static partial Regex IgnoreRegex();
 
     [GeneratedRegex("<ConsoleLogger [\\s\\S]* />")]
     private static partial Regex ConsoleLoggerRegex();

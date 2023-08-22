@@ -6,85 +6,87 @@
 <h4>@Localizer["Description"]</h4>
 
 <DemoBlock Title="@Localizer["CountUpsNormalTitle"]" Introduction="@Localizer["CountUpsNormalIntro"]" Name="Normal">
-    <div class="row mb-2">
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="Start value"></BootstrapInputGroupLabel>
-                <BootstrapInput @bind-Value="@_option.StartValue"></BootstrapInput>
-            </BootstrapInputGroup>
+    <section ignore>
+        <div class="row mb-2">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="Start value"></BootstrapInputGroupLabel>
+                    <BootstrapInput @bind-Value="@_option.StartValue"></BootstrapInput>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="Duration"></BootstrapInputGroupLabel>
+                    <BootstrapInputNumber @bind-Value="@_option.Duration"></BootstrapInputNumber>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="OnCompleted"></BootstrapInputGroupLabel>
+                    <Checkbox @bind-Value="@_useOnCompleted"></Checkbox>
+                </BootstrapInputGroup>
+            </div>
         </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="Duration"></BootstrapInputGroupLabel>
-                <BootstrapInputNumber @bind-Value="@_option.Duration"></BootstrapInputNumber>
-            </BootstrapInputGroup>
+        <div class="row mb-2">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="Use earing"></BootstrapInputGroupLabel>
+                    <Checkbox @bind-Value="@_option.UseEasing"></Checkbox>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="Decimal places"></BootstrapInputGroupLabel>
+                    <BootstrapInputNumber @bind-Value="@_option.DecimalPlaces"></BootstrapInputNumber>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="Decimal"></BootstrapInputGroupLabel>
+                    <BootstrapInput @bind-Value="@_option.Decimal"></BootstrapInput>
+                </BootstrapInputGroup>
+            </div>
         </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="OnCompleted"></BootstrapInputGroupLabel>
-                <Checkbox @bind-Value="@_useOnCompleted"></Checkbox>
-            </BootstrapInputGroup>
+        <div class="row mb-2">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="Use grouping"></BootstrapInputGroupLabel>
+                    <Checkbox @bind-Value="@_option.UseGrouping"></Checkbox>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="Use separators"></BootstrapInputGroupLabel>
+                    <Checkbox @bind-Value="@_option.UseIndianSeparators"></Checkbox>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="Separator"></BootstrapInputGroupLabel>
+                    <BootstrapInput @bind-Value="@_option.Separator"></BootstrapInput>
+                </BootstrapInputGroup>
+            </div>
         </div>
-    </div>
-    <div class="row mb-2">
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="Use earing"></BootstrapInputGroupLabel>
-                <Checkbox @bind-Value="@_option.UseEasing"></Checkbox>
-            </BootstrapInputGroup>
+        <div class="row">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="Prefix"></BootstrapInputGroupLabel>
+                    <BootstrapInput @bind-Value="@_option.Prefix"></BootstrapInput>
+                </BootstrapInputGroup>
+            </div>
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel DisplayText="Suffix"></BootstrapInputGroupLabel>
+                    <BootstrapInput @bind-Value="@_option.Suffix"></BootstrapInput>
+                </BootstrapInputGroup>
+            </div>
         </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="Decimal places"></BootstrapInputGroupLabel>
-                <BootstrapInputNumber @bind-Value="@_option.DecimalPlaces"></BootstrapInputNumber>
-            </BootstrapInputGroup>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="Decimal"></BootstrapInputGroupLabel>
-                <BootstrapInput @bind-Value="@_option.Decimal"></BootstrapInput>
-            </BootstrapInputGroup>
-        </div>
-    </div>
-    <div class="row mb-2">
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="Use grouping"></BootstrapInputGroupLabel>
-                <Checkbox @bind-Value="@_option.UseGrouping"></Checkbox>
-            </BootstrapInputGroup>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="Use separators"></BootstrapInputGroupLabel>
-                <Checkbox @bind-Value="@_option.UseIndianSeparators"></Checkbox>
-            </BootstrapInputGroup>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="Separator"></BootstrapInputGroupLabel>
-                <BootstrapInput @bind-Value="@_option.Separator"></BootstrapInput>
-            </BootstrapInputGroup>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="Prefix"></BootstrapInputGroupLabel>
-                <BootstrapInput @bind-Value="@_option.Prefix"></BootstrapInput>
-            </BootstrapInputGroup>
-        </div>
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="Suffix"></BootstrapInputGroupLabel>
-                <BootstrapInput @bind-Value="@_option.Suffix"></BootstrapInput>
-            </BootstrapInputGroup>
-        </div>
-    </div>
+    </section>
     <div class="mb-2">
         <CountUp TValue="double" Value="@Value2" Option="_option" OnCompleted="OnCompleted" class="fw-bold fs-1"></CountUp>
     </div>
     <Button Icon="fa-solid fa-gear" Text="Update" OnClick="OnUpdate"></Button>
-    <ConsoleLogger @ref="_logger" class="mt-2"></ConsoleLogger>
+    <ConsoleLogger @ref="_logger" class="mt-2" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
