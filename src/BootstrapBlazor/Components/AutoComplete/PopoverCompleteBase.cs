@@ -56,6 +56,11 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     protected string? OffsetString => IsPopover ? null : Offset;
 
     /// <summary>
+    /// 输入框 Id
+    /// </summary>
+    protected string InputId => $"{Id}_input";
+
+    /// <summary>
     /// 弹窗位置字符串
     /// </summary>
     protected string? PlacementString => Placement == Placement.Auto ? null : Placement.ToDescriptionString();
@@ -76,4 +81,10 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
 
         Offset ??= "[0, 10]";
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override string? GetInputId() => InputId;
 }

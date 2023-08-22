@@ -146,13 +146,6 @@ public partial class AutoComplete
     protected int? CurrentItemIndex { get; set; }
 
     /// <summary>
-    /// 输入框 Id
-    /// </summary>
-    private string InputId => $"{Id}_input";
-
-    private string? DurationString => Debounce > 0 ? $"{Debounce}" : null;
-
-    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()

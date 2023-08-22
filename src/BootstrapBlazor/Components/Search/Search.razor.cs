@@ -97,11 +97,6 @@ public partial class Search
     private IStringLocalizer<Search>? Localizer { get; set; }
 
     /// <summary>
-    /// 输入框 Id
-    /// </summary>
-    private string InputId => $"{Id}_input";
-
-    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override string? ClassString => CssBuilder.Default("search")
