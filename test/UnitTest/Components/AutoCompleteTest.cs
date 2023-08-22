@@ -105,6 +105,14 @@ public class AutoCompleteTest : BootstrapBlazorTestBase
 
         cut.InvokeAsync(() => cut.Instance.OnKeyUp("Enter"));
         Assert.True(clicked);
+
+        clicked = false;
+        cut.InvokeAsync(() =>
+        {
+            var item = cut.Find(".dropdown-item");
+            item.MouseDown();
+        });
+        Assert.True(clicked);
     }
 
     [Fact]
