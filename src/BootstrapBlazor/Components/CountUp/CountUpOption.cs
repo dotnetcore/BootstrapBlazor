@@ -28,9 +28,9 @@ public class CountUpOption
     public float Duration { get; set; } = 2.0f;
 
     /// <summary>
-    /// 是否使用分隔符 默认 true
+    /// 是否使用分隔符 默认 false
     /// </summary>
-    public bool UseIndianSeparators { get; set; } = true;
+    public bool UseIndianSeparators { get; set; }
 
     /// <summary>
     /// 是否使用过渡动画 默认 true
