@@ -53,34 +53,14 @@ public partial class CountUp<TValue>
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (firstRender)
-        {
-            PreviousValue = Value;
-        }
-        else if (!PreviousValue.Equals(Value))
-        {
-            await Update(Value);
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value, OnCompleted != null ? nameof(OnCompleteCallback) : null, Option);
-
-    /// <summary>
-    /// 更新数据方法
-    /// </summary>
-    /// <param name="value"></param>
-    /// <returns></returns>
-    private async ValueTask Update(TValue? value)
-    {
-        PreviousValue = value;
-
         if (Module != null)
         {
-            await Module.InvokeVoidAsync("update", Id, Value, Option);
+            if (!PreviousValue.Equals(Value))
+            {
+                PreviousValue = Value;
+
+                await Module.InvokeVoidAsync("init", Id, Interop, Value, OnCompleted != null ? nameof(OnCompleteCallback) : null, Option);
+            }
         }
     }
 
