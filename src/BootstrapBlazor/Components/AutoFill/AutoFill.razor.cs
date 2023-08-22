@@ -101,12 +101,6 @@ public partial class AutoFill<TValue>
     public Func<TValue, Task>? OnSelectedItemChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 防抖时间 默认为 0 即不开启
-    /// </summary>
-    [Parameter]
-    public int Debounce { get; set; }
-
-    /// <summary>
     /// 获得/设置 获得焦点时是否展开下拉候选菜单 默认 true
     /// </summary>
     [Parameter]
@@ -184,12 +178,12 @@ public partial class AutoFill<TValue>
             // 汉字多次触发问题
             if (ValidateForm != null)
             {
-                await InvokeVoidAsync("composition", Id, Interop, nameof(TriggerOnChange));
+                await InvokeVoidAsync("composition", Id, Interop);
             }
 
             if (Debounce > 0)
             {
-                await InvokeVoidAsync("debounce", Id, Debounce);
+                await InvokeVoidAsync("debounce", Id);
             }
         }
     }

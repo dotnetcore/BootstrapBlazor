@@ -86,12 +86,6 @@ public partial class AutoComplete
     public Func<string, Task>? OnSelectedItemChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 防抖时间 默认为 0 即不开启
-    /// </summary>
-    [Parameter]
-    public int Debounce { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否跳过 Enter 按键处理 默认 false
     /// </summary>
     [Parameter]
@@ -187,13 +181,14 @@ public partial class AutoComplete
         if (firstRender)
         {
             await RegisterComposition();
-
-            if (Debounce > 0)
-            {
-                await InvokeVoidAsync("debounce", Id, Debounce);
-            }
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
 
     /// <summary>
     /// OnBlur 方法
@@ -336,7 +331,7 @@ public partial class AutoComplete
         // 汉字多次触发问题
         if (ValidateForm != null)
         {
-            await InvokeVoidAsync("composition", Id, Interop, nameof(TriggerOnChange));
+            await InvokeVoidAsync("composition", Id);
         }
     }
 }

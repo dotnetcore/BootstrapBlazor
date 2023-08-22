@@ -46,6 +46,17 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     public string? Offset { get; set; }
 
     /// <summary>
+    /// 获得/设置 防抖时间 默认为 0 即不开启
+    /// </summary>
+    [Parameter]
+    public int Debounce { get; set; }
+
+    /// <summary>
+    /// 防抖时长字符串
+    /// </summary>
+    protected string? DurationString => Debounce > 0 ? $"{Debounce}" : null;
+
+    /// <summary>
     /// data-bs-toggle 值
     /// </summary>
     protected string? ToggleString => IsPopover ? Constants.DropdownToggleString : null;
