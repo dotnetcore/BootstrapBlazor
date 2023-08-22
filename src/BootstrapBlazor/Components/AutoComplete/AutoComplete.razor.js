@@ -1,19 +1,35 @@
-﻿import { getHeight } from "../../modules/utility.js?v=$version"
+﻿import { debounce, getHeight } from "../../modules/utility.js?v=$version"
 import { handleKeyUp, select, selectAllByFocus, selectAllByEnter } from "../Input/BootstrapInput.razor.js?v=$version"
 import Data from "../../modules/data.js?v=$version"
-import Debounce from "../../modules/debounce.js?v=$version"
 import EventHandler from "../../modules/event-handler.js?v=$version"
 import Input from "../../modules/input.js?v=$version"
 import Popover from "../../modules/base-popover.js?v=$version"
 
-export function init(id) {
+export function init(id, invoke) {
     const el = document.getElementById(id)
     const menu = el.querySelector('.dropdown-menu')
-    var ac = { el, menu }
+    const input = document.getElementById(`${id}_input`)
+    var ac = { el, invoke, menu, input }
     Data.set(id, ac)
 
     if (el.querySelector('[data-bs-toggle="bb.dropdown"]')) {
         ac.popover = Popover.init(el, { toggleClass: '[data-bs-toggle="bb.dropdown"]' })
+    }
+
+    // debounce
+    const duration = parseInt(input.getAttribute('data-bb-debounce') || '0');
+    if (duration > 0) {
+        ac.debounce = true
+        EventHandler.on(input, 'keyup', debounce(e => {
+            invoke.invokeMethodAsync('OnKeyUp', e.code)
+        }, duration, e => {
+            return ['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Escape', 'Enter'].indexOf(e.key) > -1
+        }))
+    }
+    else {
+        EventHandler.on(input, 'keyup', e => {
+            invoke.invokeMethodAsync('OnKeyUp', e.code)
+        })
     }
 }
 
@@ -45,19 +61,11 @@ export function autoScroll(id, index) {
     }
 }
 
-export function debounce(id, ms) {
-    const ac = Data.get(id)
-    if (ac) {
-        ac.debounce = true
-    }
-    Debounce.init(id, ms)
-}
-
-export function composition(id, invoke, method) {
+export function composition(id) {
     const ac = Data.get(id)
     if (ac) {
         ac.composition = true
-        Input.composition(`${id}_input`, invoke, method)
+        Input.composition(`${id}_input`, ac.invoke, 'TriggerOnChange')
     }
 }
 
@@ -70,14 +78,13 @@ export function dispose(id) {
             Popover.dispose(ac.popover)
         }
         if (ac.el) {
-            EventHandler.off(ac.el, 'keyup')
             EventHandler.off(ac.el, 'focus')
         }
         if (ac.composition) {
             Input.dispose(`${id}_input`)
         }
-        if (ac.debounce) {
-            Debounce.dispose(id)
+        if (ac.input) {
+            EventHandler.off(ac.input, 'keyup')
         }
     }
 }

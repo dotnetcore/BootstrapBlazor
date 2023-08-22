@@ -143,15 +143,15 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
         {
             if (!SkipRegisterEnterEscJSInvoke && (OnEnterAsync != null || OnEscAsync != null))
             {
-                await InvokeVoidAsync("handleKeyUp", Id, Interop, OnEnterAsync != null, nameof(EnterCallback), OnEscAsync != null, nameof(EscCallback));
+                await InvokeVoidAsync("handleKeyUp", GetInputId(), Interop, OnEnterAsync != null, nameof(EnterCallback), OnEscAsync != null, nameof(EscCallback));
             }
             if (IsSelectAllTextOnFocus)
             {
-                await InvokeVoidAsync("selectAllByFocus", Id);
+                await InvokeVoidAsync("selectAllByFocus", GetInputId());
             }
             if (IsSelectAllTextOnEnter)
             {
-                await InvokeVoidAsync("selectAllByEnter", Id);
+                await InvokeVoidAsync("selectAllByEnter", GetInputId());
             }
             if (IsAutoFocus)
             {
@@ -163,6 +163,11 @@ public abstract class BootstrapInputBase<TValue> : ValidateBase<TValue>
             }
         }
     }
+
+    /// <summary>
+    /// 获得输入框 Id
+    /// </summary>
+    protected virtual string? GetInputId() => Id;
 
     /// <summary>
     /// 数值格式化委托方法
