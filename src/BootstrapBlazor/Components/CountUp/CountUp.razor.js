@@ -5,6 +5,19 @@ export function init(id, invoke, val, callback, option) {
     var count = { invoke, callback }
     Data.set(id, count)
 
+    initCountUp(id, invoke, val, callback, option)
+}
+
+export function update(id, value, option) {
+    const count = Data.get(id)
+    initCountUp(id, count.invoke, value, count.callback, option)
+}
+
+export function dispose(id) {
+    Data.remove(id)
+}
+
+const initCountUp = (id, invoke, val, callback, option) => {
     option = option || {}
     if (callback !== null) {
         option.onCompleteCallback = () => {
@@ -13,21 +26,7 @@ export function init(id, invoke, val, callback, option) {
     }
 
     const countUp = new CountUp(id, val, option)
-    count.countUp = countUp
-
     if (val > 0) {
         countUp.start()
     }
 }
-
-export function update(id, value) {
-    const count = Data.get(id)
-    if (count.countUp) {
-        count.countUp.update(value)
-    }
-}
-
-export function dispose(id) {
-    Data.remove(id)
-}
-

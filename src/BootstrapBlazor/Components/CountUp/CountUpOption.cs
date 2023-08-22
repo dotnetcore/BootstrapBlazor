@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Text.Json.Serialization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -12,6 +14,7 @@ public class CountUpOption
     /// <summary>
     /// 开始计数值 默认 0
     /// </summary>
+    [JsonPropertyName("startVal")]
     public decimal StartValue { get; set; }
 
     /// <summary>

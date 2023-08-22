@@ -80,7 +80,7 @@ public partial class CountUp<TValue>
 
         if (Module != null)
         {
-            await Module.InvokeVoidAsync("update", Id, Value);
+            await Module.InvokeVoidAsync("update", Id, Value, Option);
         }
     }
 
