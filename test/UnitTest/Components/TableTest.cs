@@ -6496,6 +6496,7 @@ public class TableTest : TableTestBase
             {
                 pb.Add(a => a.ScrollMode, ScrollMode.Virtual);
                 pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.ShowLineNo, true);
                 pb.Add(a => a.ShowExtendButtons, true);
                 pb.Add(a => a.IsExtendButtonsInRowHeader, true);
                 pb.Add(a => a.TableColumns, foo => builder =>
@@ -6511,7 +6512,7 @@ public class TableTest : TableTestBase
         var table = cut.FindComponent<MockTable>();
         var cut1 = Context.Render(table.Instance.RenderVirtualPlaceHolder());
         var tds = cut1.FindAll("td");
-        Assert.Equal(3, tds.Count);
+        Assert.Equal(4, tds.Count);
 
         table.SetParametersAndRender(pb =>
         {
@@ -6519,7 +6520,7 @@ public class TableTest : TableTestBase
         });
         cut1 = Context.Render(table.Instance.RenderVirtualPlaceHolder());
         tds = cut1.FindAll("td");
-        Assert.Equal(3, tds.Count);
+        Assert.Equal(4, tds.Count);
     }
 
     [Fact]
