@@ -1,5 +1,5 @@
-﻿.btn-pulse {
-    --bs-border-width: 3px;
+.btn-pulse {
+    --bs-border-width: $border-width;
     position: relative;
 }
 

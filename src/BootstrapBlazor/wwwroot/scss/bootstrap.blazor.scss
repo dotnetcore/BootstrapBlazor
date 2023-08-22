@@ -21,11 +21,15 @@ $dial-list-radial-offset: 8px;
 /*
     PopConfirmButtonContent
 */
-
 $popover-min-width: 240px;
 $popover-buttons-justify-content: flex-end;
 $popover-buttons-margin-left: 0.5rem;
 $popover-buttons-padding: 0.25rem 1rem;
 $popover-body-span-margin-left: 0.25rem;
+
+/*
+    PopConfirmButtonContent
+*/
+$border-width: 3px;
 
 @import "./components.scss";
