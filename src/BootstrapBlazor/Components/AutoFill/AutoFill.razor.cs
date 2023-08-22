@@ -120,17 +120,11 @@ public partial class AutoFill<TValue>
 
     [Inject]
     [NotNull]
-    private IIconTheme? IconTheme { get; set; }
-
-    [Inject]
-    [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
 
     private string InputString { get; set; } = "";
 
     private TValue? ActiveSelectedItem { get; set; }
-
-    private int? CurrentItemIndex { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -157,35 +151,6 @@ public partial class AutoFill<TValue>
 
         OnGetDisplayText ??= v => v?.ToString() ?? "";
         InputString = OnGetDisplayText(Value);
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (CurrentItemIndex.HasValue)
-        {
-            await InvokeVoidAsync("autoScroll", Id, CurrentItemIndex.Value);
-        }
-
-        if (firstRender)
-        {
-            // 汉字多次触发问题
-            if (ValidateForm != null)
-            {
-                await InvokeVoidAsync("composition", Id, Interop);
-            }
-
-            if (Debounce > 0)
-            {
-                await InvokeVoidAsync("debounce", Id);
-            }
-        }
     }
 
     /// <summary>

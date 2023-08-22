@@ -128,16 +128,7 @@ public partial class AutoComplete
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IIconTheme? IconTheme { get; set; }
-
     private string CurrentSelectedItem { get; set; } = "";
-
-    /// <summary>
-    /// CurrentItemIndex 当前选中项索引
-    /// </summary>
-    protected int? CurrentItemIndex { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -163,32 +154,6 @@ public partial class AutoComplete
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
     }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (CurrentItemIndex.HasValue)
-        {
-            await InvokeVoidAsync("autoScroll", Id, CurrentItemIndex.Value);
-        }
-
-        if (firstRender)
-        {
-            await RegisterComposition();
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
 
     /// <summary>
     /// OnBlur 方法

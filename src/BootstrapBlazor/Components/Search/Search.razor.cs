@@ -90,10 +90,6 @@ public partial class Search
 
     [Inject]
     [NotNull]
-    private IIconTheme? IconTheme { get; set; }
-
-    [Inject]
-    [NotNull]
     private IStringLocalizer<Search>? Localizer { get; set; }
 
     /// <summary>

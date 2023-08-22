@@ -2,12 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -15,6 +9,13 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, IPopoverBaseComponent
 {
+    /// <summary>
+    /// 图标主题服务
+    /// </summary>
+    [Inject]
+    [NotNull]
+    protected IIconTheme? IconTheme { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -72,6 +73,11 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     protected string InputId => $"{Id}_input";
 
     /// <summary>
+    /// CurrentItemIndex 当前选中项索引
+    /// </summary>
+    protected int? CurrentItemIndex { get; set; }
+
+    /// <summary>
     /// 弹窗位置字符串
     /// </summary>
     protected string? PlacementString => Placement == Placement.Auto ? null : Placement.ToDescriptionString();
@@ -98,4 +104,39 @@ public abstract class PopoverCompleteBase<TValue> : BootstrapInputBase<TValue>, 
     /// </summary>
     /// <returns></returns>
     protected override string? GetInputId() => InputId;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (CurrentItemIndex.HasValue)
+        {
+            await InvokeVoidAsync("autoScroll", Id, CurrentItemIndex.Value);
+        }
+
+        if (firstRender)
+        {
+            // 汉字多次触发问题
+            if (ValidateForm != null)
+            {
+                await InvokeVoidAsync("composition", Id);
+            }
+
+            if (Debounce > 0)
+            {
+                await InvokeVoidAsync("debounce", Id);
+            }
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
 }
