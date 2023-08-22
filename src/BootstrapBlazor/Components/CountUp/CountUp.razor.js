@@ -1,18 +1,14 @@
 ﻿import { CountUp } from "../../lib/countUp/countUp.min.js?v=$version"
 import Data from "../../modules/data.js?v=$version"
 
-export function init(id, invoke, val, callback) {
+export function init(id, invoke, val, callback, option) {
     var count = { invoke, callback }
     Data.set(id, count)
 
-    const option = {}
-
+    option = option || {}
     if (callback !== null) {
         option.onCompleteCallback = () => {
-            const count = Data.get(id)
-            if (count) {
-                count.invoke.invokeMethodAsync(callback)
-            }
+            invoke.invokeMethodAsync(callback)
         }
     }
 

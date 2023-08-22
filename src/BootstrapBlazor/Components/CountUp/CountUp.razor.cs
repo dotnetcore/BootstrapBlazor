@@ -17,6 +17,12 @@ public partial class CountUp<TValue>
     public TValue? Value { get; set; }
 
     /// <summary>
+    /// 获得/设置 计数配置项 默认 null
+    /// </summary>
+    [Parameter]
+    public CountUpOption? Option { get; set; }
+
+    /// <summary>
     /// 获得/设置 计数结束回调方法 默认 null
     /// </summary>
     [Parameter]
@@ -61,7 +67,7 @@ public partial class CountUp<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value, OnCompleted != null ? nameof(OnCompleteCallback) : null);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value, OnCompleted != null ? nameof(OnCompleteCallback) : null, Option);
 
     /// <summary>
     /// 更新数据方法
