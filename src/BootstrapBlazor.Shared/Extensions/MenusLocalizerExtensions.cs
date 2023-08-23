@@ -943,6 +943,12 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     IsNew = true,
+                    Text = Localizer["CountButton"],
+                    Url = "count-button"
+                },
+                new()
+                {
+                    IsNew = true,
                     Text = Localizer["DialButton"],
                     Url = "dial-button"
                 },
