@@ -5644,7 +5644,8 @@
     "SmartEasingAmount": "动画总量",
     "EnableScrollSpy": "是否启用滚动监听",
     "ScrollSpyDelay": "滚动延时",
-    "ScrollSpyOnce": "滚动监听一次"
+    "ScrollSpyOnce": "滚动监听一次",
+    "Numerals": "数字符号集合"
   },
   "BootstrapBlazor.Shared.Samples.EyeDroppers": {
     "EyeDropperTitle": "屏幕取色 EyeDropper",

@@ -5644,7 +5644,8 @@
     "SmartEasingAmount": "amount to be eased for numbers above threshold",
     "EnableScrollSpy": "start animation when target is in view",
     "ScrollSpyDelay": "delay (ms) after target comes into view",
-    "ScrollSpyOnce": "run only once"
+    "ScrollSpyOnce": "run only once",
+    "Numerals": "numeral glyph substitution"
   },
   "BootstrapBlazor.Shared.Samples.EyeDroppers": {
     "EyeDropperTitle": "EyeDropper",
