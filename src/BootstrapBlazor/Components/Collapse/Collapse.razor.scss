@@ -1,47 +1,48 @@
-﻿.accordion {
+.accordion {
     --bs-accordion-btn-focus-box-shadow: none;
-}
+    --bs-accordion-btn-hover-bg: var(--bs-secondary);
 
-    .accordion .accordion-button {
+    .accordion-button {
         color: var(--bs-btn-color);
     }
 
-        .accordion .accordion-button:active {
-            background-color: var(--bs-accordion-btn-bg);
-        }
+    .accordion-button:active {
+        background-color: var(--bs-accordion-btn-bg);
+    }
 
-        .accordion .accordion-button:hover {
-            background-color: var(--bs-accordion-btn-hover-bg);
-        }
+    .accordion-button:hover {
+        background-color: var(--bs-accordion-btn-hover-bg);
+    }
 
-        .accordion .accordion-button.btn-primary {
-            background-color: var(--bs-primary);
-        }
+    .accordion-button.btn-primary {
+        background-color: var(--bs-primary);
+    }
 
-        .accordion .accordion-button.btn-secondary {
-            background-color: var(--bs-secondary);
-        }
+    .accordion-button.btn-secondary {
+        background-color: var(--bs-secondary);
+    }
 
-        .accordion .accordion-button.btn-success {
-            background-color: var(--bs-success);
-        }
+    .accordion-button.btn-success {
+        background-color: var(--bs-success);
+    }
 
-        .accordion .accordion-button.btn-info {
-            background-color: var(--bs-info);
-        }
+    .accordion-button.btn-info {
+        background-color: var(--bs-info);
+    }
 
-        .accordion .accordion-button.btn-warning {
-            background-color: var(--bs-warning);
-        }
+    .accordion-button.btn-warning {
+        background-color: var(--bs-warning);
+    }
 
-        .accordion .accordion-button.btn-danger {
-            background-color: var(--bs-danger);
-        }
+    .accordion-button.btn-danger {
+        background-color: var(--bs-danger);
+    }
 
-        .accordion .accordion-button.btn-light {
-            background-color: var(--bs-light);
-        }
+    .accordion-button.btn-light {
+        background-color: var(--bs-light);
+    }
 
-        .accordion .accordion-button.btn-dark {
-            background-color: var(--bs-dark);
-        }
+    .accordion-button.btn-dark {
+        background-color: var(--bs-dark);
+    }
+}
