@@ -1,9 +1,9 @@
 .popover {
-    --bs-popover-min-width: $popover-min-width;
-    --bb-popover-buttons-justify-content: $popover-buttons-justify-content;
-    --bb-popover-buttons-margin-left: $popover-buttons-margin-left;
-    --bb-popover-buttons-padding: $popover-buttons-padding;
-    --bb-popover-body-span-margin-left: $popover-body-span-margin-left;
+    --bs-popover-min-width: #{$popover-min-width};
+    --bb-popover-buttons-justify-content: #{$popover-buttons-justify-content};
+    --bb-popover-buttons-margin-left: #{$popover-buttons-margin-left};
+    --bb-popover-buttons-padding: #{$popover-buttons-padding};
+    --bb-popover-body-span-margin-left: #{$popover-body-span-margin-left};
     min-width: var(--bs-popover-min-width);
 }
 

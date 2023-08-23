@@ -1,17 +1,17 @@
 .dial-button {
-    --bb-dial-list-zindex: $dial-list-zindex;
-    --bb-dial-item-padding: $dial-item-padding;
-    --bb-dial-item-bg: $dial-item-bg;
-    --bb-dial-item-hover-bg: $dial-item-hover-bg;
-    --bb-dial-item-hover-color: $dial-item-hover-color;
-    --bb-dial-item-hover-border-color: $dial-item-hover-border-color;
-    --bb-dial-item-border: $dial-item-border;
-    --bb-dial-item-margin: $dial-item-margin;
-    --bb-dial-item-width: $dial-item-width;
-    --bb-dial-item-height: $dial-item-height;
-    --bb-dial-item-radius: $dial-item-radius;
-    --bb-dial-item-shadow: $dial-item-shadow;
-    --bb-dial-list-radial-offset: $dial-list-radial-offset;
+    --bb-dial-list-zindex: #{$dial-list-zindex};
+    --bb-dial-item-padding: #{$dial-item-padding};
+    --bb-dial-item-bg: #{$dial-item-bg};
+    --bb-dial-item-hover-bg: #{$dial-item-hover-bg};
+    --bb-dial-item-hover-color: #{$dial-item-hover-color};
+    --bb-dial-item-hover-border-color: #{$dial-item-hover-border-color};
+    --bb-dial-item-border: #{$dial-item-border};
+    --bb-dial-item-margin: #{$dial-item-margin};
+    --bb-dial-item-width: #{$dial-item-width};
+    --bb-dial-item-height: #{$dial-item-height};
+    --bb-dial-item-radius: #{$dial-item-radius};
+    --bb-dial-item-shadow: #{$dial-item-shadow};
+    --bb-dial-list-radial-offset: #{$dial-list-radial-offset};
     position: relative;
     display: inline-flex;
 
