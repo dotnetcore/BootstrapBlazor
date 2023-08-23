@@ -19,9 +19,13 @@ public partial class CountUps
 
     private bool _useOnCompleted;
 
+    private List<SelectedItem> _items = new();
+
     /// <inheritdoc/>
     protected override void OnInitialized()
     {
+        _items.Add(new SelectedItem("", "Default (\"1234\")"));
+        _items.Add(new SelectedItem("1", "Eastern Arabic (\"١٢٣٤\")"));
         OnUpdate();
     }
 
@@ -35,6 +39,20 @@ public partial class CountUps
         if (_useOnCompleted)
         {
             _logger?.Log($"{DateTime.Now}: from {_option.StartValue} to {Value2}");
+        }
+        return Task.CompletedTask;
+    }
+
+    private Task OnSelectedItemChanged(SelectedItem item)
+    {
+        var index = _items.IndexOf(item);
+        if (index == 0)
+        {
+            _option.Numerals = null;
+        }
+        else if (index == 1)
+        {
+            _option.Numerals = new char[] { '٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩' };
         }
         return Task.CompletedTask;
     }
@@ -188,6 +206,14 @@ public partial class CountUps
             Type = "boolean",
             ValueList = " — ",
             DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(CountUpOption.Numerals),
+            Description = Localizer["Numerals"],
+            Type = "char[]",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     };
 }
