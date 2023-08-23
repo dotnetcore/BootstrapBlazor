@@ -1,5 +1,6 @@
 ﻿.accordion {
     --bs-accordion-btn-focus-box-shadow: none;
+    --bs-accordion-btn-hover-bg: var(--bs-secondary);
 }
 
     .accordion .accordion-button {
