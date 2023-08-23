@@ -182,7 +182,8 @@
     "chart/line": "Charts\\Line",
     "chart/pie": "Charts\\Pie",
     "slide-button": "SlideButtons",
-    "dial-button": "DialButtons"
+    "dial-button": "DialButtons",
+    "count-button": "CountButtons"
   },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",
