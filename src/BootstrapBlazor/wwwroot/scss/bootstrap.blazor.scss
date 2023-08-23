@@ -1,9 +1,8 @@
 $alert-bar-width: 4px !default;
 $alert-icon-margin-right: .5rem !default;
 
-/*
-    DialogButton
-*/
+
+//DialogButton
 $dial-list-zindex: 5;
 $dial-item-padding: 0.25rem 1rem;
 $dial-item-bg: #fff;
@@ -18,23 +17,20 @@ $dial-item-radius: 50%;
 $dial-item-shadow: 0 1px 6px #c0c4cc;
 $dial-list-radial-offset: 8px;
 
-/*
-    PopConfirmButtonContent
-*/
+
+//PopConfirmButtonContent
 $popover-min-width: 240px;
 $popover-buttons-justify-content: flex-end;
 $popover-buttons-margin-left: 0.5rem;
 $popover-buttons-padding: 0.25rem 1rem;
 $popover-body-span-margin-left: 0.25rem;
 
-/*
-    PopConfirmButtonContent
-*/
+
+//PlusButton
 $border-width: 3px;
 
-/*
-    SlideButton
-*/
+
+//SlideButton
 $slide-list-bg: #fff;
 $slide-list-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
 $slide-list-border: var(--bs-border-width) solid var(--bs-border-color-translucent);
@@ -50,5 +46,15 @@ $slide-item-active-bg: #0d6efd;
 $slide-item-active-color: #fff;
 $slide-item-hover-bg: var(--bs-tertiary-bg);
 $slide-item-hover-color: var(--bs-body-color);
+
+
+//Card
+$card-border-radius: var(--bs-border-radius);
+$card-inner-border-radius: calc(var(--bs-border-radius) - 1px);
+$card-shadow: var(--bb-shadow);
+$card-hover-shadow: var(--bb-hover-shadow);
+$card-collapse-bar-margin-right: .5rem;
+$card-header-tag-height: 21px;
+$card-title-spacer-y: 0;
 
 @import "./components.scss";
