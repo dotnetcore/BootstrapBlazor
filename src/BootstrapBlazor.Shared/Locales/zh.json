@@ -4480,7 +4480,8 @@
     "MouseFollowerIntro": "鼠标跟随",
     "Live2DDisplayIntro": "Live2D 插件",
     "SlideButton": "快捷菜单 SlideButton",
-    "DialButton": "拨号菜单 DialButton"
+    "DialButton": "拨号菜单 DialButton",
+    "CountButton": "倒计时按钮 CountButton"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -5758,5 +5759,18 @@
     "DialButtonIntro": "点击按钮后弹出功能菜单等信息，多用于二级功能展示",
     "BaseUsageText": "基本用法",
     "BaseUsageIntro": "通过设置 <code>Placement</code> 枚举值设置弹窗与按钮位置关系"
+  },
+  "BootstrapBlazor.Shared.Samples.CountButtons": {
+    "Title": "CountButton 倒计时按钮",
+    "Description": "多用于强制一段执行时间逻辑，如发送验证码后 60 秒等待输入",
+    "BaseUsageText": "基本用法",
+    "BaseUsageIntro": "通过 <code>Count</code> 参数值设置倒计时时间，默认 <b>5</b> 秒",
+    "TextTitle": "计时文本",
+    "TextIntro": "通过 <code>CountText</code> 参数值设置倒计时文本",
+    "Text": "发送验证码",
+    "CountButtonText": "{0} 秒后重试",
+    "Count": "倒计时数量",
+    "CountText": "倒计时文本",
+    "CountTextCallback": "倒计时格式化回调方法"
   }
 }
