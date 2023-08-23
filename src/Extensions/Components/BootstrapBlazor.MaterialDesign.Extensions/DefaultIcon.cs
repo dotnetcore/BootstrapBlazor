@@ -188,7 +188,7 @@ internal class DefaultIcon
         { ComponentIcons.CardUploadDeleteIcon, "mdi mdi-close" },
         { ComponentIcons.CardUploadRemoveIcon, "mdi mdi-trash-can-outline" },
         { ComponentIcons.CardUploadDownloadIcon, "mdi mdi-cloud-download-outline" },
-        { ComponentIcons.CardUploadZoomIcon, "mdi mdi-magnify-plus-outline-plus" },
+        { ComponentIcons.CardUploadZoomIcon, "mdi mdi-magnify-plus-outline" },
 
         { ComponentIcons.FileIconExcel, "mdi mdi-file-excel-outline" },
         { ComponentIcons.FileIconDocx, "mdi mdi-file-word-outline" },
