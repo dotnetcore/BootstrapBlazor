@@ -357,12 +357,22 @@ public class MultiSelectTest : BootstrapBlazorTestBase
             });
         });
 
-        var form = cut.Find("form");
-        form.Submit();
+        cut.InvokeAsync(() =>
+        {
+            var form = cut.Find("form");
+            form.Submit();
+        });
         Assert.True(invalid);
 
-        cut.Find(".dropdown-item").Click();
-        form.Submit();
+        cut.InvokeAsync(() =>
+        {
+            cut.Find(".dropdown-item").Click();
+        });
+        cut.InvokeAsync(() =>
+        {
+            var form = cut.Find("form");
+            form.Submit();
+        });
         Assert.True(valid);
     }
 
