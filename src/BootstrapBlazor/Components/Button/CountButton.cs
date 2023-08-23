@@ -32,11 +32,8 @@ public class CountButton : Button
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void SetClickHandler()
     {
-        base.OnInitialized();
-
-        IsAsync = true;
         OnClickButton = EventCallback.Factory.Create<MouseEventArgs>(this, async () =>
         {
             IsAsyncLoading = true;
