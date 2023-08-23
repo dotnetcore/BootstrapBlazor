@@ -1,8 +1,7 @@
-﻿.carousel {
+.carousel {
     overflow: hidden;
-}
 
-    .carousel [data-bs-slide] {
+    [data-bs-slide] {
         outline: none;
         padding: 0;
         margin: 0 0.5rem;
@@ -20,40 +19,40 @@
         font-size: 1rem;
     }
 
-    .carousel:not(.hover) .carousel-control-prev {
-        opacity: 0;
-        left: -10px
-    }
-
-    .carousel:not(.hover) .carousel-control-next {
-        opacity: 0;
-        right: -10px;
-    }
-
-    .carousel:not(.hover) .carousel-indicators {
-        opacity: 0;
-        bottom: -10px;
-    }
-
-    .carousel .carousel-indicators {
-        opacity: 1;
-        transition: all .2s linear;
-    }
-
-        .carousel.carousel-indicators [data-bs-target] {
-            background-color: #606266;
+    &:not(.hover) {
+        .carousel-control-prev {
+            opacity: 0;
+            left: -10px
         }
 
-    .carousel .carousel-inner,
-    .carousel .carousel-item,
-    .carousel .carousel-item img {
+        .carousel-control-next {
+            opacity: 0;
+            right: -10px;
+        }
+
+        .carousel-indicators {
+            opacity: 0;
+            bottom: -10px;
+        }
+    }
+
+    .carousel-indicators {
+        opacity: 1;
+        transition: all .2s linear;
+
+        [data-bs-target] {
+            background-color: #606266;
+        }
+    }
+
+    .carousel-inner, .carousel-item, .carousel-item img {
         height: 100%;
     }
 
-        .carousel .carousel-item img {
+    .carousel-item {
+        img {
             display: block;
-        }
-
-        .carousel .carousel-item img {
             width: 100%;
         }
+    }
+}
