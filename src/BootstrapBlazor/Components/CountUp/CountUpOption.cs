@@ -60,7 +60,7 @@ public class CountUpOption
     /// <summary>
     /// 后缀文本 默认 string.Empty 未设置
     /// </summary>
-    public string Suffix { get; set; } = string.Empty;
+    public string Suffix { get; set; } = string.Empty;
 
     /// <summary>
     /// 动画阈值 默认 999
@@ -86,4 +86,9 @@ public class CountUpOption
     /// 滚动监听一次 默认 false
     /// </summary>
     public bool ScrollSpyOnce { get; set; }
+
+    /// <summary>
+    /// numeral glyph substitution default null
+    /// </summary>
+    public char[]? Numerals { get; set; }
 }
