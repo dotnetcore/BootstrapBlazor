@@ -109,7 +109,7 @@ public class SearchTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
-        await cut.InvokeAsync(() => cut.Find("input").KeyUp("1"));
+        await cut.InvokeAsync(() => cut.Instance.OnKeyUp("1"));
         var item = cut.Find(".dropdown-item");
         await cut.InvokeAsync(() => item.MouseDown());
         Assert.True(clicked);
@@ -193,14 +193,14 @@ public class SearchTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
-        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "Enter" });
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("Enter"));
         Assert.True(ret);
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.IsOnInputTrigger, true);
         });
-        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "Enter" });
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("Enter"));
     }
 
     [Fact]
@@ -217,7 +217,7 @@ public class SearchTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
-        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "Escape" });
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("Escape"));
         Assert.True(ret);
     }
 

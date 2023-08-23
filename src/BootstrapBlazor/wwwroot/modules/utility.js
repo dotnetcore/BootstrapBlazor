@@ -465,10 +465,43 @@ const getOverflowParent = element => {
     return parent
 }
 
+/*
+ * @param {function} fn - 原函数
+ * @param {number} duration - 防抖时长
+ * @return {function} - 条件回调返回真时立即执行
+ */
+const debounce = function (fn, duration = 200, callback = null) {
+    let handler = null
+    return function () {
+        if (handler) {
+            clearTimeout(handler)
+        }
+        if (callback && typeof (callback) === 'function') {
+            var v = callback.apply(this, arguments)
+            if (v === true) {
+                handler = null
+            }
+        }
+        if (handler === null) {
+            fn.apply(this, arguments)
+
+            handler = setTimeout(() => {
+                handler = null
+            }, duration)
+        }
+        else {
+            handler = setTimeout(() => {
+                fn.apply(this, arguments)
+            }, duration)
+        }
+    }
+}
+
 export {
     addLink,
     addScript,
     copy,
+    debounce,
     drag,
     insertBefore,
     insertAfter,

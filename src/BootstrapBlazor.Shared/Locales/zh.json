@@ -98,7 +98,7 @@
     "TablesPageShowTopPaginationTitle": "显示在顶端",
     "TablesPageShowTopPaginationIntro": "设置 <code>ShowTopPagination</code> 为 <code>true</code> 是顶端显示分页组件"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesColumnFix": {
+  "BootstrapBlazor.Shared.Samples.Table.TablesFixedColumn": {
     "TablesFixedColumnTitle": "固定列功能",
     "TablesFixedColumnDescription": "对于列数很多的数据，可以固定前后的列，横向滚动查看其它数据",
     "TablesFixedColumnNote": "固定列用法请尽可能的设置固定列宽度，本页面如果宽度过长，请 <kbd>F12</kbd> 人为减小可视页面宽度",
@@ -3182,7 +3182,7 @@
     "UploadFileIconTitle": "文件图标",
     "UploadFileIconIntro": "不同文件格式显示的图标不同",
     "UploadFileIconTemplateTitle": "自定义文件图标",
-    "UploadFileIconTemplateIntro": "通过设置 <code>IconTemplate</code> 参数，使用 <code>FileIcon</code> 组件可以对文件图标进行进一步自定义 <a href=\"/fileicons\">[FileIcon 示例]</a>",
+    "UploadFileIconTemplateIntro": "通过设置 <code>IconTemplate</code> 参数，使用 <code>FileIcon</code> 组件可以对文件图标进行进一步自定义 <a href=\"/file-icon\">[FileIcon 示例]</a>",
     "UploadBase64Title": "Base64 格式文件",
     "UploadBase64Intro": "使用 <code>data:image/xxx;base64,XXXXX</code> 格式图片内容字符串作为预览文件路径",
     "UploadsShowDeleteButton": "是否显示删除按钮",
@@ -5628,8 +5628,24 @@
     "Description": "多用于报表数据动态展示，数字以跳动的形式展现",
     "CountUpsNormalTitle": "基础用法",
     "CountUpsNormalIntro": "通过设置 <code>Value</code> 参数赋值",
-    "Value": "获得/设置 计数结束回调方法",
-    "OnCompleted": "获得/设置 计数结束回调方法"
+    "Value": "计数结束值",
+    "OnCompleted": "获得/设置 计数结束回调方法",
+    "StartValue": "开始计数值",
+    "Duration": "动画时长",
+    "UseEasing": "是否使用过渡动画",
+    "DecimalPlaces": "小数位数",
+    "Decimal": "小数点符号",
+    "UseGrouping": "是否分组",
+    "UseIndianSeparators": "是否使用分隔符",
+    "Separator": "分隔符",
+    "Prefix": "前缀文本",
+    "Suffix": "后缀文本",
+    "SmartEasingThreshold": "动画阈值",
+    "SmartEasingAmount": "动画总量",
+    "EnableScrollSpy": "是否启用滚动监听",
+    "ScrollSpyDelay": "滚动延时",
+    "ScrollSpyOnce": "滚动监听一次",
+    "Numerals": "数字符号集合"
   },
   "BootstrapBlazor.Shared.Samples.EyeDroppers": {
     "EyeDropperTitle": "屏幕取色 EyeDropper",

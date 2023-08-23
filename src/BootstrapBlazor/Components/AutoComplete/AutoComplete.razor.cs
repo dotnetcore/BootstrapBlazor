@@ -10,7 +10,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// AutoComplete 组件
 /// </summary>
-[BootstrapModuleAutoLoader("AutoComplete/AutoComplete.razor.js", JSObjectReference = true)]
 public partial class AutoComplete
 {
     private bool IsLoading { get; set; }
@@ -40,13 +39,6 @@ public partial class AutoComplete
     [Parameter]
     [NotNull]
     public IEnumerable<string>? Items { get; set; }
-
-    /// <summary>
-    /// 获得/设置 无匹配数据时显示提示信息 默认提示"无匹配数据"
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? NoDataTip { get; set; }
 
     /// <summary>
     /// 获得/设置 匹配数据时显示的数量
@@ -86,12 +78,6 @@ public partial class AutoComplete
     public Func<string, Task>? OnSelectedItemChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 防抖时间 默认为 0 即不开启
-    /// </summary>
-    [Parameter]
-    public int Debounce { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否跳过 Enter 按键处理 默认 false
     /// </summary>
     [Parameter]
@@ -102,12 +88,6 @@ public partial class AutoComplete
     /// </summary>
     [Parameter]
     public bool SkipEsc { get; set; }
-
-    /// <summary>
-    /// 获得/设置 获得焦点时是否展开下拉候选菜单 默认 true
-    /// </summary>
-    [Parameter]
-    public bool ShowDropdownListOnFocus { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 候选项模板 默认 null
@@ -134,24 +114,10 @@ public partial class AutoComplete
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IIconTheme? IconTheme { get; set; }
-
     private string CurrentSelectedItem { get; set; } = "";
 
     /// <summary>
-    /// CurrentItemIndex 当前选中项索引
-    /// </summary>
-    protected int? CurrentItemIndex { get; set; }
-
-    /// <summary>
-    /// 输入框 Id
-    /// </summary>
-    private string InputId => $"{Id}_input";
-
-    /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -173,31 +139,6 @@ public partial class AutoComplete
         base.OnParametersSet();
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
-    }
-
-    /// <summary>
-    /// firstRender
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (CurrentItemIndex.HasValue)
-        {
-            await InvokeVoidAsync("autoScroll", Id, CurrentItemIndex.Value);
-        }
-
-        if (firstRender)
-        {
-            await RegisterComposition();
-
-            if (Debounce > 0)
-            {
-                await InvokeVoidAsync("debounce", Id, Debounce);
-            }
-        }
     }
 
     /// <summary>
@@ -232,7 +173,7 @@ public partial class AutoComplete
         {
             if (OnFocusFilter)
             {
-                await OnKeyUp(new KeyboardEventArgs());
+                await OnKeyUp("");
             }
             else
             {
@@ -245,9 +186,10 @@ public partial class AutoComplete
     /// <summary>
     /// OnKeyUp 方法
     /// </summary>
-    /// <param name="args"></param>
+    /// <param name="key"></param>
     /// <returns></returns>
-    protected virtual async Task OnKeyUp(KeyboardEventArgs args)
+    [JSInvokable]
+    public virtual async Task OnKeyUp(string key)
     {
         if (!IsLoading)
         {
@@ -274,7 +216,7 @@ public partial class AutoComplete
         if (source.Any())
         {
             // 键盘向上选择
-            if (args.Key == "ArrowUp")
+            if (key == "ArrowUp")
             {
                 var index = source.IndexOf(CurrentSelectedItem) - 1;
                 if (index < 0)
@@ -284,7 +226,7 @@ public partial class AutoComplete
                 CurrentSelectedItem = source[index];
                 CurrentItemIndex = index;
             }
-            else if (args.Key == "ArrowDown")
+            else if (key == "ArrowDown")
             {
                 var index = source.IndexOf(CurrentSelectedItem) + 1;
                 if (index > source.Count - 1)
@@ -294,7 +236,7 @@ public partial class AutoComplete
                 CurrentSelectedItem = source[index];
                 CurrentItemIndex = index;
             }
-            else if (args.Key == "Escape")
+            else if (key == "Escape")
             {
                 OnBlur();
                 if (!SkipEsc && OnEscAsync != null)
@@ -302,7 +244,7 @@ public partial class AutoComplete
                     await OnEscAsync(Value);
                 }
             }
-            else if (args.Key == "Enter")
+            else if (key == "Enter")
             {
                 if (!string.IsNullOrEmpty(CurrentSelectedItem))
                 {
@@ -320,28 +262,24 @@ public partial class AutoComplete
                 }
             }
         }
+        await CustomKeyUp(key);
+        StateHasChanged();
     }
 
     /// <summary>
-    ///
+    /// 
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    protected virtual Task CustomKeyUp(string key) => Task.CompletedTask;
+
+    /// <summary>
+    /// TriggerOnChange 方法
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
     public void TriggerOnChange(string val)
     {
         CurrentValueAsString = val;
-    }
-
-    /// <summary>
-    /// 注册汉字多次触发问题脚本
-    /// </summary>
-    /// <returns></returns>
-    protected virtual async Task RegisterComposition()
-    {
-        // 汉字多次触发问题
-        if (ValidateForm != null)
-        {
-            await InvokeVoidAsync("composition", Id, Interop, nameof(TriggerOnChange));
-        }
     }
 }

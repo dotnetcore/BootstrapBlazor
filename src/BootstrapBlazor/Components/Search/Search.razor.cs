@@ -90,16 +90,7 @@ public partial class Search
 
     [Inject]
     [NotNull]
-    private IIconTheme? IconTheme { get; set; }
-
-    [Inject]
-    [NotNull]
     private IStringLocalizer<Search>? Localizer { get; set; }
-
-    /// <summary>
-    /// 输入框 Id
-    /// </summary>
-    private string InputId => $"{Id}_input";
 
     /// <summary>
     /// <inheritdoc/>
@@ -173,15 +164,13 @@ public partial class Search
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="args"></param>
+    /// <param name="key"></param>
     /// <returns></returns>
-    protected override async Task OnKeyUp(KeyboardEventArgs args)
+    protected override async Task CustomKeyUp(string key)
     {
-        await base.OnKeyUp(args);
-
         if (!string.IsNullOrEmpty(CurrentValueAsString))
         {
-            if (args.Key == "Escape")
+            if (key == "Escape")
             {
                 if (OnEscAsync != null)
                 {
@@ -192,7 +181,7 @@ public partial class Search
                 await OnClearClick();
             }
 
-            if (IsOnInputTrigger || args.Key == "Enter")
+            if (IsOnInputTrigger || key == "Enter")
             {
                 if (OnEnterAsync != null)
                 {

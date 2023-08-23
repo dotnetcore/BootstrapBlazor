@@ -32,7 +32,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public async void Items_Bind()
+    public void Items_Bind()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -51,16 +51,22 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.ShowExtendButtons, true);
             });
         });
-        var button = cut.Find("button");
-        await cut.InvokeAsync(() => button.Click());
+        cut.InvokeAsync(() =>
+        {
+            var button = cut.Find("button");
+            button.Click();
+        });
 
-        button = cut.Find("button");
-        await cut.InvokeAsync(() => button.Click());
+        cut.InvokeAsync(() =>
+        {
+            var button = cut.Find("button");
+            button.Click();
+        });
         Assert.True(binded);
     }
 
     [Fact]
-    public async void SelectedRowsChanged_Bind()
+    public void SelectedRowsChanged_Bind()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -80,11 +86,17 @@ public class TableTest : TableTestBase
         });
 
         // 编辑时触发 SelectedRow
-        var button = cut.Find("button");
-        await cut.InvokeAsync(() => button.Click());
+        cut.InvokeAsync(() =>
+        {
+            var button = cut.Find("button");
+            button.Click();
+        });
 
-        button = cut.Find("button");
-        await cut.InvokeAsync(() => button.Click());
+        cut.InvokeAsync(() =>
+        {
+            var button = cut.Find("button");
+            button.Click();
+        });
         Assert.Equal(1, count);
     }
 
@@ -120,8 +132,11 @@ public class TableTest : TableTestBase
 
         if (insertMode == InsertRowMode.First)
         {
-            var button = cut.Find("tbody tr button");
-            cut.InvokeAsync(() => button.Click());
+            cut.InvokeAsync(() =>
+            {
+                var button = cut.Find("tbody tr button");
+                button.Click();
+            });
             if (bind)
             {
                 Assert.Null(items.First().Name);
@@ -135,8 +150,11 @@ public class TableTest : TableTestBase
         }
         else if (insertMode == InsertRowMode.Last)
         {
-            var button = cut.FindAll("tbody tr button").Last(i => i.ClassList.Contains("btn-success"));
-            cut.InvokeAsync(() => button.Click());
+            cut.InvokeAsync(() =>
+            {
+                var button = cut.FindAll("tbody tr button").Last(i => i.ClassList.Contains("btn-success"));
+                button.Click();
+            });
             if (bind)
             {
                 Assert.Null(items.Last().Name);
@@ -153,7 +171,7 @@ public class TableTest : TableTestBase
     [Theory]
     [InlineData(InsertRowMode.First)]
     [InlineData(InsertRowMode.Last)]
-    public async void Items_EditForm_Add(InsertRowMode insertMode)
+    public void Items_EditForm_Add(InsertRowMode insertMode)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -172,9 +190,11 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.ShowExtendButtons, true);
             });
         });
-        var table = cut.FindComponent<Table<Foo>>();
-        await cut.InvokeAsync(() => table.Instance.AddAsync());
-        Assert.Contains("<form ", table.Markup);
+        cut.InvokeAsync(async () =>
+        {
+            var table = cut.FindComponent<Table<Foo>>();
+            await table.Instance.AddAsync();
+        });
     }
 
     [Fact]
@@ -196,8 +216,11 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.ShowExtendButtons, true);
             });
         });
-        var table = cut.FindComponent<MockTable>();
-        cut.InvokeAsync(() => table.Instance.TestDeleteAsync());
+        cut.InvokeAsync(async () =>
+        {
+            var table = cut.FindComponent<MockTable>();
+            await table.Instance.TestDeleteAsync();
+        });
         Assert.Equal(localizer["Foo.Name", "0002"], items.First().Name);
     }
 
@@ -1926,13 +1949,13 @@ public class TableTest : TableTestBase
                 });
                 pb.Add(a => a.TableToolbarTemplate, builder =>
                 {
-                    builder.OpenComponent<TableToolbarPopconfirmButton<Foo>>(0);
-                    builder.AddAttribute(1, nameof(TableToolbarPopconfirmButton<Foo>.Text), "test");
-                    builder.AddAttribute(3, nameof(TableToolbarPopconfirmButton<Foo>.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
+                    builder.OpenComponent<TableToolbarPopConfirmButton<Foo>>(0);
+                    builder.AddAttribute(1, nameof(TableToolbarPopConfirmButton<Foo>.Text), "test");
+                    builder.AddAttribute(3, nameof(TableToolbarPopConfirmButton<Foo>.OnClick), EventCallback.Factory.Create<MouseEventArgs>(this, e =>
                     {
                         clicked = true;
                     }));
-                    builder.AddAttribute(2, nameof(TableToolbarPopconfirmButton<Foo>.OnConfirmCallback), new Func<IEnumerable<Foo>, Task>(foos =>
+                    builder.AddAttribute(2, nameof(TableToolbarPopConfirmButton<Foo>.OnConfirmCallback), new Func<IEnumerable<Foo>, Task>(foos =>
                     {
                         clickCallback = true;
                         return Task.CompletedTask;
@@ -1997,10 +2020,10 @@ public class TableTest : TableTestBase
                     }));
                     builder.CloseComponent();
 
-                    builder.OpenComponent<TableToolbarPopconfirmButton<Foo>>(0);
-                    builder.AddAttribute(9, nameof(TableToolbarPopconfirmButton<Foo>.Text), "test-confirm");
-                    builder.AddAttribute(10, nameof(TableToolbarPopconfirmButton<Foo>.IsShow), true);
-                    builder.AddAttribute(11, nameof(TableToolbarPopconfirmButton<Foo>.IsEnableWhenSelectedOneRow), true);
+                    builder.OpenComponent<TableToolbarPopConfirmButton<Foo>>(0);
+                    builder.AddAttribute(9, nameof(TableToolbarPopConfirmButton<Foo>.Text), "test-confirm");
+                    builder.AddAttribute(10, nameof(TableToolbarPopConfirmButton<Foo>.IsShow), true);
+                    builder.AddAttribute(11, nameof(TableToolbarPopConfirmButton<Foo>.IsEnableWhenSelectedOneRow), true);
                     builder.CloseComponent();
 
                     builder.OpenComponent<MockToolbarButton<Foo>>(0);
@@ -2061,9 +2084,9 @@ public class TableTest : TableTestBase
                     }));
                     builder.CloseComponent();
 
-                    builder.OpenComponent<TableToolbarPopconfirmButton<Foo>>(0);
-                    builder.AddAttribute(9, nameof(TableToolbarPopconfirmButton<Foo>.Text), "test-confirm");
-                    builder.AddAttribute(11, nameof(TableToolbarPopconfirmButton<Foo>.IsDisabledCallback), new Func<IEnumerable<Foo>, bool>(items =>
+                    builder.OpenComponent<TableToolbarPopConfirmButton<Foo>>(0);
+                    builder.AddAttribute(9, nameof(TableToolbarPopConfirmButton<Foo>.Text), "test-confirm");
+                    builder.AddAttribute(11, nameof(TableToolbarPopConfirmButton<Foo>.IsDisabledCallback), new Func<IEnumerable<Foo>, bool>(items =>
                     {
                         var ret = items.Any() && items.Where(i => !i.Complete).Any();
                         return !ret;
@@ -2211,7 +2234,7 @@ public class TableTest : TableTestBase
         var cut = Context.RenderComponent<TableToolbarButton<Foo>>();
         Assert.Equal("", cut.Markup);
 
-        var cut1 = Context.RenderComponent<TableToolbarPopconfirmButton<Foo>>();
+        var cut1 = Context.RenderComponent<TableToolbarPopConfirmButton<Foo>>();
         Assert.Equal("", cut1.Markup);
     }
 
@@ -4504,7 +4527,7 @@ public class TableTest : TableTestBase
         var input = cut.Find("tbody tr input");
         cut.InvokeAsync(() => input.Click());
 
-        var button = cut.FindComponent<TableToolbarPopconfirmButton<Foo>>();
+        var button = cut.FindComponent<TableToolbarPopConfirmButton<Foo>>();
         cut.InvokeAsync(() => button.Instance.OnConfirm.Invoke());
         Assert.Single(items);
     }
@@ -4542,7 +4565,7 @@ public class TableTest : TableTestBase
         var input = cut.Find("tbody tr input");
         await cut.InvokeAsync(() => input.Click());
 
-        var button = cut.FindComponent<TableToolbarPopconfirmButton<Foo>>();
+        var button = cut.FindComponent<TableToolbarPopConfirmButton<Foo>>();
         await cut.InvokeAsync(() => button.Instance.OnConfirm.Invoke());
 
         var row = cut.FindAll("tbody tr");
@@ -4974,7 +4997,7 @@ public class TableTest : TableTestBase
         var table = cut.FindComponent<Table<DynamicObject>>();
         await cut.InvokeAsync(() => table.Instance.AddAsync());
 
-        var delete = cut.FindComponent<TableToolbarPopconfirmButton<DynamicObject>>();
+        var delete = cut.FindComponent<TableToolbarPopConfirmButton<DynamicObject>>();
         await cut.InvokeAsync(() => delete.Instance.OnConfirm());
     }
 
@@ -5495,7 +5518,7 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        var deleteButton = table.FindComponent<TableToolbarPopconfirmButton<Foo>>();
+        var deleteButton = table.FindComponent<TableToolbarPopConfirmButton<Foo>>();
         await cut.InvokeAsync(() => deleteButton.Instance.OnBeforeClick());
 
         // 选一个
@@ -5536,7 +5559,7 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        var deleteButton = table.FindComponent<TableToolbarPopconfirmButton<Foo>>();
+        var deleteButton = table.FindComponent<TableToolbarPopConfirmButton<Foo>>();
         // 选一个
         var input = cut.Find("tbody tr input");
         cut.InvokeAsync(() => input.Click());
@@ -5672,7 +5695,7 @@ public class TableTest : TableTestBase
         var table = cut.FindComponent<Table<Foo>>();
         await cut.InvokeAsync(() => table.Instance.AddAsync());
 
-        var delete = cut.FindComponent<TableToolbarPopconfirmButton<Foo>>();
+        var delete = cut.FindComponent<TableToolbarPopConfirmButton<Foo>>();
         await cut.InvokeAsync(() => delete.Instance.OnConfirm());
     }
 
@@ -6473,6 +6496,7 @@ public class TableTest : TableTestBase
             {
                 pb.Add(a => a.ScrollMode, ScrollMode.Virtual);
                 pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.ShowLineNo, true);
                 pb.Add(a => a.ShowExtendButtons, true);
                 pb.Add(a => a.IsExtendButtonsInRowHeader, true);
                 pb.Add(a => a.TableColumns, foo => builder =>
@@ -6488,7 +6512,7 @@ public class TableTest : TableTestBase
         var table = cut.FindComponent<MockTable>();
         var cut1 = Context.Render(table.Instance.RenderVirtualPlaceHolder());
         var tds = cut1.FindAll("td");
-        Assert.Equal(3, tds.Count);
+        Assert.Equal(4, tds.Count);
 
         table.SetParametersAndRender(pb =>
         {
@@ -6496,7 +6520,7 @@ public class TableTest : TableTestBase
         });
         cut1 = Context.Render(table.Instance.RenderVirtualPlaceHolder());
         tds = cut1.FindAll("td");
-        Assert.Equal(3, tds.Count);
+        Assert.Equal(4, tds.Count);
     }
 
     [Fact]

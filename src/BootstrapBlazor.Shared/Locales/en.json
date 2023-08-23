@@ -98,7 +98,7 @@
     "TablesPageShowTopPaginationTitle": "Show on top",
     "TablesPageShowTopPaginationIntro": "Set <code>ShowTopPagination</code> to <code>true</code> is the top display pagination component"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesColumnFix": {
+  "BootstrapBlazor.Shared.Samples.Table.TablesFixedColumn": {
     "TablesFixedColumnTitle": "Fixed column",
     "TablesFixedColumnDescription": "For data with a large number of columns, you can fix the front and rear columns and scroll horizontally to view other data",
     "TablesFixedColumnNote": "For fixed column usage, please set the fixed column width as much as possible",
@@ -3182,7 +3182,7 @@
     "UploadFileIconTitle": "The file icon",
     "UploadFileIconIntro": "Icons are displayed in different file formats",
     "UploadFileIconTemplateTitle": "Custom file icon",
-    "UploadFileIconTemplateIntro": "By setting the <code>IconTemplate</code> parameter and using the <code>FileIcon</code> component, you can further customize the file icon <a href=\"/fileicons\">[FileIcon example]</a>",
+    "UploadFileIconTemplateIntro": "By setting the <code>IconTemplate</code> parameter and using the <code>FileIcon</code> component, you can further customize the file icon <a href=\"/file-icon\">[FileIcon example]</a>",
     "UploadBase64Title": "Base64 format",
     "UploadBase64Intro": "use <code>data:image/xxx;base64,XXXXX</code> format data string as PrevUrl value",
     "UploadsShowDeleteButton": "Whether to display the Delete button",
@@ -5629,7 +5629,23 @@
     "CountUpsNormalTitle": "Normal",
     "CountUpsNormalIntro": "Set <code>Value</code>",
     "Value": "Obtain/Set Value Value",
-    "OnCompleted": "Counting end callback method"
+    "OnCompleted": "Counting end callback method",
+    "StartValue": "number to start at",
+    "Duration": "animation duration in seconds",
+    "UseEasing": "ease animation",
+    "DecimalPlaces": "number of decimal places",
+    "Decimal": "decimal",
+    "UseGrouping": "example: 1,000 vs 1000",
+    "UseIndianSeparators": "example: 1,00,000 vs 100,000",
+    "Separator": "grouping separator",
+    "Prefix": "text prepended to result",
+    "Suffix": "text appended to result",
+    "SmartEasingThreshold": "smooth easing for large numbers above this if useEasing",
+    "SmartEasingAmount": "amount to be eased for numbers above threshold",
+    "EnableScrollSpy": "start animation when target is in view",
+    "ScrollSpyDelay": "delay (ms) after target comes into view",
+    "ScrollSpyOnce": "run only once",
+    "Numerals": "numeral glyph substitution"
   },
   "BootstrapBlazor.Shared.Samples.EyeDroppers": {
     "EyeDropperTitle": "EyeDropper",

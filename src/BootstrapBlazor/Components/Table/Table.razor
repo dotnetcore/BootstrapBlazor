@@ -49,7 +49,7 @@
                         }
                         @if (ShowDeleteButton)
                         {
-                            <TableToolbarPopconfirmButton TItem="TItem" Color="Color.Danger"
+                            <TableToolbarPopConfirmButton TItem="TItem" Color="Color.Danger"
                                                           Icon="@DeleteButtonIcon" Text="@DeleteButtonText" IsDisabled="GetDeleteButtonStatus()"
                                                           OnBeforeClick="ConfirmDelete" OnConfirm="DeleteAsync"
                                                           CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
@@ -732,6 +732,10 @@
                     <Checkbox TValue="TItem" ShowLabel="false" State="CheckboxState.UnChecked"></Checkbox>
                 </div>
             </td>
+        }
+        @if (ShowLineNo)
+        {
+            <td><div class="table-cell is-ph"></div></td>
         }
         @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
         {

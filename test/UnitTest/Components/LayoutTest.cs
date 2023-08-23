@@ -217,7 +217,10 @@ public class LayoutTest : BootstrapBlazorTestBase
                 return Task.FromResult(true);
             });
         });
-        navMan.NavigateTo("/");
+        cut.InvokeAsync(() =>
+        {
+            navMan.NavigateTo("/");
+        });
         Assert.Equal("http://localhost/", navMan.Uri);
 
         cut.SetParametersAndRender(pb =>
@@ -227,7 +230,10 @@ public class LayoutTest : BootstrapBlazorTestBase
                 return Task.FromResult(url == "http://localhost/Test");
             });
         });
-        navMan.NavigateTo("/");
+        cut.InvokeAsync(() =>
+        {
+            navMan.NavigateTo("/");
+        });
         Assert.Equal("http://localhost/Test", navMan.Uri);
     }
 

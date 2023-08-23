@@ -25,8 +25,12 @@ public partial class CardUpload<TValue>
         .AddClass("disabled", IsDisabled)
         .Build();
 
-    private string? StatusIconString => CssBuilder.Default("valid-icon")
+    private string? StatusIconString => CssBuilder.Default("valid-icon valid")
         .AddClass(StatusIcon)
+        .Build();
+
+    private string? DeleteIconString => CssBuilder.Default("valid-icon invalid")
+        .AddClass(DeleteIcon)
         .Build();
 
     private string PreviewerId => $"prev_{Id}";

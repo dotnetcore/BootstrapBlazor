@@ -7277,13 +7277,13 @@ form .table .table-cell > textarea {
 }
 
 .upload .upload-body.is-list .upload-item .fa-trash-can,
-.upload .upload-body.is-list .upload-item:not(.disabled):hover .fa--circle-check,
+.upload .upload-body.is-list .upload-item:not(.disabled):hover .fa-circle-check,
 .upload .upload-body.is-list .upload-item:hover .fa-xmark-circle,
 .upload .upload-body.is-avatar .upload-item .upload-item-delete,
 .upload .upload-body.is-avatar .upload-item.is-invalid .upload-item-spin,
 .upload .upload-body.is-avatar .upload-item.is-valid .upload-item-spin,
-.upload .upload-item.is-invalid .fa-check,
-.upload .upload-item.is-valid .fa-xmark,
+.upload .upload-item.is-invalid .valid,
+.upload .upload-item.is-valid .invalid,
 .upload .upload-body.is-avatar .upload-item.disabled .upload-item-plus {
   display: none;
 }

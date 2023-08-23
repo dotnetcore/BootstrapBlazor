@@ -3,7 +3,7 @@
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
     <div class="input-group">
-        <input @attributes="AdditionalAttributes" id="@InputId" @ref="FocusElement" class="@ClassName" autocomplete="off" type="@Type" data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" data-bs-offset="@OffsetString" data-bs-custom-class="@CustomClassString" placeholder="@PlaceHolder" @bind-value="@CurrentValueAsString" @bind-value:event="oninput" @onblur="OnBlur" @onkeyup="OnKeyUp" />
+        <input @attributes="AdditionalAttributes" id="@InputId" @ref="FocusElement" class="@ClassName" autocomplete="off" type="@Type" data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" data-bs-offset="@OffsetString" data-bs-custom-class="@CustomClassString" placeholder="@PlaceHolder" @bind-value="@CurrentValueAsString" @bind-value:event="oninput" @onblur="OnBlur" />
         @if (ShowClearButton)
         {
             <Button Color="ClearButtonColor" Text="@ClearButtonText" Icon="@ClearButtonIcon" OnClick="OnClearClick" aria-label="Clear" />
