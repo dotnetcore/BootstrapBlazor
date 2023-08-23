@@ -27,7 +27,7 @@ public class CountButton : Button
     /// 倒计时格式化回调方法
     /// </summary>
     [Parameter]
-    public Func<int, string>? CountFormater { get; set; }
+    public Func<int, string>? CountTextCallback { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -75,23 +75,23 @@ public class CountButton : Button
         ButtonIcon = null;
         while (count > 0)
         {
-            Text = GetCountText(count--);
+            Text = GetCountText(count--, text);
             StateHasChanged();
             await Task.Delay(1000);
         }
         Text = text;
     }
 
-    private string GetCountText(int count)
+    private string GetCountText(int count, string? text)
     {
         var ret = "";
-        if (CountFormater != null)
+        if (CountTextCallback != null)
         {
-            ret = CountFormater(count);
+            ret = CountTextCallback(count);
         }
         else
         {
-            var countText = CountText ?? Text;
+            var countText = CountText ?? text;
             if (!string.IsNullOrEmpty(countText))
             {
                 ret = $" {countText}";
