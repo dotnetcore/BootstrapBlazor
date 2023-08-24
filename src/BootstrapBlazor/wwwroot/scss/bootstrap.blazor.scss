@@ -52,4 +52,18 @@ $card-collapse-bar-margin-right: .5rem;
 $card-header-tag-height: 21px;
 $card-title-spacer-y: 0;
 
+//CheckBox
+$checkbox-label-padding-y: 6px;
+$checkbox-height: 1rem;
+$checkbox-sm-height: 1.25rem;
+$checkbox-md-height: 1.5rem;
+$checkbox-lg-height: 1.75rem;
+$checkbox-xl-height: 2rem;
+$checkbox-xxl-height: var(--bb-height);
+$checkbox-input-focus-border-color: #b5b5c3;
+$checkbox-item-disabled-opacity: 0.5;
+$checkbox-item-padding-md: 4px 0 3px 0;
+$checkbox-item-padding-lg: 2px 0 1px 0;
+$checkbox-item-padding-xl: 2px 0 1px 0;
+
 @import "./components.scss";
