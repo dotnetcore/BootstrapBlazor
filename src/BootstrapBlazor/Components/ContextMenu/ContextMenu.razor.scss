@@ -1,14 +1,14 @@
-﻿.bb-cm {
+.bb-cm {
     z-index: 1000;
     background-color: #fff;
-}
 
-    .bb-cm .cm-icon {
+    .cm-icon {
         min-width: 14px;
         min-height: 14px;
         display: inline-block;
     }
 
-    .bb-cm .dropdown-item {
+    .dropdown-item {
         --bs-dropdown-item-padding-x: 12px;
     }
+}
