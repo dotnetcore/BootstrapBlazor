@@ -64,10 +64,10 @@ public partial class Table<TItem>
     public bool ShowExportExcelButton { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示 Pdf 导出按钮 默认为 true 显示
+    /// 获得/设置 是否显示 Pdf 导出按钮 默认为 false 显示
     /// </summary>
     [Parameter]
-    public bool ShowExportPdfButton { get; set; } = true;
+    public bool ShowExportPdfButton { get; set; }
 
     /// <summary>
     /// 获得/设置 导出按钮图标
