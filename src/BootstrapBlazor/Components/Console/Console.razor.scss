@@ -1,19 +1,19 @@
-﻿.console {
-    --bs-card-color: #fff;
-    --bb-console-body-bg: #174482;
-}
+.console {
+    --bs-card-color: #{$card-color};
+    --bb-console-body-bg: #{$console-body-bg};
 
-    .console .card-body {
+    .card-body {
         background-color: var(--bb-console-body-bg);
         overflow: auto;
     }
 
-    .console .card-footer {
+    .card-footer {
         display: flex;
         align-items: center;
         justify-content: end;
-    }
 
-        .console .card-footer .console-clear {
+        .console-clear {
             margin-left: .5rem;
         }
+    }
+}
