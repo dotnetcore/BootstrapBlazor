@@ -5584,6 +5584,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowExportButton, true);
+                pb.Add(a => a.ShowExportPdfButton, true);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
