@@ -11,9 +11,9 @@ namespace BootstrapBlazor.Components;
 public interface ITableExportDataContext<TItem>
 {
     /// <summary>
-    /// 获得 导出类型 Excel/Pdf 目前仅这两种
+    /// 获得 导出类型 <see cref="TableExportType"/> 枚举类型
     /// </summary>
-    string ExportType { get; }
+    TableExportType ExportType { get; }
 
     /// <summary>
     /// 获得 当前 行数据集合
