@@ -1,48 +1,48 @@
 .accordion {
-    --bs-accordion-btn-focus-box-shadow: none;
-    --bs-accordion-btn-hover-bg: var(--bs-secondary);
+    --bs-accordion-btn-focus-box-shadow: #{$accordion-btn-focus-box-shadow};
+    --bs-accordion-btn-hover-bg: #{$accordion-btn-hover-bg};
 
     .accordion-button {
         color: var(--bs-btn-color);
-    }
 
-    .accordion-button:active {
-        background-color: var(--bs-accordion-btn-bg);
-    }
+        &:active {
+            background-color: var(--bs-accordion-btn-bg);
+        }
 
-    .accordion-button:hover {
-        background-color: var(--bs-accordion-btn-hover-bg);
-    }
+        &:hover {
+            background-color: var(--bs-accordion-btn-hover-bg);
+        }
 
-    .accordion-button.btn-primary {
-        background-color: var(--bs-primary);
-    }
+        &.btn-primary {
+            background-color: var(--bs-primary);
+        }
 
-    .accordion-button.btn-secondary {
-        background-color: var(--bs-secondary);
-    }
+        &.btn-secondary {
+            background-color: var(--bs-secondary);
+        }
 
-    .accordion-button.btn-success {
-        background-color: var(--bs-success);
-    }
+        &.btn-success {
+            background-color: var(--bs-success);
+        }
 
-    .accordion-button.btn-info {
-        background-color: var(--bs-info);
-    }
+        &.btn-info {
+            background-color: var(--bs-info);
+        }
 
-    .accordion-button.btn-warning {
-        background-color: var(--bs-warning);
-    }
+        &.btn-warning {
+            background-color: var(--bs-warning);
+        }
 
-    .accordion-button.btn-danger {
-        background-color: var(--bs-danger);
-    }
+        &.btn-danger {
+            background-color: var(--bs-danger);
+        }
 
-    .accordion-button.btn-light {
-        background-color: var(--bs-light);
-    }
+        &.btn-light {
+            background-color: var(--bs-light);
+        }
 
-    .accordion-button.btn-dark {
-        background-color: var(--bs-dark);
+        &.btn-dark {
+            background-color: var(--bs-dark);
+        }
     }
 }
