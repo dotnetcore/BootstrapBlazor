@@ -108,16 +108,17 @@ public partial class TablesFilter
         var column = TableSetFilter.Columns.First(x => x.GetFieldName() == nameof(Foo.Name));
 
         //Build Filter
-        var filters = new List<FilterKeyValueAction>()
-    {
-        new FilterKeyValueAction { FieldValue = "01", FilterAction = FilterAction.Contains }
-    };
+        var filter = new FilterKeyValueAction()
+        {
+            FieldValue = "01",
+            FilterAction = FilterAction.Contains
+        };
 
         //Set Filter
         var filterAction = column.Filter?.FilterAction;
         if (filterAction != null)
         {
-            await filterAction.SetFilterConditionsAsync(filters);
+            await filterAction.SetFilterConditionsAsync(filter);
         }
     }
 
