@@ -89,6 +89,23 @@
                 background-color: var(--bb-slide-item-hover-bg);
                 color: var(--bb-slide-item-hover-color);
             }
-        }
-    }
+
+.input-group > :not(:first-child) > .btn-slide > .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.input-group > :not(:last-child) > .btn-slide > .btn {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.input-group > :not(:first-child).dropdown > .btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.input-group > :not(:last-child).dropdown > .btn {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }

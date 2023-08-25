@@ -357,6 +357,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Match = NavLinkMatch.All,
                     Text = Localizer["Select"],
                     Url = "select"
                 },
@@ -939,6 +940,12 @@ internal static class MenusLocalizerExtensions
                     IsNew = true,
                     Text = Localizer["ContextMenu"],
                     Url = "context-menu"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["CountButton"],
+                    Url = "count-button"
                 },
                 new()
                 {
