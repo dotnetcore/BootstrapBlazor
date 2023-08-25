@@ -22,17 +22,16 @@ public class TableBoolFilterTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<BoolFilter>();
 
-        var filter = cut.Instance;
-        IEnumerable<FilterKeyValueAction>? condtions = null;
-        cut.InvokeAsync(() => condtions = filter.GetFilterConditions());
-        Assert.NotNull(condtions);
-        Assert.Empty(condtions);
+        var filter = cut.Instance.GetFilterConditions();
+        Assert.NotNull(filter.Filters);
+        Assert.Empty(filter.Filters);
 
         // Set Value
         var items = cut.FindAll(".dropdown-item");
         cut.InvokeAsync(() => items[1].Click());
-        cut.InvokeAsync(() => condtions = filter.GetFilterConditions());
-        Assert.Single(condtions);
+        filter = cut.Instance.GetFilterConditions();
+        Assert.NotNull(filter.Filters);
+        Assert.Single(filter.Filters);
     }
 
     [Fact]
@@ -56,41 +55,49 @@ public class TableBoolFilterTest : BootstrapBlazorTestBase
                 }));
             });
         });
-        var filter = cut.FindComponent<BoolFilter>().Instance;
         var items = cut.FindAll(".dropdown-item");
-        IEnumerable<FilterKeyValueAction>? condtions = null;
         cut.InvokeAsync(() => items[1].Click());
-        cut.InvokeAsync(() => condtions = filter.GetFilterConditions());
-        Assert.NotNull(condtions);
-        Assert.Single(condtions);
+        var filter = cut.FindComponent<BoolFilter>().Instance.GetFilterConditions();
+        Assert.NotNull(filter.Filters);
+        Assert.Single(filter.Filters);
     }
 
     [Fact]
-    public async Task SetFilterConditions_Ok()
+    public void SetFilterConditions_Ok()
     {
         var cut = Context.RenderComponent<BoolFilter>();
 
-        var filter = cut.Instance;
-        IEnumerable<FilterKeyValueAction>? conditions = filter.GetFilterConditions();
-        Assert.Empty(conditions);
+        var filter = cut.Instance.GetFilterConditions();
+        Assert.NotNull(filter.Filters);
+        Assert.Empty(filter.Filters);
 
-        var newConditions = new List<FilterKeyValueAction>
+        var newConditions = new FilterKeyValueAction
         {
-            new FilterKeyValueAction() { FieldValue = true }
+            Filters = new() { new FilterKeyValueAction() { FieldValue = true } }
         };
-        await filter.SetFilterConditionsAsync(newConditions);
-        conditions = filter.GetFilterConditions();
-        Assert.Single(conditions);
-        Assert.True((bool?)conditions.First().FieldValue);
+        cut.InvokeAsync(() => cut.Instance.SetFilterConditionsAsync(newConditions));
+        filter = cut.Instance.GetFilterConditions();
+        Assert.NotNull(filter.Filters);
+        Assert.Single(filter.Filters);
+        Assert.True((bool?)filter.Filters.First().FieldValue);
 
-        newConditions[0].FieldValue = false;
-        await filter.SetFilterConditionsAsync(newConditions);
-        conditions = filter.GetFilterConditions();
-        Assert.False((bool?)conditions.First().FieldValue);
+        newConditions.Filters[0].FieldValue = false;
+        cut.InvokeAsync(() => cut.Instance.SetFilterConditionsAsync(newConditions));
+        filter = cut.Instance.GetFilterConditions();
+        Assert.NotNull(filter.Filters);
+        Assert.False((bool?)filter.Filters.First().FieldValue);
 
-        newConditions[0].FieldValue = null;
-        await filter.SetFilterConditionsAsync(newConditions);
-        conditions = filter.GetFilterConditions();
-        Assert.Empty(conditions);
+        newConditions.Filters[0].FieldValue = null;
+        cut.InvokeAsync(() => cut.Instance.SetFilterConditionsAsync(newConditions));
+        filter = cut.Instance.GetFilterConditions();
+        Assert.NotNull(filter.Filters);
+        Assert.Empty(filter.Filters);
+
+        newConditions = new FilterKeyValueAction() { FieldValue = true };
+        cut.InvokeAsync(() => cut.Instance.SetFilterConditionsAsync(newConditions));
+        filter = cut.Instance.GetFilterConditions();
+        Assert.NotNull(filter.Filters);
+        Assert.Single(filter.Filters);
+        Assert.True((bool?)filter.Filters.First().FieldValue);
     }
 }
