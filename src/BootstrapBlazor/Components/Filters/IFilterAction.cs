@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ITableFitler 接口
+/// ITableFilter 接口
 /// </summary>
 public interface IFilterAction
 {
@@ -13,7 +13,7 @@ public interface IFilterAction
     /// 获得 IFilter 实例中的过滤条件集合
     /// </summary>
     /// <returns></returns>
-    IEnumerable<FilterKeyValueAction> GetFilterConditions();
+    FilterKeyValueAction GetFilterConditions();
 
     /// <summary>
     /// 重置过滤条件方法
@@ -23,5 +23,5 @@ public interface IFilterAction
     /// <summary>
     /// Override existing filter conditions
     /// </summary>
-    Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions);
+    Task SetFilterConditionsAsync(FilterKeyValueAction conditions);
 }
