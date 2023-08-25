@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ITableFilter 接口
+/// IFilterAction 接口
 /// </summary>
 public interface IFilterAction
 {
