@@ -203,7 +203,8 @@ public partial class TableFilter : IFilter
     {
         if (Table != null)
         {
-            if (FilterAction.GetFilterConditions().Filters != null)
+            var f = FilterAction.GetFilterConditions();
+            if (f.Filters != null && f.Filters.Any())
             {
                 Table.Filters[FieldKey] = FilterAction;
             }
