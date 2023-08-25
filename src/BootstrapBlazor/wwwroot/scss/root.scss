@@ -1,9 +1,3 @@
-﻿/*!
- * Bootstrap Blazor v6 (https://www.blazor.zone/)
- * Copyright 2020-2022 The Longbow Argo (argo@163.com)
- * Licensed under MIT (https://github.com/dotnetcore/BootstrapBlazor/blob/main/LICENSE)
- */
-
 :root {
     --bb-disabled-bg: #ebeef5;
     --bb-border-focus-color: #86b7fe;
@@ -28,9 +22,9 @@ a,
     cursor: pointer;
 }
 
-    a, a:hover, a:focus {
-        text-decoration: none;
-    }
+a, a:hover, a:focus {
+    text-decoration: none;
+}
 
 [disabled],
 :disabled,
@@ -39,19 +33,19 @@ a,
     cursor: not-allowed !important;
 }
 
-    .disabled > i,
-    .disabled .range-separator,
-    :disabled,
-    .form-control:disabled {
-        opacity: var(--bb-disabled-opactiy);
-    }
+.disabled > i,
+.disabled .range-separator,
+:disabled,
+.form-control:disabled {
+    opacity: var(--bb-disabled-opactiy);
+}
 
 :focus-visible,
 :focus {
     outline: none;
 }
 
-/*修复 bootstrap 5.2.2 popover button 右侧圆角问题*/
+// 修复 bootstrap 5.2.2 popover button 右侧圆角问题
 .btn-group > .btn:not(.dropdown-toggle):not(:last-child) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;

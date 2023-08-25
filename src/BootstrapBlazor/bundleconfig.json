@@ -9,12 +9,6 @@
     ]
   },
   {
-    "outputFileName": "wwwroot/src/css/bootstrap.blazor.min.css",
-    "inputFiles": [
-      "wwwroot/src/css/bootstrap.blazor.css"
-    ]
-  },
-  {
     "outputFileName": "wwwroot/css/motronic.min.css",
     "inputFiles": [ "wwwroot/src/css/motronic.css" ]
   },
