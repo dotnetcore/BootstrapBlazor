@@ -1,12 +1,14 @@
-﻿.console-logger {
+.console-logger {
     overflow: hidden auto;
     border: solid 1px #ddd;
     border-radius: var(--bs-border-radius);
     padding: 0.5rem 1rem;
     background-color: #174482;
     color: #fff;
-}
 
-    .console-logger .logger-item:not(:last-child) {
-        margin-bottom: 0.5rem;
+    .logger-item {
+        &:not(:last-child) {
+            margin-bottom: 0.5rem;
+        }
     }
+}

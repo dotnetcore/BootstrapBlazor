@@ -159,6 +159,20 @@ public partial class MenuTest
         return payload;
     }
 
+    [Fact]
+    public void Sass_Ok()
+    {
+        var rootPath = Path.Combine(AppContext.BaseDirectory, "../../../../../", "src/BootstrapBlazor/Components/");
+        if (Directory.Exists(rootPath))
+        {
+            var files = Directory.EnumerateFiles(rootPath, "*.scss", SearchOption.AllDirectories);
+            foreach (var file in files)
+            {
+                _logger.WriteLine(file);
+            }
+        }
+    }
+
     [GeneratedRegex("@Localizer\\[\"(\\w+)\"\\]")]
     private static partial Regex RazorRegex();
 

@@ -1,4 +1,4 @@
-﻿.avatar {
+.avatar {
     --bb-avatar-width: 50px;
     --bb-avatar-height: 50px;
     --bb-avatar-border-radius: .25rem;
@@ -14,16 +14,16 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-}
 
-    .avatar img {
+    img {
         width: 100%;
         object-fit: cover;
     }
-    b                                                                                                                                                                                                                                    
-    .avatar > i {
+
+    > i {
         font-size: var(--bb-avatar-icon-font-size);
     }
+}
 
 .avatar-circle {
     --bb-avatar-border-radius: 50%;

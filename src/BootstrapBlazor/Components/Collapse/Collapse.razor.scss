@@ -1,48 +1,48 @@
-﻿.accordion {
-    --bs-accordion-btn-focus-box-shadow: none;
-    --bs-accordion-btn-hover-bg: var(--bs-secondary);
-}
+.accordion {
+    --bs-accordion-btn-focus-box-shadow: #{$accordion-btn-focus-box-shadow};
+    --bs-accordion-btn-hover-bg: #{$accordion-btn-hover-bg};
 
-    .accordion .accordion-button {
+    .accordion-button {
         color: var(--bs-btn-color);
-    }
 
-        .accordion .accordion-button:active {
+        &:active {
             background-color: var(--bs-accordion-btn-bg);
         }
 
-        .accordion .accordion-button:hover {
+        &:hover {
             background-color: var(--bs-accordion-btn-hover-bg);
         }
 
-        .accordion .accordion-button.btn-primary {
+        &.btn-primary {
             background-color: var(--bs-primary);
         }
 
-        .accordion .accordion-button.btn-secondary {
+        &.btn-secondary {
             background-color: var(--bs-secondary);
         }
 
-        .accordion .accordion-button.btn-success {
+        &.btn-success {
             background-color: var(--bs-success);
         }
 
-        .accordion .accordion-button.btn-info {
+        &.btn-info {
             background-color: var(--bs-info);
         }
 
-        .accordion .accordion-button.btn-warning {
+        &.btn-warning {
             background-color: var(--bs-warning);
         }
 
-        .accordion .accordion-button.btn-danger {
+        &.btn-danger {
             background-color: var(--bs-danger);
         }
 
-        .accordion .accordion-button.btn-light {
+        &.btn-light {
             background-color: var(--bs-light);
         }
 
-        .accordion .accordion-button.btn-dark {
+        &.btn-dark {
             background-color: var(--bs-dark);
         }
+    }
+}

@@ -3,7 +3,7 @@
   "isRoot": true,
   "tools": {
     "bundlerminifier.core.tool": {
-      "version": "4.5.16",
+      "version": "6.1.0",
       "commands": [
         "bundle"
       ]
