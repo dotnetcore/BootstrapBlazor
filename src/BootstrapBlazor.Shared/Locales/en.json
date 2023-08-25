@@ -2675,7 +2675,15 @@
     "InputGroupsValidateFormTitle": "ValidateForm",
     "InputGroupsValidateFormIntro": "Inside <code>ValidateForm</code>",
     "InputGroupsNormalUserName": "UserName",
-    "InputGroupsMultipleDistance": "Distance"
+    "InputGroupsMultipleDistance": "Distance",
+    "InputGroupsCheckboxTitle": "Checkbox",
+    "InputGroupsCheckboxIntro": "Add <code>Checkbox</code> or <code>CheckboxList</code> to the <code>InputGroup</code>",
+    "InputGroupsRadioTitle": "Radio",
+    "InputGroupsRadioIntro": "Add <code>RadioList</code> to the <code>InputGroup</code>",
+    "InputGroupsSlideButtonTitle": "SlideButton",
+    "InputGroupsSlideButtonIntro": "Add <code>SlideButton</code> to the <code>InputGroup</code>",
+    "InputGroupsDateTimePickerTitle": "DateTimePicker/Range",
+    "InputGroupsDateTimePickerIntro": "Add <code>DateTimePicker</code> or <code>DateTimeRange</code> to the <code>InputGroup</code>"
   },
   "BootstrapBlazor.Shared.Samples.Markdowns": {
     "MarkdownsTitle": "Markdown",

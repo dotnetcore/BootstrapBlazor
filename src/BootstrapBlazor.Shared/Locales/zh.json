@@ -2671,11 +2671,19 @@
     "InputGroupsMultipleTitle": "增加多个组件",
     "InputGroupsMultipleIntro": "<code>InputGroup</code> 里面可以增加很多组件",
     "InputGroupsSelectTitle": "下拉框组合",
-    "InputGroupsSelectIntro": "往<code>InputGroup</code> 里面增加 <code>Select</code>",
+    "InputGroupsSelectIntro": "往 <code>InputGroup</code> 里面增加 <code>Select</code>",
     "InputGroupsValidateFormTitle": "验证表单中",
     "InputGroupsValidateFormIntro": "内置到 <code>ValidateForm</code> 中使用",
     "InputGroupsNormalUserName": "用户名",
-    "InputGroupsMultipleDistance": "距离"
+    "InputGroupsMultipleDistance": "距离",
+    "InputGroupsCheckboxTitle": "复选框组合",
+    "InputGroupsCheckboxIntro": "往 <code>InputGroup</code> 里面增加 <code>Checkbox</code> 或者 <code>CheckboxList</code>",
+    "InputGroupsRadioTitle": "单选框组合",
+    "InputGroupsRadioIntro": "往 <code>InputGroup</code> 里面增加 <code>RadioList</code>",
+    "InputGroupsSlideButtonTitle": "SlideButton 组合",
+    "InputGroupsSlideButtonIntro": "往 <code>InputGroup</code> 里面增加 <code>SlideButton</code>",
+    "InputGroupsDateTimePickerTitle": "DateTimePicker/Range 组合",
+    "InputGroupsDateTimePickerIntro": "往 <code>InputGroup</code> 里面增加 <code>DateTimePicker</code> 或者 <code>DateTimeRange</code>"
   },
   "BootstrapBlazor.Shared.Samples.Markdowns": {
     "MarkdownsTitle": "Markdown 编辑器",
