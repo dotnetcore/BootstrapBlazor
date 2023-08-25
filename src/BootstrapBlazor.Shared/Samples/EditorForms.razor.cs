@@ -53,7 +53,6 @@ public sealed partial class EditorForms
     [NotNull]
     private Foo? ValidateModel { get; set; }
 
-
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new()
