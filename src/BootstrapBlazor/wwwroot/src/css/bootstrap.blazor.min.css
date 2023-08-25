@@ -1,6 +1,0 @@
-/*!
- * Bootstrap Blazor v6 (https://www.blazor.zone/)
- * Copyright 2020-2022 The Longbow Argo (argo@163.com)
- * Licensed under MIT (https://github.com/dotnetcore/BootstrapBlazor/blob/main/LICENSE)
- */
-body,.form-control,.dropdown-menu,.form-select,.input-group-text{font-size:.875rem}a,[for]{cursor:pointer}a,a:hover,a:focus{text-decoration:none}[disabled],:disabled,.disabled,.disabled>*{cursor:not-allowed !important}.disabled>i,.disabled .range-separator,:disabled,.form-control:disabled{opacity:var(--bb-disabled-opactiy)}:focus-visible,:focus{outline:none}.btn-group>.btn:not(.dropdown-toggle):not(:last-child){border-top-right-radius:0;border-bottom-right-radius:0}
