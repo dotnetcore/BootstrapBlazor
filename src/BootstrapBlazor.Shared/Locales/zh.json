@@ -2683,7 +2683,9 @@
     "InputGroupsSlideButtonTitle": "SlideButton 组合",
     "InputGroupsSlideButtonIntro": "往 <code>InputGroup</code> 里面增加 <code>SlideButton</code>",
     "InputGroupsDateTimePickerTitle": "DateTimePicker/Range 组合",
-    "InputGroupsDateTimePickerIntro": "往 <code>InputGroup</code> 里面增加 <code>DateTimePicker</code> 或者 <code>DateTimeRange</code>"
+    "InputGroupsDateTimePickerIntro": "往 <code>InputGroup</code> 里面增加 <code>DateTimePicker</code> 或者 <code>DateTimeRange</code>",
+    "InputGroupsDropdownTitle": "Dropdown 组合",
+    "InputGroupsDropdownIntro": "往 <code>InputGroup</code> 里面增加 <code>Dropdown</code>"
   },
   "BootstrapBlazor.Shared.Samples.Markdowns": {
     "MarkdownsTitle": "Markdown 编辑器",

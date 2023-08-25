@@ -2683,7 +2683,9 @@
     "InputGroupsSlideButtonTitle": "SlideButton",
     "InputGroupsSlideButtonIntro": "Add <code>SlideButton</code> to the <code>InputGroup</code>",
     "InputGroupsDateTimePickerTitle": "DateTimePicker/Range",
-    "InputGroupsDateTimePickerIntro": "Add <code>DateTimePicker</code> or <code>DateTimeRange</code> to the <code>InputGroup</code>"
+    "InputGroupsDateTimePickerIntro": "Add <code>DateTimePicker</code> or <code>DateTimeRange</code> to the <code>InputGroup</code>",
+    "InputGroupsDropdownTitle": "Dropdown",
+    "InputGroupsDropdownIntro": "Add <code>Dropdown</code> to the <code>InputGroup</code>"
   },
   "BootstrapBlazor.Shared.Samples.Markdowns": {
     "MarkdownsTitle": "Markdown",
