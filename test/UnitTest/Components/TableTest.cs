@@ -594,7 +594,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public async Task ResetFilters_Ok()
+    public void ResetFilters_Ok()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -615,22 +615,65 @@ public class TableTest : TableTestBase
             });
         });
         var filter = cut.FindComponent<BootstrapInput<string>>().Instance;
-        await cut.InvokeAsync(() => filter.SetValue("test"));
+        cut.InvokeAsync(() => filter.SetValue("test"));
 
-        var items = cut.FindAll(".dropdown-item");
-        IEnumerable<FilterKeyValueAction>? conditions = null;
-        await cut.InvokeAsync(() => items[1].Click());
-        await cut.InvokeAsync(() => conditions = cut.FindComponent<StringFilter>().Instance.GetFilterConditions());
-        Assert.NotNull(conditions);
-        Assert.Single(conditions);
+        cut.InvokeAsync(() =>
+        {
+            var items = cut.FindAll(".dropdown-item");
+            cut.InvokeAsync(() => items[1].Click());
+        });
+        var conditions = cut.FindComponent<StringFilter>().Instance.GetFilterConditions();
+        Assert.NotNull(conditions.Filters);
+        Assert.Single(conditions.Filters);
 
         var table = cut.FindComponent<Table<Foo>>().Instance;
-        await cut.InvokeAsync(() => table.ResetFilters());
+        cut.InvokeAsync(() => table.ResetFilters());
 
-        conditions = null;
-        await cut.InvokeAsync(() => conditions = cut.FindComponent<StringFilter>().Instance.GetFilterConditions());
-        Assert.NotNull(conditions);
-        Assert.Empty(conditions);
+        conditions = cut.FindComponent<StringFilter>().Instance.GetFilterConditions();
+        Assert.NotNull(conditions.Filters);
+        Assert.Empty(conditions.Filters);
+    }
+
+    [Fact]
+    public void OnFilterAsync_Null()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.Items, new List<Foo>() { new Foo() });
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowFilterHeader, true);
+                pb.Add(a => a.TableColumns, new RenderFragment<Foo>(foo => builder =>
+                {
+                    var index = 0;
+                    builder.OpenComponent<TableColumn<Foo, string>>(index++);
+                    builder.AddAttribute(index++, nameof(TableColumn<Foo, string>.Field), foo.Name);
+                    builder.AddAttribute(index++, nameof(TableColumn<Foo, string>.FieldExpression), foo.GenerateValueExpression());
+                    builder.AddAttribute(index++, nameof(TableColumn<Foo, string>.Filterable), true);
+                    builder.AddAttribute(index++, nameof(TableColumn<Foo, string>.FilterTemplate), new RenderFragment(pb =>
+                    {
+                        pb.OpenComponent<CustomFilter>(0);
+                        pb.CloseComponent();
+                    }));
+                    builder.CloseComponent();
+                }));
+            });
+        });
+
+        cut.InvokeAsync(async () =>
+        {
+            var filter = cut.FindComponent<CustomFilter>();
+            await filter.Instance.SetFilterConditionsAsync(new FilterKeyValueAction()
+            {
+                FieldValue = ""
+            });
+        });
+    }
+
+    class CustomFilter : StringFilter
+    {
+        public override FilterKeyValueAction GetFilterConditions() => new();
     }
 
     [Fact]
@@ -7121,12 +7164,15 @@ public class TableTest : TableTestBase
 
     private class MockFilterAction : IFilterAction
     {
-        public IEnumerable<FilterKeyValueAction> GetFilterConditions() => new FilterKeyValueAction[]
+        public FilterKeyValueAction GetFilterConditions() => new()
         {
-            new FilterKeyValueAction()
+            Filters = new()
             {
-                 FieldKey ="Name",
-                 FieldValue = "Zhang"
+                new FilterKeyValueAction()
+                {
+                     FieldKey ="Name",
+                     FieldValue = "Zhang"
+                }
             }
         };
 
@@ -7135,7 +7181,7 @@ public class TableTest : TableTestBase
 
         }
 
-        public Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions) => Task.CompletedTask;
+        public Task SetFilterConditionsAsync(FilterKeyValueAction conditions) => Task.CompletedTask;
     }
 
     private class MockTable : Table<Foo>

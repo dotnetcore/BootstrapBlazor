@@ -15,7 +15,7 @@ namespace System.Linq;
 public static class LambdaExtensions
 {
     /// <summary>
-    /// 通过base.Visit(node)返回的Expression统一node变量
+    /// 通过 base.Visit(node) 返回 Expression 统一 node 变量
     /// </summary>
     private class ComboExpressionVisitor : ExpressionVisitor
     {
@@ -39,39 +39,74 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    /// 指定 FilterKeyValueAction 集合获取 Lambda 表达式
+    /// 指定 FilterKeyValueAction 获取委托
+    /// </summary>
+    /// <typeparam name="TItem"></typeparam>
+    /// <param name="filter"></param>
+    /// <returns></returns>
+    public static Func<TItem, bool> GetFilterFunc<TItem>(this FilterKeyValueAction filter) => filter.GetFilterLambda<TItem>().Compile();
+
+    /// <summary>
+    /// 指定 FilterKeyValueAction 获取 Lambda 表达式
+    /// </summary>
+    /// <typeparam name="TItem"></typeparam>
+    /// <param name="filter"></param>
+    /// <returns></returns>
+    public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this FilterKeyValueAction filter)
+    {
+        var express = new List<Expression<Func<TItem, bool>>>();
+        if (filter.Filters != null)
+        {
+            foreach (var f in filter.Filters)
+            {
+                if (f.Filters != null)
+                {
+                    express.Add(f.Filters.GetFilterLambda<TItem>(f.FilterLogic));
+                }
+                else
+                {
+                    express.Add(f.GetInnerFilterLambda<TItem>());
+                }
+            }
+        }
+        else
+        {
+            express.Add(filter.GetInnerFilterLambda<TItem>());
+        }
+        return express.ExpressionAndLambda();
+    }
+
+    /// <summary>
+    /// 指定 IFilter 集合获取委托
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="filters"></param>
+    /// <param name="logic"></param>
     /// <returns></returns>
-    public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<FilterKeyValueAction> filters)
+    public static Func<TItem, bool> GetFilterFunc<TItem>(this IEnumerable<IFilterAction> filters, FilterLogic logic = FilterLogic.And) => filters.Select(i => i.GetFilterConditions()).GetFilterLambda<TItem>(logic).Compile();
+
+    /// <summary>
+    /// 指定 IFilter 集合获取 Lambda 表达式
+    /// </summary>
+    /// <typeparam name="TItem"></typeparam>
+    /// <param name="filters"></param>
+    /// <param name="logic"></param>
+    /// <returns></returns>
+    private static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<FilterKeyValueAction> filters, FilterLogic logic = FilterLogic.And)
     {
-        Expression<Func<TItem, bool>>? ret = null;
-        if (filters.Any())
+        var express = new List<Expression<Func<TItem, bool>>>();
+        foreach (var filter in filters)
         {
-            var exp_p = Expression.Parameter(typeof(TItem));
-            var visitor = new ComboExpressionVisitor(exp_p);
-
-            foreach (var filter in filters)
+            if (filter.Filters != null)
             {
-                var exp = filter.GetFilterLambda<TItem>();
-                if (ret == null)
-                {
-                    ret = exp;
-                    continue;
-                }
-
-                var left = visitor.Visit(ret.Body);
-                var right = visitor.Visit(exp.Body);
-
-                ret = filter.FilterLogic switch
-                {
-                    FilterLogic.And => Expression.Lambda<Func<TItem, bool>>(Expression.AndAlso(left, right), exp_p),
-                    _ => Expression.Lambda<Func<TItem, bool>>(Expression.OrElse(left, right), exp_p),
-                };
+                express.Add(filter.Filters.GetFilterLambda<TItem>(filter.FilterLogic));
+            }
+            else
+            {
+                express.Add(filter.GetInnerFilterLambda<TItem>());
             }
         }
-        return ret ?? (r => true);
+        return express.ExpressionAndLambda(logic);
     }
 
     /// <summary>
@@ -108,37 +143,12 @@ public static class LambdaExtensions
     }
 
     /// <summary>
-    /// 指定 IFilter 集合获取委托
-    /// </summary>
-    /// <typeparam name="TItem"></typeparam>
-    /// <param name="filters"></param>
-    /// <param name="logic"></param>
-    /// <returns></returns>
-    public static Func<TItem, bool> GetFilterFunc<TItem>(this IEnumerable<IFilterAction> filters, FilterLogic logic = FilterLogic.And)
-    {
-        return filters.GetFilterLambda<TItem>(logic).Compile();
-    }
-
-    /// <summary>
-    /// 指定 IFilter 集合获取 Lambda 表达式
-    /// </summary>
-    /// <typeparam name="TItem"></typeparam>
-    /// <param name="filters"></param>
-    /// <param name="logic"></param>
-    /// <returns></returns>
-    public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<IFilterAction> filters, FilterLogic logic = FilterLogic.And)
-    {
-        var exps = filters.Select(f => f.GetFilterConditions().GetFilterLambda<TItem>());
-        return exps.ExpressionAndLambda(logic);
-    }
-
-    /// <summary>
     /// 指定 FilterKeyValueAction 获取 Lambda 表达式
     /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="filter"></param>
     /// <returns></returns>
-    public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this FilterKeyValueAction filter)
+    private static Expression<Func<TItem, bool>> GetInnerFilterLambda<TItem>(this FilterKeyValueAction filter)
     {
         Expression<Func<TItem, bool>> ret = t => true;
         var type = typeof(TItem);
@@ -150,6 +160,7 @@ public static class LambdaExtensions
 
         Expression<Func<TItem, bool>> GetSimpleFilterExpression()
         {
+            // 根据 Filters 集合获取 Lambda 表达式
             var prop = typeof(TItem).GetPropertyByName(filter.FieldKey) ?? throw new InvalidOperationException($"the model {type.Name} not found the property {filter.FieldKey}");
             if (prop != null)
             {
@@ -160,8 +171,7 @@ public static class LambdaExtensions
                 Expression eq = fieldExpression;
 
                 // 可为空类型转化为具体类型
-                if (prop.PropertyType.IsGenericType &&
-                    prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                if (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
                 {
                     isNullable = true;
                     eq = Expression.Convert(fieldExpression, prop.PropertyType.GenericTypeArguments[0]);
@@ -222,14 +232,6 @@ public static class LambdaExtensions
             return ret;
         }
     }
-
-    /// <summary>
-    /// 指定 FilterKeyValueAction 获取委托
-    /// </summary>
-    /// <typeparam name="TItem"></typeparam>
-    /// <param name="filter"></param>
-    /// <returns></returns>
-    public static Func<TItem, bool> GetFilterFunc<TItem>(this FilterKeyValueAction filter) => filter.GetFilterLambda<TItem>().Compile();
 
     private static Expression GetExpression(this FilterKeyValueAction filter, Expression left)
     {

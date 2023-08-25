@@ -36,15 +36,15 @@
     /// 生成过滤条件方法
     /// </summary>
     /// <returns></returns>
-    public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
+    public override FilterKeyValueAction GetFilterConditions()
     {
-        var filters = new List<FilterKeyValueAction>();
-        filters.Add(new FilterKeyValueAction()
+        var filter = new FilterKeyValueAction() { Filters = new() };
+        filter.Filters.Add(new FilterKeyValueAction()
         {
             FieldKey = FieldKey,
             FieldValue = Value,
             FilterAction = FilterAction.GreaterThan
         });
-        return filters;
+        return filter;
     }
 }
