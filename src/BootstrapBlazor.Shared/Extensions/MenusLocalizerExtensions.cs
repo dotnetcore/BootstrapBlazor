@@ -357,6 +357,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Match = NavLinkMatch.All,
                     Text = Localizer["Select"],
                     Url = "select"
                 },
