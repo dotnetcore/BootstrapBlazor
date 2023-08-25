@@ -171,28 +171,28 @@ public class ITableColumnExtensionsTest
         };
 
         // NullOrEmpty
-        var filters = cols.ToSearchs(null);
+        var filters = cols.ToSearches(null);
         Assert.Empty(filters);
-        filters = cols.ToSearchs("");
+        filters = cols.ToSearches("");
         Assert.Empty(filters);
 
         // bool
-        filters = cols.ToSearchs("true");
-        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue is bool)));
+        filters = cols.ToSearches("true");
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().FieldValue is bool));
 
         // Enum
-        filters = cols.ToSearchs("Asc");
-        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue is SortOrder)));
+        filters = cols.ToSearches("Asc");
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().FieldValue is SortOrder));
 
         // Number
-        filters = cols.ToSearchs("1");
-        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue?.GetType() == typeof(int))));
-        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue?.GetType() == typeof(short))));
-        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue?.GetType() == typeof(long))));
+        filters = cols.ToSearches("1");
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().FieldValue?.GetType() == typeof(int)));
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().FieldValue?.GetType() == typeof(short)));
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().FieldValue?.GetType() == typeof(long)));
 
-        filters = cols.ToSearchs("2.1");
-        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue?.GetType() == typeof(float))));
-        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue?.GetType() == typeof(double))));
-        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().Any(f => f.FieldValue?.GetType() == typeof(decimal))));
+        filters = cols.ToSearches("2.1");
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().FieldValue?.GetType() == typeof(float)));
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().FieldValue?.GetType() == typeof(double)));
+        Assert.Equal(2, filters.Count(f => f.GetFilterConditions().FieldValue?.GetType() == typeof(decimal)));
     }
 }

@@ -58,38 +58,35 @@ public partial class BoolFilter
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
+    public override FilterKeyValueAction GetFilterConditions()
     {
-        var filters = new List<FilterKeyValueAction>();
+        var filter = new FilterKeyValueAction() { Filters = new() };
         if (!string.IsNullOrEmpty(Value))
         {
-            filters.Add(new FilterKeyValueAction()
+            filter.Filters.Add(new FilterKeyValueAction()
             {
                 FieldKey = FieldKey,
                 FieldValue = Value == "true",
                 FilterAction = FilterAction.Equal
             });
         }
-        return filters;
+        return filter;
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public override async Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions)
+    public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
-        if (conditions.Any())
+        var first = filter.Filters?.FirstOrDefault() ?? filter;
+        if (first.FieldValue is bool value)
         {
-            var first = conditions.First();
-            if (first.FieldValue is bool value)
-            {
-                Value = value ? "true" : "false";
-            }
-            else if (first.FieldValue is null)
-            {
-                Value = "";
-            }
+            Value = value ? "true" : "false";
         }
-        await base.SetFilterConditionsAsync(conditions);
+        else if (first.FieldValue is null)
+        {
+            Value = "";
+        }
+        await base.SetFilterConditionsAsync(filter);
     }
 }

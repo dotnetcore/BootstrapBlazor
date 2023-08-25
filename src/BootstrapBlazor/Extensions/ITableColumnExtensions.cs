@@ -95,9 +95,9 @@ public static class IEditItemExtensions
     /// <param name="columns"></param>
     /// <param name="searchText"></param>
     /// <returns></returns>
-    public static List<IFilterAction> ToSearchs(this IEnumerable<ITableColumn> columns, string? searchText)
+    public static List<IFilterAction> ToSearches(this IEnumerable<ITableColumn> columns, string? searchText)
     {
-        var searchs = new List<IFilterAction>();
+        var searches = new List<IFilterAction>();
         if (!string.IsNullOrEmpty(searchText))
         {
             foreach (var col in columns)
@@ -105,42 +105,42 @@ public static class IEditItemExtensions
                 var type = Nullable.GetUnderlyingType(col.PropertyType) ?? col.PropertyType;
                 if (type == typeof(bool) && bool.TryParse(searchText, out var @bool))
                 {
-                    searchs.Add(new SearchFilterAction(col.GetFieldName(), @bool, FilterAction.Equal));
+                    searches.Add(new SearchFilterAction(col.GetFieldName(), @bool, FilterAction.Equal));
                 }
                 else if (type.IsEnum && Enum.TryParse(type, searchText, true, out object? @enum))
                 {
-                    searchs.Add(new SearchFilterAction(col.GetFieldName(), @enum, FilterAction.Equal));
+                    searches.Add(new SearchFilterAction(col.GetFieldName(), @enum, FilterAction.Equal));
                 }
                 else if (type == typeof(string))
                 {
-                    searchs.Add(new SearchFilterAction(col.GetFieldName(), searchText));
+                    searches.Add(new SearchFilterAction(col.GetFieldName(), searchText));
                 }
                 else if (type == typeof(int) && int.TryParse(searchText, out var @int))
                 {
-                    searchs.Add(new SearchFilterAction(col.GetFieldName(), @int, FilterAction.Equal));
+                    searches.Add(new SearchFilterAction(col.GetFieldName(), @int, FilterAction.Equal));
                 }
                 else if (type == typeof(long) && long.TryParse(searchText, out var @long))
                 {
-                    searchs.Add(new SearchFilterAction(col.GetFieldName(), @long, FilterAction.Equal));
+                    searches.Add(new SearchFilterAction(col.GetFieldName(), @long, FilterAction.Equal));
                 }
                 else if (type == typeof(short) && short.TryParse(searchText, out var @short))
                 {
-                    searchs.Add(new SearchFilterAction(col.GetFieldName(), @short, FilterAction.Equal));
+                    searches.Add(new SearchFilterAction(col.GetFieldName(), @short, FilterAction.Equal));
                 }
                 else if (type == typeof(double) && double.TryParse(searchText, out var @double))
                 {
-                    searchs.Add(new SearchFilterAction(col.GetFieldName(), @double, FilterAction.Equal));
+                    searches.Add(new SearchFilterAction(col.GetFieldName(), @double, FilterAction.Equal));
                 }
                 else if (type == typeof(float) && float.TryParse(searchText, out var @float))
                 {
-                    searchs.Add(new SearchFilterAction(col.GetFieldName(), @float, FilterAction.Equal));
+                    searches.Add(new SearchFilterAction(col.GetFieldName(), @float, FilterAction.Equal));
                 }
                 else if (type == typeof(decimal) && decimal.TryParse(searchText, out var @decimal))
                 {
-                    searchs.Add(new SearchFilterAction(col.GetFieldName(), @decimal, FilterAction.Equal));
+                    searches.Add(new SearchFilterAction(col.GetFieldName(), @decimal, FilterAction.Equal));
                 }
             }
         }
-        return searchs;
+        return searches;
     }
 }
