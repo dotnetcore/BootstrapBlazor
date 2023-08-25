@@ -15,7 +15,7 @@ namespace System.Linq;
 public static class LambdaExtensions
 {
     /// <summary>
-    /// 通过base.Visit(node)返回的Expression统一node变量
+    /// 通过 base.Visit(node) 返回 Expression 统一 node 变量
     /// </summary>
     private class ComboExpressionVisitor : ExpressionVisitor
     {
@@ -114,10 +114,7 @@ public static class LambdaExtensions
     /// <param name="filters"></param>
     /// <param name="logic"></param>
     /// <returns></returns>
-    public static Func<TItem, bool> GetFilterFunc<TItem>(this IEnumerable<IFilterAction> filters, FilterLogic logic = FilterLogic.And)
-    {
-        return filters.GetFilterLambda<TItem>(logic).Compile();
-    }
+    public static Func<TItem, bool> GetFilterFunc<TItem>(this IEnumerable<IFilterAction> filters, FilterLogic logic = FilterLogic.And) => filters.GetFilterLambda<TItem>(logic).Compile();
 
     /// <summary>
     /// 指定 IFilter 集合获取 Lambda 表达式
@@ -126,11 +123,9 @@ public static class LambdaExtensions
     /// <param name="filters"></param>
     /// <param name="logic"></param>
     /// <returns></returns>
-    public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<IFilterAction> filters, FilterLogic logic = FilterLogic.And)
-    {
-        var exps = filters.Select(f => f.GetFilterConditions().GetFilterLambda<TItem>());
-        return exps.ExpressionAndLambda(logic);
-    }
+    public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<IFilterAction> filters, FilterLogic logic = FilterLogic.And) => filters
+        .Select(f => f.GetFilterConditions().GetFilterLambda<TItem>())
+        .ExpressionAndLambda(logic);
 
     /// <summary>
     /// 指定 FilterKeyValueAction 获取 Lambda 表达式
