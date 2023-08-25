@@ -1,5 +1,4 @@
-﻿@charset "UTF-8";
-:root {
+﻿:root {
   --bb-disabled-bg: #ebeef5;
   --bb-border-focus-color: #86b7fe;
   --bb-border-hover-color: #86b7fe;
@@ -46,7 +45,6 @@ a, a:hover, a:focus {
   outline: none;
 }
 
-/*修复 bootstrap 5.2.2 popover button 右侧圆角问题*/
 .btn-group > .btn:not(.dropdown-toggle):not(:last-child) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;

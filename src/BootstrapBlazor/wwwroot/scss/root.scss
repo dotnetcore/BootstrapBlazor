@@ -45,7 +45,7 @@ a, a:hover, a:focus {
     outline: none;
 }
 
-/*修复 bootstrap 5.2.2 popover button 右侧圆角问题*/
+// 修复 bootstrap 5.2.2 popover button 右侧圆角问题
 .btn-group > .btn:not(.dropdown-toggle):not(:last-child) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
