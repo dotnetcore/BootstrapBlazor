@@ -78,3 +78,92 @@
         </div>
     </ValidateForm>
 </DemoBlock>
+
+<DemoBlock Title="@Localizer["InputGroupsCheckboxTitle"]" Introduction="@Localizer["InputGroupsCheckboxIntro"]" Name="Checkbox">
+    <div class="row g-3">
+        <div class="col-12">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="Checkbox" />
+                <Checkbox TValue="string" Color="Color.Danger" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="Checkbox" />
+                <div class="row form-inline input-group-checkbox-list">
+                    <div class="col-12 col-sm-4">
+                        <Checkbox TValue="string" DisplayText="@Localizer["StatusText1"]" ShowAfterLabel="true" Color="Color.Info" />
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <Checkbox TValue="string" DisplayText="@Localizer["StatusText1"]" ShowAfterLabel="true" Color="Color.Primary" />
+                    </div>
+                    <div class="col-12 col-sm-4">
+                        <Checkbox TValue="string" DisplayText="@Localizer["StatusText1"]" ShowAfterLabel="true" Color="Color.Success" />
+                    </div>
+                </div>
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="CheckboxList" />
+                <CheckboxList TValue="string" Items="Foo.GenerateHobbies(LocalizerFoo)" />
+            </BootstrapInputGroup>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["InputGroupsRadioTitle"]" Introduction="@Localizer["InputGroupsRadioIntro"]" Name="Radio">
+    <div class="row g-3">
+        <div class="col-12">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="RadioList" />
+                <RadioList TValue="string" Items="Foo.GenerateHobbies(LocalizerFoo)"></RadioList>
+            </BootstrapInputGroup>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["InputGroupsSlideButtonTitle"]" Introduction="@Localizer["InputGroupsSlideButtonIntro"]" Name="SlideButton">
+    <div class="row g-3">
+        <div class="col-12">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="SlideButton" />
+                <SlideButton Icon="fa-solid fa-flag" ShowHeader="true" HeaderText="SlideButton Header">
+                    <SlideButtonItems>
+                        <SlideButtonItem Value="1" Text="Text 1"></SlideButtonItem>
+                        <SlideButtonItem Value="2" Text="Text 2"></SlideButtonItem>
+                        <SlideButtonItem Value="3" Text="Text 3"></SlideButtonItem>
+                    </SlideButtonItems>
+                </SlideButton>
+            </BootstrapInputGroup>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["InputGroupsDateTimePickerTitle"]" Introduction="@Localizer["InputGroupsDateTimePickerIntro"]" Name="DateTimePicker">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="DateTimePicker" />
+                <DateTimePicker TValue="DateTime?" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="DateTimeRange" />
+                <DateTimeRange />
+            </BootstrapInputGroup>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["InputGroupsDropdownTitle"]" Introduction="@Localizer["InputGroupsDropdownIntro"]" Name="Dropdown">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="Dropdown" />
+                <Dropdown TValue="string" Items="Foo.GenerateHobbies(LocalizerFoo)" Color="Color.Success" />
+            </BootstrapInputGroup>
+        </div>
+    </div>
+</DemoBlock>

@@ -61,3 +61,35 @@
         .checkbox-list .btn-group.disabled > span:not(.active) {
             background-color: var(--bb-disabled-bg);
         }
+
+.input-group-checkbox-list {
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    flex: 1;
+}
+
+    .input-group-checkbox-list:hover {
+        border: 1px solid var(--bb-border-hover-color);
+    }
+
+    .input-group-checkbox-list .form-control {
+        border-color: transparent;
+    }
+
+        .input-group-checkbox-list .form-control:hover {
+            border-color: transparent !important;
+        }
+
+.input-group > .checkbox-list {
+    display: flex;
+    --bb-checkbox-item-width: 110px;
+}
+
+    .input-group > .checkbox-list .form-control {
+        border-color: transparent;
+        padding: 0;
+    }
+
+        .input-group > .checkbox-list .form-control:hover {
+            border-color: transparent !important;
+        }
