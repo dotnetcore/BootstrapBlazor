@@ -83,7 +83,7 @@ public static class LambdaExtensions
     /// <param name="filters"></param>
     /// <param name="logic"></param>
     /// <returns></returns>
-    public static Func<TItem, bool> GetFilterFunc<TItem>(this IEnumerable<IFilterAction> filters, FilterLogic logic = FilterLogic.And) => filters.Select(i => i.GetFilterConditions()).GetFilterLambda<TItem>(logic).Compile();
+    public static Func<TItem, bool> GetFilterFunc<TItem>(this IEnumerable<IFilterAction> filters, FilterLogic logic = FilterLogic.And) => filters.GetFilterLambda<TItem>(logic).Compile();
 
     /// <summary>
     /// 指定 IFilter 集合获取 Lambda 表达式
@@ -92,7 +92,16 @@ public static class LambdaExtensions
     /// <param name="filters"></param>
     /// <param name="logic"></param>
     /// <returns></returns>
-    private static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<FilterKeyValueAction> filters, FilterLogic logic = FilterLogic.And)
+    public static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<IFilterAction> filters, FilterLogic logic = FilterLogic.And) => filters.Select(i => i.GetFilterConditions()).GetFilterLambda<TItem>(logic);
+
+    /// <summary>
+    /// 指定 IFilter 集合获取 Lambda 表达式
+    /// </summary>
+    /// <typeparam name="TItem"></typeparam>
+    /// <param name="filters"></param>
+    /// <param name="logic"></param>
+    /// <returns></returns>
+    private static Expression<Func<TItem, bool>> GetFilterLambda<TItem>(this IEnumerable<FilterKeyValueAction> filters, FilterLogic logic)
     {
         var express = new List<Expression<Func<TItem, bool>>>();
         foreach (var filter in filters)
