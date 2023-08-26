@@ -37,8 +37,9 @@
     }
 
 .is-fixed-tab .tabs-body {
-    height: calc(100vh - 89px - var(--bb-footer-height));
+    height: calc(100vh - var(--bb-layout-header-height) - var(--bb-tabs-item-height) - var(--bb-footer-height));
     overflow: auto;
+    flex: initial;
 }
 
     .is-fixed-tab .tabs-body .tabs-body-content {
