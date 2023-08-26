@@ -164,26 +164,9 @@ public static class LambdaExtensions
             var prop = typeof(TItem).GetPropertyByName(filter.FieldKey) ?? throw new InvalidOperationException($"the model {type.Name} not found the property {filter.FieldKey}");
             if (prop != null)
             {
-                var p = Expression.Parameter(type);
-                var fieldExpression = Expression.Property(p, prop);
-                var isNullable = false;
-
-                Expression eq = fieldExpression;
-
-                // 可为空类型转化为具体类型
-                if (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
-                {
-                    isNullable = true;
-                    eq = Expression.Convert(fieldExpression, prop.PropertyType.GenericTypeArguments[0]);
-                }
-                else if (prop.PropertyType.IsEnum && filter.FieldValue is string)
-                {
-                    eq = Expression.Call(fieldExpression, prop.PropertyType.GetMethod("ToString", Array.Empty<Type>())!);
-                }
-                eq = isNullable
-                    ? Expression.AndAlso(Expression.NotEqual(fieldExpression, Expression.Constant(null)), filter.GetExpression(eq))
-                    : filter.GetExpression(eq);
-                ret = Expression.Lambda<Func<TItem, bool>>(eq, p);
+                var parameter = Expression.Parameter(type);
+                var fieldExpression = Expression.Property(parameter, prop);
+                ret = filter.GetFilterExpression<TItem>(prop, fieldExpression, parameter);
             }
             return ret;
         }
@@ -191,46 +174,60 @@ public static class LambdaExtensions
         Expression<Func<TItem, bool>> GetComplexFilterExpression()
         {
             Expression<Func<TItem, bool>> ret = t => true;
-            var p = Expression.Parameter(type);
             var propertyNames = filter.FieldKey.Split('.');
-            var isNullable = false;
-            PropertyInfo? pInfo = null;
+            PropertyInfo? prop = null;
             Expression? fieldExpression = null;
+            var parameter = Expression.Parameter(type);
             foreach (var name in propertyNames)
             {
-                if (pInfo == null)
+                if (prop == null)
                 {
-                    pInfo = typeof(TItem).GetPropertyByName(name) ?? throw new InvalidOperationException($"the model {type.Name} not found the property {name}");
-                    fieldExpression = Expression.Property(p, pInfo);
+                    prop = typeof(TItem).GetPropertyByName(name) ?? throw new InvalidOperationException($"the model {type.Name} not found the property {name}");
+                    fieldExpression = Expression.Property(parameter, prop);
                 }
                 else
                 {
-                    pInfo = pInfo.PropertyType.GetPropertyByName(name) ?? throw new InvalidOperationException($"the model {pInfo.PropertyType.Name} not found the property {name}");
-                    fieldExpression = Expression.Property(fieldExpression, pInfo);
+                    prop = prop.PropertyType.GetPropertyByName(name) ?? throw new InvalidOperationException($"the model {prop.PropertyType.Name} not found the property {name}");
+                    fieldExpression = Expression.Property(fieldExpression, prop);
                 }
             }
 
             if (fieldExpression != null)
             {
-                var eq = fieldExpression;
-
-                // 可为空类型转化为具体类型
-                if (pInfo!.PropertyType.IsGenericType && pInfo.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
-                {
-                    isNullable = true;
-                    eq = Expression.Convert(fieldExpression, pInfo.PropertyType.GenericTypeArguments[0]);
-                }
-                else if (pInfo.PropertyType.IsEnum && filter.FieldValue is string)
-                {
-                    eq = Expression.Call(fieldExpression, pInfo.PropertyType.GetMethod("ToString", Array.Empty<Type>())!);
-                }
-                eq = isNullable
-                    ? Expression.AndAlso(Expression.NotEqual(fieldExpression, Expression.Constant(null)), filter.GetExpression(eq))
-                    : filter.GetExpression(eq);
-                ret = Expression.Lambda<Func<TItem, bool>>(eq, p);
+                ret = filter.GetFilterExpression<TItem>(prop, fieldExpression, parameter);
             }
             return ret;
         }
+    }
+
+    private static Expression<Func<TItem, bool>> GetFilterExpression<TItem>(this FilterKeyValueAction filter, PropertyInfo? prop, Expression fieldExpression, ParameterExpression parameter)
+    {
+        var isNullable = false;
+        var eq = fieldExpression;
+
+        if (prop != null)
+        {
+            // 可为空类型转化为具体类型
+            if (prop.PropertyType.IsGenericType && prop.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                isNullable = true;
+                eq = Expression.Convert(fieldExpression, prop.PropertyType.GenericTypeArguments[0]);
+            }
+            else if (prop.PropertyType.IsEnum && filter.FieldValue is string)
+            {
+                eq = Expression.Call(fieldExpression, prop.PropertyType.GetMethod("ToString", Array.Empty<Type>())!);
+            }
+
+            // 处理类型不一致的情况
+            if (filter.FieldValue != null && prop.PropertyType != filter.FieldValue.GetType() && filter.FieldValue.ToString().TryConvertTo(prop.PropertyType, out var v))
+            {
+                filter.FieldValue = v;
+            }
+        }
+        eq = isNullable
+            ? Expression.AndAlso(Expression.NotEqual(fieldExpression, Expression.Constant(null)), filter.GetExpression(eq))
+            : filter.GetExpression(eq);
+        return Expression.Lambda<Func<TItem, bool>>(eq, parameter);
     }
 
     private static Expression GetExpression(this FilterKeyValueAction filter, Expression left)
