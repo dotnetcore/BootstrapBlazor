@@ -58,10 +58,6 @@ public sealed partial class PageLayout
     [Parameter]
     public bool UseTabSet { get; set; } = true;
 
-    [Inject]
-    [NotNull]
-    private IJSRuntime? JSRuntime { get; set; }
-
     /// <summary>
     /// OnInitializedAsync 方法
     /// </summary>
