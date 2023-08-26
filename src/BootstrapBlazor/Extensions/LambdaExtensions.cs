@@ -213,13 +213,8 @@ public static class LambdaExtensions
                 isNullable = true;
                 eq = Expression.Convert(fieldExpression, prop.PropertyType.GenericTypeArguments[0]);
             }
-            else if (prop.PropertyType.IsEnum && filter.FieldValue is string)
-            {
-                eq = Expression.Call(fieldExpression, prop.PropertyType.GetMethod("ToString", Array.Empty<Type>())!);
-            }
-
             // 处理类型不一致的情况
-            if (filter.FieldValue != null && prop.PropertyType != filter.FieldValue.GetType() && filter.FieldValue.ToString().TryConvertTo(prop.PropertyType, out var v))
+            if (filter.FilterAction != FilterAction.CustomPredicate && filter.FieldValue != null && prop.PropertyType != filter.FieldValue.GetType() && filter.FieldValue.ToString().TryConvertTo(prop.PropertyType, out var v))
             {
                 filter.FieldValue = v;
             }
