@@ -73,7 +73,7 @@ public static class LambdaExtensions
         {
             express.Add(filter.GetInnerFilterLambda<TItem>());
         }
-        return express.ExpressionAndLambda();
+        return express.ExpressionAndLambda(filter.FilterLogic);
     }
 
     /// <summary>
@@ -116,7 +116,7 @@ public static class LambdaExtensions
     /// <param name="expressions"></param>
     /// <param name="logic"></param>
     /// <returns></returns>
-    private static Expression<Func<TItem, bool>> ExpressionAndLambda<TItem>(this IEnumerable<Expression<Func<TItem, bool>>> expressions, FilterLogic logic = FilterLogic.And)
+    private static Expression<Func<TItem, bool>> ExpressionAndLambda<TItem>(this IEnumerable<Expression<Func<TItem, bool>>> expressions, FilterLogic logic)
     {
         Expression<Func<TItem, bool>>? ret = null;
         if (expressions.Any())
