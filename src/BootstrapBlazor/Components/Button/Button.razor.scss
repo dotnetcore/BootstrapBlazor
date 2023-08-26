@@ -7,28 +7,22 @@
     --bs-btn-border-radius: var(--bs-border-radius);
 }
 
-.btn-xs, .btn-group-xs {
-    > .btn {
-        --bs-btn-padding-x: .3125rem;
-        --bs-btn-padding-y: .0625rem;
-        --bs-btn-font-size: 0.75rem;
-    }
+.btn-xs, .btn-group-xs > .btn {
+    --bs-btn-padding-x: .3125rem;
+    --bs-btn-padding-y: .0625rem;
+    --bs-btn-font-size: 0.75rem;
 }
 
-.btn-xl, .btn-group-xl {
-    > .btn {
-        --bs-btn-padding-x: 1.25rem;
-        --bs-btn-padding-y: .8rem;
-        --bs-btn-font-size: 1.25rem;
-    }
+.btn-xl, .btn-group-xl > .btn {
+    --bs-btn-padding-x: 1.25rem;
+    --bs-btn-padding-y: .8rem;
+    --bs-btn-font-size: 1.25rem;
 }
 
-.btn-xxl, .btn-group-xxl {
-    > .btn {
-        --bs-btn-padding-x: 1.25rem;
-        --bs-btn-padding-y: .8rem;
-        --bs-btn-font-size: 1.5rem;
-    }
+.btn-xxl, .btn-group-xxl > .btn {
+    --bs-btn-padding-x: 1.25rem;
+    --bs-btn-padding-y: .8rem;
+    --bs-btn-font-size: 1.5rem;
 }
 
 .btn .badge,
