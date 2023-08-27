@@ -268,26 +268,16 @@
             }
         }
     }
-
-    .picker-panel-footer {
-        border-top: 1px solid #e4e4e4;
-        padding: 4px;
-        background-color: #fff;
-        position: relative;
-        display: flex;
-        border-bottom-left-radius: var(--bs-border-radius);
-        border-bottom-right-radius: var(--bs-border-radius);
-    }
 }
 
-.datetime-picker-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    line-height: var(--bb-height);
-    cursor: pointer;
-    padding: 0 .75rem;
-    color: var(--bb-dt-picker-bar-color);
+.picker-panel-footer {
+    border-top: 1px solid #e4e4e4;
+    padding: 4px;
+    background-color: #fff;
+    position: relative;
+    display: flex;
+    border-bottom-left-radius: var(--bs-border-radius);
+    border-bottom-right-radius: var(--bs-border-radius);
 
     .picker-panel-link-btn {
         padding: 7px 15px;
@@ -311,6 +301,16 @@
             }
         }
     }
+}
+
+.datetime-picker-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    line-height: var(--bb-height);
+    cursor: pointer;
+    padding: 0 .75rem;
+    color: var(--bb-dt-picker-bar-color);
 }
 
 .is-open .date-picker-editor-wrap .time-panel {
