@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Version>7.1.0</Version>
+    <Version>7.2.0</Version>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components PetaPoco</PackageTags>
     <Description>Bootstrap UI components extensions of PetaPoco</Description>
   </PropertyGroup>
