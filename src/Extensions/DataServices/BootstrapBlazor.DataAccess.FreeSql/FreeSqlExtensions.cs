@@ -8,7 +8,7 @@ using FreeSql.Internal.Model;
 namespace BootstrapBlazor.DataAccess.FreeSql;
 
 /// <summary>
-/// 
+/// FreeSql 扩展方法
 /// </summary>
 public static class FreeSqlExtensions
 {
