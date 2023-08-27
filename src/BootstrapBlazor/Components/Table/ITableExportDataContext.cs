@@ -8,7 +8,7 @@ namespace BootstrapBlazor.Components;
 /// Table 导出数据上下文接口
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
-public interface ITableExportDataContext<TItem>
+public interface ITableExportDataContext<out TItem>
 {
     /// <summary>
     /// 获得 导出类型 <see cref="TableExportType"/> 枚举类型
