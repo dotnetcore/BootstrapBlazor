@@ -54,7 +54,8 @@ export function highlight(id) {
     const el = document.getElementById(id);
 
     if (el) {
-        hljs.highlightBlock(el.querySelector('code'))
+        hljs.highlightElement(el.querySelector('code'))
+        el.querySelector('.loading').classList.add('d-none')
         el.classList.remove('loaded')
     }
 }

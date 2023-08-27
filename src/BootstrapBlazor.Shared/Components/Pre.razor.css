@@ -5,8 +5,12 @@
     overflow: hidden;
 }
 
-    .pre-code.loaded {
-        visibility: hidden;
+    .pre-code .loading {
+        padding: .5rem 1rem;
+    }
+
+    .pre-code.loaded > pre > code {
+        display: none;
     }
 
 ::deep .btn-primary {
