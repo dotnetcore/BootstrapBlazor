@@ -8,6 +8,18 @@
     color: #409eff
 }
 
+@mixin cell-margin($direction) {
+    div {
+        margin-#{$direction}: 5px;
+        border-top-#{$direction}-radius: 15px;
+        border-bottom-#{$direction}-radius: 15px;
+
+        .cell {
+            margin-#{$direction}: 4px;
+        }
+    }
+}
+
 .datetime-picker {
     --bb-dt-picker-bar-color: #{$dt-picker-bar-color};
     position: relative;
@@ -169,27 +181,11 @@
                             }
 
                             &.start {
-                                div {
-                                    margin-left: 5px;
-                                    border-top-left-radius: 15px;
-                                    border-bottom-left-radius: 15px;
-
-                                    .cell {
-                                        margin-left: 4px;
-                                    }
-                                }
+                                @include cell-margin(left)
                             }
 
                             &.end {
-                                div {
-                                    margin-right: 5px;
-                                    border-top-right-radius: 15px;
-                                    border-bottom-right-radius: 15px;
-
-                                    .cell {
-                                        margin-right: 4px;
-                                    }
-                                }
+                                @include cell-margin(right)
                             }
                         }
 
