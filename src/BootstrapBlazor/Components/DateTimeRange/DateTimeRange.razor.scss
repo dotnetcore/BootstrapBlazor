@@ -1,4 +1,4 @@
-﻿.datetime-range {
+.datetime-range {
     --bb-dt-range-bar-color: #b5b5c3;
     background-color: #fff;
     border-radius: var(--bs-border-radius);
@@ -12,15 +12,14 @@
     white-space: nowrap;
 }
 
-    .datetime-range.disabled,
-    .datetime-range.disabled input {
-        background-color: var(--bb-disabled-bg);
-    }
+.datetime-range.disabled,
+.datetime-range.disabled input {
+    background-color: var(--bb-disabled-bg);
+}
 
-
-    .datetime-range .datetime-range-body {
-        display: none;
-    }
+.datetime-range .datetime-range-body {
+    display: none;
+}
 
 .form-label + .datetime-range {
     display: block;
@@ -31,52 +30,53 @@
     align-items: center;
 }
 
-    .datetime-range-control .datetime-range-input {
-        border: none;
-        display: inline-block;
-        text-align: center;
-        cursor: pointer;
-        width: 80px;
-        padding: 0;
-    }
+.datetime-range-control .datetime-range-input {
+    border: none;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    width: 80px;
+    padding: 0;
+}
 
-    .datetime-range-control .range-separator {
-        padding: 0 5px;
-    }
+.datetime-range-control .range-separator {
+    padding: 0 5px;
+}
 
 .range-panel-body {
     display: flex;
 }
 
-    .range-panel-body .picker-panel {
-        border: none;
-    }
+.range-panel-body .picker-panel {
+    border: none;
+}
 
-        .range-panel-body .picker-panel:first-child {
-            border-right: 1px solid #ced4da;
-            border-top-right-radius: 0;
-            border-bottom-right-radius: 0;
-        }
+.range-panel-body .picker-panel:first-child {
+    border-right: 1px solid #ced4da;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
 
-    .range-panel-body .date-picker-header-label {
-        cursor: unset;
-    }
+.range-panel-body .date-picker-header-label {
+    cursor: unset;
+}
 
-        .range-panel-body .date-picker-header-label:hover {
-            color: inherit;
-        }
+.range-panel-body .date-picker-header-label:hover {
+    color: inherit;
+}
 
 .range-panel-footer {
     padding: 0.5rem;
+    display: flex;
 }
 
 .popover-datetime-range {
     max-width: unset;
 }
 
-    .popover-datetime-range .popover-body {
-        padding: 0;
-    }
+.popover-datetime-range .popover-body {
+    padding: 0;
+}
 
 .range-bar {
     cursor: pointer;

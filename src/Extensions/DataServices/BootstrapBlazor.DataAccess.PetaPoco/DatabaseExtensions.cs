@@ -19,12 +19,14 @@ public static class DatabaseExtensions
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <returns></returns>
-    public static Task<List<TModel>> FetchAsync<TModel>(this IDatabase db, IEnumerable<IFilterAction> where, string? sortName = null, SortOrder sortOrder = SortOrder.Unset)
+    public static Task<List<TModel>> FetchAsync<TModel>(this IDatabase db, FilterKeyValueAction where, string? sortName = null, SortOrder sortOrder = SortOrder.Unset)
     {
-        var exp = where.GetFilterLambda<TModel>();
         var sql = new Sql();
-        AnalysisExpression(exp, db, sql);
-
+        if (where.HasFilters())
+        {
+            var exp = where.GetFilterLambda<TModel>();
+            AnalysisExpression(exp, db, sql);
+        }
         if (!string.IsNullOrEmpty(sortName) && sortOrder != SortOrder.Unset)
         {
             sql.OrderBy(sortOrder == SortOrder.Asc ? sortName : $"{sortName} desc");
@@ -37,12 +39,14 @@ public static class DatabaseExtensions
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <returns></returns>
-    public static Task<Page<TModel>> PageAsync<TModel>(this IDatabase db, long pageIndex, long pageItems, IEnumerable<IFilterAction> where, string? sortName = null, SortOrder sortOrder = SortOrder.Unset)
+    public static Task<Page<TModel>> PageAsync<TModel>(this IDatabase db, long pageIndex, long pageItems, FilterKeyValueAction where, string? sortName = null, SortOrder sortOrder = SortOrder.Unset)
     {
-        var exp = where.GetFilterLambda<TModel>();
         var sql = new Sql();
-        AnalysisExpression(exp, db, sql);
-
+        if (where.HasFilters())
+        {
+            var exp = where.GetFilterLambda<TModel>();
+            AnalysisExpression(exp, db, sql);
+        }
         if (!string.IsNullOrEmpty(sortName) && sortOrder != SortOrder.Unset)
         {
             sql.OrderBy(sortOrder == SortOrder.Asc ? sortName : $"{sortName} desc");
@@ -98,7 +102,6 @@ public static class DatabaseExtensions
                     sql.Where($"{db.Provider.EscapeSqlIdentifier(columnName)} {operatorExp} @0", v);
                 }
                 break;
-
         }
     }
 

@@ -8,7 +8,7 @@ using FreeSql.Internal.Model;
 namespace BootstrapBlazor.DataAccess.FreeSql;
 
 /// <summary>
-/// 
+/// FreeSql 扩展方法
 /// </summary>
 public static class FreeSqlExtensions
 {
@@ -19,69 +19,62 @@ public static class FreeSqlExtensions
     /// <returns></returns>
     public static DynamicFilterInfo ToDynamicFilter(this QueryPageOptions option)
     {
-        var ret = new DynamicFilterInfo() { Filters = new List<DynamicFilterInfo>() };
+        var ret = new DynamicFilterInfo() { Filters = new() };
 
-        foreach (var filter in option.Filters)
-        {
-            // Filter 之间默认为 and
-            ret.Filters.Add(filter.ToDynamicFilter());
-        }
-
-        foreach (var search in option.CustomerSearches)
-        {
-            // 自定义搜索条件 之间默认为 and
-            ret.Filters.Add(search.ToDynamicFilter());
-        }
-
-        foreach (var search in option.AdvanceSearches)
-        {
-            // 高级搜索条件 之间默认为 and
-            ret.Filters.Add(search.ToDynamicFilter());
-        }
-
+        // 处理模糊搜索
         if (option.Searches.Any())
         {
-            // Searches 之间默认为 or
-            var searchTextFilter = new DynamicFilterInfo()
+            ret.Filters.Add(new()
             {
                 Logic = DynamicFilterLogic.Or,
-                Filters = new List<DynamicFilterInfo>()
-            };
-            foreach (var search in option.Searches)
-            {
-                searchTextFilter.Filters.Add(search.ToDynamicFilter());
-            }
-            ret.Filters.Add(searchTextFilter);
+                Filters = option.Searches.Select(i => i.ToDynamicFilter()).ToList()
+            });
+        }
+
+        // 处理自定义搜索
+        if (option.CustomerSearches.Any())
+        {
+            ret.Filters.AddRange(option.CustomerSearches.Select(i => i.ToDynamicFilter()));
+        }
+
+        // 处理高级搜索
+        if (option.AdvanceSearches.Any())
+        {
+            ret.Filters.AddRange(option.AdvanceSearches.Select(i => i.ToDynamicFilter()));
+        }
+
+        // 处理表格过滤条件
+        if (option.Filters.Any())
+        {
+            ret.Filters.AddRange(option.Filters.Select(i => i.ToDynamicFilter()));
         }
         return ret;
     }
 
     private static DynamicFilterInfo ToDynamicFilter(this IFilterAction filter)
     {
-        // TableFilter 最多仅两个条件
         var actions = filter.GetFilterConditions();
+        var item = new DynamicFilterInfo();
 
-        var item = new DynamicFilterInfo() { Filters = new List<DynamicFilterInfo>() };
-        if (actions.Any())
+        if (actions.Filters != null)
         {
-            var f = actions.First();
-            item.Filters.Add(new DynamicFilterInfo()
+            // TableFilter 最多仅两个条件
+            if (actions.Filters.Count == 2)
             {
-                Field = f.FieldKey,
-                Value = f.FieldValue,
-                Operator = f.FilterAction.ToDynamicFilterOperator()
-            });
-
-            if (actions.Count() > 1)
-            {
-                var c = actions.ElementAt(1);
-                item.Logic = c.FilterLogic.ToDynamicFilterLogic();
-                item.Filters.Add(new DynamicFilterInfo()
+                item.Logic = actions.FilterLogic.ToDynamicFilterLogic();
+                item.Filters = actions.Filters.Select(i => new DynamicFilterInfo()
                 {
-                    Field = c.FieldKey,
-                    Value = c.FieldValue,
-                    Operator = c.FilterAction.ToDynamicFilterOperator()
-                });
+                    Field = i.FieldKey,
+                    Value = i.FieldValue,
+                    Operator = i.FilterAction.ToDynamicFilterOperator()
+                }).ToList();
+            }
+            else
+            {
+                var c = actions.Filters.First();
+                item.Field = c.FieldKey;
+                item.Value = c.FieldValue;
+                item.Operator = c.FilterAction.ToDynamicFilterOperator();
             }
         }
         return item;

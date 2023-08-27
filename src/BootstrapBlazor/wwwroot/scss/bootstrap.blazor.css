@@ -1438,12 +1438,12 @@ a, a:hover, a:focus {
   border-bottom-left-radius: 15px;
 }
 .picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content table td.range.start div .cell {
-  margin-right: 4px;
+  margin-left: 4px;
 }
 .picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content table td.range.end div {
-  margin-left: 5px;
-  border-top-left-radius: 15px;
-  border-bottom-left-radius: 15px;
+  margin-right: 5px;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 .picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content table td.range.end div .cell {
   margin-right: 4px;
@@ -1504,7 +1504,8 @@ a, a:hover, a:focus {
 .picker-panel .picker-panel-body-wrapper .picker-panel-body .date-picker-header .date-picker-header-label:hover {
   color: #409eff;
 }
-.picker-panel .picker-panel-footer {
+
+.picker-panel-footer {
   border-top: 1px solid #e4e4e4;
   padding: 4px;
   background-color: #fff;
@@ -1512,6 +1513,25 @@ a, a:hover, a:focus {
   display: flex;
   border-bottom-left-radius: var(--bs-border-radius);
   border-bottom-right-radius: var(--bs-border-radius);
+}
+.picker-panel-footer .picker-panel-link-btn {
+  padding: 7px 15px;
+  font-size: 0.75rem;
+  border-radius: var(--bs-border-radius);
+  line-height: 12px;
+  color: #606266;
+  transition: border-color 0.3s linear, color 0.3s linear;
+}
+.picker-panel-footer .picker-panel-link-btn.is-confirm {
+  border: 1px solid #dcdfe6;
+}
+.picker-panel-footer .picker-panel-link-btn.is-confirm:hover {
+  border-color: #409eff;
+  color: #409eff;
+}
+.picker-panel-footer .picker-panel-link-btn.is-confirm .is-now {
+  color: #409eff;
+  margin-right: 0.25rem;
 }
 
 .datetime-picker-bar {
@@ -1522,25 +1542,6 @@ a, a:hover, a:focus {
   cursor: pointer;
   padding: 0 0.75rem;
   color: var(--bb-dt-picker-bar-color);
-}
-.datetime-picker-bar .picker-panel-link-btn {
-  padding: 7px 15px;
-  font-size: 0.75rem;
-  border-radius: var(--bs-border-radius);
-  line-height: 12px;
-  color: #606266;
-  transition: border-color 0.3s linear, color 0.3s linear;
-}
-.datetime-picker-bar .picker-panel-link-btn.is-confirm {
-  border: 1px solid #dcdfe6;
-}
-.datetime-picker-bar .picker-panel-link-btn.is-confirm:hover {
-  border-color: #409eff;
-  color: #409eff;
-}
-.datetime-picker-bar .picker-panel-link-btn.is-confirm .is-now {
-  color: #409eff;
-  margin-right: 0.25rem;
 }
 
 .is-open .date-picker-editor-wrap .time-panel {
@@ -1787,6 +1788,7 @@ a, a:hover, a:focus {
 
 .range-panel-footer {
   padding: 0.5rem;
+  display: flex;
 }
 
 .popover-datetime-range {

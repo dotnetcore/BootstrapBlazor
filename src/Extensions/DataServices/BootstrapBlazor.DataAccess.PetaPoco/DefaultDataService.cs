@@ -57,21 +57,22 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel> where TModel
     {
         var ret = new QueryData<TModel>()
         {
-            IsSorted = true,
-            IsFiltered = true,
-            IsSearch = true
+            IsSorted = option.SortOrder != SortOrder.Unset,
+            IsFiltered = option.Filters.Any(),
+            IsAdvanceSearch = option.AdvanceSearches.Any(),
+            IsSearch = option.Searches.Any() || option.CustomerSearches.Any()
         };
 
         if (option.IsPage)
         {
-            var items = await _db.PageAsync<TModel>(option.PageIndex, option.PageItems, option.Filters.Concat(option.Searches), option.SortName, option.SortOrder);
+            var items = await _db.PageAsync<TModel>(option.PageIndex, option.PageItems, option.ToFilter(), option.SortName, option.SortOrder);
 
             ret.TotalCount = int.Parse(items.TotalItems.ToString());
             ret.Items = items.Items;
         }
         else
         {
-            var items = await _db.FetchAsync<TModel>(option.Filters.Concat(option.Searches), option.SortName, option.SortOrder);
+            var items = await _db.FetchAsync<TModel>(option.ToFilter(), option.SortName, option.SortOrder);
             ret.TotalCount = items.Count;
             ret.Items = items;
         }

@@ -2413,7 +2413,8 @@
     "DisplayText": "选择时间",
     "SubmitText": "保存",
     "Value": "属性",
-    "Value.Required": "{0}为必填项"
+    "Value.Required": "{0}为必填项",
+    "ValidateFormValue": "时间"
   },
   "BootstrapBlazor.Shared.Samples.Editors": {
     "EditorsTitle": "Editor 富文本框",
