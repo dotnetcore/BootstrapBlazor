@@ -4,18 +4,6 @@
     clear: both;
 }
 
-@mixin cell-margin {
-    div {
-        margin-left: 5px;
-        border-top-left-radius: 15px;
-        border-bottom-left-radius: 15px;
-
-        .cell {
-            margin-right: 4px;
-        }
-    }
-}
-
 @mixin color_409eff {
     color: #409eff
 }
@@ -181,11 +169,27 @@
                             }
 
                             &.start {
-                                @include cell-margin
+                                div {
+                                    margin-left: 5px;
+                                    border-top-left-radius: 15px;
+                                    border-bottom-left-radius: 15px;
+
+                                    .cell {
+                                        margin-left: 4px;
+                                    }
+                                }
                             }
 
                             &.end {
-                                @include cell-margin
+                                div {
+                                    margin-right: 5px;
+                                    border-top-right-radius: 15px;
+                                    border-bottom-right-radius: 15px;
+
+                                    .cell {
+                                        margin-right: 4px;
+                                    }
+                                }
                             }
                         }
 
