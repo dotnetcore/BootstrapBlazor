@@ -2413,7 +2413,8 @@
     "DisplayText": "Select the time",
     "SubmitText": "Save",
     "Value": "Value",
-    "Value.Required": "{0} is required."
+    "Value.Required": "{0} is required.",
+    "ValidateFormValue": "DateTimePick"
   },
   "BootstrapBlazor.Shared.Samples.Editors": {
     "EditorsTitle": "Editor",
