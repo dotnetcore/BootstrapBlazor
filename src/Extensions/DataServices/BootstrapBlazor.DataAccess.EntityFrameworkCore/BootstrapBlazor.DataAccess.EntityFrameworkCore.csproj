@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="7.9.0" />
+    <PackageReference Include="BootstrapBlazor" Version="7.9.3" />
   </ItemGroup>
 
 </Project>

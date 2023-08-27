@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="7.9.0" />
-    <PackageReference Include="FreeSql.Repository" Version="3.2.698" />
+    <PackageReference Include="BootstrapBlazor" Version="7.9.3" />
+    <PackageReference Include="FreeSql.Repository" Version="3.2.700" />
   </ItemGroup>
 
 </Project>
