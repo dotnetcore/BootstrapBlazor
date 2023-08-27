@@ -61,9 +61,10 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel> where TModel
         {
             TotalCount = (int)count,
             Items = Items,
-            IsFiltered = true,
-            IsSearch = true,
-            IsSorted = true
+            IsSorted = option.SortOrder != SortOrder.Unset,
+            IsFiltered = option.Filters.Any(),
+            IsAdvanceSearch = option.AdvanceSearches.Any(),
+            IsSearch = option.Searches.Any() || option.CustomerSearches.Any()
         };
         return Task.FromResult(ret);
     }
