@@ -105,41 +105,10 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel>, IEntityFram
     public override Task<QueryData<TModel>> QueryAsync(QueryPageOptions option)
     {
         // 处理过滤与搜索逻辑
-        var searches = new FilterKeyValueAction()
-        {
-            Filters = new()
-        };
-
-        // 处理模糊搜索
-        if (option.Searches.Any())
-        {
-            searches.Filters.Add(new FilterKeyValueAction()
-            {
-                FilterLogic = FilterLogic.Or,
-                Filters = option.Searches.Select(i => i.GetFilterConditions()).ToList()
-            });
-        }
-
-        // 处理自定义搜索
-        if (option.CustomerSearches.Any())
-        {
-            searches.Filters.AddRange(option.CustomerSearches.Select(i => i.GetFilterConditions()));
-        }
-
-        // 处理自定义搜索
-        if (option.AdvanceSearches.Any())
-        {
-            searches.Filters.AddRange(option.AdvanceSearches.Select(i => i.GetFilterConditions()));
-        }
-
-        // 处理表格过滤条件
-        if (option.Filters.Any())
-        {
-            searches.Filters.AddRange(option.Filters.Select(i => i.GetFilterConditions()));
-        }
+        var searches = option.ToFilter();
 
         var query = _db.Set<TModel>()
-            .Where(searches.GetFilterLambda<TModel>(), searches.Filters.Any())
+            .Where(searches.GetFilterLambda<TModel>(), searches.HasFilters())
             .Sort(option.SortName!, option.SortOrder, !string.IsNullOrEmpty(option.SortName))
             .Count(out var count)
             .Page((option.PageIndex - 1) * option.PageItems, option.PageItems);
