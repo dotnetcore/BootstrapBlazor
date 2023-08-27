@@ -96,8 +96,8 @@ public class TableTest : TableTestBase
         {
             var button = cut.Find("button");
             button.Click();
+            Assert.Equal(1, count);
         });
-        Assert.Equal(1, count);
     }
 
     [Theory]
