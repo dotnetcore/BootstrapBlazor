@@ -1,7 +1,11 @@
 <Project>
 
   <ItemGroup>
-    <PackageReference Include="BuildBundlerMinifierPlus2022" Version="5.2.2" Condition="'$(Configuration)'=='Debug' and '$(TargetFramework)' == 'net7.0'" />
+    <PackageReference Include="BuildBundlerMinifierPlus2022" Version="5.2.2" Condition="'$(Configuration)'=='Debug' and '$(TargetFramework)' == 'net5.0'" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BuildWebCompiler2022" Version="1.14.10" Condition="'$(Configuration)' == 'Debug' and '$(OS)' == 'Windows_NT' and '$(TargetFramework)' == 'net5.0'" />
   </ItemGroup>
 
 </Project>
