@@ -8,6 +8,7 @@ export async function init(id, title) {
     }
 
     await addScript('./lib/highlight/highlight.min.js')
+    await addScript('./lib/highlight/cshtml-razor.min.js')
     await addLink('./lib/highlight/vs.min.css')
 
     const preElement = el.querySelector('pre')
@@ -53,9 +54,7 @@ export function highlight(id) {
     const el = document.getElementById(id);
 
     if (el) {
-        if (hljs) {
-            hljs.highlightBlock(el.querySelector('code'))
-        }
+        hljs.highlightBlock(el.querySelector('code'))
         el.classList.remove('loaded')
     }
 }
