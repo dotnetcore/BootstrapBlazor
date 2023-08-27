@@ -104,21 +104,54 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel>, IEntityFram
     /// <returns></returns>
     public override Task<QueryData<TModel>> QueryAsync(QueryPageOptions option)
     {
-        // 处理过滤与快捷搜索框逻辑
+        // 处理过滤与搜索逻辑
+        var searches = new FilterKeyValueAction()
+        {
+            Filters = new()
+        };
+
+        // 处理模糊搜索
+        if (option.Searches.Any())
+        {
+            searches.Filters.Add(new FilterKeyValueAction()
+            {
+                FilterLogic = FilterLogic.Or,
+                Filters = option.Searches.Select(i => i.GetFilterConditions()).ToList()
+            });
+        }
+
+        // 处理自定义搜索
+        if (option.CustomerSearches.Any())
+        {
+            searches.Filters.AddRange(option.CustomerSearches.Select(i => i.GetFilterConditions()));
+        }
+
+        // 处理自定义搜索
+        if (option.AdvanceSearches.Any())
+        {
+            searches.Filters.AddRange(option.AdvanceSearches.Select(i => i.GetFilterConditions()));
+        }
+
+        // 处理表格过滤条件
+        if (option.Filters.Any())
+        {
+            searches.Filters.AddRange(option.Filters.Select(i => i.GetFilterConditions()));
+        }
+
         var query = _db.Set<TModel>()
-            .Where(option.Searches.GetFilterLambda<TModel>(FilterLogic.Or), option.Searches.Any())
-            .Where(option.Filters.GetFilterLambda<TModel>(), option.Filters.Any())
+            .Where(searches.GetFilterLambda<TModel>(), searches.Filters.Any())
             .Sort(option.SortName!, option.SortOrder, !string.IsNullOrEmpty(option.SortName))
             .Count(out var count)
             .Page((option.PageIndex - 1) * option.PageItems, option.PageItems);
 
-        // 注意：未处理搜索，此处设置 IsSearched=true 后会导致高级搜索按钮高亮
         var ret = new QueryData<TModel>()
         {
             TotalCount = count,
             Items = query,
-            IsSorted = true,
-            IsFiltered = true
+            IsSorted = option.SortOrder != SortOrder.Unset,
+            IsFiltered = option.Filters.Any(),
+            IsAdvanceSearch = option.AdvanceSearches.Any(),
+            IsSearch = option.Searches.Any() || option.CustomerSearches.Any()
         };
         return Task.FromResult(ret);
     }
