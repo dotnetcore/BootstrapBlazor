@@ -5,6 +5,10 @@
     overflow: hidden;
 }
 
+    .pre-code.loaded {
+        visibility: hidden;
+    }
+
 ::deep .btn-primary {
     position: absolute;
     top: .65rem;

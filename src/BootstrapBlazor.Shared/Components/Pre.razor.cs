@@ -21,6 +21,7 @@ public partial class Pre
     /// </summary>
     /// <returns></returns>
     private string? ClassString => CssBuilder.Default("pre-code")
+        .AddClass("loaded", Loaded)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
