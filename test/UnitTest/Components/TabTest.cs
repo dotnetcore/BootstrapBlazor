@@ -330,6 +330,15 @@ public class TabTest : TabTestBase
         var nav = cut.Services.GetRequiredService<NavigationManager>();
         nav.NavigateTo("/Binder");
         cut.Contains("<div class=\"tabs-body-content\">Binder</div>");
+
+        cut.InvokeAsync(() =>
+        {
+            var items = cut.Instance.Items;
+            Assert.Equal(2, items.Count());
+            var item = items.Last();
+            Assert.Equal("Binder", item.Url);
+            Assert.Equal("Index_Binder_Test", item.Text);
+        });
     }
 
     [Fact]
