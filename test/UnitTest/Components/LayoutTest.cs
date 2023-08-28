@@ -156,6 +156,14 @@ public class LayoutTest : BootstrapBlazorTestBase
         var nav = cut.Services.GetRequiredService<NavigationManager>();
         nav.NavigateTo("/Cat");
         cut.Contains(">Cat<");
+
+        cut.InvokeAsync(() =>
+        {
+            var items = cut.FindComponent<Tab>().Instance.Items;
+            Assert.Equal(2, items.Count());
+            var item = items.Last();
+            Assert.Equal("Cat", item.Text);
+        });
     }
 
     [Fact]

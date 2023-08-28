@@ -21,6 +21,36 @@
     background-color: var(--bs-indigo);
 }
 
+.sidebar-content {
+    position: relative;
+}
+
+.sidebar-bar {
+    width: 1px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgb(208, 215, 222);
+}
+
+    .sidebar-bar .sidebar-body {
+        position: absolute;
+        inset: 0px -2px;
+        cursor: col-resize;
+        background-color: transparent;
+        transition-delay: 0.1s;
+    }
+
+        .sidebar-bar .sidebar-body:hover {
+            background-color: rgba(175, 184, 193, 0.2);
+        }
+
+        .sidebar-bar .sidebar-body.drag,
+        .sidebar-bar .sidebar-body.drag:hover {
+            background-color: rgb(9, 105, 218);
+        }
+
 @media (min-width: 768px) {
     .sidebar-content {
         height: calc(100vh - var(--bs-header-height));
