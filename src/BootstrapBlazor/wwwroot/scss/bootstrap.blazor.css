@@ -1847,16 +1847,13 @@ section > h2 {
   padding: 0.75rem;
   transition: 0.3s background-color ease-in-out;
 }
-
 .fil a:hover {
   background-color: var(--bs-warning);
   text-decoration: none;
 }
-
 .fil a:hover > span {
   color: inherit;
 }
-
 .fil a > span {
   font-family: cera-round-pro, "Helvetica Neue", "Helvetica", "Arial", sans-serif;
   font-size: 11px;
@@ -1868,7 +1865,6 @@ section > h2 {
   color: #919191;
   transition: 0.3s color ease-in-out;
 }
-
 .fil a > i {
   font-size: 1.25rem;
   line-height: 1.25rem;
@@ -1877,7 +1873,6 @@ section > h2 {
 .fa-nav {
   display: none;
 }
-
 .fa-nav h2 {
   background: #FF6C60;
   color: #fff;
@@ -1887,7 +1882,6 @@ section > h2 {
   border-radius: 4px;
   font-weight: 300;
 }
-
 .fa-nav .nav {
   top: 44px;
   bottom: 0;
@@ -1895,7 +1889,6 @@ section > h2 {
   overflow-y: auto;
   width: 100%;
 }
-
 .fa-nav .nav a {
   color: #999797;
   border-left: 4px solid #d3d7dd;
@@ -1906,17 +1899,14 @@ section > h2 {
   width: 100%;
   margin-top: 1px;
 }
-
 .fa-nav .nav a:last-child {
   margin-bottom: 5px;
 }
-
 .fa-nav .nav a.active {
   color: #7a7a7a;
   border-left: 4px solid #5bc0de;
   padding-left: 10px;
 }
-
 .fa-nav .nav a:hover {
   color: #999797;
   border-left: 4px solid #d9534f;
