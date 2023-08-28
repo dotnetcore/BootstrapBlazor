@@ -159,6 +159,47 @@ public class LayoutTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void UseTabSet_Layout()
+    {
+        var cut = Context.RenderComponent<Layout>(pb =>
+        {
+            pb.Add(a => a.UseTabSet, true);
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.Menus, new List<MenuItem>()
+            {
+                new MenuItem()
+                {
+                    Text = "menu1",
+                    Url = "/Binder",
+                    Icon = "fa-solid fa-home"
+                },
+                new MenuItem()
+                {
+                    Text = "menu1",
+                    Url = "/Dog",
+                    Icon = "fa-solid fa-home"
+                }
+            });
+        });
+        var nav = cut.Services.GetRequiredService<NavigationManager>();
+        nav.NavigateTo("/Binder");
+        cut.Contains("<div class=\"tabs-body-content\">Binder</div>");
+    }
+
+    [Fact]
+    public void UseTabSet_Menus()
+    {
+        var cut = Context.RenderComponent<Layout>(pb =>
+        {
+            pb.Add(a => a.UseTabSet, true);
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+        });
+        var nav = cut.Services.GetRequiredService<NavigationManager>();
+        nav.NavigateTo("/Binder");
+        cut.Contains("<div class=\"tabs-body-content\">Binder</div>");
+    }
+
+    [Fact]
     public void IsFixedHeader_OK()
     {
         var cut = Context.RenderComponent<Layout>(pb =>
