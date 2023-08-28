@@ -7,10 +7,6 @@
   <Import Project="..\SourceLink.targets" />
   <Import Project="..\Version.targets" />
 
-  <ItemGroup>
-    <PackageReference Include="BuildWebCompiler2022" Version="1.14.10" Condition="'$(Configuration)' == 'Debug' and '$(OS)' == 'Windows_NT' and '$(TargetFramework)' == 'net7.0'" />
-  </ItemGroup>
-
   <PropertyGroup>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components</PackageTags>
     <Description>Bootstrap UI components for Blazor and Razor Components</Description>

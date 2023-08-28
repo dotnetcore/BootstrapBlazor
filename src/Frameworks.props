@@ -4,4 +4,11 @@
     <TargetFrameworks>net7.0;net6.0;net5.0</TargetFrameworks>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <NET5Version>5.0</NET5Version>
+    <NET6Version>6.0</NET6Version>
+    <NET7Version>7.0</NET7Version>
+    <NET8Version>8.0*-*</NET8Version>
+  </PropertyGroup>
+
 </Project>
