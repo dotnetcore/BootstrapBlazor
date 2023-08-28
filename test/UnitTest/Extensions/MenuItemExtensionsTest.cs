@@ -11,4 +11,59 @@ public class MenuItemExtensionsTest
     {
 
     }
+
+    [Fact]
+    public void GetAllItems_Ok()
+    {
+        var menus = new List<MenuItem>()
+        {
+            new()
+            {
+                Text = "1",
+                Items = new List<MenuItem>()
+                {
+                    new MenuItem() {
+                        Text = "11",
+                        Items = new List<MenuItem>()
+                        {
+                            new MenuItem()
+                            {
+                                Text = "111"
+                            }
+                        }
+                    }
+                }
+            },
+            new()
+            {
+                Text = "2",
+                Items = new List<MenuItem>()
+                {
+                    new MenuItem() {
+                        Text = "21",
+                        Items = new List<MenuItem>()
+                        {
+                            new MenuItem()
+                            {
+                                Text = "211"
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        var items = menus.GetAllItems();
+        Assert.NotNull(items);
+        Assert.Equal(6, items.Count());
+    }
+
+    [Fact]
+    public void GetAllSubItems_Null()
+    {
+        List<MenuItem>? menus = null;
+        var items = menus.GetAllSubItems();
+        Assert.NotNull(items);
+        Assert.Empty(items);
+    }
 }

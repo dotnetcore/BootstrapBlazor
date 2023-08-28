@@ -1732,25 +1732,23 @@ a, a:hover, a:focus {
   overflow: hidden;
   white-space: nowrap;
 }
-
-.datetime-range.disabled,
+.datetime-range.disabled {
+  background-color: var(--bb-disabled-bg);
+}
 .datetime-range.disabled input {
   background-color: var(--bb-disabled-bg);
 }
-
 .datetime-range .datetime-range-body {
   display: none;
 }
-
-.form-label + .datetime-range {
-  display: block;
+.datetime-range:hover:not(.disabled) .range-clear {
+  display: inline-block;
 }
 
 .datetime-range-control {
   display: inline-flex;
   align-items: center;
 }
-
 .datetime-range-control .datetime-range-input {
   border: none;
   display: inline-block;
@@ -1759,7 +1757,6 @@ a, a:hover, a:focus {
   width: 80px;
   padding: 0;
 }
-
 .datetime-range-control .range-separator {
   padding: 0 5px;
 }
@@ -1767,23 +1764,38 @@ a, a:hover, a:focus {
 .range-panel-body {
   display: flex;
 }
-
 .range-panel-body .picker-panel {
   border: none;
 }
-
 .range-panel-body .picker-panel:first-child {
   border-right: 1px solid #ced4da;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
-
+.range-panel-body .picker-panel-sidebar {
+  width: 110px;
+  border-right: 1px solid #e4e4e4;
+  padding: 6px 0;
+  overflow: auto;
+}
+.range-panel-body .picker-panel-sidebar .sidebar-item {
+  line-height: 28px;
+  padding: 0 12px;
+  cursor: pointer;
+  transition: color 0.3s linear;
+}
+.range-panel-body .picker-panel-sidebar .sidebar-item:hover {
+  color: #409eff;
+}
 .range-panel-body .date-picker-header-label {
   cursor: unset;
 }
-
 .range-panel-body .date-picker-header-label:hover {
   color: inherit;
+}
+
+.form-label + .datetime-range {
+  display: block;
 }
 
 .range-panel-footer {
@@ -1794,7 +1806,6 @@ a, a:hover, a:focus {
 .popover-datetime-range {
   max-width: unset;
 }
-
 .popover-datetime-range .popover-body {
   padding: 0;
 }
@@ -1808,10 +1819,6 @@ a, a:hover, a:focus {
   display: none;
   cursor: pointer;
   color: var(--bb-dt-range-bar-color);
-}
-
-.datetime-range:hover:not(.disabled) .range-clear {
-  display: inline-block;
 }
 
 .icon-list {

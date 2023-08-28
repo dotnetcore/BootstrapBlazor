@@ -224,6 +224,13 @@ public partial class Tab : IHandlerException
     [Parameter]
     public string? CloseIcon { get; set; }
 
+    /// <summary>
+    /// 获得/设置 导航菜单集合 默认 null
+    /// </summary>
+    /// <remarks>使用自定义布局时，需要 Tab 导航标签显示为菜单项时设置，已内置 <see cref="Layout.Menus"/> 默认 null</remarks>
+    [Parameter]
+    public IEnumerable<MenuItem>? Menus { get; set; }
+
     [CascadingParameter]
     private Layout? Layout { get; set; }
 
@@ -556,18 +563,20 @@ public partial class Tab : IHandlerException
                     .Value;
             if (option != null)
             {
-                parameters.Add(nameof(TabItem.Icon), option.Icon);
-                parameters.Add(nameof(TabItem.Closable), option.Closable);
-                parameters.Add(nameof(TabItem.IsActive), true);
-                parameters.Add(nameof(TabItem.Text), option.Text);
+                // TabItemOptionAttribute
+                SetTabItemParameters(option.Text, option.Icon, option.Closable, true);
             }
             else if (Options.Valid())
             {
-                parameters.Add(nameof(TabItem.Icon), Options.Icon);
-                parameters.Add(nameof(TabItem.Closable), Options.Closable);
-                parameters.Add(nameof(TabItem.IsActive), Options.IsActive);
-                parameters.Add(nameof(TabItem.Text), Options.Text);
+                // TabItemTextOptions
+                SetTabItemParameters(Options.Text, Options.Icon, Options.Closable, Options.IsActive);
                 Options.Reset();
+            }
+            else if (Layout != null)
+            {
+                // CascadeParameter Menus
+                var menu = GetMenuItem(url);
+                SetTabItemParameters(menu?.Text, menu?.Icon, true, true);
             }
             else
             {
@@ -581,10 +590,7 @@ public partial class Tab : IHandlerException
                 builder.AddAttribute(1, nameof(BootstrapBlazorAuthorizeView.Type), context.Handler);
                 builder.AddAttribute(2, nameof(BootstrapBlazorAuthorizeView.Parameters), context.Parameters);
                 builder.AddAttribute(3, nameof(BootstrapBlazorAuthorizeView.NotAuthorized), NotAuthorized);
-                if (Layout != null)
-                {
-                    builder.AddAttribute(4, nameof(BootstrapBlazorAuthorizeView.Resource), Layout.Resource);
-                }
+                builder.AddAttribute(4, nameof(BootstrapBlazorAuthorizeView.Resource), Layout?.Resource);
                 builder.CloseComponent();
             }));
         }
@@ -598,6 +604,14 @@ public partial class Tab : IHandlerException
         }
 
         AddTabItem(parameters);
+
+        void SetTabItemParameters(string? text, string? icon, bool closable, bool active)
+        {
+            parameters.Add(nameof(TabItem.Text), text);
+            parameters.Add(nameof(TabItem.Icon), icon);
+            parameters.Add(nameof(TabItem.Closable), closable);
+            parameters.Add(nameof(TabItem.IsActive), active);
+        }
     }
 
     /// <summary>
@@ -734,6 +748,13 @@ public partial class Tab : IHandlerException
     {
         _errorContent = errorContent(ex);
         return Task.CompletedTask;
+    }
+
+    private IEnumerable<MenuItem>? _menuItems;
+    private MenuItem? GetMenuItem(string url)
+    {
+        _menuItems ??= (Menus ?? Layout?.Menus).GetAllItems();
+        return _menuItems?.FirstOrDefault(i => !string.IsNullOrEmpty(i.Url) && (i.Url.TrimStart('/').Equals(url.TrimStart('/'), StringComparison.OrdinalIgnoreCase)));
     }
 
     /// <summary>

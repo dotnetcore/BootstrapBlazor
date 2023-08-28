@@ -4,10 +4,6 @@
     clear: both;
 }
 
-@mixin color_409eff {
-    color: #409eff
-}
-
 @mixin cell-margin($direction) {
     div {
         margin-#{$direction}: 5px;
@@ -50,23 +46,7 @@
     .picker-panel-body-wrapper {
         display: flex;
 
-        .picker-panel-sidebar {
-            width: 110px;
-            border-right: 1px solid #e4e4e4;
-            padding: 6px 0;
-            overflow: auto;
-
-            .sidebar-item {
-                line-height: 28px;
-                padding: 0 12px;
-                cursor: pointer;
-                transition: color .3s linear;
-
-                &:hover {
-                    @include color_409eff;
-                }
-            }
-        }
+        @include pick-side;
 
         .date-picker-time-header {
             position: relative;
