@@ -305,6 +305,75 @@ public class TabTest : TabTestBase
     }
 
     [Fact]
+    public void Menus_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.ClickTabToNavigation, true);
+            pb.Add(a => a.Menus, new List<MenuItem>()
+            {
+                new MenuItem()
+                {
+                    Text = "menu1",
+                    Url = "/Binder",
+                    Icon = "fa-solid fa-home"
+                },
+                new MenuItem()
+                {
+                    Text = "menu1",
+                    Url = "/Dog",
+                    Icon = "fa-solid fa-home"
+                }
+            });
+        });
+        var nav = cut.Services.GetRequiredService<NavigationManager>();
+        nav.NavigateTo("/Binder");
+        cut.Contains("<div class=\"tabs-body-content\">Binder</div>");
+    }
+
+    [Fact]
+    public void MenuItem_Menu()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.ClickTabToNavigation, true);
+            pb.Add(a => a.Menus, new List<MenuItem>()
+            {
+                new MenuItem(),
+                new MenuItem()
+            });
+        });
+
+        // reflection test GetMenuItem
+        cut.InvokeAsync(() =>
+        {
+            var instance = cut.Instance;
+            var mi = instance.GetType().GetMethod("GetMenuItem", BindingFlags.Instance | BindingFlags.NonPublic)!;
+            mi.Invoke(instance, new object[] { "/" });
+        });
+    }
+
+    [Fact]
+    public void MenuItem_Null()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.ClickTabToNavigation, true);
+        });
+
+        // reflection test GetMenuItem
+        cut.InvokeAsync(() =>
+        {
+            var instance = cut.Instance;
+            var mi = instance.GetType().GetMethod("GetMenuItem", BindingFlags.Instance | BindingFlags.NonPublic)!;
+            mi.Invoke(instance, new object[] { "/" });
+        });
+    }
+
+    [Fact]
     public void DefaultUrl_Ok()
     {
         var cut = Context.RenderComponent<Tab>(pb =>
