@@ -1695,7 +1695,7 @@
     "ColorTitle": "带有颜色的下拉框",
     "ColorIntro": "提供各种颜色的警告信息框 引用 <code>Color='Color.Primary'</code> 等颜色及样式类来定义下拉菜单的外在表现",
     "SplitTitle": "分裂式按钮下拉菜单",
-    "SplitIntro": "可用与单个按钮下拉菜单近似的标记创建分裂式下拉菜单，添加 <code>ShowSplit='true'</code> (使用分裂式组件时需要加上 <code>DropdownType='DropdownType.ButtonGroup</code>') 插入此符号为下拉选项作适当的间隔（距）处理。",
+    "SplitIntro": "可用与单个按钮下拉菜单近似的标记创建分裂式下拉菜单，添加 <code>ShowSplit='true'</code> 插入此符号为下拉选项作适当的间隔（距）处理。",
     "SizeTitle": "尺寸大小定义",
     "SizeIntro": "下拉菜单有各种大小规格可以选用 <code>Size</code> 属性，包括预设及分裂式按钮下拉菜单。",
     "DirectionTitle": "展开方向",
