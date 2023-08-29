@@ -642,6 +642,16 @@ public class SelectTest : BootstrapBlazorTestBase
         cut.Contains("Test 3");
         var select = cut.Instance;
         Assert.Equal("3", select.Value?.Value);
+
+        cut.InvokeAsync(() =>
+        {
+            var item = cut.Find(".dropdown-item");
+            item.Click();
+            Assert.Equal("1", value.Value);
+
+            var input = cut.Find(".form-select");
+            Assert.Equal("Test1", input.GetAttribute("value"));
+        });
     }
 
     [Fact]
