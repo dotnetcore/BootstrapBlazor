@@ -269,15 +269,7 @@ public partial class Select<TValue> : ISelect
         return SelectedItem != null;
     }
 
-    private SelectedItem? GetVirtualizeItem()
-    {
-        SelectedItem? item = null;
-        if (OnQueryAsync != null)
-        {
-            item = ValueType == typeof(SelectedItem) ? (SelectedItem)(object)Value : new SelectedItem(CurrentValueAsString, DefaultVirtualizeItemText ?? CurrentValueAsString);
-        }
-        return item;
-    }
+    private SelectedItem? GetVirtualizeItem() => OnQueryAsync == null ? null : ValueType == typeof(SelectedItem) ? (SelectedItem)(object)Value : new SelectedItem(CurrentValueAsString, DefaultVirtualizeItemText ?? CurrentValueAsString);
 
     private void ResetSelectedItem()
     {
@@ -290,7 +282,7 @@ public partial class Select<TValue> : ISelect
 
             if (VirtualItems != null)
             {
-                SelectedItem = ValueType == typeof(SelectedItem) ? (SelectedItem)(object)Value : new SelectedItem(CurrentValueAsString, CurrentValueAsString);
+                DataSource.AddRange(VirtualItems);
             }
 
             SelectedItem = DataSource.FirstOrDefault(i => i.Value.Equals(CurrentValueAsString, StringComparison))
@@ -300,19 +292,7 @@ public partial class Select<TValue> : ISelect
 
             if (SelectedItem != null)
             {
-                if (VirtualItems != null)
-                {
-                    DataSource.AddRange(VirtualItems);
-                }
-
-                SelectedItem = DataSource.FirstOrDefault(i => i.Value.Equals(CurrentValueAsString, StringComparison))
-                    ?? DataSource.FirstOrDefault(i => i.Active)
-                    ?? DataSource.FirstOrDefault();
-
-                if (SelectedItem != null)
-                {
-                    _ = SelectedItemChanged(SelectedItem);
-                }
+                _ = SelectedItemChanged(SelectedItem);
             }
         }
         else if (IsVirtualize)
