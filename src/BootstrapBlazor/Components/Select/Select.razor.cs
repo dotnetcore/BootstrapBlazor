@@ -270,18 +270,27 @@ public partial class Select<TValue> : ISelect
         {
             DataSource.AddRange(Items);
             DataSource.AddRange(Children);
-            if (VirtualItems != null)
+
+            // 支持虚拟化
+            if (OnQueryAsync != null)
             {
-                DataSource.AddRange(VirtualItems);
+                SelectedItem = ValueType == typeof(SelectedItem) ? (SelectedItem)(object)Value : new SelectedItem(CurrentValueAsString, CurrentValueAsString);
             }
-
-            SelectedItem = DataSource.FirstOrDefault(i => i.Value.Equals(CurrentValueAsString, StringComparison))
-                ?? DataSource.FirstOrDefault(i => i.Active)
-                ?? DataSource.FirstOrDefault();
-
-            if (SelectedItem != null)
+            else
             {
-                _ = SelectedItemChanged(SelectedItem);
+                if (VirtualItems != null)
+                {
+                    DataSource.AddRange(VirtualItems);
+                }
+
+                SelectedItem = DataSource.FirstOrDefault(i => i.Value.Equals(CurrentValueAsString, StringComparison))
+                    ?? DataSource.FirstOrDefault(i => i.Active)
+                    ?? DataSource.FirstOrDefault();
+
+                if (SelectedItem != null)
+                {
+                    _ = SelectedItemChanged(SelectedItem);
+                }
             }
         }
         else if (IsVirtualize)
