@@ -239,4 +239,17 @@ public class DropdownTest : BootstrapBlazorTestBase
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.IsDisabled, false));
     }
+
+    [Fact]
+    public void ItemsTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<Dropdown<string>>(pb =>
+        {
+            pb.Add(a => a.ItemsTemplate, new RenderFragment(builder =>
+            {
+                builder.AddContent(0, new MarkupString("<div>test-items-template</div>"));
+            }));
+        });
+        cut.Contains("<div>test-items-template</div>");
+    }
 }
