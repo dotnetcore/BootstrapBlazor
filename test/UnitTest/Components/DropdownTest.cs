@@ -102,26 +102,6 @@ public class DropdownTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void DropdownType_ButtonGroup()
-    {
-        var cut = Context.RenderComponent<Dropdown<EnumEducation>>(pb =>
-        {
-            pb.Add(a => a.DropdownType, DropdownType.ButtonGroup);
-        });
-        Assert.Contains("btn-group", cut.Markup);
-    }
-
-    [Fact]
-    public void DropdownType_DropdownMenu()
-    {
-        var cut = Context.RenderComponent<Dropdown<EnumEducation>>(pb =>
-        {
-            pb.Add(a => a.DropdownType, DropdownType.DropdownMenu);
-        });
-        Assert.Contains("class=\"dropdown\"", cut.Markup);
-    }
-
-    [Fact]
     public void DisplayText_OK()
     {
         var foo = new Foo();

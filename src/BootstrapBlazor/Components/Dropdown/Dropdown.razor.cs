@@ -13,8 +13,7 @@ public partial class Dropdown<TValue>
     /// 获得 按钮弹出方向集合
     /// </summary>
     /// <returns></returns>
-    private string? DirectionClassName => CssBuilder.Default()
-        .AddClass($"btn-group", ShowSplit)
+    private string? DirectionClassName => CssBuilder.Default("btn-group")
         .AddClass(Direction.ToDescriptionString())
         .AddClass($"{Direction.ToDescriptionString()}-center", MenuAlignment == Alignment.Center && (Direction == Direction.Dropup || Direction == Direction.Dropdown))
         .AddClassFromAttributes(AdditionalAttributes)
@@ -116,12 +115,6 @@ public partial class Dropdown<TValue>
     /// </summary>
     [Parameter]
     public bool ShowFixedButtonTextInDropdown { get; set; }
-
-    /// <summary>
-    /// 获得/设置 下拉框渲染类型 默认 DropdownMenu 下拉菜单
-    /// </summary>
-    [Parameter]
-    public DropdownType DropdownType { get; set; }
 
     /// <summary>
     /// 获得/设置 固定按钮显示文字 默认 null
