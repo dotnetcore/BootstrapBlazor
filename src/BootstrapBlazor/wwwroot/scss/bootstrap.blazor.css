@@ -2221,13 +2221,11 @@ section > h2 {
 .empty {
   text-align: center;
 }
-
 .empty > .empty-image {
   margin-top: 1rem;
   margin-bottom: 8px;
 }
-
-.empty-telemplate {
+.empty .empty-telemplate {
   margin: 5px 0 0 0;
 }
 
