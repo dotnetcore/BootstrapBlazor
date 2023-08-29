@@ -7,15 +7,15 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Dropdown 下拉框组件
 /// </summary>
-public partial class Dropdown<TValue> : ValidateBase<TValue>
+public partial class Dropdown<TValue>
 {
     /// <summary>
     /// 获得 按钮弹出方向集合
     /// </summary>
     /// <returns></returns>
     private string? DirectionClassName => CssBuilder.Default()
-        .AddClass($"btn-group", DropdownType == DropdownType.ButtonGroup)
-        .AddClass(Direction.ToDescriptionString(), DropdownType == DropdownType.DropdownMenu)
+        .AddClass($"btn-group", ShowSplit)
+        .AddClass(Direction.ToDescriptionString())
         .AddClass($"{Direction.ToDescriptionString()}-center", MenuAlignment == Alignment.Center && (Direction == Direction.Dropup || Direction == Direction.Dropdown))
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -44,7 +44,7 @@ public partial class Dropdown<TValue> : ValidateBase<TValue>
     /// <summary>
     /// 获得 是否分裂式按钮
     /// </summary>
-    private string? DropdownToggle => !ShowSplit ? "dropdown" : null;
+    private string? DropdownToggle => !ShowSplit ? ToggleString : null;
 
     /// <summary>
     /// 菜单对齐方式样式
@@ -128,6 +128,12 @@ public partial class Dropdown<TValue> : ValidateBase<TValue>
     /// </summary>
     [Parameter]
     public string? FixedButtonText { get; set; }
+
+    /// <summary>
+    ///  获得/设置 Items 模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ItemsTemplate { get; set; }
 
     /// <summary>
     /// SelectedItemChanged 回调方法
