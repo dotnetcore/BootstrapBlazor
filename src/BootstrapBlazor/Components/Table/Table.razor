@@ -80,8 +80,8 @@
                     }
                     @if (ShowColumnList)
                     {
-                        <div class="btn-group dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" data-bs-auto-close="outside" data-bs-toggle="dropdown" type="button" title="@ColumnButtonTitleText">
+                        <div class="dropdown-column btn-group dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" data-bs-auto-close="outside" data-bs-toggle="@ToggleDropdownString" type="button" title="@ColumnButtonTitleText">
                                 <i class="@ColumnListButtonIcon"></i>
                                 <span class="d-none d-sm-inline-block">@ColumnButtonText</span>
                                 <span class="caret"></span>
@@ -104,8 +104,8 @@
                     }
                     @if (ShowExportButton)
                     {
-                        <div class="btn-group dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" type="button" title="@ExportButtonText">
+                        <div class="dropdown-export btn-group dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="@ToggleDropdownString" type="button" title="@ExportButtonText">
                                 <i class="@ExportButtonIcon"></i>
                                 <span class="d-none d-sm-inline-block">@ExportButtonText</span>
                                 <span class="caret"></span>

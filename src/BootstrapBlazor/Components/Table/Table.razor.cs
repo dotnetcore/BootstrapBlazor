@@ -278,6 +278,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public Func<string, TItem, object?, Task>? OnDoubleClickCellCallback { get; set; }
 
     /// <summary>
+    /// 获得/设置 工具栏下拉框按钮是否 IsPopover 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsPopoverToolbarDropdownButton { get; set; }
+
+    /// <summary>
     /// 获得/设置 数据滚动模式
     /// </summary>
     [Parameter]
@@ -299,6 +305,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     [Parameter]
     public bool IsTracking { get; set; }
+
+    private string ToggleDropdownString => IsPopoverToolbarDropdownButton ? "bb.dropdown" : "dropdown";
 
     [Inject]
     [NotNull]
