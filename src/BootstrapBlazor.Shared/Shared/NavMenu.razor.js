@@ -24,7 +24,6 @@ export function init(id) {
     let originY = 0
     let section = document.querySelector('section');
     let width = 0
-    console.log(width)
     Drag.drag(navmenu.bar,
         e => {
             navmenu.bar.classList.add('drag')
