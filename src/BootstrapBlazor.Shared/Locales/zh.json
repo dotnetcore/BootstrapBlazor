@@ -4523,21 +4523,6 @@
     "SelectTreesIsPopoverIntro": "通过设置 <code>IsPopover</code> 参数，组件使用 <code>popover</code> 渲染 <code>UI</code> 防止由于父容器设置 <code>overflow: hidden;</code> 使弹窗无法显示问题",
     "SelectTreesClientValidationButtonText": "提交"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {
-    "TablesFooterTitle": "Table 统计功能",
-    "TablesFooterDescription": "用于数据统计",
-    "TablesFooterStatisticsTitle": "数据统计示例",
-    "TablesFooterStatisticsIntro": "设置 <code>ShowFooter=true</code> 显示 <code>Footer</code> 自定义合计功能",
-    "TablesFooterStatisticsTips1": "<code>Table</code> 组件有 <code>TableFooter</code> 模板，其数据上下文为 <code>Table</code> 组件的数据集合 <code>IEnumerable&lt;TItem&gt;</code>",
-    "TablesFooterStatisticsTips2": "<code>TableFooter</code> 模板中关联的上下文 <code>context</code> 值为当页数据集合",
-    "TablesFooterStatisticsTips3": "<code>TableFooter</code> 模板内可以自定义单元格 <code>td</code> 内容，也可以使用内置的 <code>TableFooterCell</code> 组件进行数据显示",
-    "TablesFooterTemplateTitle": "Footer 模板",
-    "TablesFooterTemplateIntro": "设置 <code>FooterTemplate</code> 自定义表格底部显示内容",
-    "TablesFooterTemplateDescription": "无数据时默认显示 <code>Footer</code> 可通过设置 <code>@nameof(Table<Foo>.IsHideFooterWhenNoData)</code> 参数隐藏 <code>Footer</code>",
-    "TablesFooterStatisticsTotal": "合计：",
-    "TablesFooterTemplateSentences": "这里可以写一些描述性的语句",
-    "TablesFooterTemplateTotal": "合计："
-  },
   "BootstrapBlazor.Shared.Samples.Table.TablesDetailRow": {
     "TablesDetailRowTitle": "显示明细行功能",
     "TablesDetailRowDesc": "用于展示父子关系表数据",
@@ -4846,7 +4831,6 @@
     "AutoGenerateColumnsLi2": "<code>Readonly</code> 表示只读",
     "AutoGenerateColumnsLi3": "更多属性详见 <a href=\"{0}/blob/master/src/BootstrapBlazor/Attributes/AutoGenerateColumnAttribute.cs\" target=\"_blank\">源码</a>",
     "AutoGenerateColumnsP2": " 本例中通过 <code>[AutoGenerateColumn(Order = 1, FormatString = \"yyyy-MM-dd\")]</code> 标签格式化 <code>日期</code> 列；通过代码中设置模板列对 <code>Complete</code> 列进行自定义使用 <code>Switch</code> 组件进行渲染；通过 <code>[AutoGenerateColumn(Order = 10)]</code> 标签中的 <code>Order</code> 对显示顺序进行设定"
-
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesEdit": {
     "TablesEditTitle": "Table 表格",
@@ -4989,6 +4973,21 @@
     "TablesTrackingNormalIntro": "设置 <code>IsTracking</code> 配合 <code>Items</code> 可以不需要设置 <code>OnSaveAsync</code> 等回调方法",
     "TablesTrackingNormalTips1": "可通过设置 <code>ShowToastAfterSaveOrDeleteModel='false'</code> 关闭 <b>保存</b> <b>删除</b> 按钮的提示信息",
     "TablesTrackingNormalTips2": "此模式下所有数据编辑均编辑原始数据，通过 <code>bind-Items</code> 更新数据源，所以不提供 <b>取消</b> 按钮"
+  },
+  "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {
+    "TablesFooterTitle": "Table 统计功能",
+    "TablesFooterDescription": "用于数据统计",
+    "TablesFooterStatisticsTitle": "数据统计示例",
+    "TablesFooterStatisticsIntro": "设置 <code>ShowFooter=true</code> 显示 <code>Footer</code> 自定义合计功能",
+    "TablesFooterStatisticsTips1": "<code>Table</code> 组件有 <code>TableFooter</code> 模板，其数据上下文为 <code>Table</code> 组件的数据集合 <code>IEnumerable&lt;TItem&gt;</code>",
+    "TablesFooterStatisticsTips2": "<code>TableFooter</code> 模板中关联的上下文 <code>context</code> 值为当页数据集合",
+    "TablesFooterStatisticsTips3": "<code>TableFooter</code> 模板内可以自定义单元格 <code>td</code> 内容，也可以使用内置的 <code>TableFooterCell</code> 组件进行数据显示",
+    "TablesFooterTemplateTitle": "Footer 模板",
+    "TablesFooterTemplateIntro": "设置 <code>FooterTemplate</code> 自定义表格底部显示内容",
+    "TablesFooterTemplateDescription": "无数据时默认显示 <code>Footer</code> 可通过设置 <code>@nameof(Table<Foo>.IsHideFooterWhenNoData)</code> 参数隐藏 <code>Footer</code>",
+    "TablesFooterStatisticsTotal": "合计：",
+    "TablesFooterTemplateSentences": "这里可以写一些描述性的语句",
+    "TablesFooterTemplateTotal": "合计："
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesAutoRefresh": {
     "TablesAutoRefreshTitle": "自动刷新表格功能",
