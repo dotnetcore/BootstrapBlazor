@@ -80,7 +80,7 @@
                     }
                     @if (ShowColumnList)
                     {
-                        <div class="btn-group" role="group">
+                        <div class="btn-group dropdown">
                             <button class="btn btn-secondary dropdown-toggle" data-bs-auto-close="outside" data-bs-toggle="dropdown" type="button" title="@ColumnButtonTitleText">
                                 <i class="@ColumnListButtonIcon"></i>
                                 <span class="d-none d-sm-inline-block">@ColumnButtonText</span>
@@ -104,7 +104,7 @@
                     }
                     @if (ShowExportButton)
                     {
-                        <div class="btn-group" role="group">
+                        <div class="btn-group dropdown">
                             <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" type="button" title="@ExportButtonText">
                                 <i class="@ExportButtonIcon"></i>
                                 <span class="d-none d-sm-inline-block">@ExportButtonText</span>
@@ -188,7 +188,7 @@
                 {
                     <div class="table-fixed-header">
                         <table class="@TableClassName">
-                            @RenderColgroup(true)
+                            @RenderColGroup(true)
                             @RenderHeader(true)
                         </table>
                     </div>
@@ -240,10 +240,10 @@
                                 </label>
                                 @if (col.OnCellRender != null)
                                 {
-                                    var args = new TableCellArgs { Row = item, ColumnName = col.GetFieldName() };
-                                    col.OnCellRender(args);
-                                    cellClass = args.Class;
-                                    value = args.Value;
+                                    var cell = new TableCellArgs { Row = item, ColumnName = col.GetFieldName() };
+                                    col.OnCellRender(cell);
+                                    cellClass = cell.Class;
+                                    value = cell.Value;
                                 }
                                 @if(value == null)
                                 {
@@ -296,7 +296,7 @@
 @code {
     RenderFragment<bool> RenderTable => hasHeader =>
     @<table class="@TableClassName">
-        @RenderColgroup.Invoke(false)
+        @RenderColGroup.Invoke(false)
         @if (hasHeader)
         {
             @RenderHeader(false)
@@ -405,7 +405,7 @@
         }
     </table>;
 
-    RenderFragment<bool> RenderColgroup => hasScroll =>
+    RenderFragment<bool> RenderColGroup => hasScroll =>
     @<colgroup>
         @if (ShowDetails())
         {
@@ -632,7 +632,7 @@
         }
         @{
             var index = 0;
-            var prevColspan = 0;
+            var colIndex = 0;
             var isInCell = EditInCell && SelectedRows.FirstOrDefault() == item;
         }
         @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
@@ -643,9 +643,9 @@
         {
             if (CheckShownWithBreakpoint(col))
             {
-                if (prevColspan > 1)
+                if (colIndex > 1)
                 {
-                    prevColspan--;
+                    colIndex--;
                     continue;
                 }
                 var cellClass = "";
@@ -653,12 +653,12 @@
                 string? value = null;
                 if (col.OnCellRender != null)
                 {
-                    var args = new TableCellArgs { Row = item, ColumnName = col.GetFieldName() };
-                    col.OnCellRender(args);
-                    cellClass = args.Class;
-                    colspan = args.Colspan;
-                    value = args.Value;
-                    prevColspan = colspan;
+                    var cell = new TableCellArgs { Row = item, ColumnName = col.GetFieldName() };
+                    col.OnCellRender(cell);
+                    cellClass = cell.Class;
+                    colspan = cell.Colspan;
+                    value = cell.Value;
+                    colIndex = colspan;
                 }
                 <td colspan="@GetColspan(colspan)" class="@GetFixedCellClassString(col, cellClass)" style="@GetFixedCellStyleString(col)">
                     @{
@@ -804,7 +804,7 @@
         <span class="btn-group">
             @if (BeforeRowButtonTemplate != null)
             {
-                <TableExtensionButton OnClickButton="args => OnClickExtensionButton(item, args)">
+                <TableExtensionButton OnClickButton="cell => OnClickExtensionButton(item, cell)">
                     @BeforeRowButtonTemplate.Invoke(item)
                 </TableExtensionButton>
             }
@@ -825,7 +825,7 @@
             }
             @if (RowButtonTemplate != null)
             {
-                <TableExtensionButton OnClickButton="args => OnClickExtensionButton(item, args)">
+                <TableExtensionButton OnClickButton="cell => OnClickExtensionButton(item, cell)">
                     @RowButtonTemplate.Invoke(item)
                 </TableExtensionButton>
             }
@@ -841,7 +841,7 @@
                 }
                 @if (!isInCell)
                 {
-                    <TableExtensionButton OnClickButton="args => OnClickExtensionButton(item, args)">
+                    <TableExtensionButton OnClickButton="cell => OnClickExtensionButton(item, cell)">
                         @BeforeRowButtonTemplate?.Invoke(item)
                     </TableExtensionButton>
                 }
@@ -871,7 +871,7 @@
                 }
                 @if (!isInCell)
                 {
-                    <TableExtensionButton OnClickButton="args => OnClickExtensionButton(item, args)">
+                    <TableExtensionButton OnClickButton="cell => OnClickExtensionButton(item, cell)">
                         @RowButtonTemplate?.Invoke(item)
                     </TableExtensionButton>
                 }
