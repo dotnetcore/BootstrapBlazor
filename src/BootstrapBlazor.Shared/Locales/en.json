@@ -4724,7 +4724,8 @@
     "PageInfoTextAttr": "Pagination label text",
     "AllowDragOrderAttr": "Allow dragging column headings to adjust table column order",
     "TableBaseNormalRefreshText": "Refresh",
-    "TableBaseHeaderStyleMode": "Pattern"
+    "TableBaseHeaderStyleMode": "The style of table header",
+    "IsPopoverToolbarDropdownButtonAttr": "Whether float the popup window for dropdown button in the toolbar"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesColumn": {
     "TablesColumnTitle": "Table Column",

@@ -4739,7 +4739,8 @@
     "PageInfoTextAttr": "分页信息显示文字",
     "AllowDragOrderAttr": "是否允许拖动列标题调整表格列顺序",
     "TableBaseNormalRefreshText": "刷新",
-    "TableBaseHeaderStyleMode": "模式"
+    "TableBaseHeaderStyleMode": "表头模式",
+    "IsPopoverToolbarDropdownButtonAttr": "工具栏下拉框按钮是否浮动"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesColumn": {
     "TablesColumnTitle": "Table 表格",
