@@ -34,16 +34,16 @@
 <DemoBlock Title="@Localizer["SplitTitle"]" Introduction='@Localizer["SplitIntro"]' Name="Split">
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3">
-            <Dropdown TValue="string" DropdownType="DropdownType.ButtonGroup" Items="Items" ShowSplit="true" Color="Color.Primary" />
+            <Dropdown TValue="string" Items="Items" ShowSplit="true" Color="Color.Primary" IsPopover="true" />
         </div>
         <div class="col-6 col-sm-4 col-md-3">
-            <Dropdown TValue="string" DropdownType="DropdownType.ButtonGroup" Items="Items" ShowSplit="true" Color="Color.Info" />
+            <Dropdown TValue="string" Items="Items" ShowSplit="false" Color="Color.Info" IsPopover="true" />
         </div>
         <div class="col-6 col-sm-4 col-md-3">
-            <Dropdown TValue="string" DropdownType="DropdownType.ButtonGroup" Items="Items" ShowSplit="true" Color="Color.Warning" />
+            <Dropdown TValue="string" Items="Items" ShowSplit="true" Color="Color.Warning" IsPopover="true" />
         </div>
         <div class="col-6 col-sm-4 col-md-3">
-            <Dropdown TValue="string" DropdownType="DropdownType.ButtonGroup" Items="Items" ShowSplit="true" Color="Color.Danger" />
+            <Dropdown TValue="string" Items="Items" IsDisabled="true" ShowSplit="true" Color="Color.Danger" IsPopover="true" />
         </div>
     </div>
 </DemoBlock>
