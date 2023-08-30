@@ -1,9 +1,9 @@
 ﻿import { addLink, removeLink, addScript, removeScript } from '../../modules/utility.js?v=$version'
 
-const spcss = "./splitting/splitting.css";
-const spcellscss = "./splitting/splitting-cells.css";
-const spjs = "./splitting/splitting.min.js";
-const gsapjs = "./gsap/gsap.min.js";
+const spcss = "/_content/BootstrapBlazor/lib/splitting/splitting.css";
+const spcellscss = "/_content/BootstrapBlazor/lib/splitting/splitting-cells.css";
+const spjs = "/_content/BootstrapBlazor/lib/splitting/splitting.min.js";
+const gsapjs = "/_content/BootstrapBlazor/modules/gsap.min.js";
 
 export async function init(isRepeat, repeatDelay, duration) {
     await addLink(spcss)
