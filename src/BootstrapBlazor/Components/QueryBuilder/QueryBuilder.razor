@@ -1,0 +1,29 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TModel
+@inherits BootstrapComponentBase
+
+<div @attributes="@AdditionalAttributes" class="@ClassString">
+    <CascadingValue Value="_filters" IsFixed="true">
+        @ChildContent?.Invoke(new TModel())
+    </CascadingValue>
+    @if (_inited)
+    {
+        @foreach (var filter in _filters)
+        {
+
+        }
+    }
+    else
+    {
+        if (ShowSkeleton)
+        {
+            // TODO: QueryBuilder 骨架屏
+        }
+        else if (ShowLoadingInFirstRender)
+        {
+            <div class="table-loading">
+                <Spinner Color="Color.Primary" />
+            </div>
+        }
+    }
+</div>
