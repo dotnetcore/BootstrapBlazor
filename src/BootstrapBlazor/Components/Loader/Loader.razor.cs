@@ -16,6 +16,12 @@ public partial class Loader
     public string Text { get; set; } = "Loading ...";
 
     /// <summary>
+    /// 数据数量
+    /// </summary>
+    [Parameter]
+    public int Columns { get; set; } = 10;
+
+    /// <summary>
     /// 是否重复播放
     /// </summary>
     [Parameter]
