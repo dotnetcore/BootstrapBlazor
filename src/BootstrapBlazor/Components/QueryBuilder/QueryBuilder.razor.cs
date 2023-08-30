@@ -47,6 +47,18 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
     public RenderFragment<TModel>? ChildContent { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示 Header 区域 默认 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowHeader { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 Header 模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment? HeaderTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 首次加载是否显示加载骨架屏 默认 false 不显示 使用 <see cref="ShowLoadingInFirstRender" /> 参数值
     /// </summary>
     [Parameter]

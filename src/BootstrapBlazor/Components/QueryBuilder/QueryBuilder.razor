@@ -6,6 +6,23 @@
     <CascadingValue Value="Filter.Filters" IsFixed="true">
         @ChildContent?.Invoke(new TModel())
     </CascadingValue>
+    @if (ShowHeader)
+    {
+        if (HeaderTemplate != null)
+        {
+            @HeaderTemplate
+        }
+        else
+        {
+            <div class="qb-header">
+                <div class="btn-group">
+                    <Button Color="Color.Primary" Text="@Localizer[FilterLogic.And.ToString()]"></Button>
+                    <Button Color="Color.Primary" Text="@Localizer[FilterLogic.Or.ToString()]"></Button>
+                </div>
+                <Button Icon="@PlusIcon"></Button>
+            </div>
+        }
+    }
     @if (_inited)
     {
         @RenderFilters(Filter)
