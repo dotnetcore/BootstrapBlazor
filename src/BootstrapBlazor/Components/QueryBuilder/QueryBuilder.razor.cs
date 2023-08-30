@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Components;
 #endif
 public partial class QueryBuilder<TModel> where TModel : notnull, new()
 {
-    private string? ClassString => CssBuilder.Default()
+    private string? ClassString => CssBuilder.Default("query-builder")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -23,6 +23,9 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
     /// </summary>
     [Parameter]
     [NotNull]
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
     public FilterKeyValueAction? Filter { get; set; }
 
     /// <summary>
@@ -75,11 +78,20 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
     [NotNull]
     private IStringLocalizer<QueryBuilder<TModel>>? Localizer { get; set; }
 
-    private List<FilterKeyValueAction> _filters = new();
-
     private bool _inited = false;
 
     private List<SelectedItem>? Operations { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Filter ??= new FilterKeyValueAction();
+        Filter.Filters ??= new();
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -90,7 +102,6 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
 
         PlusIcon ??= IconTheme.GetIconByKey(ComponentIcons.QueryBuilderPlusIcon);
         MinusIcon ??= IconTheme.GetIconByKey(ComponentIcons.QueryBuilderMinusIcon);
-        Filter ??= new();
 
         Operations ??= new()
         {
@@ -119,4 +130,36 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
             StateHasChanged();
         }
     }
+
+    private List<SelectedItem> _fields = new();
+
+    RenderFragment RenderFilters(FilterKeyValueAction filter) => builder =>
+    {
+        if (filter.Filters != null)
+        {
+            var index = 0;
+            builder.OpenElement(index++, "ul");
+            builder.AddAttribute(index++, "class", "qb-group");
+            foreach (var f in filter.Filters)
+            {
+                if (f.HasFilters())
+                {
+                    builder.OpenElement(index++, "li");
+                    builder.AddAttribute(index++, "class", "qb-item");
+                    builder.AddAttribute(index++, "data-bb-logic", Localizer[filter.FilterLogic.ToString()]);
+                    builder.AddContent(index++, RenderFilters(f));
+                    builder.CloseElement();
+                }
+                else
+                {
+                    builder.OpenElement(index++, "li");
+                    builder.AddAttribute(index++, "class", "qb-item");
+                    builder.AddAttribute(index++, "data-bb-logic", Localizer[filter.FilterLogic.ToString()]);
+                    builder.AddContent(index++, RenderFilter(f));
+                    builder.CloseElement();
+                }
+            }
+            builder.CloseElement();
+        }
+    };
 }

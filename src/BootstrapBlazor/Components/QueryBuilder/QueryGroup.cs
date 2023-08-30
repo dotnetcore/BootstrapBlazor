@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components.Rendering;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -16,4 +14,14 @@ public class QueryGroup<TModel> : QueryColumnBase<TModel>
     /// </summary>
     [Parameter]
     public FilterLogic Logic { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        _filter.FilterLogic = Logic;
+    }
 }

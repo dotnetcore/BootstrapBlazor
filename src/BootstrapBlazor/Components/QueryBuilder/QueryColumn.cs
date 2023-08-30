@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Forms;
 using System.Linq.Expressions;
 
 namespace BootstrapBlazor.Components;
@@ -9,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// QueryColumn 组件
 /// </summary>
-public class QueryColumn<TModel, TType> : QueryColumnBase<TModel>
+public class QueryColumn<TModel, TType> : QueryGroup<TModel>
 {
     /// <summary>
     /// 获得/设置 条件字段名称
@@ -24,10 +25,16 @@ public class QueryColumn<TModel, TType> : QueryColumnBase<TModel>
     public Expression<Func<TType>>? FieldExpression { get; set; }
 
     /// <summary>
+    /// 获得/设置 绑定类字段名称
+    /// </summary>
+    [Parameter]
+    public string? FieldName { get; set; }
+
+    /// <summary>
     /// 获得/设置 显示名称
     /// </summary>
     [Parameter]
-    public string? DisplayText { get; set; }
+    public string? Text { get; set; }
 
     /// <summary>
     /// 获得/设置 值组件类型
@@ -46,4 +53,35 @@ public class QueryColumn<TModel, TType> : QueryColumnBase<TModel>
     /// </summary>
     [Parameter]
     public object? Value { get; set; }
+
+    private FieldIdentifier? _fieldIdentifier;
+    /// <summary>
+    /// 获取绑定字段显示名称方法
+    /// </summary>
+    public virtual string GetDisplayName() => Text ?? _fieldIdentifier?.GetDisplayName() ?? FieldName ?? "";
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        if (FieldExpression != null)
+        {
+            _fieldIdentifier = FieldIdentifier.Create(FieldExpression);
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        _filter.FieldKey = _fieldIdentifier?.FieldName;
+        _filter.FilterAction = Operator;
+        _filter.FieldValue = Value;
+    }
 }

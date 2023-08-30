@@ -3,12 +3,12 @@
 @inherits BootstrapComponentBase
 
 <div @attributes="@AdditionalAttributes" class="@ClassString">
-    <CascadingValue Value="_filters" IsFixed="true">
+    <CascadingValue Value="Filter.Filters" IsFixed="true">
         @ChildContent?.Invoke(new TModel())
     </CascadingValue>
     @if (_inited)
     {
-        @RenderFilters(_filters)
+        @RenderFilters(Filter)
     }
     else
     {
