@@ -1,0 +1,24 @@
+.query-builder {
+    position: relative;
+
+    .qb-group {
+        margin: 0;
+        padding: 0;
+
+        .qb-item {
+            list-style: none;
+
+            &:not(:last-child) {
+                margin-bottom: .5rem;
+            }
+        }
+
+        .qb-row {
+            display: flex;
+
+            > *:not(:last-child) {
+                margin-right: .5rem;
+            }
+        }
+    }
+}

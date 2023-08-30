@@ -7533,3 +7533,23 @@ form .form-label[required]:before {
 form .form-control.is-display {
   background-color: var(--bb-disabled-bg);
 }
+
+.query-builder {
+  position: relative;
+}
+.query-builder .qb-group {
+  margin: 0;
+  padding: 0;
+}
+.query-builder .qb-group .qb-item {
+  list-style: none;
+}
+.query-builder .qb-group .qb-item:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+.query-builder .qb-group .qb-row {
+  display: flex;
+}
+.query-builder .qb-group .qb-row > *:not(:last-child) {
+  margin-right: 0.5rem;
+}
