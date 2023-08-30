@@ -283,7 +283,9 @@
   },
   "BootstrapBlazor.Components.Transfer": {
     "LeftPanelText": "All",
-    "RightPanelText": "Selected"
+    "RightPanelText": "Selected",
+    "MinErrorMessage": "Please select at least {0} items",
+    "MaxErrorMessage": "Up to {0} items can be selected"
   },
   "BootstrapBlazor.Components.TransferPanel": {
     "SearchPlaceHolderString": "Please input ...",

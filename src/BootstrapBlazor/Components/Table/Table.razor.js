@@ -3,6 +3,7 @@ import { copy, drag, getDescribedElement, getOuterHeight, getWidth } from '../..
 import '../../modules/browser.js?v=$version'
 import Data from '../../modules/data.js?v=$version'
 import EventHandler from '../../modules/event-handler.js?v=$version'
+import Popover from "../../modules/base-popover.js?v=$version"
 
 const setBodyHeight = table => {
     const el = table.el
@@ -411,6 +412,18 @@ const disposeDragColumns = columns => {
     })
 }
 
+const setToolbarDropdown = (table, toolbar) => {
+    table.popovers = [];
+    [...toolbar.querySelectorAll('.dropdown-column, .dropdown-export')].forEach(dropdown => {
+        const button = dropdown.querySelector('.dropdown-toggle')
+        if (button.getAttribute('data-bs-toggle') === 'bb.dropdown') {
+            table.popovers.push(Popover.init(dropdown, {
+                isDisabled: () => false
+            }))
+        }
+    })
+}
+
 export function init(id, invoke, callbacks) {
     const el = document.getElementById(id)
     if (el === null) {
@@ -472,6 +485,12 @@ export function init(id, invoke, callbacks) {
         observer.observe(table.search)
         table.observer = observer
     }
+
+    // popover
+    const toolbar = el.querySelector('.table-column-right')
+    if (toolbar !== null) {
+        setToolbarDropdown(table, toolbar)
+    }
 }
 
 export function resetColumn(id) {
@@ -523,6 +542,12 @@ export function dispose(id) {
 
         if (table.observer) {
             table.observer.disconnect()
+        }
+
+        if (table.popovers) {
+            table.popovers.forEach(p => {
+                Popover.dispose(p)
+            })
         }
     }
 }
