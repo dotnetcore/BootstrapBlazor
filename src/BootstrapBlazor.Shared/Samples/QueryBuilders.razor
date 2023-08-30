@@ -1,17 +1,39 @@
 ﻿@page "/query-builder"
+@inject IStringLocalizer<QueryBuilders> Localizer
 
 <h3>QueryBuilders</h3>
 
-<QueryBuilder TModel="Foo">
-    <QueryColumn @bind-Field="@context.Name" Operator="@FilterAction.Equal"></QueryColumn>
+<DemoBlock Title="@Localizer["QueryBuilderNormalTitle"]"
+           Introduction="@Localizer["QueryBuilderNormalIntro"]"
+           Name="Normal">
+    <QueryBuilder TModel="Foo">
+        <QueryColumn @bind-Field="@context.Name" Operator="@FilterAction.Equal"></QueryColumn>
 
-    <QueryGroup Logic="@FilterLogic.Or">
-        <QueryColumn @bind-Field="@context.Address" Operator="@FilterAction.Contains"></QueryColumn>
-        <QueryColumn @bind-Field="@context.Education" Operator="@FilterAction.Equal"></QueryColumn>
-
-        <QueryGroup Logic="@FilterLogic.And">
-            <QueryColumn @bind-Field="@context.DateTime" Operator="@FilterAction.GreaterThanOrEqual"></QueryColumn>
-            <QueryColumn @bind-Field="@context.Complete" Operator="@FilterAction.Equal"></QueryColumn>
+        <QueryGroup Logic="@FilterLogic.Or">
+            <QueryColumn @bind-Field="@context.Address" Operator="@FilterAction.Contains"></QueryColumn>
+            <QueryColumn @bind-Field="@context.Education" Operator="@FilterAction.Equal"></QueryColumn>
         </QueryGroup>
-    </QueryGroup>
-</QueryBuilder>
+
+        <QueryColumn @bind-Field="@context.Complete" Operator="@FilterAction.Equal"></QueryColumn>
+        <QueryColumn @bind-Field="@context.DateTime" Operator="@FilterAction.GreaterThanOrEqual"></QueryColumn>
+    </QueryBuilder>
+</DemoBlock>
+
+
+<DemoBlock Title="@Localizer["QueryBuilderNestTitle"]"
+           Introduction="@Localizer["QueryBuilderNestIntro"]"
+           Name="Nest">
+    <QueryBuilder TModel="Foo">
+        <QueryColumn @bind-Field="@context.Name" Operator="@FilterAction.Equal"></QueryColumn>
+
+        <QueryGroup Logic="@FilterLogic.Or">
+            <QueryColumn @bind-Field="@context.Address" Operator="@FilterAction.Contains"></QueryColumn>
+            <QueryColumn @bind-Field="@context.Education" Operator="@FilterAction.Equal"></QueryColumn>
+
+            <QueryGroup Logic="@FilterLogic.And">
+                <QueryColumn @bind-Field="@context.DateTime" Operator="@FilterAction.GreaterThanOrEqual"></QueryColumn>
+                <QueryColumn @bind-Field="@context.Complete" Operator="@FilterAction.Equal"></QueryColumn>
+            </QueryGroup>
+        </QueryGroup>
+    </QueryBuilder>
+</DemoBlock>
