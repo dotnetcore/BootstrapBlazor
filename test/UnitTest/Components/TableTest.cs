@@ -200,6 +200,7 @@ public class TableTest : TableTestBase
     [Fact]
     public void Items_Delete()
     {
+        var tcs = new TaskCompletionSource<bool>();
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -210,6 +211,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.ItemsChanged, EventCallback.Factory.Create<IEnumerable<Foo>>(this, rows =>
                 {
                     items = rows.ToList();
+                    tcs.SetResult(true);
                 }));
                 pb.Add(a => a.EditMode, EditMode.InCell);
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
@@ -220,7 +222,9 @@ public class TableTest : TableTestBase
         {
             var table = cut.FindComponent<MockTable>();
             await table.Instance.TestDeleteAsync();
+            await tcs.Task;
         });
+        Assert.Single(items);
         Assert.Equal(localizer["Foo.Name", "0002"], items.First().Name);
     }
 
