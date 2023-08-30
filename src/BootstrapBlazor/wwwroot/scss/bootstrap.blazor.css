@@ -7537,6 +7537,9 @@ form .form-control.is-display {
 .query-builder {
   position: relative;
 }
+.query-builder .qb-header {
+  margin-bottom: 0.5rem;
+}
 .query-builder .qb-group {
   margin: 0;
   padding: 0;

@@ -1,6 +1,10 @@
 .query-builder {
     position: relative;
 
+    .qb-header {
+        margin-bottom: .5rem;
+    }
+
     .qb-group {
         margin: 0;
         padding: 0;
