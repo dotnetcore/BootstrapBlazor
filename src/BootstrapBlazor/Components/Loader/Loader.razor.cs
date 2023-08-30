@@ -21,24 +21,6 @@ public partial class Loader
     [Parameter]
     public int Columns { get; set; } = 10;
 
-    /// <summary>
-    /// 是否重复播放
-    /// </summary>
-    [Parameter]
-    public bool IsRepeat { get; set; } = true;
-
-    /// <summary>
-    /// 重复动画之前的延迟(秒)
-    /// </summary>
-    [Parameter]
-    public double RepeatDelay { get; set; } = 0.75;
-
-    /// <summary>
-    /// 动画持续时间(秒)
-    /// </summary>
-    [Parameter]
-    public double Duration { get; set; } = 0.25;
-
     private string? ClassString { get; set; }
 
     /// <inheritdoc/>
@@ -49,5 +31,5 @@ public partial class Loader
     }
 
     /// <inheritdoc/>
-    protected override async Task InvokeInitAsync() => await InvokeVoidAsync("init", Id, IsRepeat, RepeatDelay, Duration);
+    protected override async Task InvokeInitAsync() => await InvokeVoidAsync("init", Id);
 }
