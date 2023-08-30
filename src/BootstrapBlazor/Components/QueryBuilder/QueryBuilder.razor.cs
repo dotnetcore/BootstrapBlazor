@@ -55,9 +55,16 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
     [Parameter]
     public bool ShowLoadingInFirstRender { get; set; } = true;
 
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<QueryBuilder<TModel>>? Localizer { get; set; }
+
     private List<FilterKeyValueAction> _filters = new();
 
     private bool _inited = false;
+
+    private List<SelectedItem>? Operations { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -67,6 +74,18 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
         base.OnParametersSet();
 
         Filter ??= new();
+
+        Operations ??= new()
+        {
+            new SelectedItem("GreaterThanOrEqual", Localizer["GreaterThanOrEqual"].Value),
+            new SelectedItem("LessThanOrEqual", Localizer["LessThanOrEqual"].Value),
+            new SelectedItem("GreaterThan", Localizer["GreaterThan"].Value),
+            new SelectedItem("LessThan", Localizer["LessThan"].Value),
+            new SelectedItem("Equal", Localizer["Equal"].Value),
+            new SelectedItem("NotEqual", Localizer["NotEqual"].Value ),
+            new SelectedItem("Contains", Localizer["Contains"].Value ),
+            new SelectedItem("NotContains", Localizer["NotContains"].Value )
+        };
     }
 
     /// <summary>

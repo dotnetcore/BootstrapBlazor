@@ -331,5 +331,15 @@
     "ButtonText": "Copy",
     "DialogHeaderText": "Selected Icon",
     "CopiedTooltipText": "Copied"
+  },
+  "BootstrapBlazor.Components.QueryBuilder": {
+    "GreaterThanOrEqual": "GreaterThanOrEqual",
+    "LessThanOrEqual": "LessThanOrEqual",
+    "GreaterThan": "GreaterThan",
+    "LessThan": "LessThan",
+    "Equal": "Equal",
+    "NotEqual": "NotEqual",
+    "Contains": "Contains",
+    "NotContains": "NotContains"
   }
 }

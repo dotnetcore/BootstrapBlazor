@@ -331,5 +331,15 @@
     "ButtonText": "点击复制",
     "DialogHeaderText": "请选择图标",
     "CopiedTooltipText": "拷贝成功"
+  },
+  "BootstrapBlazor.Components.QueryBuilder": {
+    "GreaterThanOrEqual": "大于等于",
+    "LessThanOrEqual": "小于等于",
+    "GreaterThan": "大于",
+    "LessThan": "小于",
+    "Equal": "等于",
+    "NotEqual": "不等于",
+    "Contains": "包含",
+    "NotContains": "不包含"
   }
 }
