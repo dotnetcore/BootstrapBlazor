@@ -8,10 +8,7 @@
     </CascadingValue>
     @if (_inited)
     {
-        @foreach (var filter in _filters)
-        {
-
-        }
+        @RenderFilters(_filters)
     }
     else
     {
@@ -34,7 +31,7 @@
         <Select Items="_fields" @bind-Value="@filter.FieldKey" />
         <Select Items="Operations" @bind-Value="@filter.FilterAction" />
         <BootstrapInput @bind-Value="@filter.FieldValue" />
-        <Button Icon="MinusIcon" class="btn-minus"></Button>
-        <Button Icon="PlusIcon" class="btn-plus"></Button>
+        <Button Icon="@MinusIcon" class="btn-minus"></Button>
+        <Button Icon="@PlusIcon" class="btn-plus"></Button>
     </div>;
 }

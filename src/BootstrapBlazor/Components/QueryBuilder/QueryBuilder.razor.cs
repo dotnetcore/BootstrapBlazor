@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.ComponentModel;
+using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
 
@@ -55,6 +55,21 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
     [Parameter]
     public bool ShowLoadingInFirstRender { get; set; } = true;
 
+    /// <summary>
+    /// 获得/设置 增加过滤条件图标
+    /// </summary>
+    [Parameter]
+    public string? PlusIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 减少过滤条件图标
+    /// </summary>
+    [Parameter]
+    public string? MinusIcon { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     [Inject]
     [NotNull]
@@ -73,6 +88,8 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
     {
         base.OnParametersSet();
 
+        PlusIcon ??= IconTheme.GetIconByKey(ComponentIcons.QueryBuilderPlusIcon);
+        MinusIcon ??= IconTheme.GetIconByKey(ComponentIcons.QueryBuilderMinusIcon);
         Filter ??= new();
 
         Operations ??= new()
