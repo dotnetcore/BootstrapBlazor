@@ -9,4 +9,7 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class QueryBuilders
 {
+    private FilterKeyValueAction _filter1 = new();
+
+    private FilterKeyValueAction _filter2 = new();
 }
