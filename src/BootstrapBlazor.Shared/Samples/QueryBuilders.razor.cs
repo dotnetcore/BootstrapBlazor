@@ -12,4 +12,6 @@ public partial class QueryBuilders
     private FilterKeyValueAction _filter1 = new();
 
     private FilterKeyValueAction _filter2 = new();
+
+    private FilterKeyValueAction _filter3 = new();
 }

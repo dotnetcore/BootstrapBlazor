@@ -17,13 +17,28 @@
         <QueryColumn @bind-Field="@context.Complete" Operator="@FilterAction.Equal"></QueryColumn>
         <QueryColumn @bind-Field="@context.DateTime" Operator="@FilterAction.GreaterThanOrEqual"></QueryColumn>
     </QueryBuilder>
+
+    <Divider Text="Nest"></Divider>
+
+    <QueryBuilder TModel="Foo" @bind-Filter="_filter2" class="mt-3">
+        <QueryColumn @bind-Field="@context.Name" Operator="@FilterAction.Equal"></QueryColumn>
+
+        <QueryGroup Logic="@FilterLogic.Or">
+            <QueryColumn @bind-Field="@context.Address" Operator="@FilterAction.Contains"></QueryColumn>
+            <QueryColumn @bind-Field="@context.Education" Operator="@FilterAction.Equal"></QueryColumn>
+
+            <QueryGroup Logic="@FilterLogic.And">
+                <QueryColumn @bind-Field="@context.DateTime" Operator="@FilterAction.GreaterThanOrEqual"></QueryColumn>
+                <QueryColumn @bind-Field="@context.Complete" Operator="@FilterAction.Equal"></QueryColumn>
+            </QueryGroup>
+        </QueryGroup>
+    </QueryBuilder>
 </DemoBlock>
 
-
-<DemoBlock Title="@Localizer["QueryBuilderNestTitle"]"
-           Introduction="@Localizer["QueryBuilderNestIntro"]"
-           Name="Nest">
-    <QueryBuilder TModel="Foo" @bind-Filter="_filter2">
+<DemoBlock Title="@Localizer["QueryBuilderHeaderTitle"]"
+           Introduction="@Localizer["QueryBuilderHeaderIntro"]"
+           Name="ShowHeader">
+    <QueryBuilder TModel="Foo" @bind-Filter="_filter3">
         <QueryColumn @bind-Field="@context.Name" Operator="@FilterAction.Equal"></QueryColumn>
 
         <QueryGroup Logic="@FilterLogic.Or">
