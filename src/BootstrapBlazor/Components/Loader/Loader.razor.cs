@@ -32,6 +32,7 @@ public partial class Loader
     /// </summary>
     [Parameter]
     public double Duration { get; set; } = 0.25;
+
     private string? ClassString { get; set; }
 
     /// <inheritdoc/>
@@ -42,5 +43,5 @@ public partial class Loader
     }
 
     /// <inheritdoc/>
-    protected override async Task InvokeInitAsync() => await InvokeVoidAsync("init", IsRepeat, RepeatDelay, Duration);
+    protected override async Task InvokeInitAsync() => await InvokeVoidAsync("init", Id, IsRepeat, RepeatDelay, Duration);
 }

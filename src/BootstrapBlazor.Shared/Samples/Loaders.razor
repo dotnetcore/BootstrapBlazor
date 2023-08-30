@@ -1,6 +1,13 @@
 ﻿@page "/loader"
 @inject IStringLocalizer<Loader> Localizer
 
-<div style="width:20rem;">
+<div class="loader-display">
     <Loader />
 </div>
+
+<style>
+    .loader-display {
+        display: grid;
+        place-items: center;
+    }
+</style>
