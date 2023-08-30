@@ -333,6 +333,8 @@
     "CopiedTooltipText": "拷贝成功"
   },
   "BootstrapBlazor.Components.QueryBuilder": {
+    "And": "并且",
+    "Or": "或者",
     "GreaterThanOrEqual": "大于等于",
     "LessThanOrEqual": "小于等于",
     "GreaterThan": "大于",

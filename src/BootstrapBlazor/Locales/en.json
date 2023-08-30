@@ -333,6 +333,8 @@
     "CopiedTooltipText": "Copied"
   },
   "BootstrapBlazor.Components.QueryBuilder": {
+    "And": "and",
+    "Or": "or",
     "GreaterThanOrEqual": "GreaterThanOrEqual",
     "LessThanOrEqual": "LessThanOrEqual",
     "GreaterThan": "GreaterThan",
