@@ -12,16 +12,28 @@ namespace BootstrapBlazor.Components;
 public partial class Loader
 {
     /// <summary>
-    /// 文本内容
+    /// 获得/设置 文本内容
     /// </summary>
     [Parameter]
     public string? Text { get; set; }
 
     /// <summary>
-    /// 数据数量
+    /// 获得/设置 是否显示加载文本 默认为 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowLoadingText { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 数据数量
     /// </summary>
     [Parameter]
     public int Columns { get; set; } = 10;
+
+    /// <summary>
+    /// 获得/设置 进度条颜色
+    /// </summary>
+    [Parameter]
+    public Color Color { get; set; } = Color.Primary;
 
     [Inject]
     [NotNull]
@@ -29,6 +41,11 @@ public partial class Loader
 
     private string? ClassString => CssBuilder.Default("bb-loader")
         .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? FlipClassString => CssBuilder.Default("loader-flip")
+        .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None && Color != Color.Primary)
+        .AddClass($"bg-primary", Color == Color.Primary)
         .Build();
 
     /// <summary>
