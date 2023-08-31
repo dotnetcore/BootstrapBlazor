@@ -19,11 +19,31 @@ public partial class InputGroups
 
     private string BindValue { get; set; } = string.Empty;
 
+    private static List<string> StaticItems => new() { "1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG" };
+
+    [NotNull]
+    private IEnumerable<Foo>? AufoFillItems { get; set; }
+
+    [NotNull]
+    private List<SelectedItem>? Items2 => new()
+    {
+        new ("Beijing", "北京"),
+        new ("Shanghai", "上海"),
+        new ("Guangzhou", "广州"),
+        new ("Shenzhen", "深圳"),
+        new ("Chengdu", "成都"),
+        new ("Wuhan", "武汉"),
+        new ("Dalian", "大连"),
+        new ("Hangzhou", "杭州"),
+        new ("Lianyungang", "连云港")
+    };
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
+        AufoFillItems = Foo.GenerateFoo(LocalizerFoo);
         Model = Foo.Generate(LocalizerFoo);
     }
 
