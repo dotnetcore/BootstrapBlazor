@@ -28,6 +28,4 @@ public partial class Loader
     /// <inheritdoc/>
     {
     }
-    /// <inheritdoc/>
-    protected override async Task InvokeInitAsync() => await InvokeVoidAsync("init", Id);
 }
