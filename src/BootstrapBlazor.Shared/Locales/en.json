@@ -261,6 +261,16 @@
     "SpinnersFloatTitle": "Spinner Floats",
     "SpinnersFloatIntro": "Use Float layout"
   },
+  "BootstrapBlazor.Shared.Samples.Loaders": {
+    "LoadersTitle": "Loader",
+    "LoadersDescription": "Display dynamic effects when loading data",
+    "LoadersTipsTitle": "When to use",
+    "LoadersTips": "When parts of the page are waiting for asynchronous data or during the rendering process, appropriate loading dynamics can effectively alleviate user anxiety.",
+    "LoadersNormalTitle": "Basic usage",
+    "LoadersNormalIntro": "Default Load Animation",
+    "LoadersTextTitle": "Custom Text",
+    "LoadersTextIntro": "Modify the displayed text content"
+  },
   "BootstrapBlazor.Shared.Samples.SearchDialogs": {
     "SearchDialogsTitle": "SearchDialog search popup",
     "SearchDialogsSubTitle": "Automatically render search popups by binding the data model",

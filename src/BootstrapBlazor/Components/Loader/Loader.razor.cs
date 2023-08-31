@@ -27,7 +27,11 @@ public partial class Loader
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        ClassString = CssBuilder.Default("loader-box").AddClassFromAttributes(AdditionalAttributes).Build();
+
+        ClassString = CssBuilder
+            .Default(AdditionalAttributes is { Count: > 0 } ? null : "loader-box")
+            .AddClassFromAttributes(AdditionalAttributes)
+            .Build();
     }
 
     /// <inheritdoc/>

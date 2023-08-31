@@ -261,6 +261,16 @@
     "SpinnersFloatTitle": "悬浮",
     "SpinnersFloatIntro": "使用 Float 布局"
   },
+  "BootstrapBlazor.Shared.Samples.Loaders": {
+    "LoadersTitle": "Loader 加载动画",
+    "LoadersDescription": "加载数据时显示动效",
+    "LoadersTipsTitle": "何时使用",
+    "LoadersTips": "页面局部处于等待异步数据或正在渲染过程时，合适的加载动效会有效缓解用户的焦虑。",
+    "LoadersNormalTitle": "基础用法",
+    "LoadersNormalIntro": "默认加载动画",
+    "LoadersTextTitle": "自定义文本",
+    "LoadersTextIntro": "修改显示的文本内容"
+  },
   "BootstrapBlazor.Shared.Samples.SearchDialogs": {
     "SearchDialogsTitle": "SearchDialog 搜索弹窗",
     "SearchDialogsSubTitle": "通过绑定数据模型自动呈现搜索弹窗",
@@ -4493,7 +4503,7 @@
     "SlideButton": "快捷菜单 SlideButton",
     "DialButton": "拨号菜单 DialButton",
     "CountButton": "倒计时按钮 CountButton",
-    "Loader": "动画加载 Loader"
+    "Loader": "加载动画 Loader"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",

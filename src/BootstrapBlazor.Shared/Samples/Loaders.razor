@@ -1,18 +1,41 @@
 ﻿@page "/loader"
-@inject IStringLocalizer<Loader> Localizer
+@inject IStringLocalizer<Loaders> Localizer
 
-<div class="loader-display">
-    <Loader />
-</div>
+<h3>@Localizer["LoadersTitle"]</h3>
+<h4>@Localizer["LoadersDescription"]</h4>
 
-<div class="loader-display">
-    <Loader Text="加载中 。。。" />
-</div>
+<p>
+    <b>@Localizer["LoadersTipsTitle"]</b>
+    <br />
+    @Localizer["LoadersTips"]
+</p>
+
+<DemoBlock Title="@Localizer["LoadersNormalTitle"]"
+           Introduction="@Localizer["LoadersNormalIntro"]"
+           Name="Normal">
+    <div class="loader-display">
+        <Loader />
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["LoadersTextTitle"]"
+           Introduction="@Localizer["LoadersTextIntro"]"
+           Name="Text">
+    <div class="loader-display">
+        <Loader class="loader-customtext" Text="加载中 。。。" />
+    </div>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />
 
 <style>
     .loader-display {
         margin: 20px;
         display: grid;
         place-items: center;
+    }
+
+    .loader-customtext {
+        width: 10rem;
     }
 </style>
