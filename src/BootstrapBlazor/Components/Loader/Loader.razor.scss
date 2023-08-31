@@ -1,18 +1,19 @@
-.loader-flip {
-    height: 1rem;
-    margin-block-start: 0.5rem;
-    background: #7952b3;
-}
+.bb-loader {
+    --loader-padding: #{$loader-padding};
+    --loader-text-bottom-margin: #{$loader-text-bottom-margin};
+    --loader-progress-height: #{$loader-progress-height};
 
-.loader-wrap {
-    outline: 1px solid #efefef;
-    outline-offset: 0.25rem;
-}
+    .loader-text {
+        margin-bottom: var(--loader-text-bottom-margin);
+    }
 
-.loader-text {
-    opacity: 0.5;
-}
+    .loader-wrap {
+        border: 1px solid var(--bs-border-color);
+        padding: var(---loader-padding);
+        border-radius: var(--bs-border-radius);
 
-.loader-box {
-    width: 10rem;
+        .loader-flip {
+            height: var(--loader-progress-height);
+        }
+    }
 }

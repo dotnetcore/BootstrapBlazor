@@ -113,4 +113,9 @@ $dropdown-link-active-bg: unset;
 $dropdown-link-hover-bg: unset;
 $widget-border-color: #dcdfe6;
 
+// Loader
+$loader-padding: .25rem;
+$loader-text-bottom-margin: .5rem;
+$loader-progress-height: 1rem;
+
 @import "./components.scss";
