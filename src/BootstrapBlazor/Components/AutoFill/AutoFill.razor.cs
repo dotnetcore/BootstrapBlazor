@@ -136,7 +136,7 @@ public partial class AutoFill<TValue>
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
 
         OnGetDisplayText ??= v => v?.ToString() ?? "";
-        InputString = OnGetDisplayText(Value);
+        InputString = Value == null ? string.Empty : OnGetDisplayText(Value);
     }
 
     /// <summary>
@@ -172,7 +172,7 @@ public partial class AutoFill<TValue>
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
-    protected virtual async Task OnFocus(FocusEventArgs args)
+    private async Task OnFocus(FocusEventArgs args)
     {
         if (ShowDropdownListOnFocus)
         {
