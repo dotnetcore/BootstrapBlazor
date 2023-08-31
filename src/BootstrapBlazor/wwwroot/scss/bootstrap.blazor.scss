@@ -107,4 +107,10 @@ $form-control-padding: 6px 33px;
 // DateTimeRange
 $dt-range-bar-color: #b5b5c3;
 
+// DropdownWidget
+$dropdown-link-active-color: unset;
+$dropdown-link-active-bg: unset;
+$dropdown-link-hover-bg: unset;
+$widget-border-color: #dcdfe6;
+
 @import "./components.scss";

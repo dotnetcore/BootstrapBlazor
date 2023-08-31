@@ -1350,45 +1350,6 @@ a, a:hover, a:focus {
   display: table;
   width: 100%;
 }
-.picker-panel .picker-panel-body-wrapper .date-picker-time-header .date-picker-editor-wrap {
-  position: relative;
-  display: table-cell;
-  padding: 0 5px;
-}
-.picker-panel .picker-panel-body-wrapper .date-picker-time-header .date-picker-editor-wrap .input-inner {
-  height: 2rem;
-  line-height: 2rem;
-  padding: 0 1rem;
-  cursor: pointer;
-}
-.picker-panel .picker-panel-body-wrapper .date-picker-time-header .date-picker-editor-wrap .input-inner[readonly] {
-  background-color: #fff;
-}
-.picker-panel .picker-panel-body-wrapper .date-picker-time-header .date-picker-editor-wrap .time-panel {
-  position: absolute;
-  z-index: -1;
-  display: none;
-  width: 145px;
-  margin-top: 0.25rem;
-}
-.picker-panel .picker-panel-body-wrapper .date-picker-time-header .date-picker-editor-wrap .time-panel .time-spinner-item {
-  height: 28px;
-  line-height: 28px;
-}
-.picker-panel .picker-panel-body-wrapper .date-picker-time-header .date-picker-editor-wrap .time-panel-content:after, .picker-panel .picker-panel-body-wrapper .date-picker-time-header .date-picker-editor-wrap .time-panel-content:before {
-  margin-top: -32px;
-  height: 28px;
-}
-.picker-panel .picker-panel-body-wrapper .date-picker-time-header .date-picker-editor-wrap .time-spinner-arrow.fa-angle-up {
-  top: 3px;
-}
-.picker-panel .picker-panel-body-wrapper .date-picker-time-header .date-picker-editor-wrap .time-spinner-arrow.fa-angle-down {
-  bottom: 3px;
-}
-.picker-panel .picker-panel-body-wrapper .date-picker-time-header .date-picker-editor-wrap .time-spinner-list-wrapper {
-  height: 84px;
-  margin: 36px 0;
-}
 .picker-panel .picker-panel-body-wrapper:after {
   content: "";
   display: table;
@@ -1503,6 +1464,46 @@ a, a:hover, a:focus {
 }
 .picker-panel .picker-panel-body-wrapper .picker-panel-body .date-picker-header .date-picker-header-label:hover {
   color: #409eff;
+}
+
+.date-picker-editor-wrap {
+  position: relative;
+  display: table-cell;
+  padding: 0 5px;
+}
+.date-picker-editor-wrap .input-inner {
+  height: 2rem;
+  line-height: 2rem;
+  padding: 0 1rem;
+  cursor: pointer;
+}
+.date-picker-editor-wrap .input-inner[readonly] {
+  background-color: #fff;
+}
+.date-picker-editor-wrap .time-panel {
+  position: absolute;
+  z-index: -1;
+  display: none;
+  width: 145px;
+  margin-top: 0.25rem;
+}
+.date-picker-editor-wrap .time-panel .time-spinner-item {
+  height: 28px;
+  line-height: 28px;
+}
+.date-picker-editor-wrap .time-panel-content:after, .date-picker-editor-wrap .time-panel-content:before {
+  margin-top: -32px;
+  height: 28px;
+}
+.date-picker-editor-wrap .time-spinner-arrow.fa-angle-up {
+  top: 3px;
+}
+.date-picker-editor-wrap .time-spinner-arrow.fa-angle-down {
+  bottom: 3px;
+}
+.date-picker-editor-wrap .time-spinner-list-wrapper {
+  height: 84px;
+  margin: 36px 0;
 }
 
 .picker-panel-footer {
@@ -2161,17 +2162,14 @@ section > h2 {
   position: relative;
   display: inline-block;
 }
-
 .widget .dropdown-toggle:after {
   content: unset;
 }
-
 .widget .dropdown-toggle .badge {
   position: absolute;
   top: 5px;
   font-size: 9px;
 }
-
 .widget .dropdown-menu {
   --bs-dropdown-link-active-color: unset;
   --bs-dropdown-link-active-bg: unset;
@@ -2182,7 +2180,6 @@ section > h2 {
   max-height: none;
   border: none;
 }
-
 .widget .dropdown-menu .dropdown-arrow {
   border-style: solid;
   border-width: 0 9px 9px;
@@ -2190,30 +2187,25 @@ section > h2 {
   left: calc(50% - 9px);
   top: -9px;
 }
-
 .widget .dropdown-header {
   color: #fff;
   padding: 0.5rem 0.625rem;
   border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0;
 }
-
 .widget .dropdown-body {
   overflow: auto;
   max-height: 300px;
   border-left: 1px solid var(--bb-widget-border-color);
   border-right: 1px solid var(--bb-widget-border-color);
 }
-
 .widget .dropdown-footer {
   padding: 0.5rem 0.625rem;
   background-color: var(--bb-widget-border-color);
   border-radius: 0 0 var(--bs-border-radius) var(--bs-border-radius);
 }
-
 .widget .dropdown-item:not(:last-child) {
   border-bottom: 1px solid var(--bb-widget-border-color);
 }
-
 .widget .dropdown-item:nth-of-type(odd) {
   background-color: #eef0f3;
 }
