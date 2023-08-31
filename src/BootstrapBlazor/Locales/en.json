@@ -331,5 +331,8 @@
     "ButtonText": "Copy",
     "DialogHeaderText": "Selected Icon",
     "CopiedTooltipText": "Copied"
+  },
+  "BootstrapBlazor.Components.Loader": {
+    "Text": "Loading ..."
   }
 }

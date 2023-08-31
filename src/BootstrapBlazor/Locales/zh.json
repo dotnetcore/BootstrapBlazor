@@ -331,5 +331,8 @@
     "ButtonText": "点击复制",
     "DialogHeaderText": "请选择图标",
     "CopiedTooltipText": "拷贝成功"
+  },
+  "BootstrapBlazor.Components.Loader": {
+    "Text": "正在加载 ..."
   }
 }
