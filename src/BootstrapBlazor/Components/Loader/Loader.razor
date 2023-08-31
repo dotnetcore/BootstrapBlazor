@@ -3,7 +3,10 @@
 @attribute [BootstrapModuleAutoLoader]
 
 <div @attributes="AdditionalAttributes" id="@Id" class="@ClassString">
-    <div class="loader-text" data-splitting>@Text</div>
+    @if (ShowLoadingText)
+    {
+        <div class="loader-text" data-splitting>@Text</div>
+    }
     <div class="loader-wrap">
         <div class="@FlipClassString" data-splitting="cells" data-columns="@Columns" data-rows="1" data-image="true" />
     </div>
