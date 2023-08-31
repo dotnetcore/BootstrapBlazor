@@ -1,0 +1,37 @@
+﻿@page "/loader"
+@inject IStringLocalizer<Loaders> Localizer
+
+<h3>@Localizer["LoadersTitle"]</h3>
+<h4>@Localizer["LoadersDescription"]</h4>
+
+<p>
+    <b>@Localizer["LoadersTipsTitle"]</b>
+    <br />
+    @Localizer["LoadersTips"]
+</p>
+
+<DemoBlock Title="@Localizer["LoadersNormalTitle"]"
+           Introduction="@Localizer["LoadersNormalIntro"]"
+           Name="Normal">
+    <div class="loader-demo">
+        <Loader />
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["LoadersTextTitle"]"
+           Introduction="@Localizer["LoadersTextIntro"]"
+           Name="Text">
+    <div class="loader-demo">
+        <Loader Text="加载中 。。。" />
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["LoadersColorTitle"]"
+           Introduction="@Localizer["LoadersColorIntro"]"
+           Name="Color">
+    <div class="loader-demo">
+        <Loader Color="Color.Info" Text="加载中 。。。" />
+    </div>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />

@@ -1,0 +1,13 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader]
+
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString">
+    @if (ShowLoadingText)
+    {
+        <div class="loader-text" data-splitting>@Text</div>
+    }
+    <div class="loader-wrap">
+        <div class="@FlipClassString" data-splitting="cells" data-columns="@Columns" data-rows="1" data-image="true" />
+    </div>
+</div>
