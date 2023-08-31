@@ -44,8 +44,8 @@ public partial class Loader
         .Build();
 
     private string? FlipClassString => CssBuilder.Default("loader-flip")
-        .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None && Color != Color.Primary)
-        .AddClass($"bg-primary", Color == Color.Primary)
+        .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClass($"bg-primary", Color == Color.None)
         .Build();
 
     /// <summary>
