@@ -13,7 +13,7 @@
 <DemoBlock Title="@Localizer["LoadersNormalTitle"]"
            Introduction="@Localizer["LoadersNormalIntro"]"
            Name="Normal">
-    <div class="loader-display">
+    <div class="loader-demo">
         <Loader />
     </div>
 </DemoBlock>
@@ -21,21 +21,9 @@
 <DemoBlock Title="@Localizer["LoadersTextTitle"]"
            Introduction="@Localizer["LoadersTextIntro"]"
            Name="Text">
-    <div class="loader-display">
-        <Loader class="loader-customtext" Text="加载中 。。。" />
+    <div class="loader-demo">
+        <Loader Text="加载中 。。。" />
     </div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
-
-<style>
-    .loader-display {
-        margin: 20px;
-        display: grid;
-        place-items: center;
-    }
-
-    .loader-customtext {
-        width: 10rem;
-    }
-</style>

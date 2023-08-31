@@ -4,6 +4,9 @@
 
 namespace BootstrapBlazor.Shared.Samples;
 
+/// <summary>
+/// Loader 示例代码
+/// </summary>
 public partial class Loaders
 {
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
