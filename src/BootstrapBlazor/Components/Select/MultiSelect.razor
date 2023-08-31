@@ -60,7 +60,10 @@
             {
                 <DynamicElement OnClick="() => ToggleRow(item.Value)" TriggerClick="@CheckCanTrigger(item)" class="@GetItemClassString(item)">
                     <div class="multi-select-item">
-                        <Checkbox Value="GetCheckedState(item)" ShowLabel="false" IsDisabled="@CheckCanSelect(item)"></Checkbox>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" disabled="@CheckCanSelect(item)" checked="@GetCheckedString(item)" />
+                        </div>
+                        <label class="form-check-label" for="@Id">@DisplayText</label>
                         @if (ItemTemplate == null)
                         {
                             <span>@item.Text</span>
