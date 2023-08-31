@@ -223,6 +223,9 @@ public class IconThemeOptions
         { ComponentIcons.FileIconZip, "fa-regular fa-file-archive" },
         { ComponentIcons.FileIconArchive, "fa-regular fa-file-text" },
         { ComponentIcons.FileIconImage, "fa-regular fa-file-image" },
-        { ComponentIcons.FileIconFile, "fa-regular fa-file" }
+        { ComponentIcons.FileIconFile, "fa-regular fa-file" },
+
+        { ComponentIcons.QueryBuilderPlusIcon, "fa-solid fa-plus" },
+        { ComponentIcons.QueryBuilderMinusIcon, "fa-solid fa-minus" },
     };
 }

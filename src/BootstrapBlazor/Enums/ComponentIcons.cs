@@ -737,5 +737,15 @@ public enum ComponentIcons
     /// <summary>
     /// Upload 组件 File 文件类型图标
     /// </summary>
-    FileIconFile
+    FileIconFile,
+
+    /// <summary>
+    /// QueryBuilder 组件 减少按钮图标
+    /// </summary>
+    QueryBuilderMinusIcon,
+
+    /// <summary>
+    /// QueryBuilder 组件 增加按钮图标
+    /// </summary>
+    QueryBuilderPlusIcon
 }
