@@ -4492,7 +4492,8 @@
     "Live2DDisplayIntro": "Live2D Widget",
     "SlideButton": "SlideButton",
     "DialButton": "DialButton",
-    "CountButton": "CountButton"
+    "CountButton": "CountButton",
+    "Loader": "Loader"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",

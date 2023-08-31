@@ -4492,7 +4492,8 @@
     "Live2DDisplayIntro": "Live2D 插件",
     "SlideButton": "快捷菜单 SlideButton",
     "DialButton": "拨号菜单 DialButton",
-    "CountButton": "倒计时按钮 CountButton"
+    "CountButton": "倒计时按钮 CountButton",
+    "Loader": "动画加载 Loader"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
