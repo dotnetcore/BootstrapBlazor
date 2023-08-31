@@ -25,7 +25,7 @@ public partial class InputGroups
     private IEnumerable<Foo>? AufoFillItems { get; set; }
 
     [NotNull]
-    private List<SelectedItem>? Items2 => new()
+    private static List<SelectedItem>? Items2 => new()
     {
         new ("Beijing", "北京"),
         new ("Shanghai", "上海"),
