@@ -285,8 +285,8 @@ public partial class Select<TValue> : ISelect
                 DataSource.AddRange(VirtualItems);
             }
 
-            SelectedItem = DataSource.FirstOrDefault(i => i.Value.Equals(CurrentValueAsString, StringComparison))
-                ?? DataSource.FirstOrDefault(i => i.Active)
+            SelectedItem = DataSource.Find(i => i.Value.Equals(CurrentValueAsString, StringComparison))
+                ?? DataSource.Find(i => i.Active)
                 ?? DataSource.FirstOrDefault()
                 ?? GetVirtualizeItem();
 
