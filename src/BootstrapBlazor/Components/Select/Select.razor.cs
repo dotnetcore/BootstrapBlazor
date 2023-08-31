@@ -267,7 +267,14 @@ public partial class Select<TValue> : ISelect
         return SelectedItem != null;
     }
 
-    private SelectedItem? GetVirtualizeItem() => OnQueryAsync == null ? null : ValueType == typeof(SelectedItem) ? (SelectedItem)(object)Value : new SelectedItem(CurrentValueAsString, DefaultVirtualizeItemText ?? CurrentValueAsString);
+    private SelectedItem? GetVirtualizeItem()
+    {
+        return OnQueryAsync == null ? null : GetSelectedItem();
+
+        SelectedItem? GetSelectedItem() => ValueType == typeof(SelectedItem)
+            ? (SelectedItem)(object)Value
+            : new SelectedItem(CurrentValueAsString, DefaultVirtualizeItemText ?? CurrentValueAsString);
+    }
 
     private void ResetSelectedItem()
     {
