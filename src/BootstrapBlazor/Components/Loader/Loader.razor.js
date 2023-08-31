@@ -1,15 +1,10 @@
 ﻿import { addLink, removeLink, addScript, removeScript } from '../../modules/utility.js?v=$version'
 
-const spcss = "/_content/BootstrapBlazor/lib/splitting/splitting.css";
-const spcellscss = "/_content/BootstrapBlazor/lib/splitting/splitting-cells.css";
-const spjs = "/_content/BootstrapBlazor/lib/splitting/splitting.min.js";
-const gsapjs = "/_content/BootstrapBlazor/modules/gsap.min.js";
 
 export async function init(id) {
-    await addLink(spcss)
-    await addLink(spcellscss)
-    await addScript(spjs)
-    await addScript(gsapjs)
+    await addLink('./_content/BootstrapBlazor/lib/splitting/splitting-cells.css')
+    await addScript('./_content/BootstrapBlazor/lib/splitting/splitting.min.js')
+    await addScript('./_content/BootstrapBlazor/lib/splitting/splitting.min.js')
 
     Splitting();
 
@@ -34,11 +29,4 @@ export async function init(id) {
         duration: 0.25,
         stagger: { amount: 0.75, from: "start" }
     }, "+=0.5");
-}
-
-export async function dispose() {
-    await removeLink(spcss)
-    await removeLink(spcellscss)
-    await removeScript(spjs)
-    await removeScript(gsapjs)
 }

@@ -7526,19 +7526,19 @@ form .form-control.is-display {
   background-color: var(--bb-disabled-bg);
 }
 
-.bb-loader {
+.loader {
   --loader-padding: 0.25rem;
   --loader-text-bottom-margin: 0.5rem;
   --loader-progress-height: 1rem;
 }
-.bb-loader .loader-text {
+.loader .loader-text {
   margin-bottom: var(--loader-text-bottom-margin);
 }
-.bb-loader .loader-wrap {
+.loader .loader-wrap {
   border: 1px solid var(--bs-border-color);
   padding: var(---loader-padding);
   border-radius: var(--bs-border-radius);
 }
-.bb-loader .loader-wrap .loader-flip {
+.loader .loader-wrap .loader-flip {
   height: var(--loader-progress-height);
 }

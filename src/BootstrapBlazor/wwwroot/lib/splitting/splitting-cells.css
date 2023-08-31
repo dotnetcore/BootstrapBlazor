@@ -1,3 +1,5 @@
+﻿@import './splitting.css';
+
 .splitting.cells img { width: 100%; display: block; }
 
 @supports ( display: grid ) {
@@ -53,4 +55,3 @@
     --distance-y: calc( (var(--offset-y) * var(--offset-y)) / var(--center-y) );
   }
 }
-

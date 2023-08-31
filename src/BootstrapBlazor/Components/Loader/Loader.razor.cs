@@ -24,7 +24,7 @@ public partial class Loader
     public bool ShowLoadingText { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 数据数量
+    /// 获得/设置 数据数量 默认 10
     /// </summary>
     [Parameter]
     public int Columns { get; set; } = 10;
@@ -39,7 +39,7 @@ public partial class Loader
     [NotNull]
     private IStringLocalizer<Loader>? Localizer { get; set; }
 
-    private string? ClassString => CssBuilder.Default("bb-loader")
+    private string? ClassString => CssBuilder.Default("loader")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
