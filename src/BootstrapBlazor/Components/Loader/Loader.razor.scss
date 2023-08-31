@@ -1,0 +1,19 @@
+.loader {
+    --loader-padding: #{$loader-padding};
+    --loader-text-bottom-margin: #{$loader-text-bottom-margin};
+    --loader-progress-height: #{$loader-progress-height};
+
+    .loader-text {
+        margin-bottom: var(--loader-text-bottom-margin);
+    }
+
+    .loader-wrap {
+        border: 1px solid var(--bs-border-color);
+        padding: var(---loader-padding);
+        border-radius: var(--bs-border-radius);
+
+        .loader-flip {
+            height: var(--loader-progress-height);
+        }
+    }
+}

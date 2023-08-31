@@ -119,5 +119,9 @@ $divider-margin: 1rem 0;
 $divider-text-bg: #fff;
 $divider-text-color: #303133;
 $divider-text-padding: 0 20px;
+// Loader
+$loader-padding: .25rem;
+$loader-text-bottom-margin: .5rem;
+$loader-progress-height: 1rem;
 
 @import "./components.scss";
