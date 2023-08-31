@@ -2616,6 +2616,7 @@ section > h2 {
 
 .input-group > .datetime-picker:not(:first-child) .form-control,
 .input-group > .select:not(:first-child) .form-control,
+.input-group > .multi-select:not(:first-child) .dropdown-toggle,
 .input-group > .auto-complete:not(:first-child) .form-control {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
@@ -2623,6 +2624,7 @@ section > h2 {
 
 .input-group > .datetime-picker:not(:last-child) .form-control,
 .input-group > .select:not(:last-child) .form-control,
+.input-group > .multi-select:not(:last-child) .dropdown-toggle,
 .input-group > .auto-complete:not(:last-child) .form-control {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
