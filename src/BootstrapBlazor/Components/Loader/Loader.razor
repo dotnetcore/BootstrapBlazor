@@ -2,7 +2,7 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader]
 
-<div id="@Id" class="@ClassString">
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString">
     <p class="loader-text" data-splitting>@Text</p>
     <div class="loader-wrap">
         <div class="loader-flip" data-splitting="cells" data-columns="@Columns" data-rows="1" data-image="true" />

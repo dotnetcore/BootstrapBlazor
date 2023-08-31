@@ -21,19 +21,13 @@ public partial class Loader
     [Parameter]
     public int Columns { get; set; } = 10;
 
-    private string? ClassString { get; set; }
+    private string? ClassString => CssBuilder.Default("bb-loader")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
 
     /// <inheritdoc/>
-    protected override void OnInitialized()
     {
-        base.OnInitialized();
-
-        ClassString = CssBuilder
-            .Default(AdditionalAttributes is { Count: > 0 } ? null : "loader-box")
-            .AddClassFromAttributes(AdditionalAttributes)
-            .Build();
     }
-
     /// <inheritdoc/>
     protected override async Task InvokeInitAsync() => await InvokeVoidAsync("init", Id);
 }
