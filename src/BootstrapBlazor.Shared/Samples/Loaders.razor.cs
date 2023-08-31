@@ -34,6 +34,14 @@ public partial class Loaders
             Type = "Enum",
             ValueList = " — ",
             DefaultValue = "Primary"
+        },
+        new()
+        {
+            Name = "ShowLoadingText",
+            Description = "Whether show the text of loading",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
         }
     };
 }

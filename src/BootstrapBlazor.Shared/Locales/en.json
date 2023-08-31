@@ -269,7 +269,9 @@
     "LoadersNormalTitle": "Basic usage",
     "LoadersNormalIntro": "Default Load Animation",
     "LoadersTextTitle": "Custom Text",
-    "LoadersTextIntro": "Modify the displayed text content"
+    "LoadersTextIntro": "Modify the displayed text content",
+    "LoadersColorText": "Color",
+    "LoadersColorIntro": "Modify the color of progress"
   },
   "BootstrapBlazor.Shared.Samples.SearchDialogs": {
     "SearchDialogsTitle": "SearchDialog search popup",
