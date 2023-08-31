@@ -26,6 +26,14 @@ public partial class Loaders
             Type = "int",
             ValueList = " — ",
             DefaultValue = "10"
+        },
+        new()
+        {
+            Name = "Color",
+            Description = "the color of progress",
+            Type = "Enum",
+            ValueList = " — ",
+            DefaultValue = "Primary"
         }
     };
 }
