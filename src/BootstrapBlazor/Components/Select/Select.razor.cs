@@ -220,16 +220,14 @@ public partial class Select<TValue> : ISelect
     {
         // 有搜索条件时使用原生请求数量
         // 有总数时请求剩余数量
-        var count = !string.IsNullOrEmpty(SearchText)
-            ? request.Count
-            : TotalCount == 0
-                ? request.Count
-                : Math.Min(request.Count, TotalCount - request.StartIndex);
+        var count = !string.IsNullOrEmpty(SearchText) ? request.Count : GetCountByTotal();
         var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = count, SearchText = SearchText });
 
         TotalCount = data.TotalCount;
         VirtualItems = data.Items ?? Enumerable.Empty<SelectedItem>();
         return new ItemsProviderResult<SelectedItem>(VirtualItems, TotalCount);
+
+        int GetCountByTotal() => TotalCount == 0 ? request.Count : Math.Min(request.Count, TotalCount - request.StartIndex);
     }
 
     private async Task SearchTextChanged(string val)
