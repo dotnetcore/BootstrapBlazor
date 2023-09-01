@@ -1,17 +1,29 @@
-﻿import { addLink, removeLink, addScript, removeScript } from '../../modules/utility.js?v=$version'
+﻿import { addLink, addScript } from '../../modules/utility.js?v=$version'
 
-
-export async function init(id) {
+export async function init(id, cols) {
     await addLink('./_content/BootstrapBlazor/lib/splitting/splitting-cells.css')
     await addScript('./_content/BootstrapBlazor/lib/splitting/splitting.min.js')
-    await addScript('./_content/BootstrapBlazor/lib/splitting/splitting.min.js')
+    await addScript('./_content/BootstrapBlazor/modules/gsap.min.js')
 
-    Splitting();
+    load(id, cols);
+}
 
+export function load(id, cols) {
     const el = document.getElementById(id);
-    const cells = el.querySelectorAll(".loader-flip .cell");
+    const cell = el.querySelectorAll(".loader-flip");
+
+    const results = Splitting({
+        target: cell,
+        by: 'cells',
+        image: true,
+        columns: cols,
+        rows: 1
+    });
+
+    const cells = results[0].cells;
 
     var tl = gsap.timeline({ repeat: -1, repeatDelay: 0.75 });
+
     tl.from(cells, {
         scale: 0,
         transformOrigin: "center",
@@ -29,4 +41,16 @@ export async function init(id) {
         duration: 0.25,
         stagger: { amount: 0.75, from: "start" }
     }, "+=0.5");
+}
+
+export function update(id, cols) {
+    const el = document.getElementById(id);
+    const flip = el.querySelectorAll(".loader-flip");
+
+    delete flip[0]['🍌'];
+
+    const cells = el.querySelectorAll(".cell-grid");
+    cells.forEach(x => x.remove());
+
+    load(id, cols);
 }

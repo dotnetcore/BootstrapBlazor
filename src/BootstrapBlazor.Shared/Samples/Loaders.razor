@@ -10,11 +10,18 @@
     @Localizer["LoadersTips"]
 </p>
 
+<div class="mb-2">
+    <BootstrapInputGroup>
+        <BootstrapInputGroupLabel DisplayText="Colunms Num" />
+        <Slider @bind-Value="@Colunms" Min="10" Max="100" />
+    </BootstrapInputGroup>
+</div>
+
 <DemoBlock Title="@Localizer["LoadersNormalTitle"]"
            Introduction="@Localizer["LoadersNormalIntro"]"
            Name="Normal">
     <div class="loader-demo">
-        <Loader />
+        <Loader Columns="@Colunms" />
     </div>
 </DemoBlock>
 

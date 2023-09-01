@@ -48,13 +48,27 @@ public partial class Loader
         .AddClass($"bg-primary", Color == Color.None)
         .Build();
 
+    private int _columns;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnParametersSet()
+    protected override async Task InvokeInitAsync()
     {
-        base.OnParametersSet();
+        await InvokeVoidAsync("init", Id, Columns);
+    }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override async Task OnParametersSetAsync()
+    {
         Text ??= Localizer[nameof(Text)];
+
+        if (Columns != _columns)
+        {
+            await InvokeVoidAsync("update", Id, Columns);
+            _columns = Columns;
+        }
     }
 }
