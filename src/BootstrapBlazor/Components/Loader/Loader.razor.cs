@@ -11,6 +11,13 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class Loader
 {
+    private int _columns;
+
+    private bool _isInit;
+    private bool _isRepeat;
+
+    #region 组件参数
+
     /// <summary>
     /// 获得/设置 文本内容
     /// </summary>
@@ -41,6 +48,8 @@ public partial class Loader
     [Parameter]
     public Color Color { get; set; } = Color.Primary;
 
+    #endregion
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Loader>? Localizer { get; set; }
@@ -54,15 +63,14 @@ public partial class Loader
         .AddClass($"bg-primary", Color == Color.None)
         .Build();
 
-    private int _columns;
-    private bool _isRepeat;
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override async Task InvokeInitAsync()
     {
-        await InvokeVoidAsync("init", Id, Columns, IsRepeat);
+        await InvokeVoidAsync("init", GetArgs());
+        _isInit = true;
+        SyncVariableValues();
     }
 
     /// <summary>
@@ -71,13 +79,25 @@ public partial class Loader
     protected override async Task OnParametersSetAsync()
     {
         Text ??= Localizer[nameof(Text)];
-
-        if (Columns != _columns || IsRepeat != _isRepeat)
+        if (_isInit && (Columns != _columns || IsRepeat != _isRepeat))
         {
-            await InvokeVoidAsync("update", Id, Columns, IsRepeat);
-
-            _columns = Columns;
-            _isRepeat = IsRepeat;
+            await InvokeVoidAsync("update", GetArgs());
+            SyncVariableValues();
         }
+    }
+
+    /// <summary>
+    /// 获取js传入参数
+    /// </summary>
+    /// <returns></returns>
+    private object GetArgs() => new { Id, Columns, IsRepeat };
+
+    /// <summary>
+    /// 同步变量值
+    /// </summary>
+    private void SyncVariableValues()
+    {
+        _columns = Columns;
+        _isRepeat = IsRepeat;
     }
 }

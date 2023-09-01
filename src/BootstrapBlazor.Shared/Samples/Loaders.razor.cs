@@ -44,6 +44,14 @@ public partial class Loaders
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
+        },
+        new()
+        {
+            Name = "IsRepeat",
+            Description = "Is repeat the animation",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
         }
     };
 }
