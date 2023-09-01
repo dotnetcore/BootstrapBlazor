@@ -2,12 +2,12 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader(AutoInvokeDispose = false)]
 
-<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString">
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString" data-bb-columns="@Columns" data-bb-repeat="@RepeatString">
     @if (ShowLoadingText)
     {
         <div class="loader-text">@Text</div>
     }
     <div class="loader-wrap">
-        <div class="@FlipClassString" />
+        <div class="@FlipClassString"></div>
     </div>
 </div>

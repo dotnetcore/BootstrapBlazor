@@ -1,25 +1,30 @@
 ﻿import { addLink, addScript } from '../../modules/utility.js?v=$version'
 
-export async function init(op) {
-    await addLink('./_content/BootstrapBlazor/lib/splitting/splitting-cells.css')
-    await addScript('./_content/BootstrapBlazor/lib/splitting/splitting.min.js')
-    await addScript('./_content/BootstrapBlazor/modules/gsap.min.js')
+const reset = el => {
+    const flip = el.querySelector(".loader-flip");
+    if (flip) {
+        delete flip['🍌'];
+        flip.innerHTML = ''
+    }
+}
 
-    const el = document.getElementById(op.id);
-    const cell = el.querySelector(".loader-flip");
+const loader = el => {
+    const flip = el.querySelector(".loader-flip");
+    const columns = el.getAttribute('data-bb-columns')
+    const isRepeat = el.getAttribute('data-bb-repeat') === 'true'
 
-    const results = Splitting({
-        target: cell,
+    const splitting = Splitting({
+        target: flip,
         by: 'cells',
         image: true,
-        columns: op.columns,
+        columns: columns,
         rows: 1
     });
 
-    const cells = results[0].cells;
-    const repeat = op.isRepeat ? -1 : 0;
+    const cells = splitting[0].cells;
+    const repeat = isRepeat ? -1 : 0;
 
-    var tl = gsap.timeline({
+    const tl = gsap.timeline({
         repeat: repeat,
         repeatDelay: 0.75
     });
@@ -46,14 +51,18 @@ export async function init(op) {
     }, "+=0.5");
 }
 
-export async function update(op) {
-    const el = document.getElementById(op.id);
-    const flip = el.querySelector(".loader-flip");
+export async function init(id) {
+    await addLink('./_content/BootstrapBlazor/lib/splitting/splitting-cells.css')
+    await addScript('./_content/BootstrapBlazor/lib/splitting/splitting.min.js')
+    await addScript('./_content/BootstrapBlazor/modules/gsap.min.js')
 
-    delete flip['🍌'];
+    const el = document.getElementById(id);
+    loader(el);
+}
 
-    const cells = el.querySelectorAll(".cell-grid");
-    cells.forEach(x => x.remove());
+export function update(id) {
+    const el = document.getElementById(id);
 
-    await init(op);
+    reset(el);
+    loader(el);
 }

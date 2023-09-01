@@ -11,13 +11,6 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class Loader
 {
-    private int _columns;
-
-    private bool _isInit;
-    private bool _isRepeat;
-
-    #region 组件参数
-
     /// <summary>
     /// 获得/设置 文本内容
     /// </summary>
@@ -48,8 +41,6 @@ public partial class Loader
     [Parameter]
     public Color Color { get; set; } = Color.Primary;
 
-    #endregion
-
     [Inject]
     [NotNull]
     private IStringLocalizer<Loader>? Localizer { get; set; }
@@ -63,41 +54,30 @@ public partial class Loader
         .AddClass($"bg-primary", Color == Color.None)
         .Build();
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override async Task InvokeInitAsync()
-    {
-        await InvokeVoidAsync("init", GetArgs());
-        _isInit = true;
-        SyncVariableValues();
-    }
+    private string? RepeatString => IsRepeat ? "true" : null;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override async Task OnParametersSetAsync()
+    protected override void OnParametersSet()
     {
+        base.OnParametersSet();
+
         Text ??= Localizer[nameof(Text)];
-        if (_isInit && (Columns != _columns || IsRepeat != _isRepeat))
-        {
-            await InvokeVoidAsync("update", GetArgs());
-            SyncVariableValues();
-        }
     }
 
     /// <summary>
-    /// 获取js传入参数
+    /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
     /// <returns></returns>
-    private object GetArgs() => new { Id, Columns, IsRepeat };
-
-    /// <summary>
-    /// 同步变量值
-    /// </summary>
-    private void SyncVariableValues()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        _columns = Columns;
-        _isRepeat = IsRepeat;
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            await InvokeVoidAsync("update", Id);
+        }
     }
 }
