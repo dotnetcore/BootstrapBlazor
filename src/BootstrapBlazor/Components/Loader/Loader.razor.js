@@ -5,10 +5,6 @@ export async function init(id, cols, isrepeat) {
     await addScript('./_content/BootstrapBlazor/lib/splitting/splitting.min.js')
     await addScript('./_content/BootstrapBlazor/modules/gsap.min.js')
 
-    load(id, cols, isrepeat);
-}
-
-export function load(id, cols, isrepeat) {
     const el = document.getElementById(id);
     const cell = el.querySelectorAll(".loader-flip");
 
@@ -49,7 +45,7 @@ export function load(id, cols, isrepeat) {
     }
 }
 
-export function update(id, cols, isrepeat) {
+export async function update(id, cols, isrepeat) {
     const el = document.getElementById(id);
     const flip = el.querySelectorAll(".loader-flip");
 
@@ -58,5 +54,5 @@ export function update(id, cols, isrepeat) {
     const cells = el.querySelectorAll(".cell-grid");
     cells.forEach(x => x.remove());
 
-    load(id, cols, isrepeat);
+    await init(id, cols, isrepeat);
 }
