@@ -40,14 +40,28 @@ public class LoaderTest : BootstrapBlazorTestBase
     public void Loader_Column()
     {
         var cut = Context.RenderComponent<Loader>();
-        var flipElement = cut.Find(".loader-flip");
-        Assert.Equal("10", flipElement.GetAttribute("data-columns"));
+        var el = cut.Find(".loader");
+        Assert.Equal("10", el.GetAttribute("data-bb-columns"));
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Columns, 20);
         });
-        Assert.Equal("20", flipElement.GetAttribute("data-columns"));
+        Assert.Equal("20", el.GetAttribute("data-bb-columns"));
+    }
+
+    [Fact]
+    public void Loader_IsRepeat()
+    {
+        var cut = Context.RenderComponent<Loader>();
+        var el = cut.Find(".loader");
+        Assert.Equal("true", el.GetAttribute("data-bb-repeat"));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsRepeat, false);
+        });
+        Assert.False(el.HasAttribute("data-bb-repeat"));
     }
 
     [Fact]
