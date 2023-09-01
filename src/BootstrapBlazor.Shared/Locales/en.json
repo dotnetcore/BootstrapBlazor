@@ -270,8 +270,12 @@
     "LoadersNormalIntro": "Default Load Animation",
     "LoadersTextTitle": "Custom Text",
     "LoadersTextIntro": "Modify the displayed text content",
-    "LoadersColorText": "Color",
-    "LoadersColorIntro": "Modify the color of progress"
+    "LoadersColorTitle": "Color",
+    "LoadersColorIntro": "Modify the color of progress",
+    "LoadersColunmsTitle": "Colunms",
+    "LoadersColunmsIntro": "Modify the <code>Colunms</code> of progress bar segmentation granularity",
+    "LoadersColunmsText": "Colunms",
+    "LoadersText": "Loading 。。。"
   },
   "BootstrapBlazor.Shared.Samples.SearchDialogs": {
     "SearchDialogsTitle": "SearchDialog search popup",

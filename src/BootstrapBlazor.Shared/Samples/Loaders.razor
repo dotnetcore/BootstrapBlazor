@@ -10,18 +10,11 @@
     @Localizer["LoadersTips"]
 </p>
 
-<div class="mb-2">
-    <BootstrapInputGroup>
-        <BootstrapInputGroupLabel DisplayText="Colunms" />
-        <Slider @bind-Value="@Colunms" Min="10" Max="100" />
-    </BootstrapInputGroup>
-</div>
-
 <DemoBlock Title="@Localizer["LoadersNormalTitle"]"
            Introduction="@Localizer["LoadersNormalIntro"]"
            Name="Normal">
     <div class="loader-demo">
-        <Loader Columns="@Colunms" />
+        <Loader />
     </div>
 </DemoBlock>
 
@@ -29,7 +22,7 @@
            Introduction="@Localizer["LoadersTextIntro"]"
            Name="Text">
     <div class="loader-demo">
-        <Loader Columns="@Colunms" Text="加载中 。。。" />
+        <Loader Text="@Localizer["LoadersText"]" />
     </div>
 </DemoBlock>
 
@@ -37,7 +30,22 @@
            Introduction="@Localizer["LoadersColorIntro"]"
            Name="Color">
     <div class="loader-demo">
-        <Loader Columns="@Colunms" Color="Color.Info" Text="加载中 。。。" />
+        <Loader Color="Color.Info" Text="@Localizer["LoadersText"]" />
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["LoadersColunmsTitle"]"
+           Introduction="@Localizer["LoadersColunmsIntro"]"
+           Name="Colunms">
+    <div class="loader-demo">
+        <div class="mb-2">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="@Localizer["LoadersColunmsText"]" />
+                <Slider @bind-Value="@Colunms" Min="10" Max="50" />
+                <BootstrapInputNumber Value="@Colunms" Min="10" Max="50" />
+            </BootstrapInputGroup>
+        </div>
+        <Loader Columns="@Colunms" Text="@Localizer["LoadersText"]" />
     </div>
 </DemoBlock>
 
