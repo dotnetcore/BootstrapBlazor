@@ -272,9 +272,9 @@
     "LoadersTextIntro": "修改显示的文本内容",
     "LoadersColorTitle": "颜色",
     "LoadersColorIntro": "设置 <code>Color</code> 更改进度条颜色",
-    "LoadersColunmsTitle": "分割粒度",
-    "LoadersColunmsIntro": "设置 <code>Colunms</code> 更改进度条分割粒度",
-    "LoadersColunmsText": "分割粒度",
+    "LoadersColumnsTitle": "分割粒度",
+    "LoadersColumnsIntro": "设置 <code>Columns</code> 更改进度条分割粒度",
+    "LoadersColumnsText": "分割粒度",
     "LoadersText": "加载中 。。。"
   },
   "BootstrapBlazor.Shared.Samples.SearchDialogs": {

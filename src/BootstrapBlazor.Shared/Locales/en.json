@@ -272,9 +272,9 @@
     "LoadersTextIntro": "Modify the displayed text content",
     "LoadersColorTitle": "Color",
     "LoadersColorIntro": "Modify the color of progress",
-    "LoadersColunmsTitle": "Colunms",
-    "LoadersColunmsIntro": "Modify the <code>Colunms</code> of progress bar segmentation granularity",
-    "LoadersColunmsText": "Colunms",
+    "LoadersColumnsTitle": "Colunms",
+    "LoadersColumnsIntro": "Modify the <code>Colunms</code> of progress bar segmentation granularity",
+    "LoadersColumnsText": "Colunms",
     "LoadersText": "Loading 。。。"
   },
   "BootstrapBlazor.Shared.Samples.SearchDialogs": {
