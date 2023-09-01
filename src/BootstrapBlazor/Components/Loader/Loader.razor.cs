@@ -24,6 +24,12 @@ public partial class Loader
     public bool ShowLoadingText { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否重复播放动画 默认为 true 重复
+    /// </summary>
+    [Parameter]
+    public bool IsRepeat { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 数据数量 默认 10
     /// </summary>
     [Parameter]
@@ -49,13 +55,14 @@ public partial class Loader
         .Build();
 
     private int _columns;
+    private bool _isRepeat;
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override async Task InvokeInitAsync()
     {
-        await InvokeVoidAsync("init", Id, Columns);
+        await InvokeVoidAsync("init", Id, Columns, IsRepeat);
     }
 
     /// <summary>
@@ -65,10 +72,12 @@ public partial class Loader
     {
         Text ??= Localizer[nameof(Text)];
 
-        if (Columns != _columns)
+        if (Columns != _columns || IsRepeat != _isRepeat)
         {
-            await InvokeVoidAsync("update", Id, Columns);
+            await InvokeVoidAsync("update", Id, Columns, IsRepeat);
+
             _columns = Columns;
+            _isRepeat = IsRepeat;
         }
     }
 }
