@@ -24,10 +24,10 @@ public partial class Loader
     public bool ShowLoadingText { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否重复播放动画 默认为 true 重复
+    /// 获得/设置 重复播放动画次数 默认为 -1 无限循环
     /// </summary>
     [Parameter]
-    public bool IsRepeat { get; set; } = true;
+    public int Repeat { get; set; } = -1;
 
     /// <summary>
     /// 获得/设置 数据数量 默认 10
@@ -53,8 +53,6 @@ public partial class Loader
         .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass($"bg-primary", Color == Color.None)
         .Build();
-
-    private string? RepeatString => IsRepeat ? "true" : null;
 
     /// <summary>
     /// <inheritdoc/>

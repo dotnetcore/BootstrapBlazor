@@ -10,8 +10,8 @@ const reset = el => {
 
 const loader = el => {
     const flip = el.querySelector(".loader-flip");
-    const columns = el.getAttribute('data-bb-columns')
-    const isRepeat = el.getAttribute('data-bb-repeat') === 'true'
+    const columns = el.getAttribute('data-bb-columns');
+    const repeat = el.getAttribute('data-bb-repeat');
 
     const splitting = Splitting({
         target: flip,
@@ -22,7 +22,6 @@ const loader = el => {
     });
 
     const cells = splitting[0].cells;
-    const repeat = isRepeat ? -1 : 0;
 
     const tl = gsap.timeline({
         repeat: repeat,
