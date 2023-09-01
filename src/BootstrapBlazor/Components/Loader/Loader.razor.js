@@ -6,7 +6,7 @@ export async function init(op) {
     await addScript('./_content/BootstrapBlazor/modules/gsap.min.js')
 
     const el = document.getElementById(op.id);
-    const cell = el.querySelectorAll(".loader-flip");
+    const cell = el.querySelector(".loader-flip");
 
     const results = Splitting({
         target: cell,
@@ -17,7 +17,7 @@ export async function init(op) {
     });
 
     const cells = results[0].cells;
-    const repeat = op.isrepeat ? -1 : 0;
+    const repeat = op.isRepeat ? -1 : 0;
 
     var tl = gsap.timeline({
         repeat: repeat,
@@ -48,9 +48,9 @@ export async function init(op) {
 
 export async function update(op) {
     const el = document.getElementById(op.id);
-    const flip = el.querySelectorAll(".loader-flip");
+    const flip = el.querySelector(".loader-flip");
 
-    delete flip[0]['🍌'];
+    delete flip['🍌'];
 
     const cells = el.querySelectorAll(".cell-grid");
     cells.forEach(x => x.remove());
