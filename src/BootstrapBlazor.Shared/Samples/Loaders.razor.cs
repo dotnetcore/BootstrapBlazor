@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class Loaders
 {
-    private int Colunms { get; set; } = 10;
+    private int _columns = 10;
 
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {

@@ -34,18 +34,18 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["LoadersColunmsTitle"]"
-           Introduction="@Localizer["LoadersColunmsIntro"]"
-           Name="Colunms">
+<DemoBlock Title="@Localizer["LoadersColumnsTitle"]"
+           Introduction="@Localizer["LoadersColumnsIntro"]"
+           Name="Columns">
     <div class="loader-demo">
         <div class="mb-2">
             <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="@Localizer["LoadersColunmsText"]" />
-                <Slider @bind-Value="@Colunms" Min="10" Max="50" />
-                <BootstrapInputNumber Value="@Colunms" Min="10" Max="50" />
+                <BootstrapInputGroupLabel DisplayText="@Localizer["LoadersColumnsText"]" />
+                <Slider @bind-Value="@_columns" Min="10" Max="50" />
+                <BootstrapInputNumber @bind-Value="@_columns" Min="10" Max="50" />
             </BootstrapInputGroup>
         </div>
-        <Loader Columns="@Colunms" Text="@Localizer["LoadersText"]" />
+        <Loader Columns="@_columns" Text="@Localizer["LoadersText"]" />
     </div>
 </DemoBlock>
 
