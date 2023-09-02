@@ -1,5 +1,4 @@
-﻿import { Splitting } from '../../lib/splitting/splitting-es.min.js'
-import { addLink, addScript } from '../../modules/utility.js?v=$version'
+﻿import { addLink, addScript } from '../../modules/utility.js?v=$version'
 
 const reset = el => {
     const flip = el.querySelector(".splitting-flip");
@@ -53,6 +52,7 @@ const loader = el => {
 
 export async function init(id) {
     await addLink('./_content/BootstrapBlazor/lib/splitting/splitting-cells.css')
+    await addScript('./_content/BootstrapBlazor/lib/splitting/splitting.min.js')
     await addScript('./_content/BootstrapBlazor/modules/gsap.min.js')
 
     const el = document.getElementById(id);
