@@ -51,17 +51,17 @@ public class LoaderTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Loader_IsRepeat()
+    public void Loader_Repeat()
     {
         var cut = Context.RenderComponent<Loader>();
         var el = cut.Find(".loader");
-        Assert.Equal("true", el.GetAttribute("data-bb-repeat"));
+        Assert.Equal("-1", el.GetAttribute("data-bb-repeat"));
 
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.IsRepeat, false);
+            pb.Add(a => a.Repeat, 0);
         });
-        Assert.False(el.HasAttribute("data-bb-repeat"));
+        Assert.Equal("0", el.GetAttribute("data-bb-repeat"));
     }
 
     [Fact]
