@@ -7,19 +7,19 @@ namespace UnitTest.Components;
 /// <summary>
 /// Loader 组件单元测试
 /// </summary>
-public class LoaderTest : BootstrapBlazorTestBase
+public class SplittingTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void Loader_Ok()
     {
-        var cut = Context.RenderComponent<Loader>();
+        var cut = Context.RenderComponent<Splitting>();
         cut.Contains("class=\"loader\"");
     }
 
     [Fact]
     public void Loader_Text()
     {
-        var cut = Context.RenderComponent<Loader>();
+        var cut = Context.RenderComponent<Splitting>();
         var textElement = cut.Find(".loader-text");
         Assert.Equal("正在加载 ...", textElement.InnerHtml);
 
@@ -39,7 +39,7 @@ public class LoaderTest : BootstrapBlazorTestBase
     [Fact]
     public void Loader_Column()
     {
-        var cut = Context.RenderComponent<Loader>();
+        var cut = Context.RenderComponent<Splitting>();
         var el = cut.Find(".loader");
         Assert.Equal("10", el.GetAttribute("data-bb-columns"));
 
@@ -53,7 +53,7 @@ public class LoaderTest : BootstrapBlazorTestBase
     [Fact]
     public void Loader_Repeat()
     {
-        var cut = Context.RenderComponent<Loader>();
+        var cut = Context.RenderComponent<Splitting>();
         var el = cut.Find(".loader");
         Assert.Equal("-1", el.GetAttribute("data-bb-repeat"));
 
@@ -67,7 +67,7 @@ public class LoaderTest : BootstrapBlazorTestBase
     [Fact]
     public void Loader_Color()
     {
-        var cut = Context.RenderComponent<Loader>();
+        var cut = Context.RenderComponent<Splitting>();
         var element = cut.Find(".loader-flip");
         Assert.True(element.ClassList.Contains("bg-primary"));
 
