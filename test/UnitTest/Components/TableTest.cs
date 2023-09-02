@@ -959,7 +959,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void PageItemsSource_null()
+    public void PageItemsSource_Null()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -981,6 +981,54 @@ public class TableTest : TableTestBase
 
         var table = cut.FindComponent<Table<Foo>>();
         Assert.Equal(20, table.Instance.PageItemsSource.First());
+    }
+
+    [Fact]
+    public void PageIndex_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsPagination, true);
+                pb.Add(a => a.OnQueryAsync, MockOnQueryAsync);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.Equal(20, table.Instance.PageItemsSource.First());
+
+        Task<QueryData<Foo>> MockOnQueryAsync(QueryPageOptions options)
+        {
+            Assert.Equal(1, options.PageIndex);
+            options.PageIndex = 3;
+
+            Assert.Equal(20, options.PageItems);
+            options.PageItems = 10;
+
+            var items = Foo.GenerateFoo(localizer).Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems);
+            return Task.FromResult(new QueryData<Foo>()
+            {
+                Items = items,
+                TotalCount = items.Count(),
+                IsAdvanceSearch = true,
+                IsFiltered = true,
+                IsSearch = true,
+                IsSorted = true
+            });
+        }
+
+        var pager = cut.FindComponent<Pagination>();
+        Assert.Equal(3, pager.Instance.PageIndex);
     }
 
     [Fact]
