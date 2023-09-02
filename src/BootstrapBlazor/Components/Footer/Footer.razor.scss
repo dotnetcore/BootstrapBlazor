@@ -1,14 +1,14 @@
-﻿.footer {
-    --bb-footer-bg: var(--bs-secondary);
-    --bb-footer-color: inherit;
-    --bb-footer-padding: .5rem 1rem;
+.footer {
+    --bb-footer-bg: #{$footer-bg};
+    --bb-footer-color: #{$footer-color};
+    --bb-footer-padding: #{$footer-padding};
     background: var(--bb-footer-bg);
     color: var(--bb-footer-color);
     padding: var(--bb-footer-padding);
     display: flex;
-}
 
-    .footer .footer-text {
+    .footer-text {
         flex: 1 1 auto;
         text-align: center;
     }
+}
