@@ -332,7 +332,7 @@
     "DialogHeaderText": "请选择图标",
     "CopiedTooltipText": "拷贝成功"
   },
-  "BootstrapBlazor.Components.Loader": {
+  "BootstrapBlazor.Components.Splitting": {
     "Text": "正在加载 ..."
   }
 }
