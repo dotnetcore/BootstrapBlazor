@@ -10,8 +10,8 @@ const reset = el => {
 
 const loader = el => {
     const flip = el.querySelector(".loader-flip");
-    const columns = el.getAttribute('data-bb-columns') || 10;
-    const repeat = el.getAttribute('data-bb-repeat') || -1;
+    const columns = el.getAttribute('data-bb-columns');
+    const repeat = el.getAttribute('data-bb-repeat');
 
     const splitting = Splitting({
         target: flip,
