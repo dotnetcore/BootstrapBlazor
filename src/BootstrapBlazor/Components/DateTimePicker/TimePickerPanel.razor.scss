@@ -1,0 +1,191 @@
+$darkHandle: rgba(104,0,0,0.5);
+$darkFace: #363636;
+$darkBackground: #404040;
+$darkText: #fff;
+$darkActiveText: #ff4444;
+
+$lightHandle: rgba(0,153,204,0.5);
+$lightFace: #fff;
+$lightBackground: #f2f2f2;
+$lightText: #909090;
+$lightActiveText: #33b5e5;
+
+@mixin bb-timepanel-picker($handle,$face,$background,$text,$activeText) {
+    .bb-time-panel-picker {
+        font-size: 0.8em;
+        background: $background;
+        width: 15em;
+        user-select: none;
+        color: $text;
+        font-family: 'Roboto', sans-serif;
+
+        .time-wrap {
+            background: $face;
+            padding: 1em;
+            height: 3em;
+            text-align: right;
+
+            .active {
+                color: $activeText;
+            }
+
+            .time {
+                .part {
+                    cursor: pointer;
+                }
+
+                font-size: 3em;
+                line-height: 1em;
+
+                .am-pm {
+                    font-size: (1em/3);
+                }
+            }
+        }
+
+        .face-wrap {
+            padding: 1em;
+
+            .face {
+                position: relative;
+                background: $face;
+                height: 13em;
+                border-radius: 50%;
+                cursor: move;
+
+                .face-set {
+
+                    .face-number {
+                        position: absolute;
+                        transition: transform 0.5s cubic-bezier(.47,.02,.74,1.81), opacity 0.4s;
+                        text-align: center;
+                        pointer-events: none;
+                        width: 100%;
+                        top: 6em;
+                        line-height: 1em;
+                        height: 1em;
+
+                        @for $i from 0 to 12 {
+                            &[data-css-time="#{$i}"] {
+                                transform: rotate($i * 30deg) translateY(-5.5em) rotate($i * -30deg);
+                            }
+                        }
+                    }
+
+                    $handleSize: 1.65em;
+
+                    .handle {
+                        transition: opacity 0.4s;
+
+                        &.anim {
+                            transition: transform 0.5s cubic-bezier(.47,.02,.74,1.81), opacity 0.4s;
+                        }
+
+                        height: $handleSize;
+                        width: $handleSize;
+                        top: 6.5em - $handleSize / 2;
+                        left: 6.5em - $handleSize / 2;
+                        position: absolute;
+                        background: $handle;
+                        border-radius: 50%;
+                        transform: rotate(10 * 30deg) translateY(-5.5em);
+                    }
+
+                    .handle-spot {
+                        $handleSpotSize: 0.5em;
+                        height: $handleSpotSize;
+                        width: $handleSpotSize;
+                        top: $handleSize / 2 - $handleSpotSize / 2;
+                        left: $handleSize / 2 - $handleSpotSize / 2;
+                        position: absolute;
+                        background: $activeText;
+                        border-radius: 50%;
+                    }
+
+                    .handle-bar {
+                        transition: opacity 0.4s;
+
+                        &.anim {
+                            transition: transform 0.5s cubic-bezier(.47,.02,.74,1.81), opacity 0.4s;
+                        }
+
+                        transform-origin: bottom;
+                        position: absolute;
+                        bottom: 6.5em;
+                        background: $activeText;
+                        width: 1px;
+                        height: 1em;
+                        left: 6.5em;
+                    }
+
+                    &.face-off {
+                        .face-number {
+                            opacity: 0;
+                        }
+
+                        .handle, .handle-bar {
+                            opacity: 0;
+                        }
+
+                        &.min {
+                            @for $i from 0 to 12 {
+                                .face-number[data-css-time="#{$i}"] {
+                                    transform: rotate($i * 30deg) translateY(-7em) rotate($i * -30deg);
+                                }
+                            }
+                        }
+
+                        &.hour {
+                            @for $i from 0 to 12 {
+                                .face-number[data-css-time="#{$i}"] {
+                                    transform: rotate($i * 30deg) translateY(-4em) rotate($i * -30deg);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .am-pm-btns {
+            margin-top: -1.825em;
+            padding: 1em;
+            padding-top: 0;
+            height: 1.65em;
+            text-align: center;
+
+            .am-pm-btn {
+                display: inline-block;
+                height: 1.65em;
+                width: 1.65em;
+                background: $face;
+                border-radius: 50%;
+                cursor: pointer;
+
+                &.am {
+                    float: left;
+                }
+
+                &.pm {
+                    float: right;
+                }
+
+                &.active {
+                    background: mix(opacify($handle,1),$face);
+                }
+            }
+        }
+    }
+}
+
+.bb-timepanel-picker {
+    box-shadow: black 0 0 0.2em;
+}
+
+.bb-time-panel:not(.dark) {
+    @include bb-timepanel-picker($lightHandle,$lightFace,$lightBackground,$lightText,$lightActiveText);
+}
+
+.bb-time-panel.dark {
+    @include bb-timepanel-picker($darkHandle,$darkFace,$darkBackground,$darkText,$darkActiveText);
+}
