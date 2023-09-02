@@ -12,5 +12,5 @@ public partial class TimePickerPanel
     /// <summary>
     /// 获得/设置 样式
     /// </summary>
-    private string? ClassString => CssBuilder.Default("bb-time-panel").AddClassFromAttributes(AdditionalAttributes).Build();
+    private string? ClassString => CssBuilder.Default("bb-timepanel").AddClassFromAttributes(AdditionalAttributes).Build();
 }

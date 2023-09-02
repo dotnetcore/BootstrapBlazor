@@ -6,5 +6,9 @@
   {
     "outputFile": "wwwroot/scss/bootstrap.blazor-dark.css",
     "inputFile": "wwwroot/scss/bootstrap.blazor-dark.scss"
+  },
+  {
+    "outputFile": "Components/DateTimePicker/TimePickerPanel.razor.css",
+    "inputFile": "Components/DateTimePicker/TimePickerPanel.razor.scss"
   }
 ]

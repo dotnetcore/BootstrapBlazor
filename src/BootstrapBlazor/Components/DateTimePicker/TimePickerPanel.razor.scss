@@ -11,7 +11,7 @@ $lightText: #909090;
 $lightActiveText: #33b5e5;
 
 @mixin bb-timepanel-picker($handle,$face,$background,$text,$activeText) {
-    .bb-time-panel-picker {
+    .bb-timepanel-picker {
         font-size: 0.8em;
         background: $background;
         width: 15em;
@@ -182,10 +182,10 @@ $lightActiveText: #33b5e5;
     box-shadow: black 0 0 0.2em;
 }
 
-.bb-time-panel:not(.dark) {
+.bb-timepanel:not(.dark) {
     @include bb-timepanel-picker($lightHandle,$lightFace,$lightBackground,$lightText,$lightActiveText);
 }
 
-.bb-time-panel.dark {
+.bb-timepanel.dark {
     @include bb-timepanel-picker($darkHandle,$darkFace,$darkBackground,$darkText,$darkActiveText);
 }
