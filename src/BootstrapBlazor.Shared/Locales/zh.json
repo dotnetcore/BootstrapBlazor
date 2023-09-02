@@ -261,21 +261,21 @@
     "SpinnersFloatTitle": "悬浮",
     "SpinnersFloatIntro": "使用 Float 布局"
   },
-  "BootstrapBlazor.Shared.Samples.Loaders": {
-    "LoadersTitle": "Loader 加载动画",
-    "LoadersDescription": "加载数据时显示动效",
-    "LoadersTipsTitle": "何时使用",
-    "LoadersTips": "页面局部处于等待异步数据或正在渲染过程时，合适的加载动效会有效缓解用户的焦虑。",
-    "LoadersNormalTitle": "基础用法",
-    "LoadersNormalIntro": "默认加载动画",
-    "LoadersTextTitle": "自定义文本",
-    "LoadersTextIntro": "修改显示的文本内容",
-    "LoadersColorTitle": "颜色",
-    "LoadersColorIntro": "设置 <code>Color</code> 更改进度条颜色",
-    "LoadersColumnsTitle": "分割粒度",
-    "LoadersColumnsIntro": "设置 <code>Columns</code> 更改进度条分割粒度",
-    "LoadersColumnsText": "分割粒度",
-    "LoadersText": "加载中 。。。"
+  "BootstrapBlazor.Shared.Samples.Splittings": {
+    "SplittingsTitle": "Loader 加载动画",
+    "SplittingsDescription": "加载数据时显示动效",
+    "SplittingsTipsTitle": "何时使用",
+    "SplittingsTips": "页面局部处于等待异步数据或正在渲染过程时，合适的加载动效会有效缓解用户的焦虑。",
+    "SplittingsNormalTitle": "基础用法",
+    "SplittingsNormalIntro": "默认加载动画",
+    "SplittingsTextTitle": "自定义文本",
+    "SplittingsTextIntro": "修改显示的文本内容",
+    "SplittingsColorTitle": "颜色",
+    "SplittingsColorIntro": "设置 <code>Color</code> 更改进度条颜色",
+    "SplittingsColumnsTitle": "分割粒度",
+    "SplittingsColumnsIntro": "设置 <code>Columns</code> 更改进度条分割粒度",
+    "SplittingsColumnsText": "分割粒度",
+    "SplittingsText": "加载中 。。。"
   },
   "BootstrapBlazor.Shared.Samples.SearchDialogs": {
     "SearchDialogsTitle": "SearchDialog 搜索弹窗",
@@ -4509,7 +4509,7 @@
     "SlideButton": "快捷菜单 SlideButton",
     "DialButton": "拨号菜单 DialButton",
     "CountButton": "倒计时按钮 CountButton",
-    "Loader": "加载动画 Loader"
+    "Splitting": "动画组件 Splitting"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",

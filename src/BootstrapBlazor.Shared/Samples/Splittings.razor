@@ -1,5 +1,5 @@
-﻿@page "/loader"
-@inject IStringLocalizer<Loaders> Localizer
+﻿@page "/splitting"
+@inject IStringLocalizer<Splittings> Localizer
 
 <h3>@Localizer["LoadersTitle"]</h3>
 <h4>@Localizer["LoadersDescription"]</h4>
@@ -13,40 +13,40 @@
 <DemoBlock Title="@Localizer["LoadersNormalTitle"]"
            Introduction="@Localizer["LoadersNormalIntro"]"
            Name="Normal">
-    <div class="loader-demo">
-        <Loader />
+    <div class="splitting-demo">
+        <Splitting></Splitting>
     </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LoadersTextTitle"]"
            Introduction="@Localizer["LoadersTextIntro"]"
            Name="Text">
-    <div class="loader-demo">
-        <Loader Text="@Localizer["LoadersText"]" />
+    <div class="splitting-demo">
+        <Splitting Text="@Localizer["LoadersText"]" />
     </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LoadersColorTitle"]"
            Introduction="@Localizer["LoadersColorIntro"]"
            Name="Color">
-    <div class="loader-demo">
-        <Loader Color="Color.Info" Text="@Localizer["LoadersText"]" />
+    <div class="splitting-demo">
+        <Splitting Color="Color.Info" Text="@Localizer["LoadersText"]"></Splitting>
     </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LoadersColumnsTitle"]"
            Introduction="@Localizer["LoadersColumnsIntro"]"
            Name="Columns">
-    <div class="loader-demo">
+    <div class="splitting-demo">
         <div class="mb-2">
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="@Localizer["LoadersColumnsText"]" />
                 <Slider @bind-Value="@_columns" Min="10" Max="50" />
-                <BootstrapInputNumber @bind-Value="@_columns" Min="10" Max="50" />
+                <BootstrapInputNumber @bind-Value="@_columns" Min="10" Max="50"></BootstrapInputNumber>
             </BootstrapInputGroup>
         </div>
-        <Loader Columns="@_columns" Text="@Localizer["LoadersText"]" />
+        <Splitting Columns="@_columns" Text="@Localizer["LoadersText"]"></Splitting>
     </div>
 </DemoBlock>
 
-<AttributeTable Items="@GetAttributes()" />
+<AttributeTable Items="@GetAttributes()"></AttributeTable>

@@ -261,21 +261,21 @@
     "SpinnersFloatTitle": "Spinner Floats",
     "SpinnersFloatIntro": "Use Float layout"
   },
-  "BootstrapBlazor.Shared.Samples.Loaders": {
-    "LoadersTitle": "Loader",
-    "LoadersDescription": "Display dynamic effects when loading data",
-    "LoadersTipsTitle": "When to use",
-    "LoadersTips": "When parts of the page are waiting for asynchronous data or during the rendering process, appropriate loading dynamics can effectively alleviate user anxiety.",
-    "LoadersNormalTitle": "Basic usage",
-    "LoadersNormalIntro": "Default Load Animation",
-    "LoadersTextTitle": "Custom Text",
-    "LoadersTextIntro": "Modify the displayed text content",
-    "LoadersColorTitle": "Color",
-    "LoadersColorIntro": "Modify the color of progress",
-    "LoadersColumnsTitle": "Colunms",
-    "LoadersColumnsIntro": "Modify the <code>Colunms</code> of progress bar segmentation granularity",
-    "LoadersColumnsText": "Colunms",
-    "LoadersText": "Loading 。。。"
+  "BootstrapBlazor.Shared.Samples.Splittings": {
+    "SplittingsTitle": "Loader",
+    "SplittingsDescription": "Display dynamic effects when loading data",
+    "SplittingsTipsTitle": "When to use",
+    "SplittingsTips": "When parts of the page are waiting for asynchronous data or during the rendering process, appropriate loading dynamics can effectively alleviate user anxiety.",
+    "SplittingsNormalTitle": "Basic usage",
+    "SplittingsNormalIntro": "Default Load Animation",
+    "SplittingsTextTitle": "Custom Text",
+    "SplittingsTextIntro": "Modify the displayed text content",
+    "SplittingsColorTitle": "Color",
+    "SplittingsColorIntro": "Modify the color of progress",
+    "SplittingsColumnsTitle": "Colunms",
+    "SplittingsColumnsIntro": "Modify the <code>Colunms</code> of progress bar segmentation granularity",
+    "SplittingsColumnsText": "Colunms",
+    "SplittingsText": "Loading 。。。"
   },
   "BootstrapBlazor.Shared.Samples.SearchDialogs": {
     "SearchDialogsTitle": "SearchDialog search popup",
@@ -4509,7 +4509,7 @@
     "SlideButton": "SlideButton",
     "DialButton": "DialButton",
     "CountButton": "CountButton",
-    "Loader": "Loader"
+    "Splitting": "Splitting"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",

@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Shared.Samples;
 /// <summary>
 /// Loader 示例代码
 /// </summary>
-public partial class Loaders
+public partial class Splittings
 {
     private int _columns = 10;
 
