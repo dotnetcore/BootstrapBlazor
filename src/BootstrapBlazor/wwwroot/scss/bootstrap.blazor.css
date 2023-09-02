@@ -2321,14 +2321,12 @@ section > h2 {
 
 .footer {
   --bb-footer-bg: var(--bs-secondary);
-  --bb-footer-color: inherit;
-  --bb-footer-padding: .5rem 1rem;
+  --bb-footer-padding: 0.5rem 1rem;
   background: var(--bb-footer-bg);
-  color: var(--bb-footer-color);
+  color: var(--bs-body-color);
   padding: var(--bb-footer-padding);
   display: flex;
 }
-
 .footer .footer-text {
   flex: 1 1 auto;
   text-align: center;
