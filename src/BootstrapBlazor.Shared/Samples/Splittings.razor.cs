@@ -49,9 +49,9 @@ public partial class Splittings
         {
             Name = "IsRepeat",
             Description = "Is repeat the animation",
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "true"
+            Type = "int",
+            ValueList = ">= -1",
+            DefaultValue = "-1"
         }
     };
 }
