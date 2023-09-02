@@ -5,22 +5,22 @@
 namespace UnitTest.Components;
 
 /// <summary>
-/// Loader 组件单元测试
+/// Splitting 组件单元测试
 /// </summary>
 public class SplittingTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void Loader_Ok()
+    public void Splitting_Ok()
     {
         var cut = Context.RenderComponent<Splitting>();
-        cut.Contains("class=\"loader\"");
+        cut.Contains("class=\"splitting\"");
     }
 
     [Fact]
-    public void Loader_Text()
+    public void Splitting_Text()
     {
         var cut = Context.RenderComponent<Splitting>();
-        var textElement = cut.Find(".loader-text");
+        var textElement = cut.Find(".splitting-text");
         Assert.Equal("正在加载 ...", textElement.InnerHtml);
 
         cut.SetParametersAndRender(pb =>
@@ -33,14 +33,14 @@ public class SplittingTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.ShowLoadingText, false);
         });
-        Assert.DoesNotContain("loader-text", cut.Markup);
+        Assert.DoesNotContain("splitting-text", cut.Markup);
     }
 
     [Fact]
-    public void Loader_Column()
+    public void Splitting_Column()
     {
         var cut = Context.RenderComponent<Splitting>();
-        var el = cut.Find(".loader");
+        var el = cut.Find(".splitting");
         Assert.Equal("10", el.GetAttribute("data-bb-columns"));
 
         cut.SetParametersAndRender(pb =>
@@ -51,10 +51,10 @@ public class SplittingTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Loader_Repeat()
+    public void Splitting_Repeat()
     {
         var cut = Context.RenderComponent<Splitting>();
-        var el = cut.Find(".loader");
+        var el = cut.Find(".splitting");
         Assert.Equal("-1", el.GetAttribute("data-bb-repeat"));
 
         cut.SetParametersAndRender(pb =>
@@ -65,10 +65,10 @@ public class SplittingTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Loader_Color()
+    public void Splitting_Color()
     {
         var cut = Context.RenderComponent<Splitting>();
-        var element = cut.Find(".loader-flip");
+        var element = cut.Find(".splitting-flip");
         Assert.True(element.ClassList.Contains("bg-primary"));
 
         cut.SetParametersAndRender(pb =>
