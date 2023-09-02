@@ -1,7 +1,8 @@
-﻿import { addLink, addScript } from '../../modules/utility.js?v=$version'
+﻿import '../../lib/splitting/splitting.min.js?v=$version'
+import { addLink, addScript } from '../../modules/utility.js?v=$version'
 
 const reset = el => {
-    const flip = el.querySelector(".loader-flip");
+    const flip = el.querySelector(".sp-flip");
     if (flip) {
         delete flip['🍌'];
         flip.innerHTML = ''
@@ -9,7 +10,7 @@ const reset = el => {
 }
 
 const loader = el => {
-    const flip = el.querySelector(".loader-flip");
+    const flip = el.querySelector(".sp-flip");
     const columns = el.getAttribute('data-bb-columns');
     const repeat = el.getAttribute('data-bb-repeat');
 
@@ -52,7 +53,7 @@ const loader = el => {
 
 export async function init(id) {
     await addLink('./_content/BootstrapBlazor/lib/splitting/splitting-cells.css')
-    await addScript('./_content/BootstrapBlazor/lib/splitting/splitting.min.js')
+    //await addScript('./_content/BootstrapBlazor/lib/splitting/splitting.min.js')
     await addScript('./_content/BootstrapBlazor/modules/gsap.min.js')
 
     const el = document.getElementById(id);

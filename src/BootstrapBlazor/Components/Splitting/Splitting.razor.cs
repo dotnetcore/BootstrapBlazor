@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Loader
 /// </summary>
-public partial class Loader
+public partial class Splitting
 {
     /// <summary>
     /// 获得/设置 文本内容
@@ -43,13 +43,13 @@ public partial class Loader
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Loader>? Localizer { get; set; }
+    private IStringLocalizer<Splitting>? Localizer { get; set; }
 
-    private string? ClassString => CssBuilder.Default("loader")
+    private string? ClassString => CssBuilder.Default("sp")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? FlipClassString => CssBuilder.Default("loader-flip")
+    private string? FlipClassString => CssBuilder.Default("sp-flip")
         .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass($"bg-primary", Color == Color.None)
         .Build();
