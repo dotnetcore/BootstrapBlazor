@@ -1,4 +1,4 @@
-﻿import '../../lib/splitting/splitting.min.js?v=$version'
+﻿import Splitting from '../../lib/splitting/splitting.min.js?v=$version'
 import { addLink, addScript } from '../../modules/utility.js?v=$version'
 
 const reset = el => {

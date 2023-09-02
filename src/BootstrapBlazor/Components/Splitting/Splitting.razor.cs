@@ -45,11 +45,11 @@ public partial class Splitting
     [NotNull]
     private IStringLocalizer<Splitting>? Localizer { get; set; }
 
-    private string? ClassString => CssBuilder.Default("sp")
+    private string? ClassString => CssBuilder.Default("splitting")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? FlipClassString => CssBuilder.Default("sp-flip")
+    private string? FlipClassString => CssBuilder.Default("splitting-flip")
         .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass($"bg-primary", Color == Color.None)
         .Build();
