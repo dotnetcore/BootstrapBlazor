@@ -47,7 +47,7 @@ public partial class Splittings
         },
         new()
         {
-            Name = "IsRepeat",
+            Name = "Repeat",
             Description = "Is repeat the animation",
             Type = "int",
             ValueList = ">= -1",
