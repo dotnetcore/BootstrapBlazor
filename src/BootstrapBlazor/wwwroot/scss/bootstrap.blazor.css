@@ -1928,7 +1928,6 @@ section > h2 {
   height: 1px;
   width: 100%;
 }
-
 .divider .divider-text {
   background-color: var(--bb-divider-text-bg);
   padding: var(--bb-divider-text-padding);
@@ -1937,23 +1936,19 @@ section > h2 {
   font-weight: 500;
   font-size: 14px;
 }
-
 .divider .divider-text.is-left {
   left: 20px;
   transform: translateY(-50%);
 }
-
 .divider .divider-text.is-center {
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
 }
-
 .divider .divider-text.is-right {
   right: 20px;
   transform: translateY(-50%);
 }
-
-.divider-vertical {
+.divider.divider-vertical {
   display: inline-block;
   align-self: stretch;
   width: 1px;
@@ -1962,22 +1957,18 @@ section > h2 {
   margin: 0 1rem;
   min-height: 21px;
 }
-
 .divider.divider-vertical .divider-text {
   --bb-divider-text-padding: 20px 0;
 }
-
 .divider.divider-vertical .divider-text.is-left {
   top: 20px;
   left: 0;
   transform: translateY(0);
   transform: translateX(-50%);
 }
-
 .divider.divider-vertical .divider-text.is-center {
   top: 50%;
 }
-
 .divider.divider-vertical .divider-text.is-right {
   bottom: 20px;
   right: 0;
@@ -2616,6 +2607,7 @@ section > h2 {
 
 .input-group > .datetime-picker:not(:first-child) .form-control,
 .input-group > .select:not(:first-child) .form-control,
+.input-group > .multi-select:not(:first-child) .dropdown-toggle,
 .input-group > .auto-complete:not(:first-child) .form-control {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
@@ -2623,6 +2615,7 @@ section > h2 {
 
 .input-group > .datetime-picker:not(:last-child) .form-control,
 .input-group > .select:not(:last-child) .form-control,
+.input-group > .multi-select:not(:last-child) .dropdown-toggle,
 .input-group > .auto-complete:not(:last-child) .form-control {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;

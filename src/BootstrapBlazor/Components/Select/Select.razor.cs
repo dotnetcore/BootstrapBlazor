@@ -207,7 +207,7 @@ public partial class Select<TValue> : ISelect
 
     private IEnumerable<SelectedItem>? VirtualItems { get; set; }
 
-    private ICollection<SelectedItem> VirtualCollection => (VirtualItems ?? Items).ToList();
+    private ICollection<SelectedItem> GetVirtualItems() => (VirtualItems ?? Items).ToList();
 
     /// <summary>
     /// 虚拟滚动数据加载回调方法
@@ -220,16 +220,14 @@ public partial class Select<TValue> : ISelect
     {
         // 有搜索条件时使用原生请求数量
         // 有总数时请求剩余数量
-        var count = !string.IsNullOrEmpty(SearchText)
-            ? request.Count
-            : TotalCount == 0
-                ? request.Count
-                : Math.Min(request.Count, TotalCount - request.StartIndex);
+        var count = !string.IsNullOrEmpty(SearchText) ? request.Count : GetCountByTotal();
         var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = count, SearchText = SearchText });
 
         TotalCount = data.TotalCount;
         VirtualItems = data.Items ?? Enumerable.Empty<SelectedItem>();
         return new ItemsProviderResult<SelectedItem>(VirtualItems, TotalCount);
+
+        int GetCountByTotal() => TotalCount == 0 ? request.Count : Math.Min(request.Count, TotalCount - request.StartIndex);
     }
 
     private async Task SearchTextChanged(string val)
@@ -269,7 +267,14 @@ public partial class Select<TValue> : ISelect
         return SelectedItem != null;
     }
 
-    private SelectedItem? GetVirtualizeItem() => OnQueryAsync == null ? null : ValueType == typeof(SelectedItem) ? (SelectedItem)(object)Value : new SelectedItem(CurrentValueAsString, DefaultVirtualizeItemText ?? CurrentValueAsString);
+    private SelectedItem? GetVirtualizeItem()
+    {
+        return OnQueryAsync == null ? null : GetSelectedItem();
+
+        SelectedItem? GetSelectedItem() => ValueType == typeof(SelectedItem)
+            ? (SelectedItem)(object)Value
+            : new SelectedItem(CurrentValueAsString, DefaultVirtualizeItemText ?? CurrentValueAsString);
+    }
 
     private void ResetSelectedItem()
     {
@@ -285,8 +290,8 @@ public partial class Select<TValue> : ISelect
                 DataSource.AddRange(VirtualItems);
             }
 
-            SelectedItem = DataSource.FirstOrDefault(i => i.Value.Equals(CurrentValueAsString, StringComparison))
-                ?? DataSource.FirstOrDefault(i => i.Active)
+            SelectedItem = DataSource.Find(i => i.Value.Equals(CurrentValueAsString, StringComparison))
+                ?? DataSource.Find(i => i.Active)
                 ?? DataSource.FirstOrDefault()
                 ?? GetVirtualizeItem();
 
@@ -376,14 +381,14 @@ public partial class Select<TValue> : ISelect
             item.Active = true;
             SelectedItem = item;
 
+            // 触发 StateHasChanged
+            CurrentValueAsString = item.Value;
+
             // 触发 SelectedItemChanged 事件
             if (OnSelectedItemChanged != null)
             {
                 await OnSelectedItemChanged(SelectedItem);
             }
-
-            // 触发 StateHasChanged
-            CurrentValueAsString = item.Value;
         }
     }
 
