@@ -7494,19 +7494,19 @@ form .form-control.is-display {
   background-color: var(--bb-disabled-bg);
 }
 
-.loader {
-  --loader-padding: 0.25rem;
-  --loader-text-bottom-margin: 0.5rem;
-  --loader-progress-height: 1rem;
+.splitting {
+  --splitting-padding: 0.25rem;
+  --splitting-text-bottom-margin: 0.5rem;
+  --splitting-progress-height: 1rem;
 }
-.loader .loader-text {
-  margin-bottom: var(--loader-text-bottom-margin);
+.splitting .splitting-text {
+  margin-bottom: var(--splitting-text-bottom-margin);
 }
-.loader .loader-wrap {
+.splitting .splitting-wrap {
   border: 1px solid var(--bs-border-color);
-  padding: var(---loader-padding);
+  padding: var(--splitting-padding);
   border-radius: var(--bs-border-radius);
 }
-.loader .loader-wrap .loader-flip {
-  height: var(--loader-progress-height);
+.splitting .splitting-wrap .splitting-flip {
+  height: var(--splitting-progress-height);
 }
