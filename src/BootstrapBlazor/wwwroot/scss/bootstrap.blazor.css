@@ -75,31 +75,6 @@ a, a:hover, a:focus {
   border-left: var(--bb-alert-bar-width) solid var(--bs-danger);
 }
 
-.alert {
-  --bb-alert-icon-margin-right: 0.5rem;
-}
-.alert .alert-icon {
-  margin-right: var(--bb-alert-icon-margin-right);
-}
-.alert .alert-bar {
-  --bb-alert-bar-width: 4px;
-}
-.alert .alert-bar.alert-info {
-  border-left: var(--bb-alert-bar-width) solid var(--bs-info);
-}
-.alert .alert-bar.alert-success {
-  border-left: var(--bb-alert-bar-width) solid var(--bs-success);
-}
-.alert .alert-bar.alert-primary {
-  border-left: var(--bb-alert-bar-width) solid var(--bs-primary);
-}
-.alert .alert-bar.alert-warning {
-  border-left: var(--bb-alert-bar-width) solid var(--bs-warning);
-}
-.alert .alert-bar.alert-danger {
-  border-left: var(--bb-alert-bar-width) solid var(--bs-danger);
-}
-
 .anchor-link {
   --bb-anchor-link-margin-left: .5rem;
   --bb-anchor-link-opacity: 0;
