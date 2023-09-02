@@ -261,17 +261,21 @@
     "SpinnersFloatTitle": "Spinner Floats",
     "SpinnersFloatIntro": "Use Float layout"
   },
-  "BootstrapBlazor.Shared.Samples.Loaders": {
-    "LoadersTitle": "Loader",
-    "LoadersDescription": "Display dynamic effects when loading data",
-    "LoadersTipsTitle": "When to use",
-    "LoadersTips": "When parts of the page are waiting for asynchronous data or during the rendering process, appropriate loading dynamics can effectively alleviate user anxiety.",
-    "LoadersNormalTitle": "Basic usage",
-    "LoadersNormalIntro": "Default Load Animation",
-    "LoadersTextTitle": "Custom Text",
-    "LoadersTextIntro": "Modify the displayed text content",
-    "LoadersColorText": "Color",
-    "LoadersColorIntro": "Modify the color of progress"
+  "BootstrapBlazor.Shared.Samples.Splittings": {
+    "SplittingTitle": "Loader",
+    "SplittingDescription": "Display dynamic effects when loading data",
+    "SplittingTipsTitle": "When to use",
+    "SplittingTips": "When parts of the page are waiting for asynchronous data or during the rendering process, appropriate loading dynamics can effectively alleviate user anxiety.",
+    "SplittingNormalTitle": "Basic usage",
+    "SplittingNormalIntro": "Default Load Animation",
+    "SplittingTextTitle": "Custom Text",
+    "SplittingTextIntro": "Modify the displayed text content",
+    "SplittingColorTitle": "Color",
+    "SplittingColorIntro": "Modify the color of progress",
+    "SplittingColumnsTitle": "Colunms",
+    "SplittingColumnsIntro": "Modify the <code>Colunms</code> of progress bar segmentation granularity",
+    "SplittingColumnsText": "Colunms",
+    "SplittingText": "Loading 。。。"
   },
   "BootstrapBlazor.Shared.Samples.SearchDialogs": {
     "SearchDialogsTitle": "SearchDialog search popup",
@@ -4505,7 +4509,7 @@
     "SlideButton": "SlideButton",
     "DialButton": "DialButton",
     "CountButton": "CountButton",
-    "Loader": "Loader"
+    "Splitting": "Splitting"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",

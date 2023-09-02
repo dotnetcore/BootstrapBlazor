@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Loader
 /// </summary>
-public partial class Loader
+public partial class Splitting
 {
     /// <summary>
     /// 获得/设置 文本内容
@@ -22,6 +22,12 @@ public partial class Loader
     /// </summary>
     [Parameter]
     public bool ShowLoadingText { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 重复播放动画次数 默认为 -1 无限循环
+    /// </summary>
+    [Parameter]
+    public int Repeat { get; set; } = -1;
 
     /// <summary>
     /// 获得/设置 数据数量 默认 10
@@ -37,13 +43,13 @@ public partial class Loader
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<Loader>? Localizer { get; set; }
+    private IStringLocalizer<Splitting>? Localizer { get; set; }
 
-    private string? ClassString => CssBuilder.Default("loader")
+    private string? ClassString => CssBuilder.Default("splitting")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? FlipClassString => CssBuilder.Default("loader-flip")
+    private string? FlipClassString => CssBuilder.Default("splitting-flip")
         .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass($"bg-primary", Color == Color.None)
         .Build();
@@ -56,5 +62,20 @@ public partial class Loader
         base.OnParametersSet();
 
         Text ??= Localizer[nameof(Text)];
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
+        {
+            await InvokeVoidAsync("update", Id);
+        }
     }
 }

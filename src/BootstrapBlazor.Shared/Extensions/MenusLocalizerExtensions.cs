@@ -1037,8 +1037,8 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     IsNew = true,
-                    Text = Localizer["Loader"],
-                    Url = "loader"
+                    Text = Localizer["Splitting"],
+                    Url = "splitting"
                 },
                 new()
                 {
