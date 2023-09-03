@@ -16,10 +16,9 @@
         {
             <div class="qb-header">
                 <div class="btn-group">
-                    <Button Color="Color.Primary" Text="@Localizer[FilterLogic.And.ToString()]"></Button>
-                    <Button Color="Color.Primary" Text="@Localizer[FilterLogic.Or.ToString()]"></Button>
+                    <Button Color="Color.Primary" Text="@Localizer[FilterLogic.And.ToString()]" OnClick="OnClickAnd"></Button>
+                    <Button Color="Color.Primary" Text="@Localizer[FilterLogic.Or.ToString()]" OnClick="OnClickOr"></Button>
                 </div>
-                <Button Icon="@PlusIcon"></Button>
             </div>
         }
     }
@@ -43,12 +42,12 @@
 </div>
 
 @code {
-    RenderFragment<FilterKeyValueAction> RenderFilter => filter =>
+    RenderFragment RenderFilter(FilterKeyValueAction parent, FilterKeyValueAction filter) =>
     @<div class="qb-row">
         <Select Items="_fields" @bind-Value="@filter.FieldKey" />
         <Select Items="Operations" @bind-Value="@filter.FilterAction" />
         <BootstrapInput @bind-Value="@filter.FieldValue" />
-        <Button Icon="@MinusIcon" class="btn-minus"></Button>
-        <Button Icon="@PlusIcon" class="btn-plus"></Button>
+        <Button Icon="@MinusIcon" class="btn-minus" OnClick="() => OnClickRemoveFilter(parent, filter)"></Button>
+        <Button Icon="@PlusIcon" class="btn-plus" OnClick="() => OnClickAddFilter(parent)"></Button>
     </div>;
 }

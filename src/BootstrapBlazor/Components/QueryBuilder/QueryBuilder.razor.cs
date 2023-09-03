@@ -32,7 +32,7 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
     /// 获得/设置 Filter 回调方法 支持双向绑定
     /// </summary>
     [Parameter]
-    public EventCallback<FilterKeyValueAction>? FilterChanged { get; set; }
+    public EventCallback<FilterKeyValueAction> FilterChanged { get; set; }
 
     /// <summary>
     /// 获得/设置 逻辑运算符
@@ -143,6 +143,45 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
         }
     }
 
+    private async Task OnClickAnd()
+    {
+        Filter.Filters ??= new();
+        Filter.Filters.Add(new FilterKeyValueAction() { });
+
+        await OnFilterChanged();
+    }
+
+    private async Task OnClickOr()
+    {
+        Filter.Filters ??= new();
+        Filter.Filters.Add(new FilterKeyValueAction() { FilterLogic = FilterLogic.Or, Filters = new() { new() } });
+
+        await OnFilterChanged();
+    }
+
+    private async Task OnClickRemoveFilter(FilterKeyValueAction parent, FilterKeyValueAction filter)
+    {
+        parent.Filters?.Remove(filter);
+
+        await OnFilterChanged();
+    }
+
+    private async Task OnClickAddFilter(FilterKeyValueAction filter)
+    {
+        filter.Filters ??= new();
+        filter.Filters.Add(new());
+
+        await OnFilterChanged();
+    }
+
+    private async Task OnFilterChanged()
+    {
+        if (FilterChanged.HasDelegate)
+        {
+            await FilterChanged.InvokeAsync(Filter);
+        }
+    }
+
     private List<SelectedItem> _fields = new();
 
     RenderFragment RenderFilters(FilterKeyValueAction filter) => builder =>
@@ -167,7 +206,7 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
                     builder.OpenElement(index++, "li");
                     builder.AddAttribute(index++, "class", "qb-item");
                     builder.AddAttribute(index++, "data-bb-logic", Localizer[filter.FilterLogic.ToString()]);
-                    builder.AddContent(index++, RenderFilter(f));
+                    builder.AddContent(index++, RenderFilter(filter, f));
                     builder.CloseElement();
                 }
             }
