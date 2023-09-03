@@ -7540,7 +7540,7 @@ form .form-control.is-display {
   padding: 0.5rem;
   padding-left: 2.5rem;
 }
-.query-builder .qb-group .qb-item > .qb-group > .qb-item:not(:first-child):last-child:before {
+.query-builder .qb-group .qb-item > .qb-group > .qb-item:last-child:before {
   content: attr(data-bb-logic);
   position: absolute;
   top: 0;

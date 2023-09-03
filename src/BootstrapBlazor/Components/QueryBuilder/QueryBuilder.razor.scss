@@ -23,7 +23,7 @@
                 padding: .5rem;
                 padding-left: 2.5rem;
 
-                > .qb-item:not(:first-child):last-child:before {
+                > .qb-item:last-child:before {
                     content: attr(data-bb-logic);
                     position: absolute;
                     top: 0;
