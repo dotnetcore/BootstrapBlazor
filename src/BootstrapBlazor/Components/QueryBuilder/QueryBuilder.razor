@@ -6,25 +6,13 @@
     <CascadingValue Value="Filter.Filters" IsFixed="true">
         @ChildContent?.Invoke(new TModel())
     </CascadingValue>
-    @if (ShowHeader)
+    @if (!Filter.HasFilters() && ShowHeader)
     {
-        if (HeaderTemplate != null)
-        {
-            @HeaderTemplate
-        }
-        else
-        {
-            <div class="qb-header">
-                <div class="btn-group">
-                    <Button Color="Color.Primary" Text="@Localizer[FilterLogic.And.ToString()]" OnClick="OnClickAnd"></Button>
-                    <Button Color="Color.Primary" Text="@Localizer[FilterLogic.Or.ToString()]" OnClick="OnClickOr"></Button>
-                </div>
-            </div>
-        }
+        @RenderHeader(null, Filter)
     }
     @if (_inited)
     {
-        @RenderFilters(Filter)
+        @RenderFilters(null, Filter)
     }
     else
     {
@@ -49,5 +37,15 @@
         <BootstrapInput @bind-Value="@filter.FieldValue" />
         <Button Icon="@MinusIcon" class="btn-minus" OnClick="() => OnClickRemoveFilter(parent, filter)"></Button>
         <Button Icon="@PlusIcon" class="btn-plus" OnClick="() => OnClickAddFilter(parent)"></Button>
+    </div>;
+
+    RenderFragment RenderHeader(FilterKeyValueAction? parent, FilterKeyValueAction filter) =>
+    @<div class="qb-header">
+        <div class="btn-group me-3">
+            <Button Color="Color.Primary" Text="@Localizer[FilterLogic.And.ToString()]"></Button>
+            <Button Color="Color.Secondary" Text="@Localizer[FilterLogic.Or.ToString()]"></Button>
+        </div>
+        <Button Icon="@PlusIcon" class="btn-plus" OnClick="() => OnClickAdd(filter)"></Button>
+        <Button Icon="@RemoveIcon" class="btn-remove" OnClick="() => OnClickRemove(parent, filter)"></Button>
     </div>;
 }

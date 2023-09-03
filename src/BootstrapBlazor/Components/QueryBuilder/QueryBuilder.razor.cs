@@ -77,6 +77,12 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
     public string? PlusIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 移除过滤条件图标
+    /// </summary>
+    [Parameter]
+    public string? RemoveIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 减少过滤条件图标
     /// </summary>
     [Parameter]
@@ -114,6 +120,7 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
 
         PlusIcon ??= IconTheme.GetIconByKey(ComponentIcons.QueryBuilderPlusIcon);
         MinusIcon ??= IconTheme.GetIconByKey(ComponentIcons.QueryBuilderMinusIcon);
+        RemoveIcon ??= IconTheme.GetIconByKey(ComponentIcons.QueryBuilderRemoveIcon);
 
         Operations ??= new()
         {
@@ -143,18 +150,21 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
         }
     }
 
-    private async Task OnClickAnd()
+    private async Task OnClickAdd(FilterKeyValueAction filter)
     {
-        Filter.Filters ??= new();
-        Filter.Filters.Add(new FilterKeyValueAction() { });
+        filter.Filters ??= new();
+        filter.Filters.Add(new FilterKeyValueAction() { });
 
         await OnFilterChanged();
     }
 
-    private async Task OnClickOr()
+    private async Task OnClickRemove(FilterKeyValueAction? parent, FilterKeyValueAction filter)
     {
-        Filter.Filters ??= new();
-        Filter.Filters.Add(new FilterKeyValueAction() { FilterLogic = FilterLogic.Or, Filters = new() { new() } });
+        filter.Filters?.Clear();
+        if (!filter.HasFilters() && parent != null)
+        {
+            parent.Filters?.Remove(filter);
+        }
 
         await OnFilterChanged();
     }
@@ -184,32 +194,40 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
 
     private List<SelectedItem> _fields = new();
 
-    RenderFragment RenderFilters(FilterKeyValueAction filter) => builder =>
+    RenderFragment RenderFilters(FilterKeyValueAction? parent, FilterKeyValueAction filter) => builder =>
     {
         if (filter.Filters != null)
         {
             var index = 0;
             builder.OpenElement(index++, "ul");
             builder.AddAttribute(index++, "class", "qb-group");
+            if (filter.HasFilters() && ShowHeader)
+            {
+                builder.OpenElement(index++, "li");
+                builder.AddAttribute(index++, "class", "qb-item");
+                builder.AddContent(index++, RenderHeader(parent, filter));
+                builder.CloseElement();
+            }
             foreach (var f in filter.Filters)
             {
                 if (f.HasFilters())
                 {
-                    builder.OpenElement(index++, "li");
-                    builder.AddAttribute(index++, "class", "qb-item");
-                    builder.AddAttribute(index++, "data-bb-logic", Localizer[filter.FilterLogic.ToString()]);
-                    builder.AddContent(index++, RenderFilters(f));
-                    builder.CloseElement();
+                    RenderFilterItem(ref index, RenderFilters(filter, f));
                 }
                 else
                 {
-                    builder.OpenElement(index++, "li");
-                    builder.AddAttribute(index++, "class", "qb-item");
-                    builder.AddAttribute(index++, "data-bb-logic", Localizer[filter.FilterLogic.ToString()]);
-                    builder.AddContent(index++, RenderFilter(filter, f));
-                    builder.CloseElement();
+                    RenderFilterItem(ref index, RenderFilter(filter, f));
                 }
             }
+            builder.CloseElement();
+        }
+
+        void RenderFilterItem(ref int sequence, RenderFragment fragment)
+        {
+            builder.OpenElement(sequence++, "li");
+            builder.AddAttribute(sequence++, "class", "qb-item");
+            builder.AddAttribute(sequence++, "data-bb-logic", Localizer[filter.FilterLogic.ToString()]);
+            builder.AddContent(sequence++, fragment);
             builder.CloseElement();
         }
     };

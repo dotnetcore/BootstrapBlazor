@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// QueryColumn 组件
 /// </summary>
-public class QueryColumn<TModel, TType> : QueryGroup<TModel>
+public class QueryColumn<TType> : QueryGroup
 {
     /// <summary>
     /// 获得/设置 条件字段名称

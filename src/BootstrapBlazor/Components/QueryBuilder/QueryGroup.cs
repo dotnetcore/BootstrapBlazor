@@ -9,10 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// QueryGroup 组件
 /// </summary>
-#if NET6_0_OR_GREATER
-[CascadingTypeParameter(nameof(TModel))]
-#endif
-public class QueryGroup<TModel> : BootstrapComponentBase, IDisposable
+public class QueryGroup : BootstrapComponentBase, IDisposable
 {
     /// <summary>
     /// 获得/设置 子组件
