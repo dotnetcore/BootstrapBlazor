@@ -28,9 +28,13 @@ const setBodyHeight = table => {
         toolbarHeight = getOuterHeight(toolbar)
     }
 
-    const body = table.body || table.tables[0]
     const bodyHeight = paginationHeight + toolbarHeight + searchHeight;
-    if (body) {
+    const card = children.find(i => i.classList.contains('table-card'))
+    if (card) {
+        card.style.height = `calc(100% - ${bodyHeight}px)`
+    }
+    else {
+        const body = table.body || table.tables[0]
         if (bodyHeight > 0) {
             body.parentNode.style.height = `calc(100% - ${bodyHeight}px)`
         }
@@ -41,10 +45,6 @@ const setBodyHeight = table => {
         if (headerHeight > 0) {
             body.style.height = `calc(100% - ${headerHeight}px)`
         }
-    }
-    else {
-        const wrapper = children.find(i => i.classList.contains('table-wrapper'))
-        wrapper.style.height = `calc(100% - ${bodyHeight}px)`
     }
 }
 
@@ -443,13 +443,21 @@ export function init(id, invoke, callbacks) {
     const table = {
         el,
         invoke,
-        callbacks,
-        columns: [],
-        tables: [],
-        dragColumns: []
+        callbacks
     }
     Data.set(id, table)
-    const shim = [...el.children].find(i => i.classList.contains('table-shim'))
+
+    reset(id)
+}
+
+export function reset(id) {
+    const table = Data.get(id)
+
+    table.columns = []
+    table.tables = []
+    table.dragColumns = []
+
+    const shim = [...table.el.children].find(i => i.classList.contains('table-shim'))
     if (shim === void 0) {
         setBodyHeight(table)
     }
@@ -491,9 +499,12 @@ export function init(id, invoke, callbacks) {
         setCopyColumn(table)
 
         // popover
-        const toolbar = el.querySelector('.table-column-right')
-        if (toolbar !== null) {
-            setToolbarDropdown(table, toolbar)
+        const toolbar = [...table.el.children].find(i => i.classList.contains('table-toolbar'))
+        if (toolbar) {
+            const right = toolbar.querySelector('.table-column-right')
+            if(right) {
+                setToolbarDropdown(table, right)
+            }
         }
     }
 

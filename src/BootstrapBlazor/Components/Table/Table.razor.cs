@@ -50,6 +50,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     protected string? WrapperClassName => CssBuilder.Default()
         .AddClass("table-shim", ActiveRenderMode == TableRenderMode.Table)
+        .AddClass("table-card", ActiveRenderMode == TableRenderMode.CardView)
         .AddClass("table-wrapper", IsBordered)
         .AddClass("is-clickable", ClickToSelect || DoubleClickToEdit || OnClickRowCallback != null || OnDoubleClickRowCallback != null)
         .AddClass("table-scroll scroll", !IsFixedHeader || FixedColumn)
@@ -312,11 +313,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [NotNull]
     private ILookupService? LookupService { get; set; }
 
+    private bool _breakPointChanged;
+
     private Task OnBreakPointChanged(BreakPoint size)
     {
         if (size != ScreenSize)
         {
             ScreenSize = size;
+            _breakPointChanged = true;
             StateHasChanged();
         }
         return Task.CompletedTask;
@@ -802,6 +806,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 DragColumnCallback = nameof(DragColumnCallback),
                 ResizeColumnCallback = OnResizeColumnAsync != null ? nameof(ResizeColumnCallback) : null
             });
+        }
+
+        if(_breakPointChanged)
+        {
+            _breakPointChanged = false;
+            await InvokeVoidAsync("reset", Id);
         }
 
         if (_resetColumns)
