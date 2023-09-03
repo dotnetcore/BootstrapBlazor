@@ -261,6 +261,22 @@
     "SpinnersFloatTitle": "Spinner Floats",
     "SpinnersFloatIntro": "Use Float layout"
   },
+  "BootstrapBlazor.Shared.Samples.Splittings": {
+    "SplittingTitle": "Loader",
+    "SplittingDescription": "Display dynamic effects when loading data",
+    "SplittingTipsTitle": "When to use",
+    "SplittingTips": "When parts of the page are waiting for asynchronous data or during the rendering process, appropriate loading dynamics can effectively alleviate user anxiety.",
+    "SplittingNormalTitle": "Basic usage",
+    "SplittingNormalIntro": "Default Load Animation",
+    "SplittingTextTitle": "Custom Text",
+    "SplittingTextIntro": "Modify the displayed text content",
+    "SplittingColorTitle": "Color",
+    "SplittingColorIntro": "Modify the color of progress",
+    "SplittingColumnsTitle": "Colunms",
+    "SplittingColumnsIntro": "Modify the <code>Colunms</code> of progress bar segmentation granularity",
+    "SplittingColumnsText": "Colunms",
+    "SplittingText": "Loading 。。。"
+  },
   "BootstrapBlazor.Shared.Samples.SearchDialogs": {
     "SearchDialogsTitle": "SearchDialog search popup",
     "SearchDialogsSubTitle": "Automatically render search popups by binding the data model",
@@ -4492,7 +4508,8 @@
     "Live2DDisplayIntro": "Live2D Widget",
     "SlideButton": "SlideButton",
     "DialButton": "DialButton",
-    "CountButton": "CountButton"
+    "CountButton": "CountButton",
+    "Splitting": "Splitting"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -4758,7 +4775,6 @@
     "OnColumnCreatingLi2": "Render components to specific columns according to business logic and assign values ​​to <code>ComponentType</code> <code>ComponentParameters</code>",
     "AdvanceTitle": "Practical Example",
     "AdvanceIntro": "Custom rendering of columns by showing template <code>Template</code>",
-    "ResetVisibleColumnsDesc": "Call the instancel method <code>ResetVisibleColumns</code> of <code>Table</code> for set the multiple columns visible value",
     "CustomColText1": "Custom Column Name 1",
     "CustomColText2": "Custom column name 2",
     "CustomColText3": "Custom column name 3"
@@ -4810,7 +4826,8 @@
     "VisibleP2": "<code>TableColumn</code> adds the <code>Visiable</code> property, its default value is true, this column will not be displayed when the display is set to false",
     "VisibleP3": "In this example, the <b>quantity</b> column is not displayed by setting <code>Visible</code>, and it can be displayed through the column control button",
     "VisibleP4": "Trigger the <code>OnColumnVisibleChanged</code> callback when switch the column state <b>Show/Hide</b>",
-    "ResetVisibleColumnsButtonText": "Set Columns"
+    "ResetVisibleColumnsButtonText": "Set Columns",
+    "ResetVisibleColumnsDesc": "Call the instancel method <code>ResetVisibleColumns</code> of <code>Table</code> for set the multiple columns visible value"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesColumnTemplate": {
     "TablesColumnTitle": "Table Column",
@@ -5213,7 +5230,7 @@
     "SearchTableGroupBoxText": "Search Criteria",
     "NamePlaceholder": "Please enter your name within 50 characters",
     "AddressPlaceholder": "Please enter the address within 500 characters",
-    "AutoHeightIntro": "<div class=\"mb-2\"><b>Highly Adaptive</b></div><p>In this example, when the parent container height is set to <code>400px</code> expand/collapse the search bar, the table automatically fills the parent container</p>"
+    "AutoHeightIntro": "<div class=\"mb-2\"><b>Highly Adaptive</b></div><p>In this example, when the parent container height is set to <code>600px</code> expand/collapse the search bar, the table automatically fills the parent container</p>"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFilter": {
     "TablesFilterTitle": "Filter and sort function",

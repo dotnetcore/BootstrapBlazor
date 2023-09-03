@@ -418,6 +418,8 @@ public partial class Table<TItem>
             var queryOption = BuildQueryPageOptions();
 
             queryData = await InternalOnQueryAsync(queryOption);
+            PageIndex = queryOption.PageIndex;
+            PageItems = queryOption.PageItems;
             TotalCount = queryData.TotalCount;
             PageCount = (int)Math.Ceiling(TotalCount * 1.0 / Math.Max(1, PageItems));
             IsAdvanceSearch = queryData.IsAdvanceSearch;

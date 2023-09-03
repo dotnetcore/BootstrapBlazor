@@ -1036,6 +1036,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["Splitting"],
+                    Url = "splitting"
+                },
+                new()
+                {
                     Text = Localizer["SweetAlert"],
                     Url = "sweet-alert"
                 },

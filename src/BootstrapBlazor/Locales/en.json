@@ -332,6 +332,9 @@
     "DialogHeaderText": "Selected Icon",
     "CopiedTooltipText": "Copied"
   },
+  "BootstrapBlazor.Components.Splitting": {
+    "Text": "Loading ..."
+  },
   "BootstrapBlazor.Components.QueryBuilder": {
     "And": "and",
     "Or": "or",

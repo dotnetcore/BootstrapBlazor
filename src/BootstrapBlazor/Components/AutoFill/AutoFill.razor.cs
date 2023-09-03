@@ -26,8 +26,7 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// 获得 最终候选数据源
     /// </summary>
-    [NotNull]
-    protected List<TValue>? FilterItems { get; private set; }
+    private List<TValue> _filterItems = new();
 
     /// <summary>
     /// 获得/设置 组件数据集合
@@ -108,7 +107,7 @@ public partial class AutoFill<TValue>
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
 
-    private string InputString { get; set; } = "";
+    private string _inputString = "";
 
     private TValue? ActiveSelectedItem { get; set; }
 
@@ -122,7 +121,6 @@ public partial class AutoFill<TValue>
         NoDataTip ??= Localizer[nameof(NoDataTip)];
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         Items ??= Enumerable.Empty<TValue>();
-        FilterItems ??= new List<TValue>();
     }
 
     /// <summary>
@@ -136,7 +134,7 @@ public partial class AutoFill<TValue>
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
 
         OnGetDisplayText ??= v => v?.ToString() ?? "";
-        InputString = OnGetDisplayText(Value);
+        _inputString = Value == null ? string.Empty : OnGetDisplayText(Value);
     }
 
     /// <summary>
@@ -159,7 +157,7 @@ public partial class AutoFill<TValue>
     {
         _isShown = false;
         CurrentValue = val;
-        InputString = OnGetDisplayText(val);
+        _inputString = OnGetDisplayText(val);
         ActiveSelectedItem = default;
         if (OnSelectedItemChanged != null)
         {
@@ -172,7 +170,7 @@ public partial class AutoFill<TValue>
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
-    protected virtual async Task OnFocus(FocusEventArgs args)
+    private async Task OnFocus(FocusEventArgs args)
     {
         if (ShowDropdownListOnFocus)
         {
@@ -193,19 +191,18 @@ public partial class AutoFill<TValue>
             _isLoading = true;
             if (OnCustomFilter != null)
             {
-                var items = await OnCustomFilter(InputString);
-                FilterItems = items.ToList();
+                var items = await OnCustomFilter(_inputString);
+                _filterItems = items.ToList();
             }
             else
             {
                 var items = FindItem();
-                FilterItems = DisplayCount == null ? items.ToList() : items.Take(DisplayCount.Value).ToList();
+                _filterItems = DisplayCount == null ? items.ToList() : items.Take(DisplayCount.Value).ToList();
             }
             _isLoading = false;
         }
 
-        var source = FilterItems;
-        if (source.Any())
+        if (_filterItems.Any())
         {
             _isShown = true;
             // 键盘向上选择
@@ -214,13 +211,13 @@ public partial class AutoFill<TValue>
                 var index = 0;
                 if (ActiveSelectedItem != null)
                 {
-                    index = source.IndexOf(ActiveSelectedItem) - 1;
+                    index = _filterItems.IndexOf(ActiveSelectedItem) - 1;
                     if (index < 0)
                     {
-                        index = source.Count - 1;
+                        index = _filterItems.Count - 1;
                     }
                 }
-                ActiveSelectedItem = source[index];
+                ActiveSelectedItem = _filterItems[index];
                 CurrentItemIndex = index;
             }
             else if (key == "ArrowDown")
@@ -228,13 +225,13 @@ public partial class AutoFill<TValue>
                 var index = 0;
                 if (ActiveSelectedItem != null)
                 {
-                    index = source.IndexOf(ActiveSelectedItem) + 1;
-                    if (index > source.Count - 1)
+                    index = _filterItems.IndexOf(ActiveSelectedItem) + 1;
+                    if (index > _filterItems.Count - 1)
                     {
                         index = 0;
                     }
                 }
-                ActiveSelectedItem = source[index];
+                ActiveSelectedItem = _filterItems[index];
                 CurrentItemIndex = index;
             }
             else if (key == "Escape")
@@ -250,7 +247,7 @@ public partial class AutoFill<TValue>
                 ActiveSelectedItem ??= FindItem().FirstOrDefault();
                 if (ActiveSelectedItem != null)
                 {
-                    InputString = OnGetDisplayText(ActiveSelectedItem);
+                    _inputString = OnGetDisplayText(ActiveSelectedItem);
                 }
                 await OnBlur();
                 if (!SkipEnter && OnEnterAsync != null)
@@ -265,8 +262,8 @@ public partial class AutoFill<TValue>
         {
             var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
             return IsLikeMatch ?
-                Items.Where(s => OnGetDisplayText(s).Contains(InputString, comparison)) :
-                Items.Where(s => OnGetDisplayText(s).StartsWith(InputString, comparison));
+                Items.Where(s => OnGetDisplayText(s).Contains(_inputString, comparison)) :
+                Items.Where(s => OnGetDisplayText(s).StartsWith(_inputString, comparison));
         }
     }
 
@@ -277,6 +274,6 @@ public partial class AutoFill<TValue>
     [JSInvokable]
     public void TriggerOnChange(string val)
     {
-        InputString = val;
+        _inputString = val;
     }
 }

@@ -42,14 +42,38 @@
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="@Localizer["InputGroupsNormalUserName"]" />
+                <BootstrapInputGroupLabel DisplayText="Select" />
                 <Select TValue="string" Items="@Items"></Select>
             </BootstrapInputGroup>
         </div>
         <div class="col-12 col-sm-6">
             <BootstrapInputGroup>
-                <Select TValue="string" Items="@Items"></Select>
-                <BootstrapInputGroupLabel DisplayText="@Localizer["InputGroupsNormalUserName"]" />
+                <BootstrapInputGroupLabel DisplayText="MultiSelect" />
+                <MultiSelect TValue="string" Items="@Items2" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="AutoComplete" />
+                <AutoComplete Items="@StaticItems" IsLikeMatch="true" IgnoreCase="false" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="AutoFill" />
+                <AutoFill TValue="Foo" Items="AufoFillItems" IsLikeMatch="true" OnGetDisplayText="@(foo => foo.Name ?? "")">
+                    <Template>
+                        <div class="d-flex">
+                            <div>
+                                <img src="@Foo.GetAvatarUrl(context.Id)" class="bb-avatar" />
+                            </div>
+                            <div class="ps-2">
+                                <div>@context.Name</div>
+                                <div class="bb-sub">@Foo.GetTitle(context.Id)</div>
+                            </div>
+                        </div>
+                    </Template>
+                </AutoFill>
             </BootstrapInputGroup>
         </div>
     </div>

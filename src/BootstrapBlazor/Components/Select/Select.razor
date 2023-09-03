@@ -46,7 +46,7 @@
                 <div class="dropdown-virtual">
                     @if (OnQueryAsync == null)
                     {
-                        <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" Items="@VirtualCollection" ChildContent="RenderRow" />
+                        <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" Items="@GetVirtualItems()" ChildContent="RenderRow" />
                     }
                     else
                     {
