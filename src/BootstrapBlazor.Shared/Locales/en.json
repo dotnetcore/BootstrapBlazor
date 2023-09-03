@@ -5230,7 +5230,7 @@
     "SearchTableGroupBoxText": "Search Criteria",
     "NamePlaceholder": "Please enter your name within 50 characters",
     "AddressPlaceholder": "Please enter the address within 500 characters",
-    "AutoHeightIntro": "<div class=\"mb-2\"><b>Highly Adaptive</b></div><p>In this example, when the parent container height is set to <code>400px</code> expand/collapse the search bar, the table automatically fills the parent container</p>"
+    "AutoHeightIntro": "<div class=\"mb-2\"><b>Highly Adaptive</b></div><p>In this example, when the parent container height is set to <code>600px</code> expand/collapse the search bar, the table automatically fills the parent container</p>"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFilter": {
     "TablesFilterTitle": "Filter and sort function",

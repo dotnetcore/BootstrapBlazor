@@ -5230,7 +5230,7 @@
     "SearchTableGroupBoxText": "搜索条件",
     "NamePlaceholder": "请输入姓名，50字以内",
     "AddressPlaceholder": "请输入地址，500字以内",
-    "AutoHeightIntro": "<div class=\"mb-2\"><b>高度自适应</b></div><p>本例中设置父容器高度为 <code>400px</code> 展开/收起搜索栏时，表格自动充满父容器</p>"
+    "AutoHeightIntro": "<div class=\"mb-2\"><b>高度自适应</b></div><p>本例中设置父容器高度为 <code>600px</code> 展开/收起搜索栏时，表格自动充满父容器</p>"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFilter": {
     "TablesFilterTitle": "筛选和排序功能",
