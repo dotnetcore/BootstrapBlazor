@@ -4968,15 +4968,26 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.AddAttribute(3, "ShownWithBreakPoint", BreakPoint.Large);
                     builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
                 });
             });
         });
 
-        cut.InvokeAsync(() =>
-        {
-            var resp = cut.FindComponent<ResizeNotification>().Instance;
-            resp.OnResize(BreakPoint.Large);
-        });
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.NotNull(table);
+
+        var cols = table.FindComponents<TableColumn<Foo, string>>();
+        Assert.Equal(2, cols.Count);
+
+        var resp = cut.FindComponent<ResizeNotification>().Instance;
+        resp.OnResize(BreakPoint.Small);
+
+        var row = table.Find("tbody > tr");
+        Assert.Equal(1, row.ChildElementCount);
     }
 
     [Fact]
