@@ -645,6 +645,16 @@ form .table .table-cell > textarea {
 .table-search .card-header {
     --bs-card-cap-padding-y: 0;
     min-height: var(--bb-table-header-min-height);
+
+    .card-title {
+        display: none;
+    }
+}
+
+@media (min-width: 576px) {
+    .table-search .card-header .card-title {
+        display: initial;
+    }
 }
 
 .table-search .card-header .table-search-buttons .btn {
