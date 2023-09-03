@@ -6952,6 +6952,8 @@ public class TableTest : TableTestBase
         cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(1, 100));
         Assert.Equal("Address", name);
         Assert.Equal(100, width);
+
+        cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(20, 100));
     }
 
     [Theory]
