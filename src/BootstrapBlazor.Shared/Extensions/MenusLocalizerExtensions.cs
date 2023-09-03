@@ -260,6 +260,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Match = NavLinkMatch.All,
                     Text = Localizer["Checkbox"],
                     Url = "checkbox"
                 },
