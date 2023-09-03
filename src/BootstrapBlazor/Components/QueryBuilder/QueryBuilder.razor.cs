@@ -109,6 +109,8 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
 
         Filter ??= new FilterKeyValueAction();
         Filter.Filters ??= new();
+
+        _fields.AddRange(typeof(TModel).GetProperties().Select(p => new SelectedItem(p.Name, Utility.GetDisplayName<TModel>(p.Name))));
     }
 
     /// <summary>
