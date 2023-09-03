@@ -31,18 +31,6 @@ public class QueryColumn<TType> : QueryGroup
     public string? FieldName { get; set; }
 
     /// <summary>
-    /// 获得/设置 显示名称
-    /// </summary>
-    [Parameter]
-    public string? Text { get; set; }
-
-    /// <summary>
-    /// 获得/设置 值组件类型
-    /// </summary>
-    [Parameter]
-    public Type? ComponentType { get; set; }
-
-    /// <summary>
     /// 获得/设置 条件操作符号
     /// </summary>
     [Parameter]
@@ -55,10 +43,6 @@ public class QueryColumn<TType> : QueryGroup
     public object? Value { get; set; }
 
     private FieldIdentifier? _fieldIdentifier;
-    /// <summary>
-    /// 获取绑定字段显示名称方法
-    /// </summary>
-    public virtual string GetDisplayName() => Text ?? _fieldIdentifier?.GetDisplayName() ?? FieldName ?? "";
 
     /// <summary>
     /// <inheritdoc/>
