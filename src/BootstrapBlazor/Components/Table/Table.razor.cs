@@ -773,7 +773,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             InternalResetVisibleColumns(Columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.Visible)));
 
             // set default sortName
-            var col = Columns.FirstOrDefault(i => i.Sortable && i.DefaultSort);
+            var col = Columns.Find(i => i.Sortable && i.DefaultSort);
             if (col != null)
             {
                 SortName = col.GetFieldName();
@@ -1273,12 +1273,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public async Task ResizeColumnCallback(int index, float width)
     {
         var column = GetVisibleColumns().ElementAtOrDefault(index);
-        if (column != null)
+        if (column != null && OnResizeColumnAsync != null)
         {
-            if (OnResizeColumnAsync != null)
-            {
-                await OnResizeColumnAsync(column.GetFieldName(), width);
-            }
+            await OnResizeColumnAsync(column.GetFieldName(), width);
         }
     }
 
