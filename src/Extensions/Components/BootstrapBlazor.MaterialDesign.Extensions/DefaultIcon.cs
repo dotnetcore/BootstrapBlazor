@@ -204,5 +204,6 @@ internal class DefaultIcon
 
         { ComponentIcons.QueryBuilderPlusIcon, "mdi mdi-plus" },
         { ComponentIcons.QueryBuilderMinusIcon, "mdi mdi-minus" },
+        { ComponentIcons.QueryBuilderRemoveIcon, "mdi mdi-close" }
     };
 }
