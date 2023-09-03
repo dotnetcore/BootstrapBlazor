@@ -4775,7 +4775,6 @@
     "OnColumnCreatingLi2": "根据业务逻辑对特定列进行组件渲染，对 <code>ComponentType</code> <code>ComponentParameters</code> 进行赋值操作",
     "AdvanceTitle": "实战示例",
     "AdvanceIntro": "通过显示模板 <code>Template</code> 对各列进行自定义渲染",
-    "ResetVisibleColumnsDesc": "通过调用 <code>Table</code> 实例方法 <code>ResetVisibleColumns</code> 可设置任意列显示隐藏属性",
     "CustomColText1": "自定义列名1",
     "CustomColText2": "自定义列名2",
     "CustomColText3": "自定义列名3"
@@ -4827,7 +4826,8 @@
     "VisibleP2": "<code>TableColumn</code> 增加 <code>Visiable</code> 属性，其默认值为 true，显示设置为 false 时不显示此列",
     "VisibleP3": "此例中 <b>数量</b> 列通过设置 <code>Visible</code> 未显示，可以通过列控制按钮进行显示设置",
     "VisibleP4": "更改 <b>列</b> 状态后触发 <code>OnColumnVisibleChanged</code> 回调委托",
-    "ResetVisibleColumnsButtonText": "设置列隐藏信息"
+    "ResetVisibleColumnsButtonText": "设置列隐藏信息",
+    "ResetVisibleColumnsDesc": "通过调用 <code>Table</code> 实例方法 <code>ResetVisibleColumns</code> 可设置任意列显示隐藏属性"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesColumnTemplate": {
     "TablesColumnTitle": "Table 表格",
