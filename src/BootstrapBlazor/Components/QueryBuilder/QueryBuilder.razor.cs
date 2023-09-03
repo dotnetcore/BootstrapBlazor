@@ -100,6 +100,12 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
 
     private List<SelectedItem>? Operations { get; set; }
 
+    private readonly List<SelectedItem> _dropdownItems = new()
+    {
+        new("Group", "Group"),
+        new("Item", "Item")
+    };
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -193,6 +199,13 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
             await FilterChanged.InvokeAsync(Filter);
         }
     }
+
+    private static void SetFilterLogic(FilterKeyValueAction filter, FilterLogic logic)
+    {
+        filter.FilterLogic = logic;
+    }
+
+    private static Color GetColorByFilter(FilterKeyValueAction filter, FilterLogic logic) => filter.FilterLogic == logic ? Color.Primary : Color.Secondary;
 
     private List<SelectedItem> _fields = new();
 
