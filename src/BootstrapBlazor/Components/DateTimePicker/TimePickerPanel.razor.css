@@ -3,17 +3,14 @@
 }
 
 .bb-timepanel:not(.dark) .bb-timepanel-picker {
-  font-size: 0.8em;
   background: #f2f2f2;
   width: 15em;
   user-select: none;
   color: #909090;
-  font-family: "Roboto", sans-serif;
 }
 .bb-timepanel:not(.dark) .bb-timepanel-picker .time-wrap {
   background: #fff;
   padding: 1em;
-  height: 3em;
   text-align: right;
 }
 .bb-timepanel:not(.dark) .bb-timepanel-picker .time-wrap .active {
@@ -208,8 +205,8 @@
 }
 .bb-timepanel:not(.dark) .bb-timepanel-picker .am-pm-btns .am-pm-btn {
   display: inline-block;
-  height: 1.65em;
-  width: 1.65em;
+  height: auto;
+  width: auto;
   background: #fff;
   border-radius: 50%;
   cursor: pointer;
@@ -225,17 +222,14 @@
 }
 
 .bb-timepanel.dark .bb-timepanel-picker {
-  font-size: 0.8em;
   background: #404040;
   width: 15em;
   user-select: none;
   color: #fff;
-  font-family: "Roboto", sans-serif;
 }
 .bb-timepanel.dark .bb-timepanel-picker .time-wrap {
   background: #363636;
   padding: 1em;
-  height: 3em;
   text-align: right;
 }
 .bb-timepanel.dark .bb-timepanel-picker .time-wrap .active {
@@ -430,8 +424,8 @@
 }
 .bb-timepanel.dark .bb-timepanel-picker .am-pm-btns .am-pm-btn {
   display: inline-block;
-  height: 1.65em;
-  width: 1.65em;
+  height: auto;
+  width: auto;
   background: #363636;
   border-radius: 50%;
   cursor: pointer;

@@ -12,17 +12,14 @@ $lightActiveText: #33b5e5;
 
 @mixin bb-timepanel-picker($handle,$face,$background,$text,$activeText) {
     .bb-timepanel-picker {
-        font-size: 0.8em;
         background: $background;
         width: 15em;
         user-select: none;
         color: $text;
-        font-family: 'Roboto', sans-serif;
 
         .time-wrap {
             background: $face;
             padding: 1em;
-            height: 3em;
             text-align: right;
 
             .active {
@@ -156,8 +153,8 @@ $lightActiveText: #33b5e5;
 
             .am-pm-btn {
                 display: inline-block;
-                height: 1.65em;
-                width: 1.65em;
+                height: auto;
+                width: auto;
                 background: $face;
                 border-radius: 50%;
                 cursor: pointer;

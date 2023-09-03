@@ -58,9 +58,7 @@
             var $this = self.querySelector('.face-wrap');
             var pos = $this.getBoundingClientRect();
             var cent = { left: $this.offsetWidth / 2 + pos.left, top: $this.offsetHeight / 2 + pos.top };
-            console.log(cent);
             var hrs = Math.atan2(e.pageY - cent.top, e.pageX - cent.left) / Math.PI * 6 + 3;
-            console.log(hrs);
             hrs += 12;
             hrs %= 12;
             if (min) {
