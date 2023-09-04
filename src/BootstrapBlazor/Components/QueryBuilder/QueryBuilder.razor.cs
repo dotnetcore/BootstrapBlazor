@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Localization;
-using System.Collections.Concurrent;
 
 namespace BootstrapBlazor.Components;
 
@@ -39,7 +38,7 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
     /// 获得/设置 逻辑运算符
     /// </summary>
     [Parameter]
-    public FilterLogic logic { get; set; }
+    public FilterLogic Logic { get; set; }
 
     /// <summary>
     /// 获得/设置 模板
@@ -145,6 +144,9 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
         GroupText ??= Localizer[nameof(GroupText)];
         ItemText ??= Localizer[nameof(ItemText)];
 
+        Value ??= new();
+        Value.FilterLogic = Logic;
+
         Operations ??= new()
         {
             new SelectedItem("GreaterThanOrEqual", Localizer["GreaterThanOrEqual"].Value),
@@ -196,20 +198,17 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
         }
     }
 
-    private readonly ConcurrentDictionary<FilterKeyValueAction, FilterLogic> _filterLogicCache = new();
-
-    private FilterLogic GetFilterLogic(FilterKeyValueAction filter) => _filterLogicCache.TryGetValue(filter, out var l) ? l : FilterLogic.And;
-
     private Task SetFilterLogic(FilterKeyValueAction filter, FilterLogic logic)
     {
-        _filterLogicCache.AddOrUpdate(filter, f => logic, (f, l) => logic);
+        filter.FilterLogic = logic;
+        StateHasChanged();
         return Task.CompletedTask;
     }
 
     private async Task OnAddFilterGroup(FilterKeyValueAction filter)
     {
         filter.Filters ??= new();
-        filter.Filters.Add(new FilterKeyValueAction() { FilterLogic = GetFilterLogic(filter), Filters = new() { new() } });
+        filter.Filters.Add(new FilterKeyValueAction() { Filters = new() { new() } });
 
         await OnFilterChanged();
     }
@@ -225,7 +224,7 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
     private async Task OnClickRemove(FilterKeyValueAction? parent, FilterKeyValueAction filter)
     {
         filter.Filters?.Clear();
-        if (!filter.HasFilters() && parent != null)
+        if (parent != null)
         {
             parent.Filters?.Remove(filter);
         }
@@ -233,9 +232,9 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
         await OnFilterChanged();
     }
 
-    private Color GetColorByFilter(FilterKeyValueAction filter, FilterLogic logic) => GetFilterLogic(filter) == logic ? Color.Primary : Color.Secondary;
+    private static Color GetColorByFilter(FilterKeyValueAction filter, FilterLogic logic) => filter.FilterLogic == logic ? Color.Primary : Color.Secondary;
 
-    private List<SelectedItem> _fields = new();
+    private readonly List<SelectedItem> _fields = new();
 
     RenderFragment RenderFilters(FilterKeyValueAction? parent, FilterKeyValueAction filter) => builder =>
     {
