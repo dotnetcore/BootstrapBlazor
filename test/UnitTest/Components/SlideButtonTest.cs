@@ -14,7 +14,7 @@ public class SlideButtonTest : BootstrapBlazorTestBase
             pb.AddUnmatched("class", "slide-test");
         });
         cut.Contains("slide-button slide-test");
-        cut.Contains("slide-list d-none");
+        cut.Contains("slide-list invisible");
     }
 
     [Fact]
@@ -47,7 +47,7 @@ public class SlideButtonTest : BootstrapBlazorTestBase
             pb.Add(i => i.Placement, Placement.Left);
         });
         cut.Contains("data-bb-placement=\"left\"");
-        cut.Contains("slide-list d-none is-horizontal");
+        cut.Contains("slide-list invisible is-horizontal");
     }
 
     [Fact]
