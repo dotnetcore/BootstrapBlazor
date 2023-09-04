@@ -103,18 +103,15 @@ public class QueryBuilderTest : BootstrapBlazorTestBase
 
         buttons[1].Click();
         Assert.Equal(FilterLogic.Or, cut.Instance.Value.FilterLogic);
-    }
-
-    [Fact]
-    public void Logic_Ok()
-    {
-        var cut = Context.RenderComponent<QueryBuilder<Foo>>();
-        Assert.Equal(FilterLogic.And, cut.Instance.Value.FilterLogic);
 
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.Logic, FilterLogic.Or);
+            pb.Add(a => a.Logic, FilterLogic.And);
         });
+        Assert.Equal(FilterLogic.And, cut.Instance.Value.FilterLogic);
+
+        buttons[1].Click();
         Assert.Equal(FilterLogic.Or, cut.Instance.Value.FilterLogic);
+        Assert.Equal(FilterLogic.Or, cut.Instance.Logic);
     }
 }
