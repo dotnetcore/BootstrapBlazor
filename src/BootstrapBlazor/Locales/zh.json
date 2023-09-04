@@ -345,6 +345,8 @@
     "Equal": "等于",
     "NotEqual": "不等于",
     "Contains": "包含",
-    "NotContains": "不包含"
+    "NotContains": "不包含",
+    "GroupText": "组合条件",
+    "ItemText": "单行条件"
   }
 }

@@ -345,6 +345,8 @@
     "Equal": "Equal",
     "NotEqual": "NotEqual",
     "Contains": "Contains",
-    "NotContains": "NotContains"
+    "NotContains": "NotContains",
+    "GroupText": "Group",
+    "ItemText": "Item"
   }
 }

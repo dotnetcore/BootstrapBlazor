@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Localization;
+using System.Collections.Concurrent;
 
 namespace BootstrapBlazor.Components;
 
@@ -88,6 +89,18 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
     [Parameter]
     public string? MinusIcon { get; set; }
 
+    /// <summary>
+    /// 获得/设置 组合过滤条件文本
+    /// </summary>
+    [Parameter]
+    public string? GroupText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 过滤条件文本
+    /// </summary>
+    [Parameter]
+    public string? ItemText { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
@@ -129,6 +142,8 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
         PlusIcon ??= IconTheme.GetIconByKey(ComponentIcons.QueryBuilderPlusIcon);
         MinusIcon ??= IconTheme.GetIconByKey(ComponentIcons.QueryBuilderMinusIcon);
         RemoveIcon ??= IconTheme.GetIconByKey(ComponentIcons.QueryBuilderRemoveIcon);
+        GroupText ??= Localizer[nameof(GroupText)];
+        ItemText ??= Localizer[nameof(ItemText)];
 
         Operations ??= new()
         {
@@ -158,25 +173,6 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
         }
     }
 
-    private async Task OnClickAdd(FilterKeyValueAction filter)
-    {
-        filter.Filters ??= new();
-        filter.Filters.Add(new FilterKeyValueAction() { });
-
-        await OnFilterChanged();
-    }
-
-    private async Task OnClickRemove(FilterKeyValueAction? parent, FilterKeyValueAction filter)
-    {
-        filter.Filters?.Clear();
-        if (!filter.HasFilters() && parent != null)
-        {
-            parent.Filters?.Remove(filter);
-        }
-
-        await OnFilterChanged();
-    }
-
     private async Task OnClickRemoveFilter(FilterKeyValueAction parent, FilterKeyValueAction filter)
     {
         parent.Filters?.Remove(filter);
@@ -200,12 +196,44 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
         }
     }
 
-    private static void SetFilterLogic(FilterKeyValueAction filter, FilterLogic logic)
+    private readonly ConcurrentDictionary<FilterKeyValueAction, FilterLogic> _filterLogicCache = new();
+
+    private FilterLogic GetFilterLogic(FilterKeyValueAction filter) => _filterLogicCache.TryGetValue(filter, out var l) ? l : FilterLogic.And;
+
+    private Task SetFilterLogic(FilterKeyValueAction filter, FilterLogic logic)
     {
-        filter.FilterLogic = logic;
+        _filterLogicCache.AddOrUpdate(filter, f => logic, (f, l) => logic);
+        return Task.CompletedTask;
     }
 
-    private static Color GetColorByFilter(FilterKeyValueAction filter, FilterLogic logic) => filter.FilterLogic == logic ? Color.Primary : Color.Secondary;
+    private async Task OnAddFilterGroup(FilterKeyValueAction filter)
+    {
+        filter.Filters ??= new();
+        filter.Filters.Add(new FilterKeyValueAction() { FilterLogic = GetFilterLogic(filter), Filters = new() { new() } });
+
+        await OnFilterChanged();
+    }
+
+    private async Task OnAddFilterItem(FilterKeyValueAction filter)
+    {
+        filter.Filters ??= new();
+        filter.Filters.Add(new FilterKeyValueAction() { });
+
+        await OnFilterChanged();
+    }
+
+    private async Task OnClickRemove(FilterKeyValueAction? parent, FilterKeyValueAction filter)
+    {
+        filter.Filters?.Clear();
+        if (!filter.HasFilters() && parent != null)
+        {
+            parent.Filters?.Remove(filter);
+        }
+
+        await OnFilterChanged();
+    }
+
+    private Color GetColorByFilter(FilterKeyValueAction filter, FilterLogic logic) => GetFilterLogic(filter) == logic ? Color.Primary : Color.Secondary;
 
     private List<SelectedItem> _fields = new();
 
