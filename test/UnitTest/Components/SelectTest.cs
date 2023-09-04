@@ -609,6 +609,86 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void IsVirtualize_BindValue()
+    {
+        var value = new SelectedItem("3", "Test 3");
+        var cut = Context.RenderComponent<Select<SelectedItem>>(pb =>
+        {
+            pb.Add(a => a.Value, value);
+            pb.Add(a => a.IsVirtualize, true);
+            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<SelectedItem>(this, new Action<SelectedItem>(item =>
+            {
+                value = item;
+            })));
+            pb.Add(a => a.OnQueryAsync, option =>
+            {
+                return Task.FromResult(new QueryData<SelectedItem>()
+                {
+                    Items = new SelectedItem[]
+                    {
+                        new SelectedItem("1", "Test1"),
+                        new SelectedItem("2", "Test2")
+                    },
+                    TotalCount = 2
+                });
+            });
+        });
+
+        cut.InvokeAsync(() =>
+        {
+            var input = cut.Find(".form-select");
+            Assert.Equal("Test 3", input.GetAttribute("value"));
+        });
+        cut.Contains("Test 3");
+        var select = cut.Instance;
+        Assert.Equal("3", select.Value?.Value);
+
+        cut.InvokeAsync(() =>
+        {
+            var item = cut.Find(".dropdown-item");
+            item.Click();
+            Assert.Equal("1", value.Value);
+
+            var input = cut.Find(".form-select");
+            Assert.Equal("Test1", input.GetAttribute("value"));
+        });
+    }
+
+    [Fact]
+    public void IsVirtualize_DefaultVirtualizeItemText()
+    {
+        string value = "3";
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.IsVirtualize, true);
+            pb.Add(a => a.DefaultVirtualizeItemText, "Test 3");
+            pb.Add(a => a.Value, value);
+            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<string>(this, new Action<string>(item =>
+            {
+                value = item;
+            })));
+            pb.Add(a => a.OnQueryAsync, option =>
+            {
+                return Task.FromResult(new QueryData<SelectedItem>()
+                {
+                    Items = new SelectedItem[]
+                    {
+                        new SelectedItem("1", "Test1"),
+                        new SelectedItem("2", "Test2")
+                    },
+                    TotalCount = 2
+                });
+            });
+        });
+
+        cut.InvokeAsync(() =>
+        {
+            var input = cut.Find(".form-select");
+            Assert.Equal("Test 3", input.GetAttribute("value"));
+        });
+    }
+
+    [Fact]
     public void LoadItems_Ok()
     {
         var cut = Context.RenderComponent<Select<string>>(pb =>

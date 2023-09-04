@@ -54,58 +54,6 @@
             padding: 8px 5px 5px;
             display: table;
             width: 100%;
-
-            .date-picker-editor-wrap {
-                position: relative;
-                display: table-cell;
-                padding: 0 5px;
-
-                .input-inner {
-                    height: 2rem;
-                    line-height: 2rem;
-                    padding: 0 1rem;
-                    cursor: pointer;
-
-                    &[readonly] {
-                        background-color: #fff;
-                    }
-                }
-
-                .time-panel {
-                    position: absolute;
-                    z-index: -1;
-                    display: none;
-                    width: 145px;
-                    margin-top: 0.25rem;
-
-                    .time-spinner-item {
-                        height: 28px;
-                        line-height: 28px;
-                    }
-                }
-
-                .time-panel-content {
-                    &:after, &:before {
-                        margin-top: -32px;
-                        height: 28px;
-                    }
-                }
-
-                .time-spinner-arrow {
-                    &.fa-angle-up {
-                        top: 3px;
-                    }
-
-                    &.fa-angle-down {
-                        bottom: 3px;
-                    }
-                }
-
-                .time-spinner-list-wrapper {
-                    height: 84px;
-                    margin: 36px 0;
-                }
-            }
         }
 
         &:after {
@@ -247,6 +195,58 @@
                 }
             }
         }
+    }
+}
+
+.date-picker-editor-wrap {
+    position: relative;
+    display: table-cell;
+    padding: 0 5px;
+
+    .input-inner {
+        height: 2rem;
+        line-height: 2rem;
+        padding: 0 1rem;
+        cursor: pointer;
+
+        &[readonly] {
+            background-color: #fff;
+        }
+    }
+
+    .time-panel {
+        position: absolute;
+        z-index: -1;
+        display: none;
+        width: 145px;
+        margin-top: 0.25rem;
+
+        .time-spinner-item {
+            height: 28px;
+            line-height: 28px;
+        }
+    }
+
+    .time-panel-content {
+        &:after, &:before {
+            margin-top: -32px;
+            height: 28px;
+        }
+    }
+
+    .time-spinner-arrow {
+        &.fa-angle-up {
+            top: 3px;
+        }
+
+        &.fa-angle-down {
+            bottom: 3px;
+        }
+    }
+
+    .time-spinner-list-wrapper {
+        height: 84px;
+        margin: 36px 0;
     }
 }
 

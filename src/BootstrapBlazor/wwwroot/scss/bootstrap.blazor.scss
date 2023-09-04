@@ -113,5 +113,26 @@ $icon-height: auto;
 $icon-padding-left: .5rem;
 $icon-badge-bottom: 7px;
 $icon-path-fill-color: #495057;
+// DropdownWidget
+$dropdown-link-active-color: unset;
+$dropdown-link-active-bg: unset;
+$dropdown-link-hover-bg: unset;
+$widget-border-color: #dcdfe6;
+
+// Divider
+$divider-bg: #dcdfe6;
+$divider-margin: 1rem 0;
+$divider-text-bg: #fff;
+$divider-text-color: #303133;
+$divider-text-padding: 0 20px;
+
+// Loader
+$splitting-padding: .25rem;
+$splitting-text-bottom-margin: .5rem;
+$splitting-progress-height: 1rem;
+
+// Footer
+$footer-bg: var(--bs-secondary);
+$footer-padding: .5rem 1rem;
 
 @import "./components.scss";

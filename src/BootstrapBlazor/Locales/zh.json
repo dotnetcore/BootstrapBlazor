@@ -284,8 +284,8 @@
   "BootstrapBlazor.Components.Transfer": {
     "LeftPanelText": "全部",
     "RightPanelText": "已选",
-    "MinErrorMessage": "最少请选择{0}项",
-    "MaxErrorMessage": "最多可选择{0}项"
+    "MinErrorMessage": "最少请选择 {0} 项",
+    "MaxErrorMessage": "最多可选择 {0} 项"
   },
   "BootstrapBlazor.Components.TransferPanel": {
     "SearchPlaceHolderString": "请输入 ...",
@@ -331,5 +331,8 @@
     "ButtonText": "点击复制",
     "DialogHeaderText": "请选择图标",
     "CopiedTooltipText": "拷贝成功"
+  },
+  "BootstrapBlazor.Components.Splitting": {
+    "Text": "正在加载 ..."
   }
 }

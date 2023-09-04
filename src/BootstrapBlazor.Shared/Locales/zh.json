@@ -261,6 +261,22 @@
     "SpinnersFloatTitle": "悬浮",
     "SpinnersFloatIntro": "使用 Float 布局"
   },
+  "BootstrapBlazor.Shared.Samples.Splittings": {
+    "SplittingTitle": "Loader 加载动画",
+    "SplittingDescription": "加载数据时显示动效",
+    "SplittingTipsTitle": "何时使用",
+    "SplittingTips": "页面局部处于等待异步数据或正在渲染过程时，合适的加载动效会有效缓解用户的焦虑。",
+    "SplittingNormalTitle": "基础用法",
+    "SplittingNormalIntro": "默认加载动画",
+    "SplittingTextTitle": "自定义文本",
+    "SplittingTextIntro": "修改显示的文本内容",
+    "SplittingColorTitle": "颜色",
+    "SplittingColorIntro": "设置 <code>Color</code> 更改进度条颜色",
+    "SplittingColumnsTitle": "分割粒度",
+    "SplittingColumnsIntro": "设置 <code>Columns</code> 更改进度条分割粒度",
+    "SplittingColumnsText": "分割粒度",
+    "SplittingText": "加载中 。。。"
+  },
   "BootstrapBlazor.Shared.Samples.SearchDialogs": {
     "SearchDialogsTitle": "SearchDialog 搜索弹窗",
     "SearchDialogsSubTitle": "通过绑定数据模型自动呈现搜索弹窗",
@@ -1695,7 +1711,7 @@
     "ColorTitle": "带有颜色的下拉框",
     "ColorIntro": "提供各种颜色的警告信息框 引用 <code>Color='Color.Primary'</code> 等颜色及样式类来定义下拉菜单的外在表现",
     "SplitTitle": "分裂式按钮下拉菜单",
-    "SplitIntro": "可用与单个按钮下拉菜单近似的标记创建分裂式下拉菜单，添加 <code>ShowSplit='true'</code> (使用分裂式组件时需要加上 <code>DropdownType='DropdownType.ButtonGroup</code>') 插入此符号为下拉选项作适当的间隔（距）处理。",
+    "SplitIntro": "可用与单个按钮下拉菜单近似的标记创建分裂式下拉菜单，添加 <code>ShowSplit='true'</code> 插入此符号为下拉选项作适当的间隔（距）处理。",
     "SizeTitle": "尺寸大小定义",
     "SizeIntro": "下拉菜单有各种大小规格可以选用 <code>Size</code> 属性，包括预设及分裂式按钮下拉菜单。",
     "DirectionTitle": "展开方向",
@@ -4492,7 +4508,8 @@
     "Live2DDisplayIntro": "Live2D 插件",
     "SlideButton": "快捷菜单 SlideButton",
     "DialButton": "拨号菜单 DialButton",
-    "CountButton": "倒计时按钮 CountButton"
+    "CountButton": "倒计时按钮 CountButton",
+    "Splitting": "动画组件 Splitting"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -4522,21 +4539,6 @@
     "SelectTreesIsPopoverTitle": "悬浮弹窗",
     "SelectTreesIsPopoverIntro": "通过设置 <code>IsPopover</code> 参数，组件使用 <code>popover</code> 渲染 <code>UI</code> 防止由于父容器设置 <code>overflow: hidden;</code> 使弹窗无法显示问题",
     "SelectTreesClientValidationButtonText": "提交"
-  },
-  "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {
-    "TablesFooterTitle": "Table 统计功能",
-    "TablesFooterDescription": "用于数据统计",
-    "TablesFooterStatisticsTitle": "数据统计示例",
-    "TablesFooterStatisticsIntro": "设置 <code>ShowFooter=true</code> 显示 <code>Footer</code> 自定义合计功能",
-    "TablesFooterStatisticsTips1": "<code>Table</code> 组件有 <code>TableFooter</code> 模板，其数据上下文为 <code>Table</code> 组件的数据集合 <code>IEnumerable&lt;TItem&gt;</code>",
-    "TablesFooterStatisticsTips2": "<code>TableFooter</code> 模板中关联的上下文 <code>context</code> 值为当页数据集合",
-    "TablesFooterStatisticsTips3": "<code>TableFooter</code> 模板内可以自定义单元格 <code>td</code> 内容，也可以使用内置的 <code>TableFooterCell</code> 组件进行数据显示",
-    "TablesFooterTemplateTitle": "Footer 模板",
-    "TablesFooterTemplateIntro": "设置 <code>FooterTemplate</code> 自定义表格底部显示内容",
-    "TablesFooterTemplateDescription": "无数据时默认显示 <code>Footer</code> 可通过设置 <code>@nameof(Table<Foo>.IsHideFooterWhenNoData)</code> 参数隐藏 <code>Footer</code>",
-    "TablesFooterStatisticsTotal": "合计：",
-    "TablesFooterTemplateSentences": "这里可以写一些描述性的语句",
-    "TablesFooterTemplateTotal": "合计："
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesDetailRow": {
     "TablesDetailRowTitle": "显示明细行功能",
@@ -4739,7 +4741,8 @@
     "PageInfoTextAttr": "分页信息显示文字",
     "AllowDragOrderAttr": "是否允许拖动列标题调整表格列顺序",
     "TableBaseNormalRefreshText": "刷新",
-    "TableBaseHeaderStyleMode": "模式"
+    "TableBaseHeaderStyleMode": "表头模式",
+    "IsPopoverToolbarDropdownButtonAttr": "工具栏下拉框按钮是否浮动"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesColumn": {
     "TablesColumnTitle": "Table 表格",
@@ -4764,11 +4767,6 @@
     "ShowCopyColumnTitle": "允许拷贝列数据",
     "ShowCopyColumnIntro": "通过设置 <code>ShowCopyColumn</code> 设置表格列允许拷贝整列数据",
     "ShowCopyColumnDesc": "可以通过设置 <code>ShowCopyColumnTooltip</code> <code>CopyColumnTooltipText</code> <code>CopyColumnCopiedTooltipText</code> 等设置微调拷贝列数据图标的 <code>Tooltip</code> 相关参数",
-    "AutoGenerateColumnsP1": "本例中通过设置 <code>AutoGenerateColumns</code> 值为 <code>true</code> 开启自动生成列功能，默认绑定模型实体类所有属性全部生成，实体类可以通过 <code>AutoGenerateColumnAttribute</code> 标签类进行功能设置，如：",
-    "AutoGenerateColumnsLi1": "<code>Ignore</code> 表示忽略此属性，即不生成",
-    "AutoGenerateColumnsLi2": "<code>Readonly</code> 表示只读",
-    "AutoGenerateColumnsLi3": "更多属性详见 <a href=\"{0}/blob/master/src/BootstrapBlazor/Attributes/AutoGenerateColumnAttribute.cs\" target=\"_blank\">源码</a>",
-    "AutoGenerateColumnsP2": " 本例中通过 <code>[AutoGenerateColumn(Order = 1, FormatString = \"yyyy-MM-dd\")]</code> 标签格式化 <code>日期</code> 列；通过代码中设置模板列对 <code>Complete</code> 列进行自定义使用 <code>Switch</code> 组件进行渲染；通过 <code>[AutoGenerateColumn(Order = 10)]</code> 标签中的 <code>Order</code> 对显示顺序进行设定",
     "OnColumnCreatingTitle": "设置当前列属性",
     "OnColumnCreatingIntro": "通过指定 <code>OnColumnCreating</code>回调，对列集合进行数据二次更改",
     "OnColumnCreatingP1": "通过 <code>OnColumnCreating</code> 回调方法中的参数既可以对现有列进行扩展：",
@@ -4777,7 +4775,6 @@
     "OnColumnCreatingLi2": "根据业务逻辑对特定列进行组件渲染，对 <code>ComponentType</code> <code>ComponentParameters</code> 进行赋值操作",
     "AdvanceTitle": "实战示例",
     "AdvanceIntro": "通过显示模板 <code>Template</code> 对各列进行自定义渲染",
-    "ResetVisibleColumnsDesc": "通过调用 <code>Table</code> 实例方法 <code>ResetVisibleColumns</code> 可设置任意列显示隐藏属性",
     "CustomColText1": "自定义列名1",
     "CustomColText2": "自定义列名2",
     "CustomColText3": "自定义列名3"
@@ -4829,7 +4826,8 @@
     "VisibleP2": "<code>TableColumn</code> 增加 <code>Visiable</code> 属性，其默认值为 true，显示设置为 false 时不显示此列",
     "VisibleP3": "此例中 <b>数量</b> 列通过设置 <code>Visible</code> 未显示，可以通过列控制按钮进行显示设置",
     "VisibleP4": "更改 <b>列</b> 状态后触发 <code>OnColumnVisibleChanged</code> 回调委托",
-    "ResetVisibleColumnsButtonText": "设置列隐藏信息"
+    "ResetVisibleColumnsButtonText": "设置列隐藏信息",
+    "ResetVisibleColumnsDesc": "通过调用 <code>Table</code> 实例方法 <code>ResetVisibleColumns</code> 可设置任意列显示隐藏属性"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesColumnTemplate": {
     "TablesColumnTitle": "Table 表格",
@@ -4844,7 +4842,12 @@
     "TemplateTitle": "自定义列模板",
     "TemplateIntro": "通过指定 <code>Template</code> 设置最后一列内显示为自定义按钮",
     "AutoGenerateColumnsTitle": "自动生成列",
-    "AutoGenerateColumnsIntro": "通过指定 <code>AutoGenerateColumns</code> 属性值为 <code>true</code>，开启根据绑定模型自动生成列信息功能"
+    "AutoGenerateColumnsIntro": "通过指定 <code>AutoGenerateColumns</code> 属性值为 <code>true</code>，开启根据绑定模型自动生成列信息功能",
+    "AutoGenerateColumnsP1": "本例中通过设置 <code>AutoGenerateColumns</code> 值为 <code>true</code> 开启自动生成列功能，默认绑定模型实体类所有属性全部生成，实体类可以通过 <code>AutoGenerateColumnAttribute</code> 标签类进行功能设置，如：",
+    "AutoGenerateColumnsLi1": "<code>Ignore</code> 表示忽略此属性，即不生成",
+    "AutoGenerateColumnsLi2": "<code>Readonly</code> 表示只读",
+    "AutoGenerateColumnsLi3": "更多属性详见 <a href=\"{0}/blob/master/src/BootstrapBlazor/Attributes/AutoGenerateColumnAttribute.cs\" target=\"_blank\">源码</a>",
+    "AutoGenerateColumnsP2": " 本例中通过 <code>[AutoGenerateColumn(Order = 1, FormatString = \"yyyy-MM-dd\")]</code> 标签格式化 <code>日期</code> 列；通过代码中设置模板列对 <code>Complete</code> 列进行自定义使用 <code>Switch</code> 组件进行渲染；通过 <code>[AutoGenerateColumn(Order = 10)]</code> 标签中的 <code>Order</code> 对显示顺序进行设定"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesEdit": {
     "TablesEditTitle": "Table 表格",
@@ -4987,6 +4990,21 @@
     "TablesTrackingNormalIntro": "设置 <code>IsTracking</code> 配合 <code>Items</code> 可以不需要设置 <code>OnSaveAsync</code> 等回调方法",
     "TablesTrackingNormalTips1": "可通过设置 <code>ShowToastAfterSaveOrDeleteModel='false'</code> 关闭 <b>保存</b> <b>删除</b> 按钮的提示信息",
     "TablesTrackingNormalTips2": "此模式下所有数据编辑均编辑原始数据，通过 <code>bind-Items</code> 更新数据源，所以不提供 <b>取消</b> 按钮"
+  },
+  "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {
+    "TablesFooterTitle": "Table 统计功能",
+    "TablesFooterDescription": "用于数据统计",
+    "TablesFooterStatisticsTitle": "数据统计示例",
+    "TablesFooterStatisticsIntro": "设置 <code>ShowFooter=true</code> 显示 <code>Footer</code> 自定义合计功能",
+    "TablesFooterStatisticsTips1": "<code>Table</code> 组件有 <code>TableFooter</code> 模板，其数据上下文为 <code>Table</code> 组件的数据集合 <code>IEnumerable&lt;TItem&gt;</code>",
+    "TablesFooterStatisticsTips2": "<code>TableFooter</code> 模板中关联的上下文 <code>context</code> 值为当页数据集合",
+    "TablesFooterStatisticsTips3": "<code>TableFooter</code> 模板内可以自定义单元格 <code>td</code> 内容，也可以使用内置的 <code>TableFooterCell</code> 组件进行数据显示",
+    "TablesFooterTemplateTitle": "Footer 模板",
+    "TablesFooterTemplateIntro": "设置 <code>FooterTemplate</code> 自定义表格底部显示内容",
+    "TablesFooterTemplateDescription": "无数据时默认显示 <code>Footer</code> 可通过设置 <code>@nameof(Table<Foo>.IsHideFooterWhenNoData)</code> 参数隐藏 <code>Footer</code>",
+    "TablesFooterStatisticsTotal": "合计：",
+    "TablesFooterTemplateSentences": "这里可以写一些描述性的语句",
+    "TablesFooterTemplateTotal": "合计："
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesAutoRefresh": {
     "TablesAutoRefreshTitle": "自动刷新表格功能",
@@ -5212,7 +5230,7 @@
     "SearchTableGroupBoxText": "搜索条件",
     "NamePlaceholder": "请输入姓名，50字以内",
     "AddressPlaceholder": "请输入地址，500字以内",
-    "AutoHeightIntro": "<div class=\"mb-2\"><b>高度自适应</b></div><p>本例中设置父容器高度为 <code>400px</code> 展开/收起搜索栏时，表格自动充满父容器</p>"
+    "AutoHeightIntro": "<div class=\"mb-2\"><b>高度自适应</b></div><p>本例中设置父容器高度为 <code>600px</code> 展开/收起搜索栏时，表格自动充满父容器</p>"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesFilter": {
     "TablesFilterTitle": "筛选和排序功能",

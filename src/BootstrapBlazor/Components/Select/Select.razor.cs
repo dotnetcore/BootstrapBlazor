@@ -151,6 +151,13 @@ public partial class Select<TValue> : ISelect
     [Parameter]
     public int OverscanCount { get; set; } = 4;
 
+    /// <summary>
+    /// 获得/设置 默认文本 <see cref="IsVirtualize"/> 时生效 默认 null
+    /// </summary>
+    /// <remarks>开启 <see cref="IsVirtualize"/> 并且通过 <see cref="OnQueryAsync"/> 提供数据源时，由于渲染时还未调用或者调用后数据集未包含 <see cref="DisplayBase{TValue}.Value"/> 选项值，此时使用 DefaultText 值渲染</remarks>
+    [Parameter]
+    public string? DefaultVirtualizeItemText { get; set; }
+
     [NotNull]
     private Virtualize<SelectedItem>? VirtualizeElement { get; set; }
 
@@ -200,7 +207,7 @@ public partial class Select<TValue> : ISelect
 
     private IEnumerable<SelectedItem>? VirtualItems { get; set; }
 
-    private ICollection<SelectedItem> VirtualCollection => (VirtualItems ?? Items).ToList();
+    private ICollection<SelectedItem> GetVirtualItems() => (VirtualItems ?? Items).ToList();
 
     /// <summary>
     /// 虚拟滚动数据加载回调方法
@@ -213,16 +220,14 @@ public partial class Select<TValue> : ISelect
     {
         // 有搜索条件时使用原生请求数量
         // 有总数时请求剩余数量
-        var count = !string.IsNullOrEmpty(SearchText)
-            ? request.Count
-            : TotalCount == 0
-                ? request.Count
-                : Math.Min(request.Count, TotalCount - request.StartIndex);
+        var count = !string.IsNullOrEmpty(SearchText) ? request.Count : GetCountByTotal();
         var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = count, SearchText = SearchText });
 
         TotalCount = data.TotalCount;
         VirtualItems = data.Items ?? Enumerable.Empty<SelectedItem>();
         return new ItemsProviderResult<SelectedItem>(VirtualItems, TotalCount);
+
+        int GetCountByTotal() => TotalCount == 0 ? request.Count : Math.Min(request.Count, TotalCount - request.StartIndex);
     }
 
     private async Task SearchTextChanged(string val)
@@ -254,12 +259,21 @@ public partial class Select<TValue> : ISelect
 
     private bool TryParseSelectItem(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
     {
-        SelectedItem = (VirtualItems ?? DataSource).FirstOrDefault(i => i.Value == value);
+        SelectedItem = (VirtualItems ?? DataSource).FirstOrDefault(i => i.Value == value) ?? GetVirtualizeItem();
 
         // support SelectedItem? type
         result = SelectedItem != null ? (TValue)(object)SelectedItem : default;
         validationErrorMessage = "";
         return SelectedItem != null;
+    }
+
+    private SelectedItem? GetVirtualizeItem()
+    {
+        return OnQueryAsync == null ? null : GetSelectedItem();
+
+        SelectedItem? GetSelectedItem() => ValueType == typeof(SelectedItem)
+            ? (SelectedItem)(object)Value
+            : new SelectedItem(CurrentValueAsString, DefaultVirtualizeItemText ?? CurrentValueAsString);
     }
 
     private void ResetSelectedItem()
@@ -270,14 +284,16 @@ public partial class Select<TValue> : ISelect
         {
             DataSource.AddRange(Items);
             DataSource.AddRange(Children);
+
             if (VirtualItems != null)
             {
                 DataSource.AddRange(VirtualItems);
             }
 
-            SelectedItem = DataSource.FirstOrDefault(i => i.Value.Equals(CurrentValueAsString, StringComparison))
-                ?? DataSource.FirstOrDefault(i => i.Active)
-                ?? DataSource.FirstOrDefault();
+            SelectedItem = DataSource.Find(i => i.Value.Equals(CurrentValueAsString, StringComparison))
+                ?? DataSource.Find(i => i.Active)
+                ?? DataSource.FirstOrDefault()
+                ?? GetVirtualizeItem();
 
             if (SelectedItem != null)
             {

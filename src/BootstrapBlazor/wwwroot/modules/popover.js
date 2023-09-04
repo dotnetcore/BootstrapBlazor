@@ -1,7 +1,7 @@
 ﻿export function init(id, content) {
     const el = document.getElementById(id)
     if (el) {
-        var pop = bootstrap.Popover.getInstance(el)
+        const pop = bootstrap.Popover.getInstance(el)
         if (pop) {
             pop._config.content = content
         }

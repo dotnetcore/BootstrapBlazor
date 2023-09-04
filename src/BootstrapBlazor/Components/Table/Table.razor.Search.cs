@@ -217,7 +217,9 @@ public partial class Table<TItem>
             RowType = SearchDialogRowType,
             ItemsPerRow = SearchDialogItemsPerRow,
             Size = SearchDialogSize,
-            LabelAlign = SearchDialogLabelAlign
+            LabelAlign = SearchDialogLabelAlign,
+            IsDraggable = SearchDialogIsDraggable,
+            ShowMaximizeButton = SearchDialogShowMaximizeButton
         };
     }
 
