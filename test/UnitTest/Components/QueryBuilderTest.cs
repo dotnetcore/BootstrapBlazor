@@ -182,4 +182,20 @@ public class QueryBuilderTest : BootstrapBlazorTestBase
 
         Assert.Equal(FilterLogic.Or, cut.Instance.Logic);
     }
+
+    [Fact]
+    public void QueryColumn_Ok()
+    {
+        var foo = new Foo() { Count = 10 };
+        var cut = Context.RenderComponent<QueryColumn<int>>(pb =>
+        {
+            pb.Add(a => a.Field, foo.Count);
+            pb.Add(a => a.Logic, FilterLogic.Or);
+            pb.Add(a => a.Operator, FilterAction.NotEqual);
+        });
+
+        Assert.Equal(FilterLogic.Or, cut.Instance.Logic);
+        Assert.Equal(FilterAction.NotEqual, cut.Instance.Operator);
+        Assert.Equal(10, cut.Instance.Field);
+    }
 }
