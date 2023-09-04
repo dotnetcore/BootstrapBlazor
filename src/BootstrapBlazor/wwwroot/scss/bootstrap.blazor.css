@@ -7547,6 +7547,6 @@ form .form-control.is-display {
 .query-builder .qb-group .qb-row > input.form-control {
   flex: 1;
 }
-.query-builder .dropdown.btn-plus > .dropdown-toggle:after {
+.query-builder .dropdown-toggle:after {
   content: none;
 }
