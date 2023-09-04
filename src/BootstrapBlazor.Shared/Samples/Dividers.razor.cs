@@ -15,7 +15,6 @@ public sealed partial class Dividers
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-    
             new() {
                 Name = "Text",
                 Description = Localizer["Desc1"],

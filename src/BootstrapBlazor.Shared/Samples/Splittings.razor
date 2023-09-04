@@ -1,0 +1,52 @@
+﻿@page "/splitting"
+@inject IStringLocalizer<Splittings> Localizer
+
+<h3>@Localizer["SplittingTitle"]</h3>
+<h4>@Localizer["SplittingDescription"]</h4>
+
+<p>
+    <b>@Localizer["SplittingTipsTitle"]</b>
+    <br />
+    @Localizer["SplittingTips"]
+</p>
+
+<DemoBlock Title="@Localizer["SplittingNormalTitle"]"
+           Introduction="@Localizer["SplittingNormalIntro"]"
+           Name="Normal">
+    <div class="splitting-demo">
+        <Splitting></Splitting>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SplittingTextTitle"]"
+           Introduction="@Localizer["SplittingTextIntro"]"
+           Name="Text">
+    <div class="splitting-demo">
+        <Splitting Text="@Localizer["SplittingText"]" />
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SplittingColorTitle"]"
+           Introduction="@Localizer["SplittingColorIntro"]"
+           Name="Color">
+    <div class="splitting-demo">
+        <Splitting Color="Color.Info" Text="@Localizer["SplittingText"]"></Splitting>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SplittingColumnsTitle"]"
+           Introduction="@Localizer["SplittingColumnsIntro"]"
+           Name="Columns">
+    <div class="splitting-demo">
+        <div class="mb-2">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="@Localizer["SplittingColumnsText"]" />
+                <Slider @bind-Value="@_columns" Min="10" Max="50" />
+                <BootstrapInputNumber @bind-Value="@_columns" Min="10" Max="50"></BootstrapInputNumber>
+            </BootstrapInputGroup>
+        </div>
+        <Splitting Columns="@_columns" Text="@Localizer["SplittingText"]"></Splitting>
+    </div>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()"></AttributeTable>
