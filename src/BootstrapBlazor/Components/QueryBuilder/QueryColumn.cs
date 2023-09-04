@@ -25,12 +25,6 @@ public class QueryColumn<TType> : QueryGroup
     public Expression<Func<TType>>? FieldExpression { get; set; }
 
     /// <summary>
-    /// 获得/设置 绑定类字段名称
-    /// </summary>
-    [Parameter]
-    public string? FieldName { get; set; }
-
-    /// <summary>
     /// 获得/设置 条件操作符号
     /// </summary>
     [Parameter]
