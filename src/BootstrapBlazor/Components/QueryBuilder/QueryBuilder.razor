@@ -51,8 +51,8 @@
         else
         {
             <div class="btn-group me-3">
-                <Button Color="GetColorByFilter(filter, FilterLogic.And)" Text="@Localizer[FilterLogic.And.ToString()]" OnClick="() => SetFilterLogic(filter, FilterLogic.And)"></Button>
-                <Button Color="GetColorByFilter(filter, FilterLogic.Or)" Text="@Localizer[FilterLogic.Or.ToString()]" OnClick="() => SetFilterLogic(filter, FilterLogic.Or)"></Button>
+                <Button Color="GetColorByFilter(filter, FilterLogic.And)" Text="@Localizer[FilterLogic.And.ToString()]" OnClick="() => SetFilterLogic(parent, filter, FilterLogic.And)"></Button>
+                <Button Color="GetColorByFilter(filter, FilterLogic.Or)" Text="@Localizer[FilterLogic.Or.ToString()]" OnClick="() => SetFilterLogic(parent, filter, FilterLogic.Or)"></Button>
             </div>
             <Dropdown TValue="string" class="btn-filter" Items="_dropdownItems">
                 <ButtonTemplate>

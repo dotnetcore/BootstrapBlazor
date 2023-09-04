@@ -198,8 +198,12 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
         }
     }
 
-    private Task SetFilterLogic(FilterKeyValueAction filter, FilterLogic logic)
+    private Task SetFilterLogic(FilterKeyValueAction? parent, FilterKeyValueAction filter, FilterLogic logic)
     {
+        if (parent == null)
+        {
+            Logic = logic;
+        }
         filter.FilterLogic = logic;
         StateHasChanged();
         return Task.CompletedTask;
@@ -224,10 +228,7 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
     private async Task OnClickRemove(FilterKeyValueAction? parent, FilterKeyValueAction filter)
     {
         filter.Filters?.Clear();
-        if (parent != null)
-        {
-            parent.Filters?.Remove(filter);
-        }
+        parent?.Filters?.Remove(filter);
 
         await OnFilterChanged();
     }
