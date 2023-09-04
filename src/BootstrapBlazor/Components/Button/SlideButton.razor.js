@@ -19,6 +19,9 @@ export function init(id) {
         e.stopPropagation()
         list.classList.remove('show')
     })
+    EventHandler.on(list, 'click', '.slide-item', e => {
+        list.classList.remove('show')
+    })
 
     if (!window.bb_slide_button) {
         window.bb_slide_button = true
@@ -41,6 +44,7 @@ export function dispose(id) {
     if (slide) {
         EventHandler.off(slide.button, 'click')
         EventHandler.off(slide.list, 'click', '.btn-close')
+        EventHandler.off(slide.list, 'click', '.slide-item')
     }
 }
 
