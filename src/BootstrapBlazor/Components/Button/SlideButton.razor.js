@@ -54,7 +54,6 @@ export function dispose(id) {
 const reset = slide => {
     const { el, button, list } = slide
     const placement = el.getAttribute('data-bb-placement') || 'auto'
-    let offset = parseFloat(el.getAttribute('data-bb-offset') || '8')
 
     const buttonHeight = button.offsetHeight
     const buttonWidth = button.offsetWidth
@@ -79,78 +78,59 @@ const reset = slide => {
         list.style.setProperty('height', '0')
     }
     list.classList.remove('invisible')
+    list.style.removeProperty('top')
+    list.style.removeProperty('left')
+    list.style.removeProperty('bottom')
+    list.style.removeProperty('right')
 
+    let offset = parseFloat(el.getAttribute('data-bb-offset') || '8')
     if (placement === 'auto' || placement === 'top' || placement === 'top-start') {
         list.style.setProperty('bottom', `${buttonHeight + offset}px`)
         list.style.setProperty('left', '0')
-        list.style.removeProperty('top')
-        list.style.removeProperty('right')
     }
     else if (placement === 'top-center') {
         list.style.setProperty('bottom', `${buttonHeight + offset}px`)
         list.style.setProperty('left', `${(buttonWidth - listWidth) / 2}px`)
-        list.style.removeProperty('top')
-        list.style.removeProperty('right')
     }
     else if (placement === 'top-end') {
         list.style.setProperty('bottom', `${buttonHeight + offset}px`)
         list.style.setProperty('right', '0')
-        list.style.removeProperty('top')
-        list.style.removeProperty('left')
     }
     else if (placement === 'bottom' || placement === 'bottom-start') {
         list.style.setProperty('top', `${buttonHeight + offset}px`)
         list.style.setProperty('left', '0')
-        list.style.removeProperty('bottom')
-        list.style.removeProperty('right')
     }
     else if (placement === 'bottom' || placement === 'bottom-center') {
         list.style.setProperty('top', `${buttonHeight + offset}px`)
         list.style.setProperty('left', `${(buttonWidth - listWidth) / 2}px`)
-        list.style.removeProperty('bottom')
-        list.style.removeProperty('right')
     }
     else if (placement === 'bottom' || placement === 'bottom-end') {
         list.style.setProperty('top', `${buttonHeight + offset}px`)
         list.style.setProperty('right', '0')
-        list.style.removeProperty('bottom')
-        list.style.removeProperty('left')
     }
     else if (placement === 'left') {
         list.style.setProperty('top', `${(buttonHeight - listHeight) / 2}px`)
         list.style.setProperty('right', `${buttonWidth + offset}px`)
-        list.style.removeProperty('bottom')
-        list.style.removeProperty('left')
     }
     else if (placement === 'left-start') {
         list.style.setProperty('top', '0')
         list.style.setProperty('right', `${buttonWidth + offset}px`)
-        list.style.removeProperty('bottom')
-        list.style.removeProperty('left')
     }
     else if (placement === 'left-end') {
         list.style.setProperty('bottom', '0')
         list.style.setProperty('right', `${buttonWidth + offset}px`)
-        list.style.removeProperty('top')
-        list.style.removeProperty('left')
     }
     else if (placement === 'right') {
         list.style.setProperty('top', `${(buttonHeight - listHeight) / 2}px`)
         list.style.setProperty('left', `${buttonWidth + offset}px`)
-        list.style.removeProperty('bottom')
-        list.style.removeProperty('right')
     }
     else if (placement === 'right-start') {
         list.style.setProperty('top', '0')
         list.style.setProperty('left', `${buttonWidth + offset}px`)
-        list.style.removeProperty('bottom')
-        list.style.removeProperty('right')
     }
     else if (placement === 'right-end') {
         list.style.setProperty('bottom', '0')
         list.style.setProperty('left', `${buttonWidth + offset}px`)
-        list.style.removeProperty('top')
-        list.style.removeProperty('right')
     }
 }
 
