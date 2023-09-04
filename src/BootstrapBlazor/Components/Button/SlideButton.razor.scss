@@ -30,18 +30,20 @@
         transition: width .3s ease-in-out, height .3s ease-in-out;
 
         &:not(.is-horizontal) {
+            height: var(--bb-slide-list-height-collapsed);
             width: var(--bb-slide-list-width);
 
             &.show {
-                height: var(--bb-slide-list-height) !important;
+                height: var(--bb-slide-list-height);
             }
         }
 
         &.is-horizontal {
             height: var(--bb-slide-list-height);
+            width: var(--bb-slide-list-width-collapsed);
 
             &.show {
-                width: var(--bb-slide-list-width) !important;
+                width: var(--bb-slide-list-width);
             }
         }
 

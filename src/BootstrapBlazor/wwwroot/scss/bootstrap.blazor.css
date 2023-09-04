@@ -566,16 +566,18 @@ a, a:hover, a:focus {
   transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
 }
 .slide-button .slide-list:not(.is-horizontal) {
+  height: var(--bb-slide-list-height-collapsed);
   width: var(--bb-slide-list-width);
 }
 .slide-button .slide-list:not(.is-horizontal).show {
-  height: var(--bb-slide-list-height) !important;
+  height: var(--bb-slide-list-height);
 }
 .slide-button .slide-list.is-horizontal {
   height: var(--bb-slide-list-height);
+  width: var(--bb-slide-list-width-collapsed);
 }
 .slide-button .slide-list.is-horizontal.show {
-  width: var(--bb-slide-list-width) !important;
+  width: var(--bb-slide-list-width);
 }
 .slide-button .slide-list .slide-header {
   padding: var(--bb-slide-item-header-padding);
