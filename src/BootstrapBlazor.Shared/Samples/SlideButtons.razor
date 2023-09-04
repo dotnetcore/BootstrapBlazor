@@ -78,11 +78,22 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ShowHeaderText"]" Introduction="@Localizer["ShowHeaderIntro"]" Name="ShowHeader">
-    <SlideButton Icon="fa-solid fa-flag" HeaderText="@Localizer["SlideButtonHeaderText"]" ShowHeader="true"></SlideButton>
+    <SlideButton Icon="fa-solid fa-flag" HeaderText="@Localizer["SlideButtonHeaderText"]" ShowHeader="true">
+        <SlideButtonItems>
+            <SlideButtonItem Value="1" Text="Text 1"></SlideButtonItem>
+            <SlideButtonItem Value="2" Text="Text 2"></SlideButtonItem>
+            <SlideButtonItem Value="3" Text="Text 3"></SlideButtonItem>
+        </SlideButtonItems>
+    </SlideButton>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["AutoCloseText"]" Introduction="@Localizer["AutoCloseIntro"]" Name="IsAutoClose">
     <SlideButton Icon="fa-solid fa-flag" HeaderText="@Localizer["SlideButtonHeaderText"]" ShowHeader="true" IsAutoClose="false">
+        <SlideButtonItems>
+            <SlideButtonItem Value="1" Text="Text 1"></SlideButtonItem>
+            <SlideButtonItem Value="2" Text="Text 2"></SlideButtonItem>
+            <SlideButtonItem Value="3" Text="Text 3"></SlideButtonItem>
+        </SlideButtonItems>
     </SlideButton>
 </DemoBlock>
 
