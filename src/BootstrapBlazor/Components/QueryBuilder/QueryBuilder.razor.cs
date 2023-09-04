@@ -27,13 +27,13 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
 #if NET6_0_OR_GREATER
     [EditorRequired]
 #endif
-    public FilterKeyValueAction? Filter { get; set; }
+    public FilterKeyValueAction? Value { get; set; }
 
     /// <summary>
     /// 获得/设置 Filter 回调方法 支持双向绑定
     /// </summary>
     [Parameter]
-    public EventCallback<FilterKeyValueAction> FilterChanged { get; set; }
+    public EventCallback<FilterKeyValueAction> ValueChanged { get; set; }
 
     /// <summary>
     /// 获得/设置 逻辑运算符
@@ -57,7 +57,7 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
     /// 获得/设置 Header 模板 默认 null
     /// </summary>
     [Parameter]
-    public RenderFragment? HeaderTemplate { get; set; }
+    public RenderFragment<FilterKeyValueAction>? HeaderTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 首次加载是否显示加载骨架屏 默认 false 不显示 使用 <see cref="ShowLoadingInFirstRender" /> 参数值
@@ -126,8 +126,8 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
     {
         base.OnInitialized();
 
-        Filter ??= new FilterKeyValueAction();
-        Filter.Filters ??= new();
+        Value ??= new FilterKeyValueAction();
+        Value.Filters ??= new();
 
         _fields.AddRange(typeof(TModel).GetProperties().Select(p => new SelectedItem(p.Name, Utility.GetDisplayName<TModel>(p.Name))));
     }
@@ -190,9 +190,9 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
 
     private async Task OnFilterChanged()
     {
-        if (FilterChanged.HasDelegate)
+        if (ValueChanged.HasDelegate)
         {
-            await FilterChanged.InvokeAsync(Filter);
+            await ValueChanged.InvokeAsync(Value);
         }
     }
 

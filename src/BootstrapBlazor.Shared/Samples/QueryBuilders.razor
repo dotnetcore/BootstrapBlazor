@@ -40,7 +40,7 @@
 <DemoBlock Title="@Localizer["QueryBuilderHeaderTitle"]"
            Introduction="@Localizer["QueryBuilderHeaderIntro"]"
            Name="ShowHeader">
-    <QueryBuilder TModel="Foo" @bind-Filter="_filter3" ShowHeader="false">
+    <QueryBuilder TModel="Foo" @bind-Value="_filter3" ShowHeader="false">
         <QueryColumn @bind-Field="@context.Name" Operator="@FilterAction.Equal"></QueryColumn>
 
         <QueryGroup Logic="@FilterLogic.Or">
