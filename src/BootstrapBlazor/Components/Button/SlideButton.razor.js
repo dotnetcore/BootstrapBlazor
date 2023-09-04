@@ -59,51 +59,99 @@ const reset = slide => {
     const buttonHeight = button.offsetHeight
     const buttonWidth = button.offsetWidth
 
+    list.style.removeProperty('height')
+    list.style.removeProperty('width')
     const listStyle = getComputedStyle(list)
     const listHeight = parseFloat(listStyle.height)
     const listWidth = parseFloat(listStyle.width)
-    let style = null
-    if (placement === 'auto' || placement === 'top' || placement === 'top-start') {
-        style = `bottom: ${buttonHeight + offset}px; left: 0;`
-    }
-    else if (placement === 'top-center') {
-        style = `bottom: ${buttonHeight + offset}px; left: ${(buttonWidth - listWidth) / 2}px;`
-    }
-    else if (placement === 'top-end') {
-        style = `bottom: ${buttonHeight + offset}px; right: 0;`
-    }
-    else if (placement === 'bottom' || placement === 'bottom-start') {
-        style = `top: ${buttonHeight + offset}px; left: 0;`
-    }
-    else if (placement === 'bottom' || placement === 'bottom-center') {
-        style = `top: ${buttonHeight + offset}px; left: ${(buttonWidth - listWidth) / 2}px;`
-    }
-    else if (placement === 'bottom' || placement === 'bottom-end') {
-        style = `top: ${buttonHeight + offset}px; right: 0;`
-    }
-    else if (placement === 'left') {
-        style = `top: ${(buttonHeight - listHeight) / 2}px; right: ${buttonWidth + offset}px;`
-    }
-    else if (placement === 'left-start') {
-        style = `top: 0; right: ${buttonWidth + offset}px;`
-    }
-    else if (placement === 'left-end') {
-        style = `bottom: 0; right: ${buttonWidth + offset}px;`
-    }
-    else if (placement === 'right') {
-        style = `top: ${(buttonHeight - listHeight) / 2}px; left: ${buttonWidth + offset}px;`
-    }
-    else if (placement === 'right-start') {
-        style = `top: 0; left: ${buttonWidth + offset}px;`
-    }
-    else if (placement === 'right-end') {
-        style = `bottom: 0; left: ${buttonWidth + offset}px;`
+    const maxHeight = parseFloat(getComputedStyle(el).getPropertyValue('--bb-slide-list-height'))
+    const listBody = list.querySelector('.slide-body')
+    if (listHeight < maxHeight) {
+        list.style.setProperty('--bb-slide-list-height', `${listHeight}px`)
+        listBody.classList.remove('scroll')
     }
 
-    if (style) {
-        list.setAttribute('style', style)
+    if (list.classList.contains('is-horizontal')) {
+        list.style.setProperty('width', '0')
+        list.style.removeProperty('--bb-slide-list-height')
     }
-    list.classList.remove('d-none')
+    else {
+        list.style.setProperty('height', '0')
+    }
+    list.classList.remove('invisible')
+
+    if (placement === 'auto' || placement === 'top' || placement === 'top-start') {
+        list.style.setProperty('bottom', `${buttonHeight + offset}px`)
+        list.style.setProperty('left', '0')
+        list.style.removeProperty('top')
+        list.style.removeProperty('right')
+    }
+    else if (placement === 'top-center') {
+        list.style.setProperty('bottom', `${buttonHeight + offset}px`)
+        list.style.setProperty('left', `${(buttonWidth - listWidth) / 2}px`)
+        list.style.removeProperty('top')
+        list.style.removeProperty('right')
+    }
+    else if (placement === 'top-end') {
+        list.style.setProperty('bottom', `${buttonHeight + offset}px`)
+        list.style.setProperty('right', '0')
+        list.style.removeProperty('top')
+        list.style.removeProperty('left')
+    }
+    else if (placement === 'bottom' || placement === 'bottom-start') {
+        list.style.setProperty('top', `${buttonHeight + offset}px`)
+        list.style.setProperty('left', '0')
+        list.style.removeProperty('bottom')
+        list.style.removeProperty('right')
+    }
+    else if (placement === 'bottom' || placement === 'bottom-center') {
+        list.style.setProperty('top', `${buttonHeight + offset}px`)
+        list.style.setProperty('left', `${(buttonWidth - listWidth) / 2}px`)
+        list.style.removeProperty('bottom')
+        list.style.removeProperty('right')
+    }
+    else if (placement === 'bottom' || placement === 'bottom-end') {
+        list.style.setProperty('top', `${buttonHeight + offset}px`)
+        list.style.setProperty('right', '0')
+        list.style.removeProperty('bottom')
+        list.style.removeProperty('left')
+    }
+    else if (placement === 'left') {
+        list.style.setProperty('top', `${(buttonHeight - listHeight) / 2}px`)
+        list.style.setProperty('right', `${buttonWidth + offset}px`)
+        list.style.removeProperty('bottom')
+        list.style.removeProperty('left')
+    }
+    else if (placement === 'left-start') {
+        list.style.setProperty('top', '0')
+        list.style.setProperty('right', `${buttonWidth + offset}px`)
+        list.style.removeProperty('bottom')
+        list.style.removeProperty('left')
+    }
+    else if (placement === 'left-end') {
+        list.style.setProperty('bottom', '0')
+        list.style.setProperty('right', `${buttonWidth + offset}px`)
+        list.style.removeProperty('top')
+        list.style.removeProperty('left')
+    }
+    else if (placement === 'right') {
+        list.style.setProperty('top', `${(buttonHeight - listHeight) / 2}px`)
+        list.style.setProperty('left', `${buttonWidth + offset}px`)
+        list.style.removeProperty('bottom')
+        list.style.removeProperty('right')
+    }
+    else if (placement === 'right-start') {
+        list.style.setProperty('top', '0')
+        list.style.setProperty('left', `${buttonWidth + offset}px`)
+        list.style.removeProperty('bottom')
+        list.style.removeProperty('right')
+    }
+    else if (placement === 'right-end') {
+        list.style.setProperty('bottom', '0')
+        list.style.setProperty('left', `${buttonWidth + offset}px`)
+        list.style.removeProperty('top')
+        list.style.removeProperty('right')
+    }
 }
 
 const closePopup = e => {
