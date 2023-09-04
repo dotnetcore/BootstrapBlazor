@@ -152,7 +152,7 @@ public sealed partial class Dropdowns
         new()
         {
             Name = "Value",
-            Description = Localizer["ADesc1"],
+            Description = Localizer["AttributeValue"],
             Type = "TValue",
             ValueList = " — ",
             DefaultValue = " — "
@@ -160,14 +160,14 @@ public sealed partial class Dropdowns
         new()
         {
             Name = "Class",
-            Description = Localizer["ADesc2"],
+            Description = Localizer["AttributeClass"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
         new() {
             Name = "Color",
-            Description = Localizer["ADesc3"],
+            Description = Localizer["AttributeColor"],
             Type = "Color",
             ValueList = "Primary / Secondary / Info / Warning / Danger ",
             DefaultValue = " — "
@@ -175,7 +175,7 @@ public sealed partial class Dropdowns
         new()
         {
             Name = "Direction",
-            Description = Localizer["ADesc4"],
+            Description = Localizer["AttributeDirection"],
             Type = "Direction",
             ValueList = "Dropup / Dropright /  Dropleft",
             DefaultValue = " None "
@@ -183,7 +183,7 @@ public sealed partial class Dropdowns
         new()
         {
             Name = "Items",
-            Description = Localizer["ADesc5"],
+            Description = Localizer["AttributeItems"],
             Type = "list",
             ValueList = " — ",
             DefaultValue = " — "
@@ -191,7 +191,7 @@ public sealed partial class Dropdowns
         new()
         {
             Name = "MenuAlignment",
-            Description = Localizer["ADesc6"],
+            Description = Localizer["AttributeMenuAlignment"],
             Type = "Alignment",
             ValueList = "None / Left / Center / Right ",
             DefaultValue = " — "
@@ -199,7 +199,7 @@ public sealed partial class Dropdowns
         new()
         {
             Name = "MenuItem",
-            Description = Localizer["ADesc7"],
+            Description = Localizer["AttributeMenuItem"],
             Type = "string",
             ValueList = "button / a ",
             DefaultValue = " a "
@@ -207,7 +207,7 @@ public sealed partial class Dropdowns
         new()
         {
             Name = "Responsive",
-            Description = Localizer["ADesc8"],
+            Description = Localizer["AttributeResponsive"],
             Type = "string",
             ValueList = "dropdown-menu / dropdown-menu-end / dropdown-menu-{lg | md | sm }-{right | left}",
             DefaultValue = " — "
@@ -215,7 +215,7 @@ public sealed partial class Dropdowns
         new()
         {
             Name = "ShowSplit",
-            Description = Localizer["ADesc9"],
+            Description = Localizer["AttributeShowSplit"],
             Type = "bool",
             ValueList = "true / false ",
             DefaultValue = " false "
@@ -223,7 +223,7 @@ public sealed partial class Dropdowns
         new()
         {
             Name = "Size",
-            Description = Localizer["ADesc10"],
+            Description = Localizer["AttributeSize"],
             Type = "Size",
             ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge / ExtraExtraLarge",
             DefaultValue = "None"
@@ -231,7 +231,7 @@ public sealed partial class Dropdowns
         new()
         {
             Name = "TagName",
-            Description = Localizer["ADesc11"],
+            Description = Localizer["AttributeTagName"],
             Type = "string",
             ValueList = " a / button ",
             DefaultValue = " — "
@@ -255,7 +255,7 @@ public sealed partial class Dropdowns
         new EventItem()
         {
             Name = "OnSelectedItemChanged",
-            Description= Localizer["EDesc1"],
+            Description= Localizer["EventOnSelectedItemChanged"],
             Type ="Func<SelectedItem, Task>"
         }
    };
