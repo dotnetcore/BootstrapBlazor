@@ -46,36 +46,36 @@ export function dispose(id) {
 
 const reset = slide => {
     const { el, button, list } = slide
-    const placement = el.getAttribute('data-bb-placement') || 'auto'
+
+    list.classList.add('invisible')
+    list.removeAttribute('style')
+
     const maxHeight = parseFloat(getComputedStyle(el).getPropertyValue('--bb-slide-list-height'))
-    const buttonHeight = button.offsetHeight
-    const buttonWidth = button.offsetWidth
-
-    list.style.removeProperty('height')
-    list.style.removeProperty('width')
-    const listStyle = getComputedStyle(list)
-    const listHeight = parseFloat(listStyle.height)
-    const listWidth = parseFloat(listStyle.width)
-    const listBody = list.querySelector('.slide-body')
-    if (listHeight < maxHeight) {
-        list.style.setProperty('--bb-slide-list-height', `${listHeight}px`)
-        listBody.classList.remove('scroll')
+    const height = list.getBoundingClientRect().height
+    if (height < maxHeight) {
+        list.style.setProperty('--bb-slide-list-height', `${height}px`)
     }
-
     if (list.classList.contains('is-horizontal')) {
-        list.style.setProperty('width', '0')
-        list.style.removeProperty('--bb-slide-list-height')
+        list.style.setProperty('--bb-slide-list-width-collapsed', '0')
     }
     else {
-        list.style.setProperty('height', '0')
+        list.style.setProperty('--bb-slide-list-height-collapsed', '0')
     }
-    list.classList.remove('invisible')
-    list.style.removeProperty('top')
-    list.style.removeProperty('left')
-    list.style.removeProperty('bottom')
-    list.style.removeProperty('right')
 
-    let offset = parseFloat(el.getAttribute('data-bb-offset') || '8')
+    const placement = el.getAttribute('data-bb-placement') || 'auto'
+    const offset = parseFloat(el.getAttribute('data-bb-offset') || '8')
+    const buttonHeight = button.offsetHeight
+    const buttonWidth = button.offsetWidth
+    const listWidth = list.offsetWidth
+    const listHeight = list.offsetHeight
+    setVerticalPlacement(list, placement, offset, buttonHeight, buttonWidth, listWidth)
+    setHorizontalPlacement(list, placement, offset, buttonHeight, buttonWidth, listHeight)
+
+    list.style.setProperty('transition', 'width .3s ease-in-out, height .3s ease-in-out')
+    list.classList.remove('invisible')
+}
+
+const setVerticalPlacement = (list, placement, offset, buttonHeight, buttonWidth, listWidth) => {
     if (placement === 'auto' || placement === 'top' || placement === 'top-start') {
         list.style.setProperty('bottom', `${buttonHeight + offset}px`)
         list.style.setProperty('left', '0')
@@ -100,7 +100,10 @@ const reset = slide => {
         list.style.setProperty('top', `${buttonHeight + offset}px`)
         list.style.setProperty('right', '0')
     }
-    else if (placement === 'left') {
+}
+
+const setHorizontalPlacement = (list, placement, offset, buttonHeight, buttonWidth, listHeight) => {
+    if (placement === 'left') {
         list.style.setProperty('top', `${(buttonHeight - listHeight) / 2}px`)
         list.style.setProperty('right', `${buttonWidth + offset}px`)
     }
@@ -130,7 +133,7 @@ const closePopup = e => {
     document.querySelectorAll('.slide-button').forEach(el => {
         if (e.target.closest('.slide-button') !== el) {
             const list = el.querySelector('.slide-list')
-            if (list && list.classList.contains('show')) {
+            if (list.classList.contains('show')) {
                 const autoClose = el.getAttribute('data-bb-auto-close') === 'true'
                 if (autoClose) {
                     list.classList.remove('show')
