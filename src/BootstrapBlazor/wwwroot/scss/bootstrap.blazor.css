@@ -2303,7 +2303,6 @@ section > h2 {
 :fullscreen {
   background-color: #fff;
 }
-
 .fs-on,
 .fs-open .fs-off {
   display: none;
