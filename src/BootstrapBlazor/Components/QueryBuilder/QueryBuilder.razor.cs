@@ -113,9 +113,6 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
     {
         base.OnInitialized();
 
-        Value ??= new FilterKeyValueAction();
-        Value.Filters ??= new();
-
         _fields.AddRange(typeof(TModel).GetProperties().Select(p => new SelectedItem(p.Name, Utility.GetDisplayName<TModel>(p.Name))));
     }
 
@@ -133,6 +130,7 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
         ItemText ??= Localizer[nameof(ItemText)];
 
         Value ??= new();
+        Value.Filters ??= new();
         Value.FilterLogic = Logic;
 
         Operations ??= new()
@@ -165,15 +163,14 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
 
     private async Task OnClickRemoveFilter(FilterKeyValueAction parent, FilterKeyValueAction filter)
     {
-        parent.Filters?.Remove(filter);
+        parent.Filters!.Remove(filter);
 
         await OnFilterChanged();
     }
 
     private async Task OnClickAddFilter(FilterKeyValueAction filter)
     {
-        filter.Filters ??= new();
-        filter.Filters.Add(new());
+        filter.Filters!.Add(new());
 
         await OnFilterChanged();
     }
@@ -199,24 +196,22 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
 
     private async Task OnAddFilterGroup(FilterKeyValueAction filter)
     {
-        filter.Filters ??= new();
-        filter.Filters.Add(new FilterKeyValueAction() { Filters = new() { new() } });
+        filter.Filters!.Add(new FilterKeyValueAction() { Filters = new() { new() } });
 
         await OnFilterChanged();
     }
 
     private async Task OnAddFilterItem(FilterKeyValueAction filter)
     {
-        filter.Filters ??= new();
-        filter.Filters.Add(new FilterKeyValueAction() { });
+        filter.Filters!.Add(new FilterKeyValueAction() { });
 
         await OnFilterChanged();
     }
 
     private async Task OnClickRemove(FilterKeyValueAction? parent, FilterKeyValueAction filter)
     {
-        filter.Filters?.Clear();
-        parent?.Filters?.Remove(filter);
+        filter.Filters!.Clear();
+        parent?.Filters!.Remove(filter);
 
         await OnFilterChanged();
     }
