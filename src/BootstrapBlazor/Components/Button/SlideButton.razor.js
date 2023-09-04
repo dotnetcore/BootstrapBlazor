@@ -54,7 +54,7 @@ export function dispose(id) {
 const reset = slide => {
     const { el, button, list } = slide
     const placement = el.getAttribute('data-bb-placement') || 'auto'
-
+    const maxHeight = parseFloat(getComputedStyle(el).getPropertyValue('--bb-slide-list-height'))
     const buttonHeight = button.offsetHeight
     const buttonWidth = button.offsetWidth
 
@@ -63,7 +63,6 @@ const reset = slide => {
     const listStyle = getComputedStyle(list)
     const listHeight = parseFloat(listStyle.height)
     const listWidth = parseFloat(listStyle.width)
-    const maxHeight = parseFloat(getComputedStyle(el).getPropertyValue('--bb-slide-list-height'))
     const listBody = list.querySelector('.slide-body')
     if (listHeight < maxHeight) {
         list.style.setProperty('--bb-slide-list-height', `${listHeight}px`)
