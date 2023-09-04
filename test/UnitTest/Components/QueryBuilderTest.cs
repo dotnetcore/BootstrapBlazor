@@ -114,4 +114,72 @@ public class QueryBuilderTest : BootstrapBlazorTestBase
         Assert.Equal(FilterLogic.Or, cut.Instance.Value.FilterLogic);
         Assert.Equal(FilterLogic.Or, cut.Instance.Logic);
     }
+
+    [Fact]
+    public void QueryGroup_Ok()
+    {
+        var filter = new FilterKeyValueAction();
+        var foo = new Foo();
+        var cut = Context.RenderComponent<QueryBuilder<Foo>>(pb =>
+        {
+            pb.Add(a => a.Value, filter);
+            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<FilterKeyValueAction>(this, v => filter = v));
+            pb.Add(a => a.ChildContent, new RenderFragment<Foo>(foo => builder =>
+            {
+                builder.OpenComponent<QueryColumn<string>>(0);
+                builder.AddAttribute(1, "Field", foo.Name);
+                builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
+                builder.AddAttribute(3, "Operator", FilterAction.Equal);
+                builder.CloseComponent();
+
+                builder.OpenComponent<QueryGroup>(10);
+                builder.AddAttribute(11, "Logic", FilterLogic.Or);
+                builder.AddAttribute(12, "ChildContent", new RenderFragment(builder =>
+                {
+                    builder.OpenComponent<QueryColumn<int>>(20);
+                    builder.AddAttribute(21, "Field", foo.Count);
+                    builder.AddAttribute(22, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Count), typeof(int)));
+                    builder.AddAttribute(23, "Operator", FilterAction.GreaterThanOrEqual);
+                    builder.AddAttribute(24, "Value", 1);
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<QueryColumn<string>>(30);
+                    builder.AddAttribute(31, "Field", foo.Address);
+                    builder.AddAttribute(32, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Address), typeof(string)));
+                    builder.AddAttribute(33, "Operator", FilterAction.Contains);
+                    builder.AddAttribute(34, "Value", "10");
+                    builder.CloseComponent();
+                }));
+                builder.CloseComponent();
+            }));
+        });
+        cut.WaitForAssertion(() => cut.DoesNotContain("table-loading"));
+
+        Assert.NotNull(cut.Instance.Value.Filters);
+        Assert.Equal(2, cut.Instance.Value.Filters.Count);
+
+        Assert.NotNull(cut.Instance.Value.Filters[1].Filters);
+        Assert.Equal(2, cut.Instance.Value.Filters[1].Filters?.Count);
+    }
+
+    [Fact]
+    public void QueryGroup_Null()
+    {
+        var foo = new Foo();
+        var cut = Context.RenderComponent<QueryGroup>(pb =>
+        {
+            pb.Add(a => a.Logic, FilterLogic.Or);
+            pb.Add(a => a.ChildContent, new RenderFragment(builder =>
+            {
+                builder.OpenComponent<QueryColumn<int>>(20);
+                builder.AddAttribute(21, "Field", foo.Count);
+                builder.AddAttribute(22, "FieldExpression", Utility.GenerateValueExpression(foo, nameof(Foo.Count), typeof(int)));
+                builder.AddAttribute(23, "Operator", FilterAction.GreaterThanOrEqual);
+                builder.AddAttribute(24, "Value", 1);
+                builder.CloseComponent();
+            }));
+        });
+
+        Assert.Equal(FilterLogic.Or, cut.Instance.Logic);
+    }
 }
