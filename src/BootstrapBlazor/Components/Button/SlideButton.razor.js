@@ -34,13 +34,6 @@ export function update(id) {
     }
 }
 
-export function close(id) {
-    const slide = Data.get(id)
-    if (slide) {
-        slide.list.classList.remove('show')
-    }
-}
-
 export function dispose(id) {
     const slide = Data.get(id)
     Data.remove(id)
