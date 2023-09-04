@@ -592,6 +592,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["QueryBuilder"],
+                    Url = "query-builder"
+                },
+                new()
+                {
                     Text = Localizer["QRCode"],
                     Url = "qr-code"
                 },
