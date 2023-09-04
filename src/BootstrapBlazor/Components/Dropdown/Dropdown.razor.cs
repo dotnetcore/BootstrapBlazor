@@ -81,6 +81,12 @@ public partial class Dropdown<TValue>
     public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 按钮内容模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SelectedItem?>? ButtonTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否开启分裂式 默认 false
     /// </summary>
     [Parameter]
@@ -159,8 +165,8 @@ public partial class Dropdown<TValue>
 
         DataSource = Items.ToList();
 
-        SelectedItem = DataSource.FirstOrDefault(i => i.Value.Equals(CurrentValueAsString, StringComparison.OrdinalIgnoreCase))
-            ?? DataSource.FirstOrDefault(i => i.Active)
+        SelectedItem = DataSource.Find(i => i.Value.Equals(CurrentValueAsString, StringComparison.OrdinalIgnoreCase))
+            ?? DataSource.Find(i => i.Active)
             ?? DataSource.FirstOrDefault();
 
         FixedButtonText ??= SelectedItem?.Text;
