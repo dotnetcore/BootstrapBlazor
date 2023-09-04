@@ -175,10 +175,6 @@ public partial class SlideButton
     private async Task OnClickItem(SelectedItem item)
     {
         _selectedItem = item;
-        if (IsAutoClose)
-        {
-            await InvokeVoidAsync("close", Id);
-        }
         if (OnClick.HasDelegate)
         {
             await OnClick.InvokeAsync(item);
