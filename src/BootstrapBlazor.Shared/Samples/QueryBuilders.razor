@@ -8,7 +8,7 @@
 <DemoBlock Title="@Localizer["QueryBuilderNormalTitle"]"
            Introduction="@Localizer["QueryBuilderNormalIntro"]"
            Name="Normal">
-    <QueryBuilder TModel="Foo" @bind-Filter="_filter1">
+    <QueryBuilder TModel="Foo" @bind-Value="_filter1">
         <QueryColumn @bind-Field="@context.Name" Operator="@FilterAction.Equal"></QueryColumn>
 
         <QueryGroup Logic="@FilterLogic.Or">
@@ -22,7 +22,7 @@
 
     <Divider Text="Nest"></Divider>
 
-    <QueryBuilder TModel="Foo" @bind-Filter="_filter2" class="mt-3">
+    <QueryBuilder TModel="Foo" @bind-Value="_filter2" class="mt-3">
         <QueryColumn @bind-Field="@context.Name" Operator="@FilterAction.Equal"></QueryColumn>
 
         <QueryGroup Logic="@FilterLogic.Or">
