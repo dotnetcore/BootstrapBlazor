@@ -332,7 +332,7 @@
     "DialogHeaderText": "Selected Icon",
     "CopiedTooltipText": "Copied"
   },
-  "BootstrapBlazor.Components.Loader": {
+  "BootstrapBlazor.Components.Splitting": {
     "Text": "Loading ..."
   }
 }

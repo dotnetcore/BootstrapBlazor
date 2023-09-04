@@ -7,33 +7,44 @@ import Popover from "../../modules/base-popover.js?v=$version"
 
 const setBodyHeight = table => {
     const el = table.el
-    const body = table.body || table.tables[0]
-    const search = el.querySelector('.table-search')
+    const children = [...el.children]
+
+    const search = children.find(i => i.classList.contains('table-search'))
     table.search = search
     let searchHeight = 0
     if (search) {
         searchHeight = getOuterHeight(search)
     }
-    const pagination = el.querySelector('.nav-pages')
+
+    const pagination = children.find(i => i.classList.contains('nav-pages'))
     let paginationHeight = 0
     if (pagination) {
         paginationHeight = getOuterHeight(pagination)
     }
-    const toolbar = el.querySelector('.table-toolbar')
+
+    const toolbar = children.find(i => i.classList.contains('table-toolbar'))
     let toolbarHeight = 0
     if (toolbar) {
         toolbarHeight = getOuterHeight(toolbar)
     }
+
     const bodyHeight = paginationHeight + toolbarHeight + searchHeight;
-    if (bodyHeight > 0) {
-        body.parentNode.style.height = `calc(100% - ${bodyHeight}px)`
+    const card = children.find(i => i.classList.contains('table-card'))
+    if (card) {
+        card.style.height = `calc(100% - ${bodyHeight}px)`
     }
-    let headerHeight = 0
-    if (table.thead) {
-        headerHeight = getOuterHeight(table.thead)
-    }
-    if (headerHeight > 0) {
-        body.style.height = `calc(100% - ${headerHeight}px)`
+    else {
+        const body = table.body || table.tables[0]
+        if (bodyHeight > 0) {
+            body.parentNode.style.height = `calc(100% - ${bodyHeight}px)`
+        }
+        let headerHeight = 0
+        if (table.thead) {
+            headerHeight = getOuterHeight(table.thead)
+        }
+        if (headerHeight > 0) {
+            body.style.height = `calc(100% - ${headerHeight}px)`
+        }
     }
 }
 
@@ -432,51 +443,70 @@ export function init(id, invoke, callbacks) {
     const table = {
         el,
         invoke,
-        callbacks,
-        columns: [],
-        tables: [],
-        dragColumns: []
+        callbacks
     }
     Data.set(id, table)
-    const shim = [...el.children].find(i => i.classList.contains('table-shim'))
-    if (shim === undefined) {
-        return
-    }
-    table.thead = [...shim.children].find(i => i.classList.contains('table-fixed-header'))
-    table.isResizeColumn = shim.classList.contains('table-resize')
-    if (table.thead) {
-        table.isExcel = table.thead.firstChild.classList.contains('table-excel')
-        table.body = [...shim.children].find(i => i.classList.contains('table-fixed-body'))
-        table.isDraggable = table.thead.firstChild.classList.contains('table-draggable')
-        table.tables.push(table.thead.firstChild)
-        table.tables.push(table.body.firstChild)
-        fixHeader(table)
 
-        EventHandler.on(table.body, 'scroll', () => {
-            const left = table.body.scrollLeft
-            table.thead.scrollTo(left, 0)
-        });
-    }
-    else {
-        table.isExcel = shim.firstChild.classList.contains('table-excel')
-        table.isDraggable = shim.firstChild.classList.contains('table-draggable')
-        table.tables.push(shim.firstChild)
+    reset(id)
+}
+
+export function reset(id) {
+    const table = Data.get(id)
+
+    table.columns = []
+    table.tables = []
+    table.dragColumns = []
+
+    const shim = [...table.el.children].find(i => i.classList.contains('table-shim'))
+    if (shim === void 0) {
         setBodyHeight(table)
     }
+    else {
+        table.thead = [...shim.children].find(i => i.classList.contains('table-fixed-header'))
+        table.isResizeColumn = shim.classList.contains('table-resize')
+        if (table.thead) {
+            table.isExcel = table.thead.firstChild.classList.contains('table-excel')
+            table.body = [...shim.children].find(i => i.classList.contains('table-fixed-body'))
+            table.isDraggable = table.thead.firstChild.classList.contains('table-draggable')
+            table.tables.push(table.thead.firstChild)
+            table.tables.push(table.body.firstChild)
+            fixHeader(table)
 
-    if (table.isExcel) {
-        setExcelKeyboardListener(table)
+            EventHandler.on(table.body, 'scroll', () => {
+                const left = table.body.scrollLeft
+                table.thead.scrollTo(left, 0)
+            });
+        }
+        else {
+            table.isExcel = shim.firstChild.classList.contains('table-excel')
+            table.isDraggable = shim.firstChild.classList.contains('table-draggable')
+            table.tables.push(shim.firstChild)
+            setBodyHeight(table)
+        }
+
+        if (table.isExcel) {
+            setExcelKeyboardListener(table)
+        }
+
+        if (table.isResizeColumn) {
+            setResizeListener(table)
+        }
+
+        if (table.isDraggable) {
+            setDraggable(table)
+        }
+
+        setCopyColumn(table)
+
+        // popover
+        const toolbar = [...table.el.children].find(i => i.classList.contains('table-toolbar'))
+        if (toolbar) {
+            const right = toolbar.querySelector('.table-column-right')
+            if(right) {
+                setToolbarDropdown(table, right)
+            }
+        }
     }
-
-    if (table.isResizeColumn) {
-        setResizeListener(table)
-    }
-
-    if (table.isDraggable) {
-        setDraggable(table)
-    }
-
-    setCopyColumn(table)
 
     if (table.search) {
         const observer = new ResizeObserver(() => {
@@ -484,12 +514,6 @@ export function init(id, invoke, callbacks) {
         });
         observer.observe(table.search)
         table.observer = observer
-    }
-
-    // popover
-    const toolbar = el.querySelector('.table-column-right')
-    if (toolbar !== null) {
-        setToolbarDropdown(table, toolbar)
     }
 }
 

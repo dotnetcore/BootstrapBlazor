@@ -7,8 +7,10 @@ namespace BootstrapBlazor.Shared.Samples;
 /// <summary>
 /// Loader 示例代码
 /// </summary>
-public partial class Loaders
+public partial class Splittings
 {
+    private int _columns = 10;
+
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new()
@@ -42,6 +44,14 @@ public partial class Loaders
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
+        },
+        new()
+        {
+            Name = "Repeat",
+            Description = "Is repeat the animation",
+            Type = "int",
+            ValueList = ">= -1",
+            DefaultValue = "-1"
         }
     };
 }
