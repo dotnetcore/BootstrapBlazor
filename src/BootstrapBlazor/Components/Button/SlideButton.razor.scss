@@ -30,20 +30,18 @@
         transition: width .3s ease-in-out, height .3s ease-in-out;
 
         &:not(.is-horizontal) {
-            height: 0;
             width: var(--bb-slide-list-width);
 
             &.show {
-                height: var(--bb-slide-list-height);
+                height: var(--bb-slide-list-height) !important;
             }
         }
 
         &.is-horizontal {
             height: var(--bb-slide-list-height);
-            width: 0;
 
             &.show {
-                width: var(--bb-slide-list-width);
+                width: var(--bb-slide-list-width) !important;
             }
         }
 
@@ -61,7 +59,6 @@
 
         .slide-body {
             padding: var(--bb-slide-item-body-padding);
-            overflow: auto;
             border-radius: var(--bs-border-radius);
             border: var(--bb-slide-list-border);
         }

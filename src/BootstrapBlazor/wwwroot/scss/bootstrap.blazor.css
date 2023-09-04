@@ -566,18 +566,16 @@ a, a:hover, a:focus {
   transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
 }
 .slide-button .slide-list:not(.is-horizontal) {
-  height: 0;
   width: var(--bb-slide-list-width);
 }
 .slide-button .slide-list:not(.is-horizontal).show {
-  height: var(--bb-slide-list-height);
+  height: var(--bb-slide-list-height) !important;
 }
 .slide-button .slide-list.is-horizontal {
   height: var(--bb-slide-list-height);
-  width: 0;
 }
 .slide-button .slide-list.is-horizontal.show {
-  width: var(--bb-slide-list-width);
+  width: var(--bb-slide-list-width) !important;
 }
 .slide-button .slide-list .slide-header {
   padding: var(--bb-slide-item-header-padding);
@@ -591,7 +589,6 @@ a, a:hover, a:focus {
 }
 .slide-button .slide-list .slide-body {
   padding: var(--bb-slide-item-body-padding);
-  overflow: auto;
   border-radius: var(--bs-border-radius);
   border: var(--bb-slide-list-border);
 }
