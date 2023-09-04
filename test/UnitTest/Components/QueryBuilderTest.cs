@@ -86,4 +86,35 @@ public class QueryBuilderTest : BootstrapBlazorTestBase
         rows = cut.FindAll(".qb-row");
         Assert.Single(rows);
     }
+
+    [Fact]
+    public void Header_Ok()
+    {
+        var cut = Context.RenderComponent<QueryBuilder<Foo>>();
+        var header = cut.Find(".qb-header");
+        var group = header.QuerySelector(".btn-group");
+        Assert.NotNull(group);
+
+        var buttons = group.QuerySelectorAll(".btn");
+        Assert.Equal(2, buttons.Length);
+
+        buttons[0].Click();
+        Assert.Equal(FilterLogic.And, cut.Instance.Value.FilterLogic);
+
+        buttons[1].Click();
+        Assert.Equal(FilterLogic.Or, cut.Instance.Value.FilterLogic);
+    }
+
+    [Fact]
+    public void Logic_Ok()
+    {
+        var cut = Context.RenderComponent<QueryBuilder<Foo>>();
+        Assert.Equal(FilterLogic.And, cut.Instance.Value.FilterLogic);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Logic, FilterLogic.Or);
+        });
+        Assert.Equal(FilterLogic.Or, cut.Instance.Value.FilterLogic);
+    }
 }
