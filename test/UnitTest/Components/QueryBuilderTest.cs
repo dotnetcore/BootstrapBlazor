@@ -113,6 +113,23 @@ public class QueryBuilderTest : BootstrapBlazorTestBase
         buttons[1].Click();
         Assert.Equal(FilterLogic.Or, cut.Instance.Value.FilterLogic);
         Assert.Equal(FilterLogic.Or, cut.Instance.Logic);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowHeader, false);
+        });
+        cut.DoesNotContain("btn-minus");
+        cut.DoesNotContain("btn-plus");
+    }
+
+    [Fact]
+    public void ShowHeader_Ok()
+    {
+        var cut = Context.RenderComponent<QueryBuilder<Foo>>(pb =>
+        {
+            pb.Add(a => a.ShowHeader, false);
+        });
+        cut.DoesNotContain("qb-header");
     }
 
     [Fact]
