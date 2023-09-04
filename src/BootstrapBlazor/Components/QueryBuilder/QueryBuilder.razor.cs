@@ -59,18 +59,6 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
     public RenderFragment<FilterKeyValueAction>? HeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 首次加载是否显示加载骨架屏 默认 false 不显示 使用 <see cref="ShowLoadingInFirstRender" /> 参数值
-    /// </summary>
-    [Parameter]
-    public bool ShowSkeleton { get; set; }
-
-    /// <summary>
-    /// 获得/设置 首次加载是否显示加载动画 默认 true 显示 设置 <see cref="ShowSkeleton"/> 值覆盖此参数
-    /// </summary>
-    [Parameter]
-    public bool ShowLoadingInFirstRender { get; set; } = true;
-
-    /// <summary>
     /// 获得/设置 增加过滤条件图标
     /// </summary>
     [Parameter]
