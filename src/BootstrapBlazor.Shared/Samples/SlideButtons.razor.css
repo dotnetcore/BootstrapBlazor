@@ -10,14 +10,6 @@
         display: flex;
     }
 
-::deep .form-check {
-    width: 120px;
-}
-
-    ::deep .form-check:not(:first-child) {
-        margin-left: 1rem;
-    }
-
 .slide-button-custom ::deep .slide-button {
     --bb-slide-list-height: 123px;
 }
@@ -45,3 +37,7 @@
     .slide-item-custom:hover {
         background-color: #189ae3;
     }
+
+.label-width {
+    width: 150px;
+}
