@@ -27,7 +27,6 @@
         z-index: 5;
         display: flex;
         flex-direction: column;
-        transition: width .3s ease-in-out, height .3s ease-in-out;
 
         &:not(.is-horizontal) {
             height: var(--bb-slide-list-height-collapsed);

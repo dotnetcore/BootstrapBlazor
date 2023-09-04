@@ -563,7 +563,6 @@ a, a:hover, a:focus {
   z-index: 5;
   display: flex;
   flex-direction: column;
-  transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
 }
 .slide-button .slide-list:not(.is-horizontal) {
   height: var(--bb-slide-list-height-collapsed);
