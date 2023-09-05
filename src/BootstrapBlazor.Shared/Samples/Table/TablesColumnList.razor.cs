@@ -54,7 +54,11 @@ public partial class TablesColumnList
 
     private Task ResetVisibleColumns()
     {
-        TableColumnVisible.ResetVisibleColumns(new ColumnVisibleItem[] { new(nameof(Foo.DateTime), true), new(nameof(Foo.Name), false), new(nameof(Foo.Address), false), new(nameof(Foo.Education), false), new(nameof(Foo.Count), false), new(nameof(Foo.Complete), true) });
+        // 支持设置部分列不可见
+        TableColumnVisible.ResetVisibleColumns(new ColumnVisibleItem[] {
+            new(nameof(Foo.Name), false),
+            new(nameof(Foo.Complete), true)
+        });
         return Task.CompletedTask;
     }
 
