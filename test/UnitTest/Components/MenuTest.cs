@@ -389,6 +389,11 @@ public class MenuTest : BootstrapBlazorTestBase
         {
             pb.Add(m => m.Items, Items);
         });
+        var item = cut.Find("[href=\"Menu2321\"]");
+        Assert.NotNull(item);
+        var li = item.Closest("li");
+        Assert.NotNull(li);
+        Assert.True(li.ClassList.Contains("active"));
     }
 
     [Fact]
