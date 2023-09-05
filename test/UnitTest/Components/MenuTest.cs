@@ -319,19 +319,13 @@ public class MenuTest : BootstrapBlazorTestBase
             pb.Add(m => m.Items, Items);
         });
 
-        cut.InvokeAsync(() =>
-        {
-            // 子菜单 Click 触发
-            var div = cut.Find(".nav-item");
-            div.Click(new MouseEventArgs());
-        });
+        // 子菜单 Click 触发
+        var div = cut.Find(".nav-item");
+        div.Click(new MouseEventArgs());
 
-        cut.InvokeAsync(() =>
-        {
-            // 查找第一个 li 节点
-            var menuItems = cut.Find("li");
-            menuItems.Click(new MouseEventArgs());
-        });
+        // 查找第一个 li 节点
+        var menuItems = cut.Find("li");
+        menuItems.Click(new MouseEventArgs());
 
         cut.SetParametersAndRender(pb =>
         {
@@ -342,26 +336,17 @@ public class MenuTest : BootstrapBlazorTestBase
             });
         });
 
-        cut.InvokeAsync(() =>
-        {
-            var menuItems = cut.Find("li");
-            menuItems.Click(new MouseEventArgs());
-        });
+        menuItems = cut.Find("li");
+        menuItems.Click(new MouseEventArgs());
         Assert.True(clicked);
 
-        cut.InvokeAsync(() =>
-        {
-            // SubMenu Click
-            var sub = cut.Find(".sub-menu div.nav-item");
-            sub.Click(new MouseEventArgs());
-        });
+        // SubMenu Click
+        var sub = cut.Find(".sub-menu div.nav-item");
+        sub.Click(new MouseEventArgs());
 
-        cut.InvokeAsync(() =>
-        {
-            var subs = cut.FindAll(".sub-menu div.nav-item");
-            var sub = subs[subs.Count - 1];
-            sub.Click(new MouseEventArgs());
-        });
+        var subs = cut.FindAll(".sub-menu div.nav-item");
+        sub = subs[subs.Count - 1];
+        sub.Click(new MouseEventArgs());
 
         // 设置禁止导航 
         // 顶栏模式
@@ -370,19 +355,13 @@ public class MenuTest : BootstrapBlazorTestBase
             pb.Add(m => m.DisableNavigation, true);
         });
 
-        cut.InvokeAsync(() =>
-        {
-            var menuItems = cut.Find("li");
-            menuItems.Click(new MouseEventArgs());
-        });
+        menuItems = cut.Find("li");
+        menuItems.Click(new MouseEventArgs());
         Assert.True(clicked);
 
-        cut.InvokeAsync(() =>
-        {
-            // 再次点击
-            var menuItems = cut.Find("li");
-            menuItems.Click(new MouseEventArgs());
-        });
+        // 再次点击
+        menuItems = cut.Find("li");
+        menuItems.Click(new MouseEventArgs());
 
         // 侧边栏模式
         cut.SetParametersAndRender(pb =>
@@ -391,21 +370,14 @@ public class MenuTest : BootstrapBlazorTestBase
             pb.Add(m => m.IsCollapsed, true);
         });
 
-        cut.InvokeAsync(() =>
-        {
-            // 再次点击
-            var menuItems = cut.Find("li");
-            menuItems.Click(new MouseEventArgs());
-        });
+        // 再次点击
+        menuItems = cut.Find("li");
+        menuItems.Click(new MouseEventArgs());
         Assert.True(clicked);
 
         // 再次点击
-        cut.InvokeAsync(() =>
-        {
-            // 再次点击
-            var menuItems = cut.Find("li");
-            menuItems.Click(new MouseEventArgs());
-        });
+        menuItems = cut.Find("li");
+        menuItems.Click(new MouseEventArgs());
     }
 
     [Fact]
