@@ -1,7 +1,15 @@
-﻿argo
+argo
 Blazor
 swal
 Overscan
-&nbsp;
+nbsp
+colspan
+editform
+dblclick
+dbcell
 readonly
+thead
 oninput
+onkeyup
+ontouchstart
+ontouchend
