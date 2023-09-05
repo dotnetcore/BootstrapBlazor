@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\BootstrapBlazor\BootstrapBlazor.csproj" />
+    <ProjectReference Include="..\..\src\Extensions\Components\BootstrapBlazor.Splitting\BootstrapBlazor.Splitting.csproj" />
   </ItemGroup>
 
   <ItemGroup>
