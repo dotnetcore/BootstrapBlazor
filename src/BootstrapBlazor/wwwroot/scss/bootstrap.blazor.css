@@ -7529,20 +7529,3 @@ form .form-control.is-display {
 .query-builder .dropdown-toggle:after {
   content: none;
 }
-
-.splitting {
-  --splitting-padding: 0.25rem;
-  --splitting-text-bottom-margin: 0.5rem;
-  --splitting-progress-height: 1rem;
-}
-.splitting .splitting-text {
-  margin-bottom: var(--splitting-text-bottom-margin);
-}
-.splitting .splitting-wrap {
-  border: 1px solid var(--bs-border-color);
-  padding: var(--splitting-padding);
-  border-radius: var(--bs-border-radius);
-}
-.splitting .splitting-wrap .splitting-flip {
-  height: var(--splitting-progress-height);
-}
