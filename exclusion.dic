@@ -10,6 +10,7 @@ dbcell
 listview
 readonly
 thead
+tbody
 oninput
 onkeyup
 ontouchstart
