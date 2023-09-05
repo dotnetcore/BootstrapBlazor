@@ -5808,6 +5808,14 @@
     "CountText": "timing text",
     "CountTextCallback": "timing text callback method"
   },
+  "BootstrapBlazor.Shared.Samples.QueryBuilders": {
+    "QueryBuilderTitle": "QueryBuilder",
+    "QueryBuilderSubTitle": "Can be used for generating forms and table filtering conditions",
+    "QueryBuilderNormalTitle": "Basic usage",
+    "QueryBuilderNormalIntro": "Build filter conditions directly in the <code>Razor</code> file through <code>QueryGroup</code> <code>QueryColumn</code>",
+    "QueryBuilderHeaderTitle": "Display control buttons",
+    "QueryBuilderHeaderIntro": "Turn off the control button by setting <code>ShowHeader=\"false\"</code>"
+  },
   "BootstrapBlazor.Shared.Samples.MindMaps": {
     "MindMapTitle": "Mind Map",
     "MindMapDescription": "The shortcut key tab adds a new node, the mouse can drag node arrangement",
