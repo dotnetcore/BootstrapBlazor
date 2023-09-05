@@ -1,7 +1,7 @@
 ﻿export function init() {
     const hash = decodeURI(location.hash)
     if (hash) {
-        var anchor = hash.split('-')[0]
+        const anchor = hash.split('-')[0]
         try {
             const el = document.querySelector(anchor)
             if (el) {
