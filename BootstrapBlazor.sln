@@ -132,9 +132,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.DataAccess.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "maui", "maui", "{C42EFBEF-7038-4D53-B8BA-998D6889AD5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.Maui", "src\maui\BootstrapBlazor.Maui\BootstrapBlazor.Maui.csproj", "{28DA0B9C-11A0-4144-A909-D95BDAD7787D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Maui", "src\maui\BootstrapBlazor.Maui\BootstrapBlazor.Maui.csproj", "{28DA0B9C-11A0-4144-A909-D95BDAD7787D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniTest.Sass", "test\UniTest.Sass\UniTest.Sass.csproj", "{D8AEAFE7-10AF-4A5B-BC67-FE740A2CA1DF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Splitting", "src\Extensions\Components\BootstrapBlazor.Splitting\BootstrapBlazor.Splitting.csproj", "{568237B9-209E-49B1-9BCF-E853F2D61442}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -280,6 +282,10 @@ Global
 		{D8AEAFE7-10AF-4A5B-BC67-FE740A2CA1DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8AEAFE7-10AF-4A5B-BC67-FE740A2CA1DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8AEAFE7-10AF-4A5B-BC67-FE740A2CA1DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{568237B9-209E-49B1-9BCF-E853F2D61442}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{568237B9-209E-49B1-9BCF-E853F2D61442}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{568237B9-209E-49B1-9BCF-E853F2D61442}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{568237B9-209E-49B1-9BCF-E853F2D61442}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -328,6 +334,7 @@ Global
 		{C42EFBEF-7038-4D53-B8BA-998D6889AD5F} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
 		{28DA0B9C-11A0-4144-A909-D95BDAD7787D} = {C42EFBEF-7038-4D53-B8BA-998D6889AD5F}
 		{D8AEAFE7-10AF-4A5B-BC67-FE740A2CA1DF} = {7C1D79F1-87BC-42C1-BD5A-CDE4044AC1BD}
+		{568237B9-209E-49B1-9BCF-E853F2D61442} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}

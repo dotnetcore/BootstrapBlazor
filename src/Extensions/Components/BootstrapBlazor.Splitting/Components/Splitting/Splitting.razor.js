@@ -51,9 +51,9 @@ const loader = el => {
 }
 
 export async function init(id) {
-    await addLink('./_content/BootstrapBlazor/lib/splitting/splitting-cells.css')
-    await addScript('./_content/BootstrapBlazor/lib/splitting/splitting.min.js')
-    await addScript('./_content/BootstrapBlazor/modules/gsap.min.js')
+    await addLink('./_content/BootstrapBlazor.Splitting/lib/splitting/splitting-cells.css')
+    await addScript('./_content/BootstrapBlazor.Splitting/lib/splitting/splitting.min.js')
+    await addScript('./_content/BootstrapBlazor.Splitting/modules/gsap.min.js')
 
     const el = document.getElementById(id);
     loader(el);
