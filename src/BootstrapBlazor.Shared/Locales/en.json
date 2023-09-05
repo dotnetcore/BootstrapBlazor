@@ -4514,6 +4514,7 @@
     "DialButton": "DialButton",
     "CountButton": "CountButton",
     "Splitting": "Splitting",
+    "QueryBuilder": "QueryBuilder",
     "MindMap": "Mind Map"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {

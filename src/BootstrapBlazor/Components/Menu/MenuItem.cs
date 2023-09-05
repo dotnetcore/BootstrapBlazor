@@ -32,7 +32,7 @@ public class MenuItem : NodeItem
     public string? Target { get; set; }
 
     /// <summary>
-    /// 获得/设置 匹配方式 默认 NavLinkMatch.All
+    /// 获得/设置 匹配方式 默认 NavLinkMatch.Prefix
     /// </summary>
     public NavLinkMatch Match { get; set; } = NavLinkMatch.Prefix;
 

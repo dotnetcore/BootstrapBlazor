@@ -4514,6 +4514,7 @@
     "DialButton": "拨号菜单 DialButton",
     "CountButton": "倒计时按钮 CountButton",
     "Splitting": "动画组件 Splitting",
+    "QueryBuilder": "条件生成器 QueryBuilder",
     "MindMap": "思维导图 MindMap"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
@@ -5807,6 +5808,14 @@
     "CountText": "倒计时文本",
     "CountTextCallback": "倒计时格式化回调方法"
   },
+  "BootstrapBlazor.Shared.Samples.QueryBuilders": {
+    "QueryBuilderTitle": "条件生成器 QueryBuilder",
+    "QueryBuilderSubTitle": "可用于表单、表格过滤条件生成",
+    "QueryBuilderNormalTitle": "基本用法",
+    "QueryBuilderNormalIntro": "在 <code>Razor</code> 文件中直接通过 <code>QueryGroup</code> <code>QueryColumn</code> 构建过滤条件",
+    "QueryBuilderHeaderTitle": "显示控制按钮",
+    "QueryBuilderHeaderIntro": "通过设置 <code>ShowHeader=\"false\"</code> 关闭控制按钮"
+  },
   "BootstrapBlazor.Shared.Samples.MindMaps": {
     "MindMapTitle": "Mind Map 思维导图",
     "MindMapDescription": "快捷键Tab添加新节点,鼠标可拖动节点排列",
@@ -5842,3 +5851,4 @@
     "NodeExpandText": "节点是否展开"
   }
 }
+

@@ -185,6 +185,7 @@
     "slide-button": "SlideButtons",
     "dial-button": "DialButtons",
     "count-button": "CountButtons",
+    "query-builder": "QueryBuilders",
     "mind-map": "MindMaps"
   },
   "video": {

@@ -747,5 +747,10 @@ public enum ComponentIcons
     /// <summary>
     /// QueryBuilder 组件 增加按钮图标
     /// </summary>
-    QueryBuilderPlusIcon
+    QueryBuilderPlusIcon,
+
+    /// <summary>
+    /// QueryBuilder 组件 移除按钮图标
+    /// </summary>
+    QueryBuilderRemoveIcon
 }
