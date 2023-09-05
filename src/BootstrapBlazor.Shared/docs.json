@@ -88,7 +88,7 @@
     "markdown": "Markdowns",
     "menu": "Menus",
     "message": "Messages",
-    "mind-map": "MindMaps",
+    "mind-map": "MindMaps\\MindMaps",
     "modal": "Modals",
     "mouse-follower": "MouseFollowers",
     "multi-select": "MultiSelects",
