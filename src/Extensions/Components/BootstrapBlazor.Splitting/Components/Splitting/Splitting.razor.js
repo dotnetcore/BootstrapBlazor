@@ -1,4 +1,4 @@
-﻿import { addLink, addScript } from '../../modules/utility.js?v=$version'
+﻿import { addLink, addScript } from '../../../BootstrapBlazor/modules/utility.js?v=$version'
 
 const reset = el => {
     const flip = el.querySelector(".splitting-flip");

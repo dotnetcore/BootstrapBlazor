@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class Splittings
 {
-    private int _columns = 10;
+    private int _columns = 30;
 
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
