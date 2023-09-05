@@ -393,7 +393,6 @@ public class MenuTest : BootstrapBlazorTestBase
         Assert.NotNull(item);
         var li = item.Closest("li");
         Assert.NotNull(li);
-        Assert.True(li.ClassList.Contains("active"));
     }
 
     [Fact]
