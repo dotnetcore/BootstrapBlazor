@@ -4512,7 +4512,8 @@
     "SlideButton": "SlideButton",
     "DialButton": "DialButton",
     "CountButton": "CountButton",
-    "Splitting": "Splitting"
+    "Splitting": "Splitting",
+    "QueryBuilder": "QueryBuilder"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",

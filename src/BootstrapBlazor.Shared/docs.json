@@ -184,7 +184,8 @@
     "chart/pie": "Charts\\Pie",
     "slide-button": "SlideButtons",
     "dial-button": "DialButtons",
-    "count-button": "CountButtons"
+    "count-button": "CountButtons",
+    "query-builder": "QueryBuilders"
   },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",

@@ -334,5 +334,19 @@
   },
   "BootstrapBlazor.Components.Splitting": {
     "Text": "正在加载 ..."
+  },
+  "BootstrapBlazor.Components.QueryBuilder": {
+    "And": "并且",
+    "Or": "或者",
+    "GreaterThanOrEqual": "大于等于",
+    "LessThanOrEqual": "小于等于",
+    "GreaterThan": "大于",
+    "LessThan": "小于",
+    "Equal": "等于",
+    "NotEqual": "不等于",
+    "Contains": "包含",
+    "NotContains": "不包含",
+    "GroupText": "组合条件",
+    "ItemText": "单行条件"
   }
 }

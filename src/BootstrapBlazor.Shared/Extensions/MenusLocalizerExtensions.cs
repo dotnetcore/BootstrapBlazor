@@ -260,6 +260,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Match = NavLinkMatch.All,
                     Text = Localizer["Checkbox"],
                     Url = "checkbox"
                 },
@@ -588,6 +589,12 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Print"],
                     Url = "print"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["QueryBuilder"],
+                    Url = "query-builder"
                 },
                 new()
                 {

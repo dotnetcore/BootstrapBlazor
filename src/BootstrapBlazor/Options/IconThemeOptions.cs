@@ -227,5 +227,6 @@ public class IconThemeOptions
 
         { ComponentIcons.QueryBuilderPlusIcon, "fa-solid fa-plus" },
         { ComponentIcons.QueryBuilderMinusIcon, "fa-solid fa-minus" },
+        { ComponentIcons.QueryBuilderRemoveIcon, "fa-solid fa-xmark" },
     };
 }
