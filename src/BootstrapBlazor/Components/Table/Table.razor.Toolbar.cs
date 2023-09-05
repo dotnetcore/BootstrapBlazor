@@ -386,7 +386,7 @@ public partial class Table<TItem>
     private List<ColumnVisibleItem> VisibleColumns { get; } = new();
 
     /// <summary>
-    /// <inheritdoc/>
+    /// 获得当前可见列集合
     /// </summary>
     /// <returns></returns>
     public IEnumerable<ITableColumn> GetVisibleColumns()
