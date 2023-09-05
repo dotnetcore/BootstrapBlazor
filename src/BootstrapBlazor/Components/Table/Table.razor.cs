@@ -808,7 +808,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             });
         }
 
-        if(_breakPointChanged)
+        if (_breakPointChanged)
         {
             _breakPointChanged = false;
             await InvokeVoidAsync("reset", Id);
@@ -873,10 +873,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await QueryData();
             StateHasChanged();
         }
-        catch (TaskCanceledException)
-        {
-
-        }
+        catch (TaskCanceledException) { }
     }
 
     private bool _loop;

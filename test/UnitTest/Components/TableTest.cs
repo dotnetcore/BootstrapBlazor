@@ -200,7 +200,6 @@ public class TableTest : TableTestBase
     [Fact]
     public void Items_Delete()
     {
-        var tcs = new TaskCompletionSource<bool>();
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -208,24 +207,18 @@ public class TableTest : TableTestBase
             pb.AddChildContent<MockTable>(pb =>
             {
                 pb.Add(a => a.Items, items);
-                pb.Add(a => a.ItemsChanged, EventCallback.Factory.Create<IEnumerable<Foo>>(this, rows =>
-                {
-                    items = rows.ToList();
-                    tcs.SetResult(true);
-                }));
+                pb.Add(a => a.ItemsChanged, EventCallback.Factory.Create<IEnumerable<Foo>>(this, rows => items = rows.ToList()));
                 pb.Add(a => a.EditMode, EditMode.InCell);
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowExtendButtons, true);
             });
         });
-        cut.InvokeAsync(async () =>
-        {
-            var table = cut.FindComponent<MockTable>();
-            await table.Instance.TestDeleteAsync();
-            await tcs.Task;
-        });
+
+        var table = cut.FindComponent<MockTable>();
+        _ = table.Instance.TestDeleteAsync();
+
         Assert.Single(items);
-        Assert.Equal(localizer["Foo.Name", "0002"], items.First().Name);
+        Assert.Equal(localizer["Foo.Name", "0002"], items[0].Name);
     }
 
     [Fact]
@@ -237,6 +230,8 @@ public class TableTest : TableTestBase
             pb.AddChildContent<Table<Foo>>(pb =>
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowToolbar, true);
+                pb.Add(a => a.ShowColumnList, true);
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 2));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -244,9 +239,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(1, "Field", "Name");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.CloseComponent();
-                });
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
+
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
                     builder.AddAttribute(1, "Field", "Address");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
@@ -262,6 +255,10 @@ public class TableTest : TableTestBase
                 });
             });
         });
+
+        // Address 不可见
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.Single(table.Instance.GetVisibleColumns());
     }
 
     [Fact]

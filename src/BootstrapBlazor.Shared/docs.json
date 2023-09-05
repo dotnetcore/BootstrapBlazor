@@ -186,7 +186,8 @@
     "dial-button": "DialButtons",
     "count-button": "CountButtons",
     "query-builder": "QueryBuilders",
-    "web-serial": "WebSerials"
+    "web-serial": "WebSerials",
+    "mind-map": "MindMap"
   },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",

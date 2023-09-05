@@ -386,13 +386,14 @@ public partial class Table<TItem>
     private List<ColumnVisibleItem> VisibleColumns { get; } = new();
 
     /// <summary>
-    /// <inheritdoc/>
+    /// 获得当前可见列集合
     /// </summary>
     /// <returns></returns>
     public IEnumerable<ITableColumn> GetVisibleColumns()
     {
-        var items = VisibleColumns.Where(i => i.Visible);
-        return Columns.Where(i => items.Any(v => v.Name == i.GetFieldName()));
+        // 不可见列
+        var items = VisibleColumns.Where(i => !i.Visible);
+        return Columns.Where(i => !items.Any(v => v.Name == i.GetFieldName()));
     }
 
     private bool GetColumnsListState(ITableColumn col) => VisibleColumns.First(i => i.Name == col.GetFieldName()).Visible && VisibleColumns.Count(i => i.Visible) == 1;
