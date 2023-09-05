@@ -76,7 +76,7 @@ export async function init(id, op) {
     }
 
     await addLink("./_content/BootstrapBlazor.MouseFollower/mouse-follower.min.css")
-    await addScript("./_content/BootstrapBlazor/modules/gsap.min.js")
+    await addScript("./_content/BootstrapBlazor.MouseFollower/gsap.min.js")
     await addScript("./_content/BootstrapBlazor.MouseFollower/mouse-follower.min.js")
 
     op.options.container = op.global ? document.body : el

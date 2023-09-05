@@ -116,9 +116,15 @@ internal static class MenusLocalizerExtensions
                     Text = Localizer["Live2DDisplayIntro"],
                     Url = "live2d-display"
                 },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["Splitting"],
+                    Url = "splitting"
+                },
             };
 
-            AddBadge(item, count: 2);
+            AddBadge(item, count: 3);
         }
 
         void AddSpeech(DemoMenuItem item)
@@ -1052,12 +1058,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Spinner"],
                     Url = "spinner"
-                },
-                new()
-                {
-                    IsNew = true,
-                    Text = Localizer["Splitting"],
-                    Url = "splitting"
                 },
                 new()
                 {
