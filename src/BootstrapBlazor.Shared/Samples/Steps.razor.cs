@@ -12,19 +12,20 @@ public sealed partial class Steps
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
-    private IEnumerable<StepItem> Items { get; set; } = new StepItem[3];
+    [NotNull]
+    private List<StepItem>? Items { get; set; }
 
     /// <summary>
     /// 
     /// </summary>
     protected override void OnInitialized()
     {
-        Items = new StepItem[3]
+        Items = new()
         {
             new StepItem() { Title = Localizer["StepItemI1Text"], Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, Localizer["StepItemI1TextC"]); builder.CloseElement(); } },
             new StepItem() { Title = Localizer["StepItemI2Text"], Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, Localizer["StepItemI2TextC"]); builder.CloseElement(); } },
             new StepItem() { Title = Localizer["StepItemI3Text"], Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, Localizer["StepItemI3TextC"]); builder.CloseElement(); } }
-                    };
+        };
     }
 
     private void NextStep()
@@ -34,7 +35,7 @@ public sealed partial class Steps
         {
             item.Status = StepStatus.Success;
             var index = Items.ToList().IndexOf(item) + 1;
-            if (index < Items.Count())
+            if (index < Items.Count)
             {
                 Items.ElementAt(index).Status = StepStatus.Process;
             }
@@ -42,7 +43,7 @@ public sealed partial class Steps
         else
         {
             ResetStep();
-            Items.ElementAt(0).Status = StepStatus.Process;
+            Items[0].Status = StepStatus.Process;
         }
     }
 
