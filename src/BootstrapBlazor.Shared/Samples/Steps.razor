@@ -12,10 +12,10 @@
 <DemoBlock Title="@Localizer["StepsNormalTitle"]"
            Introduction="@Localizer["StepsNormalIntro"]"
            Name="Normal">
-    <div class="mt-1">
-        <Button OnClick="@PrevStep" IsOutline="true">@Localizer["StepsNormalPrevButtonText"]</Button>
-        <Button OnClick="@NextStep" IsOutline="true">@Localizer["StepsNormalNextButtonText"]</Button>
-        <Button OnClick="@ResetStep" IsOutline="true">@Localizer["StepsNormalResetButtonText"]</Button>
+    <div class="mb-2">
+        <Button OnClick="@PrevStep">@Localizer["StepsNormalPrevButtonText"]</Button>
+        <Button OnClick="@NextStep">@Localizer["StepsNormalNextButtonText"]</Button>
+        <Button OnClick="@ResetStep">@Localizer["StepsNormalResetButtonText"]</Button>
     </div>
     <BootstrapBlazor.Components.Steps @ref="@_steps" Items="@Items" OnStatusChanged="@OnStatusChanged" />
     <ConsoleLogger @ref="Logger" class="mt-3" />
