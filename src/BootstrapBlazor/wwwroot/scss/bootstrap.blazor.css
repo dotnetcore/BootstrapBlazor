@@ -2324,7 +2324,6 @@ section > h2 {
   transition: background-color 0.3s linear;
   color: #606266;
 }
-
 .layout-gotop:hover {
   background-color: #fff;
   color: #606266;
