@@ -1904,8 +1904,9 @@
     "StepsTips": "<code>Steps</code> 组件支持通过设置 <code>Items</code> 属性或者直接内嵌 <code>Step</code> 组件两种方式进行 UI 呈现",
     "StepsNormalTitle": "基础用法",
     "StepsNormalIntro": "简单的步骤条，通过直接绑定数据源 <code>Items</code> 即可",
-    "StepsNormalButton1Text": "下一步",
-    "StepsNormalButton2Text": "重 置",
+    "StepsNormalPrevButtonText": "上一步",
+    "StepsNormalNextButtonText": "下一步",
+    "StepsNormalResetButtonText": "重 置",
     "StepsStepTitle": "基础用法",
     "StepsStepIntro": "简单的步骤条，组件内部直接使用 <code>Step</code> 组件设置步骤",
     "Step1Title": "步骤一",
@@ -5863,4 +5864,3 @@
     "NodeExpandText": "节点是否展开"
   }
 }
-

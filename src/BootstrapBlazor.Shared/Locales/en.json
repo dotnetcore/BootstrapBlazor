@@ -1904,8 +1904,9 @@
     "StepsTips": "<code>Steps</code> component supports UI rendering by setting the <code>Items</code> property or by embedding the <code>Step</code> component directly",
     "StepsNormalTitle": "Basic usage",
     "StepsNormalIntro": "Simple step bar, by directly binding the data source <code>Items</code>",
-    "StepsNormalButton1Text": "Next",
-    "StepsNormalButton2Text": "Reset",
+    "StepsNormalPrevButtonText": "Prev",
+    "StepsNormalNextButtonText": "Next",
+    "StepsNormalResetButtonText": "Reset",
     "StepsStepTitle": "Basic usage",
     "StepsStepIntro": "A simple step bar that uses the <code>Step</code> component setup step directly inside the component",
     "Step1Title": "Step 1",
@@ -5820,7 +5821,7 @@
     "DisconnectButtonText": "Disonnect",
     "ApplyButtonText": "Apply"
   },
-    "BootstrapBlazor.Shared.Samples.QueryBuilders": {
+  "BootstrapBlazor.Shared.Samples.QueryBuilders": {
     "QueryBuilderTitle": "QueryBuilder",
     "QueryBuilderSubTitle": "Can be used for generating forms and table filtering conditions",
     "QueryBuilderNormalTitle": "Basic usage",

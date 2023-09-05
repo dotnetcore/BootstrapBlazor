@@ -36,7 +36,7 @@ public class TableTest : TableTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var binded = false;
+        var changed = false;
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
@@ -44,7 +44,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.Items, items);
                 pb.Add(a => a.ItemsChanged, EventCallback.Factory.Create<IEnumerable<Foo>>(this, rows =>
                 {
-                    binded = true;
+                    changed = true;
                 }));
                 pb.Add(a => a.EditMode, EditMode.InCell);
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
@@ -62,7 +62,7 @@ public class TableTest : TableTestBase
             var button = cut.Find("button");
             button.Click();
         });
-        Assert.True(binded);
+        Assert.True(changed);
     }
 
     [Fact]
@@ -173,6 +173,7 @@ public class TableTest : TableTestBase
     [InlineData(InsertRowMode.Last)]
     public void Items_EditForm_Add(InsertRowMode insertMode)
     {
+        var updated = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -180,21 +181,20 @@ public class TableTest : TableTestBase
             pb.AddChildContent<Table<Foo>>(pb =>
             {
                 pb.Add(a => a.Items, items);
-                pb.Add(a => a.ItemsChanged, EventCallback.Factory.Create<IEnumerable<Foo>>(this, rows =>
-                {
-                    items = rows.ToList();
-                }));
                 pb.Add(a => a.EditMode, EditMode.EditForm);
                 pb.Add(a => a.InsertRowMode, insertMode);
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.SelectedRowsChanged, items =>
+                {
+                    updated = true;
+                });
             });
         });
-        cut.InvokeAsync(async () =>
-        {
-            var table = cut.FindComponent<Table<Foo>>();
-            await table.Instance.AddAsync();
-        });
+        var table = cut.FindComponent<Table<Foo>>();
+        _ = table.Instance.AddAsync();
+        Assert.True(updated);
+        Assert.Equal(2, table.Instance.Rows.Count);
     }
 
     [Fact]
@@ -3949,7 +3949,7 @@ public class TableTest : TableTestBase
 
         await cut.InvokeAsync(() => btn.Click());
         checkboxs = cut.FindAll(".is-checked");
-        Assert.Equal(0, checkboxs.Count);
+        Assert.Empty(checkboxs);
 
         var table = cut.FindComponent<Table<Foo>>();
         table.SetParametersAndRender(pb => pb.Add(a => a.Items, Array.Empty<Foo>()));
@@ -3983,11 +3983,11 @@ public class TableTest : TableTestBase
         await cut.InvokeAsync(() => btn.Click());
 
         var checkboxs = cut.FindAll(".is-checked");
-        Assert.Equal(1, checkboxs.Count);
+        Assert.Single(checkboxs);
 
         await cut.InvokeAsync(() => btn.Click());
         checkboxs = cut.FindAll(".is-checked");
-        Assert.Equal(0, checkboxs.Count);
+        Assert.Empty(checkboxs);
     }
 
     [Fact]
@@ -4662,7 +4662,7 @@ public class TableTest : TableTestBase
         await cut.InvokeAsync(() => button.Instance.OnConfirm.Invoke());
 
         var row = cut.FindAll("tbody tr");
-        Assert.Equal(1, row.Count);
+        Assert.Single(row);
     }
 
     [Fact]
