@@ -170,13 +170,23 @@ public class QueryBuilderTest : BootstrapBlazorTestBase
                 builder.CloseComponent();
             }));
         });
-        cut.WaitForAssertion(() => cut.DoesNotContain("table-loading"));
 
+        Assert.NotNull(filter.Filters);
         Assert.NotNull(cut.Instance.Value.Filters);
+        Assert.Equal(2, filter.Filters.Count);
         Assert.Equal(2, cut.Instance.Value.Filters.Count);
 
+        Assert.NotNull(filter.Filters[1].Filters);
         Assert.NotNull(cut.Instance.Value.Filters[1].Filters);
+        Assert.Equal(2, filter.Filters[1].Filters?.Count);
         Assert.Equal(2, cut.Instance.Value.Filters[1].Filters?.Count);
+
+        var buttons = cut.FindAll(".btn-remove");
+        Assert.Equal(2, buttons.Count);
+
+        buttons[1].Click();
+        Assert.NotNull(filter.Filters);
+        Assert.Single(filter.Filters);
     }
 
     [Fact]
