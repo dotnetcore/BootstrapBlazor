@@ -89,15 +89,17 @@
                             <div class="dropdown-menu dropdown-menu-end shadow">
                                 @foreach (var item in Columns)
                                 {
-                                    var poco = VisibleColumns.FirstOrDefault(i => i.Name == item.GetFieldName());
-                                    if (poco != null)
+                                    var poco = VisibleColumns.Find(i => i.Name == item.GetFieldName());
+                                    if (poco == null)
                                     {
-                                        <div class="dropdown-item">
-                                            <Checkbox ShowAfterLabel="true" IsDisabled="@GetColumnsListState(item)"
-                                                  DisplayText="@item.GetDisplayName()" @bind-Value="@poco.Visible" OnValueChanged="visible => OnToggleColumnVisible(poco.Name, visible)">
-                                            </Checkbox>
-                                        </div>
+                                        poco = new(item.GetFieldName(), item.Visible);
+                                        VisibleColumns.Add(poco);
                                     }
+                                    <div class="dropdown-item">
+                                        <Checkbox ShowAfterLabel="true" IsDisabled="@GetColumnsListState(item)"
+                                        DisplayText="@item.GetDisplayName()" @bind-Value="@poco.Visible" OnValueChanged="visible => OnToggleColumnVisible(poco.Name, visible)">
+                                        </Checkbox>
+                                    </div>
                                 }
                             </div>
                         </div>
