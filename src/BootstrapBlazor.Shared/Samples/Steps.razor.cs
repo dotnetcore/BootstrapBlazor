@@ -15,41 +15,47 @@ public sealed partial class Steps
     [NotNull]
     private List<StepItem>? Items { get; set; }
 
+    private BootstrapBlazor.Components.Steps? _steps;
+
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         Items = new()
         {
-            new StepItem() { Title = Localizer["StepItemI1Text"], Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, Localizer["StepItemI1TextC"]); builder.CloseElement(); } },
-            new StepItem() { Title = Localizer["StepItemI2Text"], Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, Localizer["StepItemI2TextC"]); builder.CloseElement(); } },
-            new StepItem() { Title = Localizer["StepItemI3Text"], Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, Localizer["StepItemI3TextC"]); builder.CloseElement(); } }
+            new StepItem()
+            {
+                Title = Localizer["StepItemI1Text"],
+                Template = BootstrapDynamicComponent.CreateComponent<Counter>().Render(),
+                IsActive = true
+            },
+            new StepItem()
+            {
+                Title = Localizer["StepItemI2Text"],
+                Template = BootstrapDynamicComponent.CreateComponent<FetchData>().Render()
+            },
+            new StepItem()
+            {
+                Title = Localizer["StepItemI3Text"],
+                Template = BootstrapDynamicComponent.CreateComponent<Counter>().Render()
+            }
         };
+    }
+
+    private void PrevStep()
+    {
+        _steps?.Prev();
     }
 
     private void NextStep()
     {
-        var item = Items.FirstOrDefault(i => i.Status == StepStatus.Process);
-        if (item != null)
-        {
-            item.Status = StepStatus.Success;
-            var index = Items.ToList().IndexOf(item) + 1;
-            if (index < Items.Count)
-            {
-                Items.ElementAt(index).Status = StepStatus.Process;
-            }
-        }
-        else
-        {
-            ResetStep();
-            Items[0].Status = StepStatus.Process;
-        }
+        _steps?.Next();
     }
 
     private void ResetStep()
     {
-        Items.ToList().ForEach(i =>
+        Items.ForEach(i =>
         {
             i.Status = StepStatus.Wait;
         });
