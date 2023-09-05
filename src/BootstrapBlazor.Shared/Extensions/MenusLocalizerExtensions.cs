@@ -582,6 +582,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["MindMap"],
+                    Url = "mind-map"
+                },
+                new()
+                {
                     Text = Localizer["PdfReader"],
                     Url = "pdf-reader"
                 },
@@ -665,12 +671,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["VideoPlayer"],
                     Url = "video-player"
-                },
-                new()
-                {
-                    IsNew = true,
-                    Text = Localizer["MindMap"],
-                    Url = "mind-map"
                 }
             };
             AddBadge(item);
