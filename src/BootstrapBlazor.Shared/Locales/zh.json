@@ -1628,7 +1628,8 @@
     "BluetoothText": "蓝牙和打印 Bluetooth & Printer",
     "PdfReaderText": "PDF阅读器 PDF Reader",
     "VideoPlayerText": "视频播放器 VideoPlayer",
-    "FileViewerText": "文件预览器 FileViewer"
+    "FileViewerText": "文件预览器 FileViewer",
+    "MindMapText": "思维导图 Mind Map"
   },
   "BootstrapBlazor.Shared.Pages.Breakpoints": {
     "Heading": "断点",
@@ -4513,7 +4514,8 @@
     "DialButton": "拨号菜单 DialButton",
     "CountButton": "倒计时按钮 CountButton",
     "Splitting": "动画组件 Splitting",
-    "QueryBuilder": "条件生成器 QueryBuilder"
+    "QueryBuilder": "条件生成器 QueryBuilder",
+    "MindMap": "思维导图 MindMap"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -5813,5 +5815,39 @@
     "QueryBuilderNormalIntro": "在 <code>Razor</code> 文件中直接通过 <code>QueryGroup</code> <code>QueryColumn</code> 构建过滤条件",
     "QueryBuilderHeaderTitle": "显示控制按钮",
     "QueryBuilderHeaderIntro": "通过设置 <code>ShowHeader=\"false\"</code> 关闭控制按钮"
+  },
+  "BootstrapBlazor.Shared.Samples.MindMaps": {
+    "MindMapTitle": "Mind Map 思维导图",
+    "MindMapDescription": "快捷键Tab添加新节点,鼠标可拖动节点排列",
+    "MindMapNormalTitle": "基本用法",
+    "Sample1ButtonText": "例子1",
+    "Sample2ButtonText": "一周安排",
+    "ExportButtonText": "下载为PNG",
+    "ExportJsonButtonText": "下载为json",
+    "GetFullDataButtonText": "导出对象",
+    "GetDataButtonText": "导出json对象",
+    "SetDataButtonText": "导入数据(json)",
+    "ResetButtonText": "复位",
+    "NodeDataText": "节点数据",
+    "Data": "初始数据",
+    "ShowUI": "显示内置UI",
+    "StyleCss": "自定义CSS",
+    "OnReceive": "收到数据回调方法",
+    "OnError": "错误回调方法",
+    "Export": "下载为文件",
+    "GetData": "获取数据",
+    "SetData": "导入数据",
+    "Reset": "复位",
+    "NodeTextText": "节点文本",
+    "NodeImageText": "图片",
+    "NodeImageTitleText": "图片文本",
+    "NodeImageSizeText": "图片尺寸",
+    "NodeIconText": "图标",
+    "NodeTagText": "标签",
+    "NodeHyperlinkText": "链接",
+    "NodeHyperlinkTitleText": "链接文本",
+    "NodeNoteText": "备注内容",
+    "NodeGeneralizationText": "概要",
+    "NodeExpandText": "节点是否展开"
   }
 }

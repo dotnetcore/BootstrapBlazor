@@ -1628,7 +1628,8 @@
     "BluetoothText": "Bluetooth & Printer",
     "PdfReaderText": "PDF Reader",
     "VideoPlayerText": "VideoPlayer",
-    "FileViewerText": "FileViewer"
+    "FileViewerText": "FileViewer",
+    "MindMapText": "MindMap"
   },
   "BootstrapBlazor.Shared.Pages.Breakpoints": {
     "Heading": "Breakpoints",
@@ -4513,7 +4514,8 @@
     "DialButton": "DialButton",
     "CountButton": "CountButton",
     "Splitting": "Splitting",
-    "QueryBuilder": "QueryBuilder"
+    "QueryBuilder": "QueryBuilder",
+    "MindMap": "Mind Map"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -5805,5 +5807,47 @@
     "Count": "count down",
     "CountText": "timing text",
     "CountTextCallback": "timing text callback method"
+  },
+  "BootstrapBlazor.Shared.Samples.QueryBuilders": {
+    "QueryBuilderTitle": "QueryBuilder",
+    "QueryBuilderSubTitle": "Can be used for generating forms and table filtering conditions",
+    "QueryBuilderNormalTitle": "Basic usage",
+    "QueryBuilderNormalIntro": "Build filter conditions directly in the <code>Razor</code> file through <code>QueryGroup</code> <code>QueryColumn</code>",
+    "QueryBuilderHeaderTitle": "Display control buttons",
+    "QueryBuilderHeaderIntro": "Turn off the control button by setting <code>ShowHeader=\"false\"</code>"
+  },
+  "BootstrapBlazor.Shared.Samples.MindMaps": {
+    "MindMapTitle": "Mind Map",
+    "MindMapDescription": "The shortcut key tab adds a new node, the mouse can drag node arrangement",
+    "MindMapNormalTitle": "Basic usage",
+    "Sample1ButtonText": "Example 1",
+    "Sample2ButtonText": "Example 2: week arrangement",
+    "ExportButtonText": "Download as PNG",
+    "ExportJsonButtonText": "Download as JSON",
+    "GetFullDataButtonText": "Export object",
+    "GetDataButtonText": "Export the JSON object",
+    "SetDataButtonText": "Import data (JSON)",
+    "ResetButtonText": "Reset",
+    "NodeDataText": "NodeData",
+    "Data": "Data",
+    "ShowUI": "Show default UI",
+    "StyleCss": "Custom CSS",
+    "OnReceive": "Data received callback method",
+    "OnError": "Error callback method",
+    "Export": "Download as file",
+    "GetData": "Get data",
+    "SetData": "Import data",
+    "Reset": "Reset",
+    "NodeTextText": "Node text",
+    "NodeImageText": "Image",
+    "NodeImageTitleText": "Image text",
+    "NodeImageSizeText": "Image Size",
+    "NodeIconText": "Icon",
+    "NodeTagText": "Tag",
+    "NodeHyperlinkText": "Link",
+    "NodeHyperlinkTitleText": "Link Text",
+    "NodeNoteText": "Note Content",
+    "NodeGeneralizationText": "Generalization",
+    "NodeExpandText": "Node is expanded"
   }
 }

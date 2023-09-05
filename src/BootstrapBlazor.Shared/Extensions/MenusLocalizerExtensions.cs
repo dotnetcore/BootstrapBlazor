@@ -582,6 +582,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["MindMap"],
+                    Url = "mind-map"
+                },
+                new()
+                {
                     Text = Localizer["PdfReader"],
                     Url = "pdf-reader"
                 },
