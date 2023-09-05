@@ -1629,6 +1629,7 @@
     "PdfReaderText": "PDF Reader",
     "VideoPlayerText": "VideoPlayer",
     "FileViewerText": "FileViewer",
+    "WebSerialText": "WebSerial",
     "MindMapText": "MindMap"
   },
   "BootstrapBlazor.Shared.Pages.Breakpoints": {
@@ -4515,6 +4516,7 @@
     "CountButton": "CountButton",
     "Splitting": "Splitting",
     "QueryBuilder": "QueryBuilder",
+    "WebSerial": "Web Serial",
     "MindMap": "Mind Map"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
@@ -5808,7 +5810,17 @@
     "CountText": "timing text",
     "CountTextCallback": "timing text callback method"
   },
-  "BootstrapBlazor.Shared.Samples.QueryBuilders": {
+  "BootstrapBlazor.Shared.Samples.WebSerials": {
+    "WebSerialTitle": "Web Serial",
+    "WebSerialDescription": "allow websites to communicate with peripherals connected to a user's computer. It provides the ability to connect to devices that are required by the operating system to communicate via the serial API, see <a href='https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API'>WebUSB</a>，or <a href='https://developer.mozilla.org/en'>WebHID</a>.",
+    "WebSerialNormalIntro": "read and write serial devices",
+    "WebSerialNormalTitle": "Basic usage",
+    "ConnectButtonText": "Connect",
+    "WriteButtonText": "Write",
+    "DisconnectButtonText": "Disonnect",
+    "ApplyButtonText": "Apply"
+  },
+    "BootstrapBlazor.Shared.Samples.QueryBuilders": {
     "QueryBuilderTitle": "QueryBuilder",
     "QueryBuilderSubTitle": "Can be used for generating forms and table filtering conditions",
     "QueryBuilderNormalTitle": "Basic usage",
