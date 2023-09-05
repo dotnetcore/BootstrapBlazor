@@ -34,6 +34,32 @@ public partial class Button : ButtonBase
     {
         base.OnInitialized();
 
+        SetClickHandler();
+    }
+
+    /// <summary>
+    /// OnAfterRenderAsync 方法
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            if (IsAutoFocus)
+            {
+                await FocusAsync();
+            }
+        }
+    }
+
+    /// <summary>
+    /// 设置 OnClickButton 方法 
+    /// </summary>
+    protected virtual void SetClickHandler()
+    {
         OnClickButton = EventCallback.Factory.Create<MouseEventArgs>(this, async () =>
         {
             if (IsAsync && ButtonType == ButtonType.Button)
@@ -60,24 +86,6 @@ public partial class Button : ButtonBase
                 IsAsyncLoading = false;
             }
         });
-    }
-
-    /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            if (IsAutoFocus)
-            {
-                await FocusAsync();
-            }
-        }
     }
 
     /// <summary>

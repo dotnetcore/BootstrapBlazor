@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Web;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -38,6 +40,24 @@ public partial class RibbonTab
     /// </summary>
     [Parameter]
     public string? RibbonArrowPinIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否开启 Url 锚点
+    /// </summary>
+    [Parameter]
+    public bool IsSupportAnchor { get; set; }
+
+    /// <summary>
+    /// 编码锚点回调方法 第一参数是当前地址 Url 第二个参数是当前选项 Text 属性 返回值为地址全路径
+    /// </summary>
+    [Parameter]
+    public Func<string, string?, string?>? EncodeAnchorCallback { get; set; }
+
+    /// <summary>
+    /// 解码锚点回调方法
+    /// </summary>
+    [Parameter]
+    public Func<string, string?>? DecodeAnchorCallback { get; set; }
 
     private bool IsFloat { get; set; }
 
@@ -91,6 +111,10 @@ public partial class RibbonTab
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
+    [Inject]
+    [NotNull]
+    private NavigationManager? NavigationManager { get; set; }
+
     private bool IsExpand { get; set; }
 
     private string? HeaderClassString => CssBuilder.Default("ribbon-tab")
@@ -122,13 +146,36 @@ public partial class RibbonTab
         RibbonArrowPinIcon ??= IconTheme.GetIconByKey(ComponentIcons.RibbonTabArrowPinIcon);
 
         Items ??= Enumerable.Empty<RibbonTabItem>();
-        if (!Items.Any(i => i.IsActive))
+
+        if (IsSupportAnchor)
+        {
+            var hash = DecodeAnchorCallback?.Invoke(NavigationManager.Uri) ?? HttpUtility.UrlDecode(NavigationManager.Uri.Split('#').LastOrDefault());
+            if (!string.IsNullOrEmpty(hash))
+            {
+                var item = Items.FirstOrDefault(i => i.Text == hash);
+                if (item != null)
+                {
+                    ResetActiveTabItem();
+                    item.IsActive = true;
+                }
+            }
+        }
+        else if (!Items.Any(i => i.IsActive))
         {
             var item = Items.FirstOrDefault();
             if (item != null)
             {
                 item.IsActive = true;
             }
+        }
+    }
+
+    private void ResetActiveTabItem()
+    {
+        var activeItem = Items.FirstOrDefault(item => item.IsActive);
+        if (activeItem != null)
+        {
+            activeItem.IsActive = false;
         }
     }
 
@@ -152,12 +199,17 @@ public partial class RibbonTab
 
     private async Task OnClickTabItemAsync(TabItem item)
     {
-        var tab = Items.FirstOrDefault(i => i.IsActive);
-        if (tab != null)
+        if (IsSupportAnchor)
         {
-            tab.IsActive = false;
+            var url = EncodeAnchorCallback?.Invoke(NavigationManager.Uri, item.Text) ?? $"{NavigationManager.Uri.Split('#').FirstOrDefault()}#{HttpUtility.UrlEncode(item.Text)}";
+            if (!string.IsNullOrEmpty(url))
+            {
+                NavigationManager.NavigateTo(url);
+            }
         }
-        tab = Items.First(i => i.Text == item.Text);
+
+        ResetActiveTabItem();
+        var tab = Items.First(i => i.Text == item.Text);
         tab.IsActive = true;
         if (OnMenuClickAsync != null)
         {

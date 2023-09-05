@@ -77,13 +77,13 @@ public abstract class FilterBase : ComponentBase, IFilterAction
     /// 获得过滤窗口的所有条件方法
     /// </summary>
     /// <returns></returns>
-    public abstract IEnumerable<FilterKeyValueAction> GetFilterConditions();
+    public abstract FilterKeyValueAction GetFilterConditions();
 
     /// <summary>
     /// 设置过滤集合方法
     /// </summary>
-    /// <param name="conditions"></param>
-    public virtual Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions) => OnFilterValueChanged();
+    /// <param name="filter"></param>
+    public virtual Task SetFilterConditionsAsync(FilterKeyValueAction filter) => OnFilterValueChanged();
 
     /// <summary>
     /// 

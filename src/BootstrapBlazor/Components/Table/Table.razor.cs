@@ -25,7 +25,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 获得 Table 组件样式表
     /// </summary>
     private string? ClassName => CssBuilder.Default("table-container")
-        .AddClass("table-fixed", IsFixedHeader && !Height.HasValue)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -51,6 +50,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     protected string? WrapperClassName => CssBuilder.Default()
         .AddClass("table-shim", ActiveRenderMode == TableRenderMode.Table)
+        .AddClass("table-card", ActiveRenderMode == TableRenderMode.CardView)
         .AddClass("table-wrapper", IsBordered)
         .AddClass("is-clickable", ClickToSelect || DoubleClickToEdit || OnClickRowCallback != null || OnDoubleClickRowCallback != null)
         .AddClass("table-scroll scroll", !IsFixedHeader || FixedColumn)
@@ -279,6 +279,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public Func<string, TItem, object?, Task>? OnDoubleClickCellCallback { get; set; }
 
     /// <summary>
+    /// 获得/设置 工具栏下拉框按钮是否 IsPopover 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsPopoverToolbarDropdownButton { get; set; }
+
+    /// <summary>
     /// 获得/设置 数据滚动模式
     /// </summary>
     [Parameter]
@@ -301,15 +307,20 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [Parameter]
     public bool IsTracking { get; set; }
 
+    private string ToggleDropdownString => IsPopoverToolbarDropdownButton ? "bb.dropdown" : "dropdown";
+
     [Inject]
     [NotNull]
     private ILookupService? LookupService { get; set; }
+
+    private bool _breakPointChanged;
 
     private Task OnBreakPointChanged(BreakPoint size)
     {
         if (size != ScreenSize)
         {
             ScreenSize = size;
+            _breakPointChanged = true;
             StateHasChanged();
         }
         return Task.CompletedTask;
@@ -585,6 +596,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         OnFilterAsync = async () =>
         {
             PageIndex = 1;
+            TotalCount = 0;
             await QueryAsync();
         };
     }
@@ -765,7 +777,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             InternalResetVisibleColumns(Columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.Visible)));
 
             // set default sortName
-            var col = Columns.FirstOrDefault(i => i.Sortable && i.DefaultSort);
+            var col = Columns.Find(i => i.Sortable && i.DefaultSort);
             if (col != null)
             {
                 SortName = col.GetFieldName();
@@ -791,9 +803,15 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             _init = false;
             await InvokeVoidAsync("init", Id, Interop, new
             {
-                DragColumnCallback = OnDragColumnEndAsync != null ? nameof(DragColumnCallback) : null,
+                DragColumnCallback = nameof(DragColumnCallback),
                 ResizeColumnCallback = OnResizeColumnAsync != null ? nameof(ResizeColumnCallback) : null
             });
+        }
+
+        if (_breakPointChanged)
+        {
+            _breakPointChanged = false;
+            await InvokeVoidAsync("reset", Id);
         }
 
         if (_resetColumns)
@@ -855,10 +873,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await QueryData();
             StateHasChanged();
         }
-        catch (TaskCanceledException)
-        {
-
-        }
+        catch (TaskCanceledException) { }
     }
 
     private bool _loop;
@@ -1112,6 +1127,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             PageItems = Math.Min(request.Count, TotalCount - request.StartIndex);
         }
+        else
+        {
+            PageItems = request.Count;
+        }
         await QueryData();
         return new ItemsProviderResult<TItem>(QueryItems, TotalCount);
     }
@@ -1162,6 +1181,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
         return ret;
     }
+
+    private int GetLineNo(TItem item) => Rows.IndexOf(item) + 1 + ((ScrollMode == ScrollMode.Virtual && Items == null) ? StartIndex : (PageIndex - 1) * PageItems);
 
     /// <summary>
     /// Reset all Columns Filter
@@ -1259,12 +1280,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public async Task ResizeColumnCallback(int index, float width)
     {
         var column = GetVisibleColumns().ElementAtOrDefault(index);
-        if (column != null)
+        if (column != null && OnResizeColumnAsync != null)
         {
-            if (OnResizeColumnAsync != null)
-            {
-                await OnResizeColumnAsync(column.GetFieldName(), width);
-            }
+            await OnResizeColumnAsync(column.GetFieldName(), width);
         }
     }
 

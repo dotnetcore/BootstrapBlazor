@@ -1,17 +1,49 @@
-﻿@page "/tables/dialog"
+﻿@page "/table/dialog"
 @inject IStringLocalizer<TablesDialog> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
 
 <h3>@Localizer["TablesDialogTitle"]</h3>
 <h4>@Localizer["TablesDialogDescription"]</h4>
 
 <DemoBlock Title="@Localizer["TableDialogNormalTitle"]"
            Introduction="@Localizer["TableDialogNormalIntro"]"
-           Name="TableDialogNormal"
-           Demo="typeof(Demos.Table.TablesDialog.TableDialogNormal)">
+           Name="TableDialogNormal">
     <p>@((MarkupString)Localizer["TableDialogNormalDescription"].Value)</p>
     <ul class="ul-demo mb-3">
         <li>@((MarkupString)Localizer["TableDialogNormalTips1"].Value)</li>
         <li>@((MarkupString)Localizer["TableDialogNormalTips2"].Value)</li>
         <li>@((MarkupString)Localizer["TableDialogNormalTips3"].Value)</li>
     </ul>
+    <Table TItem="Foo" @ref="ProductTable"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowDefaultButtons="true" ShowAddButton="false" IsMultipleSelect="true" ShowExtendButtons="true"
+           OnQueryAsync="@OnQueryEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync">
+        <TableToolbarTemplate>
+            <TableToolbarButton TItem="Foo" Color="Color.Primary" Icon="fa-fw fa-solid fa-pen-to-square" Text="@Localizer["TableDialogNormalChoose"]" OnClickCallback="@ShowDialog" />
+        </TableToolbarTemplate>
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Readonly="true" />
+            <TableColumn @bind-Field="@context.Name" Readonly="true" />
+            <TableColumn @bind-Field="@context.Count" Width="80" />
+        </TableColumns>
+    </Table>
+
+    <Modal @ref="Modal">
+        <ModalDialog Title="@Localizer["TableDialogNormalSelectitem"]" IsCentered="true">
+            <BodyTemplate>
+                <Table TItem="Foo" IsStriped="true" @bind-SelectedRows="@SelectedRows" ClickToSelect="true"
+                       ShowToolbar="true" ShowDefaultButtons="false" IsMultipleSelect="true"
+                       OnQueryAsync="@OnQueryProductAsync" HeaderStyle="TableHeaderStyle.Light">
+                    <TableColumns>
+                        <TableColumn @bind-Field="@context.DateTime" />
+                        <TableColumn @bind-Field="@context.Name" />
+                        <TableColumn @bind-Field="@context.Count" />
+                    </TableColumns>
+                </Table>
+            </BodyTemplate>
+            <FooterTemplate>
+                <Button Text="@Localizer["TableDialogNormalSure"]" Icon="fa-regular fa-square-check" OnClick="@OnConfirm" />
+            </FooterTemplate>
+        </ModalDialog>
+    </Modal>
 </DemoBlock>

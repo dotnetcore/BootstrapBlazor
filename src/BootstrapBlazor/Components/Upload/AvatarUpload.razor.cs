@@ -42,11 +42,11 @@ public partial class AvatarUpload<TValue>
         .AddClass($"height: {Width}px;", IsCircle)
         .Build();
 
-    private string? ValidStatusIconString => CssBuilder.Default("valid-icon")
+    private string? ValidStatusIconString => CssBuilder.Default("valid-icon valid")
         .AddClass(ValidStatusIcon)
         .Build();
 
-    private string? InvalidStatusIconString => CssBuilder.Default("valid-icon")
+    private string? InvalidStatusIconString => CssBuilder.Default("valid-icon invalid")
         .AddClass(InvalidStatusIcon)
         .Build();
 

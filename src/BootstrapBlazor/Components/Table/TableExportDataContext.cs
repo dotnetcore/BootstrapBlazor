@@ -8,13 +8,13 @@ internal class TableExportDataContext<TItem> : ITableExportDataContext<TItem>
 {
     public IEnumerable<TItem> Rows { get; }
 
-    public string ExportType { get; }
+    public TableExportType ExportType { get; }
 
     public QueryPageOptions Options { get; }
 
     public IEnumerable<ITableColumn> Columns { get; }
 
-    public TableExportDataContext(string exportType, IEnumerable<TItem> rows, IEnumerable<ITableColumn> cols, QueryPageOptions options)
+    public TableExportDataContext(TableExportType exportType, IEnumerable<TItem> rows, IEnumerable<ITableColumn> cols, QueryPageOptions options)
     {
         ExportType = exportType;
         Rows = rows;

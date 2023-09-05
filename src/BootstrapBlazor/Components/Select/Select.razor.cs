@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -130,6 +131,36 @@ public partial class Select<TValue> : ISelect
     [Parameter]
     public RenderFragment<SelectedItem?>? DisplayTemplate { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否开启虚拟滚动 默认 false 未开启 注意：开启虚拟滚动后不支持 <see cref="SelectBase{TValue}.ShowSearch"/> <see cref="PopoverSelectBase{TValue}.IsPopover"/> <seealso cref="IsFixedSearch"/> 参数设置
+    /// </summary>
+    [Parameter]
+    public bool IsVirtualize { get; set; }
+
+    /// <summary>
+    /// 获得/设置 虚拟滚动行高 默认为 33
+    /// </summary>
+    /// <remarks>需要设置 <see cref="IsVirtualize"/> 值为 true 时生效</remarks>
+    [Parameter]
+    public float RowHeight { get; set; } = 33f;
+
+    /// <summary>
+    /// 获得/设置 过载阈值数 默认为 4
+    /// </summary>
+    /// <remarks>需要设置 <see cref="IsVirtualize"/> 值为 true 时生效</remarks>
+    [Parameter]
+    public int OverscanCount { get; set; } = 4;
+
+    /// <summary>
+    /// 获得/设置 默认文本 <see cref="IsVirtualize"/> 时生效 默认 null
+    /// </summary>
+    /// <remarks>开启 <see cref="IsVirtualize"/> 并且通过 <see cref="OnQueryAsync"/> 提供数据源时，由于渲染时还未调用或者调用后数据集未包含 <see cref="DisplayBase{TValue}.Value"/> 选项值，此时使用 DefaultText 值渲染</remarks>
+    [Parameter]
+    public string? DefaultVirtualizeItemText { get; set; }
+
+    [NotNull]
+    private Virtualize<SelectedItem>? VirtualizeElement { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Select<TValue>>? Localizer { get; set; }
@@ -170,6 +201,52 @@ public partial class Select<TValue> : ISelect
     }
 
     /// <summary>
+    /// 获得/设置 数据总条目
+    /// </summary>
+    private int TotalCount { get; set; }
+
+    private IEnumerable<SelectedItem>? VirtualItems { get; set; }
+
+    private ICollection<SelectedItem> GetVirtualItems() => (VirtualItems ?? Items).ToList();
+
+    /// <summary>
+    /// 虚拟滚动数据加载回调方法
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public Func<VirtualizeQueryOption, Task<QueryData<SelectedItem>>>? OnQueryAsync { get; set; }
+
+    private async ValueTask<ItemsProviderResult<SelectedItem>> LoadItems(ItemsProviderRequest request)
+    {
+        // 有搜索条件时使用原生请求数量
+        // 有总数时请求剩余数量
+        var count = !string.IsNullOrEmpty(SearchText) ? request.Count : GetCountByTotal();
+        var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = count, SearchText = SearchText });
+
+        TotalCount = data.TotalCount;
+        VirtualItems = data.Items ?? Enumerable.Empty<SelectedItem>();
+        return new ItemsProviderResult<SelectedItem>(VirtualItems, TotalCount);
+
+        int GetCountByTotal() => TotalCount == 0 ? request.Count : Math.Min(request.Count, TotalCount - request.StartIndex);
+    }
+
+    private async Task SearchTextChanged(string val)
+    {
+        SearchText = val;
+        if (OnQueryAsync == null)
+        {
+            // 通过 Items 提供数据
+            VirtualItems = OnSearchTextChanged(SearchText);
+        }
+        else
+        {
+            // 通过 ItemProvider 提供数据
+            await VirtualizeElement.RefreshDataAsync();
+        }
+        StateHasChanged();
+    }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="value"></param>
@@ -182,16 +259,21 @@ public partial class Select<TValue> : ISelect
 
     private bool TryParseSelectItem(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
     {
-        SelectedItem = DataSource.FirstOrDefault(i => i.Value == value);
+        SelectedItem = (VirtualItems ?? DataSource).FirstOrDefault(i => i.Value == value) ?? GetVirtualizeItem();
 
         // support SelectedItem? type
-        result = default;
-        if (SelectedItem != null)
-        {
-            result = (TValue)(object)SelectedItem;
-        }
+        result = SelectedItem != null ? (TValue)(object)SelectedItem : default;
         validationErrorMessage = "";
         return SelectedItem != null;
+    }
+
+    private SelectedItem? GetVirtualizeItem()
+    {
+        return OnQueryAsync == null ? null : GetSelectedItem();
+
+        SelectedItem? GetSelectedItem() => ValueType == typeof(SelectedItem)
+            ? (SelectedItem)(object)Value
+            : new SelectedItem(CurrentValueAsString, DefaultVirtualizeItemText ?? CurrentValueAsString);
     }
 
     private void ResetSelectedItem()
@@ -203,13 +285,26 @@ public partial class Select<TValue> : ISelect
             DataSource.AddRange(Items);
             DataSource.AddRange(Children);
 
-            SelectedItem = DataSource.FirstOrDefault(i => i.Value.Equals(CurrentValueAsString, StringComparison))
-                ?? DataSource.FirstOrDefault(i => i.Active)
-                ?? DataSource.FirstOrDefault();
+            if (VirtualItems != null)
+            {
+                DataSource.AddRange(VirtualItems);
+            }
+
+            SelectedItem = DataSource.Find(i => i.Value.Equals(CurrentValueAsString, StringComparison))
+                ?? DataSource.Find(i => i.Active)
+                ?? DataSource.FirstOrDefault()
+                ?? GetVirtualizeItem();
 
             if (SelectedItem != null)
             {
                 _ = SelectedItemChanged(SelectedItem);
+            }
+        }
+        else if (IsVirtualize)
+        {
+            if (Items.Any())
+            {
+                VirtualItems = OnSearchTextChanged(SearchText);
             }
         }
         else

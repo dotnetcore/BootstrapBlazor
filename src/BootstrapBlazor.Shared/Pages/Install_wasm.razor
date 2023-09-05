@@ -3,8 +3,8 @@
 
 <InstallContent Title="@Localizer["Install_wasmHeading"]">
     <ChooseTemplate>
-        <div class="code-label mt-3 mb-2">4. @((MarkupString)Localizer["Install_wasmDescription"].Value)</div>
-        <img src="./images/choose-project-template.png" style="width: 800px; border-radius: 6px;" class="d-none d-sm-block mb-3" />
+        <div class="code-label my-2">4. @((MarkupString)Localizer["Install_wasmDescription"].Value)</div>
+        <img src="./images/choose-project-template.png" style="width: 800px; border-radius: 6px;" class="d-none d-sm-block mb-2" />
     </ChooseTemplate>
     <SheetTemplate>
         <div class="mb-2"><code>wwwroot/index.html</code></div>
@@ -13,7 +13,7 @@
         <div class="mb-2"><code>wwwroot/index.html</code></div>
     </ScriptsTemplate>
     <ServicesTemplate>
-        <Pre>var builder = WebAssemblyHostBuilder.CreateDefault(args);
+        <Pre class="mb-2">var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add&lt;App&gt;("app");
 builder.RootComponents.Add&lt;HeadOutlet&gt;("head::after");
 

@@ -171,24 +171,24 @@ public class MultiSelectTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
-        cut.Find(".dropdown-item").Click();
+        cut.InvokeAsync(() => cut.Find(".dropdown-item").Click());
         Assert.True(toggle);
 
         // 增加代码覆盖率
-        cut.Find(".multi-select-close").Click();
+        cut.InvokeAsync(() => cut.Find(".multi-select-close").Click());
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Max, 1);
         });
-        cut.Find(".dropdown-item").Click();
+        cut.InvokeAsync(() => cut.Find(".dropdown-item").Click());
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Max, 0);
             pb.Add(a => a.Min, 1);
         });
-        cut.Find(".dropdown-item").Click();
+        cut.InvokeAsync(() => cut.Find(".dropdown-item").Click());
 
         var foo = new Foo();
         cut.SetParametersAndRender(pb =>
@@ -196,7 +196,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
             pb.Add(a => a.Value, "");
             pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
         });
-        cut.Find(".dropdown-item").Click();
+        cut.InvokeAsync(() => cut.Find(".dropdown-item").Click());
     }
 
     [Fact]
@@ -357,12 +357,22 @@ public class MultiSelectTest : BootstrapBlazorTestBase
             });
         });
 
-        var form = cut.Find("form");
-        form.Submit();
+        cut.InvokeAsync(() =>
+        {
+            var form = cut.Find("form");
+            form.Submit();
+        });
         Assert.True(invalid);
 
-        cut.Find(".dropdown-item").Click();
-        form.Submit();
+        cut.InvokeAsync(() =>
+        {
+            cut.Find(".dropdown-item").Click();
+        });
+        cut.InvokeAsync(() =>
+        {
+            var form = cut.Find("form");
+            form.Submit();
+        });
         Assert.True(valid);
     }
 

@@ -1,0 +1,60 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader("Button/SlideButton.razor.js")]
+
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString" data-bb-placement="@Placement.ToDescriptionString()" data-bb-auto-close="@IsAutoCloseString" data-bb-offset="@Offset">
+    <CascadingValue Value="_buttonItems" IsFixed="true">
+        @SlideButtonItems
+    </CascadingValue>
+    <RenderTemplate>
+        <div class="btn-slide">
+            @if (ButtonTemplate == null)
+            {
+                <button type="button" class="@ButtonClassString" disabled="@Disabled" role="button">
+                    @if (!string.IsNullOrEmpty(Icon))
+                    {
+                        <i class="@Icon"></i>
+                    }
+                    @if (!string.IsNullOrEmpty(Text))
+                    {
+                        <span>@Text</span>
+                    }
+                </button>
+            }
+            else
+            {
+                @ButtonTemplate
+            }
+        </div>
+        <div class="@SlideListClassString">
+            @if (ShowHeader)
+            {
+                <div class="slide-header">
+                    <div class="flex-fill">@HeaderText</div>
+                    <button class="btn-close btn-close-white" type="button" aria-label="Close"></button>
+                </div>
+            }
+            <div class="slide-body scroll">
+                @foreach (var item in _buttonItems.Select(i => new SelectedItem(i.Value, i.Text)))
+                {
+                    <div @key="@item.Value" class="@GetItemClass(item)" @onclick="@(e => OnClickItem(item))">
+                        @item.Text
+                    </div>
+                }
+                @if (BodyTemplate == null)
+                {
+                    foreach (var item in Items)
+                    {
+                        <div @key="@item" class="@GetItemClass(item)" @onclick="@(e => OnClickItem(item))">
+                            @item.Text
+                        </div>
+                    }
+                }
+                else
+                {
+                    @BodyTemplate
+                }
+            </div>
+        </div>
+    </RenderTemplate>
+</div>

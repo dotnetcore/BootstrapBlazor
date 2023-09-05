@@ -1,43 +1,152 @@
-﻿@page "/datetimepickers"
+﻿@page "/datetime-picker"
 
 <h3>@Localizer["Title"]</h3>
 
 <h4>@Localizer["Description"]</h4>
 
-<DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal" Demo="typeof(Demos.DateTimePicker.DatePickerBodyDemo)" />
+<DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
+    <DatePickerBody @bind-Value="Value" OnConfirm="@NormalOnConfirm" ShowFooter="false" />
+    <ConsoleLogger @ref="NormalLogger" class="mt-3" />
+</DemoBlock>
 
-<DemoBlock Title="@Localizer["ValueChangedTitle"]" Introduction="@Localizer["ValueChangedIntro"]" Name="ValueChanged" Demo="typeof(Demos.DateTimePicker.TimePickerBodyBindValueDemo)" />
+<DemoBlock Title="@Localizer["ValueChangedTitle"]" Introduction="@Localizer["ValueChangedIntro"]" Name="ValueChanged">
+    <TimePickerBody @bind-Value="@ValueChangedValue" OnConfirm="ValueChangedOnConfirm" />
+    <ConsoleLogger @ref="ValueChangedLogger" class="mt-3" />
+</DemoBlock>
 
-<DemoBlock Title="@Localizer["TimeTitle"]" Introduction="@Localizer["TimeIntro"]" Name="Time" Demo="typeof(Demos.DateTimePicker.TimePickerBodyDemo)" />
+<DemoBlock Title="@Localizer["TimeTitle"]" Introduction="@Localizer["TimeIntro"]" Name="Time">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <div class="d-flex flex-column">
+                <div class="mb-1"><code>TimeSpan</code></div>
+                <TimePickerBody @bind-Value="@SpanValue" />
+                <BootstrapInput Value="@SpanValue" TValue="TimeSpan" Formatter="@FormatterSpanString" Readonly="true" style="width: 180px; margin-top: 0.5rem;" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <div class="d-flex flex-column">
+                <div class="mb-1"><code>string</code></div>
+                <TimePickerBody @bind-Value="@TimeValue" />
+                <BootstrapInput Value="@TimeValue.ToString("hh\\:mm\\:ss")" TValue="string" Readonly="true" style="width: 180px; margin-top: 0.5rem;" />
+            </div>
+        </div>
+    </div>
+</DemoBlock>
 
-<DemoBlock Title="@Localizer["ValidateFormTitle"]" Introduction="@Localizer["ValidateFormIntro"]" Name="ValidateForm" Demo="typeof(Demos.DateTimePicker.DateTimePickerValidateDemo)" />
+<DemoBlock Title="@Localizer["ValidateFormTitle"]" Introduction="@Localizer["ValidateFormIntro"]" Name="ValidateForm">
+    <ValidateForm Model="this">
+        <div class="row g-3">
+            <div class="col-12 col-sm-auto">
+                <DateTimePicker @bind-Value="@ValidateFormValue" />
+            </div>
+            <div class="col-12 col-sm-auto align-self-end">
+                <Button ButtonType="ButtonType.Submit" Text="@Localizer["SubmitText"]" Icon="fa-solid fa-floppy-disk" />
+            </div>
+        </div>
+    </ValidateForm>
+</DemoBlock>
 
-<DemoBlock Title="@Localizer["DateTimeOffsetTitle"]" Introduction="@Localizer["DateTimeOffsetIntro"]" Name="DateTimeOffset" Demo="typeof(Demos.DateTimePicker.DateTimePickerDateTimeOffsetDemo)" />
+<DemoBlock Title="@Localizer["DateTimeOffsetTitle"]" Introduction="@Localizer["DateTimeOffsetIntro"]" Name="DateTimeOffset">
+    <DateTimePicker TValue="DateTimeOffset?" Value="DateTimeOffsetValue" />
+</DemoBlock>
 
-<DemoBlock Title="@Localizer["BindValueTitle"]" Introduction="@Localizer["BindValueIntro"]" Name="BindValue" Demo="typeof(Demos.DateTimePicker.DateTimePickerBindValueDemo)" />
+<DemoBlock Title="@Localizer["BindValueTitle"]" Introduction="@Localizer["BindValueIntro"]" Name="BindValue">
+    <div class="row g-3">
+        <div class="col-sm-6">
+            <DateTimePicker @bind-Value="@BindValue" />
+        </div>
+        <div class="col-sm-6">
+            <input class="form-control" @bind="@BindValueString" />
+        </div>
+    </div>
+</DemoBlock>
 
-<DemoBlock Title="@Localizer["ViewModeTitle"]" Introduction="@Localizer["ViewModeIntro"]" Name="ViewMode" Demo="typeof(Demos.DateTimePicker.DateTimePickerViewMode)">
+<DemoBlock Title="@Localizer["ViewModeTitle"]" Introduction="@Localizer["ViewModeIntro"]" Name="ViewMode">
     <p>@((MarkupString)Localizer["ViewModeTip"].Value)</p>
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Year" ViewMode="DatePickerViewMode.Year" Format="yyyy" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Month" ViewMode="DatePickerViewMode.Month" Format="yyyy-MM" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Date" ViewMode="DatePickerViewMode.Date" Format="yyyy-MM-dd" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="DateTime" ViewMode="DatePickerViewMode.DateTime" Format="yyyy-MM-dd HH:mm:ss" />
+        </div>
+    </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["NullValueTitle"]" Introduction="@Localizer["NullValueIntro"]" Name="NullValue" Demo="typeof(Demos.DateTimePicker.DateTimePickerNullValue)">
+<DemoBlock Title="@Localizer["NullValueTitle"]" Introduction="@Localizer["NullValueIntro"]" Name="NullValue">
     <p>@((MarkupString)Localizer["NullValueTip"].Value)</p>
+    <div class="row g-3">
+        <div class="col-12 col-sm-8">
+            <DateTimePicker @bind-Value="@BindNullValue" />
+        </div>
+        <div class="col-12 col-sm-4">
+            <Display TValue="string" Value="@GetNullValueString" />
+        </div>
+    </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ShowLabelTitle"]" Introduction="@Localizer["ShowLabelIntro"]" Name="ShowLabel" Demo="typeof(Demos.DateTimePicker.DateTimePickerShowLabel)">
+<DemoBlock Title="@Localizer["ShowLabelTitle"]" Introduction="@Localizer["ShowLabelIntro"]" Name="ShowLabel">
     <p>@((MarkupString)Localizer["ShowLabelTip1"].Value)</p>
     <p>@((MarkupString)Localizer["ShowLabelTip2"].Value)</p>
+    <DateTimePicker ShowLabel="true" DisplayText="@Localizer["DisplayText"]" @bind-Value="@ShowLabelValue" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["DisalbedTitle"]" Introduction="@Localizer["DisalbedIntro"]" Name="Disalbed" Demo="typeof(Demos.DateTimePicker.DateTimePickerDisalbed)" />
+<DemoBlock Title="@Localizer["DisabledTitle"]" Introduction="@Localizer["DisabledIntro"]" Name="IsDisabled">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <DateTimePicker TValue="DateTime" IsDisabled="IsDisabled" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Switch @bind-Value="@IsDisabled" />
+        </div>
+    </div>
+</DemoBlock>
 
-<DemoBlock Title="@Localizer["ShowSidebarTitle"]" Introduction="@Localizer["ShowSidebarIntro"]" Name="ShowSidebar" Demo="typeof(Demos.DateTimePicker.DateTimePickerShowSidebar)" />
+<DemoBlock Title="@Localizer["ShowSidebarTitle"]" Introduction="@Localizer["ShowSidebarIntro"]" Name="ShowSidebar">
+    <DateTimePicker TValue="DateTime" ShowSidebar="true" ViewMode="DatePickerViewMode.DateTime" />
+</DemoBlock>
 
-<DemoBlock Title="@Localizer["MinValueTitle"]" Introduction="@Localizer["MinValueIntro"]" Name="MinValue" Demo="typeof(Demos.DateTimePicker.DateTimePickerMinValue)" />
+<DemoBlock Title="@Localizer["MinValueTitle"]" Introduction="@Localizer["MinValueIntro"]" Name="MinValue">
+    <DateTimePicker TValue="DateTime"
+                    ViewMode="DatePickerViewMode.Date"
+                    Value="@(DateTime.Today.AddDays(3 - DateTime.Today.Day))"
+                    MinValue="@(DateTime.Today.AddDays(1 - DateTime.Today.Day))"
+                    MaxValue="@(DateTime.Today.AddDays(46 - DateTime.Today.Day))" />
+</DemoBlock>
 
-<DemoBlock Title="@Localizer["BlockAutoCloseTitle"]" Introduction="@Localizer["BlockAutoCloseIntro"]" Name="AutoClose" Demo="typeof(Demos.DateTimePicker.DateTimePickerAutoClose)" />
+<DemoBlock Title="@Localizer["BlockAutoCloseTitle"]" Introduction="@Localizer["BlockAutoCloseIntro"]" Name="AutoClose">
+    <DateTimePicker AutoClose="false" TValue="DateTime" ViewMode="DatePickerViewMode.Date" Value="@(DateTime.Today.AddDays(3 - DateTime.Today.Day))" />
+</DemoBlock>
 
-<DemoBlock Title="@Localizer["BlockGroupTitle"]" Introduction="@Localizer["BlockGroupIntro"]" Name="Group" Demo="typeof(Demos.DateTimePicker.DateTimePickerGroup)" />
+<DemoBlock Title="@Localizer["BlockGroupTitle"]" Introduction="@Localizer["BlockGroupIntro"]" Name="Group">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6 col-md-4">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="@Localizer["BlockGroupLabel"]" />
+                <DateTimePicker TValue="DateTime" ViewMode="DatePickerViewMode.Date" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+            <BootstrapInputGroup>
+                <DateTimePicker TValue="DateTime" ViewMode="DatePickerViewMode.Date" />
+                <BootstrapInputGroupLabel DisplayText="@Localizer["BlockGroupSuffixLabel"]" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="@Localizer["BlockGroupLabel"]" />
+                <DateTimePicker TValue="DateTime" ViewMode="DatePickerViewMode.Date" />
+                <BootstrapInputGroupLabel DisplayText="@Localizer["BlockGroupSuffixLabel"]" />
+            </BootstrapInputGroup>
+        </div>
+    </div>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
 

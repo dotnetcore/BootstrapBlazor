@@ -76,7 +76,7 @@ public partial class SpeechWave : IDisposable
             IsRun = true;
             UsedTimeSpan = TimeSpan.Zero;
             Token ??= new CancellationTokenSource();
-            while (!Token.IsCancellationRequested)
+            while (IsShow)
             {
                 try
                 {
@@ -110,6 +110,8 @@ public partial class SpeechWave : IDisposable
             Token = null;
         }
     }
+
+    private bool IsShow => Token != null && !Token.IsCancellationRequested;
 
     /// <summary>
     /// Dispose 方法

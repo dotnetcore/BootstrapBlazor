@@ -101,6 +101,14 @@ partial class JSRuntimeEventHandler : IJSRuntimeEventHandler
     public ValueTask RunEval(string scripts) => InvokeVoidAsync("runJSEval", scripts);
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="scripts"></param>
+    /// <returns></returns>
+    public ValueTask<T?> RunEval<T>(string scripts) => InvokeAsync<T>("runJSEval", scripts);
+
+    /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.
     /// </summary>
     /// <param name="disposing"></param>
@@ -131,4 +139,5 @@ partial class JSRuntimeEventHandler : IJSRuntimeEventHandler
         await DisposeAsync(true);
         GC.SuppressFinalize(this);
     }
+
 }

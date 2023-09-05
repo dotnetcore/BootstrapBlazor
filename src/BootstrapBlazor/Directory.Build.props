@@ -11,7 +11,7 @@
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components</PackageTags>
     <Description>Bootstrap UI components for Blazor and Razor Components</Description>
     <PackageReadmeFile>readme.md</PackageReadmeFile>
-    <PackageReleaseNotes>https://gitee.com/LongbowEnterprise/BootstrapBlazor/wikis</PackageReleaseNotes>
+    <PackageReleaseNotes>https://github.com/dotnetcore/BootstrapBlazor/releases?wt.mc_id=DT-MVP-5004174</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>

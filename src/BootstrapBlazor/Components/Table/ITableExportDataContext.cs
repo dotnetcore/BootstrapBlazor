@@ -8,12 +8,12 @@ namespace BootstrapBlazor.Components;
 /// Table 导出数据上下文接口
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
-public interface ITableExportDataContext<TItem>
+public interface ITableExportDataContext<out TItem>
 {
     /// <summary>
-    /// 获得 导出类型 Excel/Pdf 目前仅这两种
+    /// 获得 导出类型 <see cref="TableExportType"/> 枚举类型
     /// </summary>
-    string ExportType { get; }
+    TableExportType ExportType { get; }
 
     /// <summary>
     /// 获得 当前 行数据集合

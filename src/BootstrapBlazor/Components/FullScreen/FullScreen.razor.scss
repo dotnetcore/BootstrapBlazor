@@ -1,0 +1,16 @@
+:fullscreen {
+    background-color: #fff;
+
+    @at-root {
+        .fs-on,
+        .fs-open .fs-off {
+            display: none;
+        }
+
+        .fs-open {
+            .fs-on {
+                display: block;
+            }
+        }
+    }
+}

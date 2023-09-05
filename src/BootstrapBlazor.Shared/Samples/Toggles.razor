@@ -1,4 +1,4 @@
-﻿@page "/toggles"
+﻿@page "/toggle"
 @inject IStringLocalizer<Toggles> Localizer
 
 <h3>@Localizer["TogglesTitle"]</h3>
@@ -7,22 +7,101 @@
 
 <DemoBlock Title="@Localizer["TogglesNormalTitle"]"
            Introduction="@Localizer["TogglesNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Toggles.TogglesNormal)">
-    <p>@Localizer["BasicUsageP"]</p>
+           Name="Normal">
+    <p class="mb-3">@Localizer["BasicUsageP"]</p>
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Toggle Value="@BindValue" ValueChanged="@OnValueChanged" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Primary" />
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Toggle Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Secondary" />
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Toggle Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Success" />
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Toggle Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Danger" />
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Toggle Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Warning" />
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Toggle Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Info" />
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Toggle Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Dark" />
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Toggle Value="false" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Success" />
+        </div>
+    </div>
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TogglesDisableTitle"]"
            Introduction="@Localizer["TogglesDisableIntro"]"
-           Name="Disable"
-           Demo="typeof(Demos.Toggles.TogglesDisable)">
+           Name="IsDisabled">
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Toggle IsDisabled="true" Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Primary" />
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Toggle IsDisabled="true" Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Secondary" />
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Toggle IsDisabled="true" Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Success" />
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Toggle IsDisabled="true" Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Danger" />
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Toggle IsDisabled="true" Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Warning" />
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Toggle IsDisabled="true" Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Info" />
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Toggle IsDisabled="true" Value="true" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Dark" />
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <Toggle IsDisabled="true" Value="false" OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" Color="Color.Success" />
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TogglesBindToWayTitle"]"
            Introduction="@Localizer["TogglesBindToWayIntro"]"
-           Name="BindToWay"
-           Demo="typeof(Demos.Toggles.TogglesBindToWay)">
-    <p>@((MarkupString)Localizer["BindToWayP1"].Value)</p>
+           Name="BindValue">
+    <p class="mb-3">@((MarkupString)Localizer["BindToWayP1"].Value)</p>
+    <div class="row g-3">
+        <div class="col-12">
+            <Toggle OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" @bind-Value="@Model.BindValue" DisplayText="@Localizer["BindToWayDisplayText1"]" />
+        </div>
+        <div class="col-12">
+            <div>@Localizer["BindToWayDiv"] @Model.BindValue</div>
+        </div>
+        <Divider Text="@Localizer["CustomLabelText"]" />
+        <div class="col-12">
+            <p>@((MarkupString)Localizer["BindToWayP2"].Value)</p>
+        </div>
+        <div class="col-12">
+            <Toggle OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" @bind-Value="@Model.BindValue" DisplayText="@Localizer["CustomLabelText"]" ShowLabel="true" />
+        </div>
+        <Divider Text="@Localizer["OccupantsText"]" />
+        <div class="col-12">
+            <p>@((MarkupString)Localizer["BindToWayP3"].Value)</p>
+        </div>
+        <div class="col-12">
+            <Toggle OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" @bind-Value="@Model.BindValue" ShowLabel="true" />
+        </div>
+        <Divider Text="@Localizer["NotOccupantsText"]" />
+        <div class="col-12">
+            <p>@((MarkupString)Localizer["BindToWayP4"].Value)</p>
+        </div>
+        <div class="col-12">
+            <Toggle OnText="@Localizer["TogglesOnText"]" OffText="@Localizer["TogglesOffText"]" @bind-Value="@Model.BindValue" DisplayText="@Localizer["NotDisplayText"]" ShowLabel="false" />
+        </div>
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

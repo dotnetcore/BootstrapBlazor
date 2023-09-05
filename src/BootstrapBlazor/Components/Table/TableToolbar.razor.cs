@@ -70,7 +70,7 @@ public partial class TableToolbar<TItem> : ComponentBase
         }
     }
 
-    private async Task OnConfirm(TableToolbarPopconfirmButton<TItem> button)
+    private async Task OnConfirm(TableToolbarPopConfirmButton<TItem> button)
     {
         _asyncButtonStateCache.TryGetValue(button, out var disabled);
         if (!disabled)

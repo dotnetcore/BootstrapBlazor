@@ -69,6 +69,7 @@ public class Popover : Tooltip
 
         if (_lastContent != Content)
         {
+            _lastContent = Content;
             await InvokeInitAsync();
         }
     }

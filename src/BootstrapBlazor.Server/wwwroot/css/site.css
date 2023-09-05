@@ -37,8 +37,9 @@
     }
 
 .is-fixed-tab .tabs-body {
-    height: calc(100vh - 89px - var(--bb-footer-height));
+    height: calc(100vh - var(--bb-layout-header-height) - var(--bb-tabs-item-height) - var(--bb-footer-height));
     overflow: auto;
+    flex: initial;
 }
 
     .is-fixed-tab .tabs-body .tabs-body-content {
@@ -149,6 +150,15 @@
     --bs-table-striped-color: #fff;
     --bs-table-color-state: #fff;
     --bs-table-hover-color: #fff;
+}
+
+.bb-avatar {
+    width: 46px;
+    border-radius: var(--bs-border-radius);
+}
+
+.dock-layout.main > *:not(.tabs-coms) {
+    display: none !important;
 }
 
 @media (min-width: 768px) {

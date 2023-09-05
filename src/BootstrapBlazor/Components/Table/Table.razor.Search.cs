@@ -217,7 +217,9 @@ public partial class Table<TItem>
             RowType = SearchDialogRowType,
             ItemsPerRow = SearchDialogItemsPerRow,
             Size = SearchDialogSize,
-            LabelAlign = SearchDialogLabelAlign
+            LabelAlign = SearchDialogLabelAlign,
+            IsDraggable = SearchDialogIsDraggable,
+            ShowMaximizeButton = SearchDialogShowMaximizeButton
         };
     }
 
@@ -262,7 +264,7 @@ public partial class Table<TItem>
     /// 通过列集合中的 <see cref="ITableColumn.Searchable"/> 列与 <see cref="SearchText"/> 拼装 IFilterAction 集合
     /// </summary>
     /// <returns></returns>
-    protected List<IFilterAction> GetSearches() => Columns.Where(col => col.Searchable).ToSearchs(SearchText);
+    protected List<IFilterAction> GetSearches() => Columns.Where(col => col.Searchable).ToSearches(SearchText);
 
     private async Task OnSearchKeyUp(KeyboardEventArgs args)
     {

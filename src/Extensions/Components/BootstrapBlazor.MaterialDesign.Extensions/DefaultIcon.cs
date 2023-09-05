@@ -170,8 +170,8 @@ internal class DefaultIcon
         { ComponentIcons.AvatarUploadDeleteIcon, "mdi mdi-trash-can-outline" },
         { ComponentIcons.AvatarUploadLoadingIcon, "mdi mdi-loading mdi-spin" },
         { ComponentIcons.AvatarUploadAddIcon, "mdi mdi-plus" },
-        { ComponentIcons.AvatarUploadValidStatusIcon, "mdi mdi-check" },
-        { ComponentIcons.AvatarUploadInvalidStatusIcon, "mdi mdi-close" },
+        { ComponentIcons.AvatarUploadValidStatusIcon, "mdi mdi-check mdi-rotate-315" },
+        { ComponentIcons.AvatarUploadInvalidStatusIcon, "mdi mdi-close mdi-rotate-315" },
 
         { ComponentIcons.ButtonUploadBrowserButtonIcon, "mdi mdi-folder-open" },
         { ComponentIcons.ButtonUploadLoadingIcon, "mdi mdi-loading mdi-spin" },
@@ -184,11 +184,11 @@ internal class DefaultIcon
         { ComponentIcons.InputUploadDeleteButtonIcon, "mdi mdi-trash-can-outline" },
 
         { ComponentIcons.CardUploadAddIcon, "mdi mdi-plus" },
-        { ComponentIcons.CardUploadStatusIcon, "mdi mdi-check" },
-        { ComponentIcons.CardUploadDeleteIcon, "mdi mdi-close" },
+        { ComponentIcons.CardUploadStatusIcon, "mdi mdi-check mdi-rotate-315" },
+        { ComponentIcons.CardUploadDeleteIcon, "mdi mdi-close mdi-rotate-315" },
         { ComponentIcons.CardUploadRemoveIcon, "mdi mdi-trash-can-outline" },
         { ComponentIcons.CardUploadDownloadIcon, "mdi mdi-cloud-download-outline" },
-        { ComponentIcons.CardUploadZoomIcon, "mdi mdi-magnify-plus-outline-plus" },
+        { ComponentIcons.CardUploadZoomIcon, "mdi mdi-magnify-plus-outline" },
 
         { ComponentIcons.FileIconExcel, "mdi mdi-file-excel-outline" },
         { ComponentIcons.FileIconDocx, "mdi mdi-file-word-outline" },
@@ -200,6 +200,10 @@ internal class DefaultIcon
         { ComponentIcons.FileIconZip, "mdi mdi-file-cog-outline" },
         { ComponentIcons.FileIconArchive, "mdi mdi-file-document-check-outline" },
         { ComponentIcons.FileIconImage, "mdi mdi-file-image-outline" },
-        { ComponentIcons.FileIconFile, "mdi mdi-file-outline" }
+        { ComponentIcons.FileIconFile, "mdi mdi-file-outline" },
+
+        { ComponentIcons.QueryBuilderPlusIcon, "mdi mdi-plus" },
+        { ComponentIcons.QueryBuilderMinusIcon, "mdi mdi-minus" },
+        { ComponentIcons.QueryBuilderRemoveIcon, "mdi mdi-close" }
     };
 }

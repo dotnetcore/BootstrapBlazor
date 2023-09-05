@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 public static class IQueryableExtensions
 {
     /// <summary>
-    /// BootstrapBolazor 扩展 Where 方法
+    /// BootstrapBlazor 扩展 Where 方法
     /// </summary>
     /// <typeparam name="T">泛型</typeparam>
     /// <param name="queryable">数据源</param>
@@ -22,7 +22,7 @@ public static class IQueryableExtensions
     public static IQueryable<T> Where<T>(this IQueryable<T> queryable, Expression<Func<T, bool>> predicate, bool condition) => condition ? queryable.Where(predicate) : queryable;
 
     /// <summary>
-    /// BootstrapBolazor 扩展 Sort 方法
+    /// BootstrapBlazor 扩展 Sort 方法
     /// </summary>
     /// <typeparam name="T">泛型</typeparam>
     /// <param name="queryable">数据源</param>
@@ -33,7 +33,7 @@ public static class IQueryableExtensions
     public static IQueryable<T> Sort<T>(this IQueryable<T> queryable, string sortName, SortOrder sortOrder, bool condition) => condition ? queryable.Sort(sortName, sortOrder) : queryable;
 
     /// <summary>
-    /// BootstrapBolazor 扩展 Page 方法
+    /// BootstrapBlazor 扩展 Page 方法
     /// </summary>
     /// <typeparam name="T">泛型</typeparam>
     /// <param name="queryable">数据源</param>
@@ -43,7 +43,7 @@ public static class IQueryableExtensions
     public static IQueryable<T> Page<T>(this IQueryable<T> queryable, int skipCount, int maxResultCount) => queryable.Skip(skipCount).Take(maxResultCount);
 
     /// <summary>
-    /// BootstrapBolazor 扩展 Count 方法
+    /// BootstrapBlazor 扩展 Count 方法
     /// </summary>
     /// <typeparam name="T">泛型</typeparam>
     /// <param name="queryable">数据源</param>

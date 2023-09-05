@@ -11,7 +11,8 @@ public sealed partial class GoTops
 {
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new()
+        {
             Name = "Target",
             Description = Localizer["Desc1"],
             Type = "string",

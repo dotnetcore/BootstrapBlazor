@@ -1,13 +1,23 @@
-﻿@page "/tables/tracking"
+﻿@page "/table/tracking"
 @inject IStringLocalizer<TablesTracking> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
 
 <h3>@Localizer["TablesTrackingTitle"]</h3>
 <h4>@Localizer["TablesTrackingDescription"]</h4>
 
 <DemoBlock Title="@Localizer["TablesTrackingNormalTitle"]"
            Introduction="@Localizer["TablesTrackingNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Table.TablesTracking.TablesTrackingNormal)">
-    <p>@((MarkupString)Localizer["TablesTrackingNormaltips1"].Value)</p>
-    <p>@((MarkupString)Localizer["TablesTrackingNormaltips2"].Value)</p>
+           Name="Normal">
+    <p>@((MarkupString)Localizer["TablesTrackingNormalTips1"].Value)</p>
+    <p class="mb-3">@((MarkupString)Localizer["TablesTrackingNormalTips2"].Value)</p>
+    <Table TItem="Foo" IsTracking="true" @bind-Items="Items" ShowToastAfterSaveOrDeleteModel="false"
+           IsBordered="true" IsMultipleSelect="true" ShowToolbar="true" ShowExtendButtons="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
+
+

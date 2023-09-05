@@ -284,8 +284,8 @@
   "BootstrapBlazor.Components.Transfer": {
     "LeftPanelText": "全部",
     "RightPanelText": "已选",
-    "MinErrorMessage": "最少请选择{0}项",
-    "MaxErrorMessage": "最多可选择{0}项"
+    "MinErrorMessage": "最少请选择 {0} 项",
+    "MaxErrorMessage": "最多可选择 {0} 项"
   },
   "BootstrapBlazor.Components.TransferPanel": {
     "SearchPlaceHolderString": "请输入 ...",
@@ -331,5 +331,22 @@
     "ButtonText": "点击复制",
     "DialogHeaderText": "请选择图标",
     "CopiedTooltipText": "拷贝成功"
+  },
+  "BootstrapBlazor.Components.Splitting": {
+    "Text": "正在加载 ..."
+  },
+  "BootstrapBlazor.Components.QueryBuilder": {
+    "And": "并且",
+    "Or": "或者",
+    "GreaterThanOrEqual": "大于等于",
+    "LessThanOrEqual": "小于等于",
+    "GreaterThan": "大于",
+    "LessThan": "小于",
+    "Equal": "等于",
+    "NotEqual": "不等于",
+    "Contains": "包含",
+    "NotContains": "不包含",
+    "GroupText": "组合条件",
+    "ItemText": "单行条件"
   }
 }

@@ -1,6 +1,7 @@
-﻿@page "/FileViewers"
+﻿@page "/file-viewer"
 @namespace BootstrapBlazor.Shared.Samples
 @inject IStringLocalizer<FileViewers> Localizer
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["Title"]</h3>
 
@@ -8,16 +9,34 @@
 
 <Tips>
     <p>@((MarkupString)Localizer["Tips"].Value)</p>
-    <code>
-        &lt;ItemGroup&gt;<br />
-            <span class="m-3">&lt;RuntimeHostConfigurationOption Include="System.Drawing.EnableUnixSupport" Value="true" /&gt;</span><br />
-        &lt;/ItemGroup&gt;
-    </code>
 </Tips>
 
-<DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Nomal" Demo="typeof(Demos.FileViewer.FileViewerNormal)"/>
+<Pre>&lt;ItemGroup&gt;
+    &lt;RuntimeHostConfigurationOption Include="System.Drawing.EnableUnixSupport" Value="true" /&gt;
+&lt;/ItemGroup&gt;</Pre>
 
-<DemoBlock Title="@Localizer["BaseUsageText2"]" Introduction="@Localizer["BaseUsageIntro2"]" Name="Reload" Demo="typeof(Demos.FileViewer.FileViewerReload)" />
+<DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Normal">
+    <p><h5>Word</h5></p>
+    <FileViewer Filename="@WordSampleFile" Height="300px" StyleString="padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);border: var(--bs-card-border-width) solid var(--bs-card-border-color);" />
+    <br />
+    <p><h5>Excel</h5></p>
+    <FileViewer Filename="@ExcelSampleFile" Height="300px" StyleString="padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);border: var(--bs-card-border-width) solid var(--bs-card-border-color);" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["BaseUsageText2"]" Introduction="@Localizer["BaseUsageIntro2"]" Name="Reload">
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3 col-xl-2">
+            <Dropdown TValue="string" Items="Items" OnSelectedItemChanged="@ChangeURL" />
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-xl-5">
+            <BootstrapInput @bind-Value="@Url" />
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-xl-auto">
+            <Button Color="Color.Primary" OnClick="Apply">加载</Button>
+        </div>
+    </div>
+
+    <FileViewer @ref="fileViewer" Filename="@CombineFilename(Url)" Height="300px" StyleString="padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);border: var(--bs-card-border-width) solid var(--bs-card-border-color);" />
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
-

@@ -1,4 +1,4 @@
-﻿@page "/ribbontabs"
+﻿@page "/ribbon-tab"
 @inject IStringLocalizer<RibbonTabs> Localizer
 
 <h3>@Localizer["RibbonTabsTitle"]</h3>
@@ -7,26 +7,48 @@
 
 <DemoBlock Title="@Localizer["RibbonTabsNormalTitle"]"
            Introduction="@Localizer["RibbonTabsNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.RibbonTabs.RibbonTabsNormal)">
+           Name="Normal">
+    <RibbonTab Items="@NormalItems" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["RibbonTabsFloatTitle"]"
            Introduction="@Localizer["RibbonTabsFloatIntro"]"
-           Name="Float"
-           Demo="typeof(Demos.RibbonTabs.RibbonTabsFloat)">
+           Name="Float">
+    <div style="height: 178.5px;">
+        <RibbonTab Items="@FloatItems" ShowFloatButton="true" OnFloatChanged="OnFloatChanged">
+            @Localizer["RibbonTabsFloatContent"]
+        </RibbonTab>
+    </div>
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["RibbonTabsRightButtonsTemplateTitle"]"
            Introduction="@Localizer["RibbonTabsRightButtonsTemplateIntro"]"
-           Name="RightButtonsTemplate"
-           Demo="typeof(Demos.RibbonTabs.RibbonTabsRightButtonsTemplate)">
+           Name="RightButtonsTemplate">
+    <RibbonTab Items="@RightItems" ShowFloatButton="true">
+        <RightButtonsTemplate>
+            <div class="ribbon-button">
+                <i class="fa-regular fa-circle-question"></i>
+                <span>@Localizer["RibbonTabsRightButtonsTemplateContent"]</span>
+            </div>
+        </RightButtonsTemplate>
+    </RibbonTab>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["RibbonTabsHeaderClickTitle"]"
            Introduction="@Localizer["RibbonTabsHeaderClickIntro"]"
-           Name="HeaderClick"
-           Demo="typeof(Demos.RibbonTabs.RibbonTabsHeaderClick)">
+           Name="HeaderClick">
+    <RibbonTab Items="@HeaderItems" OnMenuClickAsync="@OnMenuClickAsync">
+        <div class="@FileClassString">@Localizer["RibbonTabsItemsText1"]</div>
+        <div class="@EditClassString">@Localizer["RibbonTabsItemsText2"]</div>
+    </RibbonTab>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["RibbonTabsAnchorTitle"]"
+           Introduction="@Localizer["RibbonTabsAnchorIntro"]"
+           Name="IsSupportAnchor">
+    <p>@((MarkupString)Localizer["RibbonTabsAnchorDesc"].Value)</p>
+    <RibbonTab Items="@AnchorItems" IsSupportAnchor="true" EncodeAnchorCallback="EncodeAnchorCallback" DecodeAnchorCallback="DecodeAnchorCallback"></RibbonTab>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

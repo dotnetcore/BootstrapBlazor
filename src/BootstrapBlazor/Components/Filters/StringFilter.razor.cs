@@ -62,12 +62,12 @@ public partial class StringFilter
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
+    public override FilterKeyValueAction GetFilterConditions()
     {
-        var filters = new List<FilterKeyValueAction>();
+        var filter = new FilterKeyValueAction() { Filters = new() };
         if (!string.IsNullOrEmpty(Value1))
         {
-            filters.Add(new FilterKeyValueAction()
+            filter.Filters.Add(new FilterKeyValueAction()
             {
                 FieldKey = FieldKey,
                 FieldValue = Value1,
@@ -77,52 +77,48 @@ public partial class StringFilter
 
         if (Count > 0 && !string.IsNullOrEmpty(Value2))
         {
-            filters.Add(new FilterKeyValueAction()
+            filter.Filters.Add(new FilterKeyValueAction()
             {
                 FieldKey = FieldKey,
                 FieldValue = Value2,
                 FilterAction = Action2,
-                FilterLogic = Logic
             });
+            filter.FilterLogic = Logic;
         }
-        return filters;
+        return filter;
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public override async Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions)
+    public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
-        if (conditions.Any())
+        FilterKeyValueAction first = filter.Filters?.FirstOrDefault() ?? filter;
+        if (first.FieldValue is string value)
         {
-            FilterKeyValueAction first = conditions.First();
-            if (first.FieldValue is string value)
+            Value1 = value;
+        }
+        else
+        {
+            Value1 = "";
+        }
+        Action1 = first.FilterAction;
+
+        if (filter.Filters != null && filter.Filters.Count == 2)
+        {
+            Count = 1;
+            FilterKeyValueAction second = filter.Filters[1];
+            if (second.FieldValue is string value2)
             {
-                Value1 = value;
+                Value2 = value2;
             }
             else
             {
-                Value1 = "";
+                Value2 = "";
             }
-            Action1 = first.FilterAction;
-
-            if (conditions.Count() == 2)
-            {
-                Count = 1;
-
-                FilterKeyValueAction second = conditions.ElementAt(1);
-                if (second.FieldValue is string value2)
-                {
-                    Value2 = value2;
-                }
-                else
-                {
-                    Value2 = "";
-                }
-                Action1 = second.FilterAction;
-                Logic = second.FilterLogic;
-            }
+            Action2 = second.FilterAction;
+            Logic = second.FilterLogic;
         }
-        await base.SetFilterConditionsAsync(conditions);
+        await base.SetFilterConditionsAsync(filter);
     }
 }

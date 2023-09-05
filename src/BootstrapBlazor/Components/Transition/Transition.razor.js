@@ -4,7 +4,6 @@ export function init(id, invoke, callback) {
     const el = document.getElementById(id)
     if (el) {
         EventHandler.on(el, 'webkitAnimationEnd', e => {
-            console.log(el, e)
             invoke.invokeMethodAsync(callback);
         })
     }

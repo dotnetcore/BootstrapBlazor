@@ -4,8 +4,7 @@
     "inputFiles": [
       "wwwroot/core/bootstrap/css/bootstrap.min.css",
       "wwwroot/lib/**/*.min.css",
-      "Components/**/*.css",
-      "wwwroot/src/css/bootstrap.blazor.css"
+      "wwwroot/scss/bootstrap.blazor.min.css"
     ]
   },
   {

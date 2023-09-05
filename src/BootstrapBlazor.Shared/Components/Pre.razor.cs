@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Shared.Services;
+using System.Text.RegularExpressions;
 
 namespace BootstrapBlazor.Shared.Components;
 
@@ -20,12 +21,13 @@ public partial class Pre
     /// </summary>
     /// <returns></returns>
     private string? ClassString => CssBuilder.Default("pre-code")
+        .AddClass("loaded", Loaded)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     [Inject]
     [NotNull]
-    private CodeSnippetService? Example { get; set; }
+    private CodeSnippetService? CodeSnippetService { get; set; }
 
     /// <summary>
     /// 获得/设置 子组件 CodeFile 为空时生效
@@ -37,13 +39,13 @@ public partial class Pre
     /// 获得/设置 代码段的标题
     /// </summary>
     [Parameter]
-    public string? BlockTitle { get; set; }
+    public string? BlockName { get; set; }
 
     /// <summary>
     /// 获得/设置 示例代码片段 默认 null 未设置
     /// </summary>
     [Parameter]
-    public string? Demo { get; set; }
+    public string? CodeFile { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示工具按钮组
@@ -66,13 +68,23 @@ public partial class Pre
     private string? CopiedText { get; set; }
 
     /// <summary>
-    /// OnInitializedAsync 方法
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        LoadingText ??= Localizer[nameof(LoadingText)];
+        TooltipTitle ??= Localizer[nameof(TooltipTitle)];
+        PlusTooltipTitle ??= Localizer[nameof(PlusTooltipTitle)];
+        MinusTooltipTitle ??= Localizer[nameof(MinusTooltipTitle)];
+        CopiedText ??= Localizer[nameof(CopiedText)];
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
-        await base.OnInitializedAsync();
-
         if (ChildContent == null)
         {
             await GetCodeAsync();
@@ -82,20 +94,6 @@ public partial class Pre
             Loaded = true;
             CanCopy = true;
         }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        LoadingText ??= Localizer[nameof(LoadingText)];
-        TooltipTitle ??= Localizer[nameof(TooltipTitle)];
-        PlusTooltipTitle ??= Localizer[nameof(PlusTooltipTitle)];
-        MinusTooltipTitle ??= Localizer[nameof(MinusTooltipTitle)];
-        CopiedText ??= Localizer[nameof(CopiedText)];
     }
 
     /// <summary>
@@ -120,11 +118,12 @@ public partial class Pre
 
     private async Task GetCodeAsync()
     {
-        if (!string.IsNullOrEmpty(Demo))
+        if (!string.IsNullOrEmpty(CodeFile))
         {
-            var code = await Example.GetCodeAsync(Demo);
+            var code = await CodeSnippetService.GetCodeAsync(CodeFile);
             if (!string.IsNullOrEmpty(code))
             {
+                code = FindCodeSnippetByName(code);
                 ChildContent = builder =>
                 {
                     builder.AddContent(0, code);
@@ -132,6 +131,62 @@ public partial class Pre
             }
             CanCopy = !string.IsNullOrEmpty(code) && !code.StartsWith("Error: ");
         }
+        else
+        {
+            ChildContent = builder =>
+            {
+                builder.AddContent(0, "网站改版中 ... Refactoring website. Coming soon ...");
+            };
+            CanCopy = false;
+        }
         Loaded = true;
     }
+
+    private string FindCodeSnippetByName(string code)
+    {
+        var content = code;
+        if (!string.IsNullOrEmpty(BlockName))
+        {
+            var regex = new Regex($"<DemoBlock [\\s\\S]* Name=\"{BlockName}\">([\\s\\S]*?)</DemoBlock>");
+            var match = regex.Match(content);
+            if (match.Success && match.Groups.Count == 2)
+            {
+                content = match.Groups[1].Value.Replace("\r\n", "\n").Replace("\n    ", "\n").TrimStart('\n');
+            }
+
+            // 移除 ignore 节点
+            regex = IgnoreRegex();
+            match = regex.Match(content);
+            if (match.Success)
+            {
+                content = content.Replace(match.Value, "").TrimStart('\n');
+            }
+
+            // 移除 ConsoleLogger
+            regex = ConsoleLoggerRegex();
+            match = regex.Match(content);
+            if (match.Success)
+            {
+                content = content.Replace(match.Value, "").TrimStart('\n');
+            }
+
+            // 移除 Tips
+            regex = TipsRegex();
+            match = regex.Match(content);
+            if (match.Success)
+            {
+                content = content.Replace(match.Value, "").TrimStart('\n');
+            }
+        }
+        return content.TrimEnd('\n');
+    }
+
+    [GeneratedRegex("<section ignore>[\\s\\S]*?</section>")]
+    private static partial Regex IgnoreRegex();
+
+    [GeneratedRegex("<ConsoleLogger [\\s\\S]* />")]
+    private static partial Regex ConsoleLoggerRegex();
+
+    [GeneratedRegex("<Tips[\\s\\S]*>[\\s\\S]*?</Tips>")]
+    private static partial Regex TipsRegex();
 }

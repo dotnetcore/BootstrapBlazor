@@ -449,10 +449,59 @@ const setIndeterminate = (object, state) => {
     }
 }
 
+const getOverflowParent = element => {
+    let parent = element.parentNode
+    while (parent.nodeType === 1) {
+        const style = getComputedStyle(parent)
+        const overflowY = style.getPropertyValue('overflow-y')
+        if (overflowY === 'auto' || overflowY === 'scroll') {
+            break;
+        }
+        parent = parent.parentNode
+    }
+    if (parent.nodeType !== 1) {
+        parent = getWindow()
+    }
+    return parent
+}
+
+/*
+ * @param {function} fn - 原函数
+ * @param {number} duration - 防抖时长
+ * @return {function} - 条件回调返回真时立即执行
+ */
+const debounce = function (fn, duration = 200, callback = null) {
+    let handler = null
+    return function () {
+        if (handler) {
+            clearTimeout(handler)
+        }
+        if (callback && typeof (callback) === 'function') {
+            var v = callback.apply(this, arguments)
+            if (v === true) {
+                handler = null
+            }
+        }
+        if (handler === null) {
+            fn.apply(this, arguments)
+
+            handler = setTimeout(() => {
+                handler = null
+            }, duration)
+        }
+        else {
+            handler = setTimeout(() => {
+                fn.apply(this, arguments)
+            }, duration)
+        }
+    }
+}
+
 export {
     addLink,
     addScript,
     copy,
+    debounce,
     drag,
     insertBefore,
     insertAfter,
@@ -469,6 +518,7 @@ export {
     getInnerWidth,
     getOuterHeight,
     getOuterWidth,
+    getOverflowParent,
     getTargetElement,
     getTransitionDelayDurationFromElement,
     getWidth,

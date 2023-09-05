@@ -1,5 +1,6 @@
-﻿@page "/treeviews"
+﻿@page "/tree-view"
 @inject IStringLocalizer<TreeViews> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
 
 <h3>@Localizer["TreeViewsTitle"]</h3>
 <h4>@Localizer["TreeViewsDescription"]</h4>
@@ -24,88 +25,118 @@
 
 <DemoBlock Title="@Localizer["TreeViewNormalTitle"]"
            Introduction="@Localizer["TreeViewNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.TreeViews.TreeViewNormal)">
-    <p>@((MarkupString)Localizer["TreeViewNormalDescription"].Value)</p>
+           Name="Normal">
+    <p class="mb-3">@((MarkupString)Localizer["TreeViewNormalDescription"].Value)</p>
+    <TreeView TItem="TreeFoo" Items="@Items" OnTreeItemClick="@OnTreeItemClick" />
+    <ConsoleLogger @ref="Logger1" class="mt-3" />
 </DemoBlock>
+
 <DemoBlock Title="@Localizer["TreeViewCheckboxTitle"]"
            Introduction="@Localizer["TreeViewCheckboxIntro"]"
-           Name="Checkbox"
-           Demo="typeof(Demos.TreeViews.TreeViewCheckbox)">
-    <p>
+           Name="Checkbox">
+    <p class="mb-3">
         <div>@((MarkupString)Localizer["TreeViewCheckboxTips1"].Value)</div>
         <div>@((MarkupString)Localizer["TreeViewCheckboxTips2"].Value)</div>
     </p>
+    <div class="row form-inline">
+        <div class="col-12 col-lg-auto">
+            <RadioList IsButton="true" @bind-Value="@IsReset" Items="@ResetItems" Color="Color.Success" ShowLabel="true" DisplayText="@Localizer["TreeViewNormalRadioListDisplayText"]"></RadioList>
+        </div>
+        <div class="col-12 col-lg-auto">
+            <Checkbox DisplayText="@Localizer["TreeViewCheckboxCheckBoxDisplayText1"]" ShowAfterLabel="true" @bind-Value="@AutoCheckChildren" />
+            <Checkbox DisplayText="@Localizer["TreeViewCheckboxCheckBoxDisplayText2"]" ShowAfterLabel="true" @bind-Value="@AutoCheckParent" class="ms-3" />
+        </div>
+        <div class="col-12 col-lg-auto">
+            <Button Text="@Localizer["TreeViewCheckboxButtonText"]" OnClick="OnRefresh" />
+        </div>
+    </div>
+    <TreeView TItem="TreeFoo" Items="@CheckedItems" ShowCheckbox="true" OnTreeItemChecked="@OnTreeItemChecked" IsReset="@IsReset" AutoCheckChildren="@AutoCheckChildren" AutoCheckParent="@AutoCheckParent" />
+    <ConsoleLogger @ref="Logger2" class="mt-3" />
 </DemoBlock>
+
 <DemoBlock Title="@Localizer["TreeViewTreeDisableTitle"]"
            Introduction="@Localizer["TreeViewTreeDisableIntro"]"
-           Name="TreeDisable"
-           Demo="typeof(Demos.TreeViews.TreeViewTreeDisable)">
-    <p>@((MarkupString)Localizer["TreeViewTreeDisableDescription"].Value)</p>
+           Name="TreeDisable">
+    <p class="mb-3">@((MarkupString)Localizer["TreeViewTreeDisableDescription"].Value)</p>
+    <TreeView TItem="TreeFoo" Items="@DisabledItems" ShowCheckbox="true" />
 </DemoBlock>
+
 <DemoBlock Title="@Localizer["TreeViewAccordionModelTitle"]"
            Introduction="@Localizer["TreeViewAccordionModelIntro"]"
-           Name="AccordionModel"
-           Demo="typeof(Demos.TreeViews.TreeViewAccordionModel)">
-    <p>@((MarkupString)Localizer["TreeViewAccordionModelDescription"].Value)</p>
+           Name="AccordionModel">
+    <p class="mb-3">@((MarkupString)Localizer["TreeViewAccordionModelDescription"].Value)</p>
+    <TreeView TItem="TreeFoo" Items="@GetAccordionItems()" OnExpandNodeAsync="OnExpandNodeAsync" ShowCheckbox="true" IsAccordion="true" />
 </DemoBlock>
-<DemoBlock Title="@Localizer["TreeViewDefauleExpandTitle"]"
-           Introduction="@Localizer["TreeViewDefauleExpandIntro"]"
-           Name="DefauleExpand"
-           Demo="typeof(Demos.TreeViews.TreeViewDefauleExpand)">
-    <p>
-        @((MarkupString)Localizer["TreeViewDefauleExpandDescription"].Value)
+
+<DemoBlock Title="@Localizer["TreeViewDefaultExpandTitle"]"
+           Introduction="@Localizer["TreeViewDefaultExpandIntro"]"
+           Name="DefaultExpand">
+    <p class="mb-3">
+        @((MarkupString)Localizer["TreeViewDefaultExpandDescription"].Value)
     </p>
+    <TreeView TItem="TreeFoo" Items="@ExpandItems" ShowCheckbox="true" />
 </DemoBlock>
+
 <DemoBlock Title="@Localizer["TreeViewTreeDisplayIconTitle"]"
            Introduction="@Localizer["TreeViewTreeDisplayIconIntro"]"
-           Name="TreeDisplayIcon"
-           Demo="typeof(Demos.TreeViews.TreeViewTreeDisplayIcon)">
-    <p>
+           Name="TreeDisplayIcon">
+    <p class="mb-3">
         @((MarkupString)Localizer["TreeViewTreeDisplayIconDescription"].Value)
     </p>
+    <TreeView TItem="TreeFoo" Items="@GetIconItems()" ShowIcon="true" ShowCheckbox="true" />
 </DemoBlock>
+
 <DemoBlock Title="@Localizer["TreeViewTreeClickExpandTitle"]"
            Introduction="@Localizer["TreeViewTreeClickExpandIntro"]"
-           Name="TreeClickExpand"
-           Demo="typeof(Demos.TreeViews.TreeViewTreeClickExpand)">
-    <p>
+           Name="TreeClickExpand">
+    <p class="mb-3">
         @((MarkupString)Localizer["TreeViewTreeClickExpandDescription"].Value)
     </p>
+    <TreeView TItem="TreeFoo" Items="@GetClickExpandItems" ShowIcon="true" ShowCheckbox="true" ClickToggleNode="true" />
 </DemoBlock>
+
 <DemoBlock Title="@Localizer["TreeViewTreeValidationFormTitle"]"
            Introduction="@Localizer["TreeViewTreeValidationFormIntro"]"
-           Name="TreeValidationForm"
-           Demo="typeof(Demos.TreeViews.TreeViewTreeValidationForm)">
-    <p>@((MarkupString)Localizer["TreeViewTreeValidationFormDescription"].Value)</p>
+           Name="TreeValidationForm">
+    <p class="mb-3">@((MarkupString)Localizer["TreeViewTreeValidationFormDescription"].Value)</p>
+    <ValidateForm Model="@Model">
+        <TreeView TItem="TreeFoo" Items="@GetFormItems" OnTreeItemClick="@OnFormTreeItemClick" ShowCheckbox="true" />
+    </ValidateForm>
 </DemoBlock>
+
 <DemoBlock Title="@Localizer["TreeViewTreeLazyLoadingTitle"]"
            Introduction="@Localizer["TreeViewTreeLazyLoadingIntro"]"
-           Name="TreeLazyLoading"
-           Demo="typeof(Demos.TreeViews.TreeViewTreeLazyLoading)">
-    <p>
+           Name="TreeLazyLoading">
+    <p class="mb-3">
         @((MarkupString)Localizer["TreeViewTreeLazyLoadingDescription"].Value)
     </p>
+    <TreeView TItem="TreeFoo" ClickToggleNode="true" Items="@GetLazyItems()" OnExpandNodeAsync="OnExpandNodeAsync" />
 </DemoBlock>
+
 <DemoBlock Title="@Localizer["TreeViewTreeCustomNodeTitle"]"
            Introduction="@Localizer["TreeViewTreeCustomNodeIntro"]"
-           Name="TreeCustomNode"
-           Demo="typeof(Demos.TreeViews.TreeViewTreeCustomNode)">
+           Name="TreeCustomNode">
+    <TreeView TItem="TreeFoo" ClickToggleNode="true" Items="GetTemplateItems()" />
 </DemoBlock>
+
 <DemoBlock Title="@Localizer["TreeViewTreeNodeColorTitle"]"
            Introduction="@Localizer["TreeViewTreeNodeColorIntro"]"
-           Name="TreeNodeColor"
-           Demo="typeof(Demos.TreeViews.TreeViewTreeNodeColor)">
+           Name="TreeNodeColor">
+    <TreeView TItem="TreeFoo" ClickToggleNode="true" Items="GetColorItems()" />
 </DemoBlock>
+
 <DemoBlock Title="@Localizer["TreeViewCheckedItemsTitle"]"
            Introduction="@Localizer["TreeViewCheckedItemsIntro"]"
-           Name="CheckedItems"
-           Demo="typeof(Demos.TreeViews.TreeViewCheckedItems)">
+           Name="CheckedItems">
+    <TreeView TItem="TreeFoo" ShowCheckbox="true" Items="@CheckedItems2" OnTreeItemChecked="@OnTreeItemChecked2" />
+    <ConsoleLogger @ref="Logger3" class="mt-3" />
 </DemoBlock>
+
 <DemoBlock Title="@Localizer["TreeViewShowSkeletonTitle"]"
            Introduction="@Localizer["TreeViewShowSkeletonIntro"]"
-           Name="ShowSkeleton"
-           Demo="typeof(Demos.TreeViews.TreeViewShowSkeleton)">
+           Name="ShowSkeleton">
+    <Button Text="@Localizer["TreeViewShowSkeletonButtonText"]" IsAsync="true" Icon="fa-solid fa-font-awesome" OnClick="OnLoadAsyncItems" />
+    <TreeView TItem="TreeFoo" Items="@AsyncItems" ShowSkeleton="true" OnExpandNodeAsync="OnExpandNodeAsync" class="mt-3" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

@@ -13,7 +13,6 @@
   <ItemGroup>
     <Content Remove="Locales\*.json" />
     <Content Remove="docs.json" />
-    <Content Remove="links.json" />
     <Content Remove="menus.json" />
     <Content Remove="topology.json" />
     <Content Remove="versionconfig.json" />
@@ -21,7 +20,6 @@
     <None Include="versionconfig.json" />
     <EmbeddedResource Include="Locales\*.json" />
     <EmbeddedResource Include="docs.json" />
-    <EmbeddedResource Include="links.json" />
     <EmbeddedResource Include="topology.json" />
   </ItemGroup>
 
@@ -36,19 +34,22 @@
     <PackageReference Include="BootstrapBlazor.Dock" Version="7.0.11" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="7.0.3" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="7.4.2" />
-    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="7.0.0" />
+    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="7.2.0" />
     <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="7.0.1" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="7.2.1" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="7.0.0" />
-    <PackageReference Include="BootstrapBlazor.MaterialDesign.Extensions" Version="7.3.0" />
+    <PackageReference Include="BootstrapBlazor.MaterialDesign.Extensions" Version="7.3.2" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="7.0.1" />
-    <PackageReference Include="BootstrapBlazor.PdfReader" Version="7.1.10" />
+    <PackageReference Include="BootstrapBlazor.PdfReader" Version="7.2.0" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="7.0.3" />
+    <PackageReference Include="BootstrapBlazor.Splitting" Version="7.0.0" />
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="7.3.4" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="7.5.0" />
-    <PackageReference Include="BootstrapBlazor.Topology" Version="7.4.4" />
+    <PackageReference Include="BootstrapBlazor.Topology" Version="7.4.5" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="7.0.4" />
     <PackageReference Include="BootstrapBlazor.MouseFollower" Version="7.0.0" />
+    <PackageReference Include="BootstrapBlazor.WebAPI" Version="7.2.6" />
+    <PackageReference Include="BootstrapBlazor.MindMap" Version="7.0.1" />
   </ItemGroup>
 
   <ItemGroup>

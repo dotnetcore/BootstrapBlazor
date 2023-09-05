@@ -73,39 +73,36 @@ public partial class EnumFilter
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
+    public override FilterKeyValueAction GetFilterConditions()
     {
-        var filters = new List<FilterKeyValueAction>();
+        var filter = new FilterKeyValueAction() { Filters = new() };
         if (!string.IsNullOrEmpty(Value) && Enum.TryParse(EnumType, Value, out var val))
         {
-            filters.Add(new FilterKeyValueAction()
+            filter.Filters.Add(new FilterKeyValueAction()
             {
                 FieldKey = FieldKey,
                 FieldValue = val,
                 FilterAction = FilterAction.Equal
             });
         }
-        return filters;
+        return filter;
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public override async Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions)
+    public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
-        if (conditions.Any())
+        var first = filter.Filters?.FirstOrDefault() ?? filter;
+        var type = Nullable.GetUnderlyingType(Type) ?? Type;
+        if (first.FieldValue != null && first.FieldValue.GetType() == type)
         {
-            var type = Nullable.GetUnderlyingType(Type) ?? Type;
-            FilterKeyValueAction first = conditions.First();
-            if (first.FieldValue != null && first.FieldValue.GetType() == type)
-            {
-                Value = first.FieldValue.ToString();
-            }
-            else
-            {
-                Value = "";
-            }
+            Value = first.FieldValue.ToString();
         }
-        await base.SetFilterConditionsAsync(conditions);
+        else
+        {
+            Value = "";
+        }
+        await base.SetFilterConditionsAsync(filter);
     }
 }

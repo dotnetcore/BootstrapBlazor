@@ -19,7 +19,7 @@
                                 TooltipText="@b.TooltipText" TooltipPlacement="@b.TooltipPlacement" TooltipTrigger="@b.TooltipTrigger"
                                 IsDisabled="GetDisabled(b)"></Button>
                     }
-                    else if (button is TableToolbarPopconfirmButton<TItem> pb && pb.IsShow)
+                    else if (button is TableToolbarPopConfirmButton<TItem> pb && pb.IsShow)
                     {
                         <PopConfirmButton AdditionalAttributes="pb.AdditionalAttributes" CustomClass="@pb.CustomClass"
                                           Color="@pb.Color" Icon="@pb.Icon" Text="@pb.Text" Size="pb.Size" ShowShadow="@pb.ShowShadow"
@@ -55,7 +55,7 @@
                                     }
                                 </div>
                             }
-                            else if (button is TableToolbarPopconfirmButton<TItem> { IsShow: true } pb)
+                            else if (button is TableToolbarPopConfirmButton<TItem> { IsShow: true } pb)
                             {
                                 <div class="dropdown-item" @onclick="pb.OnConfirm">
                                     @if (string.IsNullOrEmpty(pb.Icon))

@@ -1,8 +1,16 @@
-﻿@page "/htmlrenderers"
+﻿@page "/html-renderer"
 @inject IStringLocalizer<HtmlRenderers> Localizer
+@inject IComponentHtmlRenderer HtmlRenderer
 
 <h3>@Localizer["Title"]</h3>
 
 <h4>@Localizer["SubTitle"]</h4>
 
-<DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["IntroText"]" Name="Normal" Demo="typeof(Demos.HtmlRenderers.HtmlRendererNormal)" />
+<DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["IntroText"]" Name="Normal">
+    @if (!string.IsNullOrEmpty(RawString))
+    {
+        <div class="mb-3">Component: @((MarkupString)RawString)</div>
+
+        <Display TValue="string" Value="@RawString"></Display>
+    }
+</DemoBlock>

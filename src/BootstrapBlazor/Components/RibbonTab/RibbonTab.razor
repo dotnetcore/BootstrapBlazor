@@ -4,7 +4,7 @@
 
 <div @attributes="@AdditionalAttributes" id="@Id" class="@HeaderClassString">
     <div class="ribbon-header">
-        <Tab IsBorderCard="true" OnClickTabItemAsync="OnClickTabItemAsync">
+        <Tab OnClickTabItemAsync="OnClickTabItemAsync">
             @foreach (var item in Items)
             {
                 <TabItem @key="item" Text="@item.Text" IsActive="item.IsActive">
@@ -23,7 +23,7 @@
                                         {
                                             <LinkButton Icon="@group.Icon" ImageUrl="@group.ImageUrl" IsDisabled="@group.IsDisabled"
                                                         Url="@group.Url" Target="@group.Target"
-                                                        Text="@group.Text" IsVertical="true" Color="Color.Secondary"
+                                                        Text="@group.Text" IsVertical="true" Color="Color.None"
                                                         class="@GetClassString(group)" StopPropagation="true" OnClick="() => OnClick(group)" />
                                         }
                                     }

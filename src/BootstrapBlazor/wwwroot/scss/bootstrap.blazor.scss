@@ -1,0 +1,133 @@
+$alert-bar-width: 4px !default;
+$alert-icon-margin-right: .5rem !default;
+
+//Button DialogButton
+$dial-list-zindex: 5;
+$dial-item-padding: 0.25rem 1rem;
+$dial-item-bg: #fff;
+$dial-item-hover-bg: #e9ecef;
+$dial-item-hover-color: var(--bs-body-color);
+$dial-item-hover-border-color: #c0c4cc;
+$dial-item-border: 1px solid #dee2e6;
+$dial-item-margin: 6px;
+$dial-item-width: 40px;
+$dial-item-height: 40px;
+$dial-item-radius: 50%;
+$dial-item-shadow: 0 1px 6px #c0c4cc;
+$dial-list-radial-offset: 8px;
+
+//Button PopConfirmButtonContent
+$popover-min-width: 240px;
+$popover-buttons-justify-content: flex-end;
+$popover-buttons-margin-left: 0.5rem;
+$popover-buttons-padding: 0.25rem 1rem;
+$popover-body-span-margin-left: 0.25rem;
+
+//Button PlusButton
+$border-width: 3px;
+
+//Button SlideButton
+$slide-list-bg: #fff;
+$slide-list-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+$slide-list-border: var(--bs-border-width) solid var(--bs-border-color-translucent);
+$slide-list-width: 260px;
+$slide-list-height: 306px;
+$slide-item-header-bg: var(--bs-primary);
+$slide-item-header-color: #fff;
+$slide-item-header-padding: 0.75rem 1rem;
+$slide-item-header-border-radius: 5px 5px 0 0;
+$slide-item-body-padding: .25rem 0;
+$slide-item-padding: 0.25rem 1rem;
+$slide-item-active-bg: #0d6efd;
+$slide-item-active-color: #fff;
+$slide-item-hover-bg: var(--bs-tertiary-bg);
+$slide-item-hover-color: var(--bs-body-color);
+
+//Card
+$card-border-radius: var(--bs-border-radius);
+$card-inner-border-radius: calc(var(--bs-border-radius) - 1px);
+$card-shadow: var(--bb-shadow);
+$card-hover-shadow: var(--bb-hover-shadow);
+$card-collapse-bar-margin-right: .5rem;
+$card-header-tag-height: 21px;
+$card-title-spacer-y: 0;
+
+//CheckBox
+$checkbox-label-padding-y: 6px;
+$checkbox-height: 1rem;
+$checkbox-sm-height: 1.25rem;
+$checkbox-md-height: 1.5rem;
+$checkbox-lg-height: 1.75rem;
+$checkbox-xl-height: 2rem;
+$checkbox-xxl-height: var(--bb-height);
+$checkbox-input-focus-border-color: #b5b5c3;
+$checkbox-item-disabled-opacity: 0.5;
+$checkbox-item-padding-md: 4px 0 3px 0;
+$checkbox-item-padding-lg: 2px 0 1px 0;
+$checkbox-item-padding-xl: 2px 0 1px 0;
+
+// CheckBoxList
+$checkbox-item-width: 220px;
+
+// Collapse
+$accordion-btn-focus-box-shadow: none;
+$accordion-btn-hover-bg: var(--bs-secondary);
+
+// Console
+$card-color: #fff;
+$console-body-bg: #174482;
+
+@mixin color_409eff {
+    color: #409eff
+}
+
+@mixin pick-side {
+    .picker-panel-sidebar {
+        width: 110px;
+        border-right: 1px solid #e4e4e4;
+        padding: 6px 0;
+        overflow: auto;
+
+        .sidebar-item {
+            line-height: 28px;
+            padding: 0 12px;
+            cursor: pointer;
+            transition: color .3s linear;
+
+            &:hover {
+                @include color_409eff
+            }
+        }
+    }
+}
+// DateTimePicker
+$dt-picker-bar-color: #b5b5c3;
+$form-control-padding: 6px 33px;
+
+// DateTimeRange
+$dt-range-bar-color: #b5b5c3;
+
+// FileIcon
+$icon-width: 42px;
+$icon-height: auto;
+$icon-padding-left: .5rem;
+$icon-badge-bottom: 7px;
+$icon-path-fill-color: #495057;
+// DropdownWidget
+$dropdown-link-active-color: unset;
+$dropdown-link-active-bg: unset;
+$dropdown-link-hover-bg: unset;
+$widget-border-color: #dcdfe6;
+
+// Divider
+$divider-bg: #dcdfe6;
+$divider-margin: 1rem 0;
+$divider-text-bg: #fff;
+$divider-text-color: #303133;
+$divider-text-padding: 0 20px;
+
+// Footer
+$footer-bg: var(--bs-secondary);
+$footer-padding: .5rem 1rem;
+
+@import "./components.scss";

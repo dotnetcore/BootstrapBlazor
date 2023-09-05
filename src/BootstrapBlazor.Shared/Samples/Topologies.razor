@@ -1,13 +1,21 @@
-﻿@page "/topologies"
+﻿@page "/topology"
+@inherits WebSiteModuleComponentBase
 @inject IStringLocalizer<Topologies> Localizer
+@inject FanControllerDataService DataService
+@inject SwalService SwalService
+@attribute [JSModuleAutoLoader("Samples/Topologies.razor.js", JSObjectReference = true, AutoInvokeDispose = false)]
 
 <h3>@Localizer["TopologiesTitle"]</h3>
 <h4>@((MarkupString)Localizer["TopologiesDescription"].Value)</h4>
 
 <DemoBlock Title="@Localizer["TopologiesNormalTitle"]"
            Introduction="@Localizer["TopologiesNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Topologies.TopologiesNormal)">
+           Name="Normal">
+    <Button OnClickWithoutRender="OnResize" Text="Resize" />
+
+    <div class="topology mt-3">
+        <Topology @ref="TopologyElement" Content="@Content" OnBeforePushData="OnBeforePushData"></Topology>
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

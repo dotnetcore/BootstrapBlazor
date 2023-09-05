@@ -300,6 +300,8 @@ public partial class MultiSelect<TValue>
 
     private bool GetCheckedState(SelectedItem item) => SelectedItems.Any(i => i.Value == item.Value);
 
+    private string? GetCheckedString(SelectedItem item) => GetCheckedState(item) ? "checked" : null;
+
     private bool CheckCanTrigger(SelectedItem item)
     {
         var ret = true;

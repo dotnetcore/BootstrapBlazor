@@ -75,7 +75,11 @@ public class LayoutTest : BootstrapBlazorTestBase
             });
             pb.Add(a => a.IsCollapsedChanged, v => collapsed = v);
         });
-        cut.Find("header > a").Click();
+
+        cut.InvokeAsync(() =>
+        {
+            cut.Find("header > a").Click();
+        });
         Assert.True(collapsed);
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.ShowCollapseBar, false));
@@ -152,6 +156,55 @@ public class LayoutTest : BootstrapBlazorTestBase
         var nav = cut.Services.GetRequiredService<NavigationManager>();
         nav.NavigateTo("/Cat");
         cut.Contains(">Cat<");
+
+        cut.InvokeAsync(() =>
+        {
+            var items = cut.FindComponent<Tab>().Instance.Items;
+            Assert.Equal(2, items.Count());
+            var item = items.Last();
+            Assert.Equal("Cat", item.Text);
+        });
+    }
+
+    [Fact]
+    public void UseTabSet_Layout()
+    {
+        var cut = Context.RenderComponent<Layout>(pb =>
+        {
+            pb.Add(a => a.UseTabSet, true);
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.Menus, new List<MenuItem>()
+            {
+                new MenuItem()
+                {
+                    Text = "menu1",
+                    Url = "/Binder",
+                    Icon = "fa-solid fa-home"
+                },
+                new MenuItem()
+                {
+                    Text = "menu1",
+                    Url = "/Dog",
+                    Icon = "fa-solid fa-home"
+                }
+            });
+        });
+        var nav = cut.Services.GetRequiredService<NavigationManager>();
+        nav.NavigateTo("/Binder");
+        cut.Contains("<div class=\"tabs-body-content\">Binder</div>");
+    }
+
+    [Fact]
+    public void UseTabSet_Menus()
+    {
+        var cut = Context.RenderComponent<Layout>(pb =>
+        {
+            pb.Add(a => a.UseTabSet, true);
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+        });
+        var nav = cut.Services.GetRequiredService<NavigationManager>();
+        nav.NavigateTo("/Binder");
+        cut.Contains("<div class=\"tabs-body-content\">Binder</div>");
     }
 
     [Fact]
@@ -214,6 +267,7 @@ public class LayoutTest : BootstrapBlazorTestBase
             });
         });
         navMan.NavigateTo("/");
+        cut.WaitForState(() => navMan.Uri == "http://localhost/");
         Assert.Equal("http://localhost/", navMan.Uri);
 
         cut.SetParametersAndRender(pb =>
@@ -224,6 +278,7 @@ public class LayoutTest : BootstrapBlazorTestBase
             });
         });
         navMan.NavigateTo("/");
+        cut.WaitForState(() => navMan.Uri == "http://localhost/Test");
         Assert.Equal("http://localhost/Test", navMan.Uri);
     }
 

@@ -1,0 +1,10 @@
+.camera {
+    .camera-header {
+        border: 1px solid #ddd;
+        border-radius: var(--bs-border-radius);
+    }
+
+    canvas {
+        display: none;
+    }
+}

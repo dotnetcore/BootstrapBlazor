@@ -1,8 +1,0 @@
-﻿@inject IStringLocalizer<Downloads> Localizer
-
-<p>@((MarkupString)Localizer["DownloadImageButtonText"].Value)</p>
-<img src="@TempUrl" style="width: 120px; height: auto;" />
-
-@code {
-    private string TempUrl { get; set; } = "./favicon.png";
-}

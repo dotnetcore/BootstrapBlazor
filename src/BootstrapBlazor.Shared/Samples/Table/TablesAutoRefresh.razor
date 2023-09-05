@@ -1,19 +1,46 @@
-﻿@page "/tables/autorefresh"
+﻿@page "/table/auto-refresh"
 @inject IStringLocalizer<TablesAutoRefresh> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
 
 <h3>@Localizer["TablesAutoRefreshTitle"]</h3>
 <h4>@Localizer["TablesAutoRefreshDescription"]</h4>
 
 <DemoBlock Title="@Localizer["TablesAutoRefreshNormalTitle"]"
            Introduction="@Localizer["TablesAutoRefreshNormalIntro"]"
-           Name="TablesAutoRefreshNormal"
-           Demo="typeof(Demos.Table.TablesAutoRefresh.TablesAutoRefreshNormal)">
+           Name="TablesAutoRefreshNormal">
     <p>@((MarkupString)Localizer["TablesAutoRefreshNormalTips1"].Value)</p>
-    <p>@((MarkupString)Localizer["TablesAutoRefreshNormalTips2"].Value)</p>
+    <p class="mb-3">@((MarkupString)Localizer["TablesAutoRefreshNormalTips2"].Value)</p>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@(new int[] { 2, 4 })"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           IsAutoRefresh="true" AutoRefreshInterval="2000"
+           OnQueryAsync="@OnAutoQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Complete" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
-
 
 <DemoBlock Title="@Localizer["TablesAutoRefreshControlTitle"]"
            Introduction="@Localizer["TablesAutoRefreshControlIntro"]"
-           Name="TablesAutoRefreshControl"
-           Demo="typeof(Demos.Table.TablesAutoRefresh.TablesAutoRefreshControl)" />
+           Name="TablesAutoRefreshControl">
+        <div>@Localizer["TablesAutoRefreshControlDescription"]</div>
+        <Button Text="@Localizer["TablesAutoRefreshControlToggleAuto"]" OnClick="@ToggleAuto" /> <span><code>IsAutoRefresh</code> @Localizer["TablesAutoRefreshControlIsAutoRefresh"]：<code>@IsAutoRefresh</code></span>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@(new int[] { 2, 4 })"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           IsAutoRefresh="@IsAutoRefresh" AutoRefreshInterval="2000"
+           OnQueryAsync="@OnManualQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Complete" />
+        </TableColumns>
+    </Table>
+</DemoBlock>

@@ -157,33 +157,35 @@
         Runtime = ts.ToString("dd\\.hh\\:mm\\:ss");
     }
 
-    private async Task SetLang(string cultureName)
+    private Task SetLang(string cultureName)
     {
-        if (OperatingSystem.IsBrowser())
-        {
-            if (cultureName != CultureInfo.CurrentCulture.Name)
-            {
-                await JSRuntime.SetCulture(cultureName);
-                var culture = new CultureInfo(cultureName);
-                CultureInfo.CurrentCulture = culture;
-                CultureInfo.CurrentUICulture = culture;
+        //if (OperatingSystem.IsBrowser())
+        //{
+        //    if (cultureName != CultureInfo.CurrentCulture.Name)
+        //    {
+        //        await JSRuntime.SetCulture(cultureName);
+        //        var culture = new CultureInfo(cultureName);
+        //        CultureInfo.CurrentCulture = culture;
+        //        CultureInfo.CurrentUICulture = culture;
 
-                NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
-            }
-        }
-        else
-        {
-            // 使用 api 方式 适用于 Server-Side 模式
-            if (SelectedCulture != cultureName)
-            {
-                var culture = cultureName;
-                var uri = new Uri(NavigationManager.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
-                var query = $"?culture={Uri.EscapeDataString(culture)}&redirectUri={Uri.EscapeDataString(uri)}";
+        //        NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+        //    }
+        //}
+        //else
+        //{
+        //    // 使用 api 方式 适用于 Server-Side 模式
+        //    if (SelectedCulture != cultureName)
+        //    {
+        //        var culture = cultureName;
+        //        var uri = new Uri(NavigationManager.Uri).GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+        //        var query = $"?culture={Uri.EscapeDataString(culture)}&redirectUri={Uri.EscapeDataString(uri)}";
 
-                // use a path that matches your culture redirect controller from the previous steps
-                NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
-            }
-        }
+        //        // use a path that matches your culture redirect controller from the previous steps
+        //        NavigationManager.NavigateTo("/Culture/SetCulture" + query, forceLoad: true);
+        //    }
+        //}
+
+        return Task.CompletedTask;
     }
 
     private void Dispose(bool disposing)
