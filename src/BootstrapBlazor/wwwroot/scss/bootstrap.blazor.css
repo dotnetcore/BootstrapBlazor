@@ -7507,3 +7507,45 @@ form .form-control.is-display {
 .splitting .splitting-wrap .splitting-flip {
   height: var(--splitting-progress-height);
 }
+
+.query-builder {
+  position: relative;
+}
+.query-builder .qb-group {
+  margin: 0;
+  padding: 0;
+}
+.query-builder .qb-group .qb-item {
+  list-style: none;
+  position: relative;
+}
+.query-builder .qb-group .qb-item:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+.query-builder .qb-group .qb-item > .qb-group {
+  border: 1px solid #ddd;
+  border-radius: var(--bs-border-radius);
+  padding: 0.5rem;
+  padding-left: 2.5rem;
+}
+.query-builder .qb-group .qb-item > .qb-group > .qb-item:last-child:before {
+  content: attr(data-bb-logic);
+  position: absolute;
+  top: 0;
+  left: -2rem;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+}
+.query-builder .qb-group .qb-row {
+  display: flex;
+}
+.query-builder .qb-group .qb-row > *:not(:last-child) {
+  margin-right: 0.5rem;
+}
+.query-builder .qb-group .qb-row > input.form-control {
+  flex: 1;
+}
+.query-builder .dropdown-toggle:after {
+  content: none;
+}

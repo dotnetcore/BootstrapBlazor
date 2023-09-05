@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// PopoverSelectBase 基类
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
 public abstract class PopoverSelectBase<TValue> : PopoverDropdownBase<TValue>

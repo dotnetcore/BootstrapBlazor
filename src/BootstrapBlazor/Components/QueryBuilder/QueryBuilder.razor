@@ -1,0 +1,56 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TModel
+@inherits BootstrapComponentBase
+
+<div @attributes="@AdditionalAttributes" class="@ClassString">
+    <CascadingValue Value="Value.Filters" IsFixed="true">
+        @ChildContent?.Invoke(new TModel())
+    </CascadingValue>
+    @if (!Value.HasFilters() && ShowHeader)
+    {
+        @RenderHeader(null, Value)
+    }
+    @if (_inited)
+    {
+        @RenderFilters(null, Value)
+    }
+</div>
+
+@code {
+    RenderFragment RenderFilter(FilterKeyValueAction parent, FilterKeyValueAction filter) =>
+    @<div class="qb-row">
+        <Select Items="_fields" @bind-Value="@filter.FieldKey" />
+        <Select Items="Operations" @bind-Value="@filter.FilterAction" />
+        <BootstrapInput @bind-Value="@filter.FieldValue" />
+        @if (ShowHeader)
+        {
+            <Button Icon="@MinusIcon" class="btn-minus" OnClick="() => OnClickRemoveFilter(parent, filter)"></Button>
+            <Button Icon="@PlusIcon" class="btn-plus" OnClick="() => OnClickAddFilter(parent)"></Button>
+        }
+    </div>;
+
+    RenderFragment RenderHeader(FilterKeyValueAction? parent, FilterKeyValueAction filter) =>
+    @<div class="qb-header">
+        @if (HeaderTemplate != null)
+        {
+            @HeaderTemplate(filter)
+        }
+        else
+        {
+            <div class="btn-group me-3">
+                <Button Color="GetColorByFilter(filter, FilterLogic.And)" Text="@Localizer[FilterLogic.And.ToString()]" OnClick="() => SetFilterLogic(parent, filter, FilterLogic.And)"></Button>
+                <Button Color="GetColorByFilter(filter, FilterLogic.Or)" Text="@Localizer[FilterLogic.Or.ToString()]" OnClick="() => SetFilterLogic(parent, filter, FilterLogic.Or)"></Button>
+            </div>
+            <Dropdown TValue="string" class="btn-filter" Items="_dropdownItems">
+                <ButtonTemplate>
+                    <i class="@PlusIcon"></i>
+                </ButtonTemplate>
+                <ItemsTemplate>
+                    <div class="dropdown-item" @onclick="e => OnAddFilterGroup(filter)">@GroupText</div>
+                    <div class="dropdown-item" @onclick="e => OnAddFilterItem(filter)">@ItemText</div>
+                </ItemsTemplate>
+            </Dropdown>
+            <Button Icon="@RemoveIcon" class="btn-remove" OnClick="() => OnClickRemove(parent, filter)"></Button>
+        }
+    </div>;
+}

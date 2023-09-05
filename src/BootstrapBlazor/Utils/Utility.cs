@@ -34,6 +34,14 @@ public static class Utility
     public static string GetDisplayName(Type modelType, string fieldName) => CacheManager.GetDisplayName(Nullable.GetUnderlyingType(modelType) ?? modelType, fieldName);
 
     /// <summary>
+    /// 获取显示名称方法
+    /// </summary>
+    /// <typeparam name="TModel">模型</typeparam>
+    /// <param name="fieldName">字段名称</param>
+    /// <returns></returns>
+    public static string GetDisplayName<TModel>(string fieldName) => GetDisplayName(typeof(TModel), fieldName);
+
+    /// <summary>
     /// 获取资源文件中 NullableBoolItemsAttribute 标签名称方法
     /// </summary>
     /// <param name="model">模型实例</param>

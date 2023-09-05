@@ -200,6 +200,10 @@ internal class DefaultIcon
         { ComponentIcons.FileIconZip, "mdi mdi-file-cog-outline" },
         { ComponentIcons.FileIconArchive, "mdi mdi-file-document-check-outline" },
         { ComponentIcons.FileIconImage, "mdi mdi-file-image-outline" },
-        { ComponentIcons.FileIconFile, "mdi mdi-file-outline" }
+        { ComponentIcons.FileIconFile, "mdi mdi-file-outline" },
+
+        { ComponentIcons.QueryBuilderPlusIcon, "mdi mdi-plus" },
+        { ComponentIcons.QueryBuilderMinusIcon, "mdi mdi-minus" },
+        { ComponentIcons.QueryBuilderRemoveIcon, "mdi mdi-close" }
     };
 }

@@ -71,6 +71,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{8AB9DB
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		.issuetracker = .issuetracker
+		exclusion.dic = exclusion.dic
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "middleware", "middleware", "{4A7F4513-C515-40DD-A217-169E1CBB2827}"
@@ -133,7 +134,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "maui", "maui", "{C42EFBEF-7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.Maui", "src\maui\BootstrapBlazor.Maui\BootstrapBlazor.Maui.csproj", "{28DA0B9C-11A0-4144-A909-D95BDAD7787D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UniTest.Sass", "test\UniTest.Sass\UniTest.Sass.csproj", "{D8AEAFE7-10AF-4A5B-BC67-FE740A2CA1DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniTest.Sass", "test\UniTest.Sass\UniTest.Sass.csproj", "{D8AEAFE7-10AF-4A5B-BC67-FE740A2CA1DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
