@@ -44,7 +44,7 @@ public class QueryBuilderTest : BootstrapBlazorTestBase
         var items = cut.FindAll(".dropdown-item");
         Assert.Equal(2, items.Count);
         var groups = cut.FindAll("ul");
-        Assert.Equal(1, groups.Count);
+        Assert.Single(groups);
 
         // 点击组合条件 dropdown-item
         items[0].Click();
@@ -59,7 +59,7 @@ public class QueryBuilderTest : BootstrapBlazorTestBase
         groups = cut.FindAll("ul");
 
         // 还有一个组合条件
-        Assert.Equal(1, groups.Count);
+        Assert.Single(groups);
 
         // 点击单行条件 dropdown-item
         items = cut.FindAll(".dropdown-item");
@@ -67,7 +67,7 @@ public class QueryBuilderTest : BootstrapBlazorTestBase
         var rows = cut.FindAll(".qb-row");
 
         // 有一个单行条件
-        Assert.Equal(1, rows.Count);
+        Assert.Single(rows);
 
         // 点击 btn-plus 按钮
         var plus = cut.Find(".btn-plus");

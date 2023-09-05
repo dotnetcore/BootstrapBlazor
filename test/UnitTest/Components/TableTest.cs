@@ -3949,7 +3949,7 @@ public class TableTest : TableTestBase
 
         await cut.InvokeAsync(() => btn.Click());
         checkboxs = cut.FindAll(".is-checked");
-        Assert.Equal(0, checkboxs.Count);
+        Assert.Empty(checkboxs);
 
         var table = cut.FindComponent<Table<Foo>>();
         table.SetParametersAndRender(pb => pb.Add(a => a.Items, Array.Empty<Foo>()));
@@ -3983,11 +3983,11 @@ public class TableTest : TableTestBase
         await cut.InvokeAsync(() => btn.Click());
 
         var checkboxs = cut.FindAll(".is-checked");
-        Assert.Equal(1, checkboxs.Count);
+        Assert.Single(checkboxs);
 
         await cut.InvokeAsync(() => btn.Click());
         checkboxs = cut.FindAll(".is-checked");
-        Assert.Equal(0, checkboxs.Count);
+        Assert.Empty(checkboxs);
     }
 
     [Fact]
