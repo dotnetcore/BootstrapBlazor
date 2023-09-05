@@ -10,11 +10,13 @@
 <DemoBlock Title="@Localizer["VisibleTitle"]"
            Introduction="@Localizer["VisibleIntro"]"
            Name="Visible">
-    <p>@((MarkupString)Localizer["VisibleP1"].Value)</p>
-    <p>@((MarkupString)Localizer["VisibleP2"].Value)</p>
-    <p>@((MarkupString)Localizer["VisibleP3"].Value)</p>
-    <p>@((MarkupString)Localizer["VisibleP4"].Value)</p>
-    <p class="mb-3">@((MarkupString)Localizer["ResetVisibleColumnsDesc"].Value)</p>
+    <section ignore>
+        <p>@((MarkupString)Localizer["VisibleP1"].Value)</p>
+        <p>@((MarkupString)Localizer["VisibleP2"].Value)</p>
+        <p>@((MarkupString)Localizer["VisibleP3"].Value)</p>
+        <p>@((MarkupString)Localizer["VisibleP4"].Value)</p>
+        <p class="mb-3">@((MarkupString)Localizer["ResetVisibleColumnsDesc"].Value)</p>
+    </section>
     <Button Text="@Localizer["ResetVisibleColumnsButtonText"]" OnClickWithoutRender="ResetVisibleColumns"></Button>
 
     <Table TItem="Foo" @ref="TableColumnVisible"
