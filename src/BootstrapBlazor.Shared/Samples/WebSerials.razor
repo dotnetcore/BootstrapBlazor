@@ -1,0 +1,66 @@
+﻿@page "/web-serial"
+@inject IStringLocalizer<WebSerials> Localizer
+
+<h3>@Localizer["WebSerialTitle"]</h3>
+
+<h5>@((MarkupString)Localizer["WebSerialDescription"].Value)</h5>
+
+
+<PackageTips Name="BootstrapBlazor.WebAPI" />
+
+<DemoBlock Title="@Localizer["WebSerialNormalTitle"]" Introduction="@Localizer["WebSerialNormalIntro"]" Name="WebSerialNormal">
+
+    <div class="row m-3">
+        <div class="col-3">
+            <Select Color="Color.Primary" Items="BaudRateList" @bind-Value="@SelectedBaudRate" ShowLabel="true" />
+        </div>
+        <div class="col-3">
+            <BootstrapInputNumber Color="Color.Primary" @bind-Value="@options.BufferSize" ShowLabel="true" />
+        </div>
+        <div class="col-3">
+            <Select Color="Color.Primary" @bind-Value="@options.ParityType" ShowLabel="true" />
+        </div>
+        <div class="col-3">
+            <Select Color="Color.Primary" @bind-Value="@options.FlowControlType" ShowLabel="true" />
+        </div>
+    </div>
+    <div class="row m-3">
+        @if (Flag)
+        {
+            <div class="col-6">
+                <WebSerial @ref="WebSerial" OnReceive="@OnReceive" OnLog="@OnLog" OnError="@OnError" Options="@options" Debug ShowUI="false" />
+            </div>
+
+            <div @ref="WebSerial.Element">
+                <Button data-action="butConnect" Text="@Localizer["ConnectButtonText"]" />
+                <input type="text" data-action="fname" />
+                <Button data-action='butwrite' Text="@Localizer["WriteButtonText"]" />
+
+            </div>
+            <pre data-action="log"></pre>
+
+            <div class="col-6">
+                <Button Text="@Localizer["DisconnectButtonText"]" OnClick="OnApply" Icon="fa-fw fa-solid fa-stop" />
+            </div>
+        }
+        else
+        {
+            <div class="col-6">
+                <Button Text="@Localizer["ApplyButtonText"]" OnClick="OnApply" Icon="fa-fw fa-solid fa-play" />
+            </div>
+        }
+    </div>
+
+    <pre>@message</pre>
+    <pre style="color:green">@statusmessage</pre>
+    <pre style="color:red">@errmessage</pre>
+    <hr />
+    <a href="https://github.com/densen2014/Densen.Extensions/blob/master/Demo/Receive_DSP.ino">附件: Arduino源码示例</a>
+
+</DemoBlock>
+
+
+<AttributeTable Items="@GetAttributes()" />
+
+<AttributeTable Title="@Localizer["WebSerialOptionsText"]" Items="@GetWebSerialOptionsAttributes()" />
+

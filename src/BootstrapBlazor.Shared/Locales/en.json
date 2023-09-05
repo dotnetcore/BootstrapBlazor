@@ -1628,7 +1628,8 @@
     "BluetoothText": "Bluetooth & Printer",
     "PdfReaderText": "PDF Reader",
     "VideoPlayerText": "VideoPlayer",
-    "FileViewerText": "FileViewer"
+    "FileViewerText": "FileViewer",
+    "WebSerialText": "WebSerial"
   },
   "BootstrapBlazor.Shared.Pages.Breakpoints": {
     "Heading": "Breakpoints",
@@ -4513,7 +4514,8 @@
     "DialButton": "DialButton",
     "CountButton": "CountButton",
     "Splitting": "Splitting",
-    "QueryBuilder": "QueryBuilder"
+    "QueryBuilder": "QueryBuilder",
+    "WebSerial": "Web Serial"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -5805,5 +5807,15 @@
     "Count": "count down",
     "CountText": "timing text",
     "CountTextCallback": "timing text callback method"
+  },
+  "BootstrapBlazor.Shared.Samples.WebSerials": {
+    "WebSerialTitle": "Web Serial",
+    "WebSerialDescription": "allow websites to communicate with peripherals connected to a user's computer. It provides the ability to connect to devices that are required by the operating system to communicate via the serial API, see <a href='https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API'>WebUSB</a>，or <a href='https://developer.mozilla.org/en'>WebHID</a>.",
+    "WebSerialNormalIntro": "read and write serial devices",
+    "WebSerialNormalTitle": "Basic usage",
+    "ConnectButtonText": "Connect",
+    "WriteButtonText": "Write",
+    "DisconnectButtonText": "Disonnect",
+    "ApplyButtonText": "Apply"
   }
 }

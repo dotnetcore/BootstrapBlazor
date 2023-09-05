@@ -1628,7 +1628,8 @@
     "BluetoothText": "蓝牙和打印 Bluetooth & Printer",
     "PdfReaderText": "PDF阅读器 PDF Reader",
     "VideoPlayerText": "视频播放器 VideoPlayer",
-    "FileViewerText": "文件预览器 FileViewer"
+    "FileViewerText": "文件预览器 FileViewer",
+    "WebSerialText": "串口读写 WebSerial"
   },
   "BootstrapBlazor.Shared.Pages.Breakpoints": {
     "Heading": "断点",
@@ -4513,7 +4514,8 @@
     "DialButton": "拨号菜单 DialButton",
     "CountButton": "倒计时按钮 CountButton",
     "Splitting": "动画组件 Splitting",
-    "QueryBuilder": "条件生成器 QueryBuilder"
+    "QueryBuilder": "条件生成器 QueryBuilder",
+    "WebSerial": "串口读写 WebSerial"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -5813,5 +5815,16 @@
     "QueryBuilderNormalIntro": "在 <code>Razor</code> 文件中直接通过 <code>QueryGroup</code> <code>QueryColumn</code> 构建过滤条件",
     "QueryBuilderHeaderTitle": "显示控制按钮",
     "QueryBuilderHeaderIntro": "通过设置 <code>ShowHeader=\"false\"</code> 关闭控制按钮"
+  },
+  "BootstrapBlazor.Shared.Samples.WebSerials": {
+    "WebSerialTitle": "WebSerial 串口读写",
+    "WebSerialDescription": "允许网站与连接到用户计算机的外围设备进行通信。它提供了连接到操作系统需要通过串行 API 进行通信的设备的能力，参考 <a href='https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API'>WebUSB</a>，或 <a href='https://developer.mozilla.org/en'>WebHID</a>。",
+    "WebSerialNormalIntro": "读写串口设备",
+    "WebSerialNormalTitle": "基本用法",
+    "ConnectButtonText": "连接",
+    "WriteButtonText": "写入",
+    "DisconnectButtonText": "断开",
+    "ApplyButtonText": "应用"
   }
 }
+
