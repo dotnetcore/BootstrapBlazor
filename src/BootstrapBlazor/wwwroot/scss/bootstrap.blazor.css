@@ -3766,6 +3766,405 @@ section > h2 {
   border: none;
 }
 
+.query-builder {
+  position: relative;
+}
+.query-builder .qb-group {
+  margin: 0;
+  padding: 0;
+}
+.query-builder .qb-group .qb-item {
+  list-style: none;
+  position: relative;
+}
+.query-builder .qb-group .qb-item:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+.query-builder .qb-group .qb-item > .qb-group {
+  border: 1px solid #ddd;
+  border-radius: var(--bs-border-radius);
+  padding: 0.5rem;
+  padding-left: 2.5rem;
+}
+.query-builder .qb-group .qb-item > .qb-group > .qb-item:last-child:before {
+  content: attr(data-bb-logic);
+  position: absolute;
+  top: 0;
+  left: -2rem;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+}
+.query-builder .qb-group .qb-row {
+  display: flex;
+}
+.query-builder .qb-group .qb-row > *:not(:last-child) {
+  margin-right: 0.5rem;
+}
+.query-builder .qb-group .qb-row > input.form-control {
+  flex: 1;
+}
+.query-builder .dropdown-toggle:after {
+  content: none;
+}
+
+.upload .upload-body {
+  margin-top: 10px;
+}
+
+.upload .upload-body.is-list {
+  overflow: auto;
+  max-height: 240px;
+}
+
+.upload .upload-body.is-list .upload-item {
+  display: flex;
+  align-items: center;
+  padding: 3px 5px;
+  border-radius: var(--bs-border-radius);
+  transition: background-color 0.3s linear;
+  cursor: pointer;
+  position: relative;
+}
+
+.upload .upload-body.is-list .upload-item.is-invalid {
+  color: #dc3545;
+}
+
+.upload .upload-body.is-list .upload-item:hover {
+  background-color: var(--bb-disabled-bg);
+}
+
+.upload .upload-body.is-list .upload-item:not(:last-child) {
+  margin-bottom: 2px;
+}
+
+.upload .upload-body.is-list .upload-item:hover .fa-trash-can {
+  display: inline-block;
+}
+
+.upload .upload-body.is-list .upload-item .fn {
+  flex: 1;
+  padding: 0 5px;
+  display: flex;
+  overflow: hidden;
+}
+
+.upload .upload-body.is-list .upload-item .fn span:first-child {
+  max-width: calc(100% - 4rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  white-space: nowrap;
+  padding-right: 0.25rem;
+}
+
+.upload .upload-body.is-list .upload-item .fa-trash-can,
+.upload .upload-body.is-list .upload-item:not(.disabled):hover .fa-circle-check,
+.upload .upload-body.is-list .upload-item:hover .fa-xmark-circle,
+.upload .upload-body.is-avatar .upload-item .upload-item-delete,
+.upload .upload-body.is-avatar .upload-item.is-invalid .upload-item-spin,
+.upload .upload-body.is-avatar .upload-item.is-valid .upload-item-spin,
+.upload .upload-item.is-invalid .valid,
+.upload .upload-item.is-valid .invalid,
+.upload .upload-body.is-avatar .upload-item.disabled .upload-item-plus {
+  display: none;
+}
+
+.upload .upload-body.is-list .loading-icon,
+.upload .upload-body.is-list .valid-icon {
+  color: var(--bs-success);
+}
+
+.upload .upload-body.is-list .delete-icon,
+.upload .upload-body.is-list .invalid-icon {
+  color: var(--bs-danger);
+}
+
+.upload .upload-body.is-list .download-icon {
+  color: var(--bs-primary);
+}
+
+.upload .upload-body.is-avatar,
+.upload .upload-body.is-card {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.upload .upload-body.is-avatar .upload-item {
+  padding: 0;
+  position: relative;
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.upload .upload-body.is-avatar .upload-item.is-single {
+  margin: 0;
+}
+
+.upload .upload-body.is-avatar .upload-item.is-invalid {
+  border-color: #dc3545;
+  border-style: solid;
+}
+
+.upload .upload-body.is-avatar .upload-item.is-circle {
+  border-radius: 50%;
+}
+
+.upload .upload-body.is-avatar .upload-item:not(.is-form):hover,
+.upload .upload-body.is-avatar .upload-item:not(.is-form).is-valid,
+.upload .upload-body.is-card .upload-item.is-valid,
+.upload .upload-body.is-card .upload-item:not(.disabled):hover {
+  border-color: #409eff;
+}
+
+.upload .upload-body.is-avatar .upload-item.is-valid {
+  border-style: solid;
+}
+
+.upload .upload-body.is-avatar .upload-item.is-invalid .avatar {
+  color: #dc3545;
+}
+
+.upload .upload-body.is-avatar .upload-item .avatar {
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+
+.upload .upload-body.is-avatar .upload-item .upload-item-actions,
+.upload .upload-body.is-card .upload-item .upload-item-actions.btn-browser {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload .upload-body.is-avatar .upload-item .upload-item-actions i {
+  font-size: 1rem;
+}
+
+.upload .upload-body.is-avatar .upload-item:hover .upload-item-actions .upload-item-delete {
+  display: block;
+  color: var(--bs-danger);
+}
+
+.upload .upload-body.is-avatar .upload-item.is-invalid .upload-item-spin {
+  font-size: 3em;
+}
+
+.upload .upload-body.is-card .upload-item {
+  padding: 1rem;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  width: 240px;
+  height: 280px;
+  position: relative;
+  cursor: pointer;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.upload .upload-body.is-card .upload-item .upload-item-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.upload .upload-body.is-card .upload-item.is-valid .upload-item-body img,
+.upload .upload-body .upload-item.is-valid .upload-item-label,
+.upload .upload-body .upload-item.is-invalid .upload-item-label {
+  display: block;
+}
+
+.upload .upload-body.is-card .is-invalid .upload-item-body {
+  border-color: #dc3545;
+}
+
+.upload .upload-body.is-card .upload-item-body {
+  border-radius: var(--bs-border-radius);
+  width: 168px;
+  height: 168px;
+  border: 1px solid #d9d9d9;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.upload .upload-body.is-card .upload-item-body img {
+  width: 100%;
+  object-fit: cover;
+  display: none;
+}
+
+.upload .upload-body.is-card .upload-item-size {
+  margin: 1rem auto;
+  text-align: center;
+  font-size: 0.625rem;
+  display: flex;
+  justify-content: center;
+}
+
+.upload .upload-body.is-card .upload-item-size span {
+  max-width: calc(100% - 4.5rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  white-space: nowrap;
+  padding-right: 0.25rem;
+}
+
+.upload .upload-item .upload-item-label {
+  position: absolute;
+  top: -2px;
+  right: -14px;
+  text-align: center;
+  transform: rotate(45deg);
+  color: #fff;
+  width: 46px;
+  height: 20px;
+  background-color: #28a745;
+  display: none;
+}
+
+.upload .upload-item .upload-item-label .valid-icon {
+  transform: rotate(-45deg);
+  font-size: 12px;
+}
+
+.upload .upload-item.is-invalid .upload-item-label {
+  background-color: #dc3545;
+}
+
+.upload .progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.upload .upload-body.is-card .progress {
+  left: 1rem;
+  right: 1rem;
+  bottom: 56px;
+}
+
+.upload .upload-item.is-valid .progress,
+.upload .upload-item.is-invalid .progress {
+  display: none;
+}
+
+.upload .upload-body.is-card.is-single .upload-item {
+  margin: 0;
+}
+
+.upload-buttons i {
+  width: 16px;
+  text-align: center;
+}
+
+.upload-buttons i:not(:first-child) {
+  margin-left: 4px;
+}
+
+form {
+  --bb-loader-bg: #f8f9fa;
+}
+
+.form-control {
+  --bb-form-control-padding: 0.375rem 0.75rem;
+  padding: var(--bb-form-control-padding);
+  border: 1px solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+}
+
+.form-control.is-valid[type=number],
+.form-control.is-invalid[type=number] {
+  padding-right: 0.75rem;
+  background-image: none;
+}
+
+.form-control:focus {
+  border: 1px solid var(--bb-border-focus-color);
+  box-shadow: none;
+}
+
+.form-control:not(.disabled):not(:disabled):not(.is-valid):not(.is-invalid):not(.no-border):hover {
+  border: 1px solid var(--bb-border-hover-color);
+}
+
+.form-control:disabled {
+  background-color: var(--bb-disabled-bg);
+}
+
+.was-validated .form-control:invalid:focus,
+.form-control.is-invalid:focus,
+.was-validated .custom-select:invalid:focus,
+.custom-select.is-invalid:focus {
+  border-color: var(--bs-danger);
+}
+
+.was-validated .form-control:valid:focus,
+.form-control.is-valid:focus,
+.was-validated .custom-select:valid:focus,
+.custom-select.is-valid:focus {
+  border-color: var(--bs-success);
+}
+
+.input-number-fix::-webkit-outer-spin-button,
+.input-number-fix::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  -moz-appearance: textfield;
+}
+
+.ef-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 2rem;
+}
+
+form .form-label:before {
+  content: "";
+  position: relative;
+  top: 2px;
+  margin-right: 2px;
+  display: inline-block;
+  min-width: 5px;
+}
+
+form .form-label[required]:before {
+  content: "*";
+  color: red;
+}
+
+.form-control.is-display {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-height: var(--bb-height);
+}
+
+.table-cell .form-control.is-display,
+form .form-control.is-display {
+  background-color: var(--bb-disabled-bg);
+}
+
 .radio-list {
   --bb-radio-item-width: 200px;
   --bb-radio-item-padding: 6px 0.75rem;
@@ -7129,403 +7528,4 @@ form .table .table-cell > textarea {
 .tree-view .tree-item:not(.disabled).active > .tree-content > .tree-node {
   color: var(--bb-tree-item-active-color);
   background-color: var(--bb-tree-item-active-bg);
-}
-
-.upload .upload-body {
-  margin-top: 10px;
-}
-
-.upload .upload-body.is-list {
-  overflow: auto;
-  max-height: 240px;
-}
-
-.upload .upload-body.is-list .upload-item {
-  display: flex;
-  align-items: center;
-  padding: 3px 5px;
-  border-radius: var(--bs-border-radius);
-  transition: background-color 0.3s linear;
-  cursor: pointer;
-  position: relative;
-}
-
-.upload .upload-body.is-list .upload-item.is-invalid {
-  color: #dc3545;
-}
-
-.upload .upload-body.is-list .upload-item:hover {
-  background-color: var(--bb-disabled-bg);
-}
-
-.upload .upload-body.is-list .upload-item:not(:last-child) {
-  margin-bottom: 2px;
-}
-
-.upload .upload-body.is-list .upload-item:hover .fa-trash-can {
-  display: inline-block;
-}
-
-.upload .upload-body.is-list .upload-item .fn {
-  flex: 1;
-  padding: 0 5px;
-  display: flex;
-  overflow: hidden;
-}
-
-.upload .upload-body.is-list .upload-item .fn span:first-child {
-  max-width: calc(100% - 4rem);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: block;
-  white-space: nowrap;
-  padding-right: 0.25rem;
-}
-
-.upload .upload-body.is-list .upload-item .fa-trash-can,
-.upload .upload-body.is-list .upload-item:not(.disabled):hover .fa-circle-check,
-.upload .upload-body.is-list .upload-item:hover .fa-xmark-circle,
-.upload .upload-body.is-avatar .upload-item .upload-item-delete,
-.upload .upload-body.is-avatar .upload-item.is-invalid .upload-item-spin,
-.upload .upload-body.is-avatar .upload-item.is-valid .upload-item-spin,
-.upload .upload-item.is-invalid .valid,
-.upload .upload-item.is-valid .invalid,
-.upload .upload-body.is-avatar .upload-item.disabled .upload-item-plus {
-  display: none;
-}
-
-.upload .upload-body.is-list .loading-icon,
-.upload .upload-body.is-list .valid-icon {
-  color: var(--bs-success);
-}
-
-.upload .upload-body.is-list .delete-icon,
-.upload .upload-body.is-list .invalid-icon {
-  color: var(--bs-danger);
-}
-
-.upload .upload-body.is-list .download-icon {
-  color: var(--bs-primary);
-}
-
-.upload .upload-body.is-avatar,
-.upload .upload-body.is-card {
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.upload .upload-body.is-avatar .upload-item {
-  padding: 0;
-  position: relative;
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.upload .upload-body.is-avatar .upload-item.is-single {
-  margin: 0;
-}
-
-.upload .upload-body.is-avatar .upload-item.is-invalid {
-  border-color: #dc3545;
-  border-style: solid;
-}
-
-.upload .upload-body.is-avatar .upload-item.is-circle {
-  border-radius: 50%;
-}
-
-.upload .upload-body.is-avatar .upload-item:not(.is-form):hover,
-.upload .upload-body.is-avatar .upload-item:not(.is-form).is-valid,
-.upload .upload-body.is-card .upload-item.is-valid,
-.upload .upload-body.is-card .upload-item:not(.disabled):hover {
-  border-color: #409eff;
-}
-
-.upload .upload-body.is-avatar .upload-item.is-valid {
-  border-style: solid;
-}
-
-.upload .upload-body.is-avatar .upload-item.is-invalid .avatar {
-  color: #dc3545;
-}
-
-.upload .upload-body.is-avatar .upload-item .avatar {
-  width: 100%;
-  height: 100%;
-  background-color: #fff;
-}
-
-.upload .upload-body.is-avatar .upload-item .upload-item-actions,
-.upload .upload-body.is-card .upload-item .upload-item-actions.btn-browser {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.upload .upload-body.is-avatar .upload-item .upload-item-actions i {
-  font-size: 1rem;
-}
-
-.upload .upload-body.is-avatar .upload-item:hover .upload-item-actions .upload-item-delete {
-  display: block;
-  color: var(--bs-danger);
-}
-
-.upload .upload-body.is-avatar .upload-item.is-invalid .upload-item-spin {
-  font-size: 3em;
-}
-
-.upload .upload-body.is-card .upload-item {
-  padding: 1rem;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
-  border: 1px solid #d9d9d9;
-  border-radius: 6px;
-  width: 240px;
-  height: 280px;
-  position: relative;
-  cursor: pointer;
-  margin-right: 1rem;
-  margin-bottom: 1rem;
-  overflow: hidden;
-}
-
-.upload .upload-body.is-card .upload-item .upload-item-actions {
-  display: flex;
-  justify-content: space-between;
-}
-
-.upload .upload-body.is-card .upload-item.is-valid .upload-item-body img,
-.upload .upload-body .upload-item.is-valid .upload-item-label,
-.upload .upload-body .upload-item.is-invalid .upload-item-label {
-  display: block;
-}
-
-.upload .upload-body.is-card .is-invalid .upload-item-body {
-  border-color: #dc3545;
-}
-
-.upload .upload-body.is-card .upload-item-body {
-  border-radius: var(--bs-border-radius);
-  width: 168px;
-  height: 168px;
-  border: 1px solid #d9d9d9;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.upload .upload-body.is-card .upload-item-body img {
-  width: 100%;
-  object-fit: cover;
-  display: none;
-}
-
-.upload .upload-body.is-card .upload-item-size {
-  margin: 1rem auto;
-  text-align: center;
-  font-size: 0.625rem;
-  display: flex;
-  justify-content: center;
-}
-
-.upload .upload-body.is-card .upload-item-size span {
-  max-width: calc(100% - 4.5rem);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: block;
-  white-space: nowrap;
-  padding-right: 0.25rem;
-}
-
-.upload .upload-item .upload-item-label {
-  position: absolute;
-  top: -2px;
-  right: -14px;
-  text-align: center;
-  transform: rotate(45deg);
-  color: #fff;
-  width: 46px;
-  height: 20px;
-  background-color: #28a745;
-  display: none;
-}
-
-.upload .upload-item .upload-item-label .valid-icon {
-  transform: rotate(-45deg);
-  font-size: 12px;
-}
-
-.upload .upload-item.is-invalid .upload-item-label {
-  background-color: #dc3545;
-}
-
-.upload .progress {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.upload .upload-body.is-card .progress {
-  left: 1rem;
-  right: 1rem;
-  bottom: 56px;
-}
-
-.upload .upload-item.is-valid .progress,
-.upload .upload-item.is-invalid .progress {
-  display: none;
-}
-
-.upload .upload-body.is-card.is-single .upload-item {
-  margin: 0;
-}
-
-.upload-buttons i {
-  width: 16px;
-  text-align: center;
-}
-
-.upload-buttons i:not(:first-child) {
-  margin-left: 4px;
-}
-
-form {
-  --bb-loader-bg: #f8f9fa;
-}
-
-.form-control {
-  --bb-form-control-padding: 0.375rem 0.75rem;
-  padding: var(--bb-form-control-padding);
-  border: 1px solid var(--bs-border-color);
-  border-radius: var(--bs-border-radius);
-}
-
-.form-control.is-valid[type=number],
-.form-control.is-invalid[type=number] {
-  padding-right: 0.75rem;
-  background-image: none;
-}
-
-.form-control:focus {
-  border: 1px solid var(--bb-border-focus-color);
-  box-shadow: none;
-}
-
-.form-control:not(.disabled):not(:disabled):not(.is-valid):not(.is-invalid):not(.no-border):hover {
-  border: 1px solid var(--bb-border-hover-color);
-}
-
-.form-control:disabled {
-  background-color: var(--bb-disabled-bg);
-}
-
-.was-validated .form-control:invalid:focus,
-.form-control.is-invalid:focus,
-.was-validated .custom-select:invalid:focus,
-.custom-select.is-invalid:focus {
-  border-color: var(--bs-danger);
-}
-
-.was-validated .form-control:valid:focus,
-.form-control.is-valid:focus,
-.was-validated .custom-select:valid:focus,
-.custom-select.is-valid:focus {
-  border-color: var(--bs-success);
-}
-
-.input-number-fix::-webkit-outer-spin-button,
-.input-number-fix::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-  -moz-appearance: textfield;
-}
-
-.ef-loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 2rem;
-}
-
-form .form-label:before {
-  content: "";
-  position: relative;
-  top: 2px;
-  margin-right: 2px;
-  display: inline-block;
-  min-width: 5px;
-}
-
-form .form-label[required]:before {
-  content: "*";
-  color: red;
-}
-
-.form-control.is-display {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  min-height: var(--bb-height);
-}
-
-.table-cell .form-control.is-display,
-form .form-control.is-display {
-  background-color: var(--bb-disabled-bg);
-}
-
-.query-builder {
-  position: relative;
-}
-.query-builder .qb-group {
-  margin: 0;
-  padding: 0;
-}
-.query-builder .qb-group .qb-item {
-  list-style: none;
-  position: relative;
-}
-.query-builder .qb-group .qb-item:not(:last-child) {
-  margin-bottom: 0.5rem;
-}
-.query-builder .qb-group .qb-item > .qb-group {
-  border: 1px solid #ddd;
-  border-radius: var(--bs-border-radius);
-  padding: 0.5rem;
-  padding-left: 2.5rem;
-}
-.query-builder .qb-group .qb-item > .qb-group > .qb-item:last-child:before {
-  content: attr(data-bb-logic);
-  position: absolute;
-  top: 0;
-  left: -2rem;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-}
-.query-builder .qb-group .qb-row {
-  display: flex;
-}
-.query-builder .qb-group .qb-row > *:not(:last-child) {
-  margin-right: 0.5rem;
-}
-.query-builder .qb-group .qb-row > input.form-control {
-  flex: 1;
-}
-.query-builder .dropdown-toggle:after {
-  content: none;
 }
