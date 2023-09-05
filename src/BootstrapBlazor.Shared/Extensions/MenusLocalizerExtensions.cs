@@ -658,6 +658,12 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["VideoPlayer"],
                     Url = "video-player"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["MindMap"],
+                    Url = "mind-map"
                 }
             };
             AddBadge(item);

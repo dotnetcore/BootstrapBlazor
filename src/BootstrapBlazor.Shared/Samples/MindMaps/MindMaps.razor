@@ -1,0 +1,37 @@
+﻿@page "/mind-map"
+@inject IStringLocalizer<MindMaps> Localizer
+@namespace BootstrapBlazor.Shared.Samples
+
+<h3>@Localizer["MindMapTitle"]</h3>
+
+<h4>@Localizer["MindMapDescription"]</h4>
+
+<PackageTips Name="BootstrapBlazor.MindMap" />
+
+<DemoBlock Title="@Localizer["MindMapNormalTitle"]" Introduction="@Localizer["MindMapDescription"]" Name="MindMapNormal">
+
+    <MindMap @ref="MindMap" Data="@Data" OnReceive="@OnReceive" OnError="@OnError" StyleCss="height: 55vh;" />
+
+    <div class="row g-3 mb-3 mt-3">
+        <div class="col-12">
+            <Button Text="@Localizer["Sample1ButtonText"]" OnClick="Sample" />
+            <Button Text="@Localizer["Sample2ButtonText"]" OnClick="Sample2" />
+            <Button Text="@Localizer["ExportButtonText"]" OnClick="Export" />
+            <Button Text="@Localizer["ExportJsonButtonText"]" OnClick="ExportJson" />
+            <Button Text="@Localizer["GetFullDataButtonText"]" OnClick="GetFullData" />
+            <Button Text="@Localizer["GetDataButtonText"]" OnClick="GetData" />
+            <Button Text="@Localizer["SetDataButtonText"]" OnClick="SetData" />
+            <Button Text="@Localizer["ResetButtonText"]" OnClick="Reset" />
+        </div>
+        <div class="col-12">
+            <Textarea @bind-Value="Result" rows="10" />
+        </div>
+    </div> 
+
+</DemoBlock>
+
+
+<AttributeTable Items="@GetAttributes()" />
+
+<AttributeTable Title="@Localizer["NodeDataText"]" Items="@GetNodeDataAttributes()" />
+
