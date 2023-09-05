@@ -7,6 +7,7 @@ colspan
 editform
 dblclick
 dbcell
+listview
 readonly
 thead
 oninput

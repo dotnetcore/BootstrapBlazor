@@ -671,6 +671,12 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["VideoPlayer"],
                     Url = "video-player"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["WebSerial"],
+                    Url = "web-serial"
                 }
             };
             AddBadge(item);
