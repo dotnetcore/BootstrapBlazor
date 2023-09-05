@@ -21,7 +21,6 @@ export function init(id) {
         }
     })
     let originX = 0
-    let originY = 0
     let section = document.querySelector('section');
     let width = 0
     Drag.drag(navmenu.bar,
@@ -29,7 +28,6 @@ export function init(id) {
             navmenu.bar.classList.add('drag')
             width = parseInt(getComputedStyle(section).getPropertyValue('--bb-sidebar-width'))
             originX = e.clientX || e.touches[0].clientX
-            originY = e.clientY || e.touches[0].clientY
         },
         e => {
             const eventX = e.clientX || (e.touches.length > 0 && e.touches[0].clientX)
@@ -40,7 +38,6 @@ export function init(id) {
             }
         },
         e => {
-            const eventX = e.clientX || e.changedTouches[0].clientX
             navmenu.bar.classList.remove('drag')
         }
     )
