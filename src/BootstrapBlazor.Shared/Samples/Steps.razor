@@ -30,24 +30,28 @@
         <Button OnClick="() => ResetStep(_step2)">@Localizer["StepsNormalResetButtonText"]</Button>
     </section>
     <Step @ref="@_step2">
+        <StepItem Text="@Localizer["Step1Text"]" Title="@Localizer["Step1Title"]"></StepItem>
+        <StepItem Text="@Localizer["Step2Text"]" Title="@Localizer["Step2Title"]"></StepItem>
+        <StepItem Text="@Localizer["Step3Text"]" Title="@Localizer["Step3Title"]"></StepItem>
+    </Step>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["StepsDescTitle"]"
+           Introduction="@Localizer["StepsDescIntro"]"
+           Name="Description">
+    <section ignore class="mb-2">
+        <Button OnClick="() => PrevStep(_step3)">@Localizer["StepsNormalPrevButtonText"]</Button>
+        <Button OnClick="() => NextStep(_step3)">@Localizer["StepsNormalNextButtonText"]</Button>
+        <Button OnClick="() => ResetStep(_step3)">@Localizer["StepsNormalResetButtonText"]</Button>
+    </section>
+    <Step @ref="@_step3">
         <StepItem Text="@Localizer["Step1Text"]" Description="@Localizer["StepDesc"]" Title="@Localizer["Step1Title"]"></StepItem>
         <StepItem Text="@Localizer["Step2Text"]" Description="@Localizer["StepDesc"]" Title="@Localizer["Step2Title"]"></StepItem>
         <StepItem Text="@Localizer["Step3Text"]" Description="@Localizer["StepDesc"]" Title="@Localizer["Step3Title"]"></StepItem>
     </Step>
 </DemoBlock>
 
-@* <DemoBlock Title="@Localizer["StepsDescTitle"]"
-           Introduction="@Localizer["StepsDescIntro"]"
-           Name="Desc">
-    <BootstrapBlazor.Components.Step>
-        <Step Title="@Localizer["Step1Title"]" Space="33.33%" Status="StepStatus.Finish" Description="@Localizer["StepDesc1"]"></Step>
-        <Step Title="@Localizer["Step2Title"]" Space="33.33%" Status="StepStatus.Process" StepIndex="2" Description="@Localizer["StepDesc1"]"></Step>
-        <Step Title="@Localizer["Step3Title"]" Space="33.33%" StepIndex="3" Description="@Localizer["StepDesc1"]"></Step>
-        <Step Title="@Localizer["Step4Title"]" Space="33.33%" StepIndex="4" IsLast="true" Description="@Localizer["StepDesc2"]"></Step>
-    </BootstrapBlazor.Components.Step>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["StepsMiddleTitle"]"
+@* DemoBlock Title="@Localizer["StepsMiddleTitle"]"
            Introduction="@Localizer["StepsMiddleIntro"]"
            Name="Middle">
     <BootstrapBlazor.Components.Step IsCenter="true">
