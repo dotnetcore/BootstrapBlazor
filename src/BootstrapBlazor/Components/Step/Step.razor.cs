@@ -13,12 +13,8 @@ public partial class Step
     /// 获得 组件样式字符串
     /// </summary>
     private string? ClassString => CssBuilder.Default("step")
-        .AddClassFromAttributes(AdditionalAttributes)
-        .Build();
-
-    private string? HeaderClassString => CssBuilder.Default("step-header")
-        .AddClass("steps-horizontal", !IsVertical)
         .AddClass("steps-vertical", IsVertical)
+        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     //private static string? GetContentClassString(StepOption item) => CssBuilder.Default("step-body")

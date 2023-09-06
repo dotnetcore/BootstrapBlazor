@@ -5350,9 +5350,6 @@ body:before {
   height: var(--step-item-line-height);
   width: 0px;
 }
-.step .step-horizontal {
-  white-space: nowrap;
-}
 
 /*.step {
     position: relative;
