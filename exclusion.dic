@@ -17,6 +17,7 @@ scss
 tablist
 thead
 tbody
+tfoot
 oninput
 onkeyup
 ontouchstart
