@@ -2,25 +2,49 @@
 @inherits BootstrapComponentBase
 @attribute [ExcludeFromCodeCoverage]
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString">
-    <div class="@HeadClassString">
-        <div class="step-line" style="margin-right: 0px;">
-            <i class="step-line-inner" style="@LineStyleString">
-            </i>
+<div @attributes="@AdditionalAttributes" class="@ClassString">
+    <CascadingValue Value="this" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
+    <RenderTemplate>
+        <div class="@HeaderClassString">
+            @foreach (var item in Items)
+            {
+                <div @key="item" class="step-item">
+                    @RenderHeader(item)
+                    @RenderDesc(item)
+                </div>
+            }
         </div>
-        <div class="@StepIconClassString">
-            <i class="@IconClassString">@StepString</i>
+        <div class="step-body">
+            @foreach (var item in Items)
+            {
+                <div @key="item" class="@GetStepItemClassString(item)">
+                    @item.Template
+                </div>
+            }
         </div>
-    </div>
-    <div class="step-main">
-        <div class="@TitleClassString">@Title</div>
-        @if (DescriptionTemplate != null)
+    </RenderTemplate>
+</div>
+
+@code {
+    RenderFragment RenderHeader(StepOption option) =>
+    @<div class="step-item-header">
+        <div class="step-line"></div>
+        @if (!string.IsNullOrEmpty(option.Icon))
         {
-            @DescriptionTemplate
+            <i class="@GetIconClassString(option)"></i>
+        }
+        @if (!string.IsNullOrEmpty(option.Text))
+        {
+            <span>@option.Text</span>
         }
         else
         {
-            <div class="@DescClassString">@Description</div>
+            <span class="step-title">@GetStepString(option)</span>
         }
-    </div>
-</div>
+    </div>;
+
+    RenderFragment RenderDesc(StepOption option) =>
+    @<div class="step-item-content"></div>;
+}
