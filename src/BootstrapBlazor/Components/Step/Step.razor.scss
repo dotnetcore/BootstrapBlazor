@@ -1,0 +1,222 @@
+.step {
+    --step-border: var(--step-border-width) solid;
+    --step-border-width: 2px;
+    --step-item-header-height: 36px;
+    --step-item-text-height: 24px;
+    --step-item-text-width: 24px;
+    --step-item-line-height: 2px;
+    --step-item-line-bg: var(--bs-secondary);
+    --step-item-line-transition: width .3s ease-in-out;
+
+    .step-header {
+        display: flex;
+
+        .step-item {
+            flex-basis: 0;
+            flex-grow: 1;
+        }
+
+        .step-item-header {
+            position: relative;
+            display: flex;
+            align-items: center;
+            height: var(--step-item-header-height);
+
+            .step-title {
+                background-color: var(--bs-body-bg);
+                border-radius: 50%;
+                border: var(--step-border);
+                font-weight: 700;
+                width: var(--step-item-text-height);
+                height: var(--step-item-text-width);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: absolute;
+                z-index: 2;
+            }
+
+            .step-line {
+                background-color: var(--step-item-line-bg);
+                width: 100%;
+                height: var(--step-item-line-height);
+            }
+
+            .step-line:after {
+                content: "";
+                transition: var(--step-item-line-transition);
+                display: block;
+                height: var(--step-item-line-height);
+                width: 0px;
+            }
+        }
+    }
+
+    .step-horizontal {
+        white-space: nowrap;
+    }
+}
+
+/*.step {
+    position: relative;
+    flex-shrink: 1;
+}
+
+.step.is-horizontal {
+    display: inline-block;
+}
+*/
+.step.is-center .step-head, .step.is-center .step-main {
+    text-align: center;
+}
+
+.step-head {
+    position: relative;
+    width: 100%;
+    line-height: 1;
+}
+
+.step-head.is-success {
+    color: #67c23a;
+    border-color: #67c23a;
+}
+
+.step-head.is-process {
+    color: #303133;
+    border-color: #303133;
+}
+
+.step-head.is-wait {
+    color: #c0c4cc;
+    border-color: #c0c4cc;
+}
+
+.step-head.is-finish {
+    color: #409eff;
+    border-color: #409eff;
+}
+
+.step-head.is-error {
+    color: #f56c6c;
+    border-color: #f56c6c;
+}
+
+.step-main {
+    white-space: normal;
+    text-align: left;
+}
+
+.step-title {
+    font-size: 14px;
+    line-height: 38px;
+}
+
+.step-title.is-success {
+    color: #67c23a;
+}
+
+.step-title.is-finish {
+    color: #409eff;
+}
+
+.step-title.is-process {
+    font-weight: 700;
+    color: #303133;
+}
+
+.step-title.is-wait {
+    color: #c0c4cc;
+}
+
+.step-title.is-error {
+    color: #f56c6c;
+}
+
+.step-description {
+    padding-right: 10%;
+    margin-top: -5px;
+    font-size: 12px;
+    line-height: 20px;
+    font-weight: 400;
+}
+
+.step-description.is-success {
+    color: #67c23a;
+}
+
+.step-description.is-finish {
+    color: #409eff;
+}
+
+.step-description.is-process {
+    color: #303133;
+}
+
+.step-description.is-wait {
+    color: #c0c4cc;
+}
+
+.step.is-center .step-description {
+    padding-left: 20%;
+    padding-right: 20%;
+}
+
+.step.is-horizontal .step-line {
+    height: 2px;
+    top: 11px;
+    left: 0;
+    right: 0;
+}
+
+.step.is-center .step-line {
+    left: 50%;
+    right: -50%;
+}
+
+.step:last-of-type .step-line {
+    display: none;
+}
+
+.step-icon {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    box-sizing: border-box;
+    background: #fff;
+    transition: .15s ease-out;
+}
+
+.step-icon.is-text {
+    border-radius: 50%;
+    border: 2px solid;
+    border-color: inherit;
+}
+
+.step-icon.is-icon {
+    width: 40px;
+}
+
+.step-icon-inner {
+    display: inline-block;
+    user-select: none;
+    text-align: center;
+    font-weight: 700;
+    line-height: 1;
+    color: inherit;
+    font-style: normal;
+}
+
+.step-icon-inner[class*=fa]:not(.is-status) {
+    font-size: 25px;
+}
+
+.step:last-of-type.is-flex {
+    flex-basis: auto !important;
+    flex-shrink: 0;
+    flex-grow: 0;
+}
