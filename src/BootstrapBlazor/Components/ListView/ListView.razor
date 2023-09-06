@@ -27,7 +27,7 @@
                     <CollapseItems>
                         @{
                             var index = 0;
-                            foreach (var key in Rows.GroupBy(GroupName).OrderBy(k => k.Key))
+                            foreach (var key in GroupOrderCallback)
                             {
                                 <CollapseItem @key="@key" Text="@key.Key?.ToString()" IsCollapsed="IsCollapsed(index++, key.Key)">
                                     @foreach (var item in key)
@@ -44,7 +44,7 @@
             }
             else
             {
-                foreach (var key in Rows.GroupBy(GroupName).OrderBy(k => k.Key))
+                foreach (var key in GroupOrderCallback)
                 {
                     <div class="accordion-item">
                         <div class="accordion-header">@key.Key</div>
