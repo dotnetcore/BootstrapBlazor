@@ -36,12 +36,12 @@ public class StepItem : ComponentBase, IDisposable
     /// <summary>
     /// 获得/设置 Header 模板
     /// </summary>
-    public RenderFragment? HeaderTemplate { get; set; }
+    public RenderFragment<StepOption>? HeaderTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 Title 模板
     /// </summary>
-    public RenderFragment? TitleTemplate { get; set; }
+    public RenderFragment<StepOption>? TitleTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 组件内容实例

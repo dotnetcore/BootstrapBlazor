@@ -26,17 +26,14 @@ public sealed partial class Steps
         {
             new StepOption()
             {
-                Title = Localizer["StepItemI1Text"],
                 Template = BootstrapDynamicComponent.CreateComponent<Counter>().Render()
             },
             new StepOption()
             {
-                Title = Localizer["StepItemI2Text"],
                 Template = BootstrapDynamicComponent.CreateComponent<FetchData>().Render()
             },
             new StepOption()
             {
-                Title = Localizer["StepItemI3Text"],
                 Template = BootstrapDynamicComponent.CreateComponent<Counter>().Render()
             }
         };
@@ -54,10 +51,7 @@ public sealed partial class Steps
 
     private void ResetStep()
     {
-        Items.ForEach(i =>
-        {
-            i.Status = StepStatus.Wait;
-        });
+        _step?.Reset();
     }
 
     private Task OnStatusChanged(StepStatus status)

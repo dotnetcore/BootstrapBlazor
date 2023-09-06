@@ -108,6 +108,15 @@ public partial class Step
     }
 
     /// <summary>
+    /// 下一步
+    /// </summary>
+    public void Reset()
+    {
+        _currentStepIndex = 0;
+        StateHasChanged();
+    }
+
+    /// <summary>
     /// 添加步骤到组件中
     /// </summary>
     /// <param name="option"></param>
