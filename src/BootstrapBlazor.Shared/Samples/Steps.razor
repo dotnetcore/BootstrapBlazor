@@ -51,18 +51,37 @@
     </Step>
 </DemoBlock>
 
-@* DemoBlock Title="@Localizer["StepsMiddleTitle"]"
-           Introduction="@Localizer["StepsMiddleIntro"]"
-           Name="Middle">
-    <BootstrapBlazor.Components.Step IsCenter="true">
-        <Step Title="@Localizer["Step1Title"]" Space="33.33%" Status="StepStatus.Finish" StepIndex="0" Description="@Localizer["StepDesc1"]"></Step>
-        <Step Title="@Localizer["Step2Title"]" Space="33.33%" Status="StepStatus.Success" StepIndex="1" Description="@Localizer["StepDesc1"]"></Step>
-        <Step Title="@Localizer["Step3Title"]" Space="33.33%" Status="StepStatus.Process" StepIndex="2" Description="@Localizer["StepDesc1"]"></Step>
-        <Step Title="@Localizer["Step4Title"]" Space="33.33%" StepIndex="3" IsLast="true" Description="@Localizer["StepDesc2"]"></Step>
-    </BootstrapBlazor.Components.Step>
+<DemoBlock Title="@Localizer["StepsTitleTemplateTitle"]"
+           Introduction="@Localizer["StepsTitleTemplateIntro"]"
+           Name="TitleTemplate">
+    <section ignore class="mb-2">
+        <Button OnClick="() => PrevStep(_step4)">@Localizer["StepsNormalPrevButtonText"]</Button>
+        <Button OnClick="() => NextStep(_step4)">@Localizer["StepsNormalNextButtonText"]</Button>
+        <Button OnClick="() => ResetStep(_step4)">@Localizer["StepsNormalResetButtonText"]</Button>
+    </section>
+    <Step @ref="@_step4">
+        <StepItem Text="@Localizer["Step1Text"]" Description="@Localizer["StepDesc"]" Title="@Localizer["Step1Title"]">
+            <TitleTemplate>
+                <div class="step-title">
+                    <i class="fa fa-flag"></i>
+                    <span>@context.Title</span>
+                </div>
+            </TitleTemplate>
+        </StepItem>
+        <StepItem Text="@Localizer["Step2Text"]" Description="@Localizer["StepDesc"]" Title="@Localizer["Step2Title"]">
+            <TitleTemplate>
+                <div class="step-title">
+                    <i class="fa fa-flag"></i>
+                    <span>@context.Title</span>
+                </div>
+                <div>@DateTime.Now</div>
+            </TitleTemplate>
+        </StepItem>
+        <StepItem Text="@Localizer["Step3Text"]" Description="@Localizer["StepDesc"]" Title="@Localizer["Step3Title"]"></StepItem>
+    </Step>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["StepsTitleCenterTitle"]"
+@*<DemoBlock Title="@Localizer["StepsTitleCenterTitle"]"
            Introduction="@Localizer["StepsTitleCenterIntro"]"
            Name="TitleCenter">
     <BootstrapBlazor.Components.Step IsCenter="true">
