@@ -55,10 +55,6 @@ public class StepItem : ComponentBase, IDisposable
     [CascadingParameter]
     private Step? Step { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IIconTheme? IconTheme { get; set; }
-
     private readonly StepOption _option = new();
 
     /// <summary>
@@ -77,8 +73,6 @@ public class StepItem : ComponentBase, IDisposable
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-
-        Icon ??= IconTheme.GetIconByKey(ComponentIcons.StepIcon);
 
         _option.Text = Text;
         _option.Icon = Icon;

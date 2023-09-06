@@ -12,24 +12,27 @@
 <DemoBlock Title="@Localizer["StepsNormalTitle"]"
            Introduction="@Localizer["StepsNormalIntro"]"
            Name="Normal">
-    <div class="mb-2">
-        <Button OnClick="@PrevStep">@Localizer["StepsNormalPrevButtonText"]</Button>
-        <Button OnClick="@NextStep">@Localizer["StepsNormalNextButtonText"]</Button>
-        <Button OnClick="@ResetStep">@Localizer["StepsNormalResetButtonText"]</Button>
-    </div>
-    <Step @ref="@_step" Items="@Items" />
+    <section ignore class="mb-2">
+        <Button OnClick="() => PrevStep(_step1)">@Localizer["StepsNormalPrevButtonText"]</Button>
+        <Button OnClick="() => NextStep(_step1)">@Localizer["StepsNormalNextButtonText"]</Button>
+        <Button OnClick="() => ResetStep(_step1)">@Localizer["StepsNormalResetButtonText"]</Button>
+    </section>
+    <Step @ref="@_step1" Items="@Items" />
     <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["StepsStepTitle"]"
            Introduction="@Localizer["StepsStepIntro"]"
            Name="StepItem">
-    <Step>
-        <StepItem Title="@Localizer["Step1Title"]"></StepItem>
-        <StepItem Title="@Localizer["Step2Title"]"></StepItem>
-        <StepItem Title="@Localizer["Step3Title"]"></StepItem>
-        <StepItem Title="@Localizer["Step4Title"]"></StepItem>
-        <StepItem Title="@Localizer["Step5Title"]"></StepItem>
+    <section ignore class="mb-2">
+        <Button OnClick="() => PrevStep(_step2)">@Localizer["StepsNormalPrevButtonText"]</Button>
+        <Button OnClick="() => NextStep(_step2)">@Localizer["StepsNormalNextButtonText"]</Button>
+        <Button OnClick="() => ResetStep(_step2)">@Localizer["StepsNormalResetButtonText"]</Button>
+    </section>
+    <Step @ref="@_step2">
+        <StepItem Text="@Localizer["Step1Text"]" Description="@Localizer["StepDesc"]" Title="@Localizer["Step1Title"]"></StepItem>
+        <StepItem Text="@Localizer["Step2Text"]" Description="@Localizer["StepDesc"]" Title="@Localizer["Step2Title"]"></StepItem>
+        <StepItem Text="@Localizer["Step3Text"]" Description="@Localizer["StepDesc"]" Title="@Localizer["Step3Title"]"></StepItem>
     </Step>
 </DemoBlock>
 

@@ -29,6 +29,12 @@ public partial class Step
     public int StepIndex { get; set; }
 
     /// <summary>
+    /// 获得/设置 步骤完成时显示图标 默认 null 读取资源文件图标
+    /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
+
+    /// <summary>
     /// 获得/设置 组件内容实例
     /// </summary>
     [Parameter]
@@ -45,6 +51,10 @@ public partial class Step
     /// </summary>
     [Parameter]
     public RenderFragment? DescriptionTemplate { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     private int _currentStepIndex;
 
@@ -86,6 +96,7 @@ public partial class Step
     {
         base.OnParametersSet();
 
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.StepIcon);
         Items ??= new();
     }
 

@@ -15,7 +15,9 @@ public sealed partial class Steps
     [NotNull]
     private List<StepOption>? Items { get; set; }
 
-    private Step? _step;
+    private Step? _step1;
+
+    private Step? _step2;
 
     /// <summary>
     /// <inheritdoc/>
@@ -39,19 +41,19 @@ public sealed partial class Steps
         };
     }
 
-    private void PrevStep()
+    private static void PrevStep(Step? step)
     {
-        _step?.Prev();
+        step?.Prev();
     }
 
-    private void NextStep()
+    private static void NextStep(Step? step)
     {
-        _step?.Next();
+        step?.Next();
     }
 
-    private void ResetStep()
+    private static void ResetStep(Step? step)
     {
-        _step?.Reset();
+        step?.Reset();
     }
 
     private Task OnStatusChanged(StepStatus status)
