@@ -95,7 +95,7 @@ public sealed partial class ListViews
             DefaultValue = " — "
         },
         new(){
-            Name = nameof(ListView<Foo>.Collapsable),
+            Name = nameof(ListView<Foo>.Collapsible),
             Description = Localizer["Collapsable"],
             Type = "bool",
             ValueList = "true|false",

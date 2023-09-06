@@ -61,16 +61,16 @@ public partial class ListView<TItem> : BootstrapComponentBase
     /// 获得/设置 是否可折叠 默认 false 需要开启分组设置 <see cref="GroupName"/>
     /// </summary>
     [Parameter]
-    public bool Collapsable { get; set; }
+    public bool Collapsible { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否手风琴效果 默认 false 需要开启可收缩设置 <see cref="Collapsable"/>
+    /// 获得/设置 是否手风琴效果 默认 false 需要开启可收缩设置 <see cref="Collapsible"/>
     /// </summary>
     [Parameter]
     public bool IsAccordion { get; set; }
 
     /// <summary>
-    /// 获得/设置 CollapseItem 展开收缩时回调方法 默认 false 需要开启可收缩设置 <see cref="Collapsable"/>
+    /// 获得/设置 CollapseItem 展开收缩时回调方法 默认 false 需要开启可收缩设置 <see cref="Collapsible"/>
     /// </summary>
     [Parameter]
     public Func<CollapseItem, Task>? OnCollapseChanged { get; set; }
