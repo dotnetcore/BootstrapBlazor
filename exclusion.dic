@@ -12,6 +12,7 @@ dblclick
 dbcell
 listview
 readonly
+tablist
 thead
 tbody
 oninput
