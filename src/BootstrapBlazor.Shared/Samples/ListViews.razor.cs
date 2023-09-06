@@ -96,7 +96,7 @@ public sealed partial class ListViews
         },
         new(){
             Name = nameof(ListView<Foo>.Collapsible),
-            Description = Localizer["Collapsable"],
+            Description = Localizer["Collapsible"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -126,6 +126,13 @@ public sealed partial class ListViews
             Name = nameof(ListView<Foo>.CollapsedGroupCallback),
             Description = Localizer["CollapsedGroupCallback"],
             Type = "Func<object?, bool>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new() {
+            Name = nameof(ListView<Foo>.GroupOrderCallback),
+            Description = Localizer["GroupOrderCallback"],
+            Type = "IOrderedEnumerable<IGrouping<object?, TItem>>",
             ValueList = " — ",
             DefaultValue = " — "
         }

@@ -3867,7 +3867,7 @@
     "PaginationTitle": "Paginated display",
     "PaginationIntro": "Set the <code>Pageable</code> display paginated components",
     "GroupTitle": "Group display",
-    "GroupIntro": "Set up grouping <code>GroupName</code> data",
+    "GroupIntro": "Set up grouping <code>GroupName</code> data. set the group order by <code>GroupOrderCallback</code>",
     "CollapseTitle": "Collapsable",
     "CollapseIntro": "Set up grouping can collapable via <code>Collapsable=\"true\"</code>",
     "Collapsable": "Whether to collapsable",
@@ -3883,7 +3883,8 @@
     "OnQueryAsync": "Asynchronous query callback method",
     "OnListViewItemClick": "The ListView element calls back when it clicks on the delegate",
     "QueryAsync": "Manually query data methods",
-    "CollapsedGroupCallback": "Callback for set the IsCollapsed parameter of Collapse component"
+    "CollapsedGroupCallback": "Callback for set the IsCollapsed parameter of Collapse component",
+    "GroupOrderCallback": "Callback for set the order of group"
   },
   "BootstrapBlazor.Shared.Samples.Locators": {
     "LocatorsTitle": "Get the IP geographic location",
