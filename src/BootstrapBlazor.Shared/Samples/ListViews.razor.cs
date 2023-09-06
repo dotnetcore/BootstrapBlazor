@@ -22,7 +22,7 @@ public sealed partial class ListViews
     {
         base.OnInitialized();
 
-        Products = Enumerable.Range(1, 100).Select(i => new Product()
+        Products = Enumerable.Range(1, 8).Select(i => new Product()
         {
             ImageUrl = $"./images/Pic{i}.jpg",
             Description = $"Pic{i}.jpg",
@@ -95,8 +95,8 @@ public sealed partial class ListViews
             DefaultValue = " — "
         },
         new(){
-            Name = nameof(ListView<Foo>.Collapsable),
-            Description = Localizer["Collapsable"],
+            Name = nameof(ListView<Foo>.Collapsible),
+            Description = Localizer["Collapsible"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -126,6 +126,13 @@ public sealed partial class ListViews
             Name = nameof(ListView<Foo>.CollapsedGroupCallback),
             Description = Localizer["CollapsedGroupCallback"],
             Type = "Func<object?, bool>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new() {
+            Name = nameof(ListView<Foo>.GroupOrderCallback),
+            Description = Localizer["GroupOrderCallback"],
+            Type = "IOrderedEnumerable<IGrouping<object?, TItem>>",
             ValueList = " — ",
             DefaultValue = " — "
         }
