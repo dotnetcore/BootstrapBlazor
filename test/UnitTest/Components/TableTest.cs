@@ -5218,6 +5218,7 @@ public class TableTest : TableTestBase
         {
             pb.Add(a => a.ShowDefaultButtons, false);
         });
+        cut.WaitForState(() => !table.Markup.Contains("fa-solid fa-plus"));
         Assert.DoesNotContain("fa-solid fa-plus", table.Markup);
         Assert.DoesNotContain("fa-regular fa-pen-to-square", table.Markup);
         Assert.DoesNotContain("fa-solid fa-xmark", table.Markup);
