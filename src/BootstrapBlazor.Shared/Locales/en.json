@@ -1922,6 +1922,8 @@
     "StepsTitleTemplateIntro": "custom the title by set <code>TitleTemplate</code>",
     "StepsHeaderTemplateTitle": "Custom the header",
     "StepsHeaderTemplateIntro": "custom the title by set <code>HeaderTemplate</code>",
+    "StepsVerticalTitle": "Vertical step",
+    "StepsVerticalIntro": "vertical the step by set <code>IsVertical=\"true\"</code>",
     "AttributeTitle": "StepItem Atributes",
     "StepsItems": "Set up a collection of step data",
     "StepsIsVertical": "The direction of the display",

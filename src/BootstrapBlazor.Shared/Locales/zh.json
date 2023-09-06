@@ -1922,6 +1922,8 @@
     "StepsTitleTemplateIntro": "通过设置 <code>TitleTemplate</code> 自定义 <code>Title</code> 文字",
     "StepsHeaderTemplateTitle": "Header 模板",
     "StepsHeaderTemplateIntro": "通过设置 <code>HeaderTemplate</code> 自定义 <code>Header</code>",
+    "StepsVerticalTitle": "竖式步骤条",
+    "StepsVerticalIntro": "通过设置 <code>IsVertical=\"true\"</code> 使步骤条竖式",
     "AttributeTitle": "StepItem 属性",
     "StepsItems": "设置步骤数据集合",
     "StepsIsVertical": "显示方向",
