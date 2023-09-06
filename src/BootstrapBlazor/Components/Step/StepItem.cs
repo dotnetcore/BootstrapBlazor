@@ -84,6 +84,7 @@ public class StepItem : ComponentBase, IDisposable
 
         _option.Text = Text;
         _option.Icon = Icon;
+        _option.FinishedIcon = FinishedIcon;
         _option.Title = Title;
         _option.Description = Description;
         _option.HeaderTemplate = HeaderTemplate;

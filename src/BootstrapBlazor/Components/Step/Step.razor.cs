@@ -34,18 +34,6 @@ public partial class Step
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    /// <summary>
-    /// 获得/设置 步骤组件状态改变时回调委托
-    /// </summary>
-    [Parameter]
-    public Action<StepStatus>? OnStatusChanged { get; set; }
-
-    /// <summary>
-    /// 获得/设置 每个 step 的模板
-    /// </summary>
-    [Parameter]
-    public RenderFragment? DescriptionTemplate { get; set; }
-
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }

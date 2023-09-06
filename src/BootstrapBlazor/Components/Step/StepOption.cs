@@ -7,7 +7,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Step 组件项类
 /// </summary>
-[ExcludeFromCodeCoverage]
 public class StepOption
 {
     /// <summary>
@@ -23,7 +22,6 @@ public class StepOption
     /// <summary>
     /// 获得/设置 步骤完成显示图标
     /// </summary>
-    [Parameter]
     public string? FinishedIcon { get; set; }
 
     /// <summary>
