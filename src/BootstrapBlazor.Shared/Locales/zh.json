@@ -3858,7 +3858,7 @@
     "PaginationTitle": "分页显示",
     "PaginationIntro": "设置 <code>Pageable</code> 显示分页组件",
     "GroupTitle": "分组显示",
-    "GroupIntro": "设置 <code>GroupName</code> 数据进行分组显示",
+    "GroupIntro": "设置 <code>GroupName</code> 数据进行分组显示，通过设置 <code>GroupOrderCallback</code> 参数细化分组排序规则",
     "CollapseTitle": "分组折叠",
     "CollapseIntro": "设置 <code>Collapsable=\"true\"</code> 使分组信息可折叠",
     "Collapsable": "是否可折叠",
@@ -3874,7 +3874,8 @@
     "OnQueryAsync": "异步查询回调方法",
     "OnListViewItemClick": "ListView元素点击时回调委托",
     "QueryAsync": "手工查询数据方法",
-    "CollapsedGroupCallback": "组件分组项是否收缩回调委托方法"
+    "CollapsedGroupCallback": "组件分组项是否收缩回调委托方法",
+    "GroupOrderCallback": "组件分组项排序回调委托方法"
   },
   "BootstrapBlazor.Shared.Samples.Locators": {
     "LocatorsTitle": "获取 IP 地理位置",
