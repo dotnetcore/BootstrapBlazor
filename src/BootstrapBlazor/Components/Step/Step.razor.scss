@@ -15,8 +15,6 @@
         display: flex;
 
         .step-item {
-            flex-basis: 0;
-            flex-grow: 1;
             color: var(--step-item-color);
 
             &.active {
@@ -26,6 +24,10 @@
             &.is-done {
                 --step-item-color: var(--bs-success);
                 --step-item-line-width: 100%;
+            }
+
+            &:not(:last-child) {
+                flex: 1;
             }
         }
 
@@ -45,8 +47,6 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                position: absolute;
-                z-index: 2;
             }
 
             .step-line {

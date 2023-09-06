@@ -13,6 +13,12 @@ public class StepItem : ComponentBase, IDisposable
     /// 获得/设置 步骤显示文字
     /// </summary>
     [Parameter]
+    public string? Text { get; set; }
+
+    /// <summary>
+    /// 获得/设置 步骤显示文字
+    /// </summary>
+    [Parameter]
     public string? Title { get; set; }
 
     /// <summary>
@@ -22,33 +28,20 @@ public class StepItem : ComponentBase, IDisposable
     public string? Icon { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否居中对齐
-    /// </summary>
-    [Parameter]
-    public bool IsCenter { get; set; }
-
-    /// <summary>
-    /// 获得/设置 设置当前激活步骤
-    /// </summary>
-    [Parameter]
-    public StepStatus Status { get; set; }
-
-    /// <summary>
-    /// 获得/设置 步骤显示图标
-    /// </summary>
-    public string? ErrorIcon { get; set; }
-
-    /// <summary>
-    /// 获得/设置 错误步骤显示图标
-    /// </summary>
-    [Parameter]
-    public string? ErrorStepIcon { get; set; }
-
-    /// <summary>
     /// 获得/设置 描述信息
     /// </summary>
     [Parameter]
     public string? Description { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Header 模板
+    /// </summary>
+    public RenderFragment? HeaderTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Title 模板
+    /// </summary>
+    public RenderFragment? TitleTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 组件内容实例
@@ -86,9 +79,13 @@ public class StepItem : ComponentBase, IDisposable
         base.OnParametersSet();
 
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.StepIcon);
-        ErrorIcon = IconTheme.GetIconByKey(ComponentIcons.StepErrorIcon);
 
+        _option.Text = Text;
+        _option.Icon = Icon;
         _option.Title = Title;
+        _option.Description = Description;
+        _option.HeaderTemplate = HeaderTemplate;
+        _option.TitleTemplate = TitleTemplate;
         _option.Template = ChildContent;
     }
 

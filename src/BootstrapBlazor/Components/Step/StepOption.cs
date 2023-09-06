@@ -11,11 +11,6 @@ namespace BootstrapBlazor.Components;
 public class StepOption
 {
     /// <summary>
-    /// 获得/设置 步骤显示标题
-    /// </summary>
-    public string? Title { get; set; }
-
-    /// <summary>
     /// 获得/设置 步骤显示文字
     /// </summary>
     public string? Text { get; set; }
@@ -26,14 +21,9 @@ public class StepOption
     public string? Icon { get; set; }
 
     /// <summary>
-    /// 获得/设置 步骤显示图标
+    /// 获得/设置 步骤显示标题
     /// </summary>
-    public string? ErrorIcon { get; set; }
-
-    /// <summary>
-    /// 获得/设置 步骤状态
-    /// </summary>
-    public StepStatus Status { get; set; }
+    public string? Title { get; set; }
 
     /// <summary>
     /// 获得/设置 描述信息
@@ -41,17 +31,17 @@ public class StepOption
     public string? Description { get; set; }
 
     /// <summary>
-    /// 获得/设置 每个 step 的间距不填写将自适应间距支持百分比
+    /// 获得/设置 Header 模板
     /// </summary>
-    public string? Space { get; set; }
+    public RenderFragment<StepOption>? HeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 每个 step 的模板
+    /// 获得/设置 Title 模板
+    /// </summary>
+    public RenderFragment<StepOption>? TitleTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 每个 step 内容模板
     /// </summary>
     public RenderFragment? Template { get; set; }
-
-    /// <summary>
-    /// 获得/设置 当前步骤是否为活动步骤
-    /// </summary>
-    public bool IsActive { get; set; }
 }

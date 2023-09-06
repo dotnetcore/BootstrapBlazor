@@ -27,8 +27,7 @@ public sealed partial class Steps
             new StepOption()
             {
                 Title = Localizer["StepItemI1Text"],
-                Template = BootstrapDynamicComponent.CreateComponent<Counter>().Render(),
-                IsActive = true
+                Template = BootstrapDynamicComponent.CreateComponent<Counter>().Render()
             },
             new StepOption()
             {

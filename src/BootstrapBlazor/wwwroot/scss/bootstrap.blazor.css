@@ -5319,8 +5319,6 @@ body:before {
   display: flex;
 }
 .step .step-header .step-item {
-  flex-basis: 0;
-  flex-grow: 1;
   color: var(--step-item-color);
 }
 .step .step-header .step-item.active {
@@ -5329,6 +5327,9 @@ body:before {
 .step .step-header .step-item.is-done {
   --step-item-color: var(--bs-success);
   --step-item-line-width: 100%;
+}
+.step .step-header .step-item:not(:last-child) {
+  flex: 1;
 }
 .step .step-header .step-item-header {
   position: relative;
@@ -5346,8 +5347,6 @@ body:before {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  z-index: 2;
 }
 .step .step-header .step-item-header .step-line {
   background-color: var(--step-item-line-bg);
