@@ -1,12 +1,15 @@
 .step {
     --step-border: var(--step-border-width) solid;
     --step-border-width: 2px;
+    --step-item-color: var(--bs-secondary);
     --step-item-header-height: 36px;
     --step-item-text-height: 24px;
     --step-item-text-width: 24px;
     --step-item-line-height: 2px;
     --step-item-line-bg: var(--bs-secondary);
     --step-item-line-transition: width .3s ease-in-out;
+    --step-item-line-width: 0;
+    --step-item-line-progress-bg: var(--bs-success);
 
     .step-header {
         display: flex;
@@ -14,6 +17,16 @@
         .step-item {
             flex-basis: 0;
             flex-grow: 1;
+            color: var(--step-item-color);
+
+            &.active {
+                --step-item-color: var(--bs-body-color);
+            }
+
+            &.is-done {
+                --step-item-color: var(--bs-success);
+                --step-item-line-width: 100%;
+            }
         }
 
         .step-item-header {
@@ -40,14 +53,23 @@
                 background-color: var(--step-item-line-bg);
                 width: 100%;
                 height: var(--step-item-line-height);
-            }
 
-            .step-line:after {
-                content: "";
-                transition: var(--step-item-line-transition);
-                display: block;
-                height: var(--step-item-line-height);
-                width: 0px;
+                &:after {
+                    content: "";
+                    transition: var(--step-item-line-transition);
+                    display: block;
+                    height: var(--step-item-line-height);
+                    width: var(--step-item-line-width);
+                    background-color: var(--step-item-line-progress-bg)
+                }
+            }
+        }
+    }
+
+    .step-body {
+        .step-body-item {
+            &:not(.active) {
+                display: none;
             }
         }
     }

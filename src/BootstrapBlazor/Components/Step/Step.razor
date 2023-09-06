@@ -8,19 +8,19 @@
     </CascadingValue>
     <RenderTemplate>
         <div class="step-header">
-            @foreach (var item in Items)
+            @foreach (var option in Items)
             {
-                <div @key="item" class="step-item">
-                    @RenderHeader(item)
-                    @RenderDesc(item)
+                <div @key="option" class="@GetHeaderClassString(option)">
+                    @RenderHeader(option)
+                    @RenderDesc(option)
                 </div>
             }
         </div>
         <div class="step-body">
-            @foreach (var item in Items)
+            @foreach (var option in Items)
             {
-                <div @key="item" class="@GetStepItemClassString(item)">
-                    @item.Template
+                <div @key="option" class="@GetBodyClassString(option)">
+                    @option.Template
                 </div>
             }
         </div>
