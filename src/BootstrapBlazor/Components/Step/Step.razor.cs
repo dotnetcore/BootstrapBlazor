@@ -29,12 +29,6 @@ public partial class Step
     public int StepIndex { get; set; }
 
     /// <summary>
-    /// 获得/设置 步骤完成时显示图标 默认 null 读取资源文件图标
-    /// </summary>
-    [Parameter]
-    public string? Icon { get; set; }
-
-    /// <summary>
     /// 获得/设置 组件内容实例
     /// </summary>
     [Parameter]
@@ -85,9 +79,17 @@ public partial class Step
             .Build();
     }
 
+    private bool ShowFinishedIcon(StepOption option) => !string.IsNullOrEmpty(option.FinishedIcon) && Items.IndexOf(option) < _currentStepIndex;
+
     private static string? GetIconClassString(StepOption option) => CssBuilder.Default("step-icon")
         .AddClass(option.Icon)
         .Build();
+
+    private static string? GetFinishedIconClassString(StepOption option) => CssBuilder.Default("step-icon")
+        .AddClass(option.FinishedIcon)
+        .Build();
+
+    private string? _finishedIcon;
 
     /// <summary>
     /// <inheritdoc/>
@@ -96,7 +98,7 @@ public partial class Step
     {
         base.OnParametersSet();
 
-        Icon ??= IconTheme.GetIconByKey(ComponentIcons.StepIcon);
+        _finishedIcon ??= IconTheme.GetIconByKey(ComponentIcons.StepIcon);
         Items ??= new();
     }
 

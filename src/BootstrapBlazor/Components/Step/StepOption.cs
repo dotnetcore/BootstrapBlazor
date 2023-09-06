@@ -21,6 +21,12 @@ public class StepOption
     public string? Icon { get; set; }
 
     /// <summary>
+    /// 获得/设置 步骤完成显示图标
+    /// </summary>
+    [Parameter]
+    public string? FinishedIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 步骤显示标题
     /// </summary>
     public string? Title { get; set; }

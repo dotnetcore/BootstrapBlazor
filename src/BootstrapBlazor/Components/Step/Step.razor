@@ -36,18 +36,27 @@
         }
         else
         {
-            @if (!string.IsNullOrEmpty(option.Icon))
+            @if (ShowFinishedIcon(option))
             {
-                <i class="@GetIconClassString(option)"></i>
-            }
-            @if (!string.IsNullOrEmpty(option.Text))
-            {
-                <span class="step-text">@option.Text</span>
+                <div class="step-title"><i class="@Step.GetFinishedIconClassString(option)"></i></div>
             }
             else
             {
-                <span class="step-title">@GetStepString(option)</span>
+                @if (!string.IsNullOrEmpty(option.Icon))
+                {
+                    <i class="@GetIconClassString(option)"></i>
+                }
+
+                @if (!string.IsNullOrEmpty(option.Text))
+                {
+                    <div class="step-text">@option.Text</div>
+                }
+                else
+                {
+                    <div class="step-title">@GetStepString(option)</div>
+                }
             }
+
             @if (option != Items.Last())
             {
                 <div class="step-line"></div>

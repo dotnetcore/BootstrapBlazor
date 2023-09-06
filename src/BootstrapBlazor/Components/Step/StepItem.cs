@@ -28,6 +28,12 @@ public class StepItem : ComponentBase, IDisposable
     public string? Icon { get; set; }
 
     /// <summary>
+    /// 获得/设置 步骤完成显示图标
+    /// </summary>
+    [Parameter]
+    public string? FinishedIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 描述信息
     /// </summary>
     [Parameter]
