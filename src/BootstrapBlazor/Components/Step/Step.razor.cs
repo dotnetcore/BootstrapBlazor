@@ -94,6 +94,16 @@ public partial class Step
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _currentStepIndex = StepIndex;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();

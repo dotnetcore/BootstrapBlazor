@@ -62,73 +62,15 @@ public sealed partial class Steps
         step?.Reset();
     }
 
-    private Task OnStatusChanged(StepStatus status)
-    {
-        Logger.Log($"Steps Status: {status}");
-        return Task.CompletedTask;
-    }
-
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
         new()
         {
             Name = "Items",
             Description = Localizer["StepsItems"],
-            Type = "IEnumerable<StepItem>",
+            Type = "List<StepOption>",
             ValueList = " — ",
             DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "IsVertical",
-            Description = Localizer["StepsIsVertical"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "IsCenter",
-            Description = Localizer["StepsIsCenter"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "Status",
-            Description = Localizer["StepsStatus"],
-            Type = "StepStatus",
-            ValueList = "Wait|Process|Finish|Error|Success",
-            DefaultValue = "Wait"
-        }
-    };
-
-    private IEnumerable<AttributeItem> GetStepItemAttributes() => new AttributeItem[]
-    {
-        new()
-        {
-            Name = "IsCenter",
-            Description = Localizer["StepsAttrIsCenter"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "IsIcon",
-            Description = Localizer["StepsAttrIsIcon"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "IsLast",
-            Description = Localizer["StepsAttrIsLast"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
         },
         new()
         {
@@ -140,11 +82,23 @@ public sealed partial class Steps
         },
         new()
         {
-            Name = "Space",
-            Description = Localizer["StepsAttrSpace"],
+            Name = "IsVertical",
+            Description = Localizer["StepsIsVertical"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        }
+    };
+
+    private IEnumerable<AttributeItem> GetStepItemAttributes() => new AttributeItem[]
+    {
+        new()
+        {
+            Name = "Text",
+            Description = Localizer["StepsAttrText"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = "—"
+            DefaultValue = " — "
         },
         new()
         {
@@ -164,6 +118,14 @@ public sealed partial class Steps
         },
         new()
         {
+            Name = "FinishedIcon",
+            Description = Localizer["StepsAttrFinishedIcon"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
             Name = "Description",
             Description = Localizer["StepsAttrDescription"],
             Type = "string",
@@ -172,29 +134,27 @@ public sealed partial class Steps
         },
         new()
         {
-            Name = "Status",
-            Description = Localizer["StepsAttrStatus"],
-            Type = "StepStatus",
-            ValueList = "Wait|Process|Finish|Error|Success",
-            DefaultValue = "Wait"
-        },
-        new()
-        {
-            Name = "Template",
-            Description = Localizer["StepsAttrTemplate"],
+            Name = "HeaderTemplate",
+            Description = Localizer["StepsAttrHeaderTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
-        }
-    };
-
-    private IEnumerable<EventItem> GetEvents() => new List<EventItem>()
-    {
+        },
         new()
         {
-            Name = "OnStatusChanged",
-            Description = Localizer["StepsEventOnStatusChanged"],
-            Type ="Func<StepStatus, Task>"
+            Name = "TitleTemplate",
+            Description = Localizer["StepsAttrTitleTemplate"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "ChildContent",
+            Description = Localizer["StepsAttrChildContent"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     };
 }
