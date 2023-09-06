@@ -22,7 +22,7 @@ public sealed partial class ListViews
     {
         base.OnInitialized();
 
-        Products = Enumerable.Range(1, 100).Select(i => new Product()
+        Products = Enumerable.Range(1, 8).Select(i => new Product()
         {
             ImageUrl = $"./images/Pic{i}.jpg",
             Description = $"Pic{i}.jpg",

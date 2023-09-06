@@ -54,7 +54,7 @@
     <DemoBlock Title="@Localizer["GroupTitle"]"
                Introduction="@Localizer["GroupIntro"]"
                Name="Group">
-        <ListView TItem="Product" GroupName="@(p => p.Category)" OnQueryAsync="@OnQueryAsync">
+        <ListView TItem="Product" GroupName="p => p.Category" OnQueryAsync="@OnQueryAsync">
             <HeaderTemplate>
                 <div>@Localizer["ProductListText"]</div>
             </HeaderTemplate>
@@ -72,7 +72,7 @@
     <DemoBlock Title="@Localizer["CollapseTitle"]"
                Introduction="@Localizer["CollapseIntro"]"
                Name="Collapse">
-        <ListView TItem="Product" GroupName="@(p => p.Category)" OnQueryAsync="@OnQueryAsync" Collapsible="true" CollapsedGroupCallback="CollapsedGroupCallback">
+        <ListView TItem="Product" GroupName="p => p.Category" OnQueryAsync="@OnQueryAsync" Collapsible="true" CollapsedGroupCallback="CollapsedGroupCallback">
             <HeaderTemplate>
                 <div>@Localizer["ProductListText"]</div>
             </HeaderTemplate>
@@ -90,7 +90,7 @@
     <DemoBlock Title="@Localizer["IsAccordionTitle"]"
                Introduction="@Localizer["IsAccordionIntro"]"
                Name="IsAccordion">
-        <ListView TItem="Product" GroupName="@(p => p.Category)" OnQueryAsync="@OnQueryAsync" Collapsible="true" IsAccordion="true">
+        <ListView TItem="Product" GroupName="p => p.Category" OnQueryAsync="@OnQueryAsync" Collapsible="true" IsAccordion="true">
             <HeaderTemplate>
                 <div>@Localizer["ProductListText"]</div>
             </HeaderTemplate>
