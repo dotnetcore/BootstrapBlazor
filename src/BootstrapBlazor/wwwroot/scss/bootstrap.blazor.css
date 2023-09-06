@@ -5312,8 +5312,48 @@ body:before {
   --step-item-line-height: 2px;
   --step-item-line-bg: var(--bs-secondary);
   --step-item-line-transition: width .3s ease-in-out;
+  --step-item-line-vertical-transition: height .3s ease-in-out;
   --step-item-line-width: 0;
   --step-item-line-progress-bg: var(--bs-success);
+  --step-vertical-min-height: 460px;
+}
+.step.step-vertical {
+  display: flex;
+  flex-direction: row;
+  min-height: var(--step-vertical-min-height);
+}
+.step.step-vertical .step-header {
+  display: flex;
+  flex-direction: column;
+}
+.step.step-vertical .step-header .step-item {
+  display: flex;
+  flex-direction: row;
+}
+.step.step-vertical .step-header .step-item .step-item-header {
+  flex-direction: column;
+  height: initial;
+}
+.step.step-vertical .step-header .step-item .step-item-header .step-line {
+  width: var(--step-item-line-height);
+  margin: 0.5rem 0;
+}
+.step.step-vertical .step-header .step-item .step-item-header .step-line:after {
+  width: var(--step-item-line-height);
+  height: var(--step-item-line-width);
+  transition: var(--step-item-line-vertical-transition);
+}
+.step.step-vertical .step-header .step-item .step-item-content {
+  display: flex;
+  flex-direction: column;
+  margin-left: 0.5rem;
+}
+.step.step-vertical .step-header .step-item .step-item-content .step-desc {
+  min-width: 70px;
+}
+.step.step-vertical .step-body {
+  flex: 1;
+  margin-left: 0.5rem;
 }
 .step .step-header {
   display: flex;
