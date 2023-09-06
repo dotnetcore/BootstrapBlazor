@@ -81,19 +81,46 @@
     </Step>
 </DemoBlock>
 
-@*<DemoBlock Title="@Localizer["StepsTitleCenterTitle"]"
-           Introduction="@Localizer["StepsTitleCenterIntro"]"
-           Name="TitleCenter">
-    <BootstrapBlazor.Components.Step IsCenter="true">
-        <Step Title="@Localizer["Step1Title"]" Space="33.33%" IsIcon="true" Icon="fa-solid fa-user" Status="StepStatus.Success" Description="@Localizer["StepDesc1"]"></Step>
-        <Step Title="@Localizer["Step2Title"]" Space="33.33%" IsIcon="true" Icon="fa-solid fa-user-plus" Status="StepStatus.Process" StepIndex="1" Description="@Localizer["StepDesc1"]"></Step>
-        <Step Title="@Localizer["Step3Title"]" Space="33.33%" IsIcon="true" Icon="fa-solid fa-users" StepIndex="2" Description="@Localizer["StepDesc1"]"></Step>
-        <Step Title="@Localizer["Step4Title"]" Space="33.33%" IsIcon="true" Icon="fa-solid fa-user-secret" StepIndex="3" IsLast="true" Description="@Localizer["StepDesc2"]"></Step>
-    </BootstrapBlazor.Components.Step>
+<DemoBlock Title="@Localizer["StepsHeaderTemplateTitle"]"
+           Introduction="@Localizer["StepsHeaderTemplateIntro"]"
+           Name="HeaderTemplate">
+    <section ignore class="mb-2">
+        <Button OnClick="() => PrevStep(_step5)">@Localizer["StepsNormalPrevButtonText"]</Button>
+        <Button OnClick="() => NextStep(_step5)">@Localizer["StepsNormalNextButtonText"]</Button>
+        <Button OnClick="() => ResetStep(_step5)">@Localizer["StepsNormalResetButtonText"]</Button>
+    </section>
+    <div class="step-demo">
+        <Step @ref="@_step5">
+            <StepItem>
+                <HeaderTemplate>
+                    <i class="fa fa-edit"></i>
+                    <span class="ms-2">@Localizer["Step1Text"]</span>
+                    <div class="flex-fill text-center">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </HeaderTemplate>
+            </StepItem>
+            <StepItem>
+                <HeaderTemplate>
+                    <i class="fa fa-user"></i>
+                    <span class="ms-2">@Localizer["Step2Text"]</span>
+                    <div class="flex-fill text-center">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </HeaderTemplate>
+            </StepItem>
+            <StepItem>
+                <HeaderTemplate>
+                    <i class="fa fa-house"></i>
+                    <span class="ms-2">@Localizer["Step3Text"]</span>
+                </HeaderTemplate>
+            </StepItem>
+        </Step>
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
 
 <AttributeTable Title="@Localizer["AttributeTitle"]" Items="@GetStepItemAttributes()" />
 
-<EventTable Items="@GetEvents()" /> *@
+<EventTable Items="@GetEvents()" />
