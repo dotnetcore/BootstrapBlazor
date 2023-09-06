@@ -13,9 +13,9 @@ public sealed partial class Steps
     private ConsoleLogger? Logger { get; set; }
 
     [NotNull]
-    private List<StepItem>? Items { get; set; }
+    private List<StepOption>? Items { get; set; }
 
-    private BootstrapBlazor.Components.Steps? _steps;
+    private Step? _step;
 
     /// <summary>
     /// <inheritdoc/>
@@ -24,18 +24,18 @@ public sealed partial class Steps
     {
         Items = new()
         {
-            new StepItem()
+            new StepOption()
             {
                 Title = Localizer["StepItemI1Text"],
                 Template = BootstrapDynamicComponent.CreateComponent<Counter>().Render(),
                 IsActive = true
             },
-            new StepItem()
+            new StepOption()
             {
                 Title = Localizer["StepItemI2Text"],
                 Template = BootstrapDynamicComponent.CreateComponent<FetchData>().Render()
             },
-            new StepItem()
+            new StepOption()
             {
                 Title = Localizer["StepItemI3Text"],
                 Template = BootstrapDynamicComponent.CreateComponent<Counter>().Render()
@@ -45,12 +45,12 @@ public sealed partial class Steps
 
     private void PrevStep()
     {
-        _steps?.Prev();
+        _step?.Prev();
     }
 
     private void NextStep()
     {
-        _steps?.Next();
+        _step?.Next();
     }
 
     private void ResetStep()
