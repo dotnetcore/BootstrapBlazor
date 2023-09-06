@@ -1898,7 +1898,7 @@
     "PaginationsNextEllipsisPageIconAttr": "向后翻页图标"
   },
   "BootstrapBlazor.Shared.Samples.Steps": {
-    "StepsTitle": "Steps 步骤条",
+    "StepsTitle": "Step 步骤条",
     "StepsDescription": "引导用户按照流程完成任务的导航条",
     "StepsTipsTitle": "引导用户按照流程完成任务的分步导航条，可根据实际应用场景设定步骤，步骤不得少于 2 步",
     "StepsTips": "<code>Steps</code> 组件支持通过设置 <code>Items</code> 属性或者直接内嵌 <code>Step</code> 组件两种方式进行 UI 呈现",
@@ -4332,7 +4332,7 @@
     "Menu": "菜单 Menu",
     "Navigation": "导航栏 Nav",
     "Pagination": "分页 Pagination",
-    "Steps": "步骤条 Steps",
+    "Steps": "步骤条 Step",
     "Tab": "标签页 Tab",
     "NotificationComponents": "通知组件",
     "Alert": "警告框 Alert",

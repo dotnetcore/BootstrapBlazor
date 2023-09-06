@@ -1898,7 +1898,7 @@
     "PaginationsNextEllipsisPageIconAttr": "The page down icon"
   },
   "BootstrapBlazor.Shared.Samples.Steps": {
-    "StepsTitle": "Steps",
+    "StepsTitle": "Step",
     "StepsDescription": "A navigation bar that guides the user through the process",
     "StepsTipsTitle": "Step-by-step navigation bar that guides the user through the process, setting steps of no less than 2 steps based on the actual scenario",
     "StepsTips": "<code>Steps</code> component supports UI rendering by setting the <code>Items</code> property or by embedding the <code>Step</code> component directly",
@@ -4332,7 +4332,7 @@
     "Menu": "Menu",
     "Navigation": "Nav",
     "Pagination": "Pagination",
-    "Steps": "Steps",
+    "Steps": "Step",
     "Tab": "Tab",
     "NotificationComponents": "Notifications",
     "Alert": "Alert",
