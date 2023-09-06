@@ -25,6 +25,10 @@ public sealed partial class Steps
 
     private Step? _step5;
 
+    private Step? _step6;
+
+    private Step? _step7;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>

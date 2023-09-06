@@ -119,6 +119,27 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["StepsVerticalTitle"]"
+           Introduction="@Localizer["StepsVerticalIntro"]"
+           Name="Vertical">
+    <section ignore class="mb-2">
+        <Button OnClick="() => PrevStep(_step6)">@Localizer["StepsNormalPrevButtonText"]</Button>
+        <Button OnClick="() => NextStep(_step6)">@Localizer["StepsNormalNextButtonText"]</Button>
+        <Button OnClick="() => ResetStep(_step6)">@Localizer["StepsNormalResetButtonText"]</Button>
+    </section>
+    <Step @ref="@_step6" IsVertical="true">
+        <StepItem Text="@Localizer["Step1Text"]" Title="@Localizer["Step1Title"]">
+            <Counter />
+        </StepItem>
+        <StepItem Text="@Localizer["Step2Text"]" Title="@Localizer["Step2Title"]">
+            <FetchData />
+        </StepItem>
+        <StepItem Text="@Localizer["Step3Text"]" Title="@Localizer["Step3Title"]">
+            <Counter />
+        </StepItem>
+    </Step>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <AttributeTable Title="@Localizer["AttributeTitle"]" Items="@GetStepItemAttributes()" />
