@@ -56,7 +56,7 @@ public partial class Step
     /// 获得 组件样式字符串
     /// </summary>
     private string? ClassString => CssBuilder.Default("step")
-        .AddClass("steps-vertical", IsVertical)
+        .AddClass("step-vertical", IsVertical)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -117,7 +117,7 @@ public partial class Step
     /// </summary>
     public void Prev()
     {
-        _currentStepIndex--;
+        _currentStepIndex = Math.Max(0, _currentStepIndex - 1);
         StateHasChanged();
     }
 
@@ -126,7 +126,7 @@ public partial class Step
     /// </summary>
     public void Next()
     {
-        _currentStepIndex++;
+        _currentStepIndex = Math.Min(Items.Count, _currentStepIndex + 1);
         StateHasChanged();
     }
 

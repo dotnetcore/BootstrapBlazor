@@ -72,8 +72,14 @@
         }
         else
         {
-            <div class="step-title">@option.Title</div>
-            <div class="step-desc">@option.Description</div>
+            if (!string.IsNullOrEmpty(option.Title))
+            {
+                <div class="step-title">@option.Title</div>
+            }
+            if (!string.IsNullOrEmpty(option.Description))
+            {
+                <div class="step-desc">@option.Description</div>
+            }
         }
     </div>;
 }
