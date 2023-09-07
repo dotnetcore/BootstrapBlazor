@@ -5813,6 +5813,7 @@
   },
   "BootstrapBlazor.Shared.Samples.WebSerials": {
     "WebSerialTitle": "WebSerial 串口读写",
+    "WebSerialIntro": "串口是一种具有广泛使用的通信协议，它可以实现计算机之间的数据传输",
     "WebSerialDescription": "允许网站与连接到用户计算机的外围设备进行通信。它提供了连接到操作系统需要通过串行 API 进行通信的设备的能力，参考 <a href='https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API'>WebUSB</a>，或 <a href='https://developer.mozilla.org/en'>WebHID</a>。",
     "WebSerialNormalIntro": "读写串口设备",
     "WebSerialNormalTitle": "基本用法",
