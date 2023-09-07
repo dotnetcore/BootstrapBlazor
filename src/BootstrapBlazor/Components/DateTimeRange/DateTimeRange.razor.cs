@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Extensions;
 using Microsoft.Extensions.Localization;
 using System.Reflection;
 
@@ -281,9 +282,10 @@ public partial class DateTimeRange
     /// </summary>
     private async Task ClickConfirmButton()
     {
-        if (SelectedValue.End == null || SelectedValue.End.Value == DateTime.MinValue)
+        // SelectedValue 
+        if (SelectedValue.GetEndValue() == DateTime.MinValue)
         {
-            if (SelectedValue.Start.HasValue && SelectedValue.Start < DateTime.Today)
+            if (SelectedValue.GetStartValue() < DateTime.Today)
             {
                 SelectedValue.End = DateTime.Today;
             }
@@ -346,9 +348,9 @@ public partial class DateTimeRange
     /// <param name="d"></param>
     internal void UpdateValue(DateTime d)
     {
-        if (SelectedValue.End == DateTime.MinValue)
+        if (SelectedValue.GetEndValue() == DateTime.MinValue)
         {
-            if (d < SelectedValue.Start)
+            if (d < SelectedValue.GetStartValue())
             {
                 SelectedValue.End = SelectedValue.Start;
                 SelectedValue.Start = d;

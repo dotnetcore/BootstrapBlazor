@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Extensions;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -12,7 +14,7 @@ public class DateTimeRangeRequiredValidator : RequiredValidator
     /// <inheritdoc/>
     public override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
     {
-        if (propertyValue is DateTimeRangeValue d && (CheckStart() || CheckEnd()))
+        if (propertyValue is DateTimeRangeValue d && (d.GetStartValue() == DateTime.MinValue || d.GetEndValue() == DateTime.MinValue))
         {
             propertyValue = null;
         }
@@ -22,9 +24,5 @@ public class DateTimeRangeRequiredValidator : RequiredValidator
         {
             results.Add(new ValidationResult(errorMessage, memberNames));
         }
-
-        bool CheckStart() => d.Start == null || d.Start.Value == DateTime.MinValue;
-
-        bool CheckEnd() => d.End == null || d.End == DateTime.MinValue;
     }
 }
