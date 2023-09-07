@@ -7,36 +7,69 @@
 
 <DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Normal">
     <div class="slide-buttons">
-        <BootstrapInputGroup>
-            <BootstrapInputGroupLabel DisplayText="Placement" />
-            <div class="row slide-placement">
-                <div class="col-12">
-                    <Radio Value="Placement" GroupName="Placement" DisplayText="Auto" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("auto")" OnClick="_ => OnClickPlacement(Placement.Auto)"></Radio>
-                </div>
-                <div class="col-12">
-                    <Radio Value="Placement" GroupName="Placement" DisplayText="Top" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("top")" OnClick="_ => OnClickPlacement(Placement.Top)"></Radio>
-                    <Radio Value="Placement" GroupName="Placement" DisplayText="Top-Start" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("top-start")" OnClick="_ => OnClickPlacement(Placement.TopStart)"></Radio>
-                    <Radio Value="Placement" GroupName="Placement" DisplayText="Top-Center" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("top-center")" OnClick="_ => OnClickPlacement(Placement.TopCenter)"></Radio>
-                    <Radio Value="Placement" GroupName="Placement" DisplayText="Top-End" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("top-end")" OnClick="_ => OnClickPlacement(Placement.TopEnd)"></Radio>
-                </div>
-                <div class="col-12">
-                    <Radio Value="Placement" GroupName="Placement" DisplayText="Bottom" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("bottom")" OnClick="_ => OnClickPlacement(Placement.Bottom)"></Radio>
-                    <Radio Value="Placement" GroupName="Placement" DisplayText="Bottom-Start" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("bottom-start")" OnClick="_ => OnClickPlacement(Placement.BottomStart)"></Radio>
-                    <Radio Value="Placement" GroupName="Placement" DisplayText="Bottom-Center" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("bottom-center")" OnClick="_ => OnClickPlacement(Placement.BottomCenter)"></Radio>
-                    <Radio Value="Placement" GroupName="Placement" DisplayText="Bottom-End" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("bottom-end")" OnClick="_ => OnClickPlacement(Placement.BottomEnd)"></Radio>
-                </div>
-                <div class="col-12">
-                    <Radio Value="Placement" GroupName="Placement" DisplayText="Left" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("left")" OnClick="_ => OnClickPlacement(Placement.Left)"></Radio>
-                    <Radio Value="Placement" GroupName="Placement" DisplayText="Left-Start" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("left-start")" OnClick="_ => OnClickPlacement(Placement.LeftStart)"></Radio>
-                    <Radio Value="Placement" GroupName="Placement" DisplayText="Left-End" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("left-end")" OnClick="_ => OnClickPlacement(Placement.LeftEnd)"></Radio>
-                </div>
-                <div class="col-12">
-                    <Radio Value="Placement" GroupName="Placement" DisplayText="Right" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("right")" OnClick="_ => OnClickPlacement(Placement.Right)"></Radio>
-                    <Radio Value="Placement" GroupName="Placement" DisplayText="Right-Start" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("right-start")" OnClick="_ => OnClickPlacement(Placement.RightStart)"></Radio>
-                    <Radio Value="Placement" GroupName="Placement" DisplayText="Right-End" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("right-end")" OnClick="_ => OnClickPlacement(Placement.RightEnd)"></Radio>
+        <p>Placement</p>
+        <div class="row">
+            <div class="col-12">
+                <div class="mb-2">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text label-width">Auto</span>
+                        <div class="form-control">
+                            <Radio Value="Placement" GroupName="Placement" DisplayText="Auto" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("auto")" OnClick="_ => OnClickPlacement(Placement.Auto)"></Radio>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </BootstrapInputGroup>
+            <div class="col-12">
+                <div class="mb-2">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text label-width">Top</span>
+                        <div class="form-control">
+                            <Radio Value="Placement" GroupName="Placement" DisplayText="Top" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("top")" OnClick="_ => OnClickPlacement(Placement.Top)"></Radio>
+                            <Radio Value="Placement" GroupName="Placement" DisplayText="Top-Start" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("top-start")" OnClick="_ => OnClickPlacement(Placement.TopStart)"></Radio>
+                            <Radio Value="Placement" GroupName="Placement" DisplayText="Top-Center" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("top-center")" OnClick="_ => OnClickPlacement(Placement.TopCenter)"></Radio>
+                            <Radio Value="Placement" GroupName="Placement" DisplayText="Top-End" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("top-end")" OnClick="_ => OnClickPlacement(Placement.TopEnd)"></Radio>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="mb-2">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text label-width">Bottom</span>
+                        <div class="form-control">
+                            <Radio Value="Placement" GroupName="Placement" DisplayText="Bottom" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("bottom")" OnClick="_ => OnClickPlacement(Placement.Bottom)"></Radio>
+                            <Radio Value="Placement" GroupName="Placement" DisplayText="Bottom-Start" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("bottom-start")" OnClick="_ => OnClickPlacement(Placement.BottomStart)"></Radio>
+                            <Radio Value="Placement" GroupName="Placement" DisplayText="Bottom-Center" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("bottom-center")" OnClick="_ => OnClickPlacement(Placement.BottomCenter)"></Radio>
+                            <Radio Value="Placement" GroupName="Placement" DisplayText="Bottom-End" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("bottom-end")" OnClick="_ => OnClickPlacement(Placement.BottomEnd)"></Radio>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="mb-2">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text label-width">Left</span>
+                        <div class="form-control">
+                            <Radio Value="Placement" GroupName="Placement" DisplayText="Left" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("left")" OnClick="_ => OnClickPlacement(Placement.Left)"></Radio>
+                            <Radio Value="Placement" GroupName="Placement" DisplayText="Left-Start" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("left-start")" OnClick="_ => OnClickPlacement(Placement.LeftStart)"></Radio>
+                            <Radio Value="Placement" GroupName="Placement" DisplayText="Left-End" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("left-end")" OnClick="_ => OnClickPlacement(Placement.LeftEnd)"></Radio>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="mb-2">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text label-width">Right</span>
+                        <div class="form-control">
+                            <Radio Value="Placement" GroupName="Placement" DisplayText="Right" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("right")" OnClick="_ => OnClickPlacement(Placement.Right)"></Radio>
+                            <Radio Value="Placement" GroupName="Placement" DisplayText="Right-Start" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("right-start")" OnClick="_ => OnClickPlacement(Placement.RightStart)"></Radio>
+                            <Radio Value="Placement" GroupName="Placement" DisplayText="Right-End" ShowAfterLabel="true" ShowLabel="false" State="@CheckState("right-end")" OnClick="_ => OnClickPlacement(Placement.RightEnd)"></Radio>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="mt-2">
         <SlideButton Icon="fa-solid fa-flag" Items="Items" Placement="Placement" HeaderText="@Localizer["SlideButtonHeaderText"]" ShowHeader="true">
@@ -45,11 +78,22 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ShowHeaderText"]" Introduction="@Localizer["ShowHeaderIntro"]" Name="ShowHeader">
-    <SlideButton Icon="fa-solid fa-flag" HeaderText="@Localizer["SlideButtonHeaderText"]" ShowHeader="true"></SlideButton>
+    <SlideButton Icon="fa-solid fa-flag" HeaderText="@Localizer["SlideButtonHeaderText"]" ShowHeader="true">
+        <SlideButtonItems>
+            <SlideButtonItem Value="1" Text="Text 1"></SlideButtonItem>
+            <SlideButtonItem Value="2" Text="Text 2"></SlideButtonItem>
+            <SlideButtonItem Value="3" Text="Text 3"></SlideButtonItem>
+        </SlideButtonItems>
+    </SlideButton>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["AutoCloseText"]" Introduction="@Localizer["AutoCloseIntro"]" Name="IsAutoClose">
     <SlideButton Icon="fa-solid fa-flag" HeaderText="@Localizer["SlideButtonHeaderText"]" ShowHeader="true" IsAutoClose="false">
+        <SlideButtonItems>
+            <SlideButtonItem Value="1" Text="Text 1"></SlideButtonItem>
+            <SlideButtonItem Value="2" Text="Text 2"></SlideButtonItem>
+            <SlideButtonItem Value="3" Text="Text 3"></SlideButtonItem>
+        </SlideButtonItems>
     </SlideButton>
 </DemoBlock>
 

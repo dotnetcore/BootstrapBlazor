@@ -1,4 +1,4 @@
-﻿.layout-gotop {
+.layout-gotop {
     background: rgba(255,255,255,.5);
     width: 20px;
     height: 20px;
@@ -9,9 +9,9 @@
     margin-right: 4px;
     transition: background-color .3s linear;
     color: #606266;
-}
 
-    .layout-gotop:hover {
+    &:hover {
         background-color: #fff;
         color: #606266;
     }
+}

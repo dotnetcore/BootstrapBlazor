@@ -35,7 +35,7 @@ public class JSModuleTest
     }
 
     [Fact]
-    public async ValueTask Dispose_Ok()
+    public async Task Dispose_Ok()
     {
         var js = new MockJSObjectReference();
         var module = new JSModule(js);

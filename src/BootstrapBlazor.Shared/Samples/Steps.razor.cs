@@ -12,52 +12,56 @@ public sealed partial class Steps
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
-    private IEnumerable<StepItem> Items { get; set; } = new StepItem[3];
+    [NotNull]
+    private List<StepOption>? Items { get; set; }
+
+    private Step? _step1;
+
+    private Step? _step2;
+
+    private Step? _step3;
+
+    private Step? _step4;
+
+    private Step? _step5;
+
+    private Step? _step6;
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
-        Items = new StepItem[3]
+        Items = new()
         {
-            new StepItem() { Title = Localizer["StepItemI1Text"], Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, Localizer["StepItemI1TextC"]); builder.CloseElement(); } },
-            new StepItem() { Title = Localizer["StepItemI2Text"], Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, Localizer["StepItemI2TextC"]); builder.CloseElement(); } },
-            new StepItem() { Title = Localizer["StepItemI3Text"], Template = builder => { builder.OpenElement(0, "div"); builder.AddContent(1, Localizer["StepItemI3TextC"]); builder.CloseElement(); } }
-                    };
-    }
-
-    private void NextStep()
-    {
-        var item = Items.FirstOrDefault(i => i.Status == StepStatus.Process);
-        if (item != null)
-        {
-            item.Status = StepStatus.Success;
-            var index = Items.ToList().IndexOf(item) + 1;
-            if (index < Items.Count())
+            new StepOption()
             {
-                Items.ElementAt(index).Status = StepStatus.Process;
+                Template = BootstrapDynamicComponent.CreateComponent<Counter>().Render()
+            },
+            new StepOption()
+            {
+                Template = BootstrapDynamicComponent.CreateComponent<FetchData>().Render()
+            },
+            new StepOption()
+            {
+                Template = BootstrapDynamicComponent.CreateComponent<Counter>().Render()
             }
-        }
-        else
-        {
-            ResetStep();
-            Items.ElementAt(0).Status = StepStatus.Process;
-        }
+        };
     }
 
-    private void ResetStep()
+    private static void PrevStep(Step? step)
     {
-        Items.ToList().ForEach(i =>
-        {
-            i.Status = StepStatus.Wait;
-        });
+        step?.Prev();
     }
 
-    private Task OnStatusChanged(StepStatus status)
+    private static void NextStep(Step? step)
     {
-        Logger.Log($"Steps Status: {status}");
-        return Task.CompletedTask;
+        step?.Next();
+    }
+
+    private static void ResetStep(Step? step)
+    {
+        step?.Reset();
     }
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
@@ -66,61 +70,9 @@ public sealed partial class Steps
         {
             Name = "Items",
             Description = Localizer["StepsItems"],
-            Type = "IEnumerable<StepItem>",
+            Type = "List<StepOption>",
             ValueList = " — ",
             DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "IsVertical",
-            Description = Localizer["StepsIsVertical"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "IsCenter",
-            Description = Localizer["StepsIsCenter"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "Status",
-            Description = Localizer["StepsStatus"],
-            Type = "StepStatus",
-            ValueList = "Wait|Process|Finish|Error|Success",
-            DefaultValue = "Wait"
-        }
-    };
-
-    private IEnumerable<AttributeItem> GetStepItemAttributes() => new AttributeItem[]
-    {
-        new()
-        {
-            Name = "IsCenter",
-            Description = Localizer["StepsAttrIsCenter"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "IsIcon",
-            Description = Localizer["StepsAttrIsIcon"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = "IsLast",
-            Description = Localizer["StepsAttrIsLast"],
-            Type = "bool",
-            ValueList = "true|false",
-            DefaultValue = "false"
         },
         new()
         {
@@ -132,11 +84,23 @@ public sealed partial class Steps
         },
         new()
         {
-            Name = "Space",
-            Description = Localizer["StepsAttrSpace"],
+            Name = "IsVertical",
+            Description = Localizer["StepsIsVertical"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        }
+    };
+
+    private IEnumerable<AttributeItem> GetStepItemAttributes() => new AttributeItem[]
+    {
+        new()
+        {
+            Name = "Text",
+            Description = Localizer["StepsAttrText"],
             Type = "string",
             ValueList = " — ",
-            DefaultValue = "—"
+            DefaultValue = " — "
         },
         new()
         {
@@ -156,6 +120,14 @@ public sealed partial class Steps
         },
         new()
         {
+            Name = "FinishedIcon",
+            Description = Localizer["StepsAttrFinishedIcon"],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
             Name = "Description",
             Description = Localizer["StepsAttrDescription"],
             Type = "string",
@@ -164,29 +136,27 @@ public sealed partial class Steps
         },
         new()
         {
-            Name = "Status",
-            Description = Localizer["StepsAttrStatus"],
-            Type = "StepStatus",
-            ValueList = "Wait|Process|Finish|Error|Success",
-            DefaultValue = "Wait"
-        },
-        new()
-        {
-            Name = "Template",
-            Description = Localizer["StepsAttrTemplate"],
+            Name = "HeaderTemplate",
+            Description = Localizer["StepsAttrHeaderTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
-        }
-    };
-
-    private IEnumerable<EventItem> GetEvents() => new List<EventItem>()
-    {
+        },
         new()
         {
-            Name = "OnStatusChanged",
-            Description = Localizer["StepsEventOnStatusChanged"],
-            Type ="Func<StepStatus, Task>"
+            Name = "TitleTemplate",
+            Description = Localizer["StepsAttrTitleTemplate"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "ChildContent",
+            Description = Localizer["StepsAttrChildContent"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     };
 }

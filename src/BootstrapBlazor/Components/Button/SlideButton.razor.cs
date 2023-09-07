@@ -120,7 +120,7 @@ public partial class SlideButton
         .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
         .Build();
 
-    private string? SlideListClassString => CssBuilder.Default("slide-list d-none")
+    private string? SlideListClassString => CssBuilder.Default("slide-list invisible")
         .AddClass("is-horizontal", Placement.ToDescriptionString().StartsWith("left") || Placement.ToDescriptionString().StartsWith("right"))
         .Build();
 
@@ -175,10 +175,6 @@ public partial class SlideButton
     private async Task OnClickItem(SelectedItem item)
     {
         _selectedItem = item;
-        if (IsAutoClose)
-        {
-            await InvokeVoidAsync("close", Id);
-        }
         if (OnClick.HasDelegate)
         {
             await OnClick.InvokeAsync(item);

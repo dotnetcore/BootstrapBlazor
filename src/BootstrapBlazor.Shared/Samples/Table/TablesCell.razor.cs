@@ -44,7 +44,7 @@ public partial class TablesCell
 
     private async Task OnDoubleClickCellCallback(string columnName, object row, object value)
     {
-        var displayName = Utility.GetDisplayName(typeof(Foo), columnName);
+        var displayName = Utility.GetDisplayName<Foo>(columnName);
         await ToastService.Show(new ToastOption()
         {
             Title = Localizer["TableCellOnDoubleClickCellToastTitle"],

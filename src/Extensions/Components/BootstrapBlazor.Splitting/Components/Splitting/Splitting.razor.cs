@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.Localization;
+using Microsoft.AspNetCore.Components;
 
 namespace BootstrapBlazor.Components;
 
@@ -41,10 +41,6 @@ public partial class Splitting
     [Parameter]
     public Color Color { get; set; } = Color.Primary;
 
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Splitting>? Localizer { get; set; }
-
     private string? ClassString => CssBuilder.Default("splitting")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -61,7 +57,7 @@ public partial class Splitting
     {
         base.OnParametersSet();
 
-        Text ??= Localizer[nameof(Text)];
+        Text ??= "Loading";
     }
 
     /// <summary>

@@ -55,6 +55,9 @@
 @import "../../Components/Modal/Modal.razor.scss";
 @import "../../Components/Pagination/Pagination.razor.scss";
 @import "../../Components/Popover/Popover.razor.scss";
+@import "../../Components/QueryBuilder/QueryBuilder.razor.scss";
+@import "../../Components/Upload/UploadBase.razor.scss";
+@import "../../Components/ValidateForm/ValidateForm.razor.scss";
 @import "../../Components/Radio/RadioList.razor.scss";
 @import "../../Components/Rate/Rate.razor.scss";
 @import "../../Components/Reconnector/ReconnectorContent.razor.scss";
@@ -71,7 +74,7 @@
 @import "../../Components/Speech/SpeechWave.razor.scss";
 @import "../../Components/Spinner/Spinner.razor.scss";
 @import "../../Components/Split/Split.razor.scss";
-@import "../../Components/Step/Steps.razor.scss";
+@import "../../Components/Step/Step.razor.scss";
 @import "../../Components/SweetAlert/SweetAlert.razor.scss";
 @import "../../Components/Switch/Switch.razor.scss";
 @import "../../Components/Tab/Tab.razor.scss";
@@ -85,6 +88,3 @@
 @import "../../Components/Transfer/Transfer.razor.scss";
 @import "../../Components/Tree/Tree.razor.scss";
 @import "../../Components/TreeView/TreeView.razor.scss";
-@import "../../Components/Upload/UploadBase.razor.scss";
-@import "../../Components/ValidateForm/ValidateForm.razor.scss";
-@import "../../Components/Splitting/Splitting.razor.scss";

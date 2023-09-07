@@ -299,53 +299,38 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         {
             builder.Add(a => a.Value, new DateTimeRangeValue()
             {
-                Start = new DateTime(2022, 11, 1),
-                End = new DateTime(2022, 11, 14)
+                Start = new DateTime(2022, 11, 1, 0, 0, 0, DateTimeKind.Local),
+                End = new DateTime(2022, 11, 14, 0, 0, 0, DateTimeKind.Local)
             });
         });
 
         // 翻页下一月
-        cut.InvokeAsync(() =>
-        {
-            var next = cut.Find(".picker-panel-icon-btn.pick-panel-arrow-right");
-            next.Click();
-        });
+        var next = cut.Find(".picker-panel-icon-btn.pick-panel-arrow-right");
+        next.Click();
 
-        cut.InvokeAsync(() =>
-        {
-            // 选择开始时间
-            var cells = cut.FindAll(".date-table tbody .cell");
-            cells.ElementAt(7).Click();
-        });
+        // 选择开始时间
+        var cells = cut.FindAll(".date-table tbody .cell");
+        cells.ElementAt(7).Click();
 
-        cut.InvokeAsync(() =>
-        {
-            // 选择结束时间
-            var cells = cut.FindAll(".date-table tbody .cell");
-            cells.ElementAt(37).Click();
-        });
+        // 选择结束时间
+        cells = cut.FindAll(".date-table tbody .cell");
+        cells.ElementAt(37).Click();
 
-        cut.InvokeAsync(() =>
-        {
-            // 选择开始时间
-            var cells = cut.FindAll(".date-table tbody .cell");
-            cells.ElementAt(7).Click();
-        });
+        // 选择开始时间
+        cells = cut.FindAll(".date-table tbody .cell");
+        cells.ElementAt(7).Click();
 
-        cut.InvokeAsync(() =>
-        {
-            // 选择结束时间
-            var cells = cut.FindAll(".date-table tbody .cell");
-            cells.ElementAt(47).Click();
-        });
+        // 选择结束时间
+        cells = cut.FindAll(".date-table tbody .cell");
+        cells.ElementAt(47).Click();
 
         // 没有点击确定 Value 值不变
-        Assert.Equal(new DateTime(2022, 11, 1), cut.Instance.Value.Start);
-        Assert.Equal(new DateTime(2022, 11, 14), cut.Instance.Value.End);
+        Assert.Equal(new DateTime(2022, 11, 1, 0, 0, 0, DateTimeKind.Local), cut.Instance.Value.Start);
+        Assert.Equal(new DateTime(2022, 11, 14, 0, 0, 0, DateTimeKind.Local), cut.Instance.Value.End);
     }
 
     [Fact]
-    public async Task InValidateForm_Ok()
+    public void InValidateForm_Ok()
     {
         var foo = new Dummy
         {
@@ -361,28 +346,24 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, nameof(Dummy.Value), typeof(DateTimeRangeValue)));
             });
         });
-
         // ValidateForm 自动自动生成标签
         cut.Contains("class=\"form-label\"");
 
-        var validate = true;
         // 验证
-        await cut.InvokeAsync(() =>
-        {
-            validate = cut.Instance.Validate();
-        });
+        var validate = true;
+        cut.InvokeAsync(() => validate = cut.Instance.Validate());
         Assert.False(validate);
 
         var range = cut.FindComponent<DateTimeRange>();
         var clear = range.Find(".is-clear");
-        await cut.InvokeAsync(() => clear.Click());
+        clear.Click();
 
         range.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.IsDisabled, true);
             pb.Add(a => a.AllowNull, true);
         });
-        await cut.InvokeAsync(() => clear.Click());
+        clear.Click();
     }
 
     [Fact]

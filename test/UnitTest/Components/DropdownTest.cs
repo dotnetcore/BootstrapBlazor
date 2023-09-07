@@ -252,4 +252,17 @@ public class DropdownTest : BootstrapBlazorTestBase
         });
         cut.Contains("<div>test-items-template</div>");
     }
+
+    [Fact]
+    public void ButtonTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<Dropdown<string>>(pb =>
+        {
+            pb.Add(a => a.ButtonTemplate, new RenderFragment<SelectedItem?>(item => builder =>
+            {
+                builder.AddContent(0, new MarkupString("<span>test-button-template</span>"));
+            }));
+        });
+        cut.Contains("<span>test-button-template</span>");
+    }
 }

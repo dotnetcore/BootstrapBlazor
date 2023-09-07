@@ -116,9 +116,15 @@ internal static class MenusLocalizerExtensions
                     Text = Localizer["Live2DDisplayIntro"],
                     Url = "live2d-display"
                 },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["Splitting"],
+                    Url = "splitting"
+                },
             };
 
-            AddBadge(item, count: 2);
+            AddBadge(item, count: 3);
         }
 
         void AddSpeech(DemoMenuItem item)
@@ -260,6 +266,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Match = NavLinkMatch.All,
                     Text = Localizer["Checkbox"],
                     Url = "checkbox"
                 },
@@ -581,6 +588,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["MindMap"],
+                    Url = "mind-map"
+                },
+                new()
+                {
                     Text = Localizer["PdfReader"],
                     Url = "pdf-reader"
                 },
@@ -588,6 +601,12 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Print"],
                     Url = "print"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["QueryBuilder"],
+                    Url = "query-builder"
                 },
                 new()
                 {
@@ -658,6 +677,12 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["VideoPlayer"],
                     Url = "video-player"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["WebSerial"],
+                    Url = "web-serial"
                 }
             };
             AddBadge(item);
@@ -1033,12 +1058,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Spinner"],
                     Url = "spinner"
-                },
-                new()
-                {
-                    IsNew = true,
-                    Text = Localizer["Splitting"],
-                    Url = "splitting"
                 },
                 new()
                 {

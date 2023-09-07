@@ -27,10 +27,9 @@
         z-index: 5;
         display: flex;
         flex-direction: column;
-        transition: width .3s ease-in-out, height .3s ease-in-out;
 
         &:not(.is-horizontal) {
-            height: 0;
+            height: var(--bb-slide-list-height-collapsed);
             width: var(--bb-slide-list-width);
 
             &.show {
@@ -40,7 +39,7 @@
 
         &.is-horizontal {
             height: var(--bb-slide-list-height);
-            width: 0;
+            width: var(--bb-slide-list-width-collapsed);
 
             &.show {
                 width: var(--bb-slide-list-width);
@@ -61,7 +60,6 @@
 
         .slide-body {
             padding: var(--bb-slide-item-body-padding);
-            overflow: auto;
             border-radius: var(--bs-border-radius);
             border: var(--bb-slide-list-border);
         }

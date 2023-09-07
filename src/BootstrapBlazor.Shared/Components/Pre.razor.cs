@@ -181,7 +181,7 @@ public partial class Pre
         return content.TrimEnd('\n');
     }
 
-    [GeneratedRegex("<section ignore>[\\s\\S]*?</section>")]
+    [GeneratedRegex("<section ignore[ \\s\\S]*?>[\\s\\S]*?</section>")]
     private static partial Regex IgnoreRegex();
 
     [GeneratedRegex("<ConsoleLogger [\\s\\S]* />")]

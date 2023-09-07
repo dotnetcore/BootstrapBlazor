@@ -42,11 +42,14 @@
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="7.0.1" />
     <PackageReference Include="BootstrapBlazor.PdfReader" Version="7.2.0" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="7.0.3" />
+    <PackageReference Include="BootstrapBlazor.Splitting" Version="7.0.0" />
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="7.3.4" />
     <PackageReference Include="BootstrapBlazor.TableExport" Version="7.5.0" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="7.4.5" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="7.0.4" />
     <PackageReference Include="BootstrapBlazor.MouseFollower" Version="7.0.0" />
+    <PackageReference Include="BootstrapBlazor.WebAPI" Version="7.3.6" />
+    <PackageReference Include="BootstrapBlazor.MindMap" Version="7.0.1" />
   </ItemGroup>
 
   <ItemGroup>

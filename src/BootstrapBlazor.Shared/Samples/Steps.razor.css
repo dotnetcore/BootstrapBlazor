@@ -1,0 +1,11 @@
+﻿.step-demo ::deep .step {
+    background-color: #f8f9fa;
+    padding: 0 1rem;
+    border-radius: var(--bs-border-radius);
+    border: 1px solid #ddd;
+    --step-item-color: #ccc;
+}
+
+.step-demo .fa-chevron-right {
+    font-size: 1rem;
+}
