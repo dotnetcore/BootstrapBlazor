@@ -169,6 +169,7 @@ public class MenuTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsAccordion, true);
         });
+        cut.WaitForState(() => cut.Markup.Contains("accordion"));
         Assert.Contains("accordion", cut.Markup);
     }
 
