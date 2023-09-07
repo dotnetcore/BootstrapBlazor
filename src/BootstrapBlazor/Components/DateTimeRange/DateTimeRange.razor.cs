@@ -36,11 +36,11 @@ public partial class DateTimeRange
 
     private DateTime StartValue { get; set; }
 
-    private string? StartValueString => (Value == null || Value.Start == DateTime.MinValue) ? null : Value.Start.ToString(DateFormat);
+    private string? StartValueString => (Value.Start.HasValue && Value.Start.Value != DateTime.MinValue) ? Value.Start.Value.ToString(DateFormat) : null;
 
     private DateTime EndValue { get; set; }
 
-    private string? EndValueString => (Value == null || Value.End == DateTime.MinValue) ? null : Value.End.ToString(DateFormat);
+    private string? EndValueString => (Value.End.HasValue && Value.End.Value != DateTime.MinValue) ? Value.End.Value.ToString(DateFormat) : null;
 
     [NotNull]
     private string? StartPlaceHolderText { get; set; }
@@ -162,8 +162,8 @@ public partial class DateTimeRange
 
         Value ??= new DateTimeRangeValue();
 
-        StartValue = Value.Start;
-        EndValue = Value.End;
+        StartValue = Value.Start ?? DateTime.MinValue;
+        EndValue = Value.End ?? DateTime.MinValue;
 
         if (StartValue == DateTime.MinValue) StartValue = DateTime.Today;
         if (EndValue == DateTime.MinValue) EndValue = StartValue.AddMonths(1);
@@ -228,8 +228,8 @@ public partial class DateTimeRange
     {
         SelectedValue.Start = item.StartDateTime;
         SelectedValue.End = item.EndDateTime;
-        StartValue = SelectedValue.Start;
-        EndValue = SelectedValue.End;
+        StartValue = item.StartDateTime;
+        EndValue = item.EndDateTime;
 
         if (AutoCloseClickSideBar)
         {
@@ -281,9 +281,9 @@ public partial class DateTimeRange
     /// </summary>
     private async Task ClickConfirmButton()
     {
-        if (SelectedValue.End == DateTime.MinValue)
+        if (SelectedValue.End == null || SelectedValue.End.Value == DateTime.MinValue)
         {
-            if (SelectedValue.Start < DateTime.Today)
+            if (SelectedValue.Start.HasValue && SelectedValue.Start < DateTime.Today)
             {
                 SelectedValue.End = DateTime.Today;
             }
@@ -294,7 +294,11 @@ public partial class DateTimeRange
             }
         }
         Value.Start = SelectedValue.Start;
-        Value.End = SelectedValue.End.Date.AddDays(1).AddSeconds(-1);
+        Value.End = SelectedValue.End;
+        if (Value.End.HasValue)
+        {
+            Value.End = Value.End.Value.Date.AddDays(1).AddSeconds(-1);
+        }
 
         if (ValueChanged.HasDelegate)
         {

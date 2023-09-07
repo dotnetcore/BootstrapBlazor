@@ -12,7 +12,7 @@ public class DateTimeRangeRequiredValidator : RequiredValidator
     /// <inheritdoc/>
     public override void Validate(object? propertyValue, ValidationContext context, List<ValidationResult> results)
     {
-        if (propertyValue is DateTimeRangeValue d && (d.Start == DateTime.MinValue || d.End == DateTime.MinValue))
+        if (propertyValue is DateTimeRangeValue d && (CheckStart() || CheckEnd()))
         {
             propertyValue = null;
         }
@@ -22,5 +22,9 @@ public class DateTimeRangeRequiredValidator : RequiredValidator
         {
             results.Add(new ValidationResult(errorMessage, memberNames));
         }
+
+        bool CheckStart() => d.Start == null || d.Start.Value == DateTime.MinValue;
+
+        bool CheckEnd() => d.End == null || d.End == DateTime.MinValue;
     }
 }
