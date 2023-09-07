@@ -24,8 +24,9 @@ public partial class WebSerials
     [DisplayName("波特率")]
     private int SelectedBaudRate { get; set; } = 115200;
     private bool Flag { get; set; }
-    private WebSerial? WebSerial { get; set; }
 
+    [NotNull]
+    private WebSerial? WebSerial { get; set; }
 
     private Task OnReceive(string? message)
     {
@@ -179,7 +180,7 @@ public partial class WebSerials
             Type = "WebSerialParityType",
             ValueList = "none|hardware",
             DefaultValue = "none"
-        }, 
+        },
     };
 
 }

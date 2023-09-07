@@ -31,11 +31,10 @@
                 <WebSerial @ref="WebSerial" OnReceive="@OnReceive" OnLog="@OnLog" OnError="@OnError" Options="@options" Debug ShowUI="false" />
             </div>
 
-            <div @ref="WebSerial.Element">
+            <div>
                 <Button data-action="butConnect" Text="@Localizer["ConnectButtonText"]" />
                 <input type="text" data-action="fname" />
                 <Button data-action='butwrite' Text="@Localizer["WriteButtonText"]" />
-
             </div>
             <pre data-action="log"></pre>
 
