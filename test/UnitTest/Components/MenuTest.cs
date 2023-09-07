@@ -145,7 +145,7 @@ public class MenuTest : BootstrapBlazorTestBase
         // 无 Active 菜单 触发点击事件
         // 子菜单 Click 触发
         var menuItems = cut.Find("li");
-        menuItems.Click(new MouseEventArgs());
+        menuItems.Click();
     }
 
     [Fact]
@@ -322,11 +322,13 @@ public class MenuTest : BootstrapBlazorTestBase
 
         // 子菜单 Click 触发
         var div = cut.Find(".nav-item");
-        div.Click(new MouseEventArgs());
+        div.Click();
+        cut.WaitForAssertion(() => div.ClassList.Contains("active"));
 
         // 查找第一个 li 节点
-        var menuItems = cut.Find("li");
-        menuItems.Click(new MouseEventArgs());
+        var li = cut.Find("li");
+        li.Click();
+        cut.WaitForAssertion(() => li.ClassList.Contains("active"));
 
         cut.SetParametersAndRender(pb =>
         {
@@ -337,17 +339,17 @@ public class MenuTest : BootstrapBlazorTestBase
             });
         });
 
-        menuItems = cut.Find("li");
-        menuItems.Click(new MouseEventArgs());
-        Assert.True(clicked);
+        li = cut.Find("li");
+        li.Click();
+        cut.WaitForAssertion(() => Assert.True(clicked));
 
         // SubMenu Click
         var sub = cut.Find(".sub-menu div.nav-item");
-        sub.Click(new MouseEventArgs());
+        sub.Click();
 
         var subs = cut.FindAll(".sub-menu div.nav-item");
         sub = subs[subs.Count - 1];
-        sub.Click(new MouseEventArgs());
+        sub.Click();
 
         // 设置禁止导航 
         // 顶栏模式
@@ -356,13 +358,13 @@ public class MenuTest : BootstrapBlazorTestBase
             pb.Add(m => m.DisableNavigation, true);
         });
 
-        menuItems = cut.Find("li");
-        menuItems.Click(new MouseEventArgs());
-        Assert.True(clicked);
+        li = cut.Find("li");
+        li.Click();
+        cut.WaitForAssertion(() => Assert.True(clicked));
 
         // 再次点击
-        menuItems = cut.Find("li");
-        menuItems.Click(new MouseEventArgs());
+        li = cut.Find("li");
+        li.Click();
 
         // 侧边栏模式
         cut.SetParametersAndRender(pb =>
@@ -372,13 +374,14 @@ public class MenuTest : BootstrapBlazorTestBase
         });
 
         // 再次点击
-        menuItems = cut.Find("li");
-        menuItems.Click(new MouseEventArgs());
-        Assert.True(clicked);
+        li = cut.Find("li");
+        li.Click();
+        cut.WaitForAssertion(() => Assert.True(clicked));
 
         // 再次点击
-        menuItems = cut.Find("li");
-        menuItems.Click(new MouseEventArgs());
+        li = cut.Find("li");
+        li.Click();
+        cut.WaitForAssertion(() => li.ClassList.Contains("active"));
     }
 
     [Fact]
@@ -411,8 +414,7 @@ public class MenuTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsVertical, true);
         });
-        cut.WaitForState(() => cut.Markup.Contains("data-bb-scroll-view"));
-        cut.Contains("data-bb-scroll-view");
+        cut.WaitForAssertion(() => cut.Contains("data-bb-scroll-view"));
     }
 
     [Fact]
