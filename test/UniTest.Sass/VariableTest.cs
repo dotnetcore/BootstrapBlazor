@@ -31,6 +31,7 @@ public partial class VariableTest
         Assert.NotEmpty(variables);
 
         var regex = VariableRegex();
+        var mixRegex = MixVariableRegex();
         var noMatches = new List<string>();
         foreach (var scss in Directory.EnumerateFiles(sassFilePath, "*.razor.scss", SearchOption.AllDirectories))
         {
@@ -46,6 +47,9 @@ public partial class VariableTest
                 var item = fs.ReadLine();
                 if (!string.IsNullOrEmpty(item))
                 {
+                    // 兼容 @mixin
+                    CheckMixVariable(item);
+
                     // #{$alert-icon-margin-right}
                     var matches = regex.Matches(item);
                     if (matches.Any())
@@ -55,6 +59,24 @@ public partial class VariableTest
                 }
             }
             fs.Close();
+
+
+            void CheckMixVariable(string item)
+            {
+                // @mixin cell-margin($direction)
+                var matches = mixRegex.Matches(item);
+                if (item.Contains("@mixin "))
+                {
+                    if (matches.Any())
+                    {
+                        var v = matches[0].Groups[1].Value;
+                        if (!variables.Contains(v))
+                        {
+                            variables.Add(v);
+                        }
+                    }
+                }
+            }
         }
 
         List<string> CreateVariableTable()
@@ -66,7 +88,7 @@ public partial class VariableTest
                 var item = fs.ReadLine();
                 if (item != null && item.Contains(':'))
                 {
-                    var variable = item.Split(':').First();
+                    var variable = item.Split(':')[0];
                     if (variable.StartsWith('$'))
                     {
                         ret.Add(variable);
@@ -80,4 +102,7 @@ public partial class VariableTest
 
     [GeneratedRegex("#\\{(\\$[a-zA-Z\\-]+)\\}")]
     private static partial Regex VariableRegex();
+
+    [GeneratedRegex("\\@mixin \\S+\\((\\$[a-zA-Z\\-]+)\\) \\{")]
+    private static partial Regex MixVariableRegex();
 }
