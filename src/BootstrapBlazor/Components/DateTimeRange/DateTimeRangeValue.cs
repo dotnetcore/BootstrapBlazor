@@ -12,12 +12,12 @@ public class DateTimeRangeValue
     /// <summary>
     /// 获得/设置 开始时间
     /// </summary>
-    public DateTime Start { get; set; }
+    public DateTime? Start { get; set; }
 
     /// <summary>
     /// 获得/设置 结束时间
     /// </summary>
-    public DateTime End { get; set; }
+    public DateTime? End { get; set; }
 
     /// <summary>
     /// ToString 方法
@@ -26,13 +26,13 @@ public class DateTimeRangeValue
     public override string ToString()
     {
         var ret = "";
-        if (Start != DateTime.MinValue)
+        if (Start.HasValue && Start.Value != DateTime.MinValue)
         {
-            ret = Start.ToString();
+            ret = Start.Value.ToString();
         }
-        if (End != DateTime.MinValue)
+        if (End.HasValue && End.Value != DateTime.MinValue)
         {
-            ret = $"{ret} - {End}";
+            ret = $"{ret} - {End.Value}";
         }
         return ret;
     }

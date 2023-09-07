@@ -496,6 +496,7 @@ public class UploadTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.ShowUploadFileList, false);
         });
+        cut.WaitForState(() => !cut.Markup.Contains("upload-body is-list"));
         cut.DoesNotContain("upload-body is-list");
     }
 
