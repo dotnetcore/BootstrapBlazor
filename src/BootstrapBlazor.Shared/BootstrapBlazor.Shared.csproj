@@ -48,7 +48,7 @@
     <PackageReference Include="BootstrapBlazor.Topology" Version="7.4.5" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="7.0.4" />
     <PackageReference Include="BootstrapBlazor.MouseFollower" Version="7.0.0" />
-    <PackageReference Include="BootstrapBlazor.WebAPI" Version="7.2.6" />
+    <PackageReference Include="BootstrapBlazor.WebAPI" Version="7.4.0" />
     <PackageReference Include="BootstrapBlazor.MindMap" Version="7.0.1" />
   </ItemGroup>
 

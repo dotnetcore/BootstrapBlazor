@@ -187,7 +187,8 @@
     "table/tracking": "Table\\TablesTracking",
     "table/tree": "Table\\TablesTree",
     "table/virtualization": "Table\\TablesVirtualization",
-    "table/wrap": "Table\\TablesWrap"
+    "table/wrap": "Table\\TablesWrap",
+    "web-speech": "WebSpeechs"
   },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",

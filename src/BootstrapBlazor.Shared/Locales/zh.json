@@ -1630,7 +1630,8 @@
     "VideoPlayerText": "视频播放器 VideoPlayer",
     "FileViewerText": "文件预览器 FileViewer",
     "WebSerialText": "串口读写 WebSerial",
-    "MindMapText": "思维导图 Mind Map"
+    "MindMapText": "思维导图 Mind Map",
+    "WebSpeechText": "语音识别/合成 WebSpeech"
   },
   "BootstrapBlazor.Shared.Pages.Breakpoints": {
     "Heading": "断点",
@@ -4510,7 +4511,8 @@
     "Splitting": "动画组件 Splitting",
     "QueryBuilder": "条件生成器 QueryBuilder",
     "WebSerial": "串口读写 WebSerial",
-    "MindMap": "思维导图 MindMap"
+    "MindMap": "思维导图 MindMap",
+    "WebSpeech": "语音识别/合成 WebSpeech"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -5854,5 +5856,13 @@
     "NodeNoteText": "备注内容",
     "NodeGeneralizationText": "概要",
     "NodeExpandText": "节点是否展开"
+  },
+  "BootstrapBlazor.Shared.Samples.WebSpeechs": {
+    "WebSpeechTitle": "Web Speech 语音识别/合成",
+    "WebSpeechDescription": "使用浏览器接口功能提供语音识别/合成服务",
+    "WebSpeechNormalTitle": "语音识别",
+    "WebSpeechGameTitle": "语音颜色选择游戏",
+    "WebSpeechSynthesisTitle": "语音合成",
+    "WebSpeechSynthesisDIYTitle": "语音合成自定义"
   }
 }

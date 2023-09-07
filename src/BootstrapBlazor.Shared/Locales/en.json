@@ -1630,7 +1630,8 @@
     "VideoPlayerText": "VideoPlayer",
     "FileViewerText": "FileViewer",
     "WebSerialText": "WebSerial",
-    "MindMapText": "MindMap"
+    "MindMapText": "MindMap",
+    "WebSpeechText": "WebSpeech"
   },
   "BootstrapBlazor.Shared.Pages.Breakpoints": {
     "Heading": "Breakpoints",
@@ -4510,7 +4511,8 @@
     "Splitting": "Splitting",
     "QueryBuilder": "QueryBuilder",
     "WebSerial": "Web Serial",
-    "MindMap": "Mind Map"
+    "MindMap": "Mind Map",
+    "WebSpeech": "Web Speech"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -5854,5 +5856,13 @@
     "NodeNoteText": "Note Content",
     "NodeGeneralizationText": "Generalization",
     "NodeExpandText": "Node is expanded"
+  },
+  "BootstrapBlazor.Shared.Samples.WebSpeechs": {
+    "WebSpeechTitle": "Web Speech",
+    "WebSpeechDescription": "Voice recognition and synthesis",
+    "WebSpeechNormalTitle": "Voice recognition",
+    "WebSpeechGameTitle": "Voice color selection game",
+    "WebSpeechSynthesisTitle": "Voice synthesis",
+    "WebSpeechSynthesisDIYTitle": "Voice synthesis custom"
   }
 }
