@@ -411,6 +411,7 @@ public class MenuTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsVertical, true);
         });
+        cut.WaitForState(() => cut.Markup.Contains("data-bb-scroll-view"));
         cut.Contains("data-bb-scroll-view");
     }
 
