@@ -127,6 +127,7 @@ public class LayoutTest : BootstrapBlazorTestBase
         Assert.Contains("300px", cut.Markup);
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.SideWidth, "10%"));
+        cut.WaitForState(() => cut.Markup.Contains("10%"));
         Assert.Contains("10%", cut.Markup);
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.SideWidth, ""));
