@@ -2,6 +2,11 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Bunit;
+using Microsoft.JSInterop;
+using System.IO;
+using UnitTest.Mock;
+
 namespace UnitTest.Components;
 
 public class CameraTest : BootstrapBlazorTestBase
@@ -9,18 +14,18 @@ public class CameraTest : BootstrapBlazorTestBase
     [Fact]
     public void InitDevices_Ok()
     {
-        var count = 0;
+        List<DeviceItem> items = new();
         var cut = Context.RenderComponent<Camera>(pb =>
         {
             pb.Add(a => a.OnInit, devices =>
             {
-                count = devices.Count;
+                items = devices;
                 return Task.CompletedTask;
             });
             pb.Add(a => a.AutoStart, true);
         });
         cut.InvokeAsync(() => cut.Instance.TriggerInit(new List<DeviceItem>()));
-        Assert.Equal(0, count);
+        Assert.Empty(items);
 
         cut.InvokeAsync(() => cut.Instance.TriggerInit(new List<DeviceItem>
         {
@@ -31,10 +36,12 @@ public class CameraTest : BootstrapBlazorTestBase
             },
             new DeviceItem()
             {
-                DeviceId = "1"
+                DeviceId = "2"
             }
         }));
-        Assert.Equal(2, count);
+        Assert.Equal("1", items[0].DeviceId);
+        Assert.Equal("Device 1", items[0].Label);
+        Assert.Equal(string.Empty, items[1].Label);
     }
 
     [Fact]
@@ -54,7 +61,7 @@ public class CameraTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Start_Ok()
+    public void TriggerOpen_Ok()
     {
         var start = false;
         var cut = Context.RenderComponent<Camera>(pb =>
@@ -70,7 +77,7 @@ public class CameraTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Stop_Ok()
+    public void TriggerClose_Ok()
     {
         var stop = false;
         var cut = Context.RenderComponent<Camera>(pb =>
@@ -86,15 +93,55 @@ public class CameraTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Open_Ok()
+    {
+        var cut = Context.RenderComponent<Camera>();
+        var handler = Context.JSInterop.SetupVoid("open", cut.Instance.Id);
+        cut.InvokeAsync(() => cut.Instance.Open());
+        handler.VerifyInvoke("open");
+    }
+
+
+    [Fact]
+    public void Close_Ok()
+    {
+        var cut = Context.RenderComponent<Camera>();
+        var handler = Context.JSInterop.SetupVoid("close", cut.Instance.Id);
+        cut.InvokeAsync(() => cut.Instance.Close());
+        handler.VerifyInvoke("close");
+    }
+
+    [Fact]
     public void Capture_Ok()
     {
         Stream? stream = null;
         var cut = Context.RenderComponent<Camera>();
+        Context.JSInterop.Setup<IJSStreamReference>("capture", cut.Instance.Id).SetResult(new MockJSStreamReference());
         cut.InvokeAsync(async () =>
         {
             stream = await cut.Instance.Capture();
         });
-        Assert.Null(stream);
+        Assert.NotNull(stream);
+        Assert.Equal(4, stream.Length);
+    }
+
+    [Fact]
+    public void Save_Ok()
+    {
+        var cut = Context.RenderComponent<Camera>();
+        var handler = Context.JSInterop.SetupVoid("download", cut.Instance.Id, "test.png");
+        cut.InvokeAsync(() => cut.Instance.SaveAndDownload("test.png"));
+        handler.VerifyInvoke("download");
+    }
+
+    [Fact]
+    public void DeviceId_Ok()
+    {
+        var cut = Context.RenderComponent<Camera>(pb =>
+        {
+            pb.Add(a => a.DeviceId, "test_id");
+        });
+        cut.Contains("data-device-id=\"test_id\"");
     }
 
     [Fact]
