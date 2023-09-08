@@ -92,7 +92,7 @@ public sealed partial class Cameras
         return Task.CompletedTask;
     }
 
-    private async Task OnOpen()
+    private async Task OnClickOpen()
     {
         await Camera.Open();
         PlayDisabled = true;
@@ -100,7 +100,7 @@ public sealed partial class Cameras
         CaptureDisabled = false;
     }
 
-    private async Task OnClose1()
+    private async Task OnClickClose()
     {
         await Camera.Close();
         PlayDisabled = false;
@@ -117,7 +117,7 @@ public sealed partial class Cameras
         return Task.CompletedTask;
     }
 
-    private Task OnStart()
+    private Task OnOpen()
     {
         ImageUrl = null;
         Logger.Log(TraceOnStar);

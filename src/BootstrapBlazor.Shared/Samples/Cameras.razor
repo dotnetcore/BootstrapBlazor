@@ -20,7 +20,7 @@
             <li>@Localizer["BasicUsageLi3"]</li>
         </ul>
     </section>
-    <Camera @ref="Camera" OnInit="@OnInit" OnStart="@OnStart" OnClose="@OnClose" OnError="@OnError" OnCapture="@OnCapture" DeviceId="@DeviceId" />
+    <Camera @ref="Camera" OnInit="@OnInit" OnOpen="@OnOpen" OnClose="@OnClose" OnError="@OnError" OnCapture="@OnCapture" DeviceId="@DeviceId" />
     <section ignore>
         <Select Items="@Devices" @bind-Value="@DeviceId" DisplayText="@DeviceLabel" ShowLabel="true" PlaceHolder="@PlaceHolderString"></Select>
         @if (ImageUrl != null)
@@ -28,8 +28,8 @@
             <img src="@ImageUrl" class="mt-3" />
         }
         <div class="btn-group mt-3">
-            <Button Text="@PlayText" Color="Color.Success" Icon="fa-solid fa-play" IsDisabled="PlayDisabled" OnClick="OnOpen"></Button>
-            <Button Text="@StopText" Color="Color.Danger" Icon="fa-solid fa-stop" IsDisabled="StopDisabled" OnClick="OnClose1"></Button>
+            <Button Text="@PlayText" Color="Color.Success" Icon="fa-solid fa-play" IsDisabled="PlayDisabled" OnClick="OnClickOpen"></Button>
+            <Button Text="@StopText" Color="Color.Danger" Icon="fa-solid fa-stop" IsDisabled="StopDisabled" OnClick="OnClickClose"></Button>
             <Button Text="@CaptureText" Color="Color.Info" Icon="fa-solid fa-camera" IsDisabled="CaptureDisabled"></Button>
         </div>
         <ConsoleLogger @ref="Logger" class="mt-3" />
