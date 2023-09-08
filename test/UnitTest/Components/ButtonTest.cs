@@ -235,6 +235,7 @@ public class ButtonTest : BootstrapBlazorTestBase
         {
             pb.Add(b => b.StopPropagation, true);
         });
+        cut.Contains("blazor:onclick:stopPropagation");
     }
 
     [Fact]
@@ -285,17 +286,23 @@ public class ButtonTest : BootstrapBlazorTestBase
                 pb.Add(t => t.Title, "popover-title");
             });
         });
+        cut.Contains("data-bs-original-title=\"popover-title\" data-bs-toggle=\"popover\" data-bs-placement=\"top\" data-bs-custom-class=\"shadow\" data-bs-trigger=\"focus hover\"");
 
         // 切换 Disabled 状态移除 Popover
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(b => b.IsDisabled, true);
         });
+        var button = cut.Find("button");
+        var d = button.GetAttribute("disabled");
+        Assert.Equal("disabled", d);
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(b => b.IsDisabled, false);
         });
+        button = cut.Find("button");
+        Assert.False(button.HasAttribute("disabled"));
     }
 
     [Fact]
@@ -332,10 +339,12 @@ public class ButtonTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task ShowTooltip_Ok()
+    public void ShowTooltip_Ok()
     {
         var cut = Context.RenderComponent<Button>();
-        await cut.InvokeAsync(() => cut.Instance.ShowTooltip());
+        cut.InvokeAsync(() => cut.Instance.ShowTooltip());
+        var button = cut.Find("button");
+        Assert.Equal(button.GetAttribute("id"), Context.JSInterop.VerifyInvoke("showTooltip").Arguments[0]);
 
         cut.SetParametersAndRender(pb =>
         {
@@ -357,10 +366,13 @@ public class ButtonTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task RemoveTooltip_Ok()
+    public void RemoveTooltip_Ok()
     {
         var cut = Context.RenderComponent<Button>();
-        await cut.InvokeAsync(() => cut.Instance.RemoveTooltip());
+        cut.InvokeAsync(() => cut.Instance.RemoveTooltip());
+
+        var button = cut.Find("button");
+        Assert.Equal(button.GetAttribute("id"), Context.JSInterop.VerifyInvoke("removeTooltip").Arguments[0]);
     }
 
     [Fact]
@@ -370,6 +382,9 @@ public class ButtonTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsAutoFocus, true);
         });
+
+        var button = cut.Find("button");
+        Context.JSInterop.VerifyFocusAsyncInvoke().Arguments[0].ShouldBeElementReferenceTo(button);
     }
 
     [Fact]
