@@ -137,7 +137,9 @@ public partial class Camera
     public async Task<Stream?> Capture()
     {
         Stream? ret = null;
-#if NET6_0_OR_GREATER
+#if NET5_0
+        await Task.Delay(10);
+#elif NET6_0_OR_GREATER
         var streamRef = await InvokeAsync<IJSStreamReference>("capture", Id);
         if (streamRef != null)
         {

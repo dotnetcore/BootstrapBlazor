@@ -91,7 +91,7 @@ export function close(id) {
         camera.invoke.invokeMethodAsync("TriggerClose")
     }
 }
-export async function capture (id) {
+export function capture(id) {
     const camera = Data.get(id)
     if (camera === null || camera.video === void 0) {
         return
@@ -101,7 +101,7 @@ export async function capture (id) {
     return new Blob([url])
 }
 
-export async function download(id, fileName) {
+export function download(id, fileName) {
     const camera = Data.get(id)
     if (camera === null || camera.video === void 0) {
         return
@@ -128,7 +128,7 @@ export function dispose(id) {
 const drawImage = camera => {
     const quality = camera.el.getAttribute("data-capture-quality") || 0.9;
     const captureJpeg = camera.el.getAttribute("data-capture-jpeg") || false;
-    const {videoWidth, videoHeight} = camera.video
+    const { videoWidth, videoHeight } = camera.video
     const canvas = camera.el.querySelector('canvas')
     canvas.width = videoWidth
     canvas.height = videoHeight
