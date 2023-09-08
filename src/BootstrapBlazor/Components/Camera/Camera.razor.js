@@ -1,19 +1,11 @@
 ﻿import Data from "../../modules/data.js?v=$version"
 
-const stop = camera => {
-    camera.video.pause()
-    camera.video.srcObject = null
-    if (camera.video.mediaStreamTrack) {
-        camera.video.mediaStreamTrack.stop()
-    }
-    delete camera.video
-}
-
 const play = camera => {
     const constrains = {
         video: {
-            width: camera.video.videoWidth,
-            height: camera.video.videoHeight
+            width: { ideal: camera.video.videoWidth },
+            height: { ideal: camera.video.videoHeight },
+            facingMode: "environment"
         },
         audio: false
     }
@@ -21,14 +13,23 @@ const play = camera => {
         constrains.video.deviceId = { exact: camera.video.deviceId }
     }
     navigator.mediaDevices.getUserMedia(constrains).then(stream => {
-        camera.video = camera.el.querySelector('video')
-        camera.video.srcObject = stream
-        camera.video.play()
-        camera.video.mediaStreamTrack = stream.getTracks()[0]
+        camera.video.element = camera.el.querySelector('video')
+        camera.video.element.srcObject = stream
+        camera.video.element.play()
+        camera.video.track = stream.getVideoTracks()[0]
         camera.invoke.invokeMethodAsync("TriggerOpen")
     }).catch(err => {
         camera.invoke.invokeMethodAsync("TriggerError", err.message)
     })
+}
+
+const stop = camera => {
+    camera.video.element.pause()
+    camera.video.element.srcObject = null
+    if (camera.video.track) {
+        camera.video.track.stop()
+    }
+    delete camera.video
 }
 
 export function init(id, invoke) {
@@ -71,8 +72,8 @@ export function open(id) {
 
     const deviceId = camera.el.getAttribute("data-device-id")
     if (deviceId) {
-        const videoWidth = camera.el.getAttribute("data-video-width")
-        const videoHeight = camera.el.getAttribute("data-video-height")
+        const videoWidth = parseInt(camera.el.getAttribute("data-video-width"))
+        const videoHeight = parseInt(camera.el.getAttribute("data-video-height"))
         camera.video = {
             deviceId, videoWidth, videoHeight
         }
@@ -133,7 +134,7 @@ const drawImage = camera => {
     canvas.width = videoWidth
     canvas.height = videoHeight
     const context = canvas.getContext('2d')
-    context.drawImage(camera.video, 0, 0, videoWidth, videoHeight)
+    context.drawImage(camera.video.element, 0, 0, videoWidth, videoHeight)
     let url = "";
     if (captureJpeg) {
         url = canvas.toDataURL("image/jpeg", quality);
