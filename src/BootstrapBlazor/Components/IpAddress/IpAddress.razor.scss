@@ -1,15 +1,15 @@
-﻿.ipaddress {
+.ipaddress {
     display: flex;
     flex-wrap: nowrap;
-}
 
-    .ipaddress.disabled {
+    &.disabled {
         background-color: #efefef;
         cursor: not-allowed;
     }
 
-    .ipaddress .ipv4-cell {
+    .ipv4-cell {
         border: none;
         max-width: 30px;
         text-align: right;
     }
+}

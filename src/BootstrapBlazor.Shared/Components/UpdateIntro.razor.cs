@@ -25,5 +25,12 @@ public partial class UpdateIntro
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override Task InvokeInitAsync() =>  InvokeVoidAsync("init", Id, PackageVersionService.Version);
+    protected override async Task InvokeInitAsync()
+    {
+#if DEBUG
+        await InvokeVoidAsync("init", "");
+#else
+        await InvokeVoidAsync("init", Id, PackageVersionService.Version);
+#endif
+    }
 }

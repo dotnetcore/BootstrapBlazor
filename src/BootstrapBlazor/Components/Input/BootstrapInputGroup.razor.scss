@@ -1,23 +1,22 @@
-.input-group > .datetime-picker,
-.input-group > .select,
-.input-group > .auto-complete {
-    width: 1%;
-    flex: 1 1 auto;
-    min-width: 0;
+@mixin direction($var,$child) {
+    > .datetime-picker:not(:#{$child}-child) .form-control,
+    > .select:not(:#{$child}-child) .form-control,
+    > .multi-select:not(:#{$child}-child) .dropdown-toggle,
+    > .auto-complete:not(:#{$child}-child) .form-control {
+        border-top-#{$var}-radius: 0;
+        border-bottom-#{$var}-radius: 0;
+    }
 }
 
-.input-group > .datetime-picker:not(:first-child) .form-control,
-.input-group > .select:not(:first-child) .form-control,
-.input-group > .multi-select:not(:first-child) .dropdown-toggle,
-.input-group > .auto-complete:not(:first-child) .form-control {
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-}
+.input-group {
+    > .datetime-picker,
+    > .select,
+    > .auto-complete {
+        width: 1%;
+        flex: 1 1 auto;
+        min-width: 0;
+    }
 
-.input-group > .datetime-picker:not(:last-child) .form-control,
-.input-group > .select:not(:last-child) .form-control,
-.input-group > .multi-select:not(:last-child) .dropdown-toggle,
-.input-group > .auto-complete:not(:last-child) .form-control {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
+    @include direction(right,last);
+    @include direction(left,first)
 }

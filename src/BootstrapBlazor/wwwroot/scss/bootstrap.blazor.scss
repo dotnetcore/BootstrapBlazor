@@ -1,3 +1,4 @@
+// Alert
 $alert-bar-width: 4px !default;
 $alert-icon-margin-right: .5rem !default;
 
@@ -129,5 +130,20 @@ $divider-text-padding: 0 20px;
 // Footer
 $footer-bg: var(--bs-secondary);
 $footer-padding: .5rem 1rem;
+
+// Step
+$step-border-width: 2px;
+$step-border: var(--step-border-width) solid;
+$step-item-color: var(--bs-secondary);
+$step-item-header-height: 36px;
+$step-item-text-height: 24px;
+$step-item-text-width: 24px;
+$step-item-line-height: 2px;
+$step-item-line-bg: var(--bs-secondary);
+$step-item-line-transition: width .3s ease-in-out;
+$step-item-line-vertical-transition: height .3s ease-in-out;
+$step-item-line-width: 0;
+$step-item-line-progress-bg: var(--bs-success);
+$step-vertical-min-height: 460px;
 
 @import "./components.scss";
