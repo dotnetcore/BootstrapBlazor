@@ -134,7 +134,17 @@ public partial class Camera
     /// 拍照方法
     /// </summary>
     /// <returns></returns>
-    public Task Capture() => InvokeVoidAsync("capture", Id);
+    public async Task Capture()
+    {
+        #if NET6_0_OR_GREATER
+        var stream = await InvokeAsync<IJSStreamReference>("capture", Id);
+        if (stream != null)
+        {
+            var data = await stream.OpenReadStreamAsync();
+            
+        }
+        #endif
+    }
 
     /// <summary>
     /// 初始化设备方法
@@ -150,6 +160,7 @@ public partial class Camera
             {
                 await OnInit(devices);
             }
+
             StateHasChanged();
         }
     }
@@ -197,6 +208,7 @@ public partial class Camera
     private readonly StringBuilder _sb = new();
     private string? PreviewData { get; set; }
 
+#if NET6_0_OR_GREATER
     /// <summary>
     /// 拍照回调方法
     /// </summary>
@@ -225,4 +237,5 @@ public partial class Camera
         //     _sb.Append(payload);
         // }
     }
+#endif
 }

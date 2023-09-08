@@ -93,7 +93,7 @@ export function close(id) {
 }
 export async function capture (id) {
     const camera = Data.get(id)
-    if (camera === null || camera.video) {
+    if (camera === null || camera.video === void 0) {
         return
     }
 
@@ -117,10 +117,11 @@ export async function capture (id) {
         url = canvas.toDataURL()
     }
 
-    if(url.length > 0) {
-        const data = new Blob([url]
-        await camera.invoke.invokeMethodAsync("TriggerCapture", data, data.size)
-    }
+    // if(url.length > 0) {
+    //     const data = new Blob([url])
+    //     await camera.invoke.invokeMethodAsync("TriggerCapture", new Uint8Array(1000), data.size)
+    // }
+    return new Blob([url])
 }
 
 export function dispose(id) {
