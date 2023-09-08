@@ -135,6 +135,15 @@ public class CameraTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Resize_Ok()
+    {
+        var cut = Context.RenderComponent<Camera>();
+        var handler = Context.JSInterop.SetupVoid("resize", cut.Instance.Id, 320, 240);
+        cut.InvokeAsync(() => cut.Instance.Resize(320, 240));
+        handler.VerifyInvoke("resize");
+    }
+
+    [Fact]
     public void DeviceId_Ok()
     {
         var cut = Context.RenderComponent<Camera>(pb =>
