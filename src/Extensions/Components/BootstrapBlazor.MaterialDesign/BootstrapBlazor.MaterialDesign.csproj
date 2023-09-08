@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <Import Project="..\..\..\bundleconfig.props" />
+  <Import Project="..\..\..\Bundle.props" />
 
   <PropertyGroup>
     <Version>7.0.0</Version>
@@ -26,5 +26,5 @@
   <ItemGroup>
     <PackageReference Include="BootstrapBlazor" Version="7.0.0" />
   </ItemGroup>
-  
+
 </Project>
