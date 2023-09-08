@@ -11,12 +11,7 @@ const stop = camera => {
 
 const play = camera => {
     const constrains = {
-        video: {
-            facingMode: 'environment',
-            focusMode: "continuous",
-            width: camera.video.videoWidth,
-            height: camera.video.videoHeight
-        },
+        video: true,
         audio: false
     }
     if (camera.video.deviceId) {
@@ -27,9 +22,9 @@ const play = camera => {
         camera.video.srcObject = stream
         camera.video.play()
         camera.video.mediaStreamTrack = stream.getTracks()[0]
-        camera.invoke.invokeMethodAsync("Start")
+        camera.invoke.invokeMethodAsync("TriggerOpen")
     }).catch(err => {
-        camera.invoke.invokeMethodAsync("GetError", err.message)
+        camera.invoke.invokeMethodAsync("TriggerError", err.message)
     })
 }
 
@@ -41,41 +36,38 @@ export function init(id, invoke) {
     const camera = { el, invoke }
     Data.set(id, camera)
 
-    navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'environment', focusMode: "continuous" },
-        audio: false
-    }).then(s => {
+    navigator.mediaDevices.getUserMedia({ video: true, audio: false }).then(s => {
         navigator.mediaDevices.enumerateDevices().then(videoInputDevices => {
             const videoInputs = videoInputDevices.filter(device => {
                 return device.kind === 'videoinput'
             })
-            invoke.invokeMethodAsync("InitDevices", videoInputs)
+            invoke.invokeMethodAsync("TriggerInit", videoInputs)
         })
     }).catch(err => {
-        invoke.invokeMethodAsync("GetError", err.message)
+        invoke.invokeMethodAsync("TriggerError", err.message)
     })
 }
 
 export function update(id) {
     const camera = Data.get(id)
-    if(camera === null) {
+    if (camera === null) {
         return
     }
 
     const autoStart = camera.el.getAttribute("data-auto-start") || false
-    if(autoStart) {
+    if (autoStart) {
         open(id)
     }
 }
 
 export function open(id) {
     const camera = Data.get(id)
-    if(camera === null || camera.video === void 0) {
+    if (camera === null || camera.video === void 0) {
         return
     }
 
     const deviceId = camera.el.getAttribute("data-device-id")
-    if(deviceId) {
+    if (deviceId) {
         const videoWidth = camera.el.getAttribute("data-video-width")
         const videoHeight = camera.el.getAttribute("data-video-height")
         camera.video = {
@@ -87,13 +79,13 @@ export function open(id) {
 
 export function close(id) {
     const camera = Data.get(id)
-    if(camera === null || camera.video === void 0) {
+    if (camera === null || camera.video === void 0) {
         return
     }
 
-    if(camera.video) {
+    if (camera.video) {
         stop(camera)
-        camera.invoke.invokeMethodAsync("Stop")
+        camera.invoke.invokeMethodAsync("TriggerStop")
     }
 }
 

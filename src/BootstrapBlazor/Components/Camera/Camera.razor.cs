@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.Localization;
 using System.Text;
 
 namespace BootstrapBlazor.Components;
@@ -29,13 +28,6 @@ public partial class Camera
     /// </summary>
     [Parameter]
     public bool ShowPreview { get; set; }
-
-    /// <summary>
-    /// 获得/设置 初始化设备列表文字 默认为 正在识别摄像头
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? InitDevicesString { get; set; }
 
     /// <summary>
     /// 获得/设置 摄像头视频宽度 默认 320
@@ -74,13 +66,13 @@ public partial class Camera
     public Func<string, Task>? OnError { get; set; }
 
     /// <summary>
-    /// 获得/设置 开始拍照回调方法
+    /// 获得/设置 打开摄像头回调方法
     /// </summary>
     [Parameter]
-    public Func<Task>? OnStart { get; set; }
+    public Func<Task>? OnOpen { get; set; }
 
     /// <summary>
-    /// 获得/设置 关闭拍照回调方法
+    /// 获得/设置 关闭摄像头回调方法
     /// </summary>
     [Parameter]
     public Func<Task>? OnClose { get; set; }
@@ -91,86 +83,13 @@ public partial class Camera
     [Parameter]
     public Func<string, Task>? OnCapture { get; set; }
 
-    /// <summary>
-    /// 获得/设置 开始按钮图标
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? PlayIcon { get; set; }
+    private string VideoWidthString => $"{VideoWidth}px;";
 
-    /// <summary>
-    /// 获得/设置 停止按钮图标
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? StopIcon { get; set; }
+    private string VideoHeightString => $"{VideoHeight}px;";
 
-    /// <summary>
-    /// 获得/设置 拍照按钮图标
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? PhotoIcon { get; set; }
+    private string? AutoStartString => AutoStart ? "true" : null;
 
-    /// <summary>
-    /// 获得/设置 开启按钮显示文本 默认为开启
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? PlayText { get; set; }
-
-    /// <summary>
-    /// 获得/设置 关闭按钮显示文本 默认为关闭
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? StopText { get; set; }
-
-    /// <summary>
-    /// 获得/设置 拍照按钮显示文本 默认为拍照
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? PhotoText { get; set; }
-
-    /// <summary>
-    /// 获得/设置 未找到视频相关设备文字 默认为 未找到视频相关设备
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? NotFoundDevicesString { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Camera>? Localizer { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IIconTheme? IconTheme { get; set; }
-
-    private bool _captureDisabled = true;
-
-    private List<SelectedItem> _devices = new();
-
-    private string _videoWidthString => $"{VideoWidth}px;";
-
-    private string _videoHeightString => $"{VideoHeight}px;";
-
-    private string? _autoStartString => AutoStart ? "true" : null;
-
-    private string _videoStyleString => $"width: {_videoWidthString}px; height: {_videoHeightString}px;";
-
-    private bool _update;
-
-    /// <summary>
-    /// OnParametersSet 方法
-    /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        _update = true;
-    }
+    private string VideoStyleString => $"width: {VideoWidth}px; height: {VideoHeight}px;";
 
     /// <summary>
     /// <inheritdoc/>
@@ -181,14 +100,8 @@ public partial class Camera
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (firstRender)
+        if (!firstRender)
         {
-            _update = false;
-        }
-
-        if (_update)
-        {
-            _update = false;
             await InvokeVoidAsync("update", Id);
         }
     }
@@ -217,31 +130,16 @@ public partial class Camera
     /// <param name="devices"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task InitDevices(List<DeviceItem> devices)
+    public async Task TriggerInit(List<DeviceItem> devices)
     {
         if (devices.Count > 0)
         {
-            for (var index = 0; index < devices.Count; index++)
+            if (OnInit != null)
             {
-                var d = devices[index];
-                if (string.IsNullOrEmpty(d.Label))
-                {
-                    d.Label = $"Video device {index + 1}";
-                }
+                await OnInit(devices);
             }
+            StateHasChanged();
         }
-        else
-        {
-            InitDevicesString = NotFoundDevicesString;
-        }
-
-        _devices.AddRange(devices.Select(i => new SelectedItem { Value = i.DeviceId, Text = i.Label }));
-
-        if (OnInit != null)
-        {
-            await OnInit(devices);
-        }
-        StateHasChanged();
     }
 
     /// <summary>
@@ -250,7 +148,7 @@ public partial class Camera
     /// <param name="err"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task GetError(string err)
+    public async Task TriggerError(string err)
     {
         if (OnError != null)
         {
@@ -263,14 +161,12 @@ public partial class Camera
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task Start()
+    public async Task TriggerOpen()
     {
-        _captureDisabled = false;
-        if (OnStart != null)
+        if (OnOpen != null)
         {
-            await OnStart();
+            await OnOpen();
         }
-        StateHasChanged();
     }
 
     /// <summary>
@@ -278,14 +174,12 @@ public partial class Camera
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task Stop()
+    public async Task TriggerClose()
     {
-        _captureDisabled = true;
         if (OnClose != null)
         {
             await OnClose();
         }
-        StateHasChanged();
     }
 
     private readonly StringBuilder _sb = new();
@@ -296,7 +190,7 @@ public partial class Camera
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task Capture(string payload)
+    public async Task TriggerCapture(string payload)
     {
         if (payload == "__BB__%END%__BB__")
         {
