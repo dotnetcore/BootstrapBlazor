@@ -30,9 +30,13 @@
         <div class="btn-group mt-3">
             <Button Text="@PlayText" Color="Color.Success" Icon="fa-solid fa-play" IsDisabled="PlayDisabled" OnClick="OnClickOpen"></Button>
             <Button Text="@StopText" Color="Color.Danger" Icon="fa-solid fa-stop" IsDisabled="StopDisabled" OnClick="OnClickClose"></Button>
-            <Button Text="@CaptureText" Color="Color.Info" Icon="fa-solid fa-camera" IsDisabled="CaptureDisabled" OnClick="OnClickCapture"></Button>
+            <Button Text="@PreviewText" Color="Color.Info" Icon="fa-solid fa-camera" IsDisabled="CaptureDisabled" OnClick="OnClickPreview"></Button>
+            <Button Text="@SaveText" Color="Color.Info" Icon="fa-solid fa-camera" IsDisabled="CaptureDisabled" OnClick="OnClickSave"></Button>
         </div>
         <ConsoleLogger @ref="Logger" class="mt-3" />
+        <div class="mt-3">
+            <img style="@ImageStyleString" src="@ImageContentData" />
+        </div>
     </section>
 </DemoBlock>
 

@@ -88,7 +88,7 @@ export function close(id) {
 
     if (camera.video) {
         stop(camera)
-        camera.invoke.invokeMethodAsync("TriggerStop")
+        camera.invoke.invokeMethodAsync("TriggerClose")
     }
 }
 export async function capture (id) {
@@ -97,10 +97,35 @@ export async function capture (id) {
         return
     }
 
-    if(camera.video === void 0) {
+    const url = drawImage(camera)
+    return new Blob([url])
+}
+
+export async function download(id, fileName) {
+    const camera = Data.get(id)
+    if (camera === null || camera.video === void 0) {
         return
     }
 
+    const createEl = document.createElement('a');
+    createEl.href = drawImage(camera);
+    createEl.download = fileName || 'capture.png';
+    createEl.click();
+    createEl.remove();
+}
+
+export function dispose(id) {
+    const camera = Data.get(id)
+    Data.remove(id)
+
+    if (camera) {
+        if (camera.video) {
+            stop(camera)
+        }
+    }
+}
+
+const drawImage = camera => {
     const quality = camera.el.getAttribute("data-capture-quality") || 0.9;
     const captureJpeg = camera.el.getAttribute("data-capture-jpeg") || false;
     const {videoWidth, videoHeight} = camera.video
@@ -116,21 +141,5 @@ export async function capture (id) {
     else {
         url = canvas.toDataURL()
     }
-
-    // if(url.length > 0) {
-    //     const data = new Blob([url])
-    //     await camera.invoke.invokeMethodAsync("TriggerCapture", new Uint8Array(1000), data.size)
-    // }
-    return new Blob([url])
-}
-
-export function dispose(id) {
-    const camera = Data.get(id)
-    Data.remove(id)
-
-    if (camera) {
-        if (camera.video) {
-            stop(camera)
-        }
-    }
+    return url
 }

@@ -59,7 +59,7 @@ public partial class Camera
     /// 获得/设置 初始化摄像头回调方法
     /// </summary>
     [Parameter]
-    public Func<IEnumerable<DeviceItem>, Task>? OnInit { get; set; }
+    public Func<List<DeviceItem>, Task>? OnInit { get; set; }
 
     /// <summary>
     /// 获得/设置 拍照出错回调方法
@@ -134,19 +134,25 @@ public partial class Camera
     /// 拍照方法
     /// </summary>
     /// <returns></returns>
-    public async Task Capture()
+    public async Task<Stream?> Capture()
     {
+        Stream? ret = null;
 #if NET6_0_OR_GREATER
         var streamRef = await InvokeAsync<IJSStreamReference>("capture", Id);
         if (streamRef != null)
         {
-            var stream = await streamRef.OpenReadStreamAsync();
-            var reader = new StreamReader(stream);
-            var text = reader.ReadToEndAsync();
-            var t = text;
+            ret = await streamRef.OpenReadStreamAsync(streamRef.Length);
         }
 #endif
+        return ret;
     }
+
+    /// <summary>
+    /// 保存并下载图片
+    /// </summary>
+    /// <param name="fileName">文件名</param>
+    /// <returns></returns>
+    public Task SaveAndDownload(string? fileName = null) => InvokeVoidAsync("download", Id, fileName);
 
     /// <summary>
     /// 初始化设备方法

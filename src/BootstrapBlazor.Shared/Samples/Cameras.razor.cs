@@ -33,7 +33,9 @@ public sealed partial class Cameras
 
     private string? StopText { get; set; }
 
-    private string? CaptureText { get; set; }
+    private string? PreviewText { get; set; }
+
+    private string? SaveText { get; set; }
 
     private bool PlayDisabled { get; set; } = true;
 
@@ -52,6 +54,16 @@ public sealed partial class Cameras
     [NotNull]
     private Camera? Camera { get; set; }
 
+    private string? ImageContentData { get; set; }
+
+    private string? ImageStyleString => CssBuilder.Default("width: 320px; height: 240px; border-radius: var(--bs-border-radius);")
+        .AddClass("display: none;", string.IsNullOrEmpty(ImageContentData))
+        .Build();
+
+    [Inject]
+    [NotNull]
+    private DownloadService? DownloadService { get; set; }
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -68,10 +80,11 @@ public sealed partial class Cameras
         PlaceHolderString = Localizer["InitDevicesString"];
         PlayText = Localizer["PlayText"];
         StopText = Localizer["StopText"];
-        CaptureText = Localizer["CaptureText"];
+        PreviewText = Localizer["PreviewText"];
+        SaveText = Localizer["SaveText"];
     }
 
-    private Task OnInit(IEnumerable<DeviceItem> devices)
+    private Task OnInit(List<DeviceItem> devices)
     {
         if (devices.Any())
         {
@@ -103,12 +116,25 @@ public sealed partial class Cameras
     private async Task OnClickClose()
     {
         await Camera.Close();
+        ImageContentData = null;
         PlayDisabled = false;
         StopDisabled = true;
         CaptureDisabled = true;
     }
 
-    private Task OnClickCapture() => Camera.Capture();
+    private async Task OnClickPreview()
+    {
+        ImageContentData = null;
+        var stream = await Camera.Capture();
+        if (stream != null)
+        {
+            var reader = new StreamReader(stream);
+            ImageContentData = await reader.ReadToEndAsync();
+            reader.Close();
+        }
+    }
+
+    private Task OnClickSave() => Camera.SaveAndDownload($"capture_{DateTime.Now:hhmmss}.png");
 
     private Task OnError(string err)
     {

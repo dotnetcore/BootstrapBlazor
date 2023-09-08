@@ -3542,7 +3542,8 @@
     "InitDevicesString": "正在识别摄像头",
     "PlayText": "开启",
     "StopText": "关闭",
-    "CaptureText": "拍照",
+    "PreviewText": "预览",
+    "SaveText": "保存",
     "NotFoundDevicesString": "未找到视频相关设备"
   },
   "BootstrapBlazor.Shared.Demos.Camera.CameraNormal": {

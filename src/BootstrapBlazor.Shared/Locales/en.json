@@ -3542,7 +3542,8 @@
     "InitDevicesString": "Initializing ...",
     "PlayText": "Open",
     "StopText": "Close",
-    "CaptureText": "Photo",
+    "PreviewText": "Preview",
+    "SaveText": "Save",
     "NotFoundDevicesString": "Video device not found"
   },
   "BootstrapBlazor.Shared.Demos.Camera.CameraNormal": {
