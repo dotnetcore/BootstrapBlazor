@@ -9,14 +9,6 @@
     "FailedText": "Failed to load",
     "LoadText": "Loading ..."
   },
-  "BootstrapBlazor.Components.Camera": {
-    "DeviceLabel": "Camera",
-    "InitDevicesString": "Initializing ...",
-    "PlayText": "Open",
-    "StopText": "Close",
-    "PhotoText": "Photo",
-    "NotFoundDevicesString": "Video device not found"
-  },
   "BootstrapBlazor.Components.Calendar": {
     "PreviousYear": "Previous Year",
     "PreviousMonth": "Previous Month",

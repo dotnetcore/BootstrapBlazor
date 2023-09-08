@@ -29,6 +29,14 @@ public sealed partial class Cameras
     [NotNull]
     private string? TraceOnCapture { get; set; }
 
+    private List<SelectedItem> _devices = new();
+
+    private string? _deviceId;
+
+    private string? _deviceLabel;
+
+    private string? _initDevicesString;
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -41,18 +49,36 @@ public sealed partial class Cameras
         TraceOnStar = Localizer[nameof(TraceOnStar)];
         TraceOnClose = Localizer[nameof(TraceOnClose)];
         TraceOnCapture = Localizer[nameof(TraceOnCapture)];
+        _deviceLabel = Localizer["DeviceLabel"];
+        _initDevicesString = Localizer["InitDevicesString"];
     }
 
     private Task OnInit(IEnumerable<DeviceItem> devices)
     {
-        var cams = string.Join("", devices.Select(i => i.Label));
-        Logger.Log($"{TraceOnInit} {cams}");
+        if (devices.Any())
+        {
+            _devices.AddRange(devices.Select(d => new SelectedItem(d.DeviceId, d.Label)));
+        }
+        else
+        {
+            _initDevicesString = Localizer["NotFoundDevicesString"];
+        }
+
+        foreach (var item in devices)
+        {
+            Logger.Log($"{TraceOnInit} {item.Label}-{item.DeviceId}");
+        }
+
+        StateHasChanged();
         return Task.CompletedTask;
     }
 
     private Task OnError(string err)
     {
+        _initDevicesString = Localizer["NotFoundDevicesString"];
         Logger.Log($"{TraceOnError} {err}");
+
+        StateHasChanged();
         return Task.CompletedTask;
     }
 

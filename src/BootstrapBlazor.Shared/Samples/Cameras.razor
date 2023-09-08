@@ -19,7 +19,8 @@
         <li>@Localizer["BasicUsageLi2"]</li>
         <li>@Localizer["BasicUsageLi3"]</li>
     </ul>
-    <Camera OnInit="@OnInit" OnStart="@OnStart" OnClose="@OnClose" OnError="@OnError" OnCapture="@OnCapture" />
+    <Camera OnInit="@OnInit" OnStart="@OnStart" OnClose="@OnClose" OnError="@OnError" OnCapture="@OnCapture" DeviceId="@_deviceId" />
+    <Select Items="@_devices" @bind-Value="@_deviceId" DisplayText="@_deviceLabel" ShowLabel="true" PlaceHolder="@_initDevicesString"></Select>
     @if (ImageUrl != null)
     {
         <img src="@ImageUrl" class="mt-3" />
@@ -27,7 +28,7 @@
     <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ShowPreviewTitle"]" Introduction="@Localizer["ShowPreviewIntro"]" Name="ShowPreview">
+@* <DemoBlock Title="@Localizer["ShowPreviewTitle"]" Introduction="@Localizer["ShowPreviewIntro"]" Name="ShowPreview">
     <Camera ShowPreview="true" />
 </DemoBlock>
 
@@ -40,3 +41,4 @@
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
+ *@
