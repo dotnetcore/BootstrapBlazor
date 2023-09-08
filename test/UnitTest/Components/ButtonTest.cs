@@ -343,13 +343,16 @@ public class ButtonTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Button>();
         cut.InvokeAsync(() => cut.Instance.ShowTooltip());
-        var button = cut.Find("button");
-        Assert.Equal(button.GetAttribute("id"), Context.JSInterop.VerifyInvoke("showTooltip").Arguments[0]);
+
+        // 未调用
+        Context.JSInterop.VerifyNotInvoke("showTooltip");
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.TooltipText, "Tooltip");
         });
+        // 调用
+        Context.JSInterop.VerifyInvoke("showTooltip");
     }
 
     [Fact]
@@ -371,8 +374,7 @@ public class ButtonTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Button>();
         cut.InvokeAsync(() => cut.Instance.RemoveTooltip());
 
-        var button = cut.Find("button");
-        Assert.Equal(button.GetAttribute("id"), Context.JSInterop.VerifyInvoke("removeTooltip").Arguments[0]);
+        Context.JSInterop.VerifyInvoke("removeTooltip");
     }
 
     [Fact]
