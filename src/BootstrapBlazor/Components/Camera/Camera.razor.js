@@ -11,8 +11,8 @@ const play = (camera, option = {}) => {
     const constrains = {
         ...{
             video: {
-                width: {ideal: camera.video.videoWidth},
-                height: {ideal: camera.video.videoHeight},
+                width: { ideal: camera.video.videoWidth },
+                height: { ideal: camera.video.videoHeight },
                 facingMode: "environment"
             },
             audio: false
@@ -20,7 +20,7 @@ const play = (camera, option = {}) => {
         ...option
     }
     if (camera.video.deviceId) {
-        constrains.video.deviceId = {exact: camera.video.deviceId}
+        constrains.video.deviceId = { exact: camera.video.deviceId }
     }
     navigator.mediaDevices.getUserMedia(constrains).then(stream => {
         camera.video.element = camera.el.querySelector('video')
@@ -103,6 +103,7 @@ export function close(id) {
         camera.invoke.invokeMethodAsync("TriggerClose")
     }
 }
+
 export function capture(id) {
     const camera = Data.get(id)
     if (camera === null || camera.video === void 0) {
@@ -134,8 +135,8 @@ export function resize(id, width, height) {
 
     const constrains = {
         video: {
-            width: {exact: width},
-            height: {exact: height}
+            width: { exact: width },
+            height: { exact: height }
         }
     }
 

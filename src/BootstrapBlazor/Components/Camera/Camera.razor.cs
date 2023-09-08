@@ -79,8 +79,6 @@ public partial class Camera
 
     private string? AutoStartString => AutoStart ? "true" : null;
 
-    private string VideoStyleString => $"width: {VideoWidth}px; height: {VideoHeight}px;";
-
     private string? CaptureJpegString => CaptureJpeg ? "true" : null;
 
     private string? QualityString => Quality == 0.9f ? null : Quality.ToString(CultureInfo.InvariantCulture);
