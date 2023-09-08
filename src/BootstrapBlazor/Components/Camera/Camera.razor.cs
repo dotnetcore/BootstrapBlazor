@@ -12,14 +12,11 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class Camera
 {
-    private string? DeviceId { get; set; }
-
-    private bool IsDisabled { get; set; } = true;
-
-    private bool CaptureDisabled { get; set; } = true;
-
-    [NotNull]
-    private IEnumerable<SelectedItem>? Devices { get; set; }
+    /// <summary>
+    /// 获得/设置 当前设备 Id 默认 null
+    /// </summary>
+    [Parameter]
+    public string? DeviceId { get; set; }
 
     /// <summary>
     /// 获得/设置 是否自动开启摄像头 默认为 false
@@ -32,13 +29,6 @@ public partial class Camera
     /// </summary>
     [Parameter]
     public bool ShowPreview { get; set; }
-
-    /// <summary>
-    /// 获得/设置 设备列表前置标签文字 默认为 摄像头
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? DeviceLabel { get; set; }
 
     /// <summary>
     /// 获得/设置 初始化设备列表文字 默认为 正在识别摄像头
@@ -158,9 +148,17 @@ public partial class Camera
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
-    private string VideoWidthString => $"{VideoWidth}px;";
+    private bool _captureDisabled = true;
 
-    private string VideoHeightString => $"{VideoHeight}px;";
+    private List<SelectedItem> _devices = new();
+
+    private string _videoWidthString => $"{VideoWidth}px;";
+
+    private string _videoHeightString => $"{VideoHeight}px;";
+
+    private string? _autoStartString => AutoStart ? "true" : null;
+
+    private bool _update;
 
     /// <summary>
     /// OnInitialized 方法
@@ -172,7 +170,6 @@ public partial class Camera
         PlayText ??= Localizer[nameof(PlayText)];
         StopText ??= Localizer[nameof(StopText)];
         PhotoText ??= Localizer[nameof(PhotoText)];
-        DeviceLabel ??= Localizer[nameof(DeviceLabel)];
         InitDevicesString ??= Localizer[nameof(InitDevicesString)];
         NotFoundDevicesString ??= Localizer[nameof(NotFoundDevicesString)];
     }
@@ -188,8 +185,6 @@ public partial class Camera
         StopIcon ??= IconTheme.GetIconByKey(ComponentIcons.CameraStopIcon);
         PhotoIcon ??= IconTheme.GetIconByKey(ComponentIcons.CameraPhotoIcon);
 
-        Devices ??= Enumerable.Empty<SelectedItem>();
-
         if (VideoWidth < 40)
         {
             VideoWidth = 40;
@@ -199,13 +194,36 @@ public partial class Camera
         {
             VideoHeight = 30;
         }
+
+        _update = true;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            _update = false;
+        }
+
+        if (_update)
+        {
+            _update = false;
+            await InvokeVoidAsync("update", Id);
+        }
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, AutoStart, VideoWidth, VideoHeight, CaptureJpeg, Quality);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
 
     /// <summary>
     /// 初始化设备方法
@@ -215,27 +233,27 @@ public partial class Camera
     [JSInvokable]
     public async Task InitDevices(List<DeviceItem> devices)
     {
-        Devices = devices.Select(i => new SelectedItem { Value = i.DeviceId, Text = i.Label });
-        IsDisabled = !Devices.Any();
-
-        if (OnInit != null)
-        {
-            await OnInit(devices);
-        }
-        if (devices.Any())
+        if (devices.Count > 0)
         {
             for (var index = 0; index < devices.Count; index++)
             {
-                var d = devices.ElementAt(index);
+                var d = devices[index];
                 if (string.IsNullOrEmpty(d.Label))
                 {
                     d.Label = $"Video device {index + 1}";
                 }
             }
         }
-        if (IsDisabled)
+        else
         {
             InitDevicesString = NotFoundDevicesString;
+        }
+
+        _devices.AddRange(devices.Select(i => new SelectedItem { Value = i.DeviceId, Text = i.Label }));
+
+        if (OnInit != null)
+        {
+            await OnInit(devices);
         }
         StateHasChanged();
     }
@@ -261,7 +279,7 @@ public partial class Camera
     [JSInvokable]
     public async Task Start()
     {
-        CaptureDisabled = false;
+        _captureDisabled = false;
         if (OnStart != null)
         {
             await OnStart();
@@ -276,22 +294,12 @@ public partial class Camera
     [JSInvokable]
     public async Task Stop()
     {
-        CaptureDisabled = true;
+        _captureDisabled = true;
         if (OnClose != null)
         {
             await OnClose();
         }
-
         StateHasChanged();
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    public async Task SelectDevice()
-    {
-        await InvokeInitAsync(); 
     }
 
     private readonly StringBuilder _sb = new();

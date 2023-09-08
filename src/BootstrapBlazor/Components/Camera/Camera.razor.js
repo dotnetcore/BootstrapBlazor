@@ -9,7 +9,7 @@ const stop = (video, track) => {
     }
 }
 
-export function init(id, invoke, auto, videoWidth, videoHeight, captureJpeg, quality) {
+export function init(id, invoke) {
     const el = document.getElementById(id)
     if (el === null) {
         return
@@ -20,7 +20,7 @@ export function init(id, invoke, auto, videoWidth, videoHeight, captureJpeg, qua
     camera.playButton = el.querySelector('button[data-method="play"]')
 
     let constrains = {
-        video: { facingMode: 'environment', focusMode: "continuous", width: videoWidth, height: videoHeight },
+        video: { facingMode: 'environment', focusMode: "continuous" },
         audio: false
     }
 
@@ -93,6 +93,9 @@ export function init(id, invoke, auto, videoWidth, videoHeight, captureJpeg, qua
     }).catch(err => {
         invoke.invokeMethodAsync("GetError", err.message)
     })
+}
+
+export function update(id) {
 }
 
 export function dispose(id) {
