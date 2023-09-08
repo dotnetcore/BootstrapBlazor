@@ -145,6 +145,14 @@ public partial class Camera
     public Task SaveAndDownload(string? fileName = null) => InvokeVoidAsync("download", Id, fileName);
 
     /// <summary>
+    /// 重置宽高方法
+    /// </summary>
+    /// <param name="width"></param>
+    /// <param name="height"></param>
+    /// <returns></returns>
+    public Task Resize(int width, int height) => InvokeVoidAsync("resize", Id, width, height);
+
+    /// <summary>
     /// 初始化设备方法
     /// </summary>
     /// <param name="devices"></param>

@@ -1,16 +1,26 @@
 ﻿import Data from "../../modules/data.js?v=$version"
 
-const play = camera => {
+const play = (camera, option = {}) => {
+    camera.video = {
+        ...camera.video,
+        ...{
+            videoWidth: 320,
+            videoHeight: 240
+        }
+    }
     const constrains = {
-        video: {
-            width: { ideal: camera.video.videoWidth },
-            height: { ideal: camera.video.videoHeight },
-            facingMode: "environment"
+        ...{
+            video: {
+                width: {ideal: camera.video.videoWidth},
+                height: {ideal: camera.video.videoHeight},
+                facingMode: "environment"
+            },
+            audio: false
         },
-        audio: false
+        ...option
     }
     if (camera.video.deviceId) {
-        constrains.video.deviceId = { exact: camera.video.deviceId }
+        constrains.video.deviceId = {exact: camera.video.deviceId}
     }
     navigator.mediaDevices.getUserMedia(constrains).then(stream => {
         camera.video.element = camera.el.querySelector('video')
@@ -19,7 +29,8 @@ const play = camera => {
         camera.video.track = stream.getVideoTracks()[0]
         camera.invoke.invokeMethodAsync("TriggerOpen")
     }).catch(err => {
-        camera.invoke.invokeMethodAsync("TriggerError", err.message)
+        delete camera.video
+        camera.invoke.invokeMethodAsync("TriggerError", err.name)
     })
 }
 
@@ -113,6 +124,23 @@ export function download(id, fileName) {
     createEl.download = fileName || 'capture.png';
     createEl.click();
     createEl.remove();
+}
+
+export function resize(id, width, height) {
+    const camera = Data.get(id)
+    if (camera === null || camera.video === void 0) {
+        return
+    }
+
+    const constrains = {
+        video: {
+            width: {exact: width},
+            height: {exact: height}
+        }
+    }
+
+    stop(camera)
+    play(camera, constrains)
 }
 
 export function dispose(id) {
