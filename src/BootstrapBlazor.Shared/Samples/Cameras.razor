@@ -19,12 +19,15 @@
         <li>@Localizer["BasicUsageLi2"]</li>
         <li>@Localizer["BasicUsageLi3"]</li>
     </ul>
-    <Camera OnInit="@OnInit" OnStart="@OnStart" OnClose="@OnClose" OnError="@OnError" OnCapture="@OnCapture" DeviceId="@_deviceId" />
+    <Camera @ref="_camera" OnInit="@OnInit" OnStart="@OnStart" OnClose="@OnClose" OnError="@OnError" OnCapture="@OnCapture" DeviceId="@_deviceId" />
     <Select Items="@_devices" @bind-Value="@_deviceId" DisplayText="@_deviceLabel" ShowLabel="true" PlaceHolder="@_initDevicesString"></Select>
     @if (ImageUrl != null)
     {
         <img src="@ImageUrl" class="mt-3" />
     }
+    <Button Text="Play" Color="Color.Success" Icon="" IsDisabled="_isDisabled" OnClick="OnOpen"></Button>
+    <Button Text="Stop" Color="Color.Danger" Icon="" IsDisabled="_isDisabled" OnClick="OnClose1"></Button>
+    <Button Text="Captcha" Icon="" IsDisabled="_isDisabled"></Button>
     <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 

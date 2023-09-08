@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+///
 /// </summary>
 public sealed partial class Cameras
 {
@@ -37,6 +37,10 @@ public sealed partial class Cameras
 
     private string? _initDevicesString;
 
+    private bool _isDisabled = true;
+
+    private Camera _camera;
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -58,6 +62,7 @@ public sealed partial class Cameras
         if (devices.Any())
         {
             _devices.AddRange(devices.Select(d => new SelectedItem(d.DeviceId, d.Label)));
+            _isDisabled = false;
         }
         else
         {
@@ -72,6 +77,10 @@ public sealed partial class Cameras
         StateHasChanged();
         return Task.CompletedTask;
     }
+
+    private Task OnOpen() => _camera.Open();
+
+    private Task OnClose1() => _camera.Close();
 
     private Task OnError(string err)
     {
