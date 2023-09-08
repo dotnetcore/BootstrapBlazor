@@ -1,28 +1,113 @@
-﻿@page "/displays"
+﻿@page "/display"
 @inject IStringLocalizer<Displays> Localizer
 
 <h3>@Localizer["Title"]</h3>
 
 <h4>@Localizer["SubTitle"]</h4>
 
-<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal" Demo="typeof(Demos.Display.DisplayNormal)" />
-
-<DemoBlock Title="@Localizer["BindWayTitle"]" Introduction="@Localizer["BindWayIntro"]" Name="Labels" Demo="typeof(Demos.Display.DisplayLabels)">
-    <p>@((MarkupString)Localizer["BindWayP1"].Value)</p>
+<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
+    <div class="row g-3">
+        <div class="col-auto col-form-label">
+            <span>@Localizer["BasicUsage"]</span>
+        </div>
+        <div class="col-6">
+            <Display TValue="string" Value="@Model.Name" />
+        </div>
+    </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["DataTypeTitle"]" Introduction="@Localizer["DataTypeIntro"]" Name="DataType" Demo="typeof(Demos.Display.DisplayDataType)" />
+<DemoBlock Title="@Localizer["BindWayTitle"]" Introduction="@Localizer["BindWayIntro"]" Name="Labels">
+    <p>@((MarkupString)Localizer["BindWayP1"].Value)</p>
+    <div class="row g-3">
+        <div class="col-12">
+            <Divider Text="@Localizer["BindWayCustomLabel"]" />
+        </div>
+        <div class="col-12">
+            <p>@((MarkupString)Localizer["BindWayP2"].Value)</p>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display @bind-Value="@Model.Name" DisplayText="@Localizer["BindWayCustomLabel"]" ShowLabel="true" />
+        </div>
+        <div class="col-12">
+            <Divider Text="@Localizer["BindWayOccupants"]" />
+        </div>
+        <div class="col-12">
+            <p>@((MarkupString)Localizer["BindWayP3"].Value)</p>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display @bind-Value="@Model.Name" ShowLabel="true" />
+        </div>
+        <div class="col-12">
+            <Divider Text="@Localizer["BindWayNotOccupants"]" />
+        </div>
+        <div class="col-12">
+            <p>@((MarkupString)Localizer["BindWayP4"].Value)</p>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display @bind-Value="@Model.Name" />
+        </div>
+    </div>
+</DemoBlock>
 
-<DemoBlock Title="@Localizer["EditorFormTitle"]" Introduction="@Localizer["EditorFormIntro"]" Name="EditorForm" Demo="typeof(Demos.Display.DisplayEditorForm)" />
+<DemoBlock Title="@Localizer["DataTypeTitle"]" Introduction="@Localizer["DataTypeIntro"]" Name="DataType">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            Integer
+            <Display FormatString="000" @bind-Value="@Model.Count" ShowLabel="true" DisplayText="@Localizer["Integer"]" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display @bind-Value="@Model.Education" ShowLabel="true" DisplayText="@Localizer["Enum"]" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display @bind-Value="@Model.Hobby" ShowLabel="true" DisplayText="@Localizer["Collection"]" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display @bind-Value="@ByteArray" ShowLabel="true" DisplayText="@Localizer["Arr"]" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display Value="@DateTime.Now" ShowLabel="true" DisplayText="DateTime" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display Value="@DateTimeOffset.Now" ShowLabel="true" DisplayText="DateTimeOffset" />
+        </div>
+    </div>
+</DemoBlock>
 
-<DemoBlock Title="@Localizer["FormatStringTitle"]" Introduction="@Localizer["FormatStringIntro"]" Name="FormatString" Demo="typeof(Demos.Display.DisplayFormatString)" />
+<DemoBlock Title="@Localizer["EditorFormTitle"]" Introduction="@Localizer["EditorFormIntro"]" Name="EditorForm">
+    <EditorForm Model="@Model" ItemsPerRow="3" IsDisplay="true">
+        <FieldItems>
+            <EditorItem @bind-Field="@Model.Hobby" Items="@Hobbies" />
+        </FieldItems>
+    </EditorForm>
+</DemoBlock>
 
-<DemoBlock Title="@Localizer["LookupTitle"]" Introduction="@Localizer["LookupIntro"]" Name="Lookup" Demo="typeof(Demos.Display.DisplayLookup)">
+<DemoBlock Title="@Localizer["FormatStringTitle"]" Introduction="@Localizer["FormatStringIntro"]" Name="FormatString">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">@Localizer["FormatStringSettingText"] <code class="ms-1">FormatString</code></div>
+        <div class="col-12 col-sm-6">
+            <Display Value="DateTime.Now" FormatString="yyyy-MM-dd" />
+        </div>
+        <div class="col-12 col-sm-6">@Localizer["FormatStringSettingText"] <code class="ms-1">Formatter</code></div>
+        <div class="col-12 col-sm-6">
+            <Display Value="DateTime.Now" FormatterAsync="@DateTimeFormatter" />
+        </div>
+    </div>
+    <p class="mt-3">@((MarkupString)Localizer["FormatStringP"].Value)</p>
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">@Localizer["FormatStringSettingText"] <code class="ms-1">Formatter</code></div>
+        <div class="col-12 col-sm-6">
+            <Display Value="@ByteArray" FormatterAsync="@ByteArrayFormatter" />
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["LookupTitle"]" Introduction="@Localizer["LookupIntro"]" Name="Lookup">
     <p>
         <div>@((MarkupString)Localizer["LookupP1"].Value)</div>
         <div><b>InitValue</b>: 1,2,3</div>
         <div><b>IntValueSource</b>: Text1,Text2,Text3</div>
     </p>
+    <Display Value="@IntValue" Lookup="@IntValueSource" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

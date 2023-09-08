@@ -1,14 +1,25 @@
-﻿@page "/charts/bubble"
+﻿@page "/chart/bubble"
 @inject IStringLocalizer<Bubble> Localizer
 
 <DemoBlock Title="@Localizer["BubbleNormalTitle"]"
            Introduction="@Localizer["BubbleNormalIntro"]"
-           Name="Normal"
-           Demo="typeof(Demos.Charts.Bubble.BubbleNormal)">
+           Name="Normal">
+    <Chart ChartType="ChartType.Bubble" OnInitAsync="@OnInit" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" @ref="BubbleChart" />
+    <div class="text-center mt-2 chart">
+        <div class="btn-group">
+            <button class="btn btn-primary" @onclick="e => Utility.RandomData(BubbleChart)"><i class="fa-regular fa-snowflake"></i><span>@Localizer["BubbleNormalRandomData"]</span></button>
+            <button class="btn btn-primary" @onclick="OnReloadChart"><i class="fa-solid fa-chart-column"></i><span>@Localizer["BubbleNormalReload"]</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.AddDataSet(BubbleChart, ref BubbleDatasetCount)"><i class="fa-solid fa-circle-plus"></i><span>@Localizer["BubbleNormalAddDataSet"]</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RemoveDataSet(BubbleChart, ref BubbleDatasetCount)"><i class="fa-solid fa-circle-minus"></i><span>@Localizer["BubbleNormalRemoveDataset"]</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.AddData(BubbleChart, ref BubbleDataCount)"><i class="fa-solid fa-plus"></i><span>@Localizer["BubbleNormalAddData"]</span></button>
+            <button class="btn btn-primary" @onclick="e => Utility.RemoveData(BubbleChart, ref BubbleDataCount)"><i class="fa-solid fa-minus"></i><span>@Localizer["BubbleNormalRemoveData"]</span></button>
+        </div>
+    </div>
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BubbleBarAspectRatioTitle"]"
            Introduction="@Localizer["BubbleBarAspectRatioIntro"]"
-           Name="BarAspectRatio"
-           Demo="typeof(Demos.Charts.Bubble.BubbleBarAspectRatio)">
+           Name="AspectRatio">
+    <Chart ChartType="ChartType.Bubble" OnInitAsync="@OnInitAspectRatio" Height="500px" Width="500px" />
 </DemoBlock>

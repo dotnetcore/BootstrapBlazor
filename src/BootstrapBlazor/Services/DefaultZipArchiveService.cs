@@ -33,7 +33,7 @@ class DefaultZipArchiveService : IZipArchiveService
     /// <param name="options">归档配置</param>
     public async Task ArchiveAsync(string archiveFileName, IEnumerable<string> files, ArchiveOptions? options = null)
     {
-        await using var stream = File.OpenWrite(archiveFileName);
+        using var stream = File.OpenWrite(archiveFileName);
         await ArchiveFilesAsync(stream, files, options);
     }
 
@@ -46,7 +46,7 @@ class DefaultZipArchiveService : IZipArchiveService
             if (options.ReadStreamAsync != null)
             {
                 var entry = archive.CreateEntry(Path.GetFileName(f), options.CompressionLevel);
-                await using var entryStream = entry.Open();
+                using var entryStream = entry.Open();
                 await using var content = await options.ReadStreamAsync(f);
                 await content.CopyToAsync(entryStream);
             }
@@ -65,15 +65,16 @@ class DefaultZipArchiveService : IZipArchiveService
     /// <param name="overwriteFiles">是否覆盖文件 默认 false 不覆盖</param>
     /// <param name="encoding">编码方式 默认 null 内部使用 UTF-8</param>
     /// <returns></returns>
-    public async Task ExtractToDirectory(string archiveFile, string destinationDirectoryName, bool overwriteFiles = false, Encoding? encoding = null)
+    public bool ExtractToDirectory(string archiveFile, string destinationDirectoryName, bool overwriteFiles = false, Encoding? encoding = null)
     {
         if (!Directory.Exists(destinationDirectoryName))
         {
             Directory.CreateDirectory(destinationDirectoryName);
         }
-        await using var stream = File.OpenRead(archiveFile);
+        using var stream = File.OpenRead(archiveFile);
         using var archive = new ZipArchive(stream, ZipArchiveMode.Read, overwriteFiles, encoding);
         archive.ExtractToDirectory(destinationDirectoryName, overwriteFiles);
+        return true;
     }
 
     /// <summary>
@@ -84,9 +85,9 @@ class DefaultZipArchiveService : IZipArchiveService
     /// <param name="overwriteFiles">是否覆盖文件 默认 false 不覆盖</param>
     /// <param name="encoding">编码方式 默认 null 内部使用 UTF-8</param>
     /// <returns></returns>
-    public async Task<ZipArchiveEntry?> GetEntry(string archiveFile, string entryFile, bool overwriteFiles = false, Encoding? encoding = null)
+    public ZipArchiveEntry? GetEntry(string archiveFile, string entryFile, bool overwriteFiles = false, Encoding? encoding = null)
     {
-        await using var stream = File.OpenRead(archiveFile);
+        using var stream = File.OpenRead(archiveFile);
         using var archive = new ZipArchive(stream, ZipArchiveMode.Read, overwriteFiles, encoding);
         return archive.GetEntry(Path.GetFileName(entryFile));
     }

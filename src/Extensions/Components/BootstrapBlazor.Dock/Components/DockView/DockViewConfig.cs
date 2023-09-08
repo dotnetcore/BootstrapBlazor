@@ -19,29 +19,47 @@ class DockViewConfig
     public bool EnableLocalStorage { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否锁定 默认 false
+    /// </summary>
+    /// <remarks>锁定后无法拖动</remarks>
+    [JsonPropertyName("lock")]
+    public bool IsLock { get; set; }
+
+    /// <summary>
     /// 获得/设置 配置信息版本号 默认 null
     /// </summary>
     public string? Version { get; set; }
 
     /// <summary>
-    /// 获得 标签页可见状态改变事件回调
+    /// 获得/设置 标签页可见状态改变事件回调
     /// </summary>
     public string? VisibleChangedCallback { get; set; }
 
     /// <summary>
-    /// 获得 组件初始化完成事件回调
+    /// 获得/设置 组件初始化完成事件回调
     /// </summary>
     public string? InitializedCallback { get; set; }
 
     /// <summary>
-    /// 获得 拖动标签页事件回调
+    /// 获得/设置 拖动标签页事件回调
     /// </summary>
     public string? TabDropCallback { get; set; }
 
     /// <summary>
-    /// 获得 调整标签页分割线事件回调
+    /// 获得/设置 调整标签页分割线事件回调
     /// </summary>
     public string? SplitterCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 锁定事件回调
+    /// </summary>
+    public string? LockChangedCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 客户端缓存键值
+    /// </summary>
+    [JsonPropertyName("prefix")]
+    public string? LocalStorageKeyPrefix { get; set; }
 
     /// <summary>
     /// 获得/设置 Golden-Layout 配置项集合 默认 空集合

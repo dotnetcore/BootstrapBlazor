@@ -1,0 +1,25 @@
+.form-floating {
+    &.is-group {
+        > .form-control:focus::-moz-placeholder,
+        > .form-control-plaintext:focus::-moz-placeholder {
+            color: var(--bs-secondary-color);
+        }
+
+        > .form-control:focus::placeholder,
+        > .form-control-plaintext:focus::placeholder {
+            color: var(--bs-secondary-color);
+        }
+
+        > .form-control-plaintext ~ label,
+        > .form-control:focus ~ label,
+        > .form-control:not(:placeholder-shown) ~ label,
+        > .form-select ~ label {
+            transform: scale(.85) translateY(-50%) translateX(0.15rem);
+        }
+    }
+
+    > .form-control:disabled ~ label::after {
+        background-color: var(--bb-disabled-bg);
+    }
+}
+

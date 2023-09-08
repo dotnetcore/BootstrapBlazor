@@ -365,11 +365,11 @@ public class DialogTest : DialogTestBase
 
         // 关闭第二个弹窗
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
-        Assert.Equal(1, cut.FindComponents<ModalDialog>().Count);
+        Assert.Single(cut.FindComponents<ModalDialog>());
 
         // 关闭第一个弹窗
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
-        Assert.Equal(0, cut.FindComponents<ModalDialog>().Count);
+        Assert.Empty(cut.FindComponents<ModalDialog>());
         #endregion
 
         #region 全屏弹窗

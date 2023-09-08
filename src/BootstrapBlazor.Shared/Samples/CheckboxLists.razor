@@ -1,40 +1,114 @@
-﻿@page "/checkboxlists"
+﻿@page "/checkbox-list"
 
 <h3>@Localizer["Title"]</h3>
 
 <h4>@Localizer["CheckboxListsTip"]</h4>
 
-<DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal" Demo="typeof(Demos.CheckboxList.CheckboxListNormal)">
+<DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
     <ul class="ul-demo mb-3">
         <li>@((MarkupString)Localizer["NormalTips1"].Value)</li>
         <li>@((MarkupString)Localizer["NormalTips2"].Value)</li>
         <li>@((MarkupString)Localizer["NormalTips3"].Value)</li>
     </ul>
+    <CheckboxList TValue="string" @bind-Value="@Value1" Items="@Items" ShowLabel="true" DisplayText="@Localizer[nameof(Foo.Name)]" OnSelectedChanged="@OnSelectedChanged" />
+    <ConsoleLogger @ref="NormalLogger" class="mt-3" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ValidateFormTitle"]" Introduction="@Localizer["ValidateFormIntro"]" Name="ValidateForm" Demo="typeof(Demos.CheckboxList.CheckboxListValidateForm)">
+<DemoBlock Title="@Localizer["ValidateFormTitle"]" Introduction="@Localizer["ValidateFormIntro"]" Name="ValidateForm">
     <p>@((MarkupString)Localizer["ValidateFormTips1"].Value)</p>
     <p>@((MarkupString)Localizer["ValidateFormTips2"].Value)</p>
     <p>@((MarkupString)Localizer["ValidateFormTips3"].Value)</p>
+    <ValidateForm Model="@Dummy">
+        <div class="row g-3">
+            <div class="col-12">
+                <CheckboxList @bind-Value="@Dummy.Name" Items="@Items4" />
+            </div>
+            <div class="col-12">
+                <label class="form-label">@Localizer["Foo.BindValue"]</label>
+                <div class="form-control flex-fill">@Dummy.Name</div>
+            </div>
+        </div>
+    </ValidateForm>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ShowLabelTitle"]" Introduction="@Localizer["ShowLabelIntro"]" Name="ShowLabel" Demo="typeof(Demos.CheckboxList.CheckboxListShowLabel)">
+<DemoBlock Title="@Localizer["ShowLabelTitle"]" Introduction="@Localizer["ShowLabelIntro"]" Name="ShowLabel">
     <p>@((MarkupString)Localizer["ShowLabelTip"].Value)</p>
+    <div class="row g-3">
+        <div class="col-12">
+            <CheckboxList TValue="IEnumerable<int>" Items="@Items1" @bind-Value="@ShowLabelValue1" ShowLabel="true" DisplayText="@Localizer[nameof(Foo.Name)]" />
+        </div>
+        <div class="col-12">
+            <label class="form-label">@Localizer["Foo.BindValue"]</label>
+            <div class="form-control">@(string.Join(",", ShowLabelValue1))</div>
+        </div>
+    </div>
+    <p class="mt-3">@((MarkupString)Localizer["Description"].Value)</p>
+    <div class="row g-3">
+        <div class="col-12">
+            <CheckboxList TValue="IEnumerable<string>" Items="@Items2" @bind-Value="@Value2" ShowLabel="true" DisplayText="@Localizer[nameof(Foo.Name)]" />
+        </div>
+        <div class="col-12">
+            <label class="form-label">@Localizer["Foo.BindValue"]</label>
+            <div class="form-control flex-fill">@(string.Join(",", Value2))</div>
+        </div>
+    </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["EnumTitle"]" Introduction="@Localizer["EnumIntro"]" Name="Enum" Demo="typeof(Demos.CheckboxList.CheckboxListEnum)">
+<DemoBlock Title="@Localizer["EnumTitle"]" Introduction="@Localizer["EnumIntro"]" Name="Enum">
     <p>@((MarkupString)Localizer["EnumTip"].Value)</p>
+    <div class="row g-3">
+        <div class="col-12">
+            <CheckboxList @bind-Value="@SelectedEnumValues" ShowLabel="true" DisplayText="@Localizer[nameof(Foo.Name)]" />
+        </div>
+        <div class="col-12">
+            <label class="form-label">@Localizer["Foo.BindValue"]</label>
+            <div class="form-control">@(string.Join(",", SelectedEnumValues))</div>
+        </div>
+    </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["NoBorderTitle"]" Introduction="@Localizer["NoBorderIntro"]" Name="NoBorder" Demo="typeof(Demos.CheckboxList.CheckboxListNoBorder)">
+<DemoBlock Title="@Localizer["NoBorderTitle"]" Introduction="@Localizer["NoBorderIntro"]" Name="NoBorder">
     <p>@Localizer["NoBorderTip"]</p>
+    <ValidateForm Model="@Dummy">
+        <CheckboxList @bind-Value="@Dummy.Name" ShowBorder="false" Items="@Items3" />
+    </ValidateForm>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["VerticalTitle"]" Introduction="@Localizer["VerticalIntro"]" Name="Vertical" Demo="typeof(Demos.CheckboxList.CheckboxListVertical)" />
+<DemoBlock Title="@Localizer["VerticalTitle"]" Introduction="@Localizer["VerticalIntro"]" Name="Vertical">
+    <CheckboxList @bind-Value="@Dummy.Name" IsVertical="true" ShowBorder="false" Items="@Items4" />
+</DemoBlock>
 
-<DemoBlock Title="@Localizer["DisabledTitle"]" Introduction="@Localizer["DisabledIntro"]" Name="Disabled" Demo="typeof(Demos.CheckboxList.CheckboxListDisabled)" />
+<DemoBlock Title="@Localizer["DisabledTitle"]" Introduction="@Localizer["DisabledIntro"]" Name="Disabled">
+    <CheckboxList @bind-Value="@Dummy.Name" IsDisabled="true" ShowBorder="false" Items="@Items4" />
+</DemoBlock>
 
-<DemoBlock Title="@Localizer["IsButtonTitle"]" Introduction="@Localizer["IsButtonIntro"]" Name="IsButton" Demo="typeof(Demos.CheckboxList.CheckboxListIsButton)" />
+<DemoBlock Title="@Localizer["IsButtonTitle"]" Introduction="@Localizer["IsButtonIntro"]" Name="IsButton">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6">
+            <CheckboxList IsButton="true" @bind-Value="@Value" Items="FooItems" ShowLabel="true" DisplayText="Test1"></CheckboxList>
+        </div>
+        <div class="col-12 col-sm-6">
+            <CheckboxList IsButton="true" @bind-Value="@Value" Items="FooItems" ShowLabel="true" DisplayText="Test2" Color="Color.Danger" IsDisabled="true"></CheckboxList>
+        </div>
+        <div class="col-12 col-sm-6">
+            <CheckboxList IsButton="true" @bind-Value="@Value" Items="FooItems" ShowLabel="true" DisplayText="Test3" Color="Color.Warning"></CheckboxList>
+        </div>
+        <div class="col-12 col-sm-6">
+            <CheckboxList IsButton="true" @bind-Value="@Value" Items="FooItems" ShowLabel="true" DisplayText="Test4" Color="Color.Info"></CheckboxList>
+        </div>
+    </div>
+
+    <ValidateForm Model="Model" class="mt-3">
+        <div class="row g-3 form-inline">
+            <div class="col-12 col-sm-6">
+                <BootstrapInput @bind-Value="@Model.Name" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <CheckboxList @bind-Value="@SelectedItems" IsButton="true" Items="FooItems" />
+            </div>
+        </div>
+    </ValidateForm>
+</DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
 

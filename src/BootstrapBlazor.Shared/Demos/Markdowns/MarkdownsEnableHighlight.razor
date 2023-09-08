@@ -1,9 +1,0 @@
-﻿@inject IStringLocalizer<BootstrapBlazor.Shared.Samples.Markdowns> Localizer
-
-<Markdown EnableHighlight="true" Value="@JsString"></Markdown>
-
-@code {
-    private string JsString { get; set; } = @"```js
-console.log('test');
-```";
-}

@@ -1,0 +1,35 @@
+﻿.scroll {
+    height: 100%;
+    scrollbar-color: rgba(0,0,0,0.3) rgba(0,0,0,0);
+    scrollbar-width: thin;
+    overflow: auto;
+    --bb-scroll-width: 6px;
+    --bb-scorll-height: 6px;
+    --bb-scorll-thumb-radius: 3px;
+    --bb-scorll-thumb-bg: rgba(0,0,0,0.2);
+    --bb-scorll-thumb-hover-bg: rgba(0,0,0,0.3);
+}
+
+    .scroll::-webkit-scrollbar {
+        width: var(--bb-scroll-width);
+        height: var(--bb-scorll-height);
+    }
+
+    .scroll::-webkit-scrollbar-thumb {
+        border-radius: var(--bb-scorll-thumb-radius);
+        background-color: var(--bb-scorll-thumb-bg);
+    }
+
+        .scroll::-webkit-scrollbar-thumb:hover {
+            background-color: var(--bb-scorll-thumb-hover-bg);
+        }
+
+@media (min-width: 992px) {
+    .scroll {
+        overflow: hidden;
+    }
+
+        .scroll:hover {
+            overflow: auto;
+        }
+}

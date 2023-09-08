@@ -44,6 +44,10 @@
             height: 20px;
         }
 
-    .bb-dock .lm_controls {
-        display: none;
+    .bb-dock .lm_controls .lm_popout {
+        background-image: url(../images/unlock.svg);
+    }
+
+    .bb-dock .lm_controls.bb-dock-lock .lm_popout {
+        background-image: url(../images/lock.svg);
     }

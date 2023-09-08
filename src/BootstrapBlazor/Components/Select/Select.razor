@@ -1,4 +1,5 @@
 ﻿@namespace BootstrapBlazor.Components
+@using Microsoft.AspNetCore.Components.Web.Virtualization
 @typeparam TValue
 @inherits SingleSelectBase<TValue>
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
@@ -33,36 +34,50 @@
             <span class="@ClearClassString" @onclick="OnClearValue"><i class="@ClearIcon"></i></span>
         }
         <div class="dropdown-menu">
-            @if (ShowSearch)
+            @if (IsVirtualize)
             {
-                <div class="@SearchClassString">
-                    <input type="text" class="search-text form-control" autocomplete="off" @bind-value="@SearchText" @bind-value:event="oninput" aria-label="Search">
-                    <i class="@SearchIconString"></i>
-                </div>
-            }
-            @foreach (var itemGroup in DataSource.GroupBy(i => i.GroupName))
-            {
-                if (!string.IsNullOrEmpty(itemGroup.Key))
+                @if (ShowSearch)
                 {
-                    <Divider Text="@itemGroup.Key" />
-                }
-                @foreach (var item in itemGroup)
-                {
-                    <div class="@ActiveItem(item)" @onclick="@(e => OnClickItem(item))">
-                        @if (ItemTemplate != null)
-                        {
-                            @ItemTemplate(item)
-                        }
-                        else
-                        {
-                            @item.Text
-                        }
+                    <div class="@SearchClassString">
+                        <input type="text" class="search-text form-control" autocomplete="off" value="@SearchText" @oninput="EventCallback.Factory.CreateBinder<string>(this, async v => await SearchTextChanged(v), SearchText)" aria-label="Search">
+                        <i class="@SearchIconString"></i>
                     </div>
                 }
+                <div class="dropdown-virtual">
+                    @if (OnQueryAsync == null)
+                    {
+                        <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" Items="@GetVirtualItems()" ChildContent="RenderRow" />
+                    }
+                    else
+                    {
+                        <Virtualize ItemSize="RowHeight" OverscanCount="OverscanCount" ItemsProvider="LoadItems" Placeholder="RenderPlaceHolderRow" ItemContent="RenderRow" @ref="VirtualizeElement" />
+                    }
+                </div>
             }
-            @if (!DataSource.Any())
+            else
             {
-                <div class="dropdown-item">@NoSearchDataText</div>
+                @if (ShowSearch)
+                {
+                    <div class="@SearchClassString">
+                        <input type="text" class="search-text form-control" autocomplete="off" @bind-value="@SearchText" @bind-value:event="oninput" aria-label="Search">
+                        <i class="@SearchIconString"></i>
+                    </div>
+                }
+                @foreach (var itemGroup in DataSource.GroupBy(i => i.GroupName))
+                {
+                    if (!string.IsNullOrEmpty(itemGroup.Key))
+                    {
+                        <Divider Text="@itemGroup.Key" />
+                    }
+                    @foreach (var item in itemGroup)
+                    {
+                        @RenderRow(item)
+                    }
+                }
+                @if (!DataSource.Any())
+                {
+                    <div class="dropdown-item">@NoSearchDataText</div>
+                }
             }
         </div>
         @if (!IsPopover)
@@ -71,3 +86,22 @@
         }
     </RenderTemplate>
 </div>
+
+@code {
+    RenderFragment<SelectedItem> RenderRow => item =>
+    @<div class="@ActiveItem(item)" @onclick="() => OnClickItem(item)">
+        @if (ItemTemplate != null)
+        {
+            @ItemTemplate(item)
+        }
+        else
+        {
+            @item.Text
+        }
+    </div>;
+
+    RenderFragment<PlaceholderContext> RenderPlaceHolderRow => context =>
+    @<div class="dropdown-item">
+        <div class="is-ph"></div>
+    </div>;
+}

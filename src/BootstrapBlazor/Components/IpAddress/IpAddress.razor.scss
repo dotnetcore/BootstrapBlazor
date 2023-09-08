@@ -1,0 +1,15 @@
+.ipaddress {
+    display: flex;
+    flex-wrap: nowrap;
+
+    &.disabled {
+        background-color: #efefef;
+        cursor: not-allowed;
+    }
+
+    .ipv4-cell {
+        border: none;
+        max-width: 30px;
+        text-align: right;
+    }
+}

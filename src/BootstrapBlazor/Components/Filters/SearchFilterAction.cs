@@ -48,17 +48,14 @@ public class SearchFilterAction : IFilterAction
     /// <summary>
     /// 设置过滤条件方法
     /// </summary>
-    /// <param name="conditions"></param>
+    /// <param name="filter"></param>
     /// <returns></returns>
-    public Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions)
+    public Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
-        if (conditions.Any())
+        var first = filter.Filters?.FirstOrDefault() ?? filter;
+        if (first.FieldKey == Name)
         {
-            var condition = conditions.FirstOrDefault(c => c.FieldKey == Name);
-            if (condition != null)
-            {
-                Value = condition.FieldValue;
-            }
+            Value = first.FieldValue;
         }
         return Task.CompletedTask;
     }
@@ -67,13 +64,10 @@ public class SearchFilterAction : IFilterAction
     /// 获取所有过滤条件集合
     /// </summary>
     /// <returns></returns>
-    public virtual IEnumerable<FilterKeyValueAction> GetFilterConditions() => new List<FilterKeyValueAction>()
+    public virtual FilterKeyValueAction GetFilterConditions() => new()
     {
-        new()
-        {
-            FieldKey = Name,
-            FieldValue = Value,
-            FilterAction = Action,
-        }
+        FieldKey = Name,
+        FieldValue = Value,
+        FilterAction = Action,
     };
 }

@@ -1,14 +1,14 @@
 ﻿@inject IStringLocalizer<PackageTips> Localizer
 
-<div class="info">@((MarkupString)Localizer["Tips", Name].Value)</div>
+<div class="info mb-2">@((MarkupString)Localizer["Tips", Name].Value)</div>
 
-<div class="code-label mt-3">.NET CLI</div>
-<Pre class="no-highlight">dotnet add package @Name</Pre>
+<div class="code-label mb-2">.NET CLI</div>
+<Pre class="no-highlight mb-2">dotnet add package @Name</Pre>
 
-<div class="code-label">PackageReference</div>
-<Pre @key="@Version" class="no-highlight">&lt;PackageReference Include="@Name" Version="@Version" /&gt;</Pre>
+<div class="code-label mb-2">PackageReference</div>
+<Pre @key="@Version" class="no-highlight mb-2">&lt;PackageReference Include="@Name" Version="@Version" /&gt;</Pre>
 
-<div class="code-label">Package Manager</div>
+<div class="code-label mb-2">Package Manager</div>
 <Pre class="no-highlight">Install-Package @Name</Pre>
 
 @code {

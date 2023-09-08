@@ -56,6 +56,7 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     /// <summary>
     /// 获得/设置 搜索框文本
     /// </summary>
+    [NotNull]
     protected string? SearchText { get; set; }
 
     /// <summary>

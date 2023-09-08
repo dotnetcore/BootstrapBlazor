@@ -40,7 +40,7 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
         Assert.True(File.Exists(archiveFile));
 
         // GetEntry
-        var entry = await archService.GetEntry(archiveFile, files[0]);
+        var entry = archService.GetEntry(archiveFile, files[0]);
         Assert.NotNull(entry);
 
         // ExtractToDirectory
@@ -49,7 +49,7 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
         {
             Directory.Delete(destFolder, true);
         }
-        await archService.ExtractToDirectory(archiveFile, destFolder);
+        archService.ExtractToDirectory(archiveFile, destFolder);
         Assert.True(Directory.Exists(destFolder));
     }
 }

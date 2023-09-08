@@ -7,15 +7,14 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Dropdown 下拉框组件
 /// </summary>
-public partial class Dropdown<TValue> : ValidateBase<TValue>
+public partial class Dropdown<TValue>
 {
     /// <summary>
     /// 获得 按钮弹出方向集合
     /// </summary>
     /// <returns></returns>
-    private string? DirectionClassName => CssBuilder.Default()
-        .AddClass($"btn-group", DropdownType == DropdownType.ButtonGroup)
-        .AddClass(Direction.ToDescriptionString(), DropdownType == DropdownType.DropdownMenu)
+    private string? DirectionClassName => CssBuilder.Default("btn-group")
+        .AddClass(Direction.ToDescriptionString())
         .AddClass($"{Direction.ToDescriptionString()}-center", MenuAlignment == Alignment.Center && (Direction == Direction.Dropup || Direction == Direction.Dropdown))
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -44,7 +43,7 @@ public partial class Dropdown<TValue> : ValidateBase<TValue>
     /// <summary>
     /// 获得 是否分裂式按钮
     /// </summary>
-    private string? DropdownToggle => !ShowSplit ? "dropdown" : null;
+    private string? DropdownToggle => !ShowSplit ? ToggleString : null;
 
     /// <summary>
     /// 菜单对齐方式样式
@@ -80,6 +79,12 @@ public partial class Dropdown<TValue> : ValidateBase<TValue>
     /// </summary>
     [Parameter]
     public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 按钮内容模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SelectedItem?>? ButtonTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 是否开启分裂式 默认 false
@@ -118,16 +123,16 @@ public partial class Dropdown<TValue> : ValidateBase<TValue>
     public bool ShowFixedButtonTextInDropdown { get; set; }
 
     /// <summary>
-    /// 获得/设置 下拉框渲染类型 默认 DropdownMenu 下拉菜单
-    /// </summary>
-    [Parameter]
-    public DropdownType DropdownType { get; set; }
-
-    /// <summary>
     /// 获得/设置 固定按钮显示文字 默认 null
     /// </summary>
     [Parameter]
     public string? FixedButtonText { get; set; }
+
+    /// <summary>
+    ///  获得/设置 Items 模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ItemsTemplate { get; set; }
 
     /// <summary>
     /// SelectedItemChanged 回调方法
@@ -160,8 +165,8 @@ public partial class Dropdown<TValue> : ValidateBase<TValue>
 
         DataSource = Items.ToList();
 
-        SelectedItem = DataSource.FirstOrDefault(i => i.Value.Equals(CurrentValueAsString, StringComparison.OrdinalIgnoreCase))
-            ?? DataSource.FirstOrDefault(i => i.Active)
+        SelectedItem = DataSource.Find(i => i.Value.Equals(CurrentValueAsString, StringComparison.OrdinalIgnoreCase))
+            ?? DataSource.Find(i => i.Active)
             ?? DataSource.FirstOrDefault();
 
         FixedButtonText ??= SelectedItem?.Text;

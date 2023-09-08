@@ -305,6 +305,84 @@ public class TabTest : TabTestBase
     }
 
     [Fact]
+    public void Menus_Ok()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.ClickTabToNavigation, true);
+            pb.Add(a => a.Menus, new List<MenuItem>()
+            {
+                new MenuItem()
+                {
+                    Text = "menu1",
+                    Url = "/Binder",
+                    Icon = "fa-solid fa-home"
+                },
+                new MenuItem()
+                {
+                    Text = "menu1",
+                    Url = "/Dog",
+                    Icon = "fa-solid fa-home"
+                }
+            });
+        });
+        var nav = cut.Services.GetRequiredService<NavigationManager>();
+        nav.NavigateTo("/Binder");
+        cut.Contains("<div class=\"tabs-body-content\">Binder</div>");
+
+        cut.InvokeAsync(() =>
+        {
+            var items = cut.Instance.Items;
+            Assert.Equal(2, items.Count());
+            var item = items.Last();
+            Assert.Equal("Binder", item.Url);
+            Assert.Equal("Index_Binder_Test", item.Text);
+        });
+    }
+
+    [Fact]
+    public void MenuItem_Menu()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.ClickTabToNavigation, true);
+            pb.Add(a => a.Menus, new List<MenuItem>()
+            {
+                new MenuItem(),
+                new MenuItem()
+            });
+        });
+
+        // reflection test GetMenuItem
+        cut.InvokeAsync(() =>
+        {
+            var instance = cut.Instance;
+            var mi = instance.GetType().GetMethod("GetMenuItem", BindingFlags.Instance | BindingFlags.NonPublic)!;
+            mi.Invoke(instance, new object[] { "/" });
+        });
+    }
+
+    [Fact]
+    public void MenuItem_Null()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.ClickTabToNavigation, true);
+        });
+
+        // reflection test GetMenuItem
+        cut.InvokeAsync(() =>
+        {
+            var instance = cut.Instance;
+            var mi = instance.GetType().GetMethod("GetMenuItem", BindingFlags.Instance | BindingFlags.NonPublic)!;
+            mi.Invoke(instance, new object[] { "/" });
+        });
+    }
+
+    [Fact]
     public void DefaultUrl_Ok()
     {
         var cut = Context.RenderComponent<Tab>(pb =>
@@ -317,7 +395,7 @@ public class TabTest : TabTestBase
     }
 
     [Fact]
-    public void IsOnlyRenderActiveTab_Ok()
+    public void IsOnlyRenderActiveTab_True()
     {
         var cut = Context.RenderComponent<Tab>(pb =>
         {
@@ -337,10 +415,41 @@ public class TabTest : TabTestBase
                 pb.Add(a => a.ChildContent, "Tab2-Content");
             });
         });
-        Assert.Equal(1, cut.FindAll(".tabs-body-content").Count);
+        Assert.Contains("Tab1-Content", cut.Markup);
+        Assert.DoesNotContain("Tab2-Content", cut.Markup);
+        Assert.DoesNotContain("tabs-body-content", cut.Markup);
 
         // 提高代码覆盖率
         cut.InvokeAsync(() => cut.Instance.CloseOtherTabs());
+    }
+
+    [Fact]
+    public void IsOnlyRenderActiveTab_False()
+    {
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.Add(a => a.AdditionalAssemblies, new Assembly[] { GetType().Assembly });
+            pb.Add(a => a.IsOnlyRenderActiveTab, false);
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab1");
+                pb.Add(a => a.Url, "/Cat");
+                pb.Add(a => a.ChildContent, "Tab1-Content");
+            });
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Tab2");
+                pb.Add(a => a.Url, "/");
+                pb.Add(a => a.Closable, false);
+                pb.Add(a => a.ChildContent, "Tab2-Content");
+            });
+        });
+
+        cut.InvokeAsync(() =>
+        {
+            var count = cut.FindAll("tabs-body-content").Count;
+            Assert.Equal(2, count);
+        });
     }
 
     [Fact]

@@ -11,11 +11,11 @@ public class ImageTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<ImageViewer>(pb =>
         {
-            pb.Add(a => a.Url, "https://www.blazor.zone/_content/BootstrapBlazor.Shared/images/logo.png");
+            pb.Add(a => a.Url, "https://www.blazor.zone/images/logo.png");
             pb.Add(a => a.ZIndex, 2000);
             pb.Add(a => a.FitMode, ObjectFitMode.Fill);
         });
-        cut.Contains("https://www.blazor.zone/_content/BootstrapBlazor.Shared/images/logo.png");
+        cut.Contains("https://www.blazor.zone/images/logo.png");
     }
 
     [Fact]
@@ -23,7 +23,7 @@ public class ImageTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<ImageViewer>(pb =>
         {
-            pb.Add(a => a.Url, "https://www.blazor.zone/_content/BootstrapBlazor.Shared/images/logo.png");
+            pb.Add(a => a.Url, "https://www.blazor.zone/images/logo.png");
             pb.Add(a => a.Alt, "alt-test");
         });
         cut.Contains("alt-test");
@@ -51,7 +51,7 @@ public class ImageTest : BootstrapBlazorTestBase
         var load = false;
         var cut = Context.RenderComponent<ImageViewer>(pb =>
         {
-            pb.Add(a => a.Url, "https://www.blazor.zone/_content/BootstrapBlazor.Shared/images/logo.png");
+            pb.Add(a => a.Url, "https://www.blazor.zone/images/logo.png");
             pb.Add(a => a.ShowPlaceHolder, true);
             pb.Add(a => a.OnLoadAsync, new Func<string, Task>(url =>
             {
@@ -67,12 +67,12 @@ public class ImageTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task HandleError_Ok()
+    public void HandleError_Ok()
     {
         var error = false;
         var cut = Context.RenderComponent<ImageViewer>(pb =>
         {
-            pb.Add(a => a.Url, "https://www.blazor.zone/_content/BootstrapBlazor.Shared/images/logo1.png");
+            pb.Add(a => a.Url, "https://www.blazor.zone/images/logo1.png");
             pb.Add(a => a.HandleError, true);
             pb.Add(a => a.OnErrorAsync, new Func<string, Task>(url =>
             {
@@ -83,10 +83,14 @@ public class ImageTest : BootstrapBlazorTestBase
         cut.Contains("d-none");
 
         // trigger error event
-        var img = cut.Find("img");
-        await cut.InvokeAsync(() => img.Error());
+        cut.InvokeAsync(() =>
+        {
+            var img = cut.Find("img");
+            img.Error();
+        });
         Assert.True(error);
 
+        error = false;
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.HandleError, false);
@@ -95,6 +99,13 @@ public class ImageTest : BootstrapBlazorTestBase
                 builder.AddContent(0, "error-template");
             }));
         });
+
+        cut.InvokeAsync(() =>
+        {
+            var img = cut.Find("img");
+            img.Error();
+        });
+        Assert.True(error);
         cut.Contains("error-template");
     }
 
@@ -103,7 +114,7 @@ public class ImageTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<ImageViewer>(pb =>
         {
-            pb.Add(a => a.Url, "https://www.blazor.zone/_content/BootstrapBlazor.Shared/images/logo.png");
+            pb.Add(a => a.Url, "https://www.blazor.zone/images/logo.png");
             pb.Add(a => a.IsAsync, true);
             pb.Add(a => a.PreviewList, new List<string> { "v1", "v2" });
         });

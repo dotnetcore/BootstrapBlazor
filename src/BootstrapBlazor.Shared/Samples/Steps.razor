@@ -1,0 +1,145 @@
+﻿@page "/step"
+@inject IStringLocalizer<Steps> Localizer
+
+<h3>@Localizer["StepsTitle"]</h3>
+
+<h4>@Localizer["StepsDescription"]</h4>
+
+<p>@Localizer["StepsTipsTitle"]</p>
+
+<p>@((MarkupString)Localizer["StepsTips"].Value)</p>
+
+<DemoBlock Title="@Localizer["StepsNormalTitle"]"
+           Introduction="@Localizer["StepsNormalIntro"]"
+           Name="Normal">
+    <section ignore class="mb-2">
+        <Button OnClick="() => PrevStep(_step1)">@Localizer["StepsNormalPrevButtonText"]</Button>
+        <Button OnClick="() => NextStep(_step1)">@Localizer["StepsNormalNextButtonText"]</Button>
+        <Button OnClick="() => ResetStep(_step1)">@Localizer["StepsNormalResetButtonText"]</Button>
+    </section>
+    <Step @ref="@_step1" Items="@Items" />
+    <ConsoleLogger @ref="Logger" class="mt-3" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["StepsStepTitle"]"
+           Introduction="@Localizer["StepsStepIntro"]"
+           Name="StepItem">
+    <section ignore class="mb-2">
+        <Button OnClick="() => PrevStep(_step2)">@Localizer["StepsNormalPrevButtonText"]</Button>
+        <Button OnClick="() => NextStep(_step2)">@Localizer["StepsNormalNextButtonText"]</Button>
+        <Button OnClick="() => ResetStep(_step2)">@Localizer["StepsNormalResetButtonText"]</Button>
+    </section>
+    <Step @ref="@_step2">
+        <StepItem Text="@Localizer["Step1Text"]" Title="@Localizer["Step1Title"]"></StepItem>
+        <StepItem Text="@Localizer["Step2Text"]" Title="@Localizer["Step2Title"]"></StepItem>
+        <StepItem Text="@Localizer["Step3Text"]" Title="@Localizer["Step3Title"]"></StepItem>
+    </Step>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["StepsDescTitle"]"
+           Introduction="@Localizer["StepsDescIntro"]"
+           Name="Description">
+    <section ignore class="mb-2">
+        <Button OnClick="() => PrevStep(_step3)">@Localizer["StepsNormalPrevButtonText"]</Button>
+        <Button OnClick="() => NextStep(_step3)">@Localizer["StepsNormalNextButtonText"]</Button>
+        <Button OnClick="() => ResetStep(_step3)">@Localizer["StepsNormalResetButtonText"]</Button>
+    </section>
+    <Step @ref="@_step3">
+        <StepItem Text="@Localizer["Step1Text"]" Description="@Localizer["StepDesc"]" Title="@Localizer["Step1Title"]"></StepItem>
+        <StepItem Text="@Localizer["Step2Text"]" Description="@Localizer["StepDesc"]" Title="@Localizer["Step2Title"]"></StepItem>
+        <StepItem Text="@Localizer["Step3Text"]" Description="@Localizer["StepDesc"]" Title="@Localizer["Step3Title"]"></StepItem>
+    </Step>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["StepsTitleTemplateTitle"]"
+           Introduction="@Localizer["StepsTitleTemplateIntro"]"
+           Name="TitleTemplate">
+    <section ignore class="mb-2">
+        <Button OnClick="() => PrevStep(_step4)">@Localizer["StepsNormalPrevButtonText"]</Button>
+        <Button OnClick="() => NextStep(_step4)">@Localizer["StepsNormalNextButtonText"]</Button>
+        <Button OnClick="() => ResetStep(_step4)">@Localizer["StepsNormalResetButtonText"]</Button>
+    </section>
+    <Step @ref="@_step4">
+        <StepItem Text="@Localizer["Step1Text"]" Description="@Localizer["StepDesc"]" Title="@Localizer["Step1Title"]">
+            <TitleTemplate>
+                <div class="step-title">
+                    <i class="fa fa-flag"></i>
+                    <span>@context.Title</span>
+                </div>
+            </TitleTemplate>
+        </StepItem>
+        <StepItem Text="@Localizer["Step2Text"]" Description="@Localizer["StepDesc"]" Title="@Localizer["Step2Title"]">
+            <TitleTemplate>
+                <div class="step-title">
+                    <i class="fa fa-flag"></i>
+                    <span>@context.Title</span>
+                </div>
+                <div>@DateTime.Now</div>
+            </TitleTemplate>
+        </StepItem>
+        <StepItem Text="@Localizer["Step3Text"]" Description="@Localizer["StepDesc"]" Title="@Localizer["Step3Title"]"></StepItem>
+    </Step>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["StepsHeaderTemplateTitle"]"
+           Introduction="@Localizer["StepsHeaderTemplateIntro"]"
+           Name="HeaderTemplate">
+    <section ignore class="mb-2">
+        <Button OnClick="() => PrevStep(_step5)">@Localizer["StepsNormalPrevButtonText"]</Button>
+        <Button OnClick="() => NextStep(_step5)">@Localizer["StepsNormalNextButtonText"]</Button>
+        <Button OnClick="() => ResetStep(_step5)">@Localizer["StepsNormalResetButtonText"]</Button>
+    </section>
+    <div class="step-demo">
+        <Step @ref="@_step5">
+            <StepItem>
+                <HeaderTemplate>
+                    <i class="fa fa-edit"></i>
+                    <span class="ms-2">@Localizer["Step1Text"]</span>
+                    <div class="flex-fill text-center">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </HeaderTemplate>
+            </StepItem>
+            <StepItem>
+                <HeaderTemplate>
+                    <i class="fa fa-user"></i>
+                    <span class="ms-2">@Localizer["Step2Text"]</span>
+                    <div class="flex-fill text-center">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </HeaderTemplate>
+            </StepItem>
+            <StepItem>
+                <HeaderTemplate>
+                    <i class="fa fa-house"></i>
+                    <span class="ms-2">@Localizer["Step3Text"]</span>
+                </HeaderTemplate>
+            </StepItem>
+        </Step>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["StepsVerticalTitle"]"
+           Introduction="@Localizer["StepsVerticalIntro"]"
+           Name="Vertical">
+    <section ignore class="mb-2">
+        <Button OnClick="() => PrevStep(_step6)">@Localizer["StepsNormalPrevButtonText"]</Button>
+        <Button OnClick="() => NextStep(_step6)">@Localizer["StepsNormalNextButtonText"]</Button>
+        <Button OnClick="() => ResetStep(_step6)">@Localizer["StepsNormalResetButtonText"]</Button>
+    </section>
+    <Step @ref="@_step6" IsVertical="true">
+        <StepItem Text="@Localizer["Step1Text"]" Title="@Localizer["Step1Title"]">
+            <Counter />
+        </StepItem>
+        <StepItem Text="@Localizer["Step2Text"]" Title="@Localizer["Step2Title"]">
+            <FetchData />
+        </StepItem>
+        <StepItem Text="@Localizer["Step3Text"]" Title="@Localizer["Step3Title"]">
+            <Counter />
+        </StepItem>
+    </Step>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />
+
+<AttributeTable Title="@Localizer["AttributeTitle"]" Items="@GetStepItemAttributes()" />

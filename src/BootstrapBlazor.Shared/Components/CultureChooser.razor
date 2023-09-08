@@ -1,7 +1,7 @@
 ﻿@inherits BootstrapComponentBase
 
 <div @attributes="@AdditionalAttributes" class="@ClassString">
-    <label>@Label</label>
+    <span>@Label</span>
     <Select Value="@SelectedCulture" OnSelectedItemChanged="@SetCulture">
         <Options>
             @foreach (var kv in BootstrapOptions.CurrentValue.GetSupportedCultures())

@@ -25,4 +25,18 @@ public static class MenuItemExtensions
             current = current.Parent;
         }
     }
+
+    /// <summary>
+    ///  获取全部节点
+    /// </summary>
+    /// <param name="source"></param>
+    /// <returns></returns>
+    public static IEnumerable<MenuItem>? GetAllItems(this IEnumerable<MenuItem>? source) => source == null ? null : GetAllSubItems(source).Union(source);
+
+    /// <summary>
+    /// 获取全部子节点
+    /// </summary>
+    /// <param name="source"></param>
+    /// <returns></returns>
+    public static IEnumerable<MenuItem> GetAllSubItems(this IEnumerable<MenuItem>? source) => source?.SelectMany(i => i.Items.Any() ? i.Items.Concat(GetAllSubItems(i.Items)) : i.Items) ?? Enumerable.Empty<MenuItem>();
 }

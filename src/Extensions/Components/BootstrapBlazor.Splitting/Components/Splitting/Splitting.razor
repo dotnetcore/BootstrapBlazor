@@ -1,0 +1,13 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.Splitting/Components/Splitting/Splitting.razor.js", AutoInvokeDispose = false)]
+
+<div @attributes="AdditionalAttributes" id="@Id" class="@ClassString" data-bb-columns="@Columns" data-bb-repeat="@Repeat">
+    @if (ShowLoadingText)
+    {
+        <div class="splitting-text">@Text</div>
+    }
+    <div class="splitting-wrap">
+        <div class="@FlipClassString"></div>
+    </div>
+</div>

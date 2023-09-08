@@ -63,8 +63,18 @@ const getUID = (prefix = '') => {
     return prefix
 }
 
+const getInnerWidth = element => getWidth(element, true)
+
+const getOuterWidth = element => {
+    let width = element.getBoundingClientRect().width
+    const styles = getComputedStyle(element)
+    const marginLeft = parseFloat(styles.marginLeft)
+    const marginRight = parseFloat(styles.marginRight)
+    return width + marginLeft + marginRight
+}
+
 const getWidth = (element, self = false) => {
-    let width = element.offsetWidth
+    let width = element.getBoundingClientRect().width
     if (self) {
         const styles = getComputedStyle(element)
         const borderLeftWidth = parseFloat(styles.borderLeftWidth)
@@ -76,8 +86,18 @@ const getWidth = (element, self = false) => {
     return width
 }
 
+const getInnerHeight = element => getHeight(element, true)
+
+const getOuterHeight = element => {
+    let height = element.getBoundingClientRect().height
+    const styles = getComputedStyle(element)
+    const marginTop = parseFloat(styles.marginTop)
+    const marginBottom = parseFloat(styles.marginBottom)
+    return height + marginTop + marginBottom
+}
+
 const getHeight = (element, self = false) => {
-    let height = element.offsetHeight
+    let height = element.getBoundingClientRect().height
     if (self) {
         const styles = getComputedStyle(element)
         const borderTopWidth = parseFloat(styles.borderTopWidth)
@@ -87,26 +107,6 @@ const getHeight = (element, self = false) => {
         height = height - borderBottomWidth - borderTopWidth - paddingTop - paddingBottom
     }
     return height
-}
-
-const getInnerWidth = element => getWidth(element, true)
-
-const getInnerHeight = element => getHeight(element, true)
-
-const getOuterHeight = element => {
-    let height = element.offsetHeight
-    const styles = getComputedStyle(element)
-    const marginTop = parseInt(styles.marginTop)
-    const marginBottom = parseInt(styles.marginBottom)
-    return height + marginTop + marginBottom
-}
-
-const getOuterWidth = element => {
-    let width = element.offsetWidth
-    const styles = getComputedStyle(element)
-    const marginLeft = parseInt(styles.marginLeft)
-    const marginRight = parseInt(styles.marginRight)
-    return width + marginLeft + marginRight
 }
 
 const getWindowScroll = node => {
@@ -146,22 +146,23 @@ const normalizeLink = link => {
 
 const addScript = content => {
     // content 文件名
-    const links = [...document.getElementsByTagName('script')]
+    const scripts = [...document.getElementsByTagName('script')]
     const url = normalizeLink(content)
-    let link = links.filter(function (link) {
+    let link = scripts.filter(function (link) {
         return link.src.indexOf(url) > -1
     })
-    let done = link.length > 0;
     if (link.length === 0) {
-        link = document.createElement('script')
-        link.setAttribute('src', content)
-        document.body.appendChild(link)
-        link.onload = () => {
-            done = true
+        const script = document.createElement('script')
+        link.push(script)
+        script.setAttribute('src', content)
+        document.body.appendChild(script)
+        script.onload = () => {
+            script.setAttribute('loaded', true)
         }
     }
     return new Promise((resolve, reject) => {
         const handler = setInterval(() => {
+            const done = link[0].getAttribute('loaded') === 'true'
             if (done) {
                 clearInterval(handler)
                 resolve()
@@ -187,18 +188,19 @@ const addLink = href => {
     let link = links.filter(function (link) {
         return link.href.indexOf(url) > -1
     })
-    let done = link.length > 0;
     if (link.length === 0) {
-        link = document.createElement('link')
-        link.setAttribute('href', href)
-        link.setAttribute("rel", "stylesheet")
-        document.getElementsByTagName("head")[0].appendChild(link)
-        link.onload = () => {
-            done = true
+        const css = document.createElement('link')
+        link.push(css)
+        css.setAttribute('href', href)
+        css.setAttribute("rel", "stylesheet")
+        document.getElementsByTagName("head")[0].appendChild(css)
+        css.onload = () => {
+            css.setAttribute('loaded', true)
         }
     }
     return new Promise((resolve, reject) => {
         const handler = setInterval(() => {
+            const done = link[0].getAttribute('loaded') === 'true'
             if (done) {
                 clearInterval(handler)
                 resolve()
@@ -447,10 +449,59 @@ const setIndeterminate = (object, state) => {
     }
 }
 
+const getOverflowParent = element => {
+    let parent = element.parentNode
+    while (parent.nodeType === 1) {
+        const style = getComputedStyle(parent)
+        const overflowY = style.getPropertyValue('overflow-y')
+        if (overflowY === 'auto' || overflowY === 'scroll') {
+            break;
+        }
+        parent = parent.parentNode
+    }
+    if (parent.nodeType !== 1) {
+        parent = getWindow()
+    }
+    return parent
+}
+
+/*
+ * @param {function} fn - 原函数
+ * @param {number} duration - 防抖时长
+ * @return {function} - 条件回调返回真时立即执行
+ */
+const debounce = function (fn, duration = 200, callback = null) {
+    let handler = null
+    return function () {
+        if (handler) {
+            clearTimeout(handler)
+        }
+        if (callback && typeof (callback) === 'function') {
+            var v = callback.apply(this, arguments)
+            if (v === true) {
+                handler = null
+            }
+        }
+        if (handler === null) {
+            fn.apply(this, arguments)
+
+            handler = setTimeout(() => {
+                handler = null
+            }, duration)
+        }
+        else {
+            handler = setTimeout(() => {
+                fn.apply(this, arguments)
+            }, duration)
+        }
+    }
+}
+
 export {
     addLink,
     addScript,
     copy,
+    debounce,
     drag,
     insertBefore,
     insertAfter,
@@ -467,6 +518,7 @@ export {
     getInnerWidth,
     getOuterHeight,
     getOuterWidth,
+    getOverflowParent,
     getTargetElement,
     getTransitionDelayDurationFromElement,
     getWidth,

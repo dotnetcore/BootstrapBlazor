@@ -102,26 +102,6 @@ public class DropdownTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void DropdownType_ButtonGroup()
-    {
-        var cut = Context.RenderComponent<Dropdown<EnumEducation>>(pb =>
-        {
-            pb.Add(a => a.DropdownType, DropdownType.ButtonGroup);
-        });
-        Assert.Contains("btn-group", cut.Markup);
-    }
-
-    [Fact]
-    public void DropdownType_DropdownMenu()
-    {
-        var cut = Context.RenderComponent<Dropdown<EnumEducation>>(pb =>
-        {
-            pb.Add(a => a.DropdownType, DropdownType.DropdownMenu);
-        });
-        Assert.Contains("class=\"dropdown\"", cut.Markup);
-    }
-
-    [Fact]
     public void DisplayText_OK()
     {
         var foo = new Foo();
@@ -258,5 +238,31 @@ public class DropdownTest : BootstrapBlazorTestBase
         cut.DoesNotContain("dropdown-menu");
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.IsDisabled, false));
+    }
+
+    [Fact]
+    public void ItemsTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<Dropdown<string>>(pb =>
+        {
+            pb.Add(a => a.ItemsTemplate, new RenderFragment(builder =>
+            {
+                builder.AddContent(0, new MarkupString("<div>test-items-template</div>"));
+            }));
+        });
+        cut.Contains("<div>test-items-template</div>");
+    }
+
+    [Fact]
+    public void ButtonTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<Dropdown<string>>(pb =>
+        {
+            pb.Add(a => a.ButtonTemplate, new RenderFragment<SelectedItem?>(item => builder =>
+            {
+                builder.AddContent(0, new MarkupString("<span>test-button-template</span>"));
+            }));
+        });
+        cut.Contains("<span>test-button-template</span>");
     }
 }

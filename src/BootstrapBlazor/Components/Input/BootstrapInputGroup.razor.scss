@@ -1,0 +1,22 @@
+@mixin direction($var,$child) {
+    > .datetime-picker:not(:#{$child}-child) .form-control,
+    > .select:not(:#{$child}-child) .form-control,
+    > .multi-select:not(:#{$child}-child) .dropdown-toggle,
+    > .auto-complete:not(:#{$child}-child) .form-control {
+        border-top-#{$var}-radius: 0;
+        border-bottom-#{$var}-radius: 0;
+    }
+}
+
+.input-group {
+    > .datetime-picker,
+    > .select,
+    > .auto-complete {
+        width: 1%;
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+
+    @include direction(right,last);
+    @include direction(left,first)
+}

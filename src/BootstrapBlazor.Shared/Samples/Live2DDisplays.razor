@@ -1,4 +1,4 @@
-﻿@page "/live2ddisplay"
+﻿@page "/live2d-display"
 @inject IStringLocalizer<Live2DDisplays> Localizer
 
 <h3>@Localizer["Live2DDisplayTitle"]</h3>
@@ -14,84 +14,87 @@ provider.Mappings[".mtn"] = "application/x-msdownload";
 
 app.UseStaticFiles(new StaticFileOptions { ContentTypeProvider = provider });</Pre>
 
-<DemoBlock Title="@Localizer["Live2DDisplayNormalTitle"]"
-           Introduction="@Localizer["Live2DDisplayNormalIntro"]"
-           Name="Live2DDisplayNormal"
-           Demo="typeof(Demos.Live2DDisplay.Live2DDisplayNormal)">
+<DemoBlock Title="@Localizer["Live2DDisplayNormalTitle"]" Introduction="@Localizer["Live2DDisplayNormalIntro"]" Name="Live2DDisplayNormal">
+    <div class="row g-3">
+        <div class="col-12">
+            <h4>Positions</h4>
+            <RadioList @bind-Value="@position" />
+            <h4>Models</h4>
+            <p>所有模型均来自 github 开源项目，仅供展示之用，本组件并不包含任何模型。</p>
+            <RadioList Items="@SrcItems" @bind-Value="@BindSrcItem" />
+        </div>
+        <div class="col-12">
+            <div class="row g-3 mb-3">
+                <div class="col-6">
+                    <h4>Model options</h4>
+                    <div class="mb-2">
+                        <BootstrapInputGroup>
+                            <BootstrapInputGroupLabel class="label-width" DisplayText="Scale" />
+                            <Slider @bind-Value="@Scale" Max="100" />
+                        </BootstrapInputGroup>
+                    </div>
+                    <div class="mb-2">
+                        <BootstrapInputGroup>
+                            <BootstrapInputGroupLabel class="label-width" DisplayText="X Offset" />
+                            <Slider @bind-Value="@XOffset" Min="-500" Max="500"></Slider>
+                        </BootstrapInputGroup>
+                    </div>
+                    <div class="mb-2">
+                        <BootstrapInputGroup>
+                            <BootstrapInputGroupLabel class="label-width" DisplayText="Y Offset" />
+                            <Slider @bind-Value="@YOffset" Min="-500" Max="500" />
+                        </BootstrapInputGroup>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <h4>Other options</h4>
+                    <div class="mb-2">
+                        <BootstrapInputGroup>
+                            <BootstrapInputGroupLabel class="label-width" DisplayText="IsDraggable" />
+                            <Checkbox TValue="bool" @bind-Value="@IsDraggable" />
+                        </BootstrapInputGroup>
+                    </div>
+                    <div class="mb-2">
+                        <BootstrapInputGroup>
+                            <BootstrapInputGroupLabel class="label-width" DisplayText="HitAreaFrames" />
+                            <Checkbox TValue="bool" @bind-Value="@AddHitAreaFrames" />
+                        </BootstrapInputGroup>
+                    </div>
+                    <div class="mb-2">
+                        <BootstrapInputGroup>
+                            <BootstrapInputGroupLabel class="label-width" DisplayText="BackgroundAlpha" />
+                            <Checkbox TValue="bool" @bind-Value="@BackgroundAlpha" ShowLabel="true" DisplayText="BackgroundAlpha" />
+                        </BootstrapInputGroup>
+                    </div>
+                    <div class="mb-2">
+                        <div class="input-group input-group-sm mb-3">
+                            <span class="input-group-text label-width">BackgroundColor</span>
+                            <div class="pick-radius">
+                                <ColorPicker @bind-Value="@BackgroundColor" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <Live2DDisplay Source=@BindSrcItem.Value Scale=@_scale IsDraggable="@IsDraggable"
+                   Position=@position AddHitAreaFrames=@AddHitAreaFrames
+                   XOffset=@_xOffset BackgroundColor=@BackgroundColor
+                   YOffset=@_yOffset BackgroundAlpha=@BackgroundAlpha />
+
 </DemoBlock>
+
 
 <AttributeTable Items="@GetAttributes()" />
 
-@code {
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
-        // TODO: 移动到数据库中
-        new AttributeItem() {
-            Name = "Source",
-            Description = Localizer["Live2DDisplaysSource"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = "empty"
-        },
-        new AttributeItem() {
-            Name = "Scale",
-            Description = Localizer["Live2DDisplaysScale"],
-            Type = "double",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new AttributeItem() {
-            Name = "XOffset",
-            Description = Localizer["Live2DDisplaysXoffset"],
-            Type = "int",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new AttributeItem() {
-            Name = "YOffset",
-            Description = Localizer["Live2DDisplaysYoffset"],
-            Type = "int",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new AttributeItem() {
-            Name = "IsDraggable(not yet implemented)",
-            Description = Localizer["Live2DDisplaysIsDraggble"],
-            Type = "bool",
-            ValueList = " — ",
-            DefaultValue = "false"
-        },
-        new AttributeItem() {
-            Name = "AddHitAreaFrames",
-            Description = Localizer["Live2DDisplaysAddHitAreaFrames"],
-            Type = "bool",
-            ValueList = " — ",
-            DefaultValue = "false"
-        },
-        new AttributeItem() {
-            Name = "Position",
-            Description = Localizer["Live2DDisplaysPosition"],
-            Type = "enum",
-            ValueList = "Default|BottomLeft|BottomRight|TopLeft|TopRight",
-            DefaultValue = "Default"
-        },
-        new AttributeItem() {
-            Name = "BackgroundColor",
-            Description = Localizer["Live2DDisplaysBackgroundColor"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = "#000000"
-        },
-        new AttributeItem() {
-            Name = "BackgroundAlpha",
-            Description = Localizer["Live2DDisplaysBackgroundAlpha"],
-            Type = "bool",
-            ValueList = " — ",
-            DefaultValue = "false"
-        }
-    };
-}
+<style>
+    .label-width {
+        width: 150px;
+    }
+
+    .pick-radius :first-child {
+        border-radius: 0px;
+    }
+</style>

@@ -15,7 +15,7 @@ public class IconThemeOptions
     public Dictionary<string, Dictionary<ComponentIcons, string>> Icons { get; private set; }
 
     /// <summary>
-    /// 获得/设置 当前主题键值 默认 fa 使用 fontawesome 图标集
+    /// 获得/设置 当前主题键值 默认 fa 使用 font-awesome 图标集
     /// </summary>
     public string ThemeKey { get; set; }
 
@@ -223,6 +223,10 @@ public class IconThemeOptions
         { ComponentIcons.FileIconZip, "fa-regular fa-file-archive" },
         { ComponentIcons.FileIconArchive, "fa-regular fa-file-text" },
         { ComponentIcons.FileIconImage, "fa-regular fa-file-image" },
-        { ComponentIcons.FileIconFile, "fa-regular fa-file" }
+        { ComponentIcons.FileIconFile, "fa-regular fa-file" },
+
+        { ComponentIcons.QueryBuilderPlusIcon, "fa-solid fa-plus" },
+        { ComponentIcons.QueryBuilderMinusIcon, "fa-solid fa-minus" },
+        { ComponentIcons.QueryBuilderRemoveIcon, "fa-solid fa-xmark" },
     };
 }

@@ -66,12 +66,6 @@ public partial class Topology : IAsyncDisposable
 
     private CancellationTokenSource? CancelToken { get; set; }
 
-    private string? IsSupportTouchString => IsSupportTouch ? "true" : null;
-
-    private string? IsFitViewString => IsFitView ? "true" : null;
-
-    private string? IsCenterViewString => IsCenterView ? "true" : null;
-
     [NotNull]
     private IJSObjectReference? Module { get; set; }
 
@@ -94,7 +88,7 @@ public partial class Topology : IAsyncDisposable
             // import JavaScript
             Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Topology/Components/Topology/Topology.razor.js");
             Interop = DotNetObjectReference.Create(this);
-            await Module.InvokeVoidAsync("init", Id, Interop, Content, nameof(PushData));
+            await Module.InvokeVoidAsync("init", Id, Interop, Content, nameof(PushData), IsSupportTouch, IsFitView, IsCenterView);
         }
     }
 

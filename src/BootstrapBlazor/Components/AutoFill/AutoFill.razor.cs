@@ -10,7 +10,6 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// AutoFill 组件
 /// </summary>
-[BootstrapModuleAutoLoader("AutoComplete/AutoComplete.razor.js", JSObjectReference = true)]
 public partial class AutoFill<TValue>
 {
     private bool _isLoading;
@@ -21,14 +20,13 @@ public partial class AutoFill<TValue>
     /// </summary>
     protected virtual string? ClassString => CssBuilder.Default("auto-complete auto-fill")
         .AddClass("is-loading", _isLoading)
-        .AddClass("show", _isShown)
+        .AddClass("show", _isShown && !IsPopover)
         .Build();
 
     /// <summary>
     /// 获得 最终候选数据源
     /// </summary>
-    [NotNull]
-    protected List<TValue>? FilterItems { get; private set; }
+    private List<TValue> _filterItems = new();
 
     /// <summary>
     /// 获得/设置 组件数据集合
@@ -36,13 +34,6 @@ public partial class AutoFill<TValue>
     [Parameter]
     [NotNull]
     public IEnumerable<TValue>? Items { get; set; }
-
-    /// <summary>
-    /// 获得/设置 无匹配数据时显示提示信息 默认提示"无匹配数据"
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? NoDataTip { get; set; }
 
     /// <summary>
     /// 获得/设置 匹配数据时显示的数量 默认 null 未设置
@@ -101,18 +92,6 @@ public partial class AutoFill<TValue>
     public Func<TValue, Task>? OnSelectedItemChanged { get; set; }
 
     /// <summary>
-    /// 获得/设置 防抖时间 默认为 0 即不开启
-    /// </summary>
-    [Parameter]
-    public int Debounce { get; set; }
-
-    /// <summary>
-    /// 获得/设置 获得焦点时是否展开下拉候选菜单 默认 true
-    /// </summary>
-    [Parameter]
-    public bool ShowDropdownListOnFocus { get; set; } = true;
-
-    /// <summary>
     /// 图标
     /// </summary>
     [Parameter]
@@ -126,19 +105,11 @@ public partial class AutoFill<TValue>
 
     [Inject]
     [NotNull]
-    private IIconTheme? IconTheme { get; set; }
-
-    [Inject]
-    [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
 
-    private string InputString { get; set; } = "";
+    private string _inputString = "";
 
     private TValue? ActiveSelectedItem { get; set; }
-
-    private ElementReference AutoFillElement { get; set; }
-
-    private int? CurrentItemIndex { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -150,7 +121,6 @@ public partial class AutoFill<TValue>
         NoDataTip ??= Localizer[nameof(NoDataTip)];
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         Items ??= Enumerable.Empty<TValue>();
-        FilterItems ??= new List<TValue>();
     }
 
     /// <summary>
@@ -164,36 +134,7 @@ public partial class AutoFill<TValue>
         LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
 
         OnGetDisplayText ??= v => v?.ToString() ?? "";
-        InputString = OnGetDisplayText(Value);
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (CurrentItemIndex.HasValue)
-        {
-            await InvokeVoidAsync("autoScroll", AutoFillElement, CurrentItemIndex.Value);
-        }
-
-        if (firstRender)
-        {
-            // 汉字多次触发问题
-            if (ValidateForm != null)
-            {
-                await InvokeVoidAsync("composition", Id, Interop, nameof(TriggerOnChange));
-            }
-
-            if (Debounce > 0)
-            {
-                await InvokeVoidAsync("debounce", Id, Debounce);
-            }
-        }
+        _inputString = Value == null ? string.Empty : OnGetDisplayText(Value);
     }
 
     /// <summary>
@@ -216,7 +157,7 @@ public partial class AutoFill<TValue>
     {
         _isShown = false;
         CurrentValue = val;
-        InputString = OnGetDisplayText(val);
+        _inputString = OnGetDisplayText(val);
         ActiveSelectedItem = default;
         if (OnSelectedItemChanged != null)
         {
@@ -229,71 +170,71 @@ public partial class AutoFill<TValue>
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
-    protected virtual async Task OnFocus(FocusEventArgs args)
+    private async Task OnFocus(FocusEventArgs args)
     {
         if (ShowDropdownListOnFocus)
         {
-            await OnKeyUp(new KeyboardEventArgs());
+            await OnKeyUp("");
         }
     }
 
     /// <summary>
     /// OnKeyUp 方法
     /// </summary>
-    /// <param name="args"></param>
+    /// <param name="key"></param>
     /// <returns></returns>
-    protected virtual async Task OnKeyUp(KeyboardEventArgs args)
+    [JSInvokable]
+    public virtual async Task OnKeyUp(string key)
     {
         if (!_isLoading)
         {
             _isLoading = true;
             if (OnCustomFilter != null)
             {
-                var items = await OnCustomFilter(InputString);
-                FilterItems = items.ToList();
+                var items = await OnCustomFilter(_inputString);
+                _filterItems = items.ToList();
             }
             else
             {
                 var items = FindItem();
-                FilterItems = DisplayCount == null ? items.ToList() : items.Take(DisplayCount.Value).ToList();
+                _filterItems = DisplayCount == null ? items.ToList() : items.Take(DisplayCount.Value).ToList();
             }
             _isLoading = false;
         }
 
-        var source = FilterItems;
-        if (source.Any())
+        if (_filterItems.Any())
         {
             _isShown = true;
             // 键盘向上选择
-            if (args.Key == "ArrowUp")
+            if (key == "ArrowUp")
             {
                 var index = 0;
                 if (ActiveSelectedItem != null)
                 {
-                    index = source.IndexOf(ActiveSelectedItem) - 1;
+                    index = _filterItems.IndexOf(ActiveSelectedItem) - 1;
                     if (index < 0)
                     {
-                        index = source.Count - 1;
+                        index = _filterItems.Count - 1;
                     }
                 }
-                ActiveSelectedItem = source[index];
+                ActiveSelectedItem = _filterItems[index];
                 CurrentItemIndex = index;
             }
-            else if (args.Key == "ArrowDown")
+            else if (key == "ArrowDown")
             {
                 var index = 0;
                 if (ActiveSelectedItem != null)
                 {
-                    index = source.IndexOf(ActiveSelectedItem) + 1;
-                    if (index > source.Count - 1)
+                    index = _filterItems.IndexOf(ActiveSelectedItem) + 1;
+                    if (index > _filterItems.Count - 1)
                     {
                         index = 0;
                     }
                 }
-                ActiveSelectedItem = source[index];
+                ActiveSelectedItem = _filterItems[index];
                 CurrentItemIndex = index;
             }
-            else if (args.Key == "Escape")
+            else if (key == "Escape")
             {
                 await OnBlur();
                 if (!SkipEsc && OnEscAsync != null)
@@ -301,12 +242,12 @@ public partial class AutoFill<TValue>
                     await OnEscAsync(Value);
                 }
             }
-            else if (args.Key == "Enter")
+            else if (key == "Enter")
             {
                 ActiveSelectedItem ??= FindItem().FirstOrDefault();
                 if (ActiveSelectedItem != null)
                 {
-                    InputString = OnGetDisplayText(ActiveSelectedItem);
+                    _inputString = OnGetDisplayText(ActiveSelectedItem);
                 }
                 await OnBlur();
                 if (!SkipEnter && OnEnterAsync != null)
@@ -315,23 +256,24 @@ public partial class AutoFill<TValue>
                 }
             }
         }
+        StateHasChanged();
 
         IEnumerable<TValue> FindItem()
         {
             var comparison = IgnoreCase ? StringComparison.OrdinalIgnoreCase : StringComparison.Ordinal;
             return IsLikeMatch ?
-                Items.Where(s => OnGetDisplayText(s).Contains(InputString, comparison)) :
-                Items.Where(s => OnGetDisplayText(s).StartsWith(InputString, comparison));
+                Items.Where(s => OnGetDisplayText(s).Contains(_inputString, comparison)) :
+                Items.Where(s => OnGetDisplayText(s).StartsWith(_inputString, comparison));
         }
     }
 
     /// <summary>
-    ///
+    /// TriggerOnChange 方法
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
     public void TriggerOnChange(string val)
     {
-        InputString = val;
+        _inputString = val;
     }
 }

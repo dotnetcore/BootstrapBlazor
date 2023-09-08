@@ -5,6 +5,14 @@
     overflow: hidden;
 }
 
+    .pre-code .loading {
+        padding: .5rem 1rem;
+    }
+
+    .pre-code.loaded > pre > code {
+        display: none;
+    }
+
 ::deep .btn-primary {
     position: absolute;
     top: .65rem;

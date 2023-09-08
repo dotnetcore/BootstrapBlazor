@@ -5,7 +5,7 @@
 
 <h4>@Localizer["SubTitle"]</h4>
 
-<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal" Demo="typeof(Demos.Client.ClientNormal)">
+<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
     <p>@Localizer["BasicUsageP1"]</p>
     <div class="mb-3">
         <p>@((MarkupString)Localizer["BasicUsageP2"].Value)</p>
@@ -47,4 +47,35 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
 }
 </Pre>
     </div>
+    <GroupBox Title="@Localizer["GroupBoxTitle"]">
+        <div class="row g-3 form-inline">
+            <div class="col-12 col-sm-6">
+                <Display Value="ClientInfo.Id" DisplayText="@Localizer["Id"]" ShowLabel="true" />
+            </div>
+            <div class="col-12">
+                <Display Value="ClientInfo.RequestUrl" DisplayText="@Localizer["RequestUrl"]" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display Value="ClientInfo.Ip" DisplayText="@Localizer["Ip"]" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display Value="ClientInfo.OS" DisplayText="@Localizer["OS"]" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display Value="ClientInfo.Browser" DisplayText="@Localizer["Browser"]" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display Value="ClientInfo.Engine" DisplayText="@Localizer["Engine"]" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display Value="ClientInfo.Device" DisplayText="@Localizer["Device"]" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display Value="ClientInfo.Language" DisplayText="@Localizer["Language"]" ShowLabel="true" />
+            </div>
+            <div class="col-12">
+                <BootstrapInput Value="ClientInfo.UserAgent" DisplayText="UserAgent" ShowLabel="true" readonly />
+            </div>
+        </div>
+    </GroupBox>
 </DemoBlock>

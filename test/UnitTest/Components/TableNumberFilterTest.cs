@@ -23,16 +23,16 @@ public class TableNumberFilterTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<NumberFilter<int?>>();
 
         var filter = cut.Instance;
-        IEnumerable<FilterKeyValueAction>? condtions = null;
-        cut.InvokeAsync(() => condtions = filter.GetFilterConditions());
-        Assert.NotNull(condtions);
-        Assert.Empty(condtions);
+        var conditions = filter.GetFilterConditions();
+        Assert.NotNull(conditions.Filters);
+        Assert.Empty(conditions.Filters);
 
         // Set Value
         var dt = cut.FindComponent<BootstrapInputNumber<int?>>();
         cut.InvokeAsync(() => dt.Instance.SetValue(10));
-        cut.InvokeAsync(() => condtions = filter.GetFilterConditions());
-        Assert.Single(condtions);
+        conditions = filter.GetFilterConditions();
+        Assert.NotNull(conditions.Filters);
+        Assert.Single(conditions.Filters);
     }
 
     [Fact]
@@ -47,19 +47,22 @@ public class TableNumberFilterTest : BootstrapBlazorTestBase
         Assert.NotNull(logic);
 
         var conditions = cut.Instance.GetFilterConditions();
-        Assert.Empty(conditions);
+        Assert.NotNull(conditions.Filters);
+        Assert.Empty(conditions.Filters);
 
         var dt = cut.FindComponent<BootstrapInputNumber<int?>>().Instance;
         cut.InvokeAsync(() => dt.SetValue(10));
 
         conditions = cut.Instance.GetFilterConditions();
-        Assert.Single(conditions);
+        Assert.NotNull(conditions.Filters);
+        Assert.Single(conditions.Filters);
 
         dt = cut.FindComponents<BootstrapInputNumber<int?>>()[1].Instance;
         cut.InvokeAsync(() => dt.SetValue(10));
 
         conditions = cut.Instance.GetFilterConditions();
-        Assert.Equal(2, conditions.Count());
+        Assert.NotNull(conditions.Filters);
+        Assert.Equal(2, conditions.Filters.Count);
     }
 
     [Fact]
@@ -94,7 +97,6 @@ public class TableNumberFilterTest : BootstrapBlazorTestBase
         });
         var filter = cut.FindComponent<NumberFilter<int>>();
         var input = filter.FindComponent<BootstrapInputNumber<int>>();
-        IEnumerable<FilterKeyValueAction>? condtions = null;
 
         // Click ToDay Cell
         cut.InvokeAsync(() =>
@@ -110,22 +112,23 @@ public class TableNumberFilterTest : BootstrapBlazorTestBase
             Assert.Equal(6, logics.Count);
 
             logics[1].Click();
-            condtions = filter.Instance.GetFilterConditions();
-            Assert.NotNull(condtions);
-            Assert.Single(condtions);
-            Assert.Equal(10, condtions!.First().FieldValue);
-            Assert.Equal(FilterAction.LessThanOrEqual, condtions!.First().FilterAction);
         });
+        var conditions = filter.Instance.GetFilterConditions();
+        Assert.NotNull(conditions.Filters);
+        Assert.Single(conditions.Filters);
+        Assert.Equal(10, conditions.Filters[0].FieldValue);
+        Assert.Equal(FilterAction.LessThanOrEqual, conditions.Filters[0].FilterAction);
 
         // OnClearFilter
         cut.InvokeAsync(() =>
         {
             filterButton.Find(".fa-ban").Click();
-            condtions = filter.Instance.GetFilterConditions();
-            Assert.Single(condtions);
-            Assert.Equal(0, condtions!.First().FieldValue);
-            Assert.Equal(FilterAction.GreaterThanOrEqual, condtions!.First().FilterAction);
         });
+        conditions = filter.Instance.GetFilterConditions();
+        Assert.NotNull(conditions.Filters);
+        Assert.Single(conditions.Filters);
+        Assert.Equal(0, conditions.Filters[0].FieldValue);
+        Assert.Equal(FilterAction.GreaterThanOrEqual, conditions.Filters[0].FilterAction);
     }
 
     [Fact]
@@ -155,29 +158,44 @@ public class TableNumberFilterTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task SetFilterConditions_Ok()
+    public void SetFilterConditions_Ok()
     {
         var cut = Context.RenderComponent<NumberFilter<int?>>();
         var filter = cut.Instance;
         var conditions = filter.GetFilterConditions();
-        Assert.Empty(conditions);
+        Assert.NotNull(conditions.Filters);
+        Assert.Empty(conditions.Filters);
 
-        var newConditions = new List<FilterKeyValueAction>
+        var newConditions = new FilterKeyValueAction()
         {
-            new FilterKeyValueAction() { FieldValue = 1 },
-            new FilterKeyValueAction() { FieldValue = 2 }
+            Filters = new()
+            {
+                new FilterKeyValueAction() { FieldValue = 1 },
+                new FilterKeyValueAction() { FieldValue = 2 }
+            }
         };
-        await filter.SetFilterConditionsAsync(newConditions);
+        cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();
-        Assert.Equal(2, conditions.Count());
+        Assert.NotNull(conditions.Filters);
+        Assert.Equal(2, conditions.Filters.Count);
 
-        newConditions = new List<FilterKeyValueAction>
+        newConditions = new FilterKeyValueAction()
         {
-            new FilterKeyValueAction() { FieldValue = null },
-            new FilterKeyValueAction() { FieldValue = null }
+            Filters = new()
+            {
+                new FilterKeyValueAction() { FieldValue = null },
+                new FilterKeyValueAction() { FieldValue = null }
+            }
         };
-        await filter.SetFilterConditionsAsync(newConditions);
+        cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();
-        Assert.Empty(conditions);
+        Assert.NotNull(conditions.Filters);
+        Assert.Empty(conditions.Filters);
+
+        newConditions = new FilterKeyValueAction() { FieldValue = 1 };
+        cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
+        conditions = filter.GetFilterConditions();
+        Assert.NotNull(conditions.Filters);
+        Assert.Single(conditions.Filters);
     }
 }

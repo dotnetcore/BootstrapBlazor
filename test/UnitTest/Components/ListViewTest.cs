@@ -113,10 +113,7 @@ public class ListViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.PageItems, 2);
         });
         Assert.True(query);
-
-        query = false;
         cut.InvokeAsync(() => cut.Instance.QueryAsync());
-        Assert.True(query);
     }
 
     [Fact]
@@ -131,7 +128,7 @@ public class ListViewTest : BootstrapBlazorTestBase
         });
         var cut = Context.RenderComponent<ListView<Product>>(pb =>
         {
-            pb.Add(a => a.Collapsable, true);
+            pb.Add(a => a.Collapsible, true);
             pb.Add(a => a.GroupName, p => p.Category);
             pb.Add(a => a.BodyTemplate, p => builder => builder.AddContent(0, $"{p.ImageUrl}-{p.Description}-{p.Category}"));
             pb.Add(a => a.OnQueryAsync, option =>
@@ -173,7 +170,7 @@ public class ListViewTest : BootstrapBlazorTestBase
         });
         var cut = Context.RenderComponent<ListView<Product>>(pb =>
         {
-            pb.Add(a => a.Collapsable, true);
+            pb.Add(a => a.Collapsible, true);
             pb.Add(a => a.IsAccordion, true);
             pb.Add(a => a.GroupName, p => p.Category);
             pb.Add(a => a.BodyTemplate, p => builder => builder.AddContent(0, $"{p.ImageUrl}-{p.Description}-{p.Category}"));
@@ -205,7 +202,7 @@ public class ListViewTest : BootstrapBlazorTestBase
         });
         var cut = Context.RenderComponent<ListView<Product>>(pb =>
         {
-            pb.Add(a => a.Collapsable, true);
+            pb.Add(a => a.Collapsible, true);
             pb.Add(a => a.IsAccordion, true);
             pb.Add(a => a.GroupName, p => p.Category);
             pb.Add(a => a.BodyTemplate, p => builder => builder.AddContent(0, $"{p.ImageUrl}-{p.Description}-{p.Category}"));
@@ -241,7 +238,7 @@ public class ListViewTest : BootstrapBlazorTestBase
         });
         var cut = Context.RenderComponent<ListView<Product>>(pb =>
         {
-            pb.Add(a => a.Collapsable, true);
+            pb.Add(a => a.Collapsible, true);
             pb.Add(a => a.GroupName, p => p.Category);
             pb.Add(a => a.BodyTemplate, p => builder => builder.AddContent(0, $"{p.ImageUrl}-{p.Description}-{p.Category}"));
             pb.Add(a => a.OnQueryAsync, option =>

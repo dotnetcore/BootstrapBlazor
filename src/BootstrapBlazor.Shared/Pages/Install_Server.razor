@@ -4,7 +4,7 @@
 <InstallContent Title="@Localizer["Title"]">
     <ChooseTemplate>
         <div class="code-label mt-3 mb-2">4. @Localizer["D1"] <b>Blazor Server App</b>@Localizer["D2"] <b>Create</b></div>
-        <img src="_content/BootstrapBlazor.Shared/images/choose-project-template-server-blazor.png" style="border-radius: 6px;" class="d-none d-sm-block mb-3" />
+        <img src="./images/choose-project-template-server-blazor.png" style="border-radius: 6px;" class="d-none d-sm-block mb-3" />
     </ChooseTemplate>
     <SheetTemplate>
         <ul>
@@ -24,7 +24,7 @@
             <li><code>Program.cs</code> <b>.NET6</b></li>
         </ul>
         <div class="mb-2"><b>Startup.cs</b></div>
-        <Pre>namespace MyBlazorAppName
+        <Pre class="mb-2">namespace MyBlazorAppName
 {
     public class Startup
     {
@@ -38,8 +38,8 @@
     }
 }</Pre>
 
-        <div class="mb-2"><b>Program.cs</b></div>
-        <Pre>var builder = WebApplication.CreateBuilder(args);
+    <div class="mb-2"><b>Program.cs</b></div>
+    <Pre class="mb-2">var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddServerSideBlazor();

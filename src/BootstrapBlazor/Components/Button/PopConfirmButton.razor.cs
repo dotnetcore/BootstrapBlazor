@@ -40,6 +40,8 @@ public partial class PopConfirmButton
     [NotNull]
     private IStringLocalizer<PopConfirmButton>? Localizer { get; set; }
 
+    private bool _renderTooltip;
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
@@ -50,7 +52,21 @@ public partial class PopConfirmButton
         ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
         CloseButtonText ??= Localizer[nameof(CloseButtonText)];
         Content ??= Localizer[nameof(Content)];
+
+        _renderTooltip = Tooltip == null && !string.IsNullOrEmpty(TooltipText);
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public override Task ShowTooltip() => Task.CompletedTask;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public override Task RemoveTooltip() => Task.CompletedTask;
 
     /// <summary>
     /// 显示确认弹窗方法

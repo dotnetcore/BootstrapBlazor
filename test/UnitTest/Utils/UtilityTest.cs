@@ -262,7 +262,7 @@ public class UtilityTest : BootstrapBlazorTestBase
         });
 
         // 静态类
-        var dn = Utility.GetDisplayName(typeof(Foo), nameof(Foo.Count));
+        var dn = Utility.GetDisplayName<Foo>(nameof(Foo.Count));
         Assert.Equal("数量", dn);
 
         // 动态类
@@ -270,7 +270,7 @@ public class UtilityTest : BootstrapBlazorTestBase
         Assert.Equal("数量", dn);
 
         // 静态类
-        dn = Utility.GetDisplayName(typeof(Foo), nameof(Foo.Education));
+        dn = Utility.GetDisplayName<Foo>(nameof(Foo.Education));
         Assert.Equal("学历", dn);
 
         // 静态类
@@ -289,10 +289,10 @@ public class UtilityTest : BootstrapBlazorTestBase
         dn = Utility.GetDisplayName(new Cat(), nameof(Cat.Name));
         Assert.Equal("Cat-Desc", dn);
 
-        dn = Utility.GetDisplayName(typeof(TestEnum), nameof(TestEnum.Name));
+        dn = Utility.GetDisplayName<TestEnum>(nameof(TestEnum.Name));
         Assert.Equal("Test-Enum-Name", dn);
 
-        dn = Utility.GetDisplayName(typeof(TestEnum), nameof(TestEnum.Address));
+        dn = Utility.GetDisplayName<TestEnum>(nameof(TestEnum.Address));
         Assert.Equal("Test-Enum-Address", dn);
 
         dn = Utility.GetDisplayName(typeof(Nullable<TestEnum>), nameof(TestEnum.Name));
@@ -571,7 +571,7 @@ public class UtilityTest : BootstrapBlazorTestBase
     {
         var option = new JsonLocalizationOptions
         {
-           ReloadOnChange = true
+            ReloadOnChange = true
         };
         Assert.True(option.ReloadOnChange);
     }

@@ -36,7 +36,7 @@ public interface IZipArchiveService
     /// <param name="overwriteFiles">是否覆盖文件 默认 false 不覆盖</param>
     /// <param name="encoding">编码方式 默认 null 内部使用 UTF-8</param>
     /// <returns></returns>
-    Task ExtractToDirectory(string archiveFile, string destinationDirectoryName, bool overwriteFiles = false, Encoding? encoding = null);
+    bool ExtractToDirectory(string archiveFile, string destinationDirectoryName, bool overwriteFiles = false, Encoding? encoding = null);
 
     /// <summary>
     /// 获得归档压缩文件中指定归档文件
@@ -46,5 +46,5 @@ public interface IZipArchiveService
     /// <param name="overwriteFiles">是否覆盖文件 默认 false 不覆盖</param>
     /// <param name="encoding">编码方式 默认 null 内部使用 UTF-8</param>
     /// <returns></returns>
-    Task<ZipArchiveEntry?> GetEntry(string archiveFile, string entryFile, bool overwriteFiles = false, Encoding? encoding = null);
+    ZipArchiveEntry? GetEntry(string archiveFile, string entryFile, bool overwriteFiles = false, Encoding? encoding = null);
 }

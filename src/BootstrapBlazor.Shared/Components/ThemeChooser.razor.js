@@ -22,7 +22,7 @@ export function addScript(args) {
     if (links) {
         const link = [].slice.call(links).filter(function (item) {
             const href = item.getAttribute('href')
-            return href.indexOf('_content/BootstrapBlazor.Shared/css/site.css') > -1
+            return href.indexOf('./css/site.css') > -1
         });
         const original = link[0]
         while (original.nextElementSibling && original.nextElementSibling.nodeName === 'LINK') {

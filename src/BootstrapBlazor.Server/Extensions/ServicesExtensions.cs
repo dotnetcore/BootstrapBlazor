@@ -2,15 +2,11 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Bootstrap.Shared.OAuth;
-using BootstrapBlazor.Components;
+using BootstrapBlazor.Server.OAuth;
 using BootstrapBlazor.Server.Services;
 using BootstrapBlazor.Shared;
-using DocumentFormat.OpenXml.Wordprocessing;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
-using System.Net.Http.Headers;
 using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -40,7 +36,7 @@ internal static class ServicesExtensions
         // 配置网站路由表
         services.Configure<WebsiteOptions>(op =>
         {
-            op.AdditionalAssemblies = new Assembly[] { typeof(BootstrapBlazor.Shared.OAuth.AzureOpenAIUser).Assembly };
+            op.AdditionalAssemblies = new Assembly[] { typeof(AzureOpenAIUser).Assembly };
         });
 
         // 增加 BootstrapBlazor 组件

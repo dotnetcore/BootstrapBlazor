@@ -1,11 +1,18 @@
 ﻿export function init() {
-    const hash = location.hash
+    const hash = decodeURI(location.hash)
     if (hash) {
-        const el = document.querySelector(hash)
-        if (el) {
-            const rect = el.getBoundingClientRect()
-            const top = rect.top - 50
-            scrollTo(0, top)
+        const anchor = hash.split('-')[0]
+        try {
+            const el = document.querySelector(anchor)
+            if (el) {
+                const handler = setTimeout(() => {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'center' })
+                    clearTimeout(handler)
+                }, 1000)
+            }
+        }
+        catch (e) {
+            console.log(e)
         }
     }
 }

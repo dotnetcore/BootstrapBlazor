@@ -9,6 +9,75 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class DragDrops
 {
+    [NotNull]
+    private ConsoleLogger? Logger { get; set; }
+
+    /// <summary>
+    /// OnItemDropRejectedByMaxItemLimit
+    /// </summary>
+    /// <param name="item"></param>
+    private void OnItemDropRejectedByMaxItemLimit(string item)
+    {
+        Logger.Log($"{item}由于超过最大数量限制被禁止");
+    }
+
+    /// <summary>
+    /// OnItemDropRejected
+    /// </summary>
+    /// <param name="item"></param>
+    private void OnItemDropRejected(string item)
+    {
+        Logger.Log($"{item}被拒绝");
+    }
+
+    /// <summary>
+    /// OnReplacedItemDrop
+    /// </summary>
+    /// <param name="item"></param>
+    private void OnReplacedItemDrop(string item)
+    {
+        Logger.Log($"新元素放在{item}下");
+    }
+
+    /// <summary>
+    /// OnItemDrop
+    /// </summary>
+    /// <param name="item"></param>
+    private void OnItemDrop(string item)
+    {
+        Logger.Log($"{item}被放下");
+    }
+
+    [NotNull]
+    private List<string>? StrList1 { get; set; }
+
+    [NotNull]
+    private List<string>? StrList2 { get; set; }
+
+    /// <summary>
+    /// OnInitialized
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        StrList1 = new List<string>()
+        {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+        };
+        StrList2 = new List<string>()
+        {
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"
+        };
+    }
+
     /// <summary>
     /// GetAttributes
     /// </summary>
@@ -30,7 +99,7 @@ public partial class DragDrops
             Type = "RenderFragment<TItem>?",
             ValueList = " — ",
             DefaultValue = " — "
-        },
+        }
     };
 
     /// <summary>

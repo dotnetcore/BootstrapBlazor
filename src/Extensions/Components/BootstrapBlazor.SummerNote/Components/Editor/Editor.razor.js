@@ -55,6 +55,8 @@ export async function init(id, invoker, methodGetPluginAttrs, methodClickPluginI
                 switch (e.delegateTarget.getAttribute('data-method')) {
                     case 'submit':
                         disposeTooltip(editor.submitTooltip)
+                        delete editor.submitTooltip
+
                         offEvent(editor.editorToolbar)
                         editor.editorElement.classList.remove('open')
                         const code = editor.$editor.summernote('code')

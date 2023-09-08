@@ -9,9 +9,9 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class OnScreenKeyboards
 {
-    static readonly Dictionary<string, string> Keys1 = new() { { "0", "L" }, { "1", "O" } };
-    static readonly Dictionary<string, string> Keys2 = new() { { "0", "V" }, { "1", "E" } };
-    static readonly List<Dictionary<string, string>> KeysArray = new() { Keys1, Keys2 };
+    private static readonly Dictionary<string, string> Keys1 = new() { { "0", "L" }, { "1", "O" } };
+    private static readonly Dictionary<string, string> Keys2 = new() { { "0", "V" }, { "1", "E" } };
+    private static readonly List<Dictionary<string, string>> KeysArray = new() { Keys1, Keys2 };
 
     /// <summary>
     /// 获得属性方法
@@ -19,16 +19,15 @@ public sealed partial class OnScreenKeyboards
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new AttributeItem()
+        new()
         {
             Name = "ClassName",
-            Description = "获得/设置 组件class名称",
+            Description = "获得/设置 组件 class 名称",
             Type = "string",
             ValueList = " — ",
             DefaultValue = "virtualkeyboard"
         },
-        new AttributeItem()
+        new()
         {
             Name = "KeyboardKeys",
             Description = "获得/设置 键盘语言布局",
@@ -36,7 +35,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = "arabic|english|french|german|hungarian|persian|russian|spanish|turkish",
             DefaultValue = "english"
         },
-        new AttributeItem()
+        new()
         {
             Name = "Keyboard",
             Description = "获得/设置 键盘类型",
@@ -44,7 +43,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = "全键盘 all | 字母 keyboard || 小数字键盘 numpad",
             DefaultValue = "all"
         },
-        new AttributeItem()
+        new()
         {
             Name = "Placement",
             Description = "获得/设置 对齐",
@@ -52,7 +51,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = "顶端 top | 底部 bottom",
             DefaultValue = "bottom"
         },
-        new AttributeItem()
+        new()
         {
             Name = "Placeholder",
             Description = "获得/设置 占位符",
@@ -60,7 +59,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = " — ",
             DefaultValue = " - "
         },
-        new AttributeItem()
+        new()
         {
             Name = "Specialcharacters",
             Description = "获得/设置 显示特殊字符切换按钮",
@@ -68,7 +67,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = " - ",
             DefaultValue = "true"
         },
-        new AttributeItem()
+        new()
         {
             Name = "Option",
             Description = "获得/设置 键盘配置",
@@ -78,15 +77,13 @@ public sealed partial class OnScreenKeyboards
         }
     };
 
-
     /// <summary>
     /// 获得KeyboardOption属性
     /// </summary>
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetKeyboardOptionAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new AttributeItem()
+        new()
         {
             Name = "keysArrayOfObjects",
             Description = "键盘布局数组",
@@ -94,7 +91,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = " — ",
             DefaultValue = "英文键盘布局数组"
         },
-        new AttributeItem()
+        new()
         {
             Name = "KeyboardKeysType",
             Description = "键盘语言布局",
@@ -102,7 +99,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = "arabic|english|french|german|hungarian|persian|russian|spanish|turkish",
             DefaultValue = "english"
         },
-        new AttributeItem()
+        new()
         {
             Name = "keysJsonUrl",
             Description = "键盘布局.json文件的路径",
@@ -110,7 +107,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = " - ",
             DefaultValue = " - "
         },
-        new AttributeItem()
+        new()
         {
             Name = "KeyboardSpecialcharacters",
             Description = "特殊符号键盘类型, 默认|欧洲|自定义",
@@ -118,7 +115,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = "all|europe|customer",
             DefaultValue = "all"
         },
-        new AttributeItem()
+        new()
         {
             Name = "CustomerKeyboardSpecialcharacters",
             Description = "自定义特殊符号键盘",
@@ -126,7 +123,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "keysNumpadArrayOfNumbers",
             Description = "自定义数字小键盘",
@@ -134,7 +131,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "language",
             Description = "自定义键的语言代码",
@@ -142,7 +139,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = "例如 de || en || fr || hu || tr 等...",
             DefaultValue = "en"
         },
-        new AttributeItem()
+        new()
         {
             Name = "Theme",
             Description = "键盘主题",
@@ -150,7 +147,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = "light|dark|flat|material|oldschool",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "allowRealKeyboard",
             Description = "允许或阻止物理键盘",
@@ -158,7 +155,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem()
+        new()
         {
             Name = "allowMobileKeyboard",
             Description = "允许或阻止使用移动键盘",
@@ -166,7 +163,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem()
+        new()
         {
             Name = "cssAnimations",
             Description = "打开或关闭键盘的 CSS 动画",
@@ -174,7 +171,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem()
+        new()
         {
             Name = "cssAnimationsDuration",
             Description = "CSS 动画持续时间(毫秒)",
@@ -182,7 +179,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = " - ",
             DefaultValue = "360"
         },
-        new AttributeItem()
+        new()
         {
             Name = "KeyboardCssAnimationsStyle",
             Description = "打开或关闭键盘的 CSS 动画样式",
@@ -190,7 +187,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = "slide|fade|flat|material|oldschool",
             DefaultValue = "slide"
         },
-        new AttributeItem()
+        new()
         {
             Name = "keysAllowSpacebar",
             Description = "启用或禁用空格键",
@@ -198,7 +195,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new AttributeItem()
+        new()
         {
             Name = "keysSpacebarText",
             Description = "空格键文本自定义",
@@ -206,7 +203,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = " - ",
             DefaultValue = "Space"
         },
-        new AttributeItem()
+        new()
         {
             Name = "keysFontFamily",
             Description = "按键字体名称",
@@ -214,7 +211,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = " - ",
             DefaultValue = "sans-serif"
         },
-        new AttributeItem()
+        new()
         {
             Name = "keysFontSize",
             Description = "按键文字尺寸",
@@ -222,7 +219,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = " - ",
             DefaultValue = "22px"
         },
-        new AttributeItem()
+        new()
         {
             Name = "keysFontWeight",
             Description = "按键文字粗细",
@@ -230,7 +227,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = " - ",
             DefaultValue = "normal"
         },
-        new AttributeItem()
+        new()
         {
             Name = "keysIconSize",
             Description = "按键图标大小",
@@ -238,7 +235,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = " - ",
             DefaultValue = "25px"
         },
-        new AttributeItem()
+        new()
         {
             Name = "autoScroll",
             Description = "自动滚动",
@@ -254,8 +251,7 @@ public sealed partial class OnScreenKeyboards
     /// <returns></returns>
     private static IEnumerable<AttributeItem> GetKeyboardEnumAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new AttributeItem()
+        new()
         {
             Name = "KeyboardKeysType",
             Description = "键盘语言布局",
@@ -263,7 +259,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = "arabic|english|french|german|hungarian|persian|russian|spanish|turkish",
             DefaultValue = "english"
         },
-        new AttributeItem()
+        new()
         {
             Name = "KeyboardType",
             Description = "键盘类型, 全键盘 || 字母 || 小数字键盘",
@@ -271,7 +267,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = "all|keyboard|numpad",
             DefaultValue = "all"
         },
-        new AttributeItem()
+        new()
         {
             Name = "KeyboardPlacement",
             Description = "对齐, 顶端 || 底部",
@@ -279,7 +275,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = "bottom|top",
             DefaultValue = "bottom"
         },
-        new AttributeItem()
+        new()
         {
             Name = "KeyboardSpecialcharacters",
             Description = "特殊符号键盘类型, 默认 || 欧洲 || 自定义",
@@ -287,7 +283,7 @@ public sealed partial class OnScreenKeyboards
             ValueList = "all|europe|customer",
             DefaultValue = "all"
         },
-        new AttributeItem()
+        new()
         {
             Name = "KeyboardTheme",
             Description = "键盘主题, 浅色 || 暗黑 || 平板 || material ||oldschool",
@@ -295,13 +291,13 @@ public sealed partial class OnScreenKeyboards
             ValueList = "light|dark|flat|material|oldschool",
             DefaultValue = "light"
         },
-        new AttributeItem()
+        new()
         {
             Name = "KeyboardCssAnimationsStyle",
             Description = "打开或关闭键盘的 CSS 动画样式",
             Type = "enum",
             ValueList = "slide|fade|flat|material|oldschool",
             DefaultValue = "slide"
-        },
+        }
     };
 }

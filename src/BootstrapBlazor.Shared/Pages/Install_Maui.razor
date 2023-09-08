@@ -18,23 +18,23 @@
 <div class="code-label mb-2">1.Visual Studio 2022</div>
 <div class="code-label mb-2">2. @Localizer["P5"]</div>
 <div class="code-label mb-2">3. @Localizer["P6"] <b>@Localizer["P7"]</b> @Localizer["P8"] <b>@Localizer["P9"]</b>, @Localizer["P10"] <b>@Localizer["P11"]</b>, <b>@Localizer["P12"]</b></div>
-<img src="_content/BootstrapBlazor.Shared/images/choose-project-template-maui-blazor.png" style="border-radius: 6px;" class="d-none d-sm-block" />
+<img src="./images/choose-project-template-maui-blazor.png" style="border-radius: 6px;" class="d-none d-sm-block" />
 <h5 class="mt-3 mb-2">@Localizer["P13"]</h5>
 <div class="code-label mb-2">@((MarkupString)Localizer["P14"].Value)</div>
 <div class="mb-2">@Localizer["P15"] <b>Manage Nuget Packages</b></div>
-<Pre @key="@Version" class="no-highlight">dotnet add package BootstrapBlazor --version @Version</Pre>
-<img src="_content/BootstrapBlazor.Shared/images/manage-nuget-packages-for-maui-app.png" style="border-radius: 6px;" class="d-none d-sm-block" />
-<div class="code-label mt-3 mb-2">@Localizer["P16"]</div>
-<img src="_content/BootstrapBlazor.Shared/images/nuget_install.png" style="width: 1000px; border-radius: 6px;" class="d-none d-sm-block" />
-<div class="code-label mt-3 mb-2">@Localizer["P17"]</div>
-<div class="mb-3">@Localizer["P18"]</div>
-<ul>
+<Pre @key="@Version" class="no-highlight mb-2">dotnet add package BootstrapBlazor --version @Version</Pre>
+<img src="./images/manage-nuget-packages-for-maui-app.png" style="border-radius: 6px;" class="d-none d-sm-block mb-2" />
+<div class="code-label my-2">@Localizer["P16"]</div>
+<img src="./images/nuget_install.png" style="width: 1000px; border-radius: 6px;" class="d-none d-sm-block mb-2" />
+<div class="code-label my-2">@Localizer["P17"]</div>
+<div class="mb-2">@Localizer["P18"]</div>
+<ul class="mb-2">
     <li><code>~/wwwroot/index.html</code> </li>
 </ul>
-<Tips>
+<Tips class="mb-2">
     <div>@((MarkupString)Localizer["P33"].Value)</div>
 </Tips>
-<Pre>&lt;head&gt;
+<Pre class="mb-2">&lt;head&gt;
     ...
 <b>
     &lt;!-- @Localizer["P19"] !--&gt;
@@ -46,10 +46,10 @@
     &lt;link href="MauiApp1.styles.css" rel="stylesheet"&gt;
 &lt;/head&gt;</Pre>
 <div class="code-label mb-3">@Localizer["P20"]</div>
-<ul>
+<ul class="mb-2">
     <li><code>~/wwwroot/index.html</code> </li>
 </ul>
-<Pre>&lt;body&gt;
+<Pre class="mb-2">&lt;body&gt;
     ...
     &lt;!-- @Localizer["P21"] !--&gt;
     <b>&lt;script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"&gt;&lt;/script&gt;</b>
@@ -57,11 +57,11 @@
     &lt;script src="_framework/blazor.webview.js" autostart="false" &gt;&lt;/script&gt;
 &lt;/body&gt;</Pre>
 <div class="code-label mb-2">@Localizer["P22"]</div>
-<ul>
+<ul class="mb-2">
     <li><code>MauiProgram.cs</code></li>
 </ul>
 <div class="mb-2"><b>MauiProgram.cs</b></div>
-<Pre>var builder = MauiApp.CreateBuilder();
+<Pre class="mb-2">var builder = MauiApp.CreateBuilder();
 
 builder.Services.AddMauiBlazorWebView();
 
@@ -71,11 +71,11 @@ builder.Services.AddMauiBlazorWebView();
 return builder.Build();
 </Pre>
 <div class="code-label mb-2">@Localizer["P23"]</div>
-<div class="mb-1">@Localizer["P24"] <code>~/_Imports.razor</code> @Localizer["P25"] <code>Razor</code> @Localizer["P26"]</div>
-<Pre><b>@@using BootstrapBlazor.Components</b></Pre>
+<div class="mb-2">@Localizer["P24"] <code>~/_Imports.razor</code> @Localizer["P25"] <code>Razor</code> @Localizer["P26"]</div>
+<Pre class="mb-2"><b>@@using BootstrapBlazor.Components</b></Pre>
 
 <div class="code-label mb-2">@Localizer["P27"] <code>BootstrapBlazorRoot</code> @Localizer["P28"] <code>~/Main.razor</code> @Localizer["P29"]</div>
-<Pre>&lt;BootstrapBlazorRoot&gt;
+<Pre class="mb-2">&lt;BootstrapBlazorRoot&gt;
     &lt;Router AppAssembly="@@typeof(App).Assembly"&gt;
         &lt;Found Context="routeData"&gt;
             &lt;PageTitle&gt;Title&lt;/PageTitle&gt;
@@ -92,18 +92,18 @@ return builder.Build();
 &lt;/BootstrapBlazorRoot&gt;</Pre>
 
 <h5 class="mb-3">@Localizer["P31"]</h5>
-<div class="mt-2 mb-1">@((MarkupString)Localizer["P32"].Value)</div>
+<div class="mb-2">@((MarkupString)Localizer["P32"].Value)</div>
 <div class="code-label mb-2">@Localizer["P34"] <code>Button</code> @Localizer["P35"]</div>
-<Pre>&lt;Button Color="Color.Primary" Icon="fa-solid fa-font-awesome" Text="@Localizer["P36"]" /&gt;</Pre>
+<Pre class="mb-2">&lt;Button Color="Color.Primary" Icon="fa-solid fa-font-awesome" Text="@Localizer["P36"]" /&gt;</Pre>
 <div class="code-label mb-2">@Localizer["P37"] <b>Visual studio 2022</b> @Localizer["P38"] <kbd>F5</kbd> @Localizer["P39"]</div>
-<img src="_content/BootstrapBlazor.Shared/images/preview-maui.png" style="border-radius: 6px;" class="d-none d-sm-block" />
+<img src="./images/preview-maui.png" style="border-radius: 6px;" class="d-none d-sm-block" />
 
 <h4 class="code-label mb-2">@Localizer["P40"]</h4>
 <div class="code-label mb-2">@Localizer["P41"] <code>NativeContent.xaml</code> @Localizer["P42"]</div>
-<ul>
+<ul class="mb-2">
     <li><code>NativeContent.xaml</code></li>
 </ul>
-<Pre>&lt;ContentView
+<Pre class="mb-2">&lt;ContentView
     x:Class="MauiApp1.Pages.NativeContent"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"&gt;
@@ -140,10 +140,10 @@ return builder.Build();
 
     &lt;/VerticalStackLayout&gt;
 &lt;/ContentView&gt;</Pre>
-<ul>
+<ul class="mb-2">
     <li><code>NativeContent.xaml.cs</code></li>
 </ul>
-<Pre>public partial class NativeContent : ContentView
+<Pre class="mb-2">public partial class NativeContent : ContentView
 {
     public NativeContent()
     {
@@ -163,10 +163,10 @@ return builder.Build();
     }
 }</Pre>
 <div class="code-label mb-2">@Localizer["P43"] <code>MainPage.xaml</code> @Localizer["P44"] <code>ContentPage</code> @Localizer["P45"]  <code>TabbedPage</code>@Localizer["P46"] <code>NavigationPage</code> @Localizer["P47"]  </div>
-<ul>
+<ul class="mb-2">
     <li><code>MainPage.xaml</code></li>
 </ul>
-<Pre>&lt;TabbedPage
+<Pre class="mb-2">&lt;TabbedPage
     x:Class="MauiApp1.MainPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -198,10 +198,10 @@ return builder.Build();
         &lt;/BlazorWebView&gt;
     &lt;/ContentPage&gt;
 &lt;/TabbedPage&gt;</Pre>
-<ul>
+<ul class="mb-2">
     <li><code>MainPage.xaml.cs</code></li>
 </ul>
-<Pre>public partial class MainPage : TabbedPage
+<Pre class="mb-2">public partial class MainPage : TabbedPage
 {
     public MainPage()
     {
@@ -210,7 +210,7 @@ return builder.Build();
 }</Pre>
 <div class="code-label mb-2">@Localizer["P48"] <b>Visual studio 2022</b> @Localizer["P49"] <kbd>F5</kbd> @Localizer["P50"]</div>
 
-<img src="_content/BootstrapBlazor.Shared/images/maui-blazor.gif" style="border-radius: 6px;width: 320px;" class="d-none d-sm-block" />
+<img src="./images/maui-blazor.gif" style="border-radius: 6px;width: 320px;" class="d-none d-sm-block" />
 
 @code
 {

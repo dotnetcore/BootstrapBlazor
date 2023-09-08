@@ -106,7 +106,7 @@ public class ButtonTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task IsAsync_Ok()
+    public void IsAsync_Ok()
     {
         // 同步点击
         var clicked = false;
@@ -134,7 +134,8 @@ public class ButtonTest : BootstrapBlazorTestBase
         });
         b.Click();
         Assert.False(clicked);
-        await tcs.Task;
+        tcs.Task.Wait();
+        cut.WaitForState(() => tcs.Task.Result);
         Assert.True(clicked);
 
         // 同步无刷新点击
@@ -169,7 +170,8 @@ public class ButtonTest : BootstrapBlazorTestBase
         b.Click();
         Assert.False(clicked);
         Assert.True(cut.Instance.IsDisabled);
-        await tcs.Task;
+        tcs.Task.Wait();
+        cut.WaitForState(() => tcs.Task.Result);
         Assert.True(clicked);
     }
 
@@ -392,5 +394,25 @@ public class ButtonTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<DialogSaveButton>();
         cut.Contains("button type=\"submit\"");
+    }
+
+    [Fact]
+    public void ShareButton_Ok()
+    {
+        var cut = Context.RenderComponent<ShareButton>(pb =>
+        {
+            pb.Add(a => a.ShareContext, new ShareButtonContext() { Text = "test-share-text", Title = "test-share-title", Url = "www.blazor.zone" });
+        });
+
+        cut.InvokeAsync(() =>
+        {
+            var button = cut.Find("button");
+            button.Click();
+        });
+
+        var context = Context.JSInterop.VerifyInvoke("share").Arguments[0] as ShareButtonContext;
+        Assert.Equal("test-share-text", context?.Text);
+        Assert.Equal("test-share-title", context?.Title);
+        Assert.Equal("www.blazor.zone", context?.Url);
     }
 }

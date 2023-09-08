@@ -32,6 +32,18 @@ public partial class TableFooterCell
     public Alignment Align { get; set; }
 
     /// <summary>
+    /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd
+    /// </summary>
+    [Parameter]
+    public string? FormatString { get; set; }
+
+    /// <summary>
+    /// 获得/设置 列格式化回调委托
+    /// </summary>
+    [Parameter]
+    public Func<object?, Task<string?>>? Formatter { get; set; }
+
+    /// <summary>
     /// 获得/设置 聚合方法枚举 默认 Sum
     /// </summary>
     [Parameter]
@@ -61,7 +73,16 @@ public partial class TableFooterCell
     [CascadingParameter(Name = "TableFooterContext")]
     private object? DataSource { get; set; }
 
-    private string? GetText() => Text ?? (GetCount(DataSource) == 0 ? "0" : (GetCountValue() ?? GetAggegateValue()));
+    private string? Value { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnParametersSetAsync()
+    {
+        Value = Text ?? (GetCount(DataSource) == 0 ? "0" : (GetCountValue() ?? await GetAggregateValue()));
+    }
 
     /// <summary>
     /// 解析 Count Aggregate
@@ -91,9 +112,9 @@ public partial class TableFooterCell
         return v;
     }
 
-    private string? GetAggegateValue()
+    private async Task<string?> GetAggregateValue()
     {
-        return Aggregate == AggregateType.Customer ? AggregateCustomerValue() : AggregateNumberValue();
+        return Aggregate == AggregateType.Customer ? AggregateCustomerValue() : await AggregateNumberValue();
 
         string? AggregateCustomerValue()
         {
@@ -105,7 +126,7 @@ public partial class TableFooterCell
             return v;
         }
 
-        string? AggregateNumberValue()
+        async Task<string?> AggregateNumberValue()
         {
             string? v = null;
             if (!string.IsNullOrEmpty(Field) && DataSource != null)
@@ -123,9 +144,9 @@ public partial class TableFooterCell
                     // Count 属性类型
                     var propertyType = propertyInfo.PropertyType;
 
-                    // 构建 Aggegate
+                    // 构建 Aggregate
                     // @context.Sum(i => i.Count)
-                    var aggegateMethod = Aggregate switch
+                    var aggregateMethod = Aggregate switch
                     {
                         AggregateType.Average => propertyType.Name switch
                         {
@@ -139,19 +160,19 @@ public partial class TableFooterCell
                         _ => GetType().GetMethod(nameof(CreateAggregateLambda), BindingFlags.NonPublic | BindingFlags.Static)!
                             .MakeGenericMethod(propertyType)
                     };
-                    if (aggegateMethod != null)
+                    if (aggregateMethod != null)
                     {
-                        v = AggregateMethodInvoker(aggegateMethod, type, modelType, propertyType);
+                        v = await AggregateMethodInvoker(aggregateMethod, type, modelType, propertyType);
                     }
                 }
             }
             return v;
         }
 
-        string? AggregateMethodInvoker(MethodInfo aggegateMethod, Type type, Type modelType, Type propertyType)
+        async Task<string?> AggregateMethodInvoker(MethodInfo aggregateMethod, Type type, Type modelType, Type propertyType)
         {
             string? v = null;
-            var invoker = aggegateMethod.Invoke(null, new object[] { Aggregate, type, modelType, propertyType });
+            var invoker = aggregateMethod.Invoke(null, new object[] { Aggregate, type, modelType, propertyType });
             if (invoker != null)
             {
                 // 构建 Selector
@@ -166,15 +187,32 @@ public partial class TableFooterCell
                         if (invoker is Delegate d)
                         {
                             var val = d.DynamicInvoke(DataSource, selector);
-                            if (val != null)
-                            {
-                                v = val.ToString();
-                            }
+                            v = await GetValue(val);
                         }
                     }
                 }
             }
             return v;
+        }
+
+        async Task<string?> GetValue(object? val)
+        {
+            string? ret = null;
+            if (Formatter != null)
+            {
+                // 格式化回调委托
+                ret = await Formatter(val);
+            }
+            else if (!string.IsNullOrEmpty(FormatString))
+            {
+                // 格式化字符串
+                ret = Utility.Format(val, FormatString);
+            }
+            else
+            {
+                ret = val?.ToString();
+            }
+            return ret;
         }
     }
 

@@ -88,4 +88,21 @@ public class RecognizerTest : SpeechTestBase
             pb.Add(a => a.Show, false);
         });
     }
+
+    [Fact]
+    public void IsCancelled_Ok()
+    {
+        var cut = Context.RenderComponent<SpeechWave>();
+        var pi = cut.Instance.GetType().GetProperty("IsShow", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        var tokenPi = cut.Instance.GetType().GetProperty("Token", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+
+        Assert.False((bool?)pi?.GetValue(cut.Instance));
+
+        var token = new CancellationTokenSource();
+        tokenPi?.SetValue(cut.Instance, token);
+        Assert.True((bool?)pi?.GetValue(cut.Instance));
+
+        token.Cancel();
+        Assert.False((bool?)pi?.GetValue(cut.Instance));
+    }
 }

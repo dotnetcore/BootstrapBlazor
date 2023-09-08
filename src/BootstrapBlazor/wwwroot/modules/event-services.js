@@ -57,7 +57,7 @@ export function getProperties(obj, tag) {
 }
 
 export function runJSEval(js) {
-    eval(js);
+    return eval(js);
 }
 
 export function dispose(guid) {

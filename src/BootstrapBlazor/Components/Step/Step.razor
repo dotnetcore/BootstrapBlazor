@@ -1,26 +1,84 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
-@attribute [ExcludeFromCodeCoverage]
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" style="@StyleString">
-    <div class="@HeadClassString">
-        <div class="step-line" style="margin-right: 0px;">
-            <i class="step-line-inner" style="@LineStyleString">
-            </i>
+<div @attributes="@AdditionalAttributes" class="@ClassString">
+    <CascadingValue Value="this" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
+    <RenderTemplate>
+        <div class="step-header">
+            @foreach (var option in Items)
+            {
+                <div @key="option" class="@GetHeaderClassString(option)">
+                    @RenderHeader(option)
+                    @RenderDesc(option)
+                </div>
+            }
         </div>
-        <div class="@StepIconClassString">
-            <i class="@IconClassString">@StepString</i>
+        <div class="step-body">
+            @foreach (var option in Items)
+            {
+                <div @key="option" class="@GetBodyClassString(option)">
+                    @option.Template
+                </div>
+            }
         </div>
-    </div>
-    <div class="step-main">
-        <div class="@TitleClassString">@Title</div>
-        @if (DescriptionTemplate != null)
+    </RenderTemplate>
+</div>
+
+@code {
+    RenderFragment RenderHeader(StepOption option) =>
+    @<div class="step-item-header">
+        @if (option.HeaderTemplate != null)
         {
-            @DescriptionTemplate
+            @option.HeaderTemplate(option)
         }
         else
         {
-            <div class="@DescClassString">@Description</div>
+            @if (ShowFinishedIcon(option))
+            {
+                <div class="step-title"><i class="@Step.GetFinishedIconClassString(option)"></i></div>
+            }
+            else
+            {
+                @if (!string.IsNullOrEmpty(option.Icon))
+                {
+                    <i class="@GetIconClassString(option)"></i>
+                }
+
+                @if (!string.IsNullOrEmpty(option.Text))
+                {
+                    <div class="step-text">@option.Text</div>
+                }
+                else
+                {
+                    <div class="step-title">@GetStepString(option)</div>
+                }
+            }
+
+            @if (option != Items.Last())
+            {
+                <div class="step-line"></div>
+            }
         }
-    </div>
-</div>
+    </div>;
+
+    RenderFragment RenderDesc(StepOption option) =>
+    @<div class="step-item-content">
+        @if (option.TitleTemplate != null)
+        {
+            @option.TitleTemplate(option)
+        }
+        else
+        {
+            if (!string.IsNullOrEmpty(option.Title))
+            {
+                <div class="step-title">@option.Title</div>
+            }
+            if (!string.IsNullOrEmpty(option.Description))
+            {
+                <div class="step-desc">@option.Description</div>
+            }
+        }
+    </div>;
+}

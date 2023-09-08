@@ -1,4 +1,5 @@
-﻿@page "/linkbuttons"
+﻿@page "/link-button"
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 @inject IStringLocalizer<LinkButtons> Localizer
 
 <h3>@Localizer["LinkButtonsComTitle"]</h3>
@@ -7,63 +8,82 @@
 
 <DemoBlock Title="@Localizer["LinkButtonTextTitle"]"
            Introduction="@Localizer["LinkButtonTextIntro"]"
-           Name="Text"
-           Demo="typeof(Demos.LinkButtons.LinkButtonsText)">
+           Name="Text">
+    <LinkButton Text="@Localizer["LinkButtonText"]" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LinkButtonUrlTitle"]"
            Introduction="@Localizer["LinkButtonUrlIntro"]"
-           Name="Url"
-           Demo="typeof(Demos.LinkButtons.LinkButtonsUrl)">
+           Name="Url">
+    <LinkButton Text="@Localizer["LinkButtonText"]" Url="@WebsiteOption.CurrentValue.ServerUrl" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LinkButtonTitleTitle"]"
            Introduction="@Localizer["LinkButtonTitleIntro"]"
-           Name="Title"
-           Demo="typeof(Demos.LinkButtons.LinkButtonsTitle)">
-    <p>@((MarkupString)Localizer["LinkButtonTitleDetail"].Value)</p>
+           Name="Title">
+    <p class="mb-3">@((MarkupString)Localizer["LinkButtonTitleDetail"].Value)</p>
+    <LinkButton Text="@Localizer["LinkButtonText"]" TooltipText="@Localizer["LinkButtonTitleTooltip"]" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LinkButtonImageTitle"]"
            Introduction="@Localizer["LinkButtonImageIntro"]"
-           Name="Image"
-           Demo="typeof(Demos.LinkButtons.LinkButtonsImage)">
+           Name="Image">
+    <LinkButton ImageUrl="./images/Argo-C.png" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LinkButtonIconTitle"]"
            Introduction="@Localizer["LinkButtonIconIntro"]"
-           Name="Icon"
-           Demo="typeof(Demos.LinkButtons.LinkButtonsIcon)">
+           Name="Icon">
+    <LinkButton Icon="fa-solid fa-font-awesome" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LinkButtonChildTitle"]"
            Introduction="@Localizer["LinkButtonChildIntro"]"
-           Name="ChildContent"
-           Demo="typeof(Demos.LinkButtons.LinkButtonsChildContent)">
+           Name="ChildContent">
+    <LinkButton>
+        <i class="fa-solid fa-font-awesome"></i>
+        <span>@Localizer["LinkButtonText"]</span>
+    </LinkButton>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LinkButtonOnClickTitle"]"
            Introduction="@Localizer["LinkButtonOnClickIntro"]"
-           Name="OnClick"
-           Demo="typeof(Demos.LinkButtons.LinkButtonsOnClick)">
+           Name="OnClick">
+    <LinkButton Text="@Localizer["LinkButtonText"]" OnClick="@OnClick" />
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LinkButtonIsDisabledTitle"]"
            Introduction="@Localizer["LinkButtonIsDisabledIntro"]"
-           Name="IsDisabled"
-           Demo="typeof(Demos.LinkButtons.LinkButtonsIsDisabled)">
+           Name="IsDisabled">
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <LinkButton IsDisabled="true" Color="Color.Primary">@Localizer["LinkButtonIsDisabledText"]</LinkButton>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LinkButtonColorTitle"]"
            Introduction="@Localizer["LinkButtonColorIntro"]"
-           Name="Color"
-           Demo="typeof(Demos.LinkButtons.LinkButtonsColor)">
+           Name="Color">
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <LinkButton Color="Color.Danger">@Localizer["LinkButtonColorText"]</LinkButton>
+        </div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LinkButtonVerticalTitle"]"
            Introduction="@Localizer["LinkButtonVerticalIntro"]"
-           Name="IsVertical"
-           Demo="typeof(Demos.LinkButtons.LinkButtonsIsVertical)">
+           Name="IsVertical">
+    <div class="row g-3">
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <LinkButton IsVertical="true" Icon="fa-solid fa-pen" Text="@Localizer["LinkButtonVerticalText"]" />
+        </div>
+        <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
+            <LinkButton IsVertical="true" Icon="fa-solid fa-pen" Text="@Localizer["LinkButtonVerticalText"]" IsDisabled="true" />
+        </div>
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="GetAttributes()"></AttributeTable>

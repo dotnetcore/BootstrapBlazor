@@ -6,22 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor.Shared" Version="7.0.0" />
+    <PackageReference Include="BootstrapBlazor.Shared" Version="7.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.*" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.*" PrivateAssets="all" />
     <PackageReference Include="System.Net.Http.Json" Version="7.*" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="..\..\BootstrapBlazor.Server\wwwroot\favicon.ico" Link="wwwroot\favicon.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\..\BootstrapBlazor.Server\wwwroot\favicon.png" Link="wwwroot\favicon.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\..\BootstrapBlazor.Shared\BootstrapBlazor.Shared.csproj" />
     <ProjectReference Include="..\..\BootstrapBlazor\BootstrapBlazor.csproj" />
   </ItemGroup>
 

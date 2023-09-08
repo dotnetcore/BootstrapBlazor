@@ -1,5 +1,6 @@
 ﻿import { addLink, addScript } from '../../../BootstrapBlazor/modules/utility.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
+import EventHandler from '../../../BootstrapBlazor/modules/event-handler.js'
 
 export async function init(op) {
     await addLink("./_content/BootstrapBlazor.Live2DDisplay/BootstrapBlazor.Live2DDisplay.bundle.scp.css")
@@ -12,9 +13,8 @@ export async function init(op) {
     const model = await createModel(op);
     if (model) {
         const el = document.getElementById(op.id);
-        el.style.zIndex = '99999';
+        el.style.zIndex = '9999';
         el.style.opacity = '1';
-        el.style.pointerEvents = 'none';
 
         const canvas = document.createElement('canvas');
 
@@ -30,9 +30,11 @@ export async function init(op) {
         Data.set(op.id, data);
 
         resizeTo(data);
-        changeBackground(op.id, op.backgroundAlpha, op.backgroundColor)
+        changeDraggable(op.id, op.isDraggable);
+        changeBackground(op.id, op.backgroundAlpha, op.backgroundColor);
     }
 }
+
 
 function createHitAreaFrames(op, model) {
     model.children = [];
@@ -50,7 +52,7 @@ function createHitAreaFrames(op, model) {
         });
         const hitAreaFrames = new PIXI.live2d.HitAreaFrames();
         model.addChild(hitAreaFrames);
-        hitAreaFrames.visible = op.addHitAreaFrames
+        hitAreaFrames.visible = op.addHitAreaFrames;
     }
 }
 
@@ -119,7 +121,53 @@ export function changeBackground(id, backgroundAlpha, backgroundColor) {
 export function changeDraggable(id, draggble) {
     const data = Data.get(id);
     data.op.isDraggble = draggble;
-    //Not currently supported
+
+    // 获取要拖动的元素
+    var el = data.el;
+
+    if (!draggble) {
+        EventHandler.off(el, 'mousedown');
+        EventHandler.off(document, 'mousemove');
+        EventHandler.off(document, 'mouseup');
+
+        el.style.cursor = 'none';
+        el.style.pointerEvents = 'none';
+    } else {
+        el.style.cursor = 'move';
+        el.style.pointerEvents = 'auto';
+        // 初始化拖动的起始位置
+        var offsetX = 0;
+        var offsetY = 0;
+
+        // 当鼠标按下时触发
+        EventHandler.on(el, 'mousedown', (e) => {
+            // 计算鼠标在元素内的相对位置
+            offsetX = e.clientX - el.offsetLeft;
+            offsetY = e.clientY - el.offsetTop;
+
+            // 添加鼠标移动和释放事件监听器
+            // 当鼠标移动时触发
+            EventHandler.on(document, 'mousemove', (e) => {
+                // 阻止默认的拖动行为
+                e.preventDefault();
+
+                // 计算元素的新位置
+                var x = e.clientX - offsetX;
+                var y = e.clientY - offsetY;
+
+                // 设置元素的新位置
+                el.style.left = x + "px";
+                el.style.top = y + "px";
+            });
+
+            // 当鼠标释放时触发
+            EventHandler.on(document, 'mouseup', () => {
+                // 移除鼠标移动和释放事件监听器
+                EventHandler.off(document, 'mousemove');
+                EventHandler.off(document, 'mouseup');
+            });
+        })
+    }
 }
 
 export function addHitAreaFrames(id, isaddHitAreaFrames) {

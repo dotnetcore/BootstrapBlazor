@@ -56,7 +56,7 @@ public class TransitionTest : BootstrapBlazorTestBase
             builder.Add(a => a.OnTransitionEnd, () =>
             {
                 transitionEnd = true;
-                return Task.FromResult(true);
+                return Task.CompletedTask;
             });
         });
 

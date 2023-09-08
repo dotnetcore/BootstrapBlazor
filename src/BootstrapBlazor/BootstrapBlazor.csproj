@@ -1,37 +1,47 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>7.8.6</Version>
+    <Version>7.10.4</Version>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
-    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="5.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="5.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="5.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="5.0" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="$(NET5Version)" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(NET5Version)" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET5Version)" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET5Version)" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET5Version).0" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET5Version)" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(NET5Version)" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
-    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="6.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="6.0" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="$(NET6Version)" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET6Version)" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(NET6Version)" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET6Version)" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET6Version)" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET6Version)" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(NET6Version)" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
-    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="7.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="$(NET7Version)" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET7Version)" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(NET7Version)" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET7Version)" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET7Version)" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET7Version)" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(NET7Version)" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0'">
+    <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="$(NET8Version)" />
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(NET8Version)" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(NET8Version)" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET8Version)" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET8Version)" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET8Version)" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(NET8Version)" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,14 +51,20 @@
 
   <ItemGroup>
     <Content Remove="bundleconfig.json" />
+    <Content Remove="compilerconfig.json" />
+    <Content Remove="package*.json" />
     <Content Remove="versionconfig.json" />
     <Content Remove="wwwroot\core\**\*.*" />
     <Content Remove="wwwroot\lib\**\*.css" />
+    <Content Remove="wwwroot\scss\*.*" />
     <Content Remove="wwwroot\src\**\*.*" />
     <None Include="bundleconfig.json" />
+    <None Include="compilerconfig.json" />
+    <None Include="package*.json" />
     <None Include="versionconfig.json" />
     <None Include="wwwroot\core\**\*.*" />
     <None Include="wwwroot\lib\**\*.css" />
+    <None Include="wwwroot\scss\*" />
     <None Include="wwwroot\src\**\*.*" />
   </ItemGroup>
 

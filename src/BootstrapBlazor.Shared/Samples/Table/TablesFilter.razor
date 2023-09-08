@@ -1,5 +1,7 @@
-﻿@page "/tables/filter"
+﻿@page "/table/filter"
 @inject IStringLocalizer<TablesFilter> Localizer
+@inject IStringLocalizer<Foo> FooLocalizer
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 
 <h3>@Localizer["TablesFilterTitle"]</h3>
 
@@ -12,8 +14,7 @@
 
 <DemoBlock Title="@Localizer["FilterableTitle"]"
            Introduction="@Localizer["FilterableIntro"]"
-           Name="Filterable"
-           Demo="typeof(Demos.Table.TablesFilter.TablesFilterable)">
+           Name="Filterable">
     <p>@((MarkupString)Localizer["FilterableP"].Value)</p>
     <ul class="ul-demo mb-3">
         <li>@((MarkupString)Localizer["FilterableLi1"].Value)</li>
@@ -23,46 +24,148 @@
     </ul>
     <div>@((MarkupString)Localizer["FilterableDiv"].Value)</div>
     <Alert ShowBar="true" Color="Color.Info" class="mt-3">@((MarkupString)Localizer["FilterableAlert"].Value)</Alert>
+
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowSkeleton="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Education" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" Filterable="true" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["FilterTemplateTitle"]"
-           Introduction="@Localizer["FilterTemplateIntro"]"
-           Name="FilterTemplate" Demo="typeof(Demos.Table.TablesFilter.TablesFilterTemplate)">
+           Introduction="@Localizer["FilterTemplateIntro"]">
+    <p>@((MarkupString)Localizer["TablesFilterTemplateDescription", ComponentSourceCodeUrl].Value)</p>
+
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowSkeleton="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true">
+                <Template Context="value">
+                    <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
+                </Template>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" Filterable="true">
+                <FilterTemplate>
+                    <CustomerFilter></CustomerFilter>
+                </FilterTemplate>
+            </TableColumn>
+        </TableColumns>
+    </Table>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ShowFilterHeaderTitle"]"
            Introduction="@Localizer["ShowFilterHeaderIntro"]"
-           Name="ShowFilterHeader"
-           Demo="typeof(Demos.Table.TablesFilter.TablesShowFilterHeader)">
+           Name="ShowFilterHeader">
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowSkeleton="true" ShowFilterHeader="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" />
+            <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Education" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" DefaultSort="true" DefaultSortOrder="@SortOrder.Desc" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["DefaultSortTitle"]"
            Introduction="@Localizer["DefaultSortIntro"]"
-           Name="DefaultSort"
-           Demo="typeof(Demos.Table.TablesFilter.TablesFilterDefaultSort)">
+           Name="DefaultSort">
     <ul class="ul-demo mb-3">
         <li>@((MarkupString)Localizer["DefaultSortLi1"].Value)</li>
         <li>@((MarkupString)Localizer["DefaultSortLi2"].Value)</li>
     </ul>
-    <p>@Localizer["DefaultSortP"]</p>
+    <p class="mb-3">@Localizer["DefaultSortP"]</p>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowSkeleton="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" />
+            <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" DefaultSort="true" DefaultSortOrder="@SortOrder.Desc" />
+        </TableColumns>
+    </Table>
+
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SortListTitle"]"
            Introduction="@Localizer["SortListIntro"]"
-           Name="SortString"
-           Demo="typeof(Demos.Table.TablesFilter.TablesFilterSortString)">
-    <p>@((MarkupString)Localizer["SortListP"].Value)</p>
+           Name="SortString">
+    <p class="mb-3">@((MarkupString)Localizer["SortListP"].Value)</p>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowSkeleton="true" SortString="SortList"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" />
+            <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["OnSortTitle"]"
            Introduction="@Localizer["OnSortIntro"]"
-           Name="OnSort"
-           Demo="typeof(Demos.Table.TablesFilter.TablesFilterOnSort)">
-    <p>@((MarkupString)Localizer["OnSortP"].Value)</p>
+           Name="OnSort">
+    <p class="mb-3">@((MarkupString)Localizer["OnSortP"].Value)</p>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowSkeleton="true" SortString="@SortString" OnSort="OnSort"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" />
+            <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SetFilterInCodeTitle"]"
            Introduction="@Localizer["SetFilterInCodeIntro"]"
-           Name="SetFilterInCode"
-           Demo="typeof(Demos.Table.TablesFilter.TablesSetFilterInCode)">
+           Name="SetFilterInCode">
+    <div class="mb-2">
+        <Button Text="@Localizer["SetFilterInCodeButtonText1"]" OnClickWithoutRender="SetFilterInCode"></Button>
+        <Button Text="@Localizer["SetFilterInCodeButtonText2"]" OnClickWithoutRender="ResetAllFilters"></Button>
+    </div>
+
+    <Table TItem="Foo" @ref="TableSetFilter"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowSkeleton="true" ShowFilterHeader="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" />
+            <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Education" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Count" Width="150" Sortable="true" />
+        </TableColumns>
+    </Table>
 </DemoBlock>

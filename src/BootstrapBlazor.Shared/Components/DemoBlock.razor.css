@@ -87,11 +87,6 @@
     margin-bottom: .5rem;
 }
 
-::deep .bb-avatar {
-    width: 46px;
-    border-radius: var(--bs-border-radius);
-}
-
 ::deep .table-cell .progress {
     height: 6px;
     margin-top: 9px;

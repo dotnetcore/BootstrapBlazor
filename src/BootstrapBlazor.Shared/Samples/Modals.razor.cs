@@ -9,132 +9,210 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Modals
 {
+    [NotNull]
+    private Modal? Modal { get; set; }
+
+    [NotNull]
+    private Modal? BackdropModal { get; set; }
+
+    [NotNull]
+    private Modal? SmallModal { get; set; }
+
+    [NotNull]
+    private Modal? SizeSmallModal { get; set; }
+
+    [NotNull]
+    private Modal? LargeModal { get; set; }
+
+    [NotNull]
+    private Modal? ExtraLargeModal { get; set; }
+
+    [NotNull]
+    private Modal? ExtraExtraLargeModal { get; set; }
+
+    [NotNull]
+    private Modal? SmallFullScreenModal { get; set; }
+
+    [NotNull]
+    private Modal? LargeFullScreenModal { get; set; }
+
+    [NotNull]
+    private Modal? ExtraLargeFullScreenModal { get; set; }
+
+    [NotNull]
+    private Modal? ExtraExtraLargeFullScreenModal { get; set; }
+
+    [NotNull]
+    private Modal? CenterModal { get; set; }
+
+    [NotNull]
+    private Modal? LongContentModal { get; set; }
+
+    [NotNull]
+    private Modal? ScrollModal { get; set; }
+
+    [NotNull]
+    private Modal? DragModal { get; set; }
+
+    [NotNull]
+    private Modal? MaximizeModal { get; set; }
+
+    [NotNull]
+    private Modal? ShownCallbackModal { get; set; }
+
+    [NotNull]
+    private ConsoleLogger? Logger { get; set; }
+
+    private Task OnShownCallbackAsync()
+    {
+        Logger.Log("弹窗已显示");
+        return Task.CompletedTask;
+    }
+
     /// <summary>
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new AttributeItem() {
+        new()
+        {
             Name = "FirstAfterRenderCallbackAsync",
             Description = Localizer["ModalsAttributesFirstAfterRenderCallbackAsync"],
             Type = "Func<Modal,Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "HeaderTemplate",
             Description = Localizer["ModalsAttributeHeaderTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "BodyTemplate",
             Description = Localizer["ModalsAttributeBodyTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ChildContent",
                 Description = Localizer["ModalsAttributeChildContent"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "FooterTemplate",
             Description = Localizer["ModalsAttributeFooterTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "IsBackdrop",
               Description = Localizer["ModalsAttributeIsBackdrop"],
             Type = "boolean",
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "IsKeyboard",
             Description = Localizer["ModalsAttributeIsKeyboard"],
             Type = "boolean",
             ValueList = " — ",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "IsCentered",
             Description = Localizer["ModalsAttributeIsCentered"],
             Type = "boolean",
             ValueList = " — ",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "IsScrolling",
                     Description = Localizer["ModalsAttributeIsScrolling"],
             Type = "boolean",
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "IsFade",
                        Description = Localizer["ModalsAttributeIsFade"],
             Type = "boolean",
             ValueList = " — ",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "IsDraggable",
                      Description = Localizer["ModalsAttributeIsDraggable"],
             Type = "boolean",
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ShowCloseButton",
               Description = Localizer["ModalsAttributeShowCloseButton"],
             Type = "boolean",
             ValueList = " — ",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ShowFooter",
             Description = Localizer["ModalsAttributeShowFooter"],
             Type = "boolean",
             ValueList = " — ",
             DefaultValue = "true"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Size",
             Description = Localizer["ModalsAttributeSize"],
             Type = "Size",
             ValueList = "None / ExtraSmall / Small / Medium / Large / ExtraLarge / ExtraExtraLarge",
             DefaultValue = "ExtraExtraLarge"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = nameof(ModalDialog.FullScreenSize),
             Description = Localizer["ModalsAttributeFullScreenSize"],
             Type = "Size",
             ValueList = "None / Always / Small / Medium / Large / ExtraLarge / ExtraExtraLarge",
             DefaultValue = "None"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Title",
             Description = Localizer["ModalsAttributeTitle"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " not set "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = nameof(ModalDialog.ShowMaximizeButton),
             Description = Localizer["ModalsAttributeShowMaximizeButton"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "ShownCallbackAsync",
             Description = Localizer["ModalsAttributeShownCallbackAsync"],
             Type = "Func<Task>",

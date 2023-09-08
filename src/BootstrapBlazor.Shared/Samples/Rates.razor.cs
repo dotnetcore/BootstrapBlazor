@@ -9,9 +9,50 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Rates
 {
+    [NotNull]
+    private ConsoleLogger? Logger { get; set; }
+
+    private double BindValue { get; set; } = 3.0;
+
+    private double BindValue1 { get; set; } = 2;
+
+    private double BindValue2 { get; set; } = 2;
+
+    private double BindValue3 { get; set; } = 2.8;
+
+    private bool IsDisable { get; set; }
+
+    private void OnValueChanged(double val)
+    {
+        BindValue = val;
+        Logger.Log($"{Localizer["RatesLog"]} {val}");
+    }
+
+    private double IconListValue { get; set; } = 1;
+
+    private List<string> IconList { get; } = new List<string>()
+    {
+        "fa-solid fa-face-sad-cry",
+        "fa-solid fa-face-sad-tear",
+        "fa-solid fa-face-smile",
+        "fa-solid fa-face-surprise",
+        "fa-solid fa-face-grin-stars"
+    };
+
+    private string GetIconList(int index) => IconList[index - 1];
+
+    private string GetIconValueChanged() => (IconListValue - 1) switch
+    {
+        0 => Localizer["RatesCry"],
+        1 => Localizer["RatesTear"],
+        2 => Localizer["RatesSmile"],
+        3 => Localizer["RatesSurprise"],
+        _ => Localizer["RatesGrin"]
+    };
+
     private IEnumerable<EventItem> GetEvents() => new EventItem[]
     {
-        new EventItem()
+        new()
         {
             Name = "ValueChanged",
             Description =Localizer["RatesEvent1"],
@@ -21,22 +62,23 @@ public sealed partial class Rates
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        // TODO: 移动到数据库中
-        new AttributeItem() {
+        new()
+        {
             Name = "Value",
             Description = Localizer["RatesValue"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem() {
+        new()
+        {
             Name = "Max",
             Description = Localizer["RatesMax"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new AttributeItem()
+        new()
         {
             Name = "IsDisabled",
             Description = Localizer["RatesIsDisabled"],
@@ -44,7 +86,7 @@ public sealed partial class Rates
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "IsReadonly",
             Description = Localizer["RatesIsReadonly"],
@@ -52,7 +94,7 @@ public sealed partial class Rates
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "IsWrap",
             Description = Localizer["RatesIsWrap"],
@@ -60,7 +102,7 @@ public sealed partial class Rates
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ShowValue",
             Description = Localizer["RatesShowValue"],
@@ -68,7 +110,7 @@ public sealed partial class Rates
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new AttributeItem()
+        new()
         {
             Name = "ItemTemplate",
             Description = Localizer["RatesItemTemplate"],

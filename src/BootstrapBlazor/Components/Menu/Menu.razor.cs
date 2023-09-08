@@ -67,6 +67,13 @@ public partial class Menu
     public bool IsVertical { get; set; }
 
     /// <summary>
+    /// 获得/设置 自动滚动到可视区域 默认 true <see cref="IsVertical"/> 开启时生效
+    /// </summary>
+    /// <value></value>
+    [Parameter]
+    public bool IsScrollIntoView { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 侧边栏垂直模式在底部 默认 false
     /// </summary>
     [Parameter]
@@ -123,13 +130,27 @@ public partial class Menu
         base.OnParametersSet();
 
         Items ??= Enumerable.Empty<MenuItem>();
-        InitMenus(null, Items, Navigator.ToBaseRelativePath(Navigator.Uri));
+        InitMenus(null, Items, GetUrl());
         if (!DisableNavigation)
         {
             Options.Text = ActiveMenu?.Text;
             Options.Icon = ActiveMenu?.Icon;
             Options.IsActive = true;
         }
+    }
+
+    private string GetUrl()
+    {
+        var url = Navigator.ToBaseRelativePath(Navigator.Uri);
+        if (url.Contains('?'))
+        {
+            url = url[..url.IndexOf("?")];
+        }
+        if (url.Contains('#'))
+        {
+            url = url[..url.IndexOf("#")];
+        }
+        return url;
     }
 
     /// <summary>
@@ -191,6 +212,9 @@ public partial class Menu
             {
                 // 未禁用导航时 使用地址栏激活菜单
                 item.IsActive = true;
+
+                // 设置父菜单展开
+                item.SetCollapse(false);
             }
 
             if (item.IsActive)

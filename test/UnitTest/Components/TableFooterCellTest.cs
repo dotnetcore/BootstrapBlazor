@@ -6,7 +6,7 @@ using BootstrapBlazor.Shared;
 
 namespace UnitTest.Components;
 
-public class TableFooterCellTest : TestBase
+public class TableFooterCellTest : BootstrapBlazorTestBase
 {
     [Theory]
     [InlineData(true)]
@@ -115,7 +115,7 @@ public class TableFooterCellTest : TestBase
     [InlineData(AggregateType.Count, "3")]
     [InlineData(AggregateType.Max, "3")]
     [InlineData(AggregateType.Min, "1")]
-    public void Aggegate_Ok(AggregateType aggregate, string expected)
+    public void Aggregate_Ok(AggregateType aggregate, string expected)
     {
         var ds = new List<Foo>()
         {
@@ -134,7 +134,7 @@ public class TableFooterCellTest : TestBase
     }
 
     [Fact]
-    public void Aggegate_Customer()
+    public void Aggregate_Customer()
     {
         var ds = new List<MockFoo>()
         {
@@ -157,7 +157,7 @@ public class TableFooterCellTest : TestBase
     }
 
     [Fact]
-    public void Aggegate_Empty()
+    public void Aggregate_Empty()
     {
         var ds = new List<Foo>()
         {
@@ -269,6 +269,44 @@ public class TableFooterCellTest : TestBase
             pb.Add(a => a.Field, nameof(MockFoo.Name));
             pb.Add(a => a.Aggregate, AggregateType.Average);
         });
+    }
+
+    [Fact]
+    public void FormatString_Ok()
+    {
+        var ds = new List<MockFoo>()
+        {
+            new() { DecimalCount = 1.1m },
+            new() { DecimalCount = 2.2m },
+            new() { DecimalCount = 3.3m },
+        };
+        var cut = Context.RenderComponent<TableFooterCell>(pb =>
+        {
+            pb.AddCascadingValue<object>("TableFooterContext", ds);
+            pb.Add(a => a.Field, nameof(MockFoo.DecimalCount));
+            pb.Add(a => a.Aggregate, AggregateType.Average);
+            pb.Add(a => a.FormatString, "#.00");
+        });
+        cut.Contains("2.20");
+    }
+
+    [Fact]
+    public void Formatter_Ok()
+    {
+        var ds = new List<MockFoo>()
+        {
+            new() { DecimalCount = 1.1m },
+            new() { DecimalCount = 2.2m },
+            new() { DecimalCount = 3.3m },
+        };
+        var cut = Context.RenderComponent<TableFooterCell>(pb =>
+        {
+            pb.AddCascadingValue<object>("TableFooterContext", ds);
+            pb.Add(a => a.Field, nameof(MockFoo.DecimalCount));
+            pb.Add(a => a.Aggregate, AggregateType.Average);
+            pb.Add(a => a.Formatter, v => Task.FromResult(v?.ToString()));
+        });
+        cut.Contains("2.2");
     }
 
     private class MockFoo

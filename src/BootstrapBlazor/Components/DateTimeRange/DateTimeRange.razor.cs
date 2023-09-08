@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Extensions;
 using Microsoft.Extensions.Localization;
 using System.Reflection;
 
@@ -36,11 +37,11 @@ public partial class DateTimeRange
 
     private DateTime StartValue { get; set; }
 
-    private string? StartValueString => (Value == null || Value.Start == DateTime.MinValue) ? null : Value.Start.ToString(DateFormat);
+    private string? StartValueString => (Value.Start.HasValue && Value.Start.Value != DateTime.MinValue) ? Value.Start.Value.ToString(DateFormat) : null;
 
     private DateTime EndValue { get; set; }
 
-    private string? EndValueString => (Value == null || Value.End == DateTime.MinValue) ? null : Value.End.ToString(DateFormat);
+    private string? EndValueString => (Value.End.HasValue && Value.End.Value != DateTime.MinValue) ? Value.End.Value.ToString(DateFormat) : null;
 
     [NotNull]
     private string? StartPlaceHolderText { get; set; }
@@ -162,8 +163,8 @@ public partial class DateTimeRange
 
         Value ??= new DateTimeRangeValue();
 
-        StartValue = Value.Start;
-        EndValue = Value.End;
+        StartValue = Value.Start ?? DateTime.MinValue;
+        EndValue = Value.End ?? DateTime.MinValue;
 
         if (StartValue == DateTime.MinValue) StartValue = DateTime.Today;
         if (EndValue == DateTime.MinValue) EndValue = StartValue.AddMonths(1);
@@ -228,8 +229,8 @@ public partial class DateTimeRange
     {
         SelectedValue.Start = item.StartDateTime;
         SelectedValue.End = item.EndDateTime;
-        StartValue = SelectedValue.Start;
-        EndValue = SelectedValue.End;
+        StartValue = item.StartDateTime;
+        EndValue = item.EndDateTime;
 
         if (AutoCloseClickSideBar)
         {
@@ -281,9 +282,10 @@ public partial class DateTimeRange
     /// </summary>
     private async Task ClickConfirmButton()
     {
-        if (SelectedValue.End == DateTime.MinValue)
+        // SelectedValue 
+        if (SelectedValue.GetEndValue() == DateTime.MinValue)
         {
-            if (SelectedValue.Start < DateTime.Today)
+            if (SelectedValue.GetStartValue() < DateTime.Today)
             {
                 SelectedValue.End = DateTime.Today;
             }
@@ -294,7 +296,11 @@ public partial class DateTimeRange
             }
         }
         Value.Start = SelectedValue.Start;
-        Value.End = SelectedValue.End.Date.AddDays(1).AddSeconds(-1);
+        Value.End = SelectedValue.End;
+        if (Value.End.HasValue)
+        {
+            Value.End = Value.End.Value.Date.AddDays(1).AddSeconds(-1);
+        }
 
         if (ValueChanged.HasDelegate)
         {
@@ -342,9 +348,9 @@ public partial class DateTimeRange
     /// <param name="d"></param>
     internal void UpdateValue(DateTime d)
     {
-        if (SelectedValue.End == DateTime.MinValue)
+        if (SelectedValue.GetEndValue() == DateTime.MinValue)
         {
-            if (d < SelectedValue.Start)
+            if (d < SelectedValue.GetStartValue())
             {
                 SelectedValue.End = SelectedValue.Start;
                 SelectedValue.Start = d;

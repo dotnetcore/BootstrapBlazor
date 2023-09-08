@@ -1,0 +1,15 @@
+﻿{
+  "name": "@bootstrapblazor/theme",
+  "version": "1.0.0",
+  "description": "Enterprise-class UI designed for web applications",
+  "scripts": {
+    "build": "sass --style expanded --no-source-map --no-error-css ./wwwroot/scss/bootstrap.blazor.scss:./wwwroot/scss/bootstrap.blazor.css"
+  },
+  "sass": "./wwwroot/bootstrap.blazor.scss",
+  "author": "ArgoZhang",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "dart-sass": "^1.25.0",
+    "sass": "^1.65.1"
+  }
+}

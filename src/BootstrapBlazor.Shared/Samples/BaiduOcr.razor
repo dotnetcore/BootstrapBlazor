@@ -1,5 +1,7 @@
 ﻿@page "/ocr"
+@inject IBaiduOcr OcrService
 @inject IStringLocalizer<BaiduOcr> Localizer
+@inject ToastService ToastService
 
 <h3>@Localizer["Title"]</h3>
 
@@ -9,14 +11,99 @@
 
 <PackageTips Name="BootstrapBlazor.BaiduOcr" />
 
-<div class="mb-2"><b>@Localizer["BaiduOcrIntro"]</b></div>
+<div class="my-2"><b>@Localizer["BaiduOcrIntro"]</b></div>
 
 <div>@((MarkupString)Localizer["BaiduOcrStep1"].Value)</div>
 <div>@((MarkupString)Localizer["BaiduOcrStep2"].Value)</div>
 
-<DemoBlock Title="@Localizer["VatInvoiceTitle"]" Introduction="@Localizer["VatInvoiceIntro"]" Name="VatInvoice" Demo="typeof(Demos.BaiduOcr.BaiduOcrNormal)" />
+<DemoBlock Title="@Localizer["VatInvoiceTitle"]" Introduction="@Localizer["VatInvoiceIntro"]" Name="VatInvoice">
+    <ButtonUpload TValue="string" OnChange="@OnClickToUploadBlock" BrowserButtonText="VATInvoice" ShowUploadFileList="false" IsDisabled="IsLoading" BrowserButtonIcon="@Icon"></ButtonUpload>
 
-<DemoBlock Title="@Localizer["VerifyVatInvoiceTitle"]" Introduction="@Localizer["VerifyVatInvoiceIntro"]" Name="Verify" Demo="typeof(Demos.BaiduOcr.BaiduOcrVerifyVatInvoice)">
+    @if (Invoice != null)
+    {
+        <div class="row form-inline g-3 mt-0">
+            <div class="col-12 col-sm-6">
+                <Display ShowLabel="true" DisplayText="发票代码" @bind-Value="Invoice.InvoiceCode"></Display>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display ShowLabel="true" DisplayText="发票号码" Value="Invoice.InvoiceNum"></Display>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display ShowLabel="true" DisplayText="发票类型" @bind-Value="Invoice.ServiceType"></Display>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display ShowLabel="true" DisplayText="联次信息" Value="Invoice.SheetNum"></Display>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display ShowLabel="true" DisplayText="发票种类" @bind-Value="Invoice.InvoiceType"></Display>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display ShowLabel="true" DisplayText="发票名称" Value="Invoice.InvoiceTypeOrg"></Display>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display ShowLabel="true" DisplayText="发票标志" @bind-Value="Invoice.InvoiceTag"></Display>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display ShowLabel="true" DisplayText="开票日期" Value="Invoice.InvoiceDate"></Display>
+            </div>
+            <div class="col-12">
+                <Display ShowLabel="true" DisplayText="校验码" Value="Invoice.CheckCode"></Display>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display ShowLabel="true" DisplayText="购方名称" @bind-Value="Invoice.PurchaserName"></Display>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display ShowLabel="true" DisplayText="纳税人识别号" Value="Invoice.PurchaserRegisterNum"></Display>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display ShowLabel="true" DisplayText="开户行及账号" @bind-Value="Invoice.PurchaserBank"></Display>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display ShowLabel="true" DisplayText="购方地址" Value="Invoice.PurchaserAddress"></Display>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display ShowLabel="true" DisplayText="销售方名称" @bind-Value="Invoice.SellerName"></Display>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display ShowLabel="true" DisplayText="纳税人识别号" Value="Invoice.SellerRegisterNum"></Display>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display ShowLabel="true" DisplayText="销售方及账号" @bind-Value="Invoice.SellerBank"></Display>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display ShowLabel="true" DisplayText="销售方地址" Value="Invoice.SellerAddress"></Display>
+            </div>
+            <div class="col-12">
+                <Display ShowLabel="true" DisplayText="备注" @bind-Value="Invoice.Remarks"></Display>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display ShowLabel="true" DisplayText="价税合计" Value="Invoice.AmountInFiguers"></Display>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display ShowLabel="true" DisplayText="合计金额" Value="Invoice.TotalAmount"></Display>
+            </div>
+            <div class="col-12 col-sm-6">
+                <Display ShowLabel="true" DisplayText="合计税额" @bind-Value="Invoice.TotalTax"></Display>
+            </div>
+            <div class="col-12 col-sm-6">
+            </div>
+            @if (Invoice.CommodityName?.Any() ?? false)
+            {
+                <div class="col-12 col-sm-6">
+                    <Display ShowLabel="true" DisplayText="项目名称" Value="Invoice.CommodityName.First().CommodityName"></Display>
+                </div>
+            }
+            @if (Invoice.CommodityTaxRate?.Any() ?? false)
+            {
+                <div class="col-12 col-sm-6">
+                    <Display ShowLabel="true" DisplayText="税率" Value="Invoice.CommodityTaxRate.First().CommodityTaxRate"></Display>
+                </div>
+            }
+        </div>
+    }
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["VerifyVatInvoiceTitle"]" Introduction="@Localizer["VerifyVatInvoiceIntro"]" Name="Verify">
     <h4 class="mb-2">发票种类</h4>
     <div>增值税专用发票：special_vat_invoice</div>
     <div>增值税电子专用发票：elec_special_vat_invoice</div>
@@ -30,4 +117,20 @@
     <div>货运运输业增值税专用发票：special_freight_transport_invoice</div>
     <div>机动车销售发票：motor_vehicle_invoice</div>
     <div class="mb-3">二手车销售发票：used_vehicle_invoice</div>
+
+    <ValidateForm Model="Model" OnValidSubmit="@Verify">
+        <EditorForm TModel="InvoiceForm" RowType="RowType.Inline" AutoGenerateAllItem="false">
+            <FieldItems>
+                <EditorItem @bind-Field="@context.InvoiceType" Text="发票种类" />
+                <EditorItem @bind-Field="@context.InvoiceCode" Text="发票代码" />
+                <EditorItem @bind-Field="@context.InvoiceNum" Text="发票号码" />
+                <EditorItem @bind-Field="@context.InvoiceDate" Text="开票日期" PlaceHolder="YYYYMMDD" />
+                <EditorItem @bind-Field="@context.CheckCode" Text="校验码" PlaceHolder="后六位" />
+                <EditorItem @bind-Field="@context.TotalAmount" Text="金额" PlaceHolder="可为空" />
+            </FieldItems>
+            <Buttons>
+                <Button ButtonType="ButtonType.Submit" Icon="fa-solid fa-check" Text="Verify" />
+            </Buttons>
+        </EditorForm>
+    </ValidateForm>
 </DemoBlock>

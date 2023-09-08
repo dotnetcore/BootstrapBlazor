@@ -16,35 +16,21 @@
     <link rel="apple-touch-icon" href="icon-512.png">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="style/loading.css">
-    <link rel="stylesheet" href="_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css">
-    <link rel="stylesheet" href="_content/BootstrapBlazor/css/motronic.min.css">
-    <link rel="stylesheet" href="_content/BootstrapBlazor.Shared/BootstrapBlazor.Shared.bundle.scp.css">
-    <link rel="stylesheet" href="_content/BootstrapBlazor.Shared/css/site.css">
-    <link rel="stylesheet" href="_content/BootstrapBlazor.Shared/css/motronic.css">
+    <link rel="stylesheet" href="./_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css">
+    <link rel="stylesheet" href="./_content/BootstrapBlazor/css/motronic.min.css">
+    <link rel="stylesheet" href="./_content/BootstrapBlazor.Shared/BootstrapBlazor.Shared.bundle.scp.css">
+    <link rel="stylesheet" href="./css/site.css">
+    <link rel="stylesheet" href="./css/motronic.css">
 </head>
 
-<body class="overflow-hidden">
-    <div id="app"></div>
-
-    <div class="loader" id="loading">
-        <div class="logo">
-            <div class="one common"></div>
-            <div class="two common"></div>
-            <div class="three common"></div>
-            <div class="four common"></div>
-            <div class="five common"></div>
-            <div class="six common"></div>
-            <div class="seven common"></div>
-            <div class="eight common"></div>
-        </div>
-        <div class="intro">
-            <img src="_content/BootstrapBlazor.Shared/images/logo.png" />
-            <span>精彩即将呈现</span>
-        </div>
-        <div class="bar">
-            <div class="progress"></div>
-        </div>
+<body>
+    <div id="app">
+        <svg class="loading-progress">
+            <circle r="40%" cx="50%" cy="50%" />
+            <circle r="40%" cx="50%" cy="50%" />
+        </svg>
+        <div class="loading-progress-text"></div>
     </div>
 
     <div id="blazor-error-ui">
@@ -55,13 +41,15 @@
             An unhandled exception has occurred. See browser dev tools for details.
         </environment>
         <a href="" class="reload">Reload</a>
-        <a class="dismiss"><i class="fa-solid fa-xmark"></i></a>
+        <a class="dismiss">🗙</a>
     </div>
 
     <script src="https://cdn.jsdelivr.net/gh/google/brotli/js/decode.js"></script>
-    <script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
-    <script src="_framework/blazor.webassembly.js" autostart="false"></script>
+    <script src="./_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
+    <script src="./_content/BootstrapBlazor.SummerNote/js/jquery-3.5.1.min.js"></script>
     <script src="service-worker-register.js"></script>
+    <script src="./_framework/blazor.webassembly.js" autostart="false"></script>
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
     <script>
         window.BB = {};
         window.BB.blazorCulture = {
@@ -72,7 +60,6 @@
                 window.localStorage['BlazorCulture'] = value;
             }
         };
-
         //check if webassembly is supported
         const webassemblySupported = (function () {
             try {

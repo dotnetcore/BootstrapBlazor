@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 时间类型过滤条件
 /// </summary>
-public partial class DateTimeFilter : FilterBase
+public partial class DateTimeFilter
 {
     private DateTime? Value1 { get; set; }
 
@@ -19,21 +19,18 @@ public partial class DateTimeFilter : FilterBase
 
     private FilterAction Action2 { get; set; } = FilterAction.LessThanOrEqual;
 
-    [NotNull]
-    private IEnumerable<SelectedItem>? Items { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<TableFilter>? Localizer { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
-        Items = new SelectedItem[]
+        Items ??= new SelectedItem[]
         {
             new SelectedItem("GreaterThanOrEqual", Localizer["GreaterThanOrEqual"].Value),
             new SelectedItem("LessThanOrEqual", Localizer["LessThanOrEqual"].Value),
@@ -59,15 +56,15 @@ public partial class DateTimeFilter : FilterBase
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
+    public override FilterKeyValueAction GetFilterConditions()
     {
-        var filters = new List<FilterKeyValueAction>();
+        var filter = new FilterKeyValueAction() { Filters = new() };
         if (Value1 != null)
         {
-            filters.Add(new FilterKeyValueAction()
+            filter.Filters.Add(new FilterKeyValueAction()
             {
                 FieldKey = FieldKey,
                 FieldValue = Value1,
@@ -77,51 +74,48 @@ public partial class DateTimeFilter : FilterBase
 
         if (Count > 0 && Value2 != null)
         {
-            filters.Add(new FilterKeyValueAction()
+            filter.Filters.Add(new FilterKeyValueAction()
             {
                 FieldKey = FieldKey,
                 FieldValue = Value2,
                 FilterAction = Action2,
-                FilterLogic = Logic
             });
+            filter.FilterLogic = Logic;
         }
-        return filters;
+        return filter;
     }
 
     /// <summary>
-    /// Override existing filter conditions
+    /// <inheritdoc/>
     /// </summary>
-    public override async Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions)
+    public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
-        if (conditions.Any())
+        var first = filter.Filters?.FirstOrDefault() ?? filter;
+        if (first.FieldValue is DateTime value)
         {
-            FilterKeyValueAction first = conditions.First();
-            if (first.FieldValue is DateTime value)
+            Value1 = value;
+        }
+        else
+        {
+            Value1 = null;
+        }
+        Action1 = first.FilterAction;
+
+        if (filter.Filters != null && filter.Filters.Count == 2)
+        {
+            Count = 1;
+            FilterKeyValueAction second = filter.Filters[1];
+            if (second.FieldValue is DateTime value2)
             {
-                Value1 = value;
+                Value2 = value2;
             }
             else
             {
-                Value1 = null;
+                Value2 = null;
             }
-            Action1 = first.FilterAction;
-
-            if (conditions.Count() == 2)
-            {
-                Count = 1;
-                FilterKeyValueAction second = conditions.ElementAt(1);
-                if (second.FieldValue is DateTime value2)
-                {
-                    Value2 = value2;
-                }
-                else
-                {
-                    Value2 = null;
-                }
-                Action1 = second.FilterAction;
-                Logic = second.FilterLogic;
-            }
+            Action2 = second.FilterAction;
+            Logic = filter.FilterLogic;
         }
-        await base.SetFilterConditionsAsync(conditions);
+        await base.SetFilterConditionsAsync(filter);
     }
 }

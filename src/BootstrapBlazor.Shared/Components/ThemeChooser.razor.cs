@@ -61,14 +61,14 @@ public partial class ThemeChooser
         new("bootstrap.blazor.bundle.min.css", new List<string>()),
         new("motronic.min.css", new string[]
         {
-            "_content/BootstrapBlazor/css/motronic.min.css",
-            "_content/BootstrapBlazor.Shared/css/motronic.css"
+            "./_content/BootstrapBlazor/css/motronic.min.css",
+            "./css/motronic.css"
         }),
         new("ant", new List<string>()),
         new("layui", new List<string>()),
         new("devui", new string[]
         {
-            "_content/BootstrapBlazor.Shared/css/devui.css"
+            "./css/devui.css"
         })
     });
 }

@@ -360,3 +360,15 @@ coverage*.xml
 
 # Upload Folder
 src/**/wwwroot/**/uploader
+
+# Wasm
+**/Wasm/**/wwwroot/css/
+**/Wasm/**/wwwroot/images/
+**/Wasm/**/wwwroot/lib/
+**/Wasm/**/wwwroot/models/
+**/Wasm/**/wwwroot/samples/
+**/Wasm/**/wwwroot/favicon.ico
+**/Wasm/**/wwwroot/favicon.png
+
+# npm
+**/package-lock.json

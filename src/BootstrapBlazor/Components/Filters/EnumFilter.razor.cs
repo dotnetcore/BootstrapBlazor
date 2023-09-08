@@ -13,8 +13,6 @@ public partial class EnumFilter
 {
     private string? Value { get; set; }
 
-    private IEnumerable<SelectedItem> Items { get; set; } = Enumerable.Empty<SelectedItem>();
-
     /// <summary>
     /// 内部使用
     /// </summary>
@@ -36,7 +34,7 @@ public partial class EnumFilter
     private IStringLocalizer<TableFilter>? Localizer { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -50,11 +48,20 @@ public partial class EnumFilter
         }
 
         EnumType = Nullable.GetUnderlyingType(Type) ?? Type;
-        Items = EnumType.ToSelectList(new SelectedItem("", Localizer["EnumFilter.AllText"].Value));
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        Items ??= EnumType.ToSelectList(new SelectedItem("", Localizer["EnumFilter.AllText"].Value));
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     public override void Reset()
     {
@@ -63,42 +70,39 @@ public partial class EnumFilter
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
+    public override FilterKeyValueAction GetFilterConditions()
     {
-        var filters = new List<FilterKeyValueAction>();
+        var filter = new FilterKeyValueAction() { Filters = new() };
         if (!string.IsNullOrEmpty(Value) && Enum.TryParse(EnumType, Value, out var val))
         {
-            filters.Add(new FilterKeyValueAction()
+            filter.Filters.Add(new FilterKeyValueAction()
             {
                 FieldKey = FieldKey,
                 FieldValue = val,
                 FilterAction = FilterAction.Equal
             });
         }
-        return filters;
+        return filter;
     }
 
     /// <summary>
-    /// Override existing filter conditions
+    /// <inheritdoc/>
     /// </summary>
-    public override async Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions)
+    public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
-        if (conditions.Any())
+        var first = filter.Filters?.FirstOrDefault() ?? filter;
+        var type = Nullable.GetUnderlyingType(Type) ?? Type;
+        if (first.FieldValue != null && first.FieldValue.GetType() == type)
         {
-            var type = Nullable.GetUnderlyingType(Type) ?? Type;
-            FilterKeyValueAction first = conditions.First();
-            if (first.FieldValue != null && first.FieldValue.GetType() == type)
-            {
-                Value = first.FieldValue.ToString();
-            }
-            else
-            {
-                Value = "";
-            }
+            Value = first.FieldValue.ToString();
         }
-        await base.SetFilterConditionsAsync(conditions);
+        else
+        {
+            Value = "";
+        }
+        await base.SetFilterConditionsAsync(filter);
     }
 }

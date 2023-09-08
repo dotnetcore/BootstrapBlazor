@@ -32,9 +32,9 @@ public class MenuItem : NodeItem
     public string? Target { get; set; }
 
     /// <summary>
-    /// 获得/设置 匹配方式 默认 NavLinkMatch.All
+    /// 获得/设置 匹配方式 默认 NavLinkMatch.Prefix
     /// </summary>
-    public NavLinkMatch Match { get; set; } = NavLinkMatch.All;
+    public NavLinkMatch Match { get; set; } = NavLinkMatch.Prefix;
 
     /// <summary>
     /// 获得 当前菜单所在层次 从 0 开始
@@ -67,6 +67,19 @@ public class MenuItem : NodeItem
         if (Parent != null)
         {
             Indent = Parent.Indent + 1;
+        }
+    }
+
+    /// <summary>
+    /// 设置当前节点父节点展开
+    /// </summary>
+    protected internal virtual void SetCollapse(bool collapsed)
+    {
+        var parent = Parent;
+        while (parent != null)
+        {
+            parent.IsCollapsed = collapsed;
+            parent = parent.Parent;
         }
     }
 

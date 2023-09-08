@@ -169,6 +169,7 @@ public class MenuTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsAccordion, true);
         });
+        cut.WaitForState(() => cut.Markup.Contains("accordion"));
         Assert.Contains("accordion", cut.Markup);
     }
 
@@ -335,6 +336,8 @@ public class MenuTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
+
+        menuItems = cut.Find("li");
         menuItems.Click(new MouseEventArgs());
         Assert.True(clicked);
 
@@ -352,10 +355,13 @@ public class MenuTest : BootstrapBlazorTestBase
         {
             pb.Add(m => m.DisableNavigation, true);
         });
+
+        menuItems = cut.Find("li");
         menuItems.Click(new MouseEventArgs());
         Assert.True(clicked);
 
         // 再次点击
+        menuItems = cut.Find("li");
         menuItems.Click(new MouseEventArgs());
 
         // 侧边栏模式
@@ -364,10 +370,14 @@ public class MenuTest : BootstrapBlazorTestBase
             pb.Add(m => m.IsVertical, true);
             pb.Add(m => m.IsCollapsed, true);
         });
+
+        // 再次点击
+        menuItems = cut.Find("li");
         menuItems.Click(new MouseEventArgs());
         Assert.True(clicked);
 
         // 再次点击
+        menuItems = cut.Find("li");
         menuItems.Click(new MouseEventArgs());
     }
 
@@ -380,6 +390,29 @@ public class MenuTest : BootstrapBlazorTestBase
         {
             pb.Add(m => m.Items, Items);
         });
+        var item = cut.Find("[href=\"Menu2321\"]");
+        Assert.NotNull(item);
+        var li = item.Closest("li");
+        Assert.NotNull(li);
+    }
+
+    [Fact]
+    public void IsScrollIntoView_Ok()
+    {
+        var cut = Context.RenderComponent<Menu>(pb =>
+        {
+            pb.Add(m => m.IsVertical, false);
+            pb.Add(m => m.IsScrollIntoView, true);
+            pb.Add(m => m.Items, Items);
+        });
+        cut.DoesNotContain("data-bb-scroll-view");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsVertical, true);
+        });
+        cut.WaitForState(() => cut.Markup.Contains("data-bb-scroll-view"));
+        cut.Contains("data-bb-scroll-view");
     }
 
     [Fact]
@@ -483,6 +516,7 @@ public class MenuItemTest_Ok : DialogTestBase
         cut.SetParametersAndRender();
         cut.Contains("<a href=\"menu22\" aria-expanded=\"false\" class=\"nav-link active\">");
 
+        nav.NavigateTo("/menu3");
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.IsVertical, true);
@@ -491,22 +525,59 @@ public class MenuItemTest_Ok : DialogTestBase
                 new("Menu1")
                 {
                     Icon = "fa-solid fa-font-awesome",
-                    Url = "/menu22",
+                    Url = "/menu1",
                     IsCollapsed = false,
-                    Items = new MenuItem[] {
+                    Items = new MenuItem[]
+                    {
                         new("Menu2")
                         {
                             Icon = "fa-solid fa-font-awesome",
-                            Url = "/menu23"
+                            Url = "/menu2",
+                            Items = new MenuItem[]
+                            {
+                                new("Menu3")
+                                {
+                                    Icon = "fa-solid fa-fa",
+                                    Url = "/menu3",
+                                }
+                            }
                         }
                     }
                 },
             });
         });
+        var menus = cut.FindAll("[aria-expanded=\"true\"]");
+        Assert.Equal(2, menus.Count);
+
+        nav.NavigateTo("/menu1#Normal");
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(m => m.Items, new MenuItem[]
+            {
+                new("Menu1")
+                {
+                    Icon = "fa-solid fa-font-awesome",
+                    Url = "/menu1",
+                },
+                 new("Menu2")
+                {
+                    Icon = "fa-solid fa-font-awesome",
+                    Url = "/menu2",
+                },
+           });
+        });
         cut.InvokeAsync(() =>
         {
-            var menu = cut.Find(".nav-link");
-            Assert.Equal("true", menu.GetAttribute("aria-expanded"));
+            var link = cut.Find(".nav-link.active");
+            Assert.Contains("href=\"menu1\"", link.OuterHtml);
+        });
+
+        nav.NavigateTo("/menu2?id=Normal");
+        cut.SetParametersAndRender();
+        cut.InvokeAsync(() =>
+        {
+            var link = cut.Find(".nav-link.active");
+            Assert.Contains("href=\"menu2\"", link.OuterHtml);
         });
     }
 }

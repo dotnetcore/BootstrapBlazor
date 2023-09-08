@@ -1,22 +1,47 @@
-﻿@page "/tables/loading"
+﻿@page "/table/loading"
 @inject IStringLocalizer<TablesLoading> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
 
-<h3>@Localizer["TablesLoadingTitile"]</h3>
+<h3>@Localizer["TablesLoadingTitle"]</h3>
 <h4>@Localizer["TablesLoadingDescription"]</h4>
 
 <DemoBlock Title="@Localizer["TablesLoadingShowLoadingTitle"]"
-           Introduction="@Localizer["TablesLoadingShowLoadingIntro"]"
-           Name="ShowLoading" Demo="typeof(Demos.Table.TablesLoading.TablesLoadingShowLoading)">
+           Introduction="@Localizer["TablesLoadingShowLoadingIntro"]">
+    <Table TItem="Foo" PageItemsSource="@PageItemsSource" AutoGenerateColumns="true"
+           IsPagination="true" IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowLoading="true" ShowSearch="true"
+           OnAddAsync="@OnAddAsync" OnEditAsync="@OnEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbies" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TablesLoadingShowSkeletonTitle"]"
            Introduction="@Localizer["TablesLoadingShowSkeletonIntro"]"
-           Name="ShowSkeleton"
-           Demo="typeof(Demos.Table.TablesLoading.TablesLoadingShowSkeleton)">
+           Name="ShowSkeleton">
+    <Table TItem="Foo" PageItemsSource="@PageItemsSource" AutoGenerateColumns="true"
+           IsPagination="true" IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" ShowSearch="true"
+           OnAddAsync="@OnAddAsync" OnEditAsync="@OnEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbies" />
+        </TableColumns>
+    </Table>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TablesLoadingShowLoadingInFirstRenderTitle"]"
            Introduction="@Localizer["TablesLoadingShowLoadingInFirstRenderIntro"]"
-           Name="ShowLoadingInFirstRender"
-           Demo="typeof(Demos.Table.TablesLoading.TablesLoadingShowLoadingInFirstRender)">
+           Name="ShowLoadingInFirstRender">
+    <Table TItem="Foo" PageItemsSource="@PageItemsSource" AutoGenerateColumns="true"
+           IsPagination="true" IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true" ShowLoadingInFirstRender="false" ShowLoading="false" ShowSearch="true"
+           OnAddAsync="@OnAddAsync" OnEditAsync="@OnEditAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Hobby" Items="@Hobbies" />
+        </TableColumns>
+    </Table>
 </DemoBlock>

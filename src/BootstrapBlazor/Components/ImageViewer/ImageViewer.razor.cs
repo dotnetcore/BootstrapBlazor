@@ -123,6 +123,7 @@ public partial class ImageViewer
     {
         base.OnParametersSet();
 
+        IsError = false;
         FileIcon ??= IconTheme.GetIconByKey(ComponentIcons.ImageViewerFileIcon);
     }
 
@@ -174,7 +175,7 @@ public partial class ImageViewer
             }
             if (ShouldHandleError)
             {
-                builder.AddAttribute(4, "onerror", EventCallback.Factory.Create(this, async () =>
+                builder.AddAttribute(5, "onerror", EventCallback.Factory.Create(this, async () =>
                 {
                     IsError = true;
                     if (OnErrorAsync != null)

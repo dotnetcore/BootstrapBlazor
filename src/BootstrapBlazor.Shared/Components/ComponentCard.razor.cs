@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Shared.Components;
 /// </summary>
 public sealed partial class ComponentCard
 {
-    private string ImageUrl => $"_content/BootstrapBlazor.Shared/images/{Image}";
+    private string ImageUrl => $"./images/{Image}";
 
     private string? ClassString => CssBuilder.Default("col-12 col-sm-6 col-md-4 col-lg-3")
         .AddClass("d-none", IsHide)

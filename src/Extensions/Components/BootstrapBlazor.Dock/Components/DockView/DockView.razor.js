@@ -10,12 +10,17 @@ export async function init(id, option, invoke) {
 
     await addLink("./_content/BootstrapBlazor.Dock/css/goldenlayout-bb.css")
 
+    const eventsData = new Map()
+    const dock = { el, eventsData, lock: option.lock }
+    Data.set(id, dock)
+
     option.invokeVisibleChangedCallback = (title, visible) => {
         invoke.invokeMethodAsync(option.visibleChangedCallback, title, visible)
     }
 
-    hackGoldenLayout()
+    hackGoldenLayout(dock)
     const layout = createGoldenLayout(option, el)
+    dock.layout = layout
     layout.on('initialised', () => {
         saveConfig(option, layout)
     })
@@ -27,8 +32,15 @@ export async function init(id, option, invoke) {
 
         saveConfig(option, layout)
         option.invokeVisibleChangedCallback(title, false)
+
+        resetDockLock(dock)
     })
-    layout.on('itemDropped', () => {
+    layout.on('itemDropped', item => {
+        const stack = item.parentItem
+        if (eventsData.has(stack)) {
+            lockTab(item.tab, eventsData)
+        }
+        resetDockLock(dock)
         saveConfig(option, layout)
         invoke.invokeMethodAsync(option.tabDropCallback)
     })
@@ -36,57 +48,48 @@ export async function init(id, option, invoke) {
         saveConfig(option, layout)
         invoke.invokeMethodAsync(option.splitterCallback)
     })
-    invoke.invokeMethodAsync(option.initializedCallback)
+    layout.on('lockChanged', state => {
+        saveConfig(option, layout)
+    })
 
-    const dock = { el, layout }
-    Data.set(id, dock)
+    invoke.invokeMethodAsync(option.initializedCallback)
+    dock.invokeLockAsync = state => {
+        invoke.invokeMethodAsync(option.lockChangedCallback, state)
+    }
+
+    // lock stack
+    const components = getAllContentItems(option.content)
+    layout.getAllContentItems().filter(i => i.isComponent).forEach(com => {
+        const component = components.find(c => c.id === com.id)
+        if (component && component.componentState.lock) {
+            const tabs = com.parent.header.tabs
+            if (tabs.find(i => !i.componentItem.container.initialState.lock) === void 0) {
+                lockStack(com.parent, dock)
+            }
+        }
+    })
 }
 
 export function update(id, option) {
     const dock = Data.get(id)
 
     if (dock) {
-        // 处理 toogle 逻辑
-        const items = getAllContentItems(option.content)
-        const comps = dock.layout.getAllContentItems().filter(s => s.isComponent);
-
-        // gt 没有 items 有时添加
-        items.forEach(v => {
-            const c = comps.find(i => i.id === v.id)
-            if (c === undefined) {
-                if (dock.layout.root.contentItems.length === 0) {
-                    const compotentItem = dock.layout.createAndInitContentItem({ type: option.content[0].type, content: [] }, dock.layout.root)
-                    dock.layout.root.addChild(compotentItem)
-                }
-                if (dock.layout.root.contentItems[0].isStack) {
-                    const typeConfig = goldenLayout.ResolvedItemConfig.createDefault(option.content[0].type)
-                    const rowOrColumn = dock.layout.root.layoutManager.createContentItem(typeConfig, dock.layout.root)
-                    const stack = dock.layout.root.contentItems[0]
-                    dock.layout.root.replaceChild(stack, rowOrColumn)
-                    rowOrColumn.addChild(stack)
-                    rowOrColumn.addItem(v)
-                    rowOrColumn.updateSize()
-                }
-                else {
-                    dock.layout.root.contentItems[0].addItem(v)
-                }
-            }
-        })
-
-        // gt 有 items 没有时移除
-        comps.forEach(v => {
-            const c = items.find(i => i.id === v.id)
-            if (c === undefined) {
-                closeItem(dock.el, v)
-            }
-            else if (v.title !== c.title) {
-                // 更新 Title
-                v.setTitle(c.title)
-            }
-        })
-
-        saveConfig(option, dock.layout)
+        if (dock.lock !== option.lock) {
+            // 处理 Lock 逻辑
+            dock.lock = option.lock
+            lockDock(dock)
+        }
+        else {
+            // 处理 toggle 逻辑
+            toggleComponent(dock, option)
+        }
     }
+}
+
+export function lock(id, lock) {
+    const dock = Data.get(id)
+    dock.lock = lock
+    lockDock(dock)
 }
 
 export function dispose(id) {
@@ -97,7 +100,123 @@ export function dispose(id) {
         return
     }
 
+    dock.eventsData.clear()
     dock.layout.destroy()
+}
+
+const lockDock = dock => {
+    const stacks = dock.layout.getAllStacks()
+    stacks.forEach(stack => {
+        if (dock.lock) {
+            lockStack(stack, dock)
+        }
+        else {
+            unLockStack(stack, dock)
+        }
+    })
+    dock.layout.emit('lockChanged')
+}
+
+const lockStack = (stack, dock) => {
+    const eventsData = dock.eventsData
+
+    if (!eventsData.has(stack)) {
+        eventsData.set(stack, stack)
+
+        const header = stack.header
+        header.controlsContainerElement.classList.add('bb-dock-lock')
+        header.tabs.forEach(tab => {
+            lockTab(tab, eventsData)
+        })
+    }
+}
+
+const unLockStack = (stack, dock) => {
+    const eventsData = dock.eventsData
+
+    if (eventsData.has(stack)) {
+        eventsData.delete(stack)
+
+        const header = stack.header
+        header.controlsContainerElement.classList.remove('bb-dock-lock')
+        header.tabs.forEach(tab => {
+            unLockTab(tab, eventsData)
+        })
+    }
+}
+
+const resetDockLock = dock => {
+    const unlocks = dock.layout.getAllContentItems().filter(com => com.isComponent && !com.container.initialState.lock)
+    const lock = unlocks.length === 0
+    if (dock.lock != lock) {
+        dock.lock = lock
+        dock.invokeLockAsync(lock)
+    }
+}
+
+const lockTab = (tab, eventsData) => {
+    if (!eventsData.has(tab)) {
+        tab.disableReorder()
+        tab.onCloseClick = () => { }
+        eventsData.set(tab, tab.onCloseClick)
+        tab.componentItem.container.initialState.lock = true
+    }
+}
+
+const unLockTab = (tab, eventsData) => {
+    if (eventsData.has(tab)) {
+        tab.enableReorder()
+        tab.onCloseClick = eventsData.get(tab)
+        eventsData.delete(tab)
+        tab.componentItem.container.initialState.lock = false
+    }
+}
+
+const toggleComponent = (dock, option) => {
+    const items = getAllContentItems(option.content)
+    const comps = dock.layout.getAllContentItems().filter(s => s.isComponent);
+
+    // gt 没有 items 有时添加
+    items.forEach(v => {
+        const c = comps.find(i => i.id === v.id)
+        if (c === undefined) {
+            if (dock.layout.root.contentItems.length === 0) {
+                const componentItem = dock.layout.createAndInitContentItem({ type: option.content[0].type, content: [] }, dock.layout.root)
+                dock.layout.root.addChild(componentItem)
+            }
+            if (dock.layout.root.contentItems[0].isStack) {
+                const typeConfig = goldenLayout.ResolvedItemConfig.createDefault(option.content[0].type)
+                const rowOrColumn = dock.layout.root.layoutManager.createContentItem(typeConfig, dock.layout.root)
+                const stack = dock.layout.root.contentItems[0]
+                dock.layout.root.replaceChild(stack, rowOrColumn)
+                rowOrColumn.addChild(stack)
+                rowOrColumn.addItem(v)
+                rowOrColumn.updateSize()
+            }
+            else {
+                dock.layout.root.contentItems[0].addItem(v)
+            }
+
+            if (v.componentState.lock) {
+                const component = dock.layout.getAllContentItems().find(i => i.isComponent && i.id === v.id)
+                lockStack(component.parentItem, dock)
+            }
+        }
+    })
+
+    // gt 有 items 没有时移除
+    comps.forEach(v => {
+        const c = items.find(i => i.id === v.id)
+        if (c === undefined) {
+            closeItem(dock.el, v)
+        }
+        else if (v.title !== c.title) {
+            // 更新 Title
+            v.setTitle(c.title)
+        }
+    })
+
+    saveConfig(option, dock.layout)
 }
 
 const getAllContentItems = content => {
@@ -117,6 +236,12 @@ const getAllContentItems = content => {
 
 const createGoldenLayout = (option, el) => {
     const config = getConfig(option)
+
+    if (option.lock) {
+        getAllContentItems(option.content).forEach(i => {
+            i.componentState.lock = option.lock
+        })
+    }
 
     const layout = new goldenLayout.GoldenLayout(config, el)
 
@@ -153,7 +278,7 @@ const getConfig = option => {
         ...option
     }
     if (option.enableLocalStorage) {
-        const localConfig = localStorage.getItem(`uni_gl_${option.name}_${option.version}`);
+        const localConfig = localStorage.getItem(getLocalStorageKey(option));
         if (localConfig) {
             // 当tab全部关闭时，没有root节点
             const configItem = JSON.parse(localConfig)
@@ -172,10 +297,24 @@ const getConfig = option => {
                 minItemHeight: 10,
                 minItemWidth: 10,
                 headerHeight: 25
+            },
+            labels: {
+                close: 'close',
+                maximise: 'maximise',
+                minimise: 'minimise',
+                popout: 'lock/unlock'
             }
         },
         ...option
     }
+}
+
+const getLocalStorageKey = option => {
+    return `${option.prefix}-${option.version}`
+}
+
+const indexOfKey = (key, option) => {
+    return key.indexOf(`${option.prefix}-`) > -1
 }
 
 const saveConfig = (option, layout) => {
@@ -185,14 +324,14 @@ const saveConfig = (option, layout) => {
     }
     if (option.enableLocalStorage) {
         removeConfig(option)
-        localStorage.setItem(`uni_gl_${option.name}_${option.version}`, JSON.stringify(layout.saveLayout()));
+        localStorage.setItem(getLocalStorageKey(option), JSON.stringify(layout.saveLayout()));
     }
 }
 
 const removeConfig = option => {
     for (let index = localStorage.length; index > 0; index--) {
         const k = localStorage.key(index - 1);
-        if (k.indexOf(`uni_gl_${option.name}_`) > -1) {
+        if (indexOfKey(k, option)) {
             localStorage.removeItem(k);
         }
     }
@@ -206,9 +345,11 @@ const resetComponentId = (config, option) => {
     components.forEach(com => {
         const item = items.find(i => i.key === com.componentState.key)
         if (item) {
+            const lock = com.componentState.lock || item.componentState.lock
             com.componentState = item.componentState
             com.title = item.title
             com.id = item.id
+            com.componentState.lock = lock
         }
         else {
             // 本地存储中有，配置中没有，需要显示这个组件，通过 key 来定位新 Component
@@ -254,21 +395,18 @@ const removeContent = (content, item) => {
     })
 }
 
-const hackGoldenLayout = () => {
+const hackGoldenLayout = dock => {
     if (!goldenLayout.isHack) {
         goldenLayout.isHack = true
+        const eventsData = dock.eventsData
+
+        // hack Tab
         goldenLayout.Tab.prototype.onCloseClick = function () {
-            const component = document.getElementById(this._componentItem.id)
-            const title = this._componentItem.title
+            const component = document.getElementById(this.componentItem.id)
+            const title = this.componentItem.title
 
             this.notifyClose();
             this._layoutManager.emit('tabClosed', component, title)
-        }
-
-        const originSplitterDragStop = goldenLayout.RowOrColumn.prototype.onSplitterDragStop;
-        goldenLayout.RowOrColumn.prototype.onSplitterDragStop = function (splitter) {
-            originSplitterDragStop.call(this, splitter)
-            this.layoutManager.emit('splitterDragStop')
         }
 
         const originSetTitle = goldenLayout.Tab.prototype.setTitle
@@ -278,6 +416,49 @@ const hackGoldenLayout = () => {
             if (!showClose) {
                 this.closeElement.classList.add('d-none')
             }
+        }
+
+        // hack Header
+        goldenLayout.Header.prototype.handleButtonPopoutEvent = function () {
+            const stack = this.parent
+            const lock = eventsData.has(stack)
+            if (lock) {
+                unLockStack(stack, dock)
+            }
+            else {
+                lockStack(stack, dock)
+            }
+
+            resetDockLock(dock)
+            this.layoutManager.emit('lockChanged')
+        }
+
+        const originprocessTabDropdownActiveChanged = goldenLayout.Header.prototype.processTabDropdownActiveChanged
+        goldenLayout.Header.prototype.processTabDropdownActiveChanged = function () {
+            originprocessTabDropdownActiveChanged.call(this)
+
+            this._closeButton.onClick = function (ev) {
+                const tabs = this._header.tabs.map(tab => {
+                    return { element: tab.componentItem.element, title: tab.componentItem.title }
+                })
+                if (!eventsData.has(this._header.parent)) {
+                    this._pushEvent(ev)
+
+                    const handler = setTimeout(() => {
+                        clearTimeout(handler)
+                        tabs.forEach(tab => {
+                            this._header.layoutManager.emit('tabClosed', tab.element, tab.title)
+                        })
+                    }, 100)
+                }
+            }
+        }
+
+        // hack RowOrColumn
+        const originSplitterDragStop = goldenLayout.RowOrColumn.prototype.onSplitterDragStop
+        goldenLayout.RowOrColumn.prototype.onSplitterDragStop = function (splitter) {
+            originSplitterDragStop.call(this, splitter)
+            this.layoutManager.emit('splitterDragStop')
         }
     }
 }

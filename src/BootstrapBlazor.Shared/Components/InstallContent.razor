@@ -23,22 +23,22 @@
 <div class="code-label mb-2">1. @Localizer["P11"]</div>
 <div class="code-label mb-2">2. @Localizer["P12"]</div>
 <div class="code-label mb-2">3. @Localizer["P13"] <b>Blazor App</b> @Localizer["P14"] <b>@Localizer["P15"]</b>, @Localizer["P16"] <b>Create</b></div>
-<img alt="install" src="_content/BootstrapBlazor.Shared/images/create-new-application.png" style="border-radius: 6px;" class="d-none d-sm-block" />
+<img alt="install" src="./images/create-new-application.png" style="border-radius: 6px;" class="d-none d-sm-block mb-2" />
 @ChooseTemplate
 <h5 class="mb-3">@Localizer["P17"]</h5>
 <div class="code-label mb-2">1. @Localizer["P18"] <b>nuget.org</b> @Localizer["P19"] <code>BootstrapBlazor</code></div>
 <div class="mb-2">@Localizer["P20"] <b>Manage Nuget Packages</b></div>
-<Pre @key="@Version" class="no-highlight">dotnet add package BootstrapBlazor --version @Version</Pre>
-<img alt="install" src="_content/BootstrapBlazor.Shared/images/manage-nuget-packages-for-server-app.png" style="border-radius: 6px;" class="d-none d-sm-block" />
+<Pre @key="@Version" class="no-highlight mb-2">dotnet add package BootstrapBlazor --version @Version</Pre>
+<img alt="install" src="./images/manage-nuget-packages-for-server-app.png" style="border-radius: 6px;" class="d-none d-sm-block mb-2" />
 <div class="code-label mt-3 mb-2">2. @Localizer["P21"]</div>
-<img alt="install" src="_content/BootstrapBlazor.Shared/images/nuget_install.png" style="width: 1000px; border-radius: 6px;" class="d-none d-sm-block" />
+<img alt="install" src="./images/nuget_install.png" style="width: 1000px; border-radius: 6px;" class="d-none d-sm-block mb-2" />
 <div class="code-label mt-3 mb-2">3. @Localizer["P22"]</div>
-<div class="mb-3">@Localizer["P23"]</div>
+<div class="mb-2">@Localizer["P23"]</div>
 @SheetTemplate
 <Tips>
     <div>@((MarkupString)Localizer["Tips2"].Value)</div>
 </Tips>
-<Pre>&lt;head&gt;
+<Pre class="mb-2">&lt;head&gt;
     ...
 <b>
     &lt;!-- @Localizer["P24"] !--&gt;
@@ -49,9 +49,9 @@
     &lt;link href="css/site.css" rel="stylesheet"&gt;
     &lt;link href="BlazorApp1.styles.css" rel="stylesheet"&gt;
 &lt;/head&gt;</Pre>
-<div class="code-label mb-3">4. @Localizer["P25"]</div>
+<div class="code-label my-2">4. @Localizer["P25"]</div>
 @ScriptsTemplate
-<Pre>&lt;body&gt;
+<Pre class="mb-2">&lt;body&gt;
     ...
     &lt;!-- @Localizer["P26"] !--&gt;
     <b>&lt;script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"&gt;&lt;/script&gt;</b>
@@ -62,11 +62,11 @@
 @ServicesTemplate
 
 <div class="code-label mb-2">6. @Localizer["P28"]</div>
-<div class="mb-1">@Localizer["P29"] <code>~/_Imports.razor</code> @Localizer["P30"] <code>Razor</code> @Localizer["P31"]</div>
-<Pre><b>@@using BootstrapBlazor.Components</b></Pre>
+<div class="mb-2">@Localizer["P29"] <code>~/_Imports.razor</code> @Localizer["P30"] <code>Razor</code> @Localizer["P31"]</div>
+<Pre class="mb-2"><b>@@using BootstrapBlazor.Components</b></Pre>
 
 <div class="code-label mb-2">7. @Localizer["P32"] <code>BootstrapBlazorRoot</code> @Localizer["P33"] <code>~/App.razor</code> @Localizer["P34"]</div>
-<Pre>&lt;BootstrapBlazorRoot&gt;
+<Pre class="mb-2">&lt;BootstrapBlazorRoot&gt;
     &lt;Router AppAssembly="@@typeof(App).Assembly"&gt;
         &lt;Found Context="routeData"&gt;
             &lt;PageTitle&gt;Title&lt;/PageTitle&gt;
@@ -83,8 +83,8 @@
 &lt;/BootstrapBlazorRoot&gt;</Pre>
 
 <h5 class="mb-3">@Localizer["P36"]</h5>
-<div class="mb-1">@Localizer["P37"] <code>BootstrapBlazor</code> @Localizer["P38"]：</div>
+<div class="mb-2">@Localizer["P37"] <code>BootstrapBlazor</code> @Localizer["P38"]：</div>
 <div class="code-label mb-2">1. @Localizer["P39"] <code>Button</code> @Localizer["P40"]</div>
-<Pre>&lt;Button Color="Color.Primary" Icon="fa-solid fa-font-awesome" Text="@Localizer["P41"]" /&gt;</Pre>
+<Pre class="mb-2">&lt;Button Color="Color.Primary" Icon="fa-solid fa-font-awesome" Text="@Localizer["P41"]" /&gt;</Pre>
 <div class="code-label mb-2">2. @Localizer["P42"] <b>Visual studio 2022</b> @Localizer["P43"] <kbd>F5</kbd> @Localizer["P44"]</div>
-<img alt="install" src="_content/BootstrapBlazor.Shared/images/preview.png" style="border-radius: 6px;" class="d-none d-sm-block" />
+<img alt="install" src="./images/preview.png" style="border-radius: 6px;" class="d-none d-sm-block" />

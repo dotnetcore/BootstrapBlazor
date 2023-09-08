@@ -1,0 +1,52 @@
+$alert-bar-width: 8px;
+$alert-icon-margin-right: 1rem;
+
+/*
+    DialogButton
+*/
+$dial-list-zindex: 5;
+$dial-item-padding: 0.25rem 1rem;
+$dial-item-bg: #fff;
+$dial-item-hover-bg: #e9ecef;
+$dial-item-hover-color: var(--bs-body-color);
+$dial-item-hover-border-color: #c0c4cc;
+$dial-item-border: 1px solid #dee2e6;
+$dial-item-margin: 6px;
+$dial-item-width: 40px;
+$dial-item-height: 40px;
+$dial-item-radius: 50%;
+$dial-item-shadow: 0 1px 6px #c0c4cc;
+$dial-list-radial-offset: 8px;
+
+/*
+    PopConfirmButtonContent
+*/
+$popover-min-width: 240px;
+$popover-buttons-justify-content: flex-end;
+$popover-buttons-margin-left: 0.5rem;
+$popover-buttons-padding: 0.25rem 1rem;
+$popover-body-span-margin-left: 0.25rem;
+
+/*
+    PopConfirmButtonContent
+*/
+$border-width: 3px;
+
+/*
+    SlideButton
+*/
+$slide-list-bg: #fff;
+$slide-list-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+$slide-list-border: var(--bs-border-width) solid var(--bs-border-color-translucent);
+$slide-list-width: 260px;
+$slide-list-height: 306px;
+$slide-item-header-bg: var(--bs-primary);
+$slide-item-header-color: #fff;
+$slide-item-header-padding: 0.75rem 1rem;
+$slide-item-header-border-radius: 5px 5px 0 0;
+$slide-item-body-padding: .25rem 0;
+$slide-item-padding: 0.25rem 1rem;
+$slide-item-active-bg: #0d6efd;
+$slide-item-active-color: #fff;
+$slide-item-hover-bg: var(--bs-tertiary-bg);
+$slide-item-hover-color: var(--bs-body-color);

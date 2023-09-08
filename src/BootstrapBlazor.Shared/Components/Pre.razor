@@ -2,11 +2,8 @@
 @attribute [JSModuleAutoLoader("Components/Pre.razor.js")]
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id" data-bb-title="@CopiedText">
-    @if (!Loaded)
-    {
-        <p class="loading">@LoadingText</p>
-    }
-    else
+    <p class="loading">@LoadingText</p>
+    @if (Loaded)
     {
         <pre><code>@ChildContent</code></pre>
         @if (CanCopy)

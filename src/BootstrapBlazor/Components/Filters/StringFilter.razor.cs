@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 字符串类型过滤条件
 /// </summary>
-public partial class StringFilter : FilterBase
+public partial class StringFilter
 {
     private string Value1 { get; set; } = "";
 
@@ -24,21 +24,18 @@ public partial class StringFilter : FilterBase
     private IStringLocalizer<TableFilter>? Localizer { get; set; }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     protected override FilterLogic Logic { get; set; } = FilterLogic.Or;
 
-    [NotNull]
-    private IEnumerable<SelectedItem>? Items { get; set; }
-
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
-        Items = new SelectedItem[]
+        Items ??= new SelectedItem[]
         {
             new SelectedItem("Contains", Localizer["Contains"].Value),
             new SelectedItem("Equal", Localizer["Equal"].Value),
@@ -48,7 +45,7 @@ public partial class StringFilter : FilterBase
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     public override void Reset()
     {
@@ -62,15 +59,15 @@ public partial class StringFilter : FilterBase
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
+    public override FilterKeyValueAction GetFilterConditions()
     {
-        var filters = new List<FilterKeyValueAction>();
+        var filter = new FilterKeyValueAction() { Filters = new() };
         if (!string.IsNullOrEmpty(Value1))
         {
-            filters.Add(new FilterKeyValueAction()
+            filter.Filters.Add(new FilterKeyValueAction()
             {
                 FieldKey = FieldKey,
                 FieldValue = Value1,
@@ -80,52 +77,48 @@ public partial class StringFilter : FilterBase
 
         if (Count > 0 && !string.IsNullOrEmpty(Value2))
         {
-            filters.Add(new FilterKeyValueAction()
+            filter.Filters.Add(new FilterKeyValueAction()
             {
                 FieldKey = FieldKey,
                 FieldValue = Value2,
                 FilterAction = Action2,
-                FilterLogic = Logic
             });
+            filter.FilterLogic = Logic;
         }
-        return filters;
+        return filter;
     }
 
     /// <summary>
-    /// Override existing filter conditions
+    /// <inheritdoc/>
     /// </summary>
-    public override async Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions)
+    public override async Task SetFilterConditionsAsync(FilterKeyValueAction filter)
     {
-        if (conditions.Any())
+        FilterKeyValueAction first = filter.Filters?.FirstOrDefault() ?? filter;
+        if (first.FieldValue is string value)
         {
-            FilterKeyValueAction first = conditions.First();
-            if (first.FieldValue is string value)
+            Value1 = value;
+        }
+        else
+        {
+            Value1 = "";
+        }
+        Action1 = first.FilterAction;
+
+        if (filter.Filters != null && filter.Filters.Count == 2)
+        {
+            Count = 1;
+            FilterKeyValueAction second = filter.Filters[1];
+            if (second.FieldValue is string value2)
             {
-                Value1 = value;
+                Value2 = value2;
             }
             else
             {
-                Value1 = "";
+                Value2 = "";
             }
-            Action1 = first.FilterAction;
-
-            if (conditions.Count() == 2)
-            {
-                Count = 1;
-
-                FilterKeyValueAction second = conditions.ElementAt(1);
-                if (second.FieldValue is string value2)
-                {
-                    Value2 = value2;
-                }
-                else
-                {
-                    Value2 = "";
-                }
-                Action1 = second.FilterAction;
-                Logic = second.FilterLogic;
-            }
+            Action2 = second.FilterAction;
+            Logic = second.FilterLogic;
         }
-        await base.SetFilterConditionsAsync(conditions);
+        await base.SetFilterConditionsAsync(filter);
     }
 }

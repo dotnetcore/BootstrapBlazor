@@ -1,0 +1,101 @@
+.checkbox-list {
+    --bb-checkbox-item-width: #{$checkbox-item-width};
+    min-height: var(--bb-height);
+    height: auto;
+    display: flex;
+    flex-flow: row wrap;
+    padding: 0 0.75rem;
+    overflow: hidden;
+    vertical-align: top;
+
+    &.is-vertical {
+        flex-direction: column;
+    }
+
+    &.is-button {
+        padding: 0;
+    }
+
+    .btn-group {
+        border: 1px solid var(--bs-secondary);
+        display: inline-flex;
+        flex: 0 !important;
+        flex-wrap: nowrap;
+        white-space: nowrap;
+
+        > .btn {
+            white-space: nowrap;
+        }
+
+        .active {
+            color: #fff;
+        }
+
+        &.disabled {
+            > span {
+                opacity: var(--bs-btn-disabled-opacity);
+            }
+
+            > span:not(.active) {
+                background-color: var(--bb-disabled-bg);
+            }
+        }
+
+        .checkbox-item {
+            display: inline-flex;
+            width: var(--bb-checkbox-item-width);
+
+            .form-check {
+                width: var(--bb-checkbox-item-width);
+            }
+        }
+
+        &.form-control {
+            &.no-border {
+                &:not(.is-valid):not(.is-invalid) {
+                    border-color: transparent;
+                }
+            }
+
+            &:not(.is-invalid):focus {
+                box-shadow: none;
+            }
+        }
+    }
+}
+
+.checkbox-item .form-check-sm .form-check-input {
+    margin: 3px 0 2px 0;
+}
+
+.input-group-checkbox-list {
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    flex: 1;
+}
+
+.input-group-checkbox-list:hover {
+    border: 1px solid var(--bb-border-hover-color);
+}
+
+.input-group-checkbox-list .form-control {
+    border-color: transparent;
+}
+
+.input-group-checkbox-list .form-control:hover {
+    border-color: transparent !important;
+}
+
+.input-group > .checkbox-list {
+    display: flex;
+    --bb-checkbox-item-width: 110px;
+}
+
+.input-group > .checkbox-list .form-control {
+    border-color: transparent;
+    padding: 0;
+}
+
+.input-group > .checkbox-list .form-control:hover {
+    border-color: transparent !important;
+}

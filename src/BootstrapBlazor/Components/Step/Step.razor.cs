@@ -5,134 +5,89 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Step 组件
+/// Step 组件类
 /// </summary>
-public sealed partial class Step
+public partial class Step
 {
-    private string? ClassString => CssBuilder.Default("step is-horizontal")
-        .AddClass("is-flex", IsLast && !((Steps?.IsCenter ?? false) || IsCenter))
-        .AddClass("is-center", (Steps?.IsCenter ?? false) || IsCenter)
-        .Build();
-
-    private string? StyleString => CssBuilder.Default("margin-right: 0px;")
-        .AddClass($"flex-basis: {Space};", !string.IsNullOrEmpty(Space))
-        .Build();
-
-    private string? HeadClassString => CssBuilder.Default("step-head")
-        .AddClass($"is-{Status.ToDescriptionString()}")
-        .Build();
-
-    private string? LineStyleString => CssBuilder.Default()
-        .AddClass("transition-delay: 150ms; border-width: 1px; width: 100%;", Status == StepStatus.Finish || Status == StepStatus.Success)
-        .Build();
-
-    private string? StepIconClassString => CssBuilder.Default("step-icon")
-        .AddClass("is-text", !IsIcon)
-        .AddClass("is-icon", IsIcon)
-        .Build();
-
-    private string? IconClassString => CssBuilder.Default("step-icon-inner")
-        .AddClass(Icon, IsIcon || Status == StepStatus.Finish || Status == StepStatus.Success)
-        .AddClass(ErrorStepIcon, IsIcon || Status == StepStatus.Error)
-        .AddClass("is-status", !IsIcon && (Status == StepStatus.Finish || Status == StepStatus.Success || Status == StepStatus.Error))
-        .Build();
-
-    private string? TitleClassString => CssBuilder.Default("step-title")
-        .AddClass($"is-{Status.ToDescriptionString()}")
-        .Build();
-
-    private string? DescClassString => CssBuilder.Default("step-description")
-        .AddClass($"is-{Status.ToDescriptionString()}")
-        .Build();
-
-    private string? StepString => (Status == StepStatus.Process || Status == StepStatus.Wait) && !IsIcon ? (StepIndex + 1).ToString() : null;
-
     /// <summary>
-    /// 获得/设置 步骤显示文字
+    /// 获得/设置 步骤集合
     /// </summary>
     [Parameter]
-    public string? Title { get; set; }
+    [NotNull]
+    public List<StepOption>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 步骤显示图标
+    /// 获得/设置 是否垂直渲染 默认 false 水平渲染
     /// </summary>
     [Parameter]
-    public string? Icon { get; set; }
+    public bool IsVertical { get; set; }
 
     /// <summary>
-    /// 获得/设置 步骤显示图标
-    /// </summary>
-    public string? ErrorIcon { get; set; }
-
-    /// <summary>
-    /// 获得/设置 错误步骤显示图标
-    /// </summary>
-    [Parameter]
-    public string? ErrorStepIcon { get; set; }
-
-    /// <summary>
-    /// 获得/设置 步骤状态
-    /// </summary>
-    [Parameter]
-    public StepStatus Status { get; set; }
-
-    /// <summary>
-    /// 获得/设置 描述信息
-    /// </summary>
-    [Parameter]
-    public string? Description { get; set; }
-
-    /// <summary>
-    /// 获得/设置 step 的间距不填写将自适应间距支持百分比
-    /// </summary>
-    [Parameter]
-    public string? Space { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否为图标
-    /// </summary>
-    [Parameter]
-    public bool IsIcon { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否为最后一个 Step
-    /// </summary>
-    [Parameter]
-    public bool IsLast { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否居中对齐
-    /// </summary>
-    [Parameter]
-    public bool IsCenter { get; set; }
-
-    /// <summary>
-    /// 获得/设置 Step 顺序
+    /// 获得/设置 当前步骤索引 默认 0
     /// </summary>
     [Parameter]
     public int StepIndex { get; set; }
 
     /// <summary>
-    /// 获得/设置 父级组件 Steps 实例
-    /// </summary>
-    [CascadingParameter]
-    private Steps? Steps { get; set; }
-
-    /// <summary>
-    /// 获得/设置 步骤组件状态改变时回调委托
+    /// 获得/设置 组件内容实例
     /// </summary>
     [Parameter]
-    public Action<StepStatus>? OnStatusChanged { get; set; }
-
-    /// <summary>
-    /// 获得/设置 每个 step 的模板
-    /// </summary>
-    [Parameter]
-    public RenderFragment? DescriptionTemplate { get; set; }
+    public RenderFragment? ChildContent { get; set; }
 
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
+
+    private int _currentStepIndex;
+
+    /// <summary>
+    /// 获得 组件样式字符串
+    /// </summary>
+    private string? ClassString => CssBuilder.Default("step")
+        .AddClass("step-vertical", IsVertical)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string GetStepString(StepOption option) => $"{Items.IndexOf(option) + 1}";
+
+    private string? GetHeaderClassString(StepOption option)
+    {
+        var index = Items.IndexOf(option);
+        return CssBuilder.Default("step-item")
+            .AddClass("is-done", index < _currentStepIndex)
+            .AddClass("active", index == _currentStepIndex)
+            .Build();
+    }
+
+    private string? GetBodyClassString(StepOption option)
+    {
+        var index = Items.IndexOf(option);
+        return CssBuilder.Default("step-body-item")
+            .AddClass("active", index == _currentStepIndex)
+            .Build();
+    }
+
+    private bool ShowFinishedIcon(StepOption option) => !string.IsNullOrEmpty(option.FinishedIcon) && Items.IndexOf(option) < _currentStepIndex;
+
+    private static string? GetIconClassString(StepOption option) => CssBuilder.Default("step-icon")
+        .AddClass(option.Icon)
+        .Build();
+
+    private static string? GetFinishedIconClassString(StepOption option) => CssBuilder.Default("step-icon")
+        .AddClass(option.FinishedIcon)
+        .Build();
+
+    private string? _finishedIcon;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _currentStepIndex = StepIndex;
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -141,7 +96,62 @@ public sealed partial class Step
     {
         base.OnParametersSet();
 
-        Icon ??= IconTheme.GetIconByKey(ComponentIcons.StepIcon);
-        ErrorIcon = IconTheme.GetIconByKey(ComponentIcons.StepErrorIcon);
+        _finishedIcon ??= IconTheme.GetIconByKey(ComponentIcons.StepIcon);
+        Items ??= new();
+    }
+
+    /// <summary>
+    /// 上一步
+    /// </summary>
+    public void Prev()
+    {
+        _currentStepIndex = Math.Max(0, _currentStepIndex - 1);
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// 下一步
+    /// </summary>
+    public void Next()
+    {
+        _currentStepIndex = Math.Min(Items.Count, _currentStepIndex + 1);
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// 下一步
+    /// </summary>
+    public void Reset()
+    {
+        _currentStepIndex = 0;
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// 添加步骤到组件中
+    /// </summary>
+    /// <param name="option"></param>
+    public void Add(StepOption option)
+    {
+        Items.Add(option);
+    }
+
+    /// <summary>
+    /// 插入步骤到组件中
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="option"></param>
+    public void Insert(int index, StepOption option)
+    {
+        Items.Insert(index, option);
+    }
+
+    /// <summary>
+    /// 从组件中移除步骤
+    /// </summary>
+    /// <param name="option"></param>
+    public void Remove(StepOption option)
+    {
+        Items.Remove(option);
     }
 }

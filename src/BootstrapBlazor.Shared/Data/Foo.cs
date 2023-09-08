@@ -102,7 +102,7 @@ public class Foo
     };
 
     /// <summary>
-    /// 生成Foo类,随机数据
+    /// 生成 Foo 类,随机数据
     /// Generate Foo class, random data
     /// </summary>
     /// <returns>返回一个Foo类的List，Return a List of Foo class</returns>
@@ -118,10 +118,10 @@ public class Foo
     }).ToList();
 
     /// <summary>
-    /// 
+    /// 生成 Foo 类 Hobbies 数据
     /// </summary>
     /// <returns></returns>
-    public static IEnumerable<SelectedItem> GenerateHobbys(IStringLocalizer<Foo> localizer) => localizer["Hobbys"].Value.Split(",").Select(i => new SelectedItem(i, i)).ToList();
+    public static IEnumerable<SelectedItem> GenerateHobbies(IStringLocalizer<Foo> localizer) => localizer["Hobbies"].Value.Split(",").Select(i => new SelectedItem(i, i)).ToList();
 
 
     /// <summary>
@@ -129,7 +129,7 @@ public class Foo
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    public static string GetAvatarUrl(int id) => $"_content/BootstrapBlazor.Shared/images/avatars/150-{Math.Max(1, id % 25)}.jpg";
+    public static string GetAvatarUrl(int id) => $"./images/avatars/150-{Math.Max(1, id % 25)}.jpg";
 
     /// <summary>
     /// 获取 Complete 转化为 SelectedItem 方法
