@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <Import Project="..\..\..\bundleconfig.props" />
+  <Import Project="..\..\..\Bundle.props" />
 
   <PropertyGroup>
     <Version>7.5.0</Version>
