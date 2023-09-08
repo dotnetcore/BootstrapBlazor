@@ -14,16 +14,15 @@ public class CameraTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.OnInit, devices =>
             {
-                count = devices.Count();
+                count = devices.Count;
                 return Task.CompletedTask;
             });
-            pb.Add(a => a.NotFoundDevicesString, "NotFound");
             pb.Add(a => a.AutoStart, true);
         });
-        cut.InvokeAsync(() => cut.Instance.InitDevices(new List<DeviceItem>()));
-        cut.Contains("NotFound");
+        cut.InvokeAsync(() => cut.Instance.TriggerInit(new List<DeviceItem>()));
+        Assert.Equal(0, count);
 
-        cut.InvokeAsync(() => cut.Instance.InitDevices(new List<DeviceItem>
+        cut.InvokeAsync(() => cut.Instance.TriggerInit(new List<DeviceItem>
         {
             new DeviceItem()
             {
@@ -39,7 +38,7 @@ public class CameraTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task GetError_Ok()
+    public void GetError_Ok()
     {
         var msg = "";
         var cut = Context.RenderComponent<Camera>(pb =>
@@ -50,28 +49,28 @@ public class CameraTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
-        await cut.InvokeAsync(() => cut.Instance.GetError("Error"));
+        cut.InvokeAsync(() => cut.Instance.TriggerError("Error"));
         Assert.Equal("Error", msg);
     }
 
     [Fact]
-    public async Task Start_Ok()
+    public void Start_Ok()
     {
         var start = false;
         var cut = Context.RenderComponent<Camera>(pb =>
         {
-            pb.Add(a => a.OnStart, () =>
+            pb.Add(a => a.OnOpen, () =>
             {
                 start = true;
                 return Task.CompletedTask;
             });
         });
-        await cut.InvokeAsync(() => cut.Instance.Start());
+        cut.InvokeAsync(() => cut.Instance.TriggerOpen());
         Assert.True(start);
     }
 
     [Fact]
-    public async Task Stop_Ok()
+    public void Stop_Ok()
     {
         var stop = false;
         var cut = Context.RenderComponent<Camera>(pb =>
@@ -82,36 +81,20 @@ public class CameraTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
-        await cut.InvokeAsync(() => cut.Instance.Stop());
+        cut.InvokeAsync(() => cut.Instance.TriggerClose());
         Assert.True(stop);
     }
 
     [Fact]
-    public async Task Capture_Ok()
+    public void Capture_Ok()
     {
-        var capture = false;
-        var cut = Context.RenderComponent<Camera>(pb =>
+        Stream? stream = null;
+        var cut = Context.RenderComponent<Camera>();
+        cut.InvokeAsync(async () =>
         {
-            pb.Add(a => a.ShowPreview, true);
-            pb.Add(a => a.OnCapture, payload =>
-            {
-                capture = true;
-                return Task.CompletedTask;
-            });
+            stream = await cut.Instance.Capture();
         });
-        await cut.InvokeAsync(() => cut.Instance.Capture("test"));
-        await cut.InvokeAsync(() => cut.Instance.Capture("__BB__%END%__BB__"));
-        Assert.True(capture);
-    }
-
-    [Fact]
-    public void ShowPreview_Ok()
-    {
-        var cut = Context.RenderComponent<Camera>(pb =>
-        {
-            pb.Add(a => a.ShowPreview, true);
-        });
-        cut.Contains("camera-header");
+        Assert.Null(stream);
     }
 
     [Fact]
@@ -122,12 +105,9 @@ public class CameraTest : BootstrapBlazorTestBase
             pb.Add(a => a.VideoWidth, 30);
             pb.Add(a => a.VideoHeight, 20);
             pb.Add(a => a.CaptureJpeg, true);
-            pb.Add(a => a.Quality, 0.9);
+            pb.Add(a => a.Quality, 0.8f);
         });
-        Assert.Equal(40, cut.Instance.VideoWidth);
-        Assert.Equal(30, cut.Instance.VideoHeight);
 
-        Assert.True(cut.Instance.CaptureJpeg);
-        Assert.Equal(0.9, cut.Instance.Quality);
+        cut.Contains("data-video-width=\"30\" data-video-height=\"20\" data-capture-jpeg=\"true\" data-capture-quality=\"0.8\"");
     }
 }
