@@ -4,6 +4,7 @@
   <Import Project="..\Frameworks.props" />
   <Import Project="..\Logo.props" />
   <Import Project="..\bundleconfig.props" />
+  <Import Project="..\WebCompiler.props" />  
   <Import Project="..\SourceLink.targets" />
   <Import Project="..\Version.targets" />
 
