@@ -15,6 +15,12 @@ public partial class WebSpeechs
 
     [NotNull]
     WebSpeech? WebSpeech { get; set; }
+    [NotNull]
+    WebSpeech? WebSpeechGame { get; set; }
+    [NotNull]
+    WebSpeech? WebSpeechSynthesis { get; set; }
+    [NotNull]
+    WebSpeech? WebSpeechDIY { get; set; }
 
     [DisplayName("识别结果")]
     string? Result { get; set; } = "";
@@ -58,31 +64,51 @@ public partial class WebSpeechs
         }, Message);
     }
 
+    #region SpeechRecognition
+
     async Task SpeechRecognition() => Result2 = await WebSpeech.SpeechRecognition(option: Options);
     async Task SpeechRecognitionHK() => Result2 = await WebSpeech.SpeechRecognition("zh-HK", Options);
     async Task SpeechRecognitionEN() => Result2 = await WebSpeech.SpeechRecognition("en-US", Options);
     async Task SpeechRecognitionES() => Result2 = await WebSpeech.SpeechRecognition("es-ES", Options);
     async Task SpeechRecognitionStop() => await WebSpeech.SpeechRecognitionStop();
 
-    async Task SpeechRecognitionDemo() => Result2 = await WebSpeech.SpeechRecognitionDemo();
-    async Task SpeechRecognitionHKDemo() => Result2 = await WebSpeech.SpeechRecognitionDemo("zh-HK");
-    async Task SpeechRecognitionENDemo() => Result2 = await WebSpeech.SpeechRecognitionDemo("en-US");
-    async Task SpeechRecognitionESDemo() => Result2 = await WebSpeech.SpeechRecognitionDemo("es-ES");
-    async Task SpeechRecognitionStopDemo() => await WebSpeech.SpeechRecognitionStop();
+    #endregion
 
-    async Task SpeechSynthesis() => await WebSpeech.SpeechSynthesis("你好 blazor,现在是" + NowString());
-    async Task SpeechSynthesisHK() => await WebSpeech.SpeechSynthesis("早晨 blazor,依家系 " + NowString(), "zh-HK");
-    async Task SpeechSynthesisEN() => await WebSpeech.SpeechSynthesis("Hello blazor,now is " + NowString(), "en-US");
-    async Task SpeechSynthesisES() => await WebSpeech.SpeechSynthesis("Hola blazor,ahora es " + NowString(), "es-ES");
-    async Task SpeechSynthesisDIY() => await WebSpeech.SpeechSynthesis(SpeakText, Options2, "", SelectLang ?? WebVoiceList?.FirstOrDefault()?.VoiceURI);
+
+    #region SpeechRecognitionDemo
+
+    async Task SpeechRecognitionDemo() => Result2 = await WebSpeechGame.SpeechRecognitionDemo();
+    async Task SpeechRecognitionHKDemo() => Result2 = await WebSpeechGame.SpeechRecognitionDemo("zh-HK");
+    async Task SpeechRecognitionENDemo() => Result2 = await WebSpeechGame.SpeechRecognitionDemo("en-US");
+    async Task SpeechRecognitionESDemo() => Result2 = await WebSpeechGame.SpeechRecognitionDemo("es-ES");
+    async Task SpeechRecognitionDemoStop() => await WebSpeechGame.SpeechRecognitionStop();
+
+    #endregion
+
+    #region SpeechSynthesis
+
+    async Task SpeechSynthesis() => await WebSpeechSynthesis.SpeechSynthesis("你好 blazor,现在是" + NowString());
+    async Task SpeechSynthesisHK() => await WebSpeechSynthesis.SpeechSynthesis("早晨 blazor,依家系 " + NowString(), "zh-HK");
+    async Task SpeechSynthesisEN() => await WebSpeechSynthesis.SpeechSynthesis("Hello blazor,now is " + NowString(), "en-US");
+    async Task SpeechSynthesisES() => await WebSpeechSynthesis.SpeechSynthesis("Hola blazor,ahora es " + NowString(), "es-ES");
     async Task SpeechStop() => await WebSpeech.SpeechStop();
+
+    #endregion
+
+    #region SpeechSynthesisDIY
+
+    async Task SpeechSynthesisDIY() => await WebSpeechDIY.SpeechSynthesis(SpeakText, Options2, "", SelectLang ?? WebVoiceList?.FirstOrDefault()?.VoiceURI);
+    async Task SpeechDIYStop() => await WebSpeechDIY.SpeechStop();
+
+    #endregion
+
 
     string NowString() => DateTime.Now.ToShortTimeString();
 
     List<WebVoice>? WebVoiceList { get; set; }
     async Task GetVoiceList()
     {
-        WebVoiceList = await WebSpeech.GetVoiceList();
+        WebVoiceList = await WebSpeechDIY.GetVoiceList();
         if (WebVoiceList != null && WebVoiceList.Any()) StateHasChanged();
     }
 
@@ -116,6 +142,11 @@ public partial class WebSpeechs
         await ShowBottomMessage(message, true);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
 

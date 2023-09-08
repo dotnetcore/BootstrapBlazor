@@ -8,8 +8,9 @@
 
 <PackageTips Name="BootstrapBlazor.WebAPI" />
 
-<DemoBlock Title="@Localizer["WebSpeechNormalTitle"]" Name="WebSpeechNormal">
+<DemoBlock Title="@Localizer["WebSpeechNormalTitle"]" Introduction="" Name="WebSpeechNormal">
     <div class="row g-3 mb-3">
+        <WebSpeech @ref="WebSpeech" OnResult="@OnResult" OnIsBusy="@OnIsBusy" OnStatus="@OnStatus" OnError="@OnError" />
         <div class="col-12">
             <BootstrapInputGroup>
                 <Button Text="普通话" OnClick="SpeechRecognition" IsAsync />
@@ -32,25 +33,27 @@
             <Textarea Value="@Result" />
         </div>
 
-        @if (WebSpeech != null && WebSpeech.IsBusy)
-        {
-            <Spinner />
-        }
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["WebSpeechGameTitle"]" Name="WebSpeechGame">
+<DemoBlock Title="@Localizer["WebSpeechGameTitle"]" Introduction="" Name="WebSpeechGame">
 
     <div class="row g-3 mb-3">
+        <WebSpeech @ref="WebSpeechGame" OnResult="@OnResult" OnIsBusy="@OnIsBusy" OnStatus="@OnStatus" OnError="@OnError" />
         <div class="col-12">
             <BootstrapInputGroup>
                 <Button Text="普通话" OnClick="SpeechRecognitionDemo" IsAsync />
                 <Button Text="粤语" OnClick="SpeechRecognitionHKDemo" IsAsync />
                 <Button Text="英文" OnClick="SpeechRecognitionENDemo" IsAsync />
                 <Button Text="西文" OnClick="SpeechRecognitionESDemo" IsAsync />
-                <Button Text="停止" OnClick="SpeechRecognitionStop" Icon="fa-fw fa-solid fa-stop" IsAsync />
+                <Button Text="停止" OnClick="SpeechRecognitionDemoStop" Icon="fa-fw fa-solid fa-stop" IsAsync />
             </BootstrapInputGroup>
         </div>
+
+        @if (WebSpeechGame != null && WebSpeechGame.IsBusy)
+        {
+            <Spinner />
+        }
 
         <p class="hints"></p>
         <div>
@@ -60,7 +63,7 @@
 
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["WebSpeechSynthesisTitle"]" Name="WebSpeechSynthesis">
+<DemoBlock Title="@Localizer["WebSpeechSynthesisTitle"]" Introduction="" Name="WebSpeechSynthesis">
     <div class="row g-3 mb-3">
         <div class="col-12">
             <BootstrapInputGroup>
@@ -72,7 +75,7 @@
             </BootstrapInputGroup>
         </div>
         <div class="col-12">
-            <WebSpeech @ref="WebSpeech" OnResult="@OnResult" OnIsBusy="@OnIsBusy" OnStatus="@OnStatus" OnError="@OnError" />
+            <WebSpeech @ref="WebSpeechSynthesis" OnResult="@OnResult" OnIsBusy="@OnIsBusy" OnStatus="@OnStatus" OnError="@OnError" />
         </div>
         <p>
             @Message
@@ -80,40 +83,45 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["WebSpeechSynthesisDIYTitle"]" Name="WebSpeechSynthesisDIY">
-    <div class="col-12">
-        @if (WebVoiceList != null && WebVoiceList.Any())
-        {
-            <select id="voiceSelect" class="form-select" @onchange="((e)=>OnChange(e))" style="width:70vw; max-width: 400px;">
-                @foreach (var voice in WebVoiceList)
-                {
-                    <option value="@voice.VoiceURI">@($"{(voice.LocalService ? "" : "*")}{voice.Name} ({voice.Lang})")</option>
-                }
-            </select>
+<DemoBlock Title="@Localizer["WebSpeechSynthesisDIYTitle"]" Introduction="" Name="WebSpeechSynthesisDIY">
+    <div class="row g-3 mb-3">
+        <div class="col-12">
+            @if (WebVoiceList != null && WebVoiceList.Any())
+            {
+                <select id="voiceSelect" class="form-select" @onchange="((e)=>OnChange(e))" style="width:70vw; max-width: 400px;">
+                    @foreach (var voice in WebVoiceList)
+                    {
+                        <option value="@voice.VoiceURI">@($"{(voice.LocalService ? "" : "*")}{voice.Name} ({voice.Lang})")</option>
+                    }
+                </select>
 
-        }
-    </div>
-    <div class="col-10">
-        速率
-        <input type="range" min="0.1" max="10" step="0.1" style="width:70vw; max-width: 400px;" @bind-value="Options2.Rate" />
-    </div>
-    <div class="col-10">
-        音高
-        <input type="range" min="0" max="2" step="0.1" style="width: 70vw; max-width: 400px; " @bind-value="Options2.Picth">
-    </div>
-    <div class="col-10">
-        音量
-        <input type="range" min="0" max="1" step="0.01" style="width: 70vw; max-width: 400px; " @bind-value="Options2.Volume" />
-    </div>
-    <div class="col-12">
-        <Textarea @bind-Value="SpeakText" />
-    </div>
-    <div class="col-12">
-        <BootstrapInputGroup>
-            <Button Text="测试" OnClick="SpeechSynthesisDIY" Icon="fa-fw fa-solid fa-play" IsAsync />
-            <Button Text="停止" OnClick="SpeechStop" Icon="fa-fw fa-solid fa-stop" IsAsync />
-            <Button Text="语音列表" OnClick="GetVoiceList" IsAsync />
-        </BootstrapInputGroup>
+            }
+        </div>
+        <div class="col-10">
+            速率
+            <input type="range" min="0.1" max="10" step="0.1" style="width:70vw; max-width: 400px;" @bind-value="Options2.Rate" />
+        </div>
+        <div class="col-10">
+            音高
+            <input type="range" min="0" max="2" step="0.1" style="width: 70vw; max-width: 400px; " @bind-value="Options2.Picth">
+        </div>
+        <div class="col-10">
+            音量
+            <input type="range" min="0" max="1" step="0.01" style="width: 70vw; max-width: 400px; " @bind-value="Options2.Volume" />
+        </div>
+        <div class="col-12">
+            <Textarea @bind-Value="SpeakText" />
+        </div>
+        <div class="col-12">
+            <BootstrapInputGroup>
+                <Button Text="测试" OnClick="SpeechSynthesisDIY" Icon="fa-fw fa-solid fa-play" IsAsync />
+                <Button Text="停止" OnClick="SpeechDIYStop" Icon="fa-fw fa-solid fa-stop" IsAsync />
+                <Button Text="语音列表" OnClick="GetVoiceList" IsAsync />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12">
+            <WebSpeech @ref="WebSpeechDIY" OnResult="@OnResult" OnIsBusy="@OnIsBusy" OnStatus="@OnStatus" OnError="@OnError" />
+        </div>
     </div>
 
 </DemoBlock>
