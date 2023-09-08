@@ -38,16 +38,16 @@ public partial class Camera
     public string? InitDevicesString { get; set; }
 
     /// <summary>
-    /// 获得/设置 摄像头视频宽度
+    /// 获得/设置 摄像头视频宽度 默认 320
     /// </summary>
     [Parameter]
-    public int VideoWidth { get; set; } = 320;
+    public int? VideoWidth { get; set; } = 320;
 
     /// <summary>
-    /// 获得/设置 摄像头视频高度
+    /// 获得/设置 摄像头视频高度 默认 240
     /// </summary>
     [Parameter]
-    public int VideoHeight { get; set; } = 240;
+    public int? VideoHeight { get; set; } = 240;
 
     /// <summary>
     /// 获得/设置 拍照格式为 Jpeg 默认为 false 使用 png 格式
@@ -158,21 +158,9 @@ public partial class Camera
 
     private string? _autoStartString => AutoStart ? "true" : null;
 
+    private string _videoStyleString => $"width: {_videoWidthString}px; height: {_videoHeightString}px;";
+
     private bool _update;
-
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        PlayText ??= Localizer[nameof(PlayText)];
-        StopText ??= Localizer[nameof(StopText)];
-        PhotoText ??= Localizer[nameof(PhotoText)];
-        InitDevicesString ??= Localizer[nameof(InitDevicesString)];
-        NotFoundDevicesString ??= Localizer[nameof(NotFoundDevicesString)];
-    }
 
     /// <summary>
     /// OnParametersSet 方法
@@ -180,20 +168,6 @@ public partial class Camera
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-
-        PlayIcon ??= IconTheme.GetIconByKey(ComponentIcons.CameraPlayIcon);
-        StopIcon ??= IconTheme.GetIconByKey(ComponentIcons.CameraStopIcon);
-        PhotoIcon ??= IconTheme.GetIconByKey(ComponentIcons.CameraPhotoIcon);
-
-        if (VideoWidth < 40)
-        {
-            VideoWidth = 40;
-        }
-
-        if (VideoHeight < 30)
-        {
-            VideoHeight = 30;
-        }
 
         _update = true;
     }
@@ -224,6 +198,18 @@ public partial class Camera
     /// </summary>
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
+
+    /// <summary>
+    /// 打开摄像头
+    /// </summary>
+    /// <returns></returns>
+    public Task Open() => InvokeVoidAsync("open", Id);
+
+    /// <summary>
+    /// 关闭摄像头
+    /// </summary>
+    /// <returns></returns>
+    public Task Close() => InvokeVoidAsync("close", Id);
 
     /// <summary>
     /// 初始化设备方法

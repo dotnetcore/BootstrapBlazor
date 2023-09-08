@@ -2,8 +2,8 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
-<div @attributes="@AdditionalAttributes" id="@Id" class="camera" data-device-id="@DeviceId" data-auto-start="@_autoStartString" data-width="@_videoWidthString" data-height="@_videoHeightString">
-    <video class="camera-header" muted>
+<div @attributes="@AdditionalAttributes" id="@Id" class="camera" data-device-id="@DeviceId" data-auto-start="@_autoStartString" data-video-width="@_videoWidthString" data-video-height="@_videoHeightString">
+    <video class="camera-header" muted style="@_videoStyleString">
         Video stream not available.
     </video>
     <canvas></canvas>

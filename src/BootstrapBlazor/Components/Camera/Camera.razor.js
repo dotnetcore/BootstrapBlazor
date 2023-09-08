@@ -1,12 +1,36 @@
 ﻿import Data from "../../modules/data.js?v=$version"
-import EventHandler from "../../modules/event-handler.js?v=$version"
 
-const stop = (video, track) => {
-    video.pause()
-    video.srcObject = null
-    if (track) {
-        track.stop()
+const stop = camera => {
+    camera.video.pause()
+    camera.video.srcObject = null
+    if (camera.video.mediaStreamTrack) {
+        camera.video.mediaStreamTrack.stop()
     }
+    delete camera.video
+}
+
+const play = camera => {
+    const constrains = {
+        video: {
+            facingMode: 'environment',
+            focusMode: "continuous",
+            width: camera.video.videoWidth,
+            height: camera.video.videoHeight
+        },
+        audio: false
+    }
+    if (camera.video.deviceId) {
+        constrains.video.deviceId = { exact: camera.video.deviceId }
+    }
+    navigator.mediaDevices.getUserMedia(constrains).then(stream => {
+        camera.video = camera.el.querySelector('video')
+        camera.video.srcObject = stream
+        camera.video.play()
+        camera.video.mediaStreamTrack = stream.getTracks()[0]
+        camera.invoke.invokeMethodAsync("Start")
+    }).catch(err => {
+        camera.invoke.invokeMethodAsync("GetError", err.message)
+    })
 }
 
 export function init(id, invoke) {
@@ -17,78 +41,15 @@ export function init(id, invoke) {
     const camera = { el, invoke }
     Data.set(id, camera)
 
-    camera.playButton = el.querySelector('button[data-method="play"]')
-
-    let constrains = {
+    navigator.mediaDevices.getUserMedia({
         video: { facingMode: 'environment', focusMode: "continuous" },
         audio: false
-    }
-
-    navigator.mediaDevices.getUserMedia(constrains).then(s => {
-
+    }).then(s => {
         navigator.mediaDevices.enumerateDevices().then(videoInputDevices => {
             const videoInputs = videoInputDevices.filter(device => {
                 return device.kind === 'videoinput'
             })
-            invoke.invokeMethodAsync("InitDevices", videoInputs).then(() => {
-                if (auto && videoInputs.length > 0) {
-                    camera.playButton.click()
-                }
-            })
-
-            // handler button click event
-            camera.video = el.querySelector('video')
-            const canvas = el.querySelector('canvas')
-            camera.canvas = canvas
-            canvas.width = videoWidth
-            canvas.height = videoHeight
-            const context = canvas.getContext('2d')
-
-            EventHandler.on(el, 'click', 'button[data-method]', async e => {
-                const button = e.delegateTarget
-                const data_method = button.getAttribute('data-method')
-                if (data_method === 'play') {
-                    const deviceId = el.getAttribute('data-device-id')
-                    constrains = { video: { facingMode: 'environment', focusMode: "continuous", width: videoWidth, height: videoHeight }, audio: false }
-                    if (deviceId) {
-                        constrains.video.deviceId = { exact: deviceId }
-                    }
-                    navigator.mediaDevices.getUserMedia(constrains).then(stream => {
-                        camera.video.srcObject = stream
-                        camera.video.play()
-                        camera.mediaStreamTrack = stream.getTracks()[0]
-                        invoke.invokeMethodAsync("Start")
-                    }).catch(err => {
-                        invoke.invokeMethodAsync("GetError", err.message)
-                    })
-                }
-                else if (data_method === 'stop') {
-                    stop(camera.video, camera.mediaStreamTrack)
-                    invoke.invokeMethodAsync("Stop")
-                }
-                else if (data_method === 'capture') {
-                    context.drawImage(camera.video, 0, 0, videoWidth, videoHeight)
-                    let url = "";
-                    if (captureJpeg) {
-                        url = canvas.toDataURL("image/jpeg", quality);
-
-                    }
-                    else {
-                        url = canvas.toDataURL()
-                        const maxLength = 30 * 1024
-                        while (url.length > maxLength) {
-                            const data = url.substring(0, maxLength)
-                            await invoke.invokeMethodAsync("Capture", data)
-                            url = url.substring(data.length)
-                        }
-                    }
-
-                    if (url.length > 0) {
-                        await invoke.invokeMethodAsync("Capture", url)
-                    }
-                    await invoke.invokeMethodAsync("Capture", "__BB__%END%__BB__")
-                }
-            })
+            invoke.invokeMethodAsync("InitDevices", videoInputs)
         })
     }).catch(err => {
         invoke.invokeMethodAsync("GetError", err.message)
@@ -96,6 +57,44 @@ export function init(id, invoke) {
 }
 
 export function update(id) {
+    const camera = Data.get(id)
+    if(camera === null) {
+        return
+    }
+
+    const autoStart = camera.el.getAttribute("data-auto-start") || false
+    if(autoStart) {
+        open(id)
+    }
+}
+
+export function open(id) {
+    const camera = Data.get(id)
+    if(camera === null || camera.video === void 0) {
+        return
+    }
+
+    const deviceId = camera.el.getAttribute("data-device-id")
+    if(deviceId) {
+        const videoWidth = camera.el.getAttribute("data-video-width")
+        const videoHeight = camera.el.getAttribute("data-video-height")
+        camera.video = {
+            deviceId, videoWidth, videoHeight
+        }
+        play(camera)
+    }
+}
+
+export function close(id) {
+    const camera = Data.get(id)
+    if(camera === null || camera.video === void 0) {
+        return
+    }
+
+    if(camera.video) {
+        stop(camera)
+        camera.invoke.invokeMethodAsync("Stop")
+    }
 }
 
 export function dispose(id) {
@@ -103,10 +102,8 @@ export function dispose(id) {
     Data.remove(id)
 
     if (camera) {
-        EventHandler.off(camera.el, 'click')
-
-        if (camera.mediaStreamTrack) {
-            stop(camera.video, camera.mediaStreamTrack)
+        if (camera.video) {
+            stop(camera)
         }
     }
 }
