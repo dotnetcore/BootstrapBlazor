@@ -60,10 +60,6 @@ public sealed partial class Cameras
         .AddClass("display: none;", string.IsNullOrEmpty(ImageContentData))
         .Build();
 
-    [Inject]
-    [NotNull]
-    private DownloadService? DownloadService { get; set; }
-
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
