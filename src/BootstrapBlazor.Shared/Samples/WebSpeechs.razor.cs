@@ -39,14 +39,18 @@ public partial class WebSpeechs
     /// 
     /// </summary>
     [NotNull]
-    protected Message? Message { get; set; }
+    private Message? Message { get; set; }
 
     /// <summary>
     /// 
     /// </summary>
     [Inject]
     [NotNull]
-    protected MessageService? MessageService { get; set; }
+    private MessageService? MessageService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private ToastService? Toast { get; set; }
 
     /// <summary>
     /// 
@@ -133,7 +137,14 @@ public partial class WebSpeechs
     private async Task OnStatus(string message)
     {
         Result2 = message;
-        await ShowBottomMessage(message);
+        if (Options.InterimResults || Options.Continuous)
+        {
+            await Toast.Information(message);
+        }
+        else
+        {
+            await ShowBottomMessage(message);
+        }
     }
 
     private async Task OnError(string message)
