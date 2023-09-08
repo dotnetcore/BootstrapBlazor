@@ -136,14 +136,16 @@ public partial class Camera
     /// <returns></returns>
     public async Task Capture()
     {
-        #if NET6_0_OR_GREATER
-        var stream = await InvokeAsync<IJSStreamReference>("capture", Id);
-        if (stream != null)
+#if NET6_0_OR_GREATER
+        var streamRef = await InvokeAsync<IJSStreamReference>("capture", Id);
+        if (streamRef != null)
         {
-            var data = await stream.OpenReadStreamAsync();
-            
+            var stream = await streamRef.OpenReadStreamAsync();
+            var reader = new StreamReader(stream);
+            var text = reader.ReadToEndAsync();
+            var t = text;
         }
-        #endif
+#endif
     }
 
     /// <summary>
@@ -204,38 +206,4 @@ public partial class Camera
             await OnClose();
         }
     }
-
-    private readonly StringBuilder _sb = new();
-    private string? PreviewData { get; set; }
-
-#if NET6_0_OR_GREATER
-    /// <summary>
-    /// 拍照回调方法
-    /// </summary>
-    /// <returns></returns>
-    [JSInvokable]
-    public async Task TriggerCapture(IJSStreamReference stream, long length)
-    {
-        var text = await stream.OpenReadStreamAsync(length);
-        // if (payload == "__BB__%END%__BB__")
-        // {
-        //     var data = _sb.ToString();
-        //     _sb.Clear();
-        //     if (OnCapture != null)
-        //     {
-        //         await OnCapture(data);
-        //     }
-        //
-        //     if (ShowPreview)
-        //     {
-        //         PreviewData = data;
-        //         StateHasChanged();
-        //     }
-        // }
-        // else
-        // {
-        //     _sb.Append(payload);
-        // }
-    }
-#endif
 }
