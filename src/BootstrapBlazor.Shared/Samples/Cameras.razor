@@ -20,7 +20,7 @@
             <li>@Localizer["BasicUsageLi3"]</li>
         </ul>
     </section>
-    <Camera @ref="Camera" OnInit="@OnInit" OnOpen="@OnOpen" OnClose="@OnClose" OnError="@OnError" OnCapture="@OnCapture" DeviceId="@DeviceId" />
+    <Camera @ref="Camera" OnInit="@OnInit" OnOpen="@OnOpen" OnClose="@OnClose" OnError="@OnError" DeviceId="@DeviceId" />
     <section ignore>
         <Select Items="@Devices" @bind-Value="@DeviceId" DisplayText="@DeviceLabel" ShowLabel="true" PlaceHolder="@PlaceHolderString"></Select>
         @if (ImageUrl != null)

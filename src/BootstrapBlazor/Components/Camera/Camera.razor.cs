@@ -26,12 +26,6 @@ public partial class Camera
     public bool AutoStart { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示 照片预览 默认为 false 不预览
-    /// </summary>
-    [Parameter]
-    public bool ShowPreview { get; set; }
-
-    /// <summary>
     /// 获得/设置 摄像头视频宽度 默认 320
     /// </summary>
     [Parameter]
@@ -79,15 +73,9 @@ public partial class Camera
     [Parameter]
     public Func<Task>? OnClose { get; set; }
 
-    /// <summary>
-    /// 获得/设置 拍照成功回调方法
-    /// </summary>
-    [Parameter]
-    public Func<string, Task>? OnCapture { get; set; }
+    private string VideoWidthString => $"{VideoWidth}";
 
-    private string VideoWidthString => $"{VideoWidth}px;";
-
-    private string VideoHeightString => $"{VideoHeight}px;";
+    private string VideoHeightString => $"{VideoHeight}";
 
     private string? AutoStartString => AutoStart ? "true" : null;
 
