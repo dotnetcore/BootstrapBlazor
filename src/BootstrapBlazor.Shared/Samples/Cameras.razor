@@ -33,6 +33,16 @@
             <Button Text="@PreviewText" Color="Color.Info" Icon="fa-solid fa-camera" IsDisabled="CaptureDisabled" OnClick="OnClickPreview"></Button>
             <Button Text="@SaveText" Color="Color.Info" Icon="fa-solid fa-camera" IsDisabled="CaptureDisabled" OnClick="OnClickSave"></Button>
         </div>
+
+        <div class="mt-3">
+            <Button Text="QVGA" IsDisabled="StopDisabled" OnClick="() => OnApply(320, 240)"></Button>
+            <Button Text="VGA" IsDisabled="StopDisabled" OnClick="() => OnApply(640, 380)"></Button>
+            <Button Text="HD" IsDisabled="StopDisabled" OnClick="() => OnApply(1280, 720)"></Button>
+            <Button Text="Full HD" IsDisabled="StopDisabled" OnClick="() => OnApply(1920, 1080)"></Button>
+            <Button Text="Television 4K (3840 * 2160)" IsDisabled="StopDisabled" OnClick="() => OnApply(3840, 2160)"></Button>
+            <Button Text="Cinema 4K (4096 * 2160)" IsDisabled="StopDisabled" OnClick="() => OnApply(4096, 2160)"></Button>
+            <Button Text="8K" IsDisabled="StopDisabled" OnClick="() => OnApply(7680, 4320)"></Button>
+        </div>
         <ConsoleLogger @ref="Logger" class="mt-3" />
         <div class="mt-3">
             <img style="@ImageStyleString" src="@ImageContentData" />

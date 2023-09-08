@@ -132,8 +132,13 @@ public sealed partial class Cameras
 
     private Task OnClickSave() => Camera.SaveAndDownload($"capture_{DateTime.Now:hhmmss}.png");
 
+    private Task OnApply(int width, int height) => Camera.Resize(width, height);
+
     private Task OnError(string err)
     {
+        PlayDisabled = false;
+        StopDisabled = true;
+        CaptureDisabled = true;
         PlaceHolderString = Localizer["NotFoundDevicesString"];
         Logger.Log($"{TraceOnError} {err}");
 
