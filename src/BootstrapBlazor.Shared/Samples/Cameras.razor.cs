@@ -108,6 +108,8 @@ public sealed partial class Cameras
         CaptureDisabled = true;
     }
 
+    private Task OnClickCapture() => Camera.Capture();
+
     private Task OnError(string err)
     {
         PlaceHolderString = Localizer["NotFoundDevicesString"];

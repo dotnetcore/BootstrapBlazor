@@ -11,7 +11,10 @@ const stop = camera => {
 
 const play = camera => {
     const constrains = {
-        video: true,
+        video: {
+            width: camera.video.videoWidth,
+            height: camera.video.videoHeight
+        },
         audio: false
     }
     if (camera.video.deviceId) {
@@ -62,7 +65,7 @@ export function update(id) {
 
 export function open(id) {
     const camera = Data.get(id)
-    if (camera === null || camera.video === void 0) {
+    if (camera === null || camera.video) {
         return
     }
 
@@ -86,6 +89,37 @@ export function close(id) {
     if (camera.video) {
         stop(camera)
         camera.invoke.invokeMethodAsync("TriggerStop")
+    }
+}
+export async function capture (id) {
+    const camera = Data.get(id)
+    if (camera === null || camera.video) {
+        return
+    }
+
+    if(camera.video === void 0) {
+        return
+    }
+
+    const quality = camera.el.getAttribute("data-capture-quality") || 0.9;
+    const captureJpeg = camera.el.getAttribute("data-capture-jpeg") || false;
+    const {videoWidth, videoHeight} = camera.video
+    const canvas = camera.el.querySelector('canvas')
+    canvas.width = videoWidth
+    canvas.height = videoHeight
+    const context = canvas.getContext('2d')
+    context.drawImage(camera.video, 0, 0, videoWidth, videoHeight)
+    let url = "";
+    if (captureJpeg) {
+        url = canvas.toDataURL("image/jpeg", quality);
+    }
+    else {
+        url = canvas.toDataURL()
+    }
+
+    if(url.length > 0) {
+        const data = new Blob([url]
+        await camera.invoke.invokeMethodAsync("TriggerCapture", data, data.size)
     }
 }
 

@@ -2,7 +2,7 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
-<div @attributes="@AdditionalAttributes" id="@Id" class="camera" data-device-id="@DeviceId" data-auto-start="@AutoStartString" data-video-width="@VideoWidthString" data-video-height="@VideoHeightString">
+<div @attributes="@AdditionalAttributes" id="@Id" class="camera" data-device-id="@DeviceId" data-auto-start="@AutoStartString" data-video-width="@VideoWidthString" data-video-height="@VideoHeightString" data-capture-jpeg="@CaptureJpegString" data-capture-quality="@QualityString">
     <video class="camera-header" muted style="@VideoStyleString"></video>
     <canvas></canvas>
 </div>

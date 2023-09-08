@@ -2,7 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Globalization;
 using System.Text;
+using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Components;
 
@@ -51,7 +53,7 @@ public partial class Camera
     /// 获得/设置 图像质量 默认为 0.9
     /// </summary>
     [Parameter]
-    public double Quality { get; set; } = 0.9d;
+    public float Quality { get; set; } = 0.9f;
 
     /// <summary>
     /// 获得/设置 初始化摄像头回调方法
@@ -91,6 +93,10 @@ public partial class Camera
 
     private string VideoStyleString => $"width: {VideoWidth}px; height: {VideoHeight}px;";
 
+    private string? CaptureJpegString => CaptureJpeg ? "true" : null;
+
+    private string? QualityString => Quality == 0.9f ? null : Quality.ToString(CultureInfo.InvariantCulture);
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -123,6 +129,12 @@ public partial class Camera
     /// </summary>
     /// <returns></returns>
     public Task Close() => InvokeVoidAsync("close", Id);
+
+    /// <summary>
+    /// 拍照方法
+    /// </summary>
+    /// <returns></returns>
+    public Task Capture() => InvokeVoidAsync("capture", Id);
 
     /// <summary>
     /// 初始化设备方法
@@ -190,26 +202,27 @@ public partial class Camera
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task TriggerCapture(string payload)
+    public async Task TriggerCapture(IJSStreamReference stream, long length)
     {
-        if (payload == "__BB__%END%__BB__")
-        {
-            var data = _sb.ToString();
-            _sb.Clear();
-            if (OnCapture != null)
-            {
-                await OnCapture(data);
-            }
-
-            if (ShowPreview)
-            {
-                PreviewData = data;
-                StateHasChanged();
-            }
-        }
-        else
-        {
-            _sb.Append(payload);
-        }
+        var text = await stream.OpenReadStreamAsync(length);
+        // if (payload == "__BB__%END%__BB__")
+        // {
+        //     var data = _sb.ToString();
+        //     _sb.Clear();
+        //     if (OnCapture != null)
+        //     {
+        //         await OnCapture(data);
+        //     }
+        //
+        //     if (ShowPreview)
+        //     {
+        //         PreviewData = data;
+        //         StateHasChanged();
+        //     }
+        // }
+        // else
+        // {
+        //     _sb.Append(payload);
+        // }
     }
 }
