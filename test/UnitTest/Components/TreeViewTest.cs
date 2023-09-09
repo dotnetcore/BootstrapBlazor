@@ -120,17 +120,17 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, nodes);
             pb.Add(a => a.ShowCheckbox, true);
         });
-        var checkboxs = cut.FindComponents<Checkbox<CheckboxState>>();
-        await cut.InvokeAsync(() => checkboxs[1].Instance.SetState(CheckboxState.Checked));
-        await cut.InvokeAsync(() => checkboxs[2].Instance.SetState(CheckboxState.Checked));
+        var checkboxes = cut.FindComponents<Checkbox<CheckboxState>>();
+        await cut.InvokeAsync(() => checkboxes[1].Instance.SetState(CheckboxState.Checked));
+        await cut.InvokeAsync(() => checkboxes[2].Instance.SetState(CheckboxState.Checked));
 
         // Indeterminate
-        await cut.InvokeAsync(() => checkboxs[4].Instance.SetState(CheckboxState.Checked));
+        await cut.InvokeAsync(() => checkboxes[4].Instance.SetState(CheckboxState.Checked));
 
-        checkboxs = cut.FindComponents<Checkbox<CheckboxState>>();
-        Assert.Equal(CheckboxState.Checked, checkboxs[0].Instance.State);
-        Assert.Equal(CheckboxState.Indeterminate, checkboxs[3].Instance.State);
-        Assert.Equal(CheckboxState.UnChecked, checkboxs[5].Instance.State);
+        checkboxes = cut.FindComponents<Checkbox<CheckboxState>>();
+        Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.State);
+        Assert.Equal(CheckboxState.Indeterminate, checkboxes[3].Instance.State);
+        Assert.Equal(CheckboxState.UnChecked, checkboxes[5].Instance.State);
     }
 
     [Fact]
@@ -151,15 +151,15 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, items);
         });
 
-        cut.InvokeAsync(() => cut.Find("[type=\"checkbox\"]").Click());
-        cut.DoesNotContain("fa-solid fa-font-awesome");
-        cut.Contains("Test-Class");
+        cut.Find("[type=\"checkbox\"]").Click();
+        cut.WaitForAssertion(() => cut.DoesNotContain("fa-solid fa-font-awesome"));
+        cut.WaitForAssertion(() => cut.Contains("Test-Class"));
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowIcon, true);
         });
-        cut.Contains("fa-solid fa-font-awesome");
+        cut.WaitForAssertion(() => cut.Contains("fa-solid fa-font-awesome"));
     }
 
     [Fact]
