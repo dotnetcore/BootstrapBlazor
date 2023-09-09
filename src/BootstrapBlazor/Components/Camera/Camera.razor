@@ -2,39 +2,7 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
-<div @attributes="@AdditionalAttributes" id="@Id" class="camera" data-device-id="@DeviceId">
-    <div class="row g-3">
-        <div class="col-12">
-            <video class="camera-header" style="width: @VideoWidthString height: @VideoHeightString"
-                   muted
-                   webkit-playsinline
-                   playsinline
-                   x-webkit-airplay="allow"
-                   x5-video-player-type="h5"
-                   x5-video-player-fullscreen="true"
-                   x5-video-orientation="portraint">
-                Video stream not available.
-            </video>
-            <canvas style="display:none"></canvas>
-        </div>
-        @if (ShowPreview && !string.IsNullOrEmpty(PreviewData))
-        {
-            <div class="col-12">
-                <div class="camera-header">
-                    <img alt="preview" src="@PreviewData" />
-                </div>
-            </div>
-        }
-        <div class="col-12">
-            <Select Items="@Devices" @bind-Value="@DeviceId" DisplayText="@DeviceLabel" ShowLabel="true" PlaceHolder="@InitDevicesString"></Select>
-        </div>
-        <div class="col-12">
-            <div class="btn-group">
-                <Button Text="@PlayText" Color="Color.Success" Icon="@PlayIcon" IsDisabled="@IsDisabled" data-method="play"></Button>
-                <Button Text="@StopText" Color="Color.Danger" Icon="@StopIcon" IsDisabled="@IsDisabled" data-method="stop"></Button>
-                <Button Text="@PhotoText" Icon="@PhotoIcon" IsDisabled="@CaptureDisabled" data-method="capture"></Button>
-            </div>
-            <a class="d-none download"></a>
-        </div>
-    </div>
+<div @attributes="@AdditionalAttributes" id="@Id" class="camera" data-device-id="@DeviceId" data-auto-start="@AutoStartString" data-video-width="@VideoWidthString" data-video-height="@VideoHeightString" data-capture-jpeg="@CaptureJpegString" data-capture-quality="@QualityString">
+    <video class="camera-header" muted playsinline autoplay style="height: auto; width: auto;"></video>
+    <canvas></canvas>
 </div>

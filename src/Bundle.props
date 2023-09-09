@@ -1,0 +1,7 @@
+<Project>
+
+  <ItemGroup>
+    <PackageReference Include="BuildBundlerMinifierPlus2022" Version="5.2.2" Condition="'$(Configuration)'=='Debug' and '$(TargetFramework)' == 'net6.0'" />
+  </ItemGroup>
+
+</Project>

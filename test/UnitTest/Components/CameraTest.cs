@@ -2,6 +2,11 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Bunit;
+using Microsoft.JSInterop;
+using System.IO;
+using UnitTest.Mock;
+
 namespace UnitTest.Components;
 
 public class CameraTest : BootstrapBlazorTestBase
@@ -9,21 +14,20 @@ public class CameraTest : BootstrapBlazorTestBase
     [Fact]
     public void InitDevices_Ok()
     {
-        var count = 0;
+        List<DeviceItem> items = new();
         var cut = Context.RenderComponent<Camera>(pb =>
         {
             pb.Add(a => a.OnInit, devices =>
             {
-                count = devices.Count();
+                items = devices;
                 return Task.CompletedTask;
             });
-            pb.Add(a => a.NotFoundDevicesString, "NotFound");
             pb.Add(a => a.AutoStart, true);
         });
-        cut.InvokeAsync(() => cut.Instance.InitDevices(new List<DeviceItem>()));
-        cut.Contains("NotFound");
+        cut.InvokeAsync(() => cut.Instance.TriggerInit(new List<DeviceItem>()));
+        Assert.Empty(items);
 
-        cut.InvokeAsync(() => cut.Instance.InitDevices(new List<DeviceItem>
+        cut.InvokeAsync(() => cut.Instance.TriggerInit(new List<DeviceItem>
         {
             new DeviceItem()
             {
@@ -32,14 +36,16 @@ public class CameraTest : BootstrapBlazorTestBase
             },
             new DeviceItem()
             {
-                DeviceId = "1"
+                DeviceId = "2"
             }
         }));
-        Assert.Equal(2, count);
+        Assert.Equal("1", items[0].DeviceId);
+        Assert.Equal("Device 1", items[0].Label);
+        Assert.Equal(string.Empty, items[1].Label);
     }
 
     [Fact]
-    public async Task GetError_Ok()
+    public void GetError_Ok()
     {
         var msg = "";
         var cut = Context.RenderComponent<Camera>(pb =>
@@ -50,28 +56,28 @@ public class CameraTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
-        await cut.InvokeAsync(() => cut.Instance.GetError("Error"));
+        cut.InvokeAsync(() => cut.Instance.TriggerError("Error"));
         Assert.Equal("Error", msg);
     }
 
     [Fact]
-    public async Task Start_Ok()
+    public void TriggerOpen_Ok()
     {
         var start = false;
         var cut = Context.RenderComponent<Camera>(pb =>
         {
-            pb.Add(a => a.OnStart, () =>
+            pb.Add(a => a.OnOpen, () =>
             {
                 start = true;
                 return Task.CompletedTask;
             });
         });
-        await cut.InvokeAsync(() => cut.Instance.Start());
+        cut.InvokeAsync(() => cut.Instance.TriggerOpen());
         Assert.True(start);
     }
 
     [Fact]
-    public async Task Stop_Ok()
+    public void TriggerClose_Ok()
     {
         var stop = false;
         var cut = Context.RenderComponent<Camera>(pb =>
@@ -82,36 +88,69 @@ public class CameraTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
-        await cut.InvokeAsync(() => cut.Instance.Stop());
+        cut.InvokeAsync(() => cut.Instance.TriggerClose());
         Assert.True(stop);
     }
 
     [Fact]
-    public async Task Capture_Ok()
+    public void Open_Ok()
     {
-        var capture = false;
-        var cut = Context.RenderComponent<Camera>(pb =>
-        {
-            pb.Add(a => a.ShowPreview, true);
-            pb.Add(a => a.OnCapture, payload =>
-            {
-                capture = true;
-                return Task.CompletedTask;
-            });
-        });
-        await cut.InvokeAsync(() => cut.Instance.Capture("test"));
-        await cut.InvokeAsync(() => cut.Instance.Capture("__BB__%END%__BB__"));
-        Assert.True(capture);
+        var cut = Context.RenderComponent<Camera>();
+        var handler = Context.JSInterop.SetupVoid("open", cut.Instance.Id);
+        cut.InvokeAsync(() => cut.Instance.Open());
+        handler.VerifyInvoke("open");
+    }
+
+
+    [Fact]
+    public void Close_Ok()
+    {
+        var cut = Context.RenderComponent<Camera>();
+        var handler = Context.JSInterop.SetupVoid("close", cut.Instance.Id);
+        cut.InvokeAsync(() => cut.Instance.Close());
+        handler.VerifyInvoke("close");
     }
 
     [Fact]
-    public void ShowPreview_Ok()
+    public void Capture_Ok()
+    {
+        Stream? stream = null;
+        var cut = Context.RenderComponent<Camera>();
+        Context.JSInterop.Setup<IJSStreamReference>("capture", cut.Instance.Id).SetResult(new MockJSStreamReference());
+        cut.InvokeAsync(async () =>
+        {
+            stream = await cut.Instance.Capture();
+        });
+        Assert.NotNull(stream);
+        Assert.Equal(4, stream.Length);
+    }
+
+    [Fact]
+    public void Save_Ok()
+    {
+        var cut = Context.RenderComponent<Camera>();
+        var handler = Context.JSInterop.SetupVoid("download", cut.Instance.Id, "test.png");
+        cut.InvokeAsync(() => cut.Instance.SaveAndDownload("test.png"));
+        handler.VerifyInvoke("download");
+    }
+
+    [Fact]
+    public void Resize_Ok()
+    {
+        var cut = Context.RenderComponent<Camera>();
+        var handler = Context.JSInterop.SetupVoid("resize", cut.Instance.Id, 320, 240);
+        cut.InvokeAsync(() => cut.Instance.Resize(320, 240));
+        handler.VerifyInvoke("resize");
+    }
+
+    [Fact]
+    public void DeviceId_Ok()
     {
         var cut = Context.RenderComponent<Camera>(pb =>
         {
-            pb.Add(a => a.ShowPreview, true);
+            pb.Add(a => a.DeviceId, "test_id");
         });
-        cut.Contains("camera-header");
+        cut.Contains("data-device-id=\"test_id\"");
     }
 
     [Fact]
@@ -122,12 +161,9 @@ public class CameraTest : BootstrapBlazorTestBase
             pb.Add(a => a.VideoWidth, 30);
             pb.Add(a => a.VideoHeight, 20);
             pb.Add(a => a.CaptureJpeg, true);
-            pb.Add(a => a.Quality, 0.9);
+            pb.Add(a => a.Quality, 0.8f);
         });
-        Assert.Equal(40, cut.Instance.VideoWidth);
-        Assert.Equal(30, cut.Instance.VideoHeight);
 
-        Assert.True(cut.Instance.CaptureJpeg);
-        Assert.Equal(0.9, cut.Instance.Quality);
+        cut.Contains("data-video-width=\"30\" data-video-height=\"20\" data-capture-jpeg=\"true\" data-capture-quality=\"0.8\"");
     }
 }

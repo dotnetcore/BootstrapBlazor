@@ -70,7 +70,7 @@ public partial class CountUps
         new()
         {
             Name = "Option",
-            Description = Localizer["Option"],
+            Description = Localizer["CountOption"],
             Type = "CountOption",
             ValueList = " — ",
             DefaultValue = " — "
