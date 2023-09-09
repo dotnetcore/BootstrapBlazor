@@ -156,11 +156,11 @@ public partial class Pre
 
             // 移除 ignore 节点
             regex = IgnoreRegex();
-            match = regex.Match(content);
-            if (match.Success)
+            var matchCollection = regex.Matches(content);
+            matchCollection.ToList().ForEach(m =>
             {
-                content = content.Replace(match.Value, "").TrimStart('\n');
-            }
+                content = content.Replace(m.Value, "").TrimStart('\n');
+            });
 
             // 移除 ConsoleLogger
             regex = ConsoleLoggerRegex();

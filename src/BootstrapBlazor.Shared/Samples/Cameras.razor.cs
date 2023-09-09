@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// 
+///
 /// </summary>
 public sealed partial class Cameras
 {
@@ -29,6 +29,37 @@ public sealed partial class Cameras
     [NotNull]
     private string? TraceOnCapture { get; set; }
 
+    private string? PlayText { get; set; }
+
+    private string? StopText { get; set; }
+
+    private string? PreviewText { get; set; }
+
+    private string? SaveText { get; set; }
+
+    private bool PlayDisabled { get; set; } = true;
+
+    private bool StopDisabled { get; set; } = true;
+
+    private bool CaptureDisabled { get; set; } = true;
+
+    private List<SelectedItem> Devices { get; } = new();
+
+    private string? DeviceId { get; set; }
+
+    private string? DeviceLabel { get; set; }
+
+    private string? PlaceHolderString { get; set; }
+
+    [NotNull]
+    private Camera? Camera { get; set; }
+
+    private string? ImageContentData { get; set; }
+
+    private string? ImageStyleString => CssBuilder.Default("width: 320px; height: 240px; border-radius: var(--bs-border-radius);")
+        .AddClass("display: none;", string.IsNullOrEmpty(ImageContentData))
+        .Build();
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -41,22 +72,81 @@ public sealed partial class Cameras
         TraceOnStar = Localizer[nameof(TraceOnStar)];
         TraceOnClose = Localizer[nameof(TraceOnClose)];
         TraceOnCapture = Localizer[nameof(TraceOnCapture)];
+        DeviceLabel = Localizer["DeviceLabel"];
+        PlaceHolderString = Localizer["InitDevicesString"];
+        PlayText = Localizer["PlayText"];
+        StopText = Localizer["StopText"];
+        PreviewText = Localizer["PreviewText"];
+        SaveText = Localizer["SaveText"];
     }
 
-    private Task OnInit(IEnumerable<DeviceItem> devices)
+    private Task OnInit(List<DeviceItem> devices)
     {
-        var cams = string.Join("", devices.Select(i => i.Label));
-        Logger.Log($"{TraceOnInit} {cams}");
+        if (devices.Any())
+        {
+            Devices.AddRange(devices.Select(d => new SelectedItem(d.DeviceId, d.Label)));
+            PlayDisabled = false;
+        }
+        else
+        {
+            PlaceHolderString = Localizer["NotFoundDevicesString"];
+        }
+
+        foreach (var item in devices)
+        {
+            Logger.Log($"{TraceOnInit} {item.Label}-{item.DeviceId}");
+        }
+
+        StateHasChanged();
         return Task.CompletedTask;
     }
+
+    private async Task OnClickOpen()
+    {
+        await Camera.Open();
+        PlayDisabled = true;
+        StopDisabled = false;
+        CaptureDisabled = false;
+    }
+
+    private async Task OnClickClose()
+    {
+        await Camera.Close();
+        ImageContentData = null;
+        PlayDisabled = false;
+        StopDisabled = true;
+        CaptureDisabled = true;
+    }
+
+    private async Task OnClickPreview()
+    {
+        ImageContentData = null;
+        var stream = await Camera.Capture();
+        if (stream != null)
+        {
+            var reader = new StreamReader(stream);
+            ImageContentData = await reader.ReadToEndAsync();
+            reader.Close();
+        }
+    }
+
+    private Task OnClickSave() => Camera.SaveAndDownload($"capture_{DateTime.Now:hhmmss}.png");
+
+    private Task OnApply(int width, int height) => Camera.Resize(width, height);
 
     private Task OnError(string err)
     {
+        PlayDisabled = false;
+        StopDisabled = true;
+        CaptureDisabled = true;
+        PlaceHolderString = Localizer["NotFoundDevicesString"];
         Logger.Log($"{TraceOnError} {err}");
+
+        StateHasChanged();
         return Task.CompletedTask;
     }
 
-    private Task OnStart()
+    private Task OnOpen()
     {
         ImageUrl = null;
         Logger.Log(TraceOnStar);
@@ -83,8 +173,9 @@ public sealed partial class Cameras
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-        new() {
-            Name = nameof(Camera.VideoWidth),
+        new()
+        {
+            Name = nameof(BootstrapBlazor.Components.Camera.VideoWidth),
             Description = Localizer["VideoWidth"],
             Type = "int",
             ValueList = " — ",
@@ -92,7 +183,7 @@ public sealed partial class Cameras
         },
         new()
         {
-            Name = nameof(Camera.VideoHeight),
+            Name = nameof(BootstrapBlazor.Components.Camera.VideoHeight),
             Description = Localizer["VideoHeight"],
             Type = "int",
             ValueList = " — ",
@@ -121,62 +212,6 @@ public sealed partial class Cameras
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "FrontText",
-            Description = Localizer["FrontText"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "BackText",
-            Description = Localizer["FrontText"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "PlayText",
-            Description = "",
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "StopText",
-            Description = Localizer["FrontText"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "PhotoText",
-            Description = Localizer["FrontText"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "InitDevicesString",
-            Description = Localizer["InitDevicesString"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = Localizer["InitDevicesStringDefaultValue"]
-        },
-        new()
-        {
-            Name = "NotFoundDevicesString",
-            Description = Localizer["NotFoundDevicesString"],
-            Type = "string",
-            ValueList = " — ",
-            DefaultValue = Localizer["NotFoundDevicesStringDefaultValue"]
         },
         new()
         {
@@ -212,7 +247,7 @@ public sealed partial class Cameras
         },
         new()
         {
-            Name = nameof(Camera.CaptureJpeg),
+            Name = nameof(BootstrapBlazor.Components.Camera.CaptureJpeg),
             Description = Localizer["CaptureJpeg"],
             Type = "bool",
             ValueList = " — ",
@@ -220,7 +255,7 @@ public sealed partial class Cameras
         },
         new()
         {
-            Name = nameof(Camera.Quality),
+            Name = nameof(BootstrapBlazor.Components.Camera.Quality),
             Description = Localizer["Quality"],
             Type = "double",
             ValueList = " — ",

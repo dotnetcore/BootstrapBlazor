@@ -30,8 +30,15 @@ public partial class MenuTest
         });
 
         _serviceProvider = serviceCollection.BuildServiceProvider();
+        _serviceProvider.GetRequiredService<ICacheManager>();
         _routerTable = assembly.GetExportedTypes()
-            .Where(t => t.IsDefined(typeof(RouteAttribute)) && t.GetCustomAttribute<LayoutAttribute>()?.LayoutType == typeof(ComponentLayout) && (t.FullName?.StartsWith("BootstrapBlazor.Shared.Samples.") ?? false));
+            .Where(t => t.IsDefined(typeof(RouteAttribute)) && IsComponentLayout(t) && (t.FullName?.StartsWith("BootstrapBlazor.Shared.Samples.") ?? false));
+
+        bool IsComponentLayout(Type t)
+        {
+            return t.GetCustomAttribute<LayoutAttribute>()?.LayoutType == typeof(ComponentLayout)
+                || t.GetCustomAttribute<LayoutAttribute>()?.LayoutType == typeof(DockLayout);
+        }
     }
 
     [Fact]
@@ -44,20 +51,20 @@ public partial class MenuTest
         builder.AddJsonStream(stream);
 
         var config = builder.Build();
-        var urls = config.GetRequiredSection("src").GetChildren();
+        var menus = config.GetRequiredSection("src").GetChildren();
 
         // 检查未配置的路由
         var invalidRoute = _routerTable.Where(router =>
         {
             var template = router.GetCustomAttribute<RouteAttribute>()?.Template.TrimStart('/');
-            var url = urls.FirstOrDefault(i => i.Key == template)?.Key;
+            var url = menus.FirstOrDefault(i => i.Key == template)?.Key;
             return string.IsNullOrEmpty(url);
         });
         Assert.Empty(invalidRoute);
 
-        // 检查 docs.json 冗余路由
-        var invalidUrls = urls.Where(url => _routerTable.FirstOrDefault(router => router.GetCustomAttribute<RouteAttribute>()?.Template.TrimStart('/') == url.Key) == null);
-        Assert.Empty(invalidRoute);
+        // 检查 docs.json 配置的无效路由
+        var invalidMenus = menus.Where(url => _routerTable.FirstOrDefault(router => router.GetCustomAttribute<RouteAttribute>()?.Template.TrimStart('/') == url.Key) == null);
+        Assert.Empty(invalidMenus);
     }
 
     /// <summary>
@@ -71,7 +78,6 @@ public partial class MenuTest
     {
         var result = new List<string>();
         var localizerOption = _serviceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
-        var localizer = _serviceProvider.GetRequiredService<IStringLocalizer<NavMenu>>();
 
         var rootPath = Path.Combine(AppContext.BaseDirectory, "../../../../../", "src/BootstrapBlazor.Shared/Samples/");
         foreach (var router in _routerTable)

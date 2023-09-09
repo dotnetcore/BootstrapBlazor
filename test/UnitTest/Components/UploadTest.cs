@@ -761,7 +761,7 @@ public class UploadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task CardUpload_ShowZoom()
+    public void CardUpload_ShowZoom()
     {
         var clicked = false;
         var cut = Context.RenderComponent<CardUpload<string>>(pb =>
@@ -779,14 +779,14 @@ public class UploadTest : BootstrapBlazorTestBase
         });
 
         var button = cut.Find(".btn-zoom");
-        await cut.InvokeAsync(() => button.Click());
-        Assert.True(clicked);
+        button.Click();
+        cut.WaitForState(() => clicked);
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowZoomButton, false);
         });
-        cut.DoesNotContain("btn-zoom");
+        cut.WaitForAssertion(() => cut.DoesNotContain("btn-zoom"));
     }
 
     [Fact]
