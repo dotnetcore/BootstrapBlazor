@@ -683,6 +683,12 @@ internal static class MenusLocalizerExtensions
                     IsNew = true,
                     Text = Localizer["WebSerial"],
                     Url = "web-serial"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["WebSpeech"],
+                    Url = "web-speech"
                 }
             };
             AddBadge(item);
