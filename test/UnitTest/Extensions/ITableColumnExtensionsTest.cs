@@ -21,8 +21,7 @@ public class ITableColumnExtensionsTest
             ShowTips = true,
             Sortable = true,
             TextEllipsis = true,
-            ShowCopyColumn = true,
-            Visible = false
+            ShowCopyColumn = true
         };
         col.InheritValue(attr);
         Assert.Equal(Alignment.Center, col.Align);
@@ -35,7 +34,6 @@ public class ITableColumnExtensionsTest
         Assert.True(col.Sortable);
         Assert.True(col.TextEllipsis);
         Assert.True(col.ShowCopyColumn);
-        Assert.False(col.Visible);
     }
 
     [Fact]
