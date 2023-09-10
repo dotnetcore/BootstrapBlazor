@@ -664,7 +664,16 @@ public static class Utility
         return ret;
     }
 
-    private static Func<TType, Task> CreateOnValueChangedCallback<TModel, TType>(TModel model, ITableColumn col, Func<TModel, ITableColumn, object?, Task> callback) => new(v => callback(model, col, v));
+    /// <summary>
+    /// 创建 <see cref="Func{T, TResult}"/> 委托方法
+    /// </summary>
+    /// <typeparam name="TModel"></typeparam>
+    /// <typeparam name="TType"></typeparam>
+    /// <param name="model"></param>
+    /// <param name="col"></param>
+    /// <param name="callback"></param>
+    /// <returns></returns>
+    public static Func<TType, Task> CreateOnValueChangedCallback<TModel, TType>(TModel model, ITableColumn col, Func<TModel, ITableColumn, object?, Task> callback) => new(v => callback(model, col, v));
 
     /// <summary>
     /// 创建 OnValueChanged 回调委托
@@ -674,7 +683,7 @@ public static class Utility
     /// <returns></returns>
     public static Expression<Func<TModel, ITableColumn, Func<TModel, ITableColumn, object?, Task>, object>> CreateOnValueChanged<TModel>(Type fieldType)
     {
-        var method = typeof(Utility).GetMethod(nameof(CreateOnValueChangedCallback), BindingFlags.Static | BindingFlags.NonPublic)!.MakeGenericMethod(typeof(TModel), fieldType);
+        var method = typeof(Utility).GetMethod(nameof(CreateOnValueChangedCallback), BindingFlags.Static | BindingFlags.Public)!.MakeGenericMethod(typeof(TModel), fieldType);
         var exp_p1 = Expression.Parameter(typeof(TModel));
         var exp_p2 = Expression.Parameter(typeof(ITableColumn));
         var exp_p3 = Expression.Parameter(typeof(Func<,,,>).MakeGenericType(typeof(TModel), typeof(ITableColumn), typeof(object), typeof(Task)));
@@ -783,14 +792,22 @@ public static class Utility
             var exp_p1 = Expression.Parameter(typeof(ComponentBase));
             var exp_p2 = Expression.Parameter(typeof(object));
             var exp_p3 = Expression.Parameter(typeof(string));
-            var method = typeof(Utility).GetMethod(nameof(CreateCallback), BindingFlags.Static | BindingFlags.NonPublic)!.MakeGenericMethod(fieldType);
+            var method = typeof(Utility).GetMethod(nameof(CreateCallback), BindingFlags.Static | BindingFlags.Public)!.MakeGenericMethod(fieldType);
             var body = Expression.Call(null, method, exp_p1, exp_p2, exp_p3);
 
             return Expression.Lambda<Func<ComponentBase, object, string, object>>(Expression.Convert(body, typeof(object)), exp_p1, exp_p2, exp_p3);
         }
     }
 
-    private static EventCallback<TType> CreateCallback<TType>(ComponentBase component, object model, string fieldName) => EventCallback.Factory.Create<TType>(component, t => CacheManager.SetPropertyValue(model, fieldName, t));
+    /// <summary>
+    /// 创建 <see cref="EventCallback{TValue}"/> 方法
+    /// </summary>
+    /// <typeparam name="TType"></typeparam>
+    /// <param name="component"></param>
+    /// <param name="model"></param>
+    /// <param name="fieldName"></param>
+    /// <returns></returns>
+    public static EventCallback<TType> CreateCallback<TType>(ComponentBase component, object model, string fieldName) => EventCallback.Factory.Create<TType>(component, t => CacheManager.SetPropertyValue(model, fieldName, t));
 
     /// <summary>
     /// 获得指定泛型的 IEditorItem 集合
