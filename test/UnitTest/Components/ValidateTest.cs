@@ -111,14 +111,14 @@ public class ValidateTest : BootstrapBlazorTestBase
         {
             builder.Add(a => a.ShowLabel, false);
         });
-        Assert.DoesNotContain("label", cut.Markup);
+        cut.WaitForAssertion(() => cut.DoesNotContain("label"));
 
         // IsShowLabel 为空时 不显示标签
         cut.SetParametersAndRender(builder =>
         {
             builder.Add(a => a.ShowLabel, null);
         });
-        Assert.DoesNotContain("label", cut.Markup);
+        cut.WaitForAssertion(() => cut.DoesNotContain("label"));
 
         // 开启双向绑定时 IsShowLabel 为空时 不显示标签
         cut.SetParametersAndRender(builder =>
@@ -127,7 +127,7 @@ public class ValidateTest : BootstrapBlazorTestBase
             builder.Add(a => a.Value, model.Name);
             builder.Add(a => a.ValueExpression, model.GenerateValueExpression());
         });
-        Assert.DoesNotContain("label", cut.Markup);
+        cut.WaitForAssertion(() => cut.DoesNotContain("label"));
 
         // 开启双向绑定时 IsShowLabel=false 时 不显示标签
         cut.SetParametersAndRender(builder =>
@@ -136,7 +136,7 @@ public class ValidateTest : BootstrapBlazorTestBase
             builder.Add(a => a.Value, model.Name);
             builder.Add(a => a.ValueExpression, model.GenerateValueExpression());
         });
-        Assert.DoesNotContain("label", cut.Markup);
+        cut.WaitForAssertion(() => cut.DoesNotContain("label"));
 
         // 开启双向绑定时 IsShowLabel=true 时 显示标签
         cut.SetParametersAndRender(builder =>
@@ -145,7 +145,7 @@ public class ValidateTest : BootstrapBlazorTestBase
             builder.Add(a => a.Value, model.Name);
             builder.Add(a => a.ValueExpression, model.GenerateValueExpression());
         });
-        Assert.Contains("label", cut.Markup);
+        cut.WaitForAssertion(() => cut.Contains("label"));
     }
 
     [Fact]
