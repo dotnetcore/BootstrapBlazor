@@ -204,7 +204,7 @@ public static class Utility
     /// <returns></returns>
     public static TModel Clone<TModel>(TModel item)
     {
-        TModel ret = item;
+        var ret = item;
         if (item != null)
         {
             if (item is ICloneable cloneable)
@@ -275,38 +275,40 @@ public static class Utility
     public static IEnumerable<ITableColumn> GetTableColumns(Type type, IEnumerable<ITableColumn>? source = null)
     {
         var cols = new List<ITableColumn>(50);
-        var attrModel = type.GetCustomAttribute<AutoGenerateClassAttribute>(true);
+        var classAttribute = type.GetCustomAttribute<AutoGenerateClassAttribute>(true);
         var props = type.GetProperties().Where(p => !p.IsStatic());
         foreach (var prop in props)
         {
             ITableColumn? tc;
-            var attr = prop.GetCustomAttribute<AutoGenerateColumnAttribute>(true);
+            var columnAttribute = prop.GetCustomAttribute<AutoGenerateColumnAttribute>(true);
 
             // Issue: 增加定义设置标签 AutoGenerateClassAttribute
             // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I381ED
-            var displayName = attr?.Text ?? Utility.GetDisplayName(type, prop.Name);
-            if (attr == null)
+            var displayName = columnAttribute?.Text ?? Utility.GetDisplayName(type, prop.Name);
+            if (columnAttribute == null)
             {
                 tc = new InternalTableColumn(prop.Name, prop.PropertyType, displayName);
 
-                if (attrModel != null)
+                if (classAttribute != null)
                 {
-                    tc.InheritValue(attrModel);
+                    tc.InheritValue(classAttribute);
                 }
             }
             else
             {
-                if (attr.Ignore) continue;
+                if (columnAttribute.Ignore) continue;
 
-                attr.Text = displayName;
-                attr.FieldName = prop.Name;
-                attr.PropertyType = prop.PropertyType;
+                columnAttribute.Text = displayName;
+                columnAttribute.FieldName = prop.Name;
+                columnAttribute.PropertyType = prop.PropertyType;
 
-                if (attrModel != null)
+                if (classAttribute != null)
                 {
-                    attr.InheritValue(attrModel);
+                    var visible = columnAttribute.Visible;
+                    columnAttribute.InheritValue(classAttribute);
+                    columnAttribute.Visible = visible;
                 }
-                tc = attr;
+                tc = columnAttribute;
             }
 
             // 替换属性 手写优先
