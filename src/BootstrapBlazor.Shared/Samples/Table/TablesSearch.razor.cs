@@ -110,11 +110,15 @@ public partial class TablesSearch
     {
         // 自定义了 SearchModel
         // 由于使用 SearchTemplate 自定义处理了。无法使用内置的 ToFilter 获得过滤条件
+
+        // 处理模糊搜索
         IEnumerable<Foo> items = Items;
         if (!string.IsNullOrEmpty(options.SearchText))
         {
             items = items.Where(i => (i.Name?.Contains(options.SearchText, StringComparison.OrdinalIgnoreCase) ?? false) || (i.Address?.Contains(options.SearchText, StringComparison.OrdinalIgnoreCase) ?? false));
         }
+
+        // 处理自定义搜索条件
         if (!string.IsNullOrEmpty(SearchModel.Name))
         {
             items = items.Where(i => i.Name == SearchModel.Name);
@@ -141,47 +145,20 @@ public partial class TablesSearch
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
     {
-        IEnumerable<Foo> items = Items;
-        var isAdvanceSearch = false;
-        // 处理高级搜索
-        if (options.AdvanceSearches.Any())
-        {
-            items = items.Where(options.AdvanceSearches.GetFilterFunc<Foo>());
-            isAdvanceSearch = true;
-        }
+        // 使用内置扩展方法 ToFilter 获得过滤条件
+        var items = Items.Where(options.ToFilterFunc<Foo>());
 
-        // 处理 自定义 高级搜索 CustomerSearchModel 过滤条件
-        if (options.CustomerSearches.Any())
-        {
-            items = items.Where(options.CustomerSearches.GetFilterFunc<Foo>());
-            isAdvanceSearch = true;
-        }
-
-        // 处理 Searchable=true 列与 SearchText 模糊搜索
-        if (options.Searches.Any())
-        {
-            items = items.Where(options.Searches.GetFilterFunc<Foo>(FilterLogic.Or));
-        }
-
-        // 过滤
-        var isFiltered = false;
-        if (options.Filters.Any())
-        {
-            items = items.Where(options.Filters.GetFilterFunc<Foo>());
-            isFiltered = true;
-        }
-
-        // 排序
+        // 使用 Sort 扩展排序方法进行排序
         var isSorted = false;
         if (!string.IsNullOrEmpty(options.SortName))
         {
-            var invoker = Foo.GetNameSortFunc();
-            items = invoker(items, options.SortName, options.SortOrder);
+            items = items.Sort(options.SortName, options.SortOrder);
             isSorted = true;
         }
 
         // 设置记录总数
         var total = items.Count();
+
         // 内存分页
         items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
         return Task.FromResult(new QueryData<Foo>()
