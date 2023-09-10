@@ -255,4 +255,27 @@ public static class ObjectExtensions
             return ret;
         }
     }
+
+    internal static void Clone<TModel>(this TModel source, TModel item)
+    {
+        if (item != null)
+        {
+            var type = typeof(TModel);
+
+            // 20200608 tian_teng@outlook.com 支持字段和只读属性
+            foreach (var f in type.GetFields())
+            {
+                var v = f.GetValue(item);
+                f.SetValue(source, v);
+            }
+            foreach (var p in type.GetRuntimeProperties())
+            {
+                if (p.CanWrite)
+                {
+                    var v = p.GetValue(item);
+                    p.SetValue(source, v);
+                }
+            }
+        }
+    }
 }
