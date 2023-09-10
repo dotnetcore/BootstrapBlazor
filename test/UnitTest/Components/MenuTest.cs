@@ -112,13 +112,13 @@ public class MenuTest : BootstrapBlazorTestBase
         {
             pb.Add(m => m.IsVertical, true);
         });
-        Assert.Contains("Menu1", cut.Markup);
+        cut.WaitForAssertion(() => cut.Contains("Menu1"));
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(m => m.Items, null);
         });
-        Assert.Contains("submenu", cut.Markup);
+        cut.WaitForAssertion(() => cut.Contains("submenu"));
     }
 
     [Fact]
@@ -283,7 +283,7 @@ public class MenuTest : BootstrapBlazorTestBase
         {
             pb.Add(m => m.IsVertical, true);
         });
-        Assert.Contains("accordion", cut.Markup);
+        cut.WaitForAssertion(() => cut.Contains("accordion"));
     }
 
     [Fact]
@@ -301,14 +301,14 @@ public class MenuTest : BootstrapBlazorTestBase
             pb.Add(m => m.IsVertical, true);
             pb.Add(m => m.IsExpandAll, false);
         });
-        Assert.DoesNotContain("data-bb-expand", cut.Markup);
+        cut.WaitForAssertion(() => cut.DoesNotContain("data-bb-expand"));
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(m => m.IsVertical, true);
             pb.Add(m => m.IsExpandAll, true);
         });
-        Assert.Contains("data-bb-expand=\"true\"", cut.Markup);
+        cut.WaitForAssertion(() => cut.Contains("data-bb-expand=\"true\""));
     }
 
     [Fact]

@@ -369,8 +369,11 @@ public class TreeViewTest : BootstrapBlazorTestBase
         cut.Find(".fa-caret-right.visible").Click();
 
         // 展开第一个节点生成一行子节点
-        var nodes = cut.FindAll(".tree-item");
-        cut.WaitForState(() => nodes.Count == 3);
+        cut.WaitForAssertion(() =>
+        {
+            var nodes = cut.FindAll(".tree-item");
+            Assert.Equal(3, nodes.Count);
+        });
 
         // 重新设置数据源更新组件，保持状态
         items = TreeFoo.GetTreeItems();
@@ -381,8 +384,11 @@ public class TreeViewTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, items);
         });
-        nodes = cut.FindAll(".tree-item");
-        cut.WaitForState(() => nodes.Count == 3);
+        cut.WaitForAssertion(() =>
+        {
+            var nodes = cut.FindAll(".tree-item");
+            Assert.Equal(3, nodes.Count);
+        });
 
         // 设置 IsReset=true 更新数据源后不保持状态
         items = TreeFoo.GetTreeItems();
@@ -394,8 +400,11 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, items);
             pb.Add(a => a.IsReset, true);
         });
-        cut.WaitForState(() => nodes.Count == 3);
-        Assert.Equal(3, nodes.Count);
+        cut.WaitForAssertion(() =>
+        {
+            var nodes = cut.FindAll(".tree-item");
+            Assert.Equal(2, nodes.Count);
+        });
     }
 
     [Fact]

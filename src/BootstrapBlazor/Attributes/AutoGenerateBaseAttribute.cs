@@ -58,9 +58,4 @@ public abstract class AutoGenerateBaseAttribute : Attribute
     /// 获得/设置 是否可以拷贝列 默认 false 不可以
     /// </summary>
     public bool ShowCopyColumn { get; set; }
-
-    /// <summary>
-    /// 获得/设置 列是否显示 默认为 true 可见的
-    /// </summary>
-    public bool Visible { get; set; } = true;
 }

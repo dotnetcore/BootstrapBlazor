@@ -51,7 +51,7 @@ public partial class TablesColumn
     {
         IEnumerable<Foo> items = Items;
 
-        // 过滤
+        // 先处理过滤再处理排序 提高性能
         var isFiltered = false;
         if (options.Filters.Any())
         {
@@ -63,8 +63,7 @@ public partial class TablesColumn
         var isSorted = false;
         if (!string.IsNullOrEmpty(options.SortName))
         {
-            var invoker = Foo.GetNameSortFunc();
-            items = invoker(items, options.SortName, options.SortOrder);
+            items = items.Sort(options.SortName, options.SortOrder);
             isSorted = true;
         }
 
@@ -84,14 +83,12 @@ public partial class TablesColumn
         });
     }
 
-    private static Task<bool> OnSaveAsync(Foo foo, ItemChangedType changedType)
-    {
-        return Task.FromResult(true);
-    }
+    private static Task<bool> OnSaveAsync(Foo foo, ItemChangedType changedType) => Task.FromResult(true);
 
     private static Task OnColumnCreating(List<ITableColumn> columns)
     {
-        foreach (var item in columns.Where(item => item.GetFieldName() == nameof(Foo.Name)))
+        var item = columns.Find(i => i.GetFieldName() == nameof(Foo.Name));
+        if (item != null)
         {
             item.Readonly = true;
         }
