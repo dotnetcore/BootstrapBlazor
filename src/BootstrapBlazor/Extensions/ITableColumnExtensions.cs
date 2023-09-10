@@ -143,4 +143,59 @@ public static class IEditItemExtensions
         }
         return searches;
     }
+
+    internal static RenderFragment RenderColor<TItem>(this ITableColumn col, TItem item) => builder =>
+    {
+        var val = col.GetItemValue(item);
+        var v = val?.ToString() ?? "#000";
+        var style = $"background-color: {v};";
+        builder.OpenElement(0, "div");
+        builder.AddAttribute(1, "class", "is-color");
+        builder.AddAttribute(2, "style", style);
+        builder.CloseElement();
+    };
+
+    internal static RenderFragment RenderTooltip(this ITableColumn col, string? text) => pb =>
+    {
+        if (col.ShowTips && !string.IsNullOrEmpty(text))
+        {
+            pb.OpenComponent<Tooltip>(0);
+            pb.AddAttribute(1, nameof(Tooltip.Title), text);
+            pb.AddAttribute(2, nameof(Tooltip.ChildContent), new RenderFragment(builder => builder.AddContent(0, text)));
+            pb.CloseComponent();
+        }
+        else
+        {
+            pb.AddContent(3, text);
+        }
+    };
+
+    internal static object? GetItemValue<TItem>(this ITableColumn col, TItem item)
+    {
+        var fieldName = col.GetFieldName();
+        object? ret;
+        if (item is IDynamicObject dynamicObject)
+        {
+            ret = dynamicObject.GetValue(fieldName);
+        }
+        else
+        {
+            ret = Utility.GetPropertyValue<TItem, object?>(item, fieldName);
+
+            if (ret != null)
+            {
+                var t = ret.GetType();
+                if (t.IsEnum)
+                {
+                    // 如果是枚举这里返回 枚举的描述信息
+                    var itemName = ret.ToString();
+                    if (!string.IsNullOrEmpty(itemName))
+                    {
+                        ret = Utility.GetDisplayName(t, itemName);
+                    }
+                }
+            }
+        }
+        return ret;
+    }
 }
