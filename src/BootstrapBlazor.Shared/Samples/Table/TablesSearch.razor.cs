@@ -78,7 +78,7 @@ public partial class TablesSearch
         }
         else
         {
-            var oldItem = Items.FirstOrDefault(i => i.Id == item.Id);
+            var oldItem = Items.Find(i => i.Id == item.Id);
             if (oldItem != null)
             {
                 oldItem.Name = item.Name;
