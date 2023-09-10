@@ -2,11 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace BootstrapBlazor.Components;
 
@@ -16,7 +12,7 @@ namespace BootstrapBlazor.Components;
 public static class QueryPageOptionsExtensions
 {
     /// <summary>
-    /// 将 QueryPageOptions 过滤条件转换为 FilterKeyValueAction
+    /// 将 QueryPageOptions 过滤条件转换为 <see cref="FilterKeyValueAction"/>
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
@@ -54,6 +50,20 @@ public static class QueryPageOptionsExtensions
 
         return filter;
     }
+
+    /// <summary>
+    /// 将 QueryPageOptions 过滤条件转换为 where 条件中的参数 <see cref="Func{T, TResult}"/>"/>
+    /// </summary>
+    /// <param name="option"></param>
+    /// <returns></returns>
+    public static Func<TItem, bool> ToFilterFunc<TItem>(this QueryPageOptions option) => option.ToFilterLambda<TItem>().Compile();
+
+    /// <summary>
+    /// 将 QueryPageOptions 过滤条件转换为 <see cref="Expression{TDelegate}"/> 表达式"/>
+    /// </summary>
+    /// <param name="option"></param>
+    /// <returns></returns>
+    public static Expression<Func<TItem, bool>> ToFilterLambda<TItem>(this QueryPageOptions option) => option.ToFilter().GetFilterLambda<TItem>();
 
     /// <summary>
     /// 是否包含过滤条件

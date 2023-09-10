@@ -84,14 +84,35 @@ public class QueryPageOptionsExtensionsTest
         option.CustomerSearches.Add(new SearchFilterAction("Education", "Primary", FilterAction.Equal));
         option.CustomerSearches.Add(new SearchFilterAction("Complete", true, FilterAction.Equal));
 
-        option.AdvanceSearches.Add(new SearchFilterAction("DateTime", new DateTime(2023, 1, 1), FilterAction.GreaterThanOrEqual));
+        option.AdvanceSearches.Add(new SearchFilterAction("DateTime", new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Local), FilterAction.GreaterThanOrEqual));
         option.AdvanceSearches.Add(new SearchFilterAction("Count", 1, FilterAction.GreaterThanOrEqual));
 
         option.Filters.Add(new SearchFilterAction("Name", "test", FilterAction.Contains));
-        option.Filters.Add(new SearchFilterAction("DateTime", new DateTime(2023, 1, 5), FilterAction.LessThanOrEqual));
+        option.Filters.Add(new SearchFilterAction("DateTime", new DateTime(2023, 1, 5, 0, 0, 0, DateTimeKind.Local), FilterAction.LessThanOrEqual));
 
-        var predicate = option.ToFilter().GetFilterFunc<Foo>();
+        var predicate = option.ToFilterFunc<Foo>();
         var expected = _foos.Where(predicate);
+        Assert.Single(expected);
+    }
+
+    [Fact]
+    public void ToFilter_ToLambda()
+    {
+        var option = new QueryPageOptions();
+        option.Searches.Add(new SearchFilterAction("Name", "test", FilterAction.Contains));
+        option.Searches.Add(new SearchFilterAction("Name", "Test", FilterAction.Contains));
+
+        option.CustomerSearches.Add(new SearchFilterAction("Education", "Primary", FilterAction.Equal));
+        option.CustomerSearches.Add(new SearchFilterAction("Complete", true, FilterAction.Equal));
+
+        option.AdvanceSearches.Add(new SearchFilterAction("DateTime", new DateTime(2023, 1, 1, 0, 0, 0, DateTimeKind.Local), FilterAction.GreaterThanOrEqual));
+        option.AdvanceSearches.Add(new SearchFilterAction("Count", 1, FilterAction.GreaterThanOrEqual));
+
+        option.Filters.Add(new SearchFilterAction("Name", "test", FilterAction.Contains));
+        option.Filters.Add(new SearchFilterAction("DateTime", new DateTime(2023, 1, 5, 0, 0, 0, DateTimeKind.Local), FilterAction.LessThanOrEqual));
+
+        var expression = option.ToFilterLambda<Foo>();
+        var expected = _foos.AsQueryable().Where(expression);
         Assert.Single(expected);
     }
 
