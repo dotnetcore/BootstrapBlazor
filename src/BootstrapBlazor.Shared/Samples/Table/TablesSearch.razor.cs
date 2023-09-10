@@ -48,17 +48,17 @@ public partial class TablesSearch
         Items = Foo.GenerateFoo(FooLocalizer);
         SearchItems = new List<SelectedItem>()
         {
-            new SelectedItem
+            new()
             {
                 Text = Localizer["SelectedItemText"].Value,
                 Value = ""
             },
-            new SelectedItem
+            new()
             {
                 Text = Localizer["SelectedItemText1"].Value,
                 Value = Localizer["SelectedItemValue1"].Value
             },
-            new SelectedItem
+            new()
             {
                 Text = Localizer["SelectedItemText2"].Value,
                 Value = Localizer["SelectedItemValue2"].Value
@@ -67,6 +67,7 @@ public partial class TablesSearch
     }
 
     private static Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { DateTime = DateTime.Now });
+
     private Task<bool> OnSaveAsync(Foo item, ItemChangedType changedType)
     {
         // 增加数据演示代码
