@@ -159,14 +159,6 @@ public sealed partial class Cameras
         return Task.CompletedTask;
     }
 
-    private Task OnCapture(string url)
-    {
-        ImageUrl = url;
-        Logger.Log(TraceOnCapture);
-        StateHasChanged();
-        return Task.CompletedTask;
-    }
-
     /// <summary>
     /// 获得属性方法
     /// </summary>
