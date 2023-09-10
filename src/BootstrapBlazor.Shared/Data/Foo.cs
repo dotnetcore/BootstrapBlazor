@@ -79,7 +79,10 @@ public class Foo
     public IEnumerable<string> Hobby { get; set; } = new List<string>();
 
     #region Static methods
-    private static readonly Random Random = new();
+    /// <summary>
+    /// 随机数 Random 实例
+    /// </summary>
+    protected static readonly Random Random = new();
 
     /// <summary>
     /// 生成Foo类,随机数据
