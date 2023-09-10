@@ -28,7 +28,6 @@ public static class IEditItemExtensions
         if (source.ShowCopyColumn) dest.ShowCopyColumn = source.ShowCopyColumn;
         if (source.Sortable) dest.Sortable = source.Sortable;
         if (source.TextEllipsis) dest.TextEllipsis = source.TextEllipsis;
-        if (!source.Visible) dest.Visible = source.Visible;
     }
 
     /// <summary>
