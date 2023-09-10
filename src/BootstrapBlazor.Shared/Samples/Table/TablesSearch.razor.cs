@@ -109,6 +109,7 @@ public partial class TablesSearch
     private Task<QueryData<Foo>> OnSearchModelQueryAsync(QueryPageOptions options)
     {
         // 自定义了 SearchModel
+        // 由于使用 SearchTemplate 自定义处理了。无法使用内置的 ToFilter 获得过滤条件
         IEnumerable<Foo> items = Items;
         if (!string.IsNullOrEmpty(options.SearchText))
         {
