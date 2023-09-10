@@ -21,7 +21,7 @@ public partial class TablesFilter
 
     private string SortString { get; set; } = "DateTime desc, Address";
 
-    private string ComponentSourceCodeUrl => $"{WebsiteOption.CurrentValue.BootstrapBlazorLink}/blob/main/src/BootstrapBlazor.Shared/Samples/Table/CustomerFilter.razor";
+    private string ComponentSourceCodeUrl => $"{WebsiteOption.CurrentValue.BootstrapBlazorLink}/blob/main/src/BootstrapBlazor.Shared/Components/CustomerFilter.razor";
 
     [NotNull]
     private Table<Foo>? TableSetFilter { get; set; }
