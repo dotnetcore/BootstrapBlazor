@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
-using System.Globalization;
 
 namespace BootstrapBlazor.Components;
 
@@ -746,50 +745,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         if (firstRender)
         {
-            IsLoading = true;
-
-            // 设置渲染完毕
-            FirstRender = false;
-
-            // 动态列模式
-            if (DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
-            {
-                AutoGenerateColumns = false;
-
-                var cols = DynamicContext.GetColumns();
-                Columns.Clear();
-                Columns.AddRange(cols);
-            }
-
-            // 初始化列
-            if (AutoGenerateColumns)
-            {
-                var cols = Utility.GetTableColumns<TItem>(Columns);
-                Columns.Clear();
-                Columns.AddRange(cols);
-            }
-
-            if (OnColumnCreating != null)
-            {
-                await OnColumnCreating(Columns);
-            }
-
-            InternalResetVisibleColumns(Columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.Visible)));
-
-            // set default sortName
-            var col = Columns.Find(i => i.Sortable && i.DefaultSort);
-            if (col != null)
-            {
-                SortName = col.GetFieldName();
-                SortOrder = col.DefaultSortOrder;
-            }
-
-            await QueryAsync();
-
-            // 设置 init 执行客户端脚本
-            _init = true;
-
-            IsLoading = false;
+            await ProcessFirstRender();
         }
 
         if (!OnAfterRenderIsTriggered && OnAfterRenderCallback != null)
@@ -833,6 +789,54 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await LoopQueryAsync();
             _loop = false;
         }
+    }
+
+    private async Task ProcessFirstRender()
+    {
+        IsLoading = true;
+
+        // 设置渲染完毕
+        FirstRender = false;
+
+        // 动态列模式
+        if (DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
+        {
+            AutoGenerateColumns = false;
+
+            var cols = DynamicContext.GetColumns();
+            Columns.Clear();
+            Columns.AddRange(cols);
+        }
+
+        // 初始化列
+        if (AutoGenerateColumns)
+        {
+            var cols = Utility.GetTableColumns<TItem>(Columns);
+            Columns.Clear();
+            Columns.AddRange(cols);
+        }
+
+        if (OnColumnCreating != null)
+        {
+            await OnColumnCreating(Columns);
+        }
+
+        InternalResetVisibleColumns(Columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.Visible)));
+
+        // set default sortName
+        var col = Columns.Find(i => i.Sortable && i.DefaultSort);
+        if (col != null)
+        {
+            SortName = col.GetFieldName();
+            SortOrder = col.DefaultSortOrder;
+        }
+
+        await QueryAsync();
+
+        // 设置 init 执行客户端脚本
+        _init = true;
+
+        IsLoading = false;
     }
 
     /// <summary>
@@ -916,7 +920,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <param name="col"></param>
     /// <param name="item"></param>
     /// <returns></returns>
-    protected RenderFragment GetValue(ITableColumn col, TItem item) => async builder =>
+    protected RenderFragment GetValue(ITableColumn col, TItem item) => builder =>
     {
         if (col.Template != null)
         {
@@ -925,119 +929,19 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         else if (col.ComponentType == typeof(ColorPicker))
         {
             // 自动化处理 ColorPicker 组件
-            var val = GetItemValue(col.GetFieldName(), item);
-            var v = val?.ToString() ?? "#000";
-            var style = $"background-color: {v};";
-            builder.OpenElement(0, "div");
-            builder.AddAttribute(1, "class", "is-color");
-            builder.AddAttribute(2, "style", style);
-            builder.CloseElement();
+            builder.AddContent(10, col.RenderColor(item));
         }
         else
         {
-            var val = GetItemValue(col.GetFieldName(), item);
-
             if (col.Lookup == null && !string.IsNullOrEmpty(col.LookupServiceKey))
             {
                 // 未设置 Lookup
                 // 设置 LookupService 键值
                 col.Lookup = LookupService.GetItemsByKey(col.LookupServiceKey);
             }
-
-            if (col.Lookup == null && val is bool v1)
-            {
-                // 自动化处理 bool 值
-                builder.OpenComponent(0, typeof(Switch));
-                builder.AddAttribute(1, "Value", v1);
-                builder.AddAttribute(2, "IsDisabled", true);
-                builder.CloseComponent();
-            }
-            else if (col.Lookup != null && val != null)
-            {
-                // 转化 Lookup 数据源
-                var lookupVal = col.Lookup.FirstOrDefault(l => l.Value.Equals(val.ToString(), col.LookupStringComparison));
-                if (lookupVal != null)
-                {
-                    builder.AddContent(0, RenderTooltip(lookupVal.Text));
-                }
-            }
-            else
-            {
-                string? content;
-                if (col.Formatter != null)
-                {
-                    // 格式化回调委托
-                    content = await col.Formatter(new TableColumnContext<TItem, object?>(item, val));
-                }
-                else if (!string.IsNullOrEmpty(col.FormatString))
-                {
-                    // 格式化字符串
-                    content = Utility.Format(val, col.FormatString);
-                }
-                else if (col.PropertyType.IsDateTime())
-                {
-                    content = Utility.Format(val, CultureInfo.CurrentUICulture.DateTimeFormat);
-                }
-                else if (val is IEnumerable<object> v)
-                {
-                    content = string.Join(",", v);
-                }
-                else
-                {
-                    content = val?.ToString();
-                }
-                builder.AddContent(0, RenderTooltip(content));
-            }
+            builder.AddContent(20, col.RenderValue(item));
         }
-
-        RenderFragment RenderTooltip(string? text) => pb =>
-        {
-            if (col.ShowTips && !string.IsNullOrEmpty(text))
-            {
-                pb.OpenComponent<Tooltip>(0);
-                pb.AddAttribute(1, nameof(Tooltip.Title), text);
-                pb.AddAttribute(2, nameof(Tooltip.ChildContent), RenderContent());
-                pb.CloseComponent();
-            }
-            else
-            {
-                pb.AddContent(3, text);
-            }
-
-            RenderFragment RenderContent() => context => context.AddContent(0, text);
-        };
     };
-
-    private static object? GetItemValue(string fieldName, TItem item)
-    {
-        object? ret = null;
-        if (item != null)
-        {
-            if (item is IDynamicObject dynamicObject)
-            {
-                ret = dynamicObject.GetValue(fieldName);
-            }
-            else
-            {
-                ret = Utility.GetPropertyValue<TItem, object?>(item, fieldName);
-
-                if (ret != null)
-                {
-                    var t = ret.GetType();
-                    if (t.IsEnum)
-                    {
-                        // 如果是枚举这里返回 枚举的描述信息
-                        var itemName = ret.ToString();
-                        if (!string.IsNullOrEmpty(itemName))
-                        {
-                            ret = Utility.GetDisplayName(t, itemName);
-                        }
-                    }
-                }
-            }
-        }
-        return ret;
-    }
     #endregion
 
     /// <summary>
@@ -1047,13 +951,18 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <param name="item"></param>
     /// <param name="changedType"></param>
     /// <returns></returns>
-    protected RenderFragment RenderCell(ITableColumn col, TItem item, ItemChangedType changedType) => col.CanWrite(typeof(TItem), changedType)
-        ? (col.EditTemplate == null
-            ? builder => builder.CreateComponentByFieldType(this, col, item, changedType, false, LookupService)
-            : col.EditTemplate(item))
-        : (col.Template == null
-            ? builder => builder.CreateDisplayByFieldType(col, item)
-            : col.Template(item));
+    protected RenderFragment RenderCell(ITableColumn col, TItem item, ItemChangedType changedType)
+    {
+        return col.CanWrite(typeof(TItem), changedType) ? RenderEditTemplate() : RenderTemplate();
+
+        RenderFragment RenderTemplate() => col.Template == null
+            ? new RenderFragment(builder => builder.CreateDisplayByFieldType(col, item))
+            : col.Template(item);
+
+        RenderFragment RenderEditTemplate() => col.EditTemplate == null
+            ? new RenderFragment(builder => builder.CreateComponentByFieldType(this, col, item, changedType, false, LookupService))
+            : col.EditTemplate(item);
+    }
 
     /// <summary>
     /// 渲染 Excel 单元格方法
@@ -1139,7 +1048,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     {
         if (OnDoubleClickCellCallback != null)
         {
-            var val = GetItemValue(col.GetFieldName(), item);
+            var val = col.GetItemValue(item);
             await OnDoubleClickCellCallback(col.GetFieldName(), item, val);
         }
     };
