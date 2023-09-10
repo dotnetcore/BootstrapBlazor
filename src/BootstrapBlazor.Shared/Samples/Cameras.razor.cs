@@ -84,7 +84,6 @@ public sealed partial class Cameras
     {
         if (devices.Any())
         {
-            Devices.Add(new SelectedItem("", "Test"));
             Devices.AddRange(devices.Select(d => new SelectedItem(d.DeviceId, d.Label)));
             PlayDisabled = false;
         }
