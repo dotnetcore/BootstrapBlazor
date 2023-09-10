@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// AutoGenerateColumn 标签类，用于 <see cref="Table{TItem}"/> 标识自动生成列
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
 public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColumn
@@ -79,11 +79,6 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// 获得/设置 是否固定本列 默认 false 不固定
     /// </summary>
     public bool Fixed { get; set; }
-
-    /// <summary>
-    /// 获得/设置 列是否显示 默认为 true 可见的
-    /// </summary>
-    public bool Visible { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 列 td 自定义样式 默认为 null 未设置
