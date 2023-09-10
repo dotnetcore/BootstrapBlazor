@@ -114,11 +114,11 @@ public partial class TablesSearch
         {
             items = items.Where(i => (i.Name?.Contains(options.SearchText, StringComparison.OrdinalIgnoreCase) ?? false) || (i.Address?.Contains(options.SearchText, StringComparison.OrdinalIgnoreCase) ?? false));
         }
-        else if (!string.IsNullOrEmpty(SearchModel.Name))
+        if (!string.IsNullOrEmpty(SearchModel.Name))
         {
             items = items.Where(i => i.Name == SearchModel.Name);
         }
-        else if (!string.IsNullOrEmpty(SearchModel.Address))
+        if (!string.IsNullOrEmpty(SearchModel.Address))
         {
             items = items.Where(i => i.Address == SearchModel.Address);
         }
@@ -127,7 +127,15 @@ public partial class TablesSearch
         var total = items.Count();
         // 内存分页
         items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
-        return Task.FromResult(new QueryData<Foo>() { Items = items, TotalCount = total, IsSorted = true, IsFiltered = true, IsSearch = true, IsAdvanceSearch = true });
+        return Task.FromResult(new QueryData<Foo>()
+        {
+            Items = items,
+            TotalCount = total,
+            IsSorted = true,
+            IsFiltered = options.Filters.Any(),
+            IsSearch = options.Searches.Any(),
+            IsAdvanceSearch = options.AdvanceSearches.Any()
+        });
     }
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
@@ -175,6 +183,14 @@ public partial class TablesSearch
         var total = items.Count();
         // 内存分页
         items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
-        return Task.FromResult(new QueryData<Foo>() { Items = items, TotalCount = total, IsSorted = isSorted, IsFiltered = isFiltered, IsSearch = options.CustomerSearches.Any() || !string.IsNullOrEmpty(options.SearchText), IsAdvanceSearch = isAdvanceSearch });
+        return Task.FromResult(new QueryData<Foo>()
+        {
+            Items = items,
+            TotalCount = total,
+            IsSorted = isSorted,
+            IsFiltered = options.Filters.Any(),
+            IsSearch = options.CustomerSearches.Any() || !string.IsNullOrEmpty(options.SearchText),
+            IsAdvanceSearch = options.AdvanceSearches.Any()
+        });
     }
 }
