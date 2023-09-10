@@ -16,13 +16,11 @@ public partial class TablesSearch
     /// </summary>
     [NotNull]
     private List<Foo>? Items { get; set; }
+
     private Foo SearchModel { get; set; } = new Foo();
-    private static IEnumerable<int> PageItemsSource => new int[]
-    {
-        4,
-        10,
-        20
-    };
+
+    private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
+
     private IEnumerable<SelectedItem>? SearchItems { get; set; }
 
     private ITableSearchModel CustomerSearchModel { get; set; } = new FooSearchModel();
