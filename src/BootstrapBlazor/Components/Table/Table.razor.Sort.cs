@@ -305,11 +305,16 @@ public partial class Table<TItem>
     /// </summary>
     /// <param name="col"></param>
     /// <returns></returns>
-    protected string? GetCellStyleString(ITableColumn col) => col.TextEllipsis && !AllowResizing
-        ? IsFixedHeader
+    protected string? GetCellStyleString(ITableColumn col)
+    {
+        return col.TextEllipsis && !AllowResizing
+            ? GetFixedHeaderStyleString()
+            : null;
+
+        string GetFixedHeaderStyleString() => IsFixedHeader
             ? $"width: calc({col.Width ?? 200}px - 2 * var(--bb-table-td-padding-x));"
-            : $"width: {col.Width ?? 200}px;"
-        : null;
+            : $"width: {col.Width ?? 200}px;";
+    }
 
     /// <summary>
     /// 获得指定列头固定列样式
@@ -319,56 +324,61 @@ public partial class Table<TItem>
     /// <returns></returns>
     protected string? GetFixedCellStyleString(ITableColumn col, int margin = 0)
     {
-        var style = CssBuilder.Default();
+        string? ret = null;
         if (col.Fixed)
         {
-            var defaultWidth = 200;
-            var isTail = IsTail(col);
-            var index = Columns.IndexOf(col);
-            var width = 0;
-            var start = 0;
-            if (isTail)
-            {
-                // after
-                while (index + 1 < Columns.Count)
-                {
-                    width += Columns[index++].Width ?? defaultWidth;
-                }
-                if (ShowExtendButtons && FixedExtendButtonsColumn)
-                {
-                    width += ExtendButtonColumnWidth;
-                }
-
-                // 如果是固定表头时增加滚动条位置
-                if (IsFixedHeader && (index + 1) == Columns.Count)
-                {
-                    width += margin;
-                }
-
-                style.AddClass($"right: {width}px;");
-            }
-            else
-            {
-                if (GetFixedDetailRowHeaderColumn)
-                {
-                    width += DetailColumnWidth;
-                }
-                if (GetFixedMultipleSelectColumn)
-                {
-                    width += MultiColumnWidth;
-                }
-                if (GetFixedLineNoColumn)
-                {
-                    width += LineNoColumnWidth;
-                }
-                while (index > start)
-                {
-                    width += Columns[start++].Width ?? defaultWidth;
-                };
-                style.AddClass($"left: {width}px;");
-            }
+            ret = IsTail(col) ? GetRightStyle(col, margin) : GetLeftStyle(col);
         }
-        return style.Build();
+        return ret;
+    }
+
+    private string? GetLeftStyle(ITableColumn col)
+    {
+        var defaultWidth = 200;
+        var width = 0;
+        var start = 0;
+        var index = Columns.IndexOf(col);
+        if (GetFixedDetailRowHeaderColumn)
+        {
+            width += DetailColumnWidth;
+        }
+        if (GetFixedMultipleSelectColumn)
+        {
+            width += MultiColumnWidth;
+        }
+        if (GetFixedLineNoColumn)
+        {
+            width += LineNoColumnWidth;
+        }
+        while (index > start)
+        {
+            width += Columns[start++].Width ?? defaultWidth;
+        }
+        return $"left: {width}px;";
+    }
+
+    private string? GetRightStyle(ITableColumn col, int margin)
+    {
+        var defaultWidth = 200;
+        var width = 0;
+        var index = Columns.IndexOf(col);
+
+        // after
+        while (index + 1 < Columns.Count)
+        {
+            width += Columns[index++].Width ?? defaultWidth;
+        }
+        if (ShowExtendButtons && FixedExtendButtonsColumn)
+        {
+            width += ExtendButtonColumnWidth;
+        }
+
+        // 如果是固定表头时增加滚动条位置
+        if (IsFixedHeader && (index + 1) == Columns.Count)
+        {
+            width += margin;
+        }
+        return $"right: {width}px;";
     }
 
     /// <summary>

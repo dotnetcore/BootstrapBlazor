@@ -1918,20 +1918,20 @@ public class TableTest : TableTestBase
         {
             pb.Add(a => a.IsHideFooterWhenNoData, false);
         });
-        cut.Contains("table-footer-test");
+        cut.WaitForAssertion(() => cut.Contains("table-footer-test"));
 
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Items, null);
         });
-        cut.Contains("table-footer-test");
+        cut.WaitForAssertion(() => cut.Contains("table-footer-test"));
 
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Items, null);
             pb.Add(a => a.IsHideFooterWhenNoData, true);
         });
-        cut.DoesNotContain("table-footer-test");
+        cut.WaitForAssertion(() => cut.DoesNotContain("table-footer-test"));
     }
 
     [Theory]

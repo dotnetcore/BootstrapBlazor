@@ -204,7 +204,7 @@ public static class Utility
     /// <returns></returns>
     public static TModel Clone<TModel>(TModel item)
     {
-        var ret = item;
+        TModel ret = item;
         if (item != null)
         {
             if (item is ICloneable cloneable)
@@ -216,32 +216,9 @@ public static class Utility
                 var type = item.GetType();
                 if (type.IsClass)
                 {
-                    var instance = Activator.CreateInstance(type);
-                    if (instance != null)
-                    {
-                        ret = (TModel)instance;
-                        if (ret != null)
-                        {
-                            var valType = ret.GetType();
-
-                            // 20200608 tian_teng@outlook.com 支持字段和只读属性
-                            foreach (var f in type.GetFields())
-                            {
-                                var v = f.GetValue(item);
-                                var field = valType.GetField(f.Name)!;
-                                field.SetValue(ret, v);
-                            };
-                            foreach (var p in type.GetRuntimeProperties())
-                            {
-                                if (p.CanWrite)
-                                {
-                                    var v = p.GetValue(item);
-                                    var property = valType.GetRuntimeProperties().First(i => i.Name == p.Name && i.PropertyType == p.PropertyType);
-                                    property.SetValue(ret, v);
-                                }
-                            };
-                        }
-                    }
+                    var newVal = (TModel)Activator.CreateInstance(type)!;
+                    newVal.Clone(item);
+                    ret = newVal;
                 }
             }
         }
@@ -637,7 +614,7 @@ public static class Utility
         return ret;
     }
 
-    private static bool IsValidComponent(Type componentType) => componentType.GetProperties().FirstOrDefault(p => p.Name == nameof(IEditorItem.SkipValidate)) != null;
+    private static bool IsValidComponent(Type componentType) => Array.Find(componentType.GetProperties(), p => p.Name == nameof(IEditorItem.SkipValidate)) != null;
 
     /// <summary>
     /// 通过模型与指定数据类型生成组件参数集合
