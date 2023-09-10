@@ -1,5 +1,32 @@
 ﻿import Data from "../../modules/data.js?v=$version"
 
+const openDevice = camera => {
+    if(camera.video) {
+        return
+    }
+
+    const deviceId = camera.el.getAttribute("data-device-id")
+    if (deviceId) {
+        const videoWidth = parseInt(camera.el.getAttribute("data-video-width"))
+        const videoHeight = parseInt(camera.el.getAttribute("data-video-height"))
+        camera.video = {
+            deviceId, videoWidth, videoHeight
+        }
+        play(camera)
+    }
+}
+
+const stopDevice = camera => {
+    if (camera.video) {
+        camera.video.element.pause()
+        camera.video.element.srcObject = null
+        if (camera.video.track) {
+            camera.video.track.stop()
+        }
+        delete camera.video
+    }
+}
+
 const play = (camera, option = {}) => {
     camera.video = {
         ...camera.video,
@@ -34,15 +61,6 @@ const play = (camera, option = {}) => {
     })
 }
 
-const stop = camera => {
-    camera.video.element.pause()
-    camera.video.element.srcObject = null
-    if (camera.video.track) {
-        camera.video.track.stop()
-    }
-    delete camera.video
-}
-
 export function init(id, invoke) {
     const el = document.getElementById(id)
     if (el === null) {
@@ -69,26 +87,26 @@ export function update(id) {
         return
     }
 
-    const autoStart = camera.el.getAttribute("data-auto-start") || false
-    if (autoStart) {
-        open(id)
+    // handler switch device
+    if (camera.video) {
+        const deviceId = camera.el.getAttribute("data-device-id")
+        if (camera.video.deviceId !== deviceId){
+            stopDevice(camera)
+            openDevice(camera)
+        }
+    }
+    else {
+        const autoStart = camera.el.getAttribute("data-auto-start") || false
+        if (autoStart) {
+            openDevice(camera)
+        }
     }
 }
 
 export function open(id) {
     const camera = Data.get(id)
-    if (camera === null || camera.video) {
-        return
-    }
-
-    const deviceId = camera.el.getAttribute("data-device-id")
-    if (deviceId) {
-        const videoWidth = parseInt(camera.el.getAttribute("data-video-width"))
-        const videoHeight = parseInt(camera.el.getAttribute("data-video-height"))
-        camera.video = {
-            deviceId, videoWidth, videoHeight
-        }
-        play(camera)
+    if (camera) {
+        openDevice(camera)
     }
 }
 
@@ -99,7 +117,7 @@ export function close(id) {
     }
 
     if (camera.video) {
-        stop(camera)
+        stopDevice(camera)
         camera.invoke.invokeMethodAsync("TriggerClose")
     }
 }
@@ -140,7 +158,7 @@ export function resize(id, width, height) {
         }
     }
 
-    stop(camera)
+    stopDevice(camera)
     play(camera, constrains)
 }
 
@@ -150,7 +168,7 @@ export function dispose(id) {
 
     if (camera) {
         if (camera.video) {
-            stop(camera)
+            stopDevice(camera)
         }
     }
 }
