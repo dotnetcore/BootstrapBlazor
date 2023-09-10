@@ -637,7 +637,7 @@ public static class Utility
         return ret;
     }
 
-    private static bool IsValidComponent(Type componentType) => componentType.GetProperties().FirstOrDefault(p => p.Name == nameof(IEditorItem.SkipValidate)) != null;
+    private static bool IsValidComponent(Type componentType) => Array.Find(componentType.GetProperties(), p => p.Name == nameof(IEditorItem.SkipValidate)) != null;
 
     /// <summary>
     /// 通过模型与指定数据类型生成组件参数集合
