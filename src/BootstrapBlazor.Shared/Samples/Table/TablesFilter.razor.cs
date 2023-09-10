@@ -38,31 +38,25 @@ public partial class TablesFilter
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
     {
-        IEnumerable<Foo> items = Items;
+        // 通过 options 获得用户组合的过滤条件
+        var filters = options.ToFilter();
 
-        // 过滤
-        var isFiltered = false;
-        if (options.Filters.Any())
-        {
-            items = items.Where(options.Filters.GetFilterFunc<Foo>());
-            isFiltered = true;
-        }
+        // 使用内置扩展方法 ToFilter 获得过滤条件
+        var items = Items.Where(filters.GetFilterFunc<Foo>());
 
-        // 排序
+        // 排序标记
         var isSorted = false;
 
         // 此段代码可不写，组件内部自行处理
         if (options.SortName == nameof(Foo.DateTime) && options.SortList != null)
         {
-            var sortInvoker = Utility.GetSortListFunc<Foo>();
-            items = sortInvoker(items, options.SortList);
+            items = items.Sort(options.SortList);
             isSorted = true;
         }
         else if (!string.IsNullOrEmpty(options.SortName))
         {
             // 外部未进行排序，内部自动进行排序处理
-            var invoker = Utility.GetSortFunc<Foo>();
-            items = invoker(items, options.SortName, options.SortOrder);
+            items = items.Sort(options.SortName, options.SortOrder);
             isSorted = true;
         }
 
@@ -77,7 +71,7 @@ public partial class TablesFilter
             Items = items,
             TotalCount = total,
             IsSorted = isSorted,
-            IsFiltered = isFiltered
+            IsFiltered = filters.HasFilters()
         });
     }
 
