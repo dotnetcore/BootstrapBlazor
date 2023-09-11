@@ -115,12 +115,9 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
             ShowLabel = false;
         }
 
-        if (IsBoolean && Value != null && State != CheckboxState.Indeterminate)
+        if (IsBoolean && Value != null && State != CheckboxState.Indeterminate && BindConverter.TryConvertToBool(Value, CultureInfo.InvariantCulture, out var v))
         {
-            if (BindConverter.TryConvertToBool(Value, CultureInfo.InvariantCulture, out var v))
-            {
-                State = v ? CheckboxState.Checked : CheckboxState.UnChecked;
-            }
+            State = v ? CheckboxState.Checked : CheckboxState.UnChecked;
         }
     }
 
@@ -132,7 +129,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     {
         base.OnAfterRender(firstRender);
 
-        _peddingStateChanged = false;
+        _paddingStateChanged = false;
     }
 
     /// <summary>
@@ -153,7 +150,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     {
         if (!IsDisabled)
         {
-            _peddingStateChanged = true;
+            _paddingStateChanged = true;
             await InternalStateChanged(State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked);
         }
     }
@@ -161,11 +158,11 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <summary>
     /// 此变量为了提高性能，避免循环更新
     /// </summary>
-    private bool _peddingStateChanged;
+    private bool _paddingStateChanged;
 
     private async Task InternalStateChanged(CheckboxState state)
     {
-        if (_peddingStateChanged)
+        if (_paddingStateChanged)
         {
             if (IsBoolean)
             {
@@ -194,9 +191,9 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <param name="state"></param>
     public virtual async Task SetState(CheckboxState state)
     {
-        if (!_peddingStateChanged)
+        if (!_paddingStateChanged)
         {
-            _peddingStateChanged = true;
+            _paddingStateChanged = true;
 
             await InternalStateChanged(state);
             StateHasChanged();
@@ -210,13 +207,10 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     /// <returns></returns>
     protected override async ValueTask DisposeAsync(bool disposing)
     {
-        if (disposing)
+        if (disposing && Module != null)
         {
-            if (Module != null)
-            {
-                await Module.DisposeAsync();
-                Module = null;
-            }
+            await Module.DisposeAsync();
+            Module = null;
         }
         await base.DisposeAsync(disposing);
     }
