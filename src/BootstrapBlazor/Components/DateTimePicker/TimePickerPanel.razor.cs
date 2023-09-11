@@ -19,6 +19,18 @@ public partial class TimePickerPanel
     private int Min { get; set; } = 0;
 
     /// <summary>
+    /// 获得/设置 AM/PM
+    /// </summary>
+    [Parameter]
+    public bool IsAM { get; set; }
+
+    /// <summary>
+    /// 获得/设置 AM/PM值变化时委托方法
+    /// </summary>
+    [Parameter]
+    public EventCallback<bool> IsAMChanged { get; set; }
+
+    /// <summary>
     /// 获得/设置 组件值
     /// </summary>
     [Parameter]
@@ -64,18 +76,18 @@ public partial class TimePickerPanel
     [JSInvokable]
     public async Task SetAmPm(bool to_am)
     {
-        if (ValueChanged.HasDelegate)
+        IsAM = to_am;
+        if (IsAMChanged.HasDelegate)
         {
-            await ValueChanged.InvokeAsync(Value);
+            await IsAMChanged.InvokeAsync(IsAM);
         }
     }
-
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Hour, Min);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Hour, Min, IsAM);
 
     /// <summary>
     /// <inheritdoc/>

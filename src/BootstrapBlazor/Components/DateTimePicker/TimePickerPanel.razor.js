@@ -1,4 +1,4 @@
-﻿export function init(id, invoke, hourValue, minValue) {
+﻿export function init(id, invoke, hourValue, minValue, isAM) {
     const el = document.getElementById(id);
 
     const self = el.querySelector('.bb-timepanel-picker');
@@ -95,4 +95,5 @@
     //设置默认值
     setMin(minValue);
     setHour(hourValue);
+    setAmPm(isAM);
 }
