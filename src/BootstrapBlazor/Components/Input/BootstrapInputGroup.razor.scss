@@ -1,4 +1,4 @@
-@mixin direction($var,$child) {
+@mixin direction($var, $child) {
     > .datetime-picker:not(:#{$child}-child) .form-control,
     > .select:not(:#{$child}-child) .form-control,
     > .multi-select:not(:#{$child}-child) .dropdown-toggle,
