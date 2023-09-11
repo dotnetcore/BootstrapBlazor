@@ -29,6 +29,23 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Checkbox_Dispose()
+    {
+        var cut = Context.RenderComponent<Checkbox<string>>();
+
+        var checkbox = cut.Instance;
+        cut.InvokeAsync(async () => await checkbox.DisposeAsync());
+
+        var propertyInfo = checkbox.GetType().GetProperty("Module", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(propertyInfo);
+        Assert.Null(propertyInfo.GetValue(checkbox));
+
+        var methodInfo = checkbox.GetType().GetMethod("DisposeAsync", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(methodInfo);
+        methodInfo.Invoke(checkbox, new object[] { false });
+    }
+
+    [Fact]
     public void Group_Ok()
     {
         var cut = Context.RenderComponent<BootstrapInputGroup>(pb =>
