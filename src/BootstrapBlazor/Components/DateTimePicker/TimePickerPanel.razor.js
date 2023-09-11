@@ -1,4 +1,4 @@
-﻿export function init(id) {
+﻿export function init(id, invoke) {
     const el = document.getElementById(id);
 
     const self = el.querySelector('.bb-timepanel-picker');
@@ -40,17 +40,20 @@
         if (hour == 0) hour = 12;
         self.querySelector('.time .hour').textContent = hour;
         setHandle(self.querySelector('.face-set.hour'), hour, null, false);
+        invoke.invokeMethodAsync('SetHour', hour);
     }
     function setMin(min) {
         if (min == 60) min = 0;
         self.querySelector('.time .min').textContent = String(min).padStart(2, '0');
         setHandle(self.querySelector('.face-set.min'), min / 5, null, false);
+        invoke.invokeMethodAsync('SetMin', min);
     }
     function setAmPm(to_am) {
         am = to_am;
         self.querySelector('.am-pm-btn.am').classList.toggle('active', am);
         self.querySelector('.am-pm-btn.pm').classList.toggle('active', !am);
         self.querySelector('.time .am-pm').textContent = am ? 'AM' : 'PM';
+        invoke.invokeMethodAsync('SetAmPm', am);
     }
     function handleMove(e) {
         if (!mouse) return;

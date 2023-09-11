@@ -1,14 +1,14 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
-@attribute [BootstrapModuleAutoLoader("DateTimePicker/TimePickerPanel.razor.js", AutoInvokeDispose = false)]
+@attribute [BootstrapModuleAutoLoader("DateTimePicker/TimePickerPanel.razor.js", JSObjectReference = true, AutoInvokeDispose = false)]
 
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
     <div class="bb-timepanel-picker">
         <div class="time-wrap">
             <div class="time">
-                <span class="part hour active">12</span>
+                <span class="part hour active">@Value.Hours</span>
                 <span>:</span>
-                <span class="part min">00</span>
+                <span class="part min">@Value.Minutes</span>
                 <span class="part am-pm">AM</span>
             </div>
         </div>
