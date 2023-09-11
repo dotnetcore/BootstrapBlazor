@@ -1,8 +1,12 @@
-﻿export function init(id, invoke) {
+﻿export function init(id, invoke, hourValue, minValue) {
     const el = document.getElementById(id);
 
     const self = el.querySelector('.bb-timepanel-picker');
-    var activeFace = self.querySelector('.face-set.hour'), min = false, am = false, mouse = false;
+    var activeFace = self.querySelector('.face-set.hour'),
+        min = false,
+        am = false,
+        mouse = false;
+
     self.querySelectorAll('.face-set').forEach(el => el.dataset.handAng = 0);
     self.querySelector('.face-set.min').dataset.handAng = 1;
     function setHandle(face, a, l, anim) {
@@ -87,4 +91,8 @@
     setTimeout(function () {
         self.querySelectorAll('*').forEach(el => el.style.transition = '');
     });
+
+    //设置默认值
+    setMin(minValue);
+    setHour(hourValue);
 }

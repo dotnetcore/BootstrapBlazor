@@ -14,6 +14,10 @@ public partial class TimePickerPanel
     /// </summary>
     private string? ClassString => CssBuilder.Default("bb-timepanel").AddClassFromAttributes(AdditionalAttributes).Build();
 
+    private int Hour { get; set; } = 12;
+
+    private int Min { get; set; } = 0;
+
     /// <summary>
     /// 获得/设置 组件值
     /// </summary>
@@ -32,6 +36,8 @@ public partial class TimePickerPanel
     [JSInvokable]
     public async Task SetHour(int hour)
     {
+        Hour = hour;
+        Value = new TimeSpan(Hour, Min, 0);
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);
@@ -44,6 +50,8 @@ public partial class TimePickerPanel
     [JSInvokable]
     public async Task SetMin(int min)
     {
+        Min = min;
+        Value = new TimeSpan(Hour, Min, 0);
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);
@@ -67,7 +75,26 @@ public partial class TimePickerPanel
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Hour, Min);
 
-
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        if (Value.Hours > 0)
+        {
+            Hour = Value.Hours;
+        }
+        else if (Value.Minutes > 0)
+        {
+            Min = Value.Minutes;
+        }
+        else
+        {
+            Value = new TimeSpan(Hour, Min, 0);
+        }
+    }
 }
