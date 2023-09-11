@@ -69,7 +69,7 @@ public partial class SpeechWave : IDisposable
 
     private bool IsRun { get; set; }
 
-    private Task Run() => Task.Run(async () =>
+    private void Run() => Task.Run(async () =>
     {
         if (!IsRun)
         {
