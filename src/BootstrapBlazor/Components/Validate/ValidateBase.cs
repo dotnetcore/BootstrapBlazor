@@ -316,10 +316,10 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public virtual bool IsComplexValue(object? propertyValue) => propertyValue != null
-        && propertyValue is not string
-        && !propertyValue.GetType().IsAssignableTo(typeof(System.Collections.IEnumerable))
-        && propertyValue.GetType().IsClass;
+    public virtual bool IsComplexValue(object? value) => value != null
+        && value is not string
+        && !value.GetType().IsAssignableTo(typeof(System.Collections.IEnumerable))
+        && value.GetType().IsClass;
 
     /// <summary>
     /// 获得/设置 是否执行了自定义异步验证
@@ -388,13 +388,10 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     {
         // 增加数据基础类型验证 如泛型约定为 int 文本框值为 Empty
         // 可为空泛型约束时不检查
-        if (NullableUnderlyingType == null)
+        if (NullableUnderlyingType == null && PreviousParsingAttemptFailed)
         {
-            if (PreviousParsingAttemptFailed)
-            {
-                var memberNames = new string[] { context.MemberName! };
-                results.Add(new ValidationResult(PreviousErrorMessage, memberNames));
-            }
+            var memberNames = new string[] { context.MemberName! };
+            results.Add(new ValidationResult(PreviousErrorMessage, memberNames));
         }
     }
 
