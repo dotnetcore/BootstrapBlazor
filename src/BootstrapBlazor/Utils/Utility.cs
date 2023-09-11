@@ -68,7 +68,7 @@ public static class Utility
     public static TValue? GetKeyValue<TModel, TValue>(TModel model, Type? customAttribute = null) => CacheManager.GetKeyValue<TModel, TValue>(model, customAttribute);
 
     /// <summary>
-    /// 
+    /// 获得 指定模型属性值
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TResult"></typeparam>
@@ -102,7 +102,7 @@ public static class Utility
     }
 
     /// <summary>
-    /// 
+    /// 设置指定模型属性值方法
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TValue"></typeparam>
@@ -288,26 +288,25 @@ public static class Utility
                 // 未设置 AutoGenerateColumnAttribute 时使用默认值
                 tc = new InternalTableColumn(prop.Name, prop.PropertyType, displayName);
 
-                // AutoGenerateClassAttribute 设置时继承类标签
                 if (classAttribute != null)
                 {
+                    // AutoGenerateClassAttribute 设置时继承类标签
                     tc.InheritValue(classAttribute);
                 }
             }
             else
             {
+                // 设置 AutoGenerateColumnAttribute 时
                 if (columnAttribute.Ignore) continue;
 
                 columnAttribute.Text = displayName;
                 columnAttribute.FieldName = prop.Name;
                 columnAttribute.PropertyType = prop.PropertyType;
 
-                // AutoGenerateClassAttribute 设置时继承类标签
                 if (classAttribute != null)
                 {
-                    var visible = columnAttribute.Visible;
+                    // AutoGenerateClassAttribute 设置时继承类标签
                     columnAttribute.InheritValue(classAttribute);
-                    columnAttribute.Visible = visible;
                 }
                 tc = columnAttribute;
             }
@@ -740,7 +739,7 @@ public static class Utility
     #endregion
 
     /// <summary>
-    /// 
+    /// 转换泛型类型为字符串方法
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
     /// <param name="value"></param>
