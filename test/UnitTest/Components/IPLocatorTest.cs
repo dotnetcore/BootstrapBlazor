@@ -100,6 +100,7 @@ public class IPLocatorTest : BootstrapBlazorTestBase
         await locator.Test("223.91.188.112", new HttpClient(), new MockLogger());
         await locator.TestMock("223.91.188.112", new HttpClient());
         await locator.TestMock("223.91.188.112", new HttpClient(), new MockLogger());
+        Assert.NotNull(locator);
     }
 
     private class IpLocatorTest : ComponentBase
