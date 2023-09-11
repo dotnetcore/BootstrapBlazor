@@ -37,7 +37,9 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <summary>
     /// 获得/设置 数据合规样式
     /// </summary>
-    protected string? ValidCss => IsValid.HasValue ? (IsValid.Value ? "is-valid" : "is-invalid") : null;
+    protected string? ValidCss => IsValid.HasValue ? GetValidString(IsValid.Value) : null;
+
+    private static string GetValidString(bool valid) => valid ? "is-valid" : "is-invalid";
 
     /// <summary>
     /// 获得/设置 组件是否合规 默认为 null 未检查
