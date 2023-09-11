@@ -68,7 +68,7 @@ public static class Utility
     public static TValue? GetKeyValue<TModel, TValue>(TModel model, Type? customAttribute = null) => CacheManager.GetKeyValue<TModel, TValue>(model, customAttribute);
 
     /// <summary>
-    /// 
+    /// 获得 指定模型属性值
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TResult"></typeparam>
@@ -102,7 +102,7 @@ public static class Utility
     }
 
     /// <summary>
-    /// 
+    /// 设置指定模型属性值方法
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TValue"></typeparam>
@@ -269,8 +269,8 @@ public static class Utility
     /// <summary>
     /// 通过特定类型模型获取模型属性集合
     /// </summary>
-    /// <param name="type"></param>
-    /// <param name="source"></param>
+    /// <param name="type">绑定模型类型</param>
+    /// <param name="source">Razor 文件中列集合</param>
     /// <returns></returns>
     public static IEnumerable<ITableColumn> GetTableColumns(Type type, IEnumerable<ITableColumn>? source = null)
     {
@@ -282,20 +282,21 @@ public static class Utility
             ITableColumn? tc;
             var columnAttribute = prop.GetCustomAttribute<AutoGenerateColumnAttribute>(true);
 
-            // Issue: 增加定义设置标签 AutoGenerateClassAttribute
-            // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I381ED
             var displayName = columnAttribute?.Text ?? Utility.GetDisplayName(type, prop.Name);
             if (columnAttribute == null)
             {
+                // 未设置 AutoGenerateColumnAttribute 时使用默认值
                 tc = new InternalTableColumn(prop.Name, prop.PropertyType, displayName);
 
                 if (classAttribute != null)
                 {
+                    // AutoGenerateClassAttribute 设置时继承类标签
                     tc.InheritValue(classAttribute);
                 }
             }
             else
             {
+                // 设置 AutoGenerateColumnAttribute 时
                 if (columnAttribute.Ignore) continue;
 
                 columnAttribute.Text = displayName;
@@ -304,9 +305,8 @@ public static class Utility
 
                 if (classAttribute != null)
                 {
-                    var visible = columnAttribute.Visible;
+                    // AutoGenerateClassAttribute 设置时继承类标签
                     columnAttribute.InheritValue(classAttribute);
-                    columnAttribute.Visible = visible;
                 }
                 tc = columnAttribute;
             }
@@ -739,7 +739,7 @@ public static class Utility
     #endregion
 
     /// <summary>
-    /// 
+    /// 转换泛型类型为字符串方法
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
     /// <param name="value"></param>
