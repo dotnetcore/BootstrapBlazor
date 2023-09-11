@@ -269,8 +269,8 @@ public static class Utility
     /// <summary>
     /// 通过特定类型模型获取模型属性集合
     /// </summary>
-    /// <param name="type"></param>
-    /// <param name="source"></param>
+    /// <param name="type">绑定模型类型</param>
+    /// <param name="source">Razor 文件中列集合</param>
     /// <returns></returns>
     public static IEnumerable<ITableColumn> GetTableColumns(Type type, IEnumerable<ITableColumn>? source = null)
     {
@@ -282,13 +282,13 @@ public static class Utility
             ITableColumn? tc;
             var columnAttribute = prop.GetCustomAttribute<AutoGenerateColumnAttribute>(true);
 
-            // Issue: 增加定义设置标签 AutoGenerateClassAttribute
-            // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I381ED
             var displayName = columnAttribute?.Text ?? Utility.GetDisplayName(type, prop.Name);
             if (columnAttribute == null)
             {
+                // 未设置 AutoGenerateColumnAttribute 时使用默认值
                 tc = new InternalTableColumn(prop.Name, prop.PropertyType, displayName);
 
+                // AutoGenerateClassAttribute 设置时继承类标签
                 if (classAttribute != null)
                 {
                     tc.InheritValue(classAttribute);
@@ -302,6 +302,7 @@ public static class Utility
                 columnAttribute.FieldName = prop.Name;
                 columnAttribute.PropertyType = prop.PropertyType;
 
+                // AutoGenerateClassAttribute 设置时继承类标签
                 if (classAttribute != null)
                 {
                     var visible = columnAttribute.Visible;
