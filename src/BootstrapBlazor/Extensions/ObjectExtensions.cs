@@ -123,7 +123,7 @@ public static class ObjectExtensions
         if (type != typeof(string))
         {
             ret = false;
-            var methodInfo = typeof(ObjectExtensions).GetMethods().FirstOrDefault(m => m.Name == nameof(TryConvertTo) && m.IsGenericMethod);
+            var methodInfo = Array.Find(typeof(ObjectExtensions).GetMethods(), m => m.Name == nameof(TryConvertTo) && m.IsGenericMethod);
             if (methodInfo != null)
             {
                 methodInfo = methodInfo.MakeGenericMethod(type);
