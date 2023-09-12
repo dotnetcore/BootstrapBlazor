@@ -31,27 +31,28 @@ $lightActiveText: #33b5e5;
 
     .face-wrap {
         padding: 1rem;
-        position: relative;
-        background: $lightFace;
-        height: 13em;
-        border-radius: 50%;
+        height: 243px;
         cursor: move;
+        position: relative;
 
         .face-set {
+            position: absolute;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            width: 243px;
+            height: 243px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
             .face-number {
                 position: absolute;
                 transition: transform 0.5s cubic-bezier(.47,.02,.74,1.81), opacity 0.4s;
-                text-align: center;
                 pointer-events: none;
-                width: 100%;
-                top: 6em;
-                line-height: 1em;
-                height: 1em;
 
                 @for $i from 0 to 12 {
                     &[data-css-time="#{$i}"] {
-                        transform: rotate($i * 30deg) translateY(-5.5em) rotate($i * -30deg);
+                        transform: rotate($i * 30deg) translateY(-80px) rotate($i * -30deg);
                     }
                 }
             }
@@ -67,12 +68,10 @@ $lightActiveText: #33b5e5;
 
                 height: $handleSize;
                 width: $handleSize;
-                top: 6.5em - $handleSize / 2;
-                left: 6.5em - $handleSize / 2;
                 position: absolute;
                 background: $lightHandle;
                 border-radius: 50%;
-                transform: rotate(10 * 30deg) translateY(-5.5em);
+                transform: rotate(10 * 30deg) translateY(-80px);
             }
 
             .handle-spot {
@@ -95,11 +94,9 @@ $lightActiveText: #33b5e5;
 
                 transform-origin: bottom;
                 position: absolute;
-                bottom: 6.5em;
                 background: $lightActiveText;
                 width: 1px;
                 height: 1em;
-                left: 6.5em;
             }
 
             &.face-off {
@@ -114,7 +111,7 @@ $lightActiveText: #33b5e5;
                 &.min {
                     @for $i from 0 to 12 {
                         .face-number[data-css-time="#{$i}"] {
-                            transform: rotate($i * 30deg) translateY(-7em) rotate($i * -30deg);
+                            transform: rotate($i * 30deg) translateY(-90px) rotate($i * -30deg);
                         }
                     }
                 }
@@ -122,7 +119,7 @@ $lightActiveText: #33b5e5;
                 &.hour {
                     @for $i from 0 to 12 {
                         .face-number[data-css-time="#{$i}"] {
-                            transform: rotate($i * 30deg) translateY(-4em) rotate($i * -30deg);
+                            transform: rotate($i * 30deg) translateY(-60px) rotate($i * -30deg);
                         }
                     }
                 }

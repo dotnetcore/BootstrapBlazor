@@ -1725,68 +1725,69 @@ a, a:hover, a:focus {
 }
 .bb-time-panel .face-wrap {
   padding: 1rem;
-  position: relative;
-  background: #fff;
-  height: 13em;
-  border-radius: 50%;
+  height: 243px;
   cursor: move;
+  position: relative;
+}
+.bb-time-panel .face-wrap .face-set {
+  position: absolute;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 243px;
+  height: 243px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .bb-time-panel .face-wrap .face-set .face-number {
   position: absolute;
   transition: transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81), opacity 0.4s;
-  text-align: center;
   pointer-events: none;
-  width: 100%;
-  top: 6em;
-  line-height: 1em;
-  height: 1em;
 }
 .bb-time-panel .face-wrap .face-set .face-number[data-css-time="0"] {
-  transform: rotate(0deg) translateY(-5.5em) rotate(0deg);
+  transform: rotate(0deg) translateY(-80px) rotate(0deg);
 }
 .bb-time-panel .face-wrap .face-set .face-number[data-css-time="1"] {
-  transform: rotate(30deg) translateY(-5.5em) rotate(-30deg);
+  transform: rotate(30deg) translateY(-80px) rotate(-30deg);
 }
 .bb-time-panel .face-wrap .face-set .face-number[data-css-time="2"] {
-  transform: rotate(60deg) translateY(-5.5em) rotate(-60deg);
+  transform: rotate(60deg) translateY(-80px) rotate(-60deg);
 }
 .bb-time-panel .face-wrap .face-set .face-number[data-css-time="3"] {
-  transform: rotate(90deg) translateY(-5.5em) rotate(-90deg);
+  transform: rotate(90deg) translateY(-80px) rotate(-90deg);
 }
 .bb-time-panel .face-wrap .face-set .face-number[data-css-time="4"] {
-  transform: rotate(120deg) translateY(-5.5em) rotate(-120deg);
+  transform: rotate(120deg) translateY(-80px) rotate(-120deg);
 }
 .bb-time-panel .face-wrap .face-set .face-number[data-css-time="5"] {
-  transform: rotate(150deg) translateY(-5.5em) rotate(-150deg);
+  transform: rotate(150deg) translateY(-80px) rotate(-150deg);
 }
 .bb-time-panel .face-wrap .face-set .face-number[data-css-time="6"] {
-  transform: rotate(180deg) translateY(-5.5em) rotate(-180deg);
+  transform: rotate(180deg) translateY(-80px) rotate(-180deg);
 }
 .bb-time-panel .face-wrap .face-set .face-number[data-css-time="7"] {
-  transform: rotate(210deg) translateY(-5.5em) rotate(-210deg);
+  transform: rotate(210deg) translateY(-80px) rotate(-210deg);
 }
 .bb-time-panel .face-wrap .face-set .face-number[data-css-time="8"] {
-  transform: rotate(240deg) translateY(-5.5em) rotate(-240deg);
+  transform: rotate(240deg) translateY(-80px) rotate(-240deg);
 }
 .bb-time-panel .face-wrap .face-set .face-number[data-css-time="9"] {
-  transform: rotate(270deg) translateY(-5.5em) rotate(-270deg);
+  transform: rotate(270deg) translateY(-80px) rotate(-270deg);
 }
 .bb-time-panel .face-wrap .face-set .face-number[data-css-time="10"] {
-  transform: rotate(300deg) translateY(-5.5em) rotate(-300deg);
+  transform: rotate(300deg) translateY(-80px) rotate(-300deg);
 }
 .bb-time-panel .face-wrap .face-set .face-number[data-css-time="11"] {
-  transform: rotate(330deg) translateY(-5.5em) rotate(-330deg);
+  transform: rotate(330deg) translateY(-80px) rotate(-330deg);
 }
 .bb-time-panel .face-wrap .face-set .handle {
   transition: opacity 0.4s;
   height: 1.65em;
   width: 1.65em;
-  top: 5.675em;
-  left: 5.675em;
   position: absolute;
   background: rgba(0, 153, 204, 0.5);
   border-radius: 50%;
-  transform: rotate(300deg) translateY(-5.5em);
+  transform: rotate(300deg) translateY(-80px);
 }
 .bb-time-panel .face-wrap .face-set .handle.anim {
   transition: transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81), opacity 0.4s;
@@ -1804,11 +1805,9 @@ a, a:hover, a:focus {
   transition: opacity 0.4s;
   transform-origin: bottom;
   position: absolute;
-  bottom: 6.5em;
   background: #33b5e5;
   width: 1px;
   height: 1em;
-  left: 6.5em;
 }
 .bb-time-panel .face-wrap .face-set .handle-bar.anim {
   transition: transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81), opacity 0.4s;
@@ -1820,76 +1819,76 @@ a, a:hover, a:focus {
   opacity: 0;
 }
 .bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="0"] {
-  transform: rotate(0deg) translateY(-7em) rotate(0deg);
+  transform: rotate(0deg) translateY(-90px) rotate(0deg);
 }
 .bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="1"] {
-  transform: rotate(30deg) translateY(-7em) rotate(-30deg);
+  transform: rotate(30deg) translateY(-90px) rotate(-30deg);
 }
 .bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="2"] {
-  transform: rotate(60deg) translateY(-7em) rotate(-60deg);
+  transform: rotate(60deg) translateY(-90px) rotate(-60deg);
 }
 .bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="3"] {
-  transform: rotate(90deg) translateY(-7em) rotate(-90deg);
+  transform: rotate(90deg) translateY(-90px) rotate(-90deg);
 }
 .bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="4"] {
-  transform: rotate(120deg) translateY(-7em) rotate(-120deg);
+  transform: rotate(120deg) translateY(-90px) rotate(-120deg);
 }
 .bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="5"] {
-  transform: rotate(150deg) translateY(-7em) rotate(-150deg);
+  transform: rotate(150deg) translateY(-90px) rotate(-150deg);
 }
 .bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="6"] {
-  transform: rotate(180deg) translateY(-7em) rotate(-180deg);
+  transform: rotate(180deg) translateY(-90px) rotate(-180deg);
 }
 .bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="7"] {
-  transform: rotate(210deg) translateY(-7em) rotate(-210deg);
+  transform: rotate(210deg) translateY(-90px) rotate(-210deg);
 }
 .bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="8"] {
-  transform: rotate(240deg) translateY(-7em) rotate(-240deg);
+  transform: rotate(240deg) translateY(-90px) rotate(-240deg);
 }
 .bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="9"] {
-  transform: rotate(270deg) translateY(-7em) rotate(-270deg);
+  transform: rotate(270deg) translateY(-90px) rotate(-270deg);
 }
 .bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="10"] {
-  transform: rotate(300deg) translateY(-7em) rotate(-300deg);
+  transform: rotate(300deg) translateY(-90px) rotate(-300deg);
 }
 .bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="11"] {
-  transform: rotate(330deg) translateY(-7em) rotate(-330deg);
+  transform: rotate(330deg) translateY(-90px) rotate(-330deg);
 }
 .bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="0"] {
-  transform: rotate(0deg) translateY(-4em) rotate(0deg);
+  transform: rotate(0deg) translateY(-60px) rotate(0deg);
 }
 .bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="1"] {
-  transform: rotate(30deg) translateY(-4em) rotate(-30deg);
+  transform: rotate(30deg) translateY(-60px) rotate(-30deg);
 }
 .bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="2"] {
-  transform: rotate(60deg) translateY(-4em) rotate(-60deg);
+  transform: rotate(60deg) translateY(-60px) rotate(-60deg);
 }
 .bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="3"] {
-  transform: rotate(90deg) translateY(-4em) rotate(-90deg);
+  transform: rotate(90deg) translateY(-60px) rotate(-90deg);
 }
 .bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="4"] {
-  transform: rotate(120deg) translateY(-4em) rotate(-120deg);
+  transform: rotate(120deg) translateY(-60px) rotate(-120deg);
 }
 .bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="5"] {
-  transform: rotate(150deg) translateY(-4em) rotate(-150deg);
+  transform: rotate(150deg) translateY(-60px) rotate(-150deg);
 }
 .bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="6"] {
-  transform: rotate(180deg) translateY(-4em) rotate(-180deg);
+  transform: rotate(180deg) translateY(-60px) rotate(-180deg);
 }
 .bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="7"] {
-  transform: rotate(210deg) translateY(-4em) rotate(-210deg);
+  transform: rotate(210deg) translateY(-60px) rotate(-210deg);
 }
 .bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="8"] {
-  transform: rotate(240deg) translateY(-4em) rotate(-240deg);
+  transform: rotate(240deg) translateY(-60px) rotate(-240deg);
 }
 .bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="9"] {
-  transform: rotate(270deg) translateY(-4em) rotate(-270deg);
+  transform: rotate(270deg) translateY(-60px) rotate(-270deg);
 }
 .bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="10"] {
-  transform: rotate(300deg) translateY(-4em) rotate(-300deg);
+  transform: rotate(300deg) translateY(-60px) rotate(-300deg);
 }
 .bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="11"] {
-  transform: rotate(330deg) translateY(-4em) rotate(-330deg);
+  transform: rotate(330deg) translateY(-60px) rotate(-330deg);
 }
 .bb-time-panel .bb-time-footer {
   display: flex;
