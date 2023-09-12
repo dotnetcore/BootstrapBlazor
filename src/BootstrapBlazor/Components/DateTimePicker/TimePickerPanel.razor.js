@@ -1,7 +1,7 @@
 ﻿export function init(id, invoke, hourValue, minValue, isAM) {
     const el = document.getElementById(id);
 
-    const self = el.querySelector('.bb-timepanel-picker');
+    const self = el;
     var activeFace = self.querySelector('.face-set.hour'),
         min = false,
         am = false,
@@ -31,8 +31,8 @@
         activeFace = self.querySelector('.face-set.' + cl);
         activeFace.classList.remove('face-off');
         setHandle(activeFace, null, null, true);
-        self.querySelector('.time .active').classList.remove('active');
-        self.querySelector('.time .part.' + cl).classList.add('active');
+        self.querySelector('.bb-time-header .active').classList.remove('active');
+        self.querySelector('.bb-time-header .part.' + cl).classList.add('active');
     }
     minMode(true);
     minMode(false);
@@ -42,13 +42,13 @@
     });
     function setHour(hour) {
         if (hour == 0) hour = 12;
-        self.querySelector('.time .hour').textContent = hour;
+        self.querySelector('.bb-time-header .hour').textContent = hour;
         setHandle(self.querySelector('.face-set.hour'), hour, null, false);
         invoke.invokeMethodAsync('SetHour', hour);
     }
     function setMin(min) {
         if (min == 60) min = 0;
-        self.querySelector('.time .min').textContent = String(min).padStart(2, '0');
+        self.querySelector('.bb-time-header .min').textContent = String(min).padStart(2, '0');
         setHandle(self.querySelector('.face-set.min'), min / 5, null, false);
         invoke.invokeMethodAsync('SetMin', min);
     }
@@ -56,7 +56,7 @@
         am = to_am;
         self.querySelector('.am-pm-btn.am').classList.toggle('active', am);
         self.querySelector('.am-pm-btn.pm').classList.toggle('active', !am);
-        self.querySelector('.time .am-pm').textContent = am ? 'AM' : 'PM';
+        self.querySelector('.bb-time-header .am-pm').textContent = am ? 'AM' : 'PM';
         invoke.invokeMethodAsync('SetAmPm', am);
     }
     function handleMove(e) {
@@ -80,11 +80,11 @@
     self.querySelector('.face-wrap').addEventListener('mousedown', handleMove);
     document.body.addEventListener('mousemove', handleMove);
     self.querySelector('.face-set.min').classList.add('face-off');
-    self.querySelector('.time .part.min').addEventListener('click', minMode.bind(this, true));
-    self.querySelector('.time .part.hour').addEventListener('click', minMode.bind(this, false));
+    self.querySelector('.bb-time-header .part.min').addEventListener('click', minMode.bind(this, true));
+    self.querySelector('.bb-time-header .part.hour').addEventListener('click', minMode.bind(this, false));
     self.querySelector('.am-pm-btn.am').addEventListener('click', setAmPm.bind(this, true));
     self.querySelector('.am-pm-btn.pm').addEventListener('click', setAmPm.bind(this, false));
-    self.querySelector('.time .am-pm').addEventListener('click', function () {
+    self.querySelector('.bb-time-header .am-pm').addEventListener('click', function () {
         setAmPm(!am);
     });
     self.querySelectorAll('*').forEach(el => el.style.transition = 'none');

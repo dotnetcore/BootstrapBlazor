@@ -2,59 +2,55 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader("DateTimePicker/TimePickerPanel.razor.js", JSObjectReference = true, AutoInvokeDispose = false)]
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
-    <div class="bb-timepanel-picker">
-        <div class="time-wrap">
-            <div class="time">
-                <span class="part hour active">@Value.Hours</span>
-                <span>:</span>
-                <span class="part min">@Value.Minutes</span>
-                <span class="part am-pm">AM</span>
-            </div>
+<div @attributes="AdditionalAttributes" class="@ClassString" id="@Id">
+    <div class="bb-time-header">
+        <span class="part hour active">@Value.Hours</span>
+        <span>:</span>
+        <span class="part min">@Value.Minutes</span>
+        <span class="part am-pm">AM</span>
+    </div>
+    <div class="face-wrap">
+        <div class="face">
+            <span class="face-set hour">
+                <div class="handle-bar"></div>
+                <div class="face-number" data-css-time="0">12</div>
+                <div class="face-number" data-css-time="1">1</div>
+                <div class="face-number" data-css-time="2">2</div>
+                <div class="face-number" data-css-time="3">3</div>
+                <div class="face-number" data-css-time="4">4</div>
+                <div class="face-number" data-css-time="5">5</div>
+                <div class="face-number" data-css-time="6">6</div>
+                <div class="face-number" data-css-time="7">7</div>
+                <div class="face-number" data-css-time="8">8</div>
+                <div class="face-number" data-css-time="9">9</div>
+                <div class="face-number" data-css-time="10">10</div>
+                <div class="face-number" data-css-time="11">11</div>
+                <div class="handle">
+                    <div class="handle-spot"></div>
+                </div>
+            </span>
+            <span class="face-set min">
+                <div class="handle-bar"></div>
+                <div class="face-number" data-css-time="0">00</div>
+                <div class="face-number" data-css-time="1">05</div>
+                <div class="face-number" data-css-time="2">10</div>
+                <div class="face-number" data-css-time="3">15</div>
+                <div class="face-number" data-css-time="4">20</div>
+                <div class="face-number" data-css-time="5">25</div>
+                <div class="face-number" data-css-time="6">30</div>
+                <div class="face-number" data-css-time="7">35</div>
+                <div class="face-number" data-css-time="8">40</div>
+                <div class="face-number" data-css-time="9">45</div>
+                <div class="face-number" data-css-time="10">50</div>
+                <div class="face-number" data-css-time="11">55</div>
+                <div class="handle">
+                    <div class="handle-spot"></div>
+                </div>
+            </span>
         </div>
-        <div class="face-wrap">
-            <div class="face">
-                <span class="face-set hour">
-                    <div class="handle-bar"></div>
-                    <div class="face-number" data-css-time="0">12</div>
-                    <div class="face-number" data-css-time="1">1</div>
-                    <div class="face-number" data-css-time="2">2</div>
-                    <div class="face-number" data-css-time="3">3</div>
-                    <div class="face-number" data-css-time="4">4</div>
-                    <div class="face-number" data-css-time="5">5</div>
-                    <div class="face-number" data-css-time="6">6</div>
-                    <div class="face-number" data-css-time="7">7</div>
-                    <div class="face-number" data-css-time="8">8</div>
-                    <div class="face-number" data-css-time="9">9</div>
-                    <div class="face-number" data-css-time="10">10</div>
-                    <div class="face-number" data-css-time="11">11</div>
-                    <div class="handle">
-                        <div class="handle-spot"></div>
-                    </div>
-                </span>
-                <span class="face-set min">
-                    <div class="handle-bar"></div>
-                    <div class="face-number" data-css-time="0">00</div>
-                    <div class="face-number" data-css-time="1">05</div>
-                    <div class="face-number" data-css-time="2">10</div>
-                    <div class="face-number" data-css-time="3">15</div>
-                    <div class="face-number" data-css-time="4">20</div>
-                    <div class="face-number" data-css-time="5">25</div>
-                    <div class="face-number" data-css-time="6">30</div>
-                    <div class="face-number" data-css-time="7">35</div>
-                    <div class="face-number" data-css-time="8">40</div>
-                    <div class="face-number" data-css-time="9">45</div>
-                    <div class="face-number" data-css-time="10">50</div>
-                    <div class="face-number" data-css-time="11">55</div>
-                    <div class="handle">
-                        <div class="handle-spot"></div>
-                    </div>
-                </span>
-            </div>
-        </div>
-        <div class="am-pm-btns">
-            <div class="am-pm-btn am">AM</div>
-            <div class="am-pm-btn pm active">PM</div>
-        </div>
+    </div>
+    <div class="am-pm-btns">
+        <div class="am-pm-btn am">AM</div>
+        <div class="am-pm-btn pm active">PM</div>
     </div>
 </div>

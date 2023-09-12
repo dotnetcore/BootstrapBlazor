@@ -12,7 +12,7 @@ public partial class TimePickerPanel
     /// <summary>
     /// 获得/设置 样式
     /// </summary>
-    private string? ClassString => CssBuilder.Default("bb-timepanel")
+    private string? ClassString => CssBuilder.Default("bb-time-panel")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -111,4 +111,8 @@ public partial class TimePickerPanel
             await IsAMChanged.InvokeAsync(IsAM);
         }
     }
+
+    // $lightHandle,$lightFace,$lightBackground,$lightText,$lightActiveText
+
+    // $handle,$face,$background,$text,$activeText
 }
