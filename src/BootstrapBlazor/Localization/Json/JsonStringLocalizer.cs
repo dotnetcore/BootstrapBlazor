@@ -206,7 +206,7 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
         }
 
         // 2. 从父类 ResourceManagerStringLocalizer 中获取微软格式资源信息
-        // get all strings from base jsong localization factory
+        // get all strings from base json localization factory
         IEnumerable<LocalizedString>? GetAllStringsFromBase(bool includeParentCultures)
         {
             IEnumerable<LocalizedString>? ret = base.GetAllStrings(includeParentCultures);
