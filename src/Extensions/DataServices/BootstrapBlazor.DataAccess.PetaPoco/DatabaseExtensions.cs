@@ -25,7 +25,12 @@ public static class DatabaseExtensions
         if (where.HasFilters())
         {
             var exp = where.GetFilterLambda<TModel>();
-            AnalysisExpression(exp, db, sql);
+            var whereSql = new Sql();
+            AnalysisExpression(exp, db, whereSql);
+            if (!string.IsNullOrEmpty(whereSql.SQL))
+            {
+                sql.Where(whereSql.SQL, whereSql.Arguments);
+            }
         }
         if (!string.IsNullOrEmpty(sortName) && sortOrder != SortOrder.Unset)
         {
@@ -64,8 +69,19 @@ public static class DatabaseExtensions
                 break;
             case ExpressionType.AndAlso:
                 var andExp = expression as BinaryExpression;
+                sql.Append("(");
                 AnalysisExpression(andExp!.Left, db, sql);
+                sql.Append(") and (");
                 AnalysisExpression(andExp!.Right, db, sql);
+                sql.Append(")");
+                break;
+            case ExpressionType.OrElse:
+                var orExp = expression as BinaryExpression;
+                sql.Append("(");
+                AnalysisExpression(orExp!.Left, db, sql);
+                sql.Append(") or (");
+                AnalysisExpression(orExp!.Right, db, sql);
+                sql.Append(")");
                 break;
             case ExpressionType.Call:
                 var callExp = expression as MethodCallExpression;
@@ -76,7 +92,7 @@ public static class DatabaseExtensions
                     var p = (callExp.Arguments[0] as ConstantExpression)?.Value;
                     if (p != null)
                     {
-                        sql.Where($"{db.Provider.EscapeSqlIdentifier(callColName)} like @0", $"%{p}%");
+                        sql.Append($"{db.Provider.EscapeSqlIdentifier(callColName)} like @0", $"%{p}%");
                     }
                 }
                 break;
@@ -99,7 +115,11 @@ public static class DatabaseExtensions
                 if (v != null)
                 {
                     var operatorExp = GetOperatorExpression(expression);
-                    sql.Where($"{db.Provider.EscapeSqlIdentifier(columnName)} {operatorExp} @0", v);
+                    sql.Append($"{db.Provider.EscapeSqlIdentifier(columnName)} {operatorExp} @0", v);
+                }
+                else
+                {
+                    sql.Append($"{db.Provider.EscapeSqlIdentifier(columnName)} is not null");
                 }
                 break;
         }
