@@ -12,7 +12,9 @@ public partial class TimePickerPanel
     /// <summary>
     /// 获得/设置 样式
     /// </summary>
-    private string? ClassString => CssBuilder.Default("bb-timepanel").AddClassFromAttributes(AdditionalAttributes).Build();
+    private string? ClassString => CssBuilder.Default("bb-timepanel")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
 
     private int Hour { get; set; } = 12;
 
@@ -41,6 +43,33 @@ public partial class TimePickerPanel
     /// </summary>
     [Parameter]
     public EventCallback<TimeSpan> ValueChanged { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        if (Value.Hours > 0)
+        {
+            Hour = Value.Hours;
+        }
+        else if (Value.Minutes > 0)
+        {
+            Min = Value.Minutes;
+        }
+        else
+        {
+            Value = new TimeSpan(Hour, Min, 0);
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Hour, Min, IsAM);
 
     /// <summary>
     /// 设置小时调用此方法
@@ -80,33 +109,6 @@ public partial class TimePickerPanel
         if (IsAMChanged.HasDelegate)
         {
             await IsAMChanged.InvokeAsync(IsAM);
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Hour, Min, IsAM);
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-        if (Value.Hours > 0)
-        {
-            Hour = Value.Hours;
-        }
-        else if (Value.Minutes > 0)
-        {
-            Min = Value.Minutes;
-        }
-        else
-        {
-            Value = new TimeSpan(Hour, Min, 0);
         }
     }
 }
