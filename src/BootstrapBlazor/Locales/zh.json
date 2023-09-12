@@ -9,14 +9,6 @@
     "FailedText": "加载失败",
     "LoadText": "正在加载 ..."
   },
-  "BootstrapBlazor.Components.Camera": {
-    "DeviceLabel": "摄像头",
-    "InitDevicesString": "正在识别摄像头",
-    "PlayText": "开启",
-    "StopText": "关闭",
-    "PhotoText": "拍照",
-    "NotFoundDevicesString": "未找到视频相关设备"
-  },
   "BootstrapBlazor.Components.Calendar": {
     "PreviousYear": "上一年",
     "PreviousMonth": "上一月",

@@ -33,12 +33,12 @@
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="7.2.1" />
     <PackageReference Include="BootstrapBlazor.Dock" Version="7.0.11" />
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="7.0.3" />
-    <PackageReference Include="BootstrapBlazor.FontAwesome" Version="7.4.2" />
+    <PackageReference Include="BootstrapBlazor.FontAwesome" Version="7.5.0" />
     <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="7.2.0" />
     <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="7.0.1" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="7.2.1" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="7.0.0" />
-    <PackageReference Include="BootstrapBlazor.MaterialDesign.Extensions" Version="7.3.2" />
+    <PackageReference Include="BootstrapBlazor.MaterialDesign.Extensions" Version="7.4.0" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="7.0.1" />
     <PackageReference Include="BootstrapBlazor.PdfReader" Version="7.2.0" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="7.0.3" />
@@ -48,7 +48,7 @@
     <PackageReference Include="BootstrapBlazor.Topology" Version="7.4.5" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="7.0.4" />
     <PackageReference Include="BootstrapBlazor.MouseFollower" Version="7.0.0" />
-    <PackageReference Include="BootstrapBlazor.WebAPI" Version="7.3.6" />
+    <PackageReference Include="BootstrapBlazor.WebAPI" Version="7.4.1" />
     <PackageReference Include="BootstrapBlazor.MindMap" Version="7.0.1" />
   </ItemGroup>
 

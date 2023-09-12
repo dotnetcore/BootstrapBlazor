@@ -17,7 +17,7 @@ public class Foo
     // 列头信息支持 Display DisplayName 两种标签
 
     /// <summary>
-    ///
+    /// 主键
     /// </summary>
     [Key]
     [Display(Name = "主键")]
@@ -25,7 +25,7 @@ public class Foo
     public int Id { get; set; }
 
     /// <summary>
-    ///
+    /// 姓名
     /// </summary>
     [Required(ErrorMessage = "{0}不能为空")]
     [AutoGenerateColumn(Order = 10, Filterable = true, Searchable = true)]
@@ -33,14 +33,14 @@ public class Foo
     public string? Name { get; set; }
 
     /// <summary>
-    ///
+    /// 日期
     /// </summary>
     [AutoGenerateColumn(Order = 1, FormatString = "yyyy-MM-dd", Width = 180)]
     [Display(Name = "日期")]
     public DateTime? DateTime { get; set; }
 
     /// <summary>
-    ///
+    /// 地址
     /// </summary>
     [Display(Name = "地址")]
     [Required(ErrorMessage = "{0}不能为空")]
@@ -48,7 +48,7 @@ public class Foo
     public string? Address { get; set; }
 
     /// <summary>
-    ///
+    /// 数量
     /// </summary>
     [Display(Name = "数量")]
     [Required]
@@ -56,14 +56,14 @@ public class Foo
     public int Count { get; set; }
 
     /// <summary>
-    ///
+    /// 是/否
     /// </summary>
     [Display(Name = "是/否")]
     [AutoGenerateColumn(Order = 50)]
     public bool Complete { get; set; }
 
     /// <summary>
-    ///
+    /// 学历
     /// </summary>
     [Required(ErrorMessage = "请选择学历")]
     [Display(Name = "学历")]
@@ -71,7 +71,7 @@ public class Foo
     public EnumEducation? Education { get; set; }
 
     /// <summary>
-    ///
+    /// 爱好
     /// </summary>
     [Required(ErrorMessage = "请选择一种{0}")]
     [Display(Name = "爱好")]
@@ -80,7 +80,7 @@ public class Foo
 
     #region Static methods
     /// <summary>
-    /// 
+    /// 随机数 Random 实例
     /// </summary>
     protected static readonly Random Random = new();
 

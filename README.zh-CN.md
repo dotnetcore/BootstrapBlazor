@@ -153,7 +153,7 @@ Blazor 应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 ## 浏览器支持
 
 ![chrome](https://img.shields.io/badge/chrome->%3D57-success.svg?logo=google%20chrome&logoColor=red)
-![firefox](https://img.shields.io/badge/firefox->522-success.svg?logo=mozilla%20firefox&logoColor=red)
+![firefox](https://img.shields.io/badge/firefox->522-success.svg?logo=firefox%20browser&logoColor=red)
 ![edge](https://img.shields.io/badge/edge->%3D16-success.svg?logo=microsoft%20edge&logoColor=blue)
 ![ie](https://img.shields.io/badge/ie->%3D11-success.svg?logo=internet%20explorer&logoColor=blue)
 ![Safari](https://img.shields.io/badge/safari->%3D14-success.svg?logo=safari&logoColor=blue)

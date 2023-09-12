@@ -3,6 +3,10 @@ import EventHandler from "../../../_content/BootstrapBlazor/modules/event-handle
 
 export function init(id, version) {
     const el = document.getElementById(id)
+    if (el === null) {
+        return
+    }
+
     const update = {
         el,
         key: `bb_intro_popup:${version}`,
@@ -16,10 +20,12 @@ export function init(id, version) {
 }
 
 export function dispose(id) {
-    const data = Data.get(id)
     Data.remove(id)
 
-    EventHandler.off(data.el, 'click', '.blazor-intro-button');
+    const data = Data.get(id)
+    if (data) {
+        EventHandler.off(data.el, 'click', '.blazor-intro-button');
+    }
 }
 
 const check = (key, el) => {

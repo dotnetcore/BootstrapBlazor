@@ -123,7 +123,7 @@ public static class ObjectExtensions
         if (type != typeof(string))
         {
             ret = false;
-            var methodInfo = typeof(ObjectExtensions).GetMethods().FirstOrDefault(m => m.Name == nameof(TryConvertTo) && m.IsGenericMethod);
+            var methodInfo = Array.Find(typeof(ObjectExtensions).GetMethods(), m => m.Name == nameof(TryConvertTo) && m.IsGenericMethod);
             if (methodInfo != null)
             {
                 methodInfo = methodInfo.MakeGenericMethod(type);
@@ -253,6 +253,29 @@ public static class ObjectExtensions
                 ret = propertyInfo.CanWrite;
             }
             return ret;
+        }
+    }
+
+    internal static void Clone<TModel>(this TModel source, TModel item)
+    {
+        if (item != null)
+        {
+            var type = typeof(TModel);
+
+            // 20200608 tian_teng@outlook.com 支持字段和只读属性
+            foreach (var f in type.GetFields())
+            {
+                var v = f.GetValue(item);
+                f.SetValue(source, v);
+            }
+            foreach (var p in type.GetRuntimeProperties())
+            {
+                if (p.CanWrite)
+                {
+                    var v = p.GetValue(item);
+                    p.SetValue(source, v);
+                }
+            }
         }
     }
 }

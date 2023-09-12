@@ -2,8 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.Localization;
+using System.Globalization;
 using System.Text;
+using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Components;
 
@@ -12,14 +13,11 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class Camera
 {
-    private string? DeviceId { get; set; }
-
-    private bool IsDisabled { get; set; } = true;
-
-    private bool CaptureDisabled { get; set; } = true;
-
-    [NotNull]
-    private IEnumerable<SelectedItem>? Devices { get; set; }
+    /// <summary>
+    /// 获得/设置 当前设备 Id 默认 null
+    /// </summary>
+    [Parameter]
+    public string? DeviceId { get; set; }
 
     /// <summary>
     /// 获得/设置 是否自动开启摄像头 默认为 false
@@ -28,36 +26,16 @@ public partial class Camera
     public bool AutoStart { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示 照片预览 默认为 false 不预览
+    /// 获得/设置 摄像头视频宽度 默认 320
     /// </summary>
     [Parameter]
-    public bool ShowPreview { get; set; }
+    public int? VideoWidth { get; set; } = 320;
 
     /// <summary>
-    /// 获得/设置 设备列表前置标签文字 默认为 摄像头
+    /// 获得/设置 摄像头视频高度 默认 240
     /// </summary>
     [Parameter]
-    [NotNull]
-    public string? DeviceLabel { get; set; }
-
-    /// <summary>
-    /// 获得/设置 初始化设备列表文字 默认为 正在识别摄像头
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? InitDevicesString { get; set; }
-
-    /// <summary>
-    /// 获得/设置 摄像头视频宽度
-    /// </summary>
-    [Parameter]
-    public int VideoWidth { get; set; } = 320;
-
-    /// <summary>
-    /// 获得/设置 摄像头视频高度
-    /// </summary>
-    [Parameter]
-    public int VideoHeight { get; set; } = 240;
+    public int? VideoHeight { get; set; } = 240;
 
     /// <summary>
     /// 获得/设置 拍照格式为 Jpeg 默认为 false 使用 png 格式
@@ -69,13 +47,13 @@ public partial class Camera
     /// 获得/设置 图像质量 默认为 0.9
     /// </summary>
     [Parameter]
-    public double Quality { get; set; } = 0.9d;
+    public float Quality { get; set; } = 0.9f;
 
     /// <summary>
     /// 获得/设置 初始化摄像头回调方法
     /// </summary>
     [Parameter]
-    public Func<IEnumerable<DeviceItem>, Task>? OnInit { get; set; }
+    public Func<List<DeviceItem>, Task>? OnInit { get; set; }
 
     /// <summary>
     /// 获得/设置 拍照出错回调方法
@@ -84,120 +62,39 @@ public partial class Camera
     public Func<string, Task>? OnError { get; set; }
 
     /// <summary>
-    /// 获得/设置 开始拍照回调方法
+    /// 获得/设置 打开摄像头回调方法
     /// </summary>
     [Parameter]
-    public Func<Task>? OnStart { get; set; }
+    public Func<Task>? OnOpen { get; set; }
 
     /// <summary>
-    /// 获得/设置 关闭拍照回调方法
+    /// 获得/设置 关闭摄像头回调方法
     /// </summary>
     [Parameter]
     public Func<Task>? OnClose { get; set; }
 
-    /// <summary>
-    /// 获得/设置 拍照成功回调方法
-    /// </summary>
-    [Parameter]
-    public Func<string, Task>? OnCapture { get; set; }
+    private string VideoWidthString => $"{VideoWidth}";
+
+    private string VideoHeightString => $"{VideoHeight}";
+
+    private string? AutoStartString => AutoStart ? "true" : null;
+
+    private string? CaptureJpegString => CaptureJpeg ? "true" : null;
+
+    private string? QualityString => Quality == 0.9f ? null : Quality.ToString(CultureInfo.InvariantCulture);
 
     /// <summary>
-    /// 获得/设置 开始按钮图标
+    /// <inheritdoc/>
     /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? PlayIcon { get; set; }
-
-    /// <summary>
-    /// 获得/设置 停止按钮图标
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? StopIcon { get; set; }
-
-    /// <summary>
-    /// 获得/设置 拍照按钮图标
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? PhotoIcon { get; set; }
-
-    /// <summary>
-    /// 获得/设置 开启按钮显示文本 默认为开启
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? PlayText { get; set; }
-
-    /// <summary>
-    /// 获得/设置 关闭按钮显示文本 默认为关闭
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? StopText { get; set; }
-
-    /// <summary>
-    /// 获得/设置 拍照按钮显示文本 默认为拍照
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? PhotoText { get; set; }
-
-    /// <summary>
-    /// 获得/设置 未找到视频相关设备文字 默认为 未找到视频相关设备
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? NotFoundDevicesString { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Camera>? Localizer { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IIconTheme? IconTheme { get; set; }
-
-    private string VideoWidthString => $"{VideoWidth}px;";
-
-    private string VideoHeightString => $"{VideoHeight}px;";
-
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        base.OnInitialized();
+        await base.OnAfterRenderAsync(firstRender);
 
-        PlayText ??= Localizer[nameof(PlayText)];
-        StopText ??= Localizer[nameof(StopText)];
-        PhotoText ??= Localizer[nameof(PhotoText)];
-        DeviceLabel ??= Localizer[nameof(DeviceLabel)];
-        InitDevicesString ??= Localizer[nameof(InitDevicesString)];
-        NotFoundDevicesString ??= Localizer[nameof(NotFoundDevicesString)];
-    }
-
-    /// <summary>
-    /// OnParametersSet 方法
-    /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        PlayIcon ??= IconTheme.GetIconByKey(ComponentIcons.CameraPlayIcon);
-        StopIcon ??= IconTheme.GetIconByKey(ComponentIcons.CameraStopIcon);
-        PhotoIcon ??= IconTheme.GetIconByKey(ComponentIcons.CameraPhotoIcon);
-
-        Devices ??= Enumerable.Empty<SelectedItem>();
-
-        if (VideoWidth < 40)
+        if (!firstRender)
         {
-            VideoWidth = 40;
-        }
-
-        if (VideoHeight < 30)
-        {
-            VideoHeight = 30;
+            await InvokeVoidAsync("update", Id);
         }
     }
 
@@ -205,7 +102,53 @@ public partial class Camera
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, AutoStart, VideoWidth, VideoHeight, CaptureJpeg, Quality);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
+
+    /// <summary>
+    /// 打开摄像头
+    /// </summary>
+    /// <returns></returns>
+    public Task Open() => InvokeVoidAsync("open", Id);
+
+    /// <summary>
+    /// 关闭摄像头
+    /// </summary>
+    /// <returns></returns>
+    public Task Close() => InvokeVoidAsync("close", Id);
+
+    /// <summary>
+    /// 拍照方法
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Stream?> Capture()
+    {
+        Stream? ret = null;
+#if NET5_0
+        await Task.Delay(10);
+#elif NET6_0_OR_GREATER
+        var streamRef = await InvokeAsync<IJSStreamReference>("capture", Id);
+        if (streamRef != null)
+        {
+            ret = await streamRef.OpenReadStreamAsync(streamRef.Length);
+        }
+#endif
+        return ret;
+    }
+
+    /// <summary>
+    /// 保存并下载图片
+    /// </summary>
+    /// <param name="fileName">文件名</param>
+    /// <returns></returns>
+    public Task SaveAndDownload(string? fileName = null) => InvokeVoidAsync("download", Id, fileName);
+
+    /// <summary>
+    /// 重置宽高方法
+    /// </summary>
+    /// <param name="width"></param>
+    /// <param name="height"></param>
+    /// <returns></returns>
+    public Task Resize(int width, int height) => InvokeVoidAsync("resize", Id, width, height);
 
     /// <summary>
     /// 初始化设备方法
@@ -213,31 +156,17 @@ public partial class Camera
     /// <param name="devices"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task InitDevices(List<DeviceItem> devices)
+    public async Task TriggerInit(List<DeviceItem> devices)
     {
-        Devices = devices.Select(i => new SelectedItem { Value = i.DeviceId, Text = i.Label });
-        IsDisabled = !Devices.Any();
-
-        if (OnInit != null)
+        if (devices.Count > 0)
         {
-            await OnInit(devices);
-        }
-        if (devices.Any())
-        {
-            for (var index = 0; index < devices.Count; index++)
+            if (OnInit != null)
             {
-                var d = devices.ElementAt(index);
-                if (string.IsNullOrEmpty(d.Label))
-                {
-                    d.Label = $"Video device {index + 1}";
-                }
+                await OnInit(devices);
             }
+
+            StateHasChanged();
         }
-        if (IsDisabled)
-        {
-            InitDevicesString = NotFoundDevicesString;
-        }
-        StateHasChanged();
     }
 
     /// <summary>
@@ -246,7 +175,7 @@ public partial class Camera
     /// <param name="err"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task GetError(string err)
+    public async Task TriggerError(string err)
     {
         if (OnError != null)
         {
@@ -259,14 +188,12 @@ public partial class Camera
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task Start()
+    public async Task TriggerOpen()
     {
-        CaptureDisabled = false;
-        if (OnStart != null)
+        if (OnOpen != null)
         {
-            await OnStart();
+            await OnOpen();
         }
-        StateHasChanged();
     }
 
     /// <summary>
@@ -274,45 +201,11 @@ public partial class Camera
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task Stop()
+    public async Task TriggerClose()
     {
-        CaptureDisabled = true;
         if (OnClose != null)
         {
             await OnClose();
-        }
-
-        StateHasChanged();
-    }
-
-    private readonly StringBuilder _sb = new();
-    private string? PreviewData { get; set; }
-
-    /// <summary>
-    /// 拍照回调方法
-    /// </summary>
-    /// <returns></returns>
-    [JSInvokable]
-    public async Task Capture(string payload)
-    {
-        if (payload == "__BB__%END%__BB__")
-        {
-            var data = _sb.ToString();
-            _sb.Clear();
-            if (OnCapture != null)
-            {
-                await OnCapture(data);
-            }
-
-            if (ShowPreview)
-            {
-                PreviewData = data;
-                StateHasChanged();
-            }
-        }
-        else
-        {
-            _sb.Append(payload);
         }
     }
 }

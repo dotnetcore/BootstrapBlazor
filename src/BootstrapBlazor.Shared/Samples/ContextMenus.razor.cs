@@ -20,11 +20,15 @@ public partial class ContextMenus
     [NotNull]
     private List<Foo>? Items { get; set; }
 
+    [NotNull]
+    private Foo? Foo { get; set; }
+
     /// <summary>
     /// OnInitialized
     /// </summary>
     protected override void OnInitialized()
     {
+        Foo = Foo.Generate(LocalizerFoo);
         Items = Foo.GenerateFoo(LocalizerFoo);
     }
 }

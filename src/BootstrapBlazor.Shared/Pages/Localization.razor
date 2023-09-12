@@ -42,7 +42,7 @@
     <div class="mt-2">@Localizer["N17"] <code>Centos</code> <code>Ubuntu</code> <code>mac</code> @Localizer["N18"]：</div>
 </p>
 
-<Pre>{
+<Pre class="mb-3">{
   "BootstrapBlazorOptions": {
     "DefaultCultureInfo": "en"
   }
@@ -56,7 +56,7 @@
 
 <p>@Localizer["N21"] <code>FallbackCultureName</code> @Localizer["N22"] <code>SupportedCultures</code> @Localizer["N23"]</p>
 
-<Pre>{
+<Pre class="mb-3">{
   "BootstrapBlazorOptions": {
     "FallbackCultureName": "en",
     "SupportedCultures": [
@@ -101,7 +101,7 @@ if (option != null)
 </Pre>
     </TabItem>
     <TabItem Text="NET5.0" Icon="fa-solid fa-code" Closable="false">
-<Pre>public class Startup
+<Pre class="mb-3">public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
     {
@@ -128,7 +128,7 @@ if (option != null)
 </Tab>
 
 <p><b>3. @Localizer["N31"]</b></p>
-<Pre>[Route("[controller]/[action]")]
+<Pre class="mb-3">[Route("[controller]/[action]")]
 public class CultureController : Controller
 {
     public IActionResult SetCulture(string culture, string redirectUri)
@@ -152,7 +152,7 @@ public class CultureController : Controller
 }</Pre>
 
 <p><b>3. @Localizer["N32"]</b></p>
-<Pre>@@inherits BootstrapComponentBase
+<Pre class="mb-3">@@inherits BootstrapComponentBase
 @@inject IOptions&lt;BootstrapBlazorOptions&gt; BootstrapOptions
 @@inject NavigationManager NavigationManager
 @@inject ICultureStorage CultureStorage
@@ -224,7 +224,7 @@ public class CultureController : Controller
     </ul>
 </p>
 
-<Pre>public void ConfigureServices(IServiceCollection services)
+<Pre class="mb-3">public void ConfigureServices(IServiceCollection services)
 {
     services.AddBootstrapBlazor(null, options =>
     {
@@ -249,7 +249,7 @@ public class CultureController : Controller
 
 <p>@Localizer["N50"] <code>ConfigureJsonLocalizationOptions</code></p>
 
-<Pre>public void ConfigureServices(IServiceCollection services)
+<Pre class="mb-3">public void ConfigureServices(IServiceCollection services)
 {
     services.AddBootstrapBlazor();
     services.ConfigureJsonLocalizationOptions(options =>
@@ -275,7 +275,7 @@ public class CultureController : Controller
 <p><b>Web Assembly</b></p>
 
 <p><b>1. @Localizer["N54"]</b></p>
-<Pre>public static async Task Main(string[] args)
+<Pre class="mb-3">public static async Task Main(string[] args)
 {
     var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
@@ -323,7 +323,7 @@ internal class DefaultCultureStorage : ICultureStorage
 
 <p id="lang"><b>@Localizer["N59"]</b></p>
 
-<Pre>public static async Task Main(string[] args)
+<Pre class="mb-3">public static async Task Main(string[] args)
 {
     // @Localizer["N60"]
     CultureInfo.CurrentCulture = new CultureInfo("zh-CN");
@@ -343,7 +343,7 @@ internal class DefaultCultureStorage : ICultureStorage
 
 <Tab>
     <TabItem Text="appsettings.json" Icon="fa-solid fa-code" Closable="false">
-<Pre>"BootstrapBlazorOptions": {
+<Pre class="mb-3">"BootstrapBlazorOptions": {
     "IgnoreLocalizerMissing": true
 }</Pre>
     </TabItem>

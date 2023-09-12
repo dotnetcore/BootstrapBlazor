@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// AutoGenerateColumn 标签类，用于 <see cref="Table{TItem}"/> 标识自动生成列
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
 public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColumn

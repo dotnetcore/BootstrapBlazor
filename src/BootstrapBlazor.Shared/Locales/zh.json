@@ -1630,7 +1630,8 @@
     "VideoPlayerText": "视频播放器 VideoPlayer",
     "FileViewerText": "文件预览器 FileViewer",
     "WebSerialText": "串口读写 WebSerial",
-    "MindMapText": "思维导图 Mind Map"
+    "MindMapText": "思维导图 Mind Map",
+    "WebSpeechText": "语音识别/合成 WebSpeech"
   },
   "BootstrapBlazor.Shared.Pages.Breakpoints": {
     "Heading": "断点",
@@ -1928,7 +1929,8 @@
     "StepsItems": "设置步骤数据集合",
     "StepsIsVertical": "显示方向",
     "StepsAttrStepIndex": "步骤顺序号",
-    "StepsAttrTitle": "步骤显示文字",
+    "StepsAttrText": "步骤显示文字",
+    "StepsAttrTitle": "步骤显示标题",
     "StepsAttrIcon": "步骤显示图标",
     "StepsAttrFinishedIcon": "步骤完成显示图标",
     "StepsAttrDescription": "描述信息",
@@ -2699,7 +2701,8 @@
     "InputGroupsDateTimePickerTitle": "DateTimePicker/Range 组合",
     "InputGroupsDateTimePickerIntro": "往 <code>InputGroup</code> 里面增加 <code>DateTimePicker</code> 或者 <code>DateTimeRange</code>",
     "InputGroupsDropdownTitle": "Dropdown 组合",
-    "InputGroupsDropdownIntro": "往 <code>InputGroup</code> 里面增加 <code>Dropdown</code>"
+    "InputGroupsDropdownIntro": "往 <code>InputGroup</code> 里面增加 <code>Dropdown</code>",
+    "InputGroupsStatusText1": "复选项目"
   },
   "BootstrapBlazor.Shared.Samples.Markdowns": {
     "MarkdownsTitle": "Markdown 编辑器",
@@ -3528,24 +3531,8 @@
     "BasicUsageLi1": "点击开始打开摄像头",
     "BasicUsageLi2": "点击拍照按钮",
     "BasicUsageLi3": "点击关闭按钮关闭摄像头",
-    "ShowPreviewTitle": "显示预览",
-    "ShowPreviewIntro": "通过设置 <code>ShowPreview</code> 属性控制是否显示照片预览",
-    "CaptureJpegTitle": "拍照格式为 Jpeg",
-    "CaptureJpegIntro": "通过设置 <code>CaptureJpeg</code> 属性控制拍照格式为 <code>Jpeg</code>，默认为 <code>Png</code>. <code>Quality</code> 属性控制图像质量，默认为 <code>0.9</code>",
-    "AutoStartTitle": "自动开始",
-    "AutoStartIntro": "通过设置 <code>AutoStart</code> 属性控制是否组件运行时直接开启摄像头",
     "ShowPreview": "是否显示 照片预览",
     "AutoStart": "是否直接开启摄像头",
-    "DeviceLabel": "设备列表前置标签文字",
-    "FrontText": "前置显示文字",
-    "BackText": "后置显示文字",
-    "PlayText": "开启按钮显示文本",
-    "StopText": "关闭按钮显示文本",
-    "PhotoText": "拍照按钮显示文本",
-    "InitDevicesString": "初始化设备列表文字",
-    "InitDevicesStringDefaultValue": "正在识别摄像头",
-    "NotFoundDevicesString": "未找到视频相关设备文字",
-    "NotFoundDevicesStringDefaultValue": "未找到视频相关设备",
     "OnInit": "初始化摄像头回调方法",
     "OnStart": "开始拍照回调方法",
     "OnClose": "关闭拍照回调方法",
@@ -3553,7 +3540,14 @@
     "VideoWidth": "视频窗口宽度",
     "VideoHeight": "视频窗口高度",
     "CaptureJpeg": "拍照格式为 Jpeg",
-    "Quality": "拍照图像质量"
+    "Quality": "拍照图像质量",
+    "DeviceLabel": "摄像头",
+    "InitDevicesString": "正在识别摄像头",
+    "PlayText": "开启",
+    "StopText": "关闭",
+    "PreviewText": "预览",
+    "SaveText": "保存",
+    "NotFoundDevicesString": "未找到视频相关设备"
   },
   "BootstrapBlazor.Shared.Demos.Camera.CameraNormal": {
     "TraceOnInit": "初始化摄像头完成",
@@ -3861,7 +3855,7 @@
     "GroupIntro": "设置 <code>GroupName</code> 数据进行分组显示，通过设置 <code>GroupOrderCallback</code> 参数细化分组排序规则",
     "CollapseTitle": "分组折叠",
     "CollapseIntro": "设置 <code>Collapsable=\"true\"</code> 使分组信息可折叠",
-    "Collapsable": "是否可折叠",
+    "Collapsible": "是否可折叠",
     "IsAccordionTitle": "分组手风琴",
     "IsAccordionIntro": "设置 <code>IsAccordion=\"true\"</code> 使分组信息折叠手风琴效果",
     "Items": "组件数据源",
@@ -4510,7 +4504,8 @@
     "Splitting": "动画组件 Splitting",
     "QueryBuilder": "条件生成器 QueryBuilder",
     "WebSerial": "串口读写 WebSerial",
-    "MindMap": "思维导图 MindMap"
+    "MindMap": "思维导图 MindMap",
+    "WebSpeech": "语音识别/合成 WebSpeech"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -5660,6 +5655,7 @@
     "CountUpsNormalTitle": "基础用法",
     "CountUpsNormalIntro": "通过设置 <code>Value</code> 参数赋值",
     "Value": "计数结束值",
+    "CountOption": "CountOption 实例值",
     "OnCompleted": "获得/设置 计数结束回调方法",
     "StartValue": "开始计数值",
     "Duration": "动画时长",
@@ -5712,6 +5708,8 @@
     "ContextMenuDescription": "用户点击鼠标右键时弹出的上下文关联菜单",
     "ContextMenuNormalTitle": "基础用法",
     "ContextMenuNormalIntro": "点击 <code>ContextMenuZone</code> 内区域右键，弹出上下文关联菜单",
+    "ContextMenuCustomUITitle": "自定义组件",
+    "ContextMenuCustomUIIntro": "点击 <code>Li</code> 弹出上下文关联菜单",
     "ContextMenuTableTitle": "Table 组件",
     "ContextMenuTableIntro": "点击 <code>Table</code> 组件行数据右键，弹出上下文关联菜单",
     "ContextMenuTreeTitle": "Tree 组件",
@@ -5820,7 +5818,8 @@
     "ConnectButtonText": "连接",
     "WriteButtonText": "写入",
     "DisconnectButtonText": "断开",
-    "ApplyButtonText": "应用"
+    "ApplyButtonText": "应用",
+    "WebSerialOptionsText": "WebSerialOptions"
   },
   "BootstrapBlazor.Shared.Samples.MindMaps": {
     "MindMapTitle": "Mind Map 思维导图",
@@ -5855,5 +5854,13 @@
     "NodeNoteText": "备注内容",
     "NodeGeneralizationText": "概要",
     "NodeExpandText": "节点是否展开"
+  },
+  "BootstrapBlazor.Shared.Samples.WebSpeechs": {
+    "WebSpeechTitle": "Web Speech 语音识别/合成",
+    "WebSpeechDescription": "使用浏览器接口功能提供语音识别/合成服务",
+    "WebSpeechNormalTitle": "语音识别",
+    "WebSpeechGameTitle": "语音颜色选择游戏",
+    "WebSpeechSynthesisTitle": "语音合成",
+    "WebSpeechSynthesisDIYTitle": "语音合成自定义"
   }
 }

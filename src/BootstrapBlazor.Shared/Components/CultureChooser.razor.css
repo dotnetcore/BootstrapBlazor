@@ -3,7 +3,7 @@
     align-items: center;
 }
 
-    .culture-selector label {
+    .culture-selector span {
         margin: 0;
         color: var(--bs-navbar-color);
         opacity: 0.85;

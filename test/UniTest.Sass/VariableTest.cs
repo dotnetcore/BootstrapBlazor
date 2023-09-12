@@ -54,7 +54,11 @@ public partial class VariableTest
                     var matches = regex.Matches(item);
                     if (matches.Any())
                     {
-                        noMatches.AddRange(matches.Where(i => !variables.Contains(i.Groups[1].Value)).Select(i => i.Groups[1].Value));
+                        var v = matches.Where(i => !variables.Contains(i.Groups[1].Value)).Select(i => i.Groups[1].Value);
+                        if (v.Any())
+                        {
+                            noMatches.AddRange(v);
+                        }
                     }
                 }
             }
@@ -69,10 +73,14 @@ public partial class VariableTest
                 {
                     if (matches.Any())
                     {
-                        var v = matches[0].Groups[1].Value;
-                        if (!variables.Contains(v))
+                        var groups = matches[0];
+                        for (int index = 1; index < groups.Groups.Count; index++)
                         {
-                            variables.Add(v);
+                            var v = groups.Groups[index].Value;
+                            if (!variables.Contains(v))
+                            {
+                                variables.Add(v);
+                            }
                         }
                     }
                 }
@@ -100,9 +108,9 @@ public partial class VariableTest
         }
     }
 
-    [GeneratedRegex("#\\{(\\$[a-zA-Z\\-]+)\\}")]
+    [GeneratedRegex(@"#\{(\$\w+)\}")]
     private static partial Regex VariableRegex();
 
-    [GeneratedRegex("\\@mixin \\S+\\((\\$[a-zA-Z\\-]+)\\) \\{")]
+    [GeneratedRegex(@"(\$\w+)(?:,\s*(\$\w+))?(,\s*(\$\w+))?")]
     private static partial Regex MixVariableRegex();
 }

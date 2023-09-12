@@ -16,13 +16,11 @@ public partial class TablesSearch
     /// </summary>
     [NotNull]
     private List<Foo>? Items { get; set; }
+
     private Foo SearchModel { get; set; } = new Foo();
-    private static IEnumerable<int> PageItemsSource => new int[]
-    {
-        4,
-        10,
-        20
-    };
+
+    private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
+
     private IEnumerable<SelectedItem>? SearchItems { get; set; }
 
     private ITableSearchModel CustomerSearchModel { get; set; } = new FooSearchModel();
@@ -50,17 +48,17 @@ public partial class TablesSearch
         Items = Foo.GenerateFoo(FooLocalizer);
         SearchItems = new List<SelectedItem>()
         {
-            new SelectedItem
+            new()
             {
                 Text = Localizer["SelectedItemText"].Value,
                 Value = ""
             },
-            new SelectedItem
+            new()
             {
                 Text = Localizer["SelectedItemText1"].Value,
                 Value = Localizer["SelectedItemValue1"].Value
             },
-            new SelectedItem
+            new()
             {
                 Text = Localizer["SelectedItemText2"].Value,
                 Value = Localizer["SelectedItemValue2"].Value
@@ -69,6 +67,7 @@ public partial class TablesSearch
     }
 
     private static Task<Foo> OnAddAsync() => Task.FromResult(new Foo() { DateTime = DateTime.Now });
+
     private Task<bool> OnSaveAsync(Foo item, ItemChangedType changedType)
     {
         // 增加数据演示代码
@@ -79,7 +78,7 @@ public partial class TablesSearch
         }
         else
         {
-            var oldItem = Items.FirstOrDefault(i => i.Id == item.Id);
+            var oldItem = Items.Find(i => i.Id == item.Id);
             if (oldItem != null)
             {
                 oldItem.Name = item.Name;
@@ -110,16 +109,21 @@ public partial class TablesSearch
     private Task<QueryData<Foo>> OnSearchModelQueryAsync(QueryPageOptions options)
     {
         // 自定义了 SearchModel
+        // 由于使用 SearchTemplate 自定义处理了。无法使用内置的 ToFilter 获得过滤条件
+
+        // 处理模糊搜索
         IEnumerable<Foo> items = Items;
         if (!string.IsNullOrEmpty(options.SearchText))
         {
             items = items.Where(i => (i.Name?.Contains(options.SearchText, StringComparison.OrdinalIgnoreCase) ?? false) || (i.Address?.Contains(options.SearchText, StringComparison.OrdinalIgnoreCase) ?? false));
         }
-        else if (!string.IsNullOrEmpty(SearchModel.Name))
+
+        // 处理自定义搜索条件
+        if (!string.IsNullOrEmpty(SearchModel.Name))
         {
             items = items.Where(i => i.Name == SearchModel.Name);
         }
-        else if (!string.IsNullOrEmpty(SearchModel.Address))
+        if (!string.IsNullOrEmpty(SearchModel.Address))
         {
             items = items.Where(i => i.Address == SearchModel.Address);
         }
@@ -128,54 +132,43 @@ public partial class TablesSearch
         var total = items.Count();
         // 内存分页
         items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
-        return Task.FromResult(new QueryData<Foo>() { Items = items, TotalCount = total, IsSorted = true, IsFiltered = true, IsSearch = true, IsAdvanceSearch = true });
+        return Task.FromResult(new QueryData<Foo>()
+        {
+            Items = items,
+            TotalCount = total,
+            IsSorted = true,
+            IsFiltered = options.Filters.Any(),
+            IsSearch = options.Searches.Any(),
+            IsAdvanceSearch = options.AdvanceSearches.Any()
+        });
     }
 
     private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
     {
-        IEnumerable<Foo> items = Items;
-        var isAdvanceSearch = false;
-        // 处理高级搜索
-        if (options.AdvanceSearches.Any())
-        {
-            items = items.Where(options.AdvanceSearches.GetFilterFunc<Foo>());
-            isAdvanceSearch = true;
-        }
+        // 使用内置扩展方法 ToFilter 获得过滤条件
+        var items = Items.Where(options.ToFilterFunc<Foo>());
 
-        // 处理 自定义 高级搜索 CustomerSearchModel 过滤条件
-        if (options.CustomerSearches.Any())
-        {
-            items = items.Where(options.CustomerSearches.GetFilterFunc<Foo>());
-            isAdvanceSearch = true;
-        }
-
-        // 处理 Searchable=true 列与 SearchText 模糊搜索
-        if (options.Searches.Any())
-        {
-            items = items.Where(options.Searches.GetFilterFunc<Foo>(FilterLogic.Or));
-        }
-
-        // 过滤
-        var isFiltered = false;
-        if (options.Filters.Any())
-        {
-            items = items.Where(options.Filters.GetFilterFunc<Foo>());
-            isFiltered = true;
-        }
-
-        // 排序
+        // 使用 Sort 扩展排序方法进行排序
         var isSorted = false;
         if (!string.IsNullOrEmpty(options.SortName))
         {
-            var invoker = Foo.GetNameSortFunc();
-            items = invoker(items, options.SortName, options.SortOrder);
+            items = items.Sort(options.SortName, options.SortOrder);
             isSorted = true;
         }
 
         // 设置记录总数
         var total = items.Count();
+
         // 内存分页
         items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
-        return Task.FromResult(new QueryData<Foo>() { Items = items, TotalCount = total, IsSorted = isSorted, IsFiltered = isFiltered, IsSearch = options.CustomerSearches.Any() || !string.IsNullOrEmpty(options.SearchText), IsAdvanceSearch = isAdvanceSearch });
+        return Task.FromResult(new QueryData<Foo>()
+        {
+            Items = items,
+            TotalCount = total,
+            IsSorted = isSorted,
+            IsFiltered = options.Filters.Any(),
+            IsSearch = options.CustomerSearches.Any() || !string.IsNullOrEmpty(options.SearchText),
+            IsAdvanceSearch = options.AdvanceSearches.Any()
+        });
     }
 }

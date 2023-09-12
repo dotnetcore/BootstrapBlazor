@@ -1008,7 +1008,9 @@ public partial class Table<TItem>
 
     private Task ExportPdfAsync() => ExecuteExportAsync(() => OnExportAsync != null ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Pdf, Rows, GetVisibleColumns(), BuildQueryPageOptions())) : PdfExport.ExportAsync(Rows, GetVisibleColumns()));
 
-    private Task ExportExcelAsync() => ExecuteExportAsync(() => OnExportAsync != null ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Excel, Rows, GetVisibleColumns(), BuildQueryPageOptions())) : ExcelExport.ExportAsync(Rows, GetVisibleColumns()));
+    private Task ExportExcelAsync() => ExecuteExportAsync(() => OnExportAsync != null
+        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Excel, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
+        : ExcelExport.ExportAsync(Rows, GetVisibleColumns()));
 
     /// <summary>
     /// 获取当前 Table 选中的所有行数据

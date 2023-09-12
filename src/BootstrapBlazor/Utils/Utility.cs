@@ -68,7 +68,7 @@ public static class Utility
     public static TValue? GetKeyValue<TModel, TValue>(TModel model, Type? customAttribute = null) => CacheManager.GetKeyValue<TModel, TValue>(model, customAttribute);
 
     /// <summary>
-    /// 
+    /// 获得 指定模型属性值
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TResult"></typeparam>
@@ -102,7 +102,7 @@ public static class Utility
     }
 
     /// <summary>
-    /// 
+    /// 设置指定模型属性值方法
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <typeparam name="TValue"></typeparam>
@@ -216,32 +216,9 @@ public static class Utility
                 var type = item.GetType();
                 if (type.IsClass)
                 {
-                    var instance = Activator.CreateInstance(type);
-                    if (instance != null)
-                    {
-                        ret = (TModel)instance;
-                        if (ret != null)
-                        {
-                            var valType = ret.GetType();
-
-                            // 20200608 tian_teng@outlook.com 支持字段和只读属性
-                            foreach (var f in type.GetFields())
-                            {
-                                var v = f.GetValue(item);
-                                var field = valType.GetField(f.Name)!;
-                                field.SetValue(ret, v);
-                            };
-                            foreach (var p in type.GetRuntimeProperties())
-                            {
-                                if (p.CanWrite)
-                                {
-                                    var v = p.GetValue(item);
-                                    var property = valType.GetRuntimeProperties().First(i => i.Name == p.Name && i.PropertyType == p.PropertyType);
-                                    property.SetValue(ret, v);
-                                }
-                            };
-                        }
-                    }
+                    var newVal = (TModel)Activator.CreateInstance(type)!;
+                    newVal.Clone(item);
+                    ret = newVal;
                 }
             }
         }
@@ -292,44 +269,46 @@ public static class Utility
     /// <summary>
     /// 通过特定类型模型获取模型属性集合
     /// </summary>
-    /// <param name="type"></param>
-    /// <param name="source"></param>
+    /// <param name="type">绑定模型类型</param>
+    /// <param name="source">Razor 文件中列集合</param>
     /// <returns></returns>
     public static IEnumerable<ITableColumn> GetTableColumns(Type type, IEnumerable<ITableColumn>? source = null)
     {
         var cols = new List<ITableColumn>(50);
-        var attrModel = type.GetCustomAttribute<AutoGenerateClassAttribute>(true);
+        var classAttribute = type.GetCustomAttribute<AutoGenerateClassAttribute>(true);
         var props = type.GetProperties().Where(p => !p.IsStatic());
         foreach (var prop in props)
         {
             ITableColumn? tc;
-            var attr = prop.GetCustomAttribute<AutoGenerateColumnAttribute>(true);
+            var columnAttribute = prop.GetCustomAttribute<AutoGenerateColumnAttribute>(true);
 
-            // Issue: 增加定义设置标签 AutoGenerateClassAttribute
-            // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I381ED
-            var displayName = attr?.Text ?? Utility.GetDisplayName(type, prop.Name);
-            if (attr == null)
+            var displayName = columnAttribute?.Text ?? Utility.GetDisplayName(type, prop.Name);
+            if (columnAttribute == null)
             {
+                // 未设置 AutoGenerateColumnAttribute 时使用默认值
                 tc = new InternalTableColumn(prop.Name, prop.PropertyType, displayName);
 
-                if (attrModel != null)
+                if (classAttribute != null)
                 {
-                    tc.InheritValue(attrModel);
+                    // AutoGenerateClassAttribute 设置时继承类标签
+                    tc.InheritValue(classAttribute);
                 }
             }
             else
             {
-                if (attr.Ignore) continue;
+                // 设置 AutoGenerateColumnAttribute 时
+                if (columnAttribute.Ignore) continue;
 
-                attr.Text = displayName;
-                attr.FieldName = prop.Name;
-                attr.PropertyType = prop.PropertyType;
+                columnAttribute.Text = displayName;
+                columnAttribute.FieldName = prop.Name;
+                columnAttribute.PropertyType = prop.PropertyType;
 
-                if (attrModel != null)
+                if (classAttribute != null)
                 {
-                    attr.InheritValue(attrModel);
+                    // AutoGenerateClassAttribute 设置时继承类标签
+                    columnAttribute.InheritValue(classAttribute);
                 }
-                tc = attr;
+                tc = columnAttribute;
             }
 
             // 替换属性 手写优先
@@ -637,7 +616,7 @@ public static class Utility
         return ret;
     }
 
-    private static bool IsValidComponent(Type componentType) => componentType.GetProperties().FirstOrDefault(p => p.Name == nameof(IEditorItem.SkipValidate)) != null;
+    private static bool IsValidComponent(Type componentType) => Array.Find(componentType.GetProperties(), p => p.Name == nameof(IEditorItem.SkipValidate)) != null;
 
     /// <summary>
     /// 通过模型与指定数据类型生成组件参数集合
@@ -685,7 +664,16 @@ public static class Utility
         return ret;
     }
 
-    private static Func<TType, Task> CreateOnValueChangedCallback<TModel, TType>(TModel model, ITableColumn col, Func<TModel, ITableColumn, object?, Task> callback) => new(v => callback(model, col, v));
+    /// <summary>
+    /// 创建 <see cref="Func{T, TResult}"/> 委托方法
+    /// </summary>
+    /// <typeparam name="TModel"></typeparam>
+    /// <typeparam name="TType"></typeparam>
+    /// <param name="model"></param>
+    /// <param name="col"></param>
+    /// <param name="callback"></param>
+    /// <returns></returns>
+    public static Func<TType, Task> CreateOnValueChangedCallback<TModel, TType>(TModel model, ITableColumn col, Func<TModel, ITableColumn, object?, Task> callback) => new(v => callback(model, col, v));
 
     /// <summary>
     /// 创建 OnValueChanged 回调委托
@@ -695,7 +683,7 @@ public static class Utility
     /// <returns></returns>
     public static Expression<Func<TModel, ITableColumn, Func<TModel, ITableColumn, object?, Task>, object>> CreateOnValueChanged<TModel>(Type fieldType)
     {
-        var method = typeof(Utility).GetMethod(nameof(CreateOnValueChangedCallback), BindingFlags.Static | BindingFlags.NonPublic)!.MakeGenericMethod(typeof(TModel), fieldType);
+        var method = typeof(Utility).GetMethod(nameof(CreateOnValueChangedCallback), BindingFlags.Static | BindingFlags.Public)!.MakeGenericMethod(typeof(TModel), fieldType);
         var exp_p1 = Expression.Parameter(typeof(TModel));
         var exp_p2 = Expression.Parameter(typeof(ITableColumn));
         var exp_p3 = Expression.Parameter(typeof(Func<,,,>).MakeGenericType(typeof(TModel), typeof(ITableColumn), typeof(object), typeof(Task)));
@@ -751,7 +739,7 @@ public static class Utility
     #endregion
 
     /// <summary>
-    /// 
+    /// 转换泛型类型为字符串方法
     /// </summary>
     /// <typeparam name="TValue"></typeparam>
     /// <param name="value"></param>
@@ -804,14 +792,22 @@ public static class Utility
             var exp_p1 = Expression.Parameter(typeof(ComponentBase));
             var exp_p2 = Expression.Parameter(typeof(object));
             var exp_p3 = Expression.Parameter(typeof(string));
-            var method = typeof(Utility).GetMethod(nameof(CreateCallback), BindingFlags.Static | BindingFlags.NonPublic)!.MakeGenericMethod(fieldType);
+            var method = typeof(Utility).GetMethod(nameof(CreateCallback), BindingFlags.Static | BindingFlags.Public)!.MakeGenericMethod(fieldType);
             var body = Expression.Call(null, method, exp_p1, exp_p2, exp_p3);
 
             return Expression.Lambda<Func<ComponentBase, object, string, object>>(Expression.Convert(body, typeof(object)), exp_p1, exp_p2, exp_p3);
         }
     }
 
-    private static EventCallback<TType> CreateCallback<TType>(ComponentBase component, object model, string fieldName) => EventCallback.Factory.Create<TType>(component, t => CacheManager.SetPropertyValue(model, fieldName, t));
+    /// <summary>
+    /// 创建 <see cref="EventCallback{TValue}"/> 方法
+    /// </summary>
+    /// <typeparam name="TType"></typeparam>
+    /// <param name="component"></param>
+    /// <param name="model"></param>
+    /// <param name="fieldName"></param>
+    /// <returns></returns>
+    public static EventCallback<TType> CreateCallback<TType>(ComponentBase component, object model, string fieldName) => EventCallback.Factory.Create<TType>(component, t => CacheManager.SetPropertyValue(model, fieldName, t));
 
     /// <summary>
     /// 获得指定泛型的 IEditorItem 集合

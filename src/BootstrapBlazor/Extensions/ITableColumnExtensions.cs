@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Globalization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -59,34 +61,39 @@ public static class IEditItemExtensions
 
         if (source is ITableColumn col)
         {
-            if (col.Align != Alignment.None) dest.Align = col.Align;
-            if (col.TextWrap) dest.TextWrap = col.TextWrap;
-            if (!string.IsNullOrEmpty(col.CssClass)) dest.CssClass = col.CssClass;
-            if (col.DefaultSort) dest.DefaultSort = col.DefaultSort;
-            if (col.DefaultSortOrder != SortOrder.Unset) dest.DefaultSortOrder = col.DefaultSortOrder;
-            if (col.Filter != null) dest.Filter = col.Filter;
-            if (col.Filterable) dest.Filterable = col.Filterable;
-            if (col.FilterTemplate != null) dest.FilterTemplate = col.FilterTemplate;
-            if (col.Fixed) dest.Fixed = col.Fixed;
-            if (col.FormatString != null) dest.FormatString = col.FormatString;
-            if (col.Formatter != null) dest.Formatter = col.Formatter;
-            if (col.HeaderTemplate != null) dest.HeaderTemplate = col.HeaderTemplate;
-            if (col.OnCellRender != null) dest.OnCellRender = col.OnCellRender;
-            if (col.Searchable) dest.Searchable = col.Searchable;
-            if (col.SearchTemplate != null) dest.SearchTemplate = col.SearchTemplate;
-            if (col.ShownWithBreakPoint != BreakPoint.None) dest.ShownWithBreakPoint = col.ShownWithBreakPoint;
-            if (col.ShowTips) dest.ShowTips = col.ShowTips;
-            if (col.Sortable) dest.Sortable = col.Sortable;
-            if (col.Template != null) dest.Template = col.Template;
-            if (col.TextEllipsis) dest.TextEllipsis = col.TextEllipsis;
-            if (!col.Visible) dest.Visible = col.Visible;
-            if (col.Width != null) dest.Width = col.Width;
-            if (col.ShowCopyColumn) dest.ShowCopyColumn = col.ShowCopyColumn;
-            if (col.HeaderTextWrap) dest.HeaderTextWrap = col.HeaderTextWrap;
-            if (!string.IsNullOrEmpty(col.HeaderTextTooltip)) dest.HeaderTextTooltip = col.HeaderTextTooltip;
-            if (col.ShowHeaderTooltip) dest.ShowHeaderTooltip = col.ShowHeaderTooltip;
-            if (col.HeaderTextEllipsis) dest.HeaderTextEllipsis = col.HeaderTextEllipsis;
+            col.CopyValue(dest);
         }
+    }
+
+    private static void CopyValue(this ITableColumn col, ITableColumn dest)
+    {
+        if (col.Align != Alignment.None) dest.Align = col.Align;
+        if (col.TextWrap) dest.TextWrap = col.TextWrap;
+        if (!string.IsNullOrEmpty(col.CssClass)) dest.CssClass = col.CssClass;
+        if (col.DefaultSort) dest.DefaultSort = col.DefaultSort;
+        if (col.DefaultSortOrder != SortOrder.Unset) dest.DefaultSortOrder = col.DefaultSortOrder;
+        if (col.Filter != null) dest.Filter = col.Filter;
+        if (col.Filterable) dest.Filterable = col.Filterable;
+        if (col.FilterTemplate != null) dest.FilterTemplate = col.FilterTemplate;
+        if (col.Fixed) dest.Fixed = col.Fixed;
+        if (col.FormatString != null) dest.FormatString = col.FormatString;
+        if (col.Formatter != null) dest.Formatter = col.Formatter;
+        if (col.HeaderTemplate != null) dest.HeaderTemplate = col.HeaderTemplate;
+        if (col.OnCellRender != null) dest.OnCellRender = col.OnCellRender;
+        if (col.Searchable) dest.Searchable = col.Searchable;
+        if (col.SearchTemplate != null) dest.SearchTemplate = col.SearchTemplate;
+        if (col.ShownWithBreakPoint != BreakPoint.None) dest.ShownWithBreakPoint = col.ShownWithBreakPoint;
+        if (col.ShowTips) dest.ShowTips = col.ShowTips;
+        if (col.Sortable) dest.Sortable = col.Sortable;
+        if (col.Template != null) dest.Template = col.Template;
+        if (col.TextEllipsis) dest.TextEllipsis = col.TextEllipsis;
+        if (!col.Visible) dest.Visible = col.Visible;
+        if (col.Width != null) dest.Width = col.Width;
+        if (col.ShowCopyColumn) dest.ShowCopyColumn = col.ShowCopyColumn;
+        if (col.HeaderTextWrap) dest.HeaderTextWrap = col.HeaderTextWrap;
+        if (!string.IsNullOrEmpty(col.HeaderTextTooltip)) dest.HeaderTextTooltip = col.HeaderTextTooltip;
+        if (col.ShowHeaderTooltip) dest.ShowHeaderTooltip = col.ShowHeaderTooltip;
+        if (col.HeaderTextEllipsis) dest.HeaderTextEllipsis = col.HeaderTextEllipsis;
     }
 
     /// <summary>
@@ -142,5 +149,114 @@ public static class IEditItemExtensions
             }
         }
         return searches;
+    }
+
+    internal static RenderFragment RenderValue<TItem>(this ITableColumn col, TItem item) => async builder =>
+    {
+        var val = col.GetItemValue(item);
+        if (col.Lookup != null && val != null)
+        {
+            // 转化 Lookup 数据源
+            var lookupVal = col.Lookup.FirstOrDefault(l => l.Value.Equals(val.ToString(), col.LookupStringComparison));
+            if (lookupVal != null)
+            {
+                builder.AddContent(10, col.RenderTooltip(lookupVal.Text));
+            }
+        }
+        else if (val is bool v1)
+        {
+            builder.AddContent(20, v1.RenderSwitch());
+        }
+        else
+        {
+            string? content;
+            if (col.Formatter != null)
+            {
+                // 格式化回调委托
+                content = await col.Formatter(new TableColumnContext<TItem, object?>(item, val));
+            }
+            else if (!string.IsNullOrEmpty(col.FormatString))
+            {
+                // 格式化字符串
+                content = Utility.Format(val, col.FormatString);
+            }
+            else if (col.PropertyType.IsDateTime())
+            {
+                content = Utility.Format(val, CultureInfo.CurrentUICulture.DateTimeFormat);
+            }
+            else if (val is IEnumerable<object> v)
+            {
+                content = string.Join(",", v);
+            }
+            else
+            {
+                content = val?.ToString();
+            }
+            builder.AddContent(30, col.RenderTooltip(content));
+        }
+    };
+
+    private static RenderFragment RenderSwitch(this bool value) => builder =>
+    {
+        // 自动化处理 bool 值
+        builder.OpenComponent(0, typeof(Switch));
+        builder.AddAttribute(1, "Value", value);
+        builder.AddAttribute(2, "IsDisabled", true);
+        builder.CloseComponent();
+    };
+
+    internal static RenderFragment RenderColor<TItem>(this ITableColumn col, TItem item) => builder =>
+    {
+        var val = col.GetItemValue(item);
+        var v = val?.ToString() ?? "#000";
+        var style = $"background-color: {v};";
+        builder.OpenElement(0, "div");
+        builder.AddAttribute(1, "class", "is-color");
+        builder.AddAttribute(2, "style", style);
+        builder.CloseElement();
+    };
+
+    private static RenderFragment RenderTooltip(this ITableColumn col, string? text) => pb =>
+    {
+        if (col.ShowTips && !string.IsNullOrEmpty(text))
+        {
+            pb.OpenComponent<Tooltip>(0);
+            pb.AddAttribute(1, nameof(Tooltip.Title), text);
+            pb.AddAttribute(2, nameof(Tooltip.ChildContent), new RenderFragment(builder => builder.AddContent(0, text)));
+            pb.CloseComponent();
+        }
+        else
+        {
+            pb.AddContent(3, text);
+        }
+    };
+
+    internal static object? GetItemValue<TItem>(this ITableColumn col, TItem item)
+    {
+        var fieldName = col.GetFieldName();
+        object? ret;
+        if (item is IDynamicObject dynamicObject)
+        {
+            ret = dynamicObject.GetValue(fieldName);
+        }
+        else
+        {
+            ret = Utility.GetPropertyValue<TItem, object?>(item, fieldName);
+
+            if (ret != null)
+            {
+                var t = ret.GetType();
+                if (t.IsEnum)
+                {
+                    // 如果是枚举这里返回 枚举的描述信息
+                    var itemName = ret.ToString();
+                    if (!string.IsNullOrEmpty(itemName))
+                    {
+                        ret = Utility.GetDisplayName(t, itemName);
+                    }
+                }
+            }
+        }
+        return ret;
     }
 }

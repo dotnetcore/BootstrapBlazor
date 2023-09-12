@@ -171,12 +171,9 @@ public static class LambdaExtensions
         {
             // 根据 Filters 集合获取 Lambda 表达式
             var prop = typeof(TItem).GetPropertyByName(filter.FieldKey) ?? throw new InvalidOperationException($"the model {type.Name} not found the property {filter.FieldKey}");
-            if (prop != null)
-            {
-                var parameter = Expression.Parameter(type);
-                var fieldExpression = Expression.Property(parameter, prop);
-                ret = filter.GetFilterExpression<TItem>(prop, fieldExpression, parameter);
-            }
+            var parameter = Expression.Parameter(type);
+            var fieldExpression = Expression.Property(parameter, prop);
+            ret = filter.GetFilterExpression<TItem>(prop, fieldExpression, parameter);
             return ret;
         }
 
