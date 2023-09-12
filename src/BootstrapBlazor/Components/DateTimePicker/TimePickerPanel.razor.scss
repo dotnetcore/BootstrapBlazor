@@ -31,101 +31,98 @@ $lightActiveText: #33b5e5;
 
     .face-wrap {
         padding: 1rem;
+        position: relative;
+        background: $lightFace;
+        height: 13em;
+        border-radius: 50%;
+        cursor: move;
 
-        .face {
-            position: relative;
-            background: $lightFace;
-            height: 13em;
-            border-radius: 50%;
-            cursor: move;
+        .face-set {
 
-            .face-set {
+            .face-number {
+                position: absolute;
+                transition: transform 0.5s cubic-bezier(.47,.02,.74,1.81), opacity 0.4s;
+                text-align: center;
+                pointer-events: none;
+                width: 100%;
+                top: 6em;
+                line-height: 1em;
+                height: 1em;
 
-                .face-number {
-                    position: absolute;
+                @for $i from 0 to 12 {
+                    &[data-css-time="#{$i}"] {
+                        transform: rotate($i * 30deg) translateY(-5.5em) rotate($i * -30deg);
+                    }
+                }
+            }
+
+            $handleSize: 1.65em;
+
+            .handle {
+                transition: opacity 0.4s;
+
+                &.anim {
                     transition: transform 0.5s cubic-bezier(.47,.02,.74,1.81), opacity 0.4s;
-                    text-align: center;
-                    pointer-events: none;
-                    width: 100%;
-                    top: 6em;
-                    line-height: 1em;
-                    height: 1em;
+                }
 
+                height: $handleSize;
+                width: $handleSize;
+                top: 6.5em - $handleSize / 2;
+                left: 6.5em - $handleSize / 2;
+                position: absolute;
+                background: $lightHandle;
+                border-radius: 50%;
+                transform: rotate(10 * 30deg) translateY(-5.5em);
+            }
+
+            .handle-spot {
+                $handleSpotSize: 0.5em;
+                height: $handleSpotSize;
+                width: $handleSpotSize;
+                top: $handleSize / 2 - $handleSpotSize / 2;
+                left: $handleSize / 2 - $handleSpotSize / 2;
+                position: absolute;
+                background: $lightActiveText;
+                border-radius: 50%;
+            }
+
+            .handle-bar {
+                transition: opacity 0.4s;
+
+                &.anim {
+                    transition: transform 0.5s cubic-bezier(.47,.02,.74,1.81), opacity 0.4s;
+                }
+
+                transform-origin: bottom;
+                position: absolute;
+                bottom: 6.5em;
+                background: $lightActiveText;
+                width: 1px;
+                height: 1em;
+                left: 6.5em;
+            }
+
+            &.face-off {
+                .face-number {
+                    opacity: 0;
+                }
+
+                .handle, .handle-bar {
+                    opacity: 0;
+                }
+
+                &.min {
                     @for $i from 0 to 12 {
-                        &[data-css-time="#{$i}"] {
-                            transform: rotate($i * 30deg) translateY(-5.5em) rotate($i * -30deg);
+                        .face-number[data-css-time="#{$i}"] {
+                            transform: rotate($i * 30deg) translateY(-7em) rotate($i * -30deg);
                         }
                     }
                 }
 
-                $handleSize: 1.65em;
-
-                .handle {
-                    transition: opacity 0.4s;
-
-                    &.anim {
-                        transition: transform 0.5s cubic-bezier(.47,.02,.74,1.81), opacity 0.4s;
-                    }
-
-                    height: $handleSize;
-                    width: $handleSize;
-                    top: 6.5em - $handleSize / 2;
-                    left: 6.5em - $handleSize / 2;
-                    position: absolute;
-                    background: $lightHandle;
-                    border-radius: 50%;
-                    transform: rotate(10 * 30deg) translateY(-5.5em);
-                }
-
-                .handle-spot {
-                    $handleSpotSize: 0.5em;
-                    height: $handleSpotSize;
-                    width: $handleSpotSize;
-                    top: $handleSize / 2 - $handleSpotSize / 2;
-                    left: $handleSize / 2 - $handleSpotSize / 2;
-                    position: absolute;
-                    background: $lightActiveText;
-                    border-radius: 50%;
-                }
-
-                .handle-bar {
-                    transition: opacity 0.4s;
-
-                    &.anim {
-                        transition: transform 0.5s cubic-bezier(.47,.02,.74,1.81), opacity 0.4s;
-                    }
-
-                    transform-origin: bottom;
-                    position: absolute;
-                    bottom: 6.5em;
-                    background: $lightActiveText;
-                    width: 1px;
-                    height: 1em;
-                    left: 6.5em;
-                }
-
-                &.face-off {
-                    .face-number {
-                        opacity: 0;
-                    }
-
-                    .handle, .handle-bar {
-                        opacity: 0;
-                    }
-
-                    &.min {
-                        @for $i from 0 to 12 {
-                            .face-number[data-css-time="#{$i}"] {
-                                transform: rotate($i * 30deg) translateY(-7em) rotate($i * -30deg);
-                            }
-                        }
-                    }
-
-                    &.hour {
-                        @for $i from 0 to 12 {
-                            .face-number[data-css-time="#{$i}"] {
-                                transform: rotate($i * 30deg) translateY(-4em) rotate($i * -30deg);
-                            }
+                &.hour {
+                    @for $i from 0 to 12 {
+                        .face-number[data-css-time="#{$i}"] {
+                            transform: rotate($i * 30deg) translateY(-4em) rotate($i * -30deg);
                         }
                     }
                 }
@@ -133,31 +130,28 @@ $lightActiveText: #33b5e5;
         }
     }
 
-    .am-pm-btns {
-        margin-top: -1.825em;
-        padding: 1em;
-        padding-top: 0;
-        height: 1.65em;
-        text-align: center;
+    .bb-time-footer {
+        display: flex;
+        justify-content: space-between;
 
-        .am-pm-btn {
-            display: inline-block;
-            height: auto;
-            width: auto;
-            background: $lightFace;
-            border-radius: 50%;
-            cursor: pointer;
+        .btn {
+            border: 1px solid #dcdfe6;
+            padding: 7px 15px;
+            font-size: .75rem;
+            border-radius: var(--bs-border-radius);
+            line-height: 12px;
+            color: #606266;
+            transition: border-color .3s linear,color .3s linear;
 
-            &.am {
-                float: left;
-            }
-
-            &.pm {
-                float: right;
+            &:hover {
+                border-color: #409eff;
+                color: #409eff;
             }
 
             &.active {
-                background: mix(opacify($lightHandle, 1), $lightFace);
+                background: #409eff;
+                border-color: #409eff;
+                color: #fff;
             }
         }
     }

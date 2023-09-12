@@ -1725,15 +1725,13 @@ a, a:hover, a:focus {
 }
 .bb-time-panel .face-wrap {
   padding: 1rem;
-}
-.bb-time-panel .face-wrap .face {
   position: relative;
   background: #fff;
   height: 13em;
   border-radius: 50%;
   cursor: move;
 }
-.bb-time-panel .face-wrap .face .face-set .face-number {
+.bb-time-panel .face-wrap .face-set .face-number {
   position: absolute;
   transition: transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81), opacity 0.4s;
   text-align: center;
@@ -1743,43 +1741,43 @@ a, a:hover, a:focus {
   line-height: 1em;
   height: 1em;
 }
-.bb-time-panel .face-wrap .face .face-set .face-number[data-css-time="0"] {
+.bb-time-panel .face-wrap .face-set .face-number[data-css-time="0"] {
   transform: rotate(0deg) translateY(-5.5em) rotate(0deg);
 }
-.bb-time-panel .face-wrap .face .face-set .face-number[data-css-time="1"] {
+.bb-time-panel .face-wrap .face-set .face-number[data-css-time="1"] {
   transform: rotate(30deg) translateY(-5.5em) rotate(-30deg);
 }
-.bb-time-panel .face-wrap .face .face-set .face-number[data-css-time="2"] {
+.bb-time-panel .face-wrap .face-set .face-number[data-css-time="2"] {
   transform: rotate(60deg) translateY(-5.5em) rotate(-60deg);
 }
-.bb-time-panel .face-wrap .face .face-set .face-number[data-css-time="3"] {
+.bb-time-panel .face-wrap .face-set .face-number[data-css-time="3"] {
   transform: rotate(90deg) translateY(-5.5em) rotate(-90deg);
 }
-.bb-time-panel .face-wrap .face .face-set .face-number[data-css-time="4"] {
+.bb-time-panel .face-wrap .face-set .face-number[data-css-time="4"] {
   transform: rotate(120deg) translateY(-5.5em) rotate(-120deg);
 }
-.bb-time-panel .face-wrap .face .face-set .face-number[data-css-time="5"] {
+.bb-time-panel .face-wrap .face-set .face-number[data-css-time="5"] {
   transform: rotate(150deg) translateY(-5.5em) rotate(-150deg);
 }
-.bb-time-panel .face-wrap .face .face-set .face-number[data-css-time="6"] {
+.bb-time-panel .face-wrap .face-set .face-number[data-css-time="6"] {
   transform: rotate(180deg) translateY(-5.5em) rotate(-180deg);
 }
-.bb-time-panel .face-wrap .face .face-set .face-number[data-css-time="7"] {
+.bb-time-panel .face-wrap .face-set .face-number[data-css-time="7"] {
   transform: rotate(210deg) translateY(-5.5em) rotate(-210deg);
 }
-.bb-time-panel .face-wrap .face .face-set .face-number[data-css-time="8"] {
+.bb-time-panel .face-wrap .face-set .face-number[data-css-time="8"] {
   transform: rotate(240deg) translateY(-5.5em) rotate(-240deg);
 }
-.bb-time-panel .face-wrap .face .face-set .face-number[data-css-time="9"] {
+.bb-time-panel .face-wrap .face-set .face-number[data-css-time="9"] {
   transform: rotate(270deg) translateY(-5.5em) rotate(-270deg);
 }
-.bb-time-panel .face-wrap .face .face-set .face-number[data-css-time="10"] {
+.bb-time-panel .face-wrap .face-set .face-number[data-css-time="10"] {
   transform: rotate(300deg) translateY(-5.5em) rotate(-300deg);
 }
-.bb-time-panel .face-wrap .face .face-set .face-number[data-css-time="11"] {
+.bb-time-panel .face-wrap .face-set .face-number[data-css-time="11"] {
   transform: rotate(330deg) translateY(-5.5em) rotate(-330deg);
 }
-.bb-time-panel .face-wrap .face .face-set .handle {
+.bb-time-panel .face-wrap .face-set .handle {
   transition: opacity 0.4s;
   height: 1.65em;
   width: 1.65em;
@@ -1790,10 +1788,10 @@ a, a:hover, a:focus {
   border-radius: 50%;
   transform: rotate(300deg) translateY(-5.5em);
 }
-.bb-time-panel .face-wrap .face .face-set .handle.anim {
+.bb-time-panel .face-wrap .face-set .handle.anim {
   transition: transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81), opacity 0.4s;
 }
-.bb-time-panel .face-wrap .face .face-set .handle-spot {
+.bb-time-panel .face-wrap .face-set .handle-spot {
   height: 0.5em;
   width: 0.5em;
   top: 0.575em;
@@ -1802,7 +1800,7 @@ a, a:hover, a:focus {
   background: #33b5e5;
   border-radius: 50%;
 }
-.bb-time-panel .face-wrap .face .face-set .handle-bar {
+.bb-time-panel .face-wrap .face-set .handle-bar {
   transition: opacity 0.4s;
   transform-origin: bottom;
   position: absolute;
@@ -1812,110 +1810,108 @@ a, a:hover, a:focus {
   height: 1em;
   left: 6.5em;
 }
-.bb-time-panel .face-wrap .face .face-set .handle-bar.anim {
+.bb-time-panel .face-wrap .face-set .handle-bar.anim {
   transition: transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81), opacity 0.4s;
 }
-.bb-time-panel .face-wrap .face .face-set.face-off .face-number {
+.bb-time-panel .face-wrap .face-set.face-off .face-number {
   opacity: 0;
 }
-.bb-time-panel .face-wrap .face .face-set.face-off .handle, .bb-time-panel .face-wrap .face .face-set.face-off .handle-bar {
+.bb-time-panel .face-wrap .face-set.face-off .handle, .bb-time-panel .face-wrap .face-set.face-off .handle-bar {
   opacity: 0;
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.min .face-number[data-css-time="0"] {
+.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="0"] {
   transform: rotate(0deg) translateY(-7em) rotate(0deg);
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.min .face-number[data-css-time="1"] {
+.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="1"] {
   transform: rotate(30deg) translateY(-7em) rotate(-30deg);
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.min .face-number[data-css-time="2"] {
+.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="2"] {
   transform: rotate(60deg) translateY(-7em) rotate(-60deg);
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.min .face-number[data-css-time="3"] {
+.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="3"] {
   transform: rotate(90deg) translateY(-7em) rotate(-90deg);
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.min .face-number[data-css-time="4"] {
+.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="4"] {
   transform: rotate(120deg) translateY(-7em) rotate(-120deg);
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.min .face-number[data-css-time="5"] {
+.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="5"] {
   transform: rotate(150deg) translateY(-7em) rotate(-150deg);
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.min .face-number[data-css-time="6"] {
+.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="6"] {
   transform: rotate(180deg) translateY(-7em) rotate(-180deg);
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.min .face-number[data-css-time="7"] {
+.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="7"] {
   transform: rotate(210deg) translateY(-7em) rotate(-210deg);
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.min .face-number[data-css-time="8"] {
+.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="8"] {
   transform: rotate(240deg) translateY(-7em) rotate(-240deg);
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.min .face-number[data-css-time="9"] {
+.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="9"] {
   transform: rotate(270deg) translateY(-7em) rotate(-270deg);
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.min .face-number[data-css-time="10"] {
+.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="10"] {
   transform: rotate(300deg) translateY(-7em) rotate(-300deg);
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.min .face-number[data-css-time="11"] {
+.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="11"] {
   transform: rotate(330deg) translateY(-7em) rotate(-330deg);
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.hour .face-number[data-css-time="0"] {
+.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="0"] {
   transform: rotate(0deg) translateY(-4em) rotate(0deg);
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.hour .face-number[data-css-time="1"] {
+.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="1"] {
   transform: rotate(30deg) translateY(-4em) rotate(-30deg);
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.hour .face-number[data-css-time="2"] {
+.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="2"] {
   transform: rotate(60deg) translateY(-4em) rotate(-60deg);
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.hour .face-number[data-css-time="3"] {
+.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="3"] {
   transform: rotate(90deg) translateY(-4em) rotate(-90deg);
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.hour .face-number[data-css-time="4"] {
+.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="4"] {
   transform: rotate(120deg) translateY(-4em) rotate(-120deg);
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.hour .face-number[data-css-time="5"] {
+.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="5"] {
   transform: rotate(150deg) translateY(-4em) rotate(-150deg);
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.hour .face-number[data-css-time="6"] {
+.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="6"] {
   transform: rotate(180deg) translateY(-4em) rotate(-180deg);
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.hour .face-number[data-css-time="7"] {
+.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="7"] {
   transform: rotate(210deg) translateY(-4em) rotate(-210deg);
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.hour .face-number[data-css-time="8"] {
+.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="8"] {
   transform: rotate(240deg) translateY(-4em) rotate(-240deg);
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.hour .face-number[data-css-time="9"] {
+.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="9"] {
   transform: rotate(270deg) translateY(-4em) rotate(-270deg);
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.hour .face-number[data-css-time="10"] {
+.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="10"] {
   transform: rotate(300deg) translateY(-4em) rotate(-300deg);
 }
-.bb-time-panel .face-wrap .face .face-set.face-off.hour .face-number[data-css-time="11"] {
+.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="11"] {
   transform: rotate(330deg) translateY(-4em) rotate(-330deg);
 }
-.bb-time-panel .am-pm-btns {
-  margin-top: -1.825em;
-  padding: 1em;
-  padding-top: 0;
-  height: 1.65em;
-  text-align: center;
+.bb-time-panel .bb-time-footer {
+  display: flex;
+  justify-content: space-between;
 }
-.bb-time-panel .am-pm-btns .am-pm-btn {
-  display: inline-block;
-  height: auto;
-  width: auto;
-  background: #fff;
-  border-radius: 50%;
-  cursor: pointer;
+.bb-time-panel .bb-time-footer .btn {
+  border: 1px solid #dcdfe6;
+  padding: 7px 15px;
+  font-size: 0.75rem;
+  border-radius: var(--bs-border-radius);
+  line-height: 12px;
+  color: #606266;
+  transition: border-color 0.3s linear, color 0.3s linear;
 }
-.bb-time-panel .am-pm-btns .am-pm-btn.am {
-  float: left;
+.bb-time-panel .bb-time-footer .btn:hover {
+  border-color: #409eff;
+  color: #409eff;
 }
-.bb-time-panel .am-pm-btns .am-pm-btn.pm {
-  float: right;
-}
-.bb-time-panel .am-pm-btns .am-pm-btn.active {
-  background: #80cce6;
+.bb-time-panel .bb-time-footer .btn.active {
+  background: #409eff;
+  border-color: #409eff;
+  color: #fff;
 }
 
 .datetime-range {
