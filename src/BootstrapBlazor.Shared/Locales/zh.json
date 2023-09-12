@@ -5708,6 +5708,8 @@
     "ContextMenuDescription": "用户点击鼠标右键时弹出的上下文关联菜单",
     "ContextMenuNormalTitle": "基础用法",
     "ContextMenuNormalIntro": "点击 <code>ContextMenuZone</code> 内区域右键，弹出上下文关联菜单",
+    "ContextMenuCustomUITitle": "自定义组件",
+    "ContextMenuCustomUIIntro": "点击 <code>Li</code> 弹出上下文关联菜单",
     "ContextMenuTableTitle": "Table 组件",
     "ContextMenuTableIntro": "点击 <code>Table</code> 组件行数据右键，弹出上下文关联菜单",
     "ContextMenuTreeTitle": "Tree 组件",

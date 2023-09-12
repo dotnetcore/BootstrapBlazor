@@ -5706,8 +5706,10 @@
   "BootstrapBlazor.Shared.Samples.ContextMenus": {
     "ContextMenuTitle": "ContextMenu",
     "ContextMenuDescription": "Context menu that pops up when the user clicks the right mouse button",
-    "ContextMenuNormalTitle": "Table",
-    "ContextMenuNormalIntro": "Right click on the row of <code>Table</code> to pop up a context menu",
+    "ContextMenuNormalTitle": "Basic usage",
+    "ContextMenuNormalIntro": "Right click on the row of <code>div</code> to pop up a context menu",
+    "ContextMenuCustomUITitle": "Custom component",
+    "ContextMenuCustomUIIntro": "Right click on the row of <code>Li</code> to pop up a context menu",
     "ContextMenuTableTitle": "Table",
     "ContextMenuTableIntro": "Right click on the <code>Table</code> to pop up a context menu",
     "ContextMenuTreeTitle": "Tree",
