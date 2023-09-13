@@ -340,5 +340,9 @@
     "NotContains": "不包含",
     "GroupText": "组合条件",
     "ItemText": "单行条件"
+  },
+  "BootstrapBlazor.Components.TimePickerPanel": {
+    "AMText": "上午",
+    "PMText": "下午"
   }
 }

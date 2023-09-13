@@ -7,7 +7,7 @@
         <span class="part hour active">@Value.Hours</span>
         <span>:</span>
         <span class="part min">@Value.Minutes</span>
-        <span class="part am-pm">AM</span>
+        <span class="part am-pm" @onclick="@(()=>SwitchToAM(!IsAM))">@am_pm</span>
     </div>
     <div class="face-wrap">
         <div class="face-set hour">
@@ -48,7 +48,7 @@
         </div>
     </div>
     <div class="bb-time-footer">
-        <div class="btn">AM</div>
-        <div class="btn active">PM</div>
+        <div class="@am_class" @onclick="@(()=>SwitchToAM(true))">@Localizer["AMText"]</div>
+        <div class="@pm_class" @onclick="@(()=>SwitchToAM(false))">@Localizer["PMText"]</div>
     </div>
 </div>

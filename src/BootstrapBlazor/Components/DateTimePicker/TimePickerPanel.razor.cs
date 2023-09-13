@@ -2,6 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Localization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -15,16 +18,6 @@ public partial class TimePickerPanel
     private string? ClassString => CssBuilder.Default("bb-time-panel")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
-
-    private int Hour { get; set; } = 12;
-
-    private int Min { get; set; } = 0;
-
-    /// <summary>
-    /// 获得/设置 AM/PM
-    /// </summary>
-    [Parameter]
-    public bool IsAM { get; set; }
 
     /// <summary>
     /// 获得/设置 AM/PM值变化时委托方法
@@ -45,74 +38,74 @@ public partial class TimePickerPanel
     public EventCallback<TimeSpan> ValueChanged { get; set; }
 
     /// <summary>
+    /// localizer
+    /// </summary>
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<TimePickerPanel>? Localizer { get; set; }
+
+    /// <summary>
+    /// is am or pm
+    /// </summary>
+    private bool IsAM { get; set; }
+
+    /// <summary>
+    /// the am/pm text
+    /// </summary>
+    private LocalizedString? am_pm { get; set; }
+
+    /// <summary>
+    /// the am btn class
+    /// </summary>
+    private string? am_class => CssBuilder.Default("btn").AddClass("active", IsAM).Build();
+
+    /// <summary>
+    /// the pm btn class
+    /// </summary>
+    private string? pm_class => CssBuilder.Default("btn").AddClass("active", !IsAM).Build();
+
+    /// <summary>
+    /// switch to am/pm
+    /// </summary>
+    /// <param name="is_am">am/pm text</param>
+    private void SwitchToAM(bool is_am)
+    {
+        IsAM = is_am;
+        am_pm = is_am ? Localizer["AMText"] : Localizer["PMText"];
+    }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        if (Value.Hours > 0)
-        {
-            Hour = Value.Hours;
-        }
-        else if (Value.Minutes > 0)
-        {
-            Min = Value.Minutes;
-        }
-        else
-        {
-            Value = new TimeSpan(Hour, Min, 0);
-        }
+
+        var dt = DateTime.Now;
+        IsAM = dt.Hour < 12;
+        SwitchToAM(IsAM);
+
+
+
+        Value = new TimeSpan(dt.Hour, dt.Minute, dt.Second);
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Hour, Min, IsAM);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value);
 
     /// <summary>
     /// 设置小时调用此方法
     /// </summary>
     [JSInvokable]
-    public async Task SetHour(int hour)
+    public async Task SetTime(DateTime dt)
     {
-        Hour = hour;
-        Value = new TimeSpan(Hour, Min, 0);
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);
         }
     }
-
-    /// <summary>
-    /// 设置分钟调用此方法
-    /// </summary>
-    [JSInvokable]
-    public async Task SetMin(int min)
-    {
-        Min = min;
-        Value = new TimeSpan(Hour, Min, 0);
-        if (ValueChanged.HasDelegate)
-        {
-            await ValueChanged.InvokeAsync(Value);
-        }
-    }
-
-    /// <summary>
-    /// 设置AM_PM调用此方法
-    /// </summary>
-    [JSInvokable]
-    public async Task SetAmPm(bool to_am)
-    {
-        IsAM = to_am;
-        if (IsAMChanged.HasDelegate)
-        {
-            await IsAMChanged.InvokeAsync(IsAM);
-        }
-    }
-
-    // $lightHandle,$lightFace,$lightBackground,$lightText,$lightActiveText
-
-    // $handle,$face,$background,$text,$activeText
 }

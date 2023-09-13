@@ -340,5 +340,9 @@
     "NotContains": "NotContains",
     "GroupText": "Group",
     "ItemText": "Item"
+  },
+  "BootstrapBlazor.Components.TimePickerPanel": {
+    "AMText": "AM",
+    "PMText": "PM"
   }
 }
