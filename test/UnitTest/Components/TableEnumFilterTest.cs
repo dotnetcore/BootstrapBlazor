@@ -42,6 +42,37 @@ public class TableEnumFilterTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Count_Ok()
+    {
+        var cut = Context.RenderComponent<EnumFilter>(pb =>
+        {
+            pb.Add(a => a.Count, 2);
+            pb.Add(a => a.Type, typeof(EnumEducation));
+        });
+
+        var logic = cut.FindComponent<FilterLogicItem>();
+        Assert.NotNull(logic);
+
+        var filter = cut.Instance.GetFilterConditions();
+        Assert.NotNull(filter.Filters);
+        Assert.Empty(filter.Filters);
+
+        var com = cut.FindComponent<Select<string?>>().Instance;
+        cut.InvokeAsync(() => com.SetValue("Middle"));
+
+        filter = cut.Instance.GetFilterConditions();
+        Assert.NotNull(filter.Filters);
+        Assert.Single(filter.Filters);
+
+        com = cut.FindComponents<Select<string?>>()[1].Instance;
+        cut.InvokeAsync(() => com.SetValue("Primary"));
+
+        filter = cut.Instance.GetFilterConditions();
+        Assert.NotNull(filter.Filters);
+        Assert.Equal(2, filter.Filters.Count);
+    }
+
+    [Fact]
     public void InvalidOperationException_Exception()
     {
         Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<EnumFilter>());
