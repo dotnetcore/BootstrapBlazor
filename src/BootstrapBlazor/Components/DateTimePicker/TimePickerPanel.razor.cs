@@ -44,6 +44,8 @@ public partial class TimePickerPanel
     [NotNull]
     private IStringLocalizer<TimePickerPanel>? Localizer { get; set; }
 
+    #region am/pm switch
+
     /// <summary>
     /// is am or pm
     /// </summary>
@@ -52,7 +54,7 @@ public partial class TimePickerPanel
     /// <summary>
     /// the am/pm text
     /// </summary>
-    private LocalizedString? am_pm { get; set; }
+    private string am_pm { get; set; } = string.Empty;
 
     /// <summary>
     /// the am btn class
@@ -71,8 +73,49 @@ public partial class TimePickerPanel
     private void SwitchToAM(bool is_am)
     {
         IsAM = is_am;
-        am_pm = is_am ? Localizer["AMText"] : Localizer["PMText"];
+        am_pm = is_am ? Localizer["AMText"].Value : Localizer["PMText"].Value;
     }
+
+    #endregion
+
+    #region hour/min switch
+
+    /// <summary>
+    /// is hour or min mode
+    /// </summary>
+    private bool IsHour { get; set; } = true;
+
+    /// <summary>
+    /// hour text class
+    /// </summary>
+    private string? hour_class => CssBuilder.Default("part hour").AddClass("active", IsHour).Build();
+
+    /// <summary>
+    /// min text class
+    /// </summary>
+    private string? min_class => CssBuilder.Default("part min").AddClass("active", !IsHour).Build();
+
+    /// <summary>
+    /// hour face class
+    /// </summary>
+    private string? hourface_class => CssBuilder.Default("face-set hour").AddClass("face-off", !IsHour).Build();
+
+    /// <summary>
+    /// min face class
+    /// </summary>
+    private string? minface_class => CssBuilder.Default("face-set min").AddClass("face-off", IsHour).Build();
+
+    /// <summary>
+    /// switch hour or min mode
+    /// </summary>
+    /// <param name="is_hour"></param>
+    private void SwitchToHour(bool is_hour)
+    {
+        IsHour = is_hour;
+        //invoke js method to switch hour or min pass the ishour parameter
+    }
+
+    #endregion
 
     /// <summary>
     /// <inheritdoc/>

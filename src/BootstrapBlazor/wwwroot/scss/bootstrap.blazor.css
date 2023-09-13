@@ -1720,7 +1720,7 @@ a, a:hover, a:focus {
 }
 .bb-time-panel .bb-time-header .am-pm {
   font-size: 50%;
-  width: 22px;
+  width: auto;
   display: inline-block;
 }
 .bb-time-panel .face-wrap {

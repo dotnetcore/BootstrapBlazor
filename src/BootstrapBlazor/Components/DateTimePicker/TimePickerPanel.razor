@@ -4,13 +4,13 @@
 
 <div @attributes="AdditionalAttributes" class="@ClassString" id="@Id">
     <div class="bb-time-header">
-        <span class="part hour active">@Value.Hours</span>
+        <span class="@hour_class" @onclick="@(()=>SwitchToHour(true))">@(Value.Hours)</span>
         <span>:</span>
-        <span class="part min">@Value.Minutes</span>
+        <span class="@min_class" @onclick="@(()=>SwitchToHour(false))">@(Value.Minutes)</span>
         <span class="part am-pm" @onclick="@(()=>SwitchToAM(!IsAM))">@am_pm</span>
     </div>
     <div class="face-wrap">
-        <div class="face-set hour">
+        <div class="@hourface_class">
             <div class="handle-bar"></div>
             <span class="face-number" data-css-time="0">12</span>
             <span class="face-number" data-css-time="1">1</span>
@@ -28,7 +28,7 @@
                 <div class="handle-spot"></div>
             </div>
         </div>
-        <div class="face-set min">
+        <div class="@minface_class">
             <div class="handle-bar"></div>
             <span class="face-number" data-css-time="0">00</span>
             <span class="face-number" data-css-time="1">05</span>

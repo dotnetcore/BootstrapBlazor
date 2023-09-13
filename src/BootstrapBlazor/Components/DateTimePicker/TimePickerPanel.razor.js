@@ -1,10 +1,8 @@
-﻿export function init(id, invoke, hourValue, minValue, isAM) {
+﻿export function init(id, invoke, ts) {
     const el = document.getElementById(id);
 
     const self = el;
-    var activeFace = self.querySelector('.face-set.hour'),
-        min = false,
-        am = false,
+    var min = false,
         mouse = false;
 
     self.querySelectorAll('.face-set').forEach(el => el.dataset.handAng = 0);
@@ -23,35 +21,22 @@
         handleBar.style.transform = 'rotate(' + (deg).toFixed(20) + 'deg) scaleY(' + bl + ')';
         handleBar.classList.toggle('anim', !!anim);
     }
-    function minMode(yes) {
-        var cl = yes ? 'min' : 'hour';
-        min = yes;
-        activeFace.classList.add('face-off');
-        setHandle(activeFace, null, 'hidden', true);
-        activeFace = self.querySelector('.face-set.' + cl);
-        activeFace.classList.remove('face-off');
-        setHandle(activeFace, null, null, true);
-        self.querySelector('.bb-time-header .active').classList.remove('active');
-        self.querySelector('.bb-time-header .part.' + cl).classList.add('active');
-    }
-    minMode(true);
-    minMode(false);
+
     document.body.addEventListener('mouseup', function () {
-        if (mouse && !min) minMode(true);
         mouse = false;
     });
     function setHour(hour) {
         if (hour == 0) hour = 12;
         self.querySelector('.bb-time-header .hour').textContent = hour;
         setHandle(self.querySelector('.face-set.hour'), hour, null, false);
-        invoke.invokeMethodAsync('SetHour', hour);
+        //invoke.invokeMethodAsync('SetHour', hour);
     }
 
     function setMin(min) {
         if (min == 60) min = 0;
         self.querySelector('.bb-time-header .min').textContent = String(min).padStart(2, '0');
         setHandle(self.querySelector('.face-set.min'), min / 5, null, false);
-        invoke.invokeMethodAsync('SetMin', min);
+        //invoke.invokeMethodAsync('SetMin', min);
     }
 
     function handleMove(e) {
@@ -69,20 +54,14 @@
             setHour(Math.round((hrs)));
         }
     }
+
     self.querySelector('.face-wrap').addEventListener('mousedown', function () {
         mouse = true;
     });
     self.querySelector('.face-wrap').addEventListener('mousedown', handleMove);
     document.body.addEventListener('mousemove', handleMove);
-    self.querySelector('.face-set.min').classList.add('face-off');
-    self.querySelector('.bb-time-header .part.min').addEventListener('click', minMode.bind(this, true));
-    self.querySelector('.bb-time-header .part.hour').addEventListener('click', minMode.bind(this, false));
     self.querySelectorAll('*').forEach(el => el.style.transition = 'none');
     setTimeout(function () {
         self.querySelectorAll('*').forEach(el => el.style.transition = '');
     });
-
-    //设置默认值
-    setMin(minValue);
-    setHour(hourValue);
 }
