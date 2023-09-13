@@ -1,30 +1,37 @@
-﻿export function init(id, invoke, ts) {
-    const el = document.getElementById(id);
+﻿
+export function setHandle(face, a, l, anim) {
+    if (a == null) a = face.dataset.handAng;
+    if (l == 'hidden') l = face.classList.contains('min') ? 7 : 4;
+    if (l == null) l = 5.5;
+    var bl = a % 1 == 0 ? l - 0.25 : l;
+    var deg = a * 30;
+    face.dataset.handAng = a;
+    var handle = face.querySelector('.handle');
+    handle.style.transform = 'rotate(' + (deg).toFixed(20) + 'deg) translateY(' + -l + 'em)';
+    handle.classList.toggle('anim', anim);
+    var handleBar = face.querySelector('.handle-bar');
+    handleBar.style.transform = 'rotate(' + (deg).toFixed(20) + 'deg) scaleY(' + bl + ')';
+    handleBar.classList.toggle('anim', !!anim);
+}
 
-    const self = el;
+export function init(id, invoke, ts) {
+    const parts = ts.split(":");
+
+    const hours = parseInt(parts[0], 10);
+    const minutes = parseInt(parts[1], 10);
+    const seconds = parseInt(parts[2], 10);
+
+    const self = document.getElementById(id);
     var min = false,
         mouse = false;
 
     self.querySelectorAll('.face-set').forEach(el => el.dataset.handAng = 0);
     self.querySelector('.face-set.min').dataset.handAng = 1;
-    function setHandle(face, a, l, anim) {
-        if (a == null) a = face.dataset.handAng;
-        if (l == 'hidden') l = face.classList.contains('min') ? 7 : 4;
-        if (l == null) l = 5.5;
-        var bl = a % 1 == 0 ? l - 0.25 : l;
-        var deg = a * 30;
-        face.dataset.handAng = a;
-        var handle = face.querySelector('.handle');
-        handle.style.transform = 'rotate(' + (deg).toFixed(20) + 'deg) translateY(' + -l + 'em)';
-        handle.classList.toggle('anim', anim);
-        var handleBar = face.querySelector('.handle-bar');
-        handleBar.style.transform = 'rotate(' + (deg).toFixed(20) + 'deg) scaleY(' + bl + ')';
-        handleBar.classList.toggle('anim', !!anim);
-    }
 
     document.body.addEventListener('mouseup', function () {
         mouse = false;
     });
+
     function setHour(hour) {
         if (hour == 0) hour = 12;
         self.querySelector('.bb-time-header .hour').textContent = hour;
@@ -48,7 +55,8 @@
         var hrs = Math.atan2(e.pageY - cent.top, e.pageX - cent.left) / Math.PI * 6 + 3;
         hrs += 12;
         hrs %= 12;
-        if (min) {
+        min = self.getAttribute('data-bb-ishour');
+        if (!min) {
             setMin(Math.round((hrs * 5)));
         } else {
             setHour(Math.round((hrs)));

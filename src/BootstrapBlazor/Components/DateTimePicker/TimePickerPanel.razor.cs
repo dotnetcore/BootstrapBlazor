@@ -105,6 +105,10 @@ public partial class TimePickerPanel
     /// </summary>
     private string? minface_class => CssBuilder.Default("face-set min").AddClass("face-off", IsHour).Build();
 
+    private ElementReference hourElement;
+
+    private ElementReference minElement;
+
     /// <summary>
     /// switch hour or min mode
     /// </summary>
@@ -113,6 +117,17 @@ public partial class TimePickerPanel
     {
         IsHour = is_hour;
         //invoke js method to switch hour or min pass the ishour parameter
+        //var cl = yes ? "min" : "hour";
+        //min = yes;
+        //activeFace.classList.add("face-off");
+        //setHandle(activeFace, null, "hidden", true);
+        //activeFace = self.querySelector(".face-set." + cl);
+        //activeFace.classList.remove("face-off");
+        //setHandle(activeFace, null, null, true);
+        //self.querySelector(".time .active").classList.remove("active");
+        //self.querySelector(".time .part." + cl).classList.add("active");
+
+        InvokeVoidAsync("setHandle", hourElement, Value.Hours, null, false);
     }
 
     #endregion
@@ -128,9 +143,6 @@ public partial class TimePickerPanel
         var dt = DateTime.Now;
         IsAM = dt.Hour < 12;
         SwitchToAM(IsAM);
-
-
-
         Value = new TimeSpan(dt.Hour, dt.Minute, dt.Second);
     }
 
@@ -144,8 +156,9 @@ public partial class TimePickerPanel
     /// 设置小时调用此方法
     /// </summary>
     [JSInvokable]
-    public async Task SetTime(DateTime dt)
+    public async Task SetTime(int hour, int min, int sec)
     {
+        Value = new TimeSpan(hour, min, sec);
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);

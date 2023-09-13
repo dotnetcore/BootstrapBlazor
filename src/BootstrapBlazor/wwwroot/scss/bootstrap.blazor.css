@@ -1704,6 +1704,7 @@ a, a:hover, a:focus {
 
 .bb-time-panel {
   width: calc(320px - 2rem);
+  -webkit-user-select: none;
   user-select: none;
   color: #909090;
 }
