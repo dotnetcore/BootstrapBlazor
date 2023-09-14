@@ -726,7 +726,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             ResetDynamicContext();
 
             // set default sortName
-            var col = Columns.FirstOrDefault(i => i.Sortable && i.DefaultSort);
+            var col = Columns.Find(i => i.Sortable && i.DefaultSort);
             if (col != null)
             {
                 SortName = col.GetFieldName();
