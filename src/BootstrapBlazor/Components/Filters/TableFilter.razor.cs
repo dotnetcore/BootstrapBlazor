@@ -159,6 +159,15 @@ public partial class TableFilter : IFilter
 
         PlusIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableFilterPlusIcon);
         MinusIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableFilterMinusIcon);
+
+        if (Table != null && Table.Filters.TryGetValue(Column.GetFieldName(), out var action))
+        {
+            var filter = action.GetFilterConditions();
+            if (filter.Filters?.Count > 0)
+            {
+                Count = 1;
+            }
+        }
     }
 
     /// <summary>
