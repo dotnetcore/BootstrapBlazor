@@ -1,8 +1,7 @@
 <Project>
 
   <PropertyGroup>
-    <TargetFrameworks Condition="'$(Configuration)' == 'Debug'">net7.0;net6.0</TargetFrameworks>
-    <TargetFrameworks Condition="'$(Configuration)' == 'Release'">net7.0;net6.0;net5.0</TargetFrameworks>
+    <TargetFrameworks>net7.0;net6.0;net5.0</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>
