@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Localization;
-using System;
 
 namespace BootstrapBlazor.Components;
 
@@ -45,11 +44,6 @@ public partial class EnumFilter
 
         if (Type == null) throw new InvalidOperationException("the Parameter Type must be set.");
 
-        if (TableFilter != null)
-        {
-            TableFilter.ShowMoreButton = false;
-        }
-
         EnumType = Nullable.GetUnderlyingType(Type) ?? Type;
     }
 
@@ -89,12 +83,12 @@ public partial class EnumFilter
             });
         }
 
-        if (Count > 0 && !string.IsNullOrEmpty(Value2))
+        if (Count > 0 && Enum.TryParse(EnumType, Value2, out var val2))
         {
             filter.Filters.Add(new FilterKeyValueAction()
             {
                 FieldKey = FieldKey,
-                FieldValue = Value2,
+                FieldValue = val2,
                 FilterAction = FilterAction.Equal
             });
             filter.FilterLogic = Logic;
@@ -116,6 +110,21 @@ public partial class EnumFilter
         else
         {
             Value = "";
+        }
+
+        if (filter.Filters != null && filter.Filters.Count == 2)
+        {
+            Count = 1;
+            FilterKeyValueAction second = filter.Filters[1];
+            if (second.FieldValue != null && second.FieldValue.GetType() == type)
+            {
+                Value2 = second.FieldValue.ToString();
+            }
+            else
+            {
+                Value2 = "";
+            }
+            Logic = filter.FilterLogic;
         }
         await base.SetFilterConditionsAsync(filter);
     }

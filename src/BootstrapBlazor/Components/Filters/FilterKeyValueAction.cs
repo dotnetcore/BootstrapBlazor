@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Filter 过滤条件项目
+/// Filter 过滤条件项目 属性 <see cref="Filters"/> 为条件表达式，其之间关系由 <see cref="FilterLogic"/> 来决定
 /// </summary>
 public class FilterKeyValueAction
 {

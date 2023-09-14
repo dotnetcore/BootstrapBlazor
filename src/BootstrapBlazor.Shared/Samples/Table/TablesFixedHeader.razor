@@ -41,7 +41,7 @@
            Name="AllowResizing">
     <p>@((MarkupString)Localizer["AllowResizingP"].Value)</p>
     <Table TItem="Foo" Items="@Items.Take(10)" RenderMode="TableRenderMode.Table"
-           IsBordered="true" IsMultipleSelect="true" IsPagination="true" IsFixedHeader="true"
+           IsBordered="true" IsMultipleSelect="true" IsFixedHeader="true"
            Height="200" AllowResizing="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -62,7 +62,7 @@
     <Slider @bind-Value="Height" Min="300" Max="600"></Slider>
     <div style="height: @($"{Height}px;")">
         <Table TItem="Foo" Items="@Items.Take(10)" RenderMode="TableRenderMode.Table" ShowColumnList="true" ShowToolbar="true" ShowDefaultButtons="false" ShowRefresh="false"
-               IsBordered="true" IsMultipleSelect="true" IsPagination="true" IsFixedHeader="true" AllowResizing="true">
+               IsBordered="true" IsMultipleSelect="true" IsFixedHeader="true" AllowResizing="true">
             <TableColumns>
                 <TableColumn @bind-Field="@context.DateTime" Width="180" />
                 <TableColumn @bind-Field="@context.Name" Width="100" />
@@ -95,7 +95,7 @@
 @code {
     RenderFragment RenderTable() =>
         @<Table TItem="Foo" Items="@Items" ShowColumnList="true" ShowToolbar="true" ShowDefaultButtons="false" ShowRefresh="false"
-           IsBordered="true" IsMultipleSelect="true" IsPagination="true" IsFixedHeader="true" AllowResizing="true" RenderMode="TableRenderMode.Table">
+           IsBordered="true" IsMultipleSelect="true" IsFixedHeader="true" AllowResizing="true" RenderMode="TableRenderMode.Table">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" Width="100" />
