@@ -1,6 +1,7 @@
-﻿form {
+form {
     --bb-loader-bg: #f8f9fa;
 }
+
 .form-control {
     --bb-form-control-padding: 0.375rem 0.75rem;
     padding: var(--bb-form-control-padding);
@@ -8,38 +9,39 @@
     border-radius: var(--bs-border-radius);
 }
 
-    .form-control.is-valid[type="number"],
-    .form-control.is-invalid[type="number"] {
-        padding-right: .75rem;
-        background-image: none;
-    }
+.form-control.is-valid[type="number"],
+.form-control.is-invalid[type="number"] {
+    padding-right: .75rem;
+    background-image: none;
+}
 
-    .form-control:focus {
-        border: 1px solid var(--bb-border-focus-color);
-        box-shadow: none;
-    }
+.form-control:focus {
+    border: 1px solid var(--bb-border-focus-color);
+    box-shadow: none;
+}
 
-    .form-control:not(.disabled):not(:disabled):not(.is-valid):not(.is-invalid):not(.no-border):hover {
-        border: 1px solid var(--bb-border-hover-color);
-    }
+.form-control:not(.disabled):not(:disabled):not(.is-valid):not(.is-invalid):not(.no-border):hover {
+    border: 1px solid var(--bb-border-hover-color);
+}
 
-    .form-control:disabled {
-        background-color: var(--bb-disabled-bg);
-    }
+.form-control:disabled {
+    background-color: var(--bb-disabled-bg);
+}
 
-    .was-validated .form-control:invalid:focus,
-    .form-control.is-invalid:focus,
-    .was-validated .custom-select:invalid:focus,
-    .custom-select.is-invalid:focus {
-        border-color: var(--bs-danger);
-    }
+.was-validated .form-control:invalid:focus,
+.form-control.is-invalid:focus,
+.was-validated .custom-select:invalid:focus,
+.custom-select.is-invalid:focus {
+    border-color: var(--bs-danger);
+    box-shadow: none;
+}
 
-    .was-validated .form-control:valid:focus,
-    .form-control.is-valid:focus,
-    .was-validated .custom-select:valid:focus,
-    .custom-select.is-valid:focus {
-        border-color: var(--bs-success);
-    }
+.was-validated .form-control:valid:focus,
+.form-control.is-valid:focus,
+.was-validated .custom-select:valid:focus,
+.custom-select.is-valid:focus {
+    border-color: var(--bs-success);
+}
 
 .input-number-fix::-webkit-outer-spin-button,
 .input-number-fix::-webkit-inner-spin-button {

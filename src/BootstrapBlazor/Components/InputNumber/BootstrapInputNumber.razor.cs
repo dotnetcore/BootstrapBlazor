@@ -147,12 +147,12 @@ public partial class BootstrapInputNumber<TValue>
             case int:
             case long:
             case short:
-                StepString = Step ?? "1";
+                StepString = Step;
                 break;
             case float:
             case double:
             case decimal:
-                StepString = Step ?? "0.01";
+                StepString = Step;
                 break;
         }
     }
@@ -164,25 +164,26 @@ public partial class BootstrapInputNumber<TValue>
     private async Task OnClickDec()
     {
         var val = CurrentValue;
+        var step = string.IsNullOrEmpty(StepString) ? "1" : "StepString";
         switch (val)
         {
             case int @int:
-                val = (TValue)(object)(@int - int.Parse(StepString));
+                val = (TValue)(object)(@int - int.Parse(step));
                 break;
             case long @long:
-                val = (TValue)(object)(@long - long.Parse(StepString));
+                val = (TValue)(object)(@long - long.Parse(step));
                 break;
             case short @short:
-                val = (TValue)(object)(short)(@short - short.Parse(StepString));
+                val = (TValue)(object)(short)(@short - short.Parse(step));
                 break;
             case float @float:
-                val = (TValue)(object)(@float - float.Parse(StepString));
+                val = (TValue)(object)(@float - float.Parse(step));
                 break;
             case double @double:
-                val = (TValue)(object)(@double - double.Parse(StepString));
+                val = (TValue)(object)(@double - double.Parse(step));
                 break;
             case decimal @decimal:
-                val = (TValue)(object)(@decimal - decimal.Parse(StepString));
+                val = (TValue)(object)(@decimal - decimal.Parse(step));
                 break;
         }
         CurrentValue = SetMax(SetMin(val));
@@ -199,25 +200,26 @@ public partial class BootstrapInputNumber<TValue>
     private async Task OnClickInc()
     {
         var val = CurrentValue;
+        var step = string.IsNullOrEmpty(StepString) ? "1" : "StepString";
         switch (val)
         {
             case int @int:
-                val = (TValue)(object)(@int + int.Parse(StepString));
+                val = (TValue)(object)(@int + int.Parse(step));
                 break;
             case long @long:
-                val = (TValue)(object)(@long + long.Parse(StepString));
+                val = (TValue)(object)(@long + long.Parse(step));
                 break;
             case short @short:
-                val = (TValue)(object)(short)(@short + short.Parse(StepString));
+                val = (TValue)(object)(short)(@short + short.Parse(step));
                 break;
             case float @float:
-                val = (TValue)(object)(@float + float.Parse(StepString));
+                val = (TValue)(object)(@float + float.Parse(step));
                 break;
             case double @double:
-                val = (TValue)(object)(@double + double.Parse(StepString));
+                val = (TValue)(object)(@double + double.Parse(step));
                 break;
             case decimal @decimal:
-                val = (TValue)(object)(@decimal + decimal.Parse(StepString));
+                val = (TValue)(object)(@decimal + decimal.Parse(step));
                 break;
         }
         CurrentValue = SetMax(SetMin(val));

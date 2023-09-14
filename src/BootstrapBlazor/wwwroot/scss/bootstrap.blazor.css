@@ -4051,6 +4051,7 @@ form {
 .was-validated .custom-select:invalid:focus,
 .custom-select.is-invalid:focus {
   border-color: var(--bs-danger);
+  box-shadow: none;
 }
 
 .was-validated .form-control:valid:focus,
