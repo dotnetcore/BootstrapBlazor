@@ -132,7 +132,7 @@ public partial class TableFilter : IFilter
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
-    private string? Step => Column.Step?.ToString() ?? "0.01";
+    private string? Step => Column.Step?.ToString();
 
     /// <summary>
     /// <inheritdoc/>
