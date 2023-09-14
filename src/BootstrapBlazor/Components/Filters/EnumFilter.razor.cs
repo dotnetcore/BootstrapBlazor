@@ -118,11 +118,11 @@ public partial class EnumFilter
             FilterKeyValueAction second = filter.Filters[1];
             if (second.FieldValue != null && second.FieldValue.GetType() == type)
             {
-                Value = second.FieldValue.ToString();
+                Value2 = second.FieldValue.ToString();
             }
             else
             {
-                Value = "";
+                Value2 = "";
             }
             Logic = filter.FilterLogic;
         }
