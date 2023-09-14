@@ -27,6 +27,6 @@ public partial class FloatingLabel<TValue>
     {
         base.OnParametersSet();
 
-        PlaceHolder ??= FieldIdentifier.HasValue ? FieldIdentifier.Value.GetDisplayName() : "PlaceHolder";
+        PlaceHolder ??= FieldIdentifier.HasValue ? FieldIdentifier.Value.GetDisplayName() : DisplayText;
     }
 }
