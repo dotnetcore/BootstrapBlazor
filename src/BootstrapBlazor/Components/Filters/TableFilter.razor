@@ -18,11 +18,13 @@ else
             </div>
             <div class="card-footer">
                 <div class="d-flex flex-fill">
-                    @if (ShowMoreButton)
-                    {
-                        <Button Color="Color.None" OnClick="OnClickPlus" Icon="@PlusIcon" IsDisabled="@(Count == 1)"></Button>
-                        <Button Color="Color.None" OnClick="OnClickMinus" Icon="@MinusIcon" IsDisabled="@(Count == 0)"></Button>
-                    }
+                    <RenderTemplate>
+                        @if (ShowMoreButton)
+                        {
+                            <Button Color="Color.None" OnClick="OnClickPlus" Icon="@PlusIcon" IsDisabled="@(Count == 1)"></Button>
+                            <Button Color="Color.None" OnClick="OnClickMinus" Icon="@MinusIcon" IsDisabled="@(Count == 0)"></Button>
+                        }
+                    </RenderTemplate>
                 </div>
                 <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickReset" Text="@ClearButtonText"></Button>
                 <Button Color="Color.None" class="filter-dismiss" OnClick="OnClickConfirm" Text="@FilterButtonText"></Button>
