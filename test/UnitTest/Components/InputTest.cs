@@ -177,6 +177,30 @@ public class InputTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsGroupBox, true);
         });
         cut.Contains("<div class=\"form-floating is-group\">");
+
+        // PlaceHolder
+        var foo = new Foo() { Name = "Foo" };
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, "test");
+        });
+        var input = cut.Find("input");
+        Assert.Null(input.GetAttribute("placeholder"));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+        });
+        input = cut.Find("input");
+        Assert.Equal("姓名", input.GetAttribute("placeholder"));
+
+        // PlaceHolder
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.PlaceHolder, "fl-pl");
+        });
+        input = cut.Find("input");
+        Assert.Equal("fl-pl", input.GetAttribute("placeholder"));
     }
 
     [Fact]
