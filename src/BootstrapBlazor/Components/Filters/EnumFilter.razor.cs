@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Localization;
+using System;
 
 namespace BootstrapBlazor.Components;
 
@@ -12,6 +13,8 @@ namespace BootstrapBlazor.Components;
 public partial class EnumFilter
 {
     private string? Value { get; set; }
+
+    private string? Value2 { get; set; }
 
     /// <summary>
     /// 内部使用
@@ -84,6 +87,17 @@ public partial class EnumFilter
                 FieldValue = val,
                 FilterAction = FilterAction.Equal
             });
+        }
+
+        if (Count > 0 && !string.IsNullOrEmpty(Value2))
+        {
+            filter.Filters.Add(new FilterKeyValueAction()
+            {
+                FieldKey = FieldKey,
+                FieldValue = Value2,
+                FilterAction = FilterAction.Equal
+            });
+            filter.FilterLogic = Logic;
         }
         return filter;
     }
