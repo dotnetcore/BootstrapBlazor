@@ -163,7 +163,7 @@ public partial class TableFilter : IFilter
         if (Table != null && Table.Filters.TryGetValue(Column.GetFieldName(), out var action))
         {
             var filter = action.GetFilterConditions();
-            if (filter.Filters?.Count > 0)
+            if (filter.Filters?.Count > 1)
             {
                 Count = 1;
             }
