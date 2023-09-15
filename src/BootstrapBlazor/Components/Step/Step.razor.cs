@@ -34,6 +34,12 @@ public partial class Step
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// 获得/设置 步骤全部完成时模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment? FinishedTemplate { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
@@ -78,6 +84,8 @@ public partial class Step
         .Build();
 
     private string? _finishedIcon;
+
+    private bool IsFinished => _currentStepIndex == Items.Count;
 
     /// <summary>
     /// <inheritdoc/>

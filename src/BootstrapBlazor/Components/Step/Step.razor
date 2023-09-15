@@ -23,6 +23,10 @@
                 </div>
             }
         </div>
+        @if(IsFinished && FinishedTemplate != null)
+        {
+            @FinishedTemplate
+        }
     </RenderTemplate>
 </div>
 
