@@ -3027,6 +3027,28 @@ section > h2 {
     background-image: radial-gradient(circle, #fff, #aaa, #333);
   }
 }
+.bb-list-group {
+  border: 1px solid var(--bs-secondary);
+  height: 100%;
+  border-radius: var(--bs-border-radius);
+  overflow: hidden;
+}
+.bb-list-group .list-group {
+  --bs-list-group-border-radius: 0;
+  height: 100%;
+  overflow: auto;
+}
+.bb-list-group .list-group .list-group-item {
+  border: none;
+  cursor: pointer;
+}
+.bb-list-group .list-group .list-group-item:not(:first-child) {
+  border-top: var(--bs-list-group-border-width) solid var(--bs-list-group-border-color);
+}
+.bb-list-group .list-group .list-group-item.active {
+  margin-top: 0;
+}
+
 .listview {
   --bb-lv-header-padding: .5rem 1rem;
   --bb-lv-header-bg: #dee2e6;

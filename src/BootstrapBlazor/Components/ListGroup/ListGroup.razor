@@ -7,7 +7,7 @@
     {
         @HeaderTemplate
     }
-    <div>
+    <div class="list-group scroll">
         @foreach (var item in Items)
         {
             @if (ItemTemplate != null)
@@ -16,7 +16,7 @@
             }
             else
             {
-                <div @key="item" class="@GetItemClassString(item)">@GetItemText(item)</div>
+                <div @key="item" class="@GetItemClassString(item)" @onclick="() => OnClick(item)">@GetItemText(item)</div>
             }
         }
     </div>
