@@ -14,7 +14,7 @@ public partial class ListGroup<TItem> where TItem : notnull
     /// </summary>
     [Parameter]
     [NotNull]
-#if NET5_0_OR_GREATER
+#if NET6_0_OR_GREATER
     [EditorRequired]
 #endif
     public List<TItem>? Items { get; set; }
