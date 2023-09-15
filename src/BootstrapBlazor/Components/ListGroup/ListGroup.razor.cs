@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// ListGroup 组件
 /// </summary>
-public partial class ListGroup<TItem> where TItem : notnull
+public partial class ListGroup<TItem>
 {
     /// <summary>
     /// 获得/设置 数据源集合
@@ -61,7 +61,7 @@ public partial class ListGroup<TItem> where TItem : notnull
         Items ??= new();
     }
 
-    private string? GetItemText(TItem item) => GetItemDisplayText?.Invoke(item) ?? item.ToString();
+    private string? GetItemText(TItem item) => GetItemDisplayText?.Invoke(item) ?? item?.ToString();
 
     private async Task OnClick(TItem item)
     {
