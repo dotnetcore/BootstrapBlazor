@@ -1963,7 +1963,7 @@ public class TableTest : TableTestBase
         {
             pb.Add(a => a.OnBeforeRenderRow, foo => row++);
         });
-        Assert.Equal(2, row);
+        cut.WaitForAssertion(() => Assert.Equal(2, row));
     }
 
     [Fact]

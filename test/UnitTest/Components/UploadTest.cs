@@ -806,7 +806,7 @@ public class UploadTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.ShowDeletedButton, false);
         });
-        cut.DoesNotContain("aria-label=\"delete\"");
+        cut.WaitForAssertion(() => cut.DoesNotContain("aria-label=\"delete\""));
     }
 
     [Fact]

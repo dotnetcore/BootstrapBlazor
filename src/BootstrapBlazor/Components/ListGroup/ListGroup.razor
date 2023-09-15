@@ -1,0 +1,23 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TItem
+@inherits ValidateBase<TItem>
+
+<div @attributes="AdditionalAttributes" class="@ClassString">
+    @if (HeaderTemplate != null)
+    {
+        @HeaderTemplate
+    }
+    <div>
+        @foreach (var item in Items)
+        {
+            @if (ItemTemplate != null)
+            {
+                @ItemTemplate(item)
+            }
+            else
+            {
+                <div @key="item" class="@GetItemClassString(item)">@GetItemText(item)</div>
+            }
+        }
+    </div>
+</div>
