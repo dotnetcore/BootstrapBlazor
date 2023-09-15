@@ -1,55 +1,53 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
-@attribute [BootstrapModuleAutoLoader("DateTimePicker/TimePickerPanel.razor.js", JSObjectReference = true,
-AutoInvokeDispose = false)]
+@attribute [BootstrapModuleAutoLoader("DateTimePicker/TimePickerPanel.razor.js", JSObjectReference = true, AutoInvokeDispose = false)]
 
 <div @attributes="AdditionalAttributes" class="@ClassString" id="@Id">
     <div class="bb-time-header">
-        <span class="@hour_class" @onclick="@(()=>SwitchToHour(true))">@(Value.Hours)</span>
+        <span class="@hour_class" @onclick="@(() => SwitchToHour(true))">@(Value.Hours)</span>
         <span>:</span>
-        <span class="@min_class" @onclick="@(()=>SwitchToHour(false))">@(Value.Minutes)</span>
-        <span class="part am-pm" @onclick="@(()=>SwitchToAM(!IsAM))">@am_pm</span>
+        <span class="@min_class" @onclick="@(() => SwitchToHour(false))">@(Value.Minutes)</span>
+        <span class="part am-pm" @onclick="@(() => SwitchToAM(!IsAM))">@am_pm</span>
     </div>
     <div class="face-wrap">
-        <div class="@hourface_class">
-            <div class="handle-bar"></div>
-            <span class="face-number" data-css-time="0">12</span>
-            <span class="face-number" data-css-time="1">1</span>
-            <span class="face-number" data-css-time="2">2</span>
-            <span class="face-number" data-css-time="3">3</span>
-            <span class="face-number" data-css-time="4">4</span>
-            <span class="face-number" data-css-time="5">5</span>
-            <span class="face-number" data-css-time="6">6</span>
-            <span class="face-number" data-css-time="7">7</span>
-            <span class="face-number" data-css-time="8">8</span>
-            <span class="face-number" data-css-time="9">9</span>
-            <span class="face-number" data-css-time="10">10</span>
-            <span class="face-number" data-css-time="11">11</span>
-            <div class="handle">
-                <div class="handle-spot"></div>
+        @if (IsHour)
+        {
+            <div class="@hourface_class">
+                <div class="handle-bar"></div>
+                <span class="face-number" data-css-time="0">12</span>
+                @for (var i = 1; i < 11; i++)
+                {
+                    <span class="face-number" data-css-time="@i">@i</span>
+                }
+                <div class="handle">
+                    <div class="handle-spot"></div>
+                </div>
             </div>
-        </div>
-        <div class="@minface_class">
-            <div class="handle-bar"></div>
-            <span class="face-number" data-css-time="0">00</span>
-            <span class="face-number" data-css-time="1">05</span>
-            <span class="face-number" data-css-time="2">10</span>
-            <span class="face-number" data-css-time="3">15</span>
-            <span class="face-number" data-css-time="4">20</span>
-            <span class="face-number" data-css-time="5">25</span>
-            <span class="face-number" data-css-time="6">30</span>
-            <span class="face-number" data-css-time="7">35</span>
-            <span class="face-number" data-css-time="8">40</span>
-            <span class="face-number" data-css-time="9">45</span>
-            <span class="face-number" data-css-time="10">50</span>
-            <span class="face-number" data-css-time="11">55</span>
-            <div class="handle">
-                <div class="handle-spot"></div>
+        }
+        else
+        {
+            <div class="@minface_class">
+                <div class="handle-bar"></div>
+                <span class="face-number" data-css-time="0">00</span>
+                <span class="face-number" data-css-time="1">05</span>
+                <span class="face-number" data-css-time="2">10</span>
+                <span class="face-number" data-css-time="3">15</span>
+                <span class="face-number" data-css-time="4">20</span>
+                <span class="face-number" data-css-time="5">25</span>
+                <span class="face-number" data-css-time="6">30</span>
+                <span class="face-number" data-css-time="7">35</span>
+                <span class="face-number" data-css-time="8">40</span>
+                <span class="face-number" data-css-time="9">45</span>
+                <span class="face-number" data-css-time="10">50</span>
+                <span class="face-number" data-css-time="11">55</span>
+                <div class="handle">
+                    <div class="handle-spot"></div>
+                </div>
             </div>
-        </div>
+        }
     </div>
     <div class="bb-time-footer">
-        <div class="@am_class" @onclick="@(()=>SwitchToAM(true))">@Localizer["AMText"]</div>
-        <div class="@pm_class" @onclick="@(()=>SwitchToAM(false))">@Localizer["PMText"]</div>
+        <div class="@am_class" @onclick="@(() => SwitchToAM(true))">@Localizer["AMText"]</div>
+        <div class="@pm_class" @onclick="@(() => SwitchToAM(false))">@Localizer["PMText"]</div>
     </div>
 </div>
