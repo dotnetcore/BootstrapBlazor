@@ -121,19 +121,19 @@ public sealed partial class DateTimeRanges
     /// <returns></returns>
     private static IEnumerable<EventItem> GetEvents() => new EventItem[]
     {
-        new EventItem()
+        new()
         {
             Name = "OnConfirm",
             Description="Confirm callback delegate",
             Type ="Action"
         },
-        new EventItem()
+        new()
         {
             Name = "OnClearValue",
             Description="Clear callback delegate",
             Type ="Action"
         },
-        new EventItem()
+        new()
         {
             Name = "OnValueChanged",
             Description="ValueChanged callback delegate",

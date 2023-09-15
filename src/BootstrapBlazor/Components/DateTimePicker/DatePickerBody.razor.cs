@@ -412,9 +412,9 @@ public partial class DatePickerBody
         YearText ??= Localizer[nameof(YearText)];
         MonthText ??= Localizer[nameof(MonthText)];
         YearPeriodText ??= Localizer[nameof(YearPeriodText)];
-        MonthLists = Localizer[nameof(MonthLists)].Value.Split(',').ToList();
-        Months = Localizer[nameof(Months)].Value.Split(',').ToList();
-        WeekLists = Localizer[nameof(WeekLists)].Value.Split(',').ToList();
+        MonthLists = [.. Localizer[nameof(MonthLists)].Value.Split(',')];
+        Months = [.. Localizer[nameof(Months)].Value.Split(',')];
+        WeekLists = [.. Localizer[nameof(WeekLists)].Value.Split(',')];
 
         Today ??= Localizer[nameof(Today)];
         Yesterday ??= Localizer[nameof(Yesterday)];
