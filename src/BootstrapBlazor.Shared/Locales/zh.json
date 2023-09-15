@@ -5862,5 +5862,11 @@
     "WebSpeechGameTitle": "语音颜色选择游戏",
     "WebSpeechSynthesisTitle": "语音合成",
     "WebSpeechSynthesisDIYTitle": "语音合成自定义"
+  },
+  "BootstrapBlazor.Shared.Samples.ListGroups": {
+    "ListGroupsTitle": "ListGroup 列表框",
+    "ListGroupsSubTitle": "多用于数据浏览与选择",
+    "BaseUsageText": "基本用法",
+    "BaseUsageIntro": "通过 <code>Items</code> 参数值设置数据集合"
   }
 }
