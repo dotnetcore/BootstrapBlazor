@@ -290,7 +290,7 @@ public partial class ModalDialog : IHandlerException
         var ret = true;
         if (OnSaveAsync != null)
         {
-            await OnSaveAsync();
+            ret = await OnSaveAsync();
         }
         if (IsAutoCloseAfterSave && ret)
         {
