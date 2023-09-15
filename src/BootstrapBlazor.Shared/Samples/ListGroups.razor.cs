@@ -55,6 +55,14 @@ public partial class ListGroups
         },
         new()
         {
+            Name = "HeaderText",
+            Description = Localizer["AttrHeaderText"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
             Name = "HeaderTemplate",
             Description = Localizer["AttrHeaderTemplate"],
             Type = "RenderFragment",

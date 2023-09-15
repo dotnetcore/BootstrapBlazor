@@ -5877,6 +5877,7 @@
     "AttrItems": "the collection of data source",
     "AttrValue": "current value",
     "AttrHeaderTemplate": "the template of Header",
+    "AttrHeaderText": "the title of Header",
     "AttrItemTemplate": "the template of Item",
     "AttrOnClickItem": "the callback on click item",
     "GetItemDisplayText": "the callback on get item display text"
