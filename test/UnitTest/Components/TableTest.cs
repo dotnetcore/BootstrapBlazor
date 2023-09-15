@@ -5318,7 +5318,7 @@ public class TableTest : TableTestBase
         {
             pb.Add(a => a.ShowEditButton, false);
         });
-        Assert.DoesNotContain("fa-regular fa-pen-to-square", table.Markup);
+        cut.WaitForAssertion(() => table.DoesNotContain("fa-regular fa-pen-to-square"));
     }
 
     [Fact]
