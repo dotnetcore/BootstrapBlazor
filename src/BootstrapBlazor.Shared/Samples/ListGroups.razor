@@ -36,7 +36,10 @@
     <div class="list-group-demo">
         <ListGroup Items="Items" @bind-Value="Value" GetItemDisplayText="@GetItemDisplayText">
             <HeaderTemplate>
-                <div class="list-group-header">列表框</div>
+                <div class="list-group-header">
+                    <div class="flex-fill">列表框</div>
+                    <button class="btn btn-primary btn-xs">按钮</button>
+                </div>
             </HeaderTemplate>
         </ListGroup>
     </div>
