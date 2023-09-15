@@ -127,6 +127,27 @@ public class StepTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void FinishedTemplate_Ok()
+    {
+        bool finished = false;
+        var cut = Context.RenderComponent<Step>(pb =>
+        {
+            pb.Add(a => a.Items, GetStepItems);
+            pb.Add(a => a.StepIndex, 3);
+            pb.Add(a => a.FinishedTemplate, new RenderFragment(builder => builder.AddContent(0, "Finished-Template")));
+            pb.Add(a => a.OnFinishedCallback, () =>
+            {
+                finished = true;
+                return Task.CompletedTask;
+            });
+        });
+        var step = cut.Instance;
+        cut.InvokeAsync(() => step.Next());
+        cut.WaitForAssertion(() => cut.Contains("Finished-Template"));
+        Assert.True(finished);
+    }
+
+    [Fact]
     public void StepItem_Ok()
     {
         var cut = Context.RenderComponent<StepItem>(pb =>
