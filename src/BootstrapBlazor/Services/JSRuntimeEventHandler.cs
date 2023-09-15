@@ -45,7 +45,7 @@ partial class JSRuntimeEventHandler : IJSRuntimeEventHandler
         {
             arguments.AddRange(args);
         }
-        await InvokeVoidAsync("addEventListener", [.. arguments]);
+        await InvokeVoidAsync("addEventListener", arguments.ToArray());
     }
 
     /// <summary>

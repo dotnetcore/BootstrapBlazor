@@ -763,7 +763,7 @@ public static class Utility
                     var mi = instance.GetType().GetMethod(nameof(List<string>.AddRange));
                     if (mi != null)
                     {
-                        mi.Invoke(instance, [value]);
+                        mi.Invoke(instance, new object?[] { value });
                         var invoker = CacheManager.CreateConverterInvoker(t);
                         var v = invoker.Invoke(instance);
                         ret = string.Join(",", v);
