@@ -1,0 +1,14 @@
+﻿@page "/list-group"
+@inject IStringLocalizer<ListGroups> Localizer
+
+<h3>@Localizer["ListGroupsTitle"]</h3>
+
+<h4>@Localizer["ListGroupsSubTitle"]</h4>
+
+<DemoBlock Title="@Localizer["BasicUsageTitle"]"
+           Introduction="@Localizer["BasicUsageIntro"]"
+           Name="Normal">
+    <div class="list-group-demo">
+        <ListGroup Items="Items" @bind-Value="Value" GetItemDisplayText="@GetItemDisplayText"></ListGroup>
+    </div>
+</DemoBlock>
