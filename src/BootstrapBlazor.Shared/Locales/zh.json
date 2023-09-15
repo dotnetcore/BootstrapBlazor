@@ -5867,6 +5867,12 @@
     "ListGroupsTitle": "ListGroup 列表框",
     "ListGroupsSubTitle": "多用于数据浏览与选择",
     "BaseUsageText": "基本用法",
-    "BaseUsageIntro": "通过 <code>Items</code> 参数值设置数据集合"
+    "BaseUsageIntro": "通过 <code>Items</code> 参数值设置数据集合",
+    "AttrItems": "数据源集合",
+    "AttrValue": "当前选中值",
+    "AttrHeaderTemplate": "标题栏模板",
+    "AttrItemTemplate": "选项模板",
+    "AttrOnClickItem": "点击候选项回调方法",
+    "GetItemDisplayText": "获得显示项显示内容回调方法"
   }
 }

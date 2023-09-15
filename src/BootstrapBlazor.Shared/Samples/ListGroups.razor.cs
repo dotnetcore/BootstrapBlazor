@@ -29,5 +29,61 @@ public partial class ListGroups
         Items = Foo.GenerateFoo(LocalizerFoo);
     }
 
-    private string? GetItemDisplayText(Foo item) => item.Name;
+    private static string? GetItemDisplayText(Foo item) => item.Name;
+
+    /// <summary>
+    /// GetAttributes
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    {
+        new()
+        {
+            Name = "Items",
+            Description = Localizer["AttrItems"],
+            Type = "List<TItem>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "Value",
+            Description = Localizer["AttrValue"],
+            Type = "TItem",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "HeaderTemplate",
+            Description = Localizer["AttrHeaderTemplate"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "ItemTemplate",
+            Description = Localizer["AttrItemTemplate"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "OnClickItem",
+            Description = Localizer["AttrOnClickItem"],
+            Type = "Func<TItem, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "GetItemDisplayText",
+            Description = Localizer["GetItemDisplayText"],
+            Type = "Func<TItem, string>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        }
+    };
 }

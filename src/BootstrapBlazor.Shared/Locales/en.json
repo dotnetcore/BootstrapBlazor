@@ -5867,6 +5867,12 @@
     "ListGroupsTitle": "ListGroup",
     "ListGroupsSubTitle": "Mostly used for data browsing and selection",
     "BaseUsageText": "Basic usage",
-    "BaseUsageIntro": "Set datasource by <code>Items</code>"
+    "BaseUsageIntro": "Set datasource by <code>Items</code>",
+    "AttrItems": "the collection of data source",
+    "AttrValue": "current value",
+    "AttrHeaderTemplate": "the template of Header",
+    "AttrItemTemplate": "the template of Item",
+    "AttrOnClickItem": "the callback on click item",
+    "GetItemDisplayText": "the callback on get item display text"
   }
 }
