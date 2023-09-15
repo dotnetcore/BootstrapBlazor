@@ -73,6 +73,22 @@ public class ListGroupTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void HeaderText_Ok()
+    {
+        var cut = Context.RenderComponent<ListGroup<Foo>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<Foo>()
+            {
+                new() { Name = "Test 1" },
+                new() { Name = "Test 1" }
+            });
+            pb.Add(a => a.GetItemDisplayText, foo => foo.Name ?? "");
+            pb.Add(a => a.HeaderText, "Text-Header");
+        });
+        cut.Contains("Text-Header");
+    }
+
+    [Fact]
     public void HeaderTemplate_Ok()
     {
         var cut = Context.RenderComponent<ListGroup<Foo>>(pb =>
