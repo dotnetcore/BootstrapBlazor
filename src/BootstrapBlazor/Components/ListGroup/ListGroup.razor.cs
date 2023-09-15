@@ -7,14 +7,14 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// ListGroup 组件
 /// </summary>
-public partial class ListGroup<TItem> where TItem : notnull
+public partial class ListGroup<TItem>
 {
     /// <summary>
     /// 获得/设置 数据源集合
     /// </summary>
     [Parameter]
     [NotNull]
-#if NET5_0_OR_GREATER
+#if NET6_0_OR_GREATER
     [EditorRequired]
 #endif
     public List<TItem>? Items { get; set; }
@@ -32,6 +32,12 @@ public partial class ListGroup<TItem> where TItem : notnull
     public RenderFragment<TItem>? ItemTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 点击 List 项目回调方法
+    /// </summary>
+    [Parameter]
+    public Func<TItem, Task>? OnClickItem { get; set; }
+
+    /// <summary>
     /// 获得/设置 获得条目显示文本内容回调方法
     /// </summary>
     [Parameter]
@@ -42,7 +48,7 @@ public partial class ListGroup<TItem> where TItem : notnull
         .Build();
 
     private string? GetItemClassString(TItem item) => CssBuilder.Default("list-group-item")
-        .AddClass("active", Value.Equals(item))
+        .AddClass("active", Value != null && Value.Equals(item))
         .Build();
 
     /// <summary>
@@ -55,5 +61,14 @@ public partial class ListGroup<TItem> where TItem : notnull
         Items ??= new();
     }
 
-    private string? GetItemText(TItem item) => GetItemDisplayText?.Invoke(item) ?? item.ToString();
+    private string? GetItemText(TItem item) => GetItemDisplayText?.Invoke(item) ?? item?.ToString();
+
+    private async Task OnClick(TItem item)
+    {
+        if (OnClickItem != null)
+        {
+            await OnClickItem(item);
+        }
+        CurrentValue = item;
+    }
 }
