@@ -20,13 +20,19 @@ public partial class ListGroup<TItem>
     public List<TItem>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 Header 模板
+    /// 获得/设置 Header 模板 默认 null
     /// </summary>
     [Parameter]
     public RenderFragment? HeaderTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 Header 模板
+    /// 获得/设置 Header 文字 默认 null
+    /// </summary>
+    [Parameter]
+    public string? HeaderText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Header 模板 默认 null
     /// </summary>
     [Parameter]
     public RenderFragment<TItem>? ItemTemplate { get; set; }
@@ -43,7 +49,7 @@ public partial class ListGroup<TItem>
     [Parameter]
     public Func<TItem, string>? GetItemDisplayText { get; set; }
 
-    private string? ClassString => CssBuilder.Default("bb-list-group")
+    private string? ClassString => CssBuilder.Default("list-group")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 

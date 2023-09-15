@@ -12,7 +12,7 @@ public class ListGroupTest : BootstrapBlazorTestBase
     public void Items_Ok()
     {
         var cut = Context.RenderComponent<ListGroup<Foo>>();
-        cut.MarkupMatches("<div class=\"bb-list-group\"><div class=\"list-group scroll\"></div></div>");
+        cut.MarkupMatches("<div class=\"list-group\"><div class=\"list-group-body scroll\"></div></div>");
 
         cut.SetParametersAndRender(pb =>
         {
@@ -70,6 +70,22 @@ public class ListGroupTest : BootstrapBlazorTestBase
             pb.Add(a => a.GetItemDisplayText, null);
         });
         cut.WaitForAssertion(() => cut.MarkupMatches("<div class=\"list-group-item\" diff:ignore></div>"));
+    }
+
+    [Fact]
+    public void HeaderText_Ok()
+    {
+        var cut = Context.RenderComponent<ListGroup<Foo>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<Foo>()
+            {
+                new() { Name = "Test 1" },
+                new() { Name = "Test 1" }
+            });
+            pb.Add(a => a.GetItemDisplayText, foo => foo.Name ?? "");
+            pb.Add(a => a.HeaderText, "Text-Header");
+        });
+        cut.Contains("Text-Header");
     }
 
     [Fact]
