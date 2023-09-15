@@ -136,10 +136,10 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         cut.Instance.Value.NullEnd = DateTime.Now;
         Assert.NotNull(cut.Instance.Value.NullEnd);
 
-        cut.Instance.Value.NullStart = DateTime.MinValue;
-        Assert.Null(cut.Instance.Value.NullStart);
-        cut.Instance.Value.NullEnd = DateTime.MinValue;
-        Assert.Null(cut.Instance.Value.NullEnd);
+        cut.Instance.Value.NullStart = null;
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value.Start);
+        cut.Instance.Value.NullEnd = null;
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value.End);
     }
 
     [Fact]
