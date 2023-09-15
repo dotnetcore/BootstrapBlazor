@@ -164,7 +164,7 @@ public partial class BootstrapInputNumber<TValue>
     private async Task OnClickDec()
     {
         var val = CurrentValue;
-        var step = string.IsNullOrEmpty(StepString) ? "1" : "StepString";
+        var step = string.IsNullOrEmpty(StepString) ? "1" : StepString;
         switch (val)
         {
             case int @int:
@@ -200,7 +200,7 @@ public partial class BootstrapInputNumber<TValue>
     private async Task OnClickInc()
     {
         var val = CurrentValue;
-        var step = string.IsNullOrEmpty(StepString) ? "1" : "StepString";
+        var step = string.IsNullOrEmpty(StepString) ? "1" : StepString;
         switch (val)
         {
             case int @int:

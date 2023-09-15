@@ -116,9 +116,19 @@ public class InputNumberTest : BootstrapBlazorTestBase
         var buttons = cut.FindAll("button");
         cut.InvokeAsync(() => buttons[0].Click());
         Assert.True(inc);
+        Assert.Equal(-1, cut.Instance.Value);
 
         cut.InvokeAsync(() => buttons[1].Click());
         Assert.True(dec);
+        Assert.Equal(0, cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.Step, "10"));
+        buttons = cut.FindAll("button");
+        cut.InvokeAsync(() => buttons[0].Click());
+        Assert.Equal(-10, cut.Instance.Value);
+
+        cut.InvokeAsync(() => buttons[1].Click());
+        Assert.Equal(0, cut.Instance.Value);
     }
 
     [Theory]
