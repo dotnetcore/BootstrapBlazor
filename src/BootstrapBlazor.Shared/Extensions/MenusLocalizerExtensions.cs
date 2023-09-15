@@ -308,6 +308,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["ListGroup"],
+                    Url = "list-group"
+                },
+                new()
+                {
                     Match = NavLinkMatch.All,
                     Text = Localizer["Input"],
                     Url = "input"
