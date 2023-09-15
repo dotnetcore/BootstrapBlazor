@@ -1908,6 +1908,7 @@
     "StepsNormalPrevButtonText": "上一步",
     "StepsNormalNextButtonText": "下一步",
     "StepsNormalResetButtonText": "重 置",
+    "StepsNormalFinishedTemplateDesc": "通过设置 <code>FinishedTemplate</code> 可以实现步骤全部完成后的后续处理逻辑，比如显示已完成，如需要延时一定时间再跳转到一个新页面，需要自定义组件，再其 <code>OnAfterRenderAsync</code> 生命周期中处理",
     "StepsStepTitle": "基础用法",
     "StepsStepIntro": "简单的步骤条，组件内部直接使用 <code>Step</code> 组件设置步骤",
     "Step1Text": "第一步",

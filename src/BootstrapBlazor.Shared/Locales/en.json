@@ -1908,6 +1908,7 @@
     "StepsNormalPrevButtonText": "Prev",
     "StepsNormalNextButtonText": "Next",
     "StepsNormalResetButtonText": "Reset",
+    "StepsNormalFinishedTemplateDesc": "By setting <code>FinishedTemplate</code>, the subsequent processing logic after all steps are completed can be achieved, such as displaying completed steps. If a certain delay is needed to jump to a new page, a custom component needs to be customized and processed in its <code>OnAfterRenderAsync</code> lifecycle",
     "StepsStepTitle": "Basic usage",
     "StepsStepIntro": "A simple step bar that uses the <code>Step</code> component setup step directly inside the component",
     "Step1Text": "First",
