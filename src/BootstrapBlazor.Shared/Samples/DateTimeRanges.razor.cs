@@ -27,11 +27,11 @@ public sealed partial class DateTimeRanges
     private Task BindValueDemoOnValueChanged(DateTimeRangeValue val, int index)
     {
         var ret = "";
-        if (val.Start != null)
+        if (val.Start != DateTime.MinValue)
         {
-            ret = val.Start?.ToString("yyyy-MM-dd");
+            ret = val.Start.ToString("yyyy-MM-dd");
         }
-        if (val.End != null)
+        if (val.End != DateTime.MinValue)
         {
             ret = $"{ret} - {val.End:yyyy-MM-dd}";
         }
@@ -53,13 +53,13 @@ public sealed partial class DateTimeRanges
     private Task MaxMinOnValueChanged(DateTimeRangeValue val, int index)
     {
         var ret = "";
-        if (val.Start.HasValue)
+        if (val.Start != DateTime.MinValue)
         {
-            ret = val.Start.Value.ToString("yyyy-MM-dd");
+            ret = val.Start.ToString("yyyy-MM-dd");
         }
-        if (val.End.HasValue)
+        if (val.End != DateTime.MinValue)
         {
-            ret = $"{ret} - {val.End.Value:yyyy-MM-dd}";
+            ret = $"{ret} - {val.End:yyyy-MM-dd}";
         }
         if (index != 1)
         {
