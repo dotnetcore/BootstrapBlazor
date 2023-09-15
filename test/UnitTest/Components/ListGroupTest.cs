@@ -12,7 +12,7 @@ public class ListGroupTest : BootstrapBlazorTestBase
     public void Items_Ok()
     {
         var cut = Context.RenderComponent<ListGroup<Foo>>();
-        cut.MarkupMatches("<div class=\"bb-list-group\"><div class=\"list-group scroll\"></div></div>");
+        cut.MarkupMatches("<div class=\"list-group\"><div class=\"list-group-body scroll\"></div></div>");
 
         cut.SetParametersAndRender(pb =>
         {
