@@ -52,17 +52,24 @@ public class ListGroupTest : BootstrapBlazorTestBase
     [Fact]
     public void GetItemText_Ok()
     {
-        var cut = Context.RenderComponent<ListGroup<Foo>>(pb =>
+        var cut = Context.RenderComponent<ListGroup<Foo?>>(pb =>
         {
-            pb.Add(a => a.Items, new List<Foo>()
+            pb.Add(a => a.Items, new List<Foo?>()
             {
                 new() { Name = "Test 1" },
-                new() { Name = "Test 1" }
-            });
-            pb.Add(a => a.GetItemDisplayText, foo => foo.Name ?? "");
+                new() { Name = "Test 1" },
+                (Foo?)null
+           });
+            pb.Add(a => a.GetItemDisplayText, foo => foo?.Name ?? "");
         });
         var item = cut.Find(".list-group-item");
         Assert.Equal("Test 1", item.TextContent);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.GetItemDisplayText, null);
+        });
+        cut.WaitForAssertion(() => cut.MarkupMatches("<div class=\"list-group-item\" diff:ignore></div>"));
     }
 
     [Fact]
