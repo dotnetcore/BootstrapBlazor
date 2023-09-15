@@ -10,6 +10,7 @@
         padding: var(--bs-list-group-item-padding-y) var(--bs-list-group-item-padding-x);
         border-bottom: var(--bs-list-group-border-width) solid var(--bs-list-group-border-color);
         background-color: var(--bs-list-group-header-bg);
+        display: flex;
     }
 
     .list-group-body {
