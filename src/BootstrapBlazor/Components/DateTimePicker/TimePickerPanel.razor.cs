@@ -105,10 +105,6 @@ public partial class TimePickerPanel
     /// </summary>
     private string? minface_class => CssBuilder.Default("face-set min").AddClass("face-off", IsHour).Build();
 
-    private ElementReference hourElement;
-
-    private ElementReference minElement;
-
     /// <summary>
     /// switch hour or min mode
     /// </summary>
@@ -127,7 +123,7 @@ public partial class TimePickerPanel
         //self.querySelector(".time .active").classList.remove("active");
         //self.querySelector(".time .part." + cl).classList.add("active");
 
-        InvokeVoidAsync("setHandle", hourElement, Value.Hours, null, false);
+        //InvokeVoidAsync("setHandle", null, Value.Hours, null, false);
     }
 
     #endregion
@@ -150,7 +146,7 @@ public partial class TimePickerPanel
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value.Hours,Value.Minutes,Value.Seconds);
 
     /// <summary>
     /// 设置小时调用此方法
