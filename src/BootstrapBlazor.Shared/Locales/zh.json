@@ -5867,6 +5867,7 @@
   "BootstrapBlazor.Shared.Samples.ListGroups": {
     "ListGroupsTitle": "ListGroup 列表框",
     "ListGroupsSubTitle": "多用于数据浏览与选择",
+    "ListGroupsTips": "<li>通过 <code>Items</code> 设置列表框显示数据集合</li><li>通过 <code>GetItemDisplayText</code> 设置列表框数据项显示文本</li><li>由于组件内部高度设置为 <code>100%</code> 使用时自动充满父容器，当父容器设置高度时，列表项自动出现滚动条，本例中设置外部容器元素 <code>list-group-demo</code> 高度为 <code>280px</code></li>",
     "BasicUsageTitle": "基本用法",
     "BasicUsageIntro": "通过 <code>Items</code> 参数值设置数据集合",
     "HeaderTextTitle": "标题",
