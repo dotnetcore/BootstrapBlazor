@@ -3027,25 +3027,27 @@ section > h2 {
     background-image: radial-gradient(circle, #fff, #aaa, #333);
   }
 }
-.bb-list-group {
+.list-group {
+  --bs-list-group-header-bg: #e9ecef;
+  --bs-list-group-border-radius: 0;
   border: 1px solid var(--bs-secondary);
   height: 100%;
   border-radius: var(--bs-border-radius);
-  overflow: hidden;
-}
-.bb-list-group .list-group {
-  --bs-list-group-border-radius: 0;
-  height: 100%;
   overflow: auto;
 }
-.bb-list-group .list-group .list-group-item {
+.list-group .list-group-header {
+  padding: var(--bs-list-group-item-padding-y) var(--bs-list-group-item-padding-x);
+  border-bottom: var(--bs-list-group-border-width) solid var(--bs-list-group-border-color);
+  background-color: var(--bs-list-group-header-bg);
+}
+.list-group .list-group-body .list-group-item {
   border: none;
   cursor: pointer;
 }
-.bb-list-group .list-group .list-group-item:not(:first-child) {
+.list-group .list-group-body .list-group-item:not(:first-child) {
   border-top: var(--bs-list-group-border-width) solid var(--bs-list-group-border-color);
 }
-.bb-list-group .list-group .list-group-item.active {
+.list-group .list-group-body .list-group-item.active {
   margin-top: 0;
 }
 
