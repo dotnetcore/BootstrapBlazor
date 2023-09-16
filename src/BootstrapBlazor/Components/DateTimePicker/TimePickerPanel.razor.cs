@@ -148,6 +148,22 @@ public partial class TimePickerPanel
             Value = new TimeSpan(hour, min, sec);
             await ValueChanged.InvokeAsync(Value);
         }
+
+        switch (Hms)
+        {
+            case TimeMode.Hour:
+                Hms = TimeMode.Min;
+                StateHasChanged();
+                break;
+            case TimeMode.Min:
+                Hms = TimeMode.Sec;
+                StateHasChanged();
+                break;
+            case TimeMode.Sec:
+                break;
+            default:
+                break;
+        }
     }
 
     private enum TimeMode
