@@ -1,8 +1,8 @@
-﻿const timeMode = {
+﻿const timeMode = Object.freeze({
     Hour: 'Hour',
     Min: 'Min',
     Sec: 'Sec',
-}
+})
 
 export function setHandle(face, a, l, anim) {
     if (a == null) {
