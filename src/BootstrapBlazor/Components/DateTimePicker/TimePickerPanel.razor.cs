@@ -20,6 +20,12 @@ public partial class TimePickerPanel
         .Build();
 
     /// <summary>
+    /// 获得/设置 AM/PM
+    /// </summary>
+    [Parameter]
+    public bool IsAM { get; set; }
+
+    /// <summary>
     /// 获得/设置 AM/PM值变化时委托方法
     /// </summary>
     [Parameter]
@@ -45,11 +51,6 @@ public partial class TimePickerPanel
     private IStringLocalizer<TimePickerPanel>? Localizer { get; set; }
 
     #region am/pm switch
-
-    /// <summary>
-    /// is am or pm
-    /// </summary>
-    private bool IsAM { get; set; }
 
     /// <summary>
     /// the am/pm text
@@ -124,11 +125,24 @@ public partial class TimePickerPanel
     protected override void OnInitialized()
     {
         base.OnInitialized();
-
         var dt = DateTime.Now;
         IsAM = dt.Hour < 12;
         SwitchToAM(IsAM);
-        Value = new TimeSpan(dt.Hour, dt.Minute, dt.Second);
+
+        Value = new TimeSpan(IsAM ? dt.Hour : dt.AddHours(-12).Hour, dt.Minute, dt.Second);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+        if (firstRender)
+        {
+
+        }
     }
 
     /// <summary>
@@ -149,15 +163,14 @@ public partial class TimePickerPanel
             await ValueChanged.InvokeAsync(Value);
         }
 
+        //这里不知道为什么，Value的值会延迟刷新
         switch (Hms)
         {
             case TimeMode.Hour:
                 Hms = TimeMode.Min;
-                StateHasChanged();
                 break;
             case TimeMode.Min:
                 Hms = TimeMode.Sec;
-                StateHasChanged();
                 break;
             case TimeMode.Sec:
                 break;
