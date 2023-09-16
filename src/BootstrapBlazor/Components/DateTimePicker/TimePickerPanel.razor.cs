@@ -143,9 +143,9 @@ public partial class TimePickerPanel
     [JSInvokable]
     public async Task SetTime(int hour, int min, int sec)
     {
+        Value = new TimeSpan(hour, min, sec);
         if (ValueChanged.HasDelegate)
         {
-            Value = new TimeSpan(hour, min, sec);
             await ValueChanged.InvokeAsync(Value);
         }
 
