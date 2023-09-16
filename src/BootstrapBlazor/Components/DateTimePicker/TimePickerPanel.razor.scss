@@ -32,16 +32,19 @@ $lightActiveText: #33b5e5;
 
     .face-wrap {
         padding: 1rem;
-        height: 243px;
+        height: 308px;
         cursor: move;
         position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
         .face-set {
             position: absolute;
             border: 1px solid #ddd;
             border-radius: 50%;
-            width: 243px;
-            height: 243px;
+            width: 245px;
+            height: 245px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -49,7 +52,11 @@ $lightActiveText: #33b5e5;
             .face-number {
                 position: absolute;
                 transition: transform 0.5s cubic-bezier(.47,.02,.74,1.81), opacity 0.4s;
+                text-align: center;
                 pointer-events: none;
+                width: 100%;
+                line-height: 1em;
+                height: 1em;
 
                 @for $i from 0 to 12 {
                     &[data-css-time="#{$i}"] {

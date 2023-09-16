@@ -1726,16 +1726,19 @@ a, a:hover, a:focus {
 }
 .bb-time-panel .face-wrap {
   padding: 1rem;
-  height: 243px;
+  height: 308px;
   cursor: move;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .bb-time-panel .face-wrap .face-set {
   position: absolute;
   border: 1px solid #ddd;
   border-radius: 50%;
-  width: 243px;
-  height: 243px;
+  width: 245px;
+  height: 245px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1743,7 +1746,11 @@ a, a:hover, a:focus {
 .bb-time-panel .face-wrap .face-set .face-number {
   position: absolute;
   transition: transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81), opacity 0.4s;
+  text-align: center;
   pointer-events: none;
+  width: 100%;
+  line-height: 1em;
+  height: 1em;
 }
 .bb-time-panel .face-wrap .face-set .face-number[data-css-time="0"] {
   transform: rotate(0deg) translateY(-80px) rotate(0deg);

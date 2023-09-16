@@ -1,7 +1,7 @@
 ﻿export function setHandle(face, a, l, anim) {
     if (a == null) a = face.dataset.handAng;
     if (l == 'hidden') l = face.classList.contains('min') ? 7 : 4;
-    if (l == null) l = 5.5;
+    if (l == null) l = 5.7;
     var bl = a % 1 == 0 ? l - 0.25 : l;
     var deg = a * 30;
     face.dataset.handAng = a;
@@ -17,22 +17,24 @@ export function init(id, invoke, hours, minutes, seconds) {
     const self = document.getElementById(id);
     let mouse = false;
 
-    self.querySelectorAll('.face-set').forEach(el => el.dataset.handAng = 0);
-    //self.querySelector('.face-set.min').dataset.handAng = 1;
+    self.querySelectorAll('.face-wrap').forEach(el => el.dataset.handAng = 0);
+    self.querySelector('.face-set.min').dataset.handAng = 1;
 
     document.body.addEventListener('mouseup', function () {
         mouse = false;
     });
 
     function setTime(t) {
-        const isHour = self.querySelector('.face-set.hour');
-        if (isHour) {
+        var faceWrap = document.querySelector('.face-wrap');
+        var isHour = faceWrap.getAttribute('data-bb-ishour');
+        if (isHour === "hour") {
             t = Math.round(t)
             if (t === 0) t = 12;
             self.querySelector('.bb-time-header .hour').textContent = t;
             setHandle(self.querySelector('.face-set.hour'), t, null, false);
             hours = t;
-        } else {
+        }
+        if (isHour === "min") {
             t = Math.round((t * 5))
             if (t === 60) t = 0;
             self.querySelector('.bb-time-header .min').textContent = String(t).padStart(2, '0');
@@ -46,9 +48,16 @@ export function init(id, invoke, hours, minutes, seconds) {
         if (!mouse) return;
         e.preventDefault();
         let $this = self.querySelector('.face-wrap');
-        let pos = $this.getBoundingClientRect();
-        let cent = {left: $this.offsetWidth / 2 + pos.left, top: $this.offsetHeight / 2 + pos.top};
-        let hrs = Math.atan2(e.pageY - cent.top, e.pageX - cent.left) / Math.PI * 6 + 3;
+        var pos = $this.getBoundingClientRect();
+        var cent = {
+            left: pos.left + $this.offsetWidth / 2,
+            top: pos.top + $this.offsetHeight / 2
+        };
+
+        var x = e.clientX - cent.left;
+        var y = e.clientY - cent.top;
+        var hrs = Math.atan2(y, x) / Math.PI * 6 + 3;
+
         hrs += 12;
         hrs %= 12;
         setTime(hrs);

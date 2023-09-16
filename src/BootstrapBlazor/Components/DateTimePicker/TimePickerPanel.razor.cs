@@ -88,22 +88,22 @@ public partial class TimePickerPanel
     /// <summary>
     /// hour text class
     /// </summary>
-    private string? hour_class => CssBuilder.Default("part hour").AddClass("active", IsHour).Build();
+    private string? HourClass => CssBuilder.Default("part hour").AddClass("active", IsHour).Build();
 
     /// <summary>
     /// min text class
     /// </summary>
-    private string? min_class => CssBuilder.Default("part min").AddClass("active", !IsHour).Build();
+    private string? MinClass => CssBuilder.Default("part min").AddClass("active", !IsHour).Build();
 
     /// <summary>
     /// hour face class
     /// </summary>
-    private string? hourface_class => CssBuilder.Default("face-set hour").AddClass("face-off", !IsHour).Build();
+    private string? HourFaceClass => CssBuilder.Default("face-set hour").AddClass("face-off", !IsHour).Build();
 
     /// <summary>
     /// min face class
     /// </summary>
-    private string? minface_class => CssBuilder.Default("face-set min").AddClass("face-off", IsHour).Build();
+    private string? MinFaceClass => CssBuilder.Default("face-set min").AddClass("face-off", IsHour).Build();
 
     /// <summary>
     /// switch hour or min mode
@@ -159,5 +159,12 @@ public partial class TimePickerPanel
         {
             await ValueChanged.InvokeAsync(Value);
         }
+    }
+
+    private Task HandleMove(MouseEventArgs arg)
+    {
+
+        InvokeVoidAsync("handleMove", null, Value.Hours, null, false);
+        throw new NotImplementedException();
     }
 }
