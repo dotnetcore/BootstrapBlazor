@@ -81,50 +81,39 @@ public partial class TimePickerPanel
     #region hour/min switch
 
     /// <summary>
-    /// is hour or min mode
+    /// is hour or min or sec mode
     /// </summary>
-    private bool IsHour { get; set; } = true;
+    private TimeMode Hms { get; set; } = TimeMode.Hour;
 
     /// <summary>
     /// hour text class
     /// </summary>
-    private string? HourClass => CssBuilder.Default("part hour").AddClass("active", IsHour).Build();
+    private string? HourClass => CssBuilder.Default("part hour").AddClass("active", Hms == TimeMode.Hour).Build();
 
     /// <summary>
     /// min text class
     /// </summary>
-    private string? MinClass => CssBuilder.Default("part min").AddClass("active", !IsHour).Build();
+    private string? MinClass => CssBuilder.Default("part min").AddClass("active", Hms == TimeMode.Min).Build();
+
+    /// <summary>
+    /// sec text class
+    /// </summary>
+    private string? SecClass => CssBuilder.Default("part sec").AddClass("active", Hms == TimeMode.Sec).Build();
 
     /// <summary>
     /// hour face class
     /// </summary>
-    private string? HourFaceClass => CssBuilder.Default("face-set hour").AddClass("face-off", !IsHour).Build();
+    private string? HourFaceClass => CssBuilder.Default("face-set hour").AddClass("face-off", Hms != TimeMode.Hour).Build();
 
     /// <summary>
     /// min face class
     /// </summary>
-    private string? MinFaceClass => CssBuilder.Default("face-set min").AddClass("face-off", IsHour).Build();
+    private string? MinFaceClass => CssBuilder.Default("face-set min").AddClass("face-off", Hms != TimeMode.Min).Build();
 
     /// <summary>
-    /// switch hour or min mode
+    /// min face class
     /// </summary>
-    /// <param name="is_hour"></param>
-    private void SwitchToHour(bool is_hour)
-    {
-        IsHour = is_hour;
-        //invoke js method to switch hour or min pass the ishour parameter
-        //var cl = yes ? "min" : "hour";
-        //min = yes;
-        //activeFace.classList.add("face-off");
-        //setHandle(activeFace, null, "hidden", true);
-        //activeFace = self.querySelector(".face-set." + cl);
-        //activeFace.classList.remove("face-off");
-        //setHandle(activeFace, null, null, true);
-        //self.querySelector(".time .active").classList.remove("active");
-        //self.querySelector(".time .part." + cl).classList.add("active");
-
-        //InvokeVoidAsync("setHandle", null, Value.Hours, null, false);
-    }
+    private string? SecFaceClass => CssBuilder.Default("face-set sec").AddClass("face-off", Hms != TimeMode.Sec).Build();
 
     #endregion
 
@@ -146,7 +135,7 @@ public partial class TimePickerPanel
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value.Hours,Value.Minutes,Value.Seconds);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value.Hours, Value.Minutes, Value.Seconds);
 
     /// <summary>
     /// 设置小时调用此方法
@@ -154,17 +143,17 @@ public partial class TimePickerPanel
     [JSInvokable]
     public async Task SetTime(int hour, int min, int sec)
     {
-        Value = new TimeSpan(hour, min, sec);
         if (ValueChanged.HasDelegate)
         {
+            Value = new TimeSpan(hour, min, sec);
             await ValueChanged.InvokeAsync(Value);
         }
     }
 
-    private Task HandleMove(MouseEventArgs arg)
+    private enum TimeMode
     {
-
-        InvokeVoidAsync("handleMove", null, Value.Hours, null, false);
-        throw new NotImplementedException();
+        Hour,
+        Min,
+        Sec
     }
 }

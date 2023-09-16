@@ -9,6 +9,17 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class DateTimePickers
 {
+    private TimeSpan TimePickerValue { get; set; }
+
+    [NotNull]
+    private ConsoleLogger? TimePickerLogger { get; set; }
+
+    private Task TimePickerValueChanged(TimeSpan ts)
+    {
+        TimePickerLogger.Log($"Value: {ts}");
+        return Task.CompletedTask;
+    }
+
     [NotNull]
     private ConsoleLogger? NormalLogger { get; set; }
 

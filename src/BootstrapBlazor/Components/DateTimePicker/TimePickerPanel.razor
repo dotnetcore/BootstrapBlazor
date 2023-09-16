@@ -4,12 +4,18 @@
 
 <div @attributes="AdditionalAttributes" class="@ClassString" id="@Id">
     <div class="bb-time-header">
-        <span class="@HourClass" @onclick="@(() => SwitchToHour(true))">@(Value.Hours)</span>
+        <span class="@HourClass"
+              @onclick="@(() => Hms = TimeMode.Hour)">@(Value.Hours)</span>
         <span>:</span>
-        <span class="@MinClass" @onclick="@(() => SwitchToHour(false))">@(Value.Minutes)</span>
+        <span class="@MinClass"
+              @onclick="@(() => Hms = TimeMode.Min)">@(Value.Minutes)</span>
+        <span>:</span>
+        <span class="@SecClass"
+              @onclick="@(() => Hms = TimeMode.Sec)">@(Value.Seconds)</span>
+
         <span class="part am-pm" @onclick="@(() => SwitchToAM(!IsAM))">@am_pm</span>
     </div>
-    <div class="face-wrap" data-bb-ishour="@(IsHour?"hour":"min")">
+    <div class="face-wrap" data-bb-hms="@Hms">
         <div class="@HourFaceClass">
             <div class="handle-bar"></div>
             <span class="face-number" data-css-time="0">12</span>
@@ -29,6 +35,24 @@
             </div>
         </div>
         <div class="@MinFaceClass">
+            <div class="handle-bar"></div>
+            <span class="face-number" data-css-time="0">00</span>
+            <span class="face-number" data-css-time="1">05</span>
+            <span class="face-number" data-css-time="2">10</span>
+            <span class="face-number" data-css-time="3">15</span>
+            <span class="face-number" data-css-time="4">20</span>
+            <span class="face-number" data-css-time="5">25</span>
+            <span class="face-number" data-css-time="6">30</span>
+            <span class="face-number" data-css-time="7">35</span>
+            <span class="face-number" data-css-time="8">40</span>
+            <span class="face-number" data-css-time="9">45</span>
+            <span class="face-number" data-css-time="10">50</span>
+            <span class="face-number" data-css-time="11">55</span>
+            <div class="handle">
+                <div class="handle-spot"></div>
+            </div>
+        </div>
+        <div class="@SecFaceClass">
             <div class="handle-bar"></div>
             <span class="face-number" data-css-time="0">00</span>
             <span class="face-number" data-css-time="1">05</span>
