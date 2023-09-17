@@ -1,27 +1,5 @@
-﻿const timeMode = Object.freeze({
-    Hour: 'Hour',
-    Min: 'Min',
-    Sec: 'Sec',
-})
-
-export function setHandle(face, a, l, anim) {
-    if (a == null) {
-        a = face.dataset.handAng;
-    }
-    if (l == 'hidden') {
-        l = face.classList.contains('min') ? 7 : 4;
-    }
-    if (l == null) {
-        l = 5.7;
-    }
-
-    var bl = a % 1 == 0 ? l - 0.25 : l;
-    var deg = a * 30;
-
-    var handle = face.querySelector('.bb-clock-point');
-    handle.style.transform = 'rotate(' + (deg).toFixed(20) + 'deg)';
-    handle.classList.toggle('anim', anim);
-}
+﻿import Data from "../../modules/data.js?v=$version"
+import EventHandler from "../../modules/event-handler.js?v=$version"
 
 export function init(id, invoke, hours, minutes, seconds) {
     const self = document.getElementById(id);
@@ -90,4 +68,23 @@ export function init(id, invoke, hours, minutes, seconds) {
     setTimeout(function () {
         self.querySelectorAll('*').forEach(el => el.style.transition = '');
     });
+}
+
+export function setHandle(face, a, l, anim) {
+    if (a == null) {
+        a = face.dataset.handAng;
+    }
+    if (l == 'hidden') {
+        l = face.classList.contains('min') ? 7 : 4;
+    }
+    if (l == null) {
+        l = 5.7;
+    }
+
+    var bl = a % 1 == 0 ? l - 0.25 : l;
+    var deg = a * 30;
+
+    var handle = face.querySelector('.bb-clock-point');
+    handle.style.transform = 'rotate(' + (deg).toFixed(20) + 'deg)';
+    handle.classList.toggle('anim', anim);
 }

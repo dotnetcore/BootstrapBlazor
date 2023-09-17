@@ -1756,15 +1756,15 @@ a, a:hover, a:focus {
 .bb-time-panel .bb-time-body .bb-clock-panel > div {
   position: absolute;
   margin-top: var(--bb-time-clock-number-margin-top);
-  transition: transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81), opacity 0.4s;
   text-align: center;
-  pointer-events: none;
   width: var(--bb-time-clock-number-width);
   height: var(--bb-time-clock-number-height);
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
   transform-origin: center calc((var(--bb-time-body-height) - var(--bb-time-clock-number-height)) / 2);
+  transition: transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81), opacity 0.4s;
 }
 .bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(1) {
   transform: rotate(0deg);
@@ -1871,9 +1871,6 @@ a, a:hover, a:focus {
   position: absolute;
   left: calc(0px - (var(--bb-time-clock-number-width) - 2px) / 2);
   transition: opacity 0.4s;
-}
-.bb-time-panel .bb-time-body .bb-clock-panel .bb-clock-point .bb-clock-point-bar.anim {
-  transition: transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81), opacity 0.4s;
 }
 .bb-time-panel .bb-time-body .bb-clock-panel .bb-clock-point .bb-clock-point-star {
   width: 4px;

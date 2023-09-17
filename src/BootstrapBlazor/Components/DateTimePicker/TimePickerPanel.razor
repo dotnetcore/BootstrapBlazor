@@ -2,31 +2,31 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader("DateTimePicker/TimePickerPanel.razor.js", JSObjectReference = true, AutoInvokeDispose = false)]
 
-<div @attributes="AdditionalAttributes" class="@ClassString" id="@Id">
+<div @attributes="AdditionalAttributes" class="@ClassString" id="@Id" data-bb-mode="@Mode">
     <div class="bb-time-header">
-        <span class="@HourClass" @onclick="@(() => Hms = TimeMode.Hour)">@(Value.Hours)</span>
+        <span class="@HourHeaderClass" @onclick="() => SetMode(TimeMode.Hour)">@(Value.Hours)</span>
         <span>:</span>
-        <span class="@MinClass" @onclick="@(() => Hms = TimeMode.Min)">@(Value.Minutes)</span>
+        <span class="@MinusHeaderClass" @onclick="() => SetMode(TimeMode.Minute)">@(Value.Minutes)</span>
         <span>:</span>
-        <span class="@SecClass" @onclick="@(() => Hms = TimeMode.Sec)">@(Value.Seconds)</span>
+        <span class="@SecondHeaderClass" @onclick="() => SetMode(TimeMode.Second)">@(Value.Seconds)</span>
         <span class="part am-pm" @onclick="@(() => SwitchToAM(!IsAM))">@am_pm</span>
     </div>
-    <div class="bb-time-body" data-bb-hms="@Hms">
-        <div class="@SecFaceClass">
+    <div class="bb-time-body">
+        <div class="@SecondClass">
             @for (var index = 0; index < 60; index = index + 5)
             {
                 <div><span>@index</span></div>
             }
             @RenderClockPoint
         </div>
-        <div class="@MinFaceClass">
+        <div class="@MinusClass">
             @for (var index = 0; index < 60; index = index + 5)
             {
                 <div><span>@index</span></div>
             }
             @RenderClockPoint
         </div>
-        <div class="@HourFaceClass">
+        <div class="@HourClass">
             <div><span>12</span></div>
             @for (var index = 1; index < 12; index++)
             {

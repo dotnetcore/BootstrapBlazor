@@ -60,15 +60,15 @@
             > div {
                 position: absolute;
                 margin-top: var(--bb-time-clock-number-margin-top);
-                transition: transform 0.5s cubic-bezier(.47,.02,.74,1.81), opacity 0.4s;
                 text-align: center;
-                pointer-events: none;
                 width: var(--bb-time-clock-number-width);
                 height: var(--bb-time-clock-number-height);
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                user-select: none;
                 transform-origin: center calc((var(--bb-time-body-height) - var(--bb-time-clock-number-height)) / 2);
+                transition: transform 0.5s cubic-bezier(.47,.02,.74,1.81), opacity 0.4s;
 
                 @for $i from 0 to 12 {
                     &:nth-child(#{($i + 1)}) {
@@ -104,10 +104,6 @@
                     position: absolute;
                     left: calc(0px - (var(--bb-time-clock-number-width) - 2px) / 2);
                     transition: opacity 0.4s;
-
-                    &.anim {
-                        transition: transform 0.5s cubic-bezier(.47,.02,.74,1.81), opacity 0.4s;
-                    }
                 }
 
                 .bb-clock-point-star {

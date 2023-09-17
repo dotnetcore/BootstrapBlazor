@@ -25,7 +25,7 @@ public partial class TimePickerPanel
     public bool IsAM { get; set; }
 
     /// <summary>
-    /// 获得/设置 AM/PM值变化时委托方法
+    /// 获得/设置 AM/PM 值变化时委托方法
     /// </summary>
     [Parameter]
     public EventCallback<bool> IsAMChanged { get; set; }
@@ -48,8 +48,6 @@ public partial class TimePickerPanel
     [Inject]
     [NotNull]
     private IStringLocalizer<TimePickerPanel>? Localizer { get; set; }
-
-    #region am/pm switch
 
     /// <summary>
     /// the am/pm text
@@ -80,58 +78,52 @@ public partial class TimePickerPanel
         am_pm = is_am ? Localizer["AMText"].Value : Localizer["PMText"].Value;
     }
 
-    #endregion
-
-    #region hour/min switch
-
     /// <summary>
     /// is hour or min or sec mode
     /// </summary>
-    private TimeMode Hms { get; set; } = TimeMode.Hour;
+    private TimeMode Mode { get; set; } = TimeMode.Hour;
 
     /// <summary>
     /// hour text class
     /// </summary>
-    private string? HourClass => CssBuilder.Default("part hour")
-        .AddClass("active", Hms == TimeMode.Hour)
+    private string? HourHeaderClass => CssBuilder.Default("part hour")
+        .AddClass("active", Mode == TimeMode.Hour)
         .Build();
 
     /// <summary>
     /// min text class
     /// </summary>
-    private string? MinClass => CssBuilder.Default("part min")
-        .AddClass("active", Hms == TimeMode.Min)
+    private string? MinusHeaderClass => CssBuilder.Default("part min")
+        .AddClass("active", Mode == TimeMode.Minute)
         .Build();
 
     /// <summary>
     /// sec text class
     /// </summary>
-    private string? SecClass => CssBuilder.Default("part sec")
-        .AddClass("active", Hms == TimeMode.Sec)
+    private string? SecondHeaderClass => CssBuilder.Default("part sec")
+        .AddClass("active", Mode == TimeMode.Second)
         .Build();
 
     /// <summary>
     /// hour face class
     /// </summary>
-    private string? HourFaceClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-hour")
-        .AddClass("face-off", Hms != TimeMode.Hour)
+    private string? HourClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-hour")
+        .AddClass("face-off", Mode != TimeMode.Hour)
         .Build();
 
     /// <summary>
     /// min face class
     /// </summary>
-    private string? MinFaceClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-min")
-        .AddClass("face-off", Hms != TimeMode.Min)
+    private string? MinusClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-min")
+        .AddClass("face-off", Mode != TimeMode.Minute)
         .Build();
 
     /// <summary>
     /// min face class
     /// </summary>
-    private string? SecFaceClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-sec")
-        .AddClass("face-off", Hms != TimeMode.Sec)
+    private string? SecondClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-sec")
+        .AddClass("face-off", Mode != TimeMode.Second)
         .Build();
-
-    #endregion
 
     /// <summary>
     /// <inheritdoc/>
@@ -153,6 +145,8 @@ public partial class TimePickerPanel
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value.Hours, Value.Minutes, Value.Seconds);
 
+    private void SetMode(TimeMode mode) => Mode = mode;
+
     /// <summary>
     /// 设置小时调用此方法
     /// </summary>
@@ -166,15 +160,15 @@ public partial class TimePickerPanel
         }
 
         //这里不知道为什么，Value的值会延迟刷新
-        switch (Hms)
+        switch (Mode)
         {
             case TimeMode.Hour:
-                Hms = TimeMode.Min;
+                Mode = TimeMode.Minute;
                 break;
-            case TimeMode.Min:
-                Hms = TimeMode.Sec;
+            case TimeMode.Minute:
+                Mode = TimeMode.Second;
                 break;
-            case TimeMode.Sec:
+            case TimeMode.Second:
                 break;
             default:
                 break;
@@ -184,7 +178,7 @@ public partial class TimePickerPanel
     private enum TimeMode
     {
         Hour,
-        Min,
-        Sec
+        Minute,
+        Second
     }
 }
