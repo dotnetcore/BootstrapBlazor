@@ -4,71 +4,35 @@
 
 <div @attributes="AdditionalAttributes" class="@ClassString" id="@Id">
     <div class="bb-time-header">
-        <span class="@HourClass"
-              @onclick="@(() => Hms = TimeMode.Hour)">@(Value.Hours)</span>
+        <span class="@HourClass" @onclick="@(() => Hms = TimeMode.Hour)">@(Value.Hours)</span>
         <span>:</span>
-        <span class="@MinClass"
-              @onclick="@(() => Hms = TimeMode.Min)">@(Value.Minutes)</span>
+        <span class="@MinClass" @onclick="@(() => Hms = TimeMode.Min)">@(Value.Minutes)</span>
         <span>:</span>
-        <span class="@SecClass"
-              @onclick="@(() => Hms = TimeMode.Sec)">@(Value.Seconds)</span>
-
+        <span class="@SecClass" @onclick="@(() => Hms = TimeMode.Sec)">@(Value.Seconds)</span>
         <span class="part am-pm" @onclick="@(() => SwitchToAM(!IsAM))">@am_pm</span>
     </div>
-    <div class="face-wrap" data-bb-hms="@Hms">
-        <div class="@HourFaceClass">
-            <div class="handle-bar"></div>
-            <span class="face-number" data-css-time="0">12</span>
-            <span class="face-number" data-css-time="1">1</span>
-            <span class="face-number" data-css-time="2">2</span>
-            <span class="face-number" data-css-time="3">3</span>
-            <span class="face-number" data-css-time="4">4</span>
-            <span class="face-number" data-css-time="5">5</span>
-            <span class="face-number" data-css-time="6">6</span>
-            <span class="face-number" data-css-time="7">7</span>
-            <span class="face-number" data-css-time="8">8</span>
-            <span class="face-number" data-css-time="9">9</span>
-            <span class="face-number" data-css-time="10">10</span>
-            <span class="face-number" data-css-time="11">11</span>
-            <div class="handle">
-                <div class="handle-spot"></div>
-            </div>
+    <div class="bb-time-body" data-bb-hms="@Hms">
+        <div class="@SecFaceClass">
+            @for (var index = 0; index < 60; index = index + 5)
+            {
+                <span>@index</span>
+            }
+            @RenderClockPoint
         </div>
         <div class="@MinFaceClass">
-            <div class="handle-bar"></div>
-            <span class="face-number" data-css-time="0">00</span>
-            <span class="face-number" data-css-time="1">05</span>
-            <span class="face-number" data-css-time="2">10</span>
-            <span class="face-number" data-css-time="3">15</span>
-            <span class="face-number" data-css-time="4">20</span>
-            <span class="face-number" data-css-time="5">25</span>
-            <span class="face-number" data-css-time="6">30</span>
-            <span class="face-number" data-css-time="7">35</span>
-            <span class="face-number" data-css-time="8">40</span>
-            <span class="face-number" data-css-time="9">45</span>
-            <span class="face-number" data-css-time="10">50</span>
-            <span class="face-number" data-css-time="11">55</span>
-            <div class="handle">
-                <div class="handle-spot"></div>
-            </div>
+            @for (var index = 0; index < 60; index = index + 5)
+            {
+                <span>@index</span>
+            }
+            @RenderClockPoint
         </div>
-        <div class="@SecFaceClass">
-            <div class="handle-bar"></div>
-            <span class="face-number" data-css-time="0">00</span>
-            <span class="face-number" data-css-time="1">05</span>
-            <span class="face-number" data-css-time="2">10</span>
-            <span class="face-number" data-css-time="3">15</span>
-            <span class="face-number" data-css-time="4">20</span>
-            <span class="face-number" data-css-time="5">25</span>
-            <span class="face-number" data-css-time="6">30</span>
-            <span class="face-number" data-css-time="7">35</span>
-            <span class="face-number" data-css-time="8">40</span>
-            <span class="face-number" data-css-time="9">45</span>
-            <span class="face-number" data-css-time="10">50</span>
-            <span class="face-number" data-css-time="11">55</span>
-            <div class="handle">
-                <div class="handle-spot"></div>
-            </div>
+        <div class="@HourFaceClass">
+            <div><span>12</span></div>
+            @for (var index = 1; index < 12; index++)
+            {
+                <div><span>@index</span></div>
+            }
+            @RenderClockPoint
         </div>
     </div>
     <div class="bb-time-footer">
@@ -76,3 +40,11 @@
         <div class="@pm_class" @onclick="@(() => SwitchToAM(false))">@Localizer["PMText"]</div>
     </div>
 </div>
+
+@code {
+    RenderFragment RenderClockPoint =>
+    @<span class="bb-clock-point">
+        <span class="bb-clock-point-bar"></span>
+        <span class="bb-clock-point-star"></span>
+    </span>;
+}

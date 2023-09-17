@@ -1703,10 +1703,13 @@ a, a:hover, a:focus {
 }
 
 .bb-time-panel {
-  width: calc(320px - 2rem);
-  -webkit-user-select: none;
+  --bb-time-point-bg: var(--bs-primary);
+  --bb-time-body-width: 244px;
+  --bb-time-body-height: 244px;
+  --bb-time-clock-number-width: 22px;
+  --bb-time-clock-number-height: 22px;
+  --bb-time-clock-number-margin-top: calc(var(--bb-time-clock-number-height) / 2);
   user-select: none;
-  color: #909090;
 }
 .bb-time-panel .bb-time-header {
   font-size: 1.6rem;
@@ -1714,7 +1717,7 @@ a, a:hover, a:focus {
   text-align: center;
 }
 .bb-time-panel .bb-time-header .active {
-  color: #33b5e5;
+  color: #ddd;
 }
 .bb-time-panel .bb-time-header .part {
   cursor: pointer;
@@ -1724,178 +1727,232 @@ a, a:hover, a:focus {
   width: auto;
   display: inline-block;
 }
-.bb-time-panel .face-wrap {
-  padding: 1rem;
-  height: 308px;
-  cursor: move;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.bb-time-panel .face-wrap .face-set {
-  position: absolute;
+.bb-time-panel .bb-time-body {
+  margin: 1rem;
   border: 1px solid #ddd;
   border-radius: 50%;
-  width: 245px;
-  height: 245px;
+  position: relative;
+  width: var(--bb-time-body-width);
+  height: var(--bb-time-body-height);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel {
+  cursor: move;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
 }
-.bb-time-panel .face-wrap .face-set .face-number {
+.bb-time-panel .bb-time-body .bb-clock-panel div {
   position: absolute;
+  margin-top: var(--bb-time-clock-number-margin-top);
   transition: transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81), opacity 0.4s;
   text-align: center;
   pointer-events: none;
-  width: 100%;
-  line-height: 1em;
-  height: 1em;
+  width: var(--bb-time-clock-number-width);
+  height: var(--bb-time-clock-number-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-origin: center calc((var(--bb-time-body-height) - var(--bb-time-clock-number-height)) / 2);
 }
-.bb-time-panel .face-wrap .face-set .face-number[data-css-time="0"] {
-  transform: rotate(0deg) translateY(-80px) rotate(0deg);
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(1) {
+  transform: rotate(0deg);
 }
-.bb-time-panel .face-wrap .face-set .face-number[data-css-time="1"] {
-  transform: rotate(30deg) translateY(-80px) rotate(-30deg);
-}
-.bb-time-panel .face-wrap .face-set .face-number[data-css-time="2"] {
-  transform: rotate(60deg) translateY(-80px) rotate(-60deg);
-}
-.bb-time-panel .face-wrap .face-set .face-number[data-css-time="3"] {
-  transform: rotate(90deg) translateY(-80px) rotate(-90deg);
-}
-.bb-time-panel .face-wrap .face-set .face-number[data-css-time="4"] {
-  transform: rotate(120deg) translateY(-80px) rotate(-120deg);
-}
-.bb-time-panel .face-wrap .face-set .face-number[data-css-time="5"] {
-  transform: rotate(150deg) translateY(-80px) rotate(-150deg);
-}
-.bb-time-panel .face-wrap .face-set .face-number[data-css-time="6"] {
-  transform: rotate(180deg) translateY(-80px) rotate(-180deg);
-}
-.bb-time-panel .face-wrap .face-set .face-number[data-css-time="7"] {
-  transform: rotate(210deg) translateY(-80px) rotate(-210deg);
-}
-.bb-time-panel .face-wrap .face-set .face-number[data-css-time="8"] {
-  transform: rotate(240deg) translateY(-80px) rotate(-240deg);
-}
-.bb-time-panel .face-wrap .face-set .face-number[data-css-time="9"] {
-  transform: rotate(270deg) translateY(-80px) rotate(-270deg);
-}
-.bb-time-panel .face-wrap .face-set .face-number[data-css-time="10"] {
-  transform: rotate(300deg) translateY(-80px) rotate(-300deg);
-}
-.bb-time-panel .face-wrap .face-set .face-number[data-css-time="11"] {
-  transform: rotate(330deg) translateY(-80px) rotate(-330deg);
-}
-.bb-time-panel .face-wrap .face-set .handle {
-  transition: opacity 0.4s;
-  height: 1.65em;
-  width: 1.65em;
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(1) span {
+  transform: rotate(0deg);
   position: absolute;
-  background: rgba(0, 153, 204, 0.5);
-  border-radius: 50%;
-  transform: rotate(300deg) translateY(-80px);
 }
-.bb-time-panel .face-wrap .face-set .handle.anim {
-  transition: transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81), opacity 0.4s;
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(2) {
+  transform: rotate(30deg);
 }
-.bb-time-panel .face-wrap .face-set .handle-spot {
-  height: 0.5em;
-  width: 0.5em;
-  top: 0.575em;
-  left: 0.575em;
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(2) span {
+  transform: rotate(-30deg);
   position: absolute;
-  background: #33b5e5;
-  border-radius: 50%;
 }
-.bb-time-panel .face-wrap .face-set .handle-bar {
-  transition: opacity 0.4s;
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(3) {
+  transform: rotate(60deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(3) span {
+  transform: rotate(-60deg);
+  position: absolute;
+}
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(4) {
+  transform: rotate(90deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(4) span {
+  transform: rotate(-90deg);
+  position: absolute;
+}
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(5) {
+  transform: rotate(120deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(5) span {
+  transform: rotate(-120deg);
+  position: absolute;
+}
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(6) {
+  transform: rotate(150deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(6) span {
+  transform: rotate(-150deg);
+  position: absolute;
+}
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(7) {
+  transform: rotate(180deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(7) span {
+  transform: rotate(-180deg);
+  position: absolute;
+}
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(8) {
+  transform: rotate(210deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(8) span {
+  transform: rotate(-210deg);
+  position: absolute;
+}
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(9) {
+  transform: rotate(240deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(9) span {
+  transform: rotate(-240deg);
+  position: absolute;
+}
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(10) {
+  transform: rotate(270deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(10) span {
+  transform: rotate(-270deg);
+  position: absolute;
+}
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(11) {
+  transform: rotate(300deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(11) span {
+  transform: rotate(-300deg);
+  position: absolute;
+}
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(12) {
+  transform: rotate(330deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(12) span {
+  transform: rotate(-330deg);
+  position: absolute;
+}
+.bb-time-panel .bb-time-body .bb-clock-panel .bb-clock-point {
+  margin-top: var(--bb-time-clock-number-margin-top);
+  opacity: 0.4;
+  height: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-number-margin-top));
+  width: 2px;
+  background-color: var(--bs-primary);
+  transform: rotate(0deg);
   transform-origin: bottom;
-  position: absolute;
-  background: #33b5e5;
-  width: 1px;
-  height: 1em;
+  position: relative;
 }
-.bb-time-panel .face-wrap .face-set .handle-bar.anim {
+.bb-time-panel .bb-time-body .bb-clock-panel .bb-clock-point.anim {
   transition: transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81), opacity 0.4s;
 }
-.bb-time-panel .face-wrap .face-set.face-off .face-number {
+.bb-time-panel .bb-time-body .bb-clock-panel .bb-clock-point .bb-clock-point-bar {
+  background-color: var(--bs-primary);
+  width: var(--bb-time-clock-number-width);
+  height: var(--bb-time-clock-number-height);
+  border-radius: 50%;
+  position: absolute;
+  left: calc(0px - (var(--bb-time-clock-number-width) - 2px) / 2);
+  transition: opacity 0.4s;
+}
+.bb-time-panel .bb-time-body .bb-clock-panel .bb-clock-point .bb-clock-point-bar.anim {
+  transition: transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81), opacity 0.4s;
+}
+.bb-time-panel .bb-time-body .bb-clock-panel .bb-clock-point .bb-clock-point-star {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  position: absolute;
+  left: -1px;
+  bottom: -2px;
+  background-color: #000;
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off .face-number {
   opacity: 0;
 }
-.bb-time-panel .face-wrap .face-set.face-off .handle, .bb-time-panel .face-wrap .face-set.face-off .handle-bar {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off .handle, .bb-time-panel .bb-time-body .bb-clock-panel.face-off .handle-bar {
   opacity: 0;
 }
-.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="0"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="0"] {
   transform: rotate(0deg) translateY(-90px) rotate(0deg);
 }
-.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="1"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="1"] {
   transform: rotate(30deg) translateY(-90px) rotate(-30deg);
 }
-.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="2"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="2"] {
   transform: rotate(60deg) translateY(-90px) rotate(-60deg);
 }
-.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="3"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="3"] {
   transform: rotate(90deg) translateY(-90px) rotate(-90deg);
 }
-.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="4"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="4"] {
   transform: rotate(120deg) translateY(-90px) rotate(-120deg);
 }
-.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="5"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="5"] {
   transform: rotate(150deg) translateY(-90px) rotate(-150deg);
 }
-.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="6"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="6"] {
   transform: rotate(180deg) translateY(-90px) rotate(-180deg);
 }
-.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="7"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="7"] {
   transform: rotate(210deg) translateY(-90px) rotate(-210deg);
 }
-.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="8"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="8"] {
   transform: rotate(240deg) translateY(-90px) rotate(-240deg);
 }
-.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="9"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="9"] {
   transform: rotate(270deg) translateY(-90px) rotate(-270deg);
 }
-.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="10"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="10"] {
   transform: rotate(300deg) translateY(-90px) rotate(-300deg);
 }
-.bb-time-panel .face-wrap .face-set.face-off.min .face-number[data-css-time="11"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="11"] {
   transform: rotate(330deg) translateY(-90px) rotate(-330deg);
 }
-.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="0"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="0"] {
   transform: rotate(0deg) translateY(-60px) rotate(0deg);
 }
-.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="1"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="1"] {
   transform: rotate(30deg) translateY(-60px) rotate(-30deg);
 }
-.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="2"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="2"] {
   transform: rotate(60deg) translateY(-60px) rotate(-60deg);
 }
-.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="3"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="3"] {
   transform: rotate(90deg) translateY(-60px) rotate(-90deg);
 }
-.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="4"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="4"] {
   transform: rotate(120deg) translateY(-60px) rotate(-120deg);
 }
-.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="5"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="5"] {
   transform: rotate(150deg) translateY(-60px) rotate(-150deg);
 }
-.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="6"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="6"] {
   transform: rotate(180deg) translateY(-60px) rotate(-180deg);
 }
-.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="7"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="7"] {
   transform: rotate(210deg) translateY(-60px) rotate(-210deg);
 }
-.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="8"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="8"] {
   transform: rotate(240deg) translateY(-60px) rotate(-240deg);
 }
-.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="9"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="9"] {
   transform: rotate(270deg) translateY(-60px) rotate(-270deg);
 }
-.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="10"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="10"] {
   transform: rotate(300deg) translateY(-60px) rotate(-300deg);
 }
-.bb-time-panel .face-wrap .face-set.face-off.hour .face-number[data-css-time="11"] {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="11"] {
   transform: rotate(330deg) translateY(-60px) rotate(-330deg);
 }
 .bb-time-panel .bb-time-footer {

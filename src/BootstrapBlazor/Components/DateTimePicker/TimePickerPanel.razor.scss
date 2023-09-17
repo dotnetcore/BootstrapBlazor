@@ -1,14 +1,11 @@
-$lightHandle: rgba(0,153,204,0.5);
-$lightFace: #fff;
-$lightBackground: #f2f2f2;
-$lightText: #909090;
-$lightActiveText: #33b5e5;
-
 .bb-time-panel {
-    width: calc(320px - 2rem);
-    -webkit-user-select: none;
+    --bb-time-point-bg: var(--bs-primary);
+    --bb-time-body-width: 244px;
+    --bb-time-body-height: 244px;
+    --bb-time-clock-number-width: 22px;
+    --bb-time-clock-number-height: 22px;
+    --bb-time-clock-number-margin-top: calc(var(--bb-time-clock-number-height) / 2);
     user-select: none;
-    color: $lightText;
 
     .bb-time-header {
         font-size: 1.6rem;
@@ -16,7 +13,7 @@ $lightActiveText: #33b5e5;
         text-align: center;
 
         .active {
-            color: $lightActiveText;
+            color: #ddd;
         }
 
         .part {
@@ -30,81 +27,87 @@ $lightActiveText: #33b5e5;
         }
     }
 
-    .face-wrap {
-        padding: 1rem;
-        height: 308px;
-        cursor: move;
+    .bb-time-body {
+        margin: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 50%;
         position: relative;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        width: var(--bb-time-body-width);
+        height: var(--bb-time-body-height);
 
-        .face-set {
+        .bb-clock-panel {
+            cursor: move;
             position: absolute;
-            border: 1px solid #ddd;
-            border-radius: 50%;
-            width: 245px;
-            height: 245px;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: start;
 
-            .face-number {
+            div {
                 position: absolute;
+                margin-top: var(--bb-time-clock-number-margin-top);
                 transition: transform 0.5s cubic-bezier(.47,.02,.74,1.81), opacity 0.4s;
                 text-align: center;
                 pointer-events: none;
-                width: 100%;
-                line-height: 1em;
-                height: 1em;
+                width: var(--bb-time-clock-number-width);
+                height: var(--bb-time-clock-number-height);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                transform-origin: center calc((var(--bb-time-body-height) - var(--bb-time-clock-number-height)) / 2);
 
                 @for $i from 0 to 12 {
-                    &[data-css-time="#{$i}"] {
-                        transform: rotate($i * 30deg) translateY(-80px) rotate($i * -30deg);
+                    &:nth-child(#{($i + 1)}) {
+                        transform: rotate($i * 30deg);
+
+                        span {
+                            transform: rotate($i * -30deg);
+                            position: absolute;
+                        }
                     }
                 }
             }
 
-            $handleSize: 1.65em;
-
-            .handle {
-                transition: opacity 0.4s;
-
-                &.anim {
-                    transition: transform 0.5s cubic-bezier(.47,.02,.74,1.81), opacity 0.4s;
-                }
-
-                height: $handleSize;
-                width: $handleSize;
-                position: absolute;
-                background: $lightHandle;
-                border-radius: 50%;
-                transform: rotate(10 * 30deg) translateY(-80px);
-            }
-
-            .handle-spot {
-                $handleSpotSize: 0.5em;
-                height: $handleSpotSize;
-                width: $handleSpotSize;
-                top: $handleSize / 2 - $handleSpotSize / 2;
-                left: $handleSize / 2 - $handleSpotSize / 2;
-                position: absolute;
-                background: $lightActiveText;
-                border-radius: 50%;
-            }
-
-            .handle-bar {
-                transition: opacity 0.4s;
-
-                &.anim {
-                    transition: transform 0.5s cubic-bezier(.47,.02,.74,1.81), opacity 0.4s;
-                }
-
+            .bb-clock-point {
+                margin-top: var(--bb-time-clock-number-margin-top);
+                opacity: .4;
+                height: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-number-margin-top));
+                width: 2px;
+                background-color: var(--bs-primary);
+                transform: rotate(0deg);
                 transform-origin: bottom;
-                position: absolute;
-                background: $lightActiveText;
-                width: 1px;
-                height: 1em;
+                position: relative;
+
+                &.anim {
+                    transition: transform 0.5s cubic-bezier(.47,.02,.74,1.81), opacity 0.4s;
+                }
+
+                .bb-clock-point-bar {
+                    background-color: var(--bs-primary);
+                    width: var(--bb-time-clock-number-width);
+                    height: var(--bb-time-clock-number-height);
+                    border-radius: 50%;
+                    position: absolute;
+                    left: calc(0px - (var(--bb-time-clock-number-width) - 2px) / 2);
+                    transition: opacity 0.4s;
+
+                    &.anim {
+                        transition: transform 0.5s cubic-bezier(.47,.02,.74,1.81), opacity 0.4s;
+                    }
+                }
+
+                .bb-clock-point-star {
+                    width: 4px;
+                    height: 4px;
+                    border-radius: 50%;
+                    position: absolute;
+                    left: -1px;
+                    bottom: -2px;
+                    background-color: #000;
+                }
             }
 
             &.face-off {

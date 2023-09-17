@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -104,17 +103,17 @@ public partial class TimePickerPanel
     /// <summary>
     /// hour face class
     /// </summary>
-    private string? HourFaceClass => CssBuilder.Default("face-set hour").AddClass("face-off", Hms != TimeMode.Hour).Build();
+    private string? HourFaceClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-hour").AddClass("face-off", Hms != TimeMode.Hour).Build();
 
     /// <summary>
     /// min face class
     /// </summary>
-    private string? MinFaceClass => CssBuilder.Default("face-set min").AddClass("face-off", Hms != TimeMode.Min).Build();
+    private string? MinFaceClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-min").AddClass("face-off", Hms != TimeMode.Min).Build();
 
     /// <summary>
     /// min face class
     /// </summary>
-    private string? SecFaceClass => CssBuilder.Default("face-set sec").AddClass("face-off", Hms != TimeMode.Sec).Build();
+    private string? SecFaceClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-sec").AddClass("face-off", Hms != TimeMode.Sec).Build();
 
     #endregion
 
@@ -130,19 +129,6 @@ public partial class TimePickerPanel
         SwitchToAM(IsAM);
 
         Value = new TimeSpan(IsAM ? dt.Hour : dt.AddHours(-12).Hour, dt.Minute, dt.Second);
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override void OnAfterRender(bool firstRender)
-    {
-        base.OnAfterRender(firstRender);
-        if (firstRender)
-        {
-
-        }
     }
 
     /// <summary>
