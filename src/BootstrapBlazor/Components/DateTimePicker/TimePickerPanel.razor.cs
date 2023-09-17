@@ -46,21 +46,21 @@ public partial class TimePickerPanel
     /// hour face class
     /// </summary>
     private string? HourClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-hour")
-        .AddClass("face-off", Mode != TimeMode.Hour)
+        .AddClass("fade", Mode != TimeMode.Hour)
         .Build();
 
     /// <summary>
     /// min face class
     /// </summary>
-    private string? MinusClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-min")
-        .AddClass("face-off", Mode != TimeMode.Minute)
+    private string? MinusClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-minute")
+        .AddClass("fade", Mode != TimeMode.Minute)
         .Build();
 
     /// <summary>
     /// min face class
     /// </summary>
-    private string? SecondClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-sec")
-        .AddClass("face-off", Mode != TimeMode.Second)
+    private string? SecondClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-second")
+        .AddClass("fade", Mode != TimeMode.Second)
         .Build();
 
     private string? ButtonAMClassString => CssBuilder.Default("btn btn-am")
@@ -89,6 +89,21 @@ public partial class TimePickerPanel
         if (Value == TimeSpan.Zero)
         {
             Value = DateTime.Now.TimeOfDay;
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender && Module != null)
+        {
+            await Module.InvokeVoidAsync("update", Id, Value.Hours, Value.Minutes, Value.Seconds);
         }
     }
 

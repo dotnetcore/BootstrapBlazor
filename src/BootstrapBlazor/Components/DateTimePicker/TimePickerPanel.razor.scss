@@ -5,7 +5,10 @@
     --bb-time-clock-number-width: 22px;
     --bb-time-clock-number-height: 22px;
     --bb-time-clock-number-margin-top: calc(var(--bb-time-clock-number-height) / 2);
-    user-select: none;
+
+    &.dragging {
+        user-select: none;
+    }
 
     .bb-time-header {
         font-size: 1.6rem;
@@ -32,7 +35,6 @@
         height: var(--bb-time-body-height);
 
         .bb-clock-panel {
-            cursor: move;
             position: absolute;
             top: 0;
             left: 0;
@@ -42,15 +44,8 @@
             justify-content: center;
             align-items: start;
 
-            &.face-off {
-                > div {
-                    opacity: 0;
-                    pointer-events: none;
-                }
-
-                .bb-clock-point {
-                    display: none;
-                }
+            &.fade {
+                pointer-events: none;
             }
 
             > div {
@@ -100,6 +95,7 @@
                     position: absolute;
                     left: calc(0px - (var(--bb-time-clock-number-width) - 2px) / 2);
                     transition: opacity 0.4s;
+                    cursor: move;
                 }
 
                 .bb-clock-point-star {
@@ -132,9 +128,7 @@
                 border-color: #409eff;
                 color: #409eff;
             }
-        }
 
-        .btn-am, .btn-pm {
             &.active {
                 background: #409eff;
                 border-color: #409eff;

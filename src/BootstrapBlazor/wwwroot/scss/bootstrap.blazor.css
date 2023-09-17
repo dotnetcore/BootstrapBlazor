@@ -1709,6 +1709,8 @@ a, a:hover, a:focus {
   --bb-time-clock-number-width: 22px;
   --bb-time-clock-number-height: 22px;
   --bb-time-clock-number-margin-top: calc(var(--bb-time-clock-number-height) / 2);
+}
+.bb-time-panel.dragging {
   user-select: none;
 }
 .bb-time-panel .bb-time-header {
@@ -1733,7 +1735,6 @@ a, a:hover, a:focus {
   height: var(--bb-time-body-height);
 }
 .bb-time-panel .bb-time-body .bb-clock-panel {
-  cursor: move;
   position: absolute;
   top: 0;
   left: 0;
@@ -1743,12 +1744,8 @@ a, a:hover, a:focus {
   justify-content: center;
   align-items: start;
 }
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off > div {
-  opacity: 0;
+.bb-time-panel .bb-time-body .bb-clock-panel.fade {
   pointer-events: none;
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off .bb-clock-point {
-  display: none;
 }
 .bb-time-panel .bb-time-body .bb-clock-panel > div {
   position: absolute;
@@ -1868,6 +1865,7 @@ a, a:hover, a:focus {
   position: absolute;
   left: calc(0px - (var(--bb-time-clock-number-width) - 2px) / 2);
   transition: opacity 0.4s;
+  cursor: move;
 }
 .bb-time-panel .bb-time-body .bb-clock-panel .bb-clock-point .bb-clock-point-star {
   width: 4px;
@@ -1895,7 +1893,7 @@ a, a:hover, a:focus {
   border-color: #409eff;
   color: #409eff;
 }
-.bb-time-panel .bb-time-footer .btn-am.active, .bb-time-panel .bb-time-footer .btn-pm.active {
+.bb-time-panel .bb-time-footer .btn.active {
   background: #409eff;
   border-color: #409eff;
   color: #fff;
