@@ -1,6 +1,5 @@
 ﻿import Data from "../../modules/data.js?v=$version"
 import Drag from "../../modules/drag.js?v=$version"
-import EventHandler from "../../modules/event-handler.js?v=$version"
 
 const setTime = picker => {
     const { el, val } = picker;
@@ -11,15 +10,39 @@ const setTime = picker => {
             hour = hour - 12;
         }
         el.querySelector('.bb-time-text.hour').textContent = hour.toString().padStart(2, '0');
-        //setHandle(el.querySelector('.bb-clock-panel-hour'), t, null, false);
     }
     if (mode === "Minute") {
         el.querySelector('.bb-time-text.minute').textContent = val.Minute.toString().padStart(2, '0');
-        //setHandle(el.querySelector('.bb-clock-panel-min'), t / 5, null, false);
     }
     if (mode === "Second") {
         el.querySelector('.bb-time-text.second').textContent = val.Second.toString().padStart(2, '0');
-        //setHandle(el.querySelector('.bb-clock-panel-sec'), t / 5, null, false);
+    }
+}
+
+const setValue = (picker, point, val) => {
+    if (point.parentNode.classList.contains('bb-clock-panel-hour')) {
+        picker.val.Hour = val
+    }
+    else if (point.parentNode.classList.contains('bb-clock-panel-minute')) {
+        picker.val.Minute = val
+    }
+    else {
+        picker.val.Second = val
+    }
+    setPoint(picker, point);
+    setTime(picker);
+}
+
+const setPoint = (picker, point) => {
+    if (point.parentNode.classList.contains('bb-clock-panel-hour')) {
+        const deg = picker.val.Hour * 30;
+        point.style.setProperty('transform', `rotate(${deg}deg)`);
+    } else if (point.parentNode.classList.contains('bb-clock-panel-minute')) {
+        const deg = picker.val.Minute * 6;
+        point.style.setProperty('transform', `rotate(${deg}deg)`);
+    } else {
+        const deg = picker.val.Second * 6;
+        point.style.setProperty('transform', `rotate(${deg}deg)`);
     }
 }
 
@@ -43,20 +66,19 @@ export function init(id, invoke, hour, minute, second) {
                 el.classList.add('dragging');
             },
             e => {
-                let wrap = el.querySelector('.bb-time-body');
-                var pos = wrap.getBoundingClientRect();
-                var cent = {
-                    left: pos.left + wrap.offsetWidth / 2,
-                    top: pos.top + wrap.offsetHeight / 2
+                const panel = p.parentNode;
+                const rect = panel.getBoundingClientRect();
+                const cent = {
+                    left: rect.left + panel.offsetWidth / 2,
+                    top: rect.top + panel.offsetHeight / 2
                 };
 
-                var x = e.clientX - cent.left;
-                var y = e.clientY - cent.top;
-                var hrs = Math.atan2(y, x) / Math.PI * 6 + 3;
+                const x = e.clientX - cent.left;
+                const y = e.clientY - cent.top;
+                const deg = Math.atan2(y, x) * 6 / Math.PI + 15;
+                const val = Math.floor(deg % 12);
 
-                hrs += 12;
-                hrs %= 12;
-                setTime(picker);
+                setValue(picker, p, val);
             },
             e => {
                 el.classList.remove('dragging');
@@ -64,39 +86,9 @@ export function init(id, invoke, hour, minute, second) {
             }
         );
 
-        if (p.parentNode.classList.contains('bb-clock-panel-hour')) {
-            const deg = picker.val.Hour * 30;
-            p.style.setProperty('transform', `rotate(${deg}deg)`);
-        }
-        else if (p.parentNode.classList.contains('bb-clock-panel-minute')) {
-            const deg = picker.val.Minute * 6;
-            p.style.setProperty('transform', `rotate(${deg}deg)`);
-        }
-        else {
-            const deg = picker.val.Second * 6;
-            p.style.setProperty('transform', `rotate(${deg}deg)`);
-        }
+        setPoint(picker, p);
     })
     Data.set(id, picker);
-}
-
-export function setHandle(face, a, l, anim) {
-    if (a == null) {
-        a = face.dataset.handAng;
-    }
-    if (l == 'hidden') {
-        l = face.classList.contains('min') ? 7 : 4;
-    }
-    if (l == null) {
-        l = 5.7;
-    }
-
-    var bl = a % 1 == 0 ? l - 0.25 : l;
-    var deg = a * 30;
-
-    var handle = face.querySelector('.bb-clock-point');
-    handle.style.transform = 'rotate(' + (deg).toFixed(20) + 'deg)';
-    handle.classList.toggle('anim', anim);
 }
 
 export function update(id, hour, minute, second) {
@@ -108,7 +100,7 @@ export function update(id, hour, minute, second) {
 
 export function dispose(id) {
     const picker = Data.get(id);
-    data.remove(id);
+    Data.remove(id);
 
     if (picker) {
         picker.pointers.forEach(p => {
