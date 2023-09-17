@@ -59,12 +59,16 @@ public partial class TimePickerPanel
     /// <summary>
     /// the am btn class
     /// </summary>
-    private string? am_class => CssBuilder.Default("btn").AddClass("active", IsAM).Build();
+    private string? am_class => CssBuilder.Default("btn")
+        .AddClass("active", IsAM)
+        .Build();
 
     /// <summary>
     /// the pm btn class
     /// </summary>
-    private string? pm_class => CssBuilder.Default("btn").AddClass("active", !IsAM).Build();
+    private string? pm_class => CssBuilder.Default("btn")
+        .AddClass("active", !IsAM)
+        .Build();
 
     /// <summary>
     /// switch to am/pm
@@ -88,32 +92,44 @@ public partial class TimePickerPanel
     /// <summary>
     /// hour text class
     /// </summary>
-    private string? HourClass => CssBuilder.Default("part hour").AddClass("active", Hms == TimeMode.Hour).Build();
+    private string? HourClass => CssBuilder.Default("part hour")
+        .AddClass("active", Hms == TimeMode.Hour)
+        .Build();
 
     /// <summary>
     /// min text class
     /// </summary>
-    private string? MinClass => CssBuilder.Default("part min").AddClass("active", Hms == TimeMode.Min).Build();
+    private string? MinClass => CssBuilder.Default("part min")
+        .AddClass("active", Hms == TimeMode.Min)
+        .Build();
 
     /// <summary>
     /// sec text class
     /// </summary>
-    private string? SecClass => CssBuilder.Default("part sec").AddClass("active", Hms == TimeMode.Sec).Build();
+    private string? SecClass => CssBuilder.Default("part sec")
+        .AddClass("active", Hms == TimeMode.Sec)
+        .Build();
 
     /// <summary>
     /// hour face class
     /// </summary>
-    private string? HourFaceClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-hour").AddClass("face-off", Hms != TimeMode.Hour).Build();
+    private string? HourFaceClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-hour")
+        .AddClass("face-off", Hms != TimeMode.Hour)
+        .Build();
 
     /// <summary>
     /// min face class
     /// </summary>
-    private string? MinFaceClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-min").AddClass("face-off", Hms != TimeMode.Min).Build();
+    private string? MinFaceClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-min")
+        .AddClass("face-off", Hms != TimeMode.Min)
+        .Build();
 
     /// <summary>
     /// min face class
     /// </summary>
-    private string? SecFaceClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-sec").AddClass("face-off", Hms != TimeMode.Sec).Build();
+    private string? SecFaceClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-sec")
+        .AddClass("face-off", Hms != TimeMode.Sec)
+        .Build();
 
     #endregion
 

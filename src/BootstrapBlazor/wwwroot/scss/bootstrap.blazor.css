@@ -1746,7 +1746,14 @@ a, a:hover, a:focus {
   justify-content: center;
   align-items: start;
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div {
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off > div {
+  opacity: 0;
+  pointer-events: none;
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.face-off .bb-clock-point {
+  display: none;
+}
+.bb-time-panel .bb-time-body .bb-clock-panel > div {
   position: absolute;
   margin-top: var(--bb-time-clock-number-margin-top);
   transition: transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81), opacity 0.4s;
@@ -1759,87 +1766,87 @@ a, a:hover, a:focus {
   align-items: center;
   transform-origin: center calc((var(--bb-time-body-height) - var(--bb-time-clock-number-height)) / 2);
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(1) {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(1) {
   transform: rotate(0deg);
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(1) span {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(1) > span {
   transform: rotate(0deg);
   position: absolute;
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(2) {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(2) {
   transform: rotate(30deg);
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(2) span {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(2) > span {
   transform: rotate(-30deg);
   position: absolute;
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(3) {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(3) {
   transform: rotate(60deg);
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(3) span {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(3) > span {
   transform: rotate(-60deg);
   position: absolute;
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(4) {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(4) {
   transform: rotate(90deg);
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(4) span {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(4) > span {
   transform: rotate(-90deg);
   position: absolute;
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(5) {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(5) {
   transform: rotate(120deg);
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(5) span {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(5) > span {
   transform: rotate(-120deg);
   position: absolute;
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(6) {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(6) {
   transform: rotate(150deg);
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(6) span {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(6) > span {
   transform: rotate(-150deg);
   position: absolute;
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(7) {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(7) {
   transform: rotate(180deg);
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(7) span {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(7) > span {
   transform: rotate(-180deg);
   position: absolute;
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(8) {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(8) {
   transform: rotate(210deg);
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(8) span {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(8) > span {
   transform: rotate(-210deg);
   position: absolute;
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(9) {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(9) {
   transform: rotate(240deg);
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(9) span {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(9) > span {
   transform: rotate(-240deg);
   position: absolute;
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(10) {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(10) {
   transform: rotate(270deg);
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(10) span {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(10) > span {
   transform: rotate(-270deg);
   position: absolute;
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(11) {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(11) {
   transform: rotate(300deg);
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(11) span {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(11) > span {
   transform: rotate(-300deg);
   position: absolute;
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(12) {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(12) {
   transform: rotate(330deg);
 }
-.bb-time-panel .bb-time-body .bb-clock-panel div:nth-child(12) span {
+.bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(12) > span {
   transform: rotate(-330deg);
   position: absolute;
 }
@@ -1876,84 +1883,6 @@ a, a:hover, a:focus {
   left: -1px;
   bottom: -2px;
   background-color: #000;
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off .face-number {
-  opacity: 0;
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off .handle, .bb-time-panel .bb-time-body .bb-clock-panel.face-off .handle-bar {
-  opacity: 0;
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="0"] {
-  transform: rotate(0deg) translateY(-90px) rotate(0deg);
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="1"] {
-  transform: rotate(30deg) translateY(-90px) rotate(-30deg);
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="2"] {
-  transform: rotate(60deg) translateY(-90px) rotate(-60deg);
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="3"] {
-  transform: rotate(90deg) translateY(-90px) rotate(-90deg);
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="4"] {
-  transform: rotate(120deg) translateY(-90px) rotate(-120deg);
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="5"] {
-  transform: rotate(150deg) translateY(-90px) rotate(-150deg);
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="6"] {
-  transform: rotate(180deg) translateY(-90px) rotate(-180deg);
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="7"] {
-  transform: rotate(210deg) translateY(-90px) rotate(-210deg);
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="8"] {
-  transform: rotate(240deg) translateY(-90px) rotate(-240deg);
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="9"] {
-  transform: rotate(270deg) translateY(-90px) rotate(-270deg);
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="10"] {
-  transform: rotate(300deg) translateY(-90px) rotate(-300deg);
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.min .face-number[data-css-time="11"] {
-  transform: rotate(330deg) translateY(-90px) rotate(-330deg);
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="0"] {
-  transform: rotate(0deg) translateY(-60px) rotate(0deg);
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="1"] {
-  transform: rotate(30deg) translateY(-60px) rotate(-30deg);
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="2"] {
-  transform: rotate(60deg) translateY(-60px) rotate(-60deg);
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="3"] {
-  transform: rotate(90deg) translateY(-60px) rotate(-90deg);
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="4"] {
-  transform: rotate(120deg) translateY(-60px) rotate(-120deg);
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="5"] {
-  transform: rotate(150deg) translateY(-60px) rotate(-150deg);
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="6"] {
-  transform: rotate(180deg) translateY(-60px) rotate(-180deg);
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="7"] {
-  transform: rotate(210deg) translateY(-60px) rotate(-210deg);
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="8"] {
-  transform: rotate(240deg) translateY(-60px) rotate(-240deg);
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="9"] {
-  transform: rotate(270deg) translateY(-60px) rotate(-270deg);
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="10"] {
-  transform: rotate(300deg) translateY(-60px) rotate(-300deg);
-}
-.bb-time-panel .bb-time-body .bb-clock-panel.face-off.hour .face-number[data-css-time="11"] {
-  transform: rotate(330deg) translateY(-60px) rotate(-330deg);
 }
 .bb-time-panel .bb-time-footer {
   display: flex;

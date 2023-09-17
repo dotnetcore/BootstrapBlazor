@@ -46,7 +46,18 @@
             justify-content: center;
             align-items: start;
 
-            div {
+            &.face-off {
+                > div {
+                    opacity: 0;
+                    pointer-events: none;
+                }
+
+                .bb-clock-point {
+                    display: none;
+                }
+            }
+
+            > div {
                 position: absolute;
                 margin-top: var(--bb-time-clock-number-margin-top);
                 transition: transform 0.5s cubic-bezier(.47,.02,.74,1.81), opacity 0.4s;
@@ -63,7 +74,7 @@
                     &:nth-child(#{($i + 1)}) {
                         transform: rotate($i * 30deg);
 
-                        span {
+                        > span {
                             transform: rotate($i * -30deg);
                             position: absolute;
                         }
@@ -107,32 +118,6 @@
                     left: -1px;
                     bottom: -2px;
                     background-color: #000;
-                }
-            }
-
-            &.face-off {
-                .face-number {
-                    opacity: 0;
-                }
-
-                .handle, .handle-bar {
-                    opacity: 0;
-                }
-
-                &.min {
-                    @for $i from 0 to 12 {
-                        .face-number[data-css-time="#{$i}"] {
-                            transform: rotate($i * 30deg) translateY(-90px) rotate($i * -30deg);
-                        }
-                    }
-                }
-
-                &.hour {
-                    @for $i from 0 to 12 {
-                        .face-number[data-css-time="#{$i}"] {
-                            transform: rotate($i * 30deg) translateY(-60px) rotate($i * -30deg);
-                        }
-                    }
                 }
             }
         }
