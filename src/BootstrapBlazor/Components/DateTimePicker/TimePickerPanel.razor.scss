@@ -10,6 +10,30 @@
         user-select: none;
     }
 
+    &[data-bb-mode="Hour"] {
+        .bb-time-text {
+            &.hour {
+                color: var(--bs-primary);
+            }
+        }
+    }
+
+    &[data-bb-mode="Minute"] {
+        .bb-time-text {
+            &.minute {
+                color: var(--bs-primary);
+            }
+        }
+    }
+
+    &[data-bb-mode="Second"] {
+        .bb-time-text {
+            &.second {
+                color: var(--bs-primary);
+            }
+        }
+    }
+
     .bb-time-header {
         font-size: 1.6rem;
         font-weight: bold;
@@ -23,6 +47,7 @@
             font-size: 50%;
             width: auto;
             display: inline-block;
+            cursor: pointer;
         }
     }
 

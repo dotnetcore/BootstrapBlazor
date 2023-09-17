@@ -1713,6 +1713,15 @@ a, a:hover, a:focus {
 .bb-time-panel.dragging {
   user-select: none;
 }
+.bb-time-panel[data-bb-mode=Hour] .bb-time-text.hour {
+  color: var(--bs-primary);
+}
+.bb-time-panel[data-bb-mode=Minute] .bb-time-text.minute {
+  color: var(--bs-primary);
+}
+.bb-time-panel[data-bb-mode=Second] .bb-time-text.second {
+  color: var(--bs-primary);
+}
 .bb-time-panel .bb-time-header {
   font-size: 1.6rem;
   font-weight: bold;
@@ -1725,6 +1734,7 @@ a, a:hover, a:focus {
   font-size: 50%;
   width: auto;
   display: inline-block;
+  cursor: pointer;
 }
 .bb-time-panel .bb-time-body {
   margin: 1rem;

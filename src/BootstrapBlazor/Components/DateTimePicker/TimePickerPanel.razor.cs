@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// TimePickerPanel 子组件
+/// TimePickerPanel 组件
 /// </summary>
 public partial class TimePickerPanel
 {
@@ -30,9 +30,6 @@ public partial class TimePickerPanel
     [Parameter]
     public EventCallback<TimeSpan> ValueChanged { get; set; }
 
-    /// <summary>
-    /// localizer
-    /// </summary>
     [Inject]
     [NotNull]
     private IStringLocalizer<TimePickerPanel>? Localizer { get; set; }
@@ -42,23 +39,14 @@ public partial class TimePickerPanel
     /// </summary>
     private TimeMode Mode { get; set; } = TimeMode.Hour;
 
-    /// <summary>
-    /// hour face class
-    /// </summary>
     private string? HourClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-hour")
         .AddClass("fade", Mode != TimeMode.Hour)
         .Build();
 
-    /// <summary>
-    /// min face class
-    /// </summary>
     private string? MinusClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-minute")
         .AddClass("fade", Mode != TimeMode.Minute)
         .Build();
 
-    /// <summary>
-    /// min face class
-    /// </summary>
     private string? SecondClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-second")
         .AddClass("fade", Mode != TimeMode.Second)
         .Build();
@@ -117,14 +105,7 @@ public partial class TimePickerPanel
 
     private void SetTime()
     {
-        if (Value.Hours > 12)
-        {
-            Value = Value.Subtract(TimeSpan.FromHours(12));
-        }
-        else
-        {
-            Value = Value.Add(TimeSpan.FromHours(12));
-        }
+        Value = Value.Hours > 12 ? Value.Subtract(TimeSpan.FromHours(12)) : Value.Add(TimeSpan.FromHours(12));
     }
 
     private void SetTimePeriod(int hour)
@@ -138,13 +119,6 @@ public partial class TimePickerPanel
     [JSInvokable]
     public async Task SetTime(int hour, int min, int sec)
     {
-        Value = new TimeSpan(hour, min, sec);
-        if (ValueChanged.HasDelegate)
-        {
-            await ValueChanged.InvokeAsync(Value);
-        }
-
-        //这里不知道为什么，Value的值会延迟刷新
         switch (Mode)
         {
             case TimeMode.Hour:
@@ -154,9 +128,14 @@ public partial class TimePickerPanel
                 Mode = TimeMode.Second;
                 break;
             case TimeMode.Second:
-                break;
             default:
                 break;
+        }
+
+        Value = new TimeSpan(hour, min, sec);
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(Value);
         }
     }
 

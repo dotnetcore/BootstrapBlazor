@@ -19,15 +19,18 @@ const setTime = picker => {
     }
 }
 
-const setValue = (picker, point, val) => {
-    if (point.parentNode.classList.contains('bb-clock-panel-hour')) {
-        picker.val.Hour = val
+const setValue = (picker, point, value) => {
+    const { el, val } = picker;
+    const mode = el.getAttribute('data-bb-mode');
+
+    if (mode === "Hour") {
+        val.Hour = value
     }
-    else if (point.parentNode.classList.contains('bb-clock-panel-minute')) {
-        picker.val.Minute = val
+    else if (mode === "Minute") {
+        val.Minute = value
     }
     else {
-        picker.val.Second = val
+        val.Second = value
     }
     setPoint(picker, point);
     setTime(picker);
@@ -37,10 +40,12 @@ const setPoint = (picker, point) => {
     if (point.parentNode.classList.contains('bb-clock-panel-hour')) {
         const deg = picker.val.Hour * 30;
         point.style.setProperty('transform', `rotate(${deg}deg)`);
-    } else if (point.parentNode.classList.contains('bb-clock-panel-minute')) {
+    }
+    else if (point.parentNode.classList.contains('bb-clock-panel-minute')) {
         const deg = picker.val.Minute * 6;
         point.style.setProperty('transform', `rotate(${deg}deg)`);
-    } else {
+    }
+    else {
         const deg = picker.val.Second * 6;
         point.style.setProperty('transform', `rotate(${deg}deg)`);
     }
@@ -94,7 +99,22 @@ export function init(id, invoke, hour, minute, second) {
 export function update(id, hour, minute, second) {
     const picker = Data.get(id);
     if (picker) {
-
+        const { el, val } = picker;
+        if (val.Hour !== hour) {
+            val.Hour = hour;
+            const point = el.querySelector('.bb-clock-panel-hour > .bb-clock-point')
+            setPoint(picker, point)
+        }
+        if (val.Minute !== minute) {
+            val.Minute = minute;
+            const point = el.querySelector('.bb-clock-panel-minute > .bb-clock-point')
+            setPoint(picker, point)
+        }
+        if (val.Second !== second) {
+            val.Second = second;
+            const point = el.querySelector('.bb-clock-panel-second > .bb-clock-point')
+            setPoint(picker, point)
+        }
     }
 }
 
