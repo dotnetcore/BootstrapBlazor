@@ -19,18 +19,6 @@ public partial class TimePickerPanel
         .Build();
 
     /// <summary>
-    /// 获得/设置 AM/PM
-    /// </summary>
-    [Parameter]
-    public bool IsAM { get; set; }
-
-    /// <summary>
-    /// 获得/设置 AM/PM 值变化时委托方法
-    /// </summary>
-    [Parameter]
-    public EventCallback<bool> IsAMChanged { get; set; }
-
-    /// <summary>
     /// 获得/设置 组件值
     /// </summary>
     [Parameter]
@@ -50,59 +38,9 @@ public partial class TimePickerPanel
     private IStringLocalizer<TimePickerPanel>? Localizer { get; set; }
 
     /// <summary>
-    /// the am/pm text
-    /// </summary>
-    private string am_pm { get; set; } = string.Empty;
-
-    /// <summary>
-    /// the am btn class
-    /// </summary>
-    private string? am_class => CssBuilder.Default("btn")
-        .AddClass("active", IsAM)
-        .Build();
-
-    /// <summary>
-    /// the pm btn class
-    /// </summary>
-    private string? pm_class => CssBuilder.Default("btn")
-        .AddClass("active", !IsAM)
-        .Build();
-
-    /// <summary>
-    /// switch to am/pm
-    /// </summary>
-    /// <param name="is_am">am/pm text</param>
-    private void SwitchToAM(bool is_am)
-    {
-        IsAM = is_am;
-        am_pm = is_am ? Localizer["AMText"].Value : Localizer["PMText"].Value;
-    }
-
-    /// <summary>
     /// is hour or min or sec mode
     /// </summary>
     private TimeMode Mode { get; set; } = TimeMode.Hour;
-
-    /// <summary>
-    /// hour text class
-    /// </summary>
-    private string? HourHeaderClass => CssBuilder.Default("part hour")
-        .AddClass("active", Mode == TimeMode.Hour)
-        .Build();
-
-    /// <summary>
-    /// min text class
-    /// </summary>
-    private string? MinusHeaderClass => CssBuilder.Default("part min")
-        .AddClass("active", Mode == TimeMode.Minute)
-        .Build();
-
-    /// <summary>
-    /// sec text class
-    /// </summary>
-    private string? SecondHeaderClass => CssBuilder.Default("part sec")
-        .AddClass("active", Mode == TimeMode.Second)
-        .Build();
 
     /// <summary>
     /// hour face class
@@ -125,18 +63,33 @@ public partial class TimePickerPanel
         .AddClass("face-off", Mode != TimeMode.Second)
         .Build();
 
+    private string? ButtonAMClassString => CssBuilder.Default("btn btn-am")
+        .AddClass("active", IsAM)
+        .Build();
+
+    private string? ButtonPMClassString => CssBuilder.Default("btn btn-pm")
+        .AddClass("active", !IsAM)
+        .Build();
+
+    private bool IsAM => Value.Hours < 12;
+
+    private string? IsAMString => IsAM ? "true" : null;
+
+    private string? AMPMString => IsAM ? Localizer["AMText"] : Localizer["PMText"];
+
+    private string HourValue => (Value.Hours > 12 ? (Value.Hours - 12) : Value.Hours).ToString("D2");
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <returns></returns>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
-        var dt = DateTime.Now;
-        IsAM = dt.Hour < 12;
-        SwitchToAM(IsAM);
+        base.OnParametersSet();
 
-        Value = new TimeSpan(IsAM ? dt.Hour : dt.AddHours(-12).Hour, dt.Minute, dt.Second);
+        if (Value == TimeSpan.Zero)
+        {
+            Value = DateTime.Now.TimeOfDay;
+        }
     }
 
     /// <summary>
@@ -146,6 +99,23 @@ public partial class TimePickerPanel
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value.Hours, Value.Minutes, Value.Seconds);
 
     private void SetMode(TimeMode mode) => Mode = mode;
+
+    private void SetTime()
+    {
+        if (Value.Hours > 12)
+        {
+            Value = Value.Subtract(TimeSpan.FromHours(12));
+        }
+        else
+        {
+            Value = Value.Add(TimeSpan.FromHours(12));
+        }
+    }
+
+    private void SetTimePeriod(int hour)
+    {
+        Value = Value.Add(TimeSpan.FromHours(hour));
+    }
 
     /// <summary>
     /// 设置小时调用此方法

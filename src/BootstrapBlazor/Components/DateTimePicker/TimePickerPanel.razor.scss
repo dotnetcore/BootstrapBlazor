@@ -12,15 +12,11 @@
         font-weight: bold;
         text-align: center;
 
-        .active {
-            color: #ddd;
-        }
-
-        .part {
+        .bb-time-text {
             cursor: pointer;
         }
 
-        .am-pm {
+        .bb-time-period {
             font-size: 50%;
             width: auto;
             display: inline-block;
@@ -136,7 +132,9 @@
                 border-color: #409eff;
                 color: #409eff;
             }
+        }
 
+        .btn-am, .btn-pm {
             &.active {
                 background: #409eff;
                 border-color: #409eff;

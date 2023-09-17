@@ -1716,13 +1716,10 @@ a, a:hover, a:focus {
   font-weight: bold;
   text-align: center;
 }
-.bb-time-panel .bb-time-header .active {
-  color: #ddd;
-}
-.bb-time-panel .bb-time-header .part {
+.bb-time-panel .bb-time-header .bb-time-text {
   cursor: pointer;
 }
-.bb-time-panel .bb-time-header .am-pm {
+.bb-time-panel .bb-time-header .bb-time-period {
   font-size: 50%;
   width: auto;
   display: inline-block;
@@ -1898,7 +1895,7 @@ a, a:hover, a:focus {
   border-color: #409eff;
   color: #409eff;
 }
-.bb-time-panel .bb-time-footer .btn.active {
+.bb-time-panel .bb-time-footer .btn-am.active, .bb-time-panel .bb-time-footer .btn-pm.active {
   background: #409eff;
   border-color: #409eff;
   color: #fff;

@@ -4,12 +4,12 @@
 
 <div @attributes="AdditionalAttributes" class="@ClassString" id="@Id" data-bb-mode="@Mode">
     <div class="bb-time-header">
-        <span class="@HourHeaderClass" @onclick="() => SetMode(TimeMode.Hour)">@(Value.Hours)</span>
+        <span class="bb-time-text" @onclick="() => SetMode(TimeMode.Hour)">@HourValue</span>
         <span>:</span>
-        <span class="@MinusHeaderClass" @onclick="() => SetMode(TimeMode.Minute)">@(Value.Minutes)</span>
+        <span class="bb-time-text" @onclick="() => SetMode(TimeMode.Minute)">@Value.Minutes</span>
         <span>:</span>
-        <span class="@SecondHeaderClass" @onclick="() => SetMode(TimeMode.Second)">@(Value.Seconds)</span>
-        <span class="part am-pm" @onclick="@(() => SwitchToAM(!IsAM))">@am_pm</span>
+        <span class="bb-time-text" @onclick="() => SetMode(TimeMode.Second)">@Value.Seconds</span>
+        <span class="bb-time-period" @onclick="@(() => SetTime())">@AMPMString</span>
     </div>
     <div class="bb-time-body">
         <div class="@SecondClass">
@@ -36,8 +36,8 @@
         </div>
     </div>
     <div class="bb-time-footer">
-        <div class="@am_class" @onclick="@(() => SwitchToAM(true))">@Localizer["AMText"]</div>
-        <div class="@pm_class" @onclick="@(() => SwitchToAM(false))">@Localizer["PMText"]</div>
+        <div class="@ButtonAMClassString" @onclick="@(() => SetTimePeriod(-12))">@Localizer["AMText"]</div>
+        <div class="@ButtonPMClassString" @onclick="@(() => SetTimePeriod(12))">@Localizer["PMText"]</div>
     </div>
 </div>
 
