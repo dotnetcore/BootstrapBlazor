@@ -98,7 +98,8 @@ public partial class TimePickerPanel
 
     private void SetTimePeriod(int hour)
     {
-        CurrentValue = Value.Add(TimeSpan.FromHours(hour));
+        var val = Value.Hours + hour;
+        CurrentValue = new TimeSpan(GetSafeHour(val), Value.Minutes, Value.Seconds);
     }
 
     /// <summary>
@@ -120,9 +121,20 @@ public partial class TimePickerPanel
                 break;
         }
 
-        CurrentValue = new TimeSpan(GetHour(), minute, second);
+        CurrentValue = new TimeSpan(GetSafeHour(IsAM ? hour : hour + 12), minute, second);
+    }
 
-        int GetHour() => IsAM ? hour : hour + 12;
+    private static int GetSafeHour(int val)
+    {
+        if (val < 0)
+        {
+            val += 12;
+        }
+        if (val > 23)
+        {
+            val -= 12;
+        }
+        return val;
     }
 
     private enum TimeMode
