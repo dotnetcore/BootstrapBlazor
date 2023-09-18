@@ -34,6 +34,18 @@ public partial class Step
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// 获得/设置 步骤全部完成时模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment? FinishedTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 步骤全部完成时回调方法
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnFinishedCallback { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
@@ -79,6 +91,8 @@ public partial class Step
 
     private string? _finishedIcon;
 
+    private bool IsFinished => _currentStepIndex == Items.Count;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -112,9 +126,13 @@ public partial class Step
     /// <summary>
     /// 下一步
     /// </summary>
-    public void Next()
+    public async Task Next()
     {
         _currentStepIndex = Math.Min(Items.Count, _currentStepIndex + 1);
+        if (IsFinished && OnFinishedCallback != null)
+        {
+            await OnFinishedCallback();
+        }
         StateHasChanged();
     }
 

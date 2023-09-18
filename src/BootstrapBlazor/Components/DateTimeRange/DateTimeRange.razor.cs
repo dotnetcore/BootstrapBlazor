@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Extensions;
 using Microsoft.Extensions.Localization;
 using System.Reflection;
 
@@ -37,11 +36,11 @@ public partial class DateTimeRange
 
     private DateTime StartValue { get; set; }
 
-    private string? StartValueString => (Value.Start.HasValue && Value.Start.Value != DateTime.MinValue) ? Value.Start.Value.ToString(DateFormat) : null;
+    private string? StartValueString => Value.Start != DateTime.MinValue ? Value.Start.ToString(DateFormat) : null;
 
     private DateTime EndValue { get; set; }
 
-    private string? EndValueString => (Value.End.HasValue && Value.End.Value != DateTime.MinValue) ? Value.End.Value.ToString(DateFormat) : null;
+    private string? EndValueString => Value.End != DateTime.MinValue ? Value.End.ToString(DateFormat) : null;
 
     [NotNull]
     private string? StartPlaceHolderText { get; set; }
@@ -163,8 +162,8 @@ public partial class DateTimeRange
 
         Value ??= new DateTimeRangeValue();
 
-        StartValue = Value.Start ?? DateTime.MinValue;
-        EndValue = Value.End ?? DateTime.MinValue;
+        StartValue = Value.Start;
+        EndValue = Value.End;
 
         if (StartValue == DateTime.MinValue) StartValue = DateTime.Today;
         if (EndValue == DateTime.MinValue) EndValue = StartValue.AddMonths(1);
@@ -192,10 +191,10 @@ public partial class DateTimeRange
 
         SidebarItems ??= new DateTimeRangeSidebarItem[]
         {
-            new DateTimeRangeSidebarItem{ Text = Localizer["Last7Days"], StartDateTime = DateTime.Today.AddDays(-7), EndDateTime = DateTime.Today },
-            new DateTimeRangeSidebarItem{ Text = Localizer["Last30Days"], StartDateTime = DateTime.Today.AddDays(-30), EndDateTime = DateTime.Today },
-            new DateTimeRangeSidebarItem{ Text = Localizer["ThisMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day), EndDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1).AddDays(-1) },
-            new DateTimeRangeSidebarItem{ Text = Localizer["LastMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddMonths(-1), EndDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddDays(-1) },
+            new() { Text = Localizer["Last7Days"], StartDateTime = DateTime.Today.AddDays(-7), EndDateTime = DateTime.Today },
+            new() { Text = Localizer["Last30Days"], StartDateTime = DateTime.Today.AddDays(-30), EndDateTime = DateTime.Today },
+            new() { Text = Localizer["ThisMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day), EndDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1).AddDays(-1) },
+            new() { Text = Localizer["LastMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddMonths(-1), EndDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddDays(-1) },
         };
     }
 
@@ -283,9 +282,9 @@ public partial class DateTimeRange
     private async Task ClickConfirmButton()
     {
         // SelectedValue 
-        if (SelectedValue.GetEndValue() == DateTime.MinValue)
+        if (SelectedValue.End == DateTime.MinValue)
         {
-            if (SelectedValue.GetStartValue() < DateTime.Today)
+            if (SelectedValue.Start < DateTime.Today)
             {
                 SelectedValue.End = DateTime.Today;
             }
@@ -296,11 +295,7 @@ public partial class DateTimeRange
             }
         }
         Value.Start = SelectedValue.Start;
-        Value.End = SelectedValue.End;
-        if (Value.End.HasValue)
-        {
-            Value.End = Value.End.Value.Date.AddDays(1).AddSeconds(-1);
-        }
+        Value.End = SelectedValue.End.Date.AddDays(1).AddSeconds(-1);
 
         if (ValueChanged.HasDelegate)
         {
@@ -348,9 +343,9 @@ public partial class DateTimeRange
     /// <param name="d"></param>
     internal void UpdateValue(DateTime d)
     {
-        if (SelectedValue.GetEndValue() == DateTime.MinValue)
+        if (SelectedValue.End == DateTime.MinValue)
         {
-            if (d < SelectedValue.GetStartValue())
+            if (d < SelectedValue.Start)
             {
                 SelectedValue.End = SelectedValue.Start;
                 SelectedValue.Start = d;

@@ -1908,6 +1908,7 @@
     "StepsNormalPrevButtonText": "Prev",
     "StepsNormalNextButtonText": "Next",
     "StepsNormalResetButtonText": "Reset",
+    "StepsNormalFinishedTemplateDesc": "By setting <code>FinishedTemplate</code>, the subsequent processing logic after all steps are completed can be achieved, such as displaying completed steps. If a certain delay is needed to jump to a new page, a custom component needs to be customized and processed in its <code>OnAfterRenderAsync</code> lifecycle",
     "StepsStepTitle": "Basic usage",
     "StepsStepIntro": "A simple step bar that uses the <code>Step</code> component setup step directly inside the component",
     "Step1Text": "First",
@@ -4401,6 +4402,7 @@
     "Handwritten": "HandWritten",
     "LinkButton": "LinkButton",
     "ListView": "ListView",
+    "ListGroup": "ListGroup",
     "Locator": "Locator",
     "ImageViewer": "ImageViewer",
     "FileIcon": "FileIcon",
@@ -5862,5 +5864,24 @@
     "WebSpeechGameTitle": "Voice color selection game",
     "WebSpeechSynthesisTitle": "Voice synthesis",
     "WebSpeechSynthesisDIYTitle": "Voice synthesis custom"
+  },
+  "BootstrapBlazor.Shared.Samples.ListGroups": {
+    "ListGroupsTitle": "ListGroup",
+    "ListGroupsSubTitle": "Mostly used for data browsing and selection",
+    "ListGroupsTips": "<li>Set the list box to display the dataset through <code>Items</code></li><li>Set the list box data item display text by <code>GetItemDisplayText</code></li><li>Due to the internal height of the component being set to <code>100%</code>, the parent container will be automatically filled when used. When the parent container is set to a height, a scroll bar will automatically appear on the list items. In this example, set the height of the external container element code>list-group-demo</code> to <code>280px</code></li>",
+    "BasicUsageTitle": "Basic usage",
+    "BasicUsageIntro": "Set datasource by <code>Items</code>",
+    "HeaderTextTitle": "Header",
+    "HeaderTextIntro": "By set <code>HeaderText</code> for header text",
+    "HeaderText": "Header Title",
+    "HeaderTemplateTitle": "Header Template",
+    "HeaderTemplateIntro": "Set <code>HeaderTemplate</code> for custom Header",
+    "AttrItems": "the collection of data source",
+    "AttrValue": "current value",
+    "AttrHeaderTemplate": "the template of Header",
+    "AttrHeaderText": "the title of Header",
+    "AttrItemTemplate": "the template of Item",
+    "AttrOnClickItem": "the callback on click item",
+    "GetItemDisplayText": "the callback on get item display text"
   }
 }

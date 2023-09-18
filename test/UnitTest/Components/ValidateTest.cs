@@ -88,7 +88,7 @@ public class ValidateTest : BootstrapBlazorTestBase
         {
             builder.Add(a => a.ShowLabel, false);
         });
-        Assert.DoesNotContain("label", cut.Markup);
+        cut.WaitForAssertion(() => cut.DoesNotContain("label"));
     }
 
     [Fact]

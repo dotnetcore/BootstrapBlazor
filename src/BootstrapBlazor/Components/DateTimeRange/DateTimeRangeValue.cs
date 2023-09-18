@@ -12,12 +12,30 @@ public class DateTimeRangeValue
     /// <summary>
     /// 获得/设置 开始时间
     /// </summary>
-    public DateTime? Start { get; set; }
+    public DateTime Start { get; set; }
 
     /// <summary>
     /// 获得/设置 结束时间
     /// </summary>
-    public DateTime? End { get; set; }
+    public DateTime End { get; set; }
+
+    /// <summary>
+    /// 获得/设置 可为空开始时间
+    /// </summary>
+    public DateTime? NullStart
+    {
+        get => Start == DateTime.MinValue ? null : Start;
+        set => Start = value ?? DateTime.MinValue;
+    }
+
+    /// <summary>
+    /// 获得/设置 可为空结束时间
+    /// </summary>
+    public DateTime? NullEnd
+    {
+        get => End == DateTime.MinValue ? null : End;
+        set => End = value ?? DateTime.MinValue;
+    }
 
     /// <summary>
     /// ToString 方法
@@ -26,13 +44,13 @@ public class DateTimeRangeValue
     public override string ToString()
     {
         var ret = "";
-        if (Start.HasValue && Start.Value != DateTime.MinValue)
+        if (Start != DateTime.MinValue)
         {
-            ret = Start.Value.ToString();
+            ret = Start.ToString();
         }
-        if (End.HasValue && End.Value != DateTime.MinValue)
+        if (End != DateTime.MinValue)
         {
-            ret = $"{ret} - {End.Value}";
+            ret = $"{ret} - {End}";
         }
         return ret;
     }

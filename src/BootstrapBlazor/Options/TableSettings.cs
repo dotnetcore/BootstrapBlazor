@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// TableSettings 表格组件全局默认设置
 /// </summary>
 public class TableSettings
 {

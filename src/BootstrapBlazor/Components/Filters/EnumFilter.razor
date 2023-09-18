@@ -8,4 +8,11 @@
 else
 {
     <Select Items="@Items" @bind-Value="@Value"></Select>
+
+    @if (Count > 0)
+    {
+        <FilterLogicItem @bind-Logic="Logic"></FilterLogicItem>
+
+        <Select Items="@Items" @bind-Value="@Value2"></Select>
+    }
 }

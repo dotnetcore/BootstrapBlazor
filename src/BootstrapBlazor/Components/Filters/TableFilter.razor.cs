@@ -132,7 +132,7 @@ public partial class TableFilter : IFilter
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
-    private string? Step => Column.Step?.ToString() ?? "0.01";
+    private string? Step => Column.Step?.ToString();
 
     /// <summary>
     /// <inheritdoc/>
@@ -159,6 +159,15 @@ public partial class TableFilter : IFilter
 
         PlusIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableFilterPlusIcon);
         MinusIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableFilterMinusIcon);
+
+        if (Table != null && Table.Filters.TryGetValue(Column.GetFieldName(), out var action))
+        {
+            var filter = action.GetFilterConditions();
+            if (filter.Filters?.Count > 1)
+            {
+                Count = 1;
+            }
+        }
     }
 
     /// <summary>

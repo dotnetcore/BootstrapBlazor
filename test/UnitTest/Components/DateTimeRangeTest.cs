@@ -126,6 +126,20 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<DateTimeRange>();
         Assert.NotNull(cut.Instance.Value);
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value.Start);
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value.End);
+        Assert.Null(cut.Instance.Value.NullStart);
+        Assert.Null(cut.Instance.Value.NullEnd);
+
+        cut.Instance.Value.NullStart = DateTime.Now;
+        Assert.NotNull(cut.Instance.Value.NullStart);
+        cut.Instance.Value.NullEnd = DateTime.Now;
+        Assert.NotNull(cut.Instance.Value.NullEnd);
+
+        cut.Instance.Value.NullStart = null;
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value.Start);
+        cut.Instance.Value.NullEnd = null;
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value.End);
     }
 
     [Fact]

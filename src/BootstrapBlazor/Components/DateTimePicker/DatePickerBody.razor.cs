@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Extensions;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -56,9 +55,9 @@ public partial class DatePickerBody
         .AddClass("prev-month", day.Month < CurrentDate.Month)
         .AddClass("next-month", day.Month > CurrentDate.Month)
         .AddClass("current", day == Value && Ranger == null && day.Month == CurrentDate.Month && !overflow)
-        .AddClass("start", Ranger != null && day == Ranger.SelectedValue.GetStartValue())
-        .AddClass("end", Ranger != null && day == Ranger.SelectedValue.GetEndValue())
-        .AddClass("range", Ranger != null && day >= Ranger.SelectedValue.GetStartValue() && day <= Ranger.SelectedValue.GetEndValue())
+        .AddClass("start", Ranger != null && day == Ranger.SelectedValue.Start)
+        .AddClass("end", Ranger != null && day == Ranger.SelectedValue.End)
+        .AddClass("range", Ranger != null && day >= Ranger.SelectedValue.Start && day <= Ranger.SelectedValue.End)
         .AddClass("today", day == DateTime.Today)
         .AddClass("disabled", IsDisabled(day) || overflow)
         .Build();

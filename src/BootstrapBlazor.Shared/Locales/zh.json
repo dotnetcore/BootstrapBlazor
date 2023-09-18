@@ -1908,6 +1908,7 @@
     "StepsNormalPrevButtonText": "上一步",
     "StepsNormalNextButtonText": "下一步",
     "StepsNormalResetButtonText": "重 置",
+    "StepsNormalFinishedTemplateDesc": "通过设置 <code>FinishedTemplate</code> 可以实现步骤全部完成后的后续处理逻辑，比如显示已完成，如需要延时一定时间再跳转到一个新页面，需要自定义组件，再其 <code>OnAfterRenderAsync</code> 生命周期中处理",
     "StepsStepTitle": "基础用法",
     "StepsStepIntro": "简单的步骤条，组件内部直接使用 <code>Step</code> 组件设置步骤",
     "Step1Text": "第一步",
@@ -4401,6 +4402,7 @@
     "Handwritten": "手写组件 HandWritten",
     "LinkButton": "链接按钮 LinkButton",
     "ListView": "列表组件 ListView",
+    "ListGroup": "列表框 ListGroup",
     "Locator": "位置定位 Locator",
     "ImageViewer": "图片 ImageViewer",
     "FileIcon": "文件图标 FileIcon",
@@ -5862,5 +5864,24 @@
     "WebSpeechGameTitle": "语音颜色选择游戏",
     "WebSpeechSynthesisTitle": "语音合成",
     "WebSpeechSynthesisDIYTitle": "语音合成自定义"
+  },
+  "BootstrapBlazor.Shared.Samples.ListGroups": {
+    "ListGroupsTitle": "ListGroup 列表框",
+    "ListGroupsSubTitle": "多用于数据浏览与选择",
+    "ListGroupsTips": "<li>通过 <code>Items</code> 设置列表框显示数据集合</li><li>通过 <code>GetItemDisplayText</code> 设置列表框数据项显示文本</li><li>由于组件内部高度设置为 <code>100%</code> 使用时自动充满父容器，当父容器设置高度时，列表项自动出现滚动条，本例中设置外部容器元素 <code>list-group-demo</code> 高度为 <code>280px</code></li>",
+    "BasicUsageTitle": "基本用法",
+    "BasicUsageIntro": "通过 <code>Items</code> 参数值设置数据集合",
+    "HeaderTextTitle": "标题",
+    "HeaderTextIntro": "通过 <code>HeaderText</code> 参数值设置标题文字",
+    "HeaderText": "列表框标题文字",
+    "HeaderTemplateTitle": "标题模板",
+    "HeaderTemplateIntro": "通过 <code>HeaderTemplate</code> 自定义标题模板",
+    "AttrItems": "数据源集合",
+    "AttrValue": "当前选中值",
+    "AttrHeaderTemplate": "标题栏模板",
+    "AttrHeaderText": "标题栏文字",
+    "AttrItemTemplate": "选项模板",
+    "AttrOnClickItem": "点击候选项回调方法",
+    "GetItemDisplayText": "获得显示项显示内容回调方法"
   }
 }

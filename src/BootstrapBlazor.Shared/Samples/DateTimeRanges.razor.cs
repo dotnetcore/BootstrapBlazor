@@ -27,11 +27,11 @@ public sealed partial class DateTimeRanges
     private Task BindValueDemoOnValueChanged(DateTimeRangeValue val, int index)
     {
         var ret = "";
-        if (val.Start != null)
+        if (val.Start != DateTime.MinValue)
         {
-            ret = val.Start?.ToString("yyyy-MM-dd");
+            ret = val.Start.ToString("yyyy-MM-dd");
         }
-        if (val.End != null)
+        if (val.End != DateTime.MinValue)
         {
             ret = $"{ret} - {val.End:yyyy-MM-dd}";
         }
@@ -53,13 +53,13 @@ public sealed partial class DateTimeRanges
     private Task MaxMinOnValueChanged(DateTimeRangeValue val, int index)
     {
         var ret = "";
-        if (val.Start.HasValue)
+        if (val.Start != DateTime.MinValue)
         {
-            ret = val.Start.Value.ToString("yyyy-MM-dd");
+            ret = val.Start.ToString("yyyy-MM-dd");
         }
-        if (val.End.HasValue)
+        if (val.End != DateTime.MinValue)
         {
-            ret = $"{ret} - {val.End.Value:yyyy-MM-dd}";
+            ret = $"{ret} - {val.End:yyyy-MM-dd}";
         }
         if (index != 1)
         {
@@ -121,19 +121,19 @@ public sealed partial class DateTimeRanges
     /// <returns></returns>
     private static IEnumerable<EventItem> GetEvents() => new EventItem[]
     {
-        new EventItem()
+        new()
         {
             Name = "OnConfirm",
             Description="Confirm callback delegate",
             Type ="Action"
         },
-        new EventItem()
+        new()
         {
             Name = "OnClearValue",
             Description="Clear callback delegate",
             Type ="Action"
         },
-        new EventItem()
+        new()
         {
             Name = "OnValueChanged",
             Description="ValueChanged callback delegate",
