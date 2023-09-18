@@ -1753,6 +1753,7 @@ a, a:hover, a:focus {
   display: flex;
   justify-content: center;
   align-items: start;
+  transition: transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81), opacity 0.4s;
 }
 .bb-time-panel .bb-time-body .bb-clock-panel.fade {
   pointer-events: none;
@@ -1863,9 +1864,6 @@ a, a:hover, a:focus {
   transform: rotate(0deg);
   transform-origin: bottom;
   position: relative;
-}
-.bb-time-panel .bb-time-body .bb-clock-panel .bb-clock-point.anim {
-  transition: transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81), opacity 0.4s;
 }
 .bb-time-panel .bb-time-body .bb-clock-panel .bb-clock-point .bb-clock-point-bar {
   background-color: var(--bs-primary);
