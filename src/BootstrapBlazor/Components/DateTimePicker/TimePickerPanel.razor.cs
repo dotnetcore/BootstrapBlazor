@@ -120,7 +120,9 @@ public partial class TimePickerPanel
                 break;
         }
 
-        CurrentValue = new TimeSpan(hour, minute, second);
+        CurrentValue = new TimeSpan(GetHour(), minute, second);
+
+        int GetHour() => IsAM ? hour : hour + 12;
     }
 
     private enum TimeMode
