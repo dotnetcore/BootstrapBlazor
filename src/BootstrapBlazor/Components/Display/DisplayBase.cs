@@ -74,12 +74,6 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     public string? DisplayText { get; set; }
 
     /// <summary>
-    /// 获得/设置 Value 改变时回调方法
-    /// </summary>
-    [Parameter]
-    public Func<TValue, Task>? OnValueChanged { get; set; }
-
-    /// <summary>
     /// 获得 ValidateForm 实例
     /// </summary>
     [CascadingParameter]
