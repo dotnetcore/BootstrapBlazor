@@ -1,6 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapModuleComponentBase
-@attribute [BootstrapModuleAutoLoader("DateTimePicker/TimePickerPanel.razor.js", JSObjectReference = true, AutoInvokeDispose = false)]
+@inherits DisplayBase<TimeSpan>
+@attribute [BootstrapModuleAutoLoader("DateTimePicker/TimePickerPanel.razor.js", JSObjectReference = true)]
 
 <div @attributes="AdditionalAttributes" class="@ClassString" id="@Id" data-bb-mode="@Mode">
     <div class="bb-time-header">

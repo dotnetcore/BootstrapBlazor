@@ -18,18 +18,6 @@ public partial class TimePickerPanel
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    /// <summary>
-    /// 获得/设置 组件值
-    /// </summary>
-    [Parameter]
-    public TimeSpan Value { get; set; }
-
-    /// <summary>
-    /// 获得/设置 组件值变化时委托方法
-    /// </summary>
-    [Parameter]
-    public EventCallback<TimeSpan> ValueChanged { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<TimePickerPanel>? Localizer { get; set; }
@@ -117,7 +105,7 @@ public partial class TimePickerPanel
     /// 设置小时调用此方法
     /// </summary>
     [JSInvokable]
-    public async Task SetTime(int hour, int min, int sec)
+    public async Task SetTime(int hour, int minute, int second)
     {
         switch (Mode)
         {
@@ -132,10 +120,14 @@ public partial class TimePickerPanel
                 break;
         }
 
-        Value = new TimeSpan(hour, min, sec);
+        Value = new TimeSpan(hour, minute, second);
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);
+        }
+        if (OnValueChanged != null)
+        {
+            await OnValueChanged(Value);
         }
     }
 

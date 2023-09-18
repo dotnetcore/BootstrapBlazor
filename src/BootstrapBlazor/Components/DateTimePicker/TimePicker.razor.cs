@@ -16,16 +16,11 @@ public partial class TimePicker
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    /// <summary>
-    /// 获得/设置 组件值
-    /// </summary>
-    [Parameter]
-    public TimeSpan Value { get; set; }
-
-    /// <summary>
-    /// 获得/设置 组件值变化时委托方法
-    /// </summary>
-    [Parameter]
-    public EventCallback<TimeSpan> ValueChanged { get; set; }
-
+    private async Task OnInternalValueChanged(TimeSpan timeSpan)
+    {
+        if (OnValueChanged != null)
+        {
+            await OnValueChanged(timeSpan);
+        }
+    }
 }
