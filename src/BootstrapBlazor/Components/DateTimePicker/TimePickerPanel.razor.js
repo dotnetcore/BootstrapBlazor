@@ -86,8 +86,8 @@ export function init(id, invoke, hour, minute, second) {
                     top: rect.top + panel.offsetHeight / 2
                 };
 
-                const x = e.clientX - cent.left;
-                const y = e.clientY - cent.top;
+                const x = (e.clientX || e.touches[0].clientX) - cent.left;
+                const y = (e.clientY || e.touches[0].clientY) - cent.top;
                 const deg = Math.atan2(y, x) * 6 / Math.PI + 15;
                 const val = deg % 12;
                 setValue(picker, p, val);
