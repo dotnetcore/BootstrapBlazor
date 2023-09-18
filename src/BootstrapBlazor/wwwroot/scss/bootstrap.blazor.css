@@ -1711,6 +1711,15 @@ a, a:hover, a:focus {
   --bb-time-clock-hour-margin-top: 6px;
   --bb-time-clock-minute-margin-top: 9px;
   --bb-time-clock-second-margin-top: 12px;
+  --bb-time-footer-btn-border: 1px solid #dcdfe6;
+  --bb-time-footer-btn-padding: 3px 12px;
+  --bb-time-footer-btn-font-size: .75rem;
+  --bb-time-footer-btn-color: #606266;
+  --bb-time-footer-btn-hover-color: #fff;
+  --bb-time-footer-btn-hover-border-color: #409eff;
+  --bb-time-footer-btn-hover-bg-color: #409eff;
+  --bb-time-footer-btn-active-color: #409eff;
+  --bb-time-footer-btn-active-border-color: #409eff;
 }
 .bb-time-panel.dragging {
   user-select: none;
@@ -1728,6 +1737,7 @@ a, a:hover, a:focus {
   font-size: 1.6rem;
   font-weight: bold;
   text-align: center;
+  user-select: none;
 }
 .bb-time-panel .bb-time-header .bb-time-text {
   cursor: pointer;
@@ -1745,6 +1755,7 @@ a, a:hover, a:focus {
   position: relative;
   width: var(--bb-time-body-width);
   height: var(--bb-time-body-height);
+  user-select: none;
 }
 .bb-time-panel .bb-time-body .bb-clock-panel {
   --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-hour-margin-top));
@@ -1779,7 +1790,6 @@ a, a:hover, a:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-  user-select: none;
   transform-origin: center var(--bb-clock-radius);
   transition: transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81), opacity 0.4s;
 }
@@ -1901,22 +1911,21 @@ a, a:hover, a:focus {
   justify-content: space-between;
 }
 .bb-time-panel .bb-time-footer .btn {
-  border: 1px solid #dcdfe6;
-  padding: 7px 15px;
-  font-size: 0.75rem;
+  border: var(--bb-time-footer-btn-border);
+  padding: var(--bb-time-footer-btn-padding);
+  font-size: var(--bb-time-footer-btn-font-size);
   border-radius: var(--bs-border-radius);
-  line-height: 12px;
-  color: #606266;
+  color: var(--bb-time-footer-btn-color);
   transition: border-color 0.3s linear, color 0.3s linear;
 }
 .bb-time-panel .bb-time-footer .btn:hover {
-  border-color: #409eff;
-  color: #409eff;
+  border-color: var(--bb-time-footer-btn-active-border-color);
+  color: var(--bb-time-footer-btn-active-color);
 }
 .bb-time-panel .bb-time-footer .btn.active {
-  background: #409eff;
-  border-color: #409eff;
-  color: #fff;
+  background: var(--bb-time-footer-btn-hover-bg-color);
+  border-color: var(--bb-time-footer-btn-hover-border-color);
+  color: var(--bb-time-footer-btn-hover-color);
 }
 
 .datetime-range {
