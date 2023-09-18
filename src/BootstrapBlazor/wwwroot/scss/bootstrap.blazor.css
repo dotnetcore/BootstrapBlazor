@@ -1708,7 +1708,9 @@ a, a:hover, a:focus {
   --bb-time-body-height: 244px;
   --bb-time-clock-number-width: 22px;
   --bb-time-clock-number-height: 22px;
-  --bb-time-clock-number-margin-top: calc(var(--bb-time-clock-number-height) / 2);
+  --bb-time-clock-hour-margin-top: 6px;
+  --bb-time-clock-minute-margin-top: 9px;
+  --bb-time-clock-second-margin-top: 12px;
 }
 .bb-time-panel.dragging {
   user-select: none;
@@ -1745,6 +1747,8 @@ a, a:hover, a:focus {
   height: var(--bb-time-body-height);
 }
 .bb-time-panel .bb-time-body .bb-clock-panel {
+  --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-hour-margin-top));
+  --bb-time-clock-number-margin-top: var(--bb-time-clock-hour-margin-top);
   position: absolute;
   top: 0;
   left: 0;
@@ -1758,6 +1762,14 @@ a, a:hover, a:focus {
 .bb-time-panel .bb-time-body .bb-clock-panel.fade {
   pointer-events: none;
 }
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-minute {
+  --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-minute-margin-top));
+  --bb-time-clock-number-margin-top: var(--bb-time-clock-minute-margin-top);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-second {
+  --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-second-margin-top));
+  --bb-time-clock-number-margin-top: var(--bb-time-clock-second-margin-top);
+}
 .bb-time-panel .bb-time-body .bb-clock-panel > div {
   position: absolute;
   margin-top: var(--bb-time-clock-number-margin-top);
@@ -1768,7 +1780,7 @@ a, a:hover, a:focus {
   justify-content: center;
   align-items: center;
   user-select: none;
-  transform-origin: center calc((var(--bb-time-body-height) - var(--bb-time-clock-number-height)) / 2);
+  transform-origin: center var(--bb-clock-radius);
   transition: transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81), opacity 0.4s;
 }
 .bb-time-panel .bb-time-body .bb-clock-panel > div:nth-child(1) {

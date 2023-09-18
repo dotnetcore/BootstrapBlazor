@@ -4,7 +4,9 @@
     --bb-time-body-height: 244px;
     --bb-time-clock-number-width: 22px;
     --bb-time-clock-number-height: 22px;
-    --bb-time-clock-number-margin-top: calc(var(--bb-time-clock-number-height) / 2);
+    --bb-time-clock-hour-margin-top: 6px;
+    --bb-time-clock-minute-margin-top: 9px;
+    --bb-time-clock-second-margin-top: 12px;
 
     &.dragging {
         user-select: none;
@@ -60,6 +62,8 @@
         height: var(--bb-time-body-height);
 
         .bb-clock-panel {
+            --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-hour-margin-top));
+            --bb-time-clock-number-margin-top: var(--bb-time-clock-hour-margin-top);
             position: absolute;
             top: 0;
             left: 0;
@@ -74,6 +78,16 @@
                 pointer-events: none;
             }
 
+            &.bb-clock-panel-minute {
+                --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-minute-margin-top));
+                --bb-time-clock-number-margin-top: var(--bb-time-clock-minute-margin-top);
+            }
+
+            &.bb-clock-panel-second {
+                --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-second-margin-top));
+                --bb-time-clock-number-margin-top: var(--bb-time-clock-second-margin-top);
+            }
+
             > div {
                 position: absolute;
                 margin-top: var(--bb-time-clock-number-margin-top);
@@ -84,7 +98,7 @@
                 justify-content: center;
                 align-items: center;
                 user-select: none;
-                transform-origin: center calc((var(--bb-time-body-height) - var(--bb-time-clock-number-height)) / 2);
+                transform-origin: center var(--bb-clock-radius);
                 transition: transform 0.5s cubic-bezier(.47,.02,.74,1.81), opacity 0.4s;
 
                 @for $i from 0 to 12 {
