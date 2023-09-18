@@ -1,5 +1,6 @@
 ﻿import Data from "../../modules/data.js?v=$version"
 import Drag from "../../modules/drag.js?v=$version"
+import EventHandler from "../../modules/event-handler.js?v=$version"
 
 const setValue = (picker, point, value) => {
     const { el, val } = picker;
@@ -7,7 +8,7 @@ const setValue = (picker, point, value) => {
 
     if (mode === "Hour") {
         val.Hour = Math.floor(value)
-        if(picker.isPM) {
+        if (picker.isPM) {
             val.Hour += 12;
         }
     }
@@ -67,10 +68,11 @@ export function init(id, invoke, hour, minute, second) {
         hourEl: el.querySelector('.bb-time-text.hour'),
         minuteEl: el.querySelector('.bb-time-text.minute'),
         secondEl: el.querySelector('.bb-time-text.second'),
-        isPM : el.querySelector('.bb-time-footer > .active').classList.contains('btn-pm')
+        body: el.querySelector('.bb-time-body'),
+        isPM: el.querySelector('.bb-time-footer > .active').classList.contains('btn-pm'),
+        pointers: [...el.querySelectorAll('.bb-clock-point')]
     };
 
-    picker.pointers = [...el.querySelectorAll('.bb-clock-point')];
     picker.pointers.forEach(p => {
         Drag.drag(p,
             e => {
@@ -99,6 +101,24 @@ export function init(id, invoke, hour, minute, second) {
         setPoint(picker, p);
     })
     Data.set(id, picker);
+
+    EventHandler.on(picker.body, 'click', '.bb-clock-panel > div', e => {
+        const val = parseInt(e.delegateTarget.textContent);
+        const point = e.delegateTarget.parentNode.querySelector('.bb-clock-point');
+        console.log(point);
+        if (e.delegateTarget.parentNode.classList.contains('bb-clock-panel-hour')) {
+            picker.val.Hour = val;
+            setDeg(point, val, 30);
+        }
+        if (e.delegateTarget.parentNode.classList.contains('bb-clock-panel-minute')) {
+            picker.val.Minute = val;
+            setDeg(point, val, 6);
+        }
+        if (e.delegateTarget.parentNode.classList.contains('bb-clock-panel-second')) {
+            picker.val.Second = val;
+            setDeg(point, val, 6);
+        }
+    })
 }
 
 export function update(id, hour, minute, second) {
@@ -130,6 +150,7 @@ export function dispose(id) {
     Data.remove(id);
 
     if (picker) {
+        EventHandler.off(picker.body, 'click', '.bb-clock-panel > div');
         picker.pointers.forEach(p => {
             Drag.dispose(p);
         });

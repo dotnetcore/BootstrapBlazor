@@ -94,6 +94,7 @@
                     background-color: var(--bs-secondary);
                     position: absolute;
                     transform-origin: center var(--bb-clock-radius);
+                    pointer-events: none;
 
                     @for $i from 0 to 60 {
                         &:nth-child(#{($i + 1)}) {
@@ -131,6 +132,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                cursor: pointer;
                 transform-origin: center var(--bb-clock-radius);
                 transition: transform 0.5s cubic-bezier(.47,.02,.74,1.81), opacity 0.4s;
 

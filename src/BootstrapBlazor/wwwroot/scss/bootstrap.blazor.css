@@ -1778,6 +1778,7 @@ a, a:hover, a:focus {
   background-color: var(--bs-secondary);
   position: absolute;
   transform-origin: center var(--bb-clock-radius);
+  pointer-events: none;
 }
 .bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(1) {
   transform: rotate(0deg);
@@ -1983,6 +1984,7 @@ a, a:hover, a:focus {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
   transform-origin: center var(--bb-clock-radius);
   transition: transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81), opacity 0.4s;
 }
