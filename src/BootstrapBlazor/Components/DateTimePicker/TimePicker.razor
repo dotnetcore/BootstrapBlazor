@@ -1,5 +1,5 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits Display<TimeSpan>
+@inherits ValidateBase<TimeSpan>
 
 <div @attributes="@AdditionalAttributes" class="@ClassString">
     <TimePickerPanel @bind-Value="@Value" OnValueChanged="OnInternalValueChanged"></TimePickerPanel>

@@ -93,19 +93,19 @@ public partial class TimePickerPanel
 
     private void SetTime()
     {
-        Value = Value.Hours > 12 ? Value.Subtract(TimeSpan.FromHours(12)) : Value.Add(TimeSpan.FromHours(12));
+        CurrentValue = Value.Hours > 12 ? Value.Subtract(TimeSpan.FromHours(12)) : Value.Add(TimeSpan.FromHours(12));
     }
 
     private void SetTimePeriod(int hour)
     {
-        Value = Value.Add(TimeSpan.FromHours(hour));
+        CurrentValue = Value.Add(TimeSpan.FromHours(hour));
     }
 
     /// <summary>
     /// 设置小时调用此方法
     /// </summary>
     [JSInvokable]
-    public async Task SetTime(int hour, int minute, int second)
+    public void SetTime(int hour, int minute, int second)
     {
         switch (Mode)
         {
@@ -120,15 +120,7 @@ public partial class TimePickerPanel
                 break;
         }
 
-        Value = new TimeSpan(hour, minute, second);
-        if (ValueChanged.HasDelegate)
-        {
-            await ValueChanged.InvokeAsync(Value);
-        }
-        if (OnValueChanged != null)
-        {
-            await OnValueChanged(Value);
-        }
+        CurrentValue = new TimeSpan(hour, minute, second);
     }
 
     private enum TimeMode
