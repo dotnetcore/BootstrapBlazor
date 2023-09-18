@@ -1758,7 +1758,7 @@ a, a:hover, a:focus {
   user-select: none;
 }
 .bb-time-panel .bb-time-body .bb-clock-panel {
-  --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-hour-margin-top));
+  --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-hour-margin-top) - 1px);
   --bb-time-clock-number-margin-top: var(--bb-time-clock-hour-margin-top);
   position: absolute;
   top: 0;
@@ -1770,15 +1770,208 @@ a, a:hover, a:focus {
   align-items: start;
   transition: transform 0.5s cubic-bezier(0.47, 0.02, 0.74, 1.81), opacity 0.4s;
 }
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div {
+  --bb-time-clock-number-margin-top: 0;
+  --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - 1px);
+  width: 1px;
+  height: 3px;
+  background-color: var(--bs-secondary);
+  position: absolute;
+  transform-origin: center var(--bb-clock-radius);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(1) {
+  transform: rotate(0deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(2) {
+  transform: rotate(6deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(3) {
+  transform: rotate(12deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(4) {
+  transform: rotate(18deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(5) {
+  transform: rotate(24deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(6) {
+  transform: rotate(30deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(7) {
+  transform: rotate(36deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(8) {
+  transform: rotate(42deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(9) {
+  transform: rotate(48deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(10) {
+  transform: rotate(54deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(11) {
+  transform: rotate(60deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(12) {
+  transform: rotate(66deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(13) {
+  transform: rotate(72deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(14) {
+  transform: rotate(78deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(15) {
+  transform: rotate(84deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(16) {
+  transform: rotate(90deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(17) {
+  transform: rotate(96deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(18) {
+  transform: rotate(102deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(19) {
+  transform: rotate(108deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(20) {
+  transform: rotate(114deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(21) {
+  transform: rotate(120deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(22) {
+  transform: rotate(126deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(23) {
+  transform: rotate(132deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(24) {
+  transform: rotate(138deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(25) {
+  transform: rotate(144deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(26) {
+  transform: rotate(150deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(27) {
+  transform: rotate(156deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(28) {
+  transform: rotate(162deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(29) {
+  transform: rotate(168deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(30) {
+  transform: rotate(174deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(31) {
+  transform: rotate(180deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(32) {
+  transform: rotate(186deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(33) {
+  transform: rotate(192deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(34) {
+  transform: rotate(198deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(35) {
+  transform: rotate(204deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(36) {
+  transform: rotate(210deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(37) {
+  transform: rotate(216deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(38) {
+  transform: rotate(222deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(39) {
+  transform: rotate(228deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(40) {
+  transform: rotate(234deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(41) {
+  transform: rotate(240deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(42) {
+  transform: rotate(246deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(43) {
+  transform: rotate(252deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(44) {
+  transform: rotate(258deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(45) {
+  transform: rotate(264deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(46) {
+  transform: rotate(270deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(47) {
+  transform: rotate(276deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(48) {
+  transform: rotate(282deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(49) {
+  transform: rotate(288deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(50) {
+  transform: rotate(294deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(51) {
+  transform: rotate(300deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(52) {
+  transform: rotate(306deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(53) {
+  transform: rotate(312deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(54) {
+  transform: rotate(318deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(55) {
+  transform: rotate(324deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(56) {
+  transform: rotate(330deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(57) {
+  transform: rotate(336deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(58) {
+  transform: rotate(342deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(59) {
+  transform: rotate(348deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(60) {
+  transform: rotate(354deg);
+}
+.bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div:nth-child(5n+1) {
+  height: 6px;
+  background-color: var(--bs-body-color);
+}
 .bb-time-panel .bb-time-body .bb-clock-panel.fade {
   pointer-events: none;
 }
 .bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-minute {
-  --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-minute-margin-top));
+  --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-minute-margin-top) - 1px);
   --bb-time-clock-number-margin-top: var(--bb-time-clock-minute-margin-top);
 }
 .bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-second {
-  --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-second-margin-top));
+  --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-second-margin-top) - 1px);
   --bb-time-clock-number-margin-top: var(--bb-time-clock-second-margin-top);
 }
 .bb-time-panel .bb-time-body .bb-clock-panel > div {
