@@ -7,6 +7,9 @@ const setValue = (picker, point, value) => {
 
     if (mode === "Hour") {
         val.Hour = Math.floor(value)
+        if(picker.isPM) {
+            val.Hour += 12;
+        }
     }
     else if (mode === "Minute") {
         val.Minute = Math.floor(value * 5)
@@ -26,13 +29,13 @@ const setTime = picker => {
         if (hour > 12) {
             hour = hour - 12;
         }
-        el.querySelector('.bb-time-text.hour').textContent = hour.toString().padStart(2, '0');
+        picker.hourEl.textContent = hour.toString().padStart(2, '0');
     }
     if (mode === "Minute") {
-        el.querySelector('.bb-time-text.minute').textContent = val.Minute.toString().padStart(2, '0');
+        picker.minuteEl.textContent = val.Minute.toString().padStart(2, '0');
     }
     if (mode === "Second") {
-        el.querySelector('.bb-time-text.second').textContent = val.Second.toString().padStart(2, '0');
+        picker.secondEl.textContent = val.Second.toString().padStart(2, '0');
     }
 }
 
@@ -63,7 +66,8 @@ export function init(id, invoke, hour, minute, second) {
         },
         hourEl: el.querySelector('.bb-time-text.hour'),
         minuteEl: el.querySelector('.bb-time-text.minute'),
-        secondEl: el.querySelector('.bb-time-text.second')
+        secondEl: el.querySelector('.bb-time-text.second'),
+        isPM : el.querySelector('.bb-time-footer > .active').classList.contains('btn-pm')
     };
 
     picker.pointers = [...el.querySelectorAll('.bb-clock-point')];
@@ -116,6 +120,8 @@ export function update(id, hour, minute, second) {
             const point = el.querySelector('.bb-clock-panel-second > .bb-clock-point')
             setDeg(point, second, 6)
         }
+
+        picker.isPM = el.querySelector('.bb-time-footer > .active').classList.contains('btn-pm');
     }
 }
 
