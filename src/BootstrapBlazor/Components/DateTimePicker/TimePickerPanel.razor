@@ -12,26 +12,35 @@
         <span class="bb-time-period" @onclick="@(() => SetTime())">@AMPMString</span>
     </div>
     <div class="bb-time-body">
-        <div class="bb-clock-panel bb-clock-panel-scale">
-            @for (var index = 0; index < 60; index++)
-            {
-                <div></div>
-            }
-        </div>
-        <div class="@SecondClass">
-            @for (var index = 0; index < 60; index = index + 5)
-            {
-                <div><span>@index</span></div>
-            }
-            @RenderClockPoint
-        </div>
-        <div class="@MinusClass">
-            @for (var index = 0; index < 60; index = index + 5)
-            {
-                <div><span>@index</span></div>
-            }
-            @RenderClockPoint
-        </div>
+        @if (ShowClockScale)
+        {
+            <div class="bb-clock-panel bb-clock-panel-scale">
+                @for (var index = 0; index < 60; index++)
+                {
+                    <div></div>
+                }
+            </div>
+        }
+        @if (ShowSecond)
+        {
+            <div class="@SecondClass">
+                @for (var index = 0; index < 60; index = index + 5)
+                {
+                    <div><span>@index</span></div>
+                }
+                @RenderClockPoint
+            </div>
+        }
+        @if (ShowMinute)
+        {
+            <div class="@MinuteClass">
+                @for (var index = 0; index < 60; index = index + 5)
+                {
+                    <div><span>@index</span></div>
+                }
+                @RenderClockPoint
+            </div>
+        }
         <div class="@HourClass">
             <div><span>12</span></div>
             @for (var index = 1; index < 12; index++)

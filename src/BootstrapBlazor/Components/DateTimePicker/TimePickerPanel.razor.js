@@ -105,7 +105,7 @@ export function init(id, invoke, hour, minute, second) {
     EventHandler.on(picker.body, 'click', '.bb-clock-panel > div', e => {
         const val = parseInt(e.delegateTarget.textContent);
         const point = e.delegateTarget.parentNode.querySelector('.bb-clock-point');
-        console.log(point);
+
         if (e.delegateTarget.parentNode.classList.contains('bb-clock-panel-hour')) {
             picker.val.Hour = val;
             setDeg(point, val, 30);

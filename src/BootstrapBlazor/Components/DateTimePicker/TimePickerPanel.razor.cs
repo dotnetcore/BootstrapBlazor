@@ -18,6 +18,24 @@ public partial class TimePickerPanel
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
+    /// <summary>
+    /// 是否显示表盘刻度 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowClockScale { get; set; }
+
+    /// <summary>
+    /// 是否显示秒 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowSecond { get; set; } = true;
+
+    /// <summary>
+    /// 是否显示分钟 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowMinute { get; set; } = true;
+
     [Inject]
     [NotNull]
     private IStringLocalizer<TimePickerPanel>? Localizer { get; set; }
@@ -31,7 +49,7 @@ public partial class TimePickerPanel
         .AddClass("fade", Mode != TimeMode.Hour)
         .Build();
 
-    private string? MinusClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-minute")
+    private string? MinuteClass => CssBuilder.Default("bb-clock-panel bb-clock-panel-minute")
         .AddClass("fade", Mode != TimeMode.Minute)
         .Build();
 
@@ -48,8 +66,6 @@ public partial class TimePickerPanel
         .Build();
 
     private bool IsAM => Value.Hours < 12;
-
-    private string? IsAMString => IsAM ? "true" : null;
 
     private string? AMPMString => IsAM ? Localizer["AMText"] : Localizer["PMText"];
 
