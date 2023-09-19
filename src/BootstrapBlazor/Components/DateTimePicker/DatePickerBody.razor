@@ -137,7 +137,7 @@
         </div>
         @if (ViewMode == DatePickerViewMode.DateTime)
         {
-            <TimePickerPanel></TimePickerPanel>
+            <TimePickerPanel Value="CurrentTime" OnValueChanged="OnTimeChanged"></TimePickerPanel>
         }
     </div>
     @if (ShowFooter)

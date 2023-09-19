@@ -476,6 +476,13 @@ public partial class DatePickerBody
         Ranger?.UpdateEnd(CurrentDate);
     }
 
+    private Task OnTimeChanged(TimeSpan time)
+    {
+        CurrentTime = time;
+        Value = CurrentDate.Add(CurrentTime);
+        return Task.CompletedTask;
+    }
+
     /// <summary>
     /// Day 选择时触发此方法
     /// </summary>
