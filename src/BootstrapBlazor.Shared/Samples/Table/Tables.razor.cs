@@ -324,7 +324,6 @@ public partial class Tables
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-
         new()
         {
             Name = "TableSize",
@@ -994,6 +993,22 @@ public partial class Tables
             Name = "OnAfterSaveAsync",
             Description = Localizer["OnAfterSaveAsyncAttr"],
             Type = "Func<TItem, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "OnAfterDeleteAsync",
+            Description = Localizer["OnAfterDeleteAsyncAttr"],
+            Type = "Func<List<TItem>, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "OnAfterModifyAsync",
+            Description = Localizer["OnAfterModifyAsyncAttr"],
+            Type = "Func<Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },

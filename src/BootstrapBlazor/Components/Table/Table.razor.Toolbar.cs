@@ -583,6 +583,10 @@ public partial class Table<TItem>
         {
             await OnAfterSaveAsync((TItem)context.Model);
         }
+        if (OnAfterModifyAsync != null)
+        {
+            await OnAfterModifyAsync();
+        }
         if (ShowToastAfterSaveOrDeleteModel)
         {
             var option = new ToastOption
@@ -915,6 +919,14 @@ public partial class Table<TItem>
                             PageItems = Math.Min(PageItems, items.Min());
                         }
                     }
+                }
+                if (OnAfterDeleteAsync != null)
+                {
+                    await OnAfterDeleteAsync(SelectedRows);
+                }
+                if (OnAfterModifyAsync != null)
+                {
+                    await OnAfterModifyAsync();
                 }
                 SelectedRows.Clear();
                 await QueryAsync();
