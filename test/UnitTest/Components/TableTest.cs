@@ -6512,6 +6512,8 @@ public class TableTest : TableTestBase
 
         var button = cut.Find("button");
         cut.InvokeAsync(() => button.Click());
+        cut.WaitForElement(".form-control.is-display", TimeSpan.FromSeconds(5));
+
         var display = cut.FindComponent<Display<DateTime?>>();
         var ele = display.Find("div");
         Assert.Equal(dt.ToString("yyyy-MM-dd"), ele.TextContent);
