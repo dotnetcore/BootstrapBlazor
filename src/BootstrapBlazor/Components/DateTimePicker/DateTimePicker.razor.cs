@@ -108,6 +108,12 @@ public partial class DateTimePicker<TValue>
     [Parameter]
     public bool AutoToday { get; set; } = true;
 
+    /// <summary>
+    /// 获得/设置 子组件模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }
@@ -123,7 +129,7 @@ public partial class DateTimePicker<TValue>
     private string? DateTimePlaceHolderText { get; set; }
 
     [NotNull]
-    private string? GenericTypeErroMessage { get; set; }
+    private string? GenericTypeErrorMessage { get; set; }
 
     [NotNull]
     private string? DateTimeFormat { get; set; }
@@ -142,7 +148,7 @@ public partial class DateTimePicker<TValue>
 
         DateTimePlaceHolderText ??= Localizer[nameof(DateTimePlaceHolderText)];
         DatePlaceHolderText ??= Localizer[nameof(DatePlaceHolderText)];
-        GenericTypeErroMessage ??= Localizer[nameof(GenericTypeErroMessage)];
+        GenericTypeErrorMessage ??= Localizer[nameof(GenericTypeErrorMessage)];
         DateTimeFormat ??= Localizer[nameof(DateTimeFormat)];
         DateFormat ??= Localizer[nameof(DateFormat)];
 
@@ -153,7 +159,7 @@ public partial class DateTimePicker<TValue>
         // 判断泛型类型
         if (!type.IsDateTime())
         {
-            throw new InvalidOperationException(GenericTypeErroMessage);
+            throw new InvalidOperationException(GenericTypeErrorMessage);
         }
 
         // 泛型设置为可为空

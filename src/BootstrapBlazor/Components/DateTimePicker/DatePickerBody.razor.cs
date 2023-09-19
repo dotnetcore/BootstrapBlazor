@@ -307,6 +307,12 @@ public partial class DatePickerBody
     public string? NextMonthIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 子组件模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否为 Range 内使用 默认为 false
     /// </summary>
     [CascadingParameter]
@@ -349,6 +355,8 @@ public partial class DatePickerBody
 
     [NotNull]
     private string? Week { get; set; }
+
+    private TimePickerOption TimePickerOption { get; } = new();
 
     private Dictionary<DatePickerViewMode, List<DatePickerViewMode>> AllowSwitchModes { get; } = new Dictionary<DatePickerViewMode, List<DatePickerViewMode>>
     {

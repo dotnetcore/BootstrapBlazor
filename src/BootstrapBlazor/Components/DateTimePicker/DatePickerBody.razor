@@ -137,7 +137,15 @@
         </div>
         @if (ViewMode == DatePickerViewMode.DateTime)
         {
-            <TimePickerPanel Value="CurrentTime" OnValueChanged="OnTimeChanged"></TimePickerPanel>
+            <CascadingValue Value="TimePickerOption" IsFixed="true">
+                @ChildContent
+            </CascadingValue>
+            <RenderTemplate>
+                <TimePickerPanel Value="CurrentTime" OnValueChanged="OnTimeChanged"
+                                 ShowClockScale="TimePickerOption.ShowClockScale" IsAutoSwitch="TimePickerOption.IsAutoSwitch"
+                                 ShowMinute="TimePickerOption.ShowMinute" ShowSecond="TimePickerOption.ShowSecond">
+                </TimePickerPanel>
+            </RenderTemplate>
         }
     </div>
     @if (ShowFooter)
