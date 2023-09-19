@@ -6453,7 +6453,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public async Task Value_Formatter()
+    public void Value_Formatter()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -6482,8 +6482,40 @@ public class TableTest : TableTestBase
             }));
         });
         var table = cut.FindComponent<MockTable>();
-        await cut.InvokeAsync(() => table.Instance.QueryAsync());
+        cut.InvokeAsync(() => table.Instance.QueryAsync());
         cut.Contains("test-formatter");
+    }
+
+    [Fact]
+    public void Display_FormatString()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var dt = DateTime.Now;
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.Items, new List<Foo> { new Foo() { DateTime = dt } });
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowExtendButtons, true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, DateTime?>>(0);
+                    builder.AddAttribute(1, "Field", dt);
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "DateTime", typeof(DateTime?)));
+                    builder.AddAttribute(3, "FormatString", "yyyy-MM-dd");
+                    builder.AddAttribute(4, "IsReadonlyWhenEdit", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var button = cut.Find("button");
+        cut.InvokeAsync(() => button.Click());
+        cut.WaitForAssertion(() => cut.Contains($"<div class=\"form-control is-display\">{dt:yyyy-MM-dd}</div>"));
+
+        var btnSave = cut.Find(".form-footer .btn-primary");
+        cut.InvokeAsync(() => btnSave.Click());
     }
 
     [Fact]
