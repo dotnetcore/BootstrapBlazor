@@ -4815,7 +4815,6 @@ public class TableTest : TableTestBase
         var button = cut.FindComponent<TableToolbarButton<Foo>>();
         await cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
         Assert.True(added);
-        Assert.True(afterModify);
 
         if (mode == EditMode.InCell)
         {
@@ -4833,6 +4832,7 @@ public class TableTest : TableTestBase
             await cut.InvokeAsync(() => form.Submit());
             Assert.Equal(ItemChangedType.Add, itemChanged);
         }
+        Assert.True(afterModify);
     }
 
     [Theory]
