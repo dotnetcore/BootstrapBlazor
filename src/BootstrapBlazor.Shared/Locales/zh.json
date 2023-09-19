@@ -4665,6 +4665,8 @@
     "OnResetSearchAsyncAttr": "重置搜索按钮异步回调方法",
     "OnClickRowCallbackAttr": "点击行回调委托方法",
     "OnAfterSaveAsyncAttr": "保存数据后异步回调方法",
+    "OnAfterDeleteAsyncAttr": "删除数据后异步回调方法",
+    "OnAfterModifyAsyncAttr": "保存或者删除数据后异步回调方法",
     "OnAfterRenderCallbackAttr": "表格渲染完毕后回调方法",
     "OnTreeExpandAttr": "树形数据节点展开式回调委托方法",
     "OnDoubleClickRowCallbackAttr": "双击行回调委托方法",
