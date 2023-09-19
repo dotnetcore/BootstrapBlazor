@@ -6483,7 +6483,7 @@ public class TableTest : TableTestBase
         });
         var table = cut.FindComponent<MockTable>();
         cut.InvokeAsync(() => table.Instance.QueryAsync());
-        cut.Contains("test-formatter");
+        cut.WaitForAssertion(() => cut.Contains("test-formatter"));
     }
 
     [Fact]
