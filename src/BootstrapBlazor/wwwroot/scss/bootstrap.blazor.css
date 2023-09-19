@@ -4540,10 +4540,10 @@ body:before {
   .form-inline .form-label + .btn-group {
     flex: 0;
   }
-  .form-inline-end > div > .form-label {
+  .form-inline.form-inline-end > div > .form-label {
     text-align: right;
   }
-  .form-inline-center > div > .form-label {
+  .form-inline.form-inline-center > div > .form-label {
     text-align: center;
   }
 }
