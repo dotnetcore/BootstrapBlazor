@@ -94,6 +94,18 @@ public partial class Table<TItem>
     public Func<TItem, Task>? OnAfterSaveAsync { get; set; }
 
     /// <summary>
+    /// 获得/设置 删除后回调委托方法
+    /// </summary>
+    [Parameter]
+    public Func<List<TItem>, Task>? OnAfterDeleteAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 保存删除后回调委托方法
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnAfterModifyAsync { get; set; }
+
+    /// <summary>
     /// 获得/设置 编辑数据弹窗 Title
     /// </summary>
     [Parameter]
