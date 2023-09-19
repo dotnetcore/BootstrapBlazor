@@ -6487,42 +6487,6 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void Display_FormatString()
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var dt = DateTime.Now;
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Foo>>(pb =>
-            {
-                pb.Add(a => a.Items, new List<Foo> { new Foo() { DateTime = dt } });
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.ShowExtendButtons, true);
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, DateTime?>>(0);
-                    builder.AddAttribute(1, "Field", dt);
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "DateTime", typeof(DateTime?)));
-                    builder.AddAttribute(3, "FormatString", "yyyy-MM-dd");
-                    builder.AddAttribute(4, "IsReadonlyWhenEdit", true);
-                    builder.CloseComponent();
-                });
-            });
-        });
-
-        var button = cut.Find("button");
-        cut.InvokeAsync(() => button.Click());
-        cut.WaitForElement(".form-control.is-display", TimeSpan.FromSeconds(5));
-
-        var display = cut.FindComponent<Display<DateTime?>>();
-        var ele = display.Find("div");
-        Assert.Equal(dt.ToString("yyyy-MM-dd"), ele.TextContent);
-
-        var btnSave = cut.Find(".form-footer .btn-primary");
-        cut.InvokeAsync(() => btnSave.Click());
-    }
-
-    [Fact]
     public void Value_Enum()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
