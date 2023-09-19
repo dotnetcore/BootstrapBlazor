@@ -6453,7 +6453,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public async Task Value_Formatter()
+    public void Value_Formatter()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -6482,8 +6482,8 @@ public class TableTest : TableTestBase
             }));
         });
         var table = cut.FindComponent<MockTable>();
-        await cut.InvokeAsync(() => table.Instance.QueryAsync());
-        cut.Contains("test-formatter");
+        cut.InvokeAsync(() => table.Instance.QueryAsync());
+        cut.WaitForAssertion(() => cut.Contains("test-formatter"));
     }
 
     [Fact]
