@@ -32,6 +32,8 @@ public class TransferPanelTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.ShowSearch, true);
         });
+        cut.WaitForAssertion(() => cut.Contains("input-inner"));
+
         var input = cut.Find(".input-inner");
         input.Input(new ChangeEventArgs()
         {

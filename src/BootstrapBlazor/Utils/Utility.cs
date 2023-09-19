@@ -374,6 +374,14 @@ public static class Utility
             builder.AddAttribute(2, nameof(Display<string>.Value), fieldValue);
             builder.AddAttribute(3, nameof(Display<string>.LookupServiceKey), item.LookupServiceKey);
             builder.AddAttribute(4, nameof(Display<string>.ShowLabelTooltip), item.ShowLabelTooltip);
+            if (item is ITableColumn col)
+            {
+                // TODO: 暂时不支持 Formatter 逻辑
+                if (!string.IsNullOrEmpty(col.FormatString))
+                {
+                    builder.AddAttribute(5, nameof(Display<string>.FormatString), col.FormatString);
+                }
+            }
             builder.CloseComponent();
         }
     }
