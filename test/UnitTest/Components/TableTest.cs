@@ -6512,7 +6512,9 @@ public class TableTest : TableTestBase
 
         var button = cut.Find("button");
         cut.InvokeAsync(() => button.Click());
-        cut.WaitForAssertion(() => cut.Contains($"<div class=\"form-control is-display\">{dt:yyyy-MM-dd}</div>"));
+        var display = cut.FindComponent<Display<DateTime?>>();
+        var ele = display.Find("div");
+        Assert.Equal(dt.ToString("yyyy-MM-dd"), ele.TextContent);
 
         var btnSave = cut.Find(".form-footer .btn-primary");
         cut.InvokeAsync(() => btnSave.Click());
