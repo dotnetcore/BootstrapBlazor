@@ -166,20 +166,20 @@ public class UploadTest : BootstrapBlazorTestBase
             pb.Add(a => a.Height, 40);
             pb.Add(a => a.Width, 50);
         });
-        cut.Contains("width: 50px;");
-        cut.Contains("height: 40px;");
+        cut.WaitForAssertion(() => cut.Contains("width: 50px;"));
+        cut.WaitForAssertion(() => cut.Contains("height: 40px;"));
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.IsCircle, true);
         });
-        cut.Contains("height: 50px;");
+        cut.WaitForAssertion(() => cut.Contains("height: 50px;"));
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Height, 0);
         });
-        cut.Contains("height: 50px;");
+        cut.WaitForAssertion(() => cut.Contains("height: 50px;"));
 
         // DefaultFileList
         cut.SetParametersAndRender(pb =>
