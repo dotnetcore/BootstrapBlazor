@@ -36,6 +36,12 @@ public partial class TimePickerPanel
     [Parameter]
     public bool ShowMinute { get; set; } = true;
 
+    /// <summary>
+    /// 是否自动切换 小时、分钟、秒 自动切换
+    /// </summary>
+    [Parameter]
+    public bool IsAutoSwitch { get; set; } = true;
+
     [Inject]
     [NotNull]
     private IStringLocalizer<TimePickerPanel>? Localizer { get; set; }
@@ -124,20 +130,28 @@ public partial class TimePickerPanel
     [JSInvokable]
     public void SetTime(int hour, int minute, int second)
     {
-        switch (Mode)
+        var render = IsAutoSwitch && (Mode != TimeMode.Second);
+        if (IsAutoSwitch)
         {
-            case TimeMode.Hour:
-                Mode = TimeMode.Minute;
-                break;
-            case TimeMode.Minute:
-                Mode = TimeMode.Second;
-                break;
-            case TimeMode.Second:
-            default:
-                break;
+            switch (Mode)
+            {
+                case TimeMode.Hour:
+                    Mode = TimeMode.Minute;
+                    break;
+                case TimeMode.Minute:
+                    Mode = TimeMode.Second;
+                    break;
+                case TimeMode.Second:
+                default:
+                    break;
+            }
         }
 
         CurrentValue = new TimeSpan(GetSafeHour(IsAM ? hour : hour + 12), minute, second);
+        if (render && !ValueChanged.HasDelegate)
+        {
+            StateHasChanged();
+        }
     }
 
     private static int GetSafeHour(int val)
