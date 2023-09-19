@@ -4856,6 +4856,7 @@
     "TablesEditTemplateTitle": "Tables with single table maintenance",
     "TablesEditTemplateIntro": "Set <code>ShowSearch</code> to show the query component",
     "TablesEditTemplateDescription": "In this example, the right alignment of <code>Count</code> is set, the <code>Complete</code> column is set to center alignment, and the Boolean column is automatically rendered as a <code>Switch</code> component",
+    "TablesEditTemplateDisplayLabel": "Detail",
     "TablesEditOnAddAsyncTitle": "Automatically generate tables for single table maintenance function",
     "TablesEditOnAddAsyncIntro": "When the <code>OnAddAsync</code> or <code>OnSaveAsync</code> callback delegate method is set, if the <code>EditTemplate</code> is not set to edit the template, the component will try to automatically generate the form maintenance UI",
     "TablesEditOnAddAsyncDescription": "Client-side validation can be achieved by setting validation tags such as <code>[Required]</code> of the <code>Foo</code> attribute of the class instance <code>Foo</code> of the generic constraint of <code>TItem</code>",
