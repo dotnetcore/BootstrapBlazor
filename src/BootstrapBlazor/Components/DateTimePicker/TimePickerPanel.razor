@@ -9,7 +9,6 @@
         <span class="bb-time-text minute" @onclick="() => SetMode(TimeMode.Minute)">@Value.Minutes.ToString("D2")</span>
         <span>:</span>
         <span class="bb-time-text second" @onclick="() => SetMode(TimeMode.Second)">@Value.Seconds.ToString("D2")</span>
-        <span class="bb-time-period" @onclick="@(() => SetTime())">@AMPMString</span>
     </div>
     <div class="bb-time-body">
         @if (ShowClockScale)

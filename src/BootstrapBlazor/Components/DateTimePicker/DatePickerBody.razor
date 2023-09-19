@@ -25,15 +25,6 @@
             </div>
         }
         <div class="picker-panel-body">
-            <div class="@DateTimeViewClassName">
-                <span class="date-picker-editor-wrap">
-                    <input type="text" autocomplete="off" readonly placeholder="@DatePlaceHolder" class="input-inner form-control" value="@DateValueString">
-                </span>
-                <span class="date-picker-editor-wrap">
-                    <input type="text" autocomplete="off" readonly placeholder="@TimePlaceHolder" class="input-inner form-control" value="@TimeValueString" @onclick="@OnClickTimeInput">
-                    <TimePickerBody @bind-Value="CurrentTime" OnClose="@OnTimePickerClose" OnConfirm="@OnTimePickerClose" />
-                </span>
-            </div>
             <div class="date-picker-header">
                 @if (ShowLeftButtons)
                 {
@@ -144,6 +135,10 @@
                 </table>
             </div>
         </div>
+        @if (ViewMode == DatePickerViewMode.DateTime)
+        {
+            <TimePickerPanel></TimePickerPanel>
+        }
     </div>
     @if (ShowFooter)
     {
