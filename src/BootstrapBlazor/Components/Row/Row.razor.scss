@@ -39,13 +39,13 @@
                 flex: 0;
             }
         }
-    }
 
-    .form-inline-end > div > .form-label {
-        text-align: right;
-    }
+        &.form-inline-end > div > .form-label {
+            text-align: right;
+        }
 
-    .form-inline-center > div > .form-label {
-        text-align: center;
+        &.form-inline-center > div > .form-label {
+            text-align: center;
+        }
     }
 }
