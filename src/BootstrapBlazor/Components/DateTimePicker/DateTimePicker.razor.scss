@@ -45,6 +45,8 @@
 
     .picker-panel-body-wrapper {
         display: flex;
+        overflow: hidden;
+        transition: .3s transform ease-in-out;
 
         @include pick-side;
 
@@ -175,6 +177,7 @@
                     background: transparent;
                     cursor: pointer;
                     outline: none;
+                    padding: 0 6px;
 
                     &:hover {
                         @include color_409eff;
@@ -260,25 +263,28 @@
     border-bottom-right-radius: var(--bs-border-radius);
 
     .picker-panel-link-btn {
-        padding: 7px 15px;
+        padding: 4px 12px;
         font-size: 0.75rem;
         border-radius: var(--bs-border-radius);
-        line-height: 12px;
+        border: 1px solid #dcdfe6;
         color: #606266;
         transition: border-color .3s linear, color .3s linear;
 
-        &.is-confirm {
-            border: 1px solid #dcdfe6;
+        &:hover {
+            border-color: #409eff;
+            color: #409eff;
+        }
 
-            &:hover {
-                border-color: #409eff;
-                color: #409eff;
-            }
+        &:last-child {
+            margin-left: .25rem;
+        }
+    }
 
-            .is-now {
-                color: #409eff;
-                margin-right: .25rem;
-            }
+    .picker-timer {
+        cursor: pointer;
+
+        &:hover {
+            color: #409eff;
         }
     }
 }

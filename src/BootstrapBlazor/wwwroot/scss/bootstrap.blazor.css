@@ -1299,6 +1299,8 @@ a, a:hover, a:focus {
 }
 .picker-panel .picker-panel-body-wrapper {
   display: flex;
+  overflow: hidden;
+  transition: 0.3s transform ease-in-out;
 }
 .picker-panel .picker-panel-body-wrapper .picker-panel-sidebar {
   width: 110px;
@@ -1422,6 +1424,7 @@ a, a:hover, a:focus {
   background: transparent;
   cursor: pointer;
   outline: none;
+  padding: 0 6px;
 }
 .picker-panel .picker-panel-body-wrapper .picker-panel-body .date-picker-header .picker-panel-icon-btn:hover {
   color: #409eff;
@@ -1488,23 +1491,25 @@ a, a:hover, a:focus {
   border-bottom-right-radius: var(--bs-border-radius);
 }
 .picker-panel-footer .picker-panel-link-btn {
-  padding: 7px 15px;
+  padding: 4px 12px;
   font-size: 0.75rem;
   border-radius: var(--bs-border-radius);
-  line-height: 12px;
+  border: 1px solid #dcdfe6;
   color: #606266;
   transition: border-color 0.3s linear, color 0.3s linear;
 }
-.picker-panel-footer .picker-panel-link-btn.is-confirm {
-  border: 1px solid #dcdfe6;
-}
-.picker-panel-footer .picker-panel-link-btn.is-confirm:hover {
+.picker-panel-footer .picker-panel-link-btn:hover {
   border-color: #409eff;
   color: #409eff;
 }
-.picker-panel-footer .picker-panel-link-btn.is-confirm .is-now {
+.picker-panel-footer .picker-panel-link-btn:last-child {
+  margin-left: 0.25rem;
+}
+.picker-panel-footer .picker-timer {
+  cursor: pointer;
+}
+.picker-panel-footer .picker-timer:hover {
   color: #409eff;
-  margin-right: 0.25rem;
 }
 
 .datetime-picker-bar {
@@ -1734,7 +1739,8 @@ a, a:hover, a:focus {
   color: var(--bs-primary);
 }
 .bb-time-panel .bb-time-header {
-  font-size: 1.6rem;
+  margin: 12px;
+  font-size: 1rem;
   font-weight: bold;
   text-align: center;
   user-select: none;
@@ -2104,6 +2110,7 @@ a, a:hover, a:focus {
 .bb-time-panel .bb-time-footer {
   display: flex;
   justify-content: space-between;
+  margin: -24px 12px 0 12px;
 }
 .bb-time-panel .bb-time-footer .btn {
   border: var(--bb-time-footer-btn-border);
@@ -4948,6 +4955,10 @@ body:before {
   --bb-row-control-padding: 7px;
 }
 
+.form-inline .form-label {
+  display: block;
+}
+
 @media (min-width: 576px) {
   .form-inline > * {
     display: flex;
@@ -4963,12 +4974,12 @@ body:before {
     vertical-align: top;
     display: inline-block;
   }
-  .form-inline .form-label + * {
-    flex: 1;
-  }
   .form-inline .form-label + .switch,
   .form-inline .form-label + .form-check {
     padding: var(--bb-row-control-padding) 0;
+  }
+  .form-inline .form-label + *:not(.btn-group) {
+    flex: 1;
   }
   .form-inline-end > div > .form-label {
     text-align: right;

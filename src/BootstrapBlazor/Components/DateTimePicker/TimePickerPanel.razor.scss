@@ -46,7 +46,8 @@
     }
 
     .bb-time-header {
-        font-size: 1.6rem;
+        margin: 12px;
+        font-size: 1rem;
         font-weight: bold;
         text-align: center;
         user-select: none;
@@ -185,6 +186,7 @@
     .bb-time-footer {
         display: flex;
         justify-content: space-between;
+        margin: -24px 12px 0 12px;
 
         .btn {
             border: var(--bb-time-footer-btn-border);
