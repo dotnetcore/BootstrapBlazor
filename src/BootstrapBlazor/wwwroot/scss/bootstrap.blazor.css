@@ -1708,7 +1708,7 @@ a, a:hover, a:focus {
 }
 
 .bb-time-panel {
-  --bb-time-point-bg: var(--bs-primary);
+  --bb-time-text-color: #409eff;
   --bb-time-body-width: 244px;
   --bb-time-body-height: 244px;
   --bb-time-clock-number-width: 22px;
@@ -1716,6 +1716,8 @@ a, a:hover, a:focus {
   --bb-time-clock-hour-margin-top: 6px;
   --bb-time-clock-minute-margin-top: 9px;
   --bb-time-clock-second-margin-top: 12px;
+  --bb-time-clock-point-bg-color: var(--bs-primary);
+  --bb-time-clock-point-bar-bg-color: var(--bs-primary);
   --bb-time-footer-btn-border: 1px solid #dcdfe6;
   --bb-time-footer-btn-padding: 3px 12px;
   --bb-time-footer-btn-font-size: .75rem;
@@ -1730,18 +1732,18 @@ a, a:hover, a:focus {
   user-select: none;
 }
 .bb-time-panel[data-bb-mode=Hour] .bb-time-text.hour {
-  color: var(--bs-primary);
+  color: var(--bb-time-text-color);
 }
 .bb-time-panel[data-bb-mode=Minute] .bb-time-text.minute {
-  color: var(--bs-primary);
+  color: var(--bb-time-text-color);
 }
 .bb-time-panel[data-bb-mode=Second] .bb-time-text.second {
-  color: var(--bs-primary);
+  color: var(--bb-time-text-color);
 }
 .bb-time-panel .bb-time-header {
   margin: 12px;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 500;
   text-align: center;
   user-select: none;
 }
@@ -2083,13 +2085,13 @@ a, a:hover, a:focus {
   opacity: 0.4;
   height: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-number-margin-top));
   width: 2px;
-  background-color: var(--bs-primary);
+  background-color: var(--bb-time-clock-point-bg-color);
   transform: rotate(0deg);
   transform-origin: bottom;
   position: relative;
 }
 .bb-time-panel .bb-time-body .bb-clock-panel .bb-clock-point .bb-clock-point-bar {
-  background-color: var(--bs-primary);
+  background-color: var(--bb-time-clock-point-bar-bg-color);
   width: var(--bb-time-clock-number-width);
   height: var(--bb-time-clock-number-height);
   border-radius: 50%;
