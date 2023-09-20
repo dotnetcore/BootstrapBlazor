@@ -418,7 +418,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
             builder.Add(a => a.Value, new DateTimeRangeValue());
         });
 
-        var buttons = cut.FindAll(".date-picker-header button");
+        var buttons = cut.FindAll(".picker-panel-header button");
 
         // 上一月
         cut.InvokeAsync(() => buttons[1].Click());

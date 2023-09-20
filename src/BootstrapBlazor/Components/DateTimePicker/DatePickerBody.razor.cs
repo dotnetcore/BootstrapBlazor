@@ -110,7 +110,7 @@ public partial class DatePickerBody
     /// <summary>
     /// 获得 年月日显示表格样式
     /// </summary>
-    private string? CurrentMonthViewClassName => CssBuilder.Default("date-picker-header-label")
+    private string? CurrentMonthViewClassName => CssBuilder.Default("picker-panel-header-label")
         .AddClass("d-none", CurrentViewMode == DatePickerViewMode.Year || CurrentViewMode == DatePickerViewMode.Month)
         .Build();
 

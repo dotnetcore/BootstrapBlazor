@@ -64,13 +64,14 @@
 
         .picker-panel-body {
             width: 320px;
+            display: flex;
 
             &:after {
                 @include after
             }
 
             .picker-panel-content {
-                width: 292px;
+                width: 290px;
                 position: relative;
                 margin: 15px;
 
@@ -161,7 +162,7 @@
                 }
             }
 
-            .date-picker-header {
+            .picker-panel-header {
                 margin: 12px;
                 display: flex;
                 align-items: center;
@@ -184,7 +185,7 @@
                     }
                 }
 
-                .date-picker-header-label {
+                .picker-panel-header-label {
                     font-size: 16px;
                     font-weight: 500;
                     padding: 0 5px;

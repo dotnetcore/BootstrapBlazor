@@ -230,11 +230,11 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             builder.Add(a => a.ViewMode, DatePickerViewMode.Year);
         });
 
-        var labels = cut.FindAll(".date-picker-header-label");
+        var labels = cut.FindAll(".picker-panel-header-label");
         Assert.Equal(GetYearPeriod(), labels[0].TextContent);
 
         // 上一年
-        var buttons = cut.FindAll(".date-picker-header button");
+        var buttons = cut.FindAll(".picker-panel-header button");
         cut.InvokeAsync(() => buttons[0].Click());
 
         // 下一年
@@ -279,7 +279,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
         });
 
-        var buttons = cut.FindAll(".date-picker-header button");
+        var buttons = cut.FindAll(".picker-panel-header button");
         // 下一月
         await cut.InvokeAsync(() => buttons[2].Click());
         // 下一年
@@ -291,7 +291,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
         });
 
-        buttons = cut.FindAll(".date-picker-header button");
+        buttons = cut.FindAll(".picker-panel-header button");
         // 上一年
         await cut.InvokeAsync(() => buttons[0].Click());
         // 上一月
@@ -334,30 +334,30 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             builder.Add(a => a.Value, DateTime.Now);
         });
 
-        var buttons = cut.FindAll(".date-picker-header button");
+        var buttons = cut.FindAll(".picker-panel-header button");
 
         // 上一年
         cut.InvokeAsync(() => buttons[0].Click());
-        var labels = cut.FindAll(".date-picker-header-label");
+        var labels = cut.FindAll(".picker-panel-header-label");
         Assert.Equal(DateTime.Today.AddYears(-1).Year.ToString() + " 年", labels[0].TextContent);
 
         // 下一年
         cut.InvokeAsync(() => buttons[3].Click());
-        labels = cut.FindAll(".date-picker-header-label");
+        labels = cut.FindAll(".picker-panel-header-label");
         Assert.Equal(DateTime.Today.Year.ToString() + " 年", labels[0].TextContent);
 
         // 上一月
         cut.InvokeAsync(() => buttons[1].Click());
-        labels = cut.FindAll(".date-picker-header-label");
+        labels = cut.FindAll(".picker-panel-header-label");
         Assert.Equal(DateTime.Today.AddMonths(-1).Month.ToString() + " 月", labels[1].TextContent);
 
         // 下一月
         cut.InvokeAsync(() => buttons[2].Click());
-        labels = cut.FindAll(".date-picker-header-label");
+        labels = cut.FindAll(".picker-panel-header-label");
         Assert.Equal(DateTime.Today.Month.ToString() + " 月", labels[1].TextContent);
 
         // 年视图
-        labels = cut.FindAll(".date-picker-header-label");
+        labels = cut.FindAll(".picker-panel-header-label");
         cut.InvokeAsync(() => labels[0].Click());
         cut.Contains("class=\"year-table\"");
 
@@ -372,10 +372,10 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             builder.Add(a => a.Value, DateTime.Now);
             builder.Add(a => a.ShowLeftButtons, false);
         });
-        Assert.DoesNotContain("fa-solid fa-angles-left", cut.Find(".date-picker-header").ToMarkup());
+        Assert.DoesNotContain("fa-solid fa-angles-left", cut.Find(".picker-panel-header").ToMarkup());
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.ShowRightButtons, false));
-        Assert.DoesNotContain("fa-solid fa-angles-right", cut.Find(".date-picker-header").ToMarkup());
+        Assert.DoesNotContain("fa-solid fa-angles-right", cut.Find(".picker-panel-header").ToMarkup());
     }
 
     [Fact]
@@ -385,7 +385,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         {
             builder.Add(a => a.Value, DateTime.Now);
         });
-        var labels = cut.FindAll(".date-picker-header-label");
+        var labels = cut.FindAll(".picker-panel-header-label");
         cut.InvokeAsync(() => labels[1].Click());
         cut.Contains("class=\"month-table\"");
 
@@ -675,7 +675,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         });
 
         // 选择年
-        var buttons = cut.FindAll(".date-picker-header button");
+        var buttons = cut.FindAll(".picker-panel-header button");
         await cut.InvokeAsync(() => buttons[2].Click());
 
         var button = cut.Find(".year-table tbody .cell");

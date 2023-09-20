@@ -1331,6 +1331,7 @@ a, a:hover, a:focus {
 }
 .picker-panel .picker-panel-body-wrapper .picker-panel-body {
   width: 320px;
+  display: flex;
 }
 .picker-panel .picker-panel-body-wrapper .picker-panel-body:after {
   content: "";
@@ -1338,7 +1339,7 @@ a, a:hover, a:focus {
   clear: both;
 }
 .picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content {
-  width: 292px;
+  width: 290px;
   position: relative;
   margin: 15px;
 }
@@ -1409,16 +1410,16 @@ a, a:hover, a:focus {
   width: 60px;
   border-radius: 18px;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .date-picker-header {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-header {
   margin: 12px;
   display: flex;
   align-items: center;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .date-picker-header .pick-panel-arrow-left,
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .date-picker-header .pick-panel-arrow-right {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-header .pick-panel-arrow-left,
+.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-header .pick-panel-arrow-right {
   margin: 0 6px;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .date-picker-header .picker-panel-icon-btn {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-header .picker-panel-icon-btn {
   color: #303133;
   border: 0;
   background: transparent;
@@ -1426,10 +1427,10 @@ a, a:hover, a:focus {
   outline: none;
   padding: 0 6px;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .date-picker-header .picker-panel-icon-btn:hover {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-header .picker-panel-icon-btn:hover {
   color: #409eff;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .date-picker-header .date-picker-header-label {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-header .picker-panel-header-label {
   font-size: 16px;
   font-weight: 500;
   padding: 0 5px;
@@ -1437,7 +1438,7 @@ a, a:hover, a:focus {
   cursor: pointer;
   user-select: none;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .date-picker-header .date-picker-header-label:hover {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-header .picker-panel-header-label:hover {
   color: #409eff;
 }
 
@@ -2200,10 +2201,10 @@ a, a:hover, a:focus {
 .range-panel-body .picker-panel-sidebar .sidebar-item:hover {
   color: #409eff;
 }
-.range-panel-body .date-picker-header-label {
+.range-panel-body .picker-panel-header-label {
   cursor: unset;
 }
-.range-panel-body .date-picker-header-label:hover {
+.range-panel-body .picker-panel-header-label:hover {
   color: inherit;
 }
 
