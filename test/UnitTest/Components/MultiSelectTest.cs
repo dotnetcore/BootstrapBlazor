@@ -35,6 +35,17 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void IsFixedHeight_Ok()
+    {
+        var cut = Context.RenderComponent<MultiSelect<EnumEducation>>(pb =>
+        {
+            pb.Add(a => a.IsFixedHeight, true);
+        });
+        var toggle = cut.Find(".dropdown-toggle");
+        Assert.True(toggle.ClassList.Contains("is-fixed"));
+    }
+
+    [Fact]
     public void EnumValue_Ok()
     {
         var cut = Context.RenderComponent<MultiSelect<EnumEducation>>();
