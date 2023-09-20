@@ -19,6 +19,7 @@ public partial class MultiSelect<TValue>
 
     private string? ToggleClassString => CssBuilder.Default("dropdown-toggle")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
+        .AddClass("is-fixed", IsFixedHeight)
         .AddClass("disabled", IsDisabled)
         .AddClass(CssClass).AddClass(ValidCss)
         .Build();
@@ -55,6 +56,12 @@ public partial class MultiSelect<TValue>
     /// </summary>
     [Parameter]
     public bool ShowDefaultButtons { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否固定高度 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsFixedHeight { get; set; }
 
     /// <summary>
     /// 获得/设置 扩展按钮模板
