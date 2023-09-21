@@ -1289,6 +1289,7 @@ a, a:hover, a:focus {
 }
 
 .picker-panel {
+  --bb-picker-panel: 320px;
   color: #606266;
   border: 1px solid #ced4da;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
@@ -1296,6 +1297,7 @@ a, a:hover, a:focus {
   border-radius: var(--bs-border-radius);
   line-height: 30px;
   display: inline-block;
+  width: var(--bb-picker-panel);
 }
 .picker-panel .picker-panel-body-wrapper {
   display: flex;
@@ -1330,8 +1332,11 @@ a, a:hover, a:focus {
   clear: both;
 }
 .picker-panel .picker-panel-body-wrapper .picker-panel-body {
-  width: 320px;
   display: flex;
+  transition: transform 0.3s ease-in-out;
+}
+.picker-panel .picker-panel-body-wrapper .picker-panel-body.is-open {
+  transform: translateX(calc(0px - var(--bb-picker-panel)));
 }
 .picker-panel .picker-panel-body-wrapper .picker-panel-body:after {
   content: "";
@@ -1728,6 +1733,7 @@ a, a:hover, a:focus {
   --bb-time-footer-btn-hover-bg-color: #409eff;
   --bb-time-footer-btn-active-color: #409eff;
   --bb-time-footer-btn-active-border-color: #409eff;
+  width: var(--bb-picker-panel);
 }
 .bb-time-panel.dragging {
   user-select: none;
@@ -1758,7 +1764,7 @@ a, a:hover, a:focus {
   cursor: pointer;
 }
 .bb-time-panel .bb-time-body {
-  margin: 1rem;
+  margin: 1rem auto;
   border: 1px solid #ddd;
   border-radius: 50%;
   position: relative;

@@ -62,6 +62,10 @@ public partial class DatePickerBody
         .AddClass("disabled", IsDisabled(day) || overflow)
         .Build();
 
+    private string? BodyClassString => CssBuilder.Default("picker-panel-body")
+        .AddClass("is-open", ShowTimePicker)
+        .Build();
+
     private bool IsDisabled(DateTime day) => (MinValue.HasValue && day < MinValue.Value) || (MaxValue.HasValue && day > MaxValue.Value);
 
     /// <summary>
@@ -530,6 +534,11 @@ public partial class DatePickerBody
         {
             await ClickConfirmButton();
         }
+    }
+
+    private void SwitchTimeView()
+    {
+        ShowTimePicker = true;
     }
 
     /// <summary>

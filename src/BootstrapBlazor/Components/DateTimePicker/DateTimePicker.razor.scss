@@ -35,6 +35,7 @@
 }
 
 .picker-panel {
+    --bb-picker-panel: 320px;
     color: #606266;
     border: 1px solid #ced4da;
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
@@ -42,6 +43,7 @@
     border-radius: var(--bs-border-radius);
     line-height: 30px;
     display: inline-block;
+    width: var(--bb-picker-panel);
 
     .picker-panel-body-wrapper {
         display: flex;
@@ -63,8 +65,12 @@
         }
 
         .picker-panel-body {
-            width: 320px;
             display: flex;
+            transition: transform .3s ease-in-out;
+
+            &.is-open {
+                transform: translateX(calc(0px - var(--bb-picker-panel)));
+            }
 
             &:after {
                 @include after

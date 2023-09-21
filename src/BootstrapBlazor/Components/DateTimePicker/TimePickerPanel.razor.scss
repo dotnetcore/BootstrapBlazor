@@ -18,6 +18,7 @@
     --bb-time-footer-btn-hover-bg-color: #409eff;
     --bb-time-footer-btn-active-color: #409eff;
     --bb-time-footer-btn-active-border-color: #409eff;
+    width: var(--bb-picker-panel);
 
     &.dragging {
         user-select: none;
@@ -67,7 +68,7 @@
     }
 
     .bb-time-body {
-        margin: 1rem;
+        margin: 1rem auto;
         border: 1px solid #ddd;
         border-radius: 50%;
         position: relative;
