@@ -19,6 +19,10 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
     private string? TypeName { get; set; }
 
     private bool IgnoreLocalizerMissing { get; set; }
+    /// <summary>
+    /// 保存用户配置的资源名及顺序
+    /// </summary>
+    private string Resources { get; set; }
 
     /// <summary>
     /// 构造函数
@@ -48,6 +52,8 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
         IgnoreLocalizerMissing = jsonLocalizationOptions.Value.IgnoreLocalizerMissing;
         LoggerFactory = loggerFactory;
         options.OnChange(OnChange);
+        //用户配置的资源名及顺序
+        Resources = options.CurrentValue.Resources;
 
         [ExcludeFromCodeCoverage]
         void OnChange(BootstrapBlazorOptions op)
@@ -115,5 +121,5 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
             baseName,
             IgnoreLocalizerMissing,
             LoggerFactory.CreateLogger<JsonStringLocalizer>(),
-            ResourceNamesCache);
+            ResourceNamesCache,Resources);
 }

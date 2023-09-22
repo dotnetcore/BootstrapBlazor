@@ -5,6 +5,7 @@
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
+using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
@@ -26,6 +27,7 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
 
     private ConcurrentDictionary<string, object?> MissingLocalizerCache { get; } = new();
 
+    private Func<string, string?>[] ResouceSearchFuncArray;
     /// <summary>
     /// 构造函数
     /// </summary>
@@ -41,14 +43,61 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
         string baseName,
         bool ignoreLocalizerMissing,
         ILogger logger,
-        IResourceNamesCache resourceNamesCache) : base(new ResourceManager(baseName, assembly), assembly, baseName, resourceNamesCache, logger)
+        IResourceNamesCache resourceNamesCache,
+        string resources) : base(new ResourceManager(baseName, assembly), assembly, baseName, resourceNamesCache, logger)
     {
         Assembly = assembly;
         TypeName = typeName;
         IgnoreLocalizerMissing = ignoreLocalizerMissing;
         Logger = logger;
+        ResouceSearchFuncArray = InitResourceSearchFuncDict(resources);
     }
+    /// <summary>
+    /// 初始化查找Func数组
+    /// </summary>
+    /// <param name="resources"></param>
+    /// <returns></returns>
+    private Func<string, string?>[] InitResourceSearchFuncDict(string resources)
+    {
+        ConcurrentDictionary<string, Func<string, string?>> ResouceSearchFuncDict = GetInitResouceSearchFuncDict();
+        string[] configResources = ensureIncludeBB(resources);
+        ResouceSearchFuncArray = configResources.Join(ResouceSearchFuncDict, s => s, t => t.Key, (s, t) => t.Value).ToArray(); 
+        return ResouceSearchFuncArray;
 
+        ConcurrentDictionary<string, Func<string, string?>> GetInitResouceSearchFuncDict()
+        {
+            ConcurrentDictionary<string, Func<string, string?>> dict = new();
+            dict.TryAdd("abp", GetStringFromService);
+            dict.TryAdd("wtm", name => GetStringSafely(name, null));
+            dict.TryAdd("bb", GetStringSafelyFromJson);
+            return dict;
+        }
+        string? GetStringFromService(string name)
+        {
+            string? ret = null;
+            var localizer = Utility.GetStringLocalizerFromService(Assembly, TypeName);
+            if (localizer != null)
+            {
+                ret = GetLocalizerValueFromCache(localizer, name);
+            }
+            return ret;
+        }
+        // get string from json localization file
+        string? GetStringSafelyFromJson(string name)
+        {
+            var localizerStrings = CacheManager.GetAllStringsByTypeName(Assembly, TypeName);
+            return GetValueFromCache(localizerStrings, name);
+        }
+        string[] ensureIncludeBB(string searchString)
+        {
+            string[] keys = searchString.ToLower().Split(",");
+            if (!keys.Contains("bb"))
+            {
+                keys = keys.Append("bb").ToArray();
+            }
+            return keys;
+        }
+    }
     /// <summary>
     /// 通过指定键值获取多语言值信息索引
     /// </summary>
@@ -95,28 +144,20 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
 
     private string? GetStringSafely(string name)
     {
-        return GetStringFromService(name)
-            ?? GetStringSafely(name, null)
-            ?? GetStringSafelyFromJson(name);
+        string? result = null;
+        for (int i = 0; i < ResouceSearchFuncArray.Length; i++)
 
         // get string from inject service
-        string? GetStringFromService(string name)
         {
-            string? ret = null;
-            var localizer = Utility.GetStringLocalizerFromService(Assembly, TypeName);
-            if (localizer != null)
+            result = ResouceSearchFuncArray[i](name);
+            if (result != null)
             {
-                ret = GetLocalizerValueFromCache(localizer, name);
-            }
-            return ret;
+                break;
         }
 
         // get string from json localization file
-        string? GetStringSafelyFromJson(string name)
-        {
-            var localizerStrings = CacheManager.GetAllStringsByTypeName(Assembly, TypeName);
-            return GetValueFromCache(localizerStrings, name);
         }
+        return result;
     }
 
     private string? GetValueFromCache(IEnumerable<LocalizedString>? localizerStrings, string name)
