@@ -295,7 +295,9 @@ export default {
                     const newValY = viewer.pt.top + Math.ceil(eventY - viewer.originY)
 
                     viewer.prevImg.style.marginLeft = `${newValX}px`
+                    viewer.prevImg.style.marginRight = `${-newValX}px`
                     viewer.prevImg.style.marginTop = `${newValY}px`
+                    viewer.prevImg.style.marginBottom = `${-newValY}px`
                 }
 
             },
