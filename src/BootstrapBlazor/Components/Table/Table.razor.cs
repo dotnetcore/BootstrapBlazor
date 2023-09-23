@@ -705,6 +705,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         OnInitParameters();
 
+        if (Items != null && OnQueryAsync != null)
+        {
+            throw new InvalidOperationException($"{GetType()} can only accept one item source from its parameters. Do not supply both '{nameof(Items)}' and '{nameof(OnQueryAsync)}'.");
+        }
+
         if (ScrollMode == ScrollMode.Virtual)
         {
             IsFixedHeader = true;

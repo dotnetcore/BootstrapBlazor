@@ -6254,6 +6254,7 @@ body:before {
 
 .table-fixed {
   height: 100%;
+  overflow: hidden;
 }
 
 .table-fixed-header {
