@@ -34,15 +34,13 @@ public class TableTest : TableTestBase
     [Fact]
     public void Invalid_Error()
     {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         Assert.Throws<InvalidOperationException>(() =>
         {
-            var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+            var cut = Context.RenderComponent<Table<Foo>>(pb =>
             {
-                pb.AddChildContent<Table<Foo>>(pb =>
-                {
-                    pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
-                    pb.Add(a => a.OnQueryAsync, option => Task.FromResult<QueryData<Foo>>(null!));
-                });
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
+                pb.Add(a => a.OnQueryAsync, option => Task.FromResult<QueryData<Foo>>(null!));
             });
         });
     }
