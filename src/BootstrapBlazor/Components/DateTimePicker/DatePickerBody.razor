@@ -41,7 +41,7 @@
                         <DynamicElement TagName="span" role="button" class="@CurrentMonthViewClassName" TriggerClick="@(Ranger == null)" OnClick="() => SwitchView(DatePickerViewMode.Month)">@MonthString</DynamicElement>
                         @if (IsDateTimeMode)
                         {
-                            <span role="button" class="picker-panel-header-label" @onclick="SwitchTimeView">@CurrentTime</span>
+                            <span role="button" class="picker-panel-header-label" @onclick="SwitchTimeView">@CurrentTime.ToString(TimeFormat)</span>
                         }
                     </div>
                     @if (ShowRightButtons)
