@@ -54,7 +54,7 @@ public partial class DatePickerBody
     private string? GetDayClass(DateTime day, bool overflow) => CssBuilder.Default("")
         .AddClass("prev-month", day.Month < CurrentDate.Month)
         .AddClass("next-month", day.Month > CurrentDate.Month)
-        .AddClass("current", day == Value && Ranger == null && day.Month == CurrentDate.Month && !overflow)
+        .AddClass("current", day.Date == Value.Date && Ranger == null && day.Month == CurrentDate.Month && !overflow)
         .AddClass("start", Ranger != null && day == Ranger.SelectedValue.Start)
         .AddClass("end", Ranger != null && day == Ranger.SelectedValue.End)
         .AddClass("range", Ranger != null && day >= Ranger.SelectedValue.Start && day <= Ranger.SelectedValue.End)
@@ -495,7 +495,7 @@ public partial class DatePickerBody
         Ranger?.UpdateValue(d);
         if (Ranger == null)
         {
-            if (!ShowFooter || AutoClose)
+            if (!IsDateTimeMode && (!ShowFooter || AutoClose))
             {
                 await ClickConfirmButton();
             }
