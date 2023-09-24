@@ -27,19 +27,22 @@ class ExcelExport : ITableExcelExport
     /// <param name="cols">导出列集合 默认 null 全部导出</param>
     /// <param name="fileName">导出后下载文件名</param>
     /// <returns></returns>
-    public async Task<bool> ExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null) where TModel : class
+    public async Task<bool> ExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null)
     {
         var value = new List<Dictionary<string, object?>>();
         cols ??= Utility.GetTableColumns<TModel>();
         foreach (var item in items)
         {
-            var row = new Dictionary<string, object?>();
-            foreach (var pi in cols)
+            if (item != null)
             {
-                var val = await FormatValue(pi, Utility.GetPropertyValue(item, pi.GetFieldName()));
-                row.Add(pi.GetDisplayName(), val);
+                var row = new Dictionary<string, object?>();
+                foreach (var pi in cols)
+                {
+                    var val = await FormatValue(pi, Utility.GetPropertyValue(item, pi.GetFieldName()));
+                    row.Add(pi.GetDisplayName(), val);
+                }
+                value.Add(row);
             }
-            value.Add(row);
         }
         using var stream = new MemoryStream();
         await MiniExcel.SaveAsAsync(stream, value);
@@ -77,5 +80,40 @@ class ExcelExport : ITableExcelExport
             ret = string.Join(",", v);
         }
         return ret;
+    }
+
+    public async Task<bool> ExportCsvAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null)
+    {
+        var value = new List<Dictionary<string, object?>>();
+        cols ??= Utility.GetTableColumns<TModel>();
+        fileName ??= $"ExportData_{DateTime.Now:yyyyMMddHHmmss}.csv";
+
+        var stream = new MemoryStream();
+        var writer = new StreamWriter(stream);
+
+        // 写表头
+        await writer.WriteLineAsync(string.Join(",", cols.Select(i => i.GetDisplayName())));
+
+        // 写行数据
+        foreach (var item in items)
+        {
+            if (item != null)
+            {
+                var fields = new List<object?>();
+                foreach (var col in cols)
+                {
+                    var val = await FormatValue(col, Utility.GetPropertyValue(item, col.GetFieldName()));
+                    fields.Add(val);
+                };
+                await writer.WriteLineAsync(string.Join(",", fields));
+            }
+        }
+        await writer.FlushAsync();
+
+        // 准备下载
+        stream.Position = 0;
+        var downloadService = ServiceProvider.GetRequiredService<DownloadService>();
+        await downloadService.DownloadFromStreamAsync(fileName, stream);
+        return true;
     }
 }
