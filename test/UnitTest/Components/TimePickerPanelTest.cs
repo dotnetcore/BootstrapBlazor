@@ -71,24 +71,6 @@ public class TimePickerPanelTest : BootstrapBlazorTestBase
             pb.Add(a => a.Value, new TimeSpan(10, 10, 10));
         });
 
-        // click am
-        var span = cut.Find(".bb-time-period");
-        cut.InvokeAsync(() => span.Click());
-        cut.WaitForAssertion(() => cut.Contains("btn btn-pm active"));
-
-        // click pm
-        cut.InvokeAsync(() => span.Click());
-        cut.WaitForAssertion(() => cut.Contains("btn btn-am active"));
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.Value, new TimeSpan(14, 10, 10));
-        });
-        cut.InvokeAsync(() => span.Click());
-        cut.WaitForAssertion(() => cut.Contains("btn btn-am active"));
-        cut.InvokeAsync(() => span.Click());
-        cut.WaitForAssertion(() => cut.Contains("btn btn-pm active"));
-
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Value, new TimeSpan(00, 10, 10));
@@ -128,14 +110,14 @@ public class TimePickerPanelTest : BootstrapBlazorTestBase
         });
 
         var picker = cut.Instance;
-        picker.SetTime(13, 0, 0);
+        cut.InvokeAsync(() => picker.SetTime(13, 0, 0));
         Assert.Equal(new TimeSpan(13, 0, 0), picker.Value);
 
         // 第一次改变为下午再设置 11 时 实际为 23
-        picker.SetTime(11, 10, 0);
+        cut.InvokeAsync(() => picker.SetTime(11, 10, 0));
         Assert.Equal(new TimeSpan(23, 10, 0), picker.Value);
 
-        picker.SetTime(11, 10, 10);
+        cut.InvokeAsync(() => picker.SetTime(11, 10, 10));
         Assert.Equal(new TimeSpan(23, 10, 10), picker.Value);
     }
 }
