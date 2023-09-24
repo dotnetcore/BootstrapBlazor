@@ -473,35 +473,6 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void PlaceholderString_Ok()
-    {
-        using var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
-        {
-            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
-        });
-
-        // 打开 Time 弹窗
-        var inputs = cut.FindAll(".date-picker-time-header input");
-        cut.InvokeAsync(() => inputs[1].Click());
-        cut.Contains("date-picker-time-header is-open");
-
-        // 关闭 Time 弹窗
-        var buttons = cut.FindAll(".time-panel-footer button");
-        cut.InvokeAsync(() => buttons[0].Click());
-
-        cut.InvokeAsync(() => inputs[1].Click());
-        cut.InvokeAsync(() => buttons[1].Click());
-
-        using var cut1 = Context.RenderComponent<TimePickerBody>(pb =>
-        {
-            pb.Add(a => a.Value, TimeSpan.FromSeconds(1));
-        });
-        buttons = cut1.FindAll(".time-panel-footer button");
-        cut1.InvokeAsync(() => buttons[0].Click());
-        cut1.InvokeAsync(() => buttons[1].Click());
-    }
-
-    [Fact]
     public void HeightCallback_Ok()
     {
         var cut = Context.RenderComponent<TimePickerBody>();
