@@ -27,24 +27,31 @@ class ExcelExport : ITableExcelExport
     /// <param name="cols">导出列集合 默认 null 全部导出</param>
     /// <param name="fileName">导出后下载文件名</param>
     /// <returns></returns>
-    public async Task<bool> ExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null) where TModel : class
+    public Task<bool> ExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null) => InternalExportAsync(items, cols, ExcelType.XLSX, fileName);
+
+    public Task<bool> ExportCsvAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null) => InternalExportAsync(items, cols, ExcelType.CSV, fileName);
+
+    private async Task<bool> InternalExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, ExcelType excelType, string? fileName = null)
     {
         var value = new List<Dictionary<string, object?>>();
         cols ??= Utility.GetTableColumns<TModel>();
         foreach (var item in items)
         {
-            var row = new Dictionary<string, object?>();
-            foreach (var pi in cols)
+            if (item != null)
             {
-                var val = await FormatValue(pi, Utility.GetPropertyValue(item, pi.GetFieldName()));
-                row.Add(pi.GetDisplayName(), val);
+                var row = new Dictionary<string, object?>();
+                foreach (var pi in cols)
+                {
+                    var val = await FormatValue(pi, Utility.GetPropertyValue(item, pi.GetFieldName()));
+                    row.Add(pi.GetDisplayName(), val);
+                }
+                value.Add(row);
             }
-            value.Add(row);
         }
         using var stream = new MemoryStream();
-        await MiniExcel.SaveAsAsync(stream, value);
+        await MiniExcel.SaveAsAsync(stream, value, excelType: excelType);
 
-        fileName ??= $"ExportData_{DateTime.Now:yyyyMMddHHmmss}.xlsx";
+        fileName ??= $"ExportData_{DateTime.Now:yyyyMMddHHmmss}.csv";
         stream.Position = 0;
         var downloadService = ServiceProvider.GetRequiredService<DownloadService>();
         await downloadService.DownloadFromStreamAsync(fileName, stream);

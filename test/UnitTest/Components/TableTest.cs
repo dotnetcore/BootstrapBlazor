@@ -844,6 +844,7 @@ public class TableTest : TableTestBase
         ITableExportDataContext<Foo>? exportContext = null;
         bool exported = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var export = Context.Services.GetRequiredService<ITableExcelExport>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
@@ -855,8 +856,17 @@ public class TableTest : TableTestBase
                 {
                     context = c;
                     builder.OpenElement(0, "div");
-                    builder.AddAttribute(1, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, c.ExportAsync));
+                    builder.AddAttribute(1, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, context.ExportAsync));
                     builder.AddContent(2, "test-export-dropdown-item");
+                    builder.CloseElement();
+
+                    // csv 按钮
+                    builder.OpenElement(10, "div");
+                    builder.AddAttribute(11, "onclick", EventCallback.Factory.Create<MouseEventArgs>(this, async () =>
+                    {
+                        await export.ExportCsvAsync(context.Rows, context.Columns);
+                    }));
+                    builder.AddAttribute(12, "class", "test-export-dropdown-csv-item");
                     builder.CloseElement();
                 });
                 pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
@@ -883,6 +893,10 @@ public class TableTest : TableTestBase
         Assert.NotNull(context.BuildQueryPageOptions());
         Assert.Equal(80, context.Rows.Count());
         Assert.NotNull(context.ExportAsync());
+
+        // 导出 csv
+        var csv = cut.Find(".test-export-dropdown-csv-item");
+        cut.InvokeAsync(() => csv.Click());
 
         var table = cut.FindComponent<Table<Foo>>();
         table.SetParametersAndRender(pb =>
