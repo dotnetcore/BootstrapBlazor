@@ -37,7 +37,7 @@ public partial class TimePickerPanel
     public bool ShowMinute { get; set; } = true;
 
     /// <summary>
-    /// 是否自动切换 小时、分钟、秒 自动切换
+    /// 是否自动切换 小时、分钟、秒 自动切换 默认 true
     /// </summary>
     [Parameter]
     public bool IsAutoSwitch { get; set; } = true;
@@ -87,19 +87,6 @@ public partial class TimePickerPanel
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        if (Value == TimeSpan.Zero)
-        {
-            Value = DateTime.Now.TimeOfDay;
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -137,7 +124,6 @@ public partial class TimePickerPanel
     [JSInvokable]
     public void SetTime(int hour, int minute, int second)
     {
-        var render = IsAutoSwitch && (Mode != TimeMode.Second);
         if (IsAutoSwitch)
         {
             switch (Mode)
@@ -155,7 +141,7 @@ public partial class TimePickerPanel
         }
 
         CurrentValue = new TimeSpan(GetSafeHour(IsAM ? hour : hour + 12), minute, second);
-        if (render && !ValueChanged.HasDelegate)
+        if (!ValueChanged.HasDelegate)
         {
             StateHasChanged();
         }

@@ -6,7 +6,7 @@
     <div class="bb-time-header">
         @if (HasDate)
         {
-            <span class="bb-time-text me-3" @onclick="() => SwitchView()">@CurrentDateString</span>
+            <span class="bb-time-text me-3" @onclick="SwitchView">@CurrentDateString</span>
         }
         <span class="bb-time-text hour" @onclick="() => SetMode(TimeMode.Hour)">@HourValue</span>
         <span>:</span>
