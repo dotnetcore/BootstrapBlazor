@@ -10,7 +10,20 @@ class DefaultExcelExport : ITableExcelExport
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public Task<bool> ExportAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null) where TItem : class
+    public Task<bool> ExportAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null)
+    {
+        return Task.FromResult(false);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <typeparam name="TItem"></typeparam>
+    /// <param name="items"></param>
+    /// <param name="cols"></param>
+    /// <param name="fileName"></param>
+    /// <returns></returns>
+    public Task<bool> ExportCsvAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn>? cols, string? fileName = null)
     {
         return Task.FromResult(false);
     }

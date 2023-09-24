@@ -5105,7 +5105,12 @@
     "TablesExportOnExportAsyncTitle": "Custom export method",
     "TablesExportOnExportAsyncIntro": "You can customize the export method by setting the <code>OnExportAsync</code> callback delegate method. If you don't set it, the built-in export function of the component will be used.",
     "TablesExportButtonDropdownTemplateTitle": "Custom export dropdown button",
-    "TablesExportButtonDropdownTemplateIntro": "Customize the content of the export button dropdown box by setting the <code>ExportButtonDropdownTemplate</code> template"
+    "TablesExportButtonDropdownTemplateIntro": "Customize the content of the export button dropdown box by setting the <code>ExportButtonDropdownTemplate</code> template",
+    "TablesExportButtonExcelText": "Export Page data - Excel",
+    "TablesExportButtonExcelAllText": "Export All data - Excel",
+    "TablesExportToastTitle": "Export Data",
+    "TablesExportToastSuccessContent": "Export success，auto close after 4 second",
+    "TablesExportToastFailedContent": "Export failed，auto close after 4 second"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesToolbar": {
     "TablesToolbarTitle": "Table",
