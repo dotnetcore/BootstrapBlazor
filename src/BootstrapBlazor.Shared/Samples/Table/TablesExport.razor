@@ -70,11 +70,15 @@
             <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
         <ExportButtonDropdownTemplate Context="ExportContext">
-            <div class="dropdown-item" @onclick="ExportContext.ExportAsync">
+            <div class="dropdown-item" @onclick="() => ExcelExportAsync(ExportContext)">
                 <i class="fa-regular fa-file-excel"></i>
-                <span>MS-Excel</span>
+                <span>@Localizer["TablesExportButtonExcelText"]</span>
             </div>
-            <div class="dropdown-item" @onclick="@CsvExportAsync">
+            <div class="dropdown-item" @onclick="() => ExcelExportAllAsync(ExportContext)">
+                <i class="fa-regular fa-file-excel"></i>
+                <span>@Localizer["TablesExportButtonExcelAllText"]</span>
+            </div>
+            <div class="dropdown-item" @onclick="() => CsvExportAsync(ExportContext)">
                 <i class="fa-regular fa-file-excel"></i>
                 <span>MS-CSV</span>
             </div>
