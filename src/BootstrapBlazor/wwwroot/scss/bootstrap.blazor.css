@@ -1757,6 +1757,9 @@ a, a:hover, a:focus {
 .bb-time-panel .bb-time-header .bb-time-text {
   cursor: pointer;
 }
+.bb-time-panel .bb-time-header .bb-time-text:hover {
+  color: var(--bb-time-text-color);
+}
 .bb-time-panel .bb-time-header .bb-time-period {
   font-size: 50%;
   width: auto;

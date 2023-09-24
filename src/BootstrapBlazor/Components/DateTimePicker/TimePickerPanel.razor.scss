@@ -57,6 +57,10 @@
 
         .bb-time-text {
             cursor: pointer;
+
+            &:hover {
+                color: var(--bb-time-text-color);
+            }
         }
 
         .bb-time-period {
