@@ -131,16 +131,6 @@ public partial class DatePickerBody
     private string? YearPeriodText { get; set; }
 
     /// <summary>
-    /// 获得 日期数值字符串
-    /// </summary>
-    private string? DateValueString => CurrentDate.ToString(DateFormat);
-
-    /// <summary>
-    /// 获得 日期数值字符串
-    /// </summary>
-    private string? TimeValueString => CurrentTime.ToString(TimeFormat);
-
-    /// <summary>
     /// 获得/设置 组件显示模式 默认为显示年月日模式
     /// </summary>
     private DatePickerViewMode CurrentViewMode { get; set; }
@@ -187,13 +177,6 @@ public partial class DatePickerBody
     /// </summary>
     [Parameter]
     public bool ShowFooter { get; set; }
-
-    /// <summary>
-    /// 获得/设置 时间格式字符串 默认为 "hh\\:mm\\:ss"
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? TimeFormat { get; set; }
 
     /// <summary>
     /// 获得/设置 时间 PlaceHolder 字符串
@@ -403,7 +386,6 @@ public partial class DatePickerBody
 
         DatePlaceHolder ??= Localizer[nameof(DatePlaceHolder)];
         TimePlaceHolder ??= Localizer[nameof(TimePlaceHolder)];
-        TimeFormat ??= Localizer[nameof(TimeFormat)];
         DateFormat ??= Localizer[nameof(DateFormat)];
 
         AiraPrevYearLabel ??= Localizer[nameof(AiraPrevYearLabel)];
