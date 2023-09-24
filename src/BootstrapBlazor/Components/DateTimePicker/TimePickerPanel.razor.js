@@ -118,6 +118,7 @@ export function init(id, invoke, hour, minute, second) {
             picker.val.Second = val;
             setDeg(point, val, 6);
         }
+        invoke.invokeMethodAsync('SetTime', picker.val.Hour, picker.val.Minute, picker.val.Second);
     })
 }
 
