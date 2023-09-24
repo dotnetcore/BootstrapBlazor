@@ -69,14 +69,6 @@ public partial class DatePickerBody
     private bool IsDisabled(DateTime day) => (MinValue.HasValue && day < MinValue.Value) || (MaxValue.HasValue && day > MaxValue.Value);
 
     /// <summary>
-    /// 获得 年月日时分秒视图样式
-    /// </summary>
-    private string? DateTimeViewClassName => CssBuilder.Default("date-picker-time-header")
-        .AddClass("d-none", ViewMode != DatePickerViewMode.DateTime)
-        .AddClass("is-open", ShowTimePicker)
-        .Build();
-
-    /// <summary>
     /// 获得 上一月按钮样式
     /// </summary>
     private string? PrevMonthClassName => CssBuilder.Default("picker-panel-icon-btn pick-panel-arrow-left")
@@ -455,7 +447,6 @@ public partial class DatePickerBody
     /// </summary>
     private void OnClickPrevYear()
     {
-        ShowTimePicker = false;
         CurrentDate = CurrentViewMode == DatePickerViewMode.Year ? GetSafeYearDateTime(CurrentDate, -20) : GetSafeYearDateTime(CurrentDate, -1);
         Ranger?.UpdateStart(CurrentDate);
     }
@@ -465,7 +456,6 @@ public partial class DatePickerBody
     /// </summary>
     private void OnClickPrevMonth()
     {
-        ShowTimePicker = false;
         CurrentDate = GetSafeMonthDateTime(CurrentDate, -1);
         Ranger?.UpdateStart(CurrentDate);
     }
@@ -475,7 +465,6 @@ public partial class DatePickerBody
     /// </summary>
     private void OnClickNextYear()
     {
-        ShowTimePicker = false;
         CurrentDate = CurrentViewMode == DatePickerViewMode.Year ? GetSafeYearDateTime(CurrentDate, 20) : GetSafeYearDateTime(CurrentDate, 1);
         Ranger?.UpdateEnd(CurrentDate);
     }
@@ -485,7 +474,6 @@ public partial class DatePickerBody
     /// </summary>
     private void OnClickNextMonth()
     {
-        ShowTimePicker = false;
         CurrentDate = GetSafeMonthDateTime(CurrentDate, 1);
         Ranger?.UpdateEnd(CurrentDate);
     }
@@ -503,7 +491,6 @@ public partial class DatePickerBody
     /// <param name="d"></param>
     private async Task OnClickDateTime(DateTime d)
     {
-        ShowTimePicker = false;
         SetValue(d + CurrentTime);
         Ranger?.UpdateValue(d);
         if (Ranger == null)
@@ -525,7 +512,6 @@ public partial class DatePickerBody
     /// <param name="view"></param>
     private async Task SwitchView(DatePickerViewMode view)
     {
-        ShowTimePicker = false;
         SetValue(CurrentDate);
         if (AllowSwitchModes[ViewMode].Contains(view))
         {
@@ -625,11 +611,6 @@ public partial class DatePickerBody
     private string GetMonthText(int month) => MonthLists[month - 1];
 
     /// <summary>
-    /// 时刻选择框点击时调用此方法
-    /// </summary>
-    private void OnClickTimeInput() => ShowTimePicker = true;
-
-    /// <summary>
     /// 点击 此刻时调用此方法
     /// </summary>
     private async Task ClickNowButton()
@@ -649,7 +630,6 @@ public partial class DatePickerBody
     /// <returns></returns>
     private async Task ClickClearButton()
     {
-        ShowTimePicker = false;
         if (OnClear != null)
         {
             await OnClear();
@@ -661,7 +641,6 @@ public partial class DatePickerBody
     /// </summary>
     private async Task ClickConfirmButton()
     {
-        ShowTimePicker = false;
         if (Validate() && ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);
@@ -680,7 +659,6 @@ public partial class DatePickerBody
     private void OnTimePickerClose()
     {
         SetValue(CurrentDate + CurrentTime);
-        ShowTimePicker = false;
         StateHasChanged();
     }
 
