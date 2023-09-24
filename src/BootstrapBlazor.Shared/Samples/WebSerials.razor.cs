@@ -15,7 +15,7 @@ public partial class WebSerials
     private string? _message;
     private string? _statusMessage;
     private string? _errorMessage;
-    private readonly WebSerialOptions options = new() { BaudRate = 115200 };
+    private readonly WebSerialOptions options = new() { BaudRate = 115200, AutoGetSignals = true  };
 
     [NotNull]
     private IEnumerable<SelectedItem> BaudRateList { get; set; } = ListToSelectedItem();
@@ -27,12 +27,38 @@ public partial class WebSerials
 
     private bool IsConnected { get; set; }
 
+    /// <summary>
+    /// 收到的信号数据
+    /// </summary>
+    public WebSerialSignals Signals { get; set; } = new WebSerialSignals();
+
     [NotNull]
     private WebSerial? WebSerial { get; set; }
 
     private Task OnReceive(string? message)
     {
         this._message = $"{DateTime.Now:hh:mm:ss} 收到数据: {message}{Environment.NewLine}" + this._message;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnSignals(WebSerialSignals? signals)
+    {
+        if (signals is null) return Task.CompletedTask;
+
+        this.Signals = signals;
+
+        if (!options.AutoGetSignals)
+        {
+            // 仅在不自动获取信号时才显示
+            this._message = $"{DateTime.Now:hh:mm:ss} 收到信号数据: {Environment.NewLine}" +
+                            $"RING:  {signals.RING}{Environment.NewLine}" +
+                            $"DSR:   {signals.DSR}{Environment.NewLine}" +
+                            $"CTS:   {signals.CTS}{Environment.NewLine}" +
+                            $"DCD:   {signals.DCD}{Environment.NewLine}" +
+                            $"{_message}{Environment.NewLine}";
+        }
+
         StateHasChanged();
         return Task.CompletedTask;
     }
@@ -89,6 +115,13 @@ public partial class WebSerials
             Name = "OnReceive",
             Description = "收到数据回调方法",
             Type = "Func<string, Task>?",
+            ValueList = "-",
+            DefaultValue = "-"
+        },
+        new AttributeItem() {
+            Name = "OnSignals",
+            Description = "收到信号数据回调方法",
+            Type = "Func<WebSerialSignals, Task>?",
             ValueList = "-",
             DefaultValue = "-"
         },
@@ -182,19 +215,19 @@ public partial class WebSerials
         },
         new()
         {
-            Name = "ParityType",
-            Description = "流控制",
-            Type = "WebSerialFlowControlType",
-            ValueList = "none|even|odd",
-            DefaultValue = "none"
-        },
-        new()
-        {
             Name = "StopBits",
             Description = "停止位",
             Type = "int",
             ValueList = "1|2",
             DefaultValue = "1"
+        },
+        new()
+        {
+            Name = "ParityType",
+            Description = "流控制",
+            Type = "WebSerialFlowControlType",
+            ValueList = "none|even|odd",
+            DefaultValue = "none"
         },
         new()
         {
@@ -253,30 +286,6 @@ public partial class WebSerials
         },
         new()
         {
-            Name =nameof(WebSerialOptions.Break),
-            Description = "Break",
-            Type =  "bool",
-            ValueList = "-",
-            DefaultValue ="false"
-        },
-        new()
-        {
-            Name =nameof(WebSerialOptions.DTR),
-            Description = "DTR",
-            Type =  "bool",
-            ValueList = "-",
-            DefaultValue ="false"
-        },
-        new()
-        {
-            Name =nameof(WebSerialOptions.RTS),
-            Description = "RTS",
-            Type =  "bool",
-            ValueList = "-",
-            DefaultValue ="false"
-        },
-        new()
-        {
             Name = nameof(WebSerialOptions.ConnectBtnTitle),
             Description = "获得/设置 连接按钮文本",
             Type = "string",
@@ -298,6 +307,14 @@ public partial class WebSerials
             Type = "string",
             ValueList = "",
             DefaultValue = "写入"
+        },
+        new()
+        {
+            Name = nameof(WebSerialOptions.AutoGetSignals),
+            Description = "获得/设置 自动检查状态",
+            Type = "bool",
+            ValueList = "-",
+            DefaultValue ="false"
         }
     };
 }

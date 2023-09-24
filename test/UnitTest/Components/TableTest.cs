@@ -32,6 +32,20 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public void Invalid_Error()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        Assert.Throws<InvalidOperationException>(() =>
+        {
+            var cut = Context.RenderComponent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
+                pb.Add(a => a.OnQueryAsync, option => Task.FromResult<QueryData<Foo>>(null!));
+            });
+        });
+    }
+
+    [Fact]
     public void Items_Bind()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -4628,6 +4642,8 @@ public class TableTest : TableTestBase
     [Fact]
     public async Task OnDeleteAsync_Ok()
     {
+        var deleted = false;
+        var modify = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -4646,6 +4662,16 @@ public class TableTest : TableTestBase
                     }
                     return Task.FromResult(true);
                 });
+                pb.Add(a => a.OnAfterDeleteAsync, rows =>
+                {
+                    deleted = true;
+                    return Task.CompletedTask;
+                });
+                pb.Add(a => a.OnAfterModifyAsync, () =>
+                {
+                    modify = true;
+                    return Task.CompletedTask;
+                });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -4663,6 +4689,8 @@ public class TableTest : TableTestBase
 
         var row = cut.FindAll("tbody tr");
         Assert.Single(row);
+        Assert.True(deleted);
+        Assert.True(modify);
     }
 
     [Fact]
@@ -4702,6 +4730,7 @@ public class TableTest : TableTestBase
         var items = Foo.GenerateFoo(localizer, 2);
         var itemChanged = ItemChangedType.Add;
         var afterSave = false;
+        var afterModify = false;
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
@@ -4723,6 +4752,11 @@ public class TableTest : TableTestBase
                     afterSave = true;
                     return Task.CompletedTask;
                 });
+                pb.Add(a => a.OnAfterModifyAsync, () =>
+                {
+                    afterModify = true;
+                    return Task.CompletedTask;
+                });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -4742,6 +4776,7 @@ public class TableTest : TableTestBase
         Assert.Equal(ItemChangedType.Update, itemChanged);
 
         Assert.True(afterSave);
+        Assert.True(afterModify);
     }
 
     [Theory]
@@ -4752,6 +4787,7 @@ public class TableTest : TableTestBase
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
         var added = false;
+        var afterModify = false;
         var itemChanged = ItemChangedType.Update;
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -4773,6 +4809,11 @@ public class TableTest : TableTestBase
                 {
                     itemChanged = changedType;
                     return Task.FromResult(true);
+                });
+                pb.Add(a => a.OnAfterModifyAsync, () =>
+                {
+                    afterModify = true;
+                    return Task.CompletedTask;
                 });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -4805,6 +4846,7 @@ public class TableTest : TableTestBase
             await cut.InvokeAsync(() => form.Submit());
             Assert.Equal(ItemChangedType.Add, itemChanged);
         }
+        Assert.True(afterModify);
     }
 
     [Theory]
@@ -6425,7 +6467,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public async Task Value_Formatter()
+    public void Value_Formatter()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -6454,8 +6496,8 @@ public class TableTest : TableTestBase
             }));
         });
         var table = cut.FindComponent<MockTable>();
-        await cut.InvokeAsync(() => table.Instance.QueryAsync());
-        cut.Contains("test-formatter");
+        cut.InvokeAsync(() => table.Instance.QueryAsync());
+        cut.WaitForAssertion(() => cut.Contains("test-formatter"));
     }
 
     [Fact]
