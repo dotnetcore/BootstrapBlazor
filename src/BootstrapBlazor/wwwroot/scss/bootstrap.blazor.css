@@ -500,9 +500,11 @@ a, a:hover, a:focus {
 .btn-pulse {
   --bs-border-width: 3px;
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
-.pulse-ring {
+.btn-pulse .pulse-ring {
   display: block;
   border-radius: 50%;
   animation: animation-pulse 3.5s ease-out;
@@ -517,18 +519,18 @@ a, a:hover, a:focus {
 
 @keyframes animation-pulse {
   0% {
-    -webkit-transform: scale(0.1, 0.1);
+    transform: scale(0.1, 0.1);
     opacity: 0;
   }
   60% {
-    -webkit-transform: scale(0.1, 0.1);
+    transform: scale(0.1, 0.1);
     opacity: 0;
   }
   65% {
     opacity: 1;
   }
   100% {
-    -webkit-transform: scale(1.2, 1.2);
+    transform: scale(1.2, 1.2);
     opacity: 0;
   }
 }
