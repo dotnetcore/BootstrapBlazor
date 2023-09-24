@@ -42,9 +42,16 @@ public partial class TimePickerPanel
     [Parameter]
     public bool IsAutoSwitch { get; set; } = true;
 
+    [CascadingParameter]
+    private DatePickerBody? DatePicker { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<TimePickerPanel>? Localizer { get; set; }
+
+    private string? CurrentDateString => HasDate ? DatePicker!.Value.ToString(DatePicker.DateFormat) : null;
+
+    private bool HasDate => DatePicker != null && DatePicker.Value != DateTime.MinValue;
 
     /// <summary>
     /// is hour or min or sec mode
@@ -166,6 +173,8 @@ public partial class TimePickerPanel
         }
         return val;
     }
+
+    private void SwitchView() => DatePicker?.SwitchDateView();
 
     private enum TimeMode
     {

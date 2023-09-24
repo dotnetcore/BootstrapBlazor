@@ -145,12 +145,12 @@
                 <CascadingValue Value="TimePickerOption" IsFixed="true">
                     @ChildContent
                 </CascadingValue>
-                <RenderTemplate>
+                <CascadingValue Value="this" IsFixed="true">
                     <TimePickerPanel Value="CurrentTime" OnValueChanged="OnTimeChanged"
                                      ShowClockScale="TimePickerOption.ShowClockScale" IsAutoSwitch="TimePickerOption.IsAutoSwitch"
                                      ShowMinute="TimePickerOption.ShowMinute" ShowSecond="TimePickerOption.ShowSecond">
                     </TimePickerPanel>
-                </RenderTemplate>
+                </CascadingValue>
             }
         </div>
     </div>

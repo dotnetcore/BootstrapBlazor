@@ -543,6 +543,12 @@ public partial class DatePickerBody
         ShowTimePicker = true;
     }
 
+    internal void SwitchDateView()
+    {
+        ShowTimePicker = false;
+        StateHasChanged();
+    }
+
     /// <summary>
     /// 设置组件显示视图方法
     /// </summary>
