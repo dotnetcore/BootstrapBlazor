@@ -387,6 +387,8 @@ public partial class DatePickerBody
         }
     };
 
+    private bool IsDateTimeMode => ViewMode == DatePickerViewMode.DateTime && CurrentViewMode == DatePickerViewMode.DateTime;
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
