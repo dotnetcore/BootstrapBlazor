@@ -11,9 +11,9 @@
     <input readonly class="@InputClassName" value="@CurrentValueAsString" placeholder="@PlaceholderString" disabled="@Disabled" data-bs-toggle="@Constants.DropdownToggleString" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString" />
     <i class="@DateTimePickerIconClassString"></i>
     <DatePickerBody @bind-Value="SelectedValue" AllowNull="AllowNull" ShowSidebar="ShowSidebar" SidebarTemplate="SidebarTemplate"
-                    DateFormat="@DateFormat" TimeFormat="@TimeFormat" ShowFooter="true"
+                    DateTimeFormat="@DateTimeFormat" DateFormat="@DateFormat" TimeFormat="@TimeFormat" ShowFooter="true"
                     OnConfirm="OnConfirm" OnClear="OnClear" MinValue="MinValue" MaxValue="MaxValue"
                     AutoClose="AutoClose" ViewMode="ViewMode">
-                    @ChildContent
+        @ChildContent
     </DatePickerBody>
 </div>

@@ -10,10 +10,10 @@
     <div class="dropdown-toggle datetime-range-control" data-bs-toggle="@Constants.DropdownToggleString" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString">
         <div class="position-relative">
             <i class="@DateTimePickerIconClassString"></i>
-            <input readonly="readonly" class="datetime-range-input" value="@StartValueString" placeholder="@StartPlaceHolderText" disabled="@Disabled" />
+            <input readonly="readonly" class="@ValueClassString" value="@StartValueString" placeholder="@StartPlaceHolderText" disabled="@Disabled" />
         </div>
         <span class="range-separator">@SeparateText</span>
-        <input readonly="readonly" class="datetime-range-input" value="@EndValueString" placeholder="@EndPlaceHolderText" disabled="@Disabled" />
+        <input readonly="readonly" class="@ValueClassString" value="@EndValueString" placeholder="@EndPlaceHolderText" disabled="@Disabled" />
     </div>
     @if (AllowNull)
     {
@@ -33,13 +33,15 @@
                 </div>
             }
             <CascadingValue Value="this" IsFixed="true">
-                <DatePickerBody @bind-Value="@StartValue" AllowNull="@AllowNull" AutoClose="false"
-                                ViewMode="ViewMode" ShowRightButtons="false" MaxValue=MaxValue MinValue=MinValue>
-                                @ChildContent
+                <DatePickerBody @bind-Value="@StartValue" AllowNull="@AllowNull"
+                                DateTimeFormat="@DateTimeFormat" DateFormat="@DateFormat"
+                                ViewMode="ViewMode" ShowRightButtons="false" MaxValue="MaxValue" MinValue="MinValue">
+                    @ChildContent
                 </DatePickerBody>
-                <DatePickerBody @bind-Value="@EndValue" AllowNull="@AllowNull" AutoClose="false"
-                                ViewMode="ViewMode" ShowLeftButtons="false" MaxValue=MaxValue MinValue=MinValue>
-                                @ChildContent
+                <DatePickerBody @bind-Value="@EndValue" AllowNull="@AllowNull"
+                                DateTimeFormat="@DateTimeFormat" DateFormat="@DateFormat"
+                                ViewMode="ViewMode" ShowLeftButtons="false" MaxValue="MaxValue" MinValue="MinValue">
+                    @ChildContent
                 </DatePickerBody>
             </CascadingValue>
         </div>

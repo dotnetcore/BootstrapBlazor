@@ -2176,6 +2176,9 @@ a, a:hover, a:focus {
   width: 80px;
   padding: 0;
 }
+.datetime-range-control .datetime-range-input.datetime {
+  width: 136px;
+}
 .datetime-range-control .range-separator {
   padding: 0 5px;
 }

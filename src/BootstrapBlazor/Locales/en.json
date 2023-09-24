@@ -67,6 +67,7 @@
     "ClearButtonText": "Clear",
     "TodayButtonText": "Today",
     "ConfirmButtonText": "Ok",
+    "DateTimeFormat": "M/d/yyyy hh\\:mm\\:ss",
     "DateFormat": "M/d/yyyy",
     "Last7Days": "Last 7 Days",
     "Last30Days": "Last 30 Days",

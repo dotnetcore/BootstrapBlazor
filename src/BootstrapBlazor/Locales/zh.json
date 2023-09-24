@@ -67,6 +67,7 @@
     "ClearButtonText": "清空",
     "TodayButtonText": "今天",
     "ConfirmButtonText": "确定",
+    "DateTimeFormat": "yyyy-MM-dd hh\\:mm\\:ss",
     "DateFormat": "yyyy-MM-dd",
     "Last7Days": "最近 7 天",
     "Last30Days": "最近 30 天",

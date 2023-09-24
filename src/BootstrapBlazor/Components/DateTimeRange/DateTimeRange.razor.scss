@@ -45,6 +45,10 @@
         cursor: pointer;
         width: 80px;
         padding: 0;
+
+        &.datetime {
+            width: 136px;
+        }
     }
 
     .range-separator {

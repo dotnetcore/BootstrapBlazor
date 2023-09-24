@@ -53,9 +53,11 @@ public partial class DateTimePicker<TValue>
     private bool AllowNull { get; set; }
 
     /// <summary>
-    /// 获得/设置 时间格式化字符串 默认值为 "yyyy-MM-dd"
+    /// 获得/设置 时间格式化字符串 默认值为 null
     /// </summary>
     [Parameter]
+    //[Obsolete("已过期，请使用 DateTimeFormat/DateFormat/TimeFormat 分别设置; Please use DateTimeFormat/DateFormat/TimeFormat")]
+    //[ExcludeFromCodeCoverage]
     public string? Format { get; set; }
 
     /// <summary>

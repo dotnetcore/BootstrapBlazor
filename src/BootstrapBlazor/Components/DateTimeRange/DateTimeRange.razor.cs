@@ -36,11 +36,15 @@ public partial class DateTimeRange
 
     private DateTime StartValue { get; set; }
 
-    private string? StartValueString => Value.Start != DateTime.MinValue ? Value.Start.ToString(DateFormat) : null;
+    private string? StartValueString => Value.Start != DateTime.MinValue
+        ? GetValueString(Value.Start)
+        : null;
 
     private DateTime EndValue { get; set; }
 
-    private string? EndValueString => Value.End != DateTime.MinValue ? Value.End.ToString(DateFormat) : null;
+    private string? EndValueString => Value.End != DateTime.MinValue
+        ? GetValueString(Value.End)
+        : null;
 
     [NotNull]
     private string? StartPlaceHolderText { get; set; }
@@ -50,9 +54,6 @@ public partial class DateTimeRange
 
     [NotNull]
     private string? SeparateText { get; set; }
-
-    [NotNull]
-    private string? DateFormat { get; set; }
 
     /// <summary>
     /// 获得/设置 是否点击快捷侧边栏自动关闭弹窗 默认 false
@@ -153,6 +154,20 @@ public partial class DateTimeRange
     [Parameter]
     public Func<DateTimeRangeValue, Task>? OnClearValue { get; set; }
 
+    /// <summary>
+    /// 获得/设置 时间格式化字符串 默认值为 "yyyy-MM-dd"
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? DateFormat { get; set; }
+
+    /// <summary>
+    /// 获得/设置 时间格式化字符串 默认值为 "yyyy-MM-dd HH:mm:ss"
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? DateTimeFormat { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimeRange>? Localizer { get; set; }
@@ -165,53 +180,12 @@ public partial class DateTimeRange
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
-    /// <summary>
-    /// OnParametersSet 方法
-    /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        Value ??= new DateTimeRangeValue();
-
-        StartValue = Value.Start;
-        EndValue = Value.End;
-
-        if (StartValue == DateTime.MinValue) StartValue = DateTime.Today;
-        if (EndValue == DateTime.MinValue) EndValue = StartValue.AddMonths(1);
-
-        SelectedValue.Start = StartValue;
-        SelectedValue.End = EndValue;
-
-        StartPlaceHolderText ??= Localizer[nameof(StartPlaceHolderText)];
-        EndPlaceHolderText ??= Localizer[nameof(EndPlaceHolderText)];
-        SeparateText ??= Localizer[nameof(SeparateText)];
-
-        ClearButtonText ??= Localizer[nameof(ClearButtonText)];
-        ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
-        TodayButtonText ??= Localizer[nameof(TodayButtonText)];
-
-        DateFormat ??= Localizer[nameof(DateFormat)];
-
-        Icon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimeRangeIcon);
-        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimeRangeClearIcon); ;
-
-        if (StartValue.ToString("yyyy-MM") == EndValue.ToString("yyyy-MM"))
-        {
-            StartValue = StartValue.AddMonths(-1);
-        }
-
-        SidebarItems ??= new DateTimeRangeSidebarItem[]
-        {
-            new() { Text = Localizer["Last7Days"], StartDateTime = DateTime.Today.AddDays(-7), EndDateTime = DateTime.Today },
-            new() { Text = Localizer["Last30Days"], StartDateTime = DateTime.Today.AddDays(-30), EndDateTime = DateTime.Today },
-            new() { Text = Localizer["ThisMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day), EndDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1).AddDays(-1) },
-            new() { Text = Localizer["LastMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddMonths(-1), EndDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddDays(-1) },
-        };
-    }
+    private string? ValueClassString => CssBuilder.Default("datetime-range-input")
+        .AddClass("datetime", ViewMode == DatePickerViewMode.DateTime)
+        .Build();
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -236,6 +210,52 @@ public partial class DateTimeRange
         }
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        Value ??= new DateTimeRangeValue();
+
+        StartValue = Value.Start;
+        EndValue = Value.End;
+
+        if (StartValue == DateTime.MinValue) StartValue = DateTime.Today;
+        if (EndValue == DateTime.MinValue) EndValue = StartValue.AddMonths(1).AddDays(1).AddSeconds(-1);
+
+        SelectedValue.Start = StartValue;
+        SelectedValue.End = EndValue;
+
+        StartPlaceHolderText ??= Localizer[nameof(StartPlaceHolderText)];
+        EndPlaceHolderText ??= Localizer[nameof(EndPlaceHolderText)];
+        SeparateText ??= Localizer[nameof(SeparateText)];
+
+        ClearButtonText ??= Localizer[nameof(ClearButtonText)];
+        ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
+        TodayButtonText ??= Localizer[nameof(TodayButtonText)];
+
+        DateFormat ??= Localizer[nameof(DateFormat)];
+        DateTimeFormat ??= Localizer[nameof(DateTimeFormat)];
+
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimeRangeIcon);
+        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimeRangeClearIcon); ;
+
+        if (StartValue.ToString("yyyy-MM") == EndValue.ToString("yyyy-MM"))
+        {
+            StartValue = StartValue.AddMonths(-1);
+        }
+
+        SidebarItems ??= new DateTimeRangeSidebarItem[]
+        {
+            new() { Text = Localizer["Last7Days"], StartDateTime = DateTime.Today.AddDays(-7), EndDateTime = DateTime.Today },
+            new() { Text = Localizer["Last30Days"], StartDateTime = DateTime.Today.AddDays(-30), EndDateTime = DateTime.Today },
+            new() { Text = Localizer["ThisMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day), EndDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1).AddDays(-1) },
+            new() { Text = Localizer["LastMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddMonths(-1), EndDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddDays(-1) },
+        };
+    }
+
     private async Task OnClickSidebarItem(DateTimeRangeSidebarItem item)
     {
         SelectedValue.Start = item.StartDateTime;
@@ -248,6 +268,20 @@ public partial class DateTimeRange
             await InvokeVoidAsync("hide", Id);
             await ClickConfirmButton();
         }
+    }
+
+    private string GetValueString(DateTime value)
+    {
+        var ret = "";
+        if(ViewMode == DatePickerViewMode.DateTime)
+        {
+            ret = value.ToString(DateTimeFormat);
+        }
+        else
+        {
+            ret = value.ToString(DateFormat);
+        }
+        return ret;
     }
 
     /// <summary>

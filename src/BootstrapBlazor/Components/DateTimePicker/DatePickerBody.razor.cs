@@ -55,8 +55,8 @@ public partial class DatePickerBody
         .AddClass("prev-month", day.Month < CurrentDate.Month)
         .AddClass("next-month", day.Month > CurrentDate.Month)
         .AddClass("current", day.Date == Value.Date && Ranger == null && day.Month == CurrentDate.Month && !overflow)
-        .AddClass("start", Ranger != null && day == Ranger.SelectedValue.Start)
-        .AddClass("end", Ranger != null && day == Ranger.SelectedValue.End)
+        .AddClass("start", Ranger != null && day == Ranger.SelectedValue.Start.Date)
+        .AddClass("end", Ranger != null && day == Ranger.SelectedValue.End.Date)
         .AddClass("range", Ranger != null && day >= Ranger.SelectedValue.Start && day <= Ranger.SelectedValue.End)
         .AddClass("today", day == DateTime.Today)
         .AddClass("disabled", IsDisabled(day) || overflow)
@@ -152,11 +152,25 @@ public partial class DatePickerBody
     public DatePickerViewMode ViewMode { get; set; } = DatePickerViewMode.Date;
 
     /// <summary>
-    /// 获得/设置 日期格式字符串 默认为 "yyyy-MM-dd"
+    /// 获得/设置 日期时间格式字符串 默认为 null
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? DateTimeFormat { get; set; }
+
+    /// <summary>
+    /// 获得/设置 日期格式字符串 默认为 null
     /// </summary>
     [Parameter]
     [NotNull]
     public string? DateFormat { get; set; }
+
+    /// <summary>
+    /// 获得/设置 时间格式字符串 默认为 null
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? TimeFormat { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示快捷侧边栏 默认 false 不显示
@@ -187,13 +201,6 @@ public partial class DatePickerBody
     /// </summary>
     [Parameter]
     public bool ShowFooter { get; set; }
-
-    /// <summary>
-    /// 获得/设置 时间格式字符串 默认为 "hh:mm:ss"
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? TimeFormat { get; set; }
 
     /// <summary>
     /// 获得/设置 时间 PlaceHolder 字符串
@@ -403,8 +410,9 @@ public partial class DatePickerBody
 
         DatePlaceHolder ??= Localizer[nameof(DatePlaceHolder)];
         TimePlaceHolder ??= Localizer[nameof(TimePlaceHolder)];
-        TimeFormat ??= Localizer[nameof(TimeFormat)];
+        DateTimeFormat ??= Localizer[nameof(DateTimeFormat)];
         DateFormat ??= Localizer[nameof(DateFormat)];
+        TimeFormat ??= Localizer[nameof(TimeFormat)];
 
         AiraPrevYearLabel ??= Localizer[nameof(AiraPrevYearLabel)];
         AiraNextYearLabel ??= Localizer[nameof(AiraNextYearLabel)];
