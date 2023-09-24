@@ -59,6 +59,27 @@ public partial class DateTimePicker<TValue>
     public string? Format { get; set; }
 
     /// <summary>
+    /// 获得/设置 时间格式化字符串 默认值为 "yyyy-MM-dd HH:mm:ss"
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? DateTimeFormat { get; set; }
+
+    /// <summary>
+    /// 获得/设置 时间格式化字符串 默认值为 "yyyy-MM-dd"
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? DateFormat { get; set; }
+
+    /// <summary>
+    /// 获得/设置 时间格式化字符串 默认值为 "HH:mm:ss"
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? TimeFormat { get; set; }
+
+    /// <summary>
     /// 获得/设置 组件图标 默认 fa-regular fa-calendar-days
     /// </summary>
     [Parameter]
@@ -131,12 +152,6 @@ public partial class DateTimePicker<TValue>
     [NotNull]
     private string? GenericTypeErrorMessage { get; set; }
 
-    [NotNull]
-    private string? DateTimeFormat { get; set; }
-
-    [NotNull]
-    private string? DateFormat { get; set; }
-
     private DateTime SelectedValue { get; set; }
 
     /// <summary>
@@ -151,6 +166,7 @@ public partial class DateTimePicker<TValue>
         GenericTypeErrorMessage ??= Localizer[nameof(GenericTypeErrorMessage)];
         DateTimeFormat ??= Localizer[nameof(DateTimeFormat)];
         DateFormat ??= Localizer[nameof(DateFormat)];
+        TimeFormat ??= Localizer[nameof(TimeFormat)];
 
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimePickerIcon);
 
@@ -199,6 +215,15 @@ public partial class DateTimePicker<TValue>
     }
 
     /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="firstRender"></param>
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+    }
+
+    /// <summary>
     /// 格式化数值方法
     /// </summary>
     protected override string FormatValueAsString(TValue value)
@@ -225,6 +250,10 @@ public partial class DateTimePicker<TValue>
     {
         SelectedValue = AutoToday ? DateTime.Today : DateTime.MinValue;
         CurrentValue = default;
+        if (!ValueChanged.HasDelegate)
+        {
+            StateHasChanged();
+        }
         return Task.CompletedTask;
     }
 

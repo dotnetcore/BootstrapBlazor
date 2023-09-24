@@ -189,7 +189,7 @@ public partial class DatePickerBody
     public bool ShowFooter { get; set; }
 
     /// <summary>
-    /// 获得/设置 时间格式字符串 默认为 "hh\\:mm\\:ss"
+    /// 获得/设置 时间格式字符串 默认为 "hh:mm:ss"
     /// </summary>
     [Parameter]
     [NotNull]
@@ -630,6 +630,7 @@ public partial class DatePickerBody
     /// <returns></returns>
     private async Task ClickClearButton()
     {
+        ShowTimePicker = false;
         if (OnClear != null)
         {
             await OnClear();
@@ -641,6 +642,7 @@ public partial class DatePickerBody
     /// </summary>
     private async Task ClickConfirmButton()
     {
+        ShowTimePicker = false;
         if (Validate() && ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);
