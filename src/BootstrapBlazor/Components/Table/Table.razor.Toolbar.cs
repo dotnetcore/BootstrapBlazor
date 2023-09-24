@@ -1016,9 +1016,13 @@ public partial class Table<TItem>
         }
     }
 
-    private Task ExportAsync() => ExecuteExportAsync(() => OnExportAsync != null ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Unknown, Rows, GetVisibleColumns(), BuildQueryPageOptions())) : Task.FromResult(false));
+    private Task ExportAsync() => ExecuteExportAsync(() => OnExportAsync != null
+        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Unknown, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
+        : ExcelExport.ExportAsync(Rows, GetVisibleColumns()));
 
-    private Task ExportPdfAsync() => ExecuteExportAsync(() => OnExportAsync != null ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Pdf, Rows, GetVisibleColumns(), BuildQueryPageOptions())) : PdfExport.ExportAsync(Rows, GetVisibleColumns()));
+    private Task ExportPdfAsync() => ExecuteExportAsync(() => OnExportAsync != null
+        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Pdf, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
+        : PdfExport.ExportAsync(Rows, GetVisibleColumns()));
 
     private Task ExportExcelAsync() => ExecuteExportAsync(() => OnExportAsync != null
         ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Excel, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
