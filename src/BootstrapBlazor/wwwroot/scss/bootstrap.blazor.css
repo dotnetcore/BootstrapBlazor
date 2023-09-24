@@ -2095,7 +2095,6 @@ a, a:hover, a:focus {
   transform: rotate(0deg);
   transform-origin: bottom;
   position: relative;
-  transition: 0.3s transform ease-in-out;
 }
 .bb-time-panel .bb-time-body .bb-clock-panel .bb-clock-point .bb-clock-point-bar {
   background-color: var(--bb-time-clock-point-bar-bg-color);
