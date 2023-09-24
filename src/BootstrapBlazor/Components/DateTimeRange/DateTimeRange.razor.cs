@@ -61,6 +61,12 @@ public partial class DateTimeRange
     public bool AutoCloseClickSideBar { get; set; }
 
     /// <summary>
+    /// 获得/设置 子组件模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
     /// 获得/设置 清空按钮文字
     /// </summary>
     [Parameter]
@@ -72,6 +78,12 @@ public partial class DateTimeRange
     /// </summary>
     [Parameter]
     public string? ClearIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组件显示模式 默认为显示年月日模式
+    /// </summary>
+    [Parameter]
+    public DatePickerViewMode ViewMode { get; set; } = DatePickerViewMode.Date;
 
     /// <summary>
     /// 获得/设置 今天按钮文字
