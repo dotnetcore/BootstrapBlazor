@@ -108,11 +108,11 @@ public partial class TablesExport
     {
         if (result)
         {
-            await Toast.Success("数据导出", "导出数据成功，4 秒后自动关闭");
+            await Toast.Success(Localizer["TablesExportToastTitle"], Localizer["TablesExportToastSuccessContent"]);
         }
         else
         {
-            await Toast.Error("数据导出", "导出数据失败，4 秒后自动关闭");
+            await Toast.Error(Localizer["TablesExportToastTitle"], Localizer["TablesExportToastFailedContent"]);
         }
     }
 }
