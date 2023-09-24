@@ -1133,7 +1133,7 @@ a, a:hover, a:focus {
   border-color: transparent;
   padding: 0;
 }
-.input-group > .checkbox-list .form-control :hover {
+.input-group > .checkbox-list .form-control:hover {
   border-color: transparent !important;
 }
 
