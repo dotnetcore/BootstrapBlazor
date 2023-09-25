@@ -4,11 +4,16 @@
 
 <h4>@Localizer["Description"]</h4>
 
-<DemoBlock Title="TimePicker组件" Introduction="TEST" Name="TimePicker">
-    <DateTimePicker TValue="DateTime?" ViewMode="DatePickerViewMode.DateTime" Format="yyyy-MM-dd HH:mm:ss">
+<DemoBlock Title="@Localizer["DateTimePickerTitle"]"
+           Introduction="@Localizer["DateTimePickerIntro"]"
+           Name="DateTimePicker">
+    <DateTimePicker TValue="DateTime?"
+                    ViewMode="DatePickerViewMode.DateTime"
+                    Format="yyyy-MM-dd HH:mm:ss"
+                    Value="@DateTimePickerValue"
+                    OnValueChanged="@TimePickerValueChanged">
         <TimePickerSetting ShowClockScale="true" IsAutoSwitch="false" />
     </DateTimePicker>
-    <TimePicker Value="@TimePickerValue" OnValueChanged="@TimePickerValueChanged"></TimePicker>
     <ConsoleLogger @ref="TimePickerLogger" class="mt-3" />
 </DemoBlock>
 

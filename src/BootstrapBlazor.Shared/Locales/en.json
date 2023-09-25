@@ -2430,7 +2430,9 @@
     "SubmitText": "Save",
     "Value": "Value",
     "Value.Required": "{0} is required.",
-    "ValidateFormValue": "DateTimePick"
+    "ValidateFormValue": "DateTimePick",
+    "DateTimePickerTitle": "Select the time",
+    "DateTimePickerIntro": "Select the hour, minute, and second on the clock dial to obtain the current date and time."
   },
   "BootstrapBlazor.Shared.Samples.Editors": {
     "EditorsTitle": "Editor",
