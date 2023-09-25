@@ -110,7 +110,6 @@ public partial class DatePickerBody
         .AddClass("d-none", CurrentViewMode == DatePickerViewMode.Year || CurrentViewMode == DatePickerViewMode.Month)
         .Build();
 
-    [NotNull]
     private TimePickerPanel? TimePickerPanel { get; set; }
 
     [NotNull]
@@ -668,7 +667,7 @@ public partial class DatePickerBody
     private void ResetTimePickerPanel()
     {
         ShowTimePicker = false;
-        TimePickerPanel.Reset();
+        TimePickerPanel?.Reset();
     }
 
     private bool Validate() => (!MinValue.HasValue || Value >= MinValue.Value) && (!MaxValue.HasValue || Value <= MaxValue.Value);

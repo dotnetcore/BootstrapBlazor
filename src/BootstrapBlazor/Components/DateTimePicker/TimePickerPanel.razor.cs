@@ -110,7 +110,7 @@ public partial class TimePickerPanel
     /// <summary>
     /// 复位方法
     /// </summary>
-    public void Reset()
+    internal void Reset()
     {
         Mode = TimeMode.Hour;
     }
