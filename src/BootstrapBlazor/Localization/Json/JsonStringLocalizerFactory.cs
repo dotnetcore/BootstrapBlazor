@@ -20,7 +20,7 @@ internal class JsonStringLocalizerFactory : ResourceManagerStringLocalizerFactor
 
     private bool IgnoreLocalizerMissing { get; set; }
     /// <summary>
-    /// 保存用户配置的资源名及顺序
+    /// 保存用户配置的资源名及顺序 
     /// </summary>
     private string Resources { get; set; }
 

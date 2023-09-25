@@ -95,7 +95,7 @@ public class BootstrapBlazorOptions
     public IList<CultureInfo> GetSupportedCultures() => SupportedCultures?.Select(name => new CultureInfo(name)).ToList()
         ?? new List<CultureInfo> { new("en"), new("zh") };
     /// <summary>
-    /// 获得/设置 资源名及顺序
+    /// 获得/设置内置资源名及顺序
     /// </summary>
     public string Resources { get; set; } = "abp,wtm,bb";
 }

@@ -26,7 +26,7 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
     private ILogger Logger { get; set; }
 
     private ConcurrentDictionary<string, object?> MissingLocalizerCache { get; } = new();
-
+    
     private Func<string, string?>[] ResouceSearchFuncArray;
     /// <summary>
     /// 构造函数
@@ -55,7 +55,7 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
     /// <summary>
     /// 初始化查找Func数组
     /// </summary>
-    /// <param name="resources"></param>
+    /// <param name="resources">用户配置的资源名及顺序字符串</param>
     /// <returns></returns>
     private Func<string, string?>[] InitResourceSearchFuncDict(string resources)
     {
