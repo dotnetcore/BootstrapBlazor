@@ -107,11 +107,6 @@ public partial class TimePickerPanel
 
     private void SetMode(TimeMode mode) => Mode = mode;
 
-    private void SetTime()
-    {
-        CurrentValue = Value.Hours > 12 ? Value.Subtract(TimeSpan.FromHours(12)) : Value.Add(TimeSpan.FromHours(12));
-    }
-
     private void SetTimePeriod(int hour)
     {
         var val = Value.Hours + hour;
@@ -147,7 +142,7 @@ public partial class TimePickerPanel
         }
     }
 
-    private static int GetSafeHour(int val)
+    private int GetSafeHour(int val)
     {
         if (val < 0)
         {
@@ -156,6 +151,10 @@ public partial class TimePickerPanel
         if (val > 23)
         {
             val -= 12;
+        }
+        if (IsAM && val == 12)
+        {
+            val = 0;
         }
         return val;
     }
