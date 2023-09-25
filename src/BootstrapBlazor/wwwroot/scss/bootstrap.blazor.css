@@ -1434,7 +1434,7 @@ a, a:hover, a:focus {
 .picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-header .picker-panel-header-label {
   font-size: 16px;
   font-weight: 500;
-  padding: 0 4px;
+  padding: 0 2px;
   text-align: center;
   cursor: pointer;
   user-select: none;
