@@ -8,7 +8,7 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///
+/// DateTimeRange 时间范围组件
 /// </summary>
 public partial class DateTimeRange
 {
@@ -272,8 +272,8 @@ public partial class DateTimeRange
 
     private string GetValueString(DateTime value)
     {
-        var ret = "";
-        if(ViewMode == DatePickerViewMode.DateTime)
+        string? ret;
+        if (ViewMode == DatePickerViewMode.DateTime)
         {
             ret = value.ToString(DateTimeFormat);
         }
