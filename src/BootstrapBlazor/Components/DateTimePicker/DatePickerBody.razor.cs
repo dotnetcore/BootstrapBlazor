@@ -486,11 +486,14 @@ public partial class DatePickerBody
         Ranger?.UpdateEnd(CurrentDate);
     }
 
-    private Task OnTimeChanged(TimeSpan time)
+    private async Task OnTimeChanged(TimeSpan time)
     {
         CurrentTime = time;
         Value = CurrentDate.Add(CurrentTime);
-        return Task.CompletedTask;
+        if(ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(Value);
+        }    
     }
 
     /// <summary>
@@ -499,8 +502,9 @@ public partial class DatePickerBody
     /// <param name="d"></param>
     private async Task OnClickDateTime(DateTime d)
     {
-        SetValue(d + CurrentTime);
-        Ranger?.UpdateValue(d);
+        var v = d + CurrentTime;
+        SetValue(v);
+        Ranger?.UpdateValue(v);
         if (Ranger == null)
         {
             if (!IsDateTimeMode && (!ShowFooter || AutoClose))
