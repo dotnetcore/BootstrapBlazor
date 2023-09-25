@@ -194,10 +194,11 @@
                 .picker-panel-header-label {
                     font-size: 16px;
                     font-weight: 500;
-                    padding: 0 2px;
+                    padding: 0 4px;
                     text-align: center;
                     cursor: pointer;
                     user-select: none;
+                    white-space: nowrap;
 
                     &:hover {
                         @include color_409eff;
