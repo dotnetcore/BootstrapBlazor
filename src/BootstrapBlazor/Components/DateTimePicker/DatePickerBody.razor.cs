@@ -486,14 +486,11 @@ public partial class DatePickerBody
         Ranger?.UpdateEnd(CurrentDate);
     }
 
-    private async Task OnTimeChanged(TimeSpan time)
+    private Task OnTimeChanged(TimeSpan time)
     {
-        CurrentTime = time;
-        Value = CurrentDate.Add(CurrentTime);
-        if(ValueChanged.HasDelegate)
-        {
-            await ValueChanged.InvokeAsync(Value);
-        }    
+        SetValue(CurrentDate + time);
+        StateHasChanged();
+        return Task.CompletedTask;
     }
 
     /// <summary>
