@@ -310,6 +310,17 @@ public partial class DateTimeRange
         }
     }
 
+    private void OnStartValueChanged(DateTime value)
+    {
+        StartValue = value;
+        SelectedValue.Start = value;
+    }
+
+    private void OnEndValueChanged(DateTime value)
+    {
+        EndValue = value;
+    }
+
     /// <summary>
     /// 点击 确认时调用此方法
     /// </summary>

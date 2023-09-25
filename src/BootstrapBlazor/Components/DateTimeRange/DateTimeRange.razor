@@ -33,12 +33,12 @@
                 </div>
             }
             <CascadingValue Value="this" IsFixed="true">
-                <DatePickerBody @bind-Value="@StartValue" AllowNull="@AllowNull"
+                <DatePickerBody Value="@StartValue" ValueChanged="OnStartValueChanged" AllowNull="@AllowNull"
                                 DateTimeFormat="@DateTimeFormat" DateFormat="@DateFormat"
                                 ViewMode="ViewMode" ShowRightButtons="false" MaxValue="MaxValue" MinValue="MinValue">
                     @ChildContent
                 </DatePickerBody>
-                <DatePickerBody @bind-Value="@EndValue" AllowNull="@AllowNull"
+                <DatePickerBody Value="@EndValue" ValueChanged="OnEndValueChanged" AllowNull="@AllowNull"
                                 DateTimeFormat="@DateTimeFormat" DateFormat="@DateFormat"
                                 ViewMode="ViewMode" ShowLeftButtons="false" MaxValue="MaxValue" MinValue="MinValue">
                     @ChildContent
