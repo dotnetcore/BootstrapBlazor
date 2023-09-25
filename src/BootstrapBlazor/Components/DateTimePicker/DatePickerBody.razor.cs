@@ -54,7 +54,7 @@ public partial class DatePickerBody
     private string? GetDayClass(DateTime day, bool overflow) => CssBuilder.Default("")
         .AddClass("prev-month", day.Month < CurrentDate.Month)
         .AddClass("next-month", day.Month > CurrentDate.Month)
-        .AddClass("current", day.Date == Value.Date && Ranger == null && day.Month == CurrentDate.Month && !overflow)
+        .AddClass("current", day.Date == CurrentDate && Ranger == null && day.Month == CurrentDate.Month && !overflow)
         .AddClass("start", Ranger != null && day == Ranger.SelectedValue.Start.Date)
         .AddClass("end", Ranger != null && day == Ranger.SelectedValue.End.Date)
         .AddClass("range", Ranger != null && day >= Ranger.SelectedValue.Start && day <= Ranger.SelectedValue.End)
@@ -442,57 +442,78 @@ public partial class DatePickerBody
         NextYearIcon ??= IconTheme.GetIconByKey(ComponentIcons.DatePickBodyNextYearIcon);
     }
 
-    private void SetValue(DateTime val)
+    private async Task OnValueChanged()
     {
-        if (val != Value)
+        if (ValueChanged.HasDelegate)
         {
-            Value = val;
-            CurrentDate = Value.Date;
-            CurrentTime = Value - CurrentDate;
+            await ValueChanged.InvokeAsync(Value);
         }
     }
 
     /// <summary>
     /// 点击上一年按钮时调用此方法
     /// </summary>
-    private void OnClickPrevYear()
+    private async Task OnClickPrevYear()
     {
-        CurrentDate = CurrentViewMode == DatePickerViewMode.Year ? GetSafeYearDateTime(CurrentDate, -20) : GetSafeYearDateTime(CurrentDate, -1);
-        Ranger?.UpdateStart(CurrentDate);
+        CurrentDate = CurrentViewMode == DatePickerViewMode.Year
+            ? GetSafeYearDateTime(CurrentDate, -20)
+            : GetSafeYearDateTime(CurrentDate, -1);
+        if (Ranger != null)
+        {
+            await OnValueChanged();
+        }
     }
 
     /// <summary>
     /// 点击上一月按钮时调用此方法
     /// </summary>
-    private void OnClickPrevMonth()
+    private async Task OnClickPrevMonth()
     {
         CurrentDate = GetSafeMonthDateTime(CurrentDate, -1);
-        Ranger?.UpdateStart(CurrentDate);
+        if (Ranger != null)
+        {
+            await OnValueChanged();
+        }
     }
 
     /// <summary>
     /// 点击下一年按钮时调用此方法
     /// </summary>
-    private void OnClickNextYear()
+    private async Task OnClickNextYear()
     {
-        CurrentDate = CurrentViewMode == DatePickerViewMode.Year ? GetSafeYearDateTime(CurrentDate, 20) : GetSafeYearDateTime(CurrentDate, 1);
-        Ranger?.UpdateEnd(CurrentDate);
+        CurrentDate = CurrentViewMode == DatePickerViewMode.Year
+            ? GetSafeYearDateTime(CurrentDate, 20)
+            : GetSafeYearDateTime(CurrentDate, 1);
+        if (Ranger != null)
+        {
+            await OnValueChanged();
+        }
     }
 
     /// <summary>
     /// 点击下一月按钮时调用此方法
     /// </summary>
-    private void OnClickNextMonth()
+    private async Task OnClickNextMonth()
     {
         CurrentDate = GetSafeMonthDateTime(CurrentDate, 1);
-        Ranger?.UpdateEnd(CurrentDate);
+        if (Ranger != null)
+        {
+            await OnValueChanged();
+        }
     }
 
-    private Task OnTimeChanged(TimeSpan time)
+    private async Task OnTimeChanged(TimeSpan time)
     {
-        SetValue(CurrentDate + time);
-        StateHasChanged();
-        return Task.CompletedTask;
+        CurrentTime = time;
+        Value = CurrentDate + CurrentTime;
+        if (Ranger != null)
+        {
+            await OnValueChanged();
+        }
+        else
+        {
+            StateHasChanged();
+        }
     }
 
     /// <summary>
@@ -501,19 +522,15 @@ public partial class DatePickerBody
     /// <param name="d"></param>
     private async Task OnClickDateTime(DateTime d)
     {
-        var v = d + CurrentTime;
-        SetValue(v);
-        Ranger?.UpdateValue(v);
-        if (Ranger == null)
+        CurrentDate = d;
+
+        if (!IsDateTimeMode && AutoClose)
         {
-            if (!IsDateTimeMode && (!ShowFooter || AutoClose))
-            {
-                await ClickConfirmButton();
-            }
-            else
-            {
-                StateHasChanged();
-            }
+            await ClickConfirmButton();
+        }
+        else
+        {
+            StateHasChanged();
         }
     }
 
@@ -523,7 +540,6 @@ public partial class DatePickerBody
     /// <param name="view"></param>
     private async Task SwitchView(DatePickerViewMode view)
     {
-        SetValue(CurrentDate);
         if (AllowSwitchModes[ViewMode].Contains(view))
         {
             CurrentViewMode = view;
@@ -631,7 +647,8 @@ public partial class DatePickerBody
             DatePickerViewMode.DateTime => DateTime.Now,
             _ => DateTime.Today
         };
-        SetValue(val);
+        CurrentDate = val.Date;
+        CurrentTime = val.TimeOfDay;
         await ClickConfirmButton();
     }
 
@@ -654,9 +671,11 @@ public partial class DatePickerBody
     private async Task ClickConfirmButton()
     {
         ResetTimePickerPanel();
-        if (Validate() && ValueChanged.HasDelegate)
+        Value = CurrentDate + CurrentTime;
+
+        if (Validate())
         {
-            await ValueChanged.InvokeAsync(Value);
+            await OnValueChanged();
         }
         if (OnConfirm != null)
         {
@@ -671,15 +690,6 @@ public partial class DatePickerBody
     }
 
     private bool Validate() => (!MinValue.HasValue || Value >= MinValue.Value) && (!MaxValue.HasValue || Value <= MaxValue.Value);
-
-    /// <summary>
-    /// 点击时刻窗口关闭处理方法
-    /// </summary>
-    private void OnTimePickerClose()
-    {
-        SetValue(CurrentDate + CurrentTime);
-        StateHasChanged();
-    }
 
     /// <summary>
     /// 
