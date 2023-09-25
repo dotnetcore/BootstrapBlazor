@@ -111,6 +111,9 @@ public partial class DatePickerBody
         .Build();
 
     [NotNull]
+    private TimePickerPanel? TimePickerPanel { get; set; }
+
+    [NotNull]
     private string? YearText { get; set; }
 
     /// <summary>
@@ -639,7 +642,7 @@ public partial class DatePickerBody
     /// <returns></returns>
     private async Task ClickClearButton()
     {
-        ShowTimePicker = false;
+        ResetTimePickerPanel();
         if (OnClear != null)
         {
             await OnClear();
@@ -651,7 +654,7 @@ public partial class DatePickerBody
     /// </summary>
     private async Task ClickConfirmButton()
     {
-        ShowTimePicker = false;
+        ResetTimePickerPanel();
         if (Validate() && ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);
@@ -660,6 +663,12 @@ public partial class DatePickerBody
         {
             await OnConfirm();
         }
+    }
+
+    private void ResetTimePickerPanel()
+    {
+        ShowTimePicker = false;
+        TimePickerPanel.Reset();
     }
 
     private bool Validate() => (!MinValue.HasValue || Value >= MinValue.Value) && (!MaxValue.HasValue || Value <= MaxValue.Value);

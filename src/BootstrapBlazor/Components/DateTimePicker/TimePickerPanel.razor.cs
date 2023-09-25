@@ -107,6 +107,14 @@ public partial class TimePickerPanel
 
     private void SetMode(TimeMode mode) => Mode = mode;
 
+    /// <summary>
+    /// 复位方法
+    /// </summary>
+    public void Reset()
+    {
+        Mode = TimeMode.Hour;
+    }
+
     private void SetTimePeriod(int hour)
     {
         var val = Value.Hours + hour;
