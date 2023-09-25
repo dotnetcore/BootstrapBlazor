@@ -225,7 +225,7 @@ public partial class DatePickerBody
     public bool AllowNull { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否点击确认关闭弹窗 默认 false
+    /// 获得/设置 点击日期时是否自动关闭弹窗 默认 false
     /// </summary>
     [Parameter]
     public bool AutoClose { get; set; }
