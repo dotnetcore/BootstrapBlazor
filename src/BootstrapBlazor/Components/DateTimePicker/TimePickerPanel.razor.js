@@ -25,18 +25,22 @@ const setValue = (picker, point, value) => {
 const setTime = picker => {
     const { el, val } = picker;
     const mode = el.getAttribute('data-bb-mode');
+    const hourEl = el.querySelector('.bb-time-text.hour');
+    const minuteEl = el.querySelector('.bb-time-text.minute');
+    const secondEl = el.querySelector('.bb-time-text.second');
+
     if (mode === "Hour") {
         let hour = Math.round(val.Hour)
         if (hour > 12) {
             hour = hour - 12;
         }
-        picker.hourEl.textContent = hour.toString().padStart(2, '0');
+        hourEl.textContent = hour.toString().padStart(2, '0');
     }
     if (mode === "Minute") {
-        picker.minuteEl.textContent = val.Minute.toString().padStart(2, '0');
+        minuteEl.textContent = val.Minute.toString().padStart(2, '0');
     }
     if (mode === "Second") {
-        picker.secondEl.textContent = val.Second.toString().padStart(2, '0');
+        secondEl.textContent = val.Second.toString().padStart(2, '0');
     }
 }
 
@@ -65,9 +69,6 @@ export function init(id, invoke, hour, minute, second) {
         {
             Hour: hour, Minute: minute, Second: second
         },
-        hourEl: el.querySelector('.bb-time-text.hour'),
-        minuteEl: el.querySelector('.bb-time-text.minute'),
-        secondEl: el.querySelector('.bb-time-text.second'),
         body: el.querySelector('.bb-time-body'),
         isPM: el.querySelector('.bb-time-footer > .active').classList.contains('btn-pm'),
         pointers: [...el.querySelectorAll('.bb-clock-point')]
