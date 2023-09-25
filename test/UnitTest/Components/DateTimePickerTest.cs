@@ -392,7 +392,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsDiabledCell_Ok()
+    public void IsDisabledCell_Ok()
     {
         var cut = Context.RenderComponent<DatePickerBody>(builder =>
         {
@@ -523,7 +523,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsDiabled_Ok()
+    public void IsDisabled_Ok()
     {
         // MinValue != null && MaxValue != null && (day < MinValue || day > MaxValue)
         var cut = Context.RenderComponent<DatePickerBody>(pb =>
