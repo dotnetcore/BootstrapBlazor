@@ -771,7 +771,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             pb.Add(a => a.AutoClose, false);
         });
         cut.InvokeAsync(() => cell.Click());
-        Assert.False(confirm);
+        Assert.True(confirm);
 
         // 不显示 Footer AutoClose 参数不起作用自动关闭
         confirm = false;

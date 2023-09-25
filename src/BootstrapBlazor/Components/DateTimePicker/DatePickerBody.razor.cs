@@ -517,6 +517,13 @@ public partial class DatePickerBody
         }
     }
 
+    private async Task OnClickConfirmButton(DateTime d)
+    {
+        CurrentDate = d;
+
+        await ConfirmDateTime();
+    }
+
     /// <summary>
     /// Day 选择时触发此方法
     /// </summary>
@@ -527,7 +534,7 @@ public partial class DatePickerBody
 
         if (!IsDateTimeMode && AutoClose)
         {
-            await ClickConfirmButton();
+            await ConfirmDateTime();
         }
         else
         {
@@ -548,7 +555,7 @@ public partial class DatePickerBody
         }
         else if (AutoClose)
         {
-            await ClickConfirmButton();
+            await ConfirmDateTime();
         }
     }
 
@@ -650,7 +657,7 @@ public partial class DatePickerBody
         };
         CurrentDate = val.Date;
         CurrentTime = val.TimeOfDay;
-        await ClickConfirmButton();
+        await ConfirmDateTime();
     }
 
     /// <summary>
@@ -669,7 +676,7 @@ public partial class DatePickerBody
     /// <summary>
     /// 点击 确认时调用此方法
     /// </summary>
-    private async Task ClickConfirmButton()
+    private async Task ConfirmDateTime()
     {
         ResetTimePickerPanel();
         Value = CurrentDate + CurrentTime;
