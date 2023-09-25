@@ -55,7 +55,7 @@ public partial class DatePickerBody
     private string? GetDayClass(DateTime day, bool overflow) => CssBuilder.Default("")
         .AddClass("prev-month", day.Month < CurrentDate.Month)
         .AddClass("next-month", day.Month > CurrentDate.Month)
-        .AddClass("current", day.Date == CurrentDate && Ranger == null && day.Month == CurrentDate.Month && !overflow)
+        .AddClass("current", day.Date == Value.Date && Ranger == null && day.Month == CurrentDate.Month && !overflow)
         .AddClass("start", Ranger != null && day == Ranger.SelectedValue.Start.Date)
         .AddClass("end", Ranger != null && day == Ranger.SelectedValue.End.Date)
         .AddClass("range", Ranger != null && day >= Ranger.SelectedValue.Start && day <= Ranger.SelectedValue.End)
@@ -319,6 +319,18 @@ public partial class DatePickerBody
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// 获得/设置 年变化回调方法
+    /// </summary>
+    [Parameter]
+    public Func<DateTime, Task>? OnYearChanged { get; set; }
+
+    /// <summary>
+    /// 获得/设置 月变化回调方法
+    /// </summary>
+    [Parameter]
+    public Func<DateTime, Task>? OnMonthChanged { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否为 Range 内使用 默认为 false
     /// </summary>
     [CascadingParameter]
@@ -459,9 +471,10 @@ public partial class DatePickerBody
         CurrentDate = CurrentViewMode == DatePickerViewMode.Year
             ? GetSafeYearDateTime(CurrentDate, -20)
             : GetSafeYearDateTime(CurrentDate, -1);
-        if (Ranger != null)
+
+        if (OnYearChanged != null)
         {
-            await OnValueChanged();
+            await OnYearChanged(CurrentDate);
         }
     }
 
@@ -471,9 +484,10 @@ public partial class DatePickerBody
     private async Task OnClickPrevMonth()
     {
         CurrentDate = GetSafeMonthDateTime(CurrentDate, -1);
-        if (Ranger != null)
+
+        if (OnMonthChanged != null)
         {
-            await OnValueChanged();
+            await OnMonthChanged(CurrentDate);
         }
     }
 
@@ -485,9 +499,10 @@ public partial class DatePickerBody
         CurrentDate = CurrentViewMode == DatePickerViewMode.Year
             ? GetSafeYearDateTime(CurrentDate, 20)
             : GetSafeYearDateTime(CurrentDate, 1);
-        if (Ranger != null)
+
+        if (OnYearChanged != null)
         {
-            await OnValueChanged();
+            await OnYearChanged(CurrentDate);
         }
     }
 
@@ -497,9 +512,10 @@ public partial class DatePickerBody
     private async Task OnClickNextMonth()
     {
         CurrentDate = GetSafeMonthDateTime(CurrentDate, 1);
-        if (Ranger != null)
+
+        if (OnMonthChanged != null)
         {
-            await OnValueChanged();
+            await OnMonthChanged(CurrentDate);
         }
     }
 
@@ -567,6 +583,12 @@ public partial class DatePickerBody
     internal void SwitchDateView()
     {
         ShowTimePicker = false;
+        StateHasChanged();
+    }
+
+    internal void SetShowDate(DateTime date)
+    {
+        CurrentDate = date;
         StateHasChanged();
     }
 

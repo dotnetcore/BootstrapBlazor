@@ -180,6 +180,12 @@ public partial class DateTimeRange
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
+    [NotNull]
+    private DatePickerBody? StartPicker { get; set; }
+
+    [NotNull]
+    private DatePickerBody? EndPicker { get; set; }
+
     private string? ValueClassString => CssBuilder.Default("datetime-range-input")
         .AddClass("datetime", ViewMode == DatePickerViewMode.DateTime)
         .Build();
@@ -310,15 +316,28 @@ public partial class DateTimeRange
         }
     }
 
-    private void OnStartValueChanged(DateTime value)
+    private Task OnStartMonthChanged(DateTime value)
     {
-        StartValue = value;
-        SelectedValue.Start = value;
+        EndPicker.SetShowDate(value.AddMonths(1));
+        return Task.CompletedTask;
     }
 
-    private void OnEndValueChanged(DateTime value)
+    private Task OnEndMonthChanged(DateTime value)
     {
-        EndValue = value;
+        StartPicker.SetShowDate(value.AddMonths(-1));
+        return Task.CompletedTask;
+    }
+
+    private Task OnStartYearChanged(DateTime value)
+    {
+        EndPicker.SetShowDate(value.AddMonths(1));
+        return Task.CompletedTask;
+    }
+
+    private Task OnEndYearChanged(DateTime value)
+    {
+        StartPicker.SetShowDate(value.AddMonths(-1));
+        return Task.CompletedTask;
     }
 
     /// <summary>
