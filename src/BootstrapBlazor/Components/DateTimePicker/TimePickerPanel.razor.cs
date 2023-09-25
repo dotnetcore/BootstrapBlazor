@@ -143,6 +143,11 @@ public partial class TimePickerPanel
             }
         }
 
+        if (IsAM && hour == 12)
+        {
+            hour = 0;
+        }
+
         CurrentValue = new TimeSpan(GetSafeHour(IsAM ? hour : hour + 12), minute, second);
         if (!ValueChanged.HasDelegate)
         {
@@ -150,7 +155,7 @@ public partial class TimePickerPanel
         }
     }
 
-    private int GetSafeHour(int val)
+    private static int GetSafeHour(int val)
     {
         if (val < 0)
         {
@@ -159,10 +164,6 @@ public partial class TimePickerPanel
         if (val > 23)
         {
             val -= 12;
-        }
-        if (IsAM && val == 12)
-        {
-            val = 0;
         }
         return val;
     }
