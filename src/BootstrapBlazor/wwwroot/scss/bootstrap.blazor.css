@@ -1772,7 +1772,7 @@ a, a:hover, a:focus {
   user-select: none;
 }
 .bb-time-panel .bb-time-body .bb-clock-panel {
-  --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-hour-margin-top) - 1px);
+  --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-hour-margin-top));
   --bb-time-clock-number-margin-top: var(--bb-time-clock-hour-margin-top);
   position: absolute;
   top: 0;
@@ -1786,7 +1786,7 @@ a, a:hover, a:focus {
 }
 .bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-scale > div {
   --bb-time-clock-number-margin-top: 0;
-  --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - 1px);
+  --bb-clock-radius: calc(var(--bb-time-body-height) / 2);
   width: 1px;
   height: 3px;
   background-color: var(--bs-secondary);
@@ -1982,11 +1982,11 @@ a, a:hover, a:focus {
   pointer-events: none;
 }
 .bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-minute {
-  --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-minute-margin-top) - 1px);
+  --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-minute-margin-top));
   --bb-time-clock-number-margin-top: var(--bb-time-clock-minute-margin-top);
 }
 .bb-time-panel .bb-time-body .bb-clock-panel.bb-clock-panel-second {
-  --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-second-margin-top) - 1px);
+  --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-second-margin-top));
   --bb-time-clock-number-margin-top: var(--bb-time-clock-second-margin-top);
 }
 .bb-time-panel .bb-time-body .bb-clock-panel > div {
