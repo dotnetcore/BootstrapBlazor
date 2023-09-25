@@ -45,6 +45,7 @@ public partial class DatePickerBody
     private bool ShowTimePicker { get; set; }
 
     private string? ClassString => CssBuilder.Default("picker-panel")
+        .AddClass("is-sidebar", ShowSidebar)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 

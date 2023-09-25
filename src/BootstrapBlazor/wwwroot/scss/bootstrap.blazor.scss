@@ -84,7 +84,7 @@ $console-body-bg: #174482;
 
 @mixin pick-side {
     .picker-panel-sidebar {
-        width: 110px;
+        width: var(--bb-picker-panel-side-width);
         border-right: 1px solid #e4e4e4;
         padding: 6px 0;
         overflow: auto;

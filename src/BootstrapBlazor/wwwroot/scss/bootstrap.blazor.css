@@ -1293,15 +1293,18 @@ a, a:hover, a:focus {
   border-radius: var(--bs-border-radius);
   line-height: 30px;
   display: inline-block;
-  width: var(--bb-picker-panel);
+}
+.picker-panel.is-sidebar {
+  --bb-picker-panel-side-width: 110px;
+  --bb-picker-panel: 430px;
 }
 .picker-panel .picker-panel-body-wrapper {
   display: flex;
   overflow: hidden;
-  transition: 0.3s transform ease-in-out;
+  width: var(--bb-picker-panel);
 }
 .picker-panel .picker-panel-body-wrapper .picker-panel-sidebar {
-  width: 110px;
+  width: var(--bb-picker-panel-side-width);
   border-right: 1px solid #e4e4e4;
   padding: 6px 0;
   overflow: auto;
@@ -2196,7 +2199,7 @@ a, a:hover, a:focus {
   border-bottom-right-radius: 0;
 }
 .range-panel-body .picker-panel-sidebar {
-  width: 110px;
+  width: var(--bb-picker-panel-side-width);
   border-right: 1px solid #e4e4e4;
   padding: 6px 0;
   overflow: auto;

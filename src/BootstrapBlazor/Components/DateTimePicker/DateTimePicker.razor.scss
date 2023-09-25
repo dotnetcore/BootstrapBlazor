@@ -43,12 +43,16 @@
     border-radius: var(--bs-border-radius);
     line-height: 30px;
     display: inline-block;
-    width: var(--bb-picker-panel);
+
+    &.is-sidebar {
+        --bb-picker-panel-side-width: 110px;
+        --bb-picker-panel: 430px;
+    }
 
     .picker-panel-body-wrapper {
         display: flex;
         overflow: hidden;
-        transition: .3s transform ease-in-out;
+        width: var(--bb-picker-panel);
 
         @include pick-side;
 
