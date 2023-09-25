@@ -298,7 +298,7 @@
     "PopoverConfirmsTitle": "Popconfirm 气泡确认框",
     "PopoverConfirmsDescription": "点击元素，弹出气泡确认框。",
     "PopoverConfirmsNormalTitle": "基础用法",
-    "PopoverConfirmsNormalIntro": "<code>Popconfirm</code> 的属性与 <code>Popover</code> 很类似，因此对于重复属性，请参考 <a href='/popovers'><code>Popover</code><a> 的文档，在此文档中不做详尽解释。",
+    "PopoverConfirmsNormalIntro": "<code>Popconfirm</code> 的属性与 <code>Popover</code> 很类似，因此对于重复属性，请参考 <a href='/popover'><code>Popover</code><a> 的文档，在此文档中不做详尽解释。",
     "PopoverConfirmsNormalPopupBoxText": "下面弹框",
     "PopoverConfirmsNormalPopupBoxContent": "这是一段内容确定删除吗？",
     "PopoverConfirmsNormalRightPopup": "右侧弹窗",
