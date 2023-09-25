@@ -159,7 +159,11 @@ public partial class TimePickerPanel
         return val;
     }
 
-    private void SwitchView() => DatePicker?.SwitchDateView();
+    private void SwitchView()
+    {
+        Mode = TimeMode.Hour;
+        DatePicker?.SwitchDateView();
+    }
 
     private enum TimeMode
     {

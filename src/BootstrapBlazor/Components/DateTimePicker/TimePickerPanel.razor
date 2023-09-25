@@ -3,7 +3,7 @@
 @attribute [BootstrapModuleAutoLoader("DateTimePicker/TimePickerPanel.razor.js", JSObjectReference = true)]
 
 <div @attributes="AdditionalAttributes" class="@ClassString" id="@Id" data-bb-mode="@Mode">
-    <div class="bb-time-header">
+    <div @key="Value" class="bb-time-header">
         @if (HasDate)
         {
             <span class="bb-time-text me-3" @onclick="SwitchView">@CurrentDateString</span>
