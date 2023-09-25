@@ -122,19 +122,18 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ShowSidebarTitle"]" Introduction="@Localizer["ShowSidebarIntro"]" Name="ShowSidebar">
-    <DateTimePicker TValue="DateTime" ShowSidebar="true" ViewMode="DatePickerViewMode.DateTime" />
+    <DateTimePicker TValue="DateTime" ShowSidebar="true" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MinValueTitle"]" Introduction="@Localizer["MinValueIntro"]" Name="MinValue">
     <DateTimePicker TValue="DateTime"
-                    ViewMode="DatePickerViewMode.Date"
                     Value="@(DateTime.Today.AddDays(3 - DateTime.Today.Day))"
                     MinValue="@(DateTime.Today.AddDays(1 - DateTime.Today.Day))"
                     MaxValue="@(DateTime.Today.AddDays(46 - DateTime.Today.Day))" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BlockAutoCloseTitle"]" Introduction="@Localizer["BlockAutoCloseIntro"]" Name="AutoClose">
-    <DateTimePicker AutoClose="false" TValue="DateTime" ViewMode="DatePickerViewMode.Date" Value="@(DateTime.Today.AddDays(3 - DateTime.Today.Day))" />
+    <DateTimePicker AutoClose="false" TValue="DateTime" Value="@(DateTime.Today.AddDays(3 - DateTime.Today.Day))" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BlockGroupTitle"]" Introduction="@Localizer["BlockGroupIntro"]" Name="Group">
@@ -142,19 +141,19 @@
         <div class="col-12 col-sm-6 col-md-4">
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="@Localizer["BlockGroupLabel"]" />
-                <DateTimePicker TValue="DateTime" ViewMode="DatePickerViewMode.Date" />
+                <DateTimePicker TValue="DateTime" />
             </BootstrapInputGroup>
         </div>
         <div class="col-12 col-sm-6 col-md-4">
             <BootstrapInputGroup>
-                <DateTimePicker TValue="DateTime" ViewMode="DatePickerViewMode.Date" />
+                <DateTimePicker TValue="DateTime" />
                 <BootstrapInputGroupLabel DisplayText="@Localizer["BlockGroupSuffixLabel"]" />
             </BootstrapInputGroup>
         </div>
         <div class="col-12 col-sm-6 col-md-4">
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="@Localizer["BlockGroupLabel"]" />
-                <DateTimePicker TValue="DateTime" ViewMode="DatePickerViewMode.Date" />
+                <DateTimePicker TValue="DateTime" />
                 <BootstrapInputGroupLabel DisplayText="@Localizer["BlockGroupSuffixLabel"]" />
             </BootstrapInputGroup>
         </div>
