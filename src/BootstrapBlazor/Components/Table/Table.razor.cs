@@ -463,7 +463,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 获得/设置 首次加载时是否自动查询数据 默认 true <see cref="Items"/> 模式下此参数不起作用
     /// </summary>
     [Parameter]
-    public bool IsAutoQueryFirstRender { get; set; }
+    public bool IsAutoQueryFirstRender { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 是否带边框样式 默认为 false
@@ -842,12 +842,16 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             SortOrder = col.DefaultSortOrder;
         }
 
-        if (IsAutoQueryFirstRender)
-        {
-            _firstQuery = true;
-            await QueryAsync();
-            _firstQuery = false;
-        }
+        // 获取是否自动查询参数值
+        _autoQuery = IsAutoQueryFirstRender;
+
+        // 设置 QueryOption IsFirstQuery 参数值
+        _firstQuery = true;
+        await QueryAsync();
+        _firstQuery = false;
+
+        // 恢复自动查询功能
+        _autoQuery = true;
 
         // 设置 init 执行客户端脚本
         _init = true;
@@ -899,6 +903,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private bool _loop;
     private bool _init;
     private bool _firstQuery;
+    private bool _autoQuery;
 
     /// <summary>
     /// 检查当前列是否显示方法
