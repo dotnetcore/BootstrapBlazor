@@ -7,9 +7,31 @@ namespace UnitTest.Components;
 public class TimePickerSettingTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void Setting_Ok()
+    public void PickerSetting_Ok()
     {
         var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.AddChildContent<TimePickerSetting>(pb =>
+            {
+                pb.Add(a => a.ShowMinute, false);
+                pb.Add(a => a.ShowSecond, false);
+                pb.Add(a => a.ShowClockScale, true);
+                pb.Add(a => a.IsAutoSwitch, false);
+            });
+        });
+
+        var picker = cut.FindComponent<TimePickerPanel>();
+        Assert.False(picker.Instance.ShowMinute);
+        Assert.False(picker.Instance.ShowSecond);
+        Assert.False(picker.Instance.IsAutoSwitch);
+        Assert.True(picker.Instance.ShowClockScale);
+    }
+
+    [Fact]
+    public void RangeSetting_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimeRange>(pb =>
         {
             pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
             pb.AddChildContent<TimePickerSetting>(pb =>

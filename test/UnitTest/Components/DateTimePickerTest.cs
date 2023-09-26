@@ -153,6 +153,21 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void SwitchTimeView_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder =>
+        {
+            builder.Add(a => a.Value, new DateTime(2023, 10, 1, 1, 0, 0));
+            builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+        });
+
+        var labels = cut.FindAll(".picker-panel-header-label");
+        cut.InvokeAsync(() => labels[2].Click());
+
+        cut.Contains("picker-panel-body is-open");
+    }
+
+    [Fact]
     public void OnClear_Ok()
     {
         var changed = false;
