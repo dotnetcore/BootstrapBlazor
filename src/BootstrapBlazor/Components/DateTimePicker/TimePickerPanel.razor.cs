@@ -80,8 +80,6 @@ public partial class TimePickerPanel
 
     private bool IsAM => Value.Hours < 12;
 
-    private string? AMPMString => IsAM ? Localizer["AMText"] : Localizer["PMText"];
-
     private string HourValue => (Value.Hours > 12 ? (Value.Hours - 12) : Value.Hours).ToString("D2");
 
     /// <summary>
