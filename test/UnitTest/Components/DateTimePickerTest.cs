@@ -137,6 +137,22 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void OnTimeChanged_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder =>
+        {
+            builder.Add(a => a.Value, new DateTime(2023, 10, 1, 1, 0, 0));
+            builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+        });
+
+        var panel = cut.FindComponent<TimePickerPanel>();
+        cut.InvokeAsync(() => panel.Instance.SetTime(0, 0, 0));
+
+        var body = cut.FindComponent<DatePickerBody>();
+        Assert.Equal(TimeSpan.Zero, body.Instance.Value.TimeOfDay);
+    }
+
+    [Fact]
     public void OnClear_Ok()
     {
         var changed = false;

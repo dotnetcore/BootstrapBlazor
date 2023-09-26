@@ -110,6 +110,9 @@ public class TimePickerPanelTest : BootstrapBlazorTestBase
         });
 
         var picker = cut.Instance;
+        cut.InvokeAsync(() => picker.SetTime(12, 0, 0));
+        Assert.Equal(new TimeSpan(0, 0, 0), picker.Value);
+
         cut.InvokeAsync(() => picker.SetTime(13, 0, 0));
         Assert.Equal(new TimeSpan(13, 0, 0), picker.Value);
 
@@ -119,5 +122,18 @@ public class TimePickerPanelTest : BootstrapBlazorTestBase
 
         cut.InvokeAsync(() => picker.SetTime(11, 10, 10));
         Assert.Equal(new TimeSpan(23, 10, 10), picker.Value);
+    }
+
+    [Fact]
+    public void SwitchView_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+        });
+
+        var text = cut.Find(".bb-time-text");
+        cut.InvokeAsync(() => text.Click());
+        cut.Contains("picker-panel-body");
     }
 }
