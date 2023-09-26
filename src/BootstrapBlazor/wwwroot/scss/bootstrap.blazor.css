@@ -1286,6 +1286,7 @@ a, a:hover, a:focus {
 
 .picker-panel {
   --bb-picker-panel: 320px;
+  --bb-picker-hover-color: #409eff;
   color: #606266;
   border: 1px solid #ced4da;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
@@ -1362,7 +1363,7 @@ a, a:hover, a:focus {
   cursor: pointer;
 }
 .picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content table td.today .cell {
-  color: #409eff;
+  color: var(--bb-picker-hover-color);
   font-weight: 700;
 }
 .picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content table td.current:not(.disabled) .cell, .picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content table td.start:not(.next-month):not(.prev-month):not(.disabled) .cell, .picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content table td.end:not(.next-month):not(.prev-month):not(.disabled) .cell {
@@ -1432,7 +1433,7 @@ a, a:hover, a:focus {
   padding: 0 6px;
 }
 .picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-header .picker-panel-icon-btn:hover {
-  color: #409eff;
+  color: var(--bb-picker-hover-color);
 }
 .picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-header .picker-panel-header-label {
   font-size: 16px;
@@ -1444,7 +1445,7 @@ a, a:hover, a:focus {
   white-space: nowrap;
 }
 .picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-header .picker-panel-header-label:hover {
-  color: #409eff;
+  color: var(--bb-picker-hover-color);
 }
 
 .date-picker-editor-wrap {

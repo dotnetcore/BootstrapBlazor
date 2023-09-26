@@ -36,6 +36,7 @@
 
 .picker-panel {
     --bb-picker-panel: 320px;
+    --bb-picker-hover-color: #409eff;
     color: #606266;
     border: 1px solid #ced4da;
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
@@ -102,7 +103,7 @@
 
                         &.today {
                             .cell {
-                                @include color_409eff;
+                                color: var(--bb-picker-hover-color);
                                 font-weight: 700;
                             }
                         }
@@ -191,7 +192,7 @@
                     padding: 0 6px;
 
                     &:hover {
-                        @include color_409eff;
+                        color: var(--bb-picker-hover-color);
                     }
                 }
 
@@ -205,7 +206,7 @@
                     white-space: nowrap;
 
                     &:hover {
-                        @include color_409eff;
+                        color: var(--bb-picker-hover-color);
                     }
                 }
             }
