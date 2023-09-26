@@ -95,4 +95,10 @@ public class QueryPageOptions
     /// 获得 过滤条件集合 等同于 <see cref="Table{TItem}.Filters"/> 值
     /// </summary>
     public List<IFilterAction> Filters { get; } = new(20);
+
+    /// <summary>
+    /// 获得 是否为首次查询 默认 false
+    /// </summary>
+    /// <remarks><see cref="Table{TItem}"/> 组件首次查询数据时为 true</remarks>
+    public bool IsFristQuery { get; set; }
 }
