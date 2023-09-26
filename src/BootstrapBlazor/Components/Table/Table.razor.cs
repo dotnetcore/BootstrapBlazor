@@ -460,6 +460,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public bool IsStriped { get; set; }
 
     /// <summary>
+    /// 获得/设置 首次加载时是否自动查询数据 默认 true <see cref="Items"/> 模式下此参数不起作用
+    /// </summary>
+    [Parameter]
+    public bool IsAutoQueryFirstRender { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否带边框样式 默认为 false
     /// </summary>
     [Parameter]
@@ -836,9 +842,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             SortOrder = col.DefaultSortOrder;
         }
 
-        _firstQuery = true;
-        await QueryAsync();
-        _firstQuery = false;
+        if (IsAutoQueryFirstRender)
+        {
+            _firstQuery = true;
+            await QueryAsync();
+            _firstQuery = false;
+        }
 
         // 设置 init 执行客户端脚本
         _init = true;
