@@ -143,4 +143,9 @@ public interface ITableColumn : IEditorItem
     /// 获得/设置 单元格回调方法
     /// </summary>
     Action<TableCellArgs>? OnCellRender { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否为 MarkupString 默认 false
+    /// </summary>
+    bool IsMarkupString { get; set; }
 }

@@ -71,7 +71,8 @@ public class TableColumnTest
         SetValue("ShowHeaderTooltip", true);
         SetValue("HeaderTextTooltip", "Test");
         SetValue("HeaderTextEllipsis", true);
+        SetValue("IsMarkupString", true);
 
-        void SetValue(string properyName, object? val) => type!.GetProperty(properyName)!.SetValue(instance, val);
+        void SetValue(string propertyName, object? val) => type!.GetProperty(propertyName)!.SetValue(instance, val);
     }
 }

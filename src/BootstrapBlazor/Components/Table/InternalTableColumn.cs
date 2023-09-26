@@ -184,6 +184,11 @@ class InternalTableColumn : ITableColumn
     public bool HeaderTextEllipsis { get; set; }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool IsMarkupString { get; set; }
+
+    /// <summary>
     /// 构造函数
     /// </summary>
     /// <param name="fieldName">字段名称</param>

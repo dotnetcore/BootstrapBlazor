@@ -96,6 +96,7 @@ public static class IEditItemExtensions
         if (!string.IsNullOrEmpty(col.HeaderTextTooltip)) dest.HeaderTextTooltip = col.HeaderTextTooltip;
         if (col.ShowHeaderTooltip) dest.ShowHeaderTooltip = col.ShowHeaderTooltip;
         if (col.HeaderTextEllipsis) dest.HeaderTextEllipsis = col.HeaderTextEllipsis;
+        if (col.IsMarkupString) dest.IsMarkupString = col.IsMarkupString;
     }
 
     /// <summary>
@@ -227,9 +228,13 @@ public static class IEditItemExtensions
             pb.AddAttribute(2, nameof(Tooltip.ChildContent), new RenderFragment(builder => builder.AddContent(0, text)));
             pb.CloseComponent();
         }
+        else if (col.IsMarkupString)
+        {
+            pb.AddMarkupContent(3, text);
+        }
         else
         {
-            pb.AddContent(3, text);
+            pb.AddContent(4, text);
         }
     };
 
