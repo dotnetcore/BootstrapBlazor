@@ -40,6 +40,11 @@ public partial class DatePickerBody
     private TimeSpan CurrentTime { get; set; }
 
     /// <summary>
+    /// 获得/设置 当前选中时间 未点击确认时 与 Value 可能不一致
+    /// </summary>
+    private DateTime SelectValue { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示时刻选择框
     /// </summary>
     private bool ShowTimePicker { get; set; }
@@ -52,10 +57,10 @@ public partial class DatePickerBody
     /// <summary>
     /// 获得/设置 日期样式
     /// </summary>
-    private string? GetDayClass(DateTime day, bool overflow) => CssBuilder.Default("")
+    private string? GetDayClass(DateTime day, bool overflow) => CssBuilder.Default()
         .AddClass("prev-month", day.Month < CurrentDate.Month)
         .AddClass("next-month", day.Month > CurrentDate.Month)
-        .AddClass("current", day.Date == Value.Date && Ranger == null && day.Month == CurrentDate.Month && !overflow)
+        .AddClass("current", day.Date == SelectValue.Date && Ranger == null && day.Month == SelectValue.Month && !overflow)
         .AddClass("start", Ranger != null && day == Ranger.SelectedValue.Start.Date)
         .AddClass("end", Ranger != null && day == Ranger.SelectedValue.End.Date)
         .AddClass("range", Ranger != null && day >= Ranger.SelectedValue.Start && day <= Ranger.SelectedValue.End)
@@ -319,18 +324,6 @@ public partial class DatePickerBody
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 年变化回调方法
-    /// </summary>
-    [Parameter]
-    public Func<DateTime, Task>? OnYearChanged { get; set; }
-
-    /// <summary>
-    /// 获得/设置 月变化回调方法
-    /// </summary>
-    [Parameter]
-    public Func<DateTime, Task>? OnMonthChanged { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否为 Range 内使用 默认为 false
     /// </summary>
     [CascadingParameter]
@@ -411,6 +404,11 @@ public partial class DatePickerBody
         base.OnInitialized();
 
         CurrentViewMode = ViewMode;
+
+        CurrentDate = Value.Date;
+        CurrentTime = Value.TimeOfDay;
+
+        SelectValue = Value;
     }
 
     /// <summary>
@@ -419,9 +417,6 @@ public partial class DatePickerBody
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-
-        CurrentDate = Value.Date;
-        CurrentTime = Value - CurrentDate;
 
         DatePlaceHolder ??= Localizer[nameof(DatePlaceHolder)];
         TimePlaceHolder ??= Localizer[nameof(TimePlaceHolder)];
@@ -472,10 +467,6 @@ public partial class DatePickerBody
             ? GetSafeYearDateTime(CurrentDate, -20)
             : GetSafeYearDateTime(CurrentDate, -1);
 
-        if (OnYearChanged != null)
-        {
-            await OnYearChanged(CurrentDate);
-        }
     }
 
     /// <summary>
@@ -485,10 +476,6 @@ public partial class DatePickerBody
     {
         CurrentDate = GetSafeMonthDateTime(CurrentDate, -1);
 
-        if (OnMonthChanged != null)
-        {
-            await OnMonthChanged(CurrentDate);
-        }
     }
 
     /// <summary>
@@ -500,10 +487,6 @@ public partial class DatePickerBody
             ? GetSafeYearDateTime(CurrentDate, 20)
             : GetSafeYearDateTime(CurrentDate, 1);
 
-        if (OnYearChanged != null)
-        {
-            await OnYearChanged(CurrentDate);
-        }
     }
 
     /// <summary>
@@ -513,10 +496,6 @@ public partial class DatePickerBody
     {
         CurrentDate = GetSafeMonthDateTime(CurrentDate, 1);
 
-        if (OnMonthChanged != null)
-        {
-            await OnMonthChanged(CurrentDate);
-        }
     }
 
     private async Task OnTimeChanged(TimeSpan time)
@@ -546,9 +525,9 @@ public partial class DatePickerBody
     /// <param name="d"></param>
     private async Task OnClickDateTime(DateTime d)
     {
-        CurrentDate = d;
+        SelectValue = d;
 
-        if (!IsDateTimeMode && AutoClose)
+        if (ShouldConfirm)
         {
             await ConfirmDateTime();
         }
@@ -557,6 +536,8 @@ public partial class DatePickerBody
             StateHasChanged();
         }
     }
+
+    private bool ShouldConfirm => !IsDateTimeMode && (AutoClose || ShowFooter == false);
 
     /// <summary>
     /// 设置组件显示视图方法
@@ -632,8 +613,8 @@ public partial class DatePickerBody
     /// </summary>
     /// <returns></returns>
     private string? GetYearClassName(int year, bool overflow) => CssBuilder.Default()
-        .AddClass("current", GetSafeYearDateTime(CurrentDate, year - (CurrentDate.Year % 20)).Year == Value.Year)
-        .AddClass("today", GetSafeYearDateTime(CurrentDate, year - (CurrentDate.Year % 20)).Year == DateTime.Today.Year)
+        .AddClass("current", GetSafeYearDateTime(SelectValue, year - (SelectValue.Year % 20)).Year == SelectValue.Year)
+        .AddClass("today", GetSafeYearDateTime(Value, year - (Value.Year % 20)).Year == DateTime.Today.Year)
         .AddClass("disabled", overflow)
         .Build();
 
@@ -649,8 +630,8 @@ public partial class DatePickerBody
     /// </summary>
     /// <returns></returns>
     private string? GetMonthClassName(int month) => CssBuilder.Default()
-        .AddClass("current", month == Value.Month)
-        .AddClass("today", CurrentDate.Year == DateTime.Today.Year && month == DateTime.Today.Month)
+        .AddClass("current", month == SelectValue.Month)
+        .AddClass("today", Value.Year == DateTime.Today.Year && month == DateTime.Today.Month)
         .Build();
 
     /// <summary>
