@@ -63,7 +63,8 @@ public class AutoGenerateClassTest
             ShowHeaderTooltip = true,
             HeaderTextTooltip = "test header tooltip",
             HeaderTextEllipsis = true,
-            HeaderTextWrap = true
+            HeaderTextWrap = true,
+            IsMarkupString = true
         };
         Assert.Equal(1, attr.Order);
         Assert.True(attr.Ignore);
@@ -92,6 +93,7 @@ public class AutoGenerateClassTest
         Assert.True(attr.HeaderTextWrap);
         Assert.True(attr.HeaderTextEllipsis);
         Assert.Equal("test header tooltip", attr.HeaderTextTooltip);
+        Assert.True(attr.IsMarkupString);
 
         var attrInterface = (ITableColumn)attr;
         attrInterface.ShowLabelTooltip = true;
