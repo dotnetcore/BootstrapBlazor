@@ -127,4 +127,6 @@ internal class MockTableColumn : ITableColumn
     public string? HeaderTextTooltip { get; set; }
 
     public bool HeaderTextEllipsis { get; set; }
+
+    public bool IsMarkupString { get; set; }
 }
