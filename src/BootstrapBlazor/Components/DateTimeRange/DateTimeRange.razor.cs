@@ -316,25 +316,13 @@ public partial class DateTimeRange
         }
     }
 
-    private Task OnStartMonthChanged(DateTime value)
+    private Task OnStartDateChanged(DateTime value)
     {
         EndPicker.SetShowDate(value.AddMonths(1));
         return Task.CompletedTask;
     }
 
-    private Task OnEndMonthChanged(DateTime value)
-    {
-        StartPicker.SetShowDate(value.AddMonths(-1));
-        return Task.CompletedTask;
-    }
-
-    private Task OnStartYearChanged(DateTime value)
-    {
-        EndPicker.SetShowDate(value.AddMonths(1));
-        return Task.CompletedTask;
-    }
-
-    private Task OnEndYearChanged(DateTime value)
+    private Task OnEndDateChanged(DateTime value)
     {
         StartPicker.SetShowDate(value.AddMonths(-1));
         return Task.CompletedTask;
@@ -392,32 +380,10 @@ public partial class DateTimeRange
     }
 
     /// <summary>
-    /// 更新年时间方法
-    /// </summary>
-    /// <param name="d"></param>
-    internal void UpdateStart(DateTime d)
-    {
-        StartValue = d;
-        EndValue = StartValue.AddMonths(1);
-        StateHasChanged();
-    }
-
-    /// <summary>
-    /// 更新年时间方法
-    /// </summary>
-    /// <param name="d"></param>
-    internal void UpdateEnd(DateTime d)
-    {
-        EndValue = d;
-        StartValue = EndValue.AddMonths(-1);
-        StateHasChanged();
-    }
-
-    /// <summary>
     /// 更新值方法
     /// </summary>
     /// <param name="d"></param>
-    internal void UpdateValue(DateTime d)
+    private void UpdateValue(DateTime d)
     {
         if (SelectedValue.End == DateTime.MinValue)
         {
@@ -440,11 +406,13 @@ public partial class DateTimeRange
         var startDate = StartValue.AddDays(1 - StartValue.Day);
         if (d < startDate)
         {
-            UpdateStart(d);
+            StartValue = d;
+            EndValue = StartValue.AddMonths(1);
         }
         else if (d > startDate.AddMonths(2).AddDays(-1))
         {
-            UpdateEnd(d);
+            EndValue = d;
+            StartValue = EndValue.AddMonths(-1);
         }
         else
         {

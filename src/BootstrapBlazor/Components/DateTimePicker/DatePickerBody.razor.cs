@@ -537,6 +537,7 @@ public partial class DatePickerBody
     /// <param name="d"></param>
     private async Task OnClickDateTime(DateTime d)
     {
+        CurrentDate = d;
         SelectValue = d;
 
         if (ShouldConfirm)
