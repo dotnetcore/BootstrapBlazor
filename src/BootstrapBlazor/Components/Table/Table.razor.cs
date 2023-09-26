@@ -836,7 +836,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             SortOrder = col.DefaultSortOrder;
         }
 
+        _firstQuery = true;
         await QueryAsync();
+        _firstQuery = false;
 
         // 设置 init 执行客户端脚本
         _init = true;
@@ -887,6 +889,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private bool _loop;
     private bool _init;
+    private bool _firstQuery;
 
     /// <summary>
     /// 检查当前列是否显示方法
