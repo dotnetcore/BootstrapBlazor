@@ -429,6 +429,9 @@ public partial class Table<TItem>
             QueryData<TItem>? queryData = null;
             var queryOption = BuildQueryPageOptions();
 
+            // 设置是否为首次查询
+            queryOption.IsFristQuery = _firstQuery;
+
             queryData = await InternalOnQueryAsync(queryOption);
             PageIndex = queryOption.PageIndex;
             PageItems = queryOption.PageItems;
