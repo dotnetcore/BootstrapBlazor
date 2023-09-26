@@ -4733,6 +4733,7 @@
     "AlignAttr": "Text Alignment",
     "OrderAttr": "Sequence Number",
     "OnCellRenderAttr": "Cell callback method",
+    "IsMarkupStringAttr": "Whether column is MarkupString string",
     "ShowGotoNavigatorAttr": "Whether show the Goto navigator",
     "GotoTemplateAttr": "The template for Goto custom component",
     "GotoNavigatorLabelTextAttr": "Goto label text",
