@@ -1057,6 +1057,99 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public void IsAutoQueryFirstQuery_Ok()
+    {
+        var isFirstQuery = true;
+        var isQuery = false;
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsPagination, true);
+                pb.Add(a => a.IsAutoQueryFirstRender, false);
+                pb.Add(a => a.OnQueryAsync, option =>
+                {
+                    isQuery = true;
+                    isFirstQuery = option.IsFristQuery;
+                    return Task.FromResult(new QueryData<Foo>()
+                    {
+                        Items = new Foo[0],
+                        TotalCount = 0,
+                        IsAdvanceSearch = true,
+                        IsFiltered = true,
+                        IsSearch = true,
+                        IsSorted = true
+                    });
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        // 首次加载为 true
+        Assert.True(isFirstQuery);
+        Assert.False(isQuery);
+
+        // 二次查询
+        var table = cut.FindComponent<Table<Foo>>();
+        cut.InvokeAsync(() => table.Instance.QueryAsync());
+
+        Assert.False(isFirstQuery);
+        Assert.True(isQuery);
+    }
+
+    [Fact]
+    public void IsFirstQuery_Ok()
+    {
+        var isFirstQuery = false;
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsPagination, true);
+                pb.Add(a => a.OnQueryAsync, option =>
+                {
+                    isFirstQuery = option.IsFristQuery;
+                    return Task.FromResult(new QueryData<Foo>()
+                    {
+                        Items = new Foo[0],
+                        TotalCount = 0,
+                        IsAdvanceSearch = true,
+                        IsFiltered = true,
+                        IsSearch = true,
+                        IsSorted = true
+                    });
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        // 首次加载为 true
+        Assert.True(isFirstQuery);
+
+        // 二次查询
+        var table = cut.FindComponent<Table<Foo>>();
+        cut.InvokeAsync(() => table.Instance.QueryAsync());
+
+        Assert.False(isFirstQuery);
+    }
+
+    [Fact]
     public void PageItems_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
