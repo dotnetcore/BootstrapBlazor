@@ -139,16 +139,6 @@ public partial class DatePickerBody
     private string? YearPeriodText { get; set; }
 
     /// <summary>
-    /// 获得 日期数值字符串
-    /// </summary>
-    private string? DateValueString => CurrentDate.ToString(DateFormat);
-
-    /// <summary>
-    /// 获得 日期数值字符串
-    /// </summary>
-    private string? TimeValueString => CurrentTime.ToString(TimeFormat);
-
-    /// <summary>
     /// 获得/设置 组件显示模式 默认为显示年月日模式
     /// </summary>
     private DatePickerViewMode CurrentViewMode { get; set; }
@@ -324,6 +314,12 @@ public partial class DatePickerBody
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
+    /// 获得/设置 年月改变时回调方法
+    /// </summary>
+    [Parameter]
+    public Func<DateTime, Task>? OnDateChanged { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否为 Range 内使用 默认为 false
     /// </summary>
     [CascadingParameter]
@@ -467,6 +463,10 @@ public partial class DatePickerBody
             ? GetSafeYearDateTime(CurrentDate, -20)
             : GetSafeYearDateTime(CurrentDate, -1);
 
+        if(OnDateChanged != null)
+        {
+            await OnDateChanged(CurrentDate);
+        }
     }
 
     /// <summary>
@@ -476,6 +476,10 @@ public partial class DatePickerBody
     {
         CurrentDate = GetSafeMonthDateTime(CurrentDate, -1);
 
+        if (OnDateChanged != null)
+        {
+            await OnDateChanged(CurrentDate);
+        }
     }
 
     /// <summary>
@@ -487,6 +491,10 @@ public partial class DatePickerBody
             ? GetSafeYearDateTime(CurrentDate, 20)
             : GetSafeYearDateTime(CurrentDate, 1);
 
+        if (OnDateChanged != null)
+        {
+            await OnDateChanged(CurrentDate);
+        }
     }
 
     /// <summary>
@@ -496,6 +504,10 @@ public partial class DatePickerBody
     {
         CurrentDate = GetSafeMonthDateTime(CurrentDate, 1);
 
+        if (OnDateChanged != null)
+        {
+            await OnDateChanged(CurrentDate);
+        }
     }
 
     private async Task OnTimeChanged(TimeSpan time)
