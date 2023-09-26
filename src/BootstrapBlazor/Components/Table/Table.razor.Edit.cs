@@ -194,16 +194,27 @@ public partial class Table<TItem>
     private async Task<QueryData<TItem>> InternalOnQueryAsync(QueryPageOptions options)
     {
         QueryData<TItem>? ret = null;
-        if (OnQueryAsync != null)
+        if (_autoQuery)
         {
-            ret = await OnQueryAsync(options);
+            if (OnQueryAsync != null)
+            {
+                ret = await OnQueryAsync(options);
+            }
+            else
+            {
+                var d = DataService ?? InjectDataService;
+                ret = await d.QueryAsync(options);
+            }
         }
-        else
+        return ret ?? new QueryData<TItem>()
         {
-            var d = DataService ?? InjectDataService;
-            ret = await d.QueryAsync(options);
-        }
-        return ret;
+            Items = Enumerable.Empty<TItem>(),
+            TotalCount = 0,
+            IsAdvanceSearch = true,
+            IsFiltered = true,
+            IsSearch = true,
+            IsSorted = true
+        };
     }
 
     private async Task<bool> InternalOnDeleteAsync()
@@ -428,6 +439,9 @@ public partial class Table<TItem>
         {
             QueryData<TItem>? queryData = null;
             var queryOption = BuildQueryPageOptions();
+
+            // 设置是否为首次查询
+            queryOption.IsFristQuery = _firstQuery;
 
             queryData = await InternalOnQueryAsync(queryOption);
             PageIndex = queryOption.PageIndex;
