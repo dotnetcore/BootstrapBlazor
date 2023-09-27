@@ -74,6 +74,21 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void OnTimeChanged_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        {
+            builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+        });
+
+        var panel = cut.FindComponent<TimePickerPanel>();
+        cut.InvokeAsync(() => panel.Instance.SetTime(0, 0, 0));
+
+        var body = cut.FindComponent<DatePickerBody>();
+        Assert.Equal(TimeSpan.Zero, body.Instance.Value.TimeOfDay);
+    }
+
+    [Fact]
     public void TodayButtonText_Ok()
     {
         var cut = Context.RenderComponent<DateTimeRange>(builder =>
