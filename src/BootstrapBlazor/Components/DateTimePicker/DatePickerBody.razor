@@ -8,18 +8,18 @@
             <div class="picker-panel-sidebar">
                 @if (SidebarTemplate != null)
                 {
-                    @SidebarTemplate(OnClickConfirmButton)
+                    @SidebarTemplate(OnClickSidebarButton)
                 }
                 else
                 {
                     <div class="sidebar-item">
-                        <DatePickerCell Value="@DateTime.Today" Text="@Today" OnClick="d => OnClickConfirmButton(d)" />
+                        <DatePickerCell Value="@DateTime.Today" Text="@Today" OnClick="d => OnClickSidebarButton(d)" />
                     </div>
                     <div class="sidebar-item">
-                        <DatePickerCell Value="@DateTime.Today.AddDays(-1)" Text="@Yesterday" OnClick="d => OnClickConfirmButton(d)" />
+                        <DatePickerCell Value="@DateTime.Today.AddDays(-1)" Text="@Yesterday" OnClick="d => OnClickSidebarButton(d)" />
                     </div>
                     <div class="sidebar-item">
-                        <DatePickerCell Value="@DateTime.Today.AddDays(-7)" Text="@Week" OnClick="d => OnClickConfirmButton(d)" />
+                        <DatePickerCell Value="@DateTime.Today.AddDays(-7)" Text="@Week" OnClick="d => OnClickSidebarButton(d)" />
                     </div>
                 }
             </div>
@@ -171,7 +171,7 @@
                     <span>@NowButtonText</span>
                 </Button>
             }
-            <Button class="picker-panel-link-btn is-confirm" Color="Color.None" OnClickWithoutRender="@ConfirmDateTime">
+            <Button class="picker-panel-link-btn is-confirm" Color="Color.None" OnClickWithoutRender="@ClickConfirmButton">
                 <span>@ConfirmButtonText</span>
             </Button>
         </div>

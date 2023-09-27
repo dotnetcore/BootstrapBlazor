@@ -233,12 +233,6 @@ public partial class DatePickerBody
     public Func<Task>? OnConfirm { get; set; }
 
     /// <summary>
-    /// 获得/设置 确认按钮回调委托
-    /// </summary>
-    [Parameter]
-    public Func<Task>? OnClear { get; set; }
-
-    /// <summary>
     /// 获得/设置 清空按钮文字
     /// </summary>
     [Parameter]
@@ -393,26 +387,17 @@ public partial class DatePickerBody
     private bool IsDateTimeMode => ViewMode == DatePickerViewMode.DateTime && CurrentViewMode == DatePickerViewMode.DateTime;
 
     /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        CurrentViewMode = ViewMode;
-
-        CurrentDate = Value.Date;
-        CurrentTime = Value.TimeOfDay;
-
-        SelectValue = Value;
-    }
-
-    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
+        CurrentViewMode = ViewMode;
+        CurrentDate = Value.Date;
+        CurrentTime = Value.TimeOfDay;
+
+        SelectValue = Value;
 
         DatePlaceHolder ??= Localizer[nameof(DatePlaceHolder)];
         TimePlaceHolder ??= Localizer[nameof(TimePlaceHolder)];
@@ -510,27 +495,6 @@ public partial class DatePickerBody
         }
     }
 
-    private async Task OnTimeChanged(TimeSpan time)
-    {
-        CurrentTime = time;
-        Value = CurrentDate + CurrentTime;
-        if (Ranger != null)
-        {
-            await OnValueChanged();
-        }
-        else
-        {
-            StateHasChanged();
-        }
-    }
-
-    private async Task OnClickConfirmButton(DateTime d)
-    {
-        CurrentDate = d;
-
-        await ConfirmDateTime();
-    }
-
     /// <summary>
     /// Day 选择时触发此方法
     /// </summary>
@@ -540,9 +504,22 @@ public partial class DatePickerBody
         CurrentDate = d;
         SelectValue = d;
 
-        if (ShouldConfirm)
+        if (Ranger != null || ShouldConfirm)
         {
-            await ConfirmDateTime();
+            await ClickConfirmButton();
+        }
+        else
+        {
+            StateHasChanged();
+        }
+    }
+
+    private async Task OnTimeChanged(TimeSpan time)
+    {
+        CurrentTime = time;
+        if (Ranger != null || ShouldConfirm)
+        {
+            await ClickConfirmButton();
         }
         else
         {
@@ -565,7 +542,7 @@ public partial class DatePickerBody
         }
         else if (AutoClose)
         {
-            await ConfirmDateTime();
+            await ClickConfirmButton();
         }
     }
 
@@ -673,7 +650,21 @@ public partial class DatePickerBody
         };
         CurrentDate = val.Date;
         CurrentTime = val.TimeOfDay;
-        await ConfirmDateTime();
+
+        await ClickConfirmButton();
+    }
+
+    private async Task ClickConfirmButton()
+    {
+        if (Validate())
+        {
+            Value = CurrentDate + CurrentTime;
+            await OnValueChanged();
+        }
+        if (OnConfirm != null)
+        {
+            await OnConfirm();
+        }
     }
 
     /// <summary>
@@ -683,28 +674,19 @@ public partial class DatePickerBody
     private async Task ClickClearButton()
     {
         ResetTimePickerPanel();
-        if (OnClear != null)
-        {
-            await OnClear();
-        }
+
+        CurrentDate = DateTime.MinValue;
+        CurrentTime = TimeSpan.Zero;
+
+        await ClickConfirmButton();
     }
 
-    /// <summary>
-    /// 点击 确认时调用此方法
-    /// </summary>
-    private async Task ConfirmDateTime()
+    private async Task OnClickSidebarButton(DateTime d)
     {
-        ResetTimePickerPanel();
-        Value = CurrentDate + CurrentTime;
+        CurrentDate = d.Date;
+        CurrentTime = d.TimeOfDay;
 
-        if (Validate())
-        {
-            await OnValueChanged();
-        }
-        if (OnConfirm != null)
-        {
-            await OnConfirm();
-        }
+        await ClickConfirmButton();
     }
 
     private void ResetTimePickerPanel()
