@@ -190,25 +190,25 @@ public partial class DateTimePicker<TValue>
         AllowNull = Nullable.GetUnderlyingType(type) != null;
 
         // Value 为 MinValue 时 设置 Value 默认值
-        var d = GetValue();
-        if (AutoToday && d == null)
+        if (Value == null)
         {
-            SelectedValue = DateTime.Today;
+            SelectedValue = DateTime.MinValue;
         }
-        else if (d.HasValue)
+        else if (Value is DateTimeOffset v1)
         {
-            SelectedValue = d.Value;
+            SelectedValue = v1.DateTime;
         }
-    }
+        else if (Value is DateTime v2)
+        {
+            SelectedValue = v2;
+        }
 
-    private DateTime? GetValue()
-    {
-        DateTime? ret = null;
-        if (Value is DateTime d && d != DateTime.MinValue)
+        if (AutoToday && SelectedValue == DateTime.MinValue)
         {
-            ret = d;
+            SelectedValue = ViewMode == DatePickerViewMode.DateTime
+                ? DateTime.Now
+                : DateTime.Today;
         }
-        return ret;
     }
 
     /// <summary>
@@ -217,8 +217,16 @@ public partial class DateTimePicker<TValue>
     protected override string FormatValueAsString(TValue value)
     {
         var ret = "";
-        var d = GetValue();
-        if (d.HasValue)
+        DateTime? d = null;
+        if (Value is DateTime v1)
+        {
+            d = v1;
+        }
+        else if (Value is DateTimeOffset v2)
+        {
+            d = v2.DateTime;
+        }
+        if (d.HasValue && d.Value != DateTime.MinValue)
         {
             var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
             ret = d.Value.ToString(format);
@@ -239,9 +247,14 @@ public partial class DateTimePicker<TValue>
                 SelectedValue = DateTime.Today;
             }
         }
-        else
+        else if (NullableUnderlyingType == typeof(DateTime))
         {
             CurrentValue = (TValue)(object)SelectedValue;
+        }
+        else if (NullableUnderlyingType == typeof(DateTimeOffset))
+        {
+            DateTimeOffset d = new DateTimeOffset(SelectedValue);
+            CurrentValue = (TValue)(object)d;
         }
 
         if (AutoClose)
