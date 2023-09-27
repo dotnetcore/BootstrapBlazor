@@ -4,6 +4,7 @@
 
 using AngleSharp.Dom;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace UnitTest.Components;
 
@@ -199,9 +200,11 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
             pb.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now, End = DateTime.MinValue });
             pb.Add(a => a.ValueChanged, v => _ = v);
             pb.Add(a => a.OnValueChanged, v => Task.CompletedTask);
+            pb.Add(a => a.DateFormat, "MM/dd/yyyy");
             pb.Add(a => a.OnConfirm, (e) =>
             {
-                value = true; return Task.CompletedTask;
+                value = true;
+                return Task.CompletedTask;
             });
         });
 
@@ -217,8 +220,35 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
             cells[cells.Count - 1].Click();
             cells = cut.FindAll(".is-confirm");
             cells.First(s => s.TextContent == "确定").Click();
-            Assert.True(value);
         });
+        Assert.True(value);
+
+        var input = cut.Find(".datetime-range-input");
+        Assert.False(input.ClassList.Contains("datetime"));
+        Assert.True(DateTime.TryParseExact(input.GetAttribute("Value"), "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var _));
+
+        // datetime
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.Add(a => a.DateTimeFormat, "MM/dd/yyyy HH:mm:ss");
+        });
+        cut.InvokeAsync(() =>
+        {
+            // 选择开始未选择结束
+            cut.Find(".cell").Click();
+            var cells = cut.FindAll(".is-confirm");
+            cells.First(s => s.TextContent == "确定").Click();
+
+            // 选择时间大于当前时间
+            cells = cut.FindAll(".date-table .cell");
+            cells[cells.Count - 1].Click();
+            cells = cut.FindAll(".is-confirm");
+            cells.First(s => s.TextContent == "确定").Click();
+        });
+        input = cut.Find(".datetime-range-input");
+        Assert.True(input.ClassList.Contains("datetime"));
+        Assert.True(DateTime.TryParseExact(input.GetAttribute("Value"), "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out var _));
     }
 
     [Fact]
