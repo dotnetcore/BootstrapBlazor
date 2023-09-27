@@ -463,7 +463,7 @@ public partial class DatePickerBody
             ? GetSafeYearDateTime(CurrentDate, -20)
             : GetSafeYearDateTime(CurrentDate, -1);
 
-        if(OnDateChanged != null)
+        if (OnDateChanged != null)
         {
             await OnDateChanged(CurrentDate);
         }

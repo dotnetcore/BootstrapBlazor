@@ -137,6 +137,18 @@ public partial class DateTimePicker<TValue>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// 获得/设置 日期占位符文本 默认 null 读取资源文件
+    /// </summary>
+    [Parameter]
+    public string? DatePlaceHolderText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 日期时间占位符文本 默认 null 读取资源文件
+    /// </summary>
+    [Parameter]
+    public string? DateTimePlaceHolderText { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }
@@ -144,12 +156,6 @@ public partial class DateTimePicker<TValue>
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
-
-    [NotNull]
-    private string? DatePlaceHolderText { get; set; }
-
-    [NotNull]
-    private string? DateTimePlaceHolderText { get; set; }
 
     [NotNull]
     private string? GenericTypeErrorMessage { get; set; }
@@ -214,15 +220,6 @@ public partial class DateTimePicker<TValue>
                 ? offset.Value.DateTime
                 : DateTime.MinValue;
         }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="firstRender"></param>
-    protected override void OnAfterRender(bool firstRender)
-    {
-        base.OnAfterRender(firstRender);
     }
 
     /// <summary>
