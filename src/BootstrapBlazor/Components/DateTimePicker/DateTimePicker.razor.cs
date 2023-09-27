@@ -189,37 +189,26 @@ public partial class DateTimePicker<TValue>
         // 泛型设置为可为空
         AllowNull = Nullable.GetUnderlyingType(type) != null;
 
-        if (!string.IsNullOrEmpty(Format))
-        {
-            DateTimeFormat = Format;
-
-            var index = Format.IndexOf(' ');
-            if (index > 0)
-            {
-                DateFormat = Format[..index];
-            }
-        }
-
         // Value 为 MinValue 时 设置 Value 默认值
-        if (AutoToday && (Value == null || Value.ToString() == DateTime.MinValue.ToString()))
+        var d = GetValue();
+        if (AutoToday && d == null)
         {
             SelectedValue = DateTime.Today;
-            if (!AllowNull)
-            {
-                CurrentValueAsString = SelectedValue.ToString("yyyy-MM-dd HH:mm:ss");
-            }
         }
-        else if (Value is DateTime dt)
+        else if (d.HasValue)
         {
-            SelectedValue = dt;
+            SelectedValue = d.Value;
         }
-        else
+    }
+
+    private DateTime? GetValue()
+    {
+        DateTime? ret = null;
+        if (Value is DateTime d && d != DateTime.MinValue)
         {
-            var offset = (DateTimeOffset?)(object)Value;
-            SelectedValue = offset.HasValue
-                ? offset.Value.DateTime
-                : DateTime.MinValue;
+            ret = d;
         }
+        return ret;
     }
 
     /// <summary>
@@ -228,32 +217,13 @@ public partial class DateTimePicker<TValue>
     protected override string FormatValueAsString(TValue value)
     {
         var ret = "";
-        if (value != null)
+        var d = GetValue();
+        if (d.HasValue)
         {
-            var format = Format;
-            if (string.IsNullOrEmpty(format))
-            {
-                format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
-            }
-
-            ret = SelectedValue.ToString(format);
+            var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
+            ret = d.Value.ToString(format);
         }
         return ret;
-    }
-
-    /// <summary>
-    /// 清空按钮点击时回调此方法
-    /// </summary>
-    /// <returns></returns>
-    private Task OnClear()
-    {
-        SelectedValue = AutoToday ? DateTime.Today : DateTime.MinValue;
-        CurrentValue = default;
-        if (!ValueChanged.HasDelegate)
-        {
-            StateHasChanged();
-        }
-        return Task.CompletedTask;
     }
 
     /// <summary>
@@ -261,7 +231,19 @@ public partial class DateTimePicker<TValue>
     /// </summary>
     private async Task OnConfirm()
     {
-        CurrentValueAsString = SelectedValue.ToString("yyyy-MM-dd HH:mm:ss");
+        if (SelectedValue == DateTime.MinValue)
+        {
+            CurrentValue = default;
+            if (AutoToday)
+            {
+                SelectedValue = DateTime.Today;
+            }
+        }
+        else
+        {
+            CurrentValue = (TValue)(object)SelectedValue;
+        }
+
         if (AutoClose)
         {
             await InvokeVoidAsync("hide", Id);
