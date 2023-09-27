@@ -656,6 +656,8 @@ public partial class DatePickerBody
 
     private async Task ClickConfirmButton()
     {
+        ResetTimePickerPanel();
+
         if (Validate())
         {
             Value = CurrentDate + CurrentTime;
@@ -673,8 +675,6 @@ public partial class DatePickerBody
     /// <returns></returns>
     private async Task ClickClearButton()
     {
-        ResetTimePickerPanel();
-
         CurrentDate = DateTime.MinValue;
         CurrentTime = TimeSpan.Zero;
 
