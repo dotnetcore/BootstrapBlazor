@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class DateTimePickers
 {
-    private DateTime DateTimePickerValue { get; set; } = DateTime.Now;
+    private DateTime? DateTimePickerValue { get; set; }
 
     [NotNull]
     private ConsoleLogger? TimePickerLogger { get; set; }

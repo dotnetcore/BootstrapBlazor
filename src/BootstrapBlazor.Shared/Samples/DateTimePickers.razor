@@ -7,10 +7,9 @@
 <DemoBlock Title="@Localizer["DateTimePickerTitle"]"
            Introduction="@Localizer["DateTimePickerIntro"]"
            Name="DateTimePicker">
-    <DateTimePicker TValue="DateTime?"
-                    ViewMode="DatePickerViewMode.DateTime"
+    <DateTimePicker ViewMode="DatePickerViewMode.DateTime"
                     Format="yyyy-MM-dd HH:mm:ss"
-                    Value="@DateTimePickerValue"
+                    @bind-Value="@DateTimePickerValue"
                     OnValueChanged="@TimePickerValueChanged">
         <TimePickerSetting ShowClockScale="true" IsAutoSwitch="false" />
     </DateTimePicker>
