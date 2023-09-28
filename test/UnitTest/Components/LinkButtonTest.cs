@@ -48,7 +48,7 @@ public class LinkButtonTest : BootstrapBlazorTestBase
         Assert.DoesNotContain("link-primary", cut.Markup);
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.Color, Color.Danger));
-        Assert.Contains("link-danger", cut.Markup);
+        cut.WaitForAssertion(() => Assert.Contains("link-danger", cut.Markup));
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.IsDisabled, true));
         cut.WaitForAssertion(() => Assert.DoesNotContain("link-danger", cut.Markup));
