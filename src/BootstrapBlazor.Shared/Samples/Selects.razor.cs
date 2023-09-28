@@ -343,6 +343,14 @@ public sealed partial class Selects
             Type = "string?",
             ValueList = " — ",
             DefaultValue = Localizer["SelectsContentDefaultValue"]!
+        },
+        new()
+        {
+            Name = "DisableItemChangedWhenFirstRender",
+            Description = Localizer["SelectsDisableItemChangedWhenFirstRender"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
         }
     };
 }

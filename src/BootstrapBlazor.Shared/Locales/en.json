@@ -2978,6 +2978,7 @@
     "SelectsCategory": "The dialog icon",
     "SelectsContent": "The contents of the dialog box",
     "SelectsContentDefaultValue": "Are you sure you want to change the current value?",
+    "SelectsDisableItemChangedWhenFirstRender": "Prohibit triggering the OnSelectedItemChanged callback method on first render",
     "SelectsOnSelectedItemChanged": "This event is triggered when the drop-down option changes",
     "SelectsOnBeforeSelectedItemChange": "This event is triggered before the drop-down option changes",
     "SelectsPlaceHolder": "Not selected",

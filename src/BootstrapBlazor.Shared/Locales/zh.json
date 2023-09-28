@@ -2978,6 +2978,7 @@
     "SelectsCategory": "对话框图标",
     "SelectsContent": "对话框内容",
     "SelectsContentDefaultValue": "确定改变当前值吗？",
+    "SelectsDisableItemChangedWhenFirstRender": "禁止首次加载时触发 OnSelectedItemChanged 回调方法",
     "SelectsOnSelectedItemChanged": "下拉框选项改变时触发此事件",
     "SelectsOnBeforeSelectedItemChange": "下拉框选项改变前触发此事件",
     "SelectsPlaceHolder": "未选择",
