@@ -230,6 +230,30 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void TriggerItemChangedFirstRender_Ok()
+    {
+        var triggered = false;
+
+        // 空值时，不触发 OnSelectedItemChanged 回调
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new SelectedItem("1", "Test"),
+                new SelectedItem("2", "Test2")
+            });
+            pb.Add(a => a.Value, "");
+            pb.Add(a => a.OnSelectedItemChanged, item =>
+            {
+                triggered = true;
+                return Task.CompletedTask;
+            });
+            pb.Add(a => a.TriggerItemChangedFirstRender, false);
+        });
+        Assert.False(triggered);
+    }
+
+    [Fact]
     public void Color_Ok()
     {
         var cut = Context.RenderComponent<Select<string>>(pb =>
