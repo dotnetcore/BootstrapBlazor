@@ -269,6 +269,20 @@ public sealed partial class Tabs
             Type = "Func<TabItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new() {
+            Name = "AllowDrag",
+            Description = Localizer["TabAttAllowDrag"].Value,
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        },
+        new() {
+            Name = "OnDragItemEndAsync",
+            Description = Localizer["TabAttOnDragItemEndAsync"].Value,
+            Type = "Func<TabItem, Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     };
 
