@@ -51,11 +51,13 @@ class ExcelExport : ITableExcelExport
         using var stream = new MemoryStream();
         await MiniExcel.SaveAsAsync(stream, value, excelType: excelType);
 
-        fileName ??= $"ExportData_{DateTime.Now:yyyyMMddHHmmss}.csv";
+        fileName ??= $"ExportData_{DateTime.Now:yyyyMMddHHmmss}.{GetExtension()}";
         stream.Position = 0;
         var downloadService = ServiceProvider.GetRequiredService<DownloadService>();
         await downloadService.DownloadFromStreamAsync(fileName, stream);
         return true;
+
+        string GetExtension() => excelType == ExcelType.XLSX ? "xlsx" : "csv";
     }
 
     private static async Task<object?> FormatValue(ITableColumn col, object? value)
