@@ -716,4 +716,38 @@ public class TabTest : TabTestBase
         });
         cut.Contains("tabs-bottom");
     }
+
+    [Fact]
+    public void Drag_Ok()
+    {
+        var dragged = false;
+        var cut = Context.RenderComponent<Tab>(pb =>
+        {
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Text1");
+                pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "Test1"));
+            });
+            pb.AddChildContent<TabItem>(pb =>
+            {
+                pb.Add(a => a.Text, "Text2");
+                pb.Add(a => a.ChildContent, builder => builder.AddContent(0, "Test2"));
+            });
+            pb.Add(a => a.AllowDrag, true);
+            pb.Add(a => a.OnDragItemEndAsync, item =>
+            {
+                dragged = true;
+                return Task.CompletedTask;
+            });
+        });
+
+        cut.Contains("draggable=\"true\"");
+
+        cut.InvokeAsync(() => cut.Instance.DragItemCallback(0, 1));
+        Assert.True(dragged);
+
+        dragged = false;
+        cut.InvokeAsync(() => cut.Instance.DragItemCallback(10, 1));
+        Assert.False(dragged);
+    }
 }

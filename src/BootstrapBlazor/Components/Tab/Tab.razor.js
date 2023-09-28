@@ -2,15 +2,7 @@
 import EventHandler from "../../modules/event-handler.js?v=$version"
 
 const getPosition = el => {
-    const rect = el.getBoundingClientRect()
-    return rect;
-}
-
-const fixSize = function (el) {
-    const height = el.offsetHeight
-    const width = el.offsetWidth
-    el.style.height = `${height}px`
-    el.style.width = `${width}px`
+    return el.getBoundingClientRect();
 }
 
 const resize = tab => {
@@ -104,13 +96,78 @@ const active = tab => {
     }
 }
 
-export function init(id) {
+const setDraggable = tab => {
+    disposeDragItems(tab.dragItems)
+
+    let dragItem = null;
+    let index = 0
+
+    tab.dragItems = [...tab.el.firstChild.querySelectorAll('.tabs-item')]
+    tab.dragItems.forEach(item => {
+        EventHandler.on(item, 'dragstart', e => {
+            item.parentNode.classList.add('tab-dragging')
+            item.classList.add('tab-drag')
+            tab.dragItems = [...tab.el.firstChild.querySelectorAll('.tabs-item')]
+            index = tab.dragItems.indexOf(item)
+            dragItem = item
+            e.dataTransfer.effectAllowed = 'move'
+        })
+        EventHandler.on(item, 'dragend', e => {
+            item.parentNode.classList.remove('tab-dragging')
+            item.classList.remove('tab-drag')
+            tab.dragItems.forEach(i => {
+                i.classList.remove('tab-drag-over')
+            })
+            dragItem = null
+        })
+        EventHandler.on(item, 'drop', e => {
+            e.stopPropagation()
+            e.preventDefault()
+            tab.invoke.invokeMethodAsync(tab.method, index, tab.dragItems.indexOf(item));
+            return false
+        })
+        EventHandler.on(item, 'dragenter', e => {
+            e.preventDefault()
+            if (dragItem !== item) {
+                item.classList.add('tab-drag-over')
+            }
+        })
+        EventHandler.on(item, 'dragover', e => {
+            e.preventDefault()
+            if (dragItem !== item) {
+                e.dataTransfer.dropEffect = 'move'
+            }
+            else {
+                e.dataTransfer.dropEffect = 'none'
+            }
+            return false
+        })
+        EventHandler.on(item, 'dragleave', e => {
+            e.preventDefault()
+            item.classList.remove('tab-drag-over')
+        })
+    })
+}
+
+const disposeDragItems = items => {
+    items = items || []
+    items.forEach(item => {
+        EventHandler.off(item, 'dragstart')
+        EventHandler.off(item, 'dragend')
+        EventHandler.off(item, 'drop')
+        EventHandler.off(item, 'dragenter')
+        EventHandler.off(item, 'dragover')
+        EventHandler.off(item, 'dragleave')
+    })
+}
+
+export function init(id, invoke, method) {
     const el = document.getElementById(id)
     if (el === null) {
         return
     }
 
-    const tab = { el }
+    const tab = { el, invoke, method }
     Data.set(id, tab)
 
     tab.header = el.firstChild
@@ -124,12 +181,16 @@ export function init(id) {
 
     EventHandler.on(window, 'resize', tab.resizeHandler)
     active(tab)
+
+    setDraggable(tab);
 }
 
 export function update(id) {
     const tab = Data.get(id)
     if (tab) {
         active(tab)
+
+        setDraggable(tab);
     }
 }
 
@@ -139,5 +200,6 @@ export function dispose(id) {
 
     if (tab) {
         EventHandler.off(window, 'resize', tab.resizeHandler)
+        disposeDragItems(tab.dragItems)
     }
 }
