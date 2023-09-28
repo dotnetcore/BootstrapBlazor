@@ -59,7 +59,5 @@
 }
 
     ::deep .btn-theme img {
-        position: absolute;
         width: 20px;
-        transform: translate(-50%, -50%);
     }
