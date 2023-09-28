@@ -745,5 +745,9 @@ public class TabTest : TabTestBase
 
         cut.InvokeAsync(() => cut.Instance.DragItemCallback(0, 1));
         Assert.True(dragged);
+
+        dragged = false;
+        cut.InvokeAsync(() => cut.Instance.DragItemCallback(10, 1));
+        Assert.False(dragged);
     }
 }
