@@ -309,17 +309,25 @@ public partial class Tables
             Name = "Order",
             Description = Localizer["OrderAttr"],
             Type = "int",
-            ValueList = " - ",
-            DefaultValue = " - "
+            ValueList = " — ",
+            DefaultValue = " — "
         },
         new()
         {
             Name = "OnCellRender",
             Description = Localizer["OnCellRenderAttr"],
             Type = "Action<TableCellArgs>?",
-            ValueList = " - ",
-            DefaultValue = " - "
+            ValueList = " — ",
+            DefaultValue = " — "
         },
+        new()
+        {
+            Name = "IsMarkupString",
+            Description = Localizer["IsMarkupStringAttr"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        }
     };
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]

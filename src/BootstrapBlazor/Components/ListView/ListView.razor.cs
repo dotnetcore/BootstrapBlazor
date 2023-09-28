@@ -138,7 +138,7 @@ public partial class ListView<TItem> : BootstrapComponentBase
         }
         if (GroupName != null)
         {
-            GroupOrderCallback ??= Rows.GroupBy(GroupName).OrderBy(k => k.Key);
+            GroupOrderCallback = Rows.GroupBy(GroupName).OrderBy(k => k.Key);
         }
     }
 
