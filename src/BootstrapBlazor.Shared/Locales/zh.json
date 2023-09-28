@@ -2813,6 +2813,7 @@
     "MultiSelectsAttribute_Items": "数据集合",
     "MultiSelectsAttribute_ButtonTemplate": "扩展按钮模板",
     "MultiSelectsAttribute_ItemTemplate": "选项模板",
+    "MultiSelectsAttribute_IsFixedHeight": "固定组件高度",
     "MultiSelectsEvent_OnSelectedItemsChanged": "下拉框选项改变时触发此事件",
     "MultiSelectsEvent_OnSearchTextChanged": "搜索文本发生变化时回调此方法",
     "MultiSelectAdd": "添加",

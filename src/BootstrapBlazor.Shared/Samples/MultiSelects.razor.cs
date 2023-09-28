@@ -389,6 +389,14 @@ public partial class MultiSelects
             Type = "RenderFragment<SelectedItem>",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "IsFixedHeight",
+            Description = Localizer["MultiSelectsAttribute_IsFixedHeight"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
         }
     };
 }

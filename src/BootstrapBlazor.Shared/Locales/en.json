@@ -2813,6 +2813,7 @@
     "MultiSelectsAttribute_Items": "The data collection",
     "MultiSelectsAttribute_ButtonTemplate": "Extend the button template",
     "MultiSelectsAttribute_ItemTemplate": "The template of selected item",
+    "MultiSelectsAttribute_IsFixedHeight": "Fix the control height",
     "MultiSelectsEvent_OnSelectedItemsChanged": "This event is triggered when the drop-down option changes",
     "MultiSelectsEvent_OnSearchTextChanged": "Call back this method when the search text changes",
     "MultiSelectAdd": "Add",
