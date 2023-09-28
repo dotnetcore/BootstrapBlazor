@@ -159,10 +159,10 @@ public partial class Select<TValue> : ISelect
     public string? DefaultVirtualizeItemText { get; set; }
 
     /// <summary>
-    /// 获得/设置 首次加载时是否触发 OnSelectedItemChanged 回调方法 默认 true
+    /// 获得/设置 禁止首次加载时触发 OnSelectedItemChanged 回调方法 默认 false
     /// </summary>
     [Parameter]
-    public bool TriggerItemChangedFirstRender { get; set; } = true;
+    public bool DisableItemChangedWhenFirstRender { get; set; }
 
     [NotNull]
     private Virtualize<SelectedItem>? VirtualizeElement { get; set; }
@@ -317,7 +317,7 @@ public partial class Select<TValue> : ISelect
                 ?? DataSource.FirstOrDefault()
                 ?? GetVirtualizeItem();
 
-            if (SelectedItem != null && ((_init || TriggerItemChangedFirstRender)))
+            if (SelectedItem != null && ((_init || !DisableItemChangedWhenFirstRender)))
             {
                 _ = SelectedItemChanged(SelectedItem);
             }

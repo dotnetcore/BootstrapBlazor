@@ -230,7 +230,7 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void TriggerItemChangedFirstRender_Ok()
+    public void DisableItemChangedWhenFirstRender_Ok()
     {
         var triggered = false;
 
@@ -248,7 +248,7 @@ public class SelectTest : BootstrapBlazorTestBase
                 triggered = true;
                 return Task.CompletedTask;
             });
-            pb.Add(a => a.TriggerItemChangedFirstRender, false);
+            pb.Add(a => a.DisableItemChangedWhenFirstRender, true);
         });
         Assert.False(triggered);
     }
