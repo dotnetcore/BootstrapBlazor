@@ -1,4 +1,4 @@
-﻿.rate {
+.rate {
     --bb-rate-height: 20px;
     --bb-rate-width: 20px;
     --bb-rate-margin-left: .5rem;
@@ -9,9 +9,8 @@
     --bb-rate-font-size: 1rem;
     --bb-rate-transform: scale(1.15);
     --bb-rate-transition: .3s;
-}
 
-    .rate .rate-item {
+    .rate-item {
         width: var(--bb-rate-width);
         height: var(--bb-rate-height);
         color: var(--bb-rate-color);
@@ -20,33 +19,34 @@
         justify-content: center;
         align-items: center;
         cursor: pointer;
-    }
 
-        .rate .rate-item:not(:last-child) {
+        &:not(:last-child) {
             margin-right: var(--bb-rate-margin-left);
         }
-
-    .rate.readonly .rate-item {
-        cursor: inherit;
     }
 
-    .rate:not(.readonly):not(.disabled) .rate-item i:hover {
-        transform: var(--bb-rate-transform);
-        color: var(--bb-rate-hover-color);
-        transition: var(--bb-rate-transition);
-    }
-
-    .rate.disabled .rate-item i {
-        color: var(--bb-rate-disabled-color);
-    }
-
-    .rate:not(.disabled) .rate-item.is-on i {
-        color: var(--bb-rate-active-color);
-    }
-
-    .rate .rate-mask {
+    .rate-mask {
         color: var(--bb-rate-active-color);
         position: absolute;
         left: 0;
         overflow: hidden;
     }
+}
+
+.rate.readonly .rate-item {
+    cursor: inherit;
+}
+
+.rate:not(.readonly):not(.disabled) .rate-item i:hover {
+    transform: var(--bb-rate-transform);
+    color: var(--bb-rate-hover-color);
+    transition: var(--bb-rate-transition);
+}
+
+.rate.disabled .rate-item i {
+    color: var(--bb-rate-disabled-color);
+}
+
+.rate:not(.disabled) .rate-item.is-on i {
+    color: var(--bb-rate-active-color);
+}
