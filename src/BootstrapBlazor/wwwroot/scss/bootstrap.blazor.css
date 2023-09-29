@@ -4185,7 +4185,6 @@ form .form-control.is-display {
   --bb-rate-transform: scale(1.15);
   --bb-rate-transition: .3s;
 }
-
 .rate .rate-item {
   width: var(--bb-rate-width);
   height: var(--bb-rate-height);
@@ -4196,9 +4195,14 @@ form .form-control.is-display {
   align-items: center;
   cursor: pointer;
 }
-
 .rate .rate-item:not(:last-child) {
   margin-right: var(--bb-rate-margin-left);
+}
+.rate .rate-mask {
+  color: var(--bb-rate-active-color);
+  position: absolute;
+  left: 0;
+  overflow: hidden;
 }
 
 .rate.readonly .rate-item {
@@ -4217,13 +4221,6 @@ form .form-control.is-display {
 
 .rate:not(.disabled) .rate-item.is-on i {
   color: var(--bb-rate-active-color);
-}
-
-.rate .rate-mask {
-  color: var(--bb-rate-active-color);
-  position: absolute;
-  left: 0;
-  overflow: hidden;
 }
 
 #components-reconnect-modal {
