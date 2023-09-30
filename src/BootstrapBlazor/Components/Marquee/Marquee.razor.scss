@@ -1,0 +1,34 @@
+﻿:root {
+    --bb-marquee-background-color: white;
+    --bb-marquee-color: black;
+    --bb-marquee-font-size: 72px;
+    --bb-marquee-duration: 15s;
+}
+
+.bb-marquee {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    background-color: var(--bb-marquee-background-color);
+    color: var(--bb-marquee-color);
+    font-size: var(--bb-marquee-font-size);
+}
+
+.bb-marquee-text {
+    display: inline-block;
+    padding-left: 100%;
+    animation-duration: var(--bb-marquee-duration);
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-name: marquee;
+}
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
