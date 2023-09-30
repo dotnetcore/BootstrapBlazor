@@ -1,9 +1,11 @@
 ﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapModuleComponentBase
 
 @if (!string.IsNullOrEmpty(Text))
 {
-    <div class="bb-marquee">
-        <span class="bb-marquee-text">@Text</span>
+    <div id="@Id"
+         class="bb-marquee" style="background-color:@BackgroundColor;color:@Color;font-size:@($"{FontSize}px")">
+        <span class="bb-marquee-text" style="animation-duration:@($"{Speed}s")">@Text</span>
     </div>
 }
 
@@ -22,15 +24,5 @@
 
     [Parameter]
     public int Speed { get; set; } = 14;
-
-    private string fontSize { get; set; } = string.Empty;
-
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        fontSize = $"{FontSize}px";
-    }
-
 
 }

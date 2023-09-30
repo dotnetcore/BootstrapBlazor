@@ -1,6 +1,71 @@
 ﻿@page "/marquee"
 
 <DemoBlock Title="滚动字幕" Introduction="" Name="Normal">
-    <Marquee FontSize = "72"
-             Text="基于 Bootstrap 样式库精心打造，并且额外增加了 100 多种常用的组件，为您快速开发项目带来非一般的感觉"/>
+    <div class="row g-3 mb-3">
+        <div class="col-12">
+            <h4>Options</h4>
+            <div class="mb-2">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel class="label-width" DisplayText="Speed" />
+                    <Slider @bind-Value="@Speed" Step="1" Min="5" Max="20" />
+                </BootstrapInputGroup>
+            </div>
+            <div class="mb-2">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel class="label-width" DisplayText="Text" />
+                    <BootstrapInput TValue="string" @bind-Value="@Text" />
+                </BootstrapInputGroup>
+            </div>
+            <div class="mb-2">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel class="label-width" DisplayText="FontSize" />
+                    <BootstrapInputNumber TValue="int" @bind-Value="@FontSize" />
+                </BootstrapInputGroup>
+            </div>
+            <div class="mb-2">
+                <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text label-width">TextColor</span>
+                    <div class="pick-radius">
+                        <ColorPicker @bind-Value="@TextColor" />
+                    </div>
+                </div>
+            </div>
+            <div class="mb-2">
+                <div class="input-group input-group-sm mb-3">
+                    <span class="input-group-text label-width">BackgroundColor</span>
+                    <div class="pick-radius">
+                        <ColorPicker @bind-Value="@BackgroundColor" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <Marquee Text="@Text"
+             Speed="@Speed"
+             Color="@TextColor"
+             FontSize="@FontSize"
+             BackgroundColor="@BackgroundColor" />
 </DemoBlock>
+
+<style>
+    .label-width {
+        width: 150px;
+    }
+
+    .pick-radius :first-child {
+        border-radius: 0px;
+    }
+</style>
+
+@code {
+    private string BackgroundColor { get; set; } = "#000000";
+
+    private string TextColor { get; set; } = "#ff0000";
+
+    private string Text { get; set; } = "基于 Bootstrap 样式库精心打造，并且额外增加了 100 多种常用的组件，为您快速开发项目带来非一般的感觉";
+
+    private int FontSize { get; set; } = 72;
+
+    private int Speed { get; set; } = 15;
+}
