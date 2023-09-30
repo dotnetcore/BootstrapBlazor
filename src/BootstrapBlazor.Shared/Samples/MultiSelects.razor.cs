@@ -244,7 +244,7 @@ public partial class MultiSelects
         await Task.Delay(100);
         if (item.Value == "Beijing")
         {
-            Items1 = new List<SelectedItem>(new[]
+            CascadingItems1 = new List<SelectedItem>(new[]
             {
                 new SelectedItem("1","朝阳区") { Active = true },
                 new SelectedItem("2","海淀区")
@@ -252,7 +252,7 @@ public partial class MultiSelects
         }
         else if (item.Value == "Shanghai")
         {
-            Items1 = new List<SelectedItem>(new[]
+            CascadingItems1 = new List<SelectedItem>(new[]
             {
                 new SelectedItem("1","静安区"),
                 new SelectedItem("2","黄浦区") {Active = true },
@@ -260,7 +260,7 @@ public partial class MultiSelects
         }
         else
         {
-            Items1 = new List<SelectedItem>();
+            CascadingItems1 = new List<SelectedItem>();
         }
         StateHasChanged();
     }
@@ -389,6 +389,14 @@ public partial class MultiSelects
             Type = "RenderFragment<SelectedItem>",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "IsFixedHeight",
+            Description = Localizer["MultiSelectsAttribute_IsFixedHeight"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
         }
     };
 }

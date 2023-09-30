@@ -158,6 +158,12 @@ public partial class Select<TValue> : ISelect
     [Parameter]
     public string? DefaultVirtualizeItemText { get; set; }
 
+    /// <summary>
+    /// 获得/设置 禁止首次加载时触发 OnSelectedItemChanged 回调方法 默认 false
+    /// </summary>
+    [Parameter]
+    public bool DisableItemChangedWhenFirstRender { get; set; }
+
     [NotNull]
     private Virtualize<SelectedItem>? VirtualizeElement { get; set; }
 
@@ -178,6 +184,8 @@ public partial class Select<TValue> : ISelect
 
     private string _lastSelectedValueString = string.Empty;
 
+    private bool _init;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -197,6 +205,20 @@ public partial class Select<TValue> : ISelect
         {
             var item = NullableUnderlyingType == null ? "" : PlaceHolder;
             Items = ValueType.ToSelectList(string.IsNullOrEmpty(item) ? null : new SelectedItem("", item));
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        if (firstRender)
+        {
+            _init = true;
         }
     }
 
@@ -295,7 +317,7 @@ public partial class Select<TValue> : ISelect
                 ?? DataSource.FirstOrDefault()
                 ?? GetVirtualizeItem();
 
-            if (SelectedItem != null)
+            if (SelectedItem != null && ((_init || !DisableItemChangedWhenFirstRender)))
             {
                 _ = SelectedItemChanged(SelectedItem);
             }

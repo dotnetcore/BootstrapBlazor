@@ -1,6 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
-@attribute [BootstrapModuleAutoLoader]
+@attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
 @if (Excluded)
 {
@@ -37,7 +37,7 @@ else
                                 }
                                 else
                                 {
-                                    <a href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item)" @onclick="@(() => OnClickTabItem(item))" @onclick:preventDefault="@(!ClickTabToNavigation)">
+                                    <a @key="item" href="@item.Url" role="tab" tabindex="-1" class="@GetClassString(item)" @onclick="@(() => OnClickTabItem(item))" @onclick:preventDefault="@(!ClickTabToNavigation)" draggable="@DraggableString">
                                         @if (!string.IsNullOrEmpty(item.Icon))
                                         {
                                             <i class="@GetIconClassString(item.Icon)"></i>

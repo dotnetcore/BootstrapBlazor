@@ -4643,7 +4643,6 @@ form .form-control.is-display {
   --bb-rate-transform: scale(1.15);
   --bb-rate-transition: .3s;
 }
-
 .rate .rate-item {
   width: var(--bb-rate-width);
   height: var(--bb-rate-height);
@@ -4654,9 +4653,14 @@ form .form-control.is-display {
   align-items: center;
   cursor: pointer;
 }
-
 .rate .rate-item:not(:last-child) {
   margin-right: var(--bb-rate-margin-left);
+}
+.rate .rate-mask {
+  color: var(--bb-rate-active-color);
+  position: absolute;
+  left: 0;
+  overflow: hidden;
 }
 
 .rate.readonly .rate-item {
@@ -4675,13 +4679,6 @@ form .form-control.is-display {
 
 .rate:not(.disabled) .rate-item.is-on i {
   color: var(--bb-rate-active-color);
-}
-
-.rate .rate-mask {
-  color: var(--bb-rate-active-color);
-  position: absolute;
-  left: 0;
-  overflow: hidden;
 }
 
 #components-reconnect-modal {
@@ -5947,7 +5944,6 @@ body:before {
   position: relative;
   height: var(--bb-tabs-item-height);
 }
-
 .tabs-nav-wrap:after {
   content: "";
   height: 2px;
@@ -5957,15 +5953,12 @@ body:before {
   right: 0;
   bottom: 0;
 }
-
 .tabs-nav-wrap > .dropdown-toggle:after {
   display: none;
 }
-
 .tabs-nav-wrap > .dropdown-toggle .dropdown-item {
   transition: background-color 0.3s linear;
 }
-
 .tabs-nav-wrap > .dropdown-toggle .dropdown-item:hover {
   background-color: var(--bb-tabs-item-hover-color);
 }
@@ -6004,19 +5997,16 @@ body:before {
   border: 1px solid var(--bb-tabs-border-color);
   display: none;
 }
-
 .tabs-nav-wrap > .nav-link-bar.left {
   border-width: 0;
   left: 0;
   top: 0;
 }
-
 .tabs-nav-wrap > .nav-link-bar.right {
   border-width: 0;
   right: var(--bb-tabs-bar-width);
   top: 0;
 }
-
 .tabs-nav-wrap > .nav-link-bar.dropdown {
   border-width: 0 0 1px 1px;
   right: 0;
@@ -6084,6 +6074,7 @@ body:before {
 
 .tabs-item .tabs-item-text {
   padding: 0 0.25rem;
+  pointer-events: none;
 }
 
 .tabs-item.is-closeable .tabs-item-text {
@@ -6404,6 +6395,23 @@ body:before {
   min-height: calc(100% + 2rem);
 }
 
+.tab-drag-over {
+  animation: drag-tab-item 1s linear infinite;
+}
+
+.tab-dragging th[draggable] * {
+  pointer-events: none;
+}
+
+.tab-drag {
+  background-color: var(--bs-secondary);
+}
+
+@keyframes drag-tab-item {
+  50% {
+    background-color: var(--bs-primary);
+  }
+}
 .table-container {
   --bb-table-td-padding-x: .5rem;
   --bb-table-td-padding-y: .5rem;

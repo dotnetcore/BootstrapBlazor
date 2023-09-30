@@ -46,10 +46,12 @@ public partial class Tab : IHandlerException
 
     private readonly List<TabItem> _items = new(50);
 
+    private readonly List<TabItem> _draggedItems = new(50);
+
     /// <summary>
     /// 获得/设置 TabItem 集合
     /// </summary>
-    public IEnumerable<TabItem> Items => _items;
+    public List<TabItem> Items => _dragged ? _draggedItems : _items;
 
     /// <summary>
     /// 获得/设置 是否为排除地址 默认为 false
@@ -231,6 +233,18 @@ public partial class Tab : IHandlerException
     [Parameter]
     public IEnumerable<MenuItem>? Menus { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否允许拖放标题栏更改栏位顺序，默认为 false
+    /// </summary>
+    [Parameter]
+    public bool AllowDrag { get; set; }
+
+    /// <summary>
+    /// 获得/设置 拖动标签页结束回调方法
+    /// </summary>
+    [Parameter]
+    public Func<TabItem, Task>? OnDragItemEndAsync { get; set; }
+
     [CascadingParameter]
     private Layout? Layout { get; set; }
 
@@ -261,6 +275,8 @@ public partial class Tab : IHandlerException
     private bool InvokeUpdate { get; set; }
 
     private Placement LastPlacement { get; set; }
+
+    private string? DraggableString => AllowDrag ? "true" : null;
 
     /// <summary>
     /// <inheritdoc/>
@@ -336,6 +352,12 @@ public partial class Tab : IHandlerException
         }
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(DragItemCallback));
+
     private void RemoveLocationChanged()
     {
         if (HandlerNavigation)
@@ -390,7 +412,7 @@ public partial class Tab : IHandlerException
 
         if (!ClickTabToNavigation)
         {
-            _items.ForEach(i => i.SetActive(false));
+            Items.ForEach(i => i.SetActive(false));
             item.SetActive(true);
             InvokeUpdate = true;
             StateHasChanged();
@@ -402,16 +424,16 @@ public partial class Tab : IHandlerException
     /// </summary>
     public Task ClickPrevTab()
     {
-        var item = _items.FirstOrDefault(i => i.IsActive);
+        var item = Items.FirstOrDefault(i => i.IsActive);
         if (item != null)
         {
-            var index = _items.IndexOf(item);
+            var index = Items.IndexOf(item);
             if (index > -1)
             {
                 index--;
                 if (index < 0)
                 {
-                    index = _items.Count - 1;
+                    index = Items.Count - 1;
                 }
 
                 if (!ClickTabToNavigation)
@@ -443,8 +465,8 @@ public partial class Tab : IHandlerException
         var item = Items.FirstOrDefault(i => i.IsActive);
         if (item != null)
         {
-            var index = _items.IndexOf(item);
-            if (index < _items.Count)
+            var index = Items.IndexOf(item);
+            if (index < Items.Count)
             {
                 if (!ClickTabToNavigation)
                 {
@@ -452,7 +474,7 @@ public partial class Tab : IHandlerException
                 }
 
                 index++;
-                if (index + 1 > _items.Count)
+                if (index + 1 > Items.Count)
                 {
                     index = 0;
                 }
@@ -479,7 +501,7 @@ public partial class Tab : IHandlerException
     /// </summary>
     public async Task CloseCurrentTab()
     {
-        var tab = _items.FirstOrDefault(t => t.IsActive);
+        var tab = Items.FirstOrDefault(t => t.IsActive);
         if (tab is { Closable: true })
         {
             await RemoveTab(tab);
@@ -488,13 +510,13 @@ public partial class Tab : IHandlerException
 
     private void OnClickCloseAllTabs()
     {
-        _items.RemoveAll(t => t.Closable);
-        if (_items.Any())
+        Items.RemoveAll(t => t.Closable);
+        if (Items.Any())
         {
-            var activeItem = _items.FirstOrDefault(i => i.IsActive);
+            var activeItem = Items.FirstOrDefault(i => i.IsActive);
             if (activeItem == null)
             {
-                activeItem = _items.First();
+                activeItem = Items.First();
                 activeItem.SetActive(true);
             }
         }
@@ -512,7 +534,7 @@ public partial class Tab : IHandlerException
 
     private void OnClickCloseOtherTabs()
     {
-        _items.RemoveAll(t => t is { Closable: true, IsActive: false });
+        Items.RemoveAll(t => t is { Closable: true, IsActive: false });
         InvokeUpdate = true;
     }
 
@@ -529,7 +551,7 @@ public partial class Tab : IHandlerException
     /// 添加 TabItem 方法 由 TabItem 方法加载时调用
     /// </summary>
     /// <param name="item">TabItemBase 实例</param>
-    internal void AddItem(TabItem item) => _items.Add(item);
+    internal void AddItem(TabItem item) => Items.Add(item);
 
     /// <summary>
     /// 通过 Url 添加 TabItem 标签方法
@@ -632,16 +654,16 @@ public partial class Tab : IHandlerException
         item.TabSet = this;
         if (item.IsActive)
         {
-            _items.ForEach(i => i.SetActive(false));
+            Items.ForEach(i => i.SetActive(false));
         }
 
         if (index.HasValue)
         {
-            _items.Insert(index.Value, item);
+            Items.Insert(index.Value, item);
         }
         else
         {
-            _items.Add(item);
+            Items.Add(item);
         }
     }
 
@@ -656,14 +678,14 @@ public partial class Tab : IHandlerException
             return;
         }
 
-        var index = _items.IndexOf(item);
-        _items.Remove(item);
+        var index = Items.IndexOf(item);
+        Items.Remove(item);
         InvokeUpdate = true;
 
         // 删除的 TabItem 是当前 Tab
         // 查找后面的 Tab
-        var activeItem = _items.FirstOrDefault(i => i.IsActive)
-                         ?? (index < _items.Count ? _items[index] : _items.LastOrDefault());
+        var activeItem = Items.Find(i => i.IsActive)
+                         ?? (index < Items.Count ? Items[index] : Items.LastOrDefault());
         if (activeItem != null)
         {
             if (ClickTabToNavigation)
@@ -700,7 +722,7 @@ public partial class Tab : IHandlerException
     /// <param name="index"></param>
     public void ActiveTab(int index)
     {
-        var item = _items.ElementAtOrDefault(index);
+        var item = Items.ElementAtOrDefault(index);
         if (item != null)
         {
             ActiveTab(item);
@@ -711,11 +733,11 @@ public partial class Tab : IHandlerException
     /// 获得当前活动 Tab
     /// </summary>
     /// <returns></returns>
-    public TabItem? GetActiveTab() => _items.FirstOrDefault(s => s.IsActive);
+    public TabItem? GetActiveTab() => Items.FirstOrDefault(s => s.IsActive);
 
     private void ActiveTabItem(TabItem item)
     {
-        _items.ForEach(i => i.SetActive(false));
+        Items.ForEach(i => i.SetActive(false));
         item.SetActive(true);
     }
 
@@ -755,6 +777,37 @@ public partial class Tab : IHandlerException
     {
         _menuItems ??= (Menus ?? Layout?.Menus).GetAllItems();
         return _menuItems?.FirstOrDefault(i => !string.IsNullOrEmpty(i.Url) && (i.Url.TrimStart('/').Equals(url.TrimStart('/'), StringComparison.OrdinalIgnoreCase)));
+    }
+
+    private bool _dragged;
+    /// <summary>
+    /// 拖动 TabItem 回调方法有 JS 调用
+    /// </summary>
+    /// <param name="originIndex"></param>
+    /// <param name="currentIndex"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task DragItemCallback(int originIndex, int currentIndex)
+    {
+        var firstColumn = Items.ElementAtOrDefault(originIndex);
+        var targetColumn = Items.ElementAtOrDefault(currentIndex);
+        if (firstColumn != null && targetColumn != null)
+        {
+            if(_draggedItems.Count == 0)
+            {
+                _draggedItems.AddRange(_items);
+            }
+            _draggedItems.Remove(firstColumn);
+            _draggedItems.Insert(currentIndex, firstColumn);
+            _dragged = true;
+
+            if (OnDragItemEndAsync != null)
+            {
+                await OnDragItemEndAsync(firstColumn);
+            }
+            InvokeUpdate = true;
+            StateHasChanged();
+        }
     }
 
     /// <summary>
