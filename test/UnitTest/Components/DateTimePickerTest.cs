@@ -694,7 +694,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         DateTime val = DateTime.MinValue;
         var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder =>
         {
-            builder.Add(a => a.Value, DateTime.Today);
+            builder.Add(a => a.Value, DateTime.Today.AddDays(-10));
             builder.Add(a => a.AutoClose, false);
             builder.Add(a => a.OnValueChanged, dt =>
             {
@@ -702,17 +702,18 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
+        var input = cut.Find(".datetime-picker-input");
+        Assert.Equal($"{DateTime.Today.AddDays(-10):yyyy-MM-dd}", input.GetAttribute("value"));
 
+        // 点击当前日期不触发 OnValueChanged
         var button = cut.Find(".picker-panel-content .cell");
         await cut.InvokeAsync(() => button.Click());
-
         Assert.Equal(val, DateTime.MinValue);
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.AutoClose, true);
         });
-        button = cut.Find(".picker-panel-content .cell");
         await cut.InvokeAsync(() => button.Click());
         Assert.NotEqual(val, DateTime.MinValue);
     }
