@@ -191,7 +191,7 @@ public partial class DateTimePicker<TValue>
         }
 
         // 泛型设置为可为空
-        AllowNull = Nullable.GetUnderlyingType(type) != null;
+        AllowNull = NullableUnderlyingType != null;
 
         // Value 为 MinValue 时 设置 Value 默认值
         if (Value == null)
