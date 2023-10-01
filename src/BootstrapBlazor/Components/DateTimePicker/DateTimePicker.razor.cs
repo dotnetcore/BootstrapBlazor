@@ -210,6 +210,7 @@ public partial class DateTimePicker<TValue>
             SelectedValue = ViewMode == DatePickerViewMode.DateTime
                 ? DateTime.Now
                 : DateTime.Today;
+            Value = GetValue();
         }
     }
 
@@ -241,9 +242,19 @@ public partial class DateTimePicker<TValue>
     /// </summary>
     private async Task OnConfirm()
     {
+        CurrentValue = GetValue();
+
+        if (AutoClose)
+        {
+            await InvokeVoidAsync("hide", Id);
+        }
+    }
+
+    private TValue? GetValue()
+    {
+        TValue? ret = default;
         if (SelectedValue == DateTime.MinValue)
         {
-            CurrentValue = default;
             if (AutoToday)
             {
                 SelectedValue = DateTime.Today;
@@ -251,17 +262,13 @@ public partial class DateTimePicker<TValue>
         }
         else if (ValueType == typeof(DateTime))
         {
-            CurrentValue = (TValue)(object)SelectedValue;
+            ret = (TValue)(object)SelectedValue;
         }
         else if (ValueType == typeof(DateTimeOffset))
         {
             DateTimeOffset d = new DateTimeOffset(SelectedValue);
-            CurrentValue = (TValue)(object)d;
+            ret = (TValue)(object)d;
         }
-
-        if (AutoClose)
-        {
-            await InvokeVoidAsync("hide", Id);
-        }
+        return ret;
     }
 }
