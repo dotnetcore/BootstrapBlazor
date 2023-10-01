@@ -10,7 +10,6 @@ export function init(id) {
 
     const dismissSelector = el.getAttribute("data-bb-dismiss")
     const popover = Popover.init(el, {
-        autoClose: el.getAttribute('data-bb-auto-close'),
         dropdownSelector: el.getAttribute('data-bb-dropdown'),
         isDisabled: () => {
             return el.classList.contains('disabled');

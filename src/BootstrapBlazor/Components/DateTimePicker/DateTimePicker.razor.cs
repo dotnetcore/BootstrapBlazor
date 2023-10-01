@@ -36,8 +36,6 @@ public partial class DateTimePicker<TValue>
 
     private string? TabIndexString => ValidateForm != null ? "0" : null;
 
-    private string? AutoCloseString => AutoClose ? "true" : null;
-
     /// <summary>
     /// 获得 Placeholder 显示字符串
     /// </summary>
