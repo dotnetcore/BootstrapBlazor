@@ -28,6 +28,8 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             pb.Add(a => a.Value, DateTime.MinValue);
         });
         Assert.Equal(DateTime.Today, cut.Instance.Value);
+        var input = cut.Find(".datetime-picker-input");
+        Assert.Equal($"{DateTime.Today:yyyy-MM-dd}", input.GetAttribute("value"));
 
         cut.SetParametersAndRender(pb =>
         {
@@ -92,12 +94,12 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Format_OK()
+    public void DateTimeFormat_OK()
     {
         var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder =>
         {
             builder.Add(a => a.Value, DateTime.Now);
-            builder.Add(a => a.Format, "yyyy/MM/dd");
+            builder.Add(a => a.DateTimeFormat, "yyyy/MM/dd");
         });
 
         var value = cut.Find(".datetime-picker-input").GetAttribute("value");
@@ -244,7 +246,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
         {
-            pb.Add(a => a.Format, "yyyy-MM-dd HH:mm:ss");
+            pb.Add(a => a.DateTimeFormat, "yyyy-MM-dd HH:mm:ss");
         });
 
         var body = cut.FindComponent<DatePickerBody>();
