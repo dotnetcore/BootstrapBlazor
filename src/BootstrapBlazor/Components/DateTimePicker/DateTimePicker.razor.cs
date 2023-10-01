@@ -251,11 +251,11 @@ public partial class DateTimePicker<TValue>
                 SelectedValue = DateTime.Today;
             }
         }
-        else if (NullableUnderlyingType == typeof(DateTime))
+        else if (ValueType == typeof(DateTime))
         {
             CurrentValue = (TValue)(object)SelectedValue;
         }
-        else if (NullableUnderlyingType == typeof(DateTimeOffset))
+        else if (ValueType == typeof(DateTimeOffset))
         {
             DateTimeOffset d = new DateTimeOffset(SelectedValue);
             CurrentValue = (TValue)(object)d;
