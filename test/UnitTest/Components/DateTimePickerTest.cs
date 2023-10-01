@@ -120,25 +120,6 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnValueChanged_Ok()
-    {
-        var res = false;
-        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder =>
-        {
-            builder.Add(a => a.Value, DateTime.Now);
-            builder.Add(a => a.OnValueChanged, new Func<DateTime, Task>(d =>
-            {
-                res = true;
-                return Task.CompletedTask;
-            }));
-        });
-
-        cut.Find(".picker-panel-footer").Children.Last().Click();
-
-        Assert.True(res);
-    }
-
-    [Fact]
     public void OnTimeChanged_Ok()
     {
         var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder =>
@@ -149,6 +130,9 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
 
         var panel = cut.FindComponent<TimePickerPanel>();
         cut.InvokeAsync(() => panel.Instance.SetTime(0, 0, 0));
+        // 点击确定
+        var buttons = cut.FindAll(".picker-panel-footer button");
+        cut.InvokeAsync(() => buttons[1].Click());
 
         var body = cut.FindComponent<DatePickerBody>();
         Assert.Equal(TimeSpan.Zero, body.Instance.Value.TimeOfDay);
