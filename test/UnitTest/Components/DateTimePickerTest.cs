@@ -447,7 +447,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         {
             builder.Add(a => a.Value, DateTime.Now);
             builder.Add(a => a.ShowFooter, true);
-            builder.Add(a => a.AllowNull, true);
+            builder.Add(a => a.ShowClearButton, true);
         });
 
         var ele = cut.Find(".picker-panel-footer");
@@ -459,14 +459,15 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => buttons[1].Click());
         Assert.Equal(DateTime.Today, cut.Instance.Value.Date);
 
+        // Click Clear Button
         cut.InvokeAsync(() => buttons[0].Click());
-        Assert.Equal(DateTime.Today, cut.Instance.Value);
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value);
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowFooter, false);
         });
-        cut.InvokeAsync(() => cut.Find(".current.today .cell").Click());
+        cut.DoesNotContain("picker-panel-footer");
     }
 
     [Fact]
