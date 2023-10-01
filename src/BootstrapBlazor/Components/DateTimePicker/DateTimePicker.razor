@@ -10,7 +10,7 @@
 <div @attributes="@AdditionalAttributes" tabindex="@TabIndexString" id="@Id" class="@ClassString" data-bb-dropdown=".picker-panel" data-bb-dismiss=".picker-panel-link-btn">
     <input readonly class="@InputClassName" value="@CurrentValueAsString" placeholder="@PlaceholderString" disabled="@Disabled" data-bs-toggle="@Constants.DropdownToggleString" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString" />
     <i class="@DateTimePickerIconClassString"></i>
-    <DatePickerBody @bind-Value="SelectedValue" AllowNull="AllowNull" ShowSidebar="ShowSidebar" SidebarTemplate="SidebarTemplate"
+    <DatePickerBody @bind-Value="SelectedValue" ShowClearButton="AllowNull" ShowSidebar="ShowSidebar" SidebarTemplate="SidebarTemplate"
                     DateTimeFormat="@DateTimeFormat" DateFormat="@DateFormat" TimeFormat="@TimeFormat" ShowFooter="true"
                     OnConfirm="OnConfirm" MinValue="MinValue" MaxValue="MaxValue"
                     AutoClose="AutoClose" ViewMode="ViewMode">

@@ -218,7 +218,19 @@ public partial class DatePickerBody
     /// 获得/设置 是否允许为空 默认 false 不允许为空
     /// </summary>
     [Parameter]
-    public bool AllowNull { get; set; }
+    [Obsolete("已过期，请使用 ShowClearButton 代替 Please use ShowClearButton")]
+    [ExcludeFromCodeCoverage]
+    public bool AllowNull
+    {
+        get => ShowClearButton;
+        set => ShowClearButton = value;
+    }
+
+    /// <summary>
+    /// 获得/设置 是否显示 Clear 按钮 默认 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowClearButton { get; set; }
 
     /// <summary>
     /// 获得/设置 点击日期时是否自动关闭弹窗 默认 false
