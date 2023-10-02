@@ -58,8 +58,8 @@ public partial class DateTimePicker<TValue>
     [ExcludeFromCodeCoverage]
     public string? Format
     {
-        get => DateTimeFormat;
-        set => DateTimeFormat = value;
+        get => DateFormat;
+        set => DateFormat = value;
     }
 
     /// <summary>
