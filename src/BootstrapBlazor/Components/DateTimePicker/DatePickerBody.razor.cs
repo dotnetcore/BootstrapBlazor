@@ -245,6 +245,12 @@ public partial class DatePickerBody
     public Func<Task>? OnConfirm { get; set; }
 
     /// <summary>
+    /// 获得/设置 清空按钮回调委托
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnClear { get; set; }
+
+    /// <summary>
     /// 获得/设置 清空按钮文字
     /// </summary>
     [Parameter]
@@ -690,7 +696,13 @@ public partial class DatePickerBody
         CurrentDate = DateTime.MinValue;
         CurrentTime = TimeSpan.Zero;
 
-        await ClickConfirmButton();
+        Value = CurrentDate + CurrentTime;
+        await OnValueChanged();
+
+        if (OnClear != null)
+        {
+            await OnClear();
+        }
     }
 
     private async Task OnClickSidebarButton(DateTime d)

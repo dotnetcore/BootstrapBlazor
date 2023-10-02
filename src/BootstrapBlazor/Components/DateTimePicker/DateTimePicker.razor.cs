@@ -250,6 +250,16 @@ public partial class DateTimePicker<TValue>
         }
     }
 
+    private async Task OnClear()
+    {
+        CurrentValue = default;
+
+        if (AutoClose)
+        {
+            await InvokeVoidAsync("hide", Id);
+        }
+    }
+
     private TValue? GetValue()
     {
         TValue? ret = default;
