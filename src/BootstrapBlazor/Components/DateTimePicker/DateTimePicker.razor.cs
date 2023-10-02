@@ -229,9 +229,10 @@ public partial class DateTimePicker<TValue>
         {
             d = v2.DateTime;
         }
-        if (d.HasValue && d.Value != DateTime.MinValue)
+        if (d.HasValue)
         {
             var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
+            d = (AutoToday && d.Value == DateTime.MinValue) ? DateTime.Today : d.Value;
             ret = d.Value.ToString(format);
         }
         return ret;
@@ -270,7 +271,8 @@ public partial class DateTimePicker<TValue>
                 SelectedValue = DateTime.Today;
             }
         }
-        else if (ValueType == typeof(DateTime))
+
+        if (ValueType == typeof(DateTime))
         {
             ret = (TValue)(object)SelectedValue;
         }
