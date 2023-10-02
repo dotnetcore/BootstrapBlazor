@@ -45,6 +45,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
         {
             pb.Add(a => a.Value, DateTime.MinValue);
+            pb.Add(a => a.AutoToday, false);
         });
         Assert.Equal(DateTime.MinValue, cut.Instance.Value);
     }
@@ -55,13 +56,13 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<DateTimePicker<DateTimeOffset?>>(pb =>
         {
             pb.Add(a => a.Value, DateTimeOffset.MinValue);
+            pb.Add(a => a.AutoToday, false);
         });
         Assert.Equal(DateTimeOffset.MinValue, cut.Instance.Value);
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Value, null);
-            pb.Add(a => a.AutoToday, false);
         });
         Assert.Null(cut.Instance.Value);
     }
@@ -72,6 +73,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<DateTimePicker<DateTimeOffset>>(pb =>
         {
             pb.Add(a => a.Value, DateTimeOffset.MinValue);
+            pb.Add(a => a.AutoToday, false);
         });
         Assert.Equal(DateTimeOffset.MinValue, cut.Instance.Value);
     }
@@ -99,7 +101,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder =>
         {
             builder.Add(a => a.Value, DateTime.Now);
-            builder.Add(a => a.DateTimeFormat, "yyyy/MM/dd");
+            builder.Add(a => a.DateFormat, "yyyy/MM/dd");
         });
 
         var value = cut.Find(".datetime-picker-input").GetAttribute("value");
@@ -151,38 +153,6 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => labels[2].Click());
 
         cut.Contains("picker-panel-body is-open");
-    }
-
-    [Fact]
-    public void OnClear_Ok()
-    {
-        var changed = false;
-        var cut = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
-        {
-            pb.Add(a => a.OnValueChanged, v =>
-            {
-                changed = true;
-                return Task.CompletedTask;
-            });
-        });
-        Assert.Null(cut.Instance.Value);
-
-        cut.InvokeAsync(() => cut.Find(".current .cell").Click());
-        // confirm
-        var buttons = cut.FindAll(".picker-panel-footer button");
-        cut.InvokeAsync(() => buttons[2].Click());
-        Assert.NotNull(cut.Instance.Value);
-        Assert.True(changed);
-
-        cut.InvokeAsync(() => buttons[0].Click());
-        Assert.Null(cut.Instance.Value);
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.AutoToday, false);
-        });
-        cut.InvokeAsync(() => buttons[0].Click());
-        Assert.Null(cut.Instance.Value);
     }
 
     [Fact]

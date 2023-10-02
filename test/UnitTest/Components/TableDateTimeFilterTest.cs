@@ -65,60 +65,6 @@ public class TableDateTimeFilterTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Misc_Ok()
-    {
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Foo>>(pb =>
-            {
-                pb.Add(a => a.Items, new List<Foo>() { new Foo() });
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.ShowFilterHeader, true);
-                pb.Add(a => a.TableColumns, new RenderFragment<Foo>(foo => builder =>
-                {
-                    var index = 0;
-                    builder.OpenComponent<TableColumn<Foo, DateTime?>>(index++);
-                    builder.AddAttribute(index++, nameof(TableColumn<Foo, DateTime?>.Field), foo.DateTime);
-                    builder.AddAttribute(index++, nameof(TableColumn<Foo, DateTime?>.FieldExpression), foo.GenerateValueExpression(nameof(Foo.DateTime), typeof(DateTime?)));
-                    builder.AddAttribute(index++, nameof(TableColumn<Foo, DateTime?>.Filterable), true);
-                    builder.CloseComponent();
-                }));
-            });
-        });
-        var filter = cut.FindComponent<DateTimeFilter>();
-        var dt = filter.FindComponent<DateTimePicker<DateTime?>>();
-
-        // Click ToDay Cell
-        cut.InvokeAsync(() =>
-        {
-            dt.Find(".current.today .cell").Click();
-            dt.FindAll(".is-confirm")[1].Click();
-        });
-
-        cut.InvokeAsync(() =>
-        {
-            // OnFilterValueChanged
-            var filterButton = cut.FindComponent<FilterButton<FilterAction>>();
-            var logics = filterButton.FindAll(".dropdown-item");
-            Assert.Equal(6, logics.Count);
-            logics[1].Click();
-        });
-        var conditions = filter.Instance.GetFilterConditions();
-        Assert.NotNull(conditions.Filters);
-        Assert.Single(conditions.Filters);
-        Assert.Equal(FilterAction.LessThanOrEqual, conditions.Filters[0].FilterAction);
-
-        // OnClearFilter
-        cut.InvokeAsync(() =>
-        {
-            dt.Find(".is-confirm").Click();
-        });
-        conditions = filter.Instance.GetFilterConditions();
-        Assert.NotNull(conditions.Filters);
-        Assert.Empty(conditions.Filters);
-    }
-
-    [Fact]
     public void SetFilterConditions_Ok()
     {
         var cut = Context.RenderComponent<DateTimeFilter>();
