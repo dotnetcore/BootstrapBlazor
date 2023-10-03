@@ -17,10 +17,10 @@ public class GroupTest
 
         var items = new List<MockTableColumn>(50)
         {
-            new MockTableColumn("Test1", typeof(string)) { GroupName = "Test1", GroupOrder = 2, Order = 2  },
-            new MockTableColumn("Test2", typeof(string)) { GroupName = "Test1", GroupOrder = 2, Order = 1  },
-            new MockTableColumn("Test3", typeof(string)) { GroupName = "Test2", GroupOrder = 1, Order = 2  },
-            new MockTableColumn("Test4", typeof(string)) { GroupName = "Test2", GroupOrder = 1, Order = 1 }
+            new("Test1", typeof(string)) { GroupName = "Test1", GroupOrder = 2, Order = 2  },
+            new("Test2", typeof(string)) { GroupName = "Test1", GroupOrder = 2, Order = 1  },
+            new("Test3", typeof(string)) { GroupName = "Test2", GroupOrder = 1, Order = 2  },
+            new("Test4", typeof(string)) { GroupName = "Test2", GroupOrder = 1, Order = 1 }
         };
         var groups = items.GroupBy(i => i.GroupOrder).OrderBy(i => i.Key).Select(i => new { i.Key, Items = i.OrderBy(x => x.Order) });
         foreach (var g in groups)
@@ -40,8 +40,8 @@ public class GroupTest
     [Fact]
     public void OrderBy_Ok()
     {
-        var items = new List<int> { 0, -1, 1 };
+        var items = new List<int> { 0, -1, 1, -4 };
         var actual = items.OrderByDescending(i => i);
-        Assert.Equal("1, 0, -1", string.Join(", ", actual));
+        Assert.Equal("1, 0, -1, -4", string.Join(", ", actual));
     }
 }
