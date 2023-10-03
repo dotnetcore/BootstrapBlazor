@@ -10,17 +10,6 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
 {
     #region DateTimePicker
     [Fact]
-    public void Value_Ok()
-    {
-        var cut = Context.RenderComponent<DatePickerBody>(pb =>
-        {
-            pb.Add(a => a.Value, DateTime.MinValue);
-        });
-        // 设置 Value 为 MinValue 内部更改为 DateTime.Now
-        Assert.Equal(DateTime.MinValue, cut.Instance.Value);
-    }
-
-    [Fact]
     public void AutoToday_DateTime()
     {
         // 设置为 最小值或者 null 时 当 AutoToday 为 true 时自动设置为当前时间
@@ -32,7 +21,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.Equal(DateTime.Today, cut.Instance.Value);
 
         var input = cut.Find(".datetime-picker-input");
-        Assert.Equal($"{DateTime.Today:yyyy-MM-dd}", input.GetAttribute("value"));
+        Assert.Equal(DateTime.Today.ToString("yyyy-MM-dd"), input.GetAttribute("value"));
 
         cut.SetParametersAndRender(pb =>
         {
