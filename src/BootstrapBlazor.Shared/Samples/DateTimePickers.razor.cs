@@ -84,13 +84,13 @@ public sealed partial class DateTimePickers
     /// <returns></returns>
     private IEnumerable<EventItem> GetEvents() => new EventItem[]
     {
-        new EventItem()
+        new()
         {
             Name = "OnClickConfirm",
             Description = Localizer["Event1"],
             Type ="Action"
         },
-        new EventItem()
+        new()
         {
             Name = "ValueChanged",
             Description = Localizer["Event2"],
