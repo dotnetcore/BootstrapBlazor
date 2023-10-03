@@ -36,4 +36,12 @@ public class GroupTest
         var actual = string.Join(",", results);
         Assert.Equal(expected, actual);
     }
+
+    [Fact]
+    public void OrderBy_Ok()
+    {
+        var items = new List<int> { 0, -1, 1 };
+        var actual = items.OrderByDescending(i => i);
+        Assert.Equal("1, 0, -1", string.Join(", ", actual));
+    }
 }
