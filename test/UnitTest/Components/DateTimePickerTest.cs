@@ -54,7 +54,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         });
         Assert.Equal(DateTime.Today, cut.Instance.Value);
         input = cut.Find(".datetime-picker-input");
-        Assert.Equal($"{DateTimeOffset.Now:yyyy-MM-dd}", input.GetAttribute("value"));
+        Assert.Equal($"{DateTime.Now:yyyy-MM-dd}", input.GetAttribute("value"));
 
         cut.SetParametersAndRender(pb =>
         {
