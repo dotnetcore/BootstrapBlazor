@@ -4,10 +4,10 @@
 
 namespace UnitTest.Components;
 
-public class ReponsiveTest : BootstrapBlazorTestBase
+public class ResponsiveTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void Resposive_Ok()
+    public void Responsive_Ok()
     {
         BreakPoint? point = null;
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
