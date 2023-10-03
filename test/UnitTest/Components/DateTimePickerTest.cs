@@ -49,6 +49,15 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
 
         cut.SetParametersAndRender(pb =>
         {
+            pb.Add(a => a.AutoToday, true);
+            pb.Add(a => a.Value, DateTime.MinValue);
+        });
+        Assert.Equal(DateTime.Today, cut.Instance.Value);
+        input = cut.Find(".datetime-picker-input");
+        Assert.Equal($"{DateTimeOffset.Now:yyyy-MM-dd}", input.GetAttribute("value"));
+
+        cut.SetParametersAndRender(pb =>
+        {
             pb.Add(a => a.AutoToday, false);
             pb.Add(a => a.Value, null);
         });
@@ -56,6 +65,15 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
 
         input = cut.Find(".datetime-picker-input");
         Assert.Equal("", input.GetAttribute("value"));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.AutoToday, false);
+            pb.Add(a => a.Value, DateTime.MinValue);
+        });
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value);
+        input = cut.Find(".datetime-picker-input");
+        Assert.Equal($"{DateTime.MinValue:yyyy-MM-dd}", input.GetAttribute("value"));
     }
 
     [Fact]
@@ -98,12 +116,30 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
 
         cut.SetParametersAndRender(pb =>
         {
+            pb.Add(a => a.AutoToday, true);
+            pb.Add(a => a.Value, DateTimeOffset.MinValue);
+        });
+        Assert.Equal(new DateTimeOffset(DateTime.Today), cut.Instance.Value);
+        input = cut.Find(".datetime-picker-input");
+        Assert.Equal($"{DateTimeOffset.Now:yyyy-MM-dd}", input.GetAttribute("value"));
+
+        cut.SetParametersAndRender(pb =>
+        {
             pb.Add(a => a.AutoToday, false);
             pb.Add(a => a.Value, null);
         });
         Assert.Null(cut.Instance.Value);
         input = cut.Find(".datetime-picker-input");
         Assert.Equal("", input.GetAttribute("value"));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.AutoToday, false);
+            pb.Add(a => a.Value, DateTimeOffset.MinValue);
+        });
+        Assert.Equal(DateTimeOffset.MinValue, cut.Instance.Value);
+        input = cut.Find(".datetime-picker-input");
+        Assert.Equal($"{DateTimeOffset.MinValue:yyyy-MM-dd}", input.GetAttribute("value"));
     }
 
     [Fact]
