@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// BreakPoint 枚举
 /// </summary>
 [JsonConverter(typeof(JsonStringEnumConverter))]
 public enum BreakPoint
