@@ -27,10 +27,21 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.AutoToday, false);
             pb.Add(a => a.Value, DateTime.MinValue);
+            pb.Add(a => a.DisplayMinValueAsEmpty, false);
         });
         Assert.Equal(DateTime.MinValue, cut.Instance.Value);
         input = cut.Find(".datetime-picker-input");
         Assert.Equal(DateTime.MinValue.ToString("yyyy-MM-dd"), input.GetAttribute("value"));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.AutoToday, false);
+            pb.Add(a => a.Value, DateTime.MinValue);
+            pb.Add(a => a.DisplayMinValueAsEmpty, true);
+        });
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value);
+        input = cut.Find(".datetime-picker-input");
+        Assert.Equal("", input.GetAttribute("value"));
     }
 
     [Fact]
@@ -60,6 +71,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.AutoToday, false);
             pb.Add(a => a.Value, null);
+            pb.Add(a => a.DisplayMinValueAsEmpty, false);
         });
         Assert.Null(cut.Instance.Value);
 
@@ -70,10 +82,31 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.AutoToday, false);
             pb.Add(a => a.Value, DateTime.MinValue);
+            pb.Add(a => a.DisplayMinValueAsEmpty, false);
         });
         Assert.Equal(DateTime.MinValue, cut.Instance.Value);
         input = cut.Find(".datetime-picker-input");
         Assert.Equal($"{DateTime.MinValue:yyyy-MM-dd}", input.GetAttribute("value"));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.AutoToday, false);
+            pb.Add(a => a.Value, null);
+            pb.Add(a => a.DisplayMinValueAsEmpty, true);
+        });
+        Assert.Null(cut.Instance.Value);
+        input = cut.Find(".datetime-picker-input");
+        Assert.Equal("", input.GetAttribute("value"));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.AutoToday, false);
+            pb.Add(a => a.Value, DateTime.MinValue);
+            pb.Add(a => a.DisplayMinValueAsEmpty, true);
+        });
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value);
+        input = cut.Find(".datetime-picker-input");
+        Assert.Equal("", input.GetAttribute("value"));
     }
 
     [Fact]
@@ -94,10 +127,21 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.AutoToday, false);
             pb.Add(a => a.Value, DateTimeOffset.MinValue);
+            pb.Add(a => a.DisplayMinValueAsEmpty, false);
         });
         Assert.Equal(DateTimeOffset.MinValue, cut.Instance.Value);
         input = cut.Find(".datetime-picker-input");
         Assert.Equal(DateTimeOffset.MinValue.ToString("yyyy-MM-dd"), input.GetAttribute("value"));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.AutoToday, false);
+            pb.Add(a => a.Value, DateTimeOffset.MinValue);
+            pb.Add(a => a.DisplayMinValueAsEmpty, true);
+        });
+        Assert.Equal(DateTimeOffset.MinValue, cut.Instance.Value);
+        input = cut.Find(".datetime-picker-input");
+        Assert.Equal("", input.GetAttribute("value"));
     }
 
     [Fact]
@@ -127,6 +171,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.AutoToday, false);
             pb.Add(a => a.Value, null);
+            pb.Add(a => a.DisplayMinValueAsEmpty, false);
         });
         Assert.Null(cut.Instance.Value);
         input = cut.Find(".datetime-picker-input");
@@ -136,10 +181,32 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.AutoToday, false);
             pb.Add(a => a.Value, DateTimeOffset.MinValue);
+            pb.Add(a => a.DisplayMinValueAsEmpty, false);
         });
         Assert.Equal(DateTimeOffset.MinValue, cut.Instance.Value);
         input = cut.Find(".datetime-picker-input");
         Assert.Equal($"{DateTimeOffset.MinValue:yyyy-MM-dd}", input.GetAttribute("value"));
+
+        // 设置 DisplayMinValueAsEmpty true
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.AutoToday, false);
+            pb.Add(a => a.Value, null);
+            pb.Add(a => a.DisplayMinValueAsEmpty, true);
+        });
+        Assert.Null(cut.Instance.Value);
+        input = cut.Find(".datetime-picker-input");
+        Assert.Equal("", input.GetAttribute("value"));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.AutoToday, false);
+            pb.Add(a => a.Value, DateTimeOffset.MinValue);
+            pb.Add(a => a.DisplayMinValueAsEmpty, true);
+        });
+        Assert.Equal(DateTimeOffset.MinValue, cut.Instance.Value);
+        input = cut.Find(".datetime-picker-input");
+        Assert.Equal("", input.GetAttribute("value"));
     }
 
     [Fact]
@@ -148,6 +215,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
         {
             pb.Add(a => a.AutoToday, false);
+            pb.Add(a => a.DisplayMinValueAsEmpty, false);
             pb.Add(a => a.Value, null);
         });
 
@@ -160,6 +228,24 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
 
         // 点击清空按钮
         var clear = cut.Find(".picker-panel-footer button");
+        cut.InvokeAsync(() => clear.Click());
+
+        // 文本框内容 为 ""
+        input = cut.Find(".datetime-picker-input");
+        Assert.Equal("", input.GetAttribute("value"));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.DisplayMinValueAsEmpty, true);
+        });
+        cell = cut.Find(".current .cell");
+        cut.InvokeAsync(() => cell.Click());
+        // 文本框内容
+        input = cut.Find(".datetime-picker-input");
+        Assert.Equal($"", input.GetAttribute("value"));
+
+        // 点击清空按钮
+        clear = cut.Find(".picker-panel-footer button");
         cut.InvokeAsync(() => clear.Click());
 
         // 文本框内容 为 ""
