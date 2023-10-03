@@ -2509,6 +2509,7 @@ public class TableTest : TableTestBase
     [Fact]
     public void ScrollMode_Query_Ok()
     {
+        var isVirtual = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -2517,7 +2518,17 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ScrollMode, ScrollMode.Virtual);
                 pb.Add(a => a.ShowLineNo, true);
-                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.OnQueryAsync, option =>
+                {
+                    isVirtual = option.IsVirtualScroll;
+                    var items = Foo.GenerateFoo(localizer, 5);
+                    var ret = new QueryData<Foo>()
+                    {
+                        Items = items,
+                        TotalCount = 5
+                    };
+                    return Task.FromResult(ret);
+                });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -2549,6 +2560,8 @@ public class TableTest : TableTestBase
             var th = ths[1];
             th.Click();
         });
+
+        Assert.True(isVirtual);
     }
 
     [Theory]
