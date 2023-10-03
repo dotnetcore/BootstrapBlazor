@@ -2560,8 +2560,48 @@ public class TableTest : TableTestBase
             var th = ths[1];
             th.Click();
         });
-
         Assert.True(isVirtual);
+    }
+
+    [Fact]
+    public void RenderPlaceHolderRow_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ScrollMode, ScrollMode.Virtual);
+                pb.Add(a => a.ShowLineNo, true);
+                pb.Add(a => a.OnQueryAsync, option =>
+                {
+                    var items = Foo.GenerateFoo(localizer, 8).Skip(option.StartIndex).Take(option.PageItems);
+                    var ret = new QueryData<Foo>()
+                    {
+                        Items = items,
+                        TotalCount = option.PageItems
+                    };
+                    return Task.FromResult(ret);
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Sortable", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+        cut.Contains("table-cell is-ph");
+
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowExtendButtons, true);
+        });
+        cut.Contains("table-cell is-ph");
     }
 
     [Theory]
