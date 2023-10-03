@@ -134,6 +134,12 @@ public partial class DateTimePicker<TValue>
     public bool AutoToday { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否将 <see cref="DateTime.MinValue"/> 显示为空字符串 默认 true
+    /// </summary>
+    [Parameter]
+    public bool DisplayMinValueAsEmpty { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 子组件模板
     /// </summary>
     [Parameter]
@@ -231,9 +237,20 @@ public partial class DateTimePicker<TValue>
         }
         if (d.HasValue)
         {
-            var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
-            d = (AutoToday && d.Value == DateTime.MinValue) ? DateTime.Today : d.Value;
-            ret = d.Value.ToString(format);
+            if (d.Value == DateTime.MinValue && AutoToday)
+            {
+                d = DateTime.Today;
+            }
+
+            if (d.Value == DateTime.MinValue && DisplayMinValueAsEmpty)
+            {
+                ret = "";
+            }
+            else
+            {
+                var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
+                ret = d.Value.ToString(format);
+            }
         }
         return ret;
     }
@@ -264,12 +281,9 @@ public partial class DateTimePicker<TValue>
     private TValue? GetValue()
     {
         TValue? ret = default;
-        if (SelectedValue == DateTime.MinValue)
+        if (SelectedValue == DateTime.MinValue && AutoToday)
         {
-            if (AutoToday)
-            {
-                SelectedValue = DateTime.Today;
-            }
+            SelectedValue = DateTime.Today;
         }
 
         if (ValueType == typeof(DateTime))
