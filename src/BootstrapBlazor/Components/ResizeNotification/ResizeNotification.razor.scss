@@ -1,6 +1,12 @@
-﻿body:before {
-    content: "extraSmall";
+body:before {
+    content: "extraExtraSmall";
     display: none;
+}
+
+@media (min-width:375px) {
+    body:before {
+        content: "extraSmall";
+    }
 }
 
 @media (min-width:576px) {
