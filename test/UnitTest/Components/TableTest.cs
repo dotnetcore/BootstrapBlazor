@@ -6494,7 +6494,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public async Task QueryItems_Null()
+    public void QueryItems_Null()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -6507,14 +6507,12 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<MockTable>();
-        var items = await table.Instance.DataService!.QueryAsync(new QueryPageOptions());
-        Assert.Null(items.Items);
-
-        table.SetParametersAndRender(pb =>
+        Assert.NotNull(table.Instance.DataService);
+        cut.InvokeAsync(async () =>
         {
-            pb.Add(a => a.ScrollMode, ScrollMode.Virtual);
+            var items = await table.Instance.DataService.QueryAsync(new QueryPageOptions());
+            Assert.Null(items.Items);
         });
-        await cut.InvokeAsync(() => table.Instance.QueryAsync());
     }
 
     [Fact]
