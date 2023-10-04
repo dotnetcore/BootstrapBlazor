@@ -4272,10 +4272,15 @@ form .form-control.is-display {
 }
 
 body:before {
-  content: "extraSmall";
+  content: "extraExtraSmall";
   display: none;
 }
 
+@media (min-width: 375px) {
+  body:before {
+    content: "extraSmall";
+  }
+}
 @media (min-width: 576px) {
   body:before {
     content: "small";
