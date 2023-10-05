@@ -148,7 +148,7 @@ const unLockStack = (stack, dock) => {
 const resetDockLock = dock => {
     const unlocks = dock.layout.getAllContentItems().filter(com => com.isComponent && !com.container.initialState.lock)
     const lock = unlocks.length === 0
-    if (dock.lock != lock) {
+    if (dock.lock !== lock) {
         dock.lock = lock
         dock.invokeLockAsync(lock)
     }
