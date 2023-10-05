@@ -207,12 +207,7 @@ public partial class DockView
     /// 重置为默认布局
     /// </summary>
     /// <returns></returns>
-    public Task Reset() => InvokeVoidAsync("reset", Id, new DockViewConfig()
-    {
-        Version = _version,
-        Name = Name,
-        LocalStorageKeyPrefix = $"{LocalStoragePrefix}-{Name}",
-    });
+    public Task Reset() => InvokeVoidAsync("reset", Id, GetOption(), Interop);
 
     /// <summary>
     /// 标签页关闭回调方法 由 JavaScript 调用

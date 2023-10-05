@@ -92,6 +92,25 @@ export function lock(id, lock) {
     lockDock(dock)
 }
 
+export function reset(id, option, invoke) {
+    const dock = Data.get(id)
+    if (dock) {
+        removeConfig(option);
+
+        const el = dock.el;
+        const components = getAllContentItems(option.content);
+        components.forEach(i => {
+            const item = document.getElementById(i.id);
+            if (item) {
+                item.classList.add("d-none");
+                el.append(item);
+            }
+        })
+        dispose(id)
+        init(id, option, invoke)
+    }
+}
+
 export function dispose(id) {
     const dock = Data.get(id)
     Data.remove(id)
