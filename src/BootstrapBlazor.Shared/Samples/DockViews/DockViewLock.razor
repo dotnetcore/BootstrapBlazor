@@ -1,16 +1,16 @@
 ﻿@page "/dock-view/lock"
 @inherits BaseDockView
 
-<h4 class="mt-3">锁定面板</h4>
+<h4>锁定面板</h4>
 <p>通过设置 <code>DockView</code> 的属性 <code>IsLock</code>,控制所有面板是否能拖动</p>
 <p>通过设置 <code>DockComponent</code> 的属性 <code>IsLock</code>,控制某个面板是否能拖动</p>
 
 <Button OnClick="OnToggleLock" Text="@LockText"></Button>
 
 <div class="dock-lock-demo">
-    <DockView Name="DockViewLock" EnableLocalStorage="false" OnLockChangedCallbackAsync="OnLockChangedCallbackAsync" IsLock="@IsLock">
+    <DockView Name="DockViewLock" EnableLocalStorage="true" OnLockChangedCallbackAsync="OnLockChangedCallbackAsync" IsLock="@IsLock">
         <DockContent Type="DockContentType.Row">
-            <DockComponent Title="标签一" IsLock="true">
+            <DockComponent Title="标签一">
                 <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
                        IsStriped="true" IsBordered="true" IsExcel="true" ShowRefresh="true"
                        ShowDefaultButtons="false" IsFixedHeader="false">
