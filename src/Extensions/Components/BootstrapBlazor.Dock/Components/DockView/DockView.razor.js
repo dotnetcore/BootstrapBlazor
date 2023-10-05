@@ -503,7 +503,7 @@ const hackGoldenLayout = dock => {
 
             this._closeButton.onClick = function (ev) {
                 // find own dock
-                const dock = goldenLayout.bb_docks.find(i => i.layout === this.layoutManager);
+                const dock = goldenLayout.bb_docks.find(i => i.layout === this._header.layoutManager);
                 const eventsData = dock.eventsData
 
                 const tabs = this._header.tabs.map(tab => {
