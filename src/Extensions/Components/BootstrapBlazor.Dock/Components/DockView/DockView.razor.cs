@@ -96,7 +96,7 @@ public partial class DockView
 
     private bool _isLock;
 
-    private string _version = "v1";
+    private readonly string _version = "v1";
 
     private string? ClassString => CssBuilder.Default("bb-dock")
         .AddClassFromAttributes(AdditionalAttributes)
