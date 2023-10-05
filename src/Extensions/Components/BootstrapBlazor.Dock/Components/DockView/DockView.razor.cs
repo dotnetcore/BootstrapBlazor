@@ -169,7 +169,7 @@ public partial class DockView
         TabDropCallback = nameof(TabDropCallbackAsync),
         SplitterCallback = nameof(SplitterCallbackAsync),
         LockChangedCallback = nameof(LockChangedCallbackAsync),
-        SaveLayoutCallback = nameof(SaveLayoutCallbackAsync)
+        SaveLayoutCallback = OnSaveLayoutCallbackAsync == null?null: nameof(SaveLayoutCallbackAsync)
     };
 
     private static RenderFragment RenderDockContent(List<DockContent> contents) => builder =>
@@ -216,6 +216,12 @@ public partial class DockView
             await InvokeVoidAsync("lock", Id, _isLock);
         }
     }
+
+    /// <summary>
+    /// 获取布局配置
+    /// </summary>
+    /// <returns></returns>
+    public async Task<string> GetLayout() =>await Module!.InvokeAsync<string>("getlayout", Id);
 
     /// <summary>
     /// 重置为默认布局

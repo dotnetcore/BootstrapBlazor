@@ -92,6 +92,16 @@ export function lock(id, lock) {
     lockDock(dock)
 }
 
+export function getlayout(id) {
+    const dock = Data.get(id)
+    if (dock) {
+        const layout = dock.layout
+        const config = JSON.stringify(layout.saveLayout())
+        return config;
+    }
+    return null;
+}
+
 export function reset(id, option, invoke) {
     const dock = Data.get(id)
     if (dock) {
@@ -310,26 +320,25 @@ const getConfig = option => {
             resetComponentId(config, option)
         }
     }
-}
 
-return {
-    ...(config || { content: [] }),
-    ...{
-        dimensions: {
-            borderWidth: 5,
-            minItemHeight: 10,
-            minItemWidth: 10,
-            headerHeight: 25
+    return {
+        ...(config || { content: [] }),
+        ...{
+            dimensions: {
+                borderWidth: 5,
+                minItemHeight: 10,
+                minItemWidth: 10,
+                headerHeight: 25
+            },
+            labels: {
+                close: 'close',
+                maximise: 'maximise',
+                minimise: 'minimise',
+                popout: 'lock/unlock'
+            }
         },
-        labels: {
-            close: 'close',
-            maximise: 'maximise',
-            minimise: 'minimise',
-            popout: 'lock/unlock'
-        }
-    },
-    ...option
-}
+        ...option
+    }
 }
 
 const getLocalStorageKey = option => {
@@ -347,6 +356,8 @@ const saveConfig = (option, layout, invoke) => {
     }
     if (option.saveLayoutCallback) {
         //考虑加入防抖,操作频繁会导致卡顿
+        console.log("saveLayoutCallback")
+        const config = JSON.stringify(layout.saveLayout())
         invoke.invokeMethodAsync(option.saveLayoutCallback, config)
     }
     if (option.enableLocalStorage) {
