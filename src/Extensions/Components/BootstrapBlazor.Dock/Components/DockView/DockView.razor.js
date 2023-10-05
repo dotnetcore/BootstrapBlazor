@@ -11,7 +11,7 @@ export async function init(id, option, invoke) {
     await addLink("./_content/BootstrapBlazor.Dock/css/goldenlayout-bb.css")
 
     const eventsData = new Map()
-    const dock = { el, eventsData, lock: option.lock }
+    const dock = { el, eventsData, invoke, lock: option.lock, layoutConfig: option.layoutConfig }
     Data.set(id, dock)
 
     option.invokeVisibleChangedCallback = (title, visible) => {
@@ -74,7 +74,10 @@ export function update(id, option) {
     const dock = Data.get(id)
 
     if (dock) {
-        if (dock.lock !== option.lock) {
+        if (dock.layoutConfig !== option.layoutConfig) {
+            reset(id, option)
+        }
+        else if (dock.lock !== option.lock) {
             // 处理 Lock 逻辑
             dock.lock = option.lock
             lockDock(dock)
@@ -102,7 +105,7 @@ export function getLayoutConfig(id) {
     return config;
 }
 
-export function reset(id, option, invoke) {
+export function reset(id, option) {
     const dock = Data.get(id)
     if (dock) {
         removeConfig(option);
@@ -118,7 +121,7 @@ export function reset(id, option, invoke) {
         })
         dispose(id)
 
-        init(id, option, invoke)
+        init(id, option, dock.invoke)
     }
 }
 

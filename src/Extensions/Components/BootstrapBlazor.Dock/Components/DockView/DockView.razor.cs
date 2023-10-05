@@ -88,6 +88,12 @@ public partial class DockView
     [Parameter]
     public string? LocalStoragePrefix { get; set; }
 
+    /// <summary>
+    /// 获得/设置 布局配置
+    /// </summary>
+    [Parameter]
+    public string? LayoutConfig { get; set; }
+
     private DockViewConfig Config { get; } = new();
 
     private DockContent Content { get; } = new();
@@ -150,6 +156,7 @@ public partial class DockView
         EnableLocalStorage = EnableLocalStorage,
         IsLock = IsLock,
         Contents = Config.Contents,
+        LayoutConfig = LayoutConfig,
         LocalStorageKeyPrefix = $"{LocalStoragePrefix}-{Name}",
         VisibleChangedCallback = nameof(VisibleChangedCallbackAsync),
         InitializedCallback = nameof(InitializedCallbackAsync),
@@ -213,7 +220,15 @@ public partial class DockView
     /// 重置为默认布局
     /// </summary>
     /// <returns></returns>
-    public Task Reset() => InvokeVoidAsync("reset", Id, GetOption(), Interop);
+    public Task Reset(string? layoutConfig = null)
+    {
+        var config = GetOption();
+        if (layoutConfig != null)
+        {
+            config.LayoutConfig = layoutConfig;
+        }
+        return InvokeVoidAsync("reset", Id, config);
+    }
 
     /// <summary>
     /// 标签页关闭回调方法 由 JavaScript 调用
