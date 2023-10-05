@@ -92,11 +92,14 @@ export function lock(id, lock) {
     lockDock(dock)
 }
 
-export function getlayout(id) {
+export function getlayout(id, option) {
     const dock = Data.get(id)
     if (dock) {
         const layout = dock.layout
         const config = JSON.stringify(layout.saveLayout())
+        if (option.saveLayoutCallback) {
+            invoke.invokeMethodAsync(option.saveLayoutCallback, config)
+        }
         return config;
     }
     return null;
@@ -355,10 +358,9 @@ const saveConfig = (option, layout, invoke) => {
         ...option
     }
     if (option.saveLayoutCallback) {
-        //考虑加入防抖,操作频繁会导致卡顿
-        console.log("saveLayoutCallback")
-        const config = JSON.stringify(layout.saveLayout())
-        invoke.invokeMethodAsync(option.saveLayoutCallback, config)
+        //考虑加入防抖,操作频繁会导致卡顿,原因大概是 invoke.invokeMethodAsync 后会多次调用 OnAfterRenderAsync ,导致 toggleComponent 多次执行 saveConfig
+        //const config = JSON.stringify(layout.saveLayout())
+        //invoke.invokeMethodAsync(option.saveLayoutCallback, config)
     }
     if (option.enableLocalStorage) {
         removeConfig(option)

@@ -221,7 +221,7 @@ public partial class DockView
     /// 获取布局配置
     /// </summary>
     /// <returns></returns>
-    public async Task<string> GetLayout() =>await Module!.InvokeAsync<string>("getlayout", Id);
+    public async Task<string> GetLayout() => await Module!.InvokeAsync<string>("getlayout", Id, GetOption());
 
     /// <summary>
     /// 重置为默认布局
