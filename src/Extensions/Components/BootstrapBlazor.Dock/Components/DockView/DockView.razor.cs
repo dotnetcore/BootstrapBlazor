@@ -139,7 +139,7 @@ public partial class DockView
         {
             if (IsInit)
             {
-                await InvokeVoidAsync("update", Id, GetOption(), Interop);
+                await InvokeVoidAsync("update", Id, GetOption());
             }
             else
             {
