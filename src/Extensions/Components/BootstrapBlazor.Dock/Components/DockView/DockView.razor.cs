@@ -96,6 +96,8 @@ public partial class DockView
 
     private bool _isLock;
 
+    private readonly string _version = "v1";
+
     private string? ClassString => CssBuilder.Default("bb-dock")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -143,7 +145,7 @@ public partial class DockView
 
     private DockViewConfig GetOption() => new()
     {
-        Version = "v1",
+        Version = _version,
         Name = Name,
         EnableLocalStorage = EnableLocalStorage,
         IsLock = IsLock,
@@ -200,6 +202,12 @@ public partial class DockView
             await InvokeVoidAsync("lock", Id, _isLock);
         }
     }
+
+    /// <summary>
+    /// 重置为默认布局
+    /// </summary>
+    /// <returns></returns>
+    public Task Reset() => InvokeVoidAsync("reset", Id, GetOption(), Interop);
 
     /// <summary>
     /// 标签页关闭回调方法 由 JavaScript 调用
