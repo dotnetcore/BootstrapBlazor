@@ -135,6 +135,13 @@ export function dispose(id) {
 
     dock.eventsData.clear()
     dock.layout.destroy()
+
+    if (goldenLayout.bb_docks !== void 0) {
+        const index = goldenLayout.bb_docks.indexOf(dock);
+        if (index > 0) {
+            goldenLayout.bb_docks.splice(index, 1);
+        }
+    }
 }
 
 const lockDock = dock => {
