@@ -92,7 +92,7 @@ public partial class DockView
     /// 获得/设置 保存布局配置完成后回调此方法
     /// </summary>
     [Parameter]
-    public Func<string,Task>? OnSaveLayoutCallbackAsync { get; set; }
+    public Func<string, Task>? OnSaveLayoutCallbackAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 布局配置
@@ -168,8 +168,7 @@ public partial class DockView
         InitializedCallback = nameof(InitializedCallbackAsync),
         TabDropCallback = nameof(TabDropCallbackAsync),
         SplitterCallback = nameof(SplitterCallbackAsync),
-        LockChangedCallback = nameof(LockChangedCallbackAsync),
-        SaveLayoutCallback = OnSaveLayoutCallbackAsync == null?null: nameof(SaveLayoutCallbackAsync)
+        LockChangedCallback = nameof(LockChangedCallbackAsync)
     };
 
     private static RenderFragment RenderDockContent(List<DockContent> contents) => builder =>
@@ -221,7 +220,7 @@ public partial class DockView
     /// 获取布局配置
     /// </summary>
     /// <returns></returns>
-    public async Task<string> GetLayout() => await Module!.InvokeAsync<string>("getlayout", Id, GetOption());
+    public Task<string?> GetLayout() => InvokeAsync<string>("getLayout", Id, GetOption());
 
     /// <summary>
     /// 重置为默认布局
@@ -300,5 +299,4 @@ public partial class DockView
             await OnSaveLayoutCallbackAsync(config);
         }
     }
-
 }
