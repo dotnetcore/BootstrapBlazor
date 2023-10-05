@@ -277,41 +277,40 @@ const getConfig = option => {
         name: 'default',
         ...option
     }
-    if (option.enableLocalStorage) {
-        let localConfig = null;
-        if (option.layoutConfig !=null) {
-            localConfig = option.layoutConfig;
-        } else {
-            localConfig = localStorage.getItem(getLocalStorageKey(option));
-        }
-        if (localConfig) {
-            // 当tab全部关闭时，没有root节点
-            const configItem = JSON.parse(localConfig)
-            if (configItem.root) {
-                config = configItem
-                resetComponentId(config, option)
-            }
+    let localConfig = null;
+    if (option.layoutConfig != null) {
+        localConfig = option.layoutConfig;
+    } else if (option.enableLocalStorage) {
+        localConfig = localStorage.getItem(getLocalStorageKey(option));
+    }
+    if (localConfig) {
+        // 当tab全部关闭时，没有root节点
+        const configItem = JSON.parse(localConfig)
+        if (configItem.root) {
+            config = configItem
+            resetComponentId(config, option)
         }
     }
+}
 
-    return {
-        ...(config || { content: [] }),
-        ...{
-            dimensions: {
-                borderWidth: 5,
-                minItemHeight: 10,
-                minItemWidth: 10,
-                headerHeight: 25
-            },
-            labels: {
-                close: 'close',
-                maximise: 'maximise',
-                minimise: 'minimise',
-                popout: 'lock/unlock'
-            }
+return {
+    ...(config || { content: [] }),
+    ...{
+        dimensions: {
+            borderWidth: 5,
+            minItemHeight: 10,
+            minItemWidth: 10,
+            headerHeight: 25
         },
-        ...option
-    }
+        labels: {
+            close: 'close',
+            maximise: 'maximise',
+            minimise: 'minimise',
+            popout: 'lock/unlock'
+        }
+    },
+    ...option
+}
 }
 
 const getLocalStorageKey = option => {
@@ -327,12 +326,15 @@ const saveConfig = (option, layout, invoke) => {
         enableLocalStorage: false,
         ...option
     }
+    if (option.saveLayoutCallback) {
+        //考虑加入防抖,操作频繁会导致卡顿
+        invoke.invokeMethodAsync(option.saveLayoutCallback, config)
+    }
     if (option.enableLocalStorage) {
         removeConfig(option)
         const config = JSON.stringify(layout.saveLayout())
         localStorage.setItem(getLocalStorageKey(option), config);
-        invoke.invokeMethodAsync(option.saveLayoutCallback, config)
-   }
+    }
 }
 
 const removeConfig = option => {

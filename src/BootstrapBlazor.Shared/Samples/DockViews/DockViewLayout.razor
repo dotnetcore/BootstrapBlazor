@@ -12,10 +12,10 @@
 </GroupBox>
 
 
-<Textarea @bind-Value="LayoutConfig" />
+<Textarea @bind-Value="LayoutConfigSave" />
 
 <div class="dock-toggle-demo">
-    <DockView Name="DockViewVisible" LayoutConfig="@LayoutConfig" OnSaveLayoutCallbackAsync="OnSaveLayoutCallbackAsync">
+    <DockView Name="DockViewVisible" EnableLocalStorage="false" LayoutConfig="@LayoutConfig" OnSaveLayoutCallbackAsync="OnSaveLayoutCallbackAsync">
         <DockContent Type="DockContentType.Column">
             <DockComponent Title="标签一" Visible="Visible">
                 <Table TItem="DynamicObject" DynamicContext="DataTableDynamicContext"
@@ -82,11 +82,11 @@
     {
         LayoutConfig = LayoutConfig3;
         StateHasChanged();
-    } 
+    }
 
     private Task OnSaveLayoutCallbackAsync(string config)
     {
-        LayoutConfig = config;
+        LayoutConfigSave = config;
         StateHasChanged();
         return Task.CompletedTask;
     }
@@ -94,9 +94,11 @@
 
     string? LayoutConfig;
 
+    string? LayoutConfigSave;
+
     string LayoutConfig1 =
         """"
-        {"root":{"type":"column","content":[{"type":"stack","content":[{"type":"component","content":[],"width":50,"minWidth":0,"height":50,"minHeight":0,"id":"bb_52067813","maximised":false,"isClosable":true,"reorderEnabled":true,"title":"标签一","componentType":"component","componentState":{"id":"bb_52067813","showClose":true,"class":null,"key":"标签一","lock":false}}],"width":50,"minWidth":0,"height":33.333333333333336,"minHeight":0,"id":"bb_52067813","isClosable":true,"maximised":false,"activeItemIndex":0},{"type":"stack","content":[{"type":"component","content":[],"width":50,"minWidth":0,"height":50,"minHeight":0,"id":"bb_41331868","maximised":false,"isClosable":true,"reorderEnabled":true,"title":"标签二","componentType":"component","componentState":{"id":"bb_41331868","showClose":true,"class":null,"key":"标签二","lock":false}}],"width":50,"minWidth":0,"height":33.333333333333336,"minHeight":0,"id":"bb_41331868","isClosable":true,"maximised":false,"activeItemIndex":0},{"type":"stack","content":[{"type":"component","content":[],"width":50,"minWidth":0,"height":50,"minHeight":0,"id":"bb_64436398","maximised":false,"isClosable":true,"reorderEnabled":true,"title":"标签三","componentType":"component","componentState":{"id":"bb_64436398","showClose":true,"class":null,"key":"标签三","lock":false}}],"width":50,"minWidth":0,"height":33.33333333333333,"minHeight":0,"id":"bb_64436398","isClosable":true,"maximised":false,"activeItemIndex":0}]},"openPopouts":[],"settings":{"constrainDragToContainer":true,"reorderEnabled":true,"popoutWholeStack":false,"blockedPopoutsThrowError":true,"closePopoutsOnUnload":true,"responsiveMode":"none","tabOverlapAllowance":0,"reorderOnTabMenuClick":true,"tabControlOffset":10,"popInOnClose":false},"dimensions":{"borderWidth":5,"borderGrabWidth":5,"minItemHeight":10,"minItemWidth":10,"headerHeight":25,"dragProxyWidth":300,"dragProxyHeight":200},"header":{"show":"top","popout":"lock/unlock","dock":"dock","close":"close","maximise":"maximise","minimise":"minimise","tabDropdown":"additional tabs"},"resolved":true}
+        {"root":{"type":"row","content":[{"type":"column","content":[{"type":"stack","content":[{"type":"component","content":[],"width":50,"minWidth":0,"height":50,"minHeight":0,"id":"bb_45517422","maximised":false,"isClosable":true,"reorderEnabled":true,"title":"标签三","componentType":"component","componentState":{"id":"bb_45517422","showClose":true,"class":null,"key":"标签三","lock":false}}],"width":50,"minWidth":0,"height":33.460076045627375,"minHeight":0,"id":"","isClosable":true,"maximised":false,"activeItemIndex":0},{"type":"stack","content":[{"type":"component","content":[],"width":50,"minWidth":0,"height":50,"minHeight":0,"id":"bb_42425232","maximised":false,"isClosable":true,"reorderEnabled":true,"title":"标签二","componentType":"component","componentState":{"id":"bb_42425232","showClose":true,"class":null,"key":"标签二","lock":false}}],"width":50,"minWidth":0,"height":66.53992395437263,"minHeight":0,"id":"","isClosable":true,"maximised":false,"activeItemIndex":0}],"width":50,"minWidth":50,"height":50,"minHeight":50,"id":"","isClosable":true},{"type":"stack","content":[{"type":"component","content":[],"width":50,"minWidth":0,"height":50,"minHeight":0,"id":"bb_21184535","maximised":false,"isClosable":true,"reorderEnabled":true,"title":"标签一","componentType":"component","componentState":{"id":"bb_21184535","showClose":true,"class":null,"key":"标签一","lock":false}}],"width":50,"minWidth":0,"height":50,"minHeight":0,"id":"bb_54183781","isClosable":true,"maximised":false,"activeItemIndex":0}],"width":50,"minWidth":50,"height":50,"minHeight":50,"id":"","isClosable":true},"openPopouts":[],"settings":{"constrainDragToContainer":true,"reorderEnabled":true,"popoutWholeStack":false,"blockedPopoutsThrowError":true,"closePopoutsOnUnload":true,"responsiveMode":"none","tabOverlapAllowance":0,"reorderOnTabMenuClick":true,"tabControlOffset":10,"popInOnClose":false},"dimensions":{"borderWidth":5,"borderGrabWidth":5,"minItemHeight":10,"minItemWidth":10,"headerHeight":25,"dragProxyWidth":300,"dragProxyHeight":200},"header":{"show":"top","popout":"lock/unlock","dock":"dock","close":"close","maximise":"maximise","minimise":"minimise","tabDropdown":"additional tabs"},"resolved":true}
         """";
 
     string LayoutConfig2 =
