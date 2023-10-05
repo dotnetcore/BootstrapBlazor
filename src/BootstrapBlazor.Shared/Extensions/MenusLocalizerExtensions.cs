@@ -743,6 +743,11 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["DockViewLock"],
                     Url = "dock-view/lock"
+                },
+                new()
+                {
+                    Text = Localizer["DockViewLayout"],
+                    Url = "dock-view/layout"
                 }
             };
             AddBadge(item, count: 1);
