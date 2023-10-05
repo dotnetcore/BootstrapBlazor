@@ -67,4 +67,14 @@ class DockViewConfig
     [JsonPropertyName("content")]
     [JsonConverter(typeof(DockContentRootConverter))]
     public List<DockContent> Contents { get; set; } = new();
+
+    /// <summary>
+    /// 获得/设置 保存布局配置事件回调
+    /// </summary>
+    public string? SaveLayoutCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 布局配置
+    /// </summary>
+    public string? LayoutConfig { get; set; }
 }

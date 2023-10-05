@@ -88,6 +88,18 @@ public partial class DockView
     [Parameter]
     public string? LocalStoragePrefix { get; set; }
 
+    /// <summary>
+    /// 获得/设置 保存布局配置完成后回调此方法
+    /// </summary>
+    [Parameter]
+    public Func<string,Task>? OnSaveLayoutCallbackAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 布局配置
+    /// </summary>
+    [Parameter]
+    public string? LayoutConfig { get; set; }
+
     private DockViewConfig Config { get; } = new();
 
     private DockContent Content { get; } = new();
@@ -131,7 +143,7 @@ public partial class DockView
         {
             if (IsInit)
             {
-                await InvokeVoidAsync("update", Id, GetOption());
+                await InvokeVoidAsync("update", Id, GetOption(), Interop);
             }
             else
             {
@@ -148,12 +160,14 @@ public partial class DockView
         EnableLocalStorage = EnableLocalStorage,
         IsLock = IsLock,
         Contents = Config.Contents,
+        LayoutConfig = LayoutConfig,
         LocalStorageKeyPrefix = $"{LocalStoragePrefix}-{Name}",
         VisibleChangedCallback = nameof(VisibleChangedCallbackAsync),
         InitializedCallback = nameof(InitializedCallbackAsync),
         TabDropCallback = nameof(TabDropCallbackAsync),
         SplitterCallback = nameof(SplitterCallbackAsync),
-        LockChangedCallback = nameof(LockChangedCallbackAsync)
+        LockChangedCallback = nameof(LockChangedCallbackAsync),
+        SaveLayoutCallback = nameof(SaveLayoutCallbackAsync)
     };
 
     private static RenderFragment RenderDockContent(List<DockContent> contents) => builder =>
@@ -260,4 +274,17 @@ public partial class DockView
             await OnLockChangedCallbackAsync(state);
         }
     }
+
+    /// <summary>
+    /// 保存布局配置回调方法 由 JavaScript 调用
+    /// </summary>
+    [JSInvokable]
+    public async Task SaveLayoutCallbackAsync(string config)
+    {
+        if (OnSaveLayoutCallbackAsync != null)
+        {
+            await OnSaveLayoutCallbackAsync(config);
+        }
+    }
+
 }

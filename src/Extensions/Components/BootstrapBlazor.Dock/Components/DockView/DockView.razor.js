@@ -22,7 +22,7 @@ export async function init(id, option, invoke) {
     const layout = createGoldenLayout(option, el)
     dock.layout = layout
     layout.on('initialised', () => {
-        saveConfig(option, layout)
+        saveConfig(option, layout, invoke)
     })
     layout.init()
 
@@ -30,7 +30,7 @@ export async function init(id, option, invoke) {
         component.classList.add('d-none')
         el.append(component)
 
-        saveConfig(option, layout)
+        saveConfig(option, layout, invoke)
         option.invokeVisibleChangedCallback(title, false)
 
         resetDockLock(dock)
@@ -41,15 +41,15 @@ export async function init(id, option, invoke) {
             lockTab(item.tab, eventsData)
         }
         resetDockLock(dock)
-        saveConfig(option, layout)
+        saveConfig(option, layout, invoke)
         invoke.invokeMethodAsync(option.tabDropCallback)
     })
     layout.on('splitterDragStop', () => {
-        saveConfig(option, layout)
+        saveConfig(option, layout, invoke)
         invoke.invokeMethodAsync(option.splitterCallback)
     })
     layout.on('lockChanged', state => {
-        saveConfig(option, layout)
+        saveConfig(option, layout, invoke)
     })
 
     invoke.invokeMethodAsync(option.initializedCallback)
@@ -70,7 +70,7 @@ export async function init(id, option, invoke) {
     })
 }
 
-export function update(id, option) {
+export function update(id, option, invoke) {
     const dock = Data.get(id)
 
     if (dock) {
@@ -81,7 +81,7 @@ export function update(id, option) {
         }
         else {
             // 处理 toggle 逻辑
-            toggleComponent(dock, option)
+            toggleComponent(dock, option, invoke)
         }
     }
 }
@@ -172,7 +172,7 @@ const unLockTab = (tab, eventsData) => {
     }
 }
 
-const toggleComponent = (dock, option) => {
+const toggleComponent = (dock, option, invoke) => {
     const items = getAllContentItems(option.content)
     const comps = dock.layout.getAllContentItems().filter(s => s.isComponent);
 
@@ -216,7 +216,7 @@ const toggleComponent = (dock, option) => {
         }
     })
 
-    saveConfig(option, dock.layout)
+    saveConfig(option, dock.layout, invoke)
 }
 
 const getAllContentItems = content => {
@@ -278,7 +278,12 @@ const getConfig = option => {
         ...option
     }
     if (option.enableLocalStorage) {
-        const localConfig = localStorage.getItem(getLocalStorageKey(option));
+        let localConfig = null;
+        if (option.layoutConfig !=null) {
+            localConfig = option.layoutConfig;
+        } else {
+            localConfig = localStorage.getItem(getLocalStorageKey(option));
+        }
         if (localConfig) {
             // 当tab全部关闭时，没有root节点
             const configItem = JSON.parse(localConfig)
@@ -317,15 +322,17 @@ const indexOfKey = (key, option) => {
     return key.indexOf(`${option.prefix}-`) > -1
 }
 
-const saveConfig = (option, layout) => {
+const saveConfig = (option, layout, invoke) => {
     option = {
         enableLocalStorage: false,
         ...option
     }
     if (option.enableLocalStorage) {
         removeConfig(option)
-        localStorage.setItem(getLocalStorageKey(option), JSON.stringify(layout.saveLayout()));
-    }
+        const config = JSON.stringify(layout.saveLayout())
+        localStorage.setItem(getLocalStorageKey(option), config);
+        invoke.invokeMethodAsync(option.saveLayoutCallback, config)
+   }
 }
 
 const removeConfig = option => {
