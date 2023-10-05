@@ -361,8 +361,7 @@ const saveConfig = (option, layout) => {
     }
     if (option.enableLocalStorage) {
         removeConfig(option)
-        const config = JSON.stringify(layout.saveLayout())
-        localStorage.setItem(getLocalStorageKey(option), config);
+        localStorage.setItem(getLocalStorageKey(option), JSON.stringify(layout.saveLayout()));
     }
 }
 
