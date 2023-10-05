@@ -22,7 +22,7 @@ export async function init(id, option, invoke) {
     const layout = createGoldenLayout(option, el)
     dock.layout = layout
     layout.on('initialised', () => {
-        saveConfig(option, layout, invoke)
+        saveConfig(option, layout)
     })
     layout.init()
 
@@ -30,7 +30,7 @@ export async function init(id, option, invoke) {
         component.classList.add('d-none')
         el.append(component)
 
-        saveConfig(option, layout, invoke)
+        saveConfig(option, layout)
         option.invokeVisibleChangedCallback(title, false)
 
         resetDockLock(dock)
@@ -41,15 +41,15 @@ export async function init(id, option, invoke) {
             lockTab(item.tab, eventsData)
         }
         resetDockLock(dock)
-        saveConfig(option, layout, invoke)
+        saveConfig(option, layout)
         invoke.invokeMethodAsync(option.tabDropCallback)
     })
     layout.on('splitterDragStop', () => {
-        saveConfig(option, layout, invoke)
+        saveConfig(option, layout)
         invoke.invokeMethodAsync(option.splitterCallback)
     })
     layout.on('lockChanged', state => {
-        saveConfig(option, layout, invoke)
+        saveConfig(option, layout)
     })
 
     invoke.invokeMethodAsync(option.initializedCallback)
@@ -70,7 +70,7 @@ export async function init(id, option, invoke) {
     })
 }
 
-export function update(id, option, invoke) {
+export function update(id, option) {
     const dock = Data.get(id)
 
     if (dock) {
@@ -81,7 +81,7 @@ export function update(id, option, invoke) {
         }
         else {
             // 处理 toggle 逻辑
-            toggleComponent(dock, option, invoke)
+            toggleComponent(dock, option)
         }
     }
 }
@@ -92,17 +92,14 @@ export function lock(id, lock) {
     lockDock(dock)
 }
 
-export function getlayout(id, option) {
+export function getLayout(id) {
+    let config = "";
     const dock = Data.get(id)
     if (dock) {
         const layout = dock.layout
-        const config = JSON.stringify(layout.saveLayout())
-        if (option.saveLayoutCallback) {
-            invoke.invokeMethodAsync(option.saveLayoutCallback, config)
-        }
-        return config;
+        config = JSON.stringify(layout.saveLayout())
     }
-    return null;
+    return config;
 }
 
 export function reset(id, option, invoke) {
@@ -212,7 +209,7 @@ const unLockTab = (tab, eventsData) => {
     }
 }
 
-const toggleComponent = (dock, option, invoke) => {
+const toggleComponent = (dock, option) => {
     const items = getAllContentItems(option.content)
     const comps = dock.layout.getAllContentItems().filter(s => s.isComponent);
 
@@ -256,7 +253,7 @@ const toggleComponent = (dock, option, invoke) => {
         }
     })
 
-    saveConfig(option, dock.layout, invoke)
+    saveConfig(option, dock.layout)
 }
 
 const getAllContentItems = content => {
@@ -360,15 +357,10 @@ const indexOfKey = (key, option) => {
     return key.indexOf(`${option.prefix}-`) > -1
 }
 
-const saveConfig = (option, layout, invoke) => {
+const saveConfig = (option, layout) => {
     option = {
         enableLocalStorage: false,
         ...option
-    }
-    if (option.saveLayoutCallback) {
-        //考虑加入防抖,操作频繁会导致卡顿,原因大概是 invoke.invokeMethodAsync 后会多次调用 OnAfterRenderAsync ,导致 toggleComponent 多次执行 saveConfig
-        //const config = JSON.stringify(layout.saveLayout())
-        //invoke.invokeMethodAsync(option.saveLayoutCallback, config)
     }
     if (option.enableLocalStorage) {
         removeConfig(option)
