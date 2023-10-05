@@ -314,18 +314,15 @@ const getConfig = option => {
         name: 'default',
         ...option
     }
-    let localConfig = null;
-    if (option.layoutConfig != null) {
-        localConfig = option.layoutConfig;
-    } else if (option.enableLocalStorage) {
-        localConfig = localStorage.getItem(getLocalStorageKey(option));
-    }
-    if (localConfig) {
-        // 当tab全部关闭时，没有root节点
-        const configItem = JSON.parse(localConfig)
-        if (configItem.root) {
-            config = configItem
-            resetComponentId(config, option)
+    if (option.enableLocalStorage) {
+        const localConfig = localStorage.getItem(getLocalStorageKey(option));
+        if (localConfig) {
+            // 当tab全部关闭时，没有root节点
+            const configItem = JSON.parse(localConfig)
+            if (configItem.root) {
+                config = configItem
+                resetComponentId(config, option)
+            }
         }
     }
 
