@@ -311,21 +311,24 @@ const closeItem = (el, component) => {
 }
 
 const getConfig = option => {
-    let config = null
     option = {
         enableLocalStorage: false,
+        layoutConfig: null,
         name: 'default',
         ...option
     }
-    if (option.enableLocalStorage) {
-        const localConfig = localStorage.getItem(getLocalStorageKey(option));
-        if (localConfig) {
-            // 当tab全部关闭时，没有root节点
-            const configItem = JSON.parse(localConfig)
-            if (configItem.root) {
-                config = configItem
-                resetComponentId(config, option)
-            }
+
+    let config = null
+    let layoutConfig = option.layoutConfig;
+    if (layoutConfig === null && option.enableLocalStorage) {
+        layoutConfig = localStorage.getItem(getLocalStorageKey(option));
+    }
+    if (layoutConfig) {
+        // 当tab全部关闭时，没有root节点
+        const configItem = JSON.parse(layoutConfig)
+        if (configItem.root) {
+            config = configItem
+            resetComponentId(config, option)
         }
     }
 
