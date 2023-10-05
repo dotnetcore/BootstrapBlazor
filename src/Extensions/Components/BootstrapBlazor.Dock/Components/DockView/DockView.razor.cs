@@ -89,12 +89,6 @@ public partial class DockView
     public string? LocalStoragePrefix { get; set; }
 
     /// <summary>
-    /// 获得/设置 保存布局配置完成后回调此方法
-    /// </summary>
-    [Parameter]
-    public Func<string, Task>? OnSaveLayoutCallbackAsync { get; set; }
-
-    /// <summary>
     /// 获得/设置 布局配置
     /// </summary>
     [Parameter]
@@ -220,7 +214,7 @@ public partial class DockView
     /// 获取布局配置
     /// </summary>
     /// <returns></returns>
-    public Task<string?> GetLayout() => InvokeAsync<string>("getLayout", Id, GetOption());
+    public Task<string?> GetLayoutConfig() => InvokeAsync<string>("getLayoutConfig", Id);
 
     /// <summary>
     /// 重置为默认布局
@@ -285,18 +279,6 @@ public partial class DockView
         if (OnLockChangedCallbackAsync != null)
         {
             await OnLockChangedCallbackAsync(state);
-        }
-    }
-
-    /// <summary>
-    /// 保存布局配置回调方法 由 JavaScript 调用
-    /// </summary>
-    [JSInvokable]
-    public async Task SaveLayoutCallbackAsync(string config)
-    {
-        if (OnSaveLayoutCallbackAsync != null)
-        {
-            await OnSaveLayoutCallbackAsync(config);
         }
     }
 }

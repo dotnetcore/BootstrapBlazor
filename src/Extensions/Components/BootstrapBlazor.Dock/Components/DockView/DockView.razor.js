@@ -92,7 +92,7 @@ export function lock(id, lock) {
     lockDock(dock)
 }
 
-export function getLayout(id) {
+export function getLayoutConfig(id) {
     let config = "";
     const dock = Data.get(id)
     if (dock) {
