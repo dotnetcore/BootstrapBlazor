@@ -88,12 +88,6 @@ public partial class DockView
     [Parameter]
     public string? LocalStoragePrefix { get; set; }
 
-    /// <summary>
-    /// 获得/设置 布局配置
-    /// </summary>
-    [Parameter]
-    public string? LayoutConfig { get; set; }
-
     private DockViewConfig Config { get; } = new();
 
     private DockContent Content { get; } = new();
@@ -156,7 +150,6 @@ public partial class DockView
         EnableLocalStorage = EnableLocalStorage,
         IsLock = IsLock,
         Contents = Config.Contents,
-        LayoutConfig = LayoutConfig,
         LocalStorageKeyPrefix = $"{LocalStoragePrefix}-{Name}",
         VisibleChangedCallback = nameof(VisibleChangedCallbackAsync),
         InitializedCallback = nameof(InitializedCallbackAsync),
