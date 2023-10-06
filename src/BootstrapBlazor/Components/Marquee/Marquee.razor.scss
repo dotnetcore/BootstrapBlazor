@@ -1,4 +1,4 @@
-﻿.bb-marquee {
+.bb-marquee {
     overflow: hidden;
     white-space: nowrap;
     position: relative;
@@ -9,15 +9,45 @@
     padding-left: 100%;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
-    animation-name: marquee;
+    animation-name: lefttoright;
 }
 
-@keyframes marquee {
-    0% {
+@keyframes righttoleft {
+    from {
         transform: translateX(0);
     }
 
-    100% {
+    to {
         transform: translateX(-100%);
+    }
+}
+
+@keyframes lefttoright {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes toptobottom {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-10%0);
+    }
+}
+
+@keyframes bottomtotop {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0);
     }
 }

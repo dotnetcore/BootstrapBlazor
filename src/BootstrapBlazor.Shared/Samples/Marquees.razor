@@ -6,9 +6,22 @@
             <h4>Options</h4>
             <div class="mb-2">
                 <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel class="label-width" DisplayText="DirecTion" />
+                    <RadioList @bind-Value="@DirecTion" />
+                </BootstrapInputGroup>
+            </div>
+            <div class="mb-2">
+                <BootstrapInputGroup>
                     <BootstrapInputGroupLabel class="label-width" DisplayText="Speed" />
                     <span class="input-group-text" style="width:48px">@Speed</span>
-                    <Slider @bind-Value="@Speed" Step="1" Min="5" Max="20" />
+                    <Slider @bind-Value="@Speed" Step="1" Min="15" Max="30" />
+                </BootstrapInputGroup>
+            </div>
+            <div class="mb-2">
+                <BootstrapInputGroup>
+                    <BootstrapInputGroupLabel class="label-width" DisplayText="FontSize" />
+                    <span class="input-group-text" style="width:48px">@FontSize</span>
+                    <Slider @bind-Value="@FontSize" Step="1" Min="20" Max="72" />
                 </BootstrapInputGroup>
             </div>
             <div class="mb-2">
@@ -18,13 +31,7 @@
                 </BootstrapInputGroup>
             </div>
             <div class="mb-2">
-                <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel class="label-width" DisplayText="FontSize" />
-                    <BootstrapInputNumber TValue="int" @bind-Value="@FontSize" />
-                </BootstrapInputGroup>
-            </div>
-            <div class="mb-2">
-                <div class="input-group input-group-sm mb-3">
+                <div class="input-group input-group-sm">
                     <span class="input-group-text label-width">TextColor</span>
                     <div class="pick-radius">
                         <ColorPicker @bind-Value="@TextColor" />
@@ -32,7 +39,7 @@
                 </div>
             </div>
             <div class="mb-2">
-                <div class="input-group input-group-sm mb-3">
+                <div class="input-group input-group-sm">
                     <span class="input-group-text label-width">BackgroundColor</span>
                     <div class="pick-radius">
                         <ColorPicker @bind-Value="@BackgroundColor" />
@@ -42,11 +49,7 @@
         </div>
     </div>
 
-    <Marquee Text="@Text"
-             Speed="@Speed"
-             Color="@TextColor"
-             FontSize="@FontSize"
-             BackgroundColor="@BackgroundColor" />
+    <Marquee Text="@Text" Speed="@Speed" Color="@TextColor" FontSize="@FontSize" DirecTion="@DirecTion" BackgroundColor="@BackgroundColor" />
 </DemoBlock>
 
 <style>
@@ -68,5 +71,7 @@
 
     private int FontSize { get; set; } = 72;
 
-    private int Speed { get; set; } = 15;
+    private int Speed { get; set; } = 20;
+
+    private MarqueeDirecTion DirecTion { get; set; } = MarqueeDirecTion.LeftToRight;
 }
