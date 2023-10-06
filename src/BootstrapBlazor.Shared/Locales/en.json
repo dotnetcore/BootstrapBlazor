@@ -4665,6 +4665,7 @@
     "OnQueryAsyncAttr": "Asynchronous query callback method",
     "OnAddAsyncAttr": "New Button Callback Method",
     "OnColumnCreatingAttr": "Callback delegate method on column creation",
+    "ColumnOrderCallbackAttr": "Callback delegate method on column order",
     "OnDoubleClickCellCallbackAttr": "Set cell double-click event",
     "OnDeleteAsyncAttr": "Delete Button Asynchronous Callback Method",
     "OnEditAsyncAttr": "Edit button asynchronous callback method",
