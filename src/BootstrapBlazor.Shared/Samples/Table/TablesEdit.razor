@@ -10,7 +10,7 @@
 <DemoBlock Title="@Localizer["TablesEditItemsTitle"]"
            Introduction="@Localizer["TablesEditItemsIntro"]"
            Name="EditItems">
-    <p class="mb-3">@((MarkupString)Localizer["TablesEditItemsDescription"].Value)</p>
+    <section ignore class="mb-3">@((MarkupString)Localizer["TablesEditItemsDescription"].Value)</section>
     <Table TItem="Foo" @bind-Items="EditItems"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
@@ -54,13 +54,15 @@
 <DemoBlock Title="@Localizer["TablesEditOnAddAsyncTitle"]"
            Introduction="@Localizer["TablesEditOnAddAsyncIntro"]"
            Name="OnAddAsync">
-    <p id="anchor2">@((MarkupString)Localizer["TablesEditOnAddAsyncDescription"].Value)</p>
-    <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips1"].Value)</p>
-    <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips2"].Value)</p>
-    <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips3"].Value)</p>
-    <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips4"].Value)</p>
-    <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips5"].Value)</p>
-    <p class="mb-3">@((MarkupString)Localizer["TablesEditOnAddAsyncTips6"].Value)</p>
+    <section ignore>
+        <p>@((MarkupString)Localizer["TablesEditOnAddAsyncDescription"].Value)</p>
+        <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips1"].Value)</p>
+        <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips2"].Value)</p>
+        <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips3"].Value)</p>
+        <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips4"].Value)</p>
+        <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips5"].Value)</p>
+        <p class="mb-3">@((MarkupString)Localizer["TablesEditOnAddAsyncTips6"].Value)</p>
+    </section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true" EditDialogIsDraggable="true"
@@ -81,10 +83,10 @@
 <DemoBlock Title="@Localizer["TablesColumnEditTemplateTitle"]"
            Introduction="@Localizer["TablesColumnEditTemplateIntro"]"
            Name="EditTemplate">
-    <p class="mb-3">
+    <section ignore class="mb-3">
         <div>@((MarkupString)Localizer["TablesColumnEditTemplateDescription1"].Value)</div>
         <div>@((MarkupString)Localizer["TablesColumnEditTemplateTips"].Value)</div>
-    </p>
+    </section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true" IsExtendButtonsInRowHeader="true"
@@ -110,9 +112,11 @@
 <DemoBlock Title="@Localizer["TablesEditModeTitle"]"
            Introduction="@Localizer["TablesEditModeIntro"]"
            Name="EditMode">
-    <p id="anchor4">@((MarkupString)Localizer["TablesEditModeDescription"].Value)</p>
-    <p>@((MarkupString)Localizer["TablesEditModeTips1"].Value)</p>
-    <p class="mb-3">@((MarkupString)Localizer["TablesEditModeTips2"].Value)</p>
+    <section ignore class="mb-3">
+        <p>@((MarkupString)Localizer["TablesEditModeDescription"].Value)</p>
+        <p>@((MarkupString)Localizer["TablesEditModeTips1"].Value)</p>
+        <p>@((MarkupString)Localizer["TablesEditModeTips2"].Value)</p>
+    </section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
@@ -130,8 +134,10 @@
         </TableColumns>
     </Table>
 
-    <p id="anchor5" class="mt-3">@((MarkupString)Localizer["TablesEditModeInCell"].Value)</p>
-    <RadioList @bind-Value="InsertMode" class="mb-3" />
+    <section ignore class="my-3">
+        <p>@((MarkupString)Localizer["TablesEditModeInCell"].Value)</p>
+        <RadioList @bind-Value="InsertMode" />
+    </section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
@@ -152,7 +158,7 @@
 <DemoBlock Title="@Localizer["TablesEditInjectDataServiceTitle"]"
            Introduction="@Localizer["TablesEditInjectDataServiceIntro"]"
            Name="InjectDataService">
-    <p id="anchor6">
+    <section ignore>
         @((MarkupString)Localizer["TablesEditInjectDataServiceDescription"].Value)
         <ul class="ul-demo mb-3">
             <li><code>OnAddAsync</code></li>
@@ -163,8 +169,8 @@
         <div class="mb-3">@Localizer["TablesEditInjectDataServiceTips1"] <a href="@DataServiceUrl" target="_blank">@Localizer["TablesEditInjectDataServiceTips2"]</a></div>
         <b>@Localizer["TablesEditInjectDataServiceTips3"]</b>
         <div class="mt-1">@Localizer["TablesEditInjectDataServiceTips4"]</div>
-    </p>
-<Pre class="no-highlight my-3">services.AddTableDemoDataService();</Pre>
+        <Pre class="no-highlight my-3">services.AddTableDemoDataService();</Pre>
+    </section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
@@ -178,12 +184,12 @@
 <DemoBlock Title="@Localizer["TablesEditDataServiceTitle"]"
            Introduction="@Localizer["TablesEditDataServiceIntro"]"
            Name="DataService">
-    <p id="anchor7">
+    <section ignore>
         <b>@Localizer["TablesEditDataServiceDescription"]</b>
         <div class="mt-1">@((MarkupString)Localizer["TablesEditDataServiceTips1"].Value)</div>
         <div class="mt-1">@((MarkupString)Localizer["TablesEditDataServiceTips2"].Value)</div>
-    </p>
-    <Pre class="no-highlight my-3 mb-3">services.AddTableDemoDataService();</Pre>
+        <Pre class="no-highlight my-3 mb-3">services.AddTableDemoDataService();</Pre>
+    </section>
     <Table TItem="Foo" EditDialogShowMaximizeButton="true"
            IsPagination="true" PageItemsSource="@PageItemsSource" DataService="@CustomerDataService"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
@@ -197,12 +203,14 @@
 <DemoBlock Title="@Localizer["TablesEditFooterTemplateTitle"]"
            Introduction="@Localizer["TablesEditFooterTemplateIntro"]"
            Name="EditFooterTemplate">
-    <p>@((MarkupString)Localizer["TablesEditFooterTemplateDescription"].Value)</p>
-    <Pre class="mb-3">&lt;EditFooterTemplate Context="model"&gt;
+    <section ignore>
+        <p>@((MarkupString)Localizer["TablesEditFooterTemplateDescription"].Value)</p>
+        <Pre class="mb-3">&lt;EditFooterTemplate Context="model"&gt;
     &lt;Button Text="Popup" Color="Color.Danger" Icon="fa-regular fa-comment-dots" OnClick="() =&gt; OnClick(model)"&gt;&lt;/Button&gt;
     &lt;DialogCloseButton /&gt;
     &lt;DialogSaveButton Color="Color.Primary" Icon="fa-solid fa-floppy-disk" Text="Save" /&gt;
 &lt;/EditFooterTemplate&gt;</Pre>
+    </section>
     <Table TItem="Foo" IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" IsExtendButtonsInRowHeader="true"

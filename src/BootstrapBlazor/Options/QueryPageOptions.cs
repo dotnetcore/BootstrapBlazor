@@ -51,9 +51,14 @@ public class QueryPageOptions
     public int PageItems { get; set; } = 20;
 
     /// <summary>
-    /// 获得 是否是分页查询 默认为 false 由 <see cref="Table{TItem}.IsPagination"/> 设置
+    /// 获得 是否分页查询模式 默认为 false 由 <see cref="Table{TItem}.IsPagination"/> 设置
     /// </summary>
     public bool IsPage { get; set; }
+
+    /// <summary>
+    /// 获得 是否为虚拟滚动查询模式 默认为 false 由 <see cref="Table{TItem}.ScrollMode"/> 设置
+    /// </summary>
+    public bool IsVirtualScroll { get; set; }
 
     /// <summary>
     /// 获得 通过列集合中的 <see cref="ITableColumn.Searchable"/> 列与 <see cref="SearchText"/> 拼装 IFilterAction 集合

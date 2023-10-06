@@ -554,7 +554,8 @@ public partial class Table<TItem>
             SortOrder = SortOrder,
             SortName = SortName,
             SearchModel = SearchModel,
-            StartIndex = StartIndex
+            StartIndex = StartIndex,
+            IsVirtualScroll = ScrollMode == ScrollMode.Virtual
         };
 
         queryOption.Filters.AddRange(Filters.Values);

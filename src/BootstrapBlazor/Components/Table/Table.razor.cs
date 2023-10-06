@@ -543,6 +543,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public Func<List<ITableColumn>, Task>? OnColumnCreating { get; set; }
 
     /// <summary>
+    /// 获得/设置 自定义列排序规则 默认 null 未设置 使用内部排序机制 1 2 3 0 -3 -2 -1 顺序
+    /// </summary>
+    [Parameter]
+    public Func<IEnumerable<ITableColumn>, IEnumerable<ITableColumn>>? ColumnOrderCallback { get; set; }
+
+    /// <summary>
     /// 获得/设置 OnAfterRenderCallback 是否已经触发 默认 false
     /// </summary>
     /// <remarks>与 <see cref="OnAfterRenderCallback"/> 回调配合</remarks>
@@ -822,7 +828,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         // 初始化列
         if (AutoGenerateColumns)
         {
-            var cols = Utility.GetTableColumns<TItem>(Columns);
+            var cols = Utility.GetTableColumns<TItem>(Columns, ColumnOrderCallback);
             Columns.Clear();
             Columns.AddRange(cols);
         }

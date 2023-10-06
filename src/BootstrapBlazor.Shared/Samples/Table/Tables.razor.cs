@@ -950,6 +950,14 @@ public partial class Tables
         },
         new()
         {
+            Name = nameof(Table<Foo>.ColumnOrderCallback),
+            Description = Localizer["ColumnOrderCallbackAttr"],
+            Type = "Func<List<ITableColumn>, IEnumerable<ITableColumn>>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
             Name = nameof(Table<Foo>.OnDoubleClickCellCallback),
             Description = Localizer["OnDoubleClickCellCallbackAttr"],
             Type = "Func<string, object, object?, Task>",
