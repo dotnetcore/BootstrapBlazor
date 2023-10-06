@@ -50,13 +50,28 @@ export async function init(id, title) {
     }
 }
 
-export function highlight(id) {
+export async function highlight(id) {
     const el = document.getElementById(id);
 
     if (el) {
-        hljs.highlightElement(el.querySelector('code'))
-        el.querySelector('.loading').classList.add('d-none')
-        el.classList.remove('loaded')
+        const invoke = () => {
+            hljs.highlightElement(el.querySelector('code'))
+            el.querySelector('.loading').classList.add('d-none')
+            el.classList.remove('loaded')
+        }
+
+        const check = () => new Promise((resolve, reject) => {
+            const handler = setInterval(() => {
+                const done = window.hljs !== void 0;
+                if (done) {
+                    clearInterval(handler)
+                    resolve()
+                }
+            }, 20)
+        })
+
+        await check();
+        invoke();
     }
 }
 

@@ -1022,6 +1022,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["Marquee"],
+                    Url = "marquee"
+                },
+                new()
+                {
                     Text = Localizer["Message"],
                     Url = "message"
                 },

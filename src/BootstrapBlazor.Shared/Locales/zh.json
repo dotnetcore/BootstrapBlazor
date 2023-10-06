@@ -4514,7 +4514,8 @@
     "QueryBuilder": "条件生成器 QueryBuilder",
     "WebSerial": "串口读写 WebSerial",
     "MindMap": "思维导图 MindMap",
-    "WebSpeech": "语音识别/合成 WebSpeech"
+    "WebSpeech": "语音识别/合成 WebSpeech",
+    "Marquee": "文字滚动 Marquee"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -5902,5 +5903,10 @@
     "AttrItemTemplate": "选项模板",
     "AttrOnClickItem": "点击候选项回调方法",
     "GetItemDisplayText": "获得显示项显示内容回调方法"
+  },
+  "BootstrapBlazor.Shared.Samples.Marquees": {
+    "MarqueeTitle": "基本用法",
+    "MarqueeIntro": "通过参数调节文字滚动效果",
+    "MarqueeDescription": "文字滚动组件"
   }
 }

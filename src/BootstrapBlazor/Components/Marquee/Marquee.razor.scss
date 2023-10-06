@@ -1,0 +1,64 @@
+.marquee {
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+
+    &.marquee-vertical {
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+    }
+
+    .marquee-text {
+        display: inline-block;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+
+        &.marquee-text-left {
+            padding-left: 100%;
+        }
+
+        &.marquee-text-top {
+            padding-top: 100%;
+        }
+    }
+}
+
+@keyframes RightToLeft {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes LeftToRight {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes TopToBottom {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes BottomToTop {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-100%);
+    }
+}
