@@ -66,6 +66,6 @@ public partial class Marquee
 
     private string? TextStyleString => CssBuilder.Default()
         .AddClass($"animation-duration: {Duration}s;")
-        .AddClass($"animation-name: {Direction.ToDescriptionString()}")
+        .AddClass($"animation-name: {Direction.ToDescriptionString()};")
         .Build();
 }
