@@ -30,7 +30,7 @@ public partial class Marquee
     public string BackgroundColor { get; set; } = "#fff";
 
     /// <summary>
-    /// 获得/设置 组件值 文本大小 默认 72
+    /// 获得/设置 组件值 文本大小 默认 72px
     /// </summary>
     [Parameter]
     public int FontSize { get; set; } = 72;
