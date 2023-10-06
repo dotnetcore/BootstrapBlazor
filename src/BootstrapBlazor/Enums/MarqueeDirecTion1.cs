@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <para>Marquee组件，文本滚动方向枚举类型</para>
 /// <para>Marquee component，Text scrolling direction enumeration</para>
 /// </summary>
-public enum MarqueeDirecTion
+public enum MarqueeDirecTion1
 {
     /// <summary>
     /// <para>Marquee组件，文本从左向右滚动</para>
