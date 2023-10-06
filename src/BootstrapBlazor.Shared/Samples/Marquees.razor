@@ -1,6 +1,9 @@
 ﻿@page "/marquee"
+@inject IStringLocalizer<Marquees> Localizer
 
-<DemoBlock Title="滚动字幕" Introduction="" Name="Normal">
+<h3>@Localizer["MarqueeDescription"]</h3>
+
+<DemoBlock Title="@Localizer["MarqueeTitle"]" Introduction="@Localizer["MarqueeIntro"]" Name="Normal">
     <div class="row g-3 mb-3">
         <div class="col-12">
             <div class="mb-2">

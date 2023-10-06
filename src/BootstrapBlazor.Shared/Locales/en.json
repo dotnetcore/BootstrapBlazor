@@ -4513,7 +4513,8 @@
     "QueryBuilder": "QueryBuilder",
     "WebSerial": "Web Serial",
     "MindMap": "Mind Map",
-    "WebSpeech": "Web Speech"
+    "WebSpeech": "Web Speech",
+    "Marquees": "Marquee"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -5900,5 +5901,10 @@
     "AttrItemTemplate": "the template of Item",
     "AttrOnClickItem": "the callback on click item",
     "GetItemDisplayText": "the callback on get item display text"
+  },
+  "BootstrapBlazor.Shared.Samples.Marquees": {
+    "MarqueeTitle": "Usage",
+    "MarqueeIntro": "Adjusting the text scrolling effect through parameters",
+    "MarqueeDescription": "Marquee component"
   }
 }
