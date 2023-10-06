@@ -4215,6 +4215,29 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public void ColumnOrderCallback_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.AutoGenerateColumns, true);
+                pb.Add(a => a.ColumnOrderCallback, cols =>
+                {
+                    return cols.OrderByDescending(i => i.Order);
+                });
+            });
+        });
+        var table = cut.FindComponent<Table<Foo>>();
+        var seqs = table.Instance.Columns.Select(i => i.Order);
+        Assert.Equal(new List<int>() { 70, 60, 50, 40, 20, 10, 1 }, seqs);
+    }
+
+    [Fact]
     public void TableColumn_TextWrap()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
