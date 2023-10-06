@@ -263,16 +263,18 @@ public static class Utility
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     /// <param name="source"></param>
+    /// <param name="defaultOrderCallback">默认排序回调方法</param>
     /// <returns></returns>
-    public static IEnumerable<ITableColumn> GetTableColumns<TModel>(IEnumerable<ITableColumn>? source = null) => GetTableColumns(typeof(TModel), source);
+    public static IEnumerable<ITableColumn> GetTableColumns<TModel>(IEnumerable<ITableColumn>? source = null, Func<IEnumerable<ITableColumn>, IEnumerable<ITableColumn>>? defaultOrderCallback = null) => GetTableColumns(typeof(TModel), source, defaultOrderCallback);
 
     /// <summary>
     /// 通过特定类型模型获取模型属性集合
     /// </summary>
     /// <param name="type">绑定模型类型</param>
     /// <param name="source">Razor 文件中列集合</param>
+    /// <param name="defaultOrderCallback">默认排序回调方法</param>
     /// <returns></returns>
-    public static IEnumerable<ITableColumn> GetTableColumns(Type type, IEnumerable<ITableColumn>? source = null)
+    public static IEnumerable<ITableColumn> GetTableColumns(Type type, IEnumerable<ITableColumn>? source = null, Func<IEnumerable<ITableColumn>, IEnumerable<ITableColumn>>? defaultOrderCallback = null)
     {
         var cols = new List<ITableColumn>(50);
         var classAttribute = type.GetCustomAttribute<AutoGenerateClassAttribute>(true);
@@ -320,7 +322,7 @@ public static class Utility
             cols.Add(tc);
         }
 
-        return cols.Where(a => a.Order > 0).OrderBy(a => a.Order)
+        return defaultOrderCallback?.Invoke(cols) ?? cols.Where(a => a.Order > 0).OrderBy(a => a.Order)
             .Concat(cols.Where(a => a.Order == 0))
             .Concat(cols.Where(a => a.Order < 0).OrderBy(a => a.Order));
     }
