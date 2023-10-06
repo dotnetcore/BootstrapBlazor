@@ -3,7 +3,9 @@
 <DemoBlock Title="滚动字幕" Introduction="" Name="Normal">
     <div class="row g-3 mb-3">
         <div class="col-12">
-            <h4>Options</h4>
+            <div class="mb-2">
+                <h4>Options</h4>
+            </div>
             <div class="mb-2">
                 <BootstrapInputGroup>
                     <BootstrapInputGroupLabel class="label-width" DisplayText="DirecTion" />
@@ -12,9 +14,9 @@
             </div>
             <div class="mb-2">
                 <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel class="label-width" DisplayText="Speed" />
-                    <span class="input-group-text" style="width:48px">@Speed</span>
-                    <Slider @bind-Value="@Speed" Step="1" Min="15" Max="30" />
+                    <BootstrapInputGroupLabel class="label-width" DisplayText="Duration" />
+                    <span class="input-group-text" style="width:48px">@Duration</span>
+                    <Slider @bind-Value="@Duration" Step="1" Min="15" Max="30" />
                 </BootstrapInputGroup>
             </div>
             <div class="mb-2">
@@ -49,7 +51,7 @@
         </div>
     </div>
 
-    <Marquee Text="@Text" Speed="@Speed" Color="@TextColor" FontSize="@FontSize" DirecTion="@DirecTion" BackgroundColor="@BackgroundColor" />
+    <Marquee Text="@Text" Duration="@Duration" Color="@TextColor" FontSize="@FontSize" DirecTion="@DirecTion" BackgroundColor="@BackgroundColor" />
 </DemoBlock>
 
 <style>
@@ -67,11 +69,11 @@
 
     private string TextColor { get; set; } = "#ff0000";
 
-    private string Text { get; set; } = "基于 Bootstrap 样式库精心打造，并且额外增加了 100 多种常用的组件，为您快速开发项目带来非一般的感觉";
+    private string Text { get; set; } = "BootstrapBlazor 组件库，基于 Bootstrap 样式库精心打造，为您快速开发项目带来飞一般的感觉";
 
     private int FontSize { get; set; } = 72;
 
-    private int Speed { get; set; } = 20;
+    private int Duration { get; set; } = 20;
 
     private MarqueeDirecTion DirecTion { get; set; } = MarqueeDirecTion.LeftToRight;
 }

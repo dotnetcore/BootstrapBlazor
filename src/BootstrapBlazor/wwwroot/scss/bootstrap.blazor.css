@@ -7425,7 +7425,6 @@ form .table .table-cell > textarea {
   padding-left: 100%;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
-  animation-name: lefttoright;
 }
 
 @keyframes righttoleft {
