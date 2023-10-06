@@ -130,6 +130,12 @@ public partial class EditorForm<TModel> : IShowLabel
     public IEnumerable<IEditorItem>? Items { get; set; }
 
     /// <summary>
+    /// 获得/设置 自定义列排序规则 默认 null 未设置 使用内部排序机制 1 2 3 0 -3 -2 -1 顺序
+    /// </summary>
+    [Parameter]
+    public Func<IEnumerable<ITableColumn>, IEnumerable<ITableColumn>>? ColumnOrderCallback { get; set; }
+
+    /// <summary>
     /// 获得/设置 未设置 GroupName 编辑项是否放置在顶部 默认 false
     /// </summary>
     [Parameter]
@@ -165,7 +171,7 @@ public partial class EditorForm<TModel> : IShowLabel
     /// </summary>
     private List<IEditorItem> FormItems { get; } = new();
 
-    private IEnumerable<IEditorItem> UnsetGroupItems => FormItems.Where(i => string.IsNullOrEmpty(i.GroupName)).OrderBy(i => i.Order);
+    private IEnumerable<IEditorItem> UnsetGroupItems => FormItems.Where(i => string.IsNullOrEmpty(i.GroupName));
 
     private IEnumerable<KeyValuePair<string, IOrderedEnumerable<IEditorItem>>> GroupItems => FormItems
         .Where(i => !string.IsNullOrEmpty(i.GroupName))
@@ -239,7 +245,7 @@ public partial class EditorForm<TModel> : IShowLabel
                 if (AutoGenerateAllItem)
                 {
                     // 获取绑定模型所有属性
-                    var items = Utility.GetTableColumns<TModel>().ToList();
+                    var items = Utility.GetTableColumns<TModel>(defaultOrderCallback: ColumnOrderCallback).ToList();
 
                     // 通过设定的 FieldItems 模板获取项进行渲染
                     foreach (var el in EditorItems)
