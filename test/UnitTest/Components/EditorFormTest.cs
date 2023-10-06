@@ -365,6 +365,28 @@ public class EditorFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ColumnOrderCallback_Ok()
+    {
+        var foo = new Foo();
+        var cut = Context.RenderComponent<EditorForm<Foo>>(pb =>
+        {
+            pb.Add(a => a.Model, foo);
+            pb.Add(a => a.AutoGenerateAllItem, true);
+            pb.Add(a => a.ColumnOrderCallback, cols =>
+            {
+                return cols.OrderByDescending(i => i.Order);
+            });
+        });
+        var editor = cut.Instance;
+        var itemsField = editor.GetType().GetField("_formItems", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.GetField);
+        Assert.NotNull(itemsField);
+
+        var v = itemsField.GetValue(editor) as List<IEditorItem>;
+        Assert.NotNull(v);
+        Assert.Equal(new List<int>() { 60, 50, 40, 20, 10, 1 }, v.Select(i => i.Order));
+    }
+
+    [Fact]
     public void LookupServiceKey_Ok()
     {
         var foo = new Foo();
