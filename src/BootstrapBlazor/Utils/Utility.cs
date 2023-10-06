@@ -322,10 +322,12 @@ public static class Utility
             cols.Add(tc);
         }
 
-        return defaultOrderCallback?.Invoke(cols) ?? cols.Where(a => a.Order > 0).OrderBy(a => a.Order)
-            .Concat(cols.Where(a => a.Order == 0))
-            .Concat(cols.Where(a => a.Order < 0).OrderBy(a => a.Order));
+        return defaultOrderCallback?.Invoke(cols) ?? cols.OrderFunc();
     }
+
+    private static IEnumerable<ITableColumn> OrderFunc(this List<ITableColumn> cols) => cols.Where(a => a.Order > 0).OrderBy(a => a.Order)
+        .Concat(cols.Where(a => a.Order == 0))
+        .Concat(cols.Where(a => a.Order < 0).OrderBy(a => a.Order));
 
     /// <summary>
     /// 通过指定 Model 获得 IEditorItem 集合方法
