@@ -54,6 +54,6 @@ public class GroupTest
 
         items = new List<int> { 2, 1, 0, -1, -3, -2, -4 };
         actual = items.OrderBy(i => i);
-        Assert.Equal("-4, -3, -2, -1", string.Join(", ", actual));
+        Assert.Equal("-4, -3, -2, -1, 0, 1, 2", string.Join(", ", actual));
     }
 }
