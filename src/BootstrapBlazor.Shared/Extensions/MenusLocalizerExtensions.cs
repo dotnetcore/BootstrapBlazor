@@ -1017,6 +1017,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["Marquee"],
+                    Url = "marquee"
+                },
+                new()
+                {
                     Text = Localizer["Message"],
                     Url = "message"
                 },
@@ -1090,12 +1096,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Tooltip"],
                     Url = "tooltip"
-                }
-                ,new()
-                {
-                    IsNew = true,
-                    Text = Localizer["Marquees"],
-                    Url = "marquee"
                 }
             };
             AddBadge(item);
