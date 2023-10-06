@@ -88,6 +88,12 @@ public partial class DockView
     [Parameter]
     public string? LocalStoragePrefix { get; set; }
 
+    /// <summary>
+    /// 获得/设置 布局配置
+    /// </summary>
+    [Parameter]
+    public string? LayoutConfig { get; set; }
+
     private DockViewConfig Config { get; } = new();
 
     private DockContent Content { get; } = new();
@@ -95,6 +101,8 @@ public partial class DockView
     private bool IsRendered { get; set; }
 
     private bool _isLock;
+
+    private readonly string _version = "v1";
 
     private string? ClassString => CssBuilder.Default("bb-dock")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -143,11 +151,12 @@ public partial class DockView
 
     private DockViewConfig GetOption() => new()
     {
-        Version = "v1",
+        Version = _version,
         Name = Name,
         EnableLocalStorage = EnableLocalStorage,
         IsLock = IsLock,
         Contents = Config.Contents,
+        LayoutConfig = LayoutConfig,
         LocalStorageKeyPrefix = $"{LocalStoragePrefix}-{Name}",
         VisibleChangedCallback = nameof(VisibleChangedCallbackAsync),
         InitializedCallback = nameof(InitializedCallbackAsync),
@@ -199,6 +208,26 @@ public partial class DockView
             _isLock = IsLock;
             await InvokeVoidAsync("lock", Id, _isLock);
         }
+    }
+
+    /// <summary>
+    /// 获取布局配置
+    /// </summary>
+    /// <returns></returns>
+    public Task<string?> GetLayoutConfig() => InvokeAsync<string>("getLayoutConfig", Id);
+
+    /// <summary>
+    /// 重置为默认布局
+    /// </summary>
+    /// <returns></returns>
+    public Task Reset(string? layoutConfig = null)
+    {
+        var config = GetOption();
+        if (layoutConfig != null)
+        {
+            config.LayoutConfig = layoutConfig;
+        }
+        return InvokeVoidAsync("reset", Id, config);
     }
 
     /// <summary>

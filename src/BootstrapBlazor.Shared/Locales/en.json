@@ -4503,6 +4503,7 @@
     "DockViewComplex": "Complex",
     "DockViewVisible": "Visible",
     "DockViewLock": "Lock",
+    "DockViewLayout": "Custom",
     "OtherComponents": "Others",
     "MouseFollowerIntro": "MouseFollower",
     "Live2DDisplayIntro": "Live2D Widget",

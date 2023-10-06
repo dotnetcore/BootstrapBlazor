@@ -4503,6 +4503,7 @@
     "DockViewComplex": "组合布局",
     "DockViewVisible": "可见性切换",
     "DockViewLock": "布局锁定",
+    "DockViewLayout": "布局自定义",
     "OtherComponents": "其他组件",
     "MouseFollowerIntro": "鼠标跟随",
     "Live2DDisplayIntro": "Live2D 插件",

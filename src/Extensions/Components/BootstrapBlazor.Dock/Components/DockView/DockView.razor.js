@@ -11,7 +11,7 @@ export async function init(id, option, invoke) {
     await addLink("./_content/BootstrapBlazor.Dock/css/goldenlayout-bb.css")
 
     const eventsData = new Map()
-    const dock = { el, eventsData, lock: option.lock }
+    const dock = { el, eventsData, invoke, lock: option.lock, layoutConfig: option.layoutConfig }
     Data.set(id, dock)
 
     option.invokeVisibleChangedCallback = (title, visible) => {
@@ -74,7 +74,10 @@ export function update(id, option) {
     const dock = Data.get(id)
 
     if (dock) {
-        if (dock.lock !== option.lock) {
+        if (dock.layoutConfig !== option.layoutConfig) {
+            reset(id, option)
+        }
+        else if (dock.lock !== option.lock) {
             // 处理 Lock 逻辑
             dock.lock = option.lock
             lockDock(dock)
@@ -92,6 +95,36 @@ export function lock(id, lock) {
     lockDock(dock)
 }
 
+export function getLayoutConfig(id) {
+    let config = "";
+    const dock = Data.get(id)
+    if (dock) {
+        const layout = dock.layout
+        config = JSON.stringify(layout.saveLayout())
+    }
+    return config;
+}
+
+export function reset(id, option) {
+    const dock = Data.get(id)
+    if (dock) {
+        removeConfig(option);
+
+        const el = dock.el;
+        const components = getAllContentItems(option.content);
+        components.forEach(i => {
+            const item = document.getElementById(i.id);
+            if (item) {
+                item.classList.add("d-none");
+                el.append(item);
+            }
+        })
+        dispose(id)
+
+        init(id, option, dock.invoke)
+    }
+}
+
 export function dispose(id) {
     const dock = Data.get(id)
     Data.remove(id)
@@ -102,6 +135,13 @@ export function dispose(id) {
 
     dock.eventsData.clear()
     dock.layout.destroy()
+
+    if (goldenLayout.bb_docks !== void 0) {
+        const index = goldenLayout.bb_docks.indexOf(dock);
+        if (index > 0) {
+            goldenLayout.bb_docks.splice(index, 1);
+        }
+    }
 }
 
 const lockDock = dock => {
@@ -271,21 +311,24 @@ const closeItem = (el, component) => {
 }
 
 const getConfig = option => {
-    let config = null
     option = {
         enableLocalStorage: false,
+        layoutConfig: null,
         name: 'default',
         ...option
     }
-    if (option.enableLocalStorage) {
-        const localConfig = localStorage.getItem(getLocalStorageKey(option));
-        if (localConfig) {
-            // 当tab全部关闭时，没有root节点
-            const configItem = JSON.parse(localConfig)
-            if (configItem.root) {
-                config = configItem
-                resetComponentId(config, option)
-            }
+
+    let config = null
+    let layoutConfig = option.layoutConfig;
+    if (layoutConfig === null && option.enableLocalStorage) {
+        layoutConfig = localStorage.getItem(getLocalStorageKey(option));
+    }
+    if (layoutConfig) {
+        // 当tab全部关闭时，没有root节点
+        const configItem = JSON.parse(layoutConfig)
+        if (configItem.root) {
+            config = configItem
+            resetComponentId(config, option)
         }
     }
 
@@ -396,9 +439,13 @@ const removeContent = (content, item) => {
 }
 
 const hackGoldenLayout = dock => {
+    if (goldenLayout.bb_docks === void 0) {
+        goldenLayout.bb_docks = [];
+    }
+    goldenLayout.bb_docks.push(dock);
+
     if (!goldenLayout.isHack) {
         goldenLayout.isHack = true
-        const eventsData = dock.eventsData
 
         // hack Tab
         goldenLayout.Tab.prototype.onCloseClick = function () {
@@ -418,8 +465,19 @@ const hackGoldenLayout = dock => {
             }
         }
 
+        // hack RowOrColumn
+        const originSplitterDragStop = goldenLayout.RowOrColumn.prototype.onSplitterDragStop
+        goldenLayout.RowOrColumn.prototype.onSplitterDragStop = function (splitter) {
+            originSplitterDragStop.call(this, splitter)
+            this.layoutManager.emit('splitterDragStop')
+        }
+
         // hack Header
         goldenLayout.Header.prototype.handleButtonPopoutEvent = function () {
+            // find own dock
+            const dock = goldenLayout.bb_docks.find(i => i.layout === this.layoutManager);
+            const eventsData = dock.eventsData
+
             const stack = this.parent
             const lock = eventsData.has(stack)
             if (lock) {
@@ -438,6 +496,10 @@ const hackGoldenLayout = dock => {
             originprocessTabDropdownActiveChanged.call(this)
 
             this._closeButton.onClick = function (ev) {
+                // find own dock
+                const dock = goldenLayout.bb_docks.find(i => i.layout === this._header.layoutManager);
+                const eventsData = dock.eventsData
+
                 const tabs = this._header.tabs.map(tab => {
                     return { element: tab.componentItem.element, title: tab.componentItem.title }
                 })
@@ -452,13 +514,6 @@ const hackGoldenLayout = dock => {
                     }, 100)
                 }
             }
-        }
-
-        // hack RowOrColumn
-        const originSplitterDragStop = goldenLayout.RowOrColumn.prototype.onSplitterDragStop
-        goldenLayout.RowOrColumn.prototype.onSplitterDragStop = function (splitter) {
-            originSplitterDragStop.call(this, splitter)
-            this.layoutManager.emit('splitterDragStop')
         }
     }
 }
