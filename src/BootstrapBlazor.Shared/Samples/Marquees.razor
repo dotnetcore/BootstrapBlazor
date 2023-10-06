@@ -4,83 +4,36 @@
 <h3>@Localizer["MarqueeDescription"]</h3>
 
 <DemoBlock Title="@Localizer["MarqueeTitle"]" Introduction="@Localizer["MarqueeIntro"]" Name="Normal">
-    <div class="row g-3 mb-3">
-        <div class="col-12">
-            <div class="mb-2">
-                <h4>Options</h4>
-            </div>
-            <div class="mb-2">
-                <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel class="label-width" DisplayText="DirecTion" />
-                    <RadioList @bind-Value="@DirecTion" />
-                </BootstrapInputGroup>
-            </div>
-            <div class="mb-2">
-                <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel class="label-width" DisplayText="Duration" />
-                    <span class="input-group-text" style="width:48px">@Duration</span>
-                    <Slider @bind-Value="@Duration" Step="1" Min="15" Max="30" />
-                </BootstrapInputGroup>
-            </div>
-            <div class="mb-2">
-                <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel class="label-width" DisplayText="FontSize" />
-                    <span class="input-group-text" style="width:48px">@FontSize</span>
-                    <Slider @bind-Value="@FontSize" Step="1" Min="20" Max="72" />
-                </BootstrapInputGroup>
-            </div>
-            <div class="mb-2">
-                <BootstrapInputGroup>
-                    <BootstrapInputGroupLabel class="label-width" DisplayText="Text" />
-                    <BootstrapInput TValue="string" @bind-Value="@Text" />
-                </BootstrapInputGroup>
-            </div>
-            <div class="mb-2">
-                <div class="input-group input-group-sm">
-                    <span class="input-group-text label-width">TextColor</span>
-                    <div class="pick-radius">
-                        <ColorPicker @bind-Value="@TextColor" />
-                    </div>
-                </div>
-            </div>
-            <div class="mb-2">
-                <div class="input-group input-group-sm">
-                    <span class="input-group-text label-width">BackgroundColor</span>
-                    <div class="pick-radius">
-                        <ColorPicker @bind-Value="@BackgroundColor" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <section ignore>
+        <h4>Options</h4>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="Direction" />
+            <RadioList @bind-Value="@Direction" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="Duration" />
+            <span class="input-group-text" style="width:48px">@Duration</span>
+            <Slider @bind-Value="@Duration" Step="1" Min="15" Max="30" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="FontSize" />
+            <span class="input-group-text" style="width:48px">@FontSize</span>
+            <Slider @bind-Value="@FontSize" Step="1" Min="20" Max="72" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="Text" />
+            <BootstrapInput TValue="string" @bind-Value="@Text" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="TextColor" />
+            <ColorPicker @bind-Value="@TextColor" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="BackgroundColor" />
+            <ColorPicker @bind-Value="@BackgroundColor" />
+        </BootstrapInputGroup>
+    </section>
 
-    <Marquee class="marquee-demo" Text="@Text" Duration="@Duration" Color="@TextColor" FontSize="@FontSize" DirecTion="@DirecTion" BackgroundColor="@BackgroundColor" />
+    <Marquee Text="@Text" Color="@TextColor" BackgroundColor="@BackgroundColor"
+             Duration="@Duration" DirecTion="@Direction" FontSize="@FontSize" />
 </DemoBlock>
-
-<style>
-    .label-width {
-        width: 150px;
-    }
-
-    .pick-radius :first-child {
-        border-radius: 0px;
-    }
-
-    .marquee-demo {
-        max-height: 50%;
-    }
-</style>
-
-@code {
-    private string BackgroundColor { get; set; } = "#000000";
-
-    private string TextColor { get; set; } = "#ff0000";
-
-    private string Text { get; set; } = "BootstrapBlazor 组件库，基于 Bootstrap 样式库精心打造，为您快速开发项目带来飞一般的感觉";
-
-    private int FontSize { get; set; } = 72;
-
-    private int Duration { get; set; } = 20;
-
-    private MarqueeDirecTion DirecTion { get; set; } = MarqueeDirecTion.LeftToRight;
-}
