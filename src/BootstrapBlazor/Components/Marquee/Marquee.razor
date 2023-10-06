@@ -1,10 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapModuleComponentBase
+@inherits BootstrapComponentBase
 
-@if (!string.IsNullOrEmpty(Text))
-{
-    <div @attributes="AdditionalAttributes" id="@Id"
-         class="@BoxClassString" style="background-color:@BackgroundColor;color:@Color;font-size:@($"{FontSize}px");">
-        <span class="@TextClassString" style="animation-duration:@($"{Duration}s");animation-name:@DirecTion.ToDescriptionString();">@Text</span>
-    </div>
-}
+<div @attributes="AdditionalAttributes" class="@ClassString" style="@StyleString">
+    <span class="@TextClassString" style="@TextStyleString">@Text</span>
+</div>
