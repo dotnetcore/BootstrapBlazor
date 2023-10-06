@@ -40,18 +40,18 @@ public partial class Marquee
     /// <summary>
     /// 获得/设置 组件值 滚动方向 默认 LeftToRight
     /// </summary>
-    [Parameter] public MarqueeDirecTion DirecTion { get; set; } = MarqueeDirecTion.LeftToRight;
+    [Parameter] public MarqueeDirection DirecTion { get; set; } = MarqueeDirection.LeftToRight;
 
-    private MarqueeDirecTion lastDirecTion { get; set; }
+    private MarqueeDirection lastDirecTion { get; set; }
 
     private string? BoxClassString => CssBuilder.Default("bb-marquee-box")
         .AddClassFromAttributes(AdditionalAttributes)
-        .AddClass($"bb-marquee-box-vertical", DirecTion == MarqueeDirecTion.TopToBottom || DirecTion == MarqueeDirecTion.BottomToTop)
+        .AddClass($"bb-marquee-box-vertical", DirecTion == MarqueeDirection.TopToBottom || DirecTion == MarqueeDirection.BottomToTop)
         .Build();
 
     private string? TextClassString => CssBuilder.Default("bb-marquee-text")
-        .AddClass($"bb-marquee-text-left", DirecTion == MarqueeDirecTion.LeftToRight || DirecTion == MarqueeDirecTion.RightToLeft)
-        .AddClass($"bb-marquee-text-top", DirecTion == MarqueeDirecTion.TopToBottom || DirecTion == MarqueeDirecTion.BottomToTop)
+        .AddClass($"bb-marquee-text-left", DirecTion == MarqueeDirection.LeftToRight || DirecTion == MarqueeDirection.RightToLeft)
+        .AddClass($"bb-marquee-text-top", DirecTion == MarqueeDirection.TopToBottom || DirecTion == MarqueeDirection.BottomToTop)
         .Build();
 
 }
