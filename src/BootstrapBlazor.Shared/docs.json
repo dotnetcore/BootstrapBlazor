@@ -50,6 +50,7 @@
     "dock-view/stack": "DockViews\\DockViewStack",
     "dock-view/lock": "DockViews\\DockViewLock",
     "dock-view/visible": "DockViews\\DockViewVisible",
+    "dock-view/layout": "DockViews\\DockViewLayout",
     "download": "Downloads",
     "drag-drop": "DragDrops",
     "drawer": "Drawers",
