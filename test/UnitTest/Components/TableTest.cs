@@ -2509,6 +2509,7 @@ public class TableTest : TableTestBase
     [Fact]
     public void ScrollMode_Query_Ok()
     {
+        var isVirtual = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -2517,7 +2518,17 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ScrollMode, ScrollMode.Virtual);
                 pb.Add(a => a.ShowLineNo, true);
-                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.OnQueryAsync, option =>
+                {
+                    isVirtual = option.IsVirtualScroll;
+                    var items = Foo.GenerateFoo(localizer, 5);
+                    var ret = new QueryData<Foo>()
+                    {
+                        Items = items,
+                        TotalCount = 5
+                    };
+                    return Task.FromResult(ret);
+                });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -2549,6 +2560,48 @@ public class TableTest : TableTestBase
             var th = ths[1];
             th.Click();
         });
+        Assert.True(isVirtual);
+    }
+
+    [Fact]
+    public void RenderPlaceHolderRow_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ScrollMode, ScrollMode.Virtual);
+                pb.Add(a => a.ShowLineNo, true);
+                pb.Add(a => a.OnQueryAsync, option =>
+                {
+                    var items = Foo.GenerateFoo(localizer, 8).Skip(option.StartIndex).Take(option.PageItems);
+                    var ret = new QueryData<Foo>()
+                    {
+                        Items = items,
+                        TotalCount = option.PageItems
+                    };
+                    return Task.FromResult(ret);
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.AddAttribute(3, "Sortable", true);
+                    builder.CloseComponent();
+                });
+            });
+        });
+        cut.Contains("table-cell is-ph");
+
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowExtendButtons, true);
+        });
+        cut.Contains("table-cell is-ph");
     }
 
     [Theory]
@@ -4159,6 +4212,29 @@ public class TableTest : TableTestBase
         });
         var column = cut.FindComponent<TableColumn<Foo, string>>();
         Assert.True(column.Instance.DefaultSort);
+    }
+
+    [Fact]
+    public void ColumnOrderCallback_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.AutoGenerateColumns, true);
+                pb.Add(a => a.ColumnOrderCallback, cols =>
+                {
+                    return cols.OrderByDescending(i => i.Order);
+                });
+            });
+        });
+        var table = cut.FindComponent<Table<Foo>>();
+        var seqs = table.Instance.Columns.Select(i => i.Order);
+        Assert.Equal(new List<int>() { 70, 60, 50, 40, 20, 10, 1 }, seqs);
     }
 
     [Fact]
@@ -6494,7 +6570,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public async Task QueryItems_Null()
+    public void QueryItems_Null()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -6507,14 +6583,12 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<MockTable>();
-        var items = await table.Instance.DataService!.QueryAsync(new QueryPageOptions());
-        Assert.Null(items.Items);
-
-        table.SetParametersAndRender(pb =>
+        Assert.NotNull(table.Instance.DataService);
+        cut.InvokeAsync(async () =>
         {
-            pb.Add(a => a.ScrollMode, ScrollMode.Virtual);
+            var items = await table.Instance.DataService.QueryAsync(new QueryPageOptions());
+            Assert.Null(items.Items);
         });
-        await cut.InvokeAsync(() => table.Instance.QueryAsync());
     }
 
     [Fact]

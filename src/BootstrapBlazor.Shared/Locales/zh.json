@@ -4665,6 +4665,7 @@
     "OnQueryAsyncAttr": "异步查询回调方法",
     "OnAddAsyncAttr": "新建按钮回调方法",
     "OnColumnCreatingAttr": "列创建时回调委托方法",
+    "ColumnOrderCallbackAttr": "列排序回调委托方法",
     "OnDoubleClickCellCallbackAttr": "设置单元格双击事件",
     "OnDeleteAsyncAttr": "删除按钮异步回调方法",
     "OnEditAsyncAttr": "编辑按钮异步回调方法",
