@@ -1,29 +1,29 @@
-.bb-marquee-box {
+.marquee {
     overflow: hidden;
     white-space: nowrap;
     position: relative;
+
+    &.marquee-vertical {
+        writing-mode: vertical-rl;
+        text-orientation: upright;
+    }
+
+    .marquee-text {
+        display: inline-block;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+
+        &.marquee-text-left {
+            padding-left: 100%;
+        }
+
+        &.marquee-text-top {
+            padding-top: 100%;
+        }
+    }
 }
 
-.bb-marquee-box-vertical {
-    writing-mode: vertical-rl;
-    text-orientation: upright;
-}
-
-.bb-marquee-text {
-    display: inline-block;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-}
-
-.bb-marquee-text-left {
-    padding-left: 100%;
-}
-
-.bb-marquee-text-top {
-    padding-top: 100%;
-}
-
-@keyframes righttoleft {
+@keyframes RightToLeft {
     from {
         transform: translateX(0);
     }
@@ -33,7 +33,7 @@
     }
 }
 
-@keyframes lefttoright {
+@keyframes LeftToRight {
     from {
         transform: translateX(-100%);
     }
@@ -43,7 +43,7 @@
     }
 }
 
-@keyframes toptobottom {
+@keyframes TopToBottom {
     from {
         transform: translateY(-100%);
     }
@@ -53,7 +53,7 @@
     }
 }
 
-@keyframes bottomtotop {
+@keyframes BottomToTop {
     from {
         transform: translateY(0);
     }

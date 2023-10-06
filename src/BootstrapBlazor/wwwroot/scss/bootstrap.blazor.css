@@ -7422,32 +7422,28 @@ form .table .table-cell > textarea {
   background-color: var(--bb-tree-item-active-bg);
 }
 
-.bb-marquee-box {
+.marquee {
   overflow: hidden;
   white-space: nowrap;
   position: relative;
 }
-
-.bb-marquee-box-vertical {
+.marquee.marquee-vertical {
   writing-mode: vertical-rl;
   text-orientation: upright;
 }
-
-.bb-marquee-text {
+.marquee .marquee-text {
   display: inline-block;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
-
-.bb-marquee-text-left {
+.marquee .marquee-text.marquee-text-left {
   padding-left: 100%;
 }
-
-.bb-marquee-text-top {
+.marquee .marquee-text.marquee-text-top {
   padding-top: 100%;
 }
 
-@keyframes righttoleft {
+@keyframes RightToLeft {
   from {
     transform: translateX(0);
   }
@@ -7455,7 +7451,7 @@ form .table .table-cell > textarea {
     transform: translateX(-100%);
   }
 }
-@keyframes lefttoright {
+@keyframes LeftToRight {
   from {
     transform: translateX(-100%);
   }
@@ -7463,7 +7459,7 @@ form .table .table-cell > textarea {
     transform: translateX(0);
   }
 }
-@keyframes toptobottom {
+@keyframes TopToBottom {
   from {
     transform: translateY(-100%);
   }
@@ -7471,7 +7467,7 @@ form .table .table-cell > textarea {
     transform: translateY(0);
   }
 }
-@keyframes bottomtotop {
+@keyframes BottomToTop {
   from {
     transform: translateY(0);
   }
