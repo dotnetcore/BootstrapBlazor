@@ -4,6 +4,9 @@
 
 namespace BootstrapBlazor.Shared.Samples;
 
+/// <summary>
+/// Marquee 组件
+/// </summary>
 public partial class Marquees
 {
     private string BackgroundColor { get; set; } = "#000000";
