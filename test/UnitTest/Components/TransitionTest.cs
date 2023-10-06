@@ -16,7 +16,7 @@ public class TransitionTest : BootstrapBlazorTestBase
         Assert.Contains("animate__fadeIn", cut.Markup);
 
         cut.SetParametersAndRender(builder => builder.Add(s => s.Show, false));
-        Assert.DoesNotContain("animate__fadeIn", cut.Markup);
+        cut.WaitForAssertion(() => Assert.DoesNotContain("animate__fadeIn", cut.Markup));
     }
 
     [Fact]
