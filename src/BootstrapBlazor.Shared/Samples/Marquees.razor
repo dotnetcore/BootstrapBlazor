@@ -54,7 +54,7 @@
         </div>
     </div>
 
-    <Marquee Text="@Text" Duration="@Duration" Color="@TextColor" FontSize="@FontSize" DirecTion="@DirecTion" BackgroundColor="@BackgroundColor" />
+    <Marquee class="marquee-demo" Text="@Text" Duration="@Duration" Color="@TextColor" FontSize="@FontSize" DirecTion="@DirecTion" BackgroundColor="@BackgroundColor" />
 </DemoBlock>
 
 <style>
@@ -64,6 +64,10 @@
 
     .pick-radius :first-child {
         border-radius: 0px;
+    }
+
+    .marquee-demo {
+        max-height: -webkit-fill-available;
     }
 </style>
 

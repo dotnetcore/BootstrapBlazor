@@ -1,14 +1,26 @@
-.bb-marquee {
+.bb-marquee-box {
     overflow: hidden;
     white-space: nowrap;
     position: relative;
 }
 
+.bb-marquee-box-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+}
+
 .bb-marquee-text {
     display: inline-block;
-    padding-left: 100%;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
+}
+
+.bb-marquee-text-left {
+    padding-left: 100%;
+}
+
+.bb-marquee-text-top {
+    padding-top: 100%;
 }
 
 @keyframes righttoleft {
@@ -33,20 +45,20 @@
 
 @keyframes toptobottom {
     from {
-        transform: translateY(0);
-    }
-
-    to {
-        transform: translateY(-10%0);
-    }
-}
-
-@keyframes bottomtotop {
-    from {
         transform: translateY(-100%);
     }
 
     to {
         transform: translateY(0);
+    }
+}
+
+@keyframes bottomtotop {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-100%);
     }
 }

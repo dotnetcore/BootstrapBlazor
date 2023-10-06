@@ -41,4 +41,17 @@ public partial class Marquee
     /// 获得/设置 组件值 滚动方向 默认 LeftToRight
     /// </summary>
     [Parameter] public MarqueeDirecTion DirecTion { get; set; } = MarqueeDirecTion.LeftToRight;
+
+    private MarqueeDirecTion lastDirecTion { get; set; }
+
+    private string? BoxClassString => CssBuilder.Default("bb-marquee-box")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .AddClass($"bb-marquee-box-vertical", DirecTion == MarqueeDirecTion.TopToBottom || DirecTion == MarqueeDirecTion.BottomToTop)
+        .Build();
+
+    private string? TextClassString => CssBuilder.Default("bb-marquee-text")
+        .AddClass($"bb-marquee-text-left", DirecTion == MarqueeDirecTion.LeftToRight || DirecTion == MarqueeDirecTion.RightToLeft)
+        .AddClass($"bb-marquee-text-top", DirecTion == MarqueeDirecTion.TopToBottom || DirecTion == MarqueeDirecTion.BottomToTop)
+        .Build();
+
 }
