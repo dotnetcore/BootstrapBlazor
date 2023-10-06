@@ -10,7 +10,7 @@ public class MarqueeTest : BootstrapBlazorTestBase
     public void Marquee_Ok()
     {
         var cut = Context.RenderComponent<Marquee>();
-        Assert.Equal("<div class=\"marquee\" style=\"background-color: #fff; color: #000; font-size: 72px;\"><span class=\"marquee-text marquee-text-left\" style=\"animation-duration: 14s; animation-name: LeftToRight\"></span></div>", cut.Markup);
+        Assert.Equal("<div class=\"marquee\" style=\"background-color: #fff; color: #000; font-size: 72px;\"><span class=\"marquee-text marquee-text-left\" style=\"animation-duration: 14s; animation-name: LeftToRight;\"></span></div>", cut.Markup);
     }
 
     [Fact]
@@ -20,7 +20,7 @@ public class MarqueeTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Text, "Test");
         });
-        Assert.Equal("<div class=\"marquee\" style=\"background-color: #fff; color: #000; font-size: 72px;\"><span class=\"marquee-text marquee-text-left\" style=\"animation-duration: 14s; animation-name: LeftToRight\">Test</span></div>", cut.Markup);
+        Assert.Equal("<div class=\"marquee\" style=\"background-color: #fff; color: #000; font-size: 72px;\"><span class=\"marquee-text marquee-text-left\" style=\"animation-duration: 14s; animation-name: LeftToRight;\">Test</span></div>", cut.Markup);
     }
 
     [Fact]
