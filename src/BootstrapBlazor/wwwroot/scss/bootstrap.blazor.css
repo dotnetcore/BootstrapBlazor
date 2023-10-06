@@ -1227,6 +1227,14 @@ a, a:hover, a:focus {
   max-width: 3rem;
 }
 
+.input-group > .color-picker {
+  flex: 1;
+}
+.input-group > .color-picker > .form-control-color {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
 .console {
   --bs-card-color: #fff;
   --bb-console-body-bg: #174482;
