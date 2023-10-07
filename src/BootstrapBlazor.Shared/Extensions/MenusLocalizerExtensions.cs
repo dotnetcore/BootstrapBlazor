@@ -94,6 +94,15 @@ internal static class MenusLocalizerExtensions
 
         item = new DemoMenuItem()
         {
+            Text = "JSHelper",
+            Icon = "fa-fw fa-solid fa-code",
+            Url = "jshelpers"
+        };
+
+        menus.Add(item);
+
+        item = new DemoMenuItem()
+        {
             Text = Localizer["Components"],
             Icon = "text-info fa-solid fa-fw fa-heart fa-beat",
             Url = "components"
