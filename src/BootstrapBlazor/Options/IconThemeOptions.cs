@@ -76,8 +76,8 @@ public class IconThemeOptions
         { ComponentIcons.MenuLinkArrowIcon, "fa-solid fa-angle-left" },
 
         { ComponentIcons.ResultDialogYesIcon, "fa-solid fa-check" },
-        { ComponentIcons.ResultDialogNoIcon, "fa-regular fa-circle-xmark" },
-        { ComponentIcons.ResultDialogCloseIcon, "fa-regular fa-circle-xmark" },
+        { ComponentIcons.ResultDialogNoIcon, "fa-solid fa-xmark" },
+        { ComponentIcons.ResultDialogCloseIcon, "fa-solid fa-xmark" },
 
         { ComponentIcons.SearchDialogClearIcon, "fa-regular fa-trash-can" },
         { ComponentIcons.SearchDialogSearchIcon, "fa-solid fa-magnifying-glass" },

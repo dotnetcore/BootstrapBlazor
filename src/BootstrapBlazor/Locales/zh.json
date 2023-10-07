@@ -343,8 +343,7 @@
     "GroupText": "组合条件",
     "ItemText": "单行条件"
   },
-  "BootstrapBlazor.Components.AdvancedSort": {
-    "EmptyText": "无排序条件",
+  "BootstrapBlazor.Components.TableAdvancedSortDialog": {
     "AscText": "升序",
     "DescText": "降序"
   }

@@ -472,17 +472,17 @@ public partial class Table<TItem>
     /// </summary>
     private async Task ShowSortDialog()
     {
-        var result = await DialogService.ShowModal<AdvancedSort>(new ResultDialogOption
+        var result = await DialogService.ShowModal<TableAdvancedSortDialog>(new ResultDialogOption
         {
             Title = AdvancedSortModalTitle,
             Size = AdvancedSortDialogSize,
             IsDraggable = AdvancedSortDialogIsDraggable,
             ShowMaximizeButton = AdvancedSortDialogShowMaximizeButton,
-            ComponentParamters = new Dictionary<string, object>
+            ComponentParameters = new Dictionary<string, object>
             {
-                [nameof(AdvancedSort.Value)] = AdvancedSortItems,
-                [nameof(AdvancedSort.ValueChanged)] = EventCallback.Factory.Create<List<SortItem>>(this, v => AdvancedSortItems = v),
-                [nameof(AdvancedSort.SortableFields)] = Columns.Where(p => p.Sortable).Select(p => new SelectedItem(p.GetFieldName(), p.GetDisplayName()))
+                [nameof(TableAdvancedSortDialog.Value)] = AdvancedSortItems,
+                [nameof(TableAdvancedSortDialog.ValueChanged)] = EventCallback.Factory.Create<List<SortItem>>(this, v => AdvancedSortItems = v),
+                [nameof(TableAdvancedSortDialog.Items)] = Columns.Where(p => p.Sortable).Select(p => new SelectedItem(p.GetFieldName(), p.GetDisplayName()))
             }
         });
         if (result == DialogResult.Yes)
