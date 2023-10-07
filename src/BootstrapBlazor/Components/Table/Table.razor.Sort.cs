@@ -88,8 +88,8 @@ public partial class Table<TItem>
 
         SortName = col.GetFieldName();
 
-        //清除高级排序 (保证点击Header排序的优先级最高)
-        AdvancedSortItems.Clear(); //S_ADD:
+        // 清除高级排序 (保证点击 Header 排序的优先级最高)
+        AdvancedSortItems.Clear();
 
         // 通知 Table 组件刷新数据
         await InternalOnSortAsync(SortName, SortOrder);
@@ -423,20 +423,19 @@ public partial class Table<TItem>
         .AddClass(SortIconDesc, SortName == fieldName && SortOrder == SortOrder.Desc)
         .Build();
 
-    //S_ADD:高级排序相关
     #region AdvancedSort
     /// <summary>
     /// 获得 高级排序样式
     /// </summary>
     protected string? AdvancedSortClass => CssBuilder.Default("btn btn-secondary")
-        .AddClass("btn-info", AdvancedSortItems.Any)
+        .AddClass("btn-info", AdvancedSortItems.Any())
         .Build();
 
     /// <summary>
     /// 获得/设置 是否显示高级排序按钮 默认 false 不显示 />
     /// </summary>
     [Parameter]
-    public bool ShowAdvancedSort { get; set; } = false;
+    public bool ShowAdvancedSort { get; set; }
 
     /// <summary>
     /// 获得/设置 高级排序按钮图标
@@ -460,10 +459,10 @@ public partial class Table<TItem>
     /// 获得/设置 高级排序框是否显示最大化按钮 默认 false 不显示
     /// </summary>
     [Parameter]
-    public bool AdvancedSortDialogShowMaximizeButton { get; set; } = false;
+    public bool AdvancedSortDialogShowMaximizeButton { get; set; }
 
     /// <summary>
-    /// 获得/设置 高级排序，默认为 empty
+    /// 获得/设置 高级排序，默认为 Empty
     /// </summary>
     [Parameter]
     public List<SortItem> AdvancedSortItems { get; set; } = new();
@@ -477,7 +476,7 @@ public partial class Table<TItem>
         {
             Title = AdvancedSortModalTitle,
             Size = AdvancedSortDialogSize,
-            IsDraggable=AdvancedSortDialogIsDraggable,
+            IsDraggable = AdvancedSortDialogIsDraggable,
             ShowMaximizeButton = AdvancedSortDialogShowMaximizeButton,
             ComponentParamters = new Dictionary<string, object>
             {
