@@ -166,6 +166,14 @@ partial class BootstrapBlazorJSHelper : IBootstrapBlazorJSHelper
     /// <inheritdoc/>
     /// </summary>
     /// <param name="link"></param>
+    /// <param name="rel"></param>
+    /// <returns></returns>
+    public ValueTask AddLink(string link, string rel) => InvokeVoidAsync("doAddLinkWithRel", link, rel);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="link"></param>
     /// <returns></returns>
     public ValueTask RemoveLink(string link) => InvokeVoidAsync("doRemoveLink", link);
 

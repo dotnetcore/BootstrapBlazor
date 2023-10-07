@@ -70,6 +70,10 @@ export async function doAddLink(link) {
     await Utility.addLink(link);
 }
 
+export async function doAddLinkWithRel(link,rel) {
+    await Utility.addLink(link,rel);
+}
+
 export async function doRemoveLink(link) {
     await Utility.remove(link);
 }

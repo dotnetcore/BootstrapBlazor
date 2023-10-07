@@ -83,6 +83,15 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
     ValueTask AddLink(string link);
 
     /// <summary>
+    /// 动态添加link
+    /// Dynamically adding links
+    /// </summary>
+    /// <param name="link"></param>
+    /// <param name="rel"></param>
+    /// <returns></returns>
+    ValueTask AddLink(string link,string rel);
+
+    /// <summary>
     /// 动态移除link
     /// Dynamically remove links
     /// </summary>
