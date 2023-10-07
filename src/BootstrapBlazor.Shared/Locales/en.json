@@ -4728,6 +4728,7 @@
     "SortableAttr": "Sort or not",
     "DefaultSortAttr": "Is the default sort sequence",
     "DefaultSortOrderAttr": "Default collation",
+    "ShowAdvancedSortAttr": "Whether to show the Advanced Sort button",
     "TextAttr": "Header Displays Text",
     "TextEllipsisAttr": "Whether to omit text when exceeded",
     "TemplateAttr": "Template",

@@ -4728,6 +4728,7 @@
     "SortableAttr": "是否排序",
     "DefaultSortAttr": "是否为默认排序列",
     "DefaultSortOrderAttr": "默认排序规则",
+    "ShowAdvancedSortAttr": "是否显示高级排序按钮",
     "TextAttr": "表头显示文字",
     "TextEllipsisAttr": "是否文本超出时省略",
     "TemplateAttr": "模板",

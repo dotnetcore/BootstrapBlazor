@@ -210,6 +210,14 @@ public partial class Tables
         },
         new()
         {
+            Name = "ShowAdvancedSort",
+            Description = Localizer["ShowAdvancedSortAttr"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
             Name = "Text",
             Description = Localizer["TextAttr"],
             Type = "string",
