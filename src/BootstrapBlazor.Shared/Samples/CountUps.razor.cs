@@ -9,11 +9,11 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class CountUps
 {
-    private static Random Rnd { get; } = new();
-
     private static readonly CountUpOption _option = new() { DecimalPlaces = 2 };
 
     private double Value2 { get; set; }
+
+    private double Value { get; set; }
 
     private ConsoleLogger? _logger;
 
@@ -31,7 +31,7 @@ public partial class CountUps
 
     private void OnUpdate()
     {
-        Value2 = Rnd.Next(12345, 999999) / 100.0;
+        Value = Value2;
     }
 
     private Task OnCompleted()
