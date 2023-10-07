@@ -150,6 +150,7 @@ internal class DefaultIcon
         { ComponentIcons.TableCancelButtonIcon, "mdi mdi-close" },
         { ComponentIcons.TableSaveButtonIcon, "mdi mdi-content-save" },
         { ComponentIcons.TableAdvanceButtonIcon, "mdi mdi-magnify-plus-outline" },
+        { ComponentIcons.TableAdvancedSortButtonIcon, "mdi mdi-sort-alphabetical-descending" },
 
         { ComponentIcons.TableTreeIcon, "mdi mdi-menu-right" },
         { ComponentIcons.TableTreeExpandIcon, "mdi mdi-menu-right mdi-rotate-90" },
