@@ -18,5 +18,15 @@ public class TableSortItem
     /// 排序顺序
     /// </summary>
     public SortOrder SortOrder { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public override string ToString()
+    {
+        var order = SortOrder == SortOrder.Unset ? "" : SortOrder.ToString();
+        return $"{SortName} {order}";
+    }
 }
 

@@ -495,6 +495,6 @@ public partial class Table<TItem>
     /// 获得 <see cref="AdvancedSortItems"/> 中过滤条件
     /// </summary>
     /// <returns></returns>
-    protected List<string> GetAdvancedSortList() => ShowAdvancedSort ? AdvancedSortItems.Select(p => $"{p.SortName} {p.SortOrder}").ToList() : new();
+    protected IEnumerable<string> GetAdvancedSortList() => ShowAdvancedSort ? AdvancedSortItems.Select(p => p.ToString()) : Enumerable.Empty<string>();
     #endregion
 }
