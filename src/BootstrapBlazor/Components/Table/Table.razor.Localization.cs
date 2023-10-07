@@ -343,20 +343,19 @@ public partial class Table<TItem>
     [NotNull]
     public string? DeleteButtonToastResultContent { get; set; }
 
-
     /// <summary>
     /// 获得/设置 高级排序按钮文本
     /// </summary>
     [Parameter]
     [NotNull]
-    public string? AdvancedSortButtonText { get; set; }//S_ADD:高级排序按钮文本
+    public string? AdvancedSortButtonText { get; set; }
 
     /// <summary>
     /// 获得/设置 高级排序弹窗文本
     /// </summary>
     [Parameter]
     [NotNull]
-    public string? AdvancedSortModalTitle { get; set; }//S_ADD:高级排序弹窗文本
+    public string? AdvancedSortModalTitle { get; set; }
 
     [Inject]
     [NotNull]
@@ -420,7 +419,7 @@ public partial class Table<TItem>
         CopyColumnTooltipText ??= Localizer[nameof(CopyColumnTooltipText)];
         CopyColumnCopiedTooltipText ??= Localizer[nameof(CopyColumnCopiedTooltipText)];
 
-        AdvancedSortButtonText ??= Localizer[nameof(AdvancedSortButtonText)]; //S_ADD:高级排序按钮文本
-        AdvancedSortModalTitle ??= Localizer[nameof(AdvancedSortModalTitle)];//S_ADD:高级排序弹窗文本
+        AdvancedSortButtonText ??= Localizer[nameof(AdvancedSortButtonText)];
+        AdvancedSortModalTitle ??= Localizer[nameof(AdvancedSortModalTitle)];
     }
 }

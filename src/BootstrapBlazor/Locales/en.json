@@ -344,8 +344,7 @@
     "ItemText": "Item"
   },
 
-  "BootstrapBlazor.Components.AdvancedSort": {
-    "EmptyText": "No-collation",
+  "BootstrapBlazor.Components.TableAdvancedSortDialog": {
     "AscText": "Ascending",
     "DescText": "Descending"
   }

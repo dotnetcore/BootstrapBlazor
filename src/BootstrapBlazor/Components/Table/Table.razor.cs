@@ -696,6 +696,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         TreeIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableTreeIcon);
         TreeExpandIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableTreeExpandIcon);
         TreeNodeLoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableTreeNodeLoadingIcon);
+        AdvancedSortButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableAdvancedSortButtonIcon);
     }
 
     /// <summary>

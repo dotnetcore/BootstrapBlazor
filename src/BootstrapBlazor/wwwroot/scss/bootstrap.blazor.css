@@ -6818,6 +6818,13 @@ form .table .table-cell > textarea {
     border-bottom-color: var(--bs-primary);
   }
 }
+.dialog-advance-sort {
+  --bb-table-advance-sort-margin-top: .5rem;
+}
+.dialog-advance-sort > .row:not(:first-child) {
+  margin-top: var(--bb-table-advance-sort-margin-top);
+}
+
 .tag {
   --bb-tag-btn-close-margin-left: .5rem;
   --bb-tag-btn-close-width: .25rem;

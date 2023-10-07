@@ -615,6 +615,11 @@ public enum ComponentIcons
     TableGearIcon,
 
     /// <summary>
+    /// Table 组件 AdvancedSortButtonIcon 属性图标
+    /// </summary>
+    TableAdvancedSortButtonIcon,
+
+    /// <summary>
     /// Tab 组件 PreviousIcon 属性图标
     /// </summary>
     TabPreviousIcon,

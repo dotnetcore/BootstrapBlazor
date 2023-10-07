@@ -7082,7 +7082,7 @@ public class TableTest : TableTestBase
         {
             pb.Add(a => a.IsStriped, true);
         });
-        cut.Contains("table-striped table-hover");
+        cut.WaitForAssertion(() => cut.Contains("table-striped table-hover"));
     }
 
     [Fact]
