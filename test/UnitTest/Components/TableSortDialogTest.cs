@@ -23,6 +23,9 @@ public class TableSortDialogTest : TableSortDialogTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowAdvancedSort, true);
+                pb.Add(a => a.AdvancedSortDialogShowMaximizeButton, true);
+                pb.Add(a => a.AdvancedSortDialogIsDraggable, true);
+                pb.Add(a => a.AdvancedSortDialogSize, Size.Small);
                 pb.Add(a => a.OnQueryAsync, op =>
                 {
                     sortList.AddRange(op.AdvancedSortList);
@@ -54,7 +57,12 @@ public class TableSortDialogTest : TableSortDialogTestBase
 
         cut.WaitForAssertion(() => cut.Contains("dialog-advance-sort"));
 
-        var btnAdd = cut.Find(".dialog-advance-sort .btn");
+        // 点击 Clear
+        var btnClear = cut.Find(".table-advance-sort-toolbar .btn-danger");
+        cut.InvokeAsync(() => btnClear.Click());
+
+        // 点击 Add
+        var btnAdd = cut.Find(".table-advance-sort-toolbar .btn");
         cut.InvokeAsync(() => btnAdd.Click());
 
         var fieldSelect = cut.FindComponent<Select<string>>();
@@ -63,10 +71,30 @@ public class TableSortDialogTest : TableSortDialogTestBase
         var orderSelect = cut.FindComponent<Select<SortOrder>>();
         Assert.Equal(new string[] { "Asc", "Desc" }, orderSelect.Instance.Items.Select(i => i.Value));
 
+        // 点击 Remove
+        var btnRemove = cut.Find(".row .btn-danger");
+        cut.InvokeAsync(() => btnRemove.Click());
+
+        btnAdd = cut.Find(".table-advance-sort-toolbar .btn");
+        cut.InvokeAsync(() => btnAdd.Click());
+
+        fieldSelect = cut.FindComponent<Select<string>>();
+        Assert.Equal(new string[] { "Name", "Count" }, fieldSelect.Instance.Items.Select(i => i.Value));
+
+        orderSelect = cut.FindComponent<Select<SortOrder>>();
+        Assert.Equal(new string[] { "Asc", "Desc" }, orderSelect.Instance.Items.Select(i => i.Value));
+
         // 关闭弹窗
         var btnClose = cut.Find(".modal-footer .btn-primary");
         cut.InvokeAsync(() => btnClose.Click());
 
         Assert.Equal("Name Asc", sortList[0]);
+    }
+
+    [Fact]
+    public void AdvancedSortDialog_Ok()
+    {
+        var cut = Context.RenderComponent<TableAdvancedSortDialog>();
+        cut.Contains("dialog-advance-sort");
     }
 }

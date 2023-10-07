@@ -19,7 +19,7 @@ public class TableSortDialogTestBase
 }
 
 [CollectionDefinition("TableSortDialogTestContext")]
-public class TableSortDialogTestCollection : ICollectionFixture<TableDialogTestHost>
+public class TableSortDialogTestCollection : ICollectionFixture<TableSortDialogTestHost>
 {
 
 }
