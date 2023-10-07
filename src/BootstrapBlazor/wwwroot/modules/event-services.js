@@ -56,8 +56,13 @@ export function getProperties(obj, tag) {
     return object;
 }
 
-export function runJSEval(js) {
+export function runJSWithEval(js) {
     return eval(js);
+}
+
+export function runJSWithFunction(js) {
+    var func = new Function(js);    
+    return func();
 }
 
 export function dispose(guid) {
