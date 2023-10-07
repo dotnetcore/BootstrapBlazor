@@ -6,11 +6,10 @@ using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
 
-//S_ADD:
 /// <summary>
 /// Table高级排序弹窗的内容组件
 /// </summary>
-public partial class AdvancedSort: ComponentBase, IResultDialog
+public partial class AdvancedSort : ComponentBase, IResultDialog
 {
     /// <summary>
     /// 获得/设置 排序列列表 实例值
@@ -43,7 +42,7 @@ public partial class AdvancedSort: ComponentBase, IResultDialog
     /// <summary>
     /// 排序规则列表
     /// </summary>
-    private List<SelectedItem>? SortOrders { get; set; } 
+    private List<SelectedItem>? SortOrders { get; set; }
 
     [Inject]
     [NotNull]
