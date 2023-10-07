@@ -423,7 +423,7 @@ public partial class Table<TItem>
         .AddClass(SortIconDesc, SortName == fieldName && SortOrder == SortOrder.Desc)
         .Build();
 
-    #region AdvancedSort
+    #region Advanced Sort
     /// <summary>
     /// 获得 高级排序样式
     /// </summary>
@@ -465,7 +465,7 @@ public partial class Table<TItem>
     /// 获得/设置 高级排序，默认为 Empty
     /// </summary>
     [Parameter]
-    public List<SortItem> AdvancedSortItems { get; set; } = new();
+    public List<TableSortItem> AdvancedSortItems { get; set; } = new();
 
     /// <summary>
     /// 高级排序按钮点击时调用此方法
@@ -481,7 +481,7 @@ public partial class Table<TItem>
             ComponentParameters = new Dictionary<string, object>
             {
                 [nameof(TableAdvancedSortDialog.Value)] = AdvancedSortItems,
-                [nameof(TableAdvancedSortDialog.ValueChanged)] = EventCallback.Factory.Create<List<SortItem>>(this, v => AdvancedSortItems = v),
+                [nameof(TableAdvancedSortDialog.ValueChanged)] = EventCallback.Factory.Create<List<TableSortItem>>(this, v => AdvancedSortItems = v),
                 [nameof(TableAdvancedSortDialog.Items)] = Columns.Where(p => p.Sortable).Select(p => new SelectedItem(p.GetFieldName(), p.GetDisplayName()))
             }
         });
@@ -497,19 +497,4 @@ public partial class Table<TItem>
     /// <returns></returns>
     protected List<string> GetAdvancedSortList() => ShowAdvancedSort ? AdvancedSortItems.Select(p => $"{p.SortName} {p.SortOrder}").ToList() : new();
     #endregion
-}
-
-/// <summary>
-/// 排序项 (高级排序使用)
-/// </summary>
-public class SortItem
-{
-    /// <summary>
-    /// 排序字段名
-    /// </summary>
-    public string SortName { get; set; } = string.Empty;
-    /// <summary>
-    /// 排序顺序
-    /// </summary>
-    public string SortOrder { get; set; } = string.Empty;
 }

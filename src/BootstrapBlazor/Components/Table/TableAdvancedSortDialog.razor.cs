@@ -19,13 +19,13 @@ public partial class TableAdvancedSortDialog : ComponentBase, IResultDialog
 #if NET6_0_OR_GREATER
     [EditorRequired]
 #endif
-    public List<SortItem>? Value { get; set; }
+    public List<TableSortItem>? Value { get; set; }
 
     /// <summary>
     /// 获得/设置 排序列列表 回调方法 支持双向绑定
     /// </summary>
     [Parameter]
-    public EventCallback<List<SortItem>> ValueChanged { get; set; }
+    public EventCallback<List<TableSortItem>> ValueChanged { get; set; }
 
     /// <summary>
     /// 获得/设置 可排序列的列表
@@ -86,7 +86,7 @@ public partial class TableAdvancedSortDialog : ComponentBase, IResultDialog
 
     private void OnClickAdd()
     {
-        Value.Add(new SortItem());
+        Value.Add(new TableSortItem());
     }
 
     private void OnClickClear()
@@ -94,7 +94,7 @@ public partial class TableAdvancedSortDialog : ComponentBase, IResultDialog
         Value.Clear();
     }
 
-    private void OnClickRemove(SortItem item)
+    private void OnClickRemove(TableSortItem item)
     {
         Value.Remove(item);
     }
