@@ -182,7 +182,7 @@ const removeScript = content => {
     }
 }
 
-const addLink = href => {
+const addLink = (href, rel = "stylesheet") => {
     const links = [...document.getElementsByTagName('link')]
     const url = normalizeLink(href)
     let link = links.filter(function (link) {
@@ -192,7 +192,7 @@ const addLink = href => {
         const css = document.createElement('link')
         link.push(css)
         css.setAttribute('href', href)
-        css.setAttribute("rel", "stylesheet")
+        css.setAttribute("rel", rel)
         document.getElementsByTagName("head")[0].appendChild(css)
         css.onload = () => {
             css.setAttribute('loaded', true)
