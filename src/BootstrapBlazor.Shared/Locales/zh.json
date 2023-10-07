@@ -5279,6 +5279,8 @@
     "OnSortTitle": "动态多列排序",
     "OnSortIntro": "设置 <code>OnSort</code> 参数",
     "OnSortP": "点击列头进行排序时，组件内部调用 <code>OnSort</code> 回调，可以在此处根据业务逻辑设置其返回值即可实现动态多列排序功能，本例中点击 <b>时间</b> 列头进行正序排序时，内部使用 <code>DateTime, Count</code> 倒序时使用 <code>DateTime desc, Count desc</code>",
+    "OnAdvancedSortTitle": "自定义排序",
+    "OnAdvancedSortIntro": "通过设置 <code>ShowAdvancedSort=\"true\"</code> 显示 <b>高级排序</b> 按钮，通过自定义条件进行多列排序操作",
     "SetFilterInCodeTitle": "通过代码设置过滤条件",
     "SetFilterInCodeIntro": "示例展示如何通过代码设置过滤条件",
     "SetFilterInCodeButtonText1": "名称包含01",
