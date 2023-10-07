@@ -43,20 +43,37 @@ public interface IJSRuntimeEventHandler : IAsyncDisposable
     ValueTask<T?> GetElementPropertiesByTagAsync<T>(ElementReference element, string tag);
 
     /// <summary>
-    /// 动态运行js脚本
+    /// 同步运行js代码，不返回值，当前作用域
     /// Run the JavaScript script
     /// </summary>
     /// <param name="scripts">JavaScript Code</param>
     /// <returns></returns>
-    ValueTask RunEval(string scripts);
+    ValueTask RunJSWithEval(string scripts);
 
     /// <summary>
-    /// 动态运行js脚本,并返回值
+    /// 同步运行js代码，并返回值，当前作用域,
     /// Run the JavaScript script and return a value
     /// </summary>
     /// <param name="scripts">JavaScript Code</param>
     /// <returns></returns>
-    ValueTask<T?> RunEval<T>(string scripts);
+    ValueTask<T?> RunJSWithEval<T>(string scripts);
+
+    /// <summary>
+    /// 同步运行js代码，不返回值，全局作用域
+    /// Run the JavaScript script
+    /// </summary>
+    /// <param name="scripts">JavaScript Code</param>
+    /// <returns></returns>
+    ValueTask RunJSWithFunction(string scripts);
+
+    /// <summary>
+    /// 同步运行js代码，并返回值，全局作用域
+    /// Run the JavaScript script and return a value
+    /// </summary>
+    /// <param name="scripts">JavaScript Code</param>
+    /// <returns></returns>
+    ValueTask<T?> RunJSWithFunction<T>(string scripts);
+
 
     #region Event
     /// <summary>

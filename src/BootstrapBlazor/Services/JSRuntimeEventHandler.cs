@@ -98,7 +98,7 @@ partial class JSRuntimeEventHandler : IJSRuntimeEventHandler
     /// </summary>
     /// <param name="scripts"></param>
     /// <returns></returns>
-    public ValueTask RunEval(string scripts) => InvokeVoidAsync("runJSEval", scripts);
+    public ValueTask RunJSWithEval(string scripts) => InvokeVoidAsync("runJSWithEval", scripts);
 
     /// <summary>
     /// <inheritdoc/>
@@ -106,7 +106,22 @@ partial class JSRuntimeEventHandler : IJSRuntimeEventHandler
     /// <typeparam name="T"></typeparam>
     /// <param name="scripts"></param>
     /// <returns></returns>
-    public ValueTask<T?> RunEval<T>(string scripts) => InvokeAsync<T>("runJSEval", scripts);
+    public ValueTask<T?> RunJSWithEval<T>(string scripts) => InvokeAsync<T>("runJSWithEval", scripts);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="scripts"></param>
+    /// <returns></returns>
+    public ValueTask RunJSWithFunction(string scripts) => InvokeVoidAsync("runJSWithFunction", scripts);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="scripts"></param>
+    /// <returns></returns>
+    public ValueTask<T?> RunJSWithFunction<T>(string scripts) => InvokeAsync<T>("runJSWithFunction", scripts);
 
     /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.
