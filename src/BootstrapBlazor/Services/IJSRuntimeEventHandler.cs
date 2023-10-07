@@ -44,15 +44,15 @@ public interface IJSRuntimeEventHandler : IAsyncDisposable
 
     /// <summary>
     /// 同步运行js代码，不返回值，当前作用域
-    /// Run the JavaScript script
+    /// Run JavaScript code synchronously without returning a value, current scope
     /// </summary>
     /// <param name="scripts">JavaScript Code</param>
     /// <returns></returns>
     ValueTask RunJSWithEval(string scripts);
 
     /// <summary>
-    /// 同步运行js代码，并返回值，当前作用域,
-    /// Run the JavaScript script and return a value
+    /// 同步运行js代码，并返回值，当前作用域
+    /// Run the JavaScript code synchronously and return the value, current scope
     /// </summary>
     /// <param name="scripts">JavaScript Code</param>
     /// <returns></returns>
@@ -60,7 +60,7 @@ public interface IJSRuntimeEventHandler : IAsyncDisposable
 
     /// <summary>
     /// 同步运行js代码，不返回值，全局作用域
-    /// Run the JavaScript script
+    /// Run JavaScript code synchronously without returning a value, with global scope
     /// </summary>
     /// <param name="scripts">JavaScript Code</param>
     /// <returns></returns>
@@ -68,7 +68,7 @@ public interface IJSRuntimeEventHandler : IAsyncDisposable
 
     /// <summary>
     /// 同步运行js代码，并返回值，全局作用域
-    /// Run the JavaScript script and return a value
+    /// Run JavaScript code synchronously and return a value with global scope
     /// </summary>
     /// <param name="scripts">JavaScript Code</param>
     /// <returns></returns>
