@@ -1,5 +1,6 @@
 ﻿import Data from "./data.js?v=$version"
 import EventHandler from "./event-handler.js?v=$version"
+import Utility from "./utility.js?v=$version"
 
 /**
  * @function 事件注册
@@ -63,6 +64,22 @@ export function runJSWithEval(js) {
 export function runJSWithFunction(js) {
     var func = new Function(js);    
     return func();
+}
+
+export function doAddLink(link) {
+    Utility.addLink(link);
+}
+
+export function doRemoveLink(link) {
+    Utility.remove(link);
+}
+
+export function doAddScript(src) {
+    Utility.doAddScript(src);
+}
+
+export function doRemoveScript(src) {
+    Utility.doRemoveScript(src);
 }
 
 export function dispose(guid) {
