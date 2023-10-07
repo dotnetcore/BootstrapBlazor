@@ -8,6 +8,11 @@
 <DemoBlock Title="@Localizer["CountUpsNormalTitle"]" Introduction="@Localizer["CountUpsNormalIntro"]" Name="Normal">
     <section ignore>
         <div class="row mb-2">
+            <div class="col-12">
+                更改配置后，改变 Value 值后生效
+            </div>
+        </div>
+        <div class="row mb-2">
             <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                 <BootstrapInputGroup>
                     <BootstrapInputGroupLabel DisplayText="Start value"></BootstrapInputGroupLabel>
@@ -89,9 +94,13 @@
         </div>
     </section>
     <div class="mb-2">
-        <CountUp TValue="double" Value="@Value2" Option="_option" OnCompleted="OnCompleted" class="fw-bold fs-1"></CountUp>
+        <CountUp TValue="double" Value="@Value" Option="_option" OnCompleted="OnCompleted" class="fw-bold fs-1"></CountUp>
     </div>
-    <Button Icon="fa-solid fa-gear" Text="Update" OnClick="OnUpdate"></Button>
+    <BootstrapInputGroup>
+        <BootstrapInputGroupLabel DisplayText="Value"></BootstrapInputGroupLabel>
+        <BootstrapInput @bind-Value="Value2"></BootstrapInput>
+        <Button Icon="fa-solid fa-gear" Text="Update" OnClick="OnUpdate"></Button>
+    </BootstrapInputGroup>
     <ConsoleLogger @ref="_logger" class="mt-2" />
 </DemoBlock>
 
