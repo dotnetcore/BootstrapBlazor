@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// <inheritdoc/>
 /// </summary>
-partial class JSRuntimeEventHandler : IJSRuntimeEventHandler
+partial class BootstrapBlazorJSHelper : IBootstrapBlazorJSHelper
 {
     private IJSRuntime JSRuntime { get; }
 
@@ -17,7 +17,7 @@ partial class JSRuntimeEventHandler : IJSRuntimeEventHandler
     private IJSObjectReference? Module { get; set; }
 
     [NotNull]
-    private DotNetObjectReference<JSRuntimeEventHandler>? Interop { get; }
+    private DotNetObjectReference<BootstrapBlazorJSHelper>? Interop { get; }
 
     private List<string> guidList { get; } = new List<string>();
 
@@ -26,7 +26,7 @@ partial class JSRuntimeEventHandler : IJSRuntimeEventHandler
     /// </summary>
     /// <param name="jSRuntime"></param>
     /// <param name="versionService"></param>
-    public JSRuntimeEventHandler(IJSRuntime jSRuntime, IVersionService versionService)
+    public BootstrapBlazorJSHelper(IJSRuntime jSRuntime, IVersionService versionService)
     {
         JSRuntime = jSRuntime;
         JSVersionService = versionService;

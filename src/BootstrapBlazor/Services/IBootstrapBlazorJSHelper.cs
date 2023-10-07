@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 浏览器事件,通用属性帮助类接口
 /// </summary>
-public interface IJSRuntimeEventHandler : IAsyncDisposable
+public interface IBootstrapBlazorJSHelper : IAsyncDisposable
 {
     /// <summary>
     /// 注册浏览器事件

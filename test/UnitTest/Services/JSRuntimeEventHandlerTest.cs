@@ -11,7 +11,7 @@ public class JSRuntimeEventHandlerTest : BootstrapBlazorTestBase
     [Fact]
     public void RegisterEvent_Ok()
     {
-        var eh = Context.Services.GetRequiredService<IJSRuntimeEventHandler>();
+        var eh = Context.Services.GetRequiredService<IBootstrapBlazorJSHelper>();
         _ = eh.RegisterEvent(DOMEvents.Scroll);
         _ = eh.RunJSWithEval("test");
     }
@@ -19,7 +19,7 @@ public class JSRuntimeEventHandlerTest : BootstrapBlazorTestBase
     [Fact]
     public void Invoke_Ok()
     {
-        var eh = Context.Services.GetRequiredService<IJSRuntimeEventHandler>();
+        var eh = Context.Services.GetRequiredService<IBootstrapBlazorJSHelper>();
 
         _ = eh.GetElementPropertiesByTagFromIdAsync<int>("id", "tag");
         _ = eh.GetDocumentPropertiesByTagAsync<int>("tag");

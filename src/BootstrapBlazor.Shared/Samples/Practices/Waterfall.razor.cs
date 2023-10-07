@@ -41,7 +41,7 @@ public partial class Waterfall : IAsyncDisposable
 
     [NotNull]
     [Inject]
-    private IJSRuntimeEventHandler? JSRuntimeEventHandler { get; set; }
+    private IBootstrapBlazorJSHelper? JSHelper { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -50,8 +50,8 @@ public partial class Waterfall : IAsyncDisposable
     {
         if (firstRender)
         {
-            await JSRuntimeEventHandler.RegisterEvent(DOMEvents.Scroll);
-            JSRuntimeEventHandler.OnScroll += Helper_OnScroll;
+            await JSHelper.RegisterEvent(DOMEvents.Scroll);
+            JSHelper.OnScroll += Helper_OnScroll;
 
             await LoadImages(true);
         }
@@ -68,11 +68,11 @@ public partial class Waterfall : IAsyncDisposable
         if (ts.TotalSeconds > TimeSpan.FromSeconds(0.1).TotalSeconds)
         {
             LastRun = now;
-            var h1 = await JSRuntimeEventHandler.GetDocumentPropertiesByTagAsync<decimal>("documentElement.clientHeight");
-            var h2 = await JSRuntimeEventHandler.GetDocumentPropertiesByTagAsync<decimal>("documentElement.scrollHeight");
-            var h3 = await JSRuntimeEventHandler.GetDocumentPropertiesByTagAsync<decimal>("documentElement.scrollTop");
-            var h4 = await JSRuntimeEventHandler.GetDocumentPropertiesByTagAsync<decimal>("body.scrollTop");
-            var h5 = await JSRuntimeEventHandler.GetDocumentPropertiesByTagAsync<decimal>("body.scrollHeight");
+            var h1 = await JSHelper.GetDocumentPropertiesByTagAsync<decimal>("documentElement.clientHeight");
+            var h2 = await JSHelper.GetDocumentPropertiesByTagAsync<decimal>("documentElement.scrollHeight");
+            var h3 = await JSHelper.GetDocumentPropertiesByTagAsync<decimal>("documentElement.scrollTop");
+            var h4 = await JSHelper.GetDocumentPropertiesByTagAsync<decimal>("body.scrollTop");
+            var h5 = await JSHelper.GetDocumentPropertiesByTagAsync<decimal>("body.scrollHeight");
 
             //可视区窗口高度
             var windowH = h1;
@@ -122,8 +122,8 @@ public partial class Waterfall : IAsyncDisposable
             if (!disposedValue)
             {
                 disposedValue = true;
-                JSRuntimeEventHandler.OnScroll -= Helper_OnScroll;
-                await JSRuntimeEventHandler.DisposeAsync();
+                JSHelper.OnScroll -= Helper_OnScroll;
+                await JSHelper.DisposeAsync();
             }
         }
     }

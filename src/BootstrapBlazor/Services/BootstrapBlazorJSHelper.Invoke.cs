@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 [ExcludeFromCodeCoverage]
-partial class JSRuntimeEventHandler
+partial class BootstrapBlazorJSHelper
 {
     /// <summary>
     /// OnClick JS 回调
