@@ -563,6 +563,8 @@ public partial class Table<TItem>
         queryOption.AdvanceSearches.AddRange(GetAdvanceSearches());
         queryOption.CustomerSearches.AddRange(GetCustomerSearches());
 
+        queryOption.AdvancedSortList.AddRange(GetAdvancedSortList()); //S_ADD:传递高级排序的字段列表
+
         if (!string.IsNullOrEmpty(SortString))
         {
             queryOption.SortList.AddRange(SortString.Split(",", StringSplitOptions.RemoveEmptyEntries));

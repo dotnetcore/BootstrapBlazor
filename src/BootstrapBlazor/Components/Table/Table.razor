@@ -66,6 +66,12 @@
                     {
                         @TableExtensionToolbarBeforeTemplate
                     }
+                    @if (ShowAdvancedSearch)//S_ADD: 高级排序按钮
+                    {
+                        <Button class="@AdvancedSortClass" Icon="@AdvancedSortButtonIcon" OnClickWithoutRender="ShowSortDialog">
+                            <span class="d-none d-sm-inline-block">@AdvancedSortButtonText</span>
+                        </Button>
+                    }
                     @if (ShowRefresh)
                     {
                         <Button Icon="@RefreshButtonIcon" Color="@Color.Secondary" OnClickWithoutRender="@OnClickRefreshAsync">
@@ -163,10 +169,6 @@
                                     <Button Color="@Color.Secondary" Icon="@ResetSearchButtonIcon" OnClickWithoutRender="@ClearSearchClick">
                                         <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                                     </Button>
-                                }
-                                @if (ShowAdvancedSearch)
-                                {
-                                    @RenderAdvanceSearchButton
                                 }
                             </div>
                         }

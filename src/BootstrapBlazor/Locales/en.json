@@ -191,6 +191,8 @@
     "SearchButtonText": "Search",
     "ResetSearchButtonText": "Reset",
     "AdvanceButtonText": "Advanced Search",
+    "AdvancedSortModalTitle": "Sort",
+    "AdvancedSortButtonText": "Advanced Sort",
     "CheckboxDisplayText": "All",
     "EditModalTitle": "Edit",
     "AddModalTitle": "New",
@@ -340,5 +342,11 @@
     "NotContains": "NotContains",
     "GroupText": "Group",
     "ItemText": "Item"
+  },
+
+  "BootstrapBlazor.Components.AdvancedSort": {
+    "EmptyText": "No-collation",
+    "AscText": "Ascending",
+    "DescText": "Descending"
   }
 }

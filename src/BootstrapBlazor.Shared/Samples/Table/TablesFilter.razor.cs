@@ -47,6 +47,13 @@ public partial class TablesFilter
         // 排序标记
         var isSorted = false;
 
+
+        //处理高级排序
+        if (options.AdvancedSortList.Any())
+        {
+            items = items.Sort(options.AdvancedSortList);
+            isSorted = true;
+        }
         // 此段代码可不写，组件内部自行处理
         if (options.SortName == nameof(Foo.DateTime) && options.SortList != null)
         {

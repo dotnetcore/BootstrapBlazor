@@ -191,6 +191,8 @@
     "SearchButtonText": "搜索",
     "ResetSearchButtonText": "清空搜索",
     "AdvanceButtonText": "高级搜索",
+    "AdvancedSortModalTitle": "自定义排序",
+    "AdvancedSortButtonText": "高级排序",
     "CheckboxDisplayText": "选择",
     "EditModalTitle": "编辑窗口",
     "AddModalTitle": "新建窗口",
@@ -340,5 +342,10 @@
     "NotContains": "不包含",
     "GroupText": "组合条件",
     "ItemText": "单行条件"
+  },
+  "BootstrapBlazor.Components.AdvancedSort": {
+    "EmptyText": "无排序条件",
+    "AscText": "升序",
+    "DescText": "降序"
   }
 }

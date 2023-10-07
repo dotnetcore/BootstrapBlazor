@@ -1,0 +1,27 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits ComponentBase
+@implements IResultDialog
+<div>
+    <div class="row">
+        <div class="col-12 d-flex">
+            <Button Color="Color.Primary" OnClick="() => Value.Add(new())">+</Button>
+            <Button Color="Color.Danger" OnClick="() => Value.Clear()">X</Button>
+        </div>
+    </div>
+    <Divider />
+    <Repeater TItem="SortItem" Items="Value" EmptyText="@EmptyText">
+        <ItemTemplate>
+            <div class="row">
+                <div class="col-6">
+                    <Select Items="SortableFields" @bind-Value="@context.SortName" />
+                </div>
+                <div class="col-4">
+                    <Select Items="SortOrders" @bind-Value="@context.SortOrder" />
+                </div>
+                <div class="col-2">
+                    <Button Color="Color.Danger" OnClick="() => Value.Remove(context)">-</Button>
+                </div>
+            </div>
+        </ItemTemplate>
+    </Repeater>
+</div>
