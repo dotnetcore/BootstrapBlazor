@@ -1174,7 +1174,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 获得/设置 拖动列结束回调方法 
     /// </summary>
     [Parameter]
-    public Func<string, Task>? OnDragColumnEndAsync { get; set; }
+    public Func<string, IEnumerable<ITableColumn>, Task>? OnDragColumnEndAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 设置列宽回调方法 
@@ -1201,7 +1201,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
             if (OnDragColumnEndAsync != null)
             {
-                await OnDragColumnEndAsync(firstColumn.GetFieldName());
+                await OnDragColumnEndAsync(firstColumn.GetFieldName(), Columns);
             }
             StateHasChanged();
         }

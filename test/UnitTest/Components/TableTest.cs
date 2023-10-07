@@ -7130,7 +7130,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.AllowDragColumn, true);
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
-                pb.Add(a => a.OnDragColumnEndAsync, fieldName =>
+                pb.Add(a => a.OnDragColumnEndAsync, (fieldName, columns) =>
                 {
                     name = fieldName;
                     return Task.CompletedTask;

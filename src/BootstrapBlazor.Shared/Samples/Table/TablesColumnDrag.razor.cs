@@ -35,7 +35,7 @@ public partial class TablesColumnDrag
         Items = Foo.GenerateFoo(FooLocalizer);
     }
 
-    private Task OnDragColumnEndAsync(string? columnName)
+    private Task OnDragColumnEndAsync(string? columnName, IEnumerable<ITableColumn> columns)
     {
         Logger.Log($"Column: {columnName}");
         return Task.CompletedTask;
