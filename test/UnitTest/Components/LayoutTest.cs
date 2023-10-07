@@ -143,6 +143,7 @@ public class LayoutTest : BootstrapBlazorTestBase
             pb.Add(a => a.ExcludeUrls, new String[] { "/Index" });
             pb.Add(a => a.TabDefaultUrl, "/Index");
             pb.Add(a => a.IsOnlyRenderActiveTab, true);
+            pb.Add(a => a.AllowDragTab, true);
             pb.Add(a => a.NotFoundTabText, "Test");
             pb.Add(a => a.NotAuthorized, (RenderFragment?)null);
             pb.Add(a => a.NotFound, (RenderFragment?)null);
