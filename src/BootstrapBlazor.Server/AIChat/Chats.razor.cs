@@ -29,7 +29,9 @@ public partial class Chats
     [Inject]
     [NotNull]
     private NavigationManager? NavigationManager { get; set; }
+
     private string? Context { get; set; }
+
     private List<AzureOpenAIChatMessage> Messages { get; } = new();
 
     [NotNull]
@@ -37,11 +39,11 @@ public partial class Chats
 
     [NotNull]
     private string? UserName { get; set; }
+
     private string? AvatarUrl { get; set; }
 
     private static string? GetStackClass(ChatRole role) => CssBuilder.Default("msg-stack").AddClass("msg-stack-assistant", role == ChatRole.Assistant).Build();
-    ///<inheritdoc/>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id);
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -74,6 +76,12 @@ public partial class Chats
             await InvokeVoidAsync("scroll", Id);
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id);
 
     private bool IsValid => OAuthHelper.Validate(UserName);
 
