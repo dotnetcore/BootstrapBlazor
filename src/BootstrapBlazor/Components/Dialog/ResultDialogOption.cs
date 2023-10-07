@@ -75,7 +75,17 @@ public class ResultDialogOption : DialogOption
     /// <summary>
     /// 获得/设置 组件参数集合
     /// </summary>
-    public Dictionary<string, object>? ComponentParamters { get; set; }
+    [Obsolete("已过期，请使用 ComponentParameters 代替 Please use ComponentParameters")]
+    public Dictionary<string, object>? ComponentParamters
+    {
+        get => ComponentParameters;
+        set => ComponentParameters = value;
+    }
+
+    /// <summary>
+    /// 获得/设置 组件参数集合
+    /// </summary>
+    public Dictionary<string, object>? ComponentParameters { get; set; }
 
     /// <summary>
     /// 获得/设置 模态弹窗返回值任务实例

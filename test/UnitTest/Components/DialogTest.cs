@@ -278,7 +278,7 @@ public class DialogTest : DialogTestBase
             ButtonCloseText = "Test-Close",
             ButtonCloseIcon = "test test-close-icon",
             ButtonCloseColor = Color.Secondary,
-            ComponentParamters = new Dictionary<string, object>()
+            ComponentParameters = new Dictionary<string, object>()
             {
                 [nameof(MockModalDialog.Value)] = result,
                 [nameof(MockModalDialog.ValueChanged)] = EventCallback.Factory.Create<bool>(this, b => result = b)
@@ -296,7 +296,7 @@ public class DialogTest : DialogTestBase
         result = true;
         resultOption = new ResultDialogOption()
         {
-            ComponentParamters = new Dictionary<string, object>()
+            ComponentParameters = new Dictionary<string, object>()
             {
                 [nameof(MockModalDialog.Value)] = result,
                 [nameof(MockModalDialog.ValueChanged)] = EventCallback.Factory.Create<bool>(this, b => result = b)
@@ -312,7 +312,7 @@ public class DialogTest : DialogTestBase
         resultOption = new ResultDialogOption()
         {
             ShowCloseButton = true,
-            ComponentParamters = new Dictionary<string, object>()
+            ComponentParameters = new Dictionary<string, object>()
             {
                 [nameof(MockModalDialog.Value)] = result,
                 [nameof(MockModalDialog.ValueChanged)] = EventCallback.Factory.Create<bool>(this, b => result = b)
