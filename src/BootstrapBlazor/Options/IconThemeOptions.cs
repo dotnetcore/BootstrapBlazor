@@ -173,6 +173,7 @@ public class IconThemeOptions
         { ComponentIcons.TableCancelButtonIcon, "fa-solid fa-xmark" },
         { ComponentIcons.TableSaveButtonIcon, "fa-solid fa-floppy-disk" },
         { ComponentIcons.TableAdvanceButtonIcon, "fa-solid fa-magnifying-glass-plus" },
+        { ComponentIcons.TableAdvancedSortButtonIcon, "fa-solid fa-arrow-up-a-z" },
 
         { ComponentIcons.TableTreeIcon, "fa-solid fa-caret-right" },
         { ComponentIcons.TableTreeExpandIcon, "fa-solid fa-caret-right fa-rotate-90" },
