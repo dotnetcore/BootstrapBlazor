@@ -155,4 +155,11 @@ partial class JSRuntimeEventHandler : IJSRuntimeEventHandler
         GC.SuppressFinalize(this);
     }
 
+    public ValueTask AddLink(string link) => InvokeVoidAsync("doAddLink", link);
+
+    public ValueTask RemoveLink(string link) => InvokeVoidAsync("doRemoveLink", link);
+
+    public ValueTask AddScript(string script) => InvokeVoidAsync("doAddScript", script);
+
+    public ValueTask RemoveScript(string script) => InvokeVoidAsync("doRemoveScript", script);
 }

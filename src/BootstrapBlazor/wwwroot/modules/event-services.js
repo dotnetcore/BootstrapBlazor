@@ -66,20 +66,20 @@ export function runJSWithFunction(js) {
     return func();
 }
 
-export function doAddLink(link) {
-    Utility.addLink(link);
+export async function doAddLink(link) {
+   await Utility.addLink(link);
 }
 
-export function doRemoveLink(link) {
-    Utility.remove(link);
+export async function doRemoveLink(link) {
+   await Utility.remove(link);
 }
 
-export function doAddScript(src) {
-    Utility.doAddScript(src);
+export async function doAddScript(src) {
+   await Utility.doAddScript(src);
 }
 
-export function doRemoveScript(src) {
-    Utility.doRemoveScript(src);
+export async function doRemoveScript(src) {
+   await Utility.doRemoveScript(src);
 }
 
 export function dispose(guid) {

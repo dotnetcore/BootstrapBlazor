@@ -74,6 +74,37 @@ public interface IJSRuntimeEventHandler : IAsyncDisposable
     /// <returns></returns>
     ValueTask<T?> RunJSWithFunction<T>(string scripts);
 
+    /// <summary>
+    /// 动态添加link
+    /// Dynamically adding links
+    /// </summary>
+    /// <param name="link"></param>
+    /// <returns></returns>
+    ValueTask AddLink(string link);
+
+    /// <summary>
+    /// 动态移除link
+    /// Dynamically remove links
+    /// </summary>
+    /// <param name="link"></param>
+    /// <returns></returns>
+    ValueTask RemoveLink(string link);
+
+    /// <summary>
+    /// 动态添加script
+    /// Dynamically add script
+    /// </summary>
+    /// <param name="script"></param>
+    /// <returns></returns>
+    ValueTask AddScript(string script);
+
+    /// <summary>
+    /// 动态移除script
+    /// Dynamically remove script
+    /// </summary>
+    /// <param name="script"></param>
+    /// <returns></returns>
+    ValueTask RemoveScript(string script);
 
     #region Event
     /// <summary>
