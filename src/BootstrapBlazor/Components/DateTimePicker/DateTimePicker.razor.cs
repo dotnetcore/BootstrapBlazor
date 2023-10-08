@@ -221,20 +221,15 @@ public partial class DateTimePicker<TValue>
             SelectedValue = v2;
         }
 
-        if (SelectedValue == DateTime.MinValue)
+        if (MinValueToEmpty(SelectedValue))
         {
-            if (AllowNull && DisplayMinValueAsEmpty)
-            {
-                Value = default;
-            }
-            else if (AutoToday)
-            {
-                // 不可为空数据类型 AutoToday
-                SelectedValue = ViewMode == DatePickerViewMode.DateTime
-                    ? DateTime.Now
-                    : DateTime.Today;
-                Value = GetValue();
-            }
+            SelectedValue = DateTime.Today;
+            Value = default;
+        }
+        else if (MinValueToToday(SelectedValue))
+        {
+            SelectedValue = ViewMode == DatePickerViewMode.DateTime ? DateTime.Now : DateTime.Today;
+            Value = GetValue();
         }
     }
 
@@ -253,25 +248,22 @@ public partial class DateTimePicker<TValue>
         {
             d = v2.DateTime;
         }
-        if (d.HasValue)
-        {
-            if (d.Value == DateTime.MinValue && AutoToday)
-            {
-                d = DateTime.Today;
-            }
 
-            if (d.Value == DateTime.MinValue && DisplayMinValueAsEmpty)
-            {
-                ret = "";
-            }
-            else
-            {
-                var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
-                ret = d.Value.ToString(format);
-            }
+        if (d.HasValue && MinValueToToday(d.Value))
+        {
+            d = DateTime.Today;
+        }
+
+        if (d.HasValue && !MinValueToEmpty(d.Value))
+        {
+            ret = d.Value.ToString(ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat);
         }
         return ret;
     }
+
+    private bool MinValueToEmpty(DateTime val) => val == DateTime.MinValue && AllowNull && DisplayMinValueAsEmpty;
+
+    private bool MinValueToToday(DateTime val) => val == DateTime.MinValue && !AllowNull && AutoToday;
 
     /// <summary>
     /// 确认按钮点击时回调此方法
@@ -290,6 +282,7 @@ public partial class DateTimePicker<TValue>
     {
         // 允许为空时才会触发 OnClear 方法
         CurrentValue = default;
+        SelectedValue = DateTime.Today;
 
         if (AutoClose)
         {
