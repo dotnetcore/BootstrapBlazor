@@ -13,13 +13,13 @@ public partial class CardUpload<TValue>
         .AddClass("is-single", IsSingle)
         .Build();
 
-    private string? GetDiabledString(UploadFile item) => (!IsDisabled && item.Uploaded && item.Code == 0) ? null : "disabled";
+    private string? GetDisabledString(UploadFile item) => (!IsDisabled && item.Uploaded && item.Code == 0) ? null : "disabled";
 
     private bool ShowPreviewList => GetUploadFiles().Any();
 
     private List<string?> PreviewList => GetUploadFiles().Select(i => i.PrevUrl).ToList();
 
-    private string? GetDeleteButtonDiabledString(UploadFile item) => (!IsDisabled && item.Uploaded) ? null : "disabled";
+    private string? GetDeleteButtonDisabledString(UploadFile item) => (!IsDisabled && item.Uploaded) ? null : "disabled";
 
     private string? CardItemClass => CssBuilder.Default("upload-item")
         .AddClass("disabled", IsDisabled)
