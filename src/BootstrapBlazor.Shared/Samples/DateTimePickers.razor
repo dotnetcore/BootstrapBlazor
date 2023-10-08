@@ -8,7 +8,6 @@
            Introduction="@Localizer["DateTimePickerIntro"]"
            Name="DateTimePicker">
     <DateTimePicker ViewMode="DatePickerViewMode.DateTime"
-                    Format="yyyy-MM-dd HH:mm:ss"
                     @bind-Value="@DateTimePickerValue"
                     OnValueChanged="@TimePickerValueChanged">
         <TimePickerSetting ShowClockScale="true" IsAutoSwitch="false" />
@@ -77,16 +76,16 @@
     <p>@((MarkupString)Localizer["ViewModeTip"].Value)</p>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Year" ViewMode="DatePickerViewMode.Year" Format="yyyy" />
+            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Year" ViewMode="DatePickerViewMode.Year" DateTimeFormat="yyyy" />
         </div>
         <div class="col-12 col-sm-6">
-            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Month" ViewMode="DatePickerViewMode.Month" Format="yyyy-MM" />
+            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Month" ViewMode="DatePickerViewMode.Month" DateTimeFormat="yyyy-MM" />
         </div>
         <div class="col-12 col-sm-6">
-            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Date" ViewMode="DatePickerViewMode.Date" Format="yyyy-MM-dd" />
+            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Date" ViewMode="DatePickerViewMode.Date" DateTimeFormat="yyyy-MM-dd" />
         </div>
         <div class="col-12 col-sm-6">
-            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="DateTime" ViewMode="DatePickerViewMode.DateTime" Format="yyyy-MM-dd HH:mm:ss" />
+            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="DateTime" ViewMode="DatePickerViewMode.DateTime" DateTimeFormat="yyyy-MM-dd HH:mm:ss" />
         </div>
     </div>
 </DemoBlock>
