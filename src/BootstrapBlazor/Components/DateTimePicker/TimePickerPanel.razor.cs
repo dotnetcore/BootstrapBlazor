@@ -49,9 +49,7 @@ public partial class TimePickerPanel
     [NotNull]
     private IStringLocalizer<TimePickerPanel>? Localizer { get; set; }
 
-    private string? CurrentDateString => HasDate ? DatePicker!.Value.ToString(DatePicker.DateFormat) : null;
-
-    private bool HasDate => DatePicker != null && DatePicker.Value != DateTime.MinValue;
+    private string? CurrentDateString => DatePicker?.Value.ToString(DatePicker.DateFormat);
 
     /// <summary>
     /// is hour or min or sec mode
