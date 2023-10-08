@@ -130,14 +130,14 @@ public partial class DateTimePicker<TValue>
     /// <summary>
     /// 获得/设置 是否自动设置值为当前时间 默认 true
     /// </summary>
-    /// <remarks>当 Value 值为 <see cref="DateTime.MinValue"/> 时自动设置时间为 <see cref="DateTime.Today"/> 可为空类型时此参数不生效</remarks>
+    /// <remarks>当 Value 值为 <see cref="DateTime.MinValue"/> 时自动设置时间为 <see cref="DateTime.Today"/> 不为空类型时此参数生效</remarks>
     [Parameter]
     public bool AutoToday { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 是否将 <see cref="DateTime.MinValue"/> 显示为空字符串 默认 true
     /// </summary>
-    /// <remarks>不可为空类型时此参数不生效</remarks>
+    /// <remarks>可为空类型时此参数生效</remarks>
     [Parameter]
     public bool DisplayMinValueAsEmpty { get; set; } = true;
 
@@ -288,6 +288,7 @@ public partial class DateTimePicker<TValue>
 
     private async Task OnClear()
     {
+        // 允许为空时才会触发 OnClear 方法
         CurrentValue = default;
 
         if (AutoClose)
@@ -299,10 +300,6 @@ public partial class DateTimePicker<TValue>
     private TValue? GetValue()
     {
         TValue? ret = default;
-        if (SelectedValue == DateTime.MinValue && AutoToday)
-        {
-            SelectedValue = DateTime.Today;
-        }
 
         if (ValueType == typeof(DateTime))
         {
