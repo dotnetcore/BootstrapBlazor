@@ -8,7 +8,7 @@
            Introduction="@Localizer["DateTimePickerIntro"]"
            Name="DateTimePicker">
     <DateTimePicker ViewMode="DatePickerViewMode.DateTime"
-                    @bind-Value="@DateTimePickerValue"
+                    Value="@DateTimePickerValue"
                     OnValueChanged="@TimePickerValueChanged">
         <TimePickerSetting ShowClockScale="true" IsAutoSwitch="false" />
     </DateTimePicker>
@@ -58,7 +58,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["DateTimeOffsetTitle"]" Introduction="@Localizer["DateTimeOffsetIntro"]" Name="DateTimeOffset">
-    <DateTimePicker TValue="DateTimeOffset?" Value="DateTimeOffsetValue" />
+    <DateTimePicker @bind-Value="DateTimeOffsetValue" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BindValueTitle"]" Introduction="@Localizer["BindValueIntro"]" Name="BindValue">
@@ -76,13 +76,13 @@
     <p>@((MarkupString)Localizer["ViewModeTip"].Value)</p>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Year" ViewMode="DatePickerViewMode.Year" DateTimeFormat="yyyy" />
+            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Year" ViewMode="DatePickerViewMode.Year" DateFormat="yyyy" />
         </div>
         <div class="col-12 col-sm-6">
-            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Month" ViewMode="DatePickerViewMode.Month" DateTimeFormat="yyyy-MM" />
+            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Month" ViewMode="DatePickerViewMode.Month" DateFormat="yyyy-MM" />
         </div>
         <div class="col-12 col-sm-6">
-            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Date" ViewMode="DatePickerViewMode.Date" DateTimeFormat="yyyy-MM-dd" />
+            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Date" ViewMode="DatePickerViewMode.Date" DateFormat="yyyy-MM-dd" />
         </div>
         <div class="col-12 col-sm-6">
             <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="DateTime" ViewMode="DatePickerViewMode.DateTime" DateTimeFormat="yyyy-MM-dd HH:mm:ss" />
