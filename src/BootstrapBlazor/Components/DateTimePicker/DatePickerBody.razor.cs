@@ -693,6 +693,9 @@ public partial class DatePickerBody
     /// <returns></returns>
     private async Task ClickClearButton()
     {
+        // 关闭 TimerPicker
+        ShowTimePicker = false;
+
         CurrentDate = DateTime.MinValue;
         CurrentTime = TimeSpan.Zero;
 
@@ -715,7 +718,9 @@ public partial class DatePickerBody
 
     private void ResetTimePickerPanel()
     {
+        // 关闭 TimerPicker
         ShowTimePicker = false;
+
         TimePickerPanel?.Reset();
     }
 
