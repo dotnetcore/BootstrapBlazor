@@ -46,7 +46,7 @@ public partial class DateTimePicker<TValue>
     };
 
     /// <summary>
-    /// 获得/设置 是否允许为空 默认 false 不允许为空
+    /// 获得/设置 是否允许为空
     /// </summary>
     private bool AllowNull { get; set; }
 
@@ -128,14 +128,16 @@ public partial class DateTimePicker<TValue>
     public bool AutoClose { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否自动设置值为当前时间 默认 true 当 Value 为 null 或者 <see cref="DateTime.MinValue"/>  时自动设置当前时间为 <see cref="DateTime.Today"/>
+    /// 获得/设置 是否自动设置值为当前时间 默认 true
     /// </summary>
+    /// <remarks>当 Value 值为 <see cref="DateTime.MinValue"/> 时自动设置时间为 <see cref="DateTime.Today"/> 可为空类型时此参数不生效</remarks>
     [Parameter]
     public bool AutoToday { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 是否将 <see cref="DateTime.MinValue"/> 显示为空字符串 默认 true
     /// </summary>
+    /// <remarks>不可为空类型时此参数不生效</remarks>
     [Parameter]
     public bool DisplayMinValueAsEmpty { get; set; } = true;
 
@@ -171,6 +173,17 @@ public partial class DateTimePicker<TValue>
     private DateTime SelectedValue { get; set; }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        // 泛型设置为可为空
+        AllowNull = NullableUnderlyingType != null;
+    }
+
+    /// <summary>
     /// OnParametersSet 方法
     /// </summary>
     protected override void OnParametersSet()
@@ -194,9 +207,6 @@ public partial class DateTimePicker<TValue>
             throw new InvalidOperationException(GenericTypeErrorMessage);
         }
 
-        // 泛型设置为可为空
-        AllowNull = NullableUnderlyingType != null;
-
         // Value 为 MinValue 时 设置 Value 默认值
         if (Value == null)
         {
@@ -211,12 +221,20 @@ public partial class DateTimePicker<TValue>
             SelectedValue = v2;
         }
 
-        if (AutoToday && SelectedValue == DateTime.MinValue)
+        if (SelectedValue == DateTime.MinValue)
         {
-            SelectedValue = ViewMode == DatePickerViewMode.DateTime
-                ? DateTime.Now
-                : DateTime.Today;
-            Value = GetValue();
+            if (AllowNull && DisplayMinValueAsEmpty)
+            {
+                Value = default;
+            }
+            else if (AutoToday)
+            {
+                // 不可为空数据类型 AutoToday
+                SelectedValue = ViewMode == DatePickerViewMode.DateTime
+                    ? DateTime.Now
+                    : DateTime.Today;
+                Value = GetValue();
+            }
         }
     }
 
