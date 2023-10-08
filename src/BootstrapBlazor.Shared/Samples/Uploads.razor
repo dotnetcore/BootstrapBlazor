@@ -136,14 +136,14 @@
 <DemoBlock Title="@Localizer["UploadPreCardStyleTitle"]"
            Introduction="@Localizer["UploadPreCardStyleIntro"]"
            Name="PreCardStyle">
-    <p>
+    <section ignore>
         <div>@((MarkupString)Localizer["UploadPreCardStyleSSR"].Value)</div>
         <div>@((MarkupString)Localizer["UploadPreCardStyleServerSide"].Value)</div>
         <div>@((MarkupString)Localizer["UploadPreCardStyleWasm"].Value)</div>
         <div>@((MarkupString)Localizer["UploadPreCardStyleWasmSide"].Value)</div>
         <div>@((MarkupString)Localizer["UploadPreCardStyleLink", SiteOptions.CurrentValue.VideoLibUrl].Value)</div>
         <div>@((MarkupString)Localizer["UploadPreCardStyleValidation"].Value)</div>
-    </p>
+    </section>
     <div class="row g-3 mt-3">
         <div class="col-12">
             <p>@((MarkupString)Localizer["UploadPreCardStyleTips1"].Value)</p>
