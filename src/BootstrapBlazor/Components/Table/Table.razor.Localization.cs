@@ -343,6 +343,20 @@ public partial class Table<TItem>
     [NotNull]
     public string? DeleteButtonToastResultContent { get; set; }
 
+    /// <summary>
+    /// 获得/设置 高级排序按钮文本
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? AdvancedSortButtonText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 高级排序弹窗文本
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? AdvancedSortModalTitle { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Table<TItem>>? Localizer { get; set; }
@@ -404,5 +418,8 @@ public partial class Table<TItem>
         ExportPdfDropdownItemText ??= Localizer[nameof(ExportPdfDropdownItemText)];
         CopyColumnTooltipText ??= Localizer[nameof(CopyColumnTooltipText)];
         CopyColumnCopiedTooltipText ??= Localizer[nameof(CopyColumnCopiedTooltipText)];
+
+        AdvancedSortButtonText ??= Localizer[nameof(AdvancedSortButtonText)];
+        AdvancedSortModalTitle ??= Localizer[nameof(AdvancedSortModalTitle)];
     }
 }

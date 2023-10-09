@@ -112,9 +112,9 @@ public static class DialogServiceExtensions
         {
             var index = 0;
             builder.OpenComponent(index++, typeof(TDialog));
-            if (option.ComponentParamters != null)
+            if (option.ComponentParameters != null)
             {
-                foreach (var p in option.ComponentParamters)
+                foreach (var p in option.ComponentParameters)
                 {
                     builder.AddAttribute(index++, p.Key, p.Value);
                 }

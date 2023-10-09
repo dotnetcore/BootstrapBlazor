@@ -30,6 +30,11 @@ public class QueryPageOptions
     public List<string> SortList { get; } = new(10);
 
     /// <summary>
+    /// 获得/设置 自定义多列排序集合 默认为 Empty 内部为 "Name" "Age desc" 由 <see cref="Table{TItem}.AdvancedSortItems"/> 设置
+    /// </summary>
+    public List<string> AdvancedSortList { get; } = new(10);
+
+    /// <summary>
     /// 获得 搜索条件绑定模型 未设置 <see cref="Table{TItem}.CustomerSearchModel"/> 时为 <see cref="Table{TItem}"/> 泛型模型
     /// </summary>
     public object? SearchModel { get; set; }
@@ -51,9 +56,14 @@ public class QueryPageOptions
     public int PageItems { get; set; } = 20;
 
     /// <summary>
-    /// 获得 是否是分页查询 默认为 false 由 <see cref="Table{TItem}.IsPagination"/> 设置
+    /// 获得 是否分页查询模式 默认为 false 由 <see cref="Table{TItem}.IsPagination"/> 设置
     /// </summary>
     public bool IsPage { get; set; }
+
+    /// <summary>
+    /// 获得 是否为虚拟滚动查询模式 默认为 false 由 <see cref="Table{TItem}.ScrollMode"/> 设置
+    /// </summary>
+    public bool IsVirtualScroll { get; set; }
 
     /// <summary>
     /// 获得 通过列集合中的 <see cref="ITableColumn.Searchable"/> 列与 <see cref="SearchText"/> 拼装 IFilterAction 集合

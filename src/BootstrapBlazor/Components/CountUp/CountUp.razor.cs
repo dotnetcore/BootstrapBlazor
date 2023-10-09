@@ -57,16 +57,19 @@ public partial class CountUp<TValue>
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (Module != null)
+        if (!firstRender && !PreviousValue.Equals(Value))
         {
-            if (!PreviousValue.Equals(Value))
-            {
-                PreviousValue = Value;
+            PreviousValue = Value;
 
-                await Module.InvokeVoidAsync("init", Id, Interop, Value, OnCompleted != null ? nameof(OnCompleteCallback) : null, Option);
-            }
+            await InvokeInitAsync();
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Value, OnCompleted != null ? nameof(OnCompleteCallback) : null, Option);
 
     /// <summary>
     /// OnCompleted 回调方法

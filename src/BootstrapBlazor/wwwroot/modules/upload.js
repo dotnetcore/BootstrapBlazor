@@ -1,6 +1,5 @@
 ﻿import Data from "./data.js?v=$version"
 import EventHandler from "./event-handler.js?v=$version"
-import Viewer from "./viewer.js?v=$version"
 
 export function init(id) {
     const el = document.getElementById(id)
@@ -47,16 +46,12 @@ export function init(id) {
     })
 
     EventHandler.on(el, 'click', '.btn-zoom', e => {
-        if (!upload.viewer) {
-            const previewId = el.getAttribute('data-bb-previewer-id')
-            const viewEl = document.getElementById(previewId)
-            upload.viewer = Viewer.init(viewEl, [])
-            upload.viewEl = viewEl
-        }
+        const previewId = el.getAttribute('data-bb-previewer-id');
+        const prev = Data.get(previewId)
         const button = e.delegateTarget
         const buttons = [...el.querySelectorAll('.btn-zoom')]
-        upload.viewer.updatePrevList([...el.querySelectorAll('.upload-body img')].map(v => v.src))
-        upload.viewer.show(buttons.indexOf(button))
+        prev.viewer.updatePrevList([...el.querySelectorAll('.upload-body img')].map(v => v.src))
+        prev.viewer.show(buttons.indexOf(button))
     })
 }
 
@@ -67,9 +62,6 @@ export function dispose(id) {
     const el = upload.el
     const preventHandler = upload.preventHandler
     if (upload) {
-        if (upload.viewer) {
-            upload.viewer.dispose(upload.viewEl)
-        }
         EventHandler.off(el, 'click')
         EventHandler.off(el, 'drop')
         EventHandler.off(el, 'paste')

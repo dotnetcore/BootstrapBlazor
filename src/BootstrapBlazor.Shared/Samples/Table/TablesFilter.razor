@@ -146,6 +146,23 @@
     </Table>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["OnAdvancedSortTitle"]"
+           Introduction="@Localizer["OnAdvancedSortIntro"]"
+           Name="ShowAdvancedSort">
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowSkeleton="true" ShowToolbar="true" ShowAdvancedSort="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" />
+            <TableColumn @bind-Field="@context.Address" Sortable="true" />
+            <TableColumn @bind-Field="@context.Count" Width="100" Sortable="true" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["SetFilterInCodeTitle"]"
            Introduction="@Localizer["SetFilterInCodeIntro"]"
            Name="SetFilterInCode">

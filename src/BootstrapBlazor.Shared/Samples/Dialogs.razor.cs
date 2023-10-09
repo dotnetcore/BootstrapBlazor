@@ -170,7 +170,7 @@ public sealed partial class Dialogs
         var result = await DialogService.ShowModal<ResultDialogDemo>(new ResultDialogOption()
         {
             Title = "Modal popup with return value",
-            ComponentParamters = new Dictionary<string, object>
+            ComponentParameters = new Dictionary<string, object>
             {
                 [nameof(ResultDialogDemo.Value)] = DemoValue1,
                 [nameof(ResultDialogDemo.ValueChanged)] = EventCallback.Factory.Create<int>(this, v => DemoValue1 = v)
@@ -292,7 +292,7 @@ public sealed partial class Dialogs
             BodyContext = new ResultDialogDemo2.FooContext() { Count = 10, Emails = EmailInputValue },
             ButtonYesText = Localizer["EmailDialogButtonYes"],
             ButtonYesIcon = "fa-solid fa-magnifying-glass",
-            ComponentParamters = new Dictionary<string, object>
+            ComponentParameters = new Dictionary<string, object>
             {
                 [nameof(ResultDialogDemo2.Emails)] = Emails,
                 [nameof(ResultDialogDemo2.EmailsChanged)] = EventCallback.Factory.Create<IEnumerable<string>>(this, v => Emails = v)

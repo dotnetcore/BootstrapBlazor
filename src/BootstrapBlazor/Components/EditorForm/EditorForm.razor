@@ -2,7 +2,7 @@
 @typeparam TModel
 @inherits BootstrapComponentBase
 
-<CascadingValue Value="@EditorItems" IsFixed="true">
+<CascadingValue Value="@_editorItems" IsFixed="true">
     @FieldItems?.Invoke(Model)
 </CascadingValue>
 

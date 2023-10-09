@@ -122,6 +122,12 @@ public partial class Layout : IHandlerException
     public bool IsOnlyRenderActiveTab { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否允许拖动标签页 默认 true
+    /// </summary>
+    [Parameter]
+    public bool AllowDragTab { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 是否固定 Footer 组件
     /// </summary>
     [Parameter]

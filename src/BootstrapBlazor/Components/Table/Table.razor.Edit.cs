@@ -554,13 +554,15 @@ public partial class Table<TItem>
             SortOrder = SortOrder,
             SortName = SortName,
             SearchModel = SearchModel,
-            StartIndex = StartIndex
+            StartIndex = StartIndex,
+            IsVirtualScroll = ScrollMode == ScrollMode.Virtual
         };
 
         queryOption.Filters.AddRange(Filters.Values);
         queryOption.Searches.AddRange(GetSearches());
         queryOption.AdvanceSearches.AddRange(GetAdvanceSearches());
         queryOption.CustomerSearches.AddRange(GetCustomerSearches());
+        queryOption.AdvancedSortList.AddRange(GetAdvancedSortList());
 
         if (!string.IsNullOrEmpty(SortString))
         {

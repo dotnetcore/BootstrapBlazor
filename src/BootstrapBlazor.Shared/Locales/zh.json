@@ -4505,6 +4505,7 @@
     "DockViewComplex": "组合布局",
     "DockViewVisible": "可见性切换",
     "DockViewLock": "布局锁定",
+    "DockViewLayout": "布局自定义",
     "OtherComponents": "其他组件",
     "MouseFollowerIntro": "鼠标跟随",
     "Live2DDisplayIntro": "Live2D 插件",
@@ -4515,7 +4516,8 @@
     "QueryBuilder": "条件生成器 QueryBuilder",
     "WebSerial": "串口读写 WebSerial",
     "MindMap": "思维导图 MindMap",
-    "WebSpeech": "语音识别/合成 WebSpeech"
+    "WebSpeech": "语音识别/合成 WebSpeech",
+    "Marquee": "文字滚动 Marquee"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -4666,6 +4668,7 @@
     "OnQueryAsyncAttr": "异步查询回调方法",
     "OnAddAsyncAttr": "新建按钮回调方法",
     "OnColumnCreatingAttr": "列创建时回调委托方法",
+    "ColumnOrderCallbackAttr": "列排序回调委托方法",
     "OnDoubleClickCellCallbackAttr": "设置单元格双击事件",
     "OnDeleteAsyncAttr": "删除按钮异步回调方法",
     "OnEditAsyncAttr": "编辑按钮异步回调方法",
@@ -4727,6 +4730,7 @@
     "SortableAttr": "是否排序",
     "DefaultSortAttr": "是否为默认排序列",
     "DefaultSortOrderAttr": "默认排序规则",
+    "ShowAdvancedSortAttr": "是否显示高级排序按钮",
     "TextAttr": "表头显示文字",
     "TextEllipsisAttr": "是否文本超出时省略",
     "TemplateAttr": "模板",
@@ -5278,6 +5282,8 @@
     "OnSortTitle": "动态多列排序",
     "OnSortIntro": "设置 <code>OnSort</code> 参数",
     "OnSortP": "点击列头进行排序时，组件内部调用 <code>OnSort</code> 回调，可以在此处根据业务逻辑设置其返回值即可实现动态多列排序功能，本例中点击 <b>时间</b> 列头进行正序排序时，内部使用 <code>DateTime, Count</code> 倒序时使用 <code>DateTime desc, Count desc</code>",
+    "OnAdvancedSortTitle": "自定义排序",
+    "OnAdvancedSortIntro": "通过设置 <code>ShowAdvancedSort=\"true\"</code> 显示 <b>高级排序</b> 按钮，通过自定义条件进行多列排序操作",
     "SetFilterInCodeTitle": "通过代码设置过滤条件",
     "SetFilterInCodeIntro": "示例展示如何通过代码设置过滤条件",
     "SetFilterInCodeButtonText1": "名称包含01",
@@ -5902,5 +5908,10 @@
     "AttrItemTemplate": "选项模板",
     "AttrOnClickItem": "点击候选项回调方法",
     "GetItemDisplayText": "获得显示项显示内容回调方法"
+  },
+  "BootstrapBlazor.Shared.Samples.Marquees": {
+    "MarqueeTitle": "基本用法",
+    "MarqueeIntro": "通过参数调节文字滚动效果",
+    "MarqueeDescription": "文字滚动组件"
   }
 }

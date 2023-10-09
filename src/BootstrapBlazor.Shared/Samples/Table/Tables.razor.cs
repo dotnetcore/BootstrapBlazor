@@ -210,6 +210,14 @@ public partial class Tables
         },
         new()
         {
+            Name = "ShowAdvancedSort",
+            Description = Localizer["ShowAdvancedSortAttr"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
             Name = "Text",
             Description = Localizer["TextAttr"],
             Type = "string",
@@ -945,6 +953,14 @@ public partial class Tables
             Name = nameof(Table<Foo>.OnColumnCreating),
             Description = Localizer["OnColumnCreatingAttr"],
             Type = "Func<List<ITableColumn>,Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Table<Foo>.ColumnOrderCallback),
+            Description = Localizer["ColumnOrderCallbackAttr"],
+            Type = "Func<List<ITableColumn>, IEnumerable<ITableColumn>>",
             ValueList = " — ",
             DefaultValue = " — "
         },

@@ -192,6 +192,8 @@
     "SearchButtonText": "搜索",
     "ResetSearchButtonText": "清空搜索",
     "AdvanceButtonText": "高级搜索",
+    "AdvancedSortModalTitle": "自定义排序",
+    "AdvancedSortButtonText": "高级排序",
     "CheckboxDisplayText": "选择",
     "EditModalTitle": "编辑窗口",
     "AddModalTitle": "新建窗口",
@@ -342,8 +344,12 @@
     "GroupText": "组合条件",
     "ItemText": "单行条件"
   },
+  "BootstrapBlazor.Components.TableAdvancedSortDialog": {
+    "AscText": "升序",
+    "DescText": "降序"
+  },
   "BootstrapBlazor.Components.TimePickerPanel": {
     "AMText": "上午",
     "PMText": "下午"
-  }
+  }  
 }

@@ -4505,6 +4505,7 @@
     "DockViewComplex": "Complex",
     "DockViewVisible": "Visible",
     "DockViewLock": "Lock",
+    "DockViewLayout": "Custom",
     "OtherComponents": "Others",
     "MouseFollowerIntro": "MouseFollower",
     "Live2DDisplayIntro": "Live2D Widget",
@@ -4515,7 +4516,8 @@
     "QueryBuilder": "QueryBuilder",
     "WebSerial": "Web Serial",
     "MindMap": "Mind Map",
-    "WebSpeech": "Web Speech"
+    "WebSpeech": "Web Speech",
+    "Marquee": "Marquee"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -4666,6 +4668,7 @@
     "OnQueryAsyncAttr": "Asynchronous query callback method",
     "OnAddAsyncAttr": "New Button Callback Method",
     "OnColumnCreatingAttr": "Callback delegate method on column creation",
+    "ColumnOrderCallbackAttr": "Callback delegate method on column order",
     "OnDoubleClickCellCallbackAttr": "Set cell double-click event",
     "OnDeleteAsyncAttr": "Delete Button Asynchronous Callback Method",
     "OnEditAsyncAttr": "Edit button asynchronous callback method",
@@ -4727,6 +4730,7 @@
     "SortableAttr": "Sort or not",
     "DefaultSortAttr": "Is the default sort sequence",
     "DefaultSortOrderAttr": "Default collation",
+    "ShowAdvancedSortAttr": "Whether to show the Advanced Sort button",
     "TextAttr": "Header Displays Text",
     "TextEllipsisAttr": "Whether to omit text when exceeded",
     "TemplateAttr": "Template",
@@ -5278,6 +5282,8 @@
     "OnSortTitle": "Dynamic multi-column sorting",
     "OnSortIntro": "Set <code>OnSort</code> Parameters",
     "OnSortP": "When clicking the column header to sort, the component calls the<code> OnSort </code>callback internally, where its return value can be set according to the business logic to achieve dynamic multi-column sorting, in this case, when clicking the <b>time</b> column header for positive order sorting, use <code>DateTime,Count</code>  internally, use<code>DateTime desc, Count desc</code>when Count reverse order",
+    "OnAdvancedSortTitle": "Custom sort",
+    "OnAdvancedSortIntro": "By setting <code>ShowAdvancedSort=\"true\"</code> to show the <b>Advanced Sort</b> button.",
     "SetFilterInCodeTitle": "Set filters by code",
     "SetFilterInCodeIntro": "Example shows how to set filters through code",
     "SetFilterInCodeButtonText1": "Name contains 01",
@@ -5902,5 +5908,10 @@
     "AttrItemTemplate": "the template of Item",
     "AttrOnClickItem": "the callback on click item",
     "GetItemDisplayText": "the callback on get item display text"
+  },
+  "BootstrapBlazor.Shared.Samples.Marquees": {
+    "MarqueeTitle": "Usage",
+    "MarqueeIntro": "Adjusting the text scrolling effect through parameters",
+    "MarqueeDescription": "Marquee component"
   }
 }

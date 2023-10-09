@@ -66,6 +66,12 @@
                     {
                         @TableExtensionToolbarBeforeTemplate
                     }
+                    @if (ShowAdvancedSort)
+                    {
+                        <Button class="@AdvancedSortClass" Icon="@AdvancedSortButtonIcon" OnClickWithoutRender="ShowSortDialog">
+                            <span class="d-none d-sm-inline-block">@AdvancedSortButtonText</span>
+                        </Button>
+                    }
                     @if (ShowRefresh)
                     {
                         <Button Icon="@RefreshButtonIcon" Color="@Color.Secondary" OnClickWithoutRender="@OnClickRefreshAsync">
