@@ -65,6 +65,40 @@ public class TableDateTimeFilterTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void IsHeaderRow_OnSelectedItemChanged()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.Items, new List<Foo>() { new Foo() });
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ShowFilterHeader, true);
+                pb.Add(a => a.TableColumns, new RenderFragment<Foo>(foo => builder =>
+                {
+                    var index = 0;
+                    builder.OpenComponent<TableColumn<Foo, DateTime?>>(index++);
+                    builder.AddAttribute(index++, nameof(TableColumn<Foo, DateTime?>.Field), foo.DateTime);
+                    builder.AddAttribute(index++, nameof(TableColumn<Foo, DateTime?>.FieldExpression), foo.GenerateValueExpression(nameof(Foo.DateTime), typeof(DateTime?)));
+                    builder.AddAttribute(index++, nameof(TableColumn<Foo, DateTime?>.Filterable), true);
+                    builder.CloseComponent();
+                }));
+            });
+        });
+
+        // 选择时间
+        var btn = cut.Find(".picker-panel-link-btn.is-now");
+        cut.InvokeAsync(() => btn.Click());
+
+        // 选择小于等于条件
+        var items = cut.FindAll(".dropdown-item");
+        cut.InvokeAsync(() => items[1].Click());
+        var filter = cut.FindComponent<DateTimeFilter>().Instance.GetFilterConditions();
+        Assert.NotNull(filter.Filters);
+        Assert.Single(filter.Filters);
+    }
+
+    [Fact]
     public void SetFilterConditions_Ok()
     {
         var cut = Context.RenderComponent<DateTimeFilter>();
