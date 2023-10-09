@@ -24,7 +24,7 @@ namespace BootstrapBlazor.Components
         /// Theme of the editor (Light or Dark).
         /// </summary>
         [Parameter]
-        public bool IsDarkMode { get; set; } = false;
+        public string Theme { get; set; } = "vs";
 
         /// <summary>
         /// Gets or sets the value of the input. This should be used with two-way binding.
@@ -50,7 +50,7 @@ namespace BootstrapBlazor.Components
             await InvokeVoidAsync(
                 "monacoSetOptions",
                 Id,
-                new { Value, Theme = GetTheme(IsDarkMode), Language });
+                new { Value, Theme = Theme, Language });
         }
 
         /// <summary />
@@ -63,19 +63,13 @@ namespace BootstrapBlazor.Components
                 {
                     Value,
                     Language,
-                    Theme = GetTheme(IsDarkMode),
+                    Theme = Theme,
                     Path = MONACO_VS_PATH,
                     LineNumbers = true,
                     ReadOnly = false,
                 };
                 await InvokeVoidAsync("init", Id, Interop, options);
             }
-        }
-
-        /// <summary />
-        private static string GetTheme(bool isDarkMode)
-        {
-            return isDarkMode ? "vs-dark" : "light";
         }
 
         /// <summary>

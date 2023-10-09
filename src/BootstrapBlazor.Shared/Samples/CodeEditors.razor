@@ -20,14 +20,20 @@
                         <SelectOption Text="Json" Value="Json"></SelectOption>
                     </Options>
                 </Select>
-                <Switch @bind-Value="@IsDarkMode" DisplayText="Theme：" ShowLabel="true"></Switch>
+                <Select TValue="string" OnSelectedItemChanged="@OnThemeSelectedItemChanged">
+                    <Options>
+                        <SelectOption Text="Visual Studio" Value="vs"></SelectOption>
+                        <SelectOption Text="Visual Studio Dark" Value="vs-dark"></SelectOption>
+                        <SelectOption Text="High Contrast Dark" Value="hc-black"></SelectOption>
+                    </Options>
+                </Select>
             </div>
         </div>
         <div class="col-12">
-            <CodeEditor @bind-Value="@Code" Language="@Language" IsDarkMode="@IsDarkMode" OnValueChanged="OnValueChanged" />
+            <CodeEditor @bind-Value="@Code" Language="@Language" Theme="@Theme" OnValueChanged="OnValueChanged" />
         </div>
         <div class="col-12">
-            <b>Language:</b> @Language; <b>Code:</b> @Code; <b>IsDarkMode:</b> @IsDarkMode
+            <b>Language:</b> @Language; <b>Code:</b> @Code; <b>Theme:</b> @Theme
         </div>
         <div class="col-12">
             <ConsoleLogger @ref="Logger"></ConsoleLogger>
@@ -43,7 +49,7 @@
 
     private string Language { get; set; }
 
-    private bool IsDarkMode { get; set; } = true;
+    private string Theme { get; set; }
 
     private Task OnSelectedItemChanged(SelectedItem item)
     {
@@ -105,6 +111,26 @@
         {
             Logger.Log(value);
         }
+        return Task.CompletedTask;
+    }
+
+    private Task OnThemeSelectedItemChanged(SelectedItem item)
+    {
+        if (item.Value == "vs-dark")
+        {
+            Theme = item.Value;
+        }
+
+        if (item.Value == "vs")
+        {
+            Theme = item.Value;
+        }
+
+        if (item.Value == "hc-black")
+        {
+            Theme = item.Value;
+        }
+        StateHasChanged();
         return Task.CompletedTask;
     }
 }
