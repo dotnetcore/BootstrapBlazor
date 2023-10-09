@@ -18,6 +18,14 @@ public partial class BootstrapInputGroupLabel
     private bool IsInnerLabel { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示必填项标识 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowRequiredMark { get; set; }
+
+    private string? Required => ShowRequiredMark ? "true" : null;
+
+    /// <summary>
     /// OnParametersSet 方法
     /// </summary>
     protected override void OnParametersSet()
