@@ -215,6 +215,18 @@ public class InputTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowRequiredMark_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapInputGroupLabel>(builder =>
+        {
+            builder.Add(s => s.DisplayText, "DisplayText");
+            builder.Add(s => s.ShowRequiredMark, true);
+        });
+
+        cut.MarkupMatches("<label class=\"form-label\" required=\"true\">DisplayText</label>");
+    }
+
+    [Fact]
     public void GroupIcon_Ok()
     {
         var cut = Context.RenderComponent<BootstrapInputGroupIcon>(builder =>
@@ -235,12 +247,12 @@ public class InputTest : BootstrapBlazorTestBase
             {
                 builder.OpenComponent<BootstrapInputGroupLabel>(0);
                 builder.AddAttribute(1, nameof(BootstrapInputGroupLabel.DisplayText), "BootstrapInputGroup");
+                builder.AddAttribute(2, nameof(BootstrapInputGroupLabel.ShowRequiredMark), true);
                 builder.CloseComponent();
             }));
         });
 
-        Assert.NotEmpty(cut.Markup);
-        Assert.Contains("BootstrapInputGroup", cut.Markup);
+        cut.MarkupMatches("<div class=\"input-group\"><div class=\"input-group-text\" required=\"true\"><span>BootstrapInputGroup</span></div></div>");
     }
 
     [Fact]

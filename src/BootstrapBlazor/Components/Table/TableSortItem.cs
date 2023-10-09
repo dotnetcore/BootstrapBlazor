@@ -10,12 +10,12 @@ namespace BootstrapBlazor.Components;
 public class TableSortItem
 {
     /// <summary>
-    /// 排序字段名
+    /// 排序字段名 默认 string.Empty
     /// </summary>
     public string SortName { get; set; } = string.Empty;
 
     /// <summary>
-    /// 排序顺序
+    /// 排序顺序 默认 SortOrder.Unset
     /// </summary>
     public SortOrder SortOrder { get; set; }
 
