@@ -223,17 +223,6 @@ public partial class DateTimeRange
     {
         base.OnParametersSet();
 
-        Value ??= new DateTimeRangeValue();
-
-        StartValue = Value.Start;
-        EndValue = Value.End;
-
-        if (StartValue == DateTime.MinValue) StartValue = DateTime.Today;
-        if (EndValue == DateTime.MinValue) EndValue = StartValue.AddMonths(1).AddDays(1).AddSeconds(-1);
-
-        SelectedValue.Start = StartValue;
-        SelectedValue.End = EndValue;
-
         StartPlaceHolderText ??= Localizer[nameof(StartPlaceHolderText)];
         EndPlaceHolderText ??= Localizer[nameof(EndPlaceHolderText)];
         SeparateText ??= Localizer[nameof(SeparateText)];
@@ -248,11 +237,6 @@ public partial class DateTimeRange
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimeRangeIcon);
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimeRangeClearIcon); ;
 
-        if (StartValue.ToString("yyyy-MM") == EndValue.ToString("yyyy-MM"))
-        {
-            StartValue = StartValue.AddMonths(-1);
-        }
-
         SidebarItems ??= new DateTimeRangeSidebarItem[]
         {
             new() { Text = Localizer["Last7Days"], StartDateTime = DateTime.Today.AddDays(-7), EndDateTime = DateTime.Today.AddDays(1).AddSeconds(-1) },
@@ -260,6 +244,14 @@ public partial class DateTimeRange
             new() { Text = Localizer["ThisMonth"], StartDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day), EndDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1).AddSeconds(-1) },
             new() { Text = Localizer["LastMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddMonths(-1), EndDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddSeconds(-1) },
         };
+
+        Value ??= new DateTimeRangeValue();
+
+        StartValue = Value.Start == DateTime.MinValue ? DateTime.Today : Value.Start;
+        EndValue = StartValue.AddMonths(1);
+
+        SelectedValue.Start = Value.Start;
+        SelectedValue.End = Value.End;
     }
 
     private async Task OnClickSidebarItem(DateTimeRangeSidebarItem item)
@@ -267,7 +259,7 @@ public partial class DateTimeRange
         SelectedValue.Start = item.StartDateTime;
         SelectedValue.End = item.EndDateTime;
         StartValue = item.StartDateTime;
-        EndValue = item.EndDateTime;
+        EndValue = StartValue.AddMonths(1);
 
         if (AutoCloseClickSideBar)
         {
