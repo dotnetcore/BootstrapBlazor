@@ -392,12 +392,8 @@ public partial class DateTimeRange
         {
             // 开始时间为空
             SelectedValue.Start = d;
-
-            StateHasChanged();
-            return;
         }
-
-        if (SelectedValue.End == DateTime.MinValue)
+        else if (SelectedValue.End == DateTime.MinValue)
         {
             // 结束时间为空
             if (d < SelectedValue.Start)
