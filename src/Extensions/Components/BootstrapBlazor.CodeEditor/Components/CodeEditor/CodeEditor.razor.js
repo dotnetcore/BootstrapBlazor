@@ -36,6 +36,8 @@ export function init(id, interop, options) {
             interop.invokeMethodAsync("UpdateValueAsync", code);
         });
 
+        monaco.editor.setModelLanguage(monaco.editor.getModels()[0], options.language)
+
         editor.interop = interop;
 
         Data.set(id, editor)
@@ -45,8 +47,6 @@ export function init(id, interop, options) {
         window.addEventListener("resize", () => {
             editor.editor.layout();
         })
-
-        window.editor = editor.editor;   // To debug
     });
 }
 
@@ -60,6 +60,11 @@ export function monacoSetOptions(id, options) {
             theme: options.theme
         });
     }
+}
+
+// SetModelLanguage
+export function setModelLanguage(id, language) {
+    monaco.editor.setModelLanguage(monaco.editor.getModels()[0], language)
 }
 
 export function dispose(id) {

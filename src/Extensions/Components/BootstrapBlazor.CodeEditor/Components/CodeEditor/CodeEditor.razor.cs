@@ -84,6 +84,13 @@ namespace BootstrapBlazor.Components
         /// <returns></returns>
         public async Task Resize() => await InvokeVoidAsync("resize");
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="language"></param>
+        /// <returns></returns>
+        public async Task SetModelLanguage(string language) => await InvokeVoidAsync("setModelLanguage", Id, language);
+
         /// <summary />
         [JSInvokable]
         public async Task UpdateValueAsync(string value)

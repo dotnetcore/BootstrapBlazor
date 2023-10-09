@@ -14,10 +14,10 @@
             <div class="d-flex justify-content-between">
                 <Select TValue="string" OnSelectedItemChanged="@OnSelectedItemChanged">
                     <Options>
-                        <SelectOption Text="JavaScript" Value="JavaScript"></SelectOption>
-                        <SelectOption Text="CSharp" Value="CSharp"></SelectOption>
-                        <SelectOption Text="Razor" Value="Razor"></SelectOption>
-                        <SelectOption Text="Json" Value="Json"></SelectOption>
+                        <SelectOption Text="JavaScript" Value="javascript"></SelectOption>
+                        <SelectOption Text="CSharp" Value="csharp"></SelectOption>
+                        <SelectOption Text="Razor" Value="razor"></SelectOption>
+                        <SelectOption Text="Json" Value="json"></SelectOption>
                     </Options>
                 </Select>
                 <Select TValue="string" OnSelectedItemChanged="@OnThemeSelectedItemChanged">
@@ -30,7 +30,7 @@
             </div>
         </div>
         <div class="col-12">
-            <CodeEditor @bind-Value="@Code" Language="@Language" Theme="@Theme" OnValueChanged="OnValueChanged" />
+            <CodeEditor @ref="Editor" @bind-Value="@Code" Language="@Language" Theme="@Theme" OnValueChanged="OnValueChanged" />
         </div>
         <div class="col-12">
             <b>Language:</b> @Language; <b>Code:</b> @Code; <b>Theme:</b> @Theme
@@ -45,6 +45,8 @@
 
     private ConsoleLogger Logger { get; set; }
 
+    private CodeEditor Editor { get; set; }
+
     private string Code { get; set; }
 
     private string Language { get; set; }
@@ -53,9 +55,9 @@
 
     private Task OnSelectedItemChanged(SelectedItem item)
     {
-        if (item.Value == "JavaScript")
+        if (item.Text == "JavaScript")
         {
-            Language = "javacript";
+            Language = "javascript";
             Code = @"
                      function main() {
                           console.log('Hello World!')
@@ -63,7 +65,7 @@
                     ";
         }
 
-        if (item.Value == "CSharp")
+        if (item.Text == "CSharp")
         {
             Language = "csharp";
             Code = @"
@@ -76,18 +78,18 @@
                     ";
         }
 
-        if (item.Value == "Json")
+        if (item.Text == "Json")
         {
             Language = "json";
             Code = @"
             {
-                name: ""Hello World"",
-                age: 25
+                ""name"": ""Hello World"",
+                ""age"": 25
             }
                     ";
         }
 
-        if (item.Value == "Razor")
+        if (item.Text == "Razor")
         {
             Language = "razor";
             Code = @"
@@ -101,6 +103,8 @@
             </Select>
                     ";
         }
+        Editor.SetModelLanguage(item.Value);
+
         StateHasChanged();
         return Task.CompletedTask;
     }
