@@ -240,11 +240,11 @@ public partial class DateTimePicker<TValue>
     {
         var ret = "";
         DateTime? d = null;
-        if (Value is DateTime v1)
+        if (value is DateTime v1)
         {
             d = v1;
         }
-        else if (Value is DateTimeOffset v2)
+        else if (value is DateTimeOffset v2)
         {
             d = v2.DateTime;
         }
