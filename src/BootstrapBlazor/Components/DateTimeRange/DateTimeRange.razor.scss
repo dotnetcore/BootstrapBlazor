@@ -32,27 +32,38 @@
             display: inline-block;
         }
     }
-}
 
-.datetime-range-control {
-    display: inline-flex;
-    align-items: center;
-
-    .datetime-range-input {
-        border: none;
-        display: inline-block;
-        text-align: center;
+    .range-bar {
         cursor: pointer;
-        width: 80px;
-        padding: 0;
-
-        &.datetime {
-            width: 136px;
-        }
+        color: var(--bb-dt-range-bar-color);
     }
 
-    .range-separator {
-        padding: 0 5px;
+    .range-clear {
+        display: none;
+        cursor: pointer;
+        color: var(--bb-dt-range-bar-color);
+    }
+
+    .datetime-range-control {
+        display: inline-flex;
+        align-items: center;
+
+        .datetime-range-input {
+            border: none;
+            display: inline-block;
+            text-align: center;
+            cursor: pointer;
+            width: 80px;
+            padding: 0;
+
+            &.datetime {
+                width: 136px;
+            }
+        }
+
+        .range-separator {
+            padding: 0 5px;
+        }
     }
 }
 
@@ -80,10 +91,6 @@
     }
 }
 
-.form-label + .datetime-range {
-    display: block;
-}
-
 .range-panel-footer {
     padding: 0.5rem;
     display: flex;
@@ -97,13 +104,6 @@
     }
 }
 
-.range-bar {
-    cursor: pointer;
-    color: var(--bb-dt-range-bar-color);
-}
-
-.range-clear {
-    display: none;
-    cursor: pointer;
-    color: var(--bb-dt-range-bar-color);
+.form-label + .datetime-range {
+    display: block;
 }

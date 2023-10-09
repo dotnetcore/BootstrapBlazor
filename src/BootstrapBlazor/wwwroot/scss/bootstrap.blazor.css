@@ -2168,12 +2168,20 @@ a, a:hover, a:focus {
 .datetime-range:hover:not(.disabled) .range-clear {
   display: inline-block;
 }
-
-.datetime-range-control {
+.datetime-range .range-bar {
+  cursor: pointer;
+  color: var(--bb-dt-range-bar-color);
+}
+.datetime-range .range-clear {
+  display: none;
+  cursor: pointer;
+  color: var(--bb-dt-range-bar-color);
+}
+.datetime-range .datetime-range-control {
   display: inline-flex;
   align-items: center;
 }
-.datetime-range-control .datetime-range-input {
+.datetime-range .datetime-range-control .datetime-range-input {
   border: none;
   display: inline-block;
   text-align: center;
@@ -2181,10 +2189,10 @@ a, a:hover, a:focus {
   width: 80px;
   padding: 0;
 }
-.datetime-range-control .datetime-range-input.datetime {
+.datetime-range .datetime-range-control .datetime-range-input.datetime {
   width: 136px;
 }
-.datetime-range-control .range-separator {
+.datetime-range .datetime-range-control .range-separator {
   padding: 0 5px;
 }
 
@@ -2221,10 +2229,6 @@ a, a:hover, a:focus {
   color: inherit;
 }
 
-.form-label + .datetime-range {
-  display: block;
-}
-
 .range-panel-footer {
   padding: 0.5rem;
   display: flex;
@@ -2237,15 +2241,8 @@ a, a:hover, a:focus {
   padding: 0;
 }
 
-.range-bar {
-  cursor: pointer;
-  color: var(--bb-dt-range-bar-color);
-}
-
-.range-clear {
-  display: none;
-  cursor: pointer;
-  color: var(--bb-dt-range-bar-color);
+.form-label + .datetime-range {
+  display: block;
 }
 
 .icon-list {
