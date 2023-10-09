@@ -76,16 +76,16 @@
     <p>@((MarkupString)Localizer["ViewModeTip"].Value)</p>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Year" ViewMode="DatePickerViewMode.Year" DateFormat="yyyy" />
+            <DateTimePicker @bind-Value="YearValue" ShowLabel="true" DisplayText="Year" ViewMode="DatePickerViewMode.Year" DateFormat="yyyy" />
         </div>
         <div class="col-12 col-sm-6">
-            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Month" ViewMode="DatePickerViewMode.Month" DateFormat="yyyy-MM" />
+            <DateTimePicker @bind-Value="MonthValue" ShowLabel="true" DisplayText="Month" ViewMode="DatePickerViewMode.Month" DateFormat="yyyy-MM" />
         </div>
         <div class="col-12 col-sm-6">
-            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Date" ViewMode="DatePickerViewMode.Date" DateFormat="yyyy-MM-dd" />
+            <DateTimePicker @bind-Value="DateValue" ShowLabel="true" DisplayText="Date" ViewMode="DatePickerViewMode.Date" DateFormat="yyyy-MM-dd" />
         </div>
         <div class="col-12 col-sm-6">
-            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="DateTime" ViewMode="DatePickerViewMode.DateTime" DateTimeFormat="yyyy-MM-dd HH:mm:ss" />
+            <DateTimePicker @bind-Value="DateTimeValue" ShowLabel="true" DisplayText="DateTime" ViewMode="DatePickerViewMode.DateTime" DateTimeFormat="yyyy-MM-dd HH:mm:ss" />
         </div>
     </div>
 </DemoBlock>
@@ -103,15 +103,16 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ShowLabelTitle"]" Introduction="@Localizer["ShowLabelIntro"]" Name="ShowLabel">
-    <p>@((MarkupString)Localizer["ShowLabelTip1"].Value)</p>
-    <p>@((MarkupString)Localizer["ShowLabelTip2"].Value)</p>
+    <section ignore class="mb-3">
+        @((MarkupString)Localizer["ShowLabelTip"].Value)
+    </section>
     <DateTimePicker ShowLabel="true" DisplayText="@Localizer["DisplayText"]" @bind-Value="@ShowLabelValue" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["DisabledTitle"]" Introduction="@Localizer["DisabledIntro"]" Name="IsDisabled">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <DateTimePicker TValue="DateTime" IsDisabled="IsDisabled" />
+            <DateTimePicker IsDisabled="IsDisabled" Value="DateTime.Today" />
         </div>
         <div class="col-12 col-sm-6">
             <Switch @bind-Value="@IsDisabled" />
@@ -120,18 +121,20 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ShowSidebarTitle"]" Introduction="@Localizer["ShowSidebarIntro"]" Name="ShowSidebar">
-    <DateTimePicker TValue="DateTime" ShowSidebar="true" />
+    <DateTimePicker ShowSidebar="true" @bind-Value="SidebarValue" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MinValueTitle"]" Introduction="@Localizer["MinValueIntro"]" Name="MinValue">
-    <DateTimePicker TValue="DateTime"
-                    Value="@(DateTime.Today.AddDays(3 - DateTime.Today.Day))"
+    <DateTimePicker @bind-Value="@AllowValue"
                     MinValue="@(DateTime.Today.AddDays(1 - DateTime.Today.Day))"
                     MaxValue="@(DateTime.Today.AddDays(46 - DateTime.Today.Day))" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BlockAutoCloseTitle"]" Introduction="@Localizer["BlockAutoCloseIntro"]" Name="AutoClose">
-    <DateTimePicker AutoClose="false" TValue="DateTime" Value="@(DateTime.Today.AddDays(3 - DateTime.Today.Day))" />
+    <section ignore class="mb-3">
+        @((MarkupString)Localizer["BlockAutoCloseDesc"].Value)
+    </section>
+    <DateTimePicker @bind-Value="@AutoCloseValue" AutoClose="false" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BlockGroupTitle"]" Introduction="@Localizer["BlockGroupIntro"]" Name="Group">
