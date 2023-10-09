@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// BootstrapInputGroupLabel 组件
 /// </summary>
 public partial class BootstrapInputGroupLabel
 {
