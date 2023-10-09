@@ -21,7 +21,7 @@ namespace BootstrapBlazor.Components
         public string Language { get; set; } = "csharp";
 
         /// <summary>
-        /// Theme of the editor (Light or Dark).
+        /// Theme of the editor.
         /// </summary>
         [Parameter]
         public string Theme { get; set; } = "vs";
@@ -83,13 +83,6 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <returns></returns>
         public async Task Resize() => await InvokeVoidAsync("resize");
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="language"></param>
-        /// <returns></returns>
-        public async Task SetModelLanguage(string language) => await InvokeVoidAsync("setModelLanguage", Id, language);
 
         /// <summary />
         [JSInvokable]

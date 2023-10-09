@@ -59,12 +59,8 @@ export function monacoSetOptions(id, options) {
             language: options.language,
             theme: options.theme
         });
+        monaco.editor.setModelLanguage(monaco.editor.getModels()[0], options.language)
     }
-}
-
-// SetModelLanguage
-export function setModelLanguage(id, language) {
-    monaco.editor.setModelLanguage(monaco.editor.getModels()[0], language)
 }
 
 export function dispose(id) {
