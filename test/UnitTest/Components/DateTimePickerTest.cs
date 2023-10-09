@@ -543,7 +543,6 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         // 不显示 Footer 点击日期直接确认 OnConfirm
         var cell = cut.Find(".current.today .cell");
         cut.InvokeAsync(() => cell.Click());
-
     }
 
     [Fact]
@@ -857,6 +856,23 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         });
         cut.InvokeAsync(() => cell.Click());
         Assert.True(confirm);
+    }
+
+    [Fact]
+    public void FormatValueAsString_Ok()
+    {
+        // 设置为 最小值或者 null 时 当 AutoToday 为 true 时自动设置为当前时间
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.AutoToday, true);
+            pb.Add(a => a.Value, DateTime.MinValue);
+        });
+        Assert.Equal(DateTime.Today, cut.Instance.Value);
+
+        var picker = cut.Instance;
+        var mi = picker.GetType().GetMethod("FormatValueAsString", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
+        var v = mi.Invoke(picker, new object[] { DateTime.MinValue });
+        Assert.Equal($"{DateTime.Today:yyyy-MM-dd}", v);
     }
 
     class MockDateTimePicker : DatePickerBody
