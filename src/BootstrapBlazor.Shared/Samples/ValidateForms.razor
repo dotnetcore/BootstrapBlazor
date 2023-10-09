@@ -50,16 +50,18 @@
  </DemoBlock>
 
  <DemoBlock Title="@Localizer["ValidateFormInnerComponentTitle"]" Introduction="@Localizer["ValidateFormInnerComponentIntro"]" Name="InnerComponent">
-     <p class="legend">@Localizer["ValidateFormInnerComponentInnerComponentLabel"]</p>
-     <p>@Localizer["ValidateFormInnerComponentInnerComponentDescription1"]</p>
-     <ul class="ul-demo mb-3">
-         <li>@Localizer["ValidateFormInnerComponentInnerComponentLi1"]</li>
-         <li>@Localizer["ValidateFormInnerComponentInnerComponentLi2"]</li>
-         <li>@Localizer["ValidateFormInnerComponentInnerComponentLi3"]</li>
-         <li>@Localizer["ValidateFormInnerComponentInnerComponentLi4"]</li>
-         <li>@Localizer["ValidateFormInnerComponentInnerComponentLi5"]</li>
-     </ul>
-     <p>@((MarkupString)Localizer["ValidateFormInnerComponentInnerComponentDescription2"].Value)</p>
+     <section ignore class="mb-3">
+         <p class="legend">@Localizer["ValidateFormInnerComponentInnerComponentLabel"]</p>
+         <p>@Localizer["ValidateFormInnerComponentInnerComponentDescription1"]</p>
+         <ul class="ul-demo mb-3">
+             <li>@Localizer["ValidateFormInnerComponentInnerComponentLi1"]</li>
+             <li>@Localizer["ValidateFormInnerComponentInnerComponentLi2"]</li>
+             <li>@Localizer["ValidateFormInnerComponentInnerComponentLi3"]</li>
+             <li>@Localizer["ValidateFormInnerComponentInnerComponentLi4"]</li>
+             <li>@Localizer["ValidateFormInnerComponentInnerComponentLi5"]</li>
+         </ul>
+         <p>@((MarkupString)Localizer["ValidateFormInnerComponentInnerComponentDescription2"].Value)</p>
+     </section>
 
      <ValidateForm Model="@Model2" OnValidSubmit="@OnValidSubmit2" OnInvalidSubmit="@OnInvalidSubmit2">
          <div class="row g-3">
@@ -91,7 +93,7 @@
  </DemoBlock>
 
  <DemoBlock Title="@Localizer["ValidateFormCustomDisplayErrorTitle"]" Introduction="@Localizer["ValidateFormCustomDisplayErrorIntro"]" Name="CustomDisplayError">
-     <p>@((MarkupString)Localizer["ValidateFormCustomDisplayErrorDescription"].Value)</p>
+     <section ignore class="mb-3">@((MarkupString)Localizer["ValidateFormCustomDisplayErrorDescription"].Value)</section>
      <ValidateForm @ref="FooForm" Model="@Model3" OnValidSubmit="@OnValidSetError">
          <div class="row g-3">
              <div class="col-12 col-sm-6">
@@ -117,7 +119,7 @@
  </DemoBlock>
 
  <DemoBlock Title="@Localizer["ValidateFormValidatorAllFieldTitle"]" Introduction="@Localizer["ValidateFormValidatorAllFieldIntro"]" Name="ValidatorAllField">
-     <p>@((MarkupString)Localizer["ValidateFormValidatorAllFieldDescription"].Value)</p>
+     <section ignore class="mb-3">@((MarkupString)Localizer["ValidateFormValidatorAllFieldDescription"].Value)</section>
      <ValidateForm Model="@Model4" OnInvalidSubmit="@OnInvalidSubmitAddress"
                    ValidateAllProperties="true">
          <div class="row g-3">
@@ -145,8 +147,10 @@
  </DemoBlock>
 
  <DemoBlock Title="@Localizer["ValidateFormComplexValidationTitle"]" Introduction="@Localizer["ValidateFormComplexValidationIntro"]" Name="ComplexValidation">
-     <p>@((MarkupString)Localizer["ValidateFormComplexValidationDescription"].Value)</p>
-     <Pre class="mb-3">@Localizer["ValidateFormComplexValidationPre"]</Pre>
+     <section ignore class="mb-3">
+         <p>@((MarkupString)Localizer["ValidateFormComplexValidationDescription"].Value)</p>
+         <Pre class="mb-3">@Localizer["ValidateFormComplexValidationPre"]</Pre>
+     </section>
 
      <ValidateForm @ref="ComplexForm" Model="@ComplexModel" OnInvalidSubmit="@OnInvalidComplexModel"
                    OnValidSubmit="@OnValidComplexModel">
@@ -164,18 +168,18 @@
      </ValidateForm>
      <ConsoleLogger @ref="Logger5" class="mt-3" />
 
-     <p class=mt-3>
+     <section ignore class=mt-3>
          @foreach (var key in GetValueChangedFieldCollection())
         {
             <div>
                 <span>@key.Key.Model.GetType().Name</span>.<span>@key.Key.FieldName</span>: <span>@key.Value</span>
             </div>
         }
-    </p>
+    </section>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ValidateFormDynamicFormTitle"]" Introduction="@Localizer["ValidateFormDynamicFormIntro"]" Name="DynamicForm">
-    <p>@((MarkupString)Localizer["ValidateFormDynamicFormDescription"].Value)</p>
+    <section ignore class="mb-3">@((MarkupString)Localizer["ValidateFormDynamicFormDescription"].Value)</section>
     <ValidateForm Model="@DynamicModel" OnInvalidSubmit="@OnInvalidDynamicModel" OnValidSubmit="@OnValidDynamicModel">
         <div class="row g-3">
             <div class="col-12 col-sm-6">
@@ -202,8 +206,10 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ValidateFormInnerFormLabelTitle"]" Introduction="@Localizer["ValidateFormInnerFormLabelIntro"]" Name="InnerFormLabel">
-    <p>@((MarkupString)Localizer["ValidateFormInnerFormLabelDescription"].Value)</p>
-    <Pre class="mb-3">&lt;EditorItem @@bind-Field="@@context.Address" ValidateRules="@@CustomerRules" /&gt;</Pre>
+    <section ignore class="mb-3">
+        <p>@((MarkupString)Localizer["ValidateFormInnerFormLabelDescription"].Value)</p>
+        <Pre class="mb-3">&lt;EditorItem @@bind-Field="@@context.Address" ValidateRules="@@CustomerRules" /&gt;</Pre>
+    </section>
     <ValidateForm Model="@Model7">
         <EditorForm TModel="Foo" ItemsPerRow="2" RowType="RowType.Inline" LabelAlign="Alignment.Right">
             <FieldItems>
@@ -218,8 +224,9 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ValidateFormCustomValidationFormTitle"]" Introduction="@Localizer["ValidateFormCustomValidationFormIntro"]" Name="CustomValidationForm">
-    <p>@((MarkupString)Localizer["CustomValidationFormP1"].Value)</p>
-    <Pre class="mb-3">protected override void OnInitialized()
+    <section ignore class="mb-3">
+        <p>@((MarkupString)Localizer["CustomValidationFormP1"].Value)</p>
+        <Pre class="mb-3">protected override void OnInitialized()
 {
     base.OnInitialized();
     // @Localizer["CustomValidationFormComment1"]
@@ -228,6 +235,8 @@
     // @Localizer["CustomValidationFormComment2"]
     // &lt;BootstrapInput @@bind-Value="@@Model.Address" ValidateRules="@@CustomerRules" /&gt;
 }</Pre>
+    </section>
+
     <ValidateForm Model="@Model8">
         <div class="row g-3">
             <div class="col-12 col-sm-6">
@@ -244,8 +253,9 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ValidateFormValidateTitle"]" Introduction="@Localizer["ValidateFormValidateIntro"]" Name="Validate">
-    <p>@((MarkupString)Localizer["ValidateFormValidateDescription"].Value)</p>
-    <Pre class="mb-3">[NotNull]
+    <section ignore class="mb-3">
+        <p>@((MarkupString)Localizer["ValidateFormValidateDescription"].Value)</p>
+        <Pre class="mb-3">[NotNull]
 private ValidateForm? ValidatorForm { get; set; }
 
 private Task OnClickValidate()
@@ -253,6 +263,8 @@ private Task OnClickValidate()
     ValidatorForm.Validate();
     return Task.CompletedTask;
 }</Pre>
+    </section>
+
     <ValidateForm Model="@Model9" @ref="ValidatorForm">
         <div class="row g-3">
             <div class="col-12 col-sm-6">
@@ -267,7 +279,7 @@ private Task OnClickValidate()
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ValidateFormDisableAutoSubmitFormByEnterTitle"]" Introduction="@Localizer["ValidateFormDisableAutoSubmitFormByEnterIntro"]" Name="DisableAutoSubmitFormByEnter">
-    <p>@((MarkupString)Localizer["DisableAutoSubmitFormByEnterDesc"].Value)</p>
+    <section ignore class="mb-3">@((MarkupString)Localizer["DisableAutoSubmitFormByEnterDesc"].Value)</section>
     <ValidateForm Model="@Model10" DisableAutoSubmitFormByEnter="true">
         <div class="row g-3">
             <div class="col-12 col-sm-6">
