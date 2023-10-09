@@ -255,10 +255,10 @@ public partial class DateTimeRange
 
         SidebarItems ??= new DateTimeRangeSidebarItem[]
         {
-            new() { Text = Localizer["Last7Days"], StartDateTime = DateTime.Today.AddDays(-7), EndDateTime = DateTime.Today },
-            new() { Text = Localizer["Last30Days"], StartDateTime = DateTime.Today.AddDays(-30), EndDateTime = DateTime.Today },
-            new() { Text = Localizer["ThisMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day), EndDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1).AddDays(-1) },
-            new() { Text = Localizer["LastMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddMonths(-1), EndDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddDays(-1) },
+            new() { Text = Localizer["Last7Days"], StartDateTime = DateTime.Today.AddDays(-7), EndDateTime = DateTime.Today.AddDays(1).AddSeconds(-1) },
+            new() { Text = Localizer["Last30Days"], StartDateTime = DateTime.Today.AddDays(-30), EndDateTime = DateTime.Today.AddDays(1).AddSeconds(-1) },
+            new() { Text = Localizer["ThisMonth"], StartDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day), EndDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1).AddSeconds(-1) },
+            new() { Text = Localizer["LastMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddMonths(-1), EndDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddSeconds(-1) },
         };
     }
 
@@ -334,7 +334,7 @@ public partial class DateTimeRange
     private async Task ClickTodayButton()
     {
         SelectedValue.Start = DateTime.Today;
-        SelectedValue.End = DateTime.Today;
+        SelectedValue.End = DateTime.Today.AddDays(1).AddSeconds(-1);
         StartValue = DateTime.Today;
         EndValue = StartValue.AddMonths(1);
         await ClickConfirmButton();
