@@ -1,0 +1,18 @@
+﻿@page "/stacks"
+
+<DemoBlock>
+    <Stack Orientation="Orientation.Vertical"
+           HorizontalAlignment="@HorizontalAlignment.Right"
+           VerticalAlignment="VerticalAlignment.Bottom"
+           VerticalGap="20">
+        <div class="demopanel">Vertical item 1</div>
+        <div class="demopanel">Vertical item 2</div>
+        <Stack Orientation="Orientation.Horizontal"
+               HorizontalAlignment="HorizontalAlignment.Left"
+               VerticalAlignment="VerticalAlignment.Top"
+               HorizontalGap="4">
+            <div class="demopanel" style="width: 150px">Horizontal <br />item 1</div>
+            <div class="demopanel">Horizontal item 2</div>
+        </Stack>
+    </Stack>
+</DemoBlock>
