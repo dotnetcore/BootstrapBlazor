@@ -63,7 +63,7 @@ public partial class DatePickerBody
         .AddClass("current", day.Date == SelectValue.Date && Ranger == null && day.Month == SelectValue.Month && !overflow)
         .AddClass("start", Ranger != null && day == Ranger.SelectedValue.Start.Date)
         .AddClass("end", Ranger != null && day == Ranger.SelectedValue.End.Date)
-        .AddClass("range", Ranger != null && day >= Ranger.SelectedValue.Start && day <= Ranger.SelectedValue.End)
+        .AddClass("range", Ranger != null && day >= Ranger.SelectedValue.Start.Date && day <= Ranger.SelectedValue.End.Date)
         .AddClass("today", day == DateTime.Today)
         .AddClass("disabled", IsDisabled(day) || overflow)
         .Build();
