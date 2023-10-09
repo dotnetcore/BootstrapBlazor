@@ -46,29 +46,29 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     public void RangeValue_Ok()
     {
         var cut = Context.RenderComponent<DateTimeRange>();
+        var cells = cut.FindAll(".date-table tbody span");
+        var end = cells.First(i => i.TextContent == "7");
         cut.InvokeAsync(() =>
         {
-            var cells = cut.FindAll(".date-table tbody span");
-            var end = cells.First(i => i.TextContent == "7");
             end.Click();
         });
 
+        cells = cut.FindAll(".date-table tbody span");
+        var first = cells.First(i => i.TextContent == "1");
         cut.InvokeAsync(() =>
         {
-            var cells = cut.FindAll(".date-table tbody span");
-            var first = cells.First(i => i.TextContent == "1");
             first.Click();
         });
 
         // confirm
+        var confirm = cut.FindAll(".is-confirm")[cut.FindAll(".is-confirm").Count - 1];
         cut.InvokeAsync(() =>
         {
-            var confirm = cut.FindAll(".is-confirm")[cut.FindAll(".is-confirm").Count - 1];
             confirm.Click();
         });
 
         var value = cut.Instance.Value;
-        var startDate = DateTime.Today.AddDays(1 - DateTime.Today.Day);
+        var startDate = DateTime.Today.AddMonths(-1).AddDays(1 - DateTime.Today.Day);
         var endDate = startDate.AddDays(7).AddSeconds(-1);
         Assert.Equal(startDate, value.Start);
         Assert.Equal(endDate, value.End);
