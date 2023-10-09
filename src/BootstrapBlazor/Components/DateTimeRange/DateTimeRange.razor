@@ -35,13 +35,13 @@
             <CascadingValue Value="this" IsFixed="true">
                 <DatePickerBody Value="@StartValue" ValueChanged="UpdateValue" OnDateChanged="OnStartDateChanged"
                                 ShowClearButton="@AllowNull" @ref="StartPicker"
-                                DateTimeFormat="@DateTimeFormat" DateFormat="@DateFormat"
+                                DateTimeFormat="@DateTimeFormat" DateFormat="@DateFormat" TimeFormat="@TimeFormat"
                                 ViewMode="ViewMode" ShowRightButtons="false" MaxValue="MaxValue" MinValue="MinValue">
                     @ChildContent
                 </DatePickerBody>
                 <DatePickerBody Value="@EndValue" ValueChanged="UpdateValue" OnDateChanged="OnEndDateChanged"
                                 ShowClearButton="@AllowNull" @ref="EndPicker"
-                                DateTimeFormat="@DateTimeFormat" DateFormat="@DateFormat"
+                                DateTimeFormat="@DateTimeFormat" DateFormat="@DateFormat" TimeFormat="@TimeFormat"
                                 ViewMode="ViewMode" ShowLeftButtons="false" MaxValue="MaxValue" MinValue="MinValue">
                     @ChildContent
                 </DatePickerBody>

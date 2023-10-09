@@ -155,6 +155,13 @@ public partial class DateTimeRange
     public Func<DateTimeRangeValue, Task>? OnClearValue { get; set; }
 
     /// <summary>
+    /// 获得/设置 时间格式化字符串 默认值为 "HH:mm:ss"
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? TimeFormat { get; set; }
+
+    /// <summary>
     /// 获得/设置 时间格式化字符串 默认值为 "yyyy-MM-dd"
     /// </summary>
     [Parameter]
@@ -247,8 +254,8 @@ public partial class DateTimeRange
 
         Value ??= new DateTimeRangeValue();
 
-        StartValue = Value.Start == DateTime.MinValue ? DateTime.Today : Value.Start;
-        EndValue = StartValue.AddMonths(1);
+        EndValue = Value.End == DateTime.MinValue ? DateTime.Today : Value.End;
+        StartValue = EndValue.AddMonths(-1);
 
         SelectedValue.Start = Value.Start;
         SelectedValue.End = Value.End;
@@ -310,13 +317,17 @@ public partial class DateTimeRange
 
     private Task OnStartDateChanged(DateTime value)
     {
-        EndPicker.SetShowDate(value.AddMonths(1));
+        StartValue = value;
+        EndValue = value.AddMonths(1);
+        StateHasChanged();
         return Task.CompletedTask;
     }
 
     private Task OnEndDateChanged(DateTime value)
     {
-        StartPicker.SetShowDate(value.AddMonths(-1));
+        EndValue = value;
+        StartValue = value.AddMonths(-1);
+        StateHasChanged();
         return Task.CompletedTask;
     }
 
@@ -377,8 +388,18 @@ public partial class DateTimeRange
     /// <param name="d"></param>
     private void UpdateValue(DateTime d)
     {
+        if (SelectedValue.Start == DateTime.MinValue)
+        {
+            // 开始时间为空
+            SelectedValue.Start = d;
+
+            StateHasChanged();
+            return;
+        }
+
         if (SelectedValue.End == DateTime.MinValue)
         {
+            // 结束时间为空
             if (d < SelectedValue.Start)
             {
                 SelectedValue.End = SelectedValue.Start;
@@ -391,25 +412,11 @@ public partial class DateTimeRange
         }
         else
         {
+            // 开始时间、结束时间均不为空
             SelectedValue.Start = d;
             SelectedValue.End = DateTime.MinValue;
         }
-
-        var startDate = StartValue.AddDays(1 - StartValue.Day);
-        if (d < startDate)
-        {
-            StartValue = d;
-            EndValue = StartValue.AddMonths(1);
-        }
-        else if (d > startDate.AddMonths(2).AddDays(-1))
-        {
-            EndValue = d;
-            StartValue = EndValue.AddMonths(-1);
-        }
-        else
-        {
-            StateHasChanged();
-        }
+        StateHasChanged();
     }
 
     /// <summary>

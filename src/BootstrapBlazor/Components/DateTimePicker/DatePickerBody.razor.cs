@@ -575,12 +575,6 @@ public partial class DatePickerBody
         StateHasChanged();
     }
 
-    internal void SetShowDate(DateTime date)
-    {
-        CurrentDate = date;
-        StateHasChanged();
-    }
-
     /// <summary>
     /// 设置组件显示视图方法
     /// </summary>
