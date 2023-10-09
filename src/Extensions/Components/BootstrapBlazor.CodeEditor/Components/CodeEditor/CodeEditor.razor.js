@@ -41,6 +41,11 @@ export function init(id, interop, options) {
         Data.set(id, editor)
 
         editor.editor.layout();
+
+        window.addEventListener("resize", () => {
+            editor.editor.layout();
+        })
+
         window.editor = editor.editor;   // To debug
     });
 }
@@ -59,4 +64,5 @@ export function monacoSetOptions(id, options) {
 
 export function dispose(id) {
     Data.remove(id)
+    window.removeEventListener("resize")
 }
