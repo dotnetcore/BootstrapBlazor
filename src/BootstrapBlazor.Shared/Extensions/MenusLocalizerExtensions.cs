@@ -511,6 +511,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["CodeEditor"],
+                    Url = "code-editors"
+                },
+                new()
+                {
                     Text = Localizer["Display"],
                     Url = "display"
                 },
