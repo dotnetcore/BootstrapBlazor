@@ -5911,5 +5911,11 @@
     "MarqueeTitle": "Usage",
     "MarqueeIntro": "Adjusting the text scrolling effect through parameters",
     "MarqueeDescription": "Marquee component"
+  },
+  "BootstrapBlazor.Shared.Samples.CodeEditors": {
+    "Title": "Code Editor",
+    "Tips": "when use <code>CodeEditor</code>，Please add <code> \"./_content/BootstrapBlazor.CodeEditor/monaco-editor/min/vs/loader.min.js\" </code> script",
+    "BasicTitle": "Basic use",
+    "BasicIntro": "Basic use"
   }
 }
