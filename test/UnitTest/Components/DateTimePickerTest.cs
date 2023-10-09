@@ -34,7 +34,31 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void AutoToday_NullableDateTime()
+    public void AutoToday_DateTimeOffset()
+    {
+        // 设置为 最小值或者 null 时 当 AutoToday 为 true 时自动设置为当前时间
+        var cut = Context.RenderComponent<DateTimePicker<DateTimeOffset>>(pb =>
+        {
+            pb.Add(a => a.AutoToday, true);
+            pb.Add(a => a.Value, DateTimeOffset.MinValue);
+        });
+        Assert.Equal(new DateTimeOffset(DateTime.Today), cut.Instance.Value);
+
+        var input = cut.Find(".datetime-picker-input");
+        Assert.Equal($"{DateTimeOffset.Now:yyyy-MM-dd}", input.GetAttribute("value"));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.AutoToday, false);
+            pb.Add(a => a.Value, DateTimeOffset.MinValue);
+        });
+        Assert.Equal(DateTimeOffset.MinValue, cut.Instance.Value);
+        input = cut.Find(".datetime-picker-input");
+        Assert.Equal(DateTimeOffset.MinValue.ToString("yyyy-MM-dd"), input.GetAttribute("value"));
+    }
+
+    [Fact]
+    public void DisplayMinValueAsEmpty_NullableDateTime()
     {
         var cut = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
         {
@@ -65,31 +89,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void AutoToday_DateTimeOffset()
-    {
-        // 设置为 最小值或者 null 时 当 AutoToday 为 true 时自动设置为当前时间
-        var cut = Context.RenderComponent<DateTimePicker<DateTimeOffset>>(pb =>
-        {
-            pb.Add(a => a.AutoToday, true);
-            pb.Add(a => a.Value, DateTimeOffset.MinValue);
-        });
-        Assert.Equal(new DateTimeOffset(DateTime.Today), cut.Instance.Value);
-
-        var input = cut.Find(".datetime-picker-input");
-        Assert.Equal($"{DateTimeOffset.Now:yyyy-MM-dd}", input.GetAttribute("value"));
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.AutoToday, false);
-            pb.Add(a => a.Value, DateTimeOffset.MinValue);
-        });
-        Assert.Equal(DateTimeOffset.MinValue, cut.Instance.Value);
-        input = cut.Find(".datetime-picker-input");
-        Assert.Equal(DateTimeOffset.MinValue.ToString("yyyy-MM-dd"), input.GetAttribute("value"));
-    }
-
-    [Fact]
-    public void AutoToday_NullableDateTimeOffset()
+    public void DisplayMinValueAsEmpty_NullableDateTimeOffset()
     {
         var cut = Context.RenderComponent<DateTimePicker<DateTimeOffset?>>(pb =>
         {
@@ -150,6 +150,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         });
         cell = cut.Find(".current .cell");
         cut.InvokeAsync(() => cell.Click());
+
         // 文本框内容
         input = cut.Find(".datetime-picker-input");
         Assert.Equal($"{DateTime.Today:yyyy-MM-dd}", input.GetAttribute("value"));
