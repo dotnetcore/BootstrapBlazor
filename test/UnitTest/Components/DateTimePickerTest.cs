@@ -143,6 +143,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         input = cut.Find(".datetime-picker-input");
         Assert.Equal("", input.GetAttribute("value"));
 
+        // 设置 DisplayMinValueAsEmpty="true" MinValue 自动为 ToDay
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.DisplayMinValueAsEmpty, true);
@@ -151,7 +152,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         cut.InvokeAsync(() => cell.Click());
         // 文本框内容
         input = cut.Find(".datetime-picker-input");
-        Assert.Equal($"", input.GetAttribute("value"));
+        Assert.Equal($"{DateTime.Today:yyyy-MM-dd}", input.GetAttribute("value"));
 
         // 点击清空按钮
         clear = cut.Find(".picker-panel-footer button");
