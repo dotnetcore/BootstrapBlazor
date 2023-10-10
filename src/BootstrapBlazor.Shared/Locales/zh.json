@@ -5917,6 +5917,10 @@
     "Title": "代码编辑器",
     "Tips": "使用 <code>CodeEditor</code>时，请先引入 <code> \"./_content/BootstrapBlazor.CodeEditor/monaco-editor/min/vs/loader.min.js\" </code>脚本",
     "BasicTitle": "基础用法",
-    "BasicIntro": "基础用法"
+    "BasicIntro": "基础用法",
+    "Value": "获得或设置 Value",
+    "Theme": "编辑器的主题",
+    "Language": "编辑器使用的语言：csharp，javascript，...",
+    "ValueChanged": "获取或设置更新绑定值的回调"
   }
 }

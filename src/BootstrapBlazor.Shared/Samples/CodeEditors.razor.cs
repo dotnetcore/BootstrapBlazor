@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using DocumentFormat.OpenXml.Spreadsheet;
+using OpenXmlPowerTools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -104,5 +106,47 @@ public partial class CodeEditors
         }
         StateHasChanged();
         return Task.CompletedTask;
+    }
+
+    private IEnumerable<AttributeItem> GetAttributeItems()
+    {
+        return new List<AttributeItem>()
+        {
+            new AttributeItem()
+            {
+                Name = nameof(CodeEditor.Value),
+                Type = "string",
+                DefaultValue = "-",
+                Description = Localizer["Value"]
+            },
+            new AttributeItem()
+            {
+                Name = nameof(CodeEditor.Theme),
+                Type = "string",
+                DefaultValue = "vs",
+                Description = Localizer["Theme"]
+            },
+            new AttributeItem()
+            {
+                Name = nameof(CodeEditor.Language),
+                Type = "string",
+                DefaultValue = "csharp",
+                Description = Localizer["Language"]
+            },
+            new AttributeItem()
+            {
+                Name = nameof(CodeEditor.ValueChanged),
+                Type = "EventCallback<string?>",
+                DefaultValue = "-",
+                Description = Localizer["ValueChanged"]
+            },
+            new AttributeItem()
+            {
+                Name = nameof(CodeEditor.OnValueChanged),
+                Type = "Func<string?,Task>",
+                DefaultValue = "-",
+                Description = Localizer["ValueChanged"]
+            },
+        };
     }
 }

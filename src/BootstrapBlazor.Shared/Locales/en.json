@@ -5916,7 +5916,11 @@
   "BootstrapBlazor.Shared.Samples.CodeEditors": {
     "Title": "Code Editor",
     "Tips": "when use <code>CodeEditor</code>，Please add <code> \"./_content/BootstrapBlazor.CodeEditor/monaco-editor/min/vs/loader.min.js\" </code> script",
-    "BasicTitle": "Basic use",
-    "BasicIntro": "Basic use"
+    "BasicTitle": "Basic Use",
+    "BasicIntro": "Basic Use",
+    "Value": "Gets or sets the value of the input",
+    "Theme": "Theme of the editor",
+    "Language": "Language used by the editor: csharp, javascript, ...",
+    "ValueChanged": "Gets or sets a callback that updates the bound value"
   }
 }
