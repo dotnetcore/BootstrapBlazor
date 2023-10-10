@@ -100,11 +100,19 @@ public partial class Carousel
     [Parameter]
     public string? NextIcon { get; set; }
 
+    /// <summary>
+    /// 获得/设置 鼠标悬停时是否暂停播放 默认 true
+    /// </summary>
+    [Parameter]
+    public bool HoverPause { get; set; } = true;
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
     private string? DisableTouchSwipingString => DisableTouchSwiping ? "false" : null;
+
+    private string? PauseString => HoverPause ? "hover" : "false";
 
     /// <summary>
     /// OnParametersSet 方法
