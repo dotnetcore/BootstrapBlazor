@@ -83,8 +83,8 @@ public partial class DateTimeRange
     /// <summary>
     /// 获得/设置 组件显示模式 默认为显示年月日模式
     /// </summary>
-    //[Parameter]
-    private DatePickerViewMode ViewMode { get; set; } = DatePickerViewMode.Date;
+    [Parameter]
+    public DatePickerViewMode ViewMode { get; set; } = DatePickerViewMode.Date;
 
     /// <summary>
     /// 获得/设置 今天按钮文字
