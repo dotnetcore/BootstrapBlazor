@@ -1859,6 +1859,7 @@ a, a:hover, a:focus {
 .picker-panel {
   --bb-picker-panel: 320px;
   --bb-picker-hover-color: #409eff;
+  --bb-picker-panel-side-width: 0;
   color: #606266;
   border: 1px solid #ced4da;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
@@ -1869,27 +1870,32 @@ a, a:hover, a:focus {
 }
 .picker-panel.is-sidebar {
   --bb-picker-panel-side-width: 110px;
-  --bb-picker-panel: 430px;
 }
-.picker-panel .picker-panel-body-wrapper {
-  display: flex;
-  overflow: hidden;
-  width: var(--bb-picker-panel);
-}
-.picker-panel .picker-panel-body-wrapper .picker-panel-sidebar {
+.picker-panel .picker-panel-sidebar {
   width: var(--bb-picker-panel-side-width);
   border-right: 1px solid #e4e4e4;
   padding: 6px 0;
   overflow: auto;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-sidebar .sidebar-item {
+.picker-panel .picker-panel-sidebar .sidebar-item {
   line-height: 28px;
   padding: 0 12px;
   cursor: pointer;
   transition: color 0.3s linear;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-sidebar .sidebar-item:hover {
+.picker-panel .picker-panel-sidebar .sidebar-item:hover {
   color: #409eff;
+}
+.picker-panel .picker-panel-body {
+  display: flex;
+}
+.picker-panel .picker-panel-body .picker-panel-sidebar {
+  width: var(--bb-picker-panel-side-width);
+}
+.picker-panel .picker-panel-body-wrapper {
+  display: flex;
+  overflow: hidden;
+  width: var(--bb-picker-panel);
 }
 .picker-panel .picker-panel-body-wrapper .date-picker-time-header {
   position: relative;

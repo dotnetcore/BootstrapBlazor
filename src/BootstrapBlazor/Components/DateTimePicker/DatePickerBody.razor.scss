@@ -13,6 +13,7 @@
 .picker-panel {
     --bb-picker-panel: 320px;
     --bb-picker-hover-color: #409eff;
+    --bb-picker-panel-side-width: 0;
     color: #606266;
     border: 1px solid #ced4da;
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
@@ -23,15 +24,22 @@
 
     &.is-sidebar {
         --bb-picker-panel-side-width: 110px;
-        --bb-picker-panel: 430px;
+    }
+
+    @include pick-side;
+
+    .picker-panel-body {
+        display: flex;
+
+        .picker-panel-sidebar {
+            width: var(--bb-picker-panel-side-width);
+        }
     }
 
     .picker-panel-body-wrapper {
         display: flex;
         overflow: hidden;
         width: var(--bb-picker-panel);
-
-        @include pick-side;
 
         .date-picker-time-header {
             position: relative;
