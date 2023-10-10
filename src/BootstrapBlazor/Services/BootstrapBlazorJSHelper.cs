@@ -61,6 +61,38 @@ partial class BootstrapBlazorJSHelper : IBootstrapBlazorJSHelper, IJSRuntimeEven
     }
 
     /// <summary>
+    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected virtual async ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            Interop.Dispose();
+
+            if (Module != null)
+            {
+                guidList.ForEach(async x => await Module.InvokeVoidAsync("dispose", x));
+                guidList.Clear();
+
+                await Module.DisposeAsync();
+                Module = null;
+            }
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
+    }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <param name="eventName"></param>
@@ -95,6 +127,25 @@ partial class BootstrapBlazorJSHelper : IBootstrapBlazorJSHelper, IJSRuntimeEven
 
     /// <summary>
     /// <inheritdoc/>
+    /// <para>方法已弃用，请使用新的方法：<see cref="RunJSWithEval(string)"/></para>
+    /// </summary>
+    /// <param name="scripts"></param>
+    /// <returns></returns>
+    [Obsolete("旧方法 RunEval 已过期，请使用新方法 RunJSWithEval")]
+    public ValueTask RunEval(string scripts) => InvokeVoidAsync("runJSWithEval", scripts);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// <para>方法已弃用，请使用新的方法：<see cref="RunJSWithEval(string)"/></para>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="scripts"></param>
+    /// <returns></returns>
+    [Obsolete("旧方法 RunEval 已过期，请使用新方法 RunJSWithEval")]
+    public ValueTask<T?> RunEval<T>(string scripts) => InvokeAsync<T>("runJSWithEval", scripts);
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="scripts"></param>
     /// <returns></returns>
@@ -122,38 +173,6 @@ partial class BootstrapBlazorJSHelper : IBootstrapBlazorJSHelper, IJSRuntimeEven
     /// <param name="scripts"></param>
     /// <returns></returns>
     public ValueTask<T?> RunJSWithFunction<T>(string scripts) => InvokeAsync<T>("runJSWithFunction", scripts);
-
-    /// <summary>
-    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected virtual async ValueTask DisposeAsync(bool disposing)
-    {
-        if (disposing)
-        {
-            Interop.Dispose();
-
-            if (Module != null)
-            {
-                guidList.ForEach(async x => await Module.InvokeVoidAsync("dispose", x));
-                guidList.Clear();
-
-                await Module.DisposeAsync();
-                Module = null;
-            }
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsync(true);
-        GC.SuppressFinalize(this);
-    }
 
     /// <summary>
     /// <inheritdoc/>

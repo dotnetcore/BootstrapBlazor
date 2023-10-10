@@ -39,7 +39,7 @@ public partial class Waterfall : IAsyncDisposable
 
     [NotNull]
     [Inject]
-    private IJSRuntimeEventHandler? JSHelper { get; set; }
+    private IBootstrapBlazorJSHelper? JSHelper { get; set; }
 
     /// <summary>
     /// <inheritdoc/>

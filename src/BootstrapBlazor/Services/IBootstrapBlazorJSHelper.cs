@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Runtime.InteropServices;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -41,6 +43,24 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
     /// <param name="tag"></param>
     /// <returns></returns>
     ValueTask<T?> GetElementPropertiesByTagAsync<T>(ElementReference element, string tag);
+
+    /// <summary>
+    /// 同步运行js代码，不返回值，当前作用域
+    /// Run JavaScript code synchronously without returning a value, current scope
+    /// </summary>
+    /// <param name="scripts">JavaScript Code</param>
+    /// <returns></returns>
+    [Obsolete("旧方法 RunEval 已过期，请使用新方法 RunJSWithEval")]
+    ValueTask RunEval(string scripts);
+
+    /// <summary>
+    /// 同步运行js代码，并返回值，当前作用域
+    /// Run the JavaScript code synchronously and return the value, current scope
+    /// </summary>
+    /// <param name="scripts">JavaScript Code</param>
+    /// <returns></returns>
+    [Obsolete("旧方法 RunEval 已过期，请使用新方法 RunJSWithEval")]
+    ValueTask<T?> RunEval<T>(string scripts);
 
     /// <summary>
     /// 同步运行js代码，不返回值，当前作用域
@@ -89,7 +109,7 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
     /// <param name="link"></param>
     /// <param name="rel"></param>
     /// <returns></returns>
-    ValueTask AddLink(string link,string rel);
+    ValueTask AddLink(string link, string rel);
 
     /// <summary>
     /// 动态移除link

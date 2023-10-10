@@ -94,12 +94,11 @@ internal static class MenusLocalizerExtensions
 
         item = new DemoMenuItem()
         {
-            Text = "JSHelper",
-            Icon = "fa-fw fa-solid fa-code",
-            Url = "jshelpers"
+            Text = "Utility",
+            Icon = "fa-fw fa-solid fa-code"
         };
 
-        menus.Add(item);
+        AddBootstrapBlazorUtility(item);
 
         item = new DemoMenuItem()
         {
@@ -110,6 +109,19 @@ internal static class MenusLocalizerExtensions
         AddSummary(item);
 
         return menus;
+
+        void AddBootstrapBlazorUtility(DemoMenuItem item)
+        {
+            item.Items = new List<DemoMenuItem>
+            {
+                new()
+                {
+                    Text = "JSHelper",
+                    Icon = "fa-fw fa-solid fa-code",
+                    Url = "jshelpers"
+                }
+            };
+        }
 
         void AddOtherComponent(DemoMenuItem item)
         {

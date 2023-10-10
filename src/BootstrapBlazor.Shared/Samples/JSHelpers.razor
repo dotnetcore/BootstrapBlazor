@@ -1,80 +1,24 @@
 ﻿@page "/jshelpers"
 
+<DemoBlock Title="AddLink" Introduction="" ShowCode="false" Name="AddLink">
+    <Pre>await AddLink("_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css");</Pre>
+</DemoBlock>
+
+<DemoBlock Title="RemoveLink" Introduction="" ShowCode="false" Name="RemoveLink">
+    <Pre>await RemoveLink("_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css");</Pre>
+</DemoBlock>
+
+<DemoBlock Title="AddScript" Introduction="" ShowCode="false" Name="AddScript">
+    <Pre>await AddScript("_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js");</Pre>
+</DemoBlock>
+
+<DemoBlock Title="RemoveScript" Introduction="" ShowCode="false" Name="RemoveScript">
+    <Pre>await RemoveScript("_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js");</Pre>
+</DemoBlock>
+
+
+
+
+
+
 <MethodTable Items="GetMethods()" />
-
-
-@code {
-    private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
-    {
-        new()
-        {
-            Name = nameof(IBootstrapBlazorJSHelper.AddLink),
-            Description = "动态添加link Dynamically adding links",
-            Parameters = " - ",
-            ReturnValue = "ValueTask"
-        },
-        new()
-        {
-            Name = nameof(IBootstrapBlazorJSHelper.RemoveLink),
-            Description = "动态移除link Dynamically remove links",
-            Parameters = " - ",
-            ReturnValue = "ValueTask"
-        },
-        new()
-        {
-            Name = nameof(IBootstrapBlazorJSHelper.AddScript),
-            Description = "动态添加script Dynamically add script",
-            Parameters = " - ",
-            ReturnValue = "ValueTask"
-        },
-        new()
-        {
-            Name = nameof(IBootstrapBlazorJSHelper.RemoveScript),
-            Description = "动态移除script Dynamically remove script",
-            Parameters = " - ",
-            ReturnValue = "ValueTask"
-        },
-        new()
-        {
-            Name = nameof(IBootstrapBlazorJSHelper.RunJSWithEval),
-            Description = "同步运行js代码，并返回值，当前作用域",
-            Parameters = " - ",
-            ReturnValue = "ValueTask | ValueTask<T?>"
-        },
-        new()
-        {
-            Name = nameof(IBootstrapBlazorJSHelper.RunJSWithFunction),
-            Description = "同步运行js代码，并返回值，全局作用域",
-            Parameters = " - ",
-            ReturnValue = "ValueTask | ValueTask<T?>"
-        },
-        new()
-        {
-            Name = nameof(IBootstrapBlazorJSHelper.GetElementPropertiesByTagAsync),
-            Description = "通过tag获取Element元素的属性值",
-            Parameters = " - ",
-            ReturnValue = "ValueTask<T?>"
-        },
-        new()
-        {
-            Name = nameof(IBootstrapBlazorJSHelper.GetDocumentPropertiesByTagAsync),
-            Description = "通过tag获取元素的属性值",
-            Parameters = " - ",
-            ReturnValue = "ValueTask<T?>"
-        },
-        new()
-        {
-            Name = nameof(IBootstrapBlazorJSHelper.GetElementPropertiesByTagFromIdAsync),
-            Description = "通过id查找元素，获取tag的属性值",
-            Parameters = " - ",
-            ReturnValue = "ValueTask<T?>"
-        },
-        new()
-        {
-            Name = nameof(IBootstrapBlazorJSHelper.RegisterEvent),
-            Description = "注册浏览器事件",
-            Parameters = " - ",
-            ReturnValue = "ValueTask"
-        }
-    };
-}
