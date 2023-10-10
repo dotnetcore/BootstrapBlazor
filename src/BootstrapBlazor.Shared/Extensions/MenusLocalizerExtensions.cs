@@ -1228,6 +1228,11 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Split"],
                     Url = "split"
+                },
+                new()
+                {
+                    Text = Localizer["Stack"],
+                    Url = "stack"
                 }
             };
             AddBadge(item);

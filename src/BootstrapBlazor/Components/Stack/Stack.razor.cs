@@ -10,6 +10,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 
+/// </summary>
 public partial class Stack
 {
     private string? ClassValue => CssBuilder.Default()

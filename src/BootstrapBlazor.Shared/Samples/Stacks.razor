@@ -1,6 +1,9 @@
-﻿@page "/stacks"
+﻿@page "/stack"
+@inject IStringLocalizer<Stacks> Localizer
 
-<DemoBlock Title="普通布局">
+<h3>@Localizer["Title"]</h3>
+
+<DemoBlock Title="@Localizer["BasicTitle"]" Introduction="@Localizer["BasicIntroe"]">
     <Stack Orientation="Orientation.Vertical"
            HorizontalAlignment="@HorizontalAlignment.Left"
            VerticalAlignment="VerticalAlignment.Bottom"
@@ -10,8 +13,7 @@
     </Stack>
 </DemoBlock>
 
-
-<DemoBlock Title="嵌套布局">
+<DemoBlock Title="@Localizer["NestedTitle"]" Introduction="@Localizer["NestedIntro"]">
     <Stack Orientation="Orientation.Vertical"
            HorizontalAlignment="@HorizontalAlignment.Right"
            VerticalAlignment="VerticalAlignment.Bottom"

@@ -24,56 +24,56 @@ public partial class Stacks
                  Name = nameof(Stack.Orientation),
                  Type = "Enum",
                  DefaultValue = nameof(Orientation.Horizontal),
-                 Description = "获取或设置堆叠组件的方向"
+                 Description = Localizer["Orientation"]
             },
             new AttributeItem()
             {
                  Name = nameof(Stack.HorizontalAlignment),
                  Type = "Enum",
                  DefaultValue = nameof(HorizontalAlignment.Left),
-                 Description = "堆叠组件中组件的水平对齐方式"
+                 Description = Localizer["HorizontalAlignment"]
             },
             new AttributeItem()
             {
                  Name = nameof(Stack.VerticalAlignment),
                  Type = "Enum",
                  DefaultValue = nameof(VerticalAlignment.Top),
-                 Description = "堆叠组件中组件的垂直对齐"
+                 Description = Localizer["VerticalAlignment"]
             },
             new AttributeItem()
             {
                  Name = nameof(Stack.Width),
                  Type = "string",
                  DefaultValue = "100%",
-                 Description = "以百分比字符串表示的堆栈宽度"
+                 Description = Localizer["Width"]
             },
             new AttributeItem()
             {
                  Name = nameof(Stack.Wrap),
                  Type = "boolean",
                  DefaultValue = "false",
-                 Description = "获取或设置堆栈是否换行"
+                 Description = Localizer["Wrap"]
             },
             new AttributeItem()
             {
                  Name = nameof(Stack.HorizontalGap),
                  Type = "int?",
                  DefaultValue = "10",
-                 Description = "获取或设置水平堆叠组件之间的间隙"
+                 Description = Localizer["HorizontalGap"]
             },
             new AttributeItem()
             {
                  Name = nameof(Stack.VerticalGap),
                  Type = "int?",
                  DefaultValue = "10",
-                 Description = "获取或设置垂直堆叠组件之间的间距"
+                 Description = Localizer["VerticalGap"]
             },
             new AttributeItem()
             {
                  Name = nameof(Stack.ChildContent),
                  Type = "RenderFragment?",
                  DefaultValue = "-",
-                 Description = ""
+                 Description = "ChildContent"
             }
         };
     }
