@@ -40,6 +40,8 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddTransient<ITableExcelExport, DefaultExcelExport>();
         services.TryAddTransient<ITablePdfExport, DefaultPdfExport>();
         services.TryAddTransient<IBootstrapBlazorJSHelper, BootstrapBlazorJSHelper>();
+        //Obsolete interface
+        services.TryAddTransient<IJSRuntimeEventHandler, BootstrapBlazorJSHelper>();
 
         services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
         services.TryAddScoped<IIPLocatorProvider, DefaultIPLocatorProvider>();

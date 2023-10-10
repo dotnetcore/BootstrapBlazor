@@ -5,9 +5,9 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// <inheritdoc/>
+/// 浏览器事件,通用属性帮助类
 /// </summary>
-partial class BootstrapBlazorJSHelper : IBootstrapBlazorJSHelper
+partial class BootstrapBlazorJSHelper : IBootstrapBlazorJSHelper, IJSRuntimeEventHandler
 {
     private IJSRuntime JSRuntime { get; }
 
@@ -48,13 +48,6 @@ partial class BootstrapBlazorJSHelper : IBootstrapBlazorJSHelper
         await InvokeVoidAsync("addEventListener", arguments.ToArray());
     }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="eventName"></param>
-    /// <returns></returns>
-    public ValueTask RegisterEvent(DOMEvents eventName) => InternalRegisterEvent(eventName);
-
     private async ValueTask InvokeVoidAsync(string identifier, params object?[] args)
     {
         Module ??= await ImportModule();
@@ -66,6 +59,13 @@ partial class BootstrapBlazorJSHelper : IBootstrapBlazorJSHelper
         Module ??= await ImportModule();
         return await Module.InvokeAsync<TValue?>(identifier, args);
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="eventName"></param>
+    /// <returns></returns>
+    public ValueTask RegisterEvent(DOMEvents eventName) => InternalRegisterEvent(eventName);
 
     /// <summary>
     /// <inheritdoc/>
