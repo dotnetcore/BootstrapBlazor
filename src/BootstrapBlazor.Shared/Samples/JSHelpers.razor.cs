@@ -6,6 +6,22 @@ namespace BootstrapBlazor.Shared.Samples;
 
 public partial class JSHelpers
 {
+    private string? jsContent { get; set; } = "alert('Hello BootstrapBlazor')";
+
+    private string? jsResult { get; set; }
+
+    private async Task RunEval()
+    {
+        if (!string.IsNullOrEmpty(jsContent))
+        {
+            var res = await JSHelper.RunJSWithEval<object>(jsContent);
+            if (res is not null)
+            {
+                jsResult = res.ToString();
+            }
+        }
+    }
+
     private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
     {
         new()

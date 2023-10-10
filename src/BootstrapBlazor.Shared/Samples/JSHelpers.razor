@@ -1,24 +1,29 @@
 ﻿@page "/jshelpers"
+@inject IBootstrapBlazorJSHelper JSHelper
 
-<DemoBlock Title="AddLink" Introduction="" ShowCode="false" Name="AddLink">
-    <Pre>await AddLink("_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css");</Pre>
+<DemoBlock Title="AddLink/RemoveLink" Introduction="动态添加/移除Link连接" ShowCode="false" Name="AddLink">
+    <Pre>//默认rel="stylesheet"
+await AddLink("_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css");
+await RemoveLink("_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css");
+//指定rel="icon"
+await AddLink("favicon.ico","icon");
+await RemoveLink("favicon.ico");</Pre>
 </DemoBlock>
 
-<DemoBlock Title="RemoveLink" Introduction="" ShowCode="false" Name="RemoveLink">
-    <Pre>await RemoveLink("_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css");</Pre>
+<DemoBlock Title="AddScript/RemoveScript" Introduction="动态添加/移除Script脚本" ShowCode="false" Name="AddScript">
+    <Pre>await AddScript("_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js");
+await RemoveScript("_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js");</Pre>
 </DemoBlock>
 
-<DemoBlock Title="AddScript" Introduction="" ShowCode="false" Name="AddScript">
-    <Pre>await AddScript("_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js");</Pre>
+<DemoBlock Title="RunJSWithEval" Introduction="通过Eval动态执行JavaScript脚本" ShowCode="false" Name="RunJSWithEval">
+    <Pre class="mb-2">await RunJSWithEval("alert('Hello BootstrapBlazor')");</Pre>
+    <Textarea class="mb-2" @bind-Value="@jsContent" placeholder="请输入 ..." rows="4" />
+    <Button class="mb-2" Text="Run" OnClick="@RunEval"></Button>
+    <Textarea class="mb-2" @bind-Value="@jsResult" placeholder="运行结果 ..." rows="4" />
 </DemoBlock>
 
-<DemoBlock Title="RemoveScript" Introduction="" ShowCode="false" Name="RemoveScript">
-    <Pre>await RemoveScript("_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js");</Pre>
+<DemoBlock Title="RunJSWithFunction" Introduction="通过Function动态执行JavaScript脚本" ShowCode="false" Name="RunJSWithFunction">
+    <Pre>await RunJSWithFunction("alert('Hello BootstrapBlazor')");</Pre>
 </DemoBlock>
-
-
-
-
-
 
 <MethodTable Items="GetMethods()" />
