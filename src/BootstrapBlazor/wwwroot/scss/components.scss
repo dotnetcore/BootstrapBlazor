@@ -23,10 +23,11 @@
 @import "../../Components/Console/Console.razor.scss";
 @import "../../Components/Console/ConsoleLogger.razor.scss";
 @import "../../Components/ContextMenu/ContextMenu.razor.scss";
-@import "../../Components/DateTimePicker/DateTimePicker.razor.scss";
 @import "../../Components/DateTimePicker/TimePicker.razor.scss";
 @import "../../Components/DateTimePicker/TimePickerBody.razor.scss";
 @import "../../Components/DateTimePicker/TimePickerPanel.razor.scss";
+@import "../../Components/DateTimePicker/DatePickerBody.razor";
+@import "../../Components/DateTimePicker/DateTimePicker.razor.scss";
 @import "../../Components/DateTimeRange/DateTimeRange.razor.scss";
 @import "../../Components/Dialog/IconDialog.razor.scss";
 @import "../../Components/Divider/Divider.razor.scss";
