@@ -196,4 +196,62 @@ public class CarouselTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<CarouselItem>();
         Assert.Equal("", cut.Markup);
     }
+
+    [Fact]
+    public void Carousel_HoverPause()
+    {
+        var cut = Context.RenderComponent<Carousel>(pb =>
+        {
+            pb.Add(a => a.HoverPause, true);
+            pb.Add(b => b.ChildContent, new RenderFragment(builder =>
+            {
+                builder.OpenComponent<CarouselItem>(0);
+                builder.AddAttribute(1, nameof(CarouselItem.ChildContent), new RenderFragment(builder => builder.AddContent(0, "Test-1")));
+                builder.CloseComponent();
+
+                builder.OpenComponent<CarouselItem>(2);
+                builder.AddAttribute(3, nameof(CarouselItem.ChildContent), new RenderFragment(builder => builder.AddContent(0, "Test-2")));
+                builder.CloseComponent();
+            }));
+        });
+        cut.Contains("data-bs-pause=\"hover\"");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.HoverPause, false);
+        });
+        cut.WaitForAssertion(() => cut.Contains("data-bs-pause=\"false\""));
+    }
+
+    [Fact]
+    public void Carousel_PlayMode()
+    {
+        var cut = Context.RenderComponent<Carousel>(pb =>
+        {
+            pb.Add(a => a.PlayMode, CarouselPlayMode.AutoPlayOnload);
+            pb.Add(b => b.ChildContent, new RenderFragment(builder =>
+            {
+                builder.OpenComponent<CarouselItem>(0);
+                builder.AddAttribute(1, nameof(CarouselItem.ChildContent), new RenderFragment(builder => builder.AddContent(0, "Test-1")));
+                builder.CloseComponent();
+
+                builder.OpenComponent<CarouselItem>(2);
+                builder.AddAttribute(3, nameof(CarouselItem.ChildContent), new RenderFragment(builder => builder.AddContent(0, "Test-2")));
+                builder.CloseComponent();
+            }));
+        });
+        cut.Contains("data-bs-ride=\"carousel\"");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.PlayMode, CarouselPlayMode.AutoPlayAfterManually);
+        });
+        cut.WaitForAssertion(() => cut.Contains("data-bs-ride=\"true\""));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.PlayMode, CarouselPlayMode.Manually);
+        });
+        cut.WaitForAssertion(() => cut.Contains("data-bs-ride=\"false\""));
+    }
 }
