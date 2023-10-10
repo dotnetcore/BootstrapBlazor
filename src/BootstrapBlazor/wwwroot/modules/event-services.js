@@ -67,20 +67,28 @@ export function getProperties(obj, tag) {
 }
 
 export function runJSWithEval(js) {
-    return eval(js);
+    try {
+        return eval(js);
+    } catch (error) {
+        console.error('执行异常(runJSWithEval)：', error);
+    }
 }
 
 export function runJSWithFunction(js) {
-    var func = new Function(js);
-    return func();
+    try {
+        var func = new Function(js);
+        return func();
+    } catch (error) {
+        console.error('执行异常(runJSWithFunction)：', error);
+    }
 }
 
 export async function doAddLink(link) {
     await Utility.addLink(link);
 }
 
-export async function doAddLinkWithRel(link,rel) {
-    await Utility.addLink(link,rel);
+export async function doAddLinkWithRel(link, rel) {
+    await Utility.addLink(link, rel);
 }
 
 export async function doRemoveLink(link) {
@@ -100,6 +108,5 @@ export function doAlert(text) {
 }
 
 export function doPrompt(title) {
-    let userInput = prompt(title);
-    return userInput;
+    return prompt(title);
 }
