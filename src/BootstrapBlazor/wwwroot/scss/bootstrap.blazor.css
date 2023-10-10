@@ -2137,7 +2137,7 @@ a, a:hover, a:focus {
   background-color: var(--bb-disabled-bg);
 }
 .datetime-range .datetime-range-control .datetime-range-input.datetime {
-  width: 136px;
+  width: 152px;
 }
 .datetime-range .datetime-range-control .range-separator {
   padding: 0 5px;
