@@ -1,7 +1,3 @@
-@mixin bg {
-    background-color: var(--bb-disabled-bg);
-}
-
 .datetime-range {
     --bb-dt-range-bar-color: #{$dt-range-bar-color};
     background-color: #fff;
@@ -16,11 +12,7 @@
     white-space: nowrap;
 
     &.disabled {
-        @include bg;
-
-        input {
-            @include bg;
-        }
+        background-color: var(--bb-disabled-bg);
     }
 
     .datetime-range-body {
@@ -56,6 +48,10 @@
             width: 80px;
             padding: 0;
 
+            &.disabled {
+                background-color: var(--bb-disabled-bg);
+            }
+
             &.datetime {
                 width: 136px;
             }
@@ -81,19 +77,6 @@
     }
 
     @include pick-side;
-
-    .picker-panel-header-label {
-        cursor: unset;
-
-        &:hover {
-            color: inherit;
-        }
-    }
-}
-
-.range-panel-footer {
-    padding: 0.5rem;
-    display: flex;
 }
 
 .popover-datetime-range {

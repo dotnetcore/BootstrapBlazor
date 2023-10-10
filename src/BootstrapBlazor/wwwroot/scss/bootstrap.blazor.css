@@ -2033,7 +2033,12 @@ a, a:hover, a:focus {
   border-radius: 50%;
   cursor: pointer;
 }
-.picker-panel .picker-panel-footer {
+
+.popover-body .picker-panel {
+  box-shadow: none;
+}
+
+.picker-panel-footer {
   border-top: 1px solid #e4e4e4;
   padding: 4px;
   background-color: #fff;
@@ -2042,7 +2047,7 @@ a, a:hover, a:focus {
   border-bottom-left-radius: var(--bs-border-radius);
   border-bottom-right-radius: var(--bs-border-radius);
 }
-.picker-panel .picker-panel-footer .picker-panel-link-btn {
+.picker-panel-footer .picker-panel-link-btn {
   padding: 4px 12px;
   font-size: 0.75rem;
   border-radius: var(--bs-border-radius);
@@ -2050,22 +2055,18 @@ a, a:hover, a:focus {
   color: #606266;
   transition: border-color 0.3s linear, color 0.3s linear;
 }
-.picker-panel .picker-panel-footer .picker-panel-link-btn:hover {
+.picker-panel-footer .picker-panel-link-btn:hover {
   border-color: #409eff;
   color: #409eff;
 }
-.picker-panel .picker-panel-footer .picker-panel-link-btn:last-child {
+.picker-panel-footer .picker-panel-link-btn:last-child {
   margin-left: 0.25rem;
 }
-.picker-panel .picker-panel-footer .picker-timer {
+.picker-panel-footer .picker-timer {
   cursor: pointer;
 }
-.picker-panel .picker-panel-footer .picker-timer:hover {
+.picker-panel-footer .picker-timer:hover {
   color: #409eff;
-}
-
-.popover-body .picker-panel {
-  box-shadow: none;
 }
 
 .datetime-picker {
@@ -2105,9 +2106,6 @@ a, a:hover, a:focus {
 .datetime-range.disabled {
   background-color: var(--bb-disabled-bg);
 }
-.datetime-range.disabled input {
-  background-color: var(--bb-disabled-bg);
-}
 .datetime-range .datetime-range-body {
   display: none;
 }
@@ -2134,6 +2132,9 @@ a, a:hover, a:focus {
   cursor: pointer;
   width: 80px;
   padding: 0;
+}
+.datetime-range .datetime-range-control .datetime-range-input.disabled {
+  background-color: var(--bb-disabled-bg);
 }
 .datetime-range .datetime-range-control .datetime-range-input.datetime {
   width: 136px;
@@ -2167,17 +2168,6 @@ a, a:hover, a:focus {
 }
 .range-panel-body .picker-panel-sidebar .sidebar-item:hover {
   color: #409eff;
-}
-.range-panel-body .picker-panel-header-label {
-  cursor: unset;
-}
-.range-panel-body .picker-panel-header-label:hover {
-  color: inherit;
-}
-
-.range-panel-footer {
-  padding: 0.5rem;
-  display: flex;
 }
 
 .popover-datetime-range {
