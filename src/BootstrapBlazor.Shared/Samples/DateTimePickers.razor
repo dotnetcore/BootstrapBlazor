@@ -8,8 +8,7 @@
            Introduction="@Localizer["DateTimePickerIntro"]"
            Name="DateTimePicker">
     <DateTimePicker ViewMode="DatePickerViewMode.DateTime"
-                    Value="@DateTimePickerValue"
-                    OnValueChanged="@TimePickerValueChanged">
+                    Value="@DateTimePickerValue" OnValueChanged="@TimePickerValueChanged">
         <TimePickerSetting ShowClockScale="true" IsAutoSwitch="false" />
     </DateTimePicker>
     <ConsoleLogger @ref="TimePickerLogger" class="mt-3" />
