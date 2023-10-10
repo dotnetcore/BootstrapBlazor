@@ -17,13 +17,19 @@ await RemoveScript("_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js")
 
 <DemoBlock Title="RunJSWithEval" Introduction="通过Eval动态执行JavaScript脚本" ShowCode="false" Name="RunJSWithEval">
     <Pre class="mb-2">await RunJSWithEval("alert('Hello BootstrapBlazor')");</Pre>
-    <Textarea class="mb-2" @bind-Value="@jsContent" placeholder="请输入 ..." rows="4" />
-    <Button class="mb-2" Text="Run" OnClick="@RunEval"></Button>
-    <Textarea class="mb-2" @bind-Value="@jsResult" placeholder="运行结果 ..." rows="4" />
+    <Textarea class="mb-2" @bind-Value="@evalJSContent" placeholder="请输入 ..." rows="4" />
+    <Button class="mb-2" Text="Run" OnClick="@RunJSWithEvalDemo"></Button>
+    <Textarea @bind-Value="@evalJSResult" placeholder="运行结果 ..." rows="4" />
 </DemoBlock>
 
 <DemoBlock Title="RunJSWithFunction" Introduction="通过Function动态执行JavaScript脚本" ShowCode="false" Name="RunJSWithFunction">
     <Pre>await RunJSWithFunction("alert('Hello BootstrapBlazor')");</Pre>
+</DemoBlock>
+
+<DemoBlock Title="Alert" Introduction="JS Alert 弹窗" ShowCode="false" Name="JSAlert">
+    <Pre class="mb-2">await Alert("Hello BootstrapBlazor");</Pre>
+    <Textarea class="mb-2" @bind-Value="@jsAlertContent" placeholder="请输入 ..." rows="4" />
+    <Button Text="Run" OnClick="@RunJSAlert"></Button>
 </DemoBlock>
 
 <MethodTable Items="GetMethods()" />

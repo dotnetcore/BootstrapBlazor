@@ -6,21 +6,37 @@ namespace BootstrapBlazor.Shared.Samples;
 
 public partial class JSHelpers
 {
-    private string? jsContent { get; set; } = "alert('Hello BootstrapBlazor')";
+    #region RunJSWithEval Demo
 
-    private string? jsResult { get; set; }
+    private string? evalJSContent { get; set; } = "alert('Hello BootstrapBlazor')";
 
-    private async Task RunEval()
+    private string? evalJSResult { get; set; }
+
+    private async Task RunJSWithEvalDemo()
     {
-        if (!string.IsNullOrEmpty(jsContent))
+        if (!string.IsNullOrEmpty(evalJSContent))
         {
-            var res = await JSHelper.RunJSWithEval<object>(jsContent);
+            var res = await JSHelper.RunJSWithEval<object>(evalJSContent);
             if (res is not null)
             {
-                jsResult = res.ToString();
+                evalJSResult = res.ToString();
+            }
+            else
+            {
+                evalJSResult = string.Empty;
             }
         }
     }
+
+    #endregion
+
+    #region JS Alert Demo
+
+    private string jsAlertContent { get; set; } = "Hello BootstrapBlazor";
+
+    private async Task RunJSAlert() => await JSHelper.Alert(jsAlertContent);
+
+    #endregion
 
     private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
     {
