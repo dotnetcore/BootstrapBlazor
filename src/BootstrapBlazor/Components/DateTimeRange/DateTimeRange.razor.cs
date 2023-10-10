@@ -189,6 +189,7 @@ public partial class DateTimeRange
 
     private string? ValueClassString => CssBuilder.Default("datetime-range-input")
         .AddClass("datetime", ViewMode == DatePickerViewMode.DateTime)
+        .AddClass("disabled", IsDisabled)
         .Build();
 
     /// <summary>
