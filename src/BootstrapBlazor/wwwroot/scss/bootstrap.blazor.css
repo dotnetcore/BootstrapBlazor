@@ -1898,95 +1898,95 @@ a, a:hover, a:focus {
   display: table;
   width: 100%;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner {
   display: flex;
   transition: transform 0.3s ease-in-out;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body.is-open {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner.is-open {
   transform: translateX(calc(0px - var(--bb-picker-panel)));
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-content {
   width: 290px;
   position: relative;
   margin: 15px;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content table {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-content table {
   table-layout: fixed;
   width: 100%;
   font-size: 12px;
   user-select: none;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content table td {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-content table td {
   text-align: center;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content table td .cell {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-content table td .cell {
   display: block;
   margin: 0 auto;
   cursor: pointer;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content table td.today .cell {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-content table td.today .cell {
   color: var(--bb-picker-hover-color);
   font-weight: 700;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content table td.current:not(.disabled) .cell, .picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content table td.start:not(.next-month):not(.prev-month):not(.disabled) .cell, .picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content table td.end:not(.next-month):not(.prev-month):not(.disabled) .cell {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-content table td.current:not(.disabled) .cell, .picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-content table td.start:not(.next-month):not(.prev-month):not(.disabled) .cell, .picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-content table td.end:not(.next-month):not(.prev-month):not(.disabled) .cell {
   color: #fff;
   background-color: #409eff;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content table td.range div {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-content table td.range div {
   background-color: #f2f6fc;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content table td.range.start div {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-content table td.range.start div {
   margin-left: 5px;
   border-top-left-radius: 15px;
   border-bottom-left-radius: 15px;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content table td.range.start div .cell {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-content table td.range.start div .cell {
   margin-left: 4px;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content table td.range.end div {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-content table td.range.end div {
   margin-right: 5px;
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content table td.range.end div .cell {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-content table td.range.end div .cell {
   margin-right: 4px;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content table td.disabled .cell {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-content table td.disabled .cell {
   cursor: not-allowed;
   color: #c0c4cc;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content .year-table, .picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content .month-table {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-content .year-table, .picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-content .month-table {
   margin-top: 29px;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content .year-table tr, .picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content .month-table tr {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-content .year-table tr, .picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-content .month-table tr {
   border-top: 1px solid var(--bs-border-color);
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content .year-table td div {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-content .year-table td div {
   padding: 12px 0;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content .year-table td .cell {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-content .year-table td .cell {
   width: 48px;
   height: 24px;
   line-height: 24px;
   border-radius: 16px;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content .month-table td div {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-content .month-table td div {
   padding: 26px 0;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-content .month-table td .cell {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-content .month-table td .cell {
   width: 60px;
   border-radius: 18px;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-header {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-header {
   margin: 12px;
   display: flex;
   align-items: center;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-header .pick-panel-arrow-left,
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-header .pick-panel-arrow-right {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-header .pick-panel-arrow-left,
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-header .pick-panel-arrow-right {
   margin: 0 6px;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-header .picker-panel-icon-btn {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-header .picker-panel-icon-btn {
   color: #303133;
   border: 0;
   background: transparent;
@@ -1994,10 +1994,10 @@ a, a:hover, a:focus {
   outline: none;
   padding: 0 6px;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-header .picker-panel-icon-btn:hover {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-header .picker-panel-icon-btn:hover {
   color: var(--bb-picker-hover-color);
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-header .picker-panel-header-label {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-header .picker-panel-header-label {
   font-size: 16px;
   font-weight: 500;
   padding: 0 4px;
@@ -2006,7 +2006,7 @@ a, a:hover, a:focus {
   user-select: none;
   white-space: nowrap;
 }
-.picker-panel .picker-panel-body-wrapper .picker-panel-body .picker-panel-header .picker-panel-header-label:hover {
+.picker-panel .picker-panel-body-wrapper .picker-panel-body-inner .picker-panel-header .picker-panel-header-label:hover {
   color: var(--bb-picker-hover-color);
 }
 .picker-panel .picker-panel-footer {
