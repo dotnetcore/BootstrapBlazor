@@ -78,6 +78,14 @@ public sealed partial class Carousels
             Type = "Func<string, Task>",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "PlayMode",
+            Description = Localizer["PlayMode"],
+            Type = "CarouselPlayMode",
+            ValueList = "AutoPlayOnload|AutoPlayAfterManually|Manually",
+            DefaultValue = "AutoPlayOnload"
         }
     };
 }

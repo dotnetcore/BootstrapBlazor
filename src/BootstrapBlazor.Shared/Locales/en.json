@@ -3620,7 +3620,8 @@
     "IsFade": "Whether to fade in and out",
     "Width": "Set the width of the picture",
     "OnClick": "Click on the image to call back the delegate",
-    "HoverPause": "If set to true, pauses the cycling of the carousel on mouseenter and resumes the cycling of the carousel on mouseleave. If set to false, hovering over the carousel won’t pause it"
+    "HoverPause": "If set to true, pauses the cycling of the carousel on mouseenter and resumes the cycling of the carousel on mouseleave. If set to false, hovering over the carousel won’t pause it",
+    "PlayMode": "autoplay the carousel mode"
   },
   "BootstrapBlazor.Shared.Samples.Client": {
     "Title": "Get client connection information",
