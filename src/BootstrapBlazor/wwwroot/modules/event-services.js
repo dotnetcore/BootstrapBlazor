@@ -66,6 +66,23 @@ export function getProperties(obj, tag) {
     return object;
 }
 
+export function runJSFileFetch(path) {
+    // 使用 fetch() 函数从服务器获取 JavaScript 文件的内容
+    fetch(path).then(response => response.text())
+        .then(scriptContent => {
+            // 将 JavaScript 文件的内容插入到页面中
+            eval(scriptContent);
+        });
+}
+
+export function runJSFileImport(path) {
+    // 使用 import() 函数从服务器获取 JavaScript 文件的内容
+    import(path).then(module => {
+        // 将 JavaScript 文件的内容插入到页面中
+        module.default();
+    });
+}
+
 export function runJSWithEval(js) {
     try {
         return eval(js);
