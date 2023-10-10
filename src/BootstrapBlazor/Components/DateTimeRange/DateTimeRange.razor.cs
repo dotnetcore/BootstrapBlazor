@@ -187,12 +187,6 @@ public partial class DateTimeRange
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
-    [NotNull]
-    private DatePickerBody? StartPicker { get; set; }
-
-    [NotNull]
-    private DatePickerBody? EndPicker { get; set; }
-
     private string? ValueClassString => CssBuilder.Default("datetime-range-input")
         .AddClass("datetime", ViewMode == DatePickerViewMode.DateTime)
         .Build();
