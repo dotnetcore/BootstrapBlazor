@@ -3619,7 +3619,8 @@
     "Images": "Images 集合",
     "IsFade": "是否淡入淡出",
     "Width": "设置图片宽度",
-    "OnClick": "点击图片回调委托"
+    "OnClick": "点击图片回调委托",
+    "HoverPause": "鼠标悬停时是否暂停播放"
   },
   "BootstrapBlazor.Shared.Samples.Client": {
     "Title": "获取客户端连接信息",
