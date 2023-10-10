@@ -117,10 +117,10 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = "JSHelper",
-                    Icon = "fa-fw fa-solid fa-code",
                     Url = "jshelpers"
                 }
             };
+            AddBadge(item);
         }
 
         void AddOtherComponent(DemoMenuItem item)
