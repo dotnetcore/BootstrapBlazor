@@ -209,4 +209,20 @@ partial class BootstrapBlazorJSHelper : IBootstrapBlazorJSHelper, IJSRuntimeEven
     /// <param name="script"></param>
     /// <returns></returns>
     public ValueTask RemoveScript(string script) => InvokeVoidAsync("doRemoveScript", script);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="text"></param>
+    /// <returns></returns>
+    public ValueTask Alert(string text) => InvokeVoidAsync("doAlert", text);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="title"></param>
+    /// <returns></returns>
+    public ValueTask<T?> Prompt<T>(string title) => InvokeAsync<T>("doPrompt", title);
+
 }

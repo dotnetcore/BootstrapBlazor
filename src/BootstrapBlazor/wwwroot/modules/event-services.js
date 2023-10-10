@@ -2,6 +2,15 @@
 import EventHandler from "./event-handler.js?v=$version"
 import * as Utility from "./utility.js?v=$version"
 
+export function dispose(guid) {
+    const hp = Data.get(guid)
+    Data.remove(guid)
+
+    if (hp) {
+        EventHandler.off(hp.target, hp.eventName, hp.handler)
+    }
+}
+
 /**
  * @function 事件注册
  * @param {any} guid 唯一编码
@@ -86,11 +95,11 @@ export async function doRemoveScript(src) {
     await Utility.doRemoveScript(src);
 }
 
-export function dispose(guid) {
-    const hp = Data.get(guid)
-    Data.remove(guid)
+export function doAlert(text) {
+    alert(text);
+}
 
-    if (hp) {
-        EventHandler.off(hp.target, hp.eventName, hp.handler)
-    }
+export function doPrompt(title) {
+    let userInput = prompt(title);
+    return userInput;
 }

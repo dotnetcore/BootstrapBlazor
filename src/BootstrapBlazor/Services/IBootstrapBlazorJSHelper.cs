@@ -135,6 +135,20 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
     /// <returns></returns>
     ValueTask RemoveScript(string script);
 
+    /// <summary>
+    /// JS Alert弹窗
+    /// </summary>
+    /// <param name="text"></param>
+    /// <returns></returns>
+    ValueTask Alert(string text);
+
+    /// <summary>
+    /// JS Prompt输入框
+    /// </summary>
+    /// <param name="title"></param>
+    /// <returns></returns>
+    ValueTask<T?> Prompt<T>(string title);
+
     #region Event
     /// <summary>
     /// 鼠标点击时触发些事件
