@@ -249,8 +249,8 @@ public partial class DateTimeRange
 
         Value ??= new DateTimeRangeValue();
 
-        EndValue = Value.End == DateTime.MinValue ? DateTime.Today : Value.End;
-        StartValue = EndValue.AddMonths(-1);
+        EndValue = Value.End == DateTime.MinValue ? GetEndDateTime(DateTime.Today) : Value.End;
+        StartValue = EndValue.AddMonths(-1).Date;
 
         SelectedValue.Start = Value.Start;
         SelectedValue.End = Value.End;
@@ -261,7 +261,7 @@ public partial class DateTimeRange
         SelectedValue.Start = item.StartDateTime;
         SelectedValue.End = item.EndDateTime;
         StartValue = item.StartDateTime;
-        EndValue = StartValue.AddMonths(1);
+        EndValue = StartValue.AddMonths(1).Date + SelectedValue.End.TimeOfDay;
 
         if (AutoCloseClickSideBar)
         {
@@ -312,8 +312,8 @@ public partial class DateTimeRange
 
     private Task OnStartDateChanged(DateTime value)
     {
-        StartValue = value;
-        EndValue = value.AddMonths(1);
+        StartValue = value.Date + StartValue.TimeOfDay;
+        EndValue = GetEndDateTime(StartValue.AddMonths(1).Date);
         StateHasChanged();
         return Task.CompletedTask;
     }
@@ -321,7 +321,7 @@ public partial class DateTimeRange
     private Task OnEndDateChanged(DateTime value)
     {
         EndValue = value;
-        StartValue = value.AddMonths(-1);
+        StartValue = value.AddMonths(-1).Date + StartValue.TimeOfDay;
         StateHasChanged();
         return Task.CompletedTask;
     }
@@ -332,9 +332,9 @@ public partial class DateTimeRange
     private async Task ClickTodayButton()
     {
         SelectedValue.Start = DateTime.Today;
-        SelectedValue.End = DateTime.Today.AddDays(1).AddSeconds(-1);
-        StartValue = DateTime.Today;
-        EndValue = StartValue.AddMonths(1);
+        SelectedValue.End = GetEndDateTime(DateTime.Today);
+        StartValue = SelectedValue.Start;
+        EndValue = SelectedValue.End;
         await ClickConfirmButton();
     }
 
@@ -357,7 +357,7 @@ public partial class DateTimeRange
             }
         }
         Value.Start = SelectedValue.Start;
-        Value.End = SelectedValue.End.Date.AddDays(1).AddSeconds(-1);
+        Value.End = SelectedValue.End;
 
         if (ValueChanged.HasDelegate)
         {
@@ -416,4 +416,6 @@ public partial class DateTimeRange
     /// <param name="propertyValue"></param>
     /// <returns></returns>
     public override bool IsComplexValue(object? propertyValue) => false;
+
+    private static DateTime GetEndDateTime(DateTime dt) => dt.AddDays(1).AddSeconds(-1);
 }
