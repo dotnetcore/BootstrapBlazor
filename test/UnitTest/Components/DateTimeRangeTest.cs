@@ -127,14 +127,14 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void AllowNull_Ok()
+    public void ShowClearButton_Ok()
     {
         var cut = Context.RenderComponent<DateTimeRange>(builder =>
         {
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now, End = DateTime.Now.AddDays(30) });
-            builder.Add(a => a.AllowNull, true);
+            builder.Add(a => a.ShowClearButton, true);
         });
-        Assert.True(cut.Instance.AllowNull);
+        Assert.True(cut.Instance.ShowClearButton);
     }
 
     [Fact]
@@ -420,7 +420,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         range.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.IsDisabled, true);
-            pb.Add(a => a.AllowNull, true);
+            pb.Add(a => a.ShowClearButton, true);
         });
         clear.Click();
     }
@@ -438,7 +438,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
             pb.Add(a => a.Model, foo);
             pb.AddChildContent<DateTimeRange>(pb =>
             {
-                pb.Add(a => a.AllowNull, false);
+                pb.Add(a => a.ShowClearButton, false);
                 pb.Add(a => a.Value, foo.Value);
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, nameof(Dummy.Value), typeof(DateTimeRangeValue)));
             });

@@ -115,7 +115,19 @@ public partial class DateTimeRange
     /// 获得/设置 是否允许为空 默认为 true
     /// </summary>
     [Parameter]
-    public bool AllowNull { get; set; } = true;
+    [Obsolete("已过期，请使用 ShowClearButton 代替")]
+    [ExcludeFromCodeCoverage]
+    public bool AllowNull
+    {
+        get => ShowClearButton;
+        set => ShowClearButton = value;
+    }
+
+    /// <summary>
+    /// 获得/设置 是否显示清空按钮 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowClearButton { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 组件图标

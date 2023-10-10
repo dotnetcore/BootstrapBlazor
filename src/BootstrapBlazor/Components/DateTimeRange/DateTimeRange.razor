@@ -15,7 +15,7 @@
         <span class="range-separator">@SeparateText</span>
         <input readonly="readonly" class="@ValueClassString" value="@EndValueString" placeholder="@EndPlaceHolderText" disabled="@Disabled" />
     </div>
-    @if (AllowNull)
+    @if (ShowClearButton)
     {
         <i class="range-clear @ClearIcon" @onclick:stopPropagation @onclick="@ClickClearButton"></i>
     }
@@ -34,22 +34,22 @@
             }
             <CascadingValue Value="this" IsFixed="true">
                 <DatePickerBody Value="@StartValue" ValueChanged="UpdateValue" OnDateChanged="OnStartDateChanged"
-                                ShowClearButton="@AllowNull"
+                                ShowClearButton="@ShowClearButton"
                                 DateTimeFormat="@DateTimeFormat" DateFormat="@DateFormat" TimeFormat="@TimeFormat"
-                                ViewMode="ViewMode" ShowRightButtons="false" MaxValue="MaxValue" MinValue="MinValue">
+                                ShowRightButtons="false" MaxValue="MaxValue" MinValue="MinValue">
                     @ChildContent
                 </DatePickerBody>
                 <DatePickerBody Value="@EndValue" ValueChanged="UpdateValue" OnDateChanged="OnEndDateChanged"
-                                ShowClearButton="@AllowNull"
+                                ShowClearButton="@ShowClearButton"
                                 DateTimeFormat="@DateTimeFormat" DateFormat="@DateFormat" TimeFormat="@TimeFormat"
-                                ViewMode="ViewMode" ShowLeftButtons="false" MaxValue="MaxValue" MinValue="MinValue">
+                                ShowLeftButtons="false" MaxValue="MaxValue" MinValue="MinValue">
                     @ChildContent
                 </DatePickerBody>
             </CascadingValue>
         </div>
         <div class="picker-panel-footer">
             <div class="flex-fill me-3">
-                @if (AllowNull)
+                @if (ShowClearButton)
                 {
                     <Button class="picker-panel-link-btn is-confirm is-clear" Color="Color.None" OnClick="@ClickClearButton">
                         <span>@ClearButtonText</span>
