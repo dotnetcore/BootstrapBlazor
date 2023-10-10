@@ -38,6 +38,23 @@ public partial class JSHelpers
 
     #endregion
 
+    #region JS Prompt Demo
+
+    private string jsPromptContent { get; set; } = "Hello BootstrapBlazor";
+
+    private string? jsPromptResult { get; set; }
+
+    private async Task RunJSPrompt()
+    {
+        var res= await JSHelper.Prompt<object>(jsPromptContent);
+        if(res is not null)
+        {
+            jsPromptResult = res.ToString();
+        }
+    }
+
+    #endregion
+
     private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
     {
         new()

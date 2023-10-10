@@ -32,4 +32,11 @@ await RemoveScript("_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js")
     <Button Text="Run" OnClick="@RunJSAlert"></Button>
 </DemoBlock>
 
+<DemoBlock Title="Prompt" Introduction="JS Prompt 输入框" ShowCode="false" Name="JSAlert">
+    <Pre class="mb-2">await Prompt("Hello BootstrapBlazor");</Pre>
+    <Textarea class="mb-2" @bind-Value="@jsPromptContent" placeholder="请输入 ..." rows="4" />
+    <Button class="mb-2" Text="Run" OnClick="@RunJSPrompt"></Button>
+    <Textarea @bind-Value="@jsPromptResult" placeholder="运行结果 ..." rows="4" />
+</DemoBlock>
+
 <MethodTable Items="GetMethods()" />
