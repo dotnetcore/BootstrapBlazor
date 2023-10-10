@@ -14,7 +14,7 @@
 
     .datetime-picker-input {
         cursor: pointer;
-        --bb-form-control-padding: #{$form-control-padding};
+        --bb-form-control-padding: #{$dt-picker-input-padding};
     }
 
     .picker-panel {
