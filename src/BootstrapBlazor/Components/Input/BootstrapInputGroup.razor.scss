@@ -2,6 +2,7 @@
     > .datetime-picker:not(:#{$child}-child) .form-control,
     > .select:not(:#{$child}-child) .form-control,
     > .multi-select:not(:#{$child}-child) .dropdown-toggle,
+    > [data-bs-toggle="tooltip"]:not(:#{$child}-child) > .form-control,
     > .auto-complete:not(:#{$child}-child) .form-control {
         border-top-#{$var}-radius: 0;
         border-bottom-#{$var}-radius: 0;
@@ -15,6 +16,12 @@
         width: 1%;
         flex: 1 1 auto;
         min-width: 0;
+    }
+
+    > [data-bs-toggle="tooltip"] {
+        flex: 1;
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
 
     @include direction(right,last);
