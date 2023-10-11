@@ -39,7 +39,6 @@ public sealed partial class Carousels
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
     {
-
         new()
         {
             Name = "Images",
@@ -58,6 +57,14 @@ public sealed partial class Carousels
         },
         new()
         {
+            Name = "HoverPause",
+            Description = Localizer["HoverPause"],
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new()
+        {
             Name = "Width",
             Description = Localizer["Width"],
             Type = "int",
@@ -71,6 +78,14 @@ public sealed partial class Carousels
             Type = "Func<string, Task>",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "PlayMode",
+            Description = Localizer["PlayMode"],
+            Type = "CarouselPlayMode",
+            ValueList = "AutoPlayOnload|AutoPlayAfterManually|Manually",
+            DefaultValue = "AutoPlayOnload"
         }
     };
 }

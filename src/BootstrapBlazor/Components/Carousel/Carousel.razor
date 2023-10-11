@@ -2,7 +2,7 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader]
 
-<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassName" style="@StyleName" data-bs-ride="carousel" data-bs-touch="@DisableTouchSwipingString">
+<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassName" style="@StyleName" data-bs-ride="@PlayMode.ToDescriptionString()" data-bs-touch="@DisableTouchSwipingString" data-bs-pause="@PauseString">
     <CascadingValue Value="this" IsFixed="true">
         @ChildContent
     </CascadingValue>
