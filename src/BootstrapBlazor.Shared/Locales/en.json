@@ -1954,6 +1954,8 @@
     "TabsQATitle": "Q&A",
     "TabsQA1": "Get <code>TabSet</code> by cascading parameter",
     "TabsQA2": "Get <code>TabItem</code> by cascading parameter",
+    "TabsQA3": "How to navigate to a new tab item in <code>razor</code>",
+    "TabsQA4": "How to navigate to a new tab in the code",
     "TabItem1Text": "User",
     "TabItem1Content": "I am a user manager",
     "TabItem2Text": "Menu",
