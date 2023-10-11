@@ -153,5 +153,4 @@ public class ChartOptions
     /// 获得/设置 X轴网格刻度线颜色
     /// </summary>
     public string? YScalesGridTickColor { get; set; }
-
 }
