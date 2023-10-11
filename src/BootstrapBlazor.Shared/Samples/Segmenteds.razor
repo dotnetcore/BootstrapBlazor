@@ -1,0 +1,18 @@
+﻿@page "/segmented"
+
+<DemoBlock>
+    <Segmented Items="@Items" @bind-Value="@Value"></Segmented>
+</DemoBlock>
+
+@code {
+
+    private List<SelectedItem> Items { get; set; } = new List<SelectedItem>()
+    {
+        new SelectedItem(){ Value = "sss", Text = "sadsa", Active = true },
+        new SelectedItem(){ Value = "sss", Text = "22323", Active = false, IsDisabled = true },
+        new SelectedItem(){ Value = "sss", Text = "324324", Active = false },
+        new SelectedItem(){ Value = "sss", Text = "32435", Active = false },
+    };
+
+    private SelectedItem Value { get; set; }
+}
