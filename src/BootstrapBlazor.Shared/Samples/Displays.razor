@@ -82,17 +82,19 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["FormatStringTitle"]" Introduction="@Localizer["FormatStringIntro"]" Name="FormatString">
-    <div class="row g-3">
-        <div class="col-12 col-sm-6">@Localizer["FormatStringSettingText"] <code class="ms-1">FormatString</code></div>
-        <div class="col-12 col-sm-6">
-            <Display Value="DateTime.Now" FormatString="yyyy-MM-dd" />
+    <section ignore>
+        <div class="row g-3">
+            <div class="col-12 col-sm-6">@Localizer["FormatStringSettingText"] <code class="ms-1">FormatString</code></div>
+            <div class="col-12 col-sm-6">
+                <Display Value="DateTime.Now" FormatString="yyyy-MM-dd" />
+            </div>
+            <div class="col-12 col-sm-6">@Localizer["FormatStringSettingText"] <code class="ms-1">Formatter</code></div>
+            <div class="col-12 col-sm-6">
+                <Display Value="DateTime.Now" FormatterAsync="@DateTimeFormatter" />
+            </div>
         </div>
-        <div class="col-12 col-sm-6">@Localizer["FormatStringSettingText"] <code class="ms-1">Formatter</code></div>
-        <div class="col-12 col-sm-6">
-            <Display Value="DateTime.Now" FormatterAsync="@DateTimeFormatter" />
-        </div>
-    </div>
-    <p class="mt-3">@((MarkupString)Localizer["FormatStringP"].Value)</p>
+        <p class="mt-3">@((MarkupString)Localizer["FormatStringP"].Value)</p>
+    </section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">@Localizer["FormatStringSettingText"] <code class="ms-1">Formatter</code></div>
         <div class="col-12 col-sm-6">
@@ -102,12 +104,25 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LookupTitle"]" Introduction="@Localizer["LookupIntro"]" Name="Lookup">
-    <p>
+    <section ignore class="mb-3">
         <div>@((MarkupString)Localizer["LookupP1"].Value)</div>
         <div><b>InitValue</b>: 1,2,3</div>
         <div><b>IntValueSource</b>: Text1,Text2,Text3</div>
-    </p>
+    </section>
     <Display Value="@IntValue" Lookup="@IntValueSource" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ShowTipsTitle"]" Introduction="@Localizer["ShowTipIntro"]" Name="ShowTips">
+    <div class="row">
+        <div class="col-4">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="Tooltip"></BootstrapInputGroupLabel>
+                <Tooltip Title="@DisplayValue">
+                    <Display TValue="string" Value="@DisplayValue" />
+                </Tooltip>
+            </BootstrapInputGroup>
+        </div>
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

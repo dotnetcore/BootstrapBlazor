@@ -87,9 +87,10 @@ public class InputTest : BootstrapBlazorTestBase
             builder.Add(a => a.Value, "");
         });
         Assert.Equal("", cut.Instance.Value);
+
         var input = cut.Find("input");
         cut.InvokeAsync(() => input.Change(val));
-        Assert.Equal(val.Trim(), cut.Instance.Value);
+        cut.WaitForAssertion(() => Assert.Equal(val.Trim(), cut.Instance.Value));
 
         cut.SetParametersAndRender(builder =>
         {
@@ -100,7 +101,7 @@ public class InputTest : BootstrapBlazorTestBase
 
         input = cut.Find("input");
         cut.InvokeAsync(() => input.Change(val));
-        Assert.Equal(val, cut.Instance.Value);
+        cut.WaitForAssertion(() => Assert.Equal(val, cut.Instance.Value));
     }
 
     [Fact]

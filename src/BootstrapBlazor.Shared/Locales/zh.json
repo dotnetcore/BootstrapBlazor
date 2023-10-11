@@ -3759,7 +3759,9 @@
     "Collection": "集合",
     "Arr": "数组",
     "FormatStringSettingText": "设置",
-    "FormatStringP": "<code>Display</code> 组件绑定 <code>byte[]</code> 数组，格式化成 <code>base64</code> 编码字符串示例"
+    "FormatStringP": "<code>Display</code> 组件绑定 <code>byte[]</code> 数组，格式化成 <code>base64</code> 编码字符串示例",
+    "ShowTipsTitle": "显示 Tooltip",
+    "ShowTipIntro": "组件包裹 <code>Tooltip</code> 后内置 <code>BootstrapInputGroup</code> 组件使用"
   },
   "BootstrapBlazor.Shared.Samples.DropdownWidgets": {
     "Title": "DropdownWidget 下拉挂件",
