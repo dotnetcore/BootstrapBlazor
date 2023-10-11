@@ -3619,7 +3619,9 @@
     "Images": "Images collection",
     "IsFade": "Whether to fade in and out",
     "Width": "Set the width of the picture",
-    "OnClick": "Click on the image to call back the delegate"
+    "OnClick": "Click on the image to call back the delegate",
+    "HoverPause": "If set to true, pauses the cycling of the carousel on mouseenter and resumes the cycling of the carousel on mouseleave. If set to false, hovering over the carousel won’t pause it",
+    "PlayMode": "autoplay the carousel mode"
   },
   "BootstrapBlazor.Shared.Samples.Client": {
     "Title": "Get client connection information",
@@ -3757,7 +3759,9 @@
     "Collection": "Collection",
     "Arr": "Array",
     "FormatStringSettingText": "Set up",
-    "FormatStringP": "The <code>Display</code> component binding <code>byte[]</code> array, formatted as an example of <code>base64</code> encoded string"
+    "FormatStringP": "The <code>Display</code> component binding <code>byte[]</code> array, formatted as an example of <code>base64</code> encoded string",
+    "ShowTipsTitle": "Show Tooltip",
+    "ShowTipIntro": "Wrapper with <code>Tooltip</code> component for show tooltip title"
   },
   "BootstrapBlazor.Shared.Samples.DropdownWidgets": {
     "Title": "DropdownWidget",

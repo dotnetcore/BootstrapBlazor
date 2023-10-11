@@ -1,4 +1,4 @@
-﻿:not(.is-tips) > span[data-bs-toggle="tooltip"] {
+:not(.is-tips) > span[data-bs-toggle="tooltip"] {
     display: inline-block;
 }
 
@@ -6,7 +6,7 @@
     --bs-tooltip-bg: var(--bs-danger);
 }
 
-.input-group > [data-bs-toggle] > .form-control {
+.input-group > [data-bs-toggle]:not(:last-child) > .form-control {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }

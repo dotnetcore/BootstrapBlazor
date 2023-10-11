@@ -71,6 +71,17 @@ public partial class Line
         ds.Options.LegendLabelsFontSize = 16;
         ds.Options.X.Title = "days";
         ds.Options.Y.Title = "Numerical value";
+        ds.Options.XScalesBorderColor = "red";
+        ds.Options.YScalesBorderColor = "red";
+
+        ds.Options.XScalesGridColor = "blue";
+        ds.Options.XScalesGridTickColor = "blue";
+        ds.Options.XScalesGridBorderColor = "blue";
+
+        ds.Options.YScalesGridColor = "blue";
+        ds.Options.YScalesGridTickColor = "blue";
+        ds.Options.YScalesGridBorderColor = "blue";
+
         ds.Labels = Enumerable.Range(1, LineDataCount).Select(i => i.ToString());
         for (var index = 0; index < LineDatasetCount; index++)
         {

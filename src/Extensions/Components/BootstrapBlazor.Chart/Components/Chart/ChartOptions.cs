@@ -113,4 +113,44 @@ public class ChartOptions
         { "pink", "rgb(255, 192, 203)" },
         { "violet", "rgb(238, 130, 238)" }
     };
+
+    /// <summary>
+    /// 获得/设置 X轴边界线颜色
+    /// </summary>
+    public string? XScalesBorderColor { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Y轴边界线颜色
+    /// </summary>
+    public string? YScalesBorderColor { get; set; }
+
+    /// <summary>
+    /// 获得/设置 X轴网格线颜色
+    /// </summary>
+    public string? XScalesGridColor { get; set; }
+
+    /// <summary>
+    /// 获得/设置 X轴网格边界线颜色
+    /// </summary>
+    public string? XScalesGridBorderColor { get; set; }
+
+    /// <summary>
+    /// 获得/设置 X轴网格刻度线颜色
+    /// </summary>
+    public string? XScalesGridTickColor { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Y轴网格线颜色
+    /// </summary>
+    public string? YScalesGridColor { get; set; }
+
+    /// <summary>
+    /// 获得/设置 X轴网格边界线颜色
+    /// </summary>
+    public string? YScalesGridBorderColor { get; set; }
+
+    /// <summary>
+    /// 获得/设置 X轴网格刻度线颜色
+    /// </summary>
+    public string? YScalesGridTickColor { get; set; }
 }

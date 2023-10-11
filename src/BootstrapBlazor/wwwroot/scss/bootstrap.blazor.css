@@ -2543,9 +2543,15 @@ section > h2 {
   flex: 1 1 auto;
   min-width: 0;
 }
+.input-group > [data-bs-toggle=tooltip] {
+  flex: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
 .input-group > .datetime-picker:not(:last-child) .form-control,
 .input-group > .select:not(:last-child) .form-control,
 .input-group > .multi-select:not(:last-child) .dropdown-toggle,
+.input-group > [data-bs-toggle=tooltip]:not(:last-child) > .form-control,
 .input-group > .auto-complete:not(:last-child) .form-control {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
@@ -2553,6 +2559,7 @@ section > h2 {
 .input-group > .datetime-picker:not(:first-child) .form-control,
 .input-group > .select:not(:first-child) .form-control,
 .input-group > .multi-select:not(:first-child) .dropdown-toggle,
+.input-group > [data-bs-toggle=tooltip]:not(:first-child) > .form-control,
 .input-group > .auto-complete:not(:first-child) .form-control {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
@@ -7111,7 +7118,7 @@ form .table .table-cell > textarea {
   --bs-tooltip-bg: var(--bs-danger);
 }
 
-.input-group > [data-bs-toggle] > .form-control {
+.input-group > [data-bs-toggle]:not(:last-child) > .form-control {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
