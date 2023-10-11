@@ -86,6 +86,34 @@ const getChartOption = function (option) {
         }
     }
 
+    if (option.options.xScalesBorderColor) {
+        scale.x.border = {
+            color: option.options.xScalesBorderColor
+        }
+    }
+
+    if (option.options.yScalesBorderColor) {
+        scale.y.border = {
+            color: option.options.yScalesBorderColor
+        }
+    }
+
+    if (option.options.xScalesGridColor) {
+        scale.x.grid = {
+            color: option.options.xScalesGridColor,
+            borderColor: option.options.xScalesGridBorderColor,
+            tickColor: option.options.xScalesGridTickColor
+        }
+    }
+
+    if (option.options.yScalesGridColor) {
+        scale.y.grid = {
+            color: option.options.yScalesGridColor,
+            borderColor: option.options.yScalesGridBorderColor,
+            tickColor: option.options.yScalesGridTickColor
+        }
+    }
+
     let legend = {
         display: option.options.showLegend,
         position: option.options.legendPosition
