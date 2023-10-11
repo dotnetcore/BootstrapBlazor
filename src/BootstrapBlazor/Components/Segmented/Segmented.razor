@@ -1,0 +1,20 @@
+﻿@namespace BootstrapBlazor.Components
+
+<div class="segmented">
+    <div class="segmented-group">
+        @if (ChildContent != null)
+        {
+            @ChildContent
+        }
+        else
+        {
+            foreach (var item in Items)
+            {
+                <label class="@ClassString(item)">
+                    <input class="segmented-item-input" type="radio" checked="@item.Active" disabled="@item.IsDisabled" @onclick="@(() => OnClick(item))" />
+                    <div class="segmented-item-label" title="@item.Value">@item.Text</div>
+                </label>
+            }
+        }
+    </div>
+</div>

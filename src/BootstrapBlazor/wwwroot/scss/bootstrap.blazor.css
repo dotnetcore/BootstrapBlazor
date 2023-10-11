@@ -7469,3 +7469,71 @@ form .table .table-cell > textarea {
     transform: translateY(-100%);
   }
 }
+.segmented {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 2px;
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 14px;
+  line-height: 1.5714285714;
+  list-style: none;
+  font-family: -apple-system, BlinkMacSystemFont, segoe ui, Roboto, helvetica neue, Arial, noto sans, sans-serif, apple color emoji, segoe ui emoji, segoe ui symbol, noto color emoji;
+  display: inline-block;
+  background-color: #f5f5f5;
+  border-radius: 6px;
+  transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.segmented .segmented-group {
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  justify-items: flex-start;
+  width: 100%;
+}
+.segmented .segmented-item {
+  position: relative;
+  text-align: center;
+  cursor: pointer;
+  transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  border-radius: 4px;
+}
+.segmented .segmented-item.segmented-item-selected {
+  background-color: #fff;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
+  color: rgba(0, 0, 0, 0.88);
+}
+.segmented .segmented-item.segmented-item-disabled, .segmented .segmented-item .segmented-item-disabled:hover, .segmented .segmented-item .segmented-item-disabled:focus {
+  color: rgba(0, 0, 0, 0.25);
+  cursor: not-allowed;
+}
+.segmented .segmented-item:hover:not(.ant-segmented-item-selected):not(.ant-segmented-item-disabled) {
+  color: rgba(0, 0, 0, 0.88);
+}
+.segmented .segmented-item .segmented-item-input {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.segmented .segmented-item .segmented-item-label {
+  min-height: 28px;
+  line-height: 28px;
+  padding: 0 11px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.segmented .segmented-item .segmented-item-label::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  inset-inline-start: 0;
+  border-radius: inherit;
+  transition: background-color 0.2s;
+  pointer-events: none;
+}
