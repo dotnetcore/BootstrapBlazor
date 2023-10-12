@@ -5921,14 +5921,6 @@
     "Title": "Stack 布局",
     "BasicTitle": "普通用法",
     "BasicIntroe": "可用于在水平或垂直堆栈中排列其子组件",
-    "NestedTitle": "嵌套布局",
-    "NestedIntro": "可支持复杂嵌套布局",
-    "Orientation": "获取或设置 Stack 组件的方向",
-    "HorizontalAlignment": "Stack 组件中组件的水平对齐方式",
-    "VerticalAlignment": "Stack 组件中组件的垂直对齐",
-    "Width": "以百分比字符串表示 Stack 组件宽度",
-    "Wrap": "获取或设置 Stack 组件是否换行",
-    "HorizontalGap": "获取或设置水平 Stack 组件之间的间隙",
-    "VerticalGap": "获取或设置垂直 Stack 组件之间的间距"
+    "IsRow": "行布局"
   }
 }

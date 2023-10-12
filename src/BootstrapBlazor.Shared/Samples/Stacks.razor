@@ -4,29 +4,25 @@
 <h3>@Localizer["Title"]</h3>
 
 <DemoBlock Title="@Localizer["BasicTitle"]" Introduction="@Localizer["BasicIntroe"]">
-    <Stack Orientation="Orientation.Vertical"
-           HorizontalAlignment="@HorizontalAlignment.Left"
-           VerticalAlignment="VerticalAlignment.Bottom"
-           VerticalGap="20">
-        <div>Vertical item 1</div>
-        <div>Vertical item 2</div>
-    </Stack>
-</DemoBlock>
+    <section ignore class="row g-3">
+        <div class="col-12 col-md-6 col-lg-4 xl-3">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="@Localizer["IsRow"]" />
+                <Switch @bind-Value="@IsRow" />
+            </BootstrapInputGroup>
+        </div>
+    </section>
 
-<DemoBlock Title="@Localizer["NestedTitle"]" Introduction="@Localizer["NestedIntro"]">
-    <Stack Orientation="Orientation.Vertical"
-           HorizontalAlignment="@HorizontalAlignment.Right"
-           VerticalAlignment="VerticalAlignment.Bottom"
-           VerticalGap="20">
-        <div>Vertical item 1</div>
-        <div>Vertical item 2</div>
-        <Stack Orientation="Orientation.Horizontal"
-               HorizontalAlignment="HorizontalAlignment.Left"
-               VerticalAlignment="VerticalAlignment.Top"
-               HorizontalGap="4">
-            <div style="width: 150px">Horizontal item 1</div>
-            <div>Horizontal item 2</div>
-        </Stack>
+    <Stack IsRow="@IsRow">
+        <StackItem>
+            <div>Item 1</div>
+        </StackItem>
+        <StackItem>
+            <div>Item 2</div>
+        </StackItem>
+        <StackItem>
+            <div>Item 3</div>
+        </StackItem>
     </Stack>
 </DemoBlock>
 

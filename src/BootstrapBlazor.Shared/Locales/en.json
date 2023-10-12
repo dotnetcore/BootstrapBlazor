@@ -5921,14 +5921,6 @@
     "Title": "Stack Layout",
     "BasicTitle": "Basic",
     "BasicIntroe": "Lets you arrange its subcomponents in a horizontal or vertical stack",
-    "NestedTitle": "Nested",
-    "NestedIntro": "Complex nested layouts can be supported",
-    "Orientation": "Gets or set the orientation of the stacked components",
-    "HorizontalAlignment": "The horizontal alignment of the components in the stack",
-    "VerticalAlignment": "The vertical alignment of the components in the stack",
-    "Width": "The width of the stack as a percentage string",
-    "Wrap": "Gets or sets if the stack wraps",
-    "HorizontalGap": "Gets or sets the gap between horizontally stacked components",
-    "VerticalGap": "Gets or sets the gap between vertically stacked components"
+    "IsRow": "Row"
   }
 }
