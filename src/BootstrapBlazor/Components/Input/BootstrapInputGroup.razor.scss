@@ -27,7 +27,7 @@
     }
 
     > .switch {
-        --bb-switch-padding: 7px 1rem;
+        --bb-switch-padding: 7px .5rem;
         border: var(--bs-border-width) solid var(--bs-border-color);
         border-radius: var(--bs-border-radius);
     }
