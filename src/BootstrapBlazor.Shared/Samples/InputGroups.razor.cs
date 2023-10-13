@@ -60,4 +60,6 @@ public partial class InputGroups
     private string? GroupFormClassString => CssBuilder.Default("row g-3").AddClass("form-inline", FormRowType == RowType.Inline).Build();
 
     private RowType FormRowType { get; set; }
+
+    private bool SwitchValue { get; set; }
 }

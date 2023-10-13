@@ -1,6 +1,7 @@
 @mixin direction($var, $child) {
     > .datetime-picker:not(:#{$child}-child) .form-control,
     > .select:not(:#{$child}-child) .form-control,
+    > .switch:not(:#{$child}-child),
     > .multi-select:not(:#{$child}-child) .dropdown-toggle,
     > [data-bs-toggle]:not(:#{$child}-child) > .form-control,
     > .auto-complete:not(:#{$child}-child) .form-control {
@@ -12,6 +13,7 @@
 .input-group {
     > .datetime-picker,
     > .select,
+    > .switch,
     > .auto-complete {
         width: 1%;
         flex: 1 1 auto;
@@ -22,6 +24,12 @@
         flex: 1;
         text-overflow: ellipsis;
         overflow: hidden;
+    }
+
+    > .switch {
+        --bb-switch-padding: 7px .5rem;
+        border: var(--bs-border-width) solid var(--bs-border-color);
+        border-radius: var(--bs-border-radius);
     }
 
     @include direction(right,last);
