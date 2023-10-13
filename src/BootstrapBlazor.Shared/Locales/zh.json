@@ -1954,6 +1954,8 @@
     "TabsQATitle": "常见问题",
     "TabsQA1": "通过级联参数获得当前 <code>TabSet</code>",
     "TabsQA2": "通过级联参数获得当前 <code>TabItem</code>",
+    "TabsQA3": "网页中点击链接如何跳转到新标签页 <code>TabItem</code>",
+    "TabsQA4": "代码中如何导航到新标签页 <code>TabItem</code>",
     "TabItem1Text": "用户管理",
     "TabItem1Content": "我是用户管理",
     "TabItem2Text": "菜单管理",
