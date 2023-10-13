@@ -217,7 +217,7 @@ public class UploadTest : BootstrapBlazorTestBase
         {
             new MockBrowserFile()
         })));
-        Assert.Equal("UploadTestFile", cut.Instance.Value!.Name);
+        cut.WaitForAssertion(() => Assert.Equal("UploadTestFile", cut.Instance.Value!.Name));
     }
 
     [Fact]
