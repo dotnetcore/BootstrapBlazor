@@ -1231,6 +1231,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
                     Text = Localizer["Stack"],
                     Url = "stack"
                 }
