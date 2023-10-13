@@ -5925,6 +5925,13 @@
     "Title": "Stack 布局",
     "BasicTitle": "普通用法",
     "BasicIntroe": "可用于在水平或垂直堆栈中排列其子组件",
-    "IsRow": "行布局"
+    "RowMode": "行布局",
+    "ColumnMode": "列布局",
+    "Mode": "布局类型",
+    "Justify": "水平对齐方式",
+    "AlignItems": "垂直对齐方式",
+    "IsWrap": "是否折行",
+    "IsReverse": "是否反转",
+    "AlignSelf": "子项对齐方式"
   }
 }

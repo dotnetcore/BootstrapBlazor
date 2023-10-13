@@ -11,19 +11,23 @@
     height: 100%;
 }
 
-.stack-item-demo {
-    padding: .5rem;
-    margin: .5rem;
+::deep .input-group-text {
+    width: 120px;
 }
 
-.stack-item-demo1 {
+::deep .bb_stack_item:nth-child(1) {
     background-color: var(--bs-primary);
 }
 
-.stack-item-demo2 {
+::deep .bb_stack_item:nth-child(2) {
     background-color: var(--bs-success);
 }
 
-.stack-item-demo3 {
+::deep .bb_stack_item:nth-child(3) {
     background-color: var(--bs-danger);
+}
+
+.stack-item-demo {
+    padding: .5rem;
+    margin: .5rem;
 }

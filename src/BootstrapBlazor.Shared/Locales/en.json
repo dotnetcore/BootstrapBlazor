@@ -5925,6 +5925,13 @@
     "Title": "Stack Layout",
     "BasicTitle": "Basic",
     "BasicIntroe": "Lets you arrange its subcomponents in a horizontal or vertical stack",
-    "IsRow": "Row"
+    "RowMode": "Row",
+    "ColumnMode": "Column",
+    "Mode": "mode",
+    "Justify": "justify-content",
+    "AlignItems": "align-items",
+    "IsWrap": "IsWrap",
+    "IsReverse": "IsReverse",
+    "AlignSelf": "align-self"
   }
 }
