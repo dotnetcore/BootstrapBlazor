@@ -340,6 +340,29 @@ public class SelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void GroupItemTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new SelectedItem("1", "Test1") { GroupName = "Test1" },
+                new SelectedItem("2", "Test2") { GroupName = "Test2" }
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.GroupItemTemplate, title => builder =>
+            {
+                builder.OpenElement(0, "div");
+                builder.AddAttribute(1, "class", "group-key");
+                builder.AddContent(2, title);
+                builder.CloseComponent();
+            });
+        });
+        cut.Contains("<div class=\"group-key\">Test1</div>");
+        cut.Contains("<div class=\"group-key\">Test2</div>");
+    }
+
+    [Fact]
     public void NullItems_Ok()
     {
         var cut = Context.RenderComponent<Select<string>>();
