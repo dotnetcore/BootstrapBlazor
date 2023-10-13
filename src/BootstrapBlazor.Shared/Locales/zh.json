@@ -2707,7 +2707,9 @@
     "InputGroupsDateTimePickerIntro": "往 <code>InputGroup</code> 里面增加 <code>DateTimePicker</code> 或者 <code>DateTimeRange</code>",
     "InputGroupsDropdownTitle": "Dropdown 组合",
     "InputGroupsDropdownIntro": "往 <code>InputGroup</code> 里面增加 <code>Dropdown</code>",
-    "InputGroupsStatusText1": "复选项目"
+    "InputGroupsStatusText1": "复选项目",
+    "InputGroupsSwitchTitle": "Switch 组合",
+    "InputGroupsSwitchIntro": "往 <code>InputGroup</code> 里面增加 <code>Switch</code>"
   },
   "BootstrapBlazor.Shared.Samples.Markdowns": {
     "MarkdownsTitle": "Markdown 编辑器",
