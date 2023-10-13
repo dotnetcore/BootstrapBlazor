@@ -58,6 +58,19 @@
                 <RadioList @bind-Value="@AlignSelf" />
             </BootstrapInputGroup>
         </div>
+        <div class="col-12">
+            <p><code>StackItem</code> 子项还有两个控制方式:</p>
+            <ul class="ul-demo">
+                <li><b>Grow</b> 是否尽可能多的占用剩余空间 <code>flex-grow-0</code> <code>flex-grow-1</code></li>
+                <li><b>Shrink</b> 是否尽可能的把空间让给前面兄弟元素 <code>flex-shrink-0</code> <code>flex-shrink-1</code></li>
+            </ul>
+        </div>
+    </section>
+
+    <section ignore class="mt-3">
+        <Pre>&lt;StackItem class="flex-grow-1" &gt;
+    &lt;div class="stack-item-demo">Item 3&lt;/div&gt;
+&lt;/StackItem&gt;</Pre>
     </section>
 </DemoBlock>
 
