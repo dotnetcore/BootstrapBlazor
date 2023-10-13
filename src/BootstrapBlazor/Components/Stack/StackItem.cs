@@ -50,7 +50,7 @@ public class StackItem : BootstrapComponentBase, IDisposable
     {
         if (Stack == null)
         {
-            base.BuildRenderTree(builder);
+            builder.AddContent(0, ChildContent);
         }
     }
 
