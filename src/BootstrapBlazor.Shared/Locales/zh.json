@@ -4523,7 +4523,8 @@
     "WebSerial": "串口读写 WebSerial",
     "MindMap": "思维导图 MindMap",
     "WebSpeech": "语音识别/合成 WebSpeech",
-    "Marquee": "文字滚动 Marquee"
+    "Marquee": "文字滚动 Marquee",
+    "Stack": "堆叠布局 Stack"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -5919,5 +5920,26 @@
     "MarqueeTitle": "基本用法",
     "MarqueeIntro": "通过参数调节文字滚动效果",
     "MarqueeDescription": "文字滚动组件"
+  },
+  "BootstrapBlazor.Shared.Samples.Stacks": {
+    "Title": "Stack 布局",
+    "BasicTitle": "普通用法",
+    "BasicIntroe": "可用于在水平或垂直堆栈中排列其子组件",
+    "RowMode": "行布局",
+    "ColumnMode": "列布局",
+    "Mode": "布局类型",
+    "Justify": "水平对齐方式",
+    "AlignItems": "垂直对齐方式",
+    "IsWrap": "是否折行",
+    "IsReverse": "是否反转",
+    "AlignSelf": "子项对齐方式",
+    "StackItemGrowShrinkDesc": "<code>StackItem</code> 子项还有两个控制方式:",
+    "StackItemGrowShrinkLi": "<li><b>Grow</b> 是否尽可能多的占用剩余空间 <code>flex-grow-0</code> <code>flex-grow-1</code></li><li><b>Shrink</b> 是否尽可能的把空间让给前面兄弟元素 <code>flex-shrink-0</code> <code>flex-shrink-1</code></li>",
+    "AttrIsRow": "是否为行布局",
+    "AttrIsWrap": "是否允许折行",
+    "AttrIsReverse": "是否反向布局",
+    "AttrJustify": "水平布局调整",
+    "AttrAlignItems": "垂直布局模式",
+    "AttrChildContent": "内容模板"
   }
 }

@@ -4523,7 +4523,8 @@
     "WebSerial": "Web Serial",
     "MindMap": "Mind Map",
     "WebSpeech": "Web Speech",
-    "Marquee": "Marquee"
+    "Marquee": "Marquee",
+    "Stack": "Stack"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -5919,5 +5920,26 @@
     "MarqueeTitle": "Usage",
     "MarqueeIntro": "Adjusting the text scrolling effect through parameters",
     "MarqueeDescription": "Marquee component"
+  },
+  "BootstrapBlazor.Shared.Samples.Stacks": {
+    "Title": "Stack Layout",
+    "BasicTitle": "Basic",
+    "BasicIntroe": "Lets you arrange its subcomponents in a horizontal or vertical stack",
+    "RowMode": "Row",
+    "ColumnMode": "Column",
+    "Mode": "mode",
+    "Justify": "justify-content",
+    "AlignItems": "align-items",
+    "IsWrap": "wrap",
+    "IsReverse": "reverse",
+    "AlignSelf": "align-self",
+    "StackItemGrowShrinkDesc": "<code>StackItem</code> 子项还有两个控制方式:",
+    "StackItemGrowShrinkLi": "<li>Use <code>.flex-grow-*</code> utilities to toggle a flex item’s ability to grow to fill available space. In the example below, the <code>.flex-grow-1</code> elements uses all available space it can, while allowing the remaining two flex items their necessary space.</li><li>Use <code>.flex-shrink-*</code> utilities to toggle a flex item’s ability to shrink if necessary. In the example below, the second flex item with <code>.flex-shrink-1</code> is forced to wrap its contents to a new line, “shrinking” to allow more space for the previous flex item with <code>.w-100</code>.</li>",
+    "AttrIsRow": "Flex direction",
+    "AttrIsWrap": "Change how flex items wrap in a flex container",
+    "AttrIsReverse": "Start the horizontal or vertical direction from the opposite side.",
+    "AttrJustify": "Change the alignment of flex items on the main axis",
+    "AttrAlignItems": "Change the alignment of flex items on the cross axis",
+    "AttrChildContent": "Child content render fragment"
   }
 }

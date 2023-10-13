@@ -49,7 +49,7 @@ public class UploadTest : BootstrapBlazorTestBase
             pb.Add(a => a.DeleteButtonText, "Delete-Test");
             pb.Add(a => a.DeleteButtonIcon, "fa-solid fa-trash");
         });
-        cut.Contains("fa-solid fa-trash");
+        cut.WaitForAssertion(() => cut.Contains("fa-solid fa-trash"));
         cut.Contains("btn-danger");
 
         // 删除逻辑
@@ -63,7 +63,7 @@ public class UploadTest : BootstrapBlazorTestBase
                 return Task.FromResult(true);
             });
         });
-        cut.Contains("btn btn-delete");
+        cut.WaitForAssertion(() => cut.Contains("btn btn-delete"));
 
         var button = cut.Find(".input-group button");
         await cut.InvokeAsync(() => button.Click());
@@ -74,7 +74,7 @@ public class UploadTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsDisabled, true);
         });
-        cut.Contains("btn btn-delete");
+        cut.WaitForAssertion(() => cut.Contains("btn btn-delete"));
     }
 
     [Fact]
@@ -217,7 +217,7 @@ public class UploadTest : BootstrapBlazorTestBase
         {
             new MockBrowserFile()
         })));
-        Assert.Equal("UploadTestFile", cut.Instance.Value!.Name);
+        cut.WaitForAssertion(() => Assert.Equal("UploadTestFile", cut.Instance.Value!.Name));
     }
 
     [Fact]
