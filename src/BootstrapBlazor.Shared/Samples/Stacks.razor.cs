@@ -11,6 +11,10 @@ public partial class Stacks
 {
     private bool IsRow { get; set; }
 
+    private StackJustifyContent Justify { get; set; }
+
+    private StackAlignItems AlignItems { get; set; }
+
     private IEnumerable<AttributeItem> GetAttributeItems() => new List<AttributeItem>()
     {
 

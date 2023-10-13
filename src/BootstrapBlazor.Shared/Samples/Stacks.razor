@@ -5,25 +5,39 @@
 
 <DemoBlock Title="@Localizer["BasicTitle"]" Introduction="@Localizer["BasicIntroe"]">
     <section ignore class="row g-3">
-        <div class="col-12 col-md-6 col-lg-4 xl-3">
+        <div class="col-12">
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="@Localizer["IsRow"]" />
                 <Switch @bind-Value="@IsRow" />
             </BootstrapInputGroup>
         </div>
+        <div class="col-12 col-lg-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="@Localizer["Justify"]" />
+                <RadioList @bind-Value="Justify" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-lg-6">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="@Localizer["AlignItems"]" />
+                <RadioList @bind-Value="AlignItems" />
+            </BootstrapInputGroup>
+        </div>
     </section>
 
-    <Stack IsRow="@IsRow">
-        <StackItem>
-            <div>Item 1</div>
-        </StackItem>
-        <StackItem>
-            <div>Item 2</div>
-        </StackItem>
-        <StackItem>
-            <div>Item 3</div>
-        </StackItem>
-    </Stack>
+    <div class="stack-demo">
+        <Stack IsRow="@IsRow" Justify="@Justify" AlignItems="@AlignItems">
+            <StackItem>
+                <div class="stack-item-demo stack-item-demo1">Item 1</div>
+            </StackItem>
+            <StackItem>
+                <div class="stack-item-demo stack-item-demo2">Item 2</div>
+            </StackItem>
+            <StackItem>
+                <div class="stack-item-demo stack-item-demo3">Item 3</div>
+            </StackItem>
+        </Stack>
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="GetAttributeItems()" />

@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class Stack
 {
-    private string? ClassString => CssBuilder.Default("d-flex")
+    private string? ClassString => CssBuilder.Default("bb_stack d-flex")
         .AddClass("flex-row", IsRow)
         .AddClass("flex-row flex-row-reverse", IsRow && IsReverse)
         .AddClass("flex-column", !IsRow)
@@ -21,6 +21,7 @@ public partial class Stack
         .AddClass("flex-wrap flex-wrap-reverse", IsWrap && IsReverse)
         .AddClass(Justify.ToDescriptionString())
         .AddClass(AlignItems.ToDescriptionString())
+        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
