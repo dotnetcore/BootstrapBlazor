@@ -2538,6 +2538,7 @@ section > h2 {
 
 .input-group > .datetime-picker,
 .input-group > .select,
+.input-group > .switch,
 .input-group > .auto-complete {
   width: 1%;
   flex: 1 1 auto;
@@ -2548,8 +2549,14 @@ section > h2 {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+.input-group > .switch {
+  --bb-switch-padding: 7px .5rem;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+}
 .input-group > .datetime-picker:not(:last-child) .form-control,
 .input-group > .select:not(:last-child) .form-control,
+.input-group > .switch:not(:last-child),
 .input-group > .multi-select:not(:last-child) .dropdown-toggle,
 .input-group > [data-bs-toggle]:not(:last-child) > .form-control,
 .input-group > .auto-complete:not(:last-child) .form-control {
@@ -2558,6 +2565,7 @@ section > h2 {
 }
 .input-group > .datetime-picker:not(:first-child) .form-control,
 .input-group > .select:not(:first-child) .form-control,
+.input-group > .switch:not(:first-child),
 .input-group > .multi-select:not(:first-child) .dropdown-toggle,
 .input-group > [data-bs-toggle]:not(:first-child) > .form-control,
 .input-group > .auto-complete:not(:first-child) .form-control {
