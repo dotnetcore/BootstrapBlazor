@@ -86,7 +86,7 @@
 
 .table-wrapper th:last-child,
 .table-wrapper td:last-child,
-.table-wrapper .table-fixed-header th:nth-last-of-type(2) {
+.table-wrapper .table-fixed-header th:nth-last-of-type(2):not(.border-resize) {
     border-right-width: 0;
 }
 
@@ -574,7 +574,7 @@ tr.active:not(.is-edit):hover {
     position: relative;
 }
 
-.col-resizer:not(.last) {
+.col-resizer {
     width: .25rem;
     display: block;
     position: absolute;

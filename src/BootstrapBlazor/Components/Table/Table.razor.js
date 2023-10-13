@@ -229,13 +229,6 @@ const setResizeListener = table => {
     table.columns = []
     const columns = [...table.tables[0].querySelectorAll('.col-resizer')]
     columns.forEach((col, index) => {
-        if (table.thead && index === columns.length - 1) {
-            col.classList.add('last')
-            return
-        }
-        else {
-            col.classList.remove('last')
-        }
         table.columns.push(col)
         EventHandler.on(col, 'click', e => e.stopPropagation())
         drag(col,
@@ -502,7 +495,7 @@ export function reset(id) {
         const toolbar = [...table.el.children].find(i => i.classList.contains('table-toolbar'))
         if (toolbar) {
             const right = toolbar.querySelector('.table-column-right')
-            if(right) {
+            if (right) {
                 setToolbarDropdown(table, right)
             }
         }
