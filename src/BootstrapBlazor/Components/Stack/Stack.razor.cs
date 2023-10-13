@@ -24,6 +24,12 @@ public partial class Stack
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
+    private static string? ItemClassString(StackItem item) => CssBuilder.Default("bb_stack_item")
+        .AddClass("flex-fill", item.IsFill)
+        .AddClass(item.AlignSelf.ToDescriptionString().Replace("align-items", "align-self"), item.AlignSelf != StackAlignItems.Stretch)
+        .AddClassFromAttributes(item.AdditionalAttributes)
+       .Build();
+
     /// <summary>
     /// 获得/设置 内容
     /// </summary>

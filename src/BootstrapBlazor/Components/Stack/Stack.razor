@@ -8,7 +8,7 @@
     <RenderTemplate>
         @foreach (var item in _items)
         {
-            <div key="@item">
+            <div @key="@item" class="@ItemClassString(item)">
                 @item.ChildContent
             </div>
         }

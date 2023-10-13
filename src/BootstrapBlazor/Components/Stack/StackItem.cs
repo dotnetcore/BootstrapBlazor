@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Stack Item 组件
 /// </summary>
-public class StackItem : ComponentBase, IDisposable
+public class StackItem : BootstrapComponentBase, IDisposable
 {
     [CascadingParameter]
     private Stack? Stack { get; set; }
@@ -19,6 +19,18 @@ public class StackItem : ComponentBase, IDisposable
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否自动充满 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsFill { get; set; }
+
+    /// <summary>
+    /// 获得/设置 垂直布局模式 默认 StackAlignItems.Stretch
+    /// </summary>
+    [Parameter]
+    public StackAlignItems AlignSelf { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
