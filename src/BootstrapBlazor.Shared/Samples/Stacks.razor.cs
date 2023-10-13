@@ -23,7 +23,7 @@ public partial class Stacks
 
     private bool IsReverse { get; set; }
 
-    private List<SelectedItem> ShowMode => new List<SelectedItem>()
+    private List<SelectedItem> ShowMode => new()
     {
         new("true", Localizer["RowMode"]),
         new("false", Localizer["ColumnMode"])
@@ -33,6 +33,53 @@ public partial class Stacks
 
     private IEnumerable<AttributeItem> GetAttributeItems() => new List<AttributeItem>()
     {
-
+        new()
+        {
+            Name = nameof(Stack.IsRow),
+            Description = Localizer["AttrIsRow"],
+            Type = "bool",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Stack.IsWrap),
+            Description = Localizer["AttrIsWrap"],
+            Type = "bool",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Stack.IsReverse),
+            Description = Localizer["AttrIsReverse"],
+            Type = "bool",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Stack.Justify),
+            Description = Localizer["AttrJustify"],
+            Type = "StackJustifyContent",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Stack.AlignItems),
+            Description = Localizer["AttrAlignItems"],
+            Type = "StackAlignItems",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(Stack.ChildContent),
+            Description = Localizer["AttrChildContent"],
+            Type = "RenderFragment",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
     };
 }

@@ -5934,6 +5934,12 @@
     "IsReverse": "是否反转",
     "AlignSelf": "子项对齐方式",
     "StackItemGrowShrinkDesc": "<code>StackItem</code> 子项还有两个控制方式:",
-    "StackItemGrowShrinkLi": "<li><b>Grow</b> 是否尽可能多的占用剩余空间 <code>flex-grow-0</code> <code>flex-grow-1</code></li><li><b>Shrink</b> 是否尽可能的把空间让给前面兄弟元素 <code>flex-shrink-0</code> <code>flex-shrink-1</code></li>"
+    "StackItemGrowShrinkLi": "<li><b>Grow</b> 是否尽可能多的占用剩余空间 <code>flex-grow-0</code> <code>flex-grow-1</code></li><li><b>Shrink</b> 是否尽可能的把空间让给前面兄弟元素 <code>flex-shrink-0</code> <code>flex-shrink-1</code></li>",
+    "AttrIsRow": "是否为行布局",
+    "AttrIsWrap": "是否允许折行",
+    "AttrIsReverse": "是否反向布局",
+    "AttrJustify": "水平布局调整",
+    "AttrAlignItems": "垂直布局模式",
+    "AttrChildContent": "内容模板"
   }
 }
