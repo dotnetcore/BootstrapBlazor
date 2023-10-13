@@ -1890,7 +1890,6 @@ section > h2 {
   padding-left: 10px;
 }
 
-/*divider*/
 .divider {
   --bb-divider-bg: #dcdfe6;
   --bb-divider-margin: 1rem 0;
@@ -1950,10 +1949,6 @@ section > h2 {
   right: 0;
   transform: translateY(0);
   transform: translateX(50%);
-}
-
-.dropdown-menu .divider {
-  --bb-divider-margin: .25rem 0;
 }
 
 /*add this to avoid flickering*/
