@@ -61,6 +61,6 @@ public class TransitionTest : BootstrapBlazorTestBase
         });
 
         cut.InvokeAsync(() => cut.Instance.TransitionEndAsync());
-        Assert.True(transitionEnd);
+        cut.WaitForAssertion(() => Assert.True(transitionEnd));
     }
 }
