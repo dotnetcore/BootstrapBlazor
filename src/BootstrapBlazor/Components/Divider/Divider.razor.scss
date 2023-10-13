@@ -1,4 +1,3 @@
-/*divider*/
 .divider {
     --bb-divider-bg: #{$divider-bg};
     --bb-divider-margin: #{$divider-margin};
@@ -67,9 +66,4 @@
             }
         }
     }
-}
-
-
-.dropdown-menu .divider {
-    --bb-divider-margin: .25rem 0;
 }
