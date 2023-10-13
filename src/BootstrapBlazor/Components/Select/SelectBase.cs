@@ -47,6 +47,12 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 分组项模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<string>? GroupItemTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 IIconTheme 服务实例
     /// </summary>
     [Inject]
