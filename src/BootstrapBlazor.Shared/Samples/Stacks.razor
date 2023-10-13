@@ -59,10 +59,9 @@
             </BootstrapInputGroup>
         </div>
         <div class="col-12">
-            <p><code>StackItem</code> 子项还有两个控制方式:</p>
+            <p>@((MarkupString)Localizer["StackItemGrowShrinkDesc"].Value)</p>
             <ul class="ul-demo">
-                <li><b>Grow</b> 是否尽可能多的占用剩余空间 <code>flex-grow-0</code> <code>flex-grow-1</code></li>
-                <li><b>Shrink</b> 是否尽可能的把空间让给前面兄弟元素 <code>flex-shrink-0</code> <code>flex-shrink-1</code></li>
+                @((MarkupString)Localizer["StackItemGrowShrinkLi"].Value)
             </ul>
         </div>
     </section>
