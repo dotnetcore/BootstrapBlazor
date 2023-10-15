@@ -4057,8 +4057,6 @@ form [required]:before {
 .form-control {
   --bb-form-control-padding: 0.375rem 0.75rem;
   padding: var(--bb-form-control-padding);
-  border: 1px solid var(--bs-border-color);
-  border-radius: var(--bs-border-radius);
 }
 .form-control.is-display {
   overflow: hidden;
