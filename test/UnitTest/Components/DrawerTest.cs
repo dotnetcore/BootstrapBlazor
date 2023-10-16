@@ -47,6 +47,16 @@ public class DrawerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void AllowResize_Ok()
+    {
+        var cut = Context.RenderComponent<Drawer>(builder =>
+        {
+            builder.Add(a => a.AllowResize, true);
+        });
+        cut.Contains("<div class=\"drawer-bar\"><div class=\"drawer-bar-body\"></div></div>");
+    }
+
+    [Fact]
     public void IsOpenChanged_Ok()
     {
         var isopen = true;
