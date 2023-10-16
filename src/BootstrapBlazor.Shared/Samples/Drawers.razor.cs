@@ -89,6 +89,14 @@ public sealed partial class Drawers
         },
         new()
         {
+            Name = "AllowResize",
+            Description = "Whether allow drag resize the drawer",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
             Name = "OnClickBackdrop",
             Description = "Callback delegate method when background mask is clicked",
             Type = "Action",
