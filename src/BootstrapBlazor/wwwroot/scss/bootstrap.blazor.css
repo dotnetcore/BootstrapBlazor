@@ -2072,6 +2072,7 @@ section > h2 {
   box-shadow: var(--bb-drawer-body-shadow);
   transition: transform 0.3s linear;
   z-index: 2;
+  pointer-events: auto;
   display: flex;
 }
 .drawer .drawer-body .drawer-content {

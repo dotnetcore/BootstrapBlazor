@@ -33,7 +33,13 @@ export function init(id) {
             if (isVertical) {
                 const eventY = e.clientY || (e.touches.length || e.touches.length > 0 && e.touches[0].clientY)
                 const moveY = eventY - originY
-                const newHeight = height + moveY
+                let newHeight = 0;
+                if (dw.drawerBody.classList.contains("bottom")) {
+                    newHeight = height - moveY
+                }
+                else {
+                    newHeight = height + moveY
+                }
                 const maxHeight = window.innerHeight;
                 if (newHeight > 100 && newHeight < maxHeight) {
                     dw.drawerBody.style.setProperty('--bb-drawer-height', `${newHeight}px`)
@@ -42,7 +48,13 @@ export function init(id) {
             else {
                 const eventX = e.clientX || (e.touches.length || e.touches.length > 0 && e.touches[0].clientX)
                 const moveX = eventX - originX
-                const newWidth = width + moveX
+                let newWidth = 0;
+                if (dw.drawerBody.classList.contains("right")) {
+                    newWidth = width - moveX
+                }
+                else {
+                    newWidth = width + moveX
+                }
                 const maxWidth = window.innerWidth;
                 if (newWidth > 100 && newWidth < maxWidth) {
                     dw.drawerBody.style.setProperty('--bb-drawer-width', `${newWidth}px`)
