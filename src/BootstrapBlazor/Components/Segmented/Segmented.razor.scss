@@ -6,19 +6,7 @@
     font-size: 14px;
     line-height: 1.5714285714285714;
     list-style: none;
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        segoe ui,
-        Roboto,
-        helvetica neue,
-        Arial,
-        noto sans,
-        sans-serif,
-        apple color emoji,
-        segoe ui emoji,
-        segoe ui symbol,
-        noto color emoji;
+    font-family: -apple-system, BlinkMacSystemFont, segoe ui, Roboto, helvetica neue, Arial, noto sans, sans-serif, apple color emoji, segoe ui emoji, segoe ui symbol, noto color emoji;
     display: inline-block;
     background-color: #f5f5f5;
     border-radius: 6px;
@@ -30,50 +18,36 @@
         align-items: stretch;
         justify-items: flex-start;
         width: 100%;
-    }
 
-    .segmented-item {
-        position: relative;
-        text-align: center;
-        cursor: pointer;
-        transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-        border-radius: 4px;
+        .segmented-item {
+            position: relative;
+            text-align: center;
+            cursor: pointer;
+            transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+            border-radius: 4px;
 
-        &.segmented-item-selected {
-            background-color: #fff;
-            box-shadow:
-                0 1px 2px 0 rgba(0, 0, 0, 0.03),
-                0 1px 6px -1px rgba(0, 0, 0, 0.02),
-                0 2px 4px 0 rgba(0, 0, 0, 0.02);
-            color: rgba(0, 0, 0, 0.88);
-        }
+            &.segmented-item-selected {
+                background-color: #fff;
+                box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
+                color: rgba(0, 0, 0, 0.88);
+            }
 
-        &.segmented-item-disabled, .segmented-item-disabled:hover, .segmented-item-disabled:focus {
-            color: rgba(0, 0, 0, 0.25);
-            cursor: not-allowed;
-        }
+            &.slideInLeft {
+                animation-name: slideInLeft;
+                -webkit-animation-duration: 1s;
+                animation-duration: 1s;
+                -webkit-animation-duration: var(--animate-duration);
+                animation-duration: var(--animate-duration);
+                -webkit-animation-fill-mode: both;
+                animation-fill-mode: both;
+            }
 
-        &:hover:not(.ant-segmented-item-selected):not(.ant-segmented-item-disabled) {
-            color: rgba(0, 0, 0, 0.88);
-        }
-
-        .segmented-item-input {
-            position: absolute;
-            inset-block-start: 0;
-            inset-inline-start: 0;
-            width: 0;
-            height: 0;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .segmented-item-label {
-            min-height: 28px;
-            line-height: 28px;
-            padding: 0 11px;
-            overflow: hidden;
-            white-space: nowrap;
-            text-overflow: ellipsis;
+            &.segmented-item-disabled,
+            &.segmented-item-disabled:hover,
+            &.segmented-item-disabled:focus {
+                color: rgba(0, 0, 0, 0.25);
+                cursor: not-allowed;
+            }
 
             &::after {
                 content: "";
@@ -86,6 +60,44 @@
                 transition: background-color 0.2s;
                 pointer-events: none;
             }
+
+            &:hover:not(.segmented-item-selected):not(.segmented-item-disabled) {
+                color: rgba(0, 0, 0, 0.88);
+
+                &::after {
+                    background-color: rgba(0, 0, 0, 0.06);
+                }
+            }
+
+            .segmented-item-input {
+                position: absolute;
+                inset-block-start: 0;
+                inset-inline-start: 0;
+                width: 0;
+                height: 0;
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            .segmented-item-label {
+                min-height: 28px;
+                line-height: 28px;
+                padding: 0 11px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+        }
+    }
+
+    @keyframes slideInLeft {
+        from {
+            transform: translate3d(-100%, 0, 0);
+            visibility: visible;
+        }
+
+        to {
+            transform: translate3d(0, 0, 0);
         }
     }
 }

@@ -7490,43 +7490,32 @@ form .table .table-cell > textarea {
   justify-items: flex-start;
   width: 100%;
 }
-.segmented .segmented-item {
+.segmented .segmented-group .segmented-item {
   position: relative;
   text-align: center;
   cursor: pointer;
   transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
   border-radius: 4px;
 }
-.segmented .segmented-item.segmented-item-selected {
+.segmented .segmented-group .segmented-item.segmented-item-selected {
   background-color: #fff;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
   color: rgba(0, 0, 0, 0.88);
 }
-.segmented .segmented-item.segmented-item-disabled, .segmented .segmented-item .segmented-item-disabled:hover, .segmented .segmented-item .segmented-item-disabled:focus {
+.segmented .segmented-group .segmented-item.slideInLeft {
+  animation-name: slideInLeft;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-duration: var(--animate-duration);
+  animation-duration: var(--animate-duration);
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+.segmented .segmented-group .segmented-item.segmented-item-disabled, .segmented .segmented-group .segmented-item.segmented-item-disabled:hover, .segmented .segmented-group .segmented-item.segmented-item-disabled:focus {
   color: rgba(0, 0, 0, 0.25);
   cursor: not-allowed;
 }
-.segmented .segmented-item:hover:not(.ant-segmented-item-selected):not(.ant-segmented-item-disabled) {
-  color: rgba(0, 0, 0, 0.88);
-}
-.segmented .segmented-item .segmented-item-input {
-  position: absolute;
-  inset-block-start: 0;
-  inset-inline-start: 0;
-  width: 0;
-  height: 0;
-  opacity: 0;
-  pointer-events: none;
-}
-.segmented .segmented-item .segmented-item-label {
-  min-height: 28px;
-  line-height: 28px;
-  padding: 0 11px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.segmented .segmented-item .segmented-item-label::after {
+.segmented .segmented-group .segmented-item::after {
   content: "";
   position: absolute;
   width: 100%;
@@ -7536,4 +7525,36 @@ form .table .table-cell > textarea {
   border-radius: inherit;
   transition: background-color 0.2s;
   pointer-events: none;
+}
+.segmented .segmented-group .segmented-item:hover:not(.segmented-item-selected):not(.segmented-item-disabled) {
+  color: rgba(0, 0, 0, 0.88);
+}
+.segmented .segmented-group .segmented-item:hover:not(.segmented-item-selected):not(.segmented-item-disabled)::after {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+.segmented .segmented-group .segmented-item .segmented-item-input {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+.segmented .segmented-group .segmented-item .segmented-item-label {
+  min-height: 28px;
+  line-height: 28px;
+  padding: 0 11px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+@keyframes slideInLeft {
+  from {
+    transform: translate3d(-100%, 0, 0);
+    visibility: visible;
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
 }

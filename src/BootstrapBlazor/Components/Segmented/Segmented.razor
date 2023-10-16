@@ -2,19 +2,30 @@
 
 <div class="segmented">
     <div class="segmented-group">
-        @if (ChildContent != null)
+        @foreach (var item in Items)
         {
-            @ChildContent
-        }
-        else
-        {
-            foreach (var item in Items)
-            {
-                <label class="@ClassString(item)">
-                    <input class="segmented-item-input" type="radio" checked="@item.Active" disabled="@item.IsDisabled" @onclick="@(() => OnClick(item))" />
+            <label class="@ClassString(item)">
+                <input class="segmented-item-input" type="radio" checked="@item.Active" disabled="@item.IsDisabled" @onclick="@(() => OnClick(item))" />
+                @if (!string.IsNullOrEmpty(item.Icon))
+                {
+                    <div class="segmented-item-label">
+                        <span class="ant-segmented-item-icon">
+                            <i class="@item.Icon"></i>
+                        </span>
+                        <span>@item.Text</span>
+                    </div>
+                }
+                else if (item.ChildContent != null)
+                {
+                    <div class="segmented-item-label">
+                        @item.ChildContent(item)
+                    </div>
+                }
+                else
+                {
                     <div class="segmented-item-label" title="@item.Value">@item.Text</div>
-                </label>
-            }
+                }
+            </label>
         }
     </div>
 </div>
