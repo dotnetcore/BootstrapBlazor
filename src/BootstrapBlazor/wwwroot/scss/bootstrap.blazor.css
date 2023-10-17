@@ -7483,6 +7483,34 @@ form .table .table-cell > textarea {
   border-radius: 6px;
   transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
+.segmented.segmented-block {
+  display: flex;
+}
+.segmented.segmented-lg {
+  border-radius: 8px;
+}
+.segmented.segmented-lg .segmented-item-label {
+  min-height: 36px;
+  line-height: 36px;
+  padding: 0 11px;
+  font-size: 16px;
+}
+.segmented.segmented-sm {
+  border-radius: 4px;
+}
+.segmented.segmented-sm .segmented-item-label {
+  min-height: 20px;
+  line-height: 20px;
+  padding: 0 7px;
+}
+.segmented .segmented-item-label {
+  min-height: 28px;
+  line-height: 28px;
+  padding: 0 11px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 .segmented .segmented-group {
   position: relative;
   display: flex;
@@ -7496,6 +7524,7 @@ form .table .table-cell > textarea {
   cursor: pointer;
   transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
   border-radius: 4px;
+  flex: 1;
 }
 .segmented .segmented-group .segmented-item.segmented-item-selected {
   background-color: #fff;
@@ -7540,14 +7569,6 @@ form .table .table-cell > textarea {
   height: 0;
   opacity: 0;
   pointer-events: none;
-}
-.segmented .segmented-group .segmented-item .segmented-item-label {
-  min-height: 28px;
-  line-height: 28px;
-  padding: 0 11px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
 }
 @keyframes slideInLeft {
   from {
