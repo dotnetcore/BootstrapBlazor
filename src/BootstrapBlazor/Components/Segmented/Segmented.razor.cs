@@ -14,6 +14,9 @@ public partial class Segmented
                .Build();
     }
 
+    [NotNull]
+    private SegmentedItem? CurrentItem { get; set; }
+
     /// <summary>
     /// 
     /// </summary>
@@ -26,13 +29,13 @@ public partial class Segmented
     /// </summary>
     [Parameter]
     [NotNull]
-    public SegmentedItem? Value { get; set; }
+    public string? Value { get; set; }
 
     /// <summary>
     /// 
     /// </summary>
     [Parameter]
-    public EventCallback<SegmentedItem> ValueChanged { get; set; } 
+    public EventCallback<string> ValueChanged { get; set; }
 
     /// <summary>
     /// 
@@ -40,14 +43,30 @@ public partial class Segmented
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        Value = Items.First();
+        if (string.IsNullOrEmpty(Value))
+        {
+            var item = Items.First();
+            Value = item.Value;
+            CurrentItem = item;
+        }
+        else
+        {
+            var item = Items.First(s => s.Value == Value);
+            foreach (var value in Items)
+            {
+                value.Active = false;
+            }
+            item.Active = !item.Active;
+            CurrentItem = item;
+        }
     }
 
     private async Task OnClick(SegmentedItem item)
     {
-        Value.Active = !Value.Active;
-        item.Active = true;
-        Value = item;
+        CurrentItem.Active = !CurrentItem.Active;
+        item.Active = !item.Active;
+        Value = item.Value;
+        CurrentItem = item;
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);

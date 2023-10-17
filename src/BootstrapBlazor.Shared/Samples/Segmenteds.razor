@@ -4,24 +4,3 @@
     <Segmented Items="@Items" Value="@Value" ValueChanged="ValueChanged"></Segmented>
     <ConsoleLogger @ref="ConsoleLogger"></ConsoleLogger>
 </DemoBlock>
-
-@code {
-
-    private BootstrapBlazor.Components.ConsoleLogger? ConsoleLogger { get; set; }
-
-    private List<SegmentedItem> Items { get; set; } = new List<SegmentedItem>()
-    {
-        new SegmentedItem(){ Value = "sss", Text = "sadsa", Active = true },
-        new SegmentedItem(){ Value = "sss", Text = "22323", Active = false, IsDisabled = true},
-        new SegmentedItem(){ Value = "sss", Text = "324324", Active = false },
-        new SegmentedItem(){ Value = "sss", Text = "32435", Active = false, Icon = "fa fa-save" },
-    };
-
-    private SegmentedItem? Value { get; set; }
-
-    private void ValueChanged(SegmentedItem item)
-    {
-        Value = item;
-        ConsoleLogger?.Log(item.Value);
-    }
-}
