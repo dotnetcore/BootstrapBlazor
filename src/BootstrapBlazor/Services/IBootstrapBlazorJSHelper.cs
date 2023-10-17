@@ -180,6 +180,16 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
     ValueTask<T?> RunJSWithFunction<T>(string scripts);
 
     /// <summary>
+    /// 运行JS文件
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="path"></param>
+    /// <param name="functionName"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    ValueTask<T?> RunJSFile<T>(string path, string functionName, params object?[]? args);
+
+    /// <summary>
     /// 动态添加link
     /// <para>Dynamically adding links</para>
     /// <para>

@@ -66,28 +66,26 @@ export function getProperties(obj, tag) {
     return object;
 }
 
-export function runJSFileFetch(path) {
-    // 使用 fetch() 函数从服务器获取 JavaScript 文件的内容
-    fetch(path).then(response => response.text())
-        .then(scriptContent => {
-            // 将 JavaScript 文件的内容插入到页面中
-            eval(scriptContent);
-        });
-}
+export async function runJSFile(path, functionName, args) {
+    try {
+        const module = await import(path);
+        const targetFunction = module[functionName] || module.default;
 
-export function runJSFileImport(path) {
-    // 使用 import() 函数从服务器获取 JavaScript 文件的内容
-    import(path).then(module => {
-        // 将 JavaScript 文件的内容插入到页面中
-        module.default();
-    });
+        if (typeof targetFunction === 'function') {
+            return targetFunction(...args);
+        } else {
+            console.error(`Function '${functionName}' not found in module at path: ${path}`);
+        }
+    } catch (error) {
+        console.error('RunJSFile Execution error:', error);
+    }
 }
 
 export function runJSWithEval(js) {
     try {
         return eval(js);
     } catch (error) {
-        console.error('执行异常(runJSWithEval)：', error);
+        console.error('RunJSWithEval Execution error:', error);
     }
 }
 
@@ -96,7 +94,7 @@ export function runJSWithFunction(js) {
         var func = new Function(js);
         return func();
     } catch (error) {
-        console.error('执行异常(runJSWithFunction)：', error);
+        console.error('RunJSWithFunction Execution error:', error);
     }
 }
 

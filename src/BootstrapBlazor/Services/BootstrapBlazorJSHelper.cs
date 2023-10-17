@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using static System.Net.Mime.MediaTypeNames;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -241,4 +239,7 @@ partial class BootstrapBlazorJSHelper : IBootstrapBlazorJSHelper, IJSRuntimeEven
     /// </summary>
     /// <returns></returns>
     public ValueTask ConsoleClear() => InvokeVoidAsync("doConsoleClear");
+
+    public ValueTask<T?> RunJSFile<T>(string path, string functionName, params object?[]? args) => InvokeAsync<T>("runJSFile", path, functionName, args);
+
 }

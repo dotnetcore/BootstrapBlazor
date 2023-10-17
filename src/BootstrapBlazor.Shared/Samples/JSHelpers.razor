@@ -29,6 +29,10 @@ await RemoveScript("_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js")
     <Textarea @bind-Value="@funcJSResult" rows="1" />
 </DemoBlock>
 
+<DemoBlock Title="RunJSFile" Introduction="执行JavaScript脚本文件" ShowCode="false" Name="RunJSFile">
+    <Button class="mb-2" Text="RunJSFile" OnClick="@RunJSFileDemo"></Button>
+</DemoBlock>
+
 <DemoBlock Title="Alert" Introduction="JS Alert 弹窗" ShowCode="false" Name="JSAlert">
     <Pre class="mb-2">await Alert("Hello BootstrapBlazor");</Pre>
     <Textarea class="mb-2" @bind-Value="@jsAlertContent" rows="1" />
