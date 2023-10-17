@@ -49,6 +49,12 @@ public partial class Segmented
     /// 
     /// </summary>
     [Parameter]
+    public Func<string, Task>? OnValueChanged { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
     [NotNull]
     public bool IsBlock { get; set; }
 
@@ -99,6 +105,11 @@ public partial class Segmented
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);
+        }
+
+        if (OnValueChanged != null)
+        {
+            await OnValueChanged(Value);
         }
     }
 
