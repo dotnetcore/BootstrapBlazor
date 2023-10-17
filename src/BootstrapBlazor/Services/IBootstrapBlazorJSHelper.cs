@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using System.Runtime.InteropServices;
+using System.Text.Json.Serialization;
 
 namespace BootstrapBlazor.Components;
 
@@ -149,6 +150,20 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
     /// <param name="defaultValue">defaultValue</param>
     /// <returns></returns>
     ValueTask<T?> Prompt<T>(string title, T? defaultValue = default);
+
+    /// <summary>
+    /// Console
+    /// </summary>
+    /// <param name="consoleType">log,warn,error,info,assert</param>
+    /// <param name="args">args</param>
+    /// <returns></returns>
+    ValueTask Console(ConsoleType consoleType, params object?[]? args);
+
+    /// <summary>
+    /// Console.Clear
+    /// </summary>
+    /// <returns></returns>
+    ValueTask ConsoleClear();
 
     #region Event
     /// <summary>

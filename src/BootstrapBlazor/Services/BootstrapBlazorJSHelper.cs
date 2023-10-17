@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using static System.Net.Mime.MediaTypeNames;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -226,4 +228,17 @@ partial class BootstrapBlazorJSHelper : IBootstrapBlazorJSHelper, IJSRuntimeEven
     /// <returns></returns>
     public ValueTask<T?> Prompt<T>(string title, T? defaultValue = default) => InvokeAsync<T>("doPrompt", title, defaultValue);
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="consoleType"><see cref="ConsoleType"/></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    public ValueTask Console(ConsoleType consoleType, params object?[]? args) => InvokeVoidAsync("doConsole", consoleType.ToDescriptionString(), args);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public ValueTask ConsoleClear() => InvokeVoidAsync("doConsoleClear");
 }

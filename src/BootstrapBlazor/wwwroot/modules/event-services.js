@@ -127,3 +127,12 @@ export function doAlert(text) {
 export function doPrompt(title, defaultValue) {
     return prompt(title, defaultValue);
 }
+
+export function doConsole(type, arg) {
+    const fn = (typeof console[type] === 'function' ? console[type] : console.log);
+    fn(...arg);
+}
+
+export function doConsoleClear() {
+    console.clear();
+}

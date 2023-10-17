@@ -42,4 +42,22 @@ await RemoveScript("_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js")
     <Textarea @bind-Value="@jsPromptResult" rows="1" />
 </DemoBlock>
 
+<DemoBlock Title="Console" Introduction="JS Console 控制台输出" ShowCode="false" Name="JSConsole">
+    <Pre class="mb-2">await JSHelper.Console(ConsoleType.Log, "Hello BootstrapBlazor");</Pre>
+    <Button class="mb-2" Text="Clear" OnClick="@(()=> JSHelper.ConsoleClear())" />
+    <Button class="mb-2" Text="Log" OnClick="@(()=> JSHelper.Console(ConsoleType.Log, jsAlertContent))" />
+    <Button class="mb-2" Text="Warn" OnClick="@(()=> JSHelper.Console(ConsoleType.Warn, jsAlertContent))" />
+    <Button class="mb-2" Text="Error" OnClick="@(()=> JSHelper.Console(ConsoleType.Error, jsAlertContent))" />
+    <Button class="mb-2" Text="Info" OnClick="@(()=> JSHelper.Console(ConsoleType.Info, jsAlertContent))" />
+    <Button class="mb-2" Text="Assert" OnClick="@(()=> JSHelper.Console(ConsoleType.Assert, false, jsAlertContent))" />
+    <Button class="mb-2" Text="Dir" OnClick="@(()=> JSHelper.Console(ConsoleType.Dir, GetMethods()))" />
+    <Button class="mb-2" Text="Time" OnClick="@(()=> JSHelper.Console(ConsoleType.Time))" />
+    <Button class="mb-2" Text="TimeEnd" OnClick="@(()=> JSHelper.Console(ConsoleType.TimeEnd))" />
+    <Button class="mb-2" Text="Count" OnClick="@(()=> JSHelper.Console(ConsoleType.Count,jsAlertContent))" />
+    <Button class="mb-2" Text="Group" OnClick="@(()=> JSHelper.Console(ConsoleType.Group,jsAlertContent))" />
+    <Button class="mb-2" Text="GroupEnd" OnClick="@(()=> JSHelper.Console(ConsoleType.GroupEnd))" />
+    <Button class="mb-2" Text="Table" OnClick="@(()=> JSHelper.Console(ConsoleType.Table, GetMethods()))" />
+    <Button class="mb-2" Text="Trace" OnClick="@(()=> JSHelper.Console(ConsoleType.Trace))" />
+</DemoBlock>
+
 <MethodTable Items="GetMethods()" />
