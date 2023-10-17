@@ -5941,5 +5941,21 @@
     "AttrJustify": "水平布局调整",
     "AttrAlignItems": "垂直布局模式",
     "AttrChildContent": "内容模板"
+  },
+  "BootstrapBlazor.Shared.Samples.JSHelpers": {
+    "AddLinkTitle": "AddLink/RemoveLink",
+    "AddLinkIntro": "动态添加/移除Link连接",
+    "AddScriptTitle": "AddScript/RemoveScript",
+    "AddScriptIntro": "动态添加/移除Script脚本",
+    "RunJSWithEvalTitle": "RunJSWithEval",
+    "RunJSWithEvalIntro": "通过Eval动态执行JavaScript脚本",
+    "RunJSWithFunctionTitle": "RunJSWithFunction",
+    "RunJSWithFunctionIntro": "通过Function动态执行JavaScript脚本",
+    "JSAlertTitle": "JS Alert",
+    "JSAlertIntro": "JS Alert 弹窗",
+    "JSPromptTitle": "JS Prompt",
+    "JSPromptIntro": "JS Prompt 输入框",
+    "JSConsoleTitle": "JS Console",
+    "JSConsoleIntro": "JS Console 控制台输出"
   }
 }

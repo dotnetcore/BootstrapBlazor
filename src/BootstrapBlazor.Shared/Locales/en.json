@@ -5941,5 +5941,21 @@
     "AttrJustify": "Change the alignment of flex items on the main axis",
     "AttrAlignItems": "Change the alignment of flex items on the cross axis",
     "AttrChildContent": "Child content render fragment"
+  },
+  "BootstrapBlazor.Shared.Samples.JSHelpers": {
+    "AddLinkTitle": "AddLink/RemoveLink",
+    "AddLinkIntro": "Dynamically adding/removing Link connections",
+    "AddScriptTitle": "AddScript/RemoveScript",
+    "AddScriptIntro": "Dynamically adding/removing script scripts",
+    "RunJSWithEvalTitle": "RunJSWithEval",
+    "RunJSWithEvalIntro": "Dynamically executing JavaScript scripts through Eval",
+    "RunJSWithFunctionTitle": "RunJSWithFunction",
+    "RunJSWithFunctionIntro": "Dynamically executing JavaScript scripts through Function",
+    "JSAlertTitle": "JS Alert",
+    "JSAlertIntro": "JS Alert Popup",
+    "JSPromptTitle": "JS Prompt",
+    "JSPromptIntro": "JS Prompt input box",
+    "JSConsoleTitle": "JS Console",
+    "JSConsoleIntro": "JS Console Console Output"
   }
 }

@@ -26,7 +26,7 @@ public partial class JSHelpers
                                                   max = Math.floor(max);
                                                   return Math.floor(Math.random() * (max - min + 1) + min);
                                                  }
-                                                 return "随机值：" + getRandomInt(1, 100);
+                                                 return "Value：" + getRandomInt(1, 100);
                                                  """;
 
     private string? funcJSResult { get; set; }

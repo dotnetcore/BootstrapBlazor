@@ -1,7 +1,8 @@
 ﻿@page "/jshelpers"
 @inject IBootstrapBlazorJSHelper JSHelper
+@inject IStringLocalizer<JSHelpers> Localizer
 
-<DemoBlock Title="AddLink/RemoveLink" Introduction="动态添加/移除Link连接" ShowCode="false" Name="AddLink">
+<DemoBlock Title="@Localizer["AddLinkTitle"]" Introduction="@Localizer["AddLinkIntro"]" ShowCode="false" Name="AddLink">
     <Pre>//默认rel="stylesheet"
 await AddLink("_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css");
 await RemoveLink("_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css");
@@ -10,39 +11,39 @@ await AddLink("favicon.ico","icon");
 await RemoveLink("favicon.ico");</Pre>
 </DemoBlock>
 
-<DemoBlock Title="AddScript/RemoveScript" Introduction="动态添加/移除Script脚本" ShowCode="false" Name="AddScript">
+<DemoBlock Title="@Localizer["AddScriptTitle"]" Introduction="@Localizer["AddScriptTitle"]" ShowCode="false" Name="AddScript">
     <Pre>await AddScript("_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js");
 await RemoveScript("_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js");</Pre>
 </DemoBlock>
 
-<DemoBlock Title="RunJSWithEval" Introduction="通过Eval动态执行JavaScript脚本" ShowCode="false" Name="RunJSWithEval">
+<DemoBlock Title="@Localizer["RunJSWithEvalTitle"]" Introduction="@Localizer["RunJSWithEvalIntro"]" ShowCode="false" Name="RunJSWithEval">
     <Pre class="mb-2">await RunJSWithFunction("your js code");</Pre>
     <Textarea class="mb-2" @bind-Value="@evalJSContent" rows="6" />
     <Button class="mb-2" Text="Run" OnClick="@RunJSWithEvalDemo"></Button>
     <Textarea @bind-Value="@evalJSResult" rows="1" />
 </DemoBlock>
 
-<DemoBlock Title="RunJSWithFunction" Introduction="通过Function动态执行JavaScript脚本" ShowCode="false" Name="RunJSWithFunction">
+<DemoBlock Title="@Localizer["RunJSWithFunctionTitle"]" Introduction="@Localizer["RunJSWithFunctionIntro"]" ShowCode="false" Name="RunJSWithFunction">
     <Pre class="mb-2">await RunJSWithFunction("your js code");</Pre>
     <Textarea class="mb-2" @bind-Value="@funcJSContent" rows="6" />
     <Button class="mb-2" Text="Run" OnClick="@RunJSWithFuncDemo"></Button>
     <Textarea @bind-Value="@funcJSResult" rows="1" />
 </DemoBlock>
 
-<DemoBlock Title="Alert" Introduction="JS Alert 弹窗" ShowCode="false" Name="JSAlert">
+<DemoBlock Title="@Localizer["JSAlertTitle"]" Introduction="@Localizer["JSAlertIntro"]" ShowCode="false" Name="JSAlert">
     <Pre class="mb-2">await Alert("Hello BootstrapBlazor");</Pre>
     <Textarea class="mb-2" @bind-Value="@jsAlertContent" rows="1" />
     <Button Text="Run" OnClick="@RunJSAlert"></Button>
 </DemoBlock>
 
-<DemoBlock Title="Prompt" Introduction="JS Prompt 输入框" ShowCode="false" Name="JSAlert">
+<DemoBlock Title="@Localizer["JSPromptTitle"]" Introduction="@Localizer["JSPromptIntro"]" ShowCode="false" Name="JSPrompt">
     <Pre class="mb-2">await Prompt("Hello BootstrapBlazor");</Pre>
     <Textarea class="mb-2" @bind-Value="@jsPromptContent" rows="1" />
     <Button class="mb-2" Text="Run" OnClick="@RunJSPrompt"></Button>
     <Textarea @bind-Value="@jsPromptResult" rows="1" />
 </DemoBlock>
 
-<DemoBlock Title="Console" Introduction="JS Console 控制台输出" ShowCode="false" Name="JSConsole">
+<DemoBlock Title="@Localizer["JSConsoleTitle"]" Introduction="@Localizer["JSConsoleIntro"]" ShowCode="false" Name="JSConsole">
     <Pre class="mb-2">await JSHelper.Console(ConsoleType.Log, "Hello BootstrapBlazor");</Pre>
     <Button class="mb-2" Text="Clear" OnClick="@(()=> JSHelper.ConsoleClear())" />
     <Button class="mb-2" Text="Log" OnClick="@(()=> JSHelper.Console(ConsoleType.Log, jsAlertContent))" />
