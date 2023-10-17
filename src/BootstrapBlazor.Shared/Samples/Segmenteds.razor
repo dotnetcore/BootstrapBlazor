@@ -1,6 +1,50 @@
 ﻿@page "/segmented"
 
-<DemoBlock>
-    <Segmented Items="@Items" Value="@Value" ValueChanged="ValueChanged"></Segmented>
-    <ConsoleLogger @ref="ConsoleLogger"></ConsoleLogger>
+
+<h3>Segmented 分段控制器</h3>
+
+<h4>何时使用</h4>
+
+<ul>
+    <li>用于展示多个选项并允许用户选择其中单个选项；</li>
+    <li>当切换选中选项时，关联区域的内容会发生变化。</li>
+</ul>
+
+
+<DemoBlock Title="基本" Introduction="最简单的用法。">
+    <Segmented Items="@Items" @bind-Value="@Value"></Segmented>
 </DemoBlock>
+
+<DemoBlock Title="受控模式" Introduction="受控的 Segmented。">
+    <Segmented Items="@Items" Value="@Value1" ValueChanged="ValueChanged"></Segmented>
+    <ConsoleLogger @ref="ConsoleLogger" class="mt-3"></ConsoleLogger>
+</DemoBlock>
+
+<DemoBlock Title="Block 分段选择器" Introduction="block 属性使其适合父元素宽度">
+    <Segmented IsBlock="true" Items="@LongTextItems" Value="@BlockValue"></Segmented>
+</DemoBlock>
+
+<DemoBlock Title="不可用" Introduction="Segmented 不可用。">
+    <Segmented Items="@DisableItems" Value="@DisableValue"></Segmented>
+</DemoBlock>
+
+<DemoBlock Title="自定义渲染" Introduction="使用 RenderFragment 自定义渲染每一个 Segmented Item">
+    <Segmented Items="@Items">
+        <DisplayItemTemplate>
+            <div style="padding:4px">
+                @context.Text
+            </div>
+        </DisplayItemTemplate>
+    </Segmented>
+</DemoBlock>
+
+<DemoBlock Title="设置图标" Introduction="给 Segmented Item 设置 Icon。">
+    <Segmented Items="@IconItems"></Segmented>
+</DemoBlock>
+
+<DemoBlock Title="大小" Introduction="我们为 <Segmented /> 组件定义了三种尺寸（大、默认、小），高度分别为 40px、32px 和 24px。">
+    <Segmented Items="@Items" @bind-Value="@Value" Size="Size.Large" IsBlock="true"></Segmented>
+    <Segmented Items="@Items" @bind-Value="@Value" class="mt-3" IsBlock="true"></Segmented>
+    <Segmented Items="@Items" @bind-Value="@Value" class="mt-3" Size="Size.Small" IsBlock="true"></Segmented>
+</DemoBlock>
+
