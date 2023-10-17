@@ -25,6 +25,9 @@ public partial class Segmented
     [NotNull]
     private SegmentedItem? CurrentItem { get; set; }
 
+    [NotNull]
+    private List<SegmentedItem>? DataSource { get; set; } = new();
+
     /// <summary>
     /// 
     /// </summary>
@@ -78,18 +81,20 @@ public partial class Segmented
     protected override void OnInitialized()
     {
         base.OnInitialized();
+
+        DataSource.AddRange(Items);
         if (string.IsNullOrEmpty(Value))
         {
-            SetActive(Items);
-            var item = Items.First();
+            SetActive(DataSource);
+            var item = DataSource.First();
             item.Active = !item.Active;
             Value = item.Value;
             CurrentItem = item;
         }
         else
         {
-            SetActive(Items);
-            var item = Items.First(s => s.Value == Value);
+            SetActive(DataSource);
+            var item = DataSource.First(s => s.Value == Value);
             if (item != null)
             {
                 item.Active = !item.Active;
@@ -100,8 +105,10 @@ public partial class Segmented
 
     private async Task OnClick(SegmentedItem item)
     {
+        SetActive(DataSource);
         item.Active = !item.Active;
         Value = item.Value;
+        CurrentItem = item;
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);

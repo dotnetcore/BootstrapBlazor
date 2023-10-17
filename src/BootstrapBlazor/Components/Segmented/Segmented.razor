@@ -3,7 +3,7 @@
 
 <div @attributes="@AdditionalAttributes" class="@SegmentedClassString">
     <div class="segmented-group">
-        @foreach (var item in Items)
+        @foreach (var item in DataSource)
         {
             <label class="@ClassString(item)">
                 <input class="segmented-item-input" type="radio" checked="@item.Active" disabled="@item.IsDisabled" @onclick="@(() => OnClick(item))" />
