@@ -231,7 +231,7 @@ partial class BootstrapBlazorJSHelper : IBootstrapBlazorJSHelper, IJSRuntimeEven
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="consoleType"><see cref="ConsoleType"/></param>
+    /// <param name="consoleType"></param>
     /// <param name="args"></param>
     /// <returns></returns>
     public ValueTask Console(ConsoleType consoleType, params object?[]? args) => InvokeVoidAsync("doConsole", consoleType.ToDescriptionString(), args);

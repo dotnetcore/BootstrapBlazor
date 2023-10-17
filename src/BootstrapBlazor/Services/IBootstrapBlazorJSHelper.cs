@@ -2,9 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.Runtime.InteropServices;
-using System.Text.Json.Serialization;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -13,14 +10,36 @@ namespace BootstrapBlazor.Components;
 public interface IBootstrapBlazorJSHelper : IAsyncDisposable
 {
     /// <summary>
-    /// 注册浏览器事件
+    /// 注册全局浏览器事件
+    /// <para>Registering Global Browser Events</para>
+    /// <para>
+    /// <example>
+    /// example code in razor
+    /// <code>
+    /// @inject <see cref="IBootstrapBlazorJSHelper"/> JSHelper
+    /// 
+    /// await JSHelper.RegisterEvent(<see cref="DOMEvents.Scroll"/>);
+    /// JSHelper.OnScroll += Helper_OnScroll;
+    /// </code>
+    /// </example>
+    /// </para>
     /// </summary>
     /// <param name="eventName"></param>
     /// <returns></returns>
     ValueTask RegisterEvent(DOMEvents eventName);
 
     /// <summary>
-    /// 通过tag获取元素的属性值
+    /// 通过tag获取元素的属性值(指定元素)
+    /// <para>
+    /// <example>
+    /// example code in razor
+    /// <code>
+    /// @inject <see cref="IBootstrapBlazorJSHelper"/> JSHelper
+    /// 
+    /// var result = await JSHelper.GetElementPropertiesByTagFromIdAsync&lt;<see langword="decimal"/>>("elementId","Height");
+    /// </code>
+    /// </example>
+    /// </para>
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="id"></param>
@@ -29,7 +48,17 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
     ValueTask<T?> GetElementPropertiesByTagFromIdAsync<T>(string id, string tag);
 
     /// <summary>
-    /// 通过tag获取元素的属性值
+    /// 通过tag获取元素的属性值(全局)
+    /// <para>
+    /// <example>
+    /// example code in razor
+    /// <code>
+    /// @inject <see cref="IBootstrapBlazorJSHelper"/> JSHelper
+    /// 
+    /// var result = await JSHelper.GetDocumentPropertiesByTagAsync&lt;<see langword="decimal"/>>("documentElement.clientHeight");
+    /// </code>
+    /// </example>
+    /// </para>
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="tag"></param>
@@ -38,6 +67,21 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
 
     /// <summary>
     /// 通过tag获取元素的属性值
+    /// <para>
+    /// <example>
+    /// example code in razor
+    /// <code>
+    /// @inject <see cref="IBootstrapBlazorJSHelper"/> JSHelper
+    /// 
+    /// &lt;div @ref="@el">&lt;/div>
+    /// 
+    /// @code{
+    ///     <see cref="ElementReference"/>? el {get;set;}
+    ///     var result = await JSHelper.GetElementPropertiesByTagAsync&lt;<see langword="decimal"/>>(el,"Height");
+    /// }
+    /// </code>
+    /// </example>
+    /// </para>
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="element"></param>
@@ -47,7 +91,7 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
 
     /// <summary>
     /// 同步运行js代码，不返回值，当前作用域
-    /// Run JavaScript code synchronously without returning a value, current scope
+    /// <para>Run JavaScript code synchronously without returning a value, current scope</para>
     /// </summary>
     /// <param name="scripts">JavaScript Code</param>
     /// <returns></returns>
@@ -56,7 +100,7 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
 
     /// <summary>
     /// 同步运行js代码，并返回值，当前作用域
-    /// Run the JavaScript code synchronously and return the value, current scope
+    /// <para>Run the JavaScript code synchronously and return the value, current scope</para>
     /// </summary>
     /// <param name="scripts">JavaScript Code</param>
     /// <returns></returns>
@@ -65,7 +109,17 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
 
     /// <summary>
     /// 同步运行js代码，不返回值，当前作用域
-    /// Run JavaScript code synchronously without returning a value, current scope
+    /// <para>Run JavaScript code synchronously without returning a value, current scope</para>
+    /// <para>
+    /// <example>
+    /// example code in razor
+    /// <code>
+    /// @inject <see cref="IBootstrapBlazorJSHelper"/> JSHelper
+    /// 
+    /// await JSHelper.RunJSWithEval("your js code");
+    /// </code>
+    /// </example>
+    /// </para>
     /// </summary>
     /// <param name="scripts">JavaScript Code</param>
     /// <returns></returns>
@@ -74,6 +128,16 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
     /// <summary>
     /// 同步运行js代码，并返回值，当前作用域
     /// Run the JavaScript code synchronously and return the value, current scope
+    /// <para>
+    /// <example>
+    /// example code in razor
+    /// <code>
+    /// @inject <see cref="IBootstrapBlazorJSHelper"/> JSHelper
+    /// 
+    /// var result = await JSHelper.RunJSWithEval&lt;object>("your js code");
+    /// </code>
+    /// </example>
+    /// </para>
     /// </summary>
     /// <param name="scripts">JavaScript Code</param>
     /// <returns></returns>
@@ -81,7 +145,17 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
 
     /// <summary>
     /// 同步运行js代码，不返回值，全局作用域
-    /// Run JavaScript code synchronously without returning a value, with global scope
+    /// <para>Run JavaScript code synchronously without returning a value, with global scope</para>
+    /// <para>
+    /// <example>
+    /// example code in razor
+    /// <code>
+    /// @inject <see cref="IBootstrapBlazorJSHelper"/> JSHelper
+    /// 
+    /// var result = await JSHelper.RunJSWithEval("your js code");
+    /// </code>
+    /// </example>
+    /// </para>
     /// </summary>
     /// <param name="scripts">JavaScript Code</param>
     /// <returns></returns>
@@ -89,7 +163,17 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
 
     /// <summary>
     /// 同步运行js代码，并返回值，全局作用域
-    /// Run JavaScript code synchronously and return a value with global scope
+    /// <para>Run JavaScript code synchronously and return a value with global scope</para>
+    /// <para>
+    /// <example>
+    /// example code in razor
+    /// <code>
+    /// @inject <see cref="IBootstrapBlazorJSHelper"/> JSHelper
+    /// 
+    /// var result = await JSHelper.RunJSWithEval&lt;object>("your js code");
+    /// </code>
+    /// </example>
+    /// </para>
     /// </summary>
     /// <param name="scripts">JavaScript Code</param>
     /// <returns></returns>
@@ -97,7 +181,17 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
 
     /// <summary>
     /// 动态添加link
-    /// Dynamically adding links
+    /// <para>Dynamically adding links</para>
+    /// <para>
+    /// <example>
+    /// example code in razor
+    /// <code>
+    /// @inject <see cref="IBootstrapBlazorJSHelper"/> JSHelper
+    /// 
+    /// await JSHelper.AddLink("_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css");
+    /// </code>
+    /// </example>
+    /// </para>
     /// </summary>
     /// <param name="link"></param>
     /// <returns></returns>
@@ -105,7 +199,19 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
 
     /// <summary>
     /// 动态添加link
+    /// <para>
     /// Dynamically adding links
+    /// </para>
+    /// <para>
+    /// <example>
+    /// example code in razor
+    /// <code>
+    /// @inject <see cref="IBootstrapBlazorJSHelper"/> JSHelper
+    /// 
+    /// await JSHelper.AddLink("favicon.ico","icon");
+    /// </code>
+    /// </example>
+    /// </para>
     /// </summary>
     /// <param name="link"></param>
     /// <param name="rel"></param>
@@ -114,7 +220,19 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
 
     /// <summary>
     /// 动态移除link
+    /// <para>
     /// Dynamically remove links
+    /// </para>
+    /// <para>
+    /// <example>
+    /// example code in razor
+    /// <code>
+    /// @inject <see cref="IBootstrapBlazorJSHelper"/> JSHelper
+    /// 
+    /// await JSHelper.RemoveLink("_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css");
+    /// </code>
+    /// </example>
+    /// </para>
     /// </summary>
     /// <param name="link"></param>
     /// <returns></returns>
@@ -122,7 +240,19 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
 
     /// <summary>
     /// 动态添加script
+    /// <para>
     /// Dynamically add script
+    /// </para>
+    /// <para>
+    /// <example>
+    /// example code in razor
+    /// <code>
+    /// @inject <see cref="IBootstrapBlazorJSHelper"/> JSHelper
+    /// 
+    /// await JSHelper.AddScript("_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js");
+    /// </code>
+    /// </example>
+    /// </para>
     /// </summary>
     /// <param name="script"></param>
     /// <returns></returns>
@@ -130,7 +260,19 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
 
     /// <summary>
     /// 动态移除script
+    /// <para>
     /// Dynamically remove script
+    /// </para>
+    /// <para>
+    /// <example>
+    /// example code in razor
+    /// <code>
+    /// @inject <see cref="IBootstrapBlazorJSHelper"/> JSHelper
+    /// 
+    /// await JSHelper.RemoveScript("_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js");
+    /// </code>
+    /// </example>
+    /// </para>
     /// </summary>
     /// <param name="script"></param>
     /// <returns></returns>
@@ -138,6 +280,16 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
 
     /// <summary>
     /// JS Alert弹窗
+    /// <para>
+    /// <example>
+    /// example code in razor
+    /// <code>
+    /// @inject <see cref="IBootstrapBlazorJSHelper"/> JSHelper
+    /// 
+    /// await JSHelper.Alert("content")
+    /// </code>
+    /// </example>
+    /// </para>
     /// </summary>
     /// <param name="text"></param>
     /// <returns></returns>
@@ -145,6 +297,16 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
 
     /// <summary>
     /// JS Prompt输入框
+    /// <para>
+    /// <example>
+    /// example code in razor
+    /// <code>
+    /// @inject <see cref="IBootstrapBlazorJSHelper"/> JSHelper
+    /// 
+    /// var result = await JSHelper.Prompt&lt;object>("content", 100)
+    /// </code>
+    /// </example>
+    /// </para>
     /// </summary>
     /// <param name="title">title</param>
     /// <param name="defaultValue">defaultValue</param>
@@ -153,6 +315,28 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
 
     /// <summary>
     /// Console
+    /// <para>
+    /// <example>
+    /// example code in razor
+    /// <code>
+    /// @inject <see cref="IBootstrapBlazorJSHelper"/> JSHelper
+    /// 
+    /// JSHelper.Console(<see cref="ConsoleType.Log"/>, "content")
+    /// JSHelper.Console(<see cref="ConsoleType.Warn"/>, "content")
+    /// JSHelper.Console(<see cref="ConsoleType.Error"/>, "content")
+    /// JSHelper.Console(<see cref="ConsoleType.Info"/>, "content")
+    /// JSHelper.Console(<see cref="ConsoleType.Assert"/>, <see langword="false"/>, "content")
+    /// JSHelper.Console(<see cref="ConsoleType.Dir"/>, <see langword="{}"/>)
+    /// JSHelper.Console(<see cref="ConsoleType.Time"/>)
+    /// JSHelper.Console(<see cref="ConsoleType.TimeEnd"/>)
+    /// JSHelper.Console(<see cref="ConsoleType.Count"/>, "content")
+    /// JSHelper.Console(<see cref="ConsoleType.Group"/>, "content")
+    /// JSHelper.Console(<see cref="ConsoleType.GroupEnd"/>, "ontent")
+    /// JSHelper.Console(<see cref="ConsoleType.Table"/>, <see langword="{}"/>)
+    /// JSHelper.Console(<see cref="ConsoleType.Trace"/>)
+    /// </code>
+    /// </example>
+    /// </para>
     /// </summary>
     /// <param name="consoleType">log,warn,error,info,assert</param>
     /// <param name="args">args</param>
@@ -161,6 +345,16 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
 
     /// <summary>
     /// Console.Clear
+    /// <para>
+    /// <example>
+    /// example code in razor
+    /// <code>
+    /// @inject <see cref="IBootstrapBlazorJSHelper"/> JSHelper
+    /// 
+    /// JSHelper.ConsoleClear()
+    /// </code>
+    /// </example>
+    /// </para>
     /// </summary>
     /// <returns></returns>
     ValueTask ConsoleClear();
