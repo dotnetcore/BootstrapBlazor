@@ -15,7 +15,7 @@ public partial class JSHelpers
 
     private string? evalJSResult { get; set; }
 
-    private async Task RunJSWithEvalDemo() => evalJSResult = (await JSHelper.RunJSWithEval<object>(evalJSContent))?.ToString();
+    private async Task RunJSWithEvalDemo() => evalJSResult = await JSHelper.RunJSWithEval<string>(evalJSContent);
 
     #endregion
 
@@ -31,7 +31,7 @@ public partial class JSHelpers
 
     private string? funcJSResult { get; set; }
 
-    private async Task RunJSWithFuncDemo() => funcJSResult = (await JSHelper.RunJSWithFunction<object>(funcJSContent))?.ToString();
+    private async Task RunJSWithFuncDemo() => funcJSResult = await JSHelper.RunJSWithFunction<string>(funcJSContent);
     #endregion
 
     #region JS Alert Demo
