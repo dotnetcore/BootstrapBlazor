@@ -89,9 +89,7 @@ class DefaultZipArchiveService : IZipArchiveService
         {
             Directory.CreateDirectory(destinationDirectoryName);
         }
-        using var stream = File.OpenRead(archiveFile);
-        using var archive = new ZipArchive(stream, ZipArchiveMode.Read, overwriteFiles, encoding);
-        archive.ExtractToDirectory(destinationDirectoryName, overwriteFiles);
+        ZipFile.ExtractToDirectory(archiveFile, destinationDirectoryName, encoding, overwriteFiles);
         return true;
     }
 
@@ -105,8 +103,7 @@ class DefaultZipArchiveService : IZipArchiveService
     /// <returns></returns>
     public ZipArchiveEntry? GetEntry(string archiveFile, string entryFile, bool overwriteFiles = false, Encoding? encoding = null)
     {
-        using var stream = File.OpenRead(archiveFile);
-        using var archive = new ZipArchive(stream, ZipArchiveMode.Read, overwriteFiles, encoding);
+        using var archive = ZipFile.Open(archiveFile, ZipArchiveMode.Read, encoding);
         return archive.GetEntry(Path.GetFileName(entryFile));
     }
 }
