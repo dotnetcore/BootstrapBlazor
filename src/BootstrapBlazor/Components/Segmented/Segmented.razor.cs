@@ -10,7 +10,6 @@ public partial class Segmented
         return CssBuilder.Default("segmented-item")
                .AddClass("segmented-item-selected", item.Active)
                .AddClass("segmented-item-disabled", item.IsDisabled)
-               .AddClass("slideInLeft", item.Active)
                .Build();
     }
 
