@@ -50,6 +50,12 @@ public partial class Segmenteds
 
     private string? Value1 { get; set; } = "Daily";
 
+    private string? Value2 { get; set; } = "Daily";
+
+    private string? Value3 { get; set; } = "Daily";
+
+    private string? Value4 { get; set; } = "Daily";
+
     private string? BlockValue { get; set; }
 
     private string? DisableValue { get; set; }
