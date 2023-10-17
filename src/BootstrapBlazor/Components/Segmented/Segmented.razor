@@ -1,6 +1,6 @@
 ﻿@namespace BootstrapBlazor.Components
 
-<div class="segmented">
+<div class="@SegmentedClassString">
     <div class="segmented-group">
         @foreach (var item in Items)
         {
@@ -15,10 +15,10 @@
                         <span>@item.Text</span>
                     </div>
                 }
-                else if (item.ChildContent != null)
+                else if (DisplayItemTemplate != null)
                 {
                     <div class="segmented-item-label">
-                        @item.ChildContent(item)
+                        @DisplayItemTemplate(item);
                     </div>
                 }
                 else

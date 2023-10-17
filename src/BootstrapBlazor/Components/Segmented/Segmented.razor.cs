@@ -5,6 +5,13 @@
 /// </summary>
 public partial class Segmented
 {
+
+    private string? SegmentedClassString => CssBuilder.Default("segmented")
+               .AddClass("segmented-block", IsBlock)
+               .AddClass("segmented-lg", Size == Size.Large)
+               .AddClass("segmented-sm", Size == Size.Small)
+               .Build();
+
     private string? ClassString(SegmentedItem item)
     {
         return CssBuilder.Default("segmented-item")
@@ -35,6 +42,25 @@ public partial class Segmented
     /// </summary>
     [Parameter]
     public EventCallback<string> ValueChanged { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public bool IsBlock { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public Size Size { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public RenderFragment<SegmentedItem>? DisplayItemTemplate { get; set; }
 
     /// <summary>
     /// 

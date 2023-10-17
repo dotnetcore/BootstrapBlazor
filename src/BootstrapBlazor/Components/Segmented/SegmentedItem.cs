@@ -36,10 +36,4 @@ public class SegmentedItem : SelectedItem
     /// 
     /// </summary>
     public string? Icon { get; set; }
-
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public RenderFragment<SegmentedItem>? ChildContent { get; set; }
 }

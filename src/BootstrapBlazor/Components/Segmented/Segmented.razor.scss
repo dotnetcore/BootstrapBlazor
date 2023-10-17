@@ -12,6 +12,18 @@
     border-radius: 6px;
     transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
 
+    &.segmented-block {
+        display: flex
+    }
+
+    &.segmented-lg {
+        border-radius: 8px;
+    }
+
+    &.segmented-sm {
+        border-radius: 4px;
+    }
+
     .segmented-group {
         position: relative;
         display: flex;
