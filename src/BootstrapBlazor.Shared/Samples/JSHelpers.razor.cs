@@ -9,19 +9,6 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class JSHelpers
 {
-    #region RunJSFile Demo
-
-    private string jsFilePath { get; set; } = "../../../../../_content/BootstrapBlazor.Shared/Samples/JSHelpers.razor.js";
-
-    private async Task RunJSFileDemo()
-    {
-        var result1 = await JSHelper.RunJSFile<object>(jsFilePath, "test1");
-        var result2 = await JSHelper.RunJSFile<object>(jsFilePath, "test2");
-    }
-
-    #endregion
-
-
     #region RunJSWithEval Demo
 
     private string evalJSContent { get; set; } = "`浏览器窗口的宽度：${window.innerWidth} 像素;浏览器窗口的高度：${window.innerHeight} 像素`;";

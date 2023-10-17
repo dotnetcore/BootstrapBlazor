@@ -240,6 +240,16 @@ partial class BootstrapBlazorJSHelper : IBootstrapBlazorJSHelper, IJSRuntimeEven
     /// <returns></returns>
     public ValueTask ConsoleClear() => InvokeVoidAsync("doConsoleClear");
 
-    public ValueTask<T?> RunJSFile<T>(string path, string functionName, params object?[]? args) => InvokeAsync<T>("runJSFile", path, functionName, args);
+    ///// <summary>
+    ///// <inheritdoc/>
+    ///// </summary>
+    ///// <returns></returns>
+    //public ValueTask<T?> RunJSFile<T>(string path, string functionName, params object?[]? args) => InvokeAsync<T>("runJSFile", path, functionName, args);
+
+    ///// <summary>
+    ///// <inheritdoc/>
+    ///// </summary>
+    ///// <returns></returns>
+    //public ValueTask RunJSFile(string path, string functionName, params object?[]? args) => InvokeVoidAsync("runJSFile", path, functionName, args);
 
 }

@@ -179,15 +179,26 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
     /// <returns></returns>
     ValueTask<T?> RunJSWithFunction<T>(string scripts);
 
-    /// <summary>
-    /// 运行JS文件
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="path"></param>
-    /// <param name="functionName"></param>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    ValueTask<T?> RunJSFile<T>(string path, string functionName, params object?[]? args);
+    ///// <summary>
+    ///// 动态导入js文件，执行指定方法后不返回结果。
+    ///// <para>Dynamically import a JS file without returning results after executing the specified method.</para>
+    ///// </summary>
+    ///// <param name="path"></param>
+    ///// <param name="functionName"></param>
+    ///// <param name="args"></param>
+    ///// <returns></returns>
+    //ValueTask RunJSFile(string path, string functionName, params object?[]? args);
+
+    ///// <summary>
+    ///// 动态导入js文件，执行指定方法后并返回结果。
+    ///// <para>Dynamically import a JavaScript file, execute the specified method, and return the result.</para>
+    ///// </summary>
+    ///// <typeparam name="T"></typeparam>
+    ///// <param name="path"></param>
+    ///// <param name="functionName"></param>
+    ///// <param name="args"></param>
+    ///// <returns></returns>
+    //ValueTask<T?> RunJSFile<T>(string path, string functionName, params object?[]? args);
 
     /// <summary>
     /// 动态添加link
