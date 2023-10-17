@@ -1,6 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
 
-<div class="@SegmentedClassString">
+<div @attributes="@AdditionalAttributes" class="@SegmentedClassString">
     <div class="segmented-group">
         @foreach (var item in Items)
         {
@@ -18,7 +19,7 @@
                 else if (DisplayItemTemplate != null)
                 {
                     <div class="segmented-item-label">
-                        @DisplayItemTemplate(item);
+                        @DisplayItemTemplate(item)
                     </div>
                 }
                 else

@@ -10,6 +10,8 @@ public partial class Segmented
                .AddClass("segmented-block", IsBlock)
                .AddClass("segmented-lg", Size == Size.Large)
                .AddClass("segmented-sm", Size == Size.Small)
+               .AddClassFromAttributes(AdditionalAttributes)
+               .AddStyleFromAttributes(AdditionalAttributes)
                .Build();
 
     private string? ClassString(SegmentedItem item)
@@ -60,6 +62,8 @@ public partial class Segmented
     /// <summary>
     /// 
     /// </summary>
+    [Parameter]
+    [NotNull]
     public RenderFragment<SegmentedItem>? DisplayItemTemplate { get; set; }
 
     /// <summary>
