@@ -13,7 +13,7 @@ namespace BootstrapBlazor.Components;
 public interface IZipArchiveService
 {
     /// <summary>
-    /// 归档方法
+    /// 将文件归档方法
     /// </summary>
     /// <param name="files">要归档的文件集合</param>
     /// <param name="options">归档配置</param>
@@ -21,12 +21,23 @@ public interface IZipArchiveService
     Task<Stream> ArchiveAsync(IEnumerable<string> files, ArchiveOptions? options = null);
 
     /// <summary>
-    /// 归档方法
+    /// 将文件归档方法
     /// </summary>
     /// <param name="archiveFileName">归档文件</param>
     /// <param name="files">要归档的文件集合</param>
     /// <param name="options">归档配置</param>
     Task ArchiveAsync(string archiveFileName, IEnumerable<string> files, ArchiveOptions? options = null);
+
+    /// <summary>
+    /// 将指定目录归档方法
+    /// </summary>
+    /// <param name="archiveFileName">归档文件</param>
+    /// <param name="directoryName">要归档文件夹</param>
+    /// <param name="compressionLevel"></param>
+    /// <param name="includeBaseDirectory"></param>
+    /// <param name="encoding"></param>
+    /// <returns></returns>
+    Task ArchiveDirectory(string archiveFileName, string directoryName, CompressionLevel compressionLevel = CompressionLevel.Optimal, bool includeBaseDirectory = false, Encoding? encoding = null);
 
     /// <summary>
     /// 解压缩归档文件到指定文件夹
