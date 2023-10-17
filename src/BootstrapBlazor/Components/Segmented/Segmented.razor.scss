@@ -18,10 +18,32 @@
 
     &.segmented-lg {
         border-radius: 8px;
+
+        .segmented-item-label {
+            min-height: 36px;
+            line-height: 36px;
+            padding: 0 11px;
+            font-size: 16px;
+        }
     }
 
     &.segmented-sm {
         border-radius: 4px;
+
+        .segmented-item-label {
+            min-height: 20px;
+            line-height: 20px;
+            padding: 0 7px;
+        }
+    }
+
+    .segmented-item-label {
+        min-height: 28px;
+        line-height: 28px;
+        padding: 0 11px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 
     .segmented-group {
@@ -37,6 +59,7 @@
             cursor: pointer;
             transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
             border-radius: 4px;
+            flex: 1;
 
             &.segmented-item-selected {
                 background-color: #fff;
@@ -89,15 +112,6 @@
                 height: 0;
                 opacity: 0;
                 pointer-events: none;
-            }
-
-            .segmented-item-label {
-                min-height: 28px;
-                line-height: 28px;
-                padding: 0 11px;
-                overflow: hidden;
-                white-space: nowrap;
-                text-overflow: ellipsis;
             }
         }
     }

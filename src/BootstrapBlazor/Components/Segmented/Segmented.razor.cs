@@ -74,31 +74,39 @@ public partial class Segmented
         base.OnInitialized();
         if (string.IsNullOrEmpty(Value))
         {
+            SetActive(Items);
             var item = Items.First();
+            item.Active = !item.Active;
             Value = item.Value;
             CurrentItem = item;
         }
         else
         {
+            SetActive(Items);
             var item = Items.First(s => s.Value == Value);
-            foreach (var value in Items)
+            if (item != null)
             {
-                value.Active = false;
+                item.Active = !item.Active;
+                CurrentItem = item;
             }
-            item.Active = !item.Active;
-            CurrentItem = item;
         }
     }
 
     private async Task OnClick(SegmentedItem item)
     {
-        CurrentItem.Active = !CurrentItem.Active;
         item.Active = !item.Active;
         Value = item.Value;
-        CurrentItem = item;
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);
+        }
+    }
+
+    private void SetActive(IEnumerable<SegmentedItem> items)
+    {
+        foreach (var item in items)
+        {
+            item.Active = false;
         }
     }
 }
