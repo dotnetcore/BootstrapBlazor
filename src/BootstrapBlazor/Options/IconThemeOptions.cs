@@ -76,8 +76,8 @@ public class IconThemeOptions
         { ComponentIcons.MenuLinkArrowIcon, "fa-solid fa-angle-left" },
 
         { ComponentIcons.ResultDialogYesIcon, "fa-solid fa-check" },
-        { ComponentIcons.ResultDialogNoIcon, "fa-regular fa-circle-xmark" },
-        { ComponentIcons.ResultDialogCloseIcon, "fa-regular fa-circle-xmark" },
+        { ComponentIcons.ResultDialogNoIcon, "fa-solid fa-xmark" },
+        { ComponentIcons.ResultDialogCloseIcon, "fa-solid fa-xmark" },
 
         { ComponentIcons.SearchDialogClearIcon, "fa-regular fa-trash-can" },
         { ComponentIcons.SearchDialogSearchIcon, "fa-solid fa-magnifying-glass" },
@@ -173,6 +173,7 @@ public class IconThemeOptions
         { ComponentIcons.TableCancelButtonIcon, "fa-solid fa-xmark" },
         { ComponentIcons.TableSaveButtonIcon, "fa-solid fa-floppy-disk" },
         { ComponentIcons.TableAdvanceButtonIcon, "fa-solid fa-magnifying-glass-plus" },
+        { ComponentIcons.TableAdvancedSortButtonIcon, "fa-solid fa-arrow-up-a-z" },
 
         { ComponentIcons.TableTreeIcon, "fa-solid fa-caret-right" },
         { ComponentIcons.TableTreeExpandIcon, "fa-solid fa-caret-right fa-rotate-90" },

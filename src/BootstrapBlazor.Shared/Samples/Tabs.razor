@@ -46,6 +46,27 @@ public Tab? TabSet { get; set; }
 [NotNull]
 public TabItem? TabItem { get; set; }</Pre>
 
+<ul class="ul-demo mt-3">
+    <li>@((MarkupString)Localizer["TabsQA3"].Value)</li>
+    <li>@((MarkupString)Localizer["TabsQA4"].Value)</li>
+</ul>
+
+<Pre class="mb-3">&lt;TabLink Text="TabItem-Text" Url="/url" Icon="fa-solid fa-font-awesome">Link&lt;/TabLink&gt;</Pre>
+
+<Pre>[Inject]
+[NotNull]
+private IServiceProvider? ServiceProvider { get; set; }
+
+[Inject]
+[NotNull]
+private NavigationManager? NavigationManager { get; set; }
+
+private void Navigation()
+{
+    NavigationManager.NavigateTo(ServiceProvider, url: "url", text: "text", icon: "icon", closable: true);
+}
+</Pre>
+
 <DemoBlock Title="@Localizer["TabsNormalTitle"]"
            Introduction="@Localizer["TabsNormalIntro"]"
            Name="Normal">

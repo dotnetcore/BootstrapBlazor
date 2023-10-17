@@ -30,13 +30,13 @@
                     <div class="btn-group">
                         @if (ShowZoomButton)
                         {
-                            <button type="button" class="btn btn-sm btn-secondary btn-zoom" disabled="@GetDiabledString(item)" @onclick="() => OnClickZoom(item)" aria-label="zoom">
+                            <button type="button" class="btn btn-sm btn-secondary btn-zoom" disabled="@GetDisabledString(item)" @onclick="() => OnClickZoom(item)" aria-label="zoom">
                                 <i class="@ZoomIcon"></i>
                             </button>
                         }
                         @if (ShowDownloadButton)
                         {
-                            <button type="button" class="btn btn-sm btn-secondary btn-download" disabled="@GetDiabledString(item)" @onclick="() => OnClickDownload(item)" aria-label="download">
+                            <button type="button" class="btn btn-sm btn-secondary btn-download" disabled="@GetDisabledString(item)" @onclick="() => OnClickDownload(item)" aria-label="download">
                                 <i class="@DownloadIcon"></i>
                             </button>
                         }
@@ -44,7 +44,7 @@
                     @if (ShowDeletedButton)
                     {
                         <DynamicElement TagName="button" type="button" class="btn btn-sm btn-outline-danger"
-                                        disabled="@GetDeleteButtonDiabledString(item)" aria-label="delete"
+                                        disabled="@GetDeleteButtonDisabledString(item)" aria-label="delete"
                                         TriggerClick="@(!IsDisabled)" OnClick="@(() => OnCardFileDelete(item))">
                             <i class="@RemoveIcon"></i>
                         </DynamicElement>

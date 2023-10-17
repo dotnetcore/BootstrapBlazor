@@ -1,0 +1,33 @@
+﻿.stack-demo {
+    border: 2px solid var(--bs-info);
+    height: 400px;
+    border-radius: var(--bs-border-radius);
+    padding: 1rem;
+    margin-top: 1rem;
+    background-color: #e9ecef;
+}
+
+::deep .bb_stack {
+    height: 100%;
+}
+
+::deep .input-group-text {
+    width: 120px;
+}
+
+::deep .bb_stack_item:nth-child(1) {
+    background-color: var(--bs-primary);
+}
+
+::deep .bb_stack_item:nth-child(2) {
+    background-color: var(--bs-success);
+}
+
+::deep .bb_stack_item:nth-child(3) {
+    background-color: var(--bs-danger);
+}
+
+.stack-item-demo {
+    padding: .5rem;
+    margin: .5rem;
+}

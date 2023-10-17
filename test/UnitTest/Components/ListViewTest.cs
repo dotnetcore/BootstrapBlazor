@@ -17,7 +17,7 @@ public class ListViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task ListView_Ok()
+    public void ListView_Ok()
     {
         var clicked = false;
         var items = Enumerable.Range(1, 6).Select(i => new Product()
@@ -43,21 +43,21 @@ public class ListViewTest : BootstrapBlazorTestBase
         cut.Contains("images/Pic1.jpg");
 
         var item = cut.Find(".listview-item");
-        await cut.InvokeAsync(() => item.Click());
-        Assert.True(clicked);
+        cut.InvokeAsync(() => item.Click());
+        cut.WaitForAssertion(() => Assert.True(clicked));
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.GroupName, p => p.Category);
             pb.Add(a => a.IsVertical, true);
         });
-        cut.Contains("Group1");
+        cut.WaitForAssertion(() => cut.Contains("Group1"));
         cut.Contains("is-vertical");
 
         clicked = false;
         item = cut.Find(".listview-item");
-        await cut.InvokeAsync(() => item.Click());
-        Assert.True(clicked);
+        cut.InvokeAsync(() => item.Click());
+        cut.WaitForAssertion(() => Assert.True(clicked));
     }
 
     [Fact]

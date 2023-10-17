@@ -1954,6 +1954,8 @@
     "TabsQATitle": "Q&A",
     "TabsQA1": "Get <code>TabSet</code> by cascading parameter",
     "TabsQA2": "Get <code>TabItem</code> by cascading parameter",
+    "TabsQA3": "How to navigate to a new tab item in <code>razor</code>",
+    "TabsQA4": "How to navigate to a new tab in the code",
     "TabItem1Text": "User",
     "TabItem1Content": "I am a user manager",
     "TabItem2Text": "Menu",
@@ -2707,7 +2709,9 @@
     "InputGroupsDateTimePickerIntro": "Add <code>DateTimePicker</code> or <code>DateTimeRange</code> to the <code>InputGroup</code>",
     "InputGroupsDropdownTitle": "Dropdown",
     "InputGroupsDropdownIntro": "Add <code>Dropdown</code> to the <code>InputGroup</code>",
-    "InputGroupsStatusText1": "CheckboxItem"
+    "InputGroupsStatusText1": "CheckboxItem",
+    "InputGroupsSwitchTitle": "Switch",
+    "InputGroupsSwitchIntro": "Add <code>Switch</code> to the <code>InputGroup</code>"
   },
   "BootstrapBlazor.Shared.Samples.Markdowns": {
     "MarkdownsTitle": "Markdown",
@@ -3619,7 +3623,9 @@
     "Images": "Images collection",
     "IsFade": "Whether to fade in and out",
     "Width": "Set the width of the picture",
-    "OnClick": "Click on the image to call back the delegate"
+    "OnClick": "Click on the image to call back the delegate",
+    "HoverPause": "If set to true, pauses the cycling of the carousel on mouseenter and resumes the cycling of the carousel on mouseleave. If set to false, hovering over the carousel won’t pause it",
+    "PlayMode": "autoplay the carousel mode"
   },
   "BootstrapBlazor.Shared.Samples.Client": {
     "Title": "Get client connection information",
@@ -3757,7 +3763,9 @@
     "Collection": "Collection",
     "Arr": "Array",
     "FormatStringSettingText": "Set up",
-    "FormatStringP": "The <code>Display</code> component binding <code>byte[]</code> array, formatted as an example of <code>base64</code> encoded string"
+    "FormatStringP": "The <code>Display</code> component binding <code>byte[]</code> array, formatted as an example of <code>base64</code> encoded string",
+    "ShowTipsTitle": "Show Tooltip",
+    "ShowTipIntro": "Wrapper with <code>Tooltip</code> component for show tooltip title"
   },
   "BootstrapBlazor.Shared.Samples.DropdownWidgets": {
     "Title": "DropdownWidget",
@@ -4515,7 +4523,8 @@
     "WebSerial": "Web Serial",
     "MindMap": "Mind Map",
     "WebSpeech": "Web Speech",
-    "Marquee": "Marquee"
+    "Marquee": "Marquee",
+    "Stack": "Stack"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -4728,6 +4737,7 @@
     "SortableAttr": "Sort or not",
     "DefaultSortAttr": "Is the default sort sequence",
     "DefaultSortOrderAttr": "Default collation",
+    "ShowAdvancedSortAttr": "Whether to show the Advanced Sort button",
     "TextAttr": "Header Displays Text",
     "TextEllipsisAttr": "Whether to omit text when exceeded",
     "TemplateAttr": "Template",
@@ -5279,6 +5289,8 @@
     "OnSortTitle": "Dynamic multi-column sorting",
     "OnSortIntro": "Set <code>OnSort</code> Parameters",
     "OnSortP": "When clicking the column header to sort, the component calls the<code> OnSort </code>callback internally, where its return value can be set according to the business logic to achieve dynamic multi-column sorting, in this case, when clicking the <b>time</b> column header for positive order sorting, use <code>DateTime,Count</code>  internally, use<code>DateTime desc, Count desc</code>when Count reverse order",
+    "OnAdvancedSortTitle": "Custom sort",
+    "OnAdvancedSortIntro": "By setting <code>ShowAdvancedSort=\"true\"</code> to show the <b>Advanced Sort</b> button.",
     "SetFilterInCodeTitle": "Set filters by code",
     "SetFilterInCodeIntro": "Example shows how to set filters through code",
     "SetFilterInCodeButtonText1": "Name contains 01",
@@ -5908,5 +5920,26 @@
     "MarqueeTitle": "Usage",
     "MarqueeIntro": "Adjusting the text scrolling effect through parameters",
     "MarqueeDescription": "Marquee component"
+  },
+  "BootstrapBlazor.Shared.Samples.Stacks": {
+    "Title": "Stack Layout",
+    "BasicTitle": "Basic",
+    "BasicIntroe": "Lets you arrange its subcomponents in a horizontal or vertical stack",
+    "RowMode": "Row",
+    "ColumnMode": "Column",
+    "Mode": "mode",
+    "Justify": "justify-content",
+    "AlignItems": "align-items",
+    "IsWrap": "wrap",
+    "IsReverse": "reverse",
+    "AlignSelf": "align-self",
+    "StackItemGrowShrinkDesc": "<code>StackItem</code> 子项还有两个控制方式:",
+    "StackItemGrowShrinkLi": "<li>Use <code>.flex-grow-*</code> utilities to toggle a flex item’s ability to grow to fill available space. In the example below, the <code>.flex-grow-1</code> elements uses all available space it can, while allowing the remaining two flex items their necessary space.</li><li>Use <code>.flex-shrink-*</code> utilities to toggle a flex item’s ability to shrink if necessary. In the example below, the second flex item with <code>.flex-shrink-1</code> is forced to wrap its contents to a new line, “shrinking” to allow more space for the previous flex item with <code>.w-100</code>.</li>",
+    "AttrIsRow": "Flex direction",
+    "AttrIsWrap": "Change how flex items wrap in a flex container",
+    "AttrIsReverse": "Start the horizontal or vertical direction from the opposite side.",
+    "AttrJustify": "Change the alignment of flex items on the main axis",
+    "AttrAlignItems": "Change the alignment of flex items on the cross axis",
+    "AttrChildContent": "Child content render fragment"
   }
 }

@@ -11,6 +11,8 @@ public partial class Displays
 {
     private IEnumerable<int> IntValue { get; set; } = new[] { 1, 2, 3 };
 
+    private string DisplayValue => "Text1; Text2; Text3; Text4; Text5;";
+
     private IEnumerable<SelectedItem> IntValueSource { get; set; } = new[]
     {
         new SelectedItem("1", "Text1"),

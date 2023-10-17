@@ -1954,6 +1954,8 @@
     "TabsQATitle": "常见问题",
     "TabsQA1": "通过级联参数获得当前 <code>TabSet</code>",
     "TabsQA2": "通过级联参数获得当前 <code>TabItem</code>",
+    "TabsQA3": "网页中点击链接如何跳转到新标签页 <code>TabItem</code>",
+    "TabsQA4": "代码中如何导航到新标签页 <code>TabItem</code>",
     "TabItem1Text": "用户管理",
     "TabItem1Content": "我是用户管理",
     "TabItem2Text": "菜单管理",
@@ -2707,7 +2709,9 @@
     "InputGroupsDateTimePickerIntro": "往 <code>InputGroup</code> 里面增加 <code>DateTimePicker</code> 或者 <code>DateTimeRange</code>",
     "InputGroupsDropdownTitle": "Dropdown 组合",
     "InputGroupsDropdownIntro": "往 <code>InputGroup</code> 里面增加 <code>Dropdown</code>",
-    "InputGroupsStatusText1": "复选项目"
+    "InputGroupsStatusText1": "复选项目",
+    "InputGroupsSwitchTitle": "Switch 组合",
+    "InputGroupsSwitchIntro": "往 <code>InputGroup</code> 里面增加 <code>Switch</code>"
   },
   "BootstrapBlazor.Shared.Samples.Markdowns": {
     "MarkdownsTitle": "Markdown 编辑器",
@@ -3619,7 +3623,9 @@
     "Images": "Images 集合",
     "IsFade": "是否淡入淡出",
     "Width": "设置图片宽度",
-    "OnClick": "点击图片回调委托"
+    "OnClick": "点击图片回调委托",
+    "HoverPause": "鼠标悬停时是否暂停播放",
+    "PlayMode": "自动播放模式"
   },
   "BootstrapBlazor.Shared.Samples.Client": {
     "Title": "获取客户端连接信息",
@@ -3757,7 +3763,9 @@
     "Collection": "集合",
     "Arr": "数组",
     "FormatStringSettingText": "设置",
-    "FormatStringP": "<code>Display</code> 组件绑定 <code>byte[]</code> 数组，格式化成 <code>base64</code> 编码字符串示例"
+    "FormatStringP": "<code>Display</code> 组件绑定 <code>byte[]</code> 数组，格式化成 <code>base64</code> 编码字符串示例",
+    "ShowTipsTitle": "显示 Tooltip",
+    "ShowTipIntro": "组件包裹 <code>Tooltip</code> 后内置 <code>BootstrapInputGroup</code> 组件使用"
   },
   "BootstrapBlazor.Shared.Samples.DropdownWidgets": {
     "Title": "DropdownWidget 下拉挂件",
@@ -4515,7 +4523,8 @@
     "WebSerial": "串口读写 WebSerial",
     "MindMap": "思维导图 MindMap",
     "WebSpeech": "语音识别/合成 WebSpeech",
-    "Marquee": "文字滚动 Marquee"
+    "Marquee": "文字滚动 Marquee",
+    "Stack": "堆叠布局 Stack"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -4728,6 +4737,7 @@
     "SortableAttr": "是否排序",
     "DefaultSortAttr": "是否为默认排序列",
     "DefaultSortOrderAttr": "默认排序规则",
+    "ShowAdvancedSortAttr": "是否显示高级排序按钮",
     "TextAttr": "表头显示文字",
     "TextEllipsisAttr": "是否文本超出时省略",
     "TemplateAttr": "模板",
@@ -5279,6 +5289,8 @@
     "OnSortTitle": "动态多列排序",
     "OnSortIntro": "设置 <code>OnSort</code> 参数",
     "OnSortP": "点击列头进行排序时，组件内部调用 <code>OnSort</code> 回调，可以在此处根据业务逻辑设置其返回值即可实现动态多列排序功能，本例中点击 <b>时间</b> 列头进行正序排序时，内部使用 <code>DateTime, Count</code> 倒序时使用 <code>DateTime desc, Count desc</code>",
+    "OnAdvancedSortTitle": "自定义排序",
+    "OnAdvancedSortIntro": "通过设置 <code>ShowAdvancedSort=\"true\"</code> 显示 <b>高级排序</b> 按钮，通过自定义条件进行多列排序操作",
     "SetFilterInCodeTitle": "通过代码设置过滤条件",
     "SetFilterInCodeIntro": "示例展示如何通过代码设置过滤条件",
     "SetFilterInCodeButtonText1": "名称包含01",
@@ -5908,5 +5920,26 @@
     "MarqueeTitle": "基本用法",
     "MarqueeIntro": "通过参数调节文字滚动效果",
     "MarqueeDescription": "文字滚动组件"
+  },
+  "BootstrapBlazor.Shared.Samples.Stacks": {
+    "Title": "Stack 布局",
+    "BasicTitle": "普通用法",
+    "BasicIntroe": "可用于在水平或垂直堆栈中排列其子组件",
+    "RowMode": "行布局",
+    "ColumnMode": "列布局",
+    "Mode": "布局类型",
+    "Justify": "水平对齐方式",
+    "AlignItems": "垂直对齐方式",
+    "IsWrap": "是否折行",
+    "IsReverse": "是否反转",
+    "AlignSelf": "子项对齐方式",
+    "StackItemGrowShrinkDesc": "<code>StackItem</code> 子项还有两个控制方式:",
+    "StackItemGrowShrinkLi": "<li><b>Grow</b> 是否尽可能多的占用剩余空间 <code>flex-grow-0</code> <code>flex-grow-1</code></li><li><b>Shrink</b> 是否尽可能的把空间让给前面兄弟元素 <code>flex-shrink-0</code> <code>flex-shrink-1</code></li>",
+    "AttrIsRow": "是否为行布局",
+    "AttrIsWrap": "是否允许折行",
+    "AttrIsReverse": "是否反向布局",
+    "AttrJustify": "水平布局调整",
+    "AttrAlignItems": "垂直布局模式",
+    "AttrChildContent": "内容模板"
   }
 }

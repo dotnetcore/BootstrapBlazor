@@ -88,8 +88,8 @@ public partial class Table<TItem>
 
         SortName = col.GetFieldName();
 
-        //清除高级排序 (保证点击Header排序的优先级最高)
-        AdvancedSortItems.Clear(); //S_ADD:
+        // 清除高级排序 (保证点击 Header 排序的优先级最高)
+        AdvancedSortItems.Clear();
 
         // 通知 Table 组件刷新数据
         await InternalOnSortAsync(SortName, SortOrder);
@@ -423,20 +423,19 @@ public partial class Table<TItem>
         .AddClass(SortIconDesc, SortName == fieldName && SortOrder == SortOrder.Desc)
         .Build();
 
-    //S_ADD:高级排序相关
-    #region AdvancedSort
+    #region Advanced Sort
     /// <summary>
     /// 获得 高级排序样式
     /// </summary>
     protected string? AdvancedSortClass => CssBuilder.Default("btn btn-secondary")
-        .AddClass("btn-info", AdvancedSortItems.Any)
+        .AddClass("btn-info", AdvancedSortItems.Any())
         .Build();
 
     /// <summary>
     /// 获得/设置 是否显示高级排序按钮 默认 false 不显示 />
     /// </summary>
     [Parameter]
-    public bool ShowAdvancedSort { get; set; } = false;
+    public bool ShowAdvancedSort { get; set; }
 
     /// <summary>
     /// 获得/设置 高级排序按钮图标
@@ -460,30 +459,30 @@ public partial class Table<TItem>
     /// 获得/设置 高级排序框是否显示最大化按钮 默认 false 不显示
     /// </summary>
     [Parameter]
-    public bool AdvancedSortDialogShowMaximizeButton { get; set; } = false;
+    public bool AdvancedSortDialogShowMaximizeButton { get; set; }
 
     /// <summary>
-    /// 获得/设置 高级排序，默认为 empty
+    /// 获得/设置 高级排序，默认为 Empty
     /// </summary>
     [Parameter]
-    public List<SortItem> AdvancedSortItems { get; set; } = new();
+    public List<TableSortItem> AdvancedSortItems { get; set; } = new();
 
     /// <summary>
     /// 高级排序按钮点击时调用此方法
     /// </summary>
     private async Task ShowSortDialog()
     {
-        var result = await DialogService.ShowModal<AdvancedSort>(new ResultDialogOption
+        var result = await DialogService.ShowModal<TableAdvancedSortDialog>(new ResultDialogOption
         {
             Title = AdvancedSortModalTitle,
             Size = AdvancedSortDialogSize,
-            IsDraggable=AdvancedSortDialogIsDraggable,
+            IsDraggable = AdvancedSortDialogIsDraggable,
             ShowMaximizeButton = AdvancedSortDialogShowMaximizeButton,
-            ComponentParamters = new Dictionary<string, object>
+            ComponentParameters = new Dictionary<string, object>
             {
-                [nameof(AdvancedSort.Value)] = AdvancedSortItems,
-                [nameof(AdvancedSort.ValueChanged)] = EventCallback.Factory.Create<List<SortItem>>(this, v => AdvancedSortItems = v),
-                [nameof(AdvancedSort.SortableFields)] = Columns.Where(p => p.Sortable).Select(p => new SelectedItem(p.GetFieldName(), p.GetDisplayName()))
+                [nameof(TableAdvancedSortDialog.Value)] = AdvancedSortItems,
+                [nameof(TableAdvancedSortDialog.ValueChanged)] = EventCallback.Factory.Create<List<TableSortItem>>(this, v => AdvancedSortItems = v),
+                [nameof(TableAdvancedSortDialog.Items)] = Columns.Where(p => p.Sortable).Select(p => new SelectedItem(p.GetFieldName(), p.GetDisplayName()))
             }
         });
         if (result == DialogResult.Yes)
@@ -496,21 +495,6 @@ public partial class Table<TItem>
     /// 获得 <see cref="AdvancedSortItems"/> 中过滤条件
     /// </summary>
     /// <returns></returns>
-    protected List<string> GetAdvancedSortList() => ShowAdvancedSort ? AdvancedSortItems.Select(p => $"{p.SortName} {p.SortOrder}").ToList() : new();
+    protected IEnumerable<string> GetAdvancedSortList() => ShowAdvancedSort ? AdvancedSortItems.Select(p => p.ToString()) : Enumerable.Empty<string>();
     #endregion
-}
-
-/// <summary>
-/// 排序项 (高级排序使用)
-/// </summary>
-public class SortItem
-{
-    /// <summary>
-    /// 排序字段名
-    /// </summary>
-    public string SortName { get; set; } = string.Empty;
-    /// <summary>
-    /// 排序顺序
-    /// </summary>
-    public string SortOrder { get; set; } = string.Empty;
 }
