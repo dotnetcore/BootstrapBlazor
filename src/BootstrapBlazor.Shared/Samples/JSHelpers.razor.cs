@@ -4,30 +4,34 @@
 
 namespace BootstrapBlazor.Shared.Samples;
 
+/// <summary>
+/// JSHelpers demo
+/// </summary>
 public partial class JSHelpers
 {
     #region RunJSWithEval Demo
 
-    private string? evalJSContent { get; set; } = "alert('Hello BootstrapBlazor')";
+    private string evalJSContent { get; set; } = "`浏览器窗口的宽度：${window.innerWidth} 像素;浏览器窗口的高度：${window.innerHeight} 像素`;";
 
     private string? evalJSResult { get; set; }
 
-    private async Task RunJSWithEvalDemo()
-    {
-        if (!string.IsNullOrEmpty(evalJSContent))
-        {
-            var res = await JSHelper.RunJSWithEval<object>(evalJSContent);
-            if (res is not null)
-            {
-                evalJSResult = res.ToString();
-            }
-            else
-            {
-                evalJSResult = string.Empty;
-            }
-        }
-    }
+    private async Task RunJSWithEvalDemo() => evalJSResult = (await JSHelper.RunJSWithEval<object>(evalJSContent))?.ToString();
 
+    #endregion
+
+    #region RunJSWithFunction Demo
+    private string funcJSContent { get; set; } = """
+                                                 function getRandomInt(min, max) {
+                                                  min = Math.ceil(min);
+                                                  max = Math.floor(max);
+                                                  return Math.floor(Math.random() * (max - min + 1) + min);
+                                                 }
+                                                 return "随机值：" + getRandomInt(1, 100);
+                                                 """;
+
+    private string? funcJSResult { get; set; }
+
+    private async Task RunJSWithFuncDemo() => funcJSResult = (await JSHelper.RunJSWithFunction<object>(funcJSContent))?.ToString();
     #endregion
 
     #region JS Alert Demo
@@ -44,14 +48,7 @@ public partial class JSHelpers
 
     private string? jsPromptResult { get; set; }
 
-    private async Task RunJSPrompt()
-    {
-        var res= await JSHelper.Prompt<object>(jsPromptContent);
-        if(res is not null)
-        {
-            jsPromptResult = res.ToString();
-        }
-    }
+    private async Task RunJSPrompt() => jsPromptResult = (await JSHelper.Prompt<object>(jsPromptContent, 100))?.ToString();
 
     #endregion
 

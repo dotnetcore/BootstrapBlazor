@@ -124,6 +124,6 @@ export function doAlert(text) {
     alert(text);
 }
 
-export function doPrompt(title) {
-    return prompt(title);
+export function doPrompt(title, defaultValue) {
+    return prompt(title, defaultValue);
 }

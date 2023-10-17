@@ -19,7 +19,7 @@ partial class BootstrapBlazorJSHelper : IBootstrapBlazorJSHelper, IJSRuntimeEven
     [NotNull]
     private DotNetObjectReference<BootstrapBlazorJSHelper>? Interop { get; }
 
-    private List<string> guidList { get; } = new List<string>();
+    private List<string> guidList { get; } = [];
 
     /// <summary>
     /// 构造函数
@@ -222,7 +222,8 @@ partial class BootstrapBlazorJSHelper : IBootstrapBlazorJSHelper, IJSRuntimeEven
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="title"></param>
+    /// <param name="defaultValue"></param>
     /// <returns></returns>
-    public ValueTask<T?> Prompt<T>(string title) => InvokeAsync<T>("doPrompt", title);
+    public ValueTask<T?> Prompt<T>(string title, T? defaultValue = default) => InvokeAsync<T>("doPrompt", title, defaultValue);
 
 }

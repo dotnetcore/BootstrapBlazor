@@ -145,9 +145,10 @@ public interface IBootstrapBlazorJSHelper : IAsyncDisposable
     /// <summary>
     /// JS Prompt输入框
     /// </summary>
-    /// <param name="title"></param>
+    /// <param name="title">title</param>
+    /// <param name="defaultValue">defaultValue</param>
     /// <returns></returns>
-    ValueTask<T?> Prompt<T>(string title);
+    ValueTask<T?> Prompt<T>(string title, T? defaultValue = default);
 
     #region Event
     /// <summary>
