@@ -4524,7 +4524,7 @@
     "MindMap": "Mind Map",
     "WebSpeech": "Web Speech",
     "Marquee": "Marquee",
-    "Stack": "Stack"
+    "Stack": "Stack",
     "Segmented": "Segmented"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
