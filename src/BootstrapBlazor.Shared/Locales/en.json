@@ -4519,7 +4519,8 @@
     "WebSerial": "Web Serial",
     "MindMap": "Mind Map",
     "WebSpeech": "Web Speech",
-    "Marquee": "Marquee"
+    "Marquee": "Marquee",
+    "Segmented": "Segmented"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",

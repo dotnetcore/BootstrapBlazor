@@ -4519,7 +4519,8 @@
     "WebSerial": "串口读写 WebSerial",
     "MindMap": "思维导图 MindMap",
     "WebSpeech": "语音识别/合成 WebSpeech",
-    "Marquee": "文字滚动 Marquee"
+    "Marquee": "文字滚动 Marquee",
+    "Segmented": "Segmented 分段控制器"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",

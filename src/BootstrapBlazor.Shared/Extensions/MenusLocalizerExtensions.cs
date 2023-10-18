@@ -646,6 +646,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["Segmented"],
+                    Url = "segmented"
+                },
+                new()
+                {
                     Text = Localizer["Tag"],
                     Url = "tag"
                 },
