@@ -1,34 +1,33 @@
 ﻿@page "/segmented"
+@inject IStringLocalizer<Segmenteds> Localizer
 
+<h3>@Localizer["Title"]</h3>
 
-<h3>Segmented 分段控制器</h3>
-
-<h4>何时使用</h4>
+<h4>@Localizer["SubTitle"]</h4>
 
 <ul>
-    <li>用于展示多个选项并允许用户选择其中单个选项；</li>
-    <li>当切换选中选项时，关联区域的内容会发生变化。</li>
+    <li>@Localizer["Description1"]</li>
+    <li>@Localizer["Description2"]</li>
 </ul>
 
-
-<DemoBlock Title="基本" Introduction="最简单的用法。">
+<DemoBlock Title="@Localizer["BasicTitle"]" Introduction="@Localizer["BasicIntro"]">
     <Segmented Items="@Items" @bind-Value="@Value"></Segmented>
 </DemoBlock>
 
-<DemoBlock Title="受控模式" Introduction="受控的 Segmented。">
+<DemoBlock Title="@Localizer["ControlledTitle"]" Introduction="@Localizer["ControlledIntro"]">
     <Segmented Items="@Items" Value="@Value1" ValueChanged="ValueChanged"></Segmented>
     <ConsoleLogger @ref="ConsoleLogger" class="mt-3"></ConsoleLogger>
 </DemoBlock>
 
-<DemoBlock Title="Block 分段选择器" Introduction="block 属性使其适合父元素宽度">
+<DemoBlock Title="@Localizer["BlockTitle"]" Introduction="@Localizer["BlockIntro"]">
     <Segmented IsBlock="true" Items="@LongTextItems" Value="@BlockValue"></Segmented>
 </DemoBlock>
 
-<DemoBlock Title="不可用" Introduction="Segmented 不可用。">
+<DemoBlock Title="@Localizer["DisableTitle"]" Introduction="@Localizer["DisableIntro"]">
     <Segmented Items="@DisableItems" Value="@DisableValue"></Segmented>
 </DemoBlock>
 
-<DemoBlock Title="自定义渲染" Introduction="使用 RenderFragment 自定义渲染每一个 Segmented Item">
+<DemoBlock Title="@Localizer["CustomRenderTitle"]" Introduction="@Localizer["CustomRenderIntro"]">
     <Segmented Items="@Items">
         <DisplayItemTemplate>
             <div style="padding:4px">
@@ -38,13 +37,22 @@
     </Segmented>
 </DemoBlock>
 
-<DemoBlock Title="设置图标" Introduction="给 Segmented Item 设置 Icon。">
+<DemoBlock Title="@Localizer["IconTitle"]" Introduction="@Localizer["IconIntro"]">
     <Segmented Items="@IconItems"></Segmented>
 </DemoBlock>
 
-<DemoBlock Title="大小" Introduction="我们为 <Segmented /> 组件定义了三种尺寸（大、默认、小），高度分别为 40px、32px 和 24px。">
-    <Segmented Items="@Items" @bind-Value="@Value2" Size="Size.Large" IsBlock="true"></Segmented>
-    <Segmented Items="@Items" @bind-Value="@Value3" class="mt-3" IsBlock="true"></Segmented>
-    <Segmented Items="@Items" @bind-Value="@Value4" class="mt-3" Size="Size.Small" IsBlock="true"></Segmented>
+<DemoBlock Title="@Localizer["SizeTitle"]" Introduction="@Localizer["SizeIntro"]">
+    <div class="row g-3">
+        <div class="col-12">
+            <Segmented Items="@Items" @bind-Value="@Value2" Size="Size.Large"></Segmented>
+        </div>
+        <div class="row-12">
+            <Segmented Items="@Items" @bind-Value="@Value3" class="mt-3"></Segmented>
+        </div>
+        <div class="row-12">
+            <Segmented Items="@Items" @bind-Value="@Value4" class="mt-3" Size="Size.Small"></Segmented>
+        </div>
+    </div>
 </DemoBlock>
 
+<AttributeTable Items="@GetAttributes()" />

@@ -26,47 +26,47 @@ public partial class Segmented
     private SegmentedItem? CurrentItem { get; set; }
 
     /// <summary>
-    /// 
+    /// Get or Set up a data source
     /// </summary>
     [Parameter]
     [NotNull]
     public IEnumerable<SegmentedItem>? Items { get; set; }
 
     /// <summary>
-    /// 
+    /// Get or Set Value
     /// </summary>
     [Parameter]
     [NotNull]
     public string? Value { get; set; }
 
     /// <summary>
-    /// 
+    ///  Get or Set ValueChanged Event
     /// </summary>
     [Parameter]
     public EventCallback<string> ValueChanged { get; set; }
 
     /// <summary>
-    /// 
+    /// Get or Set OnValueChanged Event
     /// </summary>
     [Parameter]
     public Func<string, Task>? OnValueChanged { get; set; }
 
     /// <summary>
-    /// 
+    /// Get or Set IsBlock Property
     /// </summary>
     [Parameter]
     [NotNull]
     public bool IsBlock { get; set; }
 
     /// <summary>
-    /// 
+    /// Get or Set Size Property
     /// </summary>
     [Parameter]
     [NotNull]
     public Size Size { get; set; }
 
     /// <summary>
-    /// 
+    /// Get or Set DisplayItemTemplate
     /// </summary>
     [Parameter]
     [NotNull]
