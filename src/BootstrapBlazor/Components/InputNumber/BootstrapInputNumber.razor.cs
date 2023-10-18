@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Extensions;
 using Microsoft.Extensions.Localization;
 using System.Globalization;
 
@@ -90,6 +91,10 @@ public partial class BootstrapInputNumber<TValue>
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IOptions<BootstrapBlazorOptions>? StepOption { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -155,6 +160,8 @@ public partial class BootstrapInputNumber<TValue>
                 StepString = Step;
                 break;
         }
+
+        StepString ??= StepOption.Value.GetStep<TValue>();
     }
 
     /// <summary>

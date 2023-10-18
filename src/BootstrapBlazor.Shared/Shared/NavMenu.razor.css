@@ -39,7 +39,6 @@
         inset: 0px -2px;
         cursor: col-resize;
         background-color: transparent;
-        transition-delay: 0.1s;
     }
 
         .sidebar-bar .sidebar-body:hover {

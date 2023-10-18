@@ -34,7 +34,7 @@ export function init(id) {
             const moveX = eventX - originX
             const newWidth = width + moveX
             if (newWidth >= 250 && newWidth <= 380) {
-                section.style.setProperty('--bb-sidebar-width', `${width + moveX}px`)
+                section.style.setProperty('--bb-sidebar-width', `${newWidth}px`)
             }
         },
         e => {

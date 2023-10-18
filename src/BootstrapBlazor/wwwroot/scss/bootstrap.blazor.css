@@ -1890,7 +1890,6 @@ section > h2 {
   padding-left: 10px;
 }
 
-/*divider*/
 .divider {
   --bb-divider-bg: #dcdfe6;
   --bb-divider-margin: 1rem 0;
@@ -1950,10 +1949,6 @@ section > h2 {
   right: 0;
   transform: translateY(0);
   transform: translateX(50%);
-}
-
-.dropdown-menu .divider {
-  --bb-divider-margin: .25rem 0;
 }
 
 /*add this to avoid flickering*/
@@ -2058,12 +2053,10 @@ section > h2 {
   margin: 0;
   z-index: 1050;
 }
-
 .drawer.no-bd {
   pointer-events: none;
 }
-
-.drawer-backdrop {
+.drawer .drawer-backdrop {
   position: fixed;
   left: 0;
   right: 0;
@@ -2072,55 +2065,82 @@ section > h2 {
   z-index: 1;
   background-color: rgba(0, 0, 0, 0.5);
 }
-
-.drawer-body {
-  pointer-events: auto;
+.drawer .drawer-body {
   position: absolute;
   box-sizing: border-box;
   background-color: var(--bb-drawer-bg);
   box-shadow: var(--bb-drawer-body-shadow);
-  overflow: auto;
   transition: transform 0.3s linear;
   z-index: 2;
+  pointer-events: auto;
+  display: flex;
 }
-
-.drawer-body.left, .drawer-body.right {
+.drawer .drawer-body .drawer-content {
+  overflow: auto;
+  flex: 1;
+}
+.drawer .drawer-body.left, .drawer .drawer-body.right {
   top: 0;
   bottom: 0;
+  width: var(--bb-drawer-width);
 }
-
-.drawer-body.left {
+.drawer .drawer-body.left {
   left: 0;
   transform: translateX(-100%);
 }
-
-.drawer-body.right {
+.drawer .drawer-body.right {
   right: 0;
   transform: translateX(100%);
+  flex-direction: row-reverse;
 }
-
-.drawer-body.show {
+.drawer .drawer-body.show {
   transform: translateX(0);
 }
-
-.drawer-body.top, .drawer-body.bottom {
+.drawer .drawer-body.top, .drawer .drawer-body.bottom {
   left: 0;
   right: 0;
+  height: var(--bb-drawer-height);
 }
-
-.drawer-body.top {
+.drawer .drawer-body.top {
   top: 0;
   transform: translateY(-100%);
+  flex-direction: column;
 }
-
-.drawer-body.bottom {
+.drawer .drawer-body.bottom {
   bottom: 0;
   transform: translateY(100%);
+  flex-direction: column-reverse;
 }
-
-.drawer-body.top.show,
-.drawer-body.bottom.show {
+.drawer .drawer-body.top.show, .drawer .drawer-body.bottom.show {
   transform: translateY(0);
+}
+.drawer .drawer-body .drawer-bar {
+  background-color: rgb(208, 215, 222);
+  position: relative;
+}
+.drawer .drawer-body .drawer-bar .drawer-bar-body {
+  position: absolute;
+  inset: 0 -2px;
+  cursor: col-resize;
+  background-color: transparent;
+}
+.drawer .drawer-body .drawer-bar:hover {
+  background-color: #409eff;
+}
+.drawer .drawer-body .drawer-bar.drag .drawer-bar-body, .drawer .drawer-body .drawer-bar.drag:hover .drawer-bar-body {
+  background-color: #0969da;
+}
+.drawer .drawer-body.left .drawer-bar, .drawer .drawer-body.right .drawer-bar {
+  width: 2px;
+  height: 100%;
+}
+.drawer .drawer-body.top .drawer-bar, .drawer .drawer-body.bottom .drawer-bar {
+  height: 2px;
+  width: 100%;
+}
+.drawer .drawer-body.top .drawer-bar .drawer-bar-body, .drawer .drawer-body.bottom .drawer-bar .drawer-bar-body {
+  inset: -2px 0;
+  cursor: row-resize;
 }
 
 .widget .dropdown-toggle {
@@ -2538,6 +2558,7 @@ section > h2 {
 
 .input-group > .datetime-picker,
 .input-group > .select,
+.input-group > .switch,
 .input-group > .auto-complete {
   width: 1%;
   flex: 1 1 auto;
@@ -2548,8 +2569,14 @@ section > h2 {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+.input-group > .switch {
+  --bb-switch-padding: 7px .5rem;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+}
 .input-group > .datetime-picker:not(:last-child) .form-control,
 .input-group > .select:not(:last-child) .form-control,
+.input-group > .switch:not(:last-child),
 .input-group > .multi-select:not(:last-child) .dropdown-toggle,
 .input-group > [data-bs-toggle]:not(:last-child) > .form-control,
 .input-group > .auto-complete:not(:last-child) .form-control {
@@ -2558,6 +2585,7 @@ section > h2 {
 }
 .input-group > .datetime-picker:not(:first-child) .form-control,
 .input-group > .select:not(:first-child) .form-control,
+.input-group > .switch:not(:first-child),
 .input-group > .multi-select:not(:first-child) .dropdown-toggle,
 .input-group > [data-bs-toggle]:not(:first-child) > .form-control,
 .input-group > .auto-complete:not(:first-child) .form-control {
@@ -4054,8 +4082,6 @@ form [required]:before {
 .form-control {
   --bb-form-control-padding: 0.375rem 0.75rem;
   padding: var(--bb-form-control-padding);
-  border: 1px solid var(--bs-border-color);
-  border-radius: var(--bs-border-radius);
 }
 .form-control.is-display {
   overflow: hidden;
@@ -6037,7 +6063,7 @@ body:before {
 
 .table-wrapper th:last-child,
 .table-wrapper td:last-child,
-.table-wrapper .table-fixed-header th:nth-last-of-type(2) {
+.table-wrapper .table-fixed-header th:nth-last-of-type(2):not(.border-resize) {
   border-right-width: 0;
 }
 
@@ -6524,7 +6550,7 @@ tr.active:not(.is-edit):hover {
   position: relative;
 }
 
-.col-resizer:not(.last) {
+.col-resizer {
   width: 0.25rem;
   display: block;
   position: absolute;

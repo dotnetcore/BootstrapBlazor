@@ -1954,6 +1954,8 @@
     "TabsQATitle": "Q&A",
     "TabsQA1": "Get <code>TabSet</code> by cascading parameter",
     "TabsQA2": "Get <code>TabItem</code> by cascading parameter",
+    "TabsQA3": "How to navigate to a new tab item in <code>razor</code>",
+    "TabsQA4": "How to navigate to a new tab in the code",
     "TabItem1Text": "User",
     "TabItem1Content": "I am a user manager",
     "TabItem2Text": "Menu",
@@ -2707,7 +2709,9 @@
     "InputGroupsDateTimePickerIntro": "Add <code>DateTimePicker</code> or <code>DateTimeRange</code> to the <code>InputGroup</code>",
     "InputGroupsDropdownTitle": "Dropdown",
     "InputGroupsDropdownIntro": "Add <code>Dropdown</code> to the <code>InputGroup</code>",
-    "InputGroupsStatusText1": "CheckboxItem"
+    "InputGroupsStatusText1": "CheckboxItem",
+    "InputGroupsSwitchTitle": "Switch",
+    "InputGroupsSwitchIntro": "Add <code>Switch</code> to the <code>InputGroup</code>"
   },
   "BootstrapBlazor.Shared.Samples.Markdowns": {
     "MarkdownsTitle": "Markdown",
@@ -4520,6 +4524,7 @@
     "MindMap": "Mind Map",
     "WebSpeech": "Web Speech",
     "Marquee": "Marquee",
+    "Stack": "Stack"
     "Segmented": "Segmented"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
@@ -5917,6 +5922,26 @@
     "MarqueeIntro": "Adjusting the text scrolling effect through parameters",
     "MarqueeDescription": "Marquee component"
   },
+  "BootstrapBlazor.Shared.Samples.Stacks": {
+    "Title": "Stack Layout",
+    "BasicTitle": "Basic",
+    "BasicIntroe": "Lets you arrange its subcomponents in a horizontal or vertical stack",
+    "RowMode": "Row",
+    "ColumnMode": "Column",
+    "Mode": "mode",
+    "Justify": "justify-content",
+    "AlignItems": "align-items",
+    "IsWrap": "wrap",
+    "IsReverse": "reverse",
+    "AlignSelf": "align-self",
+    "StackItemGrowShrinkDesc": "<code>StackItem</code> 子项还有两个控制方式:",
+    "StackItemGrowShrinkLi": "<li>Use <code>.flex-grow-*</code> utilities to toggle a flex item’s ability to grow to fill available space. In the example below, the <code>.flex-grow-1</code> elements uses all available space it can, while allowing the remaining two flex items their necessary space.</li><li>Use <code>.flex-shrink-*</code> utilities to toggle a flex item’s ability to shrink if necessary. In the example below, the second flex item with <code>.flex-shrink-1</code> is forced to wrap its contents to a new line, “shrinking” to allow more space for the previous flex item with <code>.w-100</code>.</li>",
+    "AttrIsRow": "Flex direction",
+    "AttrIsWrap": "Change how flex items wrap in a flex container",
+    "AttrIsReverse": "Start the horizontal or vertical direction from the opposite side.",
+    "AttrJustify": "Change the alignment of flex items on the main axis",
+    "AttrAlignItems": "Change the alignment of flex items on the cross axis",
+    "AttrChildContent": "Child content render fragment"
   "BootstrapBlazor.Shared.Samples.Segmenteds": {
     "Title": "Segmented",
     "SubTitle": "When to use",

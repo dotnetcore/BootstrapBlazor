@@ -51,5 +51,18 @@ public class ZipArchiveServiceTest : BootstrapBlazorTestBase
         }
         archService.ExtractToDirectory(archiveFile, destFolder);
         Assert.True(Directory.Exists(destFolder));
+
+        // 打包文件夹
+        //stream = await archService.ArchiveDirectory(destFolder);
+        //Assert.NotNull(stream);
+
+        var destFile = Path.Combine(root, "folder.zip");
+        if (File.Exists(destFile))
+        {
+            File.Delete(destFile);
+        }
+        await archService.ArchiveDirectory(destFile, destFolder, includeBaseDirectory: true);
+        Assert.True(File.Exists(destFile));
+        File.Delete(destFile);
     }
 }
