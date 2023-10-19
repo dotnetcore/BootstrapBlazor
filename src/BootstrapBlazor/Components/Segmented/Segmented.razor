@@ -1,25 +1,34 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapModuleComponentBase
+@typeparam TValue
 
 <div @attributes="@AdditionalAttributes" class="@ClassString">
-    @foreach (var item in Items)
-    {
-        <div @key="item" class="@GetLabelClassString(item)">
-            @if (!string.IsNullOrEmpty(item.Icon))
-            {
-                <span class="segmented-item-icon">
-                    <i class="@item.Icon"></i>
-                </span>
-                <span>@item.Text</span>
-            }
-            else if (DisplayItemTemplate != null)
-            {
-                @DisplayItemTemplate(item)
-            }
-            else
-            {
-                @item.Text
-            }
-        </div>
-    }
+    <CascadingValue Value="_items" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
+    <RenderTemplate>
+        @foreach (var item in GetItems())
+        {
+            <div @key="item" class="@GetLabelClassString(item)" @onclick="() => OnClick(item)">
+                @if (!string.IsNullOrEmpty(item.Icon))
+                {
+                    <span class="segmented-item-icon">
+                        <i class="@item.Icon"></i>
+                    </span>
+                }
+                @if (item.ChildContent != null)
+                {
+                    @item.ChildContent
+                }
+                else if (ItemTemplate != null)
+                {
+                    @ItemTemplate(item)
+                }
+                else
+                {
+                    <span>@item.Text</span>
+                }
+            </div>
+        }
+    </RenderTemplate>
 </div>
