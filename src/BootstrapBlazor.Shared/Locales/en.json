@@ -5942,6 +5942,7 @@
     "AttrJustify": "Change the alignment of flex items on the main axis",
     "AttrAlignItems": "Change the alignment of flex items on the cross axis",
     "AttrChildContent": "Child content render fragment"
+  },
   "BootstrapBlazor.Shared.Samples.Segmenteds": {
     "Title": "Segmented",
     "SubTitle": "When to use",
