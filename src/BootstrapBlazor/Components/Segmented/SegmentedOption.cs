@@ -25,7 +25,7 @@ public class SegmentedOption<TValue>
     public bool Active { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否禁用
+    /// 获得/设置 是否禁用 默认 false
     /// </summary>
     public bool IsDisabled { get; set; }
 

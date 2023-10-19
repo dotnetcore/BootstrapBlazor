@@ -1,7 +1,7 @@
 ﻿namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Segmented 组件
 /// </summary>
 #if NET6_0_OR_GREATER
 [CascadingTypeParameter(nameof(TValue))]
@@ -15,59 +15,67 @@ public partial class Segmented<TValue>
 
     private string? GetLabelClassString(SegmentedOption<TValue> item) => CssBuilder.Default("segmented-item")
         .AddClass("selected", CurrentItem == item)
-        .AddClass("disabled", item.IsDisabled)
+        .AddClass("disabled", GetDisabled(item))
         .Build();
 
     [NotNull]
     private SegmentedOption<TValue>? CurrentItem { get; set; }
 
     /// <summary>
-    /// Get or Set up a data source
+    /// 获得/设置 选项集合 默认 null
     /// </summary>
     [Parameter]
     [NotNull]
     public IEnumerable<SegmentedOption<TValue>>? Items { get; set; }
 
     /// <summary>
-    /// Get or Set Value
+    /// 获得/设置 选中值 默认 null
     /// </summary>
     [Parameter]
     [NotNull]
     public TValue? Value { get; set; }
 
     /// <summary>
-    ///  Get or Set ValueChanged Event
+    ///  获得/设置 选中值回调委托 默认 null
     /// </summary>
     [Parameter]
     public EventCallback<TValue> ValueChanged { get; set; }
 
     /// <summary>
-    /// Get or Set OnValueChanged Event
+    /// 获得/设置 选中值改变后回调委托方法 默认 null
     /// </summary>
     [Parameter]
     public Func<TValue, Task>? OnValueChanged { get; set; }
 
     /// <summary>
-    /// 组件内容
+    /// 获得/设置 是否禁用 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsDisabled { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组件内容
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// Get or Set Size Property
+    /// 获得/设置 组件大小 默认值 <see cref="Size.None"/>
     /// </summary>
     [Parameter]
     [NotNull]
     public Size Size { get; set; }
 
     /// <summary>
-    /// Get or Set ItemTemplate
+    /// 获得/设置 候选项模板 默认 null
     /// </summary>
     [Parameter]
     [NotNull]
     public RenderFragment<SegmentedOption<TValue>>? ItemTemplate { get; set; }
 
-    private List<SegmentedOption<TValue>> _items = new();
+    private readonly List<SegmentedOption<TValue>> _items = new();
+
+    private bool GetDisabled(SegmentedOption<TValue> item) => IsDisabled || item.IsDisabled;
 
     /// <summary>
     /// <inheritdoc/>
@@ -88,7 +96,7 @@ public partial class Segmented<TValue>
 
     private async Task OnClick(SegmentedOption<TValue> item)
     {
-        if (!item.IsDisabled)
+        if (!GetDisabled(item))
         {
             SetActive(item);
 
