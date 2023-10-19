@@ -2,7 +2,18 @@
     --bb-segmented-padding: 2px;
     --bb-segmented-bg: #f5f5f5;
     --bb-segmented-item-padding: 0 11px;
+    --bb-segmented-item-height: 28px;
+    --bb-segmented-item-font-size: 0.875rem;
     --bb-segmented-item-selected-bg: #fff;
+    --bb-segmented-item-border-radius: 6px;
+    --bb-segmented-item-lg-height: 36px;
+    --bb-segmented-item-lg-padding: var(--bb-segmented-item-padding);
+    --bb-segmented-item-lg-font-size: 1rem;
+    --bb-segmented-item-lg-border-radius: 8px;
+    --bb-segmented-item-sm-height: 20px;
+    --bb-segmented-item-sm-padding: 0 7px;
+    --bb-segmented-item-sm-font-size: .75rem;
+    --bb-segmented-item-sm-border-radius: 4px;
     --bb-segmented-text-margin-left: 4px;
     padding: var(--bb-segmented-padding);
     background-color: var(--bb-segmented-bg);
@@ -11,19 +22,26 @@
     position: relative;
 
     &.segmented-lg {
-        border-radius: 8px;
+        --bb-segmented-item-border-radius: var(--bb-segmented-item-lg-border-radius);
+        --bb-segmented-item-height: var(--bb-segmented-item-lg-height);
+        --bb-segmented-item-padding: var(--bb-segmented-item-lg-padding);
+        --bb-segmented-item-font-size: var(--bb-segmented-item-lg-font-size);
     }
 
     &.segmented-sm {
-        border-radius: 4px;
+        --bb-segmented-item-border-radius: var(--bb-segmented-item-sm-border-radius);
+        --bb-segmented-item-height: var(--bb-segmented-item-sm-height);
+        --bb-segmented-item-padding: var(--bb-segmented-item-sm-padding);
+        --bb-segmented-item-font-size: var(--bb-segmented-item-sm-font-size);
     }
 
     .segmented-item {
         padding: var(--bb-segmented-item-padding);
         text-align: center;
         cursor: pointer;
-        border-radius: 4px;
-        line-height: 28px;
+        border-radius: var(--bb-segmented-item-border-radius);
+        line-height: var(--bb-segmented-item-height);
+        font-size: var(--bb-segmented-item-font-size);
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
