@@ -54,6 +54,12 @@ public partial class Segmented<TValue>
     public bool IsDisabled { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否使用动画 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsAnimation { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 组件内容
     /// </summary>
     [Parameter]
@@ -77,6 +83,8 @@ public partial class Segmented<TValue>
 
     private bool GetDisabled(SegmentedOption<TValue> item) => IsDisabled || item.IsDisabled;
 
+    private string? AnimationString => IsAnimation ? "true" : null;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -86,6 +94,12 @@ public partial class Segmented<TValue>
 
         Items ??= Enumerable.Empty<SegmentedOption<TValue>>();
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
 
     private IEnumerable<SegmentedOption<TValue>> GetItems()
     {

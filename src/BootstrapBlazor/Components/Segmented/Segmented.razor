@@ -1,15 +1,16 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapModuleComponentBase
 @typeparam TValue
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
-<div @attributes="@AdditionalAttributes" class="@ClassString">
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id" data-bb-animation="@AnimationString">
     <CascadingValue Value="_items" IsFixed="true">
         @ChildContent
     </CascadingValue>
     <RenderTemplate>
         @foreach (var item in GetItems())
         {
-            <div @key="item" class="@GetLabelClassString(item)" @onclick="() => OnClick(item)">
+            <div @key="item" class="@GetLabelClassString(item)">
                 @if (item.ChildContent != null)
                 {
                     @item.ChildContent

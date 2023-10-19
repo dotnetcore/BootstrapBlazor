@@ -5032,6 +5032,17 @@ body:before {
 .segmented .segmented-item .flex-column {
   --bb-segmented-text-margin-left: 0;
 }
+.segmented .segmented-item-mask {
+  padding: var(--bb-segmented-item-padding);
+  border-radius: var(--bb-segmented-item-border-radius);
+  height: var(--bb-segmented-item-height);
+  background-color: var(--bb-segmented-item-selected-bg);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  transition: all 0.3s ease-in-out;
+}
 
 .skeleton {
   width: 100%;
