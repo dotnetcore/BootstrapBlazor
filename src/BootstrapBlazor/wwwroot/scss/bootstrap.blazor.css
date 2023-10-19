@@ -4951,6 +4951,69 @@ body:before {
   max-height: var(--bb-select-tree-dropdown-max-height);
 }
 
+.segmented {
+  --bb-segmented-bg: #f5f5f5;
+  --bb-segment-item-padding: 0 11px;
+  --bb-segment-item-selected-bg: #fff;
+  padding: 2px;
+  display: flex;
+  background-color: var(--bb-segmented-bg);
+  border-radius: var(--bs-border-radius);
+  position: relative;
+}
+.segmented.segmented-lg {
+  border-radius: 8px;
+}
+.segmented.segmented-sm {
+  border-radius: 4px;
+}
+.segmented .segmented-item {
+  padding: var(--bb-segment-item-padding);
+  text-align: center;
+  cursor: pointer;
+  border-radius: 4px;
+  line-height: 28px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  flex: 1;
+  min-width: 0;
+  position: relative;
+  transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.segmented .segmented-item.selected {
+  background-color: var(--bb-segment-item-selected-bg);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
+}
+.segmented .segmented-item.disabled, .segmented .segmented-item.disabled:hover, .segmented .segmented-item.disabled:focus {
+  color: rgba(0, 0, 0, 0.25);
+  cursor: not-allowed;
+}
+.segmented .segmented-item:hover:not(.selected):not(.disabled):after {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+.segmented .segmented-item:active:not(.selected):not(.disabled):after {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+.segmented .segmented-item:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: inherit;
+  transition: background-color 0.2s;
+  pointer-events: none;
+}
+.segmented:after {
+  content: "";
+  pointer-events: none;
+  background-color: #fff;
+  opacity: 0.4;
+  position: absolute;
+}
+
 .skeleton {
   width: 100%;
   flex: 1;
@@ -7493,115 +7556,5 @@ form .table .table-cell > textarea {
   }
   to {
     transform: translateY(-100%);
-  }
-}
-.segmented {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 2px;
-  color: rgba(0, 0, 0, 0.65);
-  font-size: 14px;
-  line-height: 1.5714285714;
-  list-style: none;
-  font-family: -apple-system, BlinkMacSystemFont, segoe ui, Roboto, helvetica neue, Arial, noto sans, sans-serif, apple color emoji, segoe ui emoji, segoe ui symbol, noto color emoji;
-  display: inline-block;
-  background-color: #f5f5f5;
-  border-radius: 6px;
-  transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-}
-.segmented.segmented-block {
-  display: flex;
-}
-.segmented.segmented-lg {
-  border-radius: 8px;
-}
-.segmented.segmented-lg .segmented-item-label {
-  min-height: 36px;
-  line-height: 36px;
-  padding: 0 11px;
-  font-size: 16px;
-}
-.segmented.segmented-sm {
-  border-radius: 4px;
-}
-.segmented.segmented-sm .segmented-item-label {
-  min-height: 20px;
-  line-height: 20px;
-  padding: 0 7px;
-}
-.segmented .segmented-item-label {
-  min-height: 28px;
-  line-height: 28px;
-  padding: 0 11px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.segmented .segmented-group {
-  position: relative;
-  display: flex;
-  align-items: stretch;
-  justify-items: flex-start;
-  width: 100%;
-}
-.segmented .segmented-group .segmented-item {
-  position: relative;
-  text-align: center;
-  cursor: pointer;
-  transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-  border-radius: 4px;
-  flex: 1;
-}
-.segmented .segmented-group .segmented-item.segmented-item-selected {
-  background-color: #fff;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
-  color: rgba(0, 0, 0, 0.88);
-}
-.segmented .segmented-group .segmented-item.slideInLeft {
-  animation-name: slideInLeft;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-duration: var(--animate-duration);
-  animation-duration: var(--animate-duration);
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-}
-.segmented .segmented-group .segmented-item.segmented-item-disabled, .segmented .segmented-group .segmented-item.segmented-item-disabled:hover, .segmented .segmented-group .segmented-item.segmented-item-disabled:focus {
-  color: rgba(0, 0, 0, 0.25);
-  cursor: not-allowed;
-}
-.segmented .segmented-group .segmented-item::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  inset-inline-start: 0;
-  border-radius: inherit;
-  transition: background-color 0.2s;
-  pointer-events: none;
-}
-.segmented .segmented-group .segmented-item:hover:not(.segmented-item-selected):not(.segmented-item-disabled) {
-  color: rgba(0, 0, 0, 0.88);
-}
-.segmented .segmented-group .segmented-item:hover:not(.segmented-item-selected):not(.segmented-item-disabled)::after {
-  background-color: rgba(0, 0, 0, 0.06);
-}
-.segmented .segmented-group .segmented-item .segmented-item-input {
-  position: absolute;
-  inset-block-start: 0;
-  inset-inline-start: 0;
-  width: 0;
-  height: 0;
-  opacity: 0;
-  pointer-events: none;
-}
-@keyframes slideInLeft {
-  from {
-    transform: translate3d(-100%, 0, 0);
-    visibility: visible;
-  }
-  to {
-    transform: translate3d(0, 0, 0);
   }
 }

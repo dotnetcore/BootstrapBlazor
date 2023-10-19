@@ -1,32 +1,25 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
 
-<div @attributes="@AdditionalAttributes" class="@SegmentedClassString">
-    <div class="segmented-group">
-        @foreach (var item in Items)
-        {
-            <label class="@ClassString(item)">
-                <input class="segmented-item-input" type="radio" checked="@item.Active" disabled="@item.IsDisabled" @onclick="@(() => OnClick(item))" />
-                @if (!string.IsNullOrEmpty(item.Icon))
-                {
-                    <div class="segmented-item-label">
-                        <span class="ant-segmented-item-icon">
-                            <i class="@item.Icon"></i>
-                        </span>
-                        <span>@item.Text</span>
-                    </div>
-                }
-                else if (DisplayItemTemplate != null)
-                {
-                    <div class="segmented-item-label">
-                        @DisplayItemTemplate(item)
-                    </div>
-                }
-                else
-                {
-                    <div class="segmented-item-label">@item.Text</div>
-                }
-            </label>
-        }
-    </div>
+<div @attributes="@AdditionalAttributes" class="@ClassString">
+    @foreach (var item in Items)
+    {
+        <div @key="item" class="@GetLabelClassString(item)">
+            @if (!string.IsNullOrEmpty(item.Icon))
+            {
+                <span class="segmented-item-icon">
+                    <i class="@item.Icon"></i>
+                </span>
+                <span>@item.Text</span>
+            }
+            else if (DisplayItemTemplate != null)
+            {
+                @DisplayItemTemplate(item)
+            }
+            else
+            {
+                @item.Text
+            }
+        </div>
+    }
 </div>

@@ -5,22 +5,16 @@
 /// </summary>
 public partial class Segmented
 {
+    private string? ClassString => CssBuilder.Default("segmented")
+        .AddClass("segmented-block", IsBlock)
+        .AddClass($"segmented-{Size.ToDescriptionString()}", Size != Size.None)
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
 
-    private string? SegmentedClassString => CssBuilder.Default("segmented")
-               .AddClass("segmented-block", IsBlock)
-               .AddClass("segmented-lg", Size == Size.Large)
-               .AddClass("segmented-sm", Size == Size.Small)
-               .AddClassFromAttributes(AdditionalAttributes)
-               .AddStyleFromAttributes(AdditionalAttributes)
-               .Build();
-
-    private string? ClassString(SegmentedItem item)
-    {
-        return CssBuilder.Default("segmented-item")
-               .AddClass("segmented-item-selected", item.Active)
-               .AddClass("segmented-item-disabled", item.IsDisabled)
-               .Build();
-    }
+    private static string? GetLabelClassString(SegmentedItem item) => CssBuilder.Default("segmented-item")
+        .AddClass("selected", item.Active)
+        .AddClass("disabled", item.IsDisabled)
+        .Build();
 
     [NotNull]
     private SegmentedItem? CurrentItem { get; set; }
