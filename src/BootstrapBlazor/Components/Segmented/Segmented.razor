@@ -10,12 +10,6 @@
         @foreach (var item in GetItems())
         {
             <div @key="item" class="@GetLabelClassString(item)" @onclick="() => OnClick(item)">
-                @if (!string.IsNullOrEmpty(item.Icon))
-                {
-                    <span class="segmented-item-icon">
-                        <i class="@item.Icon"></i>
-                    </span>
-                }
                 @if (item.ChildContent != null)
                 {
                     @item.ChildContent
@@ -26,6 +20,12 @@
                 }
                 else
                 {
+                    @if (!string.IsNullOrEmpty(item.Icon))
+                    {
+                        <span class="segmented-item-icon">
+                            <i class="@item.Icon"></i>
+                        </span>
+                    }
                     <span>@item.Text</span>
                 }
             </div>

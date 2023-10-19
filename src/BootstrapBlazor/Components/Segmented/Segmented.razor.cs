@@ -69,6 +69,16 @@ public partial class Segmented<TValue>
 
     private List<SegmentedOption<TValue>> _items = new();
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        Items ??= Enumerable.Empty<SegmentedOption<TValue>>();
+    }
+
     private IEnumerable<SegmentedOption<TValue>> GetItems()
     {
         var items = _items.Concat(Items);
@@ -78,19 +88,22 @@ public partial class Segmented<TValue>
 
     private async Task OnClick(SegmentedOption<TValue> item)
     {
-        SetActive(item);
-
-        Value = item.Value;
-        CurrentItem = item;
-
-        if (ValueChanged.HasDelegate)
+        if (!item.IsDisabled)
         {
-            await ValueChanged.InvokeAsync(Value);
-        }
+            SetActive(item);
 
-        if (OnValueChanged != null)
-        {
-            await OnValueChanged(Value);
+            Value = item.Value;
+            CurrentItem = item;
+
+            if (ValueChanged.HasDelegate)
+            {
+                await ValueChanged.InvokeAsync(Value);
+            }
+
+            if (OnValueChanged != null)
+            {
+                await OnValueChanged(Value);
+            }
         }
     }
 
