@@ -4952,13 +4952,14 @@ body:before {
 }
 
 .segmented {
+  --bb-segmented-padding: 2px;
   --bb-segmented-bg: #f5f5f5;
-  --bb-segment-item-padding: 0 11px;
-  --bb-segment-item-selected-bg: #fff;
-  padding: 2px;
-  display: flex;
+  --bb-segmented-item-padding: 0 11px;
+  --bb-segmented-item-selected-bg: #fff;
+  padding: var(--bb-segment-padding);
   background-color: var(--bb-segmented-bg);
   border-radius: var(--bs-border-radius);
+  display: flex;
   position: relative;
 }
 .segmented.segmented-lg {
@@ -4968,7 +4969,7 @@ body:before {
   border-radius: 4px;
 }
 .segmented .segmented-item {
-  padding: var(--bb-segment-item-padding);
+  padding: var(--bb-segmented-item-padding);
   text-align: center;
   cursor: pointer;
   border-radius: 4px;
@@ -4982,10 +4983,10 @@ body:before {
   transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 .segmented .segmented-item.selected {
-  background-color: var(--bb-segment-item-selected-bg);
+  background-color: var(--bb-segmented-item-selected-bg);
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
 }
-.segmented .segmented-item.disabled, .segmented .segmented-item.disabled:hover, .segmented .segmented-item.disabled:focus {
+.segmented .segmented-item.disabled {
   color: rgba(0, 0, 0, 0.25);
   cursor: not-allowed;
 }
@@ -5005,13 +5006,6 @@ body:before {
   border-radius: inherit;
   transition: background-color 0.2s;
   pointer-events: none;
-}
-.segmented:after {
-  content: "";
-  pointer-events: none;
-  background-color: #fff;
-  opacity: 0.4;
-  position: absolute;
 }
 
 .skeleton {
