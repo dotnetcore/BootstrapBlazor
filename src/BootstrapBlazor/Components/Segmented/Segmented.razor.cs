@@ -90,7 +90,11 @@ public partial class Segmented<TValue>
     private IEnumerable<SegmentedOption<TValue>> GetItems()
     {
         var items = _items.Concat(Items);
-        CurrentItem ??= items.FirstOrDefault(i => i.Active) ?? items.FirstOrDefault();
+        CurrentItem ??= items.FirstOrDefault(i => (i.Value != null && i.Value.Equals(Value)) || i.Active) ?? items.FirstOrDefault();
+        if (CurrentItem != null)
+        {
+            Value = CurrentItem.Value;
+        }
         return items;
     }
 
@@ -117,7 +121,8 @@ public partial class Segmented<TValue>
 
     private void SetActive(SegmentedOption<TValue> option)
     {
-        foreach (var item in Items)
+        var items = _items.Concat(Items);
+        foreach (var item in items)
         {
             item.Active = item == option;
         }

@@ -75,7 +75,7 @@ public class SegmentedItem<TValue> : ComponentBase, IDisposable
     /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
     {
-        if (disposing && _option != null)
+        if (_option != null && disposing)
         {
             Items?.Remove(_option);
         }
