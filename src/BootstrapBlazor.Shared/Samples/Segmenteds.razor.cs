@@ -2,12 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
@@ -17,105 +11,95 @@ public partial class Segmenteds
 {
     private BootstrapBlazor.Components.ConsoleLogger? ConsoleLogger { get; set; }
 
-    private List<SegmentedItem> Items { get; set; } = new List<SegmentedItem>()
+    private List<SegmentedOption<string>> Items { get; } = new()
     {
-        new SegmentedItem(){ Value = "Daily", Text = "Daily" },
-        new SegmentedItem(){ Value = "Weekly", Text = "Weekly" },
-        new SegmentedItem(){ Value = "Monthly", Text = "Monthly" },
-        new SegmentedItem(){ Value = "Quarterly", Text = "Quarterly" },
-        new SegmentedItem(){ Value = "Yearly", Text = "Yearly" }
+        new() { Value = "Daily", Text = "Daily" },
+        new() { Value = "Weekly", Text = "Weekly" },
+        new() { Value = "Monthly", Text = "Monthly" },
+        new() { Value = "Quarterly", Text = "Quarterly" },
+        new() { Value = "Yearly", Text = "Yearly" }
     };
 
-    private List<SegmentedItem> LongTextItems { get; set; } = new List<SegmentedItem>()
+    private List<SegmentedOption<string>> DisabledItems { get; } = new()
     {
-        new SegmentedItem(){ Value = "123", Text = "123" },
-        new SegmentedItem(){ Value = "456", Text = "456" },
-        new SegmentedItem(){ Value = "longtext-longtext-longtext-longtext", Text = "longtext-longtext-longtext-longtext" }
+        new() { Value = "123", Text = "123" },
+        new() { Value = "456", Text = "456", IsDisabled = true },
+        new() { Value = "789", Text = "789" },
+        new() { Value = "000", Text = "long-text-long-text-long-text-long-text" }
     };
 
-    private List<SegmentedItem> DisableItems { get; set; } = new List<SegmentedItem>()
+    private List<SegmentedOption<string>> ItemTemplateItems { get; } = new()
     {
-        new SegmentedItem(){ Value = "123", Text = "123" },
-        new SegmentedItem(){ Value = "456", Text = "456", IsDisabled = true },
-        new SegmentedItem(){ Value = "789", Text = "789" },
+        new() { Value = "123", Text = "123", Icon = "fa-solid fa-flag" },
+        new() { Value = "456", Text = "456", Icon = "fa-solid fa-flag" },
+        new() { Value = "789", Text = "789", Icon = "fa-solid fa-flag" }
     };
 
-    private List<SegmentedItem> IconItems { get; set; } = new List<SegmentedItem>()
+    private List<SegmentedOption<string>> IconItems { get; set; } = new()
     {
-        new SegmentedItem(){ Value = "list", Text = "List", Icon = "fas fa-bars" },
-        new SegmentedItem(){ Value = "chart", Text = "Chart", Icon = "fas fa-chart-column" }
+        new() { Value = "list", Text = "List", Icon = "fas fa-bars" },
+        new() { Value = "chart", Text = "Chart", Icon = "fas fa-chart-column" }
     };
 
-    private string? Value { get; set; }
-
-    private string? Value1 { get; set; } = "Daily";
-
-    private string? Value2 { get; set; } = "Daily";
-
-    private string? Value3 { get; set; } = "Daily";
-
-    private string? Value4 { get; set; } = "Daily";
-
-    private string? BlockValue { get; set; }
-
-    private string? DisableValue { get; set; }
-
-    private void ValueChanged(string item)
+    private List<SegmentedOption<string>> SizeItems { get; } = new()
     {
-        Value1 = item;
-        ConsoleLogger?.Log(item);
+        new() { Value = "Daily", Text = "Daily" },
+        new() { Value = "Weekly", Text = "Weekly" },
+        new() { Value = "Monthly", Text = "Monthly" },
+        new() { Value = "Quarterly", Text = "Quarterly" },
+        new() { Value = "Yearly", Text = "Yearly" }
+    };
+
+    [NotNull]
+    private ConsoleLogger? Logger { get; set; }
+
+    private Task OnValueChanged(string value)
+    {
+        Logger.Log(value);
+        return Task.CompletedTask;
     }
 
-    private IEnumerable<AttributeItem> GetAttributes()
+    private string Value { get; set; } = "Daily";
+
+    private IEnumerable<AttributeItem> GetAttributes() => new List<AttributeItem>()
     {
-        return new List<AttributeItem>()
-        {
-            new AttributeItem()
-            {
-                Name = nameof(Segmented.Items),
-                Description = Localizer["ItemsAttr"],
-                Type = "IEnumerable<SelectedItem>",
-                DefaultValue = "—"
-            },
-            new AttributeItem()
-            {
-                Name = nameof(Segmented.Value),
-                Type = "string"
-            },
-            new AttributeItem()
-            {
-                Name = nameof(Segmented.ValueChanged),
-                Description = Localizer["ValueChangedAttr"],
-                Type = "EventCallBack<SegmentedItem>"
-            },
-            new AttributeItem()
-            {
-                Name = nameof(Segmented.OnValueChanged),
-                Description = Localizer["ValueChangedAttr"],
-                Type = "Func<string, Task>"
-            },
-            new AttributeItem()
-            {
-                Name = nameof(Segmented.IsBlock),
-                Description = Localizer["IsBlockAttr"],
-                Type = "bool",
-                ValueList = "true|false",
-                DefaultValue = "false"
-            },
-            new AttributeItem()
-            {
-                Name = nameof(Segmented.Size),
-                Description = Localizer["SizeAttr"],
-                Type = "enum",
-                DefaultValue = "false"
-            },
-            new AttributeItem()
-            {
-                Name = nameof(Segmented.DisplayItemTemplate),
-                Description = Localizer["DisplayItemTemplateAttr"],
-                Type = "RenderFragment<SegmentedItem>",
-                DefaultValue = "-"
-            },
-        };
-    }
+        //new()
+        //{
+        //    Name = nameof(Segmented.Items),
+        //    Description = Localizer["ItemsAttr"],
+        //    Type = "IEnumerable<SelectedItem>",
+        //    DefaultValue = " — ",
+        //},
+        //new()
+        //{
+        //    Name = nameof(Segmented.Value),
+        //    Type = "string"
+        //},
+        //new()
+        //{
+        //    Name = nameof(Segmented.ValueChanged),
+        //    Description = Localizer["ValueChangedAttr"],
+        //    Type = "EventCallBack<SegmentedItem>"
+        //},
+        //new()
+        //{
+        //    Name = nameof(Segmented.OnValueChanged),
+        //    Description = Localizer["ValueChangedAttr"],
+        //    Type = "Func<string, Task>"
+        //},
+        //new()
+        //{
+        //    Name = nameof(Segmented.Size),
+        //    Description = Localizer["SizeAttr"],
+        //    Type = "enum",
+        //    DefaultValue = "false"
+        //},
+        //new()
+        //{
+        //    Name = nameof(Segmented.ItemTemplate),
+        //    Description = Localizer["ItemTemplateAttr"],
+        //    Type = "RenderFragment<SegmentedItem>",
+        //    DefaultValue = " — "
+        //}
+    };
 }
