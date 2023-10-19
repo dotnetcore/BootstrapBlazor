@@ -5945,15 +5945,11 @@
   },
   "BootstrapBlazor.Shared.Samples.Segmenteds": {
     "Title": "Segmented 分段控制器",
-    "SubTitle": "何时使用",
-    "Description1": "用于展示多个选项并允许用户选择其中单个选项；",
-    "Description2": "当切换选中选项时，关联区域的内容会发生变化。",
+    "SubTitle": "展示多个选项并允许用户选择其中单个选项",
     "BasicTitle": "基本",
     "BasicIntro": "最简单的用法。",
     "ControlledTitle": "受控模式",
     "ControlledIntro": "受控的 Segmented。",
-    "BlockTitle": "Block 分段选择器",
-    "BlockIntro": "IsBlcok 属性使其适合父元素宽度",
     "DisableTitle": "不可用",
     "DisableIntro": "使其中的一项禁止使用",
     "CustomRenderTitle": "自定义渲染",
@@ -5966,6 +5962,6 @@
     "ValueChangedAttr": "分段选择器选项改变时触发此事件",
     "IsBlockAttr": "使其适合父元素宽度",
     "SizeAttr": "设置组件大小",
-    "DisplayItemTemplateAttr": "设置 SegmentedItem 模板"
+    "ItemTemplateAttr": "设置 SegmentedItem 模板"
   }
 }

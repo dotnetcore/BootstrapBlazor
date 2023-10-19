@@ -5945,15 +5945,11 @@
   },
   "BootstrapBlazor.Shared.Samples.Segmenteds": {
     "Title": "Segmented",
-    "SubTitle": "When to use",
-    "Description1": "Used to display multiple options and allow the user to select a single of them;",
-    "Description2": "When you toggle the selected option, the contents of the associated area change.",
+    "SubTitle": "displaying multiple options and user can select a single option",
     "BasicTitle": "Basic",
     "BasicIntro": "Simplest usage.",
     "ControlledTitle": "Controlled Mode",
     "ControlledIntro": "Controlled segmented.",
-    "BlockTitle": "Block Segmented",
-    "BlockIntro": "The IsBlcok attribute makes it fit the parent element width",
     "DisableTitle": "Disable",
     "DisableIntro": "Make one of them prohibited",
     "CustomRenderTitle": "Custom Rendering",
@@ -5966,6 +5962,6 @@
     "ValueChangedAttr": "This event fires when the segment selector options change",
     "IsBlockAttr": "Fit the parent element width",
     "SizeAttr": "Set the component size",
-    "DisplayItemTemplateAttr": "Set up the SegmentedItem template"
+    "ItemTemplateAttr": "Set up the SegmentedItem template"
   }
 }

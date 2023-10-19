@@ -3,7 +3,8 @@
     --bb-segmented-bg: #f5f5f5;
     --bb-segmented-item-padding: 0 11px;
     --bb-segmented-item-selected-bg: #fff;
-    padding: var(--bb-segment-padding);
+    --bb-segmented-text-margin-left: 4px;
+    padding: var(--bb-segmented-padding);
     background-color: var(--bb-segmented-bg);
     border-radius: var(--bs-border-radius);
     display: flex;
@@ -59,6 +60,14 @@
             border-radius: inherit;
             transition: background-color 0.2s;
             pointer-events: none;
+        }
+
+        .segmented-item-icon + span {
+            margin-left: var(--bb-segmented-text-margin-left);
+        }
+
+        .flex-column {
+            --bb-segmented-text-margin-left: 0;
         }
     }
 }
