@@ -105,6 +105,22 @@ public partial class Segmenteds
         },
         new()
         {
+            Name = nameof(Segmented<string>.IsBlock),
+            Description = Localizer["IsBlockAttr"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(Segmented<string>.ShowTooltip),
+            Description = Localizer["ShowTooltipAttr"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
+        },
+        new()
+        {
             Name = nameof(Segmented<string>.Size),
             Description = Localizer["SizeAttr"],
             Type = "Size",

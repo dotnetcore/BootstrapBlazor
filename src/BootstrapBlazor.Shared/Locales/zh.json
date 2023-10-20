@@ -5967,6 +5967,8 @@
     "SizeAttr": "设置组件大小",
     "IsDisabledAttr": "是否禁用",
     "ItemTemplateAttr": "设置 SegmentedItem 模板",
-    "ChildContent": "组件子内容"
+    "ChildContent": "组件子内容",
+    "IsBlockAttr": "是否充满父容器",
+    "ShowTooltip": "超长被截断的 Item 是否显示 Tooltip"
   }
 }

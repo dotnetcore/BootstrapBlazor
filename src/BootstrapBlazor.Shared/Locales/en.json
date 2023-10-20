@@ -5967,6 +5967,8 @@
     "ValueChangedAttr": "This event fires when the segment selector options change",
     "OnValueChanged": "Callback for the Value changed",
     "ItemTemplateAttr": "The template of segement item",
-    "ChildContent": "The template of segment content"
+    "ChildContent": "The template of segment content",
+    "IsBlockAttr": "Whether fit the parent width",
+    "ShowTooltip": "Whether show to tooltip for segment item"
   }
 }
