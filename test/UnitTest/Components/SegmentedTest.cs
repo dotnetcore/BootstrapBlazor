@@ -37,7 +37,7 @@ public class SegmentedTest : BootstrapBlazorTestBase
                 });
             });
         });
-        cut.MarkupMatches("<div class=\"segmented\"><div class=\"segmented-item selected\">test-content</div></div>");
+        cut.MarkupMatches("<div class=\"segmented\" id:ignore><div class=\"segmented-item mask\"></div><div class=\"segmented-item selected\">test-content</div></div>");
     }
 
     [Fact]
@@ -54,7 +54,7 @@ public class SegmentedTest : BootstrapBlazorTestBase
                 pb.Add(a => a.IsDisabled, false);
             });
         });
-        cut.MarkupMatches("<div class=\"segmented\"><div class=\"segmented-item selected\"><span class=\"segmented-item-icon\"><i class=\"fa-test\"></i></span><span>Hello</span></div></div>");
+        cut.MarkupMatches("<div class=\"segmented\" id:ignore><div class=\"segmented-item mask\"></div><div class=\"segmented-item selected\"><span class=\"segmented-item-icon\"><i class=\"fa-test\"></i></span><span>Hello</span></div></div>");
     }
 
     [Fact]
@@ -78,7 +78,7 @@ public class SegmentedTest : BootstrapBlazorTestBase
                 }
             });
         });
-        cut.MarkupMatches("<div class=\"segmented\"><div class=\"segmented-item selected\">test-content</div></div>");
+        cut.MarkupMatches("<div class=\"segmented\" id:ignore><div class=\"segmented-item mask\"></div><div class=\"segmented-item selected\">test-content</div></div>");
     }
 
     [Fact]
@@ -98,7 +98,7 @@ public class SegmentedTest : BootstrapBlazorTestBase
                 }
             });
         });
-        cut.MarkupMatches("<div class=\"segmented\"><div class=\"segmented-item selected\"><span class=\"segmented-item-icon\"><i class=\"fa-test\"></i></span><span>Hello</span></div></div>");
+        cut.MarkupMatches("<div class=\"segmented\" id:ignore><div class=\"segmented-item mask\"></div><div class=\"segmented-item selected\"><span class=\"segmented-item-icon\"><i class=\"fa-test\"></i></span><span>Hello</span></div></div>");
     }
 
     [Theory]
@@ -147,10 +147,10 @@ public class SegmentedTest : BootstrapBlazorTestBase
             });
         });
         var items = cut.FindAll(".segmented-item");
-        Assert.Equal(2, items.Count);
-        Assert.True(items[1].ClassList.Contains("selected"));
+        Assert.Equal(3, items.Count);
+        Assert.True(items[2].ClassList.Contains("selected"));
 
-        cut.InvokeAsync(() => items[0].Click());
+        cut.InvokeAsync(() => cut.Instance.TriggerClick(0));
         cut.WaitForAssertion(() =>
         {
             Assert.True(valueChanged);
@@ -168,7 +168,11 @@ public class SegmentedTest : BootstrapBlazorTestBase
             items = cut.FindAll(".segmented-item.disabled");
             return items.Count == 2;
         });
-        cut.InvokeAsync(() => items[1].Click());
+        cut.InvokeAsync(() => cut.Instance.TriggerClick(1));
+        Assert.False(valueChanged);
+        Assert.Equal("", newVal);
+
+        cut.InvokeAsync(() => cut.Instance.TriggerClick(3));
         Assert.False(valueChanged);
         Assert.Equal("", newVal);
     }
@@ -196,7 +200,7 @@ public class SegmentedTest : BootstrapBlazorTestBase
         });
 
         var items = cut.FindAll(".segmented-item");
-        Assert.Equal("template-Daily", items[0].Text());
-        Assert.Equal("template-Weekly", items[1].Text());
+        Assert.Equal("template-Daily", items[1].Text());
+        Assert.Equal("template-Weekly", items[2].Text());
     }
 }
