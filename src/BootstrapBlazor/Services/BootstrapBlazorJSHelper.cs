@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 浏览器事件,通用属性帮助类
 /// </summary>
-partial class BootstrapBlazorJSHelper : IBootstrapBlazorJSHelper, IJSRuntimeEventHandler
+partial class BootstrapBlazorJSHelper
 {
     private IJSRuntime JSRuntime { get; }
 
@@ -35,19 +35,6 @@ partial class BootstrapBlazorJSHelper : IBootstrapBlazorJSHelper, IJSRuntimeEven
 
     private ValueTask<IJSObjectReference> ImportModule() => JSRuntime.InvokeAsync<IJSObjectReference>("import", $"./_content/BootstrapBlazor/modules/event-services.js?v={JSVersionService.GetVersion()}");
 
-    private async ValueTask InternalRegisterEvent(DOMEvents eventName, params object?[]? args)
-    {
-        var guid = Guid.NewGuid();
-        guidList.Add($"{guid}");
-
-        var arguments = new List<object?> { guid, Interop, $"JSInvokOn{eventName}", eventName };
-        if (args != null)
-        {
-            arguments.AddRange(args);
-        }
-        await InvokeVoidAsync("addEventListener", arguments.ToArray());
-    }
-
     private async ValueTask InvokeVoidAsync(string identifier, params object?[] args)
     {
         Module ??= await ImportModule();
@@ -59,120 +46,6 @@ partial class BootstrapBlazorJSHelper : IBootstrapBlazorJSHelper, IJSRuntimeEven
         Module ??= await ImportModule();
         return await Module.InvokeAsync<TValue?>(identifier, args);
     }
-
-    /// <summary>
-    /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources asynchronously.
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected virtual async ValueTask DisposeAsync(bool disposing)
-    {
-        if (disposing)
-        {
-            Interop.Dispose();
-
-            if (Module != null)
-            {
-                guidList.ForEach(async x => await Module.InvokeVoidAsync("dispose", x));
-                guidList.Clear();
-
-                await Module.DisposeAsync();
-                Module = null;
-            }
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsync(true);
-        GC.SuppressFinalize(this);
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="eventName"></param>
-    /// <returns></returns>
-    public ValueTask RegisterEvent(DOMEvents eventName) => InternalRegisterEvent(eventName);
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="id"></param>
-    /// <param name="tag"></param>
-    /// <returns></returns>
-    public ValueTask<T?> GetElementPropertiesByTagFromIdAsync<T>(string id, string tag) => InvokeAsync<T?>("getElementPropertiesByTagFromId", id, tag);
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="tag"></param>
-    /// <returns></returns>
-    public ValueTask<T?> GetDocumentPropertiesByTagAsync<T>(string tag) => InvokeAsync<T?>("getDocumentPropertiesByTag", tag);
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="element"></param>
-    /// <param name="tag"></param>
-    /// <returns></returns>
-    public ValueTask<T?> GetElementPropertiesByTagAsync<T>(ElementReference element, string tag) => InvokeAsync<T?>("getElementPropertiesByTag", element, tag);
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// <para>方法已弃用，请使用新的方法：<see cref="RunJSWithEval(string)"/></para>
-    /// </summary>
-    /// <param name="scripts"></param>
-    /// <returns></returns>
-    [Obsolete("旧方法 RunEval 已过期，请使用新方法 RunJSWithEval")]
-    public ValueTask RunEval(string scripts) => InvokeVoidAsync("runJSWithEval", scripts);
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// <para>方法已弃用，请使用新的方法：<see cref="RunJSWithEval(string)"/></para>
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="scripts"></param>
-    /// <returns></returns>
-    [Obsolete("旧方法 RunEval 已过期，请使用新方法 RunJSWithEval")]
-    public ValueTask<T?> RunEval<T>(string scripts) => InvokeAsync<T>("runJSWithEval", scripts);
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="scripts"></param>
-    /// <returns></returns>
-    public ValueTask RunJSWithEval(string scripts) => InvokeVoidAsync("runJSWithEval", scripts);
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="scripts"></param>
-    /// <returns></returns>
-    public ValueTask<T?> RunJSWithEval<T>(string scripts) => InvokeAsync<T>("runJSWithEval", scripts);
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="scripts"></param>
-    /// <returns></returns>
-    public ValueTask RunJSWithFunction(string scripts) => InvokeVoidAsync("runJSWithFunction", scripts);
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="scripts"></param>
-    /// <returns></returns>
-    public ValueTask<T?> RunJSWithFunction<T>(string scripts) => InvokeAsync<T>("runJSWithFunction", scripts);
 
     /// <summary>
     /// <inheritdoc/>
@@ -213,22 +86,6 @@ partial class BootstrapBlazorJSHelper : IBootstrapBlazorJSHelper, IJSRuntimeEven
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="text"></param>
-    /// <returns></returns>
-    public ValueTask Alert(string text) => InvokeVoidAsync("doAlert", text);
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="title"></param>
-    /// <param name="defaultValue"></param>
-    /// <returns></returns>
-    public ValueTask<T?> Prompt<T>(string title, T? defaultValue = default) => InvokeAsync<T>("doPrompt", title, defaultValue);
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
     /// <param name="consoleType"></param>
     /// <param name="args"></param>
     /// <returns></returns>
@@ -239,17 +96,5 @@ partial class BootstrapBlazorJSHelper : IBootstrapBlazorJSHelper, IJSRuntimeEven
     /// </summary>
     /// <returns></returns>
     public ValueTask ConsoleClear() => InvokeVoidAsync("doConsoleClear");
-
-    ///// <summary>
-    ///// <inheritdoc/>
-    ///// </summary>
-    ///// <returns></returns>
-    //public ValueTask<T?> RunJSFile<T>(string path, string functionName, params object?[]? args) => InvokeAsync<T>("runJSFile", path, functionName, args);
-
-    ///// <summary>
-    ///// <inheritdoc/>
-    ///// </summary>
-    ///// <returns></returns>
-    //public ValueTask RunJSFile(string path, string functionName, params object?[]? args) => InvokeVoidAsync("runJSFile", path, functionName, args);
 
 }

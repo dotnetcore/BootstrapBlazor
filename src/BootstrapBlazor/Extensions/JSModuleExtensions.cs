@@ -41,4 +41,56 @@ public static class JSModuleExtensions
         }
         return name;
     }
+
+    private static readonly string modulepath = $"./_content/BootstrapBlazor/modules/module-extensions.js";
+
+    /// <summary>
+    /// 清空浏览器控制台
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    public static async Task ConsoleClear(this IJSRuntime jsRuntime)
+    {
+        var module = await jsRuntime.InvokeAsync<IJSObjectReference>("import", modulepath);
+        await module.InvokeVoidAsync("doConsoleClear");
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <param name="consoleType"></param>
+    /// <param name="args"></param>
+    public static async Task Console(this IJSRuntime jsRuntime, ConsoleType consoleType, params object?[]? args)
+    {
+        var module = await jsRuntime.InvokeAsync<IJSObjectReference>("import", modulepath);
+        await module.InvokeVoidAsync("doConsole", consoleType.ToDescriptionString(), args);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <param name="type"></param>
+    /// <param name="rel"></param>
+    /// <param name="href"></param>
+    /// <returns></returns>
+    public static async Task<bool> AddMeta(this IJSRuntime jsRuntime, string type, string rel, string href)
+    {
+        var module = await jsRuntime.InvokeAsync<IJSObjectReference>("import", modulepath);
+        return await module.InvokeAsync<bool>("addMeta", type, rel, href);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <param name="type"></param>
+    /// <param name="rel"></param>
+    /// <param name="href"></param>
+    /// <returns></returns>
+    public static async Task<bool> RemoveMeta(this IJSRuntime jsRuntime, string type, string rel, string href)
+    {
+        var module = await jsRuntime.InvokeAsync<IJSObjectReference>("import", modulepath);
+        return await module.InvokeAsync<bool>("removeMeta", type, rel, href);
+    }
 }

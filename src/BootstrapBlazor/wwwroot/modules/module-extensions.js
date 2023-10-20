@@ -42,62 +42,6 @@ export function addEventListener(guid, interop, invokeMethodName, eventName, id,
     EventHandler.on(hp.target, hp.eventName, hp.handler)
 }
 
-export function getElementPropertiesByTagFromId(id, tag) {
-    var el = document.getElementById(id);
-    return getProperties(el, tag);
-}
-
-export function getDocumentPropertiesByTag(tag) {
-    return getProperties(document, tag);
-}
-
-export function getElementPropertiesByTag(el, tag) {
-    return getProperties(el, tag);
-}
-
-export function getProperties(obj, tag) {
-    let tags = tag.split('.');
-    let tagsCopy = JSON.parse(JSON.stringify(tags));
-    var object = obj;
-    tagsCopy.map(() => {
-        object = object[tags[0]];
-        tags.shift();
-    })
-    return object;
-}
-
-export async function runJSFile(path, functionName, args) {
-    try {
-        const module = await import(path);
-        const targetFunction = module[functionName] || module.default;
-
-        if (typeof targetFunction === 'function') {
-            return targetFunction(...args);
-        } else {
-            console.error(`Function '${functionName}' not found in module at path: ${path}`);
-        }
-    } catch (error) {
-        console.error('RunJSFile Execution error:', error);
-    }
-}
-
-export function runJSWithEval(js) {
-    try {
-        return eval(js);
-    } catch (error) {
-        console.error('RunJSWithEval Execution error:', error);
-    }
-}
-
-export function runJSWithFunction(js) {
-    try {
-        var func = new Function(js);
-        return func();
-    } catch (error) {
-        console.error('RunJSWithFunction Execution error:', error);
-    }
-}
-
 export async function doAddLink(link) {
     await Utility.addLink(link);
 }
@@ -118,14 +62,6 @@ export async function doRemoveScript(src) {
     await Utility.doRemoveScript(src);
 }
 
-export function doAlert(text) {
-    alert(text);
-}
-
-export function doPrompt(title, defaultValue) {
-    return prompt(title, defaultValue);
-}
-
 export function doConsole(type, arg) {
     const fn = (typeof console[type] === 'function' ? console[type] : console.log);
     fn(...arg);
@@ -133,4 +69,47 @@ export function doConsole(type, arg) {
 
 export function doConsoleClear() {
     console.clear();
+}
+
+export function addMeta(type, rel, href) {
+    try {
+        var head = document.getElementsByTagName('head')[0];
+        var links = head.getElementsByTagName(type);
+
+        // 检查是否存在相同项
+        for (var i = 0; i < links.length; i++) {
+            if (links[i].rel === rel && links[i].href === href) {
+                return true;
+            }
+        }
+
+        // 创建并添加新项
+        var link = document.createElement(type);
+        link.rel = rel;
+        link.href = href;
+        head.appendChild(link);
+
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
+export function removeMeta(type, rel, href) {
+    try {
+        var head = document.getElementsByTagName('head')[0];
+        var links = head.getElementsByTagName(type);
+
+        // 检查是否存在相同项
+        for (var i = 0; i < links.length; i++) {
+            if (links[i].rel === rel && links[i].href === href) {
+                head.removeChild(links[i]);
+                return true;
+            }
+        }
+
+        return false;
+    } catch (e) {
+        return false;
+    }
 }

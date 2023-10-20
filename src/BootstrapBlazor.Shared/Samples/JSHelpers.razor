@@ -1,5 +1,5 @@
-﻿@page "/jshelpers"
-@inject IBootstrapBlazorJSHelper JSHelper
+﻿@page "/JSHelpers"
+@inject IJSRuntime JSRuntime
 @inject IStringLocalizer<JSHelpers> Localizer
 
 <DemoBlock Title="@Localizer["AddLinkTitle"]" Introduction="@Localizer["AddLinkIntro"]" ShowCode="false" Name="AddLink">
@@ -16,49 +16,24 @@ await RemoveLink("favicon.ico");</Pre>
 await RemoveScript("_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js");</Pre>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["RunJSWithEvalTitle"]" Introduction="@Localizer["RunJSWithEvalIntro"]" ShowCode="false" Name="RunJSWithEval">
-    <Pre class="mb-2">await RunJSWithFunction("your js code");</Pre>
-    <Textarea class="mb-2" @bind-Value="@evalJSContent" rows="6" />
-    <Button class="mb-2" Text="Run" OnClick="@RunJSWithEvalDemo"></Button>
-    <Textarea @bind-Value="@evalJSResult" rows="1" />
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["RunJSWithFunctionTitle"]" Introduction="@Localizer["RunJSWithFunctionIntro"]" ShowCode="false" Name="RunJSWithFunction">
-    <Pre class="mb-2">await RunJSWithFunction("your js code");</Pre>
-    <Textarea class="mb-2" @bind-Value="@funcJSContent" rows="6" />
-    <Button class="mb-2" Text="Run" OnClick="@RunJSWithFuncDemo"></Button>
-    <Textarea @bind-Value="@funcJSResult" rows="1" />
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["JSAlertTitle"]" Introduction="@Localizer["JSAlertIntro"]" ShowCode="false" Name="JSAlert">
-    <Pre class="mb-2">await Alert("Hello BootstrapBlazor");</Pre>
-    <Textarea class="mb-2" @bind-Value="@jsAlertContent" rows="1" />
-    <Button Text="Run" OnClick="@RunJSAlert"></Button>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["JSPromptTitle"]" Introduction="@Localizer["JSPromptIntro"]" ShowCode="false" Name="JSPrompt">
-    <Pre class="mb-2">await Prompt("Hello BootstrapBlazor");</Pre>
-    <Textarea class="mb-2" @bind-Value="@jsPromptContent" rows="1" />
-    <Button class="mb-2" Text="Run" OnClick="@RunJSPrompt"></Button>
-    <Textarea @bind-Value="@jsPromptResult" rows="1" />
-</DemoBlock>
-
 <DemoBlock Title="@Localizer["JSConsoleTitle"]" Introduction="@Localizer["JSConsoleIntro"]" ShowCode="false" Name="JSConsole">
-    <Pre class="mb-2">await JSHelper.Console(ConsoleType.Log, "Hello BootstrapBlazor");</Pre>
-    <Button class="mb-2" Text="Clear" OnClick="@(()=> JSHelper.ConsoleClear())" />
-    <Button class="mb-2" Text="Log" OnClick="@(()=> JSHelper.Console(ConsoleType.Log, jsAlertContent))" />
-    <Button class="mb-2" Text="Warn" OnClick="@(()=> JSHelper.Console(ConsoleType.Warn, jsAlertContent))" />
-    <Button class="mb-2" Text="Error" OnClick="@(()=> JSHelper.Console(ConsoleType.Error, jsAlertContent))" />
-    <Button class="mb-2" Text="Info" OnClick="@(()=> JSHelper.Console(ConsoleType.Info, jsAlertContent))" />
-    <Button class="mb-2" Text="Assert" OnClick="@(()=> JSHelper.Console(ConsoleType.Assert, false, jsAlertContent))" />
-    <Button class="mb-2" Text="Dir" OnClick="@(()=> JSHelper.Console(ConsoleType.Dir, GetMethods()))" />
-    <Button class="mb-2" Text="Time" OnClick="@(()=> JSHelper.Console(ConsoleType.Time))" />
-    <Button class="mb-2" Text="TimeEnd" OnClick="@(()=> JSHelper.Console(ConsoleType.TimeEnd))" />
-    <Button class="mb-2" Text="Count" OnClick="@(()=> JSHelper.Console(ConsoleType.Count,jsAlertContent))" />
-    <Button class="mb-2" Text="Group" OnClick="@(()=> JSHelper.Console(ConsoleType.Group,jsAlertContent))" />
-    <Button class="mb-2" Text="GroupEnd" OnClick="@(()=> JSHelper.Console(ConsoleType.GroupEnd))" />
-    <Button class="mb-2" Text="Table" OnClick="@(()=> JSHelper.Console(ConsoleType.Table, GetMethods()))" />
-    <Button class="mb-2" Text="Trace" OnClick="@(()=> JSHelper.Console(ConsoleType.Trace))" />
+    <Pre class="mb-2">await JSRuntime.Console(ConsoleType.Log, "Hello BootstrapBlazor");</Pre>
+    <Button class="mb-2" Text="Clear" OnClick="@(()=> JSRuntime.ConsoleClear())" />
+    <Button class="mb-2" Text="Log" OnClick="@(()=> JSRuntime.Console(ConsoleType.Log, jsAlertContent))" />
+    <Button class="mb-2" Text="Warn" OnClick="@(()=> JSRuntime.Console(ConsoleType.Warn, jsAlertContent))" />
+    <Button class="mb-2" Text="Error" OnClick="@(()=> JSRuntime.Console(ConsoleType.Error, jsAlertContent))" />
+    <Button class="mb-2" Text="Info" OnClick="@(()=> JSRuntime.Console(ConsoleType.Info, jsAlertContent))" />
+    <Button class="mb-2" Text="Assert" OnClick="@(()=> JSRuntime.Console(ConsoleType.Assert, false, jsAlertContent))" />
+    <Button class="mb-2" Text="Dir" OnClick="@(()=> JSRuntime.Console(ConsoleType.Dir, null))" />
+    <Button class="mb-2" Text="Time" OnClick="@(()=> JSRuntime.Console(ConsoleType.Time))" />
+    <Button class="mb-2" Text="TimeEnd" OnClick="@(()=> JSRuntime.Console(ConsoleType.TimeEnd))" />
+    <Button class="mb-2" Text="Count" OnClick="@(()=> JSRuntime.Console(ConsoleType.Count,jsAlertContent))" />
+    <Button class="mb-2" Text="Group" OnClick="@(()=> JSRuntime.Console(ConsoleType.Group,jsAlertContent))" />
+    <Button class="mb-2" Text="GroupEnd" OnClick="@(()=> JSRuntime.Console(ConsoleType.GroupEnd))" />
+    <Button class="mb-2" Text="Table" OnClick="@(()=> JSRuntime.Console(ConsoleType.Table, null))" />
+    <Button class="mb-2" Text="Trace" OnClick="@(()=> JSRuntime.Console(ConsoleType.Trace))" />
 </DemoBlock>
 
-<MethodTable Items="GetMethods()" />
+@code {
+    private string jsAlertContent = "Hello BootstrapBlazor";
+}
