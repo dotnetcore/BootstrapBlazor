@@ -70,11 +70,11 @@
             cursor: not-allowed;
         }
 
-        &:hover:not(.selected):not(.disabled):after {
+        &:hover:not(.selected):not(.disabled):not(.moving):after {
             background-color: rgba(0,0,0,.06);
         }
 
-        &:active:not(.selected):not(.disabled):after {
+        &:active:not(.selected):not(.disabled):not(.moving):after {
             background-color: rgba(0,0,0,.15);
         }
 

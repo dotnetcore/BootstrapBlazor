@@ -5018,10 +5018,10 @@ body:before {
   color: rgba(0, 0, 0, 0.25);
   cursor: not-allowed;
 }
-.segmented .segmented-item:hover:not(.selected):not(.disabled):after {
+.segmented .segmented-item:hover:not(.selected):not(.disabled):not(.moving):after {
   background-color: rgba(0, 0, 0, 0.06);
 }
-.segmented .segmented-item:active:not(.selected):not(.disabled):after {
+.segmented .segmented-item:active:not(.selected):not(.disabled):not(.moving):after {
   background-color: rgba(0, 0, 0, 0.15);
 }
 .segmented .segmented-item:after {
