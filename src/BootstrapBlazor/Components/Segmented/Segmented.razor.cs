@@ -1,4 +1,8 @@
-﻿namespace BootstrapBlazor.Components;
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
+
+namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// Segmented 组件
@@ -95,20 +99,32 @@ public partial class Segmented<TValue>
 
     private IEnumerable<SegmentedOption<TValue>> GetItems()
     {
-        var items = _items.Concat(Items);
-        CurrentItem ??= items.FirstOrDefault(i => (i.Value != null && i.Value.Equals(Value)) || i.Active) ?? items.FirstOrDefault();
+        CurrentItem ??= _options.FirstOrDefault(i => (i.Value != null && i.Value.Equals(Value)) || i.Active) ?? _options.FirstOrDefault();
         if (CurrentItem != null)
         {
             Value = CurrentItem.Value;
         }
-        return items;
+        return _options;
     }
 
-    private async Task OnClick(SegmentedOption<TValue> item)
+    private IEnumerable<SegmentedOption<TValue>> _options => _items.Concat(Items);
+
+    /// <summary>
+    /// 点击 SegmentItem 节点 JavaScript 回调触发
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    [JSInvokable]
+    public async Task TriggerClick(int index)
     {
-        if (!GetDisabled(item))
+        var options = _options;
+        var item = _options.ElementAtOrDefault(index);
+        if (item != null && !GetDisabled(item))
         {
-            SetActive(item);
+            foreach (var op in _options)
+            {
+                item.Active = item == op;
+            }
 
             Value = item.Value;
             CurrentItem = item;
@@ -122,15 +138,6 @@ public partial class Segmented<TValue>
             {
                 await OnValueChanged(Value);
             }
-        }
-    }
-
-    private void SetActive(SegmentedOption<TValue> option)
-    {
-        var items = _items.Concat(Items);
-        foreach (var item in items)
-        {
-            item.Active = item == option;
         }
     }
 }
