@@ -5,7 +5,11 @@ export function init(id, invoke) {
     const el = document.getElementById(id);
     Data.set(id, { el, invoke });
     EventHandler.on(el, 'click', '.segmented-item', e => {
-        move(el, e.delegateTarget, invoke);
+        const item = e.delegateTarget;
+        if (item.classList.contains('disabled')) {
+            return;
+        }
+        move(el, item, invoke);
     });
 }
 
@@ -53,7 +57,7 @@ const move = (el, item, invoke) => {
             item.classList.add('selected');
             mask.style.removeProperty('visibility');
 
-            var index = [...el.children].indexOf(item) - 1;
+            const index = [...el.children].indexOf(item) - 1;
             invoke.invokeMethodAsync('TriggerClick', index);
         }
     }
