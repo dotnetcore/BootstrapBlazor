@@ -7,14 +7,14 @@ namespace BootstrapBlazor.Shared.Samples.Practices;
 /// <summary>
 /// 瀑布流图片
 /// </summary>
-public partial class Waterfall : IAsyncDisposable
+public partial class Waterfall
 {
     private readonly Random random = new();
 
-    private readonly List<string> ImageList = new();
+    private readonly List<string> ImageList = [];
 
-    private readonly List<string> _imageList = new()
-    {
+    private readonly List<string> _imageList =
+    [
         "https://images.unsplash.com/photo-1489743342057-3448cc7c3bb9?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6d284a2efbca5f89528546307f7e7b87&auto=format&fit=crop&w=500&q=60",
         "https://images.unsplash.com/photo-1519996521430-02b798c1d881?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=79f770fc1a5d8ff9b0eb033d0f09e15d&auto=format&fit=crop&w=500&q=60",
         "https://images.unsplash.com/photo-1505210512658-3ae58ae08744?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2ef2e23adda7b89a804cf232f57e3ca3&auto=format&fit=crop&w=333&q=80",
@@ -35,11 +35,7 @@ public partial class Waterfall : IAsyncDisposable
         "https://images.unsplash.com/photo-1519408299519-b7a0274f7d67?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=d4891b98f4554cc55eab1e4a923cbdb1&auto=format&fit=crop&w=500&q=60",
         "https://images.unsplash.com/photo-1506706435692-290e0c5b4505?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=0bb464bb1ceea5155bc079c4f50bc36a&auto=format&fit=crop&w=500&q=60",
         "https://images.unsplash.com/photo-1512355144108-e94a235b10af?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c622d56d975113a08c71c912618b5f83&auto=format&fit=crop&w=500&q=60"
-    };
-
-    [NotNull]
-    [Inject]
-    private IBootstrapBlazorJSHelper? JSHelper { get; set; }
+    ];
 
     /// <summary>
     /// <inheritdoc/>
@@ -48,9 +44,6 @@ public partial class Waterfall : IAsyncDisposable
     {
         if (firstRender)
         {
-            await JSHelper.RegisterEvent(DOMEvents.Scroll);
-            JSHelper.OnScroll += Helper_OnScroll;
-
             await LoadImages(true);
         }
     }
@@ -66,11 +59,11 @@ public partial class Waterfall : IAsyncDisposable
         if (ts.TotalSeconds > TimeSpan.FromSeconds(0.1).TotalSeconds)
         {
             LastRun = now;
-            var h1 = await JSHelper.GetDocumentPropertiesByTagAsync<decimal>("documentElement.clientHeight");
-            var h2 = await JSHelper.GetDocumentPropertiesByTagAsync<decimal>("documentElement.scrollHeight");
-            var h3 = await JSHelper.GetDocumentPropertiesByTagAsync<decimal>("documentElement.scrollTop");
-            var h4 = await JSHelper.GetDocumentPropertiesByTagAsync<decimal>("body.scrollTop");
-            var h5 = await JSHelper.GetDocumentPropertiesByTagAsync<decimal>("body.scrollHeight");
+            var h1 = await JSRuntime.GetDocumentClientHeight();
+            var h2 = await JSRuntime.GetDocumentScrollHeight();
+            var h3 = await JSRuntime.GetDocumentScrollTop();
+            var h4 = await JSRuntime.GetBodyScrollTop();
+            var h5 = await JSRuntime.GetBodyScrollHeight();
 
             //可视区窗口高度
             var windowH = h1;
@@ -104,34 +97,5 @@ public partial class Waterfall : IAsyncDisposable
             ImageList.Add(_imageList[random.Next(0, _imageList.Count)]);
             StateHasChanged();
         }
-    }
-
-    private bool disposedValue;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected virtual async Task DisposeAsync(bool disposing)
-    {
-        if (disposing)
-        {
-            if (!disposedValue)
-            {
-                disposedValue = true;
-                JSHelper.OnScroll -= Helper_OnScroll;
-                await JSHelper.DisposeAsync();
-            }
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsync(true);
-        GC.SuppressFinalize(this);
     }
 }

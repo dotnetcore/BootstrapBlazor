@@ -4,8 +4,6 @@
 
 using BootstrapBlazor.Enums;
 
-using Microsoft.JSInterop;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -100,4 +98,89 @@ public static class JSModuleExtensions
         var module = await ImportModuleAsync(jsRuntime);
         return await module.InvokeAsync<bool>("changeMeta", isAdd, headMetaType.ToDescriptionString(), rel, href);
     }
+
+    /// <summary>
+    /// 获取属性值
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="jsRuntime"></param>
+    /// <param name="properties"></param>
+    /// <returns></returns>
+    public static async Task<T> GetProperties<T>(this IJSRuntime jsRuntime, string properties)
+    {
+        var module = await ImportModuleAsync(jsRuntime);
+        return await module.InvokeAsync<T>(properties);
+    }
+
+    /// <summary>
+    /// 视口高度
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <returns></returns>
+    public static async Task<decimal> GetDocumentClientHeight(this IJSRuntime jsRuntime) => await GetProperties<decimal>(jsRuntime, "document.documentElement.clientHeight");
+
+    /// <summary>
+    /// 视口宽度
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <returns></returns>
+    public static async Task<decimal> GetDocumentClientWidth(this IJSRuntime jsRuntime) => await GetProperties<decimal>(jsRuntime, "document.documentElement.clientWidth");
+
+    /// <summary>
+    /// 元素的总高度
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <returns></returns>
+    public static async Task<decimal> GetDocumentOffsetHeight(this IJSRuntime jsRuntime) => await GetProperties<decimal>(jsRuntime, "document.documentElement.offsetHeight");
+
+    /// <summary>
+    /// 元素的总宽度
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <returns></returns>
+    public static async Task<decimal> GetDocumentOffsetWidth(this IJSRuntime jsRuntime) => await GetProperties<decimal>(jsRuntime, "document.documentElement.offsetWidth");
+
+    /// <summary>
+    /// 整个文档的高度
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <returns></returns>
+    public static async Task<decimal> GetDocumentScrollHeight(this IJSRuntime jsRuntime) => await GetProperties<decimal>(jsRuntime, "document.documentElement.scrollHeight");
+
+    /// <summary>
+    /// 滚动条距离顶部的距离
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <returns></returns>
+    public static async Task<decimal> GetDocumentScrollTop(this IJSRuntime jsRuntime) => await GetProperties<decimal>(jsRuntime, "document.documentElement.scrollTop");
+
+    /// <summary>
+    /// 元素内容的总高度
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <returns></returns>
+    public static async Task<decimal> GetBodyScrollHeight(this IJSRuntime jsRuntime) => await GetProperties<decimal>(jsRuntime, "document.body.scrollHeight");
+
+    /// <summary>
+    /// 元素内容的总宽度
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <returns></returns>
+    public static async Task<decimal> GetBodyScrollWidth(this IJSRuntime jsRuntime) => await GetProperties<decimal>(jsRuntime, "document.body.scrollWidth");
+
+    /// <summary>
+    /// 滚动条距离顶部的距离
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <returns></returns>
+    public static async Task<decimal> GetBodyScrollTop(this IJSRuntime jsRuntime) => await GetProperties<decimal>(jsRuntime, "document.body.scrollTop");
+
+    /// <summary>
+    /// 滚动条距离左侧的距离
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <returns></returns>
+    public static async Task<decimal> GetBodyScrollLeft(this IJSRuntime jsRuntime) => await GetProperties<decimal>(jsRuntime, "document.body.scrollLeft");
+
+
 }
