@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Enums;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -67,30 +69,27 @@ public static class JSModuleExtensions
     }
 
     /// <summary>
-    /// 
+    /// 动态修改head标签
+    /// <para>
+    /// razor示例：
+    /// <code>
+    /// @inject <see cref="IJSRuntime"/> JSRuntime
+    /// 添加一个link标签
+    /// var result = await JSRuntime.ChangeMetaAsync(<see langword="true"/>,<see cref="HeadMetaType.Link"/>,"stylesheet","styles.css")
+    /// 移除一个link标签
+    /// var result = await JSRuntime.ChangeMetaAsync(<see langword="false"/>,<see cref="HeadMetaType.Link"/>,"stylesheet","styles.css")
+    /// </code>
+    /// </para>
     /// </summary>
     /// <param name="jsRuntime"></param>
-    /// <param name="type"></param>
-    /// <param name="rel"></param>
-    /// <param name="href"></param>
+    /// <param name="isAdd"><see langword="true"/> 添加，<see langword="false"/> 移除</param>
+    /// <param name="headMetaType">head标签元素类型</param>
+    /// <param name="rel">类型</param>
+    /// <param name="href">地址</param>
     /// <returns></returns>
-    public static async Task<bool> AddMeta(this IJSRuntime jsRuntime, string type, string rel, string href)
+    public static async Task<bool> ChangeMetaAsync(this IJSRuntime jsRuntime, bool isAdd, HeadMetaType headMetaType, string rel, string href)
     {
         var module = await jsRuntime.InvokeAsync<IJSObjectReference>("import", modulepath);
-        return await module.InvokeAsync<bool>("addMeta", type, rel, href);
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="jsRuntime"></param>
-    /// <param name="type"></param>
-    /// <param name="rel"></param>
-    /// <param name="href"></param>
-    /// <returns></returns>
-    public static async Task<bool> RemoveMeta(this IJSRuntime jsRuntime, string type, string rel, string href)
-    {
-        var module = await jsRuntime.InvokeAsync<IJSObjectReference>("import", modulepath);
-        return await module.InvokeAsync<bool>("removeMeta", type, rel, href);
+        return await module.InvokeAsync<bool>("changeMeta", isAdd, headMetaType.ToDescriptionString(), rel, href);
     }
 }
