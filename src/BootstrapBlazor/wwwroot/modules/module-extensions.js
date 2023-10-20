@@ -34,8 +34,12 @@ export function addEventListener(interop, invokeMethodName, eventName, id) {
 }
 
 export function doConsole(type, arg) {
-    const fn = (typeof console[type] === 'function' ? console[type] : console.log);
-    fn(...arg);
+    try {
+        const fn = (typeof console[type] === 'function' ? console[type] : console.log);
+        fn(...arg);
+    } catch (e) {
+        console.error("C# Class JSModuleExtensions.Console Invoke JS Function doConsole Error:" + e);
+    }
 }
 
 export function doConsoleClear() {
