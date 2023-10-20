@@ -19,24 +19,37 @@ export function dispose(id) {
 }
 
 const move = (el, item) => {
-    console.log();
     const selectedItem = el.querySelector('.selected');
-    if (selectedItem) {
-        selectedItem.classList.remove('selected');
+    if (selectedItem === null) {
+        return;
     }
+    selectedItem.classList.remove('selected');
 
-    let mask = el.querySelector('.segmented-item-mask')
-    if (mask === null) {
-        mask = document.createElement('div');
-        mask.classList.add('segmented-item-mask');
-        el.insertBefore(mask, el.children[0]);
-    }
+    const mask = el.querySelector('.mask')
     mask.style.setProperty('width', `${selectedItem.offsetWidth}px`);
     mask.style.setProperty('transform', `translateX(${selectedItem.offsetLeft}px)`);
 
     const handler = setTimeout(() => {
         clearTimeout(handler);
         mask.style.setProperty('width', `${item.offsetWidth}px`);
+        mask.style.setProperty('height', `${item.offsetHeight}px`);
         mask.style.setProperty('transform', `translateX(${item.offsetLeft}px)`);
+        mask.style.setProperty('visibility', 'visible');
+        requestAnimationFrame(step);
     }, 0);
+
+    let start = void 0;
+    const step = ts => {
+        if (start === void 0) {
+            start = ts
+        }
+        const elapsed = ts - start;
+        if (elapsed < 300) {
+            requestAnimationFrame(step);
+        }
+        else {
+            item.classList.add('selected');
+            mask.style.removeProperty('visibility');
+        }
+    }
 }
