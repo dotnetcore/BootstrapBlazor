@@ -120,7 +120,7 @@ public class InputTest : BootstrapBlazorTestBase
             builder.Add(a => a.Formatter, dt => dt.ToString("HH:mm"));
             builder.Add(a => a.Value, DateTime.Now);
         });
-        Assert.Contains($"value=\"{DateTime.Now:HH:mm}\"", cut.Markup);
+        cut.WaitForAssertion(() =>  Assert.Contains($"value=\"{DateTime.Now:HH:mm}\"", cut.Markup));
     }
 
     [Fact]

@@ -5958,6 +5958,8 @@
     "SizeIntro": "组件定义了三种尺寸（大、默认、小），高度分别为 40px、32px 和 24px。",
     "SegmentItemTitle": "SegmentItem 组件",
     "SegmentItemIntro": "可在 <code>Razor</code> 页面中直接书写 <code>SegmentItem</code> 添加数据源",
+    "BlockTitle": "Block 充满父容器",
+    "BlockIntro": "通过参数 <code>IsBlock</code> 可将组件充满父容器",
     "ItemsAttr": "数据源",
     "ValueAttr": "值",
     "ValueChangedAttr": "分段选择器选项改变时触发此事件",
@@ -5965,6 +5967,8 @@
     "SizeAttr": "设置组件大小",
     "IsDisabledAttr": "是否禁用",
     "ItemTemplateAttr": "设置 SegmentedItem 模板",
-    "ChildContent": "组件子内容"
+    "ChildContent": "组件子内容",
+    "IsBlockAttr": "是否充满父容器",
+    "ShowTooltip": "超长被截断的 Item 是否显示 Tooltip"
   }
 }

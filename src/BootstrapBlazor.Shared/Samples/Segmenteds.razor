@@ -15,6 +15,18 @@
     <Segmented Items="@DisabledItems"></Segmented>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["BlockTitle"]" Introduction="@Localizer["BlockIntro"]" Name="IsBlock">
+    <Segmented TValue="int" IsBlock="true" ShowTooltip="true">
+        <SegmentedItem Text="Daily" Value="12" />
+        <SegmentedItem Text="Weekly" Value="34" IsDisabled="true" />
+        <SegmentedItem Text="Monthly" Value="56" IsActive="true" />
+        <SegmentedItem Text="Quarterly" Value="78" IsDisabled="true" />
+        <SegmentedItem Text="Yearly" Value="90" />
+        <SegmentedItem Text="long-text1-long-text-long-text-long-text" Value="11" />
+        <SegmentedItem Text="long-text2-long-text-long-text-long-text" Value="22" />
+    </Segmented>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["ItemTemplateTitle"]" Introduction="@Localizer["ItemTemplateIntro"]" Name="ItemTemplate">
     <Segmented Items="@ItemTemplateItems">
         <ItemTemplate>

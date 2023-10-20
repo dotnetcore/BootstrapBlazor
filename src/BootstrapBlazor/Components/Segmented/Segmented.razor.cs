@@ -14,6 +14,7 @@ public partial class Segmented<TValue>
 {
     private string? ClassString => CssBuilder.Default("segmented")
         .AddClass($"segmented-{Size.ToDescriptionString()}", Size != Size.None)
+        .AddClass("block", IsBlock)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -58,6 +59,18 @@ public partial class Segmented<TValue>
     public bool IsDisabled { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否充满父元素 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsBlock { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否自动显示 Tooltip 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowTooltip { get; set; }
+
+    /// <summary>
     /// 获得/设置 组件内容
     /// </summary>
     [Parameter]
@@ -78,6 +91,8 @@ public partial class Segmented<TValue>
     public RenderFragment<SegmentedOption<TValue>>? ItemTemplate { get; set; }
 
     private readonly List<SegmentedOption<TValue>> _items = new();
+
+    private string? TooltipString => ShowTooltip && IsBlock ? "tooltip" : null;
 
     private bool GetDisabled(SegmentedOption<TValue> item) => IsDisabled || item.IsDisabled;
 

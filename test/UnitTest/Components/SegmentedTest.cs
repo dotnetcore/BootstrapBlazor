@@ -54,7 +54,7 @@ public class SegmentedTest : BootstrapBlazorTestBase
                 pb.Add(a => a.IsDisabled, false);
             });
         });
-        cut.MarkupMatches("<div class=\"segmented\" id:ignore><div class=\"segmented-item mask\"></div><div class=\"segmented-item selected\"><span class=\"segmented-item-icon\"><i class=\"fa-test\"></i></span><span>Hello</span></div></div>");
+        cut.MarkupMatches("<div class=\"segmented\" id:ignore><div class=\"segmented-item mask\"></div><div class=\"segmented-item selected\"><span class=\"segmented-item-icon\"><i class=\"fa-test\"></i></span><span class=\"segmented-item-text\">Hello</span></div></div>");
     }
 
     [Fact]
@@ -98,7 +98,7 @@ public class SegmentedTest : BootstrapBlazorTestBase
                 }
             });
         });
-        cut.MarkupMatches("<div class=\"segmented\" id:ignore><div class=\"segmented-item mask\"></div><div class=\"segmented-item selected\"><span class=\"segmented-item-icon\"><i class=\"fa-test\"></i></span><span>Hello</span></div></div>");
+        cut.MarkupMatches("<div class=\"segmented\" id:ignore><div class=\"segmented-item mask\"></div><div class=\"segmented-item selected\"><span class=\"segmented-item-icon\"><i class=\"fa-test\"></i></span><span class=\"segmented-item-text\">Hello</span></div></div>");
     }
 
     [Theory]
@@ -202,5 +202,48 @@ public class SegmentedTest : BootstrapBlazorTestBase
         var items = cut.FindAll(".segmented-item");
         Assert.Equal("template-Daily", items[1].Text());
         Assert.Equal("template-Weekly", items[2].Text());
+    }
+
+    [Fact]
+    public void Segmented_IsBlock()
+    {
+        var cut = Context.RenderComponent<Segmented<string>>(pb =>
+        {
+            pb.Add(a => a.IsBlock, true);
+            pb.AddChildContent<SegmentedItem<string>>(pb =>
+            {
+                pb.Add(a => a.Text, "Daily");
+                pb.Add(a => a.Value, "12");
+            });
+            pb.AddChildContent<SegmentedItem<string>>(pb =>
+            {
+                pb.Add(a => a.Text, "Weekly");
+                pb.Add(a => a.Value, "34");
+            });
+        });
+        cut.Contains("segmented block");
+        cut.DoesNotContain("data-bb-toggle");
+    }
+
+    [Fact]
+    public void Segmented_ShowTooltip()
+    {
+        var cut = Context.RenderComponent<Segmented<string>>(pb =>
+        {
+            pb.Add(a => a.IsBlock, true);
+            pb.Add(a => a.ShowTooltip, true);
+            pb.AddChildContent<SegmentedItem<string>>(pb =>
+            {
+                pb.Add(a => a.Text, "Daily");
+                pb.Add(a => a.Value, "12");
+            });
+            pb.AddChildContent<SegmentedItem<string>>(pb =>
+            {
+                pb.Add(a => a.Text, "Weekly");
+                pb.Add(a => a.Value, "34");
+            });
+        });
+        cut.Contains("segmented block");
+        cut.Contains("data-bb-toggle=\"tooltip\"");
     }
 }

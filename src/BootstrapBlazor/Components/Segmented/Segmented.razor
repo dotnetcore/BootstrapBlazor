@@ -3,7 +3,7 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id" data-bb-toggle="@TooltipString">
     <CascadingValue Value="_items" IsFixed="true">
         @ChildContent
     </CascadingValue>
@@ -28,7 +28,7 @@
                             <i class="@item.Icon"></i>
                         </span>
                     }
-                    <span>@item.Text</span>
+                    <span class="segmented-item-text">@item.Text</span>
                 }
             </div>
         }
