@@ -19,17 +19,43 @@ await RemoveLink("favicon.ico");</Pre>
     <Button class="mb-2" Text="Error" OnClick="@(()=> JSRuntime.Console(ConsoleType.Error, jsAlertContent))" />
     <Button class="mb-2" Text="Info" OnClick="@(()=> JSRuntime.Console(ConsoleType.Info, jsAlertContent))" />
     <Button class="mb-2" Text="Assert" OnClick="@(()=> JSRuntime.Console(ConsoleType.Assert, false, jsAlertContent))" />
-    <Button class="mb-2" Text="Dir" OnClick="@(()=> JSRuntime.Console(ConsoleType.Dir, null))" />
+    <Button class="mb-2" Text="Dir" OnClick="@(()=> JSRuntime.Console(ConsoleType.Dir, GetMethods()))" />
     <Button class="mb-2" Text="Time" OnClick="@(()=> JSRuntime.Console(ConsoleType.Time))" />
     <Button class="mb-2" Text="TimeEnd" OnClick="@(()=> JSRuntime.Console(ConsoleType.TimeEnd))" />
     <Button class="mb-2" Text="Count" OnClick="@(()=> JSRuntime.Console(ConsoleType.Count,jsAlertContent))" />
     <Button class="mb-2" Text="Group" OnClick="@(()=> JSRuntime.Console(ConsoleType.Group,jsAlertContent))" />
     <Button class="mb-2" Text="GroupEnd" OnClick="@(()=> JSRuntime.Console(ConsoleType.GroupEnd))" />
-    <Button class="mb-2" Text="Table" OnClick="@(()=> JSRuntime.Console(ConsoleType.Table, null))" />
+    <Button class="mb-2" Text="Table" OnClick="@(()=> JSRuntime.Console(ConsoleType.Table, GetMethods()))" />
     <Button class="mb-2" Text="Trace" OnClick="@(()=> JSRuntime.Console(ConsoleType.Trace))" />
 </DemoBlock>
+
+<MethodTable Items="GetMethods()" />
 
 @code {
     private string jsAlertContent = "Hello BootstrapBlazor";
 
+    private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+    {
+        new()
+        {
+            Name = nameof(JSModuleExtensions.ChangeMetaAsync),
+            Description = "动态添加连接到head标签中",
+            Parameters = " - ",
+            ReturnValue = "ValueTask"
+        },
+        new()
+        {
+            Name = nameof(JSModuleExtensions.Console),
+            Description = "输出到浏览器控制台",
+            Parameters = " - ",
+            ReturnValue = "ValueTask"
+        },
+        new()
+        {
+            Name = nameof(JSModuleExtensions.ConsoleClear),
+            Description = "清空浏览器控制台",
+            Parameters = " - ",
+            ReturnValue = "ValueTask"
+        }
+    };
 }
