@@ -3053,11 +3053,9 @@ section > h2 {
 }
 .list-group {
   --bs-list-group-header-bg: #e9ecef;
-  --bs-list-group-border-radius: 0;
-  border: 1px solid var(--bs-secondary);
-  height: 100%;
-  border-radius: var(--bs-border-radius);
+  border: 1px solid var(--bs-list-group-border-color);
   overflow: auto;
+  height: 100%;
 }
 .list-group .list-group-header {
   padding: var(--bs-list-group-item-padding-y) var(--bs-list-group-item-padding-x);

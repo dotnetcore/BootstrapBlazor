@@ -4525,7 +4525,7 @@
     "WebSpeech": "语音识别/合成 WebSpeech",
     "Marquee": "文字滚动 Marquee",
     "Stack": "堆叠布局 Stack",
-    "Segmented": "Segmented 分段控制器"
+    "Segmented": "分段控制器 Segmented"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
