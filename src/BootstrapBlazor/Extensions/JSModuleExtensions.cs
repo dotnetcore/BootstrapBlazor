@@ -4,6 +4,8 @@
 
 using BootstrapBlazor.Enums;
 
+using Microsoft.JSInterop;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -44,7 +46,13 @@ public static class JSModuleExtensions
         return name;
     }
 
-    private static readonly string modulepath = $"./_content/BootstrapBlazor/modules/module-extensions.js";
+    /// <summary>
+    /// 导入js模块
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <returns></returns>
+    private static async Task<IJSObjectReference> ImportModuleAsync(this IJSRuntime jsRuntime) =>
+        await jsRuntime.InvokeAsync<IJSObjectReference>("import", $"./_content/BootstrapBlazor/modules/module-extensions.js");
 
     /// <summary>
     /// 清空浏览器控制台
@@ -52,19 +60,19 @@ public static class JSModuleExtensions
     /// <param name="jsRuntime"></param>
     public static async Task ConsoleClear(this IJSRuntime jsRuntime)
     {
-        var module = await jsRuntime.InvokeAsync<IJSObjectReference>("import", modulepath);
+        var module = await ImportModuleAsync(jsRuntime);
         await module.InvokeVoidAsync("doConsoleClear");
     }
 
     /// <summary>
-    /// 
+    /// 输出到浏览器控制台
     /// </summary>
     /// <param name="jsRuntime"></param>
     /// <param name="consoleType"></param>
     /// <param name="args"></param>
     public static async Task Console(this IJSRuntime jsRuntime, ConsoleType consoleType, params object?[]? args)
     {
-        var module = await jsRuntime.InvokeAsync<IJSObjectReference>("import", modulepath);
+        var module = await ImportModuleAsync(jsRuntime);
         await module.InvokeVoidAsync("doConsole", consoleType.ToDescriptionString(), args);
     }
 
@@ -89,7 +97,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task<bool> ChangeMetaAsync(this IJSRuntime jsRuntime, bool isAdd, HeadMetaType headMetaType, string rel, string href)
     {
-        var module = await jsRuntime.InvokeAsync<IJSObjectReference>("import", modulepath);
+        var module = await ImportModuleAsync(jsRuntime);
         return await module.InvokeAsync<bool>("changeMeta", isAdd, headMetaType.ToDescriptionString(), rel, href);
     }
 }
