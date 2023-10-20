@@ -54,12 +54,6 @@ public partial class Segmented<TValue>
     public bool IsDisabled { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否使用动画 默认 false
-    /// </summary>
-    [Parameter]
-    public bool IsAnimation { get; set; } = true;
-
-    /// <summary>
     /// 获得/设置 组件内容
     /// </summary>
     [Parameter]
@@ -82,8 +76,6 @@ public partial class Segmented<TValue>
     private readonly List<SegmentedOption<TValue>> _items = new();
 
     private bool GetDisabled(SegmentedOption<TValue> item) => IsDisabled || item.IsDisabled;
-
-    private string? AnimationString => IsAnimation ? "true" : null;
 
     /// <summary>
     /// <inheritdoc/>

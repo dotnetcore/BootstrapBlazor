@@ -3,11 +3,12 @@
 @inherits BootstrapModuleComponentBase
 @attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id" data-bb-animation="@AnimationString">
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
     <CascadingValue Value="_items" IsFixed="true">
         @ChildContent
     </CascadingValue>
     <RenderTemplate>
+        <div class="segmented-item mask"></div>
         @foreach (var item in GetItems())
         {
             <div @key="item" class="@GetLabelClassString(item)">
