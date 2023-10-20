@@ -98,7 +98,7 @@ public class SegmentedTest : BootstrapBlazorTestBase
                 }
             });
         });
-        cut.MarkupMatches("<div class=\"segmented\" id:ignore><div class=\"segmented-item mask\"></div><div class=\"segmented-item selected\"><span class=\"segmented-item-icon\"><i class=\"fa-test\"></i></span><span>Hello</span></div></div>");
+        cut.MarkupMatches("<div class=\"segmented\" id:ignore><div class=\"segmented-item mask\"></div><div class=\"segmented-item selected\"><span class=\"segmented-item-icon\"><i class=\"fa-test\"></i></span><span class=\"segmented-item-text\">Hello</span></div></div>");
     }
 
     [Theory]
