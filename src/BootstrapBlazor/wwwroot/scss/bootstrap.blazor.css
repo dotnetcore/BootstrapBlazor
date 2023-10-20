@@ -4958,7 +4958,7 @@ body:before {
   --bb-segmented-item-selected-bg: #fff;
   --bb-segmented-item-border-radius: 6px;
   --bb-segmented-item-lg-height: 36px;
-  --bb-segmented-item-lg-padding: var(--bb-segmented-item-padding);
+  --bb-segmented-item-lg-padding: 0 11px;
   --bb-segmented-item-lg-font-size: 1rem;
   --bb-segmented-item-lg-border-radius: 8px;
   --bb-segmented-item-sm-height: 20px;
@@ -4969,7 +4969,7 @@ body:before {
   padding: var(--bb-segmented-padding);
   background-color: var(--bb-segmented-bg);
   border-radius: var(--bs-border-radius);
-  display: flex;
+  display: inline-flex;
   position: relative;
 }
 .segmented.segmented-lg {
@@ -4984,6 +4984,15 @@ body:before {
   --bb-segmented-item-padding: var(--bb-segmented-item-sm-padding);
   --bb-segmented-item-font-size: var(--bb-segmented-item-sm-font-size);
 }
+.segmented.block {
+  display: flex;
+}
+.segmented.block .segmented-item {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .segmented .segmented-item {
   padding: var(--bb-segmented-item-padding);
   text-align: center;
@@ -4991,13 +5000,9 @@ body:before {
   border-radius: var(--bb-segmented-item-border-radius);
   line-height: var(--bb-segmented-item-height);
   font-size: var(--bb-segmented-item-font-size);
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  flex: 1;
-  min-width: 0;
   position: relative;
   transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  white-space: nowrap;
 }
 .segmented .segmented-item.mask {
   background-color: var(--bb-segmented-item-selected-bg);
