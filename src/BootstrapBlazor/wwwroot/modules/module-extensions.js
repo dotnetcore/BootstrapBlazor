@@ -1,6 +1,5 @@
 ﻿import Data from "./data.js?v=$version"
 import EventHandler from "./event-handler.js?v=$version"
-import * as Utility from "./utility.js?v=$version"
 
 export function dispose(guid) {
     const hp = Data.get(guid)
@@ -13,53 +12,25 @@ export function dispose(guid) {
 
 /**
  * @function 事件注册
- * @param {any} guid 唯一编码
  * @param {any} interop C# 委托对象
  * @param {any} invokeMethodName C# 委托对象的回调方法
  * @param {any} eventName 要注册的事件名称
  * @param {any} id 元素id
- * @param {any} el 元素标识
  */
-export function addEventListener(guid, interop, invokeMethodName, eventName, id, el) {
+export function addEventListener(interop, invokeMethodName, eventName, id) {
     const hp = {
-        guid,
         eventName,
         handler: () => {
             interop.invokeMethodAsync(invokeMethodName);
         },
-        id, el,
+        id,
         target: window,
     }
 
-    if (id) {
-        hp.target = document.getElementById(id);
-    }
-    if (el) {
-        hp.target = el;
-    }
+    hp.target = document.getElementById(id);
 
-    Data.set(guid, hp)
+    Data.set(id, hp)
     EventHandler.on(hp.target, hp.eventName, hp.handler)
-}
-
-export async function doAddLink(link) {
-    await Utility.addLink(link);
-}
-
-export async function doAddLinkWithRel(link, rel) {
-    await Utility.addLink(link, rel);
-}
-
-export async function doRemoveLink(link) {
-    await Utility.remove(link);
-}
-
-export async function doAddScript(src) {
-    await Utility.doAddScript(src);
-}
-
-export async function doRemoveScript(src) {
-    await Utility.doRemoveScript(src);
 }
 
 export function doConsole(type, arg) {

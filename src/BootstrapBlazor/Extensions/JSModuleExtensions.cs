@@ -51,7 +51,7 @@ public static class JSModuleExtensions
     /// </summary>
     /// <param name="jsRuntime"></param>
     /// <returns></returns>
-    private static async Task<IJSObjectReference> ImportModuleAsync(this IJSRuntime jsRuntime) =>
+    private static async Task<IJSObjectReference> ImportModuleAsync(IJSRuntime jsRuntime) =>
         await jsRuntime.InvokeAsync<IJSObjectReference>("import", $"./_content/BootstrapBlazor/modules/module-extensions.js");
 
     /// <summary>
