@@ -5,7 +5,7 @@ export function init(id, invoke) {
     const el = document.getElementById(id);
     Data.set(id, { el, invoke });
     EventHandler.on(el, 'click', '.segmented-item', e => {
-        move(el, e.delegateTarget);
+        move(el, e.delegateTarget, invoke);
     });
 }
 
@@ -18,12 +18,13 @@ export function dispose(id) {
     }
 }
 
-const move = (el, item) => {
+const move = (el, item, invoke) => {
     const selectedItem = el.querySelector('.selected');
     if (selectedItem === null) {
         return;
     }
     selectedItem.classList.remove('selected');
+    item.classList.add('moving');
 
     const mask = el.querySelector('.mask')
     mask.style.setProperty('width', `${selectedItem.offsetWidth}px`);
@@ -48,8 +49,12 @@ const move = (el, item) => {
             requestAnimationFrame(step);
         }
         else {
+            item.classList.remove('moving');
             item.classList.add('selected');
             mask.style.removeProperty('visibility');
+
+            var index = [...el.children].indexOf(item) - 1;
+            invoke.invokeMethodAsync('TriggerClick', index);
         }
     }
 }
