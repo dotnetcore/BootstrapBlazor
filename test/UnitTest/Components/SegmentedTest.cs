@@ -203,4 +203,47 @@ public class SegmentedTest : BootstrapBlazorTestBase
         Assert.Equal("template-Daily", items[1].Text());
         Assert.Equal("template-Weekly", items[2].Text());
     }
+
+    [Fact]
+    public void Segmented_IsBlock()
+    {
+        var cut = Context.RenderComponent<Segmented<string>>(pb =>
+        {
+            pb.Add(a => a.IsBlock, true);
+            pb.AddChildContent<SegmentedItem<string>>(pb =>
+            {
+                pb.Add(a => a.Text, "Daily");
+                pb.Add(a => a.Value, "12");
+            });
+            pb.AddChildContent<SegmentedItem<string>>(pb =>
+            {
+                pb.Add(a => a.Text, "Weekly");
+                pb.Add(a => a.Value, "34");
+            });
+        });
+        cut.Contains("segmented block");
+        cut.DoesNotContain("data-bb-toggle");
+    }
+
+    [Fact]
+    public void Segmented_ShowTooltip()
+    {
+        var cut = Context.RenderComponent<Segmented<string>>(pb =>
+        {
+            pb.Add(a => a.IsBlock, true);
+            pb.Add(a => a.ShowTooltip, true);
+            pb.AddChildContent<SegmentedItem<string>>(pb =>
+            {
+                pb.Add(a => a.Text, "Daily");
+                pb.Add(a => a.Value, "12");
+            });
+            pb.AddChildContent<SegmentedItem<string>>(pb =>
+            {
+                pb.Add(a => a.Text, "Weekly");
+                pb.Add(a => a.Value, "34");
+            });
+        });
+        cut.Contains("segmented block");
+        cut.Contains("data-bb-toggle=\"tooltip\"");
+    }
 }
