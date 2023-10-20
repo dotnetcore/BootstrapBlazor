@@ -631,6 +631,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["Segmented"],
+                    Url = "segmented"
+                },
+                new()
+                {
                     Text = Localizer["SignaturePad"],
                     Url = "signature-pad",
                 },

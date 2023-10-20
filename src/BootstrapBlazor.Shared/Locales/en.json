@@ -2576,7 +2576,7 @@
     "FloatingLabelsFormatString": "The numerically formatted string",
     "FloatingLabelsFormatter": "TableHeader instance",
     "FloatingLabelsType": "The type of control",
-    "FloatingLabelsIsDisabled": "Whether to disable,Default is fasle",
+    "FloatingLabelsIsDisabled": "Whether to disable, Default is fasle",
     "FloatingLabelGroupBoxTitle": "GroupBox",
     "FloatingLabelGroupBoxIntro": "By setting <code>IsGroupBox=\"true\"</code>. Group box wrapper label"
   },
@@ -4524,7 +4524,8 @@
     "MindMap": "Mind Map",
     "WebSpeech": "Web Speech",
     "Marquee": "Marquee",
-    "Stack": "Stack"
+    "Stack": "Stack",
+    "Segmented": "Segmented"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -5941,5 +5942,29 @@
     "AttrJustify": "Change the alignment of flex items on the main axis",
     "AttrAlignItems": "Change the alignment of flex items on the cross axis",
     "AttrChildContent": "Child content render fragment"
+  },
+  "BootstrapBlazor.Shared.Samples.Segmenteds": {
+    "Title": "Segmented",
+    "SubTitle": "displaying multiple options and user can select a single option",
+    "BasicTitle": "Basic",
+    "BasicIntro": "select a single option",
+    "IsDisabledTitle": "Disable",
+    "IsDisabledIntro": "Make one of them prohibited",
+    "ItemTemplateTitle": "Custom Rendering",
+    "ItemTemplateIntro": "Use <code>ItemTemplate</code> to custom-render SegmentedItems",
+    "SegmentItemTitle": "SegmentItem 组件",
+    "SegmentItemIntro": "可在 <code>Razor</code> 页面中直接书写 <code>SegmentItem</code> 添加数据源",
+    "IconTitle": "Icon",
+    "IconIntro": "Set the Icon for the segmented item",
+    "SizeTitle": "Size",
+    "SizeIntro": "Set <code>Size</code> defines three sizes (large, default, small) with heights of 40px, 32px, and 24px",
+    "ItemsAttr": "Data source",
+    "SizeAttr": "Set the component size",
+    "IsDisabledAttr": "Whether to disable, Default is fasle",
+    "ValueAttr": "The value of segment",
+    "ValueChangedAttr": "This event fires when the segment selector options change",
+    "OnValueChanged": "Callback for the Value changed",
+    "ItemTemplateAttr": "The template of segement item",
+    "ChildContent": "The template of segment content"
   }
 }
