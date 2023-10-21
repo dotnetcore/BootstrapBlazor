@@ -78,3 +78,7 @@ export function changeMeta(isAdd, type, rel, href) {
         return false;
     }
 }
+
+export function isMobileDevice() {
+    return /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile/i.test(navigator.userAgent);
+}

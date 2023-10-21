@@ -4,6 +4,8 @@
 
 using BootstrapBlazor.Enums;
 
+using Microsoft.JSInterop;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -44,13 +46,22 @@ public static class JSModuleExtensions
         return name;
     }
 
+    private static IJSObjectReference _module { get; set; } = default!;
+
     /// <summary>
     /// 导入js模块
     /// </summary>
     /// <param name="jsRuntime"></param>
     /// <returns></returns>
-    private static async Task<IJSObjectReference> ImportModuleAsync(IJSRuntime jsRuntime) =>
-        await jsRuntime.InvokeAsync<IJSObjectReference>("import", $"./_content/BootstrapBlazor/modules/module-extensions.js");
+    private static async Task<IJSObjectReference> GetModule(IJSRuntime jsRuntime)
+    {
+        if (_module is null)
+        {
+            _module = await jsRuntime.InvokeAsync<IJSObjectReference>("import", $"./_content/BootstrapBlazor/modules/module-extensions.js");
+        }
+
+        return _module;
+    }
 
     /// <summary>
     /// 清空浏览器控制台
@@ -58,7 +69,7 @@ public static class JSModuleExtensions
     /// <param name="jsRuntime"></param>
     public static async Task ConsoleClear(this IJSRuntime jsRuntime)
     {
-        var module = await ImportModuleAsync(jsRuntime);
+        var module = await GetModule(jsRuntime);
         await module.InvokeVoidAsync("doConsoleClear");
     }
 
@@ -70,7 +81,7 @@ public static class JSModuleExtensions
     /// <param name="args"></param>
     public static async Task Console(this IJSRuntime jsRuntime, ConsoleType consoleType, params object?[]? args)
     {
-        var module = await ImportModuleAsync(jsRuntime);
+        var module = await GetModule(jsRuntime);
         await module.InvokeVoidAsync("doConsole", consoleType.ToDescriptionString(), args);
     }
 
@@ -95,7 +106,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task<bool> ChangeMetaAsync(this IJSRuntime jsRuntime, bool isAdd, HeadMetaType headMetaType, string rel, string href)
     {
-        var module = await ImportModuleAsync(jsRuntime);
+        var module = await GetModule(jsRuntime);
         return await module.InvokeAsync<bool>("changeMeta", isAdd, headMetaType.ToDescriptionString(), rel, href);
     }
 
@@ -108,7 +119,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task<T> GetProperties<T>(this IJSRuntime jsRuntime, string properties)
     {
-        var module = await ImportModuleAsync(jsRuntime);
+        var module = await GetModule(jsRuntime);
         return await module.InvokeAsync<T>(properties);
     }
 
