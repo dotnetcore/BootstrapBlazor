@@ -33,6 +33,22 @@ export function addEventListener(interop, invokeMethodName, eventName, id) {
     EventHandler.on(hp.target, hp.eventName, hp.handler)
 }
 
+export function getProperties(obj, tag) {
+    let tags = tag.split('.');
+    let tagsCopy = JSON.parse(JSON.stringify(tags));
+    var object = obj;
+    tagsCopy.map(() => {
+        object = object[tags[0]];
+        tags.shift();
+    })
+    return object;
+}
+
+export function getElementProperties(id, tag) {
+    var el = document.getElementById(id);
+    return getProperties(el, tag);
+}
+
 export function doConsole(type, arg) {
     try {
         const fn = (typeof console[type] === 'function' ? console[type] : console.log);
@@ -40,10 +56,6 @@ export function doConsole(type, arg) {
     } catch (e) {
         console.error("C# Class JSModuleExtensions.Console Invoke JS Function doConsole Error:" + e);
     }
-}
-
-export function doConsoleClear() {
-    console.clear();
 }
 
 export function changeMeta(isAdd, type, rel, href) {

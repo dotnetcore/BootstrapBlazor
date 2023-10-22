@@ -4524,7 +4524,9 @@
     "MindMap": "Mind Map",
     "WebSpeech": "Web Speech",
     "Marquee": "Marquee",
-    "Stack": "Stack"
+    "Stack": "Stack",
+    "Utility": "Utility",
+    "JSExtension": "JSRuntime Extensions"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -5942,19 +5944,9 @@
     "AttrAlignItems": "Change the alignment of flex items on the cross axis",
     "AttrChildContent": "Child content render fragment"
   },
-  "BootstrapBlazor.Shared.Samples.JSHelpers": {
-    "AddLinkTitle": "AddLink/RemoveLink",
-    "AddLinkIntro": "Dynamically adding/removing Link connections",
-    "AddScriptTitle": "AddScript/RemoveScript",
-    "AddScriptIntro": "Dynamically adding/removing script scripts",
-    "RunJSWithEvalTitle": "RunJSWithEval",
-    "RunJSWithEvalIntro": "Dynamically executing JavaScript scripts through Eval",
-    "RunJSWithFunctionTitle": "RunJSWithFunction",
-    "RunJSWithFunctionIntro": "Dynamically executing JavaScript scripts through Function",
-    "JSAlertTitle": "JS Alert",
-    "JSAlertIntro": "JS Alert Popup",
-    "JSPromptTitle": "JS Prompt",
-    "JSPromptIntro": "JS Prompt input box",
+  "BootstrapBlazor.Shared.Samples.JSRuntimeExtensionsDemo": {
+    "ChangeMetaTitle": "Dynamically modifying the head label",
+    "ChangeMetaIntro": "Dynamically adding/removing tags such as Link and Script.",
     "JSConsoleTitle": "JS Console",
     "JSConsoleIntro": "JS Console Console Output"
   }

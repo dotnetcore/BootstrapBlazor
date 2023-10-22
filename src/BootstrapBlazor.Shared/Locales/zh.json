@@ -4524,7 +4524,9 @@
     "MindMap": "思维导图 MindMap",
     "WebSpeech": "语音识别/合成 WebSpeech",
     "Marquee": "文字滚动 Marquee",
-    "Stack": "堆叠布局 Stack"
+    "Stack": "堆叠布局 Stack",
+    "Utility": "实用工具",
+    "JSExtension": "JSRuntime 拓展"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -5942,19 +5944,9 @@
     "AttrAlignItems": "垂直布局模式",
     "AttrChildContent": "内容模板"
   },
-  "BootstrapBlazor.Shared.Samples.JSHelpers": {
-    "AddLinkTitle": "AddLink/RemoveLink",
-    "AddLinkIntro": "动态添加/移除Link连接",
-    "AddScriptTitle": "AddScript/RemoveScript",
-    "AddScriptIntro": "动态添加/移除Script脚本",
-    "RunJSWithEvalTitle": "RunJSWithEval",
-    "RunJSWithEvalIntro": "通过Eval动态执行JavaScript脚本",
-    "RunJSWithFunctionTitle": "RunJSWithFunction",
-    "RunJSWithFunctionIntro": "通过Function动态执行JavaScript脚本",
-    "JSAlertTitle": "JS Alert",
-    "JSAlertIntro": "JS Alert 弹窗",
-    "JSPromptTitle": "JS Prompt",
-    "JSPromptIntro": "JS Prompt 输入框",
+  "BootstrapBlazor.Shared.Samples.JSRuntimeExtensionsDemo": {
+    "ChangeMetaTitle": "动态修改head标签",
+    "ChangeMetaIntro": "动态添加/移除Link，Script等标签。",
     "JSConsoleTitle": "JS Console",
     "JSConsoleIntro": "JS Console 控制台输出"
   }

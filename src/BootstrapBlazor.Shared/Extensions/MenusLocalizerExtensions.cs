@@ -94,7 +94,7 @@ internal static class MenusLocalizerExtensions
 
         item = new DemoMenuItem()
         {
-            Text = "Utility",
+            Text = Localizer["Utility"],
             Icon = "fa-fw fa-solid fa-code"
         };
 
@@ -116,8 +116,8 @@ internal static class MenusLocalizerExtensions
             {
                 new()
                 {
-                    Text = "JSHelper",
-                    Url = "jshelpers"
+                    Text = Localizer["JSExtension"],
+                    Url = "jsruntimeextensions"
                 }
             };
             AddBadge(item);

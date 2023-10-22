@@ -62,8 +62,8 @@ public partial class Waterfall
             var h1 = await JSRuntime.GetDocumentClientHeight();
             var h2 = await JSRuntime.GetDocumentScrollHeight();
             var h3 = await JSRuntime.GetDocumentScrollTop();
-            var h4 = await JSRuntime.GetBodyScrollTop();
-            var h5 = await JSRuntime.GetBodyScrollHeight();
+            var h4 = await JSRuntime.GetDocumentBodyScrollTop();
+            var h5 = await JSRuntime.GetDocumentBodyScrollHeight();
 
             //可视区窗口高度
             var windowH = h1;

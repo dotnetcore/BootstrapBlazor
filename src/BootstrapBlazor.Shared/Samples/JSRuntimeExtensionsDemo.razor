@@ -1,0 +1,78 @@
+﻿@page "/jsruntimeextensions"
+@inject IStringLocalizer<JSRuntimeExtensionsDemo> Localizer
+
+<DemoBlock Title="@Localizer["ChangeMetaTitle"]" Introduction="@Localizer["ChangeMetaIntro"]" ShowCode="false" Name="ChangeMeta">
+    <Pre>[Inject]
+private IJSRuntime JSRuntime { get; set; } = default!;
+// add link
+var result = await JSRuntime.ChangeMetaAsync(true,HeadMetaType.Link,"stylesheet","styles.css");
+// remove link
+var result = await JSRuntime.ChangeMetaAsync(false,HeadMetaType.Link,"stylesheet","styles.css");
+</Pre>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["JSConsoleTitle"]" Introduction="@Localizer["JSConsoleIntro"]" Name="JSConsole">
+    <Pre class="mb-2">await JSRuntime.Console(ConsoleType.Log, "Hello BootstrapBlazor");</Pre>
+    <Button class="mb-2" Text="Clear" OnClick="@(()=> JSRuntime.ConsoleClear())" />
+    <Button class="mb-2" Text="Log" OnClick="@(()=> JSRuntime.Console(ConsoleType.Log, _consoleText))" />
+    <Button class="mb-2" Text="Warn" OnClick="@(()=> JSRuntime.Console(ConsoleType.Warn, _consoleText))" />
+    <Button class="mb-2" Text="Error" OnClick="@(()=> JSRuntime.Console(ConsoleType.Error, _consoleText))" />
+    <Button class="mb-2" Text="Info" OnClick="@(()=> JSRuntime.Console(ConsoleType.Info, _consoleText))" />
+    <Button class="mb-2" Text="Assert" OnClick="@(()=> JSRuntime.Console(ConsoleType.Assert, false, _consoleText))" />
+    <Button class="mb-2" Text="Dir" OnClick="@(()=> JSRuntime.Console(ConsoleType.Dir, GetMethods()))" />
+    <Button class="mb-2" Text="Time" OnClick="@(()=> JSRuntime.Console(ConsoleType.Time))" />
+    <Button class="mb-2" Text="TimeEnd" OnClick="@(()=> JSRuntime.Console(ConsoleType.TimeEnd))" />
+    <Button class="mb-2" Text="Count" OnClick="@(()=> JSRuntime.Console(ConsoleType.Count,_consoleText))" />
+    <Button class="mb-2" Text="Group" OnClick="@(()=> JSRuntime.Console(ConsoleType.Group,_consoleText))" />
+    <Button class="mb-2" Text="GroupEnd" OnClick="@(()=> JSRuntime.Console(ConsoleType.GroupEnd))" />
+    <Button class="mb-2" Text="Table" OnClick="@(()=> JSRuntime.Console(ConsoleType.Table, GetMethods()))" />
+    <Button class="mb-2" Text="Trace" OnClick="@(()=> JSRuntime.Console(ConsoleType.Trace))" />
+</DemoBlock>
+
+<DemoBlock Title="获取属性值" Introduction="" Name="GetProperties">
+    <section ignore>
+        <Button class="mb-2" OnClick="GetProperties">刷新</Button>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="WindowInnerHeight" />
+            <BootstrapInput Readonly="true" TValue="decimal" @bind-Value="@WindowInnerHeight" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="WindowOuterHeight" />
+            <BootstrapInput Readonly="true" TValue="decimal" @bind-Value="@WindowOuterHeight" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="WindowInnerWidth" />
+            <BootstrapInput Readonly="true" TValue="decimal" @bind-Value="@WindowInnerWidth" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="WindowOuterWidth" />
+            <BootstrapInput Readonly="true" TValue="decimal" @bind-Value="@WindowOuterWidth" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="DocumentClientHeight" />
+            <BootstrapInput Readonly="true" TValue="decimal" @bind-Value="@DocumentClientHeight" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="DocumentClientWidth" />
+            <BootstrapInput Readonly="true" TValue="decimal" @bind-Value="@DocumentClientWidth" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="GetDocumentScrollHeight" />
+            <BootstrapInput Readonly="true" TValue="decimal" @bind-Value="@GetDocumentScrollHeight" />
+        </BootstrapInputGroup>
+                <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="GetDocumentScrollWidth" />
+            <BootstrapInput Readonly="true" TValue="decimal" @bind-Value="@GetDocumentScrollWidth" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="GetDocumentScrollTop" />
+            <BootstrapInput Readonly="true" TValue="decimal" @bind-Value="@GetDocumentScrollTop" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="GetDocumentScrollLeft" />
+            <BootstrapInput Readonly="true" TValue="decimal" @bind-Value="@GetDocumentScrollLeft" />
+        </BootstrapInputGroup>
+    </section>
+</DemoBlock>
+
+<MethodTable Items="GetMethods()" />
