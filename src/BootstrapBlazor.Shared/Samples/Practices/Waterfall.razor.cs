@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.JSInterop;
+
 namespace BootstrapBlazor.Shared.Samples.Practices;
 
 /// <summary>
@@ -50,7 +52,7 @@ public partial class Waterfall
 
     private DateTime LastRun { get; set; } = DateTime.Now;
 
-    private async void Helper_OnScroll()
+    private async Task OnDocumentScroll()
     {
         var now = DateTime.Now;
         var ts = now - LastRun;
@@ -59,18 +61,13 @@ public partial class Waterfall
         if (ts.TotalSeconds > TimeSpan.FromSeconds(0.1).TotalSeconds)
         {
             LastRun = now;
-            var h1 = await JSRuntime.GetDocumentClientHeight();
-            var h2 = await JSRuntime.GetDocumentScrollHeight();
-            var h3 = await JSRuntime.GetDocumentScrollTop();
-            var h4 = await JSRuntime.GetDocumentBodyScrollTop();
-            var h5 = await JSRuntime.GetDocumentBodyScrollHeight();
 
             //可视区窗口高度
-            var windowH = h1;
-            //滚动条的上边距
-            var scrollH = h3 > 0 ? h3 : h4;
+            var windowH = await JSRuntime.GetDocumentClientHeight();
             //滚动条的高度
-            var documentH = h2 > 0 ? h2 : h5;
+            var documentH = await JSRuntime.GetDocumentScrollHeight();
+            //滚动条的上边距
+            var scrollH = await JSRuntime.GetDocumentScrollTop();
 
             var sh1 = windowH + scrollH;
             var sh2 = documentH;

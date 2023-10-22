@@ -10,13 +10,6 @@ export function dispose(guid) {
     }
 }
 
-/**
- * @function 事件注册
- * @param {any} interop C# 委托对象
- * @param {any} invokeMethodName C# 委托对象的回调方法
- * @param {any} eventName 要注册的事件名称
- * @param {any} id 元素id
- */
 export function addEventListener(interop, invokeMethodName, eventName, id) {
     const hp = {
         eventName,
@@ -27,26 +20,31 @@ export function addEventListener(interop, invokeMethodName, eventName, id) {
         target: window,
     }
 
-    hp.target = document.getElementById(id);
-
     Data.set(id, hp)
     EventHandler.on(hp.target, hp.eventName, hp.handler)
 }
 
 export function getProperties(obj, tag) {
-    let tags = tag.split('.');
-    let tagsCopy = JSON.parse(JSON.stringify(tags));
-    var object = obj;
-    tagsCopy.map(() => {
-        object = object[tags[0]];
-        tags.shift();
-    })
-    return object;
+    try {
+        let tags = tag.split('.');
+        let tagsCopy = JSON.parse(JSON.stringify(tags));
+        var object = obj;
+        tagsCopy.map(() => {
+            object = object[tags[0]];
+            tags.shift();
+        })
+        return object;
+    } catch (e) {
+        console.warn("C# Class JSModuleExtensions.Invoke JS Function getProperties Error:" + e);
+        return null;
+    }
 }
 
 export function getElementProperties(id, tag) {
     var el = document.getElementById(id);
-    return getProperties(el, tag);
+    if (el) {
+        return getProperties(el, tag);
+    }
 }
 
 export function doConsole(type, arg) {

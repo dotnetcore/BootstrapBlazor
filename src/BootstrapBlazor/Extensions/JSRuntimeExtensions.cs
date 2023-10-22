@@ -16,9 +16,17 @@ public static class JSRuntimeExtensions
     /// </summary>
     /// <param name="jsRuntime"></param>
     /// <returns></returns>
-    private static async Task<IJSObjectReference> GetModule(IJSRuntime jsRuntime)
+    private static async Task<IJSObjectReference> GetModule(IJSRuntime jsRuntime) => await jsRuntime.InvokeAsync<IJSObjectReference>("import", $"./_content/BootstrapBlazor/modules/runtime-extensions.js");
+
+    /// <summary>
+    /// 获取是否为移动设备
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <returns></returns>
+    public static async Task<bool> GetIsMobileDevice(this IJSRuntime jsRuntime)
     {
-        return await jsRuntime.InvokeAsync<IJSObjectReference>("import", $"./_content/BootstrapBlazor/modules/runtime-extensions.js");
+        var module = await GetModule(jsRuntime);
+        return await module.InvokeAsync<bool>("isMobileDevice");
     }
 
     /// <summary>

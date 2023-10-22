@@ -59,7 +59,6 @@ public partial class JSRuntimeExtensionsDemo
         GetDocumentScrollWidth = await JSRuntime.GetDocumentScrollWidth();
         GetDocumentScrollTop = await JSRuntime.GetDocumentScrollTop();
         GetDocumentScrollLeft = await JSRuntime.GetDocumentScrollLeft();
-
     }
 
     private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
