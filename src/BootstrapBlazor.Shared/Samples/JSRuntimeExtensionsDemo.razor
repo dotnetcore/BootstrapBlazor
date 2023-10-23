@@ -12,8 +12,8 @@ var result = await JSRuntime.ChangeMetaAsync(false,HeadMetaType.Link,"stylesheet
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["EvalTitle"]" Introduction="@Localizer["EvalIntro"]" Name="Eval">
-    <Pre class="mb-2">var result = await JSRuntime.Eval("js code");</Pre>
-    <Textarea class="mb-2" @bind-Value="@evalContent" rows="10" />
+    <Pre class="mb-2">await JSRuntime.Eval("js code");</Pre>
+    <Textarea class="mb-2" @bind-Value="@evalContent" rows="3" />
     <Button class="mb-2" Text="Run" OnClick="@RunEval"></Button>
     <Textarea @bind-Value="@evalResult" rows="1" />
 </DemoBlock>
@@ -67,7 +67,7 @@ var result = await JSRuntime.ChangeMetaAsync(false,HeadMetaType.Link,"stylesheet
             <BootstrapInputGroupLabel class="label-width" DisplayText="GetDocumentScrollHeight" />
             <BootstrapInput Readonly="true" TValue="decimal" @bind-Value="@GetDocumentScrollHeight" />
         </BootstrapInputGroup>
-                <BootstrapInputGroup>
+        <BootstrapInputGroup>
             <BootstrapInputGroupLabel class="label-width" DisplayText="GetDocumentScrollWidth" />
             <BootstrapInput Readonly="true" TValue="decimal" @bind-Value="@GetDocumentScrollWidth" />
         </BootstrapInputGroup>

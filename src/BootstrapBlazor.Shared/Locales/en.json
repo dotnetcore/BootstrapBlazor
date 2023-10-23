@@ -5947,6 +5947,8 @@
   "BootstrapBlazor.Shared.Samples.JSRuntimeExtensionsDemo": {
     "ChangeMetaTitle": "Dynamically modifying the head label",
     "ChangeMetaIntro": "Dynamically adding/removing tags such as Link and Script.",
+    "EvalTitle": "Dynamically running Java Script code",
+    "EvalIntro": "Run Java Script code dynamically through the Eval function.",
     "JSConsoleTitle": "JS Console",
     "JSConsoleIntro": "JS Console Console Output"
   }

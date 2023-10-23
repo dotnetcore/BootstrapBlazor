@@ -5947,6 +5947,8 @@
   "BootstrapBlazor.Shared.Samples.JSRuntimeExtensionsDemo": {
     "ChangeMetaTitle": "动态修改head标签",
     "ChangeMetaIntro": "动态添加/移除Link，Script等标签。",
+    "EvalTitle": "动态运行Java Script代码",
+    "EvalIntro": "通过Eval函数，动态运行Java Script代码。",
     "JSConsoleTitle": "JS Console",
     "JSConsoleIntro": "JS Console 控制台输出"
   }
