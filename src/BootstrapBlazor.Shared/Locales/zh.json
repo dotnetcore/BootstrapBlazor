@@ -5950,6 +5950,8 @@
     "EvalTitle": "动态运行Java Script代码",
     "EvalIntro": "通过Eval函数，动态运行Java Script代码。",
     "JSConsoleTitle": "JS Console",
-    "JSConsoleIntro": "JS Console 控制台输出"
+    "JSConsoleIntro": "JS Console 控制台输出",
+    "GetPropertiesTitle": "获取浏览器宽高",
+    "GetPropertiesIntro": "获取浏览器宽高等属性值"
   }
 }

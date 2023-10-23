@@ -36,9 +36,9 @@ var result = await JSRuntime.ChangeMetaAsync(false,HeadMetaType.Link,"stylesheet
     <Button class="mb-2" Text="Trace" OnClick="@(()=> JSRuntime.Console(ConsoleType.Trace))" />
 </DemoBlock>
 
-<DemoBlock Title="获取公共属性值" Introduction="" Name="GetProperties">
+<DemoBlock Title="@Localizer["GetPropertiesTitle"]" Introduction="@Localizer["GetPropertiesIntro"]" Name="GetProperties">
     <section ignore>
-        <Button class="mb-2" OnClick="GetProperties">刷新</Button>
+        <Button class="mb-2" OnClick="GetProperties">Get</Button>
         <BootstrapInputGroup>
             <BootstrapInputGroupLabel class="label-width" DisplayText="WindowInnerHeight" />
             <BootstrapInput Readonly="true" TValue="decimal" @bind-Value="@WindowInnerHeight" />

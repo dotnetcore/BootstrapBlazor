@@ -5950,6 +5950,8 @@
     "EvalTitle": "Dynamically running Java Script code",
     "EvalIntro": "Run Java Script code dynamically through the Eval function.",
     "JSConsoleTitle": "JS Console",
-    "JSConsoleIntro": "JS Console Console Output"
+    "JSConsoleIntro": "JS Console Console Output",
+    "GetPropertiesTitle": "Get Browser Width and Height",
+    "GetPropertiesIntro": "Obtain the browser width and height attribute values"
   }
 }
