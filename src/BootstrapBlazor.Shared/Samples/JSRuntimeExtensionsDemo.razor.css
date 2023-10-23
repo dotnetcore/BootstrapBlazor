@@ -1,7 +1,11 @@
 ﻿::deep .label-width {
-    width: 240px;
+    min-width: 200px;
 }
 
 ::deep > .input-group {
     margin-bottom: .5rem;
+}
+
+::deep > .input-group > .form-control {
+    min-width: 200px;
 }

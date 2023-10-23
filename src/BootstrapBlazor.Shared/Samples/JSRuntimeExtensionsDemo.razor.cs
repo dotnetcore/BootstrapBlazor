@@ -36,17 +36,6 @@ public partial class JSRuntimeExtensionsDemo
 
     private decimal GetDocumentScrollLeft { get; set; }
 
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <returns></returns>
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-
-        await GetProperties();
-    }
-
     #region RunEval Demo
 
     private string evalContent { get; set; } = """
@@ -58,6 +47,30 @@ public partial class JSRuntimeExtensionsDemo
     private string evalResult { get; set; } = string.Empty;
 
     private async Task RunEval() => evalResult = await JSRuntime.Eval<string>(evalContent);
+
+    #endregion
+
+    #region GetElementProperties Demo
+
+    private string propertiesId { get; set; } = "GetElementProperties";
+
+    private string propertiesTag1 { get; set; } = "offsetWidth";
+
+    private string? propertiesResult1 { get; set; }
+
+    private string propertiesTag2 { get; set; } = "offsetHeight";
+
+    private string? propertiesResult2 { get; set; }
+    private string propertiesTag3 { get; set; } = "classList.value";
+
+    private string? propertiesResult3 { get; set; }
+
+    private async Task GetElementProperties()
+    {
+        propertiesResult1 = $"属性值为:{await JSRuntime.GetElementProperties<object>(propertiesId, propertiesTag1)}";
+        propertiesResult2 = $"属性值为:{await JSRuntime.GetElementProperties<object>(propertiesId, propertiesTag2)}";
+        propertiesResult3 = $"属性值为:{await JSRuntime.GetElementProperties<object>(propertiesId, propertiesTag3)}";
+    }
 
     #endregion
 
@@ -77,26 +90,47 @@ public partial class JSRuntimeExtensionsDemo
 
     private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
     {
-    new()
-    {
-        Name = "ChangeMetaAsync",
-        Description = "动态添加连接到head标签中",
-        Parameters = " - ",
-        ReturnValue = "ValueTask"
-    },
-    new()
-    {
-        Name = "Console",
-        Description = "输出到浏览器控制台",
-        Parameters = " - ",
-        ReturnValue = "ValueTask"
-    },
-    new()
-    {
-        Name = "ConsoleClear",
-        Description = "清空浏览器控制台",
-        Parameters = " - ",
-        ReturnValue = "ValueTask"
-    }
+        new()
+        {
+            Name = "ChangeMetaAsync",
+            Description = "动态添加连接到head标签中",
+            Parameters = " - ",
+            ReturnValue = "ValueTask"
+        },
+        new()
+        {
+            Name = "Console",
+            Description = "输出到浏览器控制台",
+            Parameters = " - ",
+            ReturnValue = "ValueTask"
+        },
+        new()
+        {
+            Name = "ConsoleClear",
+            Description = "清空浏览器控制台",
+            Parameters = " - ",
+            ReturnValue = "ValueTask"
+        },
+        new()
+        {
+            Name = "GetIsMobileDevice",
+            Description = "获取是否为移动设备",
+            Parameters = " - ",
+            ReturnValue = "ValueTask<bool>"
+        },
+        new()
+        {
+            Name = "Eval",
+            Description = "动态运行js代码",
+            Parameters = " - ",
+            ReturnValue = "ValueTask<T>"
+        },
+        new()
+        {
+            Name = "GetElementProperties",
+            Description = "获取元素的指定属性",
+            Parameters = " - ",
+            ReturnValue = "ValueTask<T>"
+        }
     };
 }

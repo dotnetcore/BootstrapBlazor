@@ -5952,6 +5952,8 @@
     "JSConsoleTitle": "JS Console",
     "JSConsoleIntro": "JS Console Console Output",
     "GetPropertiesTitle": "Get Browser Width and Height",
-    "GetPropertiesIntro": "Obtain the browser width and height attribute values"
+    "GetPropertiesIntro": "Obtain the browser width and height attribute values",
+    "GetElementPropertiesTitle": "Get the specified element attribute value",
+    "GetElementPropertiesIntro": "Obtain attribute values based on element id"
   }
 }

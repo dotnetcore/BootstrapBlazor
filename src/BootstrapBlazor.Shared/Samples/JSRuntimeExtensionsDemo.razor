@@ -82,4 +82,32 @@ var result = await JSRuntime.ChangeMetaAsync(false,HeadMetaType.Link,"stylesheet
     </section>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["GetElementPropertiesTitle"]" Introduction="@Localizer["GetElementPropertiesIntro"]" Name="GetElementProperties">
+    <section>
+        <Button class="mb-2" Text="Get" OnClick="@GetElementProperties"></Button>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="Element Id" />
+            <BootstrapInput TValue="string" @bind-Value="@propertiesId" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="Element Tag" />
+            <BootstrapInput TValue="string" @bind-Value="@propertiesTag1" />
+            <BootstrapInputGroupLabel class="label-width" DisplayText="Value" />
+            <BootstrapInput TValue="string" @bind-Value="@propertiesResult1" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="Element Tag" />
+            <BootstrapInput TValue="string" @bind-Value="@propertiesTag2" />
+            <BootstrapInputGroupLabel class="label-width" DisplayText="Value" />
+            <BootstrapInput TValue="string" @bind-Value="@propertiesResult2" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="Element Tag" />
+            <BootstrapInput TValue="string" @bind-Value="@propertiesTag3" />
+            <BootstrapInputGroupLabel class="label-width" DisplayText="Value" />
+            <BootstrapInput TValue="string" @bind-Value="@propertiesResult3" />
+        </BootstrapInputGroup>
+    </section>
+</DemoBlock>
+
 <MethodTable Items="GetMethods()" />

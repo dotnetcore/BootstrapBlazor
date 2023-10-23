@@ -25,19 +25,14 @@ export function addEventListener(interop, invokeMethodName, eventName, id) {
 }
 
 export function getProperties(obj, tag) {
-    try {
-        let tags = tag.split('.');
-        let tagsCopy = JSON.parse(JSON.stringify(tags));
-        var object = obj;
-        tagsCopy.map(() => {
-            object = object[tags[0]];
-            tags.shift();
-        })
-        return object;
-    } catch (e) {
-        console.warn("C# Class JSModuleExtensions.Invoke JS Function getProperties Error:" + e);
-        return null;
-    }
+    let tags = tag.split('.');
+    let tagsCopy = JSON.parse(JSON.stringify(tags));
+    var object = obj;
+    tagsCopy.map(() => {
+        object = object[tags[0]];
+        tags.shift();
+    })
+    return object;
 }
 
 export function runEval(code) {
@@ -50,9 +45,18 @@ export function runEval(code) {
 }
 
 export function getElementProperties(id, tag) {
+    if (tag === null || tag === undefined || tag === "" || tag.trim() === "") {
+        return "wrong tag";
+    }
+
     var el = document.getElementById(id);
     if (el) {
-        return getProperties(el, tag);
+        try {
+            return getProperties(el, tag);
+        } catch (e) {
+            console.warn("C# Class JSModuleExtensions.Invoke JS Function getProperties Error:" + e);
+            return e.message;
+        }
     }
 }
 

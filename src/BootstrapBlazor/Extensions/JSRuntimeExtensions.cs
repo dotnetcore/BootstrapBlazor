@@ -179,5 +179,4 @@ public static class JSRuntimeExtensions
         return await module.InvokeAsync<T>("getElementProperties", id, tag);
     }
 
-
 }
