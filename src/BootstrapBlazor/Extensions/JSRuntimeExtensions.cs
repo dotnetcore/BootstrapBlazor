@@ -16,7 +16,7 @@ public static class JSRuntimeExtensions
     /// </summary>
     /// <param name="jsRuntime"></param>
     /// <returns></returns>
-    private static async Task<IJSObjectReference> GetModule(IJSRuntime jsRuntime) => await jsRuntime.InvokeAsync<IJSObjectReference>("import", $"./_content/BootstrapBlazor/modules/runtime-extensions.js");
+    private static async Task<IJSObjectReference> GetModule(IJSRuntime jsRuntime) => await jsRuntime.InvokeAsync<IJSObjectReference>("import", $"./_content/BootstrapBlazor/modules/jsruntime-extensions.js");
 
     /// <summary>
     /// 获取是否为移动设备
@@ -27,6 +27,30 @@ public static class JSRuntimeExtensions
     {
         var module = await GetModule(jsRuntime);
         return await module.InvokeAsync<bool>("isMobileDevice");
+    }
+
+    /// <summary>
+    /// 动态运行js代码
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <param name="script"></param>
+    /// <returns></returns>
+    public static async Task<T> Eval<T>(this IJSRuntime jsRuntime, string script)
+    {
+        var module = await GetModule(jsRuntime);
+        return await module.InvokeAsync<T>("runEval", script);
+    }
+
+    /// <summary>
+    /// 动态运行js代码
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <param name="script"></param>
+    /// <returns></returns>
+    public static async Task Eval(this IJSRuntime jsRuntime, string script)
+    {
+        var module = await GetModule(jsRuntime);
+        await module.InvokeVoidAsync("runEval", script);
     }
 
     /// <summary>

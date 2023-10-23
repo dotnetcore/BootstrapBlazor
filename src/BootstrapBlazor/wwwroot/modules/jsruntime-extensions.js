@@ -40,6 +40,15 @@ export function getProperties(obj, tag) {
     }
 }
 
+export function runEval(code) {
+    try {
+        return eval(code);
+    } catch (e) {
+        console.warn("C# Class JSModuleExtensions.Invoke JS Function runEval Error:" + e);
+        return e.message;
+    }
+}
+
 export function getElementProperties(id, tag) {
     var el = document.getElementById(id);
     if (el) {

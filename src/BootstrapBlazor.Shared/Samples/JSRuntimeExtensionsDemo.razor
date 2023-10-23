@@ -11,6 +11,13 @@ var result = await JSRuntime.ChangeMetaAsync(false,HeadMetaType.Link,"stylesheet
 </Pre>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["EvalTitle"]" Introduction="@Localizer["EvalIntro"]" Name="Eval">
+    <Pre class="mb-2">var result = await JSRuntime.Eval("js code");</Pre>
+    <Textarea class="mb-2" @bind-Value="@evalContent" rows="10" />
+    <Button class="mb-2" Text="Run" OnClick="@RunEval"></Button>
+    <Textarea @bind-Value="@evalResult" rows="1" />
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["JSConsoleTitle"]" Introduction="@Localizer["JSConsoleIntro"]" Name="JSConsole">
     <Pre class="mb-2">await JSRuntime.Console(ConsoleType.Log, "Hello BootstrapBlazor");</Pre>
     <Button class="mb-2" Text="Clear" OnClick="@(()=> JSRuntime.ConsoleClear())" />

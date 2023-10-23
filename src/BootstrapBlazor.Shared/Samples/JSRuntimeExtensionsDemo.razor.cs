@@ -47,6 +47,20 @@ public partial class JSRuntimeExtensionsDemo
         await GetProperties();
     }
 
+    #region RunEval Demo
+
+    private string evalContent { get; set; } = """
+        const currentUrl = window.location.href;
+
+        `当前URL: ${currentUrl}`;
+        """;
+
+    private string evalResult { get; set; } = string.Empty;
+
+    private async Task RunEval() => evalResult = await JSRuntime.Eval<string>(evalContent);
+
+    #endregion
+
     private async Task GetProperties()
     {
         WindowInnerHeight = await JSRuntime.GetWindowInnerHeight();
