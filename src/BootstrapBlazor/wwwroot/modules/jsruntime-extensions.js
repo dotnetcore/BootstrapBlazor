@@ -35,11 +35,22 @@ export function getProperties(obj, tag) {
     return object;
 }
 
+export function runFunc(code) {
+    try {
+        var func = new Function(code);
+        func();
+    } catch (e) {
+        console.warn(e.message);
+        return e.message;
+    }
+
+}
+
 export function runEval(code) {
     try {
         return eval(code);
     } catch (e) {
-        console.warn("C# Class JSModuleExtensions.Invoke JS Function runEval Error:" + e);
+        console.warn(e.message);
         return e.message;
     }
 }
@@ -54,7 +65,7 @@ export function getElementProperties(id, tag) {
         try {
             return getProperties(el, tag);
         } catch (e) {
-            console.warn("C# Class JSModuleExtensions.Invoke JS Function getProperties Error:" + e);
+            console.warn(e.message);
             return e.message;
         }
     }
@@ -65,7 +76,7 @@ export function doConsole(type, arg) {
         const fn = (typeof console[type] === 'function' ? console[type] : console.log);
         fn(...arg);
     } catch (e) {
-        console.error("C# Class JSModuleExtensions.Console Invoke JS Function doConsole Error:" + e);
+        console.warn(e.message);
     }
 }
 

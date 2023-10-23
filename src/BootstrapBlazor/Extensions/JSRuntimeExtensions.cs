@@ -54,6 +54,31 @@ public static class JSRuntimeExtensions
     }
 
     /// <summary>
+    /// 动态运行js代码
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <param name="script"></param>
+    /// <returns></returns>
+    public static async Task Function(this IJSRuntime jsRuntime, string script)
+    {
+        var module = await GetModule(jsRuntime);
+        await module.InvokeVoidAsync("runFunc", script);
+    }
+
+    /// <summary>
+    /// 动态运行js代码
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="jsRuntime"></param>
+    /// <param name="script"></param>
+    /// <returns></returns>
+    public static async Task<T> Function<T>(this IJSRuntime jsRuntime, string script)
+    {
+        var module = await GetModule(jsRuntime);
+        return await module.InvokeAsync<T>("runFunc", script);
+    }
+
+    /// <summary>
     /// 清空浏览器控制台
     /// </summary>
     /// <param name="jsRuntime"></param>
