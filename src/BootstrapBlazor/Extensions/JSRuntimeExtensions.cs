@@ -3,6 +3,9 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Enums;
+using BootstrapBlazor.Extensions;
+
+using System.Linq.Expressions;
 
 namespace BootstrapBlazor.Components;
 
@@ -54,31 +57,6 @@ public static class JSRuntimeExtensions
     }
 
     /// <summary>
-    /// 动态运行js代码
-    /// </summary>
-    /// <param name="jsRuntime"></param>
-    /// <param name="script"></param>
-    /// <returns></returns>
-    public static async Task Function(this IJSRuntime jsRuntime, string script)
-    {
-        var module = await GetModule(jsRuntime);
-        await module.InvokeVoidAsync("runFunc", script);
-    }
-
-    /// <summary>
-    /// 动态运行js代码
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="jsRuntime"></param>
-    /// <param name="script"></param>
-    /// <returns></returns>
-    public static async Task<T> Function<T>(this IJSRuntime jsRuntime, string script)
-    {
-        var module = await GetModule(jsRuntime);
-        return await module.InvokeAsync<T>("runFunc", script);
-    }
-
-    /// <summary>
     /// 清空浏览器控制台
     /// </summary>
     /// <param name="jsRuntime"></param>
@@ -122,86 +100,75 @@ public static class JSRuntimeExtensions
     }
 
     /// <summary>
-    /// 浏览器窗口的内部高度
+    /// 获取指定元素 CSS 的值
     /// </summary>
+    /// <typeparam name="T"></typeparam>
     /// <param name="jsRuntime"></param>
+    /// <param name="id"></param>
+    /// <param name="propertyName"></param>
     /// <returns></returns>
-    public static async Task<decimal> GetWindowInnerHeight(this IJSRuntime jsRuntime) => await jsRuntime.InvokeAsync<decimal>("eval", "window.innerHeight");
+    public static async Task<T?> GetCSSValue<T>(this IJSRuntime jsRuntime, string id, string propertyName)
+    {
+        var module = await GetModule(jsRuntime);
+        return await module.InvokeAsync<T?>("getCSSValue", id, propertyName);
+    }
 
     /// <summary>
-    /// 浏览器窗口的外部高度
-    /// </summary>
-    /// <param name="jsRuntime"></param>
-    /// <returns></returns>
-    public static async Task<decimal> GetWindowOuterHeight(this IJSRuntime jsRuntime) => await jsRuntime.InvokeAsync<decimal>("eval", "window.outerHeight");
-
-    /// <summary>
-    /// 浏览器窗口的内部宽度
-    /// </summary>
-    /// <param name="jsRuntime"></param>
-    /// <returns></returns>
-    public static async Task<decimal> GetWindowInnerWidth(this IJSRuntime jsRuntime) => await jsRuntime.InvokeAsync<decimal>("eval", "window.innerWidth");
-
-    /// <summary>
-    /// 浏览器窗口的外部宽度
-    /// </summary>
-    /// <param name="jsRuntime"></param>
-    /// <returns></returns>
-    public static async Task<decimal> GetWindowOuterWidth(this IJSRuntime jsRuntime) => await jsRuntime.InvokeAsync<decimal>("eval", "window.outerWidth");
-
-    /// <summary>
-    /// 页面的可见高度
-    /// </summary>
-    /// <param name="jsRuntime"></param>
-    /// <returns></returns>
-    public static async Task<decimal> GetDocumentClientHeight(this IJSRuntime jsRuntime) => await jsRuntime.InvokeAsync<decimal>("eval", "document.documentElement.clientHeight");
-
-    /// <summary>
-    /// 页面的可见宽度
-    /// </summary>
-    /// <param name="jsRuntime"></param>
-    /// <returns></returns>
-    public static async Task<decimal> GetDocumentClientWidth(this IJSRuntime jsRuntime) => await jsRuntime.InvokeAsync<decimal>("eval", "document.documentElement.clientWidth");
-
-    /// <summary>
-    /// 获取整个文档的高度
-    /// </summary>
-    /// <param name="jsRuntime"></param>
-    /// <returns></returns>
-    public static async Task<decimal> GetDocumentScrollHeight(this IJSRuntime jsRuntime) => await jsRuntime.InvokeAsync<decimal>("eval", "document.documentElement.scrollHeight");
-
-    /// <summary>
-    /// 获取整个文档的宽度
-    /// </summary>
-    /// <param name="jsRuntime"></param>
-    /// <returns></returns>
-    public static async Task<decimal> GetDocumentScrollWidth(this IJSRuntime jsRuntime) => await jsRuntime.InvokeAsync<decimal>("eval", "document.documentElement.scrollWidth");
-
-    /// <summary>
-    /// 获取文档在垂直方向上滚动的距离
-    /// </summary>
-    /// <param name="jsRuntime"></param>
-    /// <returns></returns>
-    public static async Task<decimal> GetDocumentScrollTop(this IJSRuntime jsRuntime) => await jsRuntime.InvokeAsync<decimal>("eval", "document.documentElement.scrollTop");
-
-    /// <summary>
-    /// 获取文档在水平方向上的滚动距离
-    /// </summary>
-    /// <param name="jsRuntime"></param>
-    /// <returns></returns>
-    public static async Task<decimal> GetDocumentScrollLeft(this IJSRuntime jsRuntime) => await jsRuntime.InvokeAsync<decimal>("eval", "document.documentElement.scrollLeft");
-
-    /// <summary>
-    /// 获取元素的指定属性
+    /// 获取元素的实际尺寸
     /// </summary>
     /// <param name="jsRuntime"></param>
     /// <param name="id"></param>
-    /// <param name="tag"></param>
     /// <returns></returns>
-    public static async Task<T> GetElementProperties<T>(this IJSRuntime jsRuntime, string id, string tag)
+    public static async Task<ElementRect> GetElementRect(this IJSRuntime jsRuntime, string id)
     {
         var module = await GetModule(jsRuntime);
-        return await module.InvokeAsync<T>("getElementProperties", id, tag);
+        return await module.InvokeAsync<ElementRect>("getElementRect", id);
     }
 
+}
+
+/// <summary>
+/// 元素的实际尺寸
+/// </summary>
+public class ElementRect
+{
+    /// <summary>
+    /// X
+    /// </summary>
+    public decimal X { get; set; }
+
+    /// <summary>
+    /// Y
+    /// </summary>
+    public decimal Y { get; set; }
+
+    /// <summary>
+    /// Width
+    /// </summary>
+    public decimal Width { get; set; }
+
+    /// <summary>
+    /// Height
+    /// </summary>
+    public decimal Height { get; set; }
+
+    /// <summary>
+    /// Top
+    /// </summary>
+    public decimal Top { get; set; }
+
+    /// <summary>
+    /// Right
+    /// </summary>
+    public decimal Right { get; set; }
+
+    /// <summary>
+    /// Bottom
+    /// </summary>
+    public decimal Bottom { get; set; }
+
+    /// <summary>
+    /// Left
+    /// </summary>
+    public decimal Left { get; set; }
 }

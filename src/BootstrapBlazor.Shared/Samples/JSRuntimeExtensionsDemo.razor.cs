@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Extensions;
+
 using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Shared.Samples;
@@ -15,26 +17,6 @@ public partial class JSRuntimeExtensionsDemo
     private IJSRuntime JSRuntime { get; set; } = default!;
 
     private readonly string _consoleText = "Hello BootstrapBlazor";
-
-    private decimal WindowInnerHeight { get; set; }
-
-    private decimal WindowOuterHeight { get; set; }
-
-    private decimal WindowInnerWidth { get; set; }
-
-    private decimal WindowOuterWidth { get; set; }
-
-    private decimal DocumentClientHeight { get; set; }
-
-    private decimal DocumentClientWidth { get; set; }
-
-    private decimal GetDocumentScrollHeight { get; set; }
-
-    private decimal GetDocumentScrollWidth { get; set; }
-
-    private decimal GetDocumentScrollTop { get; set; }
-
-    private decimal GetDocumentScrollLeft { get; set; }
 
     #region RunEval Demo
 
@@ -50,45 +32,25 @@ public partial class JSRuntimeExtensionsDemo
 
     #endregion
 
-    #region GetElementProperties Demo
+    #region GetCSSValue Demo
 
     private string propertiesId { get; set; } = "GetElementProperties";
 
-    private string propertiesTag1 { get; set; } = "offsetWidth";
+    private string propertiesTag1 { get; set; } = "height";
 
     private string? propertiesResult1 { get; set; }
 
-    private string propertiesTag2 { get; set; } = "offsetHeight";
+    private ElementRect elementRect { get; set; } = new ElementRect();
 
-    private string? propertiesResult2 { get; set; }
-    private string propertiesTag3 { get; set; } = "classList.value";
-
-    private string? propertiesResult3 { get; set; }
-
-    private async Task GetElementProperties()
+    private async Task GetElementCSS()
     {
-        propertiesResult1 = $"属性值为:{await JSRuntime.GetElementProperties<object>(propertiesId, propertiesTag1)}";
-        propertiesResult2 = $"属性值为:{await JSRuntime.GetElementProperties<object>(propertiesId, propertiesTag2)}";
-        propertiesResult3 = $"属性值为:{await JSRuntime.GetElementProperties<object>(propertiesId, propertiesTag3)}";
+        propertiesResult1 = await JSRuntime.GetCSSValue<string>(propertiesId, propertiesTag1);
+        elementRect = await JSRuntime.GetElementRect(propertiesId);
     }
 
     #endregion
 
-    private async Task GetProperties()
-    {
-        WindowInnerHeight = await JSRuntime.GetWindowInnerHeight();
-        WindowOuterHeight = await JSRuntime.GetWindowOuterHeight();
-        WindowInnerWidth = await JSRuntime.GetWindowInnerWidth();
-        WindowOuterWidth = await JSRuntime.GetWindowOuterWidth();
-        DocumentClientHeight = await JSRuntime.GetDocumentClientHeight();
-        DocumentClientWidth = await JSRuntime.GetDocumentClientWidth();
-        GetDocumentScrollHeight = await JSRuntime.GetDocumentScrollHeight();
-        GetDocumentScrollWidth = await JSRuntime.GetDocumentScrollWidth();
-        GetDocumentScrollTop = await JSRuntime.GetDocumentScrollTop();
-        GetDocumentScrollLeft = await JSRuntime.GetDocumentScrollLeft();
-    }
-
-    private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+    private static IEnumerable<MethodItem> GetMethods() => new MethodItem[]
     {
         new()
         {
@@ -127,8 +89,8 @@ public partial class JSRuntimeExtensionsDemo
         },
         new()
         {
-            Name = "GetElementProperties",
-            Description = "获取元素的指定属性",
+            Name = "GetCSSValue",
+            Description = "获取指定元素的CSS属性",
             Parameters = " - ",
             ReturnValue = "ValueTask<T>"
         }

@@ -5951,9 +5951,7 @@
     "EvalIntro": "通过Eval函数，动态运行Java Script代码。",
     "JSConsoleTitle": "JS Console",
     "JSConsoleIntro": "JS Console 控制台输出",
-    "GetPropertiesTitle": "获取浏览器宽高",
-    "GetPropertiesIntro": "获取浏览器宽高等属性值",
-    "GetElementPropertiesTitle": "获取指定元素属性值",
-    "GetElementPropertiesIntro": "根据元素id获取属性值"
+    "GetElementCSSTitle": "获取指定元素CSS属性值",
+    "GetElementCSSIntro": "根据元素id获取CSS属性值"
   }
 }

@@ -57,27 +57,27 @@ public partial class Waterfall
         var now = DateTime.Now;
         var ts = now - LastRun;
 
-        //两次触发时间间隔0.1秒以上
-        if (ts.TotalSeconds > TimeSpan.FromSeconds(0.1).TotalSeconds)
-        {
-            LastRun = now;
+        ////两次触发时间间隔0.1秒以上
+        //if (ts.TotalSeconds > TimeSpan.FromSeconds(0.1).TotalSeconds)
+        //{
+        //    LastRun = now;
 
-            //可视区窗口高度
-            var windowH = await JSRuntime.GetDocumentClientHeight();
-            //滚动条的高度
-            var documentH = await JSRuntime.GetDocumentScrollHeight();
-            //滚动条的上边距
-            var scrollH = await JSRuntime.GetDocumentScrollTop();
+        //    //可视区窗口高度
+        //    var windowH = await JSRuntime.GetDocumentClientHeight();
+        //    //滚动条的高度
+        //    var documentH = await JSRuntime.GetDocumentScrollHeight();
+        //    //滚动条的上边距
+        //    var scrollH = await JSRuntime.GetDocumentScrollTop();
 
-            var sh1 = windowH + scrollH;
-            var sh2 = documentH;
+        //    var sh1 = windowH + scrollH;
+        //    var sh2 = documentH;
 
-            if (Math.Abs(sh1 - sh2) < 50)
-            {
-                //每次滚动到底部，就给他塞5张新照片。
-                await LoadImages(false);
-            }
-        }
+        //    if (Math.Abs(sh1 - sh2) < 50)
+        //    {
+        //        //每次滚动到底部，就给他塞5张新照片。
+        //        await LoadImages(false);
+        //    }
+        //}
     }
 
     /// <summary>

@@ -36,76 +36,50 @@ var result = await JSRuntime.ChangeMetaAsync(false,HeadMetaType.Link,"stylesheet
     <Button class="mb-2" Text="Trace" OnClick="@(()=> JSRuntime.Console(ConsoleType.Trace))" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["GetPropertiesTitle"]" Introduction="@Localizer["GetPropertiesIntro"]" Name="GetProperties">
-    <section ignore>
-        <Button class="mb-2" OnClick="GetProperties">Get</Button>
-        <BootstrapInputGroup>
-            <BootstrapInputGroupLabel class="label-width" DisplayText="WindowInnerHeight" />
-            <BootstrapInput Readonly="true" TValue="decimal" @bind-Value="@WindowInnerHeight" />
-        </BootstrapInputGroup>
-        <BootstrapInputGroup>
-            <BootstrapInputGroupLabel class="label-width" DisplayText="WindowOuterHeight" />
-            <BootstrapInput Readonly="true" TValue="decimal" @bind-Value="@WindowOuterHeight" />
-        </BootstrapInputGroup>
-        <BootstrapInputGroup>
-            <BootstrapInputGroupLabel class="label-width" DisplayText="WindowInnerWidth" />
-            <BootstrapInput Readonly="true" TValue="decimal" @bind-Value="@WindowInnerWidth" />
-        </BootstrapInputGroup>
-        <BootstrapInputGroup>
-            <BootstrapInputGroupLabel class="label-width" DisplayText="WindowOuterWidth" />
-            <BootstrapInput Readonly="true" TValue="decimal" @bind-Value="@WindowOuterWidth" />
-        </BootstrapInputGroup>
-        <BootstrapInputGroup>
-            <BootstrapInputGroupLabel class="label-width" DisplayText="DocumentClientHeight" />
-            <BootstrapInput Readonly="true" TValue="decimal" @bind-Value="@DocumentClientHeight" />
-        </BootstrapInputGroup>
-        <BootstrapInputGroup>
-            <BootstrapInputGroupLabel class="label-width" DisplayText="DocumentClientWidth" />
-            <BootstrapInput Readonly="true" TValue="decimal" @bind-Value="@DocumentClientWidth" />
-        </BootstrapInputGroup>
-        <BootstrapInputGroup>
-            <BootstrapInputGroupLabel class="label-width" DisplayText="GetDocumentScrollHeight" />
-            <BootstrapInput Readonly="true" TValue="decimal" @bind-Value="@GetDocumentScrollHeight" />
-        </BootstrapInputGroup>
-        <BootstrapInputGroup>
-            <BootstrapInputGroupLabel class="label-width" DisplayText="GetDocumentScrollWidth" />
-            <BootstrapInput Readonly="true" TValue="decimal" @bind-Value="@GetDocumentScrollWidth" />
-        </BootstrapInputGroup>
-        <BootstrapInputGroup>
-            <BootstrapInputGroupLabel class="label-width" DisplayText="GetDocumentScrollTop" />
-            <BootstrapInput Readonly="true" TValue="decimal" @bind-Value="@GetDocumentScrollTop" />
-        </BootstrapInputGroup>
-        <BootstrapInputGroup>
-            <BootstrapInputGroupLabel class="label-width" DisplayText="GetDocumentScrollLeft" />
-            <BootstrapInput Readonly="true" TValue="decimal" @bind-Value="@GetDocumentScrollLeft" />
-        </BootstrapInputGroup>
-    </section>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["GetElementPropertiesTitle"]" Introduction="@Localizer["GetElementPropertiesIntro"]" Name="GetElementProperties">
+<DemoBlock Title="@Localizer["GetElementCSSTitle"]" Introduction="@Localizer["GetElementCSSIntro"]" Name="GetElementProperties">
     <section>
-        <Button class="mb-2" Text="Get" OnClick="@GetElementProperties"></Button>
+        <Button class="mb-2" Text="Get" OnClick="@GetElementCSS"></Button>
         <BootstrapInputGroup>
             <BootstrapInputGroupLabel class="label-width" DisplayText="Element Id" />
             <BootstrapInput TValue="string" @bind-Value="@propertiesId" />
         </BootstrapInputGroup>
         <BootstrapInputGroup>
-            <BootstrapInputGroupLabel class="label-width" DisplayText="Element Tag" />
+            <BootstrapInputGroupLabel class="label-width" DisplayText="Element Property" />
             <BootstrapInput TValue="string" @bind-Value="@propertiesTag1" />
             <BootstrapInputGroupLabel class="label-width" DisplayText="Value" />
             <BootstrapInput TValue="string" @bind-Value="@propertiesResult1" />
         </BootstrapInputGroup>
         <BootstrapInputGroup>
-            <BootstrapInputGroupLabel class="label-width" DisplayText="Element Tag" />
-            <BootstrapInput TValue="string" @bind-Value="@propertiesTag2" />
-            <BootstrapInputGroupLabel class="label-width" DisplayText="Value" />
-            <BootstrapInput TValue="string" @bind-Value="@propertiesResult2" />
+            <BootstrapInputGroupLabel class="label-width" DisplayText="Element Height" />
+            <BootstrapInput TValue="decimal" @bind-Value="@elementRect.Height" />
+        </BootstrapInputGroup>
+                <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="Element Width" />
+            <BootstrapInput TValue="decimal" @bind-Value="@elementRect.Width" />
         </BootstrapInputGroup>
         <BootstrapInputGroup>
-            <BootstrapInputGroupLabel class="label-width" DisplayText="Element Tag" />
-            <BootstrapInput TValue="string" @bind-Value="@propertiesTag3" />
-            <BootstrapInputGroupLabel class="label-width" DisplayText="Value" />
-            <BootstrapInput TValue="string" @bind-Value="@propertiesResult3" />
+            <BootstrapInputGroupLabel class="label-width" DisplayText="Element Top" />
+            <BootstrapInput TValue="decimal" @bind-Value="@elementRect.Top" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="Element Bottom" />
+            <BootstrapInput TValue="decimal" @bind-Value="@elementRect.Bottom" />
+        </BootstrapInputGroup>
+                <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="Element Left" />
+            <BootstrapInput TValue="decimal" @bind-Value="@elementRect.Left" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="Element Right" />
+            <BootstrapInput TValue="decimal" @bind-Value="@elementRect.Right" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="Element X" />
+            <BootstrapInput TValue="decimal" @bind-Value="@elementRect.X" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="Element Y" />
+            <BootstrapInput TValue="decimal" @bind-Value="@elementRect.Y" />
         </BootstrapInputGroup>
     </section>
 </DemoBlock>
