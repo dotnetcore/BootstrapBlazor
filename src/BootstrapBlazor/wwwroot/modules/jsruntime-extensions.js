@@ -1,4 +1,31 @@
-﻿export function getCSSValue(id, propertyName) {
+﻿export function getProperties(obj, tag) {
+    let tags = tag.split('.');
+    let tagsCopy = JSON.parse(JSON.stringify(tags));
+    var object = obj;
+    tagsCopy.map(() => {
+        object = object[tags[0]];
+        tags.shift();
+    })
+    return object;
+}
+
+export function getElementProperties(id, tag) {
+    if (tag === null || tag === undefined || tag === "" || tag.trim() === "") {
+        return "wrong tag";
+    }
+
+    var el = document.getElementById(id);
+    if (el) {
+        try {
+            return getProperties(el, tag);
+        } catch (e) {
+            console.warn(e.message);
+            return e.message;
+        }
+    }
+}
+
+export function getCSSValue(id, propertyName) {
     try {
         var element = document.getElementById(id);
         if (element) {

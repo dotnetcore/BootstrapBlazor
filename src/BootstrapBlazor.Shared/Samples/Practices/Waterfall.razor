@@ -1,13 +1,11 @@
 ﻿@page "/practice/waterfall"
 @inject IJSRuntime JSRuntime
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="card-columns">
-            @foreach (var item in ImageList)
-            {
-                <ImageViewer class="card-img" Url="@item" PreviewList="@(new List<string>(){item})" ShowPlaceHolder="true" />
-            }
-        </div>
+<div id="@id" class="waterfall" @onscroll="@OnScroll">
+    <div class="d-flex flex-wrap ">
+        @foreach (var item in ImageList)
+        {
+            <ImageViewer class="card-img" FitMode="ObjectFitMode.Cover" Url="@item" PreviewList="@(new List<string>(){item})" ShowPlaceHolder="true" />
+        }
     </div>
 </div>

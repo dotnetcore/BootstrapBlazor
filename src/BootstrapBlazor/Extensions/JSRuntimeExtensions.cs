@@ -75,6 +75,18 @@ public static class JSRuntimeExtensions
     }
 
     /// <summary>
+    /// 输出到浏览器控制台
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    public static async Task Console(this IJSRuntime jsRuntime, params object?[]? args)
+    {
+        var module = await GetModule(jsRuntime);
+        await module.InvokeVoidAsync("doConsole", ConsoleType.Info.ToDescriptionString(), args);
+    }
+
+    /// <summary>
     /// 动态修改head标签
     /// <para>
     /// razor示例：
@@ -97,6 +109,19 @@ public static class JSRuntimeExtensions
     {
         var module = await GetModule(jsRuntime);
         return await module.InvokeAsync<bool>("changeMeta", isAdd, headMetaType.ToDescriptionString(), rel, href);
+    }
+
+    /// <summary>
+    /// 获取元素的指定属性
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <param name="id"></param>
+    /// <param name="tag"></param>
+    /// <returns></returns>
+    public static async Task<T> GetElementProperties<T>(this IJSRuntime jsRuntime, string id, string tag)
+    {
+        var module = await GetModule(jsRuntime);
+        return await module.InvokeAsync<T>("getElementProperties", id, tag);
     }
 
     /// <summary>

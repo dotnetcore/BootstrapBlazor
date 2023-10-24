@@ -1,8 +1,16 @@
-﻿::deep .bb-img {
-    margin-bottom: 0.75rem;
+﻿.waterfall {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    height: calc(100vh - var(--bs-header-height) - 30px);
+    overflow: auto;
+}
+
+::deep .bb-img {
+    margin: 0.75rem;
     overflow: hidden;
-    min-height: 100px;
-    min-width: 200px;
+    height: 300px;
+    width: 200px;
+    object-fit:cover;
 }
 
     ::deep .bb-img img {

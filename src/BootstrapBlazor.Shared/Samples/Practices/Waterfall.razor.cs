@@ -4,6 +4,10 @@
 
 using Microsoft.JSInterop;
 
+using NPOI.SS.Formula.Functions;
+
+using System.Diagnostics;
+
 namespace BootstrapBlazor.Shared.Samples.Practices;
 
 /// <summary>
@@ -50,35 +54,35 @@ public partial class Waterfall
         }
     }
 
+    private readonly string id = "b_waterfall";
+
     private DateTime LastRun { get; set; } = DateTime.Now;
 
-    private async Task OnDocumentScroll()
+    private async Task OnScroll()
     {
-        var now = DateTime.Now;
-        var ts = now - LastRun;
+        if (!onload)
+        {
+            var now = DateTime.Now;
+            var ts = now - LastRun;
 
-        ////两次触发时间间隔0.1秒以上
-        //if (ts.TotalSeconds > TimeSpan.FromSeconds(0.1).TotalSeconds)
-        //{
-        //    LastRun = now;
+            if (ts.TotalSeconds > TimeSpan.FromSeconds(0.2).TotalSeconds)
+            {
+                LastRun = now;
+                var clientHeight = await JSRuntime.GetElementProperties<decimal>(id, "clientHeight");
+                var scrollHeight = await JSRuntime.GetElementProperties<decimal>(id, "scrollHeight");
+                var scrollTop = await JSRuntime.GetElementProperties<decimal>(id, "scrollTop");
 
-        //    //可视区窗口高度
-        //    var windowH = await JSRuntime.GetDocumentClientHeight();
-        //    //滚动条的高度
-        //    var documentH = await JSRuntime.GetDocumentScrollHeight();
-        //    //滚动条的上边距
-        //    var scrollH = await JSRuntime.GetDocumentScrollTop();
+                var isScrolledToBottom = clientHeight + scrollTop + 150 > scrollHeight;
 
-        //    var sh1 = windowH + scrollH;
-        //    var sh2 = documentH;
-
-        //    if (Math.Abs(sh1 - sh2) < 50)
-        //    {
-        //        //每次滚动到底部，就给他塞5张新照片。
-        //        await LoadImages(false);
-        //    }
-        //}
+                if (isScrolledToBottom)
+                {
+                    await LoadImages(false);
+                }
+            }
+        }
     }
+
+    private bool onload { get; set; }
 
     /// <summary>
     /// 加载图片
@@ -87,12 +91,14 @@ public partial class Waterfall
     /// <returns></returns>
     private async Task LoadImages(bool firstRender)
     {
+        onload = true;
         var num = firstRender ? _imageList.Count : 5;
         for (int i = 0; i < num; i++)
         {
-            await Task.Delay(200);
+            await Task.Delay(100);
             ImageList.Add(_imageList[random.Next(0, _imageList.Count)]);
             StateHasChanged();
         }
+        onload = false;
     }
 }
