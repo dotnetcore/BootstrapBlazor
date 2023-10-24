@@ -40,12 +40,9 @@ public partial class JSRuntimeExtensionsDemo
 
     private string? propertiesResult1 { get; set; }
 
-    private ElementRect elementRect { get; set; } = new ElementRect();
-
     private async Task GetElementCSS()
     {
         propertiesResult1 = await JSRuntime.GetCSSValue<string>(propertiesId, propertiesTag1);
-        elementRect = await JSRuntime.GetElementRect(propertiesId);
     }
 
     #endregion

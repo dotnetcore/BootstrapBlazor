@@ -2,12 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.JSInterop;
-
-using NPOI.SS.Formula.Functions;
-
-using System.Diagnostics;
-
 namespace BootstrapBlazor.Shared.Samples.Practices;
 
 /// <summary>
@@ -28,11 +22,9 @@ public partial class Waterfall
         "https://images.unsplash.com/photo-1518450757707-d21c8c53c8df?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=c88b5f311958f841525fdb01ab3b5deb&auto=format&fit=crop&w=500&q=60",
         "https://images.unsplash.com/photo-1483190656465-2c49e54d29f3?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=7c4d831daffc28f6ce144ae9e44072e2&auto=format&fit=crop&w=500&q=60",
         "https://images.unsplash.com/photo-1501813531019-338a4182efb0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ad934c7483b928cae6b0b9cde5ae3445&auto=format&fit=crop&w=500&q=60",
-        "https://images.unsplash.com/photo-1518542331925-4e91e9aa0074?ixlib=rb-0.3.5&s=6958cfb3469de1e681bf17587bed53be&auto=format&fit=crop&w=500&q=60",
         "https://images.unsplash.com/photo-1513028179155-324cfec2566c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=32ce1df4016dadc177d6fce1b2df2429&auto=format&fit=crop&w=350&q=80",
         "https://images.unsplash.com/photo-1516601255109-506725109807?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=ce4f3db9818f60686e8e9b62d4920ce5&auto=format&fit=crop&w=500&q=60",
         "https://images.unsplash.com/photo-1509233631037-deb7efd36207?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=75a5d784cdfc8f5ced8a6fe26c6d921e&auto=format&fit=crop&w=500&q=60",
-        "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?ixlib=rb-0.3.5&s=c0043ea5aa03f62a294636f93725dd6e&auto=format&fit=crop&w=500&q=60",
         "https://images.unsplash.com/photo-1485627658391-1365e4e0dbfe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=976b0db5c3c2b9932bb20e72f98f9b61&auto=format&fit=crop&w=500&q=60",
         "https://images.unsplash.com/photo-1502550900787-e956c314a221?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=e90f191de3a03c2002ac82c009490e07&auto=format&fit=crop&w=500&q=60",
         "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9e3cd6ce6496c9c05cbf1b6cda8be0f9&auto=format&fit=crop&w=500&q=60",
@@ -56,33 +48,29 @@ public partial class Waterfall
 
     private readonly string id = "b_waterfall";
 
-    private DateTime LastRun { get; set; } = DateTime.Now;
+    private CancellationTokenSource _cancellationTokenSource = new();
 
     private async Task OnScroll()
     {
-        if (!onload)
+        if (!_onload)
         {
-            var now = DateTime.Now;
-            var ts = now - LastRun;
+            _onload = true;
+            var clientHeight = await JSRuntime.GetElementProperties<decimal>(id, "clientHeight");
+            var scrollHeight = await JSRuntime.GetElementProperties<decimal>(id, "scrollHeight");
+            var scrollTop = await JSRuntime.GetElementProperties<decimal>(id, "scrollTop");
 
-            if (ts.TotalSeconds > TimeSpan.FromSeconds(0.2).TotalSeconds)
+            var isScrolledToBottom = clientHeight + scrollTop + 100 > scrollHeight;
+            //await JSRuntime.Console("isScrolledToBottom:" + isScrolledToBottom);
+            if (isScrolledToBottom)
             {
-                LastRun = now;
-                var clientHeight = await JSRuntime.GetElementProperties<decimal>(id, "clientHeight");
-                var scrollHeight = await JSRuntime.GetElementProperties<decimal>(id, "scrollHeight");
-                var scrollTop = await JSRuntime.GetElementProperties<decimal>(id, "scrollTop");
-
-                var isScrolledToBottom = clientHeight + scrollTop + 150 > scrollHeight;
-
-                if (isScrolledToBottom)
-                {
-                    await LoadImages(false);
-                }
+                await LoadImages(false);
+                await JSRuntime.Eval($"document.getElementById('{id}').scrollBy(0, -200)");
             }
+            _onload = false;
         }
     }
 
-    private bool onload { get; set; }
+    private bool _onload = false;
 
     /// <summary>
     /// 加载图片
@@ -91,14 +79,12 @@ public partial class Waterfall
     /// <returns></returns>
     private async Task LoadImages(bool firstRender)
     {
-        onload = true;
-        var num = firstRender ? _imageList.Count : 5;
+        var num = firstRender ? _imageList.Count : 6;
         for (int i = 0; i < num; i++)
         {
             await Task.Delay(100);
             ImageList.Add(_imageList[random.Next(0, _imageList.Count)]);
             StateHasChanged();
         }
-        onload = false;
     }
 }
