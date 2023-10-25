@@ -28,6 +28,13 @@ public class JSModuleExtensionsTest : BootstrapBlazorTestBase
         Assert.Equal("MockComponent", name);
     }
 
+    [Fact]
+    public async Task OpenBlankUrl_Ok()
+    {
+        var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
+        await jsRuntime.OpenBlankUrl("www.blazor.zone");
+    }
+
     class MockComponent : ComponentBase
     {
 
