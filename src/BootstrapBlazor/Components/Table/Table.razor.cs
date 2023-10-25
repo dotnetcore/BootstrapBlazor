@@ -314,15 +314,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private bool _breakPointChanged;
 
-    private Task OnBreakPointChanged(BreakPoint size)
+    private async Task OnBreakPointChanged(BreakPoint size)
     {
         if (size != ScreenSize)
         {
             ScreenSize = size;
             _breakPointChanged = true;
-            StateHasChanged();
+            await InvokeAsync(StateHasChanged);
         }
-        return Task.CompletedTask;
     }
 
     private bool ShowDetails() => IsDetails == null
