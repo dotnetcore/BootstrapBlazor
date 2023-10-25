@@ -3887,7 +3887,7 @@ public class TableTest : TableTestBase
     [Theory]
     [InlineData(".btn-test0")]
     [InlineData(".btn-test1")]
-    public async Task OnClickExtensionButton_Ok(string selector)
+    public void OnClickExtensionButton_Ok(string selector)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -3929,7 +3929,8 @@ public class TableTest : TableTestBase
         });
 
         var btn = cut.Find(selector);
-        await cut.InvokeAsync(() => btn.Click());
+        cut.InvokeAsync(() => btn.Click());
+        Context.DisposeComponents();
     }
 
     [Fact]
@@ -4075,6 +4076,7 @@ public class TableTest : TableTestBase
     {
         var cut = Context.RenderComponent<TableCellButton>();
         Assert.Equal("", cut.Markup);
+        Context.DisposeComponents();
     }
 
     [Fact]
