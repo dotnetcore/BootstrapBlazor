@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using NPOI.SS.Formula.Functions;
+
 using System.Diagnostics;
 
 namespace BootstrapBlazor.Shared.Samples.Practices;
@@ -11,6 +13,12 @@ namespace BootstrapBlazor.Shared.Samples.Practices;
 /// </summary>
 public partial class Waterfall
 {
+    private readonly string id = "b_waterfall";
+
+    private bool _onload { get; set; } = false;
+
+    private bool _showload { get; set; } = false;
+
     private readonly Random random = new();
 
     private readonly List<string> ImageList = [];
@@ -48,41 +56,42 @@ public partial class Waterfall
         }
     }
 
-    private readonly string id = "b_waterfall";
+    private static System.Threading.Timer? scrollTimer;
 
-    private DateTime lastInvocationTime = DateTime.MinValue;
-
-    private async Task OnScroll()
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
     {
-        var currentTime = DateTime.Now;
-        var elapsed = currentTime - lastInvocationTime;
-
-        if (elapsed >= TimeSpan.FromSeconds(0.5))
-        {
-            if (!_onload)
-            {
-                _onload = true;
-                var clientHeight = await JSRuntime.GetElementProperties<decimal>(id, "clientHeight");
-                var scrollHeight = await JSRuntime.GetElementProperties<decimal>(id, "scrollHeight");
-                var scrollTop = await JSRuntime.GetElementProperties<decimal>(id, "scrollTop");
-                var isScrolledToBottom = clientHeight + scrollTop + 100 > scrollHeight;
-
-                if (isScrolledToBottom)
-                {
-                    await JSRuntime.Console("加载图片。。。", DateTime.Now);
-                    _showload = true;
-                    await LoadImages(false);
-                    _showload = false;
-                }
-                _onload = false;
-            }
-        }
-
-        lastInvocationTime = currentTime;
+        base.OnInitialized();
+        scrollTimer = new System.Threading.Timer(async _ => await ScrollEnd(), null, Timeout.Infinite, Timeout.Infinite);
     }
 
-    private bool _onload { get; set; } = false;
-    private bool _showload { get; set; } = false;
+    private static void OnScroll()
+    {
+        scrollTimer?.Change(500, Timeout.Infinite);
+    }
+
+    private async Task ScrollEnd()
+    {
+        if (!_onload)
+        {
+            _onload = true;
+            var clientHeight = await JSRuntime.GetElementProperties<decimal>(id, "clientHeight");
+            var scrollHeight = await JSRuntime.GetElementProperties<decimal>(id, "scrollHeight");
+            var scrollTop = await JSRuntime.GetElementProperties<decimal>(id, "scrollTop");
+            var isScrolledToBottom = clientHeight + scrollTop + 100 > scrollHeight;
+
+            if (isScrolledToBottom)
+            {
+                _showload = true;
+                await LoadImages(false);
+                _showload = false;
+                await InvokeAsync(StateHasChanged);
+            }
+            _onload = false;
+        }
+    }
 
     /// <summary>
     /// 加载图片
@@ -96,7 +105,7 @@ public partial class Waterfall
         {
             await Task.Delay(200);
             ImageList.Add(_imageList[random.Next(0, _imageList.Count)]);
-            StateHasChanged();
+            await InvokeAsync(StateHasChanged);
         }
     }
 }

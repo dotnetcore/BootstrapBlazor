@@ -3,10 +3,10 @@
 }
 
 .loading-box {
-    z-index:9999;
+    z-index: 9999;
     position: absolute;
     width: 100%;
-    height: calc(100vh - var(--bs-header-height) - 30px);
+    height: 90vh;
 }
 
 .loading {
@@ -18,14 +18,10 @@
     background: rgba(128, 128, 128, 0.5);
 }
 
-::deep .splitting {
-    width: 50%;
-}
-
 .waterfall {
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
-    height: calc(100vh - var(--bs-header-height) - 30px);
+    height: 90vh;
     overflow: auto;
 }
 
