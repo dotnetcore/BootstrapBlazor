@@ -27,7 +27,7 @@ export function getElementProperties(id, tag) {
 
 export function getCSSValue(id, propertyName) {
     try {
-        var element = document.getElementById(id);
+        const element = document.getElementById(id);
         if (element) {
             var computedStyle = getComputedStyle(element);
             return computedStyle.getPropertyValue(propertyName);
@@ -54,6 +54,16 @@ export function getElementRect(id) {
 export function runEval(code) {
     try {
         return eval(code);
+    } catch (e) {
+        console.warn(e.message);
+        return e.message;
+    }
+}
+
+export function runFunc(code, arg) {
+    try {
+        var func = new Function(code);
+        return func(...arg);
     } catch (e) {
         console.warn(e.message);
         return e.message;

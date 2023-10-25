@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Diagnostics;
+
 namespace BootstrapBlazor.Shared.Samples.Practices;
 
 /// <summary>
@@ -48,27 +50,39 @@ public partial class Waterfall
 
     private readonly string id = "b_waterfall";
 
+    private DateTime lastInvocationTime = DateTime.MinValue;
+
     private async Task OnScroll()
     {
-        if (!_onload)
-        {
-            _onload = true;
-            var clientHeight = await JSRuntime.GetElementProperties<decimal>(id, "clientHeight");
-            var scrollHeight = await JSRuntime.GetElementProperties<decimal>(id, "scrollHeight");
-            var scrollTop = await JSRuntime.GetElementProperties<decimal>(id, "scrollTop");
+        var currentTime = DateTime.Now;
+        var elapsed = currentTime - lastInvocationTime;
 
-            var isScrolledToBottom = clientHeight + scrollTop + 100 > scrollHeight;
-            //await JSRuntime.Console("isScrolledToBottom:" + isScrolledToBottom);
-            if (isScrolledToBottom)
+        if (elapsed >= TimeSpan.FromSeconds(0.5))
+        {
+            if (!_onload)
             {
-                await LoadImages(false);
-                await JSRuntime.Eval($"document.getElementById('{id}').scrollBy(0, -200)");
+                _onload = true;
+                var clientHeight = await JSRuntime.GetElementProperties<decimal>(id, "clientHeight");
+                var scrollHeight = await JSRuntime.GetElementProperties<decimal>(id, "scrollHeight");
+                var scrollTop = await JSRuntime.GetElementProperties<decimal>(id, "scrollTop");
+                var isScrolledToBottom = clientHeight + scrollTop + 100 > scrollHeight;
+
+                if (isScrolledToBottom)
+                {
+                    await JSRuntime.Console("加载图片。。。", DateTime.Now);
+                    _showload = true;
+                    await LoadImages(false);
+                    _showload = false;
+                }
+                _onload = false;
             }
-            _onload = false;
         }
+
+        lastInvocationTime = currentTime;
     }
 
     private bool _onload { get; set; } = false;
+    private bool _showload { get; set; } = false;
 
     /// <summary>
     /// 加载图片
@@ -80,7 +94,7 @@ public partial class Waterfall
         var num = firstRender ? _imageList.Count : 6;
         for (int i = 0; i < num; i++)
         {
-            await Task.Delay(100);
+            await Task.Delay(200);
             ImageList.Add(_imageList[random.Next(0, _imageList.Count)]);
             StateHasChanged();
         }
