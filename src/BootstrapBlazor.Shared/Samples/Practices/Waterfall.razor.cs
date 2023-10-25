@@ -48,8 +48,6 @@ public partial class Waterfall
 
     private readonly string id = "b_waterfall";
 
-    private CancellationTokenSource _cancellationTokenSource = new();
-
     private async Task OnScroll()
     {
         if (!_onload)
@@ -70,7 +68,7 @@ public partial class Waterfall
         }
     }
 
-    private bool _onload = false;
+    private bool _onload { get; set; } = false;
 
     /// <summary>
     /// 加载图片

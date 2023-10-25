@@ -1,4 +1,28 @@
-﻿.waterfall {
+﻿.waterfall-box {
+    position: relative;
+}
+
+.loading-box {
+    z-index:9999;
+    position: absolute;
+    width: 100%;
+    height: calc(100vh - var(--bs-header-height) - 30px);
+}
+
+.loading {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    background: rgba(128, 128, 128, 0.5);
+}
+
+::deep .splitting {
+    width: 50%;
+}
+
+.waterfall {
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     height: calc(100vh - var(--bs-header-height) - 30px);
@@ -6,11 +30,10 @@
 }
 
 ::deep .bb-img {
-    margin: 0.75rem;
+    margin-bottom: 0.75rem;
     overflow: hidden;
-    height: 300px;
-    width: 200px;
-    object-fit:cover;
+    min-height: 100px;
+    min-width: 200px;
 }
 
     ::deep .bb-img img {
