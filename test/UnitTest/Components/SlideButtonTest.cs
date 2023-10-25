@@ -169,6 +169,7 @@ public class SlideButtonTest : BootstrapBlazorTestBase
         });
         Assert.NotNull(item);
         Assert.Equal("1", item.Value);
+        Context.DisposeComponents();
     }
 
     [Fact]

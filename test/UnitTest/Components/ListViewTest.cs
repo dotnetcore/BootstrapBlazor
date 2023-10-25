@@ -157,6 +157,12 @@ public class ListViewTest : BootstrapBlazorTestBase
             item.Click();
             Assert.True(clicked);
         });
+
+        // 设置分组
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.GroupOrderCallback, items.GroupBy(i => i.Category).OrderBy(i => i.Key));
+        });
     }
 
     [Fact]

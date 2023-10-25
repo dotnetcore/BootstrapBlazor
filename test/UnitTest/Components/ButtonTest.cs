@@ -106,7 +106,7 @@ public class ButtonTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsAsync_Ok()
+    public async Task IsAsync_Ok()
     {
         // 同步点击
         var clicked = false;
@@ -134,8 +134,7 @@ public class ButtonTest : BootstrapBlazorTestBase
         });
         b.Click();
         Assert.False(clicked);
-        tcs.Task.Wait();
-        cut.WaitForState(() => tcs.Task.Result);
+        await tcs.Task;
         Assert.True(clicked);
 
         // 同步无刷新点击
@@ -170,8 +169,7 @@ public class ButtonTest : BootstrapBlazorTestBase
         b.Click();
         Assert.False(clicked);
         Assert.True(cut.Instance.IsDisabled);
-        tcs.Task.Wait();
-        cut.WaitForState(() => tcs.Task.Result);
+        await tcs.Task;
         Assert.True(clicked);
     }
 
