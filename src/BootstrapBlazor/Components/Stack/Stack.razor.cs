@@ -64,7 +64,7 @@ public partial class Stack
     [Parameter]
     public StackJustifyContent Justify { get; set; }
 
-    private List<StackItem> _items = new();
+    private readonly List<StackItem> _items = new();
 
     /// <summary>
     /// 添加子项
