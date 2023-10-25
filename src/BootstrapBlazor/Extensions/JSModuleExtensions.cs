@@ -41,4 +41,16 @@ public static class JSModuleExtensions
         }
         return name;
     }
+
+    /// <summary>
+    /// 在新标签页打开指定网址
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <param name="url"></param>
+    /// <returns></returns>
+    public static async ValueTask OpenBlankUrl(this IJSRuntime jsRuntime, string url)
+    {
+        var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", "./_content/BootstrapBlazor/modules/utility.js");
+        await jSObjectReference.InvokeVoidAsync("openBlank", url);
+    }
 }

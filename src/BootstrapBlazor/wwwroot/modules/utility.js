@@ -497,6 +497,8 @@ const debounce = function (fn, duration = 200, callback = null) {
     }
 }
 
+const openBlankUrl = url => window.open(url, '_blank');
+
 export {
     addLink,
     addScript,
@@ -529,5 +531,6 @@ export {
     removeLink,
     removeScript,
     setIndeterminate,
-    vibrate
+    vibrate,
+    openBlankUrl
 }
