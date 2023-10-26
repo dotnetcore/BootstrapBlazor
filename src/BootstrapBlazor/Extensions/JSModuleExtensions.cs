@@ -63,7 +63,7 @@ public static class JSModuleExtensions
     public static async ValueTask OpenBlankUrl(this IJSRuntime jsRuntime, string url)
     {
         var module = await GetModule(jsRuntime);
-        await module.InvokeVoidAsync("openBlank", url);
+        await module.InvokeVoidAsync("openBlankUrl", url);
     }
 
     /// <summary>

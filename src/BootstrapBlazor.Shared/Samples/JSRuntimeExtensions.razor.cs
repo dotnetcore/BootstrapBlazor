@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Components;
+
 using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Shared.Samples;
@@ -16,6 +18,20 @@ public partial class JSRuntimeExtensions
 
     private readonly string _consoleText = "Hello BootstrapBlazor";
 
+    #region OpenBlankUrl Demo
+
+    private string BlankUrl = "https://www.blazor.zone/";
+
+    private async Task OpenBlankUrl()
+    {
+        await JSRuntime.OpenBlankUrl(BlankUrl);
+    }
+
+    #endregion
+
+
+    #region GetIsMobileDevice Demo
+
     private bool IsMobileDevice { get; set; }
 
     private async Task GetIsMobileDevice()
@@ -23,6 +39,7 @@ public partial class JSRuntimeExtensions
         IsMobileDevice = await JSRuntime.GetIsMobileDevice();
     }
 
+    #endregion
 
     #region RunEval Demo
 

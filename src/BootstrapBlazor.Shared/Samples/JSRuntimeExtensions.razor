@@ -11,6 +11,15 @@ var result = await JSRuntime.ChangeMetaAsync(false,HeadMetaType.Link,"stylesheet
 </Pre>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["OpenBlankUrlTitle"]" Introduction="@Localizer["OpenBlankUrlIntro"]" Name="OpenBlankUrl">
+    <Pre class="mb-2">await JSRuntime.OpenBlankUrl("url");</Pre>
+    <BootstrapInputGroup>
+        <BootstrapInputGroupLabel class="label-width" DisplayText="OpenBlankUrl" />
+        <Button Text="Open" OnClick="@OpenBlankUrl" />
+        <BootstrapInput TValue="string" @bind-Value="@BlankUrl" />
+    </BootstrapInputGroup>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["IsMobileDeviceTitle"]" Introduction="@Localizer["IsMobileDeviceIntro"]" Name="IsMobileDevice">
     <Pre class="mb-2">await JSRuntime.GetIsMobileDevice();</Pre>
     <BootstrapInputGroup>
