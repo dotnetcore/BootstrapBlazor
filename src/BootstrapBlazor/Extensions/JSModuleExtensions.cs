@@ -90,26 +90,7 @@ public static class JSModuleExtensions
         await module.InvokeVoidAsync("openBlankUrl", url);
     }
 
-    /// <summary>
-    /// 获取是否为移动设备
-    /// <para>
-    /// C# 示例：
-    /// <code>
-    /// [Inject]
-    /// [NotNull]
-    /// private <see cref="IJSRuntime"/> JSRuntime
-    /// 
-    /// var res = await JSRuntime.GetIsMobileDevice();
-    /// </code>
-    /// </para>
-    /// </summary>
-    /// <param name="jsRuntime"></param>
-    /// <returns></returns>
-    public static async Task<bool> GetIsMobileDevice(this IJSRuntime jsRuntime)
-    {
-        var module = await GetModule(jsRuntime);
-        return await module.InvokeAsync<bool>("isMobileDevice");
-    }
+    #region 动态运行JS代码
 
     /// <summary>
     /// 通过Eval动态运行js代码
@@ -201,6 +182,10 @@ public static class JSModuleExtensions
         var module = await GetModule(jsRuntime);
         return await module.InvokeAsync<T>("runFunction", script, args);
     }
+
+    #endregion
+
+    #region JS Console调试工具
 
     /// <summary>
     /// 清空浏览器控制台
@@ -367,6 +352,8 @@ public static class JSModuleExtensions
         await module.InvokeVoidAsync("outPtuToConsole", "trace", args);
     }
 
+    #endregion
+
     /// <summary>
     /// 动态修改head标签
     /// <para>
@@ -444,6 +431,27 @@ public static class JSModuleExtensions
     {
         var module = await GetModule(jsRuntime);
         return await module.InvokeAsync<T?>("getCSSValue", id, propertyName);
+    }
+
+    /// <summary>
+    /// 获取是否为移动设备
+    /// <para>
+    /// C# 示例：
+    /// <code>
+    /// [Inject]
+    /// [NotNull]
+    /// private <see cref="IJSRuntime"/> JSRuntime
+    /// 
+    /// var res = await JSRuntime.GetIsMobileDevice();
+    /// </code>
+    /// </para>
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <returns></returns>
+    public static async Task<bool> GetIsMobileDevice(this IJSRuntime jsRuntime)
+    {
+        var module = await GetModule(jsRuntime);
+        return await module.InvokeAsync<bool>("isMobileDevice");
     }
 
 }
