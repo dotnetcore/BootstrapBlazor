@@ -1075,7 +1075,7 @@ public class TableTest : TableTestBase
                     isFirstQuery = option.IsFristQuery;
                     return Task.FromResult(new QueryData<Foo>()
                     {
-                        Items = new Foo[0],
+                        Items = Array.Empty<Foo>(),
                         TotalCount = 0,
                         IsAdvanceSearch = true,
                         IsFiltered = true,
@@ -1121,7 +1121,7 @@ public class TableTest : TableTestBase
                     isFirstQuery = option.IsFristQuery;
                     return Task.FromResult(new QueryData<Foo>()
                     {
-                        Items = new Foo[0],
+                        Items = Array.Empty<Foo>(),
                         TotalCount = 0,
                         IsAdvanceSearch = true,
                         IsFiltered = true,
