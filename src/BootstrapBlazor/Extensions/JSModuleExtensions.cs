@@ -12,7 +12,31 @@ namespace BootstrapBlazor.Components;
 public static class JSModuleExtensions
 {
     /// <summary>
+    /// 导入js模块
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <returns></returns>
+    private static async Task<IJSObjectReference> GetModule(IJSRuntime jsRuntime)
+    {
+        return await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", "./_content/BootstrapBlazor/modules/utility.js");
+    }
+
+    /// <summary>
     /// IJSRuntime 扩展方法 动态加载脚本 脚本目录为 modules
+    /// <para>
+    /// C# 示例：
+    /// <code>
+    /// [Inject]
+    /// [NotNull]
+    /// private <see cref="IJSRuntime"/> JSRuntime
+    /// 
+    /// [Inject]
+    /// [NotNull]
+    /// private <see cref="IVersionService"/> JSVersionService
+    /// 
+    /// var Module = await JSRuntime.LoadModule("xxx.razor.js",JSVersionService.GetVersion());
+    /// </code>
+    /// </para>
     /// </summary>
     /// <param name="jsRuntime"></param>
     /// <param name="fileName"></param>
@@ -45,17 +69,17 @@ public static class JSModuleExtensions
     }
 
     /// <summary>
-    /// 导入js模块
-    /// </summary>
-    /// <param name="jsRuntime"></param>
-    /// <returns></returns>
-    private static async Task<IJSObjectReference> GetModule(IJSRuntime jsRuntime)
-    {
-        return await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", "./_content/BootstrapBlazor/modules/utility.js");
-    }
-
-    /// <summary>
     /// 在新标签页打开指定网址
+    /// <para>
+    /// C# 示例：
+    /// <code>
+    /// [Inject]
+    /// [NotNull]
+    /// private <see cref="IJSRuntime"/> JSRuntime
+    /// 
+    /// await JSRuntime.OpenBlankUrl(<see href="https://www.blazor.zone/"/>);
+    /// </code>
+    /// </para>
     /// </summary>
     /// <param name="jsRuntime"></param>
     /// <param name="url"></param>
@@ -68,6 +92,16 @@ public static class JSModuleExtensions
 
     /// <summary>
     /// 获取是否为移动设备
+    /// <para>
+    /// C# 示例：
+    /// <code>
+    /// [Inject]
+    /// [NotNull]
+    /// private <see cref="IJSRuntime"/> JSRuntime
+    /// 
+    /// var res = await JSRuntime.GetIsMobileDevice();
+    /// </code>
+    /// </para>
     /// </summary>
     /// <param name="jsRuntime"></param>
     /// <returns></returns>
@@ -78,7 +112,17 @@ public static class JSModuleExtensions
     }
 
     /// <summary>
-    /// 动态运行js代码
+    /// 通过Eval动态运行js代码
+    /// <para>
+    /// C# 示例：
+    /// <code>
+    /// [Inject]
+    /// [NotNull]
+    /// private <see cref="IJSRuntime"/> JSRuntime
+    /// 
+    /// var res = await JSRuntime.Eval<![CDATA[<string>]]>("your js code");
+    /// </code>
+    /// </para>
     /// </summary>
     /// <param name="jsRuntime"></param>
     /// <param name="script"></param>
@@ -91,6 +135,16 @@ public static class JSModuleExtensions
 
     /// <summary>
     /// 动态运行js代码
+    /// <para>
+    /// C# 示例：
+    /// <code>
+    /// [Inject]
+    /// [NotNull]
+    /// private <see cref="IJSRuntime"/> JSRuntime
+    /// 
+    /// await JSRuntime.Eval("your js code");
+    /// </code>
+    /// </para>
     /// </summary>
     /// <param name="jsRuntime"></param>
     /// <param name="script"></param>
@@ -103,6 +157,16 @@ public static class JSModuleExtensions
 
     /// <summary>
     /// 动态运行js代码
+    /// <para>
+    /// C# 示例：
+    /// <code>
+    /// [Inject]
+    /// [NotNull]
+    /// private <see cref="IJSRuntime"/> JSRuntime
+    /// 
+    /// var res = await JSRuntime.Function<![CDATA[<string>]]>("your js code");
+    /// </code>
+    /// </para>
     /// </summary>
     /// <param name="jsRuntime"></param>
     /// <param name="script"></param>
@@ -116,6 +180,16 @@ public static class JSModuleExtensions
 
     /// <summary>
     /// 动态运行js代码
+    /// <para>
+    /// C# 示例：
+    /// <code>
+    /// [Inject]
+    /// [NotNull]
+    /// private <see cref="IJSRuntime"/> JSRuntime
+    /// 
+    /// await JSRuntime.Function("your js code");
+    /// </code>
+    /// </para>
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="jsRuntime"></param>
@@ -296,11 +370,16 @@ public static class JSModuleExtensions
     /// <summary>
     /// 动态修改head标签
     /// <para>
-    /// razor示例：
+    /// C# 示例：
+    /// 
     /// <code>
-    /// @inject <see cref="IJSRuntime"/> JSRuntime
+    /// [Inject]
+    /// [NotNull]
+    /// private <see cref="IJSRuntime"/> JSRuntime
+    /// 
     /// 添加一个link标签
     /// var result = await JSRuntime.ChangeMetaAsync(<see langword="true"/>,<see cref="HeadMetaType.Link"/>,"stylesheet","styles.css")
+    /// 
     /// 移除一个link标签
     /// var result = await JSRuntime.ChangeMetaAsync(<see langword="false"/>,<see cref="HeadMetaType.Link"/>,"stylesheet","styles.css")
     /// </code>
@@ -320,10 +399,21 @@ public static class JSModuleExtensions
 
     /// <summary>
     /// 获取元素的指定属性
+    /// <para>
+    /// C# 示例：
+    /// 
+    /// <code>
+    /// [Inject]
+    /// [NotNull]
+    /// private <see cref="IJSRuntime"/> JSRuntime
+    /// 
+    /// var clientHeight = await JSRuntime.GetElementProperties<![CDATA[<]]><see langword="decimal"/><![CDATA[>]]>("element id", "clientHeight");
+    /// </code>
+    /// </para>
     /// </summary>
     /// <param name="jsRuntime"></param>
-    /// <param name="id"></param>
-    /// <param name="tag"></param>
+    /// <param name="id">html 元素id</param>
+    /// <param name="tag">html 元素属性名称</param>
     /// <returns></returns>
     public static async Task<T> GetElementProperties<T>(this IJSRuntime jsRuntime, string id, string tag)
     {
@@ -333,6 +423,17 @@ public static class JSModuleExtensions
 
     /// <summary>
     /// 获取指定元素 CSS 的值
+    /// <para>
+    /// C# 示例：
+    /// 
+    /// <code>
+    /// [Inject]
+    /// [NotNull]
+    /// private <see cref="IJSRuntime"/> JSRuntime
+    /// 
+    /// var Height = await JSRuntime.GetCSSValue<![CDATA[<]]><see langword="decimal"/><![CDATA[>]]>("element id", "height");
+    /// </code>
+    /// </para>
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="jsRuntime"></param>
