@@ -4794,7 +4794,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void Delete_Ok()
+    public async Task Delete_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -4817,10 +4817,10 @@ public class TableTest : TableTestBase
             });
         });
         var input = cut.Find("tbody tr input");
-        cut.InvokeAsync(() => input.Click());
+        await cut.InvokeAsync(() => input.Click());
 
         var button = cut.FindComponent<TableToolbarPopConfirmButton<Foo>>();
-        cut.InvokeAsync(() => button.Instance.OnConfirm.Invoke());
+        await cut.InvokeAsync(() => button.Instance.OnConfirm.Invoke());
         Assert.Single(items);
     }
 
