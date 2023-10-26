@@ -84,47 +84,54 @@ public partial class JSRuntimeExtensions
 
     #endregion
 
-    private static IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+    private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
     {
         new()
         {
             Name = "ChangeMetaAsync",
-            Description = "动态添加连接到head标签中",
+            Description = Localizer["ChangeMetaIntro"].Value,
             Parameters = " - ",
             ReturnValue = "ValueTask"
         },
         new()
         {
-            Name = "Console",
-            Description = "输出到浏览器控制台",
+            Name = "OpenBlankUrl",
+            Description = Localizer["OpenBlankUrlIntro"].Value,
             Parameters = " - ",
-            ReturnValue = "ValueTask"
-        },
-        new()
-        {
-            Name = "ConsoleClear",
-            Description = "清空浏览器控制台",
-            Parameters = " - ",
-            ReturnValue = "ValueTask"
+            ReturnValue = "ValueTask<bool>"
         },
         new()
         {
             Name = "GetIsMobileDevice",
-            Description = "获取是否为移动设备",
+            Description = Localizer["IsMobileDeviceIntro"].Value,
             Parameters = " - ",
             ReturnValue = "ValueTask<bool>"
         },
         new()
         {
             Name = "Eval",
-            Description = "动态运行js代码",
+            Description = Localizer["EvalIntro"].Value,
             Parameters = " - ",
             ReturnValue = "ValueTask<T>"
         },
         new()
         {
+            Name = "Function",
+            Description = Localizer["FunctionIntro"].Value,
+            Parameters = " - ",
+            ReturnValue = "ValueTask<T>"
+        },
+        new()
+        {
+            Name = "Console",
+            Description = Localizer["JSConsoleIntro"].Value,
+            Parameters = " - ",
+            ReturnValue = "ValueTask"
+        },
+        new()
+        {
             Name = "GetCSSValue",
-            Description = "获取指定元素的CSS属性",
+            Description = Localizer["GetElementCSSIntro"].Value,
             Parameters = " - ",
             ReturnValue = "ValueTask<T>"
         }
