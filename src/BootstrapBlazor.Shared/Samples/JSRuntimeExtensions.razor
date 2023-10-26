@@ -1,5 +1,5 @@
 ﻿@page "/jsruntimeextensions"
-@inject IStringLocalizer<JSRuntimeExtensionsDemo> Localizer
+@inject IStringLocalizer<JSRuntimeExtensions> Localizer
 
 <DemoBlock Title="@Localizer["ChangeMetaTitle"]" Introduction="@Localizer["ChangeMetaIntro"]" ShowCode="false" Name="ChangeMeta">
     <Pre>[Inject]
@@ -21,19 +21,19 @@ var result = await JSRuntime.ChangeMetaAsync(false,HeadMetaType.Link,"stylesheet
 <DemoBlock Title="@Localizer["JSConsoleTitle"]" Introduction="@Localizer["JSConsoleIntro"]" Name="JSConsole">
     <Pre class="mb-2">await JSRuntime.Console(ConsoleType.Log, "Hello BootstrapBlazor");</Pre>
     <Button class="mb-2" Text="Clear" OnClick="@(()=> JSRuntime.ConsoleClear())" />
-    <Button class="mb-2" Text="Log" OnClick="@(()=> JSRuntime.Console(ConsoleType.Log, _consoleText))" />
-    <Button class="mb-2" Text="Warn" OnClick="@(()=> JSRuntime.Console(ConsoleType.Warn, _consoleText))" />
-    <Button class="mb-2" Text="Error" OnClick="@(()=> JSRuntime.Console(ConsoleType.Error, _consoleText))" />
-    <Button class="mb-2" Text="Info" OnClick="@(()=> JSRuntime.Console(ConsoleType.Info, _consoleText))" />
-    <Button class="mb-2" Text="Assert" OnClick="@(()=> JSRuntime.Console(ConsoleType.Assert, false, _consoleText))" />
-    <Button class="mb-2" Text="Dir" OnClick="@(()=> JSRuntime.Console(ConsoleType.Dir, GetMethods()))" />
-    <Button class="mb-2" Text="Time" OnClick="@(()=> JSRuntime.Console(ConsoleType.Time))" />
-    <Button class="mb-2" Text="TimeEnd" OnClick="@(()=> JSRuntime.Console(ConsoleType.TimeEnd))" />
-    <Button class="mb-2" Text="Count" OnClick="@(()=> JSRuntime.Console(ConsoleType.Count,_consoleText))" />
-    <Button class="mb-2" Text="Group" OnClick="@(()=> JSRuntime.Console(ConsoleType.Group,_consoleText))" />
-    <Button class="mb-2" Text="GroupEnd" OnClick="@(()=> JSRuntime.Console(ConsoleType.GroupEnd))" />
-    <Button class="mb-2" Text="Table" OnClick="@(()=> JSRuntime.Console(ConsoleType.Table, GetMethods()))" />
-    <Button class="mb-2" Text="Trace" OnClick="@(()=> JSRuntime.Console(ConsoleType.Trace))" />
+    <Button class="mb-2" Text="Log" OnClick="@(()=> JSRuntime.ConsoleLog(_consoleText))" />
+    <Button class="mb-2" Text="Warn" OnClick="@(()=> JSRuntime.ConsoleWarn( _consoleText))" />
+    <Button class="mb-2" Text="Error" OnClick="@(()=> JSRuntime.ConsoleError(_consoleText))" />
+    <Button class="mb-2" Text="Info" OnClick="@(()=> JSRuntime.ConsoleInfo( _consoleText))" />
+    <Button class="mb-2" Text="Assert" OnClick="@(()=> JSRuntime.ConsoleAssert( false, _consoleText))" />
+    <Button class="mb-2" Text="Dir" OnClick="@(()=> JSRuntime.ConsoleDir(GetMethods()))" />
+    <Button class="mb-2" Text="Time" OnClick="@(()=> JSRuntime.ConsoleTime())" />
+    <Button class="mb-2" Text="TimeEnd" OnClick="@(()=> JSRuntime.ConsoleTimeEnd())" />
+    <Button class="mb-2" Text="Count" OnClick="@(()=> JSRuntime.ConsoleCount(_consoleText))" />
+    <Button class="mb-2" Text="Group" OnClick="@(()=> JSRuntime.ConsoleGroup(_consoleText))" />
+    <Button class="mb-2" Text="GroupEnd" OnClick="@(()=> JSRuntime.ConsoleGroupEnd())" />
+    <Button class="mb-2" Text="Table" OnClick="@(()=> JSRuntime.ConsoleTable( GetMethods()))" />
+    <Button class="mb-2" Text="Trace" OnClick="@(()=> JSRuntime.ConsoleTrace())" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["GetElementCSSTitle"]" Introduction="@Localizer["GetElementCSSIntro"]" Name="GetElementProperties">

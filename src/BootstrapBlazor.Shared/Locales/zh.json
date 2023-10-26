@@ -5944,7 +5944,7 @@
     "AttrAlignItems": "垂直布局模式",
     "AttrChildContent": "内容模板"
   },
-  "BootstrapBlazor.Shared.Samples.JSRuntimeExtensionsDemo": {
+  "BootstrapBlazor.Shared.Samples.JSRuntimeExtensions": {
     "ChangeMetaTitle": "动态修改head标签",
     "ChangeMetaIntro": "动态添加/移除Link，Script等标签。",
     "EvalTitle": "动态运行Java Script代码",

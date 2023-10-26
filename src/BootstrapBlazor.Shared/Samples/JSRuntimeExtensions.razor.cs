@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Extensions;
-
 using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Shared.Samples;
@@ -11,7 +9,7 @@ namespace BootstrapBlazor.Shared.Samples;
 /// <summary>
 /// JSRuntimeExtensionsDemo
 /// </summary>
-public partial class JSRuntimeExtensionsDemo
+public partial class JSRuntimeExtensions
 {
     [Inject]
     private IJSRuntime JSRuntime { get; set; } = default!;

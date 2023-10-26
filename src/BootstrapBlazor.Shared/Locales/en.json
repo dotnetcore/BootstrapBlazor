@@ -5944,7 +5944,7 @@
     "AttrAlignItems": "Change the alignment of flex items on the cross axis",
     "AttrChildContent": "Child content render fragment"
   },
-  "BootstrapBlazor.Shared.Samples.JSRuntimeExtensionsDemo": {
+  "BootstrapBlazor.Shared.Samples.JSRuntimeExtensions": {
     "ChangeMetaTitle": "Dynamically modifying the head label",
     "ChangeMetaIntro": "Dynamically adding/removing tags such as Link and Script.",
     "EvalTitle": "Dynamically running Java Script code",
