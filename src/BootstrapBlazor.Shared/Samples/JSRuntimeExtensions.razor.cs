@@ -16,6 +16,14 @@ public partial class JSRuntimeExtensions
 
     private readonly string _consoleText = "Hello BootstrapBlazor";
 
+    private bool IsMobileDevice { get; set; }
+
+    private async Task GetIsMobileDevice()
+    {
+        IsMobileDevice = await JSRuntime.GetIsMobileDevice();
+    }
+
+
     #region RunEval Demo
 
     private string evalContent = """

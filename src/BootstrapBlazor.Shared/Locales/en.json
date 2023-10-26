@@ -5947,6 +5947,8 @@
   "BootstrapBlazor.Shared.Samples.JSRuntimeExtensions": {
     "ChangeMetaTitle": "Dynamically modifying the head label",
     "ChangeMetaIntro": "Dynamically adding/removing tags such as Link and Script.",
+    "IsMobileDeviceTitle": "IsMobileDevice",
+    "IsMobileDeviceIntro": "Determine userAgent through regular expressions, indicating whether the current device is a mobile device",
     "EvalTitle": "JS Eval",
     "EvalIntro": "Dynamically run Java Script code within the current scope using the Eval function.",
     "FunctionTitle": "JS Function",

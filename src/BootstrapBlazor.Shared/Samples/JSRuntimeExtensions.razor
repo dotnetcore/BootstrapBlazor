@@ -11,9 +11,18 @@ var result = await JSRuntime.ChangeMetaAsync(false,HeadMetaType.Link,"stylesheet
 </Pre>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["IsMobileDeviceTitle"]" Introduction="@Localizer["IsMobileDeviceIntro"]" Name="IsMobileDevice">
+    <Pre class="mb-2">await JSRuntime.GetIsMobileDevice();</Pre>
+    <BootstrapInputGroup>
+        <BootstrapInputGroupLabel class="label-width" DisplayText="IsMobileDevice" />
+        <Button Text="Get" OnClick="@GetIsMobileDevice"/>
+        <BootstrapInput TValue="bool" @bind-Value="@IsMobileDevice" />
+    </BootstrapInputGroup>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["EvalTitle"]" Introduction="@Localizer["EvalIntro"]" Name="Eval">
     <Pre class="mb-2">await JSRuntime.Eval("js code");</Pre>
-    <Textarea class="mb-2" @bind-Value="@evalContent" rows="3"/>
+    <Textarea class="mb-2" @bind-Value="@evalContent" rows="3" />
     <Button class="mb-2" Text="Run" OnClick="@RunEval"></Button>
     <Textarea @bind-Value="@evalResult" rows="1" />
 </DemoBlock>
