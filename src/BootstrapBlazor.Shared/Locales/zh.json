@@ -4526,7 +4526,8 @@
     "Marquee": "文字滚动 Marquee",
     "Stack": "堆叠布局 Stack",
     "Utility": "实用工具",
-    "JSExtension": "JSRuntime 拓展"
+    "JSExtension": "JSRuntime 拓展",
+    "Clipboard": "剪切板服务"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -5959,5 +5960,11 @@
     "JSConsoleIntro": "通过Console直接输出内容到浏览器控制台",
     "GetElementCSSTitle": "GetElementCSS",
     "GetElementCSSIntro": "根据元素id获取CSS属性值"
+  },
+  "BootstrapBlazor.Shared.Samples.Clipboards": {
+    "ClipboardTitle": "ClipboardService",
+    "ClipboardIntro": "剪切板服务！请注意，只能在HTTPS安全连接下运行，或者在本地localhost开发环境中使用。",
+    "ClipboardMessage1": "文本内容：",
+    "ClipboardMessage2": ",已复制到剪切板"
   }
 }

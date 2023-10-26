@@ -4526,7 +4526,8 @@
     "Marquee": "Marquee",
     "Stack": "Stack",
     "Utility": "Utility",
-    "JSExtension": "JSRuntime Extensions"
+    "JSExtension": "JSRuntime Extensions",
+    "Clipboard": "Clipboard Service"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -5959,5 +5960,11 @@
     "JSConsoleIntro": "Directly output content to the browser console through Console",
     "GetElementCSSTitle": "GetElementCSS",
     "GetElementCSSIntro": "Obtain CSS attribute values based on element id"
+  },
+  "BootstrapBlazor.Shared.Samples.Clipboards": {
+    "ClipboardTitle": "ClipboardService",
+    "ClipboardIntro": "Clipboard service! Please note that it can only be run under HTTPS secure connections or used in the local localhost development environment.",
+    "ClipboardMessage1": "Text content:",
+    "ClipboardMessage2": ",copied to clipboard"
   }
 }

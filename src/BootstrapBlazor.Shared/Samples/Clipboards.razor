@@ -1,0 +1,21 @@
+﻿@page "/clipboardservice"
+@inject IStringLocalizer<Clipboards> Localizer
+@inject MessageService MessageService
+
+<DemoBlock Title="@Localizer["ClipboardTitle"]" Introduction="@Localizer["ClipboardIntro"]" Name="Clipboard">
+    <Pre class="mb-2">[Inject]
+[NotNull]
+private ClipboardService? ClipboardService { get; set; }
+
+private void Copy()
+{
+    ClipboardService.Copy(content);
+}
+</Pre>
+    <BootstrapInputGroup>
+        <Button Text="Copy" OnClick="@Copy" />
+        <BootstrapInput TValue="string" @bind-Value="@content" />
+    </BootstrapInputGroup>
+</DemoBlock>
+
+<MethodTable Items="GetMethods()" />
