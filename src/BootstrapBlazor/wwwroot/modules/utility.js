@@ -499,17 +499,6 @@ const debounce = function (fn, duration = 200, callback = null) {
 
 const openBlankUrl = url => window.open(url, '_blank');
 
-export function getProperties(obj, tag) {
-    let tags = tag.split('.');
-    let tagsCopy = JSON.parse(JSON.stringify(tags));
-    var object = obj;
-    tagsCopy.map(() => {
-        object = object[tags[0]];
-        tags.shift();
-    })
-    return object;
-}
-
 export function getElementProperties(id, tag) {
     if (tag === null || tag === undefined || tag === "" || tag.trim() === "") {
         return "wrong tag";
@@ -518,7 +507,14 @@ export function getElementProperties(id, tag) {
     var el = document.getElementById(id);
     if (el) {
         try {
-            return getProperties(el, tag);
+            let tags = tag.split('.');
+            let tagsCopy = JSON.parse(JSON.stringify(tags));
+            var object = el;
+            tagsCopy.map(() => {
+                object = object[tags[0]];
+                tags.shift();
+            })
+            return object;
         } catch (e) {
             console.warn(e.message);
             return e.message;
@@ -535,7 +531,6 @@ export function getCSSValue(id, propertyName) {
         }
     } catch (e) {
         console.error(e.message);
-        return null;
     }
 }
 
@@ -548,7 +543,6 @@ export function getElementRect(id) {
         }
     } catch (e) {
         console.error(e.message);
-        return null;
     }
 }
 
@@ -561,7 +555,7 @@ export function runEval(code) {
     }
 }
 
-export function runFunc(code, arg) {
+export function runFunction(code, arg) {
     try {
         var func = new Function(code);
         return func(...arg);
@@ -571,7 +565,7 @@ export function runFunc(code, arg) {
     }
 }
 
-export function doConsole(type, arg) {
+export function outPtuToConsole(type, arg) {
     try {
         const fn = (typeof console[type] === 'function' ? console[type] : console.log);
         fn(...arg);

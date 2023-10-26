@@ -18,7 +18,7 @@ public partial class JSRuntimeExtensions
 
     #region RunEval Demo
 
-    private string evalContent { get; set; } = """
+    private string evalContent = """
         const currentUrl = window.location.href;
 
         `当前URL: ${currentUrl}`;
@@ -27,6 +27,20 @@ public partial class JSRuntimeExtensions
     private string evalResult { get; set; } = string.Empty;
 
     private async Task RunEval() => evalResult = await JSRuntime.Eval<string>(evalContent);
+
+    #endregion
+
+    #region RunFunction Demo
+
+    private string functionContent = """
+        const currentUrl = window.location.href;
+
+        return `当前URL: ${currentUrl}`;
+        """;
+
+    private string functionResult { get; set; } = string.Empty;
+
+    private async Task RunFunction() => functionResult = await JSRuntime.Function<string>(functionContent);
 
     #endregion
 

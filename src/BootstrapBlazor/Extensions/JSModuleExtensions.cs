@@ -4,8 +4,6 @@
 
 using BootstrapBlazor.Enums;
 
-using Microsoft.JSInterop;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -113,7 +111,7 @@ public static class JSModuleExtensions
     public static async Task Function(this IJSRuntime jsRuntime, string script, params object?[]? args)
     {
         var module = await GetModule(jsRuntime);
-        await module.InvokeVoidAsync("runFunc", script, args);
+        await module.InvokeVoidAsync("runFunction", script, args);
     }
 
     /// <summary>
@@ -127,7 +125,7 @@ public static class JSModuleExtensions
     public static async Task<T> Function<T>(this IJSRuntime jsRuntime, string script, params object?[]? args)
     {
         var module = await GetModule(jsRuntime);
-        return await module.InvokeAsync<T>("runFunc", script, args);
+        return await module.InvokeAsync<T>("runFunction", script, args);
     }
 
     /// <summary>
@@ -148,7 +146,7 @@ public static class JSModuleExtensions
     public static async Task ConsoleLog(this IJSRuntime jsRuntime, params object?[]? args)
     {
         var module = await GetModule(jsRuntime);
-        await module.InvokeVoidAsync("doConsole", "log", args);
+        await module.InvokeVoidAsync("outPtuToConsole", "log", args);
     }
 
     /// <summary>
@@ -160,7 +158,7 @@ public static class JSModuleExtensions
     public static async Task ConsoleWarn(this IJSRuntime jsRuntime, params object?[]? args)
     {
         var module = await GetModule(jsRuntime);
-        await module.InvokeVoidAsync("doConsole", "warn", args);
+        await module.InvokeVoidAsync("outPtuToConsole", "warn", args);
     }
 
     /// <summary>
@@ -172,7 +170,7 @@ public static class JSModuleExtensions
     public static async Task ConsoleError(this IJSRuntime jsRuntime, params object?[]? args)
     {
         var module = await GetModule(jsRuntime);
-        await module.InvokeVoidAsync("doConsole", "error", args);
+        await module.InvokeVoidAsync("outPtuToConsole", "error", args);
     }
 
     /// <summary>
@@ -184,7 +182,7 @@ public static class JSModuleExtensions
     public static async Task ConsoleInfo(this IJSRuntime jsRuntime, params object?[]? args)
     {
         var module = await GetModule(jsRuntime);
-        await module.InvokeVoidAsync("doConsole", "info", args);
+        await module.InvokeVoidAsync("outPtuToConsole", "info", args);
     }
 
     /// <summary>
@@ -196,7 +194,7 @@ public static class JSModuleExtensions
     public static async Task ConsoleAssert(this IJSRuntime jsRuntime, params object?[]? args)
     {
         var module = await GetModule(jsRuntime);
-        await module.InvokeVoidAsync("doConsole", "assert", args);
+        await module.InvokeVoidAsync("outPtuToConsole", "assert", args);
     }
 
     /// <summary>
@@ -208,7 +206,7 @@ public static class JSModuleExtensions
     public static async Task ConsoleDir(this IJSRuntime jsRuntime, params object?[]? args)
     {
         var module = await GetModule(jsRuntime);
-        await module.InvokeVoidAsync("doConsole", "dir", args);
+        await module.InvokeVoidAsync("outPtuToConsole", "dir", args);
     }
 
     /// <summary>
@@ -220,7 +218,7 @@ public static class JSModuleExtensions
     public static async Task ConsoleTime(this IJSRuntime jsRuntime, params object?[]? args)
     {
         var module = await GetModule(jsRuntime);
-        await module.InvokeVoidAsync("doConsole", "time", args);
+        await module.InvokeVoidAsync("outPtuToConsole", "time", args);
     }
 
     /// <summary>
@@ -232,7 +230,7 @@ public static class JSModuleExtensions
     public static async Task ConsoleTimeEnd(this IJSRuntime jsRuntime, params object?[]? args)
     {
         var module = await GetModule(jsRuntime);
-        await module.InvokeVoidAsync("doConsole", "timeEnd", args);
+        await module.InvokeVoidAsync("outPtuToConsole", "timeEnd", args);
     }
 
     /// <summary>
@@ -244,7 +242,7 @@ public static class JSModuleExtensions
     public static async Task ConsoleCount(this IJSRuntime jsRuntime, params object?[]? args)
     {
         var module = await GetModule(jsRuntime);
-        await module.InvokeVoidAsync("doConsole", "count", args);
+        await module.InvokeVoidAsync("outPtuToConsole", "count", args);
     }
 
     /// <summary>
@@ -256,7 +254,7 @@ public static class JSModuleExtensions
     public static async Task ConsoleGroup(this IJSRuntime jsRuntime, params object?[]? args)
     {
         var module = await GetModule(jsRuntime);
-        await module.InvokeVoidAsync("doConsole", "group", args);
+        await module.InvokeVoidAsync("outPtuToConsole", "group", args);
     }
 
     /// <summary>
@@ -268,7 +266,7 @@ public static class JSModuleExtensions
     public static async Task ConsoleGroupEnd(this IJSRuntime jsRuntime, params object?[]? args)
     {
         var module = await GetModule(jsRuntime);
-        await module.InvokeVoidAsync("doConsole", "groupEnd", args);
+        await module.InvokeVoidAsync("outPtuToConsole", "groupEnd", args);
     }
 
     /// <summary>
@@ -280,7 +278,7 @@ public static class JSModuleExtensions
     public static async Task ConsoleTable(this IJSRuntime jsRuntime, params object?[]? args)
     {
         var module = await GetModule(jsRuntime);
-        await module.InvokeVoidAsync("doConsole", "table", args);
+        await module.InvokeVoidAsync("outPtuToConsole", "table", args);
     }
 
     /// <summary>
@@ -292,7 +290,7 @@ public static class JSModuleExtensions
     public static async Task ConsoleTrace(this IJSRuntime jsRuntime, params object?[]? args)
     {
         var module = await GetModule(jsRuntime);
-        await module.InvokeVoidAsync("doConsole", "trace", args);
+        await module.InvokeVoidAsync("outPtuToConsole", "trace", args);
     }
 
     /// <summary>
