@@ -7,7 +7,7 @@ namespace UnitTest.Components;
 public class TableConfirmTest : TableConfirmTestBase
 {
     [Fact]
-    public async Task TableCellPopconfirmButton_Ok()
+    public void TableCellPopconfirmButton_Ok()
     {
         var clicked = false;
         var trigger = false;
@@ -37,11 +37,13 @@ public class TableConfirmTest : TableConfirmTestBase
         });
 
         var button = cut1.Find("div");
-        await cut1.InvokeAsync(() => button.Click());
+        cut1.InvokeAsync(() => button.Click());
+
         var buttonConfirm = cut1.Find(".popover-confirm-buttons .btn-primary");
-        await cut1.InvokeAsync(() => buttonConfirm.Click());
+        cut1.InvokeAsync(() => buttonConfirm.Click());
         Assert.True(trigger);
         Assert.True(clicked);
+        Context.DisposeComponents();
     }
 
     [Fact]
@@ -49,5 +51,6 @@ public class TableConfirmTest : TableConfirmTestBase
     {
         var cut = Context.RenderComponent<TableCellPopconfirmButton>();
         Assert.Equal("", cut.Markup);
+        Context.DisposeComponents();
     }
 }
