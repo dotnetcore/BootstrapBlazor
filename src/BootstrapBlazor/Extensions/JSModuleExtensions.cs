@@ -51,6 +51,6 @@ public static class JSModuleExtensions
     public static async ValueTask OpenBlankUrl(this IJSRuntime jsRuntime, string url)
     {
         var jSObjectReference = await jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", "./_content/BootstrapBlazor/modules/utility.js");
-        await jSObjectReference.InvokeVoidAsync("openBlank", url);
+        await jSObjectReference.InvokeVoidAsync("openBlankUrl", url);
     }
 }
