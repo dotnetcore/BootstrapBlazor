@@ -82,6 +82,14 @@
                 <i class="fa-regular fa-file-excel"></i>
                 <span>MS-CSV</span>
             </div>
+            <div class="dropdown-item" @onclick="() => CliBoardExportAsync(ExportContext)">
+                <i class="fa-regular fa-file-excel"></i>
+                <span>@Localizer["TablesExportButtonCliBoardText"]</span>
+            </div>
+            <div class="dropdown-item" @onclick="() => CliBoardExportAllAsync(ExportContext)">
+                <i class="fa-regular fa-file-excel"></i>
+                <span>@Localizer["TablesExportButtonCliBoardAllText"]</span>
+            </div>
         </ExportButtonDropdownTemplate>
     </Table>
 </DemoBlock>

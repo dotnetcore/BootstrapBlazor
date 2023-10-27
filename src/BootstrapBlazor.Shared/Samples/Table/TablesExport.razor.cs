@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Text;
+
 namespace BootstrapBlazor.Shared.Samples.Table;
 
 /// <summary>
@@ -59,6 +61,62 @@ public partial class TablesExport
     [Inject]
     [NotNull]
     private ITableExcelExport? Exporter { get; set; }
+
+    [Inject]
+    [NotNull]
+    private ClipboardService? ClipboardService { get; init; }
+
+    private async Task ToClipBoard( IEnumerable<ITableColumn> columns, IEnumerable<Foo> rows)
+    {
+        var tableColumns = columns.ToList();
+        var fieldNames = tableColumns.Select(x => x.GetFieldName()).ToArray();
+        var titles = tableColumns.Select(x => x.GetDisplayName()).ToArray();
+
+        var sb = new StringBuilder();
+        sb.AppendJoin('\t',titles).AppendLine();
+
+        foreach (var row in rows)
+        {
+            var values = fieldNames.Select(x => row.GetType().GetProperty(x)?.GetValue(row)).ToArray();
+            sb.AppendJoin('\t',values).AppendLine();
+        }
+
+        var result = sb.ToString();
+        await ClipboardService.Copy(result);
+    }
+
+    private async Task CliBoardExportAsync(ITableExportContext<Foo> context)
+    {
+        // 自定义导出当前页面数据到剪切板,可以直接粘贴到 Excel 中
+        // 使用 BootstrapBlazor 内置服务 ClipboardService 实例方法 Copy 进行导出操作
+        // 导出数据使用 context 传递来的 Rows/Columns 即为当前页数据
+
+        await ToClipBoard(context.Columns,context.Rows);
+        // 返回 true 时自动弹出提示框
+        await ShowToast(true);
+    }
+
+    private async Task CliBoardExportAllAsync(ITableExportContext<Foo> context)
+    {
+        // 自定义导出当前页面数据到剪切板,可以直接粘贴到 Excel 中
+        // 使用 BootstrapBlazor 内置服务 ClipboardService 实例方法 Copy 进行导出操作
+
+        // 通过 context 参数的查询条件
+        var option = context.BuildQueryPageOptions();
+
+        // 通过内置扩展方法 ToFilter 获得所有条件
+        var filter = option.ToFilter();
+
+        // 通过内置扩展方法 GetFilterFunc 过滤数据
+        // EFCore 可使用 GetFilterLambda 获得表达式直接给 Where 方法使用
+        var data = Items.Where(filter.GetFilterFunc<Foo>());
+
+        // 导出符合条件的所有数据 data
+        await ToClipBoard(context.Columns,data);
+
+        // 返回 true 时自动弹出提示框
+        await ShowToast(true);
+    }
 
     private async Task ExcelExportAsync(ITableExportContext<Foo> context)
     {

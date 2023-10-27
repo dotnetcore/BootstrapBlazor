@@ -5129,6 +5129,8 @@
     "TablesExportButtonDropdownTemplateIntro": "Customize the content of the export button dropdown box by setting the <code>ExportButtonDropdownTemplate</code> template",
     "TablesExportButtonExcelText": "Export Page data - Excel",
     "TablesExportButtonExcelAllText": "Export All data - Excel",
+    "TablesExportButtonCliBoardText": "Export Page data - ClipBoard",
+    "TablesExportButtonCliBoardAllText": "Export All data - ClipBoard",
     "TablesExportToastTitle": "Export Data",
     "TablesExportToastSuccessContent": "Export success，auto close after 4 second",
     "TablesExportToastFailedContent": "Export failed，auto close after 4 second"
