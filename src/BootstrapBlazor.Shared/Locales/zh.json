@@ -4527,7 +4527,7 @@
     "Stack": "堆叠布局 Stack",
     "Segmented": "分段控制器 Segmented",
     "Utility": "实用工具",
-    "JSExtension": "JSRuntime 拓展",
+    "JSExtension": "JSRuntime 扩展",
     "Clipboard": "剪切板服务"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
