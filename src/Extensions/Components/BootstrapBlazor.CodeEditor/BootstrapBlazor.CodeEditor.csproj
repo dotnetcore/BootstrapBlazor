@@ -6,22 +6,19 @@
 
   <PropertyGroup>
     <PackageTags>Bootstrap Blazor WebAssembly wasm UI Components</PackageTags>
-    <Description>Bootstrap UI components extensions of Dock View</Description>
+    <Description>Bootstrap UI components extensions of monaco-editor</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor" Version="7.7.0" />
+    <!--<PackageReference Include="BootstrapBlazor" Version="7.11.2" />-->
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BootstrapBlazor\BootstrapBlazor.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Using Include="Microsoft.JSInterop" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="logo.png">
-      <PackagePath></PackagePath>
-      <Pack>true</Pack>
-    </None>
   </ItemGroup>
 
 </Project>
