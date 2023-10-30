@@ -4525,7 +4525,7 @@
     "WebSpeech": "Web Speech",
     "Marquee": "Marquee",
     "Stack": "Stack",
-    "Segmented": "Segmented"
+    "Segmented": "Segmented",
     "CodeEditor": "CodeEditor"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
