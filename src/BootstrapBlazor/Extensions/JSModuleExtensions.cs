@@ -16,7 +16,7 @@ public static class JSModuleExtensions
     /// </summary>
     /// <param name="jsRuntime"></param>
     /// <returns></returns>
-    private static ValueTask<IJSObjectReference> GetUtility(IJSRuntime jsRuntime) => jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", "./_content/BootstrapBlazor/modules/utility.js");
+    private static ValueTask<IJSObjectReference> GetUtility(this IJSRuntime jsRuntime) => jsRuntime.InvokeAsync<IJSObjectReference>(identifier: "import", "./_content/BootstrapBlazor/modules/utility.js");
 
     /// <summary>
     /// IJSRuntime 扩展方法 动态加载脚本 脚本目录为 modules
@@ -83,7 +83,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async ValueTask OpenBlankUrl(this IJSRuntime jsRuntime, string url)
     {
-        var module = await GetUtility(jsRuntime);
+        var module = await jsRuntime.GetUtility();
         await module.InvokeVoidAsync("openBlankUrl", url);
     }
 
@@ -107,7 +107,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task<T> Eval<T>(this IJSRuntime jsRuntime, string script)
     {
-        var module = await GetUtility(jsRuntime);
+        var module = await jsRuntime.GetUtility();
         return await module.InvokeAsync<T>("runEval", script);
     }
 
@@ -129,7 +129,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task Eval(this IJSRuntime jsRuntime, string script)
     {
-        var module = await GetUtility(jsRuntime);
+        var module = await jsRuntime.GetUtility();
         await module.InvokeVoidAsync("runEval", script);
     }
 
@@ -152,7 +152,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task Function(this IJSRuntime jsRuntime, string script, params object?[]? args)
     {
-        var module = await GetUtility(jsRuntime);
+        var module = await jsRuntime.GetUtility();
         await module.InvokeVoidAsync("runFunction", script, args);
     }
 
@@ -176,7 +176,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task<T> Function<T>(this IJSRuntime jsRuntime, string script, params object?[]? args)
     {
-        var module = await GetUtility(jsRuntime);
+        var module = await jsRuntime.GetUtility();
         return await module.InvokeAsync<T>("runFunction", script, args);
     }
 
@@ -201,7 +201,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task ConsoleLog(this IJSRuntime jsRuntime, params object?[]? args)
     {
-        var module = await GetUtility(jsRuntime);
+        var module = await jsRuntime.GetUtility();
         await module.InvokeVoidAsync("outPtuToConsole", "log", args);
     }
 
@@ -213,7 +213,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task ConsoleWarn(this IJSRuntime jsRuntime, params object?[]? args)
     {
-        var module = await GetUtility(jsRuntime);
+        var module = await jsRuntime.GetUtility();
         await module.InvokeVoidAsync("outPtuToConsole", "warn", args);
     }
 
@@ -225,7 +225,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task ConsoleError(this IJSRuntime jsRuntime, params object?[]? args)
     {
-        var module = await GetUtility(jsRuntime);
+        var module = await jsRuntime.GetUtility();
         await module.InvokeVoidAsync("outPtuToConsole", "error", args);
     }
 
@@ -237,7 +237,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task ConsoleInfo(this IJSRuntime jsRuntime, params object?[]? args)
     {
-        var module = await GetUtility(jsRuntime);
+        var module = await jsRuntime.GetUtility();
         await module.InvokeVoidAsync("outPtuToConsole", "info", args);
     }
 
@@ -249,7 +249,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task ConsoleAssert(this IJSRuntime jsRuntime, params object?[]? args)
     {
-        var module = await GetUtility(jsRuntime);
+        var module = await jsRuntime.GetUtility();
         await module.InvokeVoidAsync("outPtuToConsole", "assert", args);
     }
 
@@ -261,7 +261,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task ConsoleDir(this IJSRuntime jsRuntime, params object?[]? args)
     {
-        var module = await GetUtility(jsRuntime);
+        var module = await jsRuntime.GetUtility();
         await module.InvokeVoidAsync("outPtuToConsole", "dir", args);
     }
 
@@ -273,7 +273,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task ConsoleTime(this IJSRuntime jsRuntime, params object?[]? args)
     {
-        var module = await GetUtility(jsRuntime);
+        var module = await jsRuntime.GetUtility();
         await module.InvokeVoidAsync("outPtuToConsole", "time", args);
     }
 
@@ -285,7 +285,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task ConsoleTimeEnd(this IJSRuntime jsRuntime, params object?[]? args)
     {
-        var module = await GetUtility(jsRuntime);
+        var module = await jsRuntime.GetUtility();
         await module.InvokeVoidAsync("outPtuToConsole", "timeEnd", args);
     }
 
@@ -297,7 +297,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task ConsoleCount(this IJSRuntime jsRuntime, params object?[]? args)
     {
-        var module = await GetUtility(jsRuntime);
+        var module = await jsRuntime.GetUtility();
         await module.InvokeVoidAsync("outPtuToConsole", "count", args);
     }
 
@@ -309,7 +309,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task ConsoleGroup(this IJSRuntime jsRuntime, params object?[]? args)
     {
-        var module = await GetUtility(jsRuntime);
+        var module = await jsRuntime.GetUtility();
         await module.InvokeVoidAsync("outPtuToConsole", "group", args);
     }
 
@@ -321,7 +321,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task ConsoleGroupEnd(this IJSRuntime jsRuntime, params object?[]? args)
     {
-        var module = await GetUtility(jsRuntime);
+        var module = await jsRuntime.GetUtility();
         await module.InvokeVoidAsync("outPtuToConsole", "groupEnd", args);
     }
 
@@ -333,7 +333,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task ConsoleTable(this IJSRuntime jsRuntime, params object?[]? args)
     {
-        var module = await GetUtility(jsRuntime);
+        var module = await jsRuntime.GetUtility();
         await module.InvokeVoidAsync("outPtuToConsole", "table", args);
     }
 
@@ -345,7 +345,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task ConsoleTrace(this IJSRuntime jsRuntime, params object?[]? args)
     {
-        var module = await GetUtility(jsRuntime);
+        var module = await jsRuntime.GetUtility();
         await module.InvokeVoidAsync("outPtuToConsole", "trace", args);
     }
 
@@ -377,7 +377,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task<bool> ChangeMetaAsync(this IJSRuntime jsRuntime, bool isAdd, HeadMetaType headMetaType, string rel, string href)
     {
-        var module = await GetUtility(jsRuntime);
+        var module = await jsRuntime.GetUtility();
         return await module.InvokeAsync<bool>("changeMeta", isAdd, headMetaType.ToDescriptionString(), rel, href);
     }
 
@@ -401,7 +401,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task<T> GetElementProperties<T>(this IJSRuntime jsRuntime, string id, string tag)
     {
-        var module = await GetUtility(jsRuntime);
+        var module = await jsRuntime.GetUtility();
         return await module.InvokeAsync<T>("getElementProperties", id, tag);
     }
 
@@ -426,7 +426,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task<T?> GetCSSValue<T>(this IJSRuntime jsRuntime, string id, string propertyName)
     {
-        var module = await GetUtility(jsRuntime);
+        var module = await jsRuntime.GetUtility();
         return await module.InvokeAsync<T?>("getCSSValue", id, propertyName);
     }
 
@@ -447,7 +447,7 @@ public static class JSModuleExtensions
     /// <returns></returns>
     public static async Task<bool> GetIsMobileDevice(this IJSRuntime jsRuntime)
     {
-        var module = await GetUtility(jsRuntime);
+        var module = await jsRuntime.GetUtility();
         return await module.InvokeAsync<bool>("isMobileDevice");
     }
 
