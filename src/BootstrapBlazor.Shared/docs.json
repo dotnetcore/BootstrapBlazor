@@ -189,8 +189,8 @@
     "table/tree": "Table\\TablesTree",
     "table/virtualization": "Table\\TablesVirtualization",
     "table/wrap": "Table\\TablesWrap",
-    "jsruntimeextensions": "JSRuntimeExtensions",
-    "clipboardservice": "Clipboards"
+    "js-extensions": "JSRuntimeExtensions",
+    "clipboard-service": "Clipboards"
   },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",

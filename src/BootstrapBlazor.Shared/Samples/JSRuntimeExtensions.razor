@@ -1,4 +1,4 @@
-﻿@page "/jsruntimeextensions"
+﻿@page "/js-extensions"
 @inject IStringLocalizer<JSRuntimeExtensions> Localizer
 
 <DemoBlock Title="@Localizer["ChangeMetaTitle"]" Introduction="@Localizer["ChangeMetaIntro"]" ShowCode="false" Name="ChangeMeta">
@@ -7,8 +7,7 @@ private IJSRuntime JSRuntime { get; set; } = default!;
 // add link
 var result = await JSRuntime.ChangeMetaAsync(true,HeadMetaType.Link,"stylesheet","styles.css");
 // remove link
-var result = await JSRuntime.ChangeMetaAsync(false,HeadMetaType.Link,"stylesheet","styles.css");
-</Pre>
+var result = await JSRuntime.ChangeMetaAsync(false,HeadMetaType.Link,"stylesheet","styles.css");</Pre>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["OpenBlankUrlTitle"]" Introduction="@Localizer["OpenBlankUrlIntro"]" Name="OpenBlankUrl">

@@ -117,12 +117,12 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["JSExtension"],
-                    Url = "jsruntimeextensions"
+                    Url = "js-extensions"
                 },
                 new()
                 {
                     Text = Localizer["Clipboard"],
-                    Url = "clipboardservice"
+                    Url = "clipboard-service"
                 }
             };
             AddBadge(item);
