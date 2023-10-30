@@ -42,6 +42,7 @@ public partial class TablesExport
 
         // 设置记录总数
         var total = items.Count();
+
         // 内存分页
         items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
         return Task.FromResult(new QueryData<Foo>() { Items = items, TotalCount = total });
@@ -66,41 +67,21 @@ public partial class TablesExport
     [NotNull]
     private ClipboardService? ClipboardService { get; init; }
 
-    private async Task ToClipBoard( IEnumerable<ITableColumn> columns, IEnumerable<Foo> rows)
-    {
-        var tableColumns = columns.ToList();
-        var fieldNames = tableColumns.Select(x => x.GetFieldName()).ToArray();
-        var titles = tableColumns.Select(x => x.GetDisplayName()).ToArray();
-
-        var sb = new StringBuilder();
-        sb.AppendJoin('\t',titles).AppendLine();
-
-        foreach (var row in rows)
-        {
-            var values = fieldNames.Select(x => row.GetType().GetProperty(x)?.GetValue(row)).ToArray();
-            sb.AppendJoin('\t',values).AppendLine();
-        }
-
-        var result = sb.ToString();
-        await ClipboardService.Copy(result);
-    }
-
-    private async Task CliBoardExportAsync(ITableExportContext<Foo> context)
+    private async Task ClipBoardExportAsync(ITableExportContext<Foo> context)
     {
         // 自定义导出当前页面数据到剪切板,可以直接粘贴到 Excel 中
         // 使用 BootstrapBlazor 内置服务 ClipboardService 实例方法 Copy 进行导出操作
         // 导出数据使用 context 传递来的 Rows/Columns 即为当前页数据
+        await ExportToClipBoard(context.Columns, context.Rows);
 
-        await ToClipBoard(context.Columns,context.Rows);
         // 返回 true 时自动弹出提示框
         await ShowToast(true);
     }
 
-    private async Task CliBoardExportAllAsync(ITableExportContext<Foo> context)
+    private async Task ClipBoardExportAllAsync(ITableExportContext<Foo> context)
     {
         // 自定义导出当前页面数据到剪切板,可以直接粘贴到 Excel 中
         // 使用 BootstrapBlazor 内置服务 ClipboardService 实例方法 Copy 进行导出操作
-
         // 通过 context 参数的查询条件
         var option = context.BuildQueryPageOptions();
 
@@ -112,10 +93,30 @@ public partial class TablesExport
         var data = Items.Where(filter.GetFilterFunc<Foo>());
 
         // 导出符合条件的所有数据 data
-        await ToClipBoard(context.Columns,data);
+        await ExportToClipBoard(context.Columns, data);
 
         // 返回 true 时自动弹出提示框
         await ShowToast(true);
+    }
+
+    private async Task ExportToClipBoard(IEnumerable<ITableColumn> columns, IEnumerable<Foo> rows)
+    {
+        var sb = new StringBuilder();
+
+        // 导出表格 Header
+        var titles = columns.Select(x => x.GetDisplayName());
+        sb.AppendJoin('\t', titles).AppendLine();
+
+        // 导出表格 Row
+        var fieldNames = columns.Select(x => x.GetFieldName());
+        foreach (var row in rows)
+        {
+            var values = fieldNames.Select(x => row.GetType().GetProperty(x)?.GetValue(row)).ToArray();
+            sb.AppendJoin('\t', values).AppendLine();
+        }
+
+        var result = sb.ToString();
+        await ClipboardService.Copy(result);
     }
 
     private async Task ExcelExportAsync(ITableExportContext<Foo> context)
@@ -133,7 +134,6 @@ public partial class TablesExport
     {
         // 自定义导出模板导出当前页面数据为 Excel 方法
         // 使用 BootstrapBlazor 内置服务 ITableExcelExport 实例方法 ExportAsync 进行导出操作
-
         // 通过 context 参数的查询条件
         var option = context.BuildQueryPageOptions();
 
