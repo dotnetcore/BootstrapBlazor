@@ -1,6 +1,10 @@
-﻿import Data from '../../../BootstrapBlazor/modules/data.js'
+﻿import { addScript } from '../../../BootstrapBlazor/modules/utility.js'
+import Data from '../../../BootstrapBlazor/modules/data.js'
+import EventHandler from "../../../BootstrapBlazor/modules/event-handler.js"
 
-export function init(id, interop, options) {
+export async function init(id, interop, options) {
+    await addScript('./_content/BootstrapBlazor.CodeEditor/monaco-editor/min/vs/loader.min.js')
+
     // require is provided by loader.min.js.
     require.config({
         paths: { 'vs': options.path }
@@ -44,7 +48,7 @@ export function init(id, interop, options) {
 
         editor.editor.layout();
 
-        window.addEventListener("resize", () => {
+        EventHandler.on(window, "resize", () => {
             editor.editor.layout();
         })
     });
@@ -64,6 +68,6 @@ export function monacoSetOptions(id, options) {
 }
 
 export function dispose(id) {
-    Data.remove(id)
-    window.removeEventListener("resize")
+    Data.remove(id);
+    EventHandler.off(window, "resize");
 }
