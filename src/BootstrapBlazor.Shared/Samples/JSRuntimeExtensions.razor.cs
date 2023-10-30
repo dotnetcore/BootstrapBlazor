@@ -7,7 +7,7 @@ using Microsoft.JSInterop;
 namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
-/// JSRuntimeExtensionsDemo
+/// JSRuntimeExtensions Demo
 /// </summary>
 public partial class JSRuntimeExtensions : IAsyncDisposable
 {

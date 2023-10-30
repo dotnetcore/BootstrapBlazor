@@ -551,7 +551,8 @@ export function getElementRect(id) {
 export function runEval(code) {
     try {
         return eval(code);
-    } catch (e) {
+    }
+    catch (e) {
         console.warn(e.message);
         return e.message;
     }
@@ -561,7 +562,8 @@ export function runFunction(code, arg) {
     try {
         var func = new Function(code);
         return func(...arg);
-    } catch (e) {
+    }
+    catch (e) {
         console.warn(e.message);
         return e.message;
     }
