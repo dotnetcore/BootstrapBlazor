@@ -10,17 +10,20 @@
 private IJSRuntime? JSRuntime { get; set; }
 [NotNull]
 private JSModule? Module { get; set; }
-protected override async Task OnInitializedAsync()
+protected override async Task OnAfterRenderAsync(bool firstRender)
 {
-    await base.OnInitializedAsync();
-    Module = await JSRuntime.LoadUtility();
+    await base.OnAfterRenderAsync(firstRender);
+    if (firstRender)
+    {
+        Module = await JSRuntime.LoadUtility();
+    }
 }</Pre>
 
 <DemoBlock Title="@Localizer["ChangeMetaTitle"]" Introduction="@Localizer["ChangeMetaIntro"]" ShowCode="false" Name="ChangeMeta">
     <Pre>// add link
-var result = await Module.ChangeMetaAsync(true,HeadMetaType.Link,"stylesheet","styles.css");
+var result = await Module.AddMetaAsync("styles.css");
 // remove link
-var result = await Module.ChangeMetaAsync(false,HeadMetaType.Link,"stylesheet","styles.css");</Pre>
+var result = await Module.RemoveMetaAsync("styles.css");</Pre>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["OpenBlankUrlTitle"]" Introduction="@Localizer["OpenBlankUrlIntro"]" Name="OpenBlankUrl">
@@ -28,7 +31,7 @@ var result = await Module.ChangeMetaAsync(false,HeadMetaType.Link,"stylesheet","
 await Module.OpenUrl("url","_self");</Pre>
     <BootstrapInputGroup class="mb-2">
         <BootstrapInputGroupLabel class="label-width" DisplayText="Url" />
-        <BootstrapInput TValue="string" Value="@bbUrl" Readonly="true" />
+        <BootstrapInput TValue="string" Value="@Url" Readonly="true" />
     </BootstrapInputGroup>
     <Button Text="OpenBlank" OnClick="@OpenUrl_Blank" />
     <Button Text="OpenSelf" OnClick="@OpenUrl_Self" />

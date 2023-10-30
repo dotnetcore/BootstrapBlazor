@@ -55,26 +55,20 @@ public partial class Waterfall
     /// </summary>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        await base.OnAfterRenderAsync(firstRender);
+
         if (firstRender)
         {
             Module = await JSRuntime.LoadUtility();
+
+            scrollTimer = new System.Threading.Timer(async _ =>
+            await ScrollEnd(), null, Timeout.Infinite, Timeout.Infinite);
+
             await LoadImages(true);
         }
     }
 
     private static System.Threading.Timer? scrollTimer;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-
-        Module = await JSRuntime.LoadUtility();
-
-        scrollTimer = new System.Threading.Timer(async _ => await ScrollEnd(), null, Timeout.Infinite, Timeout.Infinite);
-    }
 
     private static void OnScroll()
     {

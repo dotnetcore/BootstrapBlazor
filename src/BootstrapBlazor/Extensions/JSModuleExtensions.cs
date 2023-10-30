@@ -21,10 +21,14 @@ public static class JSModuleExtensions
     /// [NotNull]
     /// private <see cref="JSModule"/>? Module { get; set; }
     /// 
-    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// protected override <see langword="async"/> <see cref="Task"/> OnAfterRenderAsync(bool firstRender)
     /// {
-    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
-    ///     Module = <see langword="await"/> JSRuntime.LoadUtility();
+    ///     <see langword="await"/> <see langword="base"/>.OnAfterRenderAsync(firstRender);
+    ///     
+    ///     <see langword="if"/>(firstRender)
+    ///     {
+    ///         Module = <see langword="await"/> JSRuntime.LoadUtility();
+    ///     }
     /// }
     /// </code>
     /// </para>
@@ -45,10 +49,14 @@ public static class JSModuleExtensions
     /// [NotNull]
     /// private <see cref="JSModule"/>? Module { get; set; }
     /// 
-    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// protected override <see langword="async"/> <see cref="Task"/> OnAfterRenderAsync(bool firstRender)
     /// {
-    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
-    ///     Module = <see langword="await"/> JSRuntime.LoadModule("xxx.js");
+    ///     <see langword="await"/> <see langword="base"/>.OnAfterRenderAsync(firstRender);
+    ///     
+    ///     <see langword="if"/>(firstRender)
+    ///     {
+    ///         Module = <see langword="await"/> JSRuntime.LoadUtility();
+    ///     }
     /// }
     /// </code>
     /// </para>
@@ -95,10 +103,14 @@ public static class JSModuleExtensions
     /// [NotNull]
     /// private <see cref="JSModule"/>? Module { get; set; }
     /// 
-    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// protected override <see langword="async"/> <see cref="Task"/> OnAfterRenderAsync(bool firstRender)
     /// {
-    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
-    ///     Module = <see langword="await"/> JSRuntime.LoadUtility();
+    ///     <see langword="await"/> <see langword="base"/>.OnAfterRenderAsync(firstRender);
+    ///     
+    ///     <see langword="if"/>(firstRender)
+    ///     {
+    ///         Module = <see langword="await"/> JSRuntime.LoadUtility();
+    ///     }
     /// }
     ///
     /// private <see langword="async"/> <see cref="Task"/> OnClick()
@@ -128,10 +140,14 @@ public static class JSModuleExtensions
     /// [NotNull]
     /// private <see cref="JSModule"/>? Module { get; set; }
     /// 
-    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// protected override <see langword="async"/> <see cref="Task"/> OnAfterRenderAsync(bool firstRender)
     /// {
-    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
-    ///     Module = <see langword="await"/> JSRuntime.LoadUtility();
+    ///     <see langword="await"/> <see langword="base"/>.OnAfterRenderAsync(firstRender);
+    ///     
+    ///     <see langword="if"/>(firstRender)
+    ///     {
+    ///         Module = <see langword="await"/> JSRuntime.LoadUtility();
+    ///     }
     /// }
     ///
     /// private <see langword="async"/> <see cref="Task"/> OnClick()
@@ -158,10 +174,14 @@ public static class JSModuleExtensions
     /// [NotNull]
     /// private <see cref="JSModule"/>? Module { get; set; }
     /// 
-    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// protected override <see langword="async"/> <see cref="Task"/> OnAfterRenderAsync(bool firstRender)
     /// {
-    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
-    ///     Module = <see langword="await"/> JSRuntime.LoadUtility();
+    ///     <see langword="await"/> <see langword="base"/>.OnAfterRenderAsync(firstRender);
+    ///     
+    ///     <see langword="if"/>(firstRender)
+    ///     {
+    ///         Module = <see langword="await"/> JSRuntime.LoadUtility();
+    ///     }
     /// }
     ///
     /// private <see langword="async"/> <see cref="Task"/> OnClick()
@@ -188,10 +208,14 @@ public static class JSModuleExtensions
     /// [NotNull]
     /// private <see cref="JSModule"/>? Module { get; set; }
     /// 
-    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// protected override <see langword="async"/> <see cref="Task"/> OnAfterRenderAsync(bool firstRender)
     /// {
-    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
-    ///     Module = <see langword="await"/> JSRuntime.LoadUtility();
+    ///     <see langword="await"/> <see langword="base"/>.OnAfterRenderAsync(firstRender);
+    ///     
+    ///     <see langword="if"/>(firstRender)
+    ///     {
+    ///         Module = <see langword="await"/> JSRuntime.LoadUtility();
+    ///     }
     /// }
     ///
     /// private <see langword="async"/> <see cref="Task"/> OnClick()
@@ -219,10 +243,14 @@ public static class JSModuleExtensions
     /// [NotNull]
     /// private <see cref="JSModule"/>? Module { get; set; }
     /// 
-    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// protected override <see langword="async"/> <see cref="Task"/> OnAfterRenderAsync(bool firstRender)
     /// {
-    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
-    ///     Module = <see langword="await"/> JSRuntime.LoadUtility();
+    ///     <see langword="await"/> <see langword="base"/>.OnAfterRenderAsync(firstRender);
+    ///     
+    ///     <see langword="if"/>(firstRender)
+    ///     {
+    ///         Module = <see langword="await"/> JSRuntime.LoadUtility();
+    ///     }
     /// }
     ///
     /// private <see langword="async"/> <see cref="Task"/> OnClick()
@@ -251,18 +279,19 @@ public static class JSModuleExtensions
     /// [NotNull]
     /// private <see cref="JSModule"/>? Module { get; set; }
     /// 
-    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// protected override <see langword="async"/> <see cref="Task"/> OnAfterRenderAsync(bool firstRender)
     /// {
-    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
-    ///     Module = <see langword="await"/> JSRuntime.LoadUtility();
+    ///     <see langword="await"/> <see langword="base"/>.OnAfterRenderAsync(firstRender);
+    ///     
+    ///     <see langword="if"/>(firstRender)
+    ///     {
+    ///         Module = <see langword="await"/> JSRuntime.LoadUtility();
+    ///     }
     /// }
     ///
     /// private <see langword="async"/> <see cref="Task"/> OnClick()
     /// {
-    ///     //添加一个link标签
-    ///     var result1 = <see langword="await"/> Module.ChangeMetaAsync(<see langword="true"/>, "link", "stylesheet", "styles.css")
-    ///     //移除一个link标签
-    ///     var result2 = <see langword="await"/> Module.ChangeMetaAsync(<see langword="false"/>, "link", "stylesheet", "styles.css")
+    ///     var result = <see langword="await"/> Module.AddMetaAsync("styles.css")
     /// }
     /// </code>
     /// </para>
@@ -270,7 +299,7 @@ public static class JSModuleExtensions
     /// <param name="module"><see cref="JSModule"/> 实例</param>
     /// <param name="content">添加的 Meta 内容</param>
     /// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
-    public static ValueTask<bool> addMetaAsync(this JSModule module, string content) => module.InvokeAsync<bool>("addMeta", content);
+    public static ValueTask<bool> AddMetaAsync(this JSModule module, string content) => module.InvokeAsync<bool>("addMeta", content);
 
     /// <summary>
     /// 动态移除 head 标签
@@ -284,18 +313,19 @@ public static class JSModuleExtensions
     /// [NotNull]
     /// private <see cref="JSModule"/>? Module { get; set; }
     /// 
-    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// protected override <see langword="async"/> <see cref="Task"/> OnAfterRenderAsync(bool firstRender)
     /// {
-    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
-    ///     Module = <see langword="await"/> JSRuntime.LoadUtility();
+    ///     <see langword="await"/> <see langword="base"/>.OnAfterRenderAsync(firstRender);
+    ///     
+    ///     <see langword="if"/>(firstRender)
+    ///     {
+    ///         Module = <see langword="await"/> JSRuntime.LoadUtility();
+    ///     }
     /// }
     ///
     /// private <see langword="async"/> <see cref="Task"/> OnClick()
     /// {
-    ///     //添加一个link标签
-    ///     var result1 = <see langword="await"/> Module.ChangeMetaAsync(<see langword="true"/>, "link", "stylesheet", "styles.css")
-    ///     //移除一个link标签
-    ///     var result2 = <see langword="await"/> Module.ChangeMetaAsync(<see langword="false"/>, "link", "stylesheet", "styles.css")
+    ///     var result = <see langword="await"/> Module.RemoveMetaAsync("styles.css")
     /// }
     /// </code>
     /// </para>
@@ -317,10 +347,14 @@ public static class JSModuleExtensions
     /// [NotNull]
     /// private <see cref="JSModule"/>? Module { get; set; }
     /// 
-    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// protected override <see langword="async"/> <see cref="Task"/> OnAfterRenderAsync(bool firstRender)
     /// {
-    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
-    ///     Module = <see langword="await"/> JSRuntime.LoadUtility();
+    ///     <see langword="await"/> <see langword="base"/>.OnAfterRenderAsync(firstRender);
+    ///     
+    ///     <see langword="if"/>(firstRender)
+    ///     {
+    ///         Module = <see langword="await"/> JSRuntime.LoadUtility();
+    ///     }
     /// }
     ///
     /// private <see langword="async"/> <see cref="Task"/> OnClick()
@@ -348,10 +382,14 @@ public static class JSModuleExtensions
     /// [NotNull]
     /// private <see cref="JSModule"/>? Module { get; set; }
     /// 
-    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// protected override <see langword="async"/> <see cref="Task"/> OnAfterRenderAsync(bool firstRender)
     /// {
-    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
-    ///     Module = <see langword="await"/> JSRuntime.LoadUtility();
+    ///     <see langword="await"/> <see langword="base"/>.OnAfterRenderAsync(firstRender);
+    ///     
+    ///     <see langword="if"/>(firstRender)
+    ///     {
+    ///         Module = <see langword="await"/> JSRuntime.LoadUtility();
+    ///     }
     /// }
     ///
     /// private <see langword="async"/> <see cref="Task"/> OnClick()
@@ -382,11 +420,15 @@ public static class JSModuleExtensions
     ///
     /// private <see cref="bool"/>? IsMobile { get; set; }
     /// 
-    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// protected override <see langword="async"/> <see cref="Task"/> OnAfterRenderAsync(bool firstRender)
     /// {
-    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
-    ///     Module = <see langword="await"/> JSRuntime.LoadUtility();
-    ///     IsMobile = <see langword="await"/> Module.IsMobile();
+    ///     <see langword="await"/> <see langword="base"/>.OnAfterRenderAsync(firstRender);
+    ///     
+    ///     <see langword="if"/>(firstRender)
+    ///     {
+    ///         Module = <see langword="await"/> JSRuntime.LoadUtility();
+    ///         IsMobile = <see langword="await"/> Module.IsMobile();
+    ///     }
     /// }
     /// </code>
     /// </para>

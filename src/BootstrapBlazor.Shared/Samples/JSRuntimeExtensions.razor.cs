@@ -21,19 +21,23 @@ public partial class JSRuntimeExtensions : IAsyncDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        await base.OnInitializedAsync();
+        await base.OnAfterRenderAsync(firstRender);
 
-        Module = await JSRuntime.LoadUtility();
+        if (firstRender)
+        {
+            Module = await JSRuntime.LoadUtility();
+        }
     }
 
-    private const string bbUrl = "https://www.blazor.zone/";
+    private const string Url = "https://www.blazor.zone/";
 
-    private async Task OpenUrl_Blank() => await Module.OpenUrl(bbUrl);
+    private async Task OpenUrl_Blank() => await Module.OpenUrl(Url);
 
-    private async Task OpenUrl_Self() => await Module.OpenUrl(bbUrl, "_self");
+    private async Task OpenUrl_Self() => await Module.OpenUrl(Url, "_self");
 
     private bool IsMobileDevice { get; set; }
 
@@ -79,7 +83,7 @@ public partial class JSRuntimeExtensions : IAsyncDisposable
     {
         new()
         {
-            Name = "ChangeMetaAsync",
+            Name = "AddMetaAsync/RemoveMetaAsync",
             Description = Localizer["ChangeMetaIntro"].Value,
             Parameters = " - ",
             ReturnValue = "ValueTask"
