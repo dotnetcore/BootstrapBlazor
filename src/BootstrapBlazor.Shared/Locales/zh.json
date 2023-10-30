@@ -4525,7 +4525,7 @@
     "WebSpeech": "语音识别/合成 WebSpeech",
     "Marquee": "文字滚动 Marquee",
     "Stack": "堆叠布局 Stack",
-    "Segmented": "Segmented",
+    "Segmented": "分段控制器 Segmented",
     "Utility": "实用工具",
     "JSExtension": "JSRuntime 拓展",
     "Clipboard": "剪切板服务"
