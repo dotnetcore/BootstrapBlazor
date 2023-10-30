@@ -1,0 +1,36 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TValue
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
+
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id" data-bb-toggle="@TooltipString">
+    <CascadingValue Value="_items" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
+    <RenderTemplate>
+        <div class="segmented-item mask"></div>
+        @foreach (var item in GetItems())
+        {
+            <div @key="item" class="@GetLabelClassString(item)">
+                @if (item.ChildContent != null)
+                {
+                    @item.ChildContent
+                }
+                else if (ItemTemplate != null)
+                {
+                    @ItemTemplate(item)
+                }
+                else
+                {
+                    @if (!string.IsNullOrEmpty(item.Icon))
+                    {
+                        <span class="segmented-item-icon">
+                            <i class="@item.Icon"></i>
+                        </span>
+                    }
+                    <span class="segmented-item-text">@item.Text</span>
+                }
+            </div>
+        }
+    </RenderTemplate>
+</div>

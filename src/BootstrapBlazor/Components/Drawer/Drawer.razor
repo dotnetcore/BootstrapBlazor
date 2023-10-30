@@ -9,8 +9,16 @@
         </div>
     }
     <div tabindex="-1" class="@DrawerClassString" style="@DrawerStyleString" @onclick:stopPropagation>
-        <CascadingValue Value="Close" IsFixed=" true">
-            @ChildContent
-        </CascadingValue>
+        <div class="drawer-content">
+            <CascadingValue Value="Close" IsFixed=" true">
+                @ChildContent
+            </CascadingValue>
+        </div>
+        @if (AllowResize)
+        {
+            <div class="drawer-bar">
+                <div class="drawer-bar-body"></div>
+            </div>
+        }
     </div>
 </div>

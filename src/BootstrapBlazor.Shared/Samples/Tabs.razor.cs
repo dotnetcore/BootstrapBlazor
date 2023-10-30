@@ -9,7 +9,6 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public sealed partial class Tabs
 {
-
     [NotNull]
     private Tab? TabSet { get; set; }
 

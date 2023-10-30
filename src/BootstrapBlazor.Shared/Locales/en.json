@@ -1954,6 +1954,8 @@
     "TabsQATitle": "Q&A",
     "TabsQA1": "Get <code>TabSet</code> by cascading parameter",
     "TabsQA2": "Get <code>TabItem</code> by cascading parameter",
+    "TabsQA3": "How to navigate to a new tab item in <code>razor</code>",
+    "TabsQA4": "How to navigate to a new tab in the code",
     "TabItem1Text": "User",
     "TabItem1Content": "I am a user manager",
     "TabItem2Text": "Menu",
@@ -2574,7 +2576,7 @@
     "FloatingLabelsFormatString": "The numerically formatted string",
     "FloatingLabelsFormatter": "TableHeader instance",
     "FloatingLabelsType": "The type of control",
-    "FloatingLabelsIsDisabled": "Whether to disable,Default is fasle",
+    "FloatingLabelsIsDisabled": "Whether to disable, Default is fasle",
     "FloatingLabelGroupBoxTitle": "GroupBox",
     "FloatingLabelGroupBoxIntro": "By setting <code>IsGroupBox=\"true\"</code>. Group box wrapper label"
   },
@@ -2707,7 +2709,9 @@
     "InputGroupsDateTimePickerIntro": "Add <code>DateTimePicker</code> or <code>DateTimeRange</code> to the <code>InputGroup</code>",
     "InputGroupsDropdownTitle": "Dropdown",
     "InputGroupsDropdownIntro": "Add <code>Dropdown</code> to the <code>InputGroup</code>",
-    "InputGroupsStatusText1": "CheckboxItem"
+    "InputGroupsStatusText1": "CheckboxItem",
+    "InputGroupsSwitchTitle": "Switch",
+    "InputGroupsSwitchIntro": "Add <code>Switch</code> to the <code>InputGroup</code>"
   },
   "BootstrapBlazor.Shared.Samples.Markdowns": {
     "MarkdownsTitle": "Markdown",
@@ -3619,7 +3623,9 @@
     "Images": "Images collection",
     "IsFade": "Whether to fade in and out",
     "Width": "Set the width of the picture",
-    "OnClick": "Click on the image to call back the delegate"
+    "OnClick": "Click on the image to call back the delegate",
+    "HoverPause": "If set to true, pauses the cycling of the carousel on mouseenter and resumes the cycling of the carousel on mouseleave. If set to false, hovering over the carousel won’t pause it",
+    "PlayMode": "autoplay the carousel mode"
   },
   "BootstrapBlazor.Shared.Samples.Client": {
     "Title": "Get client connection information",
@@ -3757,7 +3763,9 @@
     "Collection": "Collection",
     "Arr": "Array",
     "FormatStringSettingText": "Set up",
-    "FormatStringP": "The <code>Display</code> component binding <code>byte[]</code> array, formatted as an example of <code>base64</code> encoded string"
+    "FormatStringP": "The <code>Display</code> component binding <code>byte[]</code> array, formatted as an example of <code>base64</code> encoded string",
+    "ShowTipsTitle": "Show Tooltip",
+    "ShowTipIntro": "Wrapper with <code>Tooltip</code> component for show tooltip title"
   },
   "BootstrapBlazor.Shared.Samples.DropdownWidgets": {
     "Title": "DropdownWidget",
@@ -4516,6 +4524,8 @@
     "MindMap": "Mind Map",
     "WebSpeech": "Web Speech",
     "Marquee": "Marquee",
+    "Stack": "Stack",
+    "Segmented": "Segmented"
     "CodeEditor": "CodeEditor"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
@@ -5120,6 +5130,8 @@
     "TablesExportButtonDropdownTemplateIntro": "Customize the content of the export button dropdown box by setting the <code>ExportButtonDropdownTemplate</code> template",
     "TablesExportButtonExcelText": "Export Page data - Excel",
     "TablesExportButtonExcelAllText": "Export All data - Excel",
+    "TablesExportButtonCliBoardText": "Export Page data - ClipBoard",
+    "TablesExportButtonCliBoardAllText": "Export All data - ClipBoard",
     "TablesExportToastTitle": "Export Data",
     "TablesExportToastSuccessContent": "Export success，auto close after 4 second",
     "TablesExportToastFailedContent": "Export failed，auto close after 4 second"
@@ -5673,7 +5685,7 @@
     "BaseUsageIntro": "Excel/Word file path or URL",
     "BaseUsageText2": "Reload file",
     "BaseUsageIntro2": "Using the Reload method",
-    "Tips": "Currently supports Excel(.docx) and Word(.xlsx) formats.<br/><b>Note</b>:<br/>If throw <code>The type initializer for 'Gdip' threw an exception.<code> error under Linux, please install libgdiplus and enable System. Drawing support.<br/>Enable System.Drawing support for non-Windows platforms in your project file (*.csproj), add:"
+    "Tips": "Currently only supports Excel(.xlsx) and Word(.docx) formats.<br/><b>Note</b>:<br/>If throw <code>The type initializer for 'Gdip' threw an exception.<code> error under Linux, please install libgdiplus and enable System. Drawing support.<br/>Enable System.Drawing support for non-Windows platforms in your project file (*.csproj), add:"
   },
   "BootstrapBlazor.Shared.Samples.CountUps": {
     "Title": "CountUp",
@@ -5912,6 +5924,55 @@
     "MarqueeTitle": "Usage",
     "MarqueeIntro": "Adjusting the text scrolling effect through parameters",
     "MarqueeDescription": "Marquee component"
+  },
+  "BootstrapBlazor.Shared.Samples.Stacks": {
+    "Title": "Stack Layout",
+    "BasicTitle": "Basic",
+    "BasicIntroe": "Lets you arrange its subcomponents in a horizontal or vertical stack",
+    "RowMode": "Row",
+    "ColumnMode": "Column",
+    "Mode": "mode",
+    "Justify": "justify-content",
+    "AlignItems": "align-items",
+    "IsWrap": "wrap",
+    "IsReverse": "reverse",
+    "AlignSelf": "align-self",
+    "StackItemGrowShrinkDesc": "<code>StackItem</code> 子项还有两个控制方式:",
+    "StackItemGrowShrinkLi": "<li>Use <code>.flex-grow-*</code> utilities to toggle a flex item’s ability to grow to fill available space. In the example below, the <code>.flex-grow-1</code> elements uses all available space it can, while allowing the remaining two flex items their necessary space.</li><li>Use <code>.flex-shrink-*</code> utilities to toggle a flex item’s ability to shrink if necessary. In the example below, the second flex item with <code>.flex-shrink-1</code> is forced to wrap its contents to a new line, “shrinking” to allow more space for the previous flex item with <code>.w-100</code>.</li>",
+    "AttrIsRow": "Flex direction",
+    "AttrIsWrap": "Change how flex items wrap in a flex container",
+    "AttrIsReverse": "Start the horizontal or vertical direction from the opposite side.",
+    "AttrJustify": "Change the alignment of flex items on the main axis",
+    "AttrAlignItems": "Change the alignment of flex items on the cross axis",
+    "AttrChildContent": "Child content render fragment"
+  },
+  "BootstrapBlazor.Shared.Samples.Segmenteds": {
+    "Title": "Segmented",
+    "SubTitle": "displaying multiple options and user can select a single option",
+    "BasicTitle": "Basic",
+    "BasicIntro": "select a single option",
+    "IsDisabledTitle": "Disable",
+    "IsDisabledIntro": "Make one of them prohibited",
+    "ItemTemplateTitle": "Custom Rendering",
+    "ItemTemplateIntro": "Use <code>ItemTemplate</code> to custom-render SegmentedItems",
+    "IconTitle": "Icon",
+    "IconIntro": "Set the Icon for the segmented item",
+    "SizeTitle": "Size",
+    "SizeIntro": "Set <code>Size</code> defines three sizes (large, default, small) with heights of <code>40px</code>, <code>32px</code>, and <code>4px</code>2",
+    "SegmentItemTitle": "SegmentItem",
+    "SegmentItemIntro": "Write <code>Razor</code> in <code>Razor</code>",
+    "BlockTitle": "Block",
+    "BlockIntro": "<code>block</code> property will make the Segmented fit to its parent width",
+    "ItemsAttr": "Data source",
+    "SizeAttr": "Set the component size",
+    "IsDisabledAttr": "Whether to disable, Default is fasle",
+    "ValueAttr": "The value of segment",
+    "ValueChangedAttr": "This event fires when the segment selector options change",
+    "OnValueChanged": "Callback for the Value changed",
+    "ItemTemplateAttr": "The template of segement item",
+    "ChildContent": "The template of segment content",
+    "IsBlockAttr": "Whether fit the parent width",
+    "ShowTooltip": "Whether show to tooltip for segment item"
   },
   "BootstrapBlazor.Shared.Samples.CodeEditors": {
     "Title": "Code Editor",

@@ -161,6 +161,6 @@ public class TooltipTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Placement, Placement.Top);
         });
-        Assert.Contains("data-bs-placement=\"top\"", cut.Markup);
+        cut.WaitForAssertion(() => Assert.Contains("data-bs-placement=\"top\"", cut.Markup));
     }
 }

@@ -637,6 +637,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["Segmented"],
+                    Url = "segmented"
+                },
+                new()
+                {
                     Text = Localizer["SignaturePad"],
                     Url = "signature-pad",
                 },
@@ -1234,6 +1240,12 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Split"],
                     Url = "split"
+                },
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["Stack"],
+                    Url = "stack"
                 }
             };
             AddBadge(item);

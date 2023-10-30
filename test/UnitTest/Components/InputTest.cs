@@ -78,7 +78,7 @@ public class InputTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task IsTrim_Ok()
+    public void IsTrim_Ok()
     {
         var val = "    test    ";
         var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
@@ -87,19 +87,21 @@ public class InputTest : BootstrapBlazorTestBase
             builder.Add(a => a.Value, "");
         });
         Assert.Equal("", cut.Instance.Value);
+
         var input = cut.Find("input");
-        await cut.InvokeAsync(() => input.Change(val));
-        Assert.Equal(val.Trim(), cut.Instance.Value);
+        cut.InvokeAsync(() => input.Change(val));
+        cut.WaitForAssertion(() => Assert.Equal(val.Trim(), cut.Instance.Value));
 
         cut.SetParametersAndRender(builder =>
         {
             builder.Add(a => a.IsTrim, false);
             builder.Add(a => a.Value, "");
         });
-        Assert.Equal("", cut.Instance.Value);
+        cut.WaitForAssertion(() => Assert.Equal("", cut.Instance.Value));
+
         input = cut.Find("input");
-        await cut.InvokeAsync(() => input.Change(val));
-        Assert.Equal(val, cut.Instance.Value);
+        cut.InvokeAsync(() => input.Change(val));
+        cut.WaitForAssertion(() => Assert.Equal(val, cut.Instance.Value));
     }
 
     [Fact]
@@ -118,7 +120,7 @@ public class InputTest : BootstrapBlazorTestBase
             builder.Add(a => a.Formatter, dt => dt.ToString("HH:mm"));
             builder.Add(a => a.Value, DateTime.Now);
         });
-        Assert.Contains($"value=\"{DateTime.Now:HH:mm}\"", cut.Markup);
+        cut.WaitForAssertion(() =>  Assert.Contains($"value=\"{DateTime.Now:HH:mm}\"", cut.Markup));
     }
 
     [Fact]

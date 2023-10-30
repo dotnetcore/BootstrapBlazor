@@ -100,11 +100,25 @@ public partial class Carousel
     [Parameter]
     public string? NextIcon { get; set; }
 
+    /// <summary>
+    /// 获得/设置 鼠标悬停时是否暂停播放 默认 true
+    /// </summary>
+    [Parameter]
+    public bool HoverPause { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 自动播放方式 默认 <see cref="CarouselPlayMode.AutoPlayOnload"/>
+    /// </summary>
+    [Parameter]
+    public CarouselPlayMode PlayMode { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
     private string? DisableTouchSwipingString => DisableTouchSwiping ? "false" : null;
+
+    private string? PauseString => HoverPause ? "hover" : "false";
 
     /// <summary>
     /// OnParametersSet 方法

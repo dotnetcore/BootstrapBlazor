@@ -54,7 +54,14 @@
         {
             if (!string.IsNullOrEmpty(itemGroup.Key))
             {
-                <Divider Text="@itemGroup.Key" />
+                if (GroupItemTemplate != null)
+                {
+                    @GroupItemTemplate(itemGroup.Key)
+                }
+                else
+                {
+                    <Divider Text="@itemGroup.Key" />
+                }
             }
             @foreach (var item in itemGroup)
             {

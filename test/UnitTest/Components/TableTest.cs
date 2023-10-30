@@ -1075,7 +1075,7 @@ public class TableTest : TableTestBase
                     isFirstQuery = option.IsFristQuery;
                     return Task.FromResult(new QueryData<Foo>()
                     {
-                        Items = new Foo[0],
+                        Items = Array.Empty<Foo>(),
                         TotalCount = 0,
                         IsAdvanceSearch = true,
                         IsFiltered = true,
@@ -1121,7 +1121,7 @@ public class TableTest : TableTestBase
                     isFirstQuery = option.IsFristQuery;
                     return Task.FromResult(new QueryData<Foo>()
                     {
-                        Items = new Foo[0],
+                        Items = Array.Empty<Foo>(),
                         TotalCount = 0,
                         IsAdvanceSearch = true,
                         IsFiltered = true,
@@ -3887,7 +3887,7 @@ public class TableTest : TableTestBase
     [Theory]
     [InlineData(".btn-test0")]
     [InlineData(".btn-test1")]
-    public async Task OnClickExtensionButton_Ok(string selector)
+    public void OnClickExtensionButton_Ok(string selector)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -3929,7 +3929,8 @@ public class TableTest : TableTestBase
         });
 
         var btn = cut.Find(selector);
-        await cut.InvokeAsync(() => btn.Click());
+        cut.InvokeAsync(() => btn.Click());
+        Context.DisposeComponents();
     }
 
     [Fact]
@@ -4075,6 +4076,7 @@ public class TableTest : TableTestBase
     {
         var cut = Context.RenderComponent<TableCellButton>();
         Assert.Equal("", cut.Markup);
+        Context.DisposeComponents();
     }
 
     [Fact]
@@ -4792,7 +4794,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void Delete_Ok()
+    public async Task Delete_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -4815,10 +4817,10 @@ public class TableTest : TableTestBase
             });
         });
         var input = cut.Find("tbody tr input");
-        cut.InvokeAsync(() => input.Click());
+        await cut.InvokeAsync(() => input.Click());
 
         var button = cut.FindComponent<TableToolbarPopConfirmButton<Foo>>();
-        cut.InvokeAsync(() => button.Instance.OnConfirm.Invoke());
+        await cut.InvokeAsync(() => button.Instance.OnConfirm.Invoke());
         Assert.Single(items);
     }
 
