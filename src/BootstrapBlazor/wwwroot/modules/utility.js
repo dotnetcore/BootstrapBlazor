@@ -497,14 +497,8 @@ const debounce = function (fn, duration = 200, callback = null) {
     }
 }
 
-export function openBlankUrl(url) {
-    const domainRegex = /^(https?:\/\/)?([\w.-]+\.[a-z]{2,})(:[0-9]+)?(\/.*)?$/i;
-
-    if (domainRegex.test(url)) {
-        window.open(url, '_blank');
-    } else {
-        console.log('can not run openBlankUrl Invalid URL');
-    }
+export function openUrl(url, target = '_blank', features = null) {
+    window.open(url, target, features);
 }
 
 export function getElementProperties(id, tag) {

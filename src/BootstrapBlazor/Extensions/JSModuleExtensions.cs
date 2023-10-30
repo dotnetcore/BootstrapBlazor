@@ -80,11 +80,13 @@ public static class JSModuleExtensions
     /// </summary>
     /// <param name="jsRuntime"></param>
     /// <param name="url"></param>
+    /// <param name="target"></param>
+    /// <param name="features"></param>
     /// <returns></returns>
-    public static async ValueTask OpenBlankUrl(this IJSRuntime jsRuntime, string url)
+    public static async ValueTask OpenUrl(this IJSRuntime jsRuntime, string url, string? target = "_blank", string? features = null)
     {
         var module = await jsRuntime.GetUtility();
-        await module.InvokeVoidAsync("openBlankUrl", url);
+        await module.InvokeVoidAsync("openUrl", url, target, features);
     }
 
     #region 动态运行JS代码
