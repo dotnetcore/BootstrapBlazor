@@ -2,15 +2,11 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using DocumentFormat.OpenXml.Spreadsheet;
-using OpenXmlPowerTools;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// CodeEditor 示例
+/// </summary>
 public partial class CodeEditors
 {
     [NotNull]
@@ -30,50 +26,50 @@ public partial class CodeEditors
         if (item.Text == "JavaScript")
         {
             Language = "javascript";
-            Code = @"
-                     function main() {
-                          console.log('Hello World!')
-                     }
-                    ";
+            Code = """
+function main() {
+    console.log('Hello World!')
+}
+""";
         }
 
         if (item.Text == "CSharp")
         {
             Language = "csharp";
-            Code = @"
-             using System;
+            Code = """
+using System;
 
-             void Main()
-             {
-                 Console.WriteLine(""Hello World"");
-             }
-                    ";
+void Main()
+{
+    Console.WriteLine(""Hello World"");
+}
+""";
         }
 
         if (item.Text == "Json")
         {
             Language = "json";
-            Code = @"
-            {
-                ""name"": ""Hello World"",
-                ""age"": 25
-            }
-                    ";
+            Code = """
+{
+    "name": "Hello World",
+    "age": 25
+}
+""";
         }
 
         if (item.Text == "Razor")
         {
             Language = "razor";
-            Code = @"
-            <Select TValue=""string"" OnSelectedItemChanged=""@OnSelectedItemChanged"">
-                <Options>
-                    <SelectOption Text=""JavaScript"" Value=""JavaScript""></ SelectOption>
-                    <SelectOption Text=""CSharp"" Value=""CSharp"" ></ SelectOption >
-                    <SelectOption Text=""Razor"" Value=""Razor"" ></ SelectOption >
-                    <SelectOption Text=""Json"" Value=""Json"" ></ SelectOption >
-                </Options>
-            </Select>
-                    ";
+            Code = """
+<Select TValue=""string"" OnSelectedItemChanged=""@OnSelectedItemChanged"">
+    <Options>
+        <SelectOption Text=""JavaScript"" Value=""JavaScript""></ SelectOption>
+        <SelectOption Text=""CSharp"" Value=""CSharp"" ></ SelectOption >
+        <SelectOption Text=""Razor"" Value=""Razor"" ></ SelectOption >
+        <SelectOption Text=""Json"" Value=""Json"" ></ SelectOption >
+    </Options>
+</Select>
+""";
         }
         StateHasChanged();
         return Task.CompletedTask;
