@@ -5977,20 +5977,22 @@
     "ShowTooltip": "Whether show to tooltip for segment item"
   },
   "BootstrapBlazor.Shared.Samples.JSRuntimeExtensions": {
+    "JSRuntimeExtensionsTips": "Before use, import the module according to the following code",
     "ChangeMetaTitle": "ChangeMeta",
     "ChangeMetaIntro": "Dynamically adding/removing tags such as Link and Script.",
-    "OpenBlankUrlTitle": "OpenBlankUrl",
+    "OpenBlankUrlTitle": "OpenUrl",
     "OpenBlankUrlIntro": "Open Connection in New Window",
+    "OpenBlankUrlTips": "Default to:",
     "IsMobileDeviceTitle": "GetIsMobileDevice",
     "IsMobileDeviceIntro": "Determine userAgent through regular expressions, indicating whether the current device is a mobile device",
     "EvalTitle": "JS Eval",
     "EvalIntro": "Dynamically run Java Script code within the current scope using the Eval function.",
     "FunctionTitle": "JS Function",
     "FunctionIntro": "Dynamically run Java Script code within the global scope through the Function function.",
-    "JSConsoleTitle": "JS Console debug tool",
-    "JSConsoleIntro": "Directly output content to the browser console through Console",
     "GetElementCSSTitle": "GetElementCSS",
-    "GetElementCSSIntro": "Obtain CSS attribute values based on element id"
+    "GetElementCSSIntro": "Obtain CSS attribute values based on element id",
+    "GetElementPropertiesTitle": "GetElementProperties",
+    "GetElementPropertiesIntro": "Obtain attribute values based on element id"
   },
   "BootstrapBlazor.Shared.Samples.Clipboards": {
     "ClipboardTitle": "ClipboardService",

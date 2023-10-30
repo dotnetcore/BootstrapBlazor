@@ -1,77 +1,90 @@
 ﻿@page "/js-extensions"
 @inject IStringLocalizer<JSRuntimeExtensions> Localizer
 
+<Tips>
+    @Localizer["JSRuntimeExtensionsTips"]
+</Tips>
+
+<Pre>[Inject]
+[NotNull]
+private IJSRuntime? JSRuntime { get; set; }
+[NotNull]
+private JSModule? Module { get; set; }
+protected override async Task OnInitializedAsync()
+{
+    await base.OnInitializedAsync();
+    Module = await JSRuntime.LoadUtility();
+}</Pre>
+
 <DemoBlock Title="@Localizer["ChangeMetaTitle"]" Introduction="@Localizer["ChangeMetaIntro"]" ShowCode="false" Name="ChangeMeta">
-    <Pre>[Inject]
-private IJSRuntime JSRuntime { get; set; } = default!;
-// add link
-var result = await JSRuntime.ChangeMetaAsync(true,HeadMetaType.Link,"stylesheet","styles.css");
+    <Pre>// add link
+var result = await Module.ChangeMetaAsync(true,HeadMetaType.Link,"stylesheet","styles.css");
 // remove link
-var result = await JSRuntime.ChangeMetaAsync(false,HeadMetaType.Link,"stylesheet","styles.css");</Pre>
+var result = await Module.ChangeMetaAsync(false,HeadMetaType.Link,"stylesheet","styles.css");</Pre>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["OpenBlankUrlTitle"]" Introduction="@Localizer["OpenBlankUrlIntro"]" Name="OpenBlankUrl">
-    <Pre class="mb-2">await JSRuntime.OpenBlankUrl("url");</Pre>
-    <BootstrapInputGroup>
-        <BootstrapInputGroupLabel class="label-width" DisplayText="OpenBlankUrl" />
-        <Button Text="Open" OnClick="@OpenUrl" />
-        <BootstrapInput TValue="string" @bind-Value="@BlankUrl" />
+    <Pre class="mb-2">await Module.OpenUrl("url");//@Localizer["OpenBlankUrlTips"]_blank
+await Module.OpenUrl("url","_self");</Pre>
+    <BootstrapInputGroup class="mb-2">
+        <BootstrapInputGroupLabel class="label-width" DisplayText="Url" />
+        <BootstrapInput TValue="string" Value="@bbUrl" Readonly="true" />
     </BootstrapInputGroup>
+    <Button Text="OpenBlank" OnClick="@OpenUrl_Blank" />
+    <Button Text="OpenSelf" OnClick="@OpenUrl_Self" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["IsMobileDeviceTitle"]" Introduction="@Localizer["IsMobileDeviceIntro"]" Name="IsMobileDevice">
-    <Pre class="mb-2">await JSRuntime.GetIsMobileDevice();</Pre>
+    <Pre class="mb-2">await Module.IsMobile();</Pre>
     <BootstrapInputGroup>
         <BootstrapInputGroupLabel class="label-width" DisplayText="IsMobileDevice" />
-        <Button Text="Get" OnClick="@GetIsMobileDevice"/>
+        <Button Text="Get" OnClick="@GetIsMobileDevice" />
         <BootstrapInput TValue="bool" @bind-Value="@IsMobileDevice" />
     </BootstrapInputGroup>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["EvalTitle"]" Introduction="@Localizer["EvalIntro"]" Name="Eval">
-    <Pre class="mb-2">await JSRuntime.Eval("js code");</Pre>
+    <Pre class="mb-2">await Module.Eval("js code");</Pre>
     <Textarea class="mb-2" @bind-Value="@evalContent" rows="3" />
     <Button class="mb-2" Text="Run" OnClick="@RunEval"></Button>
     <Textarea @bind-Value="@evalResult" rows="1" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["FunctionTitle"]" Introduction="@Localizer["FunctionIntro"]" Name="Eval">
-    <Pre class="mb-2">await JSRuntime.Function("js code");</Pre>
+    <Pre class="mb-2">await Module.Function("js code");</Pre>
     <Textarea class="mb-2" @bind-Value="@functionContent" rows="3" />
     <Button class="mb-2" Text="Run" OnClick="@RunFunction"></Button>
     <Textarea @bind-Value="@functionResult" rows="1" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["JSConsoleTitle"]" Introduction="@Localizer["JSConsoleIntro"]" Name="JSConsole">
-    <Pre class="mb-2">await JSRuntime.Console(ConsoleType.Log, "Hello BootstrapBlazor");</Pre>
-    <Button class="mb-2" Text="Clear" OnClick="@(()=> JSRuntime.ConsoleClear())" />
-    <Button class="mb-2" Text="Log" OnClick="@(()=> JSRuntime.ConsoleLog(_consoleText))" />
-    <Button class="mb-2" Text="Warn" OnClick="@(()=> JSRuntime.ConsoleWarn( _consoleText))" />
-    <Button class="mb-2" Text="Error" OnClick="@(()=> JSRuntime.ConsoleError(_consoleText))" />
-    <Button class="mb-2" Text="Info" OnClick="@(()=> JSRuntime.ConsoleInfo( _consoleText))" />
-    <Button class="mb-2" Text="Assert" OnClick="@(()=> JSRuntime.ConsoleAssert( false, _consoleText))" />
-    <Button class="mb-2" Text="Dir" OnClick="@(()=> JSRuntime.ConsoleDir(GetMethods()))" />
-    <Button class="mb-2" Text="Time" OnClick="@(()=> JSRuntime.ConsoleTime())" />
-    <Button class="mb-2" Text="TimeEnd" OnClick="@(()=> JSRuntime.ConsoleTimeEnd())" />
-    <Button class="mb-2" Text="Count" OnClick="@(()=> JSRuntime.ConsoleCount(_consoleText))" />
-    <Button class="mb-2" Text="Group" OnClick="@(()=> JSRuntime.ConsoleGroup(_consoleText))" />
-    <Button class="mb-2" Text="GroupEnd" OnClick="@(()=> JSRuntime.ConsoleGroupEnd())" />
-    <Button class="mb-2" Text="Table" OnClick="@(()=> JSRuntime.ConsoleTable( GetMethods()))" />
-    <Button class="mb-2" Text="Trace" OnClick="@(()=> JSRuntime.ConsoleTrace())" />
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["GetElementCSSTitle"]" Introduction="@Localizer["GetElementCSSIntro"]" Name="GetElementProperties">
+<DemoBlock Title="@Localizer["GetElementCSSTitle"]" Introduction="@Localizer["GetElementCSSIntro"]" Name="GetElementCSS">
     <section>
         <Button class="mb-2" Text="Get" OnClick="@GetElementCSS"></Button>
         <BootstrapInputGroup>
             <BootstrapInputGroupLabel class="label-width" DisplayText="Element Id" />
-            <BootstrapInput TValue="string" @bind-Value="@propertiesId" />
+            <BootstrapInput TValue="string" @bind-Value="@elementId1" />
         </BootstrapInputGroup>
         <BootstrapInputGroup>
             <BootstrapInputGroupLabel class="label-width" DisplayText="Element Property" />
-            <BootstrapInput style="background:yellow" TValue="string" @bind-Value="@propertiesTag1" />
+            <BootstrapInput style="background:yellow" TValue="string" @bind-Value="@cssPropertieName" />
             <BootstrapInputGroupLabel class="label-width" DisplayText="Value" />
-            <BootstrapInput TValue="string" @bind-Value="@propertiesResult1" />
+            <BootstrapInput TValue="string" @bind-Value="@cssPropertieResult" />
+        </BootstrapInputGroup>
+    </section>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["GetElementPropertiesTitle"]" Introduction="@Localizer["GetElementPropertiesIntro"]" Name="GetElementProperties">
+    <section>
+        <Button class="mb-2" Text="Get" OnClick="@GetElementProperties"></Button>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="Element Id" />
+            <BootstrapInput TValue="string" @bind-Value="@elementId2" />
+        </BootstrapInputGroup>
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel class="label-width" DisplayText="Element Property" />
+            <BootstrapInput style="background:yellow" TValue="string" @bind-Value="@getPropertieName" />
+            <BootstrapInputGroupLabel class="label-width" DisplayText="Value" />
+            <BootstrapInput TValue="decimal" @bind-Value="@getPropertieResult" />
         </BootstrapInputGroup>
     </section>
 </DemoBlock>

@@ -2,9 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using NPOI.SS.Formula.Functions;
-
-using System.Diagnostics;
+using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Shared.Samples.Practices;
 
@@ -13,6 +11,13 @@ namespace BootstrapBlazor.Shared.Samples.Practices;
 /// </summary>
 public partial class Waterfall
 {
+    [Inject]
+    [NotNull]
+    private IJSRuntime? JSRuntime { get; set; }
+
+    [NotNull]
+    private JSModule? Module { get; set; }
+
     private readonly string id = "b_waterfall";
 
     private bool _onload { get; set; } = false;
@@ -61,9 +66,12 @@ public partial class Waterfall
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        base.OnInitialized();
+        await base.OnInitializedAsync();
+
+        Module = await JSRuntime.LoadUtility();
+
         scrollTimer = new System.Threading.Timer(async _ => await ScrollEnd(), null, Timeout.Infinite, Timeout.Infinite);
     }
 
@@ -77,9 +85,9 @@ public partial class Waterfall
         if (!_onload)
         {
             _onload = true;
-            var clientHeight = await JSRuntime.GetElementProperties<decimal>(id, "clientHeight");
-            var scrollHeight = await JSRuntime.GetElementProperties<decimal>(id, "scrollHeight");
-            var scrollTop = await JSRuntime.GetElementProperties<decimal>(id, "scrollTop");
+            var clientHeight = await Module.GetElementProperties<decimal>(id, "clientHeight");
+            var scrollHeight = await Module.GetElementProperties<decimal>(id, "scrollHeight");
+            var scrollTop = await Module.GetElementProperties<decimal>(id, "scrollTop");
             var isScrolledToBottom = clientHeight + scrollTop + 100 > scrollHeight;
 
             if (isScrolledToBottom)

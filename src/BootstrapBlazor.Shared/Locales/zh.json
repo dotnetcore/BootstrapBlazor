@@ -5977,20 +5977,22 @@
     "ShowTooltip": "超长被截断的 Item 是否显示 Tooltip"
   },
   "BootstrapBlazor.Shared.Samples.JSRuntimeExtensions": {
+    "JSRuntimeExtensionsTips": "使用前，先按照以下代码导入模块。",
     "ChangeMetaTitle": "ChangeMeta",
     "ChangeMetaIntro": "动态添加/移除Link，Script等标签。",
-    "OpenBlankUrlTitle": "OpenBlankUrl",
+    "OpenBlankUrlTitle": "OpenUrl",
     "OpenBlankUrlIntro": "在新窗口打开连接",
-    "IsMobileDeviceTitle": "GetIsMobileDevice",
+    "OpenBlankUrlTips": "默认为:",
+    "IsMobileDeviceTitle": "IsMobile",
     "IsMobileDeviceIntro": "通过正则表达式判断userAgent，表示当前设备是否为移动设备",
     "EvalTitle": "JS Eval",
     "EvalIntro": "通过Eval函数，在当前作用域内动态运行Java Script代码。",
     "FunctionTitle": "JS Function",
     "FunctionIntro": "通过Function函数，在全局作用域内动态运行Java Script代码。",
-    "JSConsoleTitle": "JS Console 调试工具",
-    "JSConsoleIntro": "通过Console直接输出内容到浏览器控制台",
     "GetElementCSSTitle": "GetElementCSS",
-    "GetElementCSSIntro": "根据元素id获取CSS属性值"
+    "GetElementCSSIntro": "根据元素id获取CSS属性值",
+    "GetElementPropertiesTitle": "GetElementProperties",
+    "GetElementPropertiesIntro": "根据元素id获取属性值"
   },
   "BootstrapBlazor.Shared.Samples.Clipboards": {
     "ClipboardTitle": "ClipboardService",

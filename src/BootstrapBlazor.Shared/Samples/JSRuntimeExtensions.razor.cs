@@ -15,10 +15,6 @@ public partial class JSRuntimeExtensions : IAsyncDisposable
     [NotNull]
     private IJSRuntime? JSRuntime { get; set; }
 
-    private readonly string _consoleText = "Hello BootstrapBlazor";
-
-    private const string BlankUrl = "https://www.blazor.zone/";
-
     [NotNull]
     private JSModule? Module { get; set; }
 
@@ -33,17 +29,15 @@ public partial class JSRuntimeExtensions : IAsyncDisposable
         Module = await JSRuntime.LoadUtility();
     }
 
-    private async Task OpenUrl()
-    {
-        await Module.OpenUrl(BlankUrl);
-    }
+    private const string bbUrl = "https://www.blazor.zone/";
+
+    private async Task OpenUrl_Blank() => await Module.OpenUrl(bbUrl);
+
+    private async Task OpenUrl_Self() => await Module.OpenUrl(bbUrl, "_self");
 
     private bool IsMobileDevice { get; set; }
 
-    private async Task GetIsMobileDevice()
-    {
-        IsMobileDevice = await Module.IsMobile();
-    }
+    private async Task GetIsMobileDevice() => IsMobileDevice = await Module.IsMobile();
 
     private string evalContent = """
         const currentUrl = window.location.href;
@@ -65,16 +59,21 @@ public partial class JSRuntimeExtensions : IAsyncDisposable
 
     private async Task RunFunction() => functionResult = await Module.Function<string>(functionContent);
 
-    private string propertiesId { get; set; } = "GetElementProperties";
+    private string elementId1 { get; set; } = "GetElementCSS";
 
-    private string propertiesTag1 { get; set; } = "height";
+    private string cssPropertieName { get; set; } = "height";
 
-    private string? propertiesResult1 { get; set; }
+    private string? cssPropertieResult { get; set; }
 
-    private async Task GetElementCSS()
-    {
-        propertiesResult1 = await Module.GetCSSValue<string>(propertiesId, propertiesTag1);
-    }
+    private async Task GetElementCSS() => cssPropertieResult = await Module.GetCSSValue<string>(elementId1, cssPropertieName);
+
+    private string elementId2 { get; set; } = "GetElementProperties";
+
+    private string getPropertieName { get; set; } = "clientHeight";
+
+    private decimal getPropertieResult { get; set; }
+
+    private async Task GetElementProperties() => getPropertieResult = await Module.GetElementProperties<decimal>(elementId2, getPropertieName);
 
     private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
     {
@@ -87,14 +86,14 @@ public partial class JSRuntimeExtensions : IAsyncDisposable
         },
         new()
         {
-            Name = "OpenBlankUrl",
+            Name = "OpenUrl",
             Description = Localizer["OpenBlankUrlIntro"].Value,
             Parameters = " - ",
             ReturnValue = "ValueTask<bool>"
         },
         new()
         {
-            Name = "GetIsMobileDevice",
+            Name = "IsMobile",
             Description = Localizer["IsMobileDeviceIntro"].Value,
             Parameters = " - ",
             ReturnValue = "ValueTask<bool>"
@@ -115,13 +114,6 @@ public partial class JSRuntimeExtensions : IAsyncDisposable
         },
         new()
         {
-            Name = "Console",
-            Description = Localizer["JSConsoleIntro"].Value,
-            Parameters = " - ",
-            ReturnValue = "ValueTask"
-        },
-        new()
-        {
             Name = "GetCSSValue",
             Description = Localizer["GetElementCSSIntro"].Value,
             Parameters = " - ",
@@ -130,7 +122,7 @@ public partial class JSRuntimeExtensions : IAsyncDisposable
     };
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public async ValueTask DisposeAsync()

@@ -32,7 +32,8 @@ public class JSModuleExtensionsTest : BootstrapBlazorTestBase
     public async Task OpenBlankUrl_Ok()
     {
         var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
-        await jsRuntime.OpenBlankUrl("www.blazor.zone");
+        var mmodule = await jsRuntime.LoadUtility();
+        await mmodule.OpenUrl("www.blazor.zone");
     }
 
     class MockComponent : ComponentBase
