@@ -1,11 +1,15 @@
-﻿::deep .label-width {
+﻿::deep .jstip-pre > pre {
+    max-height: 100%;
+}
+
+::deep .label-width {
     min-width: 200px;
 }
 
 ::deep > .input-group {
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
 }
 
-::deep > .input-group > .form-control {
-    min-width: 200px;
-}
+    ::deep > .input-group > .form-control {
+        min-width: 200px;
+    }

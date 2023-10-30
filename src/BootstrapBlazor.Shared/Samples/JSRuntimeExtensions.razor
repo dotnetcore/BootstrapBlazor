@@ -5,7 +5,8 @@
     @Localizer["JSRuntimeExtensionsTips"]
 </Tips>
 
-<Pre>[Inject]
+<div>
+    <Pre class="jstip-pre">[Inject]
 [NotNull]
 private IJSRuntime? JSRuntime { get; set; }
 [NotNull]
@@ -18,6 +19,7 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
         Module = await JSRuntime.LoadUtility();
     }
 }</Pre>
+</div>
 
 <DemoBlock Title="@Localizer["ChangeMetaTitle"]" Introduction="@Localizer["ChangeMetaIntro"]" ShowCode="false" Name="ChangeMeta">
     <Pre>// add link
