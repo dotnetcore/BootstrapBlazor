@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Shared.Samples;
 /// <summary>
 /// JSRuntimeExtensionsDemo
 /// </summary>
-public partial class JSRuntimeExtensions
+public partial class JSRuntimeExtensions : IAsyncDisposable
 {
     [Inject]
     [NotNull]
@@ -19,16 +19,30 @@ public partial class JSRuntimeExtensions
 
     private const string BlankUrl = "https://www.blazor.zone/";
 
+    [NotNull]
+    private JSModule? Module { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        Module = await JSRuntime.LoadUtility();
+    }
+
     private async Task OpenUrl()
     {
-        await JSRuntime.OpenUrl(BlankUrl);
+        await Module.OpenUrl(BlankUrl);
     }
 
     private bool IsMobileDevice { get; set; }
 
     private async Task GetIsMobileDevice()
     {
-        IsMobileDevice = await JSRuntime.GetIsMobileDevice();
+        IsMobileDevice = await Module.IsMobile();
     }
 
     private string evalContent = """
@@ -39,7 +53,7 @@ public partial class JSRuntimeExtensions
 
     private string evalResult { get; set; } = string.Empty;
 
-    private async Task RunEval() => evalResult = await JSRuntime.Eval<string>(evalContent);
+    private async Task RunEval() => evalResult = await Module.Eval<string>(evalContent);
 
     private string functionContent = """
         const currentUrl = window.location.href;
@@ -49,7 +63,7 @@ public partial class JSRuntimeExtensions
 
     private string functionResult { get; set; } = string.Empty;
 
-    private async Task RunFunction() => functionResult = await JSRuntime.Function<string>(functionContent);
+    private async Task RunFunction() => functionResult = await Module.Function<string>(functionContent);
 
     private string propertiesId { get; set; } = "GetElementProperties";
 
@@ -59,7 +73,7 @@ public partial class JSRuntimeExtensions
 
     private async Task GetElementCSS()
     {
-        propertiesResult1 = await JSRuntime.GetCSSValue<string>(propertiesId, propertiesTag1);
+        propertiesResult1 = await Module.GetCSSValue<string>(propertiesId, propertiesTag1);
     }
 
     private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
@@ -114,4 +128,18 @@ public partial class JSRuntimeExtensions
             ReturnValue = "ValueTask<T>"
         }
     };
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public async ValueTask DisposeAsync()
+    {
+        if (Module != null)
+        {
+            await Module.DisposeAsync();
+            Module = null;
+        }
+        GC.SuppressFinalize(this);
+    }
 }
