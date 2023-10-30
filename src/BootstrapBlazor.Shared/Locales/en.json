@@ -5965,8 +5965,7 @@
   },
   "BootstrapBlazor.Shared.Samples.Clipboards": {
     "ClipboardTitle": "ClipboardService",
-    "ClipboardIntro": "Clipboard service! Please note that it can only be run under HTTPS secure connections or used in the local localhost development environment.",
-    "ClipboardMessage1": "Text content:",
-    "ClipboardMessage2": ",copied to clipboard"
+    "ClipboardIntro": "Clipboard service! Please note that it can only be run under HTTPS secure connections or used in the localhost development environment.",
+    "ClipboardMessage": "Text content: {0},copied to clipboard"
   }
 }

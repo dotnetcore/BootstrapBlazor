@@ -3,11 +3,19 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 剪切板示例
+/// </summary>
 public partial class Clipboards
 {
     [Inject]
     [NotNull]
     private ClipboardService? ClipboardService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private ToastService? ToastService { get; set; }
 
     private string content { get; set; } = "Hello BootstrapBlazor";
 
@@ -15,10 +23,7 @@ public partial class Clipboards
     {
         await ClipboardService.Copy(content);
 
-        await MessageService.Show(new MessageOption()
-        {
-            Content = $"{Localizer["ClipboardMessage1"].Value}{content}{Localizer["ClipboardMessage2"].Value}"
-        });
+        await ToastService.Success("Clipboard", Localizer["ClipboardMessage", content]);
     }
 
     private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
@@ -26,9 +31,9 @@ public partial class Clipboards
         new()
         {
             Name = "Copy",
-            Description = Localizer["ClipboardIntro"].Value,
-            Parameters = " - ",
-            ReturnValue = "ValueTask"
+            Description = Localizer["ClipboardIntro"],
+            Parameters = " — ",
+            ReturnValue = "Task"
         }
     };
 }
