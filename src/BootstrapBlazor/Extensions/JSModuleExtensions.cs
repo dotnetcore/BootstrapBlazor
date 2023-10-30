@@ -173,7 +173,7 @@ public static class JSModuleExtensions
     /// </summary>
     /// <param name="module"><see cref="JSModule"/> 实例</param>
     /// <param name="script"></param>
-    /// <returns>A <see cref="Task"/><![CDATA[<]]><see langword="T"/><![CDATA[>]]></returns>
+    /// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
     public static ValueTask<T> Eval<T>(this JSModule module, string script) => module.InvokeAsync<T>("runEval", script);
 
     /// <summary>
@@ -236,11 +236,11 @@ public static class JSModuleExtensions
     /// <param name="module"><see cref="JSModule"/> 实例</param>
     /// <param name="script"></param>
     /// <param name="args"></param>
-    /// <returns>A <see cref="Task"/><![CDATA[<]]><see langword="T"/><![CDATA[>]]></returns>
+    /// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
     public static ValueTask<T> Function<T>(this JSModule module, string script, params object?[]? args) => module.InvokeAsync<T>("runFunction", script, args);
 
     /// <summary>
-    /// 动态修改 head 标签
+    /// 动态增加 head 标签
     /// <para>
     /// 示例：
     /// <code>
@@ -268,12 +268,42 @@ public static class JSModuleExtensions
     /// </para>
     /// </summary>
     /// <param name="module"><see cref="JSModule"/> 实例</param>
-    /// <param name="isAdd"><see langword="true"/> 添加，<see langword="false"/> 移除</param>
-    /// <param name="headMetaType">head标签元素类型</param>
-    /// <param name="rel">类型</param>
-    /// <param name="href">地址</param>
-    /// <returns>A <see cref="Task"/><![CDATA[<]]><see langword="bool"/><![CDATA[>]]></returns>
-    public static ValueTask<bool> ChangeMetaAsync(this JSModule module, bool isAdd, string headMetaType, string rel, string href) => module.InvokeAsync<bool>("changeMeta", isAdd, headMetaType, rel, href);
+    /// <param name="content">添加的 Meta 内容</param>
+    /// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
+    public static ValueTask<bool> addMetaAsync(this JSModule module, string content) => module.InvokeAsync<bool>("addMeta", content);
+
+    /// <summary>
+    /// 动态移除 head 标签
+    /// <para>
+    /// 示例：
+    /// <code>
+    /// [Inject]
+    /// [NotNull]
+    /// private <see cref="IJSRuntime"/> JSRuntime
+    /// 
+    /// [NotNull]
+    /// private <see cref="JSModule"/>? Module { get; set; }
+    /// 
+    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// {
+    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
+    ///     Module = <see langword="await"/> JSRuntime.LoadUtility();
+    /// }
+    ///
+    /// private <see langword="async"/> <see cref="Task"/> OnClick()
+    /// {
+    ///     //添加一个link标签
+    ///     var result1 = <see langword="await"/> Module.ChangeMetaAsync(<see langword="true"/>, "link", "stylesheet", "styles.css")
+    ///     //移除一个link标签
+    ///     var result2 = <see langword="await"/> Module.ChangeMetaAsync(<see langword="false"/>, "link", "stylesheet", "styles.css")
+    /// }
+    /// </code>
+    /// </para>
+    /// </summary>
+    /// <param name="module"><see cref="JSModule"/> 实例</param>
+    /// <param name="content">移除 Meta 内容</param>
+    /// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
+    public static ValueTask<bool> RemoveMetaAsync(this JSModule module, string content) => module.InvokeAsync<bool>("removeMeta", content);
 
     /// <summary>
     /// 获取元素的指定属性
@@ -303,7 +333,7 @@ public static class JSModuleExtensions
     /// <param name="module"><see cref="JSModule"/> 实例</param>
     /// <param name="id">html 元素id</param>
     /// <param name="tag">html 元素属性名称</param>
-    /// <returns>A <see cref="Task"/><![CDATA[<]]><see langword="T"/><![CDATA[>]]></returns>
+    /// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
     public static ValueTask<T> GetElementProperties<T>(this JSModule module, string id, string tag) => module.InvokeAsync<T>("getElementProperties", id, tag);
 
     /// <summary>
@@ -335,7 +365,7 @@ public static class JSModuleExtensions
     /// <param name="module"><see cref="JSModule"/> 实例</param>
     /// <param name="id"></param>
     /// <param name="propertyName"></param>
-    /// <returns>A <see cref="Task"/><![CDATA[<]]><see langword="T"/><![CDATA[>]]></returns>
+    /// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
     public static ValueTask<T?> GetCSSValue<T>(this JSModule module, string id, string propertyName) => module.InvokeAsync<T?>("getCSSValue", id, propertyName);
 
     /// <summary>
@@ -362,6 +392,6 @@ public static class JSModuleExtensions
     /// </para>
     /// </summary>
     /// <param name="module"><see cref="JSModule"/> 实例</param>
-    /// <returns>A <see cref="Task"/><![CDATA[<]]><see langword="bool"/><![CDATA[>]]></returns>
-    public static ValueTask<bool> IsMobile(this JSModule module) => module.InvokeAsync<bool>("isMobileDevice");
+    /// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
+    public static ValueTask<bool> IsMobile(this JSModule module) => module.InvokeAsync<bool>("isMobile");
 }
