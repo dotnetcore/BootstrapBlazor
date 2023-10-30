@@ -57,6 +57,7 @@ public partial class Waterfall
     {
         if (firstRender)
         {
+            Module = await JSRuntime.LoadUtility();
             await LoadImages(true);
         }
     }
@@ -94,6 +95,7 @@ public partial class Waterfall
             {
                 _showload = true;
                 await LoadImages(false);
+
                 _showload = false;
                 await InvokeAsync(StateHasChanged);
             }
