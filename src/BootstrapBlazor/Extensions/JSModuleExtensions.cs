@@ -11,28 +11,52 @@ public static class JSModuleExtensions
 {
     /// <summary>
     /// 导入 utility js 模块
-    /// </summary>
-    /// <param name="jsRuntime"></param>
-    /// <returns></returns>
-    public static Task<JSModule> LoadUtility(this IJSRuntime jsRuntime) => jsRuntime.LoadModule("./_content/BootstrapBlazor/modules/utility.js");
-
-    /// <summary>
-    /// IJSRuntime 扩展方法 动态加载脚本 脚本目录为 modules
     /// <para>
-    /// C# 示例：
+    /// 示例：
     /// <code>
     /// [Inject]
     /// [NotNull]
     /// private <see cref="IJSRuntime"/> JSRuntime
     /// 
-    /// var Module = await JSRuntime.LoadModule("xxx.razor.js");
+    /// [NotNull]
+    /// private <see cref="JSModule"/>? Module { get; set; }
+    /// 
+    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// {
+    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
+    ///     Module = <see langword="await"/> JSRuntime.LoadUtility();
+    /// }
+    /// </code>
+    /// </para>
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <returns>A <see cref="Task"/><![CDATA[<]]><see cref="JSModule"/><![CDATA[>]]> 模块加载器</returns>
+    public static Task<JSModule> LoadUtility(this IJSRuntime jsRuntime) => jsRuntime.LoadModule("./_content/BootstrapBlazor/modules/utility.js");
+
+    /// <summary>
+    /// IJSRuntime 扩展方法 动态加载脚本 脚本目录为 modules
+    /// <para>
+    /// 示例：
+    /// <code>
+    /// [Inject]
+    /// [NotNull]
+    /// private <see cref="IJSRuntime"/> JSRuntime
+    ///
+    /// [NotNull]
+    /// private <see cref="JSModule"/>? Module { get; set; }
+    /// 
+    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// {
+    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
+    ///     Module = <see langword="await"/> JSRuntime.LoadModule("xxx.js");
+    /// }
     /// </code>
     /// </para>
     /// </summary>
     /// <param name="jsRuntime"></param>
     /// <param name="fileName"></param>
     /// <param name="version"></param>
-    /// <returns></returns>
+    /// <returns>A <see cref="Task"/><![CDATA[<]]><see cref="JSModule"/><![CDATA[>]]> 模块加载器</returns>
     public static async Task<JSModule> LoadModule(this IJSRuntime jsRuntime, string fileName, string? version = null)
     {
         if (!string.IsNullOrEmpty(version))
@@ -62,13 +86,26 @@ public static class JSModuleExtensions
     /// <summary>
     /// 在新标签页打开指定网址
     /// <para>
-    /// C# 示例：
+    /// 示例：
     /// <code>
     /// [Inject]
     /// [NotNull]
     /// private <see cref="IJSRuntime"/> JSRuntime
     /// 
-    /// await JSRuntime.OpenUrl(<see href="https://www.blazor.zone/"/>);
+    /// [NotNull]
+    /// private <see cref="JSModule"/>? Module { get; set; }
+    /// 
+    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// {
+    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
+    ///     Module = <see langword="await"/> JSRuntime.LoadUtility();
+    /// }
+    ///
+    /// private <see langword="async"/> <see cref="Task"/> OnClick()
+    /// {
+    ///     <see langword="await"/> Module.OpenUrl(<see href="https://www.blazor.zone/"/>);
+    /// }
+    /// 
     /// </code>
     /// </para>
     /// </summary>
@@ -80,73 +117,118 @@ public static class JSModuleExtensions
     public static ValueTask OpenUrl(this JSModule module, string url, string? target = "_blank", string? features = null) => module.InvokeVoidAsync("openUrl", url, target, features);
 
     /// <summary>
-    /// 通过Eval动态运行js代码
+    /// 动态运行js代码
     /// <para>
-    /// C# 示例：
+    /// 示例：
     /// <code>
     /// [Inject]
     /// [NotNull]
     /// private <see cref="IJSRuntime"/> JSRuntime
     /// 
-    /// var res = await JSRuntime.Eval<![CDATA[<string>]]>("your js code");
+    /// [NotNull]
+    /// private <see cref="JSModule"/>? Module { get; set; }
+    /// 
+    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// {
+    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
+    ///     Module = <see langword="await"/> JSRuntime.LoadUtility();
+    /// }
+    ///
+    /// private <see langword="async"/> <see cref="Task"/> OnClick()
+    /// {
+    ///     <see langword="await"/> Module.Eval("your js code");
+    /// }
     /// </code>
     /// </para>
     /// </summary>
     /// <param name="module"><see cref="JSModule"/> 实例</param>
     /// <param name="script"></param>
     /// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
-    public static ValueTask<T> Eval<T>(this JSModule module, string script) => module.InvokeAsync<T>("runEval", script);
+    public static async ValueTask Eval(this JSModule module, string script) => await module.InvokeVoidAsync("runEval", script);
 
     /// <summary>
-    /// 动态运行js代码
+    /// 通过Eval动态运行js代码
     /// <para>
-    /// C# 示例：
+    /// 示例：
     /// <code>
     /// [Inject]
     /// [NotNull]
     /// private <see cref="IJSRuntime"/> JSRuntime
     /// 
-    /// await JSRuntime.Eval("your js code");
+    /// [NotNull]
+    /// private <see cref="JSModule"/>? Module { get; set; }
+    /// 
+    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// {
+    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
+    ///     Module = <see langword="await"/> JSRuntime.LoadUtility();
+    /// }
+    ///
+    /// private <see langword="async"/> <see cref="Task"/> OnClick()
+    /// {
+    ///     var res = <see langword="await"/> Module.Eval<![CDATA[<string>]]>("your js code");
+    /// }
     /// </code>
     /// </para>
     /// </summary>
     /// <param name="module"><see cref="JSModule"/> 实例</param>
     /// <param name="script"></param>
-    /// <returns></returns>
-    public static async ValueTask Eval(this JSModule module, string script)
-    {
-        await module.InvokeVoidAsync("runEval", script);
-    }
+    /// <returns>A <see cref="Task"/><![CDATA[<]]><see langword="T"/><![CDATA[>]]></returns>
+    public static ValueTask<T> Eval<T>(this JSModule module, string script) => module.InvokeAsync<T>("runEval", script);
 
     /// <summary>
     /// 动态运行js代码
     /// <para>
-    /// C# 示例：
+    /// 示例：
     /// <code>
     /// [Inject]
     /// [NotNull]
     /// private <see cref="IJSRuntime"/> JSRuntime
     /// 
-    /// var res = await JSRuntime.Function<![CDATA[<string>]]>("your js code");
+    /// [NotNull]
+    /// private <see cref="JSModule"/>? Module { get; set; }
+    /// 
+    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// {
+    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
+    ///     Module = <see langword="await"/> JSRuntime.LoadUtility();
+    /// }
+    ///
+    /// private <see langword="async"/> <see cref="Task"/> OnClick()
+    /// {
+    ///     <see langword="await"/> Module.Function("your js code");
+    /// }
     /// </code>
     /// </para>
     /// </summary>
     /// <param name="module"><see cref="JSModule"/> 实例</param>
     /// <param name="script"></param>
     /// <param name="args"></param>
-    /// <returns></returns>
+    /// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
     public static ValueTask Function(this JSModule module, string script, params object?[]? args) => module.InvokeVoidAsync("runFunction", script, args);
 
     /// <summary>
     /// 动态运行js代码
     /// <para>
-    /// C# 示例：
+    /// 示例：
     /// <code>
     /// [Inject]
     /// [NotNull]
     /// private <see cref="IJSRuntime"/> JSRuntime
     /// 
-    /// await JSRuntime.Function("your js code");
+    /// [NotNull]
+    /// private <see cref="JSModule"/>? Module { get; set; }
+    /// 
+    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// {
+    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
+    ///     Module = <see langword="await"/> JSRuntime.LoadUtility();
+    /// }
+    ///
+    /// private <see langword="async"/> <see cref="Task"/> OnClick()
+    /// {
+    ///     var res = <see langword="await"/> Module.Function<![CDATA[<string>]]>("your js code"); 
+    /// }
     /// </code>
     /// </para>
     /// </summary>
@@ -154,24 +236,34 @@ public static class JSModuleExtensions
     /// <param name="module"><see cref="JSModule"/> 实例</param>
     /// <param name="script"></param>
     /// <param name="args"></param>
-    /// <returns></returns>
+    /// <returns>A <see cref="Task"/><![CDATA[<]]><see langword="T"/><![CDATA[>]]></returns>
     public static ValueTask<T> Function<T>(this JSModule module, string script, params object?[]? args) => module.InvokeAsync<T>("runFunction", script, args);
 
     /// <summary>
     /// 动态修改 head 标签
     /// <para>
-    /// C# 示例：
-    /// 
+    /// 示例：
     /// <code>
     /// [Inject]
     /// [NotNull]
     /// private <see cref="IJSRuntime"/> JSRuntime
     /// 
-    /// 添加一个link标签
-    /// var result = await JSRuntime.ChangeMetaAsync(<see langword="true"/>, "link", "stylesheet", "styles.css")
+    /// [NotNull]
+    /// private <see cref="JSModule"/>? Module { get; set; }
     /// 
-    /// 移除一个link标签
-    /// var result = await JSRuntime.ChangeMetaAsync(<see langword="false"/>, "link", "stylesheet", "styles.css")
+    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// {
+    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
+    ///     Module = <see langword="await"/> JSRuntime.LoadUtility();
+    /// }
+    ///
+    /// private <see langword="async"/> <see cref="Task"/> OnClick()
+    /// {
+    ///     //添加一个link标签
+    ///     var result1 = <see langword="await"/> Module.ChangeMetaAsync(<see langword="true"/>, "link", "stylesheet", "styles.css")
+    ///     //移除一个link标签
+    ///     var result2 = <see langword="await"/> Module.ChangeMetaAsync(<see langword="false"/>, "link", "stylesheet", "styles.css")
+    /// }
     /// </code>
     /// </para>
     /// </summary>
@@ -180,40 +272,62 @@ public static class JSModuleExtensions
     /// <param name="headMetaType">head标签元素类型</param>
     /// <param name="rel">类型</param>
     /// <param name="href">地址</param>
-    /// <returns></returns>
+    /// <returns>A <see cref="Task"/><![CDATA[<]]><see langword="bool"/><![CDATA[>]]></returns>
     public static ValueTask<bool> ChangeMetaAsync(this JSModule module, bool isAdd, string headMetaType, string rel, string href) => module.InvokeAsync<bool>("changeMeta", isAdd, headMetaType, rel, href);
 
     /// <summary>
     /// 获取元素的指定属性
     /// <para>
-    /// C# 示例：
-    /// 
+    /// 示例：
     /// <code>
     /// [Inject]
     /// [NotNull]
     /// private <see cref="IJSRuntime"/> JSRuntime
     /// 
-    /// var clientHeight = await JSRuntime.GetElementProperties<![CDATA[<]]><see langword="decimal"/><![CDATA[>]]>("element id", "clientHeight");
+    /// [NotNull]
+    /// private <see cref="JSModule"/>? Module { get; set; }
+    /// 
+    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// {
+    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
+    ///     Module = <see langword="await"/> JSRuntime.LoadUtility();
+    /// }
+    ///
+    /// private <see langword="async"/> <see cref="Task"/> OnClick()
+    /// {
+    ///     var clientHeight = <see langword="await"/> Module.GetElementProperties<![CDATA[<]]><see langword="decimal"/><![CDATA[>]]>("element id", "clientHeight");
+    /// }
     /// </code>
     /// </para>
     /// </summary>
     /// <param name="module"><see cref="JSModule"/> 实例</param>
     /// <param name="id">html 元素id</param>
     /// <param name="tag">html 元素属性名称</param>
-    /// <returns></returns>
+    /// <returns>A <see cref="Task"/><![CDATA[<]]><see langword="T"/><![CDATA[>]]></returns>
     public static ValueTask<T> GetElementProperties<T>(this JSModule module, string id, string tag) => module.InvokeAsync<T>("getElementProperties", id, tag);
 
     /// <summary>
     /// 获取指定元素 CSS 的值
     /// <para>
-    /// C# 示例：
-    /// 
+    /// 示例：
     /// <code>
     /// [Inject]
     /// [NotNull]
     /// private <see cref="IJSRuntime"/> JSRuntime
     /// 
-    /// var Height = await JSRuntime.GetCSSValue<![CDATA[<]]><see langword="decimal"/><![CDATA[>]]>("element id", "height");
+    /// [NotNull]
+    /// private <see cref="JSModule"/>? Module { get; set; }
+    /// 
+    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// {
+    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
+    ///     Module = <see langword="await"/> JSRuntime.LoadUtility();
+    /// }
+    ///
+    /// private <see langword="async"/> <see cref="Task"/> OnClick()
+    /// {
+    ///     var Height = <see langword="await"/> Module.GetCSSValue<![CDATA[<]]><see langword="decimal"/><![CDATA[>]]>("element id", "height");
+    /// }
     /// </code>
     /// </para>
     /// </summary>
@@ -221,23 +335,33 @@ public static class JSModuleExtensions
     /// <param name="module"><see cref="JSModule"/> 实例</param>
     /// <param name="id"></param>
     /// <param name="propertyName"></param>
-    /// <returns></returns>
+    /// <returns>A <see cref="Task"/><![CDATA[<]]><see langword="T"/><![CDATA[>]]></returns>
     public static ValueTask<T?> GetCSSValue<T>(this JSModule module, string id, string propertyName) => module.InvokeAsync<T?>("getCSSValue", id, propertyName);
 
     /// <summary>
     /// 获取是否为移动设备
     /// <para>
-    /// C# 示例：
+    /// 示例：
     /// <code>
     /// [Inject]
     /// [NotNull]
     /// private <see cref="IJSRuntime"/> JSRuntime
     /// 
-    /// var res = await JSRuntime.IsMobile();
+    /// [NotNull]
+    /// private <see cref="JSModule"/>? Module { get; set; }
+    ///
+    /// private <see cref="bool"/>? IsMobile { get; set; }
+    /// 
+    /// protected override <see langword="async"/> <see cref="Task"/> OnInitializedAsync()
+    /// {
+    ///     <see langword="await"/> <see langword="base"/>.OnInitializedAsync();
+    ///     Module = <see langword="await"/> JSRuntime.LoadUtility();
+    ///     IsMobile = <see langword="await"/> Module.IsMobile();
+    /// }
     /// </code>
     /// </para>
     /// </summary>
     /// <param name="module"><see cref="JSModule"/> 实例</param>
-    /// <returns></returns>
+    /// <returns>A <see cref="Task"/><![CDATA[<]]><see langword="bool"/><![CDATA[>]]></returns>
     public static ValueTask<bool> IsMobile(this JSModule module) => module.InvokeAsync<bool>("isMobileDevice");
 }
