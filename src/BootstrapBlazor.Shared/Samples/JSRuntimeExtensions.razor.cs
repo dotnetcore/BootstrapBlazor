@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Components;
-
 using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Shared.Samples;
@@ -14,23 +12,17 @@ namespace BootstrapBlazor.Shared.Samples;
 public partial class JSRuntimeExtensions
 {
     [Inject]
-    private IJSRuntime JSRuntime { get; set; } = default!;
+    [NotNull]
+    private IJSRuntime? JSRuntime { get; set; }
 
     private readonly string _consoleText = "Hello BootstrapBlazor";
 
-    #region OpenBlankUrl Demo
+    private const string BlankUrl = "https://www.blazor.zone/";
 
-    private string BlankUrl = "https://www.blazor.zone/";
-
-    private async Task OpenBlankUrl()
+    private async Task OpenUrl()
     {
-        await JSRuntime.OpenBlankUrl(BlankUrl);
+        await JSRuntime.OpenUrl(BlankUrl);
     }
-
-    #endregion
-
-
-    #region GetIsMobileDevice Demo
 
     private bool IsMobileDevice { get; set; }
 
@@ -38,10 +30,6 @@ public partial class JSRuntimeExtensions
     {
         IsMobileDevice = await JSRuntime.GetIsMobileDevice();
     }
-
-    #endregion
-
-    #region RunEval Demo
 
     private string evalContent = """
         const currentUrl = window.location.href;
@@ -53,10 +41,6 @@ public partial class JSRuntimeExtensions
 
     private async Task RunEval() => evalResult = await JSRuntime.Eval<string>(evalContent);
 
-    #endregion
-
-    #region RunFunction Demo
-
     private string functionContent = """
         const currentUrl = window.location.href;
 
@@ -66,10 +50,6 @@ public partial class JSRuntimeExtensions
     private string functionResult { get; set; } = string.Empty;
 
     private async Task RunFunction() => functionResult = await JSRuntime.Function<string>(functionContent);
-
-    #endregion
-
-    #region GetCSSValue Demo
 
     private string propertiesId { get; set; } = "GetElementProperties";
 
@@ -81,8 +61,6 @@ public partial class JSRuntimeExtensions
     {
         propertiesResult1 = await JSRuntime.GetCSSValue<string>(propertiesId, propertiesTag1);
     }
-
-    #endregion
 
     private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
     {

@@ -14,7 +14,7 @@ var result = await JSRuntime.ChangeMetaAsync(false,HeadMetaType.Link,"stylesheet
     <Pre class="mb-2">await JSRuntime.OpenBlankUrl("url");</Pre>
     <BootstrapInputGroup>
         <BootstrapInputGroupLabel class="label-width" DisplayText="OpenBlankUrl" />
-        <Button Text="Open" OnClick="@OpenBlankUrl" />
+        <Button Text="Open" OnClick="@OpenUrl" />
         <BootstrapInput TValue="string" @bind-Value="@BlankUrl" />
     </BootstrapInputGroup>
 </DemoBlock>

@@ -567,15 +567,6 @@ export function runFunction(code, arg) {
     }
 }
 
-export function outPtuToConsole(type, arg) {
-    try {
-        const fn = (typeof console[type] === 'function' ? console[type] : console.log);
-        fn(...arg);
-    } catch (e) {
-        console.warn(e.message);
-    }
-}
-
 export function changeMeta(isAdd, type, rel, href) {
     try {
         var head = document.getElementsByTagName('head')[0];
