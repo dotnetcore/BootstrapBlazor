@@ -121,17 +121,22 @@ public partial class JSRuntimeExtensions : IAsyncDisposable
         }
     };
 
+    private async ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing && Module != null)
+        {
+            await Module.DisposeAsync();
+            Module = null;
+        }
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     public async ValueTask DisposeAsync()
     {
-        if (Module != null)
-        {
-            await Module.DisposeAsync();
-            Module = null;
-        }
+        await DisposeAsync(true);
         GC.SuppressFinalize(this);
     }
 }
