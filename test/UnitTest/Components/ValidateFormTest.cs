@@ -209,9 +209,9 @@ public class ValidateFormTest : ValidateFormTestBase
         });
         cut.Instance.SetError<Dummy>(f => f.Value, "Name_SetError");
 
-        // 利用发射提高代码覆盖率
-        var pi = cut.Instance.GetType().GetProperty("ValidatorCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
-        var cache = (ConcurrentDictionary<(string FieldName, Type ModelType), (FieldIdentifier FieldIdentifier, IValidateComponent ValidateComponent)>)pi.GetValue(cut.Instance)!;
+        // 利用反射提高代码覆盖率
+        var fieldInfo = cut.Instance.GetType().GetField("_validatorCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        var cache = (ConcurrentDictionary<(string FieldName, Type ModelType), (FieldIdentifier FieldIdentifier, IValidateComponent ValidateComponent)>)fieldInfo.GetValue(cut.Instance)!;
         cache.Remove(("Value", typeof(Dummy)), out _);
         cut.Instance.SetError<Dummy>(f => f.Value, "Name_SetError");
     }

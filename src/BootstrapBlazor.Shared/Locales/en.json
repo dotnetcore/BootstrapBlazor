@@ -5131,6 +5131,8 @@
     "TablesExportButtonDropdownTemplateIntro": "Customize the content of the export button dropdown box by setting the <code>ExportButtonDropdownTemplate</code> template",
     "TablesExportButtonExcelText": "Export Page data - Excel",
     "TablesExportButtonExcelAllText": "Export All data - Excel",
+    "TablesExportButtonCliBoardText": "Export Page data - ClipBoard",
+    "TablesExportButtonCliBoardAllText": "Export All data - ClipBoard",
     "TablesExportToastTitle": "Export Data",
     "TablesExportToastSuccessContent": "Export success，auto close after 4 second",
     "TablesExportToastFailedContent": "Export failed，auto close after 4 second"
@@ -5684,7 +5686,7 @@
     "BaseUsageIntro": "Excel/Word file path or URL",
     "BaseUsageText2": "Reload file",
     "BaseUsageIntro2": "Using the Reload method",
-    "Tips": "Currently supports Excel(.docx) and Word(.xlsx) formats.<br/><b>Note</b>:<br/>If throw <code>The type initializer for 'Gdip' threw an exception.<code> error under Linux, please install libgdiplus and enable System. Drawing support.<br/>Enable System.Drawing support for non-Windows platforms in your project file (*.csproj), add:"
+    "Tips": "Currently only supports Excel(.xlsx) and Word(.docx) formats.<br/><b>Note</b>:<br/>If throw <code>The type initializer for 'Gdip' threw an exception.<code> error under Linux, please install libgdiplus and enable System. Drawing support.<br/>Enable System.Drawing support for non-Windows platforms in your project file (*.csproj), add:"
   },
   "BootstrapBlazor.Shared.Samples.CountUps": {
     "Title": "CountUp",

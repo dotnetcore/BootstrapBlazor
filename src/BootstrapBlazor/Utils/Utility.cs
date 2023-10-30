@@ -670,8 +670,6 @@ public static class Utility
                     }
                 }
                 break;
-            default:
-                break;
         }
         return ret;
     }
