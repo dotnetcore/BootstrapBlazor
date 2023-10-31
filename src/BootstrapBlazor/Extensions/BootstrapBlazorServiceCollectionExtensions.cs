@@ -39,7 +39,6 @@ public static class BootstrapBlazorServiceCollectionExtensions
 
         services.TryAddTransient<ITableExcelExport, DefaultExcelExport>();
         services.TryAddTransient<ITablePdfExport, DefaultPdfExport>();
-        services.TryAddTransient<IJSRuntimeEventHandler, JSRuntimeEventHandler>();
 
         services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
         services.TryAddScoped<IIPLocatorProvider, DefaultIPLocatorProvider>();

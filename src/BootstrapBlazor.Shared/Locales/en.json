@@ -4525,7 +4525,10 @@
     "WebSpeech": "Web Speech",
     "Marquee": "Marquee",
     "Stack": "Stack",
-    "Segmented": "Segmented"
+    "Segmented": "Segmented",
+    "Utility": "Utility",
+    "JSExtension": "JSRuntime Extensions",
+    "Clipboard": "Clipboard Service"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -5972,5 +5975,26 @@
     "ChildContent": "The template of segment content",
     "IsBlockAttr": "Whether fit the parent width",
     "ShowTooltip": "Whether show to tooltip for segment item"
+  },
+  "BootstrapBlazor.Shared.Samples.JSRuntimeExtensions": {
+    "JSTips": "Before use, import the module according to the following code",
+    "OpenUrlTitle": "OpenUrl",
+    "OpenUrlIntro": "Open url in a Window",
+    "OpenUrlTips": "Default to:",
+    "IsMobileTitle": "GetIsMobileDevice",
+    "IsMobileIntro": "Determine userAgent through regular expressions, indicating whether the current device is a mobile device",
+    "EvalTitle": "JS Eval",
+    "EvalIntro": "Dynamically run Java Script code within the current scope using the Eval function.",
+    "FunctionTitle": "JS Function",
+    "FunctionIntro": "Dynamically run Java Script code within the global scope through the Function function.",
+    "OpenUrlAttr": "Open a url in a specific window",
+    "IsMobileAttr": "Determine whether the current device is a mobile device",
+    "EvalAttr": "Call Eval method",
+    "FunctionAttr": "Call Function method"
+  },
+  "BootstrapBlazor.Shared.Samples.Clipboards": {
+    "ClipboardTitle": "ClipboardService",
+    "ClipboardIntro": "Clipboard service! Please note that it can only be run under HTTPS secure connections or used in the localhost development environment.",
+    "ClipboardMessage": "Text content: {0},copied to clipboard"
   }
 }

@@ -1,0 +1,62 @@
+﻿@page "/js-extensions"
+@inject IStringLocalizer<JSRuntimeExtensions> Localizer
+
+<Tips>
+    @Localizer["JSTips"]
+</Tips>
+
+<Pre class="jstip-pre">[Inject]
+[NotNull]
+private IJSRuntime? JSRuntime { get; set; }
+
+[NotNull]
+private JSModule? Module { get; set; }
+
+protected override async Task OnAfterRenderAsync(bool firstRender)
+{
+    await base.OnAfterRenderAsync(firstRender);
+
+    if (firstRender)
+    {
+        Module = await JSRuntime.LoadUtility();
+    }
+}</Pre>
+
+<DemoBlock Title="@Localizer["OpenUrlTitle"]" Introduction="@Localizer["OpenUrlIntro"]" ShowCode="false" Name="OpenUrl">
+    <Pre class="mb-2">await Module.OpenUrl("url");
+
+//@Localizer["OpenUrlTips"] _blank
+
+await Module.OpenUrl("url", "_self");</Pre>
+
+    <BootstrapInputGroup class="mb-2">
+        <BootstrapInputGroupLabel class="label-width" DisplayText="Url" />
+        <BootstrapInput TValue="string" Value="@Url" Readonly="true" />
+    </BootstrapInputGroup>
+    <Button Text="OpenBlank" OnClick="@OpenUrl_Blank" />
+    <Button Text="OpenSelf" OnClick="@OpenUrl_Self" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["IsMobileTitle"]" Introduction="@Localizer["IsMobileIntro"]" ShowCode="false" Name="IsMobile">
+    <Pre class="mb-2">await Module.IsMobile();</Pre>
+    <BootstrapInputGroup>
+        <BootstrapInput @bind-Value="@IsMobile" Readonly="true" />
+        <Button Text="Get" OnClick="@GetIsMobile" />
+    </BootstrapInputGroup>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["EvalTitle"]" Introduction="@Localizer["EvalIntro"]" ShowCode="false" Name="Eval">
+    <Pre class="mb-2">await Module.Eval("js code");</Pre>
+    <Textarea class="mb-2" @bind-Value="@evalContent" rows="3" />
+    <Button class="mb-2" Text="Run" OnClick="@RunEval"></Button>
+    <Textarea @bind-Value="@evalResult" rows="1" readonly="readonly" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["FunctionTitle"]" Introduction="@Localizer["FunctionIntro"]" ShowCode="false" Name="Function">
+    <Pre class="mb-2">await Module.Function("js code");</Pre>
+    <Textarea class="mb-2" @bind-Value="@functionContent" rows="3" />
+    <Button class="mb-2" Text="Run" OnClick="@RunFunction"></Button>
+    <Textarea @bind-Value="@functionResult" rows="1" readonly="readonly" />
+</DemoBlock>
+
+<MethodTable Items="GetMethods()" />
