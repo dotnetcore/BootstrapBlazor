@@ -46,7 +46,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void Items_Bind()
+    public async Task Items_Bind()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -65,13 +65,13 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.ShowExtendButtons, true);
             });
         });
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             var button = cut.Find("button");
             button.Click();
         });
 
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             var button = cut.Find("button");
             button.Click();
@@ -2186,7 +2186,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void CustomerToolbarButton_Ok()
+    public async Task CustomerToolbarButton_Ok()
     {
         var clicked = false;
         var clickCallback = false;
@@ -2248,16 +2248,16 @@ public class TableTest : TableTestBase
         });
 
         var button = cut.FindComponents<Button>().First(b => b.Instance.Text == "test");
-        cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
+        await cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
         Assert.True(clicked);
         Assert.True(clickCallback);
 
         // 选中一行
         var input = cut.Find("tbody tr input");
-        cut.InvokeAsync(() => input.Click());
+        await cut.InvokeAsync(() => input.Click());
 
         button = cut.FindComponents<Button>().First(b => b.Instance.Text == "test-async");
-        cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
+        await cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
         Assert.Equal(1, selected);
     }
 
@@ -7170,7 +7170,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void OnResizeColumnCallback_Ok()
+    public async Task OnResizeColumnCallback_Ok()
     {
         var name = "";
         var width = 0f;
@@ -7204,11 +7204,11 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(1, 100));
+        await cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(1, 100));
         Assert.Equal("Address", name);
         Assert.Equal(100, width);
 
-        cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(20, 100));
+        await cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(20, 100));
     }
 
     [Theory]
