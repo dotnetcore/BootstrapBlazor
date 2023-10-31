@@ -420,6 +420,10 @@ a, a:hover, a:focus {
   bottom: 0;
   left: 0;
 }
+.dial-button.is-radial[data-bb-placement=bottom-start] .dial-item {
+  bottom: 0;
+  left: 0;
+}
 .dial-button.is-radial[data-bb-placement=bottom-center] .dial-list {
   border-top-left-radius: 100%;
   border-top-right-radius: 100%;
