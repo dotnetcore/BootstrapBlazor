@@ -2,35 +2,33 @@
 @inject IStringLocalizer<JSRuntimeExtensions> Localizer
 
 <Tips>
-    @Localizer["JSRuntimeExtensionsTips"]
+    @Localizer["JSTips"]
 </Tips>
 
-<div>
-    <Pre class="jstip-pre">[Inject]
+<Pre class="jstip-pre">[Inject]
 [NotNull]
 private IJSRuntime? JSRuntime { get; set; }
+
 [NotNull]
 private JSModule? Module { get; set; }
+
 protected override async Task OnAfterRenderAsync(bool firstRender)
 {
     await base.OnAfterRenderAsync(firstRender);
+
     if (firstRender)
     {
         Module = await JSRuntime.LoadUtility();
     }
 }</Pre>
-</div>
 
-<DemoBlock Title="@Localizer["ChangeMetaTitle"]" Introduction="@Localizer["ChangeMetaIntro"]" ShowCode="false" Name="ChangeMeta">
-    <Pre>// add link
-var result = await Module.AddMetaAsync("styles.css");
-// remove link
-var result = await Module.RemoveMetaAsync("styles.css");</Pre>
-</DemoBlock>
+<DemoBlock Title="@Localizer["OpenUrlTitle"]" Introduction="@Localizer["OpenUrlIntro"]" ShowCode="false" Name="OpenUrl">
+    <Pre class="mb-2">await Module.OpenUrl("url");
 
-<DemoBlock Title="@Localizer["OpenBlankUrlTitle"]" Introduction="@Localizer["OpenBlankUrlIntro"]" Name="OpenBlankUrl">
-    <Pre class="mb-2">await Module.OpenUrl("url");//@Localizer["OpenBlankUrlTips"]_blank
-await Module.OpenUrl("url","_self");</Pre>
+//@Localizer["OpenUrlTips"] _blank
+
+await Module.OpenUrl("url", "_self");</Pre>
+
     <BootstrapInputGroup class="mb-2">
         <BootstrapInputGroupLabel class="label-width" DisplayText="Url" />
         <BootstrapInput TValue="string" Value="@Url" Readonly="true" />
@@ -39,59 +37,26 @@ await Module.OpenUrl("url","_self");</Pre>
     <Button Text="OpenSelf" OnClick="@OpenUrl_Self" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["IsMobileDeviceTitle"]" Introduction="@Localizer["IsMobileDeviceIntro"]" Name="IsMobileDevice">
+<DemoBlock Title="@Localizer["IsMobileTitle"]" Introduction="@Localizer["IsMobileIntro"]" ShowCode="false" Name="IsMobile">
     <Pre class="mb-2">await Module.IsMobile();</Pre>
     <BootstrapInputGroup>
-        <BootstrapInputGroupLabel class="label-width" DisplayText="IsMobileDevice" />
-        <Button Text="Get" OnClick="@GetIsMobileDevice" />
-        <BootstrapInput TValue="bool" @bind-Value="@IsMobileDevice" />
+        <BootstrapInput @bind-Value="@IsMobile" Readonly="true" />
+        <Button Text="Get" OnClick="@GetIsMobile" />
     </BootstrapInputGroup>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["EvalTitle"]" Introduction="@Localizer["EvalIntro"]" Name="Eval">
+<DemoBlock Title="@Localizer["EvalTitle"]" Introduction="@Localizer["EvalIntro"]" ShowCode="false" Name="Eval">
     <Pre class="mb-2">await Module.Eval("js code");</Pre>
     <Textarea class="mb-2" @bind-Value="@evalContent" rows="3" />
     <Button class="mb-2" Text="Run" OnClick="@RunEval"></Button>
-    <Textarea @bind-Value="@evalResult" rows="1" />
+    <Textarea @bind-Value="@evalResult" rows="1" readonly="readonly" />
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["FunctionTitle"]" Introduction="@Localizer["FunctionIntro"]" Name="Eval">
+<DemoBlock Title="@Localizer["FunctionTitle"]" Introduction="@Localizer["FunctionIntro"]" ShowCode="false" Name="Function">
     <Pre class="mb-2">await Module.Function("js code");</Pre>
     <Textarea class="mb-2" @bind-Value="@functionContent" rows="3" />
     <Button class="mb-2" Text="Run" OnClick="@RunFunction"></Button>
-    <Textarea @bind-Value="@functionResult" rows="1" />
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["GetElementCSSTitle"]" Introduction="@Localizer["GetElementCSSIntro"]" Name="GetElementCSS">
-    <section>
-        <Button class="mb-2" Text="Get" OnClick="@GetElementCSS"></Button>
-        <BootstrapInputGroup>
-            <BootstrapInputGroupLabel class="label-width" DisplayText="Element Id" />
-            <BootstrapInput TValue="string" @bind-Value="@elementId1" />
-        </BootstrapInputGroup>
-        <BootstrapInputGroup>
-            <BootstrapInputGroupLabel class="label-width" DisplayText="Element Property" />
-            <BootstrapInput style="background:yellow" TValue="string" @bind-Value="@cssPropertieName" />
-            <BootstrapInputGroupLabel class="label-width" DisplayText="Value" />
-            <BootstrapInput TValue="string" @bind-Value="@cssPropertieResult" />
-        </BootstrapInputGroup>
-    </section>
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["GetElementPropertiesTitle"]" Introduction="@Localizer["GetElementPropertiesIntro"]" Name="GetElementProperties">
-    <section>
-        <Button class="mb-2" Text="Get" OnClick="@GetElementProperties"></Button>
-        <BootstrapInputGroup>
-            <BootstrapInputGroupLabel class="label-width" DisplayText="Element Id" />
-            <BootstrapInput TValue="string" @bind-Value="@elementId2" />
-        </BootstrapInputGroup>
-        <BootstrapInputGroup>
-            <BootstrapInputGroupLabel class="label-width" DisplayText="Element Property" />
-            <BootstrapInput style="background:yellow" TValue="string" @bind-Value="@getPropertieName" />
-            <BootstrapInputGroupLabel class="label-width" DisplayText="Value" />
-            <BootstrapInput TValue="decimal" @bind-Value="@getPropertieResult" />
-        </BootstrapInputGroup>
-    </section>
+    <Textarea @bind-Value="@functionResult" rows="1" readonly="readonly" />
 </DemoBlock>
 
 <MethodTable Items="GetMethods()" />

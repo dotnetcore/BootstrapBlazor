@@ -39,9 +39,9 @@ public partial class JSRuntimeExtensions : IAsyncDisposable
 
     private async Task OpenUrl_Self() => await Module.OpenUrl(Url, "_self");
 
-    private bool IsMobileDevice { get; set; }
+    private bool IsMobile { get; set; }
 
-    private async Task GetIsMobileDevice() => IsMobileDevice = await Module.IsMobile();
+    private async Task GetIsMobile() => IsMobile = await Module.IsMobile();
 
     private string evalContent = """
         const currentUrl = window.location.href;
@@ -69,58 +69,40 @@ public partial class JSRuntimeExtensions : IAsyncDisposable
 
     private string? cssPropertieResult { get; set; }
 
-    private async Task GetElementCSS() => cssPropertieResult = await Module.GetCSSValue<string>(elementId1, cssPropertieName);
-
     private string elementId2 { get; set; } = "GetElementProperties";
 
     private string getPropertieName { get; set; } = "clientHeight";
 
     private decimal getPropertieResult { get; set; }
 
-    private async Task GetElementProperties() => getPropertieResult = await Module.GetElementProperties<decimal>(elementId2, getPropertieName);
-
     private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
     {
         new()
         {
-            Name = "AddMetaAsync/RemoveMetaAsync",
-            Description = Localizer["ChangeMetaIntro"].Value,
-            Parameters = " - ",
-            ReturnValue = "ValueTask"
-        },
-        new()
-        {
             Name = "OpenUrl",
-            Description = Localizer["OpenBlankUrlIntro"].Value,
-            Parameters = " - ",
+            Description = Localizer["OpenUrlAttr"].Value,
+            Parameters = " — ",
             ReturnValue = "ValueTask<bool>"
         },
         new()
         {
             Name = "IsMobile",
-            Description = Localizer["IsMobileDeviceIntro"].Value,
-            Parameters = " - ",
+            Description = Localizer["IsMobileAttr"].Value,
+            Parameters = " — ",
             ReturnValue = "ValueTask<bool>"
         },
         new()
         {
             Name = "Eval",
-            Description = Localizer["EvalIntro"].Value,
-            Parameters = " - ",
+            Description = Localizer["EvalAttr"].Value,
+            Parameters = " — ",
             ReturnValue = "ValueTask<T>"
         },
         new()
         {
             Name = "Function",
-            Description = Localizer["FunctionIntro"].Value,
-            Parameters = " - ",
-            ReturnValue = "ValueTask<T>"
-        },
-        new()
-        {
-            Name = "GetCSSValue",
-            Description = Localizer["GetElementCSSIntro"].Value,
-            Parameters = " - ",
+            Description = Localizer["FunctionAttr"].Value,
+            Parameters = " — ",
             ReturnValue = "ValueTask<T>"
         }
     };

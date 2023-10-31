@@ -79,21 +79,21 @@ public partial class Waterfall
     {
         if (!_onload)
         {
-            _onload = true;
-            var clientHeight = await Module.GetElementProperties<decimal>(id, "clientHeight");
-            var scrollHeight = await Module.GetElementProperties<decimal>(id, "scrollHeight");
-            var scrollTop = await Module.GetElementProperties<decimal>(id, "scrollTop");
-            var isScrolledToBottom = clientHeight + scrollTop + 100 > scrollHeight;
+            //_onload = true;
+            //var clientHeight = await Module.GetElementProperties<decimal>(id, "clientHeight");
+            //var scrollHeight = await Module.GetElementProperties<decimal>(id, "scrollHeight");
+            //var scrollTop = await Module.GetElementProperties<decimal>(id, "scrollTop");
+            //var isScrolledToBottom = clientHeight + scrollTop + 100 > scrollHeight;
 
-            if (isScrolledToBottom)
-            {
-                _showload = true;
-                await LoadImages(false);
+            //if (isScrolledToBottom)
+            //{
+            //    _showload = true;
+            //    await LoadImages(false);
 
-                _showload = false;
-                await InvokeAsync(StateHasChanged);
-            }
-            _onload = false;
+            //    _showload = false;
+            //    await InvokeAsync(StateHasChanged);
+            //}
+            //_onload = false;
         }
     }
 
