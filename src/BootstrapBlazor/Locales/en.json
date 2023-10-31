@@ -343,7 +343,6 @@
     "GroupText": "Group",
     "ItemText": "Item"
   },
-
   "BootstrapBlazor.Components.TableAdvancedSortDialog": {
     "AscText": "Ascending",
     "DescText": "Descending"

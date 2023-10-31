@@ -4528,7 +4528,8 @@
     "Segmented": "分段控制器 Segmented",
     "Utility": "实用工具",
     "JSExtension": "JSRuntime 扩展",
-    "Clipboard": "剪切板服务"
+    "Clipboard": "剪切板服务",
+    "CodeEditor": "代码编辑器 CodeEditor"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -5975,6 +5976,15 @@
     "ChildContent": "组件子内容",
     "IsBlockAttr": "是否充满父容器",
     "ShowTooltip": "超长被截断的 Item 是否显示 Tooltip"
+  },
+  "BootstrapBlazor.Shared.Samples.CodeEditors": {
+    "Title": "代码编辑器",
+    "BasicTitle": "基础用法",
+    "BasicIntro": "基础用法",
+    "Value": "获得或设置 Value",
+    "Theme": "编辑器的主题",
+    "Language": "编辑器使用的语言：csharp，javascript，...",
+    "ValueChanged": "获取或设置更新绑定值的回调",
   },
   "BootstrapBlazor.Shared.Samples.JSRuntimeExtensions": {
     "JSTips": "使用前，先按照以下代码导入模块。",
