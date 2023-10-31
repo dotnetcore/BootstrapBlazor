@@ -4526,6 +4526,9 @@
     "Marquee": "文字滚动 Marquee",
     "Stack": "堆叠布局 Stack",
     "Segmented": "分段控制器 Segmented",
+    "Utility": "实用工具",
+    "JSExtension": "JSRuntime 扩展",
+    "Clipboard": "剪切板服务",
     "CodeEditor": "代码编辑器 CodeEditor"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
@@ -5981,6 +5984,27 @@
     "Value": "获得或设置 Value",
     "Theme": "编辑器的主题",
     "Language": "编辑器使用的语言：csharp，javascript，...",
-    "ValueChanged": "获取或设置更新绑定值的回调"
+    "ValueChanged": "获取或设置更新绑定值的回调",
+  },
+  "BootstrapBlazor.Shared.Samples.JSRuntimeExtensions": {
+    "JSTips": "使用前，先按照以下代码导入模块。",
+    "OpenUrlTitle": "OpenUrl",
+    "OpenUrlIntro": "在特定窗口打开连接",
+    "OpenUrlTips": "默认为:",
+    "IsMobileTitle": "IsMobile",
+    "IsMobileIntro": "通过正则表达式判断 <code>userAgent</code>，表示当前设备是否为移动设备",
+    "EvalTitle": "Eval",
+    "EvalIntro": "通过 <code>Eval</code> 函数，在当前作用域内动态运行 <code>JavaScript</code> 代码。",
+    "FunctionTitle": "Function",
+    "FunctionIntro": "通过 <code>Function</code> 函数，在全局作用域内动态运行 <code>JavaScript</code> 代码。",
+    "OpenUrlAttr": "在特定窗口打开连接",
+    "IsMobileAttr": "判断当前设备是否为移动设备",
+    "EvalAttr": "调用 Eval 方法",
+    "FunctionAttr": "调用 Function 方法"
+  },
+  "BootstrapBlazor.Shared.Samples.Clipboards": {
+    "ClipboardTitle": "ClipboardService",
+    "ClipboardIntro": "剪切板服务！请注意，只能在HTTPS安全连接下运行，或者在本地 localhost 开发环境中使用",
+    "ClipboardMessage": "文本内容：{0},已复制到剪切板"
   }
 }

@@ -94,6 +94,14 @@ internal static class MenusLocalizerExtensions
 
         item = new DemoMenuItem()
         {
+            Text = Localizer["Utility"],
+            Icon = "fa-fw fa-solid fa-code"
+        };
+
+        AddBootstrapBlazorUtility(item);
+
+        item = new DemoMenuItem()
+        {
             Text = Localizer["Components"],
             Icon = "text-info fa-solid fa-fw fa-heart fa-beat",
             Url = "components"
@@ -101,6 +109,24 @@ internal static class MenusLocalizerExtensions
         AddSummary(item);
 
         return menus;
+
+        void AddBootstrapBlazorUtility(DemoMenuItem item)
+        {
+            item.Items = new List<DemoMenuItem>
+            {
+                new()
+                {
+                    Text = Localizer["JSExtension"],
+                    Url = "js-extensions"
+                },
+                new()
+                {
+                    Text = Localizer["Clipboard"],
+                    Url = "clipboard-service"
+                }
+            };
+            AddBadge(item);
+        }
 
         void AddOtherComponent(DemoMenuItem item)
         {

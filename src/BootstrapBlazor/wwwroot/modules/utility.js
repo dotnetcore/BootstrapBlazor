@@ -182,7 +182,7 @@ const removeScript = content => {
     }
 }
 
-const addLink = href => {
+const addLink = (href, rel = "stylesheet") => {
     const links = [...document.getElementsByTagName('link')]
     const url = normalizeLink(href)
     let link = links.filter(function (link) {
@@ -192,7 +192,7 @@ const addLink = href => {
         const css = document.createElement('link')
         link.push(css)
         css.setAttribute('href', href)
-        css.setAttribute("rel", "stylesheet")
+        css.setAttribute("rel", rel)
         document.getElementsByTagName("head")[0].appendChild(css)
         css.onload = () => {
             css.setAttribute('loaded', true)
@@ -497,7 +497,34 @@ const debounce = function (fn, duration = 200, callback = null) {
     }
 }
 
-const openBlankUrl = url => window.open(url, '_blank');
+export function openUrl(url, target = '_blank', features = null) {
+    window.open(url, target, features);
+}
+
+export function runEval(code) {
+    try {
+        return eval(code);
+    }
+    catch (e) {
+        console.warn(e.message);
+        return e.message;
+    }
+}
+
+export function runFunction(code, arg) {
+    try {
+        var func = new Function(code);
+        return func(...arg);
+    }
+    catch (e) {
+        console.warn(e.message);
+        return e.message;
+    }
+}
+
+export function isMobile() {
+    return /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile/i.test(navigator.userAgent);
+}
 
 export {
     addLink,
@@ -531,6 +558,5 @@ export {
     removeLink,
     removeScript,
     setIndeterminate,
-    vibrate,
-    openBlankUrl
+    vibrate
 }
