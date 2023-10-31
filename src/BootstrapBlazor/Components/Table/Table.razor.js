@@ -266,7 +266,8 @@ const setResizeListener = table => {
                 eff(col, false)
                 if (table.callbacks.resizeColumnCallback) {
                     const width = getWidth(col.parentNode);
-                    table.invoke.invokeMethodAsync(table.callbacks.resizeColumnCallback, index, width)
+                    let currentIndex = [...table.tables[0].querySelectorAll('thead > tr > th')].filter(i => i.draggable).indexOf(col)
+                    table.invoke.invokeMethodAsync(table.callbacks.resizeColumnCallback, currentIndex, width)
                 }
             }
         )
@@ -361,6 +362,7 @@ const setDraggable = table => {
         EventHandler.on(col, 'dragstart', e => {
             col.parentNode.classList.add('table-dragging')
             col.classList.add('table-drag')
+            table.dragColumns = [...table.tables[0].querySelectorAll('thead > tr > th')].filter(i => i.draggable)
             index = table.dragColumns.indexOf(col)
             dragItem = col
             e.dataTransfer.effectAllowed = 'move'
