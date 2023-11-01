@@ -11,6 +11,7 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Reflection;
 
 namespace UnitTest.Components;
 
@@ -436,6 +437,43 @@ public class TableTest : TableTestBase
 
         var searchButton = cut.Find(".fa-magnifying-glass-plus");
         await cut.InvokeAsync(() => searchButton.Click());
+
+        var queryButton = cut.Find(".fa-magnifying-glass");
+        await cut.InvokeAsync(() => queryButton.Click());
+
+        var table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.GetAdvancedSearchFilterCallback, new Func<PropertyInfo, Foo, List<SearchFilterAction>?>((p, model) =>
+            {
+                return null;
+            }));
+        });
+
+        searchButton = cut.Find(".fa-magnifying-glass-plus");
+        await cut.InvokeAsync(() => searchButton.Click());
+
+        queryButton = cut.Find(".fa-magnifying-glass");
+        await cut.InvokeAsync(() => queryButton.Click());
+
+        table = cut.FindComponent<Table<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.GetAdvancedSearchFilterCallback, new Func<PropertyInfo, Foo, List<SearchFilterAction>?>((p, model) =>
+            {
+                var v = p.GetValue(model);
+                return new List<SearchFilterAction>()
+                {
+                    new SearchFilterAction(p.Name, v, FilterAction.Equal)
+                };
+            }));
+        });
+
+        searchButton = cut.Find(".fa-magnifying-glass-plus");
+        await cut.InvokeAsync(() => searchButton.Click());
+
+        queryButton = cut.Find(".fa-magnifying-glass");
+        await cut.InvokeAsync(() => queryButton.Click());
     }
 
     [Fact]
