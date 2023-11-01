@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
+using System.Reflection;
 
 namespace BootstrapBlazor.Components;
 
@@ -566,6 +567,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     [Parameter]
     public Func<TItem, TItem, bool>? ModelEqualityComparer { get; set; }
+
+    /// <summary>
+    /// 获得/设置 获得高级搜索条件回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<PropertyInfo, TItem, List<SearchFilterAction>>? GetAdvancedSearchFilterCallback { get; set; }
 
     [CascadingParameter]
     [NotNull]
