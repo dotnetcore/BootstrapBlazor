@@ -248,7 +248,7 @@ public partial class Table<TItem>
         var searches = new List<IFilterAction>();
         if (ShowAdvancedSearch && CustomerSearchModel == null && SearchModel != null)
         {
-            var callback = GetAdvancedSearchFilterCallback ?? new Func<PropertyInfo, TItem, List<SearchFilterAction>>((p, model) =>
+            var callback = GetAdvancedSearchFilterCallback ?? new Func<PropertyInfo, TItem, List<SearchFilterAction>?>((p, model) =>
             {
                 var ret = new List<SearchFilterAction>();
                 var v = p.GetValue(model);
@@ -263,7 +263,7 @@ public partial class Table<TItem>
             foreach (var property in SearchModel.GetType().GetProperties().Where(i => searchColumns.Any(col => col.GetFieldName() == i.Name)))
             {
                 var filters = callback(property, SearchModel);
-                if (filters.Any())
+                if (filters != null && filters.Any())
                 {
                     searches.AddRange(filters);
                 }

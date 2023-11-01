@@ -572,7 +572,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 获得/设置 获得高级搜索条件回调方法 默认 null
     /// </summary>
     [Parameter]
-    public Func<PropertyInfo, TItem, List<SearchFilterAction>>? GetAdvancedSearchFilterCallback { get; set; }
+    public Func<PropertyInfo, TItem, List<SearchFilterAction>?>? GetAdvancedSearchFilterCallback { get; set; }
 
     [CascadingParameter]
     [NotNull]
