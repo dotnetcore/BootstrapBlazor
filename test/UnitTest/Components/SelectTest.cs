@@ -42,6 +42,8 @@ public class SelectTest : BootstrapBlazorTestBase
             pb.Add(a => a.OnSelectedItemChanged, item => Task.CompletedTask);
         });
         ctx.InvokeAsync(() => ctx.Instance.ConfirmSelectedItem(0));
+
+        ctx.Instance.ClearSearchText();
     }
 
     [Fact]
