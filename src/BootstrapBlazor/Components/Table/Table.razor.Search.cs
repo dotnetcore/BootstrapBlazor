@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Web;
+using System.Reflection;
 
 namespace BootstrapBlazor.Components;
 
@@ -247,13 +248,24 @@ public partial class Table<TItem>
         var searches = new List<IFilterAction>();
         if (ShowAdvancedSearch && CustomerSearchModel == null && SearchModel != null)
         {
+            var callback = GetAdvancedSearchFilterCallback ?? new Func<PropertyInfo, TItem, List<SearchFilterAction>?>((p, model) =>
+            {
+                var ret = new List<SearchFilterAction>();
+                var v = p.GetValue(model);
+                if (v != null && v.ToString() != string.Empty)
+                {
+                    ret.Add(new SearchFilterAction(p.Name, v, FilterAction.Equal));
+                }
+                return ret;
+            });
+
             var searchColumns = Columns.Where(i => i.Searchable);
             foreach (var property in SearchModel.GetType().GetProperties().Where(i => searchColumns.Any(col => col.GetFieldName() == i.Name)))
             {
-                var v = property.GetValue(SearchModel);
-                if (v != null && v.ToString() != string.Empty)
+                var filters = callback(property, SearchModel);
+                if (filters != null && filters.Any())
                 {
-                    searches.Add(new SearchFilterAction(property.Name, v, FilterAction.Equal));
+                    searches.AddRange(filters);
                 }
             }
         }

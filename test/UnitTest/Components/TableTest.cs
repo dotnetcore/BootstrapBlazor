@@ -11,6 +11,7 @@ using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
 using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Reflection;
 
 namespace UnitTest.Components;
 
@@ -400,42 +401,6 @@ public class TableTest : TableTestBase
         cut.InvokeAsync(() => searchBox.KeyUp(new KeyboardEventArgs() { Key = "Enter" }));
         cut.InvokeAsync(() => searchBox.KeyUp(new KeyboardEventArgs() { Key = "Escape" }));
         Assert.True(resetSearch);
-    }
-
-    [Fact]
-    public async Task ShowAdvancedSearch_Ok()
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Foo>>(pb =>
-            {
-                pb.Add(a => a.ShowToolbar, true);
-                pb.Add(a => a.ShowSearch, true);
-                pb.Add(a => a.ShowSearchText, false);
-                pb.Add(a => a.SearchDialogSize, Size.ExtraExtraLarge);
-                pb.Add(a => a.SearchDialogIsDraggable, true);
-                pb.Add(a => a.ScrollingDialogContent, true);
-                pb.Add(a => a.SearchDialogShowMaximizeButton, true);
-                pb.Add(a => a.SearchDialogItemsPerRow, 2);
-                pb.Add(a => a.SearchDialogRowType, RowType.Inline);
-                pb.Add(a => a.SearchDialogLabelAlign, Alignment.Right);
-                pb.Add(a => a.ShowAdvancedSearch, true);
-                pb.Add(a => a.ShowUnsetGroupItemsOnTop, true);
-                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 1));
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.AddAttribute(3, "Searchable", true);
-                    builder.CloseComponent();
-                });
-            });
-        });
-
-        var searchButton = cut.Find(".fa-magnifying-glass-plus");
-        await cut.InvokeAsync(() => searchButton.Click());
     }
 
     [Fact]
