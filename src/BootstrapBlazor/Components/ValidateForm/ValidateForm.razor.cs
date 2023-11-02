@@ -435,8 +435,10 @@ public partial class ValidateForm
             ValidateDataAnnotations(propertyValue, context, messages, pi);
             if (messages.Count == 0)
             {
+                _tcs = new();
                 // 自定义验证组件
                 await validator.ValidatePropertyAsync(propertyValue, context, messages);
+                _tcs.SetResult(!messages.Any());
             }
         }
 
@@ -456,6 +458,8 @@ public partial class ValidateForm
         AsyncSubmitButtons.Add(button);
     }
 
+    private TaskCompletionSource<bool>? _tcs;
+
     private async Task OnValidSubmitForm(EditContext context)
     {
         var isAsync = AsyncSubmitButtons.Any();
@@ -467,10 +471,28 @@ public partial class ValidateForm
         {
             await Task.Yield();
         }
-        if (OnValidSubmit != null)
+
+        var valid = true;
+        // 由于可能有异步验证，需要等待异步验证结束
+        if (_tcs != null)
         {
-            await OnValidSubmit(context);
+            valid = await _tcs.Task;
         }
+        if (valid)
+        {
+            if (OnValidSubmit != null)
+            {
+                await OnValidSubmit(context);
+            }
+        }
+        else
+        {
+            if (OnInvalidSubmit != null)
+            {
+                await OnInvalidSubmit(context);
+            }
+        }
+
         foreach (var b in AsyncSubmitButtons)
         {
             b.TriggerAsync(false);
@@ -520,7 +542,7 @@ public partial class ValidateForm
     /// <param name="value"></param>
     public void NotifyFieldChanged(in FieldIdentifier fieldIdentifier, object? value)
     {
-        ValueChagnedFields.AddOrUpdate(fieldIdentifier, key => value, (key, v) => value);
+        ValueChangedFields.AddOrUpdate(fieldIdentifier, key => value, (key, v) => value);
         OnFieldValueChanged?.Invoke(fieldIdentifier.FieldName, value);
     }
 
@@ -528,5 +550,13 @@ public partial class ValidateForm
     /// 获取 当前表单值改变的属性集合
     /// </summary>
     /// <returns></returns>
+    public ConcurrentDictionary<FieldIdentifier, object?> ValueChangedFields { get; } = new();
+
+    /// <summary>
+    /// 获取 当前表单值改变的属性集合
+    /// </summary>
+    /// <returns></returns>
+    [Obsolete("已过期，单词拼写错误，请使用 ValueChangedFields，Please use ValueChangedFields instead. wrong typo")]
+    [ExcludeFromCodeCoverage]
     public ConcurrentDictionary<FieldIdentifier, object?> ValueChagnedFields { get; } = new();
 }
