@@ -420,6 +420,11 @@ public partial class Select<TValue> : ISelect
     /// <param name="item"></param>
     public void Add(SelectedItem item) => Children.Add(item);
 
+    /// <summary>
+    /// 清空搜索栏文本内容
+    /// </summary>
+    public void ClearSearchText() => SearchText = null;
+
     private void OnClearValue()
     {
         CurrentValue = default;

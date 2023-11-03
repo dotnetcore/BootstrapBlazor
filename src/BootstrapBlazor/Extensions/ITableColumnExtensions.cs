@@ -225,7 +225,8 @@ public static class IEditItemExtensions
         {
             pb.OpenComponent<Tooltip>(0);
             pb.AddAttribute(1, nameof(Tooltip.Title), text);
-            pb.AddAttribute(2, nameof(Tooltip.ChildContent), new RenderFragment(builder => builder.AddContent(0, text)));
+            pb.AddAttribute(2, "class", "text-truncate d-block");
+            pb.AddAttribute(3, nameof(Tooltip.ChildContent), new RenderFragment(builder => builder.AddContent(0, text)));
             pb.CloseComponent();
         }
         else if (col.IsMarkupString)
