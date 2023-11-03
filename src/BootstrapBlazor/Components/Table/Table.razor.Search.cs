@@ -174,25 +174,10 @@ public partial class Table<TItem>
     public bool SearchDialogShowMaximizeButton { get; set; } = true;
 
     /// <summary>
-    /// 指示高级搜索框是否显示
-    /// </summary>
-    private bool AdvancedSearchShown { get; set; }
-
-    /// <summary>
-    /// 设置高级搜索框是否显示指示器
-    /// </summary>
-    protected Func<Task> ToggleAdvancedSearchShown(bool show) => () =>
-    {
-        AdvancedSearchShown = show;
-        return Task.CompletedTask;
-    };
-
-    /// <summary>
     /// 高级查询按钮点击时调用此方法
     /// </summary>
     protected async Task ShowSearchDialog()
     {
-
         if (CustomerSearchModel != null && CustomerSearchTemplate != null)
         {
             await DialogService.ShowSearchDialog(CreateCustomerModelDialog());
@@ -218,9 +203,7 @@ public partial class Table<TItem>
             Items = Columns.Where(i => i.Searchable),
             IsDraggable = SearchDialogIsDraggable,
             ShowMaximizeButton = SearchDialogShowMaximizeButton,
-            ShowUnsetGroupItemsOnTop = ShowUnsetGroupItemsOnTop,
-            OnShownAsync = ToggleAdvancedSearchShown(true),
-            OnCloseAsync = ToggleAdvancedSearchShown(false)
+            ShowUnsetGroupItemsOnTop = ShowUnsetGroupItemsOnTop
         };
 
         SearchDialogOption<ITableSearchModel> CreateCustomerModelDialog() => new()
@@ -236,9 +219,7 @@ public partial class Table<TItem>
             Size = SearchDialogSize,
             LabelAlign = SearchDialogLabelAlign,
             IsDraggable = SearchDialogIsDraggable,
-            ShowMaximizeButton = SearchDialogShowMaximizeButton,
-            OnShownAsync = ToggleAdvancedSearchShown(true),
-            OnCloseAsync = ToggleAdvancedSearchShown(false)
+            ShowMaximizeButton = SearchDialogShowMaximizeButton
         };
     }
 
@@ -264,7 +245,7 @@ public partial class Table<TItem>
     protected List<IFilterAction> GetAdvanceSearches()
     {
         var searches = new List<IFilterAction>();
-        if (ShowAdvancedSearch && AdvancedSearchShown && CustomerSearchModel == null && SearchModel != null)
+        if (ShowAdvancedSearch && CustomerSearchModel == null && SearchModel != null)
         {
             var searchColumns = Columns.Where(i => i.Searchable);
             foreach (var property in SearchModel.GetType().GetProperties().Where(i => searchColumns.Any(col => col.GetFieldName() == i.Name)))
