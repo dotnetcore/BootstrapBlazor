@@ -147,7 +147,7 @@ public partial class Pre
         var content = code;
         if (!string.IsNullOrEmpty(BlockName))
         {
-            var regex = new Regex($"<DemoBlock [\\s\\S]* Name=\"{BlockName}\">([\\s\\S]*?)</DemoBlock>");
+            var regex = new Regex($"<DemoBlock [\\s\\S]*? Name=\"{BlockName}\">([\\s\\S]*?)</DemoBlock>");
             var match = regex.Match(content);
             if (match.Success && match.Groups.Count == 2)
             {

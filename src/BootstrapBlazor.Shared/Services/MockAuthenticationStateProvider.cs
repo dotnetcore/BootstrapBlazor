@@ -31,8 +31,8 @@ internal class MockAuthenticationStateProvider : AuthenticationStateProvider, IH
             {
                 var claimsIdentity = new ClaimsIdentity(new Claim[]
                 {
-                        new(ClaimTypes.Name, "BootstrapBlazor"),
-                        new(ClaimTypes.Role, "User")
+                    new(ClaimTypes.Name, "BootstrapBlazor"),
+                    new(ClaimTypes.Role, "User")
                 }, "Blazor");
                 state = new AuthenticationState(new ClaimsPrincipal(claimsIdentity));
                 _authenticationStateTask = Task.FromResult(state);
