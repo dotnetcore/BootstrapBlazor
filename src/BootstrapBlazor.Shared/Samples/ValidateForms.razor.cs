@@ -130,7 +130,7 @@ public partial class ValidateForms
     [NotNull]
     private ComplexFoo? ComplexModel { get; set; }
 
-    private ConcurrentDictionary<FieldIdentifier, object?> GetValueChangedFieldCollection() => ComplexForm?.ValueChagnedFields ?? new ConcurrentDictionary<FieldIdentifier, object?>();
+    private ConcurrentDictionary<FieldIdentifier, object?> GetValueChangedFieldCollection() => ComplexForm?.ValueChangedFields ?? new ConcurrentDictionary<FieldIdentifier, object?>();
 
     private class ComplexFoo : Foo
     {
