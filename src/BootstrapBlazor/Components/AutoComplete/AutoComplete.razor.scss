@@ -1,12 +1,10 @@
 .auto-complete {
-    --bb-ac-padding-right: 30px;
-    --bb-ac-menu-top: 40px;
-    --bb-ac-menu-left: 0;
-    --bb-ac-menu-right: 0;
-    --bb-ac-menu-shadow: 0 2px 8px rgba(0, 0, 0, 0.176);
+    --bb-ac-padding-right: #{$ac-padding-right};
+    --bb-ac-menu-top: #{$ac-menu-top};
+    --bb-ac-menu-left: #{$ac-menu-left};
+    --bb-ac-menu-right: #{$ac-menu-right};
+    --bb-ac-menu-shadow: #{$ac-menu-shadow};
     --bb-ac-dropdown-max-height: var(--bb-dropdown-max-height);
-    --bb-select-append-width: 30px;
-    --bb-select-append-color: #c0c4cc;
     position: relative;
 
     .form-control {

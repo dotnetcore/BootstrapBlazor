@@ -3,10 +3,11 @@
   --bb-border-focus-color: #86b7fe;
   --bb-border-hover-color: #86b7fe;
   --bb-height: 35px;
-  --bb-disabled-opactiy: .65;
+  --bb-disabled-opactiy: 0.65;
   --bb-dropdown-max-height: 274px;
-  --bb-shadow: 0 0 8px 0 #e8edfa99, 0 2px 4px 0 #e8edfa80;
-  --bb-hover-shadow: 0 1px 7px 0 #0000000d, 0 2px 8px 0 #00000012, 0 3px 9px 0 #0000000f, 0 5px 10px 0 #00000008;
+  --bb-shadow: 0 0 8px 0 rgba(232, 237, 250, 0.6), 0 2px 4px 0 rgba(232, 237, 250, 0.5019607843);
+  --bb-hover-shadow: 0 1px 7px 0 rgba(0, 0, 0, 0.0509803922), 0 2px 8px 0 rgba(0, 0, 0, 0.0705882353), 0 3px 9px 0 rgba(0, 0, 0, 0.0588235294), 0 5px 10px 0 rgba(0, 0, 0, 0.031372549);
+  --bb-font-size: 0.875rem;
 }
 
 body,
@@ -14,7 +15,7 @@ body,
 .dropdown-menu,
 .form-select,
 .input-group-text {
-  font-size: 0.875rem;
+  font-size: var(--bb-font-size);
 }
 
 a,
@@ -99,8 +100,6 @@ a, a:hover, a:focus {
   --bb-ac-menu-right: 0;
   --bb-ac-menu-shadow: 0 2px 8px rgba(0, 0, 0, 0.176);
   --bb-ac-dropdown-max-height: var(--bb-dropdown-max-height);
-  --bb-select-append-width: 30px;
-  --bb-select-append-color: #c0c4cc;
   position: relative;
 }
 .auto-complete .form-control {

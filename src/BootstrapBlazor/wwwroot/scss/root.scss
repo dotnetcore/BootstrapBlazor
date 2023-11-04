@@ -1,12 +1,13 @@
 :root {
-    --bb-disabled-bg: #ebeef5;
-    --bb-border-focus-color: #86b7fe;
-    --bb-border-hover-color: #86b7fe;
-    --bb-height: 35px;
-    --bb-disabled-opactiy: .65;
-    --bb-dropdown-max-height: 274px;
-    --bb-shadow: 0 0 8px 0 #e8edfa99, 0 2px 4px 0 #e8edfa80;
-    --bb-hover-shadow: 0 1px 7px 0 #0000000d, 0 2px 8px 0 #00000012, 0 3px 9px 0 #0000000f, 0 5px 10px 0 #00000008;
+    --bb-disabled-bg: #{$bb-disabled-bg};
+    --bb-border-focus-color: #{$bb-border-focus-color};
+    --bb-border-hover-color: #{$bb-border-hover-color};
+    --bb-height: #{$bb-height};
+    --bb-disabled-opactiy: #{$bb-disabled-opactiy};
+    --bb-dropdown-max-height: #{$bb-dropdown-max-height};
+    --bb-shadow: #{$bb-shadow};
+    --bb-hover-shadow: #{$bb-hover-shadow};
+    --bb-font-size: #{$bb-font-size};
 }
 
 body,
@@ -14,7 +15,7 @@ body,
 .dropdown-menu,
 .form-select,
 .input-group-text {
-    font-size: 0.875rem;
+    font-size: var(--bb-font-size);
 }
 
 a,
