@@ -1,28 +1,37 @@
 .btn {
-    --bs-btn-font-size: .875rem;
-    --bs-btn-focus-box-shadow: none;
-    --bb-btn-label-margin-left: 4px;
-    --bs-btn-active-border-color: transparent;
-    --bs-btn-hover-border-color: transparent;
+    --bs-btn-font-size: #{$bs-btn-font-size};
+    --bs-btn-focus-box-shadow: #{$bs-btn-focus-box-shadow};
+    --bb-btn-label-margin-left: #{$bb-btn-label-margin-left};
+    --bs-btn-active-border-color: #{$bs-btn-active-border-color};
+    --bs-btn-hover-border-color: #{$bs-btn-hover-border-color};
     --bs-btn-border-radius: var(--bs-border-radius);
+    --bs-btn-xs-padding-x: #{$bs-btn-xs-padding-x};
+    --bs-btn-xs-padding-y: #{$bs-btn-xs-padding-y};
+    --bs-btn-xs-font-size: #{$bs-btn-xs-font-size};
+    --bs-btn-xl-padding-x: #{$bs-btn-xl-padding-x};
+    --bs-btn-xl-padding-y: #{$bs-btn-xl-padding-y};
+    --bs-btn-xl-font-size: #{$bs-btn-xl-font-size};
+    --bs-btn-xxl-padding-x: #{$bs-btn-xxl-padding-x};
+    --bs-btn-xxl-padding-y: #{$bs-btn-xxl-padding-y};
+    --bs-btn-xxl-font-size: #{$bs-btn-xxl-font-size};
 }
 
 .btn-xs, .btn-group-xs > .btn {
-    --bs-btn-padding-x: .3125rem;
-    --bs-btn-padding-y: .0625rem;
-    --bs-btn-font-size: 0.75rem;
+    --bs-btn-padding-x: var(--bs-btn-xs-padding-x);
+    --bs-btn-padding-y: var(--bs-btn-xs-padding-y);
+    --bs-btn-font-size: var(--bs-btn-xs-font-size);
 }
 
 .btn-xl, .btn-group-xl > .btn {
-    --bs-btn-padding-x: 1.25rem;
-    --bs-btn-padding-y: .8rem;
-    --bs-btn-font-size: 1.25rem;
+    --bs-btn-padding-x: var(--bs-btn-xl-padding-x);
+    --bs-btn-padding-y: var(--bs-btn-xl-padding-y);
+    --bs-btn-font-size: var(--bs-btn-xl-font-size);
 }
 
 .btn-xxl, .btn-group-xxl > .btn {
-    --bs-btn-padding-x: 1.25rem;
-    --bs-btn-padding-y: .8rem;
-    --bs-btn-font-size: 1.5rem;
+    --bs-btn-padding-x: var(--bs-btn-xxl-padding-x);
+    --bs-btn-padding-y: var(--bs-btn-xxl-padding-y);
+    --bs-btn-font-size: var(--bs-btn-xxl-font-size);
 }
 
 .btn .badge,
@@ -34,8 +43,8 @@
 
 .btn-circle {
     --bs-btn-border-radius: 50%;
-    --bb-button-circle-width: 45px;
-    --bb-button-circle-height: 45px;
+    --bb-button-circle-width: #{$bb-button-circle-width};
+    --bb-button-circle-height: #{$bb-button-circle-height};
     width: var(--bb-button-circle-width);
     height: var(--bb-button-circle-height);
 }
