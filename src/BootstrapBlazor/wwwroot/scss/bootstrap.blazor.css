@@ -194,30 +194,39 @@ a, a:hover, a:focus {
 }
 
 .btn {
-  --bs-btn-font-size: .875rem;
+  --bs-btn-font-size: 0.875rem;
   --bs-btn-focus-box-shadow: none;
   --bb-btn-label-margin-left: 4px;
   --bs-btn-active-border-color: transparent;
   --bs-btn-hover-border-color: transparent;
   --bs-btn-border-radius: var(--bs-border-radius);
+  --bs-btn-xs-padding-x: 0.3125rem;
+  --bs-btn-xs-padding-y: 0.0625rem;
+  --bs-btn-xs-font-size: 0.75rem;
+  --bs-btn-xl-padding-x: 1.25rem;
+  --bs-btn-xl-padding-y: 0.8rem;
+  --bs-btn-xl-font-size: 1.25rem;
+  --bs-btn-xxl-padding-x: 1.25rem;
+  --bs-btn-xxl-padding-y: 0.8rem;
+  --bs-btn-xxl-font-size: 1.5rem;
 }
 
 .btn-xs, .btn-group-xs > .btn {
-  --bs-btn-padding-x: .3125rem;
-  --bs-btn-padding-y: .0625rem;
-  --bs-btn-font-size: 0.75rem;
+  --bs-btn-padding-x: var(--bs-btn-xs-padding-x);
+  --bs-btn-padding-y: var(--bs-btn-xs-padding-y);
+  --bs-btn-font-size: var(--bs-btn-xs-font-size);
 }
 
 .btn-xl, .btn-group-xl > .btn {
-  --bs-btn-padding-x: 1.25rem;
-  --bs-btn-padding-y: .8rem;
-  --bs-btn-font-size: 1.25rem;
+  --bs-btn-padding-x: var(--bs-btn-xl-padding-x);
+  --bs-btn-padding-y: var(--bs-btn-xl-padding-y);
+  --bs-btn-font-size: var(--bs-btn-xl-font-size);
 }
 
 .btn-xxl, .btn-group-xxl > .btn {
-  --bs-btn-padding-x: 1.25rem;
-  --bs-btn-padding-y: .8rem;
-  --bs-btn-font-size: 1.5rem;
+  --bs-btn-padding-x: var(--bs-btn-xxl-padding-x);
+  --bs-btn-padding-y: var(--bs-btn-xxl-padding-y);
+  --bs-btn-font-size: var(--bs-btn-xxl-font-size);
 }
 
 .btn .badge,
