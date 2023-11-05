@@ -1,10 +1,10 @@
 .avatar {
-    --bb-avatar-width: 50px;
-    --bb-avatar-height: 50px;
-    --bb-avatar-border-radius: .25rem;
-    --bb-avatar-bg: #c0c4cc;
-    --bb-avatar-color: #fff;
-    --bb-avatar-icon-font-size: 1.4rem;
+    --bb-avatar-width: #{$bb-avatar-width};
+    --bb-avatar-height: #{$bb-avatar-height};
+    --bb-avatar-border-radius: #{$bb-avatar-border-radius};
+    --bb-avatar-bg: #{$bb-avatar-bg};
+    --bb-avatar-color: #{$bb-avatar-color};
+    --bb-avatar-icon-font-size: #{$bb-avatar-icon-font-size};
     border-radius: var(--bb-avatar-border-radius);
     width: var(--bb-avatar-width);
     height: var(--bb-avatar-height);
