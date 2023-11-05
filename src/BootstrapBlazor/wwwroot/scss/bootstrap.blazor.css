@@ -138,7 +138,7 @@ a, a:hover, a:focus {
 .avatar {
   --bb-avatar-width: 50px;
   --bb-avatar-height: 50px;
-  --bb-avatar-border-radius: .25rem;
+  --bb-avatar-border-radius: 0.25rem;
   --bb-avatar-bg: #c0c4cc;
   --bb-avatar-color: #fff;
   --bb-avatar-icon-font-size: 1.4rem;
