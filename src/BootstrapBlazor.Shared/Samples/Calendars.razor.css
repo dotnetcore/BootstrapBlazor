@@ -8,7 +8,7 @@
     }
 
 .none {
-    color: #c0c4cc;
+    color: var(--bb-calendar-cell-disabled-color);
 }
 
 .less {
