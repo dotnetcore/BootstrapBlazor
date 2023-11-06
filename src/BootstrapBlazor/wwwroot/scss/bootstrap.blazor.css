@@ -1,5 +1,6 @@
 ﻿:root {
   --bb-disabled-bg: #ebeef5;
+  --bb-disabled-color: #c0c4cc;
   --bb-border-focus-color: #86b7fe;
   --bb-border-hover-color: #86b7fe;
   --bb-height: 35px;
@@ -646,108 +647,136 @@ a, a:hover, a:focus {
   border-bottom-right-radius: 0;
 }
 
-.calendar-header {
+.calendar {
+  --bb-calendar-padding: 12px 20px;
+  --bb-calendar-header-border-bottom: 1px solid var(--bs-border-color);
+  --bb-calendar-title-color: #000;
+  --bb-calendar-title-font-size: 1rem;
+  --bb-calendar-toolbar-border: 1px solid var(--bs-border-color);
+  --bb-calendar-toolbar-font-size: 0.75rem;
+  --bb-calendar-toolbar-padding: 7px 15px;
+  --bb-calendar-toolbar-hover-bg: #ecf5ff;
+  --bb-calendar-toolbar-hover-color: #409eff;
+  --bb-calendar-toolbar-hover-border-color: #c6e2ff;
+  --bb-calendar-toolbar-focus-bg: #ecf5ff;
+  --bb-calendar-toolbar-focus-color: #409eff;
+  --bb-calendar-toolbar-focus-border-color: #c6e2ff;
+  --bb-calendar-toolbar-active-color: #409eff;
+  --bb-calendar-toolbar-active-border-color: #c6e2ff;
+  --bb-calendar-cell-padding: 8px;
+  --bb-calendar-cell-height: 85px;
+  --bb-calendar-cell-hover-bg: #f2f8fe;
+  --bb-calendar-cell-disabled-color: var(--bb-disabled-color);
+  --bb-calendar-header-padding: 12px 0;
+  --bb-calendar-today-color: #409eff;
+  --bb-calendar-selected-color: #1989fa;
+  --bb-calendar-selected-bg: #f2f8fe;
+  --bb-calendar-week-header-border-bottom: 2px solid var(--bs-border-color);
+  --bb-calendar-week-header-min-width: 52px;
+  --bb-calendar-week-header-padding: 4px;
+  --bb-calendar-week-today-color: #409eff;
+  --bb-calendar-week-today-border-color: #409eff;
+  --bb-calendar-week-cell-padding: 1rem 0;
+}
+.calendar .calendar-header {
   display: flex;
   justify-content: space-between;
-  padding: 12px 20px;
-  border-bottom: 1px solid var(--bs-border-color);
+  padding: var(--bb-calendar-padding);
+  border-bottom: var(--bb-calendar-header-border-bottom);
 }
-
-.calendar-title {
-  color: #000;
+.calendar .calendar-title {
+  color: var(--bb-calendar-title-color);
   align-self: center;
-  font-size: 1rem;
+  font-size: var(--bb-calendar-title-font-size);
 }
-
-.calendar-button-group .btn {
+.calendar .calendar-button-group .btn {
   line-height: 1;
   white-space: nowrap;
   cursor: pointer;
-  background: #fff;
-  border: 1px solid #dcdfe6;
-  color: #606266;
+  border: var(--bb-calendar-toolbar-border);
   outline: none;
   margin: 0;
   transition: 0.3s;
-  padding: 7px 15px;
-  font-size: 12px;
+  padding: var(--bb-calendar-toolbar-padding);
+  font-size: var(--bb-calendar-toolbar-font-size);
 }
-.calendar-button-group .btn:focus, .calendar-button-group .btn:hover {
-  color: #409eff;
-  border-color: #c6e2ff;
-  background-color: #ecf5ff;
+.calendar .calendar-button-group .btn:focus {
+  color: var(--bb-calendar-toolbar-focus-color);
+  border-color: var(--bb-calendar-toolbar-focus-border-color);
+  background-color: var(--bb-calendar-toolbar-focus-bg);
 }
-.calendar-button-group .btn:active {
-  color: #3a8ee6;
-  border-color: #3a8ee6;
+.calendar .calendar-button-group .btn:hover {
+  color: var(--bb-calendar-toolbar-hover-color);
+  border-color: var(--bb-calendar-toolbar-hover-border-color);
+  background-color: var(--bb-calendar-toolbar-hover-bg);
+}
+.calendar .calendar-button-group .btn:active {
+  color: var(--bb-calendar-toolbar-active-color);
+  border-color: var(--bb-calendar-toolbar-active-border-color);
   outline: none;
 }
-
-.calendar-table {
+.calendar .calendar-table {
   table-layout: fixed;
   width: 100%;
 }
-.calendar-table .calendar-day {
-  box-sizing: border-box;
-  padding: 8px;
-  height: 85px;
+.calendar .calendar-table .calendar-day {
+  padding: var(--bb-calendar-cell-padding);
+  height: var(--bb-calendar-cell-height);
 }
-.calendar-table .calendar-day:hover {
+.calendar .calendar-table .calendar-day:hover {
   cursor: pointer;
-  background-color: #f2f8fe;
+  background-color: var(--bb-calendar-cell-hover-bg);
 }
-.calendar-table thead th {
-  padding: 12px 0;
-  color: #606266;
+.calendar .calendar-table thead th {
+  padding: var(--bb-calendar-header-padding);
   font-weight: 400;
   text-align: center;
 }
-.calendar-table thead:not(.is-range) td.next, .calendar-table thead:not(.is-range) td.prev {
-  color: #c0c4cc;
-}
-.calendar-table tr td {
+.calendar .calendar-table tr td {
   border-bottom: 1px solid var(--bs-border-color);
   border-right: 1px solid var(--bs-border-color);
   vertical-align: top;
   transition: background-color 0.2s ease;
   cursor: pointer;
 }
-.calendar-table tr td:first-child {
+.calendar .calendar-table tr td:first-child {
   border-left: 1px solid var(--bs-border-color);
 }
-.calendar-table tr td.is-today {
-  color: #409eff;
+.calendar .calendar-table tr td.is-today {
+  color: var(--bb-calendar-today-color);
 }
-.calendar-table tr td.is-selected {
-  background-color: #f2f8fe;
-  color: #1989fa;
+.calendar .calendar-table tr td.is-selected {
+  background-color: var(--bb-calendar-selected-bg);
+  color: var(--bb-calendar-selected-color);
 }
-.calendar-table tr:first-child td {
+.calendar .calendar-table tr:first-child td {
   border-top: 1px solid var(--bs-border-color);
 }
-
+.calendar .calendar-table tr:not(.is-range) td.next, .calendar .calendar-table tr:not(.is-range) td.prev {
+  color: var(--bb-calendar-cell-disabled-color);
+}
 .calendar .table-week thead tr:last-child {
-  border-bottom: 2px solid #dee2e6;
+  border-bottom: var(--bb-calendar-week-header-border-bottom);
 }
 .calendar .table-week tbody tr {
   text-align: center;
 }
 .calendar .table-week tbody td {
-  padding: 1rem 0;
+  padding: var(--bb-calendar-week-cell-padding);
   border-right: 0;
   border-left: 0;
   position: relative;
 }
 .calendar .table-week .week-header {
+  display: inline-block;
   border-radius: 50%;
   border: 1px solid transparent;
-  padding: 4px;
-  display: inline-block;
-  min-width: 52px;
+  padding: var(--bb-calendar-week-header-padding);
+  min-width: var(--bb-calendar-week-header-min-width);
 }
 .calendar .table-week .week-header.is-today {
-  border: 1px solid #409eff;
-  color: #409eff;
+  border: 1px solid var(--bb-calendar-week-today-border-color);
+  color: var(--bb-calendar-week-today-color);
 }
 
 .camera .camera-header {
