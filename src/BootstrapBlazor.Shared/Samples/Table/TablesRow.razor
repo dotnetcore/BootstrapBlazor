@@ -112,7 +112,17 @@
 <DemoBlock Title="@Localizer["SetRowClassFormatterTitle"]"
            Introduction="@Localizer["SetRowClassFormatterIntro"]"
            Name="SetRowClassFormatter">
-    <p class="mb-3">@((MarkupString)Localizer["SetRowClassFormatterP"].Value)</p>
+    <section ignore class="mb-2">
+        <p class="mb-3">@((MarkupString)Localizer["SetRowClassFormatterP"].Value)</p>
+        <Pre>.row-highlight {
+    --bs-table-striped-bg: #409eff;
+    --bs-table-bg: #409eff;
+    --bs-table-hover-bg: #409eff;
+    --bs-table-striped-color: #fff;
+    --bs-table-color-state: #fff;
+    --bs-table-hover-color: #fff;
+}</Pre>
+    </section>
 
     <Table TItem="Foo" SetRowClassFormatter="@SetRowClassFormatter"
            IsPagination="true" PageItemsSource="@PageItemsSource"
