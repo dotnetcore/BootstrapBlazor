@@ -1,6 +1,8 @@
 .camera {
+    --bb-camera-border: 1px solid var(--bs-border-color);
+
     .camera-header {
-        border: 1px solid #ddd;
+        border: var(--bb-camera-border);
         border-radius: var(--bs-border-radius);
     }
 
