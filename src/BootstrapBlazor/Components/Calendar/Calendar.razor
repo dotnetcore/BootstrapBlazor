@@ -1,7 +1,7 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<div class="calendar">
+<div @attributes="AdditionalAttributes" class="@ClassString">
     @if (ViewMode == CalendarViewMode.Month)
     {
         <div class="calendar-header">

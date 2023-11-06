@@ -84,6 +84,10 @@ public partial class Calendar
             .AddClass("is-today", item.CellValue.Ticks == DateTime.Today.Ticks)
             .Build();
 
+    private string? ClassString => CssBuilder.Default("calendar")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
