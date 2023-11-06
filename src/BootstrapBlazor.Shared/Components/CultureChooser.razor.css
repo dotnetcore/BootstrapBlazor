@@ -12,3 +12,7 @@
     .culture-selector ::deep .select {
         width: 210px;
     }
+
+    .culture-selector ::deep .dropdown-menu {
+        --bs-dropdown-link-active-bg: #7532f9;
+    }
