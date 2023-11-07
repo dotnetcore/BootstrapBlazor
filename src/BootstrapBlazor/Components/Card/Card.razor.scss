@@ -1,10 +1,9 @@
 .card {
-    --bs-card-border-radius: #{$card-border-radius};
-    --bs-card-inner-border-radius: #{$card-inner-border-radius};
     --bb-card-shadow: #{$card-shadow};
     --bb-card-hover-shadow: #{$card-hover-shadow};
     --bb-card-collapse-bar-margin-right: #{$card-collapse-bar-margin-right};
     --bb-card-header-tag-height: #{$card-header-tag-height};
+    --bs-card-title-spacer-y: #{$card-title-spacer-y};
 }
 
 .card-header {
@@ -32,7 +31,6 @@
     }
 
     .card-title {
-        --bs-card-title-spacer-y: #{$card-title-spacer-y};
         flex: 1;
     }
 }
