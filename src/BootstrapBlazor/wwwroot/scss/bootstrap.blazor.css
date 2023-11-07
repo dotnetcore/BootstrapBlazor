@@ -1953,23 +1953,26 @@ section > h2 {
 .divider {
   --bb-divider-bg: #dcdfe6;
   --bb-divider-margin: 1rem 0;
-  --bb-divider-text-bg: #fff;
   --bb-divider-text-color: #303133;
   --bb-divider-text-padding: 0 20px;
-  background-color: var(--bb-divider-bg);
+  background-color: var(--bs-body-bg);
   margin: var(--bb-divider-margin);
   position: relative;
   display: block;
   height: 1px;
   width: 100%;
 }
+.divider .divider-mask {
+  background-color: var(--bb-divider-bg);
+  height: 100%;
+  width: 100%;
+}
 .divider .divider-text {
-  background-color: var(--bb-divider-text-bg);
   padding: var(--bb-divider-text-padding);
   color: var(--bb-divider-text-color);
   position: absolute;
   font-weight: 500;
-  font-size: 14px;
+  background-color: inherit;
 }
 .divider .divider-text.is-left {
   left: 20px;
