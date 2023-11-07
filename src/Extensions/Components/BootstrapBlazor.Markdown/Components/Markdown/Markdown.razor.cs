@@ -10,6 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Markdown 组件
 /// </summary>
+[JSModuleAutoLoader("./_content/BootstrapBlazor.Markdown/Components/Markdown/Markdown.razor.js", JSObjectReference = true)]
 public partial class Markdown : IAsyncDisposable
 {
     /// <summary>
@@ -80,12 +81,6 @@ public partial class Markdown : IAsyncDisposable
 
     private MarkdownOption Option { get; } = new();
 
-    [NotNull]
-    private IJSObjectReference? MarkdownModule { get; set; }
-
-    [NotNull]
-    private DotNetObjectReference<Markdown>? Interop { get; set; }
-
     /// <summary>
     /// 获得/设置 DOM 元素实例
     /// </summary>
@@ -120,18 +115,8 @@ public partial class Markdown : IAsyncDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            // import JavaScript
-            MarkdownModule = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Markdown/Components/Markdown/Markdown.razor.js");
-            Interop = DotNetObjectReference.Create(this);
-            await MarkdownModule.InvokeVoidAsync("init", Element, Interop, Option, nameof(Update));
-        }
-    }
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Element, Interop, Option, nameof(Update));
 
     /// <summary>
     /// 更新组件值方法
@@ -163,13 +148,13 @@ public partial class Markdown : IAsyncDisposable
     }
 
     /// <summary>
-    /// 设置 Value 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public new async ValueTask SetValue(string value)
+    public new async Task SetValue(string value)
     {
         CurrentValueAsString = value;
-        await MarkdownModule.InvokeVoidAsync("update", Element, Value);
+        await InvokeVoidAsync("update", Element, Value);
     }
 
     /// <summary>
@@ -178,25 +163,5 @@ public partial class Markdown : IAsyncDisposable
     /// <param name="method"></param>
     /// <param name="parameters"></param>
     /// <returns></returns>
-    public ValueTask DoMethodAsync(string method, params object[] parameters) => MarkdownModule.InvokeVoidAsync("invoke", Element, method, parameters);
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected override async ValueTask DisposeAsync(bool disposing)
-    {
-        await base.DisposeAsync(disposing);
-
-        if (disposing)
-        {
-            Interop?.Dispose();
-            if (Module != null)
-            {
-                await Module.InvokeVoidAsync("dispose", Element);
-                await Module.DisposeAsync();
-                Module = null;
-            }
-        }
-    }
+    public Task DoMethodAsync(string method, params object[] parameters) => InvokeVoidAsync("invoke", Element, method, parameters);
 }

@@ -1,4 +1,5 @@
 ﻿import '../../lib/tui.editor/toastui-editor-all.min.js'
+import '../../lib/tui.editor/zh-cn.min.js'
 import '../../lib/tui.highlight/toastui-editor-plugin-code-syntax-highlight-all.min.js'
 import { addLink } from '../../../BootstrapBlazor/modules/utility.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
