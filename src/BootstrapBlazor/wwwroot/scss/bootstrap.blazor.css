@@ -791,7 +791,7 @@ a, a:hover, a:focus {
 }
 
 .captcha {
-  --bb-captcha-refresh-padding-left: .5rem;
+  --bb-captcha-refresh-padding-left: 0.5rem;
   --bb-captcha-radius: 2px;
   --bb-captcha-footer-bg: #f7f9fa;
   --bb-captcha-footer-color: #45494c;
@@ -889,12 +889,11 @@ a, a:hover, a:focus {
 }
 
 .card {
-  --bs-card-border-radius: var(--bs-border-radius);
-  --bs-card-inner-border-radius: calc(var(--bs-border-radius) - 1px);
   --bb-card-shadow: var(--bb-shadow);
   --bb-card-hover-shadow: var(--bb-hover-shadow);
   --bb-card-collapse-bar-margin-right: 0.5rem;
   --bb-card-header-tag-height: 21px;
+  --bs-card-title-spacer-y: 0;
 }
 
 .card-header {
@@ -918,7 +917,6 @@ a, a:hover, a:focus {
   border-top: var(--bs-card-border-width) solid var(--bs-card-border-color);
 }
 .card-header .card-title {
-  --bs-card-title-spacer-y: 0;
   flex: 1;
 }
 
@@ -942,24 +940,32 @@ a, a:hover, a:focus {
 }
 
 .carousel {
+  --bb-carousel-slide-margin: 0 0.5rem;
+  --bb-carousel-slide-padding: 0;
+  --bb-carousel-slide-width: 36px;
+  --bb-carousel-slide-height: 36px;
+  --bb-carousel-slide-border-radisu: 50%;
+  --bb-carousel-slide-border: solid 1px #e9ecef;
+  --bb-carousel-slide-bg: rgba(31, 45, 61, 0.5);
+  --bb-carousel-slide-color: #fff;
+  --bb-carousel-target-bg: #606266;
   overflow: hidden;
 }
 .carousel [data-bs-slide] {
   outline: none;
-  padding: 0;
-  margin: 0 0.5rem;
-  height: 36px;
-  width: 36px;
+  padding: var(--bb-carousel-slide-padding);
+  margin: var(--bb-carousel-slide-margin);
+  height: var(--bb-carousel-slide-height);
+  width: var(--bb-carousel-slide-width);
   cursor: pointer;
   transition: 0.3s;
-  border-radius: 50%;
-  background-color: rgba(31, 45, 61, 0.5);
-  border: solid 1px #e9ecef;
-  color: #fff;
+  border-radius: var(--bb-carousel-slide-border-radisu);
+  border: var(--bb-carousel-slide-border);
+  background-color: var(--bb-carousel-slide-bg);
+  color: var(--bb-carousel-slide-color);
   top: 50%;
   transform: translateY(-50%);
   text-align: center;
-  font-size: 1rem;
 }
 .carousel:not(.hover) .carousel-control-prev {
   opacity: 0;
@@ -978,7 +984,7 @@ a, a:hover, a:focus {
   transition: all 0.2s linear;
 }
 .carousel .carousel-indicators [data-bs-target] {
-  background-color: #606266;
+  background-color: var(--bb-carousel-target-bg);
 }
 .carousel .carousel-inner, .carousel .carousel-item, .carousel .carousel-item img {
   height: 100%;
