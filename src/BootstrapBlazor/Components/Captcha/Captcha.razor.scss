@@ -1,20 +1,20 @@
 .captcha {
-    --bb-captcha-refresh-padding-left: .5rem;
-    --bb-captcha-radius: 2px;
-    --bb-captcha-footer-bg: #f7f9fa;
-    --bb-captcha-footer-color: #45494c;
-    --bb-captcha-footer-margin-top: 0.5rem;
-    --bb-captcha-footer-height: 40px;
-    --bb-captcha-bar-border: 1px solid #1991FA;
-    --bb-captcha-bar-bg: #D1E9FE;
-    --bb-captcha-bar-color: #fff;
-    --bb-captcha-bar-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-    --bb-captcha-bar-invalid-border: 1px solid #f57a7a;
-    --bb-captcha-bar-invalid-bg: #f57a7a;
-    --bb-captcha-bar-invalid-mask-bg: #fce1e1;
-    --bb-captcha-bar-valid-border: 1px solid #52CCBA;
-    --bb-captcha-bar-valid-bg: #52CCBA;
-    --bb-captcha-bar-valid-mask-bg: #D2F4EF;
+    --bb-captcha-refresh-padding-left: #{$bb-captcha-refresh-padding-left};
+    --bb-captcha-radius: #{$bb-captcha-radius};
+    --bb-captcha-footer-bg: #{$bb-captcha-footer-bg};
+    --bb-captcha-footer-color: #{$bb-captcha-footer-color};
+    --bb-captcha-footer-margin-top: #{$bb-captcha-footer-margin-top};
+    --bb-captcha-footer-height: #{$bb-captcha-footer-height};
+    --bb-captcha-bar-border: #{$bb-captcha-bar-border};
+    --bb-captcha-bar-bg: #{$bb-captcha-bar-bg};
+    --bb-captcha-bar-color: #{$bb-captcha-bar-color};
+    --bb-captcha-bar-shadow: #{$bb-captcha-bar-shadow};
+    --bb-captcha-bar-invalid-border: #{$bb-captcha-bar-invalid-border};
+    --bb-captcha-bar-invalid-bg: #{$bb-captcha-bar-invalid-bg};
+    --bb-captcha-bar-invalid-mask-bg: #{$bb-captcha-bar-invalid-mask-bg};
+    --bb-captcha-bar-valid-border: #{$bb-captcha-bar-valid-border};
+    --bb-captcha-bar-valid-bg: #{$bb-captcha-bar-valid-bg};
+    --bb-captcha-bar-valid-mask-bg: #{$bb-captcha-bar-valid-mask-bg};
     border-radius: var(--bs-border-radius);
 
     .captcha-refresh {
