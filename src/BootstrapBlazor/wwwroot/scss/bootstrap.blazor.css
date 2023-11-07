@@ -791,7 +791,7 @@ a, a:hover, a:focus {
 }
 
 .captcha {
-  --bb-captcha-refresh-padding-left: .5rem;
+  --bb-captcha-refresh-padding-left: 0.5rem;
   --bb-captcha-radius: 2px;
   --bb-captcha-footer-bg: #f7f9fa;
   --bb-captcha-footer-color: #45494c;
@@ -889,12 +889,11 @@ a, a:hover, a:focus {
 }
 
 .card {
-  --bs-card-border-radius: var(--bs-border-radius);
-  --bs-card-inner-border-radius: calc(var(--bs-border-radius) - 1px);
   --bb-card-shadow: var(--bb-shadow);
   --bb-card-hover-shadow: var(--bb-hover-shadow);
   --bb-card-collapse-bar-margin-right: 0.5rem;
   --bb-card-header-tag-height: 21px;
+  --bs-card-title-spacer-y: 0;
 }
 
 .card-header {
@@ -918,7 +917,6 @@ a, a:hover, a:focus {
   border-top: var(--bs-card-border-width) solid var(--bs-card-border-color);
 }
 .card-header .card-title {
-  --bs-card-title-spacer-y: 0;
   flex: 1;
 }
 
