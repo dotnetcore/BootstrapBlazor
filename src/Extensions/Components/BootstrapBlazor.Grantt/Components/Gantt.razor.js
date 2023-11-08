@@ -35,3 +35,7 @@ export function changeViewMode(id, view_mode) {
         gantt.change_view_mode(view_mode)
     }
 }
+
+export function dispose(id) {
+    Data.remove(id)
+}
