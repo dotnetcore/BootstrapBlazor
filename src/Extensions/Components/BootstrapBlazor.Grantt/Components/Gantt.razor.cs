@@ -12,9 +12,8 @@ namespace BootstrapBlazor.Components
     /// </summary>
     public partial class Gantt
     {
-
         /// <summary>
-        /// 
+        ///  获得或设置 甘特图数据源
         /// </summary>
         [Parameter]
 #if NET6_0_OR_GREATER
@@ -23,34 +22,28 @@ namespace BootstrapBlazor.Components
         public IEnumerable<GanttItem>? Items { get; set; }
 
         /// <summary>
-        /// 
+        /// 获得或设置 甘特图显示模式
         /// </summary>
         [Parameter]
         public GanttMode ViewMode { get; set; } = GanttMode.DAY;
 
         /// <summary>
-        /// 
+        /// 获得或设置 点击事件
         /// </summary>
         [Parameter]
         public Func<GanttItem, Task>? OnClick { get; set; }
 
         /// <summary>
-        /// 
+        /// 获得或设置 任务时间改变事件
         /// </summary>
         [Parameter]
         public Func<GanttItem, string, string, Task>? OnDataChanged { get; set; }
 
         /// <summary>
-        /// 
+        /// 获得或设置 任务进度改变事件
         /// </summary>
         [Parameter]
         public Func<GanttItem, int, Task>? OnProgressChanged { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [Parameter]
-        public Func<string, Task>? OnViewClick { get; set; }
 
         /// <summary>
         /// <inheritdoc/>

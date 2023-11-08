@@ -16,32 +16,33 @@ namespace BootstrapBlazor.Components;
 public class GanttItem
 {
     /// <summary>
-    /// 
+    /// 获得或设置 任务编号
     /// </summary>
     public string? Id { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得或设置 任务名称
     /// </summary>
     public string? Name { get; set; }
 
     /// <summary>
-    /// 
+    ///  获得或设置 任务开始时间
     /// </summary>
     public string? Start { get; set; }
 
     /// <summary>
-    /// 
+    ///  获得或设置 任务结束时间
     /// </summary>
     public string? End { get; set; }
 
     /// <summary>
-    /// 
+    ///  获得或设置 任务进度
     /// </summary>
     public int Progress { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得或设置 任务依赖
     /// </summary>
     public string? Dependencies { get; set; }
+
 }
