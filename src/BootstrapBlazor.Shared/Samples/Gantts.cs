@@ -113,7 +113,7 @@ public partial class Gantts
             new AttributeItem()
             {
                 Name = nameof(Gantt.OnDataChanged),
-                Type = "Func<GanttItem,string,string, Task>)",
+                Type = "Func<GanttItem,string,string, Task>",
                 Description = "拖动任务时触发的回调",
                 DefaultValue = "-"
             },
