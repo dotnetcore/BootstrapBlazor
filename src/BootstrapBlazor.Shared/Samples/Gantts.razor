@@ -1,6 +1,10 @@
 ﻿@page "/gantt"
 
-<Gantt Items="@Items" OnClick="@OnClick" OnDataChanged="@OnDataChanged" OnProgressChanged="@OnProgressChanged"></Gantt>
+<h3>一个简单、交互式、现代的 Web 甘特图库，具有拖动、调整大小、依赖关系和时间刻度</h3>
 
+<DemoBlock Title="基本用法">
+    <ConsoleLogger @ref="@Log" class="mt-3"></ConsoleLogger>
+    <Gantt Items="@Items" OnClick="@OnClick" OnDataChanged="@OnDataChanged" OnProgressChanged="@OnProgressChanged"></Gantt>
+</DemoBlock>
 
-<ConsoleLogger @ref="@Log" class="mt-3"></ConsoleLogger>
+<AttributeTable Items="@GetAttributeItems()"></AttributeTable>

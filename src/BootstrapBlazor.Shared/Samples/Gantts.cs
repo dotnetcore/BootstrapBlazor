@@ -9,6 +9,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BootstrapBlazor.Shared.Samples;
+
+/// <summary>
+/// 
+/// </summary>
 public partial class Gantts
 {
     private ConsoleLogger? Log { get; set; }
@@ -72,19 +76,62 @@ public partial class Gantts
 
     private Task OnClick(GanttItem item)
     {
-        Log?.Log("OnClick");
+        Log?.Log($"OnClick:{item.Name}");
         return Task.CompletedTask;
     }
 
     private Task OnDataChanged(GanttItem item, string start, string end)
     {
-        Log?.Log($"OnDataChanged,start:{start},end:{end}");
+        Log?.Log($"OnDataChanged: start:{start},end:{end}");
         return Task.CompletedTask;
     }
 
     private Task OnProgressChanged(GanttItem item, int progress)
     {
-        Log?.Log($"OnProgressChanged,progress:{progress}");
+        Log?.Log($"OnProgressChanged: progress:{progress}");
         return Task.CompletedTask;
+    }
+
+    private IEnumerable<AttributeItem> GetAttributeItems()
+    {
+        return new List<AttributeItem>()
+        {
+            new AttributeItem()
+            {
+                Name = nameof(Gantt.Items),
+                Type = "IEnumerable<GanttItem>",
+                Description = "数据源",
+                DefaultValue = "-"
+            },
+            new AttributeItem()
+            {
+                Name = nameof(Gantt.OnClick),
+                Type = "Func<GanttItem,Task>",
+                Description = "点击任务时触发的回调",
+                DefaultValue = "-"
+            },
+            new AttributeItem()
+            {
+                Name = nameof(Gantt.OnDataChanged),
+                Type = "Func<GanttItem,string,string, Task>)",
+                Description = "拖动任务时触发的回调",
+                DefaultValue = "-"
+            },
+            new AttributeItem()
+            {
+                Name = nameof(Gantt.OnProgressChanged),
+                Type = "Func<GanttItem,int,Task>",
+                Description = "拖动任务进度时触发的回调",
+                DefaultValue = "-"
+            },
+            new AttributeItem()
+            {
+                Name = nameof(Gantt.ViewMode),
+                Type = nameof(Enum),
+                Description = "改变甘特图视图",
+                ValueList = "Quarter Day, HALF_Day, Day, Week, Month, Year",
+                DefaultValue = nameof(Gantt.ViewMode.DAY)
+            },
+        };
     }
 }
