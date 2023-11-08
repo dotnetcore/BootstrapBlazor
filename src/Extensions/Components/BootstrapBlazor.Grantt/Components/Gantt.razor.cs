@@ -104,5 +104,15 @@ namespace BootstrapBlazor.Components
                 await OnDataChanged(item, start, end);
             }
         }
+
+        /// <summary>
+        /// 改变甘特图视图
+        /// </summary>
+        /// <param name="mode"></param>
+        /// <returns></returns>
+        public async Task ChangeVieMode(GanttMode mode)
+        {
+            await InvokeVoidAsync("changeViewMode", Id, mode.ToDescriptionString());
+        }
     }
 }
