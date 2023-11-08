@@ -134,7 +134,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UniTest.Sass", "test\UniTes
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Splitting", "src\Extensions\Components\BootstrapBlazor.Splitting\BootstrapBlazor.Splitting.csproj", "{568237B9-209E-49B1-9BCF-E853F2D61442}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.CodeEditor", "src\Extensions\Components\BootstrapBlazor.CodeEditor\BootstrapBlazor.CodeEditor.csproj", "{25B67FF0-3D70-47D8-AC70-1934442A8881}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.CodeEditor", "src\Extensions\Components\BootstrapBlazor.CodeEditor\BootstrapBlazor.CodeEditor.csproj", "{25B67FF0-3D70-47D8-AC70-1934442A8881}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.Gantt", "src\Extensions\Components\BootstrapBlazor.Grantt\BootstrapBlazor.Gantt.csproj", "{6AD890DC-0073-4CA1-969D-31F03521F7E3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -282,6 +284,10 @@ Global
 		{25B67FF0-3D70-47D8-AC70-1934442A8881}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25B67FF0-3D70-47D8-AC70-1934442A8881}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25B67FF0-3D70-47D8-AC70-1934442A8881}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AD890DC-0073-4CA1-969D-31F03521F7E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AD890DC-0073-4CA1-969D-31F03521F7E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AD890DC-0073-4CA1-969D-31F03521F7E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AD890DC-0073-4CA1-969D-31F03521F7E3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -330,6 +336,7 @@ Global
 		{D8AEAFE7-10AF-4A5B-BC67-FE740A2CA1DF} = {7C1D79F1-87BC-42C1-BD5A-CDE4044AC1BD}
 		{568237B9-209E-49B1-9BCF-E853F2D61442} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{25B67FF0-3D70-47D8-AC70-1934442A8881} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
+		{6AD890DC-0073-4CA1-969D-31F03521F7E3} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}
