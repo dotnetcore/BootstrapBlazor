@@ -55,6 +55,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.Grantt\BootstrapBlazor.Gantt.csproj" />
   </ItemGroup>
 
   <ItemGroup>
