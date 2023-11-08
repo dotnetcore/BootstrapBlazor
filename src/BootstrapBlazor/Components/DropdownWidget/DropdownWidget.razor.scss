@@ -1,7 +1,17 @@
 .widget {
+    --bb-widget-toggle-color: #{$bb-widget-toggle-color};
+    --bb-widget-toggle-padding: #{$bb-widget-toggle-padding};
+    --bb-widget-border-color: #{$bb-widget-border-color};
+    --bb-widget-badge-font-size: #{$bb-widget-badge-font-size};
+    --bb-widget-badge-top: #{$bb-widget-badge-top};
+    --bb-widget-header-padding: #{$bb-widget-header-padding};
+    --bb-widget-body-max-height: #{$bb-widget-body-max-height};
+    --bb-widget-item-odd-bg: #{$bb-widget-item-odd-bg};
+    --bb-widget-footer-padding: #{$bb-widget-footer-padding};
+
     .dropdown-toggle {
-        color: #fff;
-        padding: 10px 16px;
+        color: var(--bb-widget-toggle-color);
+        padding: var(--bb-widget-toggle-padding);
         position: relative;
         display: inline-block;
 
@@ -11,16 +21,12 @@
 
         .badge {
             position: absolute;
-            top: 5px;
-            font-size: 9px;
+            top: var(--bb-widget-badge-top);
+            font-size: var(--bb-widget-badge-font-size);
         }
     }
 
     .dropdown-menu {
-        --bs-dropdown-link-active-color: #{$dropdown-link-active-color};
-        --bs-dropdown-link-active-bg: #{$dropdown-link-active-bg};
-        --bs-dropdown-link-hover-bg: #{$dropdown-link-hover-bg};
-        --bb-widget-border-color: #{$widget-border-color};
         overflow: visible;
         padding: 0;
         max-height: none;
@@ -37,19 +43,19 @@
 
     .dropdown-header {
         color: #fff;
-        padding: 0.5rem 0.625rem;
+        padding: var(--bb-widget-header-padding);
         border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0;
     }
 
     .dropdown-body {
         overflow: auto;
-        max-height: 300px;
+        max-height: var(--bb-widget-body-max-height);
         border-left: 1px solid var(--bb-widget-border-color);
         border-right: 1px solid var(--bb-widget-border-color);
     }
 
     .dropdown-footer {
-        padding: 0.5rem 0.625rem;
+        padding: var(--bb-widget-footer-padding);
         background-color: var(--bb-widget-border-color);
         border-radius: 0 0 var(--bs-border-radius) var(--bs-border-radius);
     }
@@ -60,7 +66,7 @@
         }
 
         &:nth-of-type(odd) {
-            background-color: #eef0f3;
+            background-color: var(--bb-widget-item-odd-bg);
         }
     }
 }

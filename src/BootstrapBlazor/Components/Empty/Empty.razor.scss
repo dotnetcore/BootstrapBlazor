@@ -1,12 +1,13 @@
 .empty {
+    --bb-empty-image-margin: #{$bb-empty-image-margin};
+    --bb-empty-template-margin: #{$bb-empty-template-margin};
     text-align: center;
 
     > .empty-image {
-        margin-top: 1rem;
-        margin-bottom: 8px;
+        margin: var(--bb-empty-image-margin);
     }
 
     .empty-telemplate {
-        margin: 5px 0 0 0;
+        margin: var(--bb-empty-template-margin);
     }
 }

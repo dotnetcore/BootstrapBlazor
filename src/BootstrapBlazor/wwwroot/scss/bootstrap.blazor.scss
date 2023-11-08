@@ -227,12 +227,6 @@ $icon-padding-left: .5rem;
 $icon-badge-bottom: 7px;
 $icon-path-fill-color: #495057;
 
-// DropdownWidget
-$dropdown-link-active-color: unset;
-$dropdown-link-active-bg: unset;
-$dropdown-link-hover-bg: unset;
-$widget-border-color: #dcdfe6;
-
 // Divider
 $divider-bg: #dcdfe6;
 $divider-margin: 1rem 0;
@@ -245,6 +239,21 @@ $bb-drawer-body-shadow: 0 8px 10px -5px rgba(0,0,0,.2), 0 16px 24px 2px rgba(0,0
 $bb-drawer-bar-bg: #d0d7de;
 $bb-drawer-bar-hover-color: #409eff;
 $bb-drawer-bar-drag-color: #0969da;
+
+// Dropdown
+$bb-widget-toggle-color: #fff;
+$bb-widget-toggle-padding: 10px 16px;
+$bb-widget-border-color: #dcdfe6;
+$bb-widget-badge-font-size: 9px;
+$bb-widget-badge-top: 5px;
+$bb-widget-header-padding: 0.5rem 0.625rem;
+$bb-widget-body-max-height: 300px;
+$bb-widget-item-odd-bg: #eef0f3;
+$bb-widget-footer-padding: 0.5rem 0.625rem;
+
+// Empty
+$bb-empty-image-margin: 1rem 0 .5rem 0;
+$bb-empty-template-margin: 5px 0 0 0;
 
 // Footer
 $footer-bg: var(--bs-secondary);
