@@ -51,7 +51,9 @@ public partial class Tab : IHandlerException
     /// <summary>
     /// 获得/设置 TabItem 集合
     /// </summary>
-    public List<TabItem> Items => _dragged ? _draggedItems : _items;
+    public IEnumerable<TabItem> Items => TabItems;
+
+    private List<TabItem> TabItems => _dragged ? _draggedItems : _items;
 
     /// <summary>
     /// 获得/设置 是否为排除地址 默认为 false
@@ -412,7 +414,7 @@ public partial class Tab : IHandlerException
 
         if (!ClickTabToNavigation)
         {
-            Items.ForEach(i => i.SetActive(false));
+            TabItems.ForEach(i => i.SetActive(false));
             item.SetActive(true);
             InvokeUpdate = true;
             StateHasChanged();
@@ -427,13 +429,13 @@ public partial class Tab : IHandlerException
         var item = Items.FirstOrDefault(i => i.IsActive);
         if (item != null)
         {
-            var index = Items.IndexOf(item);
+            var index = TabItems.IndexOf(item);
             if (index > -1)
             {
                 index--;
                 if (index < 0)
                 {
-                    index = Items.Count - 1;
+                    index = TabItems.Count - 1;
                 }
 
                 if (!ClickTabToNavigation)
@@ -441,7 +443,7 @@ public partial class Tab : IHandlerException
                     item.SetActive(false);
                 }
 
-                item = Items.ElementAt(index);
+                item = TabItems[index];
                 if (ClickTabToNavigation)
                 {
                     Navigator.NavigateTo(item.Url);
@@ -462,11 +464,11 @@ public partial class Tab : IHandlerException
     /// </summary>
     public Task ClickNextTab()
     {
-        var item = Items.FirstOrDefault(i => i.IsActive);
+        var item = TabItems.Find(i => i.IsActive);
         if (item != null)
         {
-            var index = Items.IndexOf(item);
-            if (index < Items.Count)
+            var index = TabItems.IndexOf(item);
+            if (index < TabItems.Count)
             {
                 if (!ClickTabToNavigation)
                 {
@@ -474,12 +476,12 @@ public partial class Tab : IHandlerException
                 }
 
                 index++;
-                if (index + 1 > Items.Count)
+                if (index + 1 > TabItems.Count)
                 {
                     index = 0;
                 }
 
-                item = Items.ElementAt(index);
+                item = TabItems[index];
 
                 if (ClickTabToNavigation)
                 {
@@ -501,7 +503,7 @@ public partial class Tab : IHandlerException
     /// </summary>
     public async Task CloseCurrentTab()
     {
-        var tab = Items.FirstOrDefault(t => t.IsActive);
+        var tab = TabItems.Find(t => t.IsActive);
         if (tab is { Closable: true })
         {
             await RemoveTab(tab);
@@ -510,13 +512,13 @@ public partial class Tab : IHandlerException
 
     private void OnClickCloseAllTabs()
     {
-        Items.RemoveAll(t => t.Closable);
-        if (Items.Any())
+        TabItems.RemoveAll(t => t.Closable);
+        if (TabItems.Any())
         {
-            var activeItem = Items.FirstOrDefault(i => i.IsActive);
+            var activeItem = TabItems.Find(i => i.IsActive);
             if (activeItem == null)
             {
-                activeItem = Items.First();
+                activeItem = TabItems[0];
                 activeItem.SetActive(true);
             }
         }
@@ -534,7 +536,7 @@ public partial class Tab : IHandlerException
 
     private void OnClickCloseOtherTabs()
     {
-        Items.RemoveAll(t => t is { Closable: true, IsActive: false });
+        TabItems.RemoveAll(t => t is { Closable: true, IsActive: false });
         InvokeUpdate = true;
     }
 
@@ -551,7 +553,7 @@ public partial class Tab : IHandlerException
     /// 添加 TabItem 方法 由 TabItem 方法加载时调用
     /// </summary>
     /// <param name="item">TabItemBase 实例</param>
-    internal void AddItem(TabItem item) => Items.Add(item);
+    internal void AddItem(TabItem item) => TabItems.Add(item);
 
     /// <summary>
     /// 通过 Url 添加 TabItem 标签方法
@@ -654,16 +656,16 @@ public partial class Tab : IHandlerException
         item.TabSet = this;
         if (item.IsActive)
         {
-            Items.ForEach(i => i.SetActive(false));
+            TabItems.ForEach(i => i.SetActive(false));
         }
 
         if (index.HasValue)
         {
-            Items.Insert(index.Value, item);
+            TabItems.Insert(index.Value, item);
         }
         else
         {
-            Items.Add(item);
+            TabItems.Add(item);
         }
     }
 
@@ -678,14 +680,14 @@ public partial class Tab : IHandlerException
             return;
         }
 
-        var index = Items.IndexOf(item);
-        Items.Remove(item);
+        var index = TabItems.IndexOf(item);
+        TabItems.Remove(item);
         InvokeUpdate = true;
 
         // 删除的 TabItem 是当前 Tab
         // 查找后面的 Tab
-        var activeItem = Items.Find(i => i.IsActive)
-                         ?? (index < Items.Count ? Items[index] : Items.LastOrDefault());
+        var activeItem = TabItems.Find(i => i.IsActive)
+                         ?? (index < TabItems.Count ? TabItems[index] : TabItems.LastOrDefault());
         if (activeItem != null)
         {
             if (ClickTabToNavigation)
@@ -722,7 +724,7 @@ public partial class Tab : IHandlerException
     /// <param name="index"></param>
     public void ActiveTab(int index)
     {
-        var item = Items.ElementAtOrDefault(index);
+        var item = TabItems.ElementAtOrDefault(index);
         if (item != null)
         {
             ActiveTab(item);
@@ -733,11 +735,11 @@ public partial class Tab : IHandlerException
     /// 获得当前活动 Tab
     /// </summary>
     /// <returns></returns>
-    public TabItem? GetActiveTab() => Items.FirstOrDefault(s => s.IsActive);
+    public TabItem? GetActiveTab() => TabItems.Find(s => s.IsActive);
 
     private void ActiveTabItem(TabItem item)
     {
-        Items.ForEach(i => i.SetActive(false));
+        TabItems.ForEach(i => i.SetActive(false));
         item.SetActive(true);
     }
 
@@ -793,7 +795,7 @@ public partial class Tab : IHandlerException
         var targetColumn = Items.ElementAtOrDefault(currentIndex);
         if (firstColumn != null && targetColumn != null)
         {
-            if(_draggedItems.Count == 0)
+            if (_draggedItems.Count == 0)
             {
                 _draggedItems.AddRange(_items);
             }
