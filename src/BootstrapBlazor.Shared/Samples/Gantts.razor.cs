@@ -17,6 +17,52 @@ public partial class Gantts
 {
     private ConsoleLogger? Log { get; set; }
 
+    private Gantt? Gantt { get; set; }
+
+    private IEnumerable<SegmentedOption<string>>? ViewModes { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        ViewModes = new List<SegmentedOption<string>>()
+        {
+            new SegmentedOption<string>()
+            {
+                 Text = "Quarter Day",
+                 Value= "Quarter Day"
+            },
+            new SegmentedOption<string>()
+            {
+                 Text = "Half Day",
+                 Value= "Half Day"
+            },
+            new SegmentedOption<string>()
+            {
+                 Text = "Day",
+                 Value= "Day"
+            },
+            new SegmentedOption<string>()
+            {
+                 Text = "Week",
+                 Value= "Week"
+            },
+            new SegmentedOption<string>()
+            {
+                 Text = "Month",
+                 Value= "Month"
+            },
+            new SegmentedOption<string>()
+            {
+                 Text = "Year",
+                 Value= "Year"
+            }
+        };
+    }
+
     private List<GanttItem>? Items { get; set; } = new List<GanttItem>()
     {
         new GanttItem()
@@ -92,6 +138,12 @@ public partial class Gantts
         return Task.CompletedTask;
     }
 
+    private async Task OnValueChanged(string value)
+    {
+        await Gantt!.ChangeVieMode(value);
+        StateHasChanged();
+    }
+
     private IEnumerable<AttributeItem> GetAttributeItems()
     {
         return new List<AttributeItem>()
@@ -126,12 +178,26 @@ public partial class Gantts
             },
             new AttributeItem()
             {
-                Name = nameof(Gantt.ViewMode),
-                Type = nameof(Enum),
-                Description = "改变甘特图视图",
-                ValueList = "Quarter Day, HALF_Day, Day, Week, Month, Year",
-                DefaultValue = nameof(Gantt.ViewMode.DAY)
+                Name = nameof(Gantt.Option),
+                Type = "class",
+                Description = "配置项",
+                ValueList = "",
+                DefaultValue = "-"
             },
+        };
+    }
+
+    private IEnumerable<AttributeItem> GetMethodItems()
+    {
+        return new List<AttributeItem>()
+        {
+            new AttributeItem()
+            {
+                Name = nameof(Gantt.ChangeVieMode),
+                Type = "Method",
+                Description = "改变甘特图视图",
+                DefaultValue = "-"
+            }
         };
     }
 }
