@@ -152,35 +152,35 @@ public partial class Gantts
             {
                 Name = nameof(Gantt.Items),
                 Type = "IEnumerable<GanttItem>",
-                Description = "数据源",
+                Description = Localizer["AttrItems"],
                 DefaultValue = "-"
             },
             new AttributeItem()
             {
                 Name = nameof(Gantt.OnClick),
                 Type = "Func<GanttItem,Task>",
-                Description = "点击任务时触发的回调",
+                Description = Localizer["AttrOnClick"],
                 DefaultValue = "-"
             },
             new AttributeItem()
             {
                 Name = nameof(Gantt.OnDataChanged),
-                Type = "Func<GanttItem,string,string, Task>",
-                Description = "拖动任务时触发的回调",
+                Type = "Func<GanttItem,string,string,Task>",
+                Description = Localizer["AttrOnDataChanged"],
                 DefaultValue = "-"
             },
             new AttributeItem()
             {
                 Name = nameof(Gantt.OnProgressChanged),
                 Type = "Func<GanttItem,int,Task>",
-                Description = "拖动任务进度时触发的回调",
+                Description = Localizer["AttrOnProgressChanged"],
                 DefaultValue = "-"
             },
             new AttributeItem()
             {
                 Name = nameof(Gantt.Option),
-                Type = "class",
-                Description = "配置项",
+                Type = "Class",
+                Description = Localizer["AttrOption"],
                 ValueList = "",
                 DefaultValue = "-"
             },
@@ -195,7 +195,7 @@ public partial class Gantts
             {
                 Name = nameof(Gantt.ChangeVieMode),
                 Type = "Method",
-                Description = "改变甘特图视图",
+                Description = Localizer["AttrMethod"],
                 DefaultValue = "-"
             }
         };

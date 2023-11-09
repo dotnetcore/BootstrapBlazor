@@ -4529,7 +4529,8 @@
     "Utility": "Utility",
     "JSExtension": "JSRuntime Extensions",
     "Clipboard": "Clipboard Service",
-    "CodeEditor": "CodeEditor"
+    "CodeEditor": "CodeEditor",
+    "Gantt": "Gantt"
   },
   "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -6006,5 +6007,16 @@
     "ClipboardTitle": "ClipboardService",
     "ClipboardIntro": "Clipboard service! Please note that it can only be run under HTTPS secure connections or used in the localhost development environment.",
     "ClipboardMessage": "Text content: {0},copied to clipboard"
+  },
+  "BootstrapBlazor.Shared.Samples.Gantts": {
+    "Title": "A simple, interactive, modern web Gantt gallery with dragging, resizing, dependencies, and timescales",
+    "BasicTitle": "Basic usage",
+    "ViewModeTitle": "Change the view",
+    "AttrItems": "Data Source",
+    "AttrOnClick": "The callback that is triggered when you click on a task",
+    "AttrOnDataChanged": "A callback that is triggered when a task is dragged",
+    "AttrOnProgressChanged": "A callback that is triggered when a task progress is dragged",
+    "AttrOption": "Configuration items",
+    "AttrMethod": "Change the Gantt chart view"
   }
 }
