@@ -2,7 +2,7 @@
 import { addLink } from '../../BootstrapBlazor/modules/utility.js'
 import Data from '../../BootstrapBlazor/modules/data.js'
 
-export async function init(id, tasks, view_mode, invoke) {
+export async function init(id, tasks, option, invoke) {
     var el = document.getElementById(id)
     if (el == null) {
         return
@@ -22,8 +22,7 @@ export async function init(id, tasks, view_mode, invoke) {
             task.dependencies = task.dependencies.toString()
             invoke.invokeMethodAsync("OnGanttProgressChange", task, progress)
         },
-        view_mode,
-        language: "zh"
+        ...option
     });
 
     Data.set(id, gantt)

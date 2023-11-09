@@ -22,10 +22,10 @@ namespace BootstrapBlazor.Components
         public IEnumerable<GanttItem>? Items { get; set; }
 
         /// <summary>
-        /// 获得或设置 甘特图显示模式
+        /// 获得或设置 甘特图配置项
         /// </summary>
         [Parameter]
-        public GanttViewMode ViewMode { get; set; } = GanttViewMode.DAY;
+        public GanttOption Option { get; set; } = new GanttOption();
 
         /// <summary>
         /// 获得或设置 点击事件
@@ -56,7 +56,7 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
-                await InvokeVoidAsync("init", Id, Items, ViewMode.ToDescriptionString(), Interop);
+                await InvokeVoidAsync("init", Id, Items, Option, Interop);
             }
         }
 
@@ -110,7 +110,7 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="mode"></param>
         /// <returns></returns>
-        public async Task ChangeVieMode(GanttViewMode mode)
+        public async Task ChangeVieMode(string mode)
         {
             await InvokeVoidAsync("changeViewMode", Id, mode);
         }
