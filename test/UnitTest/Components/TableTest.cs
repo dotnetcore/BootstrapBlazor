@@ -5002,7 +5002,7 @@ public class TableTest : TableTestBase
     [Theory]
     [InlineData(InsertRowMode.First)]
     [InlineData(InsertRowMode.Last)]
-    public void OnAddAsync_IsTracking_Ok(InsertRowMode mode)
+    public async Task OnAddAsync_IsTracking_Ok(InsertRowMode mode)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -5040,14 +5040,14 @@ public class TableTest : TableTestBase
 
         // test add button
         var button = cut.FindComponent<TableToolbarButton<Foo>>();
-        cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
+        await cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
         Assert.True(added);
 
         var input = cut.Find("tbody form input");
-        cut.InvokeAsync(() => input.Change("test_name"));
+        await cut.InvokeAsync(() => input.Change("test_name"));
 
         var form = cut.Find("tbody form");
-        cut.InvokeAsync(() => form.Submit());
+        await cut.InvokeAsync(() => form.Submit());
     }
 
     [Fact]
