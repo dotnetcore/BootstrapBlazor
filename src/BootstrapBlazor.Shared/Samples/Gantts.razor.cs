@@ -54,11 +54,6 @@ public partial class Gantts
             {
                  Text = "Month",
                  Value= "Month"
-            },
-            new SegmentedOption<string>()
-            {
-                 Text = "Year",
-                 Value= "Year"
             }
         };
     }
