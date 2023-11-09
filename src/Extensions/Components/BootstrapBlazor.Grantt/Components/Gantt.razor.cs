@@ -25,7 +25,7 @@ namespace BootstrapBlazor.Components
         /// 获得或设置 甘特图显示模式
         /// </summary>
         [Parameter]
-        public GanttMode ViewMode { get; set; } = GanttMode.DAY;
+        public GanttViewMode ViewMode { get; set; } = GanttViewMode.DAY;
 
         /// <summary>
         /// 获得或设置 点击事件
@@ -110,9 +110,9 @@ namespace BootstrapBlazor.Components
         /// </summary>
         /// <param name="mode"></param>
         /// <returns></returns>
-        public async Task ChangeVieMode(GanttMode mode)
+        public async Task ChangeVieMode(GanttViewMode mode)
         {
-            await InvokeVoidAsync("changeViewMode", Id, mode.ToDescriptionString());
+            await InvokeVoidAsync("changeViewMode", Id, mode);
         }
     }
 }

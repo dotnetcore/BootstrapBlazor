@@ -14,7 +14,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
-public enum GanttMode
+public enum GanttViewMode
 {
     /// <summary>
     /// 
@@ -25,7 +25,7 @@ public enum GanttMode
     /// <summary>
     /// 
     /// </summary>
-    [Description("HALF_Day")]
+    [Description("Half Day")]
     HALF_DAY,
 
     /// <summary>
