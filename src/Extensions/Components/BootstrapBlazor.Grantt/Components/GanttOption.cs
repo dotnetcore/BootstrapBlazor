@@ -31,13 +31,13 @@ public class GanttOption
     /// <summary>
     /// 
     /// </summary>
-    public int Step { get; set; } = 30;
+    public int Step { get; set; } = 24;
 
     /// <summary>
     /// 
     /// </summary>
     [JsonPropertyName("bar_height")]
-    public int BarHeight { get; set; } = 20;
+    public int BarHeight { get; set; } = 35;
 
     /// <summary>
     /// 
@@ -54,7 +54,7 @@ public class GanttOption
     /// <summary>
     /// 
     /// </summary>
-    public int Padding { get; set; } = 18;
+    public int Padding { get; set; } = 25;
 
     /// <summary>
     /// 
