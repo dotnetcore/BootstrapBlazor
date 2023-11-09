@@ -1,9 +1,9 @@
 .file-icon {
-    --bb-icon-width: #{$icon-width};
-    --bb-icon-height: #{$icon-height};
-    --bb-icon-padding-left: #{$icon-padding-left};
-    --bb-icon-badge-bottom: #{$icon-badge-bottom};
-    --bb-icon-path-fill-color: #{$icon-path-fill-color};
+    --bb-icon-width: #{$bb-icon-width};
+    --bb-icon-height: #{$bb-icon-height};
+    --bb-icon-padding-left: #{$bb-icon-padding-left};
+    --bb-icon-badge-bottom: #{$bb-icon-badge-bottom};
+    --bb-icon-path-fill-color: #{$bb-icon-path-fill-color};
     padding-left: var(--bb-icon-padding-left);
     display: inline-block;
     position: relative;
