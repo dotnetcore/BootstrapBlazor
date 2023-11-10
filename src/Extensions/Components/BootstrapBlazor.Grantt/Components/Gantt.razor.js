@@ -3,13 +3,14 @@ import { addLink } from '../../BootstrapBlazor/modules/utility.js'
 import Data from '../../BootstrapBlazor/modules/data.js'
 
 export async function init(id, tasks, option, invoke) {
-    var el = document.getElementById(id)
-    if (el == null) {
+    const el = document.getElementById(id)
+    if (el === null) {
         return
     }
 
     await addLink("./_content/BootstrapBlazor.Gantt/css/frappe-gantt.min.css")
-    var gantt = new Gantt(`#${id}`, tasks, {
+
+    const gantt = new Gantt(el, tasks, {
         on_click: function (task) {
             task.dependencies = task.dependencies.toString()
             invoke.invokeMethodAsync("OnGanttClick", task)
@@ -28,10 +29,11 @@ export async function init(id, tasks, option, invoke) {
     Data.set(id, gantt)
 }
 
-export function changeViewMode(id, view_mode) {
+export function changeViewMode(id, mode) {
     const gantt = Data.get(id)
+
     if (gantt) {
-        gantt.change_view_mode(view_mode)
+        gantt.change_view_mode(mode)
     }
 }
 
