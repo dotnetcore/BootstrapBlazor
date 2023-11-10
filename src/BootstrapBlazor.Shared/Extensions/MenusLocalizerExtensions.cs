@@ -589,6 +589,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["Gantt"],
+                    Url = "gantt",
+                    IsNew = true
+                },
+                new()
+                {
                     Text = Localizer["Handwritten"],
                     Url = "handwritten"
                 },
