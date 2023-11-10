@@ -6011,7 +6011,9 @@
   "BootstrapBlazor.Shared.Samples.Gantts": {
     "Title": "A simple, interactive, modern web Gantt gallery with dragging, resizing, dependencies, and timescales",
     "BasicTitle": "Basic usage",
+    "BasicDesc": "Drag tasks across the timeline, resize to change duration, click to view more information",
     "ViewModeTitle": "Change the view",
+    "ViewModeDesc": "Switch view mode call <code>change_view_mode</code>",
     "AttrItems": "Data Source",
     "AttrOnClick": "The callback that is triggered when you click on a task",
     "AttrOnDataChanged": "A callback that is triggered when a task is dragged",

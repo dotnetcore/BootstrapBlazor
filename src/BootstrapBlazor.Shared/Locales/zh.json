@@ -6011,7 +6011,9 @@
   "BootstrapBlazor.Shared.Samples.Gantts": {
     "Title": "一个简单、交互式、现代的 Web 甘特图库，具有拖动、调整大小、依赖关系和时间刻度",
     "BasicTitle": "基础用法",
+    "BasicDesc": "在时间线上拖动任务，调整大小以更改持续时间，单击以查看更多信息",
     "ViewModeTitle": "改变视图",
+    "ViewModeDesc": "切换视图模式调用 <code>change_view_mode</code>",
     "AttrItems": "数据源",
     "AttrOnClick": "点击任务时触发的回调",
     "AttrOnDataChanged": "拖动任务时触发的回调",
