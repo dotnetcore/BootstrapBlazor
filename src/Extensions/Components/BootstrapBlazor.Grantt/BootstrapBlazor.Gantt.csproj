@@ -17,11 +17,4 @@
     <Using Include="Microsoft.JSInterop" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Update="logo.png">
-      <PackagePath></PackagePath>
-      <Pack>true</Pack>
-    </None>
-  </ItemGroup>
-
 </Project>
