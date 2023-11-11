@@ -147,11 +147,11 @@ $bb-captcha-bar-valid-bg: #52CCBA;
 $bb-captcha-bar-valid-mask-bg: #D2F4EF;
 
 // Card
-$card-shadow: var(--bb-shadow);
-$card-hover-shadow: var(--bb-hover-shadow);
-$card-collapse-bar-margin-right: .5rem;
-$card-header-tag-height: 21px;
-$card-title-spacer-y: 0;
+$bb-card-shadow: var(--bb-shadow);
+$bb-card-hover-shadow: var(--bb-hover-shadow);
+$bb-card-collapse-bar-margin-right: .5rem;
+$bb-card-header-tag-height: 21px;
+$bb-card-title-spacer-y: 0;
 
 // Carousel
 $bb-carousel-slide-margin: 0 .5rem;
