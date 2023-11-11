@@ -11,8 +11,8 @@ $bb-hover-shadow: 0 1px 7px 0 #0000000d, 0 2px 8px 0 #00000012, 0 3px 9px 0 #000
 $bb-font-size: 0.875rem;
 
 // Alert
-$alert-bar-width: 4px !default;
-$alert-icon-margin-right: .5rem !default;
+$bb-alert-bar-width: 4px !default;
+$bb-alert-icon-margin-right: .5rem !default;
 
 // AnchorLink
 $bb-anchor-link-margin-left: .5rem;
@@ -21,11 +21,11 @@ $bb-anchor-link-opacity-hover: 1;
 $bb-anchor-link-opacity-transition: opacity .3s linear;
 
 // AutoComplete
-$ac-padding-right: 30px;
-$ac-menu-top: 40px;
-$ac-menu-left: 0;
-$ac-menu-right: 0;
-$ac-menu-shadow: 0 2px 8px rgba(0, 0, 0, 0.176);
+$bb-ac-padding-right: 30px;
+$bb-ac-menu-top: 40px;
+$bb-ac-menu-left: 0;
+$bb-ac-menu-right: 0;
+$bb-ac-menu-shadow: 0 2px 8px rgba(0, 0, 0, 0.176);
 
 // Avatar
 $bb-avatar-width: 50px;
@@ -36,7 +36,7 @@ $bb-avatar-color: #fff;
 $bb-avatar-icon-font-size: 1.4rem;
 
 // Badge
-$bs-badge-color: #212529;
+$bb-badge-color: #212529;
 
 // Button
 $bs-btn-font-size: .875rem;
@@ -57,46 +57,46 @@ $bb-button-circle-width: 45px;
 $bb-button-circle-height: 45px;
 
 // Button DialogButton
-$dial-list-zindex: 5;
-$dial-item-padding: 0.25rem 1rem;
-$dial-item-bg: #fff;
-$dial-item-hover-bg: #e9ecef;
-$dial-item-hover-color: var(--bs-body-color);
-$dial-item-hover-border-color: #c0c4cc;
-$dial-item-border: 1px solid #dee2e6;
-$dial-item-margin: 6px;
-$dial-item-width: 40px;
-$dial-item-height: 40px;
-$dial-item-radius: 50%;
-$dial-item-shadow: 0 1px 6px #c0c4cc;
-$dial-list-radial-offset: 8px;
+$bb-dial-list-zindex: 5;
+$bb-dial-item-padding: 0.25rem 1rem;
+$bb-dial-item-bg: #fff;
+$bb-dial-item-hover-bg: #e9ecef;
+$bb-dial-item-hover-color: var(--bs-body-color);
+$bb-dial-item-hover-border-color: #c0c4cc;
+$bb-dial-item-border: 1px solid #dee2e6;
+$bb-dial-item-margin: 6px;
+$bb-dial-item-width: 40px;
+$bb-dial-item-height: 40px;
+$bb-dial-item-radius: 50%;
+$bb-dial-item-shadow: 0 1px 6px #c0c4cc;
+$bb-dial-list-radial-offset: 8px;
 
 // Button PopConfirmButtonContent
-$popover-min-width: 240px;
-$popover-buttons-justify-content: flex-end;
-$popover-buttons-margin-left: 0.5rem;
-$popover-buttons-padding: 0.25rem 1rem;
-$popover-body-span-margin-left: 0.25rem;
+$bb-popover-min-width: 240px;
+$bb-popover-buttons-justify-content: flex-end;
+$bb-popover-buttons-margin-left: 0.5rem;
+$bb-popover-buttons-padding: 0.25rem 1rem;
+$bb-popover-body-span-margin-left: 0.25rem;
 
 // Button PlusButton
-$border-width: 3px;
+$bb-plus-button-border-width: 3px;
 
 // Button SlideButton
-$slide-list-bg: #fff;
-$slide-list-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
-$slide-list-border: var(--bs-border-width) solid var(--bs-border-color-translucent);
-$slide-list-width: 260px;
-$slide-list-height: 306px;
-$slide-item-header-bg: var(--bs-primary);
-$slide-item-header-color: #fff;
-$slide-item-header-padding: 0.75rem 1rem;
-$slide-item-header-border-radius: 5px 5px 0 0;
-$slide-item-body-padding: .25rem 0;
-$slide-item-padding: 0.25rem 1rem;
-$slide-item-active-bg: #0d6efd;
-$slide-item-active-color: #fff;
-$slide-item-hover-bg: var(--bs-tertiary-bg);
-$slide-item-hover-color: var(--bs-body-color);
+$bb-slide-list-bg: #fff;
+$bb-slide-list-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+$bb-slide-list-border: var(--bs-border-width) solid var(--bs-border-color-translucent);
+$bb-slide-list-width: 260px;
+$bb-slide-list-height: 306px;
+$bb-slide-item-header-bg: var(--bs-primary);
+$bb-slide-item-header-color: #fff;
+$bb-slide-item-header-padding: 0.75rem 1rem;
+$bb-slide-item-header-border-radius: 5px 5px 0 0;
+$bb-slide-item-body-padding: .25rem 0;
+$bb-slide-item-padding: 0.25rem 1rem;
+$bb-slide-item-active-bg: #0d6efd;
+$bb-slide-item-active-color: #fff;
+$bb-slide-item-hover-bg: var(--bs-tertiary-bg);
+$bb-slide-item-hover-color: var(--bs-body-color);
 
 // Calendar
 $bb-calendar-padding: 12px 20px;
@@ -147,11 +147,11 @@ $bb-captcha-bar-valid-bg: #52CCBA;
 $bb-captcha-bar-valid-mask-bg: #D2F4EF;
 
 // Card
-$card-shadow: var(--bb-shadow);
-$card-hover-shadow: var(--bb-hover-shadow);
-$card-collapse-bar-margin-right: .5rem;
-$card-header-tag-height: 21px;
-$card-title-spacer-y: 0;
+$bb-card-shadow: var(--bb-shadow);
+$bb-card-hover-shadow: var(--bb-hover-shadow);
+$bb-card-collapse-bar-margin-right: .5rem;
+$bb-card-header-tag-height: 21px;
+$bb-card-title-spacer-y: 0;
 
 // Carousel
 $bb-carousel-slide-margin: 0 .5rem;
@@ -165,29 +165,30 @@ $bb-carousel-slide-color: #fff;
 $bb-carousel-target-bg: #606266;
 
 // CheckBox
-$checkbox-label-padding-y: 6px;
-$checkbox-height: 1rem;
-$checkbox-sm-height: 1.25rem;
-$checkbox-md-height: 1.5rem;
-$checkbox-lg-height: 1.75rem;
-$checkbox-xl-height: 2rem;
-$checkbox-xxl-height: var(--bb-height);
-$checkbox-input-focus-border-color: #b5b5c3;
-$checkbox-item-disabled-opacity: 0.5;
-$checkbox-item-padding-md: 4px 0 3px 0;
-$checkbox-item-padding-lg: 2px 0 1px 0;
-$checkbox-item-padding-xl: 2px 0 1px 0;
+$bb-checkbox-label-padding-y: 6px;
+$bb-checkbox-height: 1rem;
+$bb-checkbox-sm-height: 1.25rem;
+$bb-checkbox-md-height: 1.5rem;
+$bb-checkbox-lg-height: 1.75rem;
+$bb-checkbox-xl-height: 2rem;
+$bb-checkbox-xxl-height: var(--bb-height);
+$bb-checkbox-input-focus-border-color: #b5b5c3;
+$bb-checkbox-item-disabled-opacity: 0.5;
+$bb-checkbox-item-padding-md: 4px 0 3px 0;
+$bb-checkbox-item-padding-lg: 2px 0 1px 0;
+$bb-checkbox-item-padding-xl: 2px 0 1px 0;
 
 // CheckBoxList
-$checkbox-item-width: 220px;
+$bb-checkbox-item-width: 220px;
 
 // Collapse
-$accordion-btn-focus-box-shadow: none;
-$accordion-btn-hover-bg: var(--bs-secondary);
+$bb-accordion-btn-focus-box-shadow: none;
+$bb-accordion-btn-hover-bg: var(--bs-secondary);
 
 // Console
-$card-color: #fff;
-$console-body-bg: #174482;
+$bb-console-color: #fff;
+$bb-console-body-bg: #174482;
+$bb-console-clear-button-margin-left: .5rem;
 
 @mixin color_409eff {
     color: #409eff
@@ -221,10 +222,10 @@ $form-control-padding: 6px 33px;
 $dt-range-bar-color: #b5b5c3;
 
 // Divider
-$divider-bg: #dcdfe6;
-$divider-margin: 1rem 0;
-$divider-text-color: #303133;
-$divider-text-padding: 0 20px;
+$bb-divider-bg: #dcdfe6;
+$bb-divider-margin: 1rem 0;
+$bb-divider-text-color: #303133;
+$bb-divider-text-padding: 0 20px;
 
 // Drawer
 $bb-drawer-zindex: 1050;
@@ -262,22 +263,22 @@ $bb-filter-item-btn-hover-border-color: #409eff;
 $bb-filter-row-input-min-width: 50px;
 
 // Footer
-$footer-bg: var(--bs-secondary);
-$footer-padding: .5rem 1rem;
+$bb-footer-bg: var(--bs-secondary);
+$bb-footer-padding: .5rem 1rem;
 
 // Step
-$step-border-width: 2px;
-$step-border: var(--step-border-width) solid;
-$step-item-color: var(--bs-secondary);
-$step-item-header-height: 36px;
-$step-item-text-height: 24px;
-$step-item-text-width: 24px;
-$step-item-line-height: 2px;
-$step-item-line-bg: var(--bs-secondary);
-$step-item-line-transition: width .3s ease-in-out;
-$step-item-line-vertical-transition: height .3s ease-in-out;
-$step-item-line-width: 0;
-$step-item-line-progress-bg: var(--bs-success);
-$step-vertical-min-height: 460px;
+$bb-step-border-width: 2px;
+$bb-step-border: var(--step-border-width) solid;
+$bb-step-item-color: var(--bs-secondary);
+$bb-step-item-header-height: 36px;
+$bb-step-item-text-height: 24px;
+$bb-step-item-text-width: 24px;
+$bb-step-item-line-height: 2px;
+$bb-step-item-line-bg: var(--bs-secondary);
+$bb-step-item-line-transition: width .3s ease-in-out;
+$bb-step-item-line-vertical-transition: height .3s ease-in-out;
+$bb-step-item-line-width: 0;
+$bb-step-item-line-progress-bg: var(--bs-success);
+$bb-step-vertical-min-height: 460px;
 
 @import "./components.scss";

@@ -1,5 +1,5 @@
-﻿.checkbox-list {
-    --bb-checkbox-item-width: #{$checkbox-item-width};
+.checkbox-list {
+    --bb-checkbox-item-width: #{$bb-checkbox-item-width};
     min-height: var(--bb-height);
     height: auto;
     display: flex;

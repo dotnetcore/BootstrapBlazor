@@ -1,9 +1,9 @@
 .card {
-    --bb-card-shadow: #{$card-shadow};
-    --bb-card-hover-shadow: #{$card-hover-shadow};
-    --bb-card-collapse-bar-margin-right: #{$card-collapse-bar-margin-right};
-    --bb-card-header-tag-height: #{$card-header-tag-height};
-    --bs-card-title-spacer-y: #{$card-title-spacer-y};
+    --bb-card-shadow: #{$bb-card-shadow};
+    --bb-card-hover-shadow: #{$bb-card-hover-shadow};
+    --bb-card-collapse-bar-margin-right: #{$bb-card-collapse-bar-margin-right};
+    --bb-card-header-tag-height: #{$bb-card-header-tag-height};
+    --bs-card-title-spacer-y: #{$bb-card-title-spacer-y};
 }
 
 .card-header {

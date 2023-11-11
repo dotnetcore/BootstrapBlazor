@@ -1,8 +1,8 @@
 .divider {
-    --bb-divider-bg: #{$divider-bg};
-    --bb-divider-margin: #{$divider-margin};
-    --bb-divider-text-color: #{$divider-text-color};
-    --bb-divider-text-padding: #{$divider-text-padding};
+    --bb-divider-bg: #{$bb-divider-bg};
+    --bb-divider-margin: #{$bb-divider-margin};
+    --bb-divider-text-color: #{$bb-divider-text-color};
+    --bb-divider-text-padding: #{$bb-divider-text-padding};
     background-color: var(--bs-body-bg);
     margin: var(--bb-divider-margin);
     position: relative;
