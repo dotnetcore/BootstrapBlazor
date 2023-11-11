@@ -1,6 +1,7 @@
 .console {
-    --bs-card-color: #{$card-color};
-    --bb-console-body-bg: #{$console-body-bg};
+    --bs-card-color: #{$bb-console-color};
+    --bb-console-body-bg: #{$bb-console-body-bg};
+    --bb-console-clear-button-margin-left: #{$bb-console-clear-button-margin-left};
 
     .card-body {
         background-color: var(--bb-console-body-bg);
@@ -13,7 +14,7 @@
         justify-content: end;
 
         .console-clear {
-            margin-left: .5rem;
+            margin-left: var(--bb-console-clear-button-margin-left);
         }
     }
 }

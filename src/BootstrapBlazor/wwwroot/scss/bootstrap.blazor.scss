@@ -186,8 +186,9 @@ $bb-accordion-btn-focus-box-shadow: none;
 $bb-accordion-btn-hover-bg: var(--bs-secondary);
 
 // Console
-$card-color: #fff;
-$console-body-bg: #174482;
+$bb-console-color: #fff;
+$bb-console-body-bg: #174482;
+$bb-console-clear-button-margin-left: .5rem;
 
 @mixin color_409eff {
     color: #409eff
