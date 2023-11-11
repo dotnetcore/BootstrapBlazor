@@ -1,6 +1,6 @@
 .footer {
-    --bb-footer-bg: #{$footer-bg};
-    --bb-footer-padding: #{$footer-padding};
+    --bb-footer-bg: #{$bb-footer-bg};
+    --bb-footer-padding: #{$bb-footer-padding};
     background: var(--bb-footer-bg);
     color: var(--bs-body-color);
     padding: var(--bb-footer-padding);
