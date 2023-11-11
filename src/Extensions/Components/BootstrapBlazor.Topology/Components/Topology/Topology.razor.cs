@@ -60,17 +60,11 @@ public partial class Topology : IAsyncDisposable
     [Parameter]
     public bool IsCenterView { get; set; }
 
-    private string? StyleString => CssBuilder.Default("width: 100%; height: 100%;")
+    private string? StyleString => CssBuilder.Default()
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
     private CancellationTokenSource? CancelToken { get; set; }
-
-    [NotNull]
-    private IJSObjectReference? Module { get; set; }
-
-    [NotNull]
-    private DotNetObjectReference<Topology>? Interop { get; set; }
 
     private string? ClassString => CssBuilder.Default("bb-topology")
         .AddClassFromAttributes(AdditionalAttributes)
@@ -79,18 +73,8 @@ public partial class Topology : IAsyncDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            // import JavaScript
-            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Topology/Components/Topology/Topology.razor.js");
-            Interop = DotNetObjectReference.Create(this);
-            await Module.InvokeVoidAsync("init", Id, Interop, Content, nameof(PushData), IsSupportTouch, IsFitView, IsCenterView);
-        }
-    }
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Content, nameof(PushData), IsSupportTouch, IsFitView, IsCenterView);
 
     /// <summary>
     /// 开始推送数据方法
@@ -141,7 +125,7 @@ public partial class Topology : IAsyncDisposable
     {
         if (!_disposing)
         {
-            await Module.InvokeVoidAsync("update", Id, items);
+            await InvokeVoidAsync("update", Id, items);
         }
     }
 
@@ -150,30 +134,31 @@ public partial class Topology : IAsyncDisposable
     /// </summary>
     /// <param name="rate"></param>
     /// <returns></returns>
-    public ValueTask Scale(int rate = 1) => Module.InvokeVoidAsync("scale", Id, rate);
+    public Task Scale(int rate = 1) => InvokeVoidAsync("scale", Id, rate);
 
     /// <summary>
     /// 重置视图 自适应大小并且居中显示
     /// </summary>
     /// <returns></returns>
-    public ValueTask Reset() => Module.InvokeVoidAsync("reset", Id);
+    public Task Reset() => InvokeVoidAsync("reset", Id);
 
     /// <summary>
     /// 重置可视化引擎大小
     /// </summary>
     /// <returns></returns>
-    public ValueTask Resize(int? width = null, int? height = null) => Module.InvokeVoidAsync("resize", Id, width, height);
+    public Task Resize(int? width = null, int? height = null) => InvokeVoidAsync("resize", Id, width, height);
 
-    #region Dispose
     private bool _disposing;
 
     /// <summary>
     /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>
-    protected virtual async ValueTask DisposeAsync(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
         _disposing = true;
+        await base.DisposeAsync(disposing);
+
         if (disposing)
         {
             if (CancelToken != null)
@@ -182,25 +167,6 @@ public partial class Topology : IAsyncDisposable
                 CancelToken.Dispose();
                 CancelToken = null;
             }
-
-            Interop?.Dispose();
-
-            if (Module != null)
-            {
-                await Module.InvokeVoidAsync("dispose", Id);
-                await Module.DisposeAsync();
-                Module = null;
-            }
         }
     }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsync(true);
-        GC.SuppressFinalize(this);
-    }
-    #endregion
 }
