@@ -64,16 +64,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.WebAssembly
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.WebAssembly.ServerHost", "src\Wasm\BootstrapBlazor.WebAssembly.ServerHost\BootstrapBlazor.WebAssembly.ServerHost.csproj", "{FFFD2EB7-AE88-4DAD-A825-528B2CEFB4B5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{8AB9DB43-233A-4D49-99FA-FA540C2109F2}"
-	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
-		.filenesting.json = .filenesting.json
-		.gitattributes = .gitattributes
-		.gitignore = .gitignore
-		.issuetracker = .issuetracker
-		exclusion.dic = exclusion.dic
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "middleware", "middleware", "{4A7F4513-C515-40DD-A217-169E1CBB2827}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Middleware", "src\Middleware\BootstrapBlazor.Middleware\BootstrapBlazor.Middleware.csproj", "{59B49D4C-05FB-4E51-AB40-9498ADC71DD0}"
@@ -101,6 +91,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "localization", "localizatio
 		localization\de.json = localization\de.json
 		localization\es.json = localization\es.json
 		localization\pt.json = localization\pt.json
+		localization\th-TH.json = localization\th-TH.json
 		localization\zh-TW.json = localization\zh-TW.json
 	EndProjectSection
 EndProject
