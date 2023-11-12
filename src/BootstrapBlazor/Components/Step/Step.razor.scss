@@ -1,6 +1,5 @@
 .step {
     --bb-step-border-width: #{$bb-step-border-width};
-    --bb-step-border: #{$bb-step-border};
     --bb-step-item-color: #{$bb-step-item-color};
     --bb-step-item-header-height: #{$bb-step-item-header-height};
     --bb-step-item-text-height: #{$bb-step-item-text-height};
@@ -92,7 +91,7 @@
 
             .step-title {
                 border-radius: 50%;
-                border: var(--bb-step-border);
+                border: var(--bb-step-border-width) solid var(--bb-step-item-color);
                 font-weight: 700;
                 height: var(--bb-step-item-text-height);
                 width: var(--bb-step-item-text-width);
