@@ -1,11 +1,10 @@
 .bb-cm {
-    .cm-icon {
-        min-width: 14px;
-        min-height: 14px;
-        display: inline-block;
-    }
+    --bb-cm-icon-min-width: #{$bb-cm-icon-min-width};
+    --bb-cm-icon-min-height: #{$bb-cm-icon-min-height};
 
-    .dropdown-item {
-        --bs-dropdown-item-padding-x: 12px;
+    .cm-icon {
+        min-width: var(--bb-cm-icon-min-width);
+        min-height: var(--bb-cm-icon-min-height);
+        display: inline-block;
     }
 }

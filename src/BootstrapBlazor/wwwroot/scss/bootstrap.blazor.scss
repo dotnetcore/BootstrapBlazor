@@ -190,6 +190,10 @@ $bb-console-color: #fff;
 $bb-console-body-bg: #174482;
 $bb-console-clear-button-margin-left: .5rem;
 
+// ContextMenu
+$bb-cm-icon-min-width: 14px;
+$bb-cm-icon-min-height: 14px;
+
 @mixin color_409eff {
     color: #409eff
 }
