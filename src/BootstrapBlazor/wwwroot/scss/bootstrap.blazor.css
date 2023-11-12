@@ -5419,7 +5419,6 @@ body:before {
 
 .step {
   --bb-step-border-width: 2px;
-  --bb-step-border: var(--step-border-width) solid;
   --bb-step-item-color: var(--bs-secondary);
   --bb-step-item-header-height: 36px;
   --bb-step-item-text-height: 24px;
@@ -5497,7 +5496,7 @@ body:before {
 }
 .step .step-header .step-item-header .step-title {
   border-radius: 50%;
-  border: var(--bb-step-border);
+  border: var(--bb-step-border-width) solid var(--bb-step-item-color);
   font-weight: 700;
   height: var(--bb-step-item-text-height);
   width: var(--bb-step-item-text-width);
