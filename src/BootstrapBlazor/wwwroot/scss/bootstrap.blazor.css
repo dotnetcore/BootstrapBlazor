@@ -2113,6 +2113,7 @@ section > h2 {
   --bb-drawer-bar-bg: #d0d7de;
   --bb-drawer-bar-hover-color: #409eff;
   --bb-drawer-bar-drag-color: #0969da;
+  --bb-drawer-backdrop-bg: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
   right: 0;
@@ -2132,7 +2133,7 @@ section > h2 {
   top: 0;
   bottom: 0;
   z-index: 1;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--bb-drawer-backdrop-bg);
 }
 .drawer .drawer-body {
   position: absolute;
