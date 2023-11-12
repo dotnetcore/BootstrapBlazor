@@ -1329,13 +1329,14 @@ a, a:hover, a:focus {
   margin-bottom: 0.5rem;
 }
 
-.bb-cm .cm-icon {
-  min-width: 14px;
-  min-height: 14px;
-  display: inline-block;
+.bb-cm {
+  --bb-cm-icon-min-width: 14px;
+  --bb-cm-icon-min-height: 14px;
 }
-.bb-cm .dropdown-item {
-  --bs-dropdown-item-padding-x: 12px;
+.bb-cm .cm-icon {
+  min-width: var(--bb-cm-icon-min-width);
+  min-height: var(--bb-cm-icon-min-height);
+  display: inline-block;
 }
 
 .datetime-picker {
@@ -2112,6 +2113,7 @@ section > h2 {
   --bb-drawer-bar-bg: #d0d7de;
   --bb-drawer-bar-hover-color: #409eff;
   --bb-drawer-bar-drag-color: #0969da;
+  --bb-drawer-backdrop-bg: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
   right: 0;
@@ -2131,7 +2133,7 @@ section > h2 {
   top: 0;
   bottom: 0;
   z-index: 1;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--bb-drawer-backdrop-bg);
 }
 .drawer .drawer-body {
   position: absolute;
