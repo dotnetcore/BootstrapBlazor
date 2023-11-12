@@ -438,7 +438,7 @@ public partial class ValidateForm
                 _tcs = new();
                 // 自定义验证组件
                 await validator.ValidatePropertyAsync(propertyValue, context, messages);
-                _tcs.SetResult(!messages.Any());
+                _tcs.TrySetResult(!messages.Any());
             }
         }
 
