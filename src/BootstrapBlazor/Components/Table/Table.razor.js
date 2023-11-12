@@ -265,8 +265,9 @@ const setResizeListener = table => {
             () => {
                 eff(col, false)
                 if (table.callbacks.resizeColumnCallback) {
-                    const width = getWidth(col.parentNode);
-                    let currentIndex = [...table.tables[0].querySelectorAll('thead > tr > th')].filter(i => i.draggable).indexOf(col)
+                    const th = col.closest('th')
+                    const width = getWidth(th);
+                    const currentIndex = [...table.tables[0].querySelectorAll('thead > tr > th > .col-resizer')].indexOf(col)
                     table.invoke.invokeMethodAsync(table.callbacks.resizeColumnCallback, currentIndex, width)
                 }
             }
