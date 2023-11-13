@@ -271,6 +271,16 @@ $bb-filter-row-input-min-width: 50px;
 $bb-footer-bg: var(--bs-secondary);
 $bb-footer-padding: .5rem 1rem;
 
+// GoTop
+$bb-gotop-bg: rgba(255,255,255,.5);
+$bb-gotop-widht: 20px;
+$bb-gotop-height: 20px;
+$bb-gotop-border-radius: 50%;
+$bb-gotop-margin-right: .5rem;
+$bb-gotop-color: var(--bs-body-color);
+$bb-gotop-hover-bg: #fff;
+$bb-gotop-hover-color: #606266;
+
 // Step
 $bb-step-border-width: 2px;
 $bb-step-item-color: var(--bs-secondary);
