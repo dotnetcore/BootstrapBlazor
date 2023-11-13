@@ -14,7 +14,9 @@ const selectCell = (el, index) => {
     }
     const c = el.querySelectorAll(".ipv4-cell")[index]
     c.focus()
-    c.select()
+    if (c.value === '0') {
+        c.select()
+    }
 }
 
 // function for text input cell
@@ -54,7 +56,7 @@ export function init(id) {
                 ip.prevValues[index] = c.value
             }
             else if (e.keyCode === 37 || e.keyCode === 39) {
-                // left key ,right key
+                // left key, right key
                 if (e.keyCode === 37 && getCursorPosition(c) === 0) {
                     selectCell(el, index - 1)
                     e.preventDefault()
@@ -94,12 +96,6 @@ export function init(id) {
             }
             if (e.key === '.') {
                 selectCell(el, index + 1)
-            }
-            if (e.key === 'ArrowRight') {
-                selectCell(el, index + 1)
-            }
-            if (e.key === 'ArrowLeft') {
-                selectCell(el, index - 1)
             }
         })
     })
