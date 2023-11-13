@@ -2373,10 +2373,7 @@ section > h2 {
   text-align: center;
 }
 
-:fullscreen {
-  background-color: #fff;
-}
-.fs-on,
+.fs-on .fs-off,
 .fs-open .fs-off {
   display: none;
 }
