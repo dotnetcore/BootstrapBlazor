@@ -18,6 +18,8 @@
     --bb-table-copy-column-margin-right: .5rem;
     --bb-table-column-fixed-border-color: #dee2e6;
     --bb-loader-bg: #f8f9fa;
+    --bb-table-column-resizer-color: #ddd;
+    --bb-table-column-resizer-hover-color: #ddd;
     position: relative;
     height: 100%;
 }
@@ -582,6 +584,12 @@ tr.active:not(.is-edit):hover {
     right: 0;
     bottom: 0;
     cursor: col-resize;
+    border-right: 1px solid var(--bb-table-column-resizer-color);
+    transition: background-color .3s linear;
+
+    &:hover {
+        background-color: var(--bb-table-column-resizer-hover-color);
+    }
 }
 
 .table-resize .border-resize {
