@@ -515,8 +515,19 @@ export function reset(id) {
 
 export function resetColumn(id) {
     const table = Data.get(id)
-    setResizeListener(table)
-    resetTableWidth(table)
+    if (table) {
+        setResizeListener(table)
+        resetTableWidth(table)
+    }
+}
+
+export function bindResizeColumn(id) {
+    const table = Data.get(id)
+    if (table) {
+        if (table.isResizeColumn) {
+            setResizeListener(table)
+        }
+    }
 }
 
 export function sort(id) {

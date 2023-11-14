@@ -968,6 +968,9 @@ public partial class Table<TItem>
             InternalResetVisibleColumns(Columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.Visible)));
 
             QueryDynamicItems(DynamicContext);
+
+            // 重新绑定列拖拽
+            _bindResizeColumn = true;
         }
     }
 

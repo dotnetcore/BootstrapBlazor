@@ -715,6 +715,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// </summary>
     protected CancellationTokenSource? AutoRefreshCancelTokenSource { get; set; }
 
+    private bool _bindResizeColumn;
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
@@ -798,6 +800,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             _resetColumns = false;
             await InvokeVoidAsync("resetColumn", Id);
+        }
+
+        if (_bindResizeColumn)
+        {
+            _bindResizeColumn = false;
+            await InvokeVoidAsync("bindResizeColumn", Id);
         }
 
         if (UpdateSortTooltip)
