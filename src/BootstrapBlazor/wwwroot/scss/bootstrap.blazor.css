@@ -2408,19 +2408,25 @@ section > h2 {
 }
 
 .groupbox {
-  border: 1px solid #ddd;
-  padding: 1.5rem 1rem 1rem 1rem;
+  --bb-groupbox-padding: 1.5rem 1rem 1rem 1rem;
+  --bb-groupbox-margin-top: 0.5rem;
+  --bb-groupbox-legend-padding: 0 0.5rem;
+  --bb-groupbox-legend-left: 1rem;
+  --bb-groupbox-legend-top: -10px;
+  border: 1px solid var(--bs-border-color);
+  padding: var(--bb-groupbox-padding);
   border-radius: var(--bs-border-radius);
   position: relative;
-  margin-top: 0.5rem;
+  margin-top: var(--bb-groupbox-margin-top);
 }
 .groupbox .legend {
+  background-color: var(--bs-body-bg);
+  padding: var(--bb-groupbox-legend-padding);
   position: absolute;
-  top: -10px;
-  left: 30px;
-  background-color: #fff;
-  padding: 0 0.5rem;
+  left: var(--bb-groupbox-legend-left);
+  top: var(--bb-groupbox-legend-top);
 }
+
 .form-body > .groupbox:not(:last-child) {
   margin-bottom: 1rem;
   margin-top: 0;
