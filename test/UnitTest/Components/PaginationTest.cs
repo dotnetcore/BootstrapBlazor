@@ -78,7 +78,7 @@ public class PaginationTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void GotoNavigator_Ok()
+    public async Task GotoNavigator_Ok()
     {
         var index = 0;
         var cut = Context.RenderComponent<Pagination>(pb =>
@@ -94,7 +94,7 @@ public class PaginationTest : BootstrapBlazorTestBase
 
         var navigator = cut.FindComponent<GotoNavigator>();
         var input = navigator.Find("input");
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             input.Change("5");
             input.KeyUp("Enter");
