@@ -51,9 +51,14 @@ export function init(id) {
 
     el.querySelectorAll(".ipv4-cell").forEach((c, index) => {
         EventHandler.on(c, 'keydown', e => {
-            if (e.keyCode >= 48 && e.keyCode <= 57 || e.keyCode >= 96 && e.keyCode <= 105) {
+            if (e.keyCode >= 48 && e.keyCode <= 57) {
                 // numbers, backup last status
                 ip.prevValues[index] = c.value
+
+                const num = Number(c.value + e.key)
+                if (num > 255) {
+                    e.preventDefault()
+                }
             }
             else if (e.keyCode === 37 || e.keyCode === 39) {
                 // left key, right key
