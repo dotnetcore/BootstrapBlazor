@@ -9,5 +9,5 @@ namespace BootstrapBlazor.Shared.Samples;
 /// </summary>
 public partial class Ips
 {
-    private string? Value { get; set; }
+    private string? Value { get; set; } = "192.168.1.102";
 }
