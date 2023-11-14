@@ -195,6 +195,19 @@ const resetTableWidth = table => {
 const setResizeListener = table => {
     const eff = (col, toggle) => {
         const th = col.closest('th')
+        if (th.parentNode === null) {
+            EventHandler.off(col, 'click')
+            EventHandler.off(col, 'mousedown')
+            EventHandler.off(col, 'touchstart')
+
+            table.tables.forEach(t => {
+                const cells = t.querySelectorAll('.border-resize');
+                cells.forEach(c => c.classList.remove('border-resize'))
+            })
+
+            return
+        }
+
         if (toggle) th.classList.add('border-resize')
         else th.classList.remove('border-resize')
 
