@@ -88,14 +88,14 @@ jobs:
         dotnet pack src/Extensions/Components/BootstrapBlazor.Topology -c Release -o publish
         dotnet nuget push publish/BootstrapBlazor.Topology.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
         
-        dotnet pack src/Extensions/DataServices/BootstrapBlazor.DataAcces.PetaPoco -c Release -o publish
-        dotnet nuget push publish/BootstrapBlazor.DataAcces.PetaPoco.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
+        dotnet pack src/Extensions/DataServices/BootstrapBlazor.DataAccess.PetaPoco -c Release -o publish
+        dotnet nuget push publish/BootstrapBlazor.DataAccess.PetaPoco.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
         
-        dotnet pack src/Extensions/DataServices/BootstrapBlazor.DataAcces.EntityFrameworkCore -c Release -o publish
-        dotnet nuget push publish/BootstrapBlazor.DataAcces.EntityFrameworkCore.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
+        dotnet pack src/Extensions/DataServices/BootstrapBlazor.DataAccess.EntityFrameworkCore -c Release -o publish
+        dotnet nuget push publish/BootstrapBlazor.DataAccess.EntityFrameworkCore.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
         
-        dotnet pack src/Extensions/DataServices/BootstrapBlazor.DataAcces.FreeSql -c Release -o publish
-        dotnet nuget push publish/BootstrapBlazor.DataAcces.FreeSql.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
+        dotnet pack src/Extensions/DataServices/BootstrapBlazor.DataAccess.FreeSql -c Release -o publish
+        dotnet nuget push publish/BootstrapBlazor.DataAccess.FreeSql.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
         
         dotnet pack src/Middleware/BootstrapBlazor.Middleware -c Release -o publish
         dotnet nuget push publish/BootstrapBlazor.Middleware.*.nupkg -s https://api.nuget.org/v3/index.json -k $NUGET_API_KEY --skip-duplicate
