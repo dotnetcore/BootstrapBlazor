@@ -1,7 +1,7 @@
 # /usr/lib/systemd/system/
 
 [Unit]
-Description=Bootstrap Admin Blazor Application
+Description=Bootstrap Blazor Application
 
 [Service]
 Type=simple
