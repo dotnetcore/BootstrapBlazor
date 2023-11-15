@@ -372,3 +372,7 @@ src/**/wwwroot/**/uploader
 
 # npm
 **/package-lock.json
+
+# Sass
+src/**/wwwroot/scss/*.css
+src/**/wwwroot/css/bootstrap.blazor.bundle.min.css
