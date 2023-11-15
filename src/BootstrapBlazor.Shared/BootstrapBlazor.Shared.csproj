@@ -2,10 +2,6 @@
 
   <Import Project="..\..\Framework.props" />
 
-  <PropertyGroup>
-    <Version>7.0.5</Version>
-  </PropertyGroup>
-
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
@@ -50,7 +46,7 @@
     <PackageReference Include="BootstrapBlazor.Topology" Version="7.4.6" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="7.0.4" />
     <PackageReference Include="BootstrapBlazor.MouseFollower" Version="7.0.0" />
-    <PackageReference Include="BootstrapBlazor.WebAPI" Version="7.5.0" />
+    <PackageReference Include="BootstrapBlazor.WebAPI" Version="7.5.3" />
     <PackageReference Include="BootstrapBlazor.MindMap" Version="7.0.1" />
   </ItemGroup>
 
