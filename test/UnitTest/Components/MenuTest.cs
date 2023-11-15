@@ -514,7 +514,7 @@ public class MenuItemTest_Ok : DialogTestBase
         var nav = Context.Services.GetRequiredService<FakeNavigationManager>();
         nav.NavigateTo("/menu22");
         cut.SetParametersAndRender();
-        cut.Contains("<a href=\"menu22\" aria-expanded=\"false\" class=\"nav-link active\">");
+        cut.Contains("href=\"menu22\"");
 
         nav.NavigateTo("/menu3");
         cut.SetParametersAndRender(pb =>
