@@ -26,14 +26,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{4A52
 		scripts\windows\push.ps1 = scripts\windows\push.ps1
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dist", "dist", "{63E887C6-4610-4ED3-91F4-62EFDE7F442F}"
-	ProjectSection(SolutionItems) = preProject
-		dist\.gitattributes = dist\.gitattributes
-		dist\.nojekyll = dist\.nojekyll
-		dist\.spa = dist\.spa
-		dist\404.html = dist\404.html
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "wasm", "wasm", "{B84D315E-967D-4FBF-9B72-1F3128155CB0}"
 	ProjectSection(SolutionItems) = preProject
 		scripts\wasm\sync.cmd = scripts\wasm\sync.cmd
