@@ -86,10 +86,10 @@ internal static class ServicesExtensions
         // 增加 Pdf 导出服务
         services.AddBootstrapBlazorHtml2PdfService();
 
-        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie()
-            .AddGitee(OAuthHelper.Configure)
-            .AddGitHub(OAuthHelper.Configure);
+        //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+        //    .AddCookie()
+        //    .AddGitee(OAuthHelper.Configure)
+        //    .AddGitHub(OAuthHelper.Configure);
 
         // 增加 PetaPoco ORM 数据服务操作类
         // 需要时打开下面代码
