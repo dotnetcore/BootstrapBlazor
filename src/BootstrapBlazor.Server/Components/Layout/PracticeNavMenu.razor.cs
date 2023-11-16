@@ -6,7 +6,7 @@ using BootstrapBlazor.Shared.Services;
 using Microsoft.AspNetCore.Components.Web;
 using System.Text;
 
-namespace BootstrapBlazor.Shared.Shared;
+namespace BootstrapBlazor.Server.Components.Layout;
 
 /// <summary>
 /// 实战栏目侧边菜单

@@ -4,7 +4,7 @@
 
 using static BootstrapBlazor.Components.MindMapNode;
 
-namespace BootstrapBlazor.Shared.Samples;
+namespace BootstrapBlazor.Server.Components.Samples.MindMaps;
 
 /// <summary>
 /// MindMaps

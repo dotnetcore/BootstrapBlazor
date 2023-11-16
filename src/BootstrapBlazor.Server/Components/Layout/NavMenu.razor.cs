@@ -4,7 +4,7 @@
 
 using BootstrapBlazor.Shared.Services;
 
-namespace BootstrapBlazor.Shared.Shared;
+namespace BootstrapBlazor.Server.Components.Layout;
 
 /// <summary>
 ///

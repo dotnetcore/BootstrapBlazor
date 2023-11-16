@@ -4,7 +4,7 @@
 
 using System.Collections.Concurrent;
 
-namespace BootstrapBlazor.Shared.Samples;
+namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
 /// Timelines

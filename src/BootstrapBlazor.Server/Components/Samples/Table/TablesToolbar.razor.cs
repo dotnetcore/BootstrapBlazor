@@ -4,7 +4,7 @@
 
 using Microsoft.Extensions.Configuration;
 
-namespace BootstrapBlazor.Shared.Samples.Table;
+namespace BootstrapBlazor.Server.Components.Samples.Table;
 
 /// <summary>
 /// 工具栏示例代码

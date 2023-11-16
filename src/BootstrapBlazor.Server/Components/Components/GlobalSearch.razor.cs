@@ -5,7 +5,7 @@
 using BootstrapBlazor.Shared.Services;
 using Microsoft.Extensions.Options;
 
-namespace BootstrapBlazor.Shared.Components;
+namespace BootstrapBlazor.Server.Components;
 
 /// <summary>
 /// Pre 组件

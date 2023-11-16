@@ -6,7 +6,7 @@ using BootstrapBlazor.Shared.Extensions;
 using Microsoft.Extensions.Options;
 using Microsoft.JSInterop;
 
-namespace BootstrapBlazor.Shared.Shared;
+namespace BootstrapBlazor.Server.Components.Layout;
 
 /// <summary>
 /// 母版页基类

@@ -4,7 +4,7 @@
 
 using Microsoft.Extensions.Options;
 
-namespace BootstrapBlazor.Shared.Pages;
+namespace BootstrapBlazor.Server.Components.Pages;
 
 /// <summary>
 /// Index 组件

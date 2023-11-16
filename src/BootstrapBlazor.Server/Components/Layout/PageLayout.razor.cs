@@ -4,7 +4,7 @@
 
 using Microsoft.JSInterop;
 
-namespace BootstrapBlazor.Shared.Shared;
+namespace BootstrapBlazor.Server.Components.Layout;
 
 /// <summary>
 /// 

@@ -4,7 +4,7 @@
 
 using Microsoft.AspNetCore.Components.Routing;
 
-namespace BootstrapBlazor.Shared.Samples;
+namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
 /// navigation

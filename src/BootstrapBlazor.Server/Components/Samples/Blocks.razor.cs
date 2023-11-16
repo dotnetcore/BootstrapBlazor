@@ -5,7 +5,7 @@
 using BootstrapBlazor.Shared.Services;
 using Microsoft.AspNetCore.Components.Authorization;
 
-namespace BootstrapBlazor.Shared.Samples;
+namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
 /// 

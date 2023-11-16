@@ -5,7 +5,7 @@
 using BootstrapBlazor.Shared.Services;
 using Microsoft.JSInterop;
 
-namespace BootstrapBlazor.Shared.Samples.Charts;
+namespace BootstrapBlazor.Server.Components.Samples.Charts;
 
 /// <summary>
 /// Line 图表示例

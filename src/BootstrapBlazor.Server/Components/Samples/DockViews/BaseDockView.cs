@@ -4,7 +4,7 @@
 
 using BootstrapBlazor.Shared.Services;
 
-namespace BootstrapBlazor.Shared.Samples.DockViews;
+namespace BootstrapBlazor.Server.Components.Samples.DockViews;
 
 /// <summary>
 /// 

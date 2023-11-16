@@ -5,7 +5,7 @@
 using BootstrapBlazor.Shared.Services;
 using System.Text.RegularExpressions;
 
-namespace BootstrapBlazor.Shared.Components;
+namespace BootstrapBlazor.Server.Components;
 
 /// <summary>
 /// Pre 组件

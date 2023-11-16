@@ -5,7 +5,7 @@
 using BootstrapBlazor.Shared.Shared;
 using Microsoft.Extensions.Options;
 
-namespace BootstrapBlazor.Shared.Components;
+namespace BootstrapBlazor.Server.Components;
 
 /// <summary>
 /// Header 组件

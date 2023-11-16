@@ -4,7 +4,7 @@
 
 using BootstrapBlazor.Shared.Services;
 
-namespace BootstrapBlazor.Shared.Samples.Practices;
+namespace BootstrapBlazor.Server.Components.Samples.Practices;
 
 /// <summary>
 /// Dashboard 组件
