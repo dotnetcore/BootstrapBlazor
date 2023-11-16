@@ -1,6 +1,6 @@
 ﻿{
   "SourceFolder": "wwwroot/scss/theme",
-  "TargetFolder": "wwwroot/css",
+  "TargetFolder": "wwwroot/scss/theme",
   "Arguments": "--style=compressed",
   "GenerateScopedCss": false,
   "IncludePaths": [],
