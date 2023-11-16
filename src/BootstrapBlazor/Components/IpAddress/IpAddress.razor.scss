@@ -1,15 +1,16 @@
 .ipaddress {
+    --bb-ip-cell-max-width: #{$bb-ip-cell-max-width};
     display: flex;
     flex-wrap: nowrap;
 
     &.disabled {
-        background-color: #efefef;
+        background-color: var(--bb-disabled-bg);
         cursor: not-allowed;
     }
 
     .ipv4-cell {
         border: none;
-        max-width: 30px;
+        max-width: var(--bb-ip-cell-max-width);
         text-align: right;
     }
 }
