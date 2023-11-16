@@ -2451,11 +2451,9 @@ section > h2 {
   width: 100%;
 }
 
-.is-img-preview {
-  overflow: hidden;
-}
-
 .bb-previewer {
+  --bb-viewer-button-bg: #606266;
+  --bb-viewer-border-radius: 50%;
   position: fixed;
   top: 0;
   right: 0;
@@ -2482,8 +2480,8 @@ section > h2 {
 .bb-previewer .bb-viewer-btn {
   position: absolute;
   cursor: pointer;
-  border-radius: 50%;
-  background-color: #606266;
+  border-radius: var(--bb-viewer-border-radius);
+  background-color: var(--bb-viewer-button-bg);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -2512,7 +2510,6 @@ section > h2 {
 .bb-previewer .bb-viewer-btn.bb-viewer-close {
   top: 40px;
   right: 40px;
-  background-color: #606266;
   transition: all 0.3s linear;
 }
 .bb-previewer .bb-viewer-btn.bb-viewer-close > span {
@@ -2527,7 +2524,6 @@ section > h2 {
   width: 282px;
   height: 44px;
   padding: 0 23px;
-  background-color: #606266;
   border-color: #fff;
   border-radius: 22px;
   cursor: default;
@@ -2567,6 +2563,10 @@ section > h2 {
   transition: none !important;
 }
 
+.is-img-preview {
+  overflow: hidden;
+}
+
 .bb-img {
   position: relative;
 }
@@ -2577,6 +2577,7 @@ section > h2 {
 .bb-img.bb-img.is-preview > img {
   cursor: pointer;
 }
+
 .bb-img-holder {
   background-color: var(--bs-secondary);
   position: absolute;
@@ -2673,16 +2674,17 @@ section > h2 {
 }
 
 .ipaddress {
+  --bb-ip-cell-max-width: 30px;
   display: flex;
   flex-wrap: nowrap;
 }
 .ipaddress.disabled {
-  background-color: #efefef;
+  background-color: var(--bb-disabled-bg);
   cursor: not-allowed;
 }
 .ipaddress .ipv4-cell {
   border: none;
-  max-width: 30px;
+  max-width: var(--bb-ip-cell-max-width);
   text-align: right;
 }
 
