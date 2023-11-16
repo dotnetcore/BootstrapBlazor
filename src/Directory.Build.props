@@ -12,6 +12,7 @@
 
   <PropertyGroup>
     <NoWarn>NETSDK1138</NoWarn>
+    <NoWarn>CS8002</NoWarn>
   </PropertyGroup>
 
 </Project>

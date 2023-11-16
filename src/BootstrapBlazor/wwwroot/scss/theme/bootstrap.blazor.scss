@@ -288,6 +288,13 @@ $bb-groupbox-legend-padding: 0 .5rem;
 $bb-groupbox-legend-left: 1rem;
 $bb-groupbox-legend-top: -10px;
 
+// ImagePreivewer
+$bb-viewer-button-bg: #606266;
+$bb-viewer-border-radius: 50%;
+
+// Ip Address
+$bb-ip-cell-max-width: 30px;
+
 // Step
 $bb-step-border-width: 2px;
 $bb-step-item-color: var(--bs-secondary);
@@ -302,4 +309,4 @@ $bb-step-item-line-width: 0;
 $bb-step-item-line-progress-bg: var(--bs-success);
 $bb-step-vertical-min-height: 460px;
 
-@import "./components.scss";
+@import "../components.scss";
