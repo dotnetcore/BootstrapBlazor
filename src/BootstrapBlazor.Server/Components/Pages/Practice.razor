@@ -1,0 +1,10 @@
+﻿@layout PracticeLayout
+@page "/practice"
+@inject IStringLocalizer<Practice> Localizer
+
+<ComponentCategory Text="@Localizer["CategoryTitle"]">
+    <ComponentCard Text="@Localizer["DashboardSummary"]" Image="practices/dashboard.png" Url="practice/dashboard"></ComponentCard>
+    <ComponentCard Text="@Localizer["LoginSummary"]" Image="practices/login.png" Url="praclogin"></ComponentCard>
+    <ComponentCard Text="@Localizer["WaterfallSummary"]" Image="practices/waterfall.png" Url="practice/waterfall"></ComponentCard>
+</ComponentCategory>
+

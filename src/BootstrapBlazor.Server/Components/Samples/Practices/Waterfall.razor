@@ -1,0 +1,23 @@
+﻿@page "/practice/waterfall"
+
+<div class="waterfall-box">
+    @if (_showload)
+    {
+        <div class="loading-box">
+            <div class="loading d-flex align-items-center justify-content-center">
+                <Spinner Size="Size.ExtraExtraLarge" />
+            </div>
+        </div>
+    }
+
+    <div id="@id" class="container-fluid waterfall" @onscroll="@OnScroll">
+        <div class="row">
+            <div class="card-columns">
+                @foreach (var item in ImageList)
+                {
+                    <ImageViewer class="card-img" Url="@item" PreviewList="@(new List<string>(){item})" ShowPlaceHolder="true" />
+                }
+            </div>
+        </div>
+    </div>
+</div>

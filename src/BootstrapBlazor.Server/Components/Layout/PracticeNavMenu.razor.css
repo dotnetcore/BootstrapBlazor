@@ -1,0 +1,43 @@
+﻿.switchs {
+    display: flex;
+    border-bottom: solid 1px #c0c4cc;
+    justify-content: center;
+    align-items: center;
+}
+
+    .switchs ::deep .form-label {
+        margin: 0 0.5rem 0 0;
+    }
+
+    .switchs ::deep .switch {
+        width: auto;
+    }
+
+.navbar {
+    background-color: #8548ff;
+}
+
+.navbar-toggler {
+    background-color: var(--bs-indigo);
+}
+
+@media (min-width: 768px) {
+    .sidebar-content {
+        height: calc(100vh - var(--bs-header-height));
+    }
+
+        .sidebar-content.collapse {
+            display: flex;
+            flex-direction: column;
+        }
+
+    ::deep .scroll {
+        overflow-x: hidden;
+        max-height: calc(100% - 36px);
+        padding: 5px 0;
+    }
+
+        ::deep .scroll .menu {
+            width: var(--bb-sidebar-width);
+        }
+}

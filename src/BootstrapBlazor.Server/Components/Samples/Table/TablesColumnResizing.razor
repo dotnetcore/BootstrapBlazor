@@ -1,0 +1,60 @@
+﻿@page "/table/column/resizing"
+@inject IStringLocalizer<TablesColumnResizing> Localizer
+@inject IStringLocalizer<Foo> FooLocalizer
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject ToastService ToastService
+
+<h3>@Localizer["TablesColumnTitle"]</h3>
+
+<h4>@Localizer["TablesColumnDescription"]</h4>
+
+<DemoBlock Title="@Localizer["WidthTitle"]"
+           Introduction="@Localizer["WidthIntro"]"
+           Name="Width">
+    <p>@((MarkupString)Localizer["WidthP1"].Value)</p>
+    <p>@((MarkupString)Localizer["WidthP2"].Value)</p>
+    <p>@((MarkupString)Localizer["WidthP3"].Value)</p>
+    <Table TItem="Foo" @ref="TableRows"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="true" ShowDefaultButtons="false" ShowSearch="false" IsMultipleSelect="true"
+           ShowExtendButtons="true" ExtendButtonColumnWidth="240"
+           OnQueryAsync="@OnQueryAsync">
+        <TableToolbarTemplate>
+            <TableToolbarButton TItem="Foo" Icon="fa-fw fa-solid fa-pen-to-square" IsEnableWhenSelectedOneRow="true" Text="@Localizer["WidthButtonText1"]" OnClickCallback="@CustomerButton" Color="Color.Primary" />
+            <TableToolbarButton TItem="Foo" Icon="fa-fw fa-solid fa-pen-to-square" IsEnableWhenSelectedOneRow="true" Text="@Localizer["WidthButtonText2"]" OnClickCallback="@CustomerButton" Color="Color.Success" />
+            <TableToolbarButton TItem="Foo" Icon="fa-fw fa-solid fa-pen-to-square" IsEnableWhenSelectedOneRow="true" Text="@Localizer["WidthButtonText3"]" OnClickCallback="@CustomerButton" Color="Color.Warning" />
+            <TableToolbarButton TItem="Foo" Icon="fa-fw fa-solid fa-pen-to-square" IsEnableWhenSelectedOneRow="true" Text="@Localizer["WidthButtonText4"]" OnClickCallback="@CustomerButton" Color="Color.Danger" />
+        </TableToolbarTemplate>
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+        <RowButtonTemplate>
+            <TableCellButton Color="Color.Primary" Icon="fa-solid fa-pen" Text="@Localizer["WidthButtonText1"]" OnClick="@(() => OnRowButtonClick(context, Localizer["WidthButtonText1"]))" />
+            <TableCellButton Color="Color.Success" Icon="fa-solid fa-pen" Text="@Localizer["WidthButtonText2"]" OnClick="@(() => OnRowButtonClick(context, Localizer["WidthButtonText2"]))" />
+            <TableCellButton Color="Color.Warning" Icon="fa-solid fa-pen" Text="@Localizer["WidthButtonText3"]" OnClick="@(() => OnRowButtonClick(context, Localizer["WidthButtonText3"]))" />
+            <TableCellButton Color="Color.Danger" Icon="fa-solid fa-pen" Text="@Localizer["WidthButtonText4"]" OnClick="@(() => OnRowButtonClick(context, Localizer["WidthButtonText4"]))" />
+            <TableCellPopconfirmButton Color="Color.Info" Icon="fa-solid fa-pen" Text="@Localizer["WidthConfirmButtonText"]" OnConfirm="@(() => OnRowButtonClick(context, Localizer["WidthConfirmButtonText"]))" />
+        </RowButtonTemplate>
+    </Table>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["AllowResizingTitle"]"
+           Introduction="@Localizer["AllowResizingIntro"]"
+           Name="AllowResizing">
+    <p class="mb-3">@((MarkupString)Localizer["AllowResizingDesc"].Value)</p>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource" AllowResizing="true"
+           IsStriped="true" IsBordered="true" RenderMode="TableRenderMode.Table"
+           ShowToolbar="false" IsMultipleSelect="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
+</DemoBlock>

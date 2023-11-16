@@ -1,0 +1,11 @@
+﻿@page "/dock-view/index"
+@layout MainLayout
+@inject IStringLocalizer<Index> Localizer
+
+<h3>@Localizer["DockViewTitle"]</h3>
+
+<h4>@Localizer["DockViewDescription"]</h4>
+
+<div class="mb-2">@((MarkupString)Localizer["DockViewIntro"].Value)</div>
+
+<PackageTips Name="BootstrapBlazor.Dock" />

@@ -3,7 +3,6 @@
     "path": "BootstrapBlazor.sln",
     "projects": [
       "src\\BootstrapBlazor.Server\\BootstrapBlazor.Server.csproj",
-      "src\\BootstrapBlazor.Shared\\BootstrapBlazor.Shared.csproj",
       "src\\BootstrapBlazor\\BootstrapBlazor.csproj",
       "test\\UniTest.Sass\\UniTest.Sass.csproj",
       "test\\UnitTest\\UnitTest.csproj"
