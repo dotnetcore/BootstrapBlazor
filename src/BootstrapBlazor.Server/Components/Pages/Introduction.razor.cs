@@ -26,7 +26,7 @@ public partial class Introduction
     private IStringLocalizer<Introduction>? Localizer { get; set; }
 
     [NotNull]
-    private string[]? LocalizerUrls { get; set; }
+    private string[]? LocalizerRules { get; set; }
 
     /// <summary>
     /// 
@@ -35,12 +35,12 @@ public partial class Introduction
     {
         base.OnInitialized();
 
-        LocalizerUrls = new string[]
-        {
+        LocalizerRules =
+        [
             WebsiteOption.CurrentValue.BootstrapAdminLink,
             WebsiteOption.CurrentValue.BootstrapAdminLink + "/stargazers",
             WebsiteOption.CurrentValue.BootstrapAdminLink + "/badge/star.svg?theme=gvp",
             WebsiteOption.CurrentValue.BootstrapAdminLink
-        };
+        ];
     }
 }

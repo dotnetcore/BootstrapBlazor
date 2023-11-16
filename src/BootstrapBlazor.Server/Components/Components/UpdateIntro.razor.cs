@@ -5,7 +5,7 @@
 using BootstrapBlazor.Shared.Services;
 using Microsoft.Extensions.Options;
 
-namespace BootstrapBlazor.Server.Components;
+namespace BootstrapBlazor.Server.Components.Components;
 
 /// <summary>
 /// 更新日志介绍组件

@@ -4,7 +4,7 @@
 
 using System.ComponentModel;
 
-namespace BootstrapBlazor.Server.Components;
+namespace BootstrapBlazor.Server.Components.Components;
 
 /// <summary>
 /// 

@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Server.Components.Pages;
 /// </summary>
 public sealed partial class Coms
 {
-    private List<string> ComponentItems { get; } = new List<string>();
+    private List<string> ComponentItems { get; } = [];
 
     private string? SearchText { get; set; }
 

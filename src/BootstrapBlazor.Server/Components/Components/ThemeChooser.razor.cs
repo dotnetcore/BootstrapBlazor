@@ -4,7 +4,7 @@
 
 using Microsoft.Extensions.Options;
 
-namespace BootstrapBlazor.Server.Components;
+namespace BootstrapBlazor.Server.Components.Components;
 
 /// <summary>
 /// 

@@ -6,7 +6,7 @@ using BootstrapBlazor.Shared.Extensions;
 using Microsoft.Extensions.Options;
 using System.Globalization;
 
-namespace BootstrapBlazor.Server.Components;
+namespace BootstrapBlazor.Server.Components.Components;
 
 /// <summary>
 /// 
