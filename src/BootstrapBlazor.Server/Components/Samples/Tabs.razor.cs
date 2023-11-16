@@ -46,9 +46,8 @@ public sealed partial class Tabs
             [nameof(TabItem.IsActive)] = true,
             [nameof(TabItem.ChildContent)] = new RenderFragment(builder =>
             {
-                var index = 0;
-                builder.OpenElement(index++, "div");
-                builder.AddContent(index++, Localizer["BackAddTabText", text]);
+                builder.OpenElement(0, "div");
+                builder.AddContent(1, Localizer["BackAddTabText", text]);
                 builder.CloseElement();
             })
         });
@@ -138,9 +137,8 @@ public sealed partial class Tabs
             [nameof(TabItem.IsActive)] = true,
             [nameof(TabItem.ChildContent)] = new RenderFragment(builder =>
             {
-                var index = 0;
-                builder.OpenElement(index++, "div");
-                builder.AddContent(index++, Localizer["BackAddTabText", text]);
+                builder.OpenElement(0, "div");
+                builder.AddContent(1, Localizer["BackAddTabText", text]);
                 builder.CloseElement();
             })
         });

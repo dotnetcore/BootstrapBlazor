@@ -1,23 +1,23 @@
 ﻿{
-  "BootstrapBlazor.Shared.Pages.Prac": {
+  "BootstrapBlazor.Server.Components.Pages.Prac": {
     "CategoryTitle": "Bootstrap Blazor Practical Cases",
     "DashboardSummary": "Dashboard",
     "LoginSummary": "Login&Register",
     "PinteresoSummary": "Pintereso"
   },
-  "BootstrapBlazor.Shared.App": {
+  "BootstrapBlazor.Server.Components.Pages.App": {
     "Title": "Bootstrap Blazor enterprise-level UI component library",
     "Reload": "Reload",
     "ErrorMessage": "An unhandled exception has occurred. See browser dev tools for details."
   },
-  "BootstrapBlazor.Shared.Components.Pre": {
+  "BootstrapBlazor.Server.Components.Components.Pre": {
     "LoadingText": "Loading ...",
     "TooltipTitle": "Copy",
     "PlusTooltipTitle": "Plus lines",
     "MinusTooltipTitle": "Minus lines",
     "CopiedText": "Copied"
   },
-  "BootstrapBlazor.Shared.Pages.Index": {
+  "BootstrapBlazor.Server.Components.Pages.Index": {
     "BodyClassString": "welcome-body-en",
     "HeaderTitle": "Bootstrap style Blazor UI component library",
     "HeaderDesc": "Based on the <code>Bootstrap</code> style library, it is carefully built, and {0} a variety of commonly used components have been added to bring you an extraordinary feeling for rapid development projects",
@@ -58,7 +58,7 @@
     "DonateH1": "Donate",
     "DonateH2": "Scan the code to donate and invite the author to have a cup of coffee"
   },
-  "BootstrapBlazor.Shared.Shared.HomeLayout": {
+  "BootstrapBlazor.Server.Components.Layout.HomeLayout": {
     "FooterH1": "Related Works",
     "FooterLi1": "Slider verification code",
     "FriendLink": "Links",
@@ -69,7 +69,7 @@
     "SpecialAcknowledgements": "Special Thanks",
     "Footer": "Gitee Hosting Platform"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesDialog": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesDialog": {
     "TablesDialogTitle": "Table table is used in the pop-up window",
     "TablesDialogDescription": "Used in data selection with hierarchical relationship",
     "TableDialogNormalTitle": "Data linkage in the pop-up window",
@@ -82,7 +82,7 @@
     "TableDialogNormalSelectitem": "Select item",
     "TableDialogNormalSure": "Sure"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesDynamicObject": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesDynamicObject": {
     "TablesDynamicObjectTitle": "Table table",
     "TablesDynamicObjectDescription": "Use the <code>IDynamicMetaObjectProvider</code> class as a data source",
     "TablesDynamicObjectMetaObjectProviderTitle": "IDynamicMetaObjectProvider Collection",
@@ -90,7 +90,7 @@
     "TablesDynamicObjectIDynamicObjectTitle": "IDynamicObject collection",
     "TablesDynamicObjectIDynamicObjectIntro": "Use the <code>IDynamicObject</code> data collection as the data source by setting the <code>Items</code> data source"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesPages": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesPages": {
     "TablesPagesTitle": "Table",
     "TablesPagesDescription": "It is used to display multiple pieces of data with similar structure, and the data can be sorted, filtered, compared or other custom operations.",
     "TablesPagePaginationTitle": "Pagination table",
@@ -98,7 +98,7 @@
     "TablesPageShowTopPaginationTitle": "Show on top",
     "TablesPageShowTopPaginationIntro": "Set <code>ShowTopPagination</code> to <code>true</code> is the top display pagination component"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesFixedColumn": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesFixedColumn": {
     "TablesFixedColumnTitle": "Fixed column",
     "TablesFixedColumnDescription": "For data with a large number of columns, you can fix the front and rear columns and scroll horizontally to view other data",
     "TablesFixedColumnNote": "For fixed column usage, please set the fixed column width as much as possible",
@@ -112,7 +112,7 @@
     "TablesFixedHeaderAndExtendButtonsColumnTitle": "Fixed header and button action columns",
     "TablesFixedHeaderAndExtendButtonsColumnIntro": "Set <code>IsFixedHeader=\"true\"</code> to fix the header, set <code>FixedMultipleColumn</code> to fix the checkbox column, set <code>FixedExtendButtonsColumn</code> to fix the operation column"
   },
-  "BootstrapBlazor.Shared.Samples.Tooltips": {
+  "BootstrapBlazor.Server.Components.Samples.Tooltips": {
     "TooltipsTitle": "Tooltip",
     "TooltipsDescription": "Provides a tooltip after hovering over the mouse or gaining focus",
     "TooltipsNormalTitle": "Basic usage",
@@ -128,7 +128,7 @@
     "BootstrapTooltipTips1": "Wrap other components or <code>HTML</code> elements through <code>BootstrapTooltip</code> so that the wrapped object has the function of <code>Tooltip</code>",
     "BootstrapTooltipTips2": "In this example, an icon is wrapped by <code>BootstrapTooltip</code>. When the mouse moves over the icon, the default <code>Tooltip</code> is displayed, which is easier and faster to use."
   },
-  "BootstrapBlazor.Shared.Samples.Toasts": {
+  "BootstrapBlazor.Server.Components.Samples.Toasts": {
     "ToastsTitle": "Toast Lightweight Popup",
     "ToastsSubTitle": "Provides a lightweight toast popup",
     "ToastsDescriptionTitle": "Component usage introduction",
@@ -176,7 +176,7 @@
     "ToastsAttrIsHtml": "Whether the content contains Html code",
     "ToastsAttrPlacement": "Location"
   },
-  "BootstrapBlazor.Shared.Samples.Timers": {
+  "BootstrapBlazor.Server.Components.Samples.Timers": {
     "TimersTitle": "Timer",
     "TimersDescription": "For time countdown",
     "TimersNormalTitle": "Basic usage",
@@ -184,7 +184,7 @@
     "TimersColorTitle": "Color",
     "TimersColorIntro": "Set the circular progress bar color by setting the <code>Color</code> property"
   },
-  "BootstrapBlazor.Shared.Samples.SweetAlerts": {
+  "BootstrapBlazor.Server.Components.Samples.SweetAlerts": {
     "SweetAlertsTitle": "SweetAlert popup component",
     "SweetAlertsDescription": "Modal dialog box, mostly used to continue after inquiring during the action, or to display the execution result",
     "SweetAlertsTipsTitle": "Component usage introduction",
@@ -238,7 +238,7 @@
     "AttrFooterTemplate": "Modal footer display template",
     "AttrButtonTemplate": "Modal button template"
   },
-  "BootstrapBlazor.Shared.Samples.Spinners": {
+  "BootstrapBlazor.Server.Components.Samples.Spinners": {
     "SpinnersTitle": "Spinner icon",
     "SpinnersDescription": "Show animation when loading data",
     "SpinnersTipsTitle": "when to use",
@@ -261,7 +261,7 @@
     "SpinnersFloatTitle": "Spinner Floats",
     "SpinnersFloatIntro": "Use Float layout"
   },
-  "BootstrapBlazor.Shared.Samples.Splittings": {
+  "BootstrapBlazor.Server.Components.Samples.Splittings": {
     "SplittingTitle": "Loader",
     "SplittingDescription": "Display dynamic effects when loading data",
     "SplittingTipsTitle": "When to use",
@@ -277,7 +277,7 @@
     "SplittingColumnsText": "Colunms",
     "SplittingText": "Loading 。。。"
   },
-  "BootstrapBlazor.Shared.Samples.SearchDialogs": {
+  "BootstrapBlazor.Server.Components.Samples.SearchDialogs": {
     "SearchDialogsTitle": "SearchDialog search popup",
     "SearchDialogsSubTitle": "Automatically render search popups by binding the data model",
     "SearchDialogsDescription": "<code>SearchDialog</code> component is <code>Dialog</code> An extension of the component, suitable for setting search criteria in the data popup.",
@@ -294,7 +294,7 @@
     "SearchDialogsLayoutButtonText2": "Search popup (right aligned)",
     "SearchDialogOptionAttr": "SearchDialogOption property"
   },
-  "BootstrapBlazor.Shared.Samples.PopoverConfirms": {
+  "BootstrapBlazor.Server.Components.Samples.PopoverConfirms": {
     "PopoverConfirmsTitle": "Popconfirm bubble check box",
     "PopoverConfirmsDescription": "Click on the element to pop up a bubble confirmation box.",
     "PopoverConfirmsNormalTitle": "Basic usage",
@@ -331,7 +331,7 @@
     "PopoverConfirmsBodyTemplateIntro": "Customize the content by setting <code>the BodyTemplate</code> property",
     "PopoverConfirmsBodyTemplateButtonText": "Customize content"
   },
-  "BootstrapBlazor.Shared.Samples.Popovers": {
+  "BootstrapBlazor.Server.Components.Samples.Popovers": {
     "PopoversTitle": "Popover popup component",
     "PopoversDescription": "Click/mouse into the element to pop up a bubble-like card overlay",
     "PopoversNormalTitle": "Basic usage",
@@ -344,7 +344,7 @@
     "PopoversCssClassDescription": "set up <code>Popover</code> parameter <code>CssClass=\"custom-popover\"</code> make custom styles",
     "PopoversCssClassButtonText": "Click to activate/deactivate"
   },
-  "BootstrapBlazor.Shared.Samples.Progress": {
+  "BootstrapBlazor.Server.Components.Samples.Progress": {
     "ProgressTitle": "Progress progress bar",
     "ProgressDescription": "Used to display the progress of the operation, inform the user of the current status and expectations",
     "ProgressNormalTitle": "Progress bar component",
@@ -364,14 +364,14 @@
     "ProgressDecimalsTitle": "Decimals",
     "ProgressDecimalsIntro": "Adjust the number of decimal places by setting the <code>Round</code> parameter, which defaults to <code>0</code>. Adjust the rounding mode by setting the <code>MidpointRounding</code >parameter, which defaults to <code>MidpointRounding. AwayFromZero</code> rounding"
   },
-  "BootstrapBlazor.Shared.Samples.Responsives": {
+  "BootstrapBlazor.Server.Components.Samples.Responsives": {
     "ResponsiveTitle": "Responsive breakpoint monitoring",
     "ResponsiveDescription": "Determines whether to re-render the content of a responsive layout based on parameter conditions, usually used for responsive layouts",
     "ResponsiveNormalTitle": "Basic usage",
     "ResponsiveNormalIntro": "Resize the browser window and observe the change of <code>Breakpoint</code>",
     "ResponsiveNormalIntroCurrentText": "current"
   },
-  "BootstrapBlazor.Shared.Samples.Modals": {
+  "BootstrapBlazor.Server.Components.Samples.Modals": {
     "ModalsTitle": "Modal box",
     "ModalsDescription": "Inform the user and host relevant actions while preserving the current page state",
     "ModalsNormalTitle": "Basic usage",
@@ -437,7 +437,7 @@
     "ModalsAttributeShowMaximizeButton": "Whether to show the popup maximize button",
     "ModalsAttributeShownCallbackAsync": "Popup shows callback method"
   },
-  "BootstrapBlazor.Shared.Samples.Messages": {
+  "BootstrapBlazor.Server.Components.Samples.Messages": {
     "MessagesTitle": "Message prompt",
     "MessagesDescription": "Often used for feedback prompts after active operations. The difference from Toast is that the latter is more passive reminder for system-level notifications",
     "MessagesIntro": "Component usage introduction：",
@@ -465,7 +465,7 @@
     "MessagesPositionIntro": "Specify the <code>Message</code> component that has set the bottom display position by setting the component parameter of the <code>MessageService</code> service",
     "MessagesItem": "MessageItem property"
   },
-  "BootstrapBlazor.Shared.Samples.Lights": {
+  "BootstrapBlazor.Server.Components.Samples.Lights": {
     "LightsTitle": "Light indicator",
     "LightsDescription": "Provides various status indicators",
     "LightsNormalTitle": "common usage",
@@ -478,12 +478,12 @@
     "LightsTooltipTextIntro": "By setting the value of the attribute <code>TooltipText</code> to make the <code>tooltip</code> text prompt when the mouse hovers over the indicator light",
     "TooltipText": "I am prompt text message"
   },
-  "BootstrapBlazor.Shared.Samples.Charts.Index": {
+  "BootstrapBlazor.Server.Components.Samples.Charts.Index": {
     "Chart": "Chart",
     "ChartIntro": "Drawing components of various charts with given data",
     "ChartIntro2": "Component data can be set in the <code>OnInit</code> callback delegate"
   },
-  "BootstrapBlazor.Shared.Samples.Charts.Bubble": {
+  "BootstrapBlazor.Server.Components.Samples.Charts.Bubble": {
     "BubbleNormalTitle": "Bubble diagram",
     "BubbleNormalIntro": "Change the chart to a <code>bubble</code> chart by setting <code>ChartType</code>",
     "BubbleNormalRandomData": "Random data",
@@ -495,7 +495,7 @@
     "BubbleBarAspectRatioTitle": "Chart ratio",
     "BubbleBarAspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container"
   },
-  "BootstrapBlazor.Shared.Samples.Charts.Doughnut": {
+  "BootstrapBlazor.Server.Components.Samples.Charts.Doughnut": {
     "DoughnutNormalTitle": "Doughnut diagram",
     "DoughnutNormalIntro": "Change the chart to a <code>doughnut</code> chart by setting <code>ChartType</code>",
     "DoughnutNormalRandomData": "Random data",
@@ -508,7 +508,7 @@
     "DoughnutAspectRatioTitle": "Chart ratio",
     "DoughnutAspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container"
   },
-  "BootstrapBlazor.Shared.Samples.Charts.Pie": {
+  "BootstrapBlazor.Server.Components.Samples.Charts.Pie": {
     "PieNormalTitle": "Pie diagram",
     "PieNormalIntro": "Change the chart to a <code>pie</code> chart by setting <code>ChartType</code>",
     "PieNormalRandomData": "Random data",
@@ -522,7 +522,7 @@
     "PieLegendPositionTitle": "LegendPostion",
     "PieLegendPositionIntro": "Set the legend position through <code>LegendPosition</code>"
   },
-  "BootstrapBlazor.Shared.Samples.Charts.Line": {
+  "BootstrapBlazor.Server.Components.Samples.Charts.Line": {
     "LineOnInitTitle": "Line graph",
     "LineOnInitIntro": "Use <code>OnInit</code> to call back the delegate method, and after assigning the initialization data, the drawing operation can be performed, By setting the <code>BorderWidth</code> attribute, you can set the line width of the line chart, with a default value of 3, you can set the font size of Legend Labels by setting the <code>ChartOptions.LegendLabelsFontSize</code> property",
     "LineOnInitRandomData": "Random data",
@@ -542,7 +542,7 @@
     "LineChartJSTitle": "Generate Chart through JS",
     "LineChartJSIntro": "Due to the underlying reference of<code>BootstrapBlazor.Chart</code>to<code>Chart.JS</code>, we can call and generate charts through JS."
   },
-  "BootstrapBlazor.Shared.Samples.Charts.Bar": {
+  "BootstrapBlazor.Server.Components.Samples.Charts.Bar": {
     "BarTypeTitle": "Bar graph",
     "BarTypeIntro": "Change the chart to a <code>bar</code> chart by setting <code>ChartType</code>",
     "BarTypeAnimationOn": "turn on animation",
@@ -560,7 +560,7 @@
     "BarAspectRatioTitle": "Chart ratio",
     "BarAspectRatioIntro": "Setting the height and width will automatically disable the constraint chart ratio, and the chart will fill the container"
   },
-  "BootstrapBlazor.Shared.Samples.Transitions": {
+  "BootstrapBlazor.Server.Components.Samples.Transitions": {
     "TransitionsTitle": "Transition effect",
     "TransitionsDescription": "BootstarpBlazor applies the transition animation to some components, you can also use it directly.",
     "TransitionsNormalTitle": "Basic usage",
@@ -570,7 +570,7 @@
     "TransitionsDurationTitle": "Set animation duration",
     "TransitionsDurationIntro": "Control the animation duration in milliseconds by setting the <code>Duration</code> parameter"
   },
-  "BootstrapBlazor.Shared.Samples.EditDialogs": {
+  "BootstrapBlazor.Server.Components.Samples.EditDialogs": {
     "Title": "EditDialog edit popup",
     "Description": "Automatic rendering of edit popups by binding the data model",
     "SubDescription": "<code>EditDialog</code> The component is an extension of the <code>Dialog</code> component and is suitable for data popup editing.",
@@ -584,7 +584,7 @@
     "RightAlignedButton": "Edit popup (right aligned)",
     "PopupButton": "Pop-ups"
   },
-  "BootstrapBlazor.Shared.Samples.BaiduOcr": {
+  "BootstrapBlazor.Server.Components.Samples.BaiduOcr": {
     "Title": "IBaiduOcr",
     "SubTitle": "Character recognition",
     "VatInvoiceTitle": "VAT Invoice",
@@ -596,13 +596,13 @@
     "VerifyVatInvoiceTitle": "增值税验真",
     "VerifyVatInvoiceIntro": "通过调用 <code>IBaiduOcr</code> 服务实例的发票验真方法 <code>VerifyInvoiceAsync</code> 返回 <code>InvoiceVerifyResult</code> 其属性 <code>Valid</code> 为 <code>true</code> 时为真"
   },
-  "BootstrapBlazor.Shared.Samples.Topologies": {
+  "BootstrapBlazor.Server.Components.Samples.Topologies": {
     "TopologiesTitle": "Topology HMI",
     "TopologiesDescription": "Rendering of human-computer interface through <code>Topology</code> open source components",
     "TopologiesNormalTitle": "Basic usage",
     "TopologiesNormalIntro": "Just load the <code>Json</code> file exported by the website, click the number box below the fan to control the operation"
   },
-  "BootstrapBlazor.Shared.Samples.TreeViews": {
+  "BootstrapBlazor.Server.Components.Samples.TreeViews": {
     "TreeViewsTitle": "Tree tree control",
     "TreeViewsDescription": "Present information in a clear hierarchy that can be expanded or collapsed",
     "TreeViewsTips1": "If the component is a generic component, you need to use <code>TItem</code> to specify the bound data model. In this example, the model is <code>TreeFoo</code> and needs to be set",
@@ -660,7 +660,7 @@
     "TreeViewShowSkeletonButtonText": "Asynchronous loading",
     "TreeViewsAttrs": "TreeItem property"
   },
-  "BootstrapBlazor.Shared.Samples.Trees": {
+  "BootstrapBlazor.Server.Components.Samples.Trees": {
     "TreeIntro": "<p>Obsolete，The <a href=\"treeviews\" alt=\"treeview\">TreeView</a> provides more functions",
     "TreesTitle": "Tree tree control",
     "TreesDescription": "Present information in a clear hierarchy that can be expanded or collapsed",
@@ -705,7 +705,7 @@
     "TreesShowSkeletonButtonText": "Asynchronous loading",
     "TreeItem": "TreeItem property"
   },
-  "BootstrapBlazor.Shared.Samples.SwitchButtons": {
+  "BootstrapBlazor.Server.Components.Samples.SwitchButtons": {
     "SwitchButtonsTitle": "Switch Button state switch button",
     "SwitchButtonsDescription": "Toggle state after button click",
     "SwitchButtonsNormalTitle": "Basic usage",
@@ -717,7 +717,7 @@
     "SwitchButtonsOnClickIntro": "Initialize component state by setting <code>ToggleState</code>",
     "SwitchButtonsOnClickDescription": "<code>OnClick</code> callback is <code>EventCallback</code> will automatically refresh the current component or page, if you don't need to refresh the component or page, you can use <code>ToggleStateChanged</code>"
   },
-  "BootstrapBlazor.Shared.Samples.Downloads": {
+  "BootstrapBlazor.Server.Components.Samples.Downloads": {
     "DownloadsTitle": "Download file download",
     "DownloadsSubTitle": "For direct download of physical files",
     "DownloadsTips1": "pay attention",
@@ -742,7 +742,7 @@
     "DownloadImageIntro": "Simulate the situation where the verification code is generated directly from the front-end page or the uploaded image is not saved and displayed directly.",
     "DownloadImageButtonText": "Since the test uses the files under <code>wwwroot</code>, there is no code generation, and <code>wasm</code> cannot access the <code>wwwroot</code> folder, so only the <code>ssr</code> mode is available for the test. <code>wasm</code> please test it yourself."
   },
-  "BootstrapBlazor.Shared.Samples.Dialogs": {
+  "BootstrapBlazor.Server.Components.Samples.Dialogs": {
     "Title": "Dialog component",
     "Description": "Human-computer interaction by calling the <code>Show</code> method pop-up window by injecting the service",
     "Tip1": "Component usage introduction",
@@ -849,7 +849,7 @@
     "ShowMaximizeButton": "Click to open Dialog",
     "ErrorLoggerButton": "global exception test"
   },
-  "BootstrapBlazor.Shared.Samples.Dispatches": {
+  "BootstrapBlazor.Server.Components.Samples.Dispatches": {
     "Title": "Dispatch message distribution",
     "Description": "By injecting the service to call the instance method, the site-wide pop-up window is used for message notification",
     "Tips": "This component provides functions in the form of injection services, which are usually used for site-wide message push and other functions; using this service requires <b>subscribe</b> and <b>unsubscribe</b> operations in the code",
@@ -867,7 +867,7 @@
     "DispatchNoticeButtonText": "Notice",
     "DispatchNoticeMessage": "Test dispatch message"
   },
-  "BootstrapBlazor.Shared.Samples.Drawers": {
+  "BootstrapBlazor.Server.Components.Samples.Drawers": {
     "Title": "Drawer",
     "Description": "Sometimes, the Dialog component does not meet our needs. For example, your form is very long, or you need to temporarily display some documents. Drawer has almost the same API as Dialog, which brings a different experience to the UI.",
     "NormalTitle": "Basic usage",
@@ -881,7 +881,7 @@
     "Close": "close the drawer",
     "PlacementContent": "Click on the shaded part of the mask to automatically close the drawer"
   },
-  "BootstrapBlazor.Shared.Samples.Consoles": {
+  "BootstrapBlazor.Server.Components.Samples.Consoles": {
     "Title": "Console",
     "Description": "Console component, generally used for the output of background tasks",
     "NormalTitle": "Basic usage",
@@ -898,7 +898,7 @@
     "ShowAutoScrollTitle": "ShowAutoScroll",
     "ShowAutoScrollIntro": "Switch auto scroll the data by set <code>ShowAutoScroll</code> parameter"
   },
-  "BootstrapBlazor.Shared.Samples.Speeches.Index": {
+  "BootstrapBlazor.Server.Components.Samples.Speeches.Index": {
     "SpeechTitle": "Speech Recognition and Synthesis",
     "SpeechDescription": "Converted to text (STT) through microphone voice capture, or read aloud through text (TTS)",
     "SpeechDescription1": "This set of components is built-in <code>Azure</code> and <code>Baidu</code> Speech service, this example relies on",
@@ -917,7 +917,7 @@
     "SpeechTips2Text1": "speech recognition service",
     "SpeechTips2Text2": "speech synthesis service"
   },
-  "BootstrapBlazor.Shared.Samples.Speeches.SpeechWaves": {
+  "BootstrapBlazor.Server.Components.Samples.Speeches.SpeechWaves": {
     "SpeechWaveTitle": "SpeechWave",
     "SpeechWavesDescription": "The dynamic plot of the waveform that is displayed when you start acquiring speech",
     "NormalTitle": "Basic usage",
@@ -933,13 +933,13 @@
     "OnTimeoutAttr": "Identify the end-of-timeout callback method",
     "TotalTimeSecondAttr": "Speech recognition is set for a total time longer than calling the OnTimeout callback"
   },
-  "BootstrapBlazor.Shared.Samples.Speeches.Synthesizers": {
+  "BootstrapBlazor.Server.Components.Samples.Speeches.Synthesizers": {
     "SynthesizersTitle": "Synthesizer speech synthesis",
     "SynthesizersSubTitle": "Convert text content to speech",
     "SynthesizerNormalTitle": "Common usage",
     "SynthesizerNormalIntro": "After clicking to start synthesis, perform speech synthesis on the text content"
   },
-  "BootstrapBlazor.Shared.Samples.Speeches.Recognizers": {
+  "BootstrapBlazor.Server.Components.Samples.Speeches.Recognizers": {
     "RecognizersTitle": "Recognizer Speech Recognition",
     "RecognizersSubTitle": "Convert speech to text with a voice capture device",
     "RecognizerNormalTitle": "Common usage",
@@ -947,7 +947,7 @@
     "RecognizerNormalDescription": "Instructions for use",
     "RecognizerNormalTips": "click <p>start to identify</p> After the script runs, it may prompt for recording permission. After authorization, start speaking. After 5 seconds (configurable), the text box on the right will display the speech recognition result. Do not click directly after speaking. <p>end recognition</p>"
   },
-  "BootstrapBlazor.Shared.Samples.DragDrops": {
+  "BootstrapBlazor.Server.Components.Samples.DragDrops": {
     "Title": "DragDrop",
     "Description": "For drag and drop",
     "NormalTitle": "Basic usage",
@@ -969,7 +969,7 @@
     "M7": "Event when Item is released on another Item, not blank space",
     "M8": "Event when an Item is rejected because the maximum number in the Dropzone exceeds the limit"
   },
-  "BootstrapBlazor.Shared.Samples.Labels": {
+  "BootstrapBlazor.Server.Components.Samples.Labels": {
     "LabelsTitle": "Component label",
     "LabelsDescription": "This set of components includes <code>ValidateForm</code> <code>EditorForm</code> and a variety of <b>Form components</b> inherited from <code>ValidateBase&lt;TValue&gt;</code>. Among these components There is a special set of display front label logic, now let’s sort it out in a unified way:",
     "LabelsDescriptionTips1": "The <a href='/validateforms' target='_blank'>ValidateForm</a> component is a <b>verifiable</b> form component. The form component in this component will automatically perform data compliance checks. If Data non-compliance will prevent the <b>Submit</b> action, which is the most frequently used component in data submission",
@@ -1013,7 +1013,7 @@
     "ValidateFormAlignRight": "<b>Right</b><div><code>form-inline-end</code> set the label alignment is right</div>",
     "ValidateFormAlignCenter": "<b>Center</b><div><code>form-inline-center</code> set the label alignment is center</div>"
   },
-  "BootstrapBlazor.Shared.Pages.Install": {
+  "BootstrapBlazor.Server.Components.Pages.Install": {
     "InstallTitle": "Install",
     "GitP1": "There are many kinds of Git tools that everyone is familiar with, here I introduce two Git client tools",
     "GitP2": "It is recommended to use the <a href='https://fork.dev'>Fork</a> tool to install, it can better and <a href='https://visualstudio.microsoft.com/vs/getting- started/' target='_blank'>Visutal Studio</a> to use with development tools.",
@@ -1024,12 +1024,12 @@
     "EnvLi2": "Install Visual Studio 2022 and above <a href='https://visualstudio.microsoft.com/vs/getting-started' target='_blank'>Official website",
     "EnvLi3": "Pull the project code BootstrapBlazor <a href='{0}' target='_blank'>Warehouse URL</a>"
   },
-  "BootstrapBlazor.Shared.Components.Video": {
+  "BootstrapBlazor.Server.Components.Components.Video": {
     "H1": "B station related video link",
     "L1": "[portal]",
     "L2": "No"
   },
-  "BootstrapBlazor.Shared.Components.UpdateIntro": {
+  "BootstrapBlazor.Server.Components.Components.UpdateIntro": {
     "H1": "Component library updated to",
     "B1": "Bootstrap Blazor at present has more than 120 components. This component is based on",
     "B2": "An enterprise-level component library that provides several types of common components such as layout, navigation, form, data, notification, icon, voice, etc. Each component has been carefully designed with modularity, responsiveness and excellent performance. Starting from more practical scenarios, meeting the needs of various scenarios, greatly reducing the time cost of developers, greatly shortening the development cycle, greatly improving development efficiency, and providing a set of",
@@ -1041,7 +1041,7 @@
     "P3": "portal",
     "P4": "If the component brings you convenience, please help to light up the project"
   },
-  "BootstrapBlazor.Shared.Pages.Localization": {
+  "BootstrapBlazor.Server.Components.Pages.Localization": {
     "Title": "Localization",
     "P1": "Localization is the process of customizing an application for a given language and region.",
     "P2": "A component allows you to translate its UI elements into the desired language. This includes text for buttons, filter operator properties, etc. The component uses the current request by default",
@@ -1119,7 +1119,7 @@
     "ES": "Spanish (es)",
     "TW": "中國台灣 (zh-TW)"
   },
-  "BootstrapBlazor.Shared.Pages.Template": {
+  "BootstrapBlazor.Server.Components.Pages.Template": {
     "Title": "Project Template",
     "SubTitle": "Bootstrap Blazor App Template",
     "P1": "In order to make it easier for everyone to use this set of components to quickly build projects, the author has made <b>Project Templates</code></b>, using <code>dotnet new</code> command line mode, using Proceed as follows:",
@@ -1142,12 +1142,12 @@
     "P17": "Install Project template",
     "P18": "Create Project"
   },
-  "BootstrapBlazor.Shared.Pages.Golbalization": {
+  "BootstrapBlazor.Server.Components.Pages.Golbalization": {
     "Title": "Globalization",
     "SubTitle": "ASP.NET Core Blazor Globalization",
     "P1": "Please check <a href='https://learn.microsoft.com/zh-cn/aspnet/core/blazor/globalization-localization?WT.mc_id=DT-MVP-5004174' target='_blank'> before reading the following knowledge points Official document</a>"
   },
-  "BootstrapBlazor.Shared.Components.InstallContent": {
+  "BootstrapBlazor.Server.Components.Components.InstallContent": {
     "Heading": "Environmental preparation",
     "P1": "Make sure the system is installed",
     "P2": "or",
@@ -1195,14 +1195,14 @@
     "P44": "run the application",
     "Tips2": "If you use the <code>Blazor App</code> template to create a project, please remove the default <code>Bootstrap</code> style link <code>&lt;link rel='stylesheet' href='css/bootstrap/bootstrap.min.css' /&gt;</code>. Install <b>FontAwesome</b> related resources by yourself or get the nuget package <code>BootstrapBlazor.FontAwesome</code>"
   },
-  "BootstrapBlazor.Shared.Pages.Install_Server": {
+  "BootstrapBlazor.Server.Components.Pages.Install_Server": {
     "Title": "Server-Side Blazor Installation Tutorial",
     "D1": "choose",
     "D2": "project type, then click",
     "Configure": "Configure Service",
     "CodeComment": "Add this line of code"
   },
-  "BootstrapBlazor.Shared.Pages.Theme": {
+  "BootstrapBlazor.Server.Components.Pages.Theme": {
     "H1": "Component theme",
     "H2": "Test",
     "P1": "The current website theme supports the following",
@@ -1216,7 +1216,7 @@
     "P9": "The added style file is as follows",
     "P10": "add this line"
   },
-  "BootstrapBlazor.Shared.Pages.Install_Maui": {
+  "BootstrapBlazor.Server.Components.Pages.Install_Maui": {
     "H1": "Environmental preparation",
     "P1": "Make sure the system is installed",
     "P2": "Version",
@@ -1270,13 +1270,13 @@
     "P50": "run the application",
     "P51": "MAUI Blazor Installation tutorial"
   },
-  "BootstrapBlazor.Shared.Pages.Install_wasm": {
+  "BootstrapBlazor.Server.Components.Pages.Install_wasm": {
     "Install_wasmHeading": "Client Blazor Installation Tutorial",
     "Install_wasmDescription": "choose <b>Blazor WebAssembly App</b> project type, then click <b>Create</b>",
     "Title": "Client Side",
     "Install_wasmCodeComment": "Add this line of code"
   },
-  "BootstrapBlazor.Shared.Samples.Dividers": {
+  "BootstrapBlazor.Server.Components.Samples.Dividers": {
     "Title": "Dividing line",
     "Description": "The dividing line that separates the content.",
     "NormalTitle": "Basic usage",
@@ -1316,7 +1316,7 @@
     "ChildContent2": "When the knight returns, the day the broken sword is reforged",
     "DividerChildContent": "I am a custom content <code>div</code> element"
   },
-  "BootstrapBlazor.Shared.Samples.Scrolls": {
+  "BootstrapBlazor.Server.Components.Samples.Scrolls": {
     "ScrollTitle": "Scroll",
     "ScrollDescription": "Add scroll bars to components whose height or width exceeds the standard",
     "ScrollTips": "The scroll bar can be rendered only when its element has a fixed height. Its <code>height</code> attribute can be set through the coat element",
@@ -1327,7 +1327,7 @@
     "ScrollNormalDescription": "Please scroll the scroll bar on the right",
     "ScrollNormalBottom": "bottom"
   },
-  "BootstrapBlazor.Shared.Samples.LayoutPages": {
+  "BootstrapBlazor.Server.Components.Samples.LayoutPages": {
     "H1": "full page level components",
     "P1": "via built-in components",
     "P2": "For full page layout, you can use",
@@ -1365,7 +1365,7 @@
     "P34": "Navigate to a new tab page as code",
     "P35": "navigation"
   },
-  "BootstrapBlazor.Shared.Samples.Layouts": {
+  "BootstrapBlazor.Server.Components.Samples.Layouts": {
     "LayoutsTitle": "Layout",
     "LayoutsDescription1": "The container component used for layout, which is convenient to quickly build the basic structure of the page:",
     "LayoutsDescription1_Container": "Outer container. When the child element contains <code>Header</code> or <code>Footer</code>, all child elements will be arranged vertically up and down, otherwise they will be arranged horizontally.",
@@ -1426,7 +1426,7 @@
     "LayoutsAppTips8": "In this example, if the scroll bar does not appear after clicking the left menu to expand, the height of the parent container will be expanded",
     "LayoutsAppTips9": "Please refer to <a href='/tabs'>Tab component</a> for practical examples of using <code>Layout</code> component and <code>Tab</code> component together"
   },
-  "BootstrapBlazor.Shared.Samples.Footers": {
+  "BootstrapBlazor.Server.Components.Samples.Footers": {
     "FootersTitle": "Footer",
     "FootersDescription": "Displayed at the bottom of the page, with a back to top button",
     "FootersTips": "When using <code>Footer</code> components, pay attention to the setting of the style sheet <code>position</code> attribute",
@@ -1443,7 +1443,7 @@
     "FooterChildContentTitle": "ChildContent",
     "FooterChildContentIntro": "Set <code>ChildContent</code> for custom the child content"
   },
-  "BootstrapBlazor.Shared.Samples.Repeaters": {
+  "BootstrapBlazor.Server.Components.Samples.Repeaters": {
     "RepeaterTitle": "Repeater",
     "RepeaterDescription": "Iterates on a collection and use a template to generate the page",
     "RepeaterNormalTitle": "Normal",
@@ -1455,7 +1455,7 @@
     "RepeaterContainerTitle": "Container Template",
     "RepeaterContainerIntro": "By setting <code>ContainerTemplate</code> to the container template, the repetitive part of the template is still rendered via <code>ItemTemplate</code>, In this case, the component is rendered as <code>Table</code> using <code>ContainerTemplate</code>"
   },
-  "BootstrapBlazor.Shared.Samples.Rows": {
+  "BootstrapBlazor.Server.Components.Samples.Rows": {
     "RowsTitle": "Row",
     "RowsDescription": "The number of components displayed in a row can be easily set",
     "RowCommonTitle": "Place common controls",
@@ -1483,7 +1483,7 @@
     "Normal": "Normal",
     "Inline": "Inline"
   },
-  "BootstrapBlazor.Shared.Samples.Skeletons": {
+  "BootstrapBlazor.Server.Components.Samples.Skeletons": {
     "SkeletonsTitle": "Skeleton",
     "SkeletonsDescription": "Provide a placeholder graphic combination where you need to wait for content to load",
     "SkeletonsTipsTitle": "When to use",
@@ -1504,7 +1504,7 @@
     "SkeletonsTreeTitle": "Tree skeleton",
     "SkeletonsTreeIntro": "Display when tree component is loaded"
   },
-  "BootstrapBlazor.Shared.Pages.Coms": {
+  "BootstrapBlazor.Server.Components.Pages.Coms": {
     "Search": "Search for the desired component",
     "Text1": "Layout",
     "DividerText": "Divider",
@@ -1633,7 +1633,7 @@
     "MindMapText": "MindMap",
     "WebSpeechText": "WebSpeech"
   },
-  "BootstrapBlazor.Shared.Pages.Breakpoints": {
+  "BootstrapBlazor.Server.Components.Pages.Breakpoints": {
     "Heading": "Breakpoints",
     "Heading1": "Breakpoints are customizable widths that determine how responsive layouts behave in Bootstrap across devices or viewport sizes",
     "Paragraph1": "Available breakpoints",
@@ -1652,7 +1652,7 @@
     "Footer2": "like",
     "Footer3": "The default popup size"
   },
-  "BootstrapBlazor.Shared.Pages.Layout": {
+  "BootstrapBlazor.Server.Components.Pages.Layout": {
     "Heading": "Component Hierarchy",
     "Para1": "Since there are many pop-up window components, in some scenarios, multiple pop-up windows will be used to combine them. This chapter describes how to manage components in layers. Below is",
     "Para2": "provided built-in",
@@ -1664,7 +1664,7 @@
     "Footer1": "because",
     "Footer2": "The component does not provide a service form, and it is retrofitted later"
   },
-  "BootstrapBlazor.Shared.Samples.GlobalException": {
+  "BootstrapBlazor.Server.Components.Samples.GlobalException": {
     "Title": "Global exception",
     "Introduce": "Added component <code>ErrorLogger</code> Through this component, global logs and exceptions can be output uniformly; currently, the <code>Blazor</code> framework does not provide a <code>MVC</code> like <b>Global exception</b> The overall solution",
     "H1": "Instructions",
@@ -1682,7 +1682,7 @@
     "Block2Title": "OnErrorHandleAsync",
     "Block2Intro": "Set custom exception handling logic by setting <code>OnErrorHandleAsync</code> callback method"
   },
-  "BootstrapBlazor.Shared.Samples.Splits": {
+  "BootstrapBlazor.Server.Components.Samples.Splits": {
     "SplitsTitle": "Split",
     "SplitsNormalTitle": "Basic usage",
     "SplitsNormalIntro": "Left and Right",
@@ -1704,7 +1704,7 @@
     "SplitsFirstPanelTemplate": "First pane template",
     "SplitsSecondPanelTemplate": "Second pane template"
   },
-  "BootstrapBlazor.Shared.Samples.Dropdowns": {
+  "BootstrapBlazor.Server.Components.Samples.Dropdowns": {
     "Title": "Dropdown",
     "Description": "Collapse actions or menus into drop-down menus",
     "NormalTitle": "Basic usage",
@@ -1762,7 +1762,7 @@
     "DropdownCascadeItem7": "Jingan",
     "DropdownCascadeItem8": "Huangpu"
   },
-  "BootstrapBlazor.Shared.Samples.GoTops": {
+  "BootstrapBlazor.Server.Components.Samples.GoTops": {
     "Title": "GoTop",
     "Description": "Click to return to the top of the specified container",
     "NormalTitle": "Basic usage",
@@ -1771,7 +1771,7 @@
     "Description1": "The Footer component appears at the bottom, and the page automatically scrolls back to the top when you click Back to the Top",
     "Description2": "This example passes the component client ID"
   },
-  "BootstrapBlazor.Shared.Samples.Menus": {
+  "BootstrapBlazor.Server.Components.Samples.Menus": {
     "MenusTitle": "Menu",
     "MenusDescription": "A list of menus that provide navigation for pages and features.",
     "MenusTips1": "<code>Menu</code> component is generally used for menu navigation, i.e. redirect navigation by clicking on the address bar after the menu, but sometimes you don't need navigation in real life, by setting <code>OnClick</code> callback delegate, custom processing logic, at this point by setting Property <code>The</code> of TheableNavigation, in this case all <code>Menu</code> are set to <code>true</code> disable navigation because they are analog menu clicks and do not actually navigate the address bar",
@@ -1841,7 +1841,7 @@
     "SubMenu41": "Sub Menu 41",
     "SubMenu42": "Sub Menu 42"
   },
-  "BootstrapBlazor.Shared.Samples.Navigation": {
+  "BootstrapBlazor.Server.Components.Samples.Navigation": {
     "NavsTitle": "Nav",
     "NavsDescription": "A menu that provides navigation for your site.",
     "NavsNormalTitle": "Basic navigation style.",
@@ -1864,7 +1864,7 @@
     "NavsIsFill": "Padding",
     "NavsIsJustified": "Equal width"
   },
-  "BootstrapBlazor.Shared.Samples.Paginations": {
+  "BootstrapBlazor.Server.Components.Samples.Paginations": {
     "PaginationsTitle": "Pagination",
     "PaginationsDescription": "When there is too much data, use paging to break down the data.",
     "PaginationsNormalTitle": "Basic usage",
@@ -1898,7 +1898,7 @@
     "PaginationsNextPageIconAttr": "Next page icon",
     "PaginationsNextEllipsisPageIconAttr": "The page down icon"
   },
-  "BootstrapBlazor.Shared.Samples.Steps": {
+  "BootstrapBlazor.Server.Components.Samples.Steps": {
     "StepsTitle": "Step",
     "StepsDescription": "A navigation bar that guides the user through the process",
     "StepsTipsTitle": "Step-by-step navigation bar that guides the user through the process, setting steps of no less than 2 steps based on the actual scenario",
@@ -1939,7 +1939,7 @@
     "StepsAttrTitleTemplate": "The template for Title",
     "StepsAttrChildContent": "The template for child"
   },
-  "BootstrapBlazor.Shared.Samples.Tabs": {
+  "BootstrapBlazor.Server.Components.Samples.Tabs": {
     "TabsTitle": "Tabs",
     "TabsSubTitle": "A collection of data that is associated with the separation content but belongs to a different category.",
     "TabsDescription": "Tab components are designed in the form of templates, and this component is used by adding <code>TabItem</code> subcomponents to the <code>tabItems</code> in the template",
@@ -2051,11 +2051,11 @@
     "MethodTitle": "Method",
     "TabDefaultUrl": "Default page"
   },
-  "BootstrapBlazor.Shared.Components.DemoTabItem": {
+  "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "Info": "Reset the title of this <code>TabItem</code> by click the button",
     "ButtonText": "SetTitle"
   },
-  "BootstrapBlazor.Shared.Samples.AutoFills": {
+  "BootstrapBlazor.Server.Components.Samples.AutoFills": {
     "Title": "AutoFill components",
     "Description": "Auto-fill forms when selected via IntelliSense prompt option",
     "NormalTitle": "Basic usage",
@@ -2082,7 +2082,7 @@
     "Att12": "Whether to skip Enter key handling",
     "Att13": "Whether to skip Esc key processing"
   },
-  "BootstrapBlazor.Shared.Samples.AutoCompletes": {
+  "BootstrapBlazor.Server.Components.Samples.AutoCompletes": {
     "Title": "AutoComplete",
     "Description": "The input box autocompletes the function",
     "Block1Title": "Basic usage",
@@ -2133,7 +2133,7 @@
     "BlockGroupPrevLabel": "Prev",
     "BlockGroupSuffixLabel": "Suffix"
   },
-  "BootstrapBlazor.Shared.Samples.FullScreens": {
+  "BootstrapBlazor.Server.Components.Samples.FullScreens": {
     "FullScreensTitle": "FullScreen",
     "FullScreensDescription": "Human-computer interaction by injecting service calls <code>Show</code> method pop-ups",
     "Tips": "This component provides functionality in the form of injection services, the user experience is very comfortable to use, anytime, anywhere calls, need to be built into the page using this component <code>FullScreen</code> component, or in the main layout component of <code>MainLayout</code>, the sample code is as follows:",
@@ -2148,7 +2148,7 @@
     "FullScreenTitleButton1Text": "Tap for a full screen operation",
     "Pre": "FullScreenButton Title=\"Click for full screen operation\""
   },
-  "BootstrapBlazor.Shared.Samples.Buttons": {
+  "BootstrapBlazor.Server.Components.Samples.Buttons": {
     "Title": "Button",
     "Description": "Common action buttons.",
     "Block1Title": "Basic usage",
@@ -2221,14 +2221,14 @@
     "TooltipIntro": "Set <code>TooltipText</code> <code>TooltipPlacement</code> <code>TooltipTrigger</code> shortcut button prompt bar information, position, and triggering method. For more functions, please use the <code>Tooltip</code> component to implement. In this example, the second button is in the <b>disabled</b> state, and the prompt bar is still available",
     "TooltipDisabledText": "Disabled"
   },
-  "BootstrapBlazor.Shared.Samples.PulseButtons": {
+  "BootstrapBlazor.Server.Components.Samples.PulseButtons": {
     "Block1Title": "Basic usage",
     "Block1Intro": "The underlying button usage.",
     "PulseButtonHeader": "PulseButton (heartbeat) button",
     "PulseButtonPara": "It is suitable for highlighting function to attract users' attention. The default button is circular",
     "PulseButtonPara2": "The heartbeat button component is inherited from the button, so a heartbeat ring is added on the basis of the original function of the button. Please refer to the switch style button in the lower right corner of the website."
   },
-  "BootstrapBlazor.Shared.Samples.Cascaders": {
+  "BootstrapBlazor.Server.Components.Samples.Cascaders": {
     "Title": "Cascader",
     "Block1Title": "Cascade selection",
     "Block1Intro": "Drop-down selection boxes are available in a variety of colors",
@@ -2275,7 +2275,7 @@
     "Divider3": "Customize DisplayText",
     "CascaderText": "Custom city"
   },
-  "BootstrapBlazor.Shared.Samples.CherryMarkdowns": {
+  "BootstrapBlazor.Server.Components.Samples.CherryMarkdowns": {
     "Header": "CherryMarkdown",
     "Tip": "Rich text box component based on CherryMarkdown",
     "MarkdownsNote": "If you edit too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
@@ -2292,7 +2292,7 @@
     "InsertCheckListButtonText": "Insert a CheckList",
     "InsertPictureButtonText": "insert a picture"
   },
-  "BootstrapBlazor.Shared.Samples.Checkboxs": {
+  "BootstrapBlazor.Server.Components.Samples.Checkboxs": {
     "Title": "Checkbox",
     "Description": "Multiple-select in a set of alternatives",
     "NormalTitle": "Basic usage",
@@ -2326,7 +2326,7 @@
     "Checkbox2Text": "Two-way binding",
     "Checkbox3Text": "Handwritten labels"
   },
-  "BootstrapBlazor.Shared.Samples.CheckboxLists": {
+  "BootstrapBlazor.Server.Components.Samples.CheckboxLists": {
     "Title": "CheckboxList",
     "CheckboxListsTip": "The control is used to create a multi-select check box group",
     "NormalTitle": "Basic usage",
@@ -2368,7 +2368,7 @@
     "Foo": "Pat,Argo",
     "Description": "TValue is set to <code>IEnumerable&lt;string&gt;</code> generic collection"
   },
-  "BootstrapBlazor.Shared.Samples.ColorPickers": {
+  "BootstrapBlazor.Server.Components.Samples.ColorPickers": {
     "Title": "ColorPicker",
     "Description": "Select color to use",
     "NormalTitle": "Basic Usage",
@@ -2384,7 +2384,7 @@
     "ValidateFormIntro": "Built in <code>ValidateForm</code> to use",
     "Event1": "Color change callback delegate method"
   },
-  "BootstrapBlazor.Shared.Samples.DateTimePickers": {
+  "BootstrapBlazor.Server.Components.Samples.DateTimePickers": {
     "Title": "DatePicker",
     "Description": "Used to select or enter a date",
     "NormalTitle": "Select the day",
@@ -2438,7 +2438,7 @@
     "Value.Required": "{0} is required.",
     "ValidateFormValue": "DateTimePick"
   },
-  "BootstrapBlazor.Shared.Samples.Editors": {
+  "BootstrapBlazor.Server.Components.Samples.Editors": {
     "EditorsTitle": "Editor",
     "EditorsDescription": "Convert the entered text into <code>html</code> code snippets",
     "EditorsTips": "The <code>Editor</code> component is a secondary package of <a href='https://summernote.org/' target='_blank'><code>Summernote component</code></a>, such as If you need to use the localization function, please download the corresponding language pack from the official website and quote it by yourself. <code>zh-CN</code> <code>en-US</code> has been built in；the required <code>css</code> <code>javascript</code> dynamically loaded on demand. If you edit too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
@@ -2492,7 +2492,7 @@
     "DoMethodAsyncButton3": "Insert Image",
     "DoMethodAsyncPasteHTML": "Here is the content inserted by the external button"
   },
-  "BootstrapBlazor.Shared.Samples.EditorForms": {
+  "BootstrapBlazor.Server.Components.Samples.EditorForms": {
     "Title": "EditorForm",
     "Description": "Edit forms are automatically rendered through the bound data model",
     "SubDescription": "<code>EditorForm</code> component is a very useful component that, when editing data, simply assigns the <code>Model</code> property.",
@@ -2542,7 +2542,7 @@
     "AutoGenerateDescription": "In this example, by setting <code>the autoGenerate AllItem</code> value to <code>false</code>, turning off auto-generation, and rendering the form editing by manually adding two <code>EditoItem</code> edits",
     "SkipValidateDescription": "In some cases, the value of some columns in the form may be a secondary classification, etc., and you need to know the information for a level 1 classification, at which point the first-level classification requires additional components to render if <code>Select</code>, which is independent of the current context binding model <code>Model</code>, which requires that you set the <code>SkipValidate</code> value to <code>true</code>, turn off model validation for this component"
   },
-  "BootstrapBlazor.Shared.Samples.FloatingLabels": {
+  "BootstrapBlazor.Server.Components.Samples.FloatingLabels": {
     "FloatingLabelsTitle": "FloatingLabel",
     "FloatingLabelsSubtitle": "Enter characters with the mouse or keyboard",
     "FloatingLabelNormalTitle": "Basic usage",
@@ -2580,7 +2580,7 @@
     "FloatingLabelGroupBoxTitle": "GroupBox",
     "FloatingLabelGroupBoxIntro": "By setting <code>IsGroupBox=\"true\"</code>. Group box wrapper label"
   },
-  "BootstrapBlazor.Shared.Samples.Inputs": {
+  "BootstrapBlazor.Server.Components.Samples.Inputs": {
     "InputsBaseUsage": "Basic usage",
     "InputsTitle": "Input",
     "InputsDescription": "Enter characters with the mouse or keyboard",
@@ -2648,7 +2648,7 @@
     "InputsFormatStringSetting": "Set up",
     "InputsFormatStringTips": "The <code>BootstrapInput</code> component binds <code>byte[]</code> array and formats it as an example of <code>base64</code> encoded string"
   },
-  "BootstrapBlazor.Shared.Samples.InputNumbers": {
+  "BootstrapBlazor.Server.Components.Samples.InputNumbers": {
     "InputNumbersTitle": "InputNumber",
     "InputNumbersDescription": "Only standard numeric values are allowed, and custom ranges and other advanced features are supported",
     "InputNumbersNormalTitle": "Basic usage",
@@ -2686,7 +2686,7 @@
     "InputNumbersValidateFormDivider3": "Custom  DisplayText",
     "InputNumbersValidateFormInputText": "Customization"
   },
-  "BootstrapBlazor.Shared.Samples.InputGroups": {
+  "BootstrapBlazor.Server.Components.Samples.InputGroups": {
     "InputGroupsTitle": "InputGroup",
     "InputGroupsDescription": "Input can add labels and buttons before or after it to make as a group",
     "InputGroupsNormalTitle": "Basic usage",
@@ -2713,7 +2713,7 @@
     "InputGroupsSwitchTitle": "Switch",
     "InputGroupsSwitchIntro": "Add <code>Switch</code> to the <code>InputGroup</code>"
   },
-  "BootstrapBlazor.Shared.Samples.Markdowns": {
+  "BootstrapBlazor.Server.Components.Samples.Markdowns": {
     "MarkdownsTitle": "Markdown",
     "MarkdownsDescription": "A text editor that provides support for the Markdown syntax",
     "MarkdownsNote": "If you edit too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
@@ -2760,7 +2760,7 @@
     "Att8": "Whether it is dark mode",
     "Att9": "Whether code highlighting is enabled"
   },
-  "BootstrapBlazor.Shared.Samples.MultiSelects": {
+  "BootstrapBlazor.Server.Components.Samples.MultiSelects": {
     "MultiSelectsTitle": "MultiSelect",
     "MultiSelectsDescription": "When you have multiple options, use the drop-down menu to present and provide a search for multiple choices",
     "MultiSelectColorTitle": "Color",
@@ -2839,7 +2839,7 @@
     "MultiSelectVeryLongTextDisplayText": "Extra long text",
     "MultiSelectOptionChangeLog": "Select the collection of items"
   },
-  "BootstrapBlazor.Shared.Samples.Radios": {
+  "BootstrapBlazor.Server.Components.Samples.Radios": {
     "RadiosTitle": "Radio",
     "RadiosDescription": "Single in a set of alternatives",
     "RadiosNormalTitle": "Basic usage",
@@ -2880,7 +2880,7 @@
     "RadiosAdd1": "Beijing",
     "RadiosAdd2": "Shanghai"
   },
-  "BootstrapBlazor.Shared.Samples.Rates": {
+  "BootstrapBlazor.Server.Components.Samples.Rates": {
     "RatesTitle": "Rate",
     "RatesDescription": "Scoring components",
     "RatesNormalTitle": "Basic usage",
@@ -2912,7 +2912,7 @@
     "RatesIsWrap": "Wrap",
     "RatesShowValue": "Show value"
   },
-  "BootstrapBlazor.Shared.Samples.Selects": {
+  "BootstrapBlazor.Server.Components.Samples.Selects": {
     "SelectsTitle": "Select",
     "SelectsDescription": "When there are too many options, use the drop-down menu to present and select content",
     "SelectsNormalTitle": "Select drop-down selection box",
@@ -2999,7 +2999,7 @@
     "SelectsVirtualizeIntro": "Set <code>IsVirtualize</code> to <b>true</b> enable virtual scroll for larg data",
     "SelectsVirtualizeDescription": "Component virtual scrolling supports two ways of providing data through <code>Items</code> or <code>OnQueryAsync</code> callback methods"
   },
-  "BootstrapBlazor.Shared.Samples.Sliders": {
+  "BootstrapBlazor.Server.Components.Samples.Sliders": {
     "SlidersTitle": "Slider",
     "SlidersDescription": "Select within a fixed interval by dragging the slider",
     "SlidersNormalTitle": "Basic usage",
@@ -3008,7 +3008,7 @@
     "SlidersValue": "The current value of the component",
     "SlidersValueChanged": "ValueChanged callback method"
   },
-  "BootstrapBlazor.Shared.Samples.Switches": {
+  "BootstrapBlazor.Server.Components.Samples.Switches": {
     "SwitchesTitle": "Switch",
     "SwitchesDescription": "The most common switching applications are available",
     "SwitchesNormalTitle": "Basic usage",
@@ -3062,7 +3062,7 @@
     "SwitchesAttributeOnValueChanged": "Call back the delegate method when the value changes",
     "SwitchesEventValueChanged": "Gets the value of the selection change"
   },
-  "BootstrapBlazor.Shared.Samples.TextAreas": {
+  "BootstrapBlazor.Server.Components.Samples.TextAreas": {
     "TextAreaPlaceHolder": "Please enter ...",
     "TextAreaTitle": "Textarea",
     "TextAreaSubTitle": "Used to enter a large amount of text",
@@ -3091,7 +3091,7 @@
     "TextAreaScrollTo": "Scroll +20",
     "TextAreaAutoScroll": "Automatic scrolling"
   },
-  "BootstrapBlazor.Shared.Samples.Toggles": {
+  "BootstrapBlazor.Server.Components.Samples.Toggles": {
     "TogglesOnText": "On",
     "TogglesOffText": "Off",
     "TogglesTitle": "Toggle",
@@ -3127,7 +3127,7 @@
     "ValueChanged": "Gets the value of the selection change",
     "DisplayName": "Binding label"
   },
-  "BootstrapBlazor.Shared.Samples.Transfers": {
+  "BootstrapBlazor.Server.Components.Samples.Transfers": {
     "LeftPanelText": "The list on the left",
     "LeftButtonText": "To the left",
     "RightPanelText": "The list on the right",
@@ -3174,7 +3174,7 @@
     "RightHeaderTemplate": "the right panel Header template",
     "RightItemTemplate": "the right panel Item template"
   },
-  "BootstrapBlazor.Shared.Samples.Uploads": {
+  "BootstrapBlazor.Server.Components.Samples.Uploads": {
     "UploadsTitle": "Upload",
     "UploadsSubTitle": "Upload the file by clicking",
     "UploadsNote": "If you edit too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
@@ -3261,7 +3261,7 @@
     "UploadsRemoveMsg": "The removal was successful",
     "UploadsIconTemplate": "The template of file icon"
   },
-  "BootstrapBlazor.Shared.Samples.ValidateForms": {
+  "BootstrapBlazor.Server.Components.Samples.ValidateForms": {
     "ChangeButtonText": "Change",
     "ResetButtonText": "Reset",
     "ValidateFormsSubmitButtonText": "Submit",
@@ -3339,7 +3339,7 @@
     "ValidateFormDisableAutoSubmitFormByEnterIntro": "When the focus is in the input box in the form, pressing <kbd>Enter</kbd> will automatically submit the form by default. You can disable automatic submission by setting <code>DisableAutoSubmitFormByEnter=\"false\"</code>",
     "DisableAutoSubmitFormByEnterDesc": "<code>form</code> form is an important element of<code>web</code>. If there is an <code>input</code> element in the form, when this element gets the focus, pressing <kbd>Enter</kbd> will automatically submit the form. This is a feature of the form element, not our component code logic. If this function is not needed, disable it by setting <code>DisableAutoSubmitFormByEnter=\"true\"</code>, In this example, pressing Enter in the text box will not automatically <b>submit</b> and perform data compliance check. You need to click the <b>Submit</b> button to submit the form"
   },
-  "BootstrapBlazor.Shared.Samples.Ajaxs": {
+  "BootstrapBlazor.Server.Components.Samples.Ajaxs": {
     "AjaxTitle": "Ajax call",
     "AjaxDescribe": "The ajax method used to use js directly in the browser to interact with the server currently only supports both input and output as json, and the return value is a json string, which can be converted and processed by itself.",
     "NormalTitle": "Basic usage",
@@ -3355,7 +3355,7 @@
     "GoToButtonText1": "Jump to the first page of the document",
     "GoToButtonText2": "Jump to yourself (refresh page)"
   },
-  "BootstrapBlazor.Shared.Samples.Avatars": {
+  "BootstrapBlazor.Server.Components.Samples.Avatars": {
     "Title": "Avatar",
     "SubTitle": "Present user or thing information as icons, pictures, or characters.",
     "BasicUsageTitle": "Basic usage",
@@ -3379,7 +3379,7 @@
     "BorderDiv1": "The first fillet square avatar box is loaded correctly, so the border is <b class='text-info' > blue </b>",
     "BorderDiv2": "The second circular avatar loads the picture path incorrectly, so the border is <b class='text-danger'> red </b>and the picture appears as the default icon"
   },
-  "BootstrapBlazor.Shared.Samples.Badges": {
+  "BootstrapBlazor.Server.Components.Samples.Badges": {
     "Title": "Badge",
     "SubTitle": "A number or status tag that appears next to a button, icon, or icon",
     "BasicusageTitle": "Basic usage",
@@ -3394,7 +3394,7 @@
     "IsPill": "Capsule style",
     "ButtonSpan": "The primary button"
   },
-  "BootstrapBlazor.Shared.Samples.BarcodeReaders": {
+  "BootstrapBlazor.Server.Components.Samples.BarcodeReaders": {
     "Title": "BarcodeReader",
     "SubTitle": "This component scans the bar code by calling the camera to obtain the bar code content bar code/QR code",
     "Attention": "Pay special attention to:",
@@ -3440,7 +3440,7 @@
     "OpenCameraLog": "Turn on the camera",
     "CloseCameraLog": "Turn off the camera"
   },
-  "BootstrapBlazor.Shared.Samples.Blocks": {
+  "BootstrapBlazor.Server.Components.Samples.Blocks": {
     "Title": "Block",
     "SubTitle": "Depending on the parameter conditions, the contents of the block are determined to be displayed, usually in conjunction with permission authorization",
     "BasicUsageTitle": "Common usage",
@@ -3471,7 +3471,7 @@
     "UsersDiv1": "The current user <code>{0}</code> allows you to see this content",
     "RolesDiv1": "The current role <code>User</code> allow this content to be seen"
   },
-  "BootstrapBlazor.Shared.Samples.Cards": {
+  "BootstrapBlazor.Server.Components.Samples.Cards": {
     "Title": "Card",
     "SubTitle": "Aggregate information to display in a card container",
     "BasicUsageTitle": "Card card components",
@@ -3503,7 +3503,7 @@
     "CollapsibleBody": "Click card hader for collapse/expand card body",
     "ShadowBody": "Shadow effect sample"
   },
-  "BootstrapBlazor.Shared.Samples.Calendars": {
+  "BootstrapBlazor.Server.Components.Samples.Calendars": {
     "Title": "Calendar",
     "SubTitle": "Containers that display data as calendars. When the data is date or by date, such as schedule, schedule, price calendar, etc., lunar calendar, etc. Year/month switching is currently supported.",
     "BasicUsageTitle": "Basic usage",
@@ -3531,7 +3531,7 @@
     "English": "English",
     "Study": "Study"
   },
-  "BootstrapBlazor.Shared.Samples.Cameras": {
+  "BootstrapBlazor.Server.Components.Samples.Cameras": {
     "Title": "Camera",
     "SubTitle": "This component takes pictures by calling the camera",
     "Attention": "Pay special attention to:",
@@ -3560,14 +3560,14 @@
     "SaveText": "Save",
     "NotFoundDevicesString": "Video device not found"
   },
-  "BootstrapBlazor.Shared.Demos.Camera.CameraNormal": {
+  "BootstrapBlazor.Server.Components.Demos.Camera.CameraNormal": {
     "TraceOnInit": "Initialized carmera",
     "TraceOnError": "Error",
     "TraceOnStar": "Star video",
     "TraceOnClose": "Stop video",
     "TraceOnCapture": "Capture done"
   },
-  "BootstrapBlazor.Shared.Samples.Captchas": {
+  "BootstrapBlazor.Server.Components.Samples.Captchas": {
     "Title": "Captchas",
     "SubTitle": "Human-machine recognition by dragging the slider",
     "BasicUsageTitle": "Basic usage",
@@ -3594,7 +3594,7 @@
     "OnValid": "The slider verification code calls back this method after the validation results are determined",
     "GetImageName": "Custom method for getting the name of the background map file"
   },
-  "BootstrapBlazor.Shared.Samples.Carousels": {
+  "BootstrapBlazor.Server.Components.Samples.Carousels": {
     "Title": "Carousel",
     "SubTitle": "In limited space, loop through the same type of pictures, text, and more",
     "BasicUsageTitle": "Basic usage",
@@ -3627,7 +3627,7 @@
     "HoverPause": "If set to true, pauses the cycling of the carousel on mouseenter and resumes the cycling of the carousel on mouseleave. If set to false, hovering over the carousel won’t pause it",
     "PlayMode": "autoplay the carousel mode"
   },
-  "BootstrapBlazor.Shared.Samples.Client": {
+  "BootstrapBlazor.Server.Components.Samples.Client": {
     "Title": "Get client connection information",
     "SubTitle": "More for system log tracking",
     "BasicUsageTitle": "Basic usage",
@@ -3646,7 +3646,7 @@
     "Device": "Device",
     "Language": "Language"
   },
-  "BootstrapBlazor.Shared.Samples.Circles": {
+  "BootstrapBlazor.Server.Components.Samples.Circles": {
     "Title": "Circle",
     "SubTitle": "Chart class components. There are generally two uses:",
     "CircleTips1": "Displays the percentage of progress for a task",
@@ -3670,7 +3670,7 @@
     "ChildContentP1": "The size of the consumer population",
     "ChildContentSpan": "Total number of people"
   },
-  "BootstrapBlazor.Shared.Samples.Collapses": {
+  "BootstrapBlazor.Server.Components.Samples.Collapses": {
     "Title": "Collapse",
     "SubTitle": "The content area is contained by the collapsed panel",
     "BasicUsageTitle": "Basic usage",
@@ -3701,7 +3701,7 @@
     "ControllabilityItem2": "Results controllable: Users are free to perform actions, including undoing, falling back, and terminating the current operation.",
     "ButtonText": "Toggle"
   },
-  "BootstrapBlazor.Shared.Samples.DateTimeRanges": {
+  "BootstrapBlazor.Server.Components.Samples.DateTimeRanges": {
     "Title": "Date Time Range Picker",
     "Description": "Select a date in the same picker",
     "NormalTitle": "Basic skills",
@@ -3725,11 +3725,11 @@
     "Submit": "Submit",
     "Limit": "time limit"
   },
-  "BootstrapBlazor.Shared.Samples.Ips": {
+  "BootstrapBlazor.Server.Components.Samples.Ips": {
     "IpNormalTitle": "Basic usage",
     "IpNormalIntro": "Enter and display the  <code>ip</code>  address in sections, for example: <code>192.168.1.1</code>"
   },
-  "BootstrapBlazor.Shared.Samples.Displays": {
+  "BootstrapBlazor.Server.Components.Samples.Displays": {
     "Title": "Display",
     "SubTitle": "Displays static text data",
     "BasicUsageTitle": "Basic usage",
@@ -3767,7 +3767,7 @@
     "ShowTipsTitle": "Show Tooltip",
     "ShowTipIntro": "Wrapper with <code>Tooltip</code> component for show tooltip title"
   },
-  "BootstrapBlazor.Shared.Samples.DropdownWidgets": {
+  "BootstrapBlazor.Server.Components.Samples.DropdownWidgets": {
     "Title": "DropdownWidget",
     "SubTitle": "More for head information summary presentation",
     "BasicUsageTitle": "Basic usage",
@@ -3789,7 +3789,7 @@
     "BasicUsageTasks": "You have 3 tasks",
     "BasicUsageViewTasks": "View all tasks"
   },
-  "BootstrapBlazor.Shared.Samples.Empties": {
+  "BootstrapBlazor.Server.Components.Samples.Empties": {
     "Title": "Empty",
     "SubTitle": "Sub Title PlaceHolder",
     "NormalTitle": "Basic usage",
@@ -3809,7 +3809,7 @@
     "TemplateText": "Customize the empty state template",
     "TemplateIButtonText": "Go back to the previous page"
   },
-  "BootstrapBlazor.Shared.Samples.GroupBoxes": {
+  "BootstrapBlazor.Server.Components.Samples.GroupBoxes": {
     "Title": "GroupBox",
     "SubTitle": "Simulate WinForm's GroupBox components",
     "BasicUsageTitle": "Basic usage",
@@ -3819,7 +3819,7 @@
     "GroupP1": "I'm an example of <code>GroupBox</code>",
     "GroupP2": "For more examples, please refer to the <code>EditorForms</code> Form Example <a href='editor-form' target='_blank'>[the portal]</a>"
   },
-  "BootstrapBlazor.Shared.Samples.LinkButtons": {
+  "BootstrapBlazor.Server.Components.Samples.LinkButtons": {
     "LinkButtonsComTitle": "LinkButton",
     "LinkButtonsSubTitle": "Provider A html tag as Button",
     "LinkButtonTextTitle": "LinkButton",
@@ -3857,7 +3857,7 @@
     "LinkButtonColorText": "Button",
     "LinkButtonVerticalText": "TestButton"
   },
-  "BootstrapBlazor.Shared.Samples.ListViews": {
+  "BootstrapBlazor.Server.Components.Samples.ListViews": {
     "ListViewsTitle": "ListView",
     "ListViewsSubTitle": "Provides rule arrangement controls",
     "ProductListText": "The list of products",
@@ -3886,7 +3886,7 @@
     "CollapsedGroupCallback": "Callback for set the IsCollapsed parameter of Collapse component",
     "GroupOrderCallback": "Callback for set the order of group"
   },
-  "BootstrapBlazor.Shared.Samples.Locators": {
+  "BootstrapBlazor.Server.Components.Samples.Locators": {
     "LocatorsTitle": "Get the IP geographic location",
     "LocatorsSubTitle": "More for system log tracking and analysis",
     "LocatorsNormalTitle": "Basic usage",
@@ -3907,7 +3907,7 @@
     "LocatorsNormalDisplayText": "Geographical location",
     "LocatorsNormalButtonText": "Locating"
   },
-  "BootstrapBlazor.Shared.Samples.Print": {
+  "BootstrapBlazor.Server.Components.Samples.Print": {
     "PrintsTitle": "Print",
     "PrintsSubTitle": "Used to print a document or a local view",
     "PrintsTips1": "Set up <code style='margin-left: 14px;' > PreviewUrl</code>, open a new page for print preview and click the print button on this page for page printing",
@@ -3923,7 +3923,7 @@
     "PrintServiceIntro": "By setting up the content components to print, call the <b>print service</b>directly print jobs",
     "PrintsDialogTitle": "The data query window"
   },
-  "BootstrapBlazor.Shared.Samples.Tags": {
+  "BootstrapBlazor.Server.Components.Samples.Tags": {
     "TagsTitle": "Tag",
     "TagsSubTitle": "Used for marking and selection.",
     "Tag1": "Label I",
@@ -3946,7 +3946,7 @@
     "TagsShowDismiss": "Close button",
     "TagsOnDismiss": "Close label callback method"
   },
-  "BootstrapBlazor.Shared.Samples.Timelines": {
+  "BootstrapBlazor.Server.Components.Samples.Timelines": {
     "TimelinesTitle": "Timeline",
     "TimelinesSubTitle": "Visualize time flow information",
     "TimelinesNormalTitle": "Basic usage",
@@ -3985,7 +3985,7 @@
     "TimelinesComponent": "Node custom components",
     "TimelinesAttributeTitle": "TimelineItem attributes"
   },
-  "BootstrapBlazor.Shared.Samples.Searches": {
+  "BootstrapBlazor.Server.Components.Samples.Searches": {
     "SearchesTitle": "Search box",
     "SearchesSubTitle": "Used for data search",
     "SearchesPlaceHolder": "Search for examples",
@@ -4018,7 +4018,7 @@
     "SearchesOnSearch": "Call back this delegate when you click Search",
     "SearchesOnClear": "Click Recall this order when emptying"
   },
-  "BootstrapBlazor.Shared.Samples.Titles": {
+  "BootstrapBlazor.Server.Components.Samples.Titles": {
     "Title": "Title",
     "SubTitle": "Used to set page title",
     "Tips": "<p><code>NET6. 0</code> you can use the Microsoft <code>PageTitle</code> component to set the page title. This component additionally provides setting the current page title in the form of service</p>",
@@ -4038,33 +4038,33 @@
     "StaticB": "Pay attention",
     "StaticDiv": "When using this method, please add <b>not set <code>Text</code> attribute in <code>App</code> or <code>MainLayout</code> or <code>Page</code>The <code>Title</code> component of </b>"
   },
-  "BootstrapBlazor.Shared.Components.DemoBlock": {
+  "BootstrapBlazor.Server.Components.Components.DemoBlock": {
     "Title": "",
     "SubTitle": "Demo",
     "TooltipText": "Copied"
   },
-  "BootstrapBlazor.Shared.Components.Tips": {
+  "BootstrapBlazor.Server.Components.Components.Tips": {
     "Title": "Tips"
   },
-  "BootstrapBlazor.Shared.Components.AttributeTable": {
+  "BootstrapBlazor.Server.Components.Components.AttributeTable": {
     "Title": "Attributes"
   },
-  "BootstrapBlazor.Shared.Components.MethodTable": {
+  "BootstrapBlazor.Server.Components.Components.MethodTable": {
     "Title": "Methods"
   },
-  "BootstrapBlazor.Shared.Common.AttributeItem": {
+  "BootstrapBlazor.Server.Components.Common.AttributeItem": {
     "Name": "Parameter",
     "Description": "Description",
     "Type": "Type",
     "ValueList": "ValueList",
     "DefaultValue": "DefaultValue"
   },
-  "BootstrapBlazor.Shared.Common.EventItem": {
+  "BootstrapBlazor.Server.Components.Common.EventItem": {
     "Name": "Parameter",
     "Description": "Description",
     "Type": "Type"
   },
-  "BootstrapBlazor.Shared.Common.MethodItem": {
+  "BootstrapBlazor.Server.Components.Common.MethodItem": {
     "Title": "Methods",
     "Name": "Parameter",
     "Description": "Description",
@@ -4072,7 +4072,7 @@
     "Parameters": "Parameters",
     "ReturnValue": "ReturnValue"
   },
-  "BootstrapBlazor.Shared.Shared.ComponentLayout": {
+  "BootstrapBlazor.Server.Components.Layout.ComponentLayout": {
     "Title": "Enterprise-level component library based on Bootstrap and Blazor",
     "Example": "Example",
     "Video": "Video",
@@ -4082,7 +4082,7 @@
     "IconTheme": "Icon",
     "Group": "Community"
   },
-  "BootstrapBlazor.Shared.Samples.Alerts": {
+  "BootstrapBlazor.Server.Components.Samples.Alerts": {
     "Title": "Alert",
     "SubTitle": "Displays important alert messages.",
     "BaseUsageText": "Basic usage",
@@ -4105,7 +4105,7 @@
     "AlertInfoText": "A simple info alert—check it out!",
     "AlertDarkText": "A simple dark alert—check it out!"
   },
-  "BootstrapBlazor.Shared.Samples.RibbonTabs": {
+  "BootstrapBlazor.Server.Components.Samples.RibbonTabs": {
     "RibbonTabsTitle": "RibbonTab",
     "RibbonTabsDescription": "Office menu tab",
     "RibbonTabsNormalTitle": "Basic usage",
@@ -4148,7 +4148,7 @@
     "RibbonTabsAnchorIntro": "Set <code>IsSupportAnchor=\"true\"</code> enable anchor support",
     "RibbonTabsAnchorDesc": "Set <code>EncodeAnchorCallback</code> custom the encode hash rule, set <code>DecodeAnchorCallback</code> custom the decode hash rule"
   },
-  "BootstrapBlazor.Shared.Samples.Logouts": {
+  "BootstrapBlazor.Server.Components.Samples.Logouts": {
     "LogoutsTitle": "Logout component",
     "LogoutsDescription": "Used for site logout action",
     "LogoutsNormalTitle": "Common usage",
@@ -4167,13 +4167,13 @@
     "LogoutsLinkTemplatePersonalCenter": "personal center",
     "LogoutsLinkTemplateSetup": "set up"
   },
-  "BootstrapBlazor.Shared.Samples.AutoRedirects": {
+  "BootstrapBlazor.Server.Components.Samples.AutoRedirects": {
     "Title": "AutoRedirect automatic jump component",
     "Description": "Through the set address, automatically jump to the specified page when there is no mouse or keyboard action on the page",
     "NormalTitle": "Common usage",
     "NormalIntro": "By setting the <code>Interval</code> interval, when there is no mouse or keyboard action, it will automatically jump to the address set by <code>RedirectUrl</code>"
   },
-  "BootstrapBlazor.Shared.Samples.AnchorLinks": {
+  "BootstrapBlazor.Server.Components.Samples.AnchorLinks": {
     "AnchorLinkTitle": "AnchorLink",
     "AnchorLinkDescribe1": "Apply to title strip",
     "AnchorLinkDescribe2": "Anchor link, click to copy for easy sharing",
@@ -4190,7 +4190,7 @@
     "AttrTooltipText": "Tooltip text",
     "AnchorLinkText": "I am a clickable anchor link"
   },
-  "BootstrapBlazor.Shared.Samples.QRCodes": {
+  "BootstrapBlazor.Server.Components.Samples.QRCodes": {
     "QRCodesTitle": "QRCode",
     "QRCodesSubTitle": "Generate QR code",
     "QRCodesNormalTitle": "Basic usage",
@@ -4217,7 +4217,7 @@
     "QRCodesClearButtonTextValue": "Clear",
     "QRCodesGenerateButtonTextValue": "Generate"
   },
-  "BootstrapBlazor.Shared.Samples.Anchors": {
+  "BootstrapBlazor.Server.Components.Samples.Anchors": {
     "Title": "Anchor",
     "SubTitle": "Hyperlinks to scroll on one page.",
     "BaseUsageText": "Basic usage",
@@ -4230,13 +4230,13 @@
     "DescOffset": "The offset is used to adjust the gap use",
     "DescChildContent": "Content"
   },
-  "BootstrapBlazor.Shared.Samples.Breadcrumbs": {
+  "BootstrapBlazor.Server.Components.Samples.Breadcrumbs": {
     "Title": "Breadcrumb",
     "Describe": "Display the path of the current page and quickly return to any previous page.",
     "Block1Title": "Basic usage",
     "Block1Intro": "Suitable for a wide range of basic usage."
   },
-  "BootstrapBlazor.Shared.Foo": {
+  "BootstrapBlazor.Server.Components.Foo": {
     "Name": "Name",
     "DateTime": "DateTime",
     "Address": "Address",
@@ -4260,42 +4260,42 @@
     "False": "Failed",
     "NullItemText": "Not Set"
   },
-  "BootstrapBlazor.Shared.Samples.ValidateForms.ComplexFoo": {
+  "BootstrapBlazor.Server.Components.Samples.ValidateForms.ComplexFoo": {
     "Name": "Name",
     "Name.Required": "{0} is required."
   },
-  "BootstrapBlazor.Shared.Samples.ValidateForms.Dummy2": {
+  "BootstrapBlazor.Server.Components.Samples.ValidateForms.Dummy2": {
     "Name": "Name",
     "Name.Required": "Dummy2 {0} is required"
   },
-  "BootstrapBlazor.Shared.EnumEducation": {
+  "BootstrapBlazor.Server.Components.EnumEducation": {
     "PlaceHolder": "Click to select ...",
     "Primary": "Primary",
     "Middel": "Middel"
   },
-  "BootstrapBlazor.Shared.Components.ThemeChooser": {
+  "BootstrapBlazor.Server.Components.Components.ThemeChooser": {
     "Title": "Click to choose theme",
     "HeaderText": "Themes"
   },
-  "BootstrapBlazor.Shared.Samples.Uploads.Person": {
+  "BootstrapBlazor.Server.Components.Samples.Uploads.Person": {
     "Name": "Name",
     "Name.Required": "{0} is required",
     "Picture": "File",
     "Picture.Required": "{0} is required"
   },
-  "BootstrapBlazor.Shared.Components.CultureChooser": {
+  "BootstrapBlazor.Server.Components.Components.CultureChooser": {
     "Label": "Language："
   },
-  "BootstrapBlazor.Shared.Components.GlobalSearch": {
+  "BootstrapBlazor.Server.Components.Components.GlobalSearch": {
     "Search": "Search components"
   },
-  "BootstrapBlazor.Shared.Components.Header": {
+  "BootstrapBlazor.Server.Components.Components.Header": {
     "DownloadText": "Download",
     "HomeText": "Home",
     "ComponentsText": "Components",
     "IntroductionText": "Documents"
   },
-  "BootstrapBlazor.Shared.Shared.BaseLayout": {
+  "BootstrapBlazor.Server.Components.Layout.BaseLayout": {
     "FlowText": "Workflow",
     "InstallAppText": "Install PWA App",
     "InstallText": "Install",
@@ -4303,7 +4303,7 @@
     "Title": "View update log",
     "ChatTooltip": "Azure OpenAI"
   },
-  "BootstrapBlazor.Shared.Shared.NavMenu": {
+  "BootstrapBlazor.Server.Components.Layout.NavMenu": {
     "GetStarted": "Getting Started",
     "Introduction": "Introduction",
     "Install": "Install",
@@ -4532,7 +4532,7 @@
     "CodeEditor": "CodeEditor",
     "Gantt": "Gantt"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesHeader": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
     "TablesHeaderDescription": "When the data structure is complex, multi-level headers can be used to show the hierarchical relationship of the data",
     "TablesHeaderNormalTitle": "Basic usage",
@@ -4544,7 +4544,7 @@
     "TablesHeaderNormal_Name": "personal name",
     "TablesHeaderNormal_Address": "personal address"
   },
-  "BootstrapBlazor.Shared.Samples.SelectTrees": {
+  "BootstrapBlazor.Server.Components.Samples.SelectTrees": {
     "SelectTreesTitle": "SelectTree",
     "SelectTreesDescription": "A tree-like data structure is presented in the drop-down box for selection",
     "SelectTreesNormalTitle": "Common usage",
@@ -4561,7 +4561,7 @@
     "SelectTreesIsPopoverIntro": "Set <code>IsPopover</code> to <b>true</b>, use popover render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>",
     "SelectTreesClientValidationButtonText": "Submit"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesDetailRow": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesDetailRow": {
     "TablesDetailRowTitle": "Display detail line function",
     "TablesDetailRowDesc": "Used to display parent-child relationship table data",
     "DetailRowTemplateTitle": "Simple Application",
@@ -4584,7 +4584,7 @@
     "DetailTextFalse": "Disable",
     "TabItemText": "Associated Data"
   },
-  "BootstrapBlazor.Shared.Samples.Table.Tables": {
+  "BootstrapBlazor.Server.Components.Samples.Table.Tables": {
     "ButtonAddColumnText": "Add Column",
     "ButtonRemoveColumnText": "Remove Column",
     "TableBaseTitle": "Table",
@@ -4770,7 +4770,7 @@
     "TableBaseHeaderStyleMode": "The style of table header",
     "IsPopoverToolbarDropdownButtonAttr": "Whether float the popup window for dropdown button in the toolbar"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesColumn": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesColumn": {
     "TablesColumnTitle": "Table Column",
     "TablesColumnDescription": "Used to display multiple pieces of data with similar structures, data can be sorted, filtered, compared or other custom operations.",
     "ColumnTextTitle": "Custom column name",
@@ -4805,14 +4805,14 @@
     "CustomColText2": "Custom column name 2",
     "CustomColText3": "Custom column name 3"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesColumnDrag": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesColumnDrag": {
     "TablesColumnTitle": "Table Column",
     "TablesColumnDescription": "Used to display multiple pieces of data with similar structures, data can be sorted, filtered, compared or other custom operations.",
     "AllowDragOrderTitle": "Allow dragging column headings to adjust table column order",
     "AllowDragOrderIntro": "By specifying <code>AllowDragColumn</code>, set the table columns to allow dragging column headings to adjust the table column order",
     "AllowDragOrderDesc": "Pressing the mouse over a column heading and dragging it to another column heading position can adjust the column to be in front of the target column, but the built-in columns in the Table component, such as DetailRow, LineNo, MultipleSelect, and Operation columns, cannot be adjusted"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesColumnResizing": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesColumnResizing": {
     "TablesColumnTitle": "Table Column",
     "TablesColumnDescription": "Used to display multiple pieces of data with similar structures, data can be sorted, filtered, compared or other custom operations.",
     "WidthTitle": "Customize the width of each column",
@@ -4832,7 +4832,7 @@
     "CustomerButtonContent": "The button processing logic is distinguished by different functions. The parameter Items is the selected row data collection in the Table component, and the currently selected data is {0}",
     "OnRowButtonClickContent": "The button processing logic is distinguished by different functions, and the parameter Item is the current row data"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesColumnList": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesColumnList": {
     "TablesColumnTitle": "Table Column",
     "TablesColumnDescription": "Used to display multiple pieces of data with similar structures, data can be sorted, filtered, compared or other custom operations.",
     "ShownWithBreakPointTitle": "Automatically show/hide columns based on screen width",
@@ -4855,7 +4855,7 @@
     "ResetVisibleColumnsButtonText": "Set Columns",
     "ResetVisibleColumnsDesc": "Call the instancel method <code>ResetVisibleColumns</code> of <code>Table</code> for set the multiple columns visible value"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesColumnTemplate": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesColumnTemplate": {
     "TablesColumnTitle": "Table Column",
     "TablesColumnDescription": "Used to display multiple pieces of data with similar structures, data can be sorted, filtered, compared or other custom operations.",
     "TableColumnTitle": "Custom Column Data Template",
@@ -4875,7 +4875,7 @@
     "AutoGenerateColumnsLi3": "For more attributes, see <a href=\"{0}/blob/master/src/BootstrapBlazor/Attributes/AutoGenerateColumnAttribute.cs\" target=\"_blank\" >Source code</a>",
     "AutoGenerateColumnsP2": " In this example the <code>date</code> column is formatted through the <code>[AutoGenerateColumn(Order = 1, FormatString = \"yyyy-MM-dd\")]</code> tag; Set the template column in the code to customize the <code>Complete</code> column and use the <code>Switch</code> component to render; through the <code>[AutoGenerateColumn(Order = 10)]</code> tag in the <code>Order</code> set the display order"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesEdit": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesEdit": {
     "TablesEditTitle": "Table",
     "TablesEditDescription": "Commonly used in single table maintenance, simple addition, deletion, modification, search, sorting, filtering, search and other common functions can be realized through attribute configuration, and very complex business requirements can be realized through advanced usage of <code>Template</code>",
     "TablesEditItemsTitle": "Use collection as data source to realize editing function",
@@ -4925,7 +4925,7 @@
     "TablesEditInjectDataServiceTips3": "custom data service",
     "TablesEditInjectDataServiceTips4": "After enabling the use of the injected data service, you can set the component individually by setting the <code>DataServices</code> parameter, if the instance provided by the internal use of the injected service is not set"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesVirtualization": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesVirtualization": {
     "TablesVirtualizationTitle": "Table virtual scroll row",
     "TablesVirtualizationDescription": "When the Table component displays large data, it usually uses paging to load data. There is also a virtual row technology similar to the automatic loading of data in the background when the mobile phone scrolls to the bottom.",
     "VirtualizationNormalTitle": "Normal use",
@@ -4935,7 +4935,7 @@
     "VirtualizationDynamicIntro": "Background on-demand loading when scrolling data without paging",
     "VirtualizationDynamicDescription": "Display row placeholders when scrolling quickly to improve user experience"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesLoading": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesLoading": {
     "TablesLoadingTitle": "Display data loading function",
     "TablesLoadingDescription": "When calling the remote data interface, there may be a delay due to network reasons, you can use the display loading function to shield",
     "TablesLoadingShowLoadingTitle": "Basic usage",
@@ -4945,7 +4945,7 @@
     "TablesLoadingShowLoadingInFirstRenderTitle": "Turn off loading animation",
     "TablesLoadingShowLoadingInFirstRenderIntro": "Just set <code>ShowLoadingInFirstRender</code>"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesTree": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesTree": {
     "TablesTreeTitle": "Table tree data display",
     "TablesTreeDescription": "The table supports the display of tree data",
     "TablesTreeTip_title": "Control whether it is tree data through the <code>IsTree</code> parameter",
@@ -4970,7 +4970,7 @@
     "TablesTreeIconTips1": "The default level indent width is <code>16px</code> by setting <code>Indent</code> to change the indent width",
     "TablesTreeIconTips2": "In this example change the indent width to <code>8px</code>"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesWrap": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesWrap": {
     "TablesWrapTitle": "Table wrapping example",
     "TablesWrapDescription": "When the content of the header or the cell in the row is too long, the effect of omitting, wrapping, etc. can be realized by changing the style",
     "TablesWrapTip": "<b>Note:</b>Because the <code>Table</code> component has realized the function of adapting to the mobile terminal, this demo needs to be viewed on the computer side",
@@ -5012,7 +5012,7 @@
     "TablesWrapCustomCellTemplate_State": "state",
     "TablesWrapCustomCellTemplate_Time": "time"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesTracking": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesTracking": {
     "TablesTrackingTitle": "Table table",
     "TablesTrackingDescription": "Applicable to application scenarios where parent and child tables are submitted together",
     "TablesTrackingNormalTitle": "tracking mode",
@@ -5020,7 +5020,7 @@
     "TablesTrackingNormalTips1": "The prompt information of the <b>Save</b> <b>Delete</b> button can be turned off by setting <code>ShowToastAfterSaveOrDeleteModel='false'</code>",
     "TablesTrackingNormalTips2": "All data editing in this mode edits the original data and updates the data source through <code>bind-Items</code>, so no <b>Cancel</b> button is provided"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesFooter": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesFooter": {
     "TablesFooterTitle": "Table Footer",
     "TablesFooterDescription": "For statistics",
     "TablesFooterStatisticsTitle": "Statistics example",
@@ -5035,7 +5035,7 @@
     "TablesFooterTemplateSentences": "Here you can write some descriptive sentences",
     "TablesFooterTemplateTotal": "Total:"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesAutoRefresh": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesAutoRefresh": {
     "TablesAutoRefreshTitle": "Auto Refresh table",
     "TablesAutoRefreshDescription": "In a certain application scenario, the change of the data source needs to refresh the table component",
     "TablesAutoRefreshNormalTitle": "Auto Refresh",
@@ -5048,7 +5048,7 @@
     "TablesAutoRefreshControlToggleAuto": "Change Auto",
     "TablesAutoRefreshControlIsAutoRefresh": "The current value"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesSelection": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesSelection": {
     "TablesSelectionTitle": "Table Selection",
     "TablesSelectionDescription": "Set the table row state by setting <code>SelectedRows</code>, and set the highlight by selecting the style",
     "TablesSelectionNormalTitle": "Set row selection function",
@@ -5057,7 +5057,7 @@
     "TablesSelectionNormalSelectRow": "selected row record",
     "TablesSelectionNormalButtonText": "clear selection"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesExcel": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesExcel": {
     "TablesExcelTitle": "Table Excel",
     "TablesExcelDescription": "Commonly used for large data sheet maintenance",
     "TablesExcelOnQueryTitle": "binding collection",
@@ -5089,7 +5089,7 @@
     "TablesExcelCellRenderTips1": "<code>IsFixedHeader</code> fixed header height is set to <code>Height='500px'</code>",
     "TablesExcelCellRenderTips2": "<code>Name</code> is not editable display avatar"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesDynamicExcel": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesDynamicExcel": {
     "TablesDynamicExcelTitle": "Excel-DataTable",
     "TablesDynamicExcelDescription": "Commonly used for large data sheet maintenance",
     "TablesDynamicExcelNormalTitle": "Excel mode",
@@ -5119,7 +5119,7 @@
     "TablesDynamicExcelKeyboardTips3_note4": "The internal method updates the original data source DataTable",
     "TablesDynamicExcelKeyboardTips3_note5": "output log information"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesExport": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesExport": {
     "TablesExportTitle": "Table Export",
     "TablesExportDescription1": "By setting <code>ShowExportButton</code> to display the export button, the component has built-in export Excel function",
     "TablesExportDescription2": "The export function provides an export callback method <code>OnExportAsync</code>, which can be used to export data by providing a custom export method. If no data export method is provided, the component will export data according to the injected export service",
@@ -5140,7 +5140,7 @@
     "TablesExportToastSuccessContent": "Export success，auto close after 4 second",
     "TablesExportToastFailedContent": "Export failed，auto close after 4 second"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesToolbar": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesToolbar": {
     "TablesToolbarTitle": "Table",
     "TablesToolbarDescription": "It is used to display multiple pieces of data with similar structure, and the data can be sorted, filtered, compared or other custom operations.",
     "TablesToolbarNormalTitle": "Table with Toolbar",
@@ -5161,7 +5161,7 @@
     "TablesToolbarCustomButton2": "Download 2",
     "TableToolbarPopConfirmButton1": "Confirm"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesCell": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesCell": {
     "TablesCellTitle": "Table Cell",
     "TablesCellDescription": "Cell related operation example",
     "TableCellMergeCellTitle": "Merge Cells",
@@ -5179,7 +5179,7 @@
     "TableCellOnDoubleClickCellCurrentCellName": "Current cell name:",
     "TableCellOnDoubleClickCellCurrentValue": "Current Value:"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesLookup": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesLookup": {
     "TablesLookupTitle": "Table Lookup",
     "TablesLookupDescription": "Used to automatically convert foreign key columns to <code>Text</code> display text",
     "TableLookupNormalTitle": "Lookup external data source",
@@ -5187,7 +5187,7 @@
     "TableLookupNormalTips2": "The component automatically converts <code>Complete</code> to a preset in the <code>DataSource</code> collection",
     "TableLookupNormalTips3": "In this example, the <code>ILookupService</code> service is used for unified processing, and the <code>Lookup</code> data collection is obtained from the service by setting the <code>LookupServiceKey</code> value"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesRow": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesRow": {
     "TablesRowTitle": "Table Row",
     "TablesRowDesc": "Used to display multiple pieces of data with similar structures, data can be sorted, filtered, compared or other custom operations.",
     "RowNumberTitle": "Show row numbers",
@@ -5212,7 +5212,7 @@
     "ClickToSelectNoneText": "None",
     "PlaceHolder": "Cannot be empty, within 50 characters"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesDynamic": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesDynamic": {
     "TablesDynamicTitle": "Table Dynamic",
     "TablesDynamicDescription": "Supports dynamically adding columns",
     "TablesDynamicDataTableTitle": "Common usage",
@@ -5227,7 +5227,7 @@
     "TablesDynamicDynamicColButtonAddColumnText": "Add Column",
     "TablesDynamicDynamicColButtonRemoveColumnText": "Remove Column"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesSearch": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesSearch": {
     "TablesSearchTitle": "Table Search",
     "TablesSearchDesc": "Commonly used for single table maintenance, simple addition, deletion, modification, search, sorting, filtering, search and other common functions can be realized through attribute configuration, and very complex can be realized through the advanced usage of <code>Template</code> business needs functions",
     "SearchTableTips": "The search function of the <code>Table</code> component provides two modes, which can be set through <code>SearchMode</code>. The default is <code>Popup</code>, which is the popup mode. In the <b>Top</b> mode, the search bar will be built into the top of the table. In this mode, the <b>Refresh</b> button and the <b>Search</b> button are combined into one, you can set the <code> ShowSearchButton=false</code> close the search button",
@@ -5268,7 +5268,7 @@
     "AddressPlaceholder": "Please enter the address within 500 characters",
     "AutoHeightIntro": "<div class=\"mb-2\"><b>Highly Adaptive</b></div><p>In this example, when the parent container height is set to <code>600px</code> expand/collapse the search bar, the table automatically fills the parent container</p>"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesFilter": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesFilter": {
     "TablesFilterTitle": "Filter and sort function",
     "TablesFilterDesc": "Filter to quickly find the data you want to see; sort to quickly find or compare data.",
     "TablesFilterDescLi1": "Filters a column of data to specify the column to be filtered by specifying the <code>filterable</code> property of the column",
@@ -5305,7 +5305,7 @@
     "SetFilterInCodeButtonText2": "Reset All Filter",
     "TablesFilterTemplateDescription": "<code>The FilterTemplate</code> type is <code>RenderFragment</code>: <span>its value is a custom component, and the component must inherit</span> <code>the filterBase</code> In this case, the last column in this case<b>, the Quantity column</b>, uses the <code>custom component by filtering the template CustomerFilter</code> <a href=\"{0}\" target=\"_blank\">[portal] CustomerFilter component source code</a>"
   },
-  "BootstrapBlazor.Shared.Samples.Table.TablesFixedHeader": {
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesFixedHeader": {
     "TablesFixedHeaderTitle": "Fixed header function",
     "TablesFixedHeaderDesc": "When scrolling data, the header is fixed to facilitate viewing the header information of each column",
     "TablesFixedHeaderDescP": " The fixed header of this component adopts the <code>double header</code> method. When there is a common problem, the column is not aligned. Please add some styles according to your actual situation.<br /> Please set the width of each column as much as possible to avoid the problem of misalignment of column width",
@@ -5327,7 +5327,7 @@
     "DialogTitle": "In Dialog",
     "DialogButtonText": "Dialog"
   },
-  "BootstrapBlazor.Shared.Pages.Introduction": {
+  "BootstrapBlazor.Server.Components.Pages.Introduction": {
     "Title": "Introduction",
     "P1": "BootstrapBlazor is an enterprise-level component library based on Bootstrap and Blazor, which can be considered as the Blazor version of the Bootstrap project.",
     "P2": "The dependency is：BootstrapBlazor > Bootstrap",
@@ -5360,15 +5360,15 @@
     "AdvantageLi5": "Component support combination",
     "Community": "Community"
   },
-  "BootstrapBlazor.Shared.Components.QQGroup": {
+  "BootstrapBlazor.Server.Components.Components.QQGroup": {
     "Group": "QQ Group",
     "Status": " Full",
     "Welcome": "Welcome to join the group discussion"
   },
-  "BootstrapBlazor.Shared.Components.EventTable": {
+  "BootstrapBlazor.Server.Components.Components.EventTable": {
     "Title": "Event"
   },
-  "BootstrapBlazor.Shared.Samples.Handwrittens": {
+  "BootstrapBlazor.Server.Components.Samples.Handwrittens": {
     "Title": "Handwritten",
     "SubTitle": "Used to save the mobile terminal signature as Base64 encoded string",
     "BaseUsageText": "Basic usage",
@@ -5382,7 +5382,7 @@
     "Result": "Handwritten signature imgBase64 string",
     "HandwrittenBase64": "Handwritten result callback method"
   },
-  "BootstrapBlazor.Shared.Samples.ImageViewers": {
+  "BootstrapBlazor.Server.Components.Samples.ImageViewers": {
     "ImageViewerTitle": "Image Viewer pictures",
     "ImageViewerDescription": "In container, and retain the native characteristics of the img, to support lazy loading, custom placeholder, load, failure, etc",
     "ImageViewerNormalTitle": "Basic usage",
@@ -5423,7 +5423,7 @@
     "ImageViewerErrorTemplateCustom": "The custom",
     "ImageViewerErrorTemplateLoadFailed": "Load failed"
   },
-  "BootstrapBlazor.Shared.Samples.Geolocations": {
+  "BootstrapBlazor.Server.Components.Samples.Geolocations": {
     "GeolocationsTitle": "Geolocation",
     "GeolocationNormalText": "Basic usage",
     "GeolocationNormalIntro": "Obtain location information through browser API.",
@@ -5449,7 +5449,7 @@
     "CurrentDistance": "CurrentDistance",
     "TotalDistance": "TotalDistance"
   },
-  "BootstrapBlazor.Shared.Samples.Notifications": {
+  "BootstrapBlazor.Server.Components.Samples.Notifications": {
     "NotificationsTitle": "Notifications",
     "NotificationsNormalTitle": "Basic usage",
     "NotificationsNormalIntro": "Notification information through browser API.",
@@ -5473,7 +5473,7 @@
     "NotificationsNormalTitleSampleText": "You have a new logistics notification",
     "NotificationsNormalMessageSampleText": "Your package has arrived on Panama South Road, and there are only 3 stops left for distribution."
   },
-  "BootstrapBlazor.Shared.Samples.FAIcons": {
+  "BootstrapBlazor.Server.Components.Samples.FAIcons": {
     "Title": "Font Awesome Icons",
     "BaseUsageText": "<code> bootstrapblazor </code> uses <code> font awesome 6.1.2 </code> as the built-in icon library. All icons are as follows",
     "SwitchButtonTextOff": "Click to copy",
@@ -5484,7 +5484,7 @@
     "P4": "There is a probability that the icon will be garbled when it is loaded for the first time, because the font library has not been downloaded.",
     "CopiedTooltipText": "Copied"
   },
-  "BootstrapBlazor.Shared.Samples.SignaturePads": {
+  "BootstrapBlazor.Server.Components.Samples.SignaturePads": {
     "BaseUsageText": "Basic usage",
     "BaseUsageIntro": "Signature with touch or mouse",
     "ButtonCssStyleText": "Button CSS style",
@@ -5502,7 +5502,7 @@
     "BackText": "Back",
     "TipsResponsive": "When device width is less than 640px (such as mobile phones) automatically topless without borders, the width is less than 500px the button is automatically rotated. Optional transparent background."
   },
-  "BootstrapBlazor.Shared.Samples.SignaturePadPageResponsive": {
+  "BootstrapBlazor.Server.Components.Samples.SignaturePadPageResponsive": {
     "BackText": "Back",
     "ResponsiveInterfaceText": "Responsive signature interface",
     "ResultBase64Text": "Your signature in base64",
@@ -5510,7 +5510,7 @@
     "SignatureText": "Signature",
     "TipsResponsive": "When device width is less than 640px (such as mobile phones) automatically topless without borders, the width is less than 500px the button is automatically rotated. Optional transparent background."
   },
-  "BootstrapBlazor.Shared.Samples.Reconnectors": {
+  "BootstrapBlazor.Server.Components.Samples.Reconnectors": {
     "Title": "Reconnector",
     "SubTitle": "Reflect the connection state in the UI (Blazor Server)",
     "ReconnectingTemplateAttr": "Template for attempting to reconnect",
@@ -5533,7 +5533,7 @@
     "TableRow5": "<li>A crash in the server-side circuit occurs.</li><li>The client is disconnected long enough for the server to drop the user's state. Instances of the user's components are disposed.</li><li>The server is restarted, or the app's worker process is recycled.</li>",
     "Application": "Application"
   },
-  "BootstrapBlazor.Shared.Samples.OnScreenKeyboards": {
+  "BootstrapBlazor.Server.Components.Samples.OnScreenKeyboards": {
     "OnScreenKeyboardsTitle": "On-Screen keyboard",
     "OnScreenKeyboardsNormalText": "Basic usage",
     "OnScreenKeyboardsNormalIntro": "Full Keyboard",
@@ -5548,7 +5548,7 @@
     "OnScreenKeyboardsCss": "<code> .kioskboard-body-padding { padding-top: unset !important;} </code>",
     "OnScreenKeyboardsBasicTitle": "Basic"
   },
-  "BootstrapBlazor.Shared.Samples.Bluetooth": {
+  "BootstrapBlazor.Server.Components.Samples.Bluetooth": {
     "BluetoothTitle": "Bluetooth & Printer",
     "BaseUsageTitle": "Basic usage",
     "BaseUsageIntro": "After connecting the device, perform operations such as printing, and write the corresponding commands(ESC/POS/CPCL) according to the characteristics of the printer",
@@ -5600,7 +5600,7 @@
     "HeartrateElementAttr": "Reference objects for UI interface elements",
     "SwitchUI": "Switch UI"
   },
-  "BootstrapBlazor.Shared.Samples.FileIcons": {
+  "BootstrapBlazor.Server.Components.Samples.FileIcons": {
     "Title": "File Icon",
     "Intro": "The icon show the file extension",
     "BaseUsageTitle": "Base Usage",
@@ -5615,7 +5615,7 @@
     "IconColorAttr": "The backgound color for badge of extension",
     "BackgroundTemplateAttr": "The template for custom the backgroup file"
   },
-  "BootstrapBlazor.Shared.Samples.PdfReaders": {
+  "BootstrapBlazor.Server.Components.Samples.PdfReaders": {
     "Title": "PDF Reader",
     "PdfReaderNormalText": "Basic usage",
     "PdfReaderNormalIntro": "Use Filename parameter displays pdf file from local server, or Stream parameter use file stream for rendering",
@@ -5659,7 +5659,7 @@
     "PdfReaderAdvancedWatermarkLabel": "Watermark content",
     "PdfReaderCompatibilityModeTips": "- Chrome < 97 automatically uses version 2.4.456<br/>- Chrome < 109 automatically uses version 2.6.347<br/>- Note: ReadOnly and Watermark cannot be used in these two compatibility modes"
   },
-  "BootstrapBlazor.Shared.Samples.VideoPlayers": {
+  "BootstrapBlazor.Server.Components.Samples.VideoPlayers": {
     "VideoPlayersTitle": "VideoPlayer",
     "VideoPlayersNormalTitle": "Basic usage",
     "VideoPlayersNormalIntro": "",
@@ -5680,10 +5680,10 @@
     "ShowBar": "Wether show bar",
     "OnError": "Error callback"
   },
-  "BootstrapBlazor.Shared.Components.PackageTips": {
+  "BootstrapBlazor.Server.Components.Components.PackageTips": {
     "Tips": "<div class=\"code-label\">Precautions</div><div>This component relies on <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>, which needs to reference its component package when using this component</div><div class=\"code-label mt-2\">Nuget Install</div><div>Use nuget.org to install <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a> component</div>"
   },
-  "BootstrapBlazor.Shared.Samples.FileViewers": {
+  "BootstrapBlazor.Server.Components.Samples.FileViewers": {
     "Title": "FileViewer",
     "BaseUsageText": "Basic usage",
     "BaseUsageIntro": "Excel/Word file path or URL",
@@ -5691,7 +5691,7 @@
     "BaseUsageIntro2": "Using the Reload method",
     "Tips": "Currently only supports Excel(.xlsx) and Word(.docx) formats.<br/><b>Note</b>:<br/>If throw <code>The type initializer for 'Gdip' threw an exception.<code> error under Linux, please install libgdiplus and enable System. Drawing support.<br/>Enable System.Drawing support for non-Windows platforms in your project file (*.csproj), add:"
   },
-  "BootstrapBlazor.Shared.Samples.CountUps": {
+  "BootstrapBlazor.Server.Components.Samples.CountUps": {
     "Title": "CountUp",
     "Description": "Animates a numerical value by counting to it",
     "CountUpsNormalTitle": "Normal",
@@ -5716,7 +5716,7 @@
     "ScrollSpyOnce": "run only once",
     "Numerals": "numeral glyph substitution"
   },
-  "BootstrapBlazor.Shared.Samples.EyeDroppers": {
+  "BootstrapBlazor.Server.Components.Samples.EyeDroppers": {
     "EyeDropperTitle": "EyeDropper",
     "EyeDropperDescription": "The <code>EyeDropperService</code> provides a mechanism for creating an eyedropper tool. Using this tool, users can sample colors from their screens, including outside of the browser window.",
     "EyeDropperNormalTitle": "Basic usage",
@@ -5739,13 +5739,13 @@
     "ChatGitee": "Gitee OAuth",
     "ChatGithub": "Github OAuth"
   },
-  "BootstrapBlazor.Shared.Samples.HtmlRenderers": {
+  "BootstrapBlazor.Server.Components.Samples.HtmlRenderers": {
     "Title": "Html Renderer",
     "SubTitle": "Render components into Html strings",
     "BaseUsageText": "Normal",
     "IntroText": "Some application scenarios require us to obtain the <code>Html</code> code fragment finally output by <code>Component</code>, and call the <code>RenderAsync</code> instance method of <code>IComponentHtmlRenderer</code> service"
   },
-  "BootstrapBlazor.Shared.Samples.ContextMenus": {
+  "BootstrapBlazor.Server.Components.Samples.ContextMenus": {
     "ContextMenuTitle": "ContextMenu",
     "ContextMenuDescription": "Context menu that pops up when the user clicks the right mouse button",
     "ContextMenuNormalTitle": "Basic usage",
@@ -5757,12 +5757,12 @@
     "ContextMenuTreeTitle": "Tree",
     "ContextMenuTreeIntro": "Right click on the <code>Tree</code> to pop up a context menu"
   },
-  "BootstrapBlazor.Shared.Samples.DockViews.Index": {
+  "BootstrapBlazor.Server.Components.Samples.DockViews.Index": {
     "DockViewTitle": "DockView",
     "DockViewDescription": "A multi window layout manager for webapps",
     "DockViewIntro": "<div class=\"mb-2\"><code>DockView</code> component is wrapped <a href=\"https://github.com/golden-layout/golden-layout\" target=\"_blank\">Golden Layout</a> lib，it is a <code>Javascript</code> layout manager which enables you to layout components in a web page and re-arrange them with drag and drop. Its features include: </p><ul class=\"ul-demo\"><li>Native popup windows</li><li>Touch support</li><li>Support for application frameworks such as <code>Angular</code> and <code>Vue</code></li><li>Virtual components</li><li>Comprehensive API</li><li>Load and save layouts</li><li>Focus components</li><li>Completely themeable</li><li>Works in modern browsers (<code>Firefox</code>, <code>Chrome</code>)</li><li>Responsive design</li></ul>"
   },
-  "BootstrapBlazor.Shared.Samples.MouseFollowers": {
+  "BootstrapBlazor.Server.Components.Samples.MouseFollowers": {
     "MouseFollowersTitle": "Mouse Follower",
     "MouseFollowersDescription": "create amazing and smooth effects for the mouse cursor on your website.。",
     "MouseFollowerNormalTitle": "Normal mode",
@@ -5779,7 +5779,7 @@
     "MouseFollowersGlobalMode": "Global | Local, Mode",
     "MouseFollowersContent": "Text | icon | imagepath | videopath"
   },
-  "BootstrapBlazor.Shared.Samples.Html2Pdfs": {
+  "BootstrapBlazor.Server.Components.Samples.Html2Pdfs": {
     "Html2PdfTitle": "Html export to Pdf",
     "Html2PdfDescription": "Export Html fragments or web page elements as Pdf",
     "Html2PdfNote": "If you export too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
@@ -5793,7 +5793,7 @@
     "Html2PdfElementIntro": "Export <code>Html</code> element content as <code>Pdf</code> stream",
     "Html2PdfElementDesc": "Call <code>IHtml2Pdf</code> service instance method <code>ExportByElementIdAsync</code>. Use html DOM id as parameter"
   },
-  "BootstrapBlazor.Shared.Samples.Live2DDisplays": {
+  "BootstrapBlazor.Server.Components.Samples.Live2DDisplays": {
     "Live2DDisplayTitle": "Live2D Widget",
     "Live2DDisplayDescription": "Live2D Widget plugin based on pixi live2d display, supporting all versions of Live2D models.",
     "Live2DDisplayNormalTitle": "Usage",
@@ -5809,7 +5809,7 @@
     "Live2DDisplaysBackgroundColor": "Canvas palette background color.",
     "Live2DDisplaysBackgroundAlpha": "Is the canvas canvas canvas background transparent."
   },
-  "BootstrapBlazor.Shared.Samples.SlideButtons": {
+  "BootstrapBlazor.Server.Components.Samples.SlideButtons": {
     "SlideButtonTitle": "SlideButton",
     "SlideButtonIntro": "After clicking the button, a function menu and other information will pop up, mostly used for displaying secondary functions",
     "SlideButtonHeaderText": "Foo List",
@@ -5824,13 +5824,13 @@
     "BodyTemplateText": "BodyTemplate",
     "BodyTemplateIntro": "Customize the pop-up data by setting <code>BodyTemplate</code>"
   },
-  "BootstrapBlazor.Shared.Samples.DialButtons": {
+  "BootstrapBlazor.Server.Components.Samples.DialButtons": {
     "DialButtonTitle": "DialButton",
     "DialButtonIntro": "After clicking the button, a function menu and other information will pop up, mostly used for displaying secondary functions",
     "BaseUsageText": "Basic usage",
     "BaseUsageIntro": "By setting <code>Placement</code> value for set the dial button popup direction"
   },
-  "BootstrapBlazor.Shared.Samples.CountButtons": {
+  "BootstrapBlazor.Server.Components.Samples.CountButtons": {
     "Title": "CountButton",
     "Description": "It is often used to force a period of execution time logic, such as waiting for input 60 seconds after sending a verification code",
     "BaseUsageText": "Basic usage",
@@ -5843,7 +5843,7 @@
     "CountText": "timing text",
     "CountTextCallback": "timing text callback method"
   },
-  "BootstrapBlazor.Shared.Samples.QueryBuilders": {
+  "BootstrapBlazor.Server.Components.Samples.QueryBuilders": {
     "QueryBuilderTitle": "QueryBuilder",
     "QueryBuilderSubTitle": "Can be used for generating forms and table filtering conditions",
     "QueryBuilderNormalTitle": "Basic usage",
@@ -5851,7 +5851,7 @@
     "QueryBuilderHeaderTitle": "Display control buttons",
     "QueryBuilderHeaderIntro": "Turn off the control button by setting <code>ShowHeader=\"false\"</code>"
   },
-  "BootstrapBlazor.Shared.Samples.WebSerials": {
+  "BootstrapBlazor.Server.Components.Samples.WebSerials": {
     "WebSerialTitle": "Web Serial",
     "WebSerialIntro": "Serial port is a widely used communication protocol that enables data transmission between computers",
     "WebSerialDescription": "allow websites to communicate with peripherals connected to a user's computer. It provides the ability to connect to devices that are required by the operating system to communicate via the serial API, see <a href='https://developer.mozilla.org/en-US/docs/Web/API/WebUSB_API'>WebUSB</a>，or <a href='https://developer.mozilla.org/en'>WebHID</a>.",
@@ -5863,7 +5863,7 @@
     "ApplyButtonText": "Apply",
     "WebSerialOptionsText": "WebSerialOptions"
   },
-  "BootstrapBlazor.Shared.Samples.MindMaps": {
+  "BootstrapBlazor.Server.Components.Samples.MindMaps": {
     "MindMapTitle": "Mind Map",
     "MindMapDescription": "The shortcut key tab adds a new node, the mouse can drag node arrangement",
     "MindMapNormalTitle": "Basic usage",
@@ -5897,7 +5897,7 @@
     "NodeGeneralizationText": "Generalization",
     "NodeExpandText": "Node is expanded"
   },
-  "BootstrapBlazor.Shared.Samples.WebSpeechs": {
+  "BootstrapBlazor.Server.Components.Samples.WebSpeechs": {
     "WebSpeechTitle": "Web Speech",
     "WebSpeechDescription": "Voice recognition and synthesis",
     "WebSpeechNormalTitle": "Voice recognition",
@@ -5905,7 +5905,7 @@
     "WebSpeechSynthesisTitle": "Voice synthesis",
     "WebSpeechSynthesisDIYTitle": "Voice synthesis custom"
   },
-  "BootstrapBlazor.Shared.Samples.ListGroups": {
+  "BootstrapBlazor.Server.Components.Samples.ListGroups": {
     "ListGroupsTitle": "ListGroup",
     "ListGroupsSubTitle": "Mostly used for data browsing and selection",
     "ListGroupsTips": "<li>Set the list box to display the dataset through <code>Items</code></li><li>Set the list box data item display text by <code>GetItemDisplayText</code></li><li>Due to the internal height of the component being set to <code>100%</code>, the parent container will be automatically filled when used. When the parent container is set to a height, a scroll bar will automatically appear on the list items. In this example, set the height of the external container element code>list-group-demo</code> to <code>280px</code></li>",
@@ -5924,12 +5924,12 @@
     "AttrOnClickItem": "the callback on click item",
     "GetItemDisplayText": "the callback on get item display text"
   },
-  "BootstrapBlazor.Shared.Samples.Marquees": {
+  "BootstrapBlazor.Server.Components.Samples.Marquees": {
     "MarqueeTitle": "Usage",
     "MarqueeIntro": "Adjusting the text scrolling effect through parameters",
     "MarqueeDescription": "Marquee component"
   },
-  "BootstrapBlazor.Shared.Samples.Stacks": {
+  "BootstrapBlazor.Server.Components.Samples.Stacks": {
     "Title": "Stack Layout",
     "BasicTitle": "Basic",
     "BasicIntroe": "Lets you arrange its subcomponents in a horizontal or vertical stack",
@@ -5950,7 +5950,7 @@
     "AttrAlignItems": "Change the alignment of flex items on the cross axis",
     "AttrChildContent": "Child content render fragment"
   },
-  "BootstrapBlazor.Shared.Samples.Segmenteds": {
+  "BootstrapBlazor.Server.Components.Samples.Segmenteds": {
     "Title": "Segmented",
     "SubTitle": "displaying multiple options and user can select a single option",
     "BasicTitle": "Basic",
@@ -5978,7 +5978,7 @@
     "IsBlockAttr": "Whether fit the parent width",
     "ShowTooltip": "Whether show to tooltip for segment item"
   },
-  "BootstrapBlazor.Shared.Samples.CodeEditors": {
+  "BootstrapBlazor.Server.Components.Samples.CodeEditors": {
     "Title": "Code Editor",
     "BasicTitle": "Basic Use",
     "BasicIntro": "Basic Use",
@@ -5987,7 +5987,7 @@
     "Language": "Language used by the editor: csharp, javascript, ...",
     "ValueChanged": "Gets or sets a callback that updates the bound value"
   },
-  "BootstrapBlazor.Shared.Samples.JSRuntimeExtensions": {
+  "BootstrapBlazor.Server.Components.Samples.JSRuntimeExtensions": {
     "JSTips": "Before use, import the module according to the following code",
     "OpenUrlTitle": "OpenUrl",
     "OpenUrlIntro": "Open url in a Window",
@@ -6003,12 +6003,12 @@
     "EvalAttr": "Call Eval method",
     "FunctionAttr": "Call Function method"
   },
-  "BootstrapBlazor.Shared.Samples.Clipboards": {
+  "BootstrapBlazor.Server.Components.Samples.Clipboards": {
     "ClipboardTitle": "ClipboardService",
     "ClipboardIntro": "Clipboard service! Please note that it can only be run under HTTPS secure connections or used in the localhost development environment.",
     "ClipboardMessage": "Text content: {0},copied to clipboard"
   },
-  "BootstrapBlazor.Shared.Samples.Gantts": {
+  "BootstrapBlazor.Server.Components.Samples.Gantts": {
     "Title": "A simple, interactive, modern web Gantt gallery with dragging, resizing, dependencies, and timescales",
     "BasicTitle": "Basic usage",
     "BasicDesc": "Drag tasks across the timeline, resize to change duration, click to view more information",

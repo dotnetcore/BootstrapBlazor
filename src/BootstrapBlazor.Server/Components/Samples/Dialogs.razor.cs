@@ -87,8 +87,7 @@ public sealed partial class Dialogs
         BodyContext = "I'm a passer",
         BodyTemplate = builder =>
         {
-            var index = 0;
-            builder.OpenComponent<DemoComponent>(index++);
+            builder.OpenComponent<DemoComponent>(0);
             builder.CloseComponent();
         }
     });
