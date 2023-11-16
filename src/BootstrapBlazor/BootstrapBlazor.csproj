@@ -73,7 +73,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNetCore.SassCompiler" Version="1.69.5"></PackageReference>
+    <PackageReference Include="AspNetCore.SassCompiler" Version="1.69.5" PrivateAssets="all"></PackageReference>
   </ItemGroup>
 
   <ItemGroup>
