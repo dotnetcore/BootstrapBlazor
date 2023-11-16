@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Server.Components.Pages;
 using Microsoft.AspNetCore.Components.Web;
 using System.Text;
 
@@ -38,8 +39,8 @@ public partial class PracticeNavMenu
     {
         await base.OnInitializedAsync();
 
-        Menus = new List<MenuItem>
-        {
+        Menus =
+        [
             new MenuItem()
             {
                 Template = CreateDownloadButtonComponent("dashboard", dashboardFileList),
@@ -114,7 +115,7 @@ public partial class PracticeNavMenu
                 Text = "瀑布流图片 Waterfall",
                 Url = "practice/waterfall"
             }
-        };
+        ];
     }
 
     /// <summary>

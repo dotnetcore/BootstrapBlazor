@@ -54,15 +54,15 @@ public sealed partial class Menus
     {
         await base.OnInitializedAsync();
 
-        Items = await MenusDataGerator.GetTopItemsAsync(Localizer);
-        BottomItems = await MenusDataGerator.GetBottomMenuItemsAsync(Localizer);
-        IconItems = await MenusDataGerator.GetTopIconItemsAsync(Localizer);
-        SideMenuItems = await MenusDataGerator.GetSideMenuItemsAsync(Localizer);
-        IconSideMenuItems = await MenusDataGerator.GetIconSideMenuItemsAsync(Localizer);
-        WidgetIconSideMenuItems = await MenusDataGerator.GetWidgetIconSideMenuItemsAsync(Localizer);
-        CollapsedIconSideMenuItems = await MenusDataGerator.GetCollapsedIconSideMenuItemsAsync(Localizer);
-        DynamicSideMenuItems = await MenusDataGerator.GetSideMenuItemsAsync(Localizer);
-        DisabledMenuItems = await MenusDataGerator.GetDisabledMenuItemsAsync(Localizer);
+        Items = await MenusDataGenerator.GetTopItemsAsync(Localizer);
+        BottomItems = await MenusDataGenerator.GetBottomMenuItemsAsync(Localizer);
+        IconItems = await MenusDataGenerator.GetTopIconItemsAsync(Localizer);
+        SideMenuItems = await MenusDataGenerator.GetSideMenuItemsAsync(Localizer);
+        IconSideMenuItems = await MenusDataGenerator.GetIconSideMenuItemsAsync(Localizer);
+        WidgetIconSideMenuItems = await MenusDataGenerator.GetWidgetIconSideMenuItemsAsync(Localizer);
+        CollapsedIconSideMenuItems = await MenusDataGenerator.GetCollapsedIconSideMenuItemsAsync(Localizer);
+        DynamicSideMenuItems = await MenusDataGenerator.GetSideMenuItemsAsync(Localizer);
+        DisabledMenuItems = await MenusDataGenerator.GetDisabledMenuItemsAsync(Localizer);
     }
 
     private Task OnClickBottomMenu(MenuItem item)
@@ -86,12 +86,12 @@ public sealed partial class Menus
 
     private async Task UpdateMenu()
     {
-        DynamicSideMenuItems = await MenusDataGerator.GetIconSideMenuItemsAsync(Localizer);
+        DynamicSideMenuItems = await MenusDataGenerator.GetIconSideMenuItemsAsync(Localizer);
     }
 
     private async Task ResetMenu()
     {
-        DynamicSideMenuItems = await MenusDataGerator.GetSideMenuItemsAsync(Localizer);
+        DynamicSideMenuItems = await MenusDataGenerator.GetSideMenuItemsAsync(Localizer);
     }
 
     private Task OnClick2(MenuItem item)

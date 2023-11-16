@@ -3,14 +3,13 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Options;
-using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Server.Components.Layout;
 
 /// <summary>
 /// 母版页基类
 /// </summary>
-public partial class BaseLayout
+public partial class BaseLayout : IDisposable
 {
     [Inject]
     [NotNull]
@@ -18,7 +17,7 @@ public partial class BaseLayout
 
     [Inject]
     [NotNull]
-    private IJSRuntime? JSRuntime { get; set; }
+    private ToastService? Toast { get; set; }
 
     [Inject]
     [NotNull]
@@ -83,15 +82,23 @@ public partial class BaseLayout
     }
 
     /// <summary>
-    /// <inheritdoc/>
+    /// 释放资源
     /// </summary>
     /// <param name="disposing"></param>
-    protected override async ValueTask DisposeAsync(bool disposing)
+    private void Dispose(bool disposing)
     {
         if (disposing)
         {
             DispatchService.UnSubscribe(Notify);
         }
-        await base.DisposeAsync(disposing);
+    }
+
+    /// <summary>
+    /// 释放资源
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 }

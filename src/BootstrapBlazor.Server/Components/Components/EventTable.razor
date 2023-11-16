@@ -3,7 +3,7 @@
 <div class="table-attr">
     <h4>@Localizer["Title"]</h4>
 
-    <Table TItem="BootstrapBlazor.Shared.Common.EventItem" Items="Items">
+    <Table TItem="EventItem" Items="Items">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" />
             <TableColumn @bind-Field="@context.Description" TextWrap="true" />

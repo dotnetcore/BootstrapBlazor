@@ -26,7 +26,7 @@ internal static class CacheManagerExtensions
         return cache.GetOrCreate(key, entry =>
         {
             var type = typeName.Replace('\\', '.');
-            return Utility.GetJsonStringByTypeName(options, typeof(CodeSnippetService).Assembly, $"BootstrapBlazor.Shared.Samples.{type}");
+            return Utility.GetJsonStringByTypeName(options, typeof(CodeSnippetService).Assembly, $"BootstrapBlazor.Server.Components.Samples.{type}");
         });
     }
 

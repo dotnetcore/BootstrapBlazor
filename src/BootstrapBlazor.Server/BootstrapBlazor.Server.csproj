@@ -64,6 +64,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="BootstrapBlazor.Components" />
     <Using Include="BootstrapBlazor.Server.Components.Components" />
     <Using Include="BootstrapBlazor.Server.Components.Layout" />
@@ -73,12 +77,6 @@
     <Using Include="Microsoft.AspNetCore.Components" />
     <Using Include="Microsoft.Extensions.Localization" />
     <Using Include="System.ComponentModel.DataAnnotations" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="Components\Layout\BaseLayout.razor">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-    </Content>
   </ItemGroup>
 
 </Project>

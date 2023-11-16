@@ -19,7 +19,7 @@ public sealed partial class Layouts
     {
         await base.OnInitializedAsync();
 
-        IconSideMenuItems = await MenusDataGerator.GetIconSideMenuItemsAsync(LocalizerMenu);
+        IconSideMenuItems = await MenusDataGenerator.GetIconSideMenuItemsAsync(LocalizerMenu);
     }
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]

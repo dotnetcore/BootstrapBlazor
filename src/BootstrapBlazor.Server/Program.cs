@@ -86,6 +86,6 @@ app.UseBootstrapBlazor();
 app.UseAntiforgery();
 
 app.MapDefaultControllerRoute();
-app.MapRazorComponents<App>().AddInteractiveServerRenderMode(); //.AddAdditionalAssemblies(typeof(BootstrapBlazor.Shared.Shared.MainLayout).Assembly);
+app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
 
 app.Run();
