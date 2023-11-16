@@ -51,6 +51,7 @@
 
   <ItemGroup>
     <Content Remove="bundleconfig.json" />
+    <Content Remove="compilerconfig.json" />
     <Content Remove="package*.json" />
     <Content Remove="versionconfig.json" />
     <Content Remove="wwwroot\core\**\*.*" />
@@ -58,6 +59,7 @@
     <Content Remove="wwwroot\scss\*.*" />
     <Content Remove="wwwroot\src\**\*.*" />
     <None Include="bundleconfig.json" />
+    <None Include="compilerconfig.json" />
     <None Include="package*.json" />
     <None Include="versionconfig.json" />
     <None Include="wwwroot\core\**\*.*" />
@@ -70,10 +72,6 @@
     <Content Include="build\*.targets" PackagePath="build\" />
     <Content Remove="wwwroot\js\bootstrap.blazor.bundle.js" />
     <None Include="wwwroot\js\bootstrap.blazor.bundle.js" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="AspNetCore.SassCompiler" Version="1.69.5"></PackageReference>
   </ItemGroup>
 
   <ItemGroup>
