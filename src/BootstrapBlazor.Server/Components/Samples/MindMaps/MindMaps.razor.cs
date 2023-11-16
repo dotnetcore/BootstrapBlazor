@@ -173,7 +173,7 @@ public partial class MindMaps
     /// </summary>
     /// <returns></returns>
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    { 
+    {
         new()
         {
             Name = "Data",

@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-namespace BootstrapBlazor.Shared.Samples;
+namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
 /// DragDrops
@@ -60,22 +60,22 @@ public partial class DragDrops
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        StrList1 = new List<string>()
-        {
+        StrList1 =
+        [
             "1",
             "2",
             "3",
             "4",
             "5"
-        };
-        StrList2 = new List<string>()
-        {
+        ];
+        StrList2 =
+        [
             "6",
             "7",
             "8",
             "9",
             "10"
-        };
+        ];
     }
 
     /// <summary>

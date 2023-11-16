@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Localization.Json;
-using BootstrapBlazor.Shared.Services;
 using Microsoft.Extensions.Caching.Memory;
 using System.Globalization;
 
