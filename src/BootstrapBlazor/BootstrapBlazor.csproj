@@ -41,7 +41,6 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET8Version)" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET8Version)" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET8Version)" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(NET8Version)" />
   </ItemGroup>
 
   <ItemGroup>
