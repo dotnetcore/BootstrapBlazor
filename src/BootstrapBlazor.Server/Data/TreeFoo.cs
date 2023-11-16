@@ -4,7 +4,7 @@
 
 using System.ComponentModel.DataAnnotations;
 
-namespace BootstrapBlazor.Shared;
+namespace BootstrapBlazor.Server.Data;
 
 class TreeFoo
 {

@@ -4,7 +4,7 @@
 
 using System.Text.Json.Serialization;
 
-namespace BootstrapBlazor.Shared;
+namespace BootstrapBlazor.Server.Data;
 
 /// <summary>
 /// 

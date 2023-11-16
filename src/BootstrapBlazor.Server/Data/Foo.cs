@@ -6,7 +6,7 @@ using Microsoft.Extensions.Localization;
 using System.Collections.Concurrent;
 using System.ComponentModel.DataAnnotations;
 
-namespace BootstrapBlazor.Shared;
+namespace BootstrapBlazor.Server.Data;
 
 /// <summary>
 /// Demo示例数据

@@ -5,7 +5,7 @@
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
 
-namespace BootstrapBlazor.Shared;
+namespace BootstrapBlazor.Server.Data;
 
 /// <summary>
 /// 

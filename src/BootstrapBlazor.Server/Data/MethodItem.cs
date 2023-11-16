@@ -4,7 +4,7 @@
 
 using System.ComponentModel;
 
-namespace BootstrapBlazor.Shared.Common;
+namespace BootstrapBlazor.Server.Data;
 
 /// <summary>
 /// 方法说明类

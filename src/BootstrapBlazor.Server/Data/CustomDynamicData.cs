@@ -4,7 +4,7 @@
 
 using System.Dynamic;
 
-namespace BootstrapBlazor.Shared;
+namespace BootstrapBlazor.Server.Data;
 
 /// <summary>
 /// 

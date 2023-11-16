@@ -2,12 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-namespace BootstrapBlazor.Shared;
+namespace BootstrapBlazor.Server.Data;
 
 /// <summary>
 /// 
 /// </summary>
-internal static class MenusDataGerator
+internal static class MenusDataGenerator
 {
     public static async Task<IEnumerable<MenuItem>> GetTopItemsAsync(IStringLocalizer localizer)
     {
