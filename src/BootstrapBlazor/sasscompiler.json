@@ -1,5 +1,5 @@
 ﻿{
-  "SourceFolder": "Components",
+  "SourceFolder": "wwwroot/scss/theme",
   "TargetFolder": "wwwroot/css",
   "Arguments": "--style=compressed",
   "GenerateScopedCss": false,
