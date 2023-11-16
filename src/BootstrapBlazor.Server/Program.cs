@@ -2,24 +2,22 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Server.Components.Pages;
 using BootstrapBlazor.Server.Extensions;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Options;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
 builder.Services.AddLogging(logBuilder => logBuilder.AddFileLogger());
 builder.Services.AddCors();
 builder.Services.AddResponseCompression();
 
-builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor();
+builder.Services.AddControllers();
+builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
 // 获得当前主题配置
 var themes = builder.Configuration.GetSection("Themes")
@@ -57,11 +55,7 @@ if (option != null)
 // 启用转发中间件
 app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.All });
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-}
-else
+if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
     app.UseResponseCompression();
@@ -77,10 +71,8 @@ provider.Mappings[".mtn"] = "application/x-msdownload";
 app.UseStaticFiles(new StaticFileOptions { ContentTypeProvider = provider });
 app.UseStaticFiles();
 
-app.UseRouting();
-
 var cors = app.Configuration["AllowOrigins"]?.Split(',', StringSplitOptions.RemoveEmptyEntries);
-if (cors?.Any() ?? false)
+if (cors?.Length > 0)
 {
     app.UseCors(builder => builder.WithOrigins()
         .AllowAnyHeader()
@@ -89,10 +81,10 @@ if (cors?.Any() ?? false)
 }
 
 app.UseBootstrapBlazor();
-app.UseAuthentication();
+//app.UseAuthentication();
 
-app.MapDefaultControllerRoute();
-app.MapBlazorHub();
-app.MapFallbackToPage("/_Host");
+app.UseAntiforgery();
+app.MapControllers();
+app.MapRazorComponents<App>().AddInteractiveServerRenderMode().AddAdditionalAssemblies(typeof(BootstrapBlazor.Shared.Shared.MainLayout).Assembly);
 
 app.Run();
