@@ -2,12 +2,10 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared.Extensions;
-using BootstrapBlazor.Shared.Shared;
 using System.Collections.Concurrent;
 using System.Globalization;
 
-namespace BootstrapBlazor.Shared.Services;
+namespace BootstrapBlazor.Server.Services;
 
 internal class MenuService
 {

@@ -3,10 +3,9 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Localization.Json;
-using BootstrapBlazor.Shared.Extensions;
 using Microsoft.Extensions.Options;
 
-namespace BootstrapBlazor.Shared.Services;
+namespace BootstrapBlazor.Server.Services;
 
 class CodeSnippetService
 {

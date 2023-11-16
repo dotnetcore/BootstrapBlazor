@@ -6,7 +6,7 @@ using BootstrapBlazor.Shared.Shared;
 
 using Microsoft.AspNetCore.Components.Routing;
 
-namespace BootstrapBlazor.Shared.Extensions;
+namespace BootstrapBlazor.Server.Extensions;
 
 internal static class MenusLocalizerExtensions
 {

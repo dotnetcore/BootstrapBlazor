@@ -4,7 +4,7 @@
 
 using System.Data;
 
-namespace BootstrapBlazor.Shared.Services;
+namespace BootstrapBlazor.Server.Services;
 
 internal class MockDataTableDynamicService
 {

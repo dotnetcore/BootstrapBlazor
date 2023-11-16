@@ -4,7 +4,7 @@
 
 using BootstrapBlazor.Shared.Samples.Practices;
 
-namespace BootstrapBlazor.Shared.Services;
+namespace BootstrapBlazor.Server.Services;
 
 /// <summary>
 /// 仪表盘数据提供服务

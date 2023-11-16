@@ -7,7 +7,7 @@ using BootstrapBlazor.Shared.Services;
 using Microsoft.Extensions.Caching.Memory;
 using System.Globalization;
 
-namespace BootstrapBlazor.Shared.Extensions;
+namespace BootstrapBlazor.Server.Extensions;
 
 /// <summary>
 /// CacheManager 扩展类

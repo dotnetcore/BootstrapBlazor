@@ -5,7 +5,7 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Security.Claims;
 
-namespace BootstrapBlazor.Shared.Services;
+namespace BootstrapBlazor.Server.Services;
 
 /// <summary>
 /// 

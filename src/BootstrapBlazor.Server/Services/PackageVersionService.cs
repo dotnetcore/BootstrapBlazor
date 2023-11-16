@@ -4,7 +4,7 @@
 
 using System.Net.Http.Json;
 
-namespace BootstrapBlazor.Shared.Services;
+namespace BootstrapBlazor.Server.Services;
 
 internal class PackageVersionService
 {

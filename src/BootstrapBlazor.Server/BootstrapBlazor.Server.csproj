@@ -65,7 +65,8 @@
 
   <ItemGroup>
     <Using Include="BootstrapBlazor.Components" />
-    <Using Include="BootstrapBlazor.Shared.Common" />
+    <Using Include="BootstrapBlazor.Server.Data" />
+    <Using Include="BootstrapBlazor.Server.Extensions" />
     <Using Include="BootstrapBlazor.Shared.Components" />
     <Using Include="BootstrapBlazor.Shared.Samples" />
     <Using Include="Microsoft.AspNetCore.Components" />
