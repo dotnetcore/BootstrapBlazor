@@ -1,0 +1,11 @@
+﻿@using System.Reflection
+
+<Router AppAssembly="@typeof(Program).Assembly" AdditionalAssemblies="@AdditionalAssemblies">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
+    </Found>
+</Router>
+
+@code {
+    private Assembly[] AdditionalAssemblies = new Assembly[] { typeof(BootstrapBlazor.Shared.Shared.MainLayout).Assembly };
+}
