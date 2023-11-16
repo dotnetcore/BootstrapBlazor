@@ -73,10 +73,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AspNetCore.SassCompiler" Version="1.69.5" PrivateAssets="all"></PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
     <Using Include="BootstrapBlazor.Components" />
     <Using Include="Microsoft.AspNetCore.Components" />
     <Using Include="Microsoft.Extensions.Options" />
