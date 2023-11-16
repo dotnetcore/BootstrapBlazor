@@ -1,7 +1,3 @@
 <Project>
 
-  <ItemGroup>
-    <PackageReference Include="BuildWebCompiler2022" Version="1.14.10" Condition="'$(Configuration)' == 'Debug' and '$(OS)' == 'Windows_NT' and '$(TargetFramework)' == 'net8.0'" />
-  </ItemGroup>
-
 </Project>
