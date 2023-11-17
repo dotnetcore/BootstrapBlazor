@@ -2,9 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Bunit;
 using Microsoft.JSInterop;
-using System.IO;
 using UnitTest.Mock;
 
 namespace UnitTest.Components;

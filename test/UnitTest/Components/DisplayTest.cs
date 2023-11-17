@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
 using System.Reflection;
 using System.Web;
 
@@ -57,10 +56,10 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void TypeResolver_Ok()
     {
-        var cut = Context.RenderComponent<Display<DisplayTest.Foo[]>>(pb =>
+        var cut = Context.RenderComponent<Display<DisplayTest.Fish[]>>(pb =>
         {
-            pb.Add(a => a.Value, new DisplayTest.Foo[] { new DisplayTest.Foo() { Value = "1" } });
-            pb.Add(a => a.TypeResolver, new Func<Assembly, string, bool, Type>((assembly, typeName, ignoreCase) => typeof(DisplayTest.Foo)));
+            pb.Add(a => a.Value, new DisplayTest.Fish[] { new DisplayTest.Fish() { Value = "1" } });
+            pb.Add(a => a.TypeResolver, new Func<Assembly, string, bool, Type>((assembly, typeName, ignoreCase) => typeof(DisplayTest.Fish)));
         });
         Assert.Equal("<div class=\"form-control is-display\">1</div>", cut.Markup);
     }
@@ -68,9 +67,9 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void TypeResolver_Null()
     {
-        var cut = Context.RenderComponent<Display<DisplayTest.Foo[]>>(pb =>
+        var cut = Context.RenderComponent<Display<DisplayTest.Fish[]>>(pb =>
         {
-            pb.Add(a => a.Value, new DisplayTest.Foo[] { new DisplayTest.Foo() { Value = "1" } });
+            pb.Add(a => a.Value, new DisplayTest.Fish[] { new DisplayTest.Fish() { Value = "1" } });
         });
         Assert.Equal("<div class=\"form-control is-display\"></div>", cut.Markup);
     }
@@ -174,7 +173,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void Bind_Ok()
     {
-        var foo = new BootstrapBlazor.Shared.Foo();
+        var foo = new Foo();
         var cut = Context.RenderComponent<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
@@ -202,7 +201,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void Nullable_Enum()
     {
-        var model = new BootstrapBlazor.Shared.Foo() { Education = EnumEducation.Middle };
+        var model = new Foo() { Education = EnumEducation.Middle };
         var cut = Context.RenderComponent<Display<EnumEducation?>>(pb =>
         {
             pb.Add(a => a.ShowLabel, true);
@@ -225,7 +224,7 @@ public class DisplayTest : BootstrapBlazorTestBase
         }
     }
 
-    class Foo
+    class Fish
     {
         public string Value { get; set; } = "";
 
