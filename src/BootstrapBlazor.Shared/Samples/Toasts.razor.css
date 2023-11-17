@@ -1,8 +1,0 @@
-﻿::deep .d-toast {
-    display: block;
-    position: relative;
-}
-
-    ::deep .d-toast .toast-progress {
-        width: 100%;
-    }

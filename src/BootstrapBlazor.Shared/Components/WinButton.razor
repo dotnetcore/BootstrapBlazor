@@ -1,9 +1,0 @@
-﻿<Button Text="@Text" OnClick="@(e => OnClick(Text))" />
-
-@code {
-    [Parameter]
-    public string Text { get; set; } = "Test";
-
-    [Parameter]
-    public Func<string, Task> OnClick { get; set; } = _ => Task.CompletedTask;
-}
