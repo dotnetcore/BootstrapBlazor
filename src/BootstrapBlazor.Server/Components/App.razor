@@ -22,11 +22,11 @@
     <link rel="stylesheet" href="BootstrapBlazor.Server.styles.css">
     <link rel="stylesheet" href="css/site.css">
     <link rel="stylesheet" href="css/motronic.css">
-    <HeadOutlet />
+    <HeadOutlet @rendermode="new InteractiveServerRenderMode(false)" />
 </head>
 
 <body>
-    <Routes @rendermode="RenderMode.InteractiveServer" />
+    <Routes @rendermode="new InteractiveServerRenderMode(false)" />
 
     <script src="_content/BootstrapBlazor.SummerNote/js/jquery-3.5.1.min.js"></script>
     @if (Env.IsDevelopment())
