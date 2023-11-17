@@ -28,9 +28,11 @@
 <body>
     <Routes @rendermode="new InteractiveServerRenderMode(false)" />
 
-    <ReconnectorOutlet ReconnectInterval="5000" @rendermode="RenderMode.InteractiveServer" />
+    <ReconnectorOutlet ReconnectInterval="5000" @rendermode="new InteractiveServerRenderMode(false)" />
 
-    <UpdateIntro @rendermode="RenderMode.InteractiveServer" />
+    <UpdateIntro @rendermode="new InteractiveServerRenderMode(false)" />
+
+    <BlazorReconnector @rendermode="new InteractiveServerRenderMode(false)" />
 
     <script src="_content/BootstrapBlazor.SummerNote/js/jquery-3.5.1.min.js"></script>
     @if (Env.IsDevelopment())
