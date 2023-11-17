@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
@@ -187,8 +186,8 @@ public class AutoFillTest : BootstrapBlazorTestBase
             pb.Add(a => a.Value, v);
             pb.Add(a => a.Items, new List<AutoFillNullStringMock>
             {
-                new AutoFillNullStringMock() { Value = "1" },
-                new AutoFillNullStringMock() { Value = "2" },
+                new() { Value = "1" },
+                new() { Value = "2" },
             });
             pb.Add(a => a.Template, v => builder =>
             {
@@ -206,7 +205,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, new List<AutoFillNullStringMock?>
             {
                 null,
-                new AutoFillNullStringMock() { Value = "2" },
+                new() { Value = "2" },
             });
             pb.Add(a => a.Template, (RenderFragment<AutoFillNullStringMock?>?)null);
         });

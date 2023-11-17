@@ -1,5 +1,5 @@
 ﻿{
-  "BootstrapBlazor.Shared.Foo": {
+  "BootstrapBlazor.Server.Data.Foo": {
     "Name": "姓名",
     "DateTime": "日期",
     "Address": "地址",
@@ -22,7 +22,7 @@
     "NullItemText": "未设置",
     "Name.Mock": "张三 {0}"
   },
-  "BootstrapBlazor.Shared.EnumEducation": {
+  "BootstrapBlazor.Server.Data.EnumEducation": {
     "PlaceHolder": "请选择 ...",
     "Primary": "小学",
     "Middel": "中学"

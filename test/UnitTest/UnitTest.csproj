@@ -2,7 +2,7 @@
 
   <ItemGroup>
     <PackageReference Include="bunit" Version="1.25.3" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="xunit" Version="2.6.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3">
       <PrivateAssets>all</PrivateAssets>
@@ -20,12 +20,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Using Include="BootstrapBlazor.Server.Data" />
     <Using Include="UnitTest.Extensions" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\src\BootstrapBlazor.Shared\Data\Foo.cs" Link="Misc\Foo.cs" />
-    <Compile Include="..\..\src\BootstrapBlazor.Shared\Data\TreeFoo.cs" Link="Misc\TreeFoo.cs" />
+    <Compile Include="..\..\src\BootstrapBlazor.Server\Data\Foo.cs" Link="Misc\Foo.cs" />
+    <Compile Include="..\..\src\BootstrapBlazor.Server\Data\TreeFoo.cs" Link="Misc\TreeFoo.cs" />
   </ItemGroup>
 
   <ItemGroup>

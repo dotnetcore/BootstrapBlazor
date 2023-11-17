@@ -5,7 +5,7 @@
     "LoginSummary": "Login&Register",
     "PinteresoSummary": "Pintereso"
   },
-  "BootstrapBlazor.Server.Components.Pages.App": {
+  "BootstrapBlazor.Server.Components.App": {
     "Title": "Bootstrap Blazor enterprise-level UI component library",
     "Reload": "Reload",
     "ErrorMessage": "An unhandled exception has occurred. See browser dev tools for details."

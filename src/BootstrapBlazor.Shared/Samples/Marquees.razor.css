@@ -1,7 +1,0 @@
-﻿::deep .label-width {
-    width: 150px;
-}
-
-::deep > .input-group {
-    margin-bottom: .5rem;
-}
