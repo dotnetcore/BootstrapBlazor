@@ -17,7 +17,7 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
     {
         var factory = Context.Services.GetRequiredService<IStringLocalizerFactory>();
         var mi = factory.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).First(i => i.Name == "GetResourcePrefix" && i.GetParameters().Length == 1)!;
-        Assert.Throws<TargetInvocationException>(() => mi.Invoke(factory, new object?[] { new MockTypeInfo() }));
+        Assert.Throws<TargetInvocationException>(() => mi.Invoke(factory, [new MockTypeInfo()]));
     }
 
     [Fact]
@@ -310,9 +310,9 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
 
         public IEnumerable<LocalizedString> GetAllStrings(bool includeParentCultures) => new List<LocalizedString>()
         {
-            new LocalizedString("Mock-Name", "Mock-Test-Name"),
-            new LocalizedString("Mock-Address", "Mock-Test-Address-{0}"),
-            new LocalizedString("Mock-FakeAddress", "Mock-Test-Address-{ 0}")
+            new("Mock-Name", "Mock-Test-Name"),
+            new("Mock-Address", "Mock-Test-Address-{0}"),
+            new("Mock-FakeAddress", "Mock-Test-Address-{ 0}")
         };
     }
 

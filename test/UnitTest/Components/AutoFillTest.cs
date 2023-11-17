@@ -186,8 +186,8 @@ public class AutoFillTest : BootstrapBlazorTestBase
             pb.Add(a => a.Value, v);
             pb.Add(a => a.Items, new List<AutoFillNullStringMock>
             {
-                new AutoFillNullStringMock() { Value = "1" },
-                new AutoFillNullStringMock() { Value = "2" },
+                new() { Value = "1" },
+                new() { Value = "2" },
             });
             pb.Add(a => a.Template, v => builder =>
             {
@@ -205,7 +205,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, new List<AutoFillNullStringMock?>
             {
                 null,
-                new AutoFillNullStringMock() { Value = "2" },
+                new() { Value = "2" },
             });
             pb.Add(a => a.Template, (RenderFragment<AutoFillNullStringMock?>?)null);
         });
