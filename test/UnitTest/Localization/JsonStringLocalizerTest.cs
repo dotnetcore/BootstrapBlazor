@@ -248,6 +248,8 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         Assert.Equal("test", result.Value);
     }
 
+    private static readonly string[] localizationConfigure = ["zh-CN.json"];
+
     [Fact]
     public void Validate_ResourceManagerStringLocalizerType()
     {
@@ -259,7 +261,7 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         {
             option.ResourceManagerStringLocalizerType = typeof(Foo);
             option.AdditionalJsonAssemblies = new[] { typeof(Alert).Assembly, GetType().Assembly };
-            option.AdditionalJsonFiles = new string[] { "zh-CN.json" };
+            option.AdditionalJsonFiles = localizationConfigure;
         });
         context.Services.GetRequiredService<ICacheManager>();
 
@@ -277,7 +279,7 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         var mi = cut.Instance.GetType().GetMethod("ValidateDataAnnotations", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
         var pi = foo.GetType().GetProperty("Name");
         var result = new List<ValidationResult>();
-        mi.Invoke(cut.Instance, new object?[] { null, new ValidationContext(cut.Instance), result, pi, "Name" });
+        mi.Invoke(cut.Instance, [null, new ValidationContext(cut.Instance), result, pi, "Name"]);
         Assert.Equal("Test", result[0].ErrorMessage);
     }
 
