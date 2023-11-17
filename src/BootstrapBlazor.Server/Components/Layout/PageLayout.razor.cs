@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.JSInterop;
-
 namespace BootstrapBlazor.Server.Components.Layout;
 
 /// <summary>
@@ -70,9 +68,9 @@ public sealed partial class PageLayout
         await Task.Delay(500);
         Menus = new List<MenuItem>
         {
-            new MenuItem() { Text = "返回组件库", Icon = "fa-fw fa-solid fa-house", Url = "layouts" },
-            new MenuItem() { Text = "后台模拟器", Icon = "fa-fw fa-solid fa-desktop", Url = "layout-page" },
-            new MenuItem() { Text = "示例网页", Icon = "fa-fw fa-solid fa-laptop", Url = "layout-demo/text=Parameter1" }
+            new() { Text = "返回组件库", Icon = "fa-fw fa-solid fa-house", Url = "components" },
+            new() { Text = "后台模拟器", Icon = "fa-fw fa-solid fa-desktop", Url = "layout-page" },
+            new() { Text = "示例网页", Icon = "fa-fw fa-solid fa-laptop", Url = "layout-demo/text=Parameter1" }
         };
     }
 
