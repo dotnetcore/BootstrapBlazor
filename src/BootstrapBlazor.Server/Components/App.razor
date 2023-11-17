@@ -1,4 +1,5 @@
 ﻿@inject IHostEnvironment Env
+@inject IStringLocalizer<App> Localizer
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,6 +23,7 @@
     <link rel="stylesheet" href="BootstrapBlazor.Server.styles.css">
     <link rel="stylesheet" href="css/site.css">
     <link rel="stylesheet" href="css/motronic.css">
+    <title>@Localizer["Title"]</title>
     <HeadOutlet @rendermode="new InteractiveServerRenderMode(false)" />
 </head>
 
