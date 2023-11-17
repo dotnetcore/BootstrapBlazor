@@ -26,14 +26,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{4A52
 		scripts\windows\push.ps1 = scripts\windows\push.ps1
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "dist", "dist", "{63E887C6-4610-4ED3-91F4-62EFDE7F442F}"
-	ProjectSection(SolutionItems) = preProject
-		dist\.gitattributes = dist\.gitattributes
-		dist\.nojekyll = dist\.nojekyll
-		dist\.spa = dist\.spa
-		dist\404.html = dist\404.html
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "wasm", "wasm", "{B84D315E-967D-4FBF-9B72-1F3128155CB0}"
 	ProjectSection(SolutionItems) = preProject
 		scripts\wasm\sync.cmd = scripts\wasm\sync.cmd
@@ -55,8 +47,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Markdown", "src\Extensions\Components\BootstrapBlazor.Markdown\BootstrapBlazor.Markdown.csproj", "{EEB9751A-5C06-4725-8037-FA9C0F140018}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.TableExport", "src\Extensions\Components\BootstrapBlazor.TableExport\BootstrapBlazor.TableExport.csproj", "{5ED0DD16-1583-4FC3-B2E9-FE5DBA98BD47}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Shared", "src\BootstrapBlazor.Shared\BootstrapBlazor.Shared.csproj", "{C63F35FD-FE14-4517-9457-9DA43F0DCB9E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Server", "src\BootstrapBlazor.Server\BootstrapBlazor.Server.csproj", "{1ED371F3-2B28-4B2D-91B8-0C00DA42CB65}"
 EndProject
@@ -155,10 +145,6 @@ Global
 		{5ED0DD16-1583-4FC3-B2E9-FE5DBA98BD47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5ED0DD16-1583-4FC3-B2E9-FE5DBA98BD47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5ED0DD16-1583-4FC3-B2E9-FE5DBA98BD47}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C63F35FD-FE14-4517-9457-9DA43F0DCB9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C63F35FD-FE14-4517-9457-9DA43F0DCB9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C63F35FD-FE14-4517-9457-9DA43F0DCB9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C63F35FD-FE14-4517-9457-9DA43F0DCB9E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1ED371F3-2B28-4B2D-91B8-0C00DA42CB65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1ED371F3-2B28-4B2D-91B8-0C00DA42CB65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1ED371F3-2B28-4B2D-91B8-0C00DA42CB65}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -296,7 +282,6 @@ Global
 		{337FABF3-4318-408E-8544-C0F20D0197A1} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{EEB9751A-5C06-4725-8037-FA9C0F140018} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{5ED0DD16-1583-4FC3-B2E9-FE5DBA98BD47} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
-		{C63F35FD-FE14-4517-9457-9DA43F0DCB9E} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
 		{1ED371F3-2B28-4B2D-91B8-0C00DA42CB65} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
 		{0556D9AB-8673-4248-8817-4D99F4DCC568} = {C8E79F4C-8C55-4E13-96B5-3D2BD6A07B74}
 		{FFFD2EB7-AE88-4DAD-A825-528B2CEFB4B5} = {C8E79F4C-8C55-4E13-96B5-3D2BD6A07B74}

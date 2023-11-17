@@ -1,0 +1,54 @@
+﻿@page "/dispatch"
+@inject IStringLocalizer<Dispatches> Localizer
+@inject IDispatchService<MessageItem> DispatchService
+
+<h3>@Localizer["Title"]</h3>
+<h4>@Localizer["Description"]</h4>
+
+<Tips class="mt-3">
+    <p>@((MarkupString)Localizer["Tips"].Value)</p>
+</Tips>
+
+<p>@Localizer["NormalTip"]</p>
+<p>@((MarkupString)Localizer["NormalTips1"].Value)</p>
+<Pre>[Inject]
+[NotNull]
+private IDispatchService&lt;GiteePostBody&gt;? DispatchService { get; set; }</Pre>
+<p>@((MarkupString)Localizer["NormalTips2"].Value)</p>
+<Pre>protected override void OnInitialized()
+{
+    // ...
+    DispatchService.Subscribe(Notify);
+}</Pre>
+<p>@((MarkupString)Localizer["NormalTips3"].Value)</p>
+<Pre>private void Dispose(bool disposing)
+{
+    if (disposing)
+    {
+        DispatchService.UnSubscribe(Notify);
+    }
+}</Pre>
+<p>@((MarkupString)Localizer["NormalTips4"].Value)</p>
+<Pre>private async Task Notify(DispatchEntry&lt;GiteePostBody&gt; payload)
+{
+    if (payload.Entry != null)
+    {
+        var option = new ToastOption()
+        {
+            Category = ToastCategory.Information,
+            Title = @Localizer["NormalTipsTitle"],
+            Content = @Localizer["NormalTipsContent"]
+        };
+        await Toast.Show(option);
+    }
+}</Pre>
+<div>@((MarkupString)Localizer["NormalTips5"].Value)</div>
+
+<DemoBlock Title="@Localizer["DispatchTitle"]" Introduction="@Localizer["DispatchIntro"]" Name="Dispatch">
+    <p>@((MarkupString)Localizer["DispatchTip"].Value)</p>
+    <Pre class="mb-3">public class MessageItem
+{
+    public string? Message { get; set; }
+}</Pre>
+    <Button IsAsync="true" Icon="fa-regular fa-paper-plane" Text="@Localizer["DispatchNoticeButtonText"]" OnClickWithoutRender="OnDispatch" />
+</DemoBlock>

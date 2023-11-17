@@ -3,9 +3,8 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Server.OAuth;
-using BootstrapBlazor.Server.Services;
-using BootstrapBlazor.Shared;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Options;
 using System.Reflection;
 
@@ -53,7 +52,6 @@ internal static class ServicesExtensions
             // 附加自己的 json 多语言文化资源文件 如 zh-TW.json
             op.AdditionalJsonAssemblies = new Assembly[]
             {
-                typeof(BootstrapBlazor.Shared.App).Assembly,
                 typeof(BootstrapBlazor.Components.BarcodeReader).Assembly,
                 typeof(BootstrapBlazor.Components.Chart).Assembly,
                 typeof(BootstrapBlazor.Components.SignaturePad).Assembly
@@ -86,10 +84,10 @@ internal static class ServicesExtensions
         // 增加 Pdf 导出服务
         services.AddBootstrapBlazorHtml2PdfService();
 
-        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie()
-            .AddGitee(OAuthHelper.Configure)
-            .AddGitHub(OAuthHelper.Configure);
+        //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+        //    .AddCookie()
+        //    .AddGitee(OAuthHelper.Configure)
+        //    .AddGitHub(OAuthHelper.Configure);
 
         // 增加 PetaPoco ORM 数据服务操作类
         // 需要时打开下面代码
@@ -112,7 +110,7 @@ internal static class ServicesExtensions
 #if DEBUG
         //         //开发环境:自动同步实体
         //         .UseAutoSyncStructure(true)
-        //         //调试sql语句输出
+        //         //调试 sql 语句输出
         //         .UseMonitorCommand(cmd => System.Console.WriteLine(cmd.CommandText))
 #endif
         //        ;
@@ -125,6 +123,35 @@ internal static class ServicesExtensions
         //    // 需要引用 Microsoft.EntityFrameworkCore.Sqlite 包，操作 SQLite 数据库
         //    option.UseSqlite(Configuration.GetConnectionString("bb"));
         //});
+        return services;
+    }
+
+    /// <summary>
+    /// 添加 Server Side 演示网站服务
+    /// </summary>
+    /// <param name="services"></param>
+    public static IServiceCollection AddWebSiteServices(this IServiceCollection services)
+    {
+        services.AddSingleton<WeatherForecastService>();
+        services.AddSingleton<PackageVersionService>();
+        services.AddSingleton<CodeSnippetService>();
+        services.AddSingleton<DashboardService>();
+        services.AddSingleton(typeof(IDataService<>), typeof(TableDemoDataService<>));
+        services.AddSingleton(typeof(ILookupService), typeof(DemoLookupService));
+        services.AddSingleton<MockDataTableDynamicService>();
+
+        services.AddSingleton<MenuService>();
+        services.AddScoped<FanControllerDataService>();
+
+        // 增加示例网站配置
+        services.AddOptionsMonitor<WebsiteOptions>();
+
+        // 增加模拟登录服务
+        services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();
+
+        // 增加 Table Excel 导出服务
+        services.AddBootstrapBlazorTableExcelExport();
+
         return services;
     }
 }

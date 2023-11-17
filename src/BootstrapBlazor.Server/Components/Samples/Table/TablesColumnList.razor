@@ -1,0 +1,67 @@
+﻿@page "/table/column/list"
+@inject IStringLocalizer<TablesColumnList> Localizer
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+@inject IStringLocalizer<Foo> FooLocalizer
+
+<h3>@Localizer["TablesColumnTitle"]</h3>
+
+<h4>@Localizer["TablesColumnDescription"]</h4>
+
+<DemoBlock Title="@Localizer["VisibleTitle"]"
+           Introduction="@Localizer["VisibleIntro"]"
+           Name="Visible">
+    <section ignore>
+        <p>@((MarkupString)Localizer["VisibleP1"].Value)</p>
+        <p>@((MarkupString)Localizer["VisibleP2"].Value)</p>
+        <p>@((MarkupString)Localizer["VisibleP3"].Value)</p>
+        <p>@((MarkupString)Localizer["VisibleP4"].Value)</p>
+        <p class="mb-3">@((MarkupString)Localizer["ResetVisibleColumnsDesc"].Value)</p>
+    </section>
+    <Button Text="@Localizer["ResetVisibleColumnsButtonText"]" OnClickWithoutRender="ResetVisibleColumns"></Button>
+
+    <Table TItem="Foo" @ref="TableColumnVisible"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowAddButton="false" ShowEditButton="false" ShowDeleteButton="false"
+           ShowExtendButtons="false" ShowColumnList="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" Width="290" />
+            <TableColumn @bind-Field="@context.Education" />
+            <TableColumn @bind-Field="@context.Count" Visible="false" />
+            <TableColumn @bind-Field="@context.Complete" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ShownWithBreakPointTitle"]"
+           Introduction="@Localizer["ShownWithBreakPointIntro"]"
+           Name="ShownWithBreakPoint">
+    <p>@((MarkupString)Localizer["ShownWithBreakPointP1"].Value)</p>
+    <ul class="ul-demo mb-3">
+        <li>@((MarkupString)Localizer["ShownWithBreakPointLi1"].Value)</li>
+        <li>@((MarkupString)Localizer["ShownWithBreakPointLi2"].Value)</li>
+        <li>@((MarkupString)Localizer["ShownWithBreakPointLi3"].Value)</li>
+        <li>@((MarkupString)Localizer["ShownWithBreakPointLi4"].Value)</li>
+        <li>@((MarkupString)Localizer["ShownWithBreakPointLi5"].Value)</li>
+    </ul>
+    <p>@((MarkupString)Localizer["ShownWithBreakPointP2"].Value)</p>
+    <p>@((MarkupString)Localizer["ShownWithBreakPointP3"].Value)</p>
+    <p class="mb-3">@((MarkupString)Localizer["ShownWithBreakPointP4"].Value)</p>
+    <Table TItem="Foo" RenderMode="TableRenderMode.Table"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" Align="Alignment.Center" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" ShownWithBreakPoint="BreakPoint.Medium" />
+            <TableColumn @bind-Field="@context.Count" ShownWithBreakPoint="BreakPoint.Large" Formatter="@IntFormatter" Width="60" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
+

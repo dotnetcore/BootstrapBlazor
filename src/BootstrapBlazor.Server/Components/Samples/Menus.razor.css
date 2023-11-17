@@ -1,0 +1,63 @@
+﻿.layout-menu-demo ::deep .layout-side {
+    background-color: var(--bb-disabled-bg);
+    color: #dcdfe6;
+    height: 100%;
+}
+
+.layout-menu-demo ::deep .menu.is-vertical:not(.is-collapsed) {
+    width: 156px;
+}
+
+.layout-menu-demo ::deep .menu-demo-header {
+    background-color: #17a2b8;
+    line-height: 50px;
+    color: #fff;
+    flex: 1;
+    padding-left: 80px;
+}
+
+.layout-menu-demo ::deep .layout-banner {
+    display: flex;
+    align-items: center;
+    padding: 0 .625rem;
+    background-color: var(--bb-layout-sidebar-banner-background);
+    height: 50px;
+    font-size: 1.5rem;
+}
+
+    .layout-menu-demo ::deep .layout-banner img {
+        width: 38px;
+        border-radius: var(--bs-border-radius);
+        margin-right: .5rem;
+    }
+
+.layout-menu-demo ::deep .layout-side.is-collapsed .layout-banner .layout-title {
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.layout-menu-demo ::deep .layout-menu {
+    height: 371px;
+    padding: 6px 0;
+    color: #000;
+}
+
+.layout-menu-demo ::deep .layout-title {
+    color: #fff;
+}
+
+.layout-menu-demo ::deep .layout-header .layout-header-bar {
+    position: absolute;
+    margin: 9px 14px;
+}
+
+.layout-menu-demo ::deep .layout-footer {
+    background-color: #e4e7ed;
+    text-align: center;
+}
+
+    .layout-menu-demo ::deep .layout-footer > a {
+        color: #000;
+        line-height: 30px;
+    }

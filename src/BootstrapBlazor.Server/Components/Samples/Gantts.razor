@@ -1,0 +1,18 @@
+﻿@page "/gantt"
+@inject IStringLocalizer<Gantts> Localizer
+
+<h3>@Localizer["Gantts"]</h3>
+
+<DemoBlock Title="@Localizer["BasicTitle"]" Introduction="@Localizer["BasicIntro"]" Name="Normal">
+    <Gantt Items="@Items" OnClick="@OnClick" OnDataChanged="@OnDataChanged" OnProgressChanged="@OnProgressChanged"></Gantt>
+    <ConsoleLogger @ref="@Log" class="mb-3"></ConsoleLogger>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ViewModeTitle"]" Introduction="@Localizer["ViewModeDesc"]" Name="ViewMode">
+    <Segmented Items="ViewModes" TValue="string" class="mb-3" OnValueChanged="@OnValueChanged"></Segmented>
+    <Gantt Items="@Items" @ref="Gantt"></Gantt>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributeItems()"></AttributeTable>
+
+<AttributeTable Items="@GetMethodItems()"></AttributeTable>

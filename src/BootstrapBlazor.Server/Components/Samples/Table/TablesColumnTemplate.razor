@@ -1,0 +1,91 @@
+﻿@page "/table/column/template"
+@inject IStringLocalizer<TablesColumnTemplate> Localizer
+@inject IStringLocalizer<Foo> FooLocalizer
+@inject IOptionsMonitor<WebsiteOptions> WebsiteOption
+
+<h3>@Localizer["TablesColumnTitle"]</h3>
+
+<h4>@Localizer["TablesColumnDescription"]</h4>
+
+<DemoBlock Title="@Localizer["TableColumnTitle"]"
+           Introduction="@Localizer["TableColumnIntro"]"
+           Name="TableColumnNormal">
+    <p>@((MarkupString)Localizer["TableColumnP1"].Value)</p>
+    <p>@((MarkupString)Localizer["TableColumnP2"].Value)</p>
+    <p>@((MarkupString)Localizer["TableColumnP3"].Value)</p>
+    <p>@((MarkupString)Localizer["TableColumnP3"].Value)</p>
+    <ul class="mb-3">
+        <li>@((MarkupString)Localizer["TableColumnLi1"].Value)</li>
+        <li>@((MarkupString)Localizer["TableColumnLi2"].Value)</li>
+    </ul>
+
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180">
+                <Template Context="value">
+                    @if (value.Row.Complete)
+                    {
+                        <div class="text-success">@value.Value</div>
+                    }
+                    else
+                    {
+                        <div class="text-danger">@value.Value</div>
+                    }
+                </Template>
+            </TableColumn>
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Complete" Width="100">
+                <Template Context="value">
+                    <Checkbox Value="@value.Value" IsDisabled="true"></Checkbox>
+                </Template>
+            </TableColumn>
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TemplateTitle"]"
+           Introduction="@Localizer["TemplateIntro"]"
+           Name="Template">
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="120" FormatString="yyyy-MM-dd" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+            <TableColumn @bind-Field="@context.Id" Text="">
+                <Template Context="v">
+                    <PopConfirmButton Text="Test" Size="Size.ExtraSmall" />
+                </Template>
+            </TableColumn>
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["AutoGenerateColumnsTitle"]"
+           Introduction="@Localizer["AutoGenerateColumnsIntro"]"
+           Name="AutoGenerateColumns">
+    <p class="mb-3">
+        @((MarkupString)Localizer["AutoGenerateColumnsP1"].Value)
+        <ul class="ul-demo mb-3">
+            <li>@((MarkupString)Localizer["AutoGenerateColumnsLi1"].Value)</li>
+            <li>@((MarkupString)Localizer["AutoGenerateColumnsLi2"].Value)</li>
+            <li>@((MarkupString)string.Format(Localizer["AutoGenerateColumnsLi3"].Value, WebsiteOption.CurrentValue.BootstrapBlazorLink))</li>
+        </ul>
+        @((MarkupString)Localizer["AutoGenerateColumnsP2"].Value)
+    </p>
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" AutoGenerateColumns="true"
+           ShowToolbar="false" IsMultipleSelect="true" ShowExtendButtons="false"
+           OnQueryAsync="@OnQueryAsync">
+    </Table>
+</DemoBlock>

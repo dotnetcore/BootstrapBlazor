@@ -1,0 +1,18 @@
+﻿.culture-selector {
+    display: flex;
+    align-items: center;
+}
+
+    .culture-selector span {
+        margin: 0;
+        color: var(--bs-navbar-color);
+        opacity: 0.85;
+    }
+
+    .culture-selector ::deep .select {
+        width: 210px;
+    }
+
+    .culture-selector ::deep .dropdown-menu {
+        --bs-dropdown-link-active-bg: #7532f9;
+    }

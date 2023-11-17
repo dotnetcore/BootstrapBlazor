@@ -1,0 +1,33 @@
+﻿{
+  "GetStarted": {
+    "Icon": "fa-solid fa-font-awesome",
+    "Items": [
+      {
+        "Introduction": {
+          "Url": "introduction"
+        },
+        "Install": {
+          "Url": "install"
+        }
+      }
+    ]
+  },
+  "Layout": {
+
+  },
+  "Navigation": {
+
+  },
+  "Form": {
+
+  },
+  "Data": {
+
+  },
+  "Chart": {
+
+  },
+  "Notification": {
+
+  }
+}
