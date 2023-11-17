@@ -14,6 +14,7 @@ export function init(id, invoke, callback) {
             }
         }
     }
+    Data.set(id, resp)
     invoke.invokeMethodAsync(callback, resp.currentBreakpoint)
     EventHandler.on(window, 'resize', resp.fn)
 }
@@ -22,7 +23,9 @@ export function dispose(id) {
     const resp = Data.get(id)
     Data.remove(id)
 
-    EventHandler.off(window, 'resize', resp.fn)
+    if (resp) {
+        EventHandler.off(window, 'resize', resp.fn)
+    }
 }
 
 export function getResponsive() {
