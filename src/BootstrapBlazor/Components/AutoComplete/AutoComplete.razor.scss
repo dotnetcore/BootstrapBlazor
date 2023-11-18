@@ -5,6 +5,8 @@
     --bb-ac-menu-right: #{$bb-ac-menu-right};
     --bb-ac-menu-shadow: #{$bb-ac-menu-shadow};
     --bb-ac-dropdown-max-height: var(--bb-dropdown-max-height);
+    --bb-select-append-width: #{$bb-select-append-width};
+    --bb-select-append-color: #{$bb-select-append-color};
     position: relative;
 
     .form-control {
