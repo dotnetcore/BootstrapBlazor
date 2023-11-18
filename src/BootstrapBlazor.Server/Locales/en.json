@@ -4236,7 +4236,7 @@
     "Block1Title": "Basic usage",
     "Block1Intro": "Suitable for a wide range of basic usage."
   },
-  "BootstrapBlazor.Server.Components.Foo": {
+  "BootstrapBlazor.Server.Data.Foo": {
     "Name": "Name",
     "DateTime": "DateTime",
     "Address": "Address",
