@@ -3,8 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Azure.AI.OpenAI;
-using BootstrapBlazor.Server.OAuth;
-using global::Microsoft.AspNetCore.Components;
+using BootstrapBlazor.Server.AIChat.OAuth;
 using Microsoft.AspNetCore.Components.Authorization;
 
 namespace BootstrapBlazor.Server.AIChat;
