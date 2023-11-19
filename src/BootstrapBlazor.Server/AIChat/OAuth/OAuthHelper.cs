@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using System.Collections.Concurrent;
 using System.Net.Http.Headers;
 
-namespace BootstrapBlazor.Server.OAuth;
+namespace BootstrapBlazor.Server.AIChat.OAuth;
 
 /// <summary>
 /// Gitee 授权帮助类

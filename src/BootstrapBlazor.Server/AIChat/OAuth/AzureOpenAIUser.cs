@@ -4,7 +4,7 @@
 
 using Longbow.OAuth;
 
-namespace BootstrapBlazor.Server.OAuth;
+namespace BootstrapBlazor.Server.AIChat.OAuth;
 
 /// <summary>
 /// 

@@ -2,8 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Server.OAuth;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using BootstrapBlazor.Server.AIChat.OAuth;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Options;
 using System.Reflection;
@@ -52,9 +51,9 @@ internal static class ServicesExtensions
             // 附加自己的 json 多语言文化资源文件 如 zh-TW.json
             op.AdditionalJsonAssemblies = new Assembly[]
             {
-                typeof(BootstrapBlazor.Components.BarcodeReader).Assembly,
-                typeof(BootstrapBlazor.Components.Chart).Assembly,
-                typeof(BootstrapBlazor.Components.SignaturePad).Assembly
+                typeof(BarcodeReader).Assembly,
+                typeof(Chart).Assembly,
+                typeof(SignaturePad).Assembly
             };
         });
 

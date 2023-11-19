@@ -23,7 +23,7 @@ public partial class VariableTest
         var sassFilePath = Path.Combine(rootPath, "Components");
         Assert.True(Directory.Exists(sassFilePath));
 
-        var variableFile = Path.Combine(rootPath, "wwwroot/scss/bootstrap.blazor.scss");
+        var variableFile = Path.Combine(rootPath, "wwwroot/scss/theme/bootstrap.blazor.scss");
         Assert.True(File.Exists(variableFile));
 
         // 获取所有 Sass 文件所有变量

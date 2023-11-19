@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <Compile Include="..\..\src\BootstrapBlazor.Shared\Data\Foo.cs" Link="Mics\Foo.cs" />
+    <Compile Include="..\..\src\BootstrapBlazor.Server\Data\Foo.cs" Link="Mics\Foo.cs" />
     <Compile Include="..\UnitTest\Core\BootstrapBlazorTestBase.cs" Link="Mics\BootstrapBlazorTestBase.cs" />
     <Compile Include="..\UnitTest\Core\TestBase.cs" Link="Mics\TestBase.cs" />
     <Compile Include="..\UnitTest\Extensions\IServiceCollectionExtensions.cs" Link="Mics\IServiceCollectionExtensions.cs" />
@@ -9,9 +9,9 @@
 
   <ItemGroup>
     <PackageReference Include="bunit" Version="1.25.3" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.3.2" />
-    <PackageReference Include="xunit" Version="2.6.1" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="xunit" Version="2.6.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.4">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

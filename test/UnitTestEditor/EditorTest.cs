@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
+using BootstrapBlazor.Server.Data;
 
 namespace UnitTest.Components;
 
@@ -44,7 +44,7 @@ public class EditorTest : Core.BootstrapBlazorTestBase
             pb.Add(a => a.Value, "Test");
             pb.Add(a => a.CustomerToolbarButtons, new EditorToolbarButton[]
             {
-                new EditorToolbarButton()
+                new()
                 {
                     ButtonName = "Test1",
                     IconClass = "Class1",

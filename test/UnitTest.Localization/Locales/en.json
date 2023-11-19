@@ -1,5 +1,5 @@
 ﻿{
-  "BootstrapBlazor.Shared.Foo": {
+  "BootstrapBlazor.Server.Data.Foo": {
     "Name": "Name",
     "DateTime": "DateTime",
     "Address": "Address",
@@ -21,7 +21,7 @@
     "False": "Failed",
     "NullItemText": "Not Set"
   },
-  "BootstrapBlazor.Shared.EnumEducation": {
+  "BootstrapBlazor..Server.Data.EnumEducation": {
     "PlaceHolder": "Click to select ...",
     "Primary": "Primary",
     "Middel": "Middel"
