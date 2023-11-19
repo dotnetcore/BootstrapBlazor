@@ -23,8 +23,8 @@ public partial class Line
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
-    private ChartPointStyle[] chartPointStyles = new[]
-    {
+    private readonly ChartPointStyle[] chartPointStyles =
+    [
         ChartPointStyle.Circle,
         ChartPointStyle.Cross,
         ChartPointStyle.CrossRot,
@@ -35,7 +35,7 @@ public partial class Line
         ChartPointStyle.RectRot,
         ChartPointStyle.Star,
         ChartPointStyle.Triangle,
-    };
+    ];
 
     /// <summary>
     /// <inheritdoc/>
@@ -237,7 +237,7 @@ public partial class Line
 
         if (firstRender)
         {
-            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", $"Components/Samples/Charts/Line.razor.js?v={JSVersionService.GetVersion()}");
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", $"./Components/Samples/Charts/Line.razor.js?v={JSVersionService.GetVersion()}");
 
             //随机生成一组数据
             //Randomly generate a set of data

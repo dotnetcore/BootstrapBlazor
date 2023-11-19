@@ -1,6 +1,6 @@
 ﻿//通过相对路径导入BootstrapBlazor.Chart的Chart.JS模块
-import '../../../../_content/BootstrapBlazor.Chart/js/chart.js'
-import Data from '../../../../_content/BootstrapBlazor/modules/data.js'
+import '../../../_content/BootstrapBlazor.Chart/js/chart.js'
+import Data from '../../../_content/BootstrapBlazor/modules/data.js'
 
 export function lineChart(canvasId, chartData) {
     const ctx = document.getElementById(canvasId);
