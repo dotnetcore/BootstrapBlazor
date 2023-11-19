@@ -1,5 +1,5 @@
 ﻿@page "/"
-@page "/chart/line"
+@layout PageLayout
 @inject IStringLocalizer<Line> Localizer
 @inject CodeSnippetService CodeSnippetService
 @inherits IdComponentBase
@@ -8,7 +8,7 @@
 <DemoBlock Title="@Localizer["LineOnInitTitle"]"
            Introduction="@Localizer["LineOnInitIntro"]"
            Name="LineOnInit">
-    <Chart @ref="LineChart" OnInitAsync="() => OnInit(0.4f, false)" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" />
+    <Chart @ref="LineChart" OnInitAsync="@Test" OnAfterInitAsync="@OnAfterInit" OnAfterUpdateAsync="@OnAfterUpdate" />
     <div class="text-center mt-2 chart">
         <div class="btn-group">
             <button class="btn btn-primary" @onclick="e => Utility.RandomData(LineChart)"><i class="fa-solid fa-chart-line"></i><span>@Localizer["LineOnInitRandomData"]</span></button>

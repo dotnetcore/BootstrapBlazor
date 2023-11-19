@@ -63,7 +63,14 @@ public partial class Line
         return Task.CompletedTask;
     }
 
-    private Task<ChartDataSource> OnInit(float tension, bool hasNull)
+    private async Task<ChartDataSource> Test()
+    {
+        var ds = new ChartDataSource();
+        await Task.Delay(1000);
+        return ds;
+    }
+
+    private  Task<ChartDataSource> OnInit(float tension, bool hasNull)
     {
         var ds = new ChartDataSource();
         ds.Options.Title = "Line Chart";
