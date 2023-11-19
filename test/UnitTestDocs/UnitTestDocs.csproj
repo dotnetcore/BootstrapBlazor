@@ -25,11 +25,19 @@
 
   <ItemGroup>
     <Using Include="BootstrapBlazor.Components" />
+    <Using Include="BootstrapBlazor.Server.Components" />
+    <Using Include="BootstrapBlazor.Server.Components.Components" />
+    <Using Include="BootstrapBlazor.Server.Components.Layout" />
+    <Using Include="BootstrapBlazor.Server.Extensions" />
     <Using Include="Microsoft.AspNetCore.Components" />
     <Using Include="Microsoft.Extensions.Localization" />
     <Using Include="System.ComponentModel.DataAnnotations" />
     <Using Remove="Bunit" />
     <Using Remove="UnitTest.Core" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\BootstrapBlazor.Server\BootstrapBlazor.Server.csproj" />
   </ItemGroup>
 
 </Project>
