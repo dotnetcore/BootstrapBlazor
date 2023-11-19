@@ -6,8 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\src\BootstrapBlazor.Shared\Extensions\MenusLocalizerExtensions.cs" Link="Extensions\MenusLocalizerExtensions.cs" />
-    <Compile Include="..\..\src\BootstrapBlazor.Shared\Services\MenuService.cs" Link="Services\MenuService.cs" />
+    <Compile Include="..\..\src\BootstrapBlazor.Server\Extensions\MenusLocalizerExtensions.cs" Link="Extensions\MenusLocalizerExtensions.cs" />
+    <Compile Include="..\..\src\BootstrapBlazor.Server\Services\MenuService.cs" Link="Services\MenuService.cs" />
   </ItemGroup>
 
   <ItemGroup>
