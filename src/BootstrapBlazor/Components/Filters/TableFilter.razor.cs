@@ -58,8 +58,7 @@ public partial class TableFilter : IFilter
     /// <summary>
     /// 获得/设置 Header 显示文字
     /// </summary>
-    [NotNull]
-    private string? Title { get; set; }
+    private string? _title;
 
     /// <summary>
     /// 获得/设置 相关 Field 字段名称
@@ -70,7 +69,7 @@ public partial class TableFilter : IFilter
     /// <summary>
     /// 获得/设置 条件数量
     /// </summary>
-    private int Count { get; set; }
+    private int _count;
 
     /// <summary>
     /// 获得/设置 是否显示增加减少条件按钮
@@ -136,7 +135,7 @@ public partial class TableFilter : IFilter
     [NotNull]
     private ILookupService? LookupService { get; set; }
 
-    private string? Step => Column.Step?.ToString();
+    private string? _step;
 
     private Lazy<IEnumerable<SelectedItem>?> _lookup = default!;
 
@@ -147,7 +146,7 @@ public partial class TableFilter : IFilter
     {
         base.OnInitialized();
 
-        Title = Column.GetDisplayName();
+        _title = Column.GetDisplayName();
         FieldKey = Column.GetFieldName();
         Column.Filter = this;
 
@@ -155,6 +154,7 @@ public partial class TableFilter : IFilter
             ? LookupService.GetItemsByKey(Column.LookupServiceKey)
             : null)
         );
+        _step = Column.Step?.ToString();
     }
 
     /// <summary>
@@ -176,7 +176,7 @@ public partial class TableFilter : IFilter
             var filter = action.GetFilterConditions();
             if (filter.Filters?.Count > 1)
             {
-                Count = 1;
+                _count = 1;
             }
         }
     }
@@ -199,7 +199,7 @@ public partial class TableFilter : IFilter
     /// <returns></returns>
     private async Task OnClickReset()
     {
-        Count = 0;
+        _count = 0;
 
         if (Table != null)
         {
@@ -242,9 +242,9 @@ public partial class TableFilter : IFilter
     /// <returns></returns>
     private void OnClickPlus()
     {
-        if (Count == 0)
+        if (_count == 0)
         {
-            Count++;
+            _count++;
         }
     }
 
@@ -254,9 +254,9 @@ public partial class TableFilter : IFilter
     /// <returns></returns>
     private void OnClickMinus()
     {
-        if (Count == 1)
+        if (_count == 1)
         {
-            Count--;
+            _count--;
         }
     }
 
