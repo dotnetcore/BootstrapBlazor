@@ -44,9 +44,9 @@ else
         {
             <EnumFilter Type="Column.PropertyType" Count="Count"></EnumFilter>
         }
-        else if (Column.Lookup != null)
+        else if (IsLookup)
         {
-            <LookupFilter Lookup="Column.Lookup" LookupStringComparison="Column.LookupStringComparison" Type="Column.PropertyType"></LookupFilter>
+            <LookupFilter Lookup="_lookup.Value" LookupStringComparison="Column.LookupStringComparison" Type="Column.PropertyType"></LookupFilter>
         }
         else
         {

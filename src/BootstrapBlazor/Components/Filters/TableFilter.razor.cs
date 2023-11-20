@@ -132,7 +132,13 @@ public partial class TableFilter : IFilter
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
+    [Inject]
+    [NotNull]
+    private ILookupService? LookupService { get; set; }
+
     private string? Step => Column.Step?.ToString();
+
+    private Lazy<IEnumerable<SelectedItem>?> _lookup = default!;
 
     /// <summary>
     /// <inheritdoc/>
@@ -144,6 +150,11 @@ public partial class TableFilter : IFilter
         Title = Column.GetDisplayName();
         FieldKey = Column.GetFieldName();
         Column.Filter = this;
+
+        _lookup = new(() => Column.Lookup ?? (!string.IsNullOrEmpty(Column.LookupServiceKey)
+            ? LookupService.GetItemsByKey(Column.LookupServiceKey)
+            : null)
+        );
     }
 
     /// <summary>
@@ -248,4 +259,6 @@ public partial class TableFilter : IFilter
             Count--;
         }
     }
+
+    private bool IsLookup => Column.Lookup != null || !string.IsNullOrEmpty(Column.LookupServiceKey);
 }
