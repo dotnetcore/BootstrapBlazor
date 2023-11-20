@@ -32,6 +32,11 @@ public abstract class FilterBase : ComponentBase, IFilterAction
     protected bool IsHeaderRow => TableFilter?.IsHeaderRow ?? false;
 
     /// <summary>
+    /// 获得 是否为 ShowSearch 呈现模式 默认为 false
+    /// </summary>
+    protected bool IsShowSearch => TableFilter?._showSearch ?? false;
+
+    /// <summary>
     /// 获得 当前过滤条件是否激活
     /// </summary>
     protected bool HasFilter => TableFilter?.HasFilter ?? false; // IsHeaderRow 为真时使用 TableFilter 不为空

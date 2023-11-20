@@ -146,6 +146,11 @@ public partial class TableFilter : IFilter
     private Lazy<IEnumerable<SelectedItem>?> _lookup = default!;
 
     /// <summary>
+    /// 模式 默认 false
+    /// </summary>
+    public bool _showSearch { get; set; }
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
@@ -160,6 +165,7 @@ public partial class TableFilter : IFilter
             ? LookupService.GetItemsByKey(Column.LookupServiceKey)
             : null)
         );
+        _showSearch =  Column.ShowSearchWhenSelect ;
         _step = Column.Step?.ToString();
     }
 
