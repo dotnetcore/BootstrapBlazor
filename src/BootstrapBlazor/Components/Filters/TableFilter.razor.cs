@@ -135,8 +135,14 @@ public partial class TableFilter : IFilter
     [NotNull]
     private ILookupService? LookupService { get; set; }
 
+    /// <summary>
+    /// 组件步长
+    /// </summary>
     private string? _step;
 
+    /// <summary>
+    /// 外键数据源集合
+    /// </summary>
     private Lazy<IEnumerable<SelectedItem>?> _lookup = default!;
 
     /// <summary>
