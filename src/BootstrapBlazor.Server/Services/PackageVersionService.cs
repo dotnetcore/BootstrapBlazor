@@ -26,6 +26,15 @@ internal class PackageVersionService
         {
             Version = System.Diagnostics.FileVersionInfo.GetVersionInfo(typeof(BootstrapComponentBase).Assembly.Location).ProductVersion;
         }
+
+        if (!string.IsNullOrEmpty(Version))
+        {
+            var index = Version.IndexOf('+');
+            if (index > 0)
+            {
+                Version = Version[..index];
+            }
+        }
     }
 
     /// <summary>
