@@ -63,6 +63,13 @@ public class Foo
     public bool Complete { get; set; }
 
     /// <summary>
+    /// 测试
+    /// </summary>
+    [Display(Name = "测试")]
+    [AutoGenerateColumn(Order = 50,Filterable =true)]
+    public int Complete2 { get; set; }
+
+    /// <summary>
     /// 学历
     /// </summary>
     [Required(ErrorMessage = "请选择学历")]
@@ -114,6 +121,7 @@ public class Foo
         Address = localizer["Foo.Address", $"{Random.Next(1000, 2000)}"],
         Count = Random.Next(1, 100),
         Complete = Random.Next(1, 100) > 50,
+        Complete2 = Random.Next(1, 100) ,
         Education = Random.Next(1, 100) > 50 ? EnumEducation.Primary : EnumEducation.Middle
     }).ToList();
 
