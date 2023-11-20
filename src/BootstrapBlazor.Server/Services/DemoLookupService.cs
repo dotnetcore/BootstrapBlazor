@@ -25,17 +25,6 @@ internal class DemoLookupService : ILookupService
                 new() { Value = "False", Text = localizer["False"].Value }
             };
         }
-        if (key == "Foo.Complete2")
-        {
-            var localizer = Provider.GetRequiredService<IStringLocalizer<Foo>>();
-            var temp = new List<SelectedItem>();
-
-            for (int i = 0; i < 200; i++)
-            {
-                temp.Add (new SelectedItem() { Value = i.ToString(), Text ="客户 " + i.ToString() });
-            }
-            items = temp;
-        }
         return items;
     }
 }
