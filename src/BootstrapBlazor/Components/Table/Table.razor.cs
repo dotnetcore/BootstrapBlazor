@@ -832,9 +832,16 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private int? _localStorageTableWidth;
 
-    private string? GetTableStyleString(bool hasHeader) => hasHeader && _localStorageTableWidth.HasValue
-        ? $"width: {_localStorageTableWidth.Value}px;"
-        : null;
+    private string? GetTableStyleString(bool hasHeader)
+    {
+        string? ret = null;
+        if (_localStorageTableWidth.HasValue)
+        {
+            var width = hasHeader ? _localStorageTableWidth.Value : _localStorageTableWidth.Value - 6;
+            ret = $"width: {width}px;";
+        }
+        return ret;
+    }
 
     private string? GetTableName(bool hasHeader) => hasHeader ? ClientTableName : null;
 
