@@ -195,7 +195,7 @@
                 if (IsFixedHeader)
                 {
                     <div class="table-fixed-header">
-                        <table class="@TableClassName">
+                        <table class="@TableClassName" style="@GetTableStyleString(true)" data-bb-name="@GetTableName(true)">
                             @RenderColGroup(true)
                             @RenderHeader(true)
                         </table>
@@ -300,7 +300,7 @@
 
 @code {
     RenderFragment<bool> RenderTable => hasHeader =>
-    @<table class="@TableClassName">
+    @<table class="@TableClassName" style="@GetTableStyleString(hasHeader)" data-bb-name="@GetTableName(hasHeader)">
         @RenderColGroup.Invoke(false)
         @if (hasHeader)
         {
@@ -855,7 +855,7 @@
                     @if (isInCell)
                     {
                         <Button Size="Size.ExtraSmall" OnClick="ClickUpdateButtonCallback" Color="Color.Success" Icon="@SaveButtonIcon" Text="@SaveButtonText"></Button>
-                        if (!IsTracking)
+                        @if (!IsTracking)
                         {
                             <Button Size="Size.ExtraSmall" OnClick="@CancelSave" Color="Color.Warning" Icon="@CancelButtonIcon" Text="@CancelButtonText"></Button>
                         }

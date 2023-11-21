@@ -284,7 +284,7 @@ const setResizeListener = table => {
                     table.invoke.invokeMethodAsync(table.callbacks.resizeColumnCallback, currentIndex, width)
                 }
 
-                saveColumnWidth(table.columns)
+                saveColumnWidth(table)
             }
         )
     })
@@ -461,18 +461,22 @@ export function init(id, invoke, callbacks) {
     reset(id)
 }
 
-export function reloadColumnWidth(id) {
-    const tableName = 'table-test'
+export function reloadColumnWidth(id, tableName) {
     const key = `bb-table-column-width-${tableName}`
     return localStorage.getItem(key);
 }
 
-const saveColumnWidth = cols => {
-    const tableName = 'table-test'
+const saveColumnWidth = table => {
+    const cols = table.columns
+    const tableWidth = table.tables[0].offsetWidth
+    const tableName = table.tables[0].getAttribute('data-bb-name')
     const key = `bb-table-column-width-${tableName}`
-    localStorage.setItem(key, JSON.stringify(cols.map(col => {
-        return { "width": col.closest('th').offsetWidth, "name": col.getAttribute('data-bb-field') }
-    })));
+    localStorage.setItem(key, JSON.stringify({
+        "cols": cols.map(col => {
+            return { "width": col.closest('th').offsetWidth, "name": col.getAttribute('data-bb-field') }
+        }),
+        "table": tableWidth
+    }));
 }
 
 export function reset(id) {

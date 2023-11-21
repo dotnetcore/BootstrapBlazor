@@ -581,12 +581,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [Parameter]
     public string? TableName { get; set; }
 
-    /// <summary>
-    /// 获得/设置 是否持久化列宽调整 默认 false 需要设置表格 <see cref="TableName"/>
-    /// </summary>
-    [Parameter]
-    public bool PersistenceColumnWidthWhenResize { get; set; }
-
     [CascadingParameter]
     [NotNull]
     private ContextMenuZone? ContextMenuZone { get; set; }
@@ -836,19 +830,38 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
+    private int? _localStorageTableWidth;
+
+    private string? GetTableStyleString(bool hasHeader) => hasHeader && _localStorageTableWidth.HasValue
+        ? $"width: {_localStorageTableWidth.Value}px;"
+        : null;
+
+    private string? GetTableName(bool hasHeader) => hasHeader ? TableName : null;
+
     private async Task<IEnumerable<ColumnWidth>> ReloadColumnWidth()
     {
         IEnumerable<ColumnWidth>? ret = null;
-        if (!string.IsNullOrEmpty(TableName) && PersistenceColumnWidthWhenResize && AllowResizing)
+        if (!string.IsNullOrEmpty(TableName) && AllowResizing)
         {
-            var jsonData = await InvokeAsync<string>("reloadColumnWidth", Id);
+            var jsonData = await InvokeAsync<string>("reloadColumnWidth", Id, TableName);
             if (!string.IsNullOrEmpty(jsonData))
             {
-                var doc = JsonDocument.Parse(jsonData);
-                ret = doc.Deserialize<IEnumerable<ColumnWidth>>(new JsonSerializerOptions()
+                try
                 {
-                    PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                });
+                    var doc = JsonDocument.Parse(jsonData);
+                    if (doc.RootElement.TryGetProperty("cols", out var element))
+                    {
+                        ret = element.Deserialize<IEnumerable<ColumnWidth>>(new JsonSerializerOptions()
+                        {
+                            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                        });
+                    }
+                    if (doc.RootElement.TryGetProperty("table", out var tableEl) && tableEl.TryGetInt32(out var tableWidth))
+                    {
+                        _localStorageTableWidth = tableWidth;
+                    }
+                }
+                catch { }
             }
         }
         return ret ?? Enumerable.Empty<ColumnWidth>();
