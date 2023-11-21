@@ -430,7 +430,7 @@
         }
         @foreach (var col in GetVisibleColumns())
         {
-            @if (CheckShownWithBreakpoint(col))
+            if (CheckShownWithBreakpoint(col))
             {
                 <col style="@GetColWidthString(col.Width)" />
             }
@@ -532,7 +532,7 @@
                             </div>
                             @if (!col.Fixed && AllowResizing)
                             {
-                                <span class="col-resizer"></span>
+                                <span class="col-resizer" data-bb-field="@col.GetFieldName()"></span>
                             }
                         </DynamicElement>
                     }
