@@ -44,7 +44,7 @@
 <DemoBlock Title="@Localizer["AllowResizingTitle"]"
            Introduction="@Localizer["AllowResizingIntro"]"
            Name="AllowResizing">
-    <p class="mb-3">@((MarkupString)Localizer["AllowResizingDesc"].Value)</p>
+    <section ignore class="mb-3">@((MarkupString)Localizer["AllowResizingDesc"].Value)</section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            AllowResizing="true" ClientTableName="table-test"
