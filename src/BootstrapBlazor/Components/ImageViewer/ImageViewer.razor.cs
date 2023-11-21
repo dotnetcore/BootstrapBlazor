@@ -85,6 +85,12 @@ public partial class ImageViewer
     /// </summary>
     [Parameter]
     public List<string>? PreviewList { get; set; }
+    
+    /// <summary>
+    /// 获得/设置 预览大图当前链接集合点开的索引 默认为 0
+    /// </summary>
+    [Parameter]
+    public int PreviewIndex { get; set; } = 0;
 
     /// <summary>
     /// 获得/设置 图片加载失败时回调方法
@@ -138,7 +144,7 @@ public partial class ImageViewer
 
         if (!firstRender)
         {
-            await InvokeVoidAsync("update", Id, PreviewList);
+            await InvokeVoidAsync("update", Id, PreviewList, PreviewIndex);
         }
     }
 
@@ -146,7 +152,7 @@ public partial class ImageViewer
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Url, PreviewList);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Url, PreviewList, PreviewIndex);
 
     private RenderFragment RenderChildContent() => builder =>
     {
