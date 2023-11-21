@@ -579,7 +579,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 获得/设置 表格名称 默认 null 用于列宽持久化功能
     /// </summary>
     [Parameter]
-    public string? TableName { get; set; }
+    public string? ClientTableName { get; set; }
 
     [CascadingParameter]
     [NotNull]
@@ -836,14 +836,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         ? $"width: {_localStorageTableWidth.Value}px;"
         : null;
 
-    private string? GetTableName(bool hasHeader) => hasHeader ? TableName : null;
+    private string? GetTableName(bool hasHeader) => hasHeader ? ClientTableName : null;
 
     private async Task<IEnumerable<ColumnWidth>> ReloadColumnWidth()
     {
         IEnumerable<ColumnWidth>? ret = null;
-        if (!string.IsNullOrEmpty(TableName) && AllowResizing)
+        if (!string.IsNullOrEmpty(ClientTableName) && AllowResizing)
         {
-            var jsonData = await InvokeAsync<string>("reloadColumnWidth", Id, TableName);
+            var jsonData = await InvokeAsync<string>("reloadColumnWidth", Id, ClientTableName);
             if (!string.IsNullOrEmpty(jsonData))
             {
                 try
