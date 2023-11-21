@@ -45,7 +45,7 @@
            Introduction="@Localizer["AllowResizingIntro"]"
            Name="AllowResizing">
     <section ignore class="mb-3">@((MarkupString)Localizer["AllowResizingDesc"].Value)</section>
-    <Table TItem="Foo"
+    <Table TItem="Foo" IsFixedHeader="true"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            AllowResizing="true" ClientTableName="table-test"
            IsStriped="true" IsBordered="true" RenderMode="TableRenderMode.Table"
