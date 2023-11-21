@@ -579,7 +579,7 @@ export function sort(id) {
 export function load(id, method) {
     const table = Data.get(id)
 
-    const loader = [...table.el.children].find(el => el.classList.contains('table-loader');
+    const loader = [...table.el.children].find(el => el.classList.contains('table-loader'));
     if (method === 'show') {
         loader.classList.add('show')
     }
