@@ -65,7 +65,8 @@ public sealed partial class PageLayout
         await base.OnInitializedAsync();
 
         // 模拟异步获取菜单数据
-        await Task.Delay(500);
+        await Task.Delay(10);
+
         Menus = new List<MenuItem>
         {
             new() { Text = "返回组件库", Icon = "fa-fw fa-solid fa-house", Url = "components" },

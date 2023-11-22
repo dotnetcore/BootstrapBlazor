@@ -344,10 +344,11 @@ const updateChart = function (config, option) {
     }
 }
 
-export function init(el, invoke, method, option) {
+export function init(id, invoke, method, option) {
     const op = getChartOption(option)
+    const el = document.getElementById(id);
     const chart = new Chart(el.getElementsByTagName('canvas'), op)
-    Data.set(el, chart)
+    Data.set(id, chart)
 
     if (op.options.height !== null) {
         chart.canvas.parentNode.style.height = op.options.height
@@ -365,8 +366,8 @@ export function init(el, invoke, method, option) {
     EventHandler.on(window, 'resize', chart.resizeHandler)
 }
 
-export function update(el, option, method, angle) {
-    const chart = Data.get(el)
+export function update(id, option, method, angle) {
+    const chart = Data.get(id)
     const op = getChartOption(option)
     op.angle = angle
     op.updateMethod = method
@@ -374,10 +375,12 @@ export function update(el, option, method, angle) {
     chart.update()
 }
 
-export function dispose(el) {
-    const chart = Data.get(el)
-    Data.remove(el)
+export function dispose(id) {
+    const chart = Data.get(id)
+    Data.remove(id)
 
-    EventHandler.off(window, 'resize', chart.resizeHandler)
-    chart.destroy()
+    if (chart) {
+        EventHandler.off(window, 'resize', chart.resizeHandler)
+        chart.destroy()
+    }
 }

@@ -38,7 +38,7 @@
     <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.BarCode" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.Bluetooth" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.Chart" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.Chart" Version="8.0.1" />
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.CodeEditor" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.Dock" Version="8.0.0" />

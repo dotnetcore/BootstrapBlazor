@@ -1,8 +1,8 @@
 ﻿@page "/chart/line"
+@layout PageLayout
 @inject IStringLocalizer<Line> Localizer
 @inject CodeSnippetService CodeSnippetService
-@inherits IdComponentBase
-@implements IAsyncDisposable
+@inherits WebSiteModuleComponentBase
 
 <DemoBlock Title="@Localizer["LineOnInitTitle"]"
            Introduction="@Localizer["LineOnInitIntro"]"
@@ -47,14 +47,13 @@
 
 <DemoBlock Title="@Localizer["LineChartJSTitle"]"
            Introduction="@Localizer["LineChartJSIntro"]"
-           Name="LineChartJS">
+           Name="LineChartJS" ShowCode="false">
     <div style="height:370px; width:740px;">
         <canvas id="@Id"></canvas>
     </div>
 
     <Button class="mt-3" Text="Randomize" OnClick="Randomize" />
 
-    <h4>JavaScript Code</h4>
+    <h4 class="mt-2">JavaScript Code</h4>
     <Pre ShowToolbar="true">@Code</Pre>
 </DemoBlock>
-
