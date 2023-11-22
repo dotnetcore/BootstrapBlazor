@@ -1,20 +1,20 @@
 ﻿import Data from "../../modules/data.js?v=$version"
 import EventHandler from "../../modules/event-handler.js?v=$version"
 
-const setListeners = viewer => {
+const setListeners = (viewer, index) => {
     if (viewer.prevList && viewer.prevList.length > 0) {
         EventHandler.on(viewer.img, 'click', () => {
             if (!viewer.previewer) {
                 viewer.previewer = Data.get(viewer.previewerId)
             }
             if (viewer.previewer) {
-                viewer.previewer.viewer.show()
+                viewer.previewer.viewer.show(index)
             }
         })
     }
 }
 
-export function init(id, url, preList) {
+export function init(id, url, preList, index) {
     const el = document.getElementById(id)
     if (el === null) {
         return
@@ -35,17 +35,17 @@ export function init(id, url, preList) {
         viewer.img.setAttribute('src', url)
     }
 
-    setListeners(viewer)
+    setListeners(viewer, index)
 }
 
-export function update(id, prevList) {
+export function update(id, prevList, index) {
     const viewer = Data.get(id)
     if (viewer.img) {
         EventHandler.off(viewer.img, 'click')
     }
 
     viewer.prevList = prevList
-    setListeners(viewer)
+    setListeners(viewer,index)
 }
 
 export function dispose(id) {
