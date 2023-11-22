@@ -2,8 +2,8 @@
 import '../../../_content/BootstrapBlazor.Chart/js/chart.js'
 import Data from '../../../_content/BootstrapBlazor/modules/data.js'
 
-export function lineChart(canvasId, chartData) {
-    const ctx = document.getElementById(canvasId);
+export function init(id, chartData) {
+    const ctx = document.getElementById(id);
 
     const data = {
         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -50,11 +50,11 @@ export function lineChart(canvasId, chartData) {
         }
     };
 
-    Data.set(canvasId, new Chart(ctx, config))
+    Data.set(id, new Chart(ctx, config))
 }
 
-export function randomize(canvasId, chartData) {
-    const chart = Data.get(canvasId)
+export function randomize(id, chartData) {
+    const chart = Data.get(id)
     if (chart) {
         chart.data.datasets.forEach(dataset => {
             dataset.data = chartData;
@@ -63,6 +63,6 @@ export function randomize(canvasId, chartData) {
     }
 }
 
-export function dispose(canvasId) {
-    Data.remove(canvasId)
+export function dispose(id) {
+    Data.remove(id)
 }

@@ -2,13 +2,12 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.JSInterop;
-
 namespace BootstrapBlazor.Server.Components.Samples.Charts;
 
 /// <summary>
 /// Line 图表示例
 /// </summary>
+[JSModuleAutoLoader("Samples/Charts/Line.razor.js")]
 public partial class Line
 {
     private Random Randomer { get; } = new();
@@ -51,26 +50,27 @@ public partial class Line
         }
     }
 
-    private Task OnAfterInit()
+    /// <summary>
+    /// <inheritdoc />
+    /// </summary>
+    protected override async Task OnInitializedAsync()
     {
-        Logger.Log("Line initialization is complete");
-        return Task.CompletedTask;
+        await base.OnInitializedAsync();
+
+        Code = await CodeSnippetService.GetFileContentAsync("Charts\\Line.razor.js");
     }
 
-    private Task OnAfterUpdate(ChartAction action)
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task InvokeInitAsync()
     {
-        Logger.Log($"Line Figure update data operation completed -- {action}");
-        return Task.CompletedTask;
+        var chartData = Enumerable.Range(1, 7).Select(_ => Random.Next(25, 85)).ToArray();
+        await InvokeVoidAsync("init", Id, chartData);
     }
 
-    private async Task<ChartDataSource> Test()
-    {
-        var ds = new ChartDataSource();
-        await Task.Delay(1000);
-        return ds;
-    }
-
-    private  Task<ChartDataSource> OnInit(float tension, bool hasNull)
+    private async Task<ChartDataSource> OnInit(float tension, bool hasNull)
     {
         var ds = new ChartDataSource();
         ds.Options.Title = "Line Chart";
@@ -103,7 +103,22 @@ public partial class Line
                 PointHoverRadius = 10
             });
         }
-        return Task.FromResult(ds);
+
+        // 模拟异步
+        await Task.Delay(100);
+        return ds;
+    }
+
+    private Task OnAfterInit()
+    {
+        Logger.Log("Line initialization is complete");
+        return Task.CompletedTask;
+    }
+
+    private Task OnAfterUpdate(ChartAction action)
+    {
+        Logger.Log($"Line Figure update data operation completed -- {action}");
+        return Task.CompletedTask;
     }
 
     private Task OnReloadChart()
@@ -113,7 +128,7 @@ public partial class Line
         return Task.CompletedTask;
     }
 
-    private Task<ChartDataSource> OnInitTension(float tension, bool hasNull)
+    private async Task<ChartDataSource> OnInitTension(float tension, bool hasNull)
     {
         var ds = new ChartDataSource();
         ds.Options.Title = "Line Chart";
@@ -129,7 +144,10 @@ public partial class Line
                 Data = Enumerable.Range(1, LineDataCount).Select((i, index) => (index == 2 && hasNull) ? null! : (object)Randomer.Next(20, 37))
             });
         }
-        return Task.FromResult(ds);
+
+        // 模拟异步
+        await Task.Delay(100);
+        return ds;
     }
 
     private Task<ChartDataSource> OnInitNullable(float tension, bool hasNull)
@@ -202,87 +220,22 @@ public partial class Line
         return Task.FromResult(ds);
     }
 
-    [Inject]
-    [NotNull]
-    private IVersionService? JSVersionService { get; set; }
-
-    /// <summary>
-    /// JS 互操作实例
-    /// </summary>
-    private IJSObjectReference? Module { get; set; }
-
     /// <summary>
     /// Random 随机数生成器
     /// </summary>
     private Random Random { get; } = new();
-
-    /// <summary>
-    /// JS 代码段
-    /// JS Code
-    /// </summary>
-    private string? Code { get; set; }
-
-    /// <summary>
-    /// <inheritdoc />
-    /// </summary>
-    protected override async Task OnInitializedAsync()
-    {
-        await base.OnInitializedAsync();
-
-        Code = await CodeSnippetService.GetFileContentAsync("Charts\\Line.razor.js");
-    }
-
-    /// <summary>
-    /// <inheritdoc />
-    /// 动态导入JS模块，初始化Chart
-    /// Dynamically import JS module and initialize Chart
-    /// </summary>
-    /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", $"./Components/Samples/Charts/Line.razor.js?v={JSVersionService.GetVersion()}");
-
-            //随机生成一组数据
-            //Randomly generate a set of data
-            var chartData = Enumerable.Range(1, 7).Select(_ => Random.Next(25, 85)).ToArray();
-            await Module.InvokeVoidAsync("lineChart", Id, chartData);
-        }
-    }
 
     private async Task Randomize()
     {
         //随机生成一组数据
         //Randomly generate a set of data
         var chartData = Enumerable.Range(1, 7).Select(_ => Random.Next(25, 85));
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync("randomize", Id, chartData);
-        }
-    }
-
-    private async ValueTask Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            if (Module != null)
-            {
-                await Module.InvokeVoidAsync("dispose", Id);
-                await Module.DisposeAsync();
-            }
-        }
+        await InvokeVoidAsync("randomize", Id, chartData);
     }
 
     /// <summary>
-    /// 释放资源
-    /// DisposeAsync
+    /// JS 代码段
+    /// JS Code
     /// </summary>
-    public async ValueTask DisposeAsync()
-    {
-        await Dispose(true);
-        GC.SuppressFinalize(this);
-    }
+    private string? Code { get; set; }
 }
