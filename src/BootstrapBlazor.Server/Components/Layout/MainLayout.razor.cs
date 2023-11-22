@@ -28,10 +28,9 @@ public partial class MainLayout : IDisposable
     /// <summary>
     /// 
     /// </summary>
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        await Task.Delay(1000);
-        await base.OnInitializedAsync();
+        base.OnInitialized();
 
         DispatchService.Subscribe(Dispatch);
     }
