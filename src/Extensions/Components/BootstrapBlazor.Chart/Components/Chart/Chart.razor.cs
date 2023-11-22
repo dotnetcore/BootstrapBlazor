@@ -11,19 +11,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Chart 组件基类
 /// </summary>
-public partial class Chart : IAsyncDisposable
+public partial class Chart
 {
-    [NotNull]
-    private IJSObjectReference? Module { get; set; }
-
-    [NotNull]
-    private DotNetObjectReference<Chart>? Interop { get; set; }
-
-    /// <summary>
-    /// 获得/设置 EChart DOM 元素实例
-    /// </summary>
-    private ElementReference Element { get; set; }
-
     /// <summary>
     /// 获得 样式集合
     /// </summary>
@@ -172,10 +161,7 @@ public partial class Chart : IAsyncDisposable
                 ds.Options.MaintainAspectRatio = false;
             }
 
-            // import JavaScript
-            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.Chart/Components/Chart/Chart.razor.js");
-            Interop = DotNetObjectReference.Create(this);
-            await Module.InvokeVoidAsync("init", Element, Interop, nameof(Completed), ds);
+            await InvokeVoidAsync("init", Id, Interop, nameof(Completed), ds);
         }
     }
 
@@ -197,7 +183,8 @@ public partial class Chart : IAsyncDisposable
         {
             var ds = await OnInitAsync();
             ds.Type ??= ChartType.ToDescriptionString();
-            await Module.InvokeVoidAsync("update", Element, ds, action.ToDescriptionString(), Angle);
+
+            await InvokeVoidAsync("update", Id, ds, action.ToDescriptionString(), Angle);
 
             if (OnAfterUpdateAsync != null)
             {
@@ -210,33 +197,4 @@ public partial class Chart : IAsyncDisposable
     /// 重新加载方法, 强制重新渲染图表
     /// </summary>
     public Task Reload() => Update(ChartAction.Reload);
-
-    #region Dispose
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual async ValueTask DisposeAsync(bool disposing)
-    {
-        if (disposing)
-        {
-            Interop?.Dispose();
-
-            if (Module != null)
-            {
-                await Module.InvokeVoidAsync("dispose", Element);
-                await Module.DisposeAsync();
-            }
-        }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsync(true);
-        GC.SuppressFinalize(this);
-    }
-    #endregion
 }
