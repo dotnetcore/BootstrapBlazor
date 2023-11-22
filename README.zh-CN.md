@@ -50,10 +50,10 @@ Blazor 是一个使用 .NET 生成交互式客户端 Web UI 的框架：
 
 微软 MVP 列表（按字母排序）
 
-- Argo Zhang [链接地址](!https://mvp.microsoft.com/en-us/PublicProfile/5004174)
-- Alex Chow [链接地址](!https://mvp.microsoft.com/en-us/PublicProfile/5005078)
-- Guohao Wang [链接地址](!https://mvp.microsoft.com/en-us/PublicProfile/5005089)
-- Xiang ju [链接地址](!https://mvp.microsoft.com/en-us/PublicProfile/5005108)
+- Argo Zhang [链接地址](https://mvp.microsoft.com/en-us/PublicProfile/5004174)
+- Alex Chow [链接地址](https://mvp.microsoft.com/en-us/PublicProfile/5005078)
+- Guohao Wang [链接地址](https://mvp.microsoft.com/en-us/PublicProfile/5005089)
+- Xiang ju [链接地址](https://mvp.microsoft.com/en-us/PublicProfile/5005108)
 
 ## 生态伙伴
 
