@@ -44,9 +44,10 @@
 <DemoBlock Title="@Localizer["AllowResizingTitle"]"
            Introduction="@Localizer["AllowResizingIntro"]"
            Name="AllowResizing">
-    <p class="mb-3">@((MarkupString)Localizer["AllowResizingDesc"].Value)</p>
-    <Table TItem="Foo"
-           IsPagination="true" PageItemsSource="@PageItemsSource" AllowResizing="true"
+    <section ignore class="mb-3">@((MarkupString)Localizer["AllowResizingDesc"].Value)</section>
+    <Table TItem="Foo" IsFixedHeader="true"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           AllowResizing="true" ClientTableName="table-test"
            IsStriped="true" IsBordered="true" RenderMode="TableRenderMode.Table"
            ShowToolbar="false" IsMultipleSelect="true"
            OnQueryAsync="@OnQueryAsync">

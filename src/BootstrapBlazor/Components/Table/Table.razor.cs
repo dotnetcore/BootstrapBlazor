@@ -5,6 +5,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using System.Reflection;
+using System.Text.Json;
 
 namespace BootstrapBlazor.Components;
 
@@ -574,6 +575,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [Parameter]
     public Func<PropertyInfo, TItem, List<SearchFilterAction>?>? GetAdvancedSearchFilterCallback { get; set; }
 
+    /// <summary>
+    /// 获得/设置 表格名称 默认 null 用于列宽持久化功能
+    /// </summary>
+    [Parameter]
+    public string? ClientTableName { get; set; }
+
     [CascadingParameter]
     [NotNull]
     private ContextMenuZone? ContextMenuZone { get; set; }
@@ -823,6 +830,50 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
     }
 
+    private int? _localStorageTableWidth;
+
+    private string? GetTableStyleString(bool hasHeader)
+    {
+        string? ret = null;
+        if (_localStorageTableWidth.HasValue)
+        {
+            var width = hasHeader ? _localStorageTableWidth.Value : _localStorageTableWidth.Value - 6;
+            ret = $"width: {width}px;";
+        }
+        return ret;
+    }
+
+    private string? GetTableName(bool hasHeader) => hasHeader ? ClientTableName : null;
+
+    private async Task<IEnumerable<ColumnWidth>> ReloadColumnWidth()
+    {
+        IEnumerable<ColumnWidth>? ret = null;
+        if (!string.IsNullOrEmpty(ClientTableName) && AllowResizing)
+        {
+            var jsonData = await InvokeAsync<string>("reloadColumnWidth", Id, ClientTableName);
+            if (!string.IsNullOrEmpty(jsonData))
+            {
+                try
+                {
+                    var doc = JsonDocument.Parse(jsonData);
+                    if (doc.RootElement.TryGetProperty("cols", out var element))
+                    {
+                        ret = element.Deserialize<IEnumerable<ColumnWidth>>(new JsonSerializerOptions()
+                        {
+                            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+                        });
+                    }
+                    if (doc.RootElement.TryGetProperty("table", out var tableEl) && tableEl.TryGetInt32(out var tableWidth))
+                    {
+                        _localStorageTableWidth = tableWidth;
+                    }
+                }
+                catch { }
+            }
+        }
+        return ret ?? Enumerable.Empty<ColumnWidth>();
+    }
+
     private async Task ProcessFirstRender()
     {
         IsLoading = true;
@@ -854,6 +905,20 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         }
 
         InternalResetVisibleColumns(Columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.Visible)));
+
+        // 查看是否开启列宽序列化
+        var columnWidths = await ReloadColumnWidth();
+        if (columnWidths != null)
+        {
+            foreach (var cw in columnWidths.Where(c => c.Width > 0))
+            {
+                var c = Columns.Find(c => c.GetFieldName() == cw.Name);
+                if (c != null)
+                {
+                    c.Width = cw.Width;
+                }
+            }
+        }
 
         // set default sortName
         var col = Columns.Find(i => i.Sortable && i.DefaultSort);
@@ -1186,13 +1251,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private string? DraggableString => AllowDragColumn ? "true" : null;
 
     /// <summary>
-    /// 获得/设置 拖动列结束回调方法 
+    /// 获得/设置 拖动列结束回调方法
     /// </summary>
     [Parameter]
     public Func<string, IEnumerable<ITableColumn>, Task>? OnDragColumnEndAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 设置列宽回调方法 
+    /// 获得/设置 设置列宽回调方法
     /// </summary>
     [Parameter]
     public Func<string, float, Task>? OnResizeColumnAsync { get; set; }

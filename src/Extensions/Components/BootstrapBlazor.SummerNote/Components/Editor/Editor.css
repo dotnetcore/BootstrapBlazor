@@ -52,3 +52,7 @@
         background-color: #dae0e5;
         border-color: #d3d9df;
     }
+
+.editor .note-toolbar {
+    flex-wrap: wrap;
+}

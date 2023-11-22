@@ -12,7 +12,7 @@ export function init(id, invoke, callback, option) {
     const bar = block.getContext('2d', { willReadFrequently: true })
     const load = el.querySelector(".captcha-load")
     const footer = el.querySelector('.captcha-footer')
-    const barLeft = footer.querySelector('.captcha-bar-bg')
+    const barLeft = footer.querySelector('.captcha-bar-mask')
     const slider = el.querySelector('.captcha-bar')
     const barTextEl = el.querySelector('.captcha-bar-text')
     const refresh = el.querySelector('.captcha-refresh')
