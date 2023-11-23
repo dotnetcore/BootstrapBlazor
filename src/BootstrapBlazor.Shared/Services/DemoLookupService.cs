@@ -9,12 +9,21 @@ namespace BootstrapBlazor.Shared.Services;
 /// <summary>
 /// 演示网站示例数据注入服务实现类
 /// </summary>
-internal class DemoLookupService : ILookupService
+public class DemoLookupService : ILookupService
 {
     private IServiceProvider Provider { get; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="provider"></param>
     public DemoLookupService(IServiceProvider provider) => Provider = provider;
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
     public IEnumerable<SelectedItem>? GetItemsByKey(string? key)
     {
         IEnumerable<SelectedItem>? items = null;

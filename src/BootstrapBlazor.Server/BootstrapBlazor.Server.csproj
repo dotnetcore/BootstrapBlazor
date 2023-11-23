@@ -8,7 +8,6 @@
   <ItemGroup>
     <Content Remove="Locales\en.json" />
     <Content Remove="Locales\zh.json" />
-    <Content Remove="menus.json" />
     <Content Remove="topology.json" />
     <Content Remove="versionconfig.json" />
   </ItemGroup>
@@ -20,7 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="menus.json" />
     <None Include="versionconfig.json" />
   </ItemGroup>
 
@@ -39,11 +37,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="BootstrapBlazor.Client.Services" />
     <Using Include="BootstrapBlazor.Components" />
     <Using Include="BootstrapBlazor.Server.Components" />
     <Using Include="BootstrapBlazor.Server.Extensions" />
     <Using Include="BootstrapBlazor.Server.Services" />
+    <Using Include="BootstrapBlazor.Shared.Layout" />
+    <Using Include="BootstrapBlazor.Shared.Services" />
     <Using Include="Microsoft.AspNetCore.Components" />
     <Using Include="Microsoft.Extensions.Localization" />
     <Using Include="System.ComponentModel.DataAnnotations" />

@@ -6,6 +6,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BootstrapBlazor.Shared.Data;
 
+/// <summary>
+/// 
+/// </summary>
 public class TreeFoo
 {
     /// <summary>

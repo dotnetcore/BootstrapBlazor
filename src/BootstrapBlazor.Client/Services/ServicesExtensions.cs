@@ -5,7 +5,7 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Reflection;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace BootstrapBlazor.Client.Services;
 
 /// <summary>
 /// 后台任务扩展方法
@@ -124,7 +124,7 @@ public static class ServicesExtensions
     /// 添加 Server Side 演示网站服务
     /// </summary>
     /// <param name="services"></param>
-    public static IServiceCollection AddWebSiteServices(this IServiceCollection services)
+    static IServiceCollection AddWebSiteServices(this IServiceCollection services)
     {
         services.AddSingleton<WeatherForecastService>();
         services.AddSingleton<PackageVersionService>();

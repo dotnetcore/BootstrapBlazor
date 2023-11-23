@@ -4,8 +4,14 @@
 
 namespace BootstrapBlazor.Shared.Services;
 
-internal class WeatherForecastService
+/// <summary>
+/// 
+/// </summary>
+public class WeatherForecastService
 {
+    /// <summary>
+    /// 
+    /// </summary>
     private string[] Summaries { get; } = new[]
     {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"

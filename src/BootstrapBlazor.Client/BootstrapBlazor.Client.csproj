@@ -16,6 +16,7 @@
   <ItemGroup>
     <Using Include="BootstrapBlazor.Components" />
     <Using Include="BootstrapBlazor.Client.Samples" />
+    <Using Include="BootstrapBlazor.Client.Services" />
     <Using Include="BootstrapBlazor.Shared.Components" />
     <Using Include="BootstrapBlazor.Shared.Layout" />
     <Using Include="BootstrapBlazor.Shared.Data" />
