@@ -1,9 +1,10 @@
 ﻿@layout HomeLayout
-@inherits WebSiteModuleComponentBase
-@attribute [JSModuleAutoLoader("Pages/Index.razor.js")]
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader("./Components/Pages/Index.razor.js")]
 @page "/"
 @page "/index"
 @page "/home"
+@rendermode InteractiveServer
 
 <section class="home-section">
     <div class="welcome container">

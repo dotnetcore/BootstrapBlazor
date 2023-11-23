@@ -28,11 +28,11 @@
 </head>
 
 <body>
-    <Routes />
+    <Routes @rendermode="InteractiveAuto" />
 
     <ReconnectorOutlet ReconnectInterval="5000" @rendermode="InteractiveAuto" />
 
-    <UpdateIntro @rendermode="InteractiveAuto" />
+    <UpdateIntro @rendermode="new InteractiveServerRenderMode(prerender: false)" />
 
     <BlazorReconnector />
 
