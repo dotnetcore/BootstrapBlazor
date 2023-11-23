@@ -145,7 +145,7 @@ internal static class ServicesExtensions
         //services.AddSingleton<MockDataTableDynamicService>();
 
         services.AddSingleton<MenuService>();
-        services.AddScoped<FanControllerDataService>();
+        //services.AddScoped<FanControllerDataService>();
 
         // 增加示例网站配置
         //services.AddOptionsMonitor<WebsiteOptions>();
