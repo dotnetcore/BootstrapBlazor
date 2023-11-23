@@ -6,78 +6,46 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="docs.json" />
     <Content Remove="Locales\en.json" />
     <Content Remove="Locales\zh.json" />
-    <Content Remove="menus.json" />
     <Content Remove="topology.json" />
     <Content Remove="versionconfig.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="docs.json" />
     <EmbeddedResource Include="Locales\en.json" />
     <EmbeddedResource Include="Locales\zh.json" />
     <EmbeddedResource Include="topology.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="menus.json" />
     <None Include="versionconfig.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BootstrapBlazor.Middleware" Version="8.0.0" />
     <PackageReference Include="Longbow.Logging" Version="7.0.0" />
     <PackageReference Include="Longbow.GiteeAuth" Version="7.0.0" />
     <PackageReference Include="Longbow.GitHubAuth" Version="7.0.1" />
     <PackageReference Include="Longbow.OAuth" Version="7.0.0" />
     <PackageReference Include="Longbow.Tasks" Version="7.0.0" />
-    <PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.BarCode" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.Bluetooth" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.Chart" Version="8.0.1" />
-    <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.CodeEditor" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.Dock" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.FileViewer" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.FontAwesome" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.Gantt" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.Markdown" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.MaterialDesign.Extensions" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.PdfReader" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.SignaturePad" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.Splitting" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.SummerNote" Version="8.0.1" />
-    <PackageReference Include="BootstrapBlazor.TableExport" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.Topology" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.MouseFollower" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.WebAPI" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.MindMap" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.Middleware" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+    <ProjectReference Include="..\BootstrapBlazor.Client\BootstrapBlazor.Client.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Using Include="BootstrapBlazor.Components" />
-    <Using Include="BootstrapBlazor.Server.Components.Components" />
-    <Using Include="BootstrapBlazor.Server.Components.Layout" />
-    <Using Include="BootstrapBlazor.Server.Data" />
+    <Using Include="BootstrapBlazor.Server.Components" />
     <Using Include="BootstrapBlazor.Server.Extensions" />
     <Using Include="BootstrapBlazor.Server.Services" />
+    <Using Include="BootstrapBlazor.Shared.Layout" />
+    <Using Include="BootstrapBlazor.Shared.Services" />
     <Using Include="Microsoft.AspNetCore.Components" />
     <Using Include="Microsoft.Extensions.Localization" />
     <Using Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
 
 </Project>
-

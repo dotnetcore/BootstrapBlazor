@@ -24,17 +24,17 @@
     <link rel="stylesheet" href="css/site.css">
     <link rel="stylesheet" href="css/motronic.css">
     <title>@Localizer["Title"]</title>
-    <HeadOutlet @rendermode="new InteractiveServerRenderMode(false)" />
+    <HeadOutlet @rendermode="InteractiveAuto" />
 </head>
 
 <body>
-    <Routes @rendermode="new InteractiveServerRenderMode(false)" />
+    <Routes @rendermode="InteractiveAuto" />
 
-    <ReconnectorOutlet ReconnectInterval="5000" @rendermode="new InteractiveServerRenderMode(false)" />
+    <ReconnectorOutlet ReconnectInterval="5000" @rendermode="InteractiveAuto" />
 
-    <UpdateIntro @rendermode="new InteractiveServerRenderMode(false)" />
+    <UpdateIntro @rendermode="new InteractiveServerRenderMode(prerender: false)" />
 
-    <BlazorReconnector @rendermode="new InteractiveServerRenderMode(false)" />
+    <BlazorReconnector />
 
     <script src="_content/BootstrapBlazor.SummerNote/js/jquery-3.5.1.min.js"></script>
     @if (Env.IsDevelopment())

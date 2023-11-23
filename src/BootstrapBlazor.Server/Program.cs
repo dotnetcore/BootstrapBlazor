@@ -10,12 +10,14 @@ using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddLogging(logBuilder => logBuilder.AddFileLogger());
+//builder.Services.AddLogging(logBuilder => logBuilder.AddFileLogger());
 builder.Services.AddCors();
 builder.Services.AddResponseCompression();
 
 builder.Services.AddControllers();
-builder.Services.AddRazorComponents().AddInteractiveServerComponents();
+builder.Services.AddRazorComponents()
+       .AddInteractiveServerComponents()
+       .AddInteractiveWebAssemblyComponents();
 
 // 获得当前主题配置
 var themes = builder.Configuration.GetSection("Themes")
@@ -29,18 +31,6 @@ builder.Services.AddBootstrapBlazorServices(options =>
     options.Themes.AddRange(themes);
 });
 
-builder.Services.Configure<HubOptions>(option => option.MaximumReceiveMessageSize = null);
-
-builder.Services.ConfigureTabItemMenuBindOptions(options =>
-{
-    options.Binders.Add("layout-demo", new() { Text = "Text 1" });
-    options.Binders.Add("layout-demo?text=Parameter", new() { Text = "Text 2" });
-    options.Binders.Add("layout-demo/text=Parameter", new() { Text = "Text 3" });
-});
-
-builder.Services.ConfigureMaterialDesignIconTheme();
-builder.Services.ConfigureIconThemeOptions(options => options.ThemeKey = "fa");
-
 var app = builder.Build();
 
 // 启用本地化
@@ -53,10 +43,10 @@ if (option != null)
 // 启用转发中间件
 app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.All });
 
+app.UseResponseCompression();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    app.UseResponseCompression();
     app.UseStaticFiles(new StaticFileOptions { OnPrepareResponse = ctx => ctx.ProcessCache(app.Configuration) });
 }
 
@@ -84,6 +74,9 @@ app.UseBootstrapBlazor();
 app.UseAntiforgery();
 
 app.MapDefaultControllerRoute();
-app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
+app.MapRazorComponents<App>()
+   .AddInteractiveServerRenderMode()
+   .AddInteractiveWebAssemblyRenderMode()
+   .AddAdditionalAssemblies(typeof(BootstrapBlazor.Client._Imports).Assembly);
 
 app.Run();

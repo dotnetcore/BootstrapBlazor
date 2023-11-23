@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
+    <StaticWebAssetProjectMode>Default</StaticWebAssetProjectMode>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="Locales\en.json" />
+    <Content Remove="Locales\zh.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Locales\en.json" />
+    <EmbeddedResource Include="Locales\zh.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BootstrapBlazor.Shared\BootstrapBlazor.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="BootstrapBlazor.Components" />
+    <Using Include="BootstrapBlazor.Client.Samples" />
+    <Using Include="BootstrapBlazor.Client.Services" />
+    <Using Include="BootstrapBlazor.Shared.Components" />
+    <Using Include="BootstrapBlazor.Shared.Layout" />
+    <Using Include="BootstrapBlazor.Shared.Data" />
+    <Using Include="BootstrapBlazor.Shared.Extensions" />
+    <Using Include="BootstrapBlazor.Shared.Services" />
+    <Using Include="Microsoft.AspNetCore.Components" />
+    <Using Include="Microsoft.Extensions.Localization" />
+    <Using Include="System.ComponentModel.DataAnnotations" />
+    <Using Include="System.Collections.Generic" />
+    <Using Include="System.Diagnostics.CodeAnalysis" />
+    <Using Include="System.Linq" />
+    <Using Include="System.Threading.Tasks" />
+  </ItemGroup>
+
+</Project>
