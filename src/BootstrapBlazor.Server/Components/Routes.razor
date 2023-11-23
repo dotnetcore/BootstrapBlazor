@@ -1,4 +1,6 @@
-﻿<Router AppAssembly="@typeof(Program).Assembly">
+﻿@using System.Reflection
+
+<Router AppAssembly="@typeof(Program).Assembly" AdditionalAssemblies="new Assembly[] { typeof(Client._Imports).Assembly }">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" />
     </Found>
