@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Client.Data;
+using BootstrapBlazor.Shared.Data;
 using Microsoft.Extensions.Options;
 
 namespace BootstrapBlazor.Server.Components.Pages;

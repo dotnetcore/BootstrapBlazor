@@ -4,7 +4,7 @@
 
 using Microsoft.JSInterop;
 
-namespace BootstrapBlazor.Client.Samples;
+namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
 /// 图标库

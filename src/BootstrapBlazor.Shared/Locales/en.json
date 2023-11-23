@@ -1,0 +1,11 @@
+﻿{
+  "BootstrapBlazor.Server.Components.FormInlineSwitch": {
+    "Normal": "Normal",
+    "Inline": "Inline"
+  },
+  "BootstrapBlazor.Server.Components.DemoTableEditTemplate": {
+    "TablesEditTemplateDisplayLabel": "Detail",
+    "TablesEditTemplateDisplayDetail1": "Detail 1",
+    "TablesEditTemplateDisplayDetail2": "Detail 2"
+  }
+}

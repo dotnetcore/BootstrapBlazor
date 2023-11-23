@@ -5,7 +5,7 @@
 using System.Collections.Concurrent;
 using System.ComponentModel;
 
-namespace BootstrapBlazor.Client.Samples.Table;
+namespace BootstrapBlazor.Shared.Samples.Table;
 
 /// <summary>
 /// 明细行示例代码

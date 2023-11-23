@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 
-namespace BootstrapBlazor.Client.Samples;
+namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
 /// ValidateForms

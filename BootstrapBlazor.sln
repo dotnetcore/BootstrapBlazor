@@ -115,6 +115,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Gantt", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Client", "src\BootstrapBlazor.Client\BootstrapBlazor.Client.csproj", "{3305F4AC-B039-4923-82C3-C33AC40DBC7A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.Shared", "src\BootstrapBlazor.Shared\BootstrapBlazor.Shared.csproj", "{50901D11-EFA1-4D1F-9BBB-51CFB24C9505}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -257,6 +259,10 @@ Global
 		{3305F4AC-B039-4923-82C3-C33AC40DBC7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3305F4AC-B039-4923-82C3-C33AC40DBC7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3305F4AC-B039-4923-82C3-C33AC40DBC7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50901D11-EFA1-4D1F-9BBB-51CFB24C9505}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50901D11-EFA1-4D1F-9BBB-51CFB24C9505}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50901D11-EFA1-4D1F-9BBB-51CFB24C9505}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50901D11-EFA1-4D1F-9BBB-51CFB24C9505}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -303,6 +309,7 @@ Global
 		{25B67FF0-3D70-47D8-AC70-1934442A8881} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{49D9E679-6824-43DF-9DAA-70E24ACCAA62} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{3305F4AC-B039-4923-82C3-C33AC40DBC7A} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
+		{50901D11-EFA1-4D1F-9BBB-51CFB24C9505} = {A2182155-43ED-44C1-BF6F-1B70EBD2DFFE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}

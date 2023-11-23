@@ -4,7 +4,7 @@
 
 using System.Web;
 
-namespace BootstrapBlazor.Client.Samples;
+namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
 /// RibbonTabs

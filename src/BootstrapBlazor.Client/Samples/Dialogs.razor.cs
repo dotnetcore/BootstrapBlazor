@@ -4,7 +4,7 @@
 
 using Microsoft.AspNetCore.Components.Web;
 
-namespace BootstrapBlazor.Client.Samples;
+namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
 /// 弹窗组件示例代码

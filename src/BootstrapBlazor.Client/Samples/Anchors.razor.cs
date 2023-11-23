@@ -1,4 +1,4 @@
-﻿namespace BootstrapBlazor.Client.Samples;
+﻿namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
 /// Anchors 组件示例

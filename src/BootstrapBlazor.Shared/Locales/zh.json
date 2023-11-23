@@ -1,0 +1,11 @@
+﻿{
+  "BootstrapBlazor.Server.Components.FormInlineSwitch": {
+    "Normal": "正常",
+    "Inline": "行内"
+  },
+  "BootstrapBlazor.Server.Components.DemoTableEditTemplate": {
+    "TablesEditTemplateDisplayLabel": "详细信息",
+    "TablesEditTemplateDisplayDetail1": "小学六年",
+    "TablesEditTemplateDisplayDetail2": "初中三年"
+  }
+}

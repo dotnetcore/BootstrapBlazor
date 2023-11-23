@@ -4,7 +4,7 @@
 
 using System.Globalization;
 
-namespace BootstrapBlazor.Client.Samples;
+namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
 /// Markdown 示例代码

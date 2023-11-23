@@ -5,7 +5,7 @@
 
 using System.ComponentModel;
 
-namespace BootstrapBlazor.Client.Samples;
+namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
 /// WebSpeechs

@@ -2,9 +2,6 @@
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
-// 增加示例网站配置
-builder.Services.AddOptionsMonitor<WebsiteOptions>();
-
 // 增加 BootstrapBlazor 服务
 builder.Services.AddBootstrapBlazorServices(options =>
 {

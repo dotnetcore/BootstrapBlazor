@@ -39,6 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Using Include="BootstrapBlazor.Client.Services" />
     <Using Include="BootstrapBlazor.Components" />
     <Using Include="BootstrapBlazor.Server.Components" />
     <Using Include="BootstrapBlazor.Server.Extensions" />

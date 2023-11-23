@@ -4,7 +4,7 @@
 
 using Microsoft.AspNetCore.Components.Forms;
 
-namespace BootstrapBlazor.Client.Samples;
+namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
 /// 百度文字识别示例

@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-namespace BootstrapBlazor.Client.Samples.Table;
+namespace BootstrapBlazor.Shared.Samples.Table;
 
 /// <summary>
 /// 搜索示例代码

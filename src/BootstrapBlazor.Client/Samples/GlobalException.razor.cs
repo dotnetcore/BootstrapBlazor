@@ -4,7 +4,7 @@
 
 using Microsoft.Extensions.Logging;
 
-namespace BootstrapBlazor.Client.Samples;
+namespace BootstrapBlazor.Shared.Samples;
 
 /// <summary>
 /// 
