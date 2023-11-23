@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Client.Samples.Charts;
 /// <summary>
 /// Line 图表示例
 /// </summary>
-[JSModuleAutoLoader("Samples/Charts/Line.razor.js")]
+[JSModuleAutoLoader(".Samples/Charts/Line.razor.js")]
 public partial class Line
 {
     private Random Randomer { get; } = new();

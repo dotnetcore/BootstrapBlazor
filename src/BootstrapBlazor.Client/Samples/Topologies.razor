@@ -1,9 +1,9 @@
 ﻿@page "/topology"
-@inherits WebSiteModuleComponentBase
+@inherits BootstrapModuleComponentBase
 @inject IStringLocalizer<Topologies> Localizer
 @inject FanControllerDataService DataService
 @inject SwalService SwalService
-@attribute [JSModuleAutoLoader("Samples/Topologies.razor.js", JSObjectReference = true, AutoInvokeDispose = false)]
+@attribute [JSModuleAutoLoader("./Samples/Topologies.razor.js", JSObjectReference = true, AutoInvokeDispose = false)]
 
 <h3>@Localizer["TopologiesTitle"]</h3>
 <h4>@((MarkupString)Localizer["TopologiesDescription"].Value)</h4>

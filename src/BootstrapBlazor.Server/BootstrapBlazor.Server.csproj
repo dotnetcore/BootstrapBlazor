@@ -8,14 +8,12 @@
   <ItemGroup>
     <Content Remove="Locales\en.json" />
     <Content Remove="Locales\zh.json" />
-    <Content Remove="topology.json" />
     <Content Remove="versionconfig.json" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Locales\en.json" />
     <EmbeddedResource Include="Locales\zh.json" />
-    <EmbeddedResource Include="topology.json" />
   </ItemGroup>
 
   <ItemGroup>

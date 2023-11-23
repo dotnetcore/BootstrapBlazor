@@ -76,12 +76,12 @@ public class FanControllerDataService : IDisposable
     {
         var data = new List<TopologyItem>()
         {
-            new TopologyItem()
+            new()
             {
                 ID = "77f220c7",
                 ShowChild = 1,
             },
-            new TopologyItem()
+            new()
             {
                 ID = "b45ab55",
                 Text = GenerateFanValue()
