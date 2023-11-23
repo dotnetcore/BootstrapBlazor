@@ -1,0 +1,69 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
+    <StaticWebAssetProjectMode>Default</StaticWebAssetProjectMode>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="docs.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="docs.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.BarCode" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.Bluetooth" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.Chart" Version="8.0.1" />
+    <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.CodeEditor" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.Dock" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.FileViewer" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.FontAwesome" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.Gantt" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.Markdown" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.MaterialDesign.Extensions" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.PdfReader" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.SignaturePad" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.Splitting" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.SummerNote" Version="8.0.1" />
+    <PackageReference Include="BootstrapBlazor.TableExport" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.Topology" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.MouseFollower" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.WebAPI" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.MindMap" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="BootstrapBlazor.Components" />
+    <Using Include="BootstrapBlazor.Client.Components" />
+    <Using Include="BootstrapBlazor.Client.Layout" />
+    <Using Include="BootstrapBlazor.Client.Data" />
+    <Using Include="BootstrapBlazor.Client.Extensions" />
+    <Using Include="BootstrapBlazor.Client.Services" />
+    <Using Include="Microsoft.AspNetCore.Components" />
+    <Using Include="Microsoft.Extensions.Localization" />
+    <Using Include="System" />
+    <Using Include="System.ComponentModel.DataAnnotations" />
+    <Using Include="System.Collections.Generic" />
+    <Using Include="System.Diagnostics.CodeAnalysis" />
+    <Using Include="System.Linq" />
+    <Using Include="System.Threading.Tasks" />
+  </ItemGroup>
+
+</Project>

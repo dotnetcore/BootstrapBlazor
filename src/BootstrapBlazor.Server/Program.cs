@@ -10,12 +10,14 @@ using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddLogging(logBuilder => logBuilder.AddFileLogger());
+//builder.Services.AddLogging(logBuilder => logBuilder.AddFileLogger());
 builder.Services.AddCors();
 builder.Services.AddResponseCompression();
 
 builder.Services.AddControllers();
-builder.Services.AddRazorComponents().AddInteractiveServerComponents();
+builder.Services.AddRazorComponents()
+       .AddInteractiveServerComponents()
+       .AddInteractiveWebAssemblyComponents();
 
 // 获得当前主题配置
 var themes = builder.Configuration.GetSection("Themes")
@@ -84,6 +86,9 @@ app.UseBootstrapBlazor();
 app.UseAntiforgery();
 
 app.MapDefaultControllerRoute();
-app.MapRazorComponents<App>().AddInteractiveServerRenderMode();
+app.MapRazorComponents<App>()
+   .AddInteractiveServerRenderMode()
+   .AddInteractiveWebAssemblyRenderMode()
+   .AddAdditionalAssemblies(typeof(BootstrapBlazor.Client.Routes).Assembly);
 
 app.Run();

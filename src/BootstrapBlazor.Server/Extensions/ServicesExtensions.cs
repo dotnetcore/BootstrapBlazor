@@ -2,8 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Server.AIChat.OAuth;
-using Microsoft.AspNetCore.Components.Authorization;
+using BootstrapBlazor.Client.Data;
+using BootstrapBlazor.Client.Services;
 using Microsoft.Extensions.Options;
 using System.Reflection;
 
@@ -34,7 +34,7 @@ internal static class ServicesExtensions
         // 配置网站路由表
         services.Configure<WebsiteOptions>(op =>
         {
-            op.AdditionalAssemblies = new Assembly[] { typeof(AzureOpenAIUser).Assembly };
+            //op.AdditionalAssemblies = new Assembly[] { typeof(AzureOpenAIUser).Assembly };
         });
 
         // 增加 BootstrapBlazor 组件
@@ -131,22 +131,22 @@ internal static class ServicesExtensions
     /// <param name="services"></param>
     public static IServiceCollection AddWebSiteServices(this IServiceCollection services)
     {
-        services.AddSingleton<WeatherForecastService>();
+        //services.AddSingleton<WeatherForecastService>();
         services.AddSingleton<PackageVersionService>();
         services.AddSingleton<CodeSnippetService>();
-        services.AddSingleton<DashboardService>();
-        services.AddSingleton(typeof(IDataService<>), typeof(TableDemoDataService<>));
-        services.AddSingleton(typeof(ILookupService), typeof(DemoLookupService));
-        services.AddSingleton<MockDataTableDynamicService>();
+        //services.AddSingleton<DashboardService>();
+        //services.AddSingleton(typeof(IDataService<>), typeof(TableDemoDataService<>));
+        //services.AddSingleton(typeof(ILookupService), typeof(DemoLookupService));
+        //services.AddSingleton<MockDataTableDynamicService>();
 
-        services.AddSingleton<MenuService>();
-        services.AddScoped<FanControllerDataService>();
+        //services.AddSingleton<MenuService>();
+        //services.AddScoped<FanControllerDataService>();
 
         // 增加示例网站配置
-        services.AddOptionsMonitor<WebsiteOptions>();
+        //services.AddOptionsMonitor<WebsiteOptions>();
 
         // 增加模拟登录服务
-        services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();
+        //services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();
 
         // 增加 Table Excel 导出服务
         services.AddBootstrapBlazorTableExcelExport();
