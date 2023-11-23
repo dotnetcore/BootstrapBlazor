@@ -23,7 +23,27 @@
     "False": "Failed",
     "NullItemText": "Not Set"
   },
-  "BootstrapBlazor.Shared.Components.Layout.HomeLayout": {
+  "BootstrapBlazor.Shared.Data.AttributeItem": {
+    "Name": "Parameter",
+    "Description": "Description",
+    "Type": "Type",
+    "ValueList": "ValueList",
+    "DefaultValue": "DefaultValue"
+  },
+  "BootstrapBlazor.Shared.Data.EventItem": {
+    "Name": "Parameter",
+    "Description": "Description",
+    "Type": "Type"
+  },
+  "BootstrapBlazor.Shared.Data.MethodItem": {
+    "Title": "Methods",
+    "Name": "Parameter",
+    "Description": "Description",
+    "Type": "Type",
+    "Parameters": "Parameters",
+    "ReturnValue": "ReturnValue"
+  },
+  "BootstrapBlazor.Shared.Layout.HomeLayout": {
     "FooterH1": "Related Works",
     "FooterLi1": "Slider verification code",
     "FriendLink": "Links",
@@ -34,7 +54,7 @@
     "SpecialAcknowledgements": "Special Thanks",
     "Footer": "Gitee Hosting Platform"
   },
-  "BootstrapBlazor.Shared.Components.Layout.ComponentLayout": {
+  "BootstrapBlazor.Shared.Layout.ComponentLayout": {
     "Title": "Enterprise-level component library based on Bootstrap and Blazor",
     "Example": "Example",
     "Video": "Video",
@@ -44,12 +64,7 @@
     "IconTheme": "Icon",
     "Group": "Community"
   },
-  "BootstrapBlazor.Shared.Components.EnumEducation": {
-    "PlaceHolder": "Click to select ...",
-    "Primary": "Primary",
-    "Middel": "Middel"
-  },
-  "BootstrapBlazor.Shared.Components.Layout.BaseLayout": {
+  "BootstrapBlazor.Shared.Layout.BaseLayout": {
     "FlowText": "Workflow",
     "InstallAppText": "Install PWA App",
     "InstallText": "Install",
@@ -57,7 +72,7 @@
     "Title": "View update log",
     "ChatTooltip": "Azure OpenAI"
   },
-  "BootstrapBlazor.Shared.Components.Layout.NavMenu": {
+  "BootstrapBlazor.Shared.Layout.NavMenu": {
     "GetStarted": "Getting Started",
     "Introduction": "Introduction",
     "Install": "Install",
@@ -286,84 +301,69 @@
     "CodeEditor": "CodeEditor",
     "Gantt": "Gantt"
   },
-  "BootstrapBlazor.Shared.Components.Components.DemoTabItem": {
+  "BootstrapBlazor.Shared.Components.EnumEducation": {
+    "PlaceHolder": "Click to select ...",
+    "Primary": "Primary",
+    "Middel": "Middel"
+  },
+  "BootstrapBlazor.Shared.Components.DemoTabItem": {
     "Info": "Reset the title of this <code>TabItem</code> by click the button",
     "ButtonText": "SetTitle"
   },
-  "BootstrapBlazor.Shared.Components.Components.DemoBlock": {
+  "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "",
     "SubTitle": "Demo",
     "TooltipText": "Copied"
   },
-  "BootstrapBlazor.Shared.Components.Components.Tips": {
+  "BootstrapBlazor.Shared.Components.Tips": {
     "Title": "Tips"
   },
-  "BootstrapBlazor.Shared.Components.Components.AttributeTable": {
+  "BootstrapBlazor.Shared.Components.AttributeTable": {
     "Title": "Attributes"
   },
-  "BootstrapBlazor.Shared.Components.Components.MethodTable": {
+  "BootstrapBlazor.Shared.Components.MethodTable": {
     "Title": "Methods"
   },
-  "BootstrapBlazor.Shared.Components.Common.AttributeItem": {
-    "Name": "Parameter",
-    "Description": "Description",
-    "Type": "Type",
-    "ValueList": "ValueList",
-    "DefaultValue": "DefaultValue"
-  },
-  "BootstrapBlazor.Shared.Components.Common.EventItem": {
-    "Name": "Parameter",
-    "Description": "Description",
-    "Type": "Type"
-  },
-  "BootstrapBlazor.Shared.Components.Common.MethodItem": {
-    "Title": "Methods",
-    "Name": "Parameter",
-    "Description": "Description",
-    "Type": "Type",
-    "Parameters": "Parameters",
-    "ReturnValue": "ReturnValue"
-  },
-  "BootstrapBlazor.Shared.Components.Components.ThemeChooser": {
+  "BootstrapBlazor.Shared.Components.ThemeChooser": {
     "Title": "Click to choose theme",
     "HeaderText": "Themes"
   },
-  "BootstrapBlazor.Shared.Components.Components.CultureChooser": {
+  "BootstrapBlazor.Shared.Components.CultureChooser": {
     "Label": "Language："
   },
-  "BootstrapBlazor.Shared.Components.Components.GlobalSearch": {
+  "BootstrapBlazor.Shared.Components.GlobalSearch": {
     "Search": "Search components"
   },
-  "BootstrapBlazor.Shared.Components.Components.Header": {
+  "BootstrapBlazor.Shared.Components.Header": {
     "DownloadText": "Download",
     "HomeText": "Home",
     "ComponentsText": "Components",
     "IntroductionText": "Documents"
   },
-  "BootstrapBlazor.Shared.Components.Components.QQGroup": {
+  "BootstrapBlazor.Shared.Components.QQGroup": {
     "Group": "QQ Group",
     "Status": " Full",
     "Welcome": "Welcome to join the group discussion"
   },
-  "BootstrapBlazor.Shared.Components.Components.EventTable": {
+  "BootstrapBlazor.Shared.Components.EventTable": {
     "Title": "Event"
   },
   "BootstrapBlazor.Shared.Components.PackageTips": {
     "Tips": "<div class=\"code-label\">Precautions</div><div>This component relies on <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>, which needs to reference its component package when using this component</div><div class=\"code-label mt-2\">Nuget Install</div><div>Use nuget.org to install <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a> component</div>"
   },
-  "BootstrapBlazor.Shared.Components.Components.Pre": {
+  "BootstrapBlazor.Shared.Components.Pre": {
     "LoadingText": "Loading ...",
     "TooltipTitle": "Copy",
     "PlusTooltipTitle": "Plus lines",
     "MinusTooltipTitle": "Minus lines",
     "CopiedText": "Copied"
   },
-  "BootstrapBlazor.Shared.Components.Components.Video": {
+  "BootstrapBlazor.Shared.Components.Video": {
     "H1": "B station related video link",
     "L1": "[portal]",
     "L2": "No"
   },
-  "BootstrapBlazor.Shared.Components.Components.UpdateIntro": {
+  "BootstrapBlazor.Shared.Components.UpdateIntro": {
     "H1": "Component library updated to",
     "B1": "Bootstrap Blazor at present has more than 120 components. This component is based on",
     "B2": "An enterprise-level component library that provides several types of common components such as layout, navigation, form, data, notification, icon, voice, etc. Each component has been carefully designed with modularity, responsiveness and excellent performance. Starting from more practical scenarios, meeting the needs of various scenarios, greatly reducing the time cost of developers, greatly shortening the development cycle, greatly improving development efficiency, and providing a set of",
@@ -375,7 +375,7 @@
     "P3": "portal",
     "P4": "If the component brings you convenience, please help to light up the project"
   },
-  "BootstrapBlazor.Shared.Components.Components.InstallContent": {
+  "BootstrapBlazor.Shared.Components.InstallContent": {
     "Heading": "Environmental preparation",
     "P1": "Make sure the system is installed",
     "P2": "or",

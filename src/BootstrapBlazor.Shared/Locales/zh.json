@@ -23,7 +23,27 @@
     "False": "未通过",
     "NullItemText": "未设置"
   },
-  "BootstrapBlazor.Shared.Components.Layout.HomeLayout": {
+  "BootstrapBlazor.Shared.Data.AttributeItem": {
+    "Name": "参数",
+    "Description": "说明",
+    "Type": "类型",
+    "ValueList": "可选值",
+    "DefaultValue": "默认值"
+  },
+  "BootstrapBlazor.Shared.Data.EventItem": {
+    "Name": "参数",
+    "Description": "说明",
+    "Type": "类型"
+  },
+  "BootstrapBlazor.Shared.Data.MethodItem": {
+    "Title": "Methods 方法",
+    "Name": "参数",
+    "Description": "说明",
+    "Type": "类型",
+    "Parameters": "参数",
+    "ReturnValue": "返回值"
+  },
+  "BootstrapBlazor.Shared.Layout.HomeLayout": {
     "FooterH1": "相关作品",
     "FooterLi1": "滑块验证码",
     "FriendLink": "友情链接",
@@ -34,7 +54,7 @@
     "SpecialAcknowledgements": "特别鸣谢",
     "Footer": "码云托管平台"
   },
-  "BootstrapBlazor.Shared.Components.Layout.ComponentLayout": {
+  "BootstrapBlazor.Shared.Layout.ComponentLayout": {
     "Title": "基于 Bootstrap 和 Blazor 的企业级组件库",
     "Example": "示例",
     "Video": "相关视频",
@@ -44,12 +64,7 @@
     "IconTheme": "图标主题",
     "Group": "交流群"
   },
-  "BootstrapBlazor.Shared.Components.EnumEducation": {
-    "PlaceHolder": "请选择 ...",
-    "Primary": "小学",
-    "Middel": "中学"
-  },
-  "BootstrapBlazor.Shared.Components.Layout.BaseLayout": {
+  "BootstrapBlazor.Shared.Layout.BaseLayout": {
     "FlowText": "工作流",
     "InstallAppText": "安装小程序",
     "InstallText": "安装",
@@ -57,7 +72,7 @@
     "Title": "点击查看更新日志",
     "ChatTooltip": "Azure OpenAI"
   },
-  "BootstrapBlazor.Shared.Components.Layout.NavMenu": {
+  "BootstrapBlazor.Shared.Layout.NavMenu": {
     "GetStarted": "快速上手",
     "Introduction": "简介",
     "Install": "类库安装",
@@ -286,84 +301,69 @@
     "CodeEditor": "代码编辑器 CodeEditor",
     "Gantt": "甘特图 Gantt"
   },
-  "BootstrapBlazor.Shared.Components.Components.DemoTabItem": {
+  "BootstrapBlazor.Shared.Components.EnumEducation": {
+    "PlaceHolder": "请选择 ...",
+    "Primary": "小学",
+    "Middel": "中学"
+  },
+  "BootstrapBlazor.Shared.Components.DemoTabItem": {
     "Info": "点击下方按钮，本 <code>TabItem</code> 标题更改为当前分钟与秒",
     "ButtonText": "更改标题"
   },
-  "BootstrapBlazor.Shared.Components.Components.DemoBlock": {
+  "BootstrapBlazor.Shared.Components.DemoBlock": {
     "Title": "未设置",
     "SubTitle": "示例",
     "TooltipText": "已拷贝到剪贴板"
   },
-  "BootstrapBlazor.Shared.Components.Components.Tips": {
+  "BootstrapBlazor.Shared.Components.Tips": {
     "Title": "小提示"
   },
-  "BootstrapBlazor.Shared.Components.Components.AttributeTable": {
+  "BootstrapBlazor.Shared.Components.AttributeTable": {
     "Title": "Attributes 属性"
   },
-  "BootstrapBlazor.Shared.Components.Components.MethodTable": {
+  "BootstrapBlazor.Shared.Components.MethodTable": {
     "Title": "Methods 方法"
   },
-  "BootstrapBlazor.Shared.Components.Common.AttributeItem": {
-    "Name": "参数",
-    "Description": "说明",
-    "Type": "类型",
-    "ValueList": "可选值",
-    "DefaultValue": "默认值"
-  },
-  "BootstrapBlazor.Shared.Components.Common.EventItem": {
-    "Name": "参数",
-    "Description": "说明",
-    "Type": "类型"
-  },
-  "BootstrapBlazor.Shared.Components.Common.MethodItem": {
-    "Title": "Methods 方法",
-    "Name": "参数",
-    "Description": "说明",
-    "Type": "类型",
-    "Parameters": "参数",
-    "ReturnValue": "返回值"
-  },
-  "BootstrapBlazor.Shared.Components.Components.ThemeChooser": {
+  "BootstrapBlazor.Shared.Components.ThemeChooser": {
     "Title": "点击切换主题",
     "HeaderText": "请选择主题"
   },
-  "BootstrapBlazor.Shared.Components.Components.CultureChooser": {
+  "BootstrapBlazor.Shared.Components.CultureChooser": {
     "Label": "语言："
   },
-  "BootstrapBlazor.Shared.Components.Components.GlobalSearch": {
+  "BootstrapBlazor.Shared.Components.GlobalSearch": {
     "Search": "搜索想要的组件"
   },
-  "BootstrapBlazor.Shared.Components.Components.Header": {
+  "BootstrapBlazor.Shared.Components.Header": {
     "DownloadText": "Download",
     "HomeText": "首页",
     "ComponentsText": "组件",
     "IntroductionText": "文档"
   },
-  "BootstrapBlazor.Shared.Components.Components.QQGroup": {
+  "BootstrapBlazor.Shared.Components.QQGroup": {
     "Group": "QQ群",
     "Status": "满",
     "Welcome": "欢迎加群讨论"
   },
-  "BootstrapBlazor.Shared.Components.Components.EventTable": {
+  "BootstrapBlazor.Shared.Components.EventTable": {
     "Title": "事件 Event"
   },
-  "BootstrapBlazor.Shared.Components.Components.PackageTips": {
+  "BootstrapBlazor.Shared.Components.PackageTips": {
     "Tips": "<div class=\"code-label\">注意事项 ：</div><div>本组件依赖于 <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>，使用本组件时需要引用其组件包</div><div class=\"code-label mt-2\">Nuget 包安装</div><div>使用 <a href='https://www.nuget.org/packages?q={0}' target='_blank'>nuget.org</a> 进行 <code>{0}</code> 组件的安装</div>"
   },
-  "BootstrapBlazor.Shared.Components.Components.Pre": {
+  "BootstrapBlazor.Shared.Components.Pre": {
     "LoadingText": "正在加载 ...",
     "TooltipTitle": "点击复制代码",
     "PlusTooltipTitle": "点击增加显示行数",
     "MinusTooltipTitle": "点击减少显示行数",
     "CopiedText": "复制代码成功"
   },
-  "BootstrapBlazor.Shared.Components.Components.Video": {
+  "BootstrapBlazor.Shared.Components.Video": {
     "H1": "B 站相关视频链接",
     "L1": "[传送门]",
     "L2": "暂无"
   },
-  "BootstrapBlazor.Shared.Components.Components.UpdateIntro": {
+  "BootstrapBlazor.Shared.Components.UpdateIntro": {
     "H1": "组件库 更新到",
     "B1": "首先感谢您对本套组件的关注，目前本套组件已经拥有超过 120 个组件，本组件是基于",
     "B2": "企业级组件库，提供如布局、导航、表单、数据、通知、图标、语音等几大类通用组件，每一个组件都经过精心设计，具有模块化、响应式和优秀的性能。从更多实际场景出发，满足多种场景的需求，极大的减少开发者时间成本，大大缩短开发周期，大幅提高开发效率，并提供了一套",
@@ -375,7 +375,7 @@
     "P3": "传送门",
     "P4": "如果组件给您带来了方便，请您帮忙给项目点亮"
   },
-  "BootstrapBlazor.Shared.Components.Components.InstallContent": {
+  "BootstrapBlazor.Shared.Components.InstallContent": {
     "Heading": "环境准备",
     "P1": "确保系统安装",
     "P2": "或者",
