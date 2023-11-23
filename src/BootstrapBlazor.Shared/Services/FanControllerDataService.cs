@@ -4,18 +4,30 @@
 
 namespace BootstrapBlazor.Shared.Services;
 
-internal class FanControllerDataService : IDisposable
+/// <summary>
+/// 
+/// </summary>
+public class FanControllerDataService : IDisposable
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public Func<IEnumerable<TopologyItem>, Task>? OnDataChange { get; set; }
 
     private static readonly Random random = new();
 
     private static string GenerateFanValue() => random.Next(1000, 1200).ToString();
 
+    /// <summary>
+    /// 
+    /// </summary>
     public bool IsOpen { get; private set; } = true;
 
     private CancellationTokenSource GeneratorCancellationToken { get; } = new CancellationTokenSource();
 
+    /// <summary>
+    /// 
+    /// </summary>
     public FanControllerDataService()
     {
         DoWork();
@@ -56,6 +68,10 @@ internal class FanControllerDataService : IDisposable
         }
     });
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public IEnumerable<TopologyItem> GetDatas()
     {
         var data = new List<TopologyItem>()
@@ -74,6 +90,11 @@ internal class FanControllerDataService : IDisposable
         return data;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="open"></param>
+    /// <returns></returns>
     public async Task UpdateStatus(bool open)
     {
         IsOpen = open;
@@ -96,6 +117,10 @@ internal class FanControllerDataService : IDisposable
         }
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="disposing"></param>
     protected virtual void Dispose(bool disposing)
     {
         if (disposing)

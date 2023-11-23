@@ -7,8 +7,13 @@ namespace BootstrapBlazor.Shared.Data;
 /// <summary>
 /// 
 /// </summary>
-internal static class MenusDataGenerator
+public static class MenusDataGenerator
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="localizer"></param>
+    /// <returns></returns>
     public static async Task<IEnumerable<MenuItem>> GetTopItemsAsync(IStringLocalizer localizer)
     {
         await Task.Delay(1);
@@ -58,6 +63,11 @@ internal static class MenusDataGenerator
         };
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="localizer"></param>
+    /// <returns></returns>
     public static async Task<IEnumerable<MenuItem>> GetBottomMenuItemsAsync(IStringLocalizer localizer)
     {
         await Task.Delay(1);
@@ -79,6 +89,11 @@ internal static class MenusDataGenerator
         };
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="localizer"></param>
+    /// <returns></returns>
     public static async Task<IEnumerable<MenuItem>> GetTopIconItemsAsync(IStringLocalizer localizer)
     {
         await Task.Delay(1);
@@ -99,6 +114,11 @@ internal static class MenusDataGenerator
         };
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="localizer"></param>
+    /// <returns></returns>
     public static async Task<IEnumerable<MenuItem>> GetSideMenuItemsAsync(IStringLocalizer localizer)
     {
         await Task.Delay(1);
@@ -148,6 +168,11 @@ internal static class MenusDataGenerator
         };
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="localizer"></param>
+    /// <returns></returns>
     public static async Task<IEnumerable<MenuItem>> GetDisabledMenuItemsAsync(IStringLocalizer localizer)
     {
         await Task.Delay(1);
@@ -179,6 +204,10 @@ internal static class MenusDataGenerator
         };
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     private static BootstrapDynamicComponent BuildDynamicComponent() => BootstrapDynamicComponent.CreateComponent<Badge>(new Dictionary<string, object?>
     {
         [nameof(Badge.Color)] = Color.Danger,
@@ -189,6 +218,11 @@ internal static class MenusDataGenerator
         })
     });
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="localizer"></param>
+    /// <returns></returns>
     public static async Task<IEnumerable<MenuItem>> GetIconSideMenuItemsAsync(IStringLocalizer localizer)
     {
         await Task.Delay(1);
@@ -224,6 +258,11 @@ internal static class MenusDataGenerator
         };
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="localizer"></param>
+    /// <returns></returns>
     public static async Task<IEnumerable<MenuItem>> GetWidgetIconSideMenuItemsAsync(IStringLocalizer localizer)
     {
         await Task.Delay(1);
@@ -263,6 +302,11 @@ internal static class MenusDataGenerator
         };
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="localizer"></param>
+    /// <returns></returns>
     public static async Task<IEnumerable<MenuItem>> GetCollapsedIconSideMenuItemsAsync(IStringLocalizer localizer)
     {
         await Task.Delay(1);

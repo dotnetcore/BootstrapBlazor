@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-namespace BootstrapBlazor.Shared.Samples.Charts;
+namespace BootstrapBlazor.Client.Samples.Charts;
 
 /// <summary>
 /// 
@@ -157,35 +157,35 @@ public sealed partial class Index
     {
         new MethodItem()
         {
-            Name = nameof(BootstrapBlazor.Components.Chart.OnInitAsync),
+            Name = nameof(Chart.OnInitAsync),
             Description = "组件数据初始化委托方法",
             Parameters = "Func<Task<ChartDataSource>>",
             ReturnValue = " — "
         },
         new MethodItem()
         {
-            Name = nameof(BootstrapBlazor.Components.Chart.OnAfterInitAsync),
+            Name = nameof(Chart.OnAfterInitAsync),
             Description = "客户端绘制图表完毕后回调此委托方法",
             Parameters = "Func<Task>",
             ReturnValue = " — "
         },
         new MethodItem()
         {
-            Name = nameof(BootstrapBlazor.Components.Chart.OnAfterUpdateAsync),
+            Name = nameof(Chart.OnAfterUpdateAsync),
             Description = "客户端更新图表完毕后回调此委托方法",
             Parameters = "Func<ChartAction, Task>",
             ReturnValue = " — "
         },
         new MethodItem()
         {
-            Name = nameof(BootstrapBlazor.Components.Chart.Update),
+            Name = nameof(Chart.Update),
             Description = "更新图表方法",
             Parameters ="Task",
             ReturnValue = " — "
         },
         new MethodItem()
         {
-            Name = nameof(BootstrapBlazor.Components.Chart.Reload),
+            Name = nameof(Chart.Reload),
             Description = "重新加载,强制重新渲染图表",
             Parameters = "Task",
             ReturnValue = " — "

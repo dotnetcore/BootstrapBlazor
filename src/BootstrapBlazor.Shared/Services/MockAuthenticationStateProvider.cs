@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Shared.Services;
 /// <summary>
 /// 
 /// </summary>
-internal class MockAuthenticationStateProvider : AuthenticationStateProvider, IHostEnvironmentAuthenticationStateProvider
+public class MockAuthenticationStateProvider : AuthenticationStateProvider, IHostEnvironmentAuthenticationStateProvider
 {
     private Task<AuthenticationState>? _authenticationStateTask;
 

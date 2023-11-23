@@ -23,7 +23,7 @@ namespace BootstrapBlazor.Shared.Services;
 /// <summary>
 /// 仪表盘数据提供服务
 /// </summary>
-class DashboardService
+public class DashboardService
 {
     private Random Random { get; } = new Random();
 

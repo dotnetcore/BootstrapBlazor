@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BootstrapBlazor.Shared.Samples.Table;
+namespace BootstrapBlazor.Client.Samples.Table;
 
 /// <summary>
 /// 统计合并文档

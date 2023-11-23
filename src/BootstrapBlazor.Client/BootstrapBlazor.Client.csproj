@@ -15,14 +15,14 @@
 
   <ItemGroup>
     <Using Include="BootstrapBlazor.Components" />
-    <Using Include="BootstrapBlazor.Client.Components" />
-    <Using Include="BootstrapBlazor.Client.Layout" />
-    <Using Include="BootstrapBlazor.Client.Data" />
-    <Using Include="BootstrapBlazor.Client.Extensions" />
-    <Using Include="BootstrapBlazor.Client.Services" />
+    <Using Include="BootstrapBlazor.Client.Samples" />
+    <Using Include="BootstrapBlazor.Shared.Components" />
+    <Using Include="BootstrapBlazor.Shared.Layout" />
+    <Using Include="BootstrapBlazor.Shared.Data" />
+    <Using Include="BootstrapBlazor.Shared.Extensions" />
+    <Using Include="BootstrapBlazor.Shared.Services" />
     <Using Include="Microsoft.AspNetCore.Components" />
     <Using Include="Microsoft.Extensions.Localization" />
-    <Using Include="System" />
     <Using Include="System.ComponentModel.DataAnnotations" />
     <Using Include="System.Collections.Generic" />
     <Using Include="System.Diagnostics.CodeAnalysis" />

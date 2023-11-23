@@ -1,4 +1,4 @@
-﻿namespace BootstrapBlazor.Shared.Samples;
+﻿namespace BootstrapBlazor.Client.Samples;
 
 /// <summary>
 /// Alert 组件示例

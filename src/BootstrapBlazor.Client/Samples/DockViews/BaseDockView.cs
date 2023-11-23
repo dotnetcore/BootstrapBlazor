@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-namespace BootstrapBlazor.Shared.Samples.DockViews;
+namespace BootstrapBlazor.Client.Samples.DockViews;
 
 /// <summary>
 /// 
@@ -145,7 +145,7 @@ public abstract class BaseDockView : ComponentBase
             Id = id + i,
             ParentId = parentId,
             Name = localizer["Foo.Name", $"{id + i:d4}"],
-            DateTime = DateTime.Now.AddDays(i - 1),
+            DateTime = System.DateTime.Now.AddDays(i - 1),
             Address = localizer["Foo.Address", $"{Random.Next(1000, 2000)}"],
             Count = Random.Next(1, 100),
             Complete = Random.Next(1, 100) > 50,

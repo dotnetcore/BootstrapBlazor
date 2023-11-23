@@ -4,7 +4,7 @@
 
 using System.Collections.Concurrent;
 
-namespace BootstrapBlazor.Shared.Samples;
+namespace BootstrapBlazor.Client.Samples;
 
 /// <summary>
 /// Timelines
@@ -41,9 +41,9 @@ public sealed partial class Timelines
         new TimelineItem
         {
             Color = Color.Success,
-            Component = BootstrapDynamicComponent.CreateComponent<BootstrapBlazor.Components.Console>(new Dictionary<string, object?>
+            Component = BootstrapDynamicComponent.CreateComponent<Components.Console>(new Dictionary<string, object?>
             {
-                [nameof(BootstrapBlazor.Components.Console.Items)] = Messages
+                [nameof(Components.Console.Items)] = Messages
             }),
             Description = Localizer["TimelinesDescription1"]
         },

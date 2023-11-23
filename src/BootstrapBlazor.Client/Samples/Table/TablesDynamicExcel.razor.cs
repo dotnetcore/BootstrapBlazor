@@ -4,7 +4,7 @@
 
 using System.Data;
 
-namespace BootstrapBlazor.Shared.Samples.Table;
+namespace BootstrapBlazor.Client.Samples.Table;
 
 /// <summary>
 /// 动态表格示例代码

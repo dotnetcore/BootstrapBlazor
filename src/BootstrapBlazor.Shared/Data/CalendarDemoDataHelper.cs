@@ -4,8 +4,14 @@
 
 namespace BootstrapBlazor.Shared.Data;
 
-internal static class CalendarDemoDataHelper
+/// <summary>
+/// 
+/// </summary>
+public static class CalendarDemoDataHelper
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public static List<Crew> Crews { get; } = new()
     {
         new("张三", "text-success"),
@@ -15,6 +21,11 @@ internal static class CalendarDemoDataHelper
 
     private static Random Random { get; } = new Random();
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="d"></param>
+    /// <returns></returns>
     public static List<Crew> GetCrewsByDate(DateTime d)
     {
         var count = Random.Next(1, 4);

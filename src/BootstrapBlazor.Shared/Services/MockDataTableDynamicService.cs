@@ -6,12 +6,19 @@ using System.Data;
 
 namespace BootstrapBlazor.Shared.Services;
 
-internal class MockDataTableDynamicService
+/// <summary>
+/// 
+/// </summary>
+public class MockDataTableDynamicService
 {
     private DataTable MockDataTable { get; }
 
     private IStringLocalizer<Foo> Localizer { get; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="localizer"></param>
     public MockDataTableDynamicService(IStringLocalizer<Foo> localizer)
     {
         Localizer = localizer;
@@ -35,6 +42,10 @@ internal class MockDataTableDynamicService
         return dt;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
     public DataTableDynamicContext CreateContext()
     {
         // 初始化动态类型上下文实例
@@ -109,6 +120,11 @@ internal class MockDataTableDynamicService
         };
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="context"></param>
+    /// <returns></returns>
     public DataTableDynamicContext CreateDetailContext(DynamicObject context)
     {
         var id = context.GetValue(nameof(Foo.Id));

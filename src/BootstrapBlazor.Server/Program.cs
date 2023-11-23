@@ -34,11 +34,11 @@ builder.Services.AddBootstrapBlazorServices(options =>
 var app = builder.Build();
 
 // 启用本地化
-//var option = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
-//if (option != null)
-//{
-//    app.UseRequestLocalization(option.Value);
-//}
+var option = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
+if (option != null)
+{
+    app.UseRequestLocalization(option.Value);
+}
 
 // 启用转发中间件
 app.UseForwardedHeaders(new ForwardedHeadersOptions { ForwardedHeaders = ForwardedHeaders.All });

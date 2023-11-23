@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-namespace BootstrapBlazor.Shared.Samples;
+namespace BootstrapBlazor.Client.Samples;
 
 /// <summary>
 ///
@@ -167,7 +167,7 @@ public sealed partial class Cameras
     {
         new()
         {
-            Name = nameof(BootstrapBlazor.Components.Camera.VideoWidth),
+            Name = nameof(Components.Camera.VideoWidth),
             Description = Localizer["VideoWidth"],
             Type = "int",
             ValueList = " — ",
@@ -175,7 +175,7 @@ public sealed partial class Cameras
         },
         new()
         {
-            Name = nameof(BootstrapBlazor.Components.Camera.VideoHeight),
+            Name = nameof(Components.Camera.VideoHeight),
             Description = Localizer["VideoHeight"],
             Type = "int",
             ValueList = " — ",
@@ -239,7 +239,7 @@ public sealed partial class Cameras
         },
         new()
         {
-            Name = nameof(BootstrapBlazor.Components.Camera.CaptureJpeg),
+            Name = nameof(Components.Camera.CaptureJpeg),
             Description = Localizer["CaptureJpeg"],
             Type = "bool",
             ValueList = " — ",
@@ -247,7 +247,7 @@ public sealed partial class Cameras
         },
         new()
         {
-            Name = nameof(BootstrapBlazor.Components.Camera.Quality),
+            Name = nameof(Components.Camera.Quality),
             Description = Localizer["Quality"],
             Type = "double",
             ValueList = " — ",

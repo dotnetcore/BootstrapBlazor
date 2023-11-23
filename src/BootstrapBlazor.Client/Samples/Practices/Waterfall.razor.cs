@@ -5,7 +5,7 @@
 using Microsoft.JSInterop;
 using Timer = System.Threading.Timer;
 
-namespace BootstrapBlazor.Shared.Samples.Practices;
+namespace BootstrapBlazor.Client.Samples.Practices;
 
 /// <summary>
 /// 瀑布流图片

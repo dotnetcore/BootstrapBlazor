@@ -3,15 +3,14 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Authorization;
-using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
-namespace BootstrapBlazor.Shared.Extensions;
+namespace Microsoft.Extensions.DependencyInjection;
 
 /// <summary>
 /// 后台任务扩展方法
 /// </summary>
-internal static class ServicesExtensions
+public static class ServicesExtensions
 {
     /// <summary>
     /// 添加示例后台任务

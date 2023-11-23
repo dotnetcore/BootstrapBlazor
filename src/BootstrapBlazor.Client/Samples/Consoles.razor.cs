@@ -4,7 +4,7 @@
 
 using System.Collections.Concurrent;
 
-namespace BootstrapBlazor.Shared.Samples;
+namespace BootstrapBlazor.Client.Samples;
 
 /// <summary>
 /// Consoles
@@ -149,7 +149,7 @@ public sealed partial class Consoles
     {
         new()
         {
-            Name = nameof(BootstrapBlazor.Components.Console.Items),
+            Name = nameof(Components.Console.Items),
             Description = "组件数据源",
             Type = "IEnumerable<ConsoleMessageItem>",
             ValueList = " — ",
@@ -165,7 +165,7 @@ public sealed partial class Consoles
         },
         new()
         {
-            Name = nameof(BootstrapBlazor.Components.Console.IsAutoScroll),
+            Name = nameof(Components.Console.IsAutoScroll),
             Description = "是否自动滚屏",
             Type = "bool",
             ValueList = "true|false",

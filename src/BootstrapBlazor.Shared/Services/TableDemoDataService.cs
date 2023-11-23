@@ -7,13 +7,17 @@ namespace BootstrapBlazor.Shared.Services;
 /// <summary>
 /// 演示网站示例数据注入服务实现类
 /// </summary>
-internal class TableDemoDataService<TModel> : DataServiceBase<TModel> where TModel : class, new()
+public class TableDemoDataService<TModel> : DataServiceBase<TModel> where TModel : class, new()
 {
     [NotNull]
     private List<TModel>? Items { get; set; }
 
     private IStringLocalizer<TModel> Localizer { get; set; }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="localizer"></param>
     public TableDemoDataService(IStringLocalizer<TModel> localizer)
     {
         Localizer = localizer;
@@ -93,6 +97,11 @@ internal class TableDemoDataService<TModel> : DataServiceBase<TModel> where TMod
         return Task.FromResult(ret);
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="models"></param>
+    /// <returns></returns>
     public override Task<bool> DeleteAsync(IEnumerable<TModel> models)
     {
         foreach (var model in models)

@@ -4,7 +4,7 @@
 
 using System.Text;
 
-namespace BootstrapBlazor.Shared.Samples.Table;
+namespace BootstrapBlazor.Client.Samples.Table;
 
 /// <summary>
 /// 导出示例代码

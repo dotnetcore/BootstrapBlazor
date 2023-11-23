@@ -4,7 +4,7 @@
 
 using Microsoft.JSInterop;
 
-namespace BootstrapBlazor.Shared.Samples;
+namespace BootstrapBlazor.Client.Samples;
 
 /// <summary>
 /// 人机交互界面

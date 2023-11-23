@@ -4,16 +4,34 @@
 
 namespace BootstrapBlazor.Shared.Data;
 
-class TreeDataFoo
+/// <summary>
+/// 
+/// </summary>
+public class TreeDataFoo
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public string? Code { get; set; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public string? ParentCode { get; set; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public string? Text { get; set; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public string Icon { get; set; } = "fa-solid fa-font-awesome";
 
+    /// <summary>
+    /// 
+    /// </summary>
     public bool IsActive { get; set; }
 
     /// <summary>
@@ -24,25 +42,25 @@ class TreeDataFoo
     {
         var items = new List<TreeItem>
         {
-            new TreeItem() { Text = "导航一", Id = "1010", Icon = "fa-solid fa-font-awesome" },
-            new TreeItem() { Text = "导航二", Id = "1020", Icon = "fa-solid fa-font-awesome" },
-            new TreeItem() { Text = "导航三", Id = "1030", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "导航一", Id = "1010", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "导航二", Id = "1020", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "导航三", Id = "1030", Icon = "fa-solid fa-font-awesome" },
 
-            new TreeItem() { Text = "子菜单一", Id = "1040", ParentId = "1020", Icon = "fa-solid fa-font-awesome" },
-            new TreeItem() { Text = "子菜单二", Id = "1050", ParentId = "1020", Icon = "fa-solid fa-font-awesome" },
-            new TreeItem() { Text = "子菜单三", Id = "1060", ParentId = "1020", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "子菜单一", Id = "1040", ParentId = "1020", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "子菜单二", Id = "1050", ParentId = "1020", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "子菜单三", Id = "1060", ParentId = "1020", Icon = "fa-solid fa-font-awesome" },
 
-            new TreeItem() { Text = "孙菜单一", Id = "1070", ParentId = "1050", Icon = "fa-solid fa-font-awesome" },
-            new TreeItem() { Text = "孙菜单二", Id = "1080", ParentId = "1050", Icon = "fa-solid fa-font-awesome" },
-            new TreeItem() { Text = "孙菜单三", Id = "1090", ParentId = "1050", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "孙菜单一", Id = "1070", ParentId = "1050", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "孙菜单二", Id = "1080", ParentId = "1050", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "孙菜单三", Id = "1090", ParentId = "1050", Icon = "fa-solid fa-font-awesome" },
 
-            new TreeItem() { Text = "曾孙菜单一", Id = "1100", ParentId = "1080", Icon = "fa-solid fa-font-awesome" },
-            new TreeItem() { Text = "曾孙菜单二", Id = "1110", ParentId = "1080", Icon = "fa-solid fa-font-awesome" },
-            new TreeItem() { Text = "曾孙菜单三", Id = "1120", ParentId = "1080", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "曾孙菜单一", Id = "1100", ParentId = "1080", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "曾孙菜单二", Id = "1110", ParentId = "1080", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "曾孙菜单三", Id = "1120", ParentId = "1080", Icon = "fa-solid fa-font-awesome" },
 
-            new TreeItem() { Text = "曾曾孙菜单一", Id = "1130", ParentId = "1100", Icon = "fa-solid fa-font-awesome" },
-            new TreeItem() { Text = "曾曾孙菜单二", Id = "1140", ParentId = "1100", Icon = "fa-solid fa-font-awesome" },
-            new TreeItem() { Text = "曾曾孙菜单三", Id = "1150", ParentId = "1100", Icon = "fa-solid fa-font-awesome" }
+            new() { Text = "曾曾孙菜单一", Id = "1130", ParentId = "1100", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "曾曾孙菜单二", Id = "1140", ParentId = "1100", Icon = "fa-solid fa-font-awesome" },
+            new() { Text = "曾曾孙菜单三", Id = "1150", ParentId = "1100", Icon = "fa-solid fa-font-awesome" }
         };
 
         // 算法获取属性结构数据

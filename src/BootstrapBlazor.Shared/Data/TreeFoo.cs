@@ -6,18 +6,33 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BootstrapBlazor.Shared.Data;
 
-class TreeFoo
+public class TreeFoo
 {
+    /// <summary>
+    /// 
+    /// </summary>
     [Key]
     public string? Id { get; set; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public string? ParentId { get; set; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     [Required]
     public string? Text { get; set; }
 
+    /// <summary>
+    /// 
+    /// </summary>
     public string Icon { get; set; } = "fa-solid fa-font-awesome";
 
+    /// <summary>
+    /// 
+    /// </summary>
     public bool IsActive { get; set; }
 
     /// <summary>

@@ -4,7 +4,7 @@
 
 using System.Collections.Concurrent;
 
-namespace BootstrapBlazor.Shared.Samples;
+namespace BootstrapBlazor.Client.Samples;
 
 /// <summary>
 /// 

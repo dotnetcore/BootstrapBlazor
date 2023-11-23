@@ -3,7 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 using Microsoft.Extensions.Options;
 
-namespace BootstrapBlazor.Shared.Samples;
+namespace BootstrapBlazor.Client.Samples;
 
 /// <summary>
 /// CherryMarkdowns

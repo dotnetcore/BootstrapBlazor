@@ -4,7 +4,7 @@
 
 using System.ComponentModel;
 
-namespace BootstrapBlazor.Shared.Samples;
+namespace BootstrapBlazor.Client.Samples;
 
 /// <summary>
 /// Toggles

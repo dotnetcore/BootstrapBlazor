@@ -7,7 +7,10 @@ using Microsoft.Extensions.Options;
 
 namespace BootstrapBlazor.Shared.Services;
 
-class CodeSnippetService
+/// <summary>
+/// 
+/// </summary>
+public class CodeSnippetService
 {
     private IHttpClientFactory Factory { get; set; }
 
