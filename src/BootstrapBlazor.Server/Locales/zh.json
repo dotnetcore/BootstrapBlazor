@@ -3560,13 +3560,6 @@
     "SaveText": "保存",
     "NotFoundDevicesString": "未找到视频相关设备"
   },
-  "BootstrapBlazor.Server.Components.Demos.Camera.CameraNormal": {
-    "TraceOnInit": "初始化摄像头完成",
-    "TraceOnError": "发生错误",
-    "TraceOnStar": "打开摄像头",
-    "TraceOnClose": "关闭摄像头",
-    "TraceOnCapture": "拍照完成"
-  },
   "BootstrapBlazor.Server.Components.Samples.Captchas": {
     "Title": "Captchas 滑块验证码",
     "SubTitle": "通过拖动滑块进行人机识别",

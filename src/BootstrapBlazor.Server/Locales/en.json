@@ -3560,13 +3560,6 @@
     "SaveText": "Save",
     "NotFoundDevicesString": "Video device not found"
   },
-  "BootstrapBlazor.Server.Components.Demos.Camera.CameraNormal": {
-    "TraceOnInit": "Initialized carmera",
-    "TraceOnError": "Error",
-    "TraceOnStar": "Star video",
-    "TraceOnClose": "Stop video",
-    "TraceOnCapture": "Capture done"
-  },
   "BootstrapBlazor.Server.Components.Samples.Captchas": {
     "Title": "Captchas",
     "SubTitle": "Human-machine recognition by dragging the slider",
