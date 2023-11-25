@@ -20,8 +20,6 @@ public class JsonLocalizationOptions : LocalizationOptions
     /// <summary>
     /// 获得/设置 外置资源文件程序集集合
     /// </summary>
-    [Obsolete("已过期，内部自动识别，无需设置, No need to set")]
-    [ExcludeFromCodeCoverage]
     public IEnumerable<Assembly>? AdditionalJsonAssemblies { get; set; }
 
     /// <summary>

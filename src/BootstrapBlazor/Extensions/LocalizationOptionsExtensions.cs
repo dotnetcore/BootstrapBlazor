@@ -24,7 +24,7 @@ internal static class LocalizationOptionsExtensions
     public static IEnumerable<IConfigurationSection> GetJsonStringFromAssembly(this JsonLocalizationOptions option, Assembly assembly, string cultureName)
     {
         // 获得程序集内 Json 文件流集合
-        var langHandlers = option.GetResourceStream(assembly, cultureName);
+        var langHandlers = option.GetJsonHandlers(assembly, cultureName).ToList();
 
         // 创建配置 ConfigurationBuilder
         var builder = new ConfigurationBuilder();
@@ -58,6 +58,20 @@ internal static class LocalizationOptionsExtensions
             h.Dispose();
         }
         return config.GetChildren();
+    }
+
+    private static IEnumerable<Stream> GetJsonHandlers(this JsonLocalizationOptions option, Assembly assembly, string cultureName)
+    {
+        // 获取程序集中的资源文件
+        var assemblies = new List<Assembly>()
+        {
+            assembly
+        };
+        if (option.AdditionalJsonAssemblies != null)
+        {
+            assemblies.AddRange(option.AdditionalJsonAssemblies);
+        }
+        return assemblies.SelectMany(i => option.GetResourceStream(i, cultureName));
     }
 
     private static List<Stream> GetResourceStream(this JsonLocalizationOptions option, Assembly assembly, string cultureName)
