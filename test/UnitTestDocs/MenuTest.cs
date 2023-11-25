@@ -22,10 +22,7 @@ public partial class MenuTest
         _logger = logger;
         var serviceCollection = new ServiceCollection();
         var assembly = typeof(App).Assembly;
-        serviceCollection.AddBootstrapBlazor(localizationConfigure: option =>
-        {
-            option.AdditionalJsonAssemblies = new[] { assembly };
-        });
+        serviceCollection.AddBootstrapBlazor();
 
         _serviceProvider = serviceCollection.BuildServiceProvider();
         _serviceProvider.GetRequiredService<ICacheManager>();

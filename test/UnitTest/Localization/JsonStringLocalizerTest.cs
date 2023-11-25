@@ -260,7 +260,6 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         context.Services.AddBootstrapBlazor(localizationConfigure: option =>
         {
             option.ResourceManagerStringLocalizerType = typeof(Foo);
-            option.AdditionalJsonAssemblies = new[] { typeof(Alert).Assembly, GetType().Assembly };
             option.AdditionalJsonFiles = localizationConfigure;
         });
         context.Services.GetRequiredService<ICacheManager>();

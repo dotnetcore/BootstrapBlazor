@@ -47,7 +47,6 @@ public class TableSortDialogTestHost : IDisposable
     protected virtual void ConfigureServices(IServiceCollection services)
     {
         services.AddBootstrapBlazor();
-        services.ConfigureJsonLocalizationOptions(op => op.AdditionalJsonAssemblies = new[] { typeof(Alert).Assembly });
     }
 
     protected virtual void ConfigureConfiguration(IServiceCollection services)
