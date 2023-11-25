@@ -76,6 +76,7 @@ internal static class LocalizationOptionsExtensions
 
     private static List<Stream> GetResourceStream(this JsonLocalizationOptions option, Assembly assembly, string cultureName)
     {
+        var resourceNames = assembly.GetManifestResourceNames();
         var ret = new List<Stream>();
 
         // 如果开启回落机制优先增加回落语言
@@ -101,11 +102,14 @@ internal static class LocalizationOptionsExtensions
 
         void AddStream(string name)
         {
-            var json = $"{assembly.GetName().Name}.{option.ResourcesPath}.{name}.json";
-            var stream = assembly.GetManifestResourceStream(json);
-            if (stream != null)
+            var json = resourceNames.FirstOrDefault(i => i.Contains($".{name}.json"));
+            if (json != null)
             {
-                ret.Add(stream);
+                var stream = assembly.GetManifestResourceStream(json);
+                if (stream != null)
+                {
+                    ret.Add(stream);
+                }
             }
         }
 
