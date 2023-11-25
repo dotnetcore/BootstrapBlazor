@@ -49,7 +49,6 @@ public class TableDialogTestHost : IDisposable
     {
         services.AddBootstrapBlazor(op => op.ToastDelay = 2000);
         services.AddSingleton(typeof(IDataService<>), typeof(MockEFCoreDataService<>));
-        services.ConfigureJsonLocalizationOptions(op => op.AdditionalJsonAssemblies = new[] { typeof(Alert).Assembly });
     }
 
     protected virtual void ConfigureConfiguration(IServiceCollection services)
