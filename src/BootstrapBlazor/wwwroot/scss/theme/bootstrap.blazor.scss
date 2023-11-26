@@ -314,6 +314,34 @@ $bb-layout-title-margin-left: .5rem;
 $bb-layout-banner-font-size: 1.5rem;
 $bb-layout-banner-logo-width: 42px;
 
+// Light
+$bb-light-bg: radial-gradient(circle, #fff, #aaa, #333);
+$bb-light-danger-start-color: #e17777;
+$bb-light-danger-end-color: #892726;
+$bb-light-danger-hover-color: #b33332;
+$bb-light-success-start-color: #5cb85c;
+$bb-light-success-end-color: #116811;
+$bb-light-success-hover-color: #0c980c;
+$bb-light-info-start-color: #5bc0de;
+$bb-light-info-end-color: #1d7792;
+$bb-light-info-hover-color: #085166;
+$bb-light-warning-start-color: #ffc107;
+$bb-light-warning-end-color: #cc9f18;
+$bb-light-warning-hover-color: #a28018;
+$bb-light-primary-start-color: #007bff;
+$bb-light-primary-end-color: #0f5fb5;
+$bb-light-primary-hover-color: #104f94;
+$bb-light-secondary-start-color: #6c757d;
+$bb-light-secondary-end-color: #4b5054;
+$bb-light-secondary-hover-color: #3b3d40;
+$bb-light-dark-start-color: #6061e2;
+$bb-light-dark-end-color: #3232a0;
+$bb-light-dark-hover-color: #17177b;
+$bb-light-width: 20px;
+$bb-light-height: 20px;
+$bb-light-border-radius: 50%;
+$bb-light-animation-duration: .6s;
+
 // Select
 $bb-select-append-width: 30px;
 $bb-select-append-color: #c0c4cc;
