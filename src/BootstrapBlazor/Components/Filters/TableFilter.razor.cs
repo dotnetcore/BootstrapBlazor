@@ -156,10 +156,7 @@ public partial class TableFilter : IFilter
         FieldKey = Column.GetFieldName();
         Column.Filter = this;
 
-        _lookup = new(() => Column.Lookup ?? (!string.IsNullOrEmpty(Column.LookupServiceKey)
-            ? LookupService.GetItemsByKey(Column.LookupServiceKey)
-            : null)
-        );
+        _lookup = new(() => Column.Lookup ?? LookupService.GetItemsByKey(Column.LookupServiceKey));
         _step = Column.Step?.ToString();
     }
 
