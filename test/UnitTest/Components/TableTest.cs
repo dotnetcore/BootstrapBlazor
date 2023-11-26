@@ -5111,8 +5111,10 @@ public class TableTest : TableTestBase
         await cut.InvokeAsync(() => table.Instance.QueryAsync());
     }
 
-    [Fact]
-    public void ReloadColumnWidth_Ok()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void ReloadColumnWidth_Ok(bool fixedHeader)
     {
         Context.JSInterop.Setup<string>("reloadColumnWidth", "test_table_id", "test_client_name").SetResult("""
             {
@@ -5129,6 +5131,7 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
+                pb.Add(a => a.IsFixedHeader, fixedHeader);
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ClientTableName, "test_client_name");
                 pb.Add(a => a.Id, "test_table_id");
