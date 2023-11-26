@@ -5111,6 +5111,171 @@ public class TableTest : TableTestBase
         await cut.InvokeAsync(() => table.Instance.QueryAsync());
     }
 
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void ReloadColumnWidth_Ok(bool fixedHeader)
+    {
+        Context.JSInterop.Setup<string>("reloadColumnWidth", "test_table_id", "test_client_name").SetResult("""
+            {
+                "cols": [
+                    { "name": "Name", "width": 20 },
+                    { "name": "Address", "width": 80 }
+                ],
+                "table": 100
+            }
+            """);
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.IsFixedHeader, fixedHeader);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ClientTableName, "test_client_name");
+                pb.Add(a => a.Id, "test_table_id");
+                pb.Add(a => a.AllowResizing, true);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.Contains("style=\"width: 100px;\"", table.Markup);
+    }
+
+    [Fact]
+    public void ReloadColumnWidth_TableWidth_Invalid()
+    {
+        Context.JSInterop.Setup<string>("reloadColumnWidth", "test_table_id", "test_client_name").SetResult("""
+            {
+                "cols": [
+                    { "name": "Name", "width": 20 },
+                    { "name": "Address", "width": 80 }
+                ],
+                "table": 123.12
+            }
+            """);
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ClientTableName, "test_client_name");
+                pb.Add(a => a.Id, "test_table_id");
+                pb.Add(a => a.AllowResizing, true);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.Contains("<col style=\"width: 20px;\" />", table.Markup);
+    }
+
+    [Fact]
+    public void ReloadColumnWidth_NoTableElement()
+    {
+        Context.JSInterop.Setup<string>("reloadColumnWidth", "test_table_id", "test_client_name").SetResult("""
+            {
+                "cols": [
+                    { "name": "Name", "width": 20 },
+                    { "name": "Address", "width": 80 }
+                ]
+            }
+            """);
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ClientTableName, "test_client_name");
+                pb.Add(a => a.Id, "test_table_id");
+                pb.Add(a => a.AllowResizing, true);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.Contains("<col style=\"width: 20px;\" />", table.Markup);
+    }
+
+    [Fact]
+    public void ReloadColumnWidth_Columns_Invalid()
+    {
+        Context.JSInterop.Setup<string>("reloadColumnWidth", "test_table_id", "test_client_name").SetResult("""
+            {
+                "cols": {
+                    "name": "Name",
+                    "name": "Address"
+                }
+            }
+            """);
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ClientTableName, "test_client_name");
+                pb.Add(a => a.Id, "test_table_id");
+                pb.Add(a => a.AllowResizing, true);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.DoesNotContain("<col style=\"width: 20px;\" />", table.Markup);
+    }
+
     [Fact]
     public async Task Refresh_Ok()
     {
