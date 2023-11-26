@@ -5270,7 +5270,7 @@ public class TableTest : TableTestBase
             });
         });
         var table = cut.FindComponent<Table<Foo>>();
-        Assert.Contains("<col style=\"width: 20px;\" />", table.Markup);
+        Assert.DoesNotContain("<col style=\"width: 20px;\" />", table.Markup);
     }
 
     [Fact]
