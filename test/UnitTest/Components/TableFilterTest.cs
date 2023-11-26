@@ -70,7 +70,7 @@ public class TableFilterTest : BootstrapBlazorTestBase
             {
                 pb.Add(a => a.Items, new List<Cat>
                 {
-                    new Cat()
+                    new()
                 });
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.TableColumns, CreateCatTableColumns());
@@ -102,7 +102,7 @@ public class TableFilterTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo>() { new Foo() });
+                pb.Add(a => a.Items, new List<Foo>() { new() });
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowFilterHeader, true);
                 pb.Add(a => a.TableColumns, new RenderFragment<Foo>(foo => builder =>
@@ -158,8 +158,8 @@ public class TableFilterTest : BootstrapBlazorTestBase
         builder.AddAttribute(index++, nameof(TableColumn<Foo, IEnumerable<string>>.Field), foo.Hobby);
         builder.AddAttribute(index++, nameof(TableColumn<Foo, IEnumerable<string>>.Lookup), new List<SelectedItem>()
         {
-            new SelectedItem("1", "Test1"),
-            new SelectedItem("2", "Test2"),
+            new("1", "Test1"),
+            new("2", "Test2"),
         });
         builder.AddAttribute(index++, nameof(TableColumn<Foo, IEnumerable<string>>.FieldExpression), foo.GenerateValueExpression(nameof(Foo.Hobby), typeof(IEnumerable<string>)));
         builder.AddAttribute(index++, nameof(TableColumn<Foo, IEnumerable<string>>.Filterable), true);
