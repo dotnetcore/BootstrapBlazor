@@ -106,7 +106,7 @@ public class ButtonTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsAsync_Ok()
+    public async Task IsAsync_Ok()
     {
         // 同步点击
         var clicked = false;
@@ -116,7 +116,7 @@ public class ButtonTest : BootstrapBlazorTestBase
             pb.Add(b => b.OnClick, e => clicked = true);
         });
         var b = cut.Find("button");
-        b.Click();
+        await cut.InvokeAsync(() => b.Click());
         Assert.True(clicked);
 
         // 异步点击
