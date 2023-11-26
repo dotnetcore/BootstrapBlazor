@@ -171,13 +171,6 @@ public class TableFilterTest : BootstrapBlazorTestBase
         builder.AddAttribute(index++, nameof(TableColumn<Foo, int>.FieldExpression), foo.GenerateValueExpression(nameof(Foo.Id), typeof(int)));
         builder.AddAttribute(index++, nameof(TableColumn<Foo, int>.Filterable), true);
         builder.CloseComponent();
-
-        builder.OpenComponent<TableColumn<Foo, int>>(index++);
-        builder.AddAttribute(index++, nameof(TableColumn<Foo, int>.Field), foo.Id);
-        builder.AddAttribute(index++, nameof(TableColumn<Foo, int>.LookupServiceKey), "");
-        builder.AddAttribute(index++, nameof(TableColumn<Foo, int>.FieldExpression), foo.GenerateValueExpression(nameof(Foo.Id), typeof(int)));
-        builder.AddAttribute(index++, nameof(TableColumn<Foo, int>.Filterable), true);
-        builder.CloseComponent();
     };
 
     private static RenderFragment<Cat> CreateCatTableColumns() => cat => builder =>
