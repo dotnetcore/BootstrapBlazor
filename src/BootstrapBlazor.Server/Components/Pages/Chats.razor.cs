@@ -3,10 +3,9 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Azure.AI.OpenAI;
-using BootstrapBlazor.Server.AIChat.OAuth;
 using Microsoft.AspNetCore.Components.Authorization;
 
-namespace BootstrapBlazor.Server.AIChat;
+namespace BootstrapBlazor.Server.Components.Pages;
 
 /// <summary>
 /// AI 聊天示例
@@ -20,10 +19,6 @@ public partial class Chats
     [Inject]
     [NotNull]
     private IStringLocalizer<Chats>? Localizer { get; set; }
-
-    [Inject]
-    [NotNull]
-    private AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
 
     [Inject]
     [NotNull]
@@ -46,27 +41,6 @@ public partial class Chats
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override async Task OnInitializedAsync()
-    {
-        var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        UserName = state.User.Identity?.Name;
-        if (!string.IsNullOrEmpty(UserName))
-        {
-            if (OAuthHelper.TryGet(UserName, out var user))
-            {
-                AvatarUrl = user.Avatar_Url;
-                DisplayName = Localizer["ChatUserMessageTitle", user.Name, user.Left];
-            }
-            else
-            {
-                NavigationManager.NavigateTo("./Account/Logout", true);
-            }
-        }
-    }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
@@ -82,17 +56,12 @@ public partial class Chats
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id);
 
-    private bool IsValid => OAuthHelper.Validate(UserName);
-
     private async Task GetCompletionsAsync()
     {
         Context = Context?.TrimEnd('\n') ?? string.Empty;
-        if (!string.IsNullOrEmpty(Context) && IsValid)
+        if (!string.IsNullOrEmpty(Context))
         {
-            if (OAuthHelper.TryUpdate(UserName, out var user))
-            {
-                DisplayName = Localizer["ChatUserMessageTitle", user.Name, user.Left];
-            }
+            DisplayName = Localizer["ChatUserMessageTitle", "BootstrapBlazor"];
 
             var context = Context;
             Context = string.Empty;
@@ -120,11 +89,10 @@ public partial class Chats
         }
     }
 
-    private Task CreateNewTopic()
+    private void CreateNewTopic()
     {
         Context = null;
         OpenAIService.CreateNewTopic();
         Messages.Clear();
-        return Task.CompletedTask;
     }
 }
