@@ -28,12 +28,6 @@ public partial class Chats
 
     private List<AzureOpenAIChatMessage> Messages { get; } = new();
 
-    [NotNull]
-    private string? DisplayName { get; set; }
-
-    [NotNull]
-    private string? UserName { get; set; }
-
     private string? AvatarUrl { get; set; }
 
     private static string? GetStackClass(ChatRole role) => CssBuilder.Default("msg-stack").AddClass("msg-stack-assistant", role == ChatRole.Assistant).Build();
@@ -61,8 +55,6 @@ public partial class Chats
         Context = Context?.TrimEnd('\n') ?? string.Empty;
         if (!string.IsNullOrEmpty(Context))
         {
-            DisplayName = Localizer["ChatUserMessageTitle", "BootstrapBlazor"];
-
             var context = Context;
             Context = string.Empty;
             Messages.Add(new AzureOpenAIChatMessage() { Role = ChatRole.User, Content = context });
