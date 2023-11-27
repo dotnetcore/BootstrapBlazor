@@ -6,6 +6,7 @@ using Azure;
 using Azure.AI.OpenAI;
 using Microsoft.Extensions.Options;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace BootstrapBlazor.Components;
 
@@ -54,11 +55,11 @@ class AzureOpenAIService : IAzureOpenAIService
     /// <returns></returns>
     public async Task<IEnumerable<AzureOpenAIChatMessage>> GetChatCompletionsAsync(string context, CancellationToken cancellationToken = default)
     {
-        ChatCompletionsOptions.Messages.Add(new ChatMessage(ChatRole.User, context));
-
         Client ??= new(new Uri(Options.Endpoint), new AzureKeyCredential(Options.Key));
 
-        var completionsResponse = await Client.GetChatCompletionsAsync(Options.DeploymentName, ChatCompletionsOptions, cancellationToken);
+        ChatCompletionsOptions.Messages.Add(new ChatMessage(ChatRole.User, context));
+        var option = new ChatCompletionsOptions(Options.DeploymentName, ChatCompletionsOptions.Messages);
+        var completionsResponse = await Client.GetChatCompletionsAsync(option, cancellationToken);
         return completionsResponse.Value.Choices.Select(choice => new AzureOpenAIChatMessage()
         {
             Content = choice.Message.Content,
@@ -74,20 +75,24 @@ class AzureOpenAIService : IAzureOpenAIService
     /// <returns></returns>
     public async IAsyncEnumerable<AzureOpenAIChatMessage> GetChatCompletionsStreamingAsync(string context, [EnumeratorCancellation] CancellationToken cancellationToken = default)
     {
-        ChatCompletionsOptions.Messages.Add(new ChatMessage(ChatRole.User, context));
         Client ??= new(new Uri(Options.Endpoint), new AzureKeyCredential(Options.Key));
 
-        var completionsResponse = await Client.GetChatCompletionsStreamingAsync(Options.DeploymentName, ChatCompletionsOptions, cancellationToken);
-        await foreach (var choice in completionsResponse.Value.GetChoicesStreaming(cancellationToken))
+        ChatCompletionsOptions.Messages.Add(new(ChatRole.User, context));
+        var option = new ChatCompletionsOptions(Options.DeploymentName, ChatCompletionsOptions.Messages);
+
+        var content = new StringBuilder();
+        await foreach (var chatUpdate in Client.GetChatCompletionsStreaming(option, cancellationToken))
         {
-            await foreach (var message in choice.GetMessageStreaming(cancellationToken))
+            content.Append(chatUpdate.ContentUpdate);
+            yield return new AzureOpenAIChatMessage
             {
-                yield return new AzureOpenAIChatMessage
-                {
-                    Content = message.Content,
-                    Role = message.Role
-                };
-            }
+                Content = chatUpdate.ContentUpdate,
+                Role = ChatRole.Assistant
+            };
+        }
+        if (content.Length > 0)
+        {
+            ChatCompletionsOptions.Messages.Add(new(ChatRole.Assistant, content.ToString()));
         }
     }
 
