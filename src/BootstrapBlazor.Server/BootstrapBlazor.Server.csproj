@@ -29,11 +29,8 @@
   <ItemGroup>
     <PackageReference Include="BootstrapBlazor.Middleware" Version="8.0.0" />
     <PackageReference Include="Longbow.Logging" Version="7.0.0" />
-    <PackageReference Include="Longbow.GiteeAuth" Version="7.0.0" />
-    <PackageReference Include="Longbow.GitHubAuth" Version="7.0.1" />
-    <PackageReference Include="Longbow.OAuth" Version="7.0.0" />
     <PackageReference Include="Longbow.Tasks" Version="7.0.0" />
-    <PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="8.0.1" />
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.BarCode" Version="8.0.0" />
@@ -50,6 +47,8 @@
     <PackageReference Include="BootstrapBlazor.Markdown" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.MaterialDesign.Extensions" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.MindMap" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.MouseFollower" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.PdfReader" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="8.0.0" />
@@ -58,9 +57,7 @@
     <PackageReference Include="BootstrapBlazor.TableExport" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.Topology" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.VideoPlayer" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.MouseFollower" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.WebAPI" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.MindMap" Version="8.0.0" />
   </ItemGroup>
 
   <ItemGroup>

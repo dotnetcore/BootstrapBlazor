@@ -38,23 +38,8 @@
     padding: 1rem;
     border-radius: .5rem;
     box-shadow: rgb(210, 208, 206) 0 2px 4px, rgb(237, 235, 233) 0 0 2px;
-}
-
-.chat-footer-title {
-    font-weight: bold;
-    margin-bottom: .5rem;
     display: flex;
-    align-items: center;
 }
-
-    .chat-footer-title span {
-        flex: 1;
-    }
-
-    .chat-footer-title .btn {
-        white-space: nowrap;
-        align-self: center;
-    }
 
 ::deep .chat-footer-tx {
     resize: none;

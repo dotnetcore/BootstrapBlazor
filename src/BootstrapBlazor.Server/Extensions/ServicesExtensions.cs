@@ -2,10 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Server.AIChat.OAuth;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Options;
-using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -30,12 +28,6 @@ internal static class ServicesExtensions
 
         // 增加演示网站服务
         services.AddWebSiteServices();
-
-        // 配置网站路由表
-        services.Configure<WebsiteOptions>(op =>
-        {
-            op.AdditionalAssemblies = new Assembly[] { typeof(AzureOpenAIUser).Assembly };
-        });
 
         // 增加 BootstrapBlazor 组件
         services.AddBootstrapBlazor(configureOptions);
@@ -72,10 +64,17 @@ internal static class ServicesExtensions
         // 增加 Pdf 导出服务
         services.AddBootstrapBlazorHtml2PdfService();
 
-        //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-        //    .AddCookie()
-        //    .AddGitee(OAuthHelper.Configure)
-        //    .AddGitHub(OAuthHelper.Configure);
+        // 配置 Tab 与 Menu 联动字典
+        services.ConfigureTabItemMenuBindOptions(options =>
+        {
+            options.Binders.Add("layout-demo", new() { Text = "Text 1" });
+            options.Binders.Add("layout-demo?text=Parameter", new() { Text = "Text 2" });
+            options.Binders.Add("layout-demo/text=Parameter", new() { Text = "Text 3" });
+        });
+
+        // 增加 MaterialDesign 图标主题
+        services.ConfigureMaterialDesignIconTheme();
+        services.ConfigureIconThemeOptions(options => options.ThemeKey = "fa");
 
         // 增加 PetaPoco ORM 数据服务操作类
         // 需要时打开下面代码

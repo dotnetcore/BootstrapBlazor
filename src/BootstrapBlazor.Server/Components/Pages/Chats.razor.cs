@@ -3,10 +3,9 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Azure.AI.OpenAI;
-using BootstrapBlazor.Server.AIChat.OAuth;
 using Microsoft.AspNetCore.Components.Authorization;
 
-namespace BootstrapBlazor.Server.AIChat;
+namespace BootstrapBlazor.Server.Components.Pages;
 
 /// <summary>
 /// AI 聊天示例
@@ -21,48 +20,11 @@ public partial class Chats
     [NotNull]
     private IStringLocalizer<Chats>? Localizer { get; set; }
 
-    [Inject]
-    [NotNull]
-    private AuthenticationStateProvider? AuthenticationStateProvider { get; set; }
-
-    [Inject]
-    [NotNull]
-    private NavigationManager? NavigationManager { get; set; }
-
     private string? Context { get; set; }
 
     private List<AzureOpenAIChatMessage> Messages { get; } = new();
 
-    [NotNull]
-    private string? DisplayName { get; set; }
-
-    [NotNull]
-    private string? UserName { get; set; }
-
-    private string? AvatarUrl { get; set; }
-
     private static string? GetStackClass(ChatRole role) => CssBuilder.Default("msg-stack").AddClass("msg-stack-assistant", role == ChatRole.Assistant).Build();
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    protected override async Task OnInitializedAsync()
-    {
-        var state = await AuthenticationStateProvider.GetAuthenticationStateAsync();
-        UserName = state.User.Identity?.Name;
-        if (!string.IsNullOrEmpty(UserName))
-        {
-            if (OAuthHelper.TryGet(UserName, out var user))
-            {
-                AvatarUrl = user.Avatar_Url;
-                DisplayName = Localizer["ChatUserMessageTitle", user.Name, user.Left];
-            }
-            else
-            {
-                NavigationManager.NavigateTo("./Account/Logout", true);
-            }
-        }
-    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -82,28 +44,22 @@ public partial class Chats
     /// <returns></returns>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id);
 
-    private bool IsValid => OAuthHelper.Validate(UserName);
-
     private async Task GetCompletionsAsync()
     {
         Context = Context?.TrimEnd('\n') ?? string.Empty;
-        if (!string.IsNullOrEmpty(Context) && IsValid)
+        if (!string.IsNullOrEmpty(Context))
         {
-            if (OAuthHelper.TryUpdate(UserName, out var user))
-            {
-                DisplayName = Localizer["ChatUserMessageTitle", user.Name, user.Left];
-            }
-
             var context = Context;
             Context = string.Empty;
             Messages.Add(new AzureOpenAIChatMessage() { Role = ChatRole.User, Content = context });
-            StateHasChanged();
             var msg = new AzureOpenAIChatMessage()
             {
                 Role = ChatRole.Assistant,
                 Content = "Thinking ..."
             };
             Messages.Add(msg);
+            StateHasChanged();
+
             bool first = true;
             await foreach (var chatMessage in OpenAIService.GetChatCompletionsStreamingAsync(context))
             {
@@ -113,18 +69,20 @@ public partial class Chats
                     msg.Content = string.Empty;
                 }
 
-                msg.Content += chatMessage.Content;
                 await Task.Delay(50);
-                StateHasChanged();
+                if (!string.IsNullOrEmpty(chatMessage.Content))
+                {
+                    msg.Content += chatMessage.Content;
+                    StateHasChanged();
+                }
             }
         }
     }
 
-    private Task CreateNewTopic()
+    private void CreateNewTopic()
     {
         Context = null;
         OpenAIService.CreateNewTopic();
         Messages.Clear();
-        return Task.CompletedTask;
     }
 }
