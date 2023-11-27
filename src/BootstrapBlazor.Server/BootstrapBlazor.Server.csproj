@@ -30,7 +30,7 @@
     <PackageReference Include="BootstrapBlazor.Middleware" Version="8.0.0" />
     <PackageReference Include="Longbow.Logging" Version="7.0.0" />
     <PackageReference Include="Longbow.Tasks" Version="7.0.0" />
-    <!--<PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="8.0.0" />-->
+    <PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="8.0.1" />
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.BarCode" Version="8.0.0" />
