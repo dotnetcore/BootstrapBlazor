@@ -20,15 +20,9 @@ public partial class Chats
     [NotNull]
     private IStringLocalizer<Chats>? Localizer { get; set; }
 
-    [Inject]
-    [NotNull]
-    private NavigationManager? NavigationManager { get; set; }
-
     private string? Context { get; set; }
 
     private List<AzureOpenAIChatMessage> Messages { get; } = new();
-
-    private string? AvatarUrl { get; set; }
 
     private static string? GetStackClass(ChatRole role) => CssBuilder.Default("msg-stack").AddClass("msg-stack-assistant", role == ChatRole.Assistant).Build();
 
@@ -58,13 +52,14 @@ public partial class Chats
             var context = Context;
             Context = string.Empty;
             Messages.Add(new AzureOpenAIChatMessage() { Role = ChatRole.User, Content = context });
-            StateHasChanged();
             var msg = new AzureOpenAIChatMessage()
             {
                 Role = ChatRole.Assistant,
                 Content = "Thinking ..."
             };
             Messages.Add(msg);
+            StateHasChanged();
+
             bool first = true;
             await foreach (var chatMessage in OpenAIService.GetChatCompletionsStreamingAsync(context))
             {
@@ -74,9 +69,12 @@ public partial class Chats
                     msg.Content = string.Empty;
                 }
 
-                msg.Content += chatMessage.Content;
                 await Task.Delay(50);
-                StateHasChanged();
+                if (!string.IsNullOrEmpty(chatMessage.Content))
+                {
+                    msg.Content += chatMessage.Content;
+                    StateHasChanged();
+                }
             }
         }
     }
