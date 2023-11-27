@@ -31,16 +31,6 @@ builder.Services.AddBootstrapBlazorServices(options =>
 
 builder.Services.Configure<HubOptions>(option => option.MaximumReceiveMessageSize = null);
 
-builder.Services.ConfigureTabItemMenuBindOptions(options =>
-{
-    options.Binders.Add("layout-demo", new() { Text = "Text 1" });
-    options.Binders.Add("layout-demo?text=Parameter", new() { Text = "Text 2" });
-    options.Binders.Add("layout-demo/text=Parameter", new() { Text = "Text 3" });
-});
-
-builder.Services.ConfigureMaterialDesignIconTheme();
-builder.Services.ConfigureIconThemeOptions(options => options.ThemeKey = "fa");
-
 var app = builder.Build();
 
 // 启用本地化
@@ -79,7 +69,6 @@ if (cors?.Length > 0)
 }
 
 app.UseBootstrapBlazor();
-//app.UseAuthentication();
 
 app.UseAntiforgery();
 
