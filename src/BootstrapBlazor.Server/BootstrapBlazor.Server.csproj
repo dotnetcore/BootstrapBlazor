@@ -76,9 +76,5 @@
     <Using Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\lib\waterfall\" />
-  </ItemGroup>
-
 </Project>
 
