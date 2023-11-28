@@ -1,51 +1,94 @@
-﻿.waterfall-box {
-    position: relative;
+﻿.waterfall {
+    background-color: rgb(31 41 55 );
 }
 
-.loading-box {
-    z-index: 9999;
-    position: absolute;
+.waterfall-title {
+    color: rgb(255 255 255);
+    background-color: rgb(0 0 0);
+    border-color: rgb(17 24 39);
+    font-size: 1rem;
+    line-height: 1.5rem;
+    text-align: center;
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+    border-bottom-width: 1px;
     width: 100%;
-    height: 90vh;
+/*     position: fixed; */
+    top: 0px;
+    z-index: 30;
 }
 
-.loading {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    background: rgba(128, 128, 128, 0.5);
-}
-
-.waterfall {
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
-    height: 90vh;
+.waterfall-body {
     overflow: auto;
+    height: 90vh;
+    width: 100%;
 }
 
-::deep .bb-img {
-    margin-bottom: 0.75rem;
-    overflow: hidden;
-    min-height: 100px;
-    min-width: 200px;
+.waterfall-fotter {
+    background: aliceblue;
 }
 
-    ::deep .bb-img img {
-        transition: transform .5s linear;
+.waterfall-container {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+}
+
+.waterfall-item {
+    width: calc(100% / 2);
+}
+
+@media (min-width: 640px) {
+    .waterfall-item {
+        width: calc(100% / 3);
+    }
+}
+
+@media (min-width: 1024px) {
+    .waterfall-item {
+        width: calc(100% / 4);
+    }
+}
+
+@media (min-width: 1280px) {
+    .waterfall-item {
+        width: calc(100% / 5);
+    }
+}
+
+@media (min-width: 1536px) {
+    .waterfall-item {
+        width: calc(100% / 6);
+    }
+}
+
+.in-load {
+    visibility: hidden;
+}
+
+    .in-load.in-loaded {
+        visibility: visible;
     }
 
-    ::deep .bb-img:hover img {
-        cursor: zoom-in;
-        transform: scale(1.2);
+.waterfall-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+img.scrollLoading {
+    background-image: url('./lib/waterfall/DualRing.svg');
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: auto;
+    background-color: rgba(75, 85, 99, 1);
+}
+
+    img.scrollLoading.waterfall-ok {
+        background-image: unset;
     }
 
-@media (min-width: 576px) {
-    .card-columns {
-        column-count: 5;
-        column-gap: 1.25rem;
-        orphans: 1;
-        widows: 1;
-    }
+.waterfall-ok.waterfall-contain {
+    object-fit: contain;
+    background-color: white;
+    background-size: contain;
 }
