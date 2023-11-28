@@ -345,6 +345,17 @@ $bb-light-animation-duration: .6s;
 // List Group
 $bs-list-group-header-bg: #e9ecef;
 
+// List View
+$bb-lv-header-padding: .5rem 1rem;
+$bb-lv-header-bg: #dee2e6;
+$bb-lv-border-color: var(--bs-border-color);
+$bb-lv-item-trans: border .3s linear;
+$bb-lv-item-border-hover-color: #409eff;
+$bb-lv-item-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+$bb-lv-body-padding: 1rem 0 0 1rem;
+$bb-lv-body-item-margin: 0 1rem 1rem 0;
+$bb-lv-footer-padding: 1rem;
+
 // Select
 $bb-select-append-width: 30px;
 $bb-select-append-color: #c0c4cc;

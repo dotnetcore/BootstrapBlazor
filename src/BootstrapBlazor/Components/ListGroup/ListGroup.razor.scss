@@ -1,5 +1,5 @@
 .list-group {
-    --bs-list-group-header-bg: #e9ecef;
+    --bs-list-group-header-bg: #{$bs-list-group-header-bg};
     border: 1px solid var(--bs-list-group-border-color);
     overflow: auto;
     height: 100%;
