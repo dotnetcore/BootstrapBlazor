@@ -1,12 +1,27 @@
-﻿.dropdown-logout .dropdown-menu {
-    padding: 0;
-    overflow: hidden;
-    border-color: #3c8dbc;
+.dropdown-logout {
+    --bb-logout-avatar-width: #{$bb-logout-avatar-width};
+    --bb-logout-avatar-height: #{$bb-logout-avatar-height};
+    --bb-logout-menu-animation: #{$bb-logout-menu-animation};
+    --bb-logout-menu-border-color: #{$bb-logout-menu-border-color};
+    --bb-logout-text-max-width: #{$bb-logout-text-max-width};
+    --bb-logout-text-margin: #{$bb-logout-text-margin};
+    --bb-logout-text-color: #{$bb-logout-text-color};
+    --bb-logout-user-bg: #{$bb-logout-user-bg};
+    --bb-logout-user-color: #{$bb-logout-user-color};
+    --bb-logout-user-avatar-width: #{$bb-logout-user-avatar-width};
+    --bb-logout-user-avatar-height: #{$bb-logout-user-avatar-height};
+    --bb-logout-user-avatar-margin-right: #{$bb-logout-user-avatar-margin-right};
 }
 
-    .dropdown-logout .dropdown-menu.show {
-        animation: fade-in2 0.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+.dropdown-logout .dropdown-menu {
+    padding: 0;
+    overflow: hidden;
+    border-color: var(--bb-logout-menu-border-color);
+
+    &.show {
+        animation: var(--bb-logout-menu-animation);
     }
+}
 
 @keyframes fade-in2 {
     0% {
@@ -25,35 +40,35 @@
     display: inline-block;
 }
 
-    .dropdown-logout .dropdown-toggle:after {
-        content: none;
-    }
+.dropdown-logout .dropdown-toggle:after {
+    content: none;
+}
 
 .dropdown-logout .logout-avatar {
-    width: 42px;
-    height: 42px
+    width: var(--bb-logout-avatar-width);
+    height: var(--bb-logout-avatar-height)
 }
 
 .dropdown-logout .logout-text {
-    color: #fff;
+    color: var(--bb-logout-text-color);
     font-weight: bold;
-    max-width: 110px;
-    margin: 0 0.625rem;
+    max-width: var(--bb-logout-text-max-width);
+    margin: var(--bb-logout-text-margin);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 .dropdown-logout .dropdown-user {
-    background-color: #3c8dbc;
-    color: #fff;
+    background-color: var(--bb-logout-user-bg);
+    color: var(--bb-logout-user-color);
 }
 
-    .dropdown-logout .dropdown-user img {
-        width: 60px;
-        height: 60px;
-        margin-right: 1rem;
-    }
+.dropdown-logout .dropdown-user img {
+    width: var(--bb-logout-user-avatar-width);
+    height: var(--bb-logout-user-avatar-height);
+    margin-right: var(--bb-logout-user-avatar-margin-right);
+}
 
 .dropdown-logout .logout-un {
     margin-top: .25rem;
@@ -71,14 +86,14 @@
     transition: color .3s linear;
 }
 
-    .dropdown-logout .dropdown-item a:first-child {
-        margin-top: .5rem;
-    }
+.dropdown-logout .dropdown-item a:first-child {
+    margin-top: .5rem;
+}
 
-    .dropdown-logout .dropdown-item a:hover {
-        color: var(--bs-primary);
-    }
+.dropdown-logout .dropdown-item a:hover {
+    color: var(--bs-primary);
+}
 
-    .dropdown-logout .dropdown-item a > i {
-        margin-right: .5rem;
-    }
+.dropdown-logout .dropdown-item a > i {
+    margin-right: .5rem;
+}

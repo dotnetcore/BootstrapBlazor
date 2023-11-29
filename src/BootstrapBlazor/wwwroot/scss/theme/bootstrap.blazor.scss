@@ -356,6 +356,20 @@ $bb-lv-body-padding: 1rem 0 0 1rem;
 $bb-lv-body-item-margin: 0 1rem 1rem 0;
 $bb-lv-footer-padding: 1rem;
 
+// Logout
+$bb-logout-avatar-width: 42px;
+$bb-logout-avatar-height: 42px;
+$bb-logout-menu-animation: fade-in2 0.2s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+$bb-logout-menu-border-color: #3c8dbc;
+$bb-logout-text-max-width: 110px;
+$bb-logout-text-margin: 0 0.625rem;
+$bb-logout-text-color: #fff;
+$bb-logout-user-bg: #3c8dbc;
+$bb-logout-user-color: #fff;
+$bb-logout-user-avatar-width: 60px;
+$bb-logout-user-avatar-height: 60px;
+$bb-logout-user-avatar-margin-right: 1rem;
+
 // Select
 $bb-select-append-width: 30px;
 $bb-select-append-color: #c0c4cc;
