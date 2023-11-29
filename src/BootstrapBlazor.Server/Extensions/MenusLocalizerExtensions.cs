@@ -679,7 +679,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["SpeechWave"],
-                    Url = "speech-wave"
+                    Url = "speech/wave"
                 },
                 new()
                 {
