@@ -14,6 +14,11 @@
     <ConsoleLogger @ref="ValueChangedLogger" class="mt-3" />
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["HasSecondsTitle"]" Introduction="@Localizer["HasSecondsIntro"]" Name="ValueChanged">
+    <TimePickerBody @bind-Value="@ValueChangedValue" OnConfirm="ValueChangedOnConfirm" HasSeconds="false" />
+    <ConsoleLogger @ref="ValueChangedLogger" class="mt-3" />
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["TimeTitle"]" Introduction="@Localizer["TimeIntro"]" Name="Time">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
