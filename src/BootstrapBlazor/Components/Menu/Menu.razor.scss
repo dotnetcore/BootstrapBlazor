@@ -1,12 +1,12 @@
 .menu {
-    --bb-menu-nav-pading: 0 1rem;
-    --bb-menu-nav-border-bottom: 1px solid #e6e6e6;
-    --bb-menu-min-width: 160px;
-    --bb-menu-active-color: #409eff;
-    --bb-menu-bar-bg: #409eff;
-    --bb-menu-item-hover-bg: #409eff;
-    --bb-menu-sub-bg: var(--bs-body-bg);
-    --bb-disabled-bg: #ddd;
+    --bb-menu-nav-pading: #{$bb-menu-nav-pading};
+    --bb-menu-nav-border-bottom: #{$bb-menu-nav-border-bottom};
+    --bb-menu-min-width: #{$bb-menu-min-width};
+    --bb-menu-active-color: #{$bb-menu-active-color};
+    --bb-menu-bar-bg: #{$bb-menu-bar-bg};
+    --bb-menu-item-hover-bg: #{$bb-menu-item-hover-bg};
+    --bb-menu-sub-bg: #{$bb-menu-sub-bg};
+    --bb-disabled-bg: #{$bb-disabled-bg};
 }
 
 .menu .nav {
