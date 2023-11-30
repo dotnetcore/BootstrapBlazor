@@ -76,10 +76,6 @@ internal static class ServicesExtensions
         services.ConfigureMaterialDesignIconTheme();
         services.ConfigureIconThemeOptions(options => options.ThemeKey = "fa");
 
-        // 增加认证服务
-        services.AddAuthorization();
-        services.AddCascadingAuthenticationState();
-
         // 增加 PetaPoco ORM 数据服务操作类
         // 需要时打开下面代码
         //services.AddPetaPoco(option =>
@@ -138,6 +134,8 @@ internal static class ServicesExtensions
         services.AddOptionsMonitor<WebsiteOptions>();
 
         // 增加模拟登录服务
+        services.AddAuthorization();
+        services.AddCascadingAuthenticationState();
         services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();
 
         // 增加 Table Excel 导出服务
