@@ -134,6 +134,8 @@ internal static class ServicesExtensions
         services.AddOptionsMonitor<WebsiteOptions>();
 
         // 增加模拟登录服务
+        services.AddAuthorization();
+        services.AddCascadingAuthenticationState();
         services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();
 
         // 增加 Table Excel 导出服务

@@ -34,16 +34,14 @@
             <div>@((MarkupString)Localizer["AuthorizateDiv1", UserName].Value)</div>
         </Block>
     </div>
-    <Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState>
-        <Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
-            <Authorized>
-                <div>@((MarkupString)Localizer["AuthorizateDiv2", context.User.Identity?.Name!].Value)</div>
-            </Authorized>
-            <NotAuthorized>
-                <div>@((MarkupString)Localizer["AuthorizateDiv3"].Value)</div>
-            </NotAuthorized>
-        </Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
-    </Microsoft.AspNetCore.Components.Authorization.CascadingAuthenticationState>
+    <Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
+        <Authorized>
+            <div>@((MarkupString)Localizer["AuthorizateDiv2", context.User.Identity?.Name!].Value)</div>
+        </Authorized>
+        <NotAuthorized>
+            <div>@((MarkupString)Localizer["AuthorizateDiv3"].Value)</div>
+        </NotAuthorized>
+    </Microsoft.AspNetCore.Components.Authorization.AuthorizeView>
     <Button Icon="@GetUser()" Text="@GetUserText()" OnClick="ToggleAuthor" class="mt-3" />
 </DemoBlock>
 
