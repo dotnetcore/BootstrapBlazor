@@ -12,13 +12,14 @@
 
 .layout {
     --bb-layout-sidebar-banner-background: #702cf8;
-    --bb-layout-header-backgound: #702cf8;
+    --bb-layout-header-background: #702cf8;
+    --bb-layout-header-color: #fff;
+    --bb-layout-title-color: #fff;
 }
 
     .layout.is-page .layout-side {
         color: #3f4254;
         background-color: #fff;
-        box-shadow: 0 0 28px 0 rgb(82 63 105 / 5%);
     }
 
     .layout.is-page .layout-user .layout-title {
@@ -28,6 +29,23 @@
     .layout.is-page .layout-footer {
         background-color: #f8f9fa;
     }
+
+    .layout .widget {
+        margin-right: 2rem;
+        --bb-widget-toggle-color: #fff;
+    }
+
+        .layout .widget .dropdown-menu {
+            --bs-dropdown-min-width: 16rem;
+        }
+
+    .layout .layout-menu {
+        border-right: 1px solid var(--bs-border-color);
+    }
+
+.layout-header img {
+    border-radius: 50%;
+}
 
 .layout-gotop {
     background: #e9ecef;
