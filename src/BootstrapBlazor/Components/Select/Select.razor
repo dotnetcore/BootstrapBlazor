@@ -97,19 +97,19 @@
 @code {
     RenderFragment<SelectedItem> RenderRow => item =>
     @<div class="@ActiveItem(item)" @onclick="() => OnClickItem(item)">
-    @if (ItemTemplate != null)
-    {
-        @ItemTemplate(item)
-    }
-    else if (IsMarkupString)
-    {
-        @((MarkupString) item.Text) 
-    }
-    else
-    {
-        @item.Text
-    }
-</div>;
+        @if (ItemTemplate != null)
+        {
+            @ItemTemplate(item)
+        }
+        else if (IsMarkupString)
+        {
+            @((MarkupString)item.Text) 
+        }
+        else
+        {
+            @item.Text
+        }
+    </div>;
 
     RenderFragment<PlaceholderContext> RenderPlaceHolderRow => context =>
     @<div class="dropdown-item">
