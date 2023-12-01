@@ -784,4 +784,20 @@ public class SelectTest : BootstrapBlazorTestBase
         value = "1";
         mi?.Invoke(select, new object?[] { value, result, msg });
     }
+
+    [Fact]
+    public void IsMarkupString_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new SelectedItem("1", "<div>Test1</div>"),
+                new SelectedItem("2", "<div>Test2</div>")
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.IsMarkupString, true); 
+        });
+        Assert.Contains("<div>Test1</div>", cut.Markup); 
+    }
 }
