@@ -2,11 +2,14 @@
 @inherits BootstrapComponentBase
 
 <div @attributes="@AdditionalAttributes" class="@ClassString">
-    <div class="time-panel-content has-seconds">
-        <div class="time-spinner has-seconds">
+    <div class="time-panel-content @HasSecondsCss">
+        <div class="time-spinner @HasSecondsCss">
             <TimePickerCell @bind-Value="@CurrentTime" ViewMode="TimePickerCellViewMode.Hour" />
             <TimePickerCell @bind-Value="@CurrentTime" ViewMode="TimePickerCellViewMode.Minute" />
-            <TimePickerCell @bind-Value="@CurrentTime" ViewMode="TimePickerCellViewMode.Second" />
+            @if (HasSeconds)
+            {
+                <TimePickerCell @bind-Value="@CurrentTime" ViewMode="TimePickerCellViewMode.Second" />
+            }
         </div>
         <div class="time-panel-footer">
             <button type="button" class="time-panel-btn cancel" @onclick="@OnClickClose">@CancelButtonText</button>

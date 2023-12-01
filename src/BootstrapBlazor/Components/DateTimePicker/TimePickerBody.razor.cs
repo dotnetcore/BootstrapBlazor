@@ -53,6 +53,14 @@ public partial class TimePickerBody
     public string? ConfirmButtonText { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示秒
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public bool HasSeconds { get; set; } = true;
+    private string? HasSecondsCss => HasSeconds? "has-seconds" : "havenot-seconds";
+
+    /// <summary>
     /// 获得/设置 取消按钮回调委托
     /// </summary>
     [Parameter]

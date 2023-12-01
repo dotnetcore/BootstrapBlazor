@@ -2391,6 +2391,8 @@
     "NormalIntro": "Select the control based on the date of the day in 「day」as the base unit",
     "ValueChangedTitle": "Select any point in time",
     "ValueChangedIntro": "You can choose any time",
+    "HasSecondsTitle": "Hide seconds",
+    "HasSecondsIntro": "Whether to display or hide the seconds control",
     "TimeTitle": "Data is bound in both directions",
     "TimeIntro": "Click the confirm button to select the box value consistent with the text box value",
     "ValidateFormTitle": "Client validation",
