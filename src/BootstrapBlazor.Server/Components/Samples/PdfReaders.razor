@@ -15,7 +15,7 @@
             <div class="col-12">
                 <BootstrapInputGroup>
                     <BootstrapInput @bind-Value="@FilenameStream" />
-                    <Button Color="Color.Primary" OnClick="Apply">Go!</Button>
+                    <Button Color="Color.Primary" OnClick="ApplyFilenameStream">Go!</Button>
                 </BootstrapInputGroup>
             </div>
         </div>
@@ -54,7 +54,7 @@
              <div class="col-12">
                  <BootstrapInputGroup>
                      <BootstrapInputGroupLabel @bind-Value="@Search" DisplayText="@Localizer["PdfReaderAdvancedSearchLabel"]" />
-                     <BootstrapInput @bind-Value="@Search" />
+                     <BootstrapInput @bind-Value="@Search" OnEnterAsync="_=>ApplySearch()" OnEscAsync="_=>Clear()" />
                      <Button Icon="fa-solid fa-magnifying-glass" OnClick="ApplySearch"></Button>
                  </BootstrapInputGroup>
              </div>
