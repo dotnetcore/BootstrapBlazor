@@ -101,6 +101,10 @@
         {
             @ItemTemplate(item)
         }
+        else if (IsMarkupString)
+        {
+            @((MarkupString)item.Text) 
+        }
         else
         {
             @item.Text
