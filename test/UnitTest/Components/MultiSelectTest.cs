@@ -477,4 +477,20 @@ public class MultiSelectTest : BootstrapBlazorTestBase
         });
         Assert.Contains("fa-solid fa-xmark", cut.Markup);
     }
+
+    [Fact]
+    public void IsMarkupString_Ok()
+    {
+        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new("1", "<div>Test1</div>"),
+                new("2", "<div>Test2</div>")
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.IsMarkupString, true);
+        });
+        Assert.Contains("<div>Test1</div>", cut.Markup);
+    }
 }

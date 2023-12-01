@@ -34,6 +34,17 @@
             }
         }
 
+        &.havenot-seconds {
+            &:before {
+                padding-left: 50%;
+            }
+
+            &:after {
+                left: 50%;
+                pointer-events: none;
+            }
+        }
+
         &:after, &:before {
             content: "";
             top: 50%;
@@ -54,6 +65,18 @@
         &.has-seconds {
             .time-spinner-wrapper {
                 width: 33.3%;
+
+                &.is-arrow {
+                    box-sizing: border-box;
+                    text-align: center;
+                    overflow: hidden;
+                }
+            }
+        }
+
+        &.havenot-seconds {
+            .time-spinner-wrapper {
+                width: 50%;
 
                 &.is-arrow {
                     box-sizing: border-box;

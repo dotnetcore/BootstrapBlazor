@@ -17,7 +17,7 @@ else
         </div>
         @if (Item.Template != null)
         {
-            <div class="widget" @onclick:stopPropagation>
+            <div class="widget" @onclick:stopPropagation @onclick:preventDefault>
                 @Item.Template
             </div>
         }
