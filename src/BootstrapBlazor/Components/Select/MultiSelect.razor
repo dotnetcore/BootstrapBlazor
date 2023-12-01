@@ -74,6 +74,10 @@
                         {
                             <span>@item.Text</span>
                         }
+                        else if (IsMarkupString)
+                        {
+                            @((MarkupString)item.Text)
+                        }
                         else
                         {
                             @ItemTemplate(item)
