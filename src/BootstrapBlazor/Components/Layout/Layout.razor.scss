@@ -1,18 +1,17 @@
 .layout {
     --bb-layout-header-height: #{$bb-layout-header-height};
-    --bb-layout-header-backgound: #{$bb-layout-header-backgound};
+    --bb-layout-header-background: #{$bb-layout-header-background};
     --bb-layout-header-color: #{$bb-layout-header-color};
-    --bb-layout-header-border-bottom-color: #{$bb-layout-header-border-bottom-color};
-    --bb-layout-headerbar-backgound: #{$bb-layout-headerbar-backgound};
+    --bb-layout-headerbar-background: #{$bb-layout-headerbar-background};
     --bb-layout-headerbar-border-color: #{$bb-layout-headerbar-border-color};
-    --bb-layout-footer-backgound: #{$bb-layout-footer-backgound};
+    --bb-layout-footer-background: #{$bb-layout-footer-background};
     --bb-layout-footer-color: #{$bb-layout-footer-color};
     --bb-layout-footer-height: #{$bb-layout-footer-height};
     --bb-layout-sidebar-width: #{$bb-layout-sidebar-width};
     --bb-layout-sidebar-collapse-width: #{$bb-layout-sidebar-collapse-width};
     --bb-layout-sidebar-banner-background: #{$bb-layout-sidebar-banner-background};
     --bb-layout-sidebar-scrollbar-background: #{$bb-layout-sidebar-scrollbar-background};
-    --bb-layout-sidebar-backgound: #{$bb-layout-sidebar-backgound};
+    --bb-layout-sidebar-background: #{$bb-layout-sidebar-background};
     --bb-layout-sidebar-color: #{$bb-layout-sidebar-color};
     --bb-layout-title-color: #{$bb-layout-title-color};
     --bb-layout-title-margin-left: #{$bb-layout-title-margin-left};
@@ -38,7 +37,7 @@
             width: auto;
             transition: transform .3s linear;
             z-index: 1030;
-            background-color: var(--bb-layout-sidebar-backgound);
+            background-color: var(--bb-layout-sidebar-background);
             color: var(--bb-layout-sidebar-color);
 
             &.is-collapsed {
@@ -101,7 +100,7 @@
         }
 
         .layout-header {
-            background-color: var(--bb-layout-header-backgound);
+            background-color: var(--bb-layout-header-background);
             height: var(--bb-layout-header-height);
             color: var(--bb-layout-header-color);
             display: flex;
@@ -135,7 +134,7 @@
         .layout-footer {
             height: var(--bb-layout-footer-height);
             color: var(--bb-layout-footer-color);
-            background-color: var(--bb-layout-footer-backgound);
+            background-color: var(--bb-layout-footer-background);
             display: flex;
             align-items: center;
             padding: 0 1rem;
@@ -162,7 +161,7 @@
 .layout-header-bar {
     padding: 4px 12px;
     color: #fff;
-    background-color: var(--bb-layout-headerbar-backgound);
+    background-color: var(--bb-layout-headerbar-background);
     border-color: var(--bb-layout-headerbar-border-color);
     border-radius: var(--bs-border-radius);
 
@@ -202,10 +201,6 @@
     }
 
     .layout.is-page .layout-side {
-        width: var(--bb-layout-sidebar-width);
-    }
-
-    .layout.is-page .layout-side .menu.is-vertical {
         width: var(--bb-layout-sidebar-width);
     }
 
