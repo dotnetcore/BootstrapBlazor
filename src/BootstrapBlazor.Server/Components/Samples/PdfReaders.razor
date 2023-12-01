@@ -15,7 +15,7 @@
             <div class="col-12">
                 <BootstrapInputGroup>
                     <BootstrapInput @bind-Value="@FilenameStream" />
-                    <Button Color="Color.Primary" OnClick="Apply">Go!</Button>
+                    <Button Color="Color.Primary" OnClick="ApplyFilenameStream">Go!</Button>
                 </BootstrapInputGroup>
             </div>
         </div>
@@ -54,7 +54,7 @@
              <div class="col-12">
                  <BootstrapInputGroup>
                      <BootstrapInputGroupLabel @bind-Value="@Search" DisplayText="@Localizer["PdfReaderAdvancedSearchLabel"]" />
-                     <BootstrapInput @bind-Value="@Search" />
+                     <BootstrapInput @bind-Value="@Search" OnEnterAsync="_ => ApplySearch()" OnEscAsync="_ => Clear()" />
                      <Button Icon="fa-solid fa-magnifying-glass" OnClick="ApplySearch"></Button>
                  </BootstrapInputGroup>
              </div>
@@ -73,7 +73,7 @@
                  <Switch @bind-Value="@StreamMode" ShowLabel="true" DisplayText="@Localizer["PdfReaderAdvancedStreamModeLabel"]" />
              </div>
              <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
-                 <Switch @bind-Value="@ReadOnly" ShowLabel="true" DisplayText="@Localizer["PdfReaderAdvancedReadOnlyLabel"]" ShowLabelTooltip="true" OnValueChanged="_=>ApplySearch()" />
+                 <Switch @bind-Value="@ReadOnly" ShowLabel="true" DisplayText="@Localizer["PdfReaderAdvancedReadOnlyLabel"]" ShowLabelTooltip="true" OnValueChanged="_ => ApplySearch()" />
              </div>
              <BootstrapInput @bind-Value="@Watermark" DisplayText="@Localizer["PdfReaderAdvancedWatermarkLabel"]" />
          </div>
