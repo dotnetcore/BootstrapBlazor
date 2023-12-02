@@ -12,7 +12,7 @@
         <EditorForm TModel="Foo">
             <FieldItems>
                 <EditorItem @bind-Field="@context.Id" Editable="false"></EditorItem>
-                <EditorItem @bind-Field="@context.Hobby" Items="@Hobbys"></EditorItem>
+                <EditorItem @bind-Field="@context.Hobby" Items="@Hobbies"></EditorItem>
             </FieldItems>
         </EditorForm>
         <div class="form-footer mt-3">
@@ -40,7 +40,7 @@
     private List<Foo>? Items { get; set; }
 
     [NotNull]
-    private IEnumerable<SelectedItem>? Hobbys { get; set; }
+    private IEnumerable<SelectedItem>? Hobbies { get; set; }
 
     /// <summary>
     ///
@@ -50,7 +50,7 @@
         base.OnInitialized();
 
         Items = Foo.GenerateFoo(Localizer);
-        Hobbys = Foo.GenerateHobbies(Localizer);
+        Hobbies = Foo.GenerateHobbies(Localizer);
     }
 
     protected override void OnParametersSet()
@@ -65,7 +65,7 @@
 
     private async Task OnValidSubmit(EditContext model)
     {
-        // do someting like save model into db
+        // do something like save model into db
 
         // 关闭弹窗
         // close Dialog
