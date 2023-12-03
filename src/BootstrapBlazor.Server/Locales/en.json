@@ -5416,7 +5416,10 @@
     "ImageViewerPlaceHolderTemplateLoadingShow": "When loading show",
     "ImageViewerErrorTemplateUrlError": "Url The path error",
     "ImageViewerErrorTemplateCustom": "The custom",
-    "ImageViewerErrorTemplateLoadFailed": "Load failed"
+    "ImageViewerErrorTemplateLoadFailed": "Load failed",
+    "ImagePreviewerTitle": "Use ImagePreviewer Standalone",
+    "ImagePreviewerIntro": "Pop up the Previewer directly in conjunction with other components like Button",
+    "ImagePreviewerButton": "Show Previewer"
   },
   "BootstrapBlazor.Server.Components.Samples.Geolocations": {
     "GeolocationsTitle": "Geolocation",

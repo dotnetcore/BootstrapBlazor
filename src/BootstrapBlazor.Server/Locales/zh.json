@@ -5416,7 +5416,10 @@
     "ImageViewerPlaceHolderTemplateLoadingShow": "加载时显示",
     "ImageViewerErrorTemplateUrlError": "Url 路径错误",
     "ImageViewerErrorTemplateCustom": "自定义",
-    "ImageViewerErrorTemplateLoadFailed": "加载失败"
+    "ImageViewerErrorTemplateLoadFailed": "加载失败",
+    "ImagePreviewerTitle": "单独使用ImagePreviewer",
+    "ImagePreviewerIntro": "配合Button等其他组件，直接弹出Previewer",
+    "ImagePreviewerButton": "显示Previewer"
   },
   "BootstrapBlazor.Server.Components.Samples.Geolocations": {
     "GeolocationsTitle": "地理定位/移动距离追踪",

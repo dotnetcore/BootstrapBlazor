@@ -11,6 +11,14 @@ public partial class ImageViewers
 {
     private List<string> PreviewList { get; } = new();
 
+    [NotNull]
+    private ImagePreviewer? ImagePreviewer { get; set; }
+
+    private async Task ShowImagePreviewer()
+    {
+        await ImagePreviewer.Show();
+    }
+
     /// <summary>
     /// OnInitialized
     /// </summary>
