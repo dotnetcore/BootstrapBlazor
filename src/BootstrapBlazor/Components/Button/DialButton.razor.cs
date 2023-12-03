@@ -47,7 +47,7 @@ public partial class DialButton
     public int Duration { get; set; } = 400;
 
     /// <summary>
-    /// 获得/设置 按钮颜色
+    /// 获得/设置 位置
     /// </summary>
     [Parameter]
     public Placement Placement { get; set; }
