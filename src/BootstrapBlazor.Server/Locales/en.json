@@ -5471,7 +5471,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.FAIcons": {
     "Title": "Font Awesome Icons",
-    "BaseUsageText": "<code> bootstrapblazor </code> uses <code> font awesome 6.1.2 </code> as the built-in icon library. All icons are as follows",
+    "BaseUsageText": "<code> bootstrapblazor </code> uses <code>Font Awesome</code> latest version as the built-in icon library. All icons are as follows",
     "SwitchButtonTextOff": "Click to copy",
     "SwitchButtonTextOn": "Show Copy Dialog",
     "P1": "Extending the Component Package by Reference",
