@@ -27,7 +27,11 @@ public abstract class BootstrapServiceBase<TOption>
             : Cache.FirstOrDefault();
         if (Callback == null)
         {
+#if NET8_0_OR_GREATER
+            throw new InvalidOperationException($"{GetType().Name} not registered. refer doc https://www.blazor.zone/install-webapp step 7 for BootstrapBlazorRoot");
+#else
             throw new InvalidOperationException($"{GetType().Name} not registered. refer doc https://www.blazor.zone/install-server step 7 for BootstrapBlazorRoot");
+#endif
         }
         await Callback.Invoke(option);
     }
