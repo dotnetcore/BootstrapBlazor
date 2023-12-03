@@ -4305,6 +4305,7 @@
     "ProjectTemplate": "Template",
     "Globalization": "Globalization",
     "Localization": "Localization",
+    "WebAppBlazor": "WebApp Blazor",
     "ServerBlazor": "Server-side Blazor",
     "ClientBlazor": "Client-side Blazor",
     "MauiBlazor": "Maui Blazor",

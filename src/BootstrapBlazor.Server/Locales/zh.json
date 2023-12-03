@@ -4305,6 +4305,7 @@
     "ProjectTemplate": "项目模板",
     "Globalization": "全球化",
     "Localization": "本地化",
+    "WebAppBlazor": "WebApp 模式",
     "ServerBlazor": "服务器端模式",
     "ClientBlazor": "客户端模式",
     "MauiBlazor": "MAUI Blazor 模式",
