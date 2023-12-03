@@ -221,6 +221,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["WebAppBlazor"],
+                    Url = "install-webapp",
+                },
+                new()
+                {
                     Text = Localizer["ServerBlazor"],
                     Url = "install-server",
                 },

@@ -115,6 +115,10 @@ public partial class BootstrapBlazorRoot
 
     private RenderFragment RenderContent => builder =>
     {
+#if NET8_0_OR_GREATER
+        builder.AddContent(0, RenderChildContent);
+        builder.AddContent(1, RenderComponents());
+#else
         Render();
 
         [ExcludeFromCodeCoverage]
@@ -133,5 +137,6 @@ public partial class BootstrapBlazorRoot
                 builder.AddContent(2, RenderComponents());
             }
         }
+#endif
     };
 }
