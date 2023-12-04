@@ -23,11 +23,11 @@ public partial class ImageViewers
     {
         base.OnInitialized();
 
-        PreviewList.AddRange(new string[]
-        {
+        PreviewList.AddRange(
+        [
             "./images/ImageList1.jpeg",
             "./images/ImageList2.jpeg"
-        });
+        ]);
     }
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]

@@ -89,10 +89,7 @@ public partial class ImagePreviewer
     /// 显示图片
     /// </summary>
     /// <param name="index"></param>
-    public async Task Show(int index = 0)
-    {
-        await InvokeVoidAsync("show", Id, index);
-    }
+    public Task Show(int index = 0) => InvokeVoidAsync("show", Id, index);
 
     /// <summary>
     /// <inheritdoc/>
