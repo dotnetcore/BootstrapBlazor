@@ -221,12 +221,20 @@ public static class IEditItemExtensions
 
     private static RenderFragment RenderTooltip(this ITableColumn col, string? text) => pb =>
     {
-        if (col.ShowTips && !string.IsNullOrEmpty(text))
+        if (col.ShowTips)
         {
             pb.OpenComponent<Tooltip>(0);
             pb.AddAttribute(1, nameof(Tooltip.Title), text);
             pb.AddAttribute(2, "class", "text-truncate d-block");
-            pb.AddAttribute(3, nameof(Tooltip.ChildContent), new RenderFragment(builder => builder.AddContent(0, text)));
+            if (col.IsMarkupString)
+            {
+                pb.AddAttribute(3, nameof(Tooltip.ChildContent), new RenderFragment(builder => builder.AddMarkupContent(0, text)));
+                pb.AddAttribute(4, nameof(Tooltip.IsHtml), true);
+            }
+            else
+            {
+                pb.AddAttribute(3, nameof(Tooltip.ChildContent), new RenderFragment(builder => builder.AddContent(0, text)));
+            }
             pb.CloseComponent();
         }
         else if (col.IsMarkupString)
