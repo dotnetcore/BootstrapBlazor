@@ -5471,7 +5471,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.FAIcons": {
     "Title": "FA 图标选择器",
-    "BaseUsageText": "目前 <code>BootstrapBlazor</code> 使用 <code>Font Awesome 6.1.2</code> 作为内置图标库，所有图标如下",
+    "BaseUsageText": "目前 <code>BootstrapBlazor</code> 使用 <code>Font Awesome</code> 最新版本作为内置图标库，所有图标如下",
     "SwitchButtonTextOff": "点击拷贝",
     "SwitchButtonTextOn": "显示高级拷贝",
     "P1": "通过引用扩展组件包",
