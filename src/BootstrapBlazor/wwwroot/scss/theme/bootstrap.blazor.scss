@@ -381,6 +381,16 @@ $bb-menu-item-hover-bg: #409eff;
 $bb-menu-sub-bg: var(--bs-body-bg);
 $bb-disabled-bg: #ddd;
 
+// Pagination
+$bb-pagination-goto-padding: 0 .5rem;
+$bb-pagiantion-select-width: 120px;
+$bb-pagiantion-select-margin: 0 0.5rem;
+$bb-pagination-select-algin: center;
+$bb-pagination-goto-width: 60px;
+$bb-pagination-link-xs-padding: 0.25rem 0.35rem;
+$bb-pagination-link-padding: 0.25rem 0.5rem;
+$bb-pagination-link-sm-padding: 0.25rem 0.75rem;
+
 // Select
 $bb-select-append-width: 30px;
 $bb-select-append-color: #c0c4cc;
