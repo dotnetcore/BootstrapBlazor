@@ -1,5 +1,4 @@
 ﻿@page "/image-viewer"
-
 @inject IStringLocalizer<ImageViewers> Localizer
 
 <h3>@Localizer["ImageViewerTitle"]</h3>
@@ -123,7 +122,7 @@
 
 <DemoBlock Title="@Localizer["ImagePreviewerTitle"]"
            Introduction="@Localizer["ImagePreviewerIntro"]"
-           Name="ImagePreviewer">
+           Name="Show">
     <Button OnClick="ShowImagePreviewer" Text="@Localizer["ImagePreviewerButton"]"></Button>
     <ImagePreviewer @ref="ImagePreviewer" PreviewList="PreviewList"></ImagePreviewer>
 </DemoBlock>

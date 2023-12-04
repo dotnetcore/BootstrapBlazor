@@ -14,10 +14,7 @@ public partial class ImageViewers
     [NotNull]
     private ImagePreviewer? ImagePreviewer { get; set; }
 
-    private async Task ShowImagePreviewer()
-    {
-        await ImagePreviewer.Show();
-    }
+    private Task ShowImagePreviewer() => ImagePreviewer.Show();
 
     /// <summary>
     /// OnInitialized
