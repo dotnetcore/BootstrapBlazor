@@ -4387,8 +4387,10 @@ public class TableTest : TableTestBase
         Assert.True(column.Instance.Editable);
     }
 
-    [Fact]
-    public void ShowTips_Ok()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void ShowTips_Ok(bool markup)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -4406,6 +4408,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(3, "Editable", true);
                     builder.AddAttribute(7, "Text", "test");
                     builder.AddAttribute(9, "ShowTips", true);
+                    builder.AddAttribute(8, "IsMarkupString", markup);
                     builder.CloseComponent();
                 });
             });
