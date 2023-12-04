@@ -1,67 +1,61 @@
-﻿.nav-pages {
-    --bb-pagination-goto-padding: 0 .5rem;
+.nav-pages {
+    --bb-pagination-goto-padding: #{$bb-pagination-goto-padding};
+    --bb-pagiantion-select-width: #{$bb-pagiantion-select-width};
+    --bb-pagiantion-select-margin: #{$bb-pagiantion-select-margin};
+    --bb-pagination-select-algin: #{$bb-pagination-select-algin};
+    --bb-pagination-goto-width: #{$bb-pagination-goto-width};
     justify-content: space-between;
     align-items: center;
     width: 100%;
-}
 
-    .nav-pages .page-goto {
-        display: flex;
-        align-items: center;
+    .select {
+        width: var(--bb-pagiantion-select-width);
+        margin: var(--bb-pagiantion-select-margin);
+
+        .dropdown-menu {
+            min-width: unset;
+            text-align: var(--bb-pagination-select-algin);
+        }
+
+        .form-select {
+            text-align: var(--bb-pagination-select-algin);
+        }
     }
 
-        .nav-pages .page-goto .goto-text {
+    .page-goto {
+        display: flex;
+        align-items: center;
+
+        .goto-text {
             padding: var(--bb-pagination-goto-padding);
         }
 
-        .nav-pages .page-goto > input {
-            max-width: 60px;
+        > input {
+            max-width: var(--bb-pagination-goto-width);
         }
+    }
+}
 
 .pagination {
     margin: 0;
     flex: 1 1 auto;
     justify-content: flex-end;
     --bs-pagination-focus-box-shadow: none;
-}
+    --bb-pagination-link-padding: #{$bb-pagination-link-xs-padding};
 
-.pagination-items {
-    display: inline-block;
-}
-
-    .pagination-items .select {
-        width: 120px;
-        margin: 0 10px;
+    .page-link {
+        padding: var(--bb-pagination-link-padding);
     }
-
-        .pagination-items .select .dropdown-menu {
-            min-width: unset;
-            text-align: center;
-        }
-
-        .pagination-items .select .form-select {
-            text-align: center;
-        }
-
-.page-link {
-    padding: 0.5rem 0.35rem;
-    line-height: 1;
 }
-
-    .page-link i {
-        width: 11px;
-        height: 11px;
-        text-align: center;
-    }
 
 @media (min-width: 375px) {
-    .page-link {
-        padding: 0.5rem 0.5rem;
+    .pagination {
+        --bb-pagination-link-padding: #{$bb-pagination-link-padding};
     }
 }
 
 @media (min-width: 456px) {
-    .page-link {
-        padding: 0.5rem 0.75rem;
+    .pagination {
+        --bb-pagination-link-padding: #{$bb-pagination-link-sm-padding};
     }
 }
