@@ -120,4 +120,11 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["ImagePreviewerTitle"]"
+           Introduction="@Localizer["ImagePreviewerIntro"]"
+           Name="Show">
+    <Button OnClick="ShowImagePreviewer" Text="@Localizer["ImagePreviewerButton"]"></Button>
+    <ImagePreviewer @ref="ImagePreviewer" PreviewList="PreviewList"></ImagePreviewer>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />

@@ -86,6 +86,12 @@ public partial class ImagePreviewer
     private bool ShowButtons => PreviewList.Count > 1;
 
     /// <summary>
+    /// 显示图片
+    /// </summary>
+    /// <param name="index"></param>
+    public Task Show(int index = 0) => InvokeVoidAsync("show", Id, index);
+
+    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
