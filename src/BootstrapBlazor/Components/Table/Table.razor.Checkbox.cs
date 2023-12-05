@@ -97,23 +97,12 @@ public partial class Table<TItem>
     /// <param name="val"></param>
     protected virtual async Task OnHeaderCheck(CheckboxState state, TItem val)
     {
-        switch (state)
+        SelectedRows.RemoveAll(x => Rows.Any(a => Equals(a, x)));
+        if (state == CheckboxState.Checked)
         {
-            case CheckboxState.Checked:
-                // select all
-                SelectedRows.RemoveAll(x => Rows.Any(a => Equals(a, x)));
-                SelectedRows.AddRange(ShowRowCheckboxCallback == null ? Rows : Rows.Where(ShowRowCheckboxCallback));
-
-                await OnSelectedRowsChanged();
-                break;
-            case CheckboxState.UnChecked:
-            default:
-                // unselect all
-                SelectedRows.RemoveAll(x => Rows.Any(a => Equals(a, x)));
-
-                await OnSelectedRowsChanged();
-                break;
+            SelectedRows.AddRange(ShowRowCheckboxCallback == null ? Rows : Rows.Where(ShowRowCheckboxCallback));
         }
+        await OnSelectedRowsChanged();
     }
 
     /// <summary>
