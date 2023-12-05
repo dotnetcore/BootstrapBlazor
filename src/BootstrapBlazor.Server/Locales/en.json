@@ -5051,7 +5051,11 @@
     "TablesSelectionNormalIntro": "Defaults to the selected state when the table is initialized by setting the <code>SelectedRows</code> property collection",
     "TablesSelectionNormalTips": "Maintain line state fallback mechanism, <code>ModelEqualityComparer</code> <code>CustomKeyAttribute</code> <code>IEqualityComparer&lt;TItem&gt;</code> <code>Equals</code> overloaded method",
     "TablesSelectionNormalSelectRow": "selected row record",
-    "TablesSelectionNormalButtonText": "clear selection"
+    "TablesSelectionNormalButtonText": "clear selection",
+    "TablesSelectionKeepInfo": "Keep State:",
+    "TablesSelectionKeepOnText": "Keep",
+    "TablesSelectionKeepOffText": "No keep",
+    "TablesSelectionCountText": "Count：{0}"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesExcel": {
     "TablesExcelTitle": "Table Excel",
