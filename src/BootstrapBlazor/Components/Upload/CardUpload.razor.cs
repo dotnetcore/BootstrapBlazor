@@ -94,11 +94,6 @@ public partial class CardUpload<TValue>
     private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示取消上传按钮 默认 false 不显示
-    /// </summary>
-    private bool ShowCancelButton { get; set; } = true;
-
-    /// <summary>
     /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
