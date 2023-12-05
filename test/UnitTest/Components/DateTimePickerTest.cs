@@ -614,14 +614,11 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void HasSeconds_Ok()
     {
-        var res = false;
-        var value = false;
         var cut = Context.RenderComponent<TimePickerBody>(builder =>
         {
             builder.Add(a => a.Value, TimeSpan.FromDays(1));
             builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<TimeSpan>(this, t =>
             {
-                value = true;
             }));
         });
 
@@ -632,14 +629,11 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     [Fact]
     public void HaveNotSeconds_Ok()
     {
-        var res = false;
-        var value = false;
         var cut = Context.RenderComponent<TimePickerBody>(builder =>
         {
             builder.Add(a => a.Value, TimeSpan.FromDays(1));
             builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<TimeSpan>(this, t =>
             {
-                value = true;
             }));
             builder.Add(a => a.HasSeconds, false);
         });

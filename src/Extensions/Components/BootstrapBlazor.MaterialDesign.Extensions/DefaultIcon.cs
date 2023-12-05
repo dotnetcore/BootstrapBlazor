@@ -190,6 +190,7 @@ internal class DefaultIcon
         { ComponentIcons.CardUploadRemoveIcon, "mdi mdi-trash-can-outline" },
         { ComponentIcons.CardUploadDownloadIcon, "mdi mdi-cloud-download-outline" },
         { ComponentIcons.CardUploadZoomIcon, "mdi mdi-magnify-plus-outline" },
+        { ComponentIcons.UploadCancelIcon, "mdi mdi-cancel" },
 
         { ComponentIcons.FileIconExcel, "mdi mdi-file-excel-outline" },
         { ComponentIcons.FileIconDocx, "mdi mdi-file-word-outline" },
