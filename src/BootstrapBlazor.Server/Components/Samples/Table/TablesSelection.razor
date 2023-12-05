@@ -8,15 +8,18 @@
 <DemoBlock Title="@Localizer["TablesSelectionNormalTitle"]"
            Introduction="@Localizer["TablesSelectionNormalIntro"]"
            Name="Normal">
-    <div>
-        <div class="d-flex gap-5">
-            <div>保持选中行状态：  <Switch @bind-Value="IsKeepSelectedRows" OnText="保持" OffText="不保持" class="d-inline" /></div>
-            <div>选中的行数：@SelectedItems.Count</div>            
-        </div>
-        <Table TItem="Foo" @bind-SelectedRows="SelectedItems" IsKeepSelectedRows="IsKeepSelectedRows"
+    <div class="table-selection-demo">
+        <Table TItem="Foo" @bind-SelectedRows="SelectedItems" IsKeepSelectedRows="IsKeepSelectedRows" class="table-selection-demo"
                IsPagination="true" PageItemsSource="@PageItemsSource"
                IsStriped="true" IsBordered="true" IsMultipleSelect="true"
                ShowToolbar="true" ShowDefaultButtons="false" OnQueryAsync="@OnQueryAsync">
+            <TableToolbarBeforeTemplate>
+                <div class="table-selection-info">
+                    <div class="me-2">@Localizer["TablesSelectionKeepInfo"]</div>
+                    <Switch @bind-Value="IsKeepSelectedRows" OnText="@Localizer["TablesSelectionKeepOnText"]" OffText="@Localizer["TablesSelectionKeepOffText"]" />
+                    <div class="ms-5">@Localizer["TablesSelectionCountText", SelectedItems.Count]</div>
+                </div>
+            </TableToolbarBeforeTemplate>
             <TableColumns>
                 <TableColumn @bind-Field="@context.DateTime" Width="180" />
                 <TableColumn @bind-Field="@context.Name" Width="100" />
@@ -38,6 +41,5 @@
         </ul>
 
         <Button OnClick="OnClick" Color="Color.Primary">@Localizer["TablesSelectionNormalButtonText"]</Button>
-
     </div>
 </DemoBlock>
