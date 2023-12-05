@@ -31,7 +31,7 @@ public partial class Header
     [NotNull]
     private string? DownloadText { get; set; }
 
-    private string DownloadUrl => $"{WebsiteOption.CurrentValue.BootstrapBlazorLink}/repository/archive/main.zip";
+    private string DownloadUrl => $"{WebsiteOption.CurrentValue.GiteeRepositoryUrl}/repository/archive/main.zip";
 
     /// <summary>
     /// <inheritdoc/>
