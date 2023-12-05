@@ -78,6 +78,12 @@ public partial class CardUpload<TValue>
     public string? ZoomIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 取消图标
+    /// </summary>
+    [Parameter]
+    public string? CancelIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示放大按钮 默认 true
     /// </summary>
     [Parameter]
@@ -89,9 +95,20 @@ public partial class CardUpload<TValue>
     [Parameter]
     public bool ShowDeletedButton { get; set; } = true;
 
+    /// <summary>
+    /// 获得/设置 点击取消按钮回调此方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<UploadFile, Task>? OnCancel { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示取消上传按钮 默认 false 不显示
+    /// </summary>
+    private bool ShowCancelButton { get; set; } = true;
 
     /// <summary>
     /// <inheritdoc/>
@@ -106,6 +123,7 @@ public partial class CardUpload<TValue>
         RemoveIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardUploadRemoveIcon);
         DownloadIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardUploadDownloadIcon);
         ZoomIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardUploadZoomIcon);
+        CancelIcon ??= IconTheme.GetIconByKey(ComponentIcons.CardUploadCancelIcon);
     }
 
     private static bool IsImage(UploadFile item)
@@ -147,6 +165,14 @@ public partial class CardUpload<TValue>
         if (OnZoomAsync != null)
         {
             await OnZoomAsync(item);
+        }
+    }
+
+    private async Task OnClickCancel(UploadFile item)
+    {
+        if (OnCancel != null)
+        {
+            await OnCancel(item);
         }
     }
 }

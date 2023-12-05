@@ -40,6 +40,12 @@
                                 <i class="@DownloadIcon"></i>
                             </button>
                         }
+                        @if (GetShowProgress(item))
+                        {
+                            <button type="button" class="btn btn-sm btn-secondary btn-cancel" @onclick="() => OnClickCancel(item)" aria-label="cancel">
+                                <i class="@CancelIcon"></i>
+                            </button>
+                        }
                     </div>
                     @if (ShowDeletedButton)
                     {
