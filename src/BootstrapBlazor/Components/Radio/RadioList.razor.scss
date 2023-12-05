@@ -1,6 +1,7 @@
-﻿.radio-list {
-    --bb-radio-item-width: 200px;
-    --bb-radio-item-padding: 6px 0.75rem;
+.radio-list {
+    --bb-radio-item-width: #{$bb-radio-item-width};
+    --bb-radio-item-padding: #{$bb-radio-item-padding};
+    --bb-radio-group-item-active-color: #{$bb-radio-group-item-active-color};
     display: flex;
     flex-wrap: wrap;
 }
@@ -36,7 +37,7 @@
         }
 
         .radio-list.btn-group .active {
-            color: #fff;
+            color: var(--bb-radio-group-item-active-color);
         }
 
         .radio-list.btn-group.disabled > span {

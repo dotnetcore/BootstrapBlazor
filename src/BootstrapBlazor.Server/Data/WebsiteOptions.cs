@@ -35,7 +35,7 @@ public class WebsiteOptions
     /// <summary>
     /// 
     /// </summary>
-    public string BootstrapBlazorLink { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor";
+    public string GiteeRepositoryUrl { get; set; } = "https://gitee.com/LongbowEnterprise/BootstrapBlazor";
 
     /// <summary>
     /// 
@@ -51,6 +51,11 @@ public class WebsiteOptions
     /// 源码地址
     /// </summary>
     public string SourceCodePath { get; set; } = "/root/BootstrapBlazor/src/";
+
+    /// <summary>
+    /// Github 仓库地址
+    /// </summary>
+    public string GithubRepositoryUrl { get; set; } = "https://github.com/dotnetcore/BootstrapBlazor?wt.mc_id=DT-MVP-5004174";
 
     /// <summary>
     /// 
@@ -102,7 +107,7 @@ public class WebsiteOptions
     /// <summary>
     /// 获得/设置 组件总数
     /// </summary>
-    public int TotalCount { get; set; }
+    public int TotalCount { get; set; } = 160;
 
     /// <summary>
     /// 获得 当前环境配置
