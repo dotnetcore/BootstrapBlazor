@@ -102,6 +102,12 @@ public partial class Table<TItem>
     public RenderFragment? PageInfoTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 分页信息内容模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment? PageInfoBodyTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 当前行
     /// </summary>
     protected int StartIndex { get; set; }

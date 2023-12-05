@@ -951,6 +951,10 @@
     @<div class="table-page-info">
         <div class="me-2">@PageInfoLabelString</div>
         <Select Items="@GetPageItemsSource()" Value="PageItems" OnValueChanged="@OnPageItemsValueChanged"></Select>
+        @if (PageInfoBodyTemplate != null)
+        {
+            @PageInfoBodyTemplate
+        }
     </div>;
 
     RenderFragment RenderPagination =>
