@@ -139,8 +139,11 @@ public partial class Table<TItem>
         {
             PageIndex = pageIndex;
 
-            // 清空选中行
-            SelectedRows.Clear();
+            if (!IsKeepSelectedRows)
+            {
+                // 清空选中行
+                SelectedRows.Clear();
+            }
 
             // 无刷新查询数据
             await QueryAsync(false);

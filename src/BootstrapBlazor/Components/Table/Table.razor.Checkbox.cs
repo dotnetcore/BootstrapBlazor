@@ -19,6 +19,26 @@ public partial class Table<TItem>
         .Build();
 
     /// <summary>
+    /// <para>是否保持选择行，默认为否。</para>
+    /// 最少要有一种行对比的回落机制，否则重新获取数据后无法还原选中状态。
+    /// <para>保持行状态回落机制（优先级从高到低）：</para>
+    /// <list type="number">
+    /// <item>
+    /// <term>ModelEqualityComparer</term>
+    /// </item>
+    /// <item>
+    /// <term>CustomKeyAttribute</term>
+    /// </item>
+    /// <item>
+    /// <term>IEqualityComparer&lt;TItem> Equals 重载方法</term>
+    /// </item>
+    /// </list>
+    /// </summary>
+    [Parameter]
+    public bool IsKeepSelectedRows { get; set; } = false;
+
+
+    /// <summary>
     /// 获得 表头行是否选中状态
     /// </summary>
     /// <returns></returns>
@@ -95,14 +115,16 @@ public partial class Table<TItem>
         {
             case CheckboxState.Checked:
                 // select all
-                SelectedRows.Clear();
+                SelectedRows.RemoveAll(x => Rows.Any(a => Equals(a, x)));
                 SelectedRows.AddRange(ShowRowCheckboxCallback == null ? Rows : Rows.Where(ShowRowCheckboxCallback));
+
                 await OnSelectedRowsChanged();
                 break;
             case CheckboxState.UnChecked:
             default:
                 // unselect all
-                SelectedRows.Clear();
+                SelectedRows.RemoveAll(x => Rows.Any(a => Equals(a, x)));
+
                 await OnSelectedRowsChanged();
                 break;
         }

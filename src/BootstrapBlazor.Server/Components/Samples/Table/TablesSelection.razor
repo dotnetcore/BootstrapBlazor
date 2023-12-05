@@ -9,7 +9,11 @@
            Introduction="@Localizer["TablesSelectionNormalIntro"]"
            Name="Normal">
     <div>
-        <Table TItem="Foo" @bind-SelectedRows="SelectedItems"
+        <div class="d-flex gap-5">
+            <div>保持选中行状态：  <Switch @bind-Value="IsKeepSelectedRows" OnText="保持" OffText="不保持" class="d-inline" /></div>
+            <div>选中的行数：@SelectedItems.Count</div>            
+        </div>
+        <Table TItem="Foo" @bind-SelectedRows="SelectedItems" IsKeepSelectedRows="IsKeepSelectedRows"
                IsPagination="true" PageItemsSource="@PageItemsSource"
                IsStriped="true" IsBordered="true" IsMultipleSelect="true"
                ShowToolbar="true" ShowDefaultButtons="false" OnQueryAsync="@OnQueryAsync">
