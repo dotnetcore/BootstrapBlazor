@@ -135,6 +135,11 @@ public enum ComponentIcons
     CardUploadZoomIcon,
 
     /// <summary>
+    /// CardUpload 组件 CancelIcon 图标
+    /// </summary>
+    CardUploadCancelIcon,
+
+    /// <summary>
     /// Cascader 组件 Icon 属性图标
     /// </summary>
     CascaderIcon,
