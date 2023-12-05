@@ -1,4 +1,8 @@
 .query-builder {
+    --bb-qb-group-padding: #{$bb-qb-group-padding};
+    --bb-qb-sub-group-padding-left: #{$bb-qb-sub-group-padding-left};
+    --bb-qb-item-margin-bottom: #{$bb-qb-item-margin-bottom};
+    --bb-qb-row-item-margin-right: #{$bb-qb-row-item-margin-right};
     position: relative;
 
     .qb-group {
@@ -10,14 +14,14 @@
             position: relative;
 
             &:not(:last-child) {
-                margin-bottom: .5rem;
+                margin-bottom: var(--bb-qb-item-margin-bottom);
             }
 
             > .qb-group {
-                border: 1px solid #ddd;
+                border: 1px solid var(--bs-border-color);
                 border-radius: var(--bs-border-radius);
-                padding: .5rem;
-                padding-left: 2.5rem;
+                padding: var(--bb-qb-group-padding);
+                padding-left: var(--bb-qb-sub-group-padding-left);
 
                 > .qb-item:last-child:before {
                     content: attr(data-bb-logic);
@@ -35,7 +39,7 @@
             display: flex;
 
             > *:not(:last-child) {
-                margin-right: .5rem;
+                margin-right: var(--bb-qb-row-item-margin-right);
             }
 
             > input.form-control {
