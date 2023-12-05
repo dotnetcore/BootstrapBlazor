@@ -330,7 +330,7 @@ public class UploadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ButtonUpload_Ok()
+    public async Task ButtonUpload_Ok()
     {
         UploadFile? uploadFile = null;
         var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
@@ -354,10 +354,11 @@ public class UploadTest : BootstrapBlazorTestBase
             });
         });
         var input = cut.FindComponent<InputFile>();
-        cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        await cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
         {
             new()
         })));
+        cut.DoesNotContain("cancel-icon");
     }
 
     [Fact]
@@ -547,19 +548,33 @@ public class UploadTest : BootstrapBlazorTestBase
     [Fact]
     public void ButtonUpload_ShowProgress_Ok()
     {
+        var cancel = false;
         var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
         {
             pb.Add(a => a.ShowProgress, true);
             pb.Add(a => a.OnChange, async file =>
             {
+                await Task.Delay(100);
                 await file.SaveToFileAsync("1.txt");
+            });
+            pb.Add(a => a.OnCancel, file =>
+            {
+                cancel = true;
+                return Task.CompletedTask;
             });
         });
         var input = cut.FindComponent<InputFile>();
-        cut.InvokeAsync(() => input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+        cut.InvokeAsync(() =>
         {
-            new()
-        })));
+            input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+            {
+                new()
+            }));
+            var button = cut.Find(".cancel-icon");
+            Assert.NotNull(button);
+            button.Click();
+        });
+        Assert.True(cancel);
     }
 
     [Fact]
@@ -842,6 +857,38 @@ public class UploadTest : BootstrapBlazorTestBase
             });
         });
         cut.Contains("custom-file-icon-template");
+    }
+
+    [Fact]
+    public async Task CardUpload_ShowProgress_Ok()
+    {
+        var cancel = false;
+        var cut = Context.RenderComponent<CardUpload<string>>(pb =>
+        {
+            pb.Add(a => a.ShowProgress, true);
+            pb.Add(a => a.OnChange, async file =>
+            {
+                await Task.Delay(100);
+                await file.SaveToFileAsync("1.txt");
+            });
+            pb.Add(a => a.OnCancel, file =>
+            {
+                cancel = true;
+                return Task.CompletedTask;
+            });
+        });
+        var input = cut.FindComponent<InputFile>();
+        await cut.InvokeAsync(() =>
+        {
+            input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+            {
+                new()
+            }));
+            var button = cut.Find(".btn-cancel");
+            Assert.NotNull(button);
+            button.Click();
+        });
+        Assert.True(cancel);
     }
 
     [Fact]
