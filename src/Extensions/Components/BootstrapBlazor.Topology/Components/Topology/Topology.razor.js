@@ -1,12 +1,12 @@
 ﻿import '../../meta2d.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
 
-export function init(id, invoker, data, callback, isSupportTouch, isFit, isCenter) {
+export function init(id, invoker, data, callback, isFit, isCenter) {
     const el = document.getElementById(id)
     if (el === null) { return }
 
     const initCanvas = () => {
-        const option = { isFit, isCenter, isSupportTouch }
+        const option = { isFit, isCenter }
         const meta2d = createMeta2d(el, data, option)
         Data.set(id, {
             el,
@@ -92,7 +92,7 @@ export function dispose(id) {
 }
 
 const createMeta2d = (el, data, option) => {
-    const meta2d = hackMeta2d(el, option.isSupportTouch)
+    const meta2d = hackMeta2d(el)
     meta2d.open(JSON.parse(data))
     meta2d.lock(1)
 
@@ -109,7 +109,7 @@ const createMeta2d = (el, data, option) => {
     return meta2d
 }
 
-const hackMeta2d = (el, isSupportTouch) => {
+const hackMeta2d = el => {
     if (Meta2d.isHack === undefined) {
         Meta2d.isHack = true
         Meta2d.prototype.lock = function (status) {
@@ -122,12 +122,11 @@ const hackMeta2d = (el, isSupportTouch) => {
 
         }
         Meta2d.prototype.doSocket = function(data) {
-            console.log(this, data)
             this.socketCallback(data)
         }
     }
 
-    const meta2d = new Meta2d(el, {}, isSupportTouch)
+    const meta2d = new Meta2d(el)
 
     const originalCanvasResize = meta2d.canvas.resize
     meta2d.canvas.resize = function () {

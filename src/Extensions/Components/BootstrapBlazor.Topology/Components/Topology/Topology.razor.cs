@@ -44,6 +44,7 @@ public partial class Topology : IAsyncDisposable
     /// </summary>
     /// <remarks></remarks>
     [Parameter]
+    [Obsolete("已过期，脚本已支持")]
     public bool IsSupportTouch { get; set; }
 
     /// <summary>
@@ -74,7 +75,7 @@ public partial class Topology : IAsyncDisposable
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Content, nameof(PushData), IsSupportTouch, IsFitView, IsCenterView);
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, Content, nameof(PushData), IsFitView, IsCenterView);
 
     /// <summary>
     /// 开始推送数据方法
