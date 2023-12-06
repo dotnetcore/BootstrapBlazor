@@ -110,7 +110,7 @@ const createMeta2d = (el, data, option) => {
 }
 
 const hackMeta2d = el => {
-    if (Meta2d.isHack === undefined) {
+    if (Meta2d.isHack === void 0) {
         Meta2d.isHack = true
         Meta2d.prototype.lock = function (status) {
             this.store.data.locked = status
