@@ -9,7 +9,6 @@
     --bb-table-header-icon-hover-color: #606266;
     --bb-table-header-min-height: 37px;
     --bb-table-footer-font-weight: blod;
-    --bb-table-footer-border-top: 2px solid #dee2e6;
     --bb-table-card-row-padding: .75rem .5rem;
     --bb-table-columnlist-max-height: var(--bb-dropdown-max-height);
     --bs-table-striped-bg: rgba(0,0,0,.05);
@@ -179,7 +178,9 @@
 
 .table tfoot {
     font-weight: var(--bb-table-footer-font-weight);
-    border-top: var(--bb-table-footer-border-top);
+    position: sticky;
+    bottom: 0;
+    outline: 2px solid var(--bs-border-color);
 }
 
 .table td, .table th {
