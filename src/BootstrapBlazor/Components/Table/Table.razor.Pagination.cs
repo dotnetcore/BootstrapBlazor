@@ -84,7 +84,7 @@ public partial class Table<TItem>
     public RenderFragment? GotoTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示 Goto 跳转导航
+    /// 获得/设置 是否显示 PageInfo 内容 默认 true 显示
     /// </summary>
     [Parameter]
     public bool ShowPageInfo { get; set; } = true;
