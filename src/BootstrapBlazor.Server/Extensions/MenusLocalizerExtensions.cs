@@ -635,6 +635,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["ImageCropper"],
+                    Url = "image-cropper"
+                },
+                new()
+                {
                     IsNew = true,
                     Text = Localizer["MindMap"],
                     Url = "mind-map"

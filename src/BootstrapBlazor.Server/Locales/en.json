@@ -1631,7 +1631,8 @@
     "FileViewerText": "FileViewer",
     "WebSerialText": "WebSerial",
     "MindMapText": "MindMap",
-    "WebSpeechText": "WebSpeech"
+    "WebSpeechText": "WebSpeech",
+    "ImageCropperText": "ImageCropper"
   },
   "BootstrapBlazor.Server.Components.Pages.Breakpoints": {
     "Heading": "Breakpoints",
@@ -4526,7 +4527,8 @@
     "JSExtension": "JSRuntime Extensions",
     "Clipboard": "Clipboard Service",
     "CodeEditor": "CodeEditor",
-    "Gantt": "Gantt"
+    "Gantt": "Gantt",
+    "ImageCropper": "ImageCropper"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -6023,5 +6025,19 @@
     "AttrOnProgressChanged": "A callback that is triggered when a task progress is dragged",
     "AttrOption": "Configuration items",
     "AttrMethod": "Change the Gantt chart view"
+  },
+  "BootstrapBlazor.Server.Components.Samples.ImageCroppers": {
+    "Title": "Image cropper",
+    "ImageCropperNormalText": "Basic usage",
+    "ImageCropperNormalIntro": "Url parameter setting image",
+    "ImageCropperResetText": "Reset",
+    "ImageCropperReplaceText": "Replace",
+    "AttributesImageCropperUrl": "Image URL or Base64 dataurl",
+    "AttributesImageCropperDefaultButton": "Show default button",
+    "AttributesImageCropperPreview": "Show preview after cropping",
+    "AttributesImageCropperOnResult": "Crop result Stream callback method",
+    "AttributesImageCropperOnBase64Result": "Crop result base64 callback method",
+    "AttributesImageCropperCrop": "Crop, return base64, and execute OnResult/OnBase64Result callback",
+    "AttributesImageCropperCropToStream": "Crop, return Stream"
   }
 }

@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BootstrapBlazor.ImageCropper" Version="*" />
     <PackageReference Include="BootstrapBlazor.Middleware" Version="8.0.0" />
     <PackageReference Include="Longbow.Logging" Version="7.0.0" />
     <PackageReference Include="Longbow.Tasks" Version="7.0.0" />
@@ -50,7 +51,7 @@
     <PackageReference Include="BootstrapBlazor.MindMap" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.MouseFollower" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.OnScreenKeyboard" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.PdfReader" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.PdfReader" Version="8.0.1" />
     <PackageReference Include="BootstrapBlazor.SignaturePad" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.Splitting" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.SummerNote" Version="8.0.1" />

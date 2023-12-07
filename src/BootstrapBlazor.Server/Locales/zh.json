@@ -1631,7 +1631,8 @@
     "FileViewerText": "文件预览器 FileViewer",
     "WebSerialText": "串口读写 WebSerial",
     "MindMapText": "思维导图 Mind Map",
-    "WebSpeechText": "语音识别/合成 WebSpeech"
+    "WebSpeechText": "语音识别/合成 WebSpeech",
+    "ImageCropperText": "图像裁剪 ImageCropper"
   },
   "BootstrapBlazor.Server.Components.Pages.Breakpoints": {
     "Heading": "断点",
@@ -4526,7 +4527,8 @@
     "JSExtension": "JSRuntime 扩展",
     "Clipboard": "剪切板服务",
     "CodeEditor": "代码编辑器 CodeEditor",
-    "Gantt": "甘特图 Gantt"
+    "Gantt": "甘特图 Gantt",
+    "ImageCropper": "图像裁剪 ImageCropper"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6023,5 +6025,19 @@
     "AttrOnProgressChanged": "拖动任务进度时触发的回调",
     "AttrOption": "配置项",
     "AttrMethod": "改变甘特图视图"
+  },
+  "BootstrapBlazor.Server.Components.Samples.ImageCroppers": {
+    "Title": "ImageCropper 图像裁剪",
+    "ImageCropperNormalText": "基础用法",
+    "ImageCropperNormalIntro": "Url 参数设置图片",
+    "ImageCropperResetText": "复位",
+    "ImageCropperReplaceText": "替换",
+    "AttributesImageCropperUrl": "图片URL 或 Base64 dataurl",
+    "AttributesImageCropperDefaultButton": "显示默认按钮",
+    "AttributesImageCropperPreview": "显示剪裁后预览",
+    "AttributesImageCropperOnResult": "剪裁结果 Stream 回调方法",
+    "AttributesImageCropperOnBase64Result": "剪裁结果 base64 回调方法",
+    "AttributesImageCropperCrop": "剪裁,返回 base64, 并执行 OnResult/OnBase64Result 回调",
+    "AttributesImageCropperCropToStream": "剪裁,返回 Stream"
   }
 }
