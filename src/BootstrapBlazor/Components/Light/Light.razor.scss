@@ -84,7 +84,7 @@
         --bb-light-bg: var(--bb-light-danger-bg);
 
         &.flash {
-            animation: danger var(--bb-light-animation-duration) linear infinite;
+            animation: light-danger var(--bb-light-animation-duration) linear infinite;
         }
 
         &:hover {
@@ -96,7 +96,7 @@
         --bb-light-bg: var(--bb-light-success-bg);
 
         &.flash {
-            animation: success var(--bb-light-animation-duration) linear infinite;
+            animation: light-success var(--bb-light-animation-duration) linear infinite;
         }
 
         &:hover {
@@ -108,7 +108,7 @@
         --bb-light-bg: var(--bb-light-info-bg);
 
         &.flash {
-            animation: info var(--bb-light-animation-duration) linear infinite;
+            animation: light-info var(--bb-light-animation-duration) linear infinite;
         }
 
         &:hover {
@@ -120,7 +120,7 @@
         --bb-light-bg: var(--bb-light-warning-bg);
 
         &.flash {
-            animation: warning var(--bb-light-animation-duration) linear infinite;
+            animation: light-warning var(--bb-light-animation-duration) linear infinite;
         }
 
         &:hover {
@@ -132,7 +132,7 @@
         --bb-light-bg: var(--bb-light-primary-bg);
 
         &.flash {
-            animation: primary var(--bb-light-animation-duration) linear infinite;
+            animation: light-primary var(--bb-light-animation-duration) linear infinite;
         }
 
         &:hover {
@@ -144,7 +144,7 @@
         --bb-light-bg: var(--bb-light-secondary-bg);
 
         &.flash {
-            animation: secondary var(--bb-light-animation-duration) linear infinite;
+            animation: light-secondary var(--bb-light-animation-duration) linear infinite;
         }
 
         &:hover {
@@ -156,7 +156,7 @@
         --bb-light-bg: var(--bb-light-dark-bg);
 
         &.flash {
-            animation: dark var(--bb-light-animation-duration) linear infinite;
+            animation: light-dark var(--bb-light-animation-duration) linear infinite;
         }
 
         &:hover {
@@ -193,10 +193,10 @@
     }
 }
 
-@include animation(danger, #e17777, #892726);
-@include animation(success, #5cb85c, #116811);
-@include animation(info, #5bc0de, #1d7792);
-@include animation(warning, #ffc107, #cc9f18);
-@include animation(primary, #007bff, #0f5fb5);
-@include animation(secondary, #6c757d, #4b5054);
-@include animation(dark, #6061e2, #3232a0);
+@include animation(light-danger, #e17777, #892726);
+@include animation(light-success, #5cb85c, #116811);
+@include animation(light-info, #5bc0de, #1d7792);
+@include animation(light-light-warning, #ffc107, #cc9f18);
+@include animation(light-primary, #007bff, #0f5fb5);
+@include animation(light-secondary, #6c757d, #4b5054);
+@include animation(light-dark, #6061e2, #3232a0);
