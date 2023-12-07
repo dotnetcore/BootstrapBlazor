@@ -103,6 +103,7 @@
         .dial-list-content {
             flex-direction: column;
             height: var(--bs-dial-list-height);
+            flex-direction: column-reverse;
         }
     }
 
