@@ -14,7 +14,7 @@ public partial class Light
     /// </summary>
     protected string? ClassString => CssBuilder.Default("light")
         .AddClass("is-flat", IsFlat)
-        .AddClass("flash", IsFlash)
+        .AddClass("flash", IsFlash && !IsFlat)
         .AddClass($"light-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();

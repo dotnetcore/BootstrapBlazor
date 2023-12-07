@@ -50,87 +50,117 @@
         display: none;
     }
 
+    &.is-flat {
+        --bb-light-danger-bg: var(--bs-danger);
+        --bb-light-danger-hover-bg: var(--bs-danger);
+        --bb-light-success-bg: var(--bs-success);
+        --bb-light-success-hover-bg: var(--bs-success);
+        --bb-light-info-bg: var(--bs-info);
+        --bb-light-info-hover-bg: var(--bs-info);
+        --bb-light-warning-bg: var(--bs-warning);
+        --bb-light-warning-hover-bg: var(--bs-warning);
+        --bb-light-primary-bg: var(--bs-primary);
+        --bb-light-primary-hover-bg: var(--bs-primary);
+        --bb-light-secondary-bg: var(--bs-secondary);
+        --bb-light-secondary-hover-bg: var(--bs-secondary);
+        --bb-light-dark-bg: var(--bs-dark);
+        --bb-light-dark-hover-bg: var(--bs-dark);
+        position: relative;
+
+        &:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            inset-inline-start: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 1px solid var(--bb-light-bg);
+            animation: light-flat 1.2s infinite ease-in-out;
+        }
+    }
+
     &.light-danger {
-        background: var(--bb-light-danger-bg);
+        --bb-light-bg: var(--bb-light-danger-bg);
 
         &.flash {
             animation: danger var(--bb-light-animation-duration) linear infinite;
         }
 
         &:hover {
-            background: var(--bb-light-danger-hover-bg);
+            --bb-light-bg: var(--bb-light-danger-hover-bg);
         }
     }
 
     &.light-success {
-        background: var(--bb-light-success-bg);
+        --bb-light-bg: var(--bb-light-success-bg);
 
         &.flash {
             animation: success var(--bb-light-animation-duration) linear infinite;
         }
 
         &:hover {
-            background: var(--bb-light-success-hover-bg);
+            --bb-light-bg: var(--bb-light-success-hover-bg);
         }
     }
 
     &.light-info {
-        background: var(--bb-light-info-bg);
+        --bb-light-bg: var(--bb-light-info-bg);
 
         &.flash {
             animation: info var(--bb-light-animation-duration) linear infinite;
         }
 
         &:hover {
-            background: var(--bb-light-info-hover-bg);
+            --bb-light-bg: var(--bb-light-info-hover-bg);
         }
     }
 
     &.light-warning {
-        background: var(--bb-light-warning-bg);
+        --bb-light-bg: var(--bb-light-warning-bg);
 
         &.flash {
             animation: warning var(--bb-light-animation-duration) linear infinite;
         }
 
         &:hover {
-            background: var(--bb-light-warning-hover-bg);
+            --bb-light-bg: var(--bb-light-warning-hover-bg);
         }
     }
 
     &.light-primary {
-        background: var(--bb-light-primary-bg);
+        --bb-light-bg: var(--bb-light-primary-bg);
 
         &.flash {
             animation: primary var(--bb-light-animation-duration) linear infinite;
         }
 
         &:hover {
-            background: var(--bb-light-primary-hover-bg);
+            --bb-light-bg: var(--bb-light-primary-hover-bg);
         }
     }
 
     &.light-secondary {
-        background: var(--bb-light-secondary-bg);
+        --bb-light-bg: var(--bb-light-secondary-bg);
 
         &.flash {
             animation: secondary var(--bb-light-animation-duration) linear infinite;
         }
 
         &:hover {
-            background: var(--bb-light-secondary-hover-bg)
+            --bb-light-bg: var(--bb-light-secondary-hover-bg)
         }
     }
 
     &.light-dark {
-        background: var(--bb-light-dark-bg);
+        --bb-light-bg: var(--bb-light-dark-bg);
 
         &.flash {
             animation: dark var(--bb-light-animation-duration) linear infinite;
         }
 
         &:hover {
-            background: var(--bb-light-dark-hover-bg);
+            --bb-light-bg: var(--bb-light-dark-hover-bg);
         }
     }
 }
@@ -148,6 +178,18 @@
         100% {
             background: radial-gradient(circle, #fff, #aaa, #333)
         }
+    }
+}
+
+@keyframes light-flat {
+    0% {
+        transform: scale(.8);
+        opacity: .5;
+    }
+
+    100% {
+        transform: scale(2.4);
+        opacity: 0;
     }
 }
 
