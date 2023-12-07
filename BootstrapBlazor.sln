@@ -113,6 +113,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.CodeEditor"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.Gantt", "src\Extensions\Components\BootstrapBlazor.Gantt\BootstrapBlazor.Gantt.csproj", "{49D9E679-6824-43DF-9DAA-70E24ACCAA62}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "configuration", "configuration", "{7037C6AF-5E54-40D4-AB44-69DB177C0C23}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		exclusion.dic = exclusion.dic
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
