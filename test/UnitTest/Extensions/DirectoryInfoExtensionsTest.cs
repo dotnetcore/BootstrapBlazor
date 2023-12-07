@@ -35,7 +35,7 @@ public class DirectoryInfoExtensionsTest
         Assert.True(Directory.Exists(destDir));
     }
 
-    private string CreateDir(string dirName)
+    private static string CreateDir(string dirName)
     {
         if (!Directory.Exists(dirName))
         {
