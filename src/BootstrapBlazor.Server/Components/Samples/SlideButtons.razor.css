@@ -15,9 +15,10 @@
 }
 
 .slide-button-custom-group {
-    margin-top: 1rem;
     display: flex;
     justify-content: space-around;
+    align-items: center;
+    padding: .5rem 0;
 }
 
 .slide-item-custom {
