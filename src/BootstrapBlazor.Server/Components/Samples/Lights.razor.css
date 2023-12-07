@@ -1,3 +1,7 @@
-﻿.light-xs .light {
-    --bb-light-width: 6px;
+﻿.light-xs {
+    margin-top: 1rem;
 }
+
+    .light-xs ::deep .light {
+        --bb-light-width: 6px;
+    }
