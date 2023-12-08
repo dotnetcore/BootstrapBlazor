@@ -1,0 +1,20 @@
+﻿@page "/image-cropper"
+@inject IStringLocalizer<ImageCroppers> Localizer
+
+<h3>@Localizer["Title"]</h3>
+
+<PackageTips Name="BootstrapBlazor.ImageCropper" />
+
+<DemoBlock Title="@Localizer["ImageCropperNormalText"]" Introduction="@Localizer["ImageCropperNormalIntro"]" Name="Normal">
+    <ImageCropper @ref="Cropper" Url="@images[0]" DefaultButton="false" />
+    <section ignore>
+        <BootstrapInputGroup class="mb-3">
+            <Button Text="OK" OnClick="(async () => Base64 = await Cropper.Crop())" />
+            <Button Text="@Localizer["ImageCropperResetText"]" OnClick="Cropper.Reset" />
+            <Button Text="@Localizer["ImageCropperReplaceText"]" OnClick="OnClickReplace" />
+        </BootstrapInputGroup>
+        <Textarea Value="@Base64" rows="3" />
+    </section>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />
