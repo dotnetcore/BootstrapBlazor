@@ -29,7 +29,9 @@ public partial class Dashboard
     /// <returns></returns>
     protected override async Task OnInitializedAsync()
     {
-        Data = await DashboardService.GetDashboardDataAsync(DateTimePickerValue);
+        await base.OnInitializedAsync();
+
+        Data = await DashboardService.GetDashboardDataAsync();
     }
 
     /// <summary>
@@ -38,8 +40,7 @@ public partial class Dashboard
     /// <returns></returns>
     private async Task OnDateTimePickerValueChanged(DateTime dt)
     {
-        DateTimePickerValue = dt;
-        Data = await DashboardService.GetDashboardDataAsync(dt);
+        Data = await DashboardService.GetDashboardDataAsync();
         await BarChart.Reload();
         await PieChart.Reload();
         StateHasChanged();

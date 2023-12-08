@@ -171,7 +171,7 @@ public partial class PracticeNavMenu
         "Practices/Dashboard.razor.cs",
         "Practices/Dashboard.razor.css",
         "Practices/DashboardData.cs",
-        "Services/DashboardService.cs"
+        "/../../Services/DashboardService.cs"
     };
 
     private readonly string[] Template1 = new[]

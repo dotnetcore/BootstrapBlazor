@@ -7,5 +7,5 @@
 }
 
 export function execute() {
-    window.topology.setOptions({ hoverColor: '', hoverCursor: '', activeColor: '' });
+    window.meta2d.setOptions({ hoverColor: '', hoverCursor: '', activeColor: '' });
 }

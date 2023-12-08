@@ -17,7 +17,7 @@ class DashboardService
     /// 获取仪表盘数据
     /// </summary>
     /// <returns></returns>
-    public Task<DashboardData> GetDashboardDataAsync(DateTime dateTime)
+    public Task<DashboardData> GetDashboardDataAsync()
     {
         //填充随机数据，仅做展示用
         var data = new DashboardData
@@ -69,7 +69,7 @@ class DashboardService
             result.Add(new TestDayGroupData() { Key = i, Count = Random.Next(1, 99) });
         }
 
-        return result.OrderBy(x => x.Key).ToList();
+        return [.. result.OrderBy(x => x.Key)];
     }
 
     /// <summary>
@@ -95,6 +95,6 @@ class DashboardService
             item.ApprovedCount = item.Count * (int)item.Percent / 100;
         }
 
-        return result.OrderByDescending(x => x.Percent).ToList();
+        return [.. result.OrderByDescending(x => x.Percent)];
     }
 }

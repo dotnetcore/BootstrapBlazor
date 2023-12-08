@@ -32,7 +32,7 @@
 
 <DemoBlock Title="@Localizer["RepeaterEmptyTitle"]"
            Introduction="@Localizer["RepeaterEmptyIntro"]"
-           Name="Loading">
+           Name="EmptyText">
     <Repeater TItem="Foo" Items="EmptyItems" EmptyText="No Data">
     </Repeater>
 
@@ -40,10 +40,10 @@
 
 <DemoBlock Title="@Localizer["RepeaterContainerTitle"]"
            Introduction="@Localizer["RepeaterContainerIntro"]"
-           Name="Loading">
-    <div>
+           Name="ContainerTemplate">
+    <section ignore>
         <Button OnClick="OnClick" Icon="fa-solid fa-plus" Text="Add"></Button>
-    </div>
+    </section>
 
     <Repeater TItem="Foo" Items="Items">
         <ContainerTemplate>
