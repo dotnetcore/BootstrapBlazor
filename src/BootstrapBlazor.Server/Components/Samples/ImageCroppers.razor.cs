@@ -21,6 +21,12 @@ public partial class ImageCroppers
 
     private string? Base64 { get; set; }
 
+    private async Task OnClickReplace()
+    {
+        index = index == 0 ? 1 : 0;
+        await Cropper.Replace(images[index]);
+    }
+
     /// <summary>
     /// GetAttributes
     /// </summary>
@@ -34,7 +40,7 @@ public partial class ImageCroppers
             Type = "string?",
             ValueList = "-",
             DefaultValue = "-"
-        }, 
+        },
         new()
         {
             Name = "DefaultButton",
@@ -50,7 +56,7 @@ public partial class ImageCroppers
             Type = "bool",
             ValueList = "-",
             DefaultValue = "true"
-        }, 
+        },
         new()
         {
             Name = "OnResult()",
@@ -58,7 +64,7 @@ public partial class ImageCroppers
             Type = "Func",
             ValueList = "-",
             DefaultValue = "-"
-        }, 
+        },
         new()
         {
             Name = "OnBase64Result()",
@@ -66,7 +72,7 @@ public partial class ImageCroppers
             Type = "Func",
             ValueList = "-",
             DefaultValue = "-"
-        }, 
+        },
         new()
         {
             Name = "Crop()",
@@ -74,7 +80,7 @@ public partial class ImageCroppers
             Type = "Task",
             ValueList = "-",
             DefaultValue = "-"
-        },  
+        },
         new()
         {
             Name = "CropToStream()",
@@ -82,6 +88,6 @@ public partial class ImageCroppers
             Type = "Task",
             ValueList = "-",
             DefaultValue = "-"
-        }, 
+        },
     };
 }
