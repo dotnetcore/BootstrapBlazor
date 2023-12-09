@@ -123,11 +123,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["JSExtension"],
                     Url = "js-extensions"
-                },
-                new()
-                {
-                    Text = Localizer["Clipboard"],
-                    Url = "clipboard-service"
                 }
             };
             AddBadge(item);
@@ -1307,6 +1302,11 @@ internal static class MenusLocalizerExtensions
                     IsNew = true,
                     Text = Localizer["AzureTranslator"],
                     Url = "translator"
+                },
+                new()
+                {
+                    Text = Localizer["Clipboard"],
+                    Url = "clipboard-service"
                 }
             };
             AddBadge(item);
