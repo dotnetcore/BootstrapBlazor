@@ -58,7 +58,7 @@ public partial class ComponentLayout : IAsyncDisposable
     [NotNull]
     private IOptions<IconThemeOptions>? IconThemeOptions { get; set; }
 
-    private string GVPUrl => $"{WebsiteOption.CurrentValue.BootstrapBlazorLink}/badge/star.svg?theme=gvp";
+    private string GVPUrl => $"{WebsiteOption.CurrentValue.GiteeRepositoryUrl}/badge/star.svg?theme=gvp";
 
     private List<SelectedItem> IconThemes { get; } = new();
 

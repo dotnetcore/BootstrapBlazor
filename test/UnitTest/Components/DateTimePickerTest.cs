@@ -610,6 +610,37 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.True(res);
         Assert.True(value);
     }
+
+    [Fact]
+    public void HasSeconds_Ok()
+    {
+        var cut = Context.RenderComponent<TimePickerBody>(builder =>
+        {
+            builder.Add(a => a.Value, TimeSpan.FromDays(1));
+            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<TimeSpan>(this, t =>
+            {
+            }));
+        });
+
+        var ele = cut.Find(".time-panel-content .has-seconds");
+        Assert.NotNull(ele); 
+    }
+
+    [Fact]
+    public void HaveNotSeconds_Ok()
+    {
+        var cut = Context.RenderComponent<TimePickerBody>(builder =>
+        {
+            builder.Add(a => a.Value, TimeSpan.FromDays(1));
+            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<TimeSpan>(this, t =>
+            {
+            }));
+            builder.Add(a => a.HasSeconds, false);
+        });
+
+        var ele = cut.Find(".time-panel-content .havenot-seconds");
+        Assert.NotNull(ele); 
+    }
     #endregion
 
     #region TimeCell

@@ -213,6 +213,7 @@ public class IconThemeOptions
         { ComponentIcons.CardUploadRemoveIcon, "fa-regular fa-trash-can" },
         { ComponentIcons.CardUploadDownloadIcon, "fa-solid fa-download" },
         { ComponentIcons.CardUploadZoomIcon, "fa-solid fa-magnifying-glass-plus" },
+        { ComponentIcons.UploadCancelIcon, "fa-solid fa-ban" },
 
         { ComponentIcons.FileIconExcel, "fa-regular fa-file-excel" },
         { ComponentIcons.FileIconDocx, "fa-regular fa-file-word" },

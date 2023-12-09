@@ -1424,7 +1424,7 @@
     "LayoutsAppTips6": "本例点击左侧菜单展开后出现滚动条",
     "LayoutsAppTips7": "右侧面板中可用区域默认为全部，适用于带 <code>Tab</code> 组件的布局，本例中为了美观 <code>Main</code> 模板中内置了一个 <code>div</code> 并且设置样式为 <code>style='padding: 1rem;'</code>",
     "LayoutsAppTips8": "本例点击左侧菜单展开后不出现滚动条会撑开父容器高度",
-    "LayoutsAppTips9": " <code>Layout</code> 组件与 <code>Tab</code> 组件配合使用实战示例请参阅 <a href='/tabs'>Tab 组件</a>"
+    "LayoutsAppTips9": " <code>Layout</code> 组件与 <code>Tab</code> 组件配合使用实战示例请参阅 <a href='/tab'>Tab 组件</a>"
   },
   "BootstrapBlazor.Server.Components.Samples.Footers": {
     "FootersTitle": "Footer 页脚组件",
@@ -1631,7 +1631,8 @@
     "FileViewerText": "文件预览器 FileViewer",
     "WebSerialText": "串口读写 WebSerial",
     "MindMapText": "思维导图 Mind Map",
-    "WebSpeechText": "语音识别/合成 WebSpeech"
+    "WebSpeechText": "语音识别/合成 WebSpeech",
+    "ImageCropperText": "图像裁剪 ImageCropper"
   },
   "BootstrapBlazor.Server.Components.Pages.Breakpoints": {
     "Heading": "断点",
@@ -2353,7 +2354,7 @@
     "DisabledTitle": "禁用",
     "DisabledIntro": "通过设置 <code>IsDisabled=true</code> 禁用",
     "IsButtonTitle": "按钮复选框",
-    "IsButtonIntro": "设置 <code> IsButton=\"true\"</code>,将复选框样式改为按钮样式",
+    "IsButtonIntro": "设置 <code> IsButton=\"true\"</code>，将复选框样式改为按钮样式",
     "Att1": "数据源",
     "Att2": "是否禁用",
     "Att3": "组件值用于双向绑定",
@@ -2391,6 +2392,8 @@
     "NormalIntro": "以「日」为基本单位，基础的日期选择控件",
     "ValueChangedTitle": "选择任意时间点",
     "ValueChangedIntro": "可以选择任意时间",
+    "HasSecondsTitle": "隐藏秒数",
+    "HasSecondsIntro": "控制是否显示秒数控件",
     "TimeTitle": "数据双向绑定",
     "TimeIntro": "点击确认按钮时间选择框值与文本框值一致",
     "ValidateFormTitle": "客户端验证",
@@ -4303,6 +4306,7 @@
     "ProjectTemplate": "项目模板",
     "Globalization": "全球化",
     "Localization": "本地化",
+    "WebAppBlazor": "WebApp 模式",
     "ServerBlazor": "服务器端模式",
     "ClientBlazor": "客户端模式",
     "MauiBlazor": "MAUI Blazor 模式",
@@ -4521,9 +4525,12 @@
     "Segmented": "分段控制器 Segmented",
     "Utility": "实用工具",
     "JSExtension": "JSRuntime 扩展",
-    "Clipboard": "剪切板服务",
+    "Clipboard": "剪切板服务 Clipboard",
     "CodeEditor": "代码编辑器 CodeEditor",
-    "Gantt": "甘特图 Gantt"
+    "Gantt": "甘特图 Gantt",
+    "ImageCropper": "图像裁剪 ImageCropper",
+    "Services": "内置服务",
+    "AzureTranslator": "翻译服务 AzureTranslator"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -5048,7 +5055,11 @@
     "TablesSelectionNormalIntro": "通过设置 <code>SelectedRows</code> 属性集合初始化表格时默认为选中状态",
     "TablesSelectionNormalTips": "保持行状态回落机制，<code>ModelEqualityComparer</code> <code>CustomKeyAttribute</code> <code>IEqualityComparer&lt;TItem&gt;</code> <code>Equals</code> 重载方法",
     "TablesSelectionNormalSelectRow": "选中的行记录",
-    "TablesSelectionNormalButtonText": "清除选择"
+    "TablesSelectionNormalButtonText": "清除选择",
+    "TablesSelectionKeepInfo": "保持选中行状态：",
+    "TablesSelectionKeepOnText": "保持",
+    "TablesSelectionKeepOffText": "不保持",
+    "TablesSelectionCountText": "选中的行数：{0}"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesExcel": {
     "TablesExcelTitle": "Table 表格",
@@ -5414,7 +5425,10 @@
     "ImageViewerPlaceHolderTemplateLoadingShow": "加载时显示",
     "ImageViewerErrorTemplateUrlError": "Url 路径错误",
     "ImageViewerErrorTemplateCustom": "自定义",
-    "ImageViewerErrorTemplateLoadFailed": "加载失败"
+    "ImageViewerErrorTemplateLoadFailed": "加载失败",
+    "ImagePreviewerTitle": "单独使用ImagePreviewer",
+    "ImagePreviewerIntro": "配合Button等其他组件，直接弹出Previewer",
+    "ImagePreviewerButton": "显示Previewer"
   },
   "BootstrapBlazor.Server.Components.Samples.Geolocations": {
     "GeolocationsTitle": "地理定位/移动距离追踪",
@@ -5468,7 +5482,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.FAIcons": {
     "Title": "FA 图标选择器",
-    "BaseUsageText": "目前 <code>BootstrapBlazor</code> 使用 <code>Font Awesome 6.1.2</code> 作为内置图标库，所有图标如下",
+    "BaseUsageText": "目前 <code>BootstrapBlazor</code> 使用 <code>Font Awesome</code> 最新版本作为内置图标库，所有图标如下",
     "SwitchButtonTextOff": "点击拷贝",
     "SwitchButtonTextOn": "显示高级拷贝",
     "P1": "通过引用扩展组件包",
@@ -6013,5 +6027,27 @@
     "AttrOnProgressChanged": "拖动任务进度时触发的回调",
     "AttrOption": "配置项",
     "AttrMethod": "改变甘特图视图"
+  },
+  "BootstrapBlazor.Server.Components.Samples.ImageCroppers": {
+    "Title": "ImageCropper 图像裁剪",
+    "ImageCropperNormalText": "基础用法",
+    "ImageCropperNormalIntro": "Url 参数设置图片",
+    "ImageCropperResetText": "复位",
+    "ImageCropperReplaceText": "替换",
+    "AttributesImageCropperUrl": "图片URL 或 Base64 dataurl",
+    "AttributesImageCropperDefaultButton": "显示默认按钮",
+    "AttributesImageCropperPreview": "显示剪裁后预览",
+    "AttributesImageCropperOnResult": "剪裁结果 Stream 回调方法",
+    "AttributesImageCropperOnBase64Result": "剪裁结果 base64 回调方法",
+    "AttributesImageCropperCrop": "剪裁,返回 base64, 并执行 OnResult/OnBase64Result 回调",
+    "AttributesImageCropperCropToStream": "剪裁,返回 Stream"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Translators": {
+    "TranslatorsTitle": "AzureTranslator 翻译服务",
+    "TranslatorsDescription": "将源语言的字符或字母转换为目标语言的对应字符或字母",
+    "TranslatorsNormalTitle": "基础用法",
+    "TranslatorsNormalIntro": "通过调用 <code>TranslateAsync</code> 进行文本翻译",
+    "TranslatorsInjectService": "注入服务",
+    "TranslatorsTranslate": "翻译"
   }
 }

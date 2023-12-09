@@ -33,6 +33,7 @@ public partial class Console
     /// <returns></returns>
     private static string? GetClassString(ConsoleMessageItem item) => CssBuilder.Default()
         .AddClass($"text-{item.Color.ToDescriptionString()}", item.Color != Color.None)
+        .AddClass(item.CssClass, !string.IsNullOrEmpty(item.CssClass))
         .Build();
 
     /// <summary>
@@ -182,7 +183,7 @@ public partial class Console
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if(!firstRender)
+        if (!firstRender)
         {
             await InvokeVoidAsync("update", Id);
         }

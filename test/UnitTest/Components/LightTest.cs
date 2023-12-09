@@ -10,8 +10,14 @@ public class LightTest : BootstrapBlazorTestBase
     public void IsFlash_Ok()
     {
         var cut = Context.RenderComponent<Light>(builder => builder.Add(s => s.IsFlash, true));
-
         Assert.Contains("flash", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsFlat, true);
+        });
+        Assert.DoesNotContain("flash", cut.Markup);
+        Assert.Contains("is-flat", cut.Markup);
     }
 
     [Fact]

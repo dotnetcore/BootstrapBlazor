@@ -19,7 +19,7 @@ public partial class UpdateIntro
     [NotNull]
     private PackageVersionService? PackageVersionService { get; set; }
 
-    private string UpdateLogUrl => $"{WebsiteOption.CurrentValue.BootstrapBlazorLink}/wikis/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97?sort_id=4062034";
+    private string UpdateLogUrl => $"{WebsiteOption.CurrentValue.GiteeRepositoryUrl}/wikis/%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97?sort_id=4062034";
 
     /// <summary>
     /// <inheritdoc/>

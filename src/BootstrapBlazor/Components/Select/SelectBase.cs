@@ -35,6 +35,12 @@ public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
     public string? SearchIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否为 MarkupString 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsMarkupString { get; set; }
+
+    /// <summary>
     /// 获得/设置 字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
     /// </summary>
     [Parameter]

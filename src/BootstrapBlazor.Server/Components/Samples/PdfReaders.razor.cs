@@ -22,7 +22,7 @@ public partial class PdfReaders
 
     private string FilenameStream { get; set; } = "https://blazor.app1.es/_content/DemoShared/samples/sample2.pdf";
 
-    private async Task Apply()
+    private async Task ApplyFilenameStream()
     {
         await PdfReader!.Refresh();
     }
@@ -82,8 +82,8 @@ public partial class PdfReaders
 
     async Task Refresh()
     {
-        if (PdfReader != null)
-            await PdfReader.Refresh(Search, Page, PageMode, Zoom, ReadOnly, Watermark);
+        if (AdvancedPdfReader != null)
+            await AdvancedPdfReader.Refresh(Search, Page, PageMode, Zoom, ReadOnly, Watermark);
     }
 
     private async Task ApplyPage()
@@ -107,6 +107,13 @@ public partial class PdfReaders
     }
 
     private Task ApplySearch() => Refresh();
+
+    private Task Clear()
+    {
+        Search = string.Empty;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
 
     /// <summary>
     /// GetAttributes

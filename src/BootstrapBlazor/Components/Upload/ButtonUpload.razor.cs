@@ -37,6 +37,10 @@ public partial class ButtonUpload<TValue>
         .AddClass(DownloadIcon)
         .Build();
 
+    private string? CancelIconString => CssBuilder.Default("cancel-icon")
+        .AddClass(CancelIcon)
+        .Build();
+
     /// <summary>
     /// 获得/设置 浏览按钮图标
     /// </summary>

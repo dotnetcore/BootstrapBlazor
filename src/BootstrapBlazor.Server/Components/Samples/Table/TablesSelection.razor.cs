@@ -19,6 +19,9 @@ public partial class TablesSelection
 
     [NotNull]
     private List<Foo>? SelectedItems { get; set; }
+
+    private bool IsKeepSelectedRows;
+
     private static IEnumerable<int> PageItemsSource => new int[]
     {
         4,

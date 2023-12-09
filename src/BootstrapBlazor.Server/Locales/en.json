@@ -1424,7 +1424,7 @@
     "LayoutsAppTips6": "In this example, a scroll bar appears after clicking the menu on the left to expand",
     "LayoutsAppTips7": "The available area in the right panel is all by default, which is suitable for layouts with <code>Tab</code> components. In this example, for the sake of beauty, the <code>Main</code> template has a built-in <code>div</code > And set the style to <code>style='padding: 1rem;'</code>",
     "LayoutsAppTips8": "In this example, if the scroll bar does not appear after clicking the left menu to expand, the height of the parent container will be expanded",
-    "LayoutsAppTips9": "Please refer to <a href='/tabs'>Tab component</a> for practical examples of using <code>Layout</code> component and <code>Tab</code> component together"
+    "LayoutsAppTips9": "Please refer to <a href='/tab'>Tab component</a> for practical examples of using <code>Layout</code> component and <code>Tab</code> component together"
   },
   "BootstrapBlazor.Server.Components.Samples.Footers": {
     "FootersTitle": "Footer",
@@ -1631,7 +1631,8 @@
     "FileViewerText": "FileViewer",
     "WebSerialText": "WebSerial",
     "MindMapText": "MindMap",
-    "WebSpeechText": "WebSpeech"
+    "WebSpeechText": "WebSpeech",
+    "ImageCropperText": "ImageCropper"
   },
   "BootstrapBlazor.Server.Components.Pages.Breakpoints": {
     "Heading": "Breakpoints",
@@ -2391,6 +2392,8 @@
     "NormalIntro": "Select the control based on the date of the day in 「day」as the base unit",
     "ValueChangedTitle": "Select any point in time",
     "ValueChangedIntro": "You can choose any time",
+    "HasSecondsTitle": "Hide seconds",
+    "HasSecondsIntro": "Whether to display or hide the seconds control",
     "TimeTitle": "Data is bound in both directions",
     "TimeIntro": "Click the confirm button to select the box value consistent with the text box value",
     "ValidateFormTitle": "Client validation",
@@ -4303,6 +4306,7 @@
     "ProjectTemplate": "Template",
     "Globalization": "Globalization",
     "Localization": "Localization",
+    "WebAppBlazor": "WebApp Blazor",
     "ServerBlazor": "Server-side Blazor",
     "ClientBlazor": "Client-side Blazor",
     "MauiBlazor": "Maui Blazor",
@@ -4523,7 +4527,10 @@
     "JSExtension": "JSRuntime Extensions",
     "Clipboard": "Clipboard Service",
     "CodeEditor": "CodeEditor",
-    "Gantt": "Gantt"
+    "Gantt": "Gantt",
+    "ImageCropper": "ImageCropper",
+    "Services": "Services",
+    "AzureTranslator": "AzureTranslator"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -5048,7 +5055,11 @@
     "TablesSelectionNormalIntro": "Defaults to the selected state when the table is initialized by setting the <code>SelectedRows</code> property collection",
     "TablesSelectionNormalTips": "Maintain line state fallback mechanism, <code>ModelEqualityComparer</code> <code>CustomKeyAttribute</code> <code>IEqualityComparer&lt;TItem&gt;</code> <code>Equals</code> overloaded method",
     "TablesSelectionNormalSelectRow": "selected row record",
-    "TablesSelectionNormalButtonText": "clear selection"
+    "TablesSelectionNormalButtonText": "clear selection",
+    "TablesSelectionKeepInfo": "Keep State:",
+    "TablesSelectionKeepOnText": "Keep",
+    "TablesSelectionKeepOffText": "No keep",
+    "TablesSelectionCountText": "Count：{0}"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesExcel": {
     "TablesExcelTitle": "Table Excel",
@@ -5414,7 +5425,10 @@
     "ImageViewerPlaceHolderTemplateLoadingShow": "When loading show",
     "ImageViewerErrorTemplateUrlError": "Url The path error",
     "ImageViewerErrorTemplateCustom": "The custom",
-    "ImageViewerErrorTemplateLoadFailed": "Load failed"
+    "ImageViewerErrorTemplateLoadFailed": "Load failed",
+    "ImagePreviewerTitle": "Use ImagePreviewer Standalone",
+    "ImagePreviewerIntro": "Pop up the Previewer directly in conjunction with other components like Button",
+    "ImagePreviewerButton": "Show Previewer"
   },
   "BootstrapBlazor.Server.Components.Samples.Geolocations": {
     "GeolocationsTitle": "Geolocation",
@@ -5468,7 +5482,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.FAIcons": {
     "Title": "Font Awesome Icons",
-    "BaseUsageText": "<code> bootstrapblazor </code> uses <code> font awesome 6.1.2 </code> as the built-in icon library. All icons are as follows",
+    "BaseUsageText": "<code> bootstrapblazor </code> uses <code>Font Awesome</code> latest version as the built-in icon library. All icons are as follows",
     "SwitchButtonTextOff": "Click to copy",
     "SwitchButtonTextOn": "Show Copy Dialog",
     "P1": "Extending the Component Package by Reference",
@@ -6013,5 +6027,27 @@
     "AttrOnProgressChanged": "A callback that is triggered when a task progress is dragged",
     "AttrOption": "Configuration items",
     "AttrMethod": "Change the Gantt chart view"
+  },
+  "BootstrapBlazor.Server.Components.Samples.ImageCroppers": {
+    "Title": "Image cropper",
+    "ImageCropperNormalText": "Basic usage",
+    "ImageCropperNormalIntro": "Url parameter setting image",
+    "ImageCropperResetText": "Reset",
+    "ImageCropperReplaceText": "Replace",
+    "AttributesImageCropperUrl": "Image URL or Base64 dataurl",
+    "AttributesImageCropperDefaultButton": "Show default button",
+    "AttributesImageCropperPreview": "Show preview after cropping",
+    "AttributesImageCropperOnResult": "Crop result Stream callback method",
+    "AttributesImageCropperOnBase64Result": "Crop result base64 callback method",
+    "AttributesImageCropperCrop": "Crop, return base64, and execute OnResult/OnBase64Result callback",
+    "AttributesImageCropperCropToStream": "Crop, return Stream"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Translators": {
+    "TranslatorsTitle": "Azure Translator",
+    "TranslatorsDescription": "Converts characters or letters of a source language to the corresponding characters or letters of a target language.",
+    "TranslatorsNormalTitle": "Basic usage",
+    "TranslatorsNormalIntro": "Call <code>TranslateAsync</code> method for convert target language",
+    "TranslatorsInjectService": "Inject Service",
+    "TranslatorsTranslate": "Translate"
   }
 }

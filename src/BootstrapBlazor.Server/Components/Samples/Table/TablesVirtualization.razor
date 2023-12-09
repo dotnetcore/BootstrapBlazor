@@ -11,7 +11,7 @@
            Name="Normal">
     <p>@((MarkupString)Localizer["VirtualizationNormalDescription"].Value)</p>
     <div class="table-virtualize-demo">
-        <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="Items" ScrollMode="ScrollMode.Virtual">
+        <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="Items" ScrollMode="ScrollMode.Virtual" ShowFooter="true">
             <TableColumns>
                 <TableColumn @bind-Field="@context.DateTime" Width="180" />
                 <TableColumn @bind-Field="@context.Name" />
@@ -20,6 +20,10 @@
                 <TableColumn @bind-Field="@context.Count" Editable="false" />
                 <TableColumn @bind-Field="@context.Complete" />
             </TableColumns>
+            <TableFooter>
+                <TableFooterCell colspan="4" Text="Footer Info" Align="Alignment.Left" />
+                <TableFooterCell colspan="2" Aggregate="AggregateType.Average" Field="@nameof(Foo.Count)" />
+            </TableFooter>
         </Table>
     </div>
 </DemoBlock>

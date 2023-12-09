@@ -66,7 +66,7 @@
 
     &[data-bb-placement*="bottom"] {
         .dial-list {
-            top: var(--bb-dial-list-vertical-offset);
+            bottom: var(--bb-dial-list-vertical-offset);
             left: var(--bb-dial-list-horizontal-offset);
         }
     }
@@ -74,7 +74,7 @@
     &[data-bb-placement="middle-end"] {
         .dial-list {
             top: var(--bb-dial-list-vertical-offset);
-            left: var(--bb-dial-list-horizontal-offset);
+            right: var(--bb-dial-list-horizontal-offset);
         }
     }
 
@@ -103,6 +103,7 @@
         .dial-list-content {
             flex-direction: column;
             height: var(--bs-dial-list-height);
+            flex-direction: column-reverse;
         }
     }
 

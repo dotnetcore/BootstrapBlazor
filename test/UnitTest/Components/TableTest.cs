@@ -1172,6 +1172,32 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public void PageInfoBodyTemplate_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsPagination, true);
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.PageItems, 20);
+                pb.Add(a => a.ShowPageInfo, true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.PageInfoBodyTemplate, builder => builder.AddContent(0, "Test_PageInfoBodyTemplate"));
+            });
+        });
+        Assert.Contains("Test_PageInfoBodyTemplate", cut.Markup);
+    }
+
+    [Fact]
     public void GotoTemplate_Ok()
     {
         var templated = false;
@@ -4130,6 +4156,91 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public async Task KeepSelectedRows_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var Items = Foo.GenerateFoo(localizer, 6);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.IsPagination, true);
+                pb.Add(a => a.IsKeepSelectedRows, true);
+                pb.Add(a => a.PageItemsSource, new int[] { 2 });
+                pb.Add(a => a.OnQueryAsync, options =>
+                {
+                    var total = Items.Count;
+                    var items = Items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
+                    return Task.FromResult(new QueryData<Foo>() { Items = items, TotalCount = total, IsSorted = true, IsFiltered = true, IsSearch = true });
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var btn = cut.Find("tbody tr td input");
+        await cut.InvokeAsync(() => btn.Click());
+
+        var checkboxs = cut.FindAll(".is-checked");
+        Assert.Single(checkboxs);
+
+        //点击下页按钮翻页
+        var nextBtn = cut.Find(".fa-angle-right");
+        await cut.InvokeAsync(() => nextBtn.Click());
+
+        //选中行数为空
+        checkboxs = cut.FindAll(".is-checked");
+        Assert.Empty(checkboxs);
+
+        //点击下页按钮翻页
+        await cut.InvokeAsync(() => nextBtn.Click());
+
+        //点击表头CheckBox
+        btn = cut.Find("thead tr th input");
+        await cut.InvokeAsync(() => btn.Click());
+
+        //加上表头的复选框选中，结果有3项
+        checkboxs = cut.FindAll(".is-checked");
+        Assert.Equal(3, checkboxs?.Count);
+
+        //点击向前按钮翻页
+        var prevBtn = cut.Find("i.fa-angle-left");
+        await cut.InvokeAsync(() => prevBtn.Click());
+
+        //恢复选中行数为0
+        checkboxs = cut.FindAll(".is-checked");
+        Assert.Empty(checkboxs);
+
+        //点击向前按钮翻页
+        await cut.InvokeAsync(() => prevBtn.Click());
+
+        //恢复选中行数为1
+        checkboxs = cut.FindAll(".is-checked");
+        Assert.Single(checkboxs);
+
+        //点击向后翻页按钮
+        await cut.InvokeAsync(() => nextBtn.Click());
+
+        //恢复选中行数为0
+        checkboxs = cut.FindAll(".is-checked");
+        Assert.Empty(checkboxs);
+
+        //点击向后翻页按钮
+        await cut.InvokeAsync(() => nextBtn.Click());
+
+        //恢复选中行数为2，加上表头的复选框选中，结果有3项
+        checkboxs = cut.FindAll(".is-checked");
+        Assert.Equal(3, checkboxs?.Count);
+    }
+
+    [Fact]
     public void TableColumn_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -4387,8 +4498,10 @@ public class TableTest : TableTestBase
         Assert.True(column.Instance.Editable);
     }
 
-    [Fact]
-    public void ShowTips_Ok()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void ShowTips_Ok(bool markup)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -4406,6 +4519,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(3, "Editable", true);
                     builder.AddAttribute(7, "Text", "test");
                     builder.AddAttribute(9, "ShowTips", true);
+                    builder.AddAttribute(8, "IsMarkupString", markup);
                     builder.CloseComponent();
                 });
             });

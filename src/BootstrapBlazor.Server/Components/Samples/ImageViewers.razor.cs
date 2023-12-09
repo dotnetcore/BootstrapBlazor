@@ -11,6 +11,11 @@ public partial class ImageViewers
 {
     private List<string> PreviewList { get; } = new();
 
+    [NotNull]
+    private ImagePreviewer? ImagePreviewer { get; set; }
+
+    private Task ShowImagePreviewer() => ImagePreviewer.Show();
+
     /// <summary>
     /// OnInitialized
     /// </summary>
@@ -18,11 +23,11 @@ public partial class ImageViewers
     {
         base.OnInitialized();
 
-        PreviewList.AddRange(new string[]
-        {
+        PreviewList.AddRange(
+        [
             "./images/ImageList1.jpeg",
             "./images/ImageList2.jpeg"
-        });
+        ]);
     }
 
     private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]

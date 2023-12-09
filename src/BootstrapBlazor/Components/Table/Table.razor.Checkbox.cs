@@ -19,6 +19,12 @@ public partial class Table<TItem>
         .Build();
 
     /// <summary>
+    /// 获得/设置 是否保持选择行，默认为 false 不保持
+    /// </summary>
+    [Parameter]
+    public bool IsKeepSelectedRows { get; set; }
+
+    /// <summary>
     /// 获得 表头行是否选中状态
     /// </summary>
     /// <returns></returns>
@@ -91,21 +97,12 @@ public partial class Table<TItem>
     /// <param name="val"></param>
     protected virtual async Task OnHeaderCheck(CheckboxState state, TItem val)
     {
-        switch (state)
+        SelectedRows.RemoveAll(x => Rows.Any(a => Equals(a, x)));
+        if (state == CheckboxState.Checked)
         {
-            case CheckboxState.Checked:
-                // select all
-                SelectedRows.Clear();
-                SelectedRows.AddRange(ShowRowCheckboxCallback == null ? Rows : Rows.Where(ShowRowCheckboxCallback));
-                await OnSelectedRowsChanged();
-                break;
-            case CheckboxState.UnChecked:
-            default:
-                // unselect all
-                SelectedRows.Clear();
-                await OnSelectedRowsChanged();
-                break;
+            SelectedRows.AddRange(ShowRowCheckboxCallback == null ? Rows : Rows.Where(ShowRowCheckboxCallback));
         }
+        await OnSelectedRowsChanged();
     }
 
     /// <summary>

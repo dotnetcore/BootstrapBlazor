@@ -61,7 +61,7 @@ public partial class Ajaxs
 
     private Task Goto() => AjaxService.Goto("/introduction");
 
-    private Task GotoSelf() => AjaxService.Goto("/ajaxs");
+    private Task GotoSelf() => AjaxService.Goto("/ajax");
 
     /// <summary>
     /// 获得属性方法

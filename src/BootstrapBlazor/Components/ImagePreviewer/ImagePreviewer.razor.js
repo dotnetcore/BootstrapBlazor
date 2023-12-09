@@ -19,6 +19,11 @@ export function update(id, prevList) {
     viewer.viewer.prevList = prevList
 }
 
+export function show(id, index) {
+    const viewer = Data.get(id)
+    viewer.viewer.show(index)
+}
+
 export function dispose(id) {
     const viewer = Data.get(id)
     Data.remove(id)

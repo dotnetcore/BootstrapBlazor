@@ -85,6 +85,13 @@ internal static class MenusLocalizerExtensions
 
         item = new DemoMenuItem()
         {
+            Text = Localizer["Services"],
+            Icon = "fa-fw fa-solid fa-screwdriver-wrench",
+        };
+        AddServices(item);
+
+        item = new DemoMenuItem()
+        {
             Text = Localizer["OtherComponents"],
             Icon = "fa-fw fa-solid fas fa-share-nodes"
         };
@@ -116,11 +123,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["JSExtension"],
                     Url = "js-extensions"
-                },
-                new()
-                {
-                    Text = Localizer["Clipboard"],
-                    Url = "clipboard-service"
                 }
             };
             AddBadge(item);
@@ -218,6 +220,11 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["GlobalException"],
                     Url = "global-exception"
+                },
+                new()
+                {
+                    Text = Localizer["WebAppBlazor"],
+                    Url = "install-webapp",
                 },
                 new()
                 {
@@ -630,6 +637,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["ImageCropper"],
+                    Url = "image-cropper"
+                },
+                new()
+                {
                     IsNew = true,
                     Text = Localizer["MindMap"],
                     Url = "mind-map"
@@ -679,7 +691,7 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     Text = Localizer["SpeechWave"],
-                    Url = "speech-wave"
+                    Url = "speech/wave"
                 },
                 new()
                 {
@@ -1276,6 +1288,25 @@ internal static class MenusLocalizerExtensions
                     IsNew = true,
                     Text = Localizer["Stack"],
                     Url = "stack"
+                }
+            };
+            AddBadge(item);
+        }
+
+        void AddServices(DemoMenuItem item)
+        {
+            item.Items = new List<DemoMenuItem>
+            {
+                new()
+                {
+                    IsNew = true,
+                    Text = Localizer["AzureTranslator"],
+                    Url = "translator"
+                },
+                new()
+                {
+                    Text = Localizer["Clipboard"],
+                    Url = "clipboard-service"
                 }
             };
             AddBadge(item);

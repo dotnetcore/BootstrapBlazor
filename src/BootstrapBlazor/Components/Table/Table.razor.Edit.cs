@@ -451,8 +451,11 @@ public partial class Table<TItem>
             IsAdvanceSearch = queryData.IsAdvanceSearch;
             QueryItems = queryData.Items ?? Enumerable.Empty<TItem>();
 
-            // 处理选中行逻辑
-            ResetSelectedRows(QueryItems);
+            if (!IsKeepSelectedRows)
+            {
+                // 处理选中行逻辑
+                ResetSelectedRows(QueryItems);
+            }
 
             // 分页情况下内部不做处理防止页码错乱
             ProcessData();

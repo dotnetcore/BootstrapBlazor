@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// NavMenu 组件基类
 /// </summary>
-public abstract class NavBase : BootstrapComponentBase
+public partial class Nav
 {
     /// <summary>
     /// 获得 组件样式
@@ -77,20 +77,4 @@ public abstract class NavBase : BootstrapComponentBase
 
         Items ??= Enumerable.Empty<NavLink>();
     }
-
-    /// <summary>
-    /// 获得 NavLink 组件渲染内容
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    protected RenderFragment Render(NavLink item) => new RenderFragment(builder =>
-    {
-        var index = 0;
-        builder.OpenComponent<NavLink>(index++);
-        builder.AddMultipleAttributes(index++, item.AdditionalAttributes);
-        builder.AddAttribute(index++, nameof(NavLink.ActiveClass), item.ActiveClass);
-        builder.AddAttribute(index++, nameof(NavLink.Match), item.Match);
-        builder.AddAttribute(index++, nameof(NavLink.ChildContent), item.ChildContent);
-        builder.CloseComponent();
-    });
 }

@@ -61,6 +61,9 @@ internal static class ServicesExtensions
         // 增加 AzureOpenAI 服务
         services.AddBootstrapBlazorAzureOpenAIService();
 
+        // 增加 AzureTranslator 服务
+        services.AddBootstrapBlazorAzureTranslator();
+
         // 增加 Pdf 导出服务
         services.AddBootstrapBlazorHtml2PdfService();
 
@@ -134,6 +137,8 @@ internal static class ServicesExtensions
         services.AddOptionsMonitor<WebsiteOptions>();
 
         // 增加模拟登录服务
+        services.AddAuthorization();
+        services.AddCascadingAuthenticationState();
         services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();
 
         // 增加 Table Excel 导出服务

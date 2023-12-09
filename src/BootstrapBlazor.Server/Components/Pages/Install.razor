@@ -34,10 +34,10 @@
 <ol>
     <li>@((MarkupString)Localizer["EnvLi1"].Value)</li>
     <li>@((MarkupString)Localizer["EnvLi2"].Value)</li>
-    <li>@((MarkupString)string.Format(Localizer["EnvLi3"].Value, WebsiteOption.CurrentValue.BootstrapBlazorLink))</li>
+    <li>@((MarkupString)string.Format(Localizer["EnvLi3"].Value, WebsiteOption.CurrentValue.GiteeRepositoryUrl))</li>
 </ol>
 
-<Pre class="no-highlight">git clone @WebsiteOption.CurrentValue.BootstrapBlazorLink</Pre>
+<Pre class="no-highlight">git clone @WebsiteOption.CurrentValue.GiteeRepositoryUrl</Pre>
 
 @code {
     /// <summary>

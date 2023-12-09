@@ -191,8 +191,10 @@
     "table/tree": "Table\\TablesTree",
     "table/virtualization": "Table\\TablesVirtualization",
     "table/wrap": "Table\\TablesWrap",
+    "translator": "Translators",
     "js-extensions": "JSRuntimeExtensions",
-    "clipboard-service": "Clipboards"
+    "clipboard-service": "Clipboards",
+    "image-cropper": "ImageCroppers"
   },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",

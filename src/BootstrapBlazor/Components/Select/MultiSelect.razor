@@ -70,13 +70,17 @@
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" disabled="@CheckCanSelect(item)" checked="@GetCheckedString(item)" />
                         </div>
-                        @if (ItemTemplate == null)
+                        @if (ItemTemplate != null)
                         {
-                            <span>@item.Text</span>
+                            @ItemTemplate(item)
+                        }
+                        else if (IsMarkupString)
+                        {
+                            @((MarkupString)item.Text)
                         }
                         else
                         {
-                            @ItemTemplate(item)
+                            <span>@item.Text</span>
                         }
                     </div>
                 </DynamicElement>

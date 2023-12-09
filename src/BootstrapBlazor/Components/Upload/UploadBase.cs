@@ -44,13 +44,13 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     public string? Capture { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击删除按钮时回调此方法
+    /// 获得/设置 点击删除按钮时回调此方法 默认 null
     /// </summary>
     [Parameter]
     public Func<UploadFile, Task<bool>>? OnDelete { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击浏览按钮时回调此方法
+    /// 获得/设置 点击浏览按钮时回调此方法 默认 null
     /// </summary>
     [Parameter]
     public Func<UploadFile, Task>? OnChange { get; set; }

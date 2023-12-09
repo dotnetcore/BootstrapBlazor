@@ -49,7 +49,7 @@
     <Pagination PageCount="@PageCount" ShowPageInfo="true" ShowGotoNavigator="true">
         <PageInfoTemplate>
             <div class="page-info me-2">@PageInfoText</div>
-            <Select @bind-Value="PageItems" Items="PageItemsSource" style="width: 120px;" />
+            <Select @bind-Value="PageItems" Items="PageItemsSource" />
         </PageInfoTemplate>
     </Pagination>
 </DemoBlock>

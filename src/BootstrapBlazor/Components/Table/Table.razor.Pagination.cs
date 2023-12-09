@@ -84,7 +84,7 @@ public partial class Table<TItem>
     public RenderFragment? GotoTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示 Goto 跳转导航
+    /// 获得/设置 是否显示 PageInfo 内容 默认 true 显示
     /// </summary>
     [Parameter]
     public bool ShowPageInfo { get; set; } = true;
@@ -100,6 +100,12 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     public RenderFragment? PageInfoTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 分页信息内容模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment? PageInfoBodyTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 当前行
@@ -139,8 +145,11 @@ public partial class Table<TItem>
         {
             PageIndex = pageIndex;
 
-            // 清空选中行
-            SelectedRows.Clear();
+            if (!IsKeepSelectedRows)
+            {
+                // 清空选中行
+                SelectedRows.Clear();
+            }
 
             // 无刷新查询数据
             await QueryAsync(false);
