@@ -64,7 +64,7 @@ public sealed partial class Steps
         step?.Reset();
     }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private AttributeItem[] GetAttributes() => new AttributeItem[]
     {
         new()
         {

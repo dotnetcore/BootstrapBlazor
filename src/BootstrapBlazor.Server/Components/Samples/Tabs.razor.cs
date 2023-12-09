@@ -166,7 +166,7 @@ public sealed partial class Tabs
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private AttributeItem[] GetAttributes() => new AttributeItem[]
     {
 
         new() {
@@ -287,7 +287,7 @@ public sealed partial class Tabs
     /// 获得方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+    private MethodItem[] GetMethods() => new MethodItem[]
     {
 
         new MethodItem() {

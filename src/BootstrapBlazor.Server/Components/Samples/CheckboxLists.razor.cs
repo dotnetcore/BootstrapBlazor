@@ -123,8 +123,8 @@ public partial class CheckboxLists
     [NotNull]
     IStringLocalizer<Foo>? LocalizerFoo { get; set; }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Items",
@@ -157,19 +157,19 @@ public partial class CheckboxLists
             ValueList = " true / false ",
             DefaultValue = " false "
         }
-    };
+    ];
 
     /// <summary>
     /// Get event method
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<EventItem> GetEvents() => new EventItem[]
-    {
+    private EventItem[] GetEvents() =>
+    [
         new()
         {
             Name = "OnSelectedChanged",
             Description = Localizer["Event1"],
             Type ="Func<IEnumerable<SelectedItem>, TValue, Task>"
         }
-    };
+    ];
 }

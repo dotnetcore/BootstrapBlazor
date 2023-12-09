@@ -123,30 +123,32 @@ public sealed partial class Consoles
     /// GetItemAttributes
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetItemAttributes() => new AttributeItem[]
-    {
-        new(){
+    private static AttributeItem[] GetItemAttributes() =>
+    [
+        new()
+        {
             Name = "Message",
             Description = "控制台输出消息",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new(){
+        new()
+        {
             Name = "Color",
             Description = "消息颜色",
             Type = "Color",
             ValueList = "None / Active / Primary / Secondary / Success / Danger / Warning / Info / Light / Dark / Link",
             DefaultValue = "None"
         }
-    };
+    ];
 
     /// <summary>
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = nameof(BootstrapBlazor.Components.Console.Items),
@@ -265,5 +267,5 @@ public sealed partial class Consoles
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

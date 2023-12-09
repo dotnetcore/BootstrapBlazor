@@ -85,11 +85,6 @@ public sealed partial class Trees
         return Task.CompletedTask;
     }
 
-    private Task OnValidateTreeItemClick(TreeItem item)
-    {
-        return Task.CompletedTask;
-    }
-
     private static List<TreeItem> GetLazyItems()
     {
         var ret = TreeDataFoo.GetTreeItems();
@@ -105,7 +100,7 @@ public sealed partial class Trees
 
     private static async Task OnExpandNode(TreeItem item)
     {
-        if (!item.Items.Any() && item.HasChildNode && !item.ShowLoading)
+        if (item.Items.Count == 0 && item.HasChildNode && !item.ShowLoading)
         {
             item.ShowLoading = true;
             if (item.Key?.ToString() == "Delay")
@@ -114,12 +109,15 @@ public sealed partial class Trees
             }
             item.Items.AddRange(new TreeItem[]
             {
-                    new TreeItem()
-                    {
-                        Text = "lazy loading child node 1",
-                        HasChildNode = true
-                    },
-                    new TreeItem() { Text = "lazy loading child node 2" }
+                new()
+                {
+                    Text = "lazy loading child node 1",
+                    HasChildNode = true
+                },
+                new()
+                {
+                    Text = "lazy loading child node 2"
+                }
             });
             item.ShowLoading = false;
         }
@@ -181,7 +179,7 @@ public sealed partial class Trees
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private static AttributeItem[] GetAttributes() => new AttributeItem[]
     {
         new() {
             Name = "Items",

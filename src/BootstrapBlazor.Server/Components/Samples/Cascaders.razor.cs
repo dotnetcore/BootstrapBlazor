@@ -74,22 +74,22 @@ public sealed partial class Cascaders
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<EventItem> GetEvents() => new EventItem[]
-    {
-        new EventItem()
+    private EventItem[] GetEvents() =>
+    [
+        new()
         {
             Name = nameof(Cascader<string>.OnSelectedItemChanged),
             Description = Localizer["Event1"],
             Type ="Func<CascaderItem[], Task>"
         }
-    };
+    ];
 
     /// <summary>
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "ShowLabel",
@@ -146,5 +146,5 @@ public sealed partial class Cascaders
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

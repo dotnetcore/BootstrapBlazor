@@ -30,8 +30,8 @@ public partial class ImageViewers
         ]);
     }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new() {
             Name = nameof(ImageViewer.Url),
             Description = Localizer["ImageViewersAttrUrl"],
@@ -109,5 +109,5 @@ public partial class ImageViewers
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

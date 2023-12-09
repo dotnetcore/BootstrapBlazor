@@ -72,8 +72,8 @@ public sealed partial class Messages
         }, Message1);
     }
 
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Placement",
@@ -82,14 +82,14 @@ public sealed partial class Messages
             ValueList = "Top|Bottom",
             DefaultValue = "Top"
         }
-    };
+    ];
 
     /// <summary>
     /// get property method
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetMessageItemAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetMessageItemAttributes() =>
+    [
         new()
         {
             Name = "ChildContent",
@@ -138,5 +138,5 @@ public sealed partial class Messages
             ValueList = "true|false",
             DefaultValue = "false"
         }
-    };
+    ];
 }

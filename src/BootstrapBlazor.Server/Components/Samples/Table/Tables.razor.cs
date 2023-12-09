@@ -338,7 +338,7 @@ public partial class Tables
         }
     };
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private AttributeItem[] GetAttributes() => new AttributeItem[]
     {
         new()
         {
@@ -1254,7 +1254,7 @@ public partial class Tables
         },
     };
 
-    private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+    private MethodItem[] GetMethods() => new MethodItem[]
     {
         new()
         {

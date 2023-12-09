@@ -163,8 +163,8 @@ public sealed partial class Cameras
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = nameof(BootstrapBlazor.Components.Camera.VideoWidth),
@@ -253,5 +253,5 @@ public sealed partial class Cameras
             ValueList = " — ",
             DefaultValue = " 0.9d"
         }
-    };
+    ];
 }

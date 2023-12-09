@@ -100,8 +100,8 @@ public sealed partial class Menus
         return Task.CompletedTask;
     }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Items",
@@ -154,5 +154,5 @@ public sealed partial class Menus
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

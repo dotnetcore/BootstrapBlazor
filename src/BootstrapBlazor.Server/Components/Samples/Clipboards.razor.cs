@@ -26,7 +26,7 @@ public partial class Clipboards
         await ToastService.Success("Clipboard", Localizer["ClipboardMessage", content]);
     }
 
-    private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
+    private MethodItem[] GetMethods() => new MethodItem[]
     {
         new()
         {

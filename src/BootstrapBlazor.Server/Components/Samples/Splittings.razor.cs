@@ -11,7 +11,7 @@ public partial class Splittings
 {
     private int _columns = 30;
 
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private static AttributeItem[] GetAttributes() => new AttributeItem[]
     {
         new()
         {

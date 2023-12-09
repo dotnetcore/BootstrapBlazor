@@ -53,8 +53,8 @@ public sealed partial class EditorForms
     [NotNull]
     private Foo? ValidateModel { get; set; }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Model",
@@ -135,7 +135,7 @@ public sealed partial class EditorForms
             ValueList = "None|Left|Center|Right",
             DefaultValue = "None"
         }
-    };
+    ];
 
     private IEnumerable<AttributeItem> GetEditorItemAttributes() => new AttributeItem[]
     {

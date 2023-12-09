@@ -73,8 +73,8 @@ public sealed partial class Modals
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "FirstAfterRenderCallbackAsync",
@@ -219,5 +219,5 @@ public sealed partial class Modals
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

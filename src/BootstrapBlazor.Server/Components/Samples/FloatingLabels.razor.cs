@@ -36,8 +36,8 @@ public partial class FloatingLabels
         FormatStringModel = new Foo() { Name = Localizer["FloatingLabelsTestName"] };
     }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "ChildContent",
@@ -102,5 +102,5 @@ public partial class FloatingLabels
             ValueList = "true|false",
             DefaultValue = "false"
         }
-    };
+    ];
 }

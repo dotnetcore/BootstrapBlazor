@@ -74,7 +74,7 @@ public sealed partial class Rows
         public List<EnumEducation>? Educations { get; set; }
     }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private AttributeItem[] GetAttributes() => new AttributeItem[]
     {
         new()
         {

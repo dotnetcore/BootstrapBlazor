@@ -36,7 +36,7 @@ public sealed partial class Switches
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private AttributeItem[] GetAttributes() => new AttributeItem[]
     {
         new()
         {
@@ -164,7 +164,7 @@ public sealed partial class Switches
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<EventItem> GetEvents() => new EventItem[]
+    private EventItem[] GetEvents() => new EventItem[]
     {
         new()
         {

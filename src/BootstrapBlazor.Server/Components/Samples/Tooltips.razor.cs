@@ -23,7 +23,7 @@ public partial class Tooltips
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    protected AttributeItem[] GetAttributes() => new AttributeItem[]
     {
 
         new() {

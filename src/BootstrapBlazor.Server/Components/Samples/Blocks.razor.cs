@@ -70,8 +70,8 @@ public partial class Blocks
 
     private Task<bool> OnQueryUser(string name) => Task.FromResult(IsAuth);
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = nameof(Block.OnQueryCondition),
@@ -104,5 +104,5 @@ public partial class Blocks
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

@@ -19,7 +19,7 @@ public partial class CountUps
 
     private bool _useOnCompleted;
 
-    private List<SelectedItem> _items = new();
+    private readonly List<SelectedItem> _items = [];
 
     /// <inheritdoc/>
     protected override void OnInitialized()
@@ -52,13 +52,13 @@ public partial class CountUps
         }
         else if (index == 1)
         {
-            _option.Numerals = new char[] { '٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩' };
+            _option.Numerals = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
         }
         return Task.CompletedTask;
     }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Value",
@@ -83,10 +83,10 @@ public partial class CountUps
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 
-    private IEnumerable<AttributeItem> GetOptionAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetOptionAttributes() =>
+    [
         new()
         {
             Name = nameof(CountUpOption.StartValue),
@@ -215,5 +215,5 @@ public partial class CountUps
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

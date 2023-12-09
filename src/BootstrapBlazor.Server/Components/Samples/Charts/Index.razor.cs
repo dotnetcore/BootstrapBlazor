@@ -13,7 +13,7 @@ public sealed partial class Index
     /// 获得属性列表
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private static AttributeItem[] GetAttributes() => new AttributeItem[]
     {
         new() {
             Name = "Title",

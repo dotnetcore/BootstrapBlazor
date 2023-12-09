@@ -21,8 +21,8 @@ public sealed partial class Circles
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Width",
@@ -71,6 +71,6 @@ public sealed partial class Circles
             ValueList = "",
             DefaultValue = ""
         }
-    };
+    ];
 }
 

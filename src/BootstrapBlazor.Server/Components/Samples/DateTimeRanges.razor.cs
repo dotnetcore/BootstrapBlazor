@@ -119,7 +119,7 @@ public sealed partial class DateTimeRanges
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<EventItem> GetEvents() => new EventItem[]
+    private static EventItem[] GetEvents() => new EventItem[]
     {
         new()
         {
@@ -145,7 +145,7 @@ public sealed partial class DateTimeRanges
     /// Get property method
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private static AttributeItem[] GetAttributes() => new AttributeItem[]
     {
         new()
         {

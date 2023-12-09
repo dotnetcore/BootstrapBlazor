@@ -119,7 +119,7 @@ public partial class PdfReaders
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    protected AttributeItem[] GetAttributes() => new AttributeItem[]
     {
         new()
         {

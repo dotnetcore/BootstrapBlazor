@@ -11,14 +11,13 @@ public sealed partial class OnScreenKeyboards
 {
     private static readonly Dictionary<string, string> Keys1 = new() { { "0", "L" }, { "1", "O" } };
     private static readonly Dictionary<string, string> Keys2 = new() { { "0", "V" }, { "1", "E" } };
-    private static readonly List<Dictionary<string, string>> KeysArray = new() { Keys1, Keys2 };
 
     /// <summary>
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "ClassName",
@@ -75,14 +74,14 @@ public sealed partial class OnScreenKeyboards
             ValueList = " - ",
             DefaultValue = " - "
         }
-    };
+    ];
 
     /// <summary>
     /// 获得KeyboardOption属性
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetKeyboardOptionAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetKeyboardOptionAttributes() =>
+    [
         new()
         {
             Name = "keysArrayOfObjects",
@@ -243,14 +242,14 @@ public sealed partial class OnScreenKeyboards
             ValueList = "true|false",
             DefaultValue = "true"
         },
-    };
+    ];
 
     /// <summary>
     /// 获得KeyboardEnum属性
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetKeyboardEnumAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetKeyboardEnumAttributes() =>
+    [
         new()
         {
             Name = "KeyboardKeysType",
@@ -299,5 +298,5 @@ public sealed partial class OnScreenKeyboards
             ValueList = "slide|fade|flat|material|oldschool",
             DefaultValue = "slide"
         }
-    };
+    ];
 }

@@ -22,8 +22,8 @@ public partial class AutoRedirects
     /// Get property method
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = nameof(AutoRedirect.Interval),
@@ -56,5 +56,5 @@ public partial class AutoRedirects
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

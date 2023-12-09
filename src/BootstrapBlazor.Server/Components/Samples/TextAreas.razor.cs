@@ -110,7 +110,7 @@ public partial class TextAreas
         GC.SuppressFinalize(this);
     }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private AttributeItem[] GetAttributes() => new AttributeItem[]
     {
         new()
         {

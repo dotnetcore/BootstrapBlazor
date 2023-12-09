@@ -68,7 +68,7 @@ public sealed partial class PopoverConfirms
     /// Get property method
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private static AttributeItem[] GetAttributes() => new AttributeItem[]
     {
         new()
         {
@@ -172,7 +172,7 @@ public sealed partial class PopoverConfirms
     /// Get event method
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<EventItem> GetEvents() => new EventItem[]
+    private static EventItem[] GetEvents() => new EventItem[]
     {
         new()
         {

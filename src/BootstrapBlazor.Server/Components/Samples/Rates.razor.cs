@@ -50,7 +50,7 @@ public sealed partial class Rates
         _ => Localizer["RatesGrin"]
     };
 
-    private IEnumerable<EventItem> GetEvents() => new EventItem[]
+    private EventItem[] GetEvents() => new EventItem[]
     {
         new()
         {
@@ -60,7 +60,7 @@ public sealed partial class Rates
         }
     };
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private AttributeItem[] GetAttributes() => new AttributeItem[]
     {
         new()
         {

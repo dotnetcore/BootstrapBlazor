@@ -43,8 +43,8 @@ public sealed partial class InputNumbers
 
     private static string Formatter(double val) => val.ToString("0.0");
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Value",
@@ -101,5 +101,5 @@ public sealed partial class InputNumbers
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

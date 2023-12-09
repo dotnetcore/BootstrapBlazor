@@ -20,8 +20,8 @@ public sealed partial class Avatars
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Size",
@@ -94,5 +94,5 @@ public sealed partial class Avatars
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

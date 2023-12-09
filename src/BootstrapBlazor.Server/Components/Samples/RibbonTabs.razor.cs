@@ -107,7 +107,7 @@ public partial class RibbonTabs
         }
     };
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private AttributeItem[] GetAttributes() => new AttributeItem[]
     {
         new()
         {

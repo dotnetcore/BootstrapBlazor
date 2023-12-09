@@ -133,7 +133,7 @@ public sealed partial class Toasts
         });
     }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private AttributeItem[] GetAttributes() => new AttributeItem[]
     {
         new() {
             Name = "Category",

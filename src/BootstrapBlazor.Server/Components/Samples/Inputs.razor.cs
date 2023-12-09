@@ -79,8 +79,8 @@ public partial class Inputs
 
     private static string ByteArrayFormatter(byte[] source) => Convert.ToBase64String(source);
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "ChildContent",
@@ -191,5 +191,5 @@ public partial class Inputs
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

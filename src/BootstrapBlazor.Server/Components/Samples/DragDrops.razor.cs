@@ -82,8 +82,8 @@ public partial class DragDrops
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "MaxItems",
@@ -100,14 +100,14 @@ public partial class DragDrops
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 
     /// <summary>
     /// GetMethods
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
-    {
+    private MethodItem[] GetMethods() =>
+    [
         new()
         {
             Name = nameof(Dropzone<MethodItem>.Accepts),
@@ -164,5 +164,5 @@ public partial class DragDrops
             Parameters = " — ",
             ReturnValue = " — "
         }
-    };
+    ];
 }

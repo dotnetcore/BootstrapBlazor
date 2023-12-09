@@ -11,14 +11,14 @@ public partial class Displays
 {
     private IEnumerable<int> IntValue { get; set; } = new[] { 1, 2, 3 };
 
-    private string DisplayValue => "Text1; Text2; Text3; Text4; Text5;";
+    private static string DisplayValue => "Text1; Text2; Text3; Text4; Text5;";
 
-    private IEnumerable<SelectedItem> IntValueSource { get; set; } = new[]
-    {
+    private SelectedItem[] IntValueSource { get; set; } =
+    [
         new SelectedItem("1", "Text1"),
         new SelectedItem("2", "Text2"),
         new SelectedItem("3", "Text3")
-    };
+    ];
 
     private static Task<string> DateTimeFormatter(DateTime source) => Task.FromResult(source.ToString("yyyy-MM-dd"));
 
@@ -57,8 +57,8 @@ public partial class Displays
         Hobbies = Foo.GenerateHobbies(FooLocalizer);
     }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "ShowLabel",
@@ -99,5 +99,5 @@ public partial class Displays
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

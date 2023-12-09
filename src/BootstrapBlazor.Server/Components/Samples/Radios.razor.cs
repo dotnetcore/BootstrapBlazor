@@ -99,7 +99,7 @@ public sealed partial class Radios
         public string? Icon { get; set; }
     }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
+    private AttributeItem[] GetAttributes() => new AttributeItem[]
     {
         new()
         {
@@ -171,7 +171,7 @@ public sealed partial class Radios
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<EventItem> GetEvents() => new EventItem[]
+    private EventItem[] GetEvents() => new EventItem[]
     {
         new()
         {
