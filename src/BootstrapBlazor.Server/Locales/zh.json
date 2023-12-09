@@ -4525,7 +4525,7 @@
     "Segmented": "分段控制器 Segmented",
     "Utility": "实用工具",
     "JSExtension": "JSRuntime 扩展",
-    "Clipboard": "剪切板服务",
+    "Clipboard": "剪切板服务 Clipboard",
     "CodeEditor": "代码编辑器 CodeEditor",
     "Gantt": "甘特图 Gantt",
     "ImageCropper": "图像裁剪 ImageCropper",
@@ -6047,6 +6047,7 @@
     "TranslatorsDescription": "将源语言的字符或字母转换为目标语言的对应字符或字母",
     "TranslatorsNormalTitle": "基础用法",
     "TranslatorsNormalIntro": "通过调用 <code>TranslateAsync</code> 进行文本翻译",
-    "TranslatorsInjectService": "注入服务"
+    "TranslatorsInjectService": "注入服务",
+    "TranslatorsTranslate": "翻译"
   }
 }

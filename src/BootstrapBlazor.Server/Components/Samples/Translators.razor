@@ -10,12 +10,12 @@
 <Pre class="no-highlight mt-3">services.AddBootstrapBlazorAzureTranslator();</Pre>
 
 <DemoBlock Title="@Localizer["TranslatorsNormalTitle"]"
-           Introduction="@Localizer["TranslatorsNormalIntro"]"
+           Introduction="@Localizer["TranslatorsNormalIntro"]" ShowCode="false"
            Name="Normal">
     <CheckboxList Items="_languages" @bind-Value="_selectedLanguages" class="mb-3"></CheckboxList>
     <BootstrapInputGroup>
         <BootstrapInput @bind-Value="@_input"></BootstrapInput>
-        <Button Icon="fa-solid fa-language" Text="翻译" OnClick="OnClickTranslate"></Button>
+        <Button Icon="fa-solid fa-language" Text="@Localizer["TranslatorsTranslate"]" OnClick="OnClickTranslate"></Button>
     </BootstrapInputGroup>
 
     @if (_results.Any())
