@@ -61,6 +61,9 @@ internal static class ServicesExtensions
         // 增加 AzureOpenAI 服务
         services.AddBootstrapBlazorAzureOpenAIService();
 
+        // 增加 AzureTranslator 服务
+        services.AddBootstrapBlazorAzureTranslator();
+
         // 增加 Pdf 导出服务
         services.AddBootstrapBlazorHtml2PdfService();
 
