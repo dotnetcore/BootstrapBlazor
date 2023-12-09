@@ -4528,7 +4528,9 @@
     "Clipboard": "剪切板服务",
     "CodeEditor": "代码编辑器 CodeEditor",
     "Gantt": "甘特图 Gantt",
-    "ImageCropper": "图像裁剪 ImageCropper"
+    "ImageCropper": "图像裁剪 ImageCropper",
+    "Services": "内置服务",
+    "AzureTranslator": "翻译服务 AzureTranslator"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
