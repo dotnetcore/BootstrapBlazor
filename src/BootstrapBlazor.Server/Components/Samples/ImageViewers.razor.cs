@@ -9,7 +9,7 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class ImageViewers
 {
-    private List<string> PreviewList { get; } = new();
+    private List<string> PreviewList { get; } = [];
 
     [NotNull]
     private ImagePreviewer? ImagePreviewer { get; set; }

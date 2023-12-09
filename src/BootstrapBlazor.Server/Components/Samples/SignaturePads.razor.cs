@@ -49,8 +49,8 @@ public partial class SignaturePads
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private static AttributeItem[] GetAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "OnResult",
@@ -235,5 +235,5 @@ public partial class SignaturePads
             ValueList = " — ",
             DefaultValue = "rgb(255, 255, 255)"
         }
-    };
+    ];
 }

@@ -12,7 +12,7 @@ public sealed partial class Dropdowns
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
-    private List<SelectedItem> Items { get; set; } = new();
+    private List<SelectedItem> Items { get; set; } = [];
 
     /// <summary>
     /// ShowMessage

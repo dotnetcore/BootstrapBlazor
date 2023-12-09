@@ -57,7 +57,7 @@ public partial class FileViewers
     [NotNull]
     private List<SelectedItem>? Items { get; set; }
 
-    private List<string> FileList { get; } = new List<string>();
+    private List<string> FileList { get; } = [];
 
     private async Task ChangeURL(SelectedItem e)
     {

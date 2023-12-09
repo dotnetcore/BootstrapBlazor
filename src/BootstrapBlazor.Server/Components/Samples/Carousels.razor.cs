@@ -15,12 +15,12 @@ public sealed partial class Carousels
     /// <summary>
     /// Images
     /// </summary>
-    private static List<string> Images => new()
-    {
+    private static List<string> Images =>
+    [
         "./images/Pic0.jpg",
         "./images/Pic1.jpg",
         "./images/Pic2.jpg"
-    };
+    ];
 
     /// <summary>
     /// OnClick

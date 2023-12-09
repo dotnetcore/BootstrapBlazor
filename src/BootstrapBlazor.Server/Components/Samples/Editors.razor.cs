@@ -35,8 +35,8 @@ public sealed partial class Editors
 
         ValueChangedValue = Localizer["EditorOnValueChangedInitValue"];
 
-        EditorPluginItems = new List<EditorToolbarButton>()
-        {
+        EditorPluginItems =
+        [
             new EditorToolbarButton()
             {
                 IconClass = "fa-solid fa-pencil",
@@ -49,7 +49,7 @@ public sealed partial class Editors
                 ButtonName = "plugin2",
                 Tooltip = Localizer["ToolTip2"]
             }
-        };
+        ];
     }
 
     private void SetValue()

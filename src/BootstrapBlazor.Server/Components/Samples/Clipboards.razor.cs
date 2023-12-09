@@ -26,8 +26,8 @@ public partial class Clipboards
         await ToastService.Success("Clipboard", Localizer["ClipboardMessage", content]);
     }
 
-    private MethodItem[] GetMethods() => new MethodItem[]
-    {
+    private MethodItem[] GetMethods() =>
+    [
         new()
         {
             Name = "Copy",
@@ -35,5 +35,5 @@ public partial class Clipboards
             Parameters = " — ",
             ReturnValue = "Task"
         }
-    };
+    ];
 }

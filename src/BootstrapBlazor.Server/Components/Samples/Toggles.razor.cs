@@ -33,85 +33,93 @@ public sealed partial class Toggles
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private EventItem[] GetEvents() => new EventItem[]
-    {
+    private EventItem[] GetEvents() =>
+    [
         new EventItem()
         {
             Name = "ValueChanged",
             Description = Localizer["ValueChanged"],
             Type = "EventCallback<bool>"
         }
-    };
+    ];
 
     /// <summary>
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private AttributeItem[] GetAttributes() => new AttributeItem[]
-    {
-
-        new() {
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
             Name = "Color",
             Description = Localizer["Color"],
             Type = "Color",
             ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
             DefaultValue = "Success"
         },
-        new() {
+        new()
+        {
             Name = "IsDisabled",
             Description = Localizer["IsDisabled"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
         },
-        new() {
+        new()
+        {
             Name = "OffText",
             Description = Localizer["OffTextAttr"],
             Type = "string",
             ValueList = "—",
             DefaultValue = Localizer["OffTextDefautValue"]!
         },
-        new() {
+        new()
+        {
             Name = "OnText",
             Description = Localizer["OnTextAttr"],
             Type = "string",
             ValueList = "—",
             DefaultValue = Localizer["OnTextDefautValue"]!
         },
-        new() {
+        new()
+        {
             Name = "Width",
             Description = Localizer["Width"],
             Type = "int",
             ValueList = " — ",
             DefaultValue = "120"
         },
-        new() {
+        new()
+        {
             Name = "Value",
             Description = Localizer["Value"],
             Type = "boolean",
             ValueList = " ",
             DefaultValue = "None"
         },
-        new() {
+        new()
+        {
             Name = "ShowLabel",
             Description = Localizer["ShowLabel"],
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new() {
+        new()
+        {
             Name = "DisplayText",
             Description = Localizer["DisplayText"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "OnValueChanged",
             Description = Localizer["OnValueChanged"],
             Type = "Func<bool, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

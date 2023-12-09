@@ -13,8 +13,8 @@ public sealed partial class Index
     /// 获得属性列表
     /// </summary>
     /// <returns></returns>
-    private static AttributeItem[] GetAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetAttributes() =>
+    [
         new() {
             Name = "Title",
             Description = "图表标题",
@@ -147,7 +147,7 @@ public sealed partial class Index
             DefaultValue = " - "
         }
 
-    };
+    ];
 
     /// <summary>
     /// 获得方法列表

@@ -18,8 +18,8 @@ public partial class Responsives
         return Task.CompletedTask;
     }
 
-    private static AttributeItem[] GetAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = nameof(Responsive.OnBreakPointChanged),
@@ -28,5 +28,5 @@ public partial class Responsives
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

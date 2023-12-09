@@ -338,8 +338,8 @@ public partial class Tables
         }
     };
 
-    private AttributeItem[] GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "TableSize",
@@ -1252,10 +1252,10 @@ public partial class Tables
             ValueList = "true|false",
             DefaultValue = "false"
         },
-    };
+    ];
 
-    private MethodItem[] GetMethods() => new MethodItem[]
-    {
+    private MethodItem[] GetMethods() =>
+    [
         new()
         {
             Name = nameof(Table<MethodItem>.AddAsync),
@@ -1277,5 +1277,5 @@ public partial class Tables
             Parameters = " — ",
             ReturnValue = "Task"
         }
-    };
+    ];
 }

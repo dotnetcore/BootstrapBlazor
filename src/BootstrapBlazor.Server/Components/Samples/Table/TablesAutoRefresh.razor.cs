@@ -14,7 +14,7 @@ public partial class TablesAutoRefresh
     /// Foo class is used for Demo test, please download the source code if necessary
     /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Server/Data/Foo.cs
     /// </summary>
-    private List<Foo> Items { get; set; } = new List<Foo>();
+    private List<Foo> Items { get; set; } = [];
     private bool IsAutoRefresh { get; set; }
 
     private static readonly Random random = new();

@@ -15,7 +15,7 @@ public sealed partial class Rows
         Count = 23,
         Address = "测试地址",
         DateTime = new DateTime(1997, 12, 05),
-        Educations = new List<EnumEducation> { EnumEducation.Primary, EnumEducation.Middle }
+        Educations = [EnumEducation.Primary, EnumEducation.Middle]
     };
 
     [NotNull]
@@ -33,7 +33,7 @@ public sealed partial class Rows
         Count = 23,
         Address = "测试地址",
         DateTime = new DateTime(1997, 12, 05),
-        Educations = new List<EnumEducation> { EnumEducation.Primary, EnumEducation.Middle }
+        Educations = [EnumEducation.Primary, EnumEducation.Middle]
     };
 
     private RowFoo NestedModel { get; } = new()
@@ -42,7 +42,7 @@ public sealed partial class Rows
         Count = 23,
         Address = "测试地址",
         DateTime = new DateTime(1997, 12, 05),
-        Educations = new List<EnumEducation> { EnumEducation.Primary, EnumEducation.Middle }
+        Educations = [EnumEducation.Primary, EnumEducation.Middle]
     };
 
     private RowFoo SpanModel { get; } = new()
@@ -51,7 +51,7 @@ public sealed partial class Rows
         Count = 23,
         Address = "测试地址",
         DateTime = new DateTime(1997, 12, 05),
-        Educations = new List<EnumEducation> { EnumEducation.Primary, EnumEducation.Middle }
+        Educations = [EnumEducation.Primary, EnumEducation.Middle]
     };
 
     /// <summary>
@@ -74,8 +74,8 @@ public sealed partial class Rows
         public List<EnumEducation>? Educations { get; set; }
     }
 
-    private AttributeItem[] GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "ItemsPerRow",
@@ -108,5 +108,5 @@ public sealed partial class Rows
             ValueList = "-",
             DefaultValue = "null"
         }
-    };
+    ];
 }

@@ -32,8 +32,8 @@ public sealed partial class Steps
     /// </summary>
     protected override void OnInitialized()
     {
-        Items = new()
-        {
+        Items =
+        [
             new StepOption()
             {
                 Template = BootstrapDynamicComponent.CreateComponent<Counter>().Render()
@@ -46,7 +46,7 @@ public sealed partial class Steps
             {
                 Template = BootstrapDynamicComponent.CreateComponent<Counter>().Render()
             }
-        };
+        ];
     }
 
     private static void PrevStep(Step? step)
@@ -64,8 +64,8 @@ public sealed partial class Steps
         step?.Reset();
     }
 
-    private AttributeItem[] GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Items",
@@ -90,10 +90,10 @@ public sealed partial class Steps
             ValueList = "true|false",
             DefaultValue = "false"
         }
-    };
+    ];
 
-    private IEnumerable<AttributeItem> GetStepItemAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetStepItemAttributes() =>
+    [
         new()
         {
             Name = "Text",
@@ -158,5 +158,5 @@ public sealed partial class Steps
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

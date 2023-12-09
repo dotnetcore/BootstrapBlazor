@@ -143,22 +143,22 @@ public sealed partial class Captchas
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private EventItem[] GetEvents() => new EventItem[]
-    {
+    private EventItem[] GetEvents() =>
+    [
         new()
         {
             Name = "OnValid",
             Description = Localizer["OnValid"],
             Type ="Action<bool>"
         }
-    };
+    ];
 
     /// <summary>
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private MethodItem[] GetMethods() => new MethodItem[]
-    {
+    private MethodItem[] GetMethods() =>
+    [
         new()
         {
             Name = "GetImageName",
@@ -166,5 +166,5 @@ public sealed partial class Captchas
             Parameters =" — ",
             ReturnValue = "string"
         }
-    };
+    ];
 }

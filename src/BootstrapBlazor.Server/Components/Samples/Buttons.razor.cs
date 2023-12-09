@@ -184,8 +184,8 @@ public sealed partial class Buttons
         }
     ];
 
-    private MethodItem[] GetMethods() => new MethodItem[]
-    {
+    private MethodItem[] GetMethods() =>
+    [
         new()
         {
             Name = "SetDisable",
@@ -193,5 +193,5 @@ public sealed partial class Buttons
             Parameters = "disable",
             ReturnValue = " — "
         }
-    };
+    ];
 }

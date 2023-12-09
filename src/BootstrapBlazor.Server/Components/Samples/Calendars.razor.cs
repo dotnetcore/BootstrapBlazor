@@ -35,15 +35,15 @@ public sealed partial class Calendars
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private EventItem[] GetEvents() => new EventItem[]
-    {
+    private EventItem[] GetEvents() =>
+    [
         new EventItem()
         {
             Name = "ValueChanged",
             Description = Localizer["ValueChanged"],
             Type ="EventCallback<DateTime>"
         }
-    };
+    ];
 
     /// <summary>
     /// 获得属性方法

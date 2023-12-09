@@ -22,8 +22,8 @@ public partial class SpeechWaves
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private AttributeItem[] GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = nameof(SpeechWave.Show),
@@ -56,5 +56,5 @@ public partial class SpeechWaves
             ValueList = " — ",
             DefaultValue = "60000"
         }
-    };
+    ];
 }

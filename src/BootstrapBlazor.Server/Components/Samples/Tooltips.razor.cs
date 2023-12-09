@@ -23,9 +23,8 @@ public partial class Tooltips
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    protected AttributeItem[] GetAttributes() => new AttributeItem[]
-    {
-
+    protected AttributeItem[] GetAttributes() =>
+    [
         new() {
             Name = "Placement",
             Description = "Location",
@@ -33,5 +32,5 @@ public partial class Tooltips
             ValueList = "Auto / Top / Left / Bottom / Right",
             DefaultValue = "Auto"
         }
-    };
+    ];
 }

@@ -36,8 +36,8 @@ public sealed partial class Switches
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private AttributeItem[] GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Class",
@@ -158,19 +158,19 @@ public sealed partial class Switches
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 
     /// <summary>
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private EventItem[] GetEvents() => new EventItem[]
-    {
+    private EventItem[] GetEvents() =>
+    [
         new()
         {
             Name = "ValueChanged",
             Description = Localizer["SwitchesEventValueChanged"],
             Type = "EventCallback<bool>"
         }
-    };
+    ];
 }

@@ -52,8 +52,8 @@ public partial class TablesCell
         });
     }
 
-    private AttributeItem[] GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Row",
@@ -94,5 +94,5 @@ public partial class TablesCell
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

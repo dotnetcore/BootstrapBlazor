@@ -35,7 +35,7 @@ public class CustomDynamicData : System.Dynamic.DynamicObject
     /// <summary>
     /// 
     /// </summary>
-    public CustomDynamicData() : this("", new()) { }
+    public CustomDynamicData() : this("", []) { }
 
     /// <summary>
     /// <inheritdoc/>

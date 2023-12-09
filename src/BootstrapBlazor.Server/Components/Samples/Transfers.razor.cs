@@ -104,119 +104,131 @@ public sealed partial class Transfers : ComponentBase
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private AttributeItem[] GetAttributes() => new AttributeItem[]
-    {
-
-        new() {
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
             Name = "Items",
             Description = Localizer["Items"],
             Type = "IEnumerable<SelectedItem>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "LeftButtonText",
             Description = Localizer["LeftButtonTextAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "LeftPanelText",
             Description = Localizer["LeftPanelTextAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = Localizer["LeftPanelDefaultValue"]!
         },
-        new() {
+        new()
+        {
             Name = "RightButtonText",
             Description = Localizer["RightButtonTextAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "RightPanelText",
             Description = Localizer["RightPanelTextAttr"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = Localizer["RightPanelTextDefaultValue"]!
         },
-        new() {
+        new()
+        {
             Name = "ShowSearch",
             Description = "",
             Type = "boolean",
             ValueList = " — ",
             DefaultValue = "false"
         },
-        new() {
+        new()
+        {
             Name = "LeftPanelSearchPlaceHolderString",
             Description = Localizer["LeftPanelSearchPlaceHolderString"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "RightPanelSearchPlaceHolderString",
             Description = Localizer["RightPanelSearchPlaceHolderString"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "IsDisabled",
             Description = Localizer["IsDisabled"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "false"
         },
-        new() {
+        new()
+        {
             Name = "LeftHeaderTemplate",
             Description = Localizer["LeftHeaderTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "LeftItemTemplate",
             Description = Localizer["LeftItemTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "RightHeaderTemplate",
             Description = Localizer["RightHeaderTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "RightItemTemplate",
             Description = Localizer["RightItemTemplate"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 
     /// <summary>
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private EventItem[] GetEvents() => new EventItem[]
-    {
-        new EventItem()
+    private EventItem[] GetEvents() =>
+    [
+        new()
         {
             Name = nameof(Transfer<string>.OnSelectedItemsChanged),
             Description = Localizer["OnSelectedItemsChanged"],
             Type = "Func<IEnumerable<SelectedItem>, Task>"
         },
-        new EventItem()
+        new()
         {
             Name = "OnSetItemClass",
             Description = Localizer["OnSetItemClass"],
             Type = "Func<SelectedItem, string?>"
         }
-    };
+    ];
 }

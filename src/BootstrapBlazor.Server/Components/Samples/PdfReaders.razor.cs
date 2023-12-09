@@ -48,8 +48,6 @@ public partial class PdfReaders
 
     private int Page { get; set; } = 3;
 
-    private bool ForcePDFJS { get; set; } = true;
-
     private async Task ApplyZoom()
     {
         Zoom = Zoom switch
@@ -119,8 +117,8 @@ public partial class PdfReaders
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    protected AttributeItem[] GetAttributes() => new AttributeItem[]
-    {
+    protected AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Filename",
@@ -273,5 +271,5 @@ public partial class PdfReaders
             ValueList = "-",
             DefaultValue = "false"
         }
-    };
+    ];
 }

@@ -32,7 +32,7 @@ public partial class Inputs
     [NotNull]
     private Foo? GenericModel { get; set; }
 
-    private byte[] ByteArray { get; set; } = new byte[] { 0x01, 0x12, 0x34, 0x56 };
+    private byte[] ByteArray { get; set; } = [0x01, 0x12, 0x34, 0x56];
 
     [NotNull]
     private Foo? FormatModel { get; set; }

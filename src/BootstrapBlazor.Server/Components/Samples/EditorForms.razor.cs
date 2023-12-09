@@ -24,14 +24,14 @@ public sealed partial class EditorForms
     [NotNull]
     private IStringLocalizer<Foo>? FooLocalizer { get; set; }
 
-    private List<SelectedItem> DummyItems { get; } = new List<SelectedItem>()
-    {
+    private List<SelectedItem> DummyItems { get; } =
+    [
         new SelectedItem("1", "1"),
         new SelectedItem("2", "2"),
         new SelectedItem("3", "3"),
         new SelectedItem("4", "4"),
         new SelectedItem("5", "5")
-    };
+    ];
 
     /// <summary>
     /// <inheritdoc/>

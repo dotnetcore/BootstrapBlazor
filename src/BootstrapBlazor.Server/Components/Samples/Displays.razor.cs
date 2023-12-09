@@ -31,7 +31,7 @@ public partial class Displays
     [NotNull]
     private IEnumerable<SelectedItem>? Hobbies { get; set; }
 
-    private byte[] ByteArray { get; set; } = { 0x01, 0x12, 0x34, 0x56 };
+    private byte[] ByteArray { get; set; } = [0x01, 0x12, 0x34, 0x56];
 
     /// <summary>
     /// Foo 类为Demo测试用，如有需要请自行下载源码查阅

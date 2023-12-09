@@ -30,14 +30,14 @@ public sealed partial class Rates
 
     private double IconListValue { get; set; } = 1;
 
-    private List<string> IconList { get; } = new List<string>()
-    {
+    private List<string> IconList { get; } =
+    [
         "fa-solid fa-face-sad-cry",
         "fa-solid fa-face-sad-tear",
         "fa-solid fa-face-smile",
         "fa-solid fa-face-surprise",
         "fa-solid fa-face-grin-stars"
-    };
+    ];
 
     private string GetIconList(int index) => IconList[index - 1];
 
@@ -50,18 +50,18 @@ public sealed partial class Rates
         _ => Localizer["RatesGrin"]
     };
 
-    private EventItem[] GetEvents() => new EventItem[]
-    {
+    private EventItem[] GetEvents() =>
+    [
         new()
         {
             Name = "ValueChanged",
             Description =Localizer["RatesEvent1"],
             Type ="EventCallback<int>"
         }
-    };
+    ];
 
-    private AttributeItem[] GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Value",
@@ -118,5 +118,5 @@ public sealed partial class Rates
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

@@ -24,8 +24,8 @@ public sealed partial class Timers
         return Task.CompletedTask;
     }
 
-    private static AttributeItem[] GetAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Width",
@@ -66,5 +66,5 @@ public sealed partial class Timers
             ValueList = "Primary / Secondary / Success / Danger / Warning / Info / Dark",
             DefaultValue = "Primary"
         }
-    };
+    ];
 }

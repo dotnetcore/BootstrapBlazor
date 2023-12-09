@@ -61,7 +61,7 @@ internal static class CacheExtensions
         List<string> GetFiles()
         {
             var cacheSection = configuration.GetSection("Cache-Control");
-            return cacheSection.GetSection("Files").Get<List<string>>() ?? new();
+            return cacheSection.GetSection("Files").Get<List<string>>() ?? [];
         }
     }
 

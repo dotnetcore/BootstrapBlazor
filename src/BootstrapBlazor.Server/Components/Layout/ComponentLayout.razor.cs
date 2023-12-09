@@ -60,7 +60,7 @@ public partial class ComponentLayout : IAsyncDisposable
 
     private string GVPUrl => $"{WebsiteOption.CurrentValue.GiteeRepositoryUrl}/badge/star.svg?theme=gvp";
 
-    private List<SelectedItem> IconThemes { get; } = new();
+    private List<SelectedItem> IconThemes { get; } = [];
 
     [NotNull]
     private string? IconThemeKey { get; set; }

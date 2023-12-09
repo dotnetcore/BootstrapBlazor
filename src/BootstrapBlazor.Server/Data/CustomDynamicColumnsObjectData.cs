@@ -17,7 +17,7 @@ public class CustomDynamicColumnsObjectData : DynamicColumnsObject
     /// <summary>
     /// 
     /// </summary>
-    public CustomDynamicColumnsObjectData() : this("", new()) { }
+    public CustomDynamicColumnsObjectData() : this("", []) { }
 
     /// <summary>
     /// 

@@ -16,12 +16,12 @@ public partial class TablesNameDrop
     [NotNull]
     public Foo? Model { get; set; }
 
-    private List<SelectedItem> Items { get; } = new()
-    {
+    private List<SelectedItem> Items { get; } =
+    [
         new SelectedItem { Text = "请选择 ...", Value = "" },
         new SelectedItem { Text = "自定义姓名1", Value = "自定义姓名1" },
         new SelectedItem { Text = "自定义姓名2", Value = "自定义姓名2" },
         new SelectedItem { Text = "自定义姓名3", Value = "自定义姓名3" },
         new SelectedItem { Text = "自定义姓名4", Value = "自定义姓名4" },
-    };
+    ];
 }

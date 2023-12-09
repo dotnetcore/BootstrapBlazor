@@ -13,7 +13,7 @@ public partial class Repeaters
     private List<Foo>? Items { get; set; }
 
     [NotNull]
-    private List<Foo>? EmptyItems { get; set; } = new();
+    private List<Foo>? EmptyItems { get; set; } = [];
 
     /// <summary>
     /// <inheritdoc/>
@@ -26,7 +26,7 @@ public partial class Repeaters
 
     private void OnClick()
     {
-        var id = Items.Any() ? Items.Max(i => i.Id) : 0;
+        var id = Items.Count > 0 ? Items.Max(i => i.Id) : 0;
         var foo = Foo.Generate(FooLocalizer);
         foo.Id = id + 1;
         Items.Add(foo);
@@ -37,8 +37,8 @@ public partial class Repeaters
         Items.Remove(foo);
     }
 
-    private static AttributeItem[] GetAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = nameof(Repeater<Foo>.Items),
@@ -103,5 +103,5 @@ public partial class Repeaters
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

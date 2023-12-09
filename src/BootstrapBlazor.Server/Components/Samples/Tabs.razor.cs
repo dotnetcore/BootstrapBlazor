@@ -14,7 +14,7 @@ public sealed partial class Tabs
 
     private Placement BindPlacement = Placement.Top;
 
-    private bool RemoveEndable => (TabSet?.Items.Count() ?? 4) < 4;
+    private bool RemoveEnabled => (TabSet?.Items.Count() ?? 4) < 4;
 
     [NotNull]
     private Menu? TabMenu { get; set; }
@@ -89,14 +89,11 @@ public sealed partial class Tabs
         }
     }
 
-    private IEnumerable<MenuItem> GetSideMenuItems()
-    {
-        return new List<MenuItem>
-        {
-            new MenuItem() { Text = Localizer["BackText1"]  },
-            new MenuItem() { Text = Localizer["BackText2"] }
-        };
-    }
+    private List<MenuItem> GetSideMenuItems() =>
+    [
+        new() { Text = Localizer["BackText1"]  },
+        new() { Text = Localizer["BackText2"] }
+    ];
 
     private Task OnClickMenuItem(MenuItem item)
     {
@@ -166,8 +163,8 @@ public sealed partial class Tabs
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private AttributeItem[] GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
 
         new() {
             Name = "IsBorderCard",
@@ -281,14 +278,14 @@ public sealed partial class Tabs
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 
     /// <summary>
     /// 获得方法
     /// </summary>
     /// <returns></returns>
-    private MethodItem[] GetMethods() => new MethodItem[]
-    {
+    private MethodItem[] GetMethods() =>
+    [
 
         new MethodItem() {
             Name = "AddTab",
@@ -342,7 +339,7 @@ public sealed partial class Tabs
             Name = nameof(Tab.GetActiveTab),
             Description = Localizer["TabMethod9GetActiveTab"].Value,
             Parameters = "",
-            ReturnValue = "Tabitem"
+            ReturnValue = "TabItem"
         }
-    };
+    ];
 }

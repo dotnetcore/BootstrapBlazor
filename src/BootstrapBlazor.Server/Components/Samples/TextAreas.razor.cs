@@ -110,8 +110,8 @@ public partial class TextAreas
         GC.SuppressFinalize(this);
     }
 
-    private AttributeItem[] GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "ShowLabel",
@@ -168,6 +168,6 @@ public partial class TextAreas
             ValueList = "true|false",
             DefaultValue = "false"
         }
-    };
+    ];
 }
 

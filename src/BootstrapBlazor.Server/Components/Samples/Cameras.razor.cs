@@ -43,7 +43,7 @@ public sealed partial class Cameras
 
     private bool CaptureDisabled { get; set; } = true;
 
-    private List<SelectedItem> Devices { get; } = new();
+    private List<SelectedItem> Devices { get; } = [];
 
     private string? DeviceId { get; set; }
 

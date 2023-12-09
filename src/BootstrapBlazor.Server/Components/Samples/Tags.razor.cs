@@ -22,23 +22,22 @@ public sealed partial class Tags
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private EventItem[] GetEvents() => new EventItem[]
-    {
+    private EventItem[] GetEvents() =>
+    [
         new()
         {
             Name = "OnDismiss",
             Description = Localizer["TagsOnDismiss"],
             Type ="EventCallback<MouseEventArgs>"
         }
-    };
+    ];
 
     /// <summary>
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private AttributeItem[] GetAttributes() => new AttributeItem[]
-    {
-
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "ChildContent",
@@ -79,5 +78,5 @@ public sealed partial class Tags
             ValueList = " — ",
             DefaultValue = "false"
         }
-    };
+    ];
 }
