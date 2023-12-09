@@ -67,21 +67,21 @@ public partial class Ajaxs
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
-    {
-        new MethodItem()
+    private List<MethodItem> GetMethods() =>
+    [
+        new()
         {
             Name = "InvokeAsync",
             Description = Localizer["InvokeAsync"],
             Parameters = "AjaxOption",
             ReturnValue = "string"
         },
-        new MethodItem()
+        new()
         {
             Name = "Goto",
             Description = Localizer["GoTo"],
             Parameters = "string",
             ReturnValue = " — "
         }
-    };
+    ];
 }
