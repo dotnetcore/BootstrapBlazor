@@ -13,8 +13,8 @@ public sealed partial class Dividers
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
             new() {
                 Name = "Text",
                 Description = Localizer["Desc1"],
@@ -50,5 +50,5 @@ public sealed partial class Dividers
                 ValueList = " — ",
                 DefaultValue = " — "
             }
-    };
+    ];
 }

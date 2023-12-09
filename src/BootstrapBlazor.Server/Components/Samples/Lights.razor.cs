@@ -82,8 +82,8 @@ public partial class Lights
         GC.SuppressFinalize(this);
     }
 
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = nameof(Light.Color),
@@ -116,5 +116,5 @@ public partial class Lights
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

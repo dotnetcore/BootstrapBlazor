@@ -165,49 +165,49 @@ public partial class PracticeNavMenu
         stream.Close();
     }
 
-    private readonly string[] dashboardFileList = new[]
-    {
+    private readonly string[] dashboardFileList =
+    [
         "Practices/Dashboard.razor",
         "Practices/Dashboard.razor.cs",
         "Practices/Dashboard.razor.css",
         "Practices/DashboardData.cs",
         "/../../Services/DashboardService.cs"
-    };
+    ];
 
-    private readonly string[] Template1 = new[]
-    {
+    private readonly string[] Template1 =
+    [
         "Practices/LoginAndRegister/Template1.razor",
         "Practices/LoginAndRegister/Template1.razor.css",
-    };
+    ];
 
-    private readonly string[] Template2 = new[]
-    {
+    private readonly string[] Template2 =
+    [
         "Practices/LoginAndRegister/Template2.razor",
         "Practices/LoginAndRegister/Template2.razor.css",
-    };
+    ];
 
-    private readonly string[] Template3 = new[]
-    {
+    private readonly string[] Template3 =
+    [
         "Practices/LoginAndRegister/Template3.razor",
         "Practices/LoginAndRegister/Template3.razor.css",
-    };
+    ];
 
-    private readonly string[] Template4 = new[]
-    {
+    private readonly string[] Template4 =
+    [
         "Practices/LoginAndRegister/Template4.razor",
         "Practices/LoginAndRegister/Template4.razor.css",
         "Practices/LoginAndRegister/Template4.razor.js",
-    };
+    ];
 
-    private readonly string[] Template5 = new[]
-    {
+    private readonly string[] Template5 =
+    [
         "Practices/LoginAndRegister/Template5.razor",
         "Practices/LoginAndRegister/Template5.razor.css",
         "Practices/LoginAndRegister/Template5.razor.js",
-    };
+    ];
 
-    private readonly string[] Template6 = new[]
-    {
+    private readonly string[] Template6 =
+    [
         "Practices/LoginAndRegister/Template6.razor",
         "Practices/LoginAndRegister/Template6.razor.css",
         "Shared/PracticeLayout.razor",
@@ -215,10 +215,10 @@ public partial class PracticeNavMenu
         "Shared/PracticeLayout.razor.css",
         "Shared/PracticeLoginLayout.razor",
         "Shared/PracticeLoginLayout.razor.css"
-    };
+    ];
 
-    private readonly string[] Template7 = new[]
-    {
+    private readonly string[] Template7 =
+    [
         "Practices/LoginAndRegister/Template7.razor",
         "Practices/LoginAndRegister/Template7.razor.css",
         "Shared/PracticeLayout.razor",
@@ -226,10 +226,10 @@ public partial class PracticeNavMenu
         "Shared/PracticeLayout.razor.css",
         "Shared/PracticeLoginLayout.razor",
         "Shared/PracticeLoginLayout.razor.css"
-    };
+    ];
 
-    private readonly string[] Template8 = new[]
-    {
+    private readonly string[] Template8 =
+    [
         "Practices/LoginAndRegister/Template8.razor",
         "Practices/LoginAndRegister/Template8.razor.css",
         "Shared/PracticeLayout.razor",
@@ -237,10 +237,10 @@ public partial class PracticeNavMenu
         "Shared/PracticeLayout.razor.css",
         "Shared/PracticeLoginLayout.razor",
         "Shared/PracticeLoginLayout.razor.css"
-    };
+    ];
 
-    private readonly string[] Template9 = new[]
-    {
+    private readonly string[] Template9 =
+    [
         "Practices/LoginAndRegister/Template9.razor",
         "Practices/LoginAndRegister/Template9.razor.css",
         "Shared/PracticeLayout.razor",
@@ -248,12 +248,12 @@ public partial class PracticeNavMenu
         "Shared/PracticeLayout.razor.css",
         "Shared/PracticeLoginLayout.razor",
         "Shared/PracticeLoginLayout.razor.css"
-    };
+    ];
 
-    private readonly string[] waterfallFileList = new[]
-    {
+    private readonly string[] waterfallFileList =
+    [
         "Practices/Waterfall.razor",
         "Practices/Waterfall.razor.cs",
         "Practices/Waterfall.razor.css"
-    };
+    ];
 }

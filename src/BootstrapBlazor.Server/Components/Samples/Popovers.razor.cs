@@ -13,8 +13,8 @@ public sealed partial class Popovers
     /// Get property method
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Content",
@@ -47,5 +47,5 @@ public sealed partial class Popovers
             ValueList = "",
             DefaultValue = "Popover"
         }
-    };
+    ];
 }

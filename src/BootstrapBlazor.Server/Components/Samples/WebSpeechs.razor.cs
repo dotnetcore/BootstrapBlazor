@@ -12,7 +12,6 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class WebSpeechs
 {
-
     [NotNull]
     WebSpeech? WebSpeech { get; set; }
     [NotNull]
@@ -33,17 +32,12 @@ public partial class WebSpeechs
     private string? SelectLang { get; set; }
 
     SpeechRecognitionOption Options { get; set; } = new SpeechRecognitionOption();
+
     SpeechSynthesisOption Options2 { get; set; } = new SpeechSynthesisOption();
 
-    /// <summary>
-    /// 
-    /// </summary>
     [NotNull]
     private Message? Message { get; set; }
 
-    /// <summary>
-    /// 
-    /// </summary>
     [Inject]
     [NotNull]
     private MessageService? MessageService { get; set; }
@@ -75,12 +69,9 @@ public partial class WebSpeechs
     async Task SpeechRecognitionEN() => Result2 = await WebSpeech.SpeechRecognition("en-US", Options);
     async Task SpeechRecognitionES() => Result2 = await WebSpeech.SpeechRecognition("es-ES", Options);
     async Task SpeechRecognitionStop() => await WebSpeech.SpeechRecognitionStop();
-
     #endregion
 
-
     #region SpeechRecognitionDemo
-
     async Task SpeechRecognitionDemo() => Result2 = await WebSpeechGame.SpeechRecognitionDemo();
     async Task SpeechRecognitionHKDemo() => Result2 = await WebSpeechGame.SpeechRecognitionDemo("zh-HK");
     async Task SpeechRecognitionENDemo() => Result2 = await WebSpeechGame.SpeechRecognitionDemo("en-US");
@@ -90,24 +81,20 @@ public partial class WebSpeechs
     #endregion
 
     #region SpeechSynthesis
-
     async Task SpeechSynthesis() => await WebSpeechSynthesis.SpeechSynthesis("你好 blazor,现在是" + NowString());
     async Task SpeechSynthesisHK() => await WebSpeechSynthesis.SpeechSynthesis("早晨 blazor,依家系 " + NowString(), "zh-HK");
     async Task SpeechSynthesisEN() => await WebSpeechSynthesis.SpeechSynthesis("Hello blazor,now is " + NowString(), "en-US");
     async Task SpeechSynthesisES() => await WebSpeechSynthesis.SpeechSynthesis("Hola blazor,ahora es " + NowString(), "es-ES");
     async Task SpeechStop() => await WebSpeech.SpeechStop();
-
     #endregion
 
     #region SpeechSynthesisDIY
-
     async Task SpeechSynthesisDIY() => await WebSpeechDIY.SpeechSynthesis(SpeakText, Options2, "", SelectLang ?? WebVoiceList?.FirstOrDefault()?.VoiceURI);
     async Task SpeechDIYStop() => await WebSpeechDIY.SpeechStop();
-
     #endregion
 
 
-    string NowString() => DateTime.Now.ToShortTimeString();
+    static string NowString() => DateTime.Now.ToShortTimeString();
 
     List<WebVoice>? WebVoiceList { get; set; }
     async Task GetVoiceList()
@@ -160,7 +147,6 @@ public partial class WebSpeechs
     /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-
         if (firstRender)
         {
             await Task.Delay(500);
@@ -181,71 +167,71 @@ public partial class WebSpeechs
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
-        new AttributeItem() {
+    protected AttributeItem[] GetAttributes() =>
+    [
+        new() {
             Name = "SpeechRecognition",
             Description = "语音识别",
             Type = "Task<string>",
             ValueList = "",
             DefaultValue = "-"
         },
-        new AttributeItem() {
+        new() {
             Name = "SpeechRecognitionStop",
             Description = "停止语音识别",
             Type = "Task",
             ValueList = "",
             DefaultValue = "-"
         },
-        new AttributeItem() {
+        new() {
             Name = "SpeechSynthesis",
             Description = "语音合成",
             Type = "Task",
             ValueList = "",
             DefaultValue = "-"
         },
-        new AttributeItem() {
+        new() {
             Name = "SpeechStop",
             Description = "停止语音合成",
             Type = "Task",
             ValueList = "",
             DefaultValue = "-"
         },
-        new AttributeItem() {
+        new() {
             Name = "OnResult",
             Description = "识别完成回调方法",
             Type = "Func<string, Task>?",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new AttributeItem() {
+        new() {
             Name = "OnIsBusy",
             Description = "工作状态回调方法",
             Type = "Func<bool, Task>?",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new AttributeItem() {
+        new() {
             Name = "OnStatus",
             Description = "状态信息回调方法",
             Type = "Func<string, Task>?",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new AttributeItem() {
+        new() {
             Name = "OnError",
             Description = "错误回调方法",
             Type = "Func<string, Task>?",
             ValueList = "-",
             DefaultValue = "-"
         },
-        new AttributeItem() {
+        new() {
             Name = "Element",
             Description = "UI界面元素的引用对象,为空则使用整个页面",
             Type = "ElementReference",
             ValueList = "-",
             DefaultValue = "-"
         },
-    }; 
+    ];
 
 }

@@ -25,7 +25,7 @@ public partial class Index
     [NotNull]
     private IStringLocalizer<Index>? Localizer { get; set; }
 
-    private List<ConsoleMessageItem> ConsoleMessages { get; } = new();
+    private List<ConsoleMessageItem> ConsoleMessages { get; } = [];
 
     private string Version { get; set; } = "fetching";
 

@@ -11,10 +11,12 @@ public sealed partial class AutoCompletes
 {
     private Foo Model { get; set; } = new Foo() { Name = "" };
 
-    private static List<string> StaticItems => new() { "1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG" };
+    private static List<string> StaticItems => ["1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG"];
 
-    private readonly List<string> _items = new();
+    private readonly List<string> _items = [];
+
     private IEnumerable<string> Items => _items;
+
     private Task OnValueChanged(string val)
     {
         _items.Clear();
@@ -47,9 +49,8 @@ public sealed partial class AutoCompletes
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
-
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "ShowLabel",
@@ -170,5 +171,5 @@ public sealed partial class AutoCompletes
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

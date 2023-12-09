@@ -28,8 +28,8 @@ public sealed partial class QRCodes
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = nameof(QRCode.PlaceHolder),
@@ -118,5 +118,5 @@ public sealed partial class QRCodes
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

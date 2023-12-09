@@ -122,8 +122,8 @@ public partial class SweetAlerts
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Category",
@@ -220,5 +220,5 @@ public partial class SweetAlerts
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

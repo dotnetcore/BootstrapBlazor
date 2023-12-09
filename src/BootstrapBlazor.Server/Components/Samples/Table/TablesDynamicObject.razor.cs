@@ -11,13 +11,13 @@ public partial class TablesDynamicObject
 {
     [NotNull]
     private IEnumerable<CustomDynamicColumnsObjectData>? CustomDynamicItems { get; set; }
-    private static List<string> StaticColumnList => new()
-    {
+    private static List<string> StaticColumnList =>
+    [
         "A",
         "B",
         "C",
         "Z"
-    };
+    ];
 
     [NotNull]
     private List<string>? DynamicColumnList { get; set; }

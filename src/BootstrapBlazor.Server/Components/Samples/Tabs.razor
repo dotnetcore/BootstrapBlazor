@@ -246,7 +246,7 @@ private void Navigation()
     <p>
         <Button Icon="fa-solid fa-circle-plus" OnClickWithoutRender="@(() => AddTab(TabSet))" Text="@Localizer["AddButtonText"]">
         </Button>
-        <Button Color="Color.Danger" Icon="fa-solid fa-circle-minus" IsDisabled="@RemoveEndable" OnClickWithoutRender="@(() => RemoveTab(TabSet))" Text="@Localizer["RemoveButtonText"]">
+        <Button Color="Color.Danger" Icon="fa-solid fa-circle-minus" IsDisabled="@RemoveEnabled" OnClickWithoutRender="@(() => RemoveTab(TabSet))" Text="@Localizer["RemoveButtonText"]">
         </Button>
         <Button Icon="fa-solid fa-font-awesome" OnClickWithoutRender="@(() => Active(TabSet))" Text="@Localizer["ActiveButtonText"]">
         </Button>

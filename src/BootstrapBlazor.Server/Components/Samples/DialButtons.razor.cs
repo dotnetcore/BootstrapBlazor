@@ -24,8 +24,8 @@ public partial class DialButtons
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = nameof(DialButton.Placement),
@@ -50,5 +50,5 @@ public partial class DialButtons
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

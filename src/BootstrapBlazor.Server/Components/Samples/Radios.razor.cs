@@ -60,26 +60,26 @@ public sealed partial class Radios
 
         DemoValues = new List<SelectedItem>(2)
         {
-            new SelectedItem("1", Localizer["RadiosItem1"]),
-            new SelectedItem("2", Localizer["RadiosItem2"])
+            new("1", Localizer["RadiosItem1"]),
+            new("2", Localizer["RadiosItem2"])
         };
 
         DisableValues = new List<SelectedItem>(2)
         {
-            new SelectedItem("1", Localizer["RadiosItem1"]),
-            new SelectedItem("2", Localizer["RadiosItem2"]) { IsDisabled = true }
+            new("1", Localizer["RadiosItem1"]),
+            new("2", Localizer["RadiosItem2"]) { IsDisabled = true }
         };
 
         Items = new SelectedItem[]
         {
-            new SelectedItem("1", Localizer["RadiosAdd1"]),
-            new SelectedItem("2", Localizer["RadiosAdd2"])
+            new("1", Localizer["RadiosAdd1"]),
+            new("2", Localizer["RadiosAdd2"])
         };
 
         IconDemoValues = new List<IconSelectedItem>()
         {
-            new IconSelectedItem() { Text = "Item1", Value = "1", Icon = "fa-solid fa-users" },
-            new IconSelectedItem() { Text = "Item2", Value = "2", Icon = "fa-solid fa-users-gear" }
+            new() { Text = "Item1", Value = "1", Icon = "fa-solid fa-users" },
+            new() { Text = "Item2", Value = "2", Icon = "fa-solid fa-users-gear" }
         };
 
         Model = Foo.Generate(LocalizerFoo);
@@ -99,8 +99,8 @@ public sealed partial class Radios
         public string? Icon { get; set; }
     }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "DisplayText",
@@ -165,19 +165,19 @@ public sealed partial class Radios
             ValueList = " — ",
             DefaultValue = "—"
         }
-    };
+    ];
 
     /// <summary>
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<EventItem> GetEvents() => new EventItem[]
-    {
+    private EventItem[] GetEvents() =>
+    [
         new()
         {
             Name = "OnSelectedChanged",
             Description = Localizer["RadiosOnSelectedChangedEvent"],
             Type ="Func<IEnumerable<SelectedItem>, TValue, Task>"
         }
-    };
+    ];
 }

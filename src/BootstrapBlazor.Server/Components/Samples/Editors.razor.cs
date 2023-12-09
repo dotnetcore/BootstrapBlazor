@@ -35,8 +35,8 @@ public sealed partial class Editors
 
         ValueChangedValue = Localizer["EditorOnValueChangedInitValue"];
 
-        EditorPluginItems = new List<EditorToolbarButton>()
-        {
+        EditorPluginItems =
+        [
             new EditorToolbarButton()
             {
                 IconClass = "fa-solid fa-pencil",
@@ -49,7 +49,7 @@ public sealed partial class Editors
                 ButtonName = "plugin2",
                 Tooltip = Localizer["ToolTip2"]
             }
-        };
+        ];
     }
 
     private void SetValue()
@@ -87,8 +87,8 @@ public sealed partial class Editors
         return ret;
     }
 
-    private List<object> ToolbarItems = new List<object>
-    {
+    private readonly List<object> ToolbarItems =
+    [
         new List<object>
         {
             "style", new List<string>()
@@ -103,15 +103,15 @@ public sealed partial class Editors
                 "bold", "underline", "clear"
             }
         }
-    };
+    ];
 
     private async Task InsertHtmlAsync()
     {
         await Editor.DoMethodAsync("pasteHTML", $"<h1>{Localizer["DoMethodAsyncPasteHTML"]}</h1>");
     }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Placeholder",
@@ -160,5 +160,5 @@ public sealed partial class Editors
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

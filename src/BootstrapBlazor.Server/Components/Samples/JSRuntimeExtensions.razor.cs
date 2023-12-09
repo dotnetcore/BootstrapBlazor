@@ -63,20 +63,8 @@ public partial class JSRuntimeExtensions : IAsyncDisposable
 
     private async Task RunFunction() => functionResult = await Module.Function<string>(functionContent);
 
-    private string elementId1 { get; set; } = "GetElementCSS";
-
-    private string cssPropertieName { get; set; } = "height";
-
-    private string? cssPropertieResult { get; set; }
-
-    private string elementId2 { get; set; } = "GetElementProperties";
-
-    private string getPropertieName { get; set; } = "clientHeight";
-
-    private decimal getPropertieResult { get; set; }
-
-    private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
-    {
+    private MethodItem[] GetMethods() =>
+    [
         new()
         {
             Name = "OpenUrl",
@@ -105,7 +93,7 @@ public partial class JSRuntimeExtensions : IAsyncDisposable
             Parameters = " — ",
             ReturnValue = "ValueTask<T>"
         }
-    };
+    ];
 
     private async ValueTask DisposeAsync(bool disposing)
     {

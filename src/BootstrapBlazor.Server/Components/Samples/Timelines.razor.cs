@@ -36,9 +36,9 @@ public sealed partial class Timelines
         };
     }
 
-    private IEnumerable<TimelineItem> GetCustomerComponentTimelineItems() => new TimelineItem[]
-    {
-        new TimelineItem
+    private TimelineItem[] GetCustomerComponentTimelineItems() =>
+    [
+        new()
         {
             Color = Color.Success,
             Component = BootstrapDynamicComponent.CreateComponent<BootstrapBlazor.Components.Console>(new Dictionary<string, object?>
@@ -47,88 +47,88 @@ public sealed partial class Timelines
             }),
             Description = Localizer["TimelinesDescription1"]
         },
-        new TimelineItem
+        new()
         {
             Color = Color.Info,
             Component = BootstrapDynamicComponent.CreateComponent<Counter>(),
             Description = Localizer["TimelinesDescription2"]
         },
-        new TimelineItem
+        new()
         {
             Color = Color.Warning,
             Component = BootstrapDynamicComponent.CreateComponent<FetchData>(),
             Description = Localizer["TimelinesDescription3"]
         }
-    };
+    ];
 
-    private IEnumerable<TimelineItem> CustomerTimelineItems => new TimelineItem[]
-    {
-        new TimelineItem
+    private TimelineItem[] CustomerTimelineItems =>
+    [
+        new()
         {
             Content = Localizer["TimelineItemContent4"],
             Description = DateTime.Now.ToString("yyyy-MM-dd")
         },
-        new TimelineItem
+        new()
         {
             Color = Color.Success,
             Content = Localizer["TimelineItemContent5"],
             Description = DateTime.Now.AddDays(2).ToString("yyyy-MM-dd")
         },
-        new TimelineItem
+        new()
         {
             Color = Color.Danger,
             Icon = "fa-solid fa-fw fa-font-awesome",
             Content = Localizer["TimelineItemContent6"],
             Description = DateTime.Now.AddDays(3).ToString("yyyy-MM-dd")
         }
-    };
+    ];
 
-    private IEnumerable<TimelineItem> TimelineItems => new TimelineItem[]
-    {
-        new TimelineItem
+    private TimelineItem[] TimelineItems =>
+    [
+        new()
         {
             Content = Localizer["TimelineItemContent1"],
             Description = DateTime.Now.ToString("yyyy-MM-dd")
         },
-        new TimelineItem
+        new()
         {
             Content =  Localizer["TimelineItemContent2"],
             Description = DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")
         },
-        new TimelineItem
+        new()
         {
             Content =  Localizer["TimelineItemContent3"],
             Description = DateTime.Now.AddDays(2).ToString("yyyy-MM-dd")
         }
-    };
+    ];
 
-    private readonly IEnumerable<TimelineItem> AlternateTimelineItems = new TimelineItem[]
-    {
-        new TimelineItem
+    private readonly TimelineItem[] AlternateTimelineItems =
+    [
+        new()
         {
             Content = "Create a services site 2015-09-01",
         },
-        new TimelineItem
+        new()
         {
             Color = Color.Success,
             Content = "Solve initial network problems 2015-09-01",
         },
-        new TimelineItem
+        new()
         {
             Color = Color.Danger,
-            Content = "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
+            Content = "Create a services site 2015-09-01",
         },
-        new TimelineItem
+        new()
         {
             Color = Color.Warning,
             Content = "Network problems being solved 2015-09-01",
         },
-        new TimelineItem
+        new()
         {
             Color = Color.Info,
             Content = "Create a services site 2015-09-01",
         }
-    };
+    ];
     /// <summary>
     /// 
     /// </summary>
@@ -152,8 +152,8 @@ public sealed partial class Timelines
 
         Items1 = new SelectedItem[]
         {
-            new SelectedItem("1", Localizer["TimelinesSelectedItem1"]) { Active=true },
-            new SelectedItem("2", Localizer["TimelinesSelectedItem2"])
+            new("1", Localizer["TimelinesSelectedItem1"]) { Active=true },
+            new("2", Localizer["TimelinesSelectedItem2"])
         };
 
         var _ = Task.Run(async () =>
@@ -176,8 +176,8 @@ public sealed partial class Timelines
 
         Items = new SelectedItem[]
         {
-            new SelectedItem("1", Localizer["TimelinesSelectedItem1"]) { Active=true },
-            new SelectedItem("2", Localizer["TimelinesSelectedItem2"])
+            new("1", Localizer["TimelinesSelectedItem1"]) { Active=true },
+            new("2", Localizer["TimelinesSelectedItem2"])
         };
     }
 
@@ -185,79 +185,87 @@ public sealed partial class Timelines
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
-
-        new() {
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
             Name = "Items",
             Description = Localizer["TimelinesItems"],
             Type = "IEnumerable<TimelineItem>",
             ValueList = "—",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "IsReverse",
             Description = Localizer["TimelinesIsReverse"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new() {
+        new()
+        {
             Name = "IsLeft",
             Description = Localizer["TimelinesIsLeft"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new() {
+        new()
+        {
             Name = "IsAlternate",
             Description = Localizer["TimelinesIsAlternate"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
         }
-    };
+    ];
 
     /// <summary>
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetTimelineItemAttributes() => new AttributeItem[]
-    {
-        new() {
+    private AttributeItem[] GetTimelineItemAttributes() =>
+    [
+        new()
+        {
             Name = nameof(TimelineItem.Color),
             Description = Localizer["TimelinesColor"],
             Type = "Color",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = nameof(TimelineItem.Content),
             Description = Localizer["TimelinesContent"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = nameof(TimelineItem.Icon),
             Description = Localizer["TimelinesIcon"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = nameof(TimelineItem.Description),
             Description = Localizer["TimelinesDescription"],
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = nameof(TimelineItem.Component),
             Description = Localizer["TimelinesComponent"],
             Type = nameof(BootstrapDynamicComponent),
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

@@ -65,8 +65,8 @@ public partial class CherryMarkdowns
     [NotNull]
     private IStringLocalizer<CherryMarkdowns>? Localizer { get; set; }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "EditorSettings",
@@ -115,5 +115,5 @@ public partial class CherryMarkdowns
             ValueList = "true/false",
             DefaultValue = "false"
         }
-    };
+    ];
 }

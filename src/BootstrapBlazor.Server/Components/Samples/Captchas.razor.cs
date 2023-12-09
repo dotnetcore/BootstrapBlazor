@@ -55,8 +55,8 @@ public sealed partial class Captchas
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "ImagesPath",
@@ -137,28 +137,28 @@ public sealed partial class Captchas
             ValueList = " — ",
             DefaultValue = "155"
         }
-    };
+    ];
 
     /// <summary>
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<EventItem> GetEvents() => new EventItem[]
-    {
+    private EventItem[] GetEvents() =>
+    [
         new()
         {
             Name = "OnValid",
             Description = Localizer["OnValid"],
             Type ="Action<bool>"
         }
-    };
+    ];
 
     /// <summary>
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
-    {
+    private MethodItem[] GetMethods() =>
+    [
         new()
         {
             Name = "GetImageName",
@@ -166,5 +166,5 @@ public sealed partial class Captchas
             Parameters =" — ",
             ReturnValue = "string"
         }
-    };
+    ];
 }

@@ -117,9 +117,8 @@ public partial class Bluetooth
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
-
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Commands",
@@ -192,14 +191,14 @@ public partial class Bluetooth
             ValueList = "-",
             DefaultValue = "-"
         },
-    };
+    ];
 
     /// <summary>
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetPrinterOptionAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetPrinterOptionAttributes() =>
+    [
         new()
         {
             Name = "NamePrefix",
@@ -216,14 +215,14 @@ public partial class Bluetooth
             ValueList = "-",
             DefaultValue = "100"
         },
-    };
+    ];
 
     /// <summary>
     /// 获得蓝牙设备类
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetBluetoothDeviceAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetBluetoothDeviceAttributes() =>
+    [
         new()
         {
             Name = "Name",
@@ -256,14 +255,14 @@ public partial class Bluetooth
             ValueList = "-",
             DefaultValue = "null"
         }
-    };
+    ];
 
     /// <summary>
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributesBatteryLevel() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributesBatteryLevel() =>
+    [
         new()
         {
             Name = "GetBatteryLevel",
@@ -304,15 +303,15 @@ public partial class Bluetooth
             ValueList = "-",
             DefaultValue = "-"
         }
-    };
+    ];
 
 
     /// <summary>
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributesHeartrate() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributesHeartrate() =>
+    [
         new()
         {
             Name = "GetHeartrate",
@@ -361,5 +360,5 @@ public partial class Bluetooth
             ValueList = "-",
             DefaultValue = "-"
         }
-    };
+    ];
 }

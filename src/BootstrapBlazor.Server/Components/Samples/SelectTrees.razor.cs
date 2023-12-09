@@ -28,15 +28,15 @@ public partial class SelectTrees
     [NotNull]
     private string? Value { get; set; }
 
-    private List<TreeViewItem<string>> EditItems { get; } = new List<TreeViewItem<string>>()
-    {
+    private List<TreeViewItem<string>> EditItems { get; } =
+    [
         new TreeViewItem<string>("101") { Text = "Text 101" },
-        new TreeViewItem<string>("102") { Text = "Text 102", Items = new List<TreeViewItem<string>>()
-        {
+        new TreeViewItem<string>("102") { Text = "Text 102", Items =
+        [
             new TreeViewItem<string>("2021") { Text = "Text 2021" },
             new TreeViewItem<string>("2022") { Text = "Text 2022" }
-        }},
-    };
+        ]},
+    ];
 
     /// <summary>
     /// OnInitialized
@@ -61,28 +61,28 @@ public partial class SelectTrees
             IsActive = true
         };
 
-        BindItems = new List<TreeViewItem<string>>()
-        {
+        BindItems =
+        [
           new TreeViewItem<string>("目录一")
           {
               Text ="目录一",
               Icon = "fa-solid fa-folder",
               ExpandIcon = "fa-solid fa-folder-open",
-              Items = new List<TreeViewItem<string>>()
-              {
+              Items =
+              [
                   new TreeViewItem<string>("子目录一")
                   {
                       Text ="子目录一",
                       Icon = "fa-solid fa-folder",
                       ExpandIcon = "fa-solid fa-folder-open",
-                      Items = new List<TreeViewItem<string>>()
-                      {
+                      Items =
+                      [
                           new TreeViewItem<string>("文件一") { Text = "文件一", Icon = "fa-solid fa-file", IsActive = true },
                           new TreeViewItem<string>("文件二") { Text = "文件二", Icon = "fa-solid fa-file" }
-                      }
+                      ]
                   }
-              }
+              ]
           }
-      };
+      ];
     }
 }

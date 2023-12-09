@@ -19,14 +19,14 @@ public partial class InputGroups
 
     private string BindValue { get; set; } = string.Empty;
 
-    private static List<string> StaticItems => new() { "1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG" };
+    private static List<string> StaticItems => ["1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG"];
 
     [NotNull]
     private IEnumerable<Foo>? AufoFillItems { get; set; }
 
     [NotNull]
-    private static List<SelectedItem>? Items2 => new()
-    {
+    private static List<SelectedItem>? Items2 =>
+    [
         new ("Beijing", "北京"),
         new ("Shanghai", "上海"),
         new ("Guangzhou", "广州"),
@@ -36,7 +36,7 @@ public partial class InputGroups
         new ("Dalian", "大连"),
         new ("Hangzhou", "杭州"),
         new ("Lianyungang", "连云港")
-    };
+    ];
 
     /// <summary>
     /// <inheritdoc/>

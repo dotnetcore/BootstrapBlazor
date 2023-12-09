@@ -52,8 +52,8 @@ public partial class Translators
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    protected IEnumerable<MethodItem> GetMethods() => new MethodItem[]
-    {
+    protected MethodItem[] GetMethods() =>
+    [
         new()
         {
             Name = nameof(IAzureTranslatorService.TranslateAsync),
@@ -61,5 +61,5 @@ public partial class Translators
             Parameters = " - ",
             ReturnValue = "IReadOnlyList<TranslatedTextItem>"
         },
-    };
+    ];
 }

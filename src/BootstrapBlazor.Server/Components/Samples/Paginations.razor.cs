@@ -39,28 +39,28 @@ public sealed partial class Paginations
     {
         base.OnParametersSet();
 
-        AlignmentItems ??= new List<SelectedItem>()
-        {
+        AlignmentItems ??=
+        [
             new("Left", "Start"),
             new("Center", "Center"),
             new("Right", "End")
-        };
+        ];
 
-        PageItemsSource = new List<SelectedItem>()
-        {
+        PageItemsSource =
+        [
             new("2", "2条/页"),
             new("4", "4条/页"),
             new("10", "10条/页"),
             new("20", "20条/页")
-        };
+        ];
     }
 
     /// <summary>
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new() {
             Name = "PageIndex",
             Description = Localizer["PaginationsPageIndexAttr"],
@@ -166,5 +166,5 @@ public sealed partial class Paginations
             ValueList = " — ",
             DefaultValue = "fa-solid fa-ellipsis"
         }
-    };
+    ];
 }

@@ -9,8 +9,8 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class Footers
 {
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Text",
@@ -43,5 +43,5 @@ public sealed partial class Footers
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

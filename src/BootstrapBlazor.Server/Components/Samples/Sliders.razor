@@ -115,13 +115,12 @@
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
-
+    private AttributeItem[] GetAttributes() =>
+    [
         new() {
             Name = "IsDisabled",
             Description = Localizer["SlidersIsDisabled"],
-            Type = "boolean",
+            Type = "bool",
             ValueList = " — ",
             DefaultValue = "false"
         },
@@ -132,19 +131,19 @@
             ValueList = " — ",
             DefaultValue = " — "
         },
-    };
+    ];
 
     /// <summary>
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<EventItem> GetEvents() => new EventItem[]
-    {
-        new EventItem()
+    private EventItem[] GetEvents() =>
+    [
+        new()
         {
             Name = "ValueChanged",
             Description = Localizer["SlidersValueChanged"],
             Type ="EventCallback<int>"
         }
-    };
+    ];
 }

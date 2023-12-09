@@ -58,8 +58,8 @@ public partial class Gantts
         };
     }
 
-    private List<GanttItem>? Items { get; set; } = new List<GanttItem>()
-    {
+    private List<GanttItem>? Items { get; set; } =
+    [
         new GanttItem()
         {
             Id = "Task 0",
@@ -113,7 +113,7 @@ public partial class Gantts
             Name = "Go Live!",
             Dependencies = "Task 4"
         }
-    };
+    ];
 
     private Task OnClick(GanttItem item)
     {

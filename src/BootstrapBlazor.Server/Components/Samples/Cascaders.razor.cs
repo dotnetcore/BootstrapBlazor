@@ -29,7 +29,7 @@ public sealed partial class Cascaders
     [NotNull]
     private ConsoleLogger? NormalLogger { get; set; }
 
-    private List<CascaderItem> _items = new List<CascaderItem>();
+    private List<CascaderItem> _items = [];
 
     /// <summary>
     /// 下拉选项改变时调用此方法
@@ -48,12 +48,12 @@ public sealed partial class Cascaders
     {
         Value = Localizer["item1"];
 
-        _items = new List<CascaderItem>
-        {
+        _items =
+        [
             new CascaderItem(Localizer["item1"], Localizer["item1"]),
             new CascaderItem(Localizer["item2"], Localizer["item2"]),
             new CascaderItem(Localizer["item3"], Localizer["item3"]),
-        };
+        ];
 
         _items[0].AddItem(new CascaderItem("item1_child1", Localizer["item1_child1"]));
         _items[0].AddItem(new CascaderItem("item1_child2", Localizer["item1_child2"]));
@@ -74,22 +74,22 @@ public sealed partial class Cascaders
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<EventItem> GetEvents() => new EventItem[]
-    {
-        new EventItem()
+    private EventItem[] GetEvents() =>
+    [
+        new()
         {
             Name = nameof(Cascader<string>.OnSelectedItemChanged),
             Description = Localizer["Event1"],
             Type ="Func<CascaderItem[], Task>"
         }
-    };
+    ];
 
     /// <summary>
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "ShowLabel",
@@ -146,5 +146,5 @@ public sealed partial class Cascaders
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

@@ -61,8 +61,8 @@ public sealed partial class BarcodeReaders
     /// 获得属性
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "ButtonScanText",
@@ -183,5 +183,5 @@ public sealed partial class BarcodeReaders
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

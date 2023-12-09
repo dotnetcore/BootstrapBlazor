@@ -22,7 +22,7 @@ public partial class Chats
 
     private string? Context { get; set; }
 
-    private List<AzureOpenAIChatMessage> Messages { get; } = new();
+    private List<AzureOpenAIChatMessage> Messages { get; } = [];
 
     private static string? GetStackClass(ChatRole role) => CssBuilder.Default("msg-stack").AddClass("msg-stack-assistant", role == ChatRole.Assistant).Build();
 
