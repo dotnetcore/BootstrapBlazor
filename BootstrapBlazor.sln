@@ -120,7 +120,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "configuration", "configurat
 		exclusion.dic = exclusion.dic
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.AzureTranslator", "src\Extensions\Components\BootstrapBlazor.AzureTranslator\BootstrapBlazor.AzureTranslator.csproj", "{D63E50CB-EF78-47BF-9809-003D4574ABF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BootstrapBlazor.AzureTranslator", "src\Extensions\Components\BootstrapBlazor.AzureTranslator\BootstrapBlazor.AzureTranslator.csproj", "{D63E50CB-EF78-47BF-9809-003D4574ABF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
