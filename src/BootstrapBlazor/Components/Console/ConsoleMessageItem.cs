@@ -18,4 +18,9 @@ public class ConsoleMessageItem
     /// 获得/设置 控制台消息颜色 默认为 White 白色
     /// </summary>
     public Color Color { get; set; }
+
+    /// <summary>
+    /// 获得/设置 自定义样式名称 默认 null
+    /// </summary>
+    public string? CssClass { get; set; }
 }

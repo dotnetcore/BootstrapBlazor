@@ -27,7 +27,7 @@
                 }
                 else
                 {
-                    <div class="@GetClassString(item)">@item.Message</div>
+                    <div @key="@item" class="@GetClassString(item)">@item.Message</div>
                 }
             }
         </div>
