@@ -120,6 +120,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "configuration", "configurat
 		exclusion.dic = exclusion.dic
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapBlazor.AzureTranslator", "src\Extensions\Components\BootstrapBlazor.AzureTranslator\BootstrapBlazor.AzureTranslator.csproj", "{D63E50CB-EF78-47BF-9809-003D4574ABF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -258,6 +260,10 @@ Global
 		{49D9E679-6824-43DF-9DAA-70E24ACCAA62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49D9E679-6824-43DF-9DAA-70E24ACCAA62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{49D9E679-6824-43DF-9DAA-70E24ACCAA62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D63E50CB-EF78-47BF-9809-003D4574ABF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D63E50CB-EF78-47BF-9809-003D4574ABF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D63E50CB-EF78-47BF-9809-003D4574ABF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D63E50CB-EF78-47BF-9809-003D4574ABF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -303,6 +309,7 @@ Global
 		{568237B9-209E-49B1-9BCF-E853F2D61442} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{25B67FF0-3D70-47D8-AC70-1934442A8881} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 		{49D9E679-6824-43DF-9DAA-70E24ACCAA62} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
+		{D63E50CB-EF78-47BF-9809-003D4574ABF4} = {CD062AB6-244D-402A-8F33-C37DAC5856CC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0DCB0756-34FA-4FD0-AE1D-D3F08B5B3A6B}
