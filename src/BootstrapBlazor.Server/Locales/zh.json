@@ -6041,5 +6041,12 @@
     "AttributesImageCropperOnBase64Result": "剪裁结果 base64 回调方法",
     "AttributesImageCropperCrop": "剪裁,返回 base64, 并执行 OnResult/OnBase64Result 回调",
     "AttributesImageCropperCropToStream": "剪裁,返回 Stream"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Translators": {
+    "TranslatorsTitle": "AzureTranslator 翻译服务",
+    "TranslatorsDescription": "将源语言的字符或字母转换为目标语言的对应字符或字母",
+    "TranslatorsNormalTitle": "基础用法",
+    "TranslatorsNormalIntro": "通过调用 <code>TranslateAsync</code> 进行文本翻译",
+    "TranslatorsInjectService": "注入服务"
   }
 }

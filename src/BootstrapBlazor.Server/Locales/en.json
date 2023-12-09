@@ -6041,5 +6041,12 @@
     "AttributesImageCropperOnBase64Result": "Crop result base64 callback method",
     "AttributesImageCropperCrop": "Crop, return base64, and execute OnResult/OnBase64Result callback",
     "AttributesImageCropperCropToStream": "Crop, return Stream"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Translators": {
+    "TranslatorsTitle": "Azure Translator",
+    "TranslatorsDescription": "Converts characters or letters of a source language to the corresponding characters or letters of a target language.",
+    "TranslatorsNormalTitle": "Basic usage",
+    "TranslatorsNormalIntro": "Call <code>TranslateAsync</code> method for convert target language",
+    "TranslatorsInjectService": "Inject Service"
   }
 }
