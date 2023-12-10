@@ -46,11 +46,8 @@ public partial class Html2Pdfs
 
     private async Task OnExportAsync()
     {
-        // 通过 Table 组件生成 html 片段
-        var html = await HtmlRenderService.RenderAsync<Table<Foo>>(new Dictionary<string, object?>()
-        {
-            { nameof(Table<Foo>.Items), Items.Take(3) }
-        });
+        // 通过脚本获得 table 表格 Html
+        var html = await InvokeAsync<string>("getHtml", "table-9527");
 
         // 通过 template 模板文件生成网页文件
         var templateFileName = Path.Combine(WebHostEnvironment.WebRootPath, "pdf/template.html");
