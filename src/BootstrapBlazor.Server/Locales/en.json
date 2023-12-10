@@ -2634,7 +2634,6 @@
     "IsSelectAllTextOnEnter": "Whether auto select the all text after presses enter",
     "SelectAllTextAsync": "Select the all text method",
     "ValidateRules": "Customer validation collection",
-    "P8": "Use <code>IsSelectAllTextOnEnter</code> The user presses enter to select the all text",
     "NormalPlaceHolder": "Please enter ...",
     "IsSelectAllTextOnFocusLabel": "Select all on focus",
     "IsSelectAllTextOnEnterLabel": "Select all on enter",
