@@ -2,55 +2,40 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.JSInterop;
+using PuppeteerSharp;
 
 namespace BootstrapBlazor.Components;
 
+/// <summary>
+/// 构造函数
+/// </summary>
 class DefaultPdfService : IHtml2Pdf
 {
-    private IJSRuntime JSRuntime { get; }
-
-    private JSModule? Module { get; set; }
-
     /// <summary>
-    /// 构造函数
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="jSRuntime"></param>
-    public DefaultPdfService(IJSRuntime jSRuntime)
+    public async Task<byte[]> ExportDataAsync(string url, PdfOptions? options = null)
     {
-        JSRuntime = jSRuntime;
+        using var browserFetcher = new BrowserFetcher();
+        await browserFetcher.DownloadAsync();
+        await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions() { Headless = true });
+        await using var page = await browser.NewPageAsync();
+        await page.GoToAsync(url);
+        var content = await page.GetContentAsync();
+        return await page.PdfDataAsync(options ?? new PdfOptions());
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <param name="html"></param>
-    /// <param name="fileName"></param>
-    /// <returns></returns>
-    /// <exception cref="NotImplementedException"></exception>
-    public async Task<bool> ExportAsync(string html, string? fileName = null)
+    public async Task<Stream> ExportStreamAsync(string url, PdfOptions? options = null)
     {
-        Module ??= await LoadModule();
-        return await Module.InvokeAsync<bool>("exportPdf", html, fileName);
+        using var browserFetcher = new BrowserFetcher();
+        await browserFetcher.DownloadAsync();
+        await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions() { Headless = true });
+        await using var page = await browser.NewPageAsync();
+        await page.GoToAsync(url);
+        var content = await page.GetContentAsync();
+        return await page.PdfStreamAsync(options ?? new PdfOptions());
     }
-
-    public async Task<Stream> ExportStreamAsync(string html)
-    {
-        Module ??= await LoadModule();
-
-        var payload = await Module.InvokeAsync<string>("exportPdfAsBase64", html);
-        var buffer = Convert.FromBase64String(payload);
-        return new MemoryStream(buffer);
-    }
-
-    public async Task<Stream> ExportByElementIdAsync(string id)
-    {
-        Module ??= await LoadModule();
-
-        var payload = await Module.InvokeAsync<string>("exportPdfById", id);
-        var buffer = Convert.FromBase64String(payload);
-        return new MemoryStream(buffer);
-    }
-
-    private Task<JSModule> LoadModule() => JSRuntime.LoadModule("./_content/BootstrapBlazor.Html2Pdf/export.js");
 }

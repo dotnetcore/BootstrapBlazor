@@ -3,8 +3,6 @@
 
 #if !NET8_0_OR_GREATER
 using Microsoft.AspNetCore.Components.HtmlRendering.Infrastructure;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace Microsoft.AspNetCore.Components.Web.HtmlRendering;
 

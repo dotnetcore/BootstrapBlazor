@@ -2,10 +2,7 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 #if !NET8_0_OR_GREATER
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Components.RenderTree;
 

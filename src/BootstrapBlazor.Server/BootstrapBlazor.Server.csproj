@@ -42,7 +42,7 @@
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="8.0.1" />
     <PackageReference Include="BootstrapBlazor.Gantt" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="8.0.1" />
     <PackageReference Include="BootstrapBlazor.ImageCropper" Version="*" />
     <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="8.0.0" />

@@ -7,17 +7,11 @@ using Microsoft.Extensions.Logging;
 
 namespace BootstrapBlazor.Components;
 
-class ComponentHtmlRenderer : IComponentHtmlRenderer
+class ComponentHtmlRenderer(IServiceProvider serviceProvider, ILoggerFactory loggerFactory) : IComponentHtmlRenderer
 {
-    private IServiceProvider ServiceProvider { get; set; }
+    private IServiceProvider ServiceProvider { get; set; } = serviceProvider;
 
-    private ILoggerFactory LoggerFactory { get; set; }
-
-    public ComponentHtmlRenderer(IServiceProvider serviceProvider, ILoggerFactory loggerFactory)
-    {
-        ServiceProvider = serviceProvider;
-        LoggerFactory = loggerFactory;
-    }
+    private ILoggerFactory LoggerFactory { get; set; } = loggerFactory;
 
     /// <summary>
     /// <inheritdoc/>
@@ -31,7 +25,7 @@ class ComponentHtmlRenderer : IComponentHtmlRenderer
         var html = await htmlRenderer.Dispatcher.InvokeAsync(async () =>
         {
             parameters ??= new Dictionary<string, object?>();
-            var paras = ParameterView.FromDictionary(parameters!);
+            var paras = ParameterView.FromDictionary(parameters);
             var output = await htmlRenderer.RenderComponentAsync<TComponent>(paras);
             return output.ToHtmlString();
         });
@@ -50,7 +44,7 @@ class ComponentHtmlRenderer : IComponentHtmlRenderer
         var html = await htmlRenderer.Dispatcher.InvokeAsync(async () =>
         {
             parameters ??= new Dictionary<string, object?>();
-            var paras = ParameterView.FromDictionary(parameters!);
+            var paras = ParameterView.FromDictionary(parameters);
             var output = await htmlRenderer.RenderComponentAsync(componentType, paras);
             return output.ToHtmlString();
         });
