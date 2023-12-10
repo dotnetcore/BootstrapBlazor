@@ -35,6 +35,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddSingleton<ILookupService, NullLookupService>();
         services.TryAddSingleton<IVersionService, DefaultJSVersionService>();
         services.TryAddSingleton<IZipArchiveService, DefaultZipArchiveService>();
+        services.TryAddSingleton<IComponentHtmlRenderer, ComponentHtmlRenderer>();
         services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchService<>));
 
         services.TryAddTransient<ITableExcelExport, DefaultExcelExport>();
@@ -44,7 +45,6 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddScoped<IIPLocatorProvider, DefaultIPLocatorProvider>();
         services.TryAddScoped<IReconnectorProvider, ReconnectorProvider>();
         services.TryAddScoped<IGeoLocationService, DefaultGeoLocationService>();
-        services.TryAddScoped<IComponentHtmlRenderer, ComponentHtmlRenderer>();
 
         services.AddScoped<TabItemTextOptions>();
         services.AddScoped<DialogService>();

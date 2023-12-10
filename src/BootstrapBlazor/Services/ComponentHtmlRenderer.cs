@@ -7,17 +7,11 @@ using Microsoft.Extensions.Logging;
 
 namespace BootstrapBlazor.Components;
 
-class ComponentHtmlRenderer : IComponentHtmlRenderer
+class ComponentHtmlRenderer(IServiceProvider serviceProvider, ILoggerFactory loggerFactory) : IComponentHtmlRenderer
 {
-    private IServiceProvider ServiceProvider { get; set; }
+    private IServiceProvider ServiceProvider { get; set; } = serviceProvider;
 
-    private ILoggerFactory LoggerFactory { get; set; }
-
-    public ComponentHtmlRenderer(IServiceProvider serviceProvider, ILoggerFactory loggerFactory)
-    {
-        ServiceProvider = serviceProvider;
-        LoggerFactory = loggerFactory;
-    }
+    private ILoggerFactory LoggerFactory { get; set; } = loggerFactory;
 
     /// <summary>
     /// <inheritdoc/>
@@ -28,14 +22,10 @@ class ComponentHtmlRenderer : IComponentHtmlRenderer
     public async Task<string> RenderAsync<TComponent>(IDictionary<string, object?>? parameters = null) where TComponent : IComponent
     {
         using var htmlRenderer = new HtmlRenderer(ServiceProvider, LoggerFactory);
-        var html = await htmlRenderer.Dispatcher.InvokeAsync(async () =>
-        {
-            parameters ??= new Dictionary<string, object?>();
-            var paras = ParameterView.FromDictionary(parameters!);
-            var output = await htmlRenderer.RenderComponentAsync<TComponent>(paras);
-            return output.ToHtmlString();
-        });
-        return html;
+        parameters ??= new Dictionary<string, object?>();
+        var paras = ParameterView.FromDictionary(parameters);
+        var html = await htmlRenderer.RenderComponentAsync<TComponent>(paras);
+        return html.ToHtmlString();
     }
 
     /// <summary>
@@ -47,13 +37,9 @@ class ComponentHtmlRenderer : IComponentHtmlRenderer
     public async Task<string> RenderAsync(Type componentType, IDictionary<string, object?>? parameters = null)
     {
         using var htmlRenderer = new HtmlRenderer(ServiceProvider, LoggerFactory);
-        var html = await htmlRenderer.Dispatcher.InvokeAsync(async () =>
-        {
-            parameters ??= new Dictionary<string, object?>();
-            var paras = ParameterView.FromDictionary(parameters!);
-            var output = await htmlRenderer.RenderComponentAsync(componentType, paras);
-            return output.ToHtmlString();
-        });
-        return html;
+        parameters ??= new Dictionary<string, object?>();
+        var paras = ParameterView.FromDictionary(parameters);
+        var output = await htmlRenderer.RenderComponentAsync(componentType, paras);
+        return output.ToHtmlString();
     }
 }
