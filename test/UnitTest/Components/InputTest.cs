@@ -68,27 +68,21 @@ public class InputTest : BootstrapBlazorTestBase
         cut.Contains("readonly=\"true\"");
     }
 
-    //[Fact]
-    //public Task OnInput_Ok()
-    //{
-    //    var foo = new Foo() { Name = "Test" };
-    //    var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
-    //    {
-    //        builder.Add(a => a.Value, foo.Name);
-    //        builder.Add(a => a.OnInput, true);
-    //        builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<string>(this, v =>
-    //        {
-    //            foo.Name = v;
-    //        }));
-    //    });
-    //    cut.InvokeAsync(() =>
-    //    {
-    //        var input = cut.Find("input");
-    //        input.KeyUp("T");
-
-    //        Assert.Equal("T", foo.Name);
-    //    });
-    //}
+    [Fact]
+    public void OnInput_Ok()
+    {
+        var foo = new Foo() { Name = "Test" };
+        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        {
+            builder.Add(a => a.Value, foo.Name);
+            builder.Add(a => a.OnInput, true);
+            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<string>(this, v =>
+            {
+                foo.Name = v;
+            }));
+        });
+        cut.Contains("blazor:oninput");
+    }
 
     [Fact]
     public void Password_Ok()
