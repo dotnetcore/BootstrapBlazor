@@ -193,8 +193,8 @@ public partial class Inputs
         },
         new()
         {
-            Name = nameof(BootstrapInput<string>.OnInput),
-            Description = Localizer[nameof(BootstrapInput<string>.OnInput)].Value,
+            Name = nameof(BootstrapInput<string>.UseInputEvent),
+            Description = Localizer[nameof(BootstrapInput<string>.UseInputEvent)].Value,
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"

@@ -8,7 +8,7 @@
 <DemoBlock Title="@Localizer["InputsBaseUsage"]"
            Introduction="@Localizer["InputsNormalIntro"]"
            Name="Normal">
-    <p class="mb-3">@((MarkupString)Localizer["InputsNormalDescription"].Value)</p>
+    <section ignore class="mb-3">@((MarkupString)Localizer["InputsNormalDescription"].Value)</section>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
             <BootstrapInput PlaceHolder="@Localizer["NormalPlaceHolder"]"
@@ -56,29 +56,27 @@
 <DemoBlock Title="@Localizer["InputsKeyboardTitle"]"
            Introduction="@Localizer["InputsKeyboardIntro"]"
            Name="Keyboard">
-    <div>
-        <div class="row g-3">
-            <div class="col-auto col-form-label">
-                <span>@Localizer["InputsBaseUsage"]</span>
-            </div>
-            <div class="col-6">
-                <BootstrapInput TValue="string" PlaceHolder="@PlaceHolderText" OnEnterAsync="OnEnterAsync" OnEscAsync="OnEscAsync" />
-            </div>
-            <div class="col-12">
-                <div>@((MarkupString)Localizer["InputsKeyboardTips1"].Value)</div>
-            </div>
+    <div class="row g-3">
+        <div class="col-auto col-form-label">
+            <span>@Localizer["InputsBaseUsage"]</span>
         </div>
-        <p>@((MarkupString)Localizer["InputsKeyboardTips2"].Value)</p>
-        <div class="row g-3">
-            <div class="col-auto col-form-label">
-                <span>@Localizer["InputsBaseUsage"]</span>
-            </div>
-            <div class="col-6">
-                <BootstrapInput TValue="string" PlaceHolder="@PlaceHolderText" @ref="Input" OnEnterAsync="OnEnterSelectAllAsync" />
-            </div>
+        <div class="col-6">
+            <BootstrapInput TValue="string" PlaceHolder="@PlaceHolderText" OnEnterAsync="OnEnterAsync" OnEscAsync="OnEscAsync" />
         </div>
-        <ConsoleLogger @ref="Logger" class="mt-3" />
+        <div class="col-12">
+            <div>@((MarkupString)Localizer["InputsKeyboardTips1"].Value)</div>
+        </div>
     </div>
+    <section ignore class="my-3">@((MarkupString)Localizer["InputsKeyboardTips2"].Value)</section>
+    <div class="row g-3">
+        <div class="col-auto col-form-label">
+            <span>@Localizer["InputsBaseUsage"]</span>
+        </div>
+        <div class="col-6">
+            <BootstrapInput TValue="string" PlaceHolder="@PlaceHolderText" @ref="Input" OnEnterAsync="OnEnterSelectAllAsync" />
+        </div>
+    </div>
+    <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["InputsPlaceholderTitle"]"
@@ -97,7 +95,7 @@
 <DemoBlock Title="@Localizer["InputsLabelsTitle"]"
            Introduction="@Localizer["InputsLabelsIntro"]"
            Name="Labels">
-    <p class="mb-3">@((MarkupString)Localizer["InputsLabelsDescription"].Value)</p>
+    <section ignore class="mb-3">@((MarkupString)Localizer["InputsLabelsDescription"].Value)</section>
     <div class="row g-3">
         <Divider Text="@Localizer["InputsLabelsDivider1"]" />
         <div class="col-12">
@@ -136,7 +134,7 @@
 <DemoBlock Title="@Localizer["InputsPasswordTitle"]"
            Introduction="@Localizer["InputsPasswordIntro"]"
            Name="Password">
-    <p class="mb-3">@((MarkupString)Localizer["InputsPasswordDescription"].Value)</p>
+    <section ignore class="mb-3">@((MarkupString)Localizer["InputsPasswordDescription"].Value)</section>
     <BootstrapInput TValue="string" PlaceHolder="@Localizer["PlaceHolder"]" type="password" maxlength="5" style="width: 200px;" />
 </DemoBlock>
 
@@ -172,7 +170,7 @@
             <BootstrapInput Value="DateTime.Now" Formatter="@DateTimeFormatter" IsDisabled="true" />
         </div>
     </div>
-    <p class="mt-3">@((MarkupString)Localizer["InputsFormatStringTips"].Value)</p>
+    <section ignore class="my-3">@((MarkupString)Localizer["InputsFormatStringTips"].Value)</section>
     <div class="row g-3">
         <div class="col-12 col-sm-6 col-form-label">@Localizer["InputsFormatStringSetting"] <code class="ms-1">Formatter</code></div>
         <div class="col-12 col-sm-6">
@@ -197,30 +195,30 @@
 <DemoBlock Title="@Localizer["InputsTrimTitle"]"
            Introduction="@Localizer["InputsTrimIntro"]"
            Name="Trim">
-    <p class="mb-3">@((MarkupString)Localizer["TrimDescription"].Value)</p>
+    <section ignore class="mb-3">@((MarkupString)Localizer["TrimDescription"].Value)</section>
     <div class="row g-3">
         <div class="col-auto col-form-label">
             <span>@Localizer["InputsBaseUsage"]</span>
         </div>
         <div class="col-6">
             <BootstrapInput @bind-Value="TrimModel.Name" PlaceHolder="@Localizer["PlaceHolder"]" IsTrim="true" />
-            <div class="mt-2">123<span>@TrimModel.Name</span>456</div>
         </div>
+        <div class="col-12">123<span>@TrimModel.Name</span>456</div>
     </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["InputsOnInputTitle"]"
            Introduction="@Localizer["InputsOnInputIntro"]"
            Name="OnInput">
-    <p class="mb-3">@((MarkupString)Localizer["OnInputDescription"].Value)</p>
+    <section ignore class="mb-3">@((MarkupString)Localizer["OnInputDescription"].Value)</section>
     <div class="row g-3">
         <div class="col-auto col-form-label">
             <span>@Localizer["InputsBaseUsage"]</span>
         </div>
         <div class="col-6">
-            <BootstrapInput @bind-Value="LabelsModel.Name" PlaceHolder="@Localizer["PlaceHolder"]" OnInput="true" />
-            @LabelsModel.Name
+            <BootstrapInput @bind-Value="LabelsModel.Name" PlaceHolder="@Localizer["PlaceHolder"]" UseInputEvent="true" />
         </div>
+        <div class="col-12">@LabelsModel.Name</div>
     </div>
 </DemoBlock>
 
