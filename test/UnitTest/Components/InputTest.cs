@@ -69,6 +69,30 @@ public class InputTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task OnInput_Ok()
+    {
+        var foo = new Foo() { Name = "Test" };
+        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        {
+            builder.Add(a => a.Value, foo.Name);
+            builder.Add(a => a.UseInputEvent, true);
+            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<string>(this, v =>
+            {
+                foo.Name = v;
+            }));
+        });
+        cut.Contains("blazor:oninput");
+
+        // 输入字符
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() =>
+        {
+            input.Input("1");
+        });
+        Assert.Equal("1", foo.Name);
+    }
+
+    [Fact]
     public void Password_Ok()
     {
         var cut = Context.RenderComponent<BootstrapPassword>();
@@ -118,7 +142,7 @@ public class InputTest : BootstrapBlazorTestBase
             builder.Add(a => a.Formatter, dt => dt.ToString("HH:mm"));
             builder.Add(a => a.Value, DateTime.Now);
         });
-        cut.WaitForAssertion(() =>  Assert.Contains($"value=\"{DateTime.Now:HH:mm}\"", cut.Markup));
+        cut.WaitForAssertion(() => Assert.Contains($"value=\"{DateTime.Now:HH:mm}\"", cut.Markup));
     }
 
     [Fact]

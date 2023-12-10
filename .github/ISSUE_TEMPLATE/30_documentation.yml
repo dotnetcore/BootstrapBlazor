@@ -1,6 +1,6 @@
 name: 📖 Documentation
 description: Add or update the project document or sample code
-title: "doc: <title>"
+title: "doc(): title"
 labels: [documentation]
 assignees:
   - argozhang

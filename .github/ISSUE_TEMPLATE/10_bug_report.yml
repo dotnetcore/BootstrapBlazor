@@ -1,6 +1,6 @@
 name: 🐞 Bug Report
 description: File a bug/issue
-title: "bug: <title>"
+title: "bug(): title"
 labels: [bug]
 assignees:
   - argozhang
