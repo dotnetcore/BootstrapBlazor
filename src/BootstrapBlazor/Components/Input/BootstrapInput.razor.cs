@@ -18,11 +18,10 @@ public partial class BootstrapInput<TValue>
     private string? ReadonlyString => Readonly ? "true" : null;
 
     /// <summary>
-    /// 获得/设置 是否在文本框的值更改时触发 默认 false
+    /// 获得/设置 是否在文本框输入值时触发 bind-value:event="oninput" 默认 false
     /// </summary>
     [Parameter]
-    public bool OnInput { get; set; } = false;
+    public bool UseInputEvent { get; set; } = false;
 
-    private string EventString => OnInput ? "oninput" : "onchange";
-
+    private string EventString => UseInputEvent ? "oninput" : "onchange";
 }
