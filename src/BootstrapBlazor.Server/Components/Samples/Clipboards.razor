@@ -1,7 +1,7 @@
 ﻿@page "/clipboard-service"
 @inject IStringLocalizer<Clipboards> Localizer
 
-<DemoBlock Title="@Localizer["ClipboardTitle"]" Introduction="@Localizer["ClipboardIntro"]" Name="Clipboard">
+<DemoBlock Title="@Localizer["ClipboardTitle"]" Introduction="@Localizer["ClipboardIntro"]" ShowCode="false" Name="Clipboard">
     <Pre class="mb-2">[Inject]
 [NotNull]
 private ClipboardService? ClipboardService { get; set; }

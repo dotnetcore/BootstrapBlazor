@@ -68,12 +68,12 @@ public class DashboardData
     /// <summary>
     /// 当年月分组统计
     /// </summary>
-    public List<TestDayGroupData> TestDayGroupList { get; init; } = new();
+    public List<TestDayGroupData> TestDayGroupList { get; init; } = [];
 
     /// <summary>
     /// KKS分类分组统计
     /// </summary>
-    public List<TestKKSGroupData> TestKKSGroupList { get; init; } = new();
+    public List<TestKKSGroupData> TestKKSGroupList { get; init; } = [];
 }
 
 /// <summary>

@@ -24,7 +24,7 @@ internal class MockDataTableDynamicService
         dt.Columns.Add(nameof(Foo.DateTime), typeof(DateTime));
         dt.Columns.Add(nameof(Foo.Name), typeof(string));
         dt.Columns.Add(nameof(Foo.Count), typeof(int));
-        dt.PrimaryKey = new DataColumn[] { dt.Columns[0] };
+        dt.PrimaryKey = [dt.Columns[0]];
         dt.Columns[0].AutoIncrement = true;
 
         Foo.GenerateFoo(Localizer, 10).ForEach(f =>

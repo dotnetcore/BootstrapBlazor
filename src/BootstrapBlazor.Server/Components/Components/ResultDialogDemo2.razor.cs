@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Server.Components.Components;
 /// </summary>
 public partial class ResultDialogDemo2 : ComponentBase, IResultDialog
 {
-    private List<Foo> SelectedRows { get; set; } = new List<Foo>();
+    private List<Foo> SelectedRows { get; set; } = [];
 
     [NotNull]
     private List<Foo>? Items { get; set; }

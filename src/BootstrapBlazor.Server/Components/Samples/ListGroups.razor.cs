@@ -35,8 +35,8 @@ public partial class ListGroups
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Items",
@@ -93,5 +93,5 @@ public partial class ListGroups
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

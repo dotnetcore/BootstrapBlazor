@@ -6,12 +6,12 @@ namespace BootstrapBlazor.Server.Data;
 
 internal static class CalendarDemoDataHelper
 {
-    public static List<Crew> Crews { get; } = new()
-    {
+    public static List<Crew> Crews { get; } =
+    [
         new("张三", "text-success"),
         new("李四", "text-primary"),
         new("王五", "text-danger")
-    };
+    ];
 
     private static Random Random { get; } = new Random();
 

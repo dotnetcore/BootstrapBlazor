@@ -71,28 +71,28 @@ public sealed partial class DateTimePickers
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<EventItem> GetEvents() => new EventItem[]
-    {
-        new EventItem()
+    private EventItem[] GetEvents() =>
+    [
+        new()
         {
             Name = "OnClickConfirm",
             Description = Localizer["Event1"],
             Type ="Action"
         },
-        new EventItem()
+        new()
         {
             Name = "ValueChanged",
             Description = Localizer["Event2"],
             Type ="EventCallback<DateTime?>"
         }
-    };
+    ];
 
     /// <summary>
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "ShowLabel",
@@ -164,5 +164,5 @@ public sealed partial class DateTimePickers
             ValueList = "true/false",
             DefaultValue = "false"
         }
-    };
+    ];
 }

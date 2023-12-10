@@ -4525,10 +4525,12 @@
     "Segmented": "分段控制器 Segmented",
     "Utility": "实用工具",
     "JSExtension": "JSRuntime 扩展",
-    "Clipboard": "剪切板服务",
+    "Clipboard": "剪切板服务 Clipboard",
     "CodeEditor": "代码编辑器 CodeEditor",
     "Gantt": "甘特图 Gantt",
-    "ImageCropper": "图像裁剪 ImageCropper"
+    "ImageCropper": "图像裁剪 ImageCropper",
+    "Services": "内置服务",
+    "AzureTranslator": "翻译服务 AzureTranslator"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -5967,7 +5969,7 @@
     "IconTitle": "图标",
     "IconIntro": "设置 <code>Icon</code> 参数值改变其现实图标",
     "SizeTitle": "大小",
-    "SizeIntro": "组件定义了三种尺寸（大、默认、小），高度分别为 40px、32px 和 24px。",
+    "SizeIntro": "组件定义了三种尺寸（大、默认、小），高度分别为 <code>40px</code>、<code>32px</code> 和 <code>24px</code>。",
     "SegmentItemTitle": "SegmentItem 组件",
     "SegmentItemIntro": "可在 <code>Razor</code> 页面中直接书写 <code>SegmentItem</code> 添加数据源",
     "BlockTitle": "Block 充满父容器",
@@ -6039,5 +6041,13 @@
     "AttributesImageCropperOnBase64Result": "剪裁结果 base64 回调方法",
     "AttributesImageCropperCrop": "剪裁,返回 base64, 并执行 OnResult/OnBase64Result 回调",
     "AttributesImageCropperCropToStream": "剪裁,返回 Stream"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Translators": {
+    "TranslatorsTitle": "AzureTranslator 翻译服务",
+    "TranslatorsDescription": "将源语言的字符或字母转换为目标语言的对应字符或字母",
+    "TranslatorsNormalTitle": "基础用法",
+    "TranslatorsNormalIntro": "通过调用 <code>TranslateAsync</code> 进行文本翻译",
+    "TranslatorsInjectService": "注入服务",
+    "TranslatorsTranslate": "翻译"
   }
 }

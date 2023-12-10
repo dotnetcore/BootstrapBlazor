@@ -47,8 +47,8 @@ partial class AutoFills
     /// Get property method
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "DisplayCount",
@@ -153,5 +153,5 @@ partial class AutoFills
             ValueList = "true/false",
             DefaultValue = "false"
         }
-    };
+    ];
 }

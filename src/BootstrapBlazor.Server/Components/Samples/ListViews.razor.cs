@@ -57,8 +57,8 @@ public sealed partial class ListViews
         public string Category { get; set; } = "";
     }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new(){
             Name = "Items",
             Description = Localizer["Items"],
@@ -136,16 +136,16 @@ public sealed partial class ListViews
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 
-    private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
-    {
-        new MethodItem()
+    private MethodItem[] GetMethods() =>
+    [
+        new()
         {
             Name = "QueryAsync",
             Description = Localizer["QueryAsync"],
             Parameters = " — ",
             ReturnValue = "Task"
         }
-    };
+    ];
 }

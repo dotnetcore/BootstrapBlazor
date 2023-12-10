@@ -13,8 +13,8 @@ public sealed partial class Badges
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "ChildContent",
@@ -47,5 +47,5 @@ public sealed partial class Badges
             ValueList = " — ",
             DefaultValue = "false"
         }
-    };
+    ];
 }

@@ -9,8 +9,8 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class Logouts
 {
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = nameof(Logout.ImageUrl),
@@ -74,5 +74,5 @@ public partial class Logouts
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

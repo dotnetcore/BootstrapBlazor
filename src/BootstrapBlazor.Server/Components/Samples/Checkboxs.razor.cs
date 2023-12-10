@@ -57,8 +57,8 @@ public sealed partial class Checkboxs
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "ShowLabel",
@@ -99,14 +99,14 @@ public sealed partial class Checkboxs
             ValueList = "Mixed / Checked / UnChecked",
             DefaultValue = "UnChecked"
         },
-    };
+    ];
 
     /// <summary>
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<EventItem> GetEvents() => new EventItem[]
-    {
+    private EventItem[] GetEvents() =>
+    [
         new()
         {
             Name = "OnStateChanged",
@@ -119,5 +119,5 @@ public sealed partial class Checkboxs
             Description = Localizer["Event2"],
             Type ="EventCallback<CheckboxState>"
         }
-    };
+    ];
 }

@@ -11,8 +11,8 @@ public partial class Reconnectors
 {
     private string TemplateUrl => $"{WebsiteOption.CurrentValue.GiteeRepositoryUrl}/wikis/%E9%A1%B9%E7%9B%AE%E6%A8%A1%E6%9D%BF%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B";
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = nameof(Reconnector.ReconnectingTemplate),
@@ -37,5 +37,5 @@ public partial class Reconnectors
             ValueList = " — ",
             DefaultValue = " — "
         },
-    };
+    ];
 }

@@ -51,8 +51,8 @@ public partial class Markdowns
         await MarkdownSetValue.SetValue(AsyncValue);
     }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Height",
@@ -125,5 +125,5 @@ public partial class Markdowns
             ValueList = " true/false ",
             DefaultValue = " false "
         }
-    };
+    ];
 }

@@ -9,8 +9,8 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class GoTops
 {
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Target",
@@ -19,5 +19,5 @@ public sealed partial class GoTops
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

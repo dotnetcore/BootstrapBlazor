@@ -16,9 +16,9 @@ public partial class MouseFollowers
     [NotNull]
     private static string NugetPackageName => "BootstrapBlazor.MouseFollower";
 
-    private MouseFollowerOptions FollowerOptions = new() { ClassName = "mf-cursor bb-cursor" };
+    private readonly MouseFollowerOptions FollowerOptions = new() { ClassName = "mf-cursor bb-cursor" };
 
-    private MouseFollowerOptions FollowerImageOptions = new MouseFollowerOptions()
+    private readonly MouseFollowerOptions FollowerImageOptions = new MouseFollowerOptions()
     {
         ClassName = "mf-cursor bb-cursor",
         MediaClassName = "mf-cursor-media bb-cursor-media"
@@ -28,8 +28,8 @@ public partial class MouseFollowers
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "FollowerMode",
@@ -54,5 +54,5 @@ public partial class MouseFollowers
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

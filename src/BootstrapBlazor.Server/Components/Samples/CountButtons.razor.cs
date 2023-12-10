@@ -9,12 +9,12 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class CountButtons
 {
-    private Task OnClick() => Task.Delay(2000);
+    private static Task OnClick() => Task.Delay(2000);
 
     private string CountTextCallback(int count) => Localizer["CountButtonText", count];
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = nameof(CountButton.Count),
@@ -39,5 +39,5 @@ public partial class CountButtons
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

@@ -55,15 +55,14 @@ public sealed partial class Searches
 
     private Foo Model { get; set; } = new Foo() { Name = "" };
 
-    private static List<string> StaticItems => new() { "1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG" };
+    private static List<string> StaticItems => ["1", "12", "123", "1234", "12345", "123456", "abc", "abcdef", "ABC", "aBcDeFg", "ABCDEFG"];
 
     /// <summary>
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
-
+    private AttributeItem[] GetAttributes() =>
+    [
         new() {
             Name = "ChildContent",
             Description = Localizer["SearchesChildContent"],
@@ -181,5 +180,5 @@ public sealed partial class Searches
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

@@ -2,9 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using DocumentFormat.OpenXml.EMMA;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 
 namespace BootstrapBlazor.Server.Components.Samples;
@@ -198,7 +196,7 @@ public partial class ValidateForms
     [NotNull]
     private IEnumerable<SelectedItem>? Hobbies7 { get; set; }
 
-    private List<IValidator> CustomerRules { get; } = new();
+    private List<IValidator> CustomerRules { get; } = [];
 
     [NotNull]
     private Foo? Model8 { get; set; }
@@ -219,87 +217,94 @@ public partial class ValidateForms
     private Foo? Model10 { get; set; }
 
     #region 参数说明
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
-
-        new() {
+    private AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
             Name = "Model",
             Description = Localizer["Model"],
             Type = "object",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "ValidateAllProperties",
             Description = Localizer["ValidateAllProperties"],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "false"
         },
-        new() {
+        new()
+        {
             Name = nameof(ValidateForm.DisableAutoSubmitFormByEnter),
             Description = Localizer[nameof(ValidateForm.DisableAutoSubmitFormByEnter)],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "false"
         },
-        new() {
+        new()
+        {
             Name = "ShowRequiredMark",
             Description = Localizer["ShowRequiredMark"],
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "true"
         },
-        new() {
+        new()
+        {
             Name = "ShowLabelTooltip",
             Description = Localizer["ShowLabelTooltip"],
             Type = "bool?",
             ValueList = "true/false/null",
             DefaultValue = "null"
         },
-        new() {
+        new()
+        {
             Name = "ChildContent",
             Description = Localizer["ChildContent"],
             Type = "RenderFragment",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "OnValidSubmit",
             Description = Localizer["OnValidSubmit"],
             Type = "EventCallback<EditContext>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = "OnInvalidSubmit",
             Description = Localizer["OnInvalidSubmit"],
             Type = "EventCallback<EditContext>",
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 
     /// <summary>
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
-    {
-        new MethodItem()
+    private MethodItem[] GetMethods() =>
+    [
+        new()
         {
             Name = "SetError",
             Description = Localizer["SetError"],
             Parameters = "PropertyName, ErrorMessage",
             ReturnValue = " — "
         },
-        new MethodItem()
+        new()
         {
             Name = "Validate",
             Description = Localizer["Validate"],
             Parameters = " — ",
             ReturnValue = "boolean"
         }
-    };
+    ];
     #endregion
 }

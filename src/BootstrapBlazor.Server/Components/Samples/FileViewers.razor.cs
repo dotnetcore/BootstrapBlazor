@@ -57,7 +57,7 @@ public partial class FileViewers
     [NotNull]
     private List<SelectedItem>? Items { get; set; }
 
-    private List<string> FileList { get; } = new List<string>();
+    private List<string> FileList { get; } = [];
 
     private async Task ChangeURL(SelectedItem e)
     {
@@ -75,8 +75,8 @@ public partial class FileViewers
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = nameof(FileViewer.Filename),
@@ -165,5 +165,5 @@ public partial class FileViewers
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

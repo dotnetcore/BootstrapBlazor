@@ -13,8 +13,8 @@ public sealed partial class Cards
     /// Card属性
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "BodyTemplate",
@@ -87,6 +87,6 @@ public sealed partial class Cards
             ValueList = "true / false",
             DefaultValue = "false"
         }
-    };
+    ];
 }
 

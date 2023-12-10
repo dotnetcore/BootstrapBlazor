@@ -76,11 +76,11 @@ public sealed partial class Selects
         return Task.CompletedTask;
     }
 
-    private readonly IEnumerable<SelectedItem> Items4 = new[]
+    private readonly IEnumerable<SelectedItem> Items4 = new SelectedItem[]
     {
-        new SelectedItem ("Beijing", "北京") { IsDisabled = true},
-        new SelectedItem ("Shanghai", "上海") { Active = true },
-        new SelectedItem ("Guangzhou", "广州")
+        new("Beijing", "北京") { IsDisabled = true},
+        new("Shanghai", "上海") { Active = true },
+        new("Guangzhou", "广州")
     };
 
     private Foo BindingModel { get; set; } = new Foo();
@@ -93,10 +93,10 @@ public sealed partial class Selects
 
     private readonly IEnumerable<SelectedItem> Items3 = new SelectedItem[]
     {
-        new SelectedItem ("", "请选择 ..."),
-        new SelectedItem ("Beijing", "北京") { Active = true },
-        new SelectedItem ("Shanghai", "上海"),
-        new SelectedItem ("Hangzhou", "杭州")
+        new("", "请选择 ..."),
+        new("Beijing", "北京") { Active = true },
+        new("Shanghai", "上海"),
+        new("Hangzhou", "杭州")
     };
 
     private IEnumerable<SelectedItem>? Items2 { get; set; }
@@ -115,16 +115,16 @@ public sealed partial class Selects
         {
             Items2 = new SelectedItem[]
             {
-                new SelectedItem("1","朝阳区") { Active = true},
-                new SelectedItem("2","海淀区"),
+                new("1","朝阳区") { Active = true},
+                new("2","海淀区"),
             };
         }
         else if (item.Value == "Shanghai")
         {
             Items2 = new SelectedItem[]
             {
-                new SelectedItem("1","静安区"),
-                new SelectedItem("2","黄浦区") { Active = true } ,
+                new("1","静安区"),
+                new("2","黄浦区") { Active = true } ,
             };
         }
         else
@@ -138,20 +138,20 @@ public sealed partial class Selects
 
     private readonly IEnumerable<SelectedItem> GroupItems = new SelectedItem[]
     {
-        new SelectedItem ("Jilin", "吉林") { GroupName = "东北"},
-        new SelectedItem ("Liaoning", "辽宁") {GroupName = "东北", Active = true },
-        new SelectedItem ("Beijing", "北京") { GroupName = "华中"},
-        new SelectedItem ("Shijiazhuang", "石家庄") { GroupName = "华中"},
-        new SelectedItem ("Shanghai", "上海") {GroupName = "华东", Active = true },
-        new SelectedItem ("Ningbo", "宁波") {GroupName = "华东", Active = true }
+        new("Jilin", "吉林") { GroupName = "东北"},
+        new("Liaoning", "辽宁") {GroupName = "东北", Active = true },
+        new("Beijing", "北京") { GroupName = "华中"},
+        new("Shijiazhuang", "石家庄") { GroupName = "华中"},
+        new("Shanghai", "上海") {GroupName = "华东", Active = true },
+        new("Ningbo", "宁波") {GroupName = "华东", Active = true }
     };
 
     private Guid CurrentGuid { get; set; }
 
     private readonly IEnumerable<SelectedItem> GuidItems = new SelectedItem[]
     {
-        new SelectedItem(Guid.NewGuid().ToString(), "Guid1"),
-        new SelectedItem(Guid.NewGuid().ToString(), "Guid2")
+        new(Guid.NewGuid().ToString(), "Guid1"),
+        new(Guid.NewGuid().ToString(), "Guid2")
     };
 
     private Foo LabelModel { get; set; } = new Foo();
@@ -169,9 +169,9 @@ public sealed partial class Selects
 
     private IEnumerable<SelectedItem> NullableIntItems { get; set; } = new SelectedItem[]
     {
-        new SelectedItem() { Text = "Item 1", Value = "" },
-        new SelectedItem() { Text = "Item 2", Value = "2" },
-        new SelectedItem() { Text = "Item 3", Value = "3" }
+        new() { Text = "Item 1", Value = "" },
+        new() { Text = "Item 2", Value = "2" },
+        new() { Text = "Item 3", Value = "3" }
     };
 
     private bool? SelectedBoolItem { get; set; }
@@ -183,23 +183,23 @@ public sealed partial class Selects
 
     private IEnumerable<SelectedItem> NullableBoolItems { get; set; } = new SelectedItem[]
     {
-        new SelectedItem() { Text = "空值", Value = "" },
-        new SelectedItem() { Text = "True 值", Value = "true" },
-        new SelectedItem() { Text = "False 值", Value = "false" }
+        new() { Text = "空值", Value = "" },
+        new() { Text = "True 值", Value = "true" },
+        new() { Text = "False 值", Value = "false" }
     };
 
-    private readonly IEnumerable<SelectedItem> StringItems = new[]
-    {
-        new SelectedItem ("1", "1"),
-        new SelectedItem ("12", "12"),
-        new SelectedItem ("123", "123"),
-        new SelectedItem ("1234", "1234"),
-        new SelectedItem ("a", "a"),
-        new SelectedItem ("ab", "ab"),
-        new SelectedItem ("abc", "abc"),
-        new SelectedItem ("abcd", "abcd"),
-        new SelectedItem ("abcde", "abcde")
-    };
+    private readonly SelectedItem[] StringItems =
+    [
+        new("1", "1"),
+        new("12", "12"),
+        new("123", "123"),
+        new("1234", "1234"),
+        new("a", "a"),
+        new("ab", "ab"),
+        new("abc", "abc"),
+        new("abcd", "abcd"),
+        new("abcde", "abcde")
+    ];
 
     private static Task<bool> OnBeforeSelectedItemChange(SelectedItem item)
     {
@@ -226,8 +226,8 @@ public sealed partial class Selects
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<EventItem> GetEvents() => new EventItem[]
-    {
+    private EventItem[] GetEvents() =>
+    [
         new()
         {
             Name = "OnSelectedItemChanged",
@@ -240,14 +240,14 @@ public sealed partial class Selects
             Description = Localizer["SelectsOnBeforeSelectedItemChange"],
             Type = "Func<SelectedItem, Task<bool>>"
         }
-    };
+    ];
 
     /// <summary>
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "ShowLabel",
@@ -352,5 +352,5 @@ public sealed partial class Selects
             ValueList = "true|false",
             DefaultValue = "false"
         }
-    };
+    ];
 }

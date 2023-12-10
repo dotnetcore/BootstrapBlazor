@@ -27,7 +27,7 @@ public sealed partial class ComponentCategory
     [Parameter]
     public string? Desc { get; set; }
 
-    private List<ComponentCard> Cards { get; } = new List<ComponentCard>();
+    private List<ComponentCard> Cards { get; } = [];
 
     internal void Add(ComponentCard card) => Cards.Add(card);
 

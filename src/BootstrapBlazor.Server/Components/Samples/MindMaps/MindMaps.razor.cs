@@ -42,16 +42,16 @@ public partial class MindMaps
             },
 
         },
-        Children = new List<MindMapNode>()
-        {
+        Children =
+        [
             new MindMapNode
             {
                 Data = new NodeData
                 {
                     Text = "二级节点1",
                 },
-                    Children = new List<MindMapNode>()
-                    {
+                    Children =
+                    [
                         new MindMapNode
                         {
                             Data = new NodeData
@@ -73,7 +73,7 @@ public partial class MindMaps
                                 Text = "分支主题3",
                             },
                         }
-                    }
+                    ]
             },
             new MindMapNode
             {
@@ -89,7 +89,7 @@ public partial class MindMaps
                     Text = "二级节点3",
                 },
             }
-        }
+        ]
     };
 
     private Task OnReceive(string? message)
@@ -172,8 +172,8 @@ public partial class MindMaps
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Data",
@@ -246,7 +246,7 @@ public partial class MindMaps
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 
     /// <summary>
     /// NodeData

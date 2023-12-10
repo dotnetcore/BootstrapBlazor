@@ -15,8 +15,8 @@ public partial class VideoPlayers
     [NotNull]
     private VideoPlayer? Player { get; set; }
 
-    private List<string> VideoList { get; } = new()
-    {
+    private List<string> VideoList { get; } =
+    [
         "https://rtvelivestream.akamaized.net/rtvesec/la1/la1_main.m3u8",
         "https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8",
         "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8",
@@ -26,9 +26,9 @@ public partial class VideoPlayers
         "https://cph-p2p-msl.akamaized.net/hls/live/2000341/test/master.m3u8",
         "https://demo.unified-streaming.com/k8s/features/stable/video/tears-of-steel/tears-of-steel.mp4/.m3u8",
         "https://diceyk6a7voy4.cloudfront.net/e78752a1-2e83-43fa-85ae-3d508be29366/hls/fitfest-sample-1_Ott_Hls_Ts_Avc_Aac_16x9_1280x720p_30Hz_6.0Mbps_qvbr.m3u8"
-    };
+    ];
 
-    private List<SelectedItem> Items { get; } = new();
+    private List<SelectedItem> Items { get; } = [];
 
     /// <summary>
     /// OnInitialized 方法
@@ -61,8 +61,8 @@ public partial class VideoPlayers
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
 
         new() {
             Name = nameof(VideoPlayer.Url),
@@ -134,5 +134,5 @@ public partial class VideoPlayers
             ValueList = " — ",
             DefaultValue = " — "
         },
-    };
+    ];
 }

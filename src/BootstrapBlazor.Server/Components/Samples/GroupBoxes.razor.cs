@@ -9,8 +9,8 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class GroupBoxes
 {
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Title",
@@ -19,5 +19,5 @@ public sealed partial class GroupBoxes
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

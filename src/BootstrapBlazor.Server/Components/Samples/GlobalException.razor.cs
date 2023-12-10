@@ -35,8 +35,8 @@ public partial class GlobalException
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = nameof(ErrorLogger.ChildContent),
@@ -61,5 +61,5 @@ public partial class GlobalException
             ValueList = "true|false",
             DefaultValue = "true"
         }
-    };
+    ];
 }

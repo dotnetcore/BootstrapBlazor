@@ -13,8 +13,8 @@ public sealed partial class Progress
     /// Get property method
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Color",
@@ -63,5 +63,5 @@ public sealed partial class Progress
             ValueList = " — ",
             DefaultValue = "false"
         }
-    };
+    ];
 }

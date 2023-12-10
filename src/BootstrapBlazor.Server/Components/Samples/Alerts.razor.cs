@@ -102,22 +102,22 @@ public partial class Alerts
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<EventItem> GetEvents() => new EventItem[]
-    {
+    private static EventItem[] GetEvents() =>
+    [
         new()
         {
             Name = "OnDismiss",
             Description = "Close the alert box callback method",
             Type = "EventCallback<MouseEventArgs>"
         }
-    };
+    ];
 
     /// <summary>
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "ChildContent",
@@ -182,5 +182,5 @@ public partial class Alerts
             ValueList = "true|false",
             DefaultValue = "false"
         }
-    };
+    ];
 }

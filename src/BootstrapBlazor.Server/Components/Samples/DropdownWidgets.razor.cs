@@ -9,8 +9,8 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class DropdownWidgets
 {
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Icon",
@@ -83,5 +83,5 @@ public partial class DropdownWidgets
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

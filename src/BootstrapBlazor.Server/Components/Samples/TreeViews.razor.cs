@@ -66,11 +66,11 @@ public sealed partial class TreeViews
 
     private bool IsReset { get; set; }
 
-    private List<SelectedItem> ResetItems { get; } = new List<SelectedItem>()
-    {
+    private List<SelectedItem> ResetItems { get; } =
+    [
         new("True", "Reset"),
         new("False", "Keep")
-    };
+    ];
 
     private Task OnTreeItemChecked(List<TreeViewItem<TreeFoo>> items)
     {
@@ -98,16 +98,16 @@ public sealed partial class TreeViews
         var item = node.Value;
         return new TreeViewItem<TreeFoo>[]
         {
-           new TreeViewItem<TreeFoo>(new TreeFoo() { Id = $"{item.Id}-101", ParentId = item.Id })
+           new(new TreeFoo() { Id = $"{item.Id}-101", ParentId = item.Id })
            {
                Text = "懒加载子节点1",
                HasChildren = true
            },
-           new TreeViewItem<TreeFoo>(new TreeFoo(){ Id = $"{item.Id}-102", ParentId = item.Id })
+           new(new TreeFoo(){ Id = $"{item.Id}-102", ParentId = item.Id })
            {
                Text = "懒加载子节点2"
            }
-                    };
+        };
     }
 
     private static List<TreeViewItem<TreeFoo>> GetExpandItems()
@@ -117,7 +117,7 @@ public sealed partial class TreeViews
         return ret;
     }
 
-    private Task OnFormTreeItemClick(TreeViewItem<TreeFoo> item)
+    private static Task OnFormTreeItemClick(TreeViewItem<TreeFoo> item)
     {
         return Task.CompletedTask;
     }
@@ -201,125 +201,142 @@ public sealed partial class TreeViews
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
-        new() {
+    private static AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
             Name = "Items",
             Description = "menu data set",
             Type = "IEnumerable<TreeItem>",
             ValueList = " — ",
             DefaultValue = "new List<TreeItem>(20)"
         },
-        new() {
+        new()
+        {
             Name = "ClickToggleNode",
             Description = "Whether to expand or contract children when a node is clicked",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new() {
+        new()
+        {
             Name = "ShowCheckbox",
             Description = "Whether to display CheckBox",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new() {
+        new()
+        {
             Name = "ShowIcon",
             Description = "Whether to display Icon",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new() {
+        new()
+        {
             Name = "ShowSkeleton",
             Description = "Whether to display the loading skeleton screen",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new() {
+        new()
+        {
             Name = nameof(TreeView<string>.OnTreeItemClick),
             Description = "Callback delegate when tree control node is clicked",
             Type = "Func<TreeItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = nameof(TreeView<string>.OnTreeItemChecked),
             Description = "Callback delegate when tree control node is selected",
             Type = "Func<TreeItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = nameof(TreeView<string>.OnExpandNodeAsync),
             Description = "Tree control node expand callback delegate",
             Type = "Func<TreeItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 
-    private static IEnumerable<AttributeItem> GetTreeItemAttributes() => new AttributeItem[]
-    {
-        new() {
+    private static AttributeItem[] GetTreeItemAttributes() =>
+    [
+        new()
+        {
             Name = nameof(TreeViewItem<TreeFoo>.Items),
             Description = "Child node data source",
             Type = "List<TreeItem<TItem>>",
             ValueList = " — ",
             DefaultValue = "new ()"
         },
-        new() {
+        new()
+        {
             Name = nameof(TreeViewItem<TreeFoo>.Text),
             Description = "Display text",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = nameof(TreeViewItem<TreeFoo>.Icon),
             Description = "Show icon",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = nameof(TreeViewItem<TreeFoo>.CssClass),
             Description = "Node custom style",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = nameof(TreeViewItem<TreeFoo>.CheckedState),
             Description = "Is selected",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new() {
+        new()
+        {
             Name = nameof(TreeViewItem<TreeFoo>.IsDisabled),
             Description = "Is disabled",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
         },
-        new() {
+        new()
+        {
             Name = nameof(TreeViewItem<TreeFoo>.IsExpand),
             Description = "Whether to expand",
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "true"
         },
-        new() {
+        new()
+        {
             Name = nameof(TreeViewItem<TreeFoo>.HasChildren),
             Description = "Whether there are child nodes",
             Type = "bool",
             ValueList = " true|false ",
             DefaultValue = " false "
         },
-        new() {
+        new()
+        {
             Name = nameof(TreeViewItem<TreeFoo>.ShowLoading),
             Description = "Whether to show child node loading animation",
             Type = "bool",
@@ -334,5 +351,5 @@ public sealed partial class TreeViews
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

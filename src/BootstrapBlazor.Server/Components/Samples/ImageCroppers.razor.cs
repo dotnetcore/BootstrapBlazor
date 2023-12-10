@@ -31,8 +31,8 @@ public partial class ImageCroppers
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    protected AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Url",
@@ -89,5 +89,5 @@ public partial class ImageCroppers
             ValueList = "-",
             DefaultValue = "-"
         },
-    };
+    ];
 }

@@ -30,6 +30,7 @@
     <PackageReference Include="Longbow.Logging" Version="7.0.0" />
     <PackageReference Include="Longbow.Tasks" Version="7.0.0" />
     <PackageReference Include="BootstrapBlazor.AzureOpenAI" Version="8.0.1" />
+    <PackageReference Include="BootstrapBlazor.AzureTranslator" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.BarCode" Version="8.0.0" />
@@ -45,8 +46,8 @@
     <PackageReference Include="BootstrapBlazor.ImageCropper" Version="*" />
     <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.MaterialDesign.Extensions" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.MaterialDesign" Version="8.0.1" />
+    <PackageReference Include="BootstrapBlazor.MaterialDesign.Extensions" Version="8.0.1" />
     <PackageReference Include="BootstrapBlazor.Middleware" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.MindMap" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.MouseFollower" Version="8.0.0" />

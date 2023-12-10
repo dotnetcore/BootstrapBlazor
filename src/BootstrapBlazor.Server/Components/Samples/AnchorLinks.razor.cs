@@ -13,8 +13,8 @@ public partial class AnchorLinks
     [NotNull]
     private IStringLocalizer<AnchorLinks>? Localizer { get; set; }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = nameof(AnchorLink.Id),
@@ -47,5 +47,5 @@ public partial class AnchorLinks
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

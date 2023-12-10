@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Version>8.0.0</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageTags>Bootstrap Blazor Azure WebAssembly wasm Translator Components</PackageTags>
+    <Description>Bootstrap UI components extensions of Azure Translator</Description>
+    <RootNamespace>BootstrapBlazor.Components</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.AI.Translation.Text" Version="1.0.0-beta.1" />
+    <PackageReference Include="BootstrapBlazor" Version="8.0.0" />
+  </ItemGroup>
+
+</Project>

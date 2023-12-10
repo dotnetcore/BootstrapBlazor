@@ -49,8 +49,8 @@ public partial class Live2DDisplays
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Source",
@@ -123,5 +123,5 @@ public partial class Live2DDisplays
             ValueList = " — ",
             DefaultValue = "false"
         }
-    };
+    ];
 }

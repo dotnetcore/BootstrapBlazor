@@ -77,8 +77,8 @@ public partial class RibbonTabs
 
     private static string? DecodeAnchorCallback(string url) => HttpUtility.UrlDecode(url.Split('#').LastOrDefault())?.Split('-').LastOrDefault();
 
-    private List<RibbonTabItem> GenerateRibbonTabs() => new()
-    {
+    private List<RibbonTabItem> GenerateRibbonTabs() =>
+    [
         new()
         {
             Text = Localizer["RibbonTabsItemsText1"],
@@ -105,10 +105,10 @@ public partial class RibbonTabs
                 new() { Text = Localizer["RibbonTabsItems12"], Icon = "fa-solid fa-font-awesome", GroupName = Localizer["ItemsGroupName2"] }
             }
         }
-    };
+    ];
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = nameof(RibbonTab.ShowFloatButton),
@@ -189,5 +189,5 @@ public partial class RibbonTabs
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

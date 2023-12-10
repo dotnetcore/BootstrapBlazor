@@ -48,7 +48,7 @@ public partial class MultiSelects
     [NotNull]
     private List<SelectedItem>? LongDataSource { get; set; }
 
-    private int[] SelectedIntArrayValues { get; set; } = Array.Empty<int>();
+    private int[] SelectedIntArrayValues { get; set; } = [];
 
     [NotNull]
     private List<SelectedItem>? Items { get; set; }
@@ -92,25 +92,25 @@ public partial class MultiSelects
     [NotNull]
     private IEnumerable<SelectedItem>? TemplateItems { get; set; }
 
-    private List<SelectedItem> CascadingItems1 { get; set; } = new List<SelectedItem>();
+    private List<SelectedItem> CascadingItems1 { get; set; } = [];
 
-    private IEnumerable<SelectedItem> GroupItems { get; } = new SelectedItem[]
-    {
-        new SelectedItem ("Jilin", "吉林") { GroupName = "东北"},
-        new SelectedItem ("Liaoning", "辽宁") {GroupName = "东北", Active = true },
-        new SelectedItem ("Beijing", "北京") { GroupName = "华中"},
-        new SelectedItem ("Shijiazhuang", "石家庄") { GroupName = "华中"},
-        new SelectedItem ("Shanghai", "上海") {GroupName = "华东", Active = true },
-        new SelectedItem ("Ningbo", "宁波") {GroupName = "华东", Active = true }
-    };
+    private SelectedItem[] GroupItems { get; } =
+    [
+        new("Jilin", "吉林") { GroupName = "东北"},
+        new("Liaoning", "辽宁") {GroupName = "东北", Active = true },
+        new("Beijing", "北京") { GroupName = "华中"},
+        new("Shijiazhuang", "石家庄") { GroupName = "华中"},
+        new("Shanghai", "上海") {GroupName = "华东", Active = true },
+        new("Ningbo", "宁波") {GroupName = "华东", Active = true }
+    ];
 
-    private readonly List<SelectedItem> CascadingItems2 = new SelectedItem[]
-    {
-        new SelectedItem ("", "请选择 ..."),
-        new SelectedItem ("Beijing", "北京") { Active = true },
-        new SelectedItem ("Shanghai", "上海"),
-        new SelectedItem ("Hangzhou", "杭州")
-    }.ToList();
+    private readonly SelectedItem[] CascadingItems2 =
+    [
+        new("", "请选择 ..."),
+        new("Beijing", "北京") { Active = true },
+        new("Shanghai", "上海"),
+        new("Hangzhou", "杭州")
+    ];
 
     /// <summary>
     /// OnInitialized
@@ -130,33 +130,33 @@ public partial class MultiSelects
         TemplateItems = GenerateItems();
 
         // 初始化数据
-        DataSource = new List<SelectedItem>
-        {
-            new SelectedItem ("Beijing", "北京"),
-            new SelectedItem ("Shanghai", "上海"),
-            new SelectedItem ("Guangzhou", "广州")
-        };
+        DataSource =
+        [
+            new("Beijing", "北京"),
+            new("Shanghai", "上海"),
+            new("Guangzhou", "广州")
+        ];
 
-        LongDataSource = new List<SelectedItem>
-        {
-            new SelectedItem ("1", "特别甜的东瓜(特别甜的东瓜)"),
-            new SelectedItem ("2", "特别甜的西瓜(特别甜的西瓜)"),
-            new SelectedItem ("3", "特别甜的南瓜(特别甜的南瓜)"),
-            new SelectedItem ("4", "特别甜的傻瓜(特别甜的傻瓜)"),
-            new SelectedItem ("5", "特别甜的金瓜(特别甜的金瓜)"),
-            new SelectedItem ("6", "特别甜的木瓜(特别甜的木瓜)"),
-            new SelectedItem ("7", "特别甜的水瓜(特别甜的水瓜)"),
-            new SelectedItem ("8", "特别甜的火瓜(特别甜的火瓜)"),
-            new SelectedItem ("9", "特别甜的土瓜(特别甜的土瓜)"),
-        };
+        LongDataSource =
+        [
+            new("1", "特别甜的东瓜(特别甜的东瓜)"),
+            new("2", "特别甜的西瓜(特别甜的西瓜)"),
+            new("3", "特别甜的南瓜(特别甜的南瓜)"),
+            new("4", "特别甜的傻瓜(特别甜的傻瓜)"),
+            new("5", "特别甜的金瓜(特别甜的金瓜)"),
+            new("6", "特别甜的木瓜(特别甜的木瓜)"),
+            new("7", "特别甜的水瓜(特别甜的水瓜)"),
+            new("8", "特别甜的火瓜(特别甜的火瓜)"),
+            new("9", "特别甜的土瓜(特别甜的土瓜)"),
+        ];
 
         LongItems = GenerateDataSource(LongDataSource);
 
         Items = GenerateDataSource(DataSource);
     }
 
-    private static List<SelectedItem> GenerateItems() => new()
-    {
+    private static List<SelectedItem> GenerateItems() =>
+    [
         new ("Beijing", "北京"),
         new ("Shanghai", "上海"),
         new ("Guangzhou", "广州"),
@@ -166,7 +166,7 @@ public partial class MultiSelects
         new ("Dalian", "大连"),
         new ("Hangzhou", "杭州"),
         new ("Lianyungang", "连云港")
-    };
+    ];
 
     private static List<SelectedItem> GenerateDataSource(List<SelectedItem> source) => source.Select(i => new SelectedItem(i.Value, i.Text)).ToList();
 
@@ -202,17 +202,17 @@ public partial class MultiSelects
 
     private void AddArrayItems()
     {
-        SelectedIntArrayValues = new[] { 1, 2, 3, 4 };
+        SelectedIntArrayValues = [1, 2, 3, 4];
     }
 
     private void RemoveArrayItems()
     {
-        SelectedIntArrayValues = new[] { 1, 2, };
+        SelectedIntArrayValues = [1, 2,];
     }
 
     private void ClearArrayItems()
     {
-        SelectedIntArrayValues = Array.Empty<int>();
+        SelectedIntArrayValues = [];
     }
 
     private IEnumerable<SelectedItem> OnSearch(string searchText)
@@ -244,23 +244,23 @@ public partial class MultiSelects
         await Task.Delay(100);
         if (item.Value == "Beijing")
         {
-            CascadingItems1 = new List<SelectedItem>(new[]
-            {
-                new SelectedItem("1","朝阳区") { Active = true },
-                new SelectedItem("2","海淀区")
-            });
+            CascadingItems1 =
+            [
+                new("1","朝阳区") { Active = true },
+                new("2","海淀区")
+            ];
         }
         else if (item.Value == "Shanghai")
         {
-            CascadingItems1 = new List<SelectedItem>(new[]
-            {
-                new SelectedItem("1","静安区"),
-                new SelectedItem("2","黄浦区") {Active = true },
-            });
+            CascadingItems1 =
+            [
+                new("1","静安区"),
+                new("2","黄浦区") {Active = true },
+            ];
         }
         else
         {
-            CascadingItems1 = new List<SelectedItem>();
+            CascadingItems1 = [];
         }
         StateHasChanged();
     }
@@ -270,8 +270,8 @@ public partial class MultiSelects
     /// GetEvents
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<EventItem> GetEvents() => new[]
-    {
+    private EventItem[] GetEvents() =>
+    [
         new EventItem()
         {
             Name = "OnSelectedItemsChanged",
@@ -284,16 +284,15 @@ public partial class MultiSelects
             Description = Localizer["MultiSelectsEvent_OnSearchTextChanged"],
             Type = "Func<string, IEnumerable<SelectedItem>>"
         }
-    };
+    ];
 
     /// <summary>
     /// 获得属性方法
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
-
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "ShowLabel",
@@ -398,5 +397,5 @@ public partial class MultiSelects
             ValueList = "true|false",
             DefaultValue = "false"
         }
-    };
+    ];
 }
