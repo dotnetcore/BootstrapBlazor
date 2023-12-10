@@ -50,7 +50,7 @@ public partial class Html2Pdfs
         var html = await InvokeAsync<string>("getHtml", "table-9527");
 
         // 通过 template 模板文件生成网页文件
-        var templateFileName = Path.Combine(WebHostEnvironment.WebRootPath, "pdf/template.html");
+        var templateFileName = Path.Combine(WebHostEnvironment.WebRootPath, "pdf/template.htm");
         var template = await File.ReadAllTextAsync(templateFileName);
 
         // 生成静态 html 文件
