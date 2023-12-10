@@ -22,7 +22,7 @@ class DefaultPdfService : IHtml2Pdf
         await using var page = await browser.NewPageAsync();
         await page.GoToAsync(url);
         var content = await page.GetContentAsync();
-        return await page.PdfDataAsync();
+        return await page.PdfDataAsync(options ?? new PdfOptions());
     }
 
     /// <summary>
@@ -36,6 +36,6 @@ class DefaultPdfService : IHtml2Pdf
         await using var page = await browser.NewPageAsync();
         await page.GoToAsync(url);
         var content = await page.GetContentAsync();
-        return await page.PdfStreamAsync();
+        return await page.PdfStreamAsync(options ?? new PdfOptions());
     }
 }
