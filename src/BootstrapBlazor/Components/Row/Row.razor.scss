@@ -1,6 +1,6 @@
 :root {
-    --bb-row-label-width: 120px;
-    --bb-row-control-padding: 7px;
+    --bb-row-label-width: #{$bb-row-label-width};
+    --bb-row-control-padding: #{$bb-row-control-padding};
 }
 
 .form-inline {
