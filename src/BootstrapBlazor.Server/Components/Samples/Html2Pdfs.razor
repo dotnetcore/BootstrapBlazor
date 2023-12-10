@@ -17,9 +17,9 @@
 
 <DemoBlock Title="@Localizer["Html2PdfElementTitle"]" Introduction="@Localizer["Html2PdfElementIntro"]" Name="Normal">
     <section ignore class="mb-2">
-        <p>@((MarkupString)Localizer["Html2PdfElementDesc"].Value)</p>
-        <Button OnClickWithoutRender="OnExportAsync" Text="ExportPdf"></Button>
+        @((MarkupString)Localizer["Html2PdfElementDesc"].Value)
     </section>
+    <Button OnClickWithoutRender="OnExportAsync" Text="ExportPdf" class="mb-2"></Button>
     <Table TItem="Foo" Items="@Items.Take(3)" Id="table-9527">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
