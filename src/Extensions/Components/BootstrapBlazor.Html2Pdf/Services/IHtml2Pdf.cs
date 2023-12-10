@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using PuppeteerSharp;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -12,22 +14,14 @@ public interface IHtml2Pdf
     /// <summary>
     /// Export method
     /// </summary>
-    /// <param name="html">snippet html</param>
-    /// <param name="fileName">the file name of pdf</param>
-    /// <returns></returns>
-    Task<bool> ExportAsync(string html, string? fileName = null);
+    /// <param name="url">url</param>
+    /// <param name="options">the instance of PdfOptions</param>
+    Task<byte[]> ExportAsync(string url, PdfOptions? options = null);
 
     /// <summary>
     /// 导出流
     /// </summary>
-    /// <param name="html"></param>
-    /// <returns></returns>
-    Task<Stream> ExportStreamAsync(string html);
-
-    /// <summary>
-    /// 通过指定 id 元素导出 Pdf
-    /// </summary>
-    /// <param name="id"></param>
-    /// <returns></returns>
-    Task<Stream> ExportByElementIdAsync(string id);
+    /// <param name="url">url</param>
+    /// <param name="options">the instance of PdfOptions</param>
+    Task<Stream> ExportStreamAsync(string url, PdfOptions? options = null);
 }
