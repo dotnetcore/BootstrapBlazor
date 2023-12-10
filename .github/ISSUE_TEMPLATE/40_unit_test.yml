@@ -1,6 +1,6 @@
 name: 🧪 Test
 description: Unit test for this project
-title: "test: <title>"
+title: "test(): title"
 labels: [test]
 assignees:
   - argozhang
