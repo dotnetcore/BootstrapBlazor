@@ -22,10 +22,14 @@ class ComponentHtmlRenderer(IServiceProvider serviceProvider, ILoggerFactory log
     public async Task<string> RenderAsync<TComponent>(IDictionary<string, object?>? parameters = null) where TComponent : IComponent
     {
         using var htmlRenderer = new HtmlRenderer(ServiceProvider, LoggerFactory);
-        parameters ??= new Dictionary<string, object?>();
-        var paras = ParameterView.FromDictionary(parameters);
-        var html = await htmlRenderer.RenderComponentAsync<TComponent>(paras);
-        return html.ToHtmlString();
+        var html = await htmlRenderer.Dispatcher.InvokeAsync(async () =>
+        {
+            parameters ??= new Dictionary<string, object?>();
+            var paras = ParameterView.FromDictionary(parameters);
+            var output = await htmlRenderer.RenderComponentAsync<TComponent>(paras);
+            return output.ToHtmlString();
+        });
+        return html;
     }
 
     /// <summary>
@@ -37,9 +41,13 @@ class ComponentHtmlRenderer(IServiceProvider serviceProvider, ILoggerFactory log
     public async Task<string> RenderAsync(Type componentType, IDictionary<string, object?>? parameters = null)
     {
         using var htmlRenderer = new HtmlRenderer(ServiceProvider, LoggerFactory);
-        parameters ??= new Dictionary<string, object?>();
-        var paras = ParameterView.FromDictionary(parameters);
-        var output = await htmlRenderer.RenderComponentAsync(componentType, paras);
-        return output.ToHtmlString();
+        var html = await htmlRenderer.Dispatcher.InvokeAsync(async () =>
+        {
+            parameters ??= new Dictionary<string, object?>();
+            var paras = ParameterView.FromDictionary(parameters);
+            var output = await htmlRenderer.RenderComponentAsync(componentType, paras);
+            return output.ToHtmlString();
+        });
+        return html;
     }
 }
