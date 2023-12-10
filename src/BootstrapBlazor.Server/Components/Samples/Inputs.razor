@@ -209,4 +209,19 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["InputsOnInputTitle"]"
+           Introduction="@Localizer["InputsOnInputIntro"]"
+           Name="OnInput">
+    <p class="mb-3">@((MarkupString)Localizer["OnInputDescription"].Value)</p>
+    <div class="row g-3">
+        <div class="col-auto col-form-label">
+            <span>@Localizer["InputsBaseUsage"]</span>
+        </div>
+        <div class="col-6">
+            <BootstrapInput @bind-Value="LabelsModel.Name" PlaceHolder="@Localizer["PlaceHolder"]" OnInput="true" />
+            @LabelsModel.Name
+        </div>
+    </div>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />
