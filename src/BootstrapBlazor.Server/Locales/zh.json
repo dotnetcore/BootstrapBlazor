@@ -2618,7 +2618,7 @@
     "TrimDescription": "设置参数 <code>IsTrim</code> 值为 <code>true</code> 后，组件内的前后空格将会被裁减",
     "InputsOnInputTitle": "文本框的值更改时触发",
     "InputsOnInputIntro": "使用 <code>OnInput=\"true\"</code> 文本框的值更改时触发,用于逐键响应场合",
-    "OnInputDescription": "设置参数 <code>OnInput</code> 值为 <code>true</code> 后，每次按下键盘都会触发ValueChange事件",
+    "OnInputDescription": "设置参数 <code>OnInput</code> 值为 <code>true</code> 后，每次按下键盘都会触发 <code>ValueChange</code> 事件",
     "InputsAtt1": "验证控件",
     "InputsAtt2": "是否显示前置标签",
     "InputsAtt3": "前置标签显示文本",
@@ -2652,7 +2652,9 @@
     "InputsLabelsTips3": "无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>false</code> 时均不显示",
     "TestName": "张三",
     "InputsFormatStringSetting": "设置",
-    "InputsFormatStringTips": "<code>BootstrapInput</code> 组件绑定 <code>byte[]</code> 数组，格式化成 <code>base64</code> 编码字符串示例"
+    "InputsFormatStringTips": "<code>BootstrapInput</code> 组件绑定 <code>byte[]</code> 数组，格式化成 <code>base64</code> 编码字符串示例",
+    "UseInputEvent": "是否在文本框输入值时触发",
+    "IsTrim": "是否自动去除空格"
   },
   "BootstrapBlazor.Server.Components.Samples.InputNumbers": {
     "InputNumbersTitle": "InputNumber 组件",

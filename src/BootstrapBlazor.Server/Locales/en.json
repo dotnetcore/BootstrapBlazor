@@ -2618,7 +2618,7 @@
     "TrimDescription": "The front and back spaces in the component will be trimmed when set <code>IsTrim</code> to <code>true</code>",
     "InputsOnInputTitle": "Fires when the value of the text box changes",
     "InputsOnInputIntro": "Use <code>OnInput=\"true\"</code> to trigger when the value of the text box changes, used for key-by-key response occasions",
-    "OnInputDescription": "After setting the parameter <code>OnInput</code> to <code>true</code>, the Value Change event will be triggered every time the keyboard is pressed",
+    "OnInputDescription": "The <code>ValueChanged</code> callback will be trigger when the keyboard is pressed if set the parameter <code>OnInput</code> to <code>true</code>",
     "InputsAtt1": "Validate the control",
     "InputsAtt2": "Whether to display the front label",
     "InputsAtt3": "The front label displays text",
@@ -2652,7 +2652,9 @@
     "InputsLabelsTips3": "The value of <code>DisplayText</code> is not displayed when the <code>ShowLabel</code> is <code>false</code>",
     "TestName": "Tom",
     "InputsFormatStringSetting": "Set up",
-    "InputsFormatStringTips": "The <code>BootstrapInput</code> component binds <code>byte[]</code> array and formats it as an example of <code>base64</code> encoded string"
+    "InputsFormatStringTips": "The <code>BootstrapInput</code> component binds <code>byte[]</code> array and formats it as an example of <code>base64</code> encoded string",
+    "UseInputEvent": "Whether use oninput event when bind-value",
+    "IsTrim": "automatically trim white space when entering content"
   },
   "BootstrapBlazor.Server.Components.Samples.InputNumbers": {
     "InputNumbersTitle": "InputNumber",
