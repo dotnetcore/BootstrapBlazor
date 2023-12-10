@@ -14,7 +14,7 @@ class DefaultPdfService : IHtml2Pdf
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public async Task<byte[]> ExportAsync(string url, PdfOptions? options = null)
+    public async Task<byte[]> ExportDataAsync(string url, PdfOptions? options = null)
     {
         using var browserFetcher = new BrowserFetcher();
         await browserFetcher.DownloadAsync();

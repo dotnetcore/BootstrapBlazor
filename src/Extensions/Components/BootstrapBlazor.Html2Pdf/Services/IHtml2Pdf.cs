@@ -16,7 +16,7 @@ public interface IHtml2Pdf
     /// </summary>
     /// <param name="url">url</param>
     /// <param name="options">the instance of PdfOptions</param>
-    Task<byte[]> ExportAsync(string url, PdfOptions? options = null);
+    Task<byte[]> ExportDataAsync(string url, PdfOptions? options = null);
 
     /// <summary>
     /// 导出流
