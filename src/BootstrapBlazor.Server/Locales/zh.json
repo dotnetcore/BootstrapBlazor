@@ -5969,7 +5969,7 @@
     "IconTitle": "图标",
     "IconIntro": "设置 <code>Icon</code> 参数值改变其现实图标",
     "SizeTitle": "大小",
-    "SizeIntro": "组件定义了三种尺寸（大、默认、小），高度分别为 40px、32px 和 24px。",
+    "SizeIntro": "组件定义了三种尺寸（大、默认、小），高度分别为 <code>40px</code>、<code>32px</code> 和 <code>24px</code>。",
     "SegmentItemTitle": "SegmentItem 组件",
     "SegmentItemIntro": "可在 <code>Razor</code> 页面中直接书写 <code>SegmentItem</code> 添加数据源",
     "BlockTitle": "Block 充满父容器",
