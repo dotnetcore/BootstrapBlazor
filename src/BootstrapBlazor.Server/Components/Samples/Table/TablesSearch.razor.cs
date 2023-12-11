@@ -160,15 +160,15 @@ public partial class TablesSearch
         var total = items.Count();
 
         // 内存分页
-        items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
+        items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems);
         return Task.FromResult(new QueryData<Foo>()
         {
             Items = items,
             TotalCount = total,
             IsSorted = isSorted,
-            IsFiltered = options.Filters.Any(),
-            IsSearch = options.CustomerSearches.Any() || !string.IsNullOrEmpty(options.SearchText),
-            IsAdvanceSearch = options.AdvanceSearches.Any() || options.CustomerSearches.Any()
+            IsFiltered = options.Filters.Count > 0,
+            IsSearch = options.CustomerSearches.Count > 0 || !string.IsNullOrEmpty(options.SearchText),
+            IsAdvanceSearch = options.CustomerSearches.Count > 0 && string.IsNullOrEmpty(options.SearchText),
         });
     }
 }
