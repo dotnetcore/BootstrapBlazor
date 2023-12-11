@@ -53,7 +53,7 @@ public partial class TablesExport
         // 自定义导出方法
         // 通过 context 参数可以自己查询数据进行导出操作
         // 本例使用 context 传递来的 Rows/Columns 自定义文件名为 Test.xlsx
-        var ret = await Exporter.ExportAsync(context.Rows, context.Columns, "Test.xlsx");
+        var ret = await TableExport.ExportExcelAsync(context.Rows, context.Columns, "Test.xlsx");
 
         // 返回 true 时自动弹出提示框
         return ret;
@@ -61,7 +61,7 @@ public partial class TablesExport
 
     [Inject]
     [NotNull]
-    private ITableExcelExport? Exporter { get; set; }
+    private ITableExport? TableExport { get; set; }
 
     [Inject]
     [NotNull]
@@ -124,7 +124,7 @@ public partial class TablesExport
         // 自定义导出模板导出当前页面数据为 Excel 方法
         // 使用 BootstrapBlazor 内置服务 ITableExcelExport 实例方法 ExportAsync 进行导出操作
         // 导出数据使用 context 传递来的 Rows/Columns 即为当前页数据
-        var ret = await Exporter.ExportAsync(context.Rows, context.Columns, $"Test_{DateTime.Now:yyyyMMddHHmmss}.xlsx");
+        var ret = await TableExport.ExportExcelAsync(context.Rows, context.Columns, $"Test_{DateTime.Now:yyyyMMddHHmmss}.xlsx");
 
         // 返回 true 时自动弹出提示框
         await ShowToast(ret);
@@ -145,7 +145,7 @@ public partial class TablesExport
         var data = Items.Where(filter.GetFilterFunc<Foo>());
 
         // 导出符合条件的所有数据 data
-        var ret = await Exporter.ExportAsync(data, context.Columns, $"Test_{DateTime.Now:yyyyMMddHHmmss}.xlsx");
+        var ret = await TableExport.ExportExcelAsync(data, context.Columns, $"Test_{DateTime.Now:yyyyMMddHHmmss}.xlsx");
 
         // 返回 true 时自动弹出提示框
         await ShowToast(ret);
@@ -156,7 +156,7 @@ public partial class TablesExport
         // 自定义导出模板导出当前页面数据为 Csv 方法
         // 使用 BootstrapBlazor 内置服务 ITableExcelExport 实例方法 ExportCsvAsync 进行导出操作
         // 导出数据使用 context 传递来的 Rows/Columns 即为当前页数据
-        var ret = await Exporter.ExportCsvAsync(context.Rows, context.Columns, $"Test_{DateTime.Now:yyyyMMddHHmmss}.csv");
+        var ret = await TableExport.ExportCsvAsync(context.Rows, context.Columns, $"Test_{DateTime.Now:yyyyMMddHHmmss}.csv");
 
         // 返回 true 时自动弹出提示框
         await ShowToast(ret);

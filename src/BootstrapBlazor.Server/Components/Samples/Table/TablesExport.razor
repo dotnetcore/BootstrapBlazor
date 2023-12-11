@@ -38,6 +38,24 @@
     </Table>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["TablesExportShowExportCsvButtonTitle"]"
+           Introduction="@Localizer["TablesExportShowExportCsvButtonIntro"]"
+           Name="ShowCsvExportButton">
+    <Table TItem="Foo"
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowToolbar="true" ShowDefaultButtons="false"
+           ShowExportButton="true" ShowExportCsvButton="true" ShowExportPdfButton="true"
+           OnQueryAsync="@OnQueryAsync">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Count" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["TablesExportOnExportAsyncTitle"]"
            Introduction="@Localizer["TablesExportOnExportAsyncIntro"]"
            Name="OnExportAsync">
