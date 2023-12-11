@@ -16,7 +16,7 @@ public class CssBuilder
     /// Call Build() to return the completed CSS Classes as a string.
     /// </summary>
     /// <param name="value"></param>
-    public static CssBuilder Default(string? value = null) => new CssBuilder(value);
+    public static CssBuilder Default(string? value = null) => new(value);
 
     /// <summary>
     /// Creates a CssBuilder used to define conditional CSS classes used in a component.
@@ -25,7 +25,7 @@ public class CssBuilder
     /// <param name="value"></param>
     protected CssBuilder(string? value)
     {
-        stringBuffer = new List<string>();
+        stringBuffer = [];
         AddClass(value);
     }
 
@@ -124,5 +124,5 @@ public class CssBuilder
     /// Finalize the completed CSS Classes as a string.
     /// </summary>
     /// <returns>string</returns>
-    public string? Build() => stringBuffer.Any() ? string.Join(" ", stringBuffer) : null;
+    public string? Build() => stringBuffer.Count > 0 ? string.Join(" ", stringBuffer) : null;
 }

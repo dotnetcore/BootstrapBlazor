@@ -397,7 +397,7 @@ public partial class Table<TItem>
     /// <summary>
     /// 获得/设置 各列是否显示状态集合
     /// </summary>
-    private List<ColumnVisibleItem> VisibleColumns { get; } = new();
+    private List<ColumnVisibleItem> VisibleColumns { get; } = [];
 
     /// <summary>
     /// 获得当前可见列集合

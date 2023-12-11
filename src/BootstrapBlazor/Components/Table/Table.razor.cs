@@ -130,9 +130,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private static string? GetColspan(int colspan) => colspan > 1 ? colspan.ToString() : null;
 
-    private bool IsShowFooter => ShowFooter && (Rows.Any() || !IsHideFooterWhenNoData);
+    private bool IsShowFooter => ShowFooter && (Rows.Count > 0 || !IsHideFooterWhenNoData);
 
-    private int PageStartIndex => Rows.Any() ? (PageIndex - 1) * PageItems + 1 : 0;
+    private int PageStartIndex => Rows.Count > 0 ? (PageIndex - 1) * PageItems + 1 : 0;
 
     private string? PageInfoLabelString => Localizer[nameof(PageInfoText), PageStartIndex, (PageIndex - 1) * PageItems + Rows.Count, TotalCount];
 
@@ -187,7 +187,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// 明细行集合用于数据懒加载
     /// </summary>
-    protected List<TItem> ExpandRows { get; } = new List<TItem>();
+    protected List<TItem> ExpandRows { get; } = [];
 
     /// <summary>
     /// 获得/设置 组件工作模式为 Excel 模式 默认 false
@@ -350,7 +350,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// 明细行集合用于数据懒加载
     /// </summary>
-    protected List<TItem> DetailRows { get; } = new List<TItem>();
+    protected List<TItem> DetailRows { get; } = [];
 
     /// <summary>
     /// 获得 表头集合
@@ -846,6 +846,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private string? GetTableName(bool hasHeader) => hasHeader ? ClientTableName : null;
 
+    private readonly JsonSerializerOptions _serializerOption = new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+
     private async Task<IEnumerable<ColumnWidth>> ReloadColumnWidth()
     {
         IEnumerable<ColumnWidth>? ret = null;
@@ -859,10 +861,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                     var doc = JsonDocument.Parse(jsonData);
                     if (doc.RootElement.TryGetProperty("cols", out var element))
                     {
-                        ret = element.Deserialize<IEnumerable<ColumnWidth>>(new JsonSerializerOptions()
-                        {
-                            PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-                        });
+                        ret = element.Deserialize<IEnumerable<ColumnWidth>>(_serializerOption);
                     }
                     if (doc.RootElement.TryGetProperty("table", out var tableEl) && tableEl.TryGetInt32(out var tableWidth))
                     {
@@ -1107,7 +1106,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 var onValueChanged = Utility.GetOnValueChangedInvoke<IDynamicObject>(col.PropertyType);
                 if (DynamicContext.OnValueChanged != null)
                 {
-                    var parameters = col.ComponentParameters?.ToList() ?? new List<KeyValuePair<string, object>>();
+                    var parameters = col.ComponentParameters?.ToList() ?? [];
                     parameters.Add(new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged.Invoke(d, col, (model, column, val) => DynamicContext.OnValueChanged(model, column, val))));
                     col.ComponentParameters = parameters;
                 }
@@ -1135,7 +1134,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// 获得 过滤集合
     /// </summary>
-    public Dictionary<string, IFilterAction> Filters { get; } = new();
+    public Dictionary<string, IFilterAction> Filters { get; } = [];
     #endregion
 
     private async ValueTask<ItemsProviderResult<TItem>> LoadItems(ItemsProviderRequest request)
@@ -1166,7 +1165,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .AddClass("is-dbcell", trigger)
         .Build();
 
-    private bool IsShowEmpty => ShowEmpty && !Rows.Any();
+    private bool IsShowEmpty => ShowEmpty && Rows.Count == 0;
 
     private int GetColumnCount()
     {
@@ -1225,7 +1224,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 返回 true 时按钮禁用
     /// </summary>
     /// <returns></returns>
-    private bool GetDeleteButtonStatus() => ShowAddForm || AddInCell || !SelectedRows.Any();
+    private bool GetDeleteButtonStatus() => ShowAddForm || AddInCell || SelectedRows.Count == 0;
 
     private async Task InvokeItemsChanged()
     {
