@@ -9,9 +9,9 @@ namespace BootstrapBlazor.Components;
 
 class ComponentHtmlRenderer(IServiceProvider serviceProvider, ILoggerFactory loggerFactory) : IComponentHtmlRenderer
 {
-    private IServiceProvider ServiceProvider { get; set; } = serviceProvider;
+    private readonly IServiceProvider _serviceProvider = serviceProvider;
 
-    private ILoggerFactory LoggerFactory { get; set; } = loggerFactory;
+    private readonly ILoggerFactory _loggerFactory = loggerFactory;
 
     /// <summary>
     /// <inheritdoc/>
@@ -21,7 +21,7 @@ class ComponentHtmlRenderer(IServiceProvider serviceProvider, ILoggerFactory log
     /// <returns></returns>
     public async Task<string> RenderAsync<TComponent>(IDictionary<string, object?>? parameters = null) where TComponent : IComponent
     {
-        using var htmlRenderer = new HtmlRenderer(ServiceProvider, LoggerFactory);
+        using var htmlRenderer = new HtmlRenderer(_serviceProvider, _loggerFactory);
         var html = await htmlRenderer.Dispatcher.InvokeAsync(async () =>
         {
             parameters ??= new Dictionary<string, object?>();
@@ -40,7 +40,7 @@ class ComponentHtmlRenderer(IServiceProvider serviceProvider, ILoggerFactory log
     /// <returns></returns>
     public async Task<string> RenderAsync(Type componentType, IDictionary<string, object?>? parameters = null)
     {
-        using var htmlRenderer = new HtmlRenderer(ServiceProvider, LoggerFactory);
+        using var htmlRenderer = new HtmlRenderer(_serviceProvider, _loggerFactory);
         var html = await htmlRenderer.Dispatcher.InvokeAsync(async () =>
         {
             parameters ??= new Dictionary<string, object?>();
