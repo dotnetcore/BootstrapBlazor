@@ -18,7 +18,7 @@ public partial class Table<TItem>
     /// 获得/设置 被选中数据集合
     /// </summary>
     [Parameter]
-    public List<TItem> SelectedRows { get; set; } = new List<TItem>();
+    public List<TItem> SelectedRows { get; set; } = [];
 
     /// <summary>
     /// 获得/设置 选中行变化回调方法
@@ -475,14 +475,14 @@ public partial class Table<TItem>
                 var searched = queryData.IsSearch;
 
                 // 外部未处理 SearchText 模糊查询
-                if (!searched && queryOption.Searches.Any())
+                if (!searched && queryOption.Searches.Count > 0)
                 {
                     QueryItems = QueryItems.Where(queryOption.Searches.GetFilterFunc<TItem>(FilterLogic.Or));
                     TotalCount = QueryItems.Count();
                 }
 
                 // 外部未处理自定义高级搜索 内部进行高级自定义搜索过滤
-                if (!IsAdvanceSearch && queryOption.CustomerSearches.Any())
+                if (!IsAdvanceSearch && queryOption.CustomerSearches.Count> 0)
                 {
                     QueryItems = QueryItems.Where(queryOption.CustomerSearches.GetFilterFunc<TItem>());
                     TotalCount = QueryItems.Count();
@@ -490,7 +490,7 @@ public partial class Table<TItem>
                 }
 
                 // 外部未过滤，内部自行过滤
-                if (!filtered && queryOption.Filters.Any())
+                if (!filtered && queryOption.Filters.Count > 0)
                 {
                     QueryItems = QueryItems.Where(queryOption.Filters.GetFilterFunc<TItem>());
                     TotalCount = QueryItems.Count();
@@ -505,7 +505,7 @@ public partial class Table<TItem>
                         var invoker = Utility.GetSortFunc<TItem>();
                         QueryItems = invoker(QueryItems, queryOption.SortName, queryOption.SortOrder);
                     }
-                    else if (queryOption.SortList.Any())
+                    else if (queryOption.SortList.Count > 0)
                     {
                         var invoker = Utility.GetSortListFunc<TItem>();
                         QueryItems = invoker(QueryItems, queryOption.SortList);
@@ -521,7 +521,7 @@ public partial class Table<TItem>
                     treeNodes.AddRange(await TreeNodeConverter(QueryItems));
                 }
 
-                if (treeNodes.Any())
+                if (treeNodes.Count > 0)
                 {
                     await CheckExpand(treeNodes);
                 }
@@ -581,7 +581,7 @@ public partial class Table<TItem>
 
     private void ResetSelectedRows(IEnumerable<TItem> items)
     {
-        if (SelectedRows.Any())
+        if (SelectedRows.Count > 0)
         {
             SelectedRows = items.Where(i => SelectedRows.Any(row => Equals(i, row))).ToList();
         }
