@@ -124,6 +124,12 @@ public partial class Table<TItem>
     public RenderFragment<ITableExportContext<TItem>>? ExportButtonDropdownTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 内置导出微软 Csv 按钮文本 默认 null 读取资源文件
+    /// </summary>
+    [Parameter]
+    public string? ExportCsvDropdownItemText { get; set; }
+
+    /// <summary>
     /// 获得/设置 内置导出微软 Excel 按钮文本 默认 null 读取资源文件
     /// </summary>
     [Parameter]
