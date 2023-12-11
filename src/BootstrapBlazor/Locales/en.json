@@ -225,6 +225,7 @@
     "ExportToastTitle": "Export",
     "ExportToastContent": "Export data {0}, auto close after {1}s",
     "ExportToastInProgressContent": "Exporting data, please wait a moment, auto close after {0}s",
+    "ExportCsvDropdownItemText": "MS-Csv",
     "ExportExcelDropdownItemText": "MS-Excel",
     "ExportPdfDropdownItemText": "Pdf",
     "PageInfoText": "{0} - {1} Total {2}",
