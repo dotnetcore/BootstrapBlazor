@@ -7,16 +7,23 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Table 组件 Excel 导出接口
 /// </summary>
-[Obsolete("已过期，请使用 ITableExport 代替 Please use ITableExport instead")]
-public interface ITableExcelExport
+public interface ITableExport
 {
+    /// <summary>
+    /// 导出 方法
+    /// </summary>
+    /// <param name="items">导出数据集合</param>
+    /// <param name="cols">当前可见列数据集合 默认 null 导出全部列</param>
+    /// <param name="fileName">文件名 默认 null ExportData_{DateTime.Now:yyyyMMddHHmmss}.xlsx</param>
+    Task<bool> ExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null);
+
     /// <summary>
     /// 导出 Excel 方法
     /// </summary>
     /// <param name="items">导出数据集合</param>
     /// <param name="cols">当前可见列数据集合 默认 null 导出全部列</param>
     /// <param name="fileName">文件名 默认 null ExportData_{DateTime.Now:yyyyMMddHHmmss}.xlsx</param>
-    Task<bool> ExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null);
+    Task<bool> ExportExcelAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null);
 
     /// <summary>
     /// 导出 Csv 方法

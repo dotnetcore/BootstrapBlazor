@@ -24,7 +24,7 @@ internal static class ServicesExtensions
 
         // 增加后台任务服务
         services.AddTaskServices();
-        services.AddHostedService<ClearUploadFilesService>();
+        services.AddHostedService<ClearTempFilesService>();
 
         // 增加演示网站服务
         services.AddWebSiteServices();
@@ -143,6 +143,7 @@ internal static class ServicesExtensions
 
         // 增加 Table Excel 导出服务
         services.AddBootstrapBlazorTableExcelExport();
+        services.AddTransient<ITableExportPdf, TableExportPdfService>();
 
         return services;
     }

@@ -37,9 +37,6 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddSingleton<IZipArchiveService, DefaultZipArchiveService>();
         services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchService<>));
 
-        services.TryAddTransient<ITableExcelExport, DefaultExcelExport>();
-        services.TryAddTransient<ITablePdfExport, DefaultPdfExport>();
-
         services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
         services.TryAddScoped<IIPLocatorProvider, DefaultIPLocatorProvider>();
         services.TryAddScoped<IReconnectorProvider, ReconnectorProvider>();
@@ -62,6 +59,9 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.AddScoped<ResizeNotificationService>();
         services.AddScoped<NotificationService>();
         services.AddScoped<EyeDropperService>();
+
+        services.TryAddTransient<ITableExport, DefaultTableExport>();
+        services.TryAddTransient<ITableExportPdf, DefaultTableExportPdf>();
 
         services.ConfigureBootstrapBlazorOption(configureOptions);
         services.ConfigureIPLocatorOption();

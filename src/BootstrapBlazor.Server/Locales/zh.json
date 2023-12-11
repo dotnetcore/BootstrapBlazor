@@ -2617,6 +2617,9 @@
     "InputsTrimTitle": "修剪空白",
     "InputsTrimIntro": "使用 <code>IsTrim=\"true\"</code> 可在输入内容的时候自动修剪空白",
     "TrimDescription": "设置参数 <code>IsTrim</code> 值为 <code>true</code> 后，组件内的前后空格将会被裁减",
+    "InputsOnInputTitle": "文本框的值更改时触发",
+    "InputsOnInputIntro": "使用 <code>OnInput=\"true\"</code> 文本框的值更改时触发,用于逐键响应场合",
+    "OnInputDescription": "设置参数 <code>OnInput</code> 值为 <code>true</code> 后，每次按下键盘都会触发 <code>ValueChange</code> 事件",
     "InputsAtt1": "验证控件",
     "InputsAtt2": "是否显示前置标签",
     "InputsAtt3": "前置标签显示文本",
@@ -2632,7 +2635,6 @@
     "IsSelectAllTextOnEnter": "Enter 键自动选择输入框内所有字符串",
     "SelectAllTextAsync": "选择输入框内所有字符串方法",
     "ValidateRules": "自定义验证集合",
-    "P8": "可通过设置 <code>IsSelectAllTextOnEnter</code> 用户按下 Enter 键自动选择输入框内所有字符串 ",
     "NormalPlaceHolder": "请输入 ...",
     "IsSelectAllTextOnFocusLabel": "获得焦点时全选",
     "IsSelectAllTextOnEnterLabel": "回车时全选",
@@ -2650,7 +2652,9 @@
     "InputsLabelsTips3": "无论是否设置 <code>DisplayText</code> 值，当 <code>ShowLabel</code> 为 <code>false</code> 时均不显示",
     "TestName": "张三",
     "InputsFormatStringSetting": "设置",
-    "InputsFormatStringTips": "<code>BootstrapInput</code> 组件绑定 <code>byte[]</code> 数组，格式化成 <code>base64</code> 编码字符串示例"
+    "InputsFormatStringTips": "<code>BootstrapInput</code> 组件绑定 <code>byte[]</code> 数组，格式化成 <code>base64</code> 编码字符串示例",
+    "UseInputEvent": "是否在文本框输入值时触发",
+    "IsTrim": "是否自动去除空格"
   },
   "BootstrapBlazor.Server.Components.Samples.InputNumbers": {
     "InputNumbersTitle": "InputNumber 组件",
@@ -5134,6 +5138,8 @@
     "TablesExportNote2": "增加 Table Excel 导出服务",
     "TablesExportShowExportButtonTitle": "表格导出功能",
     "TablesExportShowExportButtonIntro": "通过设置 <code>ShowExportButton=\"true\"</code> 属性是否显示导出按钮，默认为<code>false</code>",
+    "TablesExportShowExportCsvButtonTitle": "导出 Csv/Pdf",
+    "TablesExportShowExportCsvButtonIntro": "通过设置 <code>ShowExportCsvButton=\"true\"</code> <code>ShowExportPdfButton=\"true\"</code> 控制 <code>Csv/Pdf</code> 导出按钮",
     "TablesExportOnExportAsyncTitle": "自定义导出方法",
     "TablesExportOnExportAsyncIntro": "通过设置 <code>OnExportAsync</code> 回调委托方法可自定义导出方法，不设置将使用组件内置导出函数",
     "TablesExportButtonDropdownTemplateTitle": "自定义导出下拉框按钮",
@@ -5792,15 +5798,9 @@
     "Html2PdfTitle": "Html 导出为 Pdf",
     "Html2PdfDescription": "将 Html 片段或者网页元素导出为 Pdf",
     "Html2PdfNote": "如果导出内容过多，可能会触发 <code>signalR</code> 通讯中断问题，请自行调整 <code>HubOptions</code> 配置即可。",
-    "Html2PdfNormalTitle": "基本用法",
-    "Html2PdfNormalIntro": "将 <code>Html</code> 代码片段导出为 <code>Pdf</code> 文件",
-    "Html2PdfNormalDesc": "调用 <code>IHtml2Pdf</code> 服务实例方法 <code>ExportAsync</code>",
-    "Html2PdfStreamTitle": "导出流",
-    "Html2PdfStreamIntro": "将 <code>Html</code> 代码片段导出为 <code>Pdf</code> 流",
-    "Html2PdfStreamDesc": "调用 <code>IHtml2Pdf</code> 服务实例方法 <code>ExportStreamAsync</code> 可使用 <code>DownLoadService</code> 自行下载",
     "Html2PdfElementTitle": "导出指定网页元素",
     "Html2PdfElementIntro": "将 <code>Html</code> 元素内容导出为 <code>Pdf</code> 流",
-    "Html2PdfElementDesc": "调用 <code>IHtml2Pdf</code> 服务实例方法 <code>ExportByElementIdAsync</code> 导出指定 <code>Id</code> 的网页任意元素"
+    "Html2PdfElementDesc": "调用 <code>IHtml2Pdf</code> 服务实例方法 <code>ExportDataAsync</code> 将网页 <code>Html</code> 导出为 <code>Pdf</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.Live2DDisplays": {
     "Live2DDisplayTitle": "Live2D 插件",

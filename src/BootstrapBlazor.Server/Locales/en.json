@@ -2617,6 +2617,9 @@
     "InputsTrimTitle": "Trim",
     "InputsTrimIntro": "Use <code>IsTrim=\"true\"</code> to automatically trim white space when entering content",
     "TrimDescription": "The front and back spaces in the component will be trimmed when set <code>IsTrim</code> to <code>true</code>",
+    "InputsOnInputTitle": "Fires when the value of the text box changes",
+    "InputsOnInputIntro": "Use <code>OnInput=\"true\"</code> to trigger when the value of the text box changes, used for key-by-key response occasions",
+    "OnInputDescription": "The <code>ValueChanged</code> callback will be trigger when the keyboard is pressed if set the parameter <code>OnInput</code> to <code>true</code>",
     "InputsAtt1": "Validate the control",
     "InputsAtt2": "Whether to display the front label",
     "InputsAtt3": "The front label displays text",
@@ -2632,7 +2635,6 @@
     "IsSelectAllTextOnEnter": "Whether auto select the all text after presses enter",
     "SelectAllTextAsync": "Select the all text method",
     "ValidateRules": "Customer validation collection",
-    "P8": "Use <code>IsSelectAllTextOnEnter</code> The user presses enter to select the all text",
     "NormalPlaceHolder": "Please enter ...",
     "IsSelectAllTextOnFocusLabel": "Select all on focus",
     "IsSelectAllTextOnEnterLabel": "Select all on enter",
@@ -2650,7 +2652,9 @@
     "InputsLabelsTips3": "The value of <code>DisplayText</code> is not displayed when the <code>ShowLabel</code> is <code>false</code>",
     "TestName": "Tom",
     "InputsFormatStringSetting": "Set up",
-    "InputsFormatStringTips": "The <code>BootstrapInput</code> component binds <code>byte[]</code> array and formats it as an example of <code>base64</code> encoded string"
+    "InputsFormatStringTips": "The <code>BootstrapInput</code> component binds <code>byte[]</code> array and formats it as an example of <code>base64</code> encoded string",
+    "UseInputEvent": "Whether use oninput event when bind-value",
+    "IsTrim": "automatically trim white space when entering content"
   },
   "BootstrapBlazor.Server.Components.Samples.InputNumbers": {
     "InputNumbersTitle": "InputNumber",
@@ -5134,6 +5138,8 @@
     "TablesExportNote2": "Add Table Excel export service",
     "TablesExportShowExportButtonTitle": "Table export function",
     "TablesExportShowExportButtonIntro": "Whether to display the export button by setting the <code>ShowExportButton</code> property, the default is <code>false</code>",
+    "TablesExportShowExportCsvButtonTitle": "Export Csv/Pdf Button",
+    "TablesExportShowExportCsvButtonIntro": "Show/hide <code>Csv/Pdf</code> button by set <code>ShowExportCsvButton=\"true\"</code> <code>ShowExportPdfButton=\"true\"</code>",
     "TablesExportOnExportAsyncTitle": "Custom export method",
     "TablesExportOnExportAsyncIntro": "You can customize the export method by setting the <code>OnExportAsync</code> callback delegate method. If you don't set it, the built-in export function of the component will be used.",
     "TablesExportButtonDropdownTemplateTitle": "Custom export dropdown button",
@@ -5792,15 +5798,9 @@
     "Html2PdfTitle": "Html export to Pdf",
     "Html2PdfDescription": "Export Html fragments or web page elements as Pdf",
     "Html2PdfNote": "If you export too much content, <code>signalR</code> communication interruption may be triggered. Please adjust the <code>HubOptions</code> configuration.",
-    "Html2PdfNormalTitle": "Noraml",
-    "Html2PdfNormalIntro": "Export <code>Html</code> fragment as <code>Pdf</code> file",
-    "Html2PdfNormalDesc": "Call the <code>IHtml2Pdf</code> service instance method <code>ExportAsync</code>",
-    "Html2PdfStreamTitle": "Export as Stream",
-    "Html2PdfStreamIntro": "Export <code>Html</code> as <code>Pdf</code> stream",
-    "Html2PdfStreamDesc": "Call <code>IHtml2Pdf</code> service instance method <code>ExportStreamAsync</code>. you can download file via <code>DownLoadService</code>",
     "Html2PdfElementTitle": "Export DOM",
     "Html2PdfElementIntro": "Export <code>Html</code> element content as <code>Pdf</code> stream",
-    "Html2PdfElementDesc": "Call <code>IHtml2Pdf</code> service instance method <code>ExportByElementIdAsync</code>. Use html DOM id as parameter"
+    "Html2PdfElementDesc": "Call <code>IHtml2Pdf</code> service instance method <code>ExportDataAsync</code>. export <code>html</code> to <code>Pdf</code>"
   },
   "BootstrapBlazor.Server.Components.Samples.Live2DDisplays": {
     "Live2DDisplayTitle": "Live2D Widget",

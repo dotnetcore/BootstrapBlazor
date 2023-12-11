@@ -190,6 +190,14 @@ public partial class Inputs
             Type = "List<IValidator>",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(BootstrapInput<string>.UseInputEvent),
+            Description = Localizer[nameof(BootstrapInput<string>.UseInputEvent)].Value,
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
         }
     ];
 }
