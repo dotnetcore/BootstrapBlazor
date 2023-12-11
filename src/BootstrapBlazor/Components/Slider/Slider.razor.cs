@@ -45,9 +45,28 @@ public partial class Slider<TValue>
 
     private string eventName => UseInputEvent ? "oninput" : "onchange";
 
-    private string? MinString => Min.ToString() == "0" ? null : Min.ToString();
+    private string? MinString => Min.ToString() == "0" ? GetRangeMinString : Min.ToString();
 
-    private string? MaxString => Max.ToString() == "0" ? null : Max.ToString();
+    private string? GetRangeMinString => _range?.Minimum.ToString();
+
+    private string? MaxString => Max.ToString() == "0" ? GetRangeMaxString : Max.ToString();
+
+    private string? GetRangeMaxString => _range?.Maximum.ToString();
 
     private string? StepString => Step.ToString() == "0" ? null : Step.ToString();
+
+    private RangeAttribute? _range = null;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        if (FieldIdentifier.HasValue)
+        {
+            _range = FieldIdentifier.Value.GetRange();
+        }
+    }
 }
