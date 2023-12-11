@@ -14,4 +14,10 @@ public interface IHtml2Pdf
     /// </summary>
     /// <param name="url">url</param>
     Task<byte[]> PdfDataAsync(string url);
+
+    /// <summary>
+    /// Export method
+    /// </summary>
+    /// <param name="url">url</param>
+    Task<Stream> PdfStreamAsync(string url);
 }
