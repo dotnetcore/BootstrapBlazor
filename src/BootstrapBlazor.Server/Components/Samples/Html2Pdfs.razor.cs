@@ -21,10 +21,6 @@ public partial class Html2Pdfs
 
     [Inject]
     [NotNull]
-    private IComponentHtmlRenderer? HtmlRenderService { get; set; }
-
-    [Inject]
-    [NotNull]
     private IWebHostEnvironment? WebHostEnvironment { get; set; }
 
     [Inject]
@@ -63,7 +59,7 @@ public partial class Html2Pdfs
 
         // 拼接导出文件网址
         var url = $"{NavigationManager.BaseUri}{fileName}";
-        var data = await PdfService.ExportDataAsync(url);
+        var data = await PdfService.PdfDataAsync(url);
         using var stream = new MemoryStream(data);
         await DownloadService.DownloadFromStreamAsync("table.pdf", stream);
         await ToastService.Success("Pdf Export", "Export pdf element success.");
