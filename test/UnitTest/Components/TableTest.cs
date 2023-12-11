@@ -752,7 +752,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void ShowExportButton_Ok()
+    public async Task ShowExportButton_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -801,6 +801,10 @@ public class TableTest : TableTestBase
         table.Contains("fa-solid fa-fw fa-file-csv");
         table.Contains("fa-solid fa-fw fa-file-excel");
         table.Contains("fa-solid fa-fw fa-file-pdf");
+
+        // 导出 csv
+        var button = table.Find(".fa-file-csv");
+        await table.InvokeAsync(() => button.Click());
     }
 
     [Fact]
@@ -6161,6 +6165,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowExportButton, true);
+                pb.Add(a => a.ShowExportCsvButton, true);
                 pb.Add(a => a.ShowExportPdfButton, true);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -6172,33 +6177,29 @@ public class TableTest : TableTestBase
             });
         });
 
-        cut.InvokeAsync(() =>
+        var buttons = cut.FindAll(".dropdown-menu-end .dropdown-item");
+        foreach (var button in buttons)
         {
-            var button = cut.Find(".dropdown-menu-end .dropdown-item");
-            button.Click();
-        });
-
-        cut.InvokeAsync(() =>
-        {
-            var buttons = cut.FindAll(".dropdown-menu-end .dropdown-item");
-            buttons[buttons.Count - 1].Click();
-        });
+            cut.InvokeAsync(() =>
+            {
+                button.Click();
+            });
+        }
 
         var table = cut.FindComponent<Table<Foo>>();
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.OnExportAsync, _ => Task.FromResult(true));
         });
-        cut.InvokeAsync(() =>
+
+        buttons = cut.FindAll(".dropdown-menu-end .dropdown-item");
+        foreach (var button in buttons)
         {
-            var button = cut.Find(".dropdown-menu-end .dropdown-item");
-            button.Click();
-        });
-        cut.InvokeAsync(() =>
-        {
-            var buttons = cut.FindAll(".dropdown-menu-end .dropdown-item");
-            buttons[buttons.Count - 1].Click();
-        });
+            cut.InvokeAsync(() =>
+            {
+                button.Click();
+            });
+        }
     }
 
     [Fact]
