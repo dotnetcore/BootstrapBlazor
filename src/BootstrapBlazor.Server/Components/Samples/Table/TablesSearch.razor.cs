@@ -168,7 +168,7 @@ public partial class TablesSearch
             IsSorted = isSorted,
             IsFiltered = options.Filters.Any(),
             IsSearch = options.CustomerSearches.Any() || !string.IsNullOrEmpty(options.SearchText),
-            IsAdvanceSearch = options.AdvanceSearches.Any()
+            IsAdvanceSearch = options.AdvanceSearches.Any() || options.CustomerSearches.Any()
         });
     }
 }
