@@ -807,7 +807,7 @@ public class TableTest : TableTestBase
         ITableExportDataContext<Foo>? exportContext = null;
         bool exported = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var export = Context.Services.GetRequiredService<ITableExcelExport>();
+        var export = Context.Services.GetRequiredService<ITableExport>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
