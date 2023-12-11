@@ -3,26 +3,19 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using MiniExcelLibs;
+using System.Text;
 
 namespace BootstrapBlazor.Components;
 
-class DefaultTableExport : ITableExport
+/// <summary>
+/// 构造函数
+/// </summary>
+/// <param name="serviceProvider"></param>
+class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
 {
-    private IServiceProvider ServiceProvider { get; set; }
-
-    private IHtml2Pdf Html2PdfService { get; set; }
-
-    /// <summary>
-    /// 构造函数
-    /// </summary>
-    /// <param name="serviceProvider"></param>
-    /// <param name="html2Pdf"></param>
-    public DefaultTableExport(IServiceProvider serviceProvider, IHtml2Pdf html2Pdf)
-    {
-        ServiceProvider = serviceProvider;
-        Html2PdfService = html2Pdf;
-    }
+    private IServiceProvider ServiceProvider { get; set; } = serviceProvider;
 
     /// <summary>
     /// 导出 方法
@@ -51,16 +44,6 @@ class DefaultTableExport : ITableExport
     /// <param name="fileName"></param>
     /// <returns></returns>
     public Task<bool> ExportCsvAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null) => InternalExportAsync(items, cols, ExcelType.CSV, fileName);
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    /// <typeparam name="TModel"></typeparam>
-    /// <param name="items"></param>
-    /// <param name="cols"></param>
-    /// <param name="fileName"></param>
-    /// <returns></returns>
-    public Task<bool> ExportPdfAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null) => Task.FromResult(false);
 
     private async Task<bool> InternalExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, ExcelType excelType, string? fileName = null)
     {
@@ -119,5 +102,71 @@ class DefaultTableExport : ITableExport
         return ret;
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <typeparam name="TModel"></typeparam>
+    /// <param name="items"></param>
+    /// <param name="cols"></param>
+    /// <param name="fileName"></param>
+    /// <returns></returns>
+    public async Task<bool> ExportPdfAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null)
+    {
+        var ret = false;
+        var logger = ServiceProvider.GetRequiredService<ILogger<DefaultTableExport>>();
 
+        try
+        {
+            // 生成表格
+            var html = await GenerateTableHtmlAsync(items, cols);
+
+            // 得到 Pdf 文件数据
+            var pdfService = ServiceProvider.GetRequiredService<ITableExportPdf>();
+            var stream = await pdfService.PdfStreamAsync(html);
+
+            // 下载 Pdf 文件
+            var downloadService = ServiceProvider.GetRequiredService<DownloadService>();
+            fileName ??= $"ExportData_{DateTime.Now:yyyyMMddHHmmss}.pdf";
+            await downloadService.DownloadFromStreamAsync(fileName, stream);
+            ret = true;
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "ExportPdfAsync execute failed");
+        }
+        return ret;
+    }
+
+    private static async Task<string> GenerateTableHtmlAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols)
+    {
+        var builder = new StringBuilder();
+        cols ??= Utility.GetTableColumns<TModel>();
+        builder.AppendLine("<table class=\"table table-bordered table-striped\">");
+
+        // 生成表头
+        builder.AppendLine("<thead><tr>");
+        foreach (var pi in cols)
+        {
+            builder.AppendLine($"<th><div class=\"table-cell\">{pi.GetDisplayName()}</div></th>");
+        }
+        builder.AppendLine("</tr></thead>");
+
+        builder.AppendLine("<tbody>");
+        foreach (var item in items)
+        {
+            if (item != null)
+            {
+                builder.AppendLine("<tr>");
+                foreach (var pi in cols)
+                {
+                    var val = await FormatValue(pi, Utility.GetPropertyValue(item, pi.GetFieldName()));
+                    builder.AppendLine($"<td><div class=\"table-cell\">{val}</div></td>");
+                }
+                builder.AppendLine("</tr>");
+            }
+        }
+        builder.AppendLine("</tbody>");
+        builder.AppendLine("</table>");
+        return builder.ToString();
+    }
 }
