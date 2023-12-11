@@ -76,6 +76,12 @@ public partial class Table<TItem>
     public string? ExportButtonIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 内置导出 Csv 按钮图标
+    /// </summary>
+    [Parameter]
+    public string? CsvExportIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 内置导出 Excel 按钮图标
     /// </summary>
     [Parameter]
