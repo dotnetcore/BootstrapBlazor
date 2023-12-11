@@ -789,15 +789,18 @@ public class TableTest : TableTestBase
 
         // Excel 导出图标监测
         // Pdf 导出图标监测
-        table.DoesNotContain("fa-regular fa-file-excel");
-        table.DoesNotContain("fa-regular fa-file-pdf");
+        table.DoesNotContain("fa-solid fa-fw fa-file-excel");
+        table.DoesNotContain("fa-solid fa-fw fa-file-pdf");
+
         table.SetParametersAndRender(pb =>
         {
+            pb.Add(a => a.ShowExportCsvButton, true);
             pb.Add(a => a.ShowExportExcelButton, true);
             pb.Add(a => a.ShowExportPdfButton, true);
         });
-        table.Contains("fa-regular fa-file-excel");
-        table.Contains("fa-regular fa-file-pdf");
+        table.Contains("fa-solid fa-fw fa-file-csv");
+        table.Contains("fa-solid fa-fw fa-file-excel");
+        table.Contains("fa-solid fa-fw fa-file-pdf");
     }
 
     [Fact]
