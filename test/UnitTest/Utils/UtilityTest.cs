@@ -11,6 +11,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Globalization;
 using System.Reflection;
+using UnitTest.Components;
 
 namespace UnitTest.Utils;
 
@@ -61,12 +62,19 @@ public class UtilityTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void GetRange_Ok()
+    {
+        var attribute = Utility.GetRange<SliderTest.SliderModel>("Value");
+        Assert.NotNull(attribute);
+    }
+
+    [Fact]
     public void GetSortFunc_Ok()
     {
         var foos = new List<Foo>
         {
-            new Foo { Count = 10 },
-            new Foo { Count = 20 }
+            new() { Count = 10 },
+            new() { Count = 20 }
         };
         var invoker = Utility.GetSortFunc<Foo>();
         var orderFoos = invoker.Invoke(foos, nameof(Foo.Count), SortOrder.Asc).ToList();
