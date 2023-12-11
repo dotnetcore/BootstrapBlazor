@@ -25,6 +25,7 @@ public partial class TablesExport
     /// </summary>
     [NotNull]
     private List<Foo>? Items { get; set; }
+
     private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
 
     /// <summary>
