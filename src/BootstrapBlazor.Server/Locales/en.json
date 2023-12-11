@@ -3012,6 +3012,8 @@
     "SlidersDescription": "Select within a fixed interval by dragging the slider",
     "SlidersNormalTitle": "Basic usage",
     "SlidersNormalIntro": "Change the current value as you drag the slider",
+    "SlidersRangeTitle": "Range",
+    "SlidersRangeIntro": "Auto generate <code>min</code> <code>max</code> by set <code>RangeAttribute</code>",
     "SlidersIsDisabled": "Whether to disable it",
     "SlidersValue": "The current value of the component",
     "SlidersValueChanged": "ValueChanged callback method"
