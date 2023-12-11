@@ -194,7 +194,8 @@
     "translator": "Translators",
     "js-extensions": "JSRuntimeExtensions",
     "clipboard-service": "Clipboards",
-    "image-cropper": "ImageCroppers"
+    "image-cropper": "ImageCroppers",
+    "barcode-generator": "BarcodeGenerators"
   },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",

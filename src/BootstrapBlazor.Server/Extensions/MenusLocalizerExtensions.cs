@@ -486,6 +486,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["BarcodeGenerator"],
+                    Url = "barcode-generator"
+                },
+                new()
+                {
                     Text = Localizer["Block"],
                     Url = "block"
                 },

@@ -1632,7 +1632,8 @@
     "WebSerialText": "串口读写 WebSerial",
     "MindMapText": "思维导图 Mind Map",
     "WebSpeechText": "语音识别/合成 WebSpeech",
-    "ImageCropperText": "图像裁剪 ImageCropper"
+    "ImageCropperText": "图像裁剪 ImageCropper",
+    "BarcodeGeneratorText": "条码生成器 BarcodeGenerator"
   },
   "BootstrapBlazor.Server.Components.Pages.Breakpoints": {
     "Heading": "断点",
@@ -4534,7 +4535,8 @@
     "Gantt": "甘特图 Gantt",
     "ImageCropper": "图像裁剪 ImageCropper",
     "Services": "内置服务",
-    "AzureTranslator": "翻译服务 AzureTranslator"
+    "AzureTranslator": "翻译服务 AzureTranslator",
+    "BarcodeGenerator": "条码生成器 BarcodeGenerator"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6049,5 +6051,38 @@
     "TranslatorsNormalIntro": "通过调用 <code>TranslateAsync</code> 进行文本翻译",
     "TranslatorsInjectService": "注入服务",
     "TranslatorsTranslate": "翻译"
+  },
+  "BootstrapBlazor.Server.Components.Samples.BarcodeGenerators": {
+    "Title": "BarcodeGenerator 条码生成器",
+    "BarcodeGeneratorNormalText": "条码生成器",
+    "BarcodeGeneratorNormalIntro": "完整设置参数演示",
+    "BarcodeGeneratorGroupBoxText": "参数",
+    "BarcodeGeneratorBatchText": "批量演示",
+    "BarcodeGeneratorBatchIntro": "批量设置参数",
+    "BarcodeGeneratorSimpleText": "简单配置",
+    "BarcodeGeneratorSimpleIntro": "简单配置参数",
+    "OnResult": "条码生成(svg)回调方法",
+    "OnError": "错误回调方法",
+    "Options": "条码选项",
+    "Type": "条码类型",
+    "Value": "条码值",
+    "Width": "单个条形的宽度",
+    "Height": "条形码的高度",
+    "DisplayValue": "显示条码文字",
+    "Text": "覆盖显示的文本",
+    "FontOptions": "字体式样",
+    "Font": "字体",
+    "TextAlign": "文本对齐",
+    "TextPosition": "文字位置",
+    "TextMargin": "文本边距",
+    "FontSize": "字体大小",
+    "Background": "背景色",
+    "LineColor": "线条颜色",
+    "Margin": "间距",
+    "MarginTop": "顶部间距",
+    "MarginBottom": "底部间距",
+    "MarginLeft": "左侧间距",
+    "MarginRight": "右侧间距",
+    "Flat": "底线平整 (仅EAN8/EAN13)"
   }
 }

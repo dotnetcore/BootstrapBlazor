@@ -34,6 +34,7 @@
     <PackageReference Include="BootstrapBlazor.BaiduSpeech" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.BaiduOcr" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.BarCode" Version="8.0.0" />
+    <PackageReference Include="BootstrapBlazor.BarcodeGenerator" Version="0.1.1" />
     <PackageReference Include="BootstrapBlazor.Bluetooth" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.Chart" Version="8.0.1" />
     <PackageReference Include="BootstrapBlazor.CherryMarkdown" Version="8.0.0" />
