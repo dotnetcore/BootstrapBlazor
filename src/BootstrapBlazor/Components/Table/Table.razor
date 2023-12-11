@@ -125,6 +125,13 @@
                                 }
                                 else
                                 {
+                                    if (ShowExportCsvButton)
+                                    {
+                                        <div class="dropdown-item" @onclick="@ExportCsvAsync">
+                                            <i class="@CsvExportIcon"></i>
+                                            <span>@ExportCsvDropdownItemText</span>
+                                        </div>
+                                    }
                                     if (ShowExportExcelButton)
                                     {
                                         <div class="dropdown-item" @onclick="@ExportExcelAsync">

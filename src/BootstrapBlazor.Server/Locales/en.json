@@ -5136,6 +5136,8 @@
     "TablesExportNote2": "Add Table Excel export service",
     "TablesExportShowExportButtonTitle": "Table export function",
     "TablesExportShowExportButtonIntro": "Whether to display the export button by setting the <code>ShowExportButton</code> property, the default is <code>false</code>",
+    "TablesExportShowExportCsvButtonTitle": "Export Csv/Pdf Button",
+    "TablesExportShowExportCsvButtonIntro": "Show/hide <code>Csv/Pdf</code> button by set <code>ShowExportCsvButton=\"true\"</code> <code>ShowExportPdfButton=\"true\"</code>",
     "TablesExportOnExportAsyncTitle": "Custom export method",
     "TablesExportOnExportAsyncIntro": "You can customize the export method by setting the <code>OnExportAsync</code> callback delegate method. If you don't set it, the built-in export function of the component will be used.",
     "TablesExportButtonDropdownTemplateTitle": "Custom export dropdown button",

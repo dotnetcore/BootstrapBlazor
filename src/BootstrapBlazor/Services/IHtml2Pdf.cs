@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using PuppeteerSharp;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -15,13 +13,11 @@ public interface IHtml2Pdf
     /// Export method
     /// </summary>
     /// <param name="url">url</param>
-    /// <param name="options">the instance of PdfOptions</param>
-    Task<byte[]> ExportDataAsync(string url, PdfOptions? options = null);
+    Task<byte[]> PdfDataAsync(string url);
 
     /// <summary>
-    /// 导出流
+    /// Export method
     /// </summary>
     /// <param name="url">url</param>
-    /// <param name="options">the instance of PdfOptions</param>
-    Task<Stream> ExportStreamAsync(string url, PdfOptions? options = null);
+    Task<Stream> PdfStreamAsync(string url);
 }

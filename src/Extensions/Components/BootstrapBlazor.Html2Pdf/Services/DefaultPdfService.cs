@@ -7,35 +7,39 @@ using PuppeteerSharp;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 构造函数
+/// 默认 Html to Pdf 实现 
 /// </summary>
 class DefaultPdfService : IHtml2Pdf
 {
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public async Task<byte[]> ExportDataAsync(string url, PdfOptions? options = null)
+    public async Task<byte[]> PdfDataAsync(string url)
     {
         using var browserFetcher = new BrowserFetcher();
         await browserFetcher.DownloadAsync();
+
         await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions() { Headless = true });
         await using var page = await browser.NewPageAsync();
         await page.GoToAsync(url);
+
         var content = await page.GetContentAsync();
-        return await page.PdfDataAsync(options ?? new PdfOptions());
+        return await page.PdfDataAsync();
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public async Task<Stream> ExportStreamAsync(string url, PdfOptions? options = null)
+    public async Task<Stream> PdfStreamAsync(string url)
     {
         using var browserFetcher = new BrowserFetcher();
         await browserFetcher.DownloadAsync();
+
         await using var browser = await Puppeteer.LaunchAsync(new LaunchOptions() { Headless = true });
         await using var page = await browser.NewPageAsync();
         await page.GoToAsync(url);
+
         var content = await page.GetContentAsync();
-        return await page.PdfStreamAsync(options ?? new PdfOptions());
+        return await page.PdfStreamAsync();
     }
 }

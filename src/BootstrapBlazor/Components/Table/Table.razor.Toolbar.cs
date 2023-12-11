@@ -64,6 +64,12 @@ public partial class Table<TItem>
     public bool ShowExportExcelButton { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否显示 Csv 导出按钮 默认为 false 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowExportCsvButton { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示 Pdf 导出按钮 默认为 false 显示
     /// </summary>
     [Parameter]
@@ -74,6 +80,12 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     public string? ExportButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 内置导出 Csv 按钮图标
+    /// </summary>
+    [Parameter]
+    public string? CsvExportIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 内置导出 Excel 按钮图标
@@ -116,6 +128,12 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     public RenderFragment<ITableExportContext<TItem>>? ExportButtonDropdownTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 内置导出微软 Csv 按钮文本 默认 null 读取资源文件
+    /// </summary>
+    [Parameter]
+    public string? ExportCsvDropdownItemText { get; set; }
 
     /// <summary>
     /// 获得/设置 内置导出微软 Excel 按钮文本 默认 null 读取资源文件
@@ -374,16 +392,12 @@ public partial class Table<TItem>
 
     [Inject]
     [NotNull]
-    private ITableExcelExport? ExcelExport { get; set; }
-
-    [Inject]
-    [NotNull]
-    private ITablePdfExport? PdfExport { get; set; }
+    private ITableExport? TableExport { get; set; }
 
     /// <summary>
     /// 获得/设置 各列是否显示状态集合
     /// </summary>
-    private List<ColumnVisibleItem> VisibleColumns { get; } = new();
+    private List<ColumnVisibleItem> VisibleColumns { get; } = [];
 
     /// <summary>
     /// 获得当前可见列集合
@@ -1021,15 +1035,19 @@ public partial class Table<TItem>
 
     private Task ExportAsync() => ExecuteExportAsync(() => OnExportAsync != null
         ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Unknown, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
-        : ExcelExport.ExportAsync(Rows, GetVisibleColumns()));
+        : TableExport.ExportAsync(Rows, GetVisibleColumns()));
+
+    private Task ExportCsvAsync() => ExecuteExportAsync(() => OnExportAsync != null
+        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Pdf, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
+        : TableExport.ExportCsvAsync(Rows, GetVisibleColumns()));
 
     private Task ExportPdfAsync() => ExecuteExportAsync(() => OnExportAsync != null
         ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Pdf, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
-        : PdfExport.ExportAsync(Rows, GetVisibleColumns()));
+        : TableExport.ExportPdfAsync(Rows, GetVisibleColumns()));
 
     private Task ExportExcelAsync() => ExecuteExportAsync(() => OnExportAsync != null
         ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Excel, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
-        : ExcelExport.ExportAsync(Rows, GetVisibleColumns()));
+        : TableExport.ExportExcelAsync(Rows, GetVisibleColumns()));
 
     /// <summary>
     /// 获取当前 Table 选中的所有行数据

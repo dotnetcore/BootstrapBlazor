@@ -143,6 +143,7 @@ internal static class ServicesExtensions
 
         // 增加 Table Excel 导出服务
         services.AddBootstrapBlazorTableExcelExport();
+        services.AddTransient<ITableExportPdf, TableExportPdfService>();
 
         return services;
     }

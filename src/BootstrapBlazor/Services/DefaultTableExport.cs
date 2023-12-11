@@ -4,7 +4,7 @@
 
 namespace BootstrapBlazor.Components;
 
-class DefaultExcelExport : ITableExcelExport
+class DefaultTableExport : ITableExport
 {
     /// <summary>
     /// <inheritdoc/>
@@ -18,12 +18,34 @@ class DefaultExcelExport : ITableExcelExport
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <returns></returns>
+    public Task<bool> ExportExcelAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null)
+    {
+        return Task.FromResult(false);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     /// <typeparam name="TItem"></typeparam>
     /// <param name="items"></param>
     /// <param name="cols"></param>
     /// <param name="fileName"></param>
     /// <returns></returns>
     public Task<bool> ExportCsvAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn>? cols, string? fileName = null)
+    {
+        return Task.FromResult(false);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <typeparam name="TItem"></typeparam>
+    /// <param name="items"></param>
+    /// <param name="cols"></param>
+    /// <param name="fileName"></param>
+    /// <returns></returns>
+    public Task<bool> ExportPdfAsync<TItem>(IEnumerable<TItem> items, IEnumerable<ITableColumn>? cols, string? fileName = null)
     {
         return Task.FromResult(false);
     }

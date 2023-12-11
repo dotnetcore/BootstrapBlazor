@@ -230,6 +230,7 @@
     "ExportToastTitle": "Exportar dados",
     "ExportToastContent": "Exportar dados {0}, Fechamento automático em {0} segundos",
     "ExportToastInProgressContent": "Exportar dados, Fechamento automático em {0} segundos",
+    "ExportCsvDropdownItemText": "MS-Csv",
     "ExportExcelDropdownItemText": "MS-Excel",
     "ExportPdfDropdownItemText": "Pdf",
     "PageInfoText": "{0} - {1} Total {2}",

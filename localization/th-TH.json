@@ -1,4 +1,4 @@
-{
+﻿{
   "BootstrapBlazor.Components.AutoComplete": {
     "NoDataTip": "ไม่มีข้อมูลที่ตรงกัน",
     "PlaceHolder": "กรุณากรอก"
@@ -225,6 +225,7 @@
     "ExportToastTitle": "ส่งออกข้อมูล",
     "ExportToastContent": "ส่งออกข้อมูล {0}，{1} ปิดอัตโนมัติหลังจากวินาที",
     "ExportToastInProgressContent": "กำลังส่งออกข้อมูล โปรดทราบภายหลัง, {0} ปิดอัตโนมัติหลังจากวินาที",
+    "ExportCsvDropdownItemText": "ไมโครซอฟท์ Csv รูปแบบ",
     "ExportExcelDropdownItemText": "ไมโครซอฟท์ Excel รูปแบบ",
     "ExportPdfDropdownItemText": "Pdf รูปแบบ",
     "PageInfoText": "{0} - {1} ทั้งหมด {2} บทความ",

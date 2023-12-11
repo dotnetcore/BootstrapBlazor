@@ -555,14 +555,19 @@ public enum ComponentIcons
     TableColumnListButtonIcon,
 
     /// <summary>
-    /// Table 组件 ExcelExportIcon 属性图标
+    /// Table 组件 ExportExcelIcon 属性图标
     /// </summary>
-    TableExcelExportIcon,
+    TableExportExcelIcon,
 
     /// <summary>
-    /// Table 组件 PdfExportIcon 属性图标
+    /// Table 组件 ExportCsvIcon 属性图标
     /// </summary>
-    TablePdfExportIcon,
+    TableExportCsvIcon,
+
+    /// <summary>
+    /// Table 组件 ExportPdfIcon 属性图标
+    /// </summary>
+    TableExportPdfIcon,
 
     /// <summary>
     /// Table 组件 SearchButtonIcon 属性图标

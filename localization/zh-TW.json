@@ -239,6 +239,7 @@
     "ExportToastTitle": "匯出資料",
     "ExportToastContent": "匯出資料 {0}，{1} 秒後自動關閉",
     "ExportToastInProgressContent": "正在匯出資料，請稍後, {0} 秒後自動關閉",
+    "ExportCsvDropdownItemText": "微軟 Csv 格式",
     "ExportExcelDropdownItemText": "微軟 Excel 格式",
     "ExportPdfDropdownItemText": "Pdf 格式"
   },

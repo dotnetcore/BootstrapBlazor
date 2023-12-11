@@ -7,7 +7,7 @@ namespace Microsoft.Extensions.DependencyInjection;
 /// <summary>
 /// BootstrapBlazor 服务扩展类
 /// </summary>
-public static class TableExcelExportServiceCollectionExtensions
+public static class TableExportServiceCollectionExtensions
 {
     /// <summary>
     /// 增加 BootstrapBlazor 服务
@@ -16,7 +16,7 @@ public static class TableExcelExportServiceCollectionExtensions
     /// <returns></returns>
     public static IServiceCollection AddBootstrapBlazorTableExcelExport(this IServiceCollection services)
     {
-        services.AddTransient<ITableExcelExport, ExcelExport>();
+        services.AddTransient<ITableExport, DefaultTableExport>();
         return services;
     }
 }
