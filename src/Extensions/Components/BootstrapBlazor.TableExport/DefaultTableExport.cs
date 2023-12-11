@@ -7,18 +7,31 @@ using MiniExcelLibs;
 
 namespace BootstrapBlazor.Components;
 
-class ExcelExport : ITableExcelExport
+class DefaultTableExport : ITableExport
 {
     private IServiceProvider ServiceProvider { get; set; }
+
+    private IHtml2Pdf Html2PdfService { get; set; }
 
     /// <summary>
     /// 构造函数
     /// </summary>
     /// <param name="serviceProvider"></param>
-    public ExcelExport(IServiceProvider serviceProvider)
+    /// <param name="html2Pdf"></param>
+    public DefaultTableExport(IServiceProvider serviceProvider, IHtml2Pdf html2Pdf)
     {
         ServiceProvider = serviceProvider;
+        Html2PdfService = html2Pdf;
     }
+
+    /// <summary>
+    /// 导出 方法
+    /// </summary>
+    /// <param name="items">导出数据集合</param>
+    /// <param name="cols">导出列集合 默认 null 全部导出</param>
+    /// <param name="fileName">导出后下载文件名</param>
+    /// <returns></returns>
+    public Task<bool> ExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null) => InternalExportAsync(items, cols, ExcelType.XLSX, fileName);
 
     /// <summary>
     /// 导出 Excel 方法
@@ -27,9 +40,27 @@ class ExcelExport : ITableExcelExport
     /// <param name="cols">导出列集合 默认 null 全部导出</param>
     /// <param name="fileName">导出后下载文件名</param>
     /// <returns></returns>
-    public Task<bool> ExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null) => InternalExportAsync(items, cols, ExcelType.XLSX, fileName);
+    public Task<bool> ExportExcelAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols = null, string? fileName = null) => InternalExportAsync(items, cols, ExcelType.XLSX, fileName);
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <typeparam name="TModel"></typeparam>
+    /// <param name="items"></param>
+    /// <param name="cols"></param>
+    /// <param name="fileName"></param>
+    /// <returns></returns>
     public Task<bool> ExportCsvAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null) => InternalExportAsync(items, cols, ExcelType.CSV, fileName);
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <typeparam name="TModel"></typeparam>
+    /// <param name="items"></param>
+    /// <param name="cols"></param>
+    /// <param name="fileName"></param>
+    /// <returns></returns>
+    public Task<bool> ExportPdfAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, string? fileName = null) => Task.FromResult(false);
 
     private async Task<bool> InternalExportAsync<TModel>(IEnumerable<TModel> items, IEnumerable<ITableColumn>? cols, ExcelType excelType, string? fileName = null)
     {
@@ -87,4 +118,6 @@ class ExcelExport : ITableExcelExport
         }
         return ret;
     }
+
+
 }
