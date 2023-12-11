@@ -64,6 +64,12 @@ public partial class Table<TItem>
     public bool ShowExportExcelButton { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否显示 Csv 导出按钮 默认为 false 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowExportCsvButton { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示 Pdf 导出按钮 默认为 false 显示
     /// </summary>
     [Parameter]
