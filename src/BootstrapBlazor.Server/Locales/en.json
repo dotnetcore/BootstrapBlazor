@@ -5874,7 +5874,7 @@
     "ApplyButtonText": "Apply",
     "WebSerialOptionsText": "WebSerialOptions"
   },
-  "BootstrapBlazor.Server.Components.Samples.MindMaps": {
+  "BootstrapBlazor.Server.Components.Samples.MindMaps.MindMaps": {
     "MindMapTitle": "Mind Map",
     "MindMapDescription": "The shortcut key tab adds a new node, the mouse can drag node arrangement",
     "MindMapNormalTitle": "Basic usage",
@@ -5906,7 +5906,13 @@
     "NodeHyperlinkTitleText": "Link Text",
     "NodeNoteText": "Note Content",
     "NodeGeneralizationText": "Generalization",
-    "NodeExpandText": "Node is expanded"
+    "NodeExpandText": "Node is expanded",
+    "SetTheme": "switch themes",
+    "SetLayout": "switch layout",
+    "Options": "Options",
+    "OptionsText": "Options",
+    "Layout": "Layout",
+    "Theme": "Theme"
   },
   "BootstrapBlazor.Server.Components.Samples.WebSpeechs": {
     "WebSpeechTitle": "Web Speech",

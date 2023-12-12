@@ -25,6 +25,7 @@ public partial class MindMaps
 
     [NotNull]
     MindMap? MindMap { get; set; }
+    private MindMapOption Options { get; set; } = new();
 
     string? Result { get; set; } = "";
 
@@ -245,8 +246,56 @@ public partial class MindMaps
             Type = "Task",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(MindMap.SetTheme),
+            Description = Localizer[nameof(MindMap.SetTheme)],
+            Type = "Task",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(MindMap.SetLayout),
+            Description = Localizer[nameof(MindMap.SetTheme)],
+            Type = "Task",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(MindMap.Options),
+            Description = Localizer[nameof(MindMap.Options)],
+            Type = "MindMapOption",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     ];
+
+    /// <summary>
+    /// Options
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetOptionsAttributes() => new AttributeItem[]
+    {
+        new()
+        {
+            Name = nameof(MindMapOption.Layout),
+            Description = Localizer[nameof(MindMapOption.Layout)],
+            Type = "Enum",
+            ValueList = "逻辑结构图 / 思维导图 / 组织结构图 / 目录组织图 / 时间轴 / 时间轴2 / 鱼骨图 / 竖向时间轴",
+            DefaultValue = "逻辑结构图"
+        },
+        new()
+        {
+            Name = nameof(MindMapOption.Theme),
+            Description = Localizer[nameof(MindMapOption.Theme)],
+            Type = "Enum",
+            ValueList = "默认 / 经典 / 黑色 / 天蓝 / ... ",
+            DefaultValue = "默认"
+        }
+    };
 
     /// <summary>
     /// NodeData
@@ -341,6 +390,6 @@ public partial class MindMaps
             Type = "bool",
             ValueList = " — ",
             DefaultValue = "false"
-        },
+        }
     };
 }

@@ -9,7 +9,7 @@
 
 <DemoBlock Title="@Localizer["MindMapNormalTitle"]" Introduction="@Localizer["MindMapDescription"]" Name="MindMapNormal">
 
-    <MindMap @ref="MindMap" Data="@Data" OnReceive="@OnReceive" OnError="@OnError" StyleCss="height: 55vh;" />
+    <MindMap @ref="MindMap" Options="Options" Data="@Data" OnReceive="@OnReceive" OnError="@OnError" StyleCss="height: 55vh;" />
 
     <div class="row g-3 mb-3 mt-3">
         <div class="col-12">
@@ -22,6 +22,12 @@
             <Button Text="@Localizer["SetDataButtonText"]" OnClick="SetData" />
             <Button Text="@Localizer["ResetButtonText"]" OnClick="Reset" />
         </div>
+        <div class="col-12 col-sm-3 mt-3">
+            <Select @bind-Value="Options.Layout" ShowLabel="true" />
+        </div>
+        <div class="col-12 col-sm-3 mt-3">
+            <Select @bind-Value="Options.Theme" ShowLabel="true" />
+        </div>
         <div class="col-12">
             <Textarea @bind-Value="Result" rows="10" />
         </div>
@@ -31,6 +37,8 @@
 
 
 <AttributeTable Items="@GetAttributes()" />
+
+<AttributeTable Title="@Localizer["OptionsText"]" Items="@GetOptionsAttributes()" />
 
 <AttributeTable Title="@Localizer["NodeDataText"]" Items="@GetNodeDataAttributes()" />
 
