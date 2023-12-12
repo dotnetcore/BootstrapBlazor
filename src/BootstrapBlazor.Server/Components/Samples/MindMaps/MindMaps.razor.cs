@@ -26,7 +26,9 @@ public partial class MindMaps
     [NotNull]
     MindMap? MindMap { get; set; }
 
-    string? Result { get; set; } = "";
+    private readonly MindMapOption _options = new();
+
+    private string _result = "";
 
     /// <summary>
     /// 初始化数据
@@ -50,30 +52,30 @@ public partial class MindMaps
                 {
                     Text = "二级节点1",
                 },
-                    Children =
-                    [
-                        new MindMapNode
+                Children =
+                [
+                    new MindMapNode
+                    {
+                        Data = new NodeData
                         {
-                            Data = new NodeData
-                            {
-                                Text = "分支主题1",
-                            },
+                            Text = "分支主题1",
                         },
-                        new MindMapNode
+                    },
+                    new MindMapNode
+                    {
+                        Data = new NodeData
                         {
-                            Data = new NodeData
-                            {
-                                Text = "分支主题2",
-                            },
+                            Text = "分支主题2",
                         },
-                        new MindMapNode
+                    },
+                    new MindMapNode
+                    {
+                        Data = new NodeData
                         {
-                            Data = new NodeData
-                            {
-                                Text = "分支主题3",
-                            },
-                        }
-                    ]
+                            Text = "分支主题3",
+                        },
+                    }
+                ]
             },
             new MindMapNode
             {
@@ -92,15 +94,15 @@ public partial class MindMaps
         ]
     };
 
-    private Task OnReceive(string? message)
+    private Task OnReceive(string message)
     {
-        Result = message;
+        _result = message;
         return Task.CompletedTask;
     }
 
     private Task OnError(string message)
     {
-        Result = message;
+        _result = message;
         return Task.CompletedTask;
     }
 
@@ -122,49 +124,32 @@ public partial class MindMaps
         await ShowBottomMessage("已导出Png");
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="message"></param>
-    /// <returns></returns>
-    protected async Task ShowBottomMessage(string message)
+    private Task ShowBottomMessage(string message) => MessageService.Show(new MessageOption()
     {
-        await MessageService.Show(new MessageOption()
-        {
-            Content = message,
-            Icon = "fa-solid fa-circle-info",
-        }, Message);
-    }
+        Content = message,
+        Icon = "fa-solid fa-circle-info",
+    }, Message);
 
-    async Task GetFullData()
-    {
-        await MindMap.GetData();
-    }
+    Task GetFullData() => MindMap.GetData();
 
-    async Task GetData()
-    {
-        await MindMap.GetData(false);
-    }
+    Task GetData() => MindMap.GetData(false);
 
     async Task SetData()
     {
-        if (Result != null) await MindMap.SetData(Result);
+        if (_result != null) await MindMap.SetData(_result);
     }
 
-    async Task Reset()
-    {
-        await MindMap.Reset();
-    }
+    Task Reset() => MindMap.Reset();
 
     async Task Sample()
     {
-        Result = SampleData;
+        _result = SampleData;
         await SetData();
     }
 
     async Task Sample2()
     {
-        Result = SampleData2;
+        _result = SampleData2;
         await SetData();
     }
 
@@ -245,8 +230,56 @@ public partial class MindMaps
             Type = "Task",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(MindMap.SetTheme),
+            Description = Localizer[nameof(MindMap.SetTheme)],
+            Type = "Task",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(MindMap.SetLayout),
+            Description = Localizer[nameof(MindMap.SetTheme)],
+            Type = "Task",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(MindMap.Options),
+            Description = Localizer[nameof(MindMap.Options)],
+            Type = "MindMapOption",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     ];
+
+    /// <summary>
+    /// Options
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerable<AttributeItem> GetOptionsAttributes() => new AttributeItem[]
+    {
+        new()
+        {
+            Name = nameof(MindMapOption.Layout),
+            Description = Localizer[nameof(MindMapOption.Layout)],
+            Type = "Enum",
+            ValueList = "逻辑结构图 / 思维导图 / 组织结构图 / 目录组织图 / 时间轴 / 时间轴2 / 鱼骨图 / 竖向时间轴",
+            DefaultValue = "逻辑结构图"
+        },
+        new()
+        {
+            Name = nameof(MindMapOption.Theme),
+            Description = Localizer[nameof(MindMapOption.Theme)],
+            Type = "Enum",
+            ValueList = "默认 / 经典 / 黑色 / 天蓝 / ... ",
+            DefaultValue = "默认"
+        }
+    };
 
     /// <summary>
     /// NodeData
@@ -341,6 +374,6 @@ public partial class MindMaps
             Type = "bool",
             ValueList = " — ",
             DefaultValue = "false"
-        },
+        }
     };
 }

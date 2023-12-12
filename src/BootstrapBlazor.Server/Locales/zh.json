@@ -5874,7 +5874,7 @@
     "ApplyButtonText": "应用",
     "WebSerialOptionsText": "WebSerialOptions"
   },
-  "BootstrapBlazor.Server.Components.Samples.MindMaps": {
+  "BootstrapBlazor.Server.Components.Samples.MindMaps.MindMaps": {
     "MindMapTitle": "Mind Map 思维导图",
     "MindMapDescription": "快捷键Tab添加新节点,鼠标可拖动节点排列",
     "MindMapNormalTitle": "基本用法",
@@ -5906,7 +5906,13 @@
     "NodeHyperlinkTitleText": "链接文本",
     "NodeNoteText": "备注内容",
     "NodeGeneralizationText": "概要",
-    "NodeExpandText": "节点是否展开"
+    "NodeExpandText": "节点是否展开",
+    "SetTheme": "切换主题",
+    "SetLayout": "切换布局",
+    "Options": "配置选项",
+    "OptionsText": "配置选项",
+    "Layout": "布局",
+    "Theme": "主题"
   },
   "BootstrapBlazor.Server.Components.Samples.WebSpeechs": {
     "WebSpeechTitle": "Web Speech 语音识别/合成",
