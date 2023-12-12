@@ -200,6 +200,22 @@ public class UtilityTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void CreateDisplayByFieldType_Parameter()
+    {
+        var editor = new MockNullDisplayNameColumn("Name", typeof(string))
+        {
+            ComponentType = typeof(Textarea),
+            ComponentParameters = new Dictionary<string, object>()
+            {
+                { "rows", "3" }
+            }
+        };
+        var fragment = new RenderFragment(builder => builder.CreateDisplayByFieldType(editor, new Foo() { Name = "Test-Display" }));
+        var cut = Context.Render(builder => builder.AddContent(0, fragment));
+        Assert.Contains("<textarea readonly rows=\"3\"", cut.Markup);
+    }
+
+    [Fact]
     public void CreateDisplayByFieldType_FormatString()
     {
         var dt = DateTime.Now;
