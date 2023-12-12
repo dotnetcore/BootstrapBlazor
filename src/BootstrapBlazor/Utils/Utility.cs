@@ -393,6 +393,10 @@ public static class Utility
             {
                 builder.AddAttribute(5, "rows", item.Rows);
             }
+            if (item is ITableColumn col && col.ComponentParameters != null)
+            {
+                builder.AddMultipleAttributes(6, col.ComponentParameters);
+            }
             builder.CloseComponent();
         }
         else
