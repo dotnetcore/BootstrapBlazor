@@ -1,7 +1,7 @@
 .split {
-    --bb-split-bar-height: 6px;
-    --bb-split-var-bg: #f8f8f9;
-    --bb-split-bar-color: #409eff;
+    --bb-split-bar-height: #{$bb-split-bar-height};
+    --bb-split-var-bg: #{$bb-split-var-bg};
+    --bb-split-bar-color: #{$bb-split-bar-color};
     display: block;
     height: 100%;
     width: 100%;
