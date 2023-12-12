@@ -1,9 +1,11 @@
 .speech-wave-line {
-    line-height: 46px;
+    --bb-speech-line-height: #{$bb-speech-line-height};
+    --bb-speech-line-bg: #{$bb-speech-line-bg};
+    line-height: var(--bb-speech-line-height);
     display: inline-block;
 
     > span {
-        background-color: #187cff;
+        background-color: var(--bb-speech-line-bg);
         width: 3px;
         height: 10px;
         margin: 0 5px;
