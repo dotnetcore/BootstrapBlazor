@@ -25,9 +25,10 @@ public partial class MindMaps
 
     [NotNull]
     MindMap? MindMap { get; set; }
-    private MindMapOption Options { get; set; } = new();
 
-    string? Result { get; set; } = "";
+    private readonly MindMapOption _options = new();
+
+    private string _result = "";
 
     /// <summary>
     /// 初始化数据
@@ -51,30 +52,30 @@ public partial class MindMaps
                 {
                     Text = "二级节点1",
                 },
-                    Children =
-                    [
-                        new MindMapNode
+                Children =
+                [
+                    new MindMapNode
+                    {
+                        Data = new NodeData
                         {
-                            Data = new NodeData
-                            {
-                                Text = "分支主题1",
-                            },
+                            Text = "分支主题1",
                         },
-                        new MindMapNode
+                    },
+                    new MindMapNode
+                    {
+                        Data = new NodeData
                         {
-                            Data = new NodeData
-                            {
-                                Text = "分支主题2",
-                            },
+                            Text = "分支主题2",
                         },
-                        new MindMapNode
+                    },
+                    new MindMapNode
+                    {
+                        Data = new NodeData
                         {
-                            Data = new NodeData
-                            {
-                                Text = "分支主题3",
-                            },
-                        }
-                    ]
+                            Text = "分支主题3",
+                        },
+                    }
+                ]
             },
             new MindMapNode
             {
@@ -93,15 +94,15 @@ public partial class MindMaps
         ]
     };
 
-    private Task OnReceive(string? message)
+    private Task OnReceive(string message)
     {
-        Result = message;
+        _result = message;
         return Task.CompletedTask;
     }
 
     private Task OnError(string message)
     {
-        Result = message;
+        _result = message;
         return Task.CompletedTask;
     }
 
@@ -123,49 +124,32 @@ public partial class MindMaps
         await ShowBottomMessage("已导出Png");
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="message"></param>
-    /// <returns></returns>
-    protected async Task ShowBottomMessage(string message)
+    private Task ShowBottomMessage(string message) => MessageService.Show(new MessageOption()
     {
-        await MessageService.Show(new MessageOption()
-        {
-            Content = message,
-            Icon = "fa-solid fa-circle-info",
-        }, Message);
-    }
+        Content = message,
+        Icon = "fa-solid fa-circle-info",
+    }, Message);
 
-    async Task GetFullData()
-    {
-        await MindMap.GetData();
-    }
+    Task GetFullData() => MindMap.GetData();
 
-    async Task GetData()
-    {
-        await MindMap.GetData(false);
-    }
+    Task GetData() => MindMap.GetData(false);
 
     async Task SetData()
     {
-        if (Result != null) await MindMap.SetData(Result);
+        if (_result != null) await MindMap.SetData(_result);
     }
 
-    async Task Reset()
-    {
-        await MindMap.Reset();
-    }
+    Task Reset() => MindMap.Reset();
 
     async Task Sample()
     {
-        Result = SampleData;
+        _result = SampleData;
         await SetData();
     }
 
     async Task Sample2()
     {
-        Result = SampleData2;
+        _result = SampleData2;
         await SetData();
     }
 
