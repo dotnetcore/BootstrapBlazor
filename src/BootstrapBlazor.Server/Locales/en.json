@@ -5674,7 +5674,8 @@
     "PdfReaderAdvancedSearchLabel": "Search",
     "PdfReaderAdvancedReadOnlyLabel": "Disable copy/print/download",
     "PdfReaderAdvancedWatermarkLabel": "Watermark content",
-    "PdfReaderCompatibilityModeTips": "- Chrome < 97 automatically uses version 2.4.456<br/>- Chrome < 109 automatically uses version 2.6.347<br/>- Note: ReadOnly and Watermark cannot be used in these two compatibility modes"
+    "PdfReaderCompatibilityModeTips": "- Chrome < 97 automatically uses version 2.4.456<br/>- Chrome < 109 automatically uses version 2.6.347<br/>- Note: ReadOnly and Watermark cannot be used in these two compatibility modes",
+    "LocalFileName": "local PDF file path"
   },
   "BootstrapBlazor.Server.Components.Samples.VideoPlayers": {
     "VideoPlayersTitle": "VideoPlayer",

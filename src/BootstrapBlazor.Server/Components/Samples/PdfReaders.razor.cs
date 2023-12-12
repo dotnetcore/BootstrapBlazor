@@ -270,6 +270,14 @@ public partial class PdfReaders
             Type = "bool",
             ValueList = "-",
             DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(PdfReader.LocalFileName),
+            Description = Localizer[nameof(PdfReader.LocalFileName)],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     ];
 }
