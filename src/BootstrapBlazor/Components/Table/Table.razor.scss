@@ -176,7 +176,7 @@
     text-overflow: ellipsis;
 }
 
-.table tfoot {
+.table .table-footer-fixed {
     font-weight: var(--bb-table-footer-font-weight);
     position: sticky;
     bottom: 0;
