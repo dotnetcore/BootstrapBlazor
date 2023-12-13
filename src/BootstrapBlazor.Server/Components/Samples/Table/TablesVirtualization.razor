@@ -11,7 +11,7 @@
            Name="Normal">
     <p>@((MarkupString)Localizer["VirtualizationNormalDescription"].Value)</p>
     <div class="table-virtualize-demo">
-        <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="Items" ScrollMode="ScrollMode.Virtual" ShowFooter="true">
+        <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="Items" ScrollMode="ScrollMode.Virtual" ShowFooter="true" IsFixedFooter="true">
             <TableColumns>
                 <TableColumn @bind-Field="@context.DateTime" Width="180" />
                 <TableColumn @bind-Field="@context.Name" />
