@@ -62,6 +62,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .AddClass("table-striped table-hover", ActiveRenderMode == TableRenderMode.CardView && IsStriped)
         .Build();
 
+    private string? FooterClassString => CssBuilder.Default()
+        .AddClass("table-footer-fixed", IsFixedFooter)
+        .Build();
+
     private bool FixedColumn => FixedExtendButtonsColumn || FixedMultipleColumn || FixedDetailRowHeaderColumn || FixedLineNoColumn || Columns.Any(c => c.Fixed);
 
     /// <summary>
@@ -156,9 +160,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// 获得/设置 固定表头 默认 false
     /// </summary>
-    /// <remarks>固定表头时设置 <see cref="Height"/> 即可出现滚动条，未设置时尝试自适应</remarks>
     [Parameter]
     public bool IsFixedHeader { get; set; }
+
+    /// <summary>
+    /// 获得/设置 固定 Footer 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsFixedFooter { get; set; }
 
     /// <summary>
     /// 获得/设置 多表头模板
