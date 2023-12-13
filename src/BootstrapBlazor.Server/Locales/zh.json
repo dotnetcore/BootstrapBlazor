@@ -5036,7 +5036,7 @@
     "TablesFooterTitle": "Table 统计功能",
     "TablesFooterDescription": "用于数据统计",
     "TablesFooterStatisticsTitle": "数据统计示例",
-    "TablesFooterStatisticsIntro": "设置 <code>ShowFooter=true</code> 显示 <code>Footer</code> 自定义合计功能",
+    "TablesFooterStatisticsIntro": "设置 <code>ShowFooter=true</code> 显示 <code>Footer</code> 自定义合计功能，通过设置 <code>IsFixedFooter</code> 控制是否固定 <code>Footer</code>",
     "TablesFooterStatisticsTips1": "<code>Table</code> 组件有 <code>TableFooter</code> 模板，其数据上下文为 <code>Table</code> 组件的数据集合 <code>IEnumerable&lt;TItem&gt;</code>",
     "TablesFooterStatisticsTips2": "<code>TableFooter</code> 模板中关联的上下文 <code>context</code> 值为当页数据集合",
     "TablesFooterStatisticsTips3": "<code>TableFooter</code> 模板内可以自定义单元格 <code>td</code> 内容，也可以使用内置的 <code>TableFooterCell</code> 组件进行数据显示",
