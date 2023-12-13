@@ -4938,7 +4938,11 @@
     "TablesVirtualizationDescription": "When the Table component displays large data, it usually uses paging to load data. There is also a virtual row technology similar to the automatic loading of data in the background when the mobile phone scrolls to the bottom.",
     "VirtualizationNormalTitle": "Normal use",
     "VirtualizationNormalIntro": "Background on-demand loading when scrolling data without paging",
-    "VirtualizationNormalDescription": "Need to set <code>ScrollMode</code> <code>Height</code> <code>RowHeight</code> <code>PageItems</code> parameters to set virtual scrolling",
+    "VirtualizationNormalDescription": "<p>Need to set <code>ScrollMode</code> <code>Height</code> <code>RowHeight</code> <code>PageItems</code> parameters to set virtual scrolling</p>",
+    "TablesFooterFixedLabel": "Fixed Footer",
+    "TablesFooterInfo": "Count：",
+    "TablesFooterFixedText": "Fixed",
+    "TablesFooterNotFixedText": "Stack",
     "VirtualizationDynamicTitle": "Get data dynamically",
     "VirtualizationDynamicIntro": "Background on-demand loading when scrolling data without paging",
     "VirtualizationDynamicDescription": "Display row placeholders when scrolling quickly to improve user experience"
