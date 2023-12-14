@@ -65,6 +65,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BootstrapBlazor\BootstrapBlazor.csproj" />
+    <ProjectReference Include="..\Extensions\Components\BootstrapBlazor.SVGEditor\BootstrapBlazor.SvgEditor.csproj" />
   </ItemGroup>
 
   <ItemGroup>
