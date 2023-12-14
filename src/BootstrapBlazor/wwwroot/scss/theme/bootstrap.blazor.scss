@@ -523,4 +523,24 @@ $bb-step-item-line-width: 0;
 $bb-step-item-line-progress-bg: var(--bs-success);
 $bb-step-vertical-min-height: 460px;
 
+// Switch
+$bb-switch-padding: 7px 0;
+$bb-switch-border-color: #dcdfe6;
+$bb-switch-bg: #dcdfe6;
+$bb-switch-border-radius: 10px;
+$bb-switch-bar-width: 16px;
+$bb-switch-bar-height: 16px;
+$bb-switch-bar-bg-color: #fff;
+$bb-switch-bar-radius: 50%;
+$bb-switch-bar-top: 1px;
+$bb-switch-bar-off: 1px;
+$bb-switch-bar-on: 1px;
+$bb-switch-inner-text-font-size: 80%;
+$bb-switch-inner-on-text-left: 7px;
+$bb-switch-inner-on-text-color: #fff;
+$bb-switch-inner-off-text-left: 20px;
+$bb-switch-inner-off-text-color: #606266;
+$bb-switch-disabled-opacity: var(--bb-disabled-opactiy);
+$bb-switch-label-margin-left: 10px;
+
 @import "../components.scss";
