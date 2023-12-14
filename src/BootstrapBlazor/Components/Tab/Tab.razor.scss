@@ -1,17 +1,17 @@
 .tabs {
-    --bb-tabs-item-padding: 0 1rem;
-    --bb-tabs-item-height: 40px;
-    --bb-tabs-item-active-bg: #fff;
-    --bb-tabs-item-active-color: #409eff;
-    --bb-tabs-item-hover-color: #409eff;
-    --bb-tabs-border-card-top-item-margin-top: -1px;
-    --bb-tabs-border-color: #e4e7ed;
-    --bb-tabs-border-card-header-bg-color: #f5f7fa;
-    --bb-tabs-bar-width: 40px;
-    --bb-tabs-bar-height: 40px;
-    --bb-tabs-bar-bg: #409eff;
-    --bb-tabs-body-padding: 1rem;
-    --bb-tabs-header-vertical-min-width: 126px;
+    --bb-tabs-item-padding: #{$bb-tabs-item-padding};
+    --bb-tabs-item-height: #{$bb-tabs-item-height};
+    --bb-tabs-item-active-bg: #{$bb-tabs-item-active-bg};
+    --bb-tabs-item-active-color: #{$bb-tabs-item-active-color};
+    --bb-tabs-item-hover-color: #{$bb-tabs-item-hover-color};
+    --bb-tabs-border-card-top-item-margin-top: #{$bb-tabs-border-card-top-item-margin-top};
+    --bb-tabs-border-color: #{$bb-tabs-border-color};
+    --bb-tabs-border-card-header-bg-color: #{$bb-tabs-border-card-header-bg-color};
+    --bb-tabs-bar-width: #{$bb-tabs-bar-width};
+    --bb-tabs-bar-height: #{$bb-tabs-bar-height};
+    --bb-tabs-bar-bg: #{$bb-tabs-bar-bg};
+    --bb-tabs-body-padding: #{$bb-tabs-body-padding};
+    --bb-tabs-header-vertical-min-width: #{$bb-tabs-header-vertical-min-width};
     display: flex;
     flex-flow: column;
 }
