@@ -569,4 +569,10 @@ $bb-tag-line-height: 30px;
 $bb-tag-font-size: 12px;
 $bb-tag-align: center;
 
+// Timeline
+$bb-timeline-item-padding: 0 0 1rem 0;
+$bb-timeline-line-width: 2px;
+$bb-timeline-node-bg: #e4e7ed;
+$bb-timeline-timestamp-color: #c0c4cc;
+
 @import "../components.scss";
