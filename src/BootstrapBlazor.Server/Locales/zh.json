@@ -3953,7 +3953,7 @@
     "TimelinesTitle": "Timeline 时间线",
     "TimelinesSubTitle": "可视化地呈现时间流信息",
     "TimelinesNormalTitle": "基础用法",
-    "TimelinesNormalIntro": "Timeline 可拆分成多个按照时间戳正序或倒序排列的 activity，时间戳是其区分于其他控件的重要特征，使⽤时注意与 Steps 步骤条等区分。",
+    "TimelinesNormalIntro": "<cdoe>Timeline</code> 可拆分成多个按照时间戳正序或倒序排列的 <cdoe>activity</code>，时间戳是其区分于其他控件的重要特征，使⽤时注意与 <cdoe>Steps</code> 步骤条等区分。",
     "TimelinesNormalDescription": "排序：",
     "TimelinesCustomNodeStyleTitle": "⾃定义节点样式",
     "TimelinesCustomNodeStyleIntro": "可根据实际场景⾃定义节点颜⾊，或直接使⽤图标。",
