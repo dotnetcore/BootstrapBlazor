@@ -61,7 +61,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.AddScoped<EyeDropperService>();
 
         services.TryAddTransient<ITableExport, DefaultTableExport>();
-        services.TryAddTransient<ITableExportPdf, DefaultTableExportPdf>();
+        services.TryAddTransient<IExportPdf, DefaultExportPdf>();
 
         services.ConfigureBootstrapBlazorOption(configureOptions);
         services.ConfigureIPLocatorOption();
