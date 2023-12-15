@@ -558,4 +558,15 @@ $bb-tabs-bar-bg: #409eff;
 $bb-tabs-body-padding: 1rem;
 $bb-tabs-header-vertical-min-width: 126px;
 
+// Tag
+$bb-tag-btn-close-margin-left: .5rem;
+$bb-tag-btn-close-width: .25rem;
+$bb-tag-btn-close-height: .25rem;
+$bb-tag-text-margin-left: .25rem;
+$bb-tag-padding-x: 0;
+$bb-tag-padding-y: 10px;
+$bb-tag-line-height: 30px;
+$bb-tag-font-size: 12px;
+$bb-tag-align: center;
+
 @import "../components.scss";
