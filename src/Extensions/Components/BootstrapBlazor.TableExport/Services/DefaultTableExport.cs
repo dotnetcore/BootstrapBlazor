@@ -121,7 +121,7 @@ class DefaultTableExport(IServiceProvider serviceProvider) : ITableExport
             var html = await GenerateTableHtmlAsync(items, cols);
 
             // 得到 Pdf 文件数据
-            var pdfService = ServiceProvider.GetRequiredService<ITableExportPdf>();
+            var pdfService = ServiceProvider.GetRequiredService<IExportPdf>();
             var stream = await pdfService.PdfStreamAsync(html);
 
             // 下载 Pdf 文件
