@@ -13,7 +13,7 @@ public partial class Html2Pdfs
 {
     [Inject]
     [NotNull]
-    private IHtml2Pdf? PdfService { get; set; }
+    private IHtml2Pdf? Html2PdfService { get; set; }
 
     [Inject]
     [NotNull]
@@ -59,7 +59,7 @@ public partial class Html2Pdfs
 
         // 拼接导出文件网址
         var url = $"{NavigationManager.BaseUri}{fileName}";
-        var data = await PdfService.PdfDataAsync(url);
+        var data = await Html2PdfService.PdfDataAsync(url);
         using var stream = new MemoryStream(data);
         await DownloadService.DownloadFromStreamAsync("table.pdf", stream);
         await ToastService.Success("Pdf Export", "Export pdf element success.");
