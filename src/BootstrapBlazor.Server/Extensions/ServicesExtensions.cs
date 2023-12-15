@@ -64,7 +64,7 @@ internal static class ServicesExtensions
         // 增加 AzureTranslator 服务
         services.AddBootstrapBlazorAzureTranslator();
 
-        // 增加 Pdf 导出服务
+        // 增加 Html2Pdf 导出服务
         services.AddBootstrapBlazorHtml2PdfService();
 
         // 配置 Tab 与 Menu 联动字典
