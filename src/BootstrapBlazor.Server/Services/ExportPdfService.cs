@@ -4,7 +4,7 @@
 
 namespace BootstrapBlazor.Server.Services;
 
-class TableExportPdfService(IWebHostEnvironment webHostEnvironment, NavigationManager navigationManager, IHtml2Pdf html2Pdf) : ITableExportPdf
+class ExportPdfService(IWebHostEnvironment webHostEnvironment, NavigationManager navigationManager, IHtml2Pdf html2Pdf) : IExportPdf
 {
     private readonly IWebHostEnvironment _webHostEnvironment = webHostEnvironment;
     private readonly NavigationManager _navigationManager = navigationManager;
