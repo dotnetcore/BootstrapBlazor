@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Table 组件 Pdf 导出接口
 /// </summary>
-public interface ITableExportPdf
+public interface IExportPdf
 {
     /// <summary>
     /// 导出 Pdf 数据

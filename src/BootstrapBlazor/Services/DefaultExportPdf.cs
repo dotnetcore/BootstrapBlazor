@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 [ExcludeFromCodeCoverage]
-class DefaultTableExportPdf : ITableExportPdf
+class DefaultExportPdf : IExportPdf
 {
     /// <summary>
     /// <inheritdoc/>
