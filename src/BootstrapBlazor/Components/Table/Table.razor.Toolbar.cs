@@ -1038,7 +1038,7 @@ public partial class Table<TItem>
         : TableExport.ExportAsync(Rows, GetVisibleColumns()));
 
     private Task ExportCsvAsync() => ExecuteExportAsync(() => OnExportAsync != null
-        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Pdf, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
+        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Csv, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
         : TableExport.ExportCsvAsync(Rows, GetVisibleColumns()));
 
     private Task ExportPdfAsync() => ExecuteExportAsync(() => OnExportAsync != null
