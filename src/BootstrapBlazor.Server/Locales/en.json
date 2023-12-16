@@ -6099,5 +6099,13 @@
     "MarginLeft": "Left margin",
     "MarginRight": "Right margin",
     "Flat": "Bottom line is flat (EAN8/EAN13 only)"
+  },
+  "BootstrapBlazor.Server.Components.Samples.ZipArchives": {
+    "ZipArchivesTitle": "IZipArchive",
+    "ZipArchivesSubTitle": "Component built-in service that can compress files or folders into archive files with specified names",
+    "ZipArchiveInjectText": "Inject service",
+    "ZipArchiveFileText": "Archive file",
+    "ZipArchiveDirectoryText": "Archive directory",
+    "ZipArchiveExtractText": "Extract"
   }
 }

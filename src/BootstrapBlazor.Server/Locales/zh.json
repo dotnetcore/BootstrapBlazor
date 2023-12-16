@@ -6102,6 +6102,10 @@
   },
   "BootstrapBlazor.Server.Components.Samples.ZipArchives": {
     "ZipArchivesTitle": "IZipArchive 压缩归档服务",
-    "ZipArchivesSubTitle": "组件内置服务，可将文件或者文件夹压缩为指定名称的归档文件"
+    "ZipArchivesSubTitle": "组件内置服务，可将文件或者文件夹压缩为指定名称的归档文件",
+    "ZipArchiveInjectText": "注入服务",
+    "ZipArchiveFileText": "归档文件",
+    "ZipArchiveDirectoryText": "归档文件夹",
+    "ZipArchiveExtractText": "解压缩到指定文件夹"
   }
 }
