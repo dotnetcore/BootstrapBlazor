@@ -9,7 +9,6 @@
     <Content Remove="docs.json" />
     <Content Remove="Locales\en.json" />
     <Content Remove="Locales\zh.json" />
-    <Content Remove="menus.json" />
     <Content Remove="topology.json" />
     <Content Remove="versionconfig.json" />
   </ItemGroup>
@@ -22,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="menus.json" />
     <None Include="versionconfig.json" />
   </ItemGroup>
 
