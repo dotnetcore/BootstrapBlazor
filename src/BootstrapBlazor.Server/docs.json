@@ -195,7 +195,8 @@
     "js-extensions": "JSRuntimeExtensions",
     "clipboard-service": "Clipboards",
     "image-cropper": "ImageCroppers",
-    "barcode-generator": "BarcodeGenerators"
+    "barcode-generator": "BarcodeGenerators",
+    "zip-archive": "ZipArchives"
   },
   "video": {
     "autorefresh": "BV1ap4y1x7Qn?p=8",
