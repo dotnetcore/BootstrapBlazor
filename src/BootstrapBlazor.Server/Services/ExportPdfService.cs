@@ -10,6 +10,11 @@ class ExportPdfService(IWebHostEnvironment webHostEnvironment, NavigationManager
     private readonly NavigationManager _navigationManager = navigationManager;
     private readonly IHtml2Pdf _html2Pdf = html2Pdf;
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="content"></param>
+    /// <returns></returns>
     public async Task<byte[]> PdfDataAsync(string content)
     {
         var url = await GenerateHtmlAsync(content);
@@ -18,6 +23,11 @@ class ExportPdfService(IWebHostEnvironment webHostEnvironment, NavigationManager
         return await _html2Pdf.PdfDataAsync(url);
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="content"></param>
+    /// <returns></returns>
     public async Task<Stream> PdfStreamAsync(string content)
     {
         var url = await GenerateHtmlAsync(content);
@@ -35,7 +45,7 @@ class ExportPdfService(IWebHostEnvironment webHostEnvironment, NavigationManager
         // 生成静态 html 文件
         var htmlFileName = $"pdf/{Guid.NewGuid()}.html";
         var filePath = Path.Combine(_webHostEnvironment.WebRootPath, htmlFileName);
-        using var writer = File.CreateText(filePath);
+        await using var writer = File.CreateText(filePath);
         await writer.WriteLineAsync(string.Format(template, content));
         await writer.FlushAsync();
         writer.Close();
