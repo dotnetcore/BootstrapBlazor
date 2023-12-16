@@ -5998,7 +5998,8 @@
     "ItemTemplateAttr": "设置 SegmentedItem 模板",
     "ChildContent": "组件子内容",
     "IsBlockAttr": "是否充满父容器",
-    "ShowTooltip": "超长被截断的 Item 是否显示 Tooltip"
+    "ShowTooltipAttr": "超长被截断的 Item 是否显示 Tooltip",
+    "ChildContentAttr": "子组件"
   },
   "BootstrapBlazor.Server.Components.Samples.CodeEditors": {
     "Title": "代码编辑器",
