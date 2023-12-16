@@ -5919,13 +5919,13 @@
     "Layout": "布局",
     "Theme": "主题"
   },
-  "BootstrapBlazor.Server.Components.Samples.WebSpeechs": {
+  "BootstrapBlazor.Server.Components.Samples.WebSpeeches": {
     "WebSpeechTitle": "Web Speech 语音识别/合成",
     "WebSpeechDescription": "使用浏览器接口功能提供语音识别/合成服务",
     "WebSpeechNormalTitle": "语音识别",
     "WebSpeechGameTitle": "语音颜色选择游戏",
     "WebSpeechSynthesisTitle": "语音合成",
-    "WebSpeechSynthesisDIYTitle": "语音合成自定义"
+    "WebSpeechSynthesisCustomTitle": "语音合成自定义"
   },
   "BootstrapBlazor.Server.Components.Samples.ListGroups": {
     "ListGroupsTitle": "ListGroup 列表框",
