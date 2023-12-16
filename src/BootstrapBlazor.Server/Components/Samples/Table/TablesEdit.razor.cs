@@ -136,5 +136,5 @@ public partial class TablesEdit
         }
     }
 
-    private Task OnClick(Foo foo) => ToastService.Information("Custom button function", foo.Address);
+    private Task OnClick(Foo foo) => ToastService.Information("Custom button function", foo.Address!);
 }
