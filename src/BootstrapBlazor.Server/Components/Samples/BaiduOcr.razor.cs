@@ -37,7 +37,7 @@ public partial class BaiduOcr : IDisposable
 
             // 获得上传文件
             var payload = await file.GetBytesAsync(file.File.Size);
-            if (payload?.Any() ?? false)
+            if (payload != null && payload.Length > 0)
             {
                 try
                 {
@@ -75,7 +75,7 @@ public partial class BaiduOcr : IDisposable
         }
         else if (result.Entity != null)
         {
-            await ToastService.Success("Verify Vat", result.Entity?.VerifyMessage);
+            await ToastService.Success("Verify Vat", result.Entity?.VerifyMessage ?? "Unknow Error");
         }
     }
 

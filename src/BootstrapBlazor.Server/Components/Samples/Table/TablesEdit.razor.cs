@@ -97,7 +97,7 @@ public partial class TablesEdit
 
         // 过滤
         var isFiltered = false;
-        if (options.Filters.Any())
+        if (options.Filters.Count > 0)
         {
             items = items.Where(options.Filters.GetFilterFunc<Foo>());
             isFiltered = true;
@@ -128,13 +128,9 @@ public partial class TablesEdit
         });
     }
 
-    private class FooDataService<TModel> : TableDemoDataService<TModel> where TModel : class, new()
+    private class FooDataService<TModel>(IStringLocalizer<TModel> localizer) : TableDemoDataService<TModel>(localizer) where TModel : class, new()
     {
-        public FooDataService(IStringLocalizer<TModel> localizer) : base(localizer)
-        {
-
-        }
     }
 
-    private Task OnClick(Foo foo) => ToastService.Information("Custom button function", foo.Address);
+    private Task OnClick(Foo foo) => ToastService.Information("Custom button function", foo.Address!);
 }

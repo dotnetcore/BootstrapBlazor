@@ -1,5 +1,5 @@
 ﻿@page "/web-speech"
-@inject IStringLocalizer<WebSpeechs> Localizer
+@inject IStringLocalizer<WebSpeeches> Localizer
 
 <h3>@Localizer["WebSpeechTitle"]</h3>
 
@@ -83,8 +83,8 @@
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["WebSpeechSynthesisDIYTitle"]" Introduction="" Name="WebSpeechSynthesisDIY">
-    <div class="row g-3 mb-3">
+<DemoBlock Title="@Localizer["WebSpeechSynthesisCustomTitle"]" Introduction="" Name="WebSpeechSynthesisCustom">
+    <div class="row g-3">
         <div class="col-12">
             @if (WebVoiceList != null && WebVoiceList.Any())
             {
@@ -97,15 +97,15 @@
 
             }
         </div>
-        <div class="col-10">
+        <div class="col-12">
             速率
             <input type="range" min="0.1" max="10" step="0.1" style="width:70vw; max-width: 400px;" @bind-value="Options2.Rate" />
         </div>
-        <div class="col-10">
+        <div class="col-12">
             音高
             <input type="range" min="0" max="2" step="0.1" style="width: 70vw; max-width: 400px; " @bind-value="Options2.Picth">
         </div>
-        <div class="col-10">
+        <div class="col-12">
             音量
             <input type="range" min="0" max="1" step="0.01" style="width: 70vw; max-width: 400px; " @bind-value="Options2.Volume" />
         </div>
@@ -123,10 +123,6 @@
             <WebSpeech @ref="WebSpeechDIY" OnResult="@OnResult" OnIsBusy="@OnIsBusy" OnStatus="@OnStatus" OnError="@OnError" />
         </div>
     </div>
-
 </DemoBlock>
 
-
-
 <AttributeTable Items="@GetAttributes()" />
-
