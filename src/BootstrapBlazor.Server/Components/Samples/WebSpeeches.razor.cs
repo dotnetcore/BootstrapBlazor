@@ -8,9 +8,9 @@ using System.ComponentModel;
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
-/// WebSpeechs
+/// WebSpeeches
 /// </summary>
-public partial class WebSpeechs
+public partial class WebSpeeches
 {
     [NotNull]
     WebSpeech? WebSpeech { get; set; }
@@ -27,7 +27,7 @@ public partial class WebSpeechs
     string? Result2 { get; set; } = "";
 
     [DisplayName("内容")]
-    private string SpeakText { get; set; } = "我们一直与Blazor同行";
+    private string SpeakText { get; set; } = "我们一直与 Blazor 同行";
 
     private string? SelectLang { get; set; }
 
@@ -81,10 +81,10 @@ public partial class WebSpeechs
     #endregion
 
     #region SpeechSynthesis
-    async Task SpeechSynthesis() => await WebSpeechSynthesis.SpeechSynthesis("你好 blazor,现在是" + NowString());
-    async Task SpeechSynthesisHK() => await WebSpeechSynthesis.SpeechSynthesis("早晨 blazor,依家系 " + NowString(), "zh-HK");
-    async Task SpeechSynthesisEN() => await WebSpeechSynthesis.SpeechSynthesis("Hello blazor,now is " + NowString(), "en-US");
-    async Task SpeechSynthesisES() => await WebSpeechSynthesis.SpeechSynthesis("Hola blazor,ahora es " + NowString(), "es-ES");
+    async Task SpeechSynthesis() => await WebSpeechSynthesis.SpeechSynthesis("你好 blazor, 现在是" + NowString());
+    async Task SpeechSynthesisHK() => await WebSpeechSynthesis.SpeechSynthesis("早晨 blazor, 依家系 " + NowString(), "zh-HK");
+    async Task SpeechSynthesisEN() => await WebSpeechSynthesis.SpeechSynthesis("Hello blazor, now is " + NowString(), "en-US");
+    async Task SpeechSynthesisES() => await WebSpeechSynthesis.SpeechSynthesis("Hola blazor, ahora es " + NowString(), "es-ES");
     async Task SpeechStop() => await WebSpeech.SpeechStop();
     #endregion
 
@@ -126,7 +126,7 @@ public partial class WebSpeechs
         Result2 = message;
         if (Options.InterimResults || Options.Continuous)
         {
-            await Toast.Information(message);
+            await Toast.Information("Web Speech", message);
         }
         else
         {
