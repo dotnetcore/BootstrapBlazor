@@ -153,7 +153,7 @@ public partial class PracticeNavMenu
     /// <returns></returns>
     private async Task DownloadZipArchive(string name, string[] fileList)
     {
-        using var stream = await ZipArchiveService.ArchiveAsync(fileList, new ArchiveOptions()
+        await using var stream = await ZipArchiveService.ArchiveAsync(fileList, new ArchiveOptions()
         {
             ReadStreamAsync = async file =>
             {

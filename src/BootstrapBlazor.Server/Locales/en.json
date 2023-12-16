@@ -4538,7 +4538,8 @@
     "ImageCropper": "ImageCropper",
     "Services": "Services",
     "AzureTranslator": "AzureTranslator",
-    "BarcodeGenerator": "BarcodeGenerator"
+    "BarcodeGenerator": "BarcodeGenerator",
+    "ZipArchive": "IZipArchiveService"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -5998,7 +5999,8 @@
     "ItemTemplateAttr": "The template of segement item",
     "ChildContent": "The template of segment content",
     "IsBlockAttr": "Whether fit the parent width",
-    "ShowTooltip": "Whether show to tooltip for segment item"
+    "ShowTooltipAttr": "Whether show to tooltip for segment item",
+    "ChildContentAttr": "Child content template"
   },
   "BootstrapBlazor.Server.Components.Samples.CodeEditors": {
     "Title": "Code Editor",
@@ -6097,5 +6099,13 @@
     "MarginLeft": "Left margin",
     "MarginRight": "Right margin",
     "Flat": "Bottom line is flat (EAN8/EAN13 only)"
+  },
+  "BootstrapBlazor.Server.Components.Samples.ZipArchives": {
+    "ZipArchivesTitle": "IZipArchive",
+    "ZipArchivesSubTitle": "Component built-in service that can compress files or folders into archive files with specified names",
+    "ZipArchiveInjectText": "Inject service",
+    "ZipArchiveFileText": "Archive file",
+    "ZipArchiveDirectoryText": "Archive directory",
+    "ZipArchiveExtractText": "Extract"
   }
 }
