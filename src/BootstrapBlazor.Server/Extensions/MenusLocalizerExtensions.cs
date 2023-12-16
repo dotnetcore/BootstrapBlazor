@@ -476,11 +476,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["BaiduOcr"],
-                    Url = "ocr"
-                },
-                new()
-                {
                     Text = Localizer["BarcodeReader"],
                     Url = "barcode-reader"
                 },
@@ -558,11 +553,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["Download"],
-                    Url = "download"
-                },
-                new()
-                {
                     Text = Localizer["DropdownWidget"],
                     Url = "dropdown-widget"
                 },
@@ -607,18 +597,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Handwritten"],
                     Url = "handwritten"
-                },
-                new()
-                {
-                    IsNew = true,
-                    Text = Localizer["HtmlRenderer"],
-                    Url = "html-renderer"
-                },
-                new()
-                {
-                    IsNew = true,
-                    Text = Localizer["Html2Pdf"],
-                    Url = "html2pdf"
                 },
                 new()
                 {
@@ -1061,11 +1039,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["Dispatch"],
-                    Url = "dispatch"
-                },
-                new()
-                {
                     Text = Localizer["Drawer"],
                     Url = "drawer"
                 },
@@ -1304,14 +1277,43 @@ internal static class MenusLocalizerExtensions
             {
                 new()
                 {
-                    IsNew = true,
                     Text = Localizer["AzureTranslator"],
                     Url = "translator"
                 },
                 new()
                 {
+                    Text = Localizer["BaiduOcr"],
+                    Url = "ocr"
+                },
+                new()
+                {
                     Text = Localizer["Clipboard"],
                     Url = "clipboard-service"
+                },
+                new()
+                {
+                    Text = Localizer["Dispatch"],
+                    Url = "dispatch"
+                },
+                new()
+                {
+                    Text = Localizer["Download"],
+                    Url = "download"
+                },
+                new()
+                {
+                    Text = Localizer["Html2Pdf"],
+                    Url = "html2pdf"
+                },
+                new()
+                {
+                    Text = Localizer["HtmlRenderer"],
+                    Url = "html-renderer"
+                },
+                new()
+                {
+                    Text = Localizer["ZipArchive"],
+                    Url = "zip-archive"
                 }
             };
             AddBadge(item);

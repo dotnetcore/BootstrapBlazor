@@ -9,7 +9,6 @@
     <Content Remove="docs.json" />
     <Content Remove="Locales\en.json" />
     <Content Remove="Locales\zh.json" />
-    <Content Remove="menus.json" />
     <Content Remove="topology.json" />
     <Content Remove="versionconfig.json" />
   </ItemGroup>
@@ -22,7 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="menus.json" />
     <None Include="versionconfig.json" />
   </ItemGroup>
 
@@ -43,7 +41,7 @@
     <PackageReference Include="BootstrapBlazor.FileViewer" Version="8.0.1" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="8.0.1" />
     <PackageReference Include="BootstrapBlazor.Gantt" Version="8.0.0" />
-    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="8.0.2-beta01" />
+    <PackageReference Include="BootstrapBlazor.Html2Pdf" Version="8.0.2" />
     <PackageReference Include="BootstrapBlazor.ImageCropper" Version="*" />
     <PackageReference Include="BootstrapBlazor.Live2DDisplay" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.Markdown" Version="8.0.0" />

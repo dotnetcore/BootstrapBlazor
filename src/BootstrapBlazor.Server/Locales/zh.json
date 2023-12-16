@@ -1620,7 +1620,7 @@
     "ChartPieText": "饼图 Pie",
     "ChartDoughnutText": "圆环图 Doughnut",
     "ChartBubbleText": "气泡图 Bubble",
-    "DispatchText": "消息分发 Dispatch",
+    "DispatchText": "消息分发服务 Dispatch",
     "GeolocationText": "地理定位组件 Geolocation",
     "NotificationsText": "浏览器通知 Notification",
     "OnScreenKeyboardText": "屏幕键盘 OnScreenKeyboard",
@@ -4504,7 +4504,7 @@
     "BaiduOcr": "文字识别服务 IBaiduOcr",
     "AzureOpenAI": "AI 聊天服务 AzureOpenAI",
     "HtmlRenderer": "Html 转换器  HtmlRenderer",
-    "Html2Pdf": "Html 转 Pdf",
+    "Html2Pdf": "Html 转 Pdf Html2Pdf",
     "ContextMenu": "右键菜单 ContextMenu",
     "DockViewComponents": "可停靠布局",
     "DockViewIndex": "简介",
@@ -4538,7 +4538,8 @@
     "ImageCropper": "图像裁剪 ImageCropper",
     "Services": "内置服务",
     "AzureTranslator": "翻译服务 AzureTranslator",
-    "BarcodeGenerator": "条码生成器 BarcodeGenerator"
+    "BarcodeGenerator": "条码生成器 BarcodeGenerator",
+    "ZipArchive": "压缩归档服务 IZipArchiveService"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -5998,7 +5999,8 @@
     "ItemTemplateAttr": "设置 SegmentedItem 模板",
     "ChildContent": "组件子内容",
     "IsBlockAttr": "是否充满父容器",
-    "ShowTooltip": "超长被截断的 Item 是否显示 Tooltip"
+    "ShowTooltipAttr": "超长被截断的 Item 是否显示 Tooltip",
+    "ChildContentAttr": "子组件"
   },
   "BootstrapBlazor.Server.Components.Samples.CodeEditors": {
     "Title": "代码编辑器",
@@ -6097,5 +6099,13 @@
     "MarginLeft": "左侧间距",
     "MarginRight": "右侧间距",
     "Flat": "底线平整 (仅EAN8/EAN13)"
+  },
+  "BootstrapBlazor.Server.Components.Samples.ZipArchives": {
+    "ZipArchivesTitle": "IZipArchive 压缩归档服务",
+    "ZipArchivesSubTitle": "组件内置服务，可将文件或者文件夹压缩为指定名称的归档文件",
+    "ZipArchiveInjectText": "注入服务",
+    "ZipArchiveFileText": "归档文件",
+    "ZipArchiveDirectoryText": "归档文件夹",
+    "ZipArchiveExtractText": "解压缩到指定文件夹"
   }
 }
