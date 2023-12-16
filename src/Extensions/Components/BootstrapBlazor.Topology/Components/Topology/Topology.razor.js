@@ -56,27 +56,28 @@ export function reset(id) {
     }
 }
 
-export function resize(id, width, height, el, option) {
-    let meta2d = id
-    if (typeof (id) === 'string') {
-        const meta = Data.get(id)
-        if (meta) {
-            meta2d = meta.meta2d
-            el = meta.el
-            option = meta.option
-        }
-    }
-    if (el.offsetHeight > 0 && el.offsetWidth > 0) {
-        meta2d.canvas.dirty = true
-        if (width && height) {
-            meta2d.resize(width, height)
-        }
-        else {
-            meta2d.resize()
-        }
+export function resize(id, width, height) {
+    const meta = Data.get(id)
+    if (meta) {
+        meta2d = meta.meta2d
+        el = meta.el
+        option = meta.option
 
-        if (option.isCenter) {
-            meta2d.centerView()
+        if (el.offsetHeight > 0 && el.offsetWidth > 0) {
+            meta2d.canvas.dirty = true
+            if (width && height) {
+                meta2d.resize(width, height)
+            }
+            else {
+                meta2d.resize()
+            }
+
+            if (option.isCenter) {
+                meta2d.centerView()
+            }
+            if (option.isFit) {
+                meta2d.fitView()
+            }
         }
     }
 }
@@ -121,7 +122,7 @@ const hackMeta2d = el => {
         Meta2d.prototype.connectSocket = function () {
 
         }
-        Meta2d.prototype.doSocket = function(data) {
+        Meta2d.prototype.doSocket = function (data) {
             this.socketCallback(data)
         }
     }

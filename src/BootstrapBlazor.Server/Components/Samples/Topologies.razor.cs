@@ -38,9 +38,9 @@ public partial class Topologies
     /// </summary>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Interop, nameof(ToggleFan));
 
-    private Task OnResize()
+    private Task OnReset()
     {
-        TopologyElement.Resize();
+        TopologyElement.Reset();
         return Task.CompletedTask;
     }
 
