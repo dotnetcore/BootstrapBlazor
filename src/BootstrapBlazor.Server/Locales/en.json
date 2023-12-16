@@ -5919,13 +5919,13 @@
     "Layout": "Layout",
     "Theme": "Theme"
   },
-  "BootstrapBlazor.Server.Components.Samples.WebSpeechs": {
+  "BootstrapBlazor.Server.Components.Samples.WebSpeeches": {
     "WebSpeechTitle": "Web Speech",
     "WebSpeechDescription": "Voice recognition and synthesis",
     "WebSpeechNormalTitle": "Voice recognition",
     "WebSpeechGameTitle": "Voice color selection game",
     "WebSpeechSynthesisTitle": "Voice synthesis",
-    "WebSpeechSynthesisDIYTitle": "Voice synthesis custom"
+    "WebSpeechSynthesisCustomTitle": "Voice synthesis custom"
   },
   "BootstrapBlazor.Server.Components.Samples.ListGroups": {
     "ListGroupsTitle": "ListGroup",
