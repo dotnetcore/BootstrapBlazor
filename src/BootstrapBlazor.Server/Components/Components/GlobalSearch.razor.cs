@@ -47,7 +47,7 @@ public partial class GlobalSearch
             var item = Menus.FirstOrDefault(i => i.Text!.Contains(searchText, StringComparison.OrdinalIgnoreCase));
             if (item != null && !string.IsNullOrEmpty(item.Url))
             {
-                NavigationManager.NavigateTo(item.Url);
+                NavigationManager.NavigateTo(item.Url, true);
             }
         }
         return Task.CompletedTask;
