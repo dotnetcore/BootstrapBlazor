@@ -122,20 +122,6 @@ public partial class Menu
 
         _isAccordion = IsAccordion;
         _isExpandAll = IsExpandAll;
-
-        if (IsVertical && !DisableNavigation)
-        {
-            Navigator.LocationChanged += Navigator_LocationChanged;
-        }
-    }
-
-    private bool _showScrollView;
-
-    private void Navigator_LocationChanged(object? sender, LocationChangedEventArgs e)
-    {
-        _showScrollView = true;
-        InitMenus(null, Items, GetUrl());
-        StateHasChanged();
     }
 
     /// <summary>
