@@ -180,15 +180,7 @@ public partial class Menu
 
         if (!firstRender)
         {
-            if (_showScrollView)
-            {
-                _showScrollView = false;
-                await InvokeVoidAsync("scrollToView", Id);
-            }
-            else
-            {
-                await InvokeUpdateAsync();
-            }
+            await InvokeUpdateAsync();
         }
     }
 
