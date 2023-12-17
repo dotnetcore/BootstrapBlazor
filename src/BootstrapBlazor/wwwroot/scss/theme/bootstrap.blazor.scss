@@ -590,4 +590,10 @@ $bb-timer-button-height: 66px;
 $bb-timer-button-padding: 0;
 $bb-timer-button-font-size: .75rem;
 
+// Toggle
+$bb-toggle-min-width: 70px;
+$bb-toggle-bg-color: #e0e0e0;
+$bb-toggle-color: #fff;
+$bb-toggle-off-color: #000;
+
 @import "../components.scss";
