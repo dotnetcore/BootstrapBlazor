@@ -2,6 +2,7 @@
     --bb-drawer-bg: var(--bs-body-bg);
     --bb-drawer-zindex: #{$bb-drawer-zindex};
     --bb-drawer-body-shadow: #{$bb-drawer-body-shadow};
+    --bb-drawer-body-padding: #{$bb-drawer-body-padding};
     --bb-drawer-bar-bg: #{$bb-drawer-bar-bg};
     --bb-drawer-bar-hover-color: #{$bb-drawer-bar-hover-color};
     --bb-drawer-bar-drag-color: #{$bb-drawer-bar-drag-color};
@@ -38,6 +39,7 @@
         z-index: 2;
         pointer-events: auto;
         display: flex;
+        padding: var(--bb-drawer-padding);
 
         .drawer-content {
             overflow: auto;

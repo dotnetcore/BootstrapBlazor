@@ -18,7 +18,7 @@ public partial class Dialog : IDisposable
     /// <summary>
     /// 获得/设置 弹出对话框实例集合
     /// </summary>
-    private Dictionary<Dictionary<string, object>, (bool IsKeyboard, bool IsBackdrop)> DialogParameters { get; } = new();
+    private Dictionary<Dictionary<string, object>, (bool IsKeyboard, bool IsBackdrop)> DialogParameters { get; } = [];
 
     private bool IsKeyboard { get; set; }
 
