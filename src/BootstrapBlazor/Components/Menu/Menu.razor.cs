@@ -174,7 +174,7 @@ public partial class Menu
     /// <returns></returns>
     private async Task InvokeUpdateAsync()
     {
-        if (ShouldInvoke() && Module != null)
+        if (ShouldInvoke())
         {
             _isAccordion = IsAccordion;
             _isExpandAll = IsExpandAll;
