@@ -1,16 +1,16 @@
-﻿.btn-toggle {
-    --bb-toggle-min-width: 70px;
+.btn-toggle {
+    --bb-toggle-min-width: #{$bb-toggle-min-width};
+    --bb-toggle-bg-color: #{$bb-toggle-bg-color};
+    --bb-toggle-color: #{$bb-toggle-color};
+    --bb-toggle-off-color: #{$bb-toggle-off-color};
+    --bs-btn-hover-color: #fff;
     --bs-btn-border-color: #c0c4cc;
     --bs-btn-disabled-border-color: var(--bs-btn-border-color);
     --bs-btn-hover-border-color: var(--bs-btn-border-color);
     --bs-btn-active-border-color: var(--bs-btn-border-color);
-    --bs-btn-hover-color: #fff;
-    --bb-toggle-bg-color: #e0e0e0;
-    --bb-toggle-color: #fff;
-    --bb-toggle-off-color: #000;
     position: relative;
     overflow: hidden;
-    border: 1px solid #c0c4cc;
+    border: 1px solid var(--bs-btn-border-color);
     border-radius: var(--bs-border-radius);
     min-width: var(--bb-toggle-min-width);
     min-height: var(--bb-height);

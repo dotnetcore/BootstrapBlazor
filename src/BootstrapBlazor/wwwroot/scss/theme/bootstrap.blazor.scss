@@ -234,6 +234,7 @@ $bb-divider-text-padding: 0 20px;
 // Drawer
 $bb-drawer-zindex: 1050;
 $bb-drawer-body-shadow: 0 8px 10px -5px rgba(0,0,0,.2), 0 16px 24px 2px rgba(0,0,0,.14), 0 6px 30px 5px rgba(0,0,0,.12);
+$bb-drawer-body-padding: 1rem;
 $bb-drawer-bar-bg: #d0d7de;
 $bb-drawer-bar-hover-color: #409eff;
 $bb-drawer-bar-drag-color: #0969da;
@@ -588,5 +589,11 @@ $bb-timer-button-width: 66px;
 $bb-timer-button-height: 66px;
 $bb-timer-button-padding: 0;
 $bb-timer-button-font-size: .75rem;
+
+// Toggle
+$bb-toggle-min-width: 70px;
+$bb-toggle-bg-color: #e0e0e0;
+$bb-toggle-color: #fff;
+$bb-toggle-off-color: #000;
 
 @import "../components.scss";
