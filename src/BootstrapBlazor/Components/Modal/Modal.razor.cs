@@ -110,7 +110,7 @@ public partial class Modal
         // 移除当前弹窗
         Dialogs.Remove(dialog);
 
-        if (Dialogs.Any())
+        if (Dialogs.Count > 0)
         {
             ResetShownDialog(Dialogs.Last());
         }
@@ -153,7 +153,7 @@ public partial class Modal
         }
 
         // 多级弹窗支持
-        if (Dialogs.Any())
+        if (Dialogs.Count > 0)
         {
             ResetShownDialog(Dialogs.Last());
         }
