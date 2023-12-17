@@ -575,4 +575,18 @@ $bb-timeline-line-width: 2px;
 $bb-timeline-node-bg: #e4e7ed;
 $bb-timeline-timestamp-color: #c0c4cc;
 
+// Timer
+$bb-timer-alert-font-size: 1rem;
+$bb-timer-alert-icon-margin-right: .5rem;
+$bb-timer-body-font-size: 3.5rem;
+$bb-timer-body-bottom: 66px;
+$bb-timer-confirm-button-border-hover-color: #ddd;
+$bb-timer-confirm-button-color: var(--bs-success);
+$bb-timer-button-border: 5px double #949496;
+$bb-timer-button-radius: 50%;
+$bb-timer-button-width: 66px;
+$bb-timer-button-height: 66px;
+$bb-timer-button-padding: 0;
+$bb-timer-button-font-size: .75rem;
+
 @import "../components.scss";
