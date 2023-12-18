@@ -18,10 +18,6 @@
     font-weight: 700;
 }
 
-::deep p {
-    line-height: 2;
-}
-
     ::deep p:last-child {
         margin-bottom: 0;
     }
