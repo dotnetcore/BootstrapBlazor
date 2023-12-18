@@ -55,7 +55,7 @@ public sealed partial class Uploads
         // 未真正保存文件
         // file.SaveToFile()
         Logger1.Log($"{file.File!.Name} {Localizer["UploadsSuccess"]}");
-        return Task.FromResult("");
+        return Task.CompletedTask;
     }
 
     private Task<bool> OnFileDelete(UploadFile item)
@@ -208,8 +208,8 @@ public sealed partial class Uploads
         GC.SuppressFinalize(this);
     }
 
-    private IEnumerable<AttributeItem> GetInputAttributes() => new AttributeItem[]
-    {
+    private List<AttributeItem> GetInputAttributes() =>
+    [
         new() {
             Name = "ShowDeleteButton",
             Description = Localizer["UploadsShowDeleteButton"],
@@ -294,10 +294,10 @@ public sealed partial class Uploads
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 
-    private IEnumerable<AttributeItem> GetButtonAttributes() => new AttributeItem[]
-    {
+    private List<AttributeItem> GetButtonAttributes() =>
+    [
         new() {
             Name = "IsDirectory",
             Description = Localizer["UploadsIsDirectory"],
@@ -396,10 +396,10 @@ public sealed partial class Uploads
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 
-    private IEnumerable<AttributeItem> GetAvatarAttributes() => new AttributeItem[]
-    {
+    private List<AttributeItem> GetAvatarAttributes() =>
+    [
         new() {
             Name = "Width",
             Description = Localizer["UploadsWidth"],
@@ -463,7 +463,7 @@ public sealed partial class Uploads
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 
     private class Person
     {

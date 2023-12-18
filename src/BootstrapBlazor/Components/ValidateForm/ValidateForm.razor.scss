@@ -1,6 +1,8 @@
-form {
-    --bb-loader-bg: #f8f9fa;
+.form-control {
+    --bb-form-control-padding: #{$bb-form-control-padding}
+}
 
+form {
     .form-label:before {
         content: "";
         position: relative;
@@ -17,7 +19,6 @@ form {
 }
 
 .form-control {
-    --bb-form-control-padding: 0.375rem 0.75rem;
     padding: var(--bb-form-control-padding);
 
     &.is-display {
@@ -42,7 +43,7 @@ form {
         background-image: none;
     }
 
-    &:not(.disabled):not(:disabled):not(.is-valid):not(.is-invalid):not(.no-border):hover {
+    &:not(.disabled):not(:disabled):not(.is-valid):not(.is-invalid):not(.no-border):not(.is-display):hover {
         border: 1px solid var(--bb-border-hover-color);
     }
 }
@@ -73,8 +74,8 @@ form {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
     padding: 2rem;
 }
 

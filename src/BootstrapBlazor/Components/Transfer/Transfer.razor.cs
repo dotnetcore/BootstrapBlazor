@@ -37,12 +37,12 @@ public partial class Transfer<TValue>
     /// <summary>
     /// 获得/设置 左侧数据集合
     /// </summary>
-    private List<SelectedItem> LeftItems { get; } = new List<SelectedItem>();
+    private List<SelectedItem> LeftItems { get; } = [];
 
     /// <summary>
     /// 获得/设置 右侧数据集合
     /// </summary>
-    private List<SelectedItem> RightItems { get; } = new List<SelectedItem>();
+    private List<SelectedItem> RightItems { get; } = [];
 
     /// <summary>
     /// 获得/设置 组件绑定数据项集合
