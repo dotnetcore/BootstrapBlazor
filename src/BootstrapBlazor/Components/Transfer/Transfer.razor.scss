@@ -1,16 +1,16 @@
-﻿.transfer {
-    --bb-transfer-panel-header-height: 40px;
-    --bb-transfer-panel-header-bg: #f5f7fa;
-    --bb-transfer-panel-header-color: #000;
-    --bb-transfer-panel-header-padding: 0 1rem;
-    --bb-transfer-panel-body-padding: .5rem;
-    --bb-transfer-panel-list-max-height: 200px;
-    --bb-transfer-panel-list-min-height: auto;
-    --bb-transfer-panel-item-padding: 0.25rem 0.75rem;
-    --bb-transfer-panel-item-margin: 0 .5rem .25rem 0;
-    --bb-transfer-panel-item-width: 160px;
-    --bb-transfer-buttons-padding: 0 30px;
-    --bb-transfer-filter-focus-border-color: #409eff;
+.transfer {
+    --bb-transfer-panel-header-height: #{$bb-transfer-panel-header-height};
+    --bb-transfer-panel-header-bg: #{$bb-transfer-panel-header-bg};
+    --bb-transfer-panel-header-color: #{$bb-transfer-panel-header-color};
+    --bb-transfer-panel-header-padding: #{$bb-transfer-panel-header-padding};
+    --bb-transfer-panel-body-padding: #{$bb-transfer-panel-body-padding};
+    --bb-transfer-panel-list-max-height: #{$bb-transfer-panel-list-max-height};
+    --bb-transfer-panel-list-min-height: #{$bb-transfer-panel-list-min-height};
+    --bb-transfer-panel-item-padding: #{$bb-transfer-panel-item-padding};
+    --bb-transfer-panel-item-margin: #{$bb-transfer-panel-item-margin};
+    --bb-transfer-panel-item-width: #{$bb-transfer-panel-item-width};
+    --bb-transfer-buttons-padding: #{$bb-transfer-buttons-padding};
+    --bb-transfer-filter-focus-border-color: #{$bb-transfer-filter-focus-border-color};
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
