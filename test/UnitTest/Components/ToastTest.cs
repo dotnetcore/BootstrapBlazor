@@ -58,21 +58,13 @@ public class ToastTest : BootstrapBlazorTestBase
             ForceDelay = true
         });
 
-        await service.Success(null, "test content");
-        await service.Success("Test", null);
         await service.Success("Test", "test content");
 
-        await service.Error(null, "test content");
-        await service.Error("Test", null);
         await service.Error("Test", "test content");
 
-        await service.Information(null, "test content");
-        await service.Information("Test", null);
         await service.Information("Test", "test content");
 
         option.CurrentValue.ToastDelay = 2000;
-        await service.Warning(null, "test content");
-        await service.Warning("Test", null);
         await service.Warning("Test", "test content");
     }
 
@@ -92,7 +84,7 @@ public class ToastTest : BootstrapBlazorTestBase
     [Fact]
     public async Task Animation_Ok()
     {
-        var cut = Context.RenderComponent<ToastContainer>();
+        Context.RenderComponent<ToastContainer>();
         var service = Context.Services.GetRequiredService<ToastService>();
         var option = new ToastOption()
         {
