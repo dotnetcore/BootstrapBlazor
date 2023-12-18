@@ -658,7 +658,7 @@
     "TreeViewShowSkeletonTitle": "加载骨架屏",
     "TreeViewShowSkeletonIntro": "通过设置 <code>ShowSkeleton</code> 使异步加载数据时组件显示骨架屏",
     "TreeViewShowSkeletonButtonText": "异步加载",
-    "TreeViewsAttrs": "TreeItem 属性"
+    "TreeViewsAttribute": "TreeItem 属性"
   },
   "BootstrapBlazor.Server.Components.Samples.Trees": {
     "TreeIntro": "<p>本组件已弃用，请使用新组件 <a href=\"treeviews\" alt=\"treeview\">TreeView</a> 提供更多功能",

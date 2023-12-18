@@ -1,16 +1,16 @@
-﻿.tree-view {
+.tree-view {
+    --bb-tree-padding: #{$bb-tree-padding};
+    --bb-tree-margin: #{$bb-tree-margin};
+    --bb-tree-ul-padding-left: #{$bb-tree-ul-padding-left};
+    --bb-tree-item-margin: #{$bb-tree-item-margin};
+    --bb-tree-icon-width: #{$bb-tree-icon-width};
+    --bb-tree-check-margin: #{$bb-tree-check-margin};
+    --bb-tree-node-padding: #{$bb-tree-node-padding};
+    --bb-tree-item-active-color: #{$bb-tree-item-active-color};
+    --bb-tree-item-active-bg: #{$bb-tree-item-active-bg};
+    --bb-tree-item-hover-bg: #{$bb-tree-item-hover-bg};
+    --bb-tree-icon-margin-right: #{$bb-tree-icon-margin-right};
     position: relative;
-    --bb-tree-padding: 0;
-    --bb-tree-margin: 0;
-    --bb-tree-ul-padding-left: 20px;
-    --bb-tree-item-margin: 1px 0;
-    --bb-tree-icon-width: 22px;
-    --bb-tree-check-margin: 0 4px;
-    --bb-tree-node-padding: .25rem .5rem;
-    --bb-tree-item-active-color: #409eff;
-    --bb-tree-item-active-bg: #e9ecef;
-    --bb-tree-item-hover-bg: var(--bs-secondary);
-    --bb-tree-icon-margin-right: .5rem;
 }
 
     .tree-view .tree-root {

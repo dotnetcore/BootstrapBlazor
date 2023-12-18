@@ -658,7 +658,7 @@
     "TreeViewShowSkeletonTitle": "Loading skeleton screen",
     "TreeViewShowSkeletonIntro": "By setting <code>ShowSkeleton</code>, the component displays the skeleton screen when the data is loaded asynchronously",
     "TreeViewShowSkeletonButtonText": "Asynchronous loading",
-    "TreeViewsAttrs": "TreeItem property"
+    "TreeViewsAttribute": "TreeItem property"
   },
   "BootstrapBlazor.Server.Components.Samples.Trees": {
     "TreeIntro": "<p>Obsolete，The <a href=\"treeviews\" alt=\"treeview\">TreeView</a> provides more functions",
