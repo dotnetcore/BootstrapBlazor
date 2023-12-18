@@ -15,18 +15,6 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public class DefaultIPLocator : IIPLocator
 {
-    private readonly JsonSerializerOptions _options;
-    /// <summary>
-    /// 构造函数
-    /// </summary>
-    public DefaultIPLocator()
-    {
-        _options = new JsonSerializerOptions()
-        {
-            Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
-        };
-    }
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -53,7 +41,7 @@ public class DefaultIPLocator : IIPLocator
             try
             {
                 using var token = new CancellationTokenSource(option.RequestTimeout);
-                var result = await option.HttpClient.GetFromJsonAsync<T>(url, _options, token.Token);
+                var result = await option.HttpClient.GetFromJsonAsync<T>(url, token.Token);
                 if (result != null)
                 {
                     ret = result.ToString();
