@@ -623,4 +623,17 @@ $bb-tree-item-active-bg: #e9ecef;
 $bb-tree-item-hover-bg: var(--bs-secondary);
 $bb-tree-icon-margin-right: .5rem;
 
+// Upload
+$bb-upload-body-margin-top: 10px;
+$bb-upload-body-list-max-height: 240px;
+$bb-upload-body-list-item-padding: 3px 5px;
+$bb-upload-body-list-item-body-padding: 0 5px;
+$bb-upload-body-list-item-hover-color: #409eff;
+$bb-upload-card-width: 240px;
+$bb-upload-card-height: 280px;
+$bb-upload-card-shadow: 0 0 10px 0 rgba(0,0,0,.2);
+$bb-upload-card-padding: 1rem;
+$bb-upload-card-margin: 0 1rem 1rem 0;
+$bb-upload-card-item-width: 168px;
+
 @import "../components.scss";
