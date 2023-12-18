@@ -15,7 +15,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public class DefaultIPLocator : IIPLocator
 {
-    private JsonSerializerOptions _options;
+    private readonly JsonSerializerOptions _options;
     /// <summary>
     /// 构造函数
     /// </summary>
