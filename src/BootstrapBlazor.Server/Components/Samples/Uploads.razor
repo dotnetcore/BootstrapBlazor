@@ -35,10 +35,12 @@
 <DemoBlock Title="@Localizer["UploadFormSettingsTitle"]"
            Introduction="@Localizer["UploadFormSettingsIntro"]"
            Name="FormSettings">
-    <ul class="ul-demo mb-3">
-        <li>@((MarkupString)Localizer["UploadFormSettingsLi1"].Value)</li>
-        <li>@((MarkupString)Localizer["UploadFormSettingsLi2"].Value)</li>
-    </ul>
+    <section ignore>
+        <ul class="ul-demo mb-3">
+            <li>@((MarkupString)Localizer["UploadFormSettingsLi1"].Value)</li>
+            <li>@((MarkupString)Localizer["UploadFormSettingsLi2"].Value)</li>
+        </ul>
+    </section>
     <ValidateForm Model="Foo1" OnValidSubmit="OnSubmit">
         <div class="row g-3">
             <div class="col-12">
@@ -63,10 +65,12 @@
             <ButtonUpload TValue="string" IsMultiple="true" ShowProgress="true" OnChange="@OnClickToUpload" OnDelete="@(fileName => Task.FromResult(true))"></ButtonUpload>
         </div>
     </div>
-    <p class="mt-3">@((MarkupString)Localizer["UploadClickUploadTips2"].Value)</p>
-    <ButtonUpload TValue="string" IsSingle="true" OnChange="@OnClickToUpload" OnDelete="@(fileName => Task.FromResult(true))" class="mt-3"></ButtonUpload>
-    <p class="mt-3">@((MarkupString)Localizer["UploadClickUploadTips3ShowUploadList"].Value)</p>
-    <ButtonUpload TValue="string" OnChange="@OnClickToUploadNoUploadList" ShowUploadFileList="false" BrowserButtonText="Upload" BrowserButtonIcon="fa-solid fa-cloud-arrow-up" class="mt-3"></ButtonUpload>
+    <section ignore>
+        <p class="mt-3">@((MarkupString)Localizer["UploadClickUploadTips2"].Value)</p>
+        <ButtonUpload TValue="string" IsSingle="true" OnChange="@OnClickToUpload" OnDelete="@(fileName => Task.FromResult(true))" class="mt-3"></ButtonUpload>
+        <p class="mt-3">@((MarkupString)Localizer["UploadClickUploadTips3ShowUploadList"].Value)</p>
+        <ButtonUpload TValue="string" OnChange="@OnClickToUploadNoUploadList" ShowUploadFileList="false" BrowserButtonText="Upload" BrowserButtonIcon="fa-solid fa-cloud-arrow-up" class="mt-3"></ButtonUpload>
+    </section>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["UploadedFilesTitle"]"
