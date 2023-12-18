@@ -43,7 +43,7 @@ form {
         background-image: none;
     }
 
-    &:not(.disabled):not(:disabled):not(.is-valid):not(.is-invalid):not(.no-border):hover {
+    &:not(.disabled):not(:disabled):not(.is-valid):not(.is-invalid):not(.no-border):not(.is-display):hover {
         border: 1px solid var(--bb-border-hover-color);
     }
 }
