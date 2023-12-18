@@ -18,22 +18,18 @@
     font-weight: 700;
 }
 
-::deep p {
-    line-height: 2;
+::deep p:last-child {
+    margin-bottom: 0;
 }
 
-    ::deep p:last-child {
-        margin-bottom: 0;
-    }
-
-    ::deep p code,
-    ::deep li code {
-        display: inline-block;
-        padding: 0px 8px;
-        background-color: #e9ecef;
-        margin: 0;
-        border-radius: var(--bs-border-radius);
-    }
+::deep p code,
+::deep li code {
+    display: inline-block;
+    padding: 0px 8px;
+    background-color: #e9ecef;
+    margin: 0;
+    border-radius: var(--bs-border-radius);
+}
 
 ::deep .code-label {
     font-weight: bold;
