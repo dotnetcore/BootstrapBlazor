@@ -4,6 +4,9 @@
 
 using Microsoft.Extensions.Logging;
 using System.Net.Http.Json;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
 
 namespace BootstrapBlazor.Components;
 
@@ -12,6 +15,18 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public class DefaultIPLocator : IIPLocator
 {
+    private JsonSerializerOptions _options;
+    /// <summary>
+    /// 构造函数
+    /// </summary>
+    public DefaultIPLocator()
+    {
+        _options = new JsonSerializerOptions()
+        {
+            Encoder = JavaScriptEncoder.Create(UnicodeRanges.All)
+        };
+    }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -29,7 +44,7 @@ public class DefaultIPLocator : IIPLocator
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
-    protected virtual async Task<string?> Locate<T>(IPLocatorOption option) where T : class
+    protected virtual async Task<string?> Locate<T>(IPLocatorOption option)
     {
         string? ret = null;
         if (!string.IsNullOrEmpty(Url) && !string.IsNullOrEmpty(option.IP) && option.HttpClient != null)
@@ -38,7 +53,7 @@ public class DefaultIPLocator : IIPLocator
             try
             {
                 using var token = new CancellationTokenSource(option.RequestTimeout);
-                var result = await option.HttpClient.GetFromJsonAsync<T>(url, token.Token);
+                var result = await option.HttpClient.GetFromJsonAsync<T>(url, _options, token.Token);
                 if (result != null)
                 {
                     ret = result.ToString();
