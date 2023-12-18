@@ -4,9 +4,12 @@
 
 using BootstrapBlazor.Server.Components;
 using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Options;
+using System.Text;
+
+// 增加中文编码支持用于定位服务
+Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
 var builder = WebApplication.CreateBuilder(args);
 
