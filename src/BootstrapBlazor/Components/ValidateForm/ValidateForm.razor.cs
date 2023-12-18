@@ -161,7 +161,7 @@ public partial class ValidateForm
             {
                 var results = new List<ValidationResult>
                 {
-                    new ValidationResult(errorMessage, new string[] { fieldName })
+                    new(errorMessage, new string[] { fieldName })
                 };
                 validator.ToggleMessage(results, true);
             }
@@ -179,7 +179,7 @@ public partial class ValidateForm
         {
             var results = new List<ValidationResult>
             {
-                new ValidationResult(errorMessage, new string[] { fieldName })
+                new(errorMessage, new string[] { fieldName })
             };
             validator.ToggleMessage(results, true);
         }
@@ -293,7 +293,7 @@ public partial class ValidateForm
     /// <param name="results"></param>
     /// <param name="propertyInfo"></param>
     /// <param name="memberName"></param>
-    private void ValidateDataAnnotations(object? value, ValidationContext context, ICollection<ValidationResult> results, PropertyInfo propertyInfo, string? memberName = null)
+    private void ValidateDataAnnotations(object? value, ValidationContext context, List<ValidationResult> results, PropertyInfo propertyInfo, string? memberName = null)
     {
         var rules = propertyInfo.GetCustomAttributes(true).OfType<ValidationAttribute>();
         var metadataType = context.ObjectType.GetCustomAttribute<MetadataTypeAttribute>(false);
@@ -373,7 +373,7 @@ public partial class ValidateForm
     private async Task ValidateProperty(ValidationContext context, List<ValidationResult> results)
     {
         // 获得所有可写属性
-        var properties = context.ObjectType.GetRuntimeProperties().Where(p => IsPublic(p) && p.CanWrite && !p.GetIndexParameters().Any());
+        var properties = context.ObjectType.GetRuntimeProperties().Where(p => IsPublic(p) && p.CanWrite && p.GetIndexParameters().Length == 0);
         foreach (var pi in properties)
         {
             // 设置其关联属性字段
@@ -438,16 +438,16 @@ public partial class ValidateForm
                 _tcs = new();
                 // 自定义验证组件
                 await validator.ValidatePropertyAsync(propertyValue, context, messages);
-                _tcs.TrySetResult(!messages.Any());
+                _tcs.TrySetResult(messages.Count == 0);
             }
         }
 
-        _invalid = messages.Any();
+        _invalid = messages.Count > 0;
     }
 
     private bool _invalid = false;
 
-    private List<ButtonBase> AsyncSubmitButtons { get; } = new();
+    private List<ButtonBase> AsyncSubmitButtons { get; } = [];
 
     /// <summary>
     /// 注册提交按钮
@@ -462,7 +462,7 @@ public partial class ValidateForm
 
     private async Task OnValidSubmitForm(EditContext context)
     {
-        var isAsync = AsyncSubmitButtons.Any();
+        var isAsync = AsyncSubmitButtons.Count > 0;
         foreach (var b in AsyncSubmitButtons)
         {
             b.TriggerAsync(true);
@@ -501,7 +501,7 @@ public partial class ValidateForm
 
     private async Task OnInvalidSubmitForm(EditContext context)
     {
-        var isAsync = AsyncSubmitButtons.Any();
+        var isAsync = AsyncSubmitButtons.Count > 0;
         foreach (var b in AsyncSubmitButtons)
         {
             b.TriggerAsync(true);

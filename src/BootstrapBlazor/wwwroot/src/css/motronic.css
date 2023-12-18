@@ -266,10 +266,6 @@
     --bs-btn-active-border-color: #B5B5C3;
 }
 
-.input-group .form-control:not(.invalid):not(.valid):hover {
-    border-color: #b5b5c3;
-}
-
 .alert-primary {
     --bs-alert-color: #005f94;
     --bs-alert-bg: #ccecfd;
