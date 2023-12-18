@@ -610,4 +610,17 @@ $bb-transfer-panel-item-width: 160px;
 $bb-transfer-buttons-padding: 0 30px;
 $bb-transfer-filter-focus-border-color: #409eff;
 
+// TreeView
+$bb-tree-padding: 0;
+$bb-tree-margin: 0;
+$bb-tree-ul-padding-left: 20px;
+$bb-tree-item-margin: 1px 0;
+$bb-tree-icon-width: 22px;
+$bb-tree-check-margin: 0 4px;
+$bb-tree-node-padding: .25rem .5rem;
+$bb-tree-item-active-color: #409eff;
+$bb-tree-item-active-bg: #e9ecef;
+$bb-tree-item-hover-bg: var(--bs-secondary);
+$bb-tree-icon-margin-right: .5rem;
+
 @import "../components.scss";
