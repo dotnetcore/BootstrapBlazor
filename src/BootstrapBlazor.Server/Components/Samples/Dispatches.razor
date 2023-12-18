@@ -11,17 +11,17 @@
 
 <p>@Localizer["NormalTip"]</p>
 <p>@((MarkupString)Localizer["NormalTips1"].Value)</p>
-<Pre>[Inject]
+<Pre class="mb-3">[Inject]
 [NotNull]
 private IDispatchService&lt;GiteePostBody&gt;? DispatchService { get; set; }</Pre>
 <p>@((MarkupString)Localizer["NormalTips2"].Value)</p>
-<Pre>protected override void OnInitialized()
+<Pre class="mb-3">protected override void OnInitialized()
 {
     // ...
     DispatchService.Subscribe(Notify);
 }</Pre>
 <p>@((MarkupString)Localizer["NormalTips3"].Value)</p>
-<Pre>private void Dispose(bool disposing)
+<Pre class="mb-3">private void Dispose(bool disposing)
 {
     if (disposing)
     {
@@ -29,7 +29,7 @@ private IDispatchService&lt;GiteePostBody&gt;? DispatchService { get; set; }</Pr
     }
 }</Pre>
 <p>@((MarkupString)Localizer["NormalTips4"].Value)</p>
-<Pre>private async Task Notify(DispatchEntry&lt;GiteePostBody&gt; payload)
+<Pre class="mb-3">private async Task Notify(DispatchEntry&lt;GiteePostBody&gt; payload)
 {
     if (payload.Entry != null)
     {
