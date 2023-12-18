@@ -161,7 +161,7 @@ public partial class ValidateForm
             {
                 var results = new List<ValidationResult>
                 {
-                    new ValidationResult(errorMessage, new string[] { fieldName })
+                    new(errorMessage, new string[] { fieldName })
                 };
                 validator.ToggleMessage(results, true);
             }
@@ -179,7 +179,7 @@ public partial class ValidateForm
         {
             var results = new List<ValidationResult>
             {
-                new ValidationResult(errorMessage, new string[] { fieldName })
+                new(errorMessage, new string[] { fieldName })
             };
             validator.ToggleMessage(results, true);
         }
@@ -447,7 +447,7 @@ public partial class ValidateForm
 
     private bool _invalid = false;
 
-    private List<ButtonBase> AsyncSubmitButtons { get; } = new();
+    private List<ButtonBase> AsyncSubmitButtons { get; } = [];
 
     /// <summary>
     /// 注册提交按钮

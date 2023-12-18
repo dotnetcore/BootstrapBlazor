@@ -27,7 +27,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// <summary>
     /// 获得/设置 上传文件集合
     /// </summary>
-    protected List<UploadFile> UploadFiles { get; } = new List<UploadFile>();
+    protected List<UploadFile> UploadFiles { get; } = [];
 
     List<UploadFile> IUpload.UploadFiles { get => UploadFiles; }
 
