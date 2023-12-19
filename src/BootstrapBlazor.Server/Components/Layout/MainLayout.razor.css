@@ -85,7 +85,6 @@
         position: sticky;
         top: 0;
         border-right: solid 1px #c0c4cc;
-        background-color: #f0f0f0;
         margin-top: calc(var(--bs-header-height)*-1);
     }
 
