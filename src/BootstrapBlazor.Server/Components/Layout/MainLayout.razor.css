@@ -33,7 +33,7 @@
 
 ::deep .code-label {
     font-weight: bold;
-    color: #333;
+    color: var(--bs-body-color);
     margin-bottom: 8px;
 }
 
