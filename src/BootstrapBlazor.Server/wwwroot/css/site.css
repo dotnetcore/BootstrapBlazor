@@ -161,6 +161,10 @@
     display: none !important;
 }
 
+[data-bs-theme=dark] .hljs {
+    background-color: #1b1f22;
+}
+
 @media (min-width: 768px) {
     :root {
         --bs-header-height: 50px;
