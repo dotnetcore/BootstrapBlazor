@@ -1,7 +1,5 @@
 .divider {
-    --bb-divider-bg: #{$bb-divider-bg};
     --bb-divider-margin: #{$bb-divider-margin};
-    --bb-divider-text-color: #{$bb-divider-text-color};
     --bb-divider-text-padding: #{$bb-divider-text-padding};
     background-color: var(--bs-body-bg);
     margin: var(--bb-divider-margin);
@@ -11,14 +9,14 @@
     width: 100%;
 
     .divider-mask {
-        background-color: var(--bb-divider-bg);
+        background-color: var(--bs-border-color);
         height: 100%;
         width: 100%;
     }
 
     .divider-text {
         padding: var(--bb-divider-text-padding);
-        color: var(--bb-divider-text-color);
+        color: var(--bs-body-color);
         position: absolute;
         font-weight: 500;
         background-color: inherit;
