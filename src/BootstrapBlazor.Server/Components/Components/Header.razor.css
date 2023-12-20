@@ -36,6 +36,15 @@
     width: auto;
 }
 
+.icon-theme {
+    border-left: 1px solid #dddddd40;
+    padding-left: 0.5rem;
+}
+
+    .icon-theme img {
+        cursor: pointer;
+    }
+
 @media (min-width: 768px) {
     .navbar-header {
         position: sticky;
