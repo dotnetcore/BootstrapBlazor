@@ -5,7 +5,6 @@
     --bb-tabs-item-active-color: #{$bb-tabs-item-active-color};
     --bb-tabs-item-hover-color: #{$bb-tabs-item-hover-color};
     --bb-tabs-border-card-top-item-margin-top: #{$bb-tabs-border-card-top-item-margin-top};
-    --bb-tabs-border-card-header-bg-color: #{$bb-tabs-border-card-header-bg-color};
     --bb-tabs-bar-width: #{$bb-tabs-bar-width};
     --bb-tabs-bar-height: #{$bb-tabs-bar-height};
     --bb-tabs-bar-bg: #{$bb-tabs-bar-bg};
@@ -264,16 +263,16 @@
 
 /*Border-Card*/
 .tabs.tabs-border-card {
-    background: #fff;
+    background: var(--bs-body-bg);
     box-shadow: 0 2px 4px 0 rgba(0,0,0,.12), 0 0 6px 0 rgba(0,0,0,.04);
 }
 
 .tabs.tabs-border-card > .tabs-header {
-    background-color: var(--bb-tabs-border-card-header-bg-color);
+    background-color: var(--bs-border-bg);
 }
 
 .tabs.tabs-border-card > .tabs-header .nav-link-bar {
-    background-color: var(--bb-tabs-border-card-header-bg-color);
+    background-color: var(--bs-border-bg);
 }
 
 .tabs.tabs-border-card > .tabs-header .nav-link-bar.left {
