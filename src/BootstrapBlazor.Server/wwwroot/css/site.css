@@ -80,6 +80,7 @@
     --bb-menu-active-color: var(--bb-primary-color);
     --bb-menu-bar-bg: var(--bb-primary-color);
     --bb-menu-item-hover-bg: var(--bb-primary-color);
+    --bb-menu-item-hover-color: #fff;
 }
 
 .custom-popover {
