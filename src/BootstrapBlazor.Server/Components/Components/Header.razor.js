@@ -13,8 +13,43 @@ export function init() {
         }
         prevScrollTop = currentScrollTop
     })
+
+    const themeElement = document.querySelector('.icon-theme');
+    if (themeElement) {
+        EventHandler.on(themeElement, 'click', e => {
+            let theme = getPreferredTheme();
+            if (theme === 'dark') {
+                theme = 'light';
+            }
+            else {
+                theme = 'dark';
+            }
+            setTheme(theme);
+        });
+    }
 }
 
 export function dispose() {
     EventHandler.off(document, 'scroll')
+}
+
+const getStoredTheme = () => localStorage.getItem('theme')
+const setStoredTheme = theme => localStorage.setItem('theme', theme)
+
+const setTheme = theme => {
+    if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-bs-theme', 'light')
+    } else {
+        document.documentElement.setAttribute('data-bs-theme', theme);
+    }
+    setStoredTheme(theme);
+}
+
+const getPreferredTheme = () => {
+    const storedTheme = getStoredTheme()
+    if (storedTheme) {
+        return storedTheme
+    }
+
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }

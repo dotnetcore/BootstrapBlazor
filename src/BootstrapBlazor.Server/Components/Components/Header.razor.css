@@ -45,6 +45,18 @@
         cursor: pointer;
     }
 
+    .icon-theme .icon-dark {
+        display: none;
+    }
+
+[data-bs-theme='dark'] .icon-dark {
+    display: block;
+}
+
+[data-bs-theme='dark'] .icon-light {
+    display: none;
+}
+
 @media (min-width: 768px) {
     .navbar-header {
         position: sticky;
