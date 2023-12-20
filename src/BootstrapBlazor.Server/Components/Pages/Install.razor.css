@@ -26,3 +26,7 @@
     color: #1c3949;
     margin-left: 38px;
 }
+
+[data-bs-theme='dark'] .git .git-fork span {
+    color: var(--bs-body-color);
+}
