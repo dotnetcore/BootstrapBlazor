@@ -5,7 +5,6 @@
 
 .select {
     --bb-select-focus-shadow: #{$bb-select-focus-shadow};
-    --bb-select-bg: #{$bb-select-bg};
     --bb-select-padding: #{$bb-select-padding};
     --bb-select-search-padding: #{$bb-select-search-padding};
     --bb-select-search-margin-bottom: #{$bb-select-search-margin-bottom};
@@ -36,7 +35,7 @@
 
 .select .form-select {
     background-image: none;
-    background-color: var(--bb-select-bg);
+    background-color: var(--bs-body-bg);
     border: 1px solid var(--bs-border-color);
     border-radius: var(--bs-border-radius);
     padding: var(--bb-select-padding);
