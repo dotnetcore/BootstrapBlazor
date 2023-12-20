@@ -2,3 +2,9 @@
     --bs-btn-bg: #8759ff;
     --bs-btn-hover-bg: #7d53eb;
 }
+
+::deep .form-control {
+    --bs-border-color: var(--bs-body-bg);
+    --bb-border-focus-color: var(--bs-body-bg);
+    --bb-border-hover-color: var(--bs-body-bg);
+}
