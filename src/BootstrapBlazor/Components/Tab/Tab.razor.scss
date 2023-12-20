@@ -5,7 +5,6 @@
     --bb-tabs-item-active-color: #{$bb-tabs-item-active-color};
     --bb-tabs-item-hover-color: #{$bb-tabs-item-hover-color};
     --bb-tabs-border-card-top-item-margin-top: #{$bb-tabs-border-card-top-item-margin-top};
-    --bb-tabs-border-color: #{$bb-tabs-border-color};
     --bb-tabs-border-card-header-bg-color: #{$bb-tabs-border-card-header-bg-color};
     --bb-tabs-bar-width: #{$bb-tabs-bar-width};
     --bb-tabs-bar-height: #{$bb-tabs-bar-height};
@@ -28,7 +27,7 @@
     &:after {
         content: "";
         height: 2px;
-        background-color: var(--bb-tabs-border-color);
+        background-color: var(--bs-border-color);
         position: absolute;
         left: 0;
         right: 0;
@@ -82,7 +81,7 @@
         height: 100%;
         justify-content: center;
         align-items: center;
-        border: 1px solid var(--bb-tabs-border-color);
+        border: 1px solid var(--bs-border-color);
         display: none;
 
         &.left {
@@ -206,7 +205,7 @@
 /*Card*/
 .tabs.tabs-card,
 .tabs.tabs-border-card {
-    border: 1px solid var(--bb-tabs-border-color);
+    border: 1px solid var(--bs-border-color);
     border-radius: var(--bs-border-radius);
 }
 
@@ -218,7 +217,7 @@
 .tabs.tabs-card > .tabs-header .tabs-item,
 .tabs.tabs-border-card > .tabs-header .tabs-item {
     height: 100%;
-    border: 1px solid var(--bb-tabs-border-color);
+    border: 1px solid var(--bs-border-color);
     border-width: 0 1px 1px 0;
 }
 
@@ -231,7 +230,7 @@
 .tabs .tabs-item-fix {
     height: 100%;
     flex: 1;
-    border: 1px solid var(--bb-tabs-border-color);
+    border: 1px solid var(--bs-border-color);
     border-width: 0 0 1px 0;
 }
 
