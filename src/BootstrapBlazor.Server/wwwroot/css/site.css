@@ -76,6 +76,12 @@
         color: unset;
     }
 
+.menu {
+    --bb-menu-active-color: var(--bb-primary-color);
+    --bb-menu-bar-bg: var(--bb-primary-color);
+    --bb-menu-item-hover-bg: var(--bb-primary-color);
+}
+
 .custom-popover {
     --bs-popover-border-color: var(--bs-primary);
     --bs-popover-header-bg: var(--bs-primary);
@@ -159,6 +165,10 @@
 
 .dock-layout.main > *:not(.tabs-coms) {
     display: none !important;
+}
+
+.dropdown-menu {
+    --bs-dropdown-link-active-bg: var(--bb-primary-color);
 }
 
 [data-bs-theme=dark] .hljs {
