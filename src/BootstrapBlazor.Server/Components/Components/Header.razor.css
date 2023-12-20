@@ -36,6 +36,10 @@
     width: auto;
 }
 
+.navbar-version {
+    color: var(--bs-navbar-color);
+}
+
 .icon-theme {
     border-left: 1px solid #dddddd40;
     padding-left: 0.5rem;
