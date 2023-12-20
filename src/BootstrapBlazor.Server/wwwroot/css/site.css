@@ -1,7 +1,7 @@
 ﻿:root {
     --bb-font-weight: 500;
-    --bb-title-color: #1f2f3d;
     --bb-sub-font-size: 1.2rem;
+    --bb-primary-color: var(--bs-indigo);
 }
 
 .navbar {
@@ -68,7 +68,7 @@
     }
 
 .menu .nav-link.nav-table {
-    color: var(--bs-info);
+    color: var(--bb-primary-color);
     font-weight: bold;
 }
 

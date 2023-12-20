@@ -50,6 +50,14 @@
             background-color: rgb(9, 105, 218);
         }
 
+::deep .badge-menu {
+    background-color: var(--bb-primary-color);
+}
+
+::deep .icon-summary {
+    color: var(--bb-primary-color);
+}
+
 @media (min-width: 768px) {
     .sidebar-content {
         height: calc(100vh - var(--bs-header-height));
