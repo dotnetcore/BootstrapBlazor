@@ -4,17 +4,6 @@
     --bb-primary-color: var(--bs-indigo);
 }
 
-.alert {
-    --bs-info: var(--bb-primary-color);
-    --bs-info-rgb: var(--bb-primary-color);
-}
-
-.alert-info {
-    --bs-alert-color: #44228c;
-    --bs-alert-bg: #e3d7fb;
-    --bs-alert-border-color: #d5c4f9;
-}
-
 .navbar {
     --bs-navbar-color: rgba(255,255,255,.85);
     --bs-navbar-hover-color: rgb(255,255,255);
