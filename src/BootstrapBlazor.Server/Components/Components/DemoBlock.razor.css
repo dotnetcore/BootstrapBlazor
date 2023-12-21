@@ -19,6 +19,9 @@
                 opacity: 1;
             }
 
+[data-bs-theme='dark'] .card:hover {
+    box-shadow: none;
+}
 
 .card-footer {
     background-color: transparent;
