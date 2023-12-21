@@ -1,4 +1,5 @@
-﻿import EventHandler from "../../_content/BootstrapBlazor/modules/event-handler.js?v=$version"
+﻿import { getPreferredTheme, setTheme } from "../../_content/BootstrapBlazor/modules/theme.js?v=$version"
+import EventHandler from "../../_content/BootstrapBlazor/modules/event-handler.js?v=$version"
 
 export function init() {
     const scrollTop = () => (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop
@@ -31,25 +32,4 @@ export function init() {
 
 export function dispose() {
     EventHandler.off(document, 'scroll')
-}
-
-const getStoredTheme = () => localStorage.getItem('theme')
-const setStoredTheme = theme => localStorage.setItem('theme', theme)
-
-const setTheme = theme => {
-    if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.documentElement.setAttribute('data-bs-theme', 'light')
-    } else {
-        document.documentElement.setAttribute('data-bs-theme', theme);
-    }
-    setStoredTheme(theme);
-}
-
-const getPreferredTheme = () => {
-    const storedTheme = getStoredTheme()
-    if (storedTheme) {
-        return storedTheme
-    }
-
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
