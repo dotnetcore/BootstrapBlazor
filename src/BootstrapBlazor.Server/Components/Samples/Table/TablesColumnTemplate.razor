@@ -10,15 +10,15 @@
 <DemoBlock Title="@Localizer["TableColumnTitle"]"
            Introduction="@Localizer["TableColumnIntro"]"
            Name="TableColumnNormal">
-    <p>@((MarkupString)Localizer["TableColumnP1"].Value)</p>
-    <p>@((MarkupString)Localizer["TableColumnP2"].Value)</p>
-    <p>@((MarkupString)Localizer["TableColumnP3"].Value)</p>
-    <p>@((MarkupString)Localizer["TableColumnP3"].Value)</p>
-    <ul class="mb-3">
-        <li>@((MarkupString)Localizer["TableColumnLi1"].Value)</li>
-        <li>@((MarkupString)Localizer["TableColumnLi2"].Value)</li>
-    </ul>
-
+    <section ignore>
+        <p>@((MarkupString)Localizer["TableColumnP1"].Value)</p>
+        <p>@((MarkupString)Localizer["TableColumnP2"].Value)</p>
+        <p>@((MarkupString)Localizer["TableColumnP3"].Value)</p>
+        <ul class="mb-3">
+            <li>@((MarkupString)Localizer["TableColumnLi1"].Value)</li>
+            <li>@((MarkupString)Localizer["TableColumnLi2"].Value)</li>
+        </ul>
+    </section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
@@ -63,7 +63,7 @@
             <TableColumn @bind-Field="@context.Count" />
             <TableColumn @bind-Field="@context.Id" Text="">
                 <Template Context="v">
-                    <PopConfirmButton Text="Test" Size="Size.ExtraSmall" />
+                    <PopConfirmButton Color="Color.Primary" Text="Test" Size="Size.ExtraSmall" />
                 </Template>
             </TableColumn>
         </TableColumns>
