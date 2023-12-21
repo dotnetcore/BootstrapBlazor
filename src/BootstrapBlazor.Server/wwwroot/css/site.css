@@ -177,6 +177,14 @@
     color: var(--bs-body-color);
 }
 
+code {
+    background-color: #e9ecef;
+}
+
+[data-bs-theme='dark'] code {
+    background-color: rgba(var(--bs-emphasis-color-rgb),.1);
+}
+
 @media (min-width: 768px) {
     :root {
         --bs-header-height: 50px;

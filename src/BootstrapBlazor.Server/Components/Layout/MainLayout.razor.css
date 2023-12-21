@@ -26,7 +26,6 @@
 ::deep li code {
     display: inline-block;
     padding: 0px 8px;
-    background-color: #e9ecef;
     margin: 0;
     border-radius: var(--bs-border-radius);
 }
