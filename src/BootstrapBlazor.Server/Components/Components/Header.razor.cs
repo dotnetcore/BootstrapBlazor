@@ -37,6 +37,8 @@ public partial class Header
 
     private string DownloadUrl => $"{WebsiteOption.CurrentValue.GiteeRepositoryUrl}/repository/archive/main.zip";
 
+    private string _versionString = "";
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -48,5 +50,7 @@ public partial class Header
         HomeText ??= Localizer[nameof(HomeText)];
         IntroductionText ??= Localizer[nameof(IntroductionText)];
         ComponentsText ??= Localizer[nameof(ComponentsText)];
+
+        _versionString = $"v{PackageVersionService.Version}";
     }
 }
