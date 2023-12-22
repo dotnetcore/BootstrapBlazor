@@ -1,4 +1,6 @@
 ﻿.culture-selector {
+    --bs-border-color: rgba(255,255,255,.2);
+    --bb-border-hover-color: rgba(255,255,255,.8);
     display: flex;
     align-items: center;
 }
@@ -6,9 +8,16 @@
     .culture-selector span {
         margin: 0;
         color: var(--bs-navbar-color);
-        opacity: 0.85;
     }
 
     .culture-selector ::deep .select {
         width: 210px;
     }
+
+::deep .form-control {
+    transition: border-color .3s linear;
+}
+
+::deep .dropdown-toggle {
+    --bs-body-bg: transparent;
+}
