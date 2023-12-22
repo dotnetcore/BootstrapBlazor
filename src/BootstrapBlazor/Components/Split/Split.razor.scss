@@ -50,7 +50,7 @@
 
     .split-bar:hover .split-trigger-bar,
     &.dragging > .split-wrapper > .split-bar .split-trigger-bar {
-        background-color: var(--bb-disabled-bg);
+        background-color: var(--bs-body-bg);
     }
 
     .split-trigger {

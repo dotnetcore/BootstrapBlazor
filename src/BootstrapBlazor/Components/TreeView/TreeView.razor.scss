@@ -61,11 +61,6 @@
         flex: 1;
     }
 
-        .tree-view .tree-node.disabled,
-        .tree-view .tree-item.disabled > .tree-content > .node-icon {
-            opacity: var(--bb-disabled-opactiy);
-        }
-
         .tree-view .tree-node:hover {
             background-color: var(--bb-tree-item-hover-bg);
         }

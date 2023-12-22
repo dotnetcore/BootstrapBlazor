@@ -1,10 +1,7 @@
 :root {
-    --bb-disabled-bg: #{$bb-disabled-bg};
-    --bb-disabled-color: #{$bb-disabled-color};
     --bb-border-focus-color: #{$bb-border-focus-color};
     --bb-border-hover-color: #{$bb-border-hover-color};
     --bb-height: #{$bb-height};
-    --bb-disabled-opactiy: #{$bb-disabled-opactiy};
     --bb-dropdown-max-height: #{$bb-dropdown-max-height};
     --bb-shadow: #{$bb-shadow};
     --bb-hover-shadow: #{$bb-hover-shadow};
@@ -35,11 +32,10 @@ a, a:hover, a:focus {
     cursor: not-allowed !important;
 }
 
-.disabled > i,
 .disabled .range-separator,
-:disabled,
-.form-control:disabled {
-    opacity: var(--bb-disabled-opactiy);
+:disabled {
+    background-color: var(--bs-secondary-bg);
+    opacity: 1;
 }
 
 :focus-visible,

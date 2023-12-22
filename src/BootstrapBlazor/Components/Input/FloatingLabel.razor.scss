@@ -19,7 +19,7 @@
     }
 
     > .form-control:disabled ~ label::after {
-        background-color: var(--bb-disabled-bg);
+        background-color: var(--bs-secondary-bg);
+        opacity: 1;
     }
 }
-
