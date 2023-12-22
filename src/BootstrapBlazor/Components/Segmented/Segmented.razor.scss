@@ -107,3 +107,8 @@
         }
     }
 }
+
+[data-bs-theme='dark'] .segmented {
+    --bb-segmented-bg: #{$bb-segmented-bg-dark};
+    --bb-segmented-item-selected-bg: #{$bb-segmented-item-selected-bg-dark};
+}
