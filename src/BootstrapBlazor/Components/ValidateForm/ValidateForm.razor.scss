@@ -33,10 +33,6 @@ form {
         box-shadow: none;
     }
 
-    &:disabled {
-        background-color: var(--bb-disabled-bg);
-    }
-
     &.is-valid[type="number"],
     &.is-invalid[type="number"] {
         padding-right: .75rem;
@@ -81,5 +77,5 @@ form {
 
 .table-cell .form-control.is-display,
 form .form-control.is-display {
-    background-color: var(--bb-disabled-bg);
+    background-color: var(--bs-secondary-bg);
 }

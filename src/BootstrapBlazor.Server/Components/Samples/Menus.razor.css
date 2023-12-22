@@ -1,6 +1,6 @@
 ﻿.layout-menu-demo ::deep .layout-side {
-    background-color: var(--bb-disabled-bg);
-    color: #dcdfe6;
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
     height: 100%;
 }
 
