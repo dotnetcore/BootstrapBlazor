@@ -87,16 +87,16 @@ public class BootstrapBlazorOptions
     /// <summary>
     /// 获得/设置 网站主题集合
     /// </summary>
-    public List<KeyValuePair<string, string>> Themes { get; } = new()
-    {
+    public List<KeyValuePair<string, string>> Themes { get; } =
+    [
         new("Bootstrap", "bootstrap.blazor.bundle.min.css"),
         new("Motronic", "motronic.min.css")
-    };
+    ];
 
     /// <summary>
     /// 获得支持多语言集合
     /// </summary>
     /// <returns></returns>
     public IList<CultureInfo> GetSupportedCultures() => SupportedCultures?.Select(name => new CultureInfo(name)).ToList()
-        ?? new List<CultureInfo> { new("en"), new("zh") };
+        ?? [new("en"), new("zh")];
 }
