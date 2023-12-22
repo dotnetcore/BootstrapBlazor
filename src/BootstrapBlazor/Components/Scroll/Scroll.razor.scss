@@ -24,6 +24,11 @@
     }
 }
 
+[data-bs-theme='dark'] .scroll {
+    --bb-scorll-thumb-bg: #{$bb-scorll-thumb-bg-dark};
+    --bb-scorll-thumb-hover-bg: #{$bb-scorll-thumb-hover-bg-dark};
+}
+
 @media (min-width: 992px) {
     .scroll {
         overflow: hidden;
