@@ -15,7 +15,7 @@
 <DemoBlock Title="@Localizer["FilterableTitle"]"
            Introduction="@Localizer["FilterableIntro"]"
            Name="Filterable">
-    <section ignore>
+    <section ignore class="mb-3">
         <p>@((MarkupString)Localizer["FilterableP"].Value)</p>
         <ul class="ul-demo mb-3">
             <li>@((MarkupString)Localizer["FilterableLi1"].Value)</li>
@@ -24,7 +24,7 @@
             <li>@((MarkupString)Localizer["FilterableLi4"].Value)</li>
         </ul>
         <div>@((MarkupString)Localizer["FilterableDiv"].Value)</div>
-        <Alert ShowBar="true" Color="Color.Info" class="mt-3">@((MarkupString)Localizer["FilterableAlert"].Value)</Alert>
+        <Alert ShowBar="true" ShowBorder="true" Color="Color.Info" class="mt-3">@((MarkupString)Localizer["FilterableAlert"].Value)</Alert>
     </section>
 
     <Table TItem="Foo"
