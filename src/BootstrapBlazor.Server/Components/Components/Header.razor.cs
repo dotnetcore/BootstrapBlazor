@@ -17,6 +17,10 @@ public partial class Header
 
     [Inject]
     [NotNull]
+    private PackageVersionService? PackageVersionService { get; set; }
+
+    [Inject]
+    [NotNull]
     private IStringLocalizer<Header>? Localizer { get; set; }
 
     [NotNull]
