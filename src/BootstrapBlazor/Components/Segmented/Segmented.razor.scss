@@ -18,6 +18,7 @@
     padding: var(--bb-segmented-padding);
     background-color: var(--bb-segmented-bg);
     border-radius: var(--bs-border-radius);
+    border: var(--bs-border-width) solid var(--bs-border-color);
     display: inline-flex;
     position: relative;
 
