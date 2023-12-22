@@ -1,6 +1,6 @@
 ﻿.sidebar-switch {
     display: flex;
-    border-bottom: solid 1px #c0c4cc;
+    border-bottom: solid 1px var(--bs-border-color);
     justify-content: center;
     align-items: center;
 }
@@ -31,7 +31,7 @@
     top: 0;
     right: 0;
     bottom: 0;
-    background-color: rgb(208, 215, 222);
+    background-color: var(--bs-border-color);
 }
 
     .sidebar-bar .sidebar-body {
@@ -49,6 +49,14 @@
         .sidebar-bar .sidebar-body.drag:hover {
             background-color: rgb(9, 105, 218);
         }
+
+::deep .badge-menu {
+    background-color: var(--bb-primary-color);
+}
+
+::deep .icon-summary {
+    color: var(--bb-primary-color);
+}
 
 @media (min-width: 768px) {
     .sidebar-content {

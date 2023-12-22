@@ -1,18 +1,30 @@
 ﻿.culture-selector {
+    --bs-border-color: rgba(255,255,255,.2);
+    --bb-border-hover-color: rgba(255,255,255,.8);
+    --bb-select-color: rgba(255,255,255,.85);
     display: flex;
     align-items: center;
+    color: var(--bb-select-color);
 }
 
     .culture-selector span {
         margin: 0;
         color: var(--bs-navbar-color);
-        opacity: 0.85;
     }
 
     .culture-selector ::deep .select {
         width: 210px;
     }
 
-    .culture-selector ::deep .dropdown-menu {
-        --bs-dropdown-link-active-bg: #7532f9;
-    }
+::deep .form-control {
+    transition: border-color .3s linear;
+}
+
+::deep .dropdown-toggle {
+    --bs-body-bg: transparent;
+}
+
+
+::deep .form-select {
+    color: var(--bb-select-color);
+}

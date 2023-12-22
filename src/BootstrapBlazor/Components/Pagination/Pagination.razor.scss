@@ -48,6 +48,10 @@
     }
 }
 
+[data-bs-theme='dark'] .pagination {
+    --bs-pagination-active-border-color: var(--bs-border-color);
+}
+
 @media (min-width: 375px) {
     .pagination {
         --bb-pagination-link-padding: #{$bb-pagination-link-padding};

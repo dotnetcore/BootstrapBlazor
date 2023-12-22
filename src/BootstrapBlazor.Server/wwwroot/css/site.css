@@ -1,7 +1,7 @@
 ﻿:root {
     --bb-font-weight: 500;
-    --bb-title-color: #1f2f3d;
     --bb-sub-font-size: 1.2rem;
+    --bb-primary-color: var(--bs-indigo);
 }
 
 .navbar {
@@ -68,13 +68,20 @@
     }
 
 .menu .nav-link.nav-table {
-    color: var(--bs-info);
+    color: var(--bb-primary-color);
     font-weight: bold;
 }
 
     .menu .nav-link.nav-table:hover {
         color: unset;
     }
+
+.menu {
+    --bb-menu-active-color: var(--bb-primary-color);
+    --bb-menu-bar-bg: var(--bb-primary-color);
+    --bb-menu-item-hover-bg: var(--bb-primary-color);
+    --bb-menu-item-hover-color: #fff;
+}
 
 .custom-popover {
     --bs-popover-border-color: var(--bs-primary);
@@ -106,13 +113,17 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #fff;
+    background-color: var(--bs-body-bg);
     padding: 1rem;
-    color: #696969;
+    color: var(--bs-body-color);
+}
+
+[data-bs-theme='dark'] .connection-body {
+    background-color: #222939;
 }
 
 .connection-body-tail {
-    border-right: 1px solid #d8d8d8;
+    border-right: 1px solid var(--bs-border-color);
     width: 1px;
     margin-left: 1rem;
 }
@@ -126,7 +137,7 @@
 
 .connection-box {
     border-radius: var(--bs-border-radius);
-    border: 1px solid #ddd;
+    border: var(--bs-border-width) solid var(--bs-border-color);
     margin-bottom: 1rem;
     position: relative;
     overflow: hidden;
@@ -159,6 +170,48 @@
 
 .dock-layout.main > *:not(.tabs-coms) {
     display: none !important;
+}
+
+.dropdown-menu {
+    --bs-dropdown-link-active-bg: var(--bb-primary-color);
+}
+
+[data-bs-theme=dark] .hljs {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+}
+
+code {
+    display: inline-block;
+    padding: 0px 8px;
+    margin: 0;
+    border-radius: var(--bs-border-radius);
+    background-color: #e9ecef;
+}
+
+[data-bs-theme='dark'] code {
+    background-color: rgba(var(--bs-emphasis-color-rgb),.1);
+}
+
+.btn-copy {
+    position: absolute;
+    top: .65rem;
+    right: 1.5rem;
+    font-size: 65%;
+    --bs-btn-color: var(--bs-primary);
+    --bs-btn-bg: var(--bs-body-bg);
+    --bs-btn-padding-y: .25rem;
+    --bs-btn-padding-x: .5rem;
+}
+
+[data-bs-theme='dark'] .btn-copy {
+    --bs-btn-bg: rgba(255, 255, 255, 0.12);
+    --bs-btn-color: rgba(255, 255, 255, 0.45);
+    --bs-btn-border-color: #606266;
+}
+
+[data-bs-theme='dark'] .console-logger {
+    background-color: rgba(var(--bs-emphasis-color-rgb),.1);
 }
 
 @media (min-width: 768px) {

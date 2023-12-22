@@ -19,6 +19,9 @@
                 opacity: 1;
             }
 
+[data-bs-theme='dark'] .card:hover {
+    box-shadow: none;
+}
 
 .card-footer {
     background-color: transparent;
@@ -81,7 +84,7 @@
 
 .demo-block > ::deep .anchor-link {
     font-weight: var(--bb-font-weight);
-    color: var(--bb-title-color);
+    color: var(--bs-body-color);
     font-size: var(--bb-sub-font-size);
     margin-top: 1rem;
     margin-bottom: .5rem;

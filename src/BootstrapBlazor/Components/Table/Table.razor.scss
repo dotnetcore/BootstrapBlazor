@@ -41,6 +41,7 @@
     --bb-border-focus-color: transparent;
 }
 
+[data-bs-theme='dark'] .table,
 .table-dark {
     --bb-table-header-hover-bg: #343a40;
     --bb-table-header-icon-hover-bg: #6c757d;
@@ -357,7 +358,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #ddd;
+    border: var(--bs-border-width) solid var(--bs-border-color);
     border-radius: var(--bs-border-radius);
     padding: 2rem;
     flex: 1;

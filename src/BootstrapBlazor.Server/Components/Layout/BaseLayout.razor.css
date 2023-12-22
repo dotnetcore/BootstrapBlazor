@@ -47,3 +47,7 @@
     margin-bottom: 0;
     max-height: 260px;
 }
+
+main {
+    min-height: calc(100vh - var(--bs-header-height));
+}
