@@ -1,10 +1,15 @@
-﻿::deep .btn {
-    --bs-btn-bg: #8759ff;
-    --bs-btn-hover-bg: #7d53eb;
+﻿::deep .form-control {
+    background-color: transparent;
 }
 
-::deep .form-control {
-    --bs-border-color: var(--bs-body-bg);
-    --bb-border-focus-color: var(--bs-body-bg);
-    --bb-border-hover-color: var(--bs-body-bg);
+::deep .auto-complete {
+    --bb-complete-border-color: rgba(255,255,255,.2);
+    --bs-border-width: 0;
+    border: 1px solid var(--bb-complete-border-color);
+    border-radius: var(--bs-border-radius);
+    transition: border-color .3s linear;
 }
+
+    ::deep .auto-complete:hover {
+        --bb-complete-border-color: rgba(255,255,255,.8);
+    }
