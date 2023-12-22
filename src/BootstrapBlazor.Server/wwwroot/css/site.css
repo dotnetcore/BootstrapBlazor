@@ -205,6 +205,11 @@ code {
     --bs-btn-color: rgba(255, 255, 255, 0.45);
     --bs-btn-border-color: #606266;
 }
+
+[data-bs-theme='dark'] .console-logger {
+    background-color: rgba(var(--bs-emphasis-color-rgb),.1);
+}
+
 @media (min-width: 768px) {
     :root {
         --bs-header-height: 50px;
