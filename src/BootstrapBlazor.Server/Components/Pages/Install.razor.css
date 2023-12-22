@@ -11,7 +11,7 @@
 }
 
 .git a {
-    border: solid 1px #ddd;
+    border: var(--bs-border-width) solid var(--bs-border-color);
     display: block;
     padding: 6px 10px;
     border-radius: var(--bs-border-radius);

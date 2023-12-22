@@ -119,7 +119,7 @@
 }
 
 .connection-body-tail {
-    border-right: 1px solid #d8d8d8;
+    border-right: 1px solid var(--bs-border-color);
     width: 1px;
     margin-left: 1rem;
 }
@@ -133,7 +133,7 @@
 
 .connection-box {
     border-radius: var(--bs-border-radius);
-    border: 1px solid #ddd;
+    border: var(--bs-border-width) solid var(--bs-border-color);
     margin-bottom: 1rem;
     position: relative;
     overflow: hidden;
