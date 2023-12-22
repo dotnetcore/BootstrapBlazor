@@ -2,7 +2,6 @@
 @implements IDisposable
 @layout BaseLayout
 @inject NavigationManager NavigationManager
-@inject IJSRuntime JSRuntime
 @inject IOptionsMonitor<WebsiteOptions> WebsiteOption
 @inject IStringLocalizer<HomeLayout> Localizer
 @inject PackageVersionService VersionService
@@ -76,7 +75,6 @@
                 <a href="https://12377.cn" target="_blank">违法和不良信息举报中心</a>
             </div>
             <a class="d-none d-lg-block me-3" href="https://beian.miit.gov.cn/" target="_blank">苏ICP备16047547号-2</a>
-            <a class="d-none d-xl-block" href="https://beian.miit.gov.cn/" target="_blank">鲁ICP备19015061号</a>
         </div>
         <div class="d-md-flex d-none">
             <img alt="global" class="footer-lang" src="./images/global.svg" />

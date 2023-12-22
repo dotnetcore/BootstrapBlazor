@@ -38,11 +38,8 @@
 
 .navbar-version {
     color: var(--bs-navbar-color);
-}
-
-.icon-theme {
-    border-left: 1px solid #dddddd40;
-    padding-left: 0.5rem;
+    border-right: 1px solid #dddddd40;
+    padding-right: 0.5rem;
 }
 
     .icon-theme img {
