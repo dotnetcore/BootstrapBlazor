@@ -36,7 +36,7 @@
 .select .form-select {
     background-image: none;
     background-color: var(--bs-body-bg);
-    border: 1px solid var(--bs-border-color);
+    border: var(--bs-border-width) solid var(--bs-border-color);
     border-radius: var(--bs-border-radius);
     padding: var(--bb-select-padding);
     cursor: pointer;
@@ -203,7 +203,7 @@
 .dropdown-menu .search {
     padding: var(--bb-select-search-padding);
     position: relative;
-    border-bottom: 1px solid var(--bb-select-search-border-color);
+    border-bottom: var(--bs-border-width) solid var(--bb-select-search-border-color);
     margin-bottom: var(--bb-select-search-margin-bottom);
 }
 
