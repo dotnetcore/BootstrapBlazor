@@ -25,7 +25,7 @@
         --bb-form-control-padding: #{$form-control-padding};
 
         &[readonly]:not([disabled]) {
-            background-color: #fff;
+            background-color: var(--bs-body-bg);
         }
     }
 
@@ -35,10 +35,10 @@
 }
 
 .picker-panel {
-    color: #606266;
-    border: 1px solid #ced4da;
+    color: var(--bs-body-color);
+    border: var(--bs-border-width) solid var(--bs-border-color);
     box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
-    background: #fff;
+    background: var(--bs-body-bg);
     border-radius: var(--bs-border-radius);
     line-height: 30px;
     display: inline-block;
@@ -50,7 +50,7 @@
 
         .date-picker-time-header {
             position: relative;
-            border-bottom: 1px solid #e4e4e4;
+            border-bottom: var(--bs-border-width) solid var(--bs-border-color);
             padding: 8px 5px 5px;
             display: table;
             width: 100%;
@@ -130,7 +130,7 @@
                     margin-top: 29px;
 
                     tr {
-                        border-top: 1px solid var(--bs-border-color);
+                        border-top: var(--bs-border-width) solid var(--bs-border-color);
                     }
                 }
 
@@ -170,7 +170,7 @@
                 }
 
                 .picker-panel-icon-btn {
-                    color: #303133;
+                    color: var(--bs-body-color);
                     border: 0;
                     background: transparent;
                     cursor: pointer;
@@ -210,7 +210,7 @@
         cursor: pointer;
 
         &[readonly] {
-            background-color: #fff;
+            background-color: var(--bs-body-bg);
         }
     }
 
@@ -251,9 +251,9 @@
 }
 
 .picker-panel-footer {
-    border-top: 1px solid #e4e4e4;
+    border-top: var(--bs-border-width) solid var(--bs-border-color);
     padding: 4px;
-    background-color: #fff;
+    background-color: var(--bs-body-bg);
     position: relative;
     display: flex;
     border-bottom-left-radius: var(--bs-border-radius);
@@ -264,11 +264,11 @@
         font-size: 0.75rem;
         border-radius: var(--bs-border-radius);
         line-height: 12px;
-        color: #606266;
+        color: var(--bs-body-color);
         transition: border-color .3s linear, color .3s linear;
 
         &.is-confirm {
-            border: 1px solid #dcdfe6;
+            border: var(--bs-border-width) solid var(--bs-border-color);
 
             &:hover {
                 border-color: #409eff;
@@ -306,13 +306,13 @@
     th {
         padding: 5px;
         font-weight: 400;
-        border-bottom: 1px solid var(--bs-border-color);
+        border-bottom: var(--bs-border-width) solid var(--bs-border-color);
         text-align: center;
     }
 
     td {
         &.next-month, &.prev-month {
-            color: #c0c4cc;
+            color: rgba(var(--bs-body-color-rgb), 0.5);
         }
 
         div {

@@ -15,7 +15,6 @@
     --bb-switch-inner-on-text-color: #{$bb-switch-inner-on-text-color};
     --bb-switch-inner-off-text-left: #{$bb-switch-inner-off-text-left};
     --bb-switch-inner-off-text-color: #{$bb-switch-inner-off-text-color};
-    --bb-switch-disabled-opacity: #{$bb-switch-disabled-opacity};
     --bb-switch-label-margin-left: #{$bb-switch-label-margin-left};
     display: inline-flex;
     align-items: center;
@@ -24,7 +23,7 @@
 }
 
     .switch.disabled {
-        opacity: var(--bb-switch-disabled-opacity);
+        opacity: .5;
     }
 
     .switch .switch-core {

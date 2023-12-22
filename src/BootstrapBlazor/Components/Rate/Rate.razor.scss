@@ -8,7 +8,6 @@
     --bb-rate-font-size: #{$bb-rate-font-size};
     --bb-rate-transform: #{$bb-rate-transform};
     --bb-rate-transition: #{$bb-rate-transition};
-    --bb-rate-disabled-color: var(--bb-disabled-color);
 
     .rate-item {
         width: var(--bb-rate-width);
@@ -44,7 +43,7 @@
 }
 
 .rate.disabled .rate-item i {
-    color: var(--bb-rate-disabled-color);
+    color: var(--bs-secondary-bg);
 }
 
 .rate:not(.disabled) .rate-item.is-on i {

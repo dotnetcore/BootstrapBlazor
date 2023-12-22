@@ -17,7 +17,6 @@
     --bb-calendar-cell-padding: #{$bb-calendar-cell-padding};
     --bb-calendar-cell-height: #{$bb-calendar-cell-height};
     --bb-calendar-cell-hover-bg: #{$bb-calendar-cell-hover-bg};
-    --bb-calendar-cell-disabled-color: var(--bb-disabled-color);
     --bb-calendar-header-padding: #{$bb-calendar-header-padding};
     --bb-calendar-today-color: #{$bb-calendar-today-color};
     --bb-calendar-selected-color: #{$bb-calendar-selected-color};
@@ -123,7 +122,7 @@
             }
 
             &:not(.is-range) td.next, &:not(.is-range) td.prev {
-                color: var(--bb-calendar-cell-disabled-color);
+                color: rgba(var(--bs-body-color-rgb), 0.5);
             }
         }
     }

@@ -28,11 +28,7 @@
         }
 
         &.disabled {
-            background-color: var(--bb-disabled-bg);
-
-            .multi-select-item-group {
-                opacity: var(--bb-disabled-opactiy);
-            }
+            background-color: var(--bs-secondary-bg);
         }
     }
 
