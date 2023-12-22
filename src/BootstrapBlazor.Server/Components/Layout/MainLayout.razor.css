@@ -22,14 +22,6 @@
     margin-bottom: 0;
 }
 
-::deep p code,
-::deep li code {
-    display: inline-block;
-    padding: 0px 8px;
-    margin: 0;
-    border-radius: var(--bs-border-radius);
-}
-
 ::deep .code-label {
     font-weight: bold;
     color: var(--bs-body-color);
