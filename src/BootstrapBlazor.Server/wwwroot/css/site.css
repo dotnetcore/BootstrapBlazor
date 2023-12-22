@@ -178,6 +178,10 @@
 }
 
 code {
+    display: inline-block;
+    padding: 0px 8px;
+    margin: 0;
+    border-radius: var(--bs-border-radius);
     background-color: #e9ecef;
 }
 
@@ -185,6 +189,22 @@ code {
     background-color: rgba(var(--bs-emphasis-color-rgb),.1);
 }
 
+.btn-copy {
+    position: absolute;
+    top: .65rem;
+    right: 1.5rem;
+    font-size: 65%;
+    --bs-btn-color: var(--bs-primary);
+    --bs-btn-bg: var(--bs-body-bg);
+    --bs-btn-padding-y: .25rem;
+    --bs-btn-padding-x: .5rem;
+}
+
+[data-bs-theme='dark'] .btn-copy {
+    --bs-btn-bg: rgba(255, 255, 255, 0.12);
+    --bs-btn-color: rgba(255, 255, 255, 0.45);
+    --bs-btn-border-color: #606266;
+}
 @media (min-width: 768px) {
     :root {
         --bs-header-height: 50px;
