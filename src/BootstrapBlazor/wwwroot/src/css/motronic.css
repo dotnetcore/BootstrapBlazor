@@ -368,12 +368,6 @@
 }
 /*end dropdown*/
 
-/*select*/
-.select {
-    --bb-select-disabled-bg: #f5f7fa;
-}
-/*end select*/
-
 /*tree*/
 .tree-view {
     --bb-tree-item-hover-color: var(--bs-primary);
