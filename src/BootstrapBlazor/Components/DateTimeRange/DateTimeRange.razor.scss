@@ -4,9 +4,9 @@
 
 .datetime-range {
     --bb-dt-range-bar-color: #{$dt-range-bar-color};
-    background-color: #fff;
+    background-color: var(--bs-body-bg);
     border-radius: var(--bs-border-radius);
-    border: 1px solid var(--bs-border-color);
+    border: var(--bs-border-width) solid var(--bs-border-color);
     display: inline-block;
     outline: none;
     transition: border-color .2s cubic-bezier(.645,.045,.355,1);
@@ -20,6 +20,10 @@
 
         input {
             @include bg;
+        }
+
+        .range-separator {
+            opacity: .5;
         }
     }
 
@@ -39,6 +43,7 @@
     align-items: center;
 
     .datetime-range-input {
+        background-color: var(--bs-body-bg);
         border: none;
         display: inline-block;
         text-align: center;
@@ -60,7 +65,7 @@
     }
 
     .picker-panel:first-child {
-        border-right: 1px solid #ced4da;
+        border-right: var(--bs-border-width) solid var(--bs-border-color);
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
     }

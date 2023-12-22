@@ -105,7 +105,7 @@
 
                         &.range {
                             div {
-                                background-color: #f2f6fc;
+                                background-color: var(--bs-secondary-bg);
                             }
 
                             &.start {
@@ -120,7 +120,7 @@
                         &.disabled {
                             .cell {
                                 cursor: not-allowed;
-                                color: #c0c4cc;
+                                color: var(--bs-secondary-bg);
                             }
                         }
                     }
