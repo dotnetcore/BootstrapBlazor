@@ -10,7 +10,7 @@
     height: 50px;
     align-items: center;
     padding: 1rem;
-    border-bottom: solid 1px #c0c4cc;
+    border-bottom: solid 1px var(--bs-border-color);
     display: none;
 }
 
@@ -57,9 +57,8 @@
         height: calc(100vh);
         position: sticky;
         top: 0;
-        border-right: solid 1px #c0c4cc;
-        background-color: #f0f0f0;
-        margin-top: calc(var(--bs-header-height)*-1);
+        border-right: solid 1px var(--bs-border-color);
+        margin-top: calc(var(--bs-header-height) * -1);
     }
 
     .main {

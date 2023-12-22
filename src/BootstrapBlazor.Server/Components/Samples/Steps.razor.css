@@ -1,9 +1,9 @@
 ﻿.step-demo ::deep .step {
+    --step-item-color: #ccc;
     background-color: #f8f9fa;
     padding: 0 1rem;
     border-radius: var(--bs-border-radius);
-    border: 1px solid #ddd;
-    --step-item-color: #ccc;
+    border: var(--bs-border-width) solid var(--bs-border-color);
 }
 
 .step-demo .fa-chevron-right {

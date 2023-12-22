@@ -226,9 +226,7 @@ $form-control-padding: 6px 33px;
 $dt-range-bar-color: #b5b5c3;
 
 // Divider
-$bb-divider-bg: #dcdfe6;
 $bb-divider-margin: 1rem 0;
-$bb-divider-text-color: #303133;
 $bb-divider-text-padding: 0 20px;
 
 // Drawer
@@ -379,6 +377,7 @@ $bb-menu-min-width: 160px;
 $bb-menu-active-color: #409eff;
 $bb-menu-bar-bg: #409eff;
 $bb-menu-item-hover-bg: #409eff;
+$bb-menu-item-hover-color: var(--bs-body-color);
 $bb-menu-sub-bg: var(--bs-body-bg);
 $bb-disabled-bg: #ddd;
 
@@ -472,7 +471,6 @@ $bb-segmented-text-margin-left: 4px;
 // Select
 $bb-dropdown-link-pre-active-bg: #498ff7;
 $bb-select-focus-shadow: none;
-$bb-select-bg: #fff;
 $bb-select-padding: 6px 2.25rem 6px 0.75rem;
 $bb-select-search-padding: 7px 10px;
 $bb-select-search-margin-bottom: .5rem;
@@ -547,12 +545,9 @@ $bb-switch-label-margin-left: 10px;
 // Tab
 $bb-tabs-item-padding: 0 1rem;
 $bb-tabs-item-height: 40px;
-$bb-tabs-item-active-bg: #fff;
 $bb-tabs-item-active-color: #409eff;
 $bb-tabs-item-hover-color: #409eff;
 $bb-tabs-border-card-top-item-margin-top: -1px;
-$bb-tabs-border-color: #e4e7ed;
-$bb-tabs-border-card-header-bg-color: #f5f7fa;
 $bb-tabs-bar-width: 40px;
 $bb-tabs-bar-height: 40px;
 $bb-tabs-bar-bg: #409eff;

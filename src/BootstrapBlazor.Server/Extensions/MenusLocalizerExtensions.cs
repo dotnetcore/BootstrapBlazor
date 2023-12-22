@@ -108,7 +108,7 @@ internal static class MenusLocalizerExtensions
         item = new DemoMenuItem()
         {
             Text = Localizer["Components"],
-            Icon = "text-info fa-solid fa-fw fa-heart fa-beat",
+            Icon = "fa-solid fa-fw fa-heart fa-beat icon-summary",
             Url = "components"
         };
         AddSummary(item);

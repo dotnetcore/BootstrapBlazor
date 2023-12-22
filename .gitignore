@@ -376,4 +376,4 @@ src/**/wwwroot/**/uploader
 # sass
 **/BootstrapBlazor/wwwroot/scss/theme/*.css
 **/BootstrapBlazor/wwwroot/scss/theme/*.css.map
-**/BootstrapBlazor/wwwroot/css/bootstrap.blazor.bundle.min.css
+**/BootstrapBlazor/wwwroot/css/*.css
