@@ -5,6 +5,8 @@
     --bb-segmented-item-height: #{$bb-segmented-item-height};
     --bb-segmented-item-font-size: #{$bb-segmented-item-font-size};
     --bb-segmented-item-selected-bg: #{$bb-segmented-item-selected-bg};
+    --bb-segmented-item-hover-bg: #{$bb-segmented-item-hover-bg};
+    --bb-segmented-item-active-bg: #{$bb-segmented-item-active-bg};
     --bb-segmented-item-border-radius: #{$bb-segmented-item-border-radius};
     --bb-segmented-item-lg-height: #{$bb-segmented-item-lg-height};
     --bb-segmented-item-lg-padding: #{$bb-segmented-item-lg-padding};
@@ -79,11 +81,11 @@
         }
 
         &:hover:not(.selected):not(.disabled):not(.moving):after {
-            background-color: rgba(0,0,0,.06);
+            background-color: var(--bb-segmented-item-hover-bg);
         }
 
         &:active:not(.selected):not(.disabled):not(.moving):after {
-            background-color: rgba(0,0,0,.15);
+            background-color: var(--bb-segmented-item-active-bg);
         }
 
         &:after {
@@ -111,4 +113,6 @@
 [data-bs-theme='dark'] .segmented {
     --bb-segmented-bg: #{$bb-segmented-bg-dark};
     --bb-segmented-item-selected-bg: #{$bb-segmented-item-selected-bg-dark};
+    --bb-segmented-item-hover-bg: #{$bb-segmented-item-hover-bg-dark};
+    --bb-segmented-item-active-bg: #{$bb-segmented-item-active-bg-dark};
 }
