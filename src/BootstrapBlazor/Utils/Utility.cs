@@ -666,9 +666,9 @@ public static class Utility
     /// <param name="fieldName">字段名称</param>
     /// <param name="item">IEditorItem 实例</param>
     /// <returns></returns>
-    private static IEnumerable<KeyValuePair<string, object>> CreateMultipleAttributes(Type fieldType, object model, string fieldName, IEditorItem item)
+    private static Dictionary<string, object> CreateMultipleAttributes(Type fieldType, object model, string fieldName, IEditorItem item)
     {
-        var ret = new List<KeyValuePair<string, object>>();
+        var ret = new Dictionary<string, object>();
         var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
         switch (type.Name)
         {
@@ -676,11 +676,11 @@ public static class Utility
                 var ph = item.PlaceHolder ?? Utility.GetPlaceHolder(model, fieldName);
                 if (ph != null)
                 {
-                    ret.Add(new("placeholder", ph));
+                    ret.Add("placeholder", ph);
                 }
                 if (item.Rows != 0)
                 {
-                    ret.Add(new("rows", item.Rows));
+                    ret.Add("rows", item.Rows);
                 }
                 break;
             case nameof(Int16):
@@ -689,13 +689,9 @@ public static class Utility
             case nameof(Single):
             case nameof(Double):
             case nameof(Decimal):
-                if (item.Step != null)
+                if (!string.IsNullOrEmpty(item.Step))
                 {
-                    var step = item.Step.ToString();
-                    if (!string.IsNullOrEmpty(step))
-                    {
-                        ret.Add(new("Step", step));
-                    }
+                    ret.Add("Step", item.Step);
                 }
                 break;
         }
