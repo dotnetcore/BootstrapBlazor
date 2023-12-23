@@ -112,10 +112,10 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public bool HeaderTextEllipsis { get; set; }
 
     /// <summary>
-    /// 获得/设置 步长 默认为 null
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public object? Step { get; set; }
+    public string? Step { get; set; }
 
     /// <summary>
     /// 获得/设置 Textarea 行数 默认为 0

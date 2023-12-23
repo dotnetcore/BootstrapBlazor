@@ -84,7 +84,7 @@ class InternalTableColumn : ITableColumn
 
     public bool Readonly { get; set; }
 
-    public object? Step { get; set; }
+    public string? Step { get; set; }
 
     public int Rows { get; set; }
 

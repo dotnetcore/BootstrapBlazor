@@ -32,7 +32,7 @@ internal class MockTableColumn : ITableColumn
 
     public IEnumerable<SelectedItem>? Items { get; set; }
 
-    public object? Step { get; set; }
+    public string? Step { get; set; }
 
     public int Rows { get; set; }
 
