@@ -54,7 +54,7 @@ public class AutoGenerateClassTest
             PlaceHolder = "test_holder",
             Formatter = null,
             ComponentType = typeof(Select<string>),
-            Step = 1,
+            Step = "1",
             Rows = 1,
             LookupStringComparison = StringComparison.Ordinal,
             LookupServiceKey = "test-lookup",
@@ -83,7 +83,7 @@ public class AutoGenerateClassTest
         Assert.Equal("test_holder", attr.PlaceHolder);
         Assert.Null(attr.Formatter);
         Assert.Equal(typeof(Select<string>), attr.ComponentType);
-        Assert.Equal(1, attr.Step);
+        Assert.Equal("1", attr.Step);
         Assert.Equal(1, attr.Rows);
         Assert.Equal(StringComparison.Ordinal, attr.LookupStringComparison);
         Assert.Equal("Test", attr.GroupName);

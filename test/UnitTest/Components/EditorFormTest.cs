@@ -264,7 +264,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
                     builder.OpenComponent<EditorItem<Foo, int>>(index++);
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, int>.Field), f.Count);
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, int>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Count), typeof(int)));
-                    builder.AddAttribute(index++, nameof(EditorItem<Foo, int>.Step), 3);
+                    builder.AddAttribute(index++, nameof(EditorItem<Foo, int>.Step), "3");
                     builder.CloseComponent();
 
                     builder.OpenComponent<EditorItem<Foo, bool>>(index++);

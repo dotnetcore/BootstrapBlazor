@@ -146,9 +146,9 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     RenderFragment? ITableColumn.FilterTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 步长 默认为 1
+    /// <inheritdoc/>
     /// </summary>
-    public object? Step { get; set; }
+    public string? Step { get; set; }
 
     /// <summary>
     /// 获得/设置 Textarea 行数

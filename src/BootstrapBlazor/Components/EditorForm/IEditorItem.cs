@@ -61,9 +61,9 @@ public interface IEditorItem
     IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 步长 默认为 null
+    /// 获得/设置 步长 默认为 null 设置 any 时忽略检查
     /// </summary>
-    object? Step { get; set; }
+    string? Step { get; set; }
 
     /// <summary>
     /// 获得/设置 Textarea 行数 默认为 0
