@@ -198,7 +198,7 @@ public class TableFilterTest : BootstrapBlazorTestBase
         builder.AddAttribute(index++, nameof(TableColumn<Cat, double>.Field), cat.P4);
         builder.AddAttribute(index++, nameof(TableColumn<Cat, double>.FieldExpression), Utility.GenerateValueExpression(cat, nameof(Cat.P4), typeof(double)));
         builder.AddAttribute(index++, nameof(TableColumn<Cat, double>.Filterable), true);
-        builder.AddAttribute(index++, nameof(TableColumn<Cat, double>.Step), 0.02);
+        builder.AddAttribute(index++, nameof(TableColumn<Cat, double>.Step), "0.02");
         builder.CloseComponent();
 
         builder.OpenComponent<TableColumn<Cat, decimal>>(index++);
