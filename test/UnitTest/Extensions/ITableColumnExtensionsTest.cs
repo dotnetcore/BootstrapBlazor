@@ -94,7 +94,7 @@ public class ITableColumnExtensionsTest
             ShowSearchWhenSelect = true,
             IsPopover = true,
             ShowCopyColumn = true,
-            Step = 0.01,
+            Step = "0.01",
             Order = -1,
             IsMarkupString = true
         };
@@ -147,7 +147,7 @@ public class ITableColumnExtensionsTest
         Assert.True(col.ShowSearchWhenSelect);
         Assert.True(col.IsPopover);
         Assert.True(col.ShowCopyColumn);
-        Assert.Equal(0.01, col.Step);
+        Assert.Equal("0.01", col.Step);
         Assert.Equal(-1, col.Order);
 
         Assert.True(col.IsMarkupString);
