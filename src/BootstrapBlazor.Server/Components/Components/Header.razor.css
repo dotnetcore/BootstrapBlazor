@@ -40,15 +40,16 @@
     color: var(--bs-navbar-color);
     border-right: 1px solid #dddddd40;
     padding-right: 0.5rem;
+    white-space: nowrap;
 }
 
-    .icon-theme img {
-        cursor: pointer;
-    }
+.icon-theme img {
+    cursor: pointer;
+}
 
-    .icon-theme .icon-dark {
-        display: none;
-    }
+.icon-theme .icon-dark {
+    display: none;
+}
 
 [data-bs-theme='dark'] .icon-dark {
     display: block;

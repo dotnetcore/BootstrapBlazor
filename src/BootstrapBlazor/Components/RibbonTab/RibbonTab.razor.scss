@@ -6,8 +6,6 @@
     --bb-ribbon-menu-radius: #{$bb-ribbon-menu-radius};
     --bb-ribbon-menu-padding: #{$bb-ribbon-menu-padding};
     --bb-ribbon-menu-border-color: #{$bb-ribbon-menu-border-color};
-    --bb-ribbon-menu-bg: #{$bb-ribbon-menu-bg};
-    --bb-ribbon-menu-color: #{$bb-ribbon-menu-color};
     --bb-ribbon-menu-hover-color: #{$bb-ribbon-menu-hover-color};
     --bb-ribbon-button-hover-bg: #{$bb-ribbon-button-hover-bg};
     --bb-ribbon-button-hover-border-color: #{$bb-ribbon-button-hover-border-color};
@@ -36,7 +34,8 @@
 }
 
 .ribbon-tab .ribbon-header .tabs-header {
-    background-color: var(--bb-ribbon-menu-bg);
+    background-color: var(--bs-body-bg);
+    border-bottom: 1px solid var(--bs-border-color);
 }
 
 .ribbon-tab .ribbon-header .tabs-border-card.tabs-top .tabs-header {
@@ -74,7 +73,7 @@
 }
 
 .ribbon-tab .ribbon-header .tabs-border-card .tabs-header .tabs-item:not(:hover):not(.active) {
-    color: var(--bb-ribbon-menu-color);
+    color: var(--bs-body-color);
 }
 
 .ribbon-tab .ribbon-header .tabs-border-card .tabs-header .tabs-item:hover {

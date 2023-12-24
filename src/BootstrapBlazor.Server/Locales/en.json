@@ -1796,7 +1796,7 @@
     "MenusClickShrinkDescription": "In this example, the layout component <code>Layout</code> is used to build a web page",
     "Block7aTitle": "Click expand to shrink the left menu",
     "MenusClickShrinkSpanSpan": "I am the title of the website",
-    "MenusClickShrinkMenuTitle": "Backstage management",
+    "MenusClickShrinkMenuTitle": "Admin",
     "MenusWidgetTitle": "Menu with pendant",
     "MenusWidgetIntro": "Set the custom component into the menu by setting the <code>Component</code> property of the MenuItem</code> <code>",
     "MenusCustomNodeTitle": "Custom node shrinkage",

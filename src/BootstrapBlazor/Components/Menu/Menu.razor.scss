@@ -37,7 +37,6 @@
 .menu .nav .nav-link,
 .cascade .dropdown-item {
     padding: 0.5rem 1rem;
-    color: rgba(0,0,0,.65);
     user-select: none;
     white-space: nowrap;
     position: relative;
@@ -137,7 +136,6 @@
     display: flex;
     align-items: center;
     line-height: 21px;
-    color: inherit;
     transition: background-color .3s linear, color .3s linear;
 }
 
