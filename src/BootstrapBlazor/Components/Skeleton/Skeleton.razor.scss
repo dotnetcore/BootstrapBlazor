@@ -1,4 +1,4 @@
-﻿.skeleton {
+.skeleton {
     width: 100%;
     flex: 1;
 }
@@ -12,9 +12,9 @@
     background-color: #e9ecef;
 }
 
-    .skeleton-row:not(:last-child) {
-        margin-bottom: 0.5rem;
-    }
+.skeleton-row:not(:last-child) {
+    margin-bottom: 0.5rem;
+}
 
 .skeleton-content.round .skeleton-col,
 .skeleton-content.round .tree-node {
@@ -71,37 +71,37 @@
 .skeleton-table,
 .skeleton-buttons {
     border-radius: var(--bs-border-radius);
-    border: 1px solid #dee2e6;
+    border: var(--bs-border-width) solid var(--bs-border-color);
     overflow: hidden;
 }
 
-    .skeleton-table .skeleton-content .skeleton-row {
-        background: #fff;
-        display: flex;
-        height: 39px;
-        padding: .5rem;
-        margin: 0;
-    }
+.skeleton-table .skeleton-content .skeleton-row {
+    background: var(--bs-body-bg);
+    display: flex;
+    height: 39px;
+    padding: .5rem;
+    margin: 0;
+}
 
-        .skeleton-table .skeleton-content .skeleton-row:nth-of-type(odd):not(:first-of-type) {
-            background: #f5f8fabf;
-        }
+.skeleton-table .skeleton-content .skeleton-row:nth-of-type(odd) {
+    background-color: #f5f8fabf;
+}
 
-        .skeleton-table .skeleton-content .skeleton-row:first-of-type {
-            border-bottom: 2px solid var(--bs-secondary);
-        }
+.skeleton-table .skeleton-content .skeleton-row:first-of-type {
+    border-bottom: 2px solid var(--bs-secondary);
+}
 
-        .skeleton-table .skeleton-content .skeleton-row .skeleton-col,
-        .skeleton.tree .tree-item .tree-node {
-            flex: 1;
-            background-color: #e9ecef;
-            margin: 5px;
-            height: 12.5px;
-        }
+.skeleton-table .skeleton-content .skeleton-row .skeleton-col,
+.skeleton.tree .tree-item .tree-node {
+    flex: 1;
+    background-color: #e9ecef;
+    margin: 5px;
+    height: 12.5px;
+}
 
-    .skeleton-table .skeleton-row:first-of-type .skeleton-col {
-        background: #ddd;
-    }
+.skeleton-table .skeleton-row:first-child .skeleton-col {
+    background-color: #ddd;
+}
 
 .skeleton-toolbar {
     height: var(--bb-height);
@@ -121,9 +121,9 @@
     border-color: var(--bs-secondary);
 }
 
-    .skeleton-button:not(:last-child) {
-        border-right: 1px solid #ddd;
-    }
+.skeleton-button:not(:last-child) {
+    border-right: 1px solid #ddd;
+}
 
 .skeleton .tree-node {
     background-color: #e9ecef;
