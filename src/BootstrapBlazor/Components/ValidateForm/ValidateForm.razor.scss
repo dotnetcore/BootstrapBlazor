@@ -14,7 +14,7 @@ form {
 
     .form-label[required]:before {
         content: "*";
-        color: red;
+        color: var(--bs-danger);
     }
 }
 

@@ -9,6 +9,7 @@
     }
 
     .ipv4-cell {
+        background-color: var(--bs-body-bg);
         border: none;
         max-width: var(--bb-ip-cell-max-width);
         text-align: right;

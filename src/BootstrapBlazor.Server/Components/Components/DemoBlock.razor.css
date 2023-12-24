@@ -1,5 +1,5 @@
 ﻿.card {
-    transition: all .3s linear;
+    transition: box-shadow .3s linear;
 }
 
     .card:hover {
