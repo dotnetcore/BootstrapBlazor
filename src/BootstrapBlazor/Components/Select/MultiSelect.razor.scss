@@ -1,8 +1,8 @@
 .multi-select {
     --bb-multi-select-min-height: 35px;
     --bb-multi-select-max-height: 65px;
-    --bb-multi-select-button-bg-color: #e9ecef;
-    --bb-multi-select-button-hover-bg-color: #dee2e6;
+    --bb-multi-select-button-bg-color: rgba(var(--bs-body-color-rgb), .15);
+    --bb-multi-select-button-hover-bg-color: rgba(var(--bs-body-color-rgb), .3);
     --bb-multi-select-item-margin-x: 3px;
     --bb-multi-select-item-margin-y: 3px;
     --bb-multi-select-item-padding: 2px 6px;
