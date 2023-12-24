@@ -260,7 +260,7 @@ $bb-filter-item-btn-hover-border-color: #409eff;
 $bb-filter-row-input-min-width: 50px;
 
 // Footer
-$bb-footer-bg: var(--bs-secondary);
+$bb-footer-bg: rgba(var(--bs-body-color-rgb), .12);
 $bb-footer-padding: .5rem 1rem;
 
 // GoTop
