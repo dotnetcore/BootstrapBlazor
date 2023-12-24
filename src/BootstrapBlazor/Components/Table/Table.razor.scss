@@ -626,8 +626,8 @@ tr.active:not(.is-edit):hover {
 }
 
 .table-bordered thead tr:last-child > th {
-    border-bottom-width: 2px !important;
-    border-bottom-color: var(--bs-secondary);
+    border-bottom-width: 2px;
+    border-bottom-color: rgba(var(--bs-body-color-rgb), 0.125);
 }
 
 .table-striped > tbody > tr.is-master:nth-of-type(4n+1) {
