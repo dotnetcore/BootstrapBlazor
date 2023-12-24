@@ -47,7 +47,7 @@
 <DemoBlock Title="@Localizer["RibbonTabsAnchorTitle"]"
            Introduction="@Localizer["RibbonTabsAnchorIntro"]"
            Name="IsSupportAnchor">
-    <p>@((MarkupString)Localizer["RibbonTabsAnchorDesc"].Value)</p>
+    <section ignore class="mb-3">@((MarkupString)Localizer["RibbonTabsAnchorDesc"].Value)</section>
     <RibbonTab Items="@AnchorItems" IsSupportAnchor="true" EncodeAnchorCallback="EncodeAnchorCallback" DecodeAnchorCallback="DecodeAnchorCallback"></RibbonTab>
 </DemoBlock>
 

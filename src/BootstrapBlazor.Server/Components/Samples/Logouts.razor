@@ -8,15 +8,19 @@
 <DemoBlock Title="@Localizer["LogoutsNormalTitle"]"
            Introduction="@Localizer["LogoutsNormalIntro"]"
            Name="Normal">
-    <Logout ImageUrl="./images/Argo.png" DisplayName="Administrators" UserName="Admin" class="bg-secondary" />
-    <div style="height: 80px;"></div>
+    <div class="logout-custom">
+        <Logout ImageUrl="./images/Argo.png" DisplayName="Administrators" UserName="Admin" />
+        <div style="height: 80px;"></div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LogoutsShowUserNameTitle"]"
            Introduction="@Localizer["LogoutsShowUserNameIntro"]"
            Name="ShowUserName">
-    <Logout ImageUrl="./images/Argo.png" DisplayName="Administrators" UserName="Admin" ShowUserName="false" class="bg-secondary" />
-    <div style="height: 80px;"></div>
+    <div class="logout-custom">
+        <Logout ImageUrl="./images/Argo.png" DisplayName="Administrators" UserName="Admin" ShowUserName="false" />
+        <div style="height: 80px;"></div>
+    </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LogoutsChildContentTitle"]"
