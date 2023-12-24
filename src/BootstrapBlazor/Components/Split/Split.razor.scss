@@ -1,7 +1,6 @@
 .split {
     --bb-split-bar-height: #{$bb-split-bar-height};
-    --bb-split-var-bg: #{$bb-split-var-bg};
-    --bb-split-bar-color: #{$bb-split-bar-color};
+    --bb-split-bar-hover-bg: #{$bb-split-bar-hover-bg};
     display: block;
     height: 100%;
     width: 100%;
@@ -35,7 +34,6 @@
         align-items: center;
         height: var(--bb-split-bar-height);
         width: 100%;
-        background: var(--bb-split-bar-bg);
         border: 1px solid var(--bs-border-color);
         border-left: none;
         border-right: none;
@@ -45,7 +43,7 @@
 
     .split-bar:hover,
     &.dragging > .split-wrapper > .split-bar {
-        background-color: var(--bb-split-bar-color);
+        background-color: var(--bb-split-bar-hover-bg);
     }
 
     .split-bar:hover .split-trigger-bar,
@@ -61,7 +59,7 @@
     .split-bar .split-trigger-bar {
         width: 1px;
         height: 4px;
-        background: rgba(23,35,61,.25);
+        background: rgba(var(--bs-body-color-rgb), .25);
         margin-left: 3px;
         display: inline-block;
     }
