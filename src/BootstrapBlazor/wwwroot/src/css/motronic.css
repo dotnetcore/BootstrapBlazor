@@ -103,10 +103,6 @@
     --bs-table-hover-bg: rgba(var(--bs-emphasis-color-rgb), 0.075);
 }
 
-.table > :not(:last-child) > :last-child > * {
-    border-bottom-color: var(--bs-secondary);
-}
-
 .table-filter .card-header {
     border-bottom: 1px solid var(--bs-secondary);
     background-color: var(--bs-secondary);
