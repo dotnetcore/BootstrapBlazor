@@ -474,6 +474,14 @@ $bb-select-search-height: 60px;
 $bb-select-append-width: 30px;
 $bb-select-append-color: #c0c4cc;
 
+// Skeleton
+$bb-skeleton-table-header-bg: rgba(var(--bs-body-color-rgb), 0.25);
+$bb-skeleton-striped-row-bg: rgba(var(--bs-body-color-rgb), 0.05);
+$bb-skeleton-button-bg: rgba(var(--bs-body-color-rgb), 0.12);
+$bb-skeleton-button-divider-color: rgba(var(--bs-body-color-rgb), 0.1);
+$bb-skeleton-gradient-from-color: rgba(var(--bs-body-color-rgb), 0.06);
+$bb-skeleton-gradient-to-color: rgba(var(--bs-body-color-rgb), 0.15);
+
 // Slider
 $bb-form-range-height: 1rem;
 $bb-form-range-margin-top: 6px;

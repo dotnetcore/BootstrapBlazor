@@ -1,11 +1,10 @@
 .skeleton {
-    --bb-skeleton-bg: var(--bs-body-color);
-    --bb-skeleton-table-header-bg: rgba(var(--bs-body-color-rgb), 0.25);
-    --bb-skeleton-striped-row-bg: rgba(var(--bs-body-color-rgb), 0.05);
-    --bb-skeleton-button-bg: rgba(var(--bs-body-color-rgb), 0.12);
-    --bb-skeleton-button-divider-color: rgba(var(--bs-body-color-rgb), 0.1);
-    --bb-skeleton-gradient-from-color: rgba(var(--bs-body-color-rgb), 0.06);
-    --bb-skeleton-gradient-to-color: rgba(var(--bs-body-color-rgb), 0.15);
+    --bb-skeleton-table-header-bg: #{$bb-skeleton-table-header-bg};
+    --bb-skeleton-striped-row-bg: #{$bb-skeleton-striped-row-bg};
+    --bb-skeleton-button-bg: #{$bb-skeleton-button-bg};
+    --bb-skeleton-button-divider-color: #{$bb-skeleton-button-divider-color};
+    --bb-skeleton-gradient-from-color: #{$bb-skeleton-gradient-from-color};
+    --bb-skeleton-gradient-to-color: #{$bb-skeleton-gradient-to-color};
     width: 100%;
     flex: 1;
 
