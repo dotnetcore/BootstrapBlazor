@@ -75,7 +75,7 @@ public partial class Waterfall
         scrollTimer?.Change(500, Timeout.Infinite);
     }
 
-    private async Task ScrollEnd()
+    private Task ScrollEnd()
     {
         if (!_onload)
         {
@@ -95,6 +95,7 @@ public partial class Waterfall
             //}
             //_onload = false;
         }
+        return Task.CompletedTask;
     }
 
     /// <summary>
