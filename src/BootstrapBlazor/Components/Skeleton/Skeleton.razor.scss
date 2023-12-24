@@ -1,4 +1,11 @@
 .skeleton {
+    --bb-skeleton-bg: var(--bs-body-color);
+    --bb-skeleton-table-header-bg: rgba(var(--bs-body-color-rgb), 0.25);
+    --bb-skeleton-striped-row-bg: rgba(var(--bs-body-color-rgb), 0.05);
+    --bb-skeleton-button-bg: rgba(var(--bs-body-color-rgb), 0.12);
+    --bb-skeleton-button-divider-color: rgba(var(--bs-body-color-rgb), 0.1);
+    --bb-skeleton-gradient-from-color: rgba(var(--bs-body-color-rgb), 0.06);
+    --bb-skeleton-gradient-to-color: rgba(var(--bs-body-color-rgb), 0.15);
     width: 100%;
     flex: 1;
 }
@@ -9,7 +16,7 @@
 
 .skeleton-row {
     min-height: 32px;
-    background-color: #e9ecef;
+    background-color: var(--bb-skeleton-gradient-from-color);
 }
 
 .skeleton-row:not(:last-child) {
@@ -24,10 +31,8 @@
 .skeleton-content.active .skeleton-col,
 .skeleton-content.active .skeleton-avatar,
 .skeleton-content.active .tree-node {
-    background: -webkit-gradient(linear,left top,right top,color-stop(25%,#f2f2f2),color-stop(37%,#e6e6e6),color-stop(63%,#f2f2f2));
-    background: linear-gradient(90deg,#f2f2f2 25%,#e6e6e6 37%,#f2f2f2 63%);
+    background: linear-gradient(90deg,var(--bb-skeleton-gradient-from-color) 25%,var(--bb-skeleton-gradient-to-color) 37%,var(--bb-skeleton-gradient-from-color) 63%);
     background-size: 400% 100%;
-    -webkit-animation: skeleton-loading 1.4s ease infinite;
     animation: skeleton-loading 1.4s ease infinite;
 }
 
@@ -84,21 +89,21 @@
 }
 
 .skeleton-table .skeleton-content .skeleton-row:nth-of-type(even) {
-    background-color: #f5f8fabf;
+    background-color: var(--bb-skeleton-striped-row-bg);
 }
 
 .skeleton-table .skeleton-content .skeleton-row:first-of-type {
-    border-bottom: 2px solid var(--bs-secondary);
+    border-bottom: 2px solid var(--bb-skeleton-table-header-bg);
 
     .skeleton-col {
-        background: #ddd;
+        background: var(--bb-skeleton-table-header-bg);
     }
 }
 
 .skeleton-table .skeleton-content .skeleton-row .skeleton-col,
 .skeleton.tree .tree-item .tree-node {
     flex: 1;
-    background-color: #e9ecef;
+    background-color: var(--bb-skeleton-gradient-from-color);
     margin: 5px;
     height: 12.5px;
 }
@@ -117,12 +122,11 @@
 .skeleton-button {
     height: var(--bb-height);
     width: 70px;
-    background-color: var(--bs-secondary);
-    border-color: var(--bs-secondary);
+    background-color: var(--bb-skeleton-button-bg);
 }
 
 .skeleton-button:not(:last-child) {
-    border-right: 1px solid #ddd;
+    border-right: 1px solid var(--bb-skeleton-button-divider-color);
 }
 
 .skeleton .tree-node {
