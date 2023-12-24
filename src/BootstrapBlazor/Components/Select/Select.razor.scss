@@ -90,10 +90,14 @@
     height: 0;
     border-width: 0 6px 6px;
     border-style: solid;
-    border-color: transparent transparent #fff;
+    border-color: transparent transparent var(--bs-body-bg);
     position: absolute;
     top: 1px;
     left: -6px;
+}
+
+[data-bs-theme='dark'] .dropdown-menu-arrow:after {
+    content: none;
 }
 
 .show > .dropdown-menu,
