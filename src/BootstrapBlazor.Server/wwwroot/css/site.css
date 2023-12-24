@@ -193,7 +193,7 @@ code {
     background-color: rgba(var(--bs-emphasis-color-rgb),.1);
 }
 
-.btn-copy {
+.btn-code {
     position: absolute;
     top: .65rem;
     right: 1.5rem;
@@ -204,7 +204,7 @@ code {
     --bs-btn-padding-x: .5rem;
 }
 
-[data-bs-theme='dark'] .btn-copy {
+[data-bs-theme='dark'] .btn-code {
     --bs-btn-bg: rgba(255, 255, 255, 0.12);
     --bs-btn-color: rgba(255, 255, 255, 0.45);
     --bs-btn-border-color: #606266;

@@ -36,6 +36,7 @@
 
 .menu .nav .nav-link,
 .cascade .dropdown-item {
+    --bs-nav-link-color: var(--bs-body-color);
     padding: 0.5rem 1rem;
     user-select: none;
     white-space: nowrap;
