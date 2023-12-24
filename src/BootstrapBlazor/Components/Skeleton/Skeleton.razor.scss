@@ -83,12 +83,16 @@
     margin: 0;
 }
 
-.skeleton-table .skeleton-content .skeleton-row:nth-of-type(odd) {
+.skeleton-table .skeleton-content .skeleton-row:nth-of-type(even) {
     background-color: #f5f8fabf;
 }
 
 .skeleton-table .skeleton-content .skeleton-row:first-of-type {
     border-bottom: 2px solid var(--bs-secondary);
+
+    .skeleton-col {
+        background: #ddd;
+    }
 }
 
 .skeleton-table .skeleton-content .skeleton-row .skeleton-col,
@@ -97,10 +101,6 @@
     background-color: #e9ecef;
     margin: 5px;
     height: 12.5px;
-}
-
-.skeleton-table .skeleton-row:first-child .skeleton-col {
-    background-color: #ddd;
 }
 
 .skeleton-toolbar {
