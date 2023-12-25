@@ -4,7 +4,7 @@
     --bb-segmented-item-padding: #{$bb-segmented-item-padding};
     --bb-segmented-item-height: #{$bb-segmented-item-height};
     --bb-segmented-item-font-size: #{$bb-segmented-item-font-size};
-    --bb-segmented-item-selected-bg: #{$bb-segmented-item-selected-bg};
+    --bb-segmented-item-selected-bg: var(--bs-body-bg);
     --bb-segmented-item-hover-bg: #{$bb-segmented-item-hover-bg};
     --bb-segmented-item-active-bg: #{$bb-segmented-item-active-bg};
     --bb-segmented-item-border-radius: #{$bb-segmented-item-border-radius};
@@ -62,17 +62,17 @@
 
         &.mask {
             background-color: var(--bb-segmented-item-selected-bg);
-            box-shadow: 0 1px 2px 0 rgba(0,0,0,.03), 0 1px 6px -1px rgba(0,0,0,.02), 0 2px 4px 0 rgba(0,0,0,.02);
+            box-shadow: 0 1px 2px 0 rgba(var(--bs-body-color-rgb),.03), 0 1px 6px -1px rgba(var(--bs-body-color-rgb),.02), 0 2px 4px 0 rgba(var(--bs-body-color-rgb),.02);
             pointer-events: none;
             position: absolute;
             left: 0;
-            transition: all .3s ease-in-out;
+            transition: transform .3s ease-in-out, width .3s ease-in-out;
             visibility: hidden;
         }
 
         &.selected {
             background-color: var(--bb-segmented-item-selected-bg);
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
+            box-shadow: 0 1px 2px 0 rgba(var(--bs-body-color-rgb),.03), 0 1px 6px -1px rgba(var(--bs-body-color-rgb),.02), 0 2px 4px 0 rgba(var(--bs-body-color-rgb),.02);
         }
 
         &.disabled {
@@ -108,4 +108,8 @@
             --bb-segmented-text-margin-left: 0;
         }
     }
+}
+
+[data-bs-theme='dark'] .segmented {
+  --bb-segmented-item-selected-bg: rgba(var(--bs-body-color-rgb),.12);
 }

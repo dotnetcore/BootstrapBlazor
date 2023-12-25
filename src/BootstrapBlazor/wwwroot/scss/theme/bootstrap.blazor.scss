@@ -440,13 +440,12 @@ $bb-scroll-track-bg: rgba(var(--bs-emphasis-color-rgb),0.08);
 
 // Segmented
 $bb-segmented-padding: 2px;
-$bb-segmented-bg: rgba(var(--bs-emphasis-color-rgb),.06);
+$bb-segmented-bg: rgba(var(--bs-body-color-rgb),.06);
 $bb-segmented-item-padding: 0 11px;
 $bb-segmented-item-height: 28px;
 $bb-segmented-item-font-size: 0.875rem;
-$bb-segmented-item-selected-bg: rgba(var(--bs-body-bg-rgb),0.6);
-$bb-segmented-item-hover-bg: rgba(var(--bs-emphasis-color-rgb),.06);
-$bb-segmented-item-active-bg: rgba(var(--bs-emphasis-color-rgb),.15);
+$bb-segmented-item-hover-bg: rgba(var(--bs-body-color-rgb),.12);
+$bb-segmented-item-active-bg: rgba(var(--bs-body-color-rgb),.08);
 $bb-segmented-item-border-radius: 6px;
 $bb-segmented-item-lg-height: 36px;
 $bb-segmented-item-lg-padding: 0 11px;
