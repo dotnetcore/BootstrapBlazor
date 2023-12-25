@@ -432,10 +432,11 @@ $bb-row-control-padding: 7px;
 
 // Scroll
 $bb-scroll-width: 6px;
-$bb-scorll-height: 6px;
-$bb-scorll-thumb-radius: 3px;
-$bb-scorll-thumb-bg: rgba(0,0,0,0.2);
-$bb-scorll-thumb-hover-bg: rgba(0,0,0,0.3);
+$bb-scroll-height: 6px;
+$bb-scroll-thumb-radius: 3px;
+$bb-scroll-thumb-bg: rgba(var(--bs-emphasis-color-rgb),0.2);
+$bb-scroll-thumb-hover-bg: rgba(var(--bs-emphasis-color-rgb),0.3);
+$bb-scroll-track-bg: rgba(var(--bs-emphasis-color-rgb),0.08);
 
 // Segmented
 $bb-segmented-padding: 2px;

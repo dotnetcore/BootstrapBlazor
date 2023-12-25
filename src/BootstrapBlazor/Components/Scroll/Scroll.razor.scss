@@ -1,9 +1,10 @@
 .scroll {
     --bb-scroll-width: #{$bb-scroll-width};
-    --bb-scorll-height: #{$bb-scorll-height};
-    --bb-scorll-thumb-radius: #{$bb-scorll-thumb-radius};
-    --bb-scorll-thumb-bg: #{$bb-scorll-thumb-bg};
-    --bb-scorll-thumb-hover-bg: #{$bb-scorll-thumb-hover-bg};
+    --bb-scroll-height: #{$bb-scroll-height};
+    --bb-scroll-thumb-radius: #{$bb-scroll-thumb-radius};
+    --bb-scroll-thumb-bg: #{$bb-scroll-thumb-bg};
+    --bb-scroll-thumb-hover-bg: #{$bb-scroll-thumb-hover-bg};
+    --bb-scroll-track-bg: #{$bb-scroll-track-bg};
     height: 100%;
     scrollbar-color: rgba(0,0,0,0.3) rgba(0,0,0,0);
     scrollbar-width: thin;
@@ -11,26 +12,26 @@
 
     &::-webkit-scrollbar {
         width: var(--bb-scroll-width);
-        height: var(--bb-scorll-height);
+        height: var(--bb-scroll-height);
     }
 
     &::-webkit-scrollbar-thumb {
-        border-radius: var(--bb-scorll-thumb-radius);
-        background-color: var(--bb-scorll-thumb-bg);
+        border-radius: var(--bb-scroll-thumb-radius);
+        background-color: var(--bb-scroll-thumb-bg);
     }
 
     &::-webkit-scrollbar-thumb:hover {
-        background-color: var(--bb-scorll-thumb-hover-bg);
+        background-color: var(--bb-scroll-thumb-hover-bg);
     }
 
     &::-webkit-scrollbar-corner {
         background-color: var(--bs-body-bg);
     }
-}
 
-[data-bs-theme='dark'] .scroll {
-    --bb-scorll-thumb-bg: #{$bb-scorll-thumb-bg-dark};
-    --bb-scorll-thumb-hover-bg: #{$bb-scorll-thumb-hover-bg-dark};
+    &::-webkit-scrollbar-track {
+        border-radius: var(--bb-scroll-thumb-radius);
+        background-color: var(--bb-scroll-track-bg);
+    }
 }
 
 @media (min-width: 992px) {

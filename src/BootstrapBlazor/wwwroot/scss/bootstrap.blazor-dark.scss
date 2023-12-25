@@ -5,8 +5,8 @@ $bb-scorll-thumb-hover-bg-dark: rgba(255,255,255,0.3);
 // Segmented
 $bb-segmented-bg-dark: #000;
 $bb-segmented-item-selected-bg-dark: #1f1f1f;
-$bb-segmented-item-hover-bg-dark: rgba(255, 255, 255, 0.12);
-$bb-segmented-item-active-bg-dark: rgba(255, 255, 255, 0.18);
+$bb-segmented-item-hover-bg-dark: rgba(var(--bs-emphasis-color-rgb), 0.12);
+$bb-segmented-item-active-bg-dark: rgba(var(--bs-emphasis-color-rgb), 0.18);
 
 // Dial-Button
 $bb-dial-item-hover-bg-dark: #313131;
