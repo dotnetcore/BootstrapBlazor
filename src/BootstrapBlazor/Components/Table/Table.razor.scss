@@ -21,8 +21,19 @@
     --bb-table-column-resizer-hover-color: #ddd;
     --bb-table-row-active-bg: rgba(var(--bs-body-color-rgb), .08);
     --bb-table-row-hover-bg: rgba(var(--bs-body-color-rgb), .1);
+    --bb-table-pagination-color: var(--bs-body-color);
+    --bb-table-pagination-active-color: var(--bs-body-color);
+    --bb-table-pagination-active-bg: rgba(var(--bs-body-color-rgb), .1);
+    --bb-table-pagination-active-border-color: rgba(var(--bs-body-color-rgb), .15);
     position: relative;
     height: 100%;
+
+    .pagination {
+        --bs-pagination-color: var(--bb-table-pagination-color);
+        --bs-pagination-active-bg: var(--bb-table-pagination-active-bg);
+        --bs-pagination-active-color: var(--bb-table-pagination-active-color);
+        --bs-pagination-active-border-color: var(--bb-table-pagination-active-border-color);
+    }
 }
 
 .table-container .table:not(.table-excel) .switch {
