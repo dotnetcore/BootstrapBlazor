@@ -16,7 +16,7 @@
     flex-wrap: nowrap;
 }
 
-.transfer-panel {
+.transfer-panel { 
     border: 1px solid var(--bs-border-color);
     border-radius: var(--bs-border-radius);
     flex: 1;
@@ -33,8 +33,6 @@
 
     .transfer-panel .transfer-panel-header {
         height: var(--bb-transfer-panel-header-height);
-        background: var(--bb-transfer-panel-header-bg);
-        color: var(--bb-transfer-panel-header-color);
         padding: var(--bb-transfer-panel-header-padding);
         border-bottom: 1px solid var(--bs-border-color);
         border-top-left-radius: var(--bs-border-radius);
