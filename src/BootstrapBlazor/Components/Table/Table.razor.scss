@@ -422,7 +422,6 @@ tr.active:not(.is-edit):hover {
     font-weight: bold;
     width: var(--bb-table-cardview-label-width);
     margin-bottom: 0;
-    color: #212529;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -445,7 +444,6 @@ tr.active:not(.is-edit):hover {
     font-weight: bold;
     width: var(--bb-table-cardview-label-width);
     margin-bottom: 0;
-    color: #212529;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -584,6 +582,7 @@ tr.active:not(.is-edit):hover {
     transition: background-color .3s linear;
 
     &:hover {
+        border-radius: 2px;
         background-color: var(--bb-table-column-resizer-hover-color);
     }
 }
