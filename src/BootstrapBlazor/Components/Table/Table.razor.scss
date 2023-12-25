@@ -16,9 +16,11 @@
     --bb-table-search-body-margin: 1rem;
     --bb-table-copy-column-margin-right: .5rem;
     --bb-table-column-fixed-border-color: rgba(var(--bs-body-color-rgb), .18);
-    --bb-loader-bg: #f8f9fa;
+    --bb-loader-bg: rgba(var(--bs-body-color-rgb), .2);
     --bb-table-column-resizer-color: #ddd;
     --bb-table-column-resizer-hover-color: #ddd;
+    --bb-table-row-active-bg: rgba(var(--bs-body-color-rgb), .12);
+    --bb-table-row-hover-bg: rgba(var(--bs-body-color-rgb), .2);
     position: relative;
     height: 100%;
 }
@@ -361,7 +363,6 @@
 .table-loader,
 .form-loader {
     display: none;
-    opacity: 0.8;
     position: absolute;
     left: 0;
     right: 0;
@@ -378,16 +379,16 @@
 
 .table tbody tr.active:not(.is-edit),
 .table-row.active {
-    --bs-table-bg-type: #badafa;
+    --bs-table-bg-type: var(--bb-table-row-active-bg);
 }
 
 
 .table-striped > tbody > tr.active:not(.is-edit):nth-of-type(odd) > * {
-    --bs-table-bg-type: #badafa;
+    --bs-table-bg-type: var(--bb-table-row-active-bg);
 }
 
 tr.active:not(.is-edit):hover {
-    --bs-table-hover-bg: #409eff;
+    --bs-table-hover-bg: var(--bb-table-row-hover-bg);
 }
 
 .table-hover > tbody > tr.is-detail:hover,
@@ -401,7 +402,7 @@ tr.active:not(.is-edit):hover {
 }
 
 .table-row:not(:last-child) {
-    border-bottom: 1px solid #dee2e6;
+    border-bottom: var(--bs-border-width) solid var(--bs-border-color);
 }
 
 .table-row:first-child {
