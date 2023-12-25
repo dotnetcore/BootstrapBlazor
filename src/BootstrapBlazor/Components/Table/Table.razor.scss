@@ -19,8 +19,8 @@
     --bb-loader-bg: rgba(var(--bs-body-color-rgb), .2);
     --bb-table-column-resizer-color: #ddd;
     --bb-table-column-resizer-hover-color: #ddd;
-    --bb-table-row-active-bg: rgba(var(--bs-body-color-rgb), .12);
-    --bb-table-row-hover-bg: rgba(var(--bs-body-color-rgb), .2);
+    --bb-table-row-active-bg: rgba(var(--bs-body-color-rgb), .08);
+    --bb-table-row-hover-bg: rgba(var(--bs-body-color-rgb), .1);
     position: relative;
     height: 100%;
 }
@@ -455,7 +455,7 @@ tr.active:not(.is-edit):hover {
 }
 
 .table-striped .table-row:hover {
-    background-color: var(--bs-table-hover-bg);
+    background-color: var(--bb-table-row-hover-bg);
 }
 
 .table-fixed-column .table {
