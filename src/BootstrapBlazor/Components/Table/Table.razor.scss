@@ -15,7 +15,7 @@
     --bs-table-hover-bg: rgba(0,0,0,.075);
     --bb-table-search-body-margin: 1rem;
     --bb-table-copy-column-margin-right: .5rem;
-    --bb-table-column-fixed-border-color: #dee2e6;
+    --bb-table-column-fixed-border-color: rgba(var(--bs-body-color-rgb), .18);
     --bb-loader-bg: #f8f9fa;
     --bb-table-column-resizer-color: #ddd;
     --bb-table-column-resizer-hover-color: #ddd;
@@ -467,7 +467,7 @@ tr.active:not(.is-edit):hover {
 
 .table-fixed-column .table .fixed,
 .table-fixed-column .table .fixed-scroll {
-    background-color: #fff;
+    background-color: var(--bs-table-bg);
 }
 
 .table-fixed-column .table th,
