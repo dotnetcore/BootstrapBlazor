@@ -76,7 +76,7 @@
         }
 
         &.disabled {
-            color: rgba(0, 0, 0, 0.25);
+            color: rgba(var(--bs-body-color-rgb),.25);
             cursor: not-allowed;
         }
 
@@ -108,11 +108,4 @@
             --bb-segmented-text-margin-left: 0;
         }
     }
-}
-
-[data-bs-theme='dark'] .segmented {
-    --bb-segmented-bg: #{$bb-segmented-bg-dark};
-    --bb-segmented-item-selected-bg: #{$bb-segmented-item-selected-bg-dark};
-    --bb-segmented-item-hover-bg: #{$bb-segmented-item-hover-bg-dark};
-    --bb-segmented-item-active-bg: #{$bb-segmented-item-active-bg-dark};
 }
