@@ -79,7 +79,7 @@
     "TableDialogNormalTips2": "After selecting the product in the pop-up window, click the <code>OK</code> button to close the pop-up window",
     "TableDialogNormalTips3": "Click the <code>Edit</code> button, since some data are set as read-only, only the <code>Count</code> field can be changed",
     "TableDialogNormalChoose": "Choose",
-    "TableDialogNormalSelectitem": "Select item",
+    "TableDialogNormalSelectItem": "Select item",
     "TableDialogNormalSure": "Sure"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesDynamicObject": {
