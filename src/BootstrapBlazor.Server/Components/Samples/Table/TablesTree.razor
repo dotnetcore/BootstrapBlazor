@@ -25,7 +25,7 @@
 <DemoBlock Title="@Localizer["TablesTreeDataTitle"]"
            Introduction="@Localizer["TablesTreeDataIntro"]"
            Name="TreeData">
-    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light"
+    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true"
            Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="360" />
@@ -39,11 +39,13 @@
 <DemoBlock Title="@Localizer["TablesTreeLevelTitle"]"
            Introduction="@Localizer["TablesTreeLevelIntro"]"
            Name="Level">
-    <Tips>
-        <div>@((MarkupString)Localizer["TablesTreeLevelTips1"].Value)</div>
-    </Tips>
-    <p>@((MarkupString)Localizer["TablesTreeLevelTips2"].Value)</p>
-    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light" IndentSize="8"
+    <section ignore>
+        <Tips>
+            <div>@((MarkupString)Localizer["TablesTreeLevelTips1"].Value)</div>
+        </Tips>
+        <p>@((MarkupString)Localizer["TablesTreeLevelTips2"].Value)</p>
+    </section>
+    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" IndentSize="8"
            Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="360" />
@@ -57,7 +59,7 @@
 <DemoBlock Title="@Localizer["TablesTreeEditTitle"]"
            Introduction="@Localizer["TablesTreeEditIntro"]"
            Name="EditTree">
-    <Table TItem="TreeFoo" IsBordered="true" HeaderStyle="@TableHeaderStyle.Light"
+    <Table TItem="TreeFoo" IsBordered="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true" IsStriped="true"
            OnQueryAsync="@OnQueryAsync" OnAddAsync="@OnAddAsync" OnSaveAsync="@OnSaveAsync" OnDeleteAsync="@OnDeleteAsync"
            IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand">
@@ -74,11 +76,13 @@
 <DemoBlock Title="@Localizer["TablesTreeIconTitle"]"
            Introduction="@Localizer["TablesTreeIconIntro"]"
            Name="Icon">
-    <Tips>
-        <div>@((MarkupString)Localizer["TablesTreeIconTips1"].Value)</div>
-    </Tips>
-    <p>@((MarkupString)Localizer["TablesTreeIconTips2"].Value)</p>
-    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" HeaderStyle="@TableHeaderStyle.Light" TreeIcon="fa-solid fa-circle-chevron-right" TreeExpandIcon="fa-solid fa-circle-chevron-right fa-rotate-90"
+    <section ignore>
+        <Tips>
+            <div>@((MarkupString)Localizer["TablesTreeIconTips1"].Value)</div>
+        </Tips>
+        <p>@((MarkupString)Localizer["TablesTreeIconTips2"].Value)</p>
+    </section>
+    <Table TItem="TreeFoo" IsBordered="true" IsStriped="true" TreeIcon="fa-solid fa-circle-chevron-right" TreeExpandIcon="fa-solid fa-circle-chevron-right fa-rotate-90"
            Items="@TreeItems" IsTree="true" TreeNodeConverter="@TreeNodeConverter" OnTreeExpand="@OnTreeExpand">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Width="360" />

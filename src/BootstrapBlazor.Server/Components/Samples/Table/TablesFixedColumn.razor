@@ -14,11 +14,10 @@
     <Table TItem="Foo"
            Items="@Items.Take(4)"
            RenderMode="TableRenderMode.Table"
-           HeaderStyle="TableHeaderStyle.Light"
            IsBordered="true"
            IsStriped="true">
         <TableColumns>
-            <TableColumn @bind-Field="@context.Name" Width="100" Fixed="true" />
+            <TableColumn @bind-Field="@context.Name" Width="120" Fixed="true" />
             <TableColumn @bind-Field="@context.DateTime" Width="180" Fixed="true" Filterable="true" />
             <TableColumn @bind-Field="@context.Address" Width="1400" Filterable="true" />
             <TableColumn @bind-Field="@context.Education" Width="100" Filterable="true" />
@@ -34,13 +33,12 @@
     <Table TItem="Foo"
            Items="@Items.Take(10)"
            RenderMode="TableRenderMode.Table"
-           HeaderStyle="TableHeaderStyle.Dark"
            IsBordered="true" IsStriped="true"
            IsMultipleSelect="true"
            Height="200"
            FixedMultipleColumn="true">
         <TableColumns>
-            <TableColumn @bind-Field="@context.Name" Width="100" Fixed="true" />
+            <TableColumn @bind-Field="@context.Name" Width="120" Fixed="true" />
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Address" Width="1400" />
             <TableColumn @bind-Field="@context.Education" Width="100" />
@@ -61,7 +59,7 @@
            ShowExtendButtons="true"
            FixedExtendButtonsColumn="true">
         <TableColumns>
-            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Name" Width="120" />
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Address" Width="1400" />
             <TableColumn @bind-Field="@context.Education" Width="100" />
@@ -86,7 +84,7 @@
            ShowExtendButtons="true"
            RenderMode="TableRenderMode.Table">
         <TableColumns>
-            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Name" Width="120" />
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Address" Width="1400" />
             <TableColumn @bind-Field="@context.Education" Width="100" />
@@ -109,7 +107,7 @@
            Height="200"
            class="table-fix-column-demo mt-3">
         <TableColumns>
-            <TableColumn @bind-Field="@context.Name" Width="100" />
+            <TableColumn @bind-Field="@context.Name" Width="120" />
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Address" Width="900" />
             <TableColumn @bind-Field="@context.Education" Width="100" />

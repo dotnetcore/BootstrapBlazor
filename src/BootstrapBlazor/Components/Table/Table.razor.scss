@@ -15,12 +15,25 @@
     --bs-table-hover-bg: rgba(0,0,0,.075);
     --bb-table-search-body-margin: 1rem;
     --bb-table-copy-column-margin-right: .5rem;
-    --bb-table-column-fixed-border-color: #dee2e6;
-    --bb-loader-bg: #f8f9fa;
+    --bb-table-column-fixed-border-color: rgba(var(--bs-body-color-rgb), .18);
+    --bb-loader-bg: rgba(var(--bs-body-color-rgb), .2);
     --bb-table-column-resizer-color: #ddd;
     --bb-table-column-resizer-hover-color: #ddd;
+    --bb-table-row-active-bg: rgba(var(--bs-body-color-rgb), .08);
+    --bb-table-row-hover-bg: rgba(var(--bs-body-color-rgb), .1);
+    --bb-table-pagination-color: var(--bs-body-color);
+    --bb-table-pagination-active-color: var(--bs-body-color);
+    --bb-table-pagination-active-bg: rgba(var(--bs-body-color-rgb), .1);
+    --bb-table-pagination-active-border-color: rgba(var(--bs-body-color-rgb), .15);
     position: relative;
     height: 100%;
+
+    .pagination {
+        --bs-pagination-color: var(--bb-table-pagination-color);
+        --bs-pagination-active-bg: var(--bb-table-pagination-active-bg);
+        --bs-pagination-active-color: var(--bb-table-pagination-active-color);
+        --bs-pagination-active-border-color: var(--bb-table-pagination-active-border-color);
+    }
 }
 
 .table-container .table:not(.table-excel) .switch {
@@ -361,7 +374,6 @@
 .table-loader,
 .form-loader {
     display: none;
-    opacity: 0.8;
     position: absolute;
     left: 0;
     right: 0;
@@ -378,16 +390,16 @@
 
 .table tbody tr.active:not(.is-edit),
 .table-row.active {
-    --bs-table-bg-type: #badafa;
+    --bs-table-bg-type: var(--bb-table-row-active-bg);
 }
 
 
 .table-striped > tbody > tr.active:not(.is-edit):nth-of-type(odd) > * {
-    --bs-table-bg-type: #badafa;
+    --bs-table-bg-type: var(--bb-table-row-active-bg);
 }
 
 tr.active:not(.is-edit):hover {
-    --bs-table-hover-bg: #409eff;
+    --bs-table-hover-bg: var(--bb-table-row-hover-bg);
 }
 
 .table-hover > tbody > tr.is-detail:hover,
@@ -401,7 +413,7 @@ tr.active:not(.is-edit):hover {
 }
 
 .table-row:not(:last-child) {
-    border-bottom: 1px solid #dee2e6;
+    border-bottom: var(--bs-border-width) solid var(--bs-border-color);
 }
 
 .table-row:first-child {
@@ -422,7 +434,6 @@ tr.active:not(.is-edit):hover {
     font-weight: bold;
     width: var(--bb-table-cardview-label-width);
     margin-bottom: 0;
-    color: #212529;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -445,7 +456,6 @@ tr.active:not(.is-edit):hover {
     font-weight: bold;
     width: var(--bb-table-cardview-label-width);
     margin-bottom: 0;
-    color: #212529;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -456,7 +466,7 @@ tr.active:not(.is-edit):hover {
 }
 
 .table-striped .table-row:hover {
-    background-color: var(--bs-table-hover-bg);
+    background-color: var(--bb-table-row-hover-bg);
 }
 
 .table-fixed-column .table {
@@ -467,7 +477,7 @@ tr.active:not(.is-edit):hover {
 
 .table-fixed-column .table .fixed,
 .table-fixed-column .table .fixed-scroll {
-    background-color: #fff;
+    background-color: var(--bs-table-bg);
 }
 
 .table-fixed-column .table th,
@@ -584,6 +594,7 @@ tr.active:not(.is-edit):hover {
     transition: background-color .3s linear;
 
     &:hover {
+        border-radius: 2px;
         background-color: var(--bb-table-column-resizer-hover-color);
     }
 }

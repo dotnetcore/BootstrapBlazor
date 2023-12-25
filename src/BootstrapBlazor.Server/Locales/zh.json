@@ -79,7 +79,7 @@
     "TableDialogNormalTips2": "弹窗中选择产品后点击 <code>确定</code> 按钮关闭弹窗",
     "TableDialogNormalTips3": "点击 <code>编辑</code> 按钮，由于设置部分数据为只读，只能更改 <code>Count</code> 字段",
     "TableDialogNormalChoose": "选择",
-    "TableDialogNormalSelectitem": "选择项目",
+    "TableDialogNormalSelectItem": "选择项目",
     "TableDialogNormalSure": "确定"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesDynamicObject": {
