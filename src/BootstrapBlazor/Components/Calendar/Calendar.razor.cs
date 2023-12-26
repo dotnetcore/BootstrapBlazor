@@ -106,13 +106,13 @@ public partial class Calendar
         PreviousMonth = Localizer[nameof(PreviousMonth)];
         NextMonth = Localizer[nameof(NextMonth)];
         Today = Localizer[nameof(Today)];
-        WeekLists = Localizer[nameof(WeekLists)].Value.Split(',').ToList();
+        WeekLists = [.. Localizer[nameof(WeekLists)].Value.Split(',')];
         PreviousWeek = Localizer[nameof(PreviousWeek)];
         NextWeek = Localizer[nameof(NextWeek)];
         WeekText = Localizer[nameof(WeekText)];
         WeekHeaderText = Localizer[nameof(WeekHeaderText)];
         WeekNumberText = Localizer[nameof(WeekNumberText), GetWeekCount()];
-        Months = Localizer[nameof(Months)].Value.Split(',').ToList();
+        Months = [.. Localizer[nameof(Months)].Value.Split(',')];
     }
 
     /// <summary>
