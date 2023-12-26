@@ -124,18 +124,18 @@ $bb-calendar-week-cell-padding: 1rem 0;
 // Captcha
 $bb-captcha-refresh-padding-left: .5rem;
 $bb-captcha-radius: 2px;
-$bb-captcha-footer-bg: #f7f9fa;
-$bb-captcha-footer-color: #45494c;
+$bb-captcha-footer-bg: rgba(var(--bs-body-color-rgb),.03);
+$bb-captcha-footer-color: var(--bs-body-color);
 $bb-captcha-footer-margin-top: 0.5rem;
 $bb-captcha-footer-height: 40px;
-$bb-captcha-bar-border: 1px solid #1991FA;
-$bb-captcha-bar-bg: #D1E9FE;
-$bb-captcha-bar-color: #fff;
-$bb-captcha-bar-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
-$bb-captcha-bar-invalid-border: 1px solid #f57a7a;
+$bb-captcha-bar-border: var(--bs-border-width) solid var(--bs-border-color);
+$bb-captcha-bar-bg: var(--bs-body-bg);
+$bb-captcha-bar-color: var(--bs-body-color);
+$bb-captcha-bar-shadow: 0 0 3px rgba(var(--bs-body-color-rgb), 0.3);
+$bb-captcha-bar-invalid-border: var(--bs-border-width) solid var(--bs-danger);
 $bb-captcha-bar-invalid-bg: #f57a7a;
 $bb-captcha-bar-invalid-mask-bg: #fce1e1;
-$bb-captcha-bar-valid-border: 1px solid #52CCBA;
+$bb-captcha-bar-valid-border: var(--bs-border-width) solid var(--bs-success);
 $bb-captcha-bar-valid-bg: #52CCBA;
 $bb-captcha-bar-valid-mask-bg: #D2F4EF;
 
