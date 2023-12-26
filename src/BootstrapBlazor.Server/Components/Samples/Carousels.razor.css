@@ -3,7 +3,7 @@
 }
 
     .carousel-item-demo2 .demo-item {
-        background-color: #e9ecef;
+        background-color: rgba(var(--bs-body-color-rgb),.08);
         border-radius: var(--bs-border-radius);
         padding: 1rem 2rem;
     }
