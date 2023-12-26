@@ -91,7 +91,8 @@
             left: 0;
             width: var(--bb-captcha-footer-height);
             height: var(--bb-captcha-footer-height);
-            background: var(--bb-captcha-bar-color);
+            background: var(--bb-captcha-bar-bg);
+            color: var(---bb-captcha-bar-color);
             box-shadow: var(--bb-captcha-bar-shadow);
             cursor: pointer;
             border-radius: var(--bb-captcha-radius);
