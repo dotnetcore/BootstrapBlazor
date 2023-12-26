@@ -7,7 +7,6 @@
     --bb-carousel-slide-border: #{$bb-carousel-slide-border};
     --bb-carousel-slide-bg: #{$bb-carousel-slide-bg};
     --bb-carousel-slide-color: #{$bb-carousel-slide-color};
-    --bb-carousel-target-bg: #{$bb-carousel-target-bg};
     overflow: hidden;
 
     [data-bs-slide] {
@@ -47,10 +46,6 @@
     .carousel-indicators {
         opacity: 1;
         transition: all .2s linear;
-
-        [data-bs-target] {
-            background-color: var(--bb-carousel-target-bg);
-        }
     }
 
     .carousel-inner, .carousel-item, .carousel-item img {
