@@ -70,9 +70,19 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
         await cut.InvokeAsync(() => cut.Instance.SetActiveItem(items[0]));
 
-        var nodes = cut.FindAll(".tree-view > .tree-root > .tree-item");
-        Assert.Equal(3, nodes.Count);
-        Assert.Equal("tree-item active", nodes[0].ClassName);
+        var node = cut.Find(".active");
+        Assert.Equal("navigation one", node.TextContent);
+
+        var activeItem = items[1].Items[0].Value;
+        await cut.InvokeAsync(() => cut.Instance.SetActiveItem(activeItem));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ModelEqualityComparer, (x, y) => x.Id == y.Id);
+        });
+        await cut.InvokeAsync(() => cut.Instance.SetActiveItem(activeItem));
+        node = cut.Find(".active");
+        Assert.Equal("Sub menu 1", node.TextContent);
     }
 
     [Fact]
