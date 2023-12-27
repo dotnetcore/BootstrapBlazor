@@ -322,6 +322,16 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         StateHasChanged();
     }
 
+    /// <summary>
+    /// 设置激活节点
+    /// </summary>
+    public void SetActiveItem(TreeViewItem<TItem>? item)
+    {
+        ActiveItem = item;
+        ActiveItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
+        StateHasChanged();
+    }
+
     private static CheckboxState ToggleCheckState(CheckboxState state) => state switch
     {
         CheckboxState.Checked => CheckboxState.UnChecked,

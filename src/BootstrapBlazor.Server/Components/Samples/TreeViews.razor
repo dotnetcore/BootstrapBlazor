@@ -132,6 +132,17 @@
     <ConsoleLogger @ref="Logger3" class="mt-3" />
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["TreeViewSetActiveTitle"]"
+           Introduction="@Localizer["TreeViewSetActiveIntro"]"
+           Name="SetActive">
+    <section ignore class="row form-inline">
+        <div class="col-12 col-lg-auto">
+            <Select TValue="string" Items="SelectedItems" OnSelectedItemChanged="SelectedItemOnChanged" ShowLabel="true" DisplayText="@Localizer["TreeViewSetActiveDisplayText"]" />
+        </div>
+    </section>
+    <TreeView @ref="SetActiveTreeView" TItem="TreeFoo" Items="@Items" OnTreeItemClick="@OnTreeItemClick" />
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["TreeViewShowSkeletonTitle"]"
            Introduction="@Localizer["TreeViewShowSkeletonIntro"]"
            Name="ShowSkeleton">
