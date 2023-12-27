@@ -375,16 +375,3 @@
     --bs-btn-border-radius: .375rem;
 }
 /*end btn*/
-
-/*collapse*/
-.accordion {
-    --bs-accordion-active-bg: var(--bs-secondary);
-    --bs-accordion-btn-padding-x: 1rem;
-    --bs-accordion-btn-padding-y: .5rem;
-}
-
-@media (prefers-reduced-motion:reduce) {
-    .btn {
-        transition: none;
-    }
-}
