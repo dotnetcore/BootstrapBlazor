@@ -20,14 +20,9 @@ class TreeFoo
 
     public bool IsActive { get; set; }
 
-    /// <summary>
-    /// TreeFoo 树状数据集
-    /// </summary>
-    /// <remarks>请勿更改，单元测试使用</remarks>
-    /// <returns></returns>
-    public static List<TreeViewItem<TreeFoo>> GetTreeItems()
+    public static List<TreeFoo> GetItems()
     {
-        var items = new List<TreeFoo>
+        return new List<TreeFoo>
         {
             new TreeFoo() { Text = "navigation one", Id = "1010", Icon = "fa-solid fa-font-awesome" },
             new TreeFoo() { Text = "Navigation two", Id = "1020", Icon = "fa-solid fa-font-awesome" },
@@ -49,6 +44,16 @@ class TreeFoo
             new TreeFoo() { Text = "Sub menu 2", Id = "1140", ParentId = "1100", Icon = "fa-solid fa-font-awesome" },
             new TreeFoo() { Text = "Sub menu 3", Id = "1150", ParentId = "1100", Icon = "fa-solid fa-font-awesome" }
         };
+    }
+
+    /// <summary>
+    /// TreeFoo 树状数据集
+    /// </summary>
+    /// <remarks>请勿更改，单元测试使用</remarks>
+    /// <returns></returns>
+    public static List<TreeViewItem<TreeFoo>> GetTreeItems()
+    {
+        var items = GetItems();
 
         // 算法获取属性结构数据
         return CascadingTree(items).ToList();

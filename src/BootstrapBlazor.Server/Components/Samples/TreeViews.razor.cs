@@ -41,6 +41,10 @@ public sealed partial class TreeViews
 
     private List<TreeViewItem<TreeFoo>> CheckedItems2 { get; set; } = TreeFoo.GetTreeItems();
 
+    private List<SelectedItem> SelectedItems { get; set; } = TreeFoo.GetItems().Select(x=>new SelectedItem(x.Id,x.Text)).ToList();
+
+    private TreeView<TreeFoo>? SetActiveTreeView { get; set; }
+
     private List<TreeViewItem<TreeFoo>>? AsyncItems { get; set; }
 
     private Foo Model => Foo.Generate(LocalizerFoo);
@@ -163,6 +167,28 @@ public sealed partial class TreeViews
         AsyncItems = TreeFoo.GetTreeItems();
         AsyncItems[2].Text = "延时加载";
         AsyncItems[2].HasChildren = true;
+    }
+
+    private Task SelectedItemOnChanged(SelectedItem selectedItem)
+    {
+        var treeViewItem= FindTreeViewItem(Items, item => item.Value.Id == selectedItem.Value);
+        SetActiveTreeView?.SetActiveItem(treeViewItem);
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private TreeViewItem<T>? FindTreeViewItem<T>(IEnumerable<TreeViewItem<T>> source, Func<TreeViewItem<T>, bool> func)
+    {
+        var ret = source.FirstOrDefault(func);
+        if (ret == null)
+        {
+            var items = source.SelectMany(e => e.Items);
+            if (items.Any())
+            {
+                ret = FindTreeViewItem(items, func);
+            }
+        }
+        return ret;
     }
 
     private class CustomerTreeItem : ComponentBase
