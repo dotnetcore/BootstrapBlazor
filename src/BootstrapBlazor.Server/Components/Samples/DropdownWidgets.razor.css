@@ -1,5 +1,6 @@
 ﻿.widget-demo {
-    background-color: #6c757d;
+    background-color: rgba(var(--bs-body-color-rgb), .12);
+    border-radius: var(--bs-border-radius);
 }
 
 .dropdown-item-center {
