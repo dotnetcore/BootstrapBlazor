@@ -18,7 +18,7 @@ public static class TableExportServiceCollectionExtensions
     /// <returns></returns>
     public static IServiceCollection AddBootstrapBlazorTableExcelExport(this IServiceCollection services)
     {
-        services.TryAddTransient<ITableExport, DefaultTableExport>();
+        services.AddTransient<ITableExport, DefaultTableExport>();
         return services;
     }
 }
