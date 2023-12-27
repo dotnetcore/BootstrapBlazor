@@ -237,13 +237,14 @@ $bb-drawer-backdrop-bg: rgba(0, 0, 0, 0.5);
 // Dropdown
 $bb-widget-toggle-color: var(--bs-body-color);
 $bb-widget-toggle-padding: 10px 16px;
-$bb-widget-border-color: #dcdfe6;
+$bb-widget-border-color: var(--bs-border-color);
 $bb-widget-badge-font-size: 9px;
 $bb-widget-badge-top: 5px;
 $bb-widget-header-padding: 0.5rem 0.625rem;
 $bb-widget-body-max-height: 300px;
-$bb-widget-item-odd-bg: #eef0f3;
+$bb-widget-item-odd-bg: rgba(var(--bs-body-color-rgb),.12);
 $bb-widget-footer-padding: 0.5rem 0.625rem;
+$bb-widget-footer-bg: rgba(var(--bs-body-color-rgb),.22);
 
 // Empty
 $bb-empty-image-margin: 1rem 0 .5rem 0;
