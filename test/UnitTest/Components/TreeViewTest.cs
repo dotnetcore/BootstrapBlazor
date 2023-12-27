@@ -60,7 +60,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Items_SetActive()
+    public async Task Items_SetActive()
     {
         var items = TreeFoo.GetTreeItems();
         var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
@@ -68,7 +68,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, items);
         });
 
-        cut.InvokeAsync(() => cut.Instance.SetActiveItem(items[0]));
+        await cut.InvokeAsync(() => cut.Instance.SetActiveItem(items[0]));
 
         var nodes = cut.FindAll(".tree-view > .tree-root > .tree-item");
         Assert.Equal(3, nodes.Count);
