@@ -323,11 +323,21 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     }
 
     /// <summary>
-    /// 设置激活节点
+    /// 设置选中节点
     /// </summary>
-    public void SetActiveItem(TreeViewItem<TItem>? item)
+    public void SetActiveItem(TreeViewItem<TItem> item)
     {
         ActiveItem = item;
+        ActiveItem.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// 设置选中节点
+    /// </summary>
+    public void SetActiveItem(TItem item)
+    {
+        ActiveItem = Items.GetAllItems().FirstOrDefault(i => Equals(i.Value, item));
         ActiveItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
         StateHasChanged();
     }
