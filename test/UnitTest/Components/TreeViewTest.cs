@@ -68,7 +68,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, items);
         });
 
-        cut.InvokeAsync(()=>cut.Instance.SetActiveItem(items[0]));
+        cut.InvokeAsync(() => cut.Instance.SetActiveItem(items[0]));
 
         var nodes = cut.FindAll(".tree-view > .tree-root > .tree-item");
         Assert.Equal(3, nodes.Count);
@@ -228,9 +228,9 @@ public class TreeViewTest : BootstrapBlazorTestBase
     {
         var items = new List<TreeFoo>()
         {
-            new TreeFoo() { Text = "Test1", Id = "01" },
-            new TreeFoo() { Text = "Test2", Id = "02", ParentId = "01" },
-            new TreeFoo() { Text = "Test3", Id = "03", ParentId = "02" }
+            new() { Text = "Test1", Id = "01" },
+            new() { Text = "Test2", Id = "02", ParentId = "01" },
+            new() { Text = "Test3", Id = "03", ParentId = "02" }
         };
 
         var data = TreeFoo.CascadingTree(items);
@@ -258,7 +258,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         IExpandableNode<TreeFoo> item = new TreeViewItem<TreeFoo>(new TreeFoo());
         item.Items = new MockTreeItem[]
         {
-            new MockTreeItem(new TreeFoo())
+            new(new TreeFoo())
         };
 
         // MockTreeItem 无法转化成 TreeItem
@@ -267,7 +267,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
         item.Items = new TreeViewItem<TreeFoo>[]
         {
-            new TreeViewItem<TreeFoo>(new MockTreeFoo())
+            new(new MockTreeFoo())
         };
         // MockTreeFoo 转化成 TreeFoo
         // 显式转换，集合数量为 1
@@ -281,9 +281,9 @@ public class TreeViewTest : BootstrapBlazorTestBase
     {
         var items = new List<TreeFoo>()
         {
-            new TreeFoo() { Text = "Test1", Id = "01" },
-            new TreeFoo() { Text = "Test2", Id = "02", ParentId = "01" },
-            new TreeFoo() { Text = "Test3", Id = "03", ParentId = "02" }
+            new() { Text = "Test1", Id = "01" },
+            new() { Text = "Test2", Id = "02", ParentId = "01" },
+            new() { Text = "Test3", Id = "03", ParentId = "02" }
         };
 
         var node = TreeFoo.CascadingTree(items).First();
@@ -298,9 +298,9 @@ public class TreeViewTest : BootstrapBlazorTestBase
     {
         var items = new List<TreeFoo>()
         {
-            new TreeFoo() { Text = "Test1", Id = "01" },
-            new TreeFoo() { Text = "Test2", Id = "02", ParentId = "01" },
-            new TreeFoo() { Text = "Test3", Id = "03", ParentId = "02" }
+            new() { Text = "Test1", Id = "01" },
+            new() { Text = "Test2", Id = "02", ParentId = "01" },
+            new() { Text = "Test3", Id = "03", ParentId = "02" }
         };
         var node = TreeFoo.CascadingTree(items).First().Items.First().Items.First();
 
@@ -314,9 +314,9 @@ public class TreeViewTest : BootstrapBlazorTestBase
     {
         var items = new List<TreeFoo>()
         {
-            new TreeFoo() { Text = "Test1", Id = "01" },
-            new TreeFoo() { Text = "Test2", Id = "02", ParentId = "01" },
-            new TreeFoo() { Text = "Test3", Id = "03", ParentId = "02" }
+            new() { Text = "Test1", Id = "01" },
+            new() { Text = "Test2", Id = "02", ParentId = "01" },
+            new() { Text = "Test3", Id = "03", ParentId = "02" }
         };
         var node = TreeFoo.CascadingTree(items).First().Items.First().Items.First();
 
@@ -375,7 +375,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
             {
                 var ret = new List<TreeViewItem<TreeFoo>>
                 {
-                    new TreeViewItem<TreeFoo>(new TreeFoo() { Id = item.Value.Id + "10", ParentId = item.Value.Id })
+                    new(new TreeFoo() { Id = item.Value.Id + "10", ParentId = item.Value.Id })
                 };
                 return Task.FromResult(ret.AsEnumerable());
             });
@@ -478,11 +478,11 @@ public class TreeViewTest : BootstrapBlazorTestBase
     {
         var items = new List<TreeFoo>
         {
-            new TreeFoo() { Text = "导航一", Id = "1010" },
-            new TreeFoo() { Text = "导航二", Id = "1020" },
+            new() { Text = "导航一", Id = "1010" },
+            new() { Text = "导航二", Id = "1020" },
 
-            new TreeFoo() { Text = "子菜单一", Id = "1011", ParentId = "1010" },
-            new TreeFoo() { Text = "子菜单二", Id = "1021", ParentId = "1020" }
+            new() { Text = "子菜单一", Id = "1011", ParentId = "1010" },
+            new() { Text = "子菜单二", Id = "1021", ParentId = "1020" }
         };
 
         // 根节点
@@ -509,16 +509,16 @@ public class TreeViewTest : BootstrapBlazorTestBase
             Assert.Contains("fa-rotate-90", bars[1].ClassName);
         });
 
-        items = new List<TreeFoo>
-        {
-            new TreeFoo() { Text = "Root", Id = "1010" },
+        items =
+        [
+            new() { Text = "Root", Id = "1010" },
 
-            new TreeFoo() { Text = "SubItem1", Id = "1011", ParentId = "1010" },
-            new TreeFoo() { Text = "SubItem2", Id = "1012", ParentId = "1010" },
+            new() { Text = "SubItem1", Id = "1011", ParentId = "1010" },
+            new() { Text = "SubItem2", Id = "1012", ParentId = "1010" },
 
-            new TreeFoo() { Text = "SubItem11", Id = "10111", ParentId = "1011" },
-            new TreeFoo() { Text = "SubItem21", Id = "10121", ParentId = "1012" }
-        };
+            new() { Text = "SubItem11", Id = "10111", ParentId = "1011" },
+            new() { Text = "SubItem21", Id = "10121", ParentId = "1012" }
+        ];
         nodes = TreeFoo.CascadingTree(items).ToList();
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.Items, nodes));
@@ -552,9 +552,9 @@ public class TreeViewTest : BootstrapBlazorTestBase
     {
         var items = new List<TreeFoo>
         {
-            new TreeFoo() { Text = "导航一", Id = "1010" },
+            new() { Text = "导航一", Id = "1010" },
 
-            new TreeFoo() { Text = "子菜单一", Id = "1011", ParentId = "1010" },
+            new() { Text = "子菜单一", Id = "1011", ParentId = "1010" },
         };
 
         // 根节点
@@ -571,13 +571,13 @@ public class TreeViewTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => checkbox[0].Click());
 
         Assert.Contains("is-checked", cut.Markup);
-        var ischecked = cut.Instance.GetCheckedItems().Any();
-        Assert.True(ischecked);
+        var isChecked = cut.Instance.GetCheckedItems().Any();
+        Assert.True(isChecked);
 
         await cut.InvokeAsync(() => cut.Instance.ClearCheckedItems());
         Assert.DoesNotContain("is-checked", cut.Markup);
-        var nochecked = !cut.Instance.GetCheckedItems().Any();
-        Assert.True(nochecked);
+        var noChecked = !cut.Instance.GetCheckedItems().Any();
+        Assert.True(noChecked);
     }
 
     class MockTree<TItem> : TreeView<TItem> where TItem : class
@@ -597,7 +597,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
     }
 
-    class MockTreeItem : IExpandableNode<TreeFoo>
+    class MockTreeItem(TreeFoo foo) : IExpandableNode<TreeFoo>
     {
         public bool IsExpand { get; set; }
 
@@ -607,18 +607,12 @@ public class TreeViewTest : BootstrapBlazorTestBase
         public IExpandableNode<TreeFoo>? Parent { get; set; }
 
         [NotNull]
-        public IEnumerable<IExpandableNode<TreeFoo>>? Items { get; set; }
+        public IEnumerable<IExpandableNode<TreeFoo>>? Items { get; set; } = Enumerable.Empty<IExpandableNode<TreeFoo>>();
 
         [NotNull]
-        public TreeFoo? Value { get; set; }
+        public TreeFoo? Value { get; set; } = foo;
 
         public bool HasChildren { get; set; }
-
-        public MockTreeItem(TreeFoo foo)
-        {
-            Value = foo;
-            Items = Enumerable.Empty<IExpandableNode<TreeFoo>>();
-        }
     }
 
     private static async Task<IEnumerable<TreeViewItem<TreeFoo>>> OnExpandNodeAsync(TreeFoo item)
@@ -626,12 +620,12 @@ public class TreeViewTest : BootstrapBlazorTestBase
         await Task.Yield();
         return new TreeViewItem<TreeFoo>[]
         {
-            new TreeViewItem<TreeFoo>(new TreeFoo() { Id = $"{item.Id}-101", ParentId = item.Id })
+            new(new TreeFoo() { Id = $"{item.Id}-101", ParentId = item.Id })
             {
                 Text = "懒加载子节点1",
                 HasChildren = true
             },
-            new TreeViewItem<TreeFoo>(new TreeFoo(){ Id = $"{item.Id}-102", ParentId = item.Id })
+            new(new TreeFoo(){ Id = $"{item.Id}-102", ParentId = item.Id })
             {
                 Text = "懒加载子节点2"
             }
