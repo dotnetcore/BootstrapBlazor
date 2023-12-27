@@ -142,7 +142,7 @@ internal static class ServicesExtensions
         services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();
 
         // 增加 Table Excel 导出服务
-        services.AddBootstrapBlazorTableExcelExport();
+        services.AddBootstrapBlazorTableExportService();
 
         // 增加 Pdf 导出服务
         services.AddTransient<IExportPdf, ExportPdfService>();
