@@ -9,11 +9,13 @@ namespace BootstrapBlazor.Server.Data;
 class TreeFoo
 {
     [Key]
+    [NotNull]
     public string? Id { get; set; }
 
     public string? ParentId { get; set; }
 
     [Required]
+    [NotNull]
     public string? Text { get; set; }
 
     public string Icon { get; set; } = "fa-solid fa-font-awesome";
