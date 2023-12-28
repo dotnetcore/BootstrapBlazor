@@ -22,7 +22,7 @@ public class TreeViewItem<TItem> : TreeNodeBase<TItem>, ICheckableNode<TItem>
     /// <summary>
     /// 获得/设置 子节点数据源
     /// </summary>
-    public List<TreeViewItem<TItem>> Items { get; set; } = new();
+    public List<TreeViewItem<TItem>> Items { get; set; } = [];
 
     /// <summary>
     /// 获得/设置 子节点集合
