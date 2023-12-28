@@ -579,11 +579,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["Geolocation"],
-                    Url = "geolocation"
-                },
-                new()
-                {
                     Text = Localizer["GroupBox"],
                     Url = "group-box"
                 },
@@ -685,11 +680,6 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Timeline"],
                     Url = "timeline"
-                },
-                new()
-                {
-                    Text = Localizer["Title"],
-                    Url = "title"
                 },
                 new()
                 {
@@ -1297,6 +1287,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["Geolocation"],
+                    Url = "geolocation"
+                },
+                new()
+                {
                     Text = Localizer["Html2Pdf"],
                     Url = "html2pdf"
                 },
@@ -1304,6 +1299,11 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["HtmlRenderer"],
                     Url = "html-renderer"
+                },
+                new()
+                {
+                    Text = Localizer["Title"],
+                    Url = "title"
                 },
                 new()
                 {
