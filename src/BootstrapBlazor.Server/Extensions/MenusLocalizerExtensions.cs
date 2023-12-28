@@ -579,11 +579,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["Geolocation"],
-                    Url = "geolocation"
-                },
-                new()
-                {
                     Text = Localizer["GroupBox"],
                     Url = "group-box"
                 },
@@ -1294,6 +1289,11 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["Download"],
                     Url = "download"
+                },
+                new()
+                {
+                    Text = Localizer["Geolocation"],
+                    Url = "geolocation"
                 },
                 new()
                 {
