@@ -41,7 +41,7 @@ public sealed partial class TreeViews
 
     private List<TreeViewItem<TreeFoo>> CheckedItems2 { get; set; } = TreeFoo.GetTreeItems();
 
-    private List<SelectedItem> SelectedItems { get; set; } = TreeFoo.GetItems().Select(x=>new SelectedItem(x.Id,x.Text)).ToList();
+    private List<SelectedItem> SelectedItems { get; set; } = TreeFoo.GetItems().Select(x => new SelectedItem(x.Id, x.Text)).ToList();
 
     private TreeView<TreeFoo>? SetActiveTreeView { get; set; }
 
@@ -171,9 +171,12 @@ public sealed partial class TreeViews
 
     private Task SelectedItemOnChanged(SelectedItem selectedItem)
     {
-        var treeViewItem= FindTreeViewItem(Items, item => item.Value.Id == selectedItem.Value);
-        SetActiveTreeView?.SetActiveItem(treeViewItem);
-        StateHasChanged();
+        var treeViewItem = FindTreeViewItem(Items, item => item.Value.Id == selectedItem.Value);
+        if (treeViewItem != null)
+        {
+            SetActiveTreeView?.SetActiveItem(treeViewItem);
+            StateHasChanged();
+        }
         return Task.CompletedTask;
     }
 
