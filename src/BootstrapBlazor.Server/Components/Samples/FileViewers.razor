@@ -6,7 +6,7 @@
 
 <PackageTips Name="BootstrapBlazor.FileViewer" />
 
-<Tips>
+<Tips class="mt-3">
     <p>@((MarkupString)Localizer["Tips"].Value)</p>
 </Tips>
 
@@ -15,10 +15,9 @@
 &lt;/ItemGroup&gt;</Pre>
 
 <DemoBlock Title="@Localizer["BaseUsageText"]" Introduction="@Localizer["BaseUsageIntro"]" Name="Normal">
-    <p><h5>Word</h5></p>
+    <p>Word</p>
     <FileViewer Filename="@WordSampleFile" Height="300px" StyleString="padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);border: var(--bs-card-border-width) solid var(--bs-card-border-color);" />
-    <br />
-    <p><h5>Excel</h5></p>
+    <p>Excel</p>
     <FileViewer Filename="@ExcelSampleFile" Height="300px" StyleString="padding: var(--bs-card-cap-padding-y) var(--bs-card-cap-padding-x);border: var(--bs-card-border-width) solid var(--bs-card-border-color);" />
 </DemoBlock>
 
