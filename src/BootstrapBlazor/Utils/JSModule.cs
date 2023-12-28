@@ -7,22 +7,17 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 模块加载器
 /// </summary>
-public class JSModule : IAsyncDisposable
+/// <remarks>
+/// 构造函数
+/// </remarks>
+/// <param name="jSObjectReference"></param>
+public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
 {
     /// <summary>
     /// IJSObjectReference 实例
     /// </summary>
     [NotNull]
-    private IJSObjectReference? Module { get; }
-
-    /// <summary>
-    /// 构造函数
-    /// </summary>
-    /// <param name="jSObjectReference"></param>
-    public JSModule(IJSObjectReference? jSObjectReference)
-    {
-        Module = jSObjectReference ?? throw new ArgumentNullException(nameof(jSObjectReference));
-    }
+    private IJSObjectReference? Module { get; } = jSObjectReference ?? throw new ArgumentNullException(nameof(jSObjectReference));
 
     /// <summary>
     /// InvokeVoidAsync 方法
@@ -67,7 +62,7 @@ public class JSModule : IAsyncDisposable
         {
             try
             {
-                await Module.InvokeVoidAsync(identifier, cancellationToken, paras.ToArray());
+                await Module.InvokeVoidAsync(identifier, cancellationToken, [.. paras]);
             }
 #if NET6_0_OR_GREATER
             catch (JSDisconnectedException) { }
@@ -126,7 +121,7 @@ public class JSModule : IAsyncDisposable
             TValue ret = default!;
             try
             {
-                ret = await Module.InvokeAsync<TValue>(identifier, cancellationToken, paras.ToArray());
+                ret = await Module.InvokeAsync<TValue>(identifier, cancellationToken, [.. paras]);
             }
 #if NET6_0_OR_GREATER
             catch (JSDisconnectedException) { }
