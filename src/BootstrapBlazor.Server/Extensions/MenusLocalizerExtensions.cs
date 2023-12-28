@@ -605,11 +605,6 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["Locator"],
-                    Url = "locator"
-                },
-                new()
-                {
                     Text = Localizer["ImageViewer"],
                     Url = "image-viewer"
                 },
@@ -1299,6 +1294,11 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["HtmlRenderer"],
                     Url = "html-renderer"
+                },
+                new()
+                {
+                    Text = Localizer["Locator"],
+                    Url = "locator"
                 },
                 new()
                 {
