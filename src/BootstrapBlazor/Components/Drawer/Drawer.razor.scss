@@ -96,7 +96,7 @@
 
             .drawer-bar-body {
                 position: absolute;
-                inset: 0 -2px;
+                inset: 0 -1px;
                 cursor: col-resize;
             }
 
@@ -124,7 +124,7 @@
                 width: 100%;
 
                 .drawer-bar-body {
-                    inset: -2px 0;
+                    inset: -1px 0;
                     cursor: row-resize;
                 }
             }
