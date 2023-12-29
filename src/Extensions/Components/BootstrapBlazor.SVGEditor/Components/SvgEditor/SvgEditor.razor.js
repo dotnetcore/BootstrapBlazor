@@ -2,14 +2,15 @@
 import { addLink } from '../../../BootstrapBlazor/modules/utility.js'
 import Data from '../../../BootstrapBlazor/modules/data.js'
 
-export async function init(preload, interop, callback) {
+export async function init(id, preload, interop, callback) {
     await addLink("./_content/BootstrapBlazor.SvgEditor/editor/svgedit.css")
 
     /* for available options see the file `docs/tutorials/ConfigOptions.md */
-    const svgEditor = new Editor(document.querySelector('.svg-editor'))
+    const svgEditor = new Editor(document.getElementById(id))
     svgEditor.setConfig({
+        canvasName: id,
         lang: "en",
-        allowInitialUserOverride: true,
+        allowInitialUserOverride: false,
         imgPath: "./_content/BootstrapBlazor.SvgEditor/editor/images/",
         showGrid: true,
         extPath: "/_content/BootstrapBlazor.SvgEditor/editor/extensions/",
@@ -29,5 +30,5 @@ export async function init(preload, interop, callback) {
         svgEditor.zoomChanged(window, "canvas", true);
         document.querySelector("#zoom").value = "canvas"
         clearTimeout(timer)
-    }, 1000)
+    }, 800)
 }

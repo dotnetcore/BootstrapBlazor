@@ -1,4 +1,4 @@
-﻿const consoleLogger = {
+const consoleLogger = {
   type: 'logger',
   log(args) {
     this.output('log', args);
@@ -2838,7 +2838,7 @@ class FlyingButton extends HTMLElement {
           <slot></slot>
         </div>
         <div class="menu-button">
-          <img class="button-icon" src="logo.png" alt="icon">
+          <img class="button-icon" src="logo.svg" alt="icon">
           <div class="handle"></div>
         </div>
       </div>`;
@@ -15608,7 +15608,7 @@ delete defaults.rx;delete defaults.ry;}Object.entries(defaults).forEach(_ref7=>{
  * @param {Element} img - The DOM element to prevent the click on
  * @returns {void}
  */const preventClickDefault=img=>{$click$6(img,e=>{e.preventDefault();});};const stringToHTML=str=>{const parser=new DOMParser();const doc=parser.parseFromString(str,'text/html');return doc.body.firstChild;};const insertChildAtIndex=function(parent,child){let index=arguments.length>2&&arguments[2]!==undefined?arguments[2]:0;const doc=stringToHTML(child);if(index>=parent.children.length){parent.appendChild(doc);}else {parent.insertBefore(doc,parent.children[index]);}};// shortcuts to common DOM functions
-const $id$8=id=>document.getElementById(id);const $qq$1=sel=>document.querySelector(sel);const $qa$2=sel=>[...document.querySelectorAll(sel)];const $click$6=(element,handler)=>{element.addEventListener('click',handler);element.addEventListener('touchend',handler);};/* eslint-disable no-console */ /**
+const $id$3=id=>document.getElementById(id);const $qq$1=sel=>document.querySelector(sel);const $qa$2=sel=>[...document.querySelectorAll(sel)];const $click$6=(element,handler)=>{element.addEventListener('click',handler);element.addEventListener('touchend',handler);};/* eslint-disable no-console */ /**
  * For command history tracking and undo functionality.
  * @module history
  * @license MIT
@@ -20435,10 +20435,10 @@ this.setBlurNoUndo=setBlurNoUndo;// Sets the `stdDeviation` blur value on the se
 this.setBlurOffsets=setBlurOffsets;// Sets the `x`, `y`, `width`, `height` values of the filter element in order to make the blur not be clipped. Removes them if not neeeded.
 this.setBlur=setBlur;// Adds/updates the blur filter to the selected element.
 this.smoothControlPoints=smoothControlPoints;this.getTypeMap=getTypeMap$2;this.history=history;// object with all histor methods
-this.NS=NS;this.$id=$id$8;this.$qq=$qq$1;this.$qa=$qa$2;this.$click=$click$6;this.encode64=encode64;this.decode64=decode64$1;this.mergeDeep=mergeDeep$1;}}// End class
+this.NS=NS;this.$id=$id$3;this.$qq=$qq$1;this.$qa=$qa$2;this.$click=$click$6;this.encode64=encode64;this.decode64=decode64$1;this.mergeDeep=mergeDeep$1;}}// End class
 // attach utilities function to the class that are used by SvgEdit so
 // we can avoid using the whole utilities.js file in svgEdit.js
-SvgCanvas.$id=$id$8;SvgCanvas.$qq=$qq$1;SvgCanvas.$qa=$qa$2;SvgCanvas.$click=$click$6;SvgCanvas.encode64=encode64;SvgCanvas.decode64=decode64$1;SvgCanvas.mergeDeep=mergeDeep$1;SvgCanvas.getClosest=getClosest;SvgCanvas.getParents=getParents;SvgCanvas.blankPageObjectURL=blankPageObjectURL;SvgCanvas.Paint=Paint;SvgCanvas.getTypeMap=getTypeMap$2;SvgCanvas.convertToNum=convertToNum;SvgCanvas.isValidUnit=isValidUnit$3;SvgCanvas.convertUnit=convertUnit$3;var purify$2={exports:{}};/*! @license DOMPurify 2.4.7 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.4.7/LICENSE */(function(module,exports){(function(global,factory){module.exports=factory();})(commonjsGlobal,function(){function _typeof(obj){"@babel/helpers - typeof";return _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(obj){return typeof obj;}:function(obj){return obj&&"function"==typeof Symbol&&obj.constructor===Symbol&&obj!==Symbol.prototype?"symbol":typeof obj;},_typeof(obj);}function _setPrototypeOf(o,p){_setPrototypeOf=Object.setPrototypeOf||function _setPrototypeOf(o,p){o.__proto__=p;return o;};return _setPrototypeOf(o,p);}function _isNativeReflectConstruct(){if(typeof Reflect==="undefined"||!Reflect.construct)return false;if(Reflect.construct.sham)return false;if(typeof Proxy==="function")return true;try{Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],function(){}));return true;}catch(e){return false;}}function _construct(Parent,args,Class){if(_isNativeReflectConstruct()){_construct=Reflect.construct;}else {_construct=function _construct(Parent,args,Class){var a=[null];a.push.apply(a,args);var Constructor=Function.bind.apply(Parent,a);var instance=new Constructor();if(Class)_setPrototypeOf(instance,Class.prototype);return instance;};}return _construct.apply(null,arguments);}function _toConsumableArray(arr){return _arrayWithoutHoles(arr)||_iterableToArray(arr)||_unsupportedIterableToArray(arr)||_nonIterableSpread();}function _arrayWithoutHoles(arr){if(Array.isArray(arr))return _arrayLikeToArray(arr);}function _iterableToArray(iter){if(typeof Symbol!=="undefined"&&iter[Symbol.iterator]!=null||iter["@@iterator"]!=null)return Array.from(iter);}function _unsupportedIterableToArray(o,minLen){if(!o)return;if(typeof o==="string")return _arrayLikeToArray(o,minLen);var n=Object.prototype.toString.call(o).slice(8,-1);if(n==="Object"&&o.constructor)n=o.constructor.name;if(n==="Map"||n==="Set")return Array.from(o);if(n==="Arguments"||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))return _arrayLikeToArray(o,minLen);}function _arrayLikeToArray(arr,len){if(len==null||len>arr.length)len=arr.length;for(var i=0,arr2=new Array(len);i<len;i++)arr2[i]=arr[i];return arr2;}function _nonIterableSpread(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var hasOwnProperty=Object.hasOwnProperty,setPrototypeOf=Object.setPrototypeOf,isFrozen=Object.isFrozen,getPrototypeOf=Object.getPrototypeOf,getOwnPropertyDescriptor=Object.getOwnPropertyDescriptor;var freeze=Object.freeze,seal=Object.seal,create=Object.create;// eslint-disable-line import/no-mutable-exports
+SvgCanvas.$id=$id$3;SvgCanvas.$qq=$qq$1;SvgCanvas.$qa=$qa$2;SvgCanvas.$click=$click$6;SvgCanvas.encode64=encode64;SvgCanvas.decode64=decode64$1;SvgCanvas.mergeDeep=mergeDeep$1;SvgCanvas.getClosest=getClosest;SvgCanvas.getParents=getParents;SvgCanvas.blankPageObjectURL=blankPageObjectURL;SvgCanvas.Paint=Paint;SvgCanvas.getTypeMap=getTypeMap$2;SvgCanvas.convertToNum=convertToNum;SvgCanvas.isValidUnit=isValidUnit$3;SvgCanvas.convertUnit=convertUnit$3;var purify$2={exports:{}};/*! @license DOMPurify 2.4.7 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.4.7/LICENSE */(function(module,exports){(function(global,factory){module.exports=factory();})(commonjsGlobal,function(){function _typeof(obj){"@babel/helpers - typeof";return _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(obj){return typeof obj;}:function(obj){return obj&&"function"==typeof Symbol&&obj.constructor===Symbol&&obj!==Symbol.prototype?"symbol":typeof obj;},_typeof(obj);}function _setPrototypeOf(o,p){_setPrototypeOf=Object.setPrototypeOf||function _setPrototypeOf(o,p){o.__proto__=p;return o;};return _setPrototypeOf(o,p);}function _isNativeReflectConstruct(){if(typeof Reflect==="undefined"||!Reflect.construct)return false;if(Reflect.construct.sham)return false;if(typeof Proxy==="function")return true;try{Boolean.prototype.valueOf.call(Reflect.construct(Boolean,[],function(){}));return true;}catch(e){return false;}}function _construct(Parent,args,Class){if(_isNativeReflectConstruct()){_construct=Reflect.construct;}else {_construct=function _construct(Parent,args,Class){var a=[null];a.push.apply(a,args);var Constructor=Function.bind.apply(Parent,a);var instance=new Constructor();if(Class)_setPrototypeOf(instance,Class.prototype);return instance;};}return _construct.apply(null,arguments);}function _toConsumableArray(arr){return _arrayWithoutHoles(arr)||_iterableToArray(arr)||_unsupportedIterableToArray(arr)||_nonIterableSpread();}function _arrayWithoutHoles(arr){if(Array.isArray(arr))return _arrayLikeToArray(arr);}function _iterableToArray(iter){if(typeof Symbol!=="undefined"&&iter[Symbol.iterator]!=null||iter["@@iterator"]!=null)return Array.from(iter);}function _unsupportedIterableToArray(o,minLen){if(!o)return;if(typeof o==="string")return _arrayLikeToArray(o,minLen);var n=Object.prototype.toString.call(o).slice(8,-1);if(n==="Object"&&o.constructor)n=o.constructor.name;if(n==="Map"||n==="Set")return Array.from(o);if(n==="Arguments"||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n))return _arrayLikeToArray(o,minLen);}function _arrayLikeToArray(arr,len){if(len==null||len>arr.length)len=arr.length;for(var i=0,arr2=new Array(len);i<len;i++)arr2[i]=arr[i];return arr2;}function _nonIterableSpread(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var hasOwnProperty=Object.hasOwnProperty,setPrototypeOf=Object.setPrototypeOf,isFrozen=Object.isFrozen,getPrototypeOf=Object.getPrototypeOf,getOwnPropertyDescriptor=Object.getOwnPropertyDescriptor;var freeze=Object.freeze,seal=Object.seal,create=Object.create;// eslint-disable-line import/no-mutable-exports
 var _ref=typeof Reflect!=='undefined'&&Reflect,apply=_ref.apply,construct=_ref.construct;if(!apply){apply=function apply(fun,thisValue,args){return fun.apply(thisValue,args);};}if(!freeze){freeze=function freeze(x){return x;};}if(!seal){seal=function seal(x){return x;};}if(!construct){construct=function construct(Func,args){return _construct(Func,_toConsumableArray(args));};}var arrayForEach=unapply(Array.prototype.forEach);var arrayPop=unapply(Array.prototype.pop);var arrayPush=unapply(Array.prototype.push);var stringToLowerCase=unapply(String.prototype.toLowerCase);var stringToString=unapply(String.prototype.toString);var stringMatch=unapply(String.prototype.match);var stringReplace=unapply(String.prototype.replace);var stringIndexOf=unapply(String.prototype.indexOf);var stringTrim=unapply(String.prototype.trim);var regExpTest=unapply(RegExp.prototype.test);var typeErrorCreate=unconstruct(TypeError);function unapply(func){return function(thisArg){for(var _len=arguments.length,args=new Array(_len>1?_len-1:0),_key=1;_key<_len;_key++){args[_key-1]=arguments[_key];}return apply(func,thisArg,args);};}function unconstruct(func){return function(){for(var _len2=arguments.length,args=new Array(_len2),_key2=0;_key2<_len2;_key2++){args[_key2]=arguments[_key2];}return construct(func,args);};}/* Add properties to a lookup table */function addToSet(set,array,transformCaseFunc){var _transformCaseFunc;transformCaseFunc=(_transformCaseFunc=transformCaseFunc)!==null&&_transformCaseFunc!==void 0?_transformCaseFunc:stringToLowerCase;if(setPrototypeOf){// Make 'in' and truthy checks like Boolean(set.constructor)
 // independent of any properties defined on Object.prototype.
 // Prevent prototype setters from intercepting set as a this value.
@@ -30046,7 +30046,7 @@ var editorTemplate = "<div class=\"svg_editor\">\n  <div id=\"workarea\">\n    <
 var rulersTemplate = "<style>\n  /* Rulers\n——————————————————————————————————————*/\n\n  #ruler_corner {\n    background: var(--ruler-color);\n    grid-area: corner;\n    width: 15px;\n    height: 15px;\n    overflow: hidden;\n  }\n\n  #ruler_x {\n    background: var(--ruler-color);\n    grid-area: rulerX;\n    height: 15px;\n    border-bottom: 1px solid;\n    border-left: 1px solid #777;\n    overflow: hidden;\n  }\n\n  #ruler_y {\n    background: var(--ruler-color);\n    grid-area: rulerY;\n    width: 15px;\n    border-right: 1px solid;\n    border-top: 1px solid #777;\n    overflow: hidden;\n  }\n\n  #ruler_x canvas {\n    float: left;\n  }\n</style>\n<div id=\"ruler_corner\"></div>\n<div id=\"ruler_x\">\n  <div>\n    <canvas height=\"15\"></canvas>\n  </div>\n</div>\n<div id=\"ruler_y\">\n  <div>\n    <canvas width=\"15\"></canvas>\n  </div>\n</div>";
 
 const {
-  $id: $id$7,
+  $id: $id$2,
   getTypeMap: getTypeMap$1
 } = SvgCanvas;
 
@@ -30071,12 +30071,9 @@ class Rulers {
     const template = document.createElement('template');
     template.innerHTML = rulersTemplate;
     this.editor.$svgEditor.append(template.content.cloneNode(true));
-    const {
-      $id
-    } = SvgCanvas;
-    this.rulerX = $id('ruler_x');
-    this.rulerY = $id('ruler_y');
-    this.rulerCorner = $id('ruler_corner');
+    this.rulerX = this.editor.$container.querySelector('#ruler_x');
+    this.rulerY = this.editor.$container.querySelector('#ruler_y');
+    this.rulerCorner = this.editor.$container.querySelector('#ruler_corner');
   }
   display(on) {
     if (on) {
@@ -30109,7 +30106,7 @@ class Rulers {
       zoom = this.svgCanvas.getZoom();
     }
     if (!scanvas) {
-      scanvas = document.getElementById('svgcanvas');
+      scanvas = this.editor.$container.querySelector('#svgcanvas');
     }
     let d;
     let i;
@@ -30124,7 +30121,7 @@ class Rulers {
       const dim = isX ? 'x' : 'y';
       const lentype = isX ? 'width' : 'height';
       const contentDim = Number(contentElem.getAttribute(dim));
-      const $hcanvOrig = $id$7('ruler_' + dim).querySelector('canvas');
+      const $hcanvOrig = this.editor.$container.querySelector('#ruler_' + dim).querySelector('canvas');
 
       // Bit of a hack to fully clear the canvas in Safari & IE9
       const $hcanv = $hcanvOrig.cloneNode(true);
@@ -30292,7 +30289,7 @@ const readySignal = () => {
   }
 };
 const {
-  $id: $id$6,
+  $id: $id$1,
   $qq,
   $click: $click$5,
   convertUnit: convertUnit$2
@@ -30308,7 +30305,7 @@ class EditorStartup {
   constructor(div) {
     this.extensionsAdded = false;
     this.messageQueue = [];
-    this.$container = div ?? $id$6('svg_editor');
+    this.$container = div;
   }
 
   /**
@@ -30332,10 +30329,10 @@ class EditorStartup {
       const template = document.createElement('template');
       template.innerHTML = editorTemplate;
       this.$container.append(template.content.cloneNode(true));
-      this.$svgEditor = $qq('.svg_editor');
+      this.$svgEditor = this.$container.querySelector('.svg_editor');
       // allow to prepare the dom without display
       this.$svgEditor.style.visibility = 'hidden';
-      this.workarea = $id$6('workarea');
+      this.workarea = this.$container.querySelector("#workarea");
       // Image props dialog added to DOM
       const newSeImgPropDialog = document.createElement('se-img-prop-dialog');
       newSeImgPropDialog.setAttribute('id', 'se-img-prop');
@@ -30372,7 +30369,7 @@ class EditorStartup {
     * @name module:SVGthis.canvas
     * @type {module:svgcanvas.SvgCanvas}
     */
-    this.svgCanvas = new SvgCanvas($id$6('svgcanvas'), this.configObj.curConfig);
+    this.svgCanvas = new SvgCanvas(this.$container.querySelector('#svgcanvas'), this.configObj.curConfig);
     this.leftPanel.init();
     this.bottomPanel.init();
     this.topPanel.init();
@@ -30381,7 +30378,7 @@ class EditorStartup {
     const {
       undoMgr
     } = this.svgCanvas;
-    this.canvMenu = $id$6('se-cmenu_canvas');
+    this.canvMenu = this.$container.querySelector('#se-cmenu_canvas');
     this.exportWindow = null;
     this.defaultImageURL = `${this.configObj.curConfig.imgPath}/logo.svg`;
     const zoomInIcon = 'crosshair';
@@ -30394,7 +30391,7 @@ class EditorStartup {
     this.layersPanel.populateLayers();
     this.selectedElement = null;
     this.multiselected = false;
-    const aLink = $id$6('cur_context_panel');
+    const aLink = this.$container.querySelector('#cur_context_panel');
     $click$5(aLink, evt => {
       const link = evt.target;
       if (link.hasAttribute('data-root')) {
@@ -30451,7 +30448,7 @@ class EditorStartup {
     this.svgCanvas.bind('elementRenamed', this.elementRenamed.bind(this));
     this.svgCanvas.bind('beforeClear', this.beforeClear.bind(this));
     this.svgCanvas.bind('afterClear', this.afterClear.bind(this));
-    this.svgCanvas.textActions.setInputElem($id$6('text'));
+    this.svgCanvas.textActions.setInputElem(this.$container.querySelector('#text'));
     this.setBackground(this.configObj.pref('bkgd_color'), this.configObj.pref('bkgd_url'));
 
     // update resolution option with actual resolution
@@ -30460,11 +30457,11 @@ class EditorStartup {
       res.w = convertUnit$2(res.w) + this.configObj.curConfig.baseUnit;
       res.h = convertUnit$2(res.h) + this.configObj.curConfig.baseUnit;
     }
-    $id$6('se-img-prop').setAttribute('dialog', 'close');
-    $id$6('se-img-prop').setAttribute('title', this.svgCanvas.getDocumentTitle());
-    $id$6('se-img-prop').setAttribute('width', res.w);
-    $id$6('se-img-prop').setAttribute('height', res.h);
-    $id$6('se-img-prop').setAttribute('save', this.configObj.pref('img_save'));
+    this.$container.querySelector('#se-img-prop').setAttribute('dialog', 'close');
+    this.$container.querySelector('#se-img-prop').setAttribute('title', this.svgCanvas.getDocumentTitle());
+    this.$container.querySelector('#se-img-prop').setAttribute('width', res.w);
+    this.$container.querySelector('#se-img-prop').setAttribute('height', res.h);
+    this.$container.querySelector('#se-img-prop').setAttribute('save', this.configObj.pref('img_save'));
 
     // Lose focus for select elements when changed (Allows keyboard shortcuts to work better)
     const selElements = document.querySelectorAll('select');
@@ -30476,7 +30473,7 @@ class EditorStartup {
 
     // fired when user wants to move elements to another layer
     let promptMoveLayerOnce = false;
-    $id$6('selLayerNames').addEventListener('change', evt => {
+    this.$container.querySelector('#selLayerNames').addEventListener('change', evt => {
       const destLayer = evt.detail.value;
       const confirmStr = this.i18next.t('notification.QmoveElemsToLayer').replace('%s', destLayer);
       /**
@@ -30504,33 +30501,33 @@ class EditorStartup {
         }
       }
     });
-    $id$6('tool_font_family').addEventListener('change', evt => {
+    this.$container.querySelector('#tool_font_family').addEventListener('change', evt => {
       this.svgCanvas.setFontFamily(evt.detail.value);
     });
-    $id$6('seg_type').addEventListener('change', evt => {
+    this.$container.querySelector('#seg_type').addEventListener('change', evt => {
       this.svgCanvas.setSegType(evt.detail.value);
     });
     const addListenerMulti = (element, eventNames, listener) => {
       eventNames.split(' ').forEach(eventName => element.addEventListener(eventName, listener, false));
     };
-    addListenerMulti($id$6('text'), 'keyup input', evt => {
+    addListenerMulti(this.$container.querySelector('#text'), 'keyup input', evt => {
       this.svgCanvas.setTextContent(evt.currentTarget.value);
     });
-    $id$6('link_url').addEventListener('change', evt => {
+    this.$container.querySelector('#link_url').addEventListener('change', evt => {
       if (evt.currentTarget.value.length) {
         this.svgCanvas.setLinkURL(evt.currentTarget.value);
       } else {
         this.svgCanvas.removeHyperlink();
       }
     });
-    $id$6('g_title').addEventListener('change', evt => {
+    this.$container.querySelector('#g_title').addEventListener('change', evt => {
       this.svgCanvas.setGroupTitle(evt.currentTarget.value);
     });
     let lastX = null;
     let lastY = null;
     let panning = false;
     let keypan = false;
-    $id$6('svgcanvas').addEventListener('mouseup', evt => {
+    this.$container.querySelector('#svgcanvas').addEventListener('mouseup', evt => {
       if (panning === false) {
         return true;
       }
@@ -30543,7 +30540,7 @@ class EditorStartup {
       }
       return false;
     });
-    $id$6('svgcanvas').addEventListener('mousemove', evt => {
+    this.$container.querySelector('#svgcanvas').addEventListener('mousemove', evt => {
       if (panning === false) {
         return true;
       }
@@ -30556,7 +30553,7 @@ class EditorStartup {
       }
       return false;
     });
-    $id$6('svgcanvas').addEventListener('mousedown', evt => {
+    this.$container.querySelector('#svgcanvas').addEventListener('mousedown', evt => {
       if (evt.button === 1 || keypan === true) {
         panning = true;
         lastX = evt.clientX;
@@ -30618,7 +30615,7 @@ class EditorStartup {
         self.workarea.removeEventListener('mousedown', unfocus);
         // Go back to selecting text if in textedit mode
         if (self.svgCanvas.getMode() === 'textedit') {
-          $id$6('text').focus();
+          this.$container.querySelector('#text').focus();
         }
       });
     });
@@ -30644,8 +30641,8 @@ class EditorStartup {
     this.workarea.addEventListener('scroll', () => {
       this.rulers.manageScroll();
     });
-    $id$6('stroke_width').value = this.configObj.curConfig.initStroke.width;
-    $id$6('opacity').value = this.configObj.curConfig.initOpacity * 100;
+    this.$container.querySelector('#stroke_width').value = this.configObj.curConfig.initStroke.width;
+    this.$container.querySelector('#opacity').value = this.configObj.curConfig.initOpacity * 100;
     const elements = document.getElementsByClassName('push_button');
     Array.from(elements).forEach(function (element) {
       element.addEventListener('mousedown', function (event) {
@@ -30679,7 +30676,7 @@ class EditorStartup {
     Array.from(selectEles).forEach(function (inputEle) {
       inputEle.setAttribute('autocomplete', 'off');
     });
-    $id$6('se-svg-editor-dialog').addEventListener('change', function (e) {
+    this.$container.querySelector('#se-svg-editor-dialog').addEventListener('change', function (e) {
       if (e?.detail?.copy === 'click') {
         this.cancelOverlays(e);
       } else if (e?.detail?.dialog === 'dynamic') {
@@ -30690,7 +30687,7 @@ class EditorStartup {
         this.saveSourceEditor(e);
       }
     }.bind(this));
-    $id$6('se-cmenu_canvas').addEventListener('change', function (e) {
+    this.$container.querySelector('#se-cmenu_canvas').addEventListener('change', function (e) {
       const action = e?.detail?.trigger;
       switch (action) {
         case 'delete':
@@ -30737,10 +30734,10 @@ class EditorStartup {
 
     // Select given tool
     this.ready(function () {
-      const preTool = $id$6(`tool_${this.configObj.curConfig.initTool}`);
-      const regTool = $id$6(this.configObj.curConfig.initTool);
-      const selectTool = $id$6('tool_select');
-      const $editDialog = $id$6('se-edit-prefs');
+      const preTool = this.$container.querySelector(`#tool_${this.configObj.curConfig.initTool}`);
+      const regTool = this.$container.querySelector('#' + this.configObj.curConfig.initTool);
+      const selectTool = this.$container.querySelector('#tool_select');
+      const $editDialog = this.$container.querySelector('#se-edit-prefs');
       if (preTool) {
         preTool.click();
       } else if (regTool) {
@@ -30749,7 +30746,7 @@ class EditorStartup {
         selectTool.click();
       }
       if (this.configObj.curConfig.wireframe) {
-        $id$6('tool_wireframe').click();
+        this.$container.querySelector('#tool_wireframe').click();
       }
       if (this.configObj.curConfig.showRulers) {
         this.rulers.display(true);
@@ -30777,7 +30774,7 @@ class EditorStartup {
     }.bind(this));
 
     // zoom
-    $id$6('zoom').value = (this.svgCanvas.getZoom() * 100).toFixed(1);
+    this.$container.querySelector('#zoom').value = (this.svgCanvas.getZoom() * 100).toFixed(1);
     this.canvMenu.setAttribute('disableallmenu', true);
     this.canvMenu.setAttribute('enablemenuitems', '#delete,#cut,#copy');
     this.enableOrDisableClipboard();
@@ -30921,7 +30918,6 @@ class EditorStartup {
 var leftPanelHTML = "<div id=\"tools_left\">\n    <se-button id=\"tool_select\" title=\"tools.mode_select\" src=\"select.svg\"></se-button>\n    <se-button id=\"tool_zoom\" title=\"tools.mode_zoom\" src=\"zoom.svg\" shortcut=\"Z\"></se-button>\n    <se-button id=\"tool_fhpath\" title=\"tools.mode_fhpath\" src=\"pencil.svg\" shortcut=\"Q\"></se-button>\n    <se-button id=\"tool_line\" title=\"tools.mode_line\" src=\"pen.svg\" shortcut=\"L\"></se-button>\n    <se-button id=\"tool_path\" title=\"tools.mode_path\" src=\"path.svg\" shortcut=\"P\"></se-button>\n    <se-flyingbutton id=\"tools_rect\" title=\"tools.square_rect_tool\">\n        <se-button id=\"tool_rect\" title=\"tools.mode_rect\" src=\"rect.svg\" shortcut=\"R\"></se-button>\n        <se-button id=\"tool_square\" title=\"tools.mode_square\" src=\"square.svg\"></se-button>\n        <se-button id=\"tool_fhrect\" title=\"tools.mode_fhrect\" src=\"fh_rect.svg\"></se-button>\n    </se-flyingbutton>\n    <se-flyingbutton id=\"tools_ellipse\" title=\"tools.ellipse_circle_tool\">\n        <se-button id=\"tool_ellipse\" title=\"tools.mode_ellipse\" src=\"ellipse.svg\" shortcut=\"E\"></se-button>\n        <se-button id=\"tool_circle\" title=\"tools.mode_circle\" src=\"circle.svg\"></se-button>\n        <se-button id=\"tool_fhellipse\" title=\"tools.mode_fhellipse\" src=\"fh_ellipse.svg\"></se-button>\n    </se-flyingbutton>\n    <se-button id=\"tool_text\" title=\"tools.mode_text\" src=\"text.svg\" shortcut=\"T\"></se-button>\n    <se-button id=\"tool_image\" title=\"tools.mode_image\" src=\"image.svg\"></se-button>\n</div>";
 
 const {
-  $id: $id$5,
   $qa: $qa$1,
   $click: $click$4
 } = SvgCanvas;
@@ -30952,11 +30948,11 @@ class LeftPanel {
   updateLeftPanel(button) {
     if (button.disabled) return false;
     // remove the pressed state on other(s) button(s)
-    $qa$1('#tools_left *[pressed]').forEach(b => {
+    this.editor.$container.querySelectorAll('#tools_left *[pressed]').forEach(b => {
       b.pressed = false;
     });
     // pressed state for the clicked button
-    $id$5(button).pressed = true;
+    this.editor.$container.querySelector("#" + button).pressed = true;
     return true;
   }
 
@@ -31109,7 +31105,7 @@ class LeftPanel {
    * @type {module}
    */
   add(id, handler) {
-    $click$4($id$5(id), () => {
+    $click$4(this.editor.$container.getElementById("#" + id), () => {
       if (this.updateLeftPanel(id)) {
         handler();
       }
@@ -31125,22 +31121,22 @@ class LeftPanel {
     template.innerHTML = leftPanelHTML;
     this.editor.$svgEditor.append(template.content.cloneNode(true));
     // register actions for left panel
-    $click$4($id$5('tool_select'), this.clickSelect.bind(this));
-    $click$4($id$5('tool_fhpath'), this.clickFHPath.bind(this));
-    $click$4($id$5('tool_text'), this.clickText.bind(this));
-    $click$4($id$5('tool_image'), this.clickImage.bind(this));
-    $click$4($id$5('tool_zoom'), this.clickZoom.bind(this));
-    $id$5('tool_zoom').addEventListener('dblclick', this.dblclickZoom.bind(this));
-    $click$4($id$5('tool_path'), this.clickPath.bind(this));
-    $click$4($id$5('tool_line'), this.clickLine.bind(this));
+    $click$4(this.editor.$container.querySelector('#tool_select'), this.clickSelect.bind(this));
+    $click$4(this.editor.$container.querySelector('#tool_fhpath'), this.clickFHPath.bind(this));
+    $click$4(this.editor.$container.querySelector('#tool_text'), this.clickText.bind(this));
+    $click$4(this.editor.$container.querySelector('#tool_image'), this.clickImage.bind(this));
+    $click$4(this.editor.$container.querySelector('#tool_zoom'), this.clickZoom.bind(this));
+    this.editor.$container.querySelector('#tool_zoom').addEventListener('dblclick', this.dblclickZoom.bind(this));
+    $click$4(this.editor.$container.querySelector('#tool_path'), this.clickPath.bind(this));
+    $click$4(this.editor.$container.querySelector('#tool_line'), this.clickLine.bind(this));
 
     // flyout
-    $click$4($id$5('tool_rect'), this.clickRect.bind(this));
-    $click$4($id$5('tool_square'), this.clickSquare.bind(this));
-    $click$4($id$5('tool_fhrect'), this.clickFHRect.bind(this));
-    $click$4($id$5('tool_ellipse'), this.clickEllipse.bind(this));
-    $click$4($id$5('tool_circle'), this.clickCircle.bind(this));
-    $click$4($id$5('tool_fhellipse'), this.clickFHEllipse.bind(this));
+    $click$4(this.editor.$container.querySelector('#tool_rect'), this.clickRect.bind(this));
+    $click$4(this.editor.$container.querySelector('#tool_square'), this.clickSquare.bind(this));
+    $click$4(this.editor.$container.querySelector('#tool_fhrect'), this.clickFHRect.bind(this));
+    $click$4(this.editor.$container.querySelector('#tool_ellipse'), this.clickEllipse.bind(this));
+    $click$4(this.editor.$container.querySelector('#tool_circle'), this.clickCircle.bind(this));
+    $click$4(this.editor.$container.querySelector('#tool_fhellipse'), this.clickFHEllipse.bind(this));
   }
 }
 
@@ -31151,7 +31147,6 @@ var topPanelHTML = "<div id=\"tools_top\">\n  <div id=\"title_panel\">\n    <p>u
 
 const {
   $qa,
-  $id: $id$4,
   $click: $click$3,
   isValidUnit: isValidUnit$1,
   getTypeMap,
@@ -31177,14 +31172,14 @@ class TopPanel {
    */
   displayTool(className) {
     // default display is 'none' so removing the property will make the panel visible
-    $qa(`.${className}`).map(el => el.style.removeProperty('display'));
+    this.editor.$container.querySelectorAll(`.${className}`).forEach(el => el.style.removeProperty('display'));
   }
 
   /**
    * @type {module}
    */
   hideTool(className) {
-    $qa(`.${className}`).forEach(el => {
+    this.editor.$container.querySelectorAll(`.${className}`).forEach(el => {
       el.style.display = 'none';
     });
   }
@@ -31244,7 +31239,7 @@ class TopPanel {
     let i;
     let len;
     // set title
-    $qa('#title_panel > p')[0].textContent = this.editor.title;
+    this.editor.$container.querySelectorAll('#title_panel > p')[0].textContent = this.editor.title;
     if (this.selectedElement) {
       switch (this.selectedElement.tagName) {
         case 'use':
@@ -31265,25 +31260,25 @@ class TopPanel {
                 gWidth = null;
               }
             }
-            $id$4('stroke_width').value = gWidth === null ? '' : gWidth;
+            this.editor.$container.querySelector('#stroke_width').value = gWidth === null ? '' : gWidth;
             this.editor.bottomPanel.updateColorpickers(false);
             break;
           }
         default:
           {
             this.editor.bottomPanel.updateColorpickers(false);
-            $id$4('stroke_width').value = this.selectedElement.getAttribute('stroke-width') || 1;
-            $id$4('stroke_style').value = this.selectedElement.getAttribute('stroke-dasharray') || 'none';
-            $id$4('stroke_style').setAttribute('value', $id$4('stroke_style').value);
+            this.editor.$container.querySelector('#stroke_width').value = this.selectedElement.getAttribute('stroke-width') || 1;
+            this.editor.$container.querySelector('#stroke_style').value = this.selectedElement.getAttribute('stroke-dasharray') || 'none';
+            this.editor.$container.querySelector('#stroke_style').setAttribute('value', this.editor.$container.querySelector('#stroke_style').value);
             let attr = this.selectedElement.getAttribute('stroke-linejoin') || 'miter';
-            if ($id$4('linejoin_' + attr)) {
-              this.setStrokeOpt($id$4('linejoin_' + attr));
-              $id$4('stroke_linejoin').setAttribute('value', attr);
+            if (this.editor.$container.querySelector('#linejoin_' + attr)) {
+              this.setStrokeOpt(this.editor.$container.querySelector('#linejoin_' + attr));
+              this.editor.$container.querySelector('#stroke_linejoin').setAttribute('value', attr);
             }
             attr = this.selectedElement.getAttribute('stroke-linecap') || 'butt';
-            if ($id$4('linecap_' + attr)) {
-              this.setStrokeOpt($id$4('linecap_' + attr));
-              $id$4('stroke_linecap').setAttribute('value', attr);
+            if (this.editor.$container.querySelector('#linecap_' + attr)) {
+              this.setStrokeOpt(this.editor.$container.querySelector('#linecap_' + attr));
+              this.editor.$container.querySelector('#stroke_linecap').setAttribute('value', attr);
             }
           }
       }
@@ -31292,9 +31287,9 @@ class TopPanel {
     // All elements including image and group have opacity
     if (this.selectedElement) {
       const opacPerc = (this.selectedElement.getAttribute('opacity') || 1.0) * 100;
-      $id$4('opacity').value = opacPerc;
-      $id$4('elem_id').value = this.selectedElement.id;
-      $id$4('elem_class').value = this.selectedElement.getAttribute('class') ?? '';
+      this.editor.$container.querySelector('#opacity').value = opacPerc;
+      this.editor.$container.querySelector('#elem_id').value = this.selectedElement.id;
+      this.editor.$container.querySelector('#elem_class').value = this.selectedElement.getAttribute('class') ?? '';
     }
     this.editor.bottomPanel.updateToolButtonState();
   }
@@ -31349,9 +31344,9 @@ class TopPanel {
     if (elem) {
       const elname = elem.nodeName;
       const angle = this.editor.svgCanvas.getRotationAngle(elem);
-      $id$4('angle').value = angle;
+      this.editor.$container.querySelector('#angle').value = angle;
       const blurval = this.editor.svgCanvas.getBlur(elem) * 10;
-      $id$4('blur').value = blurval;
+      this.editor.$container.querySelector('#blur').value = blurval;
       if (this.editor.svgCanvas.addedNew && elname === 'image' && this.editor.svgCanvas.getMode() === 'image' && !this.editor.svgCanvas.getHref(elem).startsWith('data:')) {
         /* await */this.promptImgURL({
           cancelDeletes: true
@@ -31389,12 +31384,12 @@ class TopPanel {
            * @param {number} newValue - The new numeric value to set in the input field.
            */
           const updateValue = (id, newValue) => {
-            const currentValue = $id$4(id).value; // Get current value from the field
+            const currentValue = this.editor.$container.querySelector("#" + id).value; // Get current value from the field
             // do nothing if nothing changed...
             if (parseFloat(currentValue) === newValue) {
               return;
             }
-            $id$4(id).value = newValue;
+            this.editor.$container.querySelector("#" + id).value = newValue;
           };
           updateValue('selected_x', x);
           updateValue('selected_y', y);
@@ -31412,23 +31407,23 @@ class TopPanel {
         } else {
           this.hideTool('tool_reorient');
         }
-        $id$4('tool_reorient').disabled = angle === 0;
+        this.editor.$container.querySelector('#tool_reorient').disabled = angle === 0;
       } else {
         const point = this.path.getNodePoint();
-        $id$4('tool_add_subpath').pressed = false;
-        !this.path.canDeleteNodes ? $id$4('tool_node_delete').classList.add('disabled') : $id$4('tool_node_delete').classList.remove('disabled');
+        this.editor.$container.querySelector('#tool_add_subpath').pressed = false;
+        !this.path.canDeleteNodes ? this.editor.$container.querySelector('#tool_node_delete').classList.add('disabled') : this.editor.$container.querySelector('#tool_node_delete').classList.remove('disabled');
 
         // Show open/close button based on selected point
         // setIcon('#tool_openclose_path', path.closed_subpath ? 'open_path' : 'close_path');
 
         if (point) {
-          const segType = $id$4('seg_type');
+          const segType = this.editor.$container.querySelector('#seg_type');
           if (unit) {
             point.x = convertUnit$1(point.x);
             point.y = convertUnit$1(point.y);
           }
-          $id$4('path_node_x').value = point.x;
-          $id$4('path_node_y').value = point.y;
+          this.editor.$container.querySelector('#path_node_x').value = point.x;
+          this.editor.$container.querySelector('#path_node_y').value = point.y;
           if (point.type) {
             segType.value = point.type;
             segType.removeAttribute('disabled');
@@ -31475,7 +31470,7 @@ class TopPanel {
       if (linkHref) {
         this.displayTool('tool_make_link');
         this.displayTool('tool_make_link_multi');
-        $id$4('link_url').value = linkHref;
+        this.editor.$container.querySelector('#link_url').value = linkHref;
       } else {
         this.hideTool('tool_make_link');
         this.hideTool('tool_make_link_multi');
@@ -31489,28 +31484,28 @@ class TopPanel {
             const bv = elem[item].baseVal.value;
             attrVal = convertUnit$1(bv);
           }
-          $id$4(`${tagName}_${item}`).value = attrVal || 0;
+          this.editor.$container.querySelector(`#${tagName}_${item}`).value = attrVal || 0;
         });
         if (tagName === 'text') {
           this.displayTool('text_panel');
-          $id$4('tool_italic').pressed = this.editor.svgCanvas.getItalic();
-          $id$4('tool_bold').pressed = this.editor.svgCanvas.getBold();
-          $id$4('tool_text_decoration_underline').pressed = this.editor.svgCanvas.hasTextDecoration('underline');
-          $id$4('tool_text_decoration_linethrough').pressed = this.editor.svgCanvas.hasTextDecoration('line-through');
-          $id$4('tool_text_decoration_overline').pressed = this.editor.svgCanvas.hasTextDecoration('overline');
-          $id$4('tool_font_family').value = elem.getAttribute('font-family');
-          $id$4('tool_text_anchor').setAttribute('value', elem.getAttribute('text-anchor'));
-          $id$4('font_size').value = elem.getAttribute('font-size');
-          $id$4('tool_letter_spacing').value = elem.getAttribute('letter-spacing') ?? 0;
-          $id$4('tool_word_spacing').value = elem.getAttribute('word-spacing') ?? 0;
-          $id$4('tool_text_length').value = elem.getAttribute('textLength') ?? 0;
-          $id$4('tool_length_adjust').value = elem.getAttribute('lengthAdjust') ?? 0;
-          $id$4('text').value = elem.textContent;
+          this.editor.$container.querySelector('#tool_italic').pressed = this.editor.svgCanvas.getItalic();
+          this.editor.$container.querySelector('#tool_bold').pressed = this.editor.svgCanvas.getBold();
+          this.editor.$container.querySelector('#tool_text_decoration_underline').pressed = this.editor.svgCanvas.hasTextDecoration('underline');
+          this.editor.$container.querySelector('#tool_text_decoration_linethrough').pressed = this.editor.svgCanvas.hasTextDecoration('line-through');
+          this.editor.$container.querySelector('#tool_text_decoration_overline').pressed = this.editor.svgCanvas.hasTextDecoration('overline');
+          this.editor.$container.querySelector('#tool_font_family').value = elem.getAttribute('font-family');
+          this.editor.$container.querySelector('#tool_text_anchor').setAttribute('value', elem.getAttribute('text-anchor'));
+          this.editor.$container.querySelector('#font_size').value = elem.getAttribute('font-size');
+          this.editor.$container.querySelector('#tool_letter_spacing').value = elem.getAttribute('letter-spacing') ?? 0;
+          this.editor.$container.querySelector('#tool_word_spacing').value = elem.getAttribute('word-spacing') ?? 0;
+          this.editor.$container.querySelector('#tool_text_length').value = elem.getAttribute('textLength') ?? 0;
+          this.editor.$container.querySelector('#tool_length_adjust').value = elem.getAttribute('lengthAdjust') ?? 0;
+          this.editor.$container.querySelector('#text').value = elem.textContent;
           if (this.editor.svgCanvas.addedNew) {
             // Timeout needed for IE9
             setTimeout(() => {
-              $id$4('text').focus();
-              $id$4('text').select();
+              this.editor.$container.querySelector('#text').focus();
+              this.editor.$container.querySelector('#text').select();
             }, 100);
           }
           // text
@@ -31520,9 +31515,9 @@ class TopPanel {
         } else if (tagName === 'g' || tagName === 'use') {
           this.displayTool('container_panel');
           const title = this.editor.svgCanvas.getTitle();
-          const label = $id$4('g_title');
+          const label = this.editor.$container.querySelector('#g_title');
           label.value = title;
-          $id$4('g_title').disabled = tagName === 'use';
+          this.editor.$container.querySelector('#g_title').disabled = tagName === 'use';
         }
       }
       menuItems.setAttribute((tagName === 'g' ? 'en' : 'dis') + 'ablemenuitems', '#ungroup');
@@ -31543,20 +31538,20 @@ class TopPanel {
     }
 
     // update history buttons
-    $id$4('tool_undo').disabled = this.editor.svgCanvas.undoMgr.getUndoStackSize() === 0;
-    $id$4('tool_redo').disabled = this.editor.svgCanvas.undoMgr.getRedoStackSize() === 0;
+    this.editor.$container.querySelector('#tool_undo').disabled = this.editor.svgCanvas.undoMgr.getUndoStackSize() === 0;
+    this.editor.$container.querySelector('#tool_redo').disabled = this.editor.svgCanvas.undoMgr.getRedoStackSize() === 0;
     this.editor.svgCanvas.addedNew = false;
     if (elem && !isNode || this.multiselected) {
       // update the selected elements' layer
-      $id$4('selLayerNames').removeAttribute('disabled');
-      $id$4('selLayerNames').value = currentLayerName;
-      $id$4('selLayerNames').setAttribute('value', currentLayerName);
+      this.editor.$container.querySelector('#selLayerNames').removeAttribute('disabled');
+      this.editor.$container.querySelector('#selLayerNames').value = currentLayerName;
+      this.editor.$container.querySelector('#selLayerNames').setAttribute('value', currentLayerName);
 
       // Enable regular menu options
       const canCMenu = document.getElementById('se-cmenu_canvas');
       canCMenu.setAttribute('enablemenuitems', '#delete,#cut,#copy,#move_front,#move_up,#move_down,#move_back');
     } else {
-      $id$4('selLayerNames').setAttribute('disabled', 'disabled');
+      this.editor.$container.querySelector('#selLayerNames').setAttribute('disabled', 'disabled');
     }
   }
 
@@ -31580,9 +31575,9 @@ class TopPanel {
    * @returns {void}
    */
   clickWireframe() {
-    $id$4('tool_wireframe').pressed = !$id$4('tool_wireframe').pressed;
+    this.editor.$container.querySelector('#tool_wireframe').pressed = !this.editor.$container.querySelector('#tool_wireframe').pressed;
     this.editor.workarea.classList.toggle('wireframe');
-    const wfRules = $id$4('wireframe_rules');
+    const wfRules = this.editor.$container.querySelector('#wireframe_rules');
     if (!wfRules) {
       const fcRules = document.createElement('style');
       fcRules.setAttribute('id', 'wireframe_rules');
@@ -31647,9 +31642,9 @@ class TopPanel {
   changeRotationAngle(e) {
     this.editor.svgCanvas.setRotationAngle(e.target.value);
     if (Number.parseInt(e.target.value) === 0) {
-      $id$4('tool_reorient').classList.add('disabled');
+      this.editor.$container.querySelector('#tool_reorient').classList.add('disabled');
     } else {
-      $id$4('tool_reorient').classList.remove('disabled');
+      this.editor.$container.querySelector('#tool_reorient').classList.remove('disabled');
     }
   }
 
@@ -31696,7 +31691,7 @@ class TopPanel {
    * @returns {void}
    */
   clickAlign(pos) {
-    let value = $id$4('tool_align_relative').value;
+    let value = this.editor.$container.querySelector('#tool_align_relative').value;
     if (value === '') {
       value = 'selected';
     }
@@ -31770,8 +31765,8 @@ class TopPanel {
    * @returns {void}
    */
   linkControlPoints() {
-    $id$4('tool_node_link').pressed = !$id$4('tool_node_link').pressed;
-    const linked = !!$id$4('tool_node_link').pressed;
+    this.editor.$container.querySelector('#tool_node_link').pressed = !this.editor.$container.querySelector('#tool_node_link').pressed;
+    const linked = !!this.editor.$container.querySelector('#tool_node_link').pressed;
     this.path.linkControlPoints(linked);
   }
 
@@ -31800,7 +31795,7 @@ class TopPanel {
    * @returns {void}
    */
   addSubPath() {
-    const button = $id$4('tool_add_subpath');
+    const button = this.editor.$container.querySelector('#tool_add_subpath');
     const sp = !button.classList.contains('pressed');
     button.pressed = sp;
     // button.toggleClass('push_button_pressed tool_button');
@@ -31934,7 +31929,7 @@ class TopPanel {
       url = editor.defaultImageURL;
     }
     editor.svgCanvas.setImageURL(url);
-    $id$4('image_url').value = url;
+    this.editor.$container.querySelector('#image_url').value = url;
     if (url.startsWith('data:')) {
       // data URI found
       this.hideTool('image_url');
@@ -31962,7 +31957,7 @@ class TopPanel {
    */
   updateTitle(title) {
     if (title) this.editor.title = title;
-    const titleElement = $qa('#title_panel > p')[0];
+    const titleElement = this.editor.$container.querySelectorAll('#title_panel > p')[0];
     if (titleElement) titleElement.textContent = this.editor.title;
   }
 
@@ -31979,16 +31974,16 @@ class TopPanel {
     }
     if (editMode) {
       // Change select icon
-      $id$4('tool_path').pressed = false;
-      $id$4('tool_select').pressed = true;
-      $id$4('tool_select').setAttribute('src', 'select_node.svg');
+      this.editor.$container.querySelector('#tool_path').pressed = false;
+      this.editor.$container.querySelector('#tool_select').pressed = true;
+      this.editor.$container.querySelector('#tool_select').setAttribute('src', 'select_node.svg');
       this.editor.multiselected = false;
       if (elems.length) {
         this.editor.selectedElement = elems[0];
       }
     } else {
       setTimeout(() => {
-        $id$4('tool_select').setAttribute('src', 'select.svg');
+        this.editor.$container.querySelector('#tool_select').setAttribute('src', 'select.svg');
       }, 1000);
     }
   }
@@ -32010,68 +32005,64 @@ class TopPanel {
     this.editor.$container.append(newSeEditorDialog);
     this.updateTitle();
     newSeEditorDialog.init(i18next);
-    $id$4('tool_link_url').setAttribute('title', i18next.t('tools.set_link_url'));
+    this.editor.$container.querySelector('#tool_link_url').setAttribute('title', i18next.t('tools.set_link_url'));
     // register action to top panel buttons
-    $click$3($id$4('tool_source'), this.showSourceEditor.bind(this));
-    $click$3($id$4('tool_wireframe'), this.clickWireframe.bind(this));
-    $click$3($id$4('tool_undo'), this.clickUndo.bind(this));
-    $click$3($id$4('tool_redo'), this.clickRedo.bind(this));
-    $click$3($id$4('tool_clone'), this.clickClone.bind(this));
-    $click$3($id$4('tool_clone_multi'), this.clickClone.bind(this));
-    $click$3($id$4('tool_delete'), this.deleteSelected.bind(this));
-    $click$3($id$4('tool_delete_multi'), this.deleteSelected.bind(this));
-    $click$3($id$4('tool_move_top'), this.moveToTopSelected.bind(this));
-    $click$3($id$4('tool_move_bottom'), this.moveToBottomSelected.bind(this));
-    $click$3($id$4('tool_topath'), this.convertToPath.bind(this));
-    $click$3($id$4('tool_make_link'), this.makeHyperlink.bind(this));
-    $click$3($id$4('tool_make_link_multi'), this.makeHyperlink.bind(this));
-    $click$3($id$4('tool_reorient'), this.reorientPath.bind(this));
-    $click$3($id$4('tool_group_elements'), this.clickGroup.bind(this));
-    $id$4('tool_position').addEventListener('change', evt => this.clickAlignEle.bind(this)(evt));
-    $click$3($id$4('tool_align_left'), () => this.clickAlign.bind(this)('left'));
-    $click$3($id$4('tool_align_right'), () => this.clickAlign.bind(this)('right'));
-    $click$3($id$4('tool_align_center'), () => this.clickAlign.bind(this)('center'));
-    $click$3($id$4('tool_align_top'), () => this.clickAlign.bind(this)('top'));
-    $click$3($id$4('tool_align_bottom'), () => this.clickAlign.bind(this)('bottom'));
-    $click$3($id$4('tool_align_middle'), () => this.clickAlign.bind(this)('middle'));
-    $click$3($id$4('tool_align_distrib_horiz'), () => this.clickAlign.bind(this)('distrib_horiz'));
-    $click$3($id$4('tool_align_distrib_verti'), () => this.clickAlign.bind(this)('distrib_verti'));
-    $click$3($id$4('tool_node_clone'), this.clonePathNode.bind(this));
-    $click$3($id$4('tool_node_delete'), this.deletePathNode.bind(this));
-    $click$3($id$4('tool_openclose_path'), this.opencloseSubPath.bind(this));
-    $click$3($id$4('tool_add_subpath'), this.addSubPath.bind(this));
-    $click$3($id$4('tool_node_link'), this.linkControlPoints.bind(this));
-    $id$4('angle').addEventListener('change', this.changeRotationAngle.bind(this));
-    $id$4('blur').addEventListener('change', this.changeBlur.bind(this));
-    $id$4('rect_rx').addEventListener('change', this.changeRectRadius.bind(this));
-    $id$4('font_size').addEventListener('change', this.changeFontSize.bind(this));
-    $click$3($id$4('tool_ungroup'), this.clickGroup.bind(this));
-    $click$3($id$4('tool_bold'), this.clickBold.bind(this));
-    $click$3($id$4('tool_italic'), this.clickItalic.bind(this));
-    $click$3($id$4('tool_text_decoration_underline'), () => this.clickTextDecoration.bind(this)('underline'));
-    $click$3($id$4('tool_text_decoration_linethrough'), () => this.clickTextDecoration.bind(this)('line-through'));
-    $click$3($id$4('tool_text_decoration_overline'), () => this.clickTextDecoration.bind(this)('overline'));
-    $id$4('tool_text_anchor').addEventListener('change', evt => this.clickTextAnchor.bind(this)(evt));
-    $id$4('tool_letter_spacing').addEventListener('change', this.changeLetterSpacing.bind(this));
-    $id$4('tool_word_spacing').addEventListener('change', this.changeWordSpacing.bind(this));
-    $id$4('tool_text_length').addEventListener('change', this.changeTextLength.bind(this));
-    $id$4('tool_length_adjust').addEventListener('change', evt => this.changeLengthAdjust.bind(this)(evt));
-    $click$3($id$4('tool_unlink_use'), this.clickGroup.bind(this));
-    $id$4('image_url').addEventListener('change', evt => {
+    $click$3(this.editor.$container.querySelector('#tool_source'), this.showSourceEditor.bind(this));
+    $click$3(this.editor.$container.querySelector('#tool_wireframe'), this.clickWireframe.bind(this));
+    $click$3(this.editor.$container.querySelector('#tool_undo'), this.clickUndo.bind(this));
+    $click$3(this.editor.$container.querySelector('#tool_redo'), this.clickRedo.bind(this));
+    $click$3(this.editor.$container.querySelector('#tool_clone'), this.clickClone.bind(this));
+    $click$3(this.editor.$container.querySelector('#tool_clone_multi'), this.clickClone.bind(this));
+    $click$3(this.editor.$container.querySelector('#tool_delete'), this.deleteSelected.bind(this));
+    $click$3(this.editor.$container.querySelector('#tool_delete_multi'), this.deleteSelected.bind(this));
+    $click$3(this.editor.$container.querySelector('#tool_move_top'), this.moveToTopSelected.bind(this));
+    $click$3(this.editor.$container.querySelector('#tool_move_bottom'), this.moveToBottomSelected.bind(this));
+    $click$3(this.editor.$container.querySelector('#tool_topath'), this.convertToPath.bind(this));
+    $click$3(this.editor.$container.querySelector('#tool_make_link'), this.makeHyperlink.bind(this));
+    $click$3(this.editor.$container.querySelector('#tool_make_link_multi'), this.makeHyperlink.bind(this));
+    $click$3(this.editor.$container.querySelector('#tool_reorient'), this.reorientPath.bind(this));
+    $click$3(this.editor.$container.querySelector('#tool_group_elements'), this.clickGroup.bind(this));
+    this.editor.$container.querySelector('#tool_position').addEventListener('change', evt => this.clickAlignEle.bind(this)(evt));
+    $click$3(this.editor.$container.querySelector('#tool_align_left'), () => this.clickAlign.bind(this)('left'));
+    $click$3(this.editor.$container.querySelector('#tool_align_right'), () => this.clickAlign.bind(this)('right'));
+    $click$3(this.editor.$container.querySelector('#tool_align_center'), () => this.clickAlign.bind(this)('center'));
+    $click$3(this.editor.$container.querySelector('#tool_align_top'), () => this.clickAlign.bind(this)('top'));
+    $click$3(this.editor.$container.querySelector('#tool_align_bottom'), () => this.clickAlign.bind(this)('bottom'));
+    $click$3(this.editor.$container.querySelector('#tool_align_middle'), () => this.clickAlign.bind(this)('middle'));
+    $click$3(this.editor.$container.querySelector('#tool_align_distrib_horiz'), () => this.clickAlign.bind(this)('distrib_horiz'));
+    $click$3(this.editor.$container.querySelector('#tool_align_distrib_verti'), () => this.clickAlign.bind(this)('distrib_verti'));
+    $click$3(this.editor.$container.querySelector('#tool_node_clone'), this.clonePathNode.bind(this));
+    $click$3(this.editor.$container.querySelector('#tool_node_delete'), this.deletePathNode.bind(this));
+    $click$3(this.editor.$container.querySelector('#tool_openclose_path'), this.opencloseSubPath.bind(this));
+    $click$3(this.editor.$container.querySelector('#tool_add_subpath'), this.addSubPath.bind(this));
+    $click$3(this.editor.$container.querySelector('#tool_node_link'), this.linkControlPoints.bind(this));
+    this.editor.$container.querySelector('#angle').addEventListener('change', this.changeRotationAngle.bind(this));
+    this.editor.$container.querySelector('#blur').addEventListener('change', this.changeBlur.bind(this));
+    this.editor.$container.querySelector('#rect_rx').addEventListener('change', this.changeRectRadius.bind(this));
+    this.editor.$container.querySelector('#font_size').addEventListener('change', this.changeFontSize.bind(this));
+    $click$3(this.editor.$container.querySelector('#tool_ungroup'), this.clickGroup.bind(this));
+    $click$3(this.editor.$container.querySelector('#tool_bold'), this.clickBold.bind(this));
+    $click$3(this.editor.$container.querySelector('#tool_italic'), this.clickItalic.bind(this));
+    $click$3(this.editor.$container.querySelector('#tool_text_decoration_underline'), () => this.clickTextDecoration.bind(this)('underline'));
+    $click$3(this.editor.$container.querySelector('#tool_text_decoration_linethrough'), () => this.clickTextDecoration.bind(this)('line-through'));
+    $click$3(this.editor.$container.querySelector('#tool_text_decoration_overline'), () => this.clickTextDecoration.bind(this)('overline'));
+    this.editor.$container.querySelector('#tool_text_anchor').addEventListener('change', evt => this.clickTextAnchor.bind(this)(evt));
+    this.editor.$container.querySelector('#tool_letter_spacing').addEventListener('change', this.changeLetterSpacing.bind(this));
+    this.editor.$container.querySelector('#tool_word_spacing').addEventListener('change', this.changeWordSpacing.bind(this));
+    this.editor.$container.querySelector('#tool_text_length').addEventListener('change', this.changeTextLength.bind(this));
+    this.editor.$container.querySelector('#tool_length_adjust').addEventListener('change', evt => this.changeLengthAdjust.bind(this)(evt));
+    $click$3(this.editor.$container.querySelector('#tool_unlink_use'), this.clickGroup.bind(this));
+    this.editor.$container.querySelector('#image_url').addEventListener('change', evt => {
       this.setImageURL(evt.currentTarget.value);
     })
 
     // all top panel attributes
     ;
-    ['elem_id', 'elem_class', 'circle_cx', 'circle_cy', 'circle_r', 'ellipse_cx', 'ellipse_cy', 'ellipse_rx', 'ellipse_ry', 'selected_x', 'selected_y', 'rect_width', 'rect_height', 'line_x1', 'line_x2', 'line_y1', 'line_y2', 'image_width', 'image_height', 'path_node_x', 'path_node_y'].forEach(attrId => $id$4(attrId).addEventListener('change', this.attrChanger.bind(this)));
+    ['elem_id', 'elem_class', 'circle_cx', 'circle_cy', 'circle_r', 'ellipse_cx', 'ellipse_cy', 'ellipse_rx', 'ellipse_ry', 'selected_x', 'selected_y', 'rect_width', 'rect_height', 'line_x1', 'line_x2', 'line_y1', 'line_y2', 'image_width', 'image_height', 'path_node_x', 'path_node_y'].forEach(attrId => this.editor.$container.querySelector("#" + attrId).addEventListener('change', this.attrChanger.bind(this)));
   }
 }
 
 var BottomPanelHtml = "<div id=\"tools_bottom\">\n    <!-- Zoom buttons -->\n    <se-zoom id=\"zoom\" src=\"zoom.svg\" title=\"Change zoom level\" inputsize=\"40px\">\n      <se-text value=\"1000\" text=\"1000%\"></se-text>\n      <se-text value=\"400\" text=\"400%\"></se-text>\n      <se-text value=\"200\" text=\"200%\"></se-text>\n      <se-text value=\"100\" text=\"100%\"></se-text>\n      <se-text value=\"50\" text=\"50%\"></se-text>\n      <se-text value=\"25\" text=\"25%\"></se-text>\n      <se-text value=\"canvas\" text=\"tools.fit_to_canvas\"></se-text>\n      <se-text value=\"selection\" text=\"tools.fit_to_sel\"></se-text>\n      <se-text value=\"layer\" text=\"tools.fit_to_layer_content\"></se-text>\n      <se-text value=\"content\" text=\"tools.fit_to_all\"></se-text>\n    </se-zoom>\n    <se-colorpicker id=\"fill_color\" src=\"fill.svg\" label=\"properties.fill_color\" type=\"fill\"></se-colorpicker>\n    <se-colorpicker id=\"stroke_color\" src=\"stroke.svg\" label=\"properties.stroke_color\" type=\"stroke\"></se-colorpicker>\n    <se-spin-input id=\"stroke_width\" min=\"0\" max=\"99\" step=\"1\" title=\"properties.stroke_width\" label=\"\"></se-spin-input>\n    <se-select id=\"stroke_style\" title=\"properties.stroke_style\" label=\"\" width=\"22px\" height=\"22px\" options=\"&#8212;,...,- -,- .,- ..\" values=\"none::2,2::5,5::5,2,2,2::5,2,2,2,2,2\">     \n    </se-select>\n    <se-list id=\"stroke_linejoin\" title=\"properties.linejoin_miter\" label=\"\" width=\"22px\" height=\"22px\">\n      <se-list-item id=\"linejoin_miter\" value=\"miter\" src=\"linejoin_miter.svg\" title=\"properties.linejoin_miter\" img-height=\"22px\"></se-list-item>\n      <se-list-item id=\"linejoin_round\" value=\"round\" src=\"linejoin_round.svg\" title=\"properties.linejoin_round\" img-height=\"22px\"></se-list-item>\n      <se-list-item id=\"linejoin_bevel\" value=\"bevel\" src=\"linejoin_bevel.svg\" title=\"properties.linejoin_bevel\" img-height=\"22px\"></se-list-item>\n    </se-list>\n    <se-list id=\"stroke_linecap\" title=\"properties.linecap_butt\" label=\"\" width=\"22px\" height=\"22px\">\n      <se-list-item id=\"linecap_butt\" value=\"butt\" src=\"linecap_butt.svg\" title=\"properties.linecap_butt\" img-height=\"22px\"></se-list-item>\n      <se-list-item id=\"linecap_square\" value=\"square\" src=\"linecap_square.svg\" title=\"properties.linecap_square\" img-height=\"22px\"></se-list-item>\n      <se-list-item id=\"linecap_round\" value=\"round\" src=\"linecap_round.svg\" title=\"properties.linecap_round\" img-height=\"22px\"></se-list-item>\n    </se-list>\n    <se-spin-input size=\"3\" id=\"opacity\" min=\"0\" max=\"100\" step=\"5\" title=\"properties.opacity\" src=\"opacity.svg\"></se-spin-input>\n    <se-palette id=\"palette\"></se-palette>\n  </div>";
-
-const {
-  $id: $id$3
-} = SvgCanvas;
 
 /*
  * register actions for left panel
@@ -32154,27 +32145,27 @@ class BottomPanel {
     if (bNoStroke) {
       buttonsNeedingStroke.forEach(btn => {
         // if btn is pressed, change to select button
-        if ($id$3(btn).pressed) {
+        if (this.editor.$container.getElementById("#" + btn).pressed) {
           this.editor.leftPanel.clickSelect();
         }
-        $id$3(btn).disabled = true;
+        this.editor.$container.querySelector("#" + btn).disabled = true;
       });
     } else {
       buttonsNeedingStroke.forEach(btn => {
-        $id$3(btn).disabled = false;
+        this.editor.$container.querySelector("#" + btn).disabled = false;
       });
     }
     if (bNoStroke && bNoFill) {
       buttonsNeedingFillAndStroke.forEach(btn => {
         // if btn is pressed, change to select button
-        if ($id$3(btn).pressed) {
+        if (this.editor.$container.getElementById("#" + btn).pressed) {
           this.editor.leftPanel.clickSelect();
         }
-        $id$3(btn).disabled = true;
+        this.editor.$container.querySelector("#" + btn).disabled = true;
       });
     } else {
       buttonsNeedingFillAndStroke.forEach(btn => {
-        $id$3(btn).disabled = false;
+        this.editor.$container.querySelector("#" + btn).disabled = false;
       });
     }
     this.editor.svgCanvas.runExtensions('toolButtonStateUpdate', /** @type {module:svgcanvas.SvgCanvas#event:ext_toolButtonStateUpdate} */{
@@ -32225,9 +32216,9 @@ class BottomPanel {
       solidColor: color.substr(1)
     });
     if (picker === 'fill') {
-      $id$3('fill_color').setPaint(paint);
+      this.editor.$container.querySelector('#fill_color').setPaint(paint);
     } else {
-      $id$3('stroke_color').setPaint(paint);
+      this.editor.$container.querySelector('#stroke_color').setPaint(paint);
     }
     this.editor.svgCanvas.setColor(picker, color);
     if (color !== 'none' && this.editor.svgCanvas.getPaintOpacity(picker) !== 1) {
@@ -32247,44 +32238,43 @@ class BottomPanel {
     } = this.editor;
     template.innerHTML = BottomPanelHtml;
     this.editor.$svgEditor.append(template.content.cloneNode(true));
-    $id$3('palette').addEventListener('change', this.handlePalette.bind(this));
-    $id$3('palette').init(i18next);
+    this.editor.$container.querySelector('#palette').addEventListener('change', this.handlePalette.bind(this));
+    this.editor.$container.querySelector('#palette').init(i18next);
     const {
       curConfig
     } = this.editor.configObj;
-    $id$3('fill_color').setPaint(new jGraduate.Paint({
+    this.editor.$container.querySelector('#fill_color').setPaint(new jGraduate.Paint({
       alpha: 100,
       solidColor: curConfig.initFill.color
     }));
-    $id$3('stroke_color').setPaint(new jGraduate.Paint({
+    this.editor.$container.querySelector('#stroke_color').setPaint(new jGraduate.Paint({
       alpha: 100,
       solidColor: curConfig.initStroke.color
     }));
-    $id$3('zoom').addEventListener('change', e => this.changeZoom.bind(this)(e.detail.value));
-    $id$3('stroke_color').addEventListener('change', evt => this.handleColorPicker.bind(this)('stroke', evt));
-    $id$3('fill_color').addEventListener('change', evt => this.handleColorPicker.bind(this)('fill', evt));
-    $id$3('stroke_width').addEventListener('change', this.changeStrokeWidth.bind(this));
-    $id$3('stroke_style').addEventListener('change', evt => this.handleStrokeAttr.bind(this)('stroke-dasharray', evt));
-    $id$3('stroke_linejoin').addEventListener('change', evt => this.handleStrokeAttr.bind(this)('stroke-linejoin', evt));
-    $id$3('stroke_linecap').addEventListener('change', evt => this.handleStrokeAttr.bind(this)('stroke-linecap', evt));
-    $id$3('opacity').addEventListener('change', this.handleOpacity.bind(this));
-    $id$3('fill_color').init(i18next);
-    $id$3('stroke_color').init(i18next);
+    this.editor.$container.querySelector('#zoom').addEventListener('change', e => this.changeZoom.bind(this)(e.detail.value));
+    this.editor.$container.querySelector('#stroke_color').addEventListener('change', evt => this.handleColorPicker.bind(this)('stroke', evt));
+    this.editor.$container.querySelector('#fill_color').addEventListener('change', evt => this.handleColorPicker.bind(this)('fill', evt));
+    this.editor.$container.querySelector('#stroke_width').addEventListener('change', this.changeStrokeWidth.bind(this));
+    this.editor.$container.querySelector('#stroke_style').addEventListener('change', evt => this.handleStrokeAttr.bind(this)('stroke-dasharray', evt));
+    this.editor.$container.querySelector('#stroke_linejoin').addEventListener('change', evt => this.handleStrokeAttr.bind(this)('stroke-linejoin', evt));
+    this.editor.$container.querySelector('#stroke_linecap').addEventListener('change', evt => this.handleStrokeAttr.bind(this)('stroke-linecap', evt));
+    this.editor.$container.querySelector('#opacity').addEventListener('change', this.handleOpacity.bind(this));
+    this.editor.$container.querySelector('#fill_color').init(i18next);
+    this.editor.$container.querySelector('#stroke_color').init(i18next);
   }
 
   /**
   * @type {module}
   */
   updateColorpickers(apply) {
-    $id$3('fill_color').update(this.editor.svgCanvas, this.editor.selectedElement, apply);
-    $id$3('stroke_color').update(this.editor.svgCanvas, this.editor.selectedElement, apply);
+    this.editor.$container.querySelector('#fill_color').update(this.editor.svgCanvas, this.editor.selectedElement, apply);
+    this.editor.$container.querySelector('#stroke_color').update(this.editor.svgCanvas, this.editor.selectedElement, apply);
   }
 }
 
 var LayersPanelHtml = "<div id=\"sidepanels\">\n    <se-text id=\"sidepanel_handle\" title=\"ui.panel_action\" text=\"ui.panel\"></se-text>\n    <div id=\"sidepanel_content\">\n        <div id=\"layerpanel\">\n            <se-text id=\"layersLabel\" text=\"layers.layers\"></se-text>\n            <fieldset id=\"layerbuttons\">\n                <se-button id=\"layer_new\" title=\"layers.new\" size=\"small\" src=\"new.svg\"></se-button>\n                <se-button id=\"layer_delete\" title=\"layers.del\" size=\"small\" src=\"delete.svg\"></se-button>\n                <se-button id=\"layer_rename\" title=\"layers.rename\" size=\"small\" src=\"text.svg\"></se-button>\n                <se-button id=\"layer_up\" title=\"layers.move_up\" size=\"small\" src=\"go_up.svg\"></se-button>\n                <se-button id=\"layer_down\" title=\"layers.move_down\" size=\"small\" src=\"go_down.svg\"></se-button>\n                <se-button id=\"layer_moreopts\" title=\"common.more_opts\" size=\"small\" src=\"context_menu.svg\">\n                </se-button>\n            </fieldset>\n            <table id=\"layerlist\">\n                <tr class=\"layer\">\n                    <td class=\"layervis\"></td>\n                    <td class=\"layername\">Layer 1</td>\n                </tr>\n            </table>\n            <se-select id=\"selLayerNames\" title=\"layers.move_selected\" label=\"layers.move_elems_to\" options=\"Layer 1\" values=\"layer1\" value=\"layer1\" disabled=\"disabled\">\n            </se-select>\n        </div>\n    </div>\n</div>";
 
 const {
-  $id: $id$2,
   $click: $click$2
 } = SvgCanvas;
 
@@ -32347,16 +32337,16 @@ class LayersPanel {
     menuLayerBox.setAttribute('leftclick', false);
     this.editor.$container.append(menuLayerBox);
     menuLayerBox.init(i18next);
-    $click$2($id$2('layer_new'), this.newLayer.bind(this));
-    $click$2($id$2('layer_delete'), this.deleteLayer.bind(this));
-    $click$2($id$2('layer_up'), () => this.moveLayer.bind(this)(-1));
-    $click$2($id$2('layer_down'), () => this.moveLayer.bind(this)(1));
-    $click$2($id$2('layer_rename'), this.layerRename.bind(this));
-    $id$2('se-cmenu-layers-more').addEventListener('change', this.lmenuFunc.bind(this));
-    $id$2('se-cmenu-layers-list').addEventListener('change', e => {
+    $click$2(this.editor.$container.querySelector('#layer_new'), this.newLayer.bind(this));
+    $click$2(this.editor.$container.querySelector('#layer_delete'), this.deleteLayer.bind(this));
+    $click$2(this.editor.$container.querySelector('#layer_up'), () => this.moveLayer.bind(this)(-1));
+    $click$2(this.editor.$container.querySelector('#layer_down'), () => this.moveLayer.bind(this)(1));
+    $click$2(this.editor.$container.querySelector('#layer_rename'), this.layerRename.bind(this));
+    this.editor.$container.querySelector('#se-cmenu-layers-more').addEventListener('change', this.lmenuFunc.bind(this));
+    this.editor.$container.querySelector('#se-cmenu-layers-list').addEventListener('change', e => {
       this.lmenuFunc(e);
     });
-    $click$2($id$2('sidepanel_handle'), () => this.toggleSidePanel());
+    $click$2(this.editor.$container.querySelector('#sidepanel_handle'), () => this.toggleSidePanel());
     this.toggleSidePanel(this.editor.configObj.curConfig.showlayers);
   }
   toggleSidePanel(displayFlag) {
@@ -32508,11 +32498,11 @@ class LayersPanel {
   populateLayers() {
     this.editor.svgCanvas.clearSelection();
     const self = this;
-    const layerlist = $id$2('layerlist').querySelector('tbody');
+    const layerlist = this.editor.$container.querySelector('#layerlist').querySelector('tbody');
     while (layerlist.firstChild) {
       layerlist.removeChild(layerlist.firstChild);
     }
-    $id$2('selLayerNames').setAttribute('options', '');
+    this.editor.$container.querySelector('#selLayerNames').setAttribute('options', '');
     const drawing = this.editor.svgCanvas.getCurrentDrawing();
     const currentLayerName = drawing.getCurrentLayerName();
     let layer = this.editor.svgCanvas.getCurrentDrawing().getNumLayers();
@@ -32534,13 +32524,13 @@ class LayersPanel {
       values = values ? values + '::' + name : name;
       text = text ? text + ',' + name : name;
     }
-    $id$2('selLayerNames').setAttribute('options', text);
-    $id$2('selLayerNames').setAttribute('values', values);
+    this.editor.$container.querySelector('#selLayerNames').setAttribute('options', text);
+    this.editor.$container.querySelector('#selLayerNames').setAttribute('values', values);
     // handle selection of layer
-    const nelements = $id$2('layerlist').querySelectorAll('td.layername');
+    const nelements = this.editor.$container.querySelector('#layerlist').querySelectorAll('td.layername');
     Array.from(nelements).forEach(function (element) {
       element.addEventListener('mouseup', function (evt) {
-        const trElements = $id$2('layerlist').querySelectorAll('tr.layer');
+        const trElements = this.editor.$container.querySelector('#layerlist').querySelectorAll('tr.layer');
         Array.from(trElements).forEach(function (element) {
           element.classList.remove('layersel');
         });
@@ -32555,7 +32545,7 @@ class LayersPanel {
         self.toggleHighlightLayer();
       });
     });
-    const elements = $id$2('layerlist').querySelectorAll('td.layervis');
+    const elements = this.editor.$container.querySelector('#layerlist').querySelectorAll('td.layervis');
     Array.from(elements).forEach(function (element) {
       $click$2(element, function (evt) {
         const ele = evt.currentTarget.parentNode.querySelector('td.layername');
@@ -32567,7 +32557,7 @@ class LayersPanel {
     });
 
     // if there were too few rows, let's add a few to make it not so lonely
-    let num = 5 - $id$2('layerlist').querySelectorAll('tr.layer').length;
+    let num = 5 - this.editor.$container.querySelector('#layerlist').querySelectorAll('tr.layer').length;
     while (num-- > 0) {
       // TODO: there must a better way to do this
       const tlayer = document.createElement('tr');
@@ -32579,7 +32569,6 @@ class LayersPanel {
 
 /* globals seAlert */
 const {
-  $id: $id$1,
   $click: $click$1,
   convertUnit,
   isValidUnit
@@ -32606,7 +32595,7 @@ class MainMenu {
    * @returns {void}
    */
   hideDocProperties() {
-    const $imgDialog = $id$1('se-img-prop');
+    const $imgDialog = this.editor.$container.querySelector('#se-img-prop');
     $imgDialog.setAttribute('dialog', 'close');
     $imgDialog.setAttribute('save', this.editor.configObj.pref('img_save'));
     this.editor.docprops = false;
@@ -32617,7 +32606,7 @@ class MainMenu {
    * @returns {void}
    */
   hidePreferences() {
-    const $editDialog = $id$1('se-edit-prefs');
+    const $editDialog = this.editor.$container.querySelector('#se-edit-prefs');
     $editDialog.setAttribute('dialog', 'close');
     this.editor.configObj.preferences = false;
   }
@@ -32743,7 +32732,7 @@ class MainMenu {
       return;
     }
     this.editor.docprops = true;
-    const $imgDialog = $id$1('se-img-prop');
+    const $imgDialog = this.editor.$container.querySelector('#se-img-prop');
 
     // update resolution option with actual resolution
     const resolution = this.editor.svgCanvas.getResolution();
@@ -32767,7 +32756,7 @@ class MainMenu {
       return;
     }
     this.editor.configObj.preferences = true;
-    const $editDialog = $id$1('se-edit-prefs');
+    const $editDialog = this.editor.$container.querySelector('#se-edit-prefs');
     // Update background color with current one
     const canvasBg = this.editor.configObj.curPrefs.bkgd_color;
     const url = this.editor.configObj.pref('bkgd_url');
@@ -32807,24 +32796,24 @@ class MainMenu {
     /**
      * Associate all button actions as well as non-button keyboard shortcuts.
      */
-    $click$1($id$1('tool_export'), function () {
-      document.getElementById('se-export-dialog').setAttribute('dialog', 'open');
+    $click$1(this.editor.$container.querySelector('#tool_export'), function () {
+      this.editor.$container.querySelector('#se-export-dialog').setAttribute('dialog', 'open');
     });
-    $id$1('se-export-dialog').addEventListener('change', this.clickExport.bind(this));
-    $id$1('tool_docprops').addEventListener('click', this.showDocProperties.bind(this));
-    $id$1('tool_editor_prefs').addEventListener('click', this.showPreferences.bind(this));
-    // $id('tool_editor_homepage').addEventListener(
+    this.editor.$container.querySelector('#se-export-dialog').addEventListener('change', this.clickExport.bind(this));
+    this.editor.$container.querySelector('#tool_docprops').addEventListener('click', this.showDocProperties.bind(this));
+    this.editor.$container.querySelector('#tool_editor_prefs').addEventListener('click', this.showPreferences.bind(this));
+    // this.editor.$container.querySelector('#tool_editor_homepage').addEventListener(
     //   'click',
     //   this.openHomePage.bind(this)
     // )
-    $id$1('se-img-prop').addEventListener('change', function (e) {
+    this.editor.$container.querySelector('#se-img-prop').addEventListener('change', function (e) {
       if (e.detail.dialog === 'closed') {
         this.hideDocProperties();
       } else {
         this.saveDocProperties(e);
       }
     }.bind(this));
-    $id$1('se-edit-prefs').addEventListener('change', function (e) {
+    this.editor.$container.querySelector('#se-edit-prefs').addEventListener('change', function (e) {
       if (e.detail.dialog === 'closed') {
         this.hidePreferences();
       } else {
@@ -33215,7 +33204,7 @@ class Editor extends EditorStartup {
         evt.preventDefault();
       });
     });
-    $id('image_url').addEventListener('keydown', function (evt) {
+    this.$container.querySelector('#image_url').addEventListener('keydown', function (evt) {
       evt.currentTarget.dispatchEvent(new Event('change'));
       evt.preventDefault();
     });
@@ -33296,7 +33285,8 @@ class Editor extends EditorStartup {
     this.configObj.pref('bkgd_url', url, true);
 
     // This should be done in  this.svgCanvas.js for the borderRect fill
-    this.svgCanvas.setBackground(color, url);
+    // this.svgCanvas.setBackground(color, url)
+    this.svgCanvas.setBackground = function () {};
   }
 
   /**
@@ -33310,7 +33300,7 @@ class Editor extends EditorStartup {
     const {
       workarea
     } = this;
-    const cnvs = $id('svgcanvas');
+    const cnvs = this.$container.querySelector('#svgcanvas');
     let w = parseFloat(getComputedStyle(workarea, null).width.replace('px', ''));
     let h = parseFloat(getComputedStyle(workarea, null).height.replace('px', ''));
     const wOrig = w;
@@ -33370,7 +33360,7 @@ class Editor extends EditorStartup {
       workarea.scroll();
     }
     if (this.configObj.urldata.storagePrompt !== true && this.storagePromptState === 'ignore') {
-      if ($id('dialog_box') != null) $id('dialog_box').style.display = 'none';
+      if (this.$container.querySelector('#dialog_box') != null) this.$container.querySelector('#dialog_box').style.display = 'none';
     }
   }
 
@@ -33443,8 +33433,8 @@ class Editor extends EditorStartup {
         case 'rotate':
           {
             const ang = this.svgCanvas.getRotationAngle(elem);
-            $id('angle').value = ang;
-            ang === 0 ? $id('tool_reorient').classList.add('disabled') : $id('tool_reorient').classList.remove('disabled');
+            this.$container.querySelector('#angle').value = ang;
+            ang === 0 ? this.$container.querySelector('#tool_reorient').classList.add('disabled') : this.$container.querySelector('#tool_reorient').classList.remove('disabled');
             break;
           }
       }
@@ -33565,7 +33555,7 @@ class Editor extends EditorStartup {
       this.changeZoom(0.1);
       return;
     }
-    $id('zoom').value = (this.svgCanvas.getZoom() * 100).toFixed(1);
+    this.$container.querySelector('#zoom').value = (this.svgCanvas.getZoom() * 100).toFixed(1);
     if (autoCenter) {
       this.updateCanvas();
     } else {
@@ -33603,8 +33593,8 @@ class Editor extends EditorStartup {
     } else {
       this.curContext = null;
     }
-    $id('cur_context_panel').style.display = context ? 'block' : 'none';
-    $id('cur_context_panel').innerHTML = linkStr;
+    this.$container.querySelector('#cur_context_panel').style.display = context ? 'block' : 'none';
+    this.$container.querySelector('#cur_context_panel').innerHTML = linkStr;
   }
 
   /**
@@ -33623,10 +33613,10 @@ class Editor extends EditorStartup {
       return;
     }
     // empty()
-    while ($id(elem).firstChild) {
-      $id(elem).removeChild($id(elem).firstChild);
+    while (this.$container.querySelector("#" + elem).firstChild) {
+      this.$container.querySelector("#" + elem).removeChild(this.$container.querySelector("#" + elem).firstChild);
     }
-    $id(elem).appendChild(icon);
+    this.$container.querySelector("#" + elem).appendChild(icon);
   }
 
   /**
@@ -33665,7 +33655,7 @@ class Editor extends EditorStartup {
     const resolution = this.svgCanvas.getResolution();
     multiplier = multiplier ? resolution.zoom * multiplier : 1;
     // setResolution(res.w * multiplier, res.h * multiplier, true);
-    $id('zoom').value = (multiplier * 100).toFixed(1);
+    this.$container.querySelector('#zoom').value = (multiplier * 100).toFixed(1);
     this.svgCanvas.setCurrentZoom(multiplier);
     this.zoomDone();
     this.updateCanvas(true);
@@ -33760,7 +33750,7 @@ class Editor extends EditorStartup {
     if (!cw) {
       step *= -1;
     }
-    const angle = Number.parseFloat($id('angle').value) + step;
+    const angle = Number.parseFloat(this.$container.querySelector('#angle').value) + step;
     this.svgCanvas.setRotationAngle(angle);
     this.topPanel.updateContextPanel();
   }
@@ -33770,7 +33760,7 @@ class Editor extends EditorStartup {
    * @returns {void}
    */
   hideSourceEditor() {
-    const $editorDialog = $id('se-svg-editor-dialog');
+    const $editorDialog = this.$container.querySelector('#se-svg-editor-dialog');
     $editorDialog.setAttribute('dialog', 'closed');
   }
 
@@ -33779,7 +33769,7 @@ class Editor extends EditorStartup {
    * @returns {void} Resolves to `undefined`
    */
   async saveSourceEditor(e) {
-    const $editorDialog = $id('se-svg-editor-dialog');
+    const $editorDialog = this.$container.querySelector('#se-svg-editor-dialog');
     if ($editorDialog.getAttribute('dialog') !== 'open') return;
     const saveChanges = () => {
       this.svgCanvas.clearSelection();
@@ -33804,8 +33794,8 @@ class Editor extends EditorStartup {
    * @returns {void} Resolves to `undefined`
    */
   cancelOverlays(e) {
-    if ($id('dialog_box') != null) $id('dialog_box').style.display = 'none';
-    const $editorDialog = $id('se-svg-editor-dialog');
+    if (this.$container.querySelector('#dialog_box') != null) this.$container.querySelector('#dialog_box').style.display = 'none';
+    const $editorDialog = this.$container.querySelector('#se-svg-editor-dialog');
     const editingsource = $editorDialog.getAttribute('dialog') === 'open';
     if (!editingsource && !this.docprops && !this.configObj.preferences) {
       if (this.curContext) {
@@ -33906,9 +33896,9 @@ class Editor extends EditorStartup {
   setLang(lang) {
     this.langChanged = true;
     this.configObj.pref('lang', lang);
-    const $editDialog = $id('se-edit-prefs');
+    const $editDialog = this.$container.querySelector('#se-edit-prefs');
     $editDialog.setAttribute('lang', lang);
-    const oldLayerName = $id('#layerlist') ? $id('#layerlist').querySelector('tr.layersel td.layername').textContent : '';
+    const oldLayerName = this.$container.querySelector('##layerlist') ? this.$container.querySelector('##layerlist').querySelector('tr.layersel td.layername').textContent : '';
     const renameLayer = oldLayerName === this.i18next.t('notification.common.layer') + ' 1';
     this.setTitles();
     if (renameLayer) {

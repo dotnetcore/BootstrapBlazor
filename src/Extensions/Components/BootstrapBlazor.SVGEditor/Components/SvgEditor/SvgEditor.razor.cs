@@ -38,7 +38,7 @@ namespace BootstrapBlazor.Components
 
             if (firstRender)
             {
-                await InvokeVoidAsync("init", PreLoad, Interop, nameof(GetContent));
+                await InvokeVoidAsync("init", Id, PreLoad, Interop, nameof(GetContent));
             }
         }
 
