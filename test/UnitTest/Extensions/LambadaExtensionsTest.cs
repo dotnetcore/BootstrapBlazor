@@ -625,22 +625,17 @@ public class LambadaExtensionsTest
         }
     }
 
-    private class CustomDynamicData : System.Dynamic.DynamicObject
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="fix"></param>
+    /// <param name="data"></param>
+    private class CustomDynamicData(Dictionary<string, string> data) : System.Dynamic.DynamicObject
     {
         /// <summary>
         /// 存储每列值信息 Key 列名 Value 为列值
         /// </summary>
-        public Dictionary<string, string> Dynamic { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="fix"></param>
-        /// <param name="data"></param>
-        public CustomDynamicData(Dictionary<string, string> data)
-        {
-            Dynamic = data;
-        }
+        public Dictionary<string, string> Dynamic { get; set; } = data;
 
         /// <summary>
         /// 

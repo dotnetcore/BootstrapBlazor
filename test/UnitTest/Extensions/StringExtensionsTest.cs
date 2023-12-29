@@ -6,11 +6,9 @@ using System.Diagnostics;
 
 namespace UnitTest.Extensions;
 
-public class StringExtensionsTest
+public class StringExtensionsTest(ITestOutputHelper logger)
 {
-    private ITestOutputHelper Logger { get; }
-
-    public StringExtensionsTest(ITestOutputHelper logger) => Logger = logger;
+    private ITestOutputHelper Logger { get; } = logger;
 
     [Fact]
     public void SpanSplit_Ok()

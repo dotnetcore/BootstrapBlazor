@@ -4,11 +4,9 @@
 
 namespace UnitTest.Utils;
 
-public class GroupTest
+public class GroupTest(ITestOutputHelper logger)
 {
-    ITestOutputHelper Logger { get; set; }
-
-    public GroupTest(ITestOutputHelper logger) => Logger = logger;
+    ITestOutputHelper Logger { get; set; } = logger;
 
     [Fact]
     public void Group_Order_Ok()

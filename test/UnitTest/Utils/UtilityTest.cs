@@ -671,13 +671,8 @@ public class UtilityTest : BootstrapBlazorTestBase
         public string? Name2 { get; set; }
     }
 
-    private class MockNullDisplayNameColumn : MockTableColumn, IEditorItem
+    private class MockNullDisplayNameColumn(string fieldName, Type propertyType) : MockTableColumn(fieldName, propertyType), IEditorItem
     {
-        public MockNullDisplayNameColumn(string fieldName, Type propertyType) : base(fieldName, propertyType)
-        {
-
-        }
-
         string IEditorItem.GetDisplayName() => null!;
     }
 
