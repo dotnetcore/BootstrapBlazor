@@ -7560,11 +7560,9 @@ public class TableTest : TableTestBase
         });
     });
 
-    private class MockNullDataService : IDataService<Foo>
+    private class MockNullDataService(IStringLocalizer<Foo> localizer) : IDataService<Foo>
     {
-        IStringLocalizer<Foo> Localizer { get; set; }
-
-        public MockNullDataService(IStringLocalizer<Foo> localizer) => Localizer = localizer;
+        IStringLocalizer<Foo> Localizer { get; set; } = localizer;
 
         public Task<bool> AddAsync(Foo model) => Task.FromResult(true);
 
@@ -7587,25 +7585,15 @@ public class TableTest : TableTestBase
         public Task<bool> SaveAsync(Foo model, ItemChangedType changedType) => Task.FromResult(true);
     }
 
-    private class MockEFCoreDataService : MockNullDataService, IEntityFrameworkCoreDataService
+    private class MockEFCoreDataService(IStringLocalizer<Foo> localizer) : MockNullDataService(localizer), IEntityFrameworkCoreDataService
     {
-        public MockEFCoreDataService(IStringLocalizer<Foo> localizer) : base(localizer)
-        {
-
-        }
-
         public Task CancelAsync() => Task.CompletedTask;
 
         public Task EditAsync(object model) => Task.CompletedTask;
     }
 
-    private class MockNullItemsDataService : MockNullDataService
+    private class MockNullItemsDataService(IStringLocalizer<Foo> localizer) : MockNullDataService(localizer)
     {
-        public MockNullItemsDataService(IStringLocalizer<Foo> localizer) : base(localizer)
-        {
-
-        }
-
         public override Task<QueryData<Foo>> QueryAsync(QueryPageOptions option)
         {
             return Task.FromResult(new QueryData<Foo>()
