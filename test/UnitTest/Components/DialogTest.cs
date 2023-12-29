@@ -255,7 +255,7 @@ public class DialogTest : DialogTestBase
 
         // Modal is Null
         editOption.Model = null;
-        Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => dialog.ShowEditDialog(editOption)));
+        var t = Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => dialog.ShowEditDialog(editOption)));
         cut.InvokeAsync(() => cut.Find(".btn-close").Click());
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion
