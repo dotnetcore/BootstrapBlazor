@@ -79,11 +79,12 @@ public class DownloadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void DownloadFromStreamAsync_Null()
+    public async Task DownloadFromStreamAsync_Null()
     {
         var downloadService = Context.Services.GetRequiredService<DownloadService>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
+            pb.Add(a => a.EnableErrorLogger, false);
             pb.AddChildContent<Button>(pb =>
             {
                 pb.Add(a => a.OnClick, async () =>
@@ -94,7 +95,7 @@ public class DownloadTest : BootstrapBlazorTestBase
             });
         });
         var btn = cut.Find("button");
-        Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => btn.Click()));
+        await Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => btn.Click()));
     }
 
     [Fact]
@@ -158,11 +159,12 @@ public class DownloadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void DownloadFromUrlAsync_Null()
+    public async Task DownloadFromUrlAsync_Null()
     {
         var downloadService = Context.Services.GetRequiredService<DownloadService>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
+            pb.Add(a => a.EnableErrorLogger, false);
             pb.AddChildContent<Button>(pb =>
             {
                 pb.Add(a => a.OnClick, async () =>
@@ -172,6 +174,6 @@ public class DownloadTest : BootstrapBlazorTestBase
             });
         });
         var btn = cut.Find("button");
-        Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => btn.Click()));
+        await Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => btn.Click()));
     }
 }
