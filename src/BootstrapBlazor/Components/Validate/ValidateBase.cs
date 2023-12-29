@@ -301,7 +301,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <summary>
     /// 获得 数据验证方法集合
     /// </summary>
-    protected List<IValidator> Rules { get; } = new();
+    protected List<IValidator> Rules { get; } = [];
 
     /// <summary>
     /// 获得/设置 自定义验证集合

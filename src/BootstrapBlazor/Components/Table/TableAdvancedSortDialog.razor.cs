@@ -71,17 +71,17 @@ public partial class TableAdvancedSortDialog : ComponentBase, IResultDialog
     {
         base.OnParametersSet();
 
-        Value ??= new();
+        Value ??= [];
 
         PlusIcon ??= IconTheme.GetIconByKey(ComponentIcons.QueryBuilderPlusIcon);
         MinusIcon ??= IconTheme.GetIconByKey(ComponentIcons.QueryBuilderMinusIcon);
         RemoveIcon ??= IconTheme.GetIconByKey(ComponentIcons.QueryBuilderRemoveIcon);
 
-        SortOrders ??= new()
-        {
+        SortOrders ??=
+        [
             new SelectedItem("Asc", Localizer["AscText"].Value),
             new SelectedItem("Desc", Localizer["DescText"].Value)
-        };
+        ];
     }
 
     private void OnClickAdd()

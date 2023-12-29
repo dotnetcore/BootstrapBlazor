@@ -60,7 +60,7 @@ public partial class BoolFilter
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
-        var filter = new FilterKeyValueAction() { Filters = new() };
+        var filter = new FilterKeyValueAction() { Filters = [] };
         if (!string.IsNullOrEmpty(Value))
         {
             filter.Filters.Add(new FilterKeyValueAction()

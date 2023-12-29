@@ -84,7 +84,7 @@ public class CountUpTest : BootstrapBlazorTestBase
             ScrollSpyOnce = false,
             SmartEasingAmount = 333,
             SmartEasingThreshold = 999,
-            Numerals = new char[] { '0', '1' }
+            Numerals = ['0', '1']
         };
         Assert.Equal(1000, option.StartValue);
         Assert.Equal(2, option.Duration);

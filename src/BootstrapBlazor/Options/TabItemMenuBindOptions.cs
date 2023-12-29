@@ -12,5 +12,5 @@ public class TabItemBindOptions
     /// <summary>
     /// 获得/设置 集合
     /// </summary>
-    public Dictionary<string, TabItemOptionAttribute> Binders { get; set; } = new();
+    public Dictionary<string, TabItemOptionAttribute> Binders { get; set; } = [];
 }

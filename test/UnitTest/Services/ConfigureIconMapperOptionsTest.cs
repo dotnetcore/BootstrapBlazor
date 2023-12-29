@@ -66,7 +66,7 @@ public class ConfigureIconMapperOptionsTest
         {
             if (!Options.Value.Icons.TryGetValue(Options.Value.ThemeKey, out var icons))
             {
-                icons = new Dictionary<ComponentIcons, string>();
+                icons = [];
             }
             return icons;
         }

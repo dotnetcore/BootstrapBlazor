@@ -20,7 +20,7 @@ public class DownloadTest : BootstrapBlazorTestBase
             {
                 pb.Add(a => a.OnClick, async () =>
                 {
-                    await downloadService.DownloadFromByteArrayAsync("test.txt", new byte[] { 0x01, 0x02 });
+                    await downloadService.DownloadFromByteArrayAsync("test.txt", [0x01, 0x02]);
                     download = true;
                 });
             });
@@ -35,7 +35,7 @@ public class DownloadTest : BootstrapBlazorTestBase
     {
         var fileName = Path.Combine(AppContext.BaseDirectory, "down.log");
         using var fs = File.OpenWrite(fileName);
-        fs.Write(new byte[] { 0x01, 0x02 }, 0, 2);
+        fs.Write([0x01, 0x02], 0, 2);
         fs.Close();
 
         var download = false;
@@ -67,7 +67,7 @@ public class DownloadTest : BootstrapBlazorTestBase
             {
                 pb.Add(a => a.OnClick, async () =>
                 {
-                    using var stream = new MemoryStream(new byte[] { 0x01, 0x02 });
+                    using var stream = new MemoryStream([0x01, 0x02]);
                     await downloadService.DownloadFromStreamAsync("test.txt", stream);
                     download = true;
                 });

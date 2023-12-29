@@ -15,7 +15,7 @@ public static class ExpandableNodeExtensions
     /// <typeparam name="TItem"></typeparam>
     /// <param name="items"></param>
     /// <returns></returns>
-    public static List<TItem> GetAllItems<TItem>(this IEnumerable<IExpandableNode<TItem>> items) => items.GetAllItems(new List<TItem>());
+    public static List<TItem> GetAllItems<TItem>(this IEnumerable<IExpandableNode<TItem>> items) => items.GetAllItems([]);
 
     /// <summary>
     /// 获得所有节点集合

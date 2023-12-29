@@ -12,7 +12,7 @@ public abstract class BootstrapServiceBase<TOption>
     /// <summary>
     /// 获得 回调委托缓存集合
     /// </summary>
-    protected List<(ComponentBase Key, Func<TOption, Task> Callback)> Cache { get; } = new();
+    protected List<(ComponentBase Key, Func<TOption, Task> Callback)> Cache { get; } = [];
 
     /// <summary>
     /// 异步回调方法

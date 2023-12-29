@@ -26,7 +26,7 @@ public partial class AutoFill<TValue>
     /// <summary>
     /// 获得 最终候选数据源
     /// </summary>
-    private List<TValue> _filterItems = new();
+    private List<TValue> _filterItems = [];
 
     /// <summary>
     /// 获得/设置 组件数据集合

@@ -257,10 +257,10 @@ public class TableDialogTest : TableDialogTestBase
             pb.Add(a => a.GetAdvancedSearchFilterCallback, new Func<PropertyInfo, Foo, List<SearchFilterAction>?>((p, model) =>
             {
                 var v = p.GetValue(model);
-                return new List<SearchFilterAction>()
-                {
+                return
+                [
                     new SearchFilterAction(p.Name, v, FilterAction.Equal)
-                };
+                ];
             }));
         });
 

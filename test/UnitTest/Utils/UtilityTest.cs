@@ -104,7 +104,7 @@ public class UtilityTest : BootstrapBlazorTestBase
             new() { Count = 4, Name = "2" },
             new() { Count = 3, Name = "2" }
         };
-        var sortedFoos = p1(foos, new List<string>() { "Name desc", "Count" });
+        var sortedFoos = p1(foos, ["Name desc", "Count"]);
         Assert.Equal(3, sortedFoos.ElementAt(0).Count);
         Assert.Equal(4, sortedFoos.ElementAt(1).Count);
         Assert.Equal(1, sortedFoos.ElementAt(2).Count);

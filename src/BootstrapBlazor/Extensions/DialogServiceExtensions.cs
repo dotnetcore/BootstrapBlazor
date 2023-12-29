@@ -210,7 +210,7 @@ public static class DialogServiceExtensions
         Dictionary<string, object?>? parameters = null;
         if (parametersFactory != null)
         {
-            parameters = new Dictionary<string, object?>();
+            parameters = [];
             parametersFactory.Invoke(parameters);
         }
         option.Component = BootstrapDynamicComponent.CreateComponent<TComponent>(parameters);

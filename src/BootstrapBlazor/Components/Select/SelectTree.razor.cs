@@ -163,7 +163,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectTreeDropdownIcon);
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
 
-        Items ??= new List<TreeViewItem<TValue>>();
+        Items ??= [];
 
         if (Value == null)
         {

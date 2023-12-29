@@ -17,7 +17,7 @@ public class StringExtensionsTest
     {
         var source = "Test1;Test2;Test3";
         var result = source.SpanSplit(";");
-        Assert.Equal(new List<string> { "Test1", "Test2", "Test3" }, result);
+        Assert.Equal(["Test1", "Test2", "Test3"], result);
 
         source = "";
         result = source.SpanSplit(";");
@@ -33,10 +33,10 @@ public class StringExtensionsTest
     {
         var source = $"Test1{Environment.NewLine} Test2";
         var result = source.SpanSplit();
-        Assert.Equal(new List<string> { "Test1", " Test2" }, result);
+        Assert.Equal(["Test1", " Test2"], result);
 
         result = source.SpanSplit(stringSplitOptions: StringSplitOptions.RemoveEmptyEntries);
-        Assert.Equal(new List<string> { "Test1", "Test2" }, result);
+        Assert.Equal(["Test1", "Test2"], result);
     }
 
     [Fact]
@@ -44,7 +44,7 @@ public class StringExtensionsTest
     {
         var source = "Test1,Test2;Test3";
         var result = source.SpanSplitAny(";,");
-        Assert.Equal(new List<string> { "Test1", "Test2", "Test3" }, result);
+        Assert.Equal(["Test1", "Test2", "Test3"], result);
 
         source = "";
         result = source.SpanSplitAny(";");
@@ -60,10 +60,10 @@ public class StringExtensionsTest
     {
         var source = "Test1,Test2; Test3";
         var result = source.SpanSplitAny("");
-        Assert.Equal(new List<string> { "Test1,Test2; Test3" }, result);
+        Assert.Equal(["Test1,Test2; Test3"], result);
 
         result = source.SpanSplitAny(";,", StringSplitOptions.RemoveEmptyEntries);
-        Assert.Equal(new List<string> { "Test1", "Test2", "Test3" }, result);
+        Assert.Equal(["Test1", "Test2", "Test3"], result);
     }
 
     [Fact]
