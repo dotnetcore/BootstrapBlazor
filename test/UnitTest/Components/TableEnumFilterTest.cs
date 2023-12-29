@@ -119,7 +119,7 @@ public class TableEnumFilterTest : BootstrapBlazorTestBase
 
         var newConditions = new FilterKeyValueAction()
         {
-            Filters = new() { new FilterKeyValueAction() { FieldValue = EnumEducation.Middle } }
+            Filters = [new FilterKeyValueAction() { FieldValue = EnumEducation.Middle }]
         };
         cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
 
@@ -129,7 +129,7 @@ public class TableEnumFilterTest : BootstrapBlazorTestBase
 
         newConditions = new FilterKeyValueAction()
         {
-            Filters = new() { new FilterKeyValueAction() { FieldValue = null } }
+            Filters = [new FilterKeyValueAction() { FieldValue = null }]
         };
         cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();
@@ -142,7 +142,7 @@ public class TableEnumFilterTest : BootstrapBlazorTestBase
         Assert.NotNull(conditions.Filters);
         Assert.Single(conditions.Filters);
 
-        newConditions = new FilterKeyValueAction() { Filters = new(), FilterLogic = FilterLogic.Or };
+        newConditions = new FilterKeyValueAction() { Filters = [], FilterLogic = FilterLogic.Or };
         newConditions.Filters.Add(new FilterKeyValueAction() { FieldValue = EnumEducation.Primary });
         newConditions.Filters.Add(new FilterKeyValueAction() { FieldValue = EnumEducation.Middle });
         cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
@@ -153,7 +153,7 @@ public class TableEnumFilterTest : BootstrapBlazorTestBase
         Assert.Equal("Primary", comps[0].Instance.Value);
         Assert.Equal("Middle", comps[1].Instance.Value);
 
-        newConditions = new FilterKeyValueAction() { Filters = new(), FilterLogic = FilterLogic.Or };
+        newConditions = new FilterKeyValueAction() { Filters = [], FilterLogic = FilterLogic.Or };
         newConditions.Filters.Add(new FilterKeyValueAction() { FieldValue = EnumEducation.Primary });
         newConditions.Filters.Add(new FilterKeyValueAction() { FieldValue = null });
         cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
@@ -204,7 +204,7 @@ public class TableEnumFilterTest : BootstrapBlazorTestBase
 
     class MockFilter : FilterBase
     {
-        private List<FilterKeyValueAction>? _filters = new() { new FilterKeyValueAction() { FieldValue = 1 }, new FilterKeyValueAction() { FieldValue = 2 } };
+        private List<FilterKeyValueAction>? _filters = [new FilterKeyValueAction() { FieldValue = 1 }, new FilterKeyValueAction() { FieldValue = 2 }];
 
         public override FilterKeyValueAction GetFilterConditions()
         {

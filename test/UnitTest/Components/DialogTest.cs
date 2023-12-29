@@ -7,7 +7,7 @@ namespace UnitTest.Components;
 public class DialogTest : DialogTestBase
 {
     [Fact]
-    public async Task Show_Ok()
+    public void Show_Ok()
     {
         #region Show
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -18,7 +18,7 @@ public class DialogTest : DialogTestBase
         var dialog = cut.FindComponent<MockDialogTest>().Instance.DialogService;
 
         var closed = false;
-        await cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
         {
             BodyTemplate = builder => builder.AddContent(0, "Test-BodyTemplate"),
             HeaderTemplate = builder => builder.AddContent(0, "Test-HeaderTemplate"),
@@ -47,7 +47,7 @@ public class DialogTest : DialogTestBase
 
         // 测试关闭逻辑
         var modal = cut.FindComponent<Modal>();
-        await cut.InvokeAsync(async () =>
+        cut.InvokeAsync(async () =>
         {
             await modal.Instance.Close();
             await modal.Instance.CloseCallback();
@@ -55,32 +55,32 @@ public class DialogTest : DialogTestBase
         Assert.True(closed);
 
         // 测试 HeaderToolbarTemplate
-        await cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
         {
             IsBackdrop = true,
             HeaderToolbarTemplate = builder => builder.AddContent(0, "Test-HeaderToolbarTemplate"),
         }));
         Assert.DoesNotContain("data-bs-backdrop", cut.FindComponent<Modal>().Markup);
         Assert.Contains("Test-HeaderToolbarTemplate", cut.Markup);
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 测试 Component 赋值逻辑
-        await cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
         {
             Component = BootstrapDynamicComponent.CreateComponent<Button>(),
             BodyTemplate = null
         }));
         Assert.Contains("class=\"btn btn-primary\"", cut.Markup);
         modal = cut.FindComponent<Modal>();
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 测试 Component 与 BodyTemplate 均为 null 逻辑
-        await cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
         {
             Component = null,
             BodyTemplate = null
         }));
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion
 
         #region ShownCallbackAsync
@@ -94,11 +94,11 @@ public class DialogTest : DialogTestBase
                 return Task.CompletedTask;
             }
         };
-        await cut.InvokeAsync(() => dialog.Show(option1));
+        cut.InvokeAsync(() => dialog.Show(option1));
         modal = cut.FindComponent<Modal>();
-        await cut.InvokeAsync(() => modal.Instance.ShownCallback());
+        cut.InvokeAsync(() => modal.Instance.ShownCallback());
         Assert.True(shown);
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion
 
         #region ShowSearchDialog
@@ -116,18 +116,18 @@ public class DialogTest : DialogTestBase
             Items = null
         };
 
-        await cut.InvokeAsync(() => dialog.ShowSearchDialog(option));
+        cut.InvokeAsync(() => dialog.ShowSearchDialog(option));
 
         // 重置按钮委托为空 null
         var button = cut.FindComponents<Button>().First(b => b.Instance.Text == "重置");
-        await cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 搜索按钮委托为空
-        await cut.InvokeAsync(() => dialog.ShowSearchDialog(option));
+        cut.InvokeAsync(() => dialog.ShowSearchDialog(option));
         button = cut.FindComponents<Button>().First(b => b.Instance.Text == "查询");
-        await cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 重置按钮
         var reset = false;
@@ -136,10 +136,10 @@ public class DialogTest : DialogTestBase
             reset = true;
             return Task.CompletedTask;
         };
-        await cut.InvokeAsync(() => dialog.ShowSearchDialog(option));
+        cut.InvokeAsync(() => dialog.ShowSearchDialog(option));
         button = cut.FindComponents<Button>().First(b => b.Instance.Text == "重置");
-        await cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
         Assert.True(reset);
 
         // 搜索按钮
@@ -150,10 +150,10 @@ public class DialogTest : DialogTestBase
             search = true;
             return Task.CompletedTask;
         };
-        await cut.InvokeAsync(() => dialog.ShowSearchDialog(option));
+        cut.InvokeAsync(() => dialog.ShowSearchDialog(option));
         button = cut.FindComponents<Button>().First(b => b.Instance.Text == "查询");
-        await cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
         Assert.True(search);
         #endregion
 
@@ -168,8 +168,8 @@ public class DialogTest : DialogTestBase
             LabelAlign = Alignment.Left,
             ShowLabel = true
         };
-        await cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 设置关闭回调
         closed = false;
@@ -178,11 +178,11 @@ public class DialogTest : DialogTestBase
             closed = true;
             return Task.CompletedTask;
         };
-        await cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
+        cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
         // 点击关闭按钮
         button = cut.FindComponents<Button>().First(b => b.Instance.Text == "关闭");
-        await cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
         Assert.True(closed);
 
         // 设置保存回调
@@ -201,63 +201,63 @@ public class DialogTest : DialogTestBase
             ["FieldExpression"] = model.GenerateValueExpression()
         };
         var item = new EditorItem<Foo, string>();
-        await cut.InvokeAsync(() => item.SetParametersAsync(ParameterView.FromDictionary(parameters)));
+        cut.InvokeAsync(() => item.SetParametersAsync(ParameterView.FromDictionary(parameters)));
         editOption.Items = new IEditorItem[]
         {
             item
         };
         editOption.Model = model;
-        await cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
+        cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
         var form = cut.Find("form");
         form.Submit();
         Assert.True(saved);
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // edit dialog is tracking true
         editOption.IsTracking = true;
-        await cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
+        cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
         button = cut.FindComponents<Button>().FirstOrDefault(b => b.Instance.Text == "关闭");
         Assert.Null(button);
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // edit dialog is tracking false
         editOption.IsTracking = false;
-        await cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
+        cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
         button = cut.FindComponents<Button>().FirstOrDefault(b => b.Instance.Text == "关闭");
         Assert.NotNull(button);
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // Edit Dialog FooterTemplate
         editOption.DialogFooterTemplate = modal => builder => builder.AddContent(0, "footer-template");
-        await cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
+        cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
         cut.Contains("footer-template");
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // body template is not null
         editOption.DialogBodyTemplate = modal => builder => builder.AddContent(0, "body-template");
-        await cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
+        cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
         cut.Contains("body-template");
         cut.Contains("footer-template");
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 测试 DialogBodyTemplate
         editOption.DialogBodyTemplate = foo => builder => builder.AddContent(0, "test");
-        await cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
+        cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
         form.Submit();
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // DisableAutoSubmitFormByEnter
         editOption.DisableAutoSubmitFormByEnter = true;
-        await cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
+        cut.InvokeAsync(() => dialog.ShowEditDialog(editOption));
         cut.Contains("data-bb-dissubmit=\"true\"");
         form.Submit();
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // Modal is Null
         editOption.Model = null;
-        await Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => dialog.ShowEditDialog(editOption)));
-        await cut.InvokeAsync(() => cut.Find(".btn-close").Click());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        var t = Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => dialog.ShowEditDialog(editOption)));
+        cut.InvokeAsync(() => cut.Find(".btn-close").Click());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion
 
         #region ShowModal
@@ -284,10 +284,10 @@ public class DialogTest : DialogTestBase
         };
 
         // 点击的是 Yes 按钮
-        await cut.InvokeAsync(() => dialog.ShowModal<MockModalDialog>(resultOption));
+        cut.InvokeAsync(() => dialog.ShowModal<MockModalDialog>(resultOption));
         button = cut.FindComponents<Button>().First(b => b.Instance.Text == "Test-Yes");
-        await cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
         Assert.True(result);
 
         // 点击的是 No 按钮
@@ -300,10 +300,10 @@ public class DialogTest : DialogTestBase
                 [nameof(MockModalDialog.ValueChanged)] = EventCallback.Factory.Create<bool>(this, b => result = b)
             }
         };
-        await cut.InvokeAsync(() => dialog.ShowModal<MockModalDialog>(resultOption));
+        cut.InvokeAsync(() => dialog.ShowModal<MockModalDialog>(resultOption));
         button = cut.FindComponents<Button>().First(b => b.Instance.Text == "取消");
-        await cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
         Assert.False(result);
 
         // 点击关闭按钮
@@ -317,26 +317,26 @@ public class DialogTest : DialogTestBase
             },
             OnCloseAsync = () => Task.CompletedTask
         };
-        await cut.InvokeAsync(() => dialog.ShowModal<MockModalDialog>(resultOption));
+        cut.InvokeAsync(() => dialog.ShowModal<MockModalDialog>(resultOption));
         button = cut.FindComponents<Button>().First(b => b.Instance.Text == "关闭");
-        await cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 点击右上角关闭按钮
-        await cut.InvokeAsync(() => dialog.ShowModal<MockModalDialog>(resultOption));
+        cut.InvokeAsync(() => dialog.ShowModal<MockModalDialog>(resultOption));
         var btnElement = cut.Find(".btn-close");
-        await cut.InvokeAsync(() => btnElement.Click());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => btnElement.Click());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         // 点击 FooterTemplate 中的 关闭 按钮
-        await cut.InvokeAsync(() => dialog.ShowModal<MockModalDialogClosingFalse>(resultOption));
+        cut.InvokeAsync(() => dialog.ShowModal<MockModalDialogClosingFalse>(resultOption));
         button = cut.FindComponents<Button>().Last(b => b.Instance.Text == "关闭");
-        await cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion
 
         #region 弹窗中的弹窗测试
-        await cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
         {
             // 弹窗中按钮
             BodyTemplate = BootstrapDynamicComponent.CreateComponent<Button>(new Dictionary<string, object?>()
@@ -362,86 +362,86 @@ public class DialogTest : DialogTestBase
         Assert.Equal(2, cut.FindComponents<ModalDialog>().Count);
 
         // 关闭第二个弹窗
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
         Assert.Single(cut.FindComponents<ModalDialog>());
 
         // 关闭第一个弹窗
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
         Assert.Empty(cut.FindComponents<ModalDialog>());
         #endregion
 
         #region 全屏弹窗
-        await cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
         {
             FullScreenSize = FullScreenSize.Large
         }));
         Assert.Contains("modal-fullscreen-lg-down", cut.Markup);
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion
 
         #region IsCenter
-        await cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
         {
             IsCentered = true
         }));
         Assert.Contains("modal-dialog-centered", cut.Markup);
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
-        await cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
         {
             IsCentered = false
         }));
         Assert.DoesNotContain("modal-dialog-centered", cut.Markup);
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion
 
         #region IsKeyboard
-        await cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
         {
             IsKeyboard = true
         }));
         Assert.Contains("data-bs-keyboard=\"true\"", cut.Markup);
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
-        await cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
         {
             IsKeyboard = false
         }));
         Assert.DoesNotContain("data-bs-keyboard\"false\"", cut.Markup);
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion
 
         #region ShowHeaderCloseButton
-        await cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
         {
             ShowHeaderCloseButton = true
         }));
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
-        await cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
         {
             ShowHeaderCloseButton = false
         }));
         Assert.DoesNotContain("btn-close", cut.Markup);
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion
 
         #region ShowPrintButton
-        await cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
         {
             ShowPrintButton = true
         }));
         Assert.Contains("btn-print", cut.Markup);
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
-        await cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
         {
             ShowPrintButton = false
         }));
         Assert.DoesNotContain("btn-print", cut.Markup);
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
-        await cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
         {
             ShowPrintButton = true,
             ShowPrintButtonInHeader = true,
@@ -449,11 +449,11 @@ public class DialogTest : DialogTestBase
         }));
         Assert.Contains("btn-print", cut.Markup);
         Assert.Contains("Print-Test", cut.Markup);
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion
 
         #region ShowSaveButton
-        await cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
         {
             ShowSaveButton = true,
             SaveButtonText = "Save-Test",
@@ -462,12 +462,12 @@ public class DialogTest : DialogTestBase
         }));
         Assert.Contains("Save-Test", cut.Markup);
         Assert.Contains("Close-Test", cut.Markup);
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion
 
         #region OnSaveAsync
         var save = false;
-        await cut.InvokeAsync(() => dialog.Show(new DialogOption()
+        cut.InvokeAsync(() => dialog.Show(new DialogOption()
         {
             ShowSaveButton = true,
             IsAutoCloseAfterSave = true,
@@ -479,37 +479,37 @@ public class DialogTest : DialogTestBase
             }
         }));
         var btnClose = cut.FindComponents<Button>().First(i => i.Instance.Icon == "fa-solid fa-floppy-disk");
-        await cut.InvokeAsync(() => btnClose.Instance.OnClickWithoutRender!.Invoke());
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => btnClose.Instance.OnClickWithoutRender!.Invoke());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
         Assert.True(save);
         #endregion
 
         #region ShowSaveDialog
-        await cut.InvokeAsync(() => dialog.ShowSaveDialog<MockDialogTest>("Title", () => Task.FromResult(true), p => { }, op => op.Class = "test"));
-        await cut.InvokeAsync(() => dialog.ShowSaveDialog<MockDialogTest>("Title"));
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => dialog.ShowSaveDialog<MockDialogTest>("Title", () => Task.FromResult(true), p => { }, op => op.Class = "test"));
+        cut.InvokeAsync(() => dialog.ShowSaveDialog<MockDialogTest>("Title"));
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion
 
         #region ShowValidateFormDialog
-        await cut.InvokeAsync(() => dialog.ShowValidateFormDialog<MockValidateFormDialog>("ValidateFormDialog"));
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => dialog.ShowValidateFormDialog<MockValidateFormDialog>("ValidateFormDialog"));
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
 
         Dictionary<string, object?> parameterFactory(DialogOption op) => new();
         void ConfigureOption(DialogOption op) => op.Class = "ValidateFormDialog-Class";
-        await cut.InvokeAsync(() => dialog.ShowValidateFormDialog<MockValidateFormDialog>("ValidateFormDialog", parameterFactory, ConfigureOption));
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => dialog.ShowValidateFormDialog<MockValidateFormDialog>("ValidateFormDialog", parameterFactory, ConfigureOption));
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion
 
         #region ShowCloseDialog
-        await cut.InvokeAsync(() => dialog.ShowCloseDialog<MockValidateFormDialog>("CloseDialog", null, ConfigureOption));
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
-        await cut.InvokeAsync(() => dialog.ShowCloseDialog<MockValidateFormDialog>("CloseDialog"));
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
-        await cut.InvokeAsync(() => dialog.ShowCloseDialog<MockValidateFormDialog>("CloseDialog", parameter =>
+        cut.InvokeAsync(() => dialog.ShowCloseDialog<MockValidateFormDialog>("CloseDialog", null, ConfigureOption));
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => dialog.ShowCloseDialog<MockValidateFormDialog>("CloseDialog"));
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => dialog.ShowCloseDialog<MockValidateFormDialog>("CloseDialog", parameter =>
         {
             parameter.Add("Class", "test");
         }));
-        await cut.InvokeAsync(() => modal.Instance.CloseCallback());
+        cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion
     }
 

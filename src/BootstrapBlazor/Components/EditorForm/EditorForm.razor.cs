@@ -171,12 +171,12 @@ public partial class EditorForm<TModel> : IShowLabel
     /// <summary>
     /// 获得/设置 配置编辑项目集合
     /// </summary>
-    private readonly List<IEditorItem> _editorItems = new();
+    private readonly List<IEditorItem> _editorItems = [];
 
     /// <summary>
     /// 获得/设置 渲染的编辑项集合
     /// </summary>
-    private readonly List<IEditorItem> _formItems = new();
+    private readonly List<IEditorItem> _formItems = [];
 
     private IEnumerable<IEditorItem> UnsetGroupItems => _formItems.Where(i => string.IsNullOrEmpty(i.GroupName));
 

@@ -17,7 +17,7 @@ public partial class TableToolbar<TItem> : ComponentBase
     /// <summary>
     /// 获得 Toolbar 按钮集合
     /// </summary>
-    private List<ButtonBase> Buttons { get; } = new();
+    private List<ButtonBase> Buttons { get; } = [];
 
     private readonly ConcurrentDictionary<ButtonBase, bool> _asyncButtonStateCache = new();
 

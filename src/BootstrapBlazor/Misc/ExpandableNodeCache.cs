@@ -9,7 +9,10 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 /// <typeparam name="TNode"></typeparam>
 /// <typeparam name="TItem"></typeparam>
-public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TItem>
+/// <remarks>
+/// 构造函数
+/// </remarks>
+public class ExpandableNodeCache<TNode, TItem>(Func<TItem, TItem, bool> comparer) where TNode : IExpandableNode<TItem>
 {
     /// <summary>
     /// 所有已展开行集合 作为缓存使用
@@ -24,15 +27,7 @@ public class ExpandableNodeCache<TNode, TItem> where TNode : IExpandableNode<TIt
     /// <summary>
     /// 对象比较器
     /// </summary>
-    protected IEqualityComparer<TItem> EqualityComparer { get; }
-
-    /// <summary>
-    /// 构造函数
-    /// </summary>
-    public ExpandableNodeCache(Func<TItem, TItem, bool> comparer)
-    {
-        EqualityComparer = new ModelComparer<TItem>(comparer);
-    }
+    protected IEqualityComparer<TItem> EqualityComparer { get; } = new ModelComparer<TItem>(comparer);
 
     /// <summary>
     /// 节点展开收缩状态切换方法

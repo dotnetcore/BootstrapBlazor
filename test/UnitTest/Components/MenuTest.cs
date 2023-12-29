@@ -13,8 +13,8 @@ public class MenuTest : BootstrapBlazorTestBase
 {
     private List<MenuItem> Items { get; set; }
 
-    public MenuTest() => Items = new List<MenuItem>
-    {
+    public MenuTest() => Items =
+    [
         new("Menu1")
         {
             IsActive = true,
@@ -94,7 +94,7 @@ public class MenuTest : BootstrapBlazorTestBase
             Icon = "fa-solid fa-fw fa-font-awesome",
             Url = "https://www.blazor.zone"
         }
-    };
+    ];
 
     [Fact]
     public void Items_Ok()

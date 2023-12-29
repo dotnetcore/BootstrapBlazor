@@ -27,7 +27,7 @@ public class BootstrapBlazorOptionsTest
     {
         var options = new BootstrapBlazorOptions
         {
-            SupportedCultures = new List<string> { "zh-CN" }
+            SupportedCultures = ["zh-CN"]
         };
         Assert.Single(options.GetSupportedCultures());
     }

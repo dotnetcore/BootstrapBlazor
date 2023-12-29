@@ -125,7 +125,7 @@ public class TableDateTimeFilterTest : BootstrapBlazorTestBase
         Assert.NotNull(conditions.Filters);
         Assert.Empty(conditions.Filters);
 
-        var newConditions = new FilterKeyValueAction() { Filters = new() };
+        var newConditions = new FilterKeyValueAction() { Filters = [] };
         DateTime now = DateTime.Now;
         newConditions.Filters.Add(new FilterKeyValueAction() { FieldValue = now });
         newConditions.Filters.Add(new FilterKeyValueAction() { FieldValue = now });

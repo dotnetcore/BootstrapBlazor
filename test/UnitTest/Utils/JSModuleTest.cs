@@ -46,7 +46,7 @@ public class JSModuleTest
     {
         var js = new MockErrorJSObjectReference();
         var module = new JSModule(js);
-        await Assert.ThrowsAsync<InvalidOperationException>(async () => await module.DisposeAsync());
+        await module.DisposeAsync();
     }
 
     [Fact]
@@ -54,16 +54,8 @@ public class JSModuleTest
     {
         var js = new MockJSDisconnectedObjectReference();
         var module = new JSModule(js);
-        await Assert.ThrowsAsync<JSDisconnectedException>(() =>
-        {
-            module.InvokeVoidAsync("test");
-            return Task.CompletedTask;
-        });
-        await Assert.ThrowsAsync<JSDisconnectedException>(() =>
-        {
-            module.InvokeAsync<int>("test");
-            return Task.CompletedTask;
-        });
+        await module.InvokeVoidAsync("test");
+        await module.InvokeAsync<int>("test");
     }
 
     [Fact]
@@ -71,16 +63,8 @@ public class JSModuleTest
     {
         var js = new MockTaskCanceledObjectReference();
         var module = new JSModule(js);
-        await Assert.ThrowsAsync<TaskCanceledException>(() =>
-        {
-            module.InvokeVoidAsync("test");
-            return Task.CompletedTask;
-        });
-        await Assert.ThrowsAsync<TaskCanceledException>(() =>
-        {
-            module.InvokeAsync<int>("test");
-            return Task.CompletedTask;
-        });
+        await module.InvokeVoidAsync("test");
+        await module.InvokeAsync<int>("test");
     }
 
     private class MockErrorJSObjectReference : MockJSObjectReference

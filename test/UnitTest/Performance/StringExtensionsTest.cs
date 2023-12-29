@@ -7,22 +7,15 @@ using System.Text;
 
 namespace UnitTest.Performance;
 
-public class StringExtensionsTest : IClassFixture<ReadRazorFile>
+public class StringExtensionsTest(ReadRazorFile reader, ITestOutputHelper logger) : IClassFixture<ReadRazorFile>
 {
-    private string Payload { get; set; }
+    private string Payload { get; set; } = reader.FileContent;
 
-    private List<KeyValuePair<string, string>> Localizers { get; }
+    private List<KeyValuePair<string, string>> Localizers { get; } = reader.Localizers;
 
-    private ITestOutputHelper Logger { get; }
+    private ITestOutputHelper Logger { get; } = logger;
 
     private const int Count = 2;
-
-    public StringExtensionsTest(ReadRazorFile reader, ITestOutputHelper logger)
-    {
-        Payload = reader.FileContent;
-        Localizers = reader.Localizers;
-        Logger = logger;
-    }
 
     [Fact]
     public void Replace_Ok()

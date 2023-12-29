@@ -105,7 +105,7 @@ public partial class LookupFilter
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
-        var filter = new FilterKeyValueAction() { Filters = new() };
+        var filter = new FilterKeyValueAction() { Filters = [] };
         if (!string.IsNullOrEmpty(Value))
         {
             var type = Nullable.GetUnderlyingType(Type) ?? Type;

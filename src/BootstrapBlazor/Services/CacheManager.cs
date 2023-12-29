@@ -623,7 +623,7 @@ internal class CacheManager : ICacheManager
             if (type.IsAssignableTo(typeof(IFormattable)))
             {
                 // 通过 IFormattable 接口格式化
-                var mi = type.GetMethod("ToString", new Type[] { typeof(string), typeof(IFormatProvider) });
+                var mi = type.GetMethod("ToString", [typeof(string), typeof(IFormatProvider)]);
                 if (mi != null)
                 {
                     body = Expression.Call(Expression.Convert(exp_p1, type), mi, exp_p2, exp_p3);
@@ -662,7 +662,7 @@ internal class CacheManager : ICacheManager
             var exp_p2 = Expression.Parameter(typeof(IFormatProvider));
             Expression? body;
 
-            var mi = type.GetMethod("ToString", new Type[] { typeof(IFormatProvider) });
+            var mi = type.GetMethod("ToString", [typeof(IFormatProvider)]);
             if (mi != null)
             {
                 // 通过 ToString(IFormatProvider? provider) 接口格式化

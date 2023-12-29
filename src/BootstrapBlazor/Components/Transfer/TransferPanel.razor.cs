@@ -127,7 +127,7 @@ public partial class TransferPanel
     {
         base.OnParametersSet();
 
-        Items ??= new();
+        Items ??= [];
         SearchPlaceHolderString ??= Localizer[nameof(SearchPlaceHolderString)];
         Text ??= Localizer[nameof(Text)];
 

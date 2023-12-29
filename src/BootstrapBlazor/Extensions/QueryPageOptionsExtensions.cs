@@ -18,7 +18,7 @@ public static class QueryPageOptionsExtensions
     /// <returns></returns>
     public static FilterKeyValueAction ToFilter(this QueryPageOptions option)
     {
-        var filter = new FilterKeyValueAction() { Filters = new() };
+        var filter = new FilterKeyValueAction() { Filters = [] };
 
         // 处理模糊搜索
         if (option.Searches.Any())
