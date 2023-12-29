@@ -83,6 +83,9 @@ public class TreeViewTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cut.Instance.SetActiveItem(activeItem));
         node = cut.Find(".active");
         Assert.Equal("Sub menu 1", node.TextContent);
+
+        activeItem = new TreeFoo();
+        await cut.InvokeAsync(() => cut.Instance.SetActiveItem(activeItem));
     }
 
     [Fact]
