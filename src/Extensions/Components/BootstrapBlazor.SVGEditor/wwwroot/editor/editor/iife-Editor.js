@@ -29654,7 +29654,7 @@ label {
         extPath: './extensions',
         // DOCUMENT PROPERTIES
         // Change the following to a preference (already in the Document Properties dialog)?
-        dimensions: [640, 480],
+        dimensions: [3660, 2440],
         // EDITOR OPTIONS
         // Change the following to preferences (already in the Editor Options dialog)?
         gridSnapping: false,
@@ -32587,7 +32587,7 @@ label {
     convertUnit,
     isValidUnit
   } = SvgCanvas;
-  const homePage = 'https://github.com/SVG-Edit/svgedit';
+  const homePage = '';
 
   /**
    *
@@ -32799,11 +32799,10 @@ label {
       // add Top panel
       const template = document.createElement('template');
       template.innerHTML = `
-    <se-menu id="main_button" label="SVG-Edit" src="logo.svg" alt="logo">
+    <se-menu id="main_button" label="Edit" src="logo.svg" alt="logo">
         <se-menu-item id="tool_export" label="tools.export_img" src="export.svg"></se-menu-item>
         <se-menu-item id="tool_docprops" label="tools.docprops" shortcut="D" src="docprop.svg"></se-menu-item>
         <se-menu-item id="tool_editor_prefs" label="config.editor_prefs" src="editPref.svg"></se-menu-item>
-        <se-menu-item id="tool_editor_homepage" label="tools.editor_homepage" src="logo.svg"></se-menu-item>
     </se-menu>`;
       this.editor.$svgEditor.append(template.content.cloneNode(true));
 
@@ -32817,7 +32816,10 @@ label {
       $id$1('se-export-dialog').addEventListener('change', this.clickExport.bind(this));
       $id$1('tool_docprops').addEventListener('click', this.showDocProperties.bind(this));
       $id$1('tool_editor_prefs').addEventListener('click', this.showPreferences.bind(this));
-      $id$1('tool_editor_homepage').addEventListener('click', this.openHomePage.bind(this));
+      // $id('tool_editor_homepage').addEventListener(
+      //   'click',
+      //   this.openHomePage.bind(this)
+      // )
       $id$1('se-img-prop').addEventListener('change', function (e) {
         if (e.detail.dialog === 'closed') {
           this.hideDocProperties();

@@ -1,4 +1,4 @@
-const consoleLogger = {
+﻿const consoleLogger = {
   type: 'logger',
   log(args) {
     this.output('log', args);
@@ -2838,7 +2838,7 @@ class FlyingButton extends HTMLElement {
           <slot></slot>
         </div>
         <div class="menu-button">
-          <img class="button-icon" src="logo.svg" alt="icon">
+          <img class="button-icon" src="logo.png" alt="icon">
           <div class="handle"></div>
         </div>
       </div>`;
@@ -29651,7 +29651,7 @@ class ConfigObj {
       extPath: './extensions',
       // DOCUMENT PROPERTIES
       // Change the following to a preference (already in the Document Properties dialog)?
-      dimensions: [640, 480],
+      dimensions: [3660, 2440],
       // EDITOR OPTIONS
       // Change the following to preferences (already in the Editor Options dialog)?
       gridSnapping: false,
@@ -32584,7 +32584,7 @@ const {
   convertUnit,
   isValidUnit
 } = SvgCanvas;
-const homePage = 'https://github.com/SVG-Edit/svgedit';
+const homePage = '';
 
 /**
  *
@@ -32796,11 +32796,10 @@ class MainMenu {
     // add Top panel
     const template = document.createElement('template');
     template.innerHTML = `
-    <se-menu id="main_button" label="SVG-Edit" src="logo.svg" alt="logo">
+    <se-menu id="main_button" label="Edit" src="logo.svg" alt="logo">
         <se-menu-item id="tool_export" label="tools.export_img" src="export.svg"></se-menu-item>
         <se-menu-item id="tool_docprops" label="tools.docprops" shortcut="D" src="docprop.svg"></se-menu-item>
         <se-menu-item id="tool_editor_prefs" label="config.editor_prefs" src="editPref.svg"></se-menu-item>
-        <se-menu-item id="tool_editor_homepage" label="tools.editor_homepage" src="logo.svg"></se-menu-item>
     </se-menu>`;
     this.editor.$svgEditor.append(template.content.cloneNode(true));
 
@@ -32814,7 +32813,10 @@ class MainMenu {
     $id$1('se-export-dialog').addEventListener('change', this.clickExport.bind(this));
     $id$1('tool_docprops').addEventListener('click', this.showDocProperties.bind(this));
     $id$1('tool_editor_prefs').addEventListener('click', this.showPreferences.bind(this));
-    $id$1('tool_editor_homepage').addEventListener('click', this.openHomePage.bind(this));
+    // $id('tool_editor_homepage').addEventListener(
+    //   'click',
+    //   this.openHomePage.bind(this)
+    // )
     $id$1('se-img-prop').addEventListener('change', function (e) {
       if (e.detail.dialog === 'closed') {
         this.hideDocProperties();
