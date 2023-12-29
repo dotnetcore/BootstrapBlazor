@@ -44,6 +44,7 @@ class DefaultJSVersionService(IOptions<BootstrapBlazorOptions> options) : IVersi
             [ExcludeFromCodeCoverage]
             string? GetAssemblyVersion() => typeof(BootstrapComponentBase).Assembly.GetName().Version?.ToString(3);
 
+            [ExcludeFromCodeCoverage]
             string FormatVersion()
             {
                 if (!string.IsNullOrEmpty(ver))
