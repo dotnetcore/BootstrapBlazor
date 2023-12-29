@@ -26,11 +26,11 @@ public class PrintTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void PrintService_Error()
+    public async Task PrintService_Error()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>();
         var printService = cut.Services.CreateScope().ServiceProvider.GetRequiredService<PrintService>();
-        Assert.ThrowsAsync<InvalidOperationException>(() => printService.PrintAsync<Button>(op =>
+        await Assert.ThrowsAsync<InvalidOperationException>(() => printService.PrintAsync<Button>(op =>
         {
             // 弹窗配置
             op.Title = "数据查询窗口";
