@@ -42,24 +42,24 @@ public class JSModuleTest
     }
 
     [Fact]
-    public void Dispose_Error()
+    public async Task Dispose_Error()
     {
         var js = new MockErrorJSObjectReference();
         var module = new JSModule(js);
-        Assert.ThrowsAsync<InvalidOperationException>(async () => await module.DisposeAsync());
+        await Assert.ThrowsAsync<InvalidOperationException>(async () => await module.DisposeAsync());
     }
 
     [Fact]
-    public void JSModule_JSDisconnectedException()
+    public async Task JSModule_JSDisconnectedException()
     {
         var js = new MockJSDisconnectedObjectReference();
         var module = new JSModule(js);
-        Assert.ThrowsAsync<JSDisconnectedException>(() =>
+        await Assert.ThrowsAsync<JSDisconnectedException>(() =>
         {
             module.InvokeVoidAsync("test");
             return Task.CompletedTask;
         });
-        Assert.ThrowsAsync<JSDisconnectedException>(() =>
+        await Assert.ThrowsAsync<JSDisconnectedException>(() =>
         {
             module.InvokeAsync<int>("test");
             return Task.CompletedTask;
@@ -67,16 +67,16 @@ public class JSModuleTest
     }
 
     [Fact]
-    public void JSModule_TaskCanceledException()
+    public async Task JSModule_TaskCanceledException()
     {
         var js = new MockTaskCanceledObjectReference();
         var module = new JSModule(js);
-        Assert.ThrowsAsync<TaskCanceledException>(() =>
+        await Assert.ThrowsAsync<TaskCanceledException>(() =>
         {
             module.InvokeVoidAsync("test");
             return Task.CompletedTask;
         });
-        Assert.ThrowsAsync<TaskCanceledException>(() =>
+        await Assert.ThrowsAsync<TaskCanceledException>(() =>
         {
             module.InvokeAsync<int>("test");
             return Task.CompletedTask;

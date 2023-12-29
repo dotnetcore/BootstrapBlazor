@@ -3194,7 +3194,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void IsTree_KeepExpand()
+    public async Task IsTree_KeepExpand()
     {
         // 展开树状节点
         // 重新查询后节点依然展开
@@ -3234,20 +3234,20 @@ public class TableTest : TableTestBase
 
         // 点击展开
         var node = cut.Find("tbody .is-tree");
-        cut.InvokeAsync(() => node.Click());
+        await cut.InvokeAsync(() => node.Click());
         nodes = cut.FindAll("tbody tr");
         Assert.Equal(4, nodes.Count);
 
         // 查询
         var table = cut.FindComponent<Table<FooTree>>();
-        cut.InvokeAsync(() => table.Instance.QueryAsync());
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
         Assert.Contains("is-tree fa-solid fa-caret-right fa-rotate-90", cut.Markup);
 
         nodes = cut.FindAll("tbody tr");
         Assert.Equal(4, nodes.Count);
 
         table.SetParametersAndRender(pb => pb.Add(a => a.OnTreeExpand, null));
-        Assert.ThrowsAsync<InvalidOperationException>(() => table.Instance.QueryAsync());
+        await Assert.ThrowsAsync<InvalidOperationException>(() => table.Instance.QueryAsync());
     }
 
     [Fact]
@@ -7062,7 +7062,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(1, "Field", "ReadonlyValue");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.AddAttribute(3, "Editable", false);
-                    builder.AddAttribute(4, "Template", new RenderFragment<TableColumnContext<Foo, string>>(context => builder => builder.AddContent(0, "test-edittemplate")));
+                    builder.AddAttribute(4, "Template", new RenderFragment<TableColumnContext<Foo, string>>(context => builder => builder.AddContent(0, "test-EditTemplate")));
                     builder.CloseComponent();
                 });
             });
@@ -7073,7 +7073,7 @@ public class TableTest : TableTestBase
         var cut1 = Context.Render(builder => builder.AddContent(0, table.Instance.TestRenderCell(foo, ItemChangedType.Add, col =>
         {
         })));
-        Assert.Equal("test-edittemplate", cut1.Markup);
+        Assert.Equal("test-EditTemplate", cut1.Markup);
     }
 
     [Fact]
@@ -7155,12 +7155,12 @@ public class TableTest : TableTestBase
         var col = cut.FindComponent<TableColumn<Foo, string>>();
         col.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.EditTemplate, foo => builder => builder.AddContent(0, "test-edittemplate"));
+            pb.Add(a => a.EditTemplate, foo => builder => builder.AddContent(0, "test-EditTemplate"));
         });
         cut1 = Context.Render(builder => builder.AddContent(0, table.Instance.TestRenderCell(foo, ItemChangedType.Add, col =>
         {
         })));
-        Assert.Contains("test-edittemplate", cut1.Markup);
+        Assert.Contains("test-EditTemplate", cut1.Markup);
     }
 
     [Fact]

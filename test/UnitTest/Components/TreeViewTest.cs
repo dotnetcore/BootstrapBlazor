@@ -223,7 +223,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnExpandRowAsync_Exception()
+    public async Task OnExpandRowAsync_Exception()
     {
         var items = TreeFoo.GetTreeItems();
         items[0].HasChildren = true;
@@ -233,7 +233,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, items);
         });
 
-        Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => cut.Find(".fa-caret-right.visible").Click()));
+        await Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => cut.Find(".fa-caret-right.visible").Click()));
     }
 
     [Fact]
