@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class MultiSelect<TValue>
 {
-    private List<SelectedItem> SelectedItems { get; } = new();
+    private List<SelectedItem> SelectedItems { get; } = [];
 
     private static string? ClassString => CssBuilder.Default("select dropdown multi-select")
         .Build();

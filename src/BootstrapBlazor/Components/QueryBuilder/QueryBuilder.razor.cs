@@ -100,11 +100,11 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
 
     private List<SelectedItem>? Operations { get; set; }
 
-    private readonly List<SelectedItem> _dropdownItems = new()
-    {
+    private readonly List<SelectedItem> _dropdownItems =
+    [
         new("Group", "Group"),
         new("Item", "Item")
-    };
+    ];
 
     /// <summary>
     /// <inheritdoc/>
@@ -130,11 +130,11 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
         ItemText ??= Localizer[nameof(ItemText)];
 
         Value ??= new();
-        Value.Filters ??= new();
+        Value.Filters ??= [];
         Value.FilterLogic = Logic;
 
-        Operations ??= new()
-        {
+        Operations ??=
+        [
             new SelectedItem("GreaterThanOrEqual", Localizer["GreaterThanOrEqual"].Value),
             new SelectedItem("LessThanOrEqual", Localizer["LessThanOrEqual"].Value),
             new SelectedItem("GreaterThan", Localizer["GreaterThan"].Value),
@@ -143,7 +143,7 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
             new SelectedItem("NotEqual", Localizer["NotEqual"].Value ),
             new SelectedItem("Contains", Localizer["Contains"].Value ),
             new SelectedItem("NotContains", Localizer["NotContains"].Value )
-        };
+        ];
     }
 
     /// <summary>
@@ -196,7 +196,7 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
 
     private async Task OnAddFilterGroup(FilterKeyValueAction filter)
     {
-        filter.Filters!.Add(new FilterKeyValueAction() { Filters = new() { new() } });
+        filter.Filters!.Add(new FilterKeyValueAction() { Filters = [new()] });
 
         await OnFilterChanged();
     }
@@ -218,7 +218,7 @@ public partial class QueryBuilder<TModel> where TModel : notnull, new()
 
     private static Color GetColorByFilter(FilterKeyValueAction filter, FilterLogic logic) => filter.FilterLogic == logic ? Color.Primary : Color.Secondary;
 
-    private readonly List<SelectedItem> _fields = new();
+    private readonly List<SelectedItem> _fields = [];
 
     RenderFragment RenderFilters(FilterKeyValueAction? parent, FilterKeyValueAction filter) => builder =>
     {

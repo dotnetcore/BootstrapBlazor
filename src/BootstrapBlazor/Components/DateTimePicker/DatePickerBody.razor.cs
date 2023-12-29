@@ -352,27 +352,27 @@ public partial class DatePickerBody
 
     private Dictionary<DatePickerViewMode, List<DatePickerViewMode>> AllowSwitchModes { get; } = new Dictionary<DatePickerViewMode, List<DatePickerViewMode>>
     {
-        [DatePickerViewMode.DateTime] = new List<DatePickerViewMode>()
-        {
+        [DatePickerViewMode.DateTime] =
+        [
             DatePickerViewMode.DateTime,
             DatePickerViewMode.Month,
             DatePickerViewMode.Year
-        },
-        [DatePickerViewMode.Date] = new List<DatePickerViewMode>()
-        {
+        ],
+        [DatePickerViewMode.Date] =
+        [
             DatePickerViewMode.Date,
             DatePickerViewMode.Month,
             DatePickerViewMode.Year
-        },
-        [DatePickerViewMode.Month] = new List<DatePickerViewMode>()
-        {
+        ],
+        [DatePickerViewMode.Month] =
+        [
             DatePickerViewMode.Month,
             DatePickerViewMode.Year
-        },
-        [DatePickerViewMode.Year] = new List<DatePickerViewMode>()
-        {
+        ],
+        [DatePickerViewMode.Year] =
+        [
             DatePickerViewMode.Year
-        }
+        ]
     };
 
     /// <summary>

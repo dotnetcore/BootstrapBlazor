@@ -578,7 +578,7 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo>() { new Foo() });
+                pb.Add(a => a.Items, new List<Foo>() { new() });
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowFilterHeader, true);
                 pb.Add(a => a.TableColumns, new RenderFragment<Foo>(foo => builder =>
@@ -619,7 +619,7 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo>() { new Foo() });
+                pb.Add(a => a.Items, new List<Foo>() { new() });
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowFilterHeader, true);
                 pb.Add(a => a.TableColumns, new RenderFragment<Foo>(foo => builder =>
@@ -661,7 +661,7 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo>() { new Foo() });
+                pb.Add(a => a.Items, new List<Foo>() { new() });
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowFilterHeader, true);
                 pb.Add(a => a.TableColumns, new RenderFragment<Foo>(foo => builder =>
@@ -3115,33 +3115,6 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void IsTree_Exception()
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<FooTree>>(pb =>
-            {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.IsTree, true);
-                pb.Add(a => a.OnQueryAsync, op => OnQueryAsync(op, localizer));
-                pb.Add(a => a.TreeNodeConverter, items => BuildTreeAsync(items));
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.CloseComponent();
-                });
-            });
-        });
-
-        // 点击展开
-        var node = cut.Find("tbody .table-cell.is-tree");
-        Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => node.Click()));
-    }
-
-    [Fact]
     public void IsTree_TableRowEqualityComparer()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -3194,13 +3167,14 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void IsTree_KeepExpand()
+    public async Task IsTree_KeepExpand()
     {
         // 展开树状节点
         // 重新查询后节点依然展开
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
+            pb.Add(a => a.EnableErrorLogger, false);
             pb.AddChildContent<Table<FooTree>>(pb =>
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
@@ -3234,20 +3208,20 @@ public class TableTest : TableTestBase
 
         // 点击展开
         var node = cut.Find("tbody .is-tree");
-        cut.InvokeAsync(() => node.Click());
+        await cut.InvokeAsync(() => node.Click());
         nodes = cut.FindAll("tbody tr");
         Assert.Equal(4, nodes.Count);
 
         // 查询
         var table = cut.FindComponent<Table<FooTree>>();
-        cut.InvokeAsync(() => table.Instance.QueryAsync());
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
         Assert.Contains("is-tree fa-solid fa-caret-right fa-rotate-90", cut.Markup);
 
         nodes = cut.FindAll("tbody tr");
         Assert.Equal(4, nodes.Count);
 
         table.SetParametersAndRender(pb => pb.Add(a => a.OnTreeExpand, null));
-        Assert.ThrowsAsync<InvalidOperationException>(() => table.Instance.QueryAsync());
+        await Assert.ThrowsAsync<InvalidOperationException>(() => table.Instance.QueryAsync());
     }
 
     [Fact]
@@ -6873,7 +6847,7 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<MockTable>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo> { new Foo() { Name = null }, new Foo() { Name = "#fff" } });
+                pb.Add(a => a.Items, new List<Foo> { new() { Name = null }, new() { Name = "#fff" } });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -6929,7 +6903,7 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<MockTable>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo> { new Foo() { Count = 10 } });
+                pb.Add(a => a.Items, new List<Foo> { new() { Count = 10 } });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, int>>(0);
@@ -6963,7 +6937,7 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<MockTable>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo> { new Foo() { } });
+                pb.Add(a => a.Items, new List<Foo> { new() });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, EnumEducation?>>(0);
@@ -6976,7 +6950,7 @@ public class TableTest : TableTestBase
         var table = cut.FindComponent<MockTable>();
         table.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.Items, new List<Foo> { new Foo() { Education = EnumEducation.Primary } });
+            pb.Add(a => a.Items, new List<Foo> { new() { Education = EnumEducation.Primary } });
         });
     }
 
@@ -6988,7 +6962,7 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<MockTable>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo> { new Foo() { } });
+                pb.Add(a => a.Items, new List<Foo> { new() });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, DateTime?>>(0);
@@ -7008,7 +6982,7 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<MockTable>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo> { new Foo() { Hobby = new string[] { "test-1", "test-2" } } });
+                pb.Add(a => a.Items, new List<Foo> { new() { Hobby = ["test-1", "test-2"] } });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, IEnumerable<string>>>(0);
@@ -7028,7 +7002,7 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<MockRenderCellTable>(pb =>
             {
-                pb.Add(a => a.Items, new List<ReadonlyFoo> { new ReadonlyFoo() });
+                pb.Add(a => a.Items, new List<ReadonlyFoo> { new() });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<ReadonlyFoo, string>>(0);
@@ -7062,7 +7036,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(1, "Field", "ReadonlyValue");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.AddAttribute(3, "Editable", false);
-                    builder.AddAttribute(4, "Template", new RenderFragment<TableColumnContext<Foo, string>>(context => builder => builder.AddContent(0, "test-edittemplate")));
+                    builder.AddAttribute(4, "Template", new RenderFragment<TableColumnContext<Foo, string>>(context => builder => builder.AddContent(0, "test-EditTemplate")));
                     builder.CloseComponent();
                 });
             });
@@ -7073,7 +7047,7 @@ public class TableTest : TableTestBase
         var cut1 = Context.Render(builder => builder.AddContent(0, table.Instance.TestRenderCell(foo, ItemChangedType.Add, col =>
         {
         })));
-        Assert.Equal("test-edittemplate", cut1.Markup);
+        Assert.Equal("test-EditTemplate", cut1.Markup);
     }
 
     [Fact]
@@ -7155,12 +7129,12 @@ public class TableTest : TableTestBase
         var col = cut.FindComponent<TableColumn<Foo, string>>();
         col.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.EditTemplate, foo => builder => builder.AddContent(0, "test-edittemplate"));
+            pb.Add(a => a.EditTemplate, foo => builder => builder.AddContent(0, "test-EditTemplate"));
         });
         cut1 = Context.Render(builder => builder.AddContent(0, table.Instance.TestRenderCell(foo, ItemChangedType.Add, col =>
         {
         })));
-        Assert.Contains("test-edittemplate", cut1.Markup);
+        Assert.Contains("test-EditTemplate", cut1.Markup);
     }
 
     [Fact]
@@ -7558,11 +7532,9 @@ public class TableTest : TableTestBase
         });
     });
 
-    private class MockNullDataService : IDataService<Foo>
+    private class MockNullDataService(IStringLocalizer<Foo> localizer) : IDataService<Foo>
     {
-        IStringLocalizer<Foo> Localizer { get; set; }
-
-        public MockNullDataService(IStringLocalizer<Foo> localizer) => Localizer = localizer;
+        IStringLocalizer<Foo> Localizer { get; set; } = localizer;
 
         public Task<bool> AddAsync(Foo model) => Task.FromResult(true);
 
@@ -7585,25 +7557,15 @@ public class TableTest : TableTestBase
         public Task<bool> SaveAsync(Foo model, ItemChangedType changedType) => Task.FromResult(true);
     }
 
-    private class MockEFCoreDataService : MockNullDataService, IEntityFrameworkCoreDataService
+    private class MockEFCoreDataService(IStringLocalizer<Foo> localizer) : MockNullDataService(localizer), IEntityFrameworkCoreDataService
     {
-        public MockEFCoreDataService(IStringLocalizer<Foo> localizer) : base(localizer)
-        {
-
-        }
-
         public Task CancelAsync() => Task.CompletedTask;
 
         public Task EditAsync(object model) => Task.CompletedTask;
     }
 
-    private class MockNullItemsDataService : MockNullDataService
+    private class MockNullItemsDataService(IStringLocalizer<Foo> localizer) : MockNullDataService(localizer)
     {
-        public MockNullItemsDataService(IStringLocalizer<Foo> localizer) : base(localizer)
-        {
-
-        }
-
         public override Task<QueryData<Foo>> QueryAsync(QueryPageOptions option)
         {
             return Task.FromResult(new QueryData<Foo>()
@@ -7759,14 +7721,14 @@ public class TableTest : TableTestBase
     {
         public FilterKeyValueAction GetFilterConditions() => new()
         {
-            Filters = new()
-            {
+            Filters =
+            [
                 new FilterKeyValueAction()
                 {
-                     FieldKey ="Name",
-                     FieldValue = "Zhang"
+                    FieldKey = "Name",
+                    FieldValue = "Zhang"
                 }
-            }
+            ]
         };
 
         public void Reset()

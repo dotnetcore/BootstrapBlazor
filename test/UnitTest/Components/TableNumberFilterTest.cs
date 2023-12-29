@@ -166,11 +166,11 @@ public class TableNumberFilterTest : BootstrapBlazorTestBase
 
         var newConditions = new FilterKeyValueAction()
         {
-            Filters = new()
-            {
+            Filters =
+            [
                 new FilterKeyValueAction() { FieldValue = 1 },
                 new FilterKeyValueAction() { FieldValue = 2 }
-            }
+            ]
         };
         cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();
@@ -179,11 +179,11 @@ public class TableNumberFilterTest : BootstrapBlazorTestBase
 
         newConditions = new FilterKeyValueAction()
         {
-            Filters = new()
-            {
+            Filters =
+            [
                 new FilterKeyValueAction() { FieldValue = null },
                 new FilterKeyValueAction() { FieldValue = null }
-            }
+            ]
         };
         cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();

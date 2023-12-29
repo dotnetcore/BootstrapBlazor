@@ -4,7 +4,7 @@
 
 namespace BootstrapBlazor.Server.Services;
 
-internal class PackageVersionService
+class PackageVersionService
 {
     private IHttpClientFactory Factory { get; set; }
 

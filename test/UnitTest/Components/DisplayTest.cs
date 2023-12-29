@@ -37,7 +37,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Display<byte[]>>(pb =>
         {
-            pb.Add(a => a.Value, new byte[] { 0x01, 0x12, 0x34, 0x56 });
+            pb.Add(a => a.Value, [0x01, 0x12, 0x34, 0x56]);
         });
         Assert.Contains("1,18,52,86", cut.Markup);
     }
@@ -48,7 +48,7 @@ public class DisplayTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Display<List<string>>>(pb =>
         {
             pb.Add(a => a.LookupServiceKey, "FooLookup");
-            pb.Add(a => a.Value, new List<string> { "v1", "v2" });
+            pb.Add(a => a.Value, ["v1", "v2"]);
         });
         Assert.Contains("LookupService-Test-1,LookupService-Test-2", cut.Markup);
     }
@@ -79,7 +79,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Display<List<int?>>>(pb =>
         {
-            pb.Add(a => a.Value, new List<int?> { 1, 2, 3, 4, null });
+            pb.Add(a => a.Value, [1, 2, 3, 4, null]);
             pb.Add(a => a.Lookup, new List<SelectedItem>()
             {
                 new("", "Test"),
@@ -96,7 +96,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Display<List<int>>>(pb =>
         {
-            pb.Add(a => a.Value, new List<int> { 1, 2, 3, 4 });
+            pb.Add(a => a.Value, [1, 2, 3, 4]);
         });
         Assert.Contains("1,2,3,4", cut.Markup);
 

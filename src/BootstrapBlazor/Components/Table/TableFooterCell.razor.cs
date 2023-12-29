@@ -243,7 +243,7 @@ public partial class TableFooterCell
             var p2 = Expression.Parameter(typeof(object));
             var body = Expression.Call(mi,
                 Expression.Convert(p1, type),
-                Expression.Convert(p2, typeof(Func<,>).MakeGenericType(new Type[] { modelType, propertyType })));
+                Expression.Convert(p2, typeof(Func<,>).MakeGenericType([modelType, propertyType])));
             ret = Expression.Lambda<Func<object, object, TValue?>>(body, p1, p2).Compile();
         }
         return ret;

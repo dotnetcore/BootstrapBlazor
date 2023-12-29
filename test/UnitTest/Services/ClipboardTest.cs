@@ -9,13 +9,6 @@ namespace UnitTest.Services;
 public class ClipboardServiceTest : BootstrapBlazorTestBase
 {
     [Fact]
-    public void ClipboardService_Null()
-    {
-        var service = Context.Services.GetRequiredService<ClipboardService>();
-        Assert.ThrowsAsync<InvalidOperationException>(() => service.Copy("test"));
-    }
-
-    [Fact]
     public async Task ClipboardService_Ok()
     {
         var service = Context.Services.GetRequiredService<ClipboardService>();

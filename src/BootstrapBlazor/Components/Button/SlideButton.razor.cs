@@ -133,7 +133,7 @@ public partial class SlideButton
 
     private SelectedItem? _selectedItem;
 
-    private List<SlideButtonItem> _buttonItems = new();
+    private List<SlideButtonItem> _buttonItems = [];
 
     private Placement _lastPlacement;
 

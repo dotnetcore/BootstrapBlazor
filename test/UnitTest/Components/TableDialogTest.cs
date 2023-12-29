@@ -257,10 +257,10 @@ public class TableDialogTest : TableDialogTestBase
             pb.Add(a => a.GetAdvancedSearchFilterCallback, new Func<PropertyInfo, Foo, List<SearchFilterAction>?>((p, model) =>
             {
                 var v = p.GetValue(model);
-                return new List<SearchFilterAction>()
-                {
+                return
+                [
                     new SearchFilterAction(p.Name, v, FilterAction.Equal)
-                };
+                ];
             }));
         });
 
@@ -272,11 +272,9 @@ public class TableDialogTest : TableDialogTestBase
         await cut.InvokeAsync(() => queryButton.Click());
     }
 
-    private class MockEFCoreDataService : IDataService<Foo>, IEntityFrameworkCoreDataService
+    private class MockEFCoreDataService(IStringLocalizer<Foo> localizer) : IDataService<Foo>, IEntityFrameworkCoreDataService
     {
-        IStringLocalizer<Foo> Localizer { get; set; }
-
-        public MockEFCoreDataService(IStringLocalizer<Foo> localizer) => Localizer = localizer;
+        IStringLocalizer<Foo> Localizer { get; set; } = localizer;
 
         public Task<bool> AddAsync(Foo model) => Task.FromResult(true);
 

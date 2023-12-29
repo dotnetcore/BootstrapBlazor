@@ -17,11 +17,11 @@ public class TransferPanelTest : BootstrapBlazorTestBase
 
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.Items, new List<SelectedItem>
-            {
+            pb.Add(a => a.Items,
+            [
                 new("1", "Test1"),
                 new("2", "Test2")
-            });
+            ]);
         });
         checkbox = cut.FindComponent<Checkbox<SelectedItem>>();
         cut.InvokeAsync(() => checkbox.Instance.SetState(CheckboxState.Checked));
@@ -97,11 +97,11 @@ public class TransferPanelTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<TransferPanel>(pb =>
         {
-            pb.Add(a => a.Items, new List<SelectedItem>
-            {
+            pb.Add(a => a.Items,
+            [
                 new("1", "Test1"),
                 new("2", "Test2")
-            });
+            ]);
             pb.Add(a => a.ItemTemplate, item => builder =>
             {
                 builder.AddContent(0, $"ItemTemplate-Test-{item.Text}");

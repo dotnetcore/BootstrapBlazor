@@ -69,10 +69,10 @@ public partial class Select<TValue> : ISelect
     /// <summary>
     /// Razor 文件中 Options 模板子项
     /// </summary>
-    private List<SelectedItem> Children { get; } = new();
+    private List<SelectedItem> Children { get; } = [];
 
     [NotNull]
-    private List<SelectedItem> DataSource { get; } = new();
+    private List<SelectedItem> DataSource { get; } = [];
 
     /// <summary>
     /// 获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up
