@@ -19,7 +19,7 @@ public partial class TablesVirtualization
 
     private bool _isFixedFooter = true;
 
-    private List<SegmentedOption<bool>> _fixedFooterSegments = new();
+    private List<SegmentedOption<bool>> _fixedFooterSegments = [];
 
     /// <summary>
     /// OnInitialized

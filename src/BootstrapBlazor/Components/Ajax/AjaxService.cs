@@ -14,12 +14,12 @@ public class AjaxService
     /// <summary>
     /// 获得 回调委托缓存集合
     /// </summary>
-    private List<(IComponent Key, Func<AjaxOption, Task<JsonDocument?>> Callback)> Cache { get; } = new();
+    private List<(IComponent Key, Func<AjaxOption, Task<JsonDocument?>> Callback)> Cache { get; } = [];
 
     /// <summary>
     /// 获得 跳转其他页面的回调委托缓存集合
     /// </summary>
-    private List<(IComponent Key, Func<string, Task> Callback)> GotoCache { get; } = new();
+    private List<(IComponent Key, Func<string, Task> Callback)> GotoCache { get; } = [];
 
     /// <summary>
     /// 注册服务

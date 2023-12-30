@@ -56,7 +56,7 @@ public class ITableColumnExtensionsTest
             Rows = 3,
             SkipValidate = true,
             Text = "Test",
-            ValidateRules = new List<IValidator>() { new RequiredValidator() },
+            ValidateRules = [new RequiredValidator()],
             ShowLabelTooltip = true,
             GroupName = "test-group",
             GroupOrder = 1,

@@ -11,7 +11,7 @@ public class DragDropTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "1", "2" });
+            pb.Add(a => a.Items, ["1", "2"]);
             pb.Add(a => a.MaxItems, 3);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
         });
@@ -24,7 +24,7 @@ public class DragDropTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "1", "2" });
+            pb.Add(a => a.Items, ["1", "2"]);
             pb.Add(a => a.ItemWrapperClass, v => "test-ItemWrapperClass");
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
         });
@@ -36,7 +36,7 @@ public class DragDropTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "1", "2" });
+            pb.Add(a => a.Items, ["1", "2"]);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
         });
         var div = cut.Find(".bb-dd-dropzone");
@@ -48,7 +48,7 @@ public class DragDropTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "1", "2" });
+            pb.Add(a => a.Items, ["1", "2"]);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
         });
         var div = cut.Find(".bb-dd-dropzone");
@@ -60,7 +60,7 @@ public class DragDropTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "1", "2" });
+            pb.Add(a => a.Items, ["1", "2"]);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
         });
         var div = cut.Find(".bb-dd-dropzone");
@@ -72,7 +72,7 @@ public class DragDropTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "1", "2" });
+            pb.Add(a => a.Items, ["1", "2"]);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
         });
         var div = cut.Find(".bb-dd-spacing");
@@ -84,7 +84,7 @@ public class DragDropTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "1", "2" });
+            pb.Add(a => a.Items, ["1", "2"]);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
         });
         var div = cut.Find(".bb-dd-spacing");
@@ -96,7 +96,7 @@ public class DragDropTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "1", "2" });
+            pb.Add(a => a.Items, ["1", "2"]);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
         });
         var div = cut.Find(".bb-dd-spacing");
@@ -108,7 +108,7 @@ public class DragDropTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "1", "2" });
+            pb.Add(a => a.Items, ["1", "2"]);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
         });
         var div = cut.Find(".bb-dd-draggable");
@@ -120,7 +120,7 @@ public class DragDropTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "1", "2" });
+            pb.Add(a => a.Items, ["1", "2"]);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
         });
         var div = cut.Find(".bb-dd-draggable");
@@ -132,7 +132,7 @@ public class DragDropTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "1", "2" });
+            pb.Add(a => a.Items, ["1", "2"]);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
         });
 
@@ -160,12 +160,12 @@ public class DragDropTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "1", "2" });
+            pb.Add(a => a.Items, ["1", "2"]);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
         });
         var cut1 = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "3", "4" });
+            pb.Add(a => a.Items, ["3", "4"]);
             pb.Add(a => a.MaxItems, items);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
             pb.Add(a => a.OnItemDropRejectedByMaxItemLimit, EventCallback.Factory.Create<string>(this, e =>
@@ -195,7 +195,7 @@ public class DragDropTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "1", "2" });
+            pb.Add(a => a.Items, ["1", "2"]);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
             pb.Add(a => a.AllowsDrag, s => false);
         });
@@ -222,7 +222,7 @@ public class DragDropTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "1", "2" });
+            pb.Add(a => a.Items, ["1", "2"]);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
             pb.Add(a => a.Accepts, (s, s1) => false);
             pb.Add(a => a.OnItemDropRejected, EventCallback<string>.Empty);
@@ -244,7 +244,7 @@ public class DragDropTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "1", "2" });
+            pb.Add(a => a.Items, ["1", "2"]);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
             pb.Add(a => a.OnReplacedItemDrop, EventCallback<string>.Empty);
         });
@@ -264,12 +264,12 @@ public class DragDropTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "1", "2" });
+            pb.Add(a => a.Items, ["1", "2"]);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
         });
         var cut1 = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "3", "4" });
+            pb.Add(a => a.Items, ["3", "4"]);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
             pb.Add(a => a.CopyItem, s => s);
         });
@@ -289,12 +289,12 @@ public class DragDropTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "1", "2" });
+            pb.Add(a => a.Items, ["1", "2"]);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
         });
         var cut1 = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "3", "4" });
+            pb.Add(a => a.Items, ["3", "4"]);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
             pb.Add(a => a.CopyItem, s => s);
         });
@@ -314,12 +314,12 @@ public class DragDropTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "1", "2" });
+            pb.Add(a => a.Items, ["1", "2"]);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
         });
         var cut1 = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "3", "4" });
+            pb.Add(a => a.Items, ["3", "4"]);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
             pb.Add(a => a.CopyItem, s => s);
         });
@@ -350,18 +350,18 @@ public class DragDropTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { null!, "2" });
+            pb.Add(a => a.Items, [null!, "2"]);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, (object?)null));
         });
         var cut1 = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "3", "4" });
+            pb.Add(a => a.Items, ["3", "4"]);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
             pb.Add(a => a.MaxItems, 2);
         });
         var cut2 = Context.RenderComponent<Dropzone<string>>(pb =>
         {
-            pb.Add(a => a.Items, new List<string> { "3", "4" });
+            pb.Add(a => a.Items, ["3", "4"]);
             pb.Add(a => a.ChildContent, v => builder => builder.AddContent(0, v));
             pb.Add(a => a.Accepts, ((s, s1) => false));
         });

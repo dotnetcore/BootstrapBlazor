@@ -90,7 +90,7 @@ public partial class Segmented<TValue>
     [NotNull]
     public RenderFragment<SegmentedOption<TValue>>? ItemTemplate { get; set; }
 
-    private readonly List<SegmentedOption<TValue>> _items = new();
+    private readonly List<SegmentedOption<TValue>> _items = [];
 
     private string? TooltipString => ShowTooltip && IsBlock ? "tooltip" : null;
 

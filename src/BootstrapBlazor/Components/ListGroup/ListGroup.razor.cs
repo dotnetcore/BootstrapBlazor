@@ -64,7 +64,7 @@ public partial class ListGroup<TItem>
     {
         base.OnParametersSet();
 
-        Items ??= new();
+        Items ??= [];
     }
 
     private string? GetItemText(TItem item) => GetItemDisplayText?.Invoke(item) ?? item?.ToString();

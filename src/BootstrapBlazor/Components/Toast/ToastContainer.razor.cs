@@ -34,7 +34,7 @@ public partial class ToastContainer : IDisposable
     /// <summary>
     /// 获得 弹出窗集合
     /// </summary>
-    private List<ToastOption> Toasts { get; } = new List<ToastOption>();
+    private List<ToastOption> Toasts { get; } = [];
 
     /// <summary>
     /// 获得/设置 显示文字

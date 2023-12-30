@@ -777,12 +777,12 @@ public class SelectTest : BootstrapBlazorTestBase
         string value = "";
         SelectedItem result = new();
         string? msg = null;
-        mi?.Invoke(select, new object?[] { value, result, msg });
+        mi?.Invoke(select, [value, result, msg]);
 
         var p = select.GetType().GetProperty("VirtualItems", BindingFlags.NonPublic | BindingFlags.Instance);
         p?.SetValue(select, items);
         value = "1";
-        mi?.Invoke(select, new object?[] { value, result, msg });
+        mi?.Invoke(select, [value, result, msg]);
     }
 
     [Fact]

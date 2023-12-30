@@ -465,7 +465,7 @@ public partial class Table<TItem>
     /// 获得/设置 高级排序，默认为 Empty
     /// </summary>
     [Parameter]
-    public List<TableSortItem> AdvancedSortItems { get; set; } = new();
+    public List<TableSortItem> AdvancedSortItems { get; set; } = [];
 
     /// <summary>
     /// 高级排序按钮点击时调用此方法

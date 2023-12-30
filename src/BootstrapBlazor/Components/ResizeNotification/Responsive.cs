@@ -28,6 +28,22 @@ public class Responsive : BootstrapComponentBase, IDisposable
     }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (OnBreakPointChanged != null)
+            {
+                await OnBreakPointChanged(ResizeService.CurrentValue);
+            }
+        }
+    }
+
+    /// <summary>
     /// 客户端通知断点已改变
     /// </summary>
     /// <param name="point">断点名称</param>

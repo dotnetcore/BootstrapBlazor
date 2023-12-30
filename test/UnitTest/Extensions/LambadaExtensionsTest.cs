@@ -57,20 +57,20 @@ public class LambadaExtensionsTest
         };
         var filter = new FilterKeyValueAction()
         {
-            Filters = new()
-            {
+            Filters =
+            [
                 new FilterKeyValueAction()
                 {
                     FilterLogic = FilterLogic.Or,
-                    Filters = new List<FilterKeyValueAction>()
-                    {
+                    Filters =
+                    [
                         new FilterKeyValueAction() { FieldKey = "Count", FilterAction = FilterAction.Equal, FieldValue = 1 },
                         new FilterKeyValueAction() { FieldKey = "Count", FilterAction = FilterAction.Equal, FieldValue = 2 }
-                    }
+                    ]
                 },
                 new FilterKeyValueAction() { FieldKey = "Count", FilterAction = FilterAction.GreaterThan, FieldValue = 1 },
                 new FilterKeyValueAction() { FieldKey = "Count", FilterAction = FilterAction.LessThan, FieldValue = 10 }
-            }
+            ]
         };
         var items = foos.Where(filter.GetFilterFunc<Foo>());
         Assert.Single(items);
@@ -280,7 +280,7 @@ public class LambadaExtensionsTest
             new Foo { Name = "10", Count = 20 },
             new Foo { Name = "20", Count = 20 },
         }.AsQueryable();
-        var orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Count desc", "Name" });
+        var orderFoos = LambdaExtensions.Sort(foos, ["Count desc", "Name"]);
         Assert.Equal(20, orderFoos.ElementAt(0).Count);
         Assert.Equal("20", orderFoos.ElementAt(1).Name);
 
@@ -318,13 +318,13 @@ public class LambadaExtensionsTest
         orderFoos = LambdaExtensions.Sort(foos, "Test", SortOrder.Asc);
         Assert.Equal(10, orderFoos.ElementAt(0).Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Count desc", "Name" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Count desc", "Name"]);
         Assert.Equal(20, orderFoos.ElementAt(0).Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Count", "Name desc" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Count", "Name desc"]);
         Assert.Equal(10, orderFoos.ElementAt(0).Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Count", "Test desc" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Count", "Test desc"]);
         Assert.Equal(10, orderFoos.ElementAt(0).Count);
     }
 
@@ -349,13 +349,13 @@ public class LambadaExtensionsTest
         orderFoos = LambdaExtensions.Sort(foos, "Test", SortOrder.Asc);
         Assert.Equal(10, orderFoos.ElementAt(0).Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Count desc", "Name" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Count desc", "Name"]);
         Assert.Equal(20, orderFoos.ElementAt(0).Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Count", "Name desc" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Count", "Name desc"]);
         Assert.Equal(10, orderFoos.ElementAt(0).Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Count", "Test desc" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Count", "Test desc"]);
         Assert.Equal(10, orderFoos.ElementAt(0).Count);
     }
 
@@ -377,13 +377,13 @@ public class LambadaExtensionsTest
         orderFoos = LambdaExtensions.Sort(foos, "Foo1.Count", SortOrder.Desc);
         Assert.Equal(10, orderFoos.ElementAt(0).Foo!.Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Foo.Count desc", "Foo.Name" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Foo.Count desc", "Foo.Name"]);
         Assert.Equal(20, orderFoos.ElementAt(0).Foo!.Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Foo.Count", "Foo.Name Desc" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Foo.Count", "Foo.Name Desc"]);
         Assert.Equal(10, orderFoos.ElementAt(0).Foo!.Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Foo.Count", "Foo.Test Desc" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Foo.Count", "Foo.Test Desc"]);
         Assert.Equal(10, orderFoos.ElementAt(0).Foo!.Count);
     }
 
@@ -405,13 +405,13 @@ public class LambadaExtensionsTest
         orderFoos = LambdaExtensions.Sort(foos, "Foo1.Count", SortOrder.Desc);
         Assert.Equal(10, orderFoos.ElementAt(0).Foo!.Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Foo.Count desc", "Foo.Name" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Foo.Count desc", "Foo.Name"]);
         Assert.Equal(20, orderFoos.ElementAt(0).Foo!.Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Foo.Count", "Foo.Name Desc" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Foo.Count", "Foo.Name Desc"]);
         Assert.Equal(10, orderFoos.ElementAt(0).Foo!.Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Foo.Count", "Foo.Test Desc" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Foo.Count", "Foo.Test Desc"]);
         Assert.Equal(10, orderFoos.ElementAt(0).Foo!.Count);
     }
 
@@ -536,8 +536,8 @@ public class LambadaExtensionsTest
         {
             var filters = new FilterKeyValueAction()
             {
-                Filters = new()
-                {
+                Filters =
+                [
                     new()
                     {
                          FieldKey = "Count",
@@ -551,7 +551,7 @@ public class LambadaExtensionsTest
                          FieldValue = 10,
                          FilterAction = FilterAction.LessThan
                     }
-                }
+                ]
             };
             return filters;
         }
@@ -563,8 +563,8 @@ public class LambadaExtensionsTest
         {
             var filters = new FilterKeyValueAction()
             {
-                Filters = new()
-                {
+                Filters =
+                [
                     new()
                     {
                          FieldKey = "Count",
@@ -572,7 +572,7 @@ public class LambadaExtensionsTest
                          FilterAction = FilterAction.Equal,
                          FilterLogic = FilterLogic.And
                     }
-                }
+                ]
             };
             return filters;
         }
@@ -585,8 +585,8 @@ public class LambadaExtensionsTest
             var filters = new FilterKeyValueAction()
             {
                 FilterLogic = FilterLogic.Or,
-                Filters = new()
-                {
+                Filters =
+                [
                     new()
                     {
                          FieldKey = "Count",
@@ -599,7 +599,7 @@ public class LambadaExtensionsTest
                          FieldValue = 2,
                          FilterAction = FilterAction.Equal
                     }
-                }
+                ]
             };
             return filters;
         }
@@ -611,41 +611,36 @@ public class LambadaExtensionsTest
         {
             var filters = new FilterKeyValueAction()
             {
-                Filters = new()
-                {
+                Filters =
+                [
                     new()
                     {
                          FieldKey = "Count",
                          FieldValue = 10,
                          FilterAction = FilterAction.Equal
                     }
-                }
+                ]
             };
             return filters;
         }
     }
 
-    private class CustomDynamicData : System.Dynamic.DynamicObject
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="fix"></param>
+    /// <param name="data"></param>
+    private class CustomDynamicData(Dictionary<string, string> data) : System.Dynamic.DynamicObject
     {
         /// <summary>
         /// 存储每列值信息 Key 列名 Value 为列值
         /// </summary>
-        public Dictionary<string, string> Dynamic { get; set; }
+        public Dictionary<string, string> Dynamic { get; set; } = data;
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="fix"></param>
-        /// <param name="data"></param>
-        public CustomDynamicData(Dictionary<string, string> data)
-        {
-            Dynamic = data;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public CustomDynamicData() : this(new()) { }
+        public CustomDynamicData() : this([]) { }
 
         /// <summary>
         /// <inheritdoc/>

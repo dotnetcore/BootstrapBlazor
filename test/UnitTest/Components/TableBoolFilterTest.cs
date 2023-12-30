@@ -71,7 +71,7 @@ public class TableBoolFilterTest : BootstrapBlazorTestBase
 
         var newConditions = new FilterKeyValueAction
         {
-            Filters = new() { new FilterKeyValueAction() { FieldValue = true } }
+            Filters = [new FilterKeyValueAction() { FieldValue = true }]
         };
         cut.InvokeAsync(() => cut.Instance.SetFilterConditionsAsync(newConditions));
         filter = cut.Instance.GetFilterConditions();

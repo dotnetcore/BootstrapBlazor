@@ -28,7 +28,7 @@ jobs:
 
     - name: Test
       run: |
-        dotnet test test/UnitTest -c Release --collect:"XPlat Code Coverage"
+        dotnet test test/UnitTest --collect:"XPlat Code Coverage"
 
     - name: Upload to Codecov
       uses: codecov/codecov-action@v3

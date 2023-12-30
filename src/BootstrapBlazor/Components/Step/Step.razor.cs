@@ -111,7 +111,7 @@ public partial class Step
         base.OnParametersSet();
 
         _finishedIcon ??= IconTheme.GetIconByKey(ComponentIcons.StepIcon);
-        Items ??= new();
+        Items ??= [];
     }
 
     /// <summary>

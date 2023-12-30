@@ -83,6 +83,9 @@ public class TreeViewTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cut.Instance.SetActiveItem(activeItem));
         node = cut.Find(".active");
         Assert.Equal("Sub menu 1", node.TextContent);
+
+        activeItem = new TreeFoo();
+        await cut.InvokeAsync(() => cut.Instance.SetActiveItem(activeItem));
     }
 
     [Fact]
@@ -220,7 +223,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnExpandRowAsync_Exception()
+    public async Task OnExpandRowAsync_Exception()
     {
         var items = TreeFoo.GetTreeItems();
         items[0].HasChildren = true;
@@ -230,7 +233,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, items);
         });
 
-        Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => cut.Find(".fa-caret-right.visible").Click()));
+        await Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => cut.Find(".fa-caret-right.visible").Click()));
     }
 
     [Fact]

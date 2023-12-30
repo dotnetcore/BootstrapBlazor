@@ -15,7 +15,7 @@ public partial class Cascader<TValue>
     /// <summary>
     /// 当前选中节点集合
     /// </summary>
-    private List<CascaderItem> SelectedItems { get; } = new();
+    private List<CascaderItem> SelectedItems { get; } = [];
 
     /// <summary>
     /// 获得/设置 Cascader 内部 Input 组件 Id

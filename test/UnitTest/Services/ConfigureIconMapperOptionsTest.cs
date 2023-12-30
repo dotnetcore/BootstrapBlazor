@@ -45,18 +45,13 @@ public class ConfigureIconMapperOptionsTest
         Assert.Null(iconService.GetIconByKey(ComponentIcons.AutoFillIcon));
     }
 
-    internal class MockIconTheme : IIconTheme
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="options"></param>
+    internal class MockIconTheme(IOptions<IconThemeOptions> options) : IIconTheme
     {
-        private IOptions<IconThemeOptions> Options { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="options"></param>
-        public MockIconTheme(IOptions<IconThemeOptions> options)
-        {
-            Options = options;
-        }
+        private IOptions<IconThemeOptions> Options { get; set; } = options;
 
         /// <summary>
         /// <inheritdoc/>
@@ -66,7 +61,7 @@ public class ConfigureIconMapperOptionsTest
         {
             if (!Options.Value.Icons.TryGetValue(Options.Value.ThemeKey, out var icons))
             {
-                icons = new Dictionary<ComponentIcons, string>();
+                icons = [];
             }
             return icons;
         }

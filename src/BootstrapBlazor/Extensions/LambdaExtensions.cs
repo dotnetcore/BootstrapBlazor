@@ -257,7 +257,7 @@ public static class LambdaExtensions
     {
         // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I2DIR4
         // 兼容 EFCore 与普通逻辑 EFCore 内自动处理空问题
-        var method = typeof(string).GetMethod("Contains", new Type[1] { typeof(string) })!;
+        var method = typeof(string).GetMethod("Contains", [typeof(string)])!;
         return Expression.AndAlso(Expression.NotEqual(left, Expression.Constant(null)), Expression.Call(left, method, right));
     }
 
@@ -780,7 +780,7 @@ public static class LambdaExtensions
         var t = typeof(TValue);
         var p1 = Expression.Parameter(typeof(string));
         var p2 = Expression.Parameter(t.MakeByRefType());
-        var method = t.GetMethod("TryParse", new Type[] { typeof(string), t.MakeByRefType() });
+        var method = t.GetMethod("TryParse", [typeof(string), t.MakeByRefType()]);
         var body = method != null ? Expression.Call(method, p1, p2) : Expression.Call(typeof(LambdaExtensions).GetMethod("TryParseEmpty", BindingFlags.NonPublic | BindingFlags.Static)!.MakeGenericMethod(typeof(TValue)), p1, p2);
         return Expression.Lambda<FuncEx<string, TValue, bool>>(body, p1, p2);
     }

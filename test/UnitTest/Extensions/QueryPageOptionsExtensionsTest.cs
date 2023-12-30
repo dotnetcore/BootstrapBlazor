@@ -10,14 +10,14 @@ public class QueryPageOptionsExtensionsTest
 
     public QueryPageOptionsExtensionsTest()
     {
-        _foos = new Foo[]
-        {
+        _foos =
+        [
             new Foo() { Name = "test 1", Count = 1, Complete = true, Education = EnumEducation.Primary, DateTime = new DateTime(2023, 1, 1) },
             new Foo() { Name = "test 2", Count = 2, Complete = true, Education = EnumEducation.Middle, DateTime = new DateTime(2023, 1, 2) },
             new Foo() { Name = "Test 3", Count = 3, Complete = false, Education = EnumEducation.Primary, DateTime = new DateTime(2023, 1, 3) },
             new Foo() { Name = "Test 4", Count = 4, Complete = false, Education = EnumEducation.Middle, DateTime = new DateTime(2023, 1, 4) },
             new Foo() { Name = "Mock 1", Count = 5, Complete = false, Education = EnumEducation.Primary, DateTime = new DateTime(2023, 1, 5) }
-        };
+        ];
     }
 
     [Fact]
@@ -120,7 +120,7 @@ public class QueryPageOptionsExtensionsTest
         var filter = new FilterKeyValueAction();
         Assert.False(filter.HasFilters());
 
-        filter.Filters = new();
+        filter.Filters = [];
         Assert.False(filter.HasFilters());
 
         filter.Filters.Add(new FilterKeyValueAction());

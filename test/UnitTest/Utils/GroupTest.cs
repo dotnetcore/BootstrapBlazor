@@ -4,11 +4,9 @@
 
 namespace UnitTest.Utils;
 
-public class GroupTest
+public class GroupTest(ITestOutputHelper logger)
 {
-    ITestOutputHelper Logger { get; set; }
-
-    public GroupTest(ITestOutputHelper logger) => Logger = logger;
+    ITestOutputHelper Logger { get; set; } = logger;
 
     [Fact]
     public void Group_Order_Ok()
@@ -44,15 +42,15 @@ public class GroupTest
         var actual = items.OrderByDescending(i => i);
         Assert.Equal("1, 0, -1, -4", string.Join(", ", actual));
 
-        items = new List<int> { 1, 3, 2, 4 };
+        items = [1, 3, 2, 4];
         actual = items.OrderBy(i => i);
         Assert.Equal("1, 2, 3, 4", string.Join(", ", actual));
 
-        items = new List<int> { -1, -3, -2, -4 };
+        items = [-1, -3, -2, -4];
         actual = items.OrderBy(i => i);
         Assert.Equal("-4, -3, -2, -1", string.Join(", ", actual));
 
-        items = new List<int> { 2, 1, 0, -1, -3, -2, -4 };
+        items = [2, 1, 0, -1, -3, -2, -4];
         actual = items.OrderBy(i => i);
         Assert.Equal("-4, -3, -2, -1, 0, 1, 2", string.Join(", ", actual));
     }

@@ -24,7 +24,7 @@ public partial class Message
         .AddClass("bottom: 1rem;", Placement == Placement.Bottom)
         .Build();
 
-    private readonly List<MessageOption> _messages = new();
+    private readonly List<MessageOption> _messages = [];
 
     /// <summary>
     /// 获得/设置 显示位置 默认为 Top

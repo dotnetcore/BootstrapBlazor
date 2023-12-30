@@ -346,11 +346,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public void ExpandDetailRow(TItem item)
     {
         DetailRows.Add(item);
-        if (ExpandRows.Contains(item))
-        {
-            ExpandRows.Remove(item);
-        }
-        else
+        if (!ExpandRows.Remove(item))
         {
             ExpandRows.Add(item);
         }

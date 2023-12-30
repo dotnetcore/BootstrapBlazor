@@ -31,7 +31,7 @@ public class DynamicColumnsObject : IDynamicColumnsObject
     /// <summary>
     /// 构造函数
     /// </summary>
-    public DynamicColumnsObject() : this(new()) { }
+    public DynamicColumnsObject() : this([]) { }
 
     /// <summary>
     /// <inheritdoc/>

@@ -211,7 +211,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public void DefaultButtons_Ok()
     {
-        List<SelectedItem> selectedItems = new();
+        List<SelectedItem> selectedItems = [];
         var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.ShowToolbar, true);
