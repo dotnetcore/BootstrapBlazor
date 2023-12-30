@@ -42,6 +42,18 @@
     color: #ddd;
 }
 
+::deep .btn-theme-mode {
+    --bs-btn-bg: #8759ff;
+    --bs-btn-hover-bg: var(--bs-btn-bg);
+    --bs-btn-active-bg: var(--bs-btn-bg);
+    bottom: 17rem;
+    right: 1rem;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 ::deep pre {
     color: #e83e8c;
     margin-bottom: 0;

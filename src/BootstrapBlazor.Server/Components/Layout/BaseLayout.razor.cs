@@ -45,6 +45,9 @@ public partial class BaseLayout : IDisposable
     [NotNull]
     private string? ChatTooltip { get; set; }
 
+    [NotNull]
+    private string? ThemeTooltip { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -58,6 +61,7 @@ public partial class BaseLayout : IDisposable
         CancelText ??= Localizer[nameof(CancelText)];
         Title ??= Localizer[nameof(Title)];
         ChatTooltip ??= Localizer[nameof(ChatTooltip)];
+        ThemeTooltip ??= Localizer[nameof(ThemeTooltip)];
 
         DispatchService.Subscribe(Notify);
     }

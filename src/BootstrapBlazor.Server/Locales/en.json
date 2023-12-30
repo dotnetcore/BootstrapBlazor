@@ -4307,7 +4307,9 @@
     "InstallText": "Install",
     "CancelText": "Cancel",
     "Title": "View update log",
-    "ChatTooltip": "Azure OpenAI"
+    "ChatTooltip": "Azure OpenAI",
+    "LightMode": "Light Mode",
+    "DarkMode": "Dark Mode"
   },
   "BootstrapBlazor.Server.Components.Layout.NavMenu": {
     "GetStarted": "Getting Started",
