@@ -47,16 +47,16 @@
     cursor: pointer;
 }
 
-.icon-theme .icon-dark {
+.icon-theme .icon-light {
     display: none;
 }
 
 [data-bs-theme='dark'] .icon-dark {
-    display: block;
+    display: none;
 }
 
 [data-bs-theme='dark'] .icon-light {
-    display: none;
+    display: block;
 }
 
 @media (min-width: 768px) {
