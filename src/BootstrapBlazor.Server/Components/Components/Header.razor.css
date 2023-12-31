@@ -43,22 +43,6 @@
     white-space: nowrap;
 }
 
-.icon-theme img {
-    cursor: pointer;
-}
-
-.icon-theme .icon-light {
-    display: none;
-}
-
-[data-bs-theme='dark'] .icon-dark {
-    display: none;
-}
-
-[data-bs-theme='dark'] .icon-light {
-    display: block;
-}
-
 @media (min-width: 768px) {
     .navbar-header {
         position: sticky;
