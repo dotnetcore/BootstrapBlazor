@@ -200,6 +200,22 @@ code {
     background-color: rgba(var(--bs-emphasis-color-rgb),.1);
 }
 
+.icon-theme img {
+    cursor: pointer;
+}
+
+.icon-theme .icon-light {
+    display: none;
+}
+
+[data-bs-theme='dark'] .icon-dark {
+    display: none;
+}
+
+[data-bs-theme='dark'] .icon-light {
+    display: block;
+}
+
 @media (min-width: 768px) {
     :root {
         --bs-header-height: 50px;
