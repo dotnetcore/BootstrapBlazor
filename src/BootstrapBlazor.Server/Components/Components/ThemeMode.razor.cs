@@ -11,7 +11,7 @@ public partial class ThemeMode
 {
     private bool _isDark;
 
-    private string _imageUrl => _isDark ? "./images/theme-dark.svg" : "./images/theme-light.svg";
+    private string _imageUrl => _isDark ? "./images/theme-night.svg" : "./images/theme-light.svg";
 
     private async Task ToggleThemeMode()
     {
