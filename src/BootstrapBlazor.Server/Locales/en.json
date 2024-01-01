@@ -4299,7 +4299,8 @@
     "DownloadText": "Download",
     "HomeText": "Home",
     "ComponentsText": "Components",
-    "IntroductionText": "Documents"
+    "IntroductionText": "Documents",
+    "TutorialsText": "Tutorials"
   },
   "BootstrapBlazor.Server.Components.Layout.BaseLayout": {
     "FlowText": "Workflow",

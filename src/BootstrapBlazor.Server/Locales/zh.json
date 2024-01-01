@@ -4299,7 +4299,8 @@
     "DownloadText": "Download",
     "HomeText": "首页",
     "ComponentsText": "组件",
-    "IntroductionText": "文档"
+    "IntroductionText": "文档",
+    "TutorialsText": "实战"
   },
   "BootstrapBlazor.Server.Components.Layout.BaseLayout": {
     "FlowText": "工作流",
