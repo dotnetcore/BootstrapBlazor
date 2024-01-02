@@ -24,7 +24,7 @@
     <Link Href="css/site.css" />
     <title>@Localizer["Title"]</title>
     <HeadOutlet @rendermode="new InteractiveServerRenderMode(false)" />
-    <script src="lib/theme.js" type="module"></script>
+    <Script Src="lib/theme.js" type="module"></Script>
 </head>
 
 <body>
@@ -36,14 +36,14 @@
 
     <BlazorReconnector @rendermode="new InteractiveServerRenderMode(false)" />
 
-    <script src="_content/BootstrapBlazor.SummerNote/js/jquery-3.5.1.min.js"></script>
+    <Script Src="_content/BootstrapBlazor.SummerNote/js/jquery-3.5.1.min.js"></Script>
     @if (Env.IsDevelopment())
     {
-        <script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.js"></script>
+        <Script Src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.js"></Script>
     }
     @if (Env.IsProduction())
     {
-        <script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
+        <Script Src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></Script>
     }
     <script src="_framework/blazor.web.js"></script>
     @if (Env.IsProduction())
