@@ -32,8 +32,8 @@ internal static class LocalizationOptionsExtensions
             assembly
         };
 
-        var entryAssembly = Assembly.GetEntryAssembly();
-        if (entryAssembly != null && assembly != entryAssembly)
+        var entryAssembly = GetAssembly();
+        if (assembly != entryAssembly)
         {
             assemblies.Add(entryAssembly);
         }
@@ -74,6 +74,9 @@ internal static class LocalizationOptionsExtensions
         }
 
         return config.GetChildren();
+
+        [ExcludeFromCodeCoverage]
+        Assembly GetAssembly() => Assembly.GetEntryAssembly() ?? assembly;
     }
 
     private static List<Stream> GetResourceStream(this JsonLocalizationOptions option, Assembly assembly, string cultureName)
