@@ -4367,7 +4367,7 @@
     "Message": "Message",
     "Modal": "Modal",
     "Light": "Light",
-    "PopConfirm": "PopConfirm",
+    "PopConfirm": "PopConfirmButton",
     "Progress": "Progress",
     "SearchDialog": "SearchDialog",
     "SwitchButton": "Switch Button",

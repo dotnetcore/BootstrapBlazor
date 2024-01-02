@@ -7,13 +7,9 @@ using System.Globalization;
 
 namespace BootstrapBlazor.Server.Services;
 
-internal class MenuService
+internal class MenuService(IStringLocalizer<NavMenu> localizer)
 {
     private ConcurrentDictionary<string, List<MenuItem>> MenuCache { get; } = new();
 
-    private readonly IStringLocalizer<NavMenu> _localization;
-
-    public MenuService(IStringLocalizer<NavMenu> localizer) => _localization = localizer;
-
-    public List<MenuItem> GetMenus() => MenuCache.GetOrAdd(CultureInfo.CurrentCulture.Name, key => _localization.GenerateMenus());
+    public List<MenuItem> GetMenus() => MenuCache.GetOrAdd(CultureInfo.CurrentCulture.Name, key => localizer.GenerateMenus());
 }

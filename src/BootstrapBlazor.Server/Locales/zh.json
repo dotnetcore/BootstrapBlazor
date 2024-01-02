@@ -4367,7 +4367,7 @@
     "Message": "消息框 Message",
     "Modal": "模态框 Modal",
     "Light": "指示灯 Light",
-    "PopConfirm": "确认框 Popconfirm",
+    "PopConfirm": "确认框 PopconfirmButton",
     "Progress": "进度条 Progress",
     "SearchDialog": "搜索弹窗 SearchDialog",
     "SwitchButton": "状态切换按钮 SwitchButton",
