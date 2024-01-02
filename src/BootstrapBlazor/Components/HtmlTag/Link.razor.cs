@@ -14,7 +14,7 @@ public partial class Link
     /// </summary>
     [Parameter]
     [EditorRequired]
-    public required string Href { get; set; }
+    public string? Href { get; set; }
 
     /// <summary>
     /// 获得/设置 版本号 默认 null 自动生成
