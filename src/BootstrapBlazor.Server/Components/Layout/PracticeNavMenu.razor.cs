@@ -41,18 +41,18 @@ public partial class PracticeNavMenu
 
         Menus =
         [
-            new MenuItem()
+            new()
             {
                 Template = CreateDownloadButtonComponent("dashboard", dashboardFileList),
                 Text = "仪表盘 Dashboard",
                 Url = "practice/dashboard"
             },
-            new MenuItem()
+            new()
             {
                 Text = "登陆和注册 Login & Register",
                 Url = "practice/login",
-                Items = new List<MenuItem>()
-                {
+                Items =
+                [
                     //new()
                     //{
                     //    Template = CreateDownloadButtonComponent("template1", Template1),
@@ -107,13 +107,18 @@ public partial class PracticeNavMenu
                         Text = "模板 Template 9",
                         Url = "template9"
                     }
-                }
+                ]
             },
-            new MenuItem()
+            new()
             {
                 Template = CreateDownloadButtonComponent("waterfall", waterfallFileList),
                 Text = "瀑布流图片 Waterfall",
                 Url = "practice/waterfall"
+            },
+            new()
+            {
+                Text = "翻译工具 Translate",
+                Url = "practice/translate"
             }
         ];
     }
