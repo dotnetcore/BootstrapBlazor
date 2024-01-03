@@ -6113,5 +6113,20 @@
     "ZipArchiveFileText": "归档文件",
     "ZipArchiveDirectoryText": "归档文件夹",
     "ZipArchiveExtractText": "解压缩到指定文件夹"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Practices.Translation.Translator": {
+    "File": "文件",
+    "Hide": "隐藏",
+    "Language": "语言",
+    "Load": "加载",
+    "LoadContent": "所有翻译项已读取成功",
+    "LoadTitle": "读取",
+    "Operation": "操作",
+    "Save": "保存",
+    "SaveContent": "所有翻译项已保存成功",
+    "SaveTitle": "保存",
+    "Show": "显示",
+    "ToolboxCardTitle": "工具栏",
+    "Translate": "机翻"
   }
 }

@@ -6113,5 +6113,20 @@
     "ZipArchiveFileText": "Archive file",
     "ZipArchiveDirectoryText": "Archive directory",
     "ZipArchiveExtractText": "Extract"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Practices.Translation.Translator": {
+    "File": "File",
+    "Hide": "Hide",
+    "Language": "Language",
+    "Load": "Load",
+    "LoadContent": "All localization items loaded successfully",
+    "LoadTitle": "Load",
+    "Operation": "Operation",
+    "Save": "Save",
+    "SaveContent": "All localization items saved successfully",
+    "SaveTitle": "Save",
+    "Show": "Show",
+    "ToolboxCardTitle": "Tools",
+    "Translate": "Translate"
   }
 }
