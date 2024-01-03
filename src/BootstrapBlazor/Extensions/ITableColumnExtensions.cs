@@ -58,7 +58,7 @@ public static class IEditItemExtensions
         if (!string.IsNullOrEmpty(source.GroupName)) dest.GroupName = source.GroupName;
         if (source.GroupOrder != 0) dest.GroupOrder = source.GroupOrder;
         if (!string.IsNullOrEmpty(source.PlaceHolder)) dest.PlaceHolder = source.PlaceHolder;
-        if (source.Step != null) dest.Step = source.Step;
+        if (!string.IsNullOrEmpty(source.Step)) dest.Step = source.Step;
         if (source.Order != 0) dest.Order = source.Order;
 
         if (source is ITableColumn col)
