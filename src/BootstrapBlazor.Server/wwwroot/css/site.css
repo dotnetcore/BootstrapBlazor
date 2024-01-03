@@ -188,6 +188,10 @@ code {
     margin-bottom: 1rem;
 }
 
+.ul-demo li:not(:last-child) {
+    margin-bottom: 0.25rem;
+}
+
 .btn-code {
     position: absolute;
     top: .65rem;
