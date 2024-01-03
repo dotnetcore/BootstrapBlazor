@@ -988,14 +988,17 @@ public partial class Table<TItem>
         }
     }
 
-    private void QueryDynamicItems(IDynamicObjectContext context)
+    private void QueryDynamicItems(IDynamicObjectContext? context)
     {
-        QueryItems = context.GetItems().Cast<TItem>();
-        TotalCount = QueryItems.Count();
         RowsCache = null;
+        if (context != null)
+        {
+            QueryItems = context.GetItems().Cast<TItem>();
+            TotalCount = QueryItems.Count();
 
-        // 重置选中行
-        ResetSelectedRows(QueryItems);
+            // 重置选中行
+            ResetSelectedRows(QueryItems);
+        }
     }
 
     private async Task ExecuteExportAsync(Func<Task<bool>> callback)
