@@ -420,7 +420,7 @@ public partial class Table<TItem>
         // 目前设计使用 Items 参数后不回调 OnQueryAsync 方法
         if (Items == null)
         {
-            if (OnQueryAsync == null && DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
+            if (OnQueryAsync == null && (DynamicContext != null || typeof(TItem).IsAssignableTo(typeof(IDynamicObject))))
             {
                 QueryDynamicItems(DynamicContext);
             }
@@ -482,7 +482,7 @@ public partial class Table<TItem>
                 }
 
                 // 外部未处理自定义高级搜索 内部进行高级自定义搜索过滤
-                if (!IsAdvanceSearch && queryOption.CustomerSearches.Count> 0)
+                if (!IsAdvanceSearch && queryOption.CustomerSearches.Count > 0)
                 {
                     QueryItems = QueryItems.Where(queryOption.CustomerSearches.GetFilterFunc<TItem>());
                     TotalCount = QueryItems.Count();
