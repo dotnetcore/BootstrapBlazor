@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 using System.Data;
 using System.Globalization;
 
-namespace BootstrapBlazor.Server.Components.Samples.Practices.Translation;
+namespace BootstrapBlazor.Server.Components.Samples.Tutorials.Translation;
 
 /// <summary>
 /// UniTranslator 组件

@@ -4,7 +4,7 @@
 
 using System.Text.Json;
 
-namespace BootstrapBlazor.Server.Components.Samples.Practices.Translation;
+namespace BootstrapBlazor.Server.Components.Samples.Tutorials.Translation;
 
 static class AzureTranslatorServiceExtensions
 {

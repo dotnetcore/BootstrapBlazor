@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Server.Components.Layout;
 /// <summary>
 /// 实战栏目侧边菜单
 /// </summary>
-public partial class PracticeNavMenu
+public partial class TutorialsNavMenu
 {
     [Inject]
     [NotNull]
@@ -45,12 +45,12 @@ public partial class PracticeNavMenu
             {
                 Template = CreateDownloadButtonComponent("dashboard", dashboardFileList),
                 Text = "仪表盘 Dashboard",
-                Url = "practice/dashboard"
+                Url = "tutorials/dashboard"
             },
             new()
             {
                 Text = "登陆和注册 Login & Register",
-                Url = "practice/login",
+                Url = "tutorials/login",
                 Items =
                 [
                     //new()
@@ -87,25 +87,25 @@ public partial class PracticeNavMenu
                     {
                         Template = CreateDownloadButtonComponent("template6", Template6),
                         Text = "模板 Template 6",
-                        Url = "template6"
+                        Url = "tutorials/template6"
                     },
                     new()
                     {
                         Template = CreateDownloadButtonComponent("template7", Template7),
                         Text = "模板 Template 7",
-                        Url = "template7"
+                        Url = "tutorials/template7"
                     },
                     new()
                     {
                         Template = CreateDownloadButtonComponent("template8", Template8),
                         Text = "模板 Template 8",
-                        Url = "template8"
+                        Url = "tutorials/template8"
                     },
                     new()
                     {
                         Template = CreateDownloadButtonComponent("template9", Template9),
                         Text = "模板 Template 9",
-                        Url = "template9"
+                        Url = "tutorials/template9"
                     }
                 ]
             },
@@ -113,12 +113,12 @@ public partial class PracticeNavMenu
             {
                 Template = CreateDownloadButtonComponent("waterfall", waterfallFileList),
                 Text = "瀑布流图片 Waterfall",
-                Url = "practice/waterfall"
+                Url = "tutorials/waterfall"
             },
             new()
             {
                 Text = "翻译工具 Translate",
-                Url = "practice/translate"
+                Url = "tutorials/translate"
             }
         ];
     }
@@ -172,93 +172,93 @@ public partial class PracticeNavMenu
 
     private readonly string[] dashboardFileList =
     [
-        "Practices/Dashboard.razor",
-        "Practices/Dashboard.razor.cs",
-        "Practices/Dashboard.razor.css",
-        "Practices/DashboardData.cs",
+        "Tutorials/Dashboard.razor",
+        "Tutorials/Dashboard.razor.cs",
+        "Tutorials/Dashboard.razor.css",
+        "Tutorials/DashboardData.cs",
         "/../../Services/DashboardService.cs"
     ];
 
     private readonly string[] Template1 =
     [
-        "Practices/LoginAndRegister/Template1.razor",
-        "Practices/LoginAndRegister/Template1.razor.css",
+        "Tutorials/LoginAndRegister/Template1.razor",
+        "Tutorials/LoginAndRegister/Template1.razor.css",
     ];
 
     private readonly string[] Template2 =
     [
-        "Practices/LoginAndRegister/Template2.razor",
-        "Practices/LoginAndRegister/Template2.razor.css",
+        "Tutorials/LoginAndRegister/Template2.razor",
+        "Tutorials/LoginAndRegister/Template2.razor.css",
     ];
 
     private readonly string[] Template3 =
     [
-        "Practices/LoginAndRegister/Template3.razor",
-        "Practices/LoginAndRegister/Template3.razor.css",
+        "Tutorials/LoginAndRegister/Template3.razor",
+        "Tutorials/LoginAndRegister/Template3.razor.css",
     ];
 
     private readonly string[] Template4 =
     [
-        "Practices/LoginAndRegister/Template4.razor",
-        "Practices/LoginAndRegister/Template4.razor.css",
-        "Practices/LoginAndRegister/Template4.razor.js",
+        "Tutorials/LoginAndRegister/Template4.razor",
+        "Tutorials/LoginAndRegister/Template4.razor.css",
+        "Tutorials/LoginAndRegister/Template4.razor.js",
     ];
 
     private readonly string[] Template5 =
     [
-        "Practices/LoginAndRegister/Template5.razor",
-        "Practices/LoginAndRegister/Template5.razor.css",
-        "Practices/LoginAndRegister/Template5.razor.js",
+        "Tutorials/LoginAndRegister/Template5.razor",
+        "Tutorials/LoginAndRegister/Template5.razor.css",
+        "Tutorials/LoginAndRegister/Template5.razor.js",
     ];
 
     private readonly string[] Template6 =
     [
-        "Practices/LoginAndRegister/Template6.razor",
-        "Practices/LoginAndRegister/Template6.razor.css",
-        "Shared/PracticeLayout.razor",
-        "Shared/PracticeLayout.razor.cs",
-        "Shared/PracticeLayout.razor.css",
-        "Shared/PracticeLoginLayout.razor",
-        "Shared/PracticeLoginLayout.razor.css"
+        "Tutorials/LoginAndRegister/Template6.razor",
+        "Tutorials/LoginAndRegister/Template6.razor.css",
+        "Shared/TutorialsLayout.razor",
+        "Shared/TutorialsLayout.razor.cs",
+        "Shared/TutorialsLayout.razor.css",
+        "Shared/TutorialsLoginLayout.razor",
+        "Shared/TutorialsLoginLayout.razor.css"
     ];
 
     private readonly string[] Template7 =
     [
-        "Practices/LoginAndRegister/Template7.razor",
-        "Practices/LoginAndRegister/Template7.razor.css",
-        "Shared/PracticeLayout.razor",
-        "Shared/PracticeLayout.razor.cs",
-        "Shared/PracticeLayout.razor.css",
-        "Shared/PracticeLoginLayout.razor",
-        "Shared/PracticeLoginLayout.razor.css"
+        "Tutorials/LoginAndRegister/Template7.razor",
+        "Tutorials/LoginAndRegister/Template7.razor.css",
+        "Shared/TutorialsLayout.razor",
+        "Shared/TutorialsLayout.razor.cs",
+        "Shared/TutorialsLayout.razor.css",
+        "Shared/TutorialsLoginLayout.razor",
+        "Shared/TutorialsLoginLayout.razor.css"
     ];
 
     private readonly string[] Template8 =
     [
-        "Practices/LoginAndRegister/Template8.razor",
-        "Practices/LoginAndRegister/Template8.razor.css",
-        "Shared/PracticeLayout.razor",
-        "Shared/PracticeLayout.razor.cs",
-        "Shared/PracticeLayout.razor.css",
-        "Shared/PracticeLoginLayout.razor",
-        "Shared/PracticeLoginLayout.razor.css"
+        "Tutorials/LoginAndRegister/Template8.razor",
+        "Tutorials/LoginAndRegister/Template8.razor.css",
+        "Shared/TutorialsLayout.razor",
+        "Shared/TutorialsLayout.razor.cs",
+        "Shared/TutorialsLayout.razor.css",
+        "Shared/TutorialsLoginLayout.razor",
+        "Shared/TutorialsLoginLayout.razor.css"
     ];
 
     private readonly string[] Template9 =
     [
-        "Practices/LoginAndRegister/Template9.razor",
-        "Practices/LoginAndRegister/Template9.razor.css",
-        "Shared/PracticeLayout.razor",
-        "Shared/PracticeLayout.razor.cs",
-        "Shared/PracticeLayout.razor.css",
-        "Shared/PracticeLoginLayout.razor",
-        "Shared/PracticeLoginLayout.razor.css"
+        "Tutorials/LoginAndRegister/Template9.razor",
+        "Tutorials/LoginAndRegister/Template9.razor.css",
+        "Shared/TutorialsLayout.razor",
+        "Shared/TutorialsLayout.razor.cs",
+        "Shared/TutorialsLayout.razor.css",
+        "Shared/TutorialsLoginLayout.razor",
+        "Shared/TutorialsLoginLayout.razor.css"
     ];
 
     private readonly string[] waterfallFileList =
     [
-        "Practices/Waterfall.razor",
-        "Practices/Waterfall.razor.cs",
-        "Practices/Waterfall.razor.css"
+        "Tutorials/Waterfall.razor",
+        "Tutorials/Waterfall.razor.cs",
+        "Tutorials/Waterfall.razor.css"
     ];
 }

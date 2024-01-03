@@ -1,4 +1,4 @@
-﻿namespace BootstrapBlazor.Server.Components.Samples.Practices;
+﻿namespace BootstrapBlazor.Server.Components.Samples.Tutorials;
 
 /// <summary>
 /// 仪表盘数据

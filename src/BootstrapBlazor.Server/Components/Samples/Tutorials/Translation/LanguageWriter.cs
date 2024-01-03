@@ -6,7 +6,7 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
 
-namespace BootstrapBlazor.Server.Components.Samples.Practices.Translation;
+namespace BootstrapBlazor.Server.Components.Samples.Tutorials.Translation;
 
 class LanguageWriter : IDisposable
 {

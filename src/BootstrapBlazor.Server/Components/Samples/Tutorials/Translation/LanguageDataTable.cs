@@ -4,7 +4,7 @@
 
 using System.Data;
 
-namespace BootstrapBlazor.Server.Components.Samples.Practices.Translation;
+namespace BootstrapBlazor.Server.Components.Samples.Tutorials.Translation;
 
 class LanguageDataTable
 {

@@ -6114,7 +6114,7 @@
     "ZipArchiveDirectoryText": "Archive directory",
     "ZipArchiveExtractText": "Extract"
   },
-  "BootstrapBlazor.Server.Components.Samples.Practices.Translation.Translator": {
+  "BootstrapBlazor.Server.Components.Samples.Tutorials.Translation.Translator": {
     "File": "File",
     "Hide": "Hide",
     "Language": "Language",

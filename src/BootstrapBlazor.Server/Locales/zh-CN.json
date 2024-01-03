@@ -6114,7 +6114,7 @@
     "ZipArchiveDirectoryText": "归档文件夹",
     "ZipArchiveExtractText": "解压缩到指定文件夹"
   },
-  "BootstrapBlazor.Server.Components.Samples.Practices.Translation.Translator": {
+  "BootstrapBlazor.Server.Components.Samples.Tutorials.Translation.Translator": {
     "File": "文件",
     "Hide": "隐藏",
     "Language": "语言",
