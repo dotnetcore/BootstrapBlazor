@@ -112,10 +112,10 @@ public partial class Translator
     private static List<string> SearchResource()
     {
         var ret = new List<string>();
-        var path = Path.Combine(AppContext.BaseDirectory, "../../../../BootstrapBlazor");
+        var path = Path.Combine(AppContext.BaseDirectory, "../../../../BootstrapBlazor/Locales");
         Search(path);
 
-        path = Path.Combine(AppContext.BaseDirectory, "../../../../BootstrapBlazor.Server");
+        path = Path.Combine(AppContext.BaseDirectory, "../../../../BootstrapBlazor.Server/Locales");
         Search(path);
 
         return ret;
@@ -126,9 +126,8 @@ public partial class Translator
             {
                 var sourceFiles = Directory.EnumerateFiles(path, "en-US.json", new EnumerationOptions()
                 {
-                    MatchCasing = MatchCasing.CaseInsensitive,
-                    RecurseSubdirectories = true
-                }).Where(i => !i.Contains("bin", StringComparison.OrdinalIgnoreCase) && !i.Contains("obj", StringComparison.OrdinalIgnoreCase));
+                    MatchCasing = MatchCasing.CaseInsensitive
+                }).Select(i => new FileInfo(i).FullName);
                 ret.AddRange(sourceFiles);
             }
         }
