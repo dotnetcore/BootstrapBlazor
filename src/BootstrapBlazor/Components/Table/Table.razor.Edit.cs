@@ -420,7 +420,7 @@ public partial class Table<TItem>
         // 目前设计使用 Items 参数后不回调 OnQueryAsync 方法
         if (Items == null)
         {
-            if (OnQueryAsync == null && (DynamicContext != null || typeof(TItem).IsAssignableTo(typeof(IDynamicObject))))
+            if (OnQueryAsync == null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
             {
                 QueryDynamicItems(DynamicContext);
             }
