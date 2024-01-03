@@ -5710,7 +5710,7 @@
     "OnError": "Error callback"
   },
   "BootstrapBlazor.Server.Components.Components.PackageTips": {
-    "Tips": "<div class=\"code-label\">Precautions</div><div>This component relies on <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>, which needs to reference its component package when using this component</div><div class=\"code-label mt-2\">Nuget Install</div><div>Use nuget.org to install <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a> component</div>"
+    "Tips": "<p class=\"code-label\">Precautions</p><p>This component relies on <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>, which needs to reference its component package when using this component</p><p class=\"code-label\">Nuget Install</p><p>Use nuget.org to install <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a> component</p>"
   },
   "BootstrapBlazor.Server.Components.Samples.FileViewers": {
     "Title": "FileViewer",
