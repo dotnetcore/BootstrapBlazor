@@ -5374,7 +5374,7 @@
     "P5": "国内最大代码托管协作开发平台 <b><a href='{0}' target='_blank'>码云</a></b> C# 板块最高星 <a href='{1}' target='_blank'><img src='{2}' alt='star'></a> 作品 <b><a href='{3}' target='_blank'>通用后台管理系统 BootstrapAdmin</a></b> 准备使用本组件实现全部功能",
     "ShowWebSiteTitle": "演示网站",
     "GetStarted": "快速上手",
-    "QuikStart": "快速入门",
+    "QuickStart": "快速入门",
     "Features": "组件特色",
     "P6": "Bootstrap Blazor UI 组件库提供了从基本的 <code>Button</code> 组件到高级的网页级 <code>SmartPage</code> 组件",
     "Advantage": "优势",

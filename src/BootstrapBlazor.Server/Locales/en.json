@@ -5374,7 +5374,7 @@
     "P5": "The largest code hosting collaborative development platform in China <b><a href='{0}' target='_blank'>Gitee</a></b> C# The highest star in the sector <a href='{1}' target='_blank'><img src='{2}' alt='star'></a> Works <b><a href='{3}' target='_blank'>Universal background management system BootstrapAdmin</a></b> Ready to use this component to achieve all functions",
     "ShowWebSiteTitle": "Demo Site",
     "GetStarted": "Get Started",
-    "QuikStart": "Quick Start",
+    "QuickStart": "Quick Start",
     "Features": "Features of Components",
     "P6": "The Bootstrap Blazor UI component library provides everything from basic <code>Button</code> components to advanced web-level <code>SmartPage</code> components",
     "Advantage": "Advantage",
