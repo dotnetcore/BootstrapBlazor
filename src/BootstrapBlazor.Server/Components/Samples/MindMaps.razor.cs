@@ -4,27 +4,18 @@
 
 using static BootstrapBlazor.Components.MindMapNode;
 
-namespace BootstrapBlazor.Server.Components.Samples.MindMaps;
+namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
 /// MindMaps
 /// </summary>
 public partial class MindMaps
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    [Inject, NotNull]
-    protected MessageService? MessageService { get; set; }
-
-    /// <summary>
-    /// 
-    /// </summary>
+    [Inject]
     [NotNull]
-    protected Message? Message { get; set; }
+    private MessageService? MessageService { get; set; }
 
-    [NotNull]
-    MindMap? MindMap { get; set; }
+    private MindMap _mindMap = default!;
 
     private readonly MindMapOption _options = new();
 
@@ -41,8 +32,7 @@ public partial class MindMaps
             Generalization = new Generalization
             {
                 Text = "概要的内容"
-            },
-
+            }
         },
         Children =
         [
@@ -108,19 +98,19 @@ public partial class MindMaps
 
     async Task Export()
     {
-        await MindMap.Export();
+        await _mindMap.Export();
         await ShowBottomMessage("下载Png");
     }
 
     async Task ExportJson()
     {
-        await MindMap.Export("json", WithConfig: false);
+        await _mindMap.Export("json", WithConfig: false);
         await ShowBottomMessage("下载Json");
     }
 
     async Task ExportPng()
     {
-        await MindMap.Export(IsDownload: false, WithConfig: false);
+        await _mindMap.Export(IsDownload: false, WithConfig: false);
         await ShowBottomMessage("已导出Png");
     }
 
@@ -128,18 +118,18 @@ public partial class MindMaps
     {
         Content = message,
         Icon = "fa-solid fa-circle-info",
-    }, Message);
+    });
 
-    Task GetFullData() => MindMap.GetData();
+    Task GetFullData() => _mindMap.GetData();
 
-    Task GetData() => MindMap.GetData(false);
+    Task GetData() => _mindMap.GetData(false);
 
     async Task SetData()
     {
-        if (_result != null) await MindMap.SetData(_result);
+        if (_result != null) await _mindMap.SetData(_result);
     }
 
-    Task Reset() => MindMap.Reset();
+    Task Reset() => _mindMap.Reset();
 
     async Task Sample()
     {
@@ -261,8 +251,8 @@ public partial class MindMaps
     /// Options
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetOptionsAttributes() => new AttributeItem[]
-    {
+    private List<AttributeItem> GetOptionsAttributes() =>
+    [
         new()
         {
             Name = nameof(MindMapOption.Layout),
@@ -279,14 +269,14 @@ public partial class MindMaps
             ValueList = "默认 / 经典 / 黑色 / 天蓝 / ... ",
             DefaultValue = "默认"
         }
-    };
+    ];
 
     /// <summary>
     /// NodeData
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetNodeDataAttributes() => new AttributeItem[]
-    {
+    private List<AttributeItem> GetNodeDataAttributes() =>
+    [
         new()
         {
             Name = "Text",
@@ -375,5 +365,5 @@ public partial class MindMaps
             ValueList = " — ",
             DefaultValue = "false"
         }
-    };
+    ];
 }
