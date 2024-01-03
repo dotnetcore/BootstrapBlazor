@@ -32,9 +32,6 @@
     </Card>
 
     <div class="table-language">
-        @if (_dataTableDynamicContext != null)
-        {
-            <Table TItem="DynamicObject" IsBordered="true" FixedMultipleColumn="true" DynamicContext="_dataTableDynamicContext" IsExcel="true" IsFixedHeader="true" AllowResizing="true" SetRowClassFormatter="FilterRow"></Table>
-        }
+        <Table TItem="DynamicObject" IsBordered="true" FixedMultipleColumn="true" DynamicContext="_dataTableDynamicContext" IsExcel="true" IsFixedHeader="true" AllowResizing="true" SetRowClassFormatter="FilterRow"></Table>
     </div>
 </div>
