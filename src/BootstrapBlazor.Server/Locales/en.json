@@ -1160,11 +1160,11 @@
     "P6": "you can pass",
     "P7": "portal",
     "P8": "After downloading and installing the extension, create a project through the extension",
-    "P9": "Create a project with Visual Studio 1",
+    "P9": "Create a project with Visual Studio",
     "P10": "Step 1. Create a project",
     "P11": "Open Visual Studio 2022",
     "P12": "Create a new project",
-    "P13": "choose",
+    "P13": "Choose",
     "P14": "and click",
     "P15": "Next step",
     "P16": "Choose a name and location for the project, then click",
@@ -1200,7 +1200,7 @@
   },
   "BootstrapBlazor.Server.Components.Pages.Install_Server": {
     "Title": "Server-Side Blazor Installation Tutorial",
-    "D1": "choose",
+    "D1": "Choose",
     "D2": "project type, then click",
     "Configure": "Configure Service",
     "CodeComment": "Add this line of code"

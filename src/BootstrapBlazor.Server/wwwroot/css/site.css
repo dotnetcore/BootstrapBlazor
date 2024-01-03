@@ -4,6 +4,10 @@
     --bb-primary-color: var(--bs-indigo);
 }
 
+h4, h5 {
+    margin-bottom: 1rem;
+}
+
 .navbar {
     --bs-navbar-color: rgba(255,255,255,.85);
     --bs-navbar-hover-color: rgb(255,255,255);
@@ -177,6 +181,11 @@ code {
 
 [data-bs-theme='dark'] code {
     background-color: rgba(var(--bs-emphasis-color-rgb),.1);
+}
+
+.code-label + img,
+.pre-code + img {
+    margin-bottom: 1rem;
 }
 
 .btn-code {
