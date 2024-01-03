@@ -1160,11 +1160,11 @@
     "P6": "you can pass",
     "P7": "portal",
     "P8": "After downloading and installing the extension, create a project through the extension",
-    "P9": "Create a project with Visual Studio 1",
+    "P9": "Create a project with Visual Studio",
     "P10": "Step 1. Create a project",
     "P11": "Open Visual Studio 2022",
     "P12": "Create a new project",
-    "P13": "choose",
+    "P13": "Choose",
     "P14": "and click",
     "P15": "Next step",
     "P16": "Choose a name and location for the project, then click",
@@ -1200,7 +1200,7 @@
   },
   "BootstrapBlazor.Server.Components.Pages.Install_Server": {
     "Title": "Server-Side Blazor Installation Tutorial",
-    "D1": "choose",
+    "D1": "Choose",
     "D2": "project type, then click",
     "Configure": "Configure Service",
     "CodeComment": "Add this line of code"
@@ -5374,7 +5374,7 @@
     "P5": "The largest code hosting collaborative development platform in China <b><a href='{0}' target='_blank'>Gitee</a></b> C# The highest star in the sector <a href='{1}' target='_blank'><img src='{2}' alt='star'></a> Works <b><a href='{3}' target='_blank'>Universal background management system BootstrapAdmin</a></b> Ready to use this component to achieve all functions",
     "ShowWebSiteTitle": "Demo Site",
     "GetStarted": "Get Started",
-    "QuikStart": "Quick Start",
+    "QuickStart": "Quick Start",
     "Features": "Features of Components",
     "P6": "The Bootstrap Blazor UI component library provides everything from basic <code>Button</code> components to advanced web-level <code>SmartPage</code> components",
     "Advantage": "Advantage",
@@ -5710,7 +5710,7 @@
     "OnError": "Error callback"
   },
   "BootstrapBlazor.Server.Components.Components.PackageTips": {
-    "Tips": "<div class=\"code-label\">Precautions</div><div>This component relies on <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>, which needs to reference its component package when using this component</div><div class=\"code-label mt-2\">Nuget Install</div><div>Use nuget.org to install <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a> component</div>"
+    "Tips": "<p class=\"code-label\">Precautions</p><p>This component relies on <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>, which needs to reference its component package when using this component</p><p class=\"code-label\">Nuget Install</p><p>Use nuget.org to install <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a> component</p>"
   },
   "BootstrapBlazor.Server.Components.Samples.FileViewers": {
     "Title": "FileViewer",

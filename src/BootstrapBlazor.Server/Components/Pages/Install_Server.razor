@@ -3,28 +3,28 @@
 
 <InstallContent Title="@Localizer["Title"]">
     <ChooseTemplate>
-        <div class="code-label mt-3 mb-2">4. @Localizer["D1"] <b>Blazor Server App</b>@Localizer["D2"] <b>Create</b></div>
-        <img src="./images/choose-project-template-server-blazor.png" style="border-radius: 6px;" class="d-none d-sm-block mb-3" />
+        <p class="code-label">4. @Localizer["D1"] <b>Blazor Server App</b> @Localizer["D2"] <b>Create</b></p>
+        <img src="./images/choose-project-template-server-blazor.png" style="border-radius: 6px;" class="d-none d-sm-block" />
     </ChooseTemplate>
     <SheetTemplate>
-        <ul>
+        <ul class="ul-demo">
             <li><code>~/Pages/_Host.cshtml</code> <b>.NET5</b></li>
             <li><code>~/Pages/_Layout.cshtml</code> <b>.NET6/.NET7</b></li>
         </ul>
     </SheetTemplate>
     <ScriptsTemplate>
-        <ul>
+        <ul class="ul-demo">
             <li><code>~/Pages/_Host.cshtml</code> <b>.NET5</b></li>
             <li><code>~/Pages/_Layout.cshtml</code> <b>.NET6/.NET7</b></li>
         </ul>
     </ScriptsTemplate>
     <ServicesTemplate>
-        <ul>
+        <ul class="ul-demo">
             <li><code>Starup.cs</code> <b>.NET5</b></li>
             <li><code>Program.cs</code> <b>.NET6/.NET7</b></li>
         </ul>
-        <div class="mb-2"><b>Startup.cs</b></div>
-        <Pre class="mb-2">namespace MyBlazorAppName
+        <p><b>Startup.cs</b></p>
+        <Pre>namespace MyBlazorAppName
 {
     public class Startup
     {
@@ -38,8 +38,8 @@
     }
 }</Pre>
 
-    <div class="mb-2"><b>Program.cs</b></div>
-    <Pre class="mb-2">var builder = WebApplication.CreateBuilder(args);
+    <p><b>Program.cs</b></p>
+    <Pre>var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddServerSideBlazor();

@@ -5374,7 +5374,7 @@
     "P5": "国内最大代码托管协作开发平台 <b><a href='{0}' target='_blank'>码云</a></b> C# 板块最高星 <a href='{1}' target='_blank'><img src='{2}' alt='star'></a> 作品 <b><a href='{3}' target='_blank'>通用后台管理系统 BootstrapAdmin</a></b> 准备使用本组件实现全部功能",
     "ShowWebSiteTitle": "演示网站",
     "GetStarted": "快速上手",
-    "QuikStart": "快速入门",
+    "QuickStart": "快速入门",
     "Features": "组件特色",
     "P6": "Bootstrap Blazor UI 组件库提供了从基本的 <code>Button</code> 组件到高级的网页级 <code>SmartPage</code> 组件",
     "Advantage": "优势",
@@ -5710,7 +5710,7 @@
     "OnError": "错误回调"
   },
   "BootstrapBlazor.Server.Components.Components.PackageTips": {
-    "Tips": "<div class=\"code-label\">注意事项 ：</div><div>本组件依赖于 <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>，使用本组件时需要引用其组件包</div><div class=\"code-label mt-2\">Nuget 包安装</div><div>使用 <a href='https://www.nuget.org/packages?q={0}' target='_blank'>nuget.org</a> 进行 <code>{0}</code> 组件的安装</div>"
+    "Tips": "<p class=\"code-label\">注意事项 ：</p><p>本组件依赖于 <a href='https://www.nuget.org/packages?q={0}' target='_blank'><code>{0}</code></a>，使用本组件时需要引用其组件包</p><p class=\"code-label\">Nuget 包安装</p><p>使用 <a href='https://www.nuget.org/packages?q={0}' target='_blank'>nuget.org</a> 进行 <code>{0}</code> 组件的安装</p>"
   },
   "BootstrapBlazor.Server.Components.Samples.FileViewers": {
     "Title": "FileViewer 文件预览器",

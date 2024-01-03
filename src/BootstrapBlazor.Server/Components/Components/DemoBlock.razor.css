@@ -100,14 +100,6 @@
     display: none;
 }
 
-::deep .ul-demo {
-    margin-bottom: 0;
-}
-
-    ::deep .ul-demo li:not(:last-child) {
-        margin-bottom: 0.25rem;
-    }
-
 @media (min-width: 768px) {
     ::deep .chart {
         max-width: 740px;
