@@ -10,13 +10,13 @@
 <p>@Localizer["ToastsDescriptionTitle"]：</p>
 
 <p class="code-label">@((MarkupString)Localizer["ToastsTips1"].Value)</p>
-<Pre class="mb-2">@@inject ToastService ToastService</Pre>
-<Pre class="mb-2">[Inject]
+<Pre>@@inject ToastService ToastService</Pre>
+<Pre>[Inject]
 [NotNull]
 private ToastService? ToastService { get; set; }
 </Pre>
 <p class="code-label">@((MarkupString)Localizer["ToastsTips2"].Value)</p>
-<Pre class="mb-2">await ToastService.Success("Title", "Content", autoHide: true);</Pre>
+<Pre>await ToastService.Success("Title", "Content", autoHide: true);</Pre>
 
 <DemoBlock Title="@Localizer["ToastsNormalTitle"]"
            Introduction="@Localizer["ToastsNormalIntro"]"
@@ -70,7 +70,7 @@ private ToastService? ToastService { get; set; }
 <DemoBlock Title="@Localizer["ToastsPositionTitle"]"
            Introduction="@Localizer["ToastsPositionIntro"]"
            Name="Position">
-    <p class="mb-3">@((MarkupString)Localizer["ToastsPositionDescription"].Value)</p>
+    <p>@((MarkupString)Localizer["ToastsPositionDescription"].Value)</p>
     <div class="row g-3 row-cols-3">
         <div class="col">
             <Button OnClick="e => OnPlacementClick(Placement.TopStart)">Top Start</Button>
@@ -115,9 +115,9 @@ private ToastService? ToastService { get; set; }
 
 <p>@Localizer["ToastsPositionTips2"]：</p>
 
-<Pre class="mb-2">ToastService?.Success("@Localizer["ToastsPositionSaved"]", "@Localizer["ToastsPositionAutoClose"]");</Pre>
+<Pre>ToastService?.Success("@Localizer["ToastsPositionSaved"]", "@Localizer["ToastsPositionAutoClose"]");</Pre>
 
-<Pre class="mb-2">private void OnInfoClick()
+<Pre>private void OnInfoClick()
 {
     ToastService.Show(new ToastOption()
     {
@@ -136,7 +136,7 @@ private ToastService? ToastService { get; set; }
 
 <p>@((MarkupString)Localizer["ToastsPositionNote2"].Value)</p>
 
-<Pre class="mb-2">"BootstrapBlazorOptions": {
+<Pre>"BootstrapBlazorOptions": {
     "ToastDelay": 4000,
     "MessageDelay": 4000,
     "SwalDelay": 4000
@@ -144,7 +144,7 @@ private ToastService? ToastService { get; set; }
 
 <p>@((MarkupString)Localizer["ToastsPositionConfigured"].Value)</p>
 
-<Pre class="mb-2">public void ConfigureServices(IServiceCollection services)
+<Pre>public void ConfigureServices(IServiceCollection services)
 {
     // @Localizer["ToastsPositionDisappearance"]
     services.Configure&lt;BootstrapBlazorOptions&gt;(options =>
@@ -154,9 +154,9 @@ private ToastService? ToastService { get; set; }
 }
 </Pre>
 
-<div class="mb-3">@((MarkupString)Localizer["ToastsPositionServerSide"].Value)</div>
+<p>@((MarkupString)Localizer["ToastsPositionServerSide"].Value)</p>
 
-<Pre class="mb-2">public void ConfigureServices(IServiceCollection services)
+<Pre>public void ConfigureServices(IServiceCollection services)
 {
     // @Localizer["ToastsPositionAddComponent"]
     services.AddBootstrapBlazor(options =>
