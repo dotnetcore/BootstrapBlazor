@@ -1,0 +1,72 @@
+﻿.translator {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 82px);
+}
+
+::deep .console {
+    flex: 1;
+}
+
+::deep .card-body-wrapper {
+    position: relative;
+}
+
+    ::deep .card-body-wrapper .btn i {
+        width: 18px;
+    }
+
+::deep .progress {
+    height: 8px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
+.table-language {
+    flex: 1;
+    overflow: auto;
+    margin-top: 1rem;
+}
+
+::deep tbody td {
+    border-bottom: 1px solid var(--bs-border-color);
+}
+
+::deep textarea::-webkit-scrollbar {
+    width: 6px;
+}
+
+::deep textarea::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background-color: rgba(0,0,0,0.2);
+}
+
+    ::deep textarea::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(0,0,0,0.3);
+    }
+
+::deep .col-section textarea {
+    background-color: #e9ecef;
+}
+
+::deep .col-key textarea {
+    background-color: #e9ecef;
+}
+
+::deep .col-lang textarea {
+    background-color: #aed29c;
+}
+
+::deep .col-not-save textarea {
+    background-color: #e3ed9c;
+}
+
+::deep .col-miss textarea {
+    background-color: #edcbcb;
+}
+
+::deep .col-temp textarea {
+    background-color: #e5bfe3;
+}

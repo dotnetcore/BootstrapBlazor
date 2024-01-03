@@ -1,0 +1,36 @@
+﻿@page "/tutorials/translate"
+@inject IAzureTranslatorService AzureTranslatorService
+@inject IConfiguration Configuration
+@inject IStringLocalizer<Translator> Localizer
+@using Microsoft.Extensions.Configuration
+
+<div class="translator">
+    <Card HeaderText="@Localizer["ToolboxCardTitle"]" IsCollapsible="true">
+        <BodyTemplate>
+            <BootstrapBlazor.Components.Progress Value="@_progress" Height="8" class="@ProgressClassString"></BootstrapBlazor.Components.Progress>
+            <div class="row g-2 form-inline">
+                <div class="col-12">
+                    <label class="form-label">@Localizer["File"]</label>
+                    <Select Items="_jsonFiles" @bind-Value="_currentJsonFile"></Select>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">@Localizer["Language"]</label>
+                    <CheckboxList Items="_supportedLanguageItems" @bind-Value="_selectedLanguages"></CheckboxList>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">@Localizer["Operation"]</label>
+                    <div class="uni-translator-button-group">
+                        <Button Text="@Localizer["Load"]" Icon="fa-solid fa-language" IsAsync="true" OnClick="OnClickLoadAsync" class="me-2"></Button>
+                        <Button Text="@Localizer["Translate"]" Icon="fa-solid fa-braille" IsAsync="true" OnClick="OnClickTranslateAsync" class="me-2"></Button>
+                        <Button Text="@StateText" Icon="@StateClassString" IsAsync="true" OnClick="OnToggleShow" class="me-2"></Button>
+                        <Button Text="@Localizer["Save"]" Icon="fa-solid fa-save" IsAsync="true" OnClick="OnClickSaveAsync" class="me-2"></Button>
+                    </div>
+                </div>
+            </div>
+        </BodyTemplate>
+    </Card>
+
+    <div class="table-language">
+        <Table TItem="DynamicObject" IsBordered="true" FixedMultipleColumn="true" DynamicContext="_dataTableDynamicContext" IsExcel="true" IsFixedHeader="true" AllowResizing="true" SetRowClassFormatter="FilterRow"></Table>
+    </div>
+</div>

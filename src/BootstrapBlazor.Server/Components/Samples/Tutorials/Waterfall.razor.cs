@@ -4,7 +4,7 @@
 
 using Microsoft.JSInterop;
 
-namespace BootstrapBlazor.Server.Components.Samples.Practices;
+namespace BootstrapBlazor.Server.Components.Samples.Tutorials;
 
 /// <summary>
 /// 瀑布流图片

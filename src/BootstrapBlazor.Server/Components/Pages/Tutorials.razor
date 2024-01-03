@@ -1,0 +1,10 @@
+﻿@layout TutorialsLayout
+@page "/tutorials"
+@inject IStringLocalizer<Tutorials> Localizer
+
+<ComponentCategory Text="@Localizer["CategoryTitle"]">
+    <ComponentCard Text="@Localizer["DashboardSummary"]" Image="dashboard.png" Url="tutorials/dashboard"></ComponentCard>
+    <ComponentCard Text="@Localizer["LoginSummary"]" Image="login.png" Url="template7"></ComponentCard>
+    <ComponentCard Text="@Localizer["WaterfallSummary"]" Image="waterfall.png" Url="tutorials/waterfall"></ComponentCard>
+</ComponentCategory>
+
