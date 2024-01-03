@@ -13,9 +13,11 @@ namespace BootstrapBlazor.Server.Components.Samples.Practices.Translation;
 /// </summary>
 public partial class Translator
 {
-    private List<string> _selectedLanguages = [];
-
     private readonly List<SelectedItem> _supportedLanguageItems = [];
+
+    private readonly List<SelectedItem> _jsonFiles = [];
+
+    private List<string> _selectedLanguages = [];
 
     private DataTableDynamicContext? _dataTableDynamicContext;
 
@@ -25,19 +27,13 @@ public partial class Translator
 
     private bool _showProcess;
 
-    private LanguageDataTable _dataTable = default!;
-
-    private readonly List<SelectedItem> _jsonFiles = [];
+    private LanguageDataTable _languageTable = default!;
 
     private bool _showAll = true;
 
     private string StateText => _showAll ? Localizer["Hide"] : Localizer["Show"];
 
     private string StateClassString => _showAll ? "fa-solid fa-eye-slash" : "fa-solid fa-eye";
-
-    [Inject]
-    [NotNull]
-    private IOptions<AzureTranslatorOption>? AzureTranslatorOptions { get; set; }
 
     [Inject]
     [NotNull]
@@ -67,11 +63,11 @@ public partial class Translator
             var files = SearchResource();
             if (files.Count > 0)
             {
-                _dataTable = new LanguageDataTable(_selectedLanguages)
+                _languageTable = new LanguageDataTable(_selectedLanguages)
                 {
                     OnUpdate = ReloadTable
                 };
-                _dataTableDynamicContext = _dataTable.CreateContext();
+                _dataTableDynamicContext = _languageTable.CreateContext();
 
                 // 搜索文件
                 _jsonFiles.AddRange(files.Select(i => new SelectedItem(i, i)));
@@ -81,7 +77,7 @@ public partial class Translator
 
     private Task ReloadTable()
     {
-        _dataTableDynamicContext = _dataTable.CreateContext();
+        _dataTableDynamicContext = _languageTable.CreateContext();
         StateHasChanged();
         return Task.CompletedTask;
     }
@@ -90,13 +86,13 @@ public partial class Translator
 
     private async Task LoadAsync(bool showToast)
     {
-        _dataTable = new LanguageDataTable(_selectedLanguages) { OnUpdate = ReloadTable };
-        await _dataTable.LoadAsync(Path.GetDirectoryName(_currentJsonFile)!);
+        _languageTable = new LanguageDataTable(_selectedLanguages) { OnUpdate = ReloadTable };
+        await _languageTable.LoadAsync(Path.GetDirectoryName(_currentJsonFile)!);
         if (showToast)
         {
             await ToastService.Success(Localizer["LoadTitle"], Localizer["LoadContent"]);
         }
-        _dataTableDynamicContext = _dataTable.CreateContext();
+        _dataTableDynamicContext = _languageTable.CreateContext();
     }
 
     private async Task OnClickTranslateAsync()
@@ -164,7 +160,7 @@ public partial class Translator
     private async Task OnClickSaveAsync()
     {
         var folder = Path.GetDirectoryName(_currentJsonFile)!;
-        await _dataTable.SaveAsync(folder);
+        await _languageTable.SaveAsync(folder);
         await ToastService.Success(Localizer["SaveTitle"], Localizer["SaveContent"]);
         await LoadAsync(false);
     }
@@ -172,13 +168,13 @@ public partial class Translator
     private async Task OnToggleShow()
     {
         _showAll = !_showAll;
-        await _dataTable.LoadAsync(Path.GetDirectoryName(_currentJsonFile)!);
-        _dataTableDynamicContext = _dataTable.CreateContext();
+        await _languageTable.LoadAsync(Path.GetDirectoryName(_currentJsonFile)!);
+        _dataTableDynamicContext = _languageTable.CreateContext();
     }
 
     private string? FilterRow(DynamicObject item)
     {
-        var result = _showAll || _dataTable.FilterRow(item);
+        var result = _showAll || _languageTable.FilterRow(item);
         return result ? null : "d-none";
     }
 }

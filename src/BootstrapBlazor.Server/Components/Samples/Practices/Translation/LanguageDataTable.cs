@@ -20,6 +20,8 @@ class LanguageDataTable
 
     public Func<Task>? OnUpdate { get; set; }
 
+    private static readonly string[] enLanguageName = ["en-US"];
+
     public LanguageDataTable(List<string> languages)
     {
         _selectedLanguages = languages;
@@ -94,12 +96,12 @@ class LanguageDataTable
             {
                 // 将旧值保存到缓存中
                 string key = $"{item.GetValue("SectionName")}.{item.GetValue("KeyName")}-{col.GetFieldName()}";
-                if (!_dataCache.ContainsKey(key))
+                if (!_dataCache.TryGetValue(key, out var value))
                 {
                     var oldValue = item.GetValue(col.GetFieldName())?.ToString();
                     _dataCache.Add(key, oldValue);
                 }
-                else if (_dataCache[key] == val?.ToString())
+                else if (value == val?.ToString())
                 {
                     _dataCache.Remove(key);
                 }
@@ -136,9 +138,9 @@ class LanguageDataTable
                 {
                     ret = "col-temp";
                 }
-                if (_dataCache.ContainsKey(key))
+                if (_dataCache.TryGetValue(key, out var value))
                 {
-                    var v = _dataCache[key];
+                    var v = value;
                     if (v != item.GetValue(fieldName)?.ToString())
                     {
                         ret = "col-not-save";
@@ -200,9 +202,9 @@ class LanguageDataTable
                         {
                             // 读取缓存值
                             string key = $"{languageSection.Key}.{languageItem.Key}-{language}";
-                            if (_newValueCache.ContainsKey(key))
+                            if (_newValueCache.TryGetValue(key, out var value))
                             {
-                                row[language] = _newValueCache[key];
+                                row[language] = value;
                             }
                             else
                             {
@@ -277,7 +279,7 @@ class LanguageDataTable
     /// <returns></returns>
     public async Task SaveAsync(string jsonFileDirectory)
     {
-        var languages = new string[] { "en-US" }.Union(_selectedLanguages);
+        var languages = enLanguageName.Union(_selectedLanguages);
         foreach (DataRow row in _dataTable.Rows)
         {
             // 生成对应语言资源文件
@@ -331,9 +333,9 @@ class LanguageDataTable
     private LanguageWriter GetWriter(string language)
     {
         LanguageWriter? writer;
-        if (_writerCache.ContainsKey(language))
+        if (_writerCache.TryGetValue(language, out var value))
         {
-            writer = _writerCache[language];
+            writer = value;
         }
         else
         {

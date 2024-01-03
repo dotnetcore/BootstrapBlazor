@@ -7,16 +7,16 @@
 
   <ItemGroup>
     <Content Remove="docs.json" />
-    <Content Remove="Locales\en.json" />
-    <Content Remove="Locales\zh.json" />
+    <Content Remove="Locales\en-US.json" />
+    <Content Remove="Locales\zh-CN.json" />
     <Content Remove="topology.json" />
     <Content Remove="versionconfig.json" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="docs.json" />
-    <EmbeddedResource Include="Locales\en.json" />
-    <EmbeddedResource Include="Locales\zh.json" />
+    <EmbeddedResource Include="Locales\en-US.json" />
+    <EmbeddedResource Include="Locales\zh-CN.json" />
     <EmbeddedResource Include="topology.json" />
   </ItemGroup>
 

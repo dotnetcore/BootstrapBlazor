@@ -1,6 +1,7 @@
-﻿// Copyright (c) Asicotech.com
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.Configuration;
 using System.Text.Json;
 
 namespace BootstrapBlazor.Server.Components.Samples.Practices.Translation;
@@ -55,7 +56,10 @@ static class AzureTranslatorServiceExtensions
                 // 获得所有子键值
                 foreach (var item in languageSection.GetChildren())
                 {
-                    sectionItems[item.Key] = item.Value;
+                    if (!string.IsNullOrEmpty(item.Value))
+                    {
+                        sectionItems[item.Key] = item.Value;
+                    }
                 };
             }
 
@@ -66,7 +70,7 @@ static class AzureTranslatorServiceExtensions
 
                 var content = kv.Where(key => emptyItems.Any(i => i.Key == key.Key));
                 // 将未翻译的进行翻译
-                var translateResults = await service.TranslateAsync(language, content.Select(i => i.Value), "en-US");
+                var translateResults = await service.TranslateAsync(language, content.Select(i => i.Value!), "en-US");
 
                 // 回写值到 kv 变量中
                 for (var index = 0; index < translateResults.Count; index++)
