@@ -12,23 +12,25 @@ export function init(id) {
 export function execute(id, method, position) {
     const text = Data.get(id)
 
-    const autoScroll = text.element.getAttribute('data-bb-scroll') === 'auto'
-    if (method === 'update') {
-        method = text.prevMethod
-    }
-    if (method === 'toTop') {
-        position = 0;
-    }
-    if (autoScroll || method === 'toBottom') {
-        position = text.element.scrollHeight
-    }
+    if (text) {
+        const autoScroll = text.element.getAttribute('data-bb-scroll') === 'auto'
+        if (method === 'update') {
+            method = text.prevMethod
+        }
+        if (method === 'toTop') {
+            position = 0;
+        }
+        if (autoScroll || method === 'toBottom') {
+            position = text.element.scrollHeight
+        }
 
-    if (!isNaN(position)) {
-        text.element.scrollTop = position;
-    }
+        if (!isNaN(position)) {
+            text.element.scrollTop = position;
+        }
 
-    if (method !== 'update') {
-        text.prevMethod = method;
+        if (method !== 'update') {
+            text.prevMethod = method;
+        }
     }
 }
 
