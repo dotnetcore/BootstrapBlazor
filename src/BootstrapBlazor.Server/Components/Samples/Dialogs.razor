@@ -170,7 +170,7 @@ private async Task OnClick()
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PrintDialogTitle"]" Introduction="@Localizer["PrintDialogIntro"]" Name="PrintDialog">
-    <div class="mb-2">@((MarkupString)Localizer["PrintDialogTip"].Value)</div>
+    <p>@((MarkupString)Localizer["PrintDialogTip"].Value)</p>
     <Button OnClick="@OnPrintDialogClick">@Localizer["PrintDialogButton"]</Button>
 </DemoBlock>
 
