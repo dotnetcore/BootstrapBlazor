@@ -732,7 +732,7 @@
     "DownloadsExampleCodeTitle": "<code>C#</code> code",
     "DownloadsExampleTestFile": "test file",
     "DownloadsExampleContent": "Self-generated and written text, here can be replaced with pictures or other content",
-    "DownloadNormalTitle": "normal download",
+    "DownloadNormalTitle": "Normal download",
     "DownloadNormalIntro": "Download files directly by setting the physical path",
     "DownloadNormalButtonText": "download",
     "DownloadFolderTitle": "Folder download",
