@@ -104,7 +104,7 @@ internal class CacheManager : ICacheManager
         }
         else if (Cache is MemoryCache c)
         {
-            c.Compact(100);
+            c.Compact(0);
         }
     }
 
