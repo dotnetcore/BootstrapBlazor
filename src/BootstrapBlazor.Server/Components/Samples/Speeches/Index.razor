@@ -10,7 +10,7 @@
 
 <PackageTips Name="@NugetPackageName"></PackageTips>
 
-<div class="code-label mb-2">@Localizer["SpeechLiTitle"]</div>
+<p class="code-label">@Localizer["SpeechLiTitle"]</p>
 
 <ul class="ul-demo">
     <li>@((MarkupString)Localizer["SpeechLi1"].Value)</li>
@@ -32,14 +32,14 @@
     <BootstrapBlazor.Components.Console HeaderText="@Localizer["SpeechGroupBoxHeaderText"]" Items="@ConsoleMessages" Height="140" />
 </GroupBox>
 
-<div class="code-label mt-3 mb-2">@Localizer["SpeechTips1"]</div>
+<p class="code-label mt-3">@Localizer["SpeechTips1"]</p>
 
-<div class="mb-2"><b>Program.cs</b></div>
+<p><b>Program.cs</b></p>
 
-<Pre class="mb-2">// @Localizer["SpeechTips1Text"]
+<Pre>// @Localizer["SpeechTips1Text"]
 <b><i>builder.Services.AddBootstrapBlazorBaiduSpeech();</i></b></Pre>
 
-<div class="code-label mb-2">@Localizer["SpeechTips2"]</div>
+<p class="code-label">@Localizer["SpeechTips2"]</p>
 
 <Pre>// @Localizer["SpeechTips2Text1"]
 [Inject]

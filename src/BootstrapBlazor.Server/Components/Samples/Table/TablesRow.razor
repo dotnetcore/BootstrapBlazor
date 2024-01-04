@@ -10,7 +10,7 @@
 <DemoBlock Title="@Localizer["RowNumberTitle"]"
            Introduction="@Localizer["RowNumberIntro"]"
            Name="LineNoText">
-    <p class="mb-3">@((MarkupString)Localizer["RowNumberP"].Value)</p>
+    <p>@((MarkupString)Localizer["RowNumberP"].Value)</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
@@ -30,7 +30,7 @@
            Introduction="@Localizer["ClickToSelectIntro"]"
            Name="ClickToSelect">
     <p>@((MarkupString)Localizer["ClickToSelectP"].Value)</p>
-    <p class="mb-3">@((MarkupString)Localizer["ClickToSelectP2"].Value)</p>
+    <p>@((MarkupString)Localizer["ClickToSelectP2"].Value)</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
@@ -52,7 +52,7 @@
            Introduction="@Localizer["DoubleClickToEditIntro"]"
            Name="DoubleClickToEdit">
     <p>@((MarkupString)Localizer["DoubleClickToEditP"].Value)</p>
-    <p class="mb-3">@((MarkupString)Localizer["DoubleClickToEditP1"].Value)</p>
+    <p>@((MarkupString)Localizer["DoubleClickToEditP1"].Value)</p>
 
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
@@ -93,7 +93,7 @@
 <DemoBlock Title="@Localizer["DoubleClickRowCallbackTitle"]"
            Introduction="@Localizer["DoubleClickRowCallbackIntro"]"
            Name="DoubleClickRowCallback">
-    <p class="mb-3">@Localizer["DoubleClickRowCallbackP"]</p>
+    <p>@Localizer["DoubleClickRowCallbackP"]</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
@@ -112,8 +112,8 @@
 <DemoBlock Title="@Localizer["SetRowClassFormatterTitle"]"
            Introduction="@Localizer["SetRowClassFormatterIntro"]"
            Name="SetRowClassFormatter">
-    <section ignore class="mb-2">
-        <p class="mb-3">@((MarkupString)Localizer["SetRowClassFormatterP"].Value)</p>
+    <section ignore class="mb-3">
+        <p>@((MarkupString)Localizer["SetRowClassFormatterP"].Value)</p>
         <Pre>.row-highlight {
     --bs-table-striped-bg: #409eff;
     --bs-table-bg: #409eff;
