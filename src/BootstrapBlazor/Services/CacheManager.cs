@@ -105,15 +105,23 @@ internal class CacheManager : ICacheManager
         else if (Cache is MemoryCache c)
         {
             c.Compact(100);
+
+            var dtm = GetStartTime();
+            SetStartTime(dtm);
         }
     }
 
     /// <summary>
     /// 设置 App 开始时间
     /// </summary>
-    public void SetStartTime()
+    public void SetStartTime() => SetStartTime(DateTimeOffset.Now);
+
+    /// <summary>
+    /// 设置 App 开始时间
+    /// </summary>
+    private void SetStartTime(DateTimeOffset startDateTimeOffset)
     {
-        GetOrCreate("BootstrapBlazor_StartTime", entry => DateTimeOffset.Now);
+        GetOrCreate("BootstrapBlazor_StartTime", entry => startDateTimeOffset);
     }
 
     /// <summary>
@@ -632,7 +640,7 @@ internal class CacheManager : ICacheManager
             else
             {
                 // 通过 ToString() 方法格式化
-                var mi = type.GetMethod("ToString", Array.Empty<Type>());
+                var mi = type.GetMethod("ToString", []);
                 if (mi != null)
                 {
                     body = Expression.Call(Expression.Convert(exp_p1, type), mi);
