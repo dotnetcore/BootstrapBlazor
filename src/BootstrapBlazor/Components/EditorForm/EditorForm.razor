@@ -52,39 +52,38 @@ else
     RenderFragment RenderUnsetGroupItems =>
     @<div class="@FormClassString">
         @foreach (var item in UnsetGroupItems)
-    {
-    var render = GetRenderTemplate(item);
-        @if (render != null)
-    {
-        @render(Model)
-    }
-    else
-    {
-        <div class="@GetCssString(item)">
-            @AutoGenerateTemplate(item)
-        </div>
-    }
-    }
+        {
+            var render = GetRenderTemplate(item);
+            @if (render != null)
+            {
+                @render(Model)
+            }
+            else
+            {
+                <div class="@GetCssString(item)">
+                    @AutoGenerateTemplate(item)
+                </div>
+            }
+        }
     </div>;
 
     RenderFragment<KeyValuePair<string, IOrderedEnumerable<IEditorItem>>> RenderGroupItems => g =>
     @<GroupBox Title="@g.Key">
         <div class="@FormClassString">
             @foreach (var item in g.Value)
-        {
-
-        var render = GetRenderTemplate(item);
-            @if (render != null)
-        {
-            @render(Model)
-        }
-        else
-        {
-            <div class="@GetCssString(item)">
-                @AutoGenerateTemplate(item)
-            </div>
-        }
-        }
+            {
+                var render = GetRenderTemplate(item);
+                @if (render != null)
+                {
+                    @render(Model)
+                }
+                else
+                {
+                    <div class="@GetCssString(item)">
+                        @AutoGenerateTemplate(item)
+                    </div>
+                }
+            }
         </div>
     </GroupBox>;
 }
