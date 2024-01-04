@@ -105,6 +105,7 @@ internal class CacheManager : ICacheManager
         else if (Cache is MemoryCache c)
         {
             c.Compact(0);
+            SetStartTime();
         }
     }
 
