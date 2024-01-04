@@ -105,16 +105,23 @@ internal class CacheManager : ICacheManager
         else if (Cache is MemoryCache c)
         {
             c.Compact(0);
-            SetStartTime();
+
+            var dtm = GetStartTime();
+            SetStartTime(dtm);
         }
     }
 
     /// <summary>
     /// 设置 App 开始时间
     /// </summary>
-    public void SetStartTime()
+    public void SetStartTime() => SetStartTime(DateTimeOffset.Now);
+
+    /// <summary>
+    /// 设置 App 开始时间
+    /// </summary>
+    private void SetStartTime(DateTimeOffset startDateTimeOffset)
     {
-        GetOrCreate("BootstrapBlazor_StartTime", entry => DateTimeOffset.Now);
+        GetOrCreate("BootstrapBlazor_StartTime", entry => startDateTimeOffset);
     }
 
     /// <summary>
