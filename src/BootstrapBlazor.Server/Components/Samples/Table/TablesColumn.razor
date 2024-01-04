@@ -10,7 +10,7 @@
 <DemoBlock Title="@Localizer["ColumnTextTitle"]"
            Introduction="@Localizer["ColumnTextIntro"]"
            Name="ColumnText">
-    <p class="mb-3">@((MarkupString)Localizer["ColumnTextDesc"].Value)</p>
+    <p>@((MarkupString)Localizer["ColumnTextDesc"].Value)</p>
     <Table TItem="Foo" Items="@Items.Take(3)">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Text="@Localizer["CustomColText1"]" Width="180" />
@@ -66,7 +66,7 @@
 <DemoBlock Title="@Localizer["ShowCopyColumnTitle"]"
            Introduction="@Localizer["ShowCopyColumnIntro"]"
            Name="ShowCopyColumn">
-    <p class="mb-3">@((MarkupString)Localizer["ShowCopyColumnDesc"].Value)</p>
+    <p>@((MarkupString)Localizer["ShowCopyColumnDesc"].Value)</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource" AllowResizing="true"
            IsStriped="true" IsBordered="true"
@@ -87,7 +87,7 @@
            Introduction="@Localizer["AlignIntro"]"
            Name="Align">
     <p>@((MarkupString)Localizer["AlignP1"].Value)</p>
-    <p class="mb-3">@((MarkupString)Localizer["AlignP2"].Value)</p>
+    <p>@((MarkupString)Localizer["AlignP2"].Value)</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
@@ -106,7 +106,7 @@
            Introduction="@Localizer["FormatterIntro"]"
            Name="Formatter">
     <p>@((MarkupString)Localizer["FormatterP1"].Value)</p>
-    <p class="mb-3">@((MarkupString)Localizer["FormatterP2"].Value)</p>
+    <p>@((MarkupString)Localizer["FormatterP2"].Value)</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"

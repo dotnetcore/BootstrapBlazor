@@ -8,12 +8,12 @@
 <DemoBlock Title="@Localizer["ImageCropperNormalText"]" Introduction="@Localizer["ImageCropperNormalIntro"]" Name="Normal">
     <ImageCropper @ref="Cropper" Url="@images[0]" DefaultButton="false" />
     <section ignore>
-        <BootstrapInputGroup class="mb-3">
+        <BootstrapInputGroup>
             <Button Text="OK" OnClick="(async () => Base64 = await Cropper.Crop())" />
             <Button Text="@Localizer["ImageCropperResetText"]" OnClick="Cropper.Reset" />
             <Button Text="@Localizer["ImageCropperReplaceText"]" OnClick="OnClickReplace" />
         </BootstrapInputGroup>
-        <Textarea Value="@Base64" rows="3" />
+        <Textarea Value="@Base64" rows="3" class="mt-3" />
     </section>
 </DemoBlock>
 

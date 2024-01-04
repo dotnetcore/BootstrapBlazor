@@ -24,7 +24,7 @@
 <DemoBlock Title="@Localizer["TablesToolbarQueryTableTitle"]"
            Introduction="@Localizer["TablesToolbarQueryTableIntro"]"
            Name="QueryTable">
-    <p class="mb-3">@((MarkupString)Localizer["TablesToolbarQueryTableDescription"].Value)</p>
+    <p>@((MarkupString)Localizer["TablesToolbarQueryTableDescription"].Value)</p>
     <Table TItem="Foo"
            IsBordered="true" IsPagination="true" PageItemsSource="@PageItemsSource"
            ShowToolbar="true" ShowSearch="true" ShowCardView="true" ShowAdvancedSearch="false" ShowDefaultButtons="false"
@@ -46,7 +46,7 @@
         <li>@((MarkupString)Localizer["TablesToolbarCustomButtonTips1_note1"].Value)</li>
         <li>@((MarkupString)Localizer["TablesToolbarCustomButtonTips1_note2"].Value)</li>
     </ul>
-    <p class="mb-3">@((MarkupString)Localizer["TablesToolbarCustomButtonTips2_title"].Value)</p>
+    <p>@((MarkupString)Localizer["TablesToolbarCustomButtonTips2_title"].Value)</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
