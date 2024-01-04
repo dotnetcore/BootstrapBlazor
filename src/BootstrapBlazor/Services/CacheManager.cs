@@ -32,9 +32,7 @@ internal class CacheManager : ICacheManager
     /// </summary>
     /// <param name="provider"></param>
     /// <param name="memoryCache"></param>
-    public CacheManager(
-        IServiceProvider provider,
-        IMemoryCache memoryCache)
+    public CacheManager(IServiceProvider provider, IMemoryCache memoryCache)
     {
         // 为了避免依赖导致的报错，构造函数避免使用其他服务
         Provider = provider;
@@ -254,6 +252,20 @@ internal class CacheManager : ICacheManager
     /// <param name="includeParentCultures"></param>
     /// <returns></returns>
     public static IEnumerable<LocalizedString> GetAllStringsFromResolve(bool includeParentCultures = true) => Instance.GetOrCreate($"{nameof(GetAllStringsFromResolve)}-{CultureInfo.CurrentUICulture.Name}", entry => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures));
+
+    /// <summary>
+    /// 查询缺失本地化资源项目
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    public static bool GetMissingLocalizerByKey(string key) => Instance.TryGetValue(key, out string? _);
+
+    /// <summary>
+    /// 添加缺失本地化资源项目
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="name"></param>
+    public static void AddMissingLocalizerByKey(string key, string name) => Instance.GetOrCreate(key, entry => name);
     #endregion
 
     #region DisplayName
