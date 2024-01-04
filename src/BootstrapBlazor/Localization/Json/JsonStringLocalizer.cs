@@ -14,40 +14,20 @@ namespace BootstrapBlazor.Localization.Json;
 /// <summary>
 /// JsonStringLocalizer 实现类
 /// </summary>
-internal class JsonStringLocalizer : ResourceManagerStringLocalizer
+/// <remarks>
+/// 构造函数
+/// </remarks>
+/// <param name="assembly"></param>
+/// <param name="typeName"></param>
+/// <param name="baseName"></param>
+/// <param name="ignoreLocalizerMissing"></param>
+/// <param name="logger"></param>
+/// <param name="resourceNamesCache"></param>
+internal class JsonStringLocalizer(Assembly assembly, string typeName, string baseName, bool ignoreLocalizerMissing, ILogger logger, IResourceNamesCache resourceNamesCache) : ResourceManagerStringLocalizer(new ResourceManager(baseName, assembly), assembly, baseName, resourceNamesCache, logger)
 {
-    private Assembly Assembly { get; set; }
+    private Assembly Assembly { get; set; } = assembly;
 
-    private string TypeName { get; set; }
-
-    private bool IgnoreLocalizerMissing { get; set; }
-
-    private ILogger Logger { get; set; }
-
-    private ConcurrentDictionary<string, object?> MissingLocalizerCache { get; } = new();
-
-    /// <summary>
-    /// 构造函数
-    /// </summary>
-    /// <param name="assembly"></param>
-    /// <param name="typeName"></param>
-    /// <param name="baseName"></param>
-    /// <param name="ignoreLocalizerMissing"></param>
-    /// <param name="logger"></param>
-    /// <param name="resourceNamesCache"></param>
-    public JsonStringLocalizer(
-        Assembly assembly,
-        string typeName,
-        string baseName,
-        bool ignoreLocalizerMissing,
-        ILogger logger,
-        IResourceNamesCache resourceNamesCache) : base(new ResourceManager(baseName, assembly), assembly, baseName, resourceNamesCache, logger)
-    {
-        Assembly = assembly;
-        TypeName = typeName;
-        IgnoreLocalizerMissing = ignoreLocalizerMissing;
-        Logger = logger;
-    }
+    private ILogger Logger { get; set; } = logger;
 
     /// <summary>
     /// 通过指定键值获取多语言值信息索引
@@ -59,7 +39,7 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
         get
         {
             var value = GetStringSafely(name);
-            return new LocalizedString(name, value ?? name, resourceNotFound: value == null, searchedLocation: TypeName);
+            return new LocalizedString(name, value ?? name, resourceNotFound: value == null, searchedLocation: typeName);
         }
     }
 
@@ -74,7 +54,7 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
         get
         {
             var value = SafeFormat();
-            return new LocalizedString(name, value ?? name, resourceNotFound: value == null, searchedLocation: TypeName);
+            return new LocalizedString(name, value ?? name, resourceNotFound: value == null, searchedLocation: typeName);
 
             string? SafeFormat()
             {
@@ -86,7 +66,7 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
                 }
                 catch (Exception ex)
                 {
-                    Logger.LogError(ex, "{JsonStringLocalizerName} searched for '{Name}' in '{TypeName}' with culture '{CultureName}' throw exception.", nameof(JsonStringLocalizer), name, TypeName, CultureInfo.CurrentUICulture.Name);
+                    Logger.LogError(ex, "{JsonStringLocalizerName} searched for '{Name}' in '{typeName}' with culture '{CultureName}' throw exception.", nameof(JsonStringLocalizer), name, typeName, CultureInfo.CurrentUICulture.Name);
                 }
                 return ret;
             }
@@ -103,7 +83,7 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
         string? GetStringFromService(string name)
         {
             string? ret = null;
-            var localizer = Utility.GetStringLocalizerFromService(Assembly, TypeName);
+            var localizer = Utility.GetStringLocalizerFromService(Assembly, typeName);
             if (localizer != null)
             {
                 ret = GetLocalizerValueFromCache(localizer, name);
@@ -114,7 +94,7 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
         // get string from json localization file
         string? GetStringSafelyFromJson(string name)
         {
-            var localizerStrings = CacheManager.GetAllStringsByTypeName(Assembly, TypeName);
+            var localizerStrings = CacheManager.GetAllStringsByTypeName(Assembly, typeName);
             return GetValueFromCache(localizerStrings, name);
         }
     }
@@ -123,8 +103,8 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
     {
         string? ret = null;
         var cultureName = CultureInfo.CurrentUICulture.Name;
-        var cacheKey = $"{nameof(GetValueFromCache)}&name={name}&{Assembly.GetName().Name}&type={TypeName}&culture={cultureName}";
-        if (!MissingLocalizerCache.ContainsKey(cacheKey))
+        var cacheKey = $"{nameof(GetValueFromCache)}&name={name}&{Assembly.GetName().Name}&type={typeName}&culture={cultureName}";
+        if (!CacheManager.GetMissingLocalizerByKey(cacheKey))
         {
             var l = GetLocalizedString();
             if (l is { ResourceNotFound: false })
@@ -134,7 +114,7 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
             else
             {
                 LogSearchedLocation(name);
-                MissingLocalizerCache.TryAdd(cacheKey, null);
+                CacheManager.AddMissingLocalizerByKey(cacheKey, name);
             }
         }
         return ret;
@@ -154,18 +134,18 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
     {
         string? ret = null;
         var cultureName = CultureInfo.CurrentUICulture.Name;
-        var cacheKey = $"{nameof(GetLocalizerValueFromCache)}&name={name}&{Assembly.GetName().Name}&type={TypeName}&culture={cultureName}";
-        if (!MissingLocalizerCache.ContainsKey(cacheKey))
+        var cacheKey = $"{nameof(GetLocalizerValueFromCache)}&name={name}&{Assembly.GetName().Name}&type={typeName}&culture={cultureName}";
+        if (!CacheManager.GetMissingLocalizerByKey(cacheKey))
         {
             var l = localizer[name];
-            if (l.ResourceNotFound)
+            if (l is { ResourceNotFound: false })
             {
-                LogSearchedLocation(name);
-                MissingLocalizerCache.TryAdd(cacheKey, null);
+                ret = l.Value;
             }
             else
             {
-                ret = l.Value;
+                LogSearchedLocation(name);
+                CacheManager.AddMissingLocalizerByKey(cacheKey, name);
             }
         }
         return ret;
@@ -173,9 +153,9 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
 
     private void LogSearchedLocation(string name)
     {
-        if (!IgnoreLocalizerMissing)
+        if (!ignoreLocalizerMissing)
         {
-            Logger.LogInformation("{JsonStringLocalizerName} searched for '{Name}' in '{TypeName}' with culture '{CultureName}' not found.", nameof(JsonStringLocalizer), name, TypeName, CultureInfo.CurrentUICulture.Name);
+            Logger.LogInformation("{JsonStringLocalizerName} searched for '{Name}' in '{TypeName}' with culture '{CultureName}' not found.", nameof(JsonStringLocalizer), name, typeName, CultureInfo.CurrentUICulture.Name);
         }
     }
 
@@ -197,7 +177,7 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
         IEnumerable<LocalizedString>? GetAllStringsFromService(bool includeParentCultures)
         {
             IEnumerable<LocalizedString>? ret = null;
-            var localizer = Utility.GetStringLocalizerFromService(Assembly, TypeName);
+            var localizer = Utility.GetStringLocalizerFromService(Assembly, typeName);
             if (localizer != null)
             {
                 ret = localizer.GetAllStrings(includeParentCultures);
@@ -226,7 +206,7 @@ internal class JsonStringLocalizer : ResourceManagerStringLocalizer
 
         // 3. 从 Json 文件中获取资源信息
         // get all strings from json localization file
-        IEnumerable<LocalizedString> GetAllStringsFromJson(bool includeParentCultures) => CacheManager.GetAllStringsByTypeName(Assembly, TypeName)
+        IEnumerable<LocalizedString> GetAllStringsFromJson(bool includeParentCultures) => CacheManager.GetAllStringsByTypeName(Assembly, typeName)
             ?? CacheManager.GetAllStringsFromResolve(includeParentCultures);
     }
 }
