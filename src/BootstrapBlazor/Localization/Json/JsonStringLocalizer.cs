@@ -4,7 +4,6 @@
 
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
-using System.Collections.Concurrent;
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
@@ -25,9 +24,9 @@ namespace BootstrapBlazor.Localization.Json;
 /// <param name="resourceNamesCache"></param>
 internal class JsonStringLocalizer(Assembly assembly, string typeName, string baseName, bool ignoreLocalizerMissing, ILogger logger, IResourceNamesCache resourceNamesCache) : ResourceManagerStringLocalizer(new ResourceManager(baseName, assembly), assembly, baseName, resourceNamesCache, logger)
 {
-    private Assembly Assembly { get; set; } = assembly;
+    private Assembly Assembly { get; } = assembly;
 
-    private ILogger Logger { get; set; } = logger;
+    private ILogger Logger { get; } = logger;
 
     /// <summary>
     /// 通过指定键值获取多语言值信息索引
@@ -138,7 +137,7 @@ internal class JsonStringLocalizer(Assembly assembly, string typeName, string ba
         if (!CacheManager.GetMissingLocalizerByKey(cacheKey))
         {
             var l = localizer[name];
-            if (l is { ResourceNotFound: false })
+            if (!l.ResourceNotFound)
             {
                 ret = l.Value;
             }
