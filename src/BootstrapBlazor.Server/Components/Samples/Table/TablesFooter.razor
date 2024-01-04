@@ -24,7 +24,7 @@
         </TableColumns>
         <TableFooter>
             <TableFooterCell Text="@Localizer["TablesFooterStatisticsTotal"]" colspan="3" Align="@Align" />
-            <TableFooterCell Aggregate="@Aggregate" Field="@nameof(Foo.Count)" />
+            <TableFooterCell @key="context" Aggregate="@Aggregate" Field="@nameof(Foo.Count)" />
         </TableFooter>
     </Table>
 
