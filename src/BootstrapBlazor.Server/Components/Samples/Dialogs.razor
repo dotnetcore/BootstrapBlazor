@@ -6,14 +6,14 @@
 
 <p>@Localizer["Tip1"]：</p>
 
-<p class="code-label mb-3">@((MarkupString)Localizer["Tip2"].Value) </p>
-<Pre class="mb-3">@@inject DialogService DialogService</Pre>
-<Pre class="mb-3">[Inject]
+<p class="code-label">@((MarkupString)Localizer["Tip2"].Value) </p>
+<Pre>@@inject DialogService DialogService</Pre>
+<Pre>[Inject]
 [NotNull]
 private DialogService? DialogService { get; set; }
 </Pre>
-<p class="code-label mb-3">@((MarkupString)Localizer["Tip3"].Value)</p>
-<Pre class="mb-3">var op = new DialogOption()
+<p class="code-label">@((MarkupString)Localizer["Tip3"].Value)</p>
+<Pre>var op = new DialogOption()
 {
     Title = @Localizer["DialogTitle"],
     ShowFooter = false,
@@ -24,8 +24,8 @@ op.Component = BootstrapDynamicComponent.CreateComponent&lt;DataDialogComponent&
     [nameof(DataDialogComponent.OnCloseAsync)] = new Action(() => op.CloseDialogAsync())
 });
 await DialogService.Show(op);</Pre>
-<p class="code-label mb-3">@((MarkupString)Localizer["Tip4"].Value)</p>
-<Pre class="mb-3">[CascadingParameter]
+<p class="code-label">@((MarkupString)Localizer["Tip4"].Value)</p>
+<Pre>[CascadingParameter]
 private Func&lt;Task&gt;? OnCloseAsync { get; set; }
 
 private async Task OnClick()
@@ -36,7 +36,7 @@ private async Task OnClick()
     }
 }
 </Pre>
-<p class="code-label mb-3">@((MarkupString)Localizer["Tip5"].Value)</p>
+<p class="code-label">@((MarkupString)Localizer["Tip5"].Value)</p>
 <Pre>&lt;DialogCloseButton /&gt;</Pre>
 
 <DemoBlock Title="@Localizer["KeyboardTitle"]" Introduction="@Localizer["KeyboardIntro"]" Name="Keyboard">
@@ -104,8 +104,8 @@ private async Task OnClick()
 
 <DemoBlock Title="@Localizer["MultipleDialogTitle"]" Introduction="@Localizer["MultipleDialogIntro"]" Name="MultipleDialog">
     <section ignore>
-        <div class="mb-3">@Localizer["MultipleDialogTip1"]</div>
-        <ul class="ul-demo mb-3">
+        <p>@Localizer["MultipleDialogTip1"]</p>
+        <ul class="ul-demo">
             <li>@Localizer["MultipleDialogTip2"]</li>
             <li>@((MarkupString)Localizer["MultipleDialogTip3"].Value)</li>
             <li>@Localizer["MultipleDialogTip4"]</li>
@@ -118,8 +118,8 @@ private async Task OnClick()
 
 <DemoBlock Title="@Localizer["ModalDialogTitle"]" Introduction="@Localizer["ModalDialogIntro"]" Name="ModalDialog">
     <section ignore>
-        <div class="mb-3">@Localizer["ModalDialogTip1"]</div>
-        <ul class="ul-demo mb-3">
+        <p>@Localizer["ModalDialogTip1"]</p>
+        <ul class="ul-demo">
             <li>@Localizer["ModalDialogTip2"]</li>
             <li>@((MarkupString)Localizer["ModalDialogTip3"].Value)</li>
             <li>@((MarkupString)Localizer["ModalDialogTip4"].Value)</li>
@@ -131,9 +131,9 @@ private async Task OnClick()
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["EditDialogTitle"]" Introduction="@Localizer["EditDialogIntro"]" Name="EditDialog">
-    <section ingore>
-        <div class="mb-3">@Localizer["EditDialogTip1"]</div>
-        <ul class="ul-demo mb-3">
+    <section ignore>
+        <p>@Localizer["EditDialogTip1"]</p>
+        <ul class="ul-demo">
             <li>@Localizer["EditDialogTip2"]</li>
             <li>@((MarkupString)Localizer["EditDialogTip3"].Value)</li>
             <li>@((MarkupString)Localizer["EditDialogTip4"].Value)</li>
@@ -144,8 +144,8 @@ private async Task OnClick()
 
 <DemoBlock Title="@Localizer["SearchDialogTitle"]" Introduction="@Localizer["SearchDialogIntro"]" Name="SearchDialog">
     <section ignore>
-        <div class="mb-3">@Localizer["SearchDialogTip1"]</div>
-        <ul class="ul-demo mb-3">
+        <p>@Localizer["SearchDialogTip1"]</p>
+        <ul class="ul-demo">
             <li>@Localizer["SearchDialogTip2"]</li>
             <li>@((MarkupString)Localizer["SearchDialogTip3"].Value)</li>
             <li>@((MarkupString)Localizer["SearchDialogTip4"].Value)</li>
@@ -156,8 +156,8 @@ private async Task OnClick()
 
 <DemoBlock Title="@Localizer["SaveDialogTitle"]" Introduction="@Localizer["SaveDialogIntro"]" Name="SaveDialog">
     <section ignore>
-        <div class="mb-2">@Localizer["SaveDialogTip1"]</div>
-        <ul class="ul-demo mb-2">
+        <p>@Localizer["SaveDialogTip1"]</p>
+        <ul class="ul-demo">
             <li>@Localizer["SaveDialogTip2"]</li>
             <li>@((MarkupString)Localizer["SaveDialogTip3"].Value)</li>
         </ul>
@@ -170,7 +170,7 @@ private async Task OnClick()
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PrintDialogTitle"]" Introduction="@Localizer["PrintDialogIntro"]" Name="PrintDialog">
-    <div class="mb-2">@((MarkupString)Localizer["PrintDialogTip"].Value)</div>
+    <p>@((MarkupString)Localizer["PrintDialogTip"].Value)</p>
     <Button OnClick="@OnPrintDialogClick">@Localizer["PrintDialogButton"]</Button>
 </DemoBlock>
 
@@ -184,8 +184,8 @@ private async Task OnClick()
 
 <DemoBlock Title="@Localizer["EmailTitle"]" Introduction="@Localizer["EmailIntro"]" Name="Email">
     <section ignore>
-        <div class="mb-3">@Localizer["EmailTip1"]</div>
-        <ul class="ul-demo mb-3">
+        <p>@Localizer["EmailTip1"]</p>
+        <ul class="ul-demo">
             <li>@((MarkupString)Localizer["EmailTip2"].Value)</li>
             <li>@((MarkupString)Localizer["EmailTip3"].Value)</li>
             <li>@((MarkupString)Localizer["EmailTip4"].Value)</li>

@@ -9,21 +9,19 @@
 
 <DemoBlock Title="@Localizer["LocatorsNormalTitle"]" Introduction="@Localizer["LocatorsNormalIntro"]" Name="Normal">
     <p><b>@Localizer["LocatorsNormalDescription"]</b></p>
-    <div class="mb-2">
-        <p>@((MarkupString)Localizer["LocatorsNormalInjectIPLocator"].Value)</p>
-        <Pre>[Inject]
+    <p>@((MarkupString)Localizer["LocatorsNormalInjectIPLocator"].Value)</p>
+    <Pre>[Inject]
 [NotNull]
 private IIPLocatorProvider? IPLocator { get; set; }
 </Pre>
-    </div>
     <Tips>
         <div>@((MarkupString)Localizer["LocatorsNormalTipsTitle"].Value)</div>
         <div><b>@Localizer["LocatorsNormalTips1"]</b></div>
         <div>@((MarkupString)Localizer["LocatorsNormalTips2"].Value)</div>
     </Tips>
     <Pre>Encoding.RegisterProvider(CodePagesEncodingProvider.Instance)</Pre>
-    <div class="my-2"><b>@Localizer["LocatorsNormalExtendDescription"]</b></div>
-    <div class="mb-2"><b>@Localizer["LocatorsNormalExtend1"]</b></div>
+    <p><b>@Localizer["LocatorsNormalExtendDescription"]</b></p>
+    <p><b>@Localizer["LocatorsNormalExtend1"]</b></p>
     <Pre>private class CustomerLocator : IIPLocator
 {
     public Task&lt;string&gt; Locate(IPLocatorOption option)
@@ -31,7 +29,7 @@ private IIPLocatorProvider? IPLocator { get; set; }
         throw new NotImplementedException();
     }
 }</Pre>
-    <div class="my-2"><b>@Localizer["LocatorsNormalExtend2"]</b></div>
+    <p><b>@Localizer["LocatorsNormalExtend2"]</b></p>
     <Pre>public void ConfigureServices(IServiceCollection services)
 {
     services.AddBootstrapBlazor(locatorAction: option =>
@@ -39,10 +37,10 @@ private IIPLocatorProvider? IPLocator { get; set; }
         option.LocatorFactory = provider => new CustomerLocator();
     });
 }</Pre>
-    <div class="my-2">@((MarkupString)Localizer["LocatorsNormalCustomerLocator"].Value)</div>
-    <div class="mb-2">@Localizer["LocatorsNormalIpTitle"]</div>
-    <div><code>112.224.74.239</code> @Localizer["LocatorsNormalTips3"]</div>
-    <div class="mb-2"><code>183.160.236.53</code> @Localizer["LocatorsNormalTips4"]</div>
+    <p>@((MarkupString)Localizer["LocatorsNormalCustomerLocator"].Value)</p>
+    <p>@Localizer["LocatorsNormalIpTitle"]</p>
+    <p><code>112.224.74.239</code> @Localizer["LocatorsNormalTips3"]</p>
+    <p><code>183.160.236.53</code> @Localizer["LocatorsNormalTips4"]</p>
     <div class="row g-3 form-inline">
         <div class="col-12 col-sm-6">
             <BootstrapInput @bind-Value="Ip" DisplayText="@Localizer["LocatorsNormalInputText"]" ShowLabel="true" />

@@ -6,7 +6,7 @@
 <h4>@Localizer["Live2DDisplayDescription"]</h4>
 
 <PackageTips Name="BootstrapBlazor.Live2DDisplay" />
-<div class="code-label">@Localizer["Live2DDisplayNormalTips"]</div>
+<p class="code-label">@Localizer["Live2DDisplayNormalTips"]</p>
 <Pre>var provider = new FileExtensionContentTypeProvider();
 provider.Mappings[".moc"] = "application/x-msdownload";
 provider.Mappings[".moc3"] = "application/x-msdownload";
@@ -27,53 +27,53 @@ app.UseStaticFiles(new StaticFileOptions { ContentTypeProvider = provider });</P
             <div class="row g-3 mb-3">
                 <div class="col-6">
                     <h4>Model options</h4>
-                    <div class="mb-2">
+                    <p>
                         <BootstrapInputGroup>
                             <BootstrapInputGroupLabel class="label-width" DisplayText="Scale" />
                             <Slider @bind-Value="@Scale" Max="100" />
                         </BootstrapInputGroup>
-                    </div>
-                    <div class="mb-2">
+                    </p>
+                    <p>
                         <BootstrapInputGroup>
                             <BootstrapInputGroupLabel class="label-width" DisplayText="X Offset" />
                             <Slider @bind-Value="@XOffset" Min="-500" Max="500"></Slider>
                         </BootstrapInputGroup>
-                    </div>
-                    <div class="mb-2">
+                    </p>
+                    <p>
                         <BootstrapInputGroup>
                             <BootstrapInputGroupLabel class="label-width" DisplayText="Y Offset" />
                             <Slider @bind-Value="@YOffset" Min="-500" Max="500" />
                         </BootstrapInputGroup>
-                    </div>
+                    </p>
                 </div>
                 <div class="col-auto">
                     <h4>Other options</h4>
-                    <div class="mb-2">
+                    <p>
                         <BootstrapInputGroup>
                             <BootstrapInputGroupLabel class="label-width" DisplayText="IsDraggable" />
                             <Checkbox TValue="bool" @bind-Value="@IsDraggable" />
                         </BootstrapInputGroup>
-                    </div>
-                    <div class="mb-2">
+                    </p>
+                    <p>
                         <BootstrapInputGroup>
                             <BootstrapInputGroupLabel class="label-width" DisplayText="HitAreaFrames" />
                             <Checkbox TValue="bool" @bind-Value="@AddHitAreaFrames" />
                         </BootstrapInputGroup>
-                    </div>
-                    <div class="mb-2">
+                    </p>
+                    <p>
                         <BootstrapInputGroup>
                             <BootstrapInputGroupLabel class="label-width" DisplayText="BackgroundAlpha" />
                             <Checkbox TValue="bool" @bind-Value="@BackgroundAlpha" ShowLabel="true" DisplayText="BackgroundAlpha" />
                         </BootstrapInputGroup>
-                    </div>
-                    <div class="mb-2">
+                    </p>
+                    <p>
                         <div class="input-group input-group-sm mb-3">
                             <span class="input-group-text label-width">BackgroundColor</span>
                             <div class="pick-radius">
                                 <ColorPicker @bind-Value="@BackgroundColor" />
                             </div>
                         </div>
-                    </div>
+                    </p>
                 </div>
             </div>
         </div>

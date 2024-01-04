@@ -5291,7 +5291,7 @@
     "SearchTableGroupBoxText": "搜索条件",
     "NamePlaceholder": "请输入姓名，50字以内",
     "AddressPlaceholder": "请输入地址，500字以内",
-    "AutoHeightIntro": "<div class=\"mb-2\"><b>高度自适应</b></div><p>本例中设置父容器高度为 <code>600px</code> 展开/收起搜索栏时，表格自动充满父容器</p>"
+    "AutoHeightIntro": "<p><b>高度自适应</b></p><p>本例中设置父容器高度为 <code>600px</code> 展开/收起搜索栏时，表格自动充满父容器</p>"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesFilter": {
     "TablesFilterTitle": "筛选和排序功能",
@@ -5789,7 +5789,7 @@
   "BootstrapBlazor.Server.Components.Samples.DockViews.Index": {
     "DockViewTitle": "DockView 可停靠视图",
     "DockViewDescription": "多标签停靠布局管理器",
-    "DockViewIntro": "<div class=\"mb-2\"><code>DockView</code> 组件是封装的 <a href=\"https://github.com/golden-layout/golden-layout\" target=\"_blank\">Golden Layout</a> 库，它是一个 <code>Javascript</code> 布局管理器，它使您能够在网页中布局组件并通过拖放重新排列它们。其特点包括：</div><ul class=\"ul-demo\"><li>原生弹出窗口</li><li>触摸支持</li><li>支持 <code>Angular</code>、<code>Vue</code> 等应用框架</li><li>虚拟组件</li><li>全面的API</li><li>加载和保存布局</li><li>焦点组件</li><li>完全主题化</li><li>适用于现代浏览器（<code>Firefox</code>、<code>Chrome</code>）</li><li>响应式设计</li></ul>"
+    "DockViewIntro": "<p><code>DockView</code> 组件是封装的 <a href=\"https://github.com/golden-layout/golden-layout\" target=\"_blank\">Golden Layout</a> 库，它是一个 <code>Javascript</code> 布局管理器，它使您能够在网页中布局组件并通过拖放重新排列它们。其特点包括：</p><ul class=\"ul-demo\"><li>原生弹出窗口</li><li>触摸支持</li><li>支持 <code>Angular</code>、<code>Vue</code> 等应用框架</li><li>虚拟组件</li><li>全面的API</li><li>加载和保存布局</li><li>焦点组件</li><li>完全主题化</li><li>适用于现代浏览器（<code>Firefox</code>、<code>Chrome</code>）</li><li>响应式设计</li></ul>"
   },
   "BootstrapBlazor.Server.Components.Samples.MouseFollowers": {
     "MouseFollowersTitle": "鼠标跟随器",

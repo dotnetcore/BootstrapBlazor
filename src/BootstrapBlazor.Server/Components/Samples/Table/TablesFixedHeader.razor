@@ -55,10 +55,10 @@
            Introduction="@Localizer["AutoHeightIntro"]"
            Name="AutoHeight">
     <p>@((MarkupString)Localizer["AutoHeightP"].Value)</p>
-    <div class="d-flex align-items-center mb-2">
+    <p class="d-flex align-items-center">
         <span class="me-3">父容器高度：</span>
         <Display @bind-Value="Height" class="w-auto"></Display>
-    </div>
+    </p>
     <Slider @bind-Value="Height" Min="300" Max="600"></Slider>
     <div style="height: @($"{Height}px;")">
         <Table TItem="Foo" Items="@Items.Take(10)" RenderMode="TableRenderMode.Table" ShowColumnList="true" ShowToolbar="true" ShowDefaultButtons="false" ShowRefresh="false"
