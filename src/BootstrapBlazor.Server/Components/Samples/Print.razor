@@ -23,12 +23,12 @@
 <Pre class="mt-3">&lt;PrintButton Icon="fa-solid fa-print" Text="@Localizer["PrintsButtonText"]" PreviewUrl="/print-view" /&gt;</Pre>
 
 <DemoBlock Title="@Localizer["PrintButtonTitle"]" Introduction="@Localizer["PrintButtonIntro"]" Name="PrintButton">
-    <p class="mb-3">@Localizer["PrintsButtonDescription"]</p>
+    <p>@Localizer["PrintsButtonDescription"]</p>
     <PrintButton Icon="fa-solid fa-print" Text="@Localizer["PrintsButtonText"]" PreviewUrl="/print-view" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PrintDialogTitle"]" Introduction="@Localizer["PrintDialogIntro"]" Name="PrintDialog">
-    <p class="mb-3">@((MarkupString)Localizer["PrintDialogP", nameof(DataDialogComponent), nameof(DialogOption.ShowPrintButtonInHeader)].Value)</p>
+    <p>@((MarkupString)Localizer["PrintDialogP", nameof(DataDialogComponent), nameof(DialogOption.ShowPrintButtonInHeader)].Value)</p>
     <Button Icon="fa-solid fa-print" Text="@Localizer["PrintsButtonText"]" OnClick="OnClickPrint" />
 </DemoBlock>
 

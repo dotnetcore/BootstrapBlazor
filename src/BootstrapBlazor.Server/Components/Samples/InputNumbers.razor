@@ -25,7 +25,7 @@
 <DemoBlock Title="@Localizer["InputNumbersShowButtonTitle"]"
            Introduction="@Localizer["InputNumbersShowButtonIntro"]"
            Name="ShowButton">
-    <p class="mb-3">@Localizer["InputNumbersShowButtonDescription"]</p>
+    <p>@Localizer["InputNumbersShowButtonDescription"]</p>
     <div class="demo-input-number">
         <BootstrapInputNumber ShowButton="true" Value="@BindValue" Max="10" Min="0" />
     </div>
@@ -194,7 +194,7 @@
 <DemoBlock Title="@Localizer["InputNumbersValidateFormTitle"]"
            Introduction="@Localizer["InputNumbersValidateFormIntro"]"
            Name="ValidateForm">
-    <p class="mb-3">@((MarkupString)Localizer["InputNumbersValidateFormDescription"].Value)</p>
+    <p>@((MarkupString)Localizer["InputNumbersValidateFormDescription"].Value)</p>
     <div>
         <Divider Text="@Localizer["InputNumbersValidateFormDivider1"]" Alignment="Alignment.Left" style="margin: 2rem 0;"></Divider>
         <ValidateForm Model="@Model">

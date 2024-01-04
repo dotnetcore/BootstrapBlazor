@@ -10,7 +10,7 @@
 <DemoBlock Title="@Localizer["AllowDragOrderTitle"]"
            Introduction="@Localizer["AllowDragOrderIntro"]"
            Name="AllowDragColumn">
-    <p class="mb-3">@((MarkupString)Localizer["AllowDragOrderDesc"].Value)</p>
+    <p>@((MarkupString)Localizer["AllowDragOrderDesc"].Value)</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource" AllowDragColumn="true"
            IsStriped="true" IsBordered="true" OnDragColumnEndAsync="OnDragColumnEndAsync"
