@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Server.Components.Pages;
 using Microsoft.AspNetCore.Components.Web;
 using System.Text;
 
@@ -29,8 +28,7 @@ public partial class TutorialsNavMenu
     [NotNull]
     private IZipArchiveService? ZipArchiveService { get; set; }
 
-    [NotNull]
-    private List<MenuItem>? Menus { get; set; }
+    private readonly List<MenuItem> _menus = [];
 
     /// <summary>
     /// <inheritdoc/>
@@ -39,11 +37,11 @@ public partial class TutorialsNavMenu
     {
         await base.OnInitializedAsync();
 
-        Menus =
+        _menus.AddRange(
         [
             new()
             {
-                Template = CreateDownloadButtonComponent("dashboard", dashboardFileList),
+                Template = CreateDownloadButtonComponent("dashboard", _dashboardFileList),
                 Text = "仪表盘 Dashboard",
                 Url = "tutorials/dashboard"
             },
@@ -53,74 +51,45 @@ public partial class TutorialsNavMenu
                 Url = "tutorials/login",
                 Items =
                 [
-                    //new()
-                    //{
-                    //    Template = CreateDownloadButtonComponent("template1", Template1),
-                    //    Text = "模板 Template 1",
-                    //    Url = "template1"
-                    //},
-                    //new()
-                    //{
-                    //    Template = CreateDownloadButtonComponent("template2", Template2),
-                    //    Text = "模板 Template 2",
-                    //    Url = "template2",
-                    //},
-                    //new()
-                    //{
-                    //    Template = CreateDownloadButtonComponent("template3", Template3),
-                    //    Text = "模板 Template 3",
-                    //    Url = "template3"
-                    //},
-                    //new()
-                    //{
-                    //    Template = CreateDownloadButtonComponent("template4", Template4),
-                    //    Text = "模板 Template 4",
-                    //    Url = "template4"
-                    //},
-                    //new()
-                    //{
-                    //    Template = CreateDownloadButtonComponent("template5", Template5),
-                    //    Text = "模板 Template 5",
-                    //    Url = "template5"
-                    //},
                     new()
                     {
-                        Template = CreateDownloadButtonComponent("template6", Template6),
-                        Text = "模板 Template 6",
-                        Url = "tutorials/template6"
+                        Template = CreateDownloadButtonComponent("template1", _template1),
+                        Text = "模板 Template 1",
+                        Url = "tutorials/template1"
                     },
                     new()
                     {
-                        Template = CreateDownloadButtonComponent("template7", Template7),
-                        Text = "模板 Template 7",
-                        Url = "tutorials/template7"
+                        Template = CreateDownloadButtonComponent("template2", _template2),
+                        Text = "模板 Template 2",
+                        Url = "tutorials/template2"
                     },
                     new()
                     {
-                        Template = CreateDownloadButtonComponent("template8", Template8),
-                        Text = "模板 Template 8",
-                        Url = "tutorials/template8"
+                        Template = CreateDownloadButtonComponent("template3", _template3),
+                        Text = "模板 Template 3",
+                        Url = "tutorials/template3"
                     },
                     new()
                     {
-                        Template = CreateDownloadButtonComponent("template9", Template9),
-                        Text = "模板 Template 9",
-                        Url = "tutorials/template9"
+                        Template = CreateDownloadButtonComponent("template4", _template4),
+                        Text = "模板 Template 4",
+                        Url = "tutorials/template4"
                     }
                 ]
             },
             new()
             {
-                Template = CreateDownloadButtonComponent("waterfall", waterfallFileList),
+                Template = CreateDownloadButtonComponent("waterfall", _waterfallFileList),
                 Text = "瀑布流图片 Waterfall",
                 Url = "tutorials/waterfall"
             },
             new()
             {
+                Template = CreateDownloadButtonComponent("translate", _translateFileList),
                 Text = "翻译工具 Translate",
                 Url = "tutorials/translate"
             }
-        ];
+        ]);
     }
 
     /// <summary>
@@ -170,95 +139,64 @@ public partial class TutorialsNavMenu
         stream.Close();
     }
 
-    private readonly string[] dashboardFileList =
+    private static readonly string[] _layoutFileList =
+    [
+        "../Layout/TutorialsLayout.razor",
+        "../Layout/TutorialsLayout.razor.css",
+        "../Layout/TutorialsLoginLayout.razor",
+        "../Layout/TutorialsLoginLayout.razor.css"
+    ];
+
+    private readonly string[] _dashboardFileList =
     [
         "Tutorials/Dashboard.razor",
         "Tutorials/Dashboard.razor.cs",
         "Tutorials/Dashboard.razor.css",
         "Tutorials/DashboardData.cs",
-        "/../../Services/DashboardService.cs"
+        "../../Services/DashboardService.cs"
     ];
 
-    private readonly string[] Template1 =
+    private readonly string[] _template1 =
     [
         "Tutorials/LoginAndRegister/Template1.razor",
         "Tutorials/LoginAndRegister/Template1.razor.css",
+        .. _layoutFileList
     ];
 
-    private readonly string[] Template2 =
+    private readonly string[] _template2 =
     [
         "Tutorials/LoginAndRegister/Template2.razor",
-        "Tutorials/LoginAndRegister/Template2.razor.css",
+        .. _layoutFileList
     ];
 
-    private readonly string[] Template3 =
+    private readonly string[] _template3 =
     [
         "Tutorials/LoginAndRegister/Template3.razor",
         "Tutorials/LoginAndRegister/Template3.razor.css",
+        .. _layoutFileList
     ];
 
-    private readonly string[] Template4 =
+    private readonly string[] _template4 =
     [
         "Tutorials/LoginAndRegister/Template4.razor",
         "Tutorials/LoginAndRegister/Template4.razor.css",
-        "Tutorials/LoginAndRegister/Template4.razor.js",
+        .. _layoutFileList
     ];
 
-    private readonly string[] Template5 =
-    [
-        "Tutorials/LoginAndRegister/Template5.razor",
-        "Tutorials/LoginAndRegister/Template5.razor.css",
-        "Tutorials/LoginAndRegister/Template5.razor.js",
-    ];
-
-    private readonly string[] Template6 =
-    [
-        "Tutorials/LoginAndRegister/Template6.razor",
-        "Tutorials/LoginAndRegister/Template6.razor.css",
-        "Shared/TutorialsLayout.razor",
-        "Shared/TutorialsLayout.razor.cs",
-        "Shared/TutorialsLayout.razor.css",
-        "Shared/TutorialsLoginLayout.razor",
-        "Shared/TutorialsLoginLayout.razor.css"
-    ];
-
-    private readonly string[] Template7 =
-    [
-        "Tutorials/LoginAndRegister/Template7.razor",
-        "Tutorials/LoginAndRegister/Template7.razor.css",
-        "Shared/TutorialsLayout.razor",
-        "Shared/TutorialsLayout.razor.cs",
-        "Shared/TutorialsLayout.razor.css",
-        "Shared/TutorialsLoginLayout.razor",
-        "Shared/TutorialsLoginLayout.razor.css"
-    ];
-
-    private readonly string[] Template8 =
-    [
-        "Tutorials/LoginAndRegister/Template8.razor",
-        "Tutorials/LoginAndRegister/Template8.razor.css",
-        "Shared/TutorialsLayout.razor",
-        "Shared/TutorialsLayout.razor.cs",
-        "Shared/TutorialsLayout.razor.css",
-        "Shared/TutorialsLoginLayout.razor",
-        "Shared/TutorialsLoginLayout.razor.css"
-    ];
-
-    private readonly string[] Template9 =
-    [
-        "Tutorials/LoginAndRegister/Template9.razor",
-        "Tutorials/LoginAndRegister/Template9.razor.css",
-        "Shared/TutorialsLayout.razor",
-        "Shared/TutorialsLayout.razor.cs",
-        "Shared/TutorialsLayout.razor.css",
-        "Shared/TutorialsLoginLayout.razor",
-        "Shared/TutorialsLoginLayout.razor.css"
-    ];
-
-    private readonly string[] waterfallFileList =
+    private readonly string[] _waterfallFileList =
     [
         "Tutorials/Waterfall.razor",
         "Tutorials/Waterfall.razor.cs",
         "Tutorials/Waterfall.razor.css"
+    ];
+
+    private readonly string[] _translateFileList =
+    [
+        "Tutorials/Translation/Translator.razor",
+        "Tutorials/Translation/Translator.razor.cs",
+        "Tutorials/Translation/Translator.razor.css",
+        "Tutorials/Translation/LanguageWriter.cs",
+        "Tutorials/Translation/LanguageDataTable.cs",
+        "Tutorials/Translation/AzureTranslatorServiceExtensions.cs"
     ];
 }

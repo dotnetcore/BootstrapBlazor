@@ -1,24 +1,13 @@
-﻿.switchs {
-    display: flex;
-    border-bottom: solid 1px #c0c4cc;
-    justify-content: center;
-    align-items: center;
-}
-
-    .switchs ::deep .form-label {
-        margin: 0 0.5rem 0 0;
-    }
-
-    .switchs ::deep .switch {
-        width: auto;
-    }
-
-.navbar {
+﻿.navbar {
     background-color: #8548ff;
 }
 
 .navbar-toggler {
     background-color: var(--bs-indigo);
+}
+
+::deep .arrow {
+    width: 1rem;
 }
 
 @media (min-width: 768px) {
