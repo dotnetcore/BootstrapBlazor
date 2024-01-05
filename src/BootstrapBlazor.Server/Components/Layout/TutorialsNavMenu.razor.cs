@@ -93,7 +93,7 @@ public partial class TutorialsNavMenu
             }
         ];
     }
-    
+
     /// <summary>
     /// OnClickMenu 回调
     /// </summary>
@@ -162,27 +162,27 @@ public partial class TutorialsNavMenu
     [
         "Tutorials/LoginAndRegister/Template1.razor",
         "Tutorials/LoginAndRegister/Template1.razor.css",
-        ..layoutFileList
+        .. layoutFileList
     ];
 
     private readonly string[] Template2 =
     [
         "Tutorials/LoginAndRegister/Template2.razor",
-        ..layoutFileList
+        .. layoutFileList
     ];
 
     private readonly string[] Template3 =
     [
         "Tutorials/LoginAndRegister/Template3.razor",
         "Tutorials/LoginAndRegister/Template3.razor.css",
-        ..layoutFileList
+        .. layoutFileList
     ];
 
     private readonly string[] Template4 =
     [
         "Tutorials/LoginAndRegister/Template4.razor",
         "Tutorials/LoginAndRegister/Template4.razor.css",
-        ..layoutFileList
+        .. layoutFileList
     ];
 
     private readonly string[] waterfallFileList =
@@ -200,5 +200,5 @@ public partial class TutorialsNavMenu
         "Tutorials/Translation/LanguageWriter.cs",
         "Tutorials/Translation/LanguageDataTable.cs",
         "Tutorials/Translation/AzureTranslatorServiceExtensions.cs"
-    ];  
+    ];
 }
