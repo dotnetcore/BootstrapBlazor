@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Web;
-
 using System.Text;
 
 namespace BootstrapBlazor.Server.Components.Layout;
@@ -29,8 +28,7 @@ public partial class TutorialsNavMenu
     [NotNull]
     private IZipArchiveService? ZipArchiveService { get; set; }
 
-    [NotNull]
-    private List<MenuItem>? Menus { get; set; }
+    private readonly List<MenuItem> _menus = [];
 
     /// <summary>
     /// <inheritdoc/>
@@ -39,11 +37,11 @@ public partial class TutorialsNavMenu
     {
         await base.OnInitializedAsync();
 
-        Menus =
+        _menus.AddRange(
         [
             new()
             {
-                Template = CreateDownloadButtonComponent("dashboard", dashboardFileList),
+                Template = CreateDownloadButtonComponent("dashboard", _dashboardFileList),
                 Text = "仪表盘 Dashboard",
                 Url = "tutorials/dashboard"
             },
@@ -55,25 +53,25 @@ public partial class TutorialsNavMenu
                 [
                     new()
                     {
-                        Template = CreateDownloadButtonComponent("template1", Template1),
+                        Template = CreateDownloadButtonComponent("template1", _template1),
                         Text = "模板 Template 1",
                         Url = "tutorials/template1"
                     },
                     new()
                     {
-                        Template = CreateDownloadButtonComponent("template2", Template2),
+                        Template = CreateDownloadButtonComponent("template2", _template2),
                         Text = "模板 Template 2",
                         Url = "tutorials/template2"
                     },
                     new()
                     {
-                        Template = CreateDownloadButtonComponent("template3", Template3),
+                        Template = CreateDownloadButtonComponent("template3", _template3),
                         Text = "模板 Template 3",
                         Url = "tutorials/template3"
                     },
                     new()
                     {
-                        Template = CreateDownloadButtonComponent("template4", Template4),
+                        Template = CreateDownloadButtonComponent("template4", _template4),
                         Text = "模板 Template 4",
                         Url = "tutorials/template4"
                     }
@@ -81,17 +79,17 @@ public partial class TutorialsNavMenu
             },
             new()
             {
-                Template = CreateDownloadButtonComponent("waterfall", waterfallFileList),
+                Template = CreateDownloadButtonComponent("waterfall", _waterfallFileList),
                 Text = "瀑布流图片 Waterfall",
                 Url = "tutorials/waterfall"
             },
             new()
             {
-                Template = CreateDownloadButtonComponent("translate", translateFileList),
+                Template = CreateDownloadButtonComponent("translate", _translateFileList),
                 Text = "翻译工具 Translate",
                 Url = "tutorials/translate"
             }
-        ];
+        ]);
     }
 
     /// <summary>
@@ -141,58 +139,58 @@ public partial class TutorialsNavMenu
         stream.Close();
     }
 
-    private static readonly string[] layoutFileList =
+    private static readonly string[] _layoutFileList =
     [
-        "/../Layout/TutorialsLayout.razor",
-        "/../Layout/TutorialsLayout.razor.css",
-        "/../Layout/TutorialsLoginLayout.razor",
-        "/../Layout/TutorialsLoginLayout.razor.css"
+        "../Layout/TutorialsLayout.razor",
+        "../Layout/TutorialsLayout.razor.css",
+        "../Layout/TutorialsLoginLayout.razor",
+        "../Layout/TutorialsLoginLayout.razor.css"
     ];
 
-    private readonly string[] dashboardFileList =
+    private readonly string[] _dashboardFileList =
     [
         "Tutorials/Dashboard.razor",
         "Tutorials/Dashboard.razor.cs",
         "Tutorials/Dashboard.razor.css",
         "Tutorials/DashboardData.cs",
-        "/../../Services/DashboardService.cs"
+        "../../Services/DashboardService.cs"
     ];
 
-    private readonly string[] Template1 =
+    private readonly string[] _template1 =
     [
         "Tutorials/LoginAndRegister/Template1.razor",
         "Tutorials/LoginAndRegister/Template1.razor.css",
-        .. layoutFileList
+        .. _layoutFileList
     ];
 
-    private readonly string[] Template2 =
+    private readonly string[] _template2 =
     [
         "Tutorials/LoginAndRegister/Template2.razor",
-        .. layoutFileList
+        .. _layoutFileList
     ];
 
-    private readonly string[] Template3 =
+    private readonly string[] _template3 =
     [
         "Tutorials/LoginAndRegister/Template3.razor",
         "Tutorials/LoginAndRegister/Template3.razor.css",
-        .. layoutFileList
+        .. _layoutFileList
     ];
 
-    private readonly string[] Template4 =
+    private readonly string[] _template4 =
     [
         "Tutorials/LoginAndRegister/Template4.razor",
         "Tutorials/LoginAndRegister/Template4.razor.css",
-        .. layoutFileList
+        .. _layoutFileList
     ];
 
-    private readonly string[] waterfallFileList =
+    private readonly string[] _waterfallFileList =
     [
         "Tutorials/Waterfall.razor",
         "Tutorials/Waterfall.razor.cs",
         "Tutorials/Waterfall.razor.css"
     ];
 
-    private readonly string[] translateFileList =
+    private readonly string[] _translateFileList =
     [
         "Tutorials/Translation/Translator.razor",
         "Tutorials/Translation/Translator.razor.cs",
