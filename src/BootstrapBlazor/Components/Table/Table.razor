@@ -398,7 +398,7 @@
         </tbody>
         @if (IsShowFooter)
         {
-            <tfoot class="@FooterClassString">
+            <tfoot @key="Rows" class="@FooterClassString">
                 <CascadingValue Value="false" Name="IsMobileMode" IsFixed="true">
                     <CascadingValue Value="@Rows" Name="TableFooterContext" IsFixed="true">
                         @if (FooterTemplate != null)
