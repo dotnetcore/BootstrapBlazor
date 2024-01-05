@@ -11,18 +11,11 @@ namespace BootstrapBlazor.DataAccess.PetaPoco;
 /// <summary>
 /// PetaPoco ORM 的 IDataService 接口实现
 /// </summary>
-internal class DefaultDataService<TModel> : DataServiceBase<TModel> where TModel : class, new()
+/// <remarks>
+/// 构造函数
+/// </remarks>
+internal class DefaultDataService<TModel>(IDatabase db) : DataServiceBase<TModel> where TModel : class, new()
 {
-    private readonly IDatabase _db;
-
-    /// <summary>
-    /// 构造函数
-    /// </summary>
-    public DefaultDataService(IDatabase db)
-    {
-        _db = db;
-    }
-
     /// <summary>
     /// 删除方法
     /// </summary>
@@ -32,7 +25,7 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel> where TModel
     {
         // 通过模型获取主键列数据
         // 支持批量删除
-        _db.DeleteBatch(models);
+        db.DeleteBatch(models);
         return Task.FromResult(true);
     }
 
@@ -44,7 +37,7 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel> where TModel
     /// <returns></returns>
     public override async Task<bool> SaveAsync(TModel model, ItemChangedType changedType)
     {
-        await _db.SaveAsync(model);
+        await db.SaveAsync(model);
         return true;
     }
 
@@ -65,14 +58,21 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel> where TModel
 
         if (option.IsPage)
         {
-            var items = await _db.PageAsync<TModel>(option.PageIndex, option.PageItems, option.ToFilter(), option.SortName, option.SortOrder);
+            var items = await db.PageAsync<TModel>(option.PageIndex, option.PageItems, option.ToFilter(), option.SortName, option.SortOrder);
+
+            ret.TotalCount = int.Parse(items.TotalItems.ToString());
+            ret.Items = items.Items;
+        }
+        else if (option.IsVirtualScroll)
+        {
+            var items = await db.PageAsync<TModel>(option.StartIndex, option.PageItems, option.ToFilter(), option.SortName, option.SortOrder);
 
             ret.TotalCount = int.Parse(items.TotalItems.ToString());
             ret.Items = items.Items;
         }
         else
         {
-            var items = await _db.FetchAsync<TModel>(option.ToFilter(), option.SortName, option.SortOrder);
+            var items = await db.FetchAsync<TModel>(option.ToFilter(), option.SortName, option.SortOrder);
             ret.TotalCount = items.Count;
             ret.Items = items;
         }
