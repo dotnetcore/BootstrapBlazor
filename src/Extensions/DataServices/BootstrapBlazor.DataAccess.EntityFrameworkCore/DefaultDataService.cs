@@ -24,7 +24,7 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel>, IEntityFram
     }
 
     /// <summary>
-    ///
+    /// 增加方法
     /// </summary>
     /// <param name="model"></param>
     /// <returns></returns>
@@ -35,7 +35,7 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel>, IEntityFram
     }
 
     /// <summary>
-    ///
+    /// 取消更新方法
     /// </summary>
     /// <returns></returns>
     public Task CancelAsync()
@@ -55,7 +55,7 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel>, IEntityFram
     }
 
     /// <summary>
-    ///
+    /// 编辑方法
     /// </summary>
     /// <returns></returns>
     public Task EditAsync(object model)
@@ -107,20 +107,24 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel>, IEntityFram
         // 处理过滤与搜索逻辑
         var searches = option.ToFilter();
 
-        var query = _db.Set<TModel>()
+        var items = _db.Set<TModel>()
             .Where(searches.GetFilterLambda<TModel>(), searches.HasFilters())
             .Sort(option.SortName!, option.SortOrder, !string.IsNullOrEmpty(option.SortName))
             .Count(out var count);
 
         if (option.IsPage)
         {
-            query = query.Page((option.PageIndex - 1) * option.PageItems, option.PageItems);
+            items = items.Page((option.PageIndex - 1) * option.PageItems, option.PageItems);
+        }
+        else if (option.IsVirtualScroll)
+        {
+            items = items.Page((option.StartIndex - 1) * option.PageItems, option.PageItems);
         }
 
         var ret = new QueryData<TModel>()
         {
             TotalCount = count,
-            Items = query,
+            Items = items,
             IsSorted = option.SortOrder != SortOrder.Unset,
             IsFiltered = option.Filters.Any(),
             IsAdvanceSearch = option.AdvanceSearches.Any(),
