@@ -52,15 +52,22 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel> where TModel
     /// <returns></returns>
     public override Task<QueryData<TModel>> QueryAsync(QueryPageOptions option)
     {
-        var Items = _db.Select<TModel>().WhereDynamicFilter(option.ToDynamicFilter())
-            .OrderByPropertyNameIf(option.SortOrder != SortOrder.Unset, option.SortName, option.SortOrder == SortOrder.Asc)
-            .Count(out var count)
-            .Page(option.PageIndex, option.PageItems).ToList();
+        var select = _db.Select<TModel>().WhereDynamicFilter(option.ToDynamicFilter())
+            .OrderByPropertyNameIf(option.SortOrder != SortOrder.Unset, option.SortName,
+                option.SortOrder == SortOrder.Asc)
+            .Count(out var count);
+
+        if (option.IsPage)
+        {
+            select = select.Page(option.PageIndex, option.PageItems);
+        }
+
+        var items = select.ToList<TModel>();
 
         var ret = new QueryData<TModel>()
         {
             TotalCount = (int)count,
-            Items = Items,
+            Items = items,
             IsSorted = option.SortOrder != SortOrder.Unset,
             IsFiltered = option.Filters.Any(),
             IsAdvanceSearch = option.AdvanceSearches.Any(),

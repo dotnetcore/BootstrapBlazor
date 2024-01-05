@@ -24,7 +24,7 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel>, IEntityFram
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="model"></param>
     /// <returns></returns>
@@ -35,7 +35,7 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel>, IEntityFram
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <returns></returns>
     public Task CancelAsync()
@@ -55,7 +55,7 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel>, IEntityFram
     }
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     /// <returns></returns>
     public Task EditAsync(object model)
@@ -110,8 +110,12 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel>, IEntityFram
         var query = _db.Set<TModel>()
             .Where(searches.GetFilterLambda<TModel>(), searches.HasFilters())
             .Sort(option.SortName!, option.SortOrder, !string.IsNullOrEmpty(option.SortName))
-            .Count(out var count)
-            .Page((option.PageIndex - 1) * option.PageItems, option.PageItems);
+            .Count(out var count);
+
+        if (option.IsPage)
+        {
+            query = query.Page((option.PageIndex - 1) * option.PageItems, option.PageItems);
+        }
 
         var ret = new QueryData<TModel>()
         {
