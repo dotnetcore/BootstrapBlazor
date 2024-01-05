@@ -176,15 +176,10 @@ public partial class TableFooterCell
                     {
                         AggregateType.Average => propertyType.Name switch
                         {
-                            nameof(Int32) or nameof(Int64) or nameof(Double) => GetType()
-                                .GetMethod(nameof(CreateAggregateLambda), BindingFlags.NonPublic | BindingFlags.Static)!
-                                .MakeGenericMethod(typeof(Double)),
-                            _ => GetType()
-                                .GetMethod(nameof(CreateAggregateLambda), BindingFlags.NonPublic | BindingFlags.Static)!
-                                .MakeGenericMethod(propertyType),
+                            nameof(Int32) or nameof(Int64) or nameof(Double) => GetType().GetMethod(nameof(CreateAggregateLambda), BindingFlags.NonPublic | BindingFlags.Static)!.MakeGenericMethod(typeof(Double)),
+                            _ => GetType().GetMethod(nameof(CreateAggregateLambda), BindingFlags.NonPublic | BindingFlags.Static)!.MakeGenericMethod(propertyType),
                         },
-                        _ => GetType().GetMethod(nameof(CreateAggregateLambda), BindingFlags.NonPublic | BindingFlags.Static)!
-                            .MakeGenericMethod(propertyType)
+                        _ => GetType().GetMethod(nameof(CreateAggregateLambda), BindingFlags.NonPublic | BindingFlags.Static)!.MakeGenericMethod(propertyType)
                     };
                     if (aggregateMethod != null)
                     {
@@ -201,9 +196,7 @@ public partial class TableFooterCell
             var invoker = aggregateMethod.Invoke(null, new object[] { Aggregate, type, modelType, propertyType });
             if (invoker != null)
             {
-                // 构建 Selector
-                var methodInfo = GetType().GetMethod(nameof(CreateSelector), BindingFlags.NonPublic | BindingFlags.Static)!
-                    .MakeGenericMethod(modelType, propertyType);
+                var methodInfo = typeof(LambdaExtensions).GetMethod(nameof(LambdaExtensions.GetPropertyLambda), BindingFlags.NonPublic | BindingFlags.Static)!.MakeGenericMethod(modelType, propertyType);
                 if (methodInfo != null)
                 {
                     var selector = methodInfo.Invoke(null, new object[] { Field });
@@ -242,73 +235,5 @@ public partial class TableFooterCell
         }
     }
 
-    private static Func<object, object, TValue?> CreateAggregateLambda<TValue>(AggregateType aggregate, Type type, Type modelType, Type propertyType)
-    {
-        Func<object, object, TValue?> ret = (_, _) => default;
-        // 获得 Enumerable.Sum 方法
-        var mi = GetMethodInfoByAggregate(aggregate, modelType, propertyType);
-        if (mi != null)
-        {
-            var p1 = Expression.Parameter(typeof(object));
-            var p2 = Expression.Parameter(typeof(object));
-            var body = Expression.Call(mi,
-                Expression.Convert(p1, type),
-                Expression.Convert(p2, typeof(Func<,>).MakeGenericType([modelType, propertyType])));
-            ret = Expression.Lambda<Func<object, object, TValue?>>(body, p1, p2).Compile();
-        }
-        return ret;
-
-        MethodInfo? GetMethodInfoByAggregate(AggregateType aggregate, Type modelType, Type propertyType)
-        {
-            var mi = aggregate switch
-            {
-                AggregateType.Average => propertyType.Name switch
-                {
-                    nameof(Int32) => typeof(Enumerable).GetMethods()
-                        .FirstOrDefault(m => m.Name == aggregate.ToString() && m.IsGenericMethod
-                            && m.ReturnType == typeof(Double) && m.GetParameters().Length == 2
-                            && m.GetParameters()[1].ParameterType.GenericTypeArguments[1] == typeof(Int32)),
-                    nameof(Int64) => typeof(Enumerable).GetMethods()
-                        .FirstOrDefault(m => m.Name == aggregate.ToString() && m.IsGenericMethod
-                            && m.ReturnType == typeof(Double) && m.GetParameters().Length == 2
-                            && m.GetParameters()[1].ParameterType.GenericTypeArguments[1] == typeof(Int64)),
-                    nameof(Double) => typeof(Enumerable).GetMethods()
-                        .FirstOrDefault(m => m.Name == aggregate.ToString() && m.IsGenericMethod
-                            && m.ReturnType == typeof(Double) && m.GetParameters().Length == 2
-                            && m.GetParameters()[1].ParameterType.GenericTypeArguments[1] == typeof(Double)),
-                    nameof(Decimal) => typeof(Enumerable).GetMethods()
-                        .FirstOrDefault(m => m.Name == aggregate.ToString() && m.IsGenericMethod
-                            && m.ReturnType == typeof(Decimal) && m.GetParameters().Length == 2
-                            && m.GetParameters()[1].ParameterType.GenericTypeArguments[1] == typeof(Decimal)),
-                    nameof(Single) => typeof(Enumerable).GetMethods()
-                        .FirstOrDefault(m => m.Name == aggregate.ToString() && m.IsGenericMethod
-                            && m.ReturnType == typeof(Single) && m.GetParameters().Length == 2
-                            && m.GetParameters()[1].ParameterType.GenericTypeArguments[1] == typeof(Single)),
-                    _ => null
-                },
-                _ => typeof(Enumerable).GetMethods()
-                        .FirstOrDefault(m => m.Name == aggregate.ToString() && m.IsGenericMethod && m.ReturnType == propertyType)
-            };
-            return mi?.MakeGenericMethod(modelType);
-        }
-    }
-
     private static int CreateCountMethod<TSource>(IEnumerable<TSource> source) => source.Count();
-
-    /// <summary>
-    /// 通过属性名称构建委托
-    /// </summary>
-    /// <typeparam name="TModel"></typeparam>
-    /// <typeparam name="TValue"></typeparam>
-    /// <param name="field"></param>
-    /// <returns></returns>
-    private static Func<TModel, TValue> CreateSelector<TModel, TValue>(string field)
-    {
-        var type = typeof(TModel);
-        var p1 = Expression.Parameter(type);
-        var propertyInfo = type.GetProperty(field);
-        var fieldExpression = Expression.Property(p1, propertyInfo!);
-        return Expression.Lambda<Func<TModel, TValue>>(fieldExpression, p1).Compile();
-    }
-
 }
