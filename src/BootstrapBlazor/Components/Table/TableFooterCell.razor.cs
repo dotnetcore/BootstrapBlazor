@@ -73,7 +73,7 @@ public partial class TableFooterCell
     [CascadingParameter(Name = "TableFooterContext")]
     private object? DataSource { get; set; }
 
-    private string? Value { get; set; }
+    private string? _value { get; set; }
 
     /// <summary>
     /// <inheritdoc/>
@@ -81,7 +81,7 @@ public partial class TableFooterCell
     /// <returns></returns>
     protected override async Task OnParametersSetAsync()
     {
-        Value = Text ?? (GetCount(DataSource) == 0 ? "0" : (GetCountValue() ?? await GetAggregateValue()));
+        _value = Text ?? (GetCount(DataSource) == 0 ? "0" : (GetCountValue() ?? await GetAggregateValue()));
     }
 
     /// <summary>
