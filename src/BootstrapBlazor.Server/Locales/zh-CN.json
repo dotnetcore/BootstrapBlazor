@@ -2054,7 +2054,13 @@
     "BackText2": "天气预报",
     "AttTitle": "Attributes 属性",
     "MethodTitle": "Method 方法",
-    "TabDefaultUrl": "默认标签页关闭所有标签页时默认显现此页面"
+    "TabDefaultUrl": "默认标签页关闭所有标签页时默认显现此页面",
+    "AttributeOnCloseTabItemAsync": "关闭标签页回调方法",
+    "AttributeOnClickTabItemAsync": "点击 TabItem 时回调方法",
+    "AttributeNotAuthorized": "NotAuthorized 模板",
+    "AttributeNotFound": "NotFound 模板",
+    "AttributeExcludeUrls": "排除地址支持通配符",
+    "AttributeButtonTemplate": "按钮模板"
   },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "Info": "点击下方按钮，本 <code>TabItem</code> 标题更改为当前分钟与秒",

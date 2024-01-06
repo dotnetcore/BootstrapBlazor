@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Server.Services;
 /// </summary>
 class DashboardService
 {
-    private Random Random { get; } = new Random();
+    private static readonly Random _random = new();
 
     /// <summary>
     /// 获取仪表盘数据
@@ -22,15 +22,15 @@ class DashboardService
         //填充随机数据，仅做展示用
         var data = new DashboardData
         {
-            TestDayCount = Random.Next(10, 99),
-            TestMonthCount = Random.Next(100, 999),
-            TestYearCount = Random.Next(1000, 4999),
-            TestAllCount = Random.Next(5000, 9999),
+            TestDayCount = _random.Next(10, 99),
+            TestMonthCount = _random.Next(100, 999),
+            TestYearCount = _random.Next(1000, 4999),
+            TestAllCount = _random.Next(5000, 9999),
 
-            TestApprovedDayCount = Random.Next(10, 59),
-            TestApprovedMonthCount = Random.Next(100, 499),
-            TestApprovedYearCount = Random.Next(1000, 2999),
-            TestApprovedAllCount = Random.Next(4000, 4999),
+            TestApprovedDayCount = _random.Next(10, 59),
+            TestApprovedMonthCount = _random.Next(100, 499),
+            TestApprovedYearCount = _random.Next(1000, 2999),
+            TestApprovedAllCount = _random.Next(4000, 4999),
 
             TestDayGroupList = GetDayOfMonthGroup(),
             TestKKSGroupList = GetTestKKSGroup()
@@ -66,7 +66,7 @@ class DashboardService
         //按照当前月的每一天填充数据
         for (var i = 1; i <= 30; i++)
         {
-            result.Add(new TestDayGroupData() { Key = i, Count = Random.Next(1, 99) });
+            result.Add(new TestDayGroupData() { Key = i, Count = _random.Next(1, 99) });
         }
 
         return [.. result.OrderBy(x => x.Key)];
@@ -85,8 +85,8 @@ class DashboardService
             {
                 NAM = $"Blazor",
                 KKS = $"Bootstrap",
-                Count = Random.Next(10, 99),
-                Percent = Random.Next(1, 99)
+                Count = _random.Next(10, 99),
+                Percent = _random.Next(1, 99)
             });
         }
 
