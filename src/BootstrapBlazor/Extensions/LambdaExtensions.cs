@@ -602,33 +602,10 @@ public static class LambdaExtensions
 
     private static IOrderedQueryable<TItem> ThenByDescendingInternal<TItem, TKey>(IOrderedQueryable<TItem> query, System.Reflection.PropertyInfo memberProperty) => query.ThenByDescending(GetPropertyLambda<TItem, TKey>(memberProperty));
 
-    /// <summary>
-    /// 通过 PropertyInfo 构建委托
-    /// </summary>
-    /// <typeparam name="TItem"></typeparam>
-    /// <typeparam name="TKey"></typeparam>
-    /// <param name="pi"></param>
-    /// <returns></returns>
-    public static Expression<Func<TItem, TKey>> GetPropertyLambda<TItem, TKey>(PropertyInfo pi)
+    private static Expression<Func<TItem, TKey>> GetPropertyLambda<TItem, TKey>(PropertyInfo pi)
     {
         var exp_p1 = Expression.Parameter(typeof(TItem));
         return Expression.Lambda<Func<TItem, TKey>>(Expression.Property(exp_p1, pi), exp_p1);
-    }
-
-    /// <summary>
-    /// 通过属性名称构建委托
-    /// </summary>
-    /// <typeparam name="TItem"></typeparam>
-    /// <typeparam name="TKey"></typeparam>
-    /// <param name="field"></param>
-    /// <returns></returns>
-    public static Func<TItem, TKey> GetPropertyLambda<TItem, TKey>(string field)
-    {
-        var type = typeof(TItem);
-        var exp_p = Expression.Parameter(type);
-        var propertyInfo = type.GetProperty(field);
-        var fieldExpression = Expression.Property(exp_p, propertyInfo!);
-        return Expression.Lambda<Func<TItem, TKey>>(fieldExpression, exp_p).Compile();
     }
 
     private static Expression<Func<TItem, TKey>> GetPropertyLambdaByName<TItem, TKey>(string propertyName)
