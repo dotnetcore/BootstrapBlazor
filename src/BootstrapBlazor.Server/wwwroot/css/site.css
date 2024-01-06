@@ -229,6 +229,22 @@ code {
     display: block;
 }
 
+.layout-demo {
+    --bb-layout-sidebar-banner-background: var(--bb-primary-color);
+    --bb-layout-title-color: #fff;
+    --bb-layout-header-background: var(--bb-primary-color);
+    --bb-layout-header-color: #fff;
+}
+
+    .layout-demo .widget {
+        --bb-widget-toggle-color: #fff;
+        margin-right: 1rem;
+    }
+
+    .layout-demo .layout-avatar-right {
+        border-radius: 50%;
+    }
+
 @media (min-width: 768px) {
     :root {
         --bs-header-height: 50px;

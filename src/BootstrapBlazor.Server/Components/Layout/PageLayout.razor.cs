@@ -13,7 +13,7 @@ public sealed partial class PageLayout
 
     private string? Theme { get; set; }
 
-    private string? LayoutClassString => CssBuilder.Default()
+    private string? LayoutClassString => CssBuilder.Default("layout-demo")
         .AddClass(Theme)
         .AddClass("is-fixed-tab", IsFixedTab)
         .Build();
