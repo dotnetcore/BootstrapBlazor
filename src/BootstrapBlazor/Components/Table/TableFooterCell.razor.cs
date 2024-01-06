@@ -8,7 +8,7 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// TableFooterCell 组件
+/// 
 /// </summary>
 public partial class TableFooterCell
 {
@@ -95,7 +95,7 @@ public partial class TableFooterCell
             // 数据源泛型 TModel 类型
             var modelType = type.GenericTypeArguments[0];
 
-            var mi = GetType().GetMethod(nameof(CreateCountMethod), BindingFlags.NonPublic | BindingFlags.Static)!.MakeGenericMethod(modelType);
+            var mi = typeof(TableFooterCell).GetMethod(nameof(CreateCountMethod), BindingFlags.NonPublic | BindingFlags.Static)!.MakeGenericMethod(modelType);
 
             if (mi != null)
             {
@@ -219,6 +219,15 @@ public partial class TableFooterCell
                 }
             }
             return v;
+
+            Func<TModel, TValue> CreateSelector<TModel, TValue>(string field)
+            {
+                var type = typeof(TModel);
+                var p1 = Expression.Parameter(type);
+                var propertyInfo = type.GetProperty(field);
+                var fieldExpression = Expression.Property(p1, propertyInfo!);
+                return Expression.Lambda<Func<TModel, TValue>>(fieldExpression, p1).Compile();
+            }
         }
 
         async Task<string?> GetValue(object? val)
@@ -294,21 +303,4 @@ public partial class TableFooterCell
     }
 
     private static int CreateCountMethod<TSource>(IEnumerable<TSource> source) => source.Count();
-
-    /// <summary>
-    /// 通过属性名称构建委托
-    /// </summary>
-    /// <typeparam name="TModel"></typeparam>
-    /// <typeparam name="TValue"></typeparam>
-    /// <param name="field"></param>
-    /// <returns></returns>
-    private static Func<TModel, TValue> CreateSelector<TModel, TValue>(string field)
-    {
-        var type = typeof(TModel);
-        var p1 = Expression.Parameter(type);
-        var propertyInfo = type.GetProperty(field);
-        var fieldExpression = Expression.Property(p1, propertyInfo!);
-        return Expression.Lambda<Func<TModel, TValue>>(fieldExpression, p1).Compile();
-    }
-
 }
