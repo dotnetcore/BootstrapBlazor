@@ -81,33 +81,7 @@ public partial class TableFooterCell
     /// <returns></returns>
     protected override async Task OnParametersSetAsync()
     {
-        _value = Text ?? (GetCount() == 0 ? "0" : (GetCountValue() ?? await GetAggregateValue()));
-    }
-
-    private int GetCount()
-    {
-        var ret = 0;
-        if (DataSource != null)
-        {
-            // 绑定数据源类型
-            var type = DataSource.GetType();
-
-            // 数据源泛型 TModel 类型
-            var modelType = type.GenericTypeArguments[0];
-
-            var mi = typeof(TableFooterCell).GetMethod(nameof(CreateCountMethod), BindingFlags.NonPublic | BindingFlags.Static)!.MakeGenericMethod(modelType);
-
-            if (mi != null)
-            {
-                var obj = mi.Invoke(null, new object[] { DataSource });
-                if (obj != null)
-                {
-                    var v = obj.ToString();
-                    _ = int.TryParse(v, out ret);
-                }
-            }
-        }
-        return ret;
+        _value = Text ?? (GetCount(DataSource) == 0 ? "0" : (GetCountValue() ?? await GetAggregateValue()));
     }
 
     /// <summary>
@@ -219,15 +193,6 @@ public partial class TableFooterCell
                 }
             }
             return v;
-
-            Func<TModel, TValue> CreateSelector<TModel, TValue>(string field)
-            {
-                var type = typeof(TModel);
-                var p1 = Expression.Parameter(type);
-                var propertyInfo = type.GetProperty(field);
-                var fieldExpression = Expression.Property(p1, propertyInfo!);
-                return Expression.Lambda<Func<TModel, TValue>>(fieldExpression, p1).Compile();
-            }
         }
 
         async Task<string?> GetValue(object? val)
@@ -251,6 +216,22 @@ public partial class TableFooterCell
         }
     }
 
+    /// <summary>
+    /// 通过属性名称构建委托
+    /// </summary>
+    /// <typeparam name="TModel"></typeparam>
+    /// <typeparam name="TValue"></typeparam>
+    /// <param name="field"></param>
+    /// <returns></returns>
+    private static Func<TModel, TValue> CreateSelector<TModel, TValue>(string field)
+    {
+        var type = typeof(TModel);
+        var p1 = Expression.Parameter(type);
+        var propertyInfo = type.GetProperty(field);
+        var fieldExpression = Expression.Property(p1, propertyInfo!);
+        return Expression.Lambda<Func<TModel, TValue>>(fieldExpression, p1).Compile();
+    }
+
     private static Func<object, object, TValue?> CreateAggregateLambda<TValue>(AggregateType aggregate, Type type, Type modelType, Type propertyType)
     {
         Func<object, object, TValue?> ret = (_, _) => default;
@@ -266,41 +247,67 @@ public partial class TableFooterCell
             ret = Expression.Lambda<Func<object, object, TValue?>>(body, p1, p2).Compile();
         }
         return ret;
+    }
 
-        MethodInfo? GetMethodInfoByAggregate(AggregateType aggregate, Type modelType, Type propertyType)
+    private static MethodInfo? GetMethodInfoByAggregate(AggregateType aggregate, Type modelType, Type propertyType)
+    {
+        var mi = aggregate switch
         {
-            var mi = aggregate switch
+            AggregateType.Average => propertyType.Name switch
             {
-                AggregateType.Average => propertyType.Name switch
-                {
-                    nameof(Int32) => typeof(Enumerable).GetMethods()
-                        .FirstOrDefault(m => m.Name == aggregate.ToString() && m.IsGenericMethod
-                            && m.ReturnType == typeof(Double) && m.GetParameters().Length == 2
-                            && m.GetParameters()[1].ParameterType.GenericTypeArguments[1] == typeof(Int32)),
-                    nameof(Int64) => typeof(Enumerable).GetMethods()
-                        .FirstOrDefault(m => m.Name == aggregate.ToString() && m.IsGenericMethod
-                            && m.ReturnType == typeof(Double) && m.GetParameters().Length == 2
-                            && m.GetParameters()[1].ParameterType.GenericTypeArguments[1] == typeof(Int64)),
-                    nameof(Double) => typeof(Enumerable).GetMethods()
-                        .FirstOrDefault(m => m.Name == aggregate.ToString() && m.IsGenericMethod
-                            && m.ReturnType == typeof(Double) && m.GetParameters().Length == 2
-                            && m.GetParameters()[1].ParameterType.GenericTypeArguments[1] == typeof(Double)),
-                    nameof(Decimal) => typeof(Enumerable).GetMethods()
-                        .FirstOrDefault(m => m.Name == aggregate.ToString() && m.IsGenericMethod
-                            && m.ReturnType == typeof(Decimal) && m.GetParameters().Length == 2
-                            && m.GetParameters()[1].ParameterType.GenericTypeArguments[1] == typeof(Decimal)),
-                    nameof(Single) => typeof(Enumerable).GetMethods()
-                        .FirstOrDefault(m => m.Name == aggregate.ToString() && m.IsGenericMethod
-                            && m.ReturnType == typeof(Single) && m.GetParameters().Length == 2
-                            && m.GetParameters()[1].ParameterType.GenericTypeArguments[1] == typeof(Single)),
-                    _ => null
-                },
-                _ => typeof(Enumerable).GetMethods()
-                        .FirstOrDefault(m => m.Name == aggregate.ToString() && m.IsGenericMethod && m.ReturnType == propertyType)
-            };
-            return mi?.MakeGenericMethod(modelType);
-        }
+                nameof(Int32) => typeof(Enumerable).GetMethods()
+                    .FirstOrDefault(m => m.Name == aggregate.ToString() && m.IsGenericMethod
+                        && m.ReturnType == typeof(Double) && m.GetParameters().Length == 2
+                        && m.GetParameters()[1].ParameterType.GenericTypeArguments[1] == typeof(Int32)),
+                nameof(Int64) => typeof(Enumerable).GetMethods()
+                    .FirstOrDefault(m => m.Name == aggregate.ToString() && m.IsGenericMethod
+                        && m.ReturnType == typeof(Double) && m.GetParameters().Length == 2
+                        && m.GetParameters()[1].ParameterType.GenericTypeArguments[1] == typeof(Int64)),
+                nameof(Double) => typeof(Enumerable).GetMethods()
+                    .FirstOrDefault(m => m.Name == aggregate.ToString() && m.IsGenericMethod
+                        && m.ReturnType == typeof(Double) && m.GetParameters().Length == 2
+                        && m.GetParameters()[1].ParameterType.GenericTypeArguments[1] == typeof(Double)),
+                nameof(Decimal) => typeof(Enumerable).GetMethods()
+                    .FirstOrDefault(m => m.Name == aggregate.ToString() && m.IsGenericMethod
+                        && m.ReturnType == typeof(Decimal) && m.GetParameters().Length == 2
+                        && m.GetParameters()[1].ParameterType.GenericTypeArguments[1] == typeof(Decimal)),
+                nameof(Single) => typeof(Enumerable).GetMethods()
+                    .FirstOrDefault(m => m.Name == aggregate.ToString() && m.IsGenericMethod
+                        && m.ReturnType == typeof(Single) && m.GetParameters().Length == 2
+                        && m.GetParameters()[1].ParameterType.GenericTypeArguments[1] == typeof(Single)),
+                _ => null
+            },
+            _ => typeof(Enumerable).GetMethods()
+                    .FirstOrDefault(m => m.Name == aggregate.ToString() && m.IsGenericMethod && m.ReturnType == propertyType)
+        };
+        return mi?.MakeGenericMethod(modelType);
     }
 
     private static int CreateCountMethod<TSource>(IEnumerable<TSource> source) => source.Count();
+
+    private static int GetCount(object? source)
+    {
+        var ret = 0;
+        if (source != null)
+        {
+            // 绑定数据源类型
+            var type = source.GetType();
+
+            // 数据源泛型 TModel 类型
+            var modelType = type.GenericTypeArguments[0];
+
+            var mi = typeof(TableFooterCell).GetMethod(nameof(CreateCountMethod), BindingFlags.NonPublic | BindingFlags.Static)!.MakeGenericMethod(modelType);
+
+            if (mi != null)
+            {
+                var obj = mi.Invoke(null, new object[] { source });
+                if (obj != null)
+                {
+                    var v = obj.ToString();
+                    _ = int.TryParse(v, out ret);
+                }
+            }
+        }
+        return ret;
+    }
 }
