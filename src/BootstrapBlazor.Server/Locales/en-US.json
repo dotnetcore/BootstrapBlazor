@@ -2054,7 +2054,13 @@
     "BackText2": "Weather forecast",
     "AttTitle": "Attributes",
     "MethodTitle": "Method",
-    "TabDefaultUrl": "Default page"
+    "TabDefaultUrl": "Default page",
+    "AttributeOnCloseTabItemAsync": "Close tab callback method",
+    "AttributeOnClickTabItemAsync": "Callback method when clicking TabItem",
+    "AttributeNotAuthorized": "The template for NotAuthorized",
+    "AttributeNotFound": "The template for NotFound",
+    "AttributeExcludeUrls": "Exclude address support for wildcards",
+    "AttributeButtonTemplate": "The template for Buttons"
   },
   "BootstrapBlazor.Server.Components.Components.DemoTabItem": {
     "Info": "Reset the title of this <code>TabItem</code> by click the button",
