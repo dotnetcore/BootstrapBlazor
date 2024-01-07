@@ -7,20 +7,14 @@
 
 <h4>@Localizer["PrintsSubTitle"]</h4>
 
-<Tips class="mt-3">
+<Tips>
     <ul class="ul-demo">
         <li>@((MarkupString)Localizer["PrintsTips1"].Value)</li>
         <li>@((MarkupString)Localizer["PrintsTips2"].Value)</li>
     </ul>
 </Tips>
 
-<Pre>&lt;body&gt;
-    &lt;app&gt;
-        @@(await Html.RenderComponentAsync&lt;App&gt;(RenderMode.ServerPrerendered))
-    &lt;/app&gt;
-&lt;/body&gt;</Pre>
-
-<Pre class="mt-3">&lt;PrintButton Icon="fa-solid fa-print" Text="@Localizer["PrintsButtonText"]" PreviewUrl="/print-view" /&gt;</Pre>
+<Pre>&lt;PrintButton Icon="fa-solid fa-print" Text="@Localizer["PrintsButtonText"]" PreviewUrl="/print-view" /&gt;</Pre>
 
 <DemoBlock Title="@Localizer["PrintButtonTitle"]" Introduction="@Localizer["PrintButtonIntro"]" Name="PrintButton">
     <p>@Localizer["PrintsButtonDescription"]</p>
