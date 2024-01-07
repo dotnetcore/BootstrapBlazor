@@ -5,9 +5,6 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
-/// </summary>
-/// <summary>
 /// 打印组件类
 /// </summary>
 public class Print : BootstrapComponentBase, IDisposable
