@@ -620,7 +620,7 @@ public static class Utility
                 case nameof(Decimal):
                     ret = typeof(BootstrapInputNumber<>).MakeGenericType(fieldType);
                     break;
-                default:
+                case nameof(String):
                     if (hasRows)
                     {
                         ret = typeof(Textarea);
