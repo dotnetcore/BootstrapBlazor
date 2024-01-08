@@ -45,7 +45,7 @@ public partial class DrawingApp
     /// <returns></returns>
     private async Task ClearCanvas()
     {
-        await InvokeVoidAsync("clearRect", Id);
+        await InvokeVoidAsync("clearRect");
         await MessageService.Show(new MessageOption()
         {
             Content = "已清空画板",
@@ -60,7 +60,7 @@ public partial class DrawingApp
     /// <returns></returns>
     private async Task DownloadImage()
     {
-        var base64String = await InvokeAsync<string>("exportImage", Id);
+        var base64String = await InvokeAsync<string>("exportImage");
         if (!string.IsNullOrEmpty(base64String))
         {
             byte[] byteArray = Convert.FromBase64String(base64String.Replace("data:image/jpeg;base64,", ""));

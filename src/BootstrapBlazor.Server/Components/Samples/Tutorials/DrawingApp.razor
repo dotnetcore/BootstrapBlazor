@@ -9,13 +9,13 @@
     <div class="row g-3">
         <div class="col-auto">
             <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="LineSize" />
+                <BootstrapInputGroupLabel DisplayText="LineThickness" />
                 <BootstrapInputNumber Min="1" Max="10" Value="@LineThickness" OnValueChanged="@ChangeSize" />
             </BootstrapInputGroup>
         </div>
         <div class="col-auto">
             <BootstrapInputGroup>
-                <BootstrapInputGroupLabel DisplayText="LineColor" />
+                <BootstrapInputGroupLabel DisplayText="DrawingColor" />
                 <ColorPicker @bind-value="@DrawingColor" OnValueChanged="@ChangeColor" />
             </BootstrapInputGroup>
         </div>
