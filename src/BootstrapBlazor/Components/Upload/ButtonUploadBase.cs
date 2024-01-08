@@ -227,7 +227,7 @@ public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
             fileExtension = fileExtension.ToLowerInvariant();
         }
         var icon = OnGetFileFormat?.Invoke(fileExtension);
-        if (!string.IsNullOrEmpty(icon))
+        if (string.IsNullOrEmpty(icon))
         {
             icon = fileExtension switch
             {
