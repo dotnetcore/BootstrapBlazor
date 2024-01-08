@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Web;
-
 using System.Text;
 
 namespace BootstrapBlazor.Server.Components.Layout;
