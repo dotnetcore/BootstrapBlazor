@@ -1,0 +1,29 @@
+﻿@page "/tutorials/drawing-app"
+@inject MessageService MessageService
+@inject DownloadService DownloadService
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader("./Components/Samples/Tutorials/DrawingApp.razor.js", AutoInvokeInit = true, AutoInvokeDispose = false)]
+
+<div>
+    <canvas id="@Id" class="drawing-canvas"></canvas>
+    <div class="row g-3">
+        <div class="col-auto">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="LineSize" />
+                <BootstrapInputNumber Min="1" Max="10" Value="@LineThickness" OnValueChanged="@ChangeSize" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-auto">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="LineColor" />
+                <ColorPicker @bind-value="@DrawingColor" OnValueChanged="@ChangeColor" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-auto">
+            <Button OnClick="@ClearCanvas" Color="Color.Primary">ClearCanvas</Button>
+        </div>
+        <div class="col-auto">
+            <Button OnClick="@DownloadImage" Color="Color.Primary">DownloadImage</Button>
+        </div>
+    </div>
+</div>

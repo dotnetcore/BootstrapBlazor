@@ -88,6 +88,12 @@ public partial class TutorialsNavMenu
                 Template = CreateDownloadButtonComponent("translate", _translateFileList),
                 Text = "翻译工具 Translate",
                 Url = "tutorials/translate"
+            },
+            new()
+            {
+                Template = CreateDownloadButtonComponent("drawing", _drawingAppFileList),
+                Text = "画图 Drawing",
+                Url = "tutorials/drawing-app"
             }
         ]);
     }
@@ -198,5 +204,13 @@ public partial class TutorialsNavMenu
         "Tutorials/Translation/LanguageWriter.cs",
         "Tutorials/Translation/LanguageDataTable.cs",
         "Tutorials/Translation/AzureTranslatorServiceExtensions.cs"
+    ];
+
+    private readonly string[] _drawingAppFileList =
+    [
+        "Tutorials/DrawingApp.razor",
+        "Tutorials/DrawingApp.razor.cs",
+        "Tutorials/DrawingApp.razor.js",
+        "Tutorials/DrawingApp.razor.css",
     ];
 }
