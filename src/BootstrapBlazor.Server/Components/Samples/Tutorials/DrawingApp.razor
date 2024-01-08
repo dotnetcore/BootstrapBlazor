@@ -1,4 +1,4 @@
-﻿@page "/tutorials/drawing-app"
+﻿@page "/tutorials/drawing"
 @inject MessageService MessageService
 @inject DownloadService DownloadService
 @inherits BootstrapModuleComponentBase
@@ -20,13 +20,13 @@
             </BootstrapInputGroup>
         </div>
         <div class="col-auto">
-            <Button OnClick="@Undo" Color="Color.Primary">Undo(Ctrl+Z)</Button>
+            <Button OnClick="@Undo" Color="Color.Warning">Undo(Ctrl+Z)</Button>
         </div>
         <div class="col-auto">
-            <Button OnClick="@Redo" Color="Color.Primary">Redo(Ctrl+Y)</Button>
+            <Button OnClick="@Redo" Color="Color.Info">Redo(Ctrl+Y)</Button>
         </div>
         <div class="col-auto">
-            <Button OnClick="@ClearCanvas" Color="Color.Primary">ClearCanvas</Button>
+            <Button OnClick="@ClearCanvas" Color="Color.Danger">ClearCanvas</Button>
         </div>
         <div class="col-auto">
             <Button OnClick="@DownloadImage" Color="Color.Primary">DownloadImage</Button>

@@ -1,9 +1,11 @@
 ﻿{
-  "BootstrapBlazor.Server.Components.Pages.Prac": {
+  "BootstrapBlazor.Server.Components.Pages.Tutorials": {
     "CategoryTitle": "Bootstrap Blazor Practical Cases",
     "DashboardSummary": "Dashboard",
     "LoginSummary": "Login&Register",
-    "PinteresoSummary": "Pintereso"
+    "PinteresoSummary": "Pintereso",
+    "TranslateSummary": "Translate",
+    "DrawingSummary": "Drawing"
   },
   "BootstrapBlazor.Server.Components.App": {
     "Title": "Bootstrap Blazor enterprise-level UI component library",

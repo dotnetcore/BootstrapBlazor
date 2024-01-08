@@ -93,7 +93,7 @@ public partial class TutorialsNavMenu
             {
                 Template = CreateDownloadButtonComponent("drawing", _drawingAppFileList),
                 Text = "画图 Drawing",
-                Url = "tutorials/drawing-app"
+                Url = "tutorials/drawing"
             }
         ]);
     }
