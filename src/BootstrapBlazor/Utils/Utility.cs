@@ -697,6 +697,8 @@ public static class Utility
                     ret.Add("Step", item.Step);
                 }
                 break;
+            default:
+                break;
         }
         return ret;
     }
