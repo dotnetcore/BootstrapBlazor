@@ -631,7 +631,7 @@ public static class Utility
                     }
                     break;
                 default:
-                    ret = null;
+                    ret = typeof(BootstrapInput<>).MakeGenericType(typeof(string));
                     break;
             }
         }
