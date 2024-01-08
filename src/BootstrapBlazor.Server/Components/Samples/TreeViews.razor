@@ -28,7 +28,7 @@
            Name="Normal">
     <section ignore class="mb-3">@((MarkupString)Localizer["TreeViewNormalDescription"].Value)</section>
     <TreeView TItem="TreeFoo" Items="@Items" OnTreeItemClick="@OnTreeItemClick" />
-    <ConsoleLogger @ref="Logger1" class="mt-3" />
+    <ConsoleLogger @ref="Logger1" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreeViewCheckboxTitle"]"
@@ -51,7 +51,7 @@
         </div>
     </section>
     <TreeView TItem="TreeFoo" Items="@CheckedItems" ShowCheckbox="true" OnTreeItemChecked="@OnTreeItemChecked" IsReset="@IsReset" AutoCheckChildren="@AutoCheckChildren" AutoCheckParent="@AutoCheckParent" />
-    <ConsoleLogger @ref="Logger2" class="mt-3" />
+    <ConsoleLogger @ref="Logger2" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreeViewTreeDisableTitle"]"
@@ -129,7 +129,7 @@
            Introduction="@Localizer["TreeViewCheckedItemsIntro"]"
            Name="CheckedItems">
     <TreeView TItem="TreeFoo" ShowCheckbox="true" Items="@CheckedItems2" OnTreeItemChecked="@OnTreeItemChecked2" />
-    <ConsoleLogger @ref="Logger3" class="mt-3" />
+    <ConsoleLogger @ref="Logger3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreeViewSetActiveTitle"]"

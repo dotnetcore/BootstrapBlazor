@@ -7,12 +7,16 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Options;
 using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 
 // 增加中文编码支持用于定位服务
 Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
 var builder = WebApplication.CreateBuilder(args);
 
+// 增加中文编码支持网页源码显示汉字
+builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
 builder.Services.AddLogging(logBuilder => logBuilder.AddFileLogger());
 builder.Services.AddCors();
 builder.Services.AddResponseCompression();

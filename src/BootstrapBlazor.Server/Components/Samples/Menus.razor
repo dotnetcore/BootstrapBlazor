@@ -14,7 +14,7 @@
            Introduction="@Localizer["MenusTopBarIntro"]"
            Name="TopBar">
     <Menu Items="@Items" DisableNavigation="true" OnClick="@OnClickMenu" />
-    <ConsoleLogger @ref="Logger" class="mt-3" />
+    <ConsoleLogger @ref="Logger" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MenusBottomBarTitle"]"
@@ -39,7 +39,7 @@
            Introduction="@Localizer["MenusLeftRightLayoutIntro"]"
            Name="LeftRightLayout">
     <Menu Items="@SideMenuItems" DisableNavigation="true" IsVertical="true" OnClick="@OnClickSideMenu" style="width:220px; border-right: 1px solid #e6e6e6; padding-right: 4px;" />
-    <ConsoleLogger @ref="SideLogger" class="mt-3" />
+    <ConsoleLogger @ref="SideLogger" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MenusIconLeftTitle"]"
@@ -118,7 +118,7 @@
         <Menu Items="@DisabledMenuItems" DisableNavigation="true" IsVertical="true" OnClick="@OnClick2" />
     </div>
 
-    <ConsoleLogger @ref="Logger" class="mt-3" />
+    <ConsoleLogger @ref="Logger" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

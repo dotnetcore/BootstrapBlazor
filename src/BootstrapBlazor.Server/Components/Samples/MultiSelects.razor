@@ -91,7 +91,7 @@
     <section ignore class="mb-3">@((MarkupString)Localizer["MultiSelectSearchDescription"].Value)</section>
     <MultiSelect Items="@Items" @bind-Value="@SelectedSearchItemsValue" ShowSearch="true" OnSearchTextChanged="@OnSearch" />
     <section ignore class="mt-3">@SelectedSearchItemsValue</section>
-    <ConsoleLogger @ref="Logger" class="mt-3" />
+    <ConsoleLogger @ref="Logger" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MultiSelectGroupTitle"]" Introduction="@Localizer["MultiSelectGroupIntro"]" Name="Group">
@@ -109,7 +109,7 @@
 
 <DemoBlock Title="@Localizer["MultiSelectOptionChangeTitle"]" Introduction="@Localizer["MultiSelectOptionChangeIntro"]" Name="OptionChange">
     <MultiSelect Items="@Items" OnSelectedItemsChanged="@OnSelectedItemsChanged8" Value="@SelectedOptionItemsValue" />
-    <ConsoleLogger @ref="OptionLogger" class="mt-3" />
+    <ConsoleLogger @ref="OptionLogger" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MultiSelectClientValidationTitle"]" Introduction="@Localizer["MultiSelectClientValidationIntro"]" Name="ClientValidation">
