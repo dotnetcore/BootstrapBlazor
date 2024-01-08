@@ -1,5 +1,15 @@
 ﻿let canvas, ctx, lineThickness, drawingColor, x, y, savedImageData;
 let isPressed = false;
+let history = [];
+let currentState = -1;
+
+function saveState() {
+    currentState++;
+    history[currentState] = canvas.toDataURL();
+    if (currentState < history.length - 1) {
+        history = history.slice(0, currentState + 1);
+    }
+}
 
 function drawCircle(ctx, x, y) {
     ctx.beginPath();
@@ -56,6 +66,8 @@ function handlePressed(e) {
     isPressed = false;
     x = undefined;
     y = undefined;
+
+    saveState();
 }
 
 function handleMouseMove(e) {
@@ -64,6 +76,30 @@ function handleMouseMove(e) {
         const y2 = e.offsetY;
 
         draw(x2, y2);
+    }
+}
+
+export const undo = () => {
+    if (currentState > 0) {
+        currentState--;
+        const img = new Image();
+        img.src = history[currentState];
+        img.onload = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0);
+        };
+    }
+}
+
+export const redo = () => {
+    if (currentState < history.length - 1) {
+        currentState++;
+        const img = new Image();
+        img.src = history[currentState];
+        img.onload = () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0);
+        };
     }
 }
 
@@ -94,15 +130,21 @@ export const init = (id, thickness, color) => {
     drawingColor = color;
 
     canvas = document.getElementById(id);
+
     if (!canvas) {
         console.error('Canvas element not found');
         return;
     }
 
+    canvas.setAttribute('tabindex', 0);
+    canvas.focus();
+
     const style = getComputedStyle(canvas);
     canvas.width = parseInt(style.width, 10);
     canvas.height = parseInt(style.height, 10);
     ctx = canvas.getContext('2d');
+
+    saveState();
 
     if (isMobileDevice()) {
         canvas.addEventListener('touchstart', handleTouchStart);
@@ -130,4 +172,14 @@ export const init = (id, thickness, color) => {
         canvas.addEventListener('mouseup', handlePressed);
         canvas.addEventListener('mousemove', handleMouseMove);
     }
+
+    canvas.addEventListener('keydown', function (event) {
+        if (event.ctrlKey && event.key === 'z') {
+            event.preventDefault();
+            undo();
+        } else if (event.ctrlKey && event.key === 'y') {
+            event.preventDefault();
+            redo();
+        }
+    });
 };
