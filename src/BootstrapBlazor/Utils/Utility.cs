@@ -631,11 +631,11 @@ public static class Utility
                     }
                     break;
                 default:
-                    ret = typeof(BootstrapInput<>).MakeGenericType(fieldType);
+                    ret = typeof(BootstrapInput<>).MakeGenericType(typeof(string));
                     break;
             }
         }
-        return ret;
+        return ret ?? typeof(BootstrapInput<>).MakeGenericType(fieldType);
     }
 
     /// <summary>
