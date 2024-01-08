@@ -3,7 +3,7 @@
 @attribute [JSModuleAutoLoader("/Components/Samples/Tutorials/DrawingApp.razor.js", AutoInvokeInit = true, AutoInvokeDispose = false)]
 
 <div>
-    <canvas id="@Id"></canvas>
+    <canvas id="@Id" class="drawing-canvas"></canvas>
 
     <div class="row g-3 pt-2">
         <div class="col-12 col-md-6 col-lg-4 xl-3">
@@ -27,7 +27,7 @@
 @code {
     private int LineSize { get; set; } = 2;
 
-    private string DrawColor { get; set; } = "#000000";
+    private string DrawColor { get; set; } = "#ff0000";
 
     /// <inheritdoc />
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id);
@@ -36,5 +36,5 @@
 
     private async Task ChangeColor(string val) => await InvokeVoidAsync("changeColor", val);
 
-    private async Task ClearRect() => await InvokeVoidAsync("clearRect", Id);
+    private async Task ClearRect() => await InvokeVoidAsync("clearRect", Id, LineSize, DrawColor);
 }

@@ -1,6 +1,6 @@
-﻿let size = 2;
+﻿let size;
 let isPressed = false;
-let color = '#000000';
+let color;
 let x;
 let y;
 let savedImageData;
@@ -36,7 +36,10 @@ export const clearRect = (id) => {
     savedImageData = canvas.toDataURL();
 }
 
-export const init = (id) => {
+export const init = (id, lineSize, drawColor) => {
+    size = lineSize;
+    color = drawColor;
+
     const canvas = document.getElementById(id);
     const style = getComputedStyle(canvas);
     canvas.width = parseInt(style.width, 10);
