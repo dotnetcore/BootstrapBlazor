@@ -1,4 +1,6 @@
 ﻿@page "/tutorials/drawing-app"
+@inject MessageService MessageService
+@inject DownloadService DownloadService
 @inherits BootstrapModuleComponentBase
 @attribute [JSModuleAutoLoader("/Components/Samples/Tutorials/DrawingApp.razor.js", AutoInvokeInit = true, AutoInvokeDispose = false)]
 
@@ -15,26 +17,14 @@
         <div class="col-12 col-md-6 col-lg-4 xl-3">
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="LineColor" />
-                <ColorPicker Value="@DrawColor" OnValueChanged="@ChangeColor" />
+                <ColorPicker @bind-value="@DrawColor" OnValueChanged="@ChangeColor" />
             </BootstrapInputGroup>
         </div>
         <div class="col-12 col-md-6 col-lg-4 xl-3">
             <Button OnClick="@ClearRect" Color="Color.Primary">Clear</Button>
         </div>
+        <div class="col-12 col-md-6 col-lg-4 xl-3">
+            <Button OnClick="@DownloadImage" Color="Color.Primary">Download</Button>
+        </div>
     </div>
 </div>
-
-@code {
-    private int LineSize { get; set; } = 2;
-
-    private string DrawColor { get; set; } = "#ff0000";
-
-    /// <inheritdoc />
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id);
-
-    private async Task ChangeSize(int val) => await InvokeVoidAsync("changeSize", val);
-
-    private async Task ChangeColor(string val) => await InvokeVoidAsync("changeColor", val);
-
-    private async Task ClearRect() => await InvokeVoidAsync("clearRect", Id, LineSize, DrawColor);
-}

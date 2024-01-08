@@ -32,6 +32,13 @@ export const clearRect = (id) => {
     savedImageData = canvas.toDataURL();
 }
 
+export const exportImage = (id) => {
+    const canvas = document.getElementById(id);
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    return canvas.toDataURL('image/jpeg');
+}
+
 export const init = (id, lineSize, drawColor) => {
     size = lineSize;
     color = drawColor;
