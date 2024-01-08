@@ -1,9 +1,5 @@
-﻿let size;
+﻿let size, color, x, y, savedImageData;
 let isPressed = false;
-let color;
-let x;
-let y;
-let savedImageData;
 
 function drawCircle(ctx, x, y) {
     ctx.beginPath();
