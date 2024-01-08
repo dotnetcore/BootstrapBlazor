@@ -282,3 +282,17 @@
 .upload-buttons i:not(:first-child) {
     margin-left: 4px;
 }
+
+.btn-group .upload:not(:last-child) > button {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.btn-group .upload:not(:first-child) > button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.btn-group .upload .upload-body {
+    display: none;
+}
