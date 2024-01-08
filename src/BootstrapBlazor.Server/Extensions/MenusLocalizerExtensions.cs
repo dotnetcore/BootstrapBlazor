@@ -1302,6 +1302,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["Print"],
+                    Url = "print"
+                },
+                new()
+                {
                     Text = Localizer["Title"],
                     Url = "title"
                 },
