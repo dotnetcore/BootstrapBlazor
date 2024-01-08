@@ -1,0 +1,40 @@
+﻿@page "/tutorials/drawing-app"
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader("/Components/Samples/Tutorials/DrawingApp.razor.js", AutoInvokeInit = true, AutoInvokeDispose = false)]
+
+<div>
+    <canvas id="@Id"></canvas>
+
+    <div class="row g-3 pt-2">
+        <div class="col-12 col-md-6 col-lg-4 xl-3">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="LineSize" />
+                <BootstrapInputNumber Min="1" Max="10" Value="@LineSize" OnValueChanged="@ChangeSize" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 xl-3">
+            <BootstrapInputGroup>
+                <BootstrapInputGroupLabel DisplayText="LineColor" />
+                <ColorPicker Value="@DrawColor" OnValueChanged="@ChangeColor" />
+            </BootstrapInputGroup>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4 xl-3">
+            <Button OnClick="@ClearRect" Color="Color.Primary">Clear</Button>
+        </div>
+    </div>
+</div>
+
+@code {
+    private int LineSize { get; set; } = 2;
+
+    private string DrawColor { get; set; } = "#000000";
+
+    /// <inheritdoc />
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id);
+
+    private async Task ChangeSize(int val) => await InvokeVoidAsync("changeSize", val);
+
+    private async Task ChangeColor(string val) => await InvokeVoidAsync("changeColor", val);
+
+    private async Task ClearRect() => await InvokeVoidAsync("clearRect", Id);
+}

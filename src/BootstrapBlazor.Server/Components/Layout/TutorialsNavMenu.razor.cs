@@ -88,6 +88,12 @@ public partial class TutorialsNavMenu
                 Template = CreateDownloadButtonComponent("translate", _translateFileList),
                 Text = "翻译工具 Translate",
                 Url = "tutorials/translate"
+            },
+            new()
+            {
+                Template = CreateDownloadButtonComponent("translate", _translateFileList),
+                Text = "画图 Drawing",
+                Url = "tutorials/drawing-app"
             }
         ]);
     }
