@@ -6,25 +6,24 @@
 
 <div>
     <canvas id="@Id" class="drawing-canvas"></canvas>
-
     <div class="row g-3 pt-2">
-        <div class="col-12 col-md-6 col-lg-4 xl-3">
+        <div class="col-auto">
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="LineSize" />
-                <BootstrapInputNumber Min="1" Max="10" Value="@LineSize" OnValueChanged="@ChangeSize" />
+                <BootstrapInputNumber Min="1" Max="10" Value="@LineThickness" OnValueChanged="@ChangeSize" />
             </BootstrapInputGroup>
         </div>
-        <div class="col-12 col-md-6 col-lg-4 xl-3">
+        <div class="col-auto">
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="LineColor" />
-                <ColorPicker @bind-value="@DrawColor" OnValueChanged="@ChangeColor" />
+                <ColorPicker @bind-value="@DrawingColor" OnValueChanged="@ChangeColor" />
             </BootstrapInputGroup>
         </div>
-        <div class="col-12 col-md-6 col-lg-4 xl-3">
-            <Button OnClick="@ClearRect" Color="Color.Primary">Clear</Button>
+        <div class="col-auto">
+            <Button OnClick="@ClearCanvas" Color="Color.Primary">ClearCanvas</Button>
         </div>
-        <div class="col-12 col-md-6 col-lg-4 xl-3">
-            <Button OnClick="@DownloadImage" Color="Color.Primary">Download</Button>
+        <div class="col-auto">
+            <Button OnClick="@DownloadImage" Color="Color.Primary">DownloadImage</Button>
         </div>
     </div>
 </div>

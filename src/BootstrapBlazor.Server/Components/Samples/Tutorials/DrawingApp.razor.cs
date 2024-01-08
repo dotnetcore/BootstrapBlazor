@@ -11,12 +11,21 @@ namespace BootstrapBlazor.Server.Components.Samples.Tutorials;
 /// </summary>
 public partial class DrawingApp
 {
-    private int LineSize { get; set; } = 2;
+    /// <summary>
+    /// LineThickness
+    /// </summary>
+    private int LineThickness { get; set; } = 2;
 
-    private string DrawColor { get; set; } = "#4dff00";
+    /// <summary>
+    /// DrawingColor
+    /// </summary>
+    private string DrawingColor { get; set; } = "#6610f2";
 
-    /// <inheritdoc />
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, LineSize, DrawColor);
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, LineThickness, DrawingColor);
 
     /// <summary>
     /// ChangeSize
@@ -36,7 +45,7 @@ public partial class DrawingApp
     /// ClearRect
     /// </summary>
     /// <returns></returns>
-    private async Task ClearRect()
+    private async Task ClearCanvas()
     {
         await InvokeVoidAsync("clearRect", Id);
         await MessageService.Show(new MessageOption()
@@ -56,8 +65,12 @@ public partial class DrawingApp
         var base64String = await InvokeAsync<string>("exportImage", Id);
         if (!string.IsNullOrEmpty(base64String))
         {
-            byte[] byteArray = Convert.FromBase64String(base64String);
+            byte[] byteArray = Convert.FromBase64String(base64String.Replace("data:image/jpeg;base64,", ""));
             await DownloadService.DownloadFromByteArrayAsync("drawing-app.jpeg", byteArray);
+            await MessageService.Show(new MessageOption()
+            {
+                Content = "已下载图片"
+            });
         }
     }
 }
