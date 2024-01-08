@@ -56,11 +56,13 @@ export const init = (id, thickness, color) => {
         canvas.width = width;
         canvas.height = height;
 
-        const img = new Image();
-        img.src = savedImageData;
-        img.onload = function () {
-            ctx.drawImage(img, 0, 0);
-        };
+        if (savedImageData) {
+            const img = new Image();
+            img.src = savedImageData;
+            img.onload = () => {
+                ctx.drawImage(img, 0, 0);
+            };
+        }
     });
 
     canvas.addEventListener('mousedown', (e) => {
