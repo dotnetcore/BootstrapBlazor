@@ -663,6 +663,14 @@ public class UploadTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.OnGetFileFormat, extensions =>
             {
+                return null!;
+            });
+        });
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.OnGetFileFormat, extensions =>
+            {
                 return "fa-format-test";
             });
         });
