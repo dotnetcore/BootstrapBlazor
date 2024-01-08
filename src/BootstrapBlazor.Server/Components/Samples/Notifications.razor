@@ -45,7 +45,7 @@ public void ShowNotificationCallback(bool result)
             <Button Text="@Localizer["NotificationsNormalButtonText"]" OnClick="Dispatch" class="ms-2"></Button>
         </div>
     </div>
-    <ConsoleLogger @ref="Logger" class="mt-3" />
+    <ConsoleLogger @ref="Logger" />
 </DemoBlock>
 
 <AttributeTable Items="GetNotificationItem()" Title="@nameof(NotificationItem)" />

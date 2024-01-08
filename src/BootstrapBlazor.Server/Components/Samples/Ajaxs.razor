@@ -16,12 +16,12 @@
 };
 var result = await AjaxService.InvokeAsync(option);</Pre>
 
-    <div class="mt-3">
+    <div>
         <Button OnClick="Success">@Localizer["NormalButtonText1"]</Button>
         <Button OnClick="Fail">@Localizer["NormalButtonText2"]</Button>
         @if (!string.IsNullOrEmpty(ResultMessage))
         {
-            <div class="mt-2"><code>@ResultMessage</code></div>
+            <div class="mt-3"><code>@ResultMessage</code></div>
         }
     </div>
 </DemoBlock>

@@ -19,7 +19,7 @@
         <li>@Localizer["BasicUsageLi3"]</li>
     </ul>
     <BarcodeReader OnInit="@OnInit" OnResult="@OnResult" OnStart="@OnStart" OnClose="@OnClose" OnError="@OnError" />
-    <ConsoleLogger @ref="Logger" class="mt-3" />
+    <ConsoleLogger @ref="Logger" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ImageTitle"]" Introduction="@Localizer["ImageIntro"]" Name="Image">
@@ -30,7 +30,7 @@
         <li>@Localizer["ImageLi3"]</li>
     </ul>
     <BarcodeReader ScanType="@ScanType.Image" OnResult="@OnImageResult" OnError="@OnImageError" />
-    <ConsoleLogger @ref="ImageLogger" class="mt-3" />
+    <ConsoleLogger @ref="ImageLogger" />
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
