@@ -672,17 +672,6 @@ public static class Utility
         var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
         switch (type.Name)
         {
-            case nameof(String):
-                var ph = item.PlaceHolder ?? Utility.GetPlaceHolder(model, fieldName);
-                if (ph != null)
-                {
-                    ret.Add("placeholder", ph);
-                }
-                if (item.Rows != 0)
-                {
-                    ret.Add("rows", item.Rows);
-                }
-                break;
             case nameof(Int16):
             case nameof(Int32):
             case nameof(Int64):
@@ -692,6 +681,17 @@ public static class Utility
                 if (!string.IsNullOrEmpty(item.Step))
                 {
                     ret.Add("Step", item.Step);
+                }
+                break;
+            default:
+                var ph = item.PlaceHolder ?? Utility.GetPlaceHolder(model, fieldName);
+                if (ph != null)
+                {
+                    ret.Add("placeholder", ph);
+                }
+                if (item.Rows != 0)
+                {
+                    ret.Add("rows", item.Rows);
                 }
                 break;
         }
