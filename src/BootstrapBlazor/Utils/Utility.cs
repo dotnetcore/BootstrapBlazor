@@ -630,9 +630,6 @@ public static class Utility
                         ret = typeof(BootstrapInput<>).MakeGenericType(typeof(string));
                     }
                     break;
-                default:
-                    ret = typeof(BootstrapInput<>).MakeGenericType(typeof(string));
-                    break;
             }
         }
         return ret ?? typeof(BootstrapInput<>).MakeGenericType(fieldType);
@@ -696,8 +693,6 @@ public static class Utility
                 {
                     ret.Add("Step", item.Step);
                 }
-                break;
-            default:
                 break;
         }
         return ret;
