@@ -92,5 +92,8 @@
             <TableColumn @bind-Field="@context.Address" />
             <TableColumn @bind-Field="@context.Count" />
         </TableColumns>
+        <TableExtensionToolbarTemplate>
+             <ButtonUpload TValue="string" ShowUploadFileList="false" BrowserButtonClass="btn-secondary" />
+        </TableExtensionToolbarTemplate>
     </Table>
 </DemoBlock>
