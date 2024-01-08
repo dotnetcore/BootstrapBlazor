@@ -2,11 +2,11 @@
 @inject MessageService MessageService
 @inject DownloadService DownloadService
 @inherits BootstrapModuleComponentBase
-@attribute [JSModuleAutoLoader("/Components/Samples/Tutorials/DrawingApp.razor.js", AutoInvokeInit = true, AutoInvokeDispose = false)]
+@attribute [JSModuleAutoLoader("./Components/Samples/Tutorials/DrawingApp.razor.js", AutoInvokeInit = true, AutoInvokeDispose = false)]
 
 <div>
     <canvas id="@Id" class="drawing-canvas"></canvas>
-    <div class="row g-3 pt-2">
+    <div class="row g-3">
         <div class="col-auto">
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="LineSize" />
