@@ -243,7 +243,7 @@ public static class LambdaExtensions
         };
     }
 
-    private static Expression Contains(this Expression left, Expression right)
+    private static BinaryExpression Contains(this Expression left, Expression right)
     {
         // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I2DIR4
         // 兼容 EFCore 与普通逻辑 EFCore 内自动处理空问题
