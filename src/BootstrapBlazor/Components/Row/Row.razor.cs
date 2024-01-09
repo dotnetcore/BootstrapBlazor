@@ -32,21 +32,4 @@ public partial class Row
     /// </summary>
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
-
-    private ElementReference RowElement { get; set; }
-
-    /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync(RowElement, "bb_row");
-        }
-    }
 }

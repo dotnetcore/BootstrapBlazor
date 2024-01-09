@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
@@ -66,7 +65,7 @@ public class ButtonTest : BootstrapBlazorTestBase
     [InlineData(Color.Light, "btn-light")]
     [InlineData(Color.Dark, "btn-dark")]
     [InlineData(Color.Link, "btn-link")]
-    [InlineData(Color.None, "btn-none")]
+    [InlineData(Color.None, "btn")]
     public void Color_Ok(Color color, string @class)
     {
         var cut = Context.RenderComponent<Button>(pb =>
@@ -77,6 +76,18 @@ public class ButtonTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void DialogCloseButton_Color()
+    {
+        var cut = Context.RenderComponent<DialogCloseButton>();
+        Assert.Contains("btn-secondary", cut.Markup);
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Color, Color.Danger);
+        });
+        Assert.Contains("btn-danger", cut.Markup);
+    }
+
+    [Fact]
     public void Icon_Ok()
     {
         var cut = Context.RenderComponent<Button>(pb =>
@@ -84,7 +95,7 @@ public class ButtonTest : BootstrapBlazorTestBase
             pb.Add(b => b.Icon, "fa-solid fa-font-awesome");
         });
         Assert.Contains("class=\"fa-solid fa-font-awesome\"", cut.Markup);
-        Assert.Contains("fa-fw fa-spin fa-solid fa-spinner", cut.Instance.LoadingIcon);
+        Assert.Contains("fa-solid fa-spin fa-spinner", cut.Instance.LoadingIcon);
 
         cut.SetParametersAndRender(pb =>
         {
@@ -221,6 +232,7 @@ public class ButtonTest : BootstrapBlazorTestBase
         {
             pb.Add(b => b.StopPropagation, true);
         });
+        cut.Contains("blazor:onclick:stopPropagation");
     }
 
     [Fact]
@@ -238,24 +250,27 @@ public class ButtonTest : BootstrapBlazorTestBase
     [Fact]
     public void Tooltip_Ok()
     {
-        var cut = Context.RenderComponent<Button>(pb =>
+        var cut = Context.RenderComponent<Tooltip>(pb =>
         {
-            pb.AddChildContent<Tooltip>(pb =>
-            {
-                pb.Add(t => t.Title, "tooltip-title");
-            });
+            pb.Add(a => a.Placement, Placement.Top);
+            pb.Add(a => a.Title, "Tooltip");
+            pb.AddChildContent<Button>();
         });
 
-        // 切换 Disabled 状态移除 Tooltip
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(b => b.IsDisabled, true);
-        });
+        var button = cut.FindComponent<Button>();
+        cut.InvokeAsync(() => button.Instance.ShowTooltip());
 
-        cut.SetParametersAndRender(pb =>
+        button.SetParametersAndRender(pb =>
         {
-            pb.Add(b => b.IsDisabled, false);
+            pb.Add(a => a.TooltipText, "Tooltip-Button");
         });
+        Assert.Equal("Tooltip-Button", cut.Instance.Title);
+
+        var cut1 = Context.RenderComponent<Button>(pb =>
+        {
+            pb.Add(a => a.TooltipText, "tooltip");
+        });
+        cut1.InvokeAsync(() => cut1.Instance.ShowTooltip());
     }
 
     [Fact]
@@ -268,17 +283,23 @@ public class ButtonTest : BootstrapBlazorTestBase
                 pb.Add(t => t.Title, "popover-title");
             });
         });
+        cut.Contains("data-bs-original-title=\"popover-title\" data-bs-toggle=\"popover\" data-bs-placement=\"top\" data-bs-custom-class=\"shadow\" data-bs-trigger=\"focus hover\"");
 
         // 切换 Disabled 状态移除 Popover
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(b => b.IsDisabled, true);
         });
+        var button = cut.Find("button");
+        var d = button.GetAttribute("disabled");
+        Assert.Equal("disabled", d);
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(b => b.IsDisabled, false);
         });
+        button = cut.Find("button");
+        Assert.False(button.HasAttribute("disabled"));
     }
 
     [Fact]
@@ -315,17 +336,42 @@ public class ButtonTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task ShowTooltip_Ok()
+    public void ShowTooltip_Ok()
     {
         var cut = Context.RenderComponent<Button>();
-        await cut.InvokeAsync(() => cut.Instance.ShowTooltip());
+        var handler = Context.JSInterop.SetupVoid("showTooltip", cut.Instance.Id, "Tooltip");
+        // 未调用
+        cut.InvokeAsync(() => cut.Instance.ShowTooltip());
+        handler.VerifyNotInvoke("showTooltip");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.TooltipText, "Tooltip");
+        });
+        // 调用
+        Assert.Equal("Tooltip", cut.Instance.TooltipText);
+        handler.VerifyInvoke("showTooltip");
     }
 
     [Fact]
-    public async Task RemoveTooltip_Ok()
+    public void Trigger_Ok()
     {
         var cut = Context.RenderComponent<Button>();
-        await cut.InvokeAsync(() => cut.Instance.RemoveTooltip());
+        cut.DoesNotContain("data-bs-trigger");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.TooltipTrigger, "click");
+        });
+        cut.Contains("data-bs-trigger=\"click\"");
+    }
+
+    [Fact]
+    public void RemoveTooltip_Ok()
+    {
+        var cut = Context.RenderComponent<Button>();
+        cut.InvokeAsync(() => cut.Instance.RemoveTooltip());
+        Assert.Null(cut.Instance.TooltipText);
     }
 
     [Fact]
@@ -335,5 +381,52 @@ public class ButtonTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.IsAutoFocus, true);
         });
+
+        var button = cut.Find("button");
+        Context.JSInterop.VerifyFocusAsyncInvoke().Arguments[0].ShouldBeElementReferenceTo(button);
+    }
+
+    [Fact]
+    public void DialogCloseButton_Ok()
+    {
+        var clicked = false;
+        var cut = Context.RenderComponent<DialogCloseButton>(pb =>
+        {
+            pb.AddCascadingValue<Func<Task>>(() =>
+            {
+                clicked = true;
+                return Task.FromResult(0);
+            });
+        });
+        var button = cut.Find("button");
+        cut.InvokeAsync(() => button.Click());
+        Assert.True(clicked);
+    }
+
+    [Fact]
+    public void DialogSaveButton_Ok()
+    {
+        var cut = Context.RenderComponent<DialogSaveButton>();
+        cut.Contains("button type=\"submit\"");
+    }
+
+    [Fact]
+    public void ShareButton_Ok()
+    {
+        var cut = Context.RenderComponent<ShareButton>(pb =>
+        {
+            pb.Add(a => a.ShareContext, new ShareButtonContext() { Text = "test-share-text", Title = "test-share-title", Url = "www.blazor.zone" });
+        });
+
+        cut.InvokeAsync(() =>
+        {
+            var button = cut.Find("button");
+            button.Click();
+        });
+
+        var context = Context.JSInterop.VerifyInvoke("share").Arguments[0] as ShareButtonContext;
+        Assert.Equal("test-share-text", context?.Text);
+        Assert.Equal("test-share-title", context?.Title);
+        Assert.Equal("www.blazor.zone", context?.Url);
     }
 }

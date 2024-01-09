@@ -1,34 +1,27 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TModel
 @inherits DialogBase<TModel>
+@attribute [BootstrapModuleAutoLoader("Dialog/EditDialog.razor.js", AutoInvokeInit = false, AutoInvokeDispose = false)]
 
 <ValidateForm Model="@Model" OnValidSubmit="@OnValidSubmitAsync" DisableAutoSubmitFormByEnter="@DisableAutoSubmitFormByEnter">
     @if (BodyTemplate != null)
     {
         <div class="form-body">
-            @BodyTemplate.Invoke(Model)
+            @BodyTemplate(Model)
         </div>
-            <div class="form-footer">
-                @if (!IsTracking)
-                {
-                    <Button Color="Color.Secondary" Icon="fa-solid fa-xmark" Text="@CloseButtonText" OnClickWithoutRender="OnClose" />
-                }
-                <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="@SaveButtonText" />
-            </div>
+        <div class="form-footer">
+            @RenderFooter
+        </div>
     }
     else
     {
         <EditorForm TModel="TModel" Items="Items" ItemChangedType="ItemChangedType" ItemsPerRow="ItemsPerRow" RowType="RowType" LabelAlign="LabelAlign" ShowLabel="ShowLabel" ShowUnsetGroupItemsOnTop="ShowUnsetGroupItemsOnTop">
             <Buttons>
-                @if (!IsTracking)
-                {
-                    <Button Color="Color.Secondary" Icon="fa-solid fa-xmark" Text="@CloseButtonText" OnClickWithoutRender="OnClose" />
-                }
-                <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="@SaveButtonText" />
+                @RenderFooter
             </Buttons>
         </EditorForm>
     }
+    <div class="form-loader fade" id="@Id">
+        <Spinner Color="Color.Primary" />
+    </div>
 </ValidateForm>
-<div class="form-loader" @ref="SpinnerElement">
-    <Spinner Color="Color.Primary" />
-</div>

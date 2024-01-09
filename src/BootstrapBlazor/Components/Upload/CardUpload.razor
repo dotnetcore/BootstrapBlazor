@@ -6,7 +6,7 @@
 {
     <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="@AdditionalAttributes" class="@ClassString" @ref="UploaderElement">
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id" data-bb-previewer-id="@PreviewerId">
     <div class="@BodyClassString">
         @foreach (var item in GetUploadFiles())
         {
@@ -14,38 +14,55 @@
                 <div class="upload-item-body">
                     @if (IsImage(item))
                     {
-                        <img src="@item.PrevUrl" />
+                        <img alt="prevUrl" src="@item.PrevUrl" />
+                    }
+                    else if (IconTemplate != null)
+                    {
+                        @IconTemplate(item)
                     }
                     else
                     {
-                        <i class="@GetFileFormatClassString(item)"></i>
+                        <FileIcon Extension="@item.GetExtension()" />
                     }
                 </div>
-                <div class="upload-item-size"><span>@GetFileName(item)</span> (@item.Size.ToFileSizeString())</div>
+                <div class="upload-item-size"><span>@item.GetFileName()</span> (@item.Size.ToFileSizeString())</div>
                 <div class="upload-item-actions">
                     <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-secondary" disabled="@GetDiabledString(item)" @onclick="() => OnClickZoom(item)">
-                            <i class="fa-solid fa-magnifying-glass-plus"></i>
-                        </button>
-                        @if(ShowDownloadButton)
+                        @if (ShowZoomButton)
                         {
-                            <button type="button" class="btn btn-sm btn-secondary" disabled="@GetDiabledString(item)" @onclick="() => OnClickDownload(item)">
-                                <i class="fa-solid fa-download"></i>
+                            <button type="button" class="btn btn-sm btn-secondary btn-zoom" disabled="@GetDisabledString(item)" @onclick="() => OnClickZoom(item)" aria-label="zoom">
+                                <i class="@ZoomIcon"></i>
+                            </button>
+                        }
+                        @if (ShowDownloadButton)
+                        {
+                            <button type="button" class="btn btn-sm btn-secondary btn-download" disabled="@GetDisabledString(item)" @onclick="() => OnClickDownload(item)" aria-label="download">
+                                <i class="@DownloadIcon"></i>
+                            </button>
+                        }
+                        @if (GetShowProgress(item))
+                        {
+                            <button type="button" class="btn btn-sm btn-secondary btn-cancel" @onclick="() => OnClickCancel(item)" aria-label="cancel">
+                                <i class="@CancelIcon"></i>
                             </button>
                         }
                     </div>
-                    <DynamicElement TagName="button" type="button" class="btn btn-sm btn-outline-danger" disabled="@GetDeleteButtonDiabledString(item)"
-                                    TriggerClick="@(!IsDisabled)" OnClick="@(() => OnCardFileDelete(item))">
-                        <i class="fa-regular fa-trash-can"></i>
-                    </DynamicElement>
+                    @if (ShowDeletedButton)
+                    {
+                        <DynamicElement TagName="button" type="button" class="btn btn-sm btn-outline-danger"
+                                        disabled="@GetDeleteButtonDisabledString(item)" aria-label="delete"
+                                        TriggerClick="@(!IsDisabled)" OnClick="@(() => OnCardFileDelete(item))">
+                            <i class="@RemoveIcon"></i>
+                        </DynamicElement>
+                    }
                 </div>
                 @if (GetShowProgress(item))
                 {
                     <Progress Color="Color.Success" Height="4" Value="@item.ProgressPercent" />
                 }
                 <span class="upload-item-label">
-                    <i class="fa-solid fa-check"></i>
-                    <i class="fa-solid fa-xmark"></i>
+                    <i class="@StatusIconString"></i>
+                    <i class="@DeleteIconString"></i>
                 </span>
             </div>
         }
@@ -56,7 +73,7 @@
                     @if (!IsDisabled)
                     {
                         <span class="upload-item-plus">
-                            <i class="fa-solid fa-plus"></i>
+                            <i class="@AddIcon"></i>
                         </span>
                     }
                 </div>
@@ -67,6 +84,6 @@
 
     @if (ShowPreviewList)
     {
-        <ImagePreview PreviewList="PreviewList" />
+        <ImagePreviewer Id="@PreviewerId" PreviewList="PreviewList" />
     }
 </div>

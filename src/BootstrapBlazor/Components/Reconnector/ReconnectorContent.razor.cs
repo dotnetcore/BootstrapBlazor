@@ -33,13 +33,15 @@ public partial class ReconnectorContent
     [Parameter]
     public bool AutoReconnect { get; set; } = true;
 
-    [Inject]
-    [NotNull]
-    private IReconnectorProvider? Provider { get; set; }
+    /// <summary>
+    /// 获得/设置 自动重连间隔 默认 5000 毫秒 最小值为 1000 毫秒
+    /// </summary>
+    [Parameter]
+    public int ReconnectInterval { get; set; } = 5000;
 
     [Inject]
     [NotNull]
-    private IJSRuntime? JSRuntime { get; set; }
+    private IReconnectorProvider? Provider { get; set; }
 
     /// <summary>
     /// SetParametersAsync 方法
@@ -53,14 +55,14 @@ public partial class ReconnectorContent
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    /// <returns></returns>
+    protected override async Task InvokeInitAsync()
     {
-        if (firstRender && AutoReconnect)
+        if (AutoReconnect)
         {
-            await JSRuntime.InvokeVoidAsync(func: "bb_reconnect");
+            await InvokeVoidAsync("reconnect", Math.Max(1000, ReconnectInterval));
         }
     }
 

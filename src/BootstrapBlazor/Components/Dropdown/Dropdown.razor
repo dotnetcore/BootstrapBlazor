@@ -1,34 +1,51 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TValue
-@inherits ValidateBase<TValue>
+@inherits PopoverSelectBase<TValue>
+@attribute [BootstrapModuleAutoLoader("Dropdown/Dropdown.razor.js", JSObjectReference = true)]
 
 @if (IsShowLabel)
 {
     <BootstrapLabel for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="@AdditionalAttributes" id="@Id" class="@DirectionClassName">
-    <button type="button" class="@ButtonClassName" data-bs-toggle="@DropdownToggle" disabled="@Disabled">@ButtonText</button>
+    <button type="button" class="@ButtonClassName" data-bs-toggle="@DropdownToggle" disabled="@Disabled">
+        @if (ButtonTemplate == null)
+        {
+            @ButtonText
+        }
+        else
+        {
+            @ButtonTemplate(SelectedItem)
+        }
+    </button>
     @if (ShowSplit)
     {
-        <button type="button" class="@ClassName" data-bs-toggle="dropdown" disabled="@Disabled" aria-haspopup="true" aria-expanded="false"></button>
+        <button type="button" class="@ClassName" data-bs-toggle="@ToggleString" disabled="@Disabled" aria-haspopup="true" aria-expanded="false"></button>
     }
     @if (!IsDisabled)
     {
         <div class="@MenuAlignmentClass">
-            @foreach (var item in GetItems())
+            @if (ItemsTemplate == null)
             {
-                if (ItemTemplate != null)
+                @foreach (var item in GetItems())
                 {
-                    @ItemTemplate.Invoke(item)
+                    if (ItemTemplate != null)
+                    {
+                        @ItemTemplate.Invoke(item)
+                    }
+                    else if (item.IsDisabled)
+                    {
+                        <div class="@ActiveItem(item)">@item.Text</div>
+                    }
+                    else
+                    {
+                        <div class="@ActiveItem(item)" @onclick="e => OnItemClick(item)">@item.Text</div>
+                    }
                 }
-                else if (item.IsDisabled)
-                {
-                    <div class="@ActiveItem(item)">@item.Text</div>
-                }
-                else
-                {
-                    <div class="@ActiveItem(item)" @onclick="e => OnItemClick(item)">@item.Text</div>
-                }
+            }
+            else
+            {
+                @ItemsTemplate
             }
         </div>
     }

@@ -5,7 +5,6 @@
 using BootstrapBlazor.Localization.Json;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Options;
 using System.Collections.Concurrent;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -15,7 +14,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// ValidateForm 组件类
 /// </summary>
-public partial class ValidateForm : IAsyncDisposable
+public partial class ValidateForm
 {
     /// <summary>
     /// A callback that will be invoked when the form is submitted and the
@@ -100,7 +99,7 @@ public partial class ValidateForm : IAsyncDisposable
     /// <summary>
     /// 验证组件缓存
     /// </summary>
-    private ConcurrentDictionary<(string FieldName, Type ModelType), (FieldIdentifier FieldIdentifier, IValidateComponent ValidateComponent)> ValidatorCache { get; } = new();
+    private readonly ConcurrentDictionary<(string FieldName, Type ModelType), (FieldIdentifier FieldIdentifier, IValidateComponent ValidateComponent)> _validatorCache = new();
 
     private string? DisableAutoSubmitString => (DisableAutoSubmitFormByEnter.HasValue && DisableAutoSubmitFormByEnter.Value) ? "true" : null;
 
@@ -124,7 +123,7 @@ public partial class ValidateForm : IAsyncDisposable
     /// <param name="value"></param>
     internal void AddValidator((string FieldName, Type ModelType) key, (FieldIdentifier FieldIdentifier, IValidateComponent IValidateComponent) value)
     {
-        ValidatorCache.TryAdd(key, value);
+        _validatorCache.TryAdd(key, value);
     }
 
     /// <summary>
@@ -132,7 +131,7 @@ public partial class ValidateForm : IAsyncDisposable
     /// </summary>
     /// <param name="key"></param>
     /// <param name="value"></param>
-    internal bool TryRemoveValidator((string FieldName, Type ModelType) key, [MaybeNullWhen(false)] out (FieldIdentifier FieldIdentifier, IValidateComponent IValidateComponent) value) => ValidatorCache.TryRemove(key, out value);
+    internal bool TryRemoveValidator((string FieldName, Type ModelType) key, [MaybeNullWhen(false)] out (FieldIdentifier FieldIdentifier, IValidateComponent IValidateComponent) value) => _validatorCache.TryRemove(key, out value);
 
     /// <summary>
     /// 设置指定字段错误信息
@@ -157,12 +156,12 @@ public partial class ValidateForm : IAsyncDisposable
         if (exp.Expression != null)
         {
             var modelType = exp.Expression.Type;
-            var validator = ValidatorCache.FirstOrDefault(c => c.Key.ModelType == modelType && c.Key.FieldName == fieldName).Value.ValidateComponent;
+            var validator = _validatorCache.FirstOrDefault(c => c.Key.ModelType == modelType && c.Key.FieldName == fieldName).Value.ValidateComponent;
             if (validator != null)
             {
                 var results = new List<ValidationResult>
                 {
-                    new ValidationResult(errorMessage, new string[] { fieldName })
+                    new(errorMessage, new string[] { fieldName })
                 };
                 validator.ToggleMessage(results, true);
             }
@@ -180,7 +179,7 @@ public partial class ValidateForm : IAsyncDisposable
         {
             var results = new List<ValidationResult>
             {
-                new ValidationResult(errorMessage, new string[] { fieldName })
+                new(errorMessage, new string[] { fieldName })
             };
             validator.ToggleMessage(results, true);
         }
@@ -210,7 +209,7 @@ public partial class ValidateForm : IAsyncDisposable
 
     private bool TryGetValidator(Type modelType, string fieldName, [NotNullWhen(true)] out IValidateComponent validator)
     {
-        validator = ValidatorCache.FirstOrDefault(c => c.Key.ModelType == modelType && c.Key.FieldName == fieldName).Value.ValidateComponent;
+        validator = _validatorCache.FirstOrDefault(c => c.Key.ModelType == modelType && c.Key.FieldName == fieldName).Value.ValidateComponent;
         return validator != null;
     }
 
@@ -230,10 +229,10 @@ public partial class ValidateForm : IAsyncDisposable
         else
         {
             // 遍历所有可验证组件进行数据验证
-            foreach (var key in ValidatorCache.Keys)
+            foreach (var key in _validatorCache.Keys)
             {
                 // 验证 DataAnnotations
-                var validatorValue = ValidatorCache[key];
+                var validatorValue = _validatorCache[key];
                 var validator = validatorValue.ValidateComponent;
                 var fieldIdentifier = validatorValue.FieldIdentifier;
                 if (validator.IsNeedValidate)
@@ -268,7 +267,7 @@ public partial class ValidateForm : IAsyncDisposable
     /// <param name="results"></param>
     internal async Task ValidateFieldAsync(ValidationContext context, List<ValidationResult> results)
     {
-        if (!string.IsNullOrEmpty(context.MemberName) && ValidatorCache.TryGetValue((context.MemberName, context.ObjectType), out var v))
+        if (!string.IsNullOrEmpty(context.MemberName) && _validatorCache.TryGetValue((context.MemberName, context.ObjectType), out var v))
         {
             var validator = v.ValidateComponent;
             if (validator.IsNeedValidate)
@@ -294,7 +293,7 @@ public partial class ValidateForm : IAsyncDisposable
     /// <param name="results"></param>
     /// <param name="propertyInfo"></param>
     /// <param name="memberName"></param>
-    private void ValidateDataAnnotations(object? value, ValidationContext context, ICollection<ValidationResult> results, PropertyInfo propertyInfo, string? memberName = null)
+    private void ValidateDataAnnotations(object? value, ValidationContext context, List<ValidationResult> results, PropertyInfo propertyInfo, string? memberName = null)
     {
         var rules = propertyInfo.GetCustomAttributes(true).OfType<ValidationAttribute>();
         var metadataType = context.ObjectType.GetCustomAttribute<MetadataTypeAttribute>(false);
@@ -322,16 +321,10 @@ public partial class ValidateForm : IAsyncDisposable
                 if (!string.IsNullOrEmpty(rule.ErrorMessage))
                 {
                     var resxType = Options.Value.ResourceManagerStringLocalizerType;
-                    ProcessResourceManagerLocalizerType();
-
-                    [ExcludeFromCodeCoverage]
-                    void ProcessResourceManagerLocalizerType()
+                    if (resxType != null && LocalizerFactory.Create(resxType).TryGetLocalizerString(rule.ErrorMessage, out var resx))
                     {
-                        if (resxType != null && LocalizerFactory.Create(resxType).TryGetLocalizerString(rule.ErrorMessage, out var resx))
-                        {
-                            rule.ErrorMessage = resx;
-                            find = true;
-                        }
+                        rule.ErrorMessage = resx;
+                        find = true;
                     }
                 }
 
@@ -380,7 +373,7 @@ public partial class ValidateForm : IAsyncDisposable
     private async Task ValidateProperty(ValidationContext context, List<ValidationResult> results)
     {
         // 获得所有可写属性
-        var properties = context.ObjectType.GetRuntimeProperties().Where(p => IsPublic(p) && p.CanWrite && !p.GetIndexParameters().Any());
+        var properties = context.ObjectType.GetRuntimeProperties().Where(p => IsPublic(p) && p.CanWrite && p.GetIndexParameters().Length == 0);
         foreach (var pi in properties)
         {
             // 设置其关联属性字段
@@ -389,7 +382,7 @@ public partial class ValidateForm : IAsyncDisposable
             context.DisplayName = fieldIdentifier.GetDisplayName();
             context.MemberName = fieldIdentifier.FieldName;
 
-            if (ValidatorCache.TryGetValue((fieldIdentifier.FieldName, fieldIdentifier.Model.GetType()), out var v))
+            if (_validatorCache.TryGetValue((fieldIdentifier.FieldName, fieldIdentifier.Model.GetType()), out var v))
             {
                 var validator = v.ValidateComponent;
 
@@ -442,45 +435,88 @@ public partial class ValidateForm : IAsyncDisposable
             ValidateDataAnnotations(propertyValue, context, messages, pi);
             if (messages.Count == 0)
             {
+                _tcs = new();
                 // 自定义验证组件
                 await validator.ValidatePropertyAsync(propertyValue, context, messages);
+                _tcs.TrySetResult(messages.Count == 0);
             }
         }
 
-        _invalid = messages.Any();
+        _invalid = messages.Count > 0;
     }
 
     private bool _invalid = false;
 
-    private List<Button> AsyncSubmitButtons { get; } = new List<Button>();
+    private List<ButtonBase> AsyncSubmitButtons { get; } = [];
 
     /// <summary>
     /// 注册提交按钮
     /// </summary>
     /// <param name="button"></param>
-    internal void RegisterAsyncSubmitButton(Button button)
+    internal void RegisterAsyncSubmitButton(ButtonBase button)
     {
         AsyncSubmitButtons.Add(button);
     }
 
+    private TaskCompletionSource<bool>? _tcs;
+
     private async Task OnValidSubmitForm(EditContext context)
     {
-        if (OnValidSubmit != null)
+        var isAsync = AsyncSubmitButtons.Count > 0;
+        foreach (var b in AsyncSubmitButtons)
         {
-            var isAsync = AsyncSubmitButtons.Any();
-            foreach (var b in AsyncSubmitButtons)
+            b.TriggerAsync(true);
+        }
+        if (isAsync)
+        {
+            await Task.Yield();
+        }
+
+        var valid = true;
+        // 由于可能有异步验证，需要等待异步验证结束
+        if (_tcs != null)
+        {
+            valid = await _tcs.Task;
+        }
+        if (valid)
+        {
+            if (OnValidSubmit != null)
             {
-                b.TriggerAsync(true);
+                await OnValidSubmit(context);
             }
-            if (isAsync)
+        }
+        else
+        {
+            if (OnInvalidSubmit != null)
             {
-                await Task.Yield();
+                await OnInvalidSubmit(context);
             }
-            await OnValidSubmit(context);
-            foreach (var b in AsyncSubmitButtons)
-            {
-                b.TriggerAsync(false);
-            }
+        }
+
+        foreach (var b in AsyncSubmitButtons)
+        {
+            b.TriggerAsync(false);
+        }
+    }
+
+    private async Task OnInvalidSubmitForm(EditContext context)
+    {
+        var isAsync = AsyncSubmitButtons.Count > 0;
+        foreach (var b in AsyncSubmitButtons)
+        {
+            b.TriggerAsync(true);
+        }
+        if (isAsync)
+        {
+            await Task.Yield();
+        }
+        if (OnInvalidSubmit != null)
+        {
+            await OnInvalidSubmit(context);
+        }
+        foreach (var b in AsyncSubmitButtons)
+        {
+            b.TriggerAsync(false);
         }
     }
 
@@ -506,7 +542,7 @@ public partial class ValidateForm : IAsyncDisposable
     /// <param name="value"></param>
     public void NotifyFieldChanged(in FieldIdentifier fieldIdentifier, object? value)
     {
-        ValueChagnedFields.AddOrUpdate(fieldIdentifier, key => value, (key, v) => value);
+        ValueChangedFields.AddOrUpdate(fieldIdentifier, key => value, (key, v) => value);
         OnFieldValueChanged?.Invoke(fieldIdentifier.FieldName, value);
     }
 
@@ -514,28 +550,13 @@ public partial class ValidateForm : IAsyncDisposable
     /// 获取 当前表单值改变的属性集合
     /// </summary>
     /// <returns></returns>
+    public ConcurrentDictionary<FieldIdentifier, object?> ValueChangedFields { get; } = new();
+
+    /// <summary>
+    /// 获取 当前表单值改变的属性集合
+    /// </summary>
+    /// <returns></returns>
+    [Obsolete("已过期，单词拼写错误，请使用 ValueChangedFields，Please use ValueChangedFields instead. wrong typo")]
+    [ExcludeFromCodeCoverage]
     public ConcurrentDictionary<FieldIdentifier, object?> ValueChagnedFields { get; } = new();
-
-    /// <summary>
-    /// DisposeAsyncCore 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected virtual async ValueTask DisposeAsyncCore(bool disposing)
-    {
-        if (disposing)
-        {
-            await JSRuntime.InvokeVoidAsync(Id, "bb_form");
-        }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsyncCore(true);
-        GC.SuppressFinalize(this);
-    }
 }

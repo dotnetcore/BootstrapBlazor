@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Extensions;
 using Microsoft.Extensions.Localization;
 using System.Globalization;
 
@@ -28,6 +29,7 @@ public partial class BootstrapInputNumber<TValue>
         .AddClass(CssClass).AddClass(ValidCss)
         .AddClass("input-number-fix", ShowButton)
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None)
+        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     [NotNull]
@@ -69,50 +71,46 @@ public partial class BootstrapInputNumber<TValue>
     [Parameter]
     public bool ShowButton { get; set; }
 
+    /// <summary>
+    /// 获得/设置 减小数值图标
+    /// </summary>
+    [Parameter]
+    public string? MinusIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 增加数值图标
+    /// </summary>
+    [Parameter]
+    public string? PlusIcon { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<BootstrapInputNumber<TValue>>? Localizer { get; set; }
 
-    /// <summary>
-    /// SetParametersAsync 方法
-    /// </summary>
-    /// <param name="parameters"></param>
-    /// <returns></returns>
-    public override Task SetParametersAsync(ParameterView parameters)
-    {
-        // Unwrap Nullable<T>, because InputBase already deals with the Nullable aspect
-        // of it for us. We will only get asked to parse the T for nonempty inputs.
-        var targetType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
-        if (!typeof(TValue).IsNumber())
-        {
-            throw new InvalidOperationException($"The type '{targetType}' is not a supported numeric type.");
-        }
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
-        return base.SetParametersAsync(parameters);
-    }
+    [Inject]
+    [NotNull]
+    private IOptions<BootstrapBlazorOptions>? StepOption { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        ParsingErrorMessage ??= Localizer[nameof(ParsingErrorMessage)];
-    }
-
-    /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
-        SetStep();
+        ParsingErrorMessage ??= Localizer[nameof(ParsingErrorMessage)];
+        MinusIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputNumberMinusIcon);
+        PlusIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputNumberPlusIcon);
+
+        StepString = Step ?? StepOption.Value.GetStep<TValue>() ?? "any";
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
     protected override string? FormatParsingErrorMessage() => string.Format(CultureInfo.InvariantCulture, ParsingErrorMessage, DisplayText);
@@ -129,7 +127,7 @@ public partial class BootstrapInputNumber<TValue>
             : InternalFormat(value));
 
     /// <summary>
-    /// 
+    /// InternalFormat 方法
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
@@ -146,23 +144,7 @@ public partial class BootstrapInputNumber<TValue>
         _ => throw new InvalidOperationException($"Unsupported type {value!.GetType()}"),
     };
 
-    private void SetStep()
-    {
-        var val = CurrentValue;
-        switch (val)
-        {
-            case int:
-            case long:
-            case short:
-                StepString = Step ?? "1";
-                break;
-            case float:
-            case double:
-            case decimal:
-                StepString = Step ?? "0.01";
-                break;
-        }
-    }
+    private string GetStepString() => (string.IsNullOrEmpty(StepString) || StepString.Equals("any", StringComparison.OrdinalIgnoreCase)) ? "1" : StepString;
 
     /// <summary>
     /// 点击减少按钮式时回调此方法
@@ -171,25 +153,26 @@ public partial class BootstrapInputNumber<TValue>
     private async Task OnClickDec()
     {
         var val = CurrentValue;
+        var step = GetStepString();
         switch (val)
         {
             case int @int:
-                val = (TValue)(object)(@int - int.Parse(StepString));
+                val = (TValue)(object)(@int - int.Parse(step));
                 break;
             case long @long:
-                val = (TValue)(object)(@long - long.Parse(StepString));
+                val = (TValue)(object)(@long - long.Parse(step));
                 break;
             case short @short:
-                val = (TValue)(object)(short)(@short - short.Parse(StepString));
+                val = (TValue)(object)(short)(@short - short.Parse(step));
                 break;
             case float @float:
-                val = (TValue)(object)(@float - float.Parse(StepString));
+                val = (TValue)(object)(@float - float.Parse(step));
                 break;
             case double @double:
-                val = (TValue)(object)(@double - double.Parse(StepString));
+                val = (TValue)(object)(@double - double.Parse(step));
                 break;
             case decimal @decimal:
-                val = (TValue)(object)(@decimal - decimal.Parse(StepString));
+                val = (TValue)(object)(@decimal - decimal.Parse(step));
                 break;
         }
         CurrentValue = SetMax(SetMin(val));
@@ -206,25 +189,26 @@ public partial class BootstrapInputNumber<TValue>
     private async Task OnClickInc()
     {
         var val = CurrentValue;
+        var step = GetStepString();
         switch (val)
         {
             case int @int:
-                val = (TValue)(object)(@int + int.Parse(StepString));
+                val = (TValue)(object)(@int + int.Parse(step));
                 break;
             case long @long:
-                val = (TValue)(object)(@long + long.Parse(StepString));
+                val = (TValue)(object)(@long + long.Parse(step));
                 break;
             case short @short:
-                val = (TValue)(object)(short)(@short + short.Parse(StepString));
+                val = (TValue)(object)(short)(@short + short.Parse(step));
                 break;
             case float @float:
-                val = (TValue)(object)(@float + float.Parse(StepString));
+                val = (TValue)(object)(@float + float.Parse(step));
                 break;
             case double @double:
-                val = (TValue)(object)(@double + double.Parse(StepString));
+                val = (TValue)(object)(@double + double.Parse(step));
                 break;
             case decimal @decimal:
-                val = (TValue)(object)(@decimal + decimal.Parse(StepString));
+                val = (TValue)(object)(@decimal + decimal.Parse(step));
                 break;
         }
         CurrentValue = SetMax(SetMin(val));

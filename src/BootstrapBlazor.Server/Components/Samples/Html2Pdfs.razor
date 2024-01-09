@@ -1,0 +1,30 @@
+﻿@page "/html2pdf"
+@inject ToastService ToastService
+@inject IStringLocalizer<Html2Pdfs> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
+@inherits WebSiteModuleComponentBase
+@attribute [JSModuleAutoLoader("Samples/Html2Pdfs.razor.js", AutoInvokeDispose = false, AutoInvokeInit = false)]
+
+<h3>@Localizer["Html2PdfTitle"]</h3>
+
+<h4>@Localizer["Html2PdfDescription"]</h4>
+
+<Tips>
+    <div>@((MarkupString)Localizer["Html2PdfNote"].Value)</div>
+</Tips>
+
+<Pre class="no-highlight">builder.Services.Configure&lt;HubOptions&gt;(option => option.MaximumReceiveMessageSize = null);</Pre>
+
+<DemoBlock Title="@Localizer["Html2PdfElementTitle"]" Introduction="@Localizer["Html2PdfElementIntro"]" Name="Normal">
+    <section ignore class="mb-3">
+        @((MarkupString)Localizer["Html2PdfElementDesc"].Value)
+    </section>
+    <Button OnClickWithoutRender="OnExportAsync" Text="ExportPdf" class="mb-3"></Button>
+    <Table TItem="Foo" Items="@Items.Take(3)" Id="table-9527">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" />
+        </TableColumns>
+    </Table>
+</DemoBlock>

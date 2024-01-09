@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// MultipleUploadBase 基类
 /// </summary>
 public abstract class MultipleUploadBase<TValue> : UploadBase<TValue>
 {
@@ -51,12 +51,9 @@ public abstract class MultipleUploadBase<TValue> : UploadBase<TValue>
             UploadFiles.Remove(item);
             if (!string.IsNullOrEmpty(item.ValidateId))
             {
-                await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", item.ValidateId, "dispose");
+                await RemoveValidResult(item.ValidateId);
             }
-            if (DefaultFileList != null)
-            {
-                DefaultFileList.Remove(item);
-            }
+            DefaultFileList?.Remove(item);
         }
         return ret;
     }

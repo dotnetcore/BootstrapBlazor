@@ -2,6 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Web;
+using System.Reflection;
+
 namespace BootstrapBlazor.Components;
 
 public partial class Table<TItem>
@@ -120,18 +123,6 @@ public partial class Table<TItem>
     [Parameter]
     public Func<TItem, Task>? OnResetSearchAsync { get; set; }
 
-    private string? TopSearchClassString => CssBuilder.Default("card")
-        .AddClass("collapsed", CollapsedTopSearch)
-        .Build();
-
-    private string? TopSearchHeaderClassString => CssBuilder.Default("table-search-collapse")
-        .AddClass("is-open", !CollapsedTopSearch)
-        .Build();
-
-    private string? TopSearchBodyClassString => CssBuilder.Default()
-        .AddClass("display: none;", CollapsedTopSearch)
-        .Build();
-
     /// <summary>
     /// 重置查询方法
     /// </summary>
@@ -227,7 +218,9 @@ public partial class Table<TItem>
             RowType = SearchDialogRowType,
             ItemsPerRow = SearchDialogItemsPerRow,
             Size = SearchDialogSize,
-            LabelAlign = SearchDialogLabelAlign
+            LabelAlign = SearchDialogLabelAlign,
+            IsDraggable = SearchDialogIsDraggable,
+            ShowMaximizeButton = SearchDialogShowMaximizeButton
         };
     }
 
@@ -235,44 +228,67 @@ public partial class Table<TItem>
     /// 获得 <see cref="CustomerSearchModel"/> 中过滤条件 <see cref="SearchTemplate"/> 模板中的条件无法获得
     /// </summary>
     /// <returns></returns>
-    protected IEnumerable<IFilterAction> GetCustomerSearchs()
+    protected IEnumerable<IFilterAction> GetCustomerSearches()
     {
-        var searchs = new List<IFilterAction>();
+        var searches = new List<IFilterAction>();
         // 处理自定义 SearchModel 条件
         if (CustomerSearchModel != null)
         {
-            searchs.AddRange(CustomerSearchModel.GetSearchs());
+            searches.AddRange(CustomerSearchModel.GetSearches());
         }
-        return searchs;
+        return searches;
     }
 
     /// <summary>
     /// 获得 <see cref="SearchModel"/> 中过滤条件
     /// </summary>
     /// <returns></returns>
-    protected List<IFilterAction> GetAdvanceSearchs()
+    protected List<IFilterAction> GetAdvanceSearches()
     {
-        var searchs = new List<IFilterAction>();
+        var searches = new List<IFilterAction>();
         if (ShowAdvancedSearch && CustomerSearchModel == null && SearchModel != null)
         {
+            var callback = GetAdvancedSearchFilterCallback ?? new Func<PropertyInfo, TItem, List<SearchFilterAction>?>((p, model) =>
+            {
+                var ret = new List<SearchFilterAction>();
+                var v = p.GetValue(model);
+                if (v != null && v.ToString() != string.Empty)
+                {
+                    ret.Add(new SearchFilterAction(p.Name, v, FilterAction.Equal));
+                }
+                return ret;
+            });
+
             var searchColumns = Columns.Where(i => i.Searchable);
             foreach (var property in SearchModel.GetType().GetProperties().Where(i => searchColumns.Any(col => col.GetFieldName() == i.Name)))
             {
-                var v = property.GetValue(SearchModel);
-                if (v != null && v.ToString() != string.Empty)
+                var filters = callback(property, SearchModel);
+                if (filters != null && filters.Any())
                 {
-                    searchs.Add(new SearchFilterAction(property.Name, v, FilterAction.Equal));
+                    searches.AddRange(filters);
                 }
             }
         }
-        return searchs;
+        return searches;
     }
 
     /// <summary>
     /// 通过列集合中的 <see cref="ITableColumn.Searchable"/> 列与 <see cref="SearchText"/> 拼装 IFilterAction 集合
     /// </summary>
     /// <returns></returns>
-    protected List<IFilterAction> GetSearchs() => Columns.Where(col => col.Searchable).ToSearchs(SearchText);
+    protected List<IFilterAction> GetSearches() => Columns.Where(col => col.Searchable).ToSearches(SearchText);
+
+    private async Task OnSearchKeyUp(KeyboardEventArgs args)
+    {
+        if (args.Key == "Enter")
+        {
+            await SearchClick();
+        }
+        else if (args.Key == "Escape")
+        {
+            await ClearSearchClick();
+        }
+    }
 
     /// <summary>
     /// 重置搜索按钮调用此方法
@@ -288,18 +304,4 @@ public partial class Table<TItem>
     /// </summary>
     /// <returns></returns>
     private IEnumerable<ITableColumn> GetSearchColumns() => Columns.Where(c => c.Searchable);
-
-    /// <summary>
-    /// 客户端 SearchTextbox 文本框内按回车时调用此方法
-    /// </summary>
-    /// <returns></returns>
-    [JSInvokable]
-    public async Task OnSearch() => await SearchClick();
-
-    /// <summary>
-    /// 客户端 SearchTextbox 文本框内按 ESC 时调用此方法
-    /// </summary>
-    /// <returns></returns>
-    [JSInvokable]
-    public async Task OnClearSearch() => await ClearSearchClick();
 }

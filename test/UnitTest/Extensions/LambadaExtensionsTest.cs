@@ -2,8 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
 using System.ComponentModel.DataAnnotations;
+using System.Dynamic;
 using System.Linq.Expressions;
 
 namespace UnitTest.Extensions;
@@ -26,29 +26,54 @@ public class LambadaExtensionsTest
     }
 
     [Fact]
-    public void GetFilterFunc_Ok()
+    public void GetFilterLambda_Nullable()
     {
-        var filter = new FilterKeyValueAction();
-        var invoker = filter.GetFilterFunc<Foo>();
-        Assert.True(invoker(new Foo()));
+        var foos = new Foo[]
+        {
+            new() { Count = 1 },
+            new() { Count = 2 },
+            new() { Count = 10 },
+            new() { Count = 11 }
+        };
+        var filter = new FilterKeyValueAction()
+        {
+            FieldKey = "DateTime",
+            FilterAction = FilterAction.NotEqual,
+            FieldValue = DateTime.MinValue
+        };
+        var items = foos.Where(filter.GetFilterFunc<Foo>());
+        Assert.Empty(items);
     }
 
     [Fact]
-    public void GetFilterLambda_Nullable()
+    public void GetFilterLambda_Filter()
     {
-        var filters = new FilterKeyValueAction() { FieldKey = nameof(Foo.DateTime), FieldValue = null };
-        var invoker = filters.GetFilterLambda<Foo>().Compile();
-
-        // FieldValue 为 null 值 直接返回 true
-        Assert.True(invoker.Invoke(new Foo() { DateTime = DateTime.MinValue }));
-
-        // 过滤条件更改为 MinValue
-        filters = new FilterKeyValueAction() { FieldKey = nameof(Foo.DateTime), FieldValue = DateTime.MinValue };
-        invoker = filters.GetFilterLambda<Foo>().Compile();
-
-        Assert.True(invoker.Invoke(new Foo() { DateTime = DateTime.MinValue }));
-        Assert.False(invoker.Invoke(new Foo() { DateTime = DateTime.Now }));
-        Assert.False(invoker.Invoke(new Foo() { DateTime = null }));
+        var foos = new Foo[]
+        {
+            new() { Count = 1 },
+            new() { Count = 2 },
+            new() { Count = 10 },
+            new() { Count = 11 }
+        };
+        var filter = new FilterKeyValueAction()
+        {
+            Filters =
+            [
+                new FilterKeyValueAction()
+                {
+                    FilterLogic = FilterLogic.Or,
+                    Filters =
+                    [
+                        new FilterKeyValueAction() { FieldKey = "Count", FilterAction = FilterAction.Equal, FieldValue = 1 },
+                        new FilterKeyValueAction() { FieldKey = "Count", FilterAction = FilterAction.Equal, FieldValue = 2 }
+                    ]
+                },
+                new FilterKeyValueAction() { FieldKey = "Count", FilterAction = FilterAction.GreaterThan, FieldValue = 1 },
+                new FilterKeyValueAction() { FieldKey = "Count", FilterAction = FilterAction.LessThan, FieldValue = 10 }
+            ]
+        };
+        var items = foos.Where(filter.GetFilterFunc<Foo>());
+        Assert.Single(items);
     }
 
     [Fact]
@@ -57,14 +82,6 @@ public class LambadaExtensionsTest
         var filters = new FilterKeyValueAction() { FieldKey = nameof(Dummy.Education), FieldValue = "Middle" };
         var exp = filters.GetFilterLambda<Dummy>();
         Assert.True(exp.Compile().Invoke(new Dummy() { Education = EnumEducation.Middle }));
-    }
-
-    [Fact]
-    public void GetFilterLambda_Null()
-    {
-        var filters = Array.Empty<FilterKeyValueAction>();
-        var exp = filters.GetFilterLambda<Foo>();
-        Assert.True(exp.Compile().Invoke(new Foo()));
     }
 
     [Fact]
@@ -106,7 +123,19 @@ public class LambadaExtensionsTest
     }
 
     [Fact]
-    public void FilterKeyValueAction_FieldKey_Null()
+    public void FilterKeyValueAction_FieldName_Null()
+    {
+        // FieldValue 为 null 时 均返回 true
+        var filter = new FilterKeyValueAction() { FieldKey = "", FieldValue = 1 };
+        var invoker = filter.GetFilterLambda<Foo>().Compile();
+
+        // 符合条件
+        Assert.True(invoker.Invoke(new Foo()));
+        Assert.True(invoker.Invoke(new Foo() { Name = "Test" }));
+    }
+
+    [Fact]
+    public void FilterKeyValueAction_FieldValue_Null()
     {
         // FieldValue 为 null 时 均返回 true
         var filter = new FilterKeyValueAction() { FieldKey = "Name", FieldValue = null };
@@ -251,7 +280,7 @@ public class LambadaExtensionsTest
             new Foo { Name = "10", Count = 20 },
             new Foo { Name = "20", Count = 20 },
         }.AsQueryable();
-        var orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Count desc", "Name" });
+        var orderFoos = LambdaExtensions.Sort(foos, ["Count desc", "Name"]);
         Assert.Equal(20, orderFoos.ElementAt(0).Count);
         Assert.Equal("20", orderFoos.ElementAt(1).Name);
 
@@ -289,13 +318,13 @@ public class LambadaExtensionsTest
         orderFoos = LambdaExtensions.Sort(foos, "Test", SortOrder.Asc);
         Assert.Equal(10, orderFoos.ElementAt(0).Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Count desc", "Name" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Count desc", "Name"]);
         Assert.Equal(20, orderFoos.ElementAt(0).Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Count", "Name desc" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Count", "Name desc"]);
         Assert.Equal(10, orderFoos.ElementAt(0).Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Count", "Test desc" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Count", "Test desc"]);
         Assert.Equal(10, orderFoos.ElementAt(0).Count);
     }
 
@@ -320,13 +349,13 @@ public class LambadaExtensionsTest
         orderFoos = LambdaExtensions.Sort(foos, "Test", SortOrder.Asc);
         Assert.Equal(10, orderFoos.ElementAt(0).Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Count desc", "Name" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Count desc", "Name"]);
         Assert.Equal(20, orderFoos.ElementAt(0).Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Count", "Name desc" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Count", "Name desc"]);
         Assert.Equal(10, orderFoos.ElementAt(0).Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Count", "Test desc" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Count", "Test desc"]);
         Assert.Equal(10, orderFoos.ElementAt(0).Count);
     }
 
@@ -348,13 +377,13 @@ public class LambadaExtensionsTest
         orderFoos = LambdaExtensions.Sort(foos, "Foo1.Count", SortOrder.Desc);
         Assert.Equal(10, orderFoos.ElementAt(0).Foo!.Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Foo.Count desc", "Foo.Name" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Foo.Count desc", "Foo.Name"]);
         Assert.Equal(20, orderFoos.ElementAt(0).Foo!.Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Foo.Count", "Foo.Name Desc" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Foo.Count", "Foo.Name Desc"]);
         Assert.Equal(10, orderFoos.ElementAt(0).Foo!.Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Foo.Count", "Foo.Test Desc" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Foo.Count", "Foo.Test Desc"]);
         Assert.Equal(10, orderFoos.ElementAt(0).Foo!.Count);
     }
 
@@ -376,13 +405,13 @@ public class LambadaExtensionsTest
         orderFoos = LambdaExtensions.Sort(foos, "Foo1.Count", SortOrder.Desc);
         Assert.Equal(10, orderFoos.ElementAt(0).Foo!.Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Foo.Count desc", "Foo.Name" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Foo.Count desc", "Foo.Name"]);
         Assert.Equal(20, orderFoos.ElementAt(0).Foo!.Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Foo.Count", "Foo.Name Desc" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Foo.Count", "Foo.Name Desc"]);
         Assert.Equal(10, orderFoos.ElementAt(0).Foo!.Count);
 
-        orderFoos = LambdaExtensions.Sort(foos, new List<string>() { "Foo.Count", "Foo.Test Desc" });
+        orderFoos = LambdaExtensions.Sort(foos, ["Foo.Count", "Foo.Test Desc"]);
         Assert.Equal(10, orderFoos.ElementAt(0).Foo!.Count);
     }
 
@@ -391,6 +420,15 @@ public class LambadaExtensionsTest
     {
         Foo? foo = null;
         Assert.Throws<ArgumentNullException>(() => LambdaExtensions.GetPropertyValueLambda<object?, string>(foo, "Name"));
+    }
+
+    [Fact]
+    public void GetPropertyValueLambda_Dynamic()
+    {
+        var foo = new CustomDynamicData(new Dictionary<string, string>() { ["Name"] = "Test1" });
+        var invoker = LambdaExtensions.GetPropertyValueLambda<CustomDynamicData, string>(foo, "Name").Compile();
+        var t = invoker(foo);
+        Assert.Equal("Test1", t);
     }
 
     [Fact]
@@ -480,13 +518,13 @@ public class LambadaExtensionsTest
 
     private abstract class MockFilterActionBase : IFilterAction
     {
-        public abstract IEnumerable<FilterKeyValueAction> GetFilterConditions();
+        public abstract FilterKeyValueAction GetFilterConditions();
 
         public virtual void Reset()
         {
         }
 
-        public virtual Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions)
+        public virtual Task SetFilterConditionsAsync(FilterKeyValueAction conditions)
         {
             return Task.CompletedTask;
         }
@@ -494,23 +532,26 @@ public class LambadaExtensionsTest
 
     private class MockAndFilterAction1 : MockFilterActionBase
     {
-        public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
+        public override FilterKeyValueAction GetFilterConditions()
         {
-            var filters = new FilterKeyValueAction[]
+            var filters = new FilterKeyValueAction()
             {
-                new()
-                {
-                     FieldKey = "Count",
-                     FieldValue = 1,
-                     FilterAction = FilterAction.GreaterThan,
-                     FilterLogic = FilterLogic.And
-                },
-                new()
-                {
-                     FieldKey = "Count",
-                     FieldValue = 10,
-                     FilterAction = FilterAction.LessThan
-                }
+                Filters =
+                [
+                    new()
+                    {
+                         FieldKey = "Count",
+                         FieldValue = 1,
+                         FilterAction = FilterAction.GreaterThan,
+                         FilterLogic = FilterLogic.And
+                    },
+                    new()
+                    {
+                         FieldKey = "Count",
+                         FieldValue = 10,
+                         FilterAction = FilterAction.LessThan
+                    }
+                ]
             };
             return filters;
         }
@@ -518,17 +559,20 @@ public class LambadaExtensionsTest
 
     private class MockAndFilterAction2 : MockFilterActionBase
     {
-        public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
+        public override FilterKeyValueAction GetFilterConditions()
         {
-            var filters = new FilterKeyValueAction[]
+            var filters = new FilterKeyValueAction()
             {
-                new()
-                {
-                     FieldKey = "Count",
-                     FieldValue = 2,
-                     FilterAction = FilterAction.Equal,
-                     FilterLogic = FilterLogic.And
-                }
+                Filters =
+                [
+                    new()
+                    {
+                         FieldKey = "Count",
+                         FieldValue = 2,
+                         FilterAction = FilterAction.Equal,
+                         FilterLogic = FilterLogic.And
+                    }
+                ]
             };
             return filters;
         }
@@ -536,24 +580,26 @@ public class LambadaExtensionsTest
 
     private class MockOrFilterAction1 : MockFilterActionBase
     {
-        public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
+        public override FilterKeyValueAction GetFilterConditions()
         {
-            var filters = new FilterKeyValueAction[]
+            var filters = new FilterKeyValueAction()
             {
-                new()
-                {
-                     FieldKey = "Count",
-                     FieldValue = 1,
-                     FilterAction = FilterAction.Equal,
-                     FilterLogic = FilterLogic.Or
-                },
-                new()
-                {
-                     FieldKey = "Count",
-                     FieldValue = 2,
-                     FilterAction = FilterAction.Equal,
-                     FilterLogic = FilterLogic.Or
-                }
+                FilterLogic = FilterLogic.Or,
+                Filters =
+                [
+                    new()
+                    {
+                         FieldKey = "Count",
+                         FieldValue = 1,
+                         FilterAction = FilterAction.Equal
+                    },
+                    new()
+                    {
+                         FieldKey = "Count",
+                         FieldValue = 2,
+                         FilterAction = FilterAction.Equal
+                    }
+                ]
             };
             return filters;
         }
@@ -561,18 +607,77 @@ public class LambadaExtensionsTest
 
     private class MockOrFilterAction2 : MockFilterActionBase
     {
-        public override IEnumerable<FilterKeyValueAction> GetFilterConditions()
+        public override FilterKeyValueAction GetFilterConditions()
         {
-            var filters = new FilterKeyValueAction[]
+            var filters = new FilterKeyValueAction()
             {
-                new()
-                {
-                     FieldKey = "Count",
-                     FieldValue = 10,
-                     FilterAction = FilterAction.Equal
-                }
+                Filters =
+                [
+                    new()
+                    {
+                         FieldKey = "Count",
+                         FieldValue = 10,
+                         FilterAction = FilterAction.Equal
+                    }
+                ]
             };
             return filters;
+        }
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="fix"></param>
+    /// <param name="data"></param>
+    private class CustomDynamicData(Dictionary<string, string> data) : System.Dynamic.DynamicObject
+    {
+        /// <summary>
+        /// 存储每列值信息 Key 列名 Value 为列值
+        /// </summary>
+        public Dictionary<string, string> Dynamic { get; set; } = data;
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public CustomDynamicData() : this([]) { }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <param name="binder"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public override bool TryGetMember(GetMemberBinder binder, out object? result)
+        {
+            if (Dynamic.ContainsKey(binder.Name))
+            {
+                result = Dynamic[binder.Name];
+            }
+            else
+            {
+                // When property name not found, return empty
+                result = "";
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// <inheritdoc/>
+        /// </summary>
+        /// <param name="binder"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public override bool TrySetMember(SetMemberBinder binder, object? value)
+        {
+            var ret = false;
+            var v = value?.ToString() ?? string.Empty;
+            if (Dynamic.ContainsKey(binder.Name))
+            {
+                Dynamic[binder.Name] = v;
+                ret = true;
+            }
+            return ret;
         }
     }
 

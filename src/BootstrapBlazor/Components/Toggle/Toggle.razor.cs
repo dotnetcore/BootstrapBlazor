@@ -12,11 +12,11 @@ namespace BootstrapBlazor.Components;
 public partial class Toggle
 {
     private string? ClassName => CssBuilder.Default("btn btn-toggle")
-        .AddClass("btn-default off", !Value)
+        .AddClass("off", !Value)
         .AddClass("disabled", IsDisabled)
         .Build();
 
-    private string? ToggleOnClassString => CssBuilder.Default("toggle-on")
+    private string? ToggleOnClassString => CssBuilder.Default("toggle on")
         .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None)
         .Build();
 

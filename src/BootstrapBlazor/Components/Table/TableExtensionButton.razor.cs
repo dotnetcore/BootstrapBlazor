@@ -7,12 +7,13 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 
 /// </summary>
+[JSModuleNotInherited]
 public partial class TableExtensionButton
 {
     /// <summary>
     /// 获得 Toolbar 扩展按钮集合
     /// </summary>
-    private List<ButtonBase> Buttons { get; } = new();
+    private List<ButtonBase> Buttons { get; } = [];
 
     /// <summary>
     /// Specifies the content to be rendered inside this

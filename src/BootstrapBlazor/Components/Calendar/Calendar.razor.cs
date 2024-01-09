@@ -84,6 +84,10 @@ public partial class Calendar
             .AddClass("is-today", item.CellValue.Ticks == DateTime.Today.Ticks)
             .Build();
 
+    private string? ClassString => CssBuilder.Default("calendar")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
     /// <summary>
     /// OnInitialized 方法
     /// </summary>
@@ -102,13 +106,13 @@ public partial class Calendar
         PreviousMonth = Localizer[nameof(PreviousMonth)];
         NextMonth = Localizer[nameof(NextMonth)];
         Today = Localizer[nameof(Today)];
-        WeekLists = Localizer[nameof(WeekLists)].Value.Split(',').ToList();
+        WeekLists = [.. Localizer[nameof(WeekLists)].Value.Split(',')];
         PreviousWeek = Localizer[nameof(PreviousWeek)];
         NextWeek = Localizer[nameof(NextWeek)];
         WeekText = Localizer[nameof(WeekText)];
         WeekHeaderText = Localizer[nameof(WeekHeaderText)];
         WeekNumberText = Localizer[nameof(WeekNumberText), GetWeekCount()];
-        Months = Localizer[nameof(Months)].Value.Split(',').ToList();
+        Months = [.. Localizer[nameof(Months)].Value.Split(',')];
     }
 
     /// <summary>
@@ -179,24 +183,30 @@ public partial class Calendar
         {
             await ValueChanged.InvokeAsync(Value);
         }
-
-        StateHasChanged();
+        else
+        {
+            StateHasChanged();
+        }
     }
 
     /// <summary>
     /// 右侧快捷切换年按钮回调此方法
     /// </summary>
     /// <param name="offset"></param>
-    protected void OnChangeYear(int offset)
+    protected async Task OnChangeYear(int offset)
     {
         Value = Value.AddYears(offset);
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(Value);
+        }
     }
 
     /// <summary>
     /// 右侧快捷切换月按钮回调此方法
     /// </summary>
     /// <param name="offset"></param>
-    protected void OnChangeMonth(int offset)
+    protected async Task OnChangeMonth(int offset)
     {
         if (offset == 0)
         {
@@ -206,13 +216,17 @@ public partial class Calendar
         {
             Value = Value.AddMonths(offset);
         }
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(Value);
+        }
     }
 
     /// <summary>
     /// 右侧快捷切换周按钮回调此方法
     /// </summary>
     /// <param name="offset"></param>
-    protected void OnChangeWeek(int offset)
+    protected async Task OnChangeWeek(int offset)
     {
         if (offset == 0)
         {
@@ -223,6 +237,10 @@ public partial class Calendar
             Value = Value.AddDays(offset);
         }
         WeekNumberText = Localizer[nameof(WeekNumberText), GetWeekCount()];
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(Value);
+        }
     }
 
     private CalendarCellValue CreateCellValue(DateTime cellValue)

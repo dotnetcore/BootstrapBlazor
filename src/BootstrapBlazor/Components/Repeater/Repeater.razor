@@ -1,0 +1,47 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+@typeparam TItem
+
+<div @attributes="@AdditionalAttributes" class="@RepeaterClassString">
+    @if (Items == null)
+    {
+        if (ShowLoading)
+        {
+            if (LoadingTemplate == null)
+            {
+                <div class="repeater-loading">
+                    <Spinner Color="Color.Primary" />
+                </div>
+            }
+            else
+            {
+                @LoadingTemplate
+            }
+        }
+    }
+    else if (Items.Any())
+    {
+        if (ContainerTemplate != null)
+        {
+            @ContainerTemplate(RenderItemTemplate(Items))
+        }
+        else
+        {
+            @RenderItemTemplate(Items)
+        }
+    }
+    else
+    {
+        if (ShowEmpty)
+        {
+            if (EmptyTemplate == null)
+            {
+                @EmptyText
+            }
+            else
+            {
+                @EmptyTemplate
+            }
+        }
+    }
+</div>

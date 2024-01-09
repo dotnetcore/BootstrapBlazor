@@ -55,33 +55,35 @@ public class BaiduSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
         if (Module == null)
         {
             var moduleName = "./_content/BootstrapBlazor.BaiduSpeech/js/synthesizer.js";
-            Logger.LogInformation($"load module {moduleName}");
+            Logger.LogInformation("load module {moduleName}", moduleName);
             Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", moduleName);
         }
         Interop ??= DotNetObjectReference.Create(this);
 
-        if (Option.MethodName == "bb_baidu_speech_synthesizerOnce" && !string.IsNullOrEmpty(Option.Text))
+        switch (Option.MethodName)
         {
-            var result = Client.Synthesis(Option.Text);
-            if (result.Success)
-            {
-                await Module.InvokeVoidAsync(Option.MethodName, Interop, nameof(Callback), result.Data);
-            }
-            else
-            {
-
-            }
-            Logger.LogInformation($"bb_baidu_speech_synthesizerOnce {result.Success}");
-            if (!result.Success)
-            {
-                Logger.LogError($"{result.ErrorCode}: {result.ErrorMsg}");
-            }
-        }
-        else if (Option.MethodName == "bb_baidu_close_synthesizer")
-        {
-            // 停止语音
-            await Module.InvokeVoidAsync(Option.MethodName, Interop, nameof(Callback));
-            Logger.LogInformation("bb_baidu_close_synthesizer");
+            case "bb_baidu_speech_synthesizerOnce" when !string.IsNullOrEmpty(Option.Text):
+                {
+                    var result = Client.Synthesis(Option.Text, new Dictionary<string, object>()
+                    {
+                        { "spd", SpeechOption.Speed }
+                    });
+                    if (result.Success)
+                    {
+                        await Module.InvokeVoidAsync(Option.MethodName, Interop, nameof(Callback), result.Data);
+                    }
+                    Logger.LogInformation("bb_baidu_speech_synthesizerOnce {result}", result.Success);
+                    if (!result.Success)
+                    {
+                        Logger.LogError("{ErrorCode}: {ErrorMsg}", result.ErrorCode, result.ErrorMsg);
+                    }
+                    break;
+                }
+            case "bb_baidu_close_synthesizer":
+                // 停止语音
+                await Module.InvokeVoidAsync(Option.MethodName, Interop, nameof(Callback));
+                Logger.LogInformation("bb_baidu_close_synthesizer");
+                break;
         }
     }
 
@@ -107,11 +109,8 @@ public class BaiduSynthesizerProvider : ISynthesizerProvider, IAsyncDisposable
     {
         if (disposing)
         {
-            if (Interop != null)
-            {
-                Interop.Dispose();
-            }
-            if (Module is not null)
+            Interop?.Dispose();
+            if (Module != null)
             {
                 await Module.DisposeAsync();
             }

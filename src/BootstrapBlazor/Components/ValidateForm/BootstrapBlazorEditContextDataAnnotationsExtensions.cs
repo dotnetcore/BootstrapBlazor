@@ -22,9 +22,7 @@ internal static class BootstrapBlazorEditContextDataAnnotationsExtensions
         var messages = new ValidationMessageStore(editContext);
 
         editContext.OnValidationRequested += async (sender, eventArgs) => await editForm.ValidateModel(sender as EditContext, messages, provider);
-
         editContext.OnFieldChanged += async (sender, eventArgs) => await editForm.ValidateField(editContext, messages, eventArgs, provider);
-
         return editContext;
     }
 

@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
 using System.ComponentModel;
 using System.Globalization;
 
@@ -15,7 +14,7 @@ public class ObjectExtensionsTest
     [InlineData("95%", "95%")]
     [InlineData("95px", "95px")]
     [InlineData("95", "95px")]
-    [InlineData("test", "")]
+    [InlineData("auto", "auto")]
     public static void ConvertToPercentString_Ok(string? source, string expect)
     {
         var actual = source.ConvertToPercentString();
@@ -53,6 +52,16 @@ public class ObjectExtensionsTest
     public static void IsDateTime_Ok(Type source, bool expect)
     {
         var actual = source.IsDateTime();
+        Assert.Equal(expect, actual);
+    }
+
+    [Theory]
+    [InlineData(typeof(TimeSpan?), true)]
+    [InlineData(typeof(TimeSpan), true)]
+    [InlineData(typeof(string), false)]
+    public static void IsTimeSpan_Ok(Type source, bool expect)
+    {
+        var actual = source.IsTimeSpan();
         Assert.Equal(expect, actual);
     }
 
@@ -226,6 +235,21 @@ public class ObjectExtensionsTest
     {
         var item = new MockEditItem<Dummy, string>() { FieldName = fieldName };
         Assert.Throws<InvalidOperationException>(() => item.CanWrite(typeof(Dummy)));
+    }
+
+    [Fact]
+    public void IsStatic_Ok()
+    {
+        var v = new MockStatic();
+        var pi = v.GetType().GetProperty(nameof(MockStatic.Test))!;
+        Assert.True(pi.IsStatic());
+    }
+
+    private class MockStatic
+    {
+        private static int _test;
+
+        public static int Test { set { _test = value; } }
     }
 
     [TypeConverter(typeof(DummyConverter))]

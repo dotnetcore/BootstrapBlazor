@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// SweetAlert 组件
 /// </summary>
-public partial class SweetAlert : IDisposable
+public partial class SweetAlert : IAsyncDisposable
 {
     /// <summary>
     /// 获得/设置 Modal 容器组件实例
@@ -28,13 +28,16 @@ public partial class SweetAlert : IDisposable
 
     private int Delay { get; set; }
 
-    private CancellationTokenSource? DelayToken { get; set; }
+    private CancellationTokenSource DelayToken { get; set; } = new();
 
     [NotNull]
-    private Dictionary<string, object?>? DialogParameter { get; set; }
+    private Dictionary<string, object>? DialogParameter { get; set; }
+
+    [NotNull]
+    private Func<Task>? OnCloseAsync { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -42,10 +45,23 @@ public partial class SweetAlert : IDisposable
 
         // 注册 Swal 弹窗事件
         SwalService.Register(this, Show);
+
+        // 设置 OnCloseAsync 回调方法
+        OnCloseAsync = () =>
+        {
+            IsShowDialog = false;
+            DialogParameter = null;
+            if (AutoHideCheck())
+            {
+                DelayToken.Cancel();
+            }
+            StateHasChanged();
+            return Task.CompletedTask;
+        };
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -55,52 +71,47 @@ public partial class SweetAlert : IDisposable
 
         if (IsShowDialog)
         {
-            IsShowDialog = false;
+            // 打开弹窗
             await ModalContainer.Show();
 
-            if (IsAutoHide && Delay > 0)
+            // 自动关闭处理逻辑
+            if (AutoHideCheck())
             {
-                if (DelayToken == null)
+                try
                 {
-                    DelayToken = new CancellationTokenSource();
-                }
-
-                await Task.Delay(Delay, DelayToken.Token);
-
-                if (!DelayToken.IsCancellationRequested)
-                {
-                    // 自动关闭弹窗
+                    if (DelayToken.IsCancellationRequested)
+                    {
+                        DelayToken = new();
+                    }
+                    await Task.Delay(Delay, DelayToken.Token);
                     await ModalContainer.Close();
                 }
+                catch (TaskCanceledException) { }
             }
         }
     }
 
+    private bool AutoHideCheck() => IsAutoHide && Delay > 0;
+
     private Task Show(SwalOption option)
     {
-        IsAutoHide = option.IsAutoHide;
-        Delay = option.Delay;
-
-        option.Dialog = ModalContainer;
-        var parameters = option.ToAttributes();
-
-        parameters.Add(nameof(ModalDialog.OnClose), new Func<Task>(async () =>
+        if (!IsShowDialog)
         {
-            if (IsAutoHide && DelayToken != null)
-            {
-                DelayToken.Cancel();
-                DelayToken = null;
-            }
-            DialogParameter = null;
-            await ModalContainer.CloseOrPopDialog();
+            // 保证仅打开一个弹窗
+            IsShowDialog = true;
+
+            IsAutoHide = option.IsAutoHide;
+            Delay = option.Delay;
+
+            option.Modal = ModalContainer;
+            var parameters = option.ToAttributes();
+            parameters.Add(nameof(ModalDialog.BodyTemplate), BootstrapDynamicComponent.CreateComponent<SweetAlertBody>(option.Parse()).Render());
+
+            DialogParameter = parameters;
+
+            // 渲染 UI 准备弹窗 Dialog
             StateHasChanged();
-        }));
-
-        parameters.Add(nameof(ModalDialog.BodyTemplate), BootstrapDynamicComponent.CreateComponent<SweetAlertBody>(SweetAlertBody.Parse(option)).Render());
-
-        DialogParameter = parameters;
-        IsShowDialog = true;
-        StateHasChanged();
+        }
         return Task.CompletedTask;
     }
 
@@ -110,28 +121,36 @@ public partial class SweetAlert : IDisposable
         {
             var index = 0;
             builder.OpenComponent<ModalDialog>(index++);
-            foreach (var p in DialogParameter)
-            {
-                builder.AddAttribute(index++, p.Key, p.Value);
-            }
+            builder.SetKey(DialogParameter);
+            builder.AddMultipleAttributes(index++, DialogParameter);
             builder.CloseComponent();
         }
     };
 
+    private bool disposed;
+
     /// <summary>
-    /// 
+    /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
+    protected virtual async ValueTask DisposeAsync(bool disposing)
     {
-        if (disposing)
+        if (!disposed && disposing)
         {
-            if (DelayToken != null)
+            disposed = true;
+
+            if (IsShowDialog)
             {
+                // 关闭弹窗
                 DelayToken.Cancel();
-                DelayToken.Dispose();
-                DelayToken = null;
+                await ModalContainer.Close();
+                IsShowDialog = false;
             }
+
+            // 释放 Token
+            DelayToken.Dispose();
+
+            // 注销服务
             SwalService.UnRegister(this);
         }
     }
@@ -139,9 +158,9 @@ public partial class SweetAlert : IDisposable
     /// <summary>
     /// Dispose 方法
     /// </summary>
-    public void Dispose()
+    public async ValueTask DisposeAsync()
     {
-        Dispose(disposing: true);
+        await DisposeAsync(true);
         GC.SuppressFinalize(this);
     }
 }

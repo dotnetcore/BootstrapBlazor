@@ -1,0 +1,14 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+
+<div @attributes="@AdditionalAttributes" class="@ClassString" data-bb-width="@Width" data-bb-color-light="@LightColor" data-bb-color-dark="@DarkColor" @ref="@Element">
+    <div class="qrcode-img" style="@ImageStyleString"></div>
+    @if (ShowButtons)
+    {
+        <div class="input-group mt-3">
+            <BootstrapInput PlaceHolder="@PlaceHolder" Value="@Content" OnValueChanged="OnValueChanged"></BootstrapInput>
+            <Button Icon="@ClearButtonIcon" Text="@ClearButtonText" Color="@Color.Secondary" OnClick="@OnClickClear"></Button>
+            <Button Icon="@GenerateButtonIcon" Text="@GenerateButtonText" Color="@Color.Success" OnClick="@OnClickGenerate"></Button>
+        </div>
+    }
+</div>

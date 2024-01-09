@@ -1,0 +1,202 @@
+.light {
+    --bb-light-bg: #{$bb-light-bg};
+    --bb-light-danger-start-color: #{$bb-light-danger-start-color};
+    --bb-light-danger-end-color: #{$bb-light-danger-end-color};
+    --bb-light-danger-hover-color: #{$bb-light-danger-hover-color};
+    --bb-light-success-start-color: #{$bb-light-success-start-color};
+    --bb-light-success-end-color: #{$bb-light-success-end-color};
+    --bb-light-success-hover-color: #{$bb-light-success-hover-color};
+    --bb-light-info-start-color: #{$bb-light-info-start-color};
+    --bb-light-info-end-color: #{$bb-light-info-end-color};
+    --bb-light-info-hover-color: #{$bb-light-info-hover-color};
+    --bb-light-warning-start-color: #{$bb-light-warning-start-color};
+    --bb-light-warning-end-color: #{$bb-light-warning-end-color};
+    --bb-light-warning-hover-color: #{$bb-light-warning-hover-color};
+    --bb-light-primary-start-color: #{$bb-light-primary-start-color};
+    --bb-light-primary-end-color: #{$bb-light-primary-end-color};
+    --bb-light-primary-hover-color: #{$bb-light-primary-hover-color};
+    --bb-light-secondary-start-color: #{$bb-light-secondary-start-color};
+    --bb-light-secondary-end-color: #{$bb-light-secondary-end-color};
+    --bb-light-secondary-hover-color: #{$bb-light-secondary-hover-color};
+    --bb-light-dark-start-color: #{$bb-light-dark-start-color};
+    --bb-light-dark-end-color: #{$bb-light-dark-end-color};
+    --bb-light-dark-hover-color: #{$bb-light-dark-hover-color};
+    --bb-light-width: #{$bb-light-width};
+    --bb-light-height: #{$bb-light-height};
+    --bb-light-border-radius: #{$bb-light-border-radius};
+    --bb-light-animation-duration: #{$bb-light-animation-duration};
+    --bb-light-danger-bg: radial-gradient(circle, var(--bb-light-danger-start-color), var(--bb-light-danger-end-color), #700604);
+    --bb-light-danger-hover-bg: radial-gradient(circle, var(--bb-light-danger-start-color), var(--bb-light-danger-hover-color), #bf211e);
+    --bb-light-success-bg: radial-gradient(circle, var(--bb-light-success-start-color), var(--bb-light-success-end-color), #024702);
+    --bb-light-success-hover-bg: radial-gradient(circle, var(--bb-light-success-start-color), var(--bb-light-success-hover-color), #087b08);
+    --bb-light-info-bg: radial-gradient(circle, var(--bb-light-info-start-color), var(--bb-light-info-end-color), #085166);
+    --bb-light-info-hover-bg: radial-gradient(circle, var(--bb-light-info-start-color), var(--bb-light-info-hover-color), #085166);
+    --bb-light-warning-bg: radial-gradient(circle, var(--bb-light-warning-start-color), var(--bb-light-warning-end-color), #a28018);
+    --bb-light-warning-hover-bg: radial-gradient(circle, var(--bb-light-warning-start-color), var(--bb-light-warning-hover-color), #a28018);
+    --bb-light-primary-bg: radial-gradient(circle, var(--bb-light-primary-start-color), var(--bb-light-primary-end-color), #104f94);
+    --bb-light-primary-hover-bg: radial-gradient(circle, var(--bb-light-primary-start-color), var(--bb-light-primary-hover-color), #104f94);
+    --bb-light-secondary-bg: radial-gradient(circle, var(--bb-light-secondary-start-color), var(--bb-light-secondary-end-color), #3b3d40);
+    --bb-light-secondary-hover-bg: radial-gradient(circle, var(--bb-light-secondary-start-color), var(--bb-light-secondary-hover-color), #3b3d40);
+    --bb-light-dark-bg: radial-gradient(circle, var(--bb-light-dark-start-color), var(--bb-light-dark-end-color), #17177b);
+    --bb-light-dark-hover-bg: radial-gradient(circle, var(--bb-light-dark-start-color), var(--bb-light-dark-hover-color), #17177b);
+    background: var(--bb-light-bg);
+    cursor: pointer;
+    width: var(--bb-light-width);
+    height: var(--bb-light-width);
+    border-radius: var(--bb-light-border-radius);
+    display: inline-block;
+
+    + span {
+        display: none;
+    }
+
+    &.is-flat {
+        --bb-light-danger-bg: var(--bs-danger);
+        --bb-light-danger-hover-bg: var(--bs-danger);
+        --bb-light-success-bg: var(--bs-success);
+        --bb-light-success-hover-bg: var(--bs-success);
+        --bb-light-info-bg: var(--bs-info);
+        --bb-light-info-hover-bg: var(--bs-info);
+        --bb-light-warning-bg: var(--bs-warning);
+        --bb-light-warning-hover-bg: var(--bs-warning);
+        --bb-light-primary-bg: var(--bs-primary);
+        --bb-light-primary-hover-bg: var(--bs-primary);
+        --bb-light-secondary-bg: var(--bs-secondary);
+        --bb-light-secondary-hover-bg: var(--bs-secondary);
+        --bb-light-dark-bg: var(--bs-dark);
+        --bb-light-dark-hover-bg: var(--bs-dark);
+        position: relative;
+
+        &:after {
+            content: "";
+            position: absolute;
+            top: 0;
+            inset-inline-start: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 1px solid var(--bb-light-bg);
+            animation: light-flat 1.2s infinite ease-in-out;
+        }
+    }
+
+    &.light-danger {
+        --bb-light-bg: var(--bb-light-danger-bg);
+
+        &.flash {
+            animation: light-danger var(--bb-light-animation-duration) linear infinite;
+        }
+
+        &:hover {
+            --bb-light-bg: var(--bb-light-danger-hover-bg);
+        }
+    }
+
+    &.light-success {
+        --bb-light-bg: var(--bb-light-success-bg);
+
+        &.flash {
+            animation: light-success var(--bb-light-animation-duration) linear infinite;
+        }
+
+        &:hover {
+            --bb-light-bg: var(--bb-light-success-hover-bg);
+        }
+    }
+
+    &.light-info {
+        --bb-light-bg: var(--bb-light-info-bg);
+
+        &.flash {
+            animation: light-info var(--bb-light-animation-duration) linear infinite;
+        }
+
+        &:hover {
+            --bb-light-bg: var(--bb-light-info-hover-bg);
+        }
+    }
+
+    &.light-warning {
+        --bb-light-bg: var(--bb-light-warning-bg);
+
+        &.flash {
+            animation: light-warning var(--bb-light-animation-duration) linear infinite;
+        }
+
+        &:hover {
+            --bb-light-bg: var(--bb-light-warning-hover-bg);
+        }
+    }
+
+    &.light-primary {
+        --bb-light-bg: var(--bb-light-primary-bg);
+
+        &.flash {
+            animation: light-primary var(--bb-light-animation-duration) linear infinite;
+        }
+
+        &:hover {
+            --bb-light-bg: var(--bb-light-primary-hover-bg);
+        }
+    }
+
+    &.light-secondary {
+        --bb-light-bg: var(--bb-light-secondary-bg);
+
+        &.flash {
+            animation: light-secondary var(--bb-light-animation-duration) linear infinite;
+        }
+
+        &:hover {
+            --bb-light-bg: var(--bb-light-secondary-hover-bg)
+        }
+    }
+
+    &.light-dark {
+        --bb-light-bg: var(--bb-light-dark-bg);
+
+        &.flash {
+            animation: light-dark var(--bb-light-animation-duration) linear infinite;
+        }
+
+        &:hover {
+            --bb-light-bg: var(--bb-light-dark-hover-bg);
+        }
+    }
+}
+
+@mixin animation ($name, $color1, $color2) {
+    @keyframes #{$name} {
+        0% {
+            background: radial-gradient(circle, #{$color1}, #{$color2}, #700604);
+        }
+
+        55% {
+            background: radial-gradient(circle, #{$color1}, #{$color2}, #700604);
+        }
+
+        100% {
+            background: radial-gradient(circle, #fff, #aaa, #333)
+        }
+    }
+}
+
+@keyframes light-flat {
+    0% {
+        transform: scale(.8);
+        opacity: .5;
+    }
+
+    100% {
+        transform: scale(2.4);
+        opacity: 0;
+    }
+}
+
+@include animation(light-danger, #e17777, #892726);
+@include animation(light-success, #5cb85c, #116811);
+@include animation(light-info, #5bc0de, #1d7792);
+@include animation(light-light-warning, #ffc107, #cc9f18);
+@include animation(light-primary, #007bff, #0f5fb5);
+@include animation(light-secondary, #6c757d, #4b5054);
+@include animation(light-dark, #6061e2, #3232a0);

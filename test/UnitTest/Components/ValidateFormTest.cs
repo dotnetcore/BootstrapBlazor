@@ -2,11 +2,10 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Options;
-using System;
+using System.Collections.Concurrent;
 using System.ComponentModel.DataAnnotations;
 
 namespace UnitTest.Components;
@@ -179,6 +178,13 @@ public class ValidateFormTest : ValidateFormTestBase
         cut.Instance.SetError("Name", "Test_SetError");
         cut.Instance.SetError("Test.Name", "Test_SetError");
         cut.Instance.SetError<Foo>(f => f.Name, "Name_SetError");
+
+        // 利用反射提高代码覆盖率
+        var method = typeof(ValidateForm).GetMethod("TryGetValidator", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        Assert.NotNull(method);
+
+        var ret = method.Invoke(cut.Instance, [typeof(Dummy), "Test", null]);
+        Assert.False((bool?)ret);
     }
 
     [Fact]
@@ -200,6 +206,12 @@ public class ValidateFormTest : ValidateFormTestBase
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(dummy, "Value", typeof(DateTime?)));
             });
         });
+        cut.Instance.SetError<Dummy>(f => f.Value, "Name_SetError");
+
+        // 利用反射提高代码覆盖率
+        var fieldInfo = cut.Instance.GetType().GetField("_validatorCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        var cache = (ConcurrentDictionary<(string FieldName, Type ModelType), (FieldIdentifier FieldIdentifier, IValidateComponent ValidateComponent)>)fieldInfo.GetValue(cut.Instance)!;
+        cache.Remove(("Value", typeof(Dummy)), out _);
         cut.Instance.SetError<Dummy>(f => f.Value, "Name_SetError");
     }
 
@@ -223,14 +235,19 @@ public class ValidateFormTest : ValidateFormTestBase
     [Fact]
     public void Validate_Class_Ok()
     {
-        var foo = new Dummy();
+        var dummy = new Dummy();
         var cut = Context.RenderComponent<ValidateForm>(pb =>
         {
-            pb.Add(a => a.Model, foo);
+            pb.Add(a => a.Model, dummy);
             pb.Add(a => a.ValidateAllProperties, true);
             pb.AddChildContent<BootstrapInput<string>>(pb =>
             {
-                pb.Add(a => a.Value, foo.Foo.Name);
+                pb.Add(a => a.Value, dummy.Foo.Name);
+            });
+            pb.AddChildContent<BootstrapInput<Foo>>(pb =>
+            {
+                pb.Add(a => a.Value, dummy.Foo);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(dummy, nameof(dummy.Foo), typeof(Foo)));
             });
         });
         var form = cut.Find("form");
@@ -312,7 +329,7 @@ public class ValidateFormTest : ValidateFormTestBase
     }
 
     [Fact]
-    public async Task Validate_Address_Ok()
+    public void Validate_Address_Ok()
     {
         var foo = new MockFoo();
         var cut = Context.RenderComponent<ValidateForm>(pb =>
@@ -325,13 +342,13 @@ public class ValidateFormTest : ValidateFormTestBase
             });
         });
         var form = cut.Find("form");
-        await cut.InvokeAsync(() => form.Submit());
+        cut.InvokeAsync(() => form.Submit());
         var msg = cut.FindComponent<MockInput<string>>().Instance.GetErrorMessage();
         Assert.Equal("Address must fill", msg);
     }
 
     [Fact]
-    public async Task ValidateFormButton_Ok()
+    public async Task ValidateFormButton_Valid()
     {
         var tcs = new TaskCompletionSource<bool>();
         var valid = false;
@@ -359,6 +376,37 @@ public class ValidateFormTest : ValidateFormTestBase
         await cut.InvokeAsync(() => cut.Find("form").Submit());
         await tcs.Task;
         Assert.True(valid);
+    }
+
+    [Fact]
+    public async Task ValidateFormButton_Invalid()
+    {
+        var tcs = new TaskCompletionSource<bool>();
+        var valid = true;
+        var foo = new Foo();
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(v => v.Model, foo);
+            pb.Add(a => a.OnInvalidSubmit, context =>
+            {
+                valid = false;
+                tcs.SetResult(true);
+                return Task.CompletedTask;
+            });
+            pb.AddChildContent<BootstrapInput<string>>(pb =>
+            {
+                pb.Add(a => a.Value, foo.Name);
+                pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
+            });
+            pb.AddChildContent<Button>(pb =>
+            {
+                pb.Add(b => b.IsAsync, true);
+                pb.Add(b => b.ButtonType, ButtonType.Submit);
+            });
+        });
+        await cut.InvokeAsync(() => cut.Find("form").Submit());
+        await tcs.Task;
+        Assert.False(valid);
     }
 
     [Fact]
@@ -392,7 +440,7 @@ public class ValidateFormTest : ValidateFormTestBase
             {
                 pb.Add(a => a.Value, foo.Tag);
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Tag", typeof(string)));
-                pb.Add(a => a.ValidateRules, new List<IValidator>() { new FormItemValidator(new HasServiceAttribute()) });
+                pb.Add(a => a.ValidateRules, [new FormItemValidator(new HasServiceAttribute())]);
             });
         });
         var form = cut.Find("form");
@@ -430,6 +478,18 @@ public class ValidateFormTest : ValidateFormTestBase
             pb.Add(a => a.DisableAutoSubmitFormByEnter, false);
         });
         Assert.False(cut.Instance.DisableAutoSubmitFormByEnter);
+    }
+
+    [Fact]
+    public void ValidateFieldAsync_Ok()
+    {
+        var form = new ValidateForm();
+        var method = typeof(ValidateForm).GetMethod("ValidateFieldAsync", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+        Assert.NotNull(method);
+
+        var context = new ValidationContext(new Foo());
+        var result = new List<ValidationResult>();
+        method.Invoke(form, new object[] { context, result });
     }
 
     private class HasServiceAttribute : ValidationAttribute

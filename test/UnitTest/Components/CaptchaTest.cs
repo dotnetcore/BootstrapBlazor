@@ -16,23 +16,24 @@ public class CaptchaTest : BootstrapBlazorTestBase
             pb.Add(a => a.Width, 280);
             pb.Add(a => a.Height, 150);
             pb.Add(a => a.Offset, 1000);
-            pb.Add(a => a.OnValid, b =>
+            pb.Add(a => a.OnValidAsync, b =>
             {
                 verify = b;
+                return Task.CompletedTask;
             });
         });
-        await cut.InvokeAsync(() => cut.Instance.Verify(10, new int[] { 1, 2, 3, 4, 1 }));
+        await cut.InvokeAsync(() => cut.Instance.Verify(10, [1, 2, 3, 4, 1]));
         Assert.True(verify);
 
-        await cut.InvokeAsync(() => cut.Instance.Verify(10, new int[] { 1, 2, 3, 4 }));
+        await cut.InvokeAsync(() => cut.Instance.Verify(10, [1, 2, 3, 4]));
         Assert.False(verify);
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.Offset, 5);
-            pb.Add(a => a.OnValid, null);
+            pb.Add(a => a.OnValidAsync, null);
         });
-        await cut.InvokeAsync(() => cut.Instance.Verify(10, new int[] { 1, 2, 3, 4, 1 }));
+        await cut.InvokeAsync(() => cut.Instance.Verify(10, [1, 2, 3, 4, 1]));
     }
 
     [Fact]
@@ -42,6 +43,7 @@ public class CaptchaTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.ImagesPath, "images");
             pb.Add(a => a.ImagesName, "Pic.jpg");
+            pb.Add(a => a.Max, 8);
             pb.Add(a => a.GetImageName, () => "test.jpg");
         });
         await cut.InvokeAsync(() => cut.Find(".captcha-refresh").Click());

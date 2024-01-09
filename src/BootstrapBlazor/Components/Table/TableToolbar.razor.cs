@@ -17,7 +17,7 @@ public partial class TableToolbar<TItem> : ComponentBase
     /// <summary>
     /// 获得 Toolbar 按钮集合
     /// </summary>
-    private List<ButtonBase> Buttons { get; } = new();
+    private List<ButtonBase> Buttons { get; } = [];
 
     private readonly ConcurrentDictionary<ButtonBase, bool> _asyncButtonStateCache = new();
 
@@ -39,6 +39,12 @@ public partial class TableToolbar<TItem> : ComponentBase
     /// </summary>
     [Parameter]
     public bool IsAutoCollapsedToolbarButton { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 移动端按钮图标
+    /// </summary>
+    [Parameter]
+    public string? GearIcon { get; set; }
 
     private string? ToolbarClassString => CssBuilder.Default("btn-toolbar btn-group")
         .AddClass("d-none d-sm-inline-flex", IsAutoCollapsedToolbarButton)
@@ -64,16 +70,38 @@ public partial class TableToolbar<TItem> : ComponentBase
         }
     }
 
-    private bool GetDisabled(TableToolbarButton<TItem> button)
+    private async Task OnConfirm(TableToolbarPopConfirmButton<TItem> button)
+    {
+        _asyncButtonStateCache.TryGetValue(button, out var disabled);
+        if (!disabled)
+        {
+            _asyncButtonStateCache.TryAdd(button, true);
+            if (button.OnClick.HasDelegate)
+            {
+                await button.OnClick.InvokeAsync();
+            }
+
+            await button.OnConfirm();
+
+            // 传递当前选中行给回调委托方法
+            if (button.OnConfirmCallback != null)
+            {
+                await button.OnConfirmCallback(OnGetSelectedRows());
+            }
+            _asyncButtonStateCache.TryRemove(button, out _);
+        }
+    }
+
+    private bool GetDisabled(ButtonBase button)
     {
         var ret = button.IsDisabled;
         if (button.IsAsync && _asyncButtonStateCache.TryGetValue(button, out var b))
         {
             ret = b;
         }
-        else if (button.IsEnableWhenSelectedOneRow)
+        else if (button is ITableToolbarButton<TItem> tb)
         {
-            ret = OnGetSelectedRows().Count() != 1;
+            ret = tb.IsDisabledCallback == null ? (tb.IsEnableWhenSelectedOneRow && OnGetSelectedRows().Count() != 1) : tb.IsDisabledCallback(OnGetSelectedRows());
         }
         return ret;
     }

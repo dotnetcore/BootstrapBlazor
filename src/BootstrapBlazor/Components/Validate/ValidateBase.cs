@@ -22,7 +22,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <summary>
     /// 获得/设置 上一次转化失败错误描述信息
     /// </summary>
-    protected string PreviousErrorMessage { get; set; } = "";
+    protected string? PreviousErrorMessage { get; set; }
 
     /// <summary>
     /// Gets the associated <see cref="EditContext"/>.
@@ -37,12 +37,9 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <summary>
     /// 获得/设置 数据合规样式
     /// </summary>
-    protected string? ValidCss => IsValid.HasValue ? (IsValid.Value ? "is-valid" : "is-invalid") : null;
+    protected string? ValidCss => IsValid.HasValue ? GetValidString(IsValid.Value) : null;
 
-    /// <summary>
-    /// 获得/设置 Tooltip 命令
-    /// </summary>
-    protected string? TooltipMethod { get; set; }
+    private static string GetValidString(bool valid) => valid ? "is-valid" : "is-invalid";
 
     /// <summary>
     /// 获得/设置 组件是否合规 默认为 null 未检查
@@ -123,7 +120,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
             else
             {
                 PreviousParsingAttemptFailed = true;
-                PreviousErrorMessage = validationErrorMessage ?? "";
+                PreviousErrorMessage = validationErrorMessage;
 
                 if (_parsingValidationMessages == null && EditContext != null)
                 {
@@ -132,7 +129,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
 
                 if (FieldIdentifier != null)
                 {
-                    _parsingValidationMessages?.Add(FieldIdentifier.Value, PreviousErrorMessage);
+                    _parsingValidationMessages?.Add(FieldIdentifier.Value, PreviousErrorMessage ?? "");
 
                     // Since we're not writing to CurrentValue, we'll need to notify about modification from here
                     EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
@@ -159,23 +156,6 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     [Parameter]
     [NotNull]
     public string? ParsingErrorMessage { get; set; }
-
-    private string? _id;
-    /// <summary>
-    /// 获得/设置 当前组件 Id
-    /// </summary>
-    [Parameter]
-    public override string? Id
-    {
-        get { return (ValidateForm != null && !string.IsNullOrEmpty(ValidateForm.Id) && FieldIdentifier != null) ? $"{ValidateForm.Id}_{FieldIdentifier.Value.Model.GetHashCode()}_{FieldIdentifier.Value.FieldName}" : _id; }
-        set { _id = value; }
-    }
-
-    /// <summary>
-    /// 获得/设置 子组件 RenderFragment 实例
-    /// </summary>
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// 获得/设置 是否不进行验证 默认为 false
@@ -279,6 +259,10 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         {
             ValidateForm.AddValidator((FieldIdentifier.Value.FieldName, ModelType: FieldIdentifier.Value.Model.GetType()), (FieldIdentifier.Value, this));
         }
+
+        Id = (!string.IsNullOrEmpty(ValidateForm?.Id) && FieldIdentifier != null)
+                ? $"{ValidateForm.Id}_{FieldIdentifier.Value.Model.GetHashCode()}_{FieldIdentifier.Value.FieldName}"
+                : base.Id;
     }
 
     /// <summary>
@@ -299,30 +283,25 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (!firstRender && !string.IsNullOrEmpty(TooltipMethod))
+        if (!firstRender && IsValid.HasValue)
         {
-            await ShowTooltip();
-            TooltipMethod = null;
+            var valid = IsValid.Value;
+            if (valid)
+            {
+                await RemoveValidResult();
+            }
+            else
+            {
+                await ShowValidResult();
+            }
         }
     }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    protected override string RetrieveMethod() => TooltipMethod ?? "";
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    protected override string RetrieveTitle() => Tooltip?.Title ?? ErrorMessage ?? "";
 
     #region Validation
     /// <summary>
     /// 获得 数据验证方法集合
     /// </summary>
-    protected List<IValidator> Rules { get; } = new();
+    protected List<IValidator> Rules { get; } = [];
 
     /// <summary>
     /// 获得/设置 自定义验证集合
@@ -339,10 +318,10 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public virtual bool IsComplexValue(object? propertyValue) => propertyValue != null
-        && propertyValue is not string
-        && !propertyValue.GetType().IsAssignableTo(typeof(System.Collections.IEnumerable))
-        && propertyValue.GetType().IsClass;
+    public virtual bool IsComplexValue(object? value) => value != null
+        && value is not string
+        && !value.GetType().IsAssignableTo(typeof(System.Collections.IEnumerable))
+        && value.GetType().IsClass;
 
     /// <summary>
     /// 获得/设置 是否执行了自定义异步验证
@@ -411,13 +390,10 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     {
         // 增加数据基础类型验证 如泛型约定为 int 文本框值为 Empty
         // 可为空泛型约束时不检查
-        if (NullableUnderlyingType == null)
+        if (NullableUnderlyingType == null && PreviousParsingAttemptFailed)
         {
-            if (PreviousParsingAttemptFailed)
-            {
-                var memberNames = new string[] { context.MemberName! };
-                results.Add(new ValidationResult(PreviousErrorMessage, memberNames));
-            }
+            var memberNames = new string[] { context.MemberName! };
+            results.Add(new ValidationResult(PreviousErrorMessage, memberNames));
         }
     }
 
@@ -435,19 +411,11 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
             {
                 ErrorMessage = messages.First().ErrorMessage;
                 IsValid = false;
-
-                TooltipMethod = validProperty ? "show" : "enable";
             }
             else
             {
                 ErrorMessage = null;
                 IsValid = true;
-                TooltipMethod = "dispose";
-            }
-
-            if (Tooltip != null)
-            {
-                Tooltip.Title = ErrorMessage;
             }
 
             OnValidate(IsValid);
@@ -460,25 +428,53 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
         }
     }
 
+    private JSModule? ValidateModule { get; set; }
+
+    private Task<JSModule> LoadValidateModule() => JSRuntime.LoadModule("./_content/BootstrapBlazor/modules/validate.js", JSVersionService.GetVersion());
+
+    /// <summary>
+    /// 增加客户端 Tooltip 方法
+    /// </summary>
+    /// <returns></returns>
+    protected virtual async ValueTask ShowValidResult()
+    {
+        var id = RetrieveId();
+        if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(ErrorMessage))
+        {
+            ValidateModule ??= await LoadValidateModule();
+            await ValidateModule.InvokeVoidAsync("execute", id, ErrorMessage);
+        }
+    }
+
+    /// <summary>
+    /// 移除客户端 Tooltip 方法
+    /// </summary>
+    /// <returns></returns>
+    protected virtual async ValueTask RemoveValidResult(string? validateId = null)
+    {
+        var id = validateId ?? RetrieveId();
+        if (!string.IsNullOrEmpty(id))
+        {
+            ValidateModule ??= await LoadValidateModule();
+            await ValidateModule.InvokeVoidAsync("dispose", id);
+        }
+    }
+
     /// <summary>
     /// 客户端检查完成时调用此方法
     /// </summary>
     /// <param name="valid">检查结果</param>
     protected virtual void OnValidate(bool? valid)
     {
-        if (valid.HasValue)
-        {
-            AdditionalAttributes ??= new Dictionary<string, object>();
-            AdditionalAttributes["aria-invalid"] = valid.Value ? "false" : "true";
-        }
+
     }
 
     /// <summary>
-    /// DisposeAsyncCore 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>
-    protected override async ValueTask DisposeAsyncCore(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
@@ -486,9 +482,15 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
             {
                 ValidateForm.TryRemoveValidator((FieldIdentifier.Value.FieldName, FieldIdentifier.Value.Model.GetType()), out _);
             }
+
+            if (ValidateModule != null)
+            {
+                var id = RetrieveId();
+                await ValidateModule.InvokeVoidAsync("dispose", id);
+            }
         }
 
-        await base.DisposeAsyncCore(disposing);
+        await base.DisposeAsync(disposing);
     }
     #endregion
 

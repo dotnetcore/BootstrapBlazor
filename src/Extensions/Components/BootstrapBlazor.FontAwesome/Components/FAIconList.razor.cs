@@ -9,12 +9,10 @@ using Microsoft.JSInterop;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// FAIconList 组件
 /// </summary>
-public partial class FAIconList
+public partial class FAIconList : BootstrapComponentBase, IAsyncDisposable
 {
-    private ElementReference IconListElement { get; set; }
-
     private string? ClassString => CssBuilder.Default("icon-list")
         .AddClass("is-catalog", ShowCatalog)
         .AddClass("is-dialog", ShowCopyDialog)
@@ -58,6 +56,12 @@ public partial class FAIconList
     [Parameter]
     public bool IsCopy { get; set; }
 
+    /// <summary>
+    /// 获得/设置 拷贝成功提示文字
+    /// </summary>
+    [Parameter]
+    public string? CopiedTooltipText { get; set; }
+
     [Inject]
     [NotNull]
     private DialogService? DialogService { get; set; }
@@ -66,10 +70,19 @@ public partial class FAIconList
     [NotNull]
     private IStringLocalizer<IconDialog>? Localizer { get; set; }
 
-    private JSInterop<FAIconList>? Interop { get; set; }
+    [NotNull]
+    private IJSObjectReference? Module { get; set; }
+
+    [NotNull]
+    private DotNetObjectReference<FAIconList>? Interop { get; set; }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// 获得/设置 EChart DOM 元素实例
+    /// </summary>
+    private ElementReference Element { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -79,7 +92,7 @@ public partial class FAIconList
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -89,13 +102,15 @@ public partial class FAIconList
 
         if (firstRender)
         {
-            Interop ??= new(JSRuntime);
-            await Interop.InvokeVoidAsync(this, IconListElement, "bb_iconList", nameof(UpdateIcon), nameof(ShowDialog), IsCopy);
+            // import JavaScript
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.FontAwesome/Components/FAIconList.razor.js");
+            Interop = DotNetObjectReference.Create(this);
+            await Module.InvokeVoidAsync("init", Element, Interop, nameof(UpdateIcon), nameof(ShowDialog), IsCopy);
         }
     }
 
     /// <summary>
-    /// 更新当前选择图标值方法
+    /// UpdateIcon 方法由 JS Invoke 调用
     /// </summary>
     /// <param name="icon"></param>
     [JSInvokable]
@@ -113,7 +128,7 @@ public partial class FAIconList
     }
 
     /// <summary>
-    /// 
+    /// ShowDialog 方法由 JS Invoke 调用
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
@@ -121,4 +136,33 @@ public partial class FAIconList
     {
         parameters.Add(nameof(IconDialog.IconName), text);
     });
+
+    #region Dispose
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    /// <param name="disposing"></param>
+    protected virtual async ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing)
+        {
+            Interop?.Dispose();
+
+            if (Module != null)
+            {
+                await Module.InvokeVoidAsync("dispose", Element);
+                await Module.DisposeAsync();
+            }
+        }
+    }
+
+    /// <summary>
+    /// Dispose 方法
+    /// </summary>
+    public async ValueTask DisposeAsync()
+    {
+        await DisposeAsync(true);
+        GC.SuppressFinalize(this);
+    }
+    #endregion
 }

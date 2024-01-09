@@ -1,4 +1,4 @@
-name: Deploy To Pages
+name: Deploy to Github Pages
 
 on:
   push:
@@ -10,19 +10,19 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
-    - name: Setup .NET Core 6
-      uses: actions/setup-dotnet@v1
+    - name: Setup .NET Core SDK
+      uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 8.0.x
 
     - name: Publish wasm
       run: |
         dotnet publish -c Release -o deploy src/Wasm/BootstrapBlazor.WebAssembly.ClientHost
 
     - name: Deploy to GitHub Pages
-      uses: JamesIves/github-pages-deploy-action@3.7.1
+      uses: JamesIves/github-pages-deploy-action@3
       with:
         GITHUB_TOKEN: ${{ secrets.GH_PUSH_TOKEN }}
         BRANCH: gh-pages

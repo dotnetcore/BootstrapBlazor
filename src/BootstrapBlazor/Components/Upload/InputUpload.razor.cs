@@ -26,11 +26,13 @@ public partial class InputUpload<TValue>
         .AddClass(BrowserButtonClass)
         .Build();
 
+    private string? GetFileName() => CurrentFile?.GetFileName() ?? Value?.ToString();
+
     /// <summary>
-    /// 获得/设置 浏览按钮图标 默认 fa-regular fa-folder-open
+    /// 获得/设置 浏览按钮图标
     /// </summary>
     [Parameter]
-    public string BrowserButtonIcon { get; set; } = "fa-regular fa-folder-open";
+    public string? BrowserButtonIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 上传按钮样式 默认 btn-primary
@@ -52,10 +54,10 @@ public partial class InputUpload<TValue>
     public string DeleteButtonClass { get; set; } = "btn-danger";
 
     /// <summary>
-    /// 获得/设置 删除按钮图标 默认 fa-regular fa-trash-can
+    /// 获得/设置 删除按钮图标
     /// </summary>
     [Parameter]
-    public string DeleteButtonIcon { get; set; } = "fa-regular fa-trash-can";
+    public string? DeleteButtonIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 重置按钮显示文字
@@ -80,8 +82,12 @@ public partial class InputUpload<TValue>
     [NotNull]
     private IStringLocalizer<UploadBase<TValue>>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -92,7 +98,18 @@ public partial class InputUpload<TValue>
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        BrowserButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputUploadBrowserButtonIcon);
+        DeleteButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputUploadDeleteButtonIcon);
+    }
+
+    /// <summary>
+    /// 上传文件改变时回调方法
     /// </summary>
     /// <param name="args"></param>
     /// <returns></returns>
@@ -132,7 +149,7 @@ public partial class InputUpload<TValue>
     }
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="results"></param>
     /// <param name="validProperty"></param>
@@ -142,13 +159,11 @@ public partial class InputUpload<TValue>
         {
             ErrorMessage = results.First().ErrorMessage;
             IsValid = false;
-            TooltipMethod = validProperty ? "show" : "enable";
         }
         else
         {
             ErrorMessage = null;
             IsValid = true;
-            TooltipMethod = "dispose";
         }
         OnValidate(IsValid);
     }

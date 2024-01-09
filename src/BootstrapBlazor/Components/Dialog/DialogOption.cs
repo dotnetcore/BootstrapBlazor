@@ -12,8 +12,7 @@ public class DialogOption
     /// <summary>
     /// 获得/设置 相关弹窗实例
     /// </summary>
-    [NotNull]
-    public Modal? Dialog { get; internal set; }
+    internal Modal? Modal { get; set; }
 
     /// <summary>
     /// 获得/设置 弹窗标题
@@ -51,6 +50,11 @@ public class DialogOption
     public bool IsScrolling { get; set; } = false;
 
     /// <summary>
+    /// 获得/设置 是否显示调整大小按钮 默认为 false
+    /// </summary>
+    public bool ShowResize { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示关闭按钮 默认为 true
     /// </summary>
     public bool ShowCloseButton { get; set; } = true;
@@ -64,6 +68,11 @@ public class DialogOption
     /// 获得/设置 是否支持键盘 ESC 关闭当前弹窗 默认 true 支持
     /// </summary>
     public bool IsKeyboard { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否支持点击遮罩关闭弹窗 默认 false
+    /// </summary>
+    public bool IsBackdrop { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示 Footer 默认为 true
@@ -106,9 +115,14 @@ public class DialogOption
     public RenderFragment? FooterTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 ModalHeader 组件
+    /// 获得/设置 ModalHeader 组件模板
     /// </summary>
     public RenderFragment? HeaderTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 ModalHeader 组件自定义按钮
+    /// </summary>
+    public RenderFragment? HeaderToolbarTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 自定义组件
@@ -148,7 +162,18 @@ public class DialogOption
     /// <summary>
     /// 获得/设置 弹窗已显示时回调此方法
     /// </summary>
-    public Func<Task>? ShownCallbackAsync { get; set; }
+    public Func<Task>? OnShownAsync { get; set; }
+
+    /// <summary>
+    /// 关闭弹窗方法
+    /// </summary>
+    public async Task CloseDialogAsync()
+    {
+        if (Modal != null)
+        {
+            await Modal.Close();
+        }
+    }
 
     /// <summary>
     /// 将参数转换为组件属性方法
@@ -158,32 +183,32 @@ public class DialogOption
     {
         var ret = new Dictionary<string, object>
         {
-            [nameof(Size)] = Size,
-            [nameof(FullScreenSize)] = FullScreenSize,
-            [nameof(IsCentered)] = IsCentered,
-            [nameof(IsScrolling)] = IsScrolling,
-            [nameof(ShowCloseButton)] = ShowCloseButton,
-            [nameof(ShowSaveButton)] = ShowSaveButton,
-            [nameof(ShowHeaderCloseButton)] = ShowHeaderCloseButton,
-            [nameof(ShowFooter)] = ShowFooter,
-            [nameof(ShowPrintButton)] = ShowPrintButton,
-            [nameof(ShowPrintButtonInHeader)] = ShowPrintButtonInHeader,
-            [nameof(IsKeyboard)] = IsKeyboard,
-            [nameof(IsAutoCloseAfterSave)] = IsAutoCloseAfterSave,
-            [nameof(IsDraggable)] = IsDraggable,
-            [nameof(ShowMaximizeButton)] = ShowMaximizeButton
+            [nameof(ModalDialog.Size)] = Size,
+            [nameof(ModalDialog.FullScreenSize)] = FullScreenSize,
+            [nameof(ModalDialog.IsCentered)] = IsCentered,
+            [nameof(ModalDialog.IsScrolling)] = IsScrolling,
+            [nameof(ModalDialog.ShowCloseButton)] = ShowCloseButton,
+            [nameof(ModalDialog.ShowSaveButton)] = ShowSaveButton,
+            [nameof(ModalDialog.ShowHeaderCloseButton)] = ShowHeaderCloseButton,
+            [nameof(ModalDialog.ShowFooter)] = ShowFooter,
+            [nameof(ModalDialog.ShowResize)] = ShowResize,
+            [nameof(ModalDialog.ShowPrintButton)] = ShowPrintButton,
+            [nameof(ModalDialog.ShowPrintButtonInHeader)] = ShowPrintButtonInHeader,
+            [nameof(ModalDialog.IsAutoCloseAfterSave)] = IsAutoCloseAfterSave,
+            [nameof(ModalDialog.IsDraggable)] = IsDraggable,
+            [nameof(ModalDialog.ShowMaximizeButton)] = ShowMaximizeButton
         };
         if (!string.IsNullOrEmpty(PrintButtonText))
         {
-            ret.Add(nameof(PrintButtonText), PrintButtonText);
+            ret.Add(nameof(ModalDialog.PrintButtonText), PrintButtonText);
         }
         if (!string.IsNullOrEmpty(Title))
         {
-            ret.Add(nameof(Title), Title);
+            ret.Add(nameof(ModalDialog.Title), Title);
         }
         if (BodyContext != null)
         {
-            ret.Add(nameof(BodyContext), BodyContext);
+            ret.Add(nameof(ModalDialog.BodyContext), BodyContext);
         }
         return ret;
     }

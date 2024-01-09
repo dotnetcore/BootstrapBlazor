@@ -18,9 +18,11 @@ public partial class Dialog : IDisposable
     /// <summary>
     /// 获得/设置 弹出对话框实例集合
     /// </summary>
-    private List<Dictionary<string, object>> DialogParameters { get; } = new();
+    private Dictionary<Dictionary<string, object>, (bool IsKeyboard, bool IsBackdrop)> DialogParameters { get; } = [];
 
     private bool IsKeyboard { get; set; }
+
+    private bool IsBackdrop { get; set; }
 
     /// <summary>
     /// DialogServices 服务实例
@@ -29,9 +31,13 @@ public partial class Dialog : IDisposable
     [NotNull]
     private DialogService? DialogService { get; set; }
 
-    private bool IsShowDialog { get; set; }
+    [NotNull]
+    private Func<Task>? OnShownAsync { get; set; }
 
-    private Func<Task>? ShownCallbackAsync { get; set; }
+    [NotNull]
+    private Func<Task>? OnCloseAsync { get; set; }
+
+    private Dictionary<string, object>? CurrentParameter { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -53,27 +59,51 @@ public partial class Dialog : IDisposable
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (IsShowDialog)
+        if (CurrentParameter != null)
         {
-            IsShowDialog = false;
             await ModalContainer.Show();
         }
     }
 
     private Task Show(DialogOption option)
     {
-        ShownCallbackAsync = async () =>
+        OnShownAsync = async () =>
         {
-            if (option.ShownCallbackAsync != null)
+            if (option.OnShownAsync != null)
             {
-                await option.ShownCallbackAsync();
+                await option.OnShownAsync();
+            }
+        };
+
+        OnCloseAsync = async () =>
+        {
+            // 回调 OnCloseAsync
+            if (option.OnCloseAsync != null)
+            {
+                await option.OnCloseAsync();
+            }
+
+            // 移除当前 DialogParameter
+            if (CurrentParameter != null)
+            {
+                DialogParameters.Remove(CurrentParameter);
+
+                // 多弹窗支持
+                var p = DialogParameters.LastOrDefault();
+                CurrentParameter = p.Key;
+                IsKeyboard = p.Value.IsKeyboard;
+                IsBackdrop = p.Value.IsBackdrop;
+
+                StateHasChanged();
             }
         };
 
         IsKeyboard = option.IsKeyboard;
-        option.Dialog = ModalContainer;
-        var parameters = option.ToAttributes();
+        IsBackdrop = option.IsBackdrop;
 
+        option.Modal = ModalContainer;
+
+        var parameters = option.ToAttributes();
         var content = option.BodyTemplate ?? option.Component?.Render();
         if (content != null)
         {
@@ -83,6 +113,11 @@ public partial class Dialog : IDisposable
         if (option.HeaderTemplate != null)
         {
             parameters.Add(nameof(ModalDialog.HeaderTemplate), option.HeaderTemplate);
+        }
+
+        if (option.HeaderToolbarTemplate != null)
+        {
+            parameters.Add(nameof(ModalDialog.HeaderToolbarTemplate), option.HeaderToolbarTemplate);
         }
 
         if (option.FooterTemplate != null)
@@ -110,49 +145,22 @@ public partial class Dialog : IDisposable
             parameters.Add(nameof(ModalDialog.SaveButtonText), option.SaveButtonText);
         }
 
-        parameters.Add(nameof(ModalDialog.OnClose), new Func<Task>(async () =>
-        {
-            // 回调 OnClose 方法
-            // 移除当前对话框
-            if (option.OnCloseAsync != null)
-            {
-                await option.OnCloseAsync();
-            }
-            DialogParameters.Remove(parameters);
+        // 保存当前 Dialog 参数
+        CurrentParameter = parameters;
 
-            // 支持多级弹窗
-            await ModalContainer.CloseOrPopDialog();
-            StateHasChanged();
-        }));
-
-        DialogParameters.Add(parameters);
-        if (DialogParameters.Count == 1)
-        {
-            IsShowDialog = true;
-        }
+        // 添加 ModalDialog 到容器中
+        DialogParameters.Add(parameters, (IsKeyboard, IsBackdrop));
         StateHasChanged();
         return Task.CompletedTask;
     }
 
-    private RenderFragment RenderDialog(IEnumerable<KeyValuePair<string, object>> parameter) => builder =>
+    private static RenderFragment RenderDialog(int index, IEnumerable<KeyValuePair<string, object>> parameter) => builder =>
     {
-        builder.OpenComponent<ModalDialog>(0);
-        builder.AddMultipleAttributes(1, parameter);
-        builder.AddComponentReferenceCapture(2, dialog =>
-        {
-            var modal = (ModalDialog)dialog;
-            ModalContainer.ShowDialog(modal);
-        });
+        builder.OpenComponent<ModalDialog>(100 + index);
+        builder.AddMultipleAttributes(101 + index, parameter);
+        builder.SetKey(parameter);
         builder.CloseComponent();
     };
-
-    private async Task OnShownCallbackAsync()
-    {
-        if (ShownCallbackAsync != null)
-        {
-            await ShownCallbackAsync();
-        }
-    }
 
     /// <summary>
     /// Dispose 方法

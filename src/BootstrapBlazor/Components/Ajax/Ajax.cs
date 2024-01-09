@@ -2,12 +2,15 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Text.Json;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// Ajax 组件
 /// </summary>
-public class Ajax : BootstrapComponentBase, IDisposable
+[BootstrapModuleAutoLoader(ModuleName = "ajax", AutoInvokeInit = false, AutoInvokeDispose = false)]
+public class Ajax : BootstrapModuleComponentBase
 {
     [Inject]
     [NotNull]
@@ -19,39 +22,25 @@ public class Ajax : BootstrapComponentBase, IDisposable
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        AjaxService.Register(this, GetMessage);
+        AjaxService.Register(this, InvokeAsync);
         AjaxService.RegisterGoto(this, Goto);
     }
 
-    private async Task<string?> GetMessage(AjaxOption option)
-    {
-        var obj = await JSRuntime.InvokeAsync<string?>(null, "bb_ajax", option.Url, option.Method, option.Data);
-        return obj;
-    }
+    private Task<JsonDocument?> InvokeAsync(AjaxOption option) => InvokeAsync<JsonDocument?>("execute", option);
 
-    private async Task Goto(string url)
-    {
-        await JSRuntime.InvokeVoidAsync(null, "bb_ajax_goto", url);
-    }
+    private Task Goto(string url) => InvokeVoidAsync("goto", url);
 
     /// <summary>
-    /// Dispose 方法
+    /// <inheritdoc/>
     /// </summary>
-    protected virtual void Dispose(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
             AjaxService.UnRegister(this);
             AjaxService.UnRegisterGoto(this);
         }
-    }
 
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
+        await base.DisposeAsync(disposing);
     }
 }

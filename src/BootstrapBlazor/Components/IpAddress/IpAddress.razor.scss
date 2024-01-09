@@ -1,0 +1,21 @@
+.ipaddress {
+    --bb-ip-cell-max-width: #{$bb-ip-cell-max-width};
+    display: flex;
+    flex-wrap: nowrap;
+
+    &.disabled {
+        background-color: var(--bs-secondary-bg);
+        cursor: not-allowed;
+
+        .ipv4-cell {
+            background-color: var(--bs-secondary-bg);
+        }
+    }
+
+    .ipv4-cell {
+        background-color: var(--bs-body-bg);
+        border: none;
+        max-width: var(--bb-ip-cell-max-width);
+        text-align: right;
+    }
+}

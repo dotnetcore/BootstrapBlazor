@@ -11,10 +11,17 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class SweetAlertBody
 {
+    private string InternalCloseButtonText => IsConfirm ? CancelButtonText : CloseButtonText;
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<SweetAlert>? Localizer { get; set; }
+
     /// <summary>
     /// 获得/设置 关闭按钮文字 默认为 关闭
     /// </summary>
     [Parameter]
+    [NotNull]
     public string? CloseButtonText { get; set; }
 
     /// <summary>
@@ -50,7 +57,7 @@ public partial class SweetAlertBody
     public string? Content { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示关闭按钮 默认显示
+    /// 获得/设置 是否显示关闭按钮 默认 true 显示
     /// </summary>
     [Parameter]
     public bool ShowClose { get; set; } = true;
@@ -68,16 +75,30 @@ public partial class SweetAlertBody
     public bool IsConfirm { get; set; }
 
     /// <summary>
+    /// 获得/设置 关闭按钮图标
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? CloseButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 确认按钮图标
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? ConfirmButtonIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 关闭按钮回调方法
     /// </summary>
     [Parameter]
-    public Action? OnClose { get; set; }
+    public Func<Task>? OnCloseAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 确认按钮回调方法
     /// </summary>
     [Parameter]
-    public Action? OnConfirm { get; set; }
+    public Func<Task>? OnConfirmAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 显示内容模板
@@ -91,15 +112,18 @@ public partial class SweetAlertBody
     [Parameter]
     public RenderFragment? FooterTemplate { get; set; }
 
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<SweetAlert>? Localizer { get; set; }
-
     /// <summary>
     /// 获得/设置 按钮模板
     /// </summary>
     [Parameter]
     public RenderFragment? ButtonTemplate { get; set; }
+
+    [CascadingParameter]
+    private Func<Task>? CloseModal { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     private string? IconClassString => CssBuilder.Default("swal2-icon")
         .AddClass("swal2-success swal2-animate-success-icon", Category == SwalCategory.Success)
@@ -110,53 +134,43 @@ public partial class SweetAlertBody
         .Build();
 
     /// <summary>
-    /// 将配置信息转化为参数集合
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="option"></param>
-    /// <returns></returns>
-    internal static IDictionary<string, object?> Parse(SwalOption option) => new Dictionary<string, object?>()
+    protected override void OnParametersSet()
     {
-        [nameof(SweetAlertBody.Category)] = option.Category,
-        [nameof(SweetAlertBody.ShowClose)] = option.ShowClose,
-        [nameof(SweetAlertBody.IsConfirm)] = option.IsModalConfirm,
-        [nameof(SweetAlertBody.ShowFooter)] = option.ShowFooter,
-        [nameof(SweetAlertBody.OnClose)] = new Action(async () => await option.Close(false)),
-        [nameof(SweetAlertBody.OnConfirm)] = new Action(async () => await option.Close(true)),
-        [nameof(SweetAlertBody.Title)] = option.Title,
-        [nameof(SweetAlertBody.Content)] = option.Content,
-        [nameof(SweetAlertBody.BodyTemplate)] = option.BodyTemplate,
-        [nameof(SweetAlertBody.FooterTemplate)] = option.FooterTemplate,
-        [nameof(SweetAlertBody.ButtonTemplate)] = option.ButtonTemplate
-    };
-
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         CloseButtonText ??= Localizer[nameof(CloseButtonText)];
         CancelButtonText ??= Localizer[nameof(CancelButtonText)];
         ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
+
+        CloseButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SweetAlertCloseIcon);
+        ConfirmButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.SweetAlertConfirmIcon);
     }
 
-    private Task OnClickClose()
+    private async Task OnClickClose()
     {
-        if (OnClose != null)
+        if (OnCloseAsync != null)
         {
-            OnClose.Invoke();
+            await OnCloseAsync();
         }
 
-        return Task.CompletedTask;
+        if (CloseModal != null)
+        {
+            await CloseModal();
+        }
     }
 
-    private Task OnClickConfirm()
+    private async Task OnClickConfirm()
     {
-        if (OnConfirm != null)
+        if (OnConfirmAsync != null)
         {
-            OnConfirm.Invoke();
+            await OnConfirmAsync();
         }
-        return Task.CompletedTask;
+
+        if (CloseModal != null)
+        {
+            await CloseModal();
+        }
     }
 }

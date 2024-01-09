@@ -9,12 +9,12 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// DateTimePicker 组件基类
 /// </summary>
-public sealed partial class DateTimePicker<TValue>
+public partial class DateTimePicker<TValue>
 {
     /// <summary>
     /// 获得 组件样式名称
     /// </summary>
-    private string? ClassString => CssBuilder.Default("datetime-picker")
+    private string? ClassString => CssBuilder.Default("select datetime-picker")
         .AddClass("disabled", IsDisabled)
         .AddClass(ValidCss)
         .AddClassFromAttributes(AdditionalAttributes)
@@ -23,7 +23,7 @@ public sealed partial class DateTimePicker<TValue>
     /// <summary>
     /// 获得 组件文本框样式名称
     /// </summary>
-    private string? InputClassName => CssBuilder.Default("form-control datetime-picker-input")
+    private string? InputClassName => CssBuilder.Default("dropdown-toggle form-control datetime-picker-input")
         .AddClass(ValidCss)
         .Build();
 
@@ -34,12 +34,9 @@ public sealed partial class DateTimePicker<TValue>
         .AddClass(Icon)
         .Build();
 
-    /// <summary>
-    /// 获得 组件弹窗位置
-    /// </summary>
-    private string? PlacementString => CssBuilder.Default()
-        .AddClass(Placement.ToDescriptionString(), Placement != Placement.Auto)
-        .Build();
+    private string? TabIndexString => ValidateForm != null ? "0" : null;
+
+    private string? AutoCloseString => AutoClose ? "true" : null;
 
     /// <summary>
     /// 获得 Placeholder 显示字符串
@@ -56,37 +53,6 @@ public sealed partial class DateTimePicker<TValue>
     private bool AllowNull { get; set; }
 
     /// <summary>
-    /// 获得/设置 组件时间
-    /// </summary>
-    private DateTime ComponentValue
-    {
-        get
-        {
-            var v = DateTime.Now;
-            if (AllowNull)
-            {
-                var t = Value as DateTime?;
-                if (t.HasValue) v = t.Value;
-            }
-            else
-            {
-                var t = (DateTime)(object)Value;
-                v = t;
-            }
-            return ViewMode == DatePickerViewMode.Date ? v.Date : v;
-        }
-        set
-        {
-            CurrentValue = (TValue)(object)value;
-        }
-    }
-
-    /// <summary>
-    /// 获得 组件 DOM 实例
-    /// </summary>
-    private ElementReference Picker { get; set; }
-
-    /// <summary>
     /// 获得/设置 时间格式化字符串 默认值为 "yyyy-MM-dd"
     /// </summary>
     [Parameter]
@@ -98,12 +64,6 @@ public sealed partial class DateTimePicker<TValue>
     [Parameter]
     [NotNull]
     public string? Icon { get; set; }
-
-    /// <summary>
-    /// 获得/设置 弹窗位置 默认为 Auto
-    /// </summary>
-    [Parameter]
-    public Placement Placement { get; set; } = Placement.Auto;
 
     /// <summary>
     /// 获得/设置 组件显示模式 默认为显示年月日模式
@@ -118,6 +78,13 @@ public sealed partial class DateTimePicker<TValue>
     public bool ShowSidebar { get; set; }
 
     /// <summary>
+    /// 获得/设置 侧边栏模板 默认 null
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public RenderFragment<Func<DateTime, Task>>? SidebarTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 当前日期最大值
     /// </summary>
     [Parameter]
@@ -130,20 +97,24 @@ public sealed partial class DateTimePicker<TValue>
     public DateTime? MinValue { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前日期变化时回调委托方法
+    /// 获得/设置 是否点击日期后自动关闭弹窗 默认 true
     /// </summary>
     [Parameter]
-    public Func<TValue, Task>? OnDateTimeChanged { get; set; }
+    public bool AutoClose { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否点击确认关闭弹窗 默认 false
+    /// 获得/设置 是否自动设置值为当前时间 默认 true 当 Value 为 null 或者 <see cref="DateTime.MinValue"/>  时自动设置当前时间为 <see cref="DateTime.Today"/>
     /// </summary>
     [Parameter]
-    public bool AutoClose { get; set; }
+    public bool AutoToday { get; set; } = true;
 
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     [NotNull]
     private string? DatePlaceHolderText { get; set; }
@@ -160,20 +131,7 @@ public sealed partial class DateTimePicker<TValue>
     [NotNull]
     private string? DateFormat { get; set; }
 
-    /// <summary>
-    /// OnInitialized
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        // 判断泛型类型
-        var isDateTime = typeof(TValue) == typeof(DateTime) || typeof(TValue) == typeof(DateTime?);
-        if (!isDateTime) throw new InvalidOperationException(GenericTypeErroMessage);
-
-        // 泛型设置为可为空
-        AllowNull = typeof(TValue) == typeof(DateTime?);
-    }
+    private DateTime SelectedValue { get; set; }
 
     /// <summary>
     /// OnParametersSet 方法
@@ -188,26 +146,49 @@ public sealed partial class DateTimePicker<TValue>
         DateTimeFormat ??= Localizer[nameof(DateTimeFormat)];
         DateFormat ??= Localizer[nameof(DateFormat)];
 
-        Icon ??= "fa-regular fa-calendar-days";
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimePickerIcon);
+
+        var type = typeof(TValue);
+
+        // 判断泛型类型
+        if (!type.IsDateTime())
+        {
+            throw new InvalidOperationException(GenericTypeErroMessage);
+        }
+
+        // 泛型设置为可为空
+        AllowNull = Nullable.GetUnderlyingType(type) != null;
+
+        if (!string.IsNullOrEmpty(Format))
+        {
+            DateTimeFormat = Format;
+
+            var index = Format.IndexOf(' ');
+            if (index > 0)
+            {
+                DateFormat = Format[..index];
+            }
+        }
 
         // Value 为 MinValue 时 设置 Value 默认值
-        if (Value?.ToString() == DateTime.MinValue.ToString())
+        if (AutoToday && (Value == null || Value.ToString() == DateTime.MinValue.ToString()))
         {
-            CurrentValue = (TValue)(object)DateTime.Now;
+            SelectedValue = DateTime.Today;
+            if (!AllowNull)
+            {
+                CurrentValueAsString = SelectedValue.ToString("yyyy-MM-dd HH:mm:ss");
+            }
         }
-    }
-
-    /// <summary>
-    /// OnAfterRender 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
+        else if (Value is DateTime dt)
         {
-            await JSRuntime.InvokeVoidAsync(Picker, "bb_datetimePicker");
+            SelectedValue = dt;
+        }
+        else
+        {
+            var offset = (DateTimeOffset?)(object)Value;
+            SelectedValue = offset.HasValue
+                ? offset.Value.DateTime
+                : DateTime.MinValue;
         }
     }
 
@@ -225,7 +206,7 @@ public sealed partial class DateTimePicker<TValue>
                 format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
             }
 
-            ret = ComponentValue.ToString(format);
+            ret = SelectedValue.ToString(format);
         }
         return ret;
     }
@@ -234,16 +215,11 @@ public sealed partial class DateTimePicker<TValue>
     /// 清空按钮点击时回调此方法
     /// </summary>
     /// <returns></returns>
-    private async Task OnClear()
+    private Task OnClear()
     {
+        SelectedValue = AutoToday ? DateTime.Today : DateTime.MinValue;
         CurrentValue = default;
-        await JSRuntime.InvokeVoidAsync(Picker, "bb_datetimePicker", "hide");
-
-        if (OnDateTimeChanged != null)
-        {
-            await OnDateTimeChanged(Value);
-        }
-        StateHasChanged();
+        return Task.CompletedTask;
     }
 
     /// <summary>
@@ -251,26 +227,10 @@ public sealed partial class DateTimePicker<TValue>
     /// </summary>
     private async Task OnConfirm()
     {
-        await JSRuntime.InvokeVoidAsync(Picker, "bb_datetimePicker", "hide");
-
-        if (OnDateTimeChanged != null)
+        CurrentValueAsString = SelectedValue.ToString("yyyy-MM-dd HH:mm:ss");
+        if (AutoClose)
         {
-            await OnDateTimeChanged(Value);
-        }
-    }
-
-    /// <summary>
-    /// DisposeAsyncCore 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected override async ValueTask DisposeAsyncCore(bool disposing)
-    {
-        await base.DisposeAsyncCore(disposing);
-
-        if (disposing)
-        {
-            await JSRuntime.InvokeVoidAsync(Picker, "bb_datetimePicker", "hide");
+            await InvokeVoidAsync("hide", Id);
         }
     }
 }

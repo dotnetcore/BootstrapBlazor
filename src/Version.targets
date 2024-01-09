@@ -1,0 +1,12 @@
+<Project>
+
+  <Target Name="Version" AfterTargets="CompileTypeScriptWithTSConfig" BeforeTargets="BeforeCompile" Condition="'$(Configuration)' == 'Release' and '$(TargetFramework)' == 'net8.0'">
+    <Exec Command="dotnet tool restore"></Exec>
+    <Exec Command="dotnet jsver -v $(MSBuildThisFileDirectory)BootstrapBlazor/BootstrapBlazor.csproj -p $(MSBuildProjectDirectory)"></Exec>
+  </Target>
+
+  <Target Name="Revert" AfterTargets="Pack" Condition="'$(Configuration)' == 'Release' and '$(TargetFramework)' == 'net8.0'">
+    <Exec Command="dotnet jsver -v $(MSBuildThisFileDirectory)BootstrapBlazor/BootstrapBlazor.csproj -p $(MSBuildProjectDirectory) -r true"></Exec>
+  </Target>
+
+</Project>

@@ -13,7 +13,7 @@ public partial class Tag
     /// 获得 样式集合
     /// </summary>
     /// <returns></returns>
-    protected override string? ClassName => CssBuilder.Default("tag fade show")
+    private string? ClassName => CssBuilder.Default("tag fade show")
         .AddClass($"alert-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();

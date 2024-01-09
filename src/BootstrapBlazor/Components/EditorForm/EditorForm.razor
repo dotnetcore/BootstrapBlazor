@@ -2,10 +2,9 @@
 @typeparam TModel
 @inherits BootstrapComponentBase
 
-<CascadingValue Value="@EditorItems" IsFixed="true">
+<CascadingValue Value="@_editorItems" IsFixed="true">
     @FieldItems?.Invoke(Model)
 </CascadingValue>
-
 @if (FirstRender)
 {
     <div class="ef-loading">
@@ -15,8 +14,8 @@
 else
 {
     <div class="@ClassString">
-        <CascadingValue Value="this" Name="EidtorForm">
-            @if(ShowUnsetGroupItemsOnTop)
+        <CascadingValue Value="this" Name="EditorForm">
+            @if (ShowUnsetGroupItemsOnTop)
             {
                 if (UnsetGroupItems.Any())
                 {
@@ -73,7 +72,6 @@ else
         <div class="@FormClassString">
             @foreach (var item in g.Value)
             {
-
                 var render = GetRenderTemplate(item);
                 @if (render != null)
                 {

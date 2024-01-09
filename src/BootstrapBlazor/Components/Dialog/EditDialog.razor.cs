@@ -12,13 +12,13 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class EditDialog<TModel>
 {
-    private ElementReference SpinnerElement { get; set; }
-
     /// <summary>
     /// 获得/设置 保存回调委托
     /// </summary>
     [Parameter]
-    [NotNull]
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
     public Func<EditContext, Task>? OnSaveAsync { get; set; }
 
     /// <summary>
@@ -65,13 +65,25 @@ public partial class EditDialog<TModel>
     [Parameter]
     public bool? DisableAutoSubmitFormByEnter { get; set; }
 
+    /// <summary>
+    /// 获得/设置 DialogFooterTemplate 实例
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TModel>? FooterTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 保存按钮图标
+    /// </summary>
+    [Parameter]
+    public string? SaveButtonIcon { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<EditDialog<TModel>>? Localizer { get; set; }
 
     [Inject]
     [NotNull]
-    private IJSRuntime? JSRuntime { get; set; }
+    private IIconTheme? IconTheme { get; set; }
 
     /// <summary>
     /// OnParametersSet 方法
@@ -80,13 +92,10 @@ public partial class EditDialog<TModel>
     {
         base.OnParametersSet();
 
+        SaveButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.DialogSaveButtonIcon);
+
         CloseButtonText ??= Localizer[nameof(CloseButtonText)];
         SaveButtonText ??= Localizer[nameof(SaveButtonText)];
-    }
-
-    private async Task OnClose()
-    {
-        if (OnCloseAsync != null) await OnCloseAsync();
     }
 
     private async Task OnValidSubmitAsync(EditContext context)
@@ -108,7 +117,31 @@ public partial class EditDialog<TModel>
     {
         if (ShowLoading)
         {
-            await JSRuntime.InvokeVoidAsync(SpinnerElement, "bb_form_load", state ? "show" : "hide");
+            await InvokeVoidAsync("execute", Id, state);
         }
     }
+
+    private RenderFragment RenderFooter => builder =>
+    {
+        if (FooterTemplate != null)
+        {
+            builder.AddContent(1, FooterTemplate(Model));
+        }
+        else
+        {
+            if (!IsTracking)
+            {
+                builder.OpenComponent<DialogCloseButton>(20);
+                builder.AddAttribute(21, nameof(Button.Text), CloseButtonText);
+                builder.AddAttribute(22, nameof(Button.OnClickWithoutRender), OnCloseAsync);
+                builder.CloseComponent();
+            }
+            builder.OpenComponent<Button>(30);
+            builder.AddAttribute(31, nameof(Button.Color), Color.Primary);
+            builder.AddAttribute(32, nameof(Button.Icon), SaveButtonIcon);
+            builder.AddAttribute(33, nameof(Button.Text), SaveButtonText);
+            builder.AddAttribute(34, nameof(Button.ButtonType), ButtonType.Submit);
+            builder.CloseComponent();
+        }
+    };
 }

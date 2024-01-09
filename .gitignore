@@ -349,12 +349,31 @@ ASALocalRun/
 # Net Core Keys
 src/**/*.xml
 
+# js Map
+**/wwwroot/**/*.js.map
+
 ###### -- Custom Ignore Section, Make sure all files you add to the git repo are below this line  --  ######
 
 # Coverage
 coverage*.xml
-tools/
 *.lutconfig
 
 # Upload Folder
 src/**/wwwroot/**/uploader
+
+# Wasm
+**/Wasm/**/wwwroot/css/
+**/Wasm/**/wwwroot/images/
+**/Wasm/**/wwwroot/lib/
+**/Wasm/**/wwwroot/models/
+**/Wasm/**/wwwroot/samples/
+**/Wasm/**/wwwroot/favicon.ico
+**/Wasm/**/wwwroot/favicon.png
+
+# npm
+**/package-lock.json
+
+# sass
+**/BootstrapBlazor/wwwroot/scss/theme/*.css
+**/BootstrapBlazor/wwwroot/scss/theme/*.css.map
+**/BootstrapBlazor/wwwroot/css/*.css

@@ -6,7 +6,7 @@ using BootstrapBlazor;
 
 namespace UnitTest.Components;
 
-public class TransitionTest : TestBase
+public class TransitionTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void ShowAnimate_Ok()
@@ -16,7 +16,7 @@ public class TransitionTest : TestBase
         Assert.Contains("animate__fadeIn", cut.Markup);
 
         cut.SetParametersAndRender(builder => builder.Add(s => s.Show, false));
-        Assert.DoesNotContain("animate__fadeIn", cut.Markup);
+        cut.WaitForAssertion(() => Assert.DoesNotContain("animate__fadeIn", cut.Markup));
     }
 
     [Fact]
@@ -30,7 +30,7 @@ public class TransitionTest : TestBase
     public void Duration_Ok()
     {
         var cut = Context.RenderComponent<Transition>(builder => builder.Add(s => s.Duration, 3000));
-        Assert.Contains("--animate-duration: 3s", cut.Markup);
+        Assert.Contains("animate-duration: 3s", cut.Markup);
     }
 
     [Fact]
@@ -56,11 +56,11 @@ public class TransitionTest : TestBase
             builder.Add(a => a.OnTransitionEnd, () =>
             {
                 transitionEnd = true;
-                return Task.FromResult(true);
+                return Task.CompletedTask;
             });
         });
 
         cut.InvokeAsync(() => cut.Instance.TransitionEndAsync());
-        Assert.True(transitionEnd);
+        cut.WaitForAssertion(() => Assert.True(transitionEnd));
     }
 }

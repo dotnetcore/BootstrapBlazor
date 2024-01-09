@@ -123,12 +123,17 @@ public partial class Switch
         if (!IsDisabled)
         {
             Value = !Value;
+
             if (ValueChanged.HasDelegate)
             {
                 await ValueChanged.InvokeAsync(Value);
             }
 
-            OnValueChanged?.Invoke(Value);
+            // 回调 OnValueChanged 再调用 EventCallback
+            if (OnValueChanged != null)
+            {
+                await OnValueChanged(Value);
+            }
         }
     }
 }

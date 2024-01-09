@@ -49,7 +49,7 @@ public static class EmitHelper
         var field = typeBuilder.DefineField($"_{fieldName}", propertyType, FieldAttributes.Private);
 
         var methodGetField = typeBuilder.DefineMethod($"Get{fieldName}", MethodAttributes.Public, propertyType, null);
-        var methodSetField = typeBuilder.DefineMethod($"Set{fieldName}", MethodAttributes.Public, null, new Type[] { propertyType });
+        var methodSetField = typeBuilder.DefineMethod($"Set{fieldName}", MethodAttributes.Public, null, [propertyType]);
 
         var ilOfGetId = methodGetField.GetILGenerator();
         ilOfGetId.Emit(OpCodes.Ldarg_0);

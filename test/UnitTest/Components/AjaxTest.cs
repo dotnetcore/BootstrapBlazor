@@ -17,11 +17,15 @@ public class AjaxTest : BootstrapBlazorTestBase
             Method = "POST",
             Data = new { UserName = "admin", Password = "1234567" }
         };
-        var service = Context.Services.GetRequiredService<AjaxService>();
-        _ = service.GetMessage(option);
+        Assert.Equal("/api/Login", option.Url);
+        Assert.Equal("POST", option.Method);
+        Assert.NotNull(option.Data);
 
-        _ = Context.RenderComponent<Ajax>();
-        _ = service.GetMessage(option);
+        var service = Context.Services.GetRequiredService<AjaxService>();
+        _ = service.InvokeAsync(option);
+
+        Context.RenderComponent<Ajax>();
+        _ = service.InvokeAsync(option);
         _ = service.Goto("http://www.blazor.zone");
     }
 }

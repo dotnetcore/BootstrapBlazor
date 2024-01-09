@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using AngleSharp.Dom;
 using System.ComponentModel.DataAnnotations;
 
 namespace UnitTest.Components;
@@ -24,10 +25,52 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<DateTimeRange>(builder =>
         {
-            builder.Add(a => a.Value, new DateTimeRangeValue() { Start = DateTime.Today, End = DateTime.Today });
+            builder.Add(a => a.Value, new DateTimeRangeValue() { Start = DateTime.Now, End = DateTime.Now.AddDays(1) });
         });
 
-        // 内部 StartValue 自动减一个月
+        var v = cut.Instance.Value;
+        Assert.NotEqual(DateTime.Today, v.Start);
+        Assert.NotEqual(DateTime.Today.AddDays(2).AddSeconds(-1), v.End);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, new DateTimeRangeValue() { Start = DateTime.Today, End = DateTime.Today.AddDays(1) });
+        });
+        v = cut.Instance.Value;
+        Assert.Equal(DateTime.Today, v.Start);
+        Assert.Equal(DateTime.Today.AddDays(1), v.End);
+    }
+
+    [Fact]
+    public void RangeValue_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimeRange>();
+        cut.InvokeAsync(() =>
+        {
+            var cells = cut.FindAll(".date-table tbody span");
+            var end = cells.First(i => i.TextContent == "7");
+            end.Click();
+        });
+
+        cut.InvokeAsync(() =>
+        {
+            var cells = cut.FindAll(".date-table tbody span");
+            var first = cells.First(i => i.TextContent == "1");
+            first.Click();
+        });
+
+        // confirm
+        cut.InvokeAsync(() =>
+        {
+            var confirm = cut.FindAll(".is-confirm")[cut.FindAll(".is-confirm").Count - 1];
+            confirm.Click();
+        });
+
+        var value = cut.Instance.Value;
+        var startDate = DateTime.Today.AddDays(1 - DateTime.Today.Day);
+        var endDate = startDate.AddDays(7).AddSeconds(-1);
+        Assert.Equal(startDate, value.Start);
+        Assert.Equal(endDate, value.End);
     }
 
     [Fact]
@@ -68,18 +111,6 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsShown_Ok()
-    {
-        var cut = Context.RenderComponent<DateTimeRange>(builder =>
-        {
-            builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now, End = DateTime.Now.AddDays(30) });
-            builder.Add(a => a.IsShown, true);
-        });
-
-        Assert.Contains("d-none", cut.Markup);
-    }
-
-    [Fact]
     public void AllowNull_Ok()
     {
         var cut = Context.RenderComponent<DateTimeRange>(builder =>
@@ -87,6 +118,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now, End = DateTime.Now.AddDays(30) });
             builder.Add(a => a.AllowNull, true);
         });
+        Assert.True(cut.Instance.AllowNull);
     }
 
     [Fact]
@@ -94,6 +126,20 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<DateTimeRange>();
         Assert.NotNull(cut.Instance.Value);
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value.Start);
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value.End);
+        Assert.Null(cut.Instance.Value.NullStart);
+        Assert.Null(cut.Instance.Value.NullEnd);
+
+        cut.Instance.Value.NullStart = DateTime.Now;
+        Assert.NotNull(cut.Instance.Value.NullStart);
+        cut.Instance.Value.NullEnd = DateTime.Now;
+        Assert.NotNull(cut.Instance.Value.NullEnd);
+
+        cut.Instance.Value.NullStart = null;
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value.Start);
+        cut.Instance.Value.NullEnd = null;
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value.End);
     }
 
     [Fact]
@@ -115,14 +161,18 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         {
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now, End = DateTime.Now.AddDays(30) });
             builder.Add(a => a.ShowSidebar, true);
+            builder.Add(a => a.AutoCloseClickSideBar, true);
             builder.Add(a => a.SidebarItems, new DateTimeRangeSidebarItem[]
             {
                     new DateTimeRangeSidebarItem(){ Text = "Test" }
             });
         });
 
-        var text = cut.Find(".picker-panel-sidebar").TextContent;
+        var item = cut.Find(".sidebar-item > div");
+        var text = item.TextContent;
         Assert.Equal("Test", text);
+
+        cut.InvokeAsync(() => item.Click());
     }
 
     [Fact]
@@ -139,14 +189,21 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
                 value = true; return Task.CompletedTask;
             });
         });
-        // 选择开始未选择结束
-        cut.Find(".cell").Click();
-        cut.FindAll(".is-confirm").First(s => s.TextContent == "确定").Click();
 
-        // 选择时间大于当前时间
-        cut.FindAll(".date-table .cell").Last().Click();
-        cut.FindAll(".is-confirm").First(s => s.TextContent == "确定").Click();
-        Assert.True(value);
+        cut.InvokeAsync(() =>
+        {
+            // 选择开始未选择结束
+            cut.Find(".cell").Click();
+            var cells = cut.FindAll(".is-confirm");
+            cells.First(s => s.TextContent == "确定").Click();
+
+            // 选择时间大于当前时间
+            cells = cut.FindAll(".date-table .cell");
+            cells[cells.Count - 1].Click();
+            cells = cut.FindAll(".is-confirm");
+            cells.First(s => s.TextContent == "确定").Click();
+            Assert.True(value);
+        });
     }
 
     [Fact]
@@ -198,7 +255,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
             builder.Add(a => a.ShowToday, true);
         });
         cut.FindAll(".is-confirm").First(s => s.TextContent == "今天").Click();
-        Assert.Equal(DateTime.Today.Date, cut.Instance.Value.Start.Date);
+        Assert.Equal(DateTime.Today.Date, cut.Instance.Value.Start);
     }
 
     [Fact]
@@ -208,6 +265,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         {
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now.AddDays(1), End = DateTime.Now.AddDays(30) });
             builder.Add(a => a.ShowSidebar, true);
+            builder.Add(a => a.AutoCloseClickSideBar, true);
         });
 
         cut.Find(".sidebar-item > div").Click();
@@ -218,30 +276,75 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void UpdateValue_Ok()
+    public void UpdateValue_Year()
     {
         var cut = Context.RenderComponent<DateTimeRange>(builder =>
         {
             builder.Add(a => a.Value, new DateTimeRangeValue());
         });
 
-        // 选择开始时间
-        cut.Find(".date-table .cell").Click();
-        // 选择结束时间
-        cut.FindAll(".date-table .cell").ElementAt(2).Click();
+        cut.InvokeAsync(() =>
+        {
+            // 选择开始时间
+            cut.Find(".date-table .cell").Click();
+            // 选择结束时间
+            cut.FindAll(".date-table .cell").ElementAt(2).Click();
 
-        cut.Find(".date-table .cell").Click();
-        cut.Find(".pick-panel-arrow-right").Click();
-        cut.FindAll(".date-table .cell").Last().Click();
+            cut.Find(".date-table .cell").Click();
+            cut.Find(".pick-panel-arrow-right").Click();
 
-        // 下一年
-        cut.FindAll(".picker-panel-icon-btn").Last().Click();
-        cut.Find(".date-table .cell").Click();
-        cut.FindAll(".date-table .cell").Last().Click();
+            var cells = cut.FindAll(".date-table .cell");
+            cells[cells.Count - 1].Click();
+
+            // 下一年
+            cells = cut.FindAll(".picker-panel-icon-btn");
+            cells[cells.Count - 1].Click();
+            cut.Find(".date-table .cell").Click();
+
+            cells = cut.FindAll(".date-table .cell");
+            cells[cells.Count - 1].Click();
+        });
     }
 
     [Fact]
-    public async Task InValidateForm_Ok()
+    public void UpdateValue_Month()
+    {
+        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        {
+            builder.Add(a => a.Value, new DateTimeRangeValue()
+            {
+                Start = new DateTime(2022, 11, 1, 0, 0, 0, DateTimeKind.Local),
+                End = new DateTime(2022, 11, 14, 0, 0, 0, DateTimeKind.Local)
+            });
+        });
+
+        // 翻页下一月
+        var next = cut.Find(".picker-panel-icon-btn.pick-panel-arrow-right");
+        next.Click();
+
+        // 选择开始时间
+        var cells = cut.FindAll(".date-table tbody .cell");
+        cells.ElementAt(7).Click();
+
+        // 选择结束时间
+        cells = cut.FindAll(".date-table tbody .cell");
+        cells.ElementAt(37).Click();
+
+        // 选择开始时间
+        cells = cut.FindAll(".date-table tbody .cell");
+        cells.ElementAt(7).Click();
+
+        // 选择结束时间
+        cells = cut.FindAll(".date-table tbody .cell");
+        cells.ElementAt(47).Click();
+
+        // 没有点击确定 Value 值不变
+        Assert.Equal(new DateTime(2022, 11, 1, 0, 0, 0, DateTimeKind.Local), cut.Instance.Value.Start);
+        Assert.Equal(new DateTime(2022, 11, 14, 0, 0, 0, DateTimeKind.Local), cut.Instance.Value.End);
+    }
+
+    [Fact]
+    public void InValidateForm_Ok()
     {
         var foo = new Dummy
         {
@@ -257,17 +360,54 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, nameof(Dummy.Value), typeof(DateTimeRangeValue)));
             });
         });
-
         // ValidateForm 自动自动生成标签
         cut.Contains("class=\"form-label\"");
 
-        var validate = true;
         // 验证
-        await cut.InvokeAsync(() =>
-        {
-            validate = cut.Instance.Validate();
-        });
+        var validate = true;
+        cut.InvokeAsync(() => validate = cut.Instance.Validate());
         Assert.False(validate);
+
+        var range = cut.FindComponent<DateTimeRange>();
+        var clear = range.Find(".is-clear");
+        clear.Click();
+
+        range.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsDisabled, true);
+            pb.Add(a => a.AllowNull, true);
+        });
+        clear.Click();
+    }
+
+    [Fact]
+    public async Task InValidateForm_Confirm()
+    {
+        var foo = new Dummy
+        {
+            Value = new DateTimeRangeValue()
+        };
+        var cut = Context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(a => a.ValidateAllProperties, true);
+            pb.Add(a => a.Model, foo);
+            pb.AddChildContent<DateTimeRange>(pb =>
+            {
+                pb.Add(a => a.AllowNull, false);
+                pb.Add(a => a.Value, foo.Value);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, nameof(Dummy.Value), typeof(DateTimeRangeValue)));
+            });
+        });
+
+        var range = cut.FindComponent<DateTimeRange>();
+        var confirm = range.Find(".is-confirm");
+        await cut.InvokeAsync(() => confirm.Click());
+
+        range.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsDisabled, true);
+        });
+        await cut.InvokeAsync(() => confirm.Click());
     }
 
     [Fact]

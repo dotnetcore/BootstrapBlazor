@@ -1,0 +1,16 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+
+<div @attributes="AdditionalAttributes" class="@ClassString">
+    <CascadingValue Value="this" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
+    <RenderTemplate>
+        @foreach (var item in _items)
+        {
+            <div @key="@item" class="@ItemClassString(item)">
+                @item.ChildContent
+            </div>
+        }
+    </RenderTemplate>
+</div>

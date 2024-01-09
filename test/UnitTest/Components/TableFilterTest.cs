@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 
@@ -37,41 +36,22 @@ public class TableFilterTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowFilterHeader, false);
         });
 
-        // IsShow
-        var filter = table.Find($"[data-field=\"{nameof(Foo.Name)}\"]");
-        filter.Click();
-
-        // Close
         var filterInstance = cut.FindComponent<TableFilter>();
-        cut.InvokeAsync(() => filterInstance.Instance.Close());
-
-        // ConfirmByKey
-        filter.Click();
-        cut.InvokeAsync(() => filterInstance.Instance.ConfirmByKey());
-
-        // EscByKey
-        filter.Click();
-        cut.InvokeAsync(() => filterInstance.Instance.EscByKey());
 
         // Reset/Confirm buttons
         // ClickReset
-        filter.Click();
-        var buttons = filterInstance.FindAll(".is-close");
+        var buttons = filterInstance.FindAll(".filter-dismiss");
         cut.InvokeAsync(() => buttons[0].Click());
 
         // ClickConfirm
-        filter.Click();
-        buttons = filterInstance.FindAll(".is-close");
         cut.InvokeAsync(() => buttons[1].Click());
 
         // OnFilterAsync
-        filter.Click();
         var input = filterInstance.FindComponent<BootstrapInput<string>>();
         cut.InvokeAsync(() => input.Instance.SetValue("0001"));
         cut.InvokeAsync(() => buttons[1].Click());
 
         // Show more button
-        filter.Click();
         buttons = filterInstance.FindAll("button");
 
         // add +
@@ -90,7 +70,7 @@ public class TableFilterTest : BootstrapBlazorTestBase
             {
                 pb.Add(a => a.Items, new List<Cat>
                 {
-                    new Cat()
+                    new()
                 });
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.TableColumns, CreateCatTableColumns());
@@ -122,7 +102,7 @@ public class TableFilterTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo>() { new Foo() });
+                pb.Add(a => a.Items, new List<Foo>() { new() });
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowFilterHeader, true);
                 pb.Add(a => a.TableColumns, new RenderFragment<Foo>(foo => builder =>
@@ -178,11 +158,18 @@ public class TableFilterTest : BootstrapBlazorTestBase
         builder.AddAttribute(index++, nameof(TableColumn<Foo, IEnumerable<string>>.Field), foo.Hobby);
         builder.AddAttribute(index++, nameof(TableColumn<Foo, IEnumerable<string>>.Lookup), new List<SelectedItem>()
         {
-            new SelectedItem("1", "Test1"),
-            new SelectedItem("2", "Test2"),
+            new("1", "Test1"),
+            new("2", "Test2"),
         });
         builder.AddAttribute(index++, nameof(TableColumn<Foo, IEnumerable<string>>.FieldExpression), foo.GenerateValueExpression(nameof(Foo.Hobby), typeof(IEnumerable<string>)));
         builder.AddAttribute(index++, nameof(TableColumn<Foo, IEnumerable<string>>.Filterable), true);
+        builder.CloseComponent();
+
+        builder.OpenComponent<TableColumn<Foo, int>>(index++);
+        builder.AddAttribute(index++, nameof(TableColumn<Foo, int>.Field), foo.Id);
+        builder.AddAttribute(index++, nameof(TableColumn<Foo, int>.LookupServiceKey), "FooLookup");
+        builder.AddAttribute(index++, nameof(TableColumn<Foo, int>.FieldExpression), foo.GenerateValueExpression(nameof(Foo.Id), typeof(int)));
+        builder.AddAttribute(index++, nameof(TableColumn<Foo, int>.Filterable), true);
         builder.CloseComponent();
     };
 
@@ -211,7 +198,7 @@ public class TableFilterTest : BootstrapBlazorTestBase
         builder.AddAttribute(index++, nameof(TableColumn<Cat, double>.Field), cat.P4);
         builder.AddAttribute(index++, nameof(TableColumn<Cat, double>.FieldExpression), Utility.GenerateValueExpression(cat, nameof(Cat.P4), typeof(double)));
         builder.AddAttribute(index++, nameof(TableColumn<Cat, double>.Filterable), true);
-        builder.AddAttribute(index++, nameof(TableColumn<Cat, double>.Step), 0.02);
+        builder.AddAttribute(index++, nameof(TableColumn<Cat, double>.Step), "0.02");
         builder.CloseComponent();
 
         builder.OpenComponent<TableColumn<Cat, decimal>>(index++);

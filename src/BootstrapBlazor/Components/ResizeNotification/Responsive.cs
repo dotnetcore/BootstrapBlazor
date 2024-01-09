@@ -7,15 +7,11 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 响应监听 组件
 /// </summary>
-public class Responsive : ComponentBase, IDisposable
+public class Responsive : BootstrapComponentBase, IDisposable
 {
     [Inject]
     [NotNull]
     private ResizeNotificationService? ResizeService { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IJSRuntime? JSRuntime { get; set; }
 
     /// <summary>
     /// 获得/设置 是否触发内容刷新 返回 true 时刷新
@@ -24,7 +20,7 @@ public class Responsive : ComponentBase, IDisposable
     public Func<BreakPoint, Task>? OnBreakPointChanged { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -32,15 +28,18 @@ public class Responsive : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
+    /// <param name="firstRender"></param>
     /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
-            var point = await JSRuntime.InvokeAsync<BreakPoint>(func: "bb_get_responsive");
-            await OnResize(point);
+            if (OnBreakPointChanged != null)
+            {
+                await OnBreakPointChanged(ResizeService.CurrentValue);
+            }
         }
     }
 
@@ -49,8 +48,7 @@ public class Responsive : ComponentBase, IDisposable
     /// </summary>
     /// <param name="point">断点名称</param>
     /// <returns></returns>
-    [JSInvokable()]
-    public async Task OnResize(BreakPoint point)
+    private async Task OnResize(BreakPoint point)
     {
         if (OnBreakPointChanged != null)
         {
@@ -71,8 +69,9 @@ public class Responsive : ComponentBase, IDisposable
     }
 
     /// <summary>
-    /// Dispose 方法
+    /// <inheritdoc/>
     /// </summary>
+    /// <exception cref="NotImplementedException"></exception>
     public void Dispose()
     {
         Dispose(true);

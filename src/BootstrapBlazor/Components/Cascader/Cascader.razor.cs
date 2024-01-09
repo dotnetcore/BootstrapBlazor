@@ -15,7 +15,7 @@ public partial class Cascader<TValue>
     /// <summary>
     /// 当前选中节点集合
     /// </summary>
-    private List<CascaderItem> SelectedItems { get; } = new();
+    private List<CascaderItem> SelectedItems { get; } = [];
 
     /// <summary>
     /// 获得/设置 Cascader 内部 Input 组件 Id
@@ -44,6 +44,9 @@ public partial class Cascader<TValue>
     /// </summary>
     [Parameter]
     [NotNull]
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
     public IEnumerable<CascaderItem>? Items { get; set; }
 
     /// <summary>
@@ -64,21 +67,31 @@ public partial class Cascader<TValue>
     [Parameter]
     public bool ShowFullLevels { get; set; } = true;
 
+    /// <summary>
+    /// 获得/设置 菜单指示图标
+    /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 子菜单指示图标
+    /// </summary>
+    [Parameter]
+    public string? SubMenuIcon { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Cascader<TValue>>? Localizer { get; set; }
 
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        PlaceHolder ??= Localizer[nameof(PlaceHolder)];
-    }
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     private string _lastVaslue = string.Empty;
+
+    private string? SubMenuIconString => CssBuilder.Default("nav-link-right")
+        .AddClass(SubMenuIcon, !string.IsNullOrEmpty(SubMenuIcon))
+        .Build();
 
     /// <summary>
     /// OnParametersSet 方法
@@ -87,7 +100,12 @@ public partial class Cascader<TValue>
     {
         base.OnParametersSet();
 
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.CascaderIcon);
+        SubMenuIcon ??= IconTheme.GetIconByKey(ComponentIcons.CascaderSubMenuIcon);
+
         Items ??= Enumerable.Empty<CascaderItem>();
+
+        PlaceHolder ??= Localizer[nameof(PlaceHolder)];
 
         if (_lastVaslue != CurrentValueAsString)
         {
@@ -142,10 +160,7 @@ public partial class Cascader<TValue>
         return null;
     }
 
-    /// <summary>
-    /// 获得 样式集合
-    /// </summary>
-    private string? ClassName => CssBuilder.Default("dropdown")
+    private string? ClassString => CssBuilder.Default("select cascade menu dropdown")
         .AddClass("disabled", IsDisabled)
         .AddClass(CssClass).AddClass(ValidCss)
         .Build();
@@ -157,8 +172,6 @@ public partial class Cascader<TValue>
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
         .AddClass(ValidCss)
         .Build();
-
-    private string? BackgroundColor => IsDisabled ? null : "background-color: #fff;";
 
     /// <summary>
     /// 获得 样式集合
@@ -189,7 +202,6 @@ public partial class Cascader<TValue>
             SelectedItems.Clear();
             SetSelectedNodeWithParent(item, SelectedItems);
             await SetValue(item.Value);
-            await JSRuntime.InvokeVoidAsync(InputId, "bb_cascader_hide");
         }
     }
 
@@ -199,7 +211,7 @@ public partial class Cascader<TValue>
         CurrentValueAsString = value;
         if (OnSelectedItemChanged != null)
         {
-            await OnSelectedItemChanged.Invoke(SelectedItems.ToArray());
+            await OnSelectedItemChanged(SelectedItems.ToArray());
         }
         if (SelectedItems.Count != 1)
         {

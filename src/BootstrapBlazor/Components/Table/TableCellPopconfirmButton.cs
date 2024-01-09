@@ -9,7 +9,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 单元格内按钮组件
 /// </summary>
-public class TableCellPopconfirmButton : PopConfirmButtonBase
+[JSModuleNotInherited]
+public class TableCellPopconfirmButton : PopConfirmButtonBase, ITableCellButton
 {
     /// <summary>
     /// 获得/设置 Table 扩展按钮集合实例
@@ -22,13 +23,13 @@ public class TableCellPopconfirmButton : PopConfirmButtonBase
     private IStringLocalizer<PopConfirmButton>? Localizer { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击按钮是否选中正行 默认 true 选中
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool AutoSelectedRowWhenClick { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 点击按钮是否选中正行 默认 true 选中
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
     public bool AutoRenderTableWhenClick { get; set; }
@@ -64,9 +65,9 @@ public class TableCellPopconfirmButton : PopConfirmButtonBase
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>
-    protected override ValueTask DisposeAsyncCore(bool disposing)
+    protected override ValueTask DisposeAsync(bool disposing)
     {
         Buttons?.RemoveButton(this);
-        return base.DisposeAsyncCore(disposing);
+        return base.DisposeAsync(disposing);
     }
 }

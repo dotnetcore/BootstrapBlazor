@@ -3,12 +3,15 @@
 <div align="center">
 <h2>一套基于 Bootstrap 和 Blazor 的企业级组件库</h2>
 
+[![Security Status](https://www.murphysec.com/platform3/v3/badge/1619783039836532736.svg)](https://github.com/ArgoZhang/BootstrapBlazor/blob/main/LICENSE)
+
+[![oscs](https://www.oscs1024.com/platform/badge/murphysecurity/murphysec.svg)](https://github.com/ArgoZhang/BootstrapBlazor/blob/main/LICENSE)
 [![License](https://img.shields.io/github/license/argozhang/bootstrapblazor.svg?logo=git&logoColor=red)](https://github.com/ArgoZhang/BootstrapBlazor/blob/main/LICENSE)
 [![Nuget](https://img.shields.io/nuget/v/BootstrapBlazor.svg?color=red&logo=nuget&logoColor=green)](https://www.nuget.org/packages/BootstrapBlazor/)
 [![Nuget](https://img.shields.io/nuget/dt/BootstrapBlazor.svg?logo=nuget&logoColor=green)](https://www.nuget.org/packages/BootstrapBlazor/)
 [![Repo Size](https://img.shields.io/github/repo-size/ArgoZhang/BootstrapBlazor.svg?logo=github&logoColor=green&label=repo)](https://github.com/ArgoZhang/BootstrapBlazor)
 [![Commit Date](https://img.shields.io/github/last-commit/ArgoZhang/BootstrapBlazor/main.svg?logo=github&logoColor=green&label=commit)](https://github.com/ArgoZhang/BootstrapBlazor)
-[![Github build](https://img.shields.io/github/workflow/status/ArgoZhang/BootstrapBlazor/Build%20Project/main?label=main&logo=github&logoColor=green)](https://github.com/ArgoZhang/BootstrapBlazor/actions?query=workflow%3A%22Build+Project%22+branch%3Amain)
+[![Github build](https://img.shields.io/github/actions/workflow/status/ArgoZhang/BootstrapBlazor/build.yml?branch=main&?label=main&logo=github)](https://github.com/ArgoZhang/BootstrapBlazor/actions?query=workflow%3A%22Build+Project%22+branch%3Amain)
 [![codecov](https://codecov.io/gh/dotnetcore/BootstrapBlazor/branch/main/graph/badge.svg?token=5SXIWHXZC3)](https://codecov.io/gh/dotnetcore/BootstrapBlazor)
 </div>
 
@@ -34,6 +37,23 @@ Blazor 是一个使用 .NET 生成交互式客户端 Web UI 的框架：
 - 以一组稳定、功能丰富且易用的通用语言、框架和工具为基础来进行生成。
 
 本项目是利用 Bootstrap 样式进行封装的 UI 组件库
+
+## 社区与项目
+
+目前 `BootstrapBlazor` 团队由六名热爱开源的技术达人组成，其中有四名 **微软最有价值专家(Microsoft MVP)** ；成立了大约 2000 人的 `Blazor 中文社区` 积极响应，只讨论 Blazor 相关技术
+
+本组件库内置 **150** 多个组件，作者所在几家公司的项目均在重度使用，大多数组件都是在实际项目中提炼出来，非常适合国人操作习惯，大大节约开发时间，不像有些开源作品甚至作者本人都不使用，遇到问题从根本上无法解决，提交 Issue 也是让其自行解决并帮忙 PR 到其仓库
+
+作者与团队积极处理 Issue 社区中积极回答问题，绝对不会一个开源仓库有几百上千 Issue 不予处理，当需求合理，即使是新功能也会积极响应并尽快提供新版本不会出现让提交者自己实现功能并提交 PR 的行为
+
+针对个别白嫖党、伸手党会亮出杀手锏口号（付费提供远程支持），其实给钱也没时间搭理，逼不得已只能在这里明确一下，一些黑粉跑去其他社区说我们有卖课广告
+
+微软 MVP 列表（按字母排序）
+
+- Argo Zhang [链接地址](https://mvp.microsoft.com/en-us/PublicProfile/5004174)
+- Alex Chow [链接地址](https://mvp.microsoft.com/en-us/PublicProfile/5005078)
+- Guohao Wang [链接地址](https://mvp.microsoft.com/en-us/PublicProfile/5005089)
+- Xiang ju [链接地址](https://mvp.microsoft.com/en-us/PublicProfile/5005108)
 
 ## 生态伙伴
 
@@ -62,7 +82,7 @@ dotnet run
 **Install Template**
 
 ```c#
-dotnet new -i Bootstrap.Blazor.Templates
+dotnet new install Bootstrap.Blazor.Templates
 ```
 
 **Create Project**
@@ -133,7 +153,7 @@ Blazor 应用基于组件。 Blazor 中的组件是指 UI 元素，例如页面�
 ## 浏览器支持
 
 ![chrome](https://img.shields.io/badge/chrome->%3D57-success.svg?logo=google%20chrome&logoColor=red)
-![firefox](https://img.shields.io/badge/firefox->522-success.svg?logo=mozilla%20firefox&logoColor=red)
+![firefox](https://img.shields.io/badge/firefox->522-success.svg?logo=firefox%20browser&logoColor=red)
 ![edge](https://img.shields.io/badge/edge->%3D16-success.svg?logo=microsoft%20edge&logoColor=blue)
 ![ie](https://img.shields.io/badge/ie->%3D11-success.svg?logo=internet%20explorer&logoColor=blue)
 ![Safari](https://img.shields.io/badge/safari->%3D14-success.svg?logo=safari&logoColor=blue)

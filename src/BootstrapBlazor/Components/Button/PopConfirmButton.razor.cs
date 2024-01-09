@@ -7,15 +7,27 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// PopConfirmButton 组件
 /// </summary>
 public partial class PopConfirmButton
 {
-    private string? PopButtonClassName => IsLink ? InternalClassName : ClassName;
+    private string? ClassString => CssBuilder.Default("pop-confirm")
+        .AddClass("disabled", IsDisabled)
+        .AddClass(InternalClassName, IsLink)
+        .AddClass(ClassName, !IsLink)
+        .Build();
 
     private string? InternalClassName => CssBuilder.Default()
         .AddClass($"link-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string TagName => IsLink ? "a" : "div";
+
+    private string? ElementType => IsLink ? null : "div";
+
+    private string? CustomClassString => CssBuilder.Default(CustomClass)
+        .AddClass("shadow", ShowShadow)
         .Build();
 
     /// <summary>
@@ -24,25 +36,11 @@ public partial class PopConfirmButton
     [Parameter]
     public override Color Color { get; set; } = Color.None;
 
-    /// <summary>
-    /// 获得/设置 自定义样式 默认 null
-    /// </summary>
-    /// <remarks>由 data-bs-custom-class 实现</remarks>
-    [Parameter]
-    public string? CssClass { get; set; }
-
-    /// <summary>
-    /// 获得/设置 PopoverConfirm 服务实例
-    /// </summary>
-    [Inject]
-    [NotNull]
-    private PopoverService? PopoverService { get; set; }
-
     [Inject]
     [NotNull]
     private IStringLocalizer<PopConfirmButton>? Localizer { get; set; }
 
-    private bool Submit { get; set; }
+    private bool _renderTooltip;
 
     /// <summary>
     /// OnParametersSet 方法
@@ -54,23 +52,21 @@ public partial class PopConfirmButton
         ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
         CloseButtonText ??= Localizer[nameof(CloseButtonText)];
         Content ??= Localizer[nameof(Content)];
+
+        _renderTooltip = Tooltip == null && !string.IsNullOrEmpty(TooltipText);
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
+    public override Task ShowTooltip() => Task.CompletedTask;
 
-        if (Submit)
-        {
-            Submit = false;
-            await JSRuntime.InvokeVoidAsync(Id, "bb_confirm_submit");
-        }
-    }
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    public override Task RemoveTooltip() => Task.CompletedTask;
 
     /// <summary>
     /// 显示确认弹窗方法
@@ -80,22 +76,7 @@ public partial class PopConfirmButton
         // 回调消费者逻辑 判断是否需要弹出确认框
         if (await OnBeforeClick())
         {
-            // 生成客户端弹窗
-            await PopoverService.Show(new PopoverConfirmOption()
-            {
-                ButtonId = Id,
-                Title = Title,
-                Content = Content,
-                CloseButtonText = CloseButtonText,
-                CloseButtonColor = CloseButtonColor,
-                ConfirmButtonText = ConfirmButtonText,
-                ConfirmButtonColor = ConfirmButtonColor,
-                Icon = ConfirmIcon,
-                OnConfirm = Confirm,
-                OnClose = OnClose,
-                CssClass = CssClass,
-                Callback = async () => await JSRuntime.InvokeVoidAsync(Id, "bb_confirm")
-            });
+            await InvokeVoidAsync("showConfirm", Id);
         }
     }
 
@@ -103,34 +84,38 @@ public partial class PopConfirmButton
     /// 确认回调方法
     /// </summary>
     /// <returns></returns>
-    private async Task Confirm()
+    private async Task OnClickConfirm()
     {
         if (IsAsync)
         {
-            var icon = Icon;
             IsDisabled = true;
-            Icon = LoadingIcon;
+            ButtonIcon = LoadingIcon;
             StateHasChanged();
-
             await Task.Run(() => InvokeAsync(OnConfirm));
-
-            IsDisabled = false;
-            Icon = icon;
 
             if (ButtonType == ButtonType.Submit)
             {
-                Submit = true;
+                await TrySubmit();
             }
-            StateHasChanged();
+            else
+            {
+                IsDisabled = false;
+                ButtonIcon = Icon;
+                StateHasChanged();
+            }
         }
         else
         {
             await OnConfirm();
             if (ButtonType == ButtonType.Submit)
             {
-                Submit = true;
-                StateHasChanged();
+                await TrySubmit();
             }
         }
+    }
+
+    private async Task TrySubmit()
+    {
+        await InvokeVoidAsync("submit", Id);
     }
 }

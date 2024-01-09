@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 
@@ -29,6 +28,42 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void Checkbox_Dispose()
+    {
+        var cut = Context.RenderComponent<Checkbox<string>>();
+
+        var checkbox = cut.Instance;
+        cut.InvokeAsync(async () => await checkbox.DisposeAsync());
+
+        var propertyInfo = checkbox.GetType().GetProperty("Module", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(propertyInfo);
+        Assert.Null(propertyInfo.GetValue(checkbox));
+
+        var methodInfo = checkbox.GetType().GetMethod("DisposeAsync", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+        Assert.NotNull(methodInfo);
+        methodInfo.Invoke(checkbox, new object[] { false });
+    }
+
+    [Fact]
+    public void Group_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapInputGroup>(pb =>
+        {
+            pb.AddChildContent<BootstrapInputGroupLabel>(pb =>
+            {
+                pb.Add(a => a.DisplayText, "GroupLabel");
+            });
+            pb.AddChildContent<Checkbox<string>>(pb =>
+            {
+                pb.Add(a => a.ShowLabel, true);
+                pb.Add(a => a.DisplayText, "TestLabel");
+            });
+        });
+        Assert.DoesNotContain("TestLabel", cut.Markup);
+        Assert.Contains("GroupLabel", cut.Markup);
+    }
+
+    [Fact]
     public void EditorForm_Ok()
     {
         var foo = Foo.Generate(Localizer);
@@ -37,7 +72,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
             builder.Add(a => a.Model, foo);
             builder.AddChildContent<CheckboxList<IEnumerable<string>>>(pb =>
             {
-                pb.Add(a => a.Items, Foo.GenerateHobbys(Localizer));
+                pb.Add(a => a.Items, Foo.GenerateHobbies(Localizer));
                 pb.Add(a => a.Value, foo.Hobby);
                 pb.Add(a => a.ValueExpression, foo.GenerateValueExpression(nameof(foo.Hobby), typeof(IEnumerable<string>)));
             });
@@ -57,7 +92,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         var foo = Foo.Generate(Localizer);
         var cut = Context.RenderComponent<CheckboxList<IEnumerable<string>>>(pb =>
         {
-            pb.Add(a => a.Items, Foo.GenerateHobbys(Localizer));
+            pb.Add(a => a.Items, Foo.GenerateHobbies(Localizer));
             pb.Add(a => a.Value, foo.Hobby);
         });
         Assert.DoesNotContain("no-border", cut.Markup);
@@ -72,7 +107,6 @@ public class CheckboxListTest : BootstrapBlazorTestBase
     [Fact]
     public void IsVertical_Ok()
     {
-        var foo = Foo.Generate(Localizer);
         var cut = Context.RenderComponent<CheckboxList<IEnumerable<int>>>();
         Assert.DoesNotContain("is-vertical", cut.Markup);
 
@@ -81,6 +115,32 @@ public class CheckboxListTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsVertical, true);
         });
         Assert.Contains("is-vertical", cut.Markup);
+    }
+
+    [Fact]
+    public void IsDisabled_Ok()
+    {
+        var cut = Context.RenderComponent<CheckboxList<IEnumerable<SelectedItem>>>(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new SelectedItem { Text = "Item 1", Value = "1" },
+                new SelectedItem { Text = "Item 2", Value = "2" , IsDisabled = true },
+                new SelectedItem { Text = "Item 3", Value = "3" },
+            });
+        });
+        cut.Contains("form-check is-label disabled");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new SelectedItem { Text = "Item 1", Value = "1" },
+                new SelectedItem { Text = "Item 2", Value = "2" }
+            });
+            pb.Add(a => a.IsDisabled, true);
+        });
+        cut.Contains("form-check is-label disabled");
     }
 
     [Fact]
@@ -94,7 +154,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
 
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.Items, Foo.GenerateHobbys(Localizer));
+            pb.Add(a => a.Items, Foo.GenerateHobbies(Localizer));
         });
         Assert.Contains("test-item", cut.Markup);
     }
@@ -140,7 +200,7 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         var foo = Foo.Generate(Localizer);
         var cut = Context.RenderComponent<CheckboxList<IEnumerable<string>>>(pb =>
         {
-            pb.Add(a => a.Items, Foo.GenerateHobbys(Localizer));
+            pb.Add(a => a.Items, Foo.GenerateHobbies(Localizer));
             pb.Add(a => a.Value, foo.Hobby);
             pb.Add(a => a.OnSelectedChanged, (v1, v2) =>
             {
@@ -211,8 +271,69 @@ public class CheckboxListTest : BootstrapBlazorTestBase
         Assert.True(@checked);
     }
 
+    [Fact]
+    public void FormatValue_Ok()
+    {
+        var cut = Context.RenderComponent<FormatValueTestCheckboxList>();
+        cut.InvokeAsync(() =>
+        {
+            Assert.Null(cut.Instance.NullValueTest());
+            Assert.NotNull(cut.Instance.NotNullValueTest());
+        });
+    }
+
+    [Fact]
+    public void FormatGenericValue_Ok()
+    {
+        var cut = Context.RenderComponent<FormatValueTestGenericCheckboxList>();
+        cut.InvokeAsync(() =>
+        {
+            Assert.Equal(string.Empty, cut.Instance.NullValueTest());
+            Assert.Equal("test", cut.Instance.NotNullValueTest());
+        });
+    }
+
+    [Fact]
+    public void IsButton_Ok()
+    {
+        var cut = Context.RenderComponent<CheckboxList<IEnumerable<int>>>(pb =>
+        {
+            pb.Add(a => a.IsButton, true);
+            pb.Add(a => a.Color, Color.Danger);
+            pb.Add(a => a.Items, new List<SelectedItem>()
+            {
+                new SelectedItem("1", "Test 1"),
+                new SelectedItem("2", "Test 2")
+            });
+        });
+        cut.InvokeAsync(() =>
+        {
+            var item = cut.Find(".btn");
+            item.Click();
+            cut.Contains("btn active bg-danger");
+        });
+    }
+
     private class CheckboxListGenericMock<T>
     {
 
+    }
+
+    private class FormatValueTestCheckboxList : CheckboxList<string?>
+    {
+        public string? NullValueTest() => base.FormatValueAsString(null);
+
+        public string? NotNullValueTest() => base.FormatValueAsString("test");
+    }
+
+    private class FormatValueTestGenericCheckboxList : CheckboxList<IEnumerable<string>?>
+    {
+        public string? NullValueTest() => base.FormatValueAsString(null);
+
+        public string? NotNullValueTest()
+        {
+            Items = new List<SelectedItem>() { new("test", "test") { Active = true } };
+            return base.FormatValueAsString(new List<string>() { "test" });
+        }
     }
 }

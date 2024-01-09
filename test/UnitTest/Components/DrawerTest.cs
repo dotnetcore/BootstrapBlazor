@@ -47,6 +47,16 @@ public class DrawerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void AllowResize_Ok()
+    {
+        var cut = Context.RenderComponent<Drawer>(builder =>
+        {
+            builder.Add(a => a.AllowResize, true);
+        });
+        cut.Contains("<div class=\"drawer-bar\"><div class=\"drawer-bar-body\"></div></div>");
+    }
+
+    [Fact]
     public void IsOpenChanged_Ok()
     {
         var isopen = true;
@@ -60,7 +70,7 @@ public class DrawerTest : BootstrapBlazorTestBase
             }));
         });
 
-        cut.Find(".drawer-container").Click();
+        cut.Find(".drawer-backdrop").Click();
         Assert.False(isopen);
     }
 
@@ -75,7 +85,7 @@ public class DrawerTest : BootstrapBlazorTestBase
             builder.Add(a => a.OnClickBackdrop, () => { isopen = false; return Task.CompletedTask; });
         });
 
-        cut.Find(".drawer-container").Click();
+        cut.Find(".drawer-backdrop").Click();
         Assert.False(isopen);
     }
 
@@ -93,5 +103,26 @@ public class DrawerTest : BootstrapBlazorTestBase
 
         var button = cut.FindComponent<Button>();
         Assert.NotNull(button);
+    }
+
+    [Fact]
+    public void ShowBackdrop_Ok()
+    {
+        var cut = Context.RenderComponent<Drawer>(builder =>
+        {
+            builder.Add(a => a.ShowBackdrop, true);
+            builder.Add(a => a.ChildContent, s =>
+            {
+                s.OpenComponent<Button>(0);
+                s.CloseComponent();
+            });
+        });
+        cut.Contains("drawer-backdrop");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowBackdrop, false);
+        });
+        cut.DoesNotContain("drawer-backdrop");
     }
 }

@@ -4,7 +4,7 @@
 
 namespace UnitTest.Components;
 
-public class AvatarTest : TestBase
+public class AvatarTest : BootstrapBlazorTestBase
 {
     [Fact]
     public void IsCircle_Ok()
@@ -16,7 +16,7 @@ public class AvatarTest : TestBase
     [Fact]
     public void Url_Ok()
     {
-        var url = "_content/BootstrapBlazor.Shared/images/Argo-C.png";
+        var url = "./images/Argo-C.png";
         var cut = Context.RenderComponent<Avatar>(builder =>
         {
             builder.Add(a => a.Url, url);
@@ -81,7 +81,7 @@ public class AvatarTest : TestBase
     [Fact]
     public void GetUrlAsync_Ok()
     {
-        var url = "_content/BootstrapBlazor.Shared/images/Argo-C.png";
+        var url = "./images/Argo-C.png";
         var cut = Context.RenderComponent<Avatar>(builder =>
         {
             builder.Add(a => a.GetUrlAsync, () => Task.FromResult(url));

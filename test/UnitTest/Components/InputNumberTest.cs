@@ -93,7 +93,7 @@ public class InputNumberTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ShowButton_Ok()
+    public async Task ShowButton_Ok()
     {
         var inc = false;
         var dec = false;
@@ -114,11 +114,21 @@ public class InputNumberTest : BootstrapBlazorTestBase
         cut.Contains("class=\"input-group\"");
 
         var buttons = cut.FindAll("button");
-        cut.InvokeAsync(() => buttons[0].Click());
+        await cut.InvokeAsync(() => buttons[0].Click());
         Assert.True(inc);
+        Assert.Equal(-1, cut.Instance.Value);
 
-        cut.InvokeAsync(() => buttons[1].Click());
+        await cut.InvokeAsync(() => buttons[1].Click());
         Assert.True(dec);
+        Assert.Equal(0, cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb => pb.Add(a => a.Step, "10"));
+        buttons = cut.FindAll("button");
+        await cut.InvokeAsync(() => buttons[0].Click());
+        Assert.Equal(-10, cut.Instance.Value);
+
+        await cut.InvokeAsync(() => buttons[1].Click());
+        Assert.Equal(0, cut.Instance.Value);
     }
 
     [Theory]
@@ -149,7 +159,6 @@ public class InputNumberTest : BootstrapBlazorTestBase
         public int Count { get; set; }
     }
 
-    [ExcludeFromCodeCoverage]
     private class MockInputNumber : BootstrapInputNumber<string>
     {
         public override Task SetParametersAsync(ParameterView parameters)

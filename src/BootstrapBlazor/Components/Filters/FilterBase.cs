@@ -34,13 +34,19 @@ public abstract class FilterBase : ComponentBase, IFilterAction
     /// <summary>
     /// 获得 当前过滤条件是否激活
     /// </summary>
-    protected bool HasFilter => TableFilter!.HasFilter; // IsHeaderRow 为真时使用 TableFilter 不为空
+    protected bool HasFilter => TableFilter?.HasFilter ?? false; // IsHeaderRow 为真时使用 TableFilter 不为空
 
     /// <summary>
     /// 获得/设置 条件数量
     /// </summary>
     [Parameter]
     public int Count { get; set; }
+
+    /// <summary>
+    /// 获得/设置 条件候选项
+    /// </summary>
+    [Parameter]
+    public IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
     /// 获得/设置 所属 TableFilter 实例
@@ -71,13 +77,13 @@ public abstract class FilterBase : ComponentBase, IFilterAction
     /// 获得过滤窗口的所有条件方法
     /// </summary>
     /// <returns></returns>
-    public abstract IEnumerable<FilterKeyValueAction> GetFilterConditions();
+    public abstract FilterKeyValueAction GetFilterConditions();
 
     /// <summary>
     /// 设置过滤集合方法
     /// </summary>
-    /// <param name="conditions"></param>
-    public virtual Task SetFilterConditionsAsync(IEnumerable<FilterKeyValueAction> conditions) => OnFilterValueChanged();
+    /// <param name="filter"></param>
+    public virtual Task SetFilterConditionsAsync(FilterKeyValueAction filter) => OnFilterValueChanged();
 
     /// <summary>
     /// 

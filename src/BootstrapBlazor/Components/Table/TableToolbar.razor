@@ -19,14 +19,15 @@
                                 TooltipText="@b.TooltipText" TooltipPlacement="@b.TooltipPlacement" TooltipTrigger="@b.TooltipTrigger"
                                 IsDisabled="GetDisabled(b)"></Button>
                     }
-                    else if (button is TableToolbarPopconfirmButton<TItem> pb && pb.IsShow)
+                    else if (button is TableToolbarPopConfirmButton<TItem> pb && pb.IsShow)
                     {
-                        <PopConfirmButton AdditionalAttributes="pb.AdditionalAttributes"
-                                          Color="@pb.Color" Icon="@pb.Icon" Text="@pb.Text" Size="pb.Size"
-                                          IsDisabled="@pb.IsDisabled" IsBlock="@pb.IsBlock" IsOutline="@pb.IsOutline"
-                                          OnBeforeClick="@pb.OnBeforeClick" OnClose="@pb.OnClose" OnConfirm="@pb.OnConfirm"
+                        <PopConfirmButton AdditionalAttributes="pb.AdditionalAttributes" CustomClass="@pb.CustomClass"
+                                          Color="@pb.Color" Icon="@pb.Icon" Text="@pb.Text" Size="pb.Size" ShowShadow="@pb.ShowShadow"
+                                          IsAsync="@pb.IsAsync" IsDisabled="GetDisabled(pb)" IsBlock="@pb.IsBlock" IsOutline="@pb.IsOutline"
+                                          OnBeforeClick="@pb.OnBeforeClick" OnClose="@pb.OnClose" OnConfirm="() => OnConfirm(pb)"
                                           ConfirmIcon="@pb.ConfirmIcon" ConfirmButtonColor="@pb.ConfirmButtonColor"
                                           ConfirmButtonText="@pb.ConfirmButtonText" CloseButtonColor="@pb.CloseButtonColor"
+                                          Placement="@pb.Placement" Trigger="@pb.Trigger"
                                           CloseButtonText="@pb.CloseButtonText" Content="@pb.Content">
                         </PopConfirmButton>
                     }
@@ -36,12 +37,12 @@
             {
                 <div class="btn-gear btn-group d-sm-none">
                     <button class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" type="button">
-                        <i class="fa-fw fa-solid fa-gear"></i>
+                        <i class="@GearIcon"></i>
                     </button>
                     <div class="dropdown-menu">
                         @foreach (var button in Buttons)
                         {
-                            @if (button is TableToolbarButton<TItem> b && b.IsShow)
+                            @if (button is TableToolbarButton<TItem> { IsShow: true } b)
                             {
                                 <div class="dropdown-item" @onclick="e => OnToolbarButtonClick(b)">
                                     @if (string.IsNullOrEmpty(b.Icon))
@@ -54,7 +55,7 @@
                                     }
                                 </div>
                             }
-                            else if (button is TableToolbarPopconfirmButton<TItem> pb && pb.IsShow)
+                            else if (button is TableToolbarPopConfirmButton<TItem> { IsShow: true } pb)
                             {
                                 <div class="dropdown-item" @onclick="pb.OnConfirm">
                                     @if (string.IsNullOrEmpty(pb.Icon))

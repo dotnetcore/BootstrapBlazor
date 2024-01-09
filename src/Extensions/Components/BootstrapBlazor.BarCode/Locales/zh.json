@@ -1,0 +1,15 @@
+﻿{
+  "BootstrapBlazor.Components.BarcodeReader": {
+    "ButtonScanText": "扫描",
+    "ButtonStopText": "关闭",
+    "AutoStopText": "自动关闭",
+    "DeviceLabel": "摄像头",
+    "InitDevicesString": "正在识别摄像头",
+    "NotFoundDevicesString": "未找到视频相关设备"
+  },
+  "BootstrapBlazor.Components.QRCode": {
+    "PlaceHolder": "请输入内容",
+    "ClearButtonText": "清除",
+    "GenerateButtonText": "生成"
+  }
+}

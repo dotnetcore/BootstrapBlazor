@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
-
 namespace UnitTest.Components;
 
 public class InputTest : BootstrapBlazorTestBase
@@ -71,6 +69,30 @@ public class InputTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task OnInput_Ok()
+    {
+        var foo = new Foo() { Name = "Test" };
+        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        {
+            builder.Add(a => a.Value, foo.Name);
+            builder.Add(a => a.UseInputEvent, true);
+            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<string>(this, v =>
+            {
+                foo.Name = v;
+            }));
+        });
+        cut.Contains("blazor:oninput");
+
+        // 输入字符
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() =>
+        {
+            input.Input("1");
+        });
+        Assert.Equal("1", foo.Name);
+    }
+
+    [Fact]
     public void Password_Ok()
     {
         var cut = Context.RenderComponent<BootstrapPassword>();
@@ -78,7 +100,7 @@ public class InputTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task IsTrim_Ok()
+    public void IsTrim_Ok()
     {
         var val = "    test    ";
         var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
@@ -87,19 +109,21 @@ public class InputTest : BootstrapBlazorTestBase
             builder.Add(a => a.Value, "");
         });
         Assert.Equal("", cut.Instance.Value);
+
         var input = cut.Find("input");
-        await cut.InvokeAsync(() => input.Change(val));
-        Assert.Equal(val.Trim(), cut.Instance.Value);
+        cut.InvokeAsync(() => input.Change(val));
+        cut.WaitForAssertion(() => Assert.Equal(val.Trim(), cut.Instance.Value));
 
         cut.SetParametersAndRender(builder =>
         {
             builder.Add(a => a.IsTrim, false);
             builder.Add(a => a.Value, "");
         });
-        Assert.Equal("", cut.Instance.Value);
+        cut.WaitForAssertion(() => Assert.Equal("", cut.Instance.Value));
+
         input = cut.Find("input");
-        await cut.InvokeAsync(() => input.Change(val));
-        Assert.Equal(val, cut.Instance.Value);
+        cut.InvokeAsync(() => input.Change(val));
+        cut.WaitForAssertion(() => Assert.Equal(val, cut.Instance.Value));
     }
 
     [Fact]
@@ -118,7 +142,7 @@ public class InputTest : BootstrapBlazorTestBase
             builder.Add(a => a.Formatter, dt => dt.ToString("HH:mm"));
             builder.Add(a => a.Value, DateTime.Now);
         });
-        Assert.Contains($"value=\"{DateTime.Now:HH:mm}\"", cut.Markup);
+        cut.WaitForAssertion(() => Assert.Contains($"value=\"{DateTime.Now:HH:mm}\"", cut.Markup));
     }
 
     [Fact]
@@ -130,8 +154,8 @@ public class InputTest : BootstrapBlazorTestBase
             builder.Add(a => a.OnEnterAsync, v => { val = v; return Task.CompletedTask; });
             builder.Add(a => a.Value, "test");
         });
-        await cut.Instance.EnterCallback();
-        Assert.Equal("test", val);
+        await cut.Instance.EnterCallback("Test1");
+        Assert.Equal("Test1", val);
     }
 
     [Fact]
@@ -141,8 +165,9 @@ public class InputTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
         {
             builder.Add(a => a.OnEscAsync, v => { val = v; return Task.CompletedTask; });
+            builder.Add(a => a.Value, "test");
         });
-        await cut.Instance.EscCallback("test");
+        await cut.Instance.EscCallback();
         Assert.Equal("test", val);
     }
 
@@ -169,8 +194,37 @@ public class InputTest : BootstrapBlazorTestBase
     public void FloatingLabel_Ok()
     {
         var cut = Context.RenderComponent<FloatingLabel<string>>();
+        cut.Contains("<div class=\"form-floating\">");
 
-        Assert.NotEmpty(cut.Markup);
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsGroupBox, true);
+        });
+        cut.Contains("<div class=\"form-floating is-group\">");
+
+        // PlaceHolder
+        var foo = new Foo() { Name = "Foo" };
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, "test");
+        });
+        var input = cut.Find("input");
+        Assert.Null(input.GetAttribute("placeholder"));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+        });
+        input = cut.Find("input");
+        Assert.Equal("姓名", input.GetAttribute("placeholder"));
+
+        // PlaceHolder
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.PlaceHolder, "fl-pl");
+        });
+        input = cut.Find("input");
+        Assert.Equal("fl-pl", input.GetAttribute("placeholder"));
     }
 
     [Fact]
@@ -182,6 +236,18 @@ public class InputTest : BootstrapBlazorTestBase
         });
 
         Assert.Contains("DisplayText", cut.Markup);
+    }
+
+    [Fact]
+    public void ShowRequiredMark_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapInputGroupLabel>(builder =>
+        {
+            builder.Add(s => s.DisplayText, "DisplayText");
+            builder.Add(s => s.ShowRequiredMark, true);
+        });
+
+        cut.MarkupMatches("<label class=\"form-label\" required=\"true\">DisplayText</label>");
     }
 
     [Fact]
@@ -205,12 +271,12 @@ public class InputTest : BootstrapBlazorTestBase
             {
                 builder.OpenComponent<BootstrapInputGroupLabel>(0);
                 builder.AddAttribute(1, nameof(BootstrapInputGroupLabel.DisplayText), "BootstrapInputGroup");
+                builder.AddAttribute(2, nameof(BootstrapInputGroupLabel.ShowRequiredMark), true);
                 builder.CloseComponent();
             }));
         });
 
-        Assert.NotEmpty(cut.Markup);
-        Assert.Contains("BootstrapInputGroup", cut.Markup);
+        cut.MarkupMatches("<div class=\"input-group\"><div class=\"input-group-text\" required=\"true\"><span>BootstrapInputGroup</span></div></div>");
     }
 
     [Fact]
@@ -222,6 +288,35 @@ public class InputTest : BootstrapBlazorTestBase
             {
                 pb.Add(a => a.IsAutoFocus, true);
             });
+        });
+    }
+
+    [Fact]
+    public void OnValueChanged_Ok()
+    {
+        var val = "";
+        var foo = new Foo() { Name = "Test" };
+        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        {
+            builder.Add(a => a.Value, foo.Name);
+            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<string>(this, v =>
+            {
+                foo.Name = v;
+            }));
+            builder.Add(a => a.OnValueChanged, v =>
+            {
+                val = $"{foo.Name}-{v}";
+                return Task.CompletedTask;
+            });
+        });
+        cut.InvokeAsync(() =>
+        {
+            var input = cut.Find("input");
+            input.Change("Test_Test");
+
+            // 保证 ValueChanged 先触发，再触发 OnValueChanged
+            Assert.Equal("Test_Test", foo.Name);
+            Assert.Equal("Test_Test-Test_Test", val);
         });
     }
 }

@@ -1,0 +1,79 @@
+.speech-wave-line {
+    --bb-speech-line-height: #{$bb-speech-line-height};
+    --bb-speech-line-bg: #{$bb-speech-line-bg};
+    line-height: var(--bb-speech-line-height);
+    display: inline-block;
+
+    > span {
+        background-color: var(--bb-speech-line-bg);
+        width: 3px;
+        height: 10px;
+        margin: 0 5px;
+        display: inline-block;
+        border: none;
+    }
+
+    &.line {
+
+        > span {
+            animation: speech-note 0.2s ease-in-out;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+
+
+        .l1 {
+            animation-delay: -1s;
+        }
+
+        .l2 {
+            animation-delay: -0.9s;
+        }
+
+        .l3 {
+            animation-delay: -0.8s;
+        }
+
+        .l4 {
+            animation-delay: -0.7s;
+        }
+
+        .l5 {
+            animation-delay: -0.6s;
+        }
+
+        .l6 {
+            animation-delay: -0.5s;
+        }
+
+        .l7 {
+            animation-delay: -0.4s;
+        }
+
+        .l8 {
+            animation-delay: -0.3s;
+        }
+
+        .l9 {
+            animation-delay: -0.2s;
+        }
+
+        .l10 {
+            animation-delay: -0.1s;
+        }
+
+        .speech-wave-time {
+            margin-left: 1rem;
+        }
+    }
+}
+
+@keyframes speech-note {
+    from {
+        transform: scaleY(1)
+    }
+
+    to {
+        transform: scaleY(4)
+    }
+}

@@ -10,10 +10,11 @@ namespace BootstrapBlazor.Components;
 public class DropdownWidgetItem : BootstrapComponentBase
 {
     /// <summary>
-    /// 获得/设置 挂件图标 默认为 fa-regular fa-bell
+    /// 获得/设置 挂件图标
     /// </summary>
     [Parameter]
-    public string Icon { get; set; } = "fa-regular fa-bell";
+    public string? Icon { get; set; }
+
     /// <summary>
     /// 获得/设置 DropdownWidgetItem 组件项目的悬浮提示信息
     /// </summary>

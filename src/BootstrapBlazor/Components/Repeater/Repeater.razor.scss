@@ -1,0 +1,11 @@
+﻿.repeater {
+    --bb-repeater-loading-height: 100%;
+}
+
+    .repeater .repeater-loading {
+        width: 100%;
+        height: var(--bb-repeater-loading-height);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }

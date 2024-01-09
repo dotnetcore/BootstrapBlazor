@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
 using Longbow.Tasks;
 using Microsoft.Extensions.Options;
 
@@ -11,7 +10,7 @@ namespace BootstrapBlazor.Server.Services;
 /// <summary>
 /// 后台任务服务类
 /// </summary>
-internal class ClearUploadFilesService : BackgroundService
+internal class ClearTempFilesService : BackgroundService
 {
     private readonly IWebHostEnvironment _env;
 
@@ -20,7 +19,7 @@ internal class ClearUploadFilesService : BackgroundService
     /// </summary>
     /// <param name="env"></param>
     /// <param name="websiteOption"></param>
-    public ClearUploadFilesService(IWebHostEnvironment env, IOptionsMonitor<WebsiteOptions> websiteOption)
+    public ClearTempFilesService(IWebHostEnvironment env, IOptionsMonitor<WebsiteOptions> websiteOption)
     {
         _env = env;
         websiteOption.CurrentValue.WebRootPath = env.WebRootPath;
@@ -35,33 +34,45 @@ internal class ClearUploadFilesService : BackgroundService
     /// <returns></returns>
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _ = TaskServicesManager.GetOrAdd("Clear Upload Files", token =>
+        TaskServicesManager.GetOrAdd("Clear Upload Files", (provider, token) =>
         {
-            if (_env != null)
+            var webSiteUrl = $"images{Path.DirectorySeparatorChar}uploader{Path.DirectorySeparatorChar}";
+            var filePath = Path.Combine(_env.WebRootPath, webSiteUrl);
+            if (Directory.Exists(filePath))
             {
-                var webSiteUrl = $"images{Path.DirectorySeparatorChar}uploader{Path.DirectorySeparatorChar}";
-                var filePath = Path.Combine(_env.WebRootPath, webSiteUrl);
-                if (Directory.Exists(filePath))
+                Directory.EnumerateFiles(filePath).Take(10).ToList().ForEach(file => DeleteFile(file, token));
+            }
+
+            // 清除导出临时文件
+            var exportFilePath = Path.Combine(_env.WebRootPath, "pdf");
+            if (Directory.Exists(exportFilePath))
+            {
+                Directory.EnumerateFiles(exportFilePath, "*.html").Take(10).Where(file =>
                 {
-                    Directory.EnumerateFiles(filePath).Take(10).ToList().ForEach(file =>
-                    {
-                        try
-                        {
-                            if (token.IsCancellationRequested)
-                            {
-                                return;
-                            }
-
-                            File.Delete(file);
-                        }
-                        catch { }
-                    });
-                }
-
+                    var fileInfo = new FileInfo(file);
+                    return fileInfo.CreationTime.AddMinutes(5) < DateTime.Now;
+                }).ToList().ForEach(i => DeleteFile(i, token));
             }
             return Task.CompletedTask;
         }, TriggerBuilder.Build(Cron.Minutely(10)));
 
         return Task.CompletedTask;
+
+        void DeleteFile(string file, CancellationToken token)
+        {
+            try
+            {
+                if (token.IsCancellationRequested)
+                {
+                    return;
+                }
+
+                File.Delete(file);
+            }
+            catch
+            {
+                // ignored
+            }
+        }
     }
 }

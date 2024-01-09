@@ -1,0 +1,61 @@
+.timer {
+    --bb-timer-alert-font-size: #{$bb-timer-alert-font-size};
+    --bb-timer-alert-icon-margin-right: #{$bb-timer-alert-icon-margin-right};
+    --bb-timer-body-font-size: #{$bb-timer-body-font-size};
+    --bb-timer-body-bottom: #{$bb-timer-body-bottom};
+    --bb-timer-confirm-button-border-hover-color: #{$bb-timer-confirm-button-border-hover-color};
+    --bb-timer-confirm-button-color: #{$bb-timer-confirm-button-color};
+    --bb-timer-button-border: #{$bb-timer-button-border};
+    --bb-timer-button-radius: #{$bb-timer-button-radius};
+    --bb-timer-button-width: #{$bb-timer-button-width};
+    --bb-timer-button-height: #{$bb-timer-button-height};
+    --bb-timer-button-padding: #{$bb-timer-button-padding};
+    --bb-timer-button-font-size: #{$bb-timer-button-font-size};
+}
+
+.timer .time-panel-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.timer .time-panel-btn {
+    border: 1px solid transparent;
+    border-radius: var(--bs-border-radius);
+    transition: border .3s linear;
+}
+
+.timer .time-panel-btn:hover {
+    border-color: var(--bb-timer-confirm-button-border-hover-color);
+}
+
+.timer .time-panel-btn.confirm {
+    color: var(--bb-timer-confirm-button-color);
+}
+
+.timer .circle-body {
+    flex-flow: column nowrap;
+    bottom: var(--bb-timer-body-bottom);
+    font-size: var(--bb-timer-body-font-size);
+}
+
+.timer .timer-alert {
+    font-size: var(--bb-timer-alert-font-size);
+}
+
+.timer .timer-alert i {
+    margin-right: var(--bb-timer-alert-icon-margin-right);
+}
+
+.timer .timer-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.timer .timer-buttons .btn {
+    border: var(--bb-timer-button-border);
+    border-radius: var(--bb-timer-button-radius);
+    height: var(--bb-timer-button-width);
+    width: var(--bb-timer-button-height);
+    font-size: var(--bb-timer-button-font-size);
+    padding: var(--bb-timer-button-padding);
+}

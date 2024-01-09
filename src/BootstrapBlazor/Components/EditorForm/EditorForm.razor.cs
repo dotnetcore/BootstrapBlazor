@@ -24,9 +24,23 @@ public partial class EditorForm<TModel> : IShowLabel
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    private string? GetCssString(IEditorItem item) => CssBuilder.Default("col-12")
-        .AddClass($"col-sm-6 col-md-{Math.Floor(12d / (ItemsPerRow ?? 1))}", item.Items == null && ItemsPerRow != null && item.Rows == 0)
-        .Build();
+    private string? GetCssString(IEditorItem item)
+    {
+        int cols = 0;
+        double mdCols = 6;
+        if (item is AutoGenerateColumnAttribute a && a.Cols > 0 && a.Cols < 13)
+        {
+            cols = a.Cols;
+        }
+        if (ItemsPerRow.HasValue)
+        {
+            mdCols = Math.Min(12, Math.Ceiling(12d / ItemsPerRow.Value));
+        }
+        return CssBuilder.Default("col-12")
+            .AddClass($"col-sm-{cols}", cols > 0) // 指定 Cols
+            .AddClass($"col-sm-6 col-md-{mdCols}", cols == 0 && item.Items == null && item.Rows == 0) // 指定 ItemsPerRow
+            .Build();
+    }
 
     private string? FormClassString => CssBuilder.Default("row g-3")
         .AddClass("form-inline", RowType == RowType.Inline)
@@ -116,10 +130,23 @@ public partial class EditorForm<TModel> : IShowLabel
     public IEnumerable<IEditorItem>? Items { get; set; }
 
     /// <summary>
+    /// 获得/设置 自定义列排序规则 默认 null 未设置 使用内部排序机制 1 2 3 0 -3 -2 -1 顺序
+    /// </summary>
+    [Parameter]
+    public Func<IEnumerable<ITableColumn>, IEnumerable<ITableColumn>>? ColumnOrderCallback { get; set; }
+
+    /// <summary>
     /// 获得/设置 未设置 GroupName 编辑项是否放置在顶部 默认 false
     /// </summary>
     [Parameter]
     public bool ShowUnsetGroupItemsOnTop { get; set; }
+
+    /// <summary>
+    /// 获得/设置 默认占位符文本 默认 null
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? PlaceHolderText { get; set; }
 
     /// <summary>
     /// 获得/设置 级联上下文 EditContext 实例 内置于 EditForm 或者 ValidateForm 时有值
@@ -144,22 +171,19 @@ public partial class EditorForm<TModel> : IShowLabel
     /// <summary>
     /// 获得/设置 配置编辑项目集合
     /// </summary>
-    private List<IEditorItem> EditorItems { get; } = new();
+    private readonly List<IEditorItem> _editorItems = [];
 
     /// <summary>
     /// 获得/设置 渲染的编辑项集合
     /// </summary>
-    private List<IEditorItem> FormItems { get; } = new();
+    private readonly List<IEditorItem> _formItems = [];
 
-    private IEnumerable<IEditorItem> UnsetGroupItems => FormItems.Where(i => string.IsNullOrEmpty(i.GroupName)).OrderBy(i => i.Order);
+    private IEnumerable<IEditorItem> UnsetGroupItems => _formItems.Where(i => string.IsNullOrEmpty(i.GroupName));
 
-    private IEnumerable<KeyValuePair<string, IOrderedEnumerable<IEditorItem>>> GroupItems => FormItems
+    private IEnumerable<KeyValuePair<string, IOrderedEnumerable<IEditorItem>>> GroupItems => _formItems
         .Where(i => !string.IsNullOrEmpty(i.GroupName))
         .GroupBy(i => i.GroupOrder).OrderBy(i => i.Key)
         .Select(i => new KeyValuePair<string, IOrderedEnumerable<IEditorItem>>(i.First().GroupName!, i.OrderBy(x => x.Order)));
-
-    [NotNull]
-    private string? PlaceHolderText { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -173,15 +197,10 @@ public partial class EditorForm<TModel> : IShowLabel
             var message = Localizer["ModelInvalidOperationExceptionMessage", nameof(EditorForm<TModel>)];
             if (!CascadedEditContext.Model.GetType().IsAssignableTo(typeof(TModel)))
             {
-                throw new InvalidOperationException(message);
+                throw new InvalidCastException(message);
             }
 
             Model = (TModel)CascadedEditContext.Model;
-        }
-
-        if (Model == null)
-        {
-            throw new ArgumentNullException(nameof(Model));
         }
 
         // 统一设置所有 IEditorItem 的 PlaceHolder
@@ -222,7 +241,7 @@ public partial class EditorForm<TModel> : IShowLabel
             if (Items != null)
             {
                 // 通过级联参数渲染组件
-                FormItems.AddRange(Items);
+                _formItems.AddRange(Items);
             }
             else
             {
@@ -230,10 +249,10 @@ public partial class EditorForm<TModel> : IShowLabel
                 if (AutoGenerateAllItem)
                 {
                     // 获取绑定模型所有属性
-                    var items = InternalTableColumn.GetProperties<TModel>().ToList();
+                    var items = Utility.GetTableColumns<TModel>(defaultOrderCallback: ColumnOrderCallback).ToList();
 
                     // 通过设定的 FieldItems 模板获取项进行渲染
-                    foreach (var el in EditorItems)
+                    foreach (var el in _editorItems)
                     {
                         var item = items.FirstOrDefault(i => i.GetFieldName() == el.GetFieldName());
                         if (item != null)
@@ -251,11 +270,11 @@ public partial class EditorForm<TModel> : IShowLabel
                             }
                         }
                     }
-                    FormItems.AddRange(items.Where(i => i.Editable));
+                    _formItems.AddRange(items.Where(i => i.Editable));
                 }
                 else
                 {
-                    FormItems.AddRange(EditorItems.Where(i => i.Editable));
+                    _formItems.AddRange(_editorItems.Where(i => i.Editable));
                 }
             }
             StateHasChanged();

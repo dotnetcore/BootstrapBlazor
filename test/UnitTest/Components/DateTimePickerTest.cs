@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
-
 namespace UnitTest.Components;
 
 public class DateTimePickerTest : BootstrapBlazorTestBase
@@ -17,7 +15,61 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             pb.Add(a => a.Value, DateTime.MinValue);
         });
         // 设置 Value 为 MinValue 内部更改为 DateTime.Now
-        Assert.NotEqual(DateTime.MinValue, cut.Instance.Value);
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value);
+    }
+
+    [Fact]
+    public void AutoToday_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.Value, DateTime.MinValue);
+        });
+        Assert.Equal(DateTime.Today, cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.AutoToday, false);
+            pb.Add(a => a.Value, DateTime.MinValue);
+        });
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value);
+    }
+
+    [Fact]
+    public void AllowNull_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
+        {
+            pb.Add(a => a.Value, DateTime.MinValue);
+        });
+        Assert.Equal(DateTime.MinValue, cut.Instance.Value);
+    }
+
+    [Fact]
+    public void DataTimeOffsetNull_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTimeOffset?>>(pb =>
+        {
+            pb.Add(a => a.Value, DateTimeOffset.MinValue);
+        });
+        Assert.Equal(DateTimeOffset.MinValue, cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, null);
+            pb.Add(a => a.AutoToday, false);
+        });
+        Assert.Null(cut.Instance.Value);
+    }
+
+    [Fact]
+    public void DataTimeOffset_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTimeOffset>>(pb =>
+        {
+            pb.Add(a => a.Value, DateTimeOffset.MinValue);
+        });
+        Assert.Equal(DateTimeOffset.MinValue, cut.Instance.Value);
     }
 
     [Fact]
@@ -64,13 +116,13 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnDateTimeChanged_Ok()
+    public void OnValueChanged_Ok()
     {
         var res = false;
         var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder =>
         {
             builder.Add(a => a.Value, DateTime.Now);
-            builder.Add(a => a.OnDateTimeChanged, new Func<DateTime, Task>(d =>
+            builder.Add(a => a.OnValueChanged, new Func<DateTime, Task>(d =>
             {
                 res = true;
                 return Task.CompletedTask;
@@ -88,7 +140,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var changed = false;
         var cut = Context.RenderComponent<DateTimePicker<DateTime?>>(pb =>
         {
-            pb.Add(a => a.OnDateTimeChanged, v =>
+            pb.Add(a => a.OnValueChanged, v =>
             {
                 changed = true;
                 return Task.CompletedTask;
@@ -103,6 +155,13 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.NotNull(cut.Instance.Value);
         Assert.True(changed);
 
+        cut.InvokeAsync(() => buttons[0].Click());
+        Assert.Null(cut.Instance.Value);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.AutoToday, false);
+        });
         cut.InvokeAsync(() => buttons[0].Click());
         Assert.Null(cut.Instance.Value);
     }
@@ -146,6 +205,18 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
 
         cut.InvokeAsync(() => cut.Find(".current .cell").Click());
         cut.Contains($"value=\"{DateTime.Today:yyyy/MM/dd}\"");
+    }
+
+    [Fact]
+    public void Format_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.Format, "yyyy-MM-dd HH:mm:ss");
+        });
+
+        var body = cut.FindComponent<DatePickerBody>();
+        Assert.Equal("yyyy-MM-dd", body.Instance.DateFormat);
     }
 
     [Fact]
@@ -266,7 +337,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         // 上一年
         cut.InvokeAsync(() => buttons[0].Click());
         var labels = cut.FindAll(".date-picker-header-label");
-        Assert.Equal((DateTime.Today.Year - 1).ToString() + " 年", labels[0].TextContent);
+        Assert.Equal(DateTime.Today.AddYears(-1).Year.ToString() + " 年", labels[0].TextContent);
 
         // 下一年
         cut.InvokeAsync(() => buttons[3].Click());
@@ -276,7 +347,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         // 上一月
         cut.InvokeAsync(() => buttons[1].Click());
         labels = cut.FindAll(".date-picker-header-label");
-        Assert.Equal((DateTime.Today.Month - 1).ToString() + " 月", labels[1].TextContent);
+        Assert.Equal(DateTime.Today.AddMonths(-1).Month.ToString() + " 月", labels[1].TextContent);
 
         // 下一月
         cut.InvokeAsync(() => buttons[2].Click());
@@ -333,20 +404,6 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             pb.Add(a => a.MinValue, null);
             pb.Add(a => a.MaxValue, DateTime.Today.AddDays(7));
         });
-    }
-
-    [Fact]
-    public void IsShown_Ok()
-    {
-        var cut = Context.RenderComponent<DatePickerBody>(builder =>
-        {
-            builder.Add(a => a.Value, DateTime.Now);
-            builder.Add(a => a.IsShown, true);
-        });
-
-        var value = cut.Find(".picker-panel").ClassList.Contains("d-none");
-
-        Assert.False(value);
     }
 
     [Fact]
@@ -444,11 +501,24 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void HeightCallback_Ok()
+    {
+        var cut = Context.RenderComponent<TimePickerBody>();
+        var cell = cut.FindComponent<TimePickerCell>();
+        cut.InvokeAsync(() => cell.Instance.OnHeightCallback(16));
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, TimeSpan.FromSeconds(1));
+        });
+    }
+
+    [Fact]
     public void Validate_Ok()
     {
         // (!MinValue.HasValue || Value >= MinValue.Value) && (!MaxValue.HasValue || Value <= MaxValue.Value)
         var cut = Context.RenderComponent<DatePickerBody>(pb =>
         {
+            pb.Add(a => a.ShowFooter, true);
             pb.Add(a => a.MinValue, DateTime.Now.AddDays(-1));
             pb.Add(a => a.Value, DateTime.Now);
         });
@@ -540,6 +610,37 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         Assert.True(res);
         Assert.True(value);
     }
+
+    [Fact]
+    public void HasSeconds_Ok()
+    {
+        var cut = Context.RenderComponent<TimePickerBody>(builder =>
+        {
+            builder.Add(a => a.Value, TimeSpan.FromDays(1));
+            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<TimeSpan>(this, t =>
+            {
+            }));
+        });
+
+        var ele = cut.Find(".time-panel-content .has-seconds");
+        Assert.NotNull(ele); 
+    }
+
+    [Fact]
+    public void HaveNotSeconds_Ok()
+    {
+        var cut = Context.RenderComponent<TimePickerBody>(builder =>
+        {
+            builder.Add(a => a.Value, TimeSpan.FromDays(1));
+            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<TimeSpan>(this, t =>
+            {
+            }));
+            builder.Add(a => a.HasSeconds, false);
+        });
+
+        var ele = cut.Find(".time-panel-content .havenot-seconds");
+        Assert.NotNull(ele); 
+    }
     #endregion
 
     #region TimeCell
@@ -622,8 +723,8 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<DateTimePicker<DateTime>>(builder =>
         {
             builder.Add(a => a.Value, DateTime.Today);
-            builder.Add(a => a.AutoClose, true);
-            builder.Add(a => a.OnDateTimeChanged, dt =>
+            builder.Add(a => a.AutoClose, false);
+            builder.Add(a => a.OnValueChanged, dt =>
             {
                 val = dt;
                 return Task.CompletedTask;
@@ -633,6 +734,128 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var button = cut.Find(".picker-panel-content .cell");
         await cut.InvokeAsync(() => button.Click());
 
+        Assert.Equal(val, DateTime.MinValue);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.AutoClose, true);
+        });
+        button = cut.Find(".picker-panel-content .cell");
+        await cut.InvokeAsync(() => button.Click());
         Assert.NotEqual(val, DateTime.MinValue);
+    }
+
+    [Fact]
+    public void SidebarTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.ShowSidebar, true);
+            pb.Add(a => a.SidebarTemplate, new RenderFragment<Func<DateTime, Task>>(cb => builder =>
+            {
+                builder.AddContent(0, "test-sidebar-template");
+            }));
+        });
+        cut.Contains("test-sidebar-template");
+    }
+
+    [Fact]
+    public void GetSafeYearDateTime_Ok()
+    {
+        Assert.True(MockDateTimePicker.GetSafeYearDateTime_Ok());
+    }
+
+    [Fact]
+    public void GetSafeMonthDateTime_Ok()
+    {
+        Assert.True(MockDateTimePicker.GetSafeMonthDateTime_Ok());
+    }
+
+    [Fact]
+    public void PickerBodyShowFooter_Ok()
+    {
+        var confirm = false;
+        var cut = Context.RenderComponent<DatePickerBody>(pb =>
+        {
+            pb.Add(a => a.ShowFooter, true);
+            pb.Add(a => a.AutoClose, true);
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Month);
+            pb.Add(a => a.OnConfirm, () =>
+            {
+                confirm = true;
+                return Task.CompletedTask;
+            });
+        });
+
+        // 设定为 月视图 切换 日视图时自动关闭触发 Confirm
+        var cell = cut.Find(".month-table span.cell");
+        cut.InvokeAsync(() => cell.Click());
+        Assert.True(confirm);
+
+        // 设置 AutoClose = false 不会触发 confirm
+        confirm = false;
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.AutoClose, false);
+        });
+        cut.InvokeAsync(() => cell.Click());
+        Assert.False(confirm);
+    }
+
+    [Fact]
+    public void OnClickShortLink_Ok()
+    {
+        var confirm = false;
+        var cut = Context.RenderComponent<DatePickerBody>(pb =>
+        {
+            pb.Add(a => a.ShowFooter, false);
+            pb.Add(a => a.AutoClose, true);
+            pb.Add(a => a.ShowSidebar, true);
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Month);
+            pb.Add(a => a.OnConfirm, () =>
+            {
+                confirm = true;
+                return Task.CompletedTask;
+            });
+        });
+
+        var cell = cut.Find(".sidebar-item span.cell");
+        cut.InvokeAsync(() => cell.Click());
+        Assert.True(confirm);
+
+        confirm = false;
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowFooter, true);
+            pb.Add(a => a.AutoClose, false);
+        });
+        cut.InvokeAsync(() => cell.Click());
+        Assert.False(confirm);
+
+        // 不显示 Footer AutoClose 参数不起作用自动关闭
+        confirm = false;
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowFooter, false);
+            pb.Add(a => a.AutoClose, false);
+        });
+        cut.InvokeAsync(() => cell.Click());
+        Assert.True(confirm);
+    }
+
+    class MockDateTimePicker : DatePickerBody
+    {
+        public static bool GetSafeYearDateTime_Ok()
+        {
+            var dtm = DatePickerBody.GetSafeYearDateTime(DateTime.MaxValue, 1);
+            return dtm == DateTime.MaxValue.Date;
+        }
+
+        public static bool GetSafeMonthDateTime_Ok()
+        {
+            var v1 = DatePickerBody.GetSafeMonthDateTime(DateTime.MaxValue, 1);
+            var v2 = DatePickerBody.GetSafeMonthDateTime(DateTime.MinValue, -1);
+            return v1 == DateTime.MaxValue.Date && v2 == DateTime.MinValue.Date;
+        }
     }
 }

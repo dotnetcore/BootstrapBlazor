@@ -10,31 +10,29 @@ public class LightTest : BootstrapBlazorTestBase
     public void IsFlash_Ok()
     {
         var cut = Context.RenderComponent<Light>(builder => builder.Add(s => s.IsFlash, true));
-
         Assert.Contains("flash", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsFlat, true);
+        });
+        Assert.DoesNotContain("flash", cut.Markup);
+        Assert.Contains("is-flat", cut.Markup);
     }
 
     [Fact]
-    public void Title_Ok()
+    public void Tooltip_Ok()
     {
         var cut = Context.RenderComponent<Light>(pb =>
         {
-            pb.Add(s => s.Title, "I am Light");
-            pb.Add(s => s.Trigger, "focus");
-            pb.Add(s => s.Placement, Placement.Top);
+            pb.Add(s => s.TooltipText, "I am Light");
+            pb.Add(s => s.TooltipTrigger, "focus");
+            pb.Add(s => s.TooltipPlacement, Placement.Top);
         });
 
-        Assert.Contains("I am Light", cut.Markup);
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.Color, Color.Primary);
-        });
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(a => a.Title, null);
-        });
+        var tooltip = cut.FindComponent<Tooltip>();
+        Assert.Contains("data-bs-placement=\"top\"", cut.Markup);
+        Assert.Contains("data-bs-trigger=\"focus\"", cut.Markup);
     }
 
     [Fact]

@@ -18,7 +18,7 @@ public partial class Table<TItem>
     /// 获得/设置 被选中数据集合
     /// </summary>
     [Parameter]
-    public List<TItem> SelectedRows { get; set; } = new List<TItem>();
+    public List<TItem> SelectedRows { get; set; } = [];
 
     /// <summary>
     /// 获得/设置 选中行变化回调方法
@@ -49,13 +49,7 @@ public partial class Table<TItem>
     /// <summary>
     /// 获得/设置 客户端屏幕宽度
     /// </summary>
-    protected decimal ScreenSize { get; set; }
-
-    /// <summary>
-    /// 获得/设置 组件渲染模式是否使用组件宽度来判断 默认为 false
-    /// </summary>
-    [Parameter]
-    public bool UseComponentWidth { get; set; }
+    protected BreakPoint ScreenSize { get; set; }
 
     /// <summary>
     /// 获得/设置 组件编辑模式 默认为弹窗编辑行数据 PopupEditForm
@@ -73,7 +67,7 @@ public partial class Table<TItem>
     /// 获得/设置 组件布局自适应切换阈值 默认为 768
     /// </summary>
     [Parameter]
-    public decimal RenderModeResponsiveWidth { get; set; } = 768;
+    public BreakPoint RenderModeResponsiveWidth { get; set; } = BreakPoint.Medium;
 
     /// <summary>
     /// 获得/设置 编辑弹框是否 Body 出现滚动条 默认 false
@@ -98,6 +92,18 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     public Func<TItem, Task>? OnAfterSaveAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 删除后回调委托方法
+    /// </summary>
+    [Parameter]
+    public Func<List<TItem>, Task>? OnAfterDeleteAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 保存删除后回调委托方法
+    /// </summary>
+    [Parameter]
+    public Func<Task>? OnAfterModifyAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 编辑数据弹窗 Title
@@ -188,16 +194,27 @@ public partial class Table<TItem>
     private async Task<QueryData<TItem>> InternalOnQueryAsync(QueryPageOptions options)
     {
         QueryData<TItem>? ret = null;
-        if (OnQueryAsync != null)
+        if (_autoQuery)
         {
-            ret = await OnQueryAsync(options);
+            if (OnQueryAsync != null)
+            {
+                ret = await OnQueryAsync(options);
+            }
+            else
+            {
+                var d = DataService ?? InjectDataService;
+                ret = await d.QueryAsync(options);
+            }
         }
-        else
+        return ret ?? new QueryData<TItem>()
         {
-            var d = DataService ?? InjectDataService;
-            ret = await d.QueryAsync(options);
-        }
-        return ret;
+            Items = Enumerable.Empty<TItem>(),
+            TotalCount = 0,
+            IsAdvanceSearch = true,
+            IsFiltered = true,
+            IsSearch = true,
+            IsSorted = true
+        };
     }
 
     private async Task<bool> InternalOnDeleteAsync()
@@ -278,9 +295,9 @@ public partial class Table<TItem>
                 SelectedRows.Clear();
             }
 
-            if (SelectedRows.Contains(val))
+            if (SelectedRows.Any(row => Equals(val, row)))
             {
-                SelectedRows.Remove(val);
+                SelectedRows.RemoveAll(row => Equals(val, row));
             }
             else
             {
@@ -312,7 +329,7 @@ public partial class Table<TItem>
     /// </summary>
     /// <param name="val"></param>
     /// <returns></returns>
-    protected virtual bool CheckActive(TItem val) => SelectedRows.Contains(val);
+    protected virtual bool CheckActive(TItem val) => SelectedRows.Any(row => Equals(val, row));
 
     /// <summary>
     /// 
@@ -348,7 +365,7 @@ public partial class Table<TItem>
         else
         {
             await InternalToggleLoading(true);
-            if(pageIndex.HasValue)
+            if (pageIndex.HasValue)
             {
                 PageIndex = pageIndex.Value;
             }
@@ -378,7 +395,7 @@ public partial class Table<TItem>
         if (ShowLoading)
         {
             IsLoading = state;
-            await JSRuntime.InvokeVoidAsync(TableElement, "bb_table_load", state ? "show" : "hide");
+            await InvokeVoidAsync("load", Id, state ? "show" : "hide");
         }
     }
 
@@ -391,7 +408,7 @@ public partial class Table<TItem>
     {
         if (ShowLoading && !IsLoading)
         {
-            await JSRuntime.InvokeVoidAsync(TableElement, "bb_table_load", state ? "show" : "hide");
+            await InvokeVoidAsync("load", Id, state ? "show" : "hide");
         }
     }
 
@@ -403,7 +420,7 @@ public partial class Table<TItem>
         // 目前设计使用 Items 参数后不回调 OnQueryAsync 方法
         if (Items == null)
         {
-            if (OnQueryAsync == null && DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
+            if (OnQueryAsync == null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
             {
                 QueryDynamicItems(DynamicContext);
             }
@@ -421,40 +438,24 @@ public partial class Table<TItem>
         async Task OnQuery()
         {
             QueryData<TItem>? queryData = null;
-            var queryOption = new QueryPageOptions()
-            {
-                IsPage = IsPagination,
-                PageIndex = PageIndex,
-                PageItems = PageItems,
-                SearchText = SearchText,
-                SortOrder = SortOrder,
-                SortName = SortName,
-                SearchModel = SearchModel,
-                StartIndex = StartIndex
-            };
+            var queryOption = BuildQueryPageOptions();
 
-            queryOption.Filters.AddRange(Filters.Values);
-            queryOption.Searchs.AddRange(GetSearchs());
-            queryOption.AdvanceSearchs.AddRange(GetAdvanceSearchs());
-            queryOption.CustomerSearchs.AddRange(GetCustomerSearchs());
-
-            if (!string.IsNullOrEmpty(SortString))
-            {
-                queryOption.SortList.AddRange(SortString.Split(",", StringSplitOptions.RemoveEmptyEntries));
-            }
-
-            if (CustomerSearchModel != null)
-            {
-                queryOption.SearchModel = CustomerSearchModel;
-            }
+            // 设置是否为首次查询
+            queryOption.IsFristQuery = _firstQuery;
 
             queryData = await InternalOnQueryAsync(queryOption);
+            PageIndex = queryOption.PageIndex;
+            PageItems = queryOption.PageItems;
             TotalCount = queryData.TotalCount;
+            PageCount = (int)Math.Ceiling(TotalCount * 1.0 / Math.Max(1, PageItems));
             IsAdvanceSearch = queryData.IsAdvanceSearch;
             QueryItems = queryData.Items ?? Enumerable.Empty<TItem>();
 
-            // 处理选中行逻辑
-            ResetSelectedRows(QueryItems);
+            if (!IsKeepSelectedRows)
+            {
+                // 处理选中行逻辑
+                ResetSelectedRows(QueryItems);
+            }
 
             // 分页情况下内部不做处理防止页码错乱
             ProcessData();
@@ -474,22 +475,22 @@ public partial class Table<TItem>
                 var searched = queryData.IsSearch;
 
                 // 外部未处理 SearchText 模糊查询
-                if (!searched && queryOption.Searchs.Any())
+                if (!searched && queryOption.Searches.Count > 0)
                 {
-                    QueryItems = QueryItems.Where(queryOption.Searchs.GetFilterFunc<TItem>(FilterLogic.Or));
+                    QueryItems = QueryItems.Where(queryOption.Searches.GetFilterFunc<TItem>(FilterLogic.Or));
                     TotalCount = QueryItems.Count();
                 }
 
                 // 外部未处理自定义高级搜索 内部进行高级自定义搜索过滤
-                if (!IsAdvanceSearch && queryOption.CustomerSearchs.Any())
+                if (!IsAdvanceSearch && queryOption.CustomerSearches.Count > 0)
                 {
-                    QueryItems = QueryItems.Where(queryOption.CustomerSearchs.GetFilterFunc<TItem>());
+                    QueryItems = QueryItems.Where(queryOption.CustomerSearches.GetFilterFunc<TItem>());
                     TotalCount = QueryItems.Count();
                     IsAdvanceSearch = true;
                 }
 
                 // 外部未过滤，内部自行过滤
-                if (!filtered && queryOption.Filters.Any())
+                if (!filtered && queryOption.Filters.Count > 0)
                 {
                     QueryItems = QueryItems.Where(queryOption.Filters.GetFilterFunc<TItem>());
                     TotalCount = QueryItems.Count();
@@ -504,7 +505,7 @@ public partial class Table<TItem>
                         var invoker = Utility.GetSortFunc<TItem>();
                         QueryItems = invoker(QueryItems, queryOption.SortName, queryOption.SortOrder);
                     }
-                    else if (queryOption.SortList.Any())
+                    else if (queryOption.SortList.Count > 0)
                     {
                         var invoker = Utility.GetSortListFunc<TItem>();
                         QueryItems = invoker(QueryItems, queryOption.SortList);
@@ -520,7 +521,7 @@ public partial class Table<TItem>
                     treeNodes.AddRange(await TreeNodeConverter(QueryItems));
                 }
 
-                if (treeNodes.Any())
+                if (treeNodes.Count > 0)
                 {
                     await CheckExpand(treeNodes);
                 }
@@ -533,7 +534,7 @@ public partial class Table<TItem>
                     // 恢复当前节点状态
                     foreach (var node in nodes)
                     {
-                        await treeNodeCache.CheckExpandAsync(node, GetChildrenRowAsync);
+                        await TreeNodeCache.CheckExpandAsync(node, GetChildrenRowAsync);
 
                         if (node.Items.Any())
                         {
@@ -545,16 +546,51 @@ public partial class Table<TItem>
         }
     }
 
-    private void ResetSelectedRows(IEnumerable<TItem> items) => SelectedRows = items.Where(i => SelectedRows.Any(row => ComparerItem(i, row))).ToList();
+    private QueryPageOptions BuildQueryPageOptions()
+    {
+        var queryOption = new QueryPageOptions()
+        {
+            IsPage = IsPagination,
+            PageIndex = PageIndex,
+            PageItems = PageItems,
+            SearchText = SearchText,
+            SortOrder = SortOrder,
+            SortName = SortName,
+            SearchModel = SearchModel,
+            StartIndex = StartIndex,
+            IsVirtualScroll = ScrollMode == ScrollMode.Virtual
+        };
+
+        queryOption.Filters.AddRange(Filters.Values);
+        queryOption.Searches.AddRange(GetSearches());
+        queryOption.AdvanceSearches.AddRange(GetAdvanceSearches());
+        queryOption.CustomerSearches.AddRange(GetCustomerSearches());
+        queryOption.AdvancedSortList.AddRange(GetAdvancedSortList());
+
+        if (!string.IsNullOrEmpty(SortString))
+        {
+            queryOption.SortList.AddRange(SortString.Split(",", StringSplitOptions.RemoveEmptyEntries));
+        }
+
+        if (CustomerSearchModel != null)
+        {
+            queryOption.SearchModel = CustomerSearchModel;
+        }
+        return queryOption;
+    }
+
+    private void ResetSelectedRows(IEnumerable<TItem> items)
+    {
+        if (SelectedRows.Count > 0)
+        {
+            SelectedRows = items.Where(i => SelectedRows.Any(row => Equals(i, row))).ToList();
+        }
+    }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool ComparerItem(TItem a, TItem b) => ModelEqualityComparer?.Invoke(a, b)
-        ?? DynamicContext?.EqualityComparer?.Invoke((IDynamicObject)a, (IDynamicObject)b)
-        ?? Utility.GetKeyValue<TItem, object>(a, CustomKeyAttribute)?.Equals(Utility.GetKeyValue<TItem, object>(b, CustomKeyAttribute))
-        ?? ModelComparer.EqualityComparer(a, b)
-        ?? a.Equals(b);
+    public bool Equals(TItem? x, TItem? y) => DynamicContext?.EqualityComparer?.Invoke((IDynamicObject?)x, (IDynamicObject?)y) ?? this.Equals<TItem>(x, y);
 
     private async Task OnClickExtensionButton(TItem item, TableCellButtonArgs args)
     {

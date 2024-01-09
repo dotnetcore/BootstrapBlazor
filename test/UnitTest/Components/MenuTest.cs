@@ -13,8 +13,8 @@ public class MenuTest : BootstrapBlazorTestBase
 {
     private List<MenuItem> Items { get; set; }
 
-    public MenuTest() => Items = new List<MenuItem>
-    {
+    public MenuTest() => Items =
+    [
         new("Menu1")
         {
             IsActive = true,
@@ -94,7 +94,7 @@ public class MenuTest : BootstrapBlazorTestBase
             Icon = "fa-solid fa-fw fa-font-awesome",
             Url = "https://www.blazor.zone"
         }
-    };
+    ];
 
     [Fact]
     public void Items_Ok()
@@ -112,7 +112,13 @@ public class MenuTest : BootstrapBlazorTestBase
         {
             pb.Add(m => m.IsVertical, true);
         });
-        Assert.Contains("Menu1", cut.Markup);
+        cut.WaitForAssertion(() => cut.Contains("Menu1"));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(m => m.Items, null);
+        });
+        cut.WaitForAssertion(() => cut.Contains("submenu"));
     }
 
     [Fact]
@@ -120,9 +126,26 @@ public class MenuTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Menu>(pb =>
         {
-            pb.Add(m => m.Items, Items);
+            pb.Add(m => m.Items, new MenuItem[]
+            {
+                new("Menu1")
+                {
+                    Icon = "fa-solid fa-font-awesome",
+                    Url = "https://www.blazor.zone"
+                },
+                new("Menu2")
+                {
+                    Icon = "fa-solid fa-font-awesome",
+                    Url = "https://www.blazor.zone"
+                }
+            });
             pb.Add(m => m.DisableNavigation, true);
         });
+
+        // 无 Active 菜单 触发点击事件
+        // 子菜单 Click 触发
+        var menuItems = cut.Find("li");
+        menuItems.Click(new MouseEventArgs());
     }
 
     [Fact]
@@ -131,10 +154,23 @@ public class MenuTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Menu>(pb =>
         {
             pb.Add(m => m.Items, Items);
+            pb.Add(m => m.IsVertical, false);
+        });
+        Assert.DoesNotContain("is-vertical", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
             pb.Add(m => m.IsVertical, true);
         });
-
         Assert.Contains("is-vertical", cut.Markup);
+
+        // 垂直布局时设置手风琴效果触发 ShouldInvoke
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsAccordion, true);
+        });
+        cut.WaitForState(() => cut.Markup.Contains("accordion"));
+        Assert.Contains("accordion", cut.Markup);
     }
 
     [Fact]
@@ -199,6 +235,41 @@ public class MenuTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void IsDisabled_Ok()
+    {
+        var items = new List<MenuItem>()
+        {
+            new("Menu1")
+            {
+                Icon = "fa-solid fa-font-awesome",
+                Url = "https://www.blazor.zone",
+                Items = new List<MenuItem>()
+                {
+                    new("Menu2")
+                    {
+                        Icon = "fa-solid fa-fw fa-font-awesome",
+                        Items = new List<MenuItem>()
+                        {
+                            new("Menu3")
+                            {
+                                IsActive = true,
+                                IsDisabled = true,
+                                Icon = "fa-solid fa-fw fa-font-awesome"
+                            }
+                        }
+                    }
+                }
+            },
+        };
+        var cut = Context.RenderComponent<Menu>(pb =>
+        {
+            pb.Add(m => m.Items, items);
+        });
+        Assert.Contains("disabled", cut.Markup);
+        Assert.DoesNotContain("active", cut.Markup);
+    }
+
+    [Fact]
     public void IsAccordion_Ok()
     {
         var cut = Context.RenderComponent<Menu>(pb =>
@@ -212,7 +283,7 @@ public class MenuTest : BootstrapBlazorTestBase
         {
             pb.Add(m => m.IsVertical, true);
         });
-        Assert.Contains("accordion", cut.Markup);
+        cut.WaitForAssertion(() => cut.Contains("accordion"));
     }
 
     [Fact]
@@ -223,13 +294,21 @@ public class MenuTest : BootstrapBlazorTestBase
             pb.Add(m => m.Items, Items);
             pb.Add(m => m.IsExpandAll, true);
         });
-        Assert.DoesNotContain("expaned", cut.Markup);
+        Assert.DoesNotContain("data-bb-expand", cut.Markup);
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(m => m.IsVertical, true);
+            pb.Add(m => m.IsExpandAll, false);
         });
-        Assert.Contains("expaned", cut.Markup);
+        cut.WaitForAssertion(() => cut.DoesNotContain("data-bb-expand"));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(m => m.IsVertical, true);
+            pb.Add(m => m.IsExpandAll, true);
+        });
+        cut.WaitForAssertion(() => cut.Contains("data-bb-expand=\"true\""));
     }
 
     [Fact]
@@ -257,6 +336,8 @@ public class MenuTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             });
         });
+
+        menuItems = cut.Find("li");
         menuItems.Click(new MouseEventArgs());
         Assert.True(clicked);
 
@@ -274,10 +355,13 @@ public class MenuTest : BootstrapBlazorTestBase
         {
             pb.Add(m => m.DisableNavigation, true);
         });
+
+        menuItems = cut.Find("li");
         menuItems.Click(new MouseEventArgs());
         Assert.True(clicked);
 
         // 再次点击
+        menuItems = cut.Find("li");
         menuItems.Click(new MouseEventArgs());
 
         // 侧边栏模式
@@ -286,23 +370,15 @@ public class MenuTest : BootstrapBlazorTestBase
             pb.Add(m => m.IsVertical, true);
             pb.Add(m => m.IsCollapsed, true);
         });
+
+        // 再次点击
+        menuItems = cut.Find("li");
         menuItems.Click(new MouseEventArgs());
         Assert.True(clicked);
 
         // 再次点击
+        menuItems = cut.Find("li");
         menuItems.Click(new MouseEventArgs());
-    }
-
-    [Fact]
-    public void ActiveItem_Ok()
-    {
-        // 设置 后通过菜单激活 ActiveItem 不为空
-        var nav = Context.Services.GetRequiredService<FakeNavigationManager>();
-        nav.NavigateTo("/menu22");
-        var cut = Context.RenderComponent<Menu>(pb =>
-        {
-            pb.Add(m => m.Items, Items);
-        });
     }
 
     [Fact]
@@ -314,6 +390,29 @@ public class MenuTest : BootstrapBlazorTestBase
         {
             pb.Add(m => m.Items, Items);
         });
+        var item = cut.Find("[href=\"Menu2321\"]");
+        Assert.NotNull(item);
+        var li = item.Closest("li");
+        Assert.NotNull(li);
+    }
+
+    [Fact]
+    public void IsScrollIntoView_Ok()
+    {
+        var cut = Context.RenderComponent<Menu>(pb =>
+        {
+            pb.Add(m => m.IsVertical, false);
+            pb.Add(m => m.IsScrollIntoView, true);
+            pb.Add(m => m.Items, Items);
+        });
+        cut.DoesNotContain("data-bb-scroll-view");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsVertical, true);
+        });
+        cut.WaitForState(() => cut.Markup.Contains("data-bb-scroll-view"));
+        cut.Contains("data-bb-scroll-view");
     }
 
     [Fact]
@@ -327,16 +426,16 @@ public class MenuTest : BootstrapBlazorTestBase
         {
             Items = new[]
             {
-                    new MenuItem()
+                new MenuItem()
+                {
+                    Text = "Test1",
+                    Items = new List<MenuItem>()
                     {
-                        Text = "Test1",
-                        Items = new List<MenuItem>()
-                        {
-                            new MenuItem("Test11"),
-                            new MenuItem("Test12")
-                        }
+                        new MenuItem("Test11"),
+                        new MenuItem("Test12")
                     }
                 }
+            }
         };
         subs = item.GetAllSubItems();
         Assert.NotEmpty(subs.ToList());
@@ -349,19 +448,19 @@ public class MenuTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void TopMenu_Erorr()
+    public void TopMenu_Error()
     {
         Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<TopMenu>());
     }
 
     [Fact]
-    public void SideMenu_Erorr()
+    public void SideMenu_Error()
     {
         Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<SideMenu>());
     }
 
     [Fact]
-    public void SubMenu_Erorr()
+    public void SubMenu_Error()
     {
         Assert.ThrowsAny<InvalidOperationException>(() => Context.RenderComponent<SubMenu>());
     }
@@ -385,5 +484,100 @@ public class MenuTest : BootstrapBlazorTestBase
         item.CascadingSetActive(true);
         Assert.True(item.IsActive);
         Assert.True(parent.IsActive);
+    }
+}
+
+public class MenuItemTest_Ok : DialogTestBase
+{
+    [Fact]
+    public void ActiveItem_Ok()
+    {
+        var cut = Context.RenderComponent<Menu>(pb =>
+        {
+            pb.Add(m => m.Items, new MenuItem[]
+            {
+                new("Menu1")
+                {
+                    Icon = "fa-solid fa-font-awesome",
+                    Url = "/menu22"
+                },
+                new("Menu2")
+                {
+                    Icon = "fa-solid fa-font-awesome",
+                    Url = "/menu23"
+                }
+            });
+        });
+        cut.DoesNotContain("<a href=\"menu22\" class=\"nav-link active\">");
+
+        // 设置 后通过菜单激活 ActiveItem 不为空
+        var nav = Context.Services.GetRequiredService<FakeNavigationManager>();
+        nav.NavigateTo("/menu22");
+        cut.SetParametersAndRender();
+        cut.Contains("href=\"menu22\"");
+
+        nav.NavigateTo("/menu3");
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsVertical, true);
+            pb.Add(m => m.Items, new MenuItem[]
+            {
+                new("Menu1")
+                {
+                    Icon = "fa-solid fa-font-awesome",
+                    Url = "/menu1",
+                    IsCollapsed = false,
+                    Items = new MenuItem[]
+                    {
+                        new("Menu2")
+                        {
+                            Icon = "fa-solid fa-font-awesome",
+                            Url = "/menu2",
+                            Items = new MenuItem[]
+                            {
+                                new("Menu3")
+                                {
+                                    Icon = "fa-solid fa-fa",
+                                    Url = "/menu3",
+                                }
+                            }
+                        }
+                    }
+                },
+            });
+        });
+        var menus = cut.FindAll("[aria-expanded=\"true\"]");
+        Assert.Equal(2, menus.Count);
+
+        nav.NavigateTo("/menu1#Normal");
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(m => m.Items, new MenuItem[]
+            {
+                new("Menu1")
+                {
+                    Icon = "fa-solid fa-font-awesome",
+                    Url = "/menu1",
+                },
+                 new("Menu2")
+                {
+                    Icon = "fa-solid fa-font-awesome",
+                    Url = "/menu2",
+                },
+           });
+        });
+        cut.InvokeAsync(() =>
+        {
+            var link = cut.Find(".nav-link.active");
+            Assert.Contains("href=\"menu1\"", link.OuterHtml);
+        });
+
+        nav.NavigateTo("/menu2?id=Normal");
+        cut.SetParametersAndRender();
+        cut.InvokeAsync(() =>
+        {
+            var link = cut.Find(".nav-link.active");
+            Assert.Contains("href=\"menu2\"", link.OuterHtml);
+        });
     }
 }

@@ -12,15 +12,14 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class MultiSelect<TValue>
 {
-    private ElementReference SelectElement { get; set; }
-
-    private IEnumerable<SelectedItem> SelectedItems => Items.Where(i => i.Active);
+    private List<SelectedItem> SelectedItems { get; } = [];
 
     private static string? ClassString => CssBuilder.Default("select dropdown multi-select")
         .Build();
 
     private string? ToggleClassString => CssBuilder.Default("dropdown-toggle")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled)
+        .AddClass("is-fixed", IsFixedHeight)
         .AddClass("disabled", IsDisabled)
         .AddClass(CssClass).AddClass(ValidCss)
         .Build();
@@ -59,6 +58,12 @@ public partial class MultiSelect<TValue>
     public bool ShowDefaultButtons { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否固定高度 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsFixedHeight { get; set; }
+
+    /// <summary>
     /// 获得/设置 扩展按钮模板
     /// </summary>
     [Parameter]
@@ -68,6 +73,7 @@ public partial class MultiSelect<TValue>
     /// 获得/设置 搜索文本发生变化时回调此方法
     /// </summary>
     [Parameter]
+    [NotNull]
     public Func<string, IEnumerable<SelectedItem>>? OnSearchTextChanged { get; set; }
 
     /// <summary>
@@ -134,6 +140,8 @@ public partial class MultiSelect<TValue>
     [NotNull]
     private IStringLocalizer<MultiSelect<TValue>>? Localizer { get; set; }
 
+    private string? PreviousValue { get; set; }
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
@@ -148,38 +156,26 @@ public partial class MultiSelect<TValue>
         MinErrorMessage ??= Localizer[nameof(MinErrorMessage)];
         MaxErrorMessage ??= Localizer[nameof(MaxErrorMessage)];
 
-        SearchIcon ??= "fa-solid fa-magnifying-glass";
-        ClearIcon ??= "fa-solid fa-xmark";
+        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.MultiSelectClearIcon);
 
         ResetItems();
-
         OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison.OrdinalIgnoreCase));
+        ResetRules();
 
-        if (Min > 0)
+        // 通过 Value 对集合进行赋值
+        if (PreviousValue != CurrentValueAsString)
         {
-            Rules.Add(new MinValidator() { Value = Min, ErrorMessage = MinErrorMessage });
-        }
-        if (Max > 0)
-        {
-            Rules.Add(new MaxValidator() { Value = Max, ErrorMessage = MaxErrorMessage });
+            var list = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
+            SelectedItems.Clear();
+            SelectedItems.AddRange(GetData().Where(item => list.Any(i => i == item.Value)));
         }
     }
 
     /// <summary>
-    /// OnParametersSetAsync 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task OnParametersSetAsync()
-    {
-        await base.OnParametersSetAsync();
-
-        // 通过 Value 对集合进行赋值
-        var list = CurrentValueAsString.Split(',', StringSplitOptions.RemoveEmptyEntries);
-        foreach (var item in Items)
-        {
-            item.Active = list.Any(i => i.Equals(item.Value, StringComparison.OrdinalIgnoreCase));
-        }
-    }
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(ToggleRow));
 
     /// <summary>
     /// FormatValueAsString 方法
@@ -191,60 +187,64 @@ public partial class MultiSelect<TValue>
         : Utility.ConvertValueToString(value);
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// 切换当前选项方法
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync(SelectElement, "bb_multi_select", "init");
-        }
-    }
-
-    private async Task ToggleRow(SelectedItem item, bool force = false)
+    [JSInvokable]
+    public async Task ToggleRow(string val)
     {
         if (!IsDisabled)
         {
-            var d = Items.FirstOrDefault(i => i.Value == item.Value);
-            if (d != null)
+            var item = SelectedItems.FirstOrDefault(i => i.Value == val);
+            if (item != null)
             {
-                d.Active = !d.Active;
+                SelectedItems.Remove(item);
+            }
+            else
+            {
+                var d = GetData().FirstOrDefault(i => i.Value == val);
+                if (d != null)
+                {
+                    SelectedItems.Add(d);
+                }
             }
 
             // 更新选中值
-            SetValue();
-
-            if (Min > 0 || Max > 0)
-            {
-                var validationContext = new ValidationContext(Value!) { MemberName = FieldIdentifier?.FieldName };
-                var validationResults = new List<ValidationResult>();
-
-                await ValidatePropertyAsync(SelectedItems, validationContext, validationResults);
-                ToggleMessage(validationResults, true);
-            }
-
-            await TriggerSelectedItemChanged();
-
-            if (force)
-            {
-                StateHasChanged();
-            }
+            await SetValue();
+            StateHasChanged();
         }
     }
 
-    private async Task TriggerSelectedItemChanged()
+    private string? GetValueString(SelectedItem item) => IsPopover ? item.Value : null;
+
+    private int _min;
+    private int _max;
+    private void ResetRules()
     {
-        if (OnSelectedItemsChanged != null)
+        if (Max != _max)
         {
-            await OnSelectedItemsChanged.Invoke(SelectedItems);
+            _max = Max;
+            Rules.RemoveAll(v => v is MaxValidator);
+
+            if (Max > 0)
+            {
+                Rules.Add(new MaxValidator() { Value = Max, ErrorMessage = MaxErrorMessage });
+            }
+        }
+
+        if (Min != _min)
+        {
+            _min = Min;
+            Rules.RemoveAll(v => v is MinValidator);
+
+            if (Min > 0)
+            {
+                Rules.Add(new MinValidator() { Value = Min, ErrorMessage = MinErrorMessage });
+            }
         }
     }
 
-    private void SetValue()
+    private async Task SetValue()
     {
         var typeValue = NullableUnderlyingType ?? typeof(TValue);
         if (typeValue == typeof(string))
@@ -255,7 +255,7 @@ public partial class MultiSelect<TValue>
         {
             var t = typeValue.IsGenericType ? typeValue.GenericTypeArguments[0] : typeValue.GetElementType()!;
             var listType = typeof(List<>).MakeGenericType(t);
-            var instance = (IList)Activator.CreateInstance(listType, SelectedItems.Count())!;
+            var instance = (IList)Activator.CreateInstance(listType, SelectedItems.Count)!;
 
             foreach (var item in SelectedItems)
             {
@@ -266,52 +266,55 @@ public partial class MultiSelect<TValue>
             }
             CurrentValue = (TValue)(typeValue.IsGenericType ? instance : listType.GetMethod("ToArray")!.Invoke(instance, null)!);
         }
+
+        if (ValidateForm == null && (Min > 0 || Max > 0))
+        {
+            var validationContext = new ValidationContext(Value!) { MemberName = FieldIdentifier?.FieldName };
+            var validationResults = new List<ValidationResult>();
+
+            await ValidatePropertyAsync(CurrentValue, validationContext, validationResults);
+            ToggleMessage(validationResults, true);
+        }
+
+        if (OnSelectedItemsChanged != null)
+        {
+            await OnSelectedItemsChanged.Invoke(SelectedItems);
+        }
+
+        PreviousValue = CurrentValueAsString;
     }
 
     private async Task Clear()
     {
-        foreach (var item in Items)
-        {
-            item.Active = false;
-        }
-
-        SetValue();
-
-        await TriggerSelectedItemChanged();
+        SelectedItems.Clear();
+        await SetValue();
     }
 
     private async Task SelectAll()
     {
-        foreach (var item in GetData())
-        {
-            item.Active = true;
-        }
-
-        SetValue();
-
-        await TriggerSelectedItemChanged();
+        SelectedItems.Clear();
+        SelectedItems.AddRange(GetData());
+        await SetValue();
     }
 
     private async Task InvertSelect()
     {
-        foreach (var item in GetData())
-        {
-            item.Active = !item.Active;
-        }
-
-        SetValue();
-
-        await TriggerSelectedItemChanged();
+        var items = GetData().Where(item => !SelectedItems.Any(i => i.Value == item.Value)).ToList();
+        SelectedItems.Clear();
+        SelectedItems.AddRange(items);
+        await SetValue();
     }
 
     private bool GetCheckedState(SelectedItem item) => SelectedItems.Any(i => i.Value == item.Value);
+
+    private string? GetCheckedString(SelectedItem item) => GetCheckedState(item) ? "checked" : null;
 
     private bool CheckCanTrigger(SelectedItem item)
     {
         var ret = true;
         if (Max > 0)
         {
-            ret = SelectedItems.Count() < Max || GetCheckedState(item);
+            ret = SelectedItems.Count < Max || GetCheckedState(item);
         }
         return ret;
     }
@@ -329,9 +332,9 @@ public partial class MultiSelect<TValue>
     private IEnumerable<SelectedItem> GetData()
     {
         var data = Items;
-        if (ShowSearch && !string.IsNullOrEmpty(SearchText) && OnSearchTextChanged != null)
+        if (ShowSearch && !string.IsNullOrEmpty(SearchText))
         {
-            data = OnSearchTextChanged.Invoke(SearchText).ToList();
+            data = OnSearchTextChanged(SearchText);
         }
         return data;
     }
@@ -372,20 +375,6 @@ public partial class MultiSelect<TValue>
             {
                 Items = Enumerable.Empty<SelectedItem>();
             }
-        }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected override async ValueTask DisposeAsyncCore(bool disposing)
-    {
-        await base.DisposeAsyncCore(disposing);
-
-        if (disposing)
-        {
-            await JSRuntime.InvokeVoidAsync(SelectElement, "bb_multi_select", "dispose");
         }
     }
 }

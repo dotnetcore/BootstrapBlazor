@@ -39,10 +39,22 @@ public partial class Table<TItem>
     private string? NotSetOnTreeExpandErrorMessage { get; set; }
 
     /// <summary>
-    /// 获得/设置 数型结构小箭头图标 默认 fa-solid fa-caret-right
+    /// 获得/设置 数型结构小箭头图标
     /// </summary>
     [Parameter]
-    public string TreeIcon { get; set; } = "fa-solid fa-caret-right";
+    public string? TreeIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 数型结构展开小箭头图标
+    /// </summary>
+    [Parameter]
+    public string? TreeExpandIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 数型结构正在加载图标
+    /// </summary>
+    [Parameter]
+    public string? TreeNodeLoadingIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 缩进大小 默认为 16 单位 px
@@ -64,17 +76,17 @@ public partial class Table<TItem>
     /// </summary>
     /// <param name="isExpand"></param>
     /// <returns></returns>
-    protected string? GetTreeClassString(bool isExpand) => CssBuilder.Default("is-tree fa-fw")
-        .AddClass(TreeIcon, !IsLoadChildren)
-        .AddClass("fa-rotate-90", !IsLoadChildren && isExpand)
-        .AddClass("fa-solid fa-spin fa-spinner", IsLoadChildren)
+    protected string? GetTreeClassString(bool isExpand) => CssBuilder.Default("is-tree")
+        .AddClass(TreeIcon, !IsLoadChildren && !isExpand)
+        .AddClass(TreeExpandIcon, !IsLoadChildren && isExpand)
+        .AddClass(TreeNodeLoadingIcon, IsLoadChildren)
         .Build();
 
     /// <summary>
     /// 节点缓存类实例
     /// </summary>
     [NotNull]
-    protected ExpandableNodeCache<TableTreeNode<TItem>, TItem>? treeNodeCache = null;
+    protected ExpandableNodeCache<TableTreeNode<TItem>, TItem>? TreeNodeCache { get; set; }
 
     /// <summary>
     /// 展开收缩树形数据节点方法
@@ -85,12 +97,12 @@ public partial class Table<TItem>
     {
         if (!IsLoadChildren)
         {
-            if (treeNodeCache.TryFind(TreeRows, item, out var node))
+            if (TreeNodeCache.TryFind(TreeRows, item, out var node))
             {
                 // 重建当前节点缓存
                 IsLoadChildren = true;
                 node.IsExpand = !node.IsExpand;
-                await treeNodeCache.ToggleNodeAsync(node, GetChildrenRowAsync);
+                await TreeNodeCache.ToggleNodeAsync(node, GetChildrenRowAsync);
                 IsLoadChildren = false;
 
                 // 清除缓存

@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Extensions;
 using Microsoft.Extensions.Localization;
 
 namespace BootstrapBlazor.Components;
@@ -10,7 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 日期选择组件
 /// </summary>
-public sealed partial class DatePickerBody
+public partial class DatePickerBody
 {
     /// <summary>
     /// 获得/设置 日历框开始时间
@@ -19,8 +18,8 @@ public sealed partial class DatePickerBody
     {
         get
         {
-            var d = CurrentDate.GetSafeDayDateTime(1 - CurrentDate.Day);
-            d = d.GetSafeDayDateTime(0 - (int)d.DayOfWeek);
+            var d = GetSafeDayDateTime(CurrentDate, 1 - CurrentDate.Day);
+            d = GetSafeDayDateTime(d, 0 - (int)d.DayOfWeek);
             return d;
         }
     }
@@ -28,7 +27,7 @@ public sealed partial class DatePickerBody
     /// <summary>
     /// 获得/设置 日历框结束时间
     /// </summary>
-    private DateTime EndDate => StartDate.GetSafeDayDateTime(42);
+    private DateTime EndDate => GetSafeDayDateTime(StartDate, 42);
 
     /// <summary>
     /// 获得/设置 当前日历框月份
@@ -36,7 +35,7 @@ public sealed partial class DatePickerBody
     private DateTime CurrentDate { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 当前日历框时刻值
     /// </summary>
     private TimeSpan CurrentTime { get; set; }
 
@@ -45,11 +44,8 @@ public sealed partial class DatePickerBody
     /// </summary>
     private bool ShowTimePicker { get; set; }
 
-    /// <summary>
-    /// 获得/设置 组件样式
-    /// </summary>
-    private string? ClassName => CssBuilder.Default("picker-panel date-picker")
-        .AddClass("d-none", !IsShown)
+    private string? ClassString => CssBuilder.Default("picker-panel")
+        .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
@@ -58,12 +54,10 @@ public sealed partial class DatePickerBody
     private string? GetDayClass(DateTime day, bool overflow) => CssBuilder.Default("")
         .AddClass("prev-month", day.Month < CurrentDate.Month)
         .AddClass("next-month", day.Month > CurrentDate.Month)
-        .AddClass("current", day == OriginaValue && Ranger == null && day.Month == CurrentDate.Month && !overflow)
-        .AddClass("start", Ranger != null && day == Ranger.SelectedValue.Start.Date)
-        .AddClass("end", Ranger != null && day == Ranger.SelectedValue.End.Date)
-        .AddClass("range", Ranger != null && CurrentDate.Month >= Ranger.SelectedValue.Start.Month
-            && Ranger.SelectedValue.Start != DateTime.MinValue && Ranger.SelectedValue.End != DateTime.MinValue
-            && day >= Ranger.SelectedValue.Start && day <= Ranger.SelectedValue.End)
+        .AddClass("current", day == Value && Ranger == null && day.Month == CurrentDate.Month && !overflow)
+        .AddClass("start", Ranger != null && day == Ranger.SelectedValue.Start)
+        .AddClass("end", Ranger != null && day == Ranger.SelectedValue.End)
+        .AddClass("range", Ranger != null && day >= Ranger.SelectedValue.Start && day <= Ranger.SelectedValue.End)
         .AddClass("today", day == DateTime.Today)
         .AddClass("disabled", IsDisabled(day) || overflow)
         .Build();
@@ -77,6 +71,7 @@ public sealed partial class DatePickerBody
         .AddClass("d-none", ViewMode != DatePickerViewMode.DateTime)
         .AddClass("is-open", ShowTimePicker)
         .Build();
+
     /// <summary>
     /// 获得 上一月按钮样式
     /// </summary>
@@ -168,10 +163,16 @@ public sealed partial class DatePickerBody
     public string? DateFormat { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示快捷侧边栏 默认不显示
+    /// 获得/设置 是否显示快捷侧边栏 默认 false 不显示
     /// </summary>
     [Parameter]
     public bool ShowSidebar { get; set; }
+
+    /// <summary>
+    /// 获得/设置 侧边栏模板 默认 null
+    /// </summary>
+    [Parameter]
+    public RenderFragment<Func<DateTime, Task>>? SidebarTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示左侧控制按钮 默认显示
@@ -186,10 +187,10 @@ public sealed partial class DatePickerBody
     public bool ShowRightButtons { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示 Footer 区域 默认为 true 显示
+    /// 获得/设置 是否显示 Footer 区域 默认为 false 不显示
     /// </summary>
     [Parameter]
-    public bool ShowFooter { get; set; } = true;
+    public bool ShowFooter { get; set; }
 
     /// <summary>
     /// 获得/设置 时间格式字符串 默认为 "hh\\:mm\\:ss"
@@ -211,12 +212,6 @@ public sealed partial class DatePickerBody
     [Parameter]
     [NotNull]
     public string? DatePlaceHolder { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否显示本组件默认为 false 不显示
-    /// </summary>
-    [Parameter]
-    public bool IsShown { get; set; }
 
     /// <summary>
     /// 获得/设置 是否允许为空 默认 false 不允许为空
@@ -263,22 +258,11 @@ public sealed partial class DatePickerBody
     [NotNull]
     public string? ConfirmButtonText { get; set; }
 
-    private DateTime OriginaValue { get; set; }
-
     /// <summary>
     /// 获得/设置 组件值
     /// </summary>
     [Parameter]
-    public DateTime Value
-    {
-        get { return CurrentDate.AddTicks(CurrentTime.Ticks); }
-        set
-        {
-            OriginaValue = value.Date;
-            CurrentDate = value.Date;
-            CurrentTime = value - CurrentDate;
-        }
-    }
+    public DateTime Value { get; set; }
 
     /// <summary>
     /// 获得/设置 组件值改变时回调委托供双向绑定使用
@@ -299,6 +283,30 @@ public sealed partial class DatePickerBody
     public DateTime? MinValue { get; set; }
 
     /// <summary>
+    /// 获得/设置 上一年图标
+    /// </summary>
+    [Parameter]
+    public string? PreviousYearIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 上一年图标
+    /// </summary>
+    [Parameter]
+    public string? NextYearIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 上一年图标
+    /// </summary>
+    [Parameter]
+    public string? PreviousMonthIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 上一年图标
+    /// </summary>
+    [Parameter]
+    public string? NextMonthIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否为 Range 内使用 默认为 false
     /// </summary>
     [CascadingParameter]
@@ -307,6 +315,10 @@ public sealed partial class DatePickerBody
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
 
     [NotNull]
     private string? AiraPrevYearLabel { get; set; }
@@ -336,31 +348,31 @@ public sealed partial class DatePickerBody
     private string? Yesterday { get; set; }
 
     [NotNull]
-    private string? Weekago { get; set; }
+    private string? Week { get; set; }
 
     private Dictionary<DatePickerViewMode, List<DatePickerViewMode>> AllowSwitchModes { get; } = new Dictionary<DatePickerViewMode, List<DatePickerViewMode>>
     {
-        [DatePickerViewMode.DateTime] = new List<DatePickerViewMode>()
-        {
+        [DatePickerViewMode.DateTime] =
+        [
             DatePickerViewMode.DateTime,
             DatePickerViewMode.Month,
             DatePickerViewMode.Year
-        },
-        [DatePickerViewMode.Date] = new List<DatePickerViewMode>()
-        {
+        ],
+        [DatePickerViewMode.Date] =
+        [
             DatePickerViewMode.Date,
             DatePickerViewMode.Month,
             DatePickerViewMode.Year
-        },
-        [DatePickerViewMode.Month] = new List<DatePickerViewMode>()
-        {
+        ],
+        [DatePickerViewMode.Month] =
+        [
             DatePickerViewMode.Month,
             DatePickerViewMode.Year
-        },
-        [DatePickerViewMode.Year] = new List<DatePickerViewMode>()
-        {
+        ],
+        [DatePickerViewMode.Year] =
+        [
             DatePickerViewMode.Year
-        }
+        ]
     };
 
     /// <summary>
@@ -371,12 +383,17 @@ public sealed partial class DatePickerBody
         base.OnInitialized();
 
         CurrentViewMode = ViewMode;
+    }
 
-        // 计算开始与结束时间 每个组件显示 6 周数据
-        if (Value == DateTime.MinValue)
-        {
-            Value = DateTime.Today;
-        }
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        CurrentDate = Value.Date;
+        CurrentTime = Value - CurrentDate;
 
         DatePlaceHolder ??= Localizer[nameof(DatePlaceHolder)];
         TimePlaceHolder ??= Localizer[nameof(TimePlaceHolder)];
@@ -401,7 +418,22 @@ public sealed partial class DatePickerBody
 
         Today ??= Localizer[nameof(Today)];
         Yesterday ??= Localizer[nameof(Yesterday)];
-        Weekago ??= Localizer[nameof(Weekago)];
+        Week ??= Localizer[nameof(Week)];
+
+        PreviousYearIcon ??= IconTheme.GetIconByKey(ComponentIcons.DatePickBodyPreviousYearIcon);
+        PreviousMonthIcon ??= IconTheme.GetIconByKey(ComponentIcons.DatePickBodyPreviousMonthIcon);
+        NextMonthIcon ??= IconTheme.GetIconByKey(ComponentIcons.DatePickBodyNextMonthIcon);
+        NextYearIcon ??= IconTheme.GetIconByKey(ComponentIcons.DatePickBodyNextYearIcon);
+    }
+
+    private void SetValue(DateTime val)
+    {
+        if (val != Value)
+        {
+            Value = val;
+            CurrentDate = Value.Date;
+            CurrentTime = Value - CurrentDate;
+        }
     }
 
     /// <summary>
@@ -410,7 +442,7 @@ public sealed partial class DatePickerBody
     private void OnClickPrevYear()
     {
         ShowTimePicker = false;
-        CurrentDate = CurrentViewMode == DatePickerViewMode.Year ? CurrentDate.GetSafeYearDateTime(-20) : CurrentDate.GetSafeYearDateTime(-1);
+        CurrentDate = CurrentViewMode == DatePickerViewMode.Year ? GetSafeYearDateTime(CurrentDate, -20) : GetSafeYearDateTime(CurrentDate, -1);
         Ranger?.UpdateStart(CurrentDate);
     }
 
@@ -420,7 +452,7 @@ public sealed partial class DatePickerBody
     private void OnClickPrevMonth()
     {
         ShowTimePicker = false;
-        CurrentDate = CurrentDate.GetSafeMonthDateTime(-1);
+        CurrentDate = GetSafeMonthDateTime(CurrentDate, -1);
         Ranger?.UpdateStart(CurrentDate);
     }
 
@@ -430,7 +462,7 @@ public sealed partial class DatePickerBody
     private void OnClickNextYear()
     {
         ShowTimePicker = false;
-        CurrentDate = CurrentViewMode == DatePickerViewMode.Year ? CurrentDate.GetSafeYearDateTime(20) : CurrentDate.GetSafeYearDateTime(1);
+        CurrentDate = CurrentViewMode == DatePickerViewMode.Year ? GetSafeYearDateTime(CurrentDate, 20) : GetSafeYearDateTime(CurrentDate, 1);
         Ranger?.UpdateEnd(CurrentDate);
     }
 
@@ -440,7 +472,7 @@ public sealed partial class DatePickerBody
     private void OnClickNextMonth()
     {
         ShowTimePicker = false;
-        CurrentDate = CurrentDate.GetSafeMonthDateTime(1);
+        CurrentDate = GetSafeMonthDateTime(CurrentDate, 1);
         Ranger?.UpdateEnd(CurrentDate);
     }
 
@@ -451,8 +483,7 @@ public sealed partial class DatePickerBody
     private async Task OnClickDateTime(DateTime d)
     {
         ShowTimePicker = false;
-        CurrentDate = d;
-        OriginaValue = d;
+        SetValue(d + CurrentTime);
         Ranger?.UpdateValue(d);
         if (Ranger == null)
         {
@@ -460,18 +491,10 @@ public sealed partial class DatePickerBody
             {
                 await ClickConfirmButton();
             }
-
-            StateHasChanged();
-        }
-    }
-
-    private async Task OnClickShortLink(DateTime d)
-    {
-        await OnClickDateTime(d);
-
-        if (ShowFooter || AutoClose)
-        {
-            await ClickConfirmButton();
+            else
+            {
+                StateHasChanged();
+            }
         }
     }
 
@@ -482,17 +505,15 @@ public sealed partial class DatePickerBody
     private async Task SwitchView(DatePickerViewMode view)
     {
         ShowTimePicker = false;
+        SetValue(CurrentDate);
         if (AllowSwitchModes[ViewMode].Contains(view))
         {
             CurrentViewMode = view;
+            StateHasChanged();
         }
-        if (AutoClose)
+        else if (AutoClose)
         {
             await ClickConfirmButton();
-        }
-        else
-        {
-            StateHasChanged();
         }
     }
 
@@ -513,7 +534,7 @@ public sealed partial class DatePickerBody
     /// <returns></returns>
     private string GetYearPeriod()
     {
-        var start = CurrentDate.GetSafeYearDateTime(0 - CurrentDate.Year % 20).Year;
+        var start = GetSafeYearDateTime(CurrentDate, 0 - CurrentDate.Year % 20).Year;
         return string.Format(YearPeriodText, start, start + 19);
     }
 
@@ -522,7 +543,7 @@ public sealed partial class DatePickerBody
     /// </summary>
     /// <param name="year"></param>
     /// <returns></returns>
-    private DateTime GetYear(int year) => CurrentDate.GetSafeYearDateTime(year - (CurrentDate.Year % 20));
+    private DateTime GetYear(int year) => GetSafeYearDateTime(CurrentDate, year - (CurrentDate.Year % 20));
 
     /// <summary>
     /// 获取 年视图下月份单元格显示文字
@@ -536,8 +557,8 @@ public sealed partial class DatePickerBody
     /// </summary>
     /// <returns></returns>
     private string? GetYearClassName(int year, bool overflow) => CssBuilder.Default()
-        .AddClass("current", CurrentDate.GetSafeYearDateTime(year - (CurrentDate.Year % 20)).Year == Value.Year)
-        .AddClass("today", CurrentDate.GetSafeYearDateTime(year - (CurrentDate.Year % 20)).Year == DateTime.Today.Year)
+        .AddClass("current", GetSafeYearDateTime(CurrentDate, year - (CurrentDate.Year % 20)).Year == Value.Year)
+        .AddClass("today", GetSafeYearDateTime(CurrentDate, year - (CurrentDate.Year % 20)).Year == DateTime.Today.Year)
         .AddClass("disabled", overflow)
         .Build();
 
@@ -546,7 +567,7 @@ public sealed partial class DatePickerBody
     /// </summary>
     /// <param name="month"></param>
     /// <returns></returns>
-    private DateTime GetMonth(int month) => CurrentDate.GetSafeMonthDateTime(month - CurrentDate.Month);
+    private DateTime GetMonth(int month) => GetSafeMonthDateTime(CurrentDate, month - CurrentDate.Month);
 
     /// <summary>
     /// 获取 月视图下的月份单元格样式
@@ -581,11 +602,12 @@ public sealed partial class DatePickerBody
     /// </summary>
     private async Task ClickNowButton()
     {
-        Value = ViewMode switch
+        var val = ViewMode switch
         {
             DatePickerViewMode.DateTime => DateTime.Now,
             _ => DateTime.Today
         };
+        SetValue(val);
         await ClickConfirmButton();
     }
 
@@ -598,7 +620,7 @@ public sealed partial class DatePickerBody
         ShowTimePicker = false;
         if (OnClear != null)
         {
-            await OnClear.Invoke();
+            await OnClear();
         }
     }
 
@@ -614,18 +636,149 @@ public sealed partial class DatePickerBody
         }
         if (OnConfirm != null)
         {
-            await OnConfirm.Invoke();
+            await OnConfirm();
         }
     }
 
     private bool Validate() => (!MinValue.HasValue || Value >= MinValue.Value) && (!MaxValue.HasValue || Value <= MaxValue.Value);
 
     /// <summary>
-    /// 
+    /// 点击时刻窗口关闭处理方法
     /// </summary>
     private void OnTimePickerClose()
     {
+        SetValue(CurrentDate + CurrentTime);
         ShowTimePicker = false;
         StateHasChanged();
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dt"></param>
+    /// <param name="year"></param>
+    /// <returns></returns>
+    protected static DateTime GetSafeYearDateTime(DateTime dt, int year)
+    {
+        var @base = dt;
+        if (year < 0)
+        {
+            if (DateTime.MinValue.AddYears(0 - year) < dt)
+            {
+                @base = dt.AddYears(year);
+            }
+            else
+            {
+                @base = DateTime.MinValue.Date;
+            }
+        }
+        else if (year > 0)
+        {
+            if (DateTime.MaxValue.AddYears(0 - year) > dt)
+            {
+                @base = dt.AddYears(year);
+            }
+            else
+            {
+                @base = DateTime.MaxValue.Date;
+            }
+        }
+        return @base;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dt"></param>
+    /// <param name="month"></param>
+    /// <returns></returns>
+    protected static DateTime GetSafeMonthDateTime(DateTime dt, int month)
+    {
+        var @base = dt;
+        if (month < 0)
+        {
+            if (DateTime.MinValue.AddMonths(0 - month) < dt)
+            {
+                @base = dt.AddMonths(month);
+            }
+            else
+            {
+                @base = DateTime.MinValue.Date;
+            }
+        }
+        else if (month > 0)
+        {
+            if (DateTime.MaxValue.AddMonths(0 - month) > dt)
+            {
+                @base = dt.AddMonths(month);
+            }
+            else
+            {
+                @base = DateTime.MaxValue.Date;
+            }
+        }
+        return @base;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dt"></param>
+    /// <param name="day"></param>
+    /// <returns></returns>
+    protected static DateTime GetSafeDayDateTime(DateTime dt, int day)
+    {
+        var @base = dt;
+        if (day < 0)
+        {
+            if (DateTime.MinValue.AddDays(0 - day) < dt)
+            {
+                @base = dt.AddDays(day);
+            }
+            else
+            {
+                @base = DateTime.MinValue;
+            }
+        }
+        else if (day > 0)
+        {
+            if (DateTime.MaxValue.AddDays(0 - day) > dt)
+            {
+                @base = dt.AddDays(day);
+            }
+            else
+            {
+                @base = DateTime.MaxValue;
+            }
+        }
+        return @base;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dt"></param>
+    /// <param name="day"></param>
+    /// <returns></returns>
+    protected static bool IsDayOverflow(DateTime dt, int day) => DateTime.MaxValue.AddDays(0 - day) < dt;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="dt"></param>
+    /// <param name="year"></param>
+    /// <returns></returns>
+    protected static bool IsYearOverflow(DateTime dt, int year)
+    {
+        var ret = false;
+        if (year < 0)
+        {
+            ret = DateTime.MinValue.AddYears(0 - year) > dt;
+        }
+        else if (year > 0)
+        {
+            ret = DateTime.MaxValue.AddYears(0 - year) < dt;
+        }
+        return ret;
     }
 }

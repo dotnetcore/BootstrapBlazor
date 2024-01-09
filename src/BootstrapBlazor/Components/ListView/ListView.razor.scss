@@ -1,0 +1,100 @@
+.listview {
+    --bb-lv-header-padding: #{$bb-lv-header-padding};
+    --bb-lv-header-bg: #{$bb-lv-header-bg};
+    --bb-lv-border-color: #{$bb-lv-border-color};
+    --bb-lv-item-trans: #{$bb-lv-item-trans};
+    --bb-lv-item-border-hover-color: #{$bb-lv-item-border-hover-color};
+    --bb-lv-item-shadow: #{$bb-lv-item-shadow};
+    --bb-lv-body-padding: #{$bb-lv-body-padding};
+    --bb-lv-body-item-margin: #{$bb-lv-body-item-margin};
+    --bb-lv-footer-padding: #{$bb-lv-footer-padding};
+    border: 1px solid var(--bb-lv-border-color);
+    border-radius: var(--bs-border-radius);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.listview .listview-header {
+    padding: var(--bb-lv-header-padding);
+    border-bottom: 1px solid var(--bb-lv-border-color);
+}
+
+.listview.is-vertical .listview-body,
+.listview.is-vertical .listview-body .accordion-body {
+    display: block;
+}
+
+.listview .listview-body {
+    padding: var(--bb-lv-body-padding);
+    position: relative;
+    overflow: auto;
+    display: flex;
+    flex-flow: row wrap;
+    flex: 1;
+    align-content: flex-start;
+}
+
+.listview .listview-body.is-group {
+    padding: 0;
+}
+
+.listview .listview-body .listview-item {
+    margin: var(--bb-lv-body-item-margin);
+}
+
+.listview .listview-body .listview-item .card {
+    transition: var(--bb-lv-item-trans);
+}
+
+.listview .listview-body .listview-item:hover .card {
+    cursor: pointer;
+    border: 1px solid var(--bb-lv-item-border-hover-color);
+}
+
+.listview .listview-body .listview-item .card {
+    box-shadow: var(--bb-lv-item-shadow);
+}
+
+.listview .listview-body .listview-item-group {
+    flex-basis: 100%;
+    margin: 1rem 0;
+    font-weight: bold;
+    position: relative;
+}
+
+.listview .listview-body .accordion {
+    --bs-accordion-inner-border-radius: 0;
+    --bs-accordion-border-width: 0;
+    flex: 1;
+    margin: 0;
+}
+
+.listview .listview-body .accordion-header {
+    border-top: 1px solid var(--bb-lv-border-color);
+}
+
+.listview .listview-body .accordion-header .accordion-button {
+    padding: var(--bb-lv-header-padding);
+}
+
+.listview .listview-body .accordion-body {
+    display: flex;
+    flex-wrap: wrap;
+    padding: var(--bb-lv-body-padding);
+}
+
+.listview .listview-body .accordion-item:last-child .accordion-header {
+    border-bottom: 1px solid var(--bb-lv-border-color);
+}
+
+.listview .listview-body > .accordion-item .accordion-header {
+    padding: var(--bb-lv-header-padding);
+    background-color: var(--bb-lv-header-bg);
+}
+
+.listview .listview-footer {
+    padding: var(--bb-lv-footer-padding);
+    border-top: 1px solid var(--bb-lv-border-color);
+}

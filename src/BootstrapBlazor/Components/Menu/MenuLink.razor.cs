@@ -16,18 +16,20 @@ public sealed partial class MenuLink
         .AddClass(Item.CssClass, !string.IsNullOrEmpty(Item.CssClass))
         .AddClass("active", Parent.DisableNavigation && Item.IsActive && !Item.IsDisabled)
         .AddClass("disabled", Item.IsDisabled)
-        .AddClass("expand", Parent.IsVertical && !Item.IsCollapsed)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     private string? MenuArrowClassString => CssBuilder.Default("arrow")
-        .AddClass("fa-fw fa", Parent.IsVertical)
-        .AddClass("fa-angle-left", Item.Items.Any())
+        .AddClass(ArrowIcon, Item.Items.Any())
         .Build();
 
     private string? HrefString => (Parent.DisableNavigation || Item.IsDisabled || Item.Items.Any() || string.IsNullOrEmpty(Item.Url)) ? "#" : Item.Url.TrimStart('/');
 
     private string? TargetString => string.IsNullOrEmpty(Item.Target) ? null : Item.Target;
+
+    private bool PreventDefault => HrefString == "#";
+
+    private string? AriaExpandedString => (Parent.IsVertical && !Item.IsCollapsed ? "true" : "false");
 
     /// <summary>
     /// 获得/设置 MenuItem 实例 不可为空
@@ -35,6 +37,12 @@ public sealed partial class MenuLink
     [Parameter]
     [NotNull]
     public MenuItem? Item { get; set; }
+
+    /// <summary>
+    /// 获得/设置 ArrowIcon 图标
+    /// </summary>
+    [Parameter]
+    public string? ArrowIcon { get; set; }
 
     [CascadingParameter]
     [NotNull]
@@ -44,17 +52,11 @@ public sealed partial class MenuLink
     [NotNull]
     private IStringLocalizer<Menu>? Localizer { get; set; }
 
-    private NavLinkMatch ItemMatch => string.IsNullOrEmpty(Item.Url) ? NavLinkMatch.All : Item.Match;
+    private NavLinkMatch ItemMatch => string.IsNullOrEmpty(Item.Url?.TrimStart('/')) ? NavLinkMatch.All : Item.Match;
 
-    private string? IconString => string.IsNullOrEmpty(Item.Icon)
-        ? (Parent.IsVertical
-            ? (Parent.IsCollapsed
-                ? "fa-none"
-                : "fa-fw fa")
-            : null)
-        : Item.Icon.Contains("fa-fw", StringComparison.OrdinalIgnoreCase)
-            ? Item.Icon
-            : $"{Item.Icon} fa-fw";
+    private string? IconString => CssBuilder.Default("menu-icon")
+        .AddClass(Item.Icon)
+        .Build();
 
     private string? StyleClassString => Parent.IsVertical
         ? (Item.Indent == 0

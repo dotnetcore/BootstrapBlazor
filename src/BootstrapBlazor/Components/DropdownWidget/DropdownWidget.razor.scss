@@ -1,0 +1,73 @@
+.widget {
+    --bb-widget-toggle-color: #{$bb-widget-toggle-color};
+    --bb-widget-toggle-padding: #{$bb-widget-toggle-padding};
+    --bb-widget-border-color: #{$bb-widget-border-color};
+    --bb-widget-badge-font-size: #{$bb-widget-badge-font-size};
+    --bb-widget-badge-top: #{$bb-widget-badge-top};
+    --bb-widget-header-padding: #{$bb-widget-header-padding};
+    --bb-widget-body-max-height: #{$bb-widget-body-max-height};
+    --bb-widget-item-odd-bg: #{$bb-widget-item-odd-bg};
+    --bb-widget-footer-padding: #{$bb-widget-footer-padding};
+    --bb-widget-footer-bg: #{$bb-widget-footer-bg};
+
+    .dropdown-toggle {
+        color: var(--bb-widget-toggle-color);
+        padding: var(--bb-widget-toggle-padding);
+        position: relative;
+        display: inline-block;
+
+        &:after {
+            content: unset;
+        }
+
+        .badge {
+            position: absolute;
+            top: var(--bb-widget-badge-top);
+            font-size: var(--bb-widget-badge-font-size);
+        }
+    }
+
+    .dropdown-menu {
+        overflow: visible;
+        padding: 0;
+        max-height: none;
+        border: none;
+
+        .dropdown-arrow {
+            border-style: solid;
+            border-width: 0 9px 9px;
+            position: absolute;
+            left: calc(50% - 9px);
+            top: -9px;
+        }
+    }
+
+    .dropdown-header {
+        color: #fff;
+        padding: var(--bb-widget-header-padding);
+        border-radius: var(--bs-border-radius) var(--bs-border-radius) 0 0;
+    }
+
+    .dropdown-body {
+        overflow: auto;
+        max-height: var(--bb-widget-body-max-height);
+        border-left: 1px solid var(--bb-widget-border-color);
+        border-right: 1px solid var(--bb-widget-border-color);
+    }
+
+    .dropdown-footer {
+        padding: var(--bb-widget-footer-padding);
+        background-color: var(--bb-widget-footer-bg);
+        border-radius: 0 0 var(--bs-border-radius) var(--bs-border-radius);
+    }
+
+    .dropdown-item {
+        &:not(:last-child) {
+            border-bottom: 1px solid var(--bb-widget-border-color);
+        }
+
+        &:nth-of-type(odd) {
+            background-color: var(--bb-widget-item-odd-bg);
+        }
+    }
+}

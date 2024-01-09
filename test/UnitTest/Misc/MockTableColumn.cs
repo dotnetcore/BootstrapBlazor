@@ -32,7 +32,7 @@ internal class MockTableColumn : ITableColumn
 
     public IEnumerable<SelectedItem>? Items { get; set; }
 
-    public object? Step { get; set; }
+    public string? Step { get; set; }
 
     public int Rows { get; set; }
 
@@ -97,6 +97,13 @@ internal class MockTableColumn : ITableColumn
 
     public IEnumerable<SelectedItem>? Lookup { get; set; }
 
+    public bool ShowSearchWhenSelect { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool IsPopover { get; set; }
+
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
     public string? LookupServiceKey { get; set; }
@@ -110,4 +117,16 @@ internal class MockTableColumn : ITableColumn
     public string? GroupName { get; set; }
 
     public int GroupOrder { get; set; }
+
+    public bool ShowCopyColumn { get; set; }
+
+    public bool HeaderTextWrap { get; set; }
+
+    public bool ShowHeaderTooltip { get; set; }
+
+    public string? HeaderTextTooltip { get; set; }
+
+    public bool HeaderTextEllipsis { get; set; }
+
+    public bool IsMarkupString { get; set; }
 }

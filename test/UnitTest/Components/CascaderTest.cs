@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
-
 namespace UnitTest.Components;
 
 public class CascaderTest : BootstrapBlazorTestBase
@@ -82,6 +80,14 @@ public class CascaderTest : BootstrapBlazorTestBase
         linkItems = cut.FindAll(".nav-link");
         await cut.InvokeAsync(() => linkItems[1].Click());
         Assert.Equal("12", value);
+
+        // 测试 Items 为 null
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Items, null);
+        });
+        cut.Contains("dropdown-menu shadow");
+        cut.DoesNotContain("dropdown-item");
     }
 
     [Fact]
@@ -111,6 +117,7 @@ public class CascaderTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, null);
             pb.Add(a => a.Value, "1");
+            pb.Add(a => a.ShowFullLevels, false);
         });
         Assert.Empty(cut.Instance.Value);
     }

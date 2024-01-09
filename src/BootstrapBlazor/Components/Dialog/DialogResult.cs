@@ -10,6 +10,11 @@ namespace BootstrapBlazor.Components;
 public enum DialogResult
 {
     /// <summary>
+    /// 未设置
+    /// </summary>
+    Unset,
+
+    /// <summary>
     /// 是
     /// </summary>
     Yes,

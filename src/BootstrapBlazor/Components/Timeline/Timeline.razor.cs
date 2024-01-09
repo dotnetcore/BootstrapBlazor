@@ -50,10 +50,7 @@ public partial class Timeline
     {
         base.OnParametersSet();
 
-        if (Items == null)
-        {
-            Items = Enumerable.Empty<TimelineItem>();
-        }
+        Items ??= Enumerable.Empty<TimelineItem>();
 
         if (IsReverse)
         {

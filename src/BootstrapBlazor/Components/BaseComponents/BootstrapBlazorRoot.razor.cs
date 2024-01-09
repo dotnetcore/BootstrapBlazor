@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace BootstrapBlazor.Components;
 
@@ -36,7 +35,7 @@ public partial class BootstrapBlazorRoot
     /// 获得 Toast 组件实例
     /// </summary>
     [NotNull]
-    public Toast? ToastContainer { get; private set; }
+    public ToastContainer? ToastContainer { get; private set; }
 
     /// <summary>
     /// 获得/设置 自定义错误处理回调方法
@@ -87,12 +86,12 @@ public partial class BootstrapBlazorRoot
             {
                 builder.AddAttribute(3, nameof(ErrorLogger.OnErrorHandleAsync), OnErrorHandleAsync);
             }
-            builder.AddAttribute(4, nameof(ErrorLogger.ChildContent), RenderContent());
+            builder.AddAttribute(4, nameof(ErrorLogger.ChildContent), RenderContent);
             builder.CloseComponent();
         }
         else
         {
-            builder.AddContent(0, RenderContent());
+            builder.AddContent(0, RenderContent);
         }
     };
 
@@ -101,7 +100,7 @@ public partial class BootstrapBlazorRoot
         builder.OpenComponent<Dialog>(0);
         builder.CloseComponent();
 
-        builder.OpenComponent<PopoverConfirm>(1);
+        builder.OpenComponent<Ajax>(1);
         builder.CloseComponent();
 
         builder.OpenComponent<SweetAlert>(2);
@@ -114,20 +113,30 @@ public partial class BootstrapBlazorRoot
         builder.CloseComponent();
     };
 
-    [ExcludeFromCodeCoverage]
-    private RenderFragment RenderContent() => builder =>
+    private RenderFragment RenderContent => builder =>
     {
-        if (OperatingSystem.IsBrowser())
+#if NET8_0_OR_GREATER
+        builder.AddContent(0, RenderChildContent);
+        builder.AddContent(1, RenderComponents());
+#else
+        Render();
+
+        [ExcludeFromCodeCoverage]
+        void Render()
         {
-            builder.AddContent(0, RenderChildContent);
-            builder.AddContent(1, RenderComponents());
+            if (OperatingSystem.IsBrowser())
+            {
+                builder.AddContent(0, RenderChildContent);
+                builder.AddContent(1, RenderComponents());
+            }
+            else
+            {
+                builder.OpenElement(0, "app");
+                builder.AddContent(1, RenderChildContent);
+                builder.CloseElement();
+                builder.AddContent(2, RenderComponents());
+            }
         }
-        else
-        {
-            builder.OpenElement(0, "app");
-            builder.AddContent(1, RenderChildContent);
-            builder.CloseElement();
-            builder.AddContent(2, RenderComponents());
-        }
+#endif
     };
 }

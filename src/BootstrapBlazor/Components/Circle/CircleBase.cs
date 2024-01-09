@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Circle 组件基类
 /// </summary>
-public abstract class CircleBase : BootstrapComponentBase
+public abstract class CircleBase : BootstrapModuleComponentBase
 {
     /// <summary>
     /// 获得 组件样式字符串
@@ -30,13 +30,6 @@ public abstract class CircleBase : BootstrapComponentBase
     /// </summary>
     protected string? ProgressClassString => CssBuilder.Default("circle-progress")
         .AddClass($"circle-{Color.ToDescriptionString()}")
-        .Build();
-
-    /// <summary>
-    /// 获得 进度条百分比样式
-    /// </summary>
-    protected string? TitleClassString => CssBuilder.Default("circle-title")
-        .AddClass("d-none", !ShowProgress)
         .Build();
 
     /// <summary>

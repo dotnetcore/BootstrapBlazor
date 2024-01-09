@@ -1,4 +1,4 @@
-name: Deploy To Huawei VM
+name: Deploy to Huawei VM
 
 on:
   push:

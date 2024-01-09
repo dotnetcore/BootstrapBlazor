@@ -10,17 +10,6 @@ namespace BootstrapBlazor.Components;
 public abstract class AlertBase : BootstrapComponentBase
 {
     /// <summary>
-    /// 获得 样式集合
-    /// </summary>
-    /// <returns></returns>
-    protected virtual string? ClassName => CssBuilder.Default("alert fade show")
-        .AddClass($"alert-{Color.ToDescriptionString()}", Color != Color.None)
-        .AddClass("alert-bar", ShowBar)
-        .AddClass("alert-dismissible", ShowDismiss)
-        .AddClassFromAttributes(AdditionalAttributes)
-        .Build();
-
-    /// <summary>
     /// 获得 图标样式字符串
     /// </summary>
     protected string? IconString => CssBuilder.Default("alert-icon")

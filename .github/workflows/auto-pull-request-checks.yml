@@ -1,0 +1,29 @@
+name: Auto PR test(bot)
+
+on:
+  pull_request:
+    branches:
+      - master
+      - main
+
+jobs:
+  run_test:
+    name: run test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Test
+        run: |
+          dotnet test test/UnitTest --collect:"XPlat Code Coverage"
+
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

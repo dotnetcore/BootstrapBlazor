@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// BootstrapInputGroupLabel 组件
 /// </summary>
 public partial class BootstrapInputGroupLabel
 {
@@ -16,6 +16,14 @@ public partial class BootstrapInputGroupLabel
         .Build();
 
     private bool IsInnerLabel { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示必填项标识 默认 false
+    /// </summary>
+    [Parameter]
+    public bool ShowRequiredMark { get; set; }
+
+    private string? Required => ShowRequiredMark ? "true" : null;
 
     /// <summary>
     /// OnParametersSet 方法

@@ -2,12 +2,9 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.Reflection;
-
 namespace BootstrapBlazor.Components;
 
-[ExcludeFromCodeCoverage]
-internal class InternalTableColumn : ITableColumn
+class InternalTableColumn : ITableColumn
 {
     private string FieldName { get; }
 
@@ -87,7 +84,7 @@ internal class InternalTableColumn : ITableColumn
 
     public bool Readonly { get; set; }
 
-    public object? Step { get; set; }
+    public string? Step { get; set; }
 
     public int Rows { get; set; }
 
@@ -122,6 +119,16 @@ internal class InternalTableColumn : ITableColumn
     public IEnumerable<SelectedItem>? Lookup { get; set; }
 
     /// <summary>
+    /// 获得/设置 字段数据源下拉框是否显示搜索栏 默认 false 不显示
+    /// </summary>
+    public bool ShowSearchWhenSelect { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool IsPopover { get; set; }
+
+    /// <summary>
     /// 获得/设置 字典数据源字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
     /// </summary>
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
@@ -152,6 +159,36 @@ internal class InternalTableColumn : ITableColumn
     public int GroupOrder { get; set; }
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool ShowCopyColumn { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool HeaderTextWrap { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool ShowHeaderTooltip { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public string? HeaderTextTooltip { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool HeaderTextEllipsis { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool IsMarkupString { get; set; }
+
+    /// <summary>
     /// 构造函数
     /// </summary>
     /// <param name="fieldName">字段名称</param>
@@ -167,69 +204,4 @@ internal class InternalTableColumn : ITableColumn
     public string GetDisplayName() => Text;
 
     public string GetFieldName() => FieldName;
-
-    /// <summary>
-    /// 通过泛型模型获取模型属性集合
-    /// </summary>
-    /// <typeparam name="TModel"></typeparam>
-    /// <param name="source"></param>
-    /// <returns></returns>
-    public static IEnumerable<ITableColumn> GetProperties<TModel>(IEnumerable<ITableColumn>? source = null) => GetProperties(typeof(TModel), source);
-
-    /// <summary>
-    /// 通过特定类型模型获取模型属性集合
-    /// </summary>
-    /// <param name="type"></param>
-    /// <param name="source"></param>
-    /// <returns></returns>
-    public static IEnumerable<ITableColumn> GetProperties(Type type, IEnumerable<ITableColumn>? source = null)
-    {
-        var cols = new List<ITableColumn>(50);
-        var attrModel = type.GetCustomAttribute<AutoGenerateClassAttribute>(true);
-        var props = type.GetProperties();
-        foreach (var prop in props)
-        {
-            ITableColumn? tc;
-            var attr = prop.GetCustomAttribute<AutoGenerateColumnAttribute>(true);
-
-            // Issue: 增加定义设置标签 AutoGenerateClassAttribute
-            // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I381ED
-            var displayName = attr?.Text ?? Utility.GetDisplayName(type, prop.Name);
-            if (attr == null)
-            {
-                tc = new InternalTableColumn(prop.Name, prop.PropertyType, displayName);
-
-                if (attrModel != null)
-                {
-                    tc.InheritValue(attrModel);
-                }
-            }
-            else
-            {
-                if (attr.Ignore) continue;
-
-                attr.Text = displayName;
-                attr.FieldName = prop.Name;
-                attr.PropertyType = prop.PropertyType;
-
-                if (attrModel != null)
-                {
-                    attr.InheritValue(attrModel);
-                }
-                tc = attr;
-            }
-
-            // 替换属性 手写优先
-            var col = source?.FirstOrDefault(c => c.GetFieldName() == tc.GetFieldName());
-            if (col != null)
-            {
-                tc.CopyValue(col);
-            }
-            cols.Add(tc);
-        }
-
-        return cols.Where(a => a.Order > 0).OrderBy(a => a.Order)
-            .Concat(cols.Where(a => a.Order == 0))
-            .Concat(cols.Where(a => a.Order < 0).OrderBy(a => a.Order));
-    }
 }

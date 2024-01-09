@@ -1,0 +1,10 @@
+﻿.textarea-demo {
+    min-height: var(--bb-height);
+}
+
+@media (min-width: 576px) {
+    .textarea-demo {
+        word-break: break-all;
+        height: auto;
+    }
+}

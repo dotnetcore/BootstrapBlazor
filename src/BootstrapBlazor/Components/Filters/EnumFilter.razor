@@ -3,9 +3,16 @@
 
 @if (IsHeaderRow)
 {
-    <Select Items="@Items" @bind-Value="@Value" OnSelectedItemChanged="_ => OnFilterValueChanged()"></Select>
+    <Select Items="@Items" @bind-Value="@Value" OnSelectedItemChanged="_ => OnFilterValueChanged()" IsPopover="true"></Select>
 }
 else
 {
     <Select Items="@Items" @bind-Value="@Value"></Select>
+
+    @if (Count > 0)
+    {
+        <FilterLogicItem @bind-Logic="Logic"></FilterLogicItem>
+
+        <Select Items="@Items" @bind-Value="@Value2"></Select>
+    }
 }

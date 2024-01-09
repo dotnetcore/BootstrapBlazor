@@ -10,11 +10,6 @@ namespace BootstrapBlazor.Components;
 public sealed partial class Split
 {
     /// <summary>
-    /// 获得 组件 DOM 实例
-    /// </summary>
-    private ElementReference SplitElement { get; set; }
-
-    /// <summary>
     /// 获得 组件样式
     /// </summary>
     private string? ClassString => CssBuilder.Default("split")
@@ -36,17 +31,26 @@ public sealed partial class Split
         .Build();
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// 获得/设置 是否垂直分割
     /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
+    [Parameter]
+    public bool IsVertical { get; set; }
 
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync(SplitElement, "bb_split");
-        }
-    }
+    /// <summary>
+    /// 获得/设置 第一个窗格初始化位置占比 默认为 50%
+    /// </summary>
+    [Parameter]
+    public string Basis { get; set; } = "50%";
+
+    /// <summary>
+    /// 获得/设置 第一个窗格模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? FirstPaneTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 第二个窗格模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? SecondPaneTemplate { get; set; }
 }

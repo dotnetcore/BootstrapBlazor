@@ -32,4 +32,24 @@ public class TextareaTest : BootstrapBlazorTestBase
             pb.Add(a => a.ShowLabelTooltip, true);
         });
     }
+
+    [Fact]
+    public void AutoScrollString_OK()
+    {
+        var cut = Context.RenderComponent<Textarea>(builder =>
+        {
+            builder.Add(a => a.IsAutoScroll, true);
+        });
+        Assert.Contains("data-bb-scroll=\"auto\"", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsAutoScroll, false);
+        });
+        Assert.DoesNotContain("data-bb-scroll=\"auto\"", cut.Markup);
+
+        cut.Instance.ScrollTo(10);
+        cut.Instance.ScrollToTop();
+        cut.Instance.ScrollToBottom();
+    }
 }

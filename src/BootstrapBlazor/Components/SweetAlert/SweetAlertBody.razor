@@ -44,17 +44,11 @@ else
 <div class="swal2-actions">
     @if (ShowClose)
     {
-        <button type="button" class="btn btn-secondary" @onclick="@OnClickClose">
-            <i class="fa-solid fa-xmark"></i>
-            <span>@(IsConfirm ? CancelButtonText : CloseButtonText)</span>
-        </button>
+        <Button Color="Color.Secondary" Icon="@CloseButtonIcon" Text="@InternalCloseButtonText" OnClickWithoutRender="OnClickClose" />
     }
     @if (IsConfirm)
     {
-        <button type="button" class="btn btn-danger ms-3" @onclick="@OnClickConfirm">
-            <i class="fa-solid fa-check"></i>
-            <span>@ConfirmButtonText</span>
-        </button>
+        <Button Color="Color.Danger" Icon="@ConfirmButtonIcon" Text="@ConfirmButtonText" OnClickWithoutRender="OnClickConfirm" class="ms-3" />
     }
     @ButtonTemplate
 </div>

@@ -57,7 +57,7 @@ public class BaiduRecognizerProvider : IRecognizerProvider, IAsyncDisposable
             if (Module == null)
             {
                 var moduleName = "./_content/BootstrapBlazor.BaiduSpeech/js/recognizer.js";
-                Logger.LogInformation($"load module {moduleName}");
+                Logger.LogInformation("load module {moduleName}", moduleName);
                 Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", moduleName);
             }
             Interop ??= DotNetObjectReference.Create(this);
@@ -71,7 +71,7 @@ public class BaiduRecognizerProvider : IRecognizerProvider, IAsyncDisposable
     [JSInvokable]
     public async Task RecognizeCallback(RecognizerStatus status, byte[]? bytes)
     {
-        Logger.LogInformation($"RecognizerStatus: {status}");
+        Logger.LogInformation("RecognizerStatus: {status}", status);
         string data = "";
         if (status == RecognizerStatus.Finished)
         {
@@ -89,11 +89,11 @@ public class BaiduRecognizerProvider : IRecognizerProvider, IAsyncDisposable
                         sb.Append(item.ToString());
                     }
                     data = sb.ToString();
-                    Logger.LogInformation($"recognizer: {data}");
+                    Logger.LogInformation("recognizer: {data}", data);
                 }
                 else
                 {
-                    Logger.LogError($"err_no: {err_no}");
+                    Logger.LogError("err_no: {err_no}", err_no);
                 }
             });
         }

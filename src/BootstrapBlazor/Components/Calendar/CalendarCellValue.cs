@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 日历组件单元格值结构体
 /// </summary>
-public struct CalendarCellValue
+public class CalendarCellValue
 {
     /// <summary>
     /// 获得/设置 当前单元格值

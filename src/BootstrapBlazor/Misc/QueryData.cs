@@ -32,7 +32,7 @@ public class QueryData<TItem>
     public bool IsSorted { get; set; }
 
     /// <summary>
-    /// 获得/设置 数据是否已处理 SearcText <see cref="Table{TItem}.SearchText"/> 默认为 false
+    /// 获得/设置 数据是否已处理 SearchText <see cref="Table{TItem}.SearchText"/> 默认为 false
     /// </summary>
     /// <remarks>设置本属性为 true 时，Table 组件的高级搜索按钮改变颜色</remarks>
     public bool IsSearch { get; set; }

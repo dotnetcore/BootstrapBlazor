@@ -72,108 +72,14 @@ public class UploadFile
     internal bool? IsValid { get; set; }
 
     /// <summary>
-    /// 获取 base64 格式图片字符串
+    /// 获得 UploadFile 文件名
     /// </summary>
-    /// <param name="format"></param>
-    /// <param name="maxWidth"></param>
-    /// <param name="maxHeight"></param>
-    /// <param name="maxAllowedSize"></param>
-    /// <param name="token"></param>
-    [ExcludeFromCodeCoverage]
-    public async Task RequestBase64ImageFileAsync(string format, int maxWidth, int maxHeight, long maxAllowedSize = 512000, CancellationToken token = default)
-    {
-        if (File != null)
-        {
-            try
-            {
-                var imageFile = await File.RequestImageFileAsync(format, maxWidth, maxHeight);
-                using var fileStream = imageFile.OpenReadStream(maxAllowedSize, token);
-                using var memoryStream = new MemoryStream();
-                await fileStream.CopyToAsync(memoryStream, token);
-                PrevUrl = $"data:{format};base64,{Convert.ToBase64String(memoryStream.ToArray())}";
-                Uploaded = true;
-            }
-            catch (Exception ex)
-            {
-                Code = 1004;
-                Error = ex.Message;
-                PrevUrl = null;
-            }
-        }
-    }
+    /// <returns></returns>
+    public string? GetFileName() => OriginFileName ?? FileName;
 
     /// <summary>
-    /// 保存到文件
+    /// 获得 UploadFile 文件扩展名
     /// </summary>
-    /// <param name="fileName"></param>
-    /// <param name="maxAllowedSize"></param>
-    /// <param name="token"></param>
     /// <returns></returns>
-    [ExcludeFromCodeCoverage]
-    public async Task<bool> SaveToFile(string fileName, long maxAllowedSize = 512000, CancellationToken token = default)
-    {
-        var ret = false;
-        if (File != null)
-        {
-            // 文件保护，如果文件存在则先删除
-            if (System.IO.File.Exists(fileName))
-            {
-                try
-                {
-                    System.IO.File.Delete(fileName);
-                }
-                catch (Exception ex)
-                {
-                    Code = 1002;
-                    Error = ex.Message;
-                }
-            }
-
-            var folder = Path.GetDirectoryName(fileName);
-            if (!string.IsNullOrEmpty(folder) && !Directory.Exists(folder))
-            {
-                Directory.CreateDirectory(folder);
-            }
-
-            if (Code == 0)
-            {
-                using var uploadFile = System.IO.File.OpenWrite(fileName);
-
-                try
-                {
-                    // 打开文件流
-                    var stream = File.OpenReadStream(maxAllowedSize, token);
-
-                    var buffer = new byte[4 * 1096];
-                    int bytesRead = 0;
-                    double totalRead = 0;
-
-                    // 开始读取文件
-                    while ((bytesRead = await stream.ReadAsync(buffer, token)) > 0)
-                    {
-                        totalRead += bytesRead;
-                        await uploadFile.WriteAsync(buffer.AsMemory(0, bytesRead), token);
-
-                        if (UpdateCallback != null)
-                        {
-                            var percent = (int)((totalRead / File.Size) * 100);
-                            if (percent > ProgressPercent)
-                            {
-                                ProgressPercent = percent;
-                                UpdateCallback(this);
-                            }
-                        }
-                    }
-                    Uploaded = true;
-                    ret = true;
-                }
-                catch (Exception ex)
-                {
-                    Code = 1003;
-                    Error = ex.Message;
-                }
-            }
-        }
-        return ret;
-    }
+    public string? GetExtension() => Path.GetExtension(GetFileName());
 }

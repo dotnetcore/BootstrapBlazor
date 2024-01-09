@@ -60,6 +60,26 @@ public interface ITableColumn : IEditorItem
     bool TextEllipsis { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否表头允许折行 默认 false 不折行
+    /// </summary>
+    bool HeaderTextWrap { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否表头显示 Tooltip 默认 false 不显示 可配合 <see cref="HeaderTextEllipsis"/> 使用 设置 <see cref="HeaderTextWrap"/> 为 true 时本参数不生效
+    /// </summary>
+    bool ShowHeaderTooltip { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否表头 Tooltip 内容
+    /// </summary>
+    string? HeaderTextTooltip { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否表头溢出时截断 默认 false 不截断 可配合 <see cref="HeaderTextTooltip"/> 使用 设置 <see cref="HeaderTextWrap"/> 为 true 时本参数不生效
+    /// </summary>
+    bool HeaderTextEllipsis { get; set; }
+
+    /// <summary>
     /// 获得/设置 列 td 自定义样式 默认为 null 未设置
     /// </summary>
     string? CssClass { get; set; }
@@ -68,6 +88,11 @@ public interface ITableColumn : IEditorItem
     /// 显示节点阈值 默认值 BreakPoint.None 未设置
     /// </summary>
     BreakPoint ShownWithBreakPoint { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否可以拷贝列 默认 false 不可以
+    /// </summary>
+    bool ShowCopyColumn { get; set; }
 
     /// <summary>
     /// 获得/设置 显示模板
@@ -118,4 +143,9 @@ public interface ITableColumn : IEditorItem
     /// 获得/设置 单元格回调方法
     /// </summary>
     Action<TableCellArgs>? OnCellRender { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否为 MarkupString 默认 false
+    /// </summary>
+    bool IsMarkupString { get; set; }
 }

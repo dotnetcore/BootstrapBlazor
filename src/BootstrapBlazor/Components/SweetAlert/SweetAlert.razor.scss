@@ -1,0 +1,14 @@
+﻿.swal {
+    position: fixed;
+    --bb-swal-zindex: 1075;
+    z-index: var(--bb-swal-zindex);
+}
+
+.swal2-icon,
+.swal2-actions {
+    display: flex;
+}
+
+.swal2-actions {
+    margin-bottom: 1rem;
+}

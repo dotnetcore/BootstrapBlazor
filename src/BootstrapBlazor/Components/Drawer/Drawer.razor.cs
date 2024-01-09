@@ -7,14 +7,13 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Drawer 组件基类
 /// </summary>
-public sealed partial class Drawer
+public partial class Drawer
 {
-    private ElementReference DrawerElement { get; set; }
-
     /// <summary>
     /// 获得 组件样式
     /// </summary>
-    private string? ClassString => CssBuilder.Default("drawer-wrapper")
+    private string? ClassString => CssBuilder.Default("drawer collapse")
+        .AddClass("no-bd", !ShowBackdrop)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -22,14 +21,14 @@ public sealed partial class Drawer
     /// 获得 抽屉 Style 字符串
     /// </summary>
     private string? DrawerStyleString => CssBuilder.Default()
-        .AddClass($"width: {Width};", !string.IsNullOrEmpty(Width) && Placement != Placement.Top && Placement != Placement.Bottom)
-        .AddClass($"height: {Height};", !string.IsNullOrEmpty(Height) && (Placement == Placement.Top || Placement == Placement.Bottom))
+        .AddClass($"--bb-drawer-width: {Width};", !string.IsNullOrEmpty(Width) && Placement != Placement.Top && Placement != Placement.Bottom)
+        .AddClass($"--bb-drawer-height: {Height};", !string.IsNullOrEmpty(Height) && (Placement == Placement.Top || Placement == Placement.Bottom))
         .Build();
 
     /// <summary>
     /// 获得 抽屉样式
     /// </summary>
-    private string? DrawerClassString => CssBuilder.Default("drawer")
+    private string? DrawerClassString => CssBuilder.Default("drawer-body")
         .AddClass("left", Placement != Placement.Right && Placement != Placement.Top && Placement != Placement.Bottom)
         .AddClass("top", Placement == Placement.Top)
         .AddClass("right", Placement == Placement.Right)
@@ -73,6 +72,12 @@ public sealed partial class Drawer
     public bool IsBackdrop { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示遮罩 默认为 true 显示遮罩
+    /// </summary>
+    [Parameter]
+    public bool ShowBackdrop { get; set; } = true;
+
+    /// <summary>
     /// 获得/设置 组件出现位置 默认显示在 Left 位置
     /// </summary>
     [Parameter]
@@ -85,7 +90,13 @@ public sealed partial class Drawer
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// 获得/设置 是否允许调整大小 默认 false
+    /// </summary>
+    [Parameter]
+    public bool AllowResize { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -95,7 +106,7 @@ public sealed partial class Drawer
 
         if (!firstRender)
         {
-            await JSRuntime.InvokeVoidAsync(DrawerElement, "bb_drawer", IsOpen);
+            await InvokeVoidAsync("execute", Id, IsOpen);
         }
     }
 
@@ -106,9 +117,25 @@ public sealed partial class Drawer
     {
         if (IsBackdrop)
         {
-            IsOpen = false;
-            if (IsOpenChanged.HasDelegate) await IsOpenChanged.InvokeAsync(IsOpen);
+            await Close();
             if (OnClickBackdrop != null) await OnClickBackdrop.Invoke();
+        }
+    }
+
+    /// <summary>
+    /// 关闭抽屉方法
+    /// </summary>
+    /// <returns></returns>
+    public async Task Close()
+    {
+        IsOpen = false;
+        if (IsOpenChanged.HasDelegate)
+        {
+            await IsOpenChanged.InvokeAsync(IsOpen);
+        }
+        else
+        {
+            StateHasChanged();
         }
     }
 }

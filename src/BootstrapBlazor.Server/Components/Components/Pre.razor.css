@@ -1,0 +1,38 @@
+﻿.pre-code {
+    position: relative;
+    border: 1px solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+    .pre-code .loading {
+        padding: .5rem 1rem;
+    }
+
+    .pre-code.loaded > pre > code {
+        display: none;
+    }
+
+::deep .btn-group {
+    position: absolute;
+    top: 0;
+    right: 3rem;
+}
+
+    ::deep .btn-group .btn-primary {
+        position: relative;
+    }
+
+code {
+    line-height: 1.8;
+    font-size: 0.75rem;
+    padding: 10px 65px 10px 16px;
+    display: block;
+    white-space: pre-wrap;
+    -webkit-font-smoothing: auto;
+}
+
+.no-highlight code {
+    color: var(--bs-code-color);
+}

@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
-
 namespace UnitTest.Components;
 
 public class TreeViewTest : BootstrapBlazorTestBase
@@ -59,6 +57,35 @@ public class TreeViewTest : BootstrapBlazorTestBase
         var nodes = cut.FindAll(".tree-view > .tree-root > .tree-item");
         Assert.Equal(3, nodes.Count);
         Assert.Equal("tree-item active", nodes[0].ClassName);
+    }
+
+    [Fact]
+    public async Task Items_SetActive()
+    {
+        var items = TreeFoo.GetTreeItems();
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.Items, items);
+        });
+
+        await cut.InvokeAsync(() => cut.Instance.SetActiveItem(items[0]));
+
+        var node = cut.Find(".active");
+        Assert.Equal("navigation one", node.TextContent);
+
+        var activeItem = items[1].Items[0].Value;
+        await cut.InvokeAsync(() => cut.Instance.SetActiveItem(activeItem));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ModelEqualityComparer, (x, y) => x.Id == y.Id);
+        });
+        await cut.InvokeAsync(() => cut.Instance.SetActiveItem(activeItem));
+        node = cut.Find(".active");
+        Assert.Equal("Sub menu 1", node.TextContent);
+
+        activeItem = new TreeFoo();
+        await cut.InvokeAsync(() => cut.Instance.SetActiveItem(activeItem));
     }
 
     [Fact]
@@ -120,17 +147,17 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, nodes);
             pb.Add(a => a.ShowCheckbox, true);
         });
-        var checkboxs = cut.FindComponents<Checkbox<CheckboxState>>();
-        await cut.InvokeAsync(() => checkboxs[1].Instance.SetState(CheckboxState.Checked));
-        await cut.InvokeAsync(() => checkboxs[2].Instance.SetState(CheckboxState.Checked));
+        var checkboxes = cut.FindComponents<Checkbox<CheckboxState>>();
+        await cut.InvokeAsync(() => checkboxes[1].Instance.SetState(CheckboxState.Checked));
+        await cut.InvokeAsync(() => checkboxes[2].Instance.SetState(CheckboxState.Checked));
 
         // Indeterminate
-        await cut.InvokeAsync(() => checkboxs[4].Instance.SetState(CheckboxState.Checked));
+        await cut.InvokeAsync(() => checkboxes[4].Instance.SetState(CheckboxState.Checked));
 
-        checkboxs = cut.FindComponents<Checkbox<CheckboxState>>();
-        Assert.Equal(CheckboxState.Checked, checkboxs[0].Instance.State);
-        Assert.Equal(CheckboxState.Indeterminate, checkboxs[3].Instance.State);
-        Assert.Equal(CheckboxState.UnChecked, checkboxs[5].Instance.State);
+        checkboxes = cut.FindComponents<Checkbox<CheckboxState>>();
+        Assert.Equal(CheckboxState.Checked, checkboxes[0].Instance.State);
+        Assert.Equal(CheckboxState.Indeterminate, checkboxes[3].Instance.State);
+        Assert.Equal(CheckboxState.UnChecked, checkboxes[5].Instance.State);
     }
 
     [Fact]
@@ -151,15 +178,15 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, items);
         });
 
-        cut.InvokeAsync(() => cut.Find("[type=\"checkbox\"]").Click());
-        cut.DoesNotContain("fa-solid fa-font-awesome");
-        cut.Contains("Test-Class");
+        cut.Find("[type=\"checkbox\"]").Click();
+        cut.WaitForAssertion(() => cut.DoesNotContain("fa-solid fa-font-awesome"));
+        cut.WaitForAssertion(() => cut.Contains("Test-Class"));
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowIcon, true);
         });
-        cut.Contains("fa-solid fa-font-awesome");
+        cut.WaitForAssertion(() => cut.Contains("fa-solid fa-font-awesome"));
     }
 
     [Fact]
@@ -196,7 +223,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnExpandRowAsync_Exception()
+    public async Task OnExpandRowAsync_Exception()
     {
         var items = TreeFoo.GetTreeItems();
         items[0].HasChildren = true;
@@ -206,7 +233,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, items);
         });
 
-        Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => cut.Find(".fa-caret-right.visible").Click()));
+        await Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => cut.Find(".fa-caret-right.visible").Click()));
     }
 
     [Fact]
@@ -214,9 +241,9 @@ public class TreeViewTest : BootstrapBlazorTestBase
     {
         var items = new List<TreeFoo>()
         {
-            new TreeFoo() { Text = "Test1", Id = "01" },
-            new TreeFoo() { Text = "Test2", Id = "02", ParentId = "01" },
-            new TreeFoo() { Text = "Test3", Id = "03", ParentId = "02" }
+            new() { Text = "Test1", Id = "01" },
+            new() { Text = "Test2", Id = "02", ParentId = "01" },
+            new() { Text = "Test3", Id = "03", ParentId = "02" }
         };
 
         var data = TreeFoo.CascadingTree(items);
@@ -244,7 +271,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
         IExpandableNode<TreeFoo> item = new TreeViewItem<TreeFoo>(new TreeFoo());
         item.Items = new MockTreeItem[]
         {
-            new MockTreeItem(new TreeFoo())
+            new(new TreeFoo())
         };
 
         // MockTreeItem 无法转化成 TreeItem
@@ -253,21 +280,23 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
         item.Items = new TreeViewItem<TreeFoo>[]
         {
-            new TreeViewItem<TreeFoo>(new MockTreeFoo())
+            new(new MockTreeFoo())
         };
         // MockTreeFoo 转化成 TreeFoo
         // 显式转换，集合数量为 1
         Assert.Single(item.Items);
     }
 
+    class MockTreeFoo : TreeFoo { }
+
     [Fact]
     public void CascadeSetCheck_Ok()
     {
         var items = new List<TreeFoo>()
         {
-            new TreeFoo() { Text = "Test1", Id = "01" },
-            new TreeFoo() { Text = "Test2", Id = "02", ParentId = "01" },
-            new TreeFoo() { Text = "Test3", Id = "03", ParentId = "02" }
+            new() { Text = "Test1", Id = "01" },
+            new() { Text = "Test2", Id = "02", ParentId = "01" },
+            new() { Text = "Test3", Id = "03", ParentId = "02" }
         };
 
         var node = TreeFoo.CascadingTree(items).First();
@@ -275,6 +304,41 @@ public class TreeViewTest : BootstrapBlazorTestBase
         // 设置当前几点所有子项选中状态
         node.SetChildrenCheck<TreeViewItem<TreeFoo>, TreeFoo>(CheckboxState.Checked);
         Assert.True(node.GetAllTreeSubItems().All(i => i.CheckedState == CheckboxState.Checked));
+    }
+
+    [Fact]
+    public void SetParentCheck_Ok()
+    {
+        var items = new List<TreeFoo>()
+        {
+            new() { Text = "Test1", Id = "01" },
+            new() { Text = "Test2", Id = "02", ParentId = "01" },
+            new() { Text = "Test3", Id = "03", ParentId = "02" }
+        };
+        var node = TreeFoo.CascadingTree(items).First().Items.First().Items.First();
+
+        // 设置当前几点所有父项选中状态
+        node.SetParentCheck<TreeViewItem<TreeFoo>, TreeFoo>(CheckboxState.Checked);
+        Assert.True(node.GetAllTreeSubItems().All(i => i.CheckedState == CheckboxState.Checked));
+    }
+
+    [Fact]
+    public void SetParentExpand_Ok()
+    {
+        var items = new List<TreeFoo>()
+        {
+            new() { Text = "Test1", Id = "01" },
+            new() { Text = "Test2", Id = "02", ParentId = "01" },
+            new() { Text = "Test3", Id = "03", ParentId = "02" }
+        };
+        var node = TreeFoo.CascadingTree(items).First().Items.First().Items.First();
+
+        // 设置当前几点所有父项选中状态
+        node.SetParentExpand<TreeViewItem<TreeFoo>, TreeFoo>(true);
+        Assert.True(node.GetAllTreeSubItems().All(i => i.IsExpand));
+
+        node.SetParentExpand<TreeViewItem<TreeFoo>, TreeFoo>(false);
+        Assert.True(node.GetAllTreeSubItems().All(i => !i.IsExpand));
     }
 
     [Fact]
@@ -310,7 +374,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task IsReset_Ok()
+    public void IsReset_Ok()
     {
         var items = TreeFoo.GetTreeItems();
         items[0].HasChildren = true;
@@ -324,16 +388,19 @@ public class TreeViewTest : BootstrapBlazorTestBase
             {
                 var ret = new List<TreeViewItem<TreeFoo>>
                 {
-                    new TreeViewItem<TreeFoo>(new TreeFoo() { Id = item.Value.Id + "10", ParentId = item.Value.Id })
+                    new(new TreeFoo() { Id = item.Value.Id + "10", ParentId = item.Value.Id })
                 };
                 return Task.FromResult(ret.AsEnumerable());
             });
         });
-        await cut.InvokeAsync(() => cut.Find(".fa-caret-right.visible").Click());
+        cut.Find(".fa-caret-right.visible").Click();
 
         // 展开第一个节点生成一行子节点
-        var nodes = cut.FindAll(".tree-item");
-        Assert.Equal(3, nodes.Count);
+        cut.WaitForAssertion(() =>
+        {
+            var nodes = cut.FindAll(".tree-item");
+            Assert.Equal(3, nodes.Count);
+        });
 
         // 重新设置数据源更新组件，保持状态
         items = TreeFoo.GetTreeItems();
@@ -344,8 +411,11 @@ public class TreeViewTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, items);
         });
-        nodes = cut.FindAll(".tree-item");
-        Assert.Equal(3, nodes.Count);
+        cut.WaitForAssertion(() =>
+        {
+            var nodes = cut.FindAll(".tree-item");
+            Assert.Equal(3, nodes.Count);
+        });
 
         // 设置 IsReset=true 更新数据源后不保持状态
         items = TreeFoo.GetTreeItems();
@@ -357,8 +427,25 @@ public class TreeViewTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, items);
             pb.Add(a => a.IsReset, true);
         });
-        nodes = cut.FindAll(".tree-item");
-        Assert.Equal(2, nodes.Count);
+        cut.WaitForAssertion(() =>
+        {
+            var nodes = cut.FindAll(".tree-item");
+            Assert.Equal(2, nodes.Count);
+        });
+    }
+
+    [Fact]
+    public void ExpandIcon_Ok()
+    {
+        var items = TreeFoo.GetTreeItems();
+        items[1].ExpandIcon = "test-expand-icon";
+        items[1].IsExpand = true;
+        var cut = Context.RenderComponent<TreeView<TreeFoo>>(pb =>
+        {
+            pb.Add(a => a.ShowIcon, true);
+            pb.Add(a => a.Items, items);
+        });
+        cut.Contains("test-expand-icon");
     }
 
     [Fact]
@@ -400,15 +487,15 @@ public class TreeViewTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task IsAccordion_Ok()
+    public void IsAccordion_Ok()
     {
         var items = new List<TreeFoo>
         {
-            new TreeFoo() { Text = "导航一", Id = "1010" },
-            new TreeFoo() { Text = "导航二", Id = "1020" },
+            new() { Text = "导航一", Id = "1010" },
+            new() { Text = "导航二", Id = "1020" },
 
-            new TreeFoo() { Text = "子菜单一", Id = "1011", ParentId = "1010" },
-            new TreeFoo() { Text = "子菜单二", Id = "1021", ParentId = "1020" }
+            new() { Text = "子菜单一", Id = "1011", ParentId = "1010" },
+            new() { Text = "子菜单二", Id = "1021", ParentId = "1020" }
         };
 
         // 根节点
@@ -422,39 +509,47 @@ public class TreeViewTest : BootstrapBlazorTestBase
         });
 
         var bars = cut.FindAll(".tree-root > .tree-item > .tree-content > .fa-caret-right.visible");
-        await cut.InvokeAsync(() => bars[0].Click());
-        Assert.Contains("fa-rotate-90", cut.Markup);
+        bars[0].Click();
+        cut.WaitForAssertion(() => Assert.Contains("fa-rotate-90", cut.Markup));
 
         // 点击第二个节点箭头开展
-        await cut.InvokeAsync(() => bars[bars.Count - 1].Click());
         bars = cut.FindAll(".tree-root > .tree-item > .tree-content > .fa-caret-right.visible");
-        Assert.DoesNotContain("fa-rotate-90", bars[0].ClassName);
-        Assert.Contains("fa-rotate-90", bars[1].ClassName);
-
-        items = new List<TreeFoo>
+        bars[bars.Count - 1].Click();
+        cut.WaitForAssertion(() =>
         {
-            new TreeFoo() { Text = "Root", Id = "1010" },
+            bars = cut.FindAll(".tree-root > .tree-item > .tree-content > .fa-caret-right.visible");
+            Assert.DoesNotContain("fa-rotate-90", bars[0].ClassName);
+            Assert.Contains("fa-rotate-90", bars[1].ClassName);
+        });
 
-            new TreeFoo() { Text = "SubItem1", Id = "1011", ParentId = "1010" },
-            new TreeFoo() { Text = "SubItem2", Id = "1012", ParentId = "1010" },
+        items =
+        [
+            new() { Text = "Root", Id = "1010" },
 
-            new TreeFoo() { Text = "SubItem11", Id = "10111", ParentId = "1011" },
-            new TreeFoo() { Text = "SubItem21", Id = "10121", ParentId = "1012" }
-        };
+            new() { Text = "SubItem1", Id = "1011", ParentId = "1010" },
+            new() { Text = "SubItem2", Id = "1012", ParentId = "1010" },
+
+            new() { Text = "SubItem11", Id = "10111", ParentId = "1011" },
+            new() { Text = "SubItem21", Id = "10121", ParentId = "1012" }
+        ];
         nodes = TreeFoo.CascadingTree(items).ToList();
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.Items, nodes));
-
         // 子节点
         bars = cut.FindAll(".tree-root > .tree-item > .tree-content + .tree-ul > .tree-item > .tree-content > .fa-caret-right.visible");
-        await cut.InvokeAsync(() => bars[0].Click());
-        Assert.Contains("fa-rotate-90", cut.Markup);
+        bars[0].Click();
+        cut.WaitForAssertion(() => Assert.Contains("fa-rotate-90", cut.Markup));
 
         // 点击第二个节点箭头开展
-        await cut.InvokeAsync(() => bars[bars.Count - 1].Click());
         bars = cut.FindAll(".tree-root > .tree-item > .tree-content + .tree-ul > .tree-item > .tree-content > .fa-caret-right.visible");
-        Assert.DoesNotContain("fa-rotate-90", bars[0].ClassName);
-        Assert.Contains("fa-rotate-90", bars[1].ClassName);
+        bars[bars.Count - 1].Click();
+
+        cut.WaitForAssertion(() =>
+        {
+            bars = cut.FindAll(".tree-root > .tree-item > .tree-content + .tree-ul > .tree-item > .tree-content > .fa-caret-right.visible");
+            Assert.DoesNotContain("fa-rotate-90", bars[0].ClassName);
+            Assert.Contains("fa-rotate-90", bars[1].ClassName);
+        });
     }
 
     [Fact]
@@ -470,9 +565,9 @@ public class TreeViewTest : BootstrapBlazorTestBase
     {
         var items = new List<TreeFoo>
         {
-            new TreeFoo() { Text = "导航一", Id = "1010" },
+            new() { Text = "导航一", Id = "1010" },
 
-            new TreeFoo() { Text = "子菜单一", Id = "1011", ParentId = "1010" },
+            new() { Text = "子菜单一", Id = "1011", ParentId = "1010" },
         };
 
         // 根节点
@@ -489,29 +584,24 @@ public class TreeViewTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => checkbox[0].Click());
 
         Assert.Contains("is-checked", cut.Markup);
-        var ischecked = cut.Instance.GetCheckedItems().Count() != 0;
-        Assert.True(ischecked);
+        var isChecked = cut.Instance.GetCheckedItems().Any();
+        Assert.True(isChecked);
 
         await cut.InvokeAsync(() => cut.Instance.ClearCheckedItems());
         Assert.DoesNotContain("is-checked", cut.Markup);
-        var nochecked = cut.Instance.GetCheckedItems().Count() == 0;
-        Assert.True(nochecked);
+        var noChecked = !cut.Instance.GetCheckedItems().Any();
+        Assert.True(noChecked);
     }
 
     class MockTree<TItem> : TreeView<TItem> where TItem : class
     {
-        public bool TestComparerItem(TItem a, TItem b)
-        {
-            return ComparerItem(a, b);
-        }
+        public bool TestComparerItem(TItem? a, TItem? b) => base.Equals(a, b);
     }
 
     private class Cat
     {
         [CatKey]
         public int Id { get; set; }
-
-        public string? Name { get; set; }
     }
 
     [AttributeUsage(AttributeTargets.Property)]
@@ -520,7 +610,7 @@ public class TreeViewTest : BootstrapBlazorTestBase
 
     }
 
-    class MockTreeItem : IExpandableNode<TreeFoo>
+    class MockTreeItem(TreeFoo foo) : IExpandableNode<TreeFoo>
     {
         public bool IsExpand { get; set; }
 
@@ -530,33 +620,25 @@ public class TreeViewTest : BootstrapBlazorTestBase
         public IExpandableNode<TreeFoo>? Parent { get; set; }
 
         [NotNull]
-        public IEnumerable<IExpandableNode<TreeFoo>>? Items { get; set; }
+        public IEnumerable<IExpandableNode<TreeFoo>>? Items { get; set; } = Enumerable.Empty<IExpandableNode<TreeFoo>>();
 
         [NotNull]
-        public TreeFoo? Value { get; set; }
+        public TreeFoo? Value { get; set; } = foo;
 
         public bool HasChildren { get; set; }
-
-        public MockTreeItem(TreeFoo foo)
-        {
-            Value = foo;
-            Items = Enumerable.Empty<IExpandableNode<TreeFoo>>();
-        }
     }
-
-    class MockTreeFoo : TreeFoo { }
 
     private static async Task<IEnumerable<TreeViewItem<TreeFoo>>> OnExpandNodeAsync(TreeFoo item)
     {
         await Task.Yield();
         return new TreeViewItem<TreeFoo>[]
         {
-            new TreeViewItem<TreeFoo>(new TreeFoo() { Id = $"{item.Id}-101", ParentId = item.Id })
+            new(new TreeFoo() { Id = $"{item.Id}-101", ParentId = item.Id })
             {
                 Text = "懒加载子节点1",
                 HasChildren = true
             },
-            new TreeViewItem<TreeFoo>(new TreeFoo(){ Id = $"{item.Id}-102", ParentId = item.Id })
+            new(new TreeFoo(){ Id = $"{item.Id}-102", ParentId = item.Id })
             {
                 Text = "懒加载子节点2"
             }
@@ -580,8 +662,5 @@ public class TreeViewTest : BootstrapBlazorTestBase
         public int GetHashCode([DisallowNull] Dummy obj) => obj.GetHashCode();
     }
 
-    private class Dog
-    {
-        public int Id { get; set; }
-    }
+    private class Dog { }
 }

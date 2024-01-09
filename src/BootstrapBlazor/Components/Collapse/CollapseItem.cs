@@ -16,13 +16,13 @@ public class CollapseItem : BootstrapComponentBase, IDisposable
     public string? Text { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前状态是否激活
+    /// 获得/设置 当前状态是否激活 默认 true
     /// </summary>
     [Parameter]
     public bool IsCollapsed { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 图标字符串 如 "fa-solid fa-regular"
+    /// 获得/设置 图标字符串 默认为 null
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }

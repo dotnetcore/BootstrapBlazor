@@ -1,0 +1,108 @@
+name: Auto assign issue(bot)
+
+on:
+  issues:
+    types: [opened, edited]
+    
+jobs:
+  assign_assignee:
+    name: assign assignees
+    runs-on: ubuntu-latest
+    env:
+      REPO_OWNER: ArgoZhang
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const repo_owner = process.env.REPO_OWNER
+            const current_assignees = context.payload.issue.assignees.map(v => v.login)
+            if (current_assignees.indexOf(repo_owner) > -1) {
+              console.log('Skip assign assignees action. current assignees', current_assignees)
+            }
+            else {
+              current_assignees.push(repo_owner)
+              github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                assignees: current_assignees
+              })
+            }
+
+  assign_label:
+    name: assign label
+    runs-on: ubuntu-latest
+    steps:
+    - uses: github/issue-labeler@v2.5
+      with:
+        repo-token: "${{ secrets.GITHUB_TOKEN }}"
+        configuration-path: .github/labeler.yml
+        not-before: 2023-01-25T00:00:00Z
+        enable-versioned-regex: 0
+        include-title: 1
+
+    - uses: actions/github-script@v6
+      env:
+        BUG_LABEL_MESSAGE: Thank you for filing this issue. In order for us to investigate this issue, please provide [a minimalistic repro project](https://github.com/dotnetcore/bootstrapblazor/blob/main/docs/repro.md) that illustrates the problem.
+        FEAT_LABEL_MESSAGE: Thank you for filing this issue.
+        DOC_LABEL_MESSAGE: Thank you for submitting the document which is very important for our project.
+        TEST_LABEL_MESSAGE: Thank you for submitting unit test code.
+        DEFAULT_MESSAGE: Thank you for contacting us. We will give feedback later.
+      with:
+        script: |
+          if (context.payload.action == 'opened') {
+            const labels = await github.rest.issues.listLabelsOnIssue({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number
+            })
+            if (labels.data.length == 0) {
+              console.log(`There no labels on issue #${context.issue.number}`)
+            }
+            else {
+              const label = labels.data.pop().name
+              let msg = process.env.DEFAULT_MESSAGE
+              if (label == 'bug') {
+                msg = process.env.BUG_LABEL_MESSAGE
+              }
+              else if (label == 'enhancement') {
+                msg = process.env.FEAT_LABEL_MESSAGE
+              }
+              else if (label == 'documentation') {
+                msg = process.env.DOC_LABEL_MESSAGE
+              }
+              else if (label == 'test') {
+                msg = process.env.TEST_LABEL_MESSAGE
+              }
+              const content = `@${context.payload.issue.user.login}. ${msg}`
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: content
+              })
+            }
+          }
+
+  assign_miletone:
+    name: assign milestone
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            const milestones = await github.rest.issues.listMilestones({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open'
+            })
+
+            if (milestones.data.length > 0) {
+              const milestone = milestones.data.pop()
+              github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                milestone: milestone.number
+              })
+            }

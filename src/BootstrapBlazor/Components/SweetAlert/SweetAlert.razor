@@ -3,7 +3,7 @@
 @inject SwalService Swal
 
 <div class="swal">
-    <Modal AdditionalAttributes="@AdditionalAttributes" @ref="ModalContainer">
+    <Modal @ref="ModalContainer" IsKeyboard="false" OnCloseAsync="OnCloseAsync">
         @RenderDialog()
     </Modal>
 </div>

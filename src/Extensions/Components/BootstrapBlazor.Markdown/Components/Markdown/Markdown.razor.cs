@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 using System.Reflection.Metadata;
 
 namespace BootstrapBlazor.Components;
@@ -11,13 +10,9 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Markdown 组件
 /// </summary>
+[JSModuleAutoLoader("./_content/BootstrapBlazor.Markdown/Components/Markdown/Markdown.razor.js", JSObjectReference = true)]
 public partial class Markdown : IAsyncDisposable
 {
-    /// <summary>
-    /// 获得/设置 DOM 元素实例
-    /// </summary>
-    private ElementReference MarkdownElement { get; set; }
-
     /// <summary>
     /// 获得/设置 控件高度，默认300px
     /// </summary>
@@ -86,8 +81,10 @@ public partial class Markdown : IAsyncDisposable
 
     private MarkdownOption Option { get; } = new();
 
-    [NotNull]
-    private JSModule<Markdown>? Module { get; set; }
+    /// <summary>
+    /// 获得/设置 DOM 元素实例
+    /// </summary>
+    private ElementReference Element { get; set; }
 
     /// <summary>
     /// 获得 组件样式
@@ -116,20 +113,10 @@ public partial class Markdown : IAsyncDisposable
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            Module = await JSRuntime.LoadModule<Markdown>("./_content/BootstrapBlazor.Markdown/js/bootstrap.blazor.markdown.min.js", this, false);
-            await Module.InvokeVoidAsync("bb_markdown", MarkdownElement, Option, nameof(Update));
-        }
-    }
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Element, Interop, Option, nameof(Update));
 
     /// <summary>
     /// 更新组件值方法
@@ -161,13 +148,13 @@ public partial class Markdown : IAsyncDisposable
     }
 
     /// <summary>
-    /// 设置 Value 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    public new ValueTask SetValue(string value)
+    public new async Task SetValue(string value)
     {
         CurrentValueAsString = value;
-        return Module.InvokeVoidAsync("bb_markdown", MarkdownElement, Value ?? "", "setMarkdown");
+        await InvokeVoidAsync("update", Element, Value);
     }
 
     /// <summary>
@@ -176,20 +163,5 @@ public partial class Markdown : IAsyncDisposable
     /// <param name="method"></param>
     /// <param name="parameters"></param>
     /// <returns></returns>
-    public ValueTask DoMethodAsync(string method, params object[] parameters) => Module.InvokeVoidAsync("bb_markdown_method", MarkdownElement, method, parameters);
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected override async ValueTask DisposeAsyncCore(bool disposing)
-    {
-        if (disposing)
-        {
-            if (Module != null)
-            {
-                await Module.DisposeAsync();
-            }
-        }
-    }
+    public Task DoMethodAsync(string method, params object[] parameters) => InvokeVoidAsync("invoke", Element, method, parameters);
 }

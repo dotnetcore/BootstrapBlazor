@@ -3,9 +3,8 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Localization.Json;
-using BootstrapBlazor.Services;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Options;
 using System.Globalization;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -29,36 +28,46 @@ public static class BootstrapBlazorServiceCollectionExtensions
 
         services.AddAuthorizationCore();
         services.AddJsonLocalization(localizationConfigure);
-        services.AddSingleton<ICacheManager, CacheManager>();
 
+        services.AddConfiguration();
+        services.TryAddSingleton<ICacheManager, CacheManager>();
         services.TryAddSingleton<IComponentIdGenerator, DefaultIdGenerator>();
+        services.TryAddSingleton<ILookupService, NullLookupService>();
+        services.TryAddSingleton<IVersionService, DefaultJSVersionService>();
+        services.TryAddSingleton<IZipArchiveService, DefaultZipArchiveService>();
         services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchService<>));
-        services.TryAddSingleton(typeof(ILookupService), typeof(NullLookupService));
 
-        services.TryAddScoped<ITableExcelExport, DefaultExcelExport>();
         services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
-        services.TryAddScoped<TabItemTextOptions>();
-
-        services.TryAddScoped<DialogService>();
-        services.TryAddScoped<MessageService>();
-        services.TryAddScoped<PopoverService>();
-        services.TryAddScoped<ToastService>();
-        services.TryAddScoped<SwalService>();
-        services.TryAddScoped<FullScreenService>();
-        services.TryAddScoped<PrintService>();
-        services.TryAddScoped<TitleService>();
-        services.TryAddScoped<DownloadService>();
-        services.TryAddScoped<WebClientService>();
-        services.TryAddScoped<AjaxService>();
-        services.TryAddScoped(typeof(DragDropService<>));
-        services.TryAddScoped<ClipboardService>();
-        services.TryAddScoped<ResizeNotificationService>();
-
         services.TryAddScoped<IIPLocatorProvider, DefaultIPLocatorProvider>();
         services.TryAddScoped<IReconnectorProvider, ReconnectorProvider>();
+        services.TryAddScoped<IGeoLocationService, DefaultGeoLocationService>();
+        services.TryAddScoped<IComponentHtmlRenderer, ComponentHtmlRenderer>();
+
+        services.AddScoped<TabItemTextOptions>();
+        services.AddScoped<DialogService>();
+        services.AddScoped<MessageService>();
+        services.AddScoped<ToastService>();
+        services.AddScoped<SwalService>();
+        services.AddScoped<FullScreenService>();
+        services.AddScoped<PrintService>();
+        services.AddScoped<TitleService>();
+        services.AddScoped<DownloadService>();
+        services.AddScoped<WebClientService>();
+        services.AddScoped<AjaxService>();
+        services.AddScoped(typeof(DragDropService<>));
+        services.AddScoped<ClipboardService>();
+        services.AddScoped<ResizeNotificationService>();
+        services.AddScoped<NotificationService>();
+        services.AddScoped<EyeDropperService>();
+
+        services.TryAddTransient<ITableExport, DefaultTableExport>();
+        services.TryAddTransient<IExportPdf, DefaultExportPdf>();
 
         services.ConfigureBootstrapBlazorOption(configureOptions);
         services.ConfigureIPLocatorOption();
+
+        services.AddTabItemBindOptions();
+        services.AddIconTheme();
         return services;
     }
 
@@ -139,6 +148,53 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.AddOptions();
         services.TryAddSingleton<IOptionsChangeTokenSource<TOptions>, ConfigurationChangeTokenSource<TOptions>>();
         services.TryAddSingleton<IConfigureOptions<TOptions>, ConfigureOptions<TOptions>>();
+        return services;
+    }
+
+    /// <summary>
+    /// 增加 菜单与标签捆绑类配置项服务
+    /// </summary>
+    /// <param name="services"></param>
+    /// <returns></returns>
+    static IServiceCollection AddTabItemBindOptions(this IServiceCollection services)
+    {
+        services.AddOptionsMonitor<TabItemBindOptions>();
+        return services;
+    }
+
+    /// <summary>
+    /// 增加第三方菜单路由与 Tab 捆绑字典配置
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="configureOptions"></param>
+    /// <returns></returns>
+    public static IServiceCollection ConfigureTabItemMenuBindOptions(this IServiceCollection services, Action<TabItemBindOptions> configureOptions)
+    {
+        services.Configure(configureOptions);
+        return services;
+    }
+
+    /// <summary>
+    /// 增加 图标映射配置项服务
+    /// </summary>
+    /// <param name="services"></param>
+    /// <returns></returns>
+    static IServiceCollection AddIconTheme(this IServiceCollection services)
+    {
+        services.TryAddSingleton<IIconTheme, DefaultIconTheme>();
+        services.AddOptionsMonitor<IconThemeOptions>();
+        return services;
+    }
+
+    /// <summary>
+    /// IconThemeOptions 扩展配置方法
+    /// </summary>
+    /// <param name="services"></param>
+    /// <param name="configureOptions"></param>
+    /// <returns></returns>
+    public static IServiceCollection ConfigureIconThemeOptions(this IServiceCollection services, Action<IconThemeOptions> configureOptions)
+    {
+        services.Configure(configureOptions);
         return services;
     }
 }

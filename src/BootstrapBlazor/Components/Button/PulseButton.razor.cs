@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -27,8 +25,8 @@ public partial class PulseButton
         .AddClass("btn-pulse")
         .Build();
 
-    private string? PulseColorString => CssBuilder.Default("pulse-ring")
-        .AddClass($"pulse-{PulseColor.ToDescriptionString()}", PulseColor != Color.None)
+    private string? PulseColorString => CssBuilder.Default("pulse-ring border")
+        .AddClass($"border-{PulseColor.ToDescriptionString()}", PulseColor != Color.None)
         .Build();
 
     /// <summary>

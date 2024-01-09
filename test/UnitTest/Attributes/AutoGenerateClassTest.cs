@@ -54,12 +54,17 @@ public class AutoGenerateClassTest
             PlaceHolder = "test_holder",
             Formatter = null,
             ComponentType = typeof(Select<string>),
-            Step = 1,
+            Step = "1",
             Rows = 1,
             LookupStringComparison = StringComparison.Ordinal,
             LookupServiceKey = "test-lookup",
             GroupName = "Test",
-            GroupOrder = 1
+            GroupOrder = 1,
+            ShowHeaderTooltip = true,
+            HeaderTextTooltip = "test header tooltip",
+            HeaderTextEllipsis = true,
+            HeaderTextWrap = true,
+            IsMarkupString = true
         };
         Assert.Equal(1, attr.Order);
         Assert.True(attr.Ignore);
@@ -78,12 +83,17 @@ public class AutoGenerateClassTest
         Assert.Equal("test_holder", attr.PlaceHolder);
         Assert.Null(attr.Formatter);
         Assert.Equal(typeof(Select<string>), attr.ComponentType);
-        Assert.Equal(1, attr.Step);
+        Assert.Equal("1", attr.Step);
         Assert.Equal(1, attr.Rows);
         Assert.Equal(StringComparison.Ordinal, attr.LookupStringComparison);
         Assert.Equal("Test", attr.GroupName);
         Assert.Equal(1, attr.GroupOrder);
         Assert.Equal("test-lookup", attr.LookupServiceKey);
+        Assert.True(attr.ShowHeaderTooltip);
+        Assert.True(attr.HeaderTextWrap);
+        Assert.True(attr.HeaderTextEllipsis);
+        Assert.Equal("test header tooltip", attr.HeaderTextTooltip);
+        Assert.True(attr.IsMarkupString);
 
         var attrInterface = (ITableColumn)attr;
         attrInterface.ShowLabelTooltip = true;
@@ -136,5 +146,15 @@ public class AutoGenerateClassTest
 
         attrEditor.ValidateRules = null;
         Assert.Null(attrEditor.ValidateRules);
+
+        attrEditor.ShowSearchWhenSelect = true;
+        Assert.True(attrEditor.ShowSearchWhenSelect);
+
+        attrEditor.IsPopover = true;
+        Assert.True(attrEditor.IsPopover);
+
+        // 增加 GetDisplay 单元覆盖率
+        attr.Text = null;
+        Assert.Equal(string.Empty, attr.GetDisplayName());
     }
 }

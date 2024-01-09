@@ -1,0 +1,6 @@
+<Project>
+
+  <Import Project="..\Directory.Build.props" />
+  <Import Project="..\..\Framework.props" />
+
+</Project>

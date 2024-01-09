@@ -34,7 +34,7 @@ public class ErrorHandlerTest : ErrorLoggerTestBase
 
         // 关闭 Toast
         var toast = cut.FindComponent<Toast>().Instance;
-        await cut.InvokeAsync(() => toast.Clear());
+        await cut.InvokeAsync(() => toast.Close());
         cut.DoesNotContain("<div class=\"toast-body\">test error logger</div>");
     }
 

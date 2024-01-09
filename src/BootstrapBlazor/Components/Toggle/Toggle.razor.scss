@@ -1,0 +1,60 @@
+.btn-toggle {
+    --bb-toggle-min-width: #{$bb-toggle-min-width};
+    --bb-toggle-bg-color: #{$bb-toggle-bg-color};
+    --bb-toggle-color: #{$bb-toggle-color};
+    --bb-toggle-off-color: #{$bb-toggle-off-color};
+    --bs-btn-hover-color: #fff;
+    --bs-btn-border-color: #c0c4cc;
+    --bs-btn-disabled-border-color: var(--bs-btn-border-color);
+    --bs-btn-hover-border-color: var(--bs-btn-border-color);
+    --bs-btn-active-border-color: var(--bs-btn-border-color);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--bs-btn-border-color);
+    border-radius: var(--bs-border-radius);
+    min-width: var(--bb-toggle-min-width);
+    min-height: var(--bb-height);
+}
+
+    .btn-toggle .toggle-group {
+        position: absolute;
+        width: 200%;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        transition: left 0.35s linear;
+    }
+
+    .btn-toggle.off .toggle-group {
+        left: -100%;
+    }
+
+    .btn-toggle .toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--bs-btn-color);
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 50%;
+        background-color: var(--bb-toggle-bg-color);
+        color: var(--bb-toggle-color);
+    }
+
+        .btn-toggle .toggle.off {
+            left: 50%;
+            right: 0;
+            color: var(--bb-toggle-off-color);
+        }
+
+    .btn-toggle .bar {
+        position: relative;
+        height: 100%;
+        background-image: linear-gradient(to bottom, #fff 0%, #e0e0e0 100%);
+        padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
+        border: var(--bs-btn-border-width) solid var(--bs-btn-border-color);
+        border-radius: var(--bs-btn-border-radius);
+        display: inline-block;
+    }

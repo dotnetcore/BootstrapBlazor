@@ -34,6 +34,10 @@ public static class ObjectExtensions
             {
                 ret = $"{d}px";
             }
+            else
+            {
+                ret = val;
+            }
         }
         return ret;
     }
@@ -46,14 +50,19 @@ public static class ObjectExtensions
     public static bool IsNumber(this Type t)
     {
         var targetType = Nullable.GetUnderlyingType(t) ?? t;
-        var check =
-            targetType == typeof(int) ||
-            targetType == typeof(long) ||
-            targetType == typeof(short) ||
-            targetType == typeof(float) ||
-            targetType == typeof(double) ||
-            targetType == typeof(decimal);
-        return check;
+        return targetType == typeof(int) || targetType == typeof(long) || targetType == typeof(short) ||
+            targetType == typeof(float) || targetType == typeof(double) || targetType == typeof(decimal);
+    }
+
+    /// <summary>
+    /// 检查是否为 Boolean 数据类型
+    /// </summary>
+    /// <param name="t"></param>
+    /// <returns></returns>
+    public static bool IsBoolean(this Type t)
+    {
+        var targetType = Nullable.GetUnderlyingType(t) ?? t;
+        return targetType == typeof(Boolean);
     }
 
     /// <summary>
@@ -64,8 +73,19 @@ public static class ObjectExtensions
     public static bool IsDateTime(this Type t)
     {
         var targetType = Nullable.GetUnderlyingType(t) ?? t;
-        var check = targetType == typeof(DateTime) ||
-           targetType == typeof(DateTimeOffset);
+        var check = targetType == typeof(DateTime) || targetType == typeof(DateTimeOffset);
+        return check;
+    }
+
+    /// <summary>
+    /// 检查是否为 TimeSpan 数据类型
+    /// </summary>
+    /// <param name="t"></param>
+    /// <returns></returns>
+    public static bool IsTimeSpan(this Type t)
+    {
+        var targetType = Nullable.GetUnderlyingType(t) ?? t;
+        var check = targetType == typeof(TimeSpan);
         return check;
     }
 
@@ -103,19 +123,21 @@ public static class ObjectExtensions
     /// <returns></returns>
     public static bool TryConvertTo(this string? source, Type type, [MaybeNullWhen(false)] out object? val)
     {
-        var ret = false;
-        if (type == typeof(string))
+        var ret = true;
+        val = source;
+        if (type != typeof(string))
         {
-            val = source;
-            ret = true;
-        }
-        else
-        {
-            var methodInfo = typeof(ObjectExtensions).GetMethods().FirstOrDefault(m => m.IsGenericMethod)!.MakeGenericMethod(type);
-            var v = Activator.CreateInstance(type);
-            var args = new object?[] { source, v };
-            ret = (bool)methodInfo.Invoke(null, args)!;
-            val = ret ? args[1] : null;
+            ret = false;
+            var methodInfo = Array.Find(typeof(ObjectExtensions).GetMethods(), m => m.Name == nameof(TryConvertTo) && m.IsGenericMethod);
+            if (methodInfo != null)
+            {
+                methodInfo = methodInfo.MakeGenericMethod(type);
+                var v = Activator.CreateInstance(type);
+                var args = new object?[] { source, v };
+                var b = (bool)methodInfo.Invoke(null, args)!;
+                val = b ? args[1] : null;
+                ret = b;
+            }
         }
         return ret;
     }
@@ -236,6 +258,29 @@ public static class ObjectExtensions
                 ret = propertyInfo.CanWrite;
             }
             return ret;
+        }
+    }
+
+    internal static void Clone<TModel>(this TModel source, TModel item)
+    {
+        if (item != null)
+        {
+            var type = typeof(TModel);
+
+            // 20200608 tian_teng@outlook.com 支持字段和只读属性
+            foreach (var f in type.GetFields())
+            {
+                var v = f.GetValue(item);
+                f.SetValue(source, v);
+            }
+            foreach (var p in type.GetRuntimeProperties())
+            {
+                if (p.CanWrite)
+                {
+                    var v = p.GetValue(item);
+                    p.SetValue(source, v);
+                }
+            }
         }
     }
 }

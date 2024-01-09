@@ -19,21 +19,29 @@ public partial class Table<TItem>
         .Build();
 
     /// <summary>
+    /// 获得/设置 是否保持选择行，默认为 false 不保持
+    /// </summary>
+    [Parameter]
+    public bool IsKeepSelectedRows { get; set; }
+
+    /// <summary>
     /// 获得 表头行是否选中状态
     /// </summary>
     /// <returns></returns>
     protected CheckboxState HeaderCheckState()
     {
         var ret = CheckboxState.UnChecked;
-        if (Rows.Any())
+        //过滤掉不可选择的记录
+        var filterRows = ShowRowCheckboxCallback == null ? Rows : Rows.Where(ShowRowCheckboxCallback);
+        if (filterRows.Any())
         {
-            if (Rows.All(AnyRow))
+            if (filterRows.All(AnyRow))
             {
                 // 所有行被选中
                 // all rows are selected
                 ret = CheckboxState.Checked;
             }
-            else if (Rows.Any(AnyRow))
+            else if (filterRows.Any(AnyRow))
             {
                 // 任意一行被选中
                 // any one row is selected
@@ -42,7 +50,7 @@ public partial class Table<TItem>
         }
         return ret;
 
-        bool AnyRow(TItem row) => SelectedRows.Any(i => ComparerItem(i, row));
+        bool AnyRow(TItem row) => SelectedRows.Any(i => Equals(i, row));
     }
 
     /// <summary>
@@ -50,7 +58,7 @@ public partial class Table<TItem>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    protected CheckboxState RowCheckState(TItem item) => SelectedRows.Any(i => ComparerItem(i, item)) ? CheckboxState.Checked : CheckboxState.UnChecked;
+    protected CheckboxState RowCheckState(TItem item) => SelectedRows.Any(i => Equals(i, item)) ? CheckboxState.Checked : CheckboxState.UnChecked;
 
     /// <summary>
     /// 获得/设置 是否为多选模式 默认为 false
@@ -75,27 +83,26 @@ public partial class Table<TItem>
     public string? CheckboxDisplayText { get; set; }
 
     /// <summary>
+    /// 获得/设置 表格行是否显示选择框 默认全部显示 此属性在 <see cref="IsMultipleSelect"/> 参数为 true 时生效
+    /// </summary>
+    [Parameter]
+    public Func<TItem, bool>? ShowRowCheckboxCallback { get; set; }
+
+    private bool GetShowRowCheckbox(TItem item) => ShowRowCheckboxCallback == null || ShowRowCheckboxCallback(item);
+
+    /// <summary>
     /// 点击 Header 选择复选框时触发此方法
     /// </summary>
     /// <param name="state"></param>
     /// <param name="val"></param>
     protected virtual async Task OnHeaderCheck(CheckboxState state, TItem val)
     {
-        switch (state)
+        SelectedRows.RemoveAll(x => Rows.Any(a => Equals(a, x)));
+        if (state == CheckboxState.Checked)
         {
-            case CheckboxState.Checked:
-                // select all
-                SelectedRows.Clear();
-                SelectedRows.AddRange(Rows);
-                await OnSelectedRowsChanged();
-                break;
-            case CheckboxState.UnChecked:
-            default:
-                // unselect all
-                SelectedRows.Clear();
-                await OnSelectedRowsChanged();
-                break;
+            SelectedRows.AddRange(ShowRowCheckboxCallback == null ? Rows : Rows.Where(ShowRowCheckboxCallback));
         }
+        await OnSelectedRowsChanged();
     }
 
     /// <summary>
@@ -109,7 +116,7 @@ public partial class Table<TItem>
         }
         else
         {
-            var item = SelectedRows.FirstOrDefault(i => ComparerItem(i, val));
+            var item = SelectedRows.FirstOrDefault(i => Equals(i, val));
             if (item != null)
             {
                 SelectedRows.Remove(item);
@@ -124,6 +131,11 @@ public partial class Table<TItem>
     }
 
     /// <summary>
+    /// 是否重置列变量 <see cref="OnAfterRenderAsync(bool)"/> 方法中重置为 false
+    /// </summary>
+    private bool _resetColumns;
+
+    /// <summary>
     /// 获得/设置 列改变显示状态回调方法
     /// </summary>
     [Parameter]
@@ -131,6 +143,11 @@ public partial class Table<TItem>
 
     private async Task OnToggleColumnVisible(string columnName, bool visible)
     {
+        if (AllowResizing)
+        {
+            _resetColumns = true;
+        }
+
         if (OnColumnVisibleChanged != null)
         {
             await OnColumnVisibleChanged(columnName, visible);

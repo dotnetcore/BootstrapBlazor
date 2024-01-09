@@ -13,7 +13,7 @@ public partial class Badge
     /// 获得 样式集合
     /// </summary>
     /// <returns></returns>
-    protected string? ClassName => CssBuilder.Default("badge")
+    protected string? ClassString => CssBuilder.Default("badge")
         .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass("rounded-pill", IsPill)
         .AddClassFromAttributes(AdditionalAttributes)

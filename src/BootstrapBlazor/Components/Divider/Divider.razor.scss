@@ -1,0 +1,71 @@
+.divider {
+    --bb-divider-margin: #{$bb-divider-margin};
+    --bb-divider-text-padding: #{$bb-divider-text-padding};
+    background-color: var(--bs-body-bg);
+    margin: var(--bb-divider-margin);
+    position: relative;
+    display: block;
+    height: 1px;
+    width: 100%;
+
+    .divider-mask {
+        background-color: var(--bs-border-color);
+        height: 100%;
+        width: 100%;
+    }
+
+    .divider-text {
+        padding: var(--bb-divider-text-padding);
+        color: var(--bs-body-color);
+        position: absolute;
+        font-weight: 500;
+        background-color: inherit;
+
+        &.is-left {
+            left: 20px;
+            transform: translateY(-50%);
+        }
+
+        &.is-center {
+            left: 50%;
+            transform: translateX(-50%) translateY(-50%);
+        }
+
+        &.is-right {
+            right: 20px;
+            transform: translateY(-50%);
+        }
+    }
+
+    &.divider-vertical {
+        display: inline-block;
+        align-self: stretch;
+        width: 1px;
+        min-width: 1px;
+        height: 100%;
+        margin: 0 1rem;
+        min-height: 21px;
+
+        .divider-text {
+            --bb-divider-text-padding: 20px 0;
+
+            &.is-left {
+                top: 20px;
+                left: 0;
+                transform: translateY(0);
+                transform: translateX(-50%);
+            }
+
+            &.is-center {
+                top: 50%;
+            }
+
+            &.is-right {
+                bottom: 20px;
+                right: 0;
+                transform: translateY(0);
+                transform: translateX(50%);
+            }
+        }
+    }
+}

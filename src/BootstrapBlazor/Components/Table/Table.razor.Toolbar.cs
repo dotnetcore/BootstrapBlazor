@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Forms;
-using System.Runtime.CompilerServices;
 
 namespace BootstrapBlazor.Components;
 
@@ -41,46 +40,112 @@ public partial class Table<TItem>
     public bool ShowAddButton { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示编辑按钮 默认为 true 行内是否显示请使用 <see cref="ShowExtendEditButton"/> 与 <see cref="ShowEditButtonCallback" />
+    /// 获得/设置 是否显示编辑按钮 默认为 true 行内是否显示请使用 <see cref="ShowExtendEditButton"/> 与 <see cref="ShowExtendEditButtonCallback" />
     /// </summary>
     [Parameter]
     public bool ShowEditButton { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示行内编辑按钮 默认为 null 未设置时使用 <see cref="ShowExtendEditButton"/> 值
-    /// </summary>
-    [Parameter]
-    public Func<TItem, bool>? ShowEditButtonCallback { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否显示删除按钮 默认为 true 行内是否显示请使用 <see cref="ShowExtendDeleteButton"/> 与 <see cref="ShowDeleteButtonCallback" />
+    /// 获得/设置 是否显示删除按钮 默认为 true 行内是否显示请使用 <see cref="ShowExtendDeleteButton"/> 与 <see cref="ShowExtendDeleteButtonCallback" />
     /// </summary>
     [Parameter]
     public bool ShowDeleteButton { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示行内删除按钮 默认为 null 未设置时使用 <see cref="ShowExtendDeleteButton"/> 值
-    /// </summary>
-    [Parameter]
-    public Func<TItem, bool>? ShowDeleteButtonCallback { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否显示导出按钮 默认为 false 显示
+    /// 获得/设置 是否显示导出按钮 默认为 false 不显示
     /// </summary>
     [Parameter]
     public bool ShowExportButton { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示 Excel 导出按钮 默认为 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowExportExcelButton { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否显示 Csv 导出按钮 默认为 false 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowExportCsvButton { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示 Pdf 导出按钮 默认为 false 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowExportPdfButton { get; set; }
+
+    /// <summary>
+    /// 获得/设置 导出按钮图标
+    /// </summary>
+    [Parameter]
+    public string? ExportButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 内置导出 Csv 按钮图标
+    /// </summary>
+    [Parameter]
+    public string? CsvExportIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 内置导出 Excel 按钮图标
+    /// </summary>
+    [Parameter]
+    public string? ExcelExportIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 内置导出 Pdf 按钮图标
+    /// </summary>
+    [Parameter]
+    public string? PdfExportIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 导出数据前是否弹出 Toast 提示框 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowToastBeforeExport { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 导出数据后是否弹出 Toast 提示框 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowToastAfterExport { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 导出数据前回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<Task>? BeforeExportCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 导出数据后回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<bool, Task>? AfterExportCallback { get; set; }
+
+    /// <summary>
     /// 获得/设置 导出按钮下拉菜单模板 默认 null
     /// </summary>
     [Parameter]
-    public RenderFragment? ExportButtonDropdownTemplate { get; set; }
+    public RenderFragment<ITableExportContext<TItem>>? ExportButtonDropdownTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 内置导出微软 Csv 按钮文本 默认 null 读取资源文件
+    /// </summary>
+    [Parameter]
+    public string? ExportCsvDropdownItemText { get; set; }
 
     /// <summary>
     /// 获得/设置 内置导出微软 Excel 按钮文本 默认 null 读取资源文件
     /// </summary>
     [Parameter]
     public string? ExportExcelDropdownItemText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 内置导出 Pdf 按钮文本 默认 null 读取资源文件
+    /// </summary>
+    [Parameter]
+    public string? ExportPdfDropdownItemText { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示扩展按钮 默认为 false
@@ -93,6 +158,12 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     public bool IsAutoCollapsedToolbarButton { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 工具栏移动端按钮图标
+    /// </summary>
+    [Parameter]
+    public string? GearIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 扩展按钮是否在前面 默认 false 在行尾
@@ -119,16 +190,70 @@ public partial class Table<TItem>
     public bool ShowExtendEditButton { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否显示行内扩展编辑按钮 默认 true 显示
+    /// 获得/设置 是否显示行内扩展编辑按钮 默认为 null 未设置时使用 <see cref="ShowExtendEditButton"/> 值
+    /// </summary>
+    [Parameter]
+    public Func<TItem, bool>? ShowExtendEditButtonCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示行内扩展编辑按钮 默认为 null 未设置时使用 <see cref="ShowExtendEditButton"/> 值
+    /// </summary>
+    [Parameter]
+    [Obsolete("This callback is obsolete. Use ShowExtendEditButtonCallback instead. 已过期，请使用 ShowExtendEditButtonCallback 参数")]
+    [ExcludeFromCodeCoverage]
+    public Func<TItem, bool>? ShowEditButtonCallback
+    {
+        get => ShowExtendEditButtonCallback;
+        set => ShowExtendEditButtonCallback = value;
+    }
+
+    /// <summary>
+    /// 获得/设置 是否显示行内扩展删除按钮 默认 true 显示
     /// </summary>
     [Parameter]
     public bool ShowExtendDeleteButton { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否显示行内扩展删除按钮 默认为 null 未设置时使用 <see cref="ShowExtendDeleteButton"/> 值
+    /// </summary>
+    [Parameter]
+    public Func<TItem, bool>? ShowExtendDeleteButtonCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示行内扩展删除按钮 默认为 null 未设置时使用 <see cref="ShowExtendDeleteButton"/> 值
+    /// </summary>
+    [Parameter]
+    [Obsolete("This callback is obsolete. Use ShowExtendDeleteButtonCallback instead. 已过期，请使用 ShowExtendDeleteButtonCallback 参数")]
+    [ExcludeFromCodeCoverage]
+    public Func<TItem, bool>? ShowDeleteButtonCallback
+    {
+        get => ShowExtendDeleteButtonCallback;
+        set => ShowExtendDeleteButtonCallback = value;
+    }
 
     /// <summary>
     /// 获得/设置 是否固定扩展按钮列 默认为 false 不固定
     /// </summary>
     [Parameter]
     public bool FixedExtendButtonsColumn { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否固定多选列 默认为 false 不固定
+    /// </summary>
+    [Parameter]
+    public bool FixedMultipleColumn { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否固定明细行 Header 列 默认为 false 不固定
+    /// </summary>
+    [Parameter]
+    public bool FixedDetailRowHeaderColumn { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否固定 LineNo 列 默认为 false 不固定
+    /// </summary>
+    [Parameter]
+    public bool FixedLineNoColumn { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示刷新按钮 默认为 true
@@ -149,6 +274,12 @@ public partial class Table<TItem>
     public bool ShowColumnList { get; set; }
 
     /// <summary>
+    /// 获得/设置 列选择下拉框图标
+    /// </summary>
+    [Parameter]
+    public string? ColumnListButtonIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 保存、删除失败后是否显示 Toast 提示框 默认为 true 显示
     /// </summary>
     [Parameter]
@@ -156,9 +287,31 @@ public partial class Table<TItem>
 
     /// <summary>
     /// 获得/设置 表格 Toolbar 按钮模板
+    /// <para>表格工具栏左侧按钮模板，模板中内容出现在默认按钮前面</para>
+    /// </summary>
+    [Parameter]
+    public RenderFragment? TableToolbarBeforeTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 表格 Toolbar 按钮模板
+    /// <para>表格工具栏左侧按钮模板，模板中内容出现在默认按钮后面</para>
     /// </summary>
     [Parameter]
     public RenderFragment? TableToolbarTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 表格 Toolbar 按钮模板
+    /// <para>表格工具栏右侧按钮模板，模板中内容出现在默认按钮前面</para>
+    /// </summary>
+    [Parameter]
+    public RenderFragment? TableExtensionToolbarBeforeTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 表格 Toolbar 按钮模板
+    /// <para>表格工具栏右侧按钮模板，模板中内容出现在默认按钮后面</para>
+    /// </summary>
+    [Parameter]
+    public RenderFragment? TableExtensionToolbarTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 新建按钮回调方法
@@ -188,7 +341,7 @@ public partial class Table<TItem>
     /// 获得/设置 导出按钮异步回调方法
     /// </summary>
     [Parameter]
-    public Func<IEnumerable<TItem>, Task<bool>>? OnExportAsync { get; set; }
+    public Func<ITableExportDataContext<TItem>, Task<bool>>? OnExportAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 保存弹窗中的保存按钮显示文本 默认为资源文件中的 保存
@@ -239,28 +392,25 @@ public partial class Table<TItem>
 
     [Inject]
     [NotNull]
-    private ITableExcelExport? ExcelExport { get; set; }
+    private ITableExport? TableExport { get; set; }
 
     /// <summary>
     /// 获得/设置 各列是否显示状态集合
     /// </summary>
-    private List<ColumnVisibleItem> ColumnVisibles { get; } = new();
+    private List<ColumnVisibleItem> VisibleColumns { get; } = [];
 
-    private class ColumnVisibleItem
+    /// <summary>
+    /// 获得当前可见列集合
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<ITableColumn> GetVisibleColumns()
     {
-        [NotNull]
-        public string? FieldName { get; set; }
-
-        public bool Visible { get; set; }
+        // 不可见列
+        var items = VisibleColumns.Where(i => !i.Visible);
+        return Columns.Where(i => !items.Any(v => v.Name == i.GetFieldName()));
     }
 
-    private IEnumerable<ITableColumn> GetColumns()
-    {
-        var items = ColumnVisibles.Where(i => i.Visible);
-        return Columns.Where(i => items.Any(v => v.FieldName == i.GetFieldName()));
-    }
-
-    private bool GetColumnsListState(ITableColumn col) => ColumnVisibles.First(i => i.FieldName == col.GetFieldName()).Visible && ColumnVisibles.Count(i => i.Visible) == 1;
+    private bool GetColumnsListState(ITableColumn col) => VisibleColumns.First(i => i.Name == col.GetFieldName()).Visible && VisibleColumns.Count(i => i.Visible) == 1;
 
     private bool ShowAddForm { get; set; }
 
@@ -275,7 +425,7 @@ public partial class Table<TItem>
     {
         if (IsExcel || DynamicContext != null)
         {
-            await AddDynamicOjbectExcelModelAsync();
+            await AddDynamicObjectExcelModelAsync();
         }
         else
         {
@@ -306,7 +456,7 @@ public partial class Table<TItem>
             await ToggleLoading(false);
         }
 
-        async Task AddDynamicOjbectExcelModelAsync()
+        async Task AddDynamicObjectExcelModelAsync()
         {
             if (DynamicContext != null)
             {
@@ -336,7 +486,7 @@ public partial class Table<TItem>
         if (SelectedRows.Count == 1)
         {
             // 检查是否选中了不可编辑行（行内无编辑按钮）
-            if (ShowEditButtonCallback != null && !ShowEditButtonCallback(SelectedRows[0]))
+            if (ShowExtendEditButtonCallback != null && !ShowExtendEditButtonCallback(SelectedRows[0]))
             {
                 // 提示不可编辑
                 await ShowToastAsync(EditButtonToastReadonlyContent);
@@ -376,7 +526,7 @@ public partial class Table<TItem>
 
         async Task InternalOnEditAsync()
         {
-            EditModel = IsTracking ? SelectedRows[0] : Utility.Clone(SelectedRows[0]);
+            EditModel = (IsTracking || DynamicContext != null) ? SelectedRows[0] : Utility.Clone(SelectedRows[0]);
             if (OnEditAsync != null)
             {
                 await OnEditAsync(EditModel);
@@ -423,19 +573,6 @@ public partial class Table<TItem>
     }
 
     /// <summary>
-    /// 在 EditMode 等于 EditForm 情况下，关闭 EditFrom
-    /// </summary>
-    public void CloseEditForm()
-    {
-        if (EditMode == EditMode.EditForm)
-        {
-            ShowAddForm = false;
-            ShowEditForm = false;
-            StateHasChanged();
-        }
-    }
-
-    /// <summary>
     /// 保存数据方法
     /// </summary>
     /// <param name="context"></param>
@@ -459,6 +596,10 @@ public partial class Table<TItem>
         if (OnAfterSaveAsync != null)
         {
             await OnAfterSaveAsync((TItem)context.Model);
+        }
+        if (OnAfterModifyAsync != null)
+        {
+            await OnAfterModifyAsync();
         }
         if (ShowToastAfterSaveOrDeleteModel)
         {
@@ -549,6 +690,12 @@ public partial class Table<TItem>
     public bool EditDialogIsDraggable { get; set; }
 
     /// <summary>
+    /// 获得/设置 编辑框 FullScreenSize 参数 默认 none
+    /// </summary>
+    [Parameter]
+    public FullScreenSize EditDialogFullScreenSize { get; set; }
+
+    /// <summary>
     /// 获得/设置 编辑框是否显示最大化按钮 默认 true 不显示
     /// </summary>
     [Parameter]
@@ -559,6 +706,18 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     public bool ShowUnsetGroupItemsOnTop { get; set; }
+
+    /// <summary>
+    /// 获得/设置 弹窗 Footer
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TItem>? EditFooterTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 编辑弹窗关闭前回调方法
+    /// </summary>
+    [Parameter]
+    public Func<TItem, bool, Task>? EditDialogCloseAsync { get; set; }
 
     /// <summary>
     /// 弹出编辑对话框方法
@@ -585,11 +744,17 @@ public partial class Table<TItem>
             Size = EditDialogSize,
             IsDraggable = EditDialogIsDraggable,
             ShowMaximizeButton = EditDialogShowMaximizeButton,
+            FullScreenSize = EditDialogFullScreenSize,
             ShowUnsetGroupItemsOnTop = ShowUnsetGroupItemsOnTop,
             DisableAutoSubmitFormByEnter = DisableAutoSubmitFormByEnter,
             IsTracking = IsTracking,
+            DialogFooterTemplate = EditFooterTemplate,
             OnCloseAsync = async () =>
             {
+                if (EditDialogCloseAsync != null)
+                {
+                    await EditDialogCloseAsync(EditModel, saved);
+                }
                 if (!saved)
                 {
                     // EFCore 模式保存失败后调用 CancelAsync 回调
@@ -606,9 +771,9 @@ public partial class Table<TItem>
             OnEditAsync = async context =>
             {
                 await ToggleLoading(true);
-                saved = await SaveModelAsync(context, changedType);
                 if (IsTracking)
                 {
+                    saved = true;
                     if (changedType == ItemChangedType.Add)
                     {
                         var index = InsertRowMode == InsertRowMode.First ? 0 : Rows.Count;
@@ -616,12 +781,63 @@ public partial class Table<TItem>
                     }
                     await InvokeItemsChanged();
                 }
-                else if (saved)
+                else
                 {
-                    await QueryAsync();
+                    saved = await SaveModelAsync(context, changedType);
+                    if (saved)
+                    {
+                        if (Items != null)
+                        {
+                            if (changedType == ItemChangedType.Add)
+                            {
+                                await AddItem();
+                            }
+                            else if (changedType == ItemChangedType.Update)
+                            {
+                                await EditItem();
+                            }
+                        }
+                        else
+                        {
+                            await QueryAsync();
+                        }
+                    }
                 }
                 await ToggleLoading(false);
                 return saved;
+
+                async Task AddItem()
+                {
+                    var index = InsertRowMode == InsertRowMode.First ? 0 : Rows.Count;
+                    Rows.Insert(index, (TItem)context.Model);
+                    await UpdateRow();
+                }
+
+                async Task EditItem()
+                {
+                    // 使用 Comparer 确保能找到集合中的编辑项
+                    // 解决可能使用 Clone 副本导致编辑数据与 Items 中数据不一致
+                    var entity = Rows.FirstOrDefault(i => this.Equals<TItem>(i, (TItem)context.Model));
+                    if (entity != null)
+                    {
+                        var index = Rows.IndexOf(entity);
+                        Rows.RemoveAt(index);
+                        Rows.Insert(index, (TItem)context.Model);
+                        await UpdateRow();
+                    }
+                }
+
+                async Task UpdateRow()
+                {
+                    if (ItemsChanged.HasDelegate)
+                    {
+                        await InvokeItemsChanged();
+                    }
+                    else
+                    {
+                        Items = Rows;
+                    }
+                }
             }
         };
         await DialogService.ShowEditDialog(option);
@@ -639,7 +855,7 @@ public partial class Table<TItem>
         }
         else
         {
-            if (ShowDeleteButtonCallback != null && SelectedRows.Any(i => !ShowDeleteButtonCallback(i)))
+            if (ShowExtendDeleteButtonCallback != null && SelectedRows.Any(i => !ShowExtendDeleteButtonCallback(i)))
             {
                 await ShowToastAsync(DeleteButtonToastCanNotDeleteContent);
             }
@@ -674,7 +890,7 @@ public partial class Table<TItem>
         else
         {
             await ToggleLoading(true);
-            var ret = await DelteItemsAsync();
+            var ret = await DeleteItemsAsync();
 
             if (ShowToastAfterSaveOrDeleteModel)
             {
@@ -689,16 +905,18 @@ public partial class Table<TItem>
             await ToggleLoading(false);
         }
 
-        async Task<bool> DelteItemsAsync()
+        async Task<bool> DeleteItemsAsync()
         {
             var ret = await InternalOnDeleteAsync();
             if (ret)
             {
-                if (ItemsChanged.HasDelegate)
+                if (Items != null)
                 {
-                    Rows.RemoveAll(i => SelectedRows.Contains(i));
-                    SelectedRows.Clear();
-                    await ItemsChanged.InvokeAsync(Rows);
+                    SelectedRows.ForEach(i => Rows.Remove(i));
+                    if (ItemsChanged.HasDelegate)
+                    {
+                        await InvokeItemsChanged();
+                    }
                 }
                 else
                 {
@@ -710,11 +928,22 @@ public partial class Table<TItem>
                         // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I1UJSL
                         PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / PageItems).ToString())));
                         var items = PageItemsSource.Where(item => item >= (TotalCount - SelectedRows.Count));
-                        PageItems = Math.Min(PageItems, items.Any() ? items.Min() : PageItems);
+                        if (items.Any())
+                        {
+                            PageItems = Math.Min(PageItems, items.Min());
+                        }
                     }
-                    SelectedRows.Clear();
-                    await QueryAsync();
                 }
+                if (OnAfterDeleteAsync != null)
+                {
+                    await OnAfterDeleteAsync(SelectedRows);
+                }
+                if (OnAfterModifyAsync != null)
+                {
+                    await OnAfterModifyAsync();
+                }
+                SelectedRows.Clear();
+                await QueryAsync();
             }
             return ret;
         }
@@ -746,56 +975,82 @@ public partial class Table<TItem>
             Columns.Clear();
             Columns.AddRange(cols);
 
-            ColumnVisibles.Clear();
-            ColumnVisibles.AddRange(Columns.Select(i => new ColumnVisibleItem { FieldName = i.GetFieldName(), Visible = i.Visible }));
+            // Columns 重构 清空缓存
+            FirstFixedColumnCache.Clear();
+            LastFixedColumnCache.Clear();
+
+            InternalResetVisibleColumns(Columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.Visible)));
 
             QueryDynamicItems(DynamicContext);
+
+            // 重新绑定列拖拽
+            _bindResizeColumn = true;
         }
     }
 
-    private void QueryDynamicItems(IDynamicObjectContext context)
+    private void QueryDynamicItems(IDynamicObjectContext? context)
     {
-        QueryItems = context.GetItems().Cast<TItem>();
-        TotalCount = QueryItems.Count();
         RowsCache = null;
+        if (context != null)
+        {
+            QueryItems = context.GetItems().Cast<TItem>();
+            TotalCount = QueryItems.Count();
 
-        // 重置选中行
-        ResetSelectedRows(QueryItems);
+            // 重置选中行
+            ResetSelectedRows(QueryItems);
+        }
     }
 
-    /// <summary>
-    /// 导出数据方法
-    /// </summary>
-    protected async Task ExportAsync()
+    private async Task ExecuteExportAsync(Func<Task<bool>> callback)
     {
-        var option = new ToastOption
+        if (BeforeExportCallback != null)
         {
-            Title = ExportToastTitle,
-            Category = ToastCategory.Information
-        };
-        option.Content = string.Format(ExportToastInProgressContent, Math.Ceiling(option.Delay / 1000.0));
-        await Toast.Show(option);
-
-        var ret = false;
-        if (OnExportAsync != null)
-        {
-            ret = await OnExportAsync(Rows);
+            await BeforeExportCallback();
         }
-        else
+        else if (ShowToastBeforeExport)
         {
-            // 如果未提供 OnExportAsync 回调委托使用注入服务来尝试解析
-            // TODO: 这里将本页数据作为参数传递给导出服务，服务本身可以利用自身优势获取全部所需数据，如果获取全部数据呢？
-            ret = await ExcelExport.ExportAsync(Rows, Columns, JSRuntime);
+            var option = new ToastOption
+            {
+                Title = ExportToastTitle,
+                Category = ToastCategory.Information
+            };
+            option.Content = string.Format(ExportToastInProgressContent, Math.Ceiling(option.Delay / 1000.0));
+            await Toast.Show(option);
         }
 
-        option = new ToastOption
+        var ret = await callback();
+
+        if (AfterExportCallback != null)
         {
-            Title = ExportToastTitle,
-            Category = ret ? ToastCategory.Success : ToastCategory.Error
-        };
-        option.Content = string.Format(ExportToastContent, ret ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
-        await Toast.Show(option);
+            await AfterExportCallback(ret);
+        }
+        else if (ShowToastAfterExport)
+        {
+            var option = new ToastOption
+            {
+                Title = ExportToastTitle,
+                Category = ret ? ToastCategory.Success : ToastCategory.Error
+            };
+            option.Content = string.Format(ExportToastContent, ret ? SuccessText : FailText, Math.Ceiling(option.Delay / 1000.0));
+            await Toast.Show(option);
+        }
     }
+
+    private Task ExportAsync() => ExecuteExportAsync(() => OnExportAsync != null
+        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Unknown, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
+        : TableExport.ExportAsync(Rows, GetVisibleColumns()));
+
+    private Task ExportCsvAsync() => ExecuteExportAsync(() => OnExportAsync != null
+        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Csv, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
+        : TableExport.ExportCsvAsync(Rows, GetVisibleColumns()));
+
+    private Task ExportPdfAsync() => ExecuteExportAsync(() => OnExportAsync != null
+        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Pdf, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
+        : TableExport.ExportPdfAsync(Rows, GetVisibleColumns()));
+
+    private Task ExportExcelAsync() => ExecuteExportAsync(() => OnExportAsync != null
+        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Excel, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
+        : TableExport.ExportExcelAsync(Rows, GetVisibleColumns()));
 
     /// <summary>
     /// 获取当前 Table 选中的所有行数据
@@ -807,11 +1062,11 @@ public partial class Table<TItem>
     /// 是否显示行内编辑按钮
     /// </summary>
     /// <returns></returns>
-    protected bool GetShowEditButton(TItem item) => ShowEditButtonCallback?.Invoke(item) ?? ShowExtendEditButton;
+    protected bool GetShowExtendEditButton(TItem item) => ShowExtendEditButtonCallback?.Invoke(item) ?? ShowExtendEditButton;
 
     /// <summary>
     /// 是否显示行内删除按钮
     /// </summary>
     /// <returns></returns>
-    protected bool GetShowDeleteButton(TItem item) => ShowDeleteButtonCallback?.Invoke(item) ?? ShowExtendDeleteButton;
+    protected bool GetShowExtendDeleteButton(TItem item) => ShowExtendDeleteButtonCallback?.Invoke(item) ?? ShowExtendDeleteButton;
 }

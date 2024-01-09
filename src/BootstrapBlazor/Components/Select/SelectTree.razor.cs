@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// Select 组件实现类
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
-public partial class SelectTree<TValue>
+public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
 {
     /// <summary>
     /// 获得 样式集合
@@ -61,6 +61,9 @@ public partial class SelectTree<TValue>
     /// </summary>
     [Parameter]
     [NotNull]
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
     public List<TreeViewItem<TValue>>? Items { get; set; }
 
     /// <summary>
@@ -73,6 +76,7 @@ public partial class SelectTree<TValue>
     /// 获得/设置 点击节点获取子数据集合回调方法
     /// </summary>
     [Parameter]
+    [NotNull]
     public Func<TreeViewItem<TValue>, Task<IEnumerable<TreeViewItem<TValue>>>>? OnExpandNodeAsync { get; set; }
 
     /// <summary>
@@ -86,6 +90,7 @@ public partial class SelectTree<TValue>
     /// </summary>
     /// <remarks>提供此回调方法时忽略 <see cref="CustomKeyAttribute"/> 属性</remarks>
     [Parameter]
+    [NotNull]
     public Func<TValue, TValue, bool>? ModelEqualityComparer { get; set; }
 
     /// <summary>
@@ -95,10 +100,16 @@ public partial class SelectTree<TValue>
     public bool ShowIcon { get; set; }
 
     /// <summary>
-    /// 获得/设置 下拉箭头 Icon 图标 默认 "fa-solid fa-angle-up"
+    /// 获得/设置 下拉箭头 Icon 图标
     /// </summary>
     [Parameter]
     public string? DropdownIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否可编辑 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsEdit { get; set; }
 
     [Inject]
     [NotNull]
@@ -115,28 +126,91 @@ public partial class SelectTree<TValue>
     /// </summary>
     private string? InputId => $"{Id}_input";
 
+    /// <summary>
+    /// 获得/设置 上次选项
+    /// </summary>
     private TreeViewItem<TValue>? SelectedItem { get; set; }
 
-    /// <summary>
-    /// OnParametersSet 方法
-    /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
+    private List<TreeViewItem<TValue>>? ItemCache { get; set; }
 
-        Items ??= new();
-        DropdownIcon ??= "fa-solid fa-angle-up";
-        PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+    [NotNull]
+    private List<TreeViewItem<TValue>>? ExpandedItemsCache { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        if (Value != null)
+        {
+            await TriggerItemChanged(s => Equals(s.Value, Value));
+        }
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnParametersSetAsync()
     {
-        await base.OnAfterRenderAsync(firstRender);
+        await base.OnParametersSetAsync();
+
+        DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectTreeDropdownIcon);
+        PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+
+        Items ??= [];
+
+        if (Value == null)
+        {
+            // 组件未赋值 Value 通过 IsActive 设置默认值
+            await TriggerItemChanged(s => s.IsActive);
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="result"></param>
+    /// <param name="validationErrorMessage"></param>
+    /// <returns></returns>
+    protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
+    {
+        result = (TValue)(object)value;
+        validationErrorMessage = null;
+        return true;
+    }
+
+    private void OnChange(ChangeEventArgs args)
+    {
+        if (args.Value is string v)
+        {
+            CurrentValueAsString = v;
+        }
+    }
+
+    private async Task TriggerItemChanged(Func<TreeViewItem<TValue>, bool> predicate)
+    {
+        var currentItem = GetExpandedItems().FirstOrDefault(predicate);
+        if (currentItem != null)
+        {
+            await ItemChanged(currentItem);
+        }
+    }
+
+    private IEnumerable<TreeViewItem<TValue>> GetExpandedItems()
+    {
+        if (ItemCache != Items)
+        {
+            ItemCache = Items;
+            ExpandedItemsCache = TreeItemExtensions.GetAllItems(ItemCache).ToList();
+        }
+        return ExpandedItemsCache;
     }
 
     /// <summary>
@@ -144,25 +218,34 @@ public partial class SelectTree<TValue>
     /// </summary>
     private async Task OnItemClick(TreeViewItem<TValue> item)
     {
-        await ItemChanged(item);
-        SelectedItem = item;
-        StateHasChanged();
+        if (!Equals(item.Value, CurrentValue))
+        {
+            await ItemChanged(item);
+            StateHasChanged();
+        }
     }
 
     /// <summary>
-    /// 
+    /// 选中项更改处理方法
     /// </summary>
     /// <returns></returns>
     private async Task ItemChanged(TreeViewItem<TValue> item)
     {
-        item.IsActive = true;
         SelectedItem = item;
-        CurrentValue = SelectedItem.Value;
+        CurrentValue = item.Value;
 
         // 触发 SelectedItemChanged 事件
         if (OnSelectedItemChanged != null)
         {
-            await OnSelectedItemChanged.Invoke(item.Value);
+            await OnSelectedItemChanged.Invoke(CurrentValue);
         }
     }
+
+    /// <summary>
+    /// 比较数据是否相同
+    /// </summary>
+    /// <param name="x"></param>
+    /// <param name="y"></param>
+    /// <returns></returns>
+    public bool Equals(TValue? x, TValue? y) => this.Equals<TValue>(x, y);
 }

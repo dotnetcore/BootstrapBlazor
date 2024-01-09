@@ -8,36 +8,17 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+///
 /// </summary>
 public partial class DateTimeRange
 {
     /// <summary>
-    /// 获得 组件 DOM 实例
-    /// </summary>
-    private ElementReference PickerRange { get; set; }
-
-    /// <summary>
     /// 获得 组件样式名称
     /// </summary>
-    private string? ClassString => CssBuilder.Default("datetime-range form-control")
+    private string? ClassString => CssBuilder.Default("select datetime-range form-control")
         .AddClass("disabled", IsDisabled)
         .AddClass(ValidCss)
         .AddClassFromAttributes(AdditionalAttributes)
-        .Build();
-
-    /// <summary>
-    /// 获得 组件弹窗样式名称
-    /// </summary>
-    private string? BodyClassString => CssBuilder.Default("datetime-range-body")
-        .AddClass("d-none", !IsShown)
-        .Build();
-
-    /// <summary>
-    /// 获得 组件弹窗位置
-    /// </summary>
-    private string? PlacementString => CssBuilder.Default()
-        .AddClass(Placement.ToDescriptionString(), Placement != Placement.Auto)
         .Build();
 
     /// <summary>
@@ -55,11 +36,11 @@ public partial class DateTimeRange
 
     private DateTime StartValue { get; set; }
 
-    private string? StartValueString => (Value == null || Value.Start == DateTime.MinValue) ? null : Value.Start.ToString(DateFormat);
+    private string? StartValueString => Value.Start != DateTime.MinValue ? Value.Start.ToString(DateFormat) : null;
 
     private DateTime EndValue { get; set; }
 
-    private string? EndValueString => (Value == null || Value.End == DateTime.MinValue) ? null : Value.End.ToString(DateFormat);
+    private string? EndValueString => Value.End != DateTime.MinValue ? Value.End.ToString(DateFormat) : null;
 
     [NotNull]
     private string? StartPlaceHolderText { get; set; }
@@ -74,6 +55,12 @@ public partial class DateTimeRange
     private string? DateFormat { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否点击快捷侧边栏自动关闭弹窗 默认 false
+    /// </summary>
+    [Parameter]
+    public bool AutoCloseClickSideBar { get; set; }
+
+    /// <summary>
     /// 获得/设置 清空按钮文字
     /// </summary>
     [Parameter]
@@ -84,7 +71,6 @@ public partial class DateTimeRange
     /// 获得/设置 清空图标 默认 fa-solid fa-circle-xmark
     /// </summary>
     [Parameter]
-    [NotNull]
     public string? ClearIcon { get; set; }
 
     /// <summary>
@@ -113,28 +99,15 @@ public partial class DateTimeRange
     public DateTime MinValue { get; set; } = DateTime.MinValue;
 
     /// <summary>
-    /// 获得/设置 弹窗位置 默认为 Auto
-    /// </summary>
-    [Parameter]
-    public Placement Placement { get; set; } = Placement.Auto;
-
-    /// <summary>
-    /// 获得/设置 是否显示本组件默认为 false 不显示
-    /// </summary>
-    [Parameter]
-    public bool IsShown { get; set; }
-
-    /// <summary>
     /// 获得/设置 是否允许为空 默认为 true
     /// </summary>
     [Parameter]
     public bool AllowNull { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 组件图标 默认 "fa-regular fa-calendar-days"
+    /// 获得/设置 组件图标
     /// </summary>
     [Parameter]
-    [NotNull]
     public string? Icon { get; set; }
 
     /// <summary>
@@ -176,6 +149,10 @@ public partial class DateTimeRange
     [NotNull]
     private IStringLocalizerFactory? LocalizerFactory { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
@@ -188,7 +165,7 @@ public partial class DateTimeRange
         StartValue = Value.Start;
         EndValue = Value.End;
 
-        if (StartValue == DateTime.MinValue) StartValue = DateTime.Now;
+        if (StartValue == DateTime.MinValue) StartValue = DateTime.Today;
         if (EndValue == DateTime.MinValue) EndValue = StartValue.AddMonths(1);
 
         SelectedValue.Start = StartValue;
@@ -204,24 +181,21 @@ public partial class DateTimeRange
 
         DateFormat ??= Localizer[nameof(DateFormat)];
 
-        Icon ??= "fa-regular fa-calendar-days";
-        ClearIcon ??= "fa-solid fa-circle-xmark";
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimeRangeIcon);
+        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimeRangeClearIcon); ;
 
         if (StartValue.ToString("yyyy-MM") == EndValue.ToString("yyyy-MM"))
         {
             StartValue = StartValue.AddMonths(-1);
         }
 
-        if (SidebarItems == null)
+        SidebarItems ??= new DateTimeRangeSidebarItem[]
         {
-            SidebarItems = new DateTimeRangeSidebarItem[]
-            {
-                new DateTimeRangeSidebarItem{ Text = Localizer["Last7Days"], StartDateTime = DateTime.Today.AddDays(-7), EndDateTime = DateTime.Today },
-                new DateTimeRangeSidebarItem{ Text = Localizer["Last30Days"], StartDateTime = DateTime.Today.AddDays(-30), EndDateTime = DateTime.Today },
-                new DateTimeRangeSidebarItem{ Text = Localizer["ThisMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day), EndDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1).AddDays(-1) },
-                new DateTimeRangeSidebarItem{ Text = Localizer["LastMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddMonths(-1), EndDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddDays(-1) },
-            };
-        }
+            new() { Text = Localizer["Last7Days"], StartDateTime = DateTime.Today.AddDays(-7), EndDateTime = DateTime.Today },
+            new() { Text = Localizer["Last30Days"], StartDateTime = DateTime.Today.AddDays(-30), EndDateTime = DateTime.Today },
+            new() { Text = Localizer["ThisMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day), EndDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1).AddDays(-1) },
+            new() { Text = Localizer["LastMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddMonths(-1), EndDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddDays(-1) },
+        };
     }
 
     /// <summary>
@@ -239,7 +213,7 @@ public partial class DateTimeRange
                 var required = pi.GetCustomAttribute<RequiredAttribute>(true);
                 if (required != null)
                 {
-                    Rules.Add(new DateTimeRangeRangeRequiredValidator()
+                    Rules.Add(new DateTimeRangeRequiredValidator()
                     {
                         LocalizerFactory = LocalizerFactory,
                         ErrorMessage = required.ErrorMessage,
@@ -250,27 +224,18 @@ public partial class DateTimeRange
         }
     }
 
-    /// <summary>
-    /// OnAfterRender 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync(PickerRange, "bb_datetimeRange");
-        }
-    }
-
     private async Task OnClickSidebarItem(DateTimeRangeSidebarItem item)
     {
         SelectedValue.Start = item.StartDateTime;
         SelectedValue.End = item.EndDateTime;
         StartValue = item.StartDateTime;
-        EndValue = StartValue.AddMonths(1);
-        await ClickConfirmButton();
+        EndValue = item.EndDateTime;
+
+        if (AutoCloseClickSideBar)
+        {
+            await InvokeVoidAsync("hide", Id);
+            await ClickConfirmButton();
+        }
     }
 
     /// <summary>
@@ -279,8 +244,6 @@ public partial class DateTimeRange
     /// <returns></returns>
     private async Task ClickClearButton()
     {
-        await JSRuntime.InvokeVoidAsync(PickerRange, "bb_datetimeRange", "hide");
-
         Value = new DateTimeRangeValue();
 
         if (OnClearValue != null)
@@ -295,9 +258,9 @@ public partial class DateTimeRange
         {
             await ValueChanged.InvokeAsync(Value);
         }
-        if (IsNeedValidate && FieldIdentifier != null)
+        if (IsNeedValidate && EditContext != null && FieldIdentifier != null)
         {
-            EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
+            EditContext.NotifyFieldChanged(FieldIdentifier.Value);
         }
     }
 
@@ -318,43 +281,37 @@ public partial class DateTimeRange
     /// </summary>
     private async Task ClickConfirmButton()
     {
-        await JSRuntime.InvokeVoidAsync(PickerRange, "bb_datetimeRange", "hide");
-
+        // SelectedValue 
         if (SelectedValue.End == DateTime.MinValue)
         {
-            if (SelectedValue.Start < DateTime.Now)
+            if (SelectedValue.Start < DateTime.Today)
             {
-                SelectedValue.End = DateTime.Now;
+                SelectedValue.End = DateTime.Today;
             }
             else
             {
                 SelectedValue.End = SelectedValue.Start;
-                SelectedValue.Start = DateTime.Now;
+                SelectedValue.Start = DateTime.Today;
             }
         }
         Value.Start = SelectedValue.Start;
-        Value.End = SelectedValue.End;
+        Value.End = SelectedValue.End.Date.AddDays(1).AddSeconds(-1);
 
-        if (Value.End.Hour == 0)
+        if (ValueChanged.HasDelegate)
         {
-            Value.End = Value.End.AddDays(1).AddSeconds(-1);
-        }
-        if (OnValueChanged != null)
-        {
-            await OnValueChanged(Value);
+            await ValueChanged.InvokeAsync(Value);
         }
         if (OnConfirm != null)
         {
             await OnConfirm(Value);
         }
-        if (ValueChanged.HasDelegate)
+        if (OnValueChanged != null)
         {
-            await ValueChanged.InvokeAsync(Value);
+            await OnValueChanged(Value);
         }
-
-        if (IsNeedValidate && FieldIdentifier != null)
+        if (IsNeedValidate && EditContext != null && FieldIdentifier != null)
         {
-            EditContext?.NotifyFieldChanged(FieldIdentifier.Value);
+            EditContext.NotifyFieldChanged(FieldIdentifier.Value);
         }
     }
 
@@ -364,7 +321,7 @@ public partial class DateTimeRange
     /// <param name="d"></param>
     internal void UpdateStart(DateTime d)
     {
-        StartValue = StartValue.AddYears(d.Year - StartValue.Year).AddMonths(d.Month - StartValue.Month);
+        StartValue = d;
         EndValue = StartValue.AddMonths(1);
         StateHasChanged();
     }
@@ -375,7 +332,7 @@ public partial class DateTimeRange
     /// <param name="d"></param>
     internal void UpdateEnd(DateTime d)
     {
-        EndValue = EndValue.AddYears(d.Year - EndValue.Year).AddMonths(d.Month - EndValue.Month);
+        EndValue = d;
         StartValue = EndValue.AddMonths(-1);
         StateHasChanged();
     }
@@ -404,11 +361,12 @@ public partial class DateTimeRange
             SelectedValue.End = DateTime.MinValue;
         }
 
-        if (d.Year < StartValue.Year || d.Month < StartValue.Month)
+        var startDate = StartValue.AddDays(1 - StartValue.Day);
+        if (d < startDate)
         {
             UpdateStart(d);
         }
-        else if (d.Month > EndValue.Month)
+        else if (d > startDate.AddMonths(2).AddDays(-1))
         {
             UpdateEnd(d);
         }
@@ -424,19 +382,4 @@ public partial class DateTimeRange
     /// <param name="propertyValue"></param>
     /// <returns></returns>
     public override bool IsComplexValue(object? propertyValue) => false;
-
-    /// <summary>
-    /// DisposeAsyncCore 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected override async ValueTask DisposeAsyncCore(bool disposing)
-    {
-        await base.DisposeAsyncCore(disposing);
-
-        if (disposing)
-        {
-            await JSRuntime.InvokeVoidAsync(PickerRange, "bb_datetimeRange", "dispose");
-        }
-    }
 }

@@ -1,18 +1,18 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits IdComponentBase
 
-<div @attributes="@AdditionalAttributes" class="@ClassString" @ref="CollapseElement">
+<div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
     <CascadingValue Value="this" IsFixed="true">
         @CollapseItems
     </CascadingValue>
     <RenderTemplate>
-        @foreach (var item in Items)
+        @foreach (var item in Children)
         {
             <div class="@GetItemClassString(item)">
                 <div class="accordion-header">
-                    <Button class="@GetButtonClassString(item)" data-bs-toggle="collapse" aria-expanded="@(item.IsCollapsed ? "false" : "true")" Color="item.TitleColor" Text="@item.Text" OnClickWithoutRender="@(() => OnClickItem(item))" Icon="@item.Icon" />
+                    <Button class="@GetButtonClassString(item)" data-bs-toggle="collapse" data-bs-target="@GetTargetIdString(item)" aria-expanded="@(item.IsCollapsed ? "false" : "true")" Color="item.TitleColor" Text="@item.Text" OnClickWithoutRender="@(() => OnClickItem(item))" Icon="@item.Icon" />
                 </div>
-                <div class="@GetClassString(item.IsCollapsed)">
+                <div class="@GetClassString(item.IsCollapsed)" id="@GetTargetId(item)" data-bs-parent="@ParentIdString">
                     <div class="accordion-body">
                         @item.ChildContent
                     </div>

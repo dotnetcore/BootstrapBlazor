@@ -5,12 +5,10 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Carousel 组件
 /// </summary>
 public partial class Carousel
 {
-    private ElementReference CarouselElement { get; set; }
-
     /// <summary>
     /// 获得 class 样式集合
     /// </summary>
@@ -29,7 +27,7 @@ public partial class Carousel
     /// 获得 Style 样式
     /// </summary>
     private string? StyleName => CssBuilder.Default()
-        .AddClass($"width: {Width}px;", Width.HasValue)
+        .AddClass($"width: {Width.ConvertToPercentString()};", !string.IsNullOrEmpty(Width))
         .Build();
 
     /// <summary>
@@ -52,7 +50,7 @@ public partial class Carousel
     /// 获得/设置 内部图片的宽度
     /// </summary>
     [Parameter]
-    public int? Width { get; set; }
+    public string? Width { get; set; }
 
     /// <summary>
     /// 获得/设置 是否采用淡入淡出效果 默认为 false
@@ -90,7 +88,37 @@ public partial class Carousel
     [Parameter]
     public bool DisableTouchSwiping { get; set; }
 
+    /// <summary>
+    /// 获得/设置 上一页图标
+    /// </summary>
+    [Parameter]
+    public string? PreviousIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 下一页图标
+    /// </summary>
+    [Parameter]
+    public string? NextIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 鼠标悬停时是否暂停播放 默认 true
+    /// </summary>
+    [Parameter]
+    public bool HoverPause { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 自动播放方式 默认 <see cref="CarouselPlayMode.AutoPlayOnload"/>
+    /// </summary>
+    [Parameter]
+    public CarouselPlayMode PlayMode { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     private string? DisableTouchSwipingString => DisableTouchSwiping ? "false" : null;
+
+    private string? PauseString => HoverPause ? "hover" : "false";
 
     /// <summary>
     /// OnParametersSet 方法
@@ -98,6 +126,9 @@ public partial class Carousel
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
+
+        PreviousIcon ??= IconTheme.GetIconByKey(ComponentIcons.CarouselPreviousIcon);
+        NextIcon ??= IconTheme.GetIconByKey(ComponentIcons.CarouselNextIcon);
 
         if (Items.Count == 0)
         {
@@ -124,18 +155,6 @@ public partial class Carousel
                 Items.Add(item);
             }
         }
-    }
-
-    /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender) await JSRuntime.InvokeVoidAsync(CarouselElement, "bb_carousel");
     }
 
     /// <summary>

@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// BootstrapInputTextBase 组件
+/// BootstrapInput 组件
 /// </summary>
 public partial class BootstrapInput<TValue>
 {

@@ -6,10 +6,10 @@
         @ChildContent
     </CascadingValue>
     <RenderTemplate>
-        <ul class="nav d-inline-flex">
+        <ul class="nav">
             @foreach (var item in GetItems())
             {
-                <li class="dropdown">
+                <li class="dropdown-center">
                     <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" title="@item.Title">
                         <i class="@item.Icon"></i>
                         @if (!string.IsNullOrEmpty(item.BadgeNumber))

@@ -3,9 +3,9 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Localization;
-using BootstrapBlazor.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
 namespace UnitTest.Localization;
@@ -17,7 +17,7 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
     {
         var factory = Context.Services.GetRequiredService<IStringLocalizerFactory>();
         var mi = factory.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).First(i => i.Name == "GetResourcePrefix" && i.GetParameters().Length == 1)!;
-        Assert.Throws<TargetInvocationException>(() => mi.Invoke(factory, new object?[] { new MockTypeInfo() }));
+        Assert.Throws<TargetInvocationException>(() => mi.Invoke(factory, [new MockTypeInfo()]));
     }
 
     [Fact]
@@ -212,6 +212,76 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         Assert.Equal("test-name", localizer["test-name"]);
     }
 
+    [Fact]
+    public void FormatException_Ok()
+    {
+        var sc = new ServiceCollection();
+        sc.AddConfiguration();
+        sc.AddSingleton<IStringLocalizerFactory, MockLocalizerFactory>();
+        sc.AddTransient<IStringLocalizer, MockStringLocalizer>();
+        sc.AddBootstrapBlazor();
+
+        var provider = sc.BuildServiceProvider();
+        var localizer = provider.GetRequiredService<IStringLocalizer<Dummy>>();
+        var v = localizer["Mock-FakeAddress", "Test"];
+        Assert.True(v.ResourceNotFound);
+        Assert.Equal("Mock-FakeAddress", v);
+    }
+
+    [Fact]
+    public void GetResourcePrefix_Ok()
+    {
+        // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I5SRA1
+        var builder = new TestContext();
+        builder.Services.AddConfiguration();
+
+        // 注入其他 Localization
+        builder.Services.AddLocalization();
+
+        // 注入 Bootstrap Localization
+        builder.Services.AddBootstrapBlazor();
+
+        var fac = builder.Services.GetRequiredService<IStringLocalizerFactory>();
+        var l = fac.Create("Lang", "UnitTest");
+        var result = l["test"];
+        Assert.True(result.ResourceNotFound);
+        Assert.Equal("test", result.Value);
+    }
+
+    private static readonly string[] localizationConfigure = ["zh-CN.json"];
+
+    [Fact]
+    public void Validate_ResourceManagerStringLocalizerType()
+    {
+        var context = new TestContext();
+        context.JSInterop.Mode = JSRuntimeMode.Loose;
+
+        context.Services.AddConfiguration();
+        context.Services.AddBootstrapBlazor(localizationConfigure: option =>
+        {
+            option.ResourceManagerStringLocalizerType = typeof(Foo);
+            option.AdditionalJsonFiles = localizationConfigure;
+        });
+        context.Services.GetRequiredService<ICacheManager>();
+
+        var foo = new Foo();
+        var cut = context.RenderComponent<ValidateForm>(pb =>
+        {
+            pb.Add(v => v.Model, foo);
+            pb.Add(a => a.OnInvalidSubmit, context =>
+            {
+                return Task.CompletedTask;
+            });
+        });
+
+        // 反射触发 Validate 方法
+        var mi = cut.Instance.GetType().GetMethod("ValidateDataAnnotations", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        var pi = foo.GetType().GetProperty("Name");
+        var result = new List<ValidationResult>();
+        mi.Invoke(cut.Instance, [null, new ValidationContext(cut.Instance), result, pi, "Name"]);
+        Assert.Equal("Test", result[0].ErrorMessage);
+    }
+
     private class MockTypeInfo : TypeDelegator
     {
         public override string? FullName => null;
@@ -239,8 +309,9 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
 
         public IEnumerable<LocalizedString> GetAllStrings(bool includeParentCultures) => new List<LocalizedString>()
         {
-            new LocalizedString("Mock-Name", "Mock-Test-Name"),
-            new LocalizedString("Mock-Address", "Mock-Test-Address-{0}")
+            new("Mock-Name", "Mock-Test-Name"),
+            new("Mock-Address", "Mock-Test-Address-{0}"),
+            new("Mock-FakeAddress", "Mock-Test-Address-{ 0}")
         };
     }
 

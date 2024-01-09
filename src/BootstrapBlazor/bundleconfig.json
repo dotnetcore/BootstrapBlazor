@@ -4,54 +4,30 @@
     "inputFiles": [
       "wwwroot/core/bootstrap/css/bootstrap.min.css",
       "wwwroot/lib/**/*.min.css",
-      "Components/**/*.css",
-      "wwwroot/src/bootstrap.blazor.css"
+      "wwwroot/scss/theme/*.css"
     ]
   },
   {
     "outputFileName": "wwwroot/css/motronic.min.css",
-    "inputFiles": [ "wwwroot/src/motronic.css" ]
+    "inputFiles": [ "wwwroot/src/css/motronic.css" ]
   },
   {
-    "outputFileName": "wwwroot/bundle/bootstrap.blazor.min.js",
+    "outputFileName": "wwwroot/js/bootstrap.blazor.bundle.js",
     "inputFiles": [
-      "wwwroot/lib/extensions/*.js",
-      "Components/**/!(*.esm).js"
+      "wwwroot/core/bootstrap/js/bootstrap.bundle.js"
     ],
     "minify": {
-      "enabled": true,
+      "enabled": false,
       "renameLocals": true
     }
   },
   {
     "outputFileName": "wwwroot/js/bootstrap.blazor.bundle.min.js",
     "inputFiles": [
-      "wwwroot/core/jquery/jquery-3.5.1.min.js",
-      "wwwroot/core/bootstrap/js/bootstrap.bundle.min.js",
-      "wwwroot/bundle/bootstrap.blazor.min.js"
+      "wwwroot/core/bootstrap/js/bootstrap.bundle.min.js"
     ],
     "minify": {
       "enabled": false,
-      "renameLocals": true
-    }
-  },
-  {
-    "outputFileName": "wwwroot/modules/barcodereader.bundle.js",
-    "inputFiles": [
-      "Components/BarcodeReader/*.esm.js"
-    ],
-    "minify": {
-      "enabled": false,
-      "renameLocals": true
-    }
-  },
-  {
-    "outputFileName": "wwwroot/modules/qrcode.esm.min.js",
-    "inputFiles": [
-      "Components/QRCode/QRCode.esm.js"
-    ],
-    "minify": {
-      "enabled": true,
       "renameLocals": true
     }
   }

@@ -5,9 +5,9 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// SelectBase 组件基类
 /// </summary>
-public abstract class SelectBase<TValue> : ValidateBase<TValue>
+public abstract class SelectBase<TValue> : PopoverSelectBase<TValue>
 {
     /// <summary>
     /// 获得/设置 颜色 默认 Color.None 无设置
@@ -29,10 +29,16 @@ public abstract class SelectBase<TValue> : ValidateBase<TValue>
     public bool ShowSearch { get; set; }
 
     /// <summary>
-    /// 获得/设置 设置搜索图标 默认 fa-solid fa-magnifying-glass
+    /// 获得/设置 设置搜索图标
     /// </summary>
     [Parameter]
-    public string SearchIcon { get; set; } = "fa-solid fa-magnifying-glass";
+    public string? SearchIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否为 MarkupString 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsMarkupString { get; set; }
 
     /// <summary>
     /// 获得/设置 字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
@@ -47,34 +53,46 @@ public abstract class SelectBase<TValue> : ValidateBase<TValue>
     public RenderFragment<SelectedItem>? ItemTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 弹窗位置 默认为 Bottom
+    /// 获得/设置 分组项模板
     /// </summary>
     [Parameter]
-    public Placement Placement { get; set; } = Placement.Bottom;
+    public RenderFragment<string>? GroupItemTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否使用 Popover 渲染下拉框 默认 false
+    /// 获得/设置 IIconTheme 服务实例
     /// </summary>
-    [Parameter]
-    public bool IsPopover { get; set; }
+    [Inject]
+    [NotNull]
+    protected IIconTheme? IconTheme { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 搜索框文本
     /// </summary>
-    protected string? ToggleString => IsPopover ? null : "dropdown";
+    [NotNull]
+    protected string? SearchText { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得 SearchIcon 图标字符串 默认增加 icon 样式
     /// </summary>
-    protected string? DropdownMenuClassString => IsPopover ? "dropdown-menu" : "dropdown-menu shadow";
+    protected string? SearchIconString => CssBuilder.Default("icon")
+        .AddClass(SearchIcon)
+        .Build();
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
-    protected string? PlacementString => Placement == Placement.Auto ? null : Placement.ToDescriptionString();
+    protected override string? CustomClassString => CssBuilder.Default()
+        .AddClass("select", IsPopover)
+        .AddClass(base.CustomClassString)
+        .Build();
 
     /// <summary>
-    /// 
+    /// <inheritdoc/>
     /// </summary>
-    protected string SearchText { get; set; } = "";
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        SearchIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectSearchIcon);
+    }
 }

@@ -81,6 +81,11 @@ public class EditDialogOption<TModel> : DialogOption
     public RenderFragment<TModel>? DialogBodyTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 EditDialog Footer 模板
+    /// </summary>
+    public RenderFragment<TModel>? DialogFooterTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 保存回调委托
     /// </summary>
     public Func<EditContext, Task<bool>>? OnEditAsync { get; set; }

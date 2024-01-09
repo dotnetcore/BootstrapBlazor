@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
-
 namespace UnitTest.Components;
 
 public class TableStringFilterTest : BootstrapBlazorTestBase
@@ -20,19 +18,22 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
         Assert.NotNull(logic);
 
         var conditions = cut.Instance.GetFilterConditions();
-        Assert.Empty(conditions);
+        Assert.NotNull(conditions.Filters);
+        Assert.Empty(conditions.Filters);
 
         var dt = cut.FindComponent<BootstrapInput<string>>().Instance;
         cut.InvokeAsync(() => dt.SetValue("Test"));
 
         conditions = cut.Instance.GetFilterConditions();
-        Assert.Single(conditions);
+        Assert.NotNull(conditions.Filters);
+        Assert.Single(conditions.Filters);
 
         dt = cut.FindComponents<BootstrapInput<string>>()[1].Instance;
         cut.InvokeAsync(() => dt.SetValue("Test"));
 
         conditions = cut.Instance.GetFilterConditions();
-        Assert.Equal(2, conditions.Count());
+        Assert.NotNull(conditions.Filters);
+        Assert.Equal(2, conditions.Filters.Count);
 
         // 测试 FilterLogicItem LogicChanged 代码覆盖率
         var logicItem = cut.FindComponent<FilterLogicItem>();
@@ -62,15 +63,18 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
                 }));
             });
         });
-        var filter = cut.FindComponent<BootstrapInput<string>>().Instance;
-        cut.InvokeAsync(() => filter.SetValue("test"));
 
-        var items = cut.FindAll(".dropdown-item");
-        IEnumerable<FilterKeyValueAction>? condtions = null;
-        cut.InvokeAsync(() => items[1].Click());
-        cut.InvokeAsync(() => condtions = cut.FindComponent<StringFilter>().Instance.GetFilterConditions());
-        Assert.NotNull(condtions);
-        Assert.Single(condtions);
+        cut.InvokeAsync(() =>
+        {
+            var filter = cut.FindComponent<BootstrapInput<string>>().Instance;
+            filter.SetValue("test");
+
+            var items = cut.FindAll(".dropdown-item");
+            items[1].Click();
+        });
+        var conditions = cut.FindComponent<StringFilter>().Instance.GetFilterConditions();
+        Assert.NotNull(conditions.Filters);
+        Assert.Single(conditions.Filters);
     }
 
     [Fact]
@@ -78,60 +82,104 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
     {
         var searchFilterAction = new SearchFilterAction("Test-Search", "1", FilterAction.NotEqual);
 
-        var condtion = searchFilterAction.GetFilterConditions();
-        Assert.Single(condtion);
-        Assert.Equal("Test-Search", condtion.First().FieldKey);
-        Assert.Equal("1", condtion.First().FieldValue);
-        Assert.Equal(FilterAction.NotEqual, condtion.First().FilterAction);
-        Assert.Equal(FilterLogic.And, condtion.First().FilterLogic);
+        var conditions = searchFilterAction.GetFilterConditions();
+        Assert.NotNull(conditions);
+        Assert.Null(conditions.Filters);
+        Assert.Equal("Test-Search", conditions.FieldKey);
+        Assert.Equal("1", conditions.FieldValue);
+        Assert.Equal(FilterAction.NotEqual, conditions.FilterAction);
+        Assert.Equal(FilterLogic.And, conditions.FilterLogic);
 
         searchFilterAction.Reset();
         Assert.Null(searchFilterAction.Value);
 
-        searchFilterAction.SetFilterConditionsAsync(new List<FilterKeyValueAction>()
+        searchFilterAction.SetFilterConditionsAsync(new FilterKeyValueAction()
         {
-            new FilterKeyValueAction()
-            {
-                FieldKey = "Test-Search",
-                FieldValue = "test"
-            }
+            Filters =
+            [
+                new FilterKeyValueAction()
+                {
+                    FieldKey = "Test-Search",
+                    FieldValue = "test"
+                }
+            ]
+        });
+        Assert.Equal("test", searchFilterAction.Value);
+
+        searchFilterAction.SetFilterConditionsAsync(new FilterKeyValueAction()
+        {
+            FieldKey = "Test-Search",
+            FieldValue = "test",
+            FilterAction = FilterAction.NotEqual
         });
         Assert.Equal("test", searchFilterAction.Value);
     }
 
     [Fact]
-    public async Task SetFilterConditions_Ok()
+    public void SetFilterConditions_Ok()
     {
         var cut = Context.RenderComponent<StringFilter>();
         var filter = cut.Instance;
         var conditions = filter.GetFilterConditions();
-        Assert.Empty(conditions);
+        Assert.NotNull(conditions.Filters);
+        Assert.Empty(conditions.Filters);
 
-        var newConditions = new List<FilterKeyValueAction>
+        var newConditions = new FilterKeyValueAction()
         {
-            new FilterKeyValueAction() { FieldValue = "test1" },
-            new FilterKeyValueAction() { FieldValue = "test2" }
+            Filters =
+            [
+                new FilterKeyValueAction() { FieldValue = "test1" },
+                new FilterKeyValueAction() { FieldValue = "test2" }
+            ]
         };
-        await filter.SetFilterConditionsAsync(newConditions);
+        cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();
-        Assert.Equal(2, conditions.Count());
+        Assert.NotNull(conditions.Filters);
+        Assert.Equal(2, conditions.Filters.Count);
 
-        newConditions = new List<FilterKeyValueAction>
+        newConditions = new FilterKeyValueAction()
         {
-            new FilterKeyValueAction() { FieldValue = true },
-            new FilterKeyValueAction() { FieldValue = false }
+            Filters =
+            [
+                new FilterKeyValueAction() { FieldValue = true },
+                new FilterKeyValueAction() { FieldValue = false }
+            ]
         };
-        await filter.SetFilterConditionsAsync(newConditions);
+        cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();
-        Assert.Empty(conditions);
+        Assert.NotNull(conditions.Filters);
+        Assert.Empty(conditions.Filters);
 
-        newConditions = new List<FilterKeyValueAction>
+        newConditions = new FilterKeyValueAction()
         {
-            new FilterKeyValueAction() { FieldValue = "" },
-            new FilterKeyValueAction() { FieldValue = "" }
+            Filters =
+            [
+                new FilterKeyValueAction() { FieldValue = "" },
+                new FilterKeyValueAction() { FieldValue = "" }
+            ]
         };
-        await filter.SetFilterConditionsAsync(newConditions);
+        cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();
-        Assert.Empty(conditions);
+        Assert.NotNull(conditions.Filters);
+        Assert.Empty(conditions.Filters);
+
+        newConditions = new FilterKeyValueAction() { FieldValue = "1" };
+        cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
+        conditions = filter.GetFilterConditions();
+        Assert.NotNull(conditions.Filters);
+        Assert.Single(conditions.Filters);
+    }
+
+    [Fact]
+    public void HasFilter_Ok()
+    {
+        var cut = Context.RenderComponent<MockStringFilter>();
+        var filter = cut.Instance;
+        Assert.False(filter.HasFilterTest());
+    }
+
+    private class MockStringFilter : StringFilter
+    {
+        public bool HasFilterTest() => HasFilter;
     }
 }

@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// AutoGenerateColumn 标签类，用于 <see cref="Table{TItem}"/> 标识自动生成列
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
 public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColumn
@@ -146,14 +146,19 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     RenderFragment? ITableColumn.FilterTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 步长 默认为 1
+    /// <inheritdoc/>
     /// </summary>
-    public object? Step { get; set; }
+    public string? Step { get; set; }
 
     /// <summary>
     /// 获得/设置 Textarea 行数
     /// </summary>
     public int Rows { get; set; }
+
+    /// <summary>
+    /// 获得/设置 控件的占列数值范围 1-12
+    /// </summary>
+    public int Cols { get; set; }
 
     /// <summary>
     /// 获得/设置 列过滤器
@@ -183,6 +188,16 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     IEnumerable<SelectedItem>? IEditorItem.Lookup { get; set; }
 
     /// <summary>
+    /// 获得/设置 字段数据源下拉框是否显示搜索栏 默认 false 不显示
+    /// </summary>
+    public bool ShowSearchWhenSelect { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool IsPopover { get; set; }
+
+    /// <summary>
     /// 获得/设置 字典数据源字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
     /// </summary>
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
@@ -203,10 +218,10 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     List<IValidator>? IEditorItem.ValidateRules { get; set; }
 
     /// <summary>
-    /// 
+    /// 获取绑定字段显示名称方法
     /// </summary>
     /// <returns></returns>
-    public string? GetDisplayName() => Text;
+    public virtual string GetDisplayName() => Text ?? "";
 
     /// <summary>
     /// 
@@ -223,4 +238,29 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// 获得/设置 当前属性分组排序 默认 0
     /// </summary>
     public int GroupOrder { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool HeaderTextWrap { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool ShowHeaderTooltip { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public string? HeaderTextTooltip { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool HeaderTextEllipsis { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool IsMarkupString { get; set; }
 }

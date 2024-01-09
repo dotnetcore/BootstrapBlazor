@@ -13,11 +13,15 @@ public abstract class IdComponentBase : BootstrapComponentBase
     /// 获得/设置 组件 id 属性
     /// </summary>
     [Parameter]
+    [NotNull]
     public virtual string? Id { get; set; }
 
+    /// <summary>
+    /// 获得 IComponentIdGenerator 实例
+    /// </summary>
     [Inject]
     [NotNull]
-    private IComponentIdGenerator? ComponentIdGenerator { get; set; }
+    protected IComponentIdGenerator? ComponentIdGenerator { get; set; }
 
     /// <summary>
     /// 获得 弹窗客户端 ID

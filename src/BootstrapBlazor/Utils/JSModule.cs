@@ -7,47 +7,136 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 模块加载器
 /// </summary>
-public class JSModule : IAsyncDisposable
+/// <remarks>
+/// 构造函数
+/// </remarks>
+/// <param name="jSObjectReference"></param>
+public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
 {
     /// <summary>
     /// IJSObjectReference 实例
     /// </summary>
     [NotNull]
-    protected IJSObjectReference? Module { get; set; }
+    private IJSObjectReference? Module { get; } = jSObjectReference ?? throw new ArgumentNullException(nameof(jSObjectReference));
 
     /// <summary>
-    /// 构造函数
+    /// InvokeVoidAsync 方法
     /// </summary>
-    /// <param name="jSObjectReference"></param>
-    public JSModule(IJSObjectReference? jSObjectReference)
+    /// <param name="identifier"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    public virtual ValueTask InvokeVoidAsync(string identifier, params object?[]? args) => InvokeVoidAsync(identifier, CancellationToken.None, args);
+
+    /// <summary>
+    /// InvokeVoidAsync 方法
+    /// </summary>
+    /// <param name="identifier"></param>
+    /// <param name="timeout"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    public virtual ValueTask InvokeVoidAsync(string identifier, TimeSpan timeout, params object?[]? args)
     {
-        Module = jSObjectReference ?? throw new ArgumentNullException(nameof(jSObjectReference));
+        using CancellationTokenSource? cancellationTokenSource = ((timeout == Timeout.InfiniteTimeSpan) ? null : new CancellationTokenSource(timeout));
+        CancellationToken cancellationToken = cancellationTokenSource?.Token ?? CancellationToken.None;
+        return InvokeVoidAsync(identifier, cancellationToken, args);
     }
 
     /// <summary>
     /// InvokeVoidAsync 方法
     /// </summary>
     /// <param name="identifier"></param>
+    /// <param name="cancellationToken"></param>
     /// <param name="args"></param>
     /// <returns></returns>
-    public virtual ValueTask InvokeVoidAsync(string identifier, params object?[] args) => Module.InvokeVoidAsync(identifier, args);
+    public virtual async ValueTask InvokeVoidAsync(string identifier, CancellationToken cancellationToken = default, params object?[]? args)
+    {
+        var paras = new List<object?>();
+        if (args != null)
+        {
+            paras.AddRange(args);
+        }
+        await InvokeVoidAsync();
+
+        [ExcludeFromCodeCoverage]
+        async ValueTask InvokeVoidAsync()
+        {
+            try
+            {
+                await Module.InvokeVoidAsync(identifier, cancellationToken, [.. paras]);
+            }
+#if NET6_0_OR_GREATER
+            catch (JSDisconnectedException) { }
+#endif
+#if DEBUG
+#else
+            catch (JSException) { }
+            catch (AggregateException) { }
+            catch (InvalidOperationException) { }
+#endif
+            catch (TaskCanceledException) { }
+        }
+    }
 
     /// <summary>
-    /// InvokeVoidAsync 方法
+    /// InvokeAsync 方法
     /// </summary>
     /// <param name="identifier"></param>
-    /// <param name="token"></param>
     /// <param name="args"></param>
     /// <returns></returns>
-    public virtual ValueTask InvokeVoidAsync(string identifier, CancellationToken token, params object?[] args) => Module.InvokeVoidAsync(identifier, token, args);
+    public virtual ValueTask<TValue> InvokeAsync<TValue>(string identifier, params object?[]? args) => InvokeAsync<TValue>(identifier, CancellationToken.None, args);
 
     /// <summary>
-    /// InvokeVoidAsync 方法
+    /// InvokeAsync 方法
     /// </summary>
     /// <param name="identifier"></param>
+    /// <param name="timeout"></param>
     /// <param name="args"></param>
     /// <returns></returns>
-    public virtual ValueTask<TValue> InvokeAsync<TValue>(string identifier, params object?[] args) => Module.InvokeAsync<TValue>(identifier, args);
+    public virtual ValueTask<TValue> InvokeAsync<TValue>(string identifier, TimeSpan timeout, params object?[]? args)
+    {
+        using CancellationTokenSource? cancellationTokenSource = ((timeout == Timeout.InfiniteTimeSpan) ? null : new CancellationTokenSource(timeout));
+        CancellationToken cancellationToken = cancellationTokenSource?.Token ?? CancellationToken.None;
+        return InvokeAsync<TValue>(identifier, cancellationToken, args);
+    }
+
+    /// <summary>
+    /// InvokeAsync 方法
+    /// </summary>
+    /// <param name="identifier"></param>
+    /// <param name="cancellationToken"></param>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    public virtual async ValueTask<TValue> InvokeAsync<TValue>(string identifier, CancellationToken cancellationToken = default, params object?[]? args)
+    {
+        var paras = new List<object?>();
+        if (args != null)
+        {
+            paras.AddRange(args!);
+        }
+        return await InvokeAsync();
+
+        [ExcludeFromCodeCoverage]
+        async ValueTask<TValue> InvokeAsync()
+        {
+            TValue ret = default!;
+            try
+            {
+                ret = await Module.InvokeAsync<TValue>(identifier, cancellationToken, [.. paras]);
+            }
+#if NET6_0_OR_GREATER
+            catch (JSDisconnectedException) { }
+#endif
+#if DEBUG
+#else
+            catch (JSException) { }
+            catch (AggregateException) { }
+            catch (InvalidOperationException) { }
+#endif
+            catch (TaskCanceledException) { }
+
+            return ret;
+        }
+    }
 
     /// <summary>
     /// Dispose 方法
@@ -57,16 +146,12 @@ public class JSModule : IAsyncDisposable
     {
         if (disposing)
         {
-            if (Module != null)
+            // TODO: 微软的代码这里加上 await 就会线程死锁
+            try
             {
-                // TODO: 微软的代码这里加上 await 就会线程死锁
-                try
-                {
-                    await Module.DisposeAsync().AsTask();
-                }
-                catch { }
-                Module = null;
+                await Module.DisposeAsync();
             }
+            catch { }
         }
     }
 
@@ -77,62 +162,5 @@ public class JSModule : IAsyncDisposable
     {
         await DisposeAsyncCore(true);
         GC.SuppressFinalize(this);
-    }
-}
-
-/// <summary>
-/// 模块加载器
-/// </summary>
-/// <typeparam name="TValue"></typeparam>
-public class JSModule<TValue> : JSModule where TValue : class
-{
-    /// <summary>
-    /// DotNetReference 实例
-    /// </summary>
-    protected DotNetObjectReference<TValue> DotNetReference { get; set; }
-
-    /// <summary>
-    /// 构造函数
-    /// </summary>
-    /// <param name="jSObjectReference"></param>
-    /// <param name="value"></param>
-    public JSModule(IJSObjectReference? jSObjectReference, TValue value) : base(jSObjectReference)
-    {
-        DotNetReference = DotNetObjectReference.Create(value);
-    }
-
-    /// <summary>
-    /// InvokeVoidAsync 方法
-    /// </summary>
-    /// <param name="identifier"></param>
-    /// <param name="args"></param>
-    /// <returns></returns>
-    public override async ValueTask InvokeVoidAsync(string identifier, params object?[] args)
-    {
-        var paras = new List<object?>();
-        if (args != null)
-        {
-            paras.AddRange(args);
-        }
-        paras.Add(DotNetReference);
-
-        try
-        {
-            await Module.InvokeVoidAsync(identifier, paras.ToArray());
-        }
-        catch { }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected override ValueTask DisposeAsyncCore(bool disposing)
-    {
-        if (disposing)
-        {
-            DotNetReference.Dispose();
-        }
-        return base.DisposeAsyncCore(disposing);
     }
 }

@@ -5,82 +5,88 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 复杂对话框配置类
+/// 结果对话框配置类
 /// </summary>
 public class ResultDialogOption : DialogOption
 {
     /// <summary>
-    /// 
+    /// 构造函数
     /// </summary>
     public ResultDialogOption()
     {
-        base.ShowCloseButton = false;
+        ShowCloseButton = false;
     }
 
     /// <summary>
-    /// 显示确认按钮
+    /// 获得/设置 显示确认按钮
     /// </summary>
     public bool ShowYesButton { get; set; } = true;
 
     /// <summary>
-    /// 确认按钮文本
+    /// 获得/设置 确认按钮文本
     /// </summary>
     public string? ButtonYesText { get; set; }
 
     /// <summary>
-    /// 确认按钮图标
+    /// 获得/设置 确认按钮图标
     /// </summary>
-    public string ButtonYesIcon { get; set; } = "fa-solid fa-check";
+    public string? ButtonYesIcon { get; set; }
 
     /// <summary>
-    /// 确认按钮颜色
+    /// 获得/设置 确认按钮颜色
     /// </summary>
     public Color ButtonYesColor { get; set; } = Color.Primary;
 
     /// <summary>
-    /// 显示取消按钮
+    /// 获得/设置 显示取消按钮
     /// </summary>
     public bool ShowNoButton { get; set; } = true;
 
     /// <summary>
-    /// 取消按钮文本
+    /// 获得/设置 取消按钮文本
     /// </summary>
     public string? ButtonNoText { get; set; }
 
     /// <summary>
-    /// 取消按钮图标
+    /// 获得/设置 取消按钮图标
     /// </summary>
-    public string ButtonNoIcon { get; set; } = "fa-regular fa-circle-xmark";
+    public string? ButtonNoIcon { get; set; }
 
     /// <summary>
-    /// 取消按钮颜色
+    /// 获得/设置 取消按钮颜色
     /// </summary>
     public Color ButtonNoColor { get; set; } = Color.Danger;
 
     /// <summary>
-    /// 关闭按钮文本
+    /// 获得/设置 关闭按钮文本
     /// </summary>
     public string? ButtonCloseText { get; set; }
 
     /// <summary>
-    /// 关闭按钮图标
+    /// 获得/设置 关闭按钮图标
     /// </summary>
-    public string ButtonCloseIcon { get; set; } = "fa-regular fa-circle-xmark";
+    public string? ButtonCloseIcon { get; set; }
 
     /// <summary>
-    /// 
-    /// </summary>
-    public new bool ShowCloseButton { get; set; } = false;
-
-    /// <summary>
-    /// 关闭按钮颜色
+    /// 获得/设置 关闭按钮颜色
     /// </summary>
     public Color ButtonCloseColor { get; set; } = Color.Secondary;
 
     /// <summary>
-    /// 
+    /// 获得/设置 组件参数集合
     /// </summary>
-    public Dictionary<string, object>? ComponentParamters { get; set; }
+    [Obsolete("已过期，请使用 ComponentParameters 代替 Please use ComponentParameters")]
+    [ExcludeFromCodeCoverage]
+    public Dictionary<string, object>? ComponentParamters
+    {
+        get => ComponentParameters;
+        set => ComponentParameters = value;
+    }
+
+    /// <summary>
+    /// 获得/设置 组件参数集合
+    /// </summary>
+    public Dictionary<string, object>? ComponentParameters { get; set; }
 
     /// <summary>
     /// 获得/设置 模态弹窗返回值任务实例

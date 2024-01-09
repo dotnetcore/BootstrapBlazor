@@ -2,114 +2,115 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.Options;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Toast 弹出窗组件
+/// ToastBox 组件
 /// </summary>
-public partial class Toast : IDisposable
+public partial class Toast
 {
-    private string? ClassString => CssBuilder.Default("toast-container")
+    /// <summary>
+    /// 获得/设置 弹出框类型
+    /// </summary>
+    private string? AutoHide => Options.IsAutoHide ? null : "false";
+
+    /// <summary>
+    /// 获得/设置 弹出框类型
+    /// </summary>
+    private string? ClassString => CssBuilder.Default("toast")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
     /// <summary>
-    /// 获得 Toast 组件样式设置
+    /// 获得/设置 进度条样式
     /// </summary>
-    private string? StyleString => CssBuilder.Default()
-        .AddClass("top: 1rem; left: 1rem;", Placement == Placement.TopStart)
-        .AddClass("top: 1rem; right: 1rem;", Placement == Placement.TopEnd)
-        .AddClass("bottom: 1rem; left: 1rem;", Placement == Placement.BottomStart)
-        .AddClass("bottom: 1rem; right: 1rem;", Placement == Placement.BottomEnd)
-        .Build();
-
-    private string? ToastBoxClassString => CssBuilder.Default()
-        .AddClass("left", Placement == Placement.TopStart)
-        .AddClass("left", Placement == Placement.BottomStart)
+    private string? ProgressClass => CssBuilder.Default("toast-progress")
+        .AddClass($"bg-{Options.Category.ToDescriptionString()}")
         .Build();
 
     /// <summary>
-    /// 获得 弹出窗集合
+    /// 获得/设置 图标样式
     /// </summary>
-    private List<ToastOption> Toasts { get; } = new List<ToastOption>();
+    private string? IconString => CssBuilder.Default()
+        .AddClass(Options.SuccessIcon, Options.Category == ToastCategory.Success)
+        .AddClass(Options.InformationIcon, Options.Category == ToastCategory.Information)
+        .AddClass(Options.ErrorIcon, Options.Category == ToastCategory.Error)
+        .AddClass(Options.WarningIcon, Options.Category == ToastCategory.Warning)
+        .Build();
+
+    private string? IconBarString => CssBuilder.Default("toast-bar me-2")
+        .AddClass("text-success", Options.Category == ToastCategory.Success)
+        .AddClass("text-info", Options.Category == ToastCategory.Information)
+        .AddClass("text-danger", Options.Category == ToastCategory.Error)
+        .AddClass("text-warning", Options.Category == ToastCategory.Warning)
+        .Build();
 
     /// <summary>
-    /// 获得/设置 显示文字
+    /// 获得/设置 弹出框自动关闭时长
+    /// </summary>
+    protected string? DelayString => Options.IsAutoHide ? Convert.ToString(Options.Delay) : null;
+
+    /// <summary>
+    /// 获得/设置 是否开启动画效果 
+    /// </summary>
+    protected string? AnimationString => Options.Animation ? null : "false";
+
+    /// <summary>
+    /// 获得/设置 ToastOption 实例
     /// </summary>
     [Parameter]
     [NotNull]
-    public Placement Placement { get; set; }
-
-    [Inject]
-    [NotNull]
-    private ToastService? ToastService { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IOptionsMonitor<BootstrapBlazorOptions>? Options { get; set; }
+#if NET6_0_OR_GREATER
+    [EditorRequired]
+#endif
+    public ToastOption? Options { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// 获得/设置 Toast 实例
+    /// </summary>
+    /// <value></value>
+    [CascadingParameter]
+    protected ToastContainer? ToastContainer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
 
-        Placement = Options.CurrentValue.ToastPlacement ?? Placement.BottomEnd;
-
-        // 注册 Toast 弹窗事件
-        if (ToastService != null)
-        {
-            ToastService.Register(this, Show);
-        }
+        Options.Toast = this;
     }
 
-    private async Task Show(ToastOption option)
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
     {
-        Toasts.Add(option);
-        await InvokeAsync(StateHasChanged);
+        base.OnParametersSet();
+
+        Options.SuccessIcon ??= IconTheme.GetIconByKey(ComponentIcons.ToastSuccessIcon);
+        Options.InformationIcon ??= IconTheme.GetIconByKey(ComponentIcons.ToastInformationIcon);
+        Options.WarningIcon ??= IconTheme.GetIconByKey(ComponentIcons.ToastWarningIcon);
+        Options.ErrorIcon ??= IconTheme.GetIconByKey(ComponentIcons.ToastErrorIcon);
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(Close));
 
     /// <summary>
     /// 清除 ToastBox 方法
     /// </summary>
     [JSInvokable]
-    public async Task Clear()
+    public void Close()
     {
-        Toasts.Clear();
-        await InvokeAsync(StateHasChanged);
-    }
-
-    /// <summary>
-    /// 设置 Toast 容器位置方法
-    /// </summary>
-    /// <param name="placement"></param>
-    public void SetPlacement(Placement placement)
-    {
-        Placement = placement;
-        StateHasChanged();
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            ToastService.UnRegister(this);
-        }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
+        ToastContainer?.Close(Options);
     }
 }

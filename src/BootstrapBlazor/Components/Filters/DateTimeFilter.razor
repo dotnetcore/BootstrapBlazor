@@ -4,7 +4,7 @@
 @if (IsHeaderRow)
 {
     <div class="@FilterRowClassString">
-        <DateTimePicker class="is-filter" @bind-Value="Value1" OnDateTimeChanged="_ => OnFilterValueChanged()"></DateTimePicker>
+        <DateTimePicker class="is-filter" @bind-Value="Value1" OnValueChanged="_ => OnFilterValueChanged()"></DateTimePicker>
         <FilterButton Items="Items" @bind-Value="Action1" OnSelectedItemChanged="_ => OnFilterValueChanged()" OnClearFilter="OnClearFilter" />
     </div>
 }

@@ -2,10 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
-using System.ComponentModel.DataAnnotations;
-
 namespace UnitTest.Components;
+
 public class SelectTreeTest : BootstrapBlazorTestBase
 {
     [Fact]
@@ -18,13 +16,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
             builder.Add(p => p.OnExpandNodeAsync, (s) => { return Task.FromResult(new List<TreeViewItem<string>>().AsEnumerable()); });
             builder.Add(p => p.CustomKeyAttribute, typeof(string));
         });
-        cut.Contains("tree-root");
-
-        cut.SetParametersAndRender(pb =>
-        {
-            pb.Add(p => p.Items, BindItems);
-        });
-        cut.Contains("tree-root");
+        cut.Contains("select dropdown select-tree");
     }
 
     [Fact]
@@ -37,6 +29,19 @@ public class SelectTreeTest : BootstrapBlazorTestBase
         });
 
         Assert.Contains("border-primary", cut.Markup);
+    }
+
+    [Fact]
+    public void Edit_Ok()
+    {
+        var cut = Context.RenderComponent<SelectTree<string>>(builder =>
+        {
+            builder.Add(p => p.Items, BindItems);
+            builder.Add(p => p.IsEdit, true);
+        });
+        var input = cut.Find(".dropdown-toggle input");
+        cut.InvokeAsync(() => input.Change("123"));
+        Assert.Equal("123", cut.Instance.Value);
     }
 
     [Fact]
@@ -53,7 +58,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task InValid_Ok()
+    public async Task Value_Null()
     {
         var model = new Foo();
         var cut = Context.RenderComponent<ValidateForm>(builder =>
@@ -68,7 +73,8 @@ public class SelectTreeTest : BootstrapBlazorTestBase
             });
         });
         await cut.InvokeAsync(() => cut.Find("form").Submit());
-        cut.Contains("border-danger invalid is-invalid");
+        cut.Contains("class=\"form-select form-control border-success modified valid is-valid\"");
+        cut.Contains("value=\"Test1\"");
     }
 
     [Fact]
@@ -99,6 +105,31 @@ public class SelectTreeTest : BootstrapBlazorTestBase
             builder.Add(p => p.PlaceHolder, "Please input value");
         });
         cut.Contains("Please input value");
+    }
+
+    [Fact]
+    public void ItemChanged_Ok()
+    {
+        var changed = 0;
+        var cut = Context.RenderComponent<SelectTree<string>>(builder =>
+        {
+            builder.Add(p => p.Items, BindItems);
+            builder.Add(p => p.OnSelectedItemChanged, v =>
+            {
+                changed++;
+                return Task.CompletedTask;
+            });
+        });
+        Assert.Equal(1, changed);
+
+        // 选择第一个候选项
+        var node = cut.Find(".tree-node");
+        cut.InvokeAsync(() => node.Click());
+        Assert.NotEqual(2, changed);
+
+        node = cut.FindAll(".tree-node").Skip(1).Take(1).First();
+        cut.InvokeAsync(() => node.Click());
+        Assert.Equal(2, changed);
     }
 
     [Fact]
@@ -141,8 +172,24 @@ public class SelectTreeTest : BootstrapBlazorTestBase
         Assert.True(cut.Instance.TestRetrieveId());
     }
 
-    private List<TreeViewItem<string>> BindItems { get; } = new List<TreeViewItem<string>>()
+    [Fact]
+    public void IsPopover_Ok()
     {
+        var cut = Context.RenderComponent<SelectTree<string>>(builder =>
+        {
+            builder.Add(p => p.Items, BindItems);
+        });
+        cut.Contains("data-bs-toggle=\"dropdown\"");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsPopover, true);
+        });
+        cut.DoesNotContain("data-bs-toggle=\"dropdown\"");
+    }
+
+    private List<TreeViewItem<string>> BindItems { get; } =
+    [
         new TreeViewItem<string>("Test1")
         {
             Text ="Test1",
@@ -150,22 +197,22 @@ public class SelectTreeTest : BootstrapBlazorTestBase
             ExpandIcon = "fa-solid fa-folder-open",
             CheckedState =CheckboxState.Checked,
             IsActive = true,
-            Items = new List<TreeViewItem<string>>()
-            {
+            Items =
+            [
                 new TreeViewItem<string>("Test1-1")
                 {
                     Text ="Test1-1",
                     Icon = "fa-solid fa-folder",
                     ExpandIcon = "fa-solid fa-folder-open",
-                    Items = new List<TreeViewItem<string>>()
-                    {
+                    Items =
+                    [
                         new TreeViewItem<string>("Test1-1-1") { Text = "Test1-1-1", Icon = "fa-solid fa-file" },
                         new TreeViewItem<string>("Test1-1-2") { Text = "Test1-1-2", Icon = "fa-solid fa-file" }
-                    }
+                    ]
                 }
-            }
+            ]
         }
-    };
+    ];
 
     private class MockSelectTree<TValue> : SelectTree<TValue>
     {

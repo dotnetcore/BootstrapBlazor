@@ -28,4 +28,9 @@ public class RibbonTabItem : MenuItem
     /// 获得/设置 动态组件实例
     /// </summary>
     public BootstrapDynamicComponent? Component { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否为默认按钮 默认 false
+    /// </summary>
+    public bool IsDefault { get; set; }
 }

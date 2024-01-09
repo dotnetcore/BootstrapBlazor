@@ -53,4 +53,9 @@ public abstract class AutoGenerateBaseAttribute : Attribute
     /// 获得/设置 字段鼠标悬停提示 默认为 false
     /// </summary>
     public bool ShowTips { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否可以拷贝列 默认 false 不可以
+    /// </summary>
+    public bool ShowCopyColumn { get; set; }
 }

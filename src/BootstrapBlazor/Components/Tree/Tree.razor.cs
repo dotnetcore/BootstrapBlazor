@@ -10,11 +10,6 @@ namespace BootstrapBlazor.Components;
 [ExcludeFromCodeCoverage]
 public partial class Tree
 {
-    /// <summary>
-    /// 获得/设置 Tree 组件实例引用
-    /// </summary>
-    private ElementReference TreeElement { get; set; }
-
     [NotNull]
     private string? GroupName { get; set; }
 
@@ -46,9 +41,10 @@ public partial class Tree
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    private static string? GetCaretClassString(TreeItem item) => CssBuilder.Default("fa-solid fa-caret-right")
+    private string? GetCaretClassString(TreeItem item) => CssBuilder.Default("node-icon")
         .AddClass("invisible", !item.HasChildNode && !item.Items.Any())
-        .AddClass("fa-rotate-90", !item.IsCollapsed)
+        .AddClass(NodeIcon, item.IsCollapsed)
+        .AddClass(ExpandNodeIcon, !item.IsCollapsed)
         .Build();
 
     /// <summary>
@@ -94,6 +90,18 @@ public partial class Tree
     public bool ShowSkeleton { get; set; }
 
     /// <summary>
+    /// 获得/设置 Tree Node 节点图标
+    /// </summary>
+    [Parameter]
+    public string? NodeIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 Tree Node 展开节点图标
+    /// </summary>
+    [Parameter]
+    public string? ExpandNodeIcon { get; set; }
+
+    /// <summary>
     /// 获得/设置 菜单数据集合
     /// </summary>
     [Parameter]
@@ -136,8 +144,12 @@ public partial class Tree
     [Parameter]
     public Func<TreeItem, Task>? OnExpandNode { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -147,36 +159,14 @@ public partial class Tree
     }
 
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
-        //if (ActiveItem != null)
-        //{
-        //    var item = ActiveItem;
-        //    while (item.Parent != null)
-        //    {
-        //        item.Parent.IsExpanded = true;
-        //        item = item.Parent;
-        //    }
-        //}
-    }
-
-    /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync(TreeElement, "bb_tree");
-        }
+        NodeIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewNodeIcon);
+        ExpandNodeIcon ??= IconTheme.GetIconByKey(ComponentIcons.TreeViewExpandNodeIcon);
     }
 
     /// <summary>
@@ -185,26 +175,29 @@ public partial class Tree
     /// <returns></returns>
     private async Task OnClick(TreeItem item)
     {
-        ActiveItem = item;
-        if (ClickToggleNode)
+        if (!item.IsDisabled)
         {
-            await OnExpandRowAsync(item);
-        }
+            ActiveItem = item;
+            if (ClickToggleNode)
+            {
+                await OnExpandRowAsync(item);
+            }
 
-        if (OnTreeItemClick != null)
-        {
-            await OnTreeItemClick(item);
-        }
+            if (OnTreeItemClick != null)
+            {
+                await OnTreeItemClick(item);
+            }
 
-        if (ShowRadio)
-        {
-            await OnRadioClick(item);
-        }
-        else if (ShowCheckbox)
-        {
-            item.Checked = !item.Checked;
-            var status = item.Checked ? CheckboxState.Checked : CheckboxState.UnChecked;
-            await OnStateChanged(status, item);
+            if (ShowRadio)
+            {
+                await OnRadioClick(item);
+            }
+            else if (ShowCheckbox)
+            {
+                item.Checked = !item.Checked;
+                var status = item.Checked ? CheckboxState.Checked : CheckboxState.UnChecked;
+                await OnStateChanged(status, item);
+            }
         }
     }
 
@@ -258,17 +251,20 @@ public partial class Tree
 
     private async Task OnRadioClick(TreeItem item)
     {
-        if (ActiveItem != null)
+        if (!item.IsDisabled)
         {
-            ActiveItem.Checked = false;
-        }
-        ActiveItem = item;
-        ActiveItem.Checked = true;
+            if (ActiveItem != null)
+            {
+                ActiveItem.Checked = false;
+            }
+            ActiveItem = item;
+            ActiveItem.Checked = true;
 
-        // 其他设置为 false
-        if (OnTreeItemChecked != null)
-        {
-            await OnTreeItemChecked(new List<TreeItem> { item });
+            // 其他设置为 false
+            if (OnTreeItemChecked != null)
+            {
+                await OnTreeItemChecked([item]);
+            }
         }
     }
 

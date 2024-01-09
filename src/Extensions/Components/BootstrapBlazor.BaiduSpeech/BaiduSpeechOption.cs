@@ -26,4 +26,9 @@ public class BaiduSpeechOption
     /// </summary>
     [NotNull]
     public string? Secret { get; set; }
+
+    /// <summary>
+    /// 获得/设置 语速 值范围 0 - 9 默认值 5
+    /// </summary>
+    public int Speed { get; set; } = 5;
 }

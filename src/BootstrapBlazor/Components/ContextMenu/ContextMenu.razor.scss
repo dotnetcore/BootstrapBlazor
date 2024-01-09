@@ -1,0 +1,11 @@
+.bb-cm {
+    --bb-cm-icon-min-width: #{$bb-cm-icon-min-width};
+    --bb-cm-icon-min-height: #{$bb-cm-icon-min-height};
+    z-index: 1200;
+
+    .cm-icon {
+        min-width: var(--bb-cm-icon-min-width);
+        min-height: var(--bb-cm-icon-min-height);
+        display: inline-block;
+    }
+}

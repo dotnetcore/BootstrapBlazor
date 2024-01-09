@@ -9,17 +9,17 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Checkbox 组件
 /// </summary>
-public partial class Checkbox<TValue>
+[BootstrapModuleAutoLoader(ModuleName = "utility", AutoInvokeInit = false, AutoInvokeDispose = false)]
+public partial class Checkbox<TValue> : ValidateBase<TValue>
 {
     /// <summary>
     /// 获得 class 样式集合
     /// </summary>
-    protected string? GetClassString(bool isButton = false) => CssBuilder.Default("form-check")
+    private string? ClassString => CssBuilder.Default("form-check")
         .AddClass("is-label", IsShowAfterLabel)
-        .AddClass("is-checked", State == CheckboxState.Checked)
+        .AddClass("is-checked", State == CheckboxState.Checked && !IsBoolean)
         .AddClass("is-indeterminate", State == CheckboxState.Indeterminate)
-        .AddClass($"form-check-{Color.ToDescriptionString()}", Color != Color.None && !isButton)
-        .AddClass($"bg-{Color.ToDescriptionString()}", Color != Color.None && isButton && State == CheckboxState.Checked)
+        .AddClass($"form-check-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass($"form-check-{Size.ToDescriptionString()}", Size != Size.None)
         .AddClass("disabled", IsDisabled)
         .AddClass(ValidCss)
@@ -29,25 +29,15 @@ public partial class Checkbox<TValue>
     private bool IsShowAfterLabel => ShowAfterLabel && !string.IsNullOrEmpty(DisplayText);
 
     /// <summary>
-    /// 
+    /// Input 元素样式
     /// </summary>
-    protected virtual string? InputClassString => CssBuilder.Default("form-check-input")
+    protected string? InputClassString => CssBuilder.Default("form-check-input")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None)
         .AddClass("disabled", IsDisabled)
         .Build();
 
     /// <summary>
-    /// 获得 复选框状态字符串
-    /// </summary>
-    protected string StateString => State switch
-    {
-        CheckboxState.UnChecked => "false",
-        CheckboxState.Checked => "true",
-        _ => "mixed"
-    };
-
-    /// <summary>
-    /// 
+    /// Check 状态字符串
     /// </summary>
     protected string? CheckedString => State switch
     {
@@ -125,12 +115,9 @@ public partial class Checkbox<TValue>
             ShowLabel = false;
         }
 
-        if (IsBoolean && Value != null && State != CheckboxState.Indeterminate)
+        if (IsBoolean && Value != null && State != CheckboxState.Indeterminate && BindConverter.TryConvertToBool(Value, CultureInfo.InvariantCulture, out var v))
         {
-            if (BindConverter.TryConvertToBool(Value, CultureInfo.InvariantCulture, out var v))
-            {
-                State = v ? CheckboxState.Checked : CheckboxState.UnChecked;
-            }
+            State = v ? CheckboxState.Checked : CheckboxState.UnChecked;
         }
     }
 
@@ -142,18 +129,18 @@ public partial class Checkbox<TValue>
     {
         base.OnAfterRender(firstRender);
 
-        _peddingStateChanged = false;
+        _paddingStateChanged = false;
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// 
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
-        await JSRuntime.InvokeVoidAsync(Id, "bb_setIndeterminate", State == CheckboxState.Indeterminate);
+
+        await InvokeVoidAsync("setIndeterminate", Id, State == CheckboxState.Indeterminate);
     }
 
     /// <summary>
@@ -163,7 +150,7 @@ public partial class Checkbox<TValue>
     {
         if (!IsDisabled)
         {
-            _peddingStateChanged = true;
+            _paddingStateChanged = true;
             await InternalStateChanged(State == CheckboxState.Checked ? CheckboxState.UnChecked : CheckboxState.Checked);
         }
     }
@@ -171,11 +158,11 @@ public partial class Checkbox<TValue>
     /// <summary>
     /// 此变量为了提高性能，避免循环更新
     /// </summary>
-    private bool _peddingStateChanged;
+    private bool _paddingStateChanged;
 
     private async Task InternalStateChanged(CheckboxState state)
     {
-        if (_peddingStateChanged)
+        if (_paddingStateChanged)
         {
             if (IsBoolean)
             {
@@ -204,12 +191,27 @@ public partial class Checkbox<TValue>
     /// <param name="state"></param>
     public virtual async Task SetState(CheckboxState state)
     {
-        if (!_peddingStateChanged)
+        if (!_paddingStateChanged)
         {
-            _peddingStateChanged = true;
+            _paddingStateChanged = true;
 
             await InternalStateChanged(state);
             StateHasChanged();
         }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="disposing"></param>
+    /// <returns></returns>
+    protected override async ValueTask DisposeAsync(bool disposing)
+    {
+        if (disposing && Module != null)
+        {
+            await Module.DisposeAsync();
+            Module = null;
+        }
+        await base.DisposeAsync(disposing);
     }
 }

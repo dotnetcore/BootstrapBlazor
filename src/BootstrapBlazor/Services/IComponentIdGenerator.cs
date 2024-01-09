@@ -14,5 +14,5 @@ public interface IComponentIdGenerator
     /// </summary>
     /// <param name="component"></param>
     /// <returns></returns>
-    string Generate(ComponentBase component);
+    string Generate(object component);
 }

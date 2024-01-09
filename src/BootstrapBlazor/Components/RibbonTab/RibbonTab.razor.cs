@@ -2,12 +2,14 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Web;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// RibbonTab 组件
 /// </summary>
-public partial class RibbonTab : IDisposable
+public partial class RibbonTab
 {
     /// <summary>
     /// 获得/设置 是否显示悬浮小箭头 默认 false 不显示
@@ -25,19 +27,37 @@ public partial class RibbonTab : IDisposable
     /// 获得/设置 选项卡向上箭头图标
     /// </summary>
     [Parameter]
-    public string RibbonArrowUpIcon { get; set; } = "fa-solid fa-angle-up";
+    public string? RibbonArrowUpIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 选项卡向下箭头图标
     /// </summary>
     [Parameter]
-    public string RibbonArrowDownIcon { get; set; } = "fa-solid fa-angle-down";
+    public string? RibbonArrowDownIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 选项卡可固定图标
     /// </summary>
     [Parameter]
-    public string RibbonArrowPinIcon { get; set; } = "fa-solid fa-thumbtack fa-rotate-90";
+    public string? RibbonArrowPinIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否开启 Url 锚点
+    /// </summary>
+    [Parameter]
+    public bool IsSupportAnchor { get; set; }
+
+    /// <summary>
+    /// 编码锚点回调方法 第一参数是当前地址 Url 第二个参数是当前选项 Text 属性 返回值为地址全路径
+    /// </summary>
+    [Parameter]
+    public Func<string, string?, string?>? EncodeAnchorCallback { get; set; }
+
+    /// <summary>
+    /// 解码锚点回调方法
+    /// </summary>
+    [Parameter]
+    public Func<string, string?>? DecodeAnchorCallback { get; set; }
 
     private bool IsFloat { get; set; }
 
@@ -51,6 +71,7 @@ public partial class RibbonTab : IDisposable
     /// 获得/设置 数据源
     /// </summary>
     [Parameter]
+    [NotNull]
 #if NET6_0_OR_GREATER
     [EditorRequired]
 #endif
@@ -60,7 +81,13 @@ public partial class RibbonTab : IDisposable
     /// 获得/设置 点击命令按钮回调方法
     /// </summary>
     [Parameter]
-    public Func<RibbonTabItem, Task>? OnTabItemClickAsync { get; set; }
+    public Func<RibbonTabItem, Task>? OnItemClickAsync { get; set; }
+
+    /// <summary>
+    /// 获得/设置 点击标签 Menu 回调方法
+    /// </summary>
+    [Parameter]
+    public Func<RibbonTabItem, Task>? OnMenuClickAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 右侧按钮模板
@@ -68,13 +95,32 @@ public partial class RibbonTab : IDisposable
     [Parameter]
     public RenderFragment? RightButtonsTemplate { get; set; }
 
-    private bool IsExpand { get; set; }
+    /// <summary>
+    /// 获得/设置 内容模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
-    private JSInterop<RibbonTab>? Interop { get; set; }
+    /// <summary>
+    /// 获得/设置 是否为带边框卡片样式 默认 true
+    /// </summary>
+    [Parameter]
+    public bool IsBorder { get; set; } = true;
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
+    [Inject]
+    [NotNull]
+    private NavigationManager? NavigationManager { get; set; }
+
+    private bool IsExpand { get; set; }
 
     private string? HeaderClassString => CssBuilder.Default("ribbon-tab")
         .AddClass("is-float", IsFloat)
         .AddClass("is-expand", IsFloat && IsExpand)
+        .AddClass("border", IsBorder)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -83,16 +129,53 @@ public partial class RibbonTab : IDisposable
         .Build();
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(SetExpand));
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
     {
-        if (firstRender)
+        base.OnParametersSet();
+
+        RibbonArrowUpIcon ??= IconTheme.GetIconByKey(ComponentIcons.RibbonTabArrowUpIcon);
+        RibbonArrowDownIcon ??= IconTheme.GetIconByKey(ComponentIcons.RibbonTabArrowDownIcon);
+        RibbonArrowPinIcon ??= IconTheme.GetIconByKey(ComponentIcons.RibbonTabArrowPinIcon);
+
+        Items ??= Enumerable.Empty<RibbonTabItem>();
+
+        if (IsSupportAnchor)
         {
-            Interop = new(JSRuntime);
-            await Interop.InvokeVoidAsync(this, Id, "bb_ribbon", nameof(SetExpand));
+            var hash = DecodeAnchorCallback?.Invoke(NavigationManager.Uri) ?? HttpUtility.UrlDecode(NavigationManager.Uri.Split('#').LastOrDefault());
+            if (!string.IsNullOrEmpty(hash))
+            {
+                var item = Items.FirstOrDefault(i => i.Text == hash);
+                if (item != null)
+                {
+                    ResetActiveTabItem();
+                    item.IsActive = true;
+                }
+            }
+        }
+        else if (!Items.Any(i => i.IsActive))
+        {
+            var item = Items.FirstOrDefault();
+            if (item != null)
+            {
+                item.IsActive = true;
+            }
+        }
+    }
+
+    private void ResetActiveTabItem()
+    {
+        var activeItem = Items.FirstOrDefault(item => item.IsActive);
+        if (activeItem != null)
+        {
+            activeItem.IsActive = false;
         }
     }
 
@@ -108,18 +191,29 @@ public partial class RibbonTab : IDisposable
 
     private async Task OnClick(RibbonTabItem item)
     {
-        if (OnTabItemClickAsync != null)
+        if (OnItemClickAsync != null)
         {
-            await OnTabItemClickAsync(item);
+            await OnItemClickAsync(item);
         }
     }
 
-    private async Task OnClickTab(TabItem item)
+    private async Task OnClickTabItemAsync(TabItem item)
     {
-        if (OnTabItemClickAsync != null)
+        if (IsSupportAnchor)
         {
-            var tab = GetItems().First(i => i.Text == item.Text);
-            await OnTabItemClickAsync(tab);
+            var url = EncodeAnchorCallback?.Invoke(NavigationManager.Uri, item.Text) ?? $"{NavigationManager.Uri.Split('#').FirstOrDefault()}#{HttpUtility.UrlEncode(item.Text)}";
+            if (!string.IsNullOrEmpty(url))
+            {
+                NavigationManager.NavigateTo(url);
+            }
+        }
+
+        ResetActiveTabItem();
+        var tab = Items.First(i => i.Text == item.Text);
+        tab.IsActive = true;
+        if (OnMenuClickAsync != null)
+        {
+            await OnMenuClickAsync(tab);
         }
         if (IsFloat)
         {
@@ -127,8 +221,6 @@ public partial class RibbonTab : IDisposable
             StateHasChanged();
         }
     }
-
-    private IEnumerable<RibbonTabItem> GetItems() => Items ?? Enumerable.Empty<RibbonTabItem>();
 
     private async Task OnToggleFloat()
     {
@@ -146,27 +238,7 @@ public partial class RibbonTab : IDisposable
     private static RenderFragment? RenderTemplate(RibbonTabItem item) => item.Component?.Render() ?? item.Template;
 
     /// <summary>
-    /// Dispose 方法
+    /// 重新渲染组件
     /// </summary>
-    /// <param name="disposing"></param>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            if (Interop != null)
-            {
-                Interop.Dispose();
-                Interop = null;
-            }
-        }
-    }
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
+    public void Render() => StateHasChanged();
 }

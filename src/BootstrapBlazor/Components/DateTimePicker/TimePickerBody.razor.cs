@@ -9,13 +9,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// TimePicker 组件基类
 /// </summary>
-public sealed partial class TimePickerBody
+public partial class TimePickerBody
 {
-    /// <summary>
-    /// 获得 组件客户端 DOM 实例
-    /// </summary>
-    private ElementReference TimePickerElement { get; set; }
-
     /// <summary>
     /// 获得/设置 当前时间
     /// </summary>
@@ -24,7 +19,7 @@ public sealed partial class TimePickerBody
     /// <summary>
     /// 获得/设置 样式
     /// </summary>
-    private string? ClassName => CssBuilder.Default("time-panel")
+    private string? ClassString => CssBuilder.Default("time-panel")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -58,9 +53,12 @@ public sealed partial class TimePickerBody
     public string? ConfirmButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 时间刻度行高
+    /// 获得/设置 是否显示秒
     /// </summary>
-    private Func<double> ItemHeightCallback { get; set; } = () => 36.594d;
+    [Parameter]
+    [NotNull]
+    public bool HasSeconds { get; set; } = true;
+    private string? HasSecondsCss => HasSeconds? "has-seconds" : "havenot-seconds";
 
     /// <summary>
     /// 获得/设置 取消按钮回调委托
@@ -88,21 +86,6 @@ public sealed partial class TimePickerBody
         CurrentTime = Value;
         CancelButtonText ??= Localizer[nameof(CancelButtonText)];
         ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
-    }
-
-    /// <summary>
-    /// OnAfterRender 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            var height = await JSRuntime.InvokeAsync<double>(TimePickerElement, "bb_timePicker");
-            ItemHeightCallback = () => height;
-        }
     }
 
     /// <summary>

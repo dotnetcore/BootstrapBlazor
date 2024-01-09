@@ -8,9 +8,9 @@
         <li>
             <div class="@GetClassString("has-leaf nav-link", item)" @onclick="@(e => OnClickItem(item))"   >
                 <span>@item.Text</span>
-                <i class="fa-solid fa-angle-down nav-link-right"></i>
+                <i class="@SubMenuIcon"></i>
                 <ul class="nav sub-menu" @onclick:stopPropagation>
-                    <SubCascader Items="@item.Items" OnClick="@OnClickItem" />
+                    <SubCascader Items="@item.Items" SubMenuIcon="@SubMenuIcon" OnClick="@OnClickItem" />
                 </ul>
             </div>
         </li>

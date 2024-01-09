@@ -113,7 +113,12 @@ public class SwitchTest : BootstrapBlazorTestBase
         });
 
         cut.Find("span").Click();
+        Assert.True(value);
 
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, false);
+        });
         Assert.True(value);
     }
 

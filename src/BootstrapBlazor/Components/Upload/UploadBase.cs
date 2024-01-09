@@ -9,6 +9,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Upload 组件基类
 /// </summary>
+[BootstrapModuleAutoLoader(ModuleName = "upload")]
 public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
 {
     /// <summary>
@@ -19,11 +20,6 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         .Build();
 
     /// <summary>
-    /// 获得/设置 Upload 组件实例
-    /// </summary>
-    protected ElementReference UploaderElement { get; set; }
-
-    /// <summary>
     /// 
     /// </summary>
     protected UploadFile? CurrentFile { get; set; }
@@ -31,7 +27,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     /// <summary>
     /// 获得/设置 上传文件集合
     /// </summary>
-    protected List<UploadFile> UploadFiles { get; } = new List<UploadFile>();
+    protected List<UploadFile> UploadFiles { get; } = [];
 
     List<UploadFile> IUpload.UploadFiles { get => UploadFiles; }
 
@@ -48,41 +44,16 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     public string? Capture { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击删除按钮时回调此方法
+    /// 获得/设置 点击删除按钮时回调此方法 默认 null
     /// </summary>
     [Parameter]
     public Func<UploadFile, Task<bool>>? OnDelete { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击浏览按钮时回调此方法
+    /// 获得/设置 点击浏览按钮时回调此方法 默认 null
     /// </summary>
     [Parameter]
     public Func<UploadFile, Task>? OnChange { get; set; }
-
-    private JSModule? Module { get; set; }
-
-    /// <summary>
-    /// OnAfterRender 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender && !IsDisabled && UploaderElement.Context != null)
-        {
-            // support drag
-            Module = await JSRuntime.LoadModule("upload.js");
-            await Module.InvokeVoidAsync("bb_upload_drag_init", UploaderElement);
-        }
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    protected string? GetFileName(UploadFile? item) => item?.OriginFileName ?? item?.FileName ?? Value?.ToString();
 
     /// <summary>
     /// 显示/隐藏验证结果方法
@@ -103,7 +74,6 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
                     if (msg != null)
                     {
                         ErrorMessage = msg.ErrorMessage;
-                        TooltipMethod = validProperty ? "show" : "enable";
                     }
                 }
             }
@@ -111,7 +81,6 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
             {
                 ErrorMessage = null;
                 IsValid = true;
-                TooltipMethod = "dispose";
             }
             OnValidate(IsValid);
         }
@@ -129,6 +98,7 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
         {
             ret = await OnDelete(item);
         }
+        ErrorMessage = null;
         return ret;
     }
 
@@ -180,23 +150,5 @@ public abstract class UploadBase<TValue> : ValidateBase<TValue>, IUpload
     {
         UploadFiles.Clear();
         StateHasChanged();
-    }
-
-    /// <summary>
-    /// DisposeAsyncCore 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected override async ValueTask DisposeAsyncCore(bool disposing)
-    {
-        await base.DisposeAsyncCore(disposing);
-
-        if (disposing)
-        {
-            if (Module != null)
-            {
-                await Module.DisposeAsync();
-            }
-        }
     }
 }

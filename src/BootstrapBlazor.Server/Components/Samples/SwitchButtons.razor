@@ -1,0 +1,28 @@
+﻿@page "/switch-button"
+@inject IStringLocalizer<SwitchButtons> Localizer
+
+<h3>@Localizer["SwitchButtonsTitle"]</h3>
+<h4>@Localizer["SwitchButtonsDescription"]</h4>
+
+<DemoBlock Title="@Localizer["SwitchButtonsNormalTitle"]"
+           Introduction="@Localizer["SwitchButtonsNormalIntro"]"
+           Name="Normal">
+    <SwitchButton />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SwitchButtonsToggleStateTitle"]"
+           Introduction="@Localizer["SwitchButtonsToggleStateIntro"]"
+           Name="ToggleState">
+    <p>@((MarkupString)Localizer["SwitchButtonsToggleStateDescription"].Value)</p>
+    <SwitchButton ToggleState="ToggleState" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SwitchButtonsOnClickTitle"]"
+           Introduction="@Localizer["SwitchButtonsOnClickIntro"]"
+           Name="OnClick">
+    <p>@((MarkupString)Localizer["SwitchButtonsOnClickDescription"].Value)</p>
+    <SwitchButton OnClick="OnClick" />
+    <ConsoleLogger @ref="Logger" />
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />

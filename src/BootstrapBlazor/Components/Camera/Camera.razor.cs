@@ -2,32 +2,22 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.Extensions.Localization;
+using System.Globalization;
 using System.Text;
+using Microsoft.JSInterop;
 
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Camera 组件
 /// </summary>
-public partial class Camera : IAsyncDisposable
+public partial class Camera
 {
-    private ElementReference CameraElement { get; set; }
-
-    private JSInterop<Camera>? Interop { get; set; }
-
-    private string DeviceId { get; set; } = "";
-
-    private bool IsDisabled { get; set; } = true;
-
-    private bool CaptureDisabled { get; set; } = true;
-
-    private IEnumerable<SelectedItem> Devices { get; set; } = Enumerable.Empty<SelectedItem>();
-
-    [NotNull]
-    private IEnumerable<SelectedItem>? Cameras { get; set; }
-
-    private SelectedItem? ActiveCamera { get; set; }
+    /// <summary>
+    /// 获得/设置 当前设备 Id 默认 null
+    /// </summary>
+    [Parameter]
+    public string? DeviceId { get; set; }
 
     /// <summary>
     /// 获得/设置 是否自动开启摄像头 默认为 false
@@ -36,160 +26,65 @@ public partial class Camera : IAsyncDisposable
     public bool AutoStart { get; set; }
 
     /// <summary>
-    /// 获得/设置 前置摄像头显示文本 默认前置
+    /// 获得/设置 摄像头视频宽度 默认 320
     /// </summary>
     [Parameter]
-    [NotNull]
-    public string? FrontText { get; set; }
+    public int? VideoWidth { get; set; } = 320;
 
     /// <summary>
-    /// 获得/设置 后置摄像头显示文本 默认后置
+    /// 获得/设置 摄像头视频高度 默认 240
     /// </summary>
     [Parameter]
-    [NotNull]
-    public string? BackText { get; set; }
+    public int? VideoHeight { get; set; } = 240;
 
     /// <summary>
-    /// 获得/设置 是否显示 照片预览 默认为 false 不预览
+    /// 获得/设置 拍照格式为 Jpeg 默认为 false 使用 png 格式
     /// </summary>
     [Parameter]
-    public bool ShowPreview { get; set; }
+    public bool CaptureJpeg { get; set; }
 
     /// <summary>
-    /// 获得/设置 设备列表前置标签文字 默认为 摄像头
+    /// 获得/设置 图像质量 默认为 0.9
     /// </summary>
     [Parameter]
-    [NotNull]
-    public string? DeviceLabel { get; set; }
-
-    /// <summary>
-    /// 获得/设置 初始化设备列表文字 默认为 正在识别摄像头
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? InitDevicesString { get; set; }
-
-    /// <summary>
-    /// 获得/设置 摄像头视频宽度
-    /// </summary>
-    [Parameter]
-    public int VideoWidth { get; set; } = 320;
-
-    /// <summary>
-    /// 获得/设置 摄像头视频高度
-    /// </summary>
-    [Parameter]
-    public int VideoHeight { get; set; } = 240;
+    public float Quality { get; set; } = 0.9f;
 
     /// <summary>
     /// 获得/设置 初始化摄像头回调方法
     /// </summary>
     [Parameter]
-    public Func<IEnumerable<DeviceItem>, Task>? OnInit { get; set; }
+    public Func<List<DeviceItem>, Task>? OnInit { get; set; }
 
     /// <summary>
-    /// 获得/设置 扫码出错回调方法
+    /// 获得/设置 拍照出错回调方法
     /// </summary>
     [Parameter]
     public Func<string, Task>? OnError { get; set; }
 
     /// <summary>
-    /// 获得/设置 开始扫码回调方法
+    /// 获得/设置 打开摄像头回调方法
     /// </summary>
     [Parameter]
-    public Func<Task>? OnStart { get; set; }
+    public Func<Task>? OnOpen { get; set; }
 
     /// <summary>
-    /// 获得/设置 关闭扫码回调方法
+    /// 获得/设置 关闭摄像头回调方法
     /// </summary>
     [Parameter]
     public Func<Task>? OnClose { get; set; }
 
-    /// <summary>
-    /// 获得/设置 扫码成功回调方法
-    /// </summary>
-    [Parameter]
-    public Func<string, Task>? OnCapture { get; set; }
+    private string VideoWidthString => $"{VideoWidth}";
+
+    private string VideoHeightString => $"{VideoHeight}";
+
+    private string? AutoStartString => AutoStart ? "true" : null;
+
+    private string? CaptureJpegString => CaptureJpeg ? "true" : null;
+
+    private string? QualityString => Quality == 0.9f ? null : Quality.ToString(CultureInfo.InvariantCulture);
 
     /// <summary>
-    /// 获得/设置 开启按钮显示文本 默认为开启
-    /// </summary>
-    [NotNull]
-    [Parameter]
-    public string? PlayText { get; set; }
-
-    /// <summary>
-    /// 获得/设置 关闭按钮显示文本 默认为关闭
-    /// </summary>
-    [NotNull]
-    [Parameter]
-    public string? StopText { get; set; }
-
-    /// <summary>
-    /// 获得/设置 拍照按钮显示文本 默认为拍照
-    /// </summary>
-    [NotNull]
-    [Parameter]
-    public string? PhotoText { get; set; }
-
-    /// <summary>
-    /// 获得/设置 未找到视频相关设备文字 默认为 未找到视频相关设备
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? NotFoundDevicesString { get; set; }
-
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Camera>? Localizer { get; set; }
-
-    private string VideoWidthString => $"{VideoWidth}px;";
-
-    private string VideoHeightString => $"{VideoHeight}px;";
-
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        PlayText ??= Localizer[nameof(PlayText)];
-        StopText ??= Localizer[nameof(StopText)];
-        PhotoText ??= Localizer[nameof(PhotoText)];
-        DeviceLabel ??= Localizer[nameof(DeviceLabel)];
-        InitDevicesString ??= Localizer[nameof(InitDevicesString)];
-        NotFoundDevicesString ??= Localizer[nameof(NotFoundDevicesString)];
-        FrontText ??= Localizer[nameof(FrontText)];
-        BackText ??= Localizer[nameof(BackText)];
-
-        Cameras = new SelectedItem[]
-        {
-            new SelectedItem { Text = FrontText!, Value = "user", Active = true },
-            new SelectedItem { Text = BackText!, Value = "environment" }
-        };
-    }
-
-    /// <summary>
-    /// OnParametersSet 方法
-    /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        if (VideoWidth < 40)
-        {
-            VideoWidth = 40;
-        }
-
-        if (VideoHeight < 30)
-        {
-            VideoHeight = 30;
-        }
-    }
-
-    /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -197,12 +92,63 @@ public partial class Camera : IAsyncDisposable
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (firstRender)
+        if (!firstRender)
         {
-            Interop = new JSInterop<Camera>(JSRuntime);
-            await Interop.InvokeVoidAsync(this, CameraElement, "bb_camera", "init", AutoStart, VideoWidth, VideoHeight);
+            await InvokeVoidAsync("update", Id);
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop);
+
+    /// <summary>
+    /// 打开摄像头
+    /// </summary>
+    /// <returns></returns>
+    public Task Open() => InvokeVoidAsync("open", Id);
+
+    /// <summary>
+    /// 关闭摄像头
+    /// </summary>
+    /// <returns></returns>
+    public Task Close() => InvokeVoidAsync("close", Id);
+
+    /// <summary>
+    /// 拍照方法
+    /// </summary>
+    /// <returns></returns>
+    public async Task<Stream?> Capture()
+    {
+        Stream? ret = null;
+#if NET5_0
+        await Task.Delay(10);
+#elif NET6_0_OR_GREATER
+        var streamRef = await InvokeAsync<IJSStreamReference>("capture", Id);
+        if (streamRef != null)
+        {
+            ret = await streamRef.OpenReadStreamAsync(streamRef.Length);
+        }
+#endif
+        return ret;
+    }
+
+    /// <summary>
+    /// 保存并下载图片
+    /// </summary>
+    /// <param name="fileName">文件名</param>
+    /// <returns></returns>
+    public Task SaveAndDownload(string? fileName = null) => InvokeVoidAsync("download", Id, fileName);
+
+    /// <summary>
+    /// 重置宽高方法
+    /// </summary>
+    /// <param name="width"></param>
+    /// <param name="height"></param>
+    /// <returns></returns>
+    public Task Resize(int width, int height) => InvokeVoidAsync("resize", Id, width, height);
 
     /// <summary>
     /// 初始化设备方法
@@ -210,35 +156,17 @@ public partial class Camera : IAsyncDisposable
     /// <param name="devices"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task InitDevices(IEnumerable<DeviceItem> devices)
+    public async Task TriggerInit(List<DeviceItem> devices)
     {
-        Devices = devices.Select(i => new SelectedItem { Value = i.DeviceId, Text = i.Label });
-        IsDisabled = !Devices.Any();
-
-        if (OnInit != null)
+        if (devices.Count > 0)
         {
-            await OnInit(devices);
-        }
-
-        if (devices.Any())
-        {
-            for (var index = 0; index < devices.Count(); index++)
+            if (OnInit != null)
             {
-                var d = devices.ElementAt(index);
-                if (string.IsNullOrEmpty(d.Label))
-                {
-                    d.Label = $"Video device {index + 1}";
-                }
+                await OnInit(devices);
             }
-            ActiveCamera = Cameras.First();
-        }
 
-        if (IsDisabled)
-        {
-            InitDevicesString = NotFoundDevicesString;
+            StateHasChanged();
         }
-
-        StateHasChanged();
     }
 
     /// <summary>
@@ -247,7 +175,7 @@ public partial class Camera : IAsyncDisposable
     /// <param name="err"></param>
     /// <returns></returns>
     [JSInvokable]
-    public async Task GetError(string err)
+    public async Task TriggerError(string err)
     {
         if (OnError != null)
         {
@@ -260,15 +188,12 @@ public partial class Camera : IAsyncDisposable
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task Start()
+    public async Task TriggerOpen()
     {
-        CaptureDisabled = false;
-        if (OnStart != null)
+        if (OnOpen != null)
         {
-            await OnStart.Invoke();
+            await OnOpen();
         }
-
-        StateHasChanged();
     }
 
     /// <summary>
@@ -276,64 +201,11 @@ public partial class Camera : IAsyncDisposable
     /// </summary>
     /// <returns></returns>
     [JSInvokable]
-    public async Task Stop()
+    public async Task TriggerClose()
     {
-        CaptureDisabled = true;
         if (OnClose != null)
         {
-            await OnClose.Invoke();
+            await OnClose();
         }
-
-        StateHasChanged();
-    }
-
-    private readonly StringBuilder _sb = new();
-    /// <summary>
-    /// 拍照回调方法
-    /// </summary>
-    /// <returns></returns>
-    [JSInvokable]
-    public async Task Capture(string payload)
-    {
-        if (payload == "__BB__%END%__BB__")
-        {
-            var data = _sb.ToString();
-            _sb.Clear();
-            if (OnCapture != null)
-            {
-                await OnCapture(data);
-            }
-        }
-        else
-        {
-            _sb.Append(payload);
-        }
-    }
-
-    /// <summary>
-    /// DisposeAsyncCore 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected virtual async ValueTask DisposeAsyncCore(bool disposing)
-    {
-        if (disposing)
-        {
-            if (Interop != null)
-            {
-                await JSRuntime.InvokeVoidAsync(CameraElement, "bb_camera", "", "stop").ConfigureAwait(false);
-                Interop.Dispose();
-                Interop = null;
-            }
-        }
-    }
-
-    /// <summary>
-    /// DisposeAsync 方法
-    /// </summary>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsyncCore(true).ConfigureAwait(false);
-        GC.SuppressFinalize(this);
     }
 }

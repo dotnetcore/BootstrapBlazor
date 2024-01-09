@@ -7,7 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 表格 Toolbar 按钮组件
 /// </summary>
-public class TableToolbarButton<TItem> : ButtonBase
+[JSModuleNotInherited]
+public class TableToolbarButton<TItem> : ButtonBase, ITableToolbarButton<TItem>
 {
     /// <summary>
     /// 获得/设置 按钮点击后回调委托
@@ -22,6 +23,12 @@ public class TableToolbarButton<TItem> : ButtonBase
     public bool IsEnableWhenSelectedOneRow { get; set; }
 
     /// <summary>
+    /// 获得/设置 按钮是否被禁用回调方法
+    /// </summary>
+    [Parameter]
+    public Func<IEnumerable<TItem>, bool>? IsDisabledCallback { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示 默认 true 显示
     /// </summary>
     [Parameter]
@@ -34,7 +41,7 @@ public class TableToolbarButton<TItem> : ButtonBase
     protected TableToolbar<TItem>? Toolbar { get; set; }
 
     /// <summary>
-    /// 组件初始化方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -48,9 +55,9 @@ public class TableToolbarButton<TItem> : ButtonBase
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>
-    protected override async ValueTask DisposeAsyncCore(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
         Toolbar?.RemoveButton(this);
-        await base.DisposeAsyncCore(disposing);
+        await base.DisposeAsync(disposing);
     }
 }

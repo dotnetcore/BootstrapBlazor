@@ -28,6 +28,12 @@ public partial class LinkButton
     public string? ImageUrl { get; set; }
 
     /// <summary>
+    /// The css class of img element default value null
+    /// </summary>
+    [Parameter]
+    public string? ImageCss { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否为垂直布局 默认 false
     /// </summary>
     [Parameter]
@@ -39,7 +45,7 @@ public partial class LinkButton
 
     private string? UrlString => IsDisabled ? null : Url;
 
-    private string? ClassString => CssBuilder.Default("link-button")
+    private string? ClassString => CssBuilder.Default("btn link-button")
         .AddClass("btn-vertical", IsVertical)
         .AddClass($"btn-outline-{Color.ToDescriptionString()}", IsOutline)
         .AddClass($"link-{Color.ToDescriptionString()}", Color != Color.None && !IsOutline && !IsDisabled)

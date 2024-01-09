@@ -1,0 +1,11 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+
+<div @attributes="@AdditionalAttributes" class="@ClassString">
+    <CascadingValue Value="this" IsFixed="true">
+        @foreach (var option in Toasts)
+        {
+            <Toast @key="@option" class="@ToastBoxClassString" Options="@option" />
+        }
+    </CascadingValue>
+</div>

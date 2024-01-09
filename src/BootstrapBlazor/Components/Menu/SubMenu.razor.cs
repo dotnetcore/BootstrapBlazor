@@ -19,11 +19,13 @@ public sealed partial class SubMenu
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private string? GetIconString => string.IsNullOrEmpty(Item.Icon)
-        ? null
-        : Item.Icon.Contains("fa-fw", StringComparison.OrdinalIgnoreCase)
-            ? Item.Icon
-            : $"{Item.Icon} fa-fw";
+    private string? GetIconString => CssBuilder.Default("menu-icon")
+        .AddClass(Item.Icon)
+        .Build();
+
+    private string? DropdownIconString => CssBuilder.Default("nav-link-right")
+        .AddClass(DropdownIcon)
+        .Build();
 
     /// <summary>
     /// 获得/设置 组件数据源
@@ -31,6 +33,18 @@ public sealed partial class SubMenu
     [Parameter]
     [NotNull]
     public MenuItem? Item { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组件数据源
+    /// </summary>
+    [Parameter]
+    public string? DropdownIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 菜单箭头图标
+    /// </summary>
+    [Parameter]
+    public string? ArrowIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 菜单项点击回调委托
@@ -47,12 +61,12 @@ public sealed partial class SubMenu
     private IStringLocalizer<Menu>? Localizer { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得 样式字符串
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
     private static string? GetClassString(MenuItem item) => CssBuilder.Default()
-        .AddClass("active", item.IsActive && !item.IsDisabled)
+        .AddClass("active", !item.IsDisabled && item.IsActive)
         .AddClass("disabled", item.IsDisabled)
         .Build();
 

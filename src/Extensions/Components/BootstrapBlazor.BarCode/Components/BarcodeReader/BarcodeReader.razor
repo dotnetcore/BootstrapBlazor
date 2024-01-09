@@ -1,0 +1,31 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits IdComponentBase
+
+<div @attributes="AdditionalAttributes" class="scanner" data-bb-autostart="@AutoStartString" data-bb-deviceid="@SelectedDeviceId" data-bb-autostop="@AutoStopString" data-bb-scan="@ScanType" @ref="@Element">
+    @if (ScanType == ScanType.Camera)
+    {
+        <div class="row g-3">
+            <div class="col-12">
+                <div class="d-flex">
+                    <div class="scanner-buttons btn-group">
+                        <Button data-bb-method="scan" Color="Color.Primary" Text="@ButtonScanText" IsDisabled="@IsDisabled"></Button>
+                        <Button data-bb-method="stop" Color="Color.Danger" Text="@ButtonStopText" IsDisabled="@IsDisabled"></Button>
+                    </div>
+                    <Checkbox DisplayText="@AutoStopText" ShowAfterLabel="true" @bind-Value="@AutoStop" class="ms-3" />
+                </div>
+            </div>
+            <div class="col-12 scanner-devices">
+                <Select @bind-Value="@SelectedDeviceId" Items="@Devices" DisplayText="@DeviceLabel" OnSelectedItemChanged="OnSelectedItemChanged" ShowLabel="true" placeholder="@InitDevicesString" />
+            </div>
+            <div class="col-12 scanner-video">
+                <video id="@VideoId" style="@VideoStyleString"></video>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="scanner-buttons">
+            <Button data-bb-method="scanImage" Color="Color.Primary" Text="@ButtonScanText"></Button>
+        </div>
+    }
+</div>

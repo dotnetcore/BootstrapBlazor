@@ -19,7 +19,7 @@ public class TabItem : ComponentBase
     /// 获得/设置 TabItem Header 模板
     /// </summary>
     [Parameter]
-    public RenderFragment<Tab>? HeaderTemplate { get; set; }
+    public RenderFragment<TabItem>? HeaderTemplate { get; set; }
 
     /// <summary>
     /// 获得/设置 请求地址
@@ -41,7 +41,13 @@ public class TabItem : ComponentBase
     public bool Closable { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 图标字符串 如 "fa-solid fa-regular"
+    /// 获得/设置 当前 TabItem 是否始终加载 此参数作用于设置 <see cref="Tab.IsLazyLoadTabItem"/> 默认 false
+    /// </summary>
+    [Parameter]
+    public bool AlwaysLoad { get; set; }
+
+    /// <summary>
+    /// 获得/设置 图标字符串
     /// </summary>
     [Parameter]
     public string? Icon { get; set; }
@@ -53,16 +59,12 @@ public class TabItem : ComponentBase
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 相关键值
-    /// </summary>
-    [Parameter]
-    public object? Key { get; set; }
-
-    /// <summary>
     /// 获得/设置 所属 Tab 实例
     /// </summary>
     [CascadingParameter]
     protected internal Tab? TabSet { get; set; }
+
+    private string? LastText { get; set; }
 
     /// <summary>
     /// OnInitialized 方法
@@ -73,6 +75,19 @@ public class TabItem : ComponentBase
 
         Url ??= "";
         TabSet?.AddItem(this);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (LastText != null)
+        {
+            Text = LastText;
+        }
     }
 
     /// <summary>
@@ -87,13 +102,11 @@ public class TabItem : ComponentBase
     /// <param name="text"></param>
     /// <param name="icon"></param>
     /// <param name="closable"></param>
-    [Obsolete("please Set the varible of TabItem Text paramter. see example https://www.blazor.zone/tabs#SetText")]
-    [ExcludeFromCodeCoverage]
-    public void SetText(string text, string? icon = null, bool? closable = null)
+    public void SetHeader(string text, string? icon = null, bool? closable = null)
     {
         if (TabSet != null)
         {
-            Text = text;
+            LastText = Text = text;
 
             if (!string.IsNullOrEmpty(icon))
             {
@@ -119,7 +132,7 @@ public class TabItem : ComponentBase
         {
             parameters[nameof(Url)] = url?.ToString()?.TrimStart('/') ?? "";
         }
-        var _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters!));
+        _ = item.SetParametersAsync(ParameterView.FromDictionary(parameters!));
         return item;
     }
 }

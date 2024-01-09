@@ -4,7 +4,6 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
-using Microsoft.JSInterop;
 using System.Globalization;
 
 namespace BootstrapBlazor.Components;
@@ -14,12 +13,11 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class Editor : IAsyncDisposable
 {
-    /// <summary>
-    /// 获得/设置 组件 DOM 实例
-    /// </summary>
-    private ElementReference EditorElement { get; set; }
+    [NotNull]
+    private IJSObjectReference? Module { get; set; }
 
-    private JSModule<Editor>? Module { get; set; }
+    [NotNull]
+    private DotNetObjectReference<Editor>? Interop { get; set; }
 
     /// <summary>
     /// 获得 Editor 样式
@@ -42,10 +40,10 @@ public partial class Editor : IAsyncDisposable
     public bool IsEditor { get; set; }
 
     /// <summary>
-    /// 获得/设置 设置组件高度
+    /// 获得/设置 设置组件高度 默认高度为 80px
     /// </summary>
     [Parameter]
-    public int Height { get; set; }
+    public int Height { get; set; } = 80;
 
     /// <summary>
     /// 获得/设置 富文本框工具栏工具，默认为空使用默认值
@@ -61,34 +59,40 @@ public partial class Editor : IAsyncDisposable
     [NotNull]
     public IEnumerable<EditorToolbarButton>? CustomerToolbarButtons { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否显示工具栏提交按钮 默认 true 显示
+    /// </summary>
+    /// <remarks>工具栏提交按钮在工具栏最后位置，此按钮设计上是避免编辑内容变化时频繁提交代码到服务器，点击提交按钮后再发送到服务器，禁用此按钮时每次更新内容均提交代码到服务器端</remarks>
+    [Parameter]
+    public bool ShowSubmit { get; set; } = true;
+
+    private bool _lastShowSubmit = true;
+
+    private string? ShowSubmitString => ShowSubmit ? "true" : null;
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Editor>? Localizer { get; set; }
 
-    private string? _value;
-    private bool _renderValue;
+    private string? _lastValue;
+
     /// <summary>
     /// 获得/设置 组件值
     /// </summary>
     [Parameter]
-    public string? Value
-    {
-        get { return _value; }
-        set
-        {
-            if (_value != value)
-            {
-                _value = value;
-                _renderValue = true;
-            }
-        }
-    }
+    public string? Value { get; set; }
 
     /// <summary>
     /// 获得/设置 语言，默认为 null 自动判断，内置中英文额外语言包需要自行引入语言包
     /// </summary>
     [Parameter]
     public string? Language { get; set; }
+
+    /// <summary>
+    /// 获得/设置 语言扩展脚本路径 默认 null 如加载德语可设置为 
+    /// </summary>
+    [Parameter]
+    public string? LanguageUrl { get; set; }
 
     /// <summary>
     /// 获得/设置 组件值变化后的回调委托
@@ -109,18 +113,7 @@ public partial class Editor : IAsyncDisposable
     public Func<string, Task<string>>? OnClickButton { get; set; }
 
     /// <summary>
-    /// 执行editor的方法
-    /// </summary>
-    public async ValueTask DoMethodAysnc(string method, params object[] value)
-    {
-        if (Module != null)
-        {
-            await Module.InvokeVoidAsync("bb_editor_method", EditorElement, method, value);
-        }
-    }
-
-    /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -143,7 +136,7 @@ public partial class Editor : IAsyncDisposable
     }
 
     /// <summary>
-    /// OnParametersSet
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
@@ -156,7 +149,7 @@ public partial class Editor : IAsyncDisposable
     }
 
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -166,6 +159,8 @@ public partial class Editor : IAsyncDisposable
 
         if (firstRender)
         {
+            _lastShowSubmit = ShowSubmit;
+
             var methodGetPluginAttrs = "";
             var methodClickPluginItem = "";
             if (CustomerToolbarButtons.Any())
@@ -174,16 +169,24 @@ public partial class Editor : IAsyncDisposable
                 methodClickPluginItem = nameof(ClickPluginItem);
             }
 
-            Module = await JSRuntime.LoadModule<Editor>("./_content/BootstrapBlazor.SummerNote/js/bootstrap.blazor.editor.min.js", this, false);
-            await Module.InvokeVoidAsync("bb_editor", EditorElement, methodGetPluginAttrs, methodClickPluginItem, nameof(Update), Height, Value ?? "", Language);
+            // import JavaScript
+            Module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BootstrapBlazor.SummerNote/Components/Editor/Editor.razor.js");
+            Interop = DotNetObjectReference.Create(this);
+            await Module.InvokeVoidAsync("init", Id, Interop, methodGetPluginAttrs, methodClickPluginItem, Height, Value ?? "", Language, LanguageUrl);
         }
-        else if (_renderValue)
+
+        // ShowSubmiit 处理
+        if (_lastShowSubmit != ShowSubmit)
         {
-            _renderValue = false;
-            if (Module != null)
-            {
-                await Module.InvokeVoidAsync("bb_editor_code", EditorElement, Value ?? "");
-            }
+            _lastShowSubmit = ShowSubmit;
+            await Module.InvokeVoidAsync("reset", Id, Value ?? "");
+        }
+
+        // Value 处理
+        if (_lastValue != Value)
+        {
+            _lastValue = Value;
+            await Module.InvokeVoidAsync("update", Id, Value ?? "");
         }
     }
 
@@ -195,6 +198,8 @@ public partial class Editor : IAsyncDisposable
     public async Task Update(string value)
     {
         Value = value;
+        _lastValue = Value;
+
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);
@@ -204,8 +209,6 @@ public partial class Editor : IAsyncDisposable
         {
             await OnValueChanged.Invoke(value);
         }
-
-        _renderValue = false;
     }
 
     /// <summary>
@@ -255,6 +258,18 @@ public partial class Editor : IAsyncDisposable
     }
 
     /// <summary>
+    /// 执行 editor 的方法
+    /// </summary>
+    public async ValueTask DoMethodAsync(string method, params object[] value)
+    {
+        if (Module != null)
+        {
+            await Module.InvokeVoidAsync("invoke", Id, method, value);
+        }
+    }
+
+    #region Dispose
+    /// <summary>
     /// Dispose 方法
     /// </summary>
     /// <param name="disposing"></param>
@@ -262,8 +277,11 @@ public partial class Editor : IAsyncDisposable
     {
         if (disposing)
         {
+            Interop?.Dispose();
+
             if (Module != null)
             {
+                await Module.InvokeVoidAsync("dispose", Id);
                 await Module.DisposeAsync();
                 Module = null;
             }
@@ -278,4 +296,5 @@ public partial class Editor : IAsyncDisposable
         await DisposeAsync(true);
         GC.SuppressFinalize(this);
     }
+    #endregion
 }

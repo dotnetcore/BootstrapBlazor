@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace BootstrapBlazor.Components;
 

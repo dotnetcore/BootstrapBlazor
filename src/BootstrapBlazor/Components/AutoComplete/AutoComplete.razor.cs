@@ -8,12 +8,15 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// AutoComplete 组件基类
+/// AutoComplete 组件
 /// </summary>
 public partial class AutoComplete
 {
     private bool IsLoading { get; set; }
 
+    /// <summary>
+    /// 获得/设置 当前下拉框是否显示
+    /// </summary>
     private bool IsShown { get; set; }
 
     /// <summary>
@@ -21,13 +24,7 @@ public partial class AutoComplete
     /// </summary>
     protected virtual string? ClassString => CssBuilder.Default("auto-complete")
         .AddClass("is-loading", IsLoading)
-        .Build();
-
-    /// <summary>
-    /// Dropdown Menu 下拉菜单样式
-    /// </summary>
-    protected string? DropdownMenuClassString => CssBuilder.Default("dropdown-menu")
-        .AddClass("show", IsShown)
+        .AddClass("show", IsShown && !IsPopover)
         .Build();
 
     /// <summary>
@@ -44,13 +41,6 @@ public partial class AutoComplete
     public IEnumerable<string>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 无匹配数据时显示提示信息 默认提示"无匹配数据"
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public string? NoDataTip { get; set; }
-
-    /// <summary>
     /// 获得/设置 匹配数据时显示的数量
     /// </summary>
     [Parameter]
@@ -61,7 +51,13 @@ public partial class AutoComplete
     /// 获得/设置 是否开启模糊查询，默认为 false
     /// </summary>
     [Parameter]
-    public bool IsLikeMatch { get; set; } = false;
+    public bool IsLikeMatch { get; set; }
+
+    /// <summary>
+    /// 获得/设置 OnFocus 时是否过滤选择 默认 false
+    /// </summary>
+    [Parameter]
+    public bool OnFocusFilter { get; set; }
 
     /// <summary>
     /// 获得/设置 匹配时是否忽略大小写，默认为 true
@@ -70,7 +66,7 @@ public partial class AutoComplete
     public bool IgnoreCase { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 自定义集合过滤规则
+    /// 获得/设置 自定义集合过滤规则 默认 null
     /// </summary>
     [Parameter]
     public Func<string, Task<IEnumerable<string>>>? OnCustomFilter { get; set; }
@@ -80,12 +76,6 @@ public partial class AutoComplete
     /// </summary>
     [Parameter]
     public Func<string, Task>? OnSelectedItemChanged { get; set; }
-
-    /// <summary>
-    /// 获得/设置 防抖时间 默认为 0 即不开启
-    /// </summary>
-    [Parameter]
-    public int Debounce { get; set; }
 
     /// <summary>
     /// 获得/设置 是否跳过 Enter 按键处理 默认 false
@@ -100,16 +90,22 @@ public partial class AutoComplete
     public bool SkipEsc { get; set; }
 
     /// <summary>
-    /// 获得/设置 获得焦点时是否展开下拉候选菜单 默认 true
-    /// </summary>
-    [Parameter]
-    public bool ShowDropdownListOnFocus { get; set; } = true;
-
-    /// <summary>
     /// 获得/设置 候选项模板 默认 null
     /// </summary>
     [Parameter]
     public RenderFragment<string>? ItemTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 图标
+    /// </summary>
+    [Parameter]
+    public string? Icon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 加载图标
+    /// </summary>
+    [Parameter]
+    public string? LoadingIcon { get; set; }
 
     /// <summary>
     /// IStringLocalizer 服务实例
@@ -118,22 +114,10 @@ public partial class AutoComplete
     [NotNull]
     private IStringLocalizer<AutoComplete>? Localizer { get; set; }
 
-    private JSInterop<AutoComplete>? Interop { get; set; }
-
     private string CurrentSelectedItem { get; set; } = "";
 
     /// <summary>
-    /// ElementReference 实例
-    /// </summary>
-    protected ElementReference AutoCompleteElement { get; set; }
-
-    /// <summary>
-    /// CurrentItemIndex 当前选中项索引
-    /// </summary>
-    protected int? CurrentItemIndex { get; set; }
-
-    /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -142,34 +126,19 @@ public partial class AutoComplete
         NoDataTip ??= Localizer[nameof(NoDataTip)];
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         Items ??= Enumerable.Empty<string>();
-        FilterItems ??= new List<string>();
+        FilterItems ??= [];
 
         SkipRegisterEnterEscJSInvoke = true;
     }
 
     /// <summary>
-    /// firstRender
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override void OnParametersSet()
     {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (CurrentItemIndex.HasValue)
-        {
-            await JSRuntime.InvokeVoidAsync(AutoCompleteElement, "bb_autoScrollItem", CurrentItemIndex.Value);
-        }
-
-        if (firstRender)
-        {
-            await RegisterComposition();
-
-            if (Debounce > 0)
-            {
-                await JSRuntime.InvokeVoidAsync(FocusElement, "bb_setDebounce", Debounce);
-            }
-        }
+        base.OnParametersSet();
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.AutoCompleteIcon);
+        LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.LoadingIcon);
     }
 
     /// <summary>
@@ -202,16 +171,25 @@ public partial class AutoComplete
     {
         if (ShowDropdownListOnFocus)
         {
-            await OnKeyUp(new KeyboardEventArgs());
+            if (OnFocusFilter)
+            {
+                await OnKeyUp("");
+            }
+            else
+            {
+                FilterItems = Items.ToList();
+                IsShown = true;
+            }
         }
     }
 
     /// <summary>
     /// OnKeyUp 方法
     /// </summary>
-    /// <param name="args"></param>
+    /// <param name="key"></param>
     /// <returns></returns>
-    protected virtual async Task OnKeyUp(KeyboardEventArgs args)
+    [JSInvokable]
+    public virtual async Task OnKeyUp(string key)
     {
         if (!IsLoading)
         {
@@ -238,7 +216,7 @@ public partial class AutoComplete
         if (source.Any())
         {
             // 键盘向上选择
-            if (args.Key == "ArrowUp")
+            if (key == "ArrowUp")
             {
                 var index = source.IndexOf(CurrentSelectedItem) - 1;
                 if (index < 0)
@@ -248,7 +226,7 @@ public partial class AutoComplete
                 CurrentSelectedItem = source[index];
                 CurrentItemIndex = index;
             }
-            else if (args.Key == "ArrowDown")
+            else if (key == "ArrowDown")
             {
                 var index = source.IndexOf(CurrentSelectedItem) + 1;
                 if (index > source.Count - 1)
@@ -258,7 +236,7 @@ public partial class AutoComplete
                 CurrentSelectedItem = source[index];
                 CurrentItemIndex = index;
             }
-            else if (args.Key == "Escape")
+            else if (key == "Escape")
             {
                 OnBlur();
                 if (!SkipEsc && OnEscAsync != null)
@@ -266,7 +244,7 @@ public partial class AutoComplete
                     await OnEscAsync(Value);
                 }
             }
-            else if (args.Key == "Enter")
+            else if (key == "Enter")
             {
                 if (!string.IsNullOrEmpty(CurrentSelectedItem))
                 {
@@ -284,47 +262,24 @@ public partial class AutoComplete
                 }
             }
         }
+        await CustomKeyUp(key);
+        StateHasChanged();
     }
 
     /// <summary>
     /// 
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    protected virtual Task CustomKeyUp(string key) => Task.CompletedTask;
+
+    /// <summary>
+    /// TriggerOnChange 方法
     /// </summary>
     /// <param name="val"></param>
     [JSInvokable]
     public void TriggerOnChange(string val)
     {
         CurrentValueAsString = val;
-    }
-
-    /// <summary>
-    /// 注册汉字多次触发问题脚本
-    /// </summary>
-    /// <returns></returns>
-    protected virtual async Task RegisterComposition()
-    {
-        // 汉字多次触发问题
-        if (ValidateForm != null)
-        {
-            Interop ??= new JSInterop<AutoComplete>(JSRuntime);
-            await Interop.InvokeVoidAsync(this, FocusElement, "bb_composition", nameof(TriggerOnChange));
-        }
-    }
-
-    /// <summary>
-    /// DisposeAsyncCore 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected override ValueTask DisposeAsyncCore(bool disposing)
-    {
-        if (disposing)
-        {
-            if (Interop != null)
-            {
-                Interop.Dispose();
-            }
-        }
-
-        return base.DisposeAsyncCore(disposing);
     }
 }

@@ -10,7 +10,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 显示组件基类
 /// </summary>
-public abstract class DisplayBase<TValue> : TooltipComponentBase
+public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
 {
     /// <summary>
     /// 是否显示 标签
@@ -26,6 +26,12 @@ public abstract class DisplayBase<TValue> : TooltipComponentBase
     /// 获得/设置 泛型参数 TValue 可为空类型 Type 实例，为空时表示类型不可为空
     /// </summary>
     protected Type? NullableUnderlyingType { get; set; }
+
+    /// <summary>
+    /// 获得/设置 泛型参数 TValue 可为空类型 Type 实例
+    /// </summary>
+    [NotNull]
+    protected Type? ValueType { get; set; }
 
     /// <summary>
     /// Gets or sets the value of the input. This should be used with two-way binding.
@@ -76,7 +82,7 @@ public abstract class DisplayBase<TValue> : TooltipComponentBase
     /// <summary>
     /// 获得 IShowLabel 实例
     /// </summary>
-    [CascadingParameter(Name = "EidtorForm")]
+    [CascadingParameter(Name = "EditorForm")]
     protected IShowLabel? EditorForm { get; set; }
 
     /// <summary>
@@ -101,6 +107,7 @@ public abstract class DisplayBase<TValue> : TooltipComponentBase
         parameters.SetParameterProperties(this);
 
         NullableUnderlyingType = Nullable.GetUnderlyingType(typeof(TValue));
+        ValueType ??= NullableUnderlyingType ?? typeof(TValue);
 
         if (ValueExpression != null)
         {
@@ -168,5 +175,17 @@ public abstract class DisplayBase<TValue> : TooltipComponentBase
     /// </summary>
     /// <param name="value">The value to format.</param>
     /// <returns>A string representation of the value.</returns>
-    protected virtual string? FormatValueAsString(TValue value) => value?.ToString();
+    protected virtual string? FormatValueAsString(TValue value)
+    {
+        string? ret;
+        if (value is SelectedItem item)
+        {
+            ret = item.Value;
+        }
+        else
+        {
+            ret = value?.ToString();
+        }
+        return ret;
+    }
 }

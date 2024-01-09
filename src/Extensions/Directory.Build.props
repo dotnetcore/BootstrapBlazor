@@ -5,4 +5,8 @@
   <Import Project="..\Logo.props" />
   <Import Project="..\SourceLink.targets" />
 
+  <PropertyGroup>
+    <RootNamespace>BootstrapBlazor.Components</RootNamespace>
+  </PropertyGroup>
+
 </Project>

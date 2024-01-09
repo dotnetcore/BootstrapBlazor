@@ -7,10 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Anchor 组件部分类
 /// </summary>
-public sealed partial class Anchor
+public partial class Anchor
 {
-    private ElementReference AnchorElement { get; set; }
-
     /// <summary>
     /// 获得/设置 目标组件 Id
     /// </summary>
@@ -18,10 +16,21 @@ public sealed partial class Anchor
     public string? Target { get; set; }
 
     /// <summary>
-    /// 获得/设置 滚动组件 Id 默认为 null 使用 window 元素
+    /// 获得/设置 滚动组件 Id 默认为 null 使用最近滚动条容器元素
     /// </summary>
     [Parameter]
     public string? Container { get; set; }
+
+    /// <summary>
+    /// 获得/设置 滚动时是否开启动画 默认 true
+    /// </summary>
+    [Parameter]
+    public bool IsAnimation { get; set; } = true;
+
+    /// <summary>
+    /// 获得 滚动动画
+    /// </summary>
+    protected string? AnimationString => IsAnimation ? "true" : null;
 
     /// <summary>
     /// 获得/设置 距离顶端偏移量 默认为 0
@@ -35,23 +44,9 @@ public sealed partial class Anchor
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
-    /// <summary>
-    /// OnAfterRenderAsync 方法
-    /// </summary>
-    /// <param name="firstRender"></param>
-    /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
+    private string? GetTargetString => string.IsNullOrEmpty(Target) ? null : Target;
 
-        if (firstRender)
-        {
-            if (!string.IsNullOrEmpty(Target))
-            {
-                await JSRuntime.InvokeVoidAsync(AnchorElement, "bb_anchor");
-            }
-        }
-    }
-
-    private string? GetTargetString => string.IsNullOrEmpty(Target) ? null : $"#{Target}";
+    private string? ClassString => CssBuilder.Default()
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
 }

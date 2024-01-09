@@ -1,12 +1,13 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits ValidateBase<DateTimeRangeValue>
+@inherits PopoverDropdownBase<DateTimeRangeValue>
+@attribute [BootstrapModuleAutoLoader("DateTimePicker/DateTimePicker.razor.js")]
 
 @if (IsShowLabel)
 {
     <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
-<div @attributes="@AdditionalAttributes" id="@Id" tabindex="0" class="@ClassString" @ref="PickerRange">
-    <div class="datetime-range-control" data-bs-placement="@PlacementString">
+<div @attributes="@AdditionalAttributes" id="@Id" tabindex="0" class="@ClassString" data-bb-dropdown=".datetime-range-body" data-bb-dismiss=".picker-panel-link-btn">
+    <div class="dropdown-toggle datetime-range-control" data-bs-toggle="@Constants.DropdownToggleString" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString">
         <div class="position-relative">
             <i class="@DateTimePickerIconClassString"></i>
             <input readonly="readonly" class="datetime-range-input" value="@StartValueString" placeholder="@StartPlaceHolderText" disabled="@Disabled" />
@@ -18,25 +19,25 @@
     {
         <i class="range-clear @ClearIcon" @onclick:stopPropagation @onclick="@ClickClearButton"></i>
     }
-    <div class="@BodyClassString">
+    <div class="datetime-range-body">
         <div class="range-panel-body">
             @if (ShowSidebar)
             {
                 <div class="picker-panel-sidebar">
                     @foreach (var item in SidebarItems)
                     {
-                        <div class="sidebar-item">
-                            <div @onclick="@(e => OnClickSidebarItem(item))">@item.Text</div>
+                        <div class="sidebar-item" @key="item">
+                            <div @onclick="() => OnClickSidebarItem(item)">@item.Text</div>
                         </div>
                     }
                 </div>
             }
             <CascadingValue Value="this" IsFixed="true">
-                <DatePickerBody @bind-Value="@StartValue" AllowNull="@AllowNull" IsShown="true"
-                                ViewMode="DatePickerViewMode.Date" ShowFooter="false" ShowRightButtons="false" MaxValue=MaxValue MinValue=MinValue>
+                <DatePickerBody @bind-Value="@StartValue" AllowNull="@AllowNull" AutoClose="false"
+                                ViewMode="DatePickerViewMode.Date" ShowRightButtons="false" MaxValue=MaxValue MinValue=MinValue>
                 </DatePickerBody>
-                <DatePickerBody @bind-Value="@EndValue" AllowNull="@AllowNull" IsShown="true"
-                                ViewMode="DatePickerViewMode.Date" ShowFooter="false" ShowLeftButtons="false" MaxValue=MaxValue MinValue=MinValue>
+                <DatePickerBody @bind-Value="@EndValue" AllowNull="@AllowNull" AutoClose="false"
+                                ViewMode="DatePickerViewMode.Date" ShowLeftButtons="false" MaxValue=MaxValue MinValue=MinValue>
                 </DatePickerBody>
             </CascadingValue>
         </div>
@@ -44,20 +45,20 @@
             <div class="flex-fill me-3">
                 @if (AllowNull)
                 {
-                    <button type="button" class="btn picker-panel-link-btn is-confirm is-clear" @onclick="@ClickClearButton">
+                    <Button class="picker-panel-link-btn is-confirm is-clear" Color="Color.None" OnClick="@ClickClearButton">
                         <span>@ClearButtonText</span>
-                    </button>
+                    </Button>
                 }
             </div>
             @if (ShowToday)
             {
-                <button type="button" class="btn picker-panel-link-btn is-confirm me-3" @onclick="@ClickTodayButton">
+                <Button class="picker-panel-link-btn is-confirm me-3" Color="Color.None" OnClick="@ClickTodayButton">
                     <span>@TodayButtonText</span>
-                </button>
+                </Button>
             }
-            <button type="button" class="btn picker-panel-link-btn is-confirm" @onclick="@ClickConfirmButton">
+            <Button class="picker-panel-link-btn is-confirm" Color="Color.None" OnClick="@ClickConfirmButton">
                 <span>@ConfirmButtonText</span>
-            </button>
+            </Button>
         </div>
     </div>
 </div>

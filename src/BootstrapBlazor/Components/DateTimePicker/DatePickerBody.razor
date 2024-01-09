@@ -1,20 +1,27 @@
 ﻿@namespace BootstrapBlazor.Components
 @inherits BootstrapComponentBase
 
-<div @attributes="@AdditionalAttributes" class="@ClassName">
+<div @attributes="@AdditionalAttributes" class="@ClassString">
     <div class="picker-panel-body-wrapper">
         @if (ShowSidebar)
         {
             <div class="picker-panel-sidebar">
-                <div class="sidebar-item">
-                    <DatePickerCell Value="@DateTime.Today" Text="@Today" OnClick="@(async d => await OnClickShortLink(d))" />
-                </div>
-                <div class="sidebar-item">
-                    <DatePickerCell Value="@DateTime.Today.AddDays(-1)" Text="@Yesterday" OnClick="@(async d => await OnClickShortLink(d))" />
-                </div>
-                <div class="sidebar-item">
-                    <DatePickerCell Value="@DateTime.Today.AddDays(-7)" Text="@Weekago" OnClick="@(async d => await OnClickShortLink(d))" />
-                </div>
+                @if (SidebarTemplate != null)
+                {
+                    @SidebarTemplate(OnClickDateTime)
+                }
+                else
+                {
+                    <div class="sidebar-item">
+                        <DatePickerCell Value="@DateTime.Today" Text="@Today" OnClick="@(async d => await OnClickDateTime(d))" />
+                    </div>
+                    <div class="sidebar-item">
+                        <DatePickerCell Value="@DateTime.Today.AddDays(-1)" Text="@Yesterday" OnClick="@(async d => await OnClickDateTime(d))" />
+                    </div>
+                    <div class="sidebar-item">
+                        <DatePickerCell Value="@DateTime.Today.AddDays(-7)" Text="@Week" OnClick="@(async d => await OnClickDateTime(d))" />
+                    </div>
+                }
             </div>
         }
         <div class="picker-panel-body">
@@ -31,10 +38,10 @@
                 @if (ShowLeftButtons)
                 {
                     <button type="button" aria-label="@AiraPrevYearLabel" class="picker-panel-icon-btn" @onclick="@OnClickPrevYear">
-                        <i class="fa-solid fa-angles-left"></i>
+                        <i class="@PreviousYearIcon"></i>
                     </button>
                     <button type="button" aria-label="@AiraPrevMonthLabel" class="@PrevMonthClassName" @onclick="@OnClickPrevMonth">
-                        <i class="fa-solid fa-angle-left"></i>
+                        <i class="@PreviousMonthIcon"></i>
                     </button>
                 }
                 <div class="d-flex align-items-center justify-content-center flex-fill">
@@ -44,10 +51,10 @@
                 @if (ShowRightButtons)
                 {
                     <button type="button" aria-label="@AiraNextMonthLabel" class="@NextMonthClassName" @onclick="@OnClickNextMonth">
-                        <i class="fa-solid fa-angle-right"></i>
+                        <i class="@NextMonthIcon"></i>
                     </button>
                     <button type="button" aria-label="@AiraNextYearLabel" class="picker-panel-icon-btn" @onclick="@OnClickNextYear">
-                        <i class="fa-solid fa-angles-right"></i>
+                        <i class="@NextYearIcon"></i>
                     </button>
                 }
             </div>
@@ -60,14 +67,14 @@
                                 <th>@w</th>
                             }
                         </tr>
-                        @for (var week = StartDate; week < EndDate; week = week.GetSafeDayDateTime(7))
+                        @for (var week = StartDate; week < EndDate; week = GetSafeDayDateTime(week, 7))
                         {
                             <tr class="date-table-row">
                                 @for (var index = 0; index < 7; index++)
                                 {
-                                    var day = week.GetSafeDayDateTime(index);
+                                    var day = GetSafeDayDateTime(week, index);
                                     var text = GetDayText(day.Day);
-                                    var isOverflow = week.IsDayOverflow(index);
+                                    var isOverflow = IsDayOverflow(week, index);
                                     <td class="@GetDayClass(day, isOverflow)">
                                         <div>
                                             @if (isOverflow)
@@ -80,7 +87,7 @@
                                             }
                                             else
                                             {
-                                                <DatePickerCell Value="@week.GetSafeDayDateTime(index)" Text="@text" OnClick="@(async d => await OnClickDateTime(d))" />
+                                                <DatePickerCell Value="@GetSafeDayDateTime(week, index)" Text="@text" OnClick="d => OnClickDateTime(d)" />
                                             }
                                         </div>
                                     </td>
@@ -97,7 +104,7 @@
                                 @for (var index = 0; index < 4; index++)
                                 {
                                     var year = index + row * 4;
-                                    var isOverflow = CurrentDate.IsYearOverflow(year - (CurrentDate.Year % 20));
+                                    var isOverflow = IsYearOverflow(CurrentDate, year - (CurrentDate.Year % 20));
                                     <td class="@GetYearClassName(year, isOverflow)">
                                         @if (isOverflow)
                                         {
@@ -144,20 +151,20 @@
             <div class="flex-fill">
                 @if (AllowNull)
                 {
-                    <button type="button" class="btn picker-panel-link-btn is-confirm" @onclick="@ClickClearButton">
+                    <Button class="picker-panel-link-btn is-confirm" Color="Color.None" OnClickWithoutRender="@ClickClearButton">
                         <span>@ClearButtonText</span>
-                    </button>
+                    </Button>
                 }
             </div>
             @if (MinValue == null && MaxValue == null)
             {
-                <button type="button" class="btn picker-panel-link-btn is-now" @onclick="@ClickNowButton">
+                <Button class="picker-panel-link-btn is-now" Color="Color.None" OnClickWithoutRender="@ClickNowButton">
                     <span>@NowButtonText</span>
-                </button>
+                </Button>
             }
-            <button type="button" class="btn picker-panel-link-btn is-confirm" @onclick="@ClickConfirmButton">
+            <Button class="picker-panel-link-btn is-confirm" Color="Color.None" OnClickWithoutRender="@ClickConfirmButton">
                 <span>@ConfirmButtonText</span>
-            </button>
+            </Button>
         </div>
     }
 </div>

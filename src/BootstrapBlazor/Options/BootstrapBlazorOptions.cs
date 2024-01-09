@@ -70,23 +70,33 @@ public class BootstrapBlazorOptions
     public TableSettings TableSettings { get; set; } = new();
 
     /// <summary>
+    /// 获得/设置 Step 配置实例
+    /// </summary>
+    public StepSettings StepSettings { get; set; } = new();
+
+    /// <summary>
     /// 获得/设置 是否禁用表单内回车自动提交功能 默认 null 未设置
     /// </summary>
     public bool? DisableAutoSubmitFormByEnter { get; set; }
 
     /// <summary>
+    /// 获得/设置 JavaScript 模块脚本版本号 默认为 null
+    /// </summary>
+    public string? JSModuleVersion { get; set; }
+
+    /// <summary>
     /// 获得/设置 网站主题集合
     /// </summary>
-    public List<KeyValuePair<string, string>> Themes { get; } = new()
-    {
+    public List<KeyValuePair<string, string>> Themes { get; } =
+    [
         new("Bootstrap", "bootstrap.blazor.bundle.min.css"),
         new("Motronic", "motronic.min.css")
-    };
+    ];
 
     /// <summary>
     /// 获得支持多语言集合
     /// </summary>
     /// <returns></returns>
     public IList<CultureInfo> GetSupportedCultures() => SupportedCultures?.Select(name => new CultureInfo(name)).ToList()
-        ?? new List<CultureInfo> { new("zh"), new("en") };
+        ?? [new("en"), new("zh")];
 }

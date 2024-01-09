@@ -1,0 +1,11 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader]
+
+<span @attributes="@AdditionalAttributes" class="@ClassString" tabindex="0" id="@Id" data-bs-original-title="@Title"
+      data-bs-selector="@Selector" data-bs-toggle="@ToggleString" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString"
+      data-bs-trigger="@Trigger" data-bs-html="@HtmlString" data-bs-delay="@Delay" data-bs-sanitize="@SanitizeString">
+    <CascadingValue Value="this" IsFixed="true">
+        @ChildContent
+    </CascadingValue>
+</span>

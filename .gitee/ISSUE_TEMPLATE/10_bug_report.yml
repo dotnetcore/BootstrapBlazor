@@ -1,0 +1,72 @@
+name: 🐞 Bug 反馈
+description: 当你在代码中发现了一个 Bug，导致应用崩溃或抛出异常，或者有一个组件存在问题，或者某些地方看起来不对劲。
+title: "bug: "
+labels: [bug]
+assignees:
+  - Argo
+body:
+- type: checkboxes
+  attributes:
+    label: 这个问题是否已经存在?
+    description: 请在问题列表中搜索，可能有人已经上报这个问题 ([BootstrapBlazor/issues](https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues)).
+    options:
+    - label: 我已经搜索过现在的问题
+      required: true
+- type: textarea
+  attributes:
+    label: 如何操作复现这个问题
+    description: 请详细描述如何复现你遇到的问题
+    placeholder: |
+        1. 先点击什么
+        2. 再点击什么
+        3. 然后怎么样
+  validations:
+    required: true
+- type: textarea
+  attributes:
+    label: 预期结果
+    description: 请描述你认为的正确结果是什么
+  validations:
+    required: false
+- type: textarea
+  attributes:
+    label: 实际结果
+    description: 请描述实际结果是什么
+  validations:
+    required: false
+- type: textarea
+  attributes:
+    label: 截图或者视频
+    description: 此问题相关截图或者视频，如果是截图请画框与箭头标注
+    placeholder: |
+      [在这里上传图片或视频]
+      [图片截图后此处直接粘贴即可]
+  validations:
+    required: false
+- type: textarea
+  attributes:
+    label: 复现工程或者仓库地址
+    description: 最小代码示例
+    placeholder: |
+      1. 提供公开的仓库地址链接。
+      2. 以文件夹或者压缩包形式提交复现工程，请务必删除工程目录下的bin和obj。
+
+      声明：请勿以其他任何方式提供复现工程，不符合要求的提交，一律视为无效问题，不予处理。
+  validations:
+    required: true
+- type: textarea
+  id: version
+  attributes:
+    label: .NET Version 
+    description: |
+      Run `dotnet --version`
+    placeholder: |
+        [这里粘贴执行结果]
+  validations:
+    required: false
+- type: input
+  attributes:
+    label: Bootstrap Blazor Version
+    description: BootstrapBlazor 组件包版本号
+  validations:
+    required: false

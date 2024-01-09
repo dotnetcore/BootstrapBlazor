@@ -9,8 +9,6 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class Menu
 {
-    private ElementReference MenuElemenet { get; set; }
-
     /// <summary>
     /// 获得 组件样式
     /// </summary>
@@ -18,82 +16,42 @@ public partial class Menu
         .AddClass("is-bottom", IsBottom)
         .AddClass("is-vertical", IsVertical)
         .AddClass("is-collapsed", IsVertical && IsCollapsed)
-        .AddClass("accordion", IsVertical && IsAccordion)
-        .AddClass("expaned", IsVertical && IsExpandAll)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
+
+    private string? SideMenuClassString => CssBuilder.Default()
+        .AddClass("accordion", IsAccordion)
+        .Build();
+
+    private string? ExpandString => (IsVertical && IsExpandAll) ? "true" : null;
+
+    private string SideMenuId => $"{Id}_sub";
 
     /// <summary>
     /// 用于提高性能存储当前 active 状态的菜单
     /// </summary>
     private MenuItem? ActiveMenu { get; set; }
 
-    private IEnumerable<MenuItem>? _items;
-    /// <summary>
-    /// 菜单是否初始化
-    /// </summary>
-    private bool _init;
-    /// <summary>
-    /// 是否需要调用 JS
-    /// </summary>
-    private bool _invokeJs;
     /// <summary>
     /// 获得/设置 菜单数据集合
     /// </summary>
     [Parameter]
     [NotNull]
-    public IEnumerable<MenuItem>? Items
-    {
-        get => _items ?? Enumerable.Empty<MenuItem>();
-        set
-        {
-            if (_items != value)
-            {
-                _items = value;
-                _init = false;
-                _invokeJs = true;
-            }
-        }
-    }
+    public IEnumerable<MenuItem>? Items { get; set; }
 
-    private bool _accordion;
     /// <summary>
     /// 获得/设置 是否为手风琴效果 默认为 false
     /// </summary>
     /// <remarks>启用此功能时 <see cref="IsExpandAll" /> 参数不生效</remarks>
     [Parameter]
-    public bool IsAccordion
-    {
-        get => _accordion;
-        set
-        {
-            if (_accordion != value)
-            {
-                _accordion = value;
-                _invokeJs = true;
-            }
-        }
-    }
+    public bool IsAccordion { get; set; }
 
-    private bool _expand;
-    private bool _invokeExpandJs;
     /// <summary>
     /// 获得/设置 是否全部展开 默认为 false
     /// </summary>
     /// <remarks>手风琴效果 <see cref="IsAccordion" /> 时此参数不生效</remarks>
     [Parameter]
-    public bool IsExpandAll
-    {
-        get => _expand;
-        set
-        {
-            if (_expand != value)
-            {
-                _expand = value;
-                _invokeExpandJs = true;
-            }
-        }
-    }
+    public bool IsExpandAll { get; set; }
 
     /// <summary>
     /// 获得/设置 侧栏是否收起 默认 false 未收起
@@ -107,6 +65,13 @@ public partial class Menu
     /// <value></value>
     [Parameter]
     public bool IsVertical { get; set; }
+
+    /// <summary>
+    /// 获得/设置 自动滚动到可视区域 默认 true <see cref="IsVertical"/> 开启时生效
+    /// </summary>
+    /// <value></value>
+    [Parameter]
+    public bool IsScrollIntoView { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 侧边栏垂直模式在底部 默认 false
@@ -143,29 +108,53 @@ public partial class Menu
     [NotNull]
     private TabItemTextOptions? Options { get; set; }
 
+    private bool _isExpandAll;
+    private bool _isAccordion;
+
     /// <summary>
-    /// OnParametersSet 方法
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _isAccordion = IsAccordion;
+        _isExpandAll = IsExpandAll;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
 
-        // 参数变化时重新整理菜单
-        if (!_init && Items.Any())
+        Items ??= Enumerable.Empty<MenuItem>();
+        InitMenus(null, Items, GetUrl());
+        if (!DisableNavigation)
         {
-            InitMenus(null, Items, Navigator.ToBaseRelativePath(Navigator.Uri));
-            if (!DisableNavigation)
-            {
-                Options.Text = ActiveMenu?.Text;
-                Options.Icon = ActiveMenu?.Icon;
-                Options.IsActive = true;
-            }
-            _init = true;
+            Options.Text = ActiveMenu?.Text;
+            Options.Icon = ActiveMenu?.Icon;
+            Options.IsActive = true;
         }
     }
 
+    private string GetUrl()
+    {
+        var url = Navigator.ToBaseRelativePath(Navigator.Uri);
+        if (url.Contains('?'))
+        {
+            url = url[..url.IndexOf("?")];
+        }
+        if (url.Contains('#'))
+        {
+            url = url[..url.IndexOf("#")];
+        }
+        return url;
+    }
+
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
@@ -173,19 +162,26 @@ public partial class Menu
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (IsVertical)
+        if (!firstRender)
         {
-            if (_invokeJs)
-            {
-                _invokeJs = false;
-                await JSRuntime.InvokeVoidAsync(MenuElemenet, "bb_side_menu");
-            }
-            if (_invokeExpandJs)
-            {
-                _invokeExpandJs = false;
-                await JSRuntime.InvokeVoidAsync(MenuElemenet, "bb_side_menu_expand", IsExpandAll);
-            }
+            await InvokeUpdateAsync();
         }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    private async Task InvokeUpdateAsync()
+    {
+        if (ShouldInvoke())
+        {
+            _isAccordion = IsAccordion;
+            _isExpandAll = IsExpandAll;
+            await InvokeVoidAsync("update", Id);
+        }
+
+        bool ShouldInvoke() => IsVertical && (_isAccordion != IsAccordion || _isExpandAll != IsExpandAll);
     }
 
     private void InitMenus(MenuItem? parent, IEnumerable<MenuItem> menus, string url)
@@ -216,6 +212,9 @@ public partial class Menu
             {
                 // 未禁用导航时 使用地址栏激活菜单
                 item.IsActive = true;
+
+                // 设置父菜单展开
+                item.SetCollapse(false);
             }
 
             if (item.IsActive)
@@ -259,10 +258,7 @@ public partial class Menu
                 else
                 {
                     // 顶栏模式重新级联设置 active
-                    if (ActiveMenu != null)
-                    {
-                        ActiveMenu.CascadingSetActive(false);
-                    }
+                    ActiveMenu?.CascadingSetActive(false);
                     item.CascadingSetActive();
                 }
                 ActiveMenu = item;

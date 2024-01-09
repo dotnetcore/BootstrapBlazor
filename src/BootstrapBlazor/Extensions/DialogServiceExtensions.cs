@@ -26,8 +26,7 @@ public static class DialogServiceExtensions
             [nameof(SearchDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => item.Searchable),
             [nameof(SearchDialog<TModel>.OnResetSearchClick)] = new Func<Task>(async () =>
             {
-                option.OnCloseAsync = null;
-                option.Dialog.RemoveDialog();
+                await option.CloseDialogAsync();
                 if (option.OnResetSearchClick != null)
                 {
                     await option.OnResetSearchClick();
@@ -35,8 +34,7 @@ public static class DialogServiceExtensions
             }),
             [nameof(SearchDialog<TModel>.OnSearchClick)] = new Func<Task>(async () =>
             {
-                option.OnCloseAsync = null;
-                option.Dialog.RemoveDialog();
+                await option.CloseDialogAsync();
                 if (option.OnSearchClick != null)
                 {
                     await option.OnSearchClick();
@@ -68,11 +66,7 @@ public static class DialogServiceExtensions
             [nameof(EditDialog<TModel>.ShowLoading)] = option.ShowLoading,
             [nameof(EditDialog<TModel>.ShowLabel)] = option.ShowLabel,
             [nameof(EditDialog<TModel>.Items)] = option.Items ?? Utility.GenerateColumns<TModel>(item => item.Editable),
-            [nameof(EditDialog<TModel>.OnCloseAsync)] = new Func<Task>(async () =>
-            {
-                option.Dialog.RemoveDialog();
-                await option.Dialog.CloseOrPopDialog();
-            }),
+            [nameof(EditDialog<TModel>.OnCloseAsync)] = option.OnCloseAsync,
             [nameof(EditDialog<TModel>.OnSaveAsync)] = new Func<EditContext, Task>(async context =>
             {
                 if (option.OnEditAsync != null)
@@ -80,8 +74,7 @@ public static class DialogServiceExtensions
                     var ret = await option.OnEditAsync(context);
                     if (ret)
                     {
-                        option.Dialog.RemoveDialog();
-                        await option.Dialog.CloseOrPopDialog();
+                        await option.CloseDialogAsync();
                     }
                 }
             }),
@@ -94,7 +87,8 @@ public static class DialogServiceExtensions
             [nameof(EditDialog<TModel>.SaveButtonText)] = option.SaveButtonText,
             [nameof(EditDialog<TModel>.Model)] = option.Model,
             [nameof(EditDialog<TModel>.DisableAutoSubmitFormByEnter)] = option.DisableAutoSubmitFormByEnter,
-            [nameof(EditDialog<TModel>.BodyTemplate)] = option.DialogBodyTemplate
+            [nameof(EditDialog<TModel>.BodyTemplate)] = option.DialogBodyTemplate,
+            [nameof(EditDialog<TModel>.FooterTemplate)] = option.DialogFooterTemplate
         };
 
         option.Component = BootstrapDynamicComponent.CreateComponent<EditDialog<TModel>>(parameters);
@@ -112,15 +106,15 @@ public static class DialogServiceExtensions
         where TDialog : IComponent, IResultDialog
     {
         IResultDialog? resultDialog = null;
-        var result = DialogResult.Close;
+        var result = DialogResult.Unset;
 
         option.BodyTemplate = builder =>
         {
             var index = 0;
             builder.OpenComponent(index++, typeof(TDialog));
-            if (option.ComponentParamters != null)
+            if (option.ComponentParameters != null)
             {
-                foreach (var p in option.ComponentParamters)
+                foreach (var p in option.ComponentParameters)
                 {
                     builder.AddAttribute(index++, p.Key, p.Value);
                 }
@@ -173,10 +167,15 @@ public static class DialogServiceExtensions
                     await closeCallback();
                 }
 
-                // Modal 与 ModalDialog 的 OnClose 事件陷入死循环
-                // option.OnClose -> Modal.Close -> ModalDialog.Close -> ModalDialog.OnClose -> option.OnClose
                 option.OnCloseAsync = null;
-                await option.Dialog.Close();
+                if (result == DialogResult.Unset)
+                {
+                    result = DialogResult.Close;
+                }
+                else
+                {
+                    await option.CloseDialogAsync();
+                }
                 option.ReturnTask.SetResult(result);
             }
             else
@@ -211,7 +210,7 @@ public static class DialogServiceExtensions
         Dictionary<string, object?>? parameters = null;
         if (parametersFactory != null)
         {
-            parameters = new Dictionary<string, object?>();
+            parameters = [];
             parametersFactory.Invoke(parameters);
         }
         option.Component = BootstrapDynamicComponent.CreateComponent<TComponent>(parameters);

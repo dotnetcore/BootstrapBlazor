@@ -1,0 +1,30 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits BootstrapComponentBase
+
+<div data-bb-toggle="confirm">
+    @if (!string.IsNullOrEmpty(Title))
+    {
+        <h3 class="popover-header">@Title</h3>
+    }
+    <div class="popover-body">
+        <p class="popover-confirm-body">
+            @if (ChildContent != null)
+            {
+                @ChildContent
+            }
+            else
+            {
+                <i class="@IconString"></i>
+                <span>@Content</span>
+            }
+        </p>
+        <div class="popover-confirm-buttons">
+            <div class="@CloseButtonClass" @onclick="@OnCloseClick">
+                <span>@CloseButtonText</span>
+            </div>
+            <div class="@ConfirmButtonClass" @onclick="@OnConfirmClick">
+                <span>@ConfirmButtonText</span>
+            </div>
+        </div>
+    </div>
+</div>

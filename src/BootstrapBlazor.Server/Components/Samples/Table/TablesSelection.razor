@@ -1,0 +1,45 @@
+﻿@page "/table/selection"
+@inject IStringLocalizer<TablesSelection> Localizer
+@inject IStringLocalizer<Foo> LocalizerFoo
+
+<h3>@Localizer["TablesSelectionTitle"]</h3>
+<h4>@((MarkupString)Localizer["TablesSelectionDescription"].Value)</h4>
+
+<DemoBlock Title="@Localizer["TablesSelectionNormalTitle"]"
+           Introduction="@Localizer["TablesSelectionNormalIntro"]"
+           Name="Normal">
+    <div class="table-selection-demo">
+        <Table TItem="Foo" @bind-SelectedRows="SelectedItems" IsKeepSelectedRows="IsKeepSelectedRows" class="table-selection-demo"
+               IsPagination="true" PageItemsSource="@PageItemsSource"
+               IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+               ShowToolbar="true" ShowDefaultButtons="false" OnQueryAsync="@OnQueryAsync">
+            <TableToolbarBeforeTemplate>
+                <div class="table-selection-info">
+                    <div class="me-2">@Localizer["TablesSelectionKeepInfo"]</div>
+                    <Switch @bind-Value="IsKeepSelectedRows" OnText="@Localizer["TablesSelectionKeepOnText"]" OffText="@Localizer["TablesSelectionKeepOffText"]" />
+                    <div class="ms-5">@Localizer["TablesSelectionCountText", SelectedItems.Count]</div>
+                </div>
+            </TableToolbarBeforeTemplate>
+            <TableColumns>
+                <TableColumn @bind-Field="@context.DateTime" Width="180" />
+                <TableColumn @bind-Field="@context.Name" Width="100" />
+                <TableColumn @bind-Field="@context.Address" />
+                <TableColumn @bind-Field="@context.Count" />
+            </TableColumns>
+        </Table>
+
+        <Tips class="mt-3">
+            <div>@((MarkupString)Localizer["TablesSelectionNormalTips"].Value)</div>
+        </Tips>
+
+        <p class="mt-3">@Localizer["TablesSelectionNormalSelectRow"]：</p>
+        <ul class="ul-demo mb-3">
+            @foreach (var item in SelectedItems)
+            {
+                <li>@item.Name</li>
+            }
+        </ul>
+
+        <Button OnClick="OnClick" Color="Color.Primary">@Localizer["TablesSelectionNormalButtonText"]</Button>
+    </div>
+</DemoBlock>

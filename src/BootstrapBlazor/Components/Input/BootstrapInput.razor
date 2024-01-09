@@ -1,14 +1,10 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TValue
-@inherits BootstrapInputBase<TValue>
+@inherits BootstrapInputEventBase<TValue>
 
 @if (IsShowLabel)
 {
-    <BootstrapLabel Value="@DisplayText" ShowLabelTooltip="ShowLabelTooltip" class="form-label" required="@Required" for="@Id" />
+    <BootstrapLabel Value="@DisplayText" ShowLabelTooltip="ShowLabelTooltip" required="@Required" for="@Id" />
 }
 
-<input @attributes="@AdditionalAttributes" type="@Type" placeholder="@PlaceHolder" id="@Id" readonly="@ReadonlyString" class="@ClassName" disabled="@Disabled" @bind-value="CurrentValueAsString" @bind-value:event="onchange" @ref="FocusElement" />
-
-<CascadingValue Value="this" IsFixed="true">
-    @ChildContent
-</CascadingValue>
+<input @attributes="@AdditionalAttributes" type="@Type" placeholder="@PlaceHolder" id="@Id" readonly="@ReadonlyString" class="@ClassName" disabled="@Disabled" @bind-value="CurrentValueAsString" @bind-value:event="@EventString" @ref="FocusElement" />

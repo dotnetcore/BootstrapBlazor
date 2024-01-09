@@ -88,10 +88,34 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public bool? ShowLabelTooltip { get; set; }
 
     /// <summary>
-    /// 获得/设置 步长 默认为 null
+    /// 获得/设置 是否表头允许折行 默认 false 不折行
     /// </summary>
     [Parameter]
-    public object? Step { get; set; }
+    public bool HeaderTextWrap { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否表头显示 Tooltip 默认 false 不显示 可配合 <see cref="HeaderTextEllipsis"/> 使用 设置 <see cref="HeaderTextWrap"/> 为 true 时本参数不生效
+    /// </summary>
+    [Parameter]
+    public bool ShowHeaderTooltip { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否表头 Tooltip 内容
+    /// </summary>
+    [Parameter]
+    public string? HeaderTextTooltip { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否表头溢出时截断 默认 false 不截断 可配合 <see cref="HeaderTextTooltip"/> 使用 设置 <see cref="HeaderTextWrap"/> 为 true 时本参数不生效
+    /// </summary>
+    [Parameter]
+    public bool HeaderTextEllipsis { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public string? Step { get; set; }
 
     /// <summary>
     /// 获得/设置 Textarea 行数 默认为 0
@@ -171,6 +195,12 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// </summary>
     [Parameter]
     public bool Fixed { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public bool ShowCopyColumn { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示本列 默认 true 显示
@@ -340,7 +370,19 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public IEnumerable<SelectedItem>? Lookup { get; set; }
 
     /// <summary>
-    /// 获得/设置 字典数据源字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
+    /// 获得/设置 字段数据源下拉框是否显示搜索栏 默认 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowSearchWhenSelect { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    [Parameter]
+    public bool IsPopover { get; set; }
+
+    /// <summary>
+    /// 获得/设置 字典数据源字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感
     /// </summary>
     [Parameter]
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
@@ -356,6 +398,12 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// </summary>
     [Parameter]
     public Action<TableCellArgs>? OnCellRender { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否为 MarkupString 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsMarkupString { get; set; }
 
     /// <summary>
     /// 获得/设置 自定义验证集合
@@ -388,7 +436,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// <summary>
     /// 获取绑定字段显示名称方法
     /// </summary>
-    public string GetDisplayName() => Text ?? _fieldIdentifier?.GetDisplayName() ?? FieldName ?? "";
+    public virtual string GetDisplayName() => Text ?? _fieldIdentifier?.GetDisplayName() ?? FieldName ?? "";
 
     /// <summary>
     /// 获得/设置 绑定类字段名称

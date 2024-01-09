@@ -7,28 +7,18 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 网页尺寸变化通知组件
 /// </summary>
-public class ResizeNotification : BootstrapComponentBase, IDisposable
+[BootstrapModuleAutoLoader(ModuleName = "responsive", JSObjectReference = true)]
+public class ResizeNotification : BootstrapModuleComponentBase
 {
     [Inject]
     [NotNull]
     private ResizeNotificationService? ResizeService { get; set; }
 
-    private JSInterop<ResizeNotification>? Interop { get; set; }
-
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
     /// </summary>
-    /// <param name="firstRender"></param>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            Interop = new JSInterop<ResizeNotification>(JSRuntime);
-            var point = await Interop.InvokeAsync<BreakPoint>(this, null, "bb_resize_monitor", nameof(OnResize));
-            await OnResize(point);
-        }
-    }
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(OnResize));
 
     /// <summary>
     /// JSInvoke 回调方法
@@ -37,30 +27,4 @@ public class ResizeNotification : BootstrapComponentBase, IDisposable
     /// <returns></returns>
     [JSInvokable]
     public Task OnResize(BreakPoint point) => ResizeService.InvokeAsync(point);
-
-    /// <summary>
-    /// Dispose 方法
-    /// </summary>
-    /// <param name="disposing"></param>
-    /// <returns></returns>
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            if (Interop != null)
-            {
-                Interop.Dispose();
-            }
-        }
-    }
-
-    /// <summary>
-    /// DisposeAsync 方法
-    /// </summary>
-    /// <returns></returns>
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
 }

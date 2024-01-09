@@ -1,0 +1,14 @@
+.color-picker {
+    .form-control-color {
+        max-width: 3rem;
+    }
+}
+
+.input-group > .color-picker {
+    flex: 1;
+
+    > .form-control-color {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+    }
+}

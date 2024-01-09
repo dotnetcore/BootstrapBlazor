@@ -1,0 +1,30 @@
+﻿@page "/translator"
+@inject IStringLocalizer<Translators> Localizer
+
+<h3>@Localizer["TranslatorsTitle"]</h3>
+<h4>@Localizer["TranslatorsDescription"]</h4>
+
+<PackageTips Name="BootstrapBlazor.AzureTranslator" />
+
+<div class="mt-3">@Localizer["TranslatorsInjectService"]</div>
+<Pre class="no-highlight mt-3">services.AddBootstrapBlazorAzureTranslator();</Pre>
+
+<DemoBlock Title="@Localizer["TranslatorsNormalTitle"]"
+           Introduction="@Localizer["TranslatorsNormalIntro"]" ShowCode="false"
+           Name="Normal">
+    <CheckboxList Items="_languages" @bind-Value="_selectedLanguages" class="mb-3"></CheckboxList>
+    <BootstrapInputGroup>
+        <BootstrapInput @bind-Value="@_input"></BootstrapInput>
+        <Button Icon="fa-solid fa-language" Text="@Localizer["TranslatorsTranslate"]" OnClick="OnClickTranslate"></Button>
+    </BootstrapInputGroup>
+
+    @if (_results.Any())
+    {
+        @foreach (var translation in _results.First().Translations)
+        {
+            <div class="mt-3">@FormatResult(translation)</div>
+        }
+    }
+</DemoBlock>
+
+<MethodTable Items="@GetMethods()" />

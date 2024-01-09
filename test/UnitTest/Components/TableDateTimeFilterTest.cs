@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
-
 namespace UnitTest.Components;
 
 public class TableDateTimeFilterTest : BootstrapBlazorTestBase
@@ -22,17 +20,16 @@ public class TableDateTimeFilterTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<DateTimeFilter>();
 
-        var filter = cut.Instance;
-        IEnumerable<FilterKeyValueAction>? condtions = null;
-        cut.InvokeAsync(() => condtions = filter.GetFilterConditions());
-        Assert.NotNull(condtions);
-        Assert.Empty(condtions);
+        var filter = cut.Instance.GetFilterConditions();
+        Assert.NotNull(filter.Filters);
+        Assert.Empty(filter.Filters);
 
         // Set Value
         var dt = cut.FindComponent<DateTimePicker<DateTime?>>();
         cut.InvokeAsync(() => dt.Instance.SetValue(DateTime.Now));
-        cut.InvokeAsync(() => condtions = filter.GetFilterConditions());
-        Assert.Single(condtions);
+        filter = cut.Instance.GetFilterConditions();
+        Assert.NotNull(filter.Filters);
+        Assert.Single(filter.Filters);
     }
 
     [Fact]
@@ -46,20 +43,23 @@ public class TableDateTimeFilterTest : BootstrapBlazorTestBase
         var logic = cut.FindComponent<FilterLogicItem>();
         Assert.NotNull(logic);
 
-        var conditions = cut.Instance.GetFilterConditions();
-        Assert.Empty(conditions);
+        var filter = cut.Instance.GetFilterConditions();
+        Assert.NotNull(filter.Filters);
+        Assert.Empty(filter.Filters);
 
         var dt = cut.FindComponent<DateTimePicker<DateTime?>>().Instance;
         cut.InvokeAsync(() => dt.SetValue(DateTime.Now));
 
-        conditions = cut.Instance.GetFilterConditions();
-        Assert.Single(conditions);
+        filter = cut.Instance.GetFilterConditions();
+        Assert.NotNull(filter.Filters);
+        Assert.Single(filter.Filters);
 
         dt = cut.FindComponents<DateTimePicker<DateTime?>>()[1].Instance;
         cut.InvokeAsync(() => dt.SetValue(DateTime.Now));
 
-        conditions = cut.Instance.GetFilterConditions();
-        Assert.Equal(2, conditions.Count());
+        filter = cut.Instance.GetFilterConditions();
+        Assert.NotNull(filter.Filters);
+        Assert.Equal(2, filter.Filters.Count);
     }
 
     [Fact]
@@ -85,7 +85,6 @@ public class TableDateTimeFilterTest : BootstrapBlazorTestBase
         });
         var filter = cut.FindComponent<DateTimeFilter>();
         var dt = filter.FindComponent<DateTimePicker<DateTime?>>();
-        IEnumerable<FilterKeyValueAction>? condtions = null;
 
         // Click ToDay Cell
         cut.InvokeAsync(() =>
@@ -94,52 +93,60 @@ public class TableDateTimeFilterTest : BootstrapBlazorTestBase
             dt.FindAll(".is-confirm")[1].Click();
         });
 
-        // OnFilterValueChanged
-        var filterButton = cut.FindComponent<FilterButton<FilterAction>>();
-        var logics = filterButton.FindAll(".dropdown-item");
-        Assert.Equal(6, logics.Count);
         cut.InvokeAsync(() =>
         {
+            // OnFilterValueChanged
+            var filterButton = cut.FindComponent<FilterButton<FilterAction>>();
+            var logics = filterButton.FindAll(".dropdown-item");
+            Assert.Equal(6, logics.Count);
             logics[1].Click();
-            condtions = filter.Instance.GetFilterConditions();
         });
-        Assert.NotNull(condtions);
-        Assert.Single(condtions);
-        Assert.Equal(FilterAction.LessThanOrEqual, condtions?.First().FilterAction);
+        var conditions = filter.Instance.GetFilterConditions();
+        Assert.NotNull(conditions.Filters);
+        Assert.Single(conditions.Filters);
+        Assert.Equal(FilterAction.LessThanOrEqual, conditions.Filters[0].FilterAction);
 
         // OnClearFilter
         cut.InvokeAsync(() =>
         {
             dt.Find(".is-confirm").Click();
-            condtions = filter.Instance.GetFilterConditions();
         });
-        Assert.NotNull(condtions);
-        Assert.Empty(condtions);
+        conditions = filter.Instance.GetFilterConditions();
+        Assert.NotNull(conditions.Filters);
+        Assert.Empty(conditions.Filters);
     }
 
     [Fact]
-    public async Task SetFilterConditions_Ok()
+    public void SetFilterConditions_Ok()
     {
         var cut = Context.RenderComponent<DateTimeFilter>();
         var filter = cut.Instance;
         var conditions = filter.GetFilterConditions();
-        Assert.Empty(conditions);
+        Assert.NotNull(conditions.Filters);
+        Assert.Empty(conditions.Filters);
 
-        var newConditions = new List<FilterKeyValueAction>();
-        DateTime dati = DateTime.Now;
-        newConditions.Add(new FilterKeyValueAction() { FieldValue = dati });
-        newConditions.Add(new FilterKeyValueAction() { FieldValue = dati });
-        await filter.SetFilterConditionsAsync(newConditions);
+        var newConditions = new FilterKeyValueAction() { Filters = [] };
+        DateTime now = DateTime.Now;
+        newConditions.Filters.Add(new FilterKeyValueAction() { FieldValue = now });
+        newConditions.Filters.Add(new FilterKeyValueAction() { FieldValue = now });
+        cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();
 
-        Assert.NotNull(conditions);
-        Assert.Equal(2, conditions.Count());
+        Assert.NotNull(conditions.Filters);
+        Assert.Equal(2, conditions.Filters.Count);
 
-        newConditions.Clear();
-        newConditions.Add(new FilterKeyValueAction() { FieldValue = null });
-        newConditions.Add(new FilterKeyValueAction() { FieldValue = null });
-        await filter.SetFilterConditionsAsync(newConditions);
+        newConditions.Filters.Clear();
+        newConditions.Filters.Add(new FilterKeyValueAction() { FieldValue = null });
+        newConditions.Filters.Add(new FilterKeyValueAction() { FieldValue = null });
+        cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();
-        Assert.Empty(conditions);
+        Assert.NotNull(conditions.Filters);
+        Assert.Empty(conditions.Filters);
+
+        newConditions = new FilterKeyValueAction() { FieldValue = now };
+        cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
+        conditions = filter.GetFilterConditions();
+        Assert.NotNull(conditions.Filters);
+        Assert.Single(conditions.Filters);
     }
 }

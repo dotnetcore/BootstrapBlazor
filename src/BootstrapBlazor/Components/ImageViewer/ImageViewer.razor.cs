@@ -22,8 +22,6 @@ public partial class ImageViewer
         .AddClass("d-none", ShouldHandleError && !IsLoaded)
         .Build();
 
-    private ElementReference ImageElement { get; set; }
-
     /// <summary>
     /// 获得/设置 图片 Url 默认 null 必填
     /// </summary>
@@ -87,6 +85,12 @@ public partial class ImageViewer
     /// </summary>
     [Parameter]
     public List<string>? PreviewList { get; set; }
+    
+    /// <summary>
+    /// 获得/设置 预览大图当前链接集合点开的索引 默认为 0
+    /// </summary>
+    [Parameter]
+    public int PreviewIndex { get; set; } = 0;
 
     /// <summary>
     /// 获得/设置 图片加载失败时回调方法
@@ -100,27 +104,55 @@ public partial class ImageViewer
     [Parameter]
     public Func<string, Task>? OnLoadAsync { get; set; }
 
+    /// <summary>
+    /// 获得/设置 图片文件图标
+    /// </summary>
+    [Parameter]
+    public string? FileIcon { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IIconTheme? IconTheme { get; set; }
+
     private bool ShowImage => !string.IsNullOrEmpty(Url);
 
     private bool IsLoaded { get; set; }
 
     private bool IsError { get; set; }
 
+    private string? IsAsyncString => IsAsync ? "true" : null;
+
     /// <summary>
-    /// OnAfterRenderAsync 方法
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        IsError = false;
+        FileIcon ??= IconTheme.GetIconByKey(ComponentIcons.ImageViewerFileIcon);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     /// <param name="firstRender"></param>
     /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (!firstRender)
         {
-            if (IsAsync)
-            {
-                await JSRuntime.InvokeVoidAsync(ImageElement, "bb_image_load_async", Url);
-            }
+            await InvokeVoidAsync("update", Id, PreviewList, PreviewIndex);
         }
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Url, PreviewList, PreviewIndex);
 
     private RenderFragment RenderChildContent() => builder =>
     {
@@ -149,20 +181,13 @@ public partial class ImageViewer
             }
             if (ShouldHandleError)
             {
-                builder.AddAttribute(4, "onerror", EventCallback.Factory.Create(this, async () =>
+                builder.AddAttribute(5, "onerror", EventCallback.Factory.Create(this, async () =>
                 {
                     IsError = true;
                     if (OnErrorAsync != null)
                     {
                         await OnErrorAsync(Url);
                     }
-                }));
-            }
-            if (PreviewList != null && PreviewList.Count > 0)
-            {
-                builder.AddAttribute(5, "onclick", EventCallback.Factory.Create(this, async () =>
-                {
-                    await JSRuntime.InvokeVoidAsync(ImageElement, "bb_image_preview", PreviewList);
                 }));
             }
             builder.CloseElement();
@@ -182,5 +207,7 @@ public partial class ImageViewer
 
     private bool ShouldHandleError => HandleError || ErrorTemplate != null;
 
-    private bool ShowPreviewList => PreviewList != null && PreviewList.Count > 0;
+    private bool ShowPreviewList => PreviewList?.Any() ?? false;
+
+    private string PreviewerId => $"prev_{Id}";
 }

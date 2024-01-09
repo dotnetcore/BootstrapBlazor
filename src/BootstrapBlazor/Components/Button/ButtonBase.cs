@@ -9,7 +9,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Button 按钮组件
 /// </summary>
-public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
+[BootstrapModuleAutoLoader("Button/Button.razor.js", AutoInvokeInit = false)]
+public abstract class ButtonBase : TooltipWrapperBase
 {
     /// <summary>
     /// 获得 按钮样式集合
@@ -17,7 +18,7 @@ public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
     /// <returns></returns>
     protected string? ClassName => CssBuilder.Default("btn")
         .AddClass($"btn-outline-{Color.ToDescriptionString()}", IsOutline)
-        .AddClass($"btn-{Color.ToDescriptionString()}", !IsOutline)
+        .AddClass($"btn-{Color.ToDescriptionString()}", !IsOutline && Color != Color.None)
         .AddClass($"btn-{Size.ToDescriptionString()}", Size != Size.None)
         .AddClass("btn-block", IsBlock)
         .AddClass("btn-round", ButtonStyle == ButtonStyle.Round)
@@ -36,7 +37,7 @@ public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
     protected string DisabledString => IsDisabled ? "true" : "false";
 
     /// <summary>
-    /// 获得 按钮 tabindex 属性
+    /// 获得 按钮 tab index 属性
     /// </summary>
     protected string? Tab => IsDisabled ? "-1" : null;
 
@@ -85,7 +86,8 @@ public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
     /// 获得/设置 正在加载动画图标 默认为 fa-solid fa-spin fa-spinner
     /// </summary>
     [Parameter]
-    public string LoadingIcon { get; set; } = "fa-fw fa-spin fa-solid fa-spinner";
+    [NotNull]
+    public string? LoadingIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 是否为异步按钮，默认为 false 如果为 true 表示是异步按钮，点击按钮后禁用自身并且等待异步完成，过程中显示 loading 动画
@@ -109,7 +111,7 @@ public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
     /// 获得/设置 Size 大小
     /// </summary>
     [Parameter]
-    public Size Size { get; set; } = Size.None;
+    public Size Size { get; set; }
 
     /// <summary>
     /// 获得/设置 Block 模式
@@ -133,30 +135,28 @@ public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
     /// 获得/设置 RenderFragment 实例
     /// </summary>
     [Parameter]
+    [NotNull]
     public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
-    /// 获得/设置 TooltipText 显示文字 默认为 null
+    /// 获得 ValidateForm 实例
     /// </summary>
-    [Parameter]
-    public string? TooltipText { get; set; }
+    [CascadingParameter]
+    protected ValidateForm? ValidateForm { get; set; }
 
     /// <summary>
-    /// 获得/设置 Tooltip 显示位置 默认为 Top
+    /// 获得 IconTheme 实例
     /// </summary>
-    [Parameter]
-    public Placement TooltipPlacement { get; set; } = Placement.Top;
-
-    /// <summary>
-    /// 获得/设置 Tooltip 触发方式 默认为 hover focus
-    /// </summary>
-    [Parameter]
-    public string TooltipTrigger { get; set; } = "hover focus";
+    [Inject]
+    [NotNull]
+    protected IIconTheme? IconTheme { get; set; }
 
     /// <summary>
     /// 获得/设置 是否当前正在异步执行操作
     /// </summary>
     protected bool IsAsyncLoading { get; set; }
+
+    private string? _lastTooltipText;
 
     /// <summary>
     /// OnInitialized 方法
@@ -166,6 +166,12 @@ public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
         base.OnInitialized();
 
         ButtonIcon = Icon;
+
+        if (IsAsync && ValidateForm != null)
+        {
+            // 开启异步操作时与 ValidateForm 联动
+            ValidateForm.RegisterAsyncSubmitButton(this);
+        }
     }
 
     /// <summary>
@@ -175,9 +181,16 @@ public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
     {
         base.OnParametersSet();
 
+        LoadingIcon ??= IconTheme.GetIconByKey(ComponentIcons.ButtonLoadingIcon);
+
         if (!IsAsyncLoading)
         {
             ButtonIcon = Icon;
+        }
+
+        if (Tooltip != null && !string.IsNullOrEmpty(TooltipText))
+        {
+            Tooltip.SetParameters(TooltipText, TooltipPlacement, TooltipTrigger);
         }
     }
 
@@ -194,6 +207,7 @@ public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
         if (firstRender)
         {
             _prevDisable = IsDisabled;
+            _lastTooltipText = TooltipText;
             if (!IsDisabled)
             {
                 await ShowTooltip();
@@ -211,6 +225,14 @@ public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
                 await ShowTooltip();
             }
         }
+        else if (Tooltip == null && _lastTooltipText != TooltipText)
+        {
+            _lastTooltipText = TooltipText;
+            if (!IsDisabled)
+            {
+                await ShowTooltip();
+            }
+        }
     }
 
     /// <summary>
@@ -224,14 +246,25 @@ public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
     }
 
     /// <summary>
+    /// 触发按钮异步操作方法
+    /// </summary>
+    /// <param name="loading">true 时显示正在操作 false 时表示结束</param>
+    internal void TriggerAsync(bool loading)
+    {
+        IsAsyncLoading = loading;
+        ButtonIcon = loading ? LoadingIcon : Icon;
+        SetDisable(loading);
+    }
+
+    /// <summary>
     /// 显示 Tooltip 方法
     /// </summary>
     /// <returns></returns>
     public virtual async Task ShowTooltip()
     {
-        if (!string.IsNullOrEmpty(Id) && !string.IsNullOrEmpty(TooltipText))
+        if (Tooltip == null && !string.IsNullOrEmpty(TooltipText))
         {
-            await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", Id, "", TooltipText, TooltipPlacement.ToDescriptionString(), false, TooltipTrigger);
+            await InvokeVoidAsync("showTooltip", Id, TooltipText);
         }
     }
 
@@ -241,9 +274,9 @@ public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
     /// <returns></returns>
     public virtual async Task RemoveTooltip()
     {
-        if (!string.IsNullOrEmpty(Id))
+        if (Tooltip == null)
         {
-            await JSRuntime.InvokeVoidAsync(null, "bb_tooltip", Id, "dispose");
+            await InvokeVoidAsync("removeTooltip", Id);
         }
     }
 
@@ -252,20 +285,12 @@ public abstract class ButtonBase : IdComponentBase, IAsyncDisposable
     /// </summary>
     /// <param name="disposing"></param>
     /// <returns></returns>
-    protected virtual async ValueTask DisposeAsyncCore(bool disposing)
+    protected override async ValueTask DisposeAsync(bool disposing)
     {
         if (disposing)
         {
             await RemoveTooltip();
         }
-    }
-
-    /// <summary>
-    /// DisposeAsync 方法
-    /// </summary>
-    public async ValueTask DisposeAsync()
-    {
-        await DisposeAsyncCore(true);
-        GC.SuppressFinalize(this);
+        await base.DisposeAsync(disposing);
     }
 }

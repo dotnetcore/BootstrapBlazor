@@ -49,5 +49,5 @@ public interface IDynamicObjectContext
     /// <summary>
     /// 获得/设置 选中行是否相等判断逻辑 默认为 null
     /// </summary>
-    Func<IDynamicObject, IDynamicObject, bool>? EqualityComparer { get; set; }
+    Func<IDynamicObject?, IDynamicObject?, bool>? EqualityComparer { get; set; }
 }

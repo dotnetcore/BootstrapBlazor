@@ -2,10 +2,10 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Net;
+using RouteAttribute = Microsoft.AspNetCore.Mvc.RouteAttribute;
 
 namespace BootstrapBlazor.Server.Controllers.Api;
 
@@ -27,7 +27,7 @@ public class CodeController : ControllerBase
     public async Task<string> Get([FromQuery] string fileName, [FromServices] HttpClient client, [FromServices] IOptionsMonitor<WebsiteOptions> options)
     {
         var ret = "";
-        client.BaseAddress = new Uri(options.CurrentValue.RepositoryUrl);
+        client.BaseAddress = new Uri(options.CurrentValue.SourceUrl);
         try
         {
             ret = await client.GetStringAsync(fileName);

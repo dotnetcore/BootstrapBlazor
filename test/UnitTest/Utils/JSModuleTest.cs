@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
 using Microsoft.JSInterop;
 
 namespace UnitTest.Utils;
@@ -20,17 +19,22 @@ public class JSModuleTest
     }
 
     [Fact]
-    public void InvokeVoidAsync_Ok()
+    public async Task InvokeVoidAsync_Ok()
     {
         var js = new MockJSObjectReference();
         var module = new JSModule(js);
-        module.InvokeVoidAsync("$.test");
-        module.InvokeVoidAsync("$.test", CancellationToken.None);
-        module.InvokeAsync<object>("$.test");
+        await module.InvokeVoidAsync("Test.init", "bb_id");
+        await module.InvokeVoidAsync("Test.init", TimeSpan.Zero, "bb_id");
+        await module.InvokeVoidAsync("Test.init", Timeout.InfiniteTimeSpan, "bb_id");
+        await module.InvokeVoidAsync("Test.init", CancellationToken.None, "bb_id");
+        await module.InvokeAsync<object>("Test.init", "bb_id");
+        await module.InvokeAsync<object>("Test.init", TimeSpan.Zero, "bb_id");
+        await module.InvokeAsync<object>("Test.init", Timeout.InfiniteTimeSpan, "bb_id");
+        await module.InvokeAsync<object>("Test.init", CancellationToken.None, "bb_id");
     }
 
     [Fact]
-    public async ValueTask Dispose_Ok()
+    public async Task Dispose_Ok()
     {
         var js = new MockJSObjectReference();
         var module = new JSModule(js);
@@ -38,31 +42,29 @@ public class JSModuleTest
     }
 
     [Fact]
-    public void Dispose_Error()
+    public async Task Dispose_Error()
     {
         var js = new MockErrorJSObjectReference();
         var module = new JSModule(js);
-        Assert.ThrowsAsync<InvalidOperationException>(async () => await module.DisposeAsync());
-    }
-
-    [Fact]
-    public async ValueTask JSModuleGeneric_Ok()
-    {
-        var js = new MockJSObjectReference();
-        var module = new JSModule<object>(js, new Foo());
-        Assert.NotNull(module);
-
-        await module.InvokeVoidAsync("$.text");
         await module.DisposeAsync();
     }
 
     [Fact]
-    public async ValueTask JSModuleGeneric_Error()
+    public async Task JSModule_JSDisconnectedException()
     {
-        var js = new MockErrorJSObjectReference();
-        var module = new JSModule<object>(js, new Foo());
-        await module.InvokeVoidAsync("$.text");
-        await module.DisposeAsync();
+        var js = new MockJSDisconnectedObjectReference();
+        var module = new JSModule(js);
+        await module.InvokeVoidAsync("test");
+        await module.InvokeAsync<int>("test");
+    }
+
+    [Fact]
+    public async Task JSModule_TaskCanceledException()
+    {
+        var js = new MockTaskCanceledObjectReference();
+        var module = new JSModule(js);
+        await module.InvokeVoidAsync("test");
+        await module.InvokeAsync<int>("test");
     }
 
     private class MockErrorJSObjectReference : MockJSObjectReference
@@ -100,5 +102,25 @@ public class JSModuleTest
         {
             return ValueTask.FromResult<TValue>(default!);
         }
+
+        public ValueTask InvokeVoidAsync_JSDisconnected_Test() => throw new JSDisconnectedException("Test");
+    }
+
+    private class MockJSDisconnectedObjectReference : IJSObjectReference
+    {
+        public ValueTask DisposeAsync() => throw new JSDisconnectedException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, object?[]? args) => throw new JSDisconnectedException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, CancellationToken cancellationToken, object?[]? args) => throw new JSDisconnectedException("Test");
+    }
+
+    private class MockTaskCanceledObjectReference : IJSObjectReference
+    {
+        public ValueTask DisposeAsync() => throw new TaskCanceledException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, object?[]? args) => throw new TaskCanceledException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, CancellationToken cancellationToken, object?[]? args) => throw new TaskCanceledException("Test");
     }
 }

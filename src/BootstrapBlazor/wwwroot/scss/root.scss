@@ -1,0 +1,50 @@
+:root {
+    --bb-border-focus-color: #{$bb-border-focus-color};
+    --bb-border-hover-color: #{$bb-border-hover-color};
+    --bb-height: #{$bb-height};
+    --bb-dropdown-max-height: #{$bb-dropdown-max-height};
+    --bb-shadow: #{$bb-shadow};
+    --bb-hover-shadow: #{$bb-hover-shadow};
+    --bb-font-size: #{$bb-font-size};
+}
+
+body,
+.form-control,
+.dropdown-menu,
+.form-select,
+.input-group-text {
+    font-size: var(--bb-font-size);
+}
+
+a,
+[for] {
+    cursor: pointer;
+}
+
+a, a:hover, a:focus {
+    text-decoration: none;
+}
+
+[disabled],
+:disabled,
+.disabled,
+.disabled > * {
+    cursor: not-allowed !important;
+}
+
+.disabled .range-separator,
+:disabled {
+    background-color: var(--bs-secondary-bg);
+    opacity: 1;
+}
+
+:focus-visible,
+:focus {
+    outline: none;
+}
+
+// 修复 bootstrap 5.2.2 popover button 右侧圆角问题
+.btn-group > .btn:not(.dropdown-toggle):not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}

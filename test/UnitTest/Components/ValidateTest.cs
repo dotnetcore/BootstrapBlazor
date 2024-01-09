@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
 using Microsoft.AspNetCore.Components.Forms;
 using System.ComponentModel.DataAnnotations;
 
@@ -10,17 +9,6 @@ namespace UnitTest.Components;
 
 public class ValidateTest : BootstrapBlazorTestBase
 {
-    [Fact]
-    public void ChildContent_Ok()
-    {
-        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
-        {
-            builder.AddChildContent("ChildContent-Test");
-            builder.Add(a => a.ShowLabelTooltip, true);
-        });
-        Assert.Contains("ChildContent-Test", cut.Markup);
-    }
-
     [Fact]
     public async Task CascadedEditContext_Ok()
     {
@@ -99,7 +87,7 @@ public class ValidateTest : BootstrapBlazorTestBase
         {
             builder.Add(a => a.ShowLabel, false);
         });
-        Assert.DoesNotContain("label", cut.Markup);
+        cut.WaitForAssertion(() => cut.DoesNotContain("label"));
     }
 
     [Fact]
@@ -122,14 +110,14 @@ public class ValidateTest : BootstrapBlazorTestBase
         {
             builder.Add(a => a.ShowLabel, false);
         });
-        Assert.DoesNotContain("label", cut.Markup);
+        cut.WaitForAssertion(() => cut.DoesNotContain("label"));
 
         // IsShowLabel 为空时 不显示标签
         cut.SetParametersAndRender(builder =>
         {
             builder.Add(a => a.ShowLabel, null);
         });
-        Assert.DoesNotContain("label", cut.Markup);
+        cut.WaitForAssertion(() => cut.DoesNotContain("label"));
 
         // 开启双向绑定时 IsShowLabel 为空时 不显示标签
         cut.SetParametersAndRender(builder =>
@@ -138,7 +126,7 @@ public class ValidateTest : BootstrapBlazorTestBase
             builder.Add(a => a.Value, model.Name);
             builder.Add(a => a.ValueExpression, model.GenerateValueExpression());
         });
-        Assert.DoesNotContain("label", cut.Markup);
+        cut.WaitForAssertion(() => cut.DoesNotContain("label"));
 
         // 开启双向绑定时 IsShowLabel=false 时 不显示标签
         cut.SetParametersAndRender(builder =>
@@ -147,7 +135,7 @@ public class ValidateTest : BootstrapBlazorTestBase
             builder.Add(a => a.Value, model.Name);
             builder.Add(a => a.ValueExpression, model.GenerateValueExpression());
         });
-        Assert.DoesNotContain("label", cut.Markup);
+        cut.WaitForAssertion(() => cut.DoesNotContain("label"));
 
         // 开启双向绑定时 IsShowLabel=true 时 显示标签
         cut.SetParametersAndRender(builder =>
@@ -156,7 +144,7 @@ public class ValidateTest : BootstrapBlazorTestBase
             builder.Add(a => a.Value, model.Name);
             builder.Add(a => a.ValueExpression, model.GenerateValueExpression());
         });
-        Assert.Contains("label", cut.Markup);
+        cut.WaitForAssertion(() => cut.Contains("label"));
     }
 
     [Fact]
@@ -395,7 +383,7 @@ public class ValidateTest : BootstrapBlazorTestBase
     [Fact]
     public async Task ValidateProperty_Ok()
     {
-        var model = new Foo() { Hobby = new string[0] };
+        var model = new Foo() { Hobby = Array.Empty<string>() };
         var invalid = false;
         var cut = Context.RenderComponent<ValidateForm>(builder =>
         {
@@ -411,10 +399,9 @@ public class ValidateTest : BootstrapBlazorTestBase
                 pb.Add(v => v.ValueExpression, model.GenerateValueExpression(nameof(Foo.Hobby), typeof(IEnumerable<string>)));
                 pb.Add(v => v.Items, new List<SelectedItem>()
                 {
-                        new SelectedItem("1", "test1"),
-                        new SelectedItem("2", "test2")
+                    new SelectedItem("1", "test1"),
+                    new SelectedItem("2", "test2")
                 });
-                pb.AddChildContent<Tooltip>();
             });
             builder.AddChildContent<Button>(pb =>
             {
@@ -488,9 +475,11 @@ public class ValidateTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task ValidateType_Ok()
+    public void ValidateType_Ok()
     {
         var model = new Foo() { Count = 0 };
+        var dog = new Dog() { Count = 10 };
+
         var cut = Context.RenderComponent<RenderTemplate>(builder =>
         {
             builder.AddChildContent<MockValidate<int>>(pb =>
@@ -498,9 +487,32 @@ public class ValidateTest : BootstrapBlazorTestBase
                 pb.Add(v => v.Value, model.Count);
                 pb.Add(v => v.ValueExpression, model.GenerateValueExpression(nameof(Foo.Count), typeof(int)));
             });
+            builder.AddChildContent<MockValidate<int?>>(pb =>
+            {
+                pb.Add(v => v.Value, dog.Count);
+            });
         });
         var intValidate = cut.FindComponent<MockValidate<int>>();
-        await intValidate.Instance.ValidateTypeTest(model);
+        cut.InvokeAsync(() => intValidate.Instance.ValidateTypeTest(model));
+
+        var nullableIntValidate = cut.FindComponent<MockValidate<int?>>();
+        cut.InvokeAsync(() => nullableIntValidate.Instance.ValidateTypeTest(dog));
+    }
+
+    [Fact]
+    public async Task NoIdCheck_Ok()
+    {
+        var model = new Foo() { Count = 0 };
+        var cut = Context.RenderComponent<RenderTemplate>(builder =>
+        {
+            builder.AddChildContent<NoIdValidate<int>>(pb =>
+            {
+                pb.Add(v => v.Value, model.Count);
+                pb.Add(v => v.ValueExpression, model.GenerateValueExpression(nameof(Foo.Count), typeof(int)));
+            });
+        });
+        var intValidate = cut.FindComponent<NoIdValidate<int>>();
+        await intValidate.Instance.ShowValidResultTest();
     }
 
     [Fact]
@@ -584,7 +596,7 @@ public class ValidateTest : BootstrapBlazorTestBase
             CurrentValueAsString = "1";
         }
 
-        public async Task ValidateTypeTest(Foo model)
+        public async Task ValidateTypeTest(object model)
         {
             CurrentValueAsString = "test";
 
@@ -601,6 +613,15 @@ public class ValidateTest : BootstrapBlazorTestBase
         }
     }
 
+    private class NoIdValidate<TValue> : ValidateBase<TValue>
+    {
+        public async ValueTask ShowValidResultTest()
+        {
+            Id = "";
+            await base.ShowValidResult();
+        }
+    }
+
     class Dummy
     {
         public virtual string? Foo { get; set; }
@@ -610,5 +631,10 @@ public class ValidateTest : BootstrapBlazorTestBase
     {
         [Required]
         public new int Foo { get; set; }
+    }
+
+    class Dog
+    {
+        public int? Count { get; set; }
     }
 }

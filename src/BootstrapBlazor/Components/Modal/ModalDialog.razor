@@ -1,54 +1,71 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
+@attribute [BootstrapModuleAutoLoader("Modal/ModalDialog.razor.js", JSObjectReference = true)]
 
-<div class="@ClassName" role="document" @ref="DialogElement">
+<div class="@ClassName" id="@Id">
     <div class="modal-content">
-        <div class="modal-header">
-            @if (HeaderTemplate != null)
-            {
-                @HeaderTemplate
-            }
-            else
-            {
-                <h5 class="modal-title flex-fill">@Title</h5>
-            }
-        </div>
-        <div class="modal-header-buttons">
-            @if (ShowPrintButton && ShowPrintButtonInHeader)
-            {
-                <PrintButton Color="Color.Primary" class="btn-print" Text="@PrintButtonText" />
-            }
-            @if (ShowMaximizeButton)
-            {
-                <Button Color="Color.None" class="btn-maximize" aria-label="@MaximizeAriaLabel" OnClick="@OnToggleMaximize" Icon="@MaximizeIcon"></Button>
-            }
-            @if (ShowHeaderCloseButton)
-            {
-                <Button Color="Color.None" class="btn-close" aria-label="Close" OnClickWithoutRender="@OnClickClose"></Button>
-            }
-        </div>
-        <CascadingValue Name="BodyContext" Value="@BodyContext" IsFixed="true">
-            <div class="modal-body">
-                @RenderBodyTemplate()
-            </div>
-            @if (ShowFooter)
-            {
-                <div class="modal-footer">
-                    @if (ShowCloseButton)
+        @if (ShowHeader)
+        {
+            <div class="modal-header">
+                @if (HeaderTemplate != null)
+                {
+                    @HeaderTemplate
+                }
+                else
+                {
+                    <h5 class="modal-title flex-fill">@Title</h5>
+                }
+                <div class="modal-header-buttons">
+                    @if (HeaderToolbarTemplate != null)
                     {
-                        <Button Color="Color.Secondary" Text="@CloseButtonText" Icon="fa-solid fa-fw fa-xmark" OnClickWithoutRender="OnClickClose" />
+                        @HeaderToolbarTemplate
                     }
-                    @if (ShowPrintButton && !ShowPrintButtonInHeader)
+                    @if (ShowPrintButton && ShowPrintButtonInHeader)
                     {
-                        <PrintButton Color="Color.Primary" class="btn-print" Text="@PrintButtonText" />
+                        <PrintButton Color="Color.Primary" class="btn-print" Text="@PrintButtonText"></PrintButton>
                     }
-                    @if (ShowSaveButton)
+                    @if (ShowMaximizeButton)
                     {
-                        <Button Color="Color.Primary" Text="@SaveButtonText" Icon="fa-solid fa-fw fa-floppy-disk" OnClickWithoutRender="OnClickSave" />
+                        <Button Color="Color.None" class="btn-maximize" aria-label="@MaximizeAriaLabel" OnClick="@OnToggleMaximize" Icon="@MaximizeIconString"></Button>
                     }
-                    @FooterTemplate
+                    @if (ShowHeaderCloseButton)
+                    {
+                        <Button Color="Color.None" class="btn-close" aria-label="Close" OnClickWithoutRender="@OnClickCloseAsync"></Button>
+                    }
                 </div>
-            }
+            </div>
+        }
+        <CascadingValue Name="BodyContext" Value="@BodyContext" IsFixed="true">
+            <CascadingValue Value="OnClickCloseAsync" IsFixed="true">
+                <div class="modal-body">
+                    @RenderBodyTemplate()
+                </div>
+                @if (ShowFooter)
+                {
+                    <div class="modal-footer">
+                        @if (ShowCloseButton)
+                        {
+                            <DialogCloseButton Text="@CloseButtonText" Icon="@CloseButtonIcon"></DialogCloseButton>
+                        }
+                        @if (ShowPrintButton && !ShowPrintButtonInHeader)
+                        {
+                            <PrintButton Color="Color.Primary" class="btn-print" Text="@PrintButtonText"></PrintButton>
+                        }
+                        @if (ShowSaveButton)
+                        {
+                            <Button Color="Color.Primary" Text="@SaveButtonText" Icon="@SaveIcon" OnClickWithoutRender="OnClickSave"></Button>
+                        }
+                        @if (FooterTemplate != null)
+                        {
+                            @FooterTemplate
+                        }
+                    </div>
+                }
+                @if (ShowResize)
+                {
+                    <svg class="modal-resizer" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" width="200" height="200"><path d="M319.20128 974.56128L348.16 1003.52l655.36-655.36-28.95872-28.95872-655.36 655.36zM675.84 1003.52l327.68-327.68-28.95872-28.95872-327.68 327.68L675.84 1003.52z"></path></svg>
+                }
+            </CascadingValue>
         </CascadingValue>
     </div>
 </div>

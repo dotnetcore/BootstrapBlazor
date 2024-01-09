@@ -1,0 +1,20 @@
+﻿.widget-demo {
+    background-color: rgba(var(--bs-body-color-rgb), .12);
+    border-radius: var(--bs-border-radius);
+}
+
+.dropdown-item-center {
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-item-progress {
+    position: relative;
+    min-width: 190px;
+    margin-bottom: .5rem;
+}
+
+.dropdown-item small {
+    position: absolute;
+    right: 0;
+}

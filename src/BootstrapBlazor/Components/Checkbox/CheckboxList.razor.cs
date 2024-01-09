@@ -11,13 +11,12 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// CheckboxList 组件基类
 /// </summary>
-public partial class CheckboxList<TValue>
+public partial class CheckboxList<TValue> : ValidateBase<TValue>
 {
     /// <summary>
     /// 获得 组件样式
     /// </summary>
-    protected string? GetClassString(string? defaultClass = "checkbox-list form-control") => CssBuilder.Default()
-        .AddClass(defaultClass)
+    private string? ClassString => CssBuilder.Default("checkbox-list form-control")
         .AddClass("no-border", !ShowBorder && ValidCss != "is-invalid")
         .AddClass("is-vertical", IsVertical)
         .AddClass(CssClass).AddClass(ValidCss)
@@ -30,12 +29,31 @@ public partial class CheckboxList<TValue>
         .AddClass(CheckboxItemClass)
         .Build();
 
+    private string? ButtonClassString => CssBuilder.Default("checkbox-list is-button")
+        .AddClassFromAttributes(AdditionalAttributes)
+        .Build();
+
+    private string? ButtonGroupClassString => CssBuilder.Default("btn-group")
+        .AddClass("disabled", IsDisabled)
+        .AddClass("btn-group-vertical", IsVertical)
+        .Build();
+
+    private string? GetButtonItemClassString(SelectedItem item) => CssBuilder.Default("btn")
+        .AddClass($"active bg-{Color.ToDescriptionString()}", CurrentValueAsString.Contains(item.Value))
+        .Build();
+
     /// <summary>
     /// 获得/设置 数据源
     /// </summary>
     [Parameter]
     [NotNull]
     public IEnumerable<SelectedItem>? Items { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否为按钮样式 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsButton { get; set; }
 
     /// <summary>
     /// 获得/设置 Checkbox 组件布局样式
@@ -56,6 +74,12 @@ public partial class CheckboxList<TValue>
     public bool IsVertical { get; set; }
 
     /// <summary>
+    /// 获得/设置 按钮颜色 默认为 None 未设置
+    /// </summary>
+    [Parameter]
+    public Color Color { get; set; }
+
+    /// <summary>
     /// 获得/设置 SelectedItemChanged 方法
     /// </summary>
     [Parameter]
@@ -66,19 +90,11 @@ public partial class CheckboxList<TValue>
     private IStringLocalizerFactory? LocalizerFactory { get; set; }
 
     /// <summary>
-    /// SetParametersAsync 方法
+    /// 获得 当前选项是否被禁用
     /// </summary>
-    /// <param name="parameters"></param>
+    /// <param name="item"></param>
     /// <returns></returns>
-    public override Task SetParametersAsync(ParameterView parameters)
-    {
-        parameters.SetParameterProperties(this);
-
-        EnsureParameterValid();
-
-        // For derived components, retain the usual lifecycle with OnInit/OnParametersSet/etc.
-        return base.SetParametersAsync(ParameterView.Empty);
-    }
+    protected bool GetDisabledState(SelectedItem item) => IsDisabled || item.IsDisabled;
 
     /// <summary>
     /// OnInitialized 方法
@@ -86,6 +102,8 @@ public partial class CheckboxList<TValue>
     protected override void OnInitialized()
     {
         base.OnInitialized();
+
+        EnsureParameterValid();
 
         // 处理 Required 标签
         if (EditContext != null && FieldIdentifier != null)
@@ -114,21 +132,42 @@ public partial class CheckboxList<TValue>
     {
         base.OnParametersSet();
 
+        if (IsButton && Color == Color.None)
+        {
+            Color = Color.Primary;
+        }
+
         if (Items == null)
         {
             var t = typeof(TValue);
-            if (t == typeof(string))
+            var innerType = t.GetGenericArguments().FirstOrDefault();
+            if (innerType != null)
             {
-                Items = Enumerable.Empty<SelectedItem>();
+                Items = innerType.ToSelectList();
             }
-            else
-            {
-                var innerType = t.GetGenericArguments()[0];
-                Items = innerType.IsEnum ? innerType.ToSelectList() : Enumerable.Empty<SelectedItem>();
-            }
+            Items ??= Enumerable.Empty<SelectedItem>();
         }
 
         InitValue();
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    protected override string? FormatValueAsString(TValue value)
+    {
+        string? ret = null;
+        if (ValueType == typeof(string))
+        {
+            ret = value?.ToString();
+        }
+        else
+        {
+            ret = string.Join(",", Items.Where(i => i.Active).Select(i => i.Value));
+        }
+        return ret;
     }
 
     private void InitValue()
@@ -165,8 +204,8 @@ public partial class CheckboxList<TValue>
         var instance = Activator.CreateInstance(typeof(List<>).MakeGenericType(t));
         if (instance != null)
         {
-            var mi = instance.GetType().GetMethod("AddRange");
-            mi?.Invoke(instance, new object[] { Value });
+            var mi = instance.GetType().GetMethod(nameof(List<string>.AddRange))!;
+            mi.Invoke(instance, new object[] { Value });
             list = instance as IEnumerable;
             if (list != null)
             {
@@ -195,14 +234,13 @@ public partial class CheckboxList<TValue>
     {
         item.Active = v;
 
-        var typeValue = typeof(TValue);
-        if (typeValue == typeof(string))
+        if (ValueType == typeof(string))
         {
             CurrentValueAsString = string.Join(",", Items.Where(i => i.Active).Select(i => i.Value));
         }
-        else if (typeValue.IsGenericType)
+        else if (ValueType.IsGenericType)
         {
-            var t = typeValue.GenericTypeArguments;
+            var t = ValueType.GenericTypeArguments;
             if (Activator.CreateInstance(typeof(List<>).MakeGenericType(t)) is IList instance)
             {
                 foreach (var sl in Items.Where(i => i.Active))
@@ -223,20 +261,24 @@ public partial class CheckboxList<TValue>
     }
 
     /// <summary>
+    /// 点击选择框方法
+    /// </summary>
+    private Task OnClick(SelectedItem item) => OnStateChanged(item, !item.Active);
+
+    /// <summary>
     /// 泛型参数约束检查
     /// </summary>
     protected virtual void EnsureParameterValid()
     {
-        var typeValue = typeof(TValue);
-        if (typeValue.IsGenericType)
+        if (ValueType.IsGenericType)
         {
             // 泛型参数
-            if (!typeValue.IsAssignableTo(typeof(IEnumerable)))
+            if (!ValueType.IsAssignableTo(typeof(IEnumerable)))
             {
                 throw new NotSupportedException();
             }
         }
-        else if (typeValue != typeof(string))
+        else if (ValueType != typeof(string))
         {
             throw new NotSupportedException();
         }

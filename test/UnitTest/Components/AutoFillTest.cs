@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
@@ -59,7 +58,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
                 return Task.FromResult(items.AsEnumerable());
             }));
         });
-        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "t" });
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("t"));
         Assert.True(filtered);
     }
 
@@ -78,16 +77,16 @@ public class AutoFillTest : BootstrapBlazorTestBase
                return Task.CompletedTask;
            }));
         });
-        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "t" });
-        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "Escape" });
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("t"));
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("Escape"));
         Assert.False(escTrigger);
 
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.SkipEsc, false);
         });
-        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "t" });
-        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "Escape" });
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("t"));
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("Escape"));
         Assert.True(escTrigger);
     }
 
@@ -106,8 +105,8 @@ public class AutoFillTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             }));
         });
-        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "t" });
-        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "Enter" });
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("t"));
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("Enter"));
         Assert.False(enterTrigger);
 
         Foo? selectedItem = null;
@@ -120,8 +119,8 @@ public class AutoFillTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             }));
         });
-        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "t" });
-        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "Enter" });
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("t"));
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("Enter"));
         Assert.True(enterTrigger);
         Assert.NotNull(selectedItem);
     }
@@ -140,7 +139,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
                 return Task.CompletedTask;
             }));
         });
-        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "t" });
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("t"));
         cut.Find(".dropdown-item").MouseDown(new MouseEventArgs());
         Assert.NotNull(selectedItem);
     }
@@ -153,13 +152,13 @@ public class AutoFillTest : BootstrapBlazorTestBase
             pb.Add(a => a.Value, Model);
             pb.Add(a => a.Items, Items);
         });
-        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "t" });
-        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "ArrowUp" });
-        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "ArrowUp" });
-        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "ArrowUp" });
-        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "ArrowDown" });
-        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "ArrowDown" });
-        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "ArrowDown" });
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("t"));
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("ArrowUp"));
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("ArrowUp"));
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("ArrowUp"));
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("ArrowDown"));
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("ArrowDown"));
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("ArrowDown"));
     }
 
     [Fact]
@@ -173,7 +172,7 @@ public class AutoFillTest : BootstrapBlazorTestBase
             pb.Add(a => a.IgnoreCase, false);
             pb.Add(a => a.DisplayCount, 2);
         });
-        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "Z" });
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("Z"));
         Assert.Equal(2, cut.FindAll(".dropdown-item").Count);
     }
 
@@ -187,8 +186,8 @@ public class AutoFillTest : BootstrapBlazorTestBase
             pb.Add(a => a.Value, v);
             pb.Add(a => a.Items, new List<AutoFillNullStringMock>
             {
-                new AutoFillNullStringMock() { Value = "1" },
-                new AutoFillNullStringMock() { Value = "2" },
+                new() { Value = "1" },
+                new() { Value = "2" },
             });
             pb.Add(a => a.Template, v => builder =>
             {
@@ -197,8 +196,8 @@ public class AutoFillTest : BootstrapBlazorTestBase
                 builder.CloseElement();
             });
         });
-        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "1" });
-        cut.Find(".dropdown-item").MouseDown(new MouseEventArgs());
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("1"));
+        cut.InvokeAsync(() => cut.Find(".dropdown-item").MouseDown(new MouseEventArgs()));
         Assert.Equal("1", cut.Instance.Value!.Value);
 
         cut.SetParametersAndRender(pb =>
@@ -206,11 +205,11 @@ public class AutoFillTest : BootstrapBlazorTestBase
             pb.Add(a => a.Items, new List<AutoFillNullStringMock?>
             {
                 null,
-                new AutoFillNullStringMock() { Value = "2" },
+                new() { Value = "2" },
             });
             pb.Add(a => a.Template, (RenderFragment<AutoFillNullStringMock?>?)null);
         });
-        cut.Find(".form-control").KeyUp(new KeyboardEventArgs() { Key = "2" });
+        cut.InvokeAsync(() => cut.Instance.OnKeyUp("2"));
         Assert.Equal(2, cut.FindAll(".dropdown-item").Count);
     }
 
@@ -262,13 +261,12 @@ public class AutoFillTest : BootstrapBlazorTestBase
         });
         input = cut.Find("input");
         await cut.InvokeAsync(() => input.FocusAsync(new FocusEventArgs()));
-        menu = cut.Find("ul");
-        Assert.Equal("dropdown-menu show", menu.ClassList.ToString());
     }
 
     [Fact]
     public void ValidateForm_Ok()
     {
+        var v = "";
         IEnumerable<string> items = new List<string>() { "test1", "test2" };
         var cut = Context.RenderComponent<ValidateForm>(pb =>
         {
@@ -276,14 +274,19 @@ public class AutoFillTest : BootstrapBlazorTestBase
             pb.AddChildContent<AutoFill<string>>(pb =>
             {
                 pb.Add(a => a.Items, items);
+                pb.Add(a => a.OnCustomFilter, key =>
+                {
+                    v = key;
+                    return Task.FromResult(items);
+                });
             });
         });
 
         // Trigger js invoke
         var comp = cut.FindComponent<AutoFill<string>>().Instance;
         comp.TriggerOnChange("v");
-
-        Assert.Equal("v", comp.Value);
+        cut.InvokeAsync(() => comp.OnKeyUp("Enter"));
+        Assert.Equal("v", v);
     }
 
     class AutoFillNullStringMock
