@@ -1,6 +1,6 @@
-﻿import Data from '../../../_content/BootstrapBlazor/modules/data.js'
+﻿import Data from '../../../_content/BootstrapBlazor/modules/data.js?v=$version'
 import EventHandler from "../../../_content/BootstrapBlazor/modules/event-handler.js?v=$version"
-import { isMobile } from "../../../_content/BootstrapBlazor/modules/utility.js"
+import { isMobile } from "../../../_content/BootstrapBlazor/modules/utility.js?v=$version"
 
 /**
  * 缓存绘图步骤
