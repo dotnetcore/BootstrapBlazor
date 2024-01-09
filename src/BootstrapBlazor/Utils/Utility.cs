@@ -604,35 +604,18 @@ public static class Utility
         }
         else
         {
-            switch (type.Name)
-            {
-                case nameof(Boolean):
-                    ret = typeof(Switch);
-                    break;
-                case nameof(DateTime):
-                    ret = typeof(DateTimePicker<>).MakeGenericType(fieldType);
-                    break;
-                case nameof(Int16):
-                case nameof(Int32):
-                case nameof(Int64):
-                case nameof(Single):
-                case nameof(Double):
-                case nameof(Decimal):
-                    ret = typeof(BootstrapInputNumber<>).MakeGenericType(fieldType);
-                    break;
-                case nameof(String):
-                    if (hasRows)
-                    {
-                        ret = typeof(Textarea);
-                    }
-                    else
-                    {
-                        ret = typeof(BootstrapInput<>).MakeGenericType(typeof(string));
-                    }
-                    break;
-            }
+            ret = GetTypeByTypeName();
         }
         return ret ?? typeof(BootstrapInput<>).MakeGenericType(fieldType);
+
+        Type? GetTypeByTypeName() => type.Name switch
+        {
+            nameof(Boolean) => typeof(Switch),
+            nameof(DateTime) => typeof(DateTimePicker<>).MakeGenericType(fieldType),
+            nameof(Int16) or nameof(Int32) or nameof(Int64) or nameof(Single) or nameof(Double) or nameof(Decimal) => typeof(BootstrapInputNumber<>).MakeGenericType(fieldType),
+            nameof(String) => hasRows ? typeof(Textarea) : typeof(BootstrapInput<>).MakeGenericType(typeof(string)),
+            _ => null
+        };
     }
 
     /// <summary>
