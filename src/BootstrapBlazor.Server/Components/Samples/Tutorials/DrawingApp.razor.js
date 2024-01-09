@@ -2,6 +2,10 @@
 import EventHandler from "../../../_content/BootstrapBlazor/modules/event-handler.js?v=$version"
 import { isMobile } from "../../../_content/BootstrapBlazor/modules/utility.js"
 
+/**
+ * 缓存绘图步骤
+ * @param {any} drawingOptions - Options
+ */
 function saveState(drawingOptions) {
     drawingOptions.currentState++;
     drawingOptions.history[drawingOptions.currentState] = drawingOptions.canvas.toDataURL();
@@ -10,6 +14,12 @@ function saveState(drawingOptions) {
     }
 }
 
+/**
+ * 绘制圆点
+ * @param {any} drawingOptions - Options
+ * @param {any} x
+ * @param {any} y
+ */
 function drawCircle(drawingOptions, x, y) {
     drawingOptions.ctx.beginPath();
     drawingOptions.ctx.arc(x, y, drawingOptions.lineThickness, 0, Math.PI * 2);
@@ -17,6 +27,14 @@ function drawCircle(drawingOptions, x, y) {
     drawingOptions.ctx.fill();
 }
 
+/**
+ * 绘线
+ * @param {any} drawingOptions - Options
+ * @param {any} x1
+ * @param {any} y1
+ * @param {any} x2
+ * @param {any} y2
+ */
 function drawLine(drawingOptions, x1, y1, x2, y2) {
     drawingOptions.ctx.beginPath();
     drawingOptions.ctx.moveTo(x1, y1);
@@ -26,6 +44,12 @@ function drawLine(drawingOptions, x1, y1, x2, y2) {
     drawingOptions.ctx.stroke();
 }
 
+/**
+ * 绘图
+ * @param {any} drawingOptions - Options
+ * @param {any} x2
+ * @param {any} y2
+ */
 function draw(drawingOptions, x2, y2) {
     drawCircle(drawingOptions, x2, y2);
     drawLine(drawingOptions, drawingOptions.x, drawingOptions.y, x2, y2);

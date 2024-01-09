@@ -4,6 +4,7 @@
 
 using BootstrapBlazor.Server.Components;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.Options;
 using System.Text;
@@ -23,6 +24,8 @@ builder.Services.AddResponseCompression();
 
 builder.Services.AddControllers();
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
+
+builder.Services.Configure<HubOptions>(option => option.MaximumReceiveMessageSize = null);
 
 // 获得当前主题配置
 var themes = builder.Configuration.GetSection("Themes")
