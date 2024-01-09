@@ -602,21 +602,23 @@ public static class Utility
         {
             ret = typeof(NullSwitch);
         }
-        else
+        else if (fieldType.IsNumber())
         {
-            ret = GetTypeByTypeName();
+            ret = typeof(BootstrapInputNumber<>).MakeGenericType(fieldType);
+        }
+        else if (fieldType.IsDateTime())
+        {
+            ret = typeof(DateTimePicker<>).MakeGenericType(fieldType);
+        }
+        else if (fieldType.IsBoolean())
+        {
+            ret = typeof(Switch);
+        }
+        else if (fieldType == typeof(string))
+        {
+            ret = hasRows ? typeof(Textarea) : typeof(BootstrapInput<>).MakeGenericType(typeof(string));
         }
         return ret ?? typeof(BootstrapInput<>).MakeGenericType(fieldType);
-
-        [ExcludeFromCodeCoverage]
-        Type? GetTypeByTypeName() => type.Name switch
-        {
-            nameof(Boolean) => typeof(Switch),
-            nameof(DateTime) => typeof(DateTimePicker<>).MakeGenericType(fieldType),
-            nameof(Int16) or nameof(Int32) or nameof(Int64) or nameof(Single) or nameof(Double) or nameof(Decimal) => typeof(BootstrapInputNumber<>).MakeGenericType(fieldType),
-            nameof(String) => hasRows ? typeof(Textarea) : typeof(BootstrapInput<>).MakeGenericType(typeof(string)),
-            _ => null
-        };
     }
 
     /// <summary>

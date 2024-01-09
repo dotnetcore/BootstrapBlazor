@@ -55,6 +55,17 @@ public static class ObjectExtensions
     }
 
     /// <summary>
+    /// 检查是否为 Boolean 数据类型
+    /// </summary>
+    /// <param name="t"></param>
+    /// <returns></returns>
+    public static bool IsBoolean(this Type t)
+    {
+        var targetType = Nullable.GetUnderlyingType(t) ?? t;
+        return targetType == typeof(Boolean);
+    }
+
+    /// <summary>
     /// 检查是否为 DateTime 数据类型
     /// </summary>
     /// <param name="t"></param>
