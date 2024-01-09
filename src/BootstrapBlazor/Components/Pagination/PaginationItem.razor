@@ -2,7 +2,7 @@
 @inherits BootstrapComponentBase
 
 <li @attributes="AdditionalAttributes" class="@ClassString">
-    <a class="page-link" href="#" @onclick:preventDefault @onclick="OnClickItem">
+    <div class="page-link" @onclick:preventDefault @onclick="OnClickItem">
         @if (ChildContent != null)
         {
             @ChildContent
@@ -11,5 +11,5 @@
         {
             @Index
         }
-    </a>
+    </div>
 </li>
