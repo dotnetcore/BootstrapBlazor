@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using System.Linq.Expressions;
 
@@ -14,14 +13,6 @@ namespace BootstrapBlazor.Components;
 /// <typeparam name="TValue"></typeparam>
 public partial class TableSelect<TValue> where TValue : class, new()
 {
-    private ElementReference SelectElement { get; set; }
-
-    private JSInterop<TableSelect<TValue>>? Interop { get; set; }
-
-    [Inject]
-    [NotNull]
-    private SwalService? SwalService { get; set; }
-
     /// <summary>
     /// 获得/设置 绑定数据集
     /// </summary>
@@ -111,7 +102,7 @@ public partial class TableSelect<TValue> where TValue : class, new()
 #if NET6_0_OR_GREATER
     [EditorRequired]
 #endif
-    public Expression<Func<TValue, string>>? TextExpresion { get; set; }
+    public Expression<Func<TValue, string>>? TextExpression { get; set; }
 
     [Inject]
     [NotNull]
@@ -158,7 +149,7 @@ public partial class TableSelect<TValue> where TValue : class, new()
 
         Items ??= Enumerable.Empty<TValue>();
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
-        TextInvoke = TextExpresion.Compile();
+        TextInvoke = TextExpression.Compile();
     }
 
     /// <summary>
