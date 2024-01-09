@@ -50,14 +50,8 @@ public static class ObjectExtensions
     public static bool IsNumber(this Type t)
     {
         var targetType = Nullable.GetUnderlyingType(t) ?? t;
-        var check =
-            targetType == typeof(int) ||
-            targetType == typeof(long) ||
-            targetType == typeof(short) ||
-            targetType == typeof(float) ||
-            targetType == typeof(double) ||
-            targetType == typeof(decimal);
-        return check;
+        return targetType == typeof(int) || targetType == typeof(long) || targetType == typeof(short) ||
+            targetType == typeof(float) || targetType == typeof(double) || targetType == typeof(decimal);
     }
 
     /// <summary>

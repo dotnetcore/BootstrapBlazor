@@ -608,6 +608,7 @@ public static class Utility
         }
         return ret ?? typeof(BootstrapInput<>).MakeGenericType(fieldType);
 
+        [ExcludeFromCodeCoverage]
         Type? GetTypeByTypeName() => type.Name switch
         {
             nameof(Boolean) => typeof(Switch),
@@ -653,32 +654,27 @@ public static class Utility
     {
         var ret = new Dictionary<string, object>();
         var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
-        switch (type.Name)
+        if (type.Name == nameof(String))
         {
-            case nameof(String):
-                var ph = item.PlaceHolder ?? Utility.GetPlaceHolder(model, fieldName);
-                if (ph != null)
-                {
-                    ret.Add("placeholder", ph);
-                }
-                if (item.Rows != 0)
-                {
-                    ret.Add("rows", item.Rows);
-                }
-                break;
-            case nameof(Int16):
-            case nameof(Int32):
-            case nameof(Int64):
-            case nameof(Single):
-            case nameof(Double):
-            case nameof(Decimal):
-                if (!string.IsNullOrEmpty(item.Step))
-                {
-                    ret.Add("Step", item.Step);
-                }
-                break;
+            var ph = item.PlaceHolder ?? Utility.GetPlaceHolder(model, fieldName);
+            if (ph != null)
+            {
+                ret.Add("placeholder", ph);
+            }
+            if (item.Rows != 0)
+            {
+                ret.Add("rows", item.Rows);
+            }
+        }
+        else if (type.IsNumber())
+        {
+            if (!string.IsNullOrEmpty(item.Step))
+            {
+                ret.Add("Step", item.Step);
+            }
         }
         return ret;
+
     }
 
     /// <summary>
