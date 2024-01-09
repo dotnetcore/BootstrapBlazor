@@ -66,13 +66,13 @@ public partial class DrawingApp
     /// Undo Action
     /// </summary>
     /// <returns></returns>
-    private async Task Undo() => await InvokeVoidAsync("undo", Id);
+    private Task Undo() => InvokeVoidAsync("undo", Id);
 
     /// <summary>
     /// Redo Action
     /// </summary>
     /// <returns></returns>
-    private async Task Redo() => await InvokeVoidAsync("redo", Id);
+    private Task Redo() => InvokeVoidAsync("redo", Id);
 
     /// <summary>
     /// DownloadImage
