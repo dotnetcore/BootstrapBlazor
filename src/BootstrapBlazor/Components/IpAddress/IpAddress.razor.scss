@@ -6,6 +6,10 @@
     &.disabled {
         background-color: var(--bs-secondary-bg);
         cursor: not-allowed;
+
+        .ipv4-cell {
+            background-color: var(--bs-secondary-bg);
+        }
     }
 
     .ipv4-cell {
