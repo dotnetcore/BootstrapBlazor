@@ -748,42 +748,6 @@ public static class LambdaExtensions
         }
     }
 
-    #region TryParse
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="TIn"></typeparam>
-    /// <typeparam name="TOut"></typeparam>
-    /// <typeparam name="TResult"></typeparam>
-    /// <param name="source"></param>
-    /// <param name="outValue"></param>
-    /// <returns></returns>
-    internal delegate TResult FuncEx<TIn, TOut, TResult>(TIn source, out TOut outValue);
-
-    /// <summary>
-    /// 尝试使用 TryParse 进行数据转换
-    /// </summary>
-    /// <returns></returns>
-    [ExcludeFromCodeCoverage]
-    internal static Expression<FuncEx<string, TValue, bool>> TryParse<TValue>()
-    {
-        var t = typeof(TValue);
-        var p1 = Expression.Parameter(typeof(string));
-        var p2 = Expression.Parameter(t.MakeByRefType());
-        var method = t.GetMethod("TryParse", [typeof(string), t.MakeByRefType()]);
-        var body = method != null ? Expression.Call(method, p1, p2) : Expression.Call(typeof(LambdaExtensions).GetMethod("TryParseEmpty", BindingFlags.NonPublic | BindingFlags.Static)!.MakeGenericMethod(typeof(TValue)), p1, p2);
-        return Expression.Lambda<FuncEx<string, TValue, bool>>(body, p1, p2);
-    }
-
-    [ExcludeFromCodeCoverage]
-    private static bool TryParseEmpty<TValue>(string source, out TValue val)
-    {
-        // TODO: 代码未完善
-        val = default!;
-        return false;
-    }
-    #endregion
-
     /// <summary>
     /// 获得 指定模型标记 <see cref="KeyAttribute"/> 的属性值
     /// </summary>
@@ -797,7 +761,7 @@ public static class LambdaExtensions
         var properties = type.GetRuntimeProperties()
                              .Where(p => p.IsDefined(customAttribute ?? typeof(KeyAttribute)))
                              .ToList();
-        if (properties.Any())
+        if (properties.Count > 0)
         {
             var param = Expression.Parameter(type);
             var valueType = typeof(TValue);
