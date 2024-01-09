@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// Select 组件实现类
 /// </summary>
 /// <typeparam name="TValue"></typeparam>
-public partial class TableSelect<TValue> where TValue : class, new()
+public partial class SelectTable<TValue> where TValue : class, new()
 {
     /// <summary>
     /// 获得/设置 绑定数据集
