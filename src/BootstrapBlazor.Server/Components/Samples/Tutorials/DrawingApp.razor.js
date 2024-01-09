@@ -1,185 +1,342 @@
-﻿let canvas, ctx, lineThickness, drawingColor, x, y, savedImageData;
-let isPressed = false;
-let history = [];
-let currentState = -1;
+﻿import Data from '../../../_content/BootstrapBlazor/modules/data.js'
+import EventHandler from "../../../_content/BootstrapBlazor/modules/event-handler.js?v=$version"
+import { isMobile } from "../../../_content/BootstrapBlazor/modules/utility.js"
 
-function saveState() {
-    currentState++;
-    history[currentState] = canvas.toDataURL();
-    if (currentState < history.length - 1) {
-        history = history.slice(0, currentState + 1);
+function saveState(drawingOptions) {
+    drawingOptions.currentState++;
+    drawingOptions.history[drawingOptions.currentState] = drawingOptions.canvas.toDataURL();
+    if (drawingOptions.currentState < drawingOptions.history.length - 1) {
+        drawingOptions.history = drawingOptions.history.slice(0, drawingOptions.currentState + 1);
     }
 }
 
-function drawCircle(ctx, x, y) {
-    ctx.beginPath();
-    ctx.arc(x, y, lineThickness, 0, Math.PI * 2);
-    ctx.fillStyle = drawingColor;
-    ctx.fill();
+function drawCircle(drawingOptions, x, y) {
+    drawingOptions.ctx.beginPath();
+    drawingOptions.ctx.arc(x, y, drawingOptions.lineThickness, 0, Math.PI * 2);
+    drawingOptions.ctx.fillStyle = drawingOptions.drawingColor;
+    drawingOptions.ctx.fill();
 }
 
-function drawLine(ctx, x1, y1, x2, y2) {
-    ctx.beginPath();
-    ctx.moveTo(x1, y1);
-    ctx.lineTo(x2, y2);
-    ctx.strokeStyle = drawingColor;
-    ctx.lineWidth = lineThickness * 2;
-    ctx.stroke();
+function drawLine(drawingOptions, x1, y1, x2, y2) {
+    drawingOptions.ctx.beginPath();
+    drawingOptions.ctx.moveTo(x1, y1);
+    drawingOptions.ctx.lineTo(x2, y2);
+    drawingOptions.ctx.strokeStyle = drawingOptions.drawingColor;
+    drawingOptions.ctx.lineWidth = drawingOptions.lineThickness * 2;
+    drawingOptions.ctx.stroke();
 }
 
-function draw(x2, y2) {
-    drawCircle(ctx, x2, y2);
-    drawLine(ctx, x, y, x2, y2);
+function draw(drawingOptions, x2, y2) {
+    drawCircle(drawingOptions, x2, y2);
+    drawLine(drawingOptions, drawingOptions.x, drawingOptions.y, x2, y2);
 
-    x = x2;
-    y = y2;
-    savedImageData = canvas.toDataURL();
+    drawingOptions.x = x2;
+    drawingOptions.y = y2;
+    drawingOptions.savedImageData = drawingOptions.canvas.toDataURL();
 }
 
-function isMobileDevice() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+/**
+ * 绑定触摸开始事件监听器
+ * @param {Object} drawingOptions - Options
+ * @param {string} handler - handlerName
+ */
+function bindTouchStartListener(drawingOptions, handler) {
+    drawingOptions.touchStartListener = (e) => {
+        e.preventDefault();
+        drawingOptions.isPressed = true;
+
+        drawingOptions.x = e.touches[0].clientX - drawingOptions.canvas.offsetLeft;
+        drawingOptions.y = e.touches[0].clientY - drawingOptions.canvas.offsetTop;
+    }
+
+    EventHandler.on(drawingOptions.canvas, handler, drawingOptions.touchStartListener)
 }
 
-function handleTouchStart(e) {
-    e.preventDefault();
-    isPressed = true;
+/**
+ * 绑定触摸移动事件监听器
+ * @param {Object} drawingOptions - Options
+ * @param {string} handler - handlerName
+ */
+function bindTouchMoveListener(drawingOptions, handler) {
+    drawingOptions.touchMoveListener = (e) => {
+        if (drawingOptions.isPressed) {
+            const x2 = e.touches[0].clientX - drawingOptions.canvas.offsetLeft;
+            const y2 = e.touches[0].clientY - drawingOptions.canvas.offsetTop;
+            draw(drawingOptions, x2, y2);
+        }
+    }
 
-    x = e.touches[0].clientX - canvas.offsetLeft;
-    y = e.touches[0].clientY - canvas.offsetTop;
+    EventHandler.on(drawingOptions.canvas, handler, drawingOptions.touchMoveListener)
 }
 
-function handleTouchMove(e) {
-    if (isPressed && ctx) {
-        const x2 = e.touches[0].clientX - canvas.offsetLeft;
-        const y2 = e.touches[0].clientY - canvas.offsetTop;
-        draw(x2, y2);
+/**
+ * 绑定鼠标按下事件监听器
+ * @param {Object} drawingOptions - Options
+ * @param {string} handler - handlerName
+ */
+function bindMouseDownListener(drawingOptions, handler) {
+    drawingOptions.mouseDownListener = (e) => {
+        drawingOptions.isPressed = true;
+        drawingOptions.x = e.offsetX;
+        drawingOptions.y = e.offsetY;
+    }
+
+    EventHandler.on(drawingOptions.canvas, handler, drawingOptions.mouseDownListener)
+}
+
+/**
+ * 绑定鼠标弹起事件监听器
+ * @param {Object} drawingOptions - Options
+ * @param {string} handler - handlerName
+ */
+function bindMouseUpListener(drawingOptions, handler) {
+    drawingOptions.pressedListener = (e) => {
+        drawingOptions.isPressed = false;
+        drawingOptions.x = undefined;
+        drawingOptions.y = undefined;
+
+        saveState(drawingOptions);
+    }
+
+    EventHandler.on(drawingOptions.canvas, handler, drawingOptions.pressedListener)
+}
+
+/**
+ * 绑定鼠标移动事件监听器
+ * @param {Object} drawingOptions - Options
+ * @param {string} handler - handlerName
+ */
+function bindMouseMoveListener(drawingOptions, handler) {
+    drawingOptions.mouseMoveListener = (e) => {
+        if (drawingOptions.isPressed) {
+            const x2 = e.offsetX;
+            const y2 = e.offsetY;
+
+            draw(drawingOptions, x2, y2);
+        }
+    }
+
+    EventHandler.on(drawingOptions.canvas, handler, drawingOptions.mouseMoveListener)
+}
+
+/**
+ * 绑定窗口大小改变事件监听器
+ * @param {Object} drawingOptions - Options
+ * @param {string} handler - handlerName
+ */
+function bindWindowResizeListener(drawingOptions, handler) {
+    drawingOptions.resizeListener = () => {
+        const style = getComputedStyle(drawingOptions.canvas);
+        const width = parseInt(style.width, 10);
+        const height = parseInt(style.height, 10);
+
+        drawingOptions.canvas.width = width;
+        drawingOptions.canvas.height = height;
+
+        if (drawingOptions.savedImageData) {
+            const img = new Image();
+            img.src = drawingOptions.savedImageData;
+            img.onload = () => {
+                drawingOptions.ctx.drawImage(img, 0, 0);
+            };
+        }
+    };
+
+    EventHandler.on(window, handler, drawingOptions.resizeListener)
+}
+
+/**
+ * 绑定按键事件监听器
+ * @param {Object} drawingOptions - Options
+ * @param {string} handler - handlerName
+ */
+function bindKeyDownListener(drawingOptions, handler) {
+    drawingOptions.keyDownListener = (e) => {
+        if (e.ctrlKey && e.key === 'z') {
+            e.preventDefault();
+            undo(drawingOptions.id);
+        } else if (e.ctrlKey && e.key === 'y') {
+            e.preventDefault();
+            redo(drawingOptions.id);
+        }
+    }
+
+    EventHandler.on(drawingOptions.canvas, handler, drawingOptions.keyDownListener)
+}
+
+/**
+ * 绑定事件监听器
+ * @param {Object} drawingOptions - Options
+ */
+function bindEventListeners(drawingOptions) {
+    if (drawingOptions.isMobile) {
+        bindTouchStartListener(drawingOptions, 'touchstart');
+        bindTouchMoveListener(drawingOptions, 'touchmove');
+        bindMouseUpListener(drawingOptions, 'touchend');
+    } else {
+        bindWindowResizeListener(drawingOptions, 'resize');
+        bindMouseDownListener(drawingOptions, 'mousedown');
+        bindMouseUpListener(drawingOptions, 'mouseup');
+        bindMouseMoveListener(drawingOptions, 'mousemove');
+    }
+    bindKeyDownListener(drawingOptions, 'keydown');
+}
+
+/**
+ * 设置画布尺寸和上下文
+ * @param {Object} drawingOptions - Options
+ */
+function setupCanvas(drawingOptions) {
+    drawingOptions.canvas.setAttribute('tabindex', 0);
+    drawingOptions.canvas.focus();
+
+    const style = getComputedStyle(drawingOptions.canvas);
+    drawingOptions.canvas.width = parseInt(style.width, 10);
+    drawingOptions.canvas.height = parseInt(style.height, 10);
+
+    saveState(drawingOptions);
+}
+
+/**
+ * 撤销操作
+ * @param {string} id - canvas dom id
+ */
+export const undo = (id) => {
+    const drawingOptions = Data.get(id)
+    if (drawingOptions) {
+        if (drawingOptions.currentState > 0) {
+            drawingOptions.currentState--;
+            const img = new Image();
+            img.src = drawingOptions.history[drawingOptions.currentState];
+            img.onload = () => {
+                drawingOptions.ctx.clearRect(0, 0, drawingOptions.canvas.width, drawingOptions.canvas.height);
+                drawingOptions.ctx.drawImage(img, 0, 0);
+            };
+        }
     }
 }
 
-function handleMouseDown(e) {
-    isPressed = true;
-    x = e.offsetX;
-    y = e.offsetY;
-}
-
-function handlePressed(e) {
-    isPressed = false;
-    x = undefined;
-    y = undefined;
-
-    saveState();
-}
-
-function handleMouseMove(e) {
-    if (isPressed && ctx) {
-        const x2 = e.offsetX;
-        const y2 = e.offsetY;
-
-        draw(x2, y2);
+/**
+ * 重做操作
+ * @param {string} id - canvas dom id
+ */
+export const redo = (id) => {
+    const drawingOptions = Data.get(id)
+    if (drawingOptions) {
+        if (drawingOptions.currentState < drawingOptions.history.length - 1) {
+            drawingOptions.currentState++;
+            const img = new Image();
+            img.src = drawingOptions.history[drawingOptions.currentState];
+            img.onload = () => {
+                drawingOptions.ctx.clearRect(0, 0, drawingOptions.canvas.width, drawingOptions.canvas.height);
+                drawingOptions.ctx.drawImage(img, 0, 0);
+            };
+        }
     }
 }
 
-export const undo = () => {
-    if (currentState > 0) {
-        currentState--;
-        const img = new Image();
-        img.src = history[currentState];
-        img.onload = () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(img, 0, 0);
-        };
+/**
+ * 更改画笔大小
+ * @param {string} id - canvas dom id
+ * @param {number} val - 新的画笔大小值
+ */
+export const changeSize = (id, val) => {
+    const drawingOptions = Data.get(id);
+    if (drawingOptions) {
+        drawingOptions.lineThickness = val;
     }
 }
 
-export const redo = () => {
-    if (currentState < history.length - 1) {
-        currentState++;
-        const img = new Image();
-        img.src = history[currentState];
-        img.onload = () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.drawImage(img, 0, 0);
-        };
+/**
+ * 更改画笔颜色
+ * @param {string} id - canvas dom id
+ * @param {string} val - 新的画笔颜色值
+ */
+export const changeColor = (id, val) => {
+    const drawingOptions = Data.get(id);
+    if (drawingOptions) {
+        drawingOptions.drawingColor = val;
     }
 }
 
-export const changeSize = (val) => {
-    lineThickness = val;
-}
-
-export const changeColor = (val) => {
-    drawingColor = val;
-}
-
-export const clearRect = () => {
-    if (canvas) {
-        savedImageData = canvas.toDataURL();
-        const ctx = canvas.getContext('2d');
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+/**
+ * 清除画布内容
+ * @param {string} id - canvas dom id
+ */
+export const clearRect = (id) => {
+    const drawingOptions = Data.get(id)
+    if (drawingOptions) {
+        drawingOptions.savedImageData = drawingOptions.canvas.toDataURL();
+        drawingOptions.ctx.clearRect(0, 0, drawingOptions.canvas.width, drawingOptions.canvas.height);
     }
 }
 
-export const exportImage = () => {
-    if (canvas) {
-        return canvas.toDataURL('image/jpeg');
+/**
+ * 导出画布内容为图像
+ * @param {string} id - canvas dom id
+ * @returns {string} - base64String
+ */
+export const exportImage = (id) => {
+    const drawingOptions = Data.get(id)
+    if (drawingOptions) {
+        return drawingOptions.canvas.toDataURL('image/jpeg');
     }
 }
 
+/**
+ * init 初始化
+ * @param {string} id - canvas dom id
+ * @param {number} thickness - 画笔大小
+ * @param {string} color - 画笔颜色
+ * @returns
+ */
 export const init = (id, thickness, color) => {
-    lineThickness = thickness;
-    drawingColor = color;
-
-    canvas = document.getElementById(id);
+    const canvas = document.getElementById(id);
 
     if (!canvas) {
         console.error('Canvas element not found');
         return;
     }
 
-    canvas.setAttribute('tabindex', 0);
-    canvas.focus();
-
-    const style = getComputedStyle(canvas);
-    canvas.width = parseInt(style.width, 10);
-    canvas.height = parseInt(style.height, 10);
-    ctx = canvas.getContext('2d');
-
-    saveState();
-
-    if (isMobileDevice()) {
-        canvas.addEventListener('touchstart', handleTouchStart);
-        canvas.addEventListener('touchmove', handleTouchMove);
-        canvas.addEventListener('touchend', handlePressed);
-    } else {
-        window.addEventListener('resize', () => {
-            const style = getComputedStyle(canvas);
-            const width = parseInt(style.width, 10);
-            const height = parseInt(style.height, 10);
-
-            canvas.width = width;
-            canvas.height = height;
-
-            if (savedImageData) {
-                const img = new Image();
-                img.src = savedImageData;
-                img.onload = () => {
-                    ctx.drawImage(img, 0, 0);
-                };
-            }
-        });
-
-        canvas.addEventListener('mousedown', handleMouseDown);
-        canvas.addEventListener('mouseup', handlePressed);
-        canvas.addEventListener('mousemove', handleMouseMove);
+    const drawingOptions = {
+        id: id,
+        lineThickness: thickness,
+        drawingColor: color,
+        x: 0,
+        y: 0,
+        isPressed: false,
+        savedImageData: null,
+        history: [],
+        currentState: -1,
+        canvas: canvas,
+        ctx: canvas.getContext('2d'),
+        isMobile: isMobile()
     }
 
-    canvas.addEventListener('keydown', function (event) {
-        if (event.ctrlKey && event.key === 'z') {
-            event.preventDefault();
-            undo();
-        } else if (event.ctrlKey && event.key === 'y') {
-            event.preventDefault();
-            redo();
-        }
-    });
+    Data.set(id, drawingOptions);
+
+    setupCanvas(drawingOptions);
+    bindEventListeners(drawingOptions);
 };
+
+/**
+ * dispose 释放资源
+ * @param {string} id - canvas dom id
+ */
+export const dispose = (id) => {
+    const drawingOptions = Data.get(id);
+
+    if (drawingOptions.isMobile) {
+        EventHandler.off(drawingOptions.canvas, 'touchstart', drawingOptions.touchStartListener);
+        EventHandler.off(drawingOptions.canvas, 'touchmove', drawingOptions.touchMoveListener);
+        EventHandler.off(drawingOptions.canvas, 'touchend', drawingOptions.pressedListener);
+    } else {
+        EventHandler.off(drawingOptions.canvas, 'mousedown', drawingOptions.mouseDownListener);
+        EventHandler.off(drawingOptions.canvas, 'mouseup', drawingOptions.pressedListener);
+        EventHandler.off(drawingOptions.canvas, 'mousemove', drawingOptions.mouseMoveListener);
+        EventHandler.off(drawingOptions.canvas, 'keydown', drawingOptions.keyDownListener);
+        EventHandler.off(window, 'resize', drawingOptions.resizeListener);
+    }
+
+    Data.remove(id)
+}

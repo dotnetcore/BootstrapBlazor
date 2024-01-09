@@ -33,7 +33,7 @@ public partial class DrawingApp
     private async Task ChangeSize(int val)
     {
         LineThickness = val;
-        await InvokeVoidAsync("changeSize", val);
+        await InvokeVoidAsync("changeSize", Id, val);
     }
 
     /// <summary>
@@ -44,7 +44,7 @@ public partial class DrawingApp
     private async Task ChangeColor(string val)
     {
         DrawingColor = val;
-        await InvokeVoidAsync("changeColor", val);
+        await InvokeVoidAsync("changeColor", Id, val);
     }
 
     /// <summary>
@@ -53,7 +53,7 @@ public partial class DrawingApp
     /// <returns></returns>
     private async Task ClearCanvas()
     {
-        await InvokeVoidAsync("clearRect");
+        await InvokeVoidAsync("clearRect", Id);
         await MessageService.Show(new MessageOption()
         {
             Content = "已清空画板",
@@ -66,13 +66,13 @@ public partial class DrawingApp
     /// Undo Action
     /// </summary>
     /// <returns></returns>
-    private async Task Undo() => await InvokeVoidAsync("undo");
+    private async Task Undo() => await InvokeVoidAsync("undo", Id);
 
     /// <summary>
     /// Redo Action
     /// </summary>
     /// <returns></returns>
-    private async Task Redo() => await InvokeVoidAsync("redo");
+    private async Task Redo() => await InvokeVoidAsync("redo", Id);
 
     /// <summary>
     /// DownloadImage
@@ -80,7 +80,7 @@ public partial class DrawingApp
     /// <returns></returns>
     private async Task DownloadImage()
     {
-        var base64String = await InvokeAsync<string>("exportImage");
+        var base64String = await InvokeAsync<string>("exportImage", Id);
         if (!string.IsNullOrEmpty(base64String))
         {
             byte[] byteArray = Convert.FromBase64String(base64String.Replace("data:image/jpeg;base64,", ""));
