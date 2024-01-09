@@ -15,27 +15,17 @@ namespace System.Linq;
 public static class LambdaExtensions
 {
     /// <summary>
-    /// 通过 base.Visit(node) 返回 Expression 统一 node 变量
+    /// Expression 统一 node 变量
     /// </summary>
-    private class ComboExpressionVisitor : ExpressionVisitor
+    /// <param name="parameter"></param>
+    private class ComboExpressionVisitor(ParameterExpression parameter) : ExpressionVisitor
     {
-        private ParameterExpression exp_p { get; set; }
-
-        /// <summary>
-        /// 构造
-        /// </summary>
-        /// <param name="parameter"></param>
-        public ComboExpressionVisitor(ParameterExpression parameter)
-        {
-            exp_p = parameter;
-        }
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        protected override Expression VisitParameter(ParameterExpression p) => exp_p;
+        protected override Expression VisitParameter(ParameterExpression p) => parameter;
     }
 
     /// <summary>
