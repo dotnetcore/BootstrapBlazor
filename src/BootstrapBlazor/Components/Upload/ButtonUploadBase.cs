@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components.Forms;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// 按钮上传组件基类
 /// </summary>
 public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
 {
