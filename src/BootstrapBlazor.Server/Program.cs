@@ -18,6 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // 增加中文编码支持网页源码显示汉字
 builder.Services.AddSingleton(HtmlEncoder.Create(UnicodeRanges.All));
+
 builder.Services.AddLogging(logBuilder => logBuilder.AddFileLogger());
 builder.Services.AddCors();
 builder.Services.AddResponseCompression();
@@ -25,6 +26,7 @@ builder.Services.AddResponseCompression();
 builder.Services.AddControllers();
 builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
+// 增加 SignalR 服务数据传输大小限制配置
 builder.Services.Configure<HubOptions>(option => option.MaximumReceiveMessageSize = null);
 
 // 获得当前主题配置
