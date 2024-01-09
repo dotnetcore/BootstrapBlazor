@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Server.Components.Pages;
 using Microsoft.AspNetCore.Components.Web;
 using System.Text;
 
@@ -15,6 +16,10 @@ public partial class TutorialsNavMenu
     [Inject]
     [NotNull]
     private IStringLocalizer<App>? AppLocalizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Tutorials>? Localizer { get; set; }
 
     [Inject]
     [NotNull]
@@ -42,37 +47,37 @@ public partial class TutorialsNavMenu
             new()
             {
                 Template = CreateDownloadButtonComponent("dashboard", _dashboardFileList),
-                Text = "仪表盘 Dashboard",
+                Text = Localizer["DashboardSummary"],
                 Url = "tutorials/dashboard"
             },
             new()
             {
-                Text = "登陆和注册 Login & Register",
+                Text = Localizer["LoginSummary"],
                 Url = "tutorials/login",
                 Items =
                 [
                     new()
                     {
                         Template = CreateDownloadButtonComponent("template1", _template1),
-                        Text = "模板 Template 1",
+                        Text = "Template 1",
                         Url = "tutorials/template1"
                     },
                     new()
                     {
                         Template = CreateDownloadButtonComponent("template2", _template2),
-                        Text = "模板 Template 2",
+                        Text = "Template 2",
                         Url = "tutorials/template2"
                     },
                     new()
                     {
                         Template = CreateDownloadButtonComponent("template3", _template3),
-                        Text = "模板 Template 3",
+                        Text = "Template 3",
                         Url = "tutorials/template3"
                     },
                     new()
                     {
                         Template = CreateDownloadButtonComponent("template4", _template4),
-                        Text = "模板 Template 4",
+                        Text = "Template 4",
                         Url = "tutorials/template4"
                     }
                 ]
@@ -80,20 +85,20 @@ public partial class TutorialsNavMenu
             new()
             {
                 Template = CreateDownloadButtonComponent("waterfall", _waterfallFileList),
-                Text = "瀑布流图片 Waterfall",
+                Text = Localizer["WaterfallSummary"],
                 Url = "tutorials/waterfall"
             },
             new()
             {
                 Template = CreateDownloadButtonComponent("translate", _translateFileList),
-                Text = "翻译工具 Translate",
+                Text = Localizer["TranslateSummary"],
                 Url = "tutorials/translate"
             },
             new()
             {
                 Template = CreateDownloadButtonComponent("drawing", _drawingAppFileList),
-                Text = "画图 Drawing",
-                Url = "tutorials/drawing-app"
+                Text = Localizer["DrawingSummary"],
+                Url = "tutorials/drawing"
             }
         ]);
     }

@@ -30,14 +30,22 @@ public partial class DrawingApp
     /// </summary>
     /// <param name="val"></param>
     /// <returns></returns>
-    private async Task ChangeSize(int val) => await InvokeVoidAsync("changeSize", val);
+    private async Task ChangeSize(int val)
+    {
+        LineThickness = val;
+        await InvokeVoidAsync("changeSize", Id, val);
+    }
 
     /// <summary>
     /// ChangeColor
     /// </summary>
     /// <param name="val"></param>
     /// <returns></returns>
-    private async Task ChangeColor(string val) => await InvokeVoidAsync("changeColor", val);
+    private async Task ChangeColor(string val)
+    {
+        DrawingColor = val;
+        await InvokeVoidAsync("changeColor", Id, val);
+    }
 
     /// <summary>
     /// ClearRect
@@ -53,6 +61,18 @@ public partial class DrawingApp
             Delay = 500
         });
     }
+
+    /// <summary>
+    /// Undo Action
+    /// </summary>
+    /// <returns></returns>
+    private Task Undo() => InvokeVoidAsync("undo", Id);
+
+    /// <summary>
+    /// Redo Action
+    /// </summary>
+    /// <returns></returns>
+    private Task Redo() => InvokeVoidAsync("redo", Id);
 
     /// <summary>
     /// DownloadImage
