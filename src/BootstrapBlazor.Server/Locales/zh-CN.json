@@ -4407,6 +4407,7 @@
     "Radio": "单选框 Radio",
     "Rate": "评分 Rate",
     "Select": "选择器 Select",
+    "SelectTable": "表格选择器 SelectTable",
     "SelectTree": "树状选择器 SelectTree",
     "Slider": "滑块 Slider",
     "Switch": "开关 Switch",
