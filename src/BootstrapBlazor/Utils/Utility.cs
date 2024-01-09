@@ -602,35 +602,21 @@ public static class Utility
         {
             ret = typeof(NullSwitch);
         }
-        else
+        else if (fieldType.IsNumber())
         {
-            switch (type.Name)
-            {
-                case nameof(Boolean):
-                    ret = typeof(Switch);
-                    break;
-                case nameof(DateTime):
-                    ret = typeof(DateTimePicker<>).MakeGenericType(fieldType);
-                    break;
-                case nameof(Int16):
-                case nameof(Int32):
-                case nameof(Int64):
-                case nameof(Single):
-                case nameof(Double):
-                case nameof(Decimal):
-                    ret = typeof(BootstrapInputNumber<>).MakeGenericType(fieldType);
-                    break;
-                case nameof(String):
-                    if (hasRows)
-                    {
-                        ret = typeof(Textarea);
-                    }
-                    else
-                    {
-                        ret = typeof(BootstrapInput<>).MakeGenericType(typeof(string));
-                    }
-                    break;
-            }
+            ret = typeof(BootstrapInputNumber<>).MakeGenericType(fieldType);
+        }
+        else if (fieldType.IsDateTime())
+        {
+            ret = typeof(DateTimePicker<>).MakeGenericType(fieldType);
+        }
+        else if (fieldType.IsBoolean())
+        {
+            ret = typeof(Switch);
+        }
+        else if (fieldType == typeof(string))
+        {
+            ret = hasRows ? typeof(Textarea) : typeof(BootstrapInput<>).MakeGenericType(typeof(string));
         }
         return ret ?? typeof(BootstrapInput<>).MakeGenericType(fieldType);
     }
@@ -670,32 +656,27 @@ public static class Utility
     {
         var ret = new Dictionary<string, object>();
         var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
-        switch (type.Name)
+        if (type.Name == nameof(String))
         {
-            case nameof(String):
-                var ph = item.PlaceHolder ?? Utility.GetPlaceHolder(model, fieldName);
-                if (ph != null)
-                {
-                    ret.Add("placeholder", ph);
-                }
-                if (item.Rows != 0)
-                {
-                    ret.Add("rows", item.Rows);
-                }
-                break;
-            case nameof(Int16):
-            case nameof(Int32):
-            case nameof(Int64):
-            case nameof(Single):
-            case nameof(Double):
-            case nameof(Decimal):
-                if (!string.IsNullOrEmpty(item.Step))
-                {
-                    ret.Add("Step", item.Step);
-                }
-                break;
+            var ph = item.PlaceHolder ?? Utility.GetPlaceHolder(model, fieldName);
+            if (ph != null)
+            {
+                ret.Add("placeholder", ph);
+            }
+            if (item.Rows != 0)
+            {
+                ret.Add("rows", item.Rows);
+            }
+        }
+        else if (type.IsNumber())
+        {
+            if (!string.IsNullOrEmpty(item.Step))
+            {
+                ret.Add("Step", item.Step);
+            }
         }
         return ret;
+
     }
 
     /// <summary>

@@ -17,12 +17,6 @@ public partial class Slider<TValue>
         .Build();
 
     /// <summary>
-    /// 获得/设置 是否使用 input 事件 默认为 false
-    /// </summary>
-    [Parameter]
-    public bool UseInputEvent { get; set; }
-
-    /// <summary>
     /// 获得/设置 最小值 默认为 null 未设置
     /// </summary>
     [Parameter]
@@ -42,8 +36,6 @@ public partial class Slider<TValue>
     [Parameter]
     [NotNull]
     public TValue? Step { get; set; }
-
-    private string eventName => UseInputEvent ? "oninput" : "onchange";
 
     private string? MinString => Min.ToString() == "0" ? GetRangeMinString : Min.ToString();
 
