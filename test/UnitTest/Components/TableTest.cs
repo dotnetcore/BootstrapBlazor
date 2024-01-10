@@ -5606,6 +5606,23 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
+    public void DynamicContext_Pagination()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockDynamicTable>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsPagination, true);
+                pb.Add(a => a.DynamicContext, CreateDynamicContext(localizer));
+            });
+        });
+        cut.Contains("nav nav-pages");
+    }
+
+    [Fact]
     public void CustomerSearches_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
