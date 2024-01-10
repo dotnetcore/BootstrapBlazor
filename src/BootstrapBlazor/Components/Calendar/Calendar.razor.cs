@@ -195,9 +195,9 @@ public partial class Calendar
         {
             await ValueChanged.InvokeAsync(Value);
         }
-        else
+        if (OnValueChanged != null)
         {
-            StateHasChanged();
+            await OnValueChanged(Value);
         }
     }
 
@@ -211,6 +211,10 @@ public partial class Calendar
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);
+        }
+        if (OnValueChanged != null)
+        {
+            await OnValueChanged(Value);
         }
     }
 
@@ -232,6 +236,10 @@ public partial class Calendar
         {
             await ValueChanged.InvokeAsync(Value);
         }
+        if (OnValueChanged != null)
+        {
+            await OnValueChanged(Value);
+        }
     }
 
     /// <summary>
@@ -252,6 +260,10 @@ public partial class Calendar
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);
+        }
+        if (OnValueChanged != null)
+        {
+            await OnValueChanged(Value);
         }
     }
 
