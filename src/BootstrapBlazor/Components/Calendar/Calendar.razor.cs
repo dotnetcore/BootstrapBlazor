@@ -155,6 +155,12 @@ public partial class Calendar
     public EventCallback<DateTime> ValueChanged { get; set; }
 
     /// <summary>
+    /// 获得/设置 值改变时回调委托
+    /// </summary>
+    [Parameter]
+    public Func<DateTime, Task>? OnValueChanged { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示周视图 默认为 CalendarVieModel.Month 月视图
     /// </summary>
     [Parameter]
@@ -173,6 +179,12 @@ public partial class Calendar
     public RenderFragment<CalendarCellValue>? CellTemplate { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示年按钮
+    /// </summary>
+    [Parameter]
+    public bool ShowYearButtons { get; set; } = true;
+
+    /// <summary>
     /// 选中日期时回调此方法
     /// </summary>
     /// <param name="value"></param>
@@ -183,9 +195,9 @@ public partial class Calendar
         {
             await ValueChanged.InvokeAsync(Value);
         }
-        else
+        if (OnValueChanged != null)
         {
-            StateHasChanged();
+            await OnValueChanged(Value);
         }
     }
 
@@ -199,6 +211,10 @@ public partial class Calendar
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);
+        }
+        if (OnValueChanged != null)
+        {
+            await OnValueChanged(Value);
         }
     }
 
@@ -220,6 +236,10 @@ public partial class Calendar
         {
             await ValueChanged.InvokeAsync(Value);
         }
+        if (OnValueChanged != null)
+        {
+            await OnValueChanged(Value);
+        }
     }
 
     /// <summary>
@@ -240,6 +260,10 @@ public partial class Calendar
         if (ValueChanged.HasDelegate)
         {
             await ValueChanged.InvokeAsync(Value);
+        }
+        if (OnValueChanged != null)
+        {
+            await OnValueChanged(Value);
         }
     }
 
