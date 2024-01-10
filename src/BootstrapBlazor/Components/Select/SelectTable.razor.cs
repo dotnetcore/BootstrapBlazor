@@ -10,15 +10,28 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Select 组件实现类
 /// </summary>
-/// <typeparam name="TValue"></typeparam>
-public partial class SelectTable<TValue> where TValue : class, new()
+/// <typeparam name="TItem"></typeparam>
+[CascadingTypeParameter(nameof(TItem))]
+public partial class SelectTable<TItem> : ITable where TItem : class, new()
 {
+    /// <summary>
+    /// 获得/设置 TableHeader 实例
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TItem>? TableColumns { get; set; }
+
+    /// <summary>
+    /// 获得/设置 子组件
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     /// <summary>
     /// 获得/设置 绑定数据集
     /// </summary>
     [Parameter]
     [NotNull]
-    public IEnumerable<TValue>? Items { get; set; }
+    public IEnumerable<TItem>? Items { get; set; }
 
     /// <summary>
     /// 获得/设置 颜色 默认 Color.None 无设置
@@ -27,9 +40,31 @@ public partial class SelectTable<TValue> where TValue : class, new()
     public Color Color { get; set; }
 
     /// <summary>
+    /// 
+    /// </summary>
+    public List<ITableColumn> Columns { get; } = [];
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public Dictionary<string, IFilterAction> Filters { get; } = [];
+
+    /// <summary>
+    /// 
+    /// </summary>
+    [NotNull]
+    public Func<Task>? OnFilterAsync { get; private set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<ITableColumn> GetVisibleColumns() => Columns;
+
+    /// <summary>
     /// 获得 样式集合
     /// </summary>
-    private string? ClassName => CssBuilder.Default("select dropdown")
+    private string? ClassName => CssBuilder.Default("select select-table dropdown")
         .AddClass("disabled", IsDisabled)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -68,7 +103,7 @@ public partial class SelectTable<TValue> where TValue : class, new()
     /// </summary>
     [Parameter]
     [NotNull]
-    public Func<string, IEnumerable<TValue>>? OnSearchTextChanged { get; set; }
+    public Func<string, IEnumerable<TItem>>? OnSearchTextChanged { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示搜索框 默认为 false 不显示
@@ -89,27 +124,17 @@ public partial class SelectTable<TValue> where TValue : class, new()
     public string? PlaceHolder { get; set; }
 
     /// <summary>
-    /// 获得/设置 字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
+    /// 获得/设置 字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感
     /// </summary>
     [Parameter]
     public StringComparison StringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
-    /// <summary>
-    /// 获得/设置 Text 表达式
-    /// </summary>
-    [Parameter]
-    [NotNull]
-#if NET6_0_OR_GREATER
-    [EditorRequired]
-#endif
-    public Expression<Func<TValue, string>>? TextExpression { get; set; }
-
     [Inject]
     [NotNull]
-    private IStringLocalizer<Select<TValue>>? Localizer { get; set; }
+    private IStringLocalizer<Select<TItem>>? Localizer { get; set; }
 
     [NotNull]
-    private List<TValue>? DataSource { get; set; }
+    private List<TItem>? DataSource { get; set; }
 
     /// <summary>
     /// 获得 input 组件 Id 方法
@@ -134,10 +159,10 @@ public partial class SelectTable<TValue> where TValue : class, new()
     {
         base.OnInitialized();
 
-        if (OnSearchTextChanged == null)
-        {
-            OnSearchTextChanged = text => Items.Where(i => GetText(i).Contains(text, StringComparison));
-        }
+        //if (OnSearchTextChanged == null)
+        //{
+        //    OnSearchTextChanged = text => Items.Where(i => GetText(i).Contains(text, StringComparison));
+        //}
     }
 
     /// <summary>
@@ -147,21 +172,20 @@ public partial class SelectTable<TValue> where TValue : class, new()
     {
         base.OnParametersSet();
 
-        Items ??= Enumerable.Empty<TValue>();
+        Items ??= Enumerable.Empty<TItem>();
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
-        TextInvoke = TextExpression.Compile();
     }
 
     /// <summary>
     /// 获得 Text 属性名称
     /// </summary>
     [NotNull]
-    protected Func<TValue, string>? TextInvoke { get; set; }
+    protected Func<TItem, string>? TextInvoke { get; set; }
 
     /// <summary>
     /// 获得 Text 显示文字
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    protected string GetText(TValue item) => item is null ? "" : TextInvoke(item);
+    protected string GetText(TItem item) => item is null ? "" : TextInvoke(item);
 }

@@ -5,6 +5,11 @@
 <h4>下拉框为表格用于展示复杂类型的选择需求</h4>
 
 <DemoBlock Title="基本用法" Introduction="@Localizer["Block1Intro"]" Name="Normal">
-    <SelectTable TValue="Foo" @bind-Value="@Foo" Items="Items" TextExpression="f => f.Name" />
+    <SelectTable TItem="Foo" @bind-Value="@Foo" Items="Items">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Name"></TableColumn>
+            <TableColumn @bind-Field="@context.Address"></TableColumn>
+        </TableColumns>
+    </SelectTable>
     <div>@Foo?.Name</div>
 </DemoBlock>
