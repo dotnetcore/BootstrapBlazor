@@ -65,7 +65,7 @@
                 background-color: var(--bb-calendar-toolbar-hover-bg);
             }
 
-            &:active {
+            &:not(:focus):not(:hover):active {
                 color: var(--bb-calendar-toolbar-active-color);
                 border-color: var(--bb-calendar-toolbar-active-border-color);
                 outline: none;
