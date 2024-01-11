@@ -19,7 +19,6 @@
     .card-collapse-bar {
         cursor: pointer;
         margin-right: var(--bb-card-collapse-bar-margin-right);
-        flex: 1;
     }
 
     .tag {
@@ -28,10 +27,6 @@
 
     + .card-body {
         border-top: var(--bs-card-border-width) solid var(--bs-card-border-color);
-    }
-
-    .card-title {
-        flex: 1;
     }
 }
 
