@@ -7532,7 +7532,10 @@ public class TableTest : TableTestBase
             var propertyName = col.GetFieldName();
             // 使用 Text 设置显示名称示例
             col.Text = localizer[nameof(Foo.Name)];
-        });
+        })
+        {
+            OnFilterCallback = items => items
+        };
     }
 
     private static Func<QueryPageOptions, Task<QueryData<Foo>>> OnQueryAsync(IStringLocalizer<Foo> localizer, bool isSearch = true, bool isAdvanceSearch = true, bool isFilter = true, bool isSorted = true) => new(op =>
