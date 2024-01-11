@@ -165,4 +165,29 @@ public class CalendarTest : BootstrapBlazorTestBase
         var buttons = cut.FindAll(".btn-group > .btn-sm");
         Assert.Equal(3, buttons.Count);
     }
+
+    [Fact]
+    public async Task OnValueChanged_Ok()
+    {
+        var v = DateTime.MinValue;
+        var cut = Context.RenderComponent<Calendar>(pb =>
+        {
+            pb.Add(s => s.ViewMode, CalendarViewMode.Week);
+            pb.Add(a => a.Value, DateTime.Today);
+            pb.Add(a => a.OnValueChanged, d =>
+            {
+                v = d;
+                return Task.CompletedTask;
+            });
+        });
+        Assert.Contains("table-week", cut.Markup);
+
+        await cut.InvokeAsync(() =>
+        {
+            var buttons = cut.FindAll(".calendar-button-group button");
+            // 上一周
+            buttons[0].Click();
+        });
+        Assert.NotEqual(v, DateTime.MinValue);
+    }
 }
