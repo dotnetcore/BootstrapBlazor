@@ -994,7 +994,12 @@ public partial class Table<TItem>
         if (context != null)
         {
             QueryItems = context.GetItems().Cast<TItem>();
-            TotalCount = QueryItems.Count();
+            if (IsPagination)
+            {
+                TotalCount = QueryItems.Count();
+                PageCount = (int)Math.Ceiling(TotalCount * 1.0 / Math.Max(1, PageItems));
+                QueryItems = QueryItems.Skip((PageIndex - 1) * PageItems).Take(PageItems);
+            }
 
             // 重置选中行
             ResetSelectedRows(QueryItems);
