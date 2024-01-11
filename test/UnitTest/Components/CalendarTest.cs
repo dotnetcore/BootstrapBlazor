@@ -151,4 +151,18 @@ public class CalendarTest : BootstrapBlazorTestBase
             }
         });
     }
+
+    [Fact]
+    public void ShowYearButtons_Ok()
+    {
+        var cut = Context.RenderComponent<Calendar>(pb =>
+        {
+            pb.Add(s => s.ViewMode, CalendarViewMode.Month);
+            pb.Add(a => a.Value, DateTime.Today);
+            pb.Add(a => a.ShowYearButtons, false);
+        });
+
+        var buttons = cut.FindAll(".btn-group > .btn-sm");
+        Assert.Equal(3, buttons.Count);
+    }
 }
