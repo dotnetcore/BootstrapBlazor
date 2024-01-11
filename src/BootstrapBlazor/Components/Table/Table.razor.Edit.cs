@@ -551,7 +551,7 @@ public partial class Table<TItem>
         var queryOption = new QueryPageOptions()
         {
             IsPage = IsPagination,
-            PageIndex = PageIndex,
+            PageIndex = Math.Max(1, PageIndex),
             PageItems = PageItems,
             SearchText = SearchText,
             SortOrder = SortOrder,
