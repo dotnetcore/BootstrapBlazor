@@ -57,17 +57,18 @@ public class CalendarTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ButtonClick_Ok()
+    public async Task ButtonClick_Ok()
     {
         var v = DateTime.MinValue;
         var cut = Context.RenderComponent<Calendar>(pb =>
         {
             pb.Add(a => a.Value, DateTime.Today);
             pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<DateTime>(this, d => v = d));
+            pb.Add(a => a.OnValueChanged, d => Task.CompletedTask);
         });
 
 
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             var buttons = cut.FindAll(".calendar-button-group button");
             // btn 上一年
@@ -97,24 +98,28 @@ public class CalendarTest : BootstrapBlazorTestBase
 
 
     [Fact]
-    public void ValueChanged_Ok()
+    public async Task ValueChanged_Ok()
     {
         var value = DateTime.MinValue;
-        var cut = Context.RenderComponent<Calendar>(builder =>
+        var cut = Context.RenderComponent<Calendar>(pb =>
         {
-            builder.Add(a => a.ValueChanged, v => value = v);
+            pb.Add(a => a.ValueChanged, v => value = v);
+            pb.Add(a => a.OnValueChanged, d => Task.CompletedTask);
         });
 
-        // 点击第一个 current 得到本月 1号
-        cut.Find(".current").Click();
-        Assert.Equal(1, value.Day);
+        await cut.InvokeAsync(() =>
+        {
+            // 点击第一个 current 得到本月 1号
+            cut.Find(".current").Click();
+            Assert.Equal(1, value.Day);
 
-        cut.Find(".is-today").Click();
-        Assert.Equal(value.Day, DateTime.Now.Day);
+            cut.Find(".is-today").Click();
+            Assert.Equal(value.Day, DateTime.Now.Day);
+        });
     }
 
     [Fact]
-    public void OnChangeWeek_Ok()
+    public async Task OnChangeWeek_Ok()
     {
         var v = DateTime.MinValue;
         var cut = Context.RenderComponent<Calendar>(pb =>
@@ -122,10 +127,11 @@ public class CalendarTest : BootstrapBlazorTestBase
             pb.Add(s => s.ViewMode, CalendarViewMode.Week);
             pb.Add(a => a.Value, DateTime.Today);
             pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<DateTime>(this, d => v = d));
+            pb.Add(a => a.OnValueChanged, d => Task.CompletedTask);
         });
         Assert.Contains("table-week", cut.Markup);
 
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             var buttons = cut.FindAll(".calendar-button-group button");
             // 上一周
