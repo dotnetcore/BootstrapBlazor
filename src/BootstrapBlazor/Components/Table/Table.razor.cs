@@ -121,7 +121,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .AddClass(ExtendButtonColumnAlignment.ToDescriptionString())
         .Build();
 
-    private string? GetSortTooltip(ITableColumn col) => SortName != col.GetFieldName()
+    private string GetSortTooltip(ITableColumn col) => SortName != col.GetFieldName()
         ? UnsetText
         : SortOrder switch
         {
@@ -138,7 +138,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private int PageStartIndex => Rows.Count > 0 ? (PageIndex - 1) * PageItems + 1 : 0;
 
-    private string? PageInfoLabelString => Localizer[nameof(PageInfoText), PageStartIndex, (PageIndex - 1) * PageItems + Rows.Count, TotalCount];
+    private string PageInfoLabelString => Localizer[nameof(PageInfoText), PageStartIndex, (PageIndex - 1) * PageItems + Rows.Count, TotalCount];
 
     private static string? GetColWidthString(int? width) => width.HasValue ? $"width: {width.Value}px;" : null;
 
@@ -587,7 +587,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public string? ClientTableName { get; set; }
 
     [CascadingParameter]
-    [NotNull]
     private ContextMenuZone? ContextMenuZone { get; set; }
 
     [Inject]
@@ -609,7 +608,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         OnInitLocalization();
 
         // 设置 OnSort 回调方法
-        InternalOnSortAsync = async (sortName, sortOrder) =>
+        InternalOnSortAsync = (sortName, sortOrder) =>
         {
             // 调用 OnSort 回调方法
             if (OnSort != null)
@@ -618,15 +617,15 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             }
 
             // 重新查询
-            await QueryAsync();
+            return QueryAsync();
         };
 
         // 设置 OnFilter 回调方法
-        OnFilterAsync = async () =>
+        OnFilterAsync = () =>
         {
             PageIndex = 1;
             TotalCount = 0;
-            await QueryAsync();
+            return QueryAsync();
         };
     }
 
@@ -670,7 +669,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             RenderMode = op.TableSettings.TableRenderMode.Value;
         }
 
-        PageItemsSource ??= new int[] { 20, 50, 100, 200, 500, 1000 };
+        PageItemsSource ??= new[] { 20, 50, 100, 200, 500, 1000 };
 
         if (PageItems == 0)
         {
