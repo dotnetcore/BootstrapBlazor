@@ -477,7 +477,7 @@ const debounce = function (fn, duration = 200, callback = null) {
             clearTimeout(handler)
         }
         if (callback && typeof (callback) === 'function') {
-            var v = callback.apply(this, arguments)
+            const v = callback.apply(this, arguments)
             if (v === true) {
                 handler = null
             }
