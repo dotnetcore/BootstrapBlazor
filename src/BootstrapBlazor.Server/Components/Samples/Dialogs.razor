@@ -40,7 +40,7 @@ private async Task OnClick()
 <Pre>&lt;DialogCloseButton /&gt;</Pre>
 
 <DemoBlock Title="@Localizer["KeyboardTitle"]" Introduction="@Localizer["KeyboardIntro"]" Name="Keyboard">
-    <section ignore class="mb-3">@((MarkupString)Localizer["KeyboardTip"].Value)</section>
+    <section ignore>@((MarkupString)Localizer["KeyboardTip"].Value)</section>
     <Button OnClick="@KeyboardOnClick">@Localizer["KeyboardOpenDialogButton"]</Button>
     <Button OnClick="@OnClickKeyboard" Text="@($"Keyboard: {IsKeyboard}")" class="ms-3" />
 </DemoBlock>
@@ -58,12 +58,12 @@ private async Task OnClick()
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ComponentTitle"]" Introduction="@Localizer["ComponentIntro"]" Name="Component">
-    <section ignore class="mb-3">@((MarkupString)Localizer["ComponentTip"].Value)</section>
+    <section ignore>@((MarkupString)Localizer["ComponentTip"].Value)</section>
     <Button @onclick="@ComponentOnClick">@Localizer["ComponentOpenDialogButton"]</Button>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BodyContextTitle"]" Introduction="@Localizer["BodyContextIntro"]" Name="BodyContext">
-    <section ignore class="mb-3">@((MarkupString)Localizer["BodyContextTip"].Value)</section>
+    <section ignore>@((MarkupString)Localizer["BodyContextTip"].Value)</section>
     <Button @onclick="@BodyContextOnClick">@Localizer["BodyContextOpenDialogButton"]</Button>
 </DemoBlock>
 
@@ -92,13 +92,13 @@ private async Task OnClick()
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["CloseDialogByCodeTitle"]" Introduction="@Localizer["CloseDialogByCodeIntro"]" Name="CloseDialogByCode">
-    <section ignore class="mb-3">@((MarkupString)Localizer["CloseDialogByCodeTip"].Value)</section>
+    <section ignore>@((MarkupString)Localizer["CloseDialogByCodeTip"].Value)</section>
     <Button OnClick="@CloseDialogByCodeShow">Dialog</Button>
     <Button OnClick="@CloseButtonShow">CloseButton</Button>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["DisableHeaderCloseButtonTitle"]" Introduction="@Localizer["DisableHeaderCloseButtonIntro"]" Name="DisableHeaderCloseButton">
-    <section ignore class="mb-3">@((MarkupString)Localizer["DisableHeaderCloseButtonTip"].Value)</section>
+    <section ignore>@((MarkupString)Localizer["DisableHeaderCloseButtonTip"].Value)</section>
     <Button @onclick="@ShowNoHeaderCloseButtonDialog">Dialog</Button>
 </DemoBlock>
 

@@ -9,7 +9,7 @@
 <DemoBlock Title="@Localizer["VirtualizationNormalTitle"]"
            Introduction="@Localizer["VirtualizationNormalIntro"]"
            Name="Normal">
-    <section ignore class="mb-3">
+    <section ignore>
         @((MarkupString)Localizer["VirtualizationNormalDescription"].Value)
         <BootstrapInputGroup>
             <BootstrapInputGroupLabel DisplayText="@Localizer["TablesFooterFixedLabel"]"></BootstrapInputGroupLabel>
@@ -37,7 +37,7 @@
 <DemoBlock Title="@Localizer["VirtualizationDynamicTitle"]"
            Introduction="@Localizer["VirtualizationDynamicIntro"]"
            Name="Dynamic">
-    <section ignore class="mb-3">@Localizer["VirtualizationDynamicDescription"]</section>
+    <section ignore>@Localizer["VirtualizationDynamicDescription"]</section>
     <div class="table-virtualize-demo">
         <Table TItem="Foo" IsBordered="true" IsStriped="true" ScrollMode="ScrollMode.Virtual" OnQueryAsync="OnQueryAsync">
             <TableColumns>
