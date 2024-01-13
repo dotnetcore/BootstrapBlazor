@@ -2265,6 +2265,15 @@ public class TableTest : TableTestBase
                     builder.OpenComponent<MockToolbarButton<Foo>>(0);
                     builder.AddAttribute(12, nameof(MockToolbarButton<Foo>.Text), "test-confirm-mock");
                     builder.CloseComponent();
+
+                    builder.OpenComponent<TableToolbarComponent<Foo>>(0);
+                    builder.AddAttribute(13, nameof(TableToolbarComponent<Foo>.ChildContent), new RenderFragment(b =>
+                    {
+                        b.OpenComponent<Button>(0);
+                        b.AddAttribute(1, "Text", "test");
+                        b.CloseComponent();
+                    }));
+                    builder.CloseComponent();
                 });
             });
         });
@@ -7623,8 +7632,14 @@ public class TableTest : TableTestBase
         }
     }
 
-    private class MockToolbarButton<TItem> : ButtonBase
+    private class MockToolbarButton<TItem> : ButtonBase, ITableToolbarButton<TItem>
     {
+        public bool IsEnableWhenSelectedOneRow { get; set; }
+
+        public Func<IEnumerable<TItem>, bool>? IsDisabledCallback { get; set; }
+
+        public bool IsShow { get; set; } = true;
+
         [CascadingParameter]
         [NotNull]
         protected TableToolbar<TItem>? Buttons { get; set; }
