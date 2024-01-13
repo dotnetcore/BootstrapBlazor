@@ -481,6 +481,9 @@ const saveColumnWidth = table => {
 
 export function reset(id) {
     const table = Data.get(id)
+    if (table === null) {
+        return;
+    }
 
     table.columns = []
     table.tables = []
