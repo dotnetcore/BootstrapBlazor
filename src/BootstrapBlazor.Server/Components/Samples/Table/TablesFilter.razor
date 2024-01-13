@@ -15,7 +15,7 @@
 <DemoBlock Title="@Localizer["FilterableTitle"]"
            Introduction="@Localizer["FilterableIntro"]"
            Name="Filterable">
-    <section ignore class="mb-3">
+    <section ignore>
         <p>@((MarkupString)Localizer["FilterableP"].Value)</p>
         <ul class="ul-demo mb-3">
             <li>@((MarkupString)Localizer["FilterableLi1"].Value)</li>
@@ -45,7 +45,7 @@
 
 <DemoBlock Title="@Localizer["FilterTemplateTitle"]"
             Introduction="@Localizer["FilterTemplateIntro"]" Name="CustomerFilter">
-    <section ignore class="mb-3">@((MarkupString)Localizer["TablesFilterTemplateDescription", ComponentSourceCodeUrl].Value)</section>
+    <section ignore>@((MarkupString)Localizer["TablesFilterTemplateDescription", ComponentSourceCodeUrl].Value)</section>
 
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
@@ -117,7 +117,7 @@
 <DemoBlock Title="@Localizer["SortListTitle"]"
            Introduction="@Localizer["SortListIntro"]"
            Name="SortString">
-    <section ignore class="mb-3">@((MarkupString)Localizer["SortListP"].Value)</section>
+    <section ignore>@((MarkupString)Localizer["SortListP"].Value)</section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
@@ -135,7 +135,7 @@
 <DemoBlock Title="@Localizer["OnSortTitle"]"
            Introduction="@Localizer["OnSortIntro"]"
            Name="OnSort">
-    <section ignore class="mb-3">@((MarkupString)Localizer["OnSortP"].Value)</section>
+    <section ignore>@((MarkupString)Localizer["OnSortP"].Value)</section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
@@ -170,7 +170,7 @@
 <DemoBlock Title="@Localizer["SetFilterInCodeTitle"]"
            Introduction="@Localizer["SetFilterInCodeIntro"]"
            Name="SetFilterInCode">
-    <section ignore class="mb-3">
+    <section ignore>
         <Button Text="@Localizer["SetFilterInCodeButtonText1"]" OnClickWithoutRender="SetFilterInCode"></Button>
         <Button Text="@Localizer["SetFilterInCodeButtonText2"]" OnClickWithoutRender="ResetAllFilters"></Button>
     </section>

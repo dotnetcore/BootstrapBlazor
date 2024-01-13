@@ -993,13 +993,19 @@ public partial class Table<TItem>
         RowsCache = null;
         if (context != null)
         {
-            QueryItems = context.GetItems().Cast<TItem>();
+            var items = context.GetItems();
             if (IsPagination)
             {
-                TotalCount = QueryItems.Count();
+                if(context.OnFilterCallback != null)
+                {
+                    items = context.OnFilterCallback(items);
+                }
+                TotalCount = items.Count();
                 PageCount = (int)Math.Ceiling(TotalCount * 1.0 / Math.Max(1, PageItems));
-                QueryItems = QueryItems.Skip((PageIndex - 1) * PageItems).Take(PageItems);
+                PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / PageItems).ToString())));
+                items = items.Skip((PageIndex - 1) * PageItems).Take(PageItems);
             }
+            QueryItems = items.Cast<TItem>();
 
             // 重置选中行
             ResetSelectedRows(QueryItems);

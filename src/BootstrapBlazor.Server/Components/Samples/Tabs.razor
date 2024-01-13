@@ -229,7 +229,7 @@ private void Navigation()
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TabsAddTabItemTitle"]" Introduction="@Localizer["TabsAddTabItemIntro"]" Name="AddTabItem">
-    <section ignore class="mb-3">
+    <section ignore>
         <Button Icon="fa-solid fa-circle-plus" OnClickWithoutRender="@(() => AddTab(TabSet))" Text="@Localizer["AddButtonText"]">
         </Button>
         <Button Color="Color.Danger" Icon="fa-solid fa-circle-minus" IsDisabled="@RemoveEnabled" OnClickWithoutRender="@(() => RemoveTab(TabSet))" Text="@Localizer["RemoveButtonText"]">
@@ -259,7 +259,7 @@ private void Navigation()
 <DemoBlock Title="@Localizer["TabsComponentTitle"]"
            Introduction="@Localizer["TabsComponentIntro"]"
            Name="Component">
-    <section ignore class="mb-3">
+    <section ignore>
         @((MarkupString)Localizer["TabsComponentDescription"].Value)
     </section>
     <Tab IsBorderCard="true">
@@ -275,7 +275,7 @@ private void Navigation()
 <DemoBlock Title="@Localizer["TabsDynamicTabItemTitle"]"
            Introduction="@Localizer["TabsDynamicTabItemIntro"]"
            Name="DynamicTabItem">
-    <section ignore class="mb-3">
+    <section ignore>
         @((MarkupString)Localizer["TabsDynamicTabItemDescription"].Value)
     </section>
     <div class="dynamic-tab">

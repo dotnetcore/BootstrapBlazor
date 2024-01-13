@@ -245,6 +245,14 @@ code {
         border-radius: 50%;
     }
 
+.card-body > section:not(:first-child) {
+    margin-top: 1rem;
+}
+
+.card-body > section:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
 @media (min-width: 768px) {
     :root {
         --bs-header-height: 50px;

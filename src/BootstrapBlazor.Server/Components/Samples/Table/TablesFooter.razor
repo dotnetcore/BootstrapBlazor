@@ -40,7 +40,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TablesFooterTemplateTitle"]" Introduction="@Localizer["TablesFooterTemplateIntro"]" Name="FooterTemplate">
-    <section ignore class="mb-3">@((MarkupString)Localizer["TablesFooterTemplateDescription"].Value)</section>
+    <section ignore>@((MarkupString)Localizer["TablesFooterTemplateDescription"].Value)</section>
     <Table TItem="Foo" ShowFooter="true" class="footer-demo" IsPagination="true" PageItemsSource="@PageItemsSource" OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />

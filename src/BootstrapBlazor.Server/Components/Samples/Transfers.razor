@@ -36,7 +36,7 @@
 <DemoBlock Title="@Localizer["TransferBindTitle"]"
            Introduction="@Localizer["TransferBindIntro"]"
            Name="Bind">
-    <section ignore class="mb-3">@((MarkupString)Localizer["TransferBindDescription"].Value)</section>
+    <section ignore>@((MarkupString)Localizer["TransferBindDescription"].Value)</section>
     <Transfer Items="@Items3" @bind-Value="@SelectedValue" />
     <section ignore>
         <div class="my-3">Value：@string.Join(";", SelectedValue.Select(i => i.Text))</div>
@@ -47,7 +47,7 @@
 <DemoBlock Title="@Localizer["TransferValidateTitle"]"
            Introduction="@Localizer["TransferValidateIntro"]"
            Name="Validate">
-    <section ignore class="mb-3">@((MarkupString)Localizer["ClientValidationP1"].Value)</section>
+    <section ignore>@((MarkupString)Localizer["ClientValidationP1"].Value)</section>
     <ValidateForm Model="@Model">
         <div class="row g-3">
             <div class="col-12">
@@ -58,7 +58,7 @@
             </div>
         </div>
     </ValidateForm>
-    <section ignore class="mt-3">Hobby: @string.Join(",", Model.Hobby)</section>
+    <section ignore>Hobby: @string.Join(",", Model.Hobby)</section>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TransferMinMaxTitle"]"
