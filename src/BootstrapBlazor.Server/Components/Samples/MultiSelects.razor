@@ -48,7 +48,7 @@
             <Button Icon="fa-regular fa-trash-can" Text="@Localizer["MultiSelectClean"]" OnClick="@ClearItems" />
         </div>
     </div>
-    <section ignore class="mt-3">@SelectedItemsValue</section>
+    <section ignore>@SelectedItemsValue</section>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MultiSelectBindingCollectionTitle"]" Introduction="@Localizer["MultiSelectBindingCollectionIntro"]" Name="BindingCollection">
@@ -63,7 +63,7 @@
             <Button Icon="fa-regular fa-trash-can" Text="@Localizer["MultiSelectClean"]" OnClick="@ClearListItems" />
         </div>
     </div>
-    <section ignore class="mt-3">@(string.Join(",", SelectedArrayValues))</section>
+    <section ignore>@(string.Join(",", SelectedArrayValues))</section>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MultiSelectBindingNumberTitle"]" Introduction="@Localizer["MultiSelectBindingNumberIntro"]" Name="BindingNumber">
@@ -78,19 +78,19 @@
             <Button Icon="fa-regular fa-trash-can" Text="@Localizer["MultiSelectClean"]" OnClick="@ClearArrayItems" />
         </div>
     </div>
-    <section ignore class="mt-3">@(string.Join(",", SelectedIntArrayValues))</section>
+    <section ignore>@(string.Join(",", SelectedIntArrayValues))</section>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MultiSelectBindingEnumCollectionTitle"]" Introduction="@Localizer["MultiSelectBindingEnumCollectionIntro"]" Name="BindingEnumCollection">
     <section ignore>@((MarkupString)Localizer["MultiSelectBindingEnumCollectionDescription"].Value)</section>
     <MultiSelect @bind-Value="@SelectedEnumValues" />
-    <section ignore class="mt-3">@(string.Join(",", SelectedEnumValues))</section>
+    <section ignore>@(string.Join(",", SelectedEnumValues))</section>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MultiSelectSearchTitle"]" Introduction="@Localizer["MultiSelectSearchIntro"]" Name="Search">
     <section ignore>@((MarkupString)Localizer["MultiSelectSearchDescription"].Value)</section>
     <MultiSelect Items="@Items" @bind-Value="@SelectedSearchItemsValue" ShowSearch="true" OnSearchTextChanged="@OnSearch" />
-    <section ignore class="mt-3">@SelectedSearchItemsValue</section>
+    <section ignore>@SelectedSearchItemsValue</section>
     <ConsoleLogger @ref="Logger" />
 </DemoBlock>
 
