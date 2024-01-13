@@ -18,9 +18,7 @@ private ToastService? ToastService { get; set; }
 <p class="code-label">@((MarkupString)Localizer["ToastsTips2"].Value)</p>
 <Pre>await ToastService.Success("Title", "Content", autoHide: true);</Pre>
 
-<DemoBlock Title="@Localizer["ToastsNormalTitle"]"
-           Introduction="@Localizer["ToastsNormalIntro"]"
-           Name="Normal">
+<DemoBlock Title="@Localizer["ToastsNormalTitle"]" Introduction="@Localizer["ToastsNormalIntro"]" Name="Normal" ShowCode="false">
     <div class="row g-3 overflow-hidden">
         <div class="col-12 col-lg-6 col-xl-3">
             <Toast class="d-toast show" Options="@Options1" />
@@ -49,28 +47,20 @@ private ToastService? ToastService { get; set; }
     </div>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ToastsCloseTitle"]"
-           Introduction="@Localizer["ToastsCloseIntro"]"
-           Name="Close">
+<DemoBlock Title="@Localizer["ToastsCloseTitle"]" Introduction="@Localizer["ToastsCloseIntro"]" Name="Close" ShowCode="false">
     <Button Icon="fa-solid fa-triangle-exclamation" OnClick="@OnNotAutoHideClick" Text="@Localizer["ToastsCloseNotificationText"]"></Button>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ToastsShowHeaderTitle"]"
-           Introduction="@Localizer["ToastsShowHeaderIntro"]"
-           Name="ShowHeader">
+<DemoBlock Title="@Localizer["ToastsShowHeaderTitle"]" Introduction="@Localizer["ToastsShowHeaderIntro"]" Name="ShowHeader" ShowCode="false">
     <Button Icon="fa-solid fa-circle-exclamation" OnClick="@OnShowHeaderClick" Text="@Localizer["ShowHeaderText"]"></Button>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ToastsHeaderTemplateTitle"]"
-           Introduction="@Localizer["ToastsHeaderTemplateIntro"]"
-           Name="HeaderTemplate">
+<DemoBlock Title="@Localizer["ToastsHeaderTemplateTitle"]" Introduction="@Localizer["ToastsHeaderTemplateIntro"]" Name="HeaderTemplate" ShowCode="false">
     <Button Icon="fa-solid fa-circle-exclamation" OnClick="@OnHeaderTemplateClick" Text="@Localizer["ShowHeaderText"]"></Button>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ToastsPositionTitle"]"
-           Introduction="@Localizer["ToastsPositionIntro"]"
-           Name="Position">
-    <p>@((MarkupString)Localizer["ToastsPositionDescription"].Value)</p>
+<DemoBlock Title="@Localizer["ToastsPositionTitle"]" Introduction="@Localizer["ToastsPositionIntro"]" ShowCode="false" Name="Position">
+    <section ignore>@((MarkupString)Localizer["ToastsPositionDescription"].Value)</section>
     <div class="row g-3 row-cols-3">
         <div class="col">
             <Button OnClick="e => OnPlacementClick(Placement.TopStart)">Top Start</Button>
@@ -168,11 +158,11 @@ private ToastService? ToastService { get; set; }
 
 <AttributeTable Items="@GetAttributes()" />
 
-@code{
+@code {
     RenderFragment RenderHeader =>
-        @<div class="d-flex flex-fill pe-3">
-            <svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#007aff"></rect></svg>
-            <strong class="me-auto">Bootstrap</strong>
-            <small class="text-muted">just now</small>
-        </div>;
+    @<div class="d-flex flex-fill pe-3">
+        <svg class="bd-placeholder-img rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#007aff"></rect></svg>
+        <strong class="me-auto">Bootstrap</strong>
+        <small class="text-muted">just now</small>
+    </div>;
 }
