@@ -31,9 +31,11 @@
                                           CloseButtonText="@pb.CloseButtonText" Content="@pb.Content">
                         </PopConfirmButton>
                     }
-                    else if(button is TableToolbarComponent<TItem> cb && cb.IsShow)
+                    else if (button is TableToolbarComponent<TItem> cb && cb.IsShow)
                     {
-                        @cb.ChildContent
+                        <CascadingValue Value="OnGetSelectedRows" IsFixed="true">
+                            @cb.ChildContent
+                        </CascadingValue>
                     }
                 }
             </div>
