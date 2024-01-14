@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// ITableToolbarButton 接口
 /// </summary>
-public interface ITableToolbarButton<TItem> : IToolbarComponent<TItem>
+public interface ITableToolbarButton<TItem> : IToolbarComponent
 {
     /// <summary>
     /// 获得/设置 选中一行时启用按钮 默认 false 均可用

@@ -17,7 +17,7 @@ public partial class TableToolbar<TItem> : ComponentBase
     /// <summary>
     /// 获得 Toolbar 按钮集合
     /// </summary>
-    private readonly List<IToolbarComponent<TItem>> _buttons = [];
+    private readonly List<IToolbarComponent> _buttons = [];
 
     private readonly ConcurrentDictionary<ButtonBase, bool> _asyncButtonStateCache = new();
 
@@ -109,10 +109,10 @@ public partial class TableToolbar<TItem> : ComponentBase
     /// <summary>
     /// 添加按钮到工具栏方法
     /// </summary>
-    public void AddButton(IToolbarComponent<TItem> button) => _buttons.Add(button);
+    public void AddButton(IToolbarComponent button) => _buttons.Add(button);
 
     /// <summary>
     /// 移除按钮到工具栏方法
     /// </summary>
-    public void RemoveButton(IToolbarComponent<TItem> button) => _buttons.Remove(button);
+    public void RemoveButton(IToolbarComponent button) => _buttons.Remove(button);
 }
