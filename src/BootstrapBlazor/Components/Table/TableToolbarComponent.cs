@@ -7,20 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// Table 工具栏自定义组件
 /// </summary>
-public class TableToolbarComponent<TItem> : ComponentBase, ITableToolbarButton<TItem>, IDisposable
+public class TableToolbarComponent<TItem> : ComponentBase, IToolbarComponent<TItem>, IDisposable
 {
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    [Parameter]
-    public bool IsEnableWhenSelectedOneRow { get; set; }
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
-    [Parameter]
-    public Func<IEnumerable<TItem>, bool>? IsDisabledCallback { get; set; }
-
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
