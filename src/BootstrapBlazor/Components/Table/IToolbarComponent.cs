@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 工具栏按钮接口
 /// </summary>
-public interface IToolbarComponent<TItem>
+public interface IToolbarComponent
 {
     /// <summary>
     /// 获得/设置 是否显示 默认 true 显示
