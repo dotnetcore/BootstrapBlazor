@@ -57,7 +57,6 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
         }
         await InvokeVoidAsync();
 
-        [ExcludeFromCodeCoverage]
         async ValueTask InvokeVoidAsync()
         {
             try
@@ -110,7 +109,6 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
         }
         return await InvokeAsync();
 
-        [ExcludeFromCodeCoverage]
         async ValueTask<TValue> InvokeAsync()
         {
             TValue ret = default!;
