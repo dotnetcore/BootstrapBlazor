@@ -5192,7 +5192,10 @@
     "TablesToolbarCustomDisplayButtonIntro": "通过设置 <code>ShowAddButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> 属性值来控制单独功能按钮是否显示，当 <code>ShowDefaultButtons</code> 设置为 <code>false</code> 时，所有按钮均不显示",
     "TablesToolbarCustomButton1": "下载1",
     "TablesToolbarCustomButton2": "下载2",
-    "TableToolbarPopConfirmButton1": "确认下载"
+    "TableToolbarPopConfirmButton1": "确认下载",
+    "TablesToolbarCustomComponentTitle": "自定义组件",
+    "TablesToolbarCustomComponentIntro": "使用 <code>TableToolbarComponent</code> 组件实现将自己需要的组件放到工具栏上",
+    "TablesToolbarCustomComponentDescription": "自定义组件在收缩成一个小图标时目前不渲染，稍后有更好的方案时再解决，如果想将组件放到内置按钮后面时，请使用 <code>TableToolbarTemplate</code> 模板"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesCell": {
     "TablesCellTitle": "Table 表格",
