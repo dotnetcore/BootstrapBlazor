@@ -2267,6 +2267,7 @@ public class TableTest : TableTestBase
                     builder.CloseComponent();
 
                     builder.OpenComponent<TableToolbarComponent<Foo>>(0);
+                    builder.AddAttribute(14, nameof(TableToolbarComponent<Foo>.IsShow), true);
                     builder.AddAttribute(13, nameof(TableToolbarComponent<Foo>.ChildContent), new RenderFragment(b =>
                     {
                         b.OpenComponent<Button>(0);
@@ -2481,6 +2482,9 @@ public class TableTest : TableTestBase
 
         var cut1 = Context.RenderComponent<TableToolbarPopConfirmButton<Foo>>();
         Assert.Equal("", cut1.Markup);
+
+        var cut2 = Context.RenderComponent<TableToolbarComponent<Foo>>();
+        Assert.Equal("", cut2.Markup);
     }
 
     [Fact]
