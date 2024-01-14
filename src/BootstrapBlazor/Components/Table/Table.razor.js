@@ -1,5 +1,5 @@
 ﻿export { getResponsive } from '../../modules/responsive.js?v=$version'
-import { copy, drag, getDescribedElement, getOuterHeight, getWidth } from '../../modules/utility.js?v=$version'
+import { copy, drag, getDescribedElement, getOuterHeight, getWidth, isVisible } from '../../modules/utility.js?v=$version'
 import '../../modules/browser.js?v=$version'
 import Data from '../../modules/data.js?v=$version'
 import EventHandler from '../../modules/event-handler.js?v=$version'
@@ -7,8 +7,11 @@ import Popover from "../../modules/base-popover.js?v=$version"
 
 const setBodyHeight = table => {
     const el = table.el
-    const children = [...el.children]
+    if (isVisible(el) === false) {
+        return;
+    }
 
+    const children = [...el.children]
     const search = children.find(i => i.classList.contains('table-search'))
     table.search = search
     let searchHeight = 0
@@ -241,7 +244,7 @@ const setResizeListener = table => {
     disposeColumnDrag(table.columns)
     table.columns = []
     const columns = [...table.tables[0].querySelectorAll('.col-resizer')]
-    columns.forEach((col, index) => {
+    columns.forEach(col => {
         table.columns.push(col)
         EventHandler.on(col, 'click', e => e.stopPropagation())
         drag(col,
@@ -383,7 +386,7 @@ const setDraggable = table => {
             dragItem = col
             e.dataTransfer.effectAllowed = 'move'
         })
-        EventHandler.on(col, 'dragend', e => {
+        EventHandler.on(col, 'dragend', () => {
             col.parentNode.classList.remove('table-dragging')
             dragItem.classList.remove('table-drag')
             table.dragColumns.forEach(i => {
@@ -481,6 +484,9 @@ const saveColumnWidth = table => {
 
 export function reset(id) {
     const table = Data.get(id)
+    if (table === null) {
+        return;
+    }
 
     table.columns = []
     table.tables = []

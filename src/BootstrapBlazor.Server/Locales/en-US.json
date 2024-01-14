@@ -147,7 +147,7 @@
     "ToastsCloseNotificationText": "success notification",
     "ToastsPositionTitle": "Toast display location",
     "ToastsPositionIntro": "Provides settings where the Toast popup appears",
-    "ToastsPositionDescription": "<p class=\"mb-3\">Set the location where the popup appears by setting the <code>Placement</code> value of the <code>Toast</code> component. The default value is <code>BottomEnd</code>. upper right corner</p>",
+    "ToastsPositionDescription": "Set the location where the popup appears by setting the <code>Placement</code> value of the <code>Toast</code> component. The default value is <code>BottomEnd</code>. upper right corner",
     "ToastsPositionAttentionText": "pay attention",
     "ToastsPositionTips": "This component provides functions in the form of injection services, and the user experience is very comfortable when used, and can be called anytime, anywhere <br/>The injection service provides the following shortcut invocation methods:",
     "ToastsPositionTips2": "Examples are as follows",
@@ -5193,7 +5193,10 @@
     "TablesToolbarCustomDisplayButtonIntro": "By setting the <code>ShowAddButton</code> <code>ShowEditButton</code> <code>ShowDeleteButton</code> attribute value to control whether the individual function button is displayed, when <code>ShowDefaultButtons</code> is set to <code> When false</code>, all buttons are not displayed",
     "TablesToolbarCustomButton1": "Download 1",
     "TablesToolbarCustomButton2": "Download 2",
-    "TableToolbarPopConfirmButton1": "Confirm"
+    "TableToolbarPopConfirmButton1": "Confirm",
+    "TablesToolbarCustomComponentTitle": "Custom Component",
+    "TablesToolbarCustomComponentIntro": "Use the <code>TableToolbarComponent</code> component to implement placing the components you need on the toolbar",
+    "TablesToolbarCustomComponentDescription": "The custom component currently does not render when shrunk into a small icon, and will be resolved later when a better solution is available, If you want to place components behind built-in buttons, please use the <code>TableToolbarTemplate</code> template"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesCell": {
     "TablesCellTitle": "Table Cell",
