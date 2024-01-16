@@ -29,7 +29,7 @@ public partial class MultiSelect<TValue>
         .Build();
 
     private string? PlaceHolderClassString => CssBuilder.Default("multi-select-ph")
-        .AddClass("d-none", SelectedItems.Any())
+        .AddClass("d-none", SelectedItems.Count != 0)
         .Build();
 
     /// <summary>

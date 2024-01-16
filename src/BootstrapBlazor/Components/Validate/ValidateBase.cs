@@ -187,7 +187,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     {
         var ret = false;
         validationErrorMessage = null;
-        if (value.TryConvertTo<TValue>(out result))
+        if (value.TryConvertTo(out result))
         {
             ret = true;
         }

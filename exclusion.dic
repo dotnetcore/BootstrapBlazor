@@ -13,6 +13,8 @@ editform
 ellips
 fullscreen
 dblclick
+ondblclick
+oncontextmenu
 dbcell
 gitee
 github

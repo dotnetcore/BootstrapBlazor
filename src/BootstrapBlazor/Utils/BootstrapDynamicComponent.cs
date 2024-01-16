@@ -7,29 +7,10 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 动态组件类
 /// </summary>
-public class BootstrapDynamicComponent
+/// <param name="componentType"></param>
+/// <param name="parameters">TCom 组件所需要的参数集合</param>
+public class BootstrapDynamicComponent(Type componentType, IDictionary<string, object?>? parameters = null)
 {
-    /// <summary>
-    /// 获得/设置 组件参数集合
-    /// </summary>
-    private IDictionary<string, object?>? Parameters { get; set; }
-
-    /// <summary>
-    /// 获得/设置 组件类型
-    /// </summary>
-    private Type ComponentType { get; }
-
-    /// <summary>
-    /// 构造函数
-    /// </summary>
-    /// <param name="componentType"></param>
-    /// <param name="parameters">TCom 组件所需要的参数集合</param>
-    public BootstrapDynamicComponent(Type componentType, IDictionary<string, object?>? parameters = null)
-    {
-        ComponentType = componentType;
-        Parameters = parameters;
-    }
-
     /// <summary>
     /// 创建自定义组件方法
     /// </summary>
@@ -60,10 +41,10 @@ public class BootstrapDynamicComponent
     public RenderFragment Render() => builder =>
     {
         var index = 0;
-        builder.OpenComponent(index++, ComponentType);
-        if (Parameters != null)
+        builder.OpenComponent(index++, componentType);
+        if (parameters != null)
         {
-            foreach (var p in Parameters)
+            foreach (var p in parameters)
             {
                 builder.AddAttribute(index++, p.Key, p.Value);
             }
