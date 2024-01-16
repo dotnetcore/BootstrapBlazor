@@ -144,6 +144,11 @@ const normalizeLink = link => {
     return url
 }
 
+/**
+ * 添加script标签到head
+ * @param {string} content
+ * @returns
+ */
 const addScript = content => {
     // content 文件名
     const scripts = [...document.getElementsByTagName('script')]
@@ -171,6 +176,10 @@ const addScript = content => {
     })
 }
 
+/**
+ * 从head移除script标签
+ * @param {string} content
+ */
 const removeScript = content => {
     const links = [...document.getElementsByTagName('script')]
     const url = normalizeLink(content)
@@ -182,26 +191,53 @@ const removeScript = content => {
     }
 }
 
+/**
+ * 批量添加script标签到head
+ * @param {string[]} content
+ * @returns
+ */
 const addScriptBatch = content => {
     const promises = content.map(item => addScript(item));
     return Promise.all(promises);
 }
 
+/**
+ * 从head批量移除script标签
+ * @param {string[]} content
+ * @returns
+ */
 const removeScriptBatch = (content) => {
     const promises = content.map(item => removeScript(item));
     return Promise.all(promises);
 }
 
+/**
+ * 批量添加link标签到head
+ * @param {string[]} href
+ * @param {string} rel
+ * @returns
+ */
 const addLinkBatch = (href, rel = "stylesheet") => {
     const promises = href.map(item => addLink(item, rel));
     return Promise.all(promises);
 }
 
+/**
+ * 从head批量移除link标签
+ * @param {string[]} href
+ * @returns
+ */
 const removeLinkBatch = (href) => {
     const promises = href.map(item => removeLink(item));
     return Promise.all(promises);
 }
 
+/**
+ * 添加link标签到head
+ * @param {string} href
+ * @param {string} rel
+ * @returns
+ */
 const addLink = (href, rel = "stylesheet") => {
     const links = [...document.getElementsByTagName('link')]
     const url = normalizeLink(href)
@@ -229,6 +265,10 @@ const addLink = (href, rel = "stylesheet") => {
     })
 }
 
+/**
+ * 从head移除link标签
+ * @param {string} href
+ */
 const removeLink = href => {
     const links = [...document.getElementsByTagName('link')]
     const url = normalizeLink(href)
