@@ -34,7 +34,7 @@ function copyTextUsingDOM(str) {
     tempElem.setAttribute("style", "-webkit-user-select: text !important");
     let spanParent = tempElem;
     if (tempElem.attachShadow) {
-        spanParent = tempElem.attachShadow({mode: "open"});
+        spanParent = tempElem.attachShadow({ mode: "open" });
     }
     const span = document.createElement("span");
     span.innerText = str;
@@ -460,7 +460,7 @@ const getTransitionDurationFromElement = (element) => {
     }
 
     // Get transition-duration of the element
-    let {transitionDuration, transitionDelay} = window.getComputedStyle(element)
+    let { transitionDuration, transitionDelay } = window.getComputedStyle(element)
 
     const floatTransitionDuration = Number.parseFloat(transitionDuration)
     const floatTransitionDelay = Number.parseFloat(transitionDelay)
