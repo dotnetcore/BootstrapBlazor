@@ -34,7 +34,7 @@ function copyTextUsingDOM(str) {
     tempElem.setAttribute("style", "-webkit-user-select: text !important");
     let spanParent = tempElem;
     if (tempElem.attachShadow) {
-        spanParent = tempElem.attachShadow({ mode: "open" });
+        spanParent = tempElem.attachShadow({mode: "open"});
     }
     const span = document.createElement("span");
     span.innerText = str;
@@ -284,9 +284,9 @@ const removeLink = href => {
  * 自动识别 css 或者 js 链接并添加到 head
  * @param {string[]} fileList
  */
-const autoAdd = async (fileList) => {
+const autoAdd = (fileList) => {
     const promises = fileList.map(async (item) => {
-        const extension = item.split('.').pop();
+        const extension = item.match(/\.(\w+)(\?|$)/)[1];
         if (extension === 'js') {
             return addScript(item);
         } else if (extension === 'css') {
@@ -294,16 +294,16 @@ const autoAdd = async (fileList) => {
         }
     });
 
-    await Promise.all(promises);
+    return Promise.all(promises);
 }
 
 /**
  * 自动识别 css 或者 js 链接并从 head 中移除
  * @param {string[]} fileList
  */
-const autoRemove = async (fileList) => {
+const autoRemove = (fileList) => {
     const promises = fileList.map(async (item) => {
-        const extension = item.split('.').pop();
+        const extension = item.match(/\.(\w+)(\?|$)/)[1];
         if (extension === 'js') {
             return removeScript(item);
         } else if (extension === 'css') {
@@ -311,7 +311,7 @@ const autoRemove = async (fileList) => {
         }
     });
 
-    await Promise.all(promises);
+    return Promise.all(promises);
 }
 
 const insertBefore = (element, newEl) => {
@@ -460,7 +460,7 @@ const getTransitionDurationFromElement = (element) => {
     }
 
     // Get transition-duration of the element
-    let { transitionDuration, transitionDelay } = window.getComputedStyle(element)
+    let {transitionDuration, transitionDelay} = window.getComputedStyle(element)
 
     const floatTransitionDuration = Number.parseFloat(transitionDuration)
     const floatTransitionDelay = Number.parseFloat(transitionDelay)
@@ -582,8 +582,7 @@ const debounce = function (fn, duration = 200, callback = null) {
             handler = setTimeout(() => {
                 handler = null
             }, duration)
-        }
-        else {
+        } else {
             handler = setTimeout(() => {
                 fn.apply(this, arguments)
             }, duration)
@@ -598,8 +597,7 @@ export function openUrl(url, target = '_blank', features = null) {
 export function runEval(code) {
     try {
         return eval(code);
-    }
-    catch (e) {
+    } catch (e) {
         console.warn(e.message);
         return e.message;
     }
@@ -609,8 +607,7 @@ export function runFunction(code, arg) {
     try {
         var func = new Function(code);
         return func(...arg);
-    }
-    catch (e) {
+    } catch (e) {
         console.warn(e.message);
         return e.message;
     }
