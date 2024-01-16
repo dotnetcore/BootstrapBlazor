@@ -145,7 +145,7 @@ const normalizeLink = link => {
 }
 
 /**
- * 添加script标签到head
+ * 添加 script 标签到 head
  * @param {string} content
  * @returns
  */
@@ -177,7 +177,7 @@ const addScript = content => {
 }
 
 /**
- * 从head移除script标签
+ * 从 head 移除 script 标签
  * @param {string} content
  */
 const removeScript = content => {
@@ -192,7 +192,7 @@ const removeScript = content => {
 }
 
 /**
- * 批量添加script标签到head
+ * 批量添加 script 标签到 head
  * @param {string[]} content
  * @returns
  */
@@ -202,7 +202,7 @@ const addScriptBatch = content => {
 }
 
 /**
- * 从head批量移除script标签
+ * 从 head 批量移除 script 标签
  * @param {string[]} content
  * @returns
  */
@@ -212,7 +212,7 @@ const removeScriptBatch = (content) => {
 }
 
 /**
- * 批量添加link标签到head
+ * 批量添加 link 标签到 head
  * @param {string[]} href
  * @param {string} rel
  * @returns
@@ -223,7 +223,7 @@ const addLinkBatch = (href, rel = "stylesheet") => {
 }
 
 /**
- * 从head批量移除link标签
+ * 从 head 批量移除 link 标签
  * @param {string[]} href
  * @returns
  */
@@ -233,7 +233,7 @@ const removeLinkBatch = (href) => {
 }
 
 /**
- * 添加link标签到head
+ * 添加 link 标签到 head
  * @param {string} href
  * @param {string} rel
  * @returns
@@ -266,7 +266,7 @@ const addLink = (href, rel = "stylesheet") => {
 }
 
 /**
- * 从head移除link标签
+ * 从 head 移除 link 标签
  * @param {string} href
  */
 const removeLink = href => {
@@ -281,7 +281,7 @@ const removeLink = href => {
 }
 
 /**
- * 自动识别css或者js链接并添加到head
+ * 自动识别 css 或者 js 链接并添加到 head
  * @param {string[]} fileList
  */
 const autoAdd = async (fileList) => {
@@ -298,7 +298,7 @@ const autoAdd = async (fileList) => {
 }
 
 /**
- * 自动识别css或者js链接并从head中移除
+ * 自动识别 css 或者 js 链接并从 head 中移除
  * @param {string[]} fileList
  */
 const autoRemove = async (fileList) => {
