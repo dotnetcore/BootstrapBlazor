@@ -182,6 +182,26 @@ const removeScript = content => {
     }
 }
 
+const addScriptBatch = content => {
+    const promises = content.map(item => addScript(item));
+    return Promise.all(promises);
+}
+
+const removeScriptBatch = (content) => {
+    const promises = content.map(item => removeScript(item));
+    return Promise.all(promises);
+}
+
+const addLinkBatch = (href, rel = "stylesheet") => {
+    const promises = href.map(item => addLink(item, rel));
+    return Promise.all(promises);
+}
+
+const removeLinkBatch = (href) => {
+    const promises = href.map(item => removeLink(item));
+    return Promise.all(promises);
+}
+
 const addLink = (href, rel = "stylesheet") => {
     const links = [...document.getElementsByTagName('link')]
     const url = normalizeLink(href)
@@ -527,6 +547,10 @@ export function isMobile() {
 }
 
 export {
+    addLinkBatch,
+    removeLinkBatch,
+    addScriptBatch,
+    removeScriptBatch,
     addLink,
     addScript,
     copy,
