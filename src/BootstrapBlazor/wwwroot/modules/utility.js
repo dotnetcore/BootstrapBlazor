@@ -50,7 +50,8 @@ function copyTextUsingDOM(str) {
 const copy = (text = '') => {
     if (navigator.clipboard) {
         navigator.clipboard.writeText(text)
-    } else {
+    }
+    else {
         copyTextUsingDOM(text)
     }
 }
@@ -289,7 +290,8 @@ const autoAdd = (fileList) => {
         const extension = item.match(/\.(\w+)(\?|$)/)[1];
         if (extension === 'js') {
             return addScript(item);
-        } else if (extension === 'css') {
+        }
+        else if (extension === 'css') {
             return addLink(item);
         }
     });
@@ -306,7 +308,8 @@ const autoRemove = (fileList) => {
         const extension = item.match(/\.(\w+)(\?|$)/)[1];
         if (extension === 'js') {
             return removeScript(item);
-        } else if (extension === 'css') {
+        }
+        else if (extension === 'css') {
             return removeLink(item);
         }
     });
@@ -331,7 +334,8 @@ const insertAfter = (element, newEl) => {
         if (parentNode) {
             if (element.nextElementSibling) {
                 parentNode.insertBefore(newEl, element.nextElementSibling)
-            } else {
+            }
+            else {
                 parentNode.appendChild(newEl)
             }
         }
@@ -582,7 +586,8 @@ const debounce = function (fn, duration = 200, callback = null) {
             handler = setTimeout(() => {
                 handler = null
             }, duration)
-        } else {
+        }
+        else {
             handler = setTimeout(() => {
                 fn.apply(this, arguments)
             }, duration)
