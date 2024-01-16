@@ -282,7 +282,7 @@ const removeLink = href => {
 
 /**
  * 自动识别css或者js链接并添加到head
- * @param {any} fileList
+ * @param {string[]} fileList
  */
 const autoAdd = async (fileList) => {
     const promises = fileList.map(async (item) => {
@@ -299,7 +299,7 @@ const autoAdd = async (fileList) => {
 
 /**
  * 自动识别css或者js链接并从head中移除
- * @param {any} fileList
+ * @param {string[]} fileList
  */
 const autoRemove = async (fileList) => {
     const promises = fileList.map(async (item) => {
