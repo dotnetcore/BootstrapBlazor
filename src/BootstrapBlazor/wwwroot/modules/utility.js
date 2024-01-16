@@ -280,6 +280,40 @@ const removeLink = href => {
     }
 }
 
+/**
+ * 自动识别css或者js链接并添加到head
+ * @param {any} fileList
+ */
+const autoAdd = async (fileList) => {
+    const promises = fileList.map(async (item) => {
+        const extension = item.split('.').pop();
+        if (extension === 'js') {
+            return addScript(item);
+        } else if (extension === 'css') {
+            return addLink(item);
+        }
+    });
+
+    await Promise.all(promises);
+}
+
+/**
+ * 自动识别css或者js链接并从head中移除
+ * @param {any} fileList
+ */
+const autoRemove = async (fileList) => {
+    const promises = fileList.map(async (item) => {
+        const extension = item.split('.').pop();
+        if (extension === 'js') {
+            return removeScript(item);
+        } else if (extension === 'css') {
+            return removeLink(item);
+        }
+    });
+
+    await Promise.all(promises);
+}
+
 const insertBefore = (element, newEl) => {
     if (element) {
         const parentNode = element.parentNode
@@ -587,6 +621,8 @@ export function isMobile() {
 }
 
 export {
+    autoAdd,
+    autoRemove,
     addLinkBatch,
     removeLinkBatch,
     addScriptBatch,
