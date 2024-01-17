@@ -29,7 +29,7 @@
         <Button OnClick="() => Modal.Toggle()">@Localizer["ModalsNormalPopups"]</Button>
     </div>
     <Modal @ref="Modal" IsKeyboard="true">
-        <ModalDialog Title="@Localizer["ModalsNormalDefaultPopup"]">
+        <ModalDialog Title="@Localizer["ModalsNormalDefaultPopup"]" ShowSaveButton="true" OnSaveAsync="OnSaveAsync">
             <BodyTemplate>
                 <div>@Localizer["ModalsNormalDefaultPopupText"]</div>
             </BodyTemplate>

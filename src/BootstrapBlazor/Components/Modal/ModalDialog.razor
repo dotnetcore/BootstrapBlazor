@@ -53,7 +53,7 @@
                         }
                         @if (ShowSaveButton)
                         {
-                            <Button Color="Color.Primary" Text="@SaveButtonText" Icon="@SaveIcon" OnClickWithoutRender="OnClickSave"></Button>
+                            <Button Color="Color.Primary" Text="@SaveButtonText" Icon="@SaveIcon" IsAsync="true" OnClickWithoutRender="OnClickSave"></Button>
                         }
                         @if (FooterTemplate != null)
                         {
