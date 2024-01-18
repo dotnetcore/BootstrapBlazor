@@ -3,6 +3,7 @@
 }
 
 form {
+    .input-group-text:before,
     .form-label:before {
         content: "";
         position: relative;
@@ -12,6 +13,7 @@ form {
         min-width: 5px;
     }
 
+    .input-group-text[required]:before,
     .form-label[required]:before {
         content: "*";
         color: var(--bs-danger);

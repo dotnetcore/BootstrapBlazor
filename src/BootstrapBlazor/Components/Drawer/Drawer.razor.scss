@@ -39,7 +39,7 @@
         z-index: 2;
         pointer-events: auto;
         display: flex;
-        padding: var(--bb-drawer-padding);
+        padding: var(--bb-drawer-body-padding);
 
         .drawer-content {
             overflow: auto;

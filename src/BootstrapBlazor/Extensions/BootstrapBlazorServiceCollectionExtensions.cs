@@ -82,6 +82,8 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.AddOptionsMonitor<BootstrapBlazorOptions>();
         services.Configure<BootstrapBlazorOptions>(op =>
         {
+            configureOptions?.Invoke(op);
+
             // 设置默认文化信息
             if (op.DefaultCultureInfo != null)
             {
@@ -92,8 +94,6 @@ public static class BootstrapBlazorServiceCollectionExtensions
 
             // 设置 FallbackCulture
             SetFallbackCulture();
-
-            configureOptions?.Invoke(op);
 
             [ExcludeFromCodeCoverage]
             void SetFallbackCulture()
