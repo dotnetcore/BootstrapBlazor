@@ -1,13 +1,14 @@
 ﻿@namespace BootstrapBlazor.Components
 @typeparam TItem
-@inherits ValidateBase<TItem>
+@inherits PopoverDropdownBase<TItem>
+@attribute [BootstrapModuleAutoLoader("Select/SelectTable.razor.js", JSObjectReference = true)]
 
 @if (IsShowLabel)
 {
     <BootstrapLabel required="@Required" for="@InputId" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="AdditionalAttributes" id="@Id" data-bs-toggle="lgbSelect" class="@ClassName">
-    <div class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    <div class="dropdown-toggle" data-bs-toggle="bb.dropdown" data-bs-auto-close="outside" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString" aria-expanded="false">
         <input type="text" id="@InputId" readonly disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassName" value="@GetText(Value)" />
         <span class="@AppendClassName"><i class="fa fa-angle-up"></i></span>
     </div>
@@ -15,16 +16,8 @@
         @TableColumns?.Invoke(new TItem())
     </CascadingValue>
     <RenderTemplate>
-        <div class="dropdown-menu shadow">
-            @if (ShowSearch)
-            {
-                <div class="search">
-                    <input type="text" class="search-text form-control" @bind="@SearchText" @bind:event="oninput" />
-                    <i class="fa fa-search"></i>
-                </div>
-            }
+        <div class="dropdown-menu dropdown-table">
             <Table Items="Items" TableColumns="TableColumns" IsFixedHeader="true" IsBordered="true"></Table>
         </div>
-        <div class="dropdown-menu-arrow"></div>
     </RenderTemplate>
 </div>
