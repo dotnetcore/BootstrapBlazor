@@ -72,7 +72,7 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     /// <summary>
     /// 获得 样式集合
     /// </summary>
-    private string? InputClassName => CssBuilder.Default("form-select")
+    private string? InputClassName => CssBuilder.Default("form-select form-control")
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
         .AddClass($"border-success", IsValid.HasValue && IsValid.Value)
         .AddClass($"border-danger", IsValid.HasValue && !IsValid.Value)
