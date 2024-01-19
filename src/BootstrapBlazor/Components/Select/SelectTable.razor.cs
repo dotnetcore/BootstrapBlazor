@@ -124,6 +124,12 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     public string? PlaceHolder { get; set; }
 
     /// <summary>
+    /// 获得/设置 表格高度
+    /// </summary>
+    [Parameter]
+    public int Height { get; set; } = 486;
+
+    /// <summary>
     /// 获得/设置 字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感
     /// </summary>
     [Parameter]
@@ -143,27 +149,16 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     protected override string? RetrieveId() => InputId;
 
     /// <summary>
-    /// 获得/设置 Select 内部 Input 组件 Id
+    /// 获得/设置 内部 Input 组件 Id
     /// </summary>
-    private string? InputId => $"{Id}_input";
+    private string InputId => $"{Id}_input";
 
     /// <summary>
     /// 获得/设置 搜索文字
     /// </summary>
     private string SearchText { get; set; } = "";
 
-    /// <summary>
-    /// OnInitialized 方法
-    /// </summary>
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-
-        //if (OnSearchTextChanged == null)
-        //{
-        //    OnSearchTextChanged = text => Items.Where(i => GetText(i).Contains(text, StringComparison));
-        //}
-    }
+    private string GetStyleString => $"height: {Height}px;";
 
     /// <summary>
     /// OnParametersSet 方法
@@ -172,7 +167,7 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     {
         base.OnParametersSet();
 
-        Items ??= Enumerable.Empty<TItem>();
+        Items ??= [];
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
     }
 

@@ -16,8 +16,8 @@
         @TableColumns?.Invoke(new TItem())
     </CascadingValue>
     <RenderTemplate>
-        <div class="dropdown-menu dropdown-table">
-            <Table Items="Items" TableColumns="TableColumns" IsFixedHeader="true" IsBordered="true"></Table>
+        <div class="dropdown-menu dropdown-table" style="@GetStyleString">
+            <Table Items="Items" TableColumns="TableColumns" IsFixedHeader="true" IsBordered="true" ClickToSelect="true"></Table>
         </div>
     </RenderTemplate>
 </div>
