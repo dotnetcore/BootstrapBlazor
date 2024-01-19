@@ -201,4 +201,57 @@ public class SelectTableTest : BootstrapBlazorTestBase
         });
         Assert.Equal(items[1].Name, v?.Name);
     }
+
+    [Fact]
+    public void Validate_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 4);
+        var valid = false;
+        var invalid = false;
+        var model = items[0];
+        var cut = Context.RenderComponent<ValidateForm>(builder =>
+        {
+            builder.Add(a => a.OnValidSubmit, context =>
+            {
+                valid = true;
+                return Task.CompletedTask;
+            });
+            builder.Add(a => a.OnInvalidSubmit, context =>
+            {
+                invalid = true;
+                return Task.CompletedTask;
+            });
+            builder.Add(a => a.Model, model);
+            builder.AddChildContent<SelectTable<Foo>>(pb =>
+            {
+                pb.Add(a => a.Value, model);
+                pb.Add(a => a.OnValueChanged, v =>
+                {
+                    model = v;
+                    return Task.CompletedTask;
+                });
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        cut.InvokeAsync(() =>
+        {
+            var form = cut.Find("form");
+            form.Submit();
+            Assert.True(valid);
+        });
+    }
 }
