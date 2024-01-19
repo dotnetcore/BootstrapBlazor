@@ -160,6 +160,8 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
 
     private string GetStyleString => $"height: {Height}px;";
 
+    private TItem? _selectedItem;
+
     /// <summary>
     /// OnParametersSet 方法
     /// </summary>
@@ -183,4 +185,10 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     /// <param name="item"></param>
     /// <returns></returns>
     protected string GetText(TItem item) => item is null ? "" : TextInvoke(item);
+
+    private async Task OnClickRowCallback(TItem item)
+    {
+        _selectedItem = item;
+        await InvokeVoidAsync("close", Id);
+    }
 }

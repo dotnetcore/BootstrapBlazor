@@ -38,6 +38,12 @@ export function init(id) {
     Data.set(id, selectTable)
 }
 
+export function close(id) {
+    const data = Data.get(id)
+    if (data) {
+        data.popover.popover.hide();
+    }
+}
 export function dispose(id) {
     const data = Data.get(id)
     Data.remove(id)
