@@ -241,7 +241,7 @@ public partial class Transfer<TValue>
         LeftItems.Clear();
         RightItems.Clear();
 
-        Items ??= Enumerable.Empty<SelectedItem>();
+        Items ??= [];
 
         // 左侧移除
         LeftItems.AddRange(Items);

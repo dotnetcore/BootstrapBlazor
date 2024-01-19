@@ -6161,5 +6161,8 @@
     "AttributeTemplate": "Display Template",
     "ValidateFormTitle": "ValidateForm",
     "ValidateFormIntro": "Intercept data when the value is empty"
+  },
+  "BootstrapBlazor.Server.Components.Samples.SelectTables+SelectTableMode": {
+    "Foo.Required": "{0} is required."
   }
 }

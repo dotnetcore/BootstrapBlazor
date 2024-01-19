@@ -208,7 +208,10 @@ public partial class TableFilter : IFilter
         {
             Table.Filters.Remove(FieldKey);
             FilterAction.Reset();
-            await Table.OnFilterAsync();
+            if (Table.OnFilterAsync != null)
+            {
+                await Table.OnFilterAsync();
+            }
         }
     }
 
@@ -235,7 +238,10 @@ public partial class TableFilter : IFilter
             {
                 Table.Filters.Remove(FieldKey);
             }
-            await Table.OnFilterAsync();
+            if (Table.OnFilterAsync != null)
+            {
+                await Table.OnFilterAsync();
+            }
         }
     }
 

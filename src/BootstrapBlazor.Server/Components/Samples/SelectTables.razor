@@ -14,7 +14,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ColorTitle"]" Introduction="@Localizer["ColorIntro"]" Name="Color">
-    <SelectTable TItem="Foo" @bind-Value="@_colorFoo" Items="_colorItems" GetTextCallback="@GetTextCallback" Color="Color.Danger">
+    <SelectTable TItem="Foo" @bind-Value="@_colorFoo" Items="_colorItems" GetTextCallback="@GetTextCallback" Color="Color.Info">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name"></TableColumn>
             <TableColumn @bind-Field="@context.Address"></TableColumn>
@@ -67,12 +67,19 @@
 
 <DemoBlock Title="@Localizer["ValidateFormTitle"]" Introduction="@Localizer["ValidateFormIntro"]" Name="ValidateForm">
     <ValidateForm Model="Model">
-        <SelectTable TItem="Foo" @bind-Value="@_validateFormFoo" Items="_validateFormItems" GetTextCallback="@GetTextCallback" DisplayText="Test">
-            <TableColumns>
-                <TableColumn @bind-Field="@context.Name"></TableColumn>
-                <TableColumn @bind-Field="@context.Address"></TableColumn>
-            </TableColumns>
-        </SelectTable>
+        <div class="row g-3">
+            <div class="col-12">
+                <SelectTable TItem="Foo" @bind-Value="@Model.Foo" Items="_validateFormItems" GetTextCallback="@GetTextCallback" DisplayText="Test">
+                    <TableColumns>
+                        <TableColumn @bind-Field="@context.Name"></TableColumn>
+                        <TableColumn @bind-Field="@context.Address"></TableColumn>
+                    </TableColumns>
+                </SelectTable>
+            </div>
+            <div class="col-12">
+                <Button ButtonType="ButtonType.Submit">Submit</Button>
+            </div>
+        </div>
     </ValidateForm>
 </DemoBlock>
 

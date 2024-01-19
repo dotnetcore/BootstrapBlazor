@@ -126,6 +126,13 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     private IStringLocalizer<Select<TItem>>? Localizer { get; set; }
 
     /// <summary>
+    /// 获得/设置 IStringLocalizerFactory 注入服务实例 默认为 null
+    /// </summary>
+    [Inject]
+    [NotNull]
+    public IStringLocalizerFactory? LocalizerFactory { get; set; }
+
+    /// <summary>
     /// 获得 input 组件 Id 方法
     /// </summary>
     /// <returns></returns>
@@ -147,7 +154,7 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
 
         if (ValidateForm != null)
         {
-            Rules.Add(new RequiredValidator());
+            Rules.Add(new RequiredValidator() { LocalizerFactory = LocalizerFactory, ErrorMessage = "{0} is required." });
         }
     }
 
