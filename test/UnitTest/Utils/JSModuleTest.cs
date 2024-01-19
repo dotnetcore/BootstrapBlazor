@@ -63,8 +63,8 @@ public class JSModuleTest
     {
         var js = new MockJSExceptionObjectReference();
         var module = new JSModule(js);
-        await module.InvokeVoidAsync("test");
-        await module.InvokeAsync<int>("test");
+        await Assert.ThrowsAnyAsync<JSException>(async () => await module.InvokeVoidAsync("test"));
+        await Assert.ThrowsAnyAsync<JSException>(async () => await module.InvokeAsync<int>("test"));
     }
 
     [Fact]
@@ -72,8 +72,8 @@ public class JSModuleTest
     {
         var js = new MockAggregateExceptionObjectReference();
         var module = new JSModule(js);
-        await module.InvokeVoidAsync("test");
-        await module.InvokeAsync<int>("test");
+        await Assert.ThrowsAnyAsync<AggregateException>(async () => await module.InvokeVoidAsync("test"));
+        await Assert.ThrowsAnyAsync<AggregateException>(async () => await module.InvokeAsync<int>("test"));
     }
 
     [Fact]
@@ -81,8 +81,8 @@ public class JSModuleTest
     {
         var js = new MockInvalidOperationExceptionObjectReference();
         var module = new JSModule(js);
-        await module.InvokeVoidAsync("test");
-        await module.InvokeAsync<int>("test");
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(async () => await module.InvokeVoidAsync("test"));
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(async () => await module.InvokeAsync<int>("test"));
     }
 
     [Fact]
