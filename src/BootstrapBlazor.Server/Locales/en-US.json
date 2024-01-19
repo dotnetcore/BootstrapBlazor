@@ -6144,6 +6144,8 @@
   "BootstrapBlazor.Server.Components.Samples.SelectTables": {
     "NormalTitle": "Basic usage",
     "NormalIntro": "Suitable for candidates with a relatively large amount of information, presenting information using <code>Table</code>",
+    "ColorTitle": "Color",
+    "ColorIntro": "Change component border color by setting <code>Color</code>",
     "TemplateTitle": "Value Template",
     "TemplateIntro": "Present customized display content by customizing the <code>Template</code>",
     "AttributeItems": "",
