@@ -45,26 +45,34 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     public Func<TItem, string?>? GetTextCallback { get; set; }
 
     /// <summary>
-    /// 
+    /// 获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? DropdownIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 IIconTheme 服务实例
+    /// </summary>
+    [Inject]
+    [NotNull]
+    protected IIconTheme? IconTheme { get; set; }
+
+    /// <summary>
+    /// 获得表格列集合
     /// </summary>
     public List<ITableColumn> Columns { get; } = [];
 
-    /// <summary>
-    /// 
-    /// </summary>
-    public Dictionary<string, IFilterAction> Filters { get; } = [];
+    List<ITableColumn> ITable.Columns { get => Columns; }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    [NotNull]
-    public Func<Task>? OnFilterAsync { get; private set; }
+    [ExcludeFromCodeCoverage]
+    Dictionary<string, IFilterAction> ITable.Filters { get; } = [];
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <returns></returns>
-    public IEnumerable<ITableColumn> GetVisibleColumns() => Columns;
+    [ExcludeFromCodeCoverage]
+    Func<Task>? ITable.OnFilterAsync { get => null; }
+
+    [ExcludeFromCodeCoverage]
+    IEnumerable<ITableColumn> ITable.GetVisibleColumns() => Columns;
 
     /// <summary>
     /// 获得 样式集合
@@ -87,7 +95,7 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     /// <summary>
     /// 获得 样式集合
     /// </summary>
-    private string? AppendClassName => CssBuilder.Default("form-select-append")
+    private string? AppendClassString => CssBuilder.Default("form-select-append")
         .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
         .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
         .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
@@ -138,13 +146,14 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
 
         Items ??= [];
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+        DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectDropdownIcon);
     }
 
     /// <summary>
     /// 获得 Text 显示文字
     /// </summary>
     /// <returns></returns>
-    private string? GetText() => Value == default ? "" : GetTextCallback?.Invoke(Value) ?? Value?.ToString();
+    private string? GetText() => Value == default ? null : GetTextCallback?.Invoke(Value) ?? Value.ToString();
 
     private async Task OnClickRowCallback(TItem item)
     {
