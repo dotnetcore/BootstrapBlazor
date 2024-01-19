@@ -65,4 +65,15 @@
     </SelectTable>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["ValidateFormTitle"]" Introduction="@Localizer["ValidateFormIntro"]" Name="ValidateForm">
+    <ValidateForm Model="Model">
+        <SelectTable TItem="Foo" @bind-Value="@_validateFormFoo" Items="_validateFormItems" GetTextCallback="@GetTextCallback" DisplayText="Test">
+            <TableColumns>
+                <TableColumn @bind-Field="@context.Name"></TableColumn>
+                <TableColumn @bind-Field="@context.Address"></TableColumn>
+            </TableColumns>
+        </SelectTable>
+    </ValidateForm>
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />

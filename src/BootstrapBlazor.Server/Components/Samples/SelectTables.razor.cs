@@ -25,6 +25,8 @@ public partial class SelectTables
 
     private List<Foo> _disabledItems = default!;
 
+    private List<Foo> _validateFormItems = default!;
+
     private Foo? _foo;
 
     private Foo? _colorFoo;
@@ -32,6 +34,10 @@ public partial class SelectTables
     private Foo? _templateFoo;
 
     private Foo? _disabledFoo;
+
+    private Foo? _validateFormFoo;
+
+    private Foo Model = new();
 
     /// <summary>
     /// 
@@ -42,6 +48,7 @@ public partial class SelectTables
         _colorItems = Foo.GenerateFoo(LocalizerFoo);
         _templateItems = Foo.GenerateFoo(LocalizerFoo);
         _disabledItems = Foo.GenerateFoo(LocalizerFoo);
+        _validateFormItems = Foo.GenerateFoo(LocalizerFoo);
     }
 
     private static string? GetTextCallback(Foo? foo) => foo?.Name;
