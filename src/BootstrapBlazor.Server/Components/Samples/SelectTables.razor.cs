@@ -17,25 +17,31 @@ public partial class SelectTables
     [NotNull]
     private IStringLocalizer<SelectTables>? Localizer { get; set; }
 
-    [NotNull]
-    private List<Foo>? Items { get; set; }
+    private List<Foo> _items = default!;
 
-    [NotNull]
-    private List<Foo>? ColorItems { get; set; }
+    private List<Foo> _colorItems = default!;
 
-    [NotNull]
-    private List<Foo>? TemplateItems { get; set; }
+    private List<Foo> _templateItems = default!;
 
-    private Foo? Foo { get; set; }
+    private List<Foo> _disabledItems = default!;
+
+    private Foo? _foo;
+
+    private Foo? _colorFoo;
+
+    private Foo? _templateFoo;
+
+    private Foo? _disabledFoo;
 
     /// <summary>
     /// 
     /// </summary>
     protected override void OnInitialized()
     {
-        Items = Foo.GenerateFoo(LocalizerFoo);
-        ColorItems = Foo.GenerateFoo(LocalizerFoo);
-        TemplateItems = Foo.GenerateFoo(LocalizerFoo);
+        _items = Foo.GenerateFoo(LocalizerFoo);
+        _colorItems = Foo.GenerateFoo(LocalizerFoo);
+        _templateItems = Foo.GenerateFoo(LocalizerFoo);
+        _disabledItems = Foo.GenerateFoo(LocalizerFoo);
     }
 
     private static string? GetTextCallback(Foo? foo) => foo?.Name;

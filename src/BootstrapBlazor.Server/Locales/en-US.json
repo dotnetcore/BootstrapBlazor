@@ -6146,6 +6146,8 @@
     "NormalIntro": "Suitable for candidates with a relatively large amount of information, presenting information using <code>Table</code>",
     "ColorTitle": "Color",
     "ColorIntro": "Change component border color by setting <code>Color</code>",
+    "IsDisabledTitle": "Disabled",
+    "IsDisabledIntro": "When you set the <code>IsDisabled</code> property value to <code>true</code>, the component suppresses select",
     "TemplateTitle": "Value Template",
     "TemplateIntro": "Present customized display content by customizing the <code>Template</code>",
     "AttributeItems": "",
