@@ -35,12 +35,10 @@ public partial class SelectTables
 
     private Foo? _disabledFoo;
 
-    private Foo? _validateFormFoo;
-
-    private Foo Model = new();
+    private SelectTableMode Model = new();
 
     /// <summary>
-    /// 
+    ///
     /// </summary>
     protected override void OnInitialized()
     {
@@ -52,6 +50,11 @@ public partial class SelectTables
     }
 
     private static string? GetTextCallback(Foo? foo) => foo?.Name;
+
+    class SelectTableMode
+    {
+        public Foo? Foo { get; set; }
+    }
 
     /// <summary>
     /// 获得属性方法

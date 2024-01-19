@@ -6161,5 +6161,8 @@
     "AttributeTemplate": "显示模板",
     "ValidateFormTitle": "客户端验证",
     "ValidateFormIntro": "下拉框未选择时，点击提交按钮时拦截。"
+  },
+  "BootstrapBlazor.Server.Components.Samples.SelectTables+SelectTableMode": {
+    "Foo.Required": "{0} 是必填项"
   }
 }
