@@ -42,7 +42,7 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     /// 获得 显示文字回调方法 默认 null
     /// </summary>
     [Parameter]
-    public Func<TItem, string>? GetTextCallback { get; set; }
+    public Func<TItem, string?>? GetTextCallback { get; set; }
 
     /// <summary>
     /// 
@@ -144,7 +144,7 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     /// 获得 Text 显示文字
     /// </summary>
     /// <returns></returns>
-    private string? GetText() => GetTextCallback?.Invoke(Value) ?? Value?.ToString();
+    private string? GetText() => Value == default ? "" : GetTextCallback?.Invoke(Value) ?? Value?.ToString();
 
     private async Task OnClickRowCallback(TItem item)
     {
