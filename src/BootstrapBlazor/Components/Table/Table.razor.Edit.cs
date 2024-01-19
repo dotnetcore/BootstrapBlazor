@@ -208,7 +208,7 @@ public partial class Table<TItem>
         }
         return ret ?? new QueryData<TItem>()
         {
-            Items = Enumerable.Empty<TItem>(),
+            Items = [],
             TotalCount = 0,
             IsAdvanceSearch = true,
             IsFiltered = true,
@@ -449,7 +449,7 @@ public partial class Table<TItem>
             TotalCount = queryData.TotalCount;
             PageCount = (int)Math.Ceiling(TotalCount * 1.0 / Math.Max(1, PageItems));
             IsAdvanceSearch = queryData.IsAdvanceSearch;
-            QueryItems = queryData.Items ?? Enumerable.Empty<TItem>();
+            QueryItems = queryData.Items ?? [];
 
             if (!IsKeepSelectedRows)
             {
@@ -465,7 +465,7 @@ public partial class Table<TItem>
                 await ProcessTreeData();
             }
 
-            // 更新数据后清楚缓存防止新数据不显示
+            // 更新数据后清除缓存防止新数据不显示
             RowsCache = null;
 
             void ProcessData()

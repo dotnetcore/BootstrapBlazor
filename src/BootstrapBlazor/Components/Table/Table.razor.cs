@@ -875,7 +875,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 catch { }
             }
         }
-        return ret ?? Enumerable.Empty<ColumnWidth>();
+        return ret ?? [];
     }
 
     private async Task ProcessFirstRender()
@@ -1005,7 +1005,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// OnQueryAsync 查询结果数据集合
     /// </summary>
-    private IEnumerable<TItem> QueryItems { get; set; } = Enumerable.Empty<TItem>();
+    private IEnumerable<TItem> QueryItems { get; set; } = [];
 
     [NotNull]
     private List<TItem>? RowsCache { get; set; }
