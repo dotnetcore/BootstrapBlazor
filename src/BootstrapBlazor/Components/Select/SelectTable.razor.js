@@ -9,10 +9,10 @@ export function init(id) {
     }
 
     const setWidth = () => {
+        let width = getWidth(el);
         if (width < 300) {
             width = 300;
         }
-        const width = getWidth(el);
         const dropdown = el.querySelector('.dropdown-table') || document.querySelector('.popover-dropdown .dropdown-table');
         if (dropdown) {
             dropdown.style.setProperty('--bb-dropdown-table-width', `${width}px`);
