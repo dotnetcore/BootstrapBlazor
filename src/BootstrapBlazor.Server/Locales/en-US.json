@@ -6150,14 +6150,16 @@
     "IsDisabledIntro": "When you set the <code>IsDisabled</code> property value to <code>true</code>, the component suppresses select",
     "TemplateTitle": "Value Template",
     "TemplateIntro": "Present customized display content by customizing the <code>Template</code>",
-    "AttributeItems": "",
-    "AttributeTableColumns": "",
-    "AttributeColor": "",
-    "AttributeIsDisabled": "",
-    "AttributeShowAppendArrow": "",
-    "AttributeGetTextCallback": "",
-    "AttributePlaceHolder": "",
-    "AttributeHeight": "",
-    "AttributeTemplate": ""
+    "AttributeItems": "Data source table display content set",
+    "AttributeTableColumns": "Table Display Column Set",
+    "AttributeColor": "Color",
+    "AttributeIsDisabled": "Is it disabled",
+    "AttributeShowAppendArrow": "Is the right extended small arrow displayed",
+    "AttributeGetTextCallback": "Get display value callback method",
+    "AttributePlaceHolder": "Placeholder",
+    "AttributeHeight": "Table height",
+    "AttributeTemplate": "Display Template",
+    "ValidateFormTitle": "ValidateForm",
+    "ValidateFormIntro": "Intercept data when the value is empty"
   }
 }

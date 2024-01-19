@@ -6158,6 +6158,8 @@
     "AttributeGetTextCallback": "获得显示值回调方法",
     "AttributePlaceHolder": "占位符",
     "AttributeHeight": "表格高度",
-    "AttributeTemplate": "显示模板"
+    "AttributeTemplate": "显示模板",
+    "ValidateFormTitle": "客户端验证",
+    "ValidateFormIntro": "下拉框未选择时，点击提交按钮时拦截。"
   }
 }
