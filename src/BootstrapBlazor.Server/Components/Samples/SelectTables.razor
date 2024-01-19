@@ -5,11 +5,44 @@
 <h4>下拉框为表格用于展示复杂类型的选择需求</h4>
 
 <DemoBlock Title="基本用法" Introduction="@Localizer["Block1Intro"]" Name="Normal">
-    <SelectTable TItem="Foo" @bind-Value="@Foo" Items="Items">
+    <SelectTable TItem="Foo" @bind-Value="@Foo" Items="Items" GetTextCallback="@GetTextCallback">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name"></TableColumn>
             <TableColumn @bind-Field="@context.Address"></TableColumn>
         </TableColumns>
     </SelectTable>
-    <div>@Foo?.Name</div>
+</DemoBlock>
+
+<DemoBlock Title="自定义显示" Introduction="@Localizer["Block2Intro"]" Name="ValueTemplate">
+    <SelectTable TItem="Foo" @bind-Value="@Foo" Items="Items" ShowAppendArrow="false">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Name"></TableColumn>
+            <TableColumn @bind-Field="@context.Address"></TableColumn>
+        </TableColumns>
+        <ValueTemplate>
+            <div class="dropdown-item-demo">
+                <div class="select-custom-header">
+                    <div class="id">@context.Id</div>
+                    <div class="name">@context.Name</div>
+                    <Light Color="@(context.Complete ? Color.Success : Color.Warning)"></Light>
+                </div>
+                <Divider />
+                <div class="select-custom-body">
+                    <img src="@Foo.GetAvatarUrl(context.Id)" class="bb-avatar" />
+                    <div class="select-custom-detail">
+                        <div class="d-flex">
+                            <div class="flex-fill">
+                                <div>@Foo.GetTitle(context.Id)</div>
+                                <div class="mt-3">@context.Address</div>
+                            </div>
+                            <div>
+                                <Circle Width="80" Value="@context.Count" Color="Color.Info" StrokeWidth="3" />
+                            </div>
+                        </div>
+                        <BootstrapBlazor.Components.Progress Value="@context.Count"></BootstrapBlazor.Components.Progress>
+                    </div>
+                </div>
+            </div>
+        </ValueTemplate>
+    </SelectTable>
 </DemoBlock>

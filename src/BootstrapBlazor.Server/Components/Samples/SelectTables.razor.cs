@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
-/// 
+/// 可选择表格组件示例
 /// </summary>
 public partial class SelectTables
 {
@@ -25,4 +25,6 @@ public partial class SelectTables
     {
         Items = Foo.GenerateFoo(Localizer);
     }
+
+    private static string? GetTextCallback(Foo? foo) => foo?.Name;
 }
