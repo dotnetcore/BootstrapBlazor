@@ -9,7 +9,7 @@
 }
 <div @attributes="AdditionalAttributes" id="@Id" data-bs-toggle="lgbSelect" class="@ClassName">
     <div class="dropdown-toggle" data-bs-toggle="bb.dropdown" data-bs-auto-close="outside" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString" aria-expanded="false">
-        @if (ValueTemplate == null)
+        @if (Template == null)
         {
             <input type="text" id="@InputId" readonly disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassName" value="@GetText()" />
         }
@@ -22,7 +22,7 @@
                 }
                 else
                 {
-                    @ValueTemplate(Value)
+                    @Template(Value)
                 }
             </div>
         }

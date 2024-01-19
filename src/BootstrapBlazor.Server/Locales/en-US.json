@@ -6140,5 +6140,20 @@
     "Show": "Show",
     "ToolboxCardTitle": "Tools",
     "Translate": "Translate"
+  },
+  "BootstrapBlazor.Server.Components.Samples.SelectTables": {
+    "NormalTitle": "Basic usage",
+    "NormalIntro": "Suitable for candidates with a relatively large amount of information, presenting information using <code>Table</code>",
+    "TemplateTitle": "Value Template",
+    "TemplateIntro": "Present customized display content by customizing the <code>Template</code>",
+    "AttributeItems": "",
+    "AttributeTableColumns": "",
+    "AttributeColor": "",
+    "AttributeIsDisabled": "",
+    "AttributeShowAppendArrow": "",
+    "AttributeGetTextCallback": "",
+    "AttributePlaceHolder": "",
+    "AttributeHeight": "",
+    "AttributeTemplate": ""
   }
 }

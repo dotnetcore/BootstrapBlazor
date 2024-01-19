@@ -110,7 +110,7 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     /// </summary>
     /// <remarks>默认通过 <code></code></remarks>
     [Parameter]
-    public RenderFragment<TItem>? ValueTemplate { get; set; }
+    public RenderFragment<TItem>? Template { get; set; }
 
     [Inject]
     [NotNull]
