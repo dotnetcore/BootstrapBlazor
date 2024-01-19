@@ -63,11 +63,8 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
             {
                 await Module.InvokeVoidAsync(identifier, cancellationToken, [.. paras]);
             }
-            catch (JSException) { }
             catch (JSDisconnectedException) { }
-            catch (AggregateException) { }
             catch (OperationCanceledException) { }
-            catch (InvalidOperationException) { }
         }
     }
 
@@ -116,11 +113,8 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
             {
                 ret = await Module.InvokeAsync<TValue>(identifier, cancellationToken, [.. paras]);
             }
-            catch (JSException) { }
             catch (JSDisconnectedException) { }
-            catch (AggregateException) { }
             catch (OperationCanceledException) { }
-            catch (InvalidOperationException) { }
 
             return ret;
         }
