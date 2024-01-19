@@ -203,13 +203,13 @@ public class SelectTableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Validate_Ok()
+    public async Task Validate_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 4);
         var valid = false;
         var invalid = false;
-        var model = items[0];
+        var model = new SelectTableModel() { Foo = items[0] };
         var cut = Context.RenderComponent<ValidateForm>(builder =>
         {
             builder.Add(a => a.OnValidSubmit, context =>
@@ -225,10 +225,11 @@ public class SelectTableTest : BootstrapBlazorTestBase
             builder.Add(a => a.Model, model);
             builder.AddChildContent<SelectTable<Foo>>(pb =>
             {
-                pb.Add(a => a.Value, model);
+                pb.Add(a => a.Value, model.Foo);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, "Foo", typeof(Foo)));
                 pb.Add(a => a.OnValueChanged, v =>
                 {
-                    model = v;
+                    model.Foo = v;
                     return Task.CompletedTask;
                 });
                 pb.Add(a => a.Items, items);
@@ -247,11 +248,26 @@ public class SelectTableTest : BootstrapBlazorTestBase
             });
         });
 
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             var form = cut.Find("form");
             form.Submit();
-            Assert.True(valid);
         });
+        Assert.True(valid);
+
+        model.Foo = null;
+        var table = cut.FindComponent<SelectTable<Foo>>();
+        table.SetParametersAndRender();
+        await cut.InvokeAsync(() =>
+        {
+            var form = cut.Find("form");
+            form.Submit();
+        });
+        Assert.True(invalid);
+    }
+
+    class SelectTableModel()
+    {
+        public Foo? Foo { get; set; }
     }
 }
