@@ -70,17 +70,3 @@ a, a:hover, a:focus {
     @include direction(right,last);
     @include direction(left,first)
 }
-
-.popover-dropdown {
-    .dropdown-table {
-        --bs-dropdown-padding-y: 0;
-        --bb-dropdown-max-height: 468px;
-        --bb-dropdown-table-width: auto;
-        overflow: hidden;
-        width: var(--bb-dropdown-table-width);
-
-        .table-wrapper {
-            border: none;
-        }
-    }
-}
