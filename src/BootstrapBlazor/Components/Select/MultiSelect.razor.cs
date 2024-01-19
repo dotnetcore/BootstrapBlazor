@@ -377,7 +377,7 @@ public partial class MultiSelect<TValue>
             }
             else
             {
-                Items = Enumerable.Empty<SelectedItem>();
+                Items = [];
             }
         }
     }
