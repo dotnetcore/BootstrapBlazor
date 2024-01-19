@@ -72,7 +72,6 @@ public class SelectTableTest : BootstrapBlazorTestBase
                 {
                     builder.AddContent(0, $"Template-{foo.Name}");
                 });
-                pb.Add(a => a.GetTextCallback, foo => foo.Name);
             });
         });
         var rows = cut.FindAll("tbody > tr");
@@ -84,5 +83,122 @@ public class SelectTableTest : BootstrapBlazorTestBase
             pb.Add(a => a.Value, items[0]);
         });
         Assert.Contains($"Template-{items[0].Name}", cut.Markup);
+    }
+
+    [Fact]
+    public void GetTextCallback_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 4);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<SelectTable<Foo>>(pb =>
+            {
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.Value, items[0]);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.GetTextCallback, foo => foo.Name);
+            });
+        });
+        Assert.Contains($"value=\"{items[0].Name}\"", cut.Markup);
+
+        var table = cut.FindComponent<SelectTable<Foo>>();
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.GetTextCallback, foo => null);
+        });
+        Assert.Contains("value=\"BootstrapBlazor.Server.Data.Foo\"", cut.Markup);
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.GetTextCallback, null);
+        });
+        Assert.Contains("value=\"BootstrapBlazor.Server.Data.Foo\"", cut.Markup);
+
+        table.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, null);
+        });
+        Assert.DoesNotContain("value=\"\"", cut.Markup);
+    }
+
+    [Fact]
+    public void Height_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 4);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<SelectTable<Foo>>(pb =>
+            {
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.Value, items[0]);
+                pb.Add(a => a.Height, 100);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        Assert.Contains($"height: 100px;", cut.Markup);
+    }
+
+    [Fact]
+    public async Task Value_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 4);
+        Foo? v = null;
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<SelectTable<Foo>>(pb =>
+            {
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.Value, items[0]);
+                pb.Add(a => a.OnValueChanged, foo =>
+                {
+                    v = foo;
+                    return Task.CompletedTask;
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var rows = cut.FindAll("tbody > tr");
+        await cut.InvokeAsync(() =>
+        {
+            rows[1].Click();
+        });
+        Assert.Equal(items[1].Name, v?.Name);
     }
 }
