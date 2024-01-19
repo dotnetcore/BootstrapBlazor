@@ -407,6 +407,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["SelectTable"],
+                    Url = "select-table"
+                },
+                new()
+                {
                     Text = Localizer["SelectTree"],
                     Url = "select-tree"
                 },

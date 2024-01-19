@@ -1,0 +1,42 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TItem
+@inherits PopoverDropdownBase<TItem>
+@attribute [BootstrapModuleAutoLoader("Select/SelectTable.razor.js", JSObjectReference = true)]
+
+@if (IsShowLabel)
+{
+    <BootstrapLabel required="@Required" for="@InputId" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
+}
+<div @attributes="AdditionalAttributes" id="@Id" data-bs-toggle="lgbSelect" class="@ClassName">
+    <div class="dropdown-toggle" data-bs-toggle="bb.dropdown" data-bs-auto-close="outside" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString" aria-expanded="false">
+        @if (Template == null)
+        {
+            <input type="text" id="@InputId" readonly disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassName" value="@GetText()" />
+        }
+        else
+        {
+            <div id="@InputId" class="form-control is-display">
+                @if (Value is null)
+                {
+                    @PlaceHolder
+                }
+                else
+                {
+                    @Template(Value)
+                }
+            </div>
+        }
+        @if (ShowAppendArrow)
+        {
+            <span class="@AppendClassString"><i class="@DropdownIcon"></i></span>
+        }
+    </div>
+    <CascadingValue Value="this" IsFixed="true">
+        @TableColumns?.Invoke(new TItem())
+    </CascadingValue>
+    <RenderTemplate>
+        <div class="dropdown-menu dropdown-table" style="@GetStyleString">
+            <Table Items="Items" TableColumns="TableColumns" IsFixedHeader="true" IsBordered="true" RenderMode="TableRenderMode.Table" ClickToSelect="true" OnClickRowCallback="OnClickRowCallback"></Table>
+        </div>
+    </RenderTemplate>
+</div>

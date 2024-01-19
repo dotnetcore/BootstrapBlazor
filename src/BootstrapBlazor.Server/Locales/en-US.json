@@ -4407,6 +4407,7 @@
     "Radio": "Radio",
     "Rate": "Rate",
     "Select": "Select",
+    "SelectTable": "Select-Table",
     "SelectTree": "Select-Tree",
     "Slider": "Slider",
     "Switch": "Switch",
@@ -6139,5 +6140,26 @@
     "Show": "Show",
     "ToolboxCardTitle": "Tools",
     "Translate": "Translate"
+  },
+  "BootstrapBlazor.Server.Components.Samples.SelectTables": {
+    "NormalTitle": "Basic usage",
+    "NormalIntro": "Suitable for candidates with a relatively large amount of information, presenting information using <code>Table</code>",
+    "ColorTitle": "Color",
+    "ColorIntro": "Change component border color by setting <code>Color</code>",
+    "IsDisabledTitle": "Disabled",
+    "IsDisabledIntro": "When you set the <code>IsDisabled</code> property value to <code>true</code>, the component suppresses select",
+    "TemplateTitle": "Value Template",
+    "TemplateIntro": "Present customized display content by customizing the <code>Template</code>",
+    "AttributeItems": "Data source table display content set",
+    "AttributeTableColumns": "Table Display Column Set",
+    "AttributeColor": "Color",
+    "AttributeIsDisabled": "Is it disabled",
+    "AttributeShowAppendArrow": "Is the right extended small arrow displayed",
+    "AttributeGetTextCallback": "Get display value callback method",
+    "AttributePlaceHolder": "Placeholder",
+    "AttributeHeight": "Table height",
+    "AttributeTemplate": "Display Template",
+    "ValidateFormTitle": "ValidateForm",
+    "ValidateFormIntro": "Intercept data when the value is empty"
   }
 }
