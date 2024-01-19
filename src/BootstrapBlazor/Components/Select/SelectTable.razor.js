@@ -15,8 +15,17 @@ export function init(id) {
             if (dropdown) {
                 dropdown.style.setProperty('--bb-dropdown-table-width', `${width}px`);
 
+                dropdown.style.setProperty('position', 'fixed');
+                dropdown.style.setProperty('visibility', 'hidden');
+                dropdown.style.setProperty('display', 'block');
+
                 const wrapper = dropdown.querySelector('.table-wrapper');
-                wrapper.children[1].style.setProperty('height', 'calc(100% - 39px)');
+                const headerHeight = wrapper.children[0].offsetHeight;
+                wrapper.children[1].style.setProperty('height', `calc(100% - ${headerHeight}px)`);
+
+                dropdown.style.removeProperty('display');
+                dropdown.style.removeProperty('visibility');
+                dropdown.style.removeProperty('position');
             }
         }
     });
