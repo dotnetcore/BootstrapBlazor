@@ -8,13 +8,19 @@ export function init(id) {
         return
     }
 
+    const setWidth = () => {
+        const width = getWidth(el);
+        const dropdown = el.querySelector('.dropdown-table') || document.querySelector('.popover-dropdown .dropdown-table');
+        if (dropdown) {
+            dropdown.style.setProperty('--bb-dropdown-table-width', `${width}px`);
+        }
+    }
+
     const popover = Popover.init(el, {
         initCallback: () => {
-            const width = getWidth(el);
+            setWidth();
             const dropdown = el.querySelector('.dropdown-table');
             if (dropdown) {
-                dropdown.style.setProperty('--bb-dropdown-table-width', `${width}px`);
-
                 dropdown.style.setProperty('position', 'fixed');
                 dropdown.style.setProperty('visibility', 'hidden');
                 dropdown.style.setProperty('display', 'block');
@@ -29,10 +35,15 @@ export function init(id) {
             }
         }
     });
+
+    const observer = new ResizeObserver(setWidth);
+    observer.observe(el)
+
     const selectTable = {
         el,
         input: el.querySelector(".form-select"),
-        popover
+        popover,
+        observer
     }
 
     Data.set(id, selectTable)
@@ -49,6 +60,7 @@ export function dispose(id) {
     Data.remove(id)
 
     if (data) {
+        data.observer.disconnect();
         Popover.dispose(data.popover)
     }
 }
