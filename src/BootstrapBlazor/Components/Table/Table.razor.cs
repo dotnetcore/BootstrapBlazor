@@ -1131,7 +1131,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// 获得/设置 表头过滤时回调方法
     /// </summary>
-    [NotNull]
     public Func<Task>? OnFilterAsync { get; private set; }
 
     /// <summary>
@@ -1214,7 +1213,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             column.Filter?.FilterAction.Reset();
         }
         Filters.Clear();
-        await OnFilterAsync();
+
+        if (OnFilterAsync != null)
+        {
+            await OnFilterAsync();
+        }
     }
 
     /// <summary>
