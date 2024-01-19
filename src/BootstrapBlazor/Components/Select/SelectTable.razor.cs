@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Localization;
-using System.Linq.Expressions;
 
 namespace BootstrapBlazor.Components;
 
@@ -21,12 +20,6 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     public RenderFragment<TItem>? TableColumns { get; set; }
 
     /// <summary>
-    /// 获得/设置 子组件
-    /// </summary>
-    [Parameter]
-    public RenderFragment? ChildContent { get; set; }
-
-    /// <summary>
     /// 获得/设置 绑定数据集
     /// </summary>
     [Parameter]
@@ -38,6 +31,18 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     /// </summary>
     [Parameter]
     public Color Color { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示组件右侧扩展箭头 默认 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowAppendArrow { get; set; } = true;
+
+    /// <summary>
+    /// 获得 显示文字回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<TItem, string>? GetTextCallback { get; set; }
 
     /// <summary>
     /// 
@@ -89,35 +94,6 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
         .Build();
 
     /// <summary>
-    /// 设置当前项是否 Active 方法
-    /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
-    private string? ActiveItem(SelectedItem item) => CssBuilder.Default("dropdown-item")
-        .AddClass("active", () => item.Value == CurrentValueAsString)
-        .AddClass("disabled", item.IsDisabled)
-        .Build();
-
-    /// <summary>
-    /// 获得/设置 搜索文本发生变化时回调此方法
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public Func<string, IEnumerable<TItem>>? OnSearchTextChanged { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否显示搜索框 默认为 false 不显示
-    /// </summary>
-    [Parameter]
-    public bool ShowSearch { get; set; }
-
-    /// <summary>
-    /// 获得/设置 选中候选项后是否自动清空搜索框内容 默认 false 不清空
-    /// </summary>
-    [Parameter]
-    public bool AutoClearSearchText { get; set; }
-
-    /// <summary>
     /// 获得 PlaceHolder 属性
     /// </summary>
     [Parameter]
@@ -130,17 +106,15 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     public int Height { get; set; } = 486;
 
     /// <summary>
-    /// 获得/设置 字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感
+    /// 获得/设置 Value 显示模板 默认 null
     /// </summary>
+    /// <remarks>默认通过 <code></code></remarks>
     [Parameter]
-    public StringComparison StringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
+    public RenderFragment<TItem>? ValueTemplate { get; set; }
 
     [Inject]
     [NotNull]
     private IStringLocalizer<Select<TItem>>? Localizer { get; set; }
-
-    [NotNull]
-    private List<TItem>? DataSource { get; set; }
 
     /// <summary>
     /// 获得 input 组件 Id 方法
@@ -153,14 +127,7 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     /// </summary>
     private string InputId => $"{Id}_input";
 
-    /// <summary>
-    /// 获得/设置 搜索文字
-    /// </summary>
-    private string SearchText { get; set; } = "";
-
     private string GetStyleString => $"height: {Height}px;";
-
-    private TItem? _selectedItem;
 
     /// <summary>
     /// OnParametersSet 方法
@@ -174,21 +141,14 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     }
 
     /// <summary>
-    /// 获得 Text 属性名称
-    /// </summary>
-    [NotNull]
-    protected Func<TItem, string>? TextInvoke { get; set; }
-
-    /// <summary>
     /// 获得 Text 显示文字
     /// </summary>
-    /// <param name="item"></param>
     /// <returns></returns>
-    protected string GetText(TItem item) => item is null ? "" : TextInvoke(item);
+    private string? GetText() => GetTextCallback?.Invoke(Value) ?? Value?.ToString();
 
     private async Task OnClickRowCallback(TItem item)
     {
-        _selectedItem = item;
+        CurrentValue = item;
         await InvokeVoidAsync("close", Id);
     }
 }

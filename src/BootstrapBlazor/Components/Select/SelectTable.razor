@@ -9,8 +9,27 @@
 }
 <div @attributes="AdditionalAttributes" id="@Id" data-bs-toggle="lgbSelect" class="@ClassName">
     <div class="dropdown-toggle" data-bs-toggle="bb.dropdown" data-bs-auto-close="outside" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString" aria-expanded="false">
-        <input type="text" id="@InputId" readonly disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassName" value="@GetText(Value)" />
-        <span class="@AppendClassName"><i class="fa fa-angle-up"></i></span>
+        @if (ValueTemplate == null)
+        {
+            <input type="text" id="@InputId" readonly disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassName" value="@GetText()" />
+        }
+        else
+        {
+            <div id="@InputId" class="form-control is-display">
+                @if (Value is null)
+                {
+                    @PlaceHolder
+                }
+                else
+                {
+                    @ValueTemplate(Value)
+                }
+            </div>
+        }
+        @if (ShowAppendArrow)
+        {
+            <span class="@AppendClassName"><i class="fa fa-angle-up"></i></span>
+        }
     </div>
     <CascadingValue Value="this" IsFixed="true">
         @TableColumns?.Invoke(new TItem())
