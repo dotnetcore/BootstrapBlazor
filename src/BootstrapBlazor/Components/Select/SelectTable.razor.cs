@@ -89,7 +89,8 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
         .AddClass($"border-success", IsValid.HasValue && IsValid.Value)
         .AddClass($"border-danger", IsValid.HasValue && !IsValid.Value)
-        .AddClass(CssClass).AddClass(ValidCss)
+        .AddClass(FieldClass, IsNeedValidate)
+        .AddClass(ValidCss)
         .Build();
 
     /// <summary>
@@ -138,6 +139,19 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     private string GetStyleString => $"height: {Height}px;";
 
     /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        if (ValidateForm != null)
+        {
+            Rules.Add(new RequiredValidator());
+        }
+    }
+
+    /// <summary>
     /// OnParametersSet 方法
     /// </summary>
     protected override void OnParametersSet()
@@ -148,6 +162,12 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectDropdownIcon);
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override bool IsRequired() => ValidateForm != null;
 
     /// <summary>
     /// 获得 Text 显示文字
