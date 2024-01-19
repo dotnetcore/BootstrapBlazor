@@ -465,7 +465,7 @@ public partial class Table<TItem>
                 await ProcessTreeData();
             }
 
-            // 更新数据后清楚缓存防止新数据不显示
+            // 更新数据后清除缓存防止新数据不显示
             RowsCache = null;
 
             void ProcessData()
