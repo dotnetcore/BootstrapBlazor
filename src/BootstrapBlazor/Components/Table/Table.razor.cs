@@ -758,17 +758,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             IsTree = false;
         }
 
-        if (FirstRender)
-        {
-            // set default sortName
-            var col = Columns.Find(i => i.Sortable && i.DefaultSort);
-            if (col != null)
-            {
-                SortName = col.GetFieldName();
-                SortOrder = col.DefaultSortOrder;
-            }
-        }
-        else
+        if (!FirstRender)
         {
             // 动态列模式
             ResetDynamicContext();
