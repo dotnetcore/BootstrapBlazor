@@ -115,8 +115,7 @@ public partial class Table<TItem>
     /// <summary>
     /// 内部 分页信息模板
     /// </summary>
-    [NotNull]
-    protected RenderFragment? InternalPageInfoTemplate => builder =>
+    protected RenderFragment InternalPageInfoTemplate => builder =>
     {
         if (PageInfoTemplate != null)
         {

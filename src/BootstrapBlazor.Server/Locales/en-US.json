@@ -5340,7 +5340,7 @@
     "SetFilterInCodeIntro": "Example shows how to set filters through code",
     "SetFilterInCodeButtonText1": "Name contains 01",
     "SetFilterInCodeButtonText2": "Reset All Filter",
-    "TablesFilterTemplateDescription": "<code>The FilterTemplate</code> type is <code>RenderFragment</code>: <span>its value is a custom component, and the component must inherit</span> <code>the filterBase</code> In this case, the last column in this case<b>, the Quantity column</b>, uses the <code>custom component by filtering the template CustomerFilter</code> <a href=\"{0}\" target=\"_blank\">[portal] CustomerFilter component source code</a>"
+    "TablesFilterTemplateDescription": "<code>The FilterTemplate</code> type is <code>RenderFragment</code> <span>its value is a custom component, and the component must inherit</span> <code>the filterBase</code> In this case, the last column in this case<b>, the Quantity column</b>, uses the <code>custom component by filtering the template CustomerFilter</code> <a href=\"{0}\" target=\"_blank\">[portal] CustomerFilter component source code</a>"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesFixedHeader": {
     "TablesFixedHeaderTitle": "Fixed header function",

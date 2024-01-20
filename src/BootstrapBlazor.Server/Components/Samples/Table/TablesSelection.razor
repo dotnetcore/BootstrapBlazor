@@ -9,14 +9,14 @@
            Introduction="@Localizer["TablesSelectionNormalIntro"]"
            Name="Normal">
     <div class="table-selection-demo">
-        <Table TItem="Foo" @bind-SelectedRows="SelectedItems" IsKeepSelectedRows="IsKeepSelectedRows" class="table-selection-demo"
+        <Table TItem="Foo" @bind-SelectedRows="SelectedItems" IsKeepSelectedRows="_isKeepSelectedRows" class="table-selection-demo"
                IsPagination="true" PageItemsSource="@PageItemsSource"
                IsStriped="true" IsBordered="true" IsMultipleSelect="true"
                ShowToolbar="true" ShowDefaultButtons="false" OnQueryAsync="@OnQueryAsync">
             <TableToolbarBeforeTemplate>
                 <div class="table-selection-info">
                     <div class="me-2">@Localizer["TablesSelectionKeepInfo"]</div>
-                    <Switch @bind-Value="IsKeepSelectedRows" OnText="@Localizer["TablesSelectionKeepOnText"]" OffText="@Localizer["TablesSelectionKeepOffText"]" />
+                    <Switch @bind-Value="_isKeepSelectedRows" OnText="@Localizer["TablesSelectionKeepOnText"]" OffText="@Localizer["TablesSelectionKeepOffText"]" />
                     <div class="ms-5">@Localizer["TablesSelectionCountText", SelectedItems.Count]</div>
                 </div>
             </TableToolbarBeforeTemplate>

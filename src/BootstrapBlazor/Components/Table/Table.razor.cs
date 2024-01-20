@@ -762,14 +762,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             // 动态列模式
             ResetDynamicContext();
-
-            // set default sortName
-            var col = Columns.Find(i => i.Sortable && i.DefaultSort);
-            if (col != null)
-            {
-                SortName = col.GetFieldName();
-                SortOrder = col.DefaultSortOrder;
-            }
         }
     }
 
@@ -912,20 +904,18 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         // 查看是否开启列宽序列化
         var columnWidths = await ReloadColumnWidth();
-        if (columnWidths != null)
+
+        foreach (var cw in columnWidths.Where(c => c.Width > 0))
         {
-            foreach (var cw in columnWidths.Where(c => c.Width > 0))
+            var c = Columns.Find(c => c.GetFieldName() == cw.Name);
+            if (c != null)
             {
-                var c = Columns.Find(c => c.GetFieldName() == cw.Name);
-                if (c != null)
-                {
-                    c.Width = cw.Width;
-                }
+                c.Width = cw.Width;
             }
         }
 
         // set default sortName
-        var col = Columns.Find(i => i.Sortable && i.DefaultSort);
+        var col = Columns.Find(i => i is { Sortable: true, DefaultSort: true });
         if (col != null)
         {
             SortName = col.GetFieldName();
@@ -1142,14 +1132,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private async ValueTask<ItemsProviderResult<TItem>> LoadItems(ItemsProviderRequest request)
     {
         StartIndex = request.StartIndex;
-        if (TotalCount > 0)
-        {
-            PageItems = Math.Min(request.Count, TotalCount - request.StartIndex);
-        }
-        else
-        {
-            PageItems = request.Count;
-        }
+        PageItems = TotalCount > 0 ? Math.Min(request.Count, TotalCount - request.StartIndex) : request.Count;
         await QueryData();
         return new ItemsProviderResult<TItem>(QueryItems, TotalCount);
     }
