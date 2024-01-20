@@ -28,10 +28,10 @@
     </section>
 
     <Table TItem="Foo"
-            IsPagination="true" PageItemsSource="@PageItemsSource"
-            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-            ShowSkeleton="true"
-            OnQueryAsync="@OnQueryAsync">
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowSkeleton="true" @bind-SelectedRows="SelectedItems" IsKeepSelectedRows="true"
+           OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
             <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
