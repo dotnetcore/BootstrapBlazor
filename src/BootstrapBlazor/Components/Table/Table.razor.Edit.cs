@@ -219,7 +219,7 @@ public partial class Table<TItem>
 
     private async Task<bool> InternalOnDeleteAsync()
     {
-        var ret = false;
+        bool ret;
         if (OnDeleteAsync != null)
         {
             ret = await OnDeleteAsync(SelectedRows);
@@ -242,7 +242,7 @@ public partial class Table<TItem>
 
     private async Task<bool> InternalOnSaveAsync(TItem item, ItemChangedType changedType)
     {
-        var ret = false;
+        bool ret;
         if (OnSaveAsync != null)
         {
             ret = await OnSaveAsync(item, changedType);
@@ -434,16 +434,16 @@ public partial class Table<TItem>
             ResetSelectedRows(Items);
             RowsCache = null;
         }
+        return;
 
         async Task OnQuery()
         {
-            QueryData<TItem>? queryData = null;
             var queryOption = BuildQueryPageOptions();
 
             // 设置是否为首次查询
             queryOption.IsFristQuery = _firstQuery;
 
-            queryData = await InternalOnQueryAsync(queryOption);
+            var queryData = await InternalOnQueryAsync(queryOption);
             PageIndex = queryOption.PageIndex;
             PageItems = queryOption.PageItems;
             TotalCount = queryData.TotalCount;
@@ -467,6 +467,7 @@ public partial class Table<TItem>
 
             // 更新数据后清除缓存防止新数据不显示
             RowsCache = null;
+            return;
 
             void ProcessData()
             {
@@ -528,6 +529,7 @@ public partial class Table<TItem>
 
                 TreeRows.Clear();
                 TreeRows.AddRange(treeNodes);
+                return;
 
                 async Task CheckExpand(IEnumerable<TableTreeNode<TItem>> nodes)
                 {
