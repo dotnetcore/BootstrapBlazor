@@ -6158,6 +6158,7 @@
     "AttributeGetTextCallback": "Get display value callback method",
     "AttributePlaceHolder": "Placeholder",
     "AttributeHeight": "Table height",
+    "AttributeTableMinWidth": "The min width of Table",
     "AttributeTemplate": "Display Template",
     "ValidateFormTitle": "ValidateForm",
     "ValidateFormIntro": "Intercept data when the value is empty"

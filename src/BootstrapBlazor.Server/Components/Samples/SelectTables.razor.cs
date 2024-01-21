@@ -88,6 +88,14 @@ public partial class SelectTables
         },
         new()
         {
+            Name = "TableMinWidth",
+            Description = Localizer["AttributeTableMinWidth"],
+            Type = "int",
+            ValueList = " — ",
+            DefaultValue = "300"
+        },
+        new()
+        {
             Name = "IsDisabled",
             Description = Localizer["AttributeIsDisabled"],
             Type = "boolean",
