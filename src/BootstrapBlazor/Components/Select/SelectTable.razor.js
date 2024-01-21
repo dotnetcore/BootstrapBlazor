@@ -9,9 +9,10 @@ export function init(id) {
     }
 
     const setWidth = () => {
+        const minWidth = parseFloat(el.dataset.bbMinWidth || '300');
         let width = getWidth(el);
-        if (width < 300) {
-            width = 300;
+        if (width < minWidth) {
+            width = minWidth;
         }
         const dropdown = el.querySelector('.dropdown-table') || document.querySelector('.popover-dropdown .dropdown-table');
         if (dropdown) {
