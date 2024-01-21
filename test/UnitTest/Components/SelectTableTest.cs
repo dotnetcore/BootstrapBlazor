@@ -21,6 +21,19 @@ public class SelectTableTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void TableMinWidth_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<SelectTable<Foo>>(pb =>
+            {
+                pb.Add(a => a.TableMinWidth, 300);
+            });
+        });
+        Assert.Contains("data-bb-min-width=\"300\"", cut.Markup);
+    }
+
+    [Fact]
     public void Color_Ok()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>

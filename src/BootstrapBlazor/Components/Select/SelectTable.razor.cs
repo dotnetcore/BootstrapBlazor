@@ -39,6 +39,13 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     public bool ShowAppendArrow { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 弹窗表格最小宽度 默认为 null 未设置使用样式中的默认值
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public int? TableMinWidth { get; set; }
+
+    /// <summary>
     /// 获得 显示文字回调方法 默认 null
     /// </summary>
     [Parameter]
