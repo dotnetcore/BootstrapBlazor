@@ -1,0 +1,24 @@
+﻿@page "/select-object"
+
+@inject IStringLocalizer<SelectObjects> Localizer
+
+<h3>任意Select</h3>
+<h4>任意Select</h4>
+
+<DemoBlock Title="添加ListView"
+           Introduction="添加ListView"
+           Name="Normal">
+    <SelectObject @ref="SelectObject">
+        <ListView TItem="ListViews.Product" Items="@Products" OnListViewItemClick="OnListViewItemClick">
+            <BodyTemplate Context="value">
+                <Card>
+                    <BodyTemplate>
+                        <img src="@value.ImageUrl" />
+                        <div class="lv-demo-desc">@value.Description</div>
+                    </BodyTemplate>
+                </Card>
+            </BodyTemplate>
+        </ListView>
+    </SelectObject>
+</DemoBlock>
+
