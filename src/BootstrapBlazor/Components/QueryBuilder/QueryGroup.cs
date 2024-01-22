@@ -32,7 +32,7 @@ public class QueryGroup : BootstrapComponentBase, IDisposable
     /// <summary>
     /// 过滤条件集合
     /// </summary>
-    protected FilterKeyValueAction _filter = new() { Filters = [] };
+    private FilterKeyValueAction _filter = new() { Filters = [] };
 
     /// <summary>
     /// <inheritdoc/>

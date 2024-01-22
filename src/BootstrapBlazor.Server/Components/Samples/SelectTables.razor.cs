@@ -35,7 +35,7 @@ public partial class SelectTables
 
     private Foo? _disabledFoo;
 
-    private SelectTableMode Model = new();
+    private readonly SelectTableMode Model = new();
 
     /// <summary>
     ///
