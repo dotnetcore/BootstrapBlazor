@@ -32,7 +32,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TemplateTitle"]" Introduction="@Localizer["TemplateIntro"]" Name="ValueTemplate">
-    <SelectTable TItem="Foo" @bind-Value="@_templateFoo" OnQueryAsync="OnQueryAsync" ShowAppendArrow="false">
+    <SelectTable TItem="Foo" @bind-Value="@_templateFoo" OnQueryAsync="OnQueryAsync" GetTextCallback="@GetTextCallback" ShowAppendArrow="false">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name"></TableColumn>
             <TableColumn @bind-Field="@context.Address"></TableColumn>
