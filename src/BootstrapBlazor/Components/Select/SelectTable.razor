@@ -36,7 +36,11 @@
     </CascadingValue>
     <RenderTemplate>
         <div class="dropdown-menu dropdown-table" style="@GetStyleString">
-            <Table TableColumns="TableColumns" IsFixedHeader="true" IsBordered="true" RenderMode="TableRenderMode.Table" ClickToSelect="true" OnClickRowCallback="OnClickRowCallback" OnQueryAsync="OnQueryAsync"></Table>
+            <Table TableColumns="TableColumns" IsFixedHeader="true" IsBordered="true" RenderMode="TableRenderMode.Table" ClickToSelect="true"
+                   ShowSearch="ShowSearch" SearchMode="SearchMode.Top"
+                   SearchModel="SearchModel" SearchTemplate="SearchTemplate"
+                   CustomerSearchModel="CustomerSearchModel" CustomerSearchTemplate="CustomerSearchTemplate"
+                   OnClickRowCallback="OnClickRowCallback" OnQueryAsync="OnQueryAsync"></Table>
         </div>
     </RenderTemplate>
 </div>
