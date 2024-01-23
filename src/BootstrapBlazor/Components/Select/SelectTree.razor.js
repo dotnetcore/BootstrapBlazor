@@ -19,7 +19,8 @@ export function init(id) {
     EventHandler.on(popover.toggleMenu, 'click', '.tree-node', e => {
         if (popover.isPopover) {
             popover.hide()
-        } else {
+        }
+        else {
             const dropdown = bootstrap.Dropdown.getInstance(popover.toggleElement)
             if (dropdown) {
                 dropdown.hide()
