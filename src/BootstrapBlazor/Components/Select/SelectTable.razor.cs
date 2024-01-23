@@ -20,11 +20,12 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     public RenderFragment<TItem>? TableColumns { get; set; }
 
     /// <summary>
-    /// 获得/设置 绑定数据集
+    /// 异步查询回调方法
     /// </summary>
     [Parameter]
+    [EditorRequired]
     [NotNull]
-    public IEnumerable<TItem>? Items { get; set; }
+    public Func<QueryPageOptions, Task<QueryData<TItem>>>? OnQueryAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 颜色 默认 Color.None 无设置
@@ -48,6 +49,8 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     /// 获得 显示文字回调方法 默认 null
     /// </summary>
     [Parameter]
+    [NotNull]
+    [EditorRequired]
     public Func<TItem, string?>? GetTextCallback { get; set; }
 
     /// <summary>
@@ -112,7 +115,6 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     /// <summary>
     /// 获得/设置 Value 显示模板 默认 null
     /// </summary>
-    /// <remarks>默认通过 <code></code></remarks>
     [Parameter]
     public RenderFragment<TItem>? Template { get; set; }
 
@@ -160,7 +162,6 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     {
         base.OnParametersSet();
 
-        Items ??= [];
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectDropdownIcon);
     }
@@ -175,7 +176,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     /// 获得 Text 显示文字
     /// </summary>
     /// <returns></returns>
-    private string? GetText() => Value == default ? null : GetTextCallback?.Invoke(Value) ?? Value.ToString();
+    private string? GetText() => Value == default ? null : GetTextCallback(Value);
 
     private async Task OnClickRowCallback(TItem item)
     {
