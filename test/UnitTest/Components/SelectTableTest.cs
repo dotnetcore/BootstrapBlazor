@@ -12,22 +12,39 @@ public class SelectTableTest : BootstrapBlazorTestBase
     [Fact]
     public void Items_Ok()
     {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 4);
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
-            pb.AddChildContent<SelectTable<Foo>>();
+            pb.Add(a => a.EnableErrorLogger, false);
+            pb.AddChildContent<SelectTable<Foo>>(pb =>
+            {
+                pb.Add(a => a.OnQueryAsync, options => OnFilterQueryAsync(options, items));
+                pb.Add(a => a.GetTextCallback, foo => foo.Name);
+            });
         });
-        var rows = cut.FindAll("tbody > tr");
-        Assert.Empty(rows);
+        var table = cut.FindComponent<SelectTable<Foo>>();
+        Assert.Throws<InvalidOperationException>(() =>
+        {
+            table.SetParametersAndRender(pb =>
+            {
+                pb.Add(a => a.OnQueryAsync, null);
+            });
+        });
     }
 
     [Fact]
     public void TableMinWidth_Ok()
     {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 4);
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<SelectTable<Foo>>(pb =>
             {
                 pb.Add(a => a.TableMinWidth, 300);
+                pb.Add(a => a.OnQueryAsync, options => OnFilterQueryAsync(options, items));
+                pb.Add(a => a.GetTextCallback, foo => foo.Name);
             });
         });
         Assert.Contains("data-bb-min-width=\"300\"", cut.Markup);
@@ -36,11 +53,15 @@ public class SelectTableTest : BootstrapBlazorTestBase
     [Fact]
     public void Color_Ok()
     {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 4);
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<SelectTable<Foo>>(pb =>
             {
                 pb.Add(a => a.Color, Color.Danger);
+                pb.Add(a => a.GetTextCallback, foo => foo.Name);
+                pb.Add(a => a.OnQueryAsync, options => OnFilterQueryAsync(options, items));
             });
         });
         cut.Contains("border-danger");
@@ -49,11 +70,15 @@ public class SelectTableTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowAppendArrow_Ok()
     {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 4);
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<SelectTable<Foo>>(pb =>
             {
                 pb.Add(a => a.ShowAppendArrow, false);
+                pb.Add(a => a.OnQueryAsync, options => OnFilterQueryAsync(options, items));
+                pb.Add(a => a.GetTextCallback, foo => foo.Name);
             });
         });
         cut.DoesNotContain("form-select-append");
@@ -69,6 +94,7 @@ public class SelectTableTest : BootstrapBlazorTestBase
             pb.AddChildContent<SelectTable<Foo>>(pb =>
             {
                 pb.Add(a => a.OnQueryAsync, options => OnFilterQueryAsync(options, items));
+                pb.Add(a => a.GetTextCallback, foo => foo.Name);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -172,6 +198,7 @@ public class SelectTableTest : BootstrapBlazorTestBase
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
                     builder.CloseComponent();
                 });
+                pb.Add(a => a.GetTextCallback, foo => foo.Name);
             });
         });
         Assert.Contains($"height: 100px;", cut.Markup);
@@ -194,6 +221,7 @@ public class SelectTableTest : BootstrapBlazorTestBase
                     v = foo;
                     return Task.CompletedTask;
                 });
+                pb.Add(a => a.GetTextCallback, foo => foo.Name);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -247,6 +275,7 @@ public class SelectTableTest : BootstrapBlazorTestBase
                     model.Foo = v;
                     return Task.CompletedTask;
                 });
+                pb.Add(a => a.GetTextCallback, foo => foo.Name);
                 pb.Add(a => a.OnQueryAsync, options => OnFilterQueryAsync(options, items));
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {

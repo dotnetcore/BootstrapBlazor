@@ -162,6 +162,11 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     {
         base.OnParametersSet();
 
+        if(OnQueryAsync == null)
+        {
+            throw new InvalidOperationException("Please set OnQueryAsync value");
+        }
+
         if (GetTextCallback == null)
         {
             throw new InvalidOperationException("Please set GetTextCallback value");
