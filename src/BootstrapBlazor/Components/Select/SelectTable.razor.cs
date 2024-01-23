@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
 [CascadingTypeParameter(nameof(TItem))]
-public partial class SelectTable<TItem> : ITable where TItem : class, new()
+public partial class SelectTable<TItem> : IColumnCollection where TItem : class, new()
 {
     /// <summary>
     /// 获得/设置 TableHeader 实例
@@ -42,7 +42,6 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     /// 获得/设置 弹窗表格最小宽度 默认为 null 未设置使用样式中的默认值
     /// </summary>
     [Parameter]
-    [NotNull]
     public int? TableMinWidth { get; set; }
 
     /// <summary>
@@ -69,17 +68,6 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     /// 获得表格列集合
     /// </summary>
     public List<ITableColumn> Columns { get; } = [];
-
-    List<ITableColumn> ITable.Columns { get => Columns; }
-
-    [ExcludeFromCodeCoverage]
-    Dictionary<string, IFilterAction> ITable.Filters { get; } = [];
-
-    [ExcludeFromCodeCoverage]
-    Func<Task>? ITable.OnFilterAsync { get => null; }
-
-    [ExcludeFromCodeCoverage]
-    IEnumerable<ITableColumn> ITable.GetVisibleColumns() => Columns;
 
     /// <summary>
     /// 获得 样式集合
