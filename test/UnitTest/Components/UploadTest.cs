@@ -892,6 +892,24 @@ public class UploadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task CardUpload_Max_Ok()
+    {
+        var cut = Context.RenderComponent<CardUpload<string>>(pb =>
+        {
+            pb.Add(a => a.ShowProgress, true);
+            pb.Add(a => a.Max, 1);
+        });
+        var input = cut.FindComponent<InputFile>();
+        await cut.InvokeAsync(async () =>
+        {
+            await input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+            {
+                new()
+            }));
+        });
+    }
+
+    [Fact]
     public void FileSize_Ok()
     {
         var validator = new FileValidationAttribute()
