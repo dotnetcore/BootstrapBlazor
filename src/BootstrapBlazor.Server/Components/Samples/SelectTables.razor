@@ -84,7 +84,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SortableTitle"]" Introduction="@Localizer["SortableIntro"]" Name="Sortable">
-    <SelectTable TItem="Foo" @bind-Value="@Model.Foo" OnQueryAsync="OnQueryAsync" GetTextCallback="@GetTextCallback">
+    <SelectTable TItem="Foo" @bind-Value="@_sortableFoo" OnQueryAsync="OnFilterQueryAsync" GetTextCallback="@GetTextCallback">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Sortable="true"></TableColumn>
             <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true"></TableColumn>
@@ -93,13 +93,19 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SearchTitle"]" Introduction="@Localizer["SearchIntro"]" Name="Search">
-    <SelectTable TItem="Foo" @bind-Value="@Model.Foo" OnQueryAsync="OnQueryAsync" GetTextCallback="@GetTextCallback" ShowSearch="true">
-        <TableColumns>
-            <TableColumn @bind-Field="@context.Name" Sortable="true" Searchable="true"></TableColumn>
-            <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true"></TableColumn>
-            <TableColumn @bind-Field="@context.Education" Sortable="true" Filterable="true" Searchable="true"></TableColumn>
-        </TableColumns>
-    </SelectTable>
+    <div class="row g-3">
+        <div class="col-4">
+            <SelectTable TItem="Foo" @bind-Value="_searchFoo"
+                         OnQueryAsync="OnFilterQueryAsync" GetTextCallback="@GetTextCallback"
+                         ShowSearch="true" IsPagination="true" PageItemsSource="PageItemsSource">
+                <TableColumns>
+                    <TableColumn @bind-Field="@context.Name" Sortable="true" Searchable="true" Width="100"></TableColumn>
+                    <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" Searchable="true"></TableColumn>
+                    <TableColumn @bind-Field="@context.Education" Sortable="true" Filterable="true" Searchable="true" Width="100"></TableColumn>
+                </TableColumns>
+            </SelectTable>
+        </div>
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />
