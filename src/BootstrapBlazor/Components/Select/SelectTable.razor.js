@@ -9,7 +9,7 @@ export function init(id) {
     }
 
     const setWidth = () => {
-        const minWidth = parseFloat(el.dataset.bbMinWidth || '300');
+        const minWidth = parseFloat(el.dataset.bbMinWidth || '580');
         let width = getWidth(el);
         if (width < minWidth) {
             width = minWidth;

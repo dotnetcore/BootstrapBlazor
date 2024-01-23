@@ -24,8 +24,6 @@
         width: var(--bb-dropdown-table-width);
 
         .table-wrapper {
-            border: none;
-
             .table-fixed-header {
                 th {
                     --bs-table-bg: rgba(var(--bs-body-color-rgb),.03);
