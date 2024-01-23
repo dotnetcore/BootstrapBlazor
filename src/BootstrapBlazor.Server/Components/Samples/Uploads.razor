@@ -107,9 +107,8 @@
         </div>
         <div class="col-12">
             <p>@((MarkupString)Localizer["AvatarUploadTips3"].Value)</p>
-            <AvatarUpload TValue="string" IsSingle="true" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></AvatarUpload>
+            <AvatarUpload class="mb-3" TValue="string" IsSingle="true" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></AvatarUpload>
             <p>@((MarkupString)Localizer["AvatarUploadTips5"].Value)</p>
-            <p></p>
             <AvatarUpload TValue="string" Accept="image/gif, image/jpeg" IsSingle="true" OnChange="@OnAvatarUpload" OnDelete="@(fileName => Task.FromResult(true))"></AvatarUpload>
         </div>
         <div class="col-12">
