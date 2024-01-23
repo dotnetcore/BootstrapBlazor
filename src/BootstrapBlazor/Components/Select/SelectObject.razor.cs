@@ -11,7 +11,6 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class SelectObject
 {
-
     /// <summary>
     /// 获得 样式集合
     /// </summary>
@@ -120,7 +119,7 @@ public partial class SelectObject
     }
 
     /// <summary>
-    ///
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnParametersSet()
     {
