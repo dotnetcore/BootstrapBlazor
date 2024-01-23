@@ -83,7 +83,7 @@
     </ValidateForm>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ValidateFormTitle"]" Introduction="@Localizer["ValidateFormIntro"]" Name="Sortable">
+<DemoBlock Title="@Localizer["SortableTitle"]" Introduction="@Localizer["SortableIntro"]" Name="Sortable">
     <SelectTable TItem="Foo" @bind-Value="@Model.Foo" OnQueryAsync="OnQueryAsync" GetTextCallback="@GetTextCallback" DisplayText="Test">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Sortable="true"></TableColumn>
