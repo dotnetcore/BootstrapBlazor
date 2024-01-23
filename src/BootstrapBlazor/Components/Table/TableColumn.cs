@@ -415,14 +415,14 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// 获得/设置 Table 实例
     /// </summary>
     [CascadingParameter]
-    protected ITable? Table { get; set; }
+    protected IColumnCollection? Columns { get; set; }
 
     /// <summary>
     /// 组件初始化方法
     /// </summary>
     protected override void OnInitialized()
     {
-        Table?.Columns.Add(this);
+        Columns?.Columns.Add(this);
         if (FieldExpression != null)
         {
             _fieldIdentifier = FieldIdentifier.Create(FieldExpression);

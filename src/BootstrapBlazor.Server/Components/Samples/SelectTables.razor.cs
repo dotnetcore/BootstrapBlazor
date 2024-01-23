@@ -17,16 +17,6 @@ public partial class SelectTables
     [NotNull]
     private IStringLocalizer<SelectTables>? Localizer { get; set; }
 
-    private List<Foo> _items = default!;
-
-    private List<Foo> _colorItems = default!;
-
-    private List<Foo> _templateItems = default!;
-
-    private List<Foo> _disabledItems = default!;
-
-    private List<Foo> _validateFormItems = default!;
-
     private Foo? _foo;
 
     private Foo? _colorFoo;
@@ -35,21 +25,54 @@ public partial class SelectTables
 
     private Foo? _disabledFoo;
 
-    private SelectTableMode Model = new();
+    private Foo? _sortableFoo;
+
+    private readonly SelectTableMode Model = new();
+
+    private static string? GetTextCallback(Foo foo) => foo.Name;
+
+    private List<Foo> _items = default!;
+
+    private IEnumerable<Foo> _filterItems = default!;
 
     /// <summary>
-    ///
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
+        base.OnInitialized();
+
         _items = Foo.GenerateFoo(LocalizerFoo);
-        _colorItems = Foo.GenerateFoo(LocalizerFoo);
-        _templateItems = Foo.GenerateFoo(LocalizerFoo);
-        _disabledItems = Foo.GenerateFoo(LocalizerFoo);
-        _validateFormItems = Foo.GenerateFoo(LocalizerFoo);
+        _filterItems = Foo.GenerateFoo(LocalizerFoo);
     }
 
-    private static string? GetTextCallback(Foo? foo) => foo?.Name;
+    private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
+    {
+        // 此处代码拷贝后需要自行更改根据 options 中的条件从数据库中获取数据集合
+        return Task.FromResult(new QueryData<Foo>()
+        {
+            Items = _items
+        });
+    }
+
+    private Task<QueryData<Foo>> OnFilterQueryAsync(QueryPageOptions options)
+    {
+        // 此处代码拷贝后需要自行更改根据 options 中的条件从数据库中获取数据集合
+        _filterItems = _filterItems.Where(options.ToFilter().GetFilterFunc<Foo>());
+
+        if (!string.IsNullOrEmpty(options.SortName))
+        {
+            _filterItems = _filterItems.Sort(options.SortName, options.SortOrder);
+        }
+        return Task.FromResult(new QueryData<Foo>()
+        {
+            Items = _filterItems.ToList(),
+            IsAdvanceSearch = true,
+            IsFiltered = true,
+            IsSearch = true,
+            IsSorted = true
+        });
+    }
 
     class SelectTableMode
     {
