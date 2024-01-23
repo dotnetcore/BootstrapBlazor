@@ -35,9 +35,15 @@ public partial class SelectObjects
         Items = Foo.GenerateFoo(LocalizerFoo, 10);
     }
 
-    private Task OnListViewItemClick(ListViews.Product arg)
+    private Task OnListViewItemClick(ListViews.Product arg, Action<string>? action)
     {
-        SelectObject.SetSelectValue(arg.Description);
+
+        //SelectObject.SetSelectValue(arg.Description);
+        action?.Invoke(arg.Description);
+        // 这里直接调用SelectObject的Close方法来关闭弹窗，具体的关闭时机由用户自己确定
+        SelectObject.Close();
+
+
         return Task.CompletedTask;
     }
 }

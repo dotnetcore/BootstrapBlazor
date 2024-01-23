@@ -72,7 +72,7 @@ public partial class SelectObject
     /// 获得/设置 下拉列表内容
     /// </summary>
     [Parameter]
-    public RenderFragment<string?>? ChildContent { get; set; }
+    public RenderFragment<Action<string>?>? ChildContent { get; set; }
 
     /// <summary>
     /// 获得/设置 编辑时处理程序
@@ -87,6 +87,8 @@ public partial class SelectObject
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
+
+    public Action<string>? UpdateAction { get; set; }
 
     /// <summary>
     /// 获得 input 组件 Id 方法
@@ -111,6 +113,12 @@ public partial class SelectObject
         }
     }
 
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        UpdateAction = SetSelectValue;
+    }
+
     /// <summary>
     ///
     /// </summary>
@@ -128,6 +136,16 @@ public partial class SelectObject
     public void SetSelectValue(string value)
     {
         CurrentValueAsString = value;
+        // 当用户推送选中内容到SelectObject时，我们需要关闭弹窗，就在这里关闭掉
+        Close();
         StateHasChanged();
+    }
+
+    /// <summary>
+    /// 这个方法是selectObject的方法，用于关闭弹窗
+    /// </summary>
+    public void Close()
+    {
+        //这里调用js的close方法，具体的代码我不太清楚就不写了
     }
 }

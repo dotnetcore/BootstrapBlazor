@@ -9,7 +9,7 @@
            Introduction="添加ListView"
            Name="Normal">
     <SelectObject @ref="SelectObject">
-        <ListView TItem="ListViews.Product" Items="@Products" OnListViewItemClick="OnListViewItemClick">
+        <ListView TItem="ListViews.Product" Items="@Products" OnListViewItemClick="(arg) => OnListViewItemClick(arg, context)">
             <BodyTemplate Context="value">
                 <Card>
                     <BodyTemplate>
