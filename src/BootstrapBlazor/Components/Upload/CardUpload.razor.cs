@@ -1,11 +1,11 @@
-// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// 卡片式上传组件
 /// </summary>
 public partial class CardUpload<TValue>
 {
@@ -15,7 +15,7 @@ public partial class CardUpload<TValue>
 
     private string? GetDisabledString(UploadFile item) => (!IsDisabled && item.Uploaded && item.Code == 0) ? null : "disabled";
 
-    private bool ShowPreviewList => GetUploadFiles().Any();
+    private bool ShowPreviewList => GetUploadFiles().Count != 0;
 
     private List<string?> PreviewList => GetUploadFiles().Select(i => i.PrevUrl).ToList();
 
@@ -92,12 +92,6 @@ public partial class CardUpload<TValue>
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
-
-    /// <summary>
-    /// 获得/设置 最大上传个数 默认 true 显示
-    /// </summary>
-    [Parameter]
-    public int MaxUploads { get; set; } = int.MaxValue;
 
     /// <summary>
     /// <inheritdoc/>
