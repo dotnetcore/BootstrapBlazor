@@ -28,21 +28,20 @@
     position: relative;
     height: 100%;
 
-    .pagination {
-        --bs-pagination-color: var(--bb-table-pagination-color);
-        --bs-pagination-active-bg: var(--bb-table-pagination-active-bg);
-        --bs-pagination-active-color: var(--bb-table-pagination-active-color);
-        --bs-pagination-active-border-color: var(--bb-table-pagination-active-border-color);
+    .nav-pages {
+        margin-top: .5rem;
+
+        .pagination {
+            --bs-pagination-color: var(--bb-table-pagination-color);
+            --bs-pagination-active-bg: var(--bb-table-pagination-active-bg);
+            --bs-pagination-active-color: var(--bb-table-pagination-active-color);
+            --bs-pagination-active-border-color: var(--bb-table-pagination-active-border-color);
+        }
     }
 }
 
 .table-container .table:not(.table-excel) .switch {
     --bb-switch-padding: 0;
-}
-
-.table-container > :not(:first-child):not(.table-loader):not(.table-wrapper):not(.table-filter),
-.table-container > :not(.table-toolbar) + .table-wrapper {
-    margin-top: .5rem;
 }
 
 .table-container .table > :not(caption) > * > * {
@@ -658,12 +657,16 @@ form .table .table-cell > textarea {
     width: 100%;
 }
 
-.table-search .card-header {
-    --bs-card-cap-padding-y: 0;
-    min-height: var(--bb-table-header-min-height);
+.table-search {
+    margin-bottom: .5rem;
 
-    .card-title {
-        display: none;
+    .card-header {
+        --bs-card-cap-padding-y: 0;
+        min-height: var(--bb-table-header-min-height);
+
+        .card-title {
+            display: none;
+        }
     }
 }
 

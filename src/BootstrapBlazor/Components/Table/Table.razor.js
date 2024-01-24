@@ -7,13 +7,14 @@ import Popover from "../../modules/base-popover.js?v=$version"
 
 const setBodyHeight = table => {
     const el = table.el
+    const children = [...el.children]
+    const search = children.find(i => i.classList.contains('table-search'))
+    table.search = search
+
     if (isVisible(el) === false) {
         return;
     }
 
-    const children = [...el.children]
-    const search = children.find(i => i.classList.contains('table-search'))
-    table.search = search
     let searchHeight = 0
     if (search) {
         searchHeight = getOuterHeight(search)
@@ -74,8 +75,6 @@ const fixHeader = table => {
             }
         }
     }
-
-    setBodyHeight(table)
 }
 
 const setExcelKeyboardListener = table => {
@@ -493,10 +492,7 @@ export function reset(id) {
     table.dragColumns = []
 
     const shim = [...table.el.children].find(i => i.classList.contains('table-shim'))
-    if (shim === void 0) {
-        setBodyHeight(table)
-    }
-    else {
+    if (shim !== void 0) {
         table.thead = [...shim.children].find(i => i.classList.contains('table-fixed-header'))
         table.isResizeColumn = shim.classList.contains('table-resize')
         if (table.thead) {
@@ -516,7 +512,6 @@ export function reset(id) {
             table.isExcel = shim.firstChild.classList.contains('table-excel')
             table.isDraggable = shim.firstChild.classList.contains('table-draggable')
             table.tables.push(shim.firstChild)
-            setBodyHeight(table)
         }
 
         if (table.isExcel) {
@@ -542,6 +537,8 @@ export function reset(id) {
             }
         }
     }
+
+    setBodyHeight(table)
 
     if (table.search) {
         const observer = new ResizeObserver(() => {

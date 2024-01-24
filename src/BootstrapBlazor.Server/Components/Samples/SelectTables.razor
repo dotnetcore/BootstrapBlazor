@@ -32,7 +32,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TemplateTitle"]" Introduction="@Localizer["TemplateIntro"]" Name="ValueTemplate">
-    <SelectTable TItem="Foo" @bind-Value="@_templateFoo" OnQueryAsync="OnQueryAsync" ShowAppendArrow="false">
+    <SelectTable TItem="Foo" @bind-Value="@_templateFoo" OnQueryAsync="OnQueryAsync" GetTextCallback="@GetTextCallback" ShowAppendArrow="false">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name"></TableColumn>
             <TableColumn @bind-Field="@context.Address"></TableColumn>
@@ -83,13 +83,29 @@
     </ValidateForm>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["ValidateFormTitle"]" Introduction="@Localizer["ValidateFormIntro"]" Name="Sortable">
-    <SelectTable TItem="Foo" @bind-Value="@Model.Foo" OnQueryAsync="OnQueryAsync" GetTextCallback="@GetTextCallback" DisplayText="Test">
+<DemoBlock Title="@Localizer["SortableTitle"]" Introduction="@Localizer["SortableIntro"]" Name="Sortable">
+    <SelectTable TItem="Foo" @bind-Value="@_sortableFoo" OnQueryAsync="OnFilterQueryAsync" GetTextCallback="@GetTextCallback">
         <TableColumns>
             <TableColumn @bind-Field="@context.Name" Sortable="true"></TableColumn>
             <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true"></TableColumn>
         </TableColumns>
     </SelectTable>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SearchTitle"]" Introduction="@Localizer["SearchIntro"]" Name="Search">
+    <div class="row g-3">
+        <div class="col-4">
+            <SelectTable TItem="Foo" @bind-Value="_searchFoo"
+                         OnQueryAsync="OnFilterQueryAsync" GetTextCallback="@GetTextCallback"
+                         ShowSearch="true" IsPagination="true" PageItemsSource="PageItemsSource">
+                <TableColumns>
+                    <TableColumn @bind-Field="@context.Name" Sortable="true" Searchable="true" Width="100"></TableColumn>
+                    <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" Searchable="true"></TableColumn>
+                    <TableColumn @bind-Field="@context.Education" Sortable="true" Filterable="true" Searchable="true" Width="100"></TableColumn>
+                </TableColumns>
+            </SelectTable>
+        </div>
+    </div>
 </DemoBlock>
 
 <AttributeTable Items="@GetAttributes()" />

@@ -118,6 +118,49 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     [Parameter]
     public RenderFragment<TItem>? Template { get; set; }
 
+    /// <summary>
+    /// 获得/设置 是否显示搜索框 默认为 false 不显示搜索框
+    /// </summary>
+    [Parameter]
+    public bool ShowSearch { get; set; }
+
+    /// <summary>
+    /// 获得/设置 SearchTemplate 实例
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TItem>? SearchTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 SearchModel 实例
+    /// </summary>
+    [Parameter]
+    public TItem SearchModel { get; set; } = new TItem();
+
+    /// <summary>
+    /// 获得/设置 自定义搜索模型 <see cref="CustomerSearchTemplate"/>
+    /// </summary>
+    [Parameter]
+    public ITableSearchModel? CustomerSearchModel { get; set; }
+
+    /// <summary>
+    /// 获得/设置 自定义搜索模型模板 <see cref="CustomerSearchModel"/>
+    /// </summary>
+    [Parameter]
+    public RenderFragment<ITableSearchModel>? CustomerSearchTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否分页 默认为 false
+    /// </summary>
+    [Parameter]
+    public bool IsPagination { get; set; }
+
+    /// <summary>
+    /// 获得/设置 每页显示数据数量的外部数据源
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public IEnumerable<int>? PageItemsSource { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<Select<TItem>>? Localizer { get; set; }

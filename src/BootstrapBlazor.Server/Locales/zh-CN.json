@@ -6161,7 +6161,11 @@
     "AttributeTableMinWidth": "弹窗表格最小宽度",
     "AttributeTemplate": "显示模板",
     "ValidateFormTitle": "客户端验证",
-    "ValidateFormIntro": "下拉框未选择时，点击提交按钮时拦截。"
+    "ValidateFormIntro": "下拉框未选择时，点击提交按钮时拦截。",
+    "SortableTitle": "排序过滤",
+    "SortableIntro": "通过设置 <code>TableColumn</code> 的 <code>Sortable</code> <code>Filterable</code> 开启排序与过滤功能，与组件 <code>Table</code> 一样",
+    "SearchTitle": "搜索分页",
+    "SearchIntro": "通过设置 <code>TableColumn</code> 的 <code>Searchable</code> 开启列可搜索功能，与组件 <code>Table</code> 一样，通过设置 <code>IsPagination</code> <code>ShowSearch</code> 开启分页与表格搜索功能"
   },
   "BootstrapBlazor.Server.Components.Samples.SelectTables+SelectTableMode": {
     "Foo.Required": "{0} 是必填项"

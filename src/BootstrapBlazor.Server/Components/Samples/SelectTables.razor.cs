@@ -17,6 +17,8 @@ public partial class SelectTables
     [NotNull]
     private IStringLocalizer<SelectTables>? Localizer { get; set; }
 
+    private readonly int[] PageItemsSource = [10, 20, 40];
+
     private Foo? _foo;
 
     private Foo? _colorFoo;
@@ -26,6 +28,8 @@ public partial class SelectTables
     private Foo? _disabledFoo;
 
     private Foo? _sortableFoo;
+
+    private Foo? _searchFoo;
 
     private readonly SelectTableMode Model = new();
 
@@ -58,15 +62,23 @@ public partial class SelectTables
     private Task<QueryData<Foo>> OnFilterQueryAsync(QueryPageOptions options)
     {
         // 此处代码拷贝后需要自行更改根据 options 中的条件从数据库中获取数据集合
-        _filterItems = _filterItems.Where(options.ToFilter().GetFilterFunc<Foo>());
+        var items = _filterItems.Where(options.ToFilter().GetFilterFunc<Foo>());
 
         if (!string.IsNullOrEmpty(options.SortName))
         {
-            _filterItems = _filterItems.Sort(options.SortName, options.SortOrder);
+            items = items.Sort(options.SortName, options.SortOrder);
         }
+
+        var count = items.Count();
+        if(options.IsPage)
+        {
+            items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems);
+        }
+
         return Task.FromResult(new QueryData<Foo>()
         {
-            Items = _filterItems.ToList(),
+            Items = items.ToList(),
+            TotalCount = count,
             IsAdvanceSearch = true,
             IsFiltered = true,
             IsSearch = true,
