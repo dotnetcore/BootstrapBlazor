@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// 卡片式上传组件
 /// </summary>
 public partial class CardUpload<TValue>
 {
@@ -15,7 +15,7 @@ public partial class CardUpload<TValue>
 
     private string? GetDisabledString(UploadFile item) => (!IsDisabled && item.Uploaded && item.Code == 0) ? null : "disabled";
 
-    private bool ShowPreviewList => GetUploadFiles().Any();
+    private bool ShowPreviewList => GetUploadFiles().Count != 0;
 
     private List<string?> PreviewList => GetUploadFiles().Select(i => i.PrevUrl).ToList();
 

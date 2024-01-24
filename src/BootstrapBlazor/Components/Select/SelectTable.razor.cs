@@ -11,7 +11,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
 [CascadingTypeParameter(nameof(TItem))]
-public partial class SelectTable<TItem> : ITable where TItem : class, new()
+public partial class SelectTable<TItem> : IColumnCollection where TItem : class, new()
 {
     /// <summary>
     /// 获得/设置 TableHeader 实例
@@ -20,11 +20,12 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     public RenderFragment<TItem>? TableColumns { get; set; }
 
     /// <summary>
-    /// 获得/设置 绑定数据集
+    /// 异步查询回调方法
     /// </summary>
     [Parameter]
+    [EditorRequired]
     [NotNull]
-    public IEnumerable<TItem>? Items { get; set; }
+    public Func<QueryPageOptions, Task<QueryData<TItem>>>? OnQueryAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 颜色 默认 Color.None 无设置
@@ -42,13 +43,14 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     /// 获得/设置 弹窗表格最小宽度 默认为 null 未设置使用样式中的默认值
     /// </summary>
     [Parameter]
-    [NotNull]
     public int? TableMinWidth { get; set; }
 
     /// <summary>
     /// 获得 显示文字回调方法 默认 null
     /// </summary>
     [Parameter]
+    [NotNull]
+    [EditorRequired]
     public Func<TItem, string?>? GetTextCallback { get; set; }
 
     /// <summary>
@@ -69,17 +71,6 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     /// 获得表格列集合
     /// </summary>
     public List<ITableColumn> Columns { get; } = [];
-
-    List<ITableColumn> ITable.Columns { get => Columns; }
-
-    [ExcludeFromCodeCoverage]
-    Dictionary<string, IFilterAction> ITable.Filters { get; } = [];
-
-    [ExcludeFromCodeCoverage]
-    Func<Task>? ITable.OnFilterAsync { get => null; }
-
-    [ExcludeFromCodeCoverage]
-    IEnumerable<ITableColumn> ITable.GetVisibleColumns() => Columns;
 
     /// <summary>
     /// 获得 样式集合
@@ -124,9 +115,51 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     /// <summary>
     /// 获得/设置 Value 显示模板 默认 null
     /// </summary>
-    /// <remarks>默认通过 <code></code></remarks>
     [Parameter]
     public RenderFragment<TItem>? Template { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示搜索框 默认为 false 不显示搜索框
+    /// </summary>
+    [Parameter]
+    public bool ShowSearch { get; set; }
+
+    /// <summary>
+    /// 获得/设置 SearchTemplate 实例
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TItem>? SearchTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 SearchModel 实例
+    /// </summary>
+    [Parameter]
+    public TItem SearchModel { get; set; } = new TItem();
+
+    /// <summary>
+    /// 获得/设置 自定义搜索模型 <see cref="CustomerSearchTemplate"/>
+    /// </summary>
+    [Parameter]
+    public ITableSearchModel? CustomerSearchModel { get; set; }
+
+    /// <summary>
+    /// 获得/设置 自定义搜索模型模板 <see cref="CustomerSearchModel"/>
+    /// </summary>
+    [Parameter]
+    public RenderFragment<ITableSearchModel>? CustomerSearchTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否分页 默认为 false
+    /// </summary>
+    [Parameter]
+    public bool IsPagination { get; set; }
+
+    /// <summary>
+    /// 获得/设置 每页显示数据数量的外部数据源
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public IEnumerable<int>? PageItemsSource { get; set; }
 
     [Inject]
     [NotNull]
@@ -172,7 +205,16 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     {
         base.OnParametersSet();
 
-        Items ??= [];
+        if(OnQueryAsync == null)
+        {
+            throw new InvalidOperationException("Please set OnQueryAsync value");
+        }
+
+        if (GetTextCallback == null)
+        {
+            throw new InvalidOperationException("Please set GetTextCallback value");
+        }
+
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectDropdownIcon);
     }
@@ -187,7 +229,7 @@ public partial class SelectTable<TItem> : ITable where TItem : class, new()
     /// 获得 Text 显示文字
     /// </summary>
     /// <returns></returns>
-    private string? GetText() => Value == default ? null : GetTextCallback?.Invoke(Value) ?? Value.ToString();
+    private string? GetText() => Value == default ? null : GetTextCallback(Value);
 
     private async Task OnClickRowCallback(TItem item)
     {

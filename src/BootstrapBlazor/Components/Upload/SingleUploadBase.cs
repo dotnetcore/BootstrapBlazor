@@ -17,9 +17,19 @@ public abstract class SingleUploadBase<TValue> : MultipleUploadBase<TValue>
     public bool IsSingle { get; set; }
 
     /// <summary>
+    /// 获得/设置 最大上传个数 默认为最大值 <see cref="int.MaxValue"/>
+    /// </summary>
+    [Parameter]
+    public int Max { get; set; } = int.MaxValue;
+
+    /// <summary>
     /// 是否显示上传组件
     /// </summary>
-    protected bool CanUpload => !(IsSingle && GetUploadFiles().Count > 0);
+    protected bool CheckCanUpload()
+    {
+        var count = GetUploadFiles().Count;
+        return IsSingle ? count < 1 : count < Max;
+    }
 
     /// <summary>
     /// 获得当前图片集合
@@ -34,7 +44,7 @@ public abstract class SingleUploadBase<TValue> : MultipleUploadBase<TValue>
             {
                 ret.Add(DefaultFileList.First());
             }
-            if (ret.Count == 0 && UploadFiles.Any())
+            if (ret.Count == 0 && UploadFiles.Count != 0)
             {
                 ret.Add(UploadFiles.First());
             }

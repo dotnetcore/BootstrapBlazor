@@ -6161,7 +6161,11 @@
     "AttributeTableMinWidth": "The min width of Table",
     "AttributeTemplate": "Display Template",
     "ValidateFormTitle": "ValidateForm",
-    "ValidateFormIntro": "Intercept data when the value is empty"
+    "ValidateFormIntro": "Intercept data when the value is empty",
+    "SortableTitle": "Sort/Filter",
+    "SortableIntro": "Enable sorting and filtering functions by setting <code>Sortable</code> <code>Filterable</code> in <code>TableColumn</code>, just like the component <code>Table</code>",
+    "SearchTitle": "Sort/Filter",
+    "SearchIntro": "By setting <code>TableColumn</code> <code>Searchable</code> to enable column searchability, just like the component <code>Table</code>, by setting <code>IsPagination</code> <code>ShowSearch</code> to enable pagination and table search functions"
   },
   "BootstrapBlazor.Server.Components.Samples.SelectTables+SelectTableMode": {
     "Foo.Required": "{0} is required."
