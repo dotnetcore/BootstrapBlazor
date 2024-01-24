@@ -5470,7 +5470,7 @@ public class TableTest : TableTestBase
         Assert.Equal(2, cols.Count);
 
         var resp = cut.FindComponent<ResizeNotification>().Instance;
-        resp.OnResize(BreakPoint.Small);
+        resp.OnResize("Small");
 
         var row = table.Find("tbody > tr");
         Assert.Equal(1, row.ChildElementCount);
