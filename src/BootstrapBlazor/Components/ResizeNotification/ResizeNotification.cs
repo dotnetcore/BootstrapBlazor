@@ -23,8 +23,16 @@ public class ResizeNotification : BootstrapModuleComponentBase
     /// <summary>
     /// JSInvoke 回调方法
     /// </summary>
-    /// <param name="point"></param>
+    /// <param name="pointString"></param>
     /// <returns></returns>
     [JSInvokable]
-    public Task OnResize(BreakPoint point) => ResizeService.InvokeAsync(point);
+    public Task OnResize(string pointString)
+    {
+        var point = BreakPoint.ExtraExtraLarge;
+        if (Enum.TryParse<BreakPoint>(pointString, out var p))
+        {
+            point = p;
+        }
+        return ResizeService.InvokeAsync(point);
+    }
 }
