@@ -7,14 +7,64 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 任意选择
+/// Select 组件实现类
 /// </summary>
-public partial class SelectObject
+[CascadingTypeParameter(nameof(TItem))]
+public partial class SelectObject<TItem>
 {
+    /// <summary>
+    /// 获得/设置 颜色 默认 Color.None 无设置
+    /// </summary>
+    [Parameter]
+    public Color Color { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示组件右侧扩展箭头 默认 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowAppendArrow { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 弹窗表格最小宽度 默认为 null 未设置使用样式中的默认值
+    /// </summary>
+    [Parameter]
+    public int? DropdownMinWidth { get; set; }
+
+    /// <summary>
+    /// 获得 显示文字回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    [EditorRequired]
+    public Func<TItem, string?>? GetTextCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? DropdownIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 下拉列表内容模板
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    [EditorRequired]
+    public RenderFragment<ISelectObjectContext<TItem>>? ChildContent { get; set; }
+
+    /// <summary>
+    /// 获得/设置 IIconTheme 服务实例
+    /// </summary>
+    [Inject]
+    [NotNull]
+    protected IIconTheme? IconTheme { get; set; }
+
     /// <summary>
     /// 获得 样式集合
     /// </summary>
-    private string? ClassName => CssBuilder.Default("select dropdown select-tree")
+    private string? ClassName => CssBuilder.Default("select select-object dropdown")
+        .AddClass("disabled", IsDisabled)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -25,23 +75,18 @@ public partial class SelectObject
         .AddClass($"border-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
         .AddClass($"border-success", IsValid.HasValue && IsValid.Value)
         .AddClass($"border-danger", IsValid.HasValue && !IsValid.Value)
-        .AddClass(CssClass).AddClass(ValidCss)
+        .AddClass(FieldClass, IsNeedValidate)
+        .AddClass(ValidCss)
         .Build();
 
     /// <summary>
     /// 获得 样式集合
     /// </summary>
-    private string? AppendClassName => CssBuilder.Default("form-select-append")
+    private string? AppendClassString => CssBuilder.Default("form-select-append")
         .AddClass($"text-{Color.ToDescriptionString()}", Color != Color.None && !IsDisabled && !IsValid.HasValue)
         .AddClass($"text-success", IsValid.HasValue && IsValid.Value)
         .AddClass($"text-danger", IsValid.HasValue && !IsValid.Value)
         .Build();
-
-    /// <summary>
-    /// 获得/设置 颜色 默认 Color.None 无设置
-    /// </summary>
-    [Parameter]
-    public Color Color { get; set; }
 
     /// <summary>
     /// 获得 PlaceHolder 属性
@@ -50,44 +95,27 @@ public partial class SelectObject
     public string? PlaceHolder { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示 Icon 图标 默认 false 不显示
+    /// 获得/设置 表格高度
     /// </summary>
     [Parameter]
-    public bool ShowIcon { get; set; }
+    public int Height { get; set; } = 486;
 
     /// <summary>
-    /// 获得/设置 下拉箭头 Icon 图标
+    /// 获得/设置 Value 显示模板 默认 null
     /// </summary>
     [Parameter]
-    public string? DropdownIcon { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否可编辑 默认 false
-    /// </summary>
-    [Parameter]
-    public bool IsEdit { get; set; }
-
-    /// <summary>
-    /// 获得/设置 下拉列表内容
-    /// </summary>
-    [Parameter]
-    public RenderFragment<Action<string>?>? ChildContent { get; set; }
-
-    /// <summary>
-    /// 获得/设置 编辑时处理程序
-    /// </summary>
-    [Parameter]
-    public Func<string, Task<string>>? SelectValueChanged { get; set; }
+    public RenderFragment<TItem>? Template { get; set; }
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<SelectObject>? Localizer { get; set; }
+    private IStringLocalizer<Select<TItem>>? Localizer { get; set; }
 
+    /// <summary>
+    /// 获得/设置 IStringLocalizerFactory 注入服务实例 默认为 null
+    /// </summary>
     [Inject]
     [NotNull]
-    private IIconTheme? IconTheme { get; set; }
-
-    public Action<string>? UpdateAction { get; set; }
+    public IStringLocalizerFactory? LocalizerFactory { get; set; }
 
     /// <summary>
     /// 获得 input 组件 Id 方法
@@ -96,55 +124,58 @@ public partial class SelectObject
     protected override string? RetrieveId() => InputId;
 
     /// <summary>
-    /// 获得/设置 Select 内部 Input 组件 Id
+    /// 获得/设置 内部 Input 组件 Id
     /// </summary>
-    private string? InputId => $"{Id}_input";
+    private string InputId => $"{Id}_input";
 
-    private async Task OnChange(ChangeEventArgs args)
-    {
-        if (args.Value is string v)
-        {
-            if (SelectValueChanged != null)
-            {
-                v = await SelectValueChanged.Invoke(v);
-            }
-            CurrentValueAsString = v;
-        }
-    }
+    private string GetStyleString => $"height: {Height}px;";
 
+    private ISelectObjectContext<TItem> _context = default!;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
-        UpdateAction = SetSelectValue;
+
+        if (ValidateForm != null)
+        {
+            Rules.Add(new RequiredValidator() { LocalizerFactory = LocalizerFactory, ErrorMessage = "{0} is required." });
+        }
+        _context = new InternalSelectObjectContext<TItem>() { Component = this };
+    }
+
+    /// <summary>
+    /// OnParametersSet 方法
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (GetTextCallback == null)
+        {
+            throw new InvalidOperationException("Please set GetTextCallback value");
+        }
+
+        PlaceHolder ??= Localizer[nameof(PlaceHolder)];
+        DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectDropdownIcon);
     }
 
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-        DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectTreeDropdownIcon);
-        PlaceHolder ??= Localizer[nameof(PlaceHolder)];
-    }
+    /// <returns></returns>
+    protected override bool IsRequired() => ValidateForm != null;
 
     /// <summary>
-    /// 设置选中内容
+    /// 获得 Text 显示文字
     /// </summary>
-    /// <param name="value"></param>
-    public void SetSelectValue(string value)
-    {
-        CurrentValueAsString = value;
-        // 当用户推送选中内容到SelectObject时，我们需要关闭弹窗，就在这里关闭掉
-        Close();
-        StateHasChanged();
-    }
+    /// <returns></returns>
+    private string? GetText() => GetTextCallback(Value);
 
-    /// <summary>
-    /// 这个方法是selectObject的方法，用于关闭弹窗
-    /// </summary>
-    public void Close()
+    private async Task CloseAsync()
     {
-        //这里调用js的close方法，具体的代码我不太清楚就不写了
+        await InvokeVoidAsync("close", Id);
     }
 }

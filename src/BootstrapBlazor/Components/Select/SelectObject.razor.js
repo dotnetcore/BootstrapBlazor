@@ -1,40 +1,52 @@
-﻿import Data from "../../modules/data.js?v=$version"
-import EventHandler from "../../modules/event-handler.js?v=$version"
+﻿import { getWidth } from "../../modules/utility.js?v=$version"
+import Data from "../../modules/data.js?v=$version"
 import Popover from "../../modules/base-popover.js?v=$version"
 
 export function init(id) {
     const el = document.getElementById(id)
-
     if (el == null) {
         return
     }
 
-    const popover = Popover.init(el)
-    const selectTree = {
+    const setWidth = () => {
+        const minWidth = parseFloat(el.dataset.bbMinWidth || '580');
+        let width = getWidth(el);
+        if (width < minWidth) {
+            width = minWidth;
+        }
+        const dropdown = el.querySelector('.dropdown-object') || document.querySelector('.popover-dropdown .dropdown-object');
+        if (dropdown) {
+            dropdown.style.setProperty('--bb-dropdown-object-width', `${width}px`);
+        }
+    }
+
+    const popover = Popover.init(el);
+
+    const observer = new ResizeObserver(setWidth);
+    observer.observe(el)
+
+    const selectTable = {
         el,
         input: el.querySelector(".form-select"),
-        popover
+        popover,
+        observer
     }
 
-    EventHandler.on(popover.toggleMenu, 'click', e => {
-        if (popover.isPopover) {
-            popover.hide()
-        }
-        else {
-            const dropdown = bootstrap.Dropdown.getInstance(popover.toggleElement)
-            if (dropdown) {
-                dropdown.hide()
-            }
-        }
-    })
-    Data.set(id, selectTree)
+    Data.set(id, selectTable)
 }
 
-export function dispose(id) {
+export function close(id) {
     const data = Data.get(id)
     if (data) {
-        EventHandler.off(data.popover.toggleMenu, 'click')
+        data.popover.popover.hide();
+    }
+}
+export function dispose(id) {
+    const data = Data.get(id)
+    Data.remove(id)
+
+    if (data) {
+        data.observer.disconnect();
         Popover.dispose(data.popover)
     }
-    Data.remove(id)
 }
