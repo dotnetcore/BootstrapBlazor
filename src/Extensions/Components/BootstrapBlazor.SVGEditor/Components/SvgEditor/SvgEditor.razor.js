@@ -4,7 +4,6 @@ import Data from '../../../BootstrapBlazor/modules/data.js'
 
 export async function init(id, preload, interop, callback) {
     await addLink("./_content/BootstrapBlazor.SvgEditor/editor/svgedit.css")
-
     /* for available options see the file `docs/tutorials/ConfigOptions.md */
     const svgEditor = new Editor(document.getElementById(id))
     svgEditor.setConfig({
@@ -25,10 +24,18 @@ export async function init(id, preload, interop, callback) {
     if (preload != null) {
         svgEditor.loadFromString(preload)
     }
+    Data.set(id, {
+        svgEditor,
+        interop
+    })
 
     var timer = setTimeout(() => {
         svgEditor.zoomChanged(window, "canvas", true);
         document.querySelector("#zoom").value = "canvas"
         clearTimeout(timer)
     }, 800)
+}
+
+export function dispose(id) {
+    Data.remove(id)
 }
