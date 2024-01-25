@@ -22,5 +22,6 @@
         overflow: hidden;
         padding: .25rem;
         width: var(--bb-dropdown-object-width);
+        max-height: unset;
     }
 }

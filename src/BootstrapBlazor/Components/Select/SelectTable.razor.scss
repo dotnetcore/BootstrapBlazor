@@ -22,6 +22,7 @@
         overflow: hidden;
         padding: .25rem;
         width: var(--bb-dropdown-table-width);
+        max-height: unset;
 
         .table-wrapper {
             .table-fixed-header {

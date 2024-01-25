@@ -25,7 +25,7 @@ public partial class SelectObject<TItem>
     public bool ShowAppendArrow { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 弹窗表格最小宽度 默认为 null 未设置使用样式中的默认值
+    /// 获得/设置 弹窗最小宽度 默认为 null 未设置使用样式中的默认值
     /// </summary>
     [Parameter]
     public int? DropdownMinWidth { get; set; }
@@ -95,7 +95,7 @@ public partial class SelectObject<TItem>
     public string? PlaceHolder { get; set; }
 
     /// <summary>
-    /// 获得/设置 表格高度
+    /// 获得/设置 弹窗高度 默认 486px;
     /// </summary>
     [Parameter]
     public int Height { get; set; } = 486;

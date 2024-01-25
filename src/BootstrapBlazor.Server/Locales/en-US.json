@@ -6172,5 +6172,15 @@
   },
   "BootstrapBlazor.Server.Components.Samples.SelectTables+SelectTableMode": {
     "Foo.Required": "{0} is required."
+  },
+  "BootstrapBlazor.Server.Components.Samples.SelectObjects": {
+    "Title": "Table-Object",
+    "Intro": "Dropdown boxes are used to display the selection requirements for complex types for any component",
+    "NormalTitle": "Basic usage",
+    "NormalIntro": "Use built in <code>ListView</code> component to select images",
+    "MinWidthTitle": "Min-Width",
+    "MinWidthIntro": "Change the minimum width of the dropdown box by setting the <code>DropdownMinWidth</code> value",
+    "HeightTitle": "Height",
+    "HeightIntro": "Change the height of the dropdown box by setting the <code>Height</code> value"
   }
 }

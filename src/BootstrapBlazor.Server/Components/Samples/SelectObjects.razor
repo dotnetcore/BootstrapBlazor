@@ -1,11 +1,11 @@
 ﻿@page "/select-object"
-
 @inject IStringLocalizer<SelectObjects> Localizer
 
-<h3>任意Select</h3>
-<h4>任意Select</h4>
+<h3>@Localizer["Title"]</h3>
 
-<DemoBlock Title="添加 ListView" Introduction="添加 ListView" Name="Normal">
+<h4>@Localizer["Intro"]</h4>
+
+<DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
     <SelectObject @bind-Value="_value" GetTextCallback="GetTextCallback">
         <ListView TItem="ListViews.Product" Items="@Products" OnListViewItemClick="item => OnListViewItemClick(item, context)">
             <BodyTemplate Context="value">
@@ -18,5 +18,43 @@
             </BodyTemplate>
         </ListView>
     </SelectObject>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["MinWidthTitle"]" Introduction="@Localizer["MinWidthIntro"]" Name="MinWidth">
+    <div class="row">
+        <div class="col-4">
+            <SelectObject @bind-Value="_value" GetTextCallback="GetTextCallback" DropdownMinWidth="704">
+                <ListView TItem="ListViews.Product" Items="@Products" OnListViewItemClick="item => OnListViewItemClick(item, context)">
+                    <BodyTemplate Context="value">
+                        <Card>
+                            <BodyTemplate>
+                                <img src="@value.ImageUrl" />
+                                <div class="lv-demo-desc">@value.Description</div>
+                            </BodyTemplate>
+                        </Card>
+                    </BodyTemplate>
+                </ListView>
+            </SelectObject>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["HeightTitle"]" Introduction="@Localizer["HeightIntro"]" Name="Height">
+    <div class="row">
+        <div class="col-4">
+            <SelectObject @bind-Value="_value" GetTextCallback="GetTextCallback" DropdownMinWidth="704" Height="600">
+                <ListView TItem="ListViews.Product" Items="@Products" OnListViewItemClick="item => OnListViewItemClick(item, context)">
+                    <BodyTemplate Context="value">
+                        <Card>
+                            <BodyTemplate>
+                                <img src="@value.ImageUrl" />
+                                <div class="lv-demo-desc">@value.Description</div>
+                            </BodyTemplate>
+                        </Card>
+                    </BodyTemplate>
+                </ListView>
+            </SelectObject>
+        </div>
+    </div>
 </DemoBlock>
 
