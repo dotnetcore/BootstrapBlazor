@@ -124,6 +124,7 @@
     "search-dialog": "SearchDialogs",
     "search": "Searches",
     "select": "Selects",
+    "select-object": "SelectObjects",
     "select-tree": "SelectTrees",
     "select-table": "SelectTables",
     "segmented": "Segmenteds",
