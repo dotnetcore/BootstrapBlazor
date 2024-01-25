@@ -9,41 +9,32 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public partial class SelectObjects
 {
-    [Inject]
-    [NotNull]
-    private IStringLocalizer<Foo>? LocalizerFoo { get; set; }
-
     [NotNull]
     private IEnumerable<ListViews.Product>? Products { get; set; }
 
-    [NotNull]
-    private IEnumerable<Foo>? Items { get; set; }
+    private ListViews.Product? _value;
 
-    [NotNull]
-    private SelectObject? SelectObject { get; set; }
-
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     protected override void OnInitialized()
     {
         base.OnInitialized();
+
         Products = Enumerable.Range(1, 8).Select(i => new ListViews.Product()
         {
             ImageUrl = $"./images/Pic{i}.jpg",
             Description = $"Pic{i}.jpg",
             Category = $"Group{(i % 4) + 1}"
         });
-
-        Items = Foo.GenerateFoo(LocalizerFoo, 10);
     }
 
-    private Task OnListViewItemClick(ListViews.Product arg, Action<string>? action)
+    private Task OnListViewItemClick(ListViews.Product product, ISelectObjectContext<ListViews.Product?> context)
     {
-
-        //SelectObject.SetSelectValue(arg.Description);
-        action?.Invoke(arg.Description);
-        // 这里直接调用SelectObject的Close方法来关闭弹窗，具体的关闭时机由用户自己确定
-        SelectObject.Close();
-
+        context.Component.SetValue(product);
 
         return Task.CompletedTask;
     }
+
+    private static string? GetTextCallback(ListViews.Product? product) => product?.ImageUrl;
 }

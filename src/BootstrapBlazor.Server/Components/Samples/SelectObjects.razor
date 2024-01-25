@@ -5,11 +5,9 @@
 <h3>任意Select</h3>
 <h4>任意Select</h4>
 
-<DemoBlock Title="添加ListView"
-           Introduction="添加ListView"
-           Name="Normal">
-    <SelectObject @ref="SelectObject">
-        <ListView TItem="ListViews.Product" Items="@Products" OnListViewItemClick="(arg) => OnListViewItemClick(arg, context)">
+<DemoBlock Title="添加 ListView" Introduction="添加 ListView" Name="Normal">
+    <SelectObject @bind-Value="_value" GetTextCallback="GetTextCallback">
+        <ListView TItem="ListViews.Product" Items="@Products" OnListViewItemClick="item => OnListViewItemClick(item, context)">
             <BodyTemplate Context="value">
                 <Card>
                     <BodyTemplate>
