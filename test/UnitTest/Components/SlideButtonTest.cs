@@ -183,6 +183,21 @@ public class SlideButtonTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ButtonItemTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<SlideButton>(pb =>
+        {
+            pb.Add(i => i.Items, new SelectedItem[]
+            {
+                new("1", "Test 1"),
+                new("2", "Test 2")
+            });
+            pb.Add(i => i.ButtonItemTemplate, item => b => b.AddContent(10, new MarkupString($"<div>ButtonItemTemplate-Test-{item.Text}</div>")));
+        });
+        cut.Contains("<div>ButtonItemTemplate-Test-Test 1</div>");
+    }
+
+    [Fact]
     public void Items_Ok()
     {
         SelectedItem? item = null;
