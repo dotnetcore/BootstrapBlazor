@@ -156,7 +156,7 @@ public partial class SlideButton
     {
         base.OnParametersSet();
 
-        Items ??= Enumerable.Empty<SelectedItem>();
+        Items ??= [];
     }
 
     private string? GetItemClass(SelectedItem item) => CssBuilder.Default("slide-item")

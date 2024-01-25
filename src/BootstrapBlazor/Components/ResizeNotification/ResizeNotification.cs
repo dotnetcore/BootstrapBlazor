@@ -29,7 +29,7 @@ public class ResizeNotification : BootstrapModuleComponentBase
     public Task OnResize(string pointString)
     {
         var point = BreakPoint.ExtraExtraLarge;
-        if (Enum.TryParse<BreakPoint>(pointString, out var p))
+        if (Enum.TryParse<BreakPoint>(pointString, true, out var p))
         {
             point = p;
         }
