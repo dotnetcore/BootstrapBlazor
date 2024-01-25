@@ -30,7 +30,16 @@
             @if (ShowHeader)
             {
                 <div class="slide-header">
-                    <div class="flex-fill">@HeaderText</div>
+                    <div class="flex-fill">
+                        @if (HeaderTemplate != null)
+                        {
+                            @HeaderTemplate
+                        }
+                        else
+                        {
+                            @HeaderText
+                        }
+                    </div>
                     <button class="btn-close btn-close-white" type="button" aria-label="Close"></button>
                 </div>
             }
