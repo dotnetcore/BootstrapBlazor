@@ -6143,6 +6143,8 @@
     "Translate": "机翻"
   },
   "BootstrapBlazor.Server.Components.Samples.SelectTables": {
+    "Title": "TableSelect 表格选择器",
+    "Intro": "下拉框为表格用于展示复杂类型的选择需求",
     "NormalTitle": "基本功能",
     "NormalIntro": "适用于候选项信息量比较大，用 <code>Table</code> 呈现信息量",
     "ColorTitle": "颜色",
