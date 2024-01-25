@@ -29,11 +29,13 @@ public partial class SelectObjects
         });
     }
 
-    private Task OnListViewItemClick(ListViews.Product product, ISelectObjectContext<ListViews.Product?> context)
+    private static async Task OnListViewItemClick(ListViews.Product product, ISelectObjectContext<ListViews.Product?> context)
     {
-        context.Component.SetValue(product);
+        // 设置组件值
+        context.SetValue(product);
 
-        return Task.CompletedTask;
+        // 当前模式为单选，主动关闭弹窗
+        await context.CloseAsync();
     }
 
     private static string? GetTextCallback(ListViews.Product? product) => product?.ImageUrl;
