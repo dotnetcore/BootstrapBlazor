@@ -7,26 +7,11 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 下拉表格组件实现类
+/// Select 组件实现类
 /// </summary>
-/// <typeparam name="TItem"></typeparam>
 [CascadingTypeParameter(nameof(TItem))]
-public partial class SelectTable<TItem> : IColumnCollection where TItem : class, new()
+public partial class SelectObject<TItem>
 {
-    /// <summary>
-    /// 获得/设置 TableHeader 实例
-    /// </summary>
-    [Parameter]
-    public RenderFragment<TItem>? TableColumns { get; set; }
-
-    /// <summary>
-    /// 异步查询回调方法
-    /// </summary>
-    [Parameter]
-    [EditorRequired]
-    [NotNull]
-    public Func<QueryPageOptions, Task<QueryData<TItem>>>? OnQueryAsync { get; set; }
-
     /// <summary>
     /// 获得/设置 颜色 默认 Color.None 无设置
     /// </summary>
@@ -40,10 +25,10 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     public bool ShowAppendArrow { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 弹窗表格最小宽度 默认为 null 未设置使用样式中的默认值
+    /// 获得/设置 弹窗最小宽度 默认为 null 未设置使用样式中的默认值
     /// </summary>
     [Parameter]
-    public int? TableMinWidth { get; set; }
+    public int? DropdownMinWidth { get; set; }
 
     /// <summary>
     /// 获得 显示文字回调方法 默认 null
@@ -61,6 +46,14 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     public string? DropdownIcon { get; set; }
 
     /// <summary>
+    /// 获得/设置 下拉列表内容模板
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    [EditorRequired]
+    public RenderFragment<ISelectObjectContext<TItem>>? ChildContent { get; set; }
+
+    /// <summary>
     /// 获得/设置 IIconTheme 服务实例
     /// </summary>
     [Inject]
@@ -68,14 +61,9 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     protected IIconTheme? IconTheme { get; set; }
 
     /// <summary>
-    /// 获得表格列集合
-    /// </summary>
-    public List<ITableColumn> Columns { get; } = [];
-
-    /// <summary>
     /// 获得 样式集合
     /// </summary>
-    private string? ClassName => CssBuilder.Default("select select-table dropdown")
+    private string? ClassName => CssBuilder.Default("select select-object dropdown")
         .AddClass("disabled", IsDisabled)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -107,7 +95,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     public string? PlaceHolder { get; set; }
 
     /// <summary>
-    /// 获得/设置 表格高度 默认 486px
+    /// 获得/设置 弹窗高度 默认 486px;
     /// </summary>
     [Parameter]
     public int Height { get; set; } = 486;
@@ -117,49 +105,6 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     /// </summary>
     [Parameter]
     public RenderFragment<TItem>? Template { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否显示搜索框 默认为 false 不显示搜索框
-    /// </summary>
-    [Parameter]
-    public bool ShowSearch { get; set; }
-
-    /// <summary>
-    /// 获得/设置 SearchTemplate 实例
-    /// </summary>
-    [Parameter]
-    public RenderFragment<TItem>? SearchTemplate { get; set; }
-
-    /// <summary>
-    /// 获得/设置 SearchModel 实例
-    /// </summary>
-    [Parameter]
-    public TItem SearchModel { get; set; } = new TItem();
-
-    /// <summary>
-    /// 获得/设置 自定义搜索模型 <see cref="CustomerSearchTemplate"/>
-    /// </summary>
-    [Parameter]
-    public ITableSearchModel? CustomerSearchModel { get; set; }
-
-    /// <summary>
-    /// 获得/设置 自定义搜索模型模板 <see cref="CustomerSearchModel"/>
-    /// </summary>
-    [Parameter]
-    public RenderFragment<ITableSearchModel>? CustomerSearchTemplate { get; set; }
-
-    /// <summary>
-    /// 获得/设置 是否分页 默认为 false
-    /// </summary>
-    [Parameter]
-    public bool IsPagination { get; set; }
-
-    /// <summary>
-    /// 获得/设置 每页显示数据数量的外部数据源
-    /// </summary>
-    [Parameter]
-    [NotNull]
-    public IEnumerable<int>? PageItemsSource { get; set; }
 
     [Inject]
     [NotNull]
@@ -185,6 +130,8 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
 
     private string GetStyleString => $"height: {Height}px;";
 
+    private ISelectObjectContext<TItem> _context = default!;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -196,6 +143,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
         {
             Rules.Add(new RequiredValidator() { LocalizerFactory = LocalizerFactory, ErrorMessage = "{0} is required." });
         }
+        _context = new InternalSelectObjectContext<TItem>() { Component = this };
     }
 
     /// <summary>
@@ -204,11 +152,6 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
-
-        if (OnQueryAsync == null)
-        {
-            throw new InvalidOperationException("Please set OnQueryAsync value");
-        }
 
         if (GetTextCallback == null)
         {
@@ -229,11 +172,11 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     /// 获得 Text 显示文字
     /// </summary>
     /// <returns></returns>
-    private string? GetText() => Value == default ? null : GetTextCallback(Value);
+    private string? GetText() => GetTextCallback(Value);
 
-    private async Task OnClickRowCallback(TItem item)
-    {
-        CurrentValue = item;
-        await InvokeVoidAsync("close", Id);
-    }
+    /// <summary>
+    /// 关闭当前弹窗方法
+    /// </summary>
+    /// <returns></returns>
+    public Task CloseAsync() => InvokeVoidAsync("close", Id);
 }
