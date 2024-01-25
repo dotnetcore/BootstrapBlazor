@@ -119,6 +119,12 @@ public class SlideButtonTest : BootstrapBlazorTestBase
         });
         cut.Contains("slide-header");
         cut.Contains("header-text");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.HeaderTemplate, b => b.AddContent(0, "Header-Template"));
+        });
+        cut.Contains("Header-Template");
     }
 
     [Fact]
