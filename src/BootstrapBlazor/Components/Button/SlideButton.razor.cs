@@ -110,6 +110,12 @@ public partial class SlideButton
     public bool ShowHeader { get; set; }
 
     /// <summary>
+    /// 获得/设置 Header 部分模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? HeaderTemplate { get; set; }
+
+    /// <summary>
     /// 获得 按钮样式集合
     /// </summary>
     /// <returns></returns>
