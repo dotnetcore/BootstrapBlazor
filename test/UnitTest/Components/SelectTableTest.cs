@@ -310,7 +310,106 @@ public class SelectTableTest : BootstrapBlazorTestBase
         Assert.True(invalid);
     }
 
-    private Task<QueryData<Foo>> OnFilterQueryAsync(QueryPageOptions options, IEnumerable<Foo> _filterItems)
+    [Fact]
+    public void Search_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 4);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<SelectTable<Foo>>(pb =>
+            {
+                pb.Add(a => a.OnQueryAsync, options => OnFilterQueryAsync(options, items));
+                pb.Add(a => a.Value, items[0]);
+                pb.Add(a => a.GetTextCallback, foo => foo.Name);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.ShowSearch, true);
+                pb.Add(a => a.SearchModel, new Foo());
+                pb.Add(a => a.SearchTemplate, foo => builder => builder.AddContent(0, "SearchTemplate"));
+            });
+        });
+
+        cut.Contains("SearchTemplate");
+    }
+
+    [Fact]
+    public void CustomSearch_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 4);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<SelectTable<Foo>>(pb =>
+            {
+                pb.Add(a => a.OnQueryAsync, options => OnFilterQueryAsync(options, items));
+                pb.Add(a => a.Value, items[0]);
+                pb.Add(a => a.GetTextCallback, foo => foo.Name);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.ShowSearch, true);
+                pb.Add(a => a.CustomerSearchModel, new CustomSearchModel());
+                pb.Add(a => a.CustomerSearchTemplate, model => builder => builder.AddContent(0, "CustomSearchTemplate"));
+            });
+        });
+
+        cut.Contains("CustomSearchTemplate");
+    }
+
+    [Fact]
+    public void Page_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer);
+        var pageItemsSource = new int[] { 4, 10, 20 };
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<SelectTable<Foo>>(pb =>
+            {
+                pb.Add(a => a.OnQueryAsync, options => OnFilterQueryAsync(options, items));
+                pb.Add(a => a.Value, items[0]);
+                pb.Add(a => a.GetTextCallback, foo => foo.Name);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.IsPagination, true);
+                pb.Add(a => a.PageItemsSource, pageItemsSource);
+            });
+        });
+
+        cut.Contains("nav-pages");
+    }
+
+    private static Task<QueryData<Foo>> OnFilterQueryAsync(QueryPageOptions options, IEnumerable<Foo> _filterItems)
     {
         _filterItems = _filterItems.Where(options.ToFilter().GetFilterFunc<Foo>());
 
@@ -331,5 +430,12 @@ public class SelectTableTest : BootstrapBlazorTestBase
     class SelectTableModel()
     {
         public Foo? Foo { get; set; }
+    }
+
+    class CustomSearchModel : ITableSearchModel
+    {
+        public IEnumerable<IFilterAction> GetSearches() => [];
+
+        public void Reset() { }
     }
 }
