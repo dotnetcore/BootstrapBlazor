@@ -15,27 +15,17 @@ namespace System.Linq;
 public static class LambdaExtensions
 {
     /// <summary>
-    /// 通过 base.Visit(node) 返回 Expression 统一 node 变量
+    /// Expression 统一 node 变量
     /// </summary>
-    private class ComboExpressionVisitor : ExpressionVisitor
+    /// <param name="parameter"></param>
+    private class ComboExpressionVisitor(ParameterExpression parameter) : ExpressionVisitor
     {
-        private ParameterExpression exp_p { get; set; }
-
-        /// <summary>
-        /// 构造
-        /// </summary>
-        /// <param name="parameter"></param>
-        public ComboExpressionVisitor(ParameterExpression parameter)
-        {
-            exp_p = parameter;
-        }
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="p"></param>
         /// <returns></returns>
-        protected override Expression VisitParameter(ParameterExpression p) => exp_p;
+        protected override Expression VisitParameter(ParameterExpression p) => parameter;
     }
 
     /// <summary>
@@ -253,7 +243,7 @@ public static class LambdaExtensions
         };
     }
 
-    private static Expression Contains(this Expression left, Expression right)
+    private static BinaryExpression Contains(this Expression left, Expression right)
     {
         // https://gitee.com/LongbowEnterprise/BootstrapBlazor/issues/I2DIR4
         // 兼容 EFCore 与普通逻辑 EFCore 内自动处理空问题
@@ -758,42 +748,6 @@ public static class LambdaExtensions
         }
     }
 
-    #region TryParse
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="TIn"></typeparam>
-    /// <typeparam name="TOut"></typeparam>
-    /// <typeparam name="TResult"></typeparam>
-    /// <param name="source"></param>
-    /// <param name="outValue"></param>
-    /// <returns></returns>
-    internal delegate TResult FuncEx<TIn, TOut, TResult>(TIn source, out TOut outValue);
-
-    /// <summary>
-    /// 尝试使用 TryParse 进行数据转换
-    /// </summary>
-    /// <returns></returns>
-    [ExcludeFromCodeCoverage]
-    internal static Expression<FuncEx<string, TValue, bool>> TryParse<TValue>()
-    {
-        var t = typeof(TValue);
-        var p1 = Expression.Parameter(typeof(string));
-        var p2 = Expression.Parameter(t.MakeByRefType());
-        var method = t.GetMethod("TryParse", [typeof(string), t.MakeByRefType()]);
-        var body = method != null ? Expression.Call(method, p1, p2) : Expression.Call(typeof(LambdaExtensions).GetMethod("TryParseEmpty", BindingFlags.NonPublic | BindingFlags.Static)!.MakeGenericMethod(typeof(TValue)), p1, p2);
-        return Expression.Lambda<FuncEx<string, TValue, bool>>(body, p1, p2);
-    }
-
-    [ExcludeFromCodeCoverage]
-    private static bool TryParseEmpty<TValue>(string source, out TValue val)
-    {
-        // TODO: 代码未完善
-        val = default!;
-        return false;
-    }
-    #endregion
-
     /// <summary>
     /// 获得 指定模型标记 <see cref="KeyAttribute"/> 的属性值
     /// </summary>
@@ -807,7 +761,7 @@ public static class LambdaExtensions
         var properties = type.GetRuntimeProperties()
                              .Where(p => p.IsDefined(customAttribute ?? typeof(KeyAttribute)))
                              .ToList();
-        if (properties.Any())
+        if (properties.Count > 0)
         {
             var param = Expression.Parameter(type);
             var valueType = typeof(TValue);

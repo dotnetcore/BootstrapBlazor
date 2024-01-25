@@ -20,7 +20,7 @@ public partial class TablesSelection
     [NotNull]
     private List<Foo>? SelectedItems { get; set; }
 
-    private bool IsKeepSelectedRows;
+    private bool _isKeepSelectedRows;
 
     private static IEnumerable<int> PageItemsSource => new int[]
     {

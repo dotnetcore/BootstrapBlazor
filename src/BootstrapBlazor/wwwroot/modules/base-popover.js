@@ -11,7 +11,8 @@ const Popover = {
                 dropdownSelector: '.dropdown-menu',
                 isDisabled: () => {
                     return isDisabled(el) || isDisabled(el.parentNode) || isDisabled(el.querySelector('.form-control'))
-                }
+                },
+                initCallback: null
             },
             ...config || {}
         }
@@ -99,6 +100,9 @@ const Popover = {
                     if (!popover.popover) {
                         popover.popover = new bootstrap.Popover(popover.toggleElement)
                         hackPopover(popover.popover, popover.class)
+                        if (popover.initCallback) {
+                            popover.initCallback();
+                        }
                         popover.popover.toggle()
                     }
                 }

@@ -398,7 +398,7 @@
         </tbody>
         @if (IsShowFooter)
         {
-            <tfoot class="@FooterClassString">
+            <tfoot @key="Rows" class="@FooterClassString">
                 <CascadingValue Value="false" Name="IsMobileMode" IsFixed="true">
                     <CascadingValue Value="@Rows" Name="TableFooterContext" IsFixed="true">
                         @if (FooterTemplate != null)
@@ -965,7 +965,7 @@
     </div>;
 
     RenderFragment RenderPagination =>
-    @<Pagination PageCount="@PageCount" PageIndex="@PageIndex" OnPageLinkClick="@OnPageLinkClick"
+    @<Pagination PageCount="@PageCount" PageIndex="@PageIndex" MaxPageLinkCount="MaxPageLinkCount" OnPageLinkClick="@OnPageLinkClick"
                  ShowGotoNavigator="ShowGotoNavigator" GotoTemplate="GotoTemplate!" GotoNavigatorLabelText="@GotoNavigatorLabelText"
                  ShowPageInfo="ShowPageInfo" PageInfoTemplate="InternalPageInfoTemplate" />;
 }

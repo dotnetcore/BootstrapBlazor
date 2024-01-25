@@ -50,14 +50,19 @@ public static class ObjectExtensions
     public static bool IsNumber(this Type t)
     {
         var targetType = Nullable.GetUnderlyingType(t) ?? t;
-        var check =
-            targetType == typeof(int) ||
-            targetType == typeof(long) ||
-            targetType == typeof(short) ||
-            targetType == typeof(float) ||
-            targetType == typeof(double) ||
-            targetType == typeof(decimal);
-        return check;
+        return targetType == typeof(int) || targetType == typeof(long) || targetType == typeof(short) ||
+            targetType == typeof(float) || targetType == typeof(double) || targetType == typeof(decimal);
+    }
+
+    /// <summary>
+    /// 检查是否为 Boolean 数据类型
+    /// </summary>
+    /// <param name="t"></param>
+    /// <returns></returns>
+    public static bool IsBoolean(this Type t)
+    {
+        var targetType = Nullable.GetUnderlyingType(t) ?? t;
+        return targetType == typeof(Boolean);
     }
 
     /// <summary>

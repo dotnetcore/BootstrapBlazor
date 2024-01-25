@@ -10,7 +10,7 @@
 <DemoBlock Title="@Localizer["DetailRowTemplateTitle"]"
            Introduction="@Localizer["DetailRowTemplateIntro"]"
            Name="IsDetails">
-    <p class="mb-3">@((MarkupString)Localizer["DetailRowTemplateP"].Value)</p>
+    <p>@((MarkupString)Localizer["DetailRowTemplateP"].Value)</p>
     <Table TItem="Foo" @ref="@Table"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsDetails="IsDetails"
@@ -33,7 +33,7 @@
 <DemoBlock Title="@Localizer["DetailRowTemplate2Title"]"
            Introduction="@Localizer["DetailRowTemplate2Intro"]"
            Name="Show">
-    <p class="mb-3">@((MarkupString)Localizer["DetailRowTemplate2P"].Value)</p>
+    <p>@((MarkupString)Localizer["DetailRowTemplate2P"].Value)</p>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
@@ -60,7 +60,7 @@
 <DemoBlock Title="@Localizer["HeightTitle"]"
            Introduction="@Localizer["HeightIntro"]"
            Name="Height">
-    <p class="mb-3">@Localizer["HeightP"]</p>
+    <p>@Localizer["HeightP"]</p>
     <Table TItem="Foo" Height="400" IsFixedHeader="true"
            IsStriped="true" IsBordered="true"
            ShowToolbar="true" ShowDefaultButtons="false"
@@ -80,7 +80,7 @@
 <DemoBlock Title="@Localizer["DetailRowTemplate3Title"]"
            Introduction="@Localizer["DetailRowTemplate3Intro"]"
            Name="DetailRowTemplate">
-    <p class="mb-3">@((MarkupString)Localizer["DetailRowTemplate3P"].Value)</p>
+    <p>@((MarkupString)Localizer["DetailRowTemplate3P"].Value)</p>
     <Table TItem="Foo" IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true"
            ShowToolbar="true" ShowDefaultButtons="false"

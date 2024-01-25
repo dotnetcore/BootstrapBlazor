@@ -59,7 +59,7 @@
 <DemoBlock Title="@Localizer["TableBaseSizeTitle"]"
            Introduction="@Localizer["TableBaseSizeIntro"]"
            Name="TableSize">
-    <p class="mb-3">@((MarkupString)Localizer["TableBaseSizeDescription"].Value)</p>
+    <p>@((MarkupString)Localizer["TableBaseSizeDescription"].Value)</p>
     <Table TItem="Foo" Items="@Items.Take(3)" IsBordered="true" IsStriped="true" TableSize="TableSize.Compact">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Filterable="true" Sortable="true" />
@@ -72,7 +72,7 @@
 <DemoBlock Title="@Localizer["TableBaseHeaderStyleTitle"]"
            Introduction="@Localizer["TableBaseHeaderStyleIntro"]"
            Name="HeaderStyle">
-    <p class="mb-3">@((MarkupString)Localizer["TableBaseHeaderStyleDescription"].Value)</p>
+    <p>@((MarkupString)Localizer["TableBaseHeaderStyleDescription"].Value)</p>
     <div class="code-label"><code>Light</code> @Localizer["TableBaseHeaderStyleMode"]</div>
     <Table TItem="Foo" Items="@Items.Take(3)" HeaderStyle="TableHeaderStyle.Light" IsBordered="true">
         <TableColumns>

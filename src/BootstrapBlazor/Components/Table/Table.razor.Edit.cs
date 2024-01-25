@@ -208,7 +208,7 @@ public partial class Table<TItem>
         }
         return ret ?? new QueryData<TItem>()
         {
-            Items = Enumerable.Empty<TItem>(),
+            Items = [],
             TotalCount = 0,
             IsAdvanceSearch = true,
             IsFiltered = true,
@@ -219,7 +219,7 @@ public partial class Table<TItem>
 
     private async Task<bool> InternalOnDeleteAsync()
     {
-        var ret = false;
+        bool ret;
         if (OnDeleteAsync != null)
         {
             ret = await OnDeleteAsync(SelectedRows);
@@ -242,7 +242,7 @@ public partial class Table<TItem>
 
     private async Task<bool> InternalOnSaveAsync(TItem item, ItemChangedType changedType)
     {
-        var ret = false;
+        bool ret;
         if (OnSaveAsync != null)
         {
             ret = await OnSaveAsync(item, changedType);
@@ -420,7 +420,7 @@ public partial class Table<TItem>
         // 目前设计使用 Items 参数后不回调 OnQueryAsync 方法
         if (Items == null)
         {
-            if (OnQueryAsync == null && DynamicContext != null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
+            if (OnQueryAsync == null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
             {
                 QueryDynamicItems(DynamicContext);
             }
@@ -434,22 +434,22 @@ public partial class Table<TItem>
             ResetSelectedRows(Items);
             RowsCache = null;
         }
+        return;
 
         async Task OnQuery()
         {
-            QueryData<TItem>? queryData = null;
             var queryOption = BuildQueryPageOptions();
 
             // 设置是否为首次查询
             queryOption.IsFristQuery = _firstQuery;
 
-            queryData = await InternalOnQueryAsync(queryOption);
+            var queryData = await InternalOnQueryAsync(queryOption);
             PageIndex = queryOption.PageIndex;
             PageItems = queryOption.PageItems;
             TotalCount = queryData.TotalCount;
             PageCount = (int)Math.Ceiling(TotalCount * 1.0 / Math.Max(1, PageItems));
             IsAdvanceSearch = queryData.IsAdvanceSearch;
-            QueryItems = queryData.Items ?? Enumerable.Empty<TItem>();
+            QueryItems = queryData.Items ?? [];
 
             if (!IsKeepSelectedRows)
             {
@@ -465,8 +465,9 @@ public partial class Table<TItem>
                 await ProcessTreeData();
             }
 
-            // 更新数据后清楚缓存防止新数据不显示
+            // 更新数据后清除缓存防止新数据不显示
             RowsCache = null;
+            return;
 
             void ProcessData()
             {
@@ -482,7 +483,7 @@ public partial class Table<TItem>
                 }
 
                 // 外部未处理自定义高级搜索 内部进行高级自定义搜索过滤
-                if (!IsAdvanceSearch && queryOption.CustomerSearches.Count> 0)
+                if (!IsAdvanceSearch && queryOption.CustomerSearches.Count > 0)
                 {
                     QueryItems = QueryItems.Where(queryOption.CustomerSearches.GetFilterFunc<TItem>());
                     TotalCount = QueryItems.Count();
@@ -528,6 +529,7 @@ public partial class Table<TItem>
 
                 TreeRows.Clear();
                 TreeRows.AddRange(treeNodes);
+                return;
 
                 async Task CheckExpand(IEnumerable<TableTreeNode<TItem>> nodes)
                 {

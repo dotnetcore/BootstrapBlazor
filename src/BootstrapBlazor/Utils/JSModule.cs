@@ -57,23 +57,14 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
         }
         await InvokeVoidAsync();
 
-        [ExcludeFromCodeCoverage]
         async ValueTask InvokeVoidAsync()
         {
             try
             {
                 await Module.InvokeVoidAsync(identifier, cancellationToken, [.. paras]);
             }
-#if NET6_0_OR_GREATER
             catch (JSDisconnectedException) { }
-#endif
-#if DEBUG
-#else
-            catch (JSException) { }
-            catch (AggregateException) { }
-            catch (InvalidOperationException) { }
-#endif
-            catch (TaskCanceledException) { }
+            catch (OperationCanceledException) { }
         }
     }
 
@@ -115,7 +106,6 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
         }
         return await InvokeAsync();
 
-        [ExcludeFromCodeCoverage]
         async ValueTask<TValue> InvokeAsync()
         {
             TValue ret = default!;
@@ -123,16 +113,8 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
             {
                 ret = await Module.InvokeAsync<TValue>(identifier, cancellationToken, [.. paras]);
             }
-#if NET6_0_OR_GREATER
             catch (JSDisconnectedException) { }
-#endif
-#if DEBUG
-#else
-            catch (JSException) { }
-            catch (AggregateException) { }
-            catch (InvalidOperationException) { }
-#endif
-            catch (TaskCanceledException) { }
+            catch (OperationCanceledException) { }
 
             return ret;
         }

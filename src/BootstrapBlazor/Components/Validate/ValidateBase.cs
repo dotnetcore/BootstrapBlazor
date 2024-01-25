@@ -187,7 +187,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     {
         var ret = false;
         validationErrorMessage = null;
-        if (value.TryConvertTo<TValue>(out result))
+        if (value.TryConvertTo(out result))
         {
             ret = true;
         }
@@ -205,7 +205,11 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// <returns></returns>
     protected virtual string? FormatParsingErrorMessage() => ParsingErrorMessage;
 
-    private bool IsRequired() => FieldIdentifier
+    /// <summary>
+    /// 判断是否为必填字段
+    /// </summary>
+    /// <returns></returns>
+    protected virtual bool IsRequired() => FieldIdentifier
         ?.Model.GetType().GetPropertyByName(FieldIdentifier.Value.FieldName)!.GetCustomAttribute<RequiredAttribute>(true) != null
         || (ValidateRules?.OfType<FormItemValidator>().Select(i => i.Validator).OfType<RequiredAttribute>().Any() ?? false);
 
@@ -213,7 +217,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
     /// Gets a string that indicates the status of the field being edited. This will include
     /// some combination of "modified", "valid", or "invalid", depending on the status of the field.
     /// </summary>
-    private string FieldClass => (EditContext != null && FieldIdentifier != null) ? EditContext.FieldCssClass(FieldIdentifier.Value) : "";
+    protected string FieldClass => (EditContext != null && FieldIdentifier != null) ? EditContext.FieldCssClass(FieldIdentifier.Value) : "";
 
     /// <summary>
     /// Gets a CSS class string that combines the <c>class</c> attribute and <see cref="FieldClass"/>

@@ -34,7 +34,7 @@ internal class ClearTempFilesService : BackgroundService
     /// <returns></returns>
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        _ = TaskServicesManager.GetOrAdd("Clear Upload Files", token =>
+        TaskServicesManager.GetOrAdd("Clear Upload Files", (provider, token) =>
         {
             var webSiteUrl = $"images{Path.DirectorySeparatorChar}uploader{Path.DirectorySeparatorChar}";
             var filePath = Path.Combine(_env.WebRootPath, webSiteUrl);

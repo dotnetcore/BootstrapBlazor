@@ -15,7 +15,7 @@
 <DemoBlock Title="@Localizer["FilterableTitle"]"
            Introduction="@Localizer["FilterableIntro"]"
            Name="Filterable">
-    <section ignore class="mb-3">
+    <section ignore>
         <p>@((MarkupString)Localizer["FilterableP"].Value)</p>
         <ul class="ul-demo mb-3">
             <li>@((MarkupString)Localizer["FilterableLi1"].Value)</li>
@@ -28,13 +28,13 @@
     </section>
 
     <Table TItem="Foo"
-            IsPagination="true" PageItemsSource="@PageItemsSource"
-            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
-            ShowSkeleton="true"
-            OnQueryAsync="@OnQueryAsync">
+           IsPagination="true" PageItemsSource="@PageItemsSource"
+           IsStriped="true" IsBordered="true" IsMultipleSelect="true"
+           ShowSkeleton="true" @bind-SelectedRows="SelectedItems" IsKeepSelectedRows="true"
+           OnQueryAsync="@OnQueryAsync">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Sortable="true" Filterable="true" />
-            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" />
+            <TableColumn @bind-Field="@context.Name" Width="100" Sortable="true" Filterable="true" DefaultSort="true" DefaultSortOrder="SortOrder.Desc" />
             <TableColumn @bind-Field="@context.Address" Sortable="true" Filterable="true" />
             <TableColumn @bind-Field="@context.Complete" Width="100" Sortable="true" Filterable="true" />
             <TableColumn @bind-Field="@context.Education" Width="100" Sortable="true" Filterable="true" />
@@ -45,7 +45,7 @@
 
 <DemoBlock Title="@Localizer["FilterTemplateTitle"]"
             Introduction="@Localizer["FilterTemplateIntro"]" Name="CustomerFilter">
-    <section ignore class="mb-3">@((MarkupString)Localizer["TablesFilterTemplateDescription", ComponentSourceCodeUrl].Value)</section>
+    <section ignore>@((MarkupString)Localizer["TablesFilterTemplateDescription", ComponentSourceCodeUrl].Value)</section>
 
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
@@ -97,7 +97,7 @@
             <li>@((MarkupString)Localizer["DefaultSortLi1"].Value)</li>
             <li>@((MarkupString)Localizer["DefaultSortLi2"].Value)</li>
         </ul>
-        <p class="mb-3">@Localizer["DefaultSortP"]</p>
+        <p>@Localizer["DefaultSortP"]</p>
     </section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
@@ -117,7 +117,7 @@
 <DemoBlock Title="@Localizer["SortListTitle"]"
            Introduction="@Localizer["SortListIntro"]"
            Name="SortString">
-    <section ignore class="mb-3">@((MarkupString)Localizer["SortListP"].Value)</section>
+    <section ignore>@((MarkupString)Localizer["SortListP"].Value)</section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
@@ -135,7 +135,7 @@
 <DemoBlock Title="@Localizer["OnSortTitle"]"
            Introduction="@Localizer["OnSortIntro"]"
            Name="OnSort">
-    <section ignore class="mb-3">@((MarkupString)Localizer["OnSortP"].Value)</section>
+    <section ignore>@((MarkupString)Localizer["OnSortP"].Value)</section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
@@ -170,7 +170,7 @@
 <DemoBlock Title="@Localizer["SetFilterInCodeTitle"]"
            Introduction="@Localizer["SetFilterInCodeIntro"]"
            Name="SetFilterInCode">
-    <section ignore class="mb-2">
+    <section ignore>
         <Button Text="@Localizer["SetFilterInCodeButtonText1"]" OnClickWithoutRender="SetFilterInCode"></Button>
         <Button Text="@Localizer["SetFilterInCodeButtonText2"]" OnClickWithoutRender="ResetAllFilters"></Button>
     </section>

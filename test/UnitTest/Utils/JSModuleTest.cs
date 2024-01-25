@@ -59,6 +59,33 @@ public class JSModuleTest
     }
 
     [Fact]
+    public async Task JSModule_JSException()
+    {
+        var js = new MockJSExceptionObjectReference();
+        var module = new JSModule(js);
+        await Assert.ThrowsAnyAsync<JSException>(async () => await module.InvokeVoidAsync("test"));
+        await Assert.ThrowsAnyAsync<JSException>(async () => await module.InvokeAsync<int>("test"));
+    }
+
+    [Fact]
+    public async Task JSModule_AggregateException()
+    {
+        var js = new MockAggregateExceptionObjectReference();
+        var module = new JSModule(js);
+        await Assert.ThrowsAnyAsync<AggregateException>(async () => await module.InvokeVoidAsync("test"));
+        await Assert.ThrowsAnyAsync<AggregateException>(async () => await module.InvokeAsync<int>("test"));
+    }
+
+    [Fact]
+    public async Task JSModule_InvalidOperationException()
+    {
+        var js = new MockInvalidOperationExceptionObjectReference();
+        var module = new JSModule(js);
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(async () => await module.InvokeVoidAsync("test"));
+        await Assert.ThrowsAnyAsync<InvalidOperationException>(async () => await module.InvokeAsync<int>("test"));
+    }
+
+    [Fact]
     public async Task JSModule_TaskCanceledException()
     {
         var js = new MockTaskCanceledObjectReference();
@@ -122,5 +149,32 @@ public class JSModuleTest
         public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, object?[]? args) => throw new TaskCanceledException("Test");
 
         public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, CancellationToken cancellationToken, object?[]? args) => throw new TaskCanceledException("Test");
+    }
+
+    private class MockJSExceptionObjectReference : IJSObjectReference
+    {
+        public ValueTask DisposeAsync() => throw new TaskCanceledException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, object?[]? args) => throw new JSException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, CancellationToken cancellationToken, object?[]? args) => throw new JSException("Test");
+    }
+
+    private class MockAggregateExceptionObjectReference : IJSObjectReference
+    {
+        public ValueTask DisposeAsync() => throw new TaskCanceledException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, object?[]? args) => throw new AggregateException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, CancellationToken cancellationToken, object?[]? args) => throw new AggregateException("Test");
+    }
+
+    private class MockInvalidOperationExceptionObjectReference : IJSObjectReference
+    {
+        public ValueTask DisposeAsync() => throw new TaskCanceledException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, object?[]? args) => throw new InvalidOperationException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, CancellationToken cancellationToken, object?[]? args) => throw new InvalidOperationException("Test");
     }
 }

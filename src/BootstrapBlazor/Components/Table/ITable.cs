@@ -7,13 +7,8 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// ITable 接口
 /// </summary>
-public interface ITable
+public interface ITable : IColumnCollection
 {
-    /// <summary>
-    /// 获得 ITableColumn 集合
-    /// </summary>
-    List<ITableColumn> Columns { get; }
-
     /// <summary>
     /// 获得 ITable 实例配置的可见列集合
     /// </summary>
@@ -27,5 +22,5 @@ public interface ITable
     /// <summary>
     /// 获得 过滤异步回调方法
     /// </summary>
-    Func<Task> OnFilterAsync { get; }
+    Func<Task>? OnFilterAsync { get; }
 }

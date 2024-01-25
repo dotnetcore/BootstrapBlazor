@@ -14,14 +14,14 @@
     <div>
         <Button Text="@Localizer["LeftAlignedButton"]" OnClickWithoutRender="@NormalShowDialog" />
         <Button Text="@Localizer["RightAlignedButton"]" OnClickWithoutRender="@NormalShowAlignDialog" />
-        <ConsoleLogger @ref="NormalLogger" class="mt-3" />
+        <ConsoleLogger @ref="NormalLogger" />
     </div>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["NoRenderTitle"]" Introduction="@Localizer["NoRenderIntro"]" Name="NoRender">
     <div>
         <Button Text="@Localizer["PopupButton"]" OnClickWithoutRender="@NoRenderShowEditDialog" />
-        <ConsoleLogger @ref="NoRenderLogger" class="mt-3" />
+        <ConsoleLogger @ref="NoRenderLogger" />
     </div>
 </DemoBlock>
 

@@ -17,7 +17,7 @@
             <Checkbox TValue="string" OnStateChanged="@OnStateChanged" DisplayText="@Localizer["StatusText3"]" ShowLabel="true" Color="Color.Danger" State="CheckboxState.Indeterminate" />
         </div>
     </div>
-    <ConsoleLogger @ref="NormalLogger" class="mt-3" />
+    <ConsoleLogger @ref="NormalLogger" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["DisabledTitle"]" Introduction="@Localizer["DisabledIntro"]" Name="Disabled">
@@ -111,7 +111,7 @@
             <BootstrapInput @bind-Value="@BindValue" IsDisabled="true" />
         </div>
     </div>
-    <ConsoleLogger @ref="OnStateChangedLogger" class="mt-3" />
+    <ConsoleLogger @ref="OnStateChangedLogger" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BindStringTitle"]" Introduction="@Localizer["BindStringIntro"]" Name="BindString">
@@ -123,7 +123,7 @@
             <BootstrapInput @bind-Value="@BindString" />
         </div>
     </div>
-    <ConsoleLogger @ref="BindStringLogger" class="mt-3" />
+    <ConsoleLogger @ref="BindStringLogger" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ValidateFormTitle"]" Introduction="@Localizer["ValidateFormIntro"]" Name="ValidateForm">

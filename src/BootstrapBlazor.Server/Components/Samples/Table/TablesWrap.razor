@@ -10,7 +10,7 @@
 <DemoBlock Title="@Localizer["TablesWrapNormalTitle"]"
            Introduction="@Localizer["TablesWrapNormalIntro"]"
            Name="Normal">
-    <p class="mb-3">@((MarkupString)Localizer["TablesWrapNormalDescription"].Value)</p>
+    <p>@((MarkupString)Localizer["TablesWrapNormalDescription"].Value)</p>
     <div class="table-wrap-header-demo">
         <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="@CellItems">
             <TableColumns>
@@ -25,7 +25,7 @@
 <DemoBlock Title="@Localizer["TablesWrapHeaderTextWrapTitle"]"
            Introduction="@Localizer["TablesWrapHeaderTextWrapIntro"]"
            Name="HeaderTextWrap">
-    <p class="mb-3">@Localizer["TablesWrapHeaderTextWrapDescription"]</p>
+    <p>@Localizer["TablesWrapHeaderTextWrapDescription"]</p>
     <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="@CellItems" HeaderTextWrap="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" Text="@Localizer["TablesWrapHeaderTextWrapColumHeaderText_DateTime"]" TextWrap="true" />

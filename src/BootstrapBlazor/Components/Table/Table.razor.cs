@@ -121,7 +121,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .AddClass(ExtendButtonColumnAlignment.ToDescriptionString())
         .Build();
 
-    private string? GetSortTooltip(ITableColumn col) => SortName != col.GetFieldName()
+    private string GetSortTooltip(ITableColumn col) => SortName != col.GetFieldName()
         ? UnsetText
         : SortOrder switch
         {
@@ -138,7 +138,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private int PageStartIndex => Rows.Count > 0 ? (PageIndex - 1) * PageItems + 1 : 0;
 
-    private string? PageInfoLabelString => Localizer[nameof(PageInfoText), PageStartIndex, (PageIndex - 1) * PageItems + Rows.Count, TotalCount];
+    private string PageInfoLabelString => Localizer[nameof(PageInfoText), PageStartIndex, (PageIndex - 1) * PageItems + Rows.Count, TotalCount];
 
     private static string? GetColWidthString(int? width) => width.HasValue ? $"width: {width.Value}px;" : null;
 
@@ -587,7 +587,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public string? ClientTableName { get; set; }
 
     [CascadingParameter]
-    [NotNull]
     private ContextMenuZone? ContextMenuZone { get; set; }
 
     [Inject]
@@ -609,7 +608,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         OnInitLocalization();
 
         // 设置 OnSort 回调方法
-        InternalOnSortAsync = async (sortName, sortOrder) =>
+        InternalOnSortAsync = (sortName, sortOrder) =>
         {
             // 调用 OnSort 回调方法
             if (OnSort != null)
@@ -618,15 +617,15 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             }
 
             // 重新查询
-            await QueryAsync();
+            return QueryAsync();
         };
 
         // 设置 OnFilter 回调方法
-        OnFilterAsync = async () =>
+        OnFilterAsync = () =>
         {
             PageIndex = 1;
             TotalCount = 0;
-            await QueryAsync();
+            return QueryAsync();
         };
     }
 
@@ -670,7 +669,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             RenderMode = op.TableSettings.TableRenderMode.Value;
         }
 
-        PageItemsSource ??= new int[] { 20, 50, 100, 200, 500, 1000 };
+        PageItemsSource ??= new[] { 20, 50, 100, 200, 500, 1000 };
 
         if (PageItems == 0)
         {
@@ -763,14 +762,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             // 动态列模式
             ResetDynamicContext();
-
-            // set default sortName
-            var col = Columns.Find(i => i.Sortable && i.DefaultSort);
-            if (col != null)
-            {
-                SortName = col.GetFieldName();
-                SortOrder = col.DefaultSortOrder;
-            }
         }
     }
 
@@ -876,7 +867,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 catch { }
             }
         }
-        return ret ?? Enumerable.Empty<ColumnWidth>();
+        return ret ?? [];
     }
 
     private async Task ProcessFirstRender()
@@ -913,20 +904,18 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         // 查看是否开启列宽序列化
         var columnWidths = await ReloadColumnWidth();
-        if (columnWidths != null)
+
+        foreach (var cw in columnWidths.Where(c => c.Width > 0))
         {
-            foreach (var cw in columnWidths.Where(c => c.Width > 0))
+            var c = Columns.Find(c => c.GetFieldName() == cw.Name);
+            if (c != null)
             {
-                var c = Columns.Find(c => c.GetFieldName() == cw.Name);
-                if (c != null)
-                {
-                    c.Width = cw.Width;
-                }
+                c.Width = cw.Width;
             }
         }
 
         // set default sortName
-        var col = Columns.Find(i => i.Sortable && i.DefaultSort);
+        var col = Columns.Find(i => i is { Sortable: true, DefaultSort: true });
         if (col != null)
         {
             SortName = col.GetFieldName();
@@ -1006,7 +995,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// OnQueryAsync 查询结果数据集合
     /// </summary>
-    private IEnumerable<TItem> QueryItems { get; set; } = Enumerable.Empty<TItem>();
+    private IEnumerable<TItem> QueryItems { get; set; } = [];
 
     [NotNull]
     private List<TItem>? RowsCache { get; set; }
@@ -1132,7 +1121,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// 获得/设置 表头过滤时回调方法
     /// </summary>
-    [NotNull]
     public Func<Task>? OnFilterAsync { get; private set; }
 
     /// <summary>
@@ -1144,14 +1132,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private async ValueTask<ItemsProviderResult<TItem>> LoadItems(ItemsProviderRequest request)
     {
         StartIndex = request.StartIndex;
-        if (TotalCount > 0)
-        {
-            PageItems = Math.Min(request.Count, TotalCount - request.StartIndex);
-        }
-        else
-        {
-            PageItems = request.Count;
-        }
+        PageItems = TotalCount > 0 ? Math.Min(request.Count, TotalCount - request.StartIndex) : request.Count;
         await QueryData();
         return new ItemsProviderResult<TItem>(QueryItems, TotalCount);
     }
@@ -1215,7 +1196,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             column.Filter?.FilterAction.Reset();
         }
         Filters.Clear();
-        await OnFilterAsync();
+
+        if (OnFilterAsync != null)
+        {
+            await OnFilterAsync();
+        }
     }
 
     /// <summary>

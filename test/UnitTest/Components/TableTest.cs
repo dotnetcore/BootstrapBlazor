@@ -2265,6 +2265,16 @@ public class TableTest : TableTestBase
                     builder.OpenComponent<MockToolbarButton<Foo>>(0);
                     builder.AddAttribute(12, nameof(MockToolbarButton<Foo>.Text), "test-confirm-mock");
                     builder.CloseComponent();
+
+                    builder.OpenComponent<TableToolbarComponent<Foo>>(0);
+                    builder.AddAttribute(14, nameof(TableToolbarComponent<Foo>.IsShow), true);
+                    builder.AddAttribute(13, nameof(TableToolbarComponent<Foo>.ChildContent), new RenderFragment(b =>
+                    {
+                        b.OpenComponent<Button>(0);
+                        b.AddAttribute(1, "Text", "test");
+                        b.CloseComponent();
+                    }));
+                    builder.CloseComponent();
                 });
             });
         });
@@ -2472,6 +2482,9 @@ public class TableTest : TableTestBase
 
         var cut1 = Context.RenderComponent<TableToolbarPopConfirmButton<Foo>>();
         Assert.Equal("", cut1.Markup);
+
+        var cut2 = Context.RenderComponent<TableToolbarComponent<Foo>>();
+        Assert.Equal("", cut2.Markup);
     }
 
     [Fact]
@@ -5457,7 +5470,7 @@ public class TableTest : TableTestBase
         Assert.Equal(2, cols.Count);
 
         var resp = cut.FindComponent<ResizeNotification>().Instance;
-        resp.OnResize(BreakPoint.Small);
+        resp.OnResize("Small");
 
         var row = table.Find("tbody > tr");
         Assert.Equal(1, row.ChildElementCount);
@@ -5603,6 +5616,23 @@ public class TableTest : TableTestBase
         var table = cut.FindComponent<MockDynamicTable>();
         var saved = await table.Instance.SaveModelTest();
         Assert.True(saved);
+    }
+
+    [Fact]
+    public void DynamicContext_Pagination()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockDynamicTable>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsPagination, true);
+                pb.Add(a => a.DynamicContext, CreateDynamicContext(localizer));
+            });
+        });
+        cut.Contains("nav nav-pages");
     }
 
     [Fact]
@@ -7515,7 +7545,10 @@ public class TableTest : TableTestBase
             var propertyName = col.GetFieldName();
             // 使用 Text 设置显示名称示例
             col.Text = localizer[nameof(Foo.Name)];
-        });
+        })
+        {
+            OnFilterCallback = items => items
+        };
     }
 
     private static Func<QueryPageOptions, Task<QueryData<Foo>>> OnQueryAsync(IStringLocalizer<Foo> localizer, bool isSearch = true, bool isAdvanceSearch = true, bool isFilter = true, bool isSorted = true) => new(op =>
@@ -7603,8 +7636,14 @@ public class TableTest : TableTestBase
         }
     }
 
-    private class MockToolbarButton<TItem> : ButtonBase
+    private class MockToolbarButton<TItem> : ButtonBase, ITableToolbarButton<TItem>
     {
+        public bool IsEnableWhenSelectedOneRow { get; set; }
+
+        public Func<IEnumerable<TItem>, bool>? IsDisabledCallback { get; set; }
+
+        public bool IsShow { get; set; } = true;
+
         [CascadingParameter]
         [NotNull]
         protected TableToolbar<TItem>? Buttons { get; set; }

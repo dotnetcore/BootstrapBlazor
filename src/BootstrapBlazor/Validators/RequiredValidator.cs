@@ -82,8 +82,8 @@ public class RequiredValidator : ValidatorBase
     /// <returns></returns>
     protected virtual string? GetLocalizerErrorMessage(ValidationContext context, IStringLocalizerFactory? localizerFactory = null, JsonLocalizationOptions? options = null)
     {
-        var errorMesssage = ErrorMessage;
-        if (!string.IsNullOrEmpty(context.MemberName) && !string.IsNullOrEmpty(errorMesssage))
+        var errorMessage = ErrorMessage;
+        if (!string.IsNullOrEmpty(context.MemberName) && !string.IsNullOrEmpty(errorMessage))
         {
             // 查找 resx 资源文件中的 ErrorMessage
             var memberName = context.MemberName;
@@ -95,9 +95,9 @@ public class RequiredValidator : ValidatorBase
                 if (options is { ResourceManagerStringLocalizerType: not null })
                 {
                     var localizer = localizerFactory.Create(options.ResourceManagerStringLocalizerType);
-                    if (localizer.TryGetLocalizerString(errorMesssage, out var resx))
+                    if (localizer.TryGetLocalizerString(errorMessage, out var resx))
                     {
-                        errorMesssage = resx;
+                        errorMessage = resx;
                         isResx = true;
                     }
                 }
@@ -105,16 +105,16 @@ public class RequiredValidator : ValidatorBase
                 // 查找 json 格式资源文件
                 if (!isResx && localizerFactory.Create(context.ObjectType).TryGetLocalizerString($"{memberName}.{GetRuleKey()}", out var msg))
                 {
-                    errorMesssage = msg;
+                    errorMessage = msg;
                 }
             }
 
-            if (!string.IsNullOrEmpty(errorMesssage))
+            if (!string.IsNullOrEmpty(errorMessage))
             {
                 var displayName = new FieldIdentifier(context.ObjectInstance, context.MemberName).GetDisplayName();
-                errorMesssage = string.Format(CultureInfo.CurrentCulture, errorMesssage, displayName);
+                errorMessage = string.Format(CultureInfo.CurrentCulture, errorMessage, displayName);
             }
         }
-        return errorMesssage;
+        return errorMessage;
     }
 }

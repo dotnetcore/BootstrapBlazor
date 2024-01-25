@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// BootstrapInputNumber 基类
 /// </summary>
-public class BootstrapInputNumberBase<TValue> : BootstrapInputBase<TValue>
+public class BootstrapInputNumberBase<TValue> : BootstrapInputEventBase<TValue>
 {
     /// <summary>
     /// SetParametersAsync 方法

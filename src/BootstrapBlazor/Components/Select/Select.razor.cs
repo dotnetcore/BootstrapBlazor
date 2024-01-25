@@ -193,7 +193,7 @@ public partial class Select<TValue> : ISelect
     {
         base.OnParametersSet();
 
-        Items ??= Enumerable.Empty<SelectedItem>();
+        Items ??= [];
         OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison));
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         NoSearchDataText ??= Localizer[nameof(NoSearchDataText)];
@@ -246,7 +246,7 @@ public partial class Select<TValue> : ISelect
         var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = count, SearchText = SearchText });
 
         TotalCount = data.TotalCount;
-        VirtualItems = data.Items ?? Enumerable.Empty<SelectedItem>();
+        VirtualItems = data.Items ?? [];
         return new ItemsProviderResult<SelectedItem>(VirtualItems, TotalCount);
 
         int GetCountByTotal() => TotalCount == 0 ? request.Count : Math.Min(request.Count, TotalCount - request.StartIndex);

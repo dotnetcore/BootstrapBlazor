@@ -13,6 +13,8 @@ editform
 ellips
 fullscreen
 dblclick
+ondblclick
+oncontextmenu
 dbcell
 gitee
 github
@@ -67,3 +69,8 @@ bootstrapblazor
 layui
 devui
 appsettings
+cshtml
+Starup
+args
+nameof
+javascript

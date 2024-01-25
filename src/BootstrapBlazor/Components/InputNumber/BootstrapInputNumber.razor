@@ -12,7 +12,7 @@
         <button class="@ButtonClassString" type="button" @onclick="OnClickDec" disabled="@Disabled">
             <i class="@MinusIcon"></i>
         </button>
-        <input @attributes="AdditionalAttributes" step="@StepString" min="@Min" max="@Max" id="@Id" type="number" placeholder="@PlaceHolder" class="@InputClassString" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" @onblur="@OnBlur" @ref="FocusElement" />
+        <input @attributes="AdditionalAttributes" step="@StepString" min="@Min" max="@Max" id="@Id" type="number" placeholder="@PlaceHolder" class="@InputClassString" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="@EventString" @onblur="@OnBlur" @ref="FocusElement" />
         <button class="@ButtonClassString" type="button" @onclick="OnClickInc" disabled="@Disabled">
             <i class="@PlusIcon"></i>
         </button>
@@ -20,5 +20,5 @@
 }
 else
 {
-    <input @attributes="AdditionalAttributes" step="@StepString" min="@Min" max="@Max" id="@Id" type="number" placeholder="@PlaceHolder" class="@InputClassString" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="onchange" @onblur="@OnBlur" @ref="FocusElement" />
+    <input @attributes="AdditionalAttributes" step="@StepString" min="@Min" max="@Max" id="@Id" type="number" placeholder="@PlaceHolder" class="@InputClassString" disabled="@Disabled" @bind-value="@CurrentValueAsString" @bind-value:event="@EventString" @onblur="@OnBlur" @ref="FocusElement" />
 }

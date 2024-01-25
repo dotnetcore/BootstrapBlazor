@@ -42,6 +42,11 @@ public interface IDynamicObjectContext
     Func<IDynamicObject, ITableColumn, object?, Task>? OnValueChanged { get; set; }
 
     /// <summary>
+    /// 获得/设置 动态类型数据集过滤回调委托 默认为 null
+    /// </summary>
+    Func<IEnumerable<IDynamicObject>, IEnumerable<IDynamicObject>>? OnFilterCallback { get; set; }
+
+    /// <summary>
     /// 获得/设置 动态类型集合变化时回调方法 默认为 null
     /// </summary>
     Func<DynamicObjectContextArgs, Task>? OnChanged { get; set; }

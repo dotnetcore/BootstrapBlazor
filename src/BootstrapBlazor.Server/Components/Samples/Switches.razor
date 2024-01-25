@@ -6,7 +6,7 @@
 <h4>@Localizer["SwitchesDescription"]</h4>
 
 <DemoBlock Title="@Localizer["SwitchesNormalTitle"]" Introduction="@Localizer["SwitchesNormalIntro"]" Name="Normal">
-    <p class="mb-3">@Localizer["SwitchesNormalDescription"]</p>
+    <p>@Localizer["SwitchesNormalDescription"]</p>
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
             <Switch ValueChanged="@OnValueChanged" Value="@BindValue" OnColor="Color.Secondary" OnText="@Localizer["SwitchesOnText"]" OffText="@Localizer["SwitchesOffText"]"></Switch>
@@ -27,7 +27,7 @@
             <Switch Value="true" OnColor="Color.Dark" OnText="@Localizer["SwitchesOnText"]" OffText="@Localizer["SwitchesOffText"]"></Switch>
         </div>
     </div>
-    <ConsoleLogger @ref="Logger" class="mt-3" />
+    <ConsoleLogger @ref="Logger" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SwitchesDisableTitle"]" Introduction="@Localizer["SwitchesDisableIntro"]" Name="Disable">
@@ -41,7 +41,7 @@
 <DemoBlock Title="@Localizer["SwitchesBindingTitle"]" Introduction="@Localizer["SwitchesBindingIntro"]" Name="Binding">
     <section ignore>
         <p>@((MarkupString)Localizer["SwitchesBindingDescription1"].Value)</p>
-        <p class="mb-3">@((MarkupString)Localizer["SwitchesBindingDescription2"].Value)</p>
+        <p>@((MarkupString)Localizer["SwitchesBindingDescription2"].Value)</p>
     </section>
     <div class="row g-3">
         <div class="col-12">
@@ -75,7 +75,7 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SwitchesInnerTextTitle"]" Introduction="@Localizer["SwitchesInnerTextIntro"]" Name="InnerText">
-    <section ignore class="mb-3">@((MarkupString)Localizer["SwitchesInnerTextDescription"].Value)</section>
+    <section ignore>@((MarkupString)Localizer["SwitchesInnerTextDescription"].Value)</section>
     <div class="row g-3">
         <div class="col-6 col-sm-4 col-md-3 col-lg-auto">
             <label class="form-label">@Localizer["SwitchesInnerTextLabelText1"]</label>

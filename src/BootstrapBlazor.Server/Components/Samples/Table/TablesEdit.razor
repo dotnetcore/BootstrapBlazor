@@ -10,7 +10,7 @@
 <DemoBlock Title="@Localizer["TablesEditItemsTitle"]"
            Introduction="@Localizer["TablesEditItemsIntro"]"
            Name="EditItems">
-    <section ignore class="mb-3">@((MarkupString)Localizer["TablesEditItemsDescription"].Value)</section>
+    <section ignore>@((MarkupString)Localizer["TablesEditItemsDescription"].Value)</section>
     <Table TItem="Foo" @bind-Items="EditItems"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
@@ -29,7 +29,7 @@
 <DemoBlock Title="@Localizer["TablesEditTemplateTitle"]"
            Introduction="@Localizer["TablesEditTemplateIntro"]"
            Name="EditTemplate">
-    <section ignore class="mb-3">@((MarkupString)Localizer["TablesEditTemplateDescription"].Value)</section>
+    <section ignore>@((MarkupString)Localizer["TablesEditTemplateDescription"].Value)</section>
     <Table TItem="Foo" EditDialogShowMaximizeButton="true"
            IsPagination="true" PageItemsSource="@PageItemsSource" DataService="@CustomerDataService"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
@@ -61,7 +61,7 @@
         <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips3"].Value)</p>
         <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips4"].Value)</p>
         <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips5"].Value)</p>
-        <p class="mb-3">@((MarkupString)Localizer["TablesEditOnAddAsyncTips6"].Value)</p>
+        <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips6"].Value)</p>
     </section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
@@ -83,7 +83,7 @@
 <DemoBlock Title="@Localizer["TablesColumnEditTemplateTitle"]"
            Introduction="@Localizer["TablesColumnEditTemplateIntro"]"
            Name="ColumnEditTemplate">
-    <section ignore class="mb-3">
+    <section ignore>
         <div>@((MarkupString)Localizer["TablesColumnEditTemplateDescription1"].Value)</div>
         <div>@((MarkupString)Localizer["TablesColumnEditTemplateTips"].Value)</div>
     </section>
@@ -112,7 +112,7 @@
 <DemoBlock Title="@Localizer["TablesEditModeTitle"]"
            Introduction="@Localizer["TablesEditModeIntro"]"
            Name="EditMode">
-    <section ignore class="mb-3">
+    <section ignore>
         <p>@((MarkupString)Localizer["TablesEditModeDescription"].Value)</p>
         <p>@((MarkupString)Localizer["TablesEditModeTips1"].Value)</p>
         <p>@((MarkupString)Localizer["TablesEditModeTips2"].Value)</p>
@@ -134,10 +134,11 @@
         </TableColumns>
     </Table>
 
-    <section ignore class="my-3">
+    <section ignore>
         <p>@((MarkupString)Localizer["TablesEditModeInCell"].Value)</p>
         <RadioList @bind-Value="InsertMode" />
     </section>
+
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"

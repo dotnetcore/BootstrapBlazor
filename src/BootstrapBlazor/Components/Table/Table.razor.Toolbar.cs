@@ -988,14 +988,28 @@ public partial class Table<TItem>
         }
     }
 
-    private void QueryDynamicItems(IDynamicObjectContext context)
+    private void QueryDynamicItems(IDynamicObjectContext? context)
     {
-        QueryItems = context.GetItems().Cast<TItem>();
-        TotalCount = QueryItems.Count();
         RowsCache = null;
+        if (context != null)
+        {
+            var items = context.GetItems();
+            if (IsPagination)
+            {
+                if(context.OnFilterCallback != null)
+                {
+                    items = context.OnFilterCallback(items);
+                }
+                TotalCount = items.Count();
+                PageCount = (int)Math.Ceiling(TotalCount * 1.0 / Math.Max(1, PageItems));
+                PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / PageItems).ToString())));
+                items = items.Skip((PageIndex - 1) * PageItems).Take(PageItems);
+            }
+            QueryItems = items.Cast<TItem>();
 
-        // 重置选中行
-        ResetSelectedRows(QueryItems);
+            // 重置选中行
+            ResetSelectedRows(QueryItems);
+        }
     }
 
     private async Task ExecuteExportAsync(Func<Task<bool>> callback)

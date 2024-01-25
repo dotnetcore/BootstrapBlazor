@@ -189,7 +189,7 @@ public static class DialogServiceExtensions
     }
 
     /// <summary>
-    /// 弹出保存对话窗方法
+    /// 弹出带保存按钮对话窗方法
     /// </summary>
     /// <typeparam name="TComponent"></typeparam>
     /// <param name="service">DialogService 服务实例</param>
@@ -219,7 +219,7 @@ public static class DialogServiceExtensions
     }
 
     /// <summary>
-    /// 弹出保存对话窗
+    /// 弹出带关闭按钮对话窗方法
     /// </summary>
     /// <typeparam name="TComponent"></typeparam>
     /// <param name="service"></param>

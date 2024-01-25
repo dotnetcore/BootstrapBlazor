@@ -24,8 +24,6 @@
 
 ::deep .code-label {
     font-weight: bold;
-    color: var(--bs-body-color);
-    margin-bottom: 8px;
 }
 
 ::deep h4 {

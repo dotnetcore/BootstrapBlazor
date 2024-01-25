@@ -32,9 +32,7 @@ internal class CacheManager : ICacheManager
     /// </summary>
     /// <param name="provider"></param>
     /// <param name="memoryCache"></param>
-    public CacheManager(
-        IServiceProvider provider,
-        IMemoryCache memoryCache)
+    public CacheManager(IServiceProvider provider, IMemoryCache memoryCache)
     {
         // 为了避免依赖导致的报错，构造函数避免使用其他服务
         Provider = provider;
@@ -105,15 +103,23 @@ internal class CacheManager : ICacheManager
         else if (Cache is MemoryCache c)
         {
             c.Compact(100);
+
+            var dtm = GetStartTime();
+            SetStartTime(dtm);
         }
     }
 
     /// <summary>
     /// 设置 App 开始时间
     /// </summary>
-    public void SetStartTime()
+    public void SetStartTime() => SetStartTime(DateTimeOffset.Now);
+
+    /// <summary>
+    /// 设置 App 开始时间
+    /// </summary>
+    private void SetStartTime(DateTimeOffset startDateTimeOffset)
     {
-        GetOrCreate("BootstrapBlazor_StartTime", entry => DateTimeOffset.Now);
+        GetOrCreate("BootstrapBlazor_StartTime", entry => startDateTimeOffset);
     }
 
     /// <summary>
@@ -246,6 +252,20 @@ internal class CacheManager : ICacheManager
     /// <param name="includeParentCultures"></param>
     /// <returns></returns>
     public static IEnumerable<LocalizedString> GetAllStringsFromResolve(bool includeParentCultures = true) => Instance.GetOrCreate($"{nameof(GetAllStringsFromResolve)}-{CultureInfo.CurrentUICulture.Name}", entry => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures));
+
+    /// <summary>
+    /// 查询缺失本地化资源项目
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    public static bool GetMissingLocalizerByKey(string key) => Instance.TryGetValue(key, out string? _);
+
+    /// <summary>
+    /// 添加缺失本地化资源项目
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="name"></param>
+    public static void AddMissingLocalizerByKey(string key, string name) => Instance.GetOrCreate(key, entry => name);
     #endregion
 
     #region DisplayName
@@ -632,7 +652,7 @@ internal class CacheManager : ICacheManager
             else
             {
                 // 通过 ToString() 方法格式化
-                var mi = type.GetMethod("ToString", Array.Empty<Type>());
+                var mi = type.GetMethod("ToString", []);
                 if (mi != null)
                 {
                     body = Expression.Call(Expression.Convert(exp_p1, type), mi);

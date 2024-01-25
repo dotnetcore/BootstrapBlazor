@@ -19,6 +19,14 @@ public partial class TablesToolbar
     [NotNull]
     private List<Foo>? Items { get; set; }
 
+    private readonly List<SelectedItem> _cityItems =
+    [
+        new SelectedItem("Beijing", "北京"),
+        new SelectedItem("Shanghai", "上海")
+    ];
+
+    private string? _cityName;
+
     private static IEnumerable<int> PageItemsSource => new int[]
     {
         2,

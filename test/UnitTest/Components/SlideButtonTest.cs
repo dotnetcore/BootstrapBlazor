@@ -119,6 +119,12 @@ public class SlideButtonTest : BootstrapBlazorTestBase
         });
         cut.Contains("slide-header");
         cut.Contains("header-text");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.HeaderTemplate, b => b.AddContent(0, "Header-Template"));
+        });
+        cut.Contains("Header-Template");
     }
 
     [Fact]
@@ -180,6 +186,21 @@ public class SlideButtonTest : BootstrapBlazorTestBase
             pb.Add(i => i.ButtonTemplate, b => b.AddContent(10, new MarkupString("<div>ButtonTemplate-Test</div>")));
         });
         cut.Contains("<div>ButtonTemplate-Test</div>");
+    }
+
+    [Fact]
+    public void ButtonItemTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<SlideButton>(pb =>
+        {
+            pb.Add(i => i.Items, new SelectedItem[]
+            {
+                new("1", "Test 1"),
+                new("2", "Test 2")
+            });
+            pb.Add(i => i.ButtonItemTemplate, item => b => b.AddContent(10, new MarkupString($"<div>ButtonItemTemplate-Test-{item.Text}</div>")));
+        });
+        cut.Contains("<div>ButtonItemTemplate-Test-Test 1</div>");
     }
 
     [Fact]
