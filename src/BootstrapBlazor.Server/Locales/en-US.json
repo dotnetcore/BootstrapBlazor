@@ -6181,6 +6181,8 @@
     "MinWidthTitle": "Min-Width",
     "MinWidthIntro": "Change the minimum width of the dropdown box by setting the <code>DropdownMinWidth</code> value",
     "HeightTitle": "Height",
-    "HeightIntro": "Change the height of the dropdown box by setting the <code>Height</code> value"
+    "HeightIntro": "Change the height of the dropdown box by setting the <code>Height</code> value",
+    "CustomComponentTitle": "Custom Components",
+    "CustomComponentIntro": "Any component can be placed in a dropdown box, and a callback is required for assignment or window closure"
   }
 }

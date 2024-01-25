@@ -18,6 +18,8 @@ public partial class SelectObjects
 
     private ListViews.Product? _heightValue;
 
+    private int _counter;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -43,4 +45,14 @@ public partial class SelectObjects
     }
 
     private static string? GetTextCallback(ListViews.Product? product) => product?.ImageUrl;
+
+    private static string? GetCounterTextCallback(int v) => v.ToString();
+
+    private static async Task OnSubmit(int v, ISelectObjectContext<int> context)
+    {
+        context.SetValue(v);
+
+        // 当前模式为单选，主动关闭弹窗
+        await context.CloseAsync();
+    }
 }

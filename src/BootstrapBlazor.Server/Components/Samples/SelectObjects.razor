@@ -58,3 +58,13 @@
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["CustomComponentTitle"]" Introduction="@Localizer["CustomComponentIntro"]" Name="CustomComponent">
+    <div class="row">
+        <div class="col-4">
+            <SelectObject @bind-Value="_counter" GetTextCallback="GetCounterTextCallback">
+                <ValueCounter OnSubmitAsync="v => OnSubmit(v, context)"></ValueCounter>
+            </SelectObject>
+        </div>
+    </div>
+</DemoBlock>
+

@@ -1,0 +1,28 @@
+﻿<div class="p-3 border border-secondary">
+    <h1>ValueCounter</h1>
+
+    <p>Current count: @currentCount</p>
+
+    <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+    <button class="btn btn-secondary" @onclick="OnClick">Submit</button>
+</div>
+
+@code {
+    [Parameter]
+    public Func<int, Task>? OnSubmitAsync { get; set; }
+
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+
+    private async Task OnClick()
+    {
+        if (OnSubmitAsync != null)
+        {
+            await OnSubmitAsync(currentCount);
+        }
+    }
+}

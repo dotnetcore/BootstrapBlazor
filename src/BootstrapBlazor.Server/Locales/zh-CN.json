@@ -6181,6 +6181,8 @@
     "MinWidthTitle": "设置最小宽度",
     "MinWidthIntro": "通过设置 <code>DropdownMinWidth</code> 值，来改变下拉框最小宽度",
     "HeightTitle": "设置高度",
-    "HeightIntro": "通过设置 <code>Height</code> 值，来改变下拉框高度"
+    "HeightIntro": "通过设置 <code>Height</code> 值，来改变下拉框高度",
+    "CustomComponentTitle": "自定义组件",
+    "CustomComponentIntro": "任意组件均可放入下拉框内，需要有一个回调进行赋值或者关窗即可"
   }
 }
