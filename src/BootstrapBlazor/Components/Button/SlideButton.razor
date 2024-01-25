@@ -45,9 +45,16 @@
                 {
                     foreach (var item in Items)
                     {
-                        <div @key="@item" class="@GetItemClass(item)" @onclick="@(e => OnClickItem(item))">
-                            @item.Text
-                        </div>
+                        @if (ButtonItemTemplate != null)
+                        {
+                            @ButtonItemTemplate(item)
+                        }
+                        else
+                        {
+                            <div @key="@item" class="@GetItemClass(item)" @onclick="@(e => OnClickItem(item))">
+                                @item.Text
+                            </div>
+                        }
                     }
                 }
                 else
