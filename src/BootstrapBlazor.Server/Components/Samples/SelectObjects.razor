@@ -23,7 +23,7 @@
 <DemoBlock Title="@Localizer["MinWidthTitle"]" Introduction="@Localizer["MinWidthIntro"]" Name="MinWidth">
     <div class="row">
         <div class="col-4">
-            <SelectObject @bind-Value="_value" GetTextCallback="GetTextCallback" DropdownMinWidth="704">
+            <SelectObject @bind-Value="_widthValue" GetTextCallback="GetTextCallback" DropdownMinWidth="704">
                 <ListView TItem="ListViews.Product" Items="@Products" OnListViewItemClick="item => OnListViewItemClick(item, context)">
                     <BodyTemplate Context="value">
                         <Card>
@@ -42,7 +42,7 @@
 <DemoBlock Title="@Localizer["HeightTitle"]" Introduction="@Localizer["HeightIntro"]" Name="Height">
     <div class="row">
         <div class="col-4">
-            <SelectObject @bind-Value="_value" GetTextCallback="GetTextCallback" DropdownMinWidth="704" Height="600">
+            <SelectObject @bind-Value="_heightValue" GetTextCallback="GetTextCallback" DropdownMinWidth="704" Height="600">
                 <ListView TItem="ListViews.Product" Items="@Products" OnListViewItemClick="item => OnListViewItemClick(item, context)">
                     <BodyTemplate Context="value">
                         <Card>

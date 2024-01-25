@@ -14,6 +14,10 @@ public partial class SelectObjects
 
     private ListViews.Product? _value;
 
+    private ListViews.Product? _widthValue;
+
+    private ListViews.Product? _heightValue;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
