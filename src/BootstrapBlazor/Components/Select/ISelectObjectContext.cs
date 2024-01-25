@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using System.Data;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -16,4 +14,16 @@ public interface ISelectObjectContext<TItem>
     /// </summary>
     [NotNull]
     SelectObject<TItem>? Component { get; set; }
+
+    /// <summary>
+    /// 设置组件当前值方法
+    /// </summary>
+    /// <param name="value"></param>
+    void SetValue(TItem value);
+
+    /// <summary>
+    /// 关闭当前弹窗方法
+    /// </summary>
+    /// <returns></returns>
+    Task CloseAsync();
 }

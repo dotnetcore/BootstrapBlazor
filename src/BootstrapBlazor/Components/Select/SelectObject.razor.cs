@@ -174,8 +174,9 @@ public partial class SelectObject<TItem>
     /// <returns></returns>
     private string? GetText() => GetTextCallback(Value);
 
-    private async Task CloseAsync()
-    {
-        await InvokeVoidAsync("close", Id);
-    }
+    /// <summary>
+    /// 关闭当前弹窗方法
+    /// </summary>
+    /// <returns></returns>
+    public Task CloseAsync() => InvokeVoidAsync("close", Id);
 }

@@ -11,4 +11,17 @@ internal class InternalSelectObjectContext<TItem> : ISelectObjectContext<TItem>
     /// </summary>
     [NotNull]
     public SelectObject<TItem>? Component { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public Task CloseAsync() => Component.CloseAsync();
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="value"></param>
+    public void SetValue(TItem value) => Component.SetValue(value);
 }
