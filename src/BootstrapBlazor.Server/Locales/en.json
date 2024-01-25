@@ -4542,7 +4542,8 @@
     "Services": "Services",
     "AzureTranslator": "AzureTranslator",
     "BarcodeGenerator": "BarcodeGenerator",
-    "ZipArchive": "IZipArchiveService"
+    "ZipArchive": "IZipArchiveService",
+    "SvgEditor": "SvgEditor"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -6110,5 +6111,10 @@
     "ZipArchiveFileText": "Archive file",
     "ZipArchiveDirectoryText": "Archive directory",
     "ZipArchiveExtractText": "Extract"
+  },
+  "BootstrapBlazor.Server.Components.Samples.SvgEditors": {
+    "SvgEditorTitle": "SvgEditor",
+    "BasicTitle": "Svg Editor",
+    "BasicIntro": "Use svg editor"
   }
 }

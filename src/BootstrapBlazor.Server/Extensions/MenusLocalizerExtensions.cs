@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.AspNetCore.Components.Routing;
+using System.Security.Policy;
 
 namespace BootstrapBlazor.Server.Extensions;
 
@@ -54,7 +55,7 @@ internal static class MenusLocalizerExtensions
             Icon = "fa-fw fa-solid fa-table"
         };
         AddTable(item);
-
+        
         item = new DemoMenuItem()
         {
             Text = Localizer["DataComponents"],
@@ -665,6 +666,12 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["SwitchButton"],
                     Url = "switch-button"
+                },
+                new()
+                {
+                    Text = Localizer["SvgEditor"],
+                    Url = "svg-editors",
+                    IsNew = true,
                 },
                 new()
                 {

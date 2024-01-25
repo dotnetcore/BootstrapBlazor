@@ -4542,7 +4542,8 @@
     "Services": "内置服务",
     "AzureTranslator": "翻译服务 AzureTranslator",
     "BarcodeGenerator": "条码生成器 BarcodeGenerator",
-    "ZipArchive": "压缩归档服务 IZipArchiveService"
+    "ZipArchive": "压缩归档服务 IZipArchiveService",
+    "SvgEditor": "Svg编辑器 SvgEditor"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6110,5 +6111,10 @@
     "ZipArchiveFileText": "归档文件",
     "ZipArchiveDirectoryText": "归档文件夹",
     "ZipArchiveExtractText": "解压缩到指定文件夹"
+  },
+  "BootstrapBlazor.Server.Components.Samples.SvgEditors": {
+    "SvgEditorTitle": "Svg 编辑器",
+    "BasicTitle": "Svg 编辑器",
+    "BasicIntro": "用于 Svg 编辑"
   }
 }
