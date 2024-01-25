@@ -6170,6 +6170,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.SelectTables+SelectTableMode": {
     "Foo.Required": "{0} 是必填项"
+  },
   "BootstrapBlazor.Server.Components.Samples.SvgEditors": {
     "SvgEditorTitle": "Svg 编辑器",
     "BasicTitle": "Svg 编辑器",

@@ -6170,6 +6170,7 @@
   },
   "BootstrapBlazor.Server.Components.Samples.SelectTables+SelectTableMode": {
     "Foo.Required": "{0} is required."
+  },
   "BootstrapBlazor.Server.Components.Samples.SvgEditors": {
     "SvgEditorTitle": "SvgEditor",
     "BasicTitle": "Svg Editor",
