@@ -121,6 +121,44 @@ public class SelectObjectTest : BootstrapBlazorTestBase
         });
         Assert.Contains($"height: 500px;", cut.Markup);
     }
+
+    [Fact]
+    public void Template_Ok()
+    {
+        var items = Enumerable.Range(1, 8).Select(i => new Product()
+        {
+            ImageUrl = $"./images/Pic{i}.jpg",
+            Description = $"Pic{i}.jpg"
+        }).ToList();
+        var v = items[0];
+        var cut = Context.RenderComponent<SelectObject<Product>>(pb =>
+        {
+            pb.Add(a => a.Value, v);
+            pb.Add(a => a.GetTextCallback, p => p?.ImageUrl);
+            pb.Add(a => a.Template, p => builder =>
+            {
+                builder.AddContent(0, $"Template-{p.ImageUrl}");
+            });
+            pb.Add(a => a.ChildContent, context => pb =>
+            {
+                pb.OpenComponent<ListView<Product>>(0);
+                pb.AddAttribute(1, "Items", items);
+                pb.AddAttribute(2, "BodyTemplate", new RenderFragment<Product>(p => b => b.AddContent(0, p.ImageUrl)));
+                pb.CloseComponent();
+            });
+        });
+
+        Assert.Contains($"Template-{v.ImageUrl}", cut.Markup);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, null);
+            pb.Add(a => a.PlaceHolder, "Template-PlaceHolder");
+        });
+
+        Assert.DoesNotContain($"Template-{items[0].ImageUrl}", cut.Markup);
+        cut.Contains("Template-PlaceHolder");
+    }
     class Product
     {
         public string ImageUrl { get; set; } = "";
