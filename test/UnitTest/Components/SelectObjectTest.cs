@@ -159,6 +159,63 @@ public class SelectObjectTest : BootstrapBlazorTestBase
         Assert.DoesNotContain($"Template-{items[0].ImageUrl}", cut.Markup);
         cut.Contains("Template-PlaceHolder");
     }
+
+    [Fact]
+    public async Task Validate_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var valid = false;
+        var invalid = false;
+        var model = Foo.Generate(localizer);
+        var cut = Context.RenderComponent<ValidateForm>(builder =>
+        {
+            builder.Add(a => a.OnValidSubmit, context =>
+            {
+                valid = true;
+                return Task.CompletedTask;
+            });
+            builder.Add(a => a.OnInvalidSubmit, context =>
+            {
+                invalid = true;
+                return Task.CompletedTask;
+            });
+            builder.Add(a => a.Model, model);
+            builder.AddChildContent<SelectObject<string>>(pb =>
+            {
+                pb.Add(a => a.Value, model.Name);
+                pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(model, "Name", typeof(string)));
+                pb.Add(a => a.OnValueChanged, v =>
+                {
+                    model.Name = v;
+                    return Task.CompletedTask;
+                });
+                pb.Add(a => a.GetTextCallback, item => item);
+                pb.Add(a => a.ChildContent, context => pb =>
+                {
+                    pb.OpenComponent<BootstrapInput<string>>(0);
+                    pb.CloseComponent();
+                });
+            });
+        });
+
+        await cut.InvokeAsync(() =>
+        {
+            var form = cut.Find("form");
+            form.Submit();
+        });
+        Assert.True(valid);
+
+        model.Name = null;
+        var table = cut.FindComponent<SelectObject<string>>();
+        table.SetParametersAndRender();
+        await cut.InvokeAsync(() =>
+        {
+            var form = cut.Find("form");
+            form.Submit();
+        });
+        Assert.True(invalid);
+    }
+
     class Product
     {
         public string ImageUrl { get; set; } = "";
