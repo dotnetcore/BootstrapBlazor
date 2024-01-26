@@ -4,7 +4,6 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
-using System.Runtime.CompilerServices;
 
 namespace UnitTest.Components;
 
@@ -51,6 +50,20 @@ public class SelectObjectTest : BootstrapBlazorTestBase
         Assert.Equal(url, v.ImageUrl);
     }
 
+    [Fact]
+    public void Color_Ok()
+    {
+        var cut = Context.RenderComponent<SelectObject<string>>(pb =>
+        {
+            pb.Add(a => a.Color, Color.Danger);
+            pb.Add(a => a.GetTextCallback, p => p);
+            pb.Add(a => a.ChildContent, context => pb =>
+            {
+                pb.AddContent(0, "test");
+            });
+        });
+        cut.Contains("border-danger");
+    }
     class Product
     {
         public string ImageUrl { get; set; } = "";
