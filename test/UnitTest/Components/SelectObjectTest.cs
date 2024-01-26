@@ -107,6 +107,20 @@ public class SelectObjectTest : BootstrapBlazorTestBase
         }));
     }
 
+    [Fact]
+    public void Height_Ok()
+    {
+        var cut = Context.RenderComponent<SelectObject<string>>(pb =>
+        {
+            pb.Add(a => a.Height, 500);
+            pb.Add(a => a.GetTextCallback, p => p);
+            pb.Add(a => a.ChildContent, context => pb =>
+            {
+                pb.AddContent(0, "test");
+            });
+        });
+        Assert.Contains($"height: 500px;", cut.Markup);
+    }
     class Product
     {
         public string ImageUrl { get; set; } = "";
