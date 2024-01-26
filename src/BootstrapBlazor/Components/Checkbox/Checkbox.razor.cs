@@ -118,7 +118,6 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
         if (IsBoolean && Value != null && State != CheckboxState.Indeterminate && BindConverter.TryConvertToBool(Value, CultureInfo.InvariantCulture, out var v))
         {
             State = v ? CheckboxState.Checked : CheckboxState.UnChecked;
-            CurrentValue = (TValue)(object)(State == CheckboxState.Checked);
         }
     }
 
@@ -134,7 +133,7 @@ public partial class Checkbox<TValue> : ValidateBase<TValue>
     }
 
     /// <summary>
-    ///
+    /// 
     /// </summary>
     /// <returns></returns>
     protected override async Task OnAfterRenderAsync(bool firstRender)
