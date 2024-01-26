@@ -94,6 +94,19 @@ public class SelectObjectTest : BootstrapBlazorTestBase
         });
         Assert.Contains("data-bb-min-width=\"500\"", cut.Markup);
     }
+
+    [Fact]
+    public void GetTextCallback_Ok()
+    {
+        Assert.Throws<InvalidOperationException>(() => Context.RenderComponent<SelectObject<string>>(pb =>
+        {
+            pb.Add(a => a.ChildContent, context => pb =>
+            {
+                pb.AddContent(0, "test");
+            });
+        }));
+    }
+
     class Product
     {
         public string ImageUrl { get; set; } = "";
