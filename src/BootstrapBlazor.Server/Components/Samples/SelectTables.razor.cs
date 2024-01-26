@@ -17,15 +17,7 @@ public partial class SelectTables
     [NotNull]
     private IStringLocalizer<SelectTables>? Localizer { get; set; }
 
-    private List<Foo> _items = default!;
-
-    private List<Foo> _colorItems = default!;
-
-    private List<Foo> _templateItems = default!;
-
-    private List<Foo> _disabledItems = default!;
-
-    private List<Foo> _validateFormItems = default!;
+    private readonly int[] PageItemsSource = [10, 20, 40];
 
     private Foo? _foo;
 
@@ -35,21 +27,64 @@ public partial class SelectTables
 
     private Foo? _disabledFoo;
 
-    private SelectTableMode Model = new();
+    private Foo? _sortableFoo;
+
+    private Foo? _searchFoo;
+
+    private readonly SelectTableMode Model = new();
+
+    private static string? GetTextCallback(Foo foo) => foo.Name;
+
+    private List<Foo> _items = default!;
+
+    private IEnumerable<Foo> _filterItems = default!;
 
     /// <summary>
-    ///
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
+        base.OnInitialized();
+
         _items = Foo.GenerateFoo(LocalizerFoo);
-        _colorItems = Foo.GenerateFoo(LocalizerFoo);
-        _templateItems = Foo.GenerateFoo(LocalizerFoo);
-        _disabledItems = Foo.GenerateFoo(LocalizerFoo);
-        _validateFormItems = Foo.GenerateFoo(LocalizerFoo);
+        _filterItems = Foo.GenerateFoo(LocalizerFoo);
     }
 
-    private static string? GetTextCallback(Foo? foo) => foo?.Name;
+    private Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)
+    {
+        // 此处代码拷贝后需要自行更改根据 options 中的条件从数据库中获取数据集合
+        return Task.FromResult(new QueryData<Foo>()
+        {
+            Items = _items
+        });
+    }
+
+    private Task<QueryData<Foo>> OnFilterQueryAsync(QueryPageOptions options)
+    {
+        // 此处代码拷贝后需要自行更改根据 options 中的条件从数据库中获取数据集合
+        var items = _filterItems.Where(options.ToFilter().GetFilterFunc<Foo>());
+
+        if (!string.IsNullOrEmpty(options.SortName))
+        {
+            items = items.Sort(options.SortName, options.SortOrder);
+        }
+
+        var count = items.Count();
+        if(options.IsPage)
+        {
+            items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems);
+        }
+
+        return Task.FromResult(new QueryData<Foo>()
+        {
+            Items = items.ToList(),
+            TotalCount = count,
+            IsAdvanceSearch = true,
+            IsFiltered = true,
+            IsSearch = true,
+            IsSorted = true
+        });
+    }
 
     class SelectTableMode
     {

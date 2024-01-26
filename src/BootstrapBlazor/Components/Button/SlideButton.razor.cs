@@ -12,32 +12,38 @@ namespace BootstrapBlazor.Components;
 public partial class SlideButton
 {
     /// <summary>
-    /// 数据项模板
+    /// 获得/设置 数据项模板
     /// </summary>
     [Parameter]
     public RenderFragment? SlideButtonItems { get; set; }
 
     /// <summary>
-    /// 按钮模板
+    /// 获得/设置 按钮模板
     /// </summary>
     [Parameter]
     public RenderFragment? ButtonTemplate { get; set; }
 
     /// <summary>
-    /// 展开部分模板
+    /// 获得/设置 展开按钮项模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment<SelectedItem>? ButtonItemTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 展开部分模板
     /// </summary>
     [Parameter]
     public RenderFragment? BodyTemplate { get; set; }
 
     /// <summary>
-    /// 展开项集合
+    /// 获得/设置 展开项集合
     /// </summary>
     [Parameter]
     [NotNull]
     public IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
-    /// 展开项 Header 文本
+    /// 获得/设置 展开项 Header 文本
     /// </summary>
     [Parameter]
     [NotNull]
@@ -104,6 +110,12 @@ public partial class SlideButton
     public bool ShowHeader { get; set; }
 
     /// <summary>
+    /// 获得/设置 Header 部分模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? HeaderTemplate { get; set; }
+
+    /// <summary>
     /// 获得 按钮样式集合
     /// </summary>
     /// <returns></returns>
@@ -133,7 +145,7 @@ public partial class SlideButton
 
     private SelectedItem? _selectedItem;
 
-    private List<SlideButtonItem> _buttonItems = [];
+    private readonly List<SlideButtonItem> _buttonItems = [];
 
     private Placement _lastPlacement;
 
@@ -144,7 +156,7 @@ public partial class SlideButton
     {
         base.OnParametersSet();
 
-        Items ??= Enumerable.Empty<SelectedItem>();
+        Items ??= [];
     }
 
     private string? GetItemClass(SelectedItem item) => CssBuilder.Default("slide-item")

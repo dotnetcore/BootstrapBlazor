@@ -5,22 +5,25 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// ITable 接口
+/// SelectObject 上下文
 /// </summary>
-public interface ITable : IColumnCollection
+public interface ISelectObjectContext<TItem>
 {
     /// <summary>
-    /// 获得 ITable 实例配置的可见列集合
+    /// 获得/设置 SelectObject 组件实例对象引用
     /// </summary>
-    IEnumerable<ITableColumn> GetVisibleColumns();
+    [NotNull]
+    SelectObject<TItem>? Component { get; set; }
 
     /// <summary>
-    /// 获得 过滤条件集合
+    /// 设置组件当前值方法
     /// </summary>
-    Dictionary<string, IFilterAction> Filters { get; }
+    /// <param name="value"></param>
+    void SetValue(TItem value);
 
     /// <summary>
-    /// 获得 过滤异步回调方法
+    /// 关闭当前弹窗方法
     /// </summary>
-    Func<Task>? OnFilterAsync { get; }
+    /// <returns></returns>
+    Task CloseAsync();
 }

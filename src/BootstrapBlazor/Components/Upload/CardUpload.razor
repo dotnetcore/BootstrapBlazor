@@ -1,4 +1,4 @@
-@namespace BootstrapBlazor.Components
+﻿@namespace BootstrapBlazor.Components
 @typeparam TValue
 @inherits ButtonUploadBase<TValue>
 
@@ -66,7 +66,7 @@
                 </span>
             </div>
         }
-        @if (CanUpload && (MaxUploads > GetUploadFiles().Count))
+        @if (CheckCanUpload())
         {
             <div class="@CardItemClass">
                 <div class="upload-item-actions btn-browser">

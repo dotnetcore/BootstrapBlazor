@@ -24,8 +24,6 @@ public partial class PopConfirmButton
 
     private string TagName => IsLink ? "a" : "div";
 
-    private string? ElementType => IsLink ? null : "div";
-
     private string? CustomClassString => CssBuilder.Default(CustomClass)
         .AddClass("shadow", ShowShadow)
         .Build();
