@@ -79,6 +79,21 @@ public class SelectObjectTest : BootstrapBlazorTestBase
         });
         cut.DoesNotContain("form-select-append");
     }
+
+    [Fact]
+    public void DropdownMinWidth_Ok()
+    {
+        var cut = Context.RenderComponent<SelectObject<string>>(pb =>
+        {
+            pb.Add(a => a.DropdownMinWidth, 500);
+            pb.Add(a => a.GetTextCallback, p => p);
+            pb.Add(a => a.ChildContent, context => pb =>
+            {
+                pb.AddContent(0, "test");
+            });
+        });
+        Assert.Contains("data-bb-min-width=\"500\"", cut.Markup);
+    }
     class Product
     {
         public string ImageUrl { get; set; } = "";
