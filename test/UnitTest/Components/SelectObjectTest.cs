@@ -64,6 +64,21 @@ public class SelectObjectTest : BootstrapBlazorTestBase
         });
         cut.Contains("border-danger");
     }
+
+    [Fact]
+    public void ShowAppendArrow_Ok()
+    {
+        var cut = Context.RenderComponent<SelectObject<string>>(pb =>
+        {
+            pb.Add(a => a.ShowAppendArrow, false);
+            pb.Add(a => a.GetTextCallback, p => p);
+            pb.Add(a => a.ChildContent, context => pb =>
+            {
+                pb.AddContent(0, "test");
+            });
+        });
+        cut.DoesNotContain("form-select-append");
+    }
     class Product
     {
         public string ImageUrl { get; set; } = "";
