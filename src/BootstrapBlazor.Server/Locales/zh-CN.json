@@ -663,7 +663,9 @@
     "TreeViewSetActiveTitle": "设置激活节点",
     "TreeViewSetActiveIntro": "通过调用 <code>SetActiveItem</code> 方法设置当前激活节点",
     "TreeViewSetActiveDisplayText": "当前激活节点",
-    "TreeViewsAttribute": "TreeItem 属性"
+    "TreeViewsAttribute": "TreeItem 属性",
+    "TreeViewsDisableWholeTreeView": "是否禁用整个TreeView",
+    "TreeViewsWhetherToExpandWhenDisable": "禁用时候是否可以展开或折叠子节点"
   },
   "BootstrapBlazor.Server.Components.Samples.Trees": {
     "TreeIntro": "<p>本组件已弃用，请使用新组件 <a href=\"treeviews\" alt=\"treeview\">TreeView</a> 提供更多功能",

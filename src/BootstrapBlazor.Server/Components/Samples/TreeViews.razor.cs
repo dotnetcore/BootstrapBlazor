@@ -20,6 +20,8 @@ public sealed partial class TreeViews
 
     [NotNull]
     private ConsoleLogger? Logger3 { get; set; }
+    private bool DisableCanExpand { get; set; }
+    private bool IsDisabled { get; set; }
 
     private List<TreeViewItem<TreeFoo>> Items { get; set; } = TreeFoo.GetTreeItems();
 
@@ -295,6 +297,22 @@ public sealed partial class TreeViews
             Type = "Func<TreeItem, Task>",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(TreeView<string>.IsDisabled),
+            Description = "Disable tree view",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(TreeView<string>.DisableCanExpand),
+            Description = "Whether to expand when the control node is disabled",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
         }
     ];
 

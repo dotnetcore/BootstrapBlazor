@@ -34,7 +34,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    private static string? GetIconClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-icon")
+    private string? GetIconClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-icon")
         .AddClass(item.Icon)
         .AddClass(item.ExpandIcon, item.IsExpand && !string.IsNullOrEmpty(item.ExpandIcon))
         .Build();
@@ -57,7 +57,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <returns></returns>
     private string? GetItemClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-item")
         .AddClass("active", ActiveItem == item)
-        .AddClass("disabled", item.IsDisabled)
+        .AddClass("disabled", !DisableCanExpand && (IsDisabled || item.IsDisabled))
         .Build();
 
     /// <summary>
@@ -65,22 +65,34 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    private static string? GetTreeClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-ul")
+    private string? GetTreeClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-ul")
         .AddClass("show", item.IsExpand)
         .Build();
 
-    private static string? GetNodeClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-node")
-        .AddClass("disabled", item.IsDisabled)
+    private string? GetNodeClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-node")
+        .AddClass("disabled", !DisableCanExpand && (IsDisabled || item.IsDisabled))
         .Build();
 
-    private static bool TriggerNodeArrow(TreeViewItem<TItem> item) => !item.IsDisabled && (item.HasChildren || item.Items.Any());
+    private bool TriggerNodeArrow(TreeViewItem<TItem> item) => (DisableCanExpand || !(IsDisabled || item.IsDisabled)) && (item.HasChildren || item.Items.Any());
 
-    private static bool TriggerNodeLabel(TreeViewItem<TItem> item) => !item.IsDisabled;
+    private bool TriggerNodeLabel(TreeViewItem<TItem> item) => !(IsDisabled || item.IsDisabled);
 
     /// <summary>
     /// 获得/设置 选中节点 默认 null
     /// </summary>
     private TreeViewItem<TItem>? ActiveItem { get; set; }
+
+    /// <summary>
+    /// 是否整个TreeView禁用 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsDisabled { get; set; } = false;
+
+    /// <summary>
+    /// 当Disable时候是否允许展开折叠节点 默认 false
+    /// </summary>
+    [Parameter]
+    public bool DisableCanExpand { get; set; } = false;
 
     /// <summary>
     /// 获得/设置 是否为手风琴效果 默认为 false
