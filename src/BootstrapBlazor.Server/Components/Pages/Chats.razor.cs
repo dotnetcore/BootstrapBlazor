@@ -20,6 +20,10 @@ public partial class Chats
     [NotNull]
     private IStringLocalizer<Chats>? Localizer { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IBrowserFingerService? BrowserFingerService { get; set; }
+
     private string? Context { get; set; }
 
     private List<AzureOpenAIChatMessage> Messages { get; } = [];
@@ -32,9 +36,16 @@ public partial class Chats
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
+
         if (!firstRender)
         {
             await InvokeVoidAsync("scroll", Id);
+        }
+
+        if (firstRender)
+        {
+            var code = await BrowserFingerService.GetFingerCodeAsync();
+            System.Console.WriteLine($"Browser finger code: {code}");
         }
     }
 
