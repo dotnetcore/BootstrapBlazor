@@ -4557,7 +4557,8 @@
     "Services": "Services",
     "AzureTranslator": "AzureTranslator",
     "BarcodeGenerator": "BarcodeGenerator",
-    "ZipArchive": "IZipArchiveService"
+    "ZipArchive": "IZipArchiveService",
+    "BrowserFinger": "BrowserFingerService"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",

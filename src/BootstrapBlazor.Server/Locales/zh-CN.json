@@ -4557,7 +4557,8 @@
     "Services": "内置服务",
     "AzureTranslator": "翻译服务 AzureTranslator",
     "BarcodeGenerator": "条码生成器 BarcodeGenerator",
-    "ZipArchive": "压缩归档服务 IZipArchiveService"
+    "ZipArchive": "压缩归档服务 IZipArchiveService",
+    "BrowserFinger": "浏览器指纹 BrowserFingerService"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
