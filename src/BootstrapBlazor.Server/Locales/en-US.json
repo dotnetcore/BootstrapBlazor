@@ -6184,5 +6184,10 @@
     "HeightIntro": "Change the height of the dropdown box by setting the <code>Height</code> value",
     "CustomComponentTitle": "Custom Components",
     "CustomComponentIntro": "Any component can be placed in a dropdown box, and a callback is required for assignment or window closure"
+  },
+  "BootstrapBlazor.Server.Components.Samples.BrowserFingers": {
+    "BrowserFingerTitle": "Browser fingerprint",
+    "BrowserFingerIntro": "Obtain the client browser fingerprint by calling the <code>IBrowserFingerService</code> service instance method <code>GetFingerCodeAsync</code>. The fingerprint is consistent in privacy mode",
+    "GetFingerCodeAsync": "Method for obtaining fingerprints"
   }
 }
