@@ -7547,7 +7547,7 @@ public class TableTest : TableTestBase
             col.Text = localizer[nameof(Foo.Name)];
         })
         {
-            OnFilterCallback = items => items
+            OnFilterCallback = (option, items) => items
         };
     }
 

@@ -21,7 +21,7 @@ public static class QueryPageOptionsExtensions
         var filter = new FilterKeyValueAction() { Filters = [] };
 
         // 处理模糊搜索
-        if (option.Searches.Any())
+        if (option.Searches.Count != 0)
         {
             filter.Filters.Add(new FilterKeyValueAction()
             {
@@ -31,19 +31,19 @@ public static class QueryPageOptionsExtensions
         }
 
         // 处理自定义搜索
-        if (option.CustomerSearches.Any())
+        if (option.CustomerSearches.Count != 0)
         {
             filter.Filters.AddRange(option.CustomerSearches.Select(i => i.GetFilterConditions()));
         }
 
         // 处理高级搜索
-        if (option.AdvanceSearches.Any())
+        if (option.AdvanceSearches.Count != 0)
         {
             filter.Filters.AddRange(option.AdvanceSearches.Select(i => i.GetFilterConditions()));
         }
 
         // 处理表格过滤条件
-        if (option.Filters.Any())
+        if (option.Filters.Count != 0)
         {
             filter.Filters.AddRange(option.Filters.Select(i => i.GetFilterConditions()));
         }
@@ -70,5 +70,5 @@ public static class QueryPageOptionsExtensions
     /// </summary>
     /// <param name="filterKeyValueAction"></param>
     /// <returns></returns>
-    public static bool HasFilters(this FilterKeyValueAction filterKeyValueAction) => filterKeyValueAction.Filters != null && filterKeyValueAction.Filters.Any();
+    public static bool HasFilters(this FilterKeyValueAction filterKeyValueAction) => filterKeyValueAction.Filters != null && filterKeyValueAction.Filters.Count != 0;
 }
