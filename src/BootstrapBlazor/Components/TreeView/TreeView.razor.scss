@@ -10,6 +10,7 @@
     --bb-tree-item-active-bg: #{$bb-tree-item-active-bg};
     --bb-tree-item-hover-bg: #{$bb-tree-item-hover-bg};
     --bb-tree-icon-margin-right: #{$bb-tree-icon-margin-right};
+    --bb-tree-disabled-opacity: .5;
     position: relative;
 }
 
@@ -47,6 +48,10 @@
                 align-items: center;
                 justify-content: center;
                 visibility: hidden;
+
+                &.disabled {
+                    opacity: var(--bb-tree-disabled-opacity);
+                }
             }
 
             .tree-view .tree-item .tree-content .show .node-icon {
@@ -59,6 +64,10 @@
         padding: var(--bb-tree-node-padding);
         border-radius: var(--bs-border-radius);
         flex: 1;
+
+        &.disabled {
+            opacity: var(--bb-tree-disabled-opacity);
+        }
     }
 
         .tree-view .tree-node:hover {
