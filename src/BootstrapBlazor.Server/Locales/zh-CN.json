@@ -4557,7 +4557,8 @@
     "Services": "内置服务",
     "AzureTranslator": "翻译服务 AzureTranslator",
     "BarcodeGenerator": "条码生成器 BarcodeGenerator",
-    "ZipArchive": "压缩归档服务 IZipArchiveService"
+    "ZipArchive": "压缩归档服务 IZipArchiveService",
+    "BrowserFinger": "浏览器指纹 BrowserFingerService"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6183,5 +6184,10 @@
     "HeightIntro": "通过设置 <code>Height</code> 值，来改变下拉框高度",
     "CustomComponentTitle": "自定义组件",
     "CustomComponentIntro": "任意组件均可放入下拉框内，需要有一个回调进行赋值或者关窗即可"
+  },
+  "BootstrapBlazor.Server.Components.Samples.BrowserFingers": {
+    "BrowserFingerTitle": "浏览器指纹",
+    "BrowserFingerIntro": "通过调用 <code>IBrowserFingerService</code> 服务实例方法 <code>GetFingerCodeAsync</code> 获得客户端浏览器指纹，隐私模式下指纹是一致的",
+    "GetFingerCodeAsync": "获得指纹方法"
   }
 }

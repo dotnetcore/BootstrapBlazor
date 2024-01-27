@@ -14,6 +14,8 @@ public partial class BrowserFinger : IDisposable
     [NotNull]
     private IBrowserFingerService? BrowserFingerService { get; set; }
 
+    private string? _fingerCode;
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -24,7 +26,33 @@ public partial class BrowserFinger : IDisposable
         BrowserFingerService.Subscribe(this, Callback);
     }
 
-    private async Task<string?> Callback() => await InvokeAsync<string?>("getFingerCode");
+    private readonly TaskCompletionSource _tcs = new();
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            _fingerCode = await InvokeAsync<string?>("getFingerCode");
+            _tcs.TrySetResult();
+        }
+    }
+
+    private async Task<string?> Callback()
+    {
+        if (string.IsNullOrEmpty(_fingerCode))
+        {
+            await _tcs.Task;
+            _fingerCode = await InvokeAsync<string?>("getFingerCode");
+        }
+        return _fingerCode;
+    }
 
     /// <summary>
     /// Dispose 方法

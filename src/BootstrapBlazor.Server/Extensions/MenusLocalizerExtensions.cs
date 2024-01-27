@@ -1279,6 +1279,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["BrowserFinger"],
+                    Url = "browser-finger"
+                },
+                new()
+                {
                     Text = Localizer["Clipboard"],
                     Url = "clipboard-service"
                 },
