@@ -663,7 +663,9 @@
     "TreeViewSetActiveTitle": "Set Active Node",
     "TreeViewSetActiveIntro": "Set the currently active node by calling the <code>SetActiveItem</code> method",
     "TreeViewSetActiveDisplayText": "Current Active Node",
-    "TreeViewsAttribute": "TreeItem property"
+    "TreeViewsAttribute": "TreeItem property",
+    "TreeViewsDisableWholeTreeView": "Whole TreeView disable",
+    "TreeViewsWhetherToExpandWhenDisable": "Whether to expand when the control node is disabled"
   },
   "BootstrapBlazor.Server.Components.Samples.Trees": {
     "TreeIntro": "<p>Obsolete，The <a href=\"treeviews\" alt=\"treeview\">TreeView</a> provides more functions",

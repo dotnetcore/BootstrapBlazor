@@ -43,7 +43,7 @@ else
             <DynamicElement TagName="i" class="@GetCaretClassString(item)" TriggerClick="TriggerNodeArrow(item)"  OnClick="() => OnToggleNodeAsync(item, true)"></DynamicElement>
             @if (ShowCheckbox)
             {
-                <Checkbox Value="@item.CheckedState" IsDisabled="@item.IsDisabled" SkipValidate="true"
+                <Checkbox Value="@item.CheckedState" IsDisabled="@(item.IsDisabled || IsDisabled)" SkipValidate="true"
                           ShowLabel="false" ShowAfterLabel="false" State="@item.CheckedState"
                           OnStateChanged="(state, v) => OnCheckStateChanged(item, true)" StopPropagation="true" />
             }
