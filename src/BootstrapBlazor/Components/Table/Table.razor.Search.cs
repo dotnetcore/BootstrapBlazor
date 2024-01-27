@@ -263,7 +263,7 @@ public partial class Table<TItem>
             foreach (var property in SearchModel.GetType().GetProperties().Where(i => searchColumns.Any(col => col.GetFieldName() == i.Name)))
             {
                 var filters = callback(property, SearchModel);
-                if (filters != null && filters.Any())
+                if (filters != null && filters.Count != 0)
                 {
                     searches.AddRange(filters);
                 }
