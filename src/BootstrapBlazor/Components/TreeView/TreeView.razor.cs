@@ -66,12 +66,12 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    private string? GetTreeClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-ul")
+    private static string? GetTreeClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-ul")
         .AddClass("show", item.IsExpand)
         .Build();
 
     private string? GetNodeClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-node")
-        .AddClass("disabled", !CanExpandWhenDisabled && GetItemDisabledState(item))
+        .AddClass("disabled", GetItemDisabledState(item))
         .Build();
 
     private bool TriggerNodeArrow(TreeViewItem<TItem> item) => (CanExpandWhenDisabled || !GetItemDisabledState(item)) && (item.HasChildren || item.Items.Any());
