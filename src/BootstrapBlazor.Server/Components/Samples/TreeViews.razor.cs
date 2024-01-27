@@ -308,7 +308,7 @@ public sealed partial class TreeViews
         },
         new()
         {
-            Name = nameof(TreeView<string>.DisableCanExpand),
+            Name = nameof(TreeView<string>.CanExpandWhenDisabled),
             Description = "Whether to expand when the control node is disabled",
             Type = "bool",
             ValueList = "true|false",
