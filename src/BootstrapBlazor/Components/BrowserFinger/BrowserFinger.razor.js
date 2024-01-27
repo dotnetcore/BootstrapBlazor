@@ -1,8 +1,4 @@
 ﻿export function getFingerCode() {
-    return getCanvasFingerprint();
-}
-
-const getCanvasFingerprint = () => {
     const canvas = document.createElement('canvas');
     canvas.width = 200;
     canvas.height = 200;
