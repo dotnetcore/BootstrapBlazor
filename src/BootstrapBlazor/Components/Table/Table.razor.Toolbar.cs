@@ -994,12 +994,12 @@ public partial class Table<TItem>
         if (context != null)
         {
             var items = context.GetItems();
+            if (context.OnFilterCallback != null)
+            {
+                items = context.OnFilterCallback(items);
+            }
             if (IsPagination)
             {
-                if(context.OnFilterCallback != null)
-                {
-                    items = context.OnFilterCallback(items);
-                }
                 TotalCount = items.Count();
                 PageCount = (int)Math.Ceiling(TotalCount * 1.0 / Math.Max(1, PageItems));
                 PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / PageItems).ToString())));
