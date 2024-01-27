@@ -3,7 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Azure.AI.OpenAI;
-using Microsoft.AspNetCore.Components.Authorization;
+using System.Collections.Concurrent;
 
 namespace BootstrapBlazor.Server.Components.Pages;
 
@@ -24,11 +24,38 @@ public partial class Chats
     [NotNull]
     private IBrowserFingerService? BrowserFingerService { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IVersionService? VersionService { get; set; }
+
     private string? Context { get; set; }
 
     private List<AzureOpenAIChatMessage> Messages { get; } = [];
 
     private static string? GetStackClass(ChatRole role) => CssBuilder.Default("msg-stack").AddClass("msg-stack-assistant", role == ChatRole.Assistant).Build();
+
+    private static readonly ConcurrentDictionary<string, int> _cache = new();
+
+    private string? _code;
+
+    private readonly int _totalCount = 50;
+
+    private int _currentCount;
+
+    private bool _isDisabled;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <returns></returns>
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        _code = await GetFingerCodeAsync();
+        _currentCount = _cache.GetOrAdd(_code, key => _totalCount);
+        _isDisabled = _currentCount < 1;
+    }
 
     /// <summary>
     /// <inheritdoc/>
@@ -40,12 +67,6 @@ public partial class Chats
         if (!firstRender)
         {
             await InvokeVoidAsync("scroll", Id);
-        }
-
-        if (firstRender)
-        {
-            var code = await BrowserFingerService.GetFingerCodeAsync();
-            System.Console.WriteLine($"Browser finger code: {code}");
         }
     }
 
@@ -87,7 +108,29 @@ public partial class Chats
                     StateHasChanged();
                 }
             }
+
+            _ = Task.Run(async () =>
+            {
+                await Task.Delay(100);
+                if (!string.IsNullOrEmpty(_code))
+                {
+                    _currentCount = _cache.AddOrUpdate(_code, key => _totalCount, (key, number) => number - 1);
+                    _isDisabled = _currentCount < 1;
+                }
+                else
+                {
+                    _isDisabled = true;
+                }
+                await InvokeAsync(StateHasChanged);
+            });
         }
+    }
+
+    private async Task<string> GetFingerCodeAsync()
+    {
+        var code = await BrowserFingerService.GetFingerCodeAsync();
+        code ??= $"BootstrapBlazor{VersionService.GetVersion()}";
+        return code;
     }
 
     private void CreateNewTopic()
