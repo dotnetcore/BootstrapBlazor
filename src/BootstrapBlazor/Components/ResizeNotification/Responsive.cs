@@ -71,7 +71,6 @@ public class Responsive : BootstrapComponentBase, IDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <exception cref="NotImplementedException"></exception>
     public void Dispose()
     {
         Dispose(true);
