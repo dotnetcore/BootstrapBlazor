@@ -47,10 +47,15 @@
         }
     </div>
     <div class="chat-footer">
-        <Textarea Id="@Id" class="chat-footer-tx" rows="3" @bind-Value="@Context" PlaceHolder="Type user query here. (Shift + Enter for new line)"></Textarea>
-        <div class="chat-buttons">
-            <Button Icon="fa-regular fa-paper-plane" Color="Color.Primary" OnClick="GetCompletionsAsync" IsAsync="true" class="btn-send"></Button>
-            <Button Icon="fa-solid fa-xmark" Color="Color.Danger" OnClick="CreateNewTopic" class="btn-clear"></Button>
+        <label class="chat-info">@((MarkupString)Localizer["ChatInfo", _currentCount, _totalCount].Value)</label>
+        <div class="d-flex">
+            <Textarea Id="@Id" class="chat-footer-tx" rows="3" @bind-Value="@Context" PlaceHolder="Type user query here. (Shift + Enter for new line)"></Textarea>
+            <div class="chat-buttons">
+                <Button Icon="fa-regular fa-paper-plane" Color="Color.Primary" OnClick="GetCompletionsAsync" IsDisabled="_isDisabled" IsAsync="true" class="btn-send"></Button>
+                <Button Icon="fa-solid fa-xmark" Color="Color.Danger" OnClick="CreateNewTopic" IsDisabled="_isDisabled" class="btn-clear"></Button>
+            </div>
         </div>
     </div>
 </DemoBlock>
+
+<BrowserFinger></BrowserFinger>

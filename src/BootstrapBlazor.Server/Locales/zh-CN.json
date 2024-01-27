@@ -5778,10 +5778,7 @@
     "ChatNormalIntro": "通过调用 <code>IAzureOpenAIService</code> 服务方法 <code>GetChatCompletionsAsync</code> 进行聊天对话",
     "ChatUserTitle": "聊天场景",
     "ChatUserMessageTitle": "你好 {0}",
-    "ChatDemoDesc": "由于 <code>GPT</code> 无免费接口，本组件需要 <code>Gitee</code> 或者 <code>Github</code> 授权登录后对账户进行使用次数限制",
-    "ChatExit": "退出",
-    "ChatGitee": "Gitee 授权",
-    "ChatGithub": "Github 授权"
+    "ChatInfo": "由于 <code>GPT</code> 无免费接口，体验次数为 <b>{1}</b> 次，当前次数为 <b>{0}</b>"
   },
   "BootstrapBlazor.Server.Components.Samples.HtmlRenderers": {
     "Title": "Html 转化器",

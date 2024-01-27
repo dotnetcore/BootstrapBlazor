@@ -5778,10 +5778,7 @@
     "ChatNormalIntro": "Chat dialog by calling <code>IAzureOpenAIService</code> service method <code>GetChatCompletionsAsync</code>",
     "ChatUserTitle": "Chat session",
     "ChatUserMessageTitle": "Hello {0}",
-    "ChatDemoDesc": "Since <code>GPT</code> has no free interface, this component requires <code>Gitee</code> or <code>Github</code> to authorize and log in to limit the number of times the account can be used",
-    "ChatExit": "Exit",
-    "ChatGitee": "Gitee OAuth",
-    "ChatGithub": "Github OAuth"
+    "ChatInfo": "Due to the lack of free interfaces in GPT, the number of experiences has been <b>{1}</b> times, and the current number is <b>{0}</b>"
   },
   "BootstrapBlazor.Server.Components.Samples.HtmlRenderers": {
     "Title": "Html Renderer",
