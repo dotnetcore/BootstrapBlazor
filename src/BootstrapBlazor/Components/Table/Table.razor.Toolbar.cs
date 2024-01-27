@@ -981,14 +981,18 @@ public partial class Table<TItem>
 
             InternalResetVisibleColumns(Columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.Visible)));
 
-            QueryDynamicItems(DynamicContext);
+            var queryOption = BuildQueryPageOptions();
+            // 设置是否为首次查询
+            queryOption.IsFristQuery = _firstQuery;
+
+            QueryDynamicItems(queryOption, DynamicContext);
 
             // 重新绑定列拖拽
             _bindResizeColumn = true;
         }
     }
 
-    private void QueryDynamicItems(IDynamicObjectContext? context)
+    private void QueryDynamicItems(QueryPageOptions queryOption, IDynamicObjectContext? context)
     {
         RowsCache = null;
         if (context != null)
@@ -996,7 +1000,7 @@ public partial class Table<TItem>
             var items = context.GetItems();
             if (context.OnFilterCallback != null)
             {
-                items = context.OnFilterCallback(items);
+                items = context.OnFilterCallback(queryOption, items);
             }
             if (IsPagination)
             {

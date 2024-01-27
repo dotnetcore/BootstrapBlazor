@@ -94,5 +94,5 @@ public abstract class DynamicObjectContext : IDynamicObjectContext
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public Func<IEnumerable<IDynamicObject>, IEnumerable<IDynamicObject>>? OnFilterCallback { get; set; }
+    public Func<QueryPageOptions, IEnumerable<IDynamicObject>, IEnumerable<IDynamicObject>>? OnFilterCallback { get; set; }
 }
