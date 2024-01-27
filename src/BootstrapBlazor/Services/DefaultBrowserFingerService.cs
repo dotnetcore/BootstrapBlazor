@@ -18,7 +18,7 @@ class DefaultBrowserFingerService : IBrowserFingerService
     /// </summary>
     /// <param name="target"></param>
     /// <param name="callback"></param>
-    public void Subscribe(object target, Func<Task<string?>> callback) => Cache.AddOrUpdate(target, k => callback, (k, v) => callback);
+    public void Subscribe(object target, Func<Task<string?>> callback) => Cache.GetOrAdd(target, k => callback);
 
     /// <summary>
     /// <inheritdoc/>
