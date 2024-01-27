@@ -61,7 +61,7 @@
 <DemoBlock Title="@Localizer["CustomComponentTitle"]" Introduction="@Localizer["CustomComponentIntro"]" Name="CustomComponent">
     <div class="row">
         <div class="col-4">
-            <SelectObject @bind-Value="_counter" GetTextCallback="GetCounterTextCallback">
+            <SelectObject @bind-Value="_counter" GetTextCallback="GetCounterTextCallback" Height="170">
                 <ValueCounter OnSubmitAsync="v => OnSubmit(v, context)"></ValueCounter>
             </SelectObject>
         </div>
