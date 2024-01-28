@@ -48,7 +48,7 @@ public partial class BrowserFinger : IDisposable
         if (string.IsNullOrEmpty(_fingerCode))
         {
             await _tcs.Task;
-            _fingerCode ??= await InvokeAsync<string?>("getFingerCode");
+            _fingerCode = await InvokeAsync<string?>("getFingerCode");
         }
         return _fingerCode;
     }
