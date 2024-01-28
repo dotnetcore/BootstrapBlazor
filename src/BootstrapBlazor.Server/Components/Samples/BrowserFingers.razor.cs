@@ -19,15 +19,11 @@ public partial class BrowserFingers
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override async Task OnInitializedAsync()
     {
-        await base.OnAfterRenderAsync(firstRender);
+        await base.OnInitializedAsync();
 
-        if (firstRender)
-        {
-            _code = await GetFingerCodeAsync();
-            StateHasChanged();
-        }
+        _code = await GetFingerCodeAsync();
     }
 
     private Task<string?> GetFingerCodeAsync() => BrowserFingerService.GetFingerCodeAsync();
