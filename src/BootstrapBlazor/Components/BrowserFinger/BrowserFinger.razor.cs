@@ -39,7 +39,6 @@ public partial class BrowserFinger : IDisposable
 
         if (firstRender)
         {
-            _fingerCode = await InvokeAsync<string?>("getFingerCode");
             _tcs.TrySetResult();
         }
     }
