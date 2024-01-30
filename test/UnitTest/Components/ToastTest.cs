@@ -69,6 +69,36 @@ public class ToastTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task PreventDuplicates_Ok()
+    {
+        Context.RenderComponent<ToastContainer>();
+
+        var service = Context.Services.GetRequiredService<ToastService>();
+        await service.Show(new ToastOption()
+        {
+            PreventDuplicates = true,
+            Content = "Content"
+        });
+        await service.Show(new ToastOption()
+        {
+            PreventDuplicates = true,
+            Title = "Title",
+        });
+        await service.Show(new ToastOption()
+        {
+            PreventDuplicates = true,
+            Title = "Title",
+            Content = "Content"
+        });
+        await service.Show(new ToastOption()
+        {
+            PreventDuplicates = true,
+            Title = "Title",
+            Content = "Content"
+        });
+    }
+
+    [Fact]
     public async Task AutoHide_Ok()
     {
         var cut = Context.RenderComponent<ToastContainer>();

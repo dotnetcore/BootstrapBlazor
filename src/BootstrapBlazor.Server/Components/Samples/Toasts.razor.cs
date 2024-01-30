@@ -43,6 +43,18 @@ public sealed partial class Toasts
         ToastContainer = Root.ToastContainer;
     }
 
+    private async Task OnPreventClick()
+    {
+        ToastContainer.SetPlacement(Placement.BottomEnd);
+        await ToastService.Show(new ToastOption()
+        {
+            PreventDuplicates = true,
+            Category = ToastCategory.Success,
+            Title = "Successfully saved",
+            Content = "Save data successfully, automatically close after 4 seconds"
+        });
+    }
+
     private async Task OnSuccessClick()
     {
         ToastContainer.SetPlacement(Placement.BottomEnd);

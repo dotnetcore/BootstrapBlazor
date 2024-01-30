@@ -60,6 +60,11 @@ public class ToastOption : PopupOptionBase
     public bool ShowHeader { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否阻止重复消息 默认 false
+    /// </summary>
+    public bool PreventDuplicates { get; set; }
+
+    /// <summary>
     /// 获得/设置 Header 模板 默认为 null
     /// </summary>
     public RenderFragment? HeaderTemplate { get; set; }
