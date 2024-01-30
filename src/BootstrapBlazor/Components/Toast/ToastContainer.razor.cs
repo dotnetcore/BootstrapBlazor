@@ -69,7 +69,7 @@ public partial class ToastContainer : IDisposable
         if (option.PreventDuplicates)
         {
             var lastOption = Toasts.LastOrDefault();
-            if (lastOption != null && CompareOption(option, lastOption))
+            if (lastOption != null && option.Title == lastOption.Title && option.Content == lastOption.Content)
             {
                 return;
             }
@@ -77,8 +77,6 @@ public partial class ToastContainer : IDisposable
         Toasts.Add(option);
         await InvokeAsync(StateHasChanged);
         return;
-
-        bool CompareOption(ToastOption source, ToastOption target) => source.Title == target.Title && source.Content == target.Content;
     }
 
     /// <summary>
