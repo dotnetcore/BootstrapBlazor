@@ -61,7 +61,7 @@ public partial class ToastContainer : IDisposable
         Placement = Options.CurrentValue.ToastPlacement ?? Placement.BottomEnd;
 
         // 注册 Toast 弹窗事件
-        ToastService?.Register(this, Show);
+        ToastService.Register(this, Show);
     }
 
     private async Task Show(ToastOption option)
