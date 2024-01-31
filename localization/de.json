@@ -160,6 +160,9 @@
   "BootstrapBlazor.Components.SelectTree": {
     "PlaceHolder": "Zum Auswählen klicken ..."
   },
+  "BootstrapBlazor.Components.SelectTreeView": {
+    "PlaceHolder": "Zum Auswählen klicken ..."
+  },
   "BootstrapBlazor.Components.StringLengthValidator": {
     "ErrorMessage": "Bitte geben Sie einen Wert kleiner oder gleich {{0}} ein"
   },

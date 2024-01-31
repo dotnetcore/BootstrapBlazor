@@ -289,6 +289,9 @@
   "BootstrapBlazor.Components.Tree": {
     "NotSetOnTreeExpandErrorMessage": "ยังไม่ได้ตั้งค่า OnExpandNodeAsync วิธีการมอบหมายการโทรกลับ"
   },
+  "BootstrapBlazor.Components.TreeView": {
+    "NotSetOnTreeExpandErrorMessage": "ยังไม่ได้ตั้งค่า OnExpandNodeAsync วิธีการมอบหมายการโทรกลับ"
+  },
   "BootstrapBlazor.Components.UploadBase": {
     "DeleteButtonText": "ลบ",
     "BrowserButtonText": "เรียกดู",

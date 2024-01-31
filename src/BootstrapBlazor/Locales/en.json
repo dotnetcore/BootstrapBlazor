@@ -289,6 +289,9 @@
   "BootstrapBlazor.Components.Tree": {
     "NotSetOnTreeExpandErrorMessage": "not set OnExpandNodeAsync parameter"
   },
+  "BootstrapBlazor.Components.TreeView": {
+    "NotSetOnTreeExpandErrorMessage": "not set OnExpandNodeAsync parameter"
+  },
   "BootstrapBlazor.Components.UploadBase": {
     "DeleteButtonText": "Delete",
     "BrowserButtonText": "Browser",

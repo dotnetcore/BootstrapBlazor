@@ -290,6 +290,9 @@
   "BootstrapBlazor.Components.Tree": {
     "NotSetOnTreeExpandErrorMessage": "parâmetro OnExpandNodeAsync não atribuído"
   },
+  "BootstrapBlazor.Components.TreeView": {
+    "NotSetOnTreeExpandErrorMessage": "parâmetro OnExpandNodeAsync não atribuído"
+  },
   "BootstrapBlazor.Components.UploadBase": {
     "DeleteButtonText": "Excluir",
     "BrowserButtonText": "Browser",
