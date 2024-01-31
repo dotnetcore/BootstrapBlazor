@@ -44,6 +44,15 @@ export function init(id) {
         for (let i = 1; i < len; i++) {
             confirm.container.appendChild(children[1])
         }
+
+        const handler = setTimeout(() => {
+            clearTimeout(handler);
+            const hasConfirm = el.hasAttribute('data-bb-confirm');
+            if (hasConfirm) {
+                confirm.popover.dispose();
+                delete confirm.popover;
+            }
+        }, 50);
     }
 
     EventHandler.on(el, 'show.bs.popover', confirm.show)

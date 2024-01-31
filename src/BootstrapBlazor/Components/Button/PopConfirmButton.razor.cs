@@ -66,13 +66,20 @@ public partial class PopConfirmButton
     /// <returns></returns>
     public override Task RemoveTooltip() => Task.CompletedTask;
 
+    private string? ConfirmString => OnBeforeClick != null ? "true" : null;
+
     /// <summary>
     /// 显示确认弹窗方法
     /// </summary>
     private async Task Show()
     {
         // 回调消费者逻辑 判断是否需要弹出确认框
-        if (await OnBeforeClick())
+        var show = true;
+        if (OnBeforeClick != null)
+        {
+            show = await OnBeforeClick();
+        }
+        if (show)
         {
             await InvokeVoidAsync("showConfirm", Id);
         }
