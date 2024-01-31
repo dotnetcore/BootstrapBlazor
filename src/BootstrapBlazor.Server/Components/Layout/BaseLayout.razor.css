@@ -5,7 +5,7 @@
     box-shadow: 0 0 8px #211b50;
     transition: opacity .3s linear;
     position: fixed;
-    z-index: 10;
+    z-index: 45;
 }
 
     ::deep .btn-fade:hover {
