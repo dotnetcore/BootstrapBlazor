@@ -65,6 +65,7 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
             }
             catch (JSDisconnectedException) { }
             catch (OperationCanceledException) { }
+            catch (ObjectDisposedException) { }
         }
     }
 
@@ -115,6 +116,7 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
             }
             catch (JSDisconnectedException) { }
             catch (OperationCanceledException) { }
+            catch (ObjectDisposedException) { }
 
             return ret;
         }
