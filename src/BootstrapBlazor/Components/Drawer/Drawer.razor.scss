@@ -92,7 +92,7 @@
 
         .drawer-bar {
             background-color: var(--bb-drawer-bar-bg);
-            position: relative;
+            position: absolute;
 
             .drawer-bar-body {
                 position: absolute;
@@ -114,19 +114,49 @@
         &.left, &.right {
             .drawer-bar {
                 width: 2px;
-                height: 100%;
+            }
+        }
+
+        &.left {
+            .drawer-bar {
+                right: 0;
+                top: 0;
+                bottom: 0;
+            }
+        }
+
+        &.right {
+            .drawer-bar {
+                left: 0;
+                top: 0;
+                bottom: 0;
             }
         }
 
         &.top, &.bottom {
             .drawer-bar {
                 height: 2px;
-                width: 100%;
 
                 .drawer-bar-body {
                     inset: -1px 0;
                     cursor: row-resize;
                 }
+            }
+        }
+
+        &.top {
+            .drawer-bar {
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+        }
+
+        &.bottom {
+            .drawer-bar {
+                left: 0;
+                right: 0;
+                top: 0;
             }
         }
     }
