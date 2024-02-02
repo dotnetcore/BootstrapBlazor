@@ -63,6 +63,13 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
             {
                 await Module.InvokeVoidAsync(identifier, cancellationToken, [.. paras]);
             }
+#if DEBUG
+            catch (JSException)
+            {
+                System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args ?? [])}");
+                throw;
+            }
+#endif
             catch (JSDisconnectedException) { }
             catch (OperationCanceledException) { }
             catch (ObjectDisposedException) { }
@@ -114,6 +121,13 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
             {
                 ret = await Module.InvokeAsync<TValue>(identifier, cancellationToken, [.. paras]);
             }
+#if DEBUG
+            catch (JSException)
+            {
+                System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args ?? [])}");
+                throw;
+            }
+#endif
             catch (JSDisconnectedException) { }
             catch (OperationCanceledException) { }
             catch (ObjectDisposedException) { }
