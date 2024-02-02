@@ -195,6 +195,13 @@ const resetTableWidth = table => {
 }
 
 const setResizeListener = table => {
+    disposeColumnDrag(table.columns)
+    table.columns = []
+
+    if (table.tables.length === 0) {
+        return;
+    }
+
     const eff = (col, toggle) => {
         const th = col.closest('th')
         if (th.parentNode === null) {
@@ -240,8 +247,6 @@ const setResizeListener = table => {
     let colIndex = 0
     let originalX = 0
 
-    disposeColumnDrag(table.columns)
-    table.columns = []
     const columns = [...table.tables[0].querySelectorAll('.col-resizer')]
     columns.forEach(col => {
         table.columns.push(col)
