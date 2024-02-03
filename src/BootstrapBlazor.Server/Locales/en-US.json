@@ -5902,7 +5902,7 @@
     "ApplyButtonText": "Apply",
     "WebSerialOptionsText": "WebSerialOptions"
   },
-  "BootstrapBlazor.Server.Components.Samples.MindMaps.MindMaps": {
+  "BootstrapBlazor.Server.Components.Samples.MindMaps": {
     "MindMapTitle": "Mind Map",
     "MindMapDescription": "The shortcut key tab adds a new node, the mouse can drag node arrangement",
     "MindMapNormalTitle": "Basic usage",
