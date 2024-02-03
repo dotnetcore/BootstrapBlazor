@@ -523,7 +523,7 @@ public class UtilityTest : BootstrapBlazorTestBase
         var actual1 = Utility.ConvertValueToString(val);
         Assert.Equal("1.1,2,3.1", actual1);
 
-        var items = new List<SelectedItem>() { new SelectedItem("Test1", "Test1"), new SelectedItem("Test2", "Test2") };
+        var items = new List<SelectedItem>() { new("Test1", "Test1"), new("Test2", "Test2") };
         var actual2 = Utility.ConvertValueToString(items);
         Assert.Equal("Test1,Test2", actual2);
 
@@ -722,6 +722,7 @@ public class UtilityTest : BootstrapBlazorTestBase
         Address
     }
 
+    [AttributeUsage(AttributeTargets.Property)]
     private class CatKeyAttribute : Attribute
     {
 
