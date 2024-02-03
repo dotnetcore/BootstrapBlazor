@@ -138,8 +138,6 @@ public class JSModuleTest
         {
             return ValueTask.FromResult<TValue>(default!);
         }
-
-        public ValueTask InvokeVoidAsync_JSDisconnected_Test() => throw new JSDisconnectedException("Test");
     }
 
     private class MockJSDisconnectedObjectReference : IJSObjectReference

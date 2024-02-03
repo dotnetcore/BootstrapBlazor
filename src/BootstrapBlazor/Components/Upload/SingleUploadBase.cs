@@ -40,7 +40,7 @@ public abstract class SingleUploadBase<TValue> : MultipleUploadBase<TValue>
         var ret = new List<UploadFile>();
         if (IsSingle)
         {
-            if (DefaultFileList?.Any() ?? false)
+            if (DefaultFileList != null && DefaultFileList.Count != 0)
             {
                 ret.Add(DefaultFileList.First());
             }

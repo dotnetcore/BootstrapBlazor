@@ -408,8 +408,11 @@ public static class Utility
             builder.AddAttribute(4, nameof(Display<string>.ShowLabelTooltip), item.ShowLabelTooltip);
             if (item is ITableColumn col)
             {
-                // TODO: 暂时不支持 Formatter 逻辑
-                if (!string.IsNullOrEmpty(col.FormatString))
+                if (col.Formatter != null)
+                {
+                    builder.AddAttribute(5, nameof(Display<string>.FormatterAsync), CacheManager.GetFormatterInvoker(fieldType, col.Formatter));
+                }
+                else if (!string.IsNullOrEmpty(col.FormatString))
                 {
                     builder.AddAttribute(5, nameof(Display<string>.FormatString), col.FormatString);
                 }
@@ -528,7 +531,7 @@ public static class Utility
         GroupName = d.GroupName
     }).ToList();
 
-    private static object? GenerateValue(object model, string fieldName) => Utility.GetPropertyValue<object, object?>(model, fieldName);
+    private static object? GenerateValue(object model, string fieldName) => GetPropertyValue<object, object?>(model, fieldName);
 
     /// <summary>
     /// 通过指定类型实例获取属性 Lambda 表达式

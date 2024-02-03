@@ -627,7 +627,7 @@ internal class CacheManager : ICacheManager
     #region Format
     public static Func<object, string, IFormatProvider?, string> GetFormatInvoker(Type type)
     {
-        var cacheKey = $"{nameof(GetFormatInvoker)}-{nameof(GetFormatLambda)}-{type.FullName}";
+        var cacheKey = $"{nameof(GetFormatInvoker)}-{type.FullName}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             entry.SetDynamicAssemblyPolicy(type);
@@ -669,7 +669,7 @@ internal class CacheManager : ICacheManager
 
     public static Func<object, IFormatProvider?, string> GetFormatProviderInvoker(Type type)
     {
-        var cacheKey = $"{nameof(GetFormatProviderInvoker)}-{nameof(GetFormatProviderLambda)}-{type.FullName}";
+        var cacheKey = $"{nameof(GetFormatProviderInvoker)}-{type.FullName}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             entry.SetDynamicAssemblyPolicy(type);
@@ -697,5 +697,27 @@ internal class CacheManager : ICacheManager
             return Expression.Lambda<Func<object, IFormatProvider?, string>>(body, exp_p1, exp_p2);
         }
     }
+
+    public static object GetFormatterInvoker(Type type, Func<object?, Task<string?>> formatter)
+    {
+        var cacheKey = $"{nameof(GetFormatterInvoker)}-{type.FullName}";
+        var invoker = Instance.GetOrCreate(cacheKey, entry =>
+        {
+            entry.SetDynamicAssemblyPolicy(type);
+            return GetFormatterInvokerLambda(type).Compile();
+        });
+        return invoker(formatter);
+
+        static Expression<Func<Func<object?, Task<string?>>, object>> GetFormatterInvokerLambda(Type type)
+        {
+            var method = typeof(CacheManager).GetMethod(nameof(InvokeFormatterAsync), BindingFlags.Static | BindingFlags.NonPublic)!.MakeGenericMethod(type);
+            var exp_p1 = Expression.Parameter(typeof(Func<object?, Task<string?>>));
+            var body = Expression.Call(null, method, exp_p1);
+            return Expression.Lambda<Func<Func<object?, Task<string?>>, object>>(body, exp_p1);
+        }
+    }
+
+    private static Func<TType, Task<string?>> InvokeFormatterAsync<TType>(Func<object?, Task<string?>> formatter) => new(v => formatter(v));
+
     #endregion
 }
