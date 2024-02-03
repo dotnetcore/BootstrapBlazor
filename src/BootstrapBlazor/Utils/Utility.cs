@@ -410,7 +410,7 @@ public static class Utility
             {
                 if (col.Formatter != null)
                 {
-                    builder.AddAttribute(5, nameof(Display<string>.FormatterAsync), CreateFormatterCallaback(fieldType, col.Formatter));
+                    builder.AddAttribute(5, nameof(Display<string>.FormatterAsync), CacheManager.GetFormatterInvoker(fieldType, col.Formatter));
                 }
                 else if (!string.IsNullOrEmpty(col.FormatString))
                 {
@@ -419,20 +419,6 @@ public static class Utility
             }
             builder.CloseComponent();
         }
-    }
-
-    private static object? CreateFormatterCallaback(Type type, Func<object?, Task<string?>> formatter)
-    {
-        var method = typeof(Utility).GetMethod(nameof(InvokeFormatterAsync), BindingFlags.Static | BindingFlags.NonPublic)!.MakeGenericMethod(type);
-        var exp_p1 = Expression.Parameter(typeof(Func<object?, Task<string?>>));
-        var body = Expression.Call(null, method, exp_p1);
-        var invoker = Expression.Lambda(body, exp_p1).Compile();
-        return invoker!.DynamicInvoke(formatter);
-    }
-
-    private static Func<TType, Task<string?>> InvokeFormatterAsync<TType>(Func<object?, Task<string?>> formatter)
-    {
-        return new Func<TType, Task<string?>>(v => formatter(v));
     }
 
     /// <summary>
