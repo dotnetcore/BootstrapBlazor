@@ -86,6 +86,15 @@ public class JSModuleTest
     }
 
     [Fact]
+    public async Task JSModule_ObjectDisposedException()
+    {
+        var js = new MockObjectDisposedExceptionObjectReference();
+        var module = new JSModule(js);
+        await Assert.ThrowsAnyAsync<ObjectDisposedException>(async () => await module.InvokeVoidAsync("test"));
+        await Assert.ThrowsAnyAsync<ObjectDisposedException>(async () => await module.InvokeAsync<int>("test"));
+    }
+
+    [Fact]
     public async Task JSModule_TaskCanceledException()
     {
         var js = new MockTaskCanceledObjectReference();
@@ -176,5 +185,14 @@ public class JSModuleTest
         public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, object?[]? args) => throw new InvalidOperationException("Test");
 
         public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, CancellationToken cancellationToken, object?[]? args) => throw new InvalidOperationException("Test");
+    }
+
+    private class MockObjectDisposedExceptionObjectReference : IJSObjectReference
+    {
+        public ValueTask DisposeAsync() => throw new ObjectDisposedException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, object?[]? args) => throw new ObjectDisposedException("Test");
+
+        public ValueTask<TValue> InvokeAsync<[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicConstructors | DynamicallyAccessedMemberTypes.PublicFields | DynamicallyAccessedMemberTypes.PublicProperties)] TValue>(string identifier, CancellationToken cancellationToken, object?[]? args) => throw new ObjectDisposedException("Test");
     }
 }
