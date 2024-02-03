@@ -66,7 +66,7 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
             catch (JSException)
             {
 #if DEBUG
-                System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args ?? [])}");
+                System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args!)}");
                 throw;
 #endif
             }
@@ -75,7 +75,7 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
             catch (ObjectDisposedException)
             {
 #if DEBUG
-                System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args ?? [])}");
+                System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args!)}");
                 throw;
 #endif
             }
@@ -130,7 +130,7 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
             catch (JSException)
             {
 #if DEBUG
-                System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args ?? [])}");
+                System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args!)}");
                 throw;
 #endif
             }
@@ -139,7 +139,7 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
             catch (ObjectDisposedException)
             {
 #if DEBUG
-                System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args ?? [])}");
+                System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args!)}");
                 throw;
 #endif
             }
@@ -160,14 +160,7 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
             {
                 await Module.DisposeAsync();
             }
-            catch (JSDisconnectedException) { }
-            catch (Exception)
-            {
-#if DEBUG
-                System.Console.WriteLine($"{GetType().FullName} disposing throw exception");
-                throw;
-#endif
-            }
+            catch { }
         }
     }
 
