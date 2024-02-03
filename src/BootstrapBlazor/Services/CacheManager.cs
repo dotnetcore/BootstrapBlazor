@@ -701,19 +701,19 @@ internal class CacheManager : ICacheManager
     public static object GetFormatterInvoker(Type type, Func<object?, Task<string?>> formatter)
     {
         var cacheKey = $"{nameof(GetFormatterInvoker)}-{type.FullName}";
-        return Instance.GetOrCreate(cacheKey, entry =>
+        var invoker = Instance.GetOrCreate(cacheKey, entry =>
         {
             entry.SetDynamicAssemblyPolicy(type);
-            return GetFormatterInvokerLambda(type, formatter);
+            return GetFormatterInvokerLambda(type).Compile();
         });
+        return invoker(formatter);
 
-        static object GetFormatterInvokerLambda(Type type, Func<object?, Task<string?>> formatter)
+        static Expression<Func<Func<object?, Task<string?>>, object>> GetFormatterInvokerLambda(Type type)
         {
             var method = typeof(CacheManager).GetMethod(nameof(InvokeFormatterAsync), BindingFlags.Static | BindingFlags.NonPublic)!.MakeGenericMethod(type);
             var exp_p1 = Expression.Parameter(typeof(Func<object?, Task<string?>>));
             var body = Expression.Call(null, method, exp_p1);
-            var invoker = Expression.Lambda<Func<Func<object?, Task<string?>>, object>>(body, exp_p1).Compile();
-            return invoker(formatter);
+            return Expression.Lambda<Func<Func<object?, Task<string?>>, object>>(body, exp_p1);
         }
     }
 
