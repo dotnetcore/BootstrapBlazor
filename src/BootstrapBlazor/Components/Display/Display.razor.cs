@@ -26,7 +26,7 @@ public partial class Display<TValue>
     /// 获得/设置 异步格式化字符串
     /// </summary>
     [Parameter]
-    public Func<TValue, Task<string>>? FormatterAsync { get; set; }
+    public Func<TValue, Task<string?>>? FormatterAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd
