@@ -5902,7 +5902,7 @@
     "ApplyButtonText": "应用",
     "WebSerialOptionsText": "WebSerialOptions"
   },
-  "BootstrapBlazor.Server.Components.Samples.MindMaps.MindMaps": {
+  "BootstrapBlazor.Server.Components.Samples.MindMaps": {
     "MindMapTitle": "Mind Map 思维导图",
     "MindMapDescription": "快捷键Tab添加新节点,鼠标可拖动节点排列",
     "MindMapNormalTitle": "基本用法",
