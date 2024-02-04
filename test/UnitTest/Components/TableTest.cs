@@ -4999,7 +4999,13 @@ public class TableTest : TableTestBase
         });
 
         var buttons = cut.FindComponents<PopConfirmButton>();
-        await cut.InvokeAsync(() => buttons[1].Instance.OnBeforeClick());
+        await cut.InvokeAsync(() =>
+        {
+            if (buttons[1].Instance.OnBeforeClick != null)
+            {
+                buttons[1].Instance.OnBeforeClick();
+            }
+        });
 
         var table = cut.FindComponent<Table<Foo>>();
         Assert.Single(table.Instance.SelectedRows);
@@ -6130,18 +6136,27 @@ public class TableTest : TableTestBase
 
         var table = cut.FindComponent<Table<Foo>>();
         var deleteButton = table.FindComponent<TableToolbarPopConfirmButton<Foo>>();
-        await cut.InvokeAsync(() => deleteButton.Instance.OnBeforeClick());
+        if (deleteButton.Instance.OnBeforeClick != null)
+        {
+            await cut.InvokeAsync(() => deleteButton.Instance.OnBeforeClick());
+        }
 
         // 选一个
         var input = cut.Find("tbody tr input");
         await cut.InvokeAsync(() => input.Click());
-        await cut.InvokeAsync(() => deleteButton.Instance.OnBeforeClick());
+        if (deleteButton.Instance.OnBeforeClick != null)
+        {
+            await cut.InvokeAsync(() => deleteButton.Instance.OnBeforeClick());
+        }
 
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowExtendDeleteButtonCallback, foo => false);
         });
-        await cut.InvokeAsync(() => deleteButton.Instance.OnBeforeClick());
+        if (deleteButton.Instance.OnBeforeClick != null)
+        {
+            await cut.InvokeAsync(() => deleteButton.Instance.OnBeforeClick());
+        }
     }
 
     [Fact]
@@ -6949,9 +6964,9 @@ public class TableTest : TableTestBase
         var col = cut.FindComponent<TableColumn<Foo, int>>();
         col.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.Formatter, new Func<object?, Task<string>>(obj =>
+            pb.Add(a => a.Formatter, new Func<object?, Task<string?>>(obj =>
             {
-                return Task.FromResult("test-formatter");
+                return Task.FromResult<string?>("test-formatter");
             }));
         });
         var table = cut.FindComponent<MockTable>();
