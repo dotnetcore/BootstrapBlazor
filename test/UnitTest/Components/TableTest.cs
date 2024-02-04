@@ -4999,13 +4999,7 @@ public class TableTest : TableTestBase
         });
 
         var buttons = cut.FindComponents<PopConfirmButton>();
-        await cut.InvokeAsync(() =>
-        {
-            if (buttons[1].Instance.OnBeforeClick != null)
-            {
-                buttons[1].Instance.OnBeforeClick();
-            }
-        });
+        await cut.InvokeAsync(() => buttons[1].Instance.OnBeforeClick());
 
         var table = cut.FindComponent<Table<Foo>>();
         Assert.Single(table.Instance.SelectedRows);
@@ -6136,27 +6130,18 @@ public class TableTest : TableTestBase
 
         var table = cut.FindComponent<Table<Foo>>();
         var deleteButton = table.FindComponent<TableToolbarPopConfirmButton<Foo>>();
-        if (deleteButton.Instance.OnBeforeClick != null)
-        {
-            await cut.InvokeAsync(() => deleteButton.Instance.OnBeforeClick());
-        }
+        await cut.InvokeAsync(() => deleteButton.Instance.OnBeforeClick());
 
         // 选一个
         var input = cut.Find("tbody tr input");
         await cut.InvokeAsync(() => input.Click());
-        if (deleteButton.Instance.OnBeforeClick != null)
-        {
-            await cut.InvokeAsync(() => deleteButton.Instance.OnBeforeClick());
-        }
+        await cut.InvokeAsync(() => deleteButton.Instance.OnBeforeClick());
 
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ShowExtendDeleteButtonCallback, foo => false);
         });
-        if (deleteButton.Instance.OnBeforeClick != null)
-        {
-            await cut.InvokeAsync(() => deleteButton.Instance.OnBeforeClick());
-        }
+        await cut.InvokeAsync(() => deleteButton.Instance.OnBeforeClick());
     }
 
     [Fact]
