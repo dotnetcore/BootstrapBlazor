@@ -69,6 +69,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     /// 获得/设置 点击确认弹窗前回调方法 返回真时弹出弹窗 返回假时不弹出 默认 null
     /// </summary>
     [Parameter]
+    [NotNull]
     public Func<Task<bool>>? OnBeforeClick { get; set; }
 
     /// <summary>

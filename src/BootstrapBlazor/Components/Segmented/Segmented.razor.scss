@@ -51,7 +51,6 @@
 
     .segmented-item {
         padding: var(--bb-segmented-item-padding);
-        text-align: center;
         cursor: pointer;
         border-radius: var(--bb-segmented-item-border-radius);
         line-height: var(--bb-segmented-item-height);
@@ -59,6 +58,9 @@
         position: relative;
         transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
         white-space: nowrap;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         &.mask {
             background-color: var(--bb-segmented-item-selected-bg);
@@ -111,5 +113,5 @@
 }
 
 [data-bs-theme='dark'] .segmented {
-  --bb-segmented-item-selected-bg: rgba(var(--bs-body-color-rgb),.12);
+    --bb-segmented-item-selected-bg: rgba(var(--bs-body-color-rgb),.12);
 }

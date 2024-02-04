@@ -74,7 +74,8 @@ public class ITableColumnExtensionsTest
             FormatString = "test-format",
             Formatter = obj =>
             {
-                return Task.FromResult("test-formatter");
+                var ret = "test-formatter";
+                return Task.FromResult<string?>(ret);
             },
             HeaderTemplate = new RenderFragment<ITableColumn>(col => builder => builder.AddContent(0, "test-header")),
             OnCellRender = args => { },

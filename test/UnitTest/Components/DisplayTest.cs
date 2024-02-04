@@ -14,9 +14,9 @@ public class DisplayTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Display<string>>(pb =>
         {
-            pb.Add(a => a.FormatterAsync, new Func<string, Task<string>>(v =>
+            pb.Add(a => a.FormatterAsync, new Func<string, Task<string?>>(v =>
             {
-                return Task.FromResult("FormattedValue");
+                return Task.FromResult<string?>("FormattedValue");
             }));
         });
         Assert.Contains("FormattedValue", cut.Markup);
@@ -56,10 +56,10 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void TypeResolver_Ok()
     {
-        var cut = Context.RenderComponent<Display<DisplayTest.Fish[]>>(pb =>
+        var cut = Context.RenderComponent<Display<Fish[]>>(pb =>
         {
-            pb.Add(a => a.Value, new DisplayTest.Fish[] { new DisplayTest.Fish() { Value = "1" } });
-            pb.Add(a => a.TypeResolver, new Func<Assembly, string, bool, Type>((assembly, typeName, ignoreCase) => typeof(DisplayTest.Fish)));
+            pb.Add(a => a.Value, new Fish[] { new() { Value = "1" } });
+            pb.Add(a => a.TypeResolver, new Func<Assembly, string, bool, Type>((assembly, typeName, ignoreCase) => typeof(Fish)));
         });
         Assert.Equal("<div class=\"form-control is-display\">1</div>", cut.Markup);
     }
@@ -67,9 +67,9 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void TypeResolver_Null()
     {
-        var cut = Context.RenderComponent<Display<DisplayTest.Fish[]>>(pb =>
+        var cut = Context.RenderComponent<Display<Fish[]>>(pb =>
         {
-            pb.Add(a => a.Value, new DisplayTest.Fish[] { new DisplayTest.Fish() { Value = "1" } });
+            pb.Add(a => a.Value, new Fish[] { new() { Value = "1" } });
         });
         Assert.Equal("<div class=\"form-control is-display\"></div>", cut.Markup);
     }

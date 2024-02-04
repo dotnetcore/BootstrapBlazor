@@ -207,12 +207,8 @@ public static class DialogServiceExtensions
             ShowSaveButton = true,
             OnSaveAsync = saveCallback
         };
-        Dictionary<string, object?>? parameters = null;
-        if (parametersFactory != null)
-        {
-            parameters = [];
-            parametersFactory.Invoke(parameters);
-        }
+        var parameters = new Dictionary<string, object?>();
+        parametersFactory?.Invoke(parameters);
         option.Component = BootstrapDynamicComponent.CreateComponent<TComponent>(parameters);
         configureOption?.Invoke(option);
         await service.Show(option, dialog);
@@ -238,7 +234,6 @@ public static class DialogServiceExtensions
         parametersFactory?.Invoke(parameters);
         option.Component = BootstrapDynamicComponent.CreateComponent<TComponent>(parameters);
         configureOption?.Invoke(option);
-
         await service.Show(option, dialog);
     }
 
