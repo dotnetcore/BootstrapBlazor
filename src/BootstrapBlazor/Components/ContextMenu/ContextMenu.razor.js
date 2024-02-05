@@ -6,10 +6,11 @@ export function init(id) {
     const el = document.getElementById(id)
 
     if (el) {
-        window.bb = window.bb || {}
-        if (bb.cancelContextMenuHandler === undefined) {
+        window.bb = window.bb || {};
+        if (bb.cancelContextMenuHandler === void 0) {
             bb.contextMenus = []
             bb.cancelContextMenuHandler = e => {
+                console.log('test - bb - ');
                 const menu = document.querySelector('.bb-cm.show')
                 if (menu) {
                     const menuId = menu.getAttribute('id')
@@ -75,6 +76,7 @@ export function dispose(id) {
                 EventHandler.off(document, 'click', bb.cancelContextMenuHandler)
                 EventHandler.off(document, 'contextmenu', bb.cancelContextMenuHandler)
             }
+            delete bb.cancelContextMenuHandler;
         }
     }
 }
