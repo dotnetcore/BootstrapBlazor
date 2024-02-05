@@ -420,13 +420,17 @@ public partial class Table<TItem>
         // 目前设计使用 Items 参数后不回调 OnQueryAsync 方法
         if (Items == null)
         {
+            var queryOption = BuildQueryPageOptions();
+            // 设置是否为首次查询
+            queryOption.IsFristQuery = _firstQuery;
+
             if (OnQueryAsync == null && typeof(TItem).IsAssignableTo(typeof(IDynamicObject)))
             {
-                QueryDynamicItems(DynamicContext);
+                QueryDynamicItems(queryOption, DynamicContext);
             }
             else
             {
-                await OnQuery();
+                await OnQuery(queryOption);
             }
         }
         else
@@ -436,12 +440,8 @@ public partial class Table<TItem>
         }
         return;
 
-        async Task OnQuery()
+        async Task OnQuery(QueryPageOptions queryOption)
         {
-            var queryOption = BuildQueryPageOptions();
-
-            // 设置是否为首次查询
-            queryOption.IsFristQuery = _firstQuery;
 
             var queryData = await InternalOnQueryAsync(queryOption);
             PageIndex = queryOption.PageIndex;

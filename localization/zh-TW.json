@@ -299,6 +299,9 @@
   "BootstrapBlazor.Components.Tree": {
     "NotSetOnTreeExpandErrorMessage": "未設置 OnExpandNodeAsync 回檔委託方法"
   },
+  "BootstrapBlazor.Components.TreeView": {
+    "NotSetOnTreeExpandErrorMessage": "未設置 OnExpandNodeAsync 回檔委託方法"
+  },
   "BootstrapBlazor.Components.UploadBase": {
     "DeleteButtonText": "刪除",
     "BrowserButtonText": "瀏覽",

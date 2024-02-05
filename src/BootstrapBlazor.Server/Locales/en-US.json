@@ -141,9 +141,12 @@
     "ToastsSuccess": "Success notification",
     "ToastsDanger": "Failure notification",
     "ToastsInfo": "Information notice",
+    "ToastsPreventTitle": "Prevent Duplicates",
+    "ToastsPreventIntro": "By setting <code>PreventDuplicates=\"true\"</code> to repeatedly click the button below, only one pop-up window will appear",
+    "ToastsPreventText": "Prevent Duplicates",
     "ToastsWarning": "Warning notice",
     "ToastsCloseTitle": "Toast is closed manually",
-    "ToastsCloseIntro": "It will not close automatically, you need to manually click the close button",
+    "ToastsCloseIntro": "It will not close automatically, you need to manually click the close button. You can customize the event after closing the pop-up window by setting<code>OnCloseAsync</code>callback delegate</code>",
     "ToastsCloseNotificationText": "success notification",
     "ToastsPositionTitle": "Toast display location",
     "ToastsPositionIntro": "Provides settings where the Toast popup appears",
@@ -465,7 +468,10 @@
     "MessagesDifferentColorSecondary": "Secondary message",
     "MessagesPositionTitle": "message box pop-up location",
     "MessagesPositionIntro": "Specify the <code>Message</code> component that has set the bottom display position by setting the component parameter of the <code>MessageService</code> service",
-    "MessagesItem": "MessageItem property"
+    "MessagesItem": "MessageOption property",
+    "MessagesTemplateTitle": "Custom template",
+    "MessagesTemplateIntro": "By setting the <code>ChildContent</code> template, rich custom styles and content prompt information can be achieved",
+    "MessagesTemplatePrompt": "Custom message"
   },
   "BootstrapBlazor.Server.Components.Samples.Lights": {
     "LightsTitle": "Light indicator",
@@ -663,7 +669,9 @@
     "TreeViewSetActiveTitle": "Set Active Node",
     "TreeViewSetActiveIntro": "Set the currently active node by calling the <code>SetActiveItem</code> method",
     "TreeViewSetActiveDisplayText": "Current Active Node",
-    "TreeViewsAttribute": "TreeItem property"
+    "TreeViewsAttribute": "TreeItem property",
+    "TreeViewsDisableWholeTreeView": "Whole TreeView disable",
+    "TreeViewsWhetherToExpandWhenDisable": "Whether to expand when the control node is disabled"
   },
   "BootstrapBlazor.Server.Components.Samples.Trees": {
     "TreeIntro": "<p>Obsolete，The <a href=\"treeviews\" alt=\"treeview\">TreeView</a> provides more functions",
@@ -4407,6 +4415,7 @@
     "Radio": "Radio",
     "Rate": "Rate",
     "Select": "Select",
+    "SelectObject": "Select-Object",
     "SelectTable": "Select-Table",
     "SelectTree": "Select-Tree",
     "Slider": "Slider",
@@ -4555,6 +4564,7 @@
     "AzureTranslator": "AzureTranslator",
     "BarcodeGenerator": "BarcodeGenerator",
     "ZipArchive": "IZipArchiveService",
+    "BrowserFinger": "BrowserFingerService",
     "SvgEditor": "SvgEditor"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
@@ -5776,10 +5786,7 @@
     "ChatNormalIntro": "Chat dialog by calling <code>IAzureOpenAIService</code> service method <code>GetChatCompletionsAsync</code>",
     "ChatUserTitle": "Chat session",
     "ChatUserMessageTitle": "Hello {0}",
-    "ChatDemoDesc": "Since <code>GPT</code> has no free interface, this component requires <code>Gitee</code> or <code>Github</code> to authorize and log in to limit the number of times the account can be used",
-    "ChatExit": "Exit",
-    "ChatGitee": "Gitee OAuth",
-    "ChatGithub": "Github OAuth"
+    "ChatInfo": "Due to the lack of free interfaces in GPT, the number of experiences has been <b>{1}</b> times, and the current number is <b>{0}</b>"
   },
   "BootstrapBlazor.Server.Components.Samples.HtmlRenderers": {
     "Title": "Html Renderer",
@@ -5899,7 +5906,7 @@
     "ApplyButtonText": "Apply",
     "WebSerialOptionsText": "WebSerialOptions"
   },
-  "BootstrapBlazor.Server.Components.Samples.MindMaps.MindMaps": {
+  "BootstrapBlazor.Server.Components.Samples.MindMaps": {
     "MindMapTitle": "Mind Map",
     "MindMapDescription": "The shortcut key tab adds a new node, the mouse can drag node arrangement",
     "MindMapNormalTitle": "Basic usage",
@@ -6143,6 +6150,8 @@
     "Translate": "Translate"
   },
   "BootstrapBlazor.Server.Components.Samples.SelectTables": {
+    "Title": "Table Select",
+    "Intro": "The dropdown box is a table used to display the selection requirements for complex types",
     "NormalTitle": "Basic usage",
     "NormalIntro": "Suitable for candidates with a relatively large amount of information, presenting information using <code>Table</code>",
     "ColorTitle": "Color",
@@ -6170,6 +6179,23 @@
   },
   "BootstrapBlazor.Server.Components.Samples.SelectTables+SelectTableMode": {
     "Foo.Required": "{0} is required."
+  },
+  "BootstrapBlazor.Server.Components.Samples.SelectObjects": {
+    "Title": "Table-Object",
+    "Intro": "Dropdown boxes are used to display the selection requirements for complex types for any component",
+    "NormalTitle": "Basic usage",
+    "NormalIntro": "Use built in <code>ListView</code> component to select images",
+    "MinWidthTitle": "Min-Width",
+    "MinWidthIntro": "Change the minimum width of the dropdown box by setting the <code>DropdownMinWidth</code> value",
+    "HeightTitle": "Height",
+    "HeightIntro": "Change the height of the dropdown box by setting the <code>Height</code> value",
+    "CustomComponentTitle": "Custom Components",
+    "CustomComponentIntro": "Any component can be placed in a dropdown box, and a callback is required for assignment or window closure"
+  },
+  "BootstrapBlazor.Server.Components.Samples.BrowserFingers": {
+    "BrowserFingerTitle": "Browser fingerprint",
+    "BrowserFingerIntro": "Obtain the client browser fingerprint by calling the <code>IBrowserFingerService</code> service instance method <code>GetFingerCodeAsync</code>. The fingerprint is consistent in privacy mode",
+    "GetFingerCodeAsync": "Method for obtaining fingerprints"
   },
   "BootstrapBlazor.Server.Components.Samples.SvgEditors": {
     "SvgEditorTitle": "SvgEditor",

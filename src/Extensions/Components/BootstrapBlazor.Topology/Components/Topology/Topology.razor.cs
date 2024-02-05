@@ -84,34 +84,31 @@ public partial class Topology : IAsyncDisposable
     [JSInvokable]
     public async Task PushData()
     {
-        if (!_disposing)
+        if (OnBeforePushData != null)
         {
-            if (OnBeforePushData != null)
-            {
-                await OnBeforePushData();
-            }
+            await OnBeforePushData();
+        }
 
-            // 判断工作模式
-            if (OnQueryAsync != null)
+        // 判断工作模式
+        if (OnQueryAsync != null)
+        {
+            // 轮训模式
+            Interval = Math.Max(100, Interval);
+            CancelToken = new CancellationTokenSource();
+            while (CancelToken != null && !CancelToken.IsCancellationRequested)
             {
-                // 轮训模式
-                Interval = Math.Max(100, Interval);
-                CancelToken = new CancellationTokenSource();
-                while (CancelToken != null && !CancelToken.IsCancellationRequested)
+                try
                 {
-                    try
+                    var data = await OnQueryAsync(CancelToken.Token);
+                    await PushData(data);
+                    if (CancelToken != null)
                     {
-                        var data = await OnQueryAsync(CancelToken.Token);
-                        await PushData(data);
-                        if (CancelToken != null)
-                        {
-                            await Task.Delay(Interval, CancelToken.Token);
-                        }
+                        await Task.Delay(Interval, CancelToken.Token);
                     }
-                    catch (TaskCanceledException)
-                    {
+                }
+                catch (TaskCanceledException)
+                {
 
-                    }
                 }
             }
         }
@@ -122,13 +119,7 @@ public partial class Topology : IAsyncDisposable
     /// </summary>
     /// <param name="items"></param>
     /// <returns></returns>
-    public async Task PushData(IEnumerable<TopologyItem> items)
-    {
-        if (!_disposing)
-        {
-            await InvokeVoidAsync("update", Id, items);
-        }
-    }
+    public Task PushData(IEnumerable<TopologyItem> items) => InvokeVoidAsync("update", Id, items);
 
     /// <summary>
     /// 重置视图 缩放比例 默认 1 即 100%
@@ -149,15 +140,12 @@ public partial class Topology : IAsyncDisposable
     /// <returns></returns>
     public Task Resize(int? width = null, int? height = null) => InvokeVoidAsync("resize", Id, width, height);
 
-    private bool _disposing;
-
     /// <summary>
-    /// Dispose 方法
+    /// DisposeAsync 方法
     /// </summary>
     /// <param name="disposing"></param>
     protected override async ValueTask DisposeAsync(bool disposing)
     {
-        _disposing = true;
         await base.DisposeAsync(disposing);
 
         if (disposing)

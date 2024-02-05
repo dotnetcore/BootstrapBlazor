@@ -141,9 +141,12 @@
     "ToastsSuccess": "成功通知",
     "ToastsDanger": "失败通知",
     "ToastsInfo": "信息通知",
+    "ToastsPreventTitle": "阻止重复",
+    "ToastsPreventIntro": "通过设置 <code>PreventDuplicates=\"true\"</code> 重复点击下方按钮时，仅弹窗一次",
+    "ToastsPreventText": "阻止重复",
     "ToastsWarning": "警告通知",
     "ToastsCloseTitle": "Toast 手动关闭",
-    "ToastsCloseIntro": "不会自动关闭，需要人工点击关闭按钮",
+    "ToastsCloseIntro": "不会自动关闭，需要人工点击关闭按钮，可通过设置 <code>OnCloseAsync</code> 回调委托自定义关闭弹窗后事件",
     "ToastsCloseNotificationText": "成功通知",
     "ToastsPositionTitle": "Toast 显示位置",
     "ToastsPositionIntro": "提供设置 Toast 弹窗出现位置",
@@ -465,7 +468,10 @@
     "MessagesDifferentColorSecondary": "Secondary 消息",
     "MessagesPositionTitle": "消息框弹出位置",
     "MessagesPositionIntro": "通过设置 <code>MessageService</code> 服务的组件参数，指定已经设置底部显示位置的 <code>Message</code> 组件",
-    "MessagesItem": "MessageItem 属性"
+    "MessagesItem": "MessageOption 属性",
+    "MessagesTemplateTitle": "自定义模板",
+    "MessagesTemplateIntro": "通过设置 <code>ChildContent</code> 模板可以实现丰富的自定义样式与内容的提示信息",
+    "MessagesTemplatePrompt": "自定义消息"
   },
   "BootstrapBlazor.Server.Components.Samples.Lights": {
     "LightsTitle": "Light 指示灯",
@@ -663,7 +669,9 @@
     "TreeViewSetActiveTitle": "设置激活节点",
     "TreeViewSetActiveIntro": "通过调用 <code>SetActiveItem</code> 方法设置当前激活节点",
     "TreeViewSetActiveDisplayText": "当前激活节点",
-    "TreeViewsAttribute": "TreeItem 属性"
+    "TreeViewsAttribute": "TreeItem 属性",
+    "TreeViewsDisableWholeTreeView": "是否禁用整个TreeView",
+    "TreeViewsWhetherToExpandWhenDisable": "禁用时候是否可以展开或折叠子节点"
   },
   "BootstrapBlazor.Server.Components.Samples.Trees": {
     "TreeIntro": "<p>本组件已弃用，请使用新组件 <a href=\"treeviews\" alt=\"treeview\">TreeView</a> 提供更多功能",
@@ -4407,6 +4415,7 @@
     "Radio": "单选框 Radio",
     "Rate": "评分 Rate",
     "Select": "选择器 Select",
+    "SelectObject": "任意选择器 SelectObject",
     "SelectTable": "表格选择器 SelectTable",
     "SelectTree": "树状选择器 SelectTree",
     "Slider": "滑块 Slider",
@@ -4555,6 +4564,7 @@
     "AzureTranslator": "翻译服务 AzureTranslator",
     "BarcodeGenerator": "条码生成器 BarcodeGenerator",
     "ZipArchive": "压缩归档服务 IZipArchiveService",
+    "BrowserFinger": "浏览器指纹 BrowserFingerService",
     "SvgEditor": "Svg编辑器 SvgEditor"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
@@ -5776,10 +5786,7 @@
     "ChatNormalIntro": "通过调用 <code>IAzureOpenAIService</code> 服务方法 <code>GetChatCompletionsAsync</code> 进行聊天对话",
     "ChatUserTitle": "聊天场景",
     "ChatUserMessageTitle": "你好 {0}",
-    "ChatDemoDesc": "由于 <code>GPT</code> 无免费接口，本组件需要 <code>Gitee</code> 或者 <code>Github</code> 授权登录后对账户进行使用次数限制",
-    "ChatExit": "退出",
-    "ChatGitee": "Gitee 授权",
-    "ChatGithub": "Github 授权"
+    "ChatInfo": "由于 <code>GPT</code> 无免费接口，体验次数为 <b>{1}</b> 次，当前次数为 <b>{0}</b>"
   },
   "BootstrapBlazor.Server.Components.Samples.HtmlRenderers": {
     "Title": "Html 转化器",
@@ -5899,7 +5906,7 @@
     "ApplyButtonText": "应用",
     "WebSerialOptionsText": "WebSerialOptions"
   },
-  "BootstrapBlazor.Server.Components.Samples.MindMaps.MindMaps": {
+  "BootstrapBlazor.Server.Components.Samples.MindMaps": {
     "MindMapTitle": "Mind Map 思维导图",
     "MindMapDescription": "快捷键Tab添加新节点,鼠标可拖动节点排列",
     "MindMapNormalTitle": "基本用法",
@@ -6143,6 +6150,8 @@
     "Translate": "机翻"
   },
   "BootstrapBlazor.Server.Components.Samples.SelectTables": {
+    "Title": "TableSelect 表格选择器",
+    "Intro": "下拉框为表格用于展示复杂类型的选择需求",
     "NormalTitle": "基本功能",
     "NormalIntro": "适用于候选项信息量比较大，用 <code>Table</code> 呈现信息量",
     "ColorTitle": "颜色",
@@ -6170,6 +6179,23 @@
   },
   "BootstrapBlazor.Server.Components.Samples.SelectTables+SelectTableMode": {
     "Foo.Required": "{0} 是必填项"
+  },
+  "BootstrapBlazor.Server.Components.Samples.SelectObjects": {
+    "Title": "TableObject 任意选择器",
+    "Intro": "下拉框为任意组件用于展示复杂类型的选择需求",
+    "NormalTitle": "基本功能",
+    "NormalIntro": "内置 <code>ListView</code> 组件选择图片",
+    "MinWidthTitle": "设置最小宽度",
+    "MinWidthIntro": "通过设置 <code>DropdownMinWidth</code> 值，来改变下拉框最小宽度",
+    "HeightTitle": "设置高度",
+    "HeightIntro": "通过设置 <code>Height</code> 值，来改变下拉框高度",
+    "CustomComponentTitle": "自定义组件",
+    "CustomComponentIntro": "任意组件均可放入下拉框内，需要有一个回调进行赋值或者关窗即可"
+  },
+  "BootstrapBlazor.Server.Components.Samples.BrowserFingers": {
+    "BrowserFingerTitle": "浏览器指纹",
+    "BrowserFingerIntro": "通过调用 <code>IBrowserFingerService</code> 服务实例方法 <code>GetFingerCodeAsync</code> 获得客户端浏览器指纹，隐私模式下指纹是一致的",
+    "GetFingerCodeAsync": "获得指纹方法"
   },
   "BootstrapBlazor.Server.Components.Samples.SvgEditors": {
     "SvgEditorTitle": "Svg 编辑器",

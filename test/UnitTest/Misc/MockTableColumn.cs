@@ -76,7 +76,7 @@ internal class MockTableColumn : ITableColumn
 
     public string? FormatString { get; set; }
 
-    public Func<object?, Task<string>>? Formatter { get; set; }
+    public Func<object?, Task<string?>>? Formatter { get; set; }
 
     public Alignment Align { get; set; }
 

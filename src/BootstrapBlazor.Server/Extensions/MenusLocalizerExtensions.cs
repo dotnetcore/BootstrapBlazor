@@ -409,6 +409,12 @@ internal static class MenusLocalizerExtensions
                 new()
                 {
                     IsNew = true,
+                    Text = Localizer["SelectObject"],
+                    Url = "select-object"
+                },
+                new()
+                {
+                    IsNew = true,
                     Text = Localizer["SelectTable"],
                     Url = "select-table"
                 },
@@ -1277,6 +1283,11 @@ internal static class MenusLocalizerExtensions
                 {
                     Text = Localizer["BaiduOcr"],
                     Url = "ocr"
+                },
+                new()
+                {
+                    Text = Localizer["BrowserFinger"],
+                    Url = "browser-finger"
                 },
                 new()
                 {

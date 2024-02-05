@@ -42,6 +42,7 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddScoped<IReconnectorProvider, ReconnectorProvider>();
         services.TryAddScoped<IGeoLocationService, DefaultGeoLocationService>();
         services.TryAddScoped<IComponentHtmlRenderer, ComponentHtmlRenderer>();
+        services.TryAddScoped<IBrowserFingerService, DefaultBrowserFingerService>();
 
         services.AddScoped<TabItemTextOptions>();
         services.AddScoped<DialogService>();

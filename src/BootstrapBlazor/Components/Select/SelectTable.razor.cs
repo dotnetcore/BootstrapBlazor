@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// Select 组件实现类
+/// 下拉表格组件实现类
 /// </summary>
 /// <typeparam name="TItem"></typeparam>
 [CascadingTypeParameter(nameof(TItem))]
@@ -107,7 +107,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     public string? PlaceHolder { get; set; }
 
     /// <summary>
-    /// 获得/设置 表格高度
+    /// 获得/设置 表格高度 默认 486px
     /// </summary>
     [Parameter]
     public int Height { get; set; } = 486;
@@ -205,7 +205,7 @@ public partial class SelectTable<TItem> : IColumnCollection where TItem : class,
     {
         base.OnParametersSet();
 
-        if(OnQueryAsync == null)
+        if (OnQueryAsync == null)
         {
             throw new InvalidOperationException("Please set OnQueryAsync value");
         }

@@ -66,7 +66,7 @@ public abstract class PopConfirmButtonBase : ButtonBase
     public Func<Task>? OnClose { get; set; }
 
     /// <summary>
-    /// 获得/设置 点击确认弹窗前回调方法 返回真时弹出弹窗 返回假时不弹出
+    /// 获得/设置 点击确认弹窗前回调方法 返回真时弹出弹窗 返回假时不弹出 默认 null
     /// </summary>
     [Parameter]
     [NotNull]
@@ -136,6 +136,5 @@ public abstract class PopConfirmButtonBase : ButtonBase
 
         OnClose ??= () => Task.CompletedTask;
         OnConfirm ??= () => Task.CompletedTask;
-        OnBeforeClick ??= () => Task.FromResult(true);
     }
 }

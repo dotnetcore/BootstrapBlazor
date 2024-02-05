@@ -696,7 +696,7 @@ public partial class Table<TItem>
     public FullScreenSize EditDialogFullScreenSize { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑框是否显示最大化按钮 默认 true 不显示
+    /// 获得/设置 编辑框是否显示最大化按钮 默认 true 显示
     /// </summary>
     [Parameter]
     public bool EditDialogShowMaximizeButton { get; set; } = true;
@@ -981,25 +981,29 @@ public partial class Table<TItem>
 
             InternalResetVisibleColumns(Columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.Visible)));
 
-            QueryDynamicItems(DynamicContext);
+            var queryOption = BuildQueryPageOptions();
+            // 设置是否为首次查询
+            queryOption.IsFristQuery = _firstQuery;
+
+            QueryDynamicItems(queryOption, DynamicContext);
 
             // 重新绑定列拖拽
             _bindResizeColumn = true;
         }
     }
 
-    private void QueryDynamicItems(IDynamicObjectContext? context)
+    private void QueryDynamicItems(QueryPageOptions queryOption, IDynamicObjectContext? context)
     {
         RowsCache = null;
         if (context != null)
         {
             var items = context.GetItems();
+            if (context.OnFilterCallback != null)
+            {
+                items = context.OnFilterCallback(queryOption, items);
+            }
             if (IsPagination)
             {
-                if(context.OnFilterCallback != null)
-                {
-                    items = context.OnFilterCallback(items);
-                }
                 TotalCount = items.Count();
                 PageCount = (int)Math.Ceiling(TotalCount * 1.0 / Math.Max(1, PageItems));
                 PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / PageItems).ToString())));

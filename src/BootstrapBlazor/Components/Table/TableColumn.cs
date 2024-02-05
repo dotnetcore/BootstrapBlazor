@@ -236,7 +236,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// 获得/设置 列格式化回调委托
     /// </summary>
     [Parameter]
-    public Func<object?, Task<string>>? Formatter { get; set; }
+    public Func<object?, Task<string?>>? Formatter { get; set; }
 
     /// <summary>
     /// 获得/设置 显示模板
@@ -480,7 +480,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
                 express = member.Expression;
             }
 
-            if (fields.Any())
+            if (fields.Count != 0)
             {
                 fields.Reverse();
                 FieldName = string.Join(".", fields);

@@ -42,6 +42,23 @@ public class TreeViewTest : BootstrapBlazorTestBase
         cut.Contains("form-check disabled");
         cut.Contains("tree-node disabled");
         cut.Contains("form-check-input disabled");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsDisabled, true);
+        });
+        var nodes = cut.FindAll(".tree-item");
+        Assert.Contains("disabled", nodes[1].InnerHtml);
+        Assert.Contains("tree-node disabled", nodes[1].InnerHtml);
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.CanExpandWhenDisabled, true);
+        });
+        nodes = cut.FindAll(".tree-content");
+        Assert.Contains("node-icon fa-solid fa-caret-right", nodes[0].InnerHtml);
+        Assert.Contains("form-check-input disabled", nodes[0].InnerHtml);
+        Assert.Contains("tree-node disabled", nodes[0].InnerHtml);
     }
 
     [Fact]

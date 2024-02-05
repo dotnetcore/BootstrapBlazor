@@ -6949,9 +6949,9 @@ public class TableTest : TableTestBase
         var col = cut.FindComponent<TableColumn<Foo, int>>();
         col.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.Formatter, new Func<object?, Task<string>>(obj =>
+            pb.Add(a => a.Formatter, new Func<object?, Task<string?>>(obj =>
             {
-                return Task.FromResult("test-formatter");
+                return Task.FromResult<string?>("test-formatter");
             }));
         });
         var table = cut.FindComponent<MockTable>();
@@ -7547,7 +7547,7 @@ public class TableTest : TableTestBase
             col.Text = localizer[nameof(Foo.Name)];
         })
         {
-            OnFilterCallback = items => items
+            OnFilterCallback = (option, items) => items
         };
     }
 

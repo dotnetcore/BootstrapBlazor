@@ -40,6 +40,11 @@ public sealed partial class Messages
             Content = "This is a reminder message",
             Icon = "fa-solid fa-circle-info",
             ShowDismiss = true,
+            IsAutoHide = false,
+            OnDismiss = () =>
+            {
+                return Task.CompletedTask;
+            }
         });
     }
 
@@ -72,6 +77,15 @@ public sealed partial class Messages
         }, Message1);
     }
 
+    private async Task ShowTemplateMessage()
+    {
+        await MessageService.Show(new MessageOption()
+        {
+            Icon = "fa-solid fa-circle-info",
+            ChildContent = RenderContent
+        });
+    }
+
     private static AttributeItem[] GetAttributes() =>
     [
         new()
@@ -95,14 +109,6 @@ public sealed partial class Messages
             Name = "ChildContent",
             Description = "Content",
             Type = "RenderFragment",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-        new()
-        {
-            Name = "Class",
-            Description = "Style",
-            Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
@@ -137,6 +143,30 @@ public sealed partial class Messages
             Type = "bool",
             ValueList = "true|false",
             DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "ShowShadow",
+            Description = "Whether to show the shadow",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "ShowBorder",
+            Description = "Whether to show the border",
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = "OnDismiss",
+            Description = "The callback when click close button",
+            Type = "Func<Task>",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     ];
 }

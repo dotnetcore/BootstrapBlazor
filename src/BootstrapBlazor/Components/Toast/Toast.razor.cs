@@ -109,8 +109,11 @@ public partial class Toast
     /// 清除 ToastBox 方法
     /// </summary>
     [JSInvokable]
-    public void Close()
+    public async Task Close()
     {
-        ToastContainer?.Close(Options);
+        if (ToastContainer != null)
+        {
+            await ToastContainer.Close(Options);
+        }
     }
 }

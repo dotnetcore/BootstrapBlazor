@@ -58,7 +58,11 @@
            Introduction="@Localizer["TreeViewTreeDisableIntro"]"
            Name="TreeDisable">
     <section ignore>@((MarkupString)Localizer["TreeViewTreeDisableDescription"].Value)</section>
-    <TreeView TItem="TreeFoo" Items="@DisabledItems" ShowCheckbox="true" />
+    <div class="col-12 col-lg-auto">
+        <Checkbox DisplayText="@Localizer["TreeViewsDisableWholeTreeView"]" ShowAfterLabel="true" @bind-Value="@IsDisabled" />
+        <Checkbox DisplayText="@Localizer["TreeViewsWhetherToExpandWhenDisable"]" ShowAfterLabel="true" @bind-Value="@DisableCanExpand" class="ms-3" />
+    </div>
+    <TreeView TItem="TreeFoo" Items="@DisabledItems" ShowCheckbox="true" IsDisabled="@IsDisabled" CanExpandWhenDisabled="@DisableCanExpand" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TreeViewAccordionModelTitle"]"

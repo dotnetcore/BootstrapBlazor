@@ -28,6 +28,9 @@ public sealed partial class Toasts
     [NotNull]
     private ToastContainer? ToastContainer { get; set; }
 
+    [NotNull]
+    private ConsoleLogger? Logger { get; set; }
+
     /// <summary>
     /// OnInitialized
     /// </summary>
@@ -41,6 +44,18 @@ public sealed partial class Toasts
         Options4 = new ToastOption { Category = ToastCategory.Warning, Title = "Warning message", IsAutoHide = false, Content = "Information prompt pop-up window, automatically closes after 4 seconds" };
 
         ToastContainer = Root.ToastContainer;
+    }
+
+    private async Task OnPreventClick()
+    {
+        ToastContainer.SetPlacement(Placement.BottomEnd);
+        await ToastService.Show(new ToastOption()
+        {
+            PreventDuplicates = true,
+            Category = ToastCategory.Success,
+            Title = "Successfully saved",
+            Content = "Save data successfully, automatically close after 4 seconds"
+        });
     }
 
     private async Task OnSuccessClick()
@@ -96,7 +111,12 @@ public sealed partial class Toasts
             Category = ToastCategory.Warning,
             IsAutoHide = false,
             Title = "Notification",
-            Content = "I will not close automatically, please click the close button in the upper right corner"
+            Content = "I will not close automatically, please click the close button in the upper right corner",
+            OnCloseAsync = () =>
+            {
+                Logger.Log("Toast closed!");
+                return Task.CompletedTask;
+            }
         });
     }
 

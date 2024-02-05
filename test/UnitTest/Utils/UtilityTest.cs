@@ -226,6 +226,31 @@ public class UtilityTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void CreateDisplayByFieldType_Formatter()
+    {
+        var dt = DateTime.Now;
+        var editor = new MockTableColumn("DateTime", typeof(DateTime?))
+        {
+            Formatter = new Func<object?, Task<string?>>(async v =>
+            {
+                var ret = "";
+                await Task.Delay(1);
+                if (v is DateTime d)
+                {
+                    ret = $"{d:yyyyMMddhhmmss}";
+                }
+                return ret;
+            })
+        };
+        var fragment = new RenderFragment(builder => builder.CreateDisplayByFieldType(editor, new Foo() { DateTime = dt }));
+        var cut = Context.Render(builder => builder.AddContent(0, fragment));
+        cut.WaitForAssertion(() =>
+        {
+            Assert.Equal($"<div class=\"form-control is-display\">{dt:yyyyMMddhhmmss}</div>", cut.Markup);
+        });
+    }
+
+    [Fact]
     public void CreateComponentByFieldType_Ok()
     {
         var editor = new MockNullDisplayNameColumn("Name", typeof(string));
@@ -498,7 +523,7 @@ public class UtilityTest : BootstrapBlazorTestBase
         var actual1 = Utility.ConvertValueToString(val);
         Assert.Equal("1.1,2,3.1", actual1);
 
-        var items = new List<SelectedItem>() { new SelectedItem("Test1", "Test1"), new SelectedItem("Test2", "Test2") };
+        var items = new List<SelectedItem>() { new("Test1", "Test1"), new("Test2", "Test2") };
         var actual2 = Utility.ConvertValueToString(items);
         Assert.Equal("Test1,Test2", actual2);
 
@@ -697,6 +722,7 @@ public class UtilityTest : BootstrapBlazorTestBase
         Address
     }
 
+    [AttributeUsage(AttributeTargets.Property)]
     private class CatKeyAttribute : Attribute
     {
 

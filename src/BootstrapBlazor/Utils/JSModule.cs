@@ -63,8 +63,22 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
             {
                 await Module.InvokeVoidAsync(identifier, cancellationToken, [.. paras]);
             }
+            catch (JSException)
+            {
+#if DEBUG
+                System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args!)}");
+                throw;
+#endif
+            }
             catch (JSDisconnectedException) { }
             catch (OperationCanceledException) { }
+            catch (ObjectDisposedException)
+            {
+#if DEBUG
+                System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args!)}");
+                throw;
+#endif
+            }
         }
     }
 
@@ -113,8 +127,22 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
             {
                 ret = await Module.InvokeAsync<TValue>(identifier, cancellationToken, [.. paras]);
             }
+            catch (JSException)
+            {
+#if DEBUG
+                System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args!)}");
+                throw;
+#endif
+            }
             catch (JSDisconnectedException) { }
             catch (OperationCanceledException) { }
+            catch (ObjectDisposedException)
+            {
+#if DEBUG
+                System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args!)}");
+                throw;
+#endif
+            }
 
             return ret;
         }
@@ -128,7 +156,6 @@ public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
     {
         if (disposing)
         {
-            // TODO: 微软的代码这里加上 await 就会线程死锁
             try
             {
                 await Module.DisposeAsync();

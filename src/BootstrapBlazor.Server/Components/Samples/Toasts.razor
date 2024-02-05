@@ -47,8 +47,13 @@ private ToastService? ToastService { get; set; }
     </div>
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["ToastsPreventTitle"]" Introduction="@Localizer["ToastsPreventIntro"]" Name="PreventDuplicates" ShowCode="false">
+    <Button Icon="fa-solid fa-triangle-exclamation" OnClick="@OnPreventClick" Text="@Localizer["ToastsPreventText"]"></Button>
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["ToastsCloseTitle"]" Introduction="@Localizer["ToastsCloseIntro"]" Name="Close" ShowCode="false">
     <Button Icon="fa-solid fa-triangle-exclamation" OnClick="@OnNotAutoHideClick" Text="@Localizer["ToastsCloseNotificationText"]"></Button>
+    <ConsoleLogger @ref="Logger"></ConsoleLogger>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ToastsShowHeaderTitle"]" Introduction="@Localizer["ToastsShowHeaderIntro"]" Name="ShowHeader" ShowCode="false">

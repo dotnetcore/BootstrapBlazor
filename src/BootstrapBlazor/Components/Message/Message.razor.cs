@@ -65,7 +65,7 @@ public partial class Message
         .AddClass("alert-bar", option.ShowBar)
         .Build();
 
-    private string? GetItemId(MessageOption option) => $"{Id}_{option.GetHashCode()}";
+    private string GetItemId(MessageOption option) => $"{Id}_{option.GetHashCode()}";
 
     private string? _msgId;
 
@@ -103,7 +103,7 @@ public partial class Message
     }
 
     /// <summary>
-    /// 清除 Message 方法
+    /// 清除 Message 方法 由 JSInvoke 触发
     /// </summary>
     [JSInvokable]
     public Task Clear()
@@ -113,9 +113,15 @@ public partial class Message
         return Task.CompletedTask;
     }
 
-    private static async Task OnDismiss(MessageOption option)
+    /// <summary>
+    /// OnDismiss 回调方法 由 JSInvoke 触发
+    /// </summary>
+    /// <param name="id"></param>
+    [JSInvokable]
+    public async Task Dismiss(string id)
     {
-        if (option.OnDismiss != null)
+        var option = _messages.Find(i => GetItemId(i) == id);
+        if (option is { OnDismiss: not null })
         {
             await option.OnDismiss();
         }
