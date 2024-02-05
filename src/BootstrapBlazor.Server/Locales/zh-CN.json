@@ -4564,7 +4564,8 @@
     "AzureTranslator": "翻译服务 AzureTranslator",
     "BarcodeGenerator": "条码生成器 BarcodeGenerator",
     "ZipArchive": "压缩归档服务 IZipArchiveService",
-    "BrowserFinger": "浏览器指纹 BrowserFingerService"
+    "BrowserFinger": "浏览器指纹 BrowserFingerService",
+    "SvgEditor": "Svg编辑器 SvgEditor"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "表头分组功能",
@@ -6195,5 +6196,10 @@
     "BrowserFingerTitle": "浏览器指纹",
     "BrowserFingerIntro": "通过调用 <code>IBrowserFingerService</code> 服务实例方法 <code>GetFingerCodeAsync</code> 获得客户端浏览器指纹，隐私模式下指纹是一致的",
     "GetFingerCodeAsync": "获得指纹方法"
+  },
+  "BootstrapBlazor.Server.Components.Samples.SvgEditors": {
+    "SvgEditorTitle": "Svg 编辑器",
+    "BasicTitle": "Svg 编辑器",
+    "BasicIntro": "用于 Svg 编辑"
   }
 }
