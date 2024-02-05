@@ -28,6 +28,9 @@ public sealed partial class Toasts
     [NotNull]
     private ToastContainer? ToastContainer { get; set; }
 
+    [NotNull]
+    private ConsoleLogger? Logger { get; set; }
+
     /// <summary>
     /// OnInitialized
     /// </summary>
@@ -108,7 +111,12 @@ public sealed partial class Toasts
             Category = ToastCategory.Warning,
             IsAutoHide = false,
             Title = "Notification",
-            Content = "I will not close automatically, please click the close button in the upper right corner"
+            Content = "I will not close automatically, please click the close button in the upper right corner",
+            OnCloseAsync = () =>
+            {
+                Logger.Log("Toast closed!");
+                return Task.CompletedTask;
+            }
         });
     }
 

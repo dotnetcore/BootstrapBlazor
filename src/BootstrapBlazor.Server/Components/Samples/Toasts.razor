@@ -53,6 +53,7 @@ private ToastService? ToastService { get; set; }
 
 <DemoBlock Title="@Localizer["ToastsCloseTitle"]" Introduction="@Localizer["ToastsCloseIntro"]" Name="Close" ShowCode="false">
     <Button Icon="fa-solid fa-triangle-exclamation" OnClick="@OnNotAutoHideClick" Text="@Localizer["ToastsCloseNotificationText"]"></Button>
+    <ConsoleLogger @ref="Logger"></ConsoleLogger>
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ToastsShowHeaderTitle"]" Introduction="@Localizer["ToastsShowHeaderIntro"]" Name="ShowHeader" ShowCode="false">

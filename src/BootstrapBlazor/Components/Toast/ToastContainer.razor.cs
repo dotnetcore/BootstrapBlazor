@@ -83,8 +83,12 @@ public partial class ToastContainer : IDisposable
     /// 关闭弹窗
     /// </summary>
     /// <param name="option"></param>
-    public void Close(ToastOption option)
+    public async Task Close(ToastOption option)
     {
+        if (option.OnCloseAsync != null)
+        {
+            await option.OnCloseAsync();
+        }
         Toasts.Remove(option);
         StateHasChanged();
     }

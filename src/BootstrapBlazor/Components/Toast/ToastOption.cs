@@ -75,10 +75,18 @@ public class ToastOption : PopupOptionBase
     public bool Animation { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 关闭当前 Toast 回调委托 默认 null
+    /// </summary>
+    public Func<Task>? OnCloseAsync { get; set; }
+
+    /// <summary>
     /// 关闭当前弹窗方法
     /// </summary>
-    public void Close()
+    public async Task Close()
     {
-        Toast?.Close();
+        if (Toast != null)
+        {
+            await Toast.Close();
+        }
     }
 }
