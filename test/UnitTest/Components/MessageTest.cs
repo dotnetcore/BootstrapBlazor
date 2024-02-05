@@ -58,6 +58,8 @@ public class MessageTest : MessageTestBase
         var message = cut.FindComponent<Message>();
         await message.Instance.Dismiss(alert.Id);
         Assert.True(dismiss);
+
+        await cut.InvokeAsync(() => message.Instance.Clear());
     }
 
     [Fact]
@@ -75,7 +77,6 @@ public class MessageTest : MessageTestBase
     [Fact]
     public async Task Placement_Ok()
     {
-        var dismiss = false;
         var service = Context.Services.GetRequiredService<MessageService>();
         var cut = Context.RenderComponent<Message>(pb =>
         {
@@ -86,12 +87,7 @@ public class MessageTest : MessageTestBase
             Content = "Test Content",
             IsAutoHide = false,
             ShowDismiss = true,
-            Icon = "fa-solid fa-font-awesome",
-            OnDismiss = () =>
-            {
-                dismiss = true;
-                return Task.CompletedTask;
-            }
+            Icon = "fa-solid fa-font-awesome"
         }, cut.Instance));
         Assert.DoesNotContain("data-bb-autohide", cut.Markup);
 
@@ -100,6 +96,6 @@ public class MessageTest : MessageTestBase
         Assert.NotNull(alert.Id);
 
         await cut.Instance.Dismiss(alert.Id);
-        Assert.True(dismiss);
+        await cut.Instance.Dismiss("test_id");
     }
 }
