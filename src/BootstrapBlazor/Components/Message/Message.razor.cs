@@ -65,7 +65,7 @@ public partial class Message
         .AddClass("alert-bar", option.ShowBar)
         .Build();
 
-    private string? GetItemId(MessageOption option) => $"{Id}_{option.GetHashCode()}";
+    private string GetItemId(MessageOption option) => $"{Id}_{option.GetHashCode()}";
 
     private string? _msgId;
 
