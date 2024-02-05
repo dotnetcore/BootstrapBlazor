@@ -468,7 +468,10 @@
     "MessagesDifferentColorSecondary": "Secondary message",
     "MessagesPositionTitle": "message box pop-up location",
     "MessagesPositionIntro": "Specify the <code>Message</code> component that has set the bottom display position by setting the component parameter of the <code>MessageService</code> service",
-    "MessagesItem": "MessageItem property"
+    "MessagesItem": "MessageOption property",
+    "MessagesTemplateTitle": "Custom template",
+    "MessagesTemplateIntro": "By setting the <code>ChildContent</code> template, rich custom styles and content prompt information can be achieved",
+    "MessagesTemplatePrompt": "Custom message"
   },
   "BootstrapBlazor.Server.Components.Samples.Lights": {
     "LightsTitle": "Light indicator",

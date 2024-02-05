@@ -97,5 +97,24 @@ public class MessageTest : MessageTestBase
 
         await cut.Instance.Dismiss(alert.Id);
         await cut.Instance.Dismiss("test_id");
+        await cut.InvokeAsync(() => cut.Instance.Clear());
+
+        await cut.InvokeAsync(() => service.Show(new MessageOption()
+        {
+            ChildContent = builder => builder.AddContent(0, new MarkupString("<div class=\"custom-message-template\">Custom Message</div>"))
+        }, cut.Instance));
+        Assert.Contains("<div class=\"custom-message-template\">Custom Message</div>", cut.Markup);
+    }
+
+    [Fact]
+    public async Task ChildContent_Ok()
+    {
+        var service = Context.Services.GetRequiredService<MessageService>();
+        var cut = Context.RenderComponent<Message>();
+        await cut.InvokeAsync(() => service.Show(new MessageOption()
+        {
+            ChildContent = builder => builder.AddContent(0, new MarkupString("<div class=\"custom-message-template\">Custom Message</div>"))
+        }, cut.Instance));
+        Assert.Contains("<div class=\"custom-message-template\">Custom Message</div>", cut.Markup);
     }
 }

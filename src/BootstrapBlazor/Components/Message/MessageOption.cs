@@ -43,4 +43,9 @@ public class MessageOption : PopupOptionBase
     /// 获得/设置 关闭当前 MessageItem 回调委托 默认 null
     /// </summary>
     public Func<Task>? OnDismiss { get; set; }
+
+    /// <summary>
+    /// 获得/设置 内容模板 默认 null 设置此参数后 <see cref="PopupOptionBase.Content"/> 将失效
+    /// </summary>
+    public RenderFragment? ChildContent { get; set; }
 }
