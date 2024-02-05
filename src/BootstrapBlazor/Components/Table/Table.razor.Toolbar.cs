@@ -696,7 +696,7 @@ public partial class Table<TItem>
     public FullScreenSize EditDialogFullScreenSize { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑框是否显示最大化按钮 默认 true 不显示
+    /// 获得/设置 编辑框是否显示最大化按钮 默认 true 显示
     /// </summary>
     [Parameter]
     public bool EditDialogShowMaximizeButton { get; set; } = true;

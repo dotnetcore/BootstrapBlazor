@@ -10,7 +10,7 @@ namespace UnitTest.Components;
 public class MessageTest : MessageTestBase
 {
     [Fact]
-    public void Message_Ok()
+    public async Task Message_Ok()
     {
         var dismiss = false;
         var service = Context.Services.GetRequiredService<MessageService>();
@@ -43,7 +43,7 @@ public class MessageTest : MessageTestBase
         });
         Assert.NotNull(cut.Instance.MessageContainer);
 
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             var btn = cut.Find("button");
             btn.Click();
@@ -51,18 +51,15 @@ public class MessageTest : MessageTestBase
         Assert.Contains("data-bb-autohide", cut.Markup);
         Assert.Contains("data-bb-delay=\"4000\"", cut.Markup);
 
-        cut.InvokeAsync(() =>
-        {
-            var btnClose = cut.Find(".btn-close");
-            btnClose.Click();
-        });
+        var alert = cut.Find(".alert");
+        Assert.NotNull(alert);
+        Assert.NotNull(alert.Id);
+
+        var message = cut.FindComponent<Message>();
+        await message.Instance.Dismiss(alert.Id);
         Assert.True(dismiss);
 
-        cut.InvokeAsync(() =>
-        {
-            var message = cut.FindComponent<Message>();
-            message.Instance.Clear();
-        });
+        await cut.InvokeAsync(() => message.Instance.Clear());
     }
 
     [Fact]
@@ -78,33 +75,27 @@ public class MessageTest : MessageTestBase
     }
 
     [Fact]
-    public void Placement_Ok()
+    public async Task Placement_Ok()
     {
-        var dismiss = false;
         var service = Context.Services.GetRequiredService<MessageService>();
         var cut = Context.RenderComponent<Message>(pb =>
         {
             pb.Add(a => a.Placement, Placement.Bottom);
         });
-        cut.InvokeAsync(() => service.Show(new MessageOption()
+        await cut.InvokeAsync(() => service.Show(new MessageOption()
         {
             Content = "Test Content",
             IsAutoHide = false,
             ShowDismiss = true,
-            Icon = "fa-solid fa-font-awesome",
-            OnDismiss = () =>
-            {
-                dismiss = true;
-                return Task.CompletedTask;
-            }
+            Icon = "fa-solid fa-font-awesome"
         }, cut.Instance));
         Assert.DoesNotContain("data-bb-autohide", cut.Markup);
 
-        cut.InvokeAsync(() =>
-        {
-            var btnClose = cut.Find(".btn-close");
-            btnClose.Click();
-        });
-        Assert.True(dismiss);
+        var alert = cut.Find(".alert");
+        Assert.NotNull(alert);
+        Assert.NotNull(alert.Id);
+
+        await cut.Instance.Dismiss(alert.Id);
+        await cut.Instance.Dismiss("test_id");
     }
 }
