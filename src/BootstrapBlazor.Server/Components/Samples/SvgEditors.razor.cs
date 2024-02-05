@@ -3,10 +3,14 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 namespace BootstrapBlazor.Server.Components.Samples;
+
+/// <summary>
+/// SvgEditor 示例文档
+/// </summary>
 public partial class SvgEditors
 {
     [NotNull]
-    private BootstrapBlazor.Components.ConsoleLogger? Console { get; set; }
+    private ConsoleLogger? Console { get; set; }
 
     private Task OnSaveChanged(string content)
     {
