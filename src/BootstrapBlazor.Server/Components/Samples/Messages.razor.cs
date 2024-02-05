@@ -40,6 +40,11 @@ public sealed partial class Messages
             Content = "This is a reminder message",
             Icon = "fa-solid fa-circle-info",
             ShowDismiss = true,
+            IsAutoHide = false,
+            OnDismiss = () =>
+            {
+                return Task.CompletedTask;
+            }
         });
     }
 
