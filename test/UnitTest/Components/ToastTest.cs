@@ -149,7 +149,7 @@ public class ToastTest : BootstrapBlazorTestBase
         await cut.InvokeAsync(() => cut.Instance.Close());
 
         var option = new ToastOption();
-        option.Close();
+        await option.Close();
     }
 
     [Fact]
@@ -235,5 +235,24 @@ public class ToastTest : BootstrapBlazorTestBase
             });
         });
         Assert.Contains("error-icon", cut.Markup);
+    }
+
+    [Fact]
+    public async Task OnCloseAsync_Ok()
+    {
+        var close = false;
+        var cut = Context.RenderComponent<ToastContainer>();
+        var service = Context.Services.GetRequiredService<ToastService>();
+        var option = new ToastOption()
+        {
+            OnCloseAsync = () =>
+            {
+                close = true;
+                return Task.CompletedTask;
+            }
+        };
+        await service.Show(option);
+        await cut.InvokeAsync(() => option.Close());
+        Assert.True(close);
     }
 }
