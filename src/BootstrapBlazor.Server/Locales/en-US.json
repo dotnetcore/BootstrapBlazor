@@ -4564,7 +4564,8 @@
     "AzureTranslator": "AzureTranslator",
     "BarcodeGenerator": "BarcodeGenerator",
     "ZipArchive": "IZipArchiveService",
-    "BrowserFinger": "BrowserFingerService"
+    "BrowserFinger": "BrowserFingerService",
+    "SvgEditor": "SvgEditor"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesHeader": {
     "TablesHeaderTitle": "Header grouping function",
@@ -6195,5 +6196,10 @@
     "BrowserFingerTitle": "Browser fingerprint",
     "BrowserFingerIntro": "Obtain the client browser fingerprint by calling the <code>IBrowserFingerService</code> service instance method <code>GetFingerCodeAsync</code>. The fingerprint is consistent in privacy mode",
     "GetFingerCodeAsync": "Method for obtaining fingerprints"
+  },
+  "BootstrapBlazor.Server.Components.Samples.SvgEditors": {
+    "SvgEditorTitle": "SvgEditor",
+    "BasicTitle": "Svg Editor",
+    "BasicIntro": "Use svg editor"
   }
 }
