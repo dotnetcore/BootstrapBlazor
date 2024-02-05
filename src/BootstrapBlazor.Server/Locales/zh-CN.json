@@ -468,7 +468,10 @@
     "MessagesDifferentColorSecondary": "Secondary 消息",
     "MessagesPositionTitle": "消息框弹出位置",
     "MessagesPositionIntro": "通过设置 <code>MessageService</code> 服务的组件参数，指定已经设置底部显示位置的 <code>Message</code> 组件",
-    "MessagesItem": "MessageItem 属性"
+    "MessagesItem": "MessageOption 属性",
+    "MessagesTemplateTitle": "自定义模板",
+    "MessagesTemplateIntro": "通过设置 <code>ChildContent</code> 模板可以实现丰富的自定义样式与内容的提示信息",
+    "MessagesTemplatePrompt": "自定义消息"
   },
   "BootstrapBlazor.Server.Components.Samples.Lights": {
     "LightsTitle": "Light 指示灯",
