@@ -58,6 +58,12 @@ export function show(id, msgId) {
         e.preventDefault();
         e.stopPropagation();
 
+        // trigger on-dismiss event callback
+        const alert = e.delegateTarget.closest('.alert');
+        if(alert) {
+            const alertId = alert.getAttribute('id');
+            msg.invoke.invokeMethodAsync('Dismiss', alertId);
+        }
         close();
     });
 }
