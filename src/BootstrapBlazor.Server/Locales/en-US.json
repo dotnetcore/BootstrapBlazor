@@ -146,7 +146,7 @@
     "ToastsPreventText": "Prevent Duplicates",
     "ToastsWarning": "Warning notice",
     "ToastsCloseTitle": "Toast is closed manually",
-    "ToastsCloseIntro": "It will not close automatically, you need to manually click the close button",
+    "ToastsCloseIntro": "It will not close automatically, you need to manually click the close button. You can customize the event after closing the pop-up window by setting<code>OnCloseAsync</code>callback delegate</code>",
     "ToastsCloseNotificationText": "success notification",
     "ToastsPositionTitle": "Toast display location",
     "ToastsPositionIntro": "Provides settings where the Toast popup appears",

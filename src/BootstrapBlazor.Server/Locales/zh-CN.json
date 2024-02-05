@@ -146,7 +146,7 @@
     "ToastsPreventText": "阻止重复",
     "ToastsWarning": "警告通知",
     "ToastsCloseTitle": "Toast 手动关闭",
-    "ToastsCloseIntro": "不会自动关闭，需要人工点击关闭按钮",
+    "ToastsCloseIntro": "不会自动关闭，需要人工点击关闭按钮，可通过设置 <code>OnCloseAsync</code> 回调委托自定义关闭弹窗后事件",
     "ToastsCloseNotificationText": "成功通知",
     "ToastsPositionTitle": "Toast 显示位置",
     "ToastsPositionIntro": "提供设置 Toast 弹窗出现位置",
