@@ -42,9 +42,9 @@ public class GiteeController : ControllerBase
             var configId = config.GetValue<string>("WebHooks:Gitee:Id");
             var configToken = config.GetValue<string>("WebHooks:Gitee:Token");
             var token = "";
-            if (Request.Headers.TryGetValue("X-Gitee-Token", out var vals))
+            if (Request.Headers.TryGetValue("X-Gitee-Token", out var val))
             {
-                token = vals.FirstOrDefault() ?? string.Empty;
+                token = val.FirstOrDefault() ?? string.Empty;
             }
             return id == configId && token == configToken
                     && payload.Id == configId && payload.Password == configToken;
