@@ -14,7 +14,7 @@
                     ChildContent="@b.ChildContent"
                     OnClickWithoutRender="() => OnClick(b)" IsDisabled="b.IsDisabled"></Button>
         }
-        else if (button is TableCellPopconfirmButton pb && pb.IsShow)
+        else if (button is TableCellPopConfirmButton pb && pb.IsShow)
         {
             <PopConfirmButton AdditionalAttributes="pb.AdditionalAttributes"
                       Color="@pb.Color" Icon="@pb.Icon" Text="@pb.Text" Size="pb.Size" ShowShadow="@pb.ShowShadow"
