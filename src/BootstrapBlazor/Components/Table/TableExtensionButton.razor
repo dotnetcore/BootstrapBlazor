@@ -4,7 +4,7 @@
     @ChildContent
 </CascadingValue>
 <RenderTemplate>
-    @foreach (var button in Buttons)
+    @foreach (var button in _buttons)
     {
         if (button is TableCellButton b && b.IsShow)
         {
