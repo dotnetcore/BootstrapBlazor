@@ -618,6 +618,10 @@ public partial class Table<TItem>
         await EditAsync();
     }
 
+    private bool GetEditButtonDisabledState(TItem item) => DisableExtendEditButtonCallback?.Invoke(item) ?? DisableExtendEditButton;
+
+    private bool GetDeleteButtonDisabledState(TItem item) => DisableExtendDeleteButtonCallback?.Invoke(item) ?? DisableExtendDeleteButton;
+
     private async Task ClickUpdateButtonCallback()
     {
         var context = new EditContext(EditModel);

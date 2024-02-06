@@ -869,17 +869,16 @@
                     }
                     else
                     {
-                        <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" Icon="@EditButtonIcon" Text="@EditButtonText"></Button>
+                        <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" IsDisabled="GetEditButtonDisabledState(item)" Icon="@EditButtonIcon" Text="@EditButtonText"></Button>
                     }
                 }
                 @if (!isInCell && GetShowExtendDeleteButton(item))
                 {
                     <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
-                                      Color="Color.Danger" Icon="@DeleteButtonIcon" Text="@DeleteButtonText"
+                                      Color="Color.Danger" Icon="@DeleteButtonIcon" Text="@DeleteButtonText" IsDisabled="GetDeleteButtonDisabledState(item)"
                                       CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
                                       ConfirmButtonColor="Color.Danger" ConfirmButtonText="@ConfirmDeleteButtonText"
-                                      OnBeforeClick="@ClickBeforeDelete(item)"
-                                      OnConfirm="DeleteAsync" />
+                                      OnBeforeClick="@ClickBeforeDelete(item)" OnConfirm="DeleteAsync" />
                 }
                 @if (!isInCell)
                 {

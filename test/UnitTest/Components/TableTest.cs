@@ -5951,6 +5951,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.ExtendButtonColumnWidth, 130);
                 pb.Add(a => a.ShowExtendButtons, true);
                 pb.Add(a => a.ShowExtendEditButton, true);
+                pb.Add(a => a.DisableExtendEditButton, false);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -5975,8 +5976,12 @@ public class TableTest : TableTestBase
             pb.Add(a => a.ShowExtendEditButton, true);
             pb.Add(a => a.ShowDefaultButtons, false);
             pb.Add(a => a.ShowExtendEditButtonCallback, foo => true);
+            pb.Add(a => a.DisableExtendEditButtonCallback, foo => true);
         });
         Assert.Contains("fa-regular fa-pen-to-square", table.Find("tbody").ToMarkup());
+
+        var button = table.Find("tbody tr:first-child .btn-primary");
+        Assert.Contains("disabled=\"disabled\"", button.OuterHtml);
     }
 
     [Fact]
@@ -5993,6 +5998,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowExtendButtons, true);
                 pb.Add(a => a.ShowExtendDeleteButton, true);
+                pb.Add(a => a.DisableExtendDeleteButton, false);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -6017,8 +6023,12 @@ public class TableTest : TableTestBase
             pb.Add(a => a.ShowExtendDeleteButton, true);
             pb.Add(a => a.ShowDefaultButtons, false);
             pb.Add(a => a.ShowExtendDeleteButtonCallback, foo => true);
+            pb.Add(a => a.DisableExtendDeleteButtonCallback, foo => true);
         });
         Assert.Contains("fa-solid fa-xmark", table.Find("tbody").ToMarkup());
+
+        var button = table.Find("tbody tr:first-child .btn-danger");
+        Assert.Contains("pop-confirm disabled", button.OuterHtml);
     }
 
     [Theory]
