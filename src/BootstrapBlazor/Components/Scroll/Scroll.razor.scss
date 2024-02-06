@@ -6,8 +6,6 @@
     --bb-scroll-thumb-hover-bg: #{$bb-scroll-thumb-hover-bg};
     --bb-scroll-track-bg: #{$bb-scroll-track-bg};
     height: 100%;
-    scrollbar-color: rgba(0,0,0,0.3) rgba(0,0,0,0);
-    scrollbar-width: thin;
     overflow: auto;
 
     &::-webkit-scrollbar {
