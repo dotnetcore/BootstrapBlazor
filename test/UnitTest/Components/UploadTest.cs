@@ -359,6 +359,12 @@ public class UploadTest : BootstrapBlazorTestBase
             new()
         })));
         cut.DoesNotContain("cancel-icon");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Size, Size.ExtraSmall);
+        });
+        cut.Contains("btn-xs");
     }
 
     [Fact]
