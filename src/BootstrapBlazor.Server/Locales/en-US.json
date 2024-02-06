@@ -300,10 +300,10 @@
     "SearchDialogOptionAttr": "SearchDialogOption property"
   },
   "BootstrapBlazor.Server.Components.Samples.PopoverConfirms": {
-    "PopoverConfirmsTitle": "Popconfirm bubble check box",
+    "PopoverConfirmsTitle": "PopConfirm bubble check box",
     "PopoverConfirmsDescription": "Click on the element to pop up a bubble confirmation box.",
     "PopoverConfirmsNormalTitle": "Basic usage",
-    "PopoverConfirmsNormalIntro": "The attributes of <code>Popconfirm</code> are very similar to <code>Popover</code>, so for repeated attributes, please refer to the attributes of <a href='/popover'><code>Popover</code><a> documentation, which is not explained in detail in this document.",
+    "PopoverConfirmsNormalIntro": "The attributes of <code>PopConfirm</code> are very similar to <code>Popover</code>, so for repeated attributes, please refer to the attributes of <a href='/popover'><code>Popover</code><a> documentation, which is not explained in detail in this document.",
     "PopoverConfirmsNormalPopupBoxText": "pop-up box below",
     "PopoverConfirmsNormalPopupBoxContent": "Is this a piece of content sure to delete?",
     "PopoverConfirmsNormalRightPopup": "right popup",

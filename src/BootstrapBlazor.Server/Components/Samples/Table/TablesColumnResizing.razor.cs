@@ -16,15 +16,11 @@ public partial class TablesColumnResizing
     /// </summary>
     [NotNull]
     private List<Foo>? Items { get; set; }
-    private static IEnumerable<int> PageItemsSource => new int[]
-    {
-        5,
-        10,
-        20
-    };
+
+    private static IEnumerable<int> PageItemsSource => new int[] { 5, 10, 20 };
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
