@@ -814,11 +814,59 @@ public partial class Tables
         },
         new()
         {
+            Name = nameof(Table<Foo>.ShowExtendEditButtonCallback),
+            Description = Localizer["ShowExtendEditButtonCallbackAttr"],
+            Type = "Func<TItem, bool>",
+            ValueList = " - ",
+            DefaultValue = " - "
+        },
+        new()
+        {
+            Name = nameof(Table<Foo>.DisableExtendEditButton),
+            Description = Localizer["ShowExtendEditButtonAttr"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = nameof(Table<Foo>.DisableExtendEditButtonCallback),
+            Description = Localizer["DisableExtendEditButtonCallbackAttr"],
+            Type = "Func<TItem, bool>",
+            ValueList = " - ",
+            DefaultValue = " - "
+        },
+        new()
+        {
             Name = nameof(Table<Foo>.ShowExtendDeleteButton),
             Description = Localizer["ShowExtendDeleteButtonAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
+        },
+        new()
+        {
+            Name = nameof(Table<Foo>.ShowExtendDeleteButtonCallback),
+            Description = Localizer["ShowExtendDeleteButtonCallbackAttr"],
+            Type = "Func<TItem, bool>",
+            ValueList = " - ",
+            DefaultValue = " - "
+        },
+        new()
+        {
+            Name = nameof(Table<Foo>.DisableExtendDeleteButton),
+            Description = Localizer["ShowExtendDeleteButtonAttr"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = nameof(Table<Foo>.DisableExtendDeleteButtonCallback),
+            Description = Localizer["DisableExtendDeleteButtonCallbackAttr"],
+            Type = "Func<TItem, bool>",
+            ValueList = " - ",
+            DefaultValue = " - "
         },
         new()
         {
