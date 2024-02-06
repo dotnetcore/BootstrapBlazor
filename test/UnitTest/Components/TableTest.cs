@@ -3919,7 +3919,6 @@ public class TableTest : TableTestBase
                     builder.CloseComponent();
                 });
 
-                // <TableCellButton Color="Color.Primary" Icon="fa-solid fa-pen" Text="明细" OnClick="@(() => OnRowButtonClick(context, "明细"))" />
                 pb.Add(a => a.RowButtonTemplate, foo => builder =>
                 {
                     builder.OpenComponent<TableCellButton>(0);
@@ -3965,11 +3964,15 @@ public class TableTest : TableTestBase
                     builder.CloseComponent();
                 });
 
-                // <TableCellButton Color="Color.Primary" Icon="fa-solid fa-pen" Text="明细" OnClick="@(() => OnRowButtonClick(context, "明细"))" />
                 pb.Add(a => a.RowButtonTemplate, foo => builder =>
                 {
                     builder.OpenComponent<TableCellButton>(0);
                     builder.AddAttribute(2, "Text", "test-extend-button");
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableCellComponent>(10);
+                    builder.AddAttribute(20, "ChildContent", new RenderFragment(b => b.AddContent(0, "test-TableCellComponent")));
+                    builder.AddAttribute(30, "IsShow", true);
                     builder.CloseComponent();
                 });
             });
@@ -3977,6 +3980,13 @@ public class TableTest : TableTestBase
 
         var btn = cut.FindComponent<TableExtensionButton>();
         await cut.InvokeAsync(() => btn.Instance.OnClickButton!(new TableCellButtonArgs() { AutoRenderTableWhenClick = true, AutoSelectedRowWhenClick = true }));
+    }
+
+    [Fact]
+    public void TableCellComponent_Ok()
+    {
+        var cut = Context.RenderComponent<TableCellComponent>();
+        cut.MarkupMatches("");
     }
 
     [Fact]
@@ -4000,7 +4010,6 @@ public class TableTest : TableTestBase
                     builder.CloseComponent();
                 });
 
-                // <TableCellButton Color="Color.Primary" Icon="fa-solid fa-pen" Text="明细" OnClick="@(() => OnRowButtonClick(context, "明细"))" />
                 pb.Add(a => a.BeforeRowButtonTemplate, foo => builder =>
                 {
                     builder.OpenComponent<TableCellButton>(0);
