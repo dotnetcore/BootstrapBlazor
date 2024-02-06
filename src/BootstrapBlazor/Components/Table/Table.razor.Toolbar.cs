@@ -196,6 +196,30 @@ public partial class Table<TItem>
     public Func<TItem, bool>? ShowExtendEditButtonCallback { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否禁用行内扩展编辑按钮 默认 false 不禁用
+    /// </summary>
+    [Parameter]
+    public bool DisableExtendEditButton { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否禁用行内扩展编辑按钮 默认为 null 未设置时使用 <see cref="DisableExtendEditButton"/> 值
+    /// </summary>
+    [Parameter]
+    public Func<TItem, bool>? DisableExtendEditButtonCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否禁用行内扩展删除按钮 默认 false 不禁用
+    /// </summary>
+    [Parameter]
+    public bool DisableExtendDeleteButton { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否禁用行内扩展删除按钮 默认为 null 未设置时使用 <see cref="DisableExtendDeleteButton"/> 值
+    /// </summary>
+    [Parameter]
+    public Func<TItem, bool>? DisableExtendDeleteButtonCallback { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示行内扩展编辑按钮 默认为 null 未设置时使用 <see cref="ShowExtendEditButton"/> 值
     /// </summary>
     [Parameter]
