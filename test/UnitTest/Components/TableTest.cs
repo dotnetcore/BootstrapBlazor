@@ -7613,7 +7613,7 @@ public class TableTest : TableTestBase
         }
     }
 
-    private class MockButton : ButtonBase
+    private class MockButton : ButtonBase, ITableCellComponent
     {
         [CascadingParameter]
         [NotNull]
