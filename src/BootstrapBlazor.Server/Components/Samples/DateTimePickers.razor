@@ -25,14 +25,14 @@
             <div class="d-flex flex-column">
                 <div class="mb-1"><code>TimeSpan</code></div>
                 <TimePickerBody @bind-Value="@SpanValue" />
-                <BootstrapInput Value="@SpanValue" TValue="TimeSpan" Formatter="@FormatterSpanString" Readonly="true" style="width: 180px; margin-top: 0.5rem;" />
+                <BootstrapInput Value="@SpanValue" Formatter="@FormatterSpanString" Readonly="true" style="width: 180px; margin-top: 0.5rem;" />
             </div>
         </div>
         <div class="col-12 col-sm-6">
             <div class="d-flex flex-column">
                 <div class="mb-1"><code>string</code></div>
                 <TimePickerBody @bind-Value="@TimeValue" />
-                <BootstrapInput Value="@TimeValue.ToString("hh\\:mm\\:ss")" TValue="string" Readonly="true" style="width: 180px; margin-top: 0.5rem;" />
+                <BootstrapInput Value="@TimeValue.ToString(@"hh\:mm\:ss")" Readonly="true" style="width: 180px; margin-top: 0.5rem;" />
             </div>
         </div>
     </div>
@@ -45,7 +45,7 @@
                 <DateTimePicker @bind-Value="@ValidateFormValue" />
             </div>
             <div class="col-12 col-sm-auto align-self-end">
-                <Button ButtonType="ButtonType.Submit" Text="@Localizer["SubmitText"]" Icon="fa-solid fa-floppy-disk" />
+                <Button ButtonType="ButtonType.Submit" Text="@Localizer["SubmitText"]" Icon="fa-solid fa-floppy-disk"></Button>
             </div>
         </div>
     </ValidateForm>
