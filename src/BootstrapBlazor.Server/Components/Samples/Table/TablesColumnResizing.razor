@@ -25,6 +25,9 @@
             <TableToolbarButton TItem="Foo" Icon="fa-fw fa-solid fa-pen-to-square" IsEnableWhenSelectedOneRow="true" Text="@Localizer["WidthButtonText2"]" OnClickCallback="@CustomerButton" Color="Color.Success" />
             <TableToolbarButton TItem="Foo" Icon="fa-fw fa-solid fa-pen-to-square" IsEnableWhenSelectedOneRow="true" Text="@Localizer["WidthButtonText3"]" OnClickCallback="@CustomerButton" Color="Color.Warning" />
             <TableToolbarButton TItem="Foo" Icon="fa-fw fa-solid fa-pen-to-square" IsEnableWhenSelectedOneRow="true" Text="@Localizer["WidthButtonText4"]" OnClickCallback="@CustomerButton" Color="Color.Danger" />
+            <TableToolbarComponent TItem="Foo">
+                <ButtonUpload TValue="string" ShowUploadFileList="false"></ButtonUpload>
+            </TableToolbarComponent>
         </TableToolbarTemplate>
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
@@ -38,7 +41,7 @@
             <TableCellButton Color="Color.Danger" Icon="fa-solid fa-pen" Text="@Localizer["WidthButtonText4"]" OnClick="@(() => OnRowButtonClick(context, Localizer["WidthButtonText4"]))" />
             <TableCellPopConfirmButton Color="Color.Info" Icon="fa-solid fa-pen" Text="@Localizer["WidthConfirmButtonText"]" OnConfirm="@(() => OnRowButtonClick(context, Localizer["WidthConfirmButtonText"]))" />
             <TableCellComponent>
-                <ButtonUpload TValue="string" ShowUploadFileList="false" Size="Size.ExtraSmall" OnChange="file => OnUpload(file, context)"></ButtonUpload>
+                <ButtonUpload TValue="string" ShowUploadFileList="false" Size="Size.ExtraSmall"></ButtonUpload>
             </TableCellComponent>
         </RowButtonTemplate>
     </Table>
