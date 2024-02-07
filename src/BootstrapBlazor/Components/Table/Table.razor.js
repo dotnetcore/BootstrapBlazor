@@ -64,7 +64,7 @@ const fixHeader = table => {
                 margin = margin.replace('px', '')
                 const b = window.browser()
                 if (b.device !== 'PC') {
-                    margin = (parseFloat(margin) - 8) + 'px'
+                    margin = (parseFloat(margin) - table.scrollWidth) + 'px'
                 }
                 prev.classList.add('modified')
                 prev.style.right = margin
@@ -506,6 +506,7 @@ export function reset(id) {
             table.isDraggable = table.thead.firstChild.classList.contains('table-draggable')
             table.tables.push(table.thead.firstChild)
             table.tables.push(table.body.firstChild)
+            table.scrollWidth = parseFloat(table.body.style.getPropertyValue('--bb-scroll-width'));
             fixHeader(table)
 
             EventHandler.on(table.body, 'scroll', () => {
