@@ -64,7 +64,7 @@ const fixHeader = table => {
                 margin = margin.replace('px', '')
                 const b = window.browser()
                 if (b.device !== 'PC') {
-                    margin = (parseFloat(margin) - 6) + 'px'
+                    margin = (parseFloat(margin) - 8) + 'px'
                 }
                 prev.classList.add('modified')
                 prev.style.right = margin

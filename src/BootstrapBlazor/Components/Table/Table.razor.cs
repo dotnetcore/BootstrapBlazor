@@ -143,10 +143,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private static string? GetColWidthString(int? width) => width.HasValue ? $"width: {width.Value}px;" : null;
 
     /// <summary>
-    /// 获得/设置 滚动条宽度 默认为 6
+    /// 获得/设置 滚动条宽度 默认为 8
     /// </summary>
     [Parameter]
-    public int ScrollWidth { get; set; } = 6;
+    public int ScrollWidth { get; set; } = 8;
 
     private string ScrollWidthString => $"width: {ScrollWidth}px;";
 

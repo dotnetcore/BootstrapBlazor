@@ -319,6 +319,11 @@
 .table-fixed {
     height: 100%;
     overflow: hidden;
+
+    .table-fixed-body {
+        overflow-x: auto;
+        overflow-y: scroll;
+    }
 }
 
 .table-fixed-header {
@@ -329,11 +334,6 @@
 
 .table-scroll {
     overflow: auto;
-}
-
-.table-fixed-body {
-    overflow-x: auto !important;
-    overflow-y: scroll !important;
 }
 
 .table-fixed-body > .table > tbody > tr > td,
