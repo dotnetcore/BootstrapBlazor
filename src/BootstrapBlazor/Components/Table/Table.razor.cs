@@ -150,6 +150,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private string ScrollWidthString => $"width: {ScrollWidth}px;";
 
+    private string ScrollWidthStyleString => $"--bb-scroll-width: {ScrollWidth}px;";
+
     /// <summary>
     /// 获得/设置 Table 高度 默认为 null
     /// </summary>
