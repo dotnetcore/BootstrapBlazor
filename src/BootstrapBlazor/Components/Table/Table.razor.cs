@@ -943,7 +943,15 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task InvokeInitAsync() => ScreenSize = await InvokeAsync<BreakPoint>("getResponsive");
+    protected override async Task InvokeInitAsync()
+    {
+        ScreenSize = BreakPoint.ExtraExtraLarge;
+        var pointString = await InvokeAsync<string?>("getResponsive");
+        if (Enum.TryParse<BreakPoint>(pointString, true, out var p))
+        {
+            ScreenSize = p;
+        }
+    }
 
     private void InternalResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
     {
