@@ -39,6 +39,7 @@
         inset: 0px -2px;
         cursor: col-resize;
         background-color: transparent;
+        border-radius: 4px;
     }
 
         .sidebar-bar .sidebar-body:hover {
