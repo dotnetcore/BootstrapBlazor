@@ -29,7 +29,7 @@
     width: 1px;
     position: absolute;
     top: 0;
-    right: 0;
+    right: -1px;
     bottom: 0;
     background-color: var(--bs-border-color);
 }
@@ -39,6 +39,7 @@
         inset: 0px -2px;
         cursor: col-resize;
         background-color: transparent;
+        border-radius: 4px;
     }
 
         .sidebar-bar .sidebar-body:hover {
