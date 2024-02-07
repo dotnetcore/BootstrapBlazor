@@ -16,6 +16,7 @@ public partial class Scroll
     private string? StyleString => CssBuilder.Default()
         .AddClass($"height: {Height};", !string.IsNullOrEmpty(Height))
         .AddClass($"width: {Width};", !string.IsNullOrEmpty(Width))
+        .AddClass($"--bb-scroll-width: {ScrollWidth}px;")
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -36,4 +37,10 @@ public partial class Scroll
     /// </summary>
     [Parameter]
     public string? Width { get; set; }
+
+    /// <summary>
+    /// 获得/设置 滚动条宽度 默认 8px
+    /// </summary>
+    [Parameter]
+    public int ScrollWidth { get; set; } = 8;
 }
