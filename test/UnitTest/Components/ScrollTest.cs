@@ -23,6 +23,18 @@ public class ScrollTest : TestBase
     }
 
     [Fact]
+    public void ScrollWidth_Ok()
+    {
+        var cut = Context.RenderComponent<Scroll>(builder =>
+        {
+            builder.Add(a => a.Width, "500px");
+            builder.Add(a => a.ScrollWidth, 6);
+        });
+
+        Assert.Equal("<div class=\"scroll\" style=\"width: 500px; --bb-scroll-width: 6px;\"></div>", cut.Markup);
+    }
+
+    [Fact]
     public void ChildContent_Ok()
     {
         var cut = Context.RenderComponent<Scroll>(builder => builder.Add(a => a.ChildContent, r =>
