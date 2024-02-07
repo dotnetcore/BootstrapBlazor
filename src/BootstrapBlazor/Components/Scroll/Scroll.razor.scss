@@ -1,20 +1,18 @@
 .scroll {
-    --bb-scroll-width: #{$bb-scroll-width};
-    --bb-scroll-height: #{$bb-scroll-height};
-    --bb-scroll-thumb-radius: #{$bb-scroll-thumb-radius};
     --bb-scroll-thumb-bg: #{$bb-scroll-thumb-bg};
     --bb-scroll-thumb-hover-bg: #{$bb-scroll-thumb-hover-bg};
     --bb-scroll-track-bg: #{$bb-scroll-track-bg};
+    --bb-scroll-default-width: 8px;
     height: 100%;
     overflow: auto;
 
     &::-webkit-scrollbar {
-        width: var(--bb-scroll-width);
-        height: var(--bb-scroll-height);
+        width: var(--bb-scroll-width, var(--bb-scroll-default-width));
+        height: var(--bb-scroll-width, var(--bb-scroll-default-width));
     }
 
     &::-webkit-scrollbar-thumb {
-        border-radius: var(--bb-scroll-thumb-radius);
+        border-radius: calc(var(--bb-scroll-width, var(--bb-scroll-default-width)) / 2);
         background-color: var(--bb-scroll-thumb-bg);
     }
 
@@ -27,7 +25,7 @@
     }
 
     &::-webkit-scrollbar-track {
-        border-radius: var(--bb-scroll-thumb-radius);
+        border-radius: calc(var(--bb-scroll-width, var(--bb-scroll-default-width)) / 2);
         background-color: var(--bb-scroll-track-bg);
     }
 }
