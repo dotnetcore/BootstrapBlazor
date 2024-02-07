@@ -1520,7 +1520,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.ShowExtendButtons, showExtendButton);
                 pb.Add(a => a.FixedExtendButtonsColumn, true);
                 pb.Add(a => a.IsFixedHeader, isFixedHeader);
-                pb.Add(a => a.ScrollWidth, 7);
+                pb.Add(a => a.ScrollWidth, 8);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -1570,9 +1570,9 @@ public class TableTest : TableTestBase
         {
             if (isFixedHeader)
             {
-                cut.Contains("right: 236px;");
-                cut.Contains("right: 136px;");
-                cut.Contains("right: 6px;");
+                cut.Contains("right: 238px;");
+                cut.Contains("right: 138px;");
+                cut.Contains("right: 8px;");
             }
             else
             {
@@ -1588,8 +1588,8 @@ public class TableTest : TableTestBase
 
             if (isFixedHeader)
             {
-                cut.Contains("right: 106px;");
-                cut.Contains("right: 6px;");
+                cut.Contains("right: 108px;");
+                cut.Contains("right: 8px;");
             }
         }
     }
@@ -3900,7 +3900,6 @@ public class TableTest : TableTestBase
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var index = 0;
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
@@ -3923,14 +3922,14 @@ public class TableTest : TableTestBase
                 {
                     builder.OpenComponent<TableCellButton>(0);
                     builder.AddAttribute(2, "Text", "test-extend-button");
-                    builder.AddAttribute(3, "class", $"btn-test{index++}");
+                    builder.AddAttribute(3, "class", $"btn-test0");
                     builder.CloseComponent();
                 });
                 pb.Add(a => a.BeforeRowButtonTemplate, foo => builder =>
                 {
                     builder.OpenComponent<TableCellButton>(0);
                     builder.AddAttribute(2, "Text", "test-extend-button");
-                    builder.AddAttribute(3, "class", $"btn-test{index++}");
+                    builder.AddAttribute(3, "class", $"btn-test1");
                     builder.CloseComponent();
                 });
             });
@@ -7538,6 +7537,27 @@ public class TableTest : TableTestBase
             var td = cut.Find("tbody td");
             var expected = string.Format(fixedHeader ? "style=\"width: calc({0}px  - 2 * var(--bb-table-td-padding-x));\"" : "style=\"width: {0}px;\"", width ?? 200);
             Assert.Contains(expected, td.OuterHtml);
+        });
+    }
+
+    [Fact]
+    public void GetResponsiveInvoke_Ok()
+    {
+        Context.JSInterop.Setup<string?>("getResponsive").SetResult("Large");
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
         });
     }
 
