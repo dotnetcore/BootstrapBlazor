@@ -53,7 +53,7 @@
     color: var(--bb-logout-text-color);
     font-weight: bold;
     max-width: var(--bb-logout-text-max-width);
-    display: inline-flex;
+    display: flex;
     margin: var(--bb-logout-text-margin);
     overflow: hidden;
     text-overflow: ellipsis;
