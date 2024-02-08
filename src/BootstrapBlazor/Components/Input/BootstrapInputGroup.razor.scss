@@ -23,4 +23,8 @@
     > .segmented {
         border: 1px solid var(--bs-border-color);
     }
+
+    > .input-group-text {
+        width: var(--bb-input-group-label-width);
+    }
 }
