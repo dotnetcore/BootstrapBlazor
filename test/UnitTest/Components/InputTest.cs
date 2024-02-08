@@ -272,11 +272,12 @@ public class InputTest : BootstrapBlazorTestBase
                 builder.OpenComponent<BootstrapInputGroupLabel>(0);
                 builder.AddAttribute(1, nameof(BootstrapInputGroupLabel.DisplayText), "BootstrapInputGroup");
                 builder.AddAttribute(2, nameof(BootstrapInputGroupLabel.ShowRequiredMark), true);
+                builder.AddAttribute(2, nameof(BootstrapInputGroupLabel.Width), 120);
                 builder.CloseComponent();
             }));
         });
 
-        cut.MarkupMatches("<div class=\"input-group\"><div class=\"input-group-text\" required=\"true\"><span>BootstrapInputGroup</span></div></div>");
+        cut.MarkupMatches("<div class=\"input-group\"><div class=\"input-group-text\" required=\"true\" style=\"--bb-input-group-label-width: 120px;\"><span>BootstrapInputGroup</span></div></div>");
     }
 
     [Fact]
