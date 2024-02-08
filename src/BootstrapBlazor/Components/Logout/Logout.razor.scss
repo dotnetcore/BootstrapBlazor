@@ -37,7 +37,9 @@
 }
 
 .dropdown-logout .dropdown-toggle {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
 }
 
 .dropdown-logout .dropdown-toggle:after {
@@ -53,7 +55,6 @@
     color: var(--bb-logout-text-color);
     font-weight: bold;
     max-width: var(--bb-logout-text-max-width);
-    display: flex;
     margin: var(--bb-logout-text-margin);
     overflow: hidden;
     text-overflow: ellipsis;
