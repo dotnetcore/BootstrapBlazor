@@ -2718,6 +2718,8 @@
     "InputGroupsDescription": "Input can add labels and buttons before or after it to make as a group",
     "InputGroupsNormalTitle": "Basic usage",
     "InputGroupsNormalIntro": "Add a label before the <code>Input</code>, or Add a <code>Button</code> after the <code>Input</code>",
+    "InputGroupsWidthTitle": "Custom Width",
+    "InputGroupsWidthIntro": "Customize label width by setting <code>Width</code>parameters",
     "InputGroupsMultipleTitle": "Add multiple components",
     "InputGroupsMultipleIntro": "The <code>InputGroup</code> can have lots of children",
     "InputGroupsSelectTitle": "Add Select",
