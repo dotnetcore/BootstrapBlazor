@@ -2718,6 +2718,8 @@
     "InputGroupsDescription": "Input 的前后可以增加与一些标签和按钮，拼成一组。其排版格式紧凑，非常适合单行多列的场景，比如搜索等。",
     "InputGroupsNormalTitle": "基础用法",
     "InputGroupsNormalIntro": "在 <code>Input</code> 前增加标签，或者在 <code>Input</code> 后增加 <code>Button</code>",
+    "InputGroupsWidthTitle": "自定义宽度",
+    "InputGroupsWidthIntro": "通过设置 <code>Width</code> 参数，自定义标签宽度",
     "InputGroupsMultipleTitle": "增加多个组件",
     "InputGroupsMultipleIntro": "<code>InputGroup</code> 里面可以增加很多组件",
     "InputGroupsSelectTitle": "下拉框组合",

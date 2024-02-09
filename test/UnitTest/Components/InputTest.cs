@@ -263,7 +263,7 @@ public class InputTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void InputGroup_Ok()
+    public void InputGroup_Width()
     {
         var cut = Context.RenderComponent<BootstrapInputGroup>(builder =>
         {
@@ -278,6 +278,25 @@ public class InputTest : BootstrapBlazorTestBase
         });
 
         cut.MarkupMatches("<div class=\"input-group\"><div class=\"input-group-text\" required=\"true\" style=\"--bb-input-group-label-width: 120px;\"><span>BootstrapInputGroup</span></div></div>");
+    }
+
+    [Theory]
+    [InlineData(Alignment.Center, "center")]
+    [InlineData(Alignment.Right, "end")]
+    public void InputGroup_Alignment(Alignment alignment, string expected)
+    {
+        var cut = Context.RenderComponent<BootstrapInputGroup>(builder =>
+        {
+            builder.Add(s => s.ChildContent, new RenderFragment(builder =>
+            {
+                builder.OpenComponent<BootstrapInputGroupLabel>(0);
+                builder.AddAttribute(1, nameof(BootstrapInputGroupLabel.DisplayText), "BootstrapInputGroup");
+                builder.AddAttribute(2, nameof(BootstrapInputGroupLabel.Alignment), alignment);
+                builder.CloseComponent();
+            }));
+        });
+
+        cut.Contains($"justify-content-{expected}");
     }
 
     [Fact]

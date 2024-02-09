@@ -12,6 +12,8 @@ public partial class BootstrapInputGroupLabel
     private string? ClassString => CssBuilder.Default()
         .AddClass("input-group-text", IsInnerLabel)
         .AddClass("form-label", !IsInnerLabel)
+        .AddClass("justify-content-center", Alignment == Alignment.Center)
+        .AddClass("justify-content-end", Alignment == Alignment.Right)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -27,6 +29,12 @@ public partial class BootstrapInputGroupLabel
     /// </summary>
     [Parameter]
     public int? Width { get; set; }
+
+    /// <summary>
+    /// 获得/设置 标签对其方式 默认 null 未设置 star 对齐
+    /// </summary>
+    [Parameter]
+    public Alignment Alignment { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示必填项标识 默认 false
