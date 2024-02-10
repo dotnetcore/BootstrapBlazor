@@ -26,12 +26,12 @@ public class QueryPageOptionsExtensionsTest
         var option = new QueryPageOptions();
         option.Searches.Add(new SearchFilterAction("Name", "test", FilterAction.Contains));
 
-        var predicate = option.ToFilter().GetFilterFunc<Foo>();
+        var predicate = option.ToFilterFunc<Foo>();
         var expected = _foos.Where(predicate);
         Assert.Equal(2, expected.Count());
 
         option.Searches.Add(new SearchFilterAction("Name", "Test"));
-        predicate = option.ToFilter().GetFilterFunc<Foo>();
+        predicate = option.ToFilterFunc<Foo>();
         expected = _foos.Where(predicate);
         Assert.Equal(4, expected.Count());
     }
@@ -43,7 +43,7 @@ public class QueryPageOptionsExtensionsTest
         option.CustomerSearches.Add(new SearchFilterAction("Name", "test", FilterAction.Contains));
         option.CustomerSearches.Add(new SearchFilterAction("Count", 1, FilterAction.Equal));
 
-        var predicate = option.ToFilter().GetFilterFunc<Foo>();
+        var predicate = option.ToFilterFunc<Foo>();
         var expected = _foos.Where(predicate);
         Assert.Single(expected);
     }
@@ -55,7 +55,7 @@ public class QueryPageOptionsExtensionsTest
         option.AdvanceSearches.Add(new SearchFilterAction("Name", "test", FilterAction.Contains));
         option.AdvanceSearches.Add(new SearchFilterAction("Count", 1, FilterAction.Equal));
 
-        var predicate = option.ToFilter().GetFilterFunc<Foo>();
+        var predicate = option.ToFilterFunc<Foo>();
         var expected = _foos.Where(predicate);
         Assert.Single(expected);
     }
@@ -67,7 +67,7 @@ public class QueryPageOptionsExtensionsTest
         option.Filters.Add(new SearchFilterAction("Name", "test", FilterAction.Contains));
         option.Filters.Add(new SearchFilterAction("Count", 1, FilterAction.Equal));
 
-        var predicate = option.ToFilter().GetFilterFunc<Foo>();
+        var predicate = option.ToFilterFunc<Foo>();
         var expected = _foos.Where(predicate);
         Assert.Single(expected);
     }
