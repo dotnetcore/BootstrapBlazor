@@ -169,9 +169,11 @@ public class EditorFormTest : BootstrapBlazorTestBase
             pb.Add(a => a.ItemChangedType, ItemChangedType.Add);
             pb.Add(a => a.RowType, RowType.Inline);
             pb.Add(a => a.LabelAlign, Alignment.Right);
+            pb.Add(a => a.LabelWidth, 80);
         });
         cut.Contains("row g-3 form-inline form-inline-end");
         cut.Contains("col-12");
+        cut.Contains("--bb-row-label-width: 80px;");
 
         cut.SetParametersAndRender(pb =>
         {
