@@ -110,7 +110,7 @@
         <li>@((MarkupString)Localizer["AlignmentTips2"].Value)</li>
     </ul>
     <ValidateForm Model="@Model">
-        <EditorForm TModel="Foo" ItemsPerRow="2" RowType="RowType.Inline" LabelAlign="Alignment.Right">
+        <EditorForm TModel="Foo" ItemsPerRow="2" RowType="RowType.Inline" LabelAlign="Alignment.Right" LabelWidth="140">
             <FieldItems>
                 <EditorItem @bind-Field="@context.Hobby" Items="@Hobbies" />
             </FieldItems>
