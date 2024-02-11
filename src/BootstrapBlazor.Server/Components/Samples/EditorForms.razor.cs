@@ -134,6 +134,14 @@ public sealed partial class EditorForms
             Type = "Alignment",
             ValueList = "None|Left|Center|Right",
             DefaultValue = "None"
+        },
+        new()
+        {
+            Name = "LabelWidth",
+            Description = Localizer["LabelWidthAttr"],
+            Type = "int?",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
     ];
 
