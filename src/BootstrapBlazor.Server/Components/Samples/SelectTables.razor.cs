@@ -62,7 +62,7 @@ public partial class SelectTables
     private Task<QueryData<Foo>> OnFilterQueryAsync(QueryPageOptions options)
     {
         // 此处代码拷贝后需要自行更改根据 options 中的条件从数据库中获取数据集合
-        var items = _filterItems.Where(options.ToFilter().GetFilterFunc<Foo>());
+        var items = _filterItems.Where(options.ToFilterFunc<Foo>());
 
         if (!string.IsNullOrEmpty(options.SortName))
         {

@@ -411,7 +411,7 @@ public class SelectTableTest : BootstrapBlazorTestBase
 
     private static Task<QueryData<Foo>> OnFilterQueryAsync(QueryPageOptions options, IEnumerable<Foo> _filterItems)
     {
-        _filterItems = _filterItems.Where(options.ToFilter().GetFilterFunc<Foo>());
+        _filterItems = _filterItems.Where(options.ToFilterFunc<Foo>());
 
         if (!string.IsNullOrEmpty(options.SortName))
         {

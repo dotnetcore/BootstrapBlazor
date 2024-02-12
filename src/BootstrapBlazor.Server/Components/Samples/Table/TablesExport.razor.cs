@@ -86,12 +86,9 @@ public partial class TablesExport
         // 通过 context 参数的查询条件
         var option = context.BuildQueryPageOptions();
 
-        // 通过内置扩展方法 ToFilter 获得所有条件
-        var filter = option.ToFilter();
-
         // 通过内置扩展方法 GetFilterFunc 过滤数据
         // EFCore 可使用 GetFilterLambda 获得表达式直接给 Where 方法使用
-        var data = Items.Where(filter.GetFilterFunc<Foo>());
+        var data = Items.Where(option.ToFilterFunc<Foo>());
 
         // 导出符合条件的所有数据 data
         await ExportToClipBoard(context.Columns, data);
@@ -138,12 +135,9 @@ public partial class TablesExport
         // 通过 context 参数的查询条件
         var option = context.BuildQueryPageOptions();
 
-        // 通过内置扩展方法 ToFilter 获得所有条件
-        var filter = option.ToFilter();
-
         // 通过内置扩展方法 GetFilterFunc 过滤数据
         // EFCore 可使用 GetFilterLambda 获得表达式直接给 Where 方法使用
-        var data = Items.Where(filter.GetFilterFunc<Foo>());
+        var data = Items.Where(option.ToFilterFunc<Foo>());
 
         // 导出符合条件的所有数据 data
         var ret = await TableExport.ExportExcelAsync(data, context.Columns, $"Test_{DateTime.Now:yyyyMMddHHmmss}.xlsx");
