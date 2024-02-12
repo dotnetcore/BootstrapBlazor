@@ -110,6 +110,8 @@ public class ITableColumnExtensionsTest
         Assert.Equal("test-key", col.LookupServiceKey);
         Assert.True(col.IsReadonlyWhenAdd);
         Assert.True(col.IsReadonlyWhenEdit);
+        Assert.Equal(Visibility.Unset,col.IsVisibleWhenAdd);
+        Assert.Equal(Visibility.Unset, col.IsVisibleWhenEdit);
         Assert.True(col.Readonly);
         Assert.Equal(3, col.Rows);
         Assert.True(col.SkipValidate);

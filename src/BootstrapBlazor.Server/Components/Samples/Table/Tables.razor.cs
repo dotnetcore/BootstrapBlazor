@@ -250,6 +250,22 @@ public partial class Tables
         },
         new()
         {
+            Name = "IsVisibleWhenAdd",
+            Description = Localizer["IsVisibleWhenAddAttr"],
+            Type = "Visibility",
+            ValueList = "Unset|Visible|Hidden",
+            DefaultValue = "Unset"
+        },
+        new()
+        {
+            Name = "IsVisibleWhenEdit",
+            Description = Localizer["IsVisibleWhenEditAttr"],
+            Type = "Visibility",
+            ValueList = "Unset|Visible|Hidden",
+            DefaultValue = "Unset"
+        },
+        new()
+        {
             Name = "Width",
             Description = Localizer["WidthAttr"],
             Type = "int",

@@ -4488,6 +4488,7 @@
     "TablePage": "Pagination",
     "TableToolbar": "Toolbar",
     "TableEdit": "Edit",
+    "TablesEditVisible": "Other scenarios",
     "TableTracking": "Tracking",
     "TableDynamicExcel": "Excel-DataTable",
     "TableExcel": "Excel-Items",
@@ -4793,6 +4794,8 @@
     "TextEllipsisAttr": "Whether to omit text when exceeded",
     "TemplateAttr": "Template",
     "VisibleAttr": "Whether to display this column",
+    "IsVisibleWhenAddAttr": "Display this column in new item dialog",
+    "IsVisibleWhenEditAttr": "Display this column in edit item dialog",
     "WidthAttr": "Column width (px)",
     "FixedAttr": "Whether to fix this column",
     "GroupNameAttr": "Current Property Grouping",
@@ -4969,6 +4972,13 @@
     "TablesEditInjectDataServiceTips2": "Implementation principle and usage introduction",
     "TablesEditInjectDataServiceTips3": "custom data service",
     "TablesEditInjectDataServiceTips4": "After enabling the use of the injected data service, you can set the component individually by setting the <code>DataServices</code> parameter, if the instance provided by the internal use of the injected service is not set"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesEditVisible": {
+    "TablesVisibleTitle": "Table",
+    "TablesVisibleDescription": "Hide some columns when adding/editing to adapt to different scenarios",
+    "TablesVisibleTip": "If a column has the Visible When Add or Visible When Edit property set to Visible, other columns will be hidden and used to create new data Dto scenes.",
+    "TablesVisibleNormalTitle": "Normal use",
+    "TablesVisibleNormalIntro": "Set <code>VisibleWhenAdd</code> parameter display/hidden column in new item dialog, set<code>VisibleWhenAdd</code> parameter display/hidden column in edit item dialog"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesVirtualization": {
     "TablesVirtualizationTitle": "Table virtual scroll row",

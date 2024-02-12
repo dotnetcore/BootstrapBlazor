@@ -139,4 +139,21 @@ public interface IEditorItem
     /// 获得/设置 当前属性分组排序 默认 0
     /// </summary>
     int GroupOrder { get; set; }
+
+    /// <summary>
+    /// 获得/设置 当前列是否显示 默认为 true 可见的
+    /// </summary>
+    /// <remarks>此属性覆盖 <see cref="IsVisibleWhenAdd"/> 与 <see cref="IsVisibleWhenEdit"/></remarks>
+    bool Visible { get; set; }
+
+    /// <summary>
+    /// 获得/设置 新建时此列显示
+    /// </summary>
+    Visibility IsVisibleWhenAdd { get; set; }
+
+    /// <summary>
+    /// 获得/设置 编辑时此列显示
+    /// </summary>
+    Visibility IsVisibleWhenEdit { get; set; }
+
 }

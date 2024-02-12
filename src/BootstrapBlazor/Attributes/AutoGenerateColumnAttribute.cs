@@ -83,7 +83,17 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// <summary>
     /// 获得/设置 列是否显示 默认为 true 可见的
     /// </summary>
-    public bool Visible { get; set; } = true;
+    public bool Visible { get; set; } = true; 
+
+    /// <summary>
+    /// 获得/设置 新建时此列显示
+    /// </summary>
+    public Visibility IsVisibleWhenAdd { get; set; }
+
+    /// <summary>
+    /// 获得/设置 编辑时此列显示
+    /// </summary>
+    public Visibility IsVisibleWhenEdit { get; set; }
 
     /// <summary>
     /// 获得/设置 列 td 自定义样式 默认为 null 未设置

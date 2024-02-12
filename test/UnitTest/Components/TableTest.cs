@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using AngleSharp.Dom;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
@@ -4574,6 +4573,8 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(3, "Readonly", true);
                     builder.AddAttribute(4, "IsReadonlyWhenAdd", true);
                     builder.AddAttribute(5, "IsReadonlyWhenEdit", true);
+                    builder.AddAttribute(5, "IsVisibleWhenAdd", Visibility.Visible);
+                    builder.AddAttribute(5, "IsVisibleWhenEdit", Visibility.Visible);
                     builder.AddAttribute(6, "SkipValidate", true);
                     builder.AddAttribute(7, "Text", "test");
                     builder.AddAttribute(8, "Visible", true);
@@ -4619,6 +4620,8 @@ public class TableTest : TableTestBase
         Assert.True(column.Instance.Readonly);
         Assert.True(column.Instance.IsReadonlyWhenAdd);
         Assert.True(column.Instance.IsReadonlyWhenEdit);
+        Assert.Equal(Visibility.Visible, column.Instance.IsVisibleWhenAdd);
+        Assert.Equal(Visibility.Visible, column.Instance.IsVisibleWhenEdit);
         Assert.True(column.Instance.SkipValidate);
         Assert.Equal("test", column.Instance.Text);
         Assert.True(column.Instance.Visible);

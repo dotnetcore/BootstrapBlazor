@@ -214,6 +214,20 @@ public static class ObjectExtensions
         } || search;
 
     /// <summary>
+    /// 判断当前 IEditorItem 实例是否显示
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="changedType"></param>
+    /// <param name="search"></param>
+    /// <returns></returns>
+    public static bool IsVisible(this IEditorItem item, ItemChangedType changedType, bool search = false) => item.Editable
+        && item.Visible && changedType switch
+        {
+            ItemChangedType.Add => item.IsVisibleWhenAdd != Visibility.Hidden,
+            _ => item.IsVisibleWhenEdit != Visibility.Hidden
+        } || search;
+
+    /// <summary>
     /// 判断当前 IEditorItem 示例是否可以编辑
     /// </summary>
     /// <param name="item"></param>
@@ -221,7 +235,7 @@ public static class ObjectExtensions
     /// <param name="changedType"></param>
     /// <param name="search"></param>
     /// <returns></returns>
-    public static bool CanWrite(this IEditorItem item, Type modelType, ItemChangedType changedType, bool search = false) => item.CanWrite(modelType) && item.IsEditable(changedType, search);
+    public static bool CanWrite(this IEditorItem item, Type modelType, ItemChangedType changedType, bool search = false) => item.CanWrite(modelType) && item.IsEditable(changedType, search) && item.IsVisible(changedType, search);
 
     /// <summary>
     /// 判断模型是否可写

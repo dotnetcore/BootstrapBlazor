@@ -177,6 +177,7 @@
     "table/dynamic-excel": "Table\\TablesDynamicExcel",
     "table/dynamic-object": "Table\\TablesDynamicObject",
     "table/edit": "Table\\TablesEdit",
+    "table/editvisible": "Table\\TablesEditVisible",
     "table/excel": "Table\\TablesExcel",
     "table/export": "Table\\TablesExport",
     "table/filter": "Table\\TablesFilter",

@@ -1,0 +1,29 @@
+﻿@page "/table/editvisible"
+@inject IStringLocalizer<TablesEditVisible> Localizer
+@inject IStringLocalizer<Foo> FooLocalizer
+
+<h3>@Localizer["TablesVisibleTitle"]</h3>
+<h4>@Localizer["TablesVisibleDescription"]</h4>
+
+<p>@((MarkupString)Localizer["TablesVisibleTip"].Value)</p>
+
+<DemoBlock Title="@Localizer["TablesVisibleNormalTitle"]"
+           Introduction="@Localizer["TablesVisibleNormalIntro"]"
+           Name="Normal">
+
+
+    <Table TItem="Foo" Items="@Items.Take(3)" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" IsVisibleWhenAdd="Visibility.Visible" />
+            <TableColumn @bind-Field="@context.Address" IsVisibleWhenEdit="Visibility.Hidden" />
+            <TableColumn @bind-Field="@context.Count" IsVisibleWhenAdd="Visibility.Visible" />
+            <TableColumn @bind-Field="@context.Complete" IsVisibleWhenAdd="Visibility.Visible" />
+            <TableColumn @bind-Field="@context.Education" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
+<br/>
+<p><a href="https://github.com/dotnetcore/BootstrapBlazor/discussions/2937">more in #2937</a></p>

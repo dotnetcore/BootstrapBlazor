@@ -204,6 +204,23 @@ public class EditorItem<TValue> : ComponentBase, IEditorItem
     public int GroupOrder { get; set; }
 
     /// <summary>
+    /// 获得/设置 当前列编辑时是否显示 默认为 true
+    /// </summary>
+    /// <remarks>此属性覆盖 <see cref="IsVisibleWhenAdd"/> 与 <see cref="IsVisibleWhenEdit"/></remarks>
+    [Parameter]
+    public bool Visible { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 新建时此列显示
+    /// </summary>
+    public Visibility IsVisibleWhenAdd { get; set; }
+
+    /// <summary>
+    /// 获得/设置 编辑时此列显示
+    /// </summary>
+    public Visibility IsVisibleWhenEdit { get; set; }
+
+    /// <summary>
     /// OnInitialized 方法
     /// </summary>
     protected override void OnInitialized()

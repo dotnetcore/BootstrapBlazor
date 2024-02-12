@@ -129,4 +129,6 @@ internal class MockTableColumn : ITableColumn
     public bool HeaderTextEllipsis { get; set; }
 
     public bool IsMarkupString { get; set; }
+    public Visibility IsVisibleWhenAdd { get; set; }
+    public Visibility IsVisibleWhenEdit { get; set; }
 }

@@ -194,6 +194,16 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// </summary>
     public bool IsMarkupString { get; set; }
 
+    /// <summary>
+    /// 获得/设置 新建时此列显示
+    /// </summary>
+    public Visibility IsVisibleWhenAdd { get; set; }
+
+    /// <summary>
+    /// 获得/设置 编辑时此列显示
+    /// </summary>
+    public Visibility IsVisibleWhenEdit { get; set; }
+
     public string GetDisplayName() => Text;
 
     public string GetFieldName() => FieldName;

@@ -907,6 +907,11 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    Text = Localizer["TablesEditVisible"],
+                    Url = "table/editvisible"
+                },
+                new()
+                {
                     Text = Localizer["TableTracking"],
                     Url = "table/tracking"
                 },

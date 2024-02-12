@@ -227,6 +227,24 @@ public class EditorFormTest : BootstrapBlazorTestBase
         Assert.True(editorItem.IsEditable(ItemChangedType.Update));
     }
 
+
+    [Fact]
+    public void IsVisible_Ok()
+    { 
+        var editorItem = new EditorItem<Foo, string>()
+        {
+            IsVisibleWhenAdd = Visibility.Visible,
+            IsVisibleWhenEdit = Visibility.Hidden
+        };
+        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
+        {
+            ["Editable"] = true,
+            ["Readonly"] = false,
+        }));
+        Assert.True(editorItem.IsVisible(ItemChangedType.Add));
+        Assert.False(editorItem.IsVisible(ItemChangedType.Update));
+    }
+
     [Fact]
     public void EditorItem_Ok()
     {

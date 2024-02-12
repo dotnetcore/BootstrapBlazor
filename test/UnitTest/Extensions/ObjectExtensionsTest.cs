@@ -196,6 +196,33 @@ public class ObjectExtensionsTest
         Assert.Equal(val, !editorItem.IsEditable(itemChangedType));
     }
 
+
+    [Theory]
+    [InlineData(ItemChangedType.Add, Visibility.Unset)]
+    [InlineData(ItemChangedType.Add, Visibility.Visible)]
+    [InlineData(ItemChangedType.Add, Visibility.Hidden)]
+    public void IsVisible_IsVisibleWhenAdd(ItemChangedType itemChangedType, Visibility val)
+    {
+        var editorItem = new EditorItem<Foo, string>()
+        {
+            IsVisibleWhenAdd = val
+        };
+        Assert.Equal(val != Visibility.Hidden, editorItem.IsVisible(itemChangedType));
+    }
+
+    [Theory]
+    [InlineData(ItemChangedType.Update, Visibility.Unset)]
+    [InlineData(ItemChangedType.Update, Visibility.Visible)]
+    [InlineData(ItemChangedType.Update, Visibility.Hidden)]
+    public void IsVisible_IsVisibleWhenEdit(ItemChangedType itemChangedType, Visibility val)
+    {
+        var editorItem = new EditorItem<Foo, string>()
+        {
+            IsVisibleWhenEdit = val
+        };
+        Assert.Equal(val != Visibility.Hidden, editorItem.IsVisible(itemChangedType));
+    }
+
     [Theory]
     [InlineData(ItemChangedType.Add)]
     [InlineData(ItemChangedType.Update)]

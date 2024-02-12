@@ -457,6 +457,18 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public int GroupOrder { get; set; }
 
     /// <summary>
+    /// 获得/设置 新建时此列显示
+    /// </summary>
+    [Parameter]
+    public Visibility IsVisibleWhenAdd { get; set; }
+
+    /// <summary>
+    /// 获得/设置 编辑时此列显示
+    /// </summary>
+    [Parameter]
+    public Visibility IsVisibleWhenEdit { get; set; }
+
+    /// <summary>
     /// 获取绑定字段信息方法
     /// </summary>
     public string GetFieldName()

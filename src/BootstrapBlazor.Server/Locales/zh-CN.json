@@ -4488,6 +4488,7 @@
     "TablePage": "分页功能",
     "TableToolbar": "工具栏",
     "TableEdit": "表单维护",
+    "TablesEditVisible": "其他维护场景",
     "TableTracking": "跟踪模式",
     "TableDynamicExcel": "Excel-DataTable",
     "TableExcel": "Excel-Items",
@@ -4793,6 +4794,8 @@
     "TextEllipsisAttr": "是否文本超出时省略",
     "TemplateAttr": "模板",
     "VisibleAttr": "是否显示此列",
+    "IsVisibleWhenAddAttr": "新建时此列显示",
+    "IsVisibleWhenEditAttr": "编辑时此列显示",
     "WidthAttr": "列宽度（像素px）",
     "FixedAttr": "是否固定本列",
     "GroupNameAttr": "当前属性分组",
@@ -4969,6 +4972,13 @@
     "TablesEditInjectDataServiceTips3": "自定义数据服务",
     "TablesEditInjectDataServiceTips4": "开启使用注入数据服务后，可通过设置 <code>DataServices</code> 参数对组件进行单独设置，如未设置内部使用注入服务提供的实例",
     "TablesEditShowSearchPlaceHolderString": "不可为空，50字以内"
+  },
+  "BootstrapBlazor.Server.Components.Samples.Table.TablesEditVisible": {
+    "TablesVisibleTitle": "Table 表格",
+    "TablesVisibleDescription": "新建/编辑时隐藏某些列, 适应不同场景",
+    "TablesVisibleTip": "如果有列设置了 VisibleWhenAdd 或者 VisibleWhenEdit 属性为 Visible, 隐藏其他列, 用于新建数据Dto场景",
+    "TablesVisibleNormalTitle": "基础用法",
+    "TablesVisibleNormalIntro": "设置 <code>VisibleWhenAdd</code> 参数实现新建时此列显示/隐藏,  设置<code>VisibleWhenAdd</code> 参数实现编辑时此列显示/隐藏"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesVirtualization": {
     "TablesVirtualizationTitle": "Table 虚拟滚动行",
