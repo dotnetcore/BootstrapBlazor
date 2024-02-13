@@ -351,6 +351,7 @@ public class LayoutTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Layout>(pb =>
         {
+            pb.Add(a => a.Side, CreateSide());
             pb.Add(a => a.IsFullSide, true);
             pb.Add(a => a.ShowCollapseBar, true);
             pb.Add(a => a.CollapseBarTemplate, builder =>
