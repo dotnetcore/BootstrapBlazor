@@ -71,9 +71,16 @@
     @<header class="@HeaderClassString">
         @if (collapse)
         {
-            <a title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="@TooltipText" class="@CollapseBarClassString" @onclick="CollapseMenu">
-                <i class="@MenuBarIcon"></i>
-            </a>
+            @if (CollapseBarTemplate == null)
+            {
+                <a title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="@TooltipText" class="@CollapseBarClassString" @onclick="CollapseMenu">
+                    <i class="@MenuBarIcon"></i>
+                </a>
+            }
+            else
+            {
+                @CollapseBarTemplate
+            }
         }
         @Header
     </header>;
