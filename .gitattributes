@@ -4,7 +4,6 @@
 * text=auto
 
 *.razor linguist-language=C#
-*.cs    linguist-language=C#
 
 ###############################################################################
 # Set default behavior for command prompt diff.
