@@ -208,6 +208,16 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowIcon_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.ShowIcon, false);
+        });
+        cut.DoesNotContain("datetime-picker-bar");
+    }
+
+    [Fact]
     public void Format_Ok()
     {
         var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
