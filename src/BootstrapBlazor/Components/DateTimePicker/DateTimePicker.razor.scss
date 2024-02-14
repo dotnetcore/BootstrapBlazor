@@ -17,15 +17,19 @@
 }
 
 .datetime-picker {
-    --bb-dt-picker-bar-color: #{$dt-picker-bar-color};
+    --bb-dt-picker-bar-color: #{$bb-dt-picker-bar-color};
     position: relative;
 
     .form-control {
         cursor: pointer;
-        --bb-form-control-padding: #{$form-control-padding};
+        --bb-form-control-padding: #{$bb-dt-form-control-padding};
 
         &[readonly]:not([disabled]) {
             background-color: var(--bs-body-bg);
+        }
+
+        &.has-icon {
+            --bb-form-control-padding: #{$bb-dt-form-control-icon-padding};
         }
     }
 
