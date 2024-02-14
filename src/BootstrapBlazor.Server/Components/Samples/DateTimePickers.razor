@@ -16,7 +16,6 @@
 
 <DemoBlock Title="@Localizer["HasSecondsTitle"]" Introduction="@Localizer["HasSecondsIntro"]" Name="HasSeconds">
     <TimePickerBody @bind-Value="@ValueChangedValue" OnConfirm="ValueChangedOnConfirm" HasSeconds="false" />
-    <ConsoleLogger @ref="ValueChangedLogger" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["TimeTitle"]" Introduction="@Localizer["TimeIntro"]" Name="Time">
@@ -53,6 +52,10 @@
 
 <DemoBlock Title="@Localizer["DateTimeOffsetTitle"]" Introduction="@Localizer["DateTimeOffsetIntro"]" Name="DateTimeOffset">
     <DateTimePicker TValue="DateTimeOffset?" Value="DateTimeOffsetValue" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ShowIconTitle"]" Introduction="@Localizer["ShowIconIntro"]" Name="ShowIcon">
+    <DateTimePicker TValue="DateTimeOffset?" ShowIcon="false" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BindValueTitle"]" Introduction="@Localizer["BindValueIntro"]" Name="BindValue">

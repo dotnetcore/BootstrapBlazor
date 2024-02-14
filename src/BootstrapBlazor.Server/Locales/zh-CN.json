@@ -2416,6 +2416,8 @@
     "HasSecondsIntro": "控制是否显示秒数控件",
     "TimeTitle": "数据双向绑定",
     "TimeIntro": "点击确认按钮时间选择框值与文本框值一致",
+    "ShowIconTitle": "是否显示组件图标",
+    "ShowIconIntro": "通过设置 <code>ShowIcon=\"false\" 不显示组件图标节约空间",
     "ValidateFormTitle": "客户端验证",
     "ValidateFormIntro": "根据自定义验证规则进行数据有效性检查并自动提示",
     "DateTimeOffsetTitle": "点击弹出日期框",

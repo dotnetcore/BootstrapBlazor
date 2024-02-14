@@ -2416,6 +2416,8 @@
     "HasSecondsIntro": "Whether to display or hide the seconds control",
     "TimeTitle": "Data is bound in both directions",
     "TimeIntro": "Click the confirm button to select the box value consistent with the text box value",
+    "ShowIconTitle": "Wether show the component icon",
+    "ShowIconIntro": "Save space by setting<code>ShowIcon=\"false\" to not display component icons",
     "ValidateFormTitle": "Client validation",
     "ValidateFormIntro": "Check data validity and prompt automatically based on custom validation rules",
     "DateTimeOffsetTitle": "Click on the pop-up date box",
