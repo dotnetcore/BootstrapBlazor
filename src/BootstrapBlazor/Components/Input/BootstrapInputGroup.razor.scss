@@ -28,3 +28,9 @@
         width: var(--bb-input-group-label-width);
     }
 }
+
+.input-group-xs {
+    .btn, .form-control, .input-group-text {
+        font-size: .75rem;
+    }
+}
