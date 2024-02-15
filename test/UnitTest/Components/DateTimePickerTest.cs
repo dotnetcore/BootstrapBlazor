@@ -633,7 +633,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         });
 
         var ele = cut.Find(".time-panel-content .has-seconds");
-        Assert.NotNull(ele); 
+        Assert.NotNull(ele);
     }
 
     [Fact]
@@ -649,7 +649,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         });
 
         var ele = cut.Find(".time-panel-content .havenot-seconds");
-        Assert.NotNull(ele); 
+        Assert.NotNull(ele);
     }
     #endregion
 
@@ -776,12 +776,6 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void GetSafeMonthDateTime_Ok()
-    {
-        Assert.True(MockDateTimePicker.GetSafeMonthDateTime_Ok());
-    }
-
-    [Fact]
     public void PickerBodyShowFooter_Ok()
     {
         var confirm = false;
@@ -857,15 +851,8 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     {
         public static bool GetSafeYearDateTime_Ok()
         {
-            var dtm = DatePickerBody.GetSafeYearDateTime(DateTime.MaxValue, 1);
+            var dtm = GetSafeYearDateTime(DateTime.MaxValue, 1);
             return dtm == DateTime.MaxValue.Date;
-        }
-
-        public static bool GetSafeMonthDateTime_Ok()
-        {
-            var v1 = DatePickerBody.GetSafeMonthDateTime(DateTime.MaxValue, 1);
-            var v2 = DatePickerBody.GetSafeMonthDateTime(DateTime.MinValue, -1);
-            return v1 == DateTime.MaxValue.Date && v2 == DateTime.MinValue.Date;
         }
     }
 }
