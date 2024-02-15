@@ -477,7 +477,7 @@ public partial class DatePickerBody
     /// </summary>
     private async Task OnClickPrevMonth()
     {
-        CurrentDate = GetSafeMonthDateTime(CurrentDate, -1);
+        CurrentDate = CurrentDate.GetSafeMonthDateTime(-1);
 
         if (OnDateChanged != null)
         {
@@ -505,7 +505,7 @@ public partial class DatePickerBody
     /// </summary>
     private async Task OnClickNextMonth()
     {
-        CurrentDate = GetSafeMonthDateTime(CurrentDate, 1);
+        CurrentDate = CurrentDate.GetSafeMonthDateTime(1);
 
         if (OnDateChanged != null)
         {
@@ -625,7 +625,7 @@ public partial class DatePickerBody
     /// </summary>
     /// <param name="month"></param>
     /// <returns></returns>
-    private DateTime GetMonth(int month) => GetSafeMonthDateTime(CurrentDate, month - CurrentDate.Month);
+    private DateTime GetMonth(int month) => CurrentDate.GetSafeMonthDateTime(month - CurrentDate.Month);
 
     /// <summary>
     /// 获取 月视图下的月份单元格样式
@@ -745,40 +745,6 @@ public partial class DatePickerBody
             if (DateTime.MaxValue.AddYears(0 - year) > dt)
             {
                 @base = dt.AddYears(year);
-            }
-            else
-            {
-                @base = DateTime.MaxValue.Date;
-            }
-        }
-        return @base;
-    }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="dt"></param>
-    /// <param name="month"></param>
-    /// <returns></returns>
-    protected static DateTime GetSafeMonthDateTime(DateTime dt, int month)
-    {
-        var @base = dt;
-        if (month < 0)
-        {
-            if (DateTime.MinValue.AddMonths(0 - month) < dt)
-            {
-                @base = dt.AddMonths(month);
-            }
-            else
-            {
-                @base = DateTime.MinValue.Date;
-            }
-        }
-        else if (month > 0)
-        {
-            if (DateTime.MaxValue.AddMonths(0 - month) > dt)
-            {
-                @base = dt.AddMonths(month);
             }
             else
             {
