@@ -1,10 +1,11 @@
-﻿.speech-wave-line {
-    line-height: 46px;
+.speech-wave-line {
+    --bb-speech-line-height: #{$bb-speech-line-height};
+    --bb-speech-line-bg: #{$bb-speech-line-bg};
+    line-height: var(--bb-speech-line-height);
     display: inline-block;
-}
 
-    .speech-wave-line > span {
-        background-color: #187cff;
+    > span {
+        background-color: var(--bb-speech-line-bg);
         width: 3px;
         height: 10px;
         margin: 0 5px;
@@ -12,53 +13,62 @@
         border: none;
     }
 
-    .speech-wave-line.line > span {
-        animation: note 0.2s ease-in-out;
-        animation-iteration-count: infinite;
-        animation-direction: alternate;
-    }
+    &.line {
 
-    .speech-wave-line.line .l1 {
-        animation-delay: -1s;
-    }
+        > span {
+            animation: speech-note 0.2s ease-in-out;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
 
-    .speech-wave-line.line .l2 {
-        animation-delay: -0.9s;
-    }
 
-    .speech-wave-line.line .l3 {
-        animation-delay: -0.8s;
-    }
+        .l1 {
+            animation-delay: -1s;
+        }
 
-    .speech-wave-line.line .l4 {
-        animation-delay: -0.7s;
-    }
+        .l2 {
+            animation-delay: -0.9s;
+        }
 
-    .speech-wave-line.line .l5 {
-        animation-delay: -0.6s;
-    }
+        .l3 {
+            animation-delay: -0.8s;
+        }
 
-    .speech-wave-line.line .l6 {
-        animation-delay: -0.5s;
-    }
+        .l4 {
+            animation-delay: -0.7s;
+        }
 
-    .speech-wave-line.line .l7 {
-        animation-delay: -0.4s;
-    }
+        .l5 {
+            animation-delay: -0.6s;
+        }
 
-    .speech-wave-line.line .l8 {
-        animation-delay: -0.3s;
-    }
+        .l6 {
+            animation-delay: -0.5s;
+        }
 
-    .speech-wave-line.line .l9 {
-        animation-delay: -0.2s;
-    }
+        .l7 {
+            animation-delay: -0.4s;
+        }
 
-    .speech-wave-line.line .l10 {
-        animation-delay: -0.1s;
-    }
+        .l8 {
+            animation-delay: -0.3s;
+        }
 
-@keyframes note {
+        .l9 {
+            animation-delay: -0.2s;
+        }
+
+        .l10 {
+            animation-delay: -0.1s;
+        }
+
+        .speech-wave-time {
+            margin-left: 1rem;
+        }
+    }
+}
+
+@keyframes speech-note {
     from {
         transform: scaleY(1)
     }
@@ -66,8 +76,4 @@
     to {
         transform: scaleY(4)
     }
-}
-
-.speech-wave-time {
-    margin-left: 1rem;
 }

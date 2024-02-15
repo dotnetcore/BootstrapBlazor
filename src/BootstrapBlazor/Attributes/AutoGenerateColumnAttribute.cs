@@ -108,7 +108,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// <summary>
     /// 获得/设置 列格式化回调委托
     /// </summary>
-    public Func<object?, Task<string>>? Formatter { get; set; }
+    public Func<object?, Task<string?>>? Formatter { get; set; }
 
     /// <summary>
     /// 获得/设置 编辑模板
@@ -146,9 +146,9 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     RenderFragment? ITableColumn.FilterTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 步长 默认为 1
+    /// <inheritdoc/>
     /// </summary>
-    public object? Step { get; set; }
+    public string? Step { get; set; }
 
     /// <summary>
     /// 获得/设置 Textarea 行数

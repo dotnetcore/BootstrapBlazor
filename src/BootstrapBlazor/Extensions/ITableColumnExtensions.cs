@@ -58,7 +58,7 @@ public static class IEditItemExtensions
         if (!string.IsNullOrEmpty(source.GroupName)) dest.GroupName = source.GroupName;
         if (source.GroupOrder != 0) dest.GroupOrder = source.GroupOrder;
         if (!string.IsNullOrEmpty(source.PlaceHolder)) dest.PlaceHolder = source.PlaceHolder;
-        if (source.Step != null) dest.Step = source.Step;
+        if (!string.IsNullOrEmpty(source.Step)) dest.Step = source.Step;
         if (source.Order != 0) dest.Order = source.Order;
 
         if (source is ITableColumn col)
@@ -221,11 +221,20 @@ public static class IEditItemExtensions
 
     private static RenderFragment RenderTooltip(this ITableColumn col, string? text) => pb =>
     {
-        if (col.ShowTips && !string.IsNullOrEmpty(text))
+        if (col.ShowTips)
         {
             pb.OpenComponent<Tooltip>(0);
             pb.AddAttribute(1, nameof(Tooltip.Title), text);
-            pb.AddAttribute(2, nameof(Tooltip.ChildContent), new RenderFragment(builder => builder.AddContent(0, text)));
+            pb.AddAttribute(2, "class", "text-truncate d-block");
+            if (col.IsMarkupString)
+            {
+                pb.AddAttribute(3, nameof(Tooltip.ChildContent), new RenderFragment(builder => builder.AddMarkupContent(0, text)));
+                pb.AddAttribute(4, nameof(Tooltip.IsHtml), true);
+            }
+            else
+            {
+                pb.AddAttribute(3, nameof(Tooltip.ChildContent), new RenderFragment(builder => builder.AddContent(0, text)));
+            }
             pb.CloseComponent();
         }
         else if (col.IsMarkupString)

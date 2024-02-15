@@ -1,0 +1,56 @@
+﻿@page "/breakpoint"
+@inject IStringLocalizer<Breakpoints> Localizer
+
+<h3>@Localizer["Heading"]</h3>
+
+<h4>@Localizer["Heading1"]</h4>
+
+<p>@Localizer["Paragraph1"]</p>
+
+<p>@Localizer["Paragraph2"]</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Localizer["TableHeading1"]</th>
+            <th>@Localizer["TableHeading2"]</th>
+            <th>@Localizer["TableHeading3"]</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Localizer["Name1"]</td>
+            <td><code>xs</code></td>
+            <td>&lt; 576 @Localizer["Amount"]</td>
+        </tr>
+        <tr>
+            <td>@Localizer["Name2"]</td>
+            <td><code>sm</code></td>
+            <td>&gt;= 576 @Localizer["Amount"]</td>
+        </tr>
+        <tr>
+            <td>@Localizer["Name3"]</td>
+            <td><code>md</code></td>
+            <td>&gt;= 768 @Localizer["Amount"]</td>
+        </tr>
+        <tr>
+            <td>@Localizer["Name4"]</td>
+            <td><code>lg</code></td>
+            <td>&gt;= 992 @Localizer["Amount"]</td>
+        </tr>
+        <tr>
+            <td>@Localizer["Name5"]</td>
+            <td><code>xl</code></td>
+            <td>&gt;= 1200 @Localizer["Amount"]</td>
+        </tr>
+        <tr>
+            <td>@Localizer["Name6"]</td>
+            <td><code>xxl</code></td>
+            <td>&gt;= 1400 @Localizer["Amount"]</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="mt-3">
+    @Localizer["Footer1"] <code>xxl</code> @Localizer["Footer2"] <code>Dialog</code> @Localizer["Footer3"] <code>dialog-xxl</code>
+</div>

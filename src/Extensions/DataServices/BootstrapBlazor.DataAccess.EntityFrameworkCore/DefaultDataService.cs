@@ -10,21 +10,19 @@ namespace BootstrapBlazor.DataAccess.EntityFrameworkCore;
 /// <summary>
 /// Entity Framework ORM 的 IDataService 接口实现
 /// </summary>
-internal class DefaultDataService<TModel> : DataServiceBase<TModel>, IEntityFrameworkCoreDataService where TModel : class, new()
+class DefaultDataService<TModel> : DataServiceBase<TModel>, IEntityFrameworkCoreDataService where TModel : class, new()
 {
     private readonly DbContext _db;
+
     private TModel? Model { get; set; }
 
     /// <summary>
     /// 构造函数
     /// </summary>
-    public DefaultDataService(Func<IEntityFrameworkCoreDataService, DbContext> dbContextResolve)
-    {
-        _db = dbContextResolve(this);
-    }
+    public DefaultDataService(Func<IEntityFrameworkCoreDataService, DbContext> dbContextResolve) => _db = dbContextResolve(this);
 
     /// <summary>
-    /// 
+    /// 增加方法
     /// </summary>
     /// <param name="model"></param>
     /// <returns></returns>
@@ -35,7 +33,7 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel>, IEntityFram
     }
 
     /// <summary>
-    /// 
+    /// 取消更新方法
     /// </summary>
     /// <returns></returns>
     public Task CancelAsync()
@@ -55,7 +53,7 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel>, IEntityFram
     }
 
     /// <summary>
-    /// 
+    /// 编辑方法
     /// </summary>
     /// <returns></returns>
     public Task EditAsync(object model)
@@ -107,16 +105,24 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel>, IEntityFram
         // 处理过滤与搜索逻辑
         var searches = option.ToFilter();
 
-        var query = _db.Set<TModel>()
+        var items = _db.Set<TModel>()
             .Where(searches.GetFilterLambda<TModel>(), searches.HasFilters())
             .Sort(option.SortName!, option.SortOrder, !string.IsNullOrEmpty(option.SortName))
-            .Count(out var count)
-            .Page((option.PageIndex - 1) * option.PageItems, option.PageItems);
+            .Count(out var count);
+
+        if (option.IsPage)
+        {
+            items = items.Page((option.PageIndex - 1) * option.PageItems, option.PageItems);
+        }
+        else if (option.IsVirtualScroll)
+        {
+            items = items.Page((option.StartIndex - 1) * option.PageItems, option.PageItems);
+        }
 
         var ret = new QueryData<TModel>()
         {
             TotalCount = count,
-            Items = query,
+            Items = items,
             IsSorted = option.SortOrder != SortOrder.Unset,
             IsFiltered = option.Filters.Any(),
             IsAdvanceSearch = option.AdvanceSearches.Any(),

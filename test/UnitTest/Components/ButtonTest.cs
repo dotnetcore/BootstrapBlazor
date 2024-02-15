@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
@@ -106,7 +105,7 @@ public class ButtonTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsAsync_Ok()
+    public async Task IsAsync_Ok()
     {
         // 同步点击
         var clicked = false;
@@ -134,8 +133,7 @@ public class ButtonTest : BootstrapBlazorTestBase
         });
         b.Click();
         Assert.False(clicked);
-        tcs.Task.Wait();
-        cut.WaitForState(() => tcs.Task.Result);
+        await tcs.Task;
         Assert.True(clicked);
 
         // 同步无刷新点击
@@ -170,8 +168,7 @@ public class ButtonTest : BootstrapBlazorTestBase
         b.Click();
         Assert.False(clicked);
         Assert.True(cut.Instance.IsDisabled);
-        tcs.Task.Wait();
-        cut.WaitForState(() => tcs.Task.Result);
+        await tcs.Task;
         Assert.True(clicked);
     }
 

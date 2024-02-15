@@ -4,6 +4,8 @@
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
+using System.Reflection;
+using System.Text.Json;
 
 namespace BootstrapBlazor.Components;
 
@@ -58,6 +60,10 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .AddClass("table-resize", AllowResizing)
         .AddClass("table-fixed-body", RenderMode == TableRenderMode.CardView && IsFixedHeader)
         .AddClass("table-striped table-hover", ActiveRenderMode == TableRenderMode.CardView && IsStriped)
+        .Build();
+
+    private string? FooterClassString => CssBuilder.Default()
+        .AddClass("table-footer-fixed", IsFixedFooter)
         .Build();
 
     private bool FixedColumn => FixedExtendButtonsColumn || FixedMultipleColumn || FixedDetailRowHeaderColumn || FixedLineNoColumn || Columns.Any(c => c.Fixed);
@@ -115,7 +121,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .AddClass(ExtendButtonColumnAlignment.ToDescriptionString())
         .Build();
 
-    private string? GetSortTooltip(ITableColumn col) => SortName != col.GetFieldName()
+    private string GetSortTooltip(ITableColumn col) => SortName != col.GetFieldName()
         ? UnsetText
         : SortOrder switch
         {
@@ -128,21 +134,23 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private static string? GetColspan(int colspan) => colspan > 1 ? colspan.ToString() : null;
 
-    private bool IsShowFooter => ShowFooter && (Rows.Any() || !IsHideFooterWhenNoData);
+    private bool IsShowFooter => ShowFooter && (Rows.Count > 0 || !IsHideFooterWhenNoData);
 
-    private int PageStartIndex => Rows.Any() ? (PageIndex - 1) * PageItems + 1 : 0;
+    private int PageStartIndex => Rows.Count > 0 ? (PageIndex - 1) * PageItems + 1 : 0;
 
-    private string? PageInfoLabelString => Localizer[nameof(PageInfoText), PageStartIndex, (PageIndex - 1) * PageItems + Rows.Count, TotalCount];
+    private string PageInfoLabelString => Localizer[nameof(PageInfoText), PageStartIndex, (PageIndex - 1) * PageItems + Rows.Count, TotalCount];
 
     private static string? GetColWidthString(int? width) => width.HasValue ? $"width: {width.Value}px;" : null;
 
     /// <summary>
-    /// 获得/设置 滚动条宽度 默认为 7
+    /// 获得/设置 滚动条宽度 默认为 8
     /// </summary>
     [Parameter]
-    public int ScrollWidth { get; set; } = 7;
+    public int ScrollWidth { get; set; } = 8;
 
     private string ScrollWidthString => $"width: {ScrollWidth}px;";
+
+    private string ScrollWidthStyleString => $"--bb-scroll-width: {ScrollWidth}px;";
 
     /// <summary>
     /// 获得/设置 Table 高度 默认为 null
@@ -154,9 +162,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// 获得/设置 固定表头 默认 false
     /// </summary>
-    /// <remarks>固定表头时设置 <see cref="Height"/> 即可出现滚动条，未设置时尝试自适应</remarks>
     [Parameter]
     public bool IsFixedHeader { get; set; }
+
+    /// <summary>
+    /// 获得/设置 固定 Footer 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsFixedFooter { get; set; }
 
     /// <summary>
     /// 获得/设置 多表头模板
@@ -185,7 +198,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// 明细行集合用于数据懒加载
     /// </summary>
-    protected List<TItem> ExpandRows { get; } = new List<TItem>();
+    protected List<TItem> ExpandRows { get; } = [];
 
     /// <summary>
     /// 获得/设置 组件工作模式为 Excel 模式 默认 false
@@ -314,15 +327,14 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
     private bool _breakPointChanged;
 
-    private Task OnBreakPointChanged(BreakPoint size)
+    private async Task OnBreakPointChanged(BreakPoint size)
     {
         if (size != ScreenSize)
         {
             ScreenSize = size;
             _breakPointChanged = true;
-            StateHasChanged();
+            await InvokeAsync(StateHasChanged);
         }
-        return Task.CompletedTask;
     }
 
     private bool ShowDetails() => IsDetails == null
@@ -336,11 +348,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     public void ExpandDetailRow(TItem item)
     {
         DetailRows.Add(item);
-        if (ExpandRows.Contains(item))
-        {
-            ExpandRows.Remove(item);
-        }
-        else
+        if (!ExpandRows.Remove(item))
         {
             ExpandRows.Add(item);
         }
@@ -349,7 +357,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// 明细行集合用于数据懒加载
     /// </summary>
-    protected List<TItem> DetailRows { get; } = new List<TItem>();
+    protected List<TItem> DetailRows { get; } = [];
 
     /// <summary>
     /// 获得 表头集合
@@ -568,8 +576,19 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     [Parameter]
     public Func<TItem, TItem, bool>? ModelEqualityComparer { get; set; }
 
+    /// <summary>
+    /// 获得/设置 获得高级搜索条件回调方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<PropertyInfo, TItem, List<SearchFilterAction>?>? GetAdvancedSearchFilterCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 表格名称 默认 null 用于列宽持久化功能
+    /// </summary>
+    [Parameter]
+    public string? ClientTableName { get; set; }
+
     [CascadingParameter]
-    [NotNull]
     private ContextMenuZone? ContextMenuZone { get; set; }
 
     [Inject]
@@ -591,7 +610,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         OnInitLocalization();
 
         // 设置 OnSort 回调方法
-        InternalOnSortAsync = async (sortName, sortOrder) =>
+        InternalOnSortAsync = (sortName, sortOrder) =>
         {
             // 调用 OnSort 回调方法
             if (OnSort != null)
@@ -600,15 +619,15 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             }
 
             // 重新查询
-            await QueryAsync();
+            return QueryAsync();
         };
 
         // 设置 OnFilter 回调方法
-        OnFilterAsync = async () =>
+        OnFilterAsync = () =>
         {
             PageIndex = 1;
             TotalCount = 0;
-            await QueryAsync();
+            return QueryAsync();
         };
     }
 
@@ -652,7 +671,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             RenderMode = op.TableSettings.TableRenderMode.Value;
         }
 
-        PageItemsSource ??= new int[] { 20, 50, 100, 200, 500, 1000 };
+        PageItemsSource ??= new[] { 20, 50, 100, 200, 500, 1000 };
 
         if (PageItems == 0)
         {
@@ -682,8 +701,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         RefreshButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableRefreshButtonIcon);
         CardViewButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableCardViewButtonIcon);
         ColumnListButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableColumnListButtonIcon);
-        ExcelExportIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableExcelExportIcon);
-        PdfExportIcon ??= IconTheme.GetIconByKey(ComponentIcons.TablePdfExportIcon);
+        CsvExportIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportCsvIcon);
+        ExcelExportIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportExcelIcon);
+        PdfExportIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableExportPdfIcon);
         SearchButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableSearchButtonIcon);
         ResetSearchButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableResetSearchButtonIcon);
         CloseButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.TableCloseButtonIcon);
@@ -708,6 +728,8 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 获得/设置 自动刷新 CancellationTokenSource 实例
     /// </summary>
     protected CancellationTokenSource? AutoRefreshCancelTokenSource { get; set; }
+
+    private bool _bindResizeColumn;
 
     /// <summary>
     /// OnParametersSet 方法
@@ -742,14 +764,6 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         {
             // 动态列模式
             ResetDynamicContext();
-
-            // set default sortName
-            var col = Columns.Find(i => i.Sortable && i.DefaultSort);
-            if (col != null)
-            {
-                SortName = col.GetFieldName();
-                SortOrder = col.DefaultSortOrder;
-            }
         }
     }
 
@@ -794,6 +808,12 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await InvokeVoidAsync("resetColumn", Id);
         }
 
+        if (_bindResizeColumn)
+        {
+            _bindResizeColumn = false;
+            await InvokeVoidAsync("bindResizeColumn", Id);
+        }
+
         if (UpdateSortTooltip)
         {
             UpdateSortTooltip = false;
@@ -807,6 +827,49 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             await LoopQueryAsync();
             _loop = false;
         }
+    }
+
+    private int? _localStorageTableWidth;
+
+    private string? GetTableStyleString(bool hasHeader)
+    {
+        string? ret = null;
+        if (_localStorageTableWidth.HasValue)
+        {
+            var width = hasHeader ? _localStorageTableWidth.Value : _localStorageTableWidth.Value - 6;
+            ret = $"width: {width}px;";
+        }
+        return ret;
+    }
+
+    private string? GetTableName(bool hasHeader) => hasHeader ? ClientTableName : null;
+
+    private readonly JsonSerializerOptions _serializerOption = new() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+
+    private async Task<IEnumerable<ColumnWidth>> ReloadColumnWidth()
+    {
+        IEnumerable<ColumnWidth>? ret = null;
+        if (!string.IsNullOrEmpty(ClientTableName) && AllowResizing)
+        {
+            var jsonData = await InvokeAsync<string>("reloadColumnWidth", Id, ClientTableName);
+            if (!string.IsNullOrEmpty(jsonData))
+            {
+                try
+                {
+                    var doc = JsonDocument.Parse(jsonData);
+                    if (doc.RootElement.TryGetProperty("cols", out var element))
+                    {
+                        ret = element.Deserialize<IEnumerable<ColumnWidth>>(_serializerOption);
+                    }
+                    if (doc.RootElement.TryGetProperty("table", out var tableEl) && tableEl.TryGetInt32(out var tableWidth))
+                    {
+                        _localStorageTableWidth = tableWidth;
+                    }
+                }
+                catch { }
+            }
+        }
+        return ret ?? [];
     }
 
     private async Task ProcessFirstRender()
@@ -841,8 +904,20 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
 
         InternalResetVisibleColumns(Columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.Visible)));
 
+        // 查看是否开启列宽序列化
+        var columnWidths = await ReloadColumnWidth();
+
+        foreach (var cw in columnWidths.Where(c => c.Width > 0))
+        {
+            var c = Columns.Find(c => c.GetFieldName() == cw.Name);
+            if (c != null)
+            {
+                c.Width = cw.Width;
+            }
+        }
+
         // set default sortName
-        var col = Columns.Find(i => i.Sortable && i.DefaultSort);
+        var col = Columns.Find(i => i is { Sortable: true, DefaultSort: true });
         if (col != null)
         {
             SortName = col.GetFieldName();
@@ -870,7 +945,15 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override async Task InvokeInitAsync() => ScreenSize = await InvokeAsync<BreakPoint>("getResponsive");
+    protected override async Task InvokeInitAsync()
+    {
+        ScreenSize = BreakPoint.ExtraExtraLarge;
+        var pointString = await InvokeAsync<string?>("getResponsive");
+        if (Enum.TryParse<BreakPoint>(pointString, true, out var p))
+        {
+            ScreenSize = p;
+        }
+    }
 
     private void InternalResetVisibleColumns(IEnumerable<ColumnVisibleItem> columns)
     {
@@ -922,7 +1005,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// OnQueryAsync 查询结果数据集合
     /// </summary>
-    private IEnumerable<TItem> QueryItems { get; set; } = Enumerable.Empty<TItem>();
+    private IEnumerable<TItem> QueryItems { get; set; } = [];
 
     [NotNull]
     private List<TItem>? RowsCache { get; set; }
@@ -1027,7 +1110,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
                 var onValueChanged = Utility.GetOnValueChangedInvoke<IDynamicObject>(col.PropertyType);
                 if (DynamicContext.OnValueChanged != null)
                 {
-                    var parameters = col.ComponentParameters?.ToList() ?? new List<KeyValuePair<string, object>>();
+                    var parameters = col.ComponentParameters?.ToList() ?? [];
                     parameters.Add(new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged.Invoke(d, col, (model, column, val) => DynamicContext.OnValueChanged(model, column, val))));
                     col.ComponentParameters = parameters;
                 }
@@ -1038,10 +1121,9 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         void SetEditTemplate()
         {
             var onValueChanged = Utility.GetOnValueChangedInvoke<TItem>(col.PropertyType);
-            col.ComponentParameters = new List<KeyValuePair<string, object>>
-            {
-                new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged(item, col, (model, column, val) => InternalOnSaveAsync(model, ItemChangedType.Update)))
-            };
+            var parameters = col.ComponentParameters?.ToList() ?? [];
+            parameters.Add(new(nameof(ValidateBase<string>.OnValueChanged), onValueChanged(item, col, (model, column, val) => InternalOnSaveAsync(model, ItemChangedType.Update))));
+            col.ComponentParameters = parameters;
         }
     }
 
@@ -1049,26 +1131,18 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// <summary>
     /// 获得/设置 表头过滤时回调方法
     /// </summary>
-    [NotNull]
     public Func<Task>? OnFilterAsync { get; private set; }
 
     /// <summary>
     /// 获得 过滤集合
     /// </summary>
-    public Dictionary<string, IFilterAction> Filters { get; } = new();
+    public Dictionary<string, IFilterAction> Filters { get; } = [];
     #endregion
 
     private async ValueTask<ItemsProviderResult<TItem>> LoadItems(ItemsProviderRequest request)
     {
         StartIndex = request.StartIndex;
-        if (TotalCount > 0)
-        {
-            PageItems = Math.Min(request.Count, TotalCount - request.StartIndex);
-        }
-        else
-        {
-            PageItems = request.Count;
-        }
+        PageItems = TotalCount > 0 ? Math.Min(request.Count, TotalCount - request.StartIndex) : request.Count;
         await QueryData();
         return new ItemsProviderResult<TItem>(QueryItems, TotalCount);
     }
@@ -1086,7 +1160,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
         .AddClass("is-dbcell", trigger)
         .Build();
 
-    private bool IsShowEmpty => ShowEmpty && !Rows.Any();
+    private bool IsShowEmpty => ShowEmpty && Rows.Count == 0;
 
     private int GetColumnCount()
     {
@@ -1132,7 +1206,11 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             column.Filter?.FilterAction.Reset();
         }
         Filters.Clear();
-        await OnFilterAsync();
+
+        if (OnFilterAsync != null)
+        {
+            await OnFilterAsync();
+        }
     }
 
     /// <summary>
@@ -1145,7 +1223,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     /// 返回 true 时按钮禁用
     /// </summary>
     /// <returns></returns>
-    private bool GetDeleteButtonStatus() => ShowAddForm || AddInCell || !SelectedRows.Any();
+    private bool GetDeleteButtonStatus() => ShowAddForm || AddInCell || SelectedRows.Count == 0;
 
     private async Task InvokeItemsChanged()
     {
@@ -1172,13 +1250,13 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
     private string? DraggableString => AllowDragColumn ? "true" : null;
 
     /// <summary>
-    /// 获得/设置 拖动列结束回调方法 
+    /// 获得/设置 拖动列结束回调方法
     /// </summary>
     [Parameter]
     public Func<string, IEnumerable<ITableColumn>, Task>? OnDragColumnEndAsync { get; set; }
 
     /// <summary>
-    /// 获得/设置 设置列宽回调方法 
+    /// 获得/设置 设置列宽回调方法
     /// </summary>
     [Parameter]
     public Func<string, float, Task>? OnResizeColumnAsync { get; set; }

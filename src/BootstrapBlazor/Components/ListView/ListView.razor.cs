@@ -196,4 +196,14 @@ public partial class ListView<TItem> : BootstrapComponentBase
             await OnListViewItemClick(item);
         }
     }
+
+    private RenderFragment RenderCollapsibleItems() => builder =>
+    {
+        var index = 0;
+        foreach (var key in GroupOrderCallback)
+        {
+            var i = index++;
+            builder.AddContent(i, RenderItem(key, i));
+        }
+    };
 }

@@ -39,6 +39,12 @@ public partial class LookupFilter
     [NotNull]
     public Type? Type { get; set; }
 
+    /// <summary>
+    /// 获得 是否为 ShowSearch 呈现模式 默认为 false
+    /// </summary>
+    [Parameter]
+    public bool IsShowSearch { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<TableFilter>? Localizer { get; set; }
@@ -77,7 +83,7 @@ public partial class LookupFilter
         {
             var items = new List<SelectedItem>
             {
-                new SelectedItem("", Localizer["EnumFilter.AllText"].Value)
+                new("", Localizer["EnumFilter.AllText"].Value)
             };
             items.AddRange(Lookup);
             Items = items;
@@ -99,7 +105,7 @@ public partial class LookupFilter
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
-        var filter = new FilterKeyValueAction() { Filters = new() };
+        var filter = new FilterKeyValueAction() { Filters = [] };
         if (!string.IsNullOrEmpty(Value))
         {
             var type = Nullable.GetUnderlyingType(Type) ?? Type;

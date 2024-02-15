@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
-
 namespace UnitTest.Components;
 
 public class MultiSelectTest : BootstrapBlazorTestBase
@@ -213,7 +211,7 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     [Fact]
     public void DefaultButtons_Ok()
     {
-        List<SelectedItem> selectedItems = new();
+        List<SelectedItem> selectedItems = [];
         var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
         {
             pb.Add(a => a.ShowToolbar, true);
@@ -411,6 +409,30 @@ public class MultiSelectTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void GroupItemTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        {
+            pb.Add(a => a.Value, "1");
+            pb.Add(a => a.ShowCloseButton, false);
+            pb.Add(a => a.Items, new List<SelectedItem>
+            {
+                new SelectedItem("1", "Test1") { GroupName = "Test1" },
+                new SelectedItem("2", "Test2") { GroupName = "Test2" }
+            });
+            pb.Add(a => a.GroupItemTemplate, title => builder =>
+            {
+                builder.OpenElement(0, "div");
+                builder.AddAttribute(1, "class", "group-key");
+                builder.AddContent(2, title);
+                builder.CloseElement();
+            });
+        });
+        cut.Contains("<div class=\"group-key\">Test1</div>");
+        cut.Contains("<div class=\"group-key\">Test2</div>");
+    }
+
+    [Fact]
     public void SearchIcon_Ok()
     {
         var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
@@ -454,5 +476,21 @@ public class MultiSelectTest : BootstrapBlazorTestBase
             pb.Add(a => a.ClearIcon, null);
         });
         Assert.Contains("fa-solid fa-xmark", cut.Markup);
+    }
+
+    [Fact]
+    public void IsMarkupString_Ok()
+    {
+        var cut = Context.RenderComponent<MultiSelect<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new("1", "<div>Test1</div>"),
+                new("2", "<div>Test2</div>")
+            });
+            pb.Add(a => a.Value, "2");
+            pb.Add(a => a.IsMarkupString, true);
+        });
+        Assert.Contains("<div>Test1</div>", cut.Markup);
     }
 }

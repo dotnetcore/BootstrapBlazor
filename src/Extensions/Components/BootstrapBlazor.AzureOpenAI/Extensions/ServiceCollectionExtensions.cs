@@ -18,7 +18,7 @@ public static class BootstrapBlazorAzureOpenAIServiceExtensions
     /// <param name="services"></param>
     public static IServiceCollection AddBootstrapBlazorAzureOpenAIService(this IServiceCollection services)
     {
-        services.TryAddSingleton<IAzureOpenAIService, AzureOpenAIService>();
+        services.TryAddScoped<IAzureOpenAIService, AzureOpenAIService>();
         services.AddOptionsMonitor<AzureOpenAIOption>();
 
         return services;

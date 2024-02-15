@@ -4,18 +4,9 @@
 
 namespace BootstrapBlazor.Components;
 
-internal class DefaultIconTheme : IIconTheme
+class DefaultIconTheme(IOptions<IconThemeOptions> options) : IIconTheme
 {
-    private IOptions<IconThemeOptions> Options { get; set; }
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <param name="options"></param>
-    public DefaultIconTheme(IOptions<IconThemeOptions> options)
-    {
-        Options = options;
-    }
+    private readonly IOptions<IconThemeOptions> _options = options;
 
     /// <summary>
     /// <inheritdoc/>
@@ -23,9 +14,9 @@ internal class DefaultIconTheme : IIconTheme
     /// <returns></returns>
     public Dictionary<ComponentIcons, string> GetIcons()
     {
-        if (!Options.Value.Icons.TryGetValue(Options.Value.ThemeKey, out var icons))
+        if (!_options.Value.Icons.TryGetValue(_options.Value.ThemeKey, out var icons))
         {
-            icons = new Dictionary<ComponentIcons, string>();
+            icons = [];
         }
         return icons;
     }

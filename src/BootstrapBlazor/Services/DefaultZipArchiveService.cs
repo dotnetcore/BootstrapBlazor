@@ -60,6 +60,24 @@ class DefaultZipArchiveService : IZipArchiveService
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
+    /// <param name="archiveFileName">归档文件</param>
+    /// <param name="directoryName">要归档文件夹</param>
+    /// <param name="compressionLevel"></param>
+    /// <param name="includeBaseDirectory"></param>
+    /// <param name="encoding"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task ArchiveDirectory(string archiveFileName, string directoryName, CompressionLevel compressionLevel = CompressionLevel.Optimal, bool includeBaseDirectory = false, Encoding? encoding = null)
+    {
+        if (Directory.Exists(directoryName))
+        {
+            await Task.Run(() => ZipFile.CreateFromDirectory(directoryName, archiveFileName, compressionLevel, includeBaseDirectory, encoding));
+        }
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
     /// <param name="archiveFile">归档文件</param>
     /// <param name="destinationDirectoryName">解压缩文件夹</param>
     /// <param name="overwriteFiles">是否覆盖文件 默认 false 不覆盖</param>
@@ -71,9 +89,7 @@ class DefaultZipArchiveService : IZipArchiveService
         {
             Directory.CreateDirectory(destinationDirectoryName);
         }
-        using var stream = File.OpenRead(archiveFile);
-        using var archive = new ZipArchive(stream, ZipArchiveMode.Read, overwriteFiles, encoding);
-        archive.ExtractToDirectory(destinationDirectoryName, overwriteFiles);
+        ZipFile.ExtractToDirectory(archiveFile, destinationDirectoryName, encoding, overwriteFiles);
         return true;
     }
 
@@ -87,8 +103,7 @@ class DefaultZipArchiveService : IZipArchiveService
     /// <returns></returns>
     public ZipArchiveEntry? GetEntry(string archiveFile, string entryFile, bool overwriteFiles = false, Encoding? encoding = null)
     {
-        using var stream = File.OpenRead(archiveFile);
-        using var archive = new ZipArchive(stream, ZipArchiveMode.Read, overwriteFiles, encoding);
+        using var archive = ZipFile.Open(archiveFile, ZipArchiveMode.Read, encoding);
         return archive.GetEntry(Path.GetFileName(entryFile));
     }
 }

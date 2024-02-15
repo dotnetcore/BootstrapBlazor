@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.ComponentModel.DataAnnotations;
+
 namespace UnitTest.Components;
 
 public class SliderTest : BootstrapBlazorTestBase
@@ -105,5 +107,23 @@ public class SliderTest : BootstrapBlazorTestBase
         });
         await cut.InvokeAsync(() => cut.Instance.SetValue(1));
         Assert.Equal(1, expected);
+    }
+
+    [Fact]
+    public void Range_OK()
+    {
+        var model = new SliderModel();
+        var cut = Context.RenderComponent<Slider<int>>(builder =>
+        {
+            builder.Add(s => s.Value, 10);
+            builder.Add(s => s.ValueExpression, Utility.GenerateValueExpression(model, "Value", typeof(int)));
+        });
+        cut.Contains("min=\"10\" max=\"200\"");
+    }
+
+    public class SliderModel
+    {
+        [Range(10, 200)]
+        public int Value { get; set; }
     }
 }

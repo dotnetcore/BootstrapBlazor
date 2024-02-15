@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
-
 namespace UnitTest.Components;
 
 public class DateTimePickerTest : BootstrapBlazorTestBase
@@ -279,6 +277,16 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         });
 
         cut.InvokeAsync(() => cut.Find(".current .cell").Click());
+    }
+
+    [Fact]
+    public void ShowIcon_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.ShowIcon, false);
+        });
+        cut.DoesNotContain("datetime-picker-bar");
     }
 
     [Fact]
@@ -654,6 +662,37 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
 
         Assert.True(res);
         Assert.True(value);
+    }
+
+    [Fact]
+    public void HasSeconds_Ok()
+    {
+        var cut = Context.RenderComponent<TimePickerBody>(builder =>
+        {
+            builder.Add(a => a.Value, TimeSpan.FromDays(1));
+            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<TimeSpan>(this, t =>
+            {
+            }));
+        });
+
+        var ele = cut.Find(".time-panel-content .has-seconds");
+        Assert.NotNull(ele); 
+    }
+
+    [Fact]
+    public void HaveNotSeconds_Ok()
+    {
+        var cut = Context.RenderComponent<TimePickerBody>(builder =>
+        {
+            builder.Add(a => a.Value, TimeSpan.FromDays(1));
+            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<TimeSpan>(this, t =>
+            {
+            }));
+            builder.Add(a => a.HasSeconds, false);
+        });
+
+        var ele = cut.Find(".time-panel-content .havenot-seconds");
+        Assert.NotNull(ele); 
     }
     #endregion
 

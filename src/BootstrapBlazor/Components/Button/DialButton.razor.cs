@@ -47,7 +47,7 @@ public partial class DialButton
     public int Duration { get; set; } = 400;
 
     /// <summary>
-    /// 获得/设置 按钮颜色
+    /// 获得/设置 位置
     /// </summary>
     [Parameter]
     public Placement Placement { get; set; }
@@ -127,7 +127,7 @@ public partial class DialButton
 
     private string? RadiusString => DialMode == DialMode.Radial ? Radius.ToString() : null;
 
-    private readonly List<DialButtonItem> _buttonItems = new();
+    private readonly List<DialButtonItem> _buttonItems = [];
 
     private IEnumerable<DialButtonItem> _list => _buttonItems.Concat(Items);
 

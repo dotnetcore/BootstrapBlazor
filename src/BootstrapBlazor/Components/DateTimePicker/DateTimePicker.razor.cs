@@ -24,6 +24,7 @@ public partial class DateTimePicker<TValue>
     /// 获得 组件文本框样式名称
     /// </summary>
     private string? InputClassName => CssBuilder.Default("dropdown-toggle form-control datetime-picker-input")
+        .AddClass("has-icon", ShowIcon)
         .AddClass(ValidCss)
         .Build();
 
@@ -89,6 +90,12 @@ public partial class DateTimePicker<TValue>
     [Parameter]
     [NotNull]
     public string? Icon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示组件图标 默认 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowIcon { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 组件显示模式 默认为显示年月日模式

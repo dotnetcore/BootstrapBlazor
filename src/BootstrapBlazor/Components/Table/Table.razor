@@ -125,6 +125,13 @@
                                 }
                                 else
                                 {
+                                    if (ShowExportCsvButton)
+                                    {
+                                        <div class="dropdown-item" @onclick="@ExportCsvAsync">
+                                            <i class="@CsvExportIcon"></i>
+                                            <span>@ExportCsvDropdownItemText</span>
+                                        </div>
+                                    }
                                     if (ShowExportExcelButton)
                                     {
                                         <div class="dropdown-item" @onclick="@ExportExcelAsync">
@@ -195,12 +202,12 @@
                 if (IsFixedHeader)
                 {
                     <div class="table-fixed-header">
-                        <table class="@TableClassName">
+                        <table class="@TableClassName" style="@GetTableStyleString(true)" data-bb-name="@GetTableName(true)">
                             @RenderColGroup(true)
                             @RenderHeader(true)
                         </table>
                     </div>
-                    <div class="table-fixed-body scroll">
+                    <div class="table-fixed-body scroll" style="@ScrollWidthStyleString">
                         @RenderTable(false)
                     </div>
                 }
@@ -300,7 +307,7 @@
 
 @code {
     RenderFragment<bool> RenderTable => hasHeader =>
-    @<table class="@TableClassName">
+    @<table class="@TableClassName" style="@GetTableStyleString(hasHeader)" data-bb-name="@GetTableName(hasHeader)">
         @RenderColGroup.Invoke(false)
         @if (hasHeader)
         {
@@ -391,7 +398,7 @@
         </tbody>
         @if (IsShowFooter)
         {
-            <tfoot>
+            <tfoot @key="Rows" class="@FooterClassString">
                 <CascadingValue Value="false" Name="IsMobileMode" IsFixed="true">
                     <CascadingValue Value="@Rows" Name="TableFooterContext" IsFixed="true">
                         @if (FooterTemplate != null)
@@ -430,7 +437,7 @@
         }
         @foreach (var col in GetVisibleColumns())
         {
-            @if (CheckShownWithBreakpoint(col))
+            if (CheckShownWithBreakpoint(col))
             {
                 <col style="@GetColWidthString(col.Width)" />
             }
@@ -485,7 +492,7 @@
                     {
                         var fieldName = col.GetFieldName();
                         var displayName = col.GetDisplayName();
-                        <DynamicElement TagName="th" class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, 6)"
+                        <DynamicElement TagName="th" class="@GetHeaderClassString(col)" style="@GetFixedCellStyleString(col, ScrollWidth)"
                                         TriggerClick="col.Sortable" OnClick="@OnClickHeader(col)" draggable="@DraggableString" @key="col">
                             <div class="@GetHeaderWrapperClassString(col)">
                                 @if(col.ShowCopyColumn)
@@ -532,7 +539,7 @@
                             </div>
                             @if (!col.Fixed && AllowResizing)
                             {
-                                <span class="col-resizer"></span>
+                                <span class="col-resizer" data-bb-field="@col.GetFieldName()"></span>
                             }
                         </DynamicElement>
                     }
@@ -578,7 +585,7 @@
                 {
                     if (CheckShownWithBreakpoint(col))
                     {
-                        <th class="@GetHeaderClassString(col, true)" style="@GetFixedCellStyleString(col, 6)" @key="col">
+                        <th class="@GetHeaderClassString(col, true)" style="@GetFixedCellStyleString(col, ScrollWidth)" @key="col">
                             <div class="table-cell">
                                 @if(col.Filterable)
                                 {
@@ -590,7 +597,7 @@
                 }
                 @if (ShowExtendButtons && !IsExtendButtonsInRowHeader)
                 {
-                    <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(6)">
+                    <th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(ScrollWidth)">
                         <div class="table-cell">&nbsp;</div>
                     </th>
                 }
@@ -797,7 +804,7 @@
     </Button>;
 
     RenderFragment RenderExtendButtonsHeader =>
-    @<th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(6)">
+    @<th class="@ExtendButtonsColumnClass" style="@GetFixedExtendButtonsColumnStyleString(ScrollWidth)">
         <div class="@ExtendButtonsCellClassString">
             @ColumnButtonTemplateHeaderText
         </div>
@@ -855,24 +862,23 @@
                     @if (isInCell)
                     {
                         <Button Size="Size.ExtraSmall" OnClick="ClickUpdateButtonCallback" Color="Color.Success" Icon="@SaveButtonIcon" Text="@SaveButtonText"></Button>
-                        if (!IsTracking)
+                        @if (!IsTracking)
                         {
                             <Button Size="Size.ExtraSmall" OnClick="@CancelSave" Color="Color.Warning" Icon="@CancelButtonIcon" Text="@CancelButtonText"></Button>
                         }
                     }
                     else
                     {
-                        <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" Icon="@EditButtonIcon" Text="@EditButtonText"></Button>
+                        <Button Size="Size.ExtraSmall" OnClick="() => ClickEditButton(item)" IsDisabled="GetEditButtonDisabledState(item)" Icon="@EditButtonIcon" Text="@EditButtonText"></Button>
                     }
                 }
                 @if (!isInCell && GetShowExtendDeleteButton(item))
                 {
                     <PopConfirmButton Placement="Placement.Left" Size="Size.ExtraSmall"
-                                      Color="Color.Danger" Icon="@DeleteButtonIcon" Text="@DeleteButtonText"
+                                      Color="Color.Danger" Icon="@DeleteButtonIcon" Text="@DeleteButtonText" IsDisabled="GetDeleteButtonDisabledState(item)"
                                       CloseButtonText="@CancelDeleteButtonText" Content="@ConfirmDeleteContentText"
                                       ConfirmButtonColor="Color.Danger" ConfirmButtonText="@ConfirmDeleteButtonText"
-                                      OnBeforeClick="@ClickBeforeDelete(item)"
-                                      OnConfirm="DeleteAsync" />
+                                      OnBeforeClick="@ClickBeforeDelete(item)" OnConfirm="DeleteAsync" />
                 }
                 @if (!isInCell)
                 {
@@ -889,7 +895,7 @@
         <HeaderTemplate>
             @if (ShowSearchText)
             {
-                <div class="input-group">
+                <div class="input-group input-group-xs">
                     @if (ShowSearchTextTooltip)
                     {
                         <Tooltip Placement="Placement.Top" Title="@SearchTooltip" Sanitize="false" IsHtml="true">
@@ -913,16 +919,16 @@
                     </Button>
                 </div>
             }
-            <div class="table-search-buttons">
+            <div class="table-search-buttons input-group input-group-xs">
                 @if (ShowResetButton)
                 {
-                    <Button Color="Color.Secondary" Icon="@ResetSearchButtonIcon" class="btn-xs ms-2" OnClickWithoutRender="ClearSearchClick">
+                    <Button Color="Color.Secondary" Icon="@ResetSearchButtonIcon" OnClickWithoutRender="ClearSearchClick">
                         <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                     </Button>
                 }
                 @if (ShowSearchButton)
                 {
-                    <Button Color="Color.Primary" Icon="@SearchButtonIcon" class="btn-xs ms-2" OnClickWithoutRender="SearchClick">
+                    <Button Color="Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="SearchClick">
                         <span class="d-none d-sm-inline-block">@SearchButtonText</span>
                     </Button>
                 }
@@ -951,10 +957,14 @@
     @<div class="table-page-info">
         <div class="me-2">@PageInfoLabelString</div>
         <Select Items="@GetPageItemsSource()" Value="PageItems" OnValueChanged="@OnPageItemsValueChanged"></Select>
+        @if (PageInfoBodyTemplate != null)
+        {
+            @PageInfoBodyTemplate
+        }
     </div>;
 
     RenderFragment RenderPagination =>
-    @<Pagination PageCount="@PageCount" PageIndex="@PageIndex" OnPageLinkClick="@OnPageLinkClick"
+    @<Pagination PageCount="@PageCount" PageIndex="@PageIndex" MaxPageLinkCount="MaxPageLinkCount" OnPageLinkClick="@OnPageLinkClick"
                  ShowGotoNavigator="ShowGotoNavigator" GotoTemplate="GotoTemplate!" GotoNavigatorLabelText="@GotoNavigatorLabelText"
                  ShowPageInfo="ShowPageInfo" PageInfoTemplate="InternalPageInfoTemplate" />;
 }

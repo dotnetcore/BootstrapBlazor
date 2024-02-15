@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
-
 namespace UnitTest.Components;
 
 public class TableLookupFilterTest : BootstrapBlazorTestBase
@@ -16,8 +14,8 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
             pb.Add(a => a.Type, typeof(string));
             pb.Add(a => a.Lookup, new List<SelectedItem>()
             {
-                new SelectedItem("true", "True"),
-                new SelectedItem("false", "False")
+                new("true", "True"),
+                new("false", "False")
             });
         });
 
@@ -33,8 +31,8 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
             pb.Add(a => a.Type, typeof(string));
             pb.Add(a => a.Lookup, new List<SelectedItem>()
             {
-                new SelectedItem("true", "True"),
-                new SelectedItem("false", "False")
+                new("true", "True"),
+                new("false", "False")
             });
         });
 
@@ -68,7 +66,7 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo>() { new Foo() });
+                pb.Add(a => a.Items, new List<Foo>() { new() });
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowFilterHeader, true);
                 pb.Add(a => a.TableColumns, new RenderFragment<Foo>(foo => builder =>
@@ -81,8 +79,8 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
                     builder.AddAttribute(index++, nameof(TableColumn<Foo, bool>.LookupStringComparison), StringComparison.OrdinalIgnoreCase);
                     builder.AddAttribute(index++, nameof(TableColumn<Foo, bool>.Lookup), new List<SelectedItem>()
                     {
-                        new SelectedItem("true", "True"),
-                        new SelectedItem("false", "False")
+                        new("true", "True"),
+                        new("false", "False")
                     });
                     builder.CloseComponent();
                 }));
@@ -104,8 +102,8 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
             pb.Add(a => a.Type, typeof(bool));
             pb.Add(a => a.Lookup, new List<SelectedItem>()
             {
-                new SelectedItem("true", "True"),
-                new SelectedItem("false", "False")
+                new("true", "True"),
+                new("false", "False")
             });
         });
 
@@ -116,7 +114,7 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
 
         var newConditions = new FilterKeyValueAction()
         {
-            Filters = new() { new FilterKeyValueAction() { FieldValue = true } }
+            Filters = [new FilterKeyValueAction() { FieldValue = true }]
         };
         cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();
@@ -125,7 +123,7 @@ public class TableLookupFilterTest : BootstrapBlazorTestBase
 
         newConditions = new FilterKeyValueAction()
         {
-            Filters = new() { new FilterKeyValueAction() { FieldValue = null } }
+            Filters = [new FilterKeyValueAction() { FieldValue = null }]
         };
         cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();

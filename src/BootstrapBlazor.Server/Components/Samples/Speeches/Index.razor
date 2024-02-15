@@ -1,0 +1,52 @@
+﻿@page "/speech/index"
+@inherits BootstrapComponentBase
+@layout MainLayout
+
+<h3>@Localizer["SpeechTitle"]</h3>
+
+<h4>@Localizer["SpeechDescription"]</h4>
+
+<p>@((MarkupString)Localizer["SpeechDescription1"].Value) <a href="https://www.nuget.org/packages?q=@NugetPackageName" target="_blank"><code>@NugetPackageName</code></a>，@Localizer["SpeechDescription2"]</p>
+
+<PackageTips Name="@NugetPackageName"></PackageTips>
+
+<p class="code-label">@Localizer["SpeechLiTitle"]</p>
+
+<ul class="ul-demo">
+    <li>@((MarkupString)Localizer["SpeechLi1"].Value)</li>
+    <li>@((MarkupString)Localizer["SpeechLi2"].Value)</li>
+    <li>@((MarkupString)Localizer["SpeechLi3"].Value)</li>
+    <li>@((MarkupString)Localizer["SpeechLi4"].Value)</li>
+</ul>
+
+<div class="row">
+    <div class="col-12 col-sm-auto">
+        <Button Text="@Localizer["SpeechButtonText"]" Icon="fa-fw fa-solid fa-microphone" OnClick="OnStart" style="margin: 1.5rem 0;" />
+    </div>
+    <div class="col-12 col-sm-auto">
+        <SpeechWave Show="Show" TotalTime="@TotalTime" class="my-3" />
+    </div>
+</div>
+
+<GroupBox Title="@Localizer["SpeechGroupBoxTitle"]">
+    <BootstrapBlazor.Components.Console HeaderText="@Localizer["SpeechGroupBoxHeaderText"]" Items="@ConsoleMessages" Height="140" />
+</GroupBox>
+
+<p class="code-label mt-3">@Localizer["SpeechTips1"]</p>
+
+<p><b>Program.cs</b></p>
+
+<Pre>// @Localizer["SpeechTips1Text"]
+<b><i>builder.Services.AddBootstrapBlazorBaiduSpeech();</i></b></Pre>
+
+<p class="code-label">@Localizer["SpeechTips2"]</p>
+
+<Pre>// @Localizer["SpeechTips2Text1"]
+[Inject]
+[NotNull]
+private RecognizerService? RecognizerService { get; set; }
+
+// @Localizer["SpeechTips2Text2"]
+[Inject]
+[NotNull]
+private SynthesizerService? SynthesizerService { get; set; }</Pre>

@@ -20,13 +20,13 @@ public partial class Display<TValue>
     /// <summary>
     /// 获得 显示文本
     /// </summary>
-    protected string? CurrentTextAsString { get; set; }
+    private string? CurrentTextAsString { get; set; }
 
     /// <summary>
     /// 获得/设置 异步格式化字符串
     /// </summary>
     [Parameter]
-    public Func<TValue, Task<string>>? FormatterAsync { get; set; }
+    public Func<TValue, Task<string?>>? FormatterAsync { get; set; }
 
     /// <summary>
     /// 获得/设置 格式化字符串 如时间类型设置 yyyy-MM-dd
@@ -58,7 +58,7 @@ public partial class Display<TValue>
     public Func<Assembly?, string, bool, Type?>? TypeResolver { get; set; }
 
     /// <summary>
-    /// SetParametersAsync 方法
+    /// <inheritdoc/>>
     /// </summary>
     /// <param name="parameters"></param>
     /// <returns></returns>
@@ -76,7 +76,7 @@ public partial class Display<TValue>
     }
 
     /// <summary>
-    /// OnParametersSetAsync 方法
+    /// <inheritdoc/>>
     /// </summary>
     /// <returns></returns>
     protected override async Task OnParametersSetAsync()
@@ -91,7 +91,7 @@ public partial class Display<TValue>
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
-    protected virtual async Task<string?> FormatTextAsString(TValue value) => FormatterAsync != null
+    private async Task<string?> FormatTextAsString(TValue value) => FormatterAsync != null
         ? await FormatterAsync(value)
         : (!string.IsNullOrEmpty(FormatString) && value != null
             ? Utility.Format(value, FormatString)
@@ -148,22 +148,22 @@ public partial class Display<TValue>
         Func<TValue, string> ConvertArrayToStringLambda()
         {
             Func<TValue, string> ret = _ => "";
-            var param_p1 = Expression.Parameter(typeof(Array));
-            var target_type = typeof(TValue).UnderlyingSystemType;
+            var param = Expression.Parameter(typeof(Array));
+            var targetType = typeof(TValue).UnderlyingSystemType;
             var methodType = ResolveArrayType();
             if (methodType != null)
             {
                 // 调用 string.Join<T>(",", IEnumerable<T>) 方法
-                var method = typeof(string).GetMethods().Where(m => m.Name == "Join" && m.IsGenericMethod && m.GetParameters()[0].ParameterType == typeof(string)).First().MakeGenericMethod(methodType);
-                var body = Expression.Call(method, Expression.Constant(","), Expression.Convert(param_p1, target_type));
-                ret = Expression.Lambda<Func<TValue, string>>(body, param_p1).Compile();
+                var method = typeof(string).GetMethods().First(m => m is { Name: "Join", IsGenericMethod: true } && m.GetParameters()[0].ParameterType == typeof(string)).MakeGenericMethod(methodType);
+                var body = Expression.Call(method, Expression.Constant(","), Expression.Convert(param, targetType));
+                ret = Expression.Lambda<Func<TValue, string>>(body, param).Compile();
             }
             return ret;
 
             Type? ResolveArrayType()
             {
-                Type? ret = null;
-                var typeName = target_type.FullName;
+                Type? t = null;
+                var typeName = targetType.FullName;
                 if (!string.IsNullOrEmpty(typeName))
                 {
                     typeName = typeName.Replace("[]", "");
@@ -171,9 +171,9 @@ public partial class Display<TValue>
                     {
                         typeName = typeName.Split('+', StringSplitOptions.RemoveEmptyEntries).Last();
                     }
-                    ret = Type.GetType(typeName, null, TypeResolver, false, true);
+                    t = Type.GetType(typeName, null, TypeResolver, false, true);
                 }
-                return ret;
+                return t;
             }
         }
     }
@@ -193,22 +193,22 @@ public partial class Display<TValue>
         static Func<TValue, string> ConvertEnumerableToStringLambda()
         {
             var typeArguments = typeof(TValue).GenericTypeArguments;
-            var param_p1 = Expression.Parameter(typeof(IEnumerable<>).MakeGenericType(typeArguments));
-            var method = typeof(string).GetMethods().Where(m => m.Name == "Join" && m.IsGenericMethod && m.GetParameters()[0].ParameterType == typeof(string)).First().MakeGenericMethod(typeArguments);
-            var body = Expression.Call(method, Expression.Constant(","), param_p1);
-            return Expression.Lambda<Func<TValue, string>>(body, param_p1).Compile();
+            var param = Expression.Parameter(typeof(IEnumerable<>).MakeGenericType(typeArguments));
+            var method = typeof(string).GetMethods().First(m => m is { Name: "Join", IsGenericMethod: true } && m.GetParameters()[0].ParameterType == typeof(string)).MakeGenericMethod(typeArguments);
+            var body = Expression.Call(method, Expression.Constant(","), param);
+            return Expression.Lambda<Func<TValue, string>>(body, param).Compile();
         }
 
         static Func<TValue, IEnumerable<string>> ConvertToEnumerableStringLambda()
         {
             var typeArguments = typeof(TValue).GenericTypeArguments;
-            var param_p1 = Expression.Parameter(typeof(IEnumerable<>).MakeGenericType(typeArguments));
+            var param = Expression.Parameter(typeof(IEnumerable<>).MakeGenericType(typeArguments));
 
             var method = typeof(Display<>).MakeGenericType(typeof(TValue))
                 .GetMethod(nameof(Cast), BindingFlags.NonPublic | BindingFlags.Static)!
                 .MakeGenericMethod(typeArguments);
-            var body = Expression.Call(method, param_p1);
-            return Expression.Lambda<Func<TValue, IEnumerable<string>>>(body, param_p1).Compile();
+            var body = Expression.Call(method, param);
+            return Expression.Lambda<Func<TValue, IEnumerable<string>>>(body, param).Compile();
         }
     }
 

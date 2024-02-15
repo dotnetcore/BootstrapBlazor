@@ -1,0 +1,27 @@
+﻿@inherits BootstrapComponentBase
+@inject IStringLocalizer<Tips> Localizer
+
+<Alert AdditionalAttributes="@AdditionalAttributes" ShowBar="true" ShowBorder="true" Color="@Color">
+    <h4><i class="alert-icon @Icon"></i>@Localizer["Title"]</h4>
+    @ChildContent
+</Alert>
+
+@code {
+    /// <summary>
+    /// 获得/设置 图标
+    /// </summary>
+    [Parameter]
+    public string Icon { get; set; } = "fa-regular fa-lightbulb";
+
+    /// <summary>
+    /// 获得/设置 颜色 默认为 Info
+    /// </summary>
+    [Parameter]
+    public Color Color { get; set; } = Color.Info;
+
+    /// <summary>
+    /// 获得/设置 子组件内容
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

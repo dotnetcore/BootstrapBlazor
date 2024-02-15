@@ -1,24 +1,25 @@
-/*divider*/
 .divider {
-    --bb-divider-bg: #{$divider-bg};
-    --bb-divider-margin: #{$divider-margin};
-    --bb-divider-text-bg: #{$divider-text-bg};
-    --bb-divider-text-color: #{$divider-text-color};
-    --bb-divider-text-padding: #{$divider-text-padding};
-    background-color: var(--bb-divider-bg);
+    --bb-divider-margin: #{$bb-divider-margin};
+    --bb-divider-text-padding: #{$bb-divider-text-padding};
+    background-color: var(--bs-body-bg);
     margin: var(--bb-divider-margin);
     position: relative;
     display: block;
     height: 1px;
     width: 100%;
 
+    .divider-mask {
+        background-color: var(--bs-border-color);
+        height: 100%;
+        width: 100%;
+    }
+
     .divider-text {
-        background-color: var(--bb-divider-text-bg);
         padding: var(--bb-divider-text-padding);
-        color: var(--bb-divider-text-color);
+        color: var(--bs-body-color);
         position: absolute;
         font-weight: 500;
-        font-size: 14px;
+        background-color: inherit;
 
         &.is-left {
             left: 20px;
@@ -67,9 +68,4 @@
             }
         }
     }
-}
-
-
-.dropdown-menu .divider {
-    --bb-divider-margin: .25rem 0;
 }

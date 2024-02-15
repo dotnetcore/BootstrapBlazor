@@ -1,0 +1,20 @@
+﻿@page "/timer"
+@inject IStringLocalizer<Timers> Localizer
+
+<h3>@Localizer["TimersTitle"]</h3>
+<h4>@Localizer["TimersDescription"]</h4>
+
+<DemoBlock Title="@Localizer["TimersNormalTitle"]"
+           Introduction="@Localizer["TimersNormalIntro"]"
+           Name="Normal">
+    <Timer OnTimeout="@OnTimeout" OnCancel="OnCancel" />
+    <ConsoleLogger @ref="Logger" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TimersColorTitle"]"
+           Introduction="@Localizer["TimersColorIntro"]"
+           Name="Color">
+    <Timer Color="Color.Warning" />
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />

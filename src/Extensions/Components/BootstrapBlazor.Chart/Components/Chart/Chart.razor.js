@@ -86,6 +86,34 @@ const getChartOption = function (option) {
         }
     }
 
+    if (option.options.xScalesBorderColor) {
+        scale.x.border = {
+            color: option.options.xScalesBorderColor
+        }
+    }
+
+    if (option.options.yScalesBorderColor) {
+        scale.y.border = {
+            color: option.options.yScalesBorderColor
+        }
+    }
+
+    if (option.options.xScalesGridColor) {
+        scale.x.grid = {
+            color: option.options.xScalesGridColor,
+            borderColor: option.options.xScalesGridBorderColor,
+            tickColor: option.options.xScalesGridTickColor
+        }
+    }
+
+    if (option.options.yScalesGridColor) {
+        scale.y.grid = {
+            color: option.options.yScalesGridColor,
+            borderColor: option.options.yScalesGridBorderColor,
+            tickColor: option.options.yScalesGridTickColor
+        }
+    }
+
     let legend = {
         display: option.options.showLegend,
         position: option.options.legendPosition
@@ -316,10 +344,11 @@ const updateChart = function (config, option) {
     }
 }
 
-export function init(el, invoke, method, option) {
+export function init(id, invoke, method, option) {
     const op = getChartOption(option)
+    const el = document.getElementById(id);
     const chart = new Chart(el.getElementsByTagName('canvas'), op)
-    Data.set(el, chart)
+    Data.set(id, chart)
 
     if (op.options.height !== null) {
         chart.canvas.parentNode.style.height = op.options.height
@@ -337,8 +366,8 @@ export function init(el, invoke, method, option) {
     EventHandler.on(window, 'resize', chart.resizeHandler)
 }
 
-export function update(el, option, method, angle) {
-    const chart = Data.get(el)
+export function update(id, option, method, angle) {
+    const chart = Data.get(id)
     const op = getChartOption(option)
     op.angle = angle
     op.updateMethod = method
@@ -346,10 +375,12 @@ export function update(el, option, method, angle) {
     chart.update()
 }
 
-export function dispose(el) {
-    const chart = Data.get(el)
-    Data.remove(el)
+export function dispose(id) {
+    const chart = Data.get(id)
+    Data.remove(id)
 
-    EventHandler.off(window, 'resize', chart.resizeHandler)
-    chart.destroy()
+    if (chart) {
+        EventHandler.off(window, 'resize', chart.resizeHandler)
+        chart.destroy()
+    }
 }

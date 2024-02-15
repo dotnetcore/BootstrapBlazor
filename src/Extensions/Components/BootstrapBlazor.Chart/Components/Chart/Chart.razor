@@ -1,7 +1,8 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits BootstrapComponentBase
+@inherits BootstrapModuleComponentBase
+@attribute [JSModuleAutoLoader("./_content/BootstrapBlazor.Chart/Components/Chart/Chart.razor.js", JSObjectReference = true, AutoInvokeInit = false)]
 
-<div @attributes="@AdditionalAttributes" @ref="Element" class="@ClassName" style="@StyleString">
+<div @attributes="@AdditionalAttributes" id="@Id" class="@ClassName" style="@StyleString">
     <div class="chart-loading position-absolute">
         <i class="fa-solid fa-spin fa-spinner"></i>
         <span class="d-none d-sm-inline-block ms-1">@LoadingText</span>

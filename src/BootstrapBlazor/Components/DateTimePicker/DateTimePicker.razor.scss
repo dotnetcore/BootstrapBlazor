@@ -1,23 +1,341 @@
+@mixin after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+@mixin cell-margin($direction) {
+    div {
+        margin-#{$direction}: 5px;
+        border-top-#{$direction}-radius: 15px;
+        border-bottom-#{$direction}-radius: 15px;
+
+        .cell {
+            margin-#{$direction}: 4px;
+        }
+    }
+}
+
 .datetime-picker {
-    --bb-dt-picker-bar-color: #{$dt-picker-bar-color};
+    --bb-dt-picker-bar-color: #{$bb-dt-picker-bar-color};
     position: relative;
 
-    .datetime-picker-bar {
-        position: absolute;
-        top: 0;
-        left: 0;
-        line-height: var(--bb-height);
+    .form-control {
         cursor: pointer;
-        padding: 0 .75rem;
-        color: var(--bb-dt-picker-bar-color);
-    }
+        --bb-form-control-padding: #{$bb-dt-form-control-padding};
 
-    .datetime-picker-input {
-        cursor: pointer;
-        --bb-form-control-padding: #{$dt-picker-input-padding};
+        &[readonly]:not([disabled]) {
+            background-color: var(--bs-body-bg);
+        }
+
+        &.has-icon {
+            --bb-form-control-padding: #{$bb-dt-form-control-icon-padding};
+        }
     }
 
     .picker-panel {
         display: none
+    }
+}
+
+.picker-panel {
+    color: var(--bs-body-color);
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,.1);
+    background: var(--bs-body-bg);
+    border-radius: var(--bs-border-radius);
+    line-height: 30px;
+    display: inline-block;
+
+    .picker-panel-body-wrapper {
+        display: flex;
+
+        @include pick-side;
+
+        .date-picker-time-header {
+            position: relative;
+            border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+            padding: 8px 5px 5px;
+            display: table;
+            width: 100%;
+        }
+
+        &:after {
+            @include after
+        }
+
+        .picker-panel-body {
+            width: 320px;
+
+            &:after {
+                @include after
+            }
+
+            .picker-panel-content {
+                width: 292px;
+                position: relative;
+                margin: 15px;
+
+                table {
+                    table-layout: fixed;
+                    width: 100%;
+                    font-size: 12px;
+                    user-select: none;
+
+                    td {
+                        text-align: center;
+
+                        .cell {
+                            display: block;
+                            margin: 0 auto;
+                            cursor: pointer;
+                        }
+
+                        &.today {
+                            .cell {
+                                @include color_409eff;
+                                font-weight: 700;
+                            }
+                        }
+
+                        &.current:not(.disabled),
+                        &.start:not(.next-month):not(.prev-month):not(.disabled),
+                        &.end:not(.next-month):not(.prev-month):not(.disabled) {
+                            .cell {
+                                color: #fff;
+                                background-color: #409eff;
+                            }
+                        }
+
+                        &.range {
+                            div {
+                                background-color: var(--bs-secondary-bg);
+                            }
+
+                            &.start {
+                                @include cell-margin(left)
+                            }
+
+                            &.end {
+                                @include cell-margin(right)
+                            }
+                        }
+
+                        &.disabled {
+                            .cell {
+                                cursor: not-allowed;
+                                color: var(--bs-secondary-bg);
+                            }
+                        }
+                    }
+                }
+
+                .year-table, .month-table {
+                    margin-top: 29px;
+
+                    tr {
+                        border-top: var(--bs-border-width) solid var(--bs-border-color);
+                    }
+                }
+
+                .year-table td {
+                    div {
+                        padding: 12px 0;
+                    }
+
+                    .cell {
+                        width: 48px;
+                        height: 24px;
+                        line-height: 24px;
+                        border-radius: 16px;
+                    }
+                }
+
+                .month-table td {
+                    div {
+                        padding: 26px 0;
+                    }
+
+                    .cell {
+                        width: 60px;
+                        border-radius: 18px;
+                    }
+                }
+            }
+
+            .date-picker-header {
+                margin: 12px;
+                display: flex;
+                align-items: center;
+
+                .pick-panel-arrow-left,
+                .pick-panel-arrow-right {
+                    margin: 0 6px;
+                }
+
+                .picker-panel-icon-btn {
+                    color: var(--bs-body-color);
+                    border: 0;
+                    background: transparent;
+                    cursor: pointer;
+                    outline: none;
+
+                    &:hover {
+                        @include color_409eff;
+                    }
+                }
+
+                .date-picker-header-label {
+                    font-size: 16px;
+                    font-weight: 500;
+                    padding: 0 5px;
+                    text-align: center;
+                    cursor: pointer;
+                    user-select: none;
+
+                    &:hover {
+                        @include color_409eff;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.date-picker-editor-wrap {
+    position: relative;
+    display: table-cell;
+    padding: 0 5px;
+
+    .input-inner {
+        height: 2rem;
+        line-height: 2rem;
+        padding: 0 1rem;
+        cursor: pointer;
+
+        &[readonly] {
+            background-color: var(--bs-body-bg);
+        }
+    }
+
+    .time-panel {
+        position: absolute;
+        z-index: -1;
+        display: none;
+        width: 145px;
+        margin-top: 0.25rem;
+
+        .time-spinner-item {
+            height: 28px;
+            line-height: 28px;
+        }
+    }
+
+    .time-panel-content {
+        &:after, &:before {
+            margin-top: -32px;
+            height: 28px;
+        }
+    }
+
+    .time-spinner-arrow {
+        &.fa-angle-up {
+            top: 3px;
+        }
+
+        &.fa-angle-down {
+            bottom: 3px;
+        }
+    }
+
+    .time-spinner-list-wrapper {
+        height: 84px;
+        margin: 36px 0;
+    }
+}
+
+.picker-panel-footer {
+    border-top: var(--bs-border-width) solid var(--bs-border-color);
+    padding: 4px;
+    background-color: var(--bs-body-bg);
+    position: relative;
+    display: flex;
+    border-bottom-left-radius: var(--bs-border-radius);
+    border-bottom-right-radius: var(--bs-border-radius);
+
+    .picker-panel-link-btn {
+        padding: 7px 15px;
+        font-size: 0.75rem;
+        border-radius: var(--bs-border-radius);
+        line-height: 12px;
+        color: var(--bs-body-color);
+        transition: border-color .3s linear, color .3s linear;
+
+        &.is-confirm {
+            border: var(--bs-border-width) solid var(--bs-border-color);
+
+            &:hover {
+                border-color: #409eff;
+                color: #409eff;
+            }
+
+            .is-now {
+                color: #409eff;
+                margin-right: .25rem;
+            }
+        }
+    }
+}
+
+.datetime-picker-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    line-height: var(--bb-height);
+    cursor: pointer;
+    padding: 0 .75rem;
+    color: var(--bb-dt-picker-bar-color);
+}
+
+.is-open .date-picker-editor-wrap .time-panel {
+    z-index: 10;
+    display: block;
+}
+
+.popover .picker-panel {
+    box-shadow: none;
+}
+
+.date-table {
+    th {
+        padding: 5px;
+        font-weight: 400;
+        border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+        text-align: center;
+    }
+
+    td {
+        &.next-month, &.prev-month {
+            color: rgba(var(--bs-body-color-rgb), 0.5);
+        }
+
+        div {
+            margin: 4px 0;
+            padding: 3px 0;
+        }
+
+        &:not(.prev-month):not(.next-month):hover {
+            color: #409eff;
+        }
+
+        .cell {
+            display: block;
+            width: 24px;
+            height: 24px;
+            margin: 0 auto;
+            line-height: 24px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
     }
 }

@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
-
 namespace UnitTest.Components;
 
 public class DialogTest : DialogTestBase
@@ -257,7 +255,7 @@ public class DialogTest : DialogTestBase
 
         // Modal is Null
         editOption.Model = null;
-        Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => dialog.ShowEditDialog(editOption)));
+        var t = Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => dialog.ShowEditDialog(editOption)));
         cut.InvokeAsync(() => cut.Find(".btn-close").Click());
         cut.InvokeAsync(() => modal.Instance.CloseCallback());
         #endregion

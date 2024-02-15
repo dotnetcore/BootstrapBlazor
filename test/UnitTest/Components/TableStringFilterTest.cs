@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
-
 namespace UnitTest.Components;
 
 public class TableStringFilterTest : BootstrapBlazorTestBase
@@ -97,14 +95,14 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
 
         searchFilterAction.SetFilterConditionsAsync(new FilterKeyValueAction()
         {
-            Filters = new()
-            {
+            Filters =
+            [
                 new FilterKeyValueAction()
                 {
                     FieldKey = "Test-Search",
                     FieldValue = "test"
                 }
-            }
+            ]
         });
         Assert.Equal("test", searchFilterAction.Value);
 
@@ -128,11 +126,11 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
 
         var newConditions = new FilterKeyValueAction()
         {
-            Filters = new List<FilterKeyValueAction>
-            {
+            Filters =
+            [
                 new FilterKeyValueAction() { FieldValue = "test1" },
                 new FilterKeyValueAction() { FieldValue = "test2" }
-            }
+            ]
         };
         cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();
@@ -141,11 +139,11 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
 
         newConditions = new FilterKeyValueAction()
         {
-            Filters = new List<FilterKeyValueAction>
-            {
+            Filters =
+            [
                 new FilterKeyValueAction() { FieldValue = true },
                 new FilterKeyValueAction() { FieldValue = false }
-            }
+            ]
         };
         cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();
@@ -154,11 +152,11 @@ public class TableStringFilterTest : BootstrapBlazorTestBase
 
         newConditions = new FilterKeyValueAction()
         {
-            Filters = new List<FilterKeyValueAction>
-            {
+            Filters =
+            [
                 new FilterKeyValueAction() { FieldValue = "" },
                 new FilterKeyValueAction() { FieldValue = "" }
-            }
+            ]
         };
         cut.InvokeAsync(() => filter.SetFilterConditionsAsync(newConditions));
         conditions = filter.GetFilterConditions();

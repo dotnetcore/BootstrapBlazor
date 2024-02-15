@@ -1,0 +1,71 @@
+﻿@page "/global-exception"
+@layout ComponentLayout
+@inject IStringLocalizer<GlobalException> Localizer
+
+<h3>@Localizer["Title"]</h3>
+
+@((MarkupString)Localizer["Introduce"].Value)
+
+<h4>@Localizer["H1"]</h4>
+
+<p>@((MarkupString)Localizer["Step1"].Value)</p>
+
+<p>@((MarkupString)Localizer["Step1Introduce"].Value)</p>
+
+<Pre>public void ConfigureServices(IServiceCollection services)
+{
+    services.AddLogging(builder => builder.AddFileLogger());
+}</Pre>
+
+<p>@((MarkupString)Localizer["Step2"].Value)</p>
+
+<Pre>&lt;ErrorLogger&gt;
+    @@Body
+&lt;/ErrorLogger&gt;</Pre>
+
+<p>@((MarkupString)Localizer["Step3"].Value)</p>
+
+<Pre>private void OnClick()
+{
+    var a = 0;
+    _ = 1 / a;
+}</Pre>
+
+<p>@((MarkupString)Localizer["Step4"].Value)</p>
+<Pre>crit: BootstrapBlazor.Components.BlazorLogger[0]
+      TimeStamp: 8/23/2021 12:20:46 PM
+      MachineName: ECS-A399
+      AppDomainName: BootstrapBlazor.Server
+      OS: Microsoft Windows 10.0.17763
+      OSArchitecture: X64
+      ProcessArchitecture: X64
+      Framework: .NET 5.0.9
+      UserName: Argo
+      EnvironmentName: Development
+      IISRootPath: D:\Argo\src\BB\BootstrapBlazor\src\BootstrapBlazor.Server\
+      VSIDE: Microsoft Visual Studio Enterprise 2019 16.0
+      Exception:: Attempted to divide by zero.
+      *********************************************
+      System.DivideByZeroException: Attempted to divide by zero.
+         at BootstrapBlazor.Server.Components.Samples.GlobalException.OnClick() in D:\Argo\src\BB\BootstrapBlazor\src\BootstrapBlazor.Server\Components\Samples\GlobalException.razor.cs:line 30</Pre>
+
+<p>@((MarkupString)Localizer["Step5"].Value)</p>
+
+<p>@((MarkupString)Localizer["Step5Intro"].Value)</p>
+
+<Pre>{
+    "DetailedErrors": true
+}</Pre>
+
+<DemoBlock Title="@Localizer["Block1Title"]" Introduction="@Localizer["Block1Intro"]" Name="Normal">
+    <p>@((MarkupString)Localizer["ExceptionTestIntroduce"].Value)</p>
+    <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["ButtonText"]" OnClick="OnClick" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["Block2Title"]" Introduction="@Localizer["Block2Intro"]" Name="Swal">
+    <ErrorLogger OnErrorHandleAsync="OnErrorHandleAsync">
+        <Button Icon="fa-solid fa-font-awesome" Text="@Localizer["ButtonText"]" OnClick="OnClick" />
+    </ErrorLogger>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />

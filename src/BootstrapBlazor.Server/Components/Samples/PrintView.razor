@@ -1,0 +1,20 @@
+﻿@page "/print-view"
+@layout PrintLayout
+
+<section class="container py-3">
+    <div class="text-center print-header">
+        <h3>打印预览页面</h3>
+
+        <p>
+            <span class="mt-1 me-2">本页面由 <code>打印按钮</code> 导航过来进行打印预览，点击右侧按钮进行打印，打印时仅打印下方数据表格</span>
+            <PrintButton />
+        </p>
+    </div>
+
+    <Table TItem="Foo" Items="@Items" IsBordered="true" AutoGenerateColumns="true" RenderMode="TableRenderMode.Table">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.Complete" Visible="false" />
+            <TableColumn @bind-Field="@context.Hobby" Visible="false" />
+        </TableColumns>
+    </Table>
+</section>

@@ -1,0 +1,36 @@
+﻿@inject IStringLocalizer<PackageTips> Localizer
+
+<p class="info">@((MarkupString)Localizer["Tips", Name].Value)</p>
+
+<p class="code-label">.NET CLI</p>
+<Pre class="no-highlight">dotnet add package @Name</Pre>
+
+<p class="code-label">PackageReference</p>
+<Pre @key="@Version" class="no-highlight">&lt;PackageReference Include="@Name" Version="@Version" /&gt;</Pre>
+
+<p class="code-label">Package Manager</p>
+<Pre class="no-highlight">Install-Package @Name</Pre>
+
+@code {
+    [Inject]
+    [NotNull]
+    private PackageVersionService? VersionManager { get; set; }
+
+    private string Version { get; set; } = "fetching";
+
+    /// <summary>
+    /// 获得/设置 Package 名称
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    [EditorRequired]
+    public string? Name { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override async Task OnInitializedAsync()
+    {
+        Version = await VersionManager.GetVersionAsync(Name.ToLower());
+    }
+}

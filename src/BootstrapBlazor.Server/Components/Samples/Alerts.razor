@@ -1,0 +1,71 @@
+﻿@page "/alert"
+
+<h3>@Title</h3>
+
+<h4>@SubTitle</h4>
+
+<DemoBlock Title="@BaseUsageText" Introduction="@IntroText1" Name="Normal">
+    <Alert Color="Color.Primary">@AlertPrimaryText</Alert>
+    <Alert Color="Color.Secondary">@AlertSecondaryText</Alert>
+    <Alert Color="Color.Success">@AlertSuccessText</Alert>
+    <Alert Color="Color.Danger">@AlertDangerText</Alert>
+    <Alert Color="Color.Warning">@AlertWarningText</Alert>
+    <Alert Color="Color.Info">@AlertInfoText</Alert>
+    <Alert Color="Color.Dark">@AlertDarkText</Alert>
+</DemoBlock>
+
+<DemoBlock Title="@CloseButtonUsageText" Introduction="@IntroText2" Name="Close">
+    <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Primary">@AlertPrimaryText</Alert>
+    <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Secondary">@AlertSecondaryText</Alert>
+    <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Success">@AlertSuccessText</Alert>
+    <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Danger">@AlertDangerText</Alert>
+    <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Warning">@AlertWarningText</Alert>
+    <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Info">@AlertInfoText</Alert>
+    <Alert ShowDismiss="true" OnDismiss="@DismissClick" Color="Color.Dark">@AlertDarkText</Alert>
+    <ConsoleLogger @ref="Logger" />
+</DemoBlock>
+
+<DemoBlock Title="@WithIconUsageText" Introduction="@IntroText3" Name="Icon">
+    <Alert Icon="fa-solid fa-circle-check" Color="Color.Success">@AlertPrimaryText</Alert>
+    <Alert Icon="fa-solid fa-triangle-exclamation" Color="Color.Warning">@AlertWarningText</Alert>
+    <Alert Icon="fa-solid fa-circle-question" Color="Color.Info">@AlertInfoText</Alert>
+    <Alert Icon="fa-solid fa-circle-xmark" Color="Color.Danger">@AlertDangerText</Alert>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ShowBorderTitle"]" Introduction="@Localizer["ShowBorderIntro"]">
+    <Alert Icon="fa-solid fa-circle-check" Color="Color.Primary" ShowBorder="true">@AlertPrimaryText</Alert>
+    <Alert Icon="fa-solid fa-circle-check" Color="Color.Success" ShowBorder="true">@AlertSuccessText</Alert>
+    <Alert Icon="fa-solid fa-triangle-exclamation" Color="Color.Warning" ShowBorder="true">@AlertWarningText</Alert>
+    <Alert Icon="fa-solid fa-circle-question" Color="Color.Info" ShowBorder="true">@AlertInfoText</Alert>
+    <Alert Icon="fa-solid fa-circle-xmark" Color="Color.Danger" ShowBorder="true">@AlertDangerText</Alert>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ShowShadowTitle"]" Introduction="@Localizer["ShowShadowIntro"]">
+    <Alert Icon="fa-solid fa-circle-check" Color="Color.Primary" ShowShadow="true">@AlertPrimaryText</Alert>
+    <Alert Icon="fa-solid fa-circle-check" Color="Color.Success" ShowShadow="true">@AlertSuccessText</Alert>
+    <Alert Icon="fa-solid fa-triangle-exclamation" Color="Color.Warning" ShowShadow="true">@AlertWarningText</Alert>
+    <Alert Icon="fa-solid fa-circle-question" Color="Color.Info" ShowShadow="true">@AlertInfoText</Alert>
+    <Alert Icon="fa-solid fa-circle-xmark" Color="Color.Danger" ShowShadow="true">@AlertDangerText</Alert>
+</DemoBlock>
+
+<DemoBlock Title="@ShowBarUsageText" Introduction="@IntroText4" Name="ShowBar">
+    <Alert ShowBar="true" ShowBorder="true" Color="Color.Info">
+        <div>@AlertInfoText</div>
+    </Alert>
+    <Alert ShowBar="true" ShowBorder="true" Color="Color.Success">
+        <div>@AlertSuccessText</div>
+    </Alert>
+    <Alert ShowBar="true" ShowBorder="true" Color="Color.Primary">
+        <div>@AlertPrimaryText</div>
+    </Alert>
+    <Alert ShowBar="true" ShowBorder="true" Color="Color.Warning">
+        <div>@AlertWarningText</div>
+    </Alert>
+    <Alert ShowBar="true" ShowBorder="true" Color="Color.Danger">
+        <div>@AlertDangerText</div>
+    </Alert>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />
+
+<EventTable Items="@GetEvents()" />

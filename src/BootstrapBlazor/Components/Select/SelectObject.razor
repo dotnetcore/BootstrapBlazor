@@ -1,0 +1,37 @@
+﻿@namespace BootstrapBlazor.Components
+@typeparam TItem
+@inherits PopoverDropdownBase<TItem>
+@attribute [BootstrapModuleAutoLoader("Select/SelectObject.razor.js")]
+
+@if (IsShowLabel)
+{
+    <BootstrapLabel required="@Required" for="@InputId" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
+}
+<div @attributes="AdditionalAttributes" id="@Id" data-bs-toggle="lgbSelect" data-bb-min-width="@DropdownMinWidth" class="@ClassName">
+    <div class="dropdown-toggle" data-bs-toggle="bb.dropdown" data-bs-auto-close="outside" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString" aria-expanded="false">
+        @if (Template == null)
+        {
+            <input type="text" id="@InputId" readonly disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassName" value="@GetText()" />
+        }
+        else
+        {
+            <div id="@InputId" class="form-control is-display" tabindex="0" hidefocus="true">
+                @if (Value is null)
+                {
+                    @PlaceHolder
+                }
+                else
+                {
+                    @Template(Value)
+                }
+            </div>
+        }
+        @if (ShowAppendArrow)
+        {
+            <span class="@AppendClassString"><i class="@DropdownIcon"></i></span>
+        }
+    </div>
+    <div class="dropdown-menu dropdown-object" style="@GetStyleString">
+        @ChildContent(_context)
+    </div>
+</div>

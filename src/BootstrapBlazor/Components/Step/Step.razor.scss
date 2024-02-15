@@ -1,22 +1,21 @@
 .step {
-    --step-border-width: #{$step-border-width};
-    --step-border: #{$step-border};
-    --step-item-color: #{$step-item-color};
-    --step-item-header-height: #{$step-item-header-height};
-    --step-item-text-height: #{$step-item-text-height};
-    --step-item-text-width: #{$step-item-text-width};
-    --step-item-line-height: #{$step-item-line-height};
-    --step-item-line-bg: #{$step-item-line-bg};
-    --step-item-line-transition: #{$step-item-line-transition};
-    --step-item-line-vertical-transition: #{$step-item-line-vertical-transition};
-    --step-item-line-width: #{$step-item-line-width};
-    --step-item-line-progress-bg: #{$step-item-line-progress-bg};
-    --step-vertical-min-height: #{$step-vertical-min-height};
+    --bb-step-border-width: #{$bb-step-border-width};
+    --bb-step-item-color: #{$bb-step-item-color};
+    --bb-step-item-header-height: #{$bb-step-item-header-height};
+    --bb-step-item-text-height: #{$bb-step-item-text-height};
+    --bb-step-item-text-width: #{$bb-step-item-text-width};
+    --bb-step-item-line-height: #{$bb-step-item-line-height};
+    --bb-step-item-line-bg: #{$bb-step-item-line-bg};
+    --bb-step-item-line-transition: #{$bb-step-item-line-transition};
+    --bb-step-item-line-vertical-transition: #{$bb-step-item-line-vertical-transition};
+    --bb-step-item-line-width: #{$bb-step-item-line-width};
+    --bb-step-item-line-progress-bg: #{$bb-step-item-line-progress-bg};
+    --bb-step-vertical-min-height: #{$bb-step-vertical-min-height};
 
     &.step-vertical {
         display: flex;
         flex-direction: row;
-        min-height: var(--step-vertical-min-height);
+        min-height: var(--bb-step-vertical-min-height);
 
         .step-header {
             display: flex;
@@ -31,13 +30,13 @@
                     height: initial;
 
                     .step-line {
-                        width: var(--step-item-line-height);
+                        width: var(--bb-step-item-line-height);
                         margin: .5rem 0;
 
                         &:after {
-                            width: var(--step-item-line-height);
-                            height: var(--step-item-line-width);
-                            transition: var(--step-item-line-vertical-transition);
+                            width: var(--bb-step-item-line-height);
+                            height: var(--bb-step-item-line-width);
+                            transition: var(--bb-step-item-line-vertical-transition);
                         }
                     }
                 }
@@ -64,15 +63,15 @@
         display: flex;
 
         .step-item {
-            color: var(--step-item-color);
+            color: var(--bb-step-item-color);
 
             &.active {
-                --step-item-color: var(--bs-body-color);
+                --bb-step-item-color: var(--bs-body-color);
             }
 
             &.is-done {
-                --step-item-color: var(--bs-success);
-                --step-item-line-width: 100%;
+                --bb-step-item-color: var(--bs-success);
+                --bb-step-item-line-width: 100%;
             }
 
             &:not(:last-child) {
@@ -84,7 +83,7 @@
             position: relative;
             display: flex;
             align-items: center;
-            height: var(--step-item-header-height);
+            height: var(--bb-step-item-header-height);
 
             .step-text {
                 white-space: nowrap;
@@ -92,28 +91,28 @@
 
             .step-title {
                 border-radius: 50%;
-                border: var(--step-border);
+                border: var(--bb-step-border-width) solid var(--bb-step-item-color);
                 font-weight: 700;
-                height: var(--step-item-text-height);
-                width: var(--step-item-text-width);
+                height: var(--bb-step-item-text-height);
+                width: var(--bb-step-item-text-width);
                 display: flex;
                 justify-content: center;
                 align-items: center;
             }
 
             .step-line {
-                background-color: var(--step-item-line-bg);
-                height: var(--step-item-line-height);
+                background-color: var(--bb-step-item-line-bg);
+                height: var(--bb-step-item-line-height);
                 flex: 1;
                 margin: 0 .5rem;
 
                 &:after {
                     content: "";
-                    transition: var(--step-item-line-transition);
+                    transition: var(--bb-step-item-line-transition);
                     display: block;
-                    height: var(--step-item-line-height);
-                    width: var(--step-item-line-width);
-                    background-color: var(--step-item-line-progress-bg)
+                    height: var(--bb-step-item-line-height);
+                    width: var(--bb-step-item-line-width);
+                    background-color: var(--bb-step-item-line-progress-bg)
                 }
             }
         }

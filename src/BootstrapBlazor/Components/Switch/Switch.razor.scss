@@ -1,22 +1,21 @@
-﻿.switch {
-    --bb-switch-padding: 7px 0;
-    --bb-switch-border-color: #dcdfe6;
-    --bb-switch-bg: #dcdfe6;
-    --bb-switch-border-radius: 10px;
-    --bb-switch-bar-width: 16px;
-    --bb-switch-bar-height: 16px;
-    --bb-switch-bar-bg-color: #fff;
-    --bb-switch-bar-radius: 50%;
-    --bb-switch-bar-top: 1px;
-    --bb-switch-bar-off: 1px;
-    --bb-switch-bar-on: 1px;
-    --bb-switch-inner-text-font-size: 80%;
-    --bb-switch-inner-on-text-left: 7px;
-    --bb-switch-inner-on-text-color: #fff;
-    --bb-switch-inner-off-text-left: 20px;
-    --bb-switch-inner-off-text-color: #606266;
-    --bb-switch-disabled-opacity: var(--bb-disabled-opactiy);
-    --bb-switch-label-margin-left: 10px;
+.switch {
+    --bb-switch-padding: #{$bb-switch-padding};
+    --bb-switch-border-color: #{$bb-switch-border-color};
+    --bb-switch-bg: #{$bb-switch-bg};
+    --bb-switch-border-radius: #{$bb-switch-border-radius};
+    --bb-switch-bar-width: #{$bb-switch-bar-width};
+    --bb-switch-bar-height: #{$bb-switch-bar-height};
+    --bb-switch-bar-bg-color: #{$bb-switch-bar-bg-color};
+    --bb-switch-bar-radius: #{$bb-switch-bar-radius};
+    --bb-switch-bar-top: #{$bb-switch-bar-top};
+    --bb-switch-bar-off: #{$bb-switch-bar-off};
+    --bb-switch-bar-on: #{$bb-switch-bar-on};
+    --bb-switch-inner-text-font-size: #{$bb-switch-inner-text-font-size};
+    --bb-switch-inner-on-text-left: #{$bb-switch-inner-on-text-left};
+    --bb-switch-inner-on-text-color: #{$bb-switch-inner-on-text-color};
+    --bb-switch-inner-off-text-left: #{$bb-switch-inner-off-text-left};
+    --bb-switch-inner-off-text-color: #{$bb-switch-inner-off-text-color};
+    --bb-switch-label-margin-left: #{$bb-switch-label-margin-left};
     display: inline-flex;
     align-items: center;
     width: 100%;
@@ -24,7 +23,7 @@
 }
 
     .switch.disabled {
-        opacity: var(--bb-switch-disabled-opacity);
+        opacity: .5;
     }
 
     .switch .switch-core {

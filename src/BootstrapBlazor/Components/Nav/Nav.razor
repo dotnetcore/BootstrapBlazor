@@ -1,5 +1,5 @@
 ﻿@namespace BootstrapBlazor.Components
-@inherits NavBase
+@inherits BootstrapComponentBase
 
 <nav @attributes="@AdditionalAttributes" class="@ClassString">
     @foreach (var item in Items)
@@ -8,3 +8,10 @@
     }
     @ChildContent
 </nav>
+
+@code {
+    RenderFragment<NavLink> Render => item =>
+    @<NavLink @key="item" AdditionalAttributes="@item.AdditionalAttributes" ActiveClass="@item.ActiveClass" Match="@item.Match">
+        @item.ChildContent
+    </NavLink>;
+}

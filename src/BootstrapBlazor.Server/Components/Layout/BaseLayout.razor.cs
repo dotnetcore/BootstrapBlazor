@@ -1,0 +1,130 @@
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
+
+using Microsoft.Extensions.Options;
+
+namespace BootstrapBlazor.Server.Components.Layout;
+
+/// <summary>
+/// 母版页基类
+/// </summary>
+public partial class BaseLayout : IDisposable
+{
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<BaseLayout>? Localizer { get; set; }
+
+    [Inject]
+    [NotNull]
+    private ToastService? Toast { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IOptionsMonitor<WebsiteOptions>? WebsiteOption { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IDispatchService<GiteePostBody>? CommitDispatchService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IDispatchService<RebootMessage>? RebootDispatchService { get; set; }
+
+    [NotNull]
+    private string? FlowText { get; set; }
+
+    [NotNull]
+    private string? InstallAppText { get; set; }
+
+    [NotNull]
+    private string? InstallText { get; set; }
+
+    [NotNull]
+    private string? CancelText { get; set; }
+
+    [NotNull]
+    private string? Title { get; set; }
+
+    [NotNull]
+    private string? ChatTooltip { get; set; }
+
+    [NotNull]
+    private string? ThemeTooltip { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        FlowText ??= Localizer[nameof(FlowText)];
+        InstallAppText ??= Localizer[nameof(InstallAppText)];
+        InstallText ??= Localizer[nameof(InstallText)];
+        CancelText ??= Localizer[nameof(CancelText)];
+        Title ??= Localizer[nameof(Title)];
+        ChatTooltip ??= Localizer[nameof(ChatTooltip)];
+        ThemeTooltip ??= Localizer[nameof(ThemeTooltip)];
+
+        CommitDispatchService.Subscribe(NotifyCommit);
+        RebootDispatchService.Subscribe(NotifyReboot);
+    }
+
+    private async Task NotifyCommit(DispatchEntry<GiteePostBody> payload)
+    {
+        if (payload.CanDispatch())
+        {
+            var option = new ToastOption()
+            {
+                Category = ToastCategory.Information,
+                Title = "代码提交推送通知",
+                Delay = 120 * 1000,
+                ForceDelay = true,
+                ChildContent = BootstrapDynamicComponent.CreateComponent<CommitItem>(new Dictionary<string, object?>
+                {
+                    [nameof(CommitItem.Item)] = payload.Entry
+                }).Render()
+            };
+            await Toast.Show(option);
+        }
+    }
+
+    private async Task NotifyReboot(DispatchEntry<RebootMessage> payload)
+    {
+        if (payload.Entry != null)
+        {
+            var option = new ToastOption()
+            {
+                Category = ToastCategory.Error,
+                Title = payload.Entry.Title,
+                Delay = 120 * 1000,
+                ForceDelay = true,
+                Content = payload.Entry.Content
+            };
+            await Toast.Show(option);
+        }
+    }
+
+    /// <summary>
+    /// 释放资源
+    /// </summary>
+    /// <param name="disposing"></param>
+    private void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            CommitDispatchService.UnSubscribe(NotifyCommit);
+            RebootDispatchService.UnSubscribe(NotifyReboot);
+        }
+    }
+
+    /// <summary>
+    /// 释放资源
+    /// </summary>
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+}

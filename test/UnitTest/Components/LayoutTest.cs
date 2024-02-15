@@ -343,6 +343,23 @@ public class LayoutTest : BootstrapBlazorTestBase
         var button = cut.Find("button");
         cut.InvokeAsync(() => button.Click());
         cut.Contains("<div class=\"error-stack\">");
+        Context.DisposeComponents();
+    }
+
+    [Fact]
+    public void CollapseBarTemplate_Ok()
+    {
+        var cut = Context.RenderComponent<Layout>(pb =>
+        {
+            pb.Add(a => a.Side, CreateSide());
+            pb.Add(a => a.IsFullSide, true);
+            pb.Add(a => a.ShowCollapseBar, true);
+            pb.Add(a => a.CollapseBarTemplate, builder =>
+            {
+                builder.AddContent(0, "CollapseBarTemplate-Content");
+            });
+        });
+        Assert.Contains("CollapseBarTemplate-Content", cut.Markup);
     }
 
     private static RenderFragment CreateHeader(string? content = "Header") => builder => builder.AddContent(0, content);
@@ -370,5 +387,6 @@ public class LayoutAuthorizationTest : AuthorizateViewTestBase
             pb.Add(a => a.OnAuthorizing, url => Task.FromResult(true));
         });
         cut.Contains("<section class=\"layout\"><header class=\"layout-header\"></header><main class=\"layout-main\"></main></section>");
+        Context.DisposeComponents();
     }
 }

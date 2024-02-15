@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -184,7 +183,7 @@ public class ValidateFormTest : ValidateFormTestBase
         var method = typeof(ValidateForm).GetMethod("TryGetValidator", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
         Assert.NotNull(method);
 
-        var ret = method.Invoke(cut.Instance, new object?[] { typeof(Dummy), "Test", null });
+        var ret = method.Invoke(cut.Instance, [typeof(Dummy), "Test", null]);
         Assert.False((bool?)ret);
     }
 
@@ -209,9 +208,9 @@ public class ValidateFormTest : ValidateFormTestBase
         });
         cut.Instance.SetError<Dummy>(f => f.Value, "Name_SetError");
 
-        // 利用发射提高代码覆盖率
-        var pi = cut.Instance.GetType().GetProperty("ValidatorCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
-        var cache = (ConcurrentDictionary<(string FieldName, Type ModelType), (FieldIdentifier FieldIdentifier, IValidateComponent ValidateComponent)>)pi.GetValue(cut.Instance)!;
+        // 利用反射提高代码覆盖率
+        var fieldInfo = cut.Instance.GetType().GetField("_validatorCache", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
+        var cache = (ConcurrentDictionary<(string FieldName, Type ModelType), (FieldIdentifier FieldIdentifier, IValidateComponent ValidateComponent)>)fieldInfo.GetValue(cut.Instance)!;
         cache.Remove(("Value", typeof(Dummy)), out _);
         cut.Instance.SetError<Dummy>(f => f.Value, "Name_SetError");
     }
@@ -441,7 +440,7 @@ public class ValidateFormTest : ValidateFormTestBase
             {
                 pb.Add(a => a.Value, foo.Tag);
                 pb.Add(a => a.ValueExpression, Utility.GenerateValueExpression(foo, "Tag", typeof(string)));
-                pb.Add(a => a.ValidateRules, new List<IValidator>() { new FormItemValidator(new HasServiceAttribute()) });
+                pb.Add(a => a.ValidateRules, [new FormItemValidator(new HasServiceAttribute())]);
             });
         });
         var form = cut.Find("form");

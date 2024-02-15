@@ -28,6 +28,40 @@ public class JSModuleExtensionsTest : BootstrapBlazorTestBase
         Assert.Equal("MockComponent", name);
     }
 
+    [Fact]
+    public async Task IsMobile_Ok()
+    {
+        var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
+        var module = await jsRuntime.LoadUtility();
+        await module.IsMobile();
+    }
+
+    [Fact]
+    public async Task OpenUrl_Ok()
+    {
+        var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
+        var module = await jsRuntime.LoadUtility();
+        await module.OpenUrl("www.blazor.zone");
+    }
+
+    [Fact]
+    public async Task Eval_Ok()
+    {
+        var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
+        var module = await jsRuntime.LoadUtility();
+        await module.Eval("test");
+        await module.Eval<string>("test2");
+    }
+
+    [Fact]
+    public async Task Function_Ok()
+    {
+        var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
+        var module = await jsRuntime.LoadUtility();
+        await module.Function("test");
+        await module.Function<string>("test2");
+    }
+
     class MockComponent : ComponentBase
     {
 

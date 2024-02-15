@@ -61,7 +61,7 @@ public partial class DateTimeFilter
     /// <returns></returns>
     public override FilterKeyValueAction GetFilterConditions()
     {
-        var filter = new FilterKeyValueAction() { Filters = new() };
+        var filter = new FilterKeyValueAction() { Filters = [] };
         if (Value1 != null)
         {
             filter.Filters.Add(new FilterKeyValueAction()

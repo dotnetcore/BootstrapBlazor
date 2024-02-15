@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
 using System.Reflection;
 using System.Web;
 
@@ -15,9 +14,9 @@ public class DisplayTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Display<string>>(pb =>
         {
-            pb.Add(a => a.FormatterAsync, new Func<string, Task<string>>(v =>
+            pb.Add(a => a.FormatterAsync, new Func<string, Task<string?>>(v =>
             {
-                return Task.FromResult("FormattedValue");
+                return Task.FromResult<string?>("FormattedValue");
             }));
         });
         Assert.Contains("FormattedValue", cut.Markup);
@@ -38,7 +37,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Display<byte[]>>(pb =>
         {
-            pb.Add(a => a.Value, new byte[] { 0x01, 0x12, 0x34, 0x56 });
+            pb.Add(a => a.Value, [0x01, 0x12, 0x34, 0x56]);
         });
         Assert.Contains("1,18,52,86", cut.Markup);
     }
@@ -49,7 +48,7 @@ public class DisplayTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Display<List<string>>>(pb =>
         {
             pb.Add(a => a.LookupServiceKey, "FooLookup");
-            pb.Add(a => a.Value, new List<string> { "v1", "v2" });
+            pb.Add(a => a.Value, ["v1", "v2"]);
         });
         Assert.Contains("LookupService-Test-1,LookupService-Test-2", cut.Markup);
     }
@@ -57,10 +56,10 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void TypeResolver_Ok()
     {
-        var cut = Context.RenderComponent<Display<DisplayTest.Foo[]>>(pb =>
+        var cut = Context.RenderComponent<Display<Fish[]>>(pb =>
         {
-            pb.Add(a => a.Value, new DisplayTest.Foo[] { new DisplayTest.Foo() { Value = "1" } });
-            pb.Add(a => a.TypeResolver, new Func<Assembly, string, bool, Type>((assembly, typeName, ignoreCase) => typeof(DisplayTest.Foo)));
+            pb.Add(a => a.Value, new Fish[] { new() { Value = "1" } });
+            pb.Add(a => a.TypeResolver, new Func<Assembly, string, bool, Type>((assembly, typeName, ignoreCase) => typeof(Fish)));
         });
         Assert.Equal("<div class=\"form-control is-display\">1</div>", cut.Markup);
     }
@@ -68,9 +67,9 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void TypeResolver_Null()
     {
-        var cut = Context.RenderComponent<Display<DisplayTest.Foo[]>>(pb =>
+        var cut = Context.RenderComponent<Display<Fish[]>>(pb =>
         {
-            pb.Add(a => a.Value, new DisplayTest.Foo[] { new DisplayTest.Foo() { Value = "1" } });
+            pb.Add(a => a.Value, new Fish[] { new() { Value = "1" } });
         });
         Assert.Equal("<div class=\"form-control is-display\"></div>", cut.Markup);
     }
@@ -80,7 +79,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Display<List<int?>>>(pb =>
         {
-            pb.Add(a => a.Value, new List<int?> { 1, 2, 3, 4, null });
+            pb.Add(a => a.Value, [1, 2, 3, 4, null]);
             pb.Add(a => a.Lookup, new List<SelectedItem>()
             {
                 new("", "Test"),
@@ -97,7 +96,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Display<List<int>>>(pb =>
         {
-            pb.Add(a => a.Value, new List<int> { 1, 2, 3, 4 });
+            pb.Add(a => a.Value, [1, 2, 3, 4]);
         });
         Assert.Contains("1,2,3,4", cut.Markup);
 
@@ -174,7 +173,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void Bind_Ok()
     {
-        var foo = new BootstrapBlazor.Shared.Foo();
+        var foo = new Foo();
         var cut = Context.RenderComponent<ValidateForm>(pb =>
         {
             pb.Add(a => a.Model, foo);
@@ -202,7 +201,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void Nullable_Enum()
     {
-        var model = new BootstrapBlazor.Shared.Foo() { Education = EnumEducation.Middle };
+        var model = new Foo() { Education = EnumEducation.Middle };
         var cut = Context.RenderComponent<Display<EnumEducation?>>(pb =>
         {
             pb.Add(a => a.ShowLabel, true);
@@ -225,7 +224,7 @@ public class DisplayTest : BootstrapBlazorTestBase
         }
     }
 
-    class Foo
+    class Fish
     {
         public string Value { get; set; } = "";
 

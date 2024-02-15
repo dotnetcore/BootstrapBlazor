@@ -60,7 +60,6 @@ public class BootstrapBlazorTestHost : IDisposable
         services.ConfigureJsonLocalizationOptions(op =>
         {
             op.IgnoreLocalizerMissing = false;
-            op.AdditionalJsonAssemblies = new[] { typeof(Alert).Assembly };
         });
         services.AddSingleton<ILookupService, FooLookupService>();
     }

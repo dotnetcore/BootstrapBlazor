@@ -1,0 +1,30 @@
+﻿// Copyright (c) Argo Zhang (argo@163.com). All rights reserved.
+// Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+// Website: https://www.blazor.zone or https://argozhang.github.io/
+
+namespace BootstrapBlazor.Components;
+
+/// <summary>
+/// 浏览器指纹接口
+/// </summary>
+public interface IBrowserFingerService
+{
+    /// <summary>
+    /// 订阅指纹方法回调
+    /// </summary>
+    /// <param name="target"></param>
+    /// <param name="callback"></param>
+    void Subscribe(object target, Func<Task<string?>> callback);
+
+    /// <summary>
+    /// 取消指纹方法回调
+    /// </summary>
+    /// <param name="target"></param>
+    void Unsubscribe(object target);
+
+    /// <summary>
+    /// 获得当前浏览器指纹方法
+    /// </summary>
+    /// <returns></returns>
+    Task<string?> GetFingerCodeAsync();
+}

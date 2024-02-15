@@ -3,8 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Localization.Json;
-using BootstrapBlazor.Shared;
-using BootstrapBlazor.Shared.Shared;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -24,15 +22,12 @@ public partial class MenuTest
         _logger = logger;
         var serviceCollection = new ServiceCollection();
         var assembly = typeof(App).Assembly;
-        serviceCollection.AddBootstrapBlazor(localizationConfigure: option =>
-        {
-            option.AdditionalJsonAssemblies = new[] { assembly };
-        });
+        serviceCollection.AddBootstrapBlazor();
 
         _serviceProvider = serviceCollection.BuildServiceProvider();
         _serviceProvider.GetRequiredService<ICacheManager>();
         _routerTable = assembly.GetExportedTypes()
-            .Where(t => t.IsDefined(typeof(RouteAttribute)) && IsComponentLayout(t) && (t.FullName?.StartsWith("BootstrapBlazor.Shared.Samples.") ?? false));
+            .Where(t => t.IsDefined(typeof(RouteAttribute)) && IsComponentLayout(t) && (t.FullName?.StartsWith("BootstrapBlazor.Server.Components.Samples.") ?? false));
 
         bool IsComponentLayout(Type t)
         {
@@ -44,7 +39,7 @@ public partial class MenuTest
     [Fact]
     public void Route_Ok()
     {
-        var stream = typeof(App).Assembly.GetManifestResourceStream("BootstrapBlazor.Shared.docs.json");
+        var stream = typeof(App).Assembly.GetManifestResourceStream("BootstrapBlazor.Server.docs.json");
         Assert.NotNull(stream);
 
         var builder = new ConfigurationBuilder();
@@ -79,10 +74,10 @@ public partial class MenuTest
         var result = new List<string>();
         var localizerOption = _serviceProvider.GetRequiredService<IOptions<JsonLocalizationOptions>>();
 
-        var rootPath = Path.Combine(AppContext.BaseDirectory, "../../../../../", "src/BootstrapBlazor.Shared/Samples/");
+        var rootPath = Path.Combine(AppContext.BaseDirectory, "../../../../../", "src/BootstrapBlazor.Server.Components/Samples/");
         foreach (var router in _routerTable)
         {
-            var typeName = router.FullName?.Replace("BootstrapBlazor.Shared.Samples.", "").Replace(".", "/");
+            var typeName = router.FullName?.Replace("BootstrapBlazor.Server.Components.Samples.", "").Replace(".", "/");
             if (!string.IsNullOrEmpty(typeName))
             {
                 var file = Path.Combine(rootPath, typeName);
@@ -103,7 +98,7 @@ public partial class MenuTest
             {
                 var type = typeName.Replace('/', '.');
                 var content = File.ReadAllText(fileName);
-                Utility.GetJsonStringByTypeName(localizerOption.Value, typeof(App).Assembly, $"BootstrapBlazor.Shared.Samples.{type}", cultureName).ToList().ForEach(l => content = ReplacePayload(content, l)); ;
+                Utility.GetJsonStringByTypeName(localizerOption.Value, typeof(App).Assembly, $"BootstrapBlazor.Server.Components.Samples.{type}", cultureName).ToList().ForEach(l => content = ReplacePayload(content, l)); ;
                 content = ReplaceSymbols(content);
                 content = RemoveBlockStatement(content, "@inject IStringLocalizer<");
 
@@ -125,10 +120,10 @@ public partial class MenuTest
     public void Localizer_Compare(string sourceLanguage, string targetLanguage)
     {
         using var configZh = new ConfigurationManager();
-        configZh.AddJsonStream(typeof(App).Assembly.GetManifestResourceStream($"BootstrapBlazor.Shared.Locales.{sourceLanguage}.json")!);
+        configZh.AddJsonStream(typeof(App).Assembly.GetManifestResourceStream($"BootstrapBlazor.Server.Locales.{sourceLanguage}.json")!);
 
         using var configEn = new ConfigurationManager();
-        configEn.AddJsonStream(typeof(App).Assembly.GetManifestResourceStream($"BootstrapBlazor.Shared.Locales.{targetLanguage}.json")!);
+        configEn.AddJsonStream(typeof(App).Assembly.GetManifestResourceStream($"BootstrapBlazor.Server.Locales.{targetLanguage}.json")!);
 
         var source = configZh.GetChildren().SelectMany(section => section.GetChildren().Select(i => $"{section.Key} - {i.Key}")).ToList();
         var target = configEn.GetChildren().SelectMany(section => section.GetChildren().Select(i => $"{section.Key} - {i.Key}")).ToList();

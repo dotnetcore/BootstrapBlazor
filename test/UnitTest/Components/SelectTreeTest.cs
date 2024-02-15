@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
-
 namespace UnitTest.Components;
 
 public class SelectTreeTest : BootstrapBlazorTestBase
@@ -190,8 +188,8 @@ public class SelectTreeTest : BootstrapBlazorTestBase
         cut.DoesNotContain("data-bs-toggle=\"dropdown\"");
     }
 
-    private List<TreeViewItem<string>> BindItems { get; } = new List<TreeViewItem<string>>()
-    {
+    private List<TreeViewItem<string>> BindItems { get; } =
+    [
         new TreeViewItem<string>("Test1")
         {
             Text ="Test1",
@@ -199,22 +197,22 @@ public class SelectTreeTest : BootstrapBlazorTestBase
             ExpandIcon = "fa-solid fa-folder-open",
             CheckedState =CheckboxState.Checked,
             IsActive = true,
-            Items = new List<TreeViewItem<string>>()
-            {
+            Items =
+            [
                 new TreeViewItem<string>("Test1-1")
                 {
                     Text ="Test1-1",
                     Icon = "fa-solid fa-folder",
                     ExpandIcon = "fa-solid fa-folder-open",
-                    Items = new List<TreeViewItem<string>>()
-                    {
+                    Items =
+                    [
                         new TreeViewItem<string>("Test1-1-1") { Text = "Test1-1-1", Icon = "fa-solid fa-file" },
                         new TreeViewItem<string>("Test1-1-2") { Text = "Test1-1-2", Icon = "fa-solid fa-file" }
-                    }
+                    ]
                 }
-            }
+            ]
         }
-    };
+    ];
 
     private class MockSelectTree<TValue> : SelectTree<TValue>
     {

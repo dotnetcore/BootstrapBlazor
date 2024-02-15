@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using AngleSharp.Dom;
-using BootstrapBlazor.Shared;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,7 +45,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void Items_Bind()
+    public async Task Items_Bind()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -65,13 +64,13 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.ShowExtendButtons, true);
             });
         });
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             var button = cut.Find("button");
             button.Click();
         });
 
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             var button = cut.Find("button");
             button.Click();
@@ -403,42 +402,6 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public async Task ShowAdvancedSearch_Ok()
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<Foo>>(pb =>
-            {
-                pb.Add(a => a.ShowToolbar, true);
-                pb.Add(a => a.ShowSearch, true);
-                pb.Add(a => a.ShowSearchText, false);
-                pb.Add(a => a.SearchDialogSize, Size.ExtraExtraLarge);
-                pb.Add(a => a.SearchDialogIsDraggable, true);
-                pb.Add(a => a.ScrollingDialogContent, true);
-                pb.Add(a => a.SearchDialogShowMaximizeButton, true);
-                pb.Add(a => a.SearchDialogItemsPerRow, 2);
-                pb.Add(a => a.SearchDialogRowType, RowType.Inline);
-                pb.Add(a => a.SearchDialogLabelAlign, Alignment.Right);
-                pb.Add(a => a.ShowAdvancedSearch, true);
-                pb.Add(a => a.ShowUnsetGroupItemsOnTop, true);
-                pb.Add(a => a.Items, Foo.GenerateFoo(localizer, 1));
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.AddAttribute(3, "Searchable", true);
-                    builder.CloseComponent();
-                });
-            });
-        });
-
-        var searchButton = cut.Find(".fa-magnifying-glass-plus");
-        await cut.InvokeAsync(() => searchButton.Click());
-    }
-
-    [Fact]
     public async Task ShowAdvancedSearch_CustomerModel_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
@@ -615,7 +578,7 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo>() { new Foo() });
+                pb.Add(a => a.Items, new List<Foo>() { new() });
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowFilterHeader, true);
                 pb.Add(a => a.TableColumns, new RenderFragment<Foo>(foo => builder =>
@@ -656,7 +619,7 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo>() { new Foo() });
+                pb.Add(a => a.Items, new List<Foo>() { new() });
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowFilterHeader, true);
                 pb.Add(a => a.TableColumns, new RenderFragment<Foo>(foo => builder =>
@@ -698,7 +661,7 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<Table<Foo>>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo>() { new Foo() });
+                pb.Add(a => a.Items, new List<Foo>() { new() });
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
                 pb.Add(a => a.ShowFilterHeader, true);
                 pb.Add(a => a.TableColumns, new RenderFragment<Foo>(foo => builder =>
@@ -789,7 +752,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void ShowExportButton_Ok()
+    public async Task ShowExportButton_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -826,15 +789,22 @@ public class TableTest : TableTestBase
 
         // Excel 导出图标监测
         // Pdf 导出图标监测
-        table.DoesNotContain("fa-regular fa-file-excel");
-        table.DoesNotContain("fa-regular fa-file-pdf");
+        table.DoesNotContain("fa-solid fa-fw fa-file-excel");
+        table.DoesNotContain("fa-solid fa-fw fa-file-pdf");
+
         table.SetParametersAndRender(pb =>
         {
+            pb.Add(a => a.ShowExportCsvButton, true);
             pb.Add(a => a.ShowExportExcelButton, true);
             pb.Add(a => a.ShowExportPdfButton, true);
         });
-        table.Contains("fa-regular fa-file-excel");
-        table.Contains("fa-regular fa-file-pdf");
+        table.Contains("fa-solid fa-fw fa-file-csv");
+        table.Contains("fa-solid fa-fw fa-file-excel");
+        table.Contains("fa-solid fa-fw fa-file-pdf");
+
+        // 导出 csv
+        var button = table.Find(".fa-file-csv");
+        await table.InvokeAsync(() => button.Click());
     }
 
     [Fact]
@@ -844,7 +814,7 @@ public class TableTest : TableTestBase
         ITableExportDataContext<Foo>? exportContext = null;
         bool exported = false;
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var export = Context.Services.GetRequiredService<ITableExcelExport>();
+        var export = Context.Services.GetRequiredService<ITableExport>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
@@ -1075,7 +1045,7 @@ public class TableTest : TableTestBase
                     isFirstQuery = option.IsFristQuery;
                     return Task.FromResult(new QueryData<Foo>()
                     {
-                        Items = new Foo[0],
+                        Items = Array.Empty<Foo>(),
                         TotalCount = 0,
                         IsAdvanceSearch = true,
                         IsFiltered = true,
@@ -1121,7 +1091,7 @@ public class TableTest : TableTestBase
                     isFirstQuery = option.IsFristQuery;
                     return Task.FromResult(new QueryData<Foo>()
                     {
-                        Items = new Foo[0],
+                        Items = Array.Empty<Foo>(),
                         TotalCount = 0,
                         IsAdvanceSearch = true,
                         IsFiltered = true,
@@ -1206,6 +1176,32 @@ public class TableTest : TableTestBase
             });
         });
         Assert.Contains("Test_PageInfoTemplate", cut.Markup);
+    }
+
+    [Fact]
+    public void PageInfoBodyTemplate_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsPagination, true);
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.PageItems, 20);
+                pb.Add(a => a.ShowPageInfo, true);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+                pb.Add(a => a.PageInfoBodyTemplate, builder => builder.AddContent(0, "Test_PageInfoBodyTemplate"));
+            });
+        });
+        Assert.Contains("Test_PageInfoBodyTemplate", cut.Markup);
     }
 
     [Fact]
@@ -1524,7 +1520,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.ShowExtendButtons, showExtendButton);
                 pb.Add(a => a.FixedExtendButtonsColumn, true);
                 pb.Add(a => a.IsFixedHeader, isFixedHeader);
-                pb.Add(a => a.ScrollWidth, 7);
+                pb.Add(a => a.ScrollWidth, 8);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -1574,9 +1570,9 @@ public class TableTest : TableTestBase
         {
             if (isFixedHeader)
             {
-                cut.Contains("right: 236px;");
-                cut.Contains("right: 136px;");
-                cut.Contains("right: 6px;");
+                cut.Contains("right: 238px;");
+                cut.Contains("right: 138px;");
+                cut.Contains("right: 8px;");
             }
             else
             {
@@ -1592,8 +1588,8 @@ public class TableTest : TableTestBase
 
             if (isFixedHeader)
             {
-                cut.Contains("right: 106px;");
-                cut.Contains("right: 6px;");
+                cut.Contains("right: 108px;");
+                cut.Contains("right: 8px;");
             }
         }
     }
@@ -1944,6 +1940,32 @@ public class TableTest : TableTestBase
         cut.Contains("table-cell-class");
     }
 
+    [Fact]
+    public void IsFixedFooter_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ScrollMode, ScrollMode.Virtual);
+                pb.Add(a => a.RowHeight, 39.5f);
+                pb.Add(a => a.ShowFooter, true);
+                pb.Add(a => a.IsFixedFooter, true);
+                pb.Add(a => a.Items, Foo.GenerateFoo(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        Assert.Contains("table-footer-fixed", cut.Markup);
+    }
+
     [Theory]
     [InlineData(TableRenderMode.CardView)]
     [InlineData(TableRenderMode.Table)]
@@ -2186,7 +2208,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void CustomerToolbarButton_Ok()
+    public async Task CustomerToolbarButton_Ok()
     {
         var clicked = false;
         var clickCallback = false;
@@ -2243,21 +2265,31 @@ public class TableTest : TableTestBase
                     builder.OpenComponent<MockToolbarButton<Foo>>(0);
                     builder.AddAttribute(12, nameof(MockToolbarButton<Foo>.Text), "test-confirm-mock");
                     builder.CloseComponent();
+
+                    builder.OpenComponent<TableToolbarComponent<Foo>>(0);
+                    builder.AddAttribute(14, nameof(TableToolbarComponent<Foo>.IsShow), true);
+                    builder.AddAttribute(13, nameof(TableToolbarComponent<Foo>.ChildContent), new RenderFragment(b =>
+                    {
+                        b.OpenComponent<Button>(0);
+                        b.AddAttribute(1, "Text", "test");
+                        b.CloseComponent();
+                    }));
+                    builder.CloseComponent();
                 });
             });
         });
 
         var button = cut.FindComponents<Button>().First(b => b.Instance.Text == "test");
-        cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
+        await cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
         Assert.True(clicked);
         Assert.True(clickCallback);
 
         // 选中一行
         var input = cut.Find("tbody tr input");
-        cut.InvokeAsync(() => input.Click());
+        await cut.InvokeAsync(() => input.Click());
 
         button = cut.FindComponents<Button>().First(b => b.Instance.Text == "test-async");
-        cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
+        await cut.InvokeAsync(() => button.Instance.OnClickWithoutRender!.Invoke());
         Assert.Equal(1, selected);
     }
 
@@ -2450,6 +2482,9 @@ public class TableTest : TableTestBase
 
         var cut1 = Context.RenderComponent<TableToolbarPopConfirmButton<Foo>>();
         Assert.Equal("", cut1.Markup);
+
+        var cut2 = Context.RenderComponent<TableToolbarComponent<Foo>>();
+        Assert.Equal("", cut2.Markup);
     }
 
     [Fact]
@@ -3093,33 +3128,6 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void IsTree_Exception()
-    {
-        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
-        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
-        {
-            pb.AddChildContent<Table<FooTree>>(pb =>
-            {
-                pb.Add(a => a.RenderMode, TableRenderMode.Table);
-                pb.Add(a => a.IsTree, true);
-                pb.Add(a => a.OnQueryAsync, op => OnQueryAsync(op, localizer));
-                pb.Add(a => a.TreeNodeConverter, items => BuildTreeAsync(items));
-                pb.Add(a => a.TableColumns, foo => builder =>
-                {
-                    builder.OpenComponent<TableColumn<Foo, string>>(0);
-                    builder.AddAttribute(1, "Field", "Name");
-                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
-                    builder.CloseComponent();
-                });
-            });
-        });
-
-        // 点击展开
-        var node = cut.Find("tbody .table-cell.is-tree");
-        Assert.ThrowsAsync<InvalidOperationException>(() => cut.InvokeAsync(() => node.Click()));
-    }
-
-    [Fact]
     public void IsTree_TableRowEqualityComparer()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
@@ -3172,13 +3180,14 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void IsTree_KeepExpand()
+    public async Task IsTree_KeepExpand()
     {
         // 展开树状节点
         // 重新查询后节点依然展开
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
+            pb.Add(a => a.EnableErrorLogger, false);
             pb.AddChildContent<Table<FooTree>>(pb =>
             {
                 pb.Add(a => a.RenderMode, TableRenderMode.Table);
@@ -3212,20 +3221,20 @@ public class TableTest : TableTestBase
 
         // 点击展开
         var node = cut.Find("tbody .is-tree");
-        cut.InvokeAsync(() => node.Click());
+        await cut.InvokeAsync(() => node.Click());
         nodes = cut.FindAll("tbody tr");
         Assert.Equal(4, nodes.Count);
 
         // 查询
         var table = cut.FindComponent<Table<FooTree>>();
-        cut.InvokeAsync(() => table.Instance.QueryAsync());
+        await cut.InvokeAsync(() => table.Instance.QueryAsync());
         Assert.Contains("is-tree fa-solid fa-caret-right fa-rotate-90", cut.Markup);
 
         nodes = cut.FindAll("tbody tr");
         Assert.Equal(4, nodes.Count);
 
         table.SetParametersAndRender(pb => pb.Add(a => a.OnTreeExpand, null));
-        Assert.ThrowsAsync<InvalidOperationException>(() => table.Instance.QueryAsync());
+        await Assert.ThrowsAsync<InvalidOperationException>(() => table.Instance.QueryAsync());
     }
 
     [Fact]
@@ -3887,11 +3896,10 @@ public class TableTest : TableTestBase
     [Theory]
     [InlineData(".btn-test0")]
     [InlineData(".btn-test1")]
-    public async Task OnClickExtensionButton_Ok(string selector)
+    public void OnClickExtensionButton_Ok(string selector)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
-        var index = 0;
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<Table<Foo>>(pb =>
@@ -3910,26 +3918,26 @@ public class TableTest : TableTestBase
                     builder.CloseComponent();
                 });
 
-                // <TableCellButton Color="Color.Primary" Icon="fa-solid fa-pen" Text="明细" OnClick="@(() => OnRowButtonClick(context, "明细"))" />
                 pb.Add(a => a.RowButtonTemplate, foo => builder =>
                 {
                     builder.OpenComponent<TableCellButton>(0);
                     builder.AddAttribute(2, "Text", "test-extend-button");
-                    builder.AddAttribute(3, "class", $"btn-test{index++}");
+                    builder.AddAttribute(3, "class", $"btn-test0");
                     builder.CloseComponent();
                 });
                 pb.Add(a => a.BeforeRowButtonTemplate, foo => builder =>
                 {
                     builder.OpenComponent<TableCellButton>(0);
                     builder.AddAttribute(2, "Text", "test-extend-button");
-                    builder.AddAttribute(3, "class", $"btn-test{index++}");
+                    builder.AddAttribute(3, "class", $"btn-test1");
                     builder.CloseComponent();
                 });
             });
         });
 
         var btn = cut.Find(selector);
-        await cut.InvokeAsync(() => btn.Click());
+        cut.InvokeAsync(() => btn.Click());
+        Context.DisposeComponents();
     }
 
     [Fact]
@@ -3955,11 +3963,15 @@ public class TableTest : TableTestBase
                     builder.CloseComponent();
                 });
 
-                // <TableCellButton Color="Color.Primary" Icon="fa-solid fa-pen" Text="明细" OnClick="@(() => OnRowButtonClick(context, "明细"))" />
                 pb.Add(a => a.RowButtonTemplate, foo => builder =>
                 {
                     builder.OpenComponent<TableCellButton>(0);
                     builder.AddAttribute(2, "Text", "test-extend-button");
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableCellComponent>(10);
+                    builder.AddAttribute(20, "ChildContent", new RenderFragment(b => b.AddContent(0, "test-TableCellComponent")));
+                    builder.AddAttribute(30, "IsShow", true);
                     builder.CloseComponent();
                 });
             });
@@ -3967,6 +3979,13 @@ public class TableTest : TableTestBase
 
         var btn = cut.FindComponent<TableExtensionButton>();
         await cut.InvokeAsync(() => btn.Instance.OnClickButton!(new TableCellButtonArgs() { AutoRenderTableWhenClick = true, AutoSelectedRowWhenClick = true }));
+    }
+
+    [Fact]
+    public void TableCellComponent_Ok()
+    {
+        var cut = Context.RenderComponent<TableCellComponent>();
+        cut.MarkupMatches("");
     }
 
     [Fact]
@@ -3990,7 +4009,6 @@ public class TableTest : TableTestBase
                     builder.CloseComponent();
                 });
 
-                // <TableCellButton Color="Color.Primary" Icon="fa-solid fa-pen" Text="明细" OnClick="@(() => OnRowButtonClick(context, "明细"))" />
                 pb.Add(a => a.BeforeRowButtonTemplate, foo => builder =>
                 {
                     builder.OpenComponent<TableCellButton>(0);
@@ -4075,6 +4093,7 @@ public class TableTest : TableTestBase
     {
         var cut = Context.RenderComponent<TableCellButton>();
         Assert.Equal("", cut.Markup);
+        Context.DisposeComponents();
     }
 
     [Fact]
@@ -4162,6 +4181,91 @@ public class TableTest : TableTestBase
         await cut.InvokeAsync(() => btn.Click());
         checkboxs = cut.FindAll(".is-checked");
         Assert.Empty(checkboxs);
+    }
+
+    [Fact]
+    public async Task KeepSelectedRows_Ok()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var Items = Foo.GenerateFoo(localizer, 6);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsMultipleSelect, true);
+                pb.Add(a => a.IsPagination, true);
+                pb.Add(a => a.IsKeepSelectedRows, true);
+                pb.Add(a => a.PageItemsSource, new int[] { 2 });
+                pb.Add(a => a.OnQueryAsync, options =>
+                {
+                    var total = Items.Count;
+                    var items = Items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
+                    return Task.FromResult(new QueryData<Foo>() { Items = items, TotalCount = total, IsSorted = true, IsFiltered = true, IsSearch = true });
+                });
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+
+        var btn = cut.Find("tbody tr td input");
+        await cut.InvokeAsync(() => btn.Click());
+
+        var checkboxs = cut.FindAll(".is-checked");
+        Assert.Single(checkboxs);
+
+        //点击下页按钮翻页
+        var nextBtn = cut.Find(".fa-angle-right");
+        await cut.InvokeAsync(() => nextBtn.Click());
+
+        //选中行数为空
+        checkboxs = cut.FindAll(".is-checked");
+        Assert.Empty(checkboxs);
+
+        //点击下页按钮翻页
+        await cut.InvokeAsync(() => nextBtn.Click());
+
+        //点击表头CheckBox
+        btn = cut.Find("thead tr th input");
+        await cut.InvokeAsync(() => btn.Click());
+
+        //加上表头的复选框选中，结果有3项
+        checkboxs = cut.FindAll(".is-checked");
+        Assert.Equal(3, checkboxs?.Count);
+
+        //点击向前按钮翻页
+        var prevBtn = cut.Find("i.fa-angle-left");
+        await cut.InvokeAsync(() => prevBtn.Click());
+
+        //恢复选中行数为0
+        checkboxs = cut.FindAll(".is-checked");
+        Assert.Empty(checkboxs);
+
+        //点击向前按钮翻页
+        await cut.InvokeAsync(() => prevBtn.Click());
+
+        //恢复选中行数为1
+        checkboxs = cut.FindAll(".is-checked");
+        Assert.Single(checkboxs);
+
+        //点击向后翻页按钮
+        await cut.InvokeAsync(() => nextBtn.Click());
+
+        //恢复选中行数为0
+        checkboxs = cut.FindAll(".is-checked");
+        Assert.Empty(checkboxs);
+
+        //点击向后翻页按钮
+        await cut.InvokeAsync(() => nextBtn.Click());
+
+        //恢复选中行数为2，加上表头的复选框选中，结果有3项
+        checkboxs = cut.FindAll(".is-checked");
+        Assert.Equal(3, checkboxs?.Count);
     }
 
     [Fact]
@@ -4422,8 +4526,10 @@ public class TableTest : TableTestBase
         Assert.True(column.Instance.Editable);
     }
 
-    [Fact]
-    public void ShowTips_Ok()
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void ShowTips_Ok(bool markup)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -4441,6 +4547,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(3, "Editable", true);
                     builder.AddAttribute(7, "Text", "test");
                     builder.AddAttribute(9, "ShowTips", true);
+                    builder.AddAttribute(8, "IsMarkupString", markup);
                     builder.CloseComponent();
                 });
             });
@@ -4792,7 +4899,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void Delete_Ok()
+    public async Task Delete_Ok()
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -4815,10 +4922,10 @@ public class TableTest : TableTestBase
             });
         });
         var input = cut.Find("tbody tr input");
-        cut.InvokeAsync(() => input.Click());
+        await cut.InvokeAsync(() => input.Click());
 
         var button = cut.FindComponent<TableToolbarPopConfirmButton<Foo>>();
-        cut.InvokeAsync(() => button.Instance.OnConfirm.Invoke());
+        await cut.InvokeAsync(() => button.Instance.OnConfirm.Invoke());
         Assert.Single(items);
     }
 
@@ -5035,7 +5142,7 @@ public class TableTest : TableTestBase
     [Theory]
     [InlineData(InsertRowMode.First)]
     [InlineData(InsertRowMode.Last)]
-    public void OnAddAsync_IsTracking_Ok(InsertRowMode mode)
+    public async Task OnAddAsync_IsTracking_Ok(InsertRowMode mode)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -5073,14 +5180,14 @@ public class TableTest : TableTestBase
 
         // test add button
         var button = cut.FindComponent<TableToolbarButton<Foo>>();
-        cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
+        await cut.InvokeAsync(() => button.Instance.OnClick.InvokeAsync());
         Assert.True(added);
 
         var input = cut.Find("tbody form input");
-        cut.InvokeAsync(() => input.Change("test_name"));
+        await cut.InvokeAsync(() => input.Change("test_name"));
 
         var form = cut.Find("tbody form");
-        cut.InvokeAsync(() => form.Submit());
+        await cut.InvokeAsync(() => form.Submit());
     }
 
     [Fact]
@@ -5146,6 +5253,171 @@ public class TableTest : TableTestBase
         await cut.InvokeAsync(() => table.Instance.QueryAsync());
     }
 
+    [Theory]
+    [InlineData(true)]
+    [InlineData(false)]
+    public void ReloadColumnWidth_Ok(bool fixedHeader)
+    {
+        Context.JSInterop.Setup<string>("reloadColumnWidth", "test_table_id", "test_client_name").SetResult("""
+            {
+                "cols": [
+                    { "name": "Name", "width": 20 },
+                    { "name": "Address", "width": 80 }
+                ],
+                "table": 100
+            }
+            """);
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.IsFixedHeader, fixedHeader);
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ClientTableName, "test_client_name");
+                pb.Add(a => a.Id, "test_table_id");
+                pb.Add(a => a.AllowResizing, true);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.Contains("style=\"width: 100px;\"", table.Markup);
+    }
+
+    [Fact]
+    public void ReloadColumnWidth_TableWidth_Invalid()
+    {
+        Context.JSInterop.Setup<string>("reloadColumnWidth", "test_table_id", "test_client_name").SetResult("""
+            {
+                "cols": [
+                    { "name": "Name", "width": 20 },
+                    { "name": "Address", "width": 80 }
+                ],
+                "table": 123.12
+            }
+            """);
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ClientTableName, "test_client_name");
+                pb.Add(a => a.Id, "test_table_id");
+                pb.Add(a => a.AllowResizing, true);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.Contains("<col style=\"width: 20px;\" />", table.Markup);
+    }
+
+    [Fact]
+    public void ReloadColumnWidth_NoTableElement()
+    {
+        Context.JSInterop.Setup<string>("reloadColumnWidth", "test_table_id", "test_client_name").SetResult("""
+            {
+                "cols": [
+                    { "name": "Name", "width": 20 },
+                    { "name": "Address", "width": 80 }
+                ]
+            }
+            """);
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ClientTableName, "test_client_name");
+                pb.Add(a => a.Id, "test_table_id");
+                pb.Add(a => a.AllowResizing, true);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.Contains("<col style=\"width: 20px;\" />", table.Markup);
+    }
+
+    [Fact]
+    public void ReloadColumnWidth_Columns_Invalid()
+    {
+        Context.JSInterop.Setup<string>("reloadColumnWidth", "test_table_id", "test_client_name").SetResult("""
+            {
+                "cols": {
+                    "name": "Name",
+                    "name": "Address"
+                }
+            }
+            """);
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.ClientTableName, "test_client_name");
+                pb.Add(a => a.Id, "test_table_id");
+                pb.Add(a => a.AllowResizing, true);
+                pb.Add(a => a.Items, items);
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Address");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Address", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+        var table = cut.FindComponent<Table<Foo>>();
+        Assert.DoesNotContain("<col style=\"width: 20px;\" />", table.Markup);
+    }
+
     [Fact]
     public async Task Refresh_Ok()
     {
@@ -5206,7 +5478,7 @@ public class TableTest : TableTestBase
         Assert.Equal(2, cols.Count);
 
         var resp = cut.FindComponent<ResizeNotification>().Instance;
-        resp.OnResize(BreakPoint.Small);
+        resp.OnResize("Small");
 
         var row = table.Find("tbody > tr");
         Assert.Equal(1, row.ChildElementCount);
@@ -5352,6 +5624,23 @@ public class TableTest : TableTestBase
         var table = cut.FindComponent<MockDynamicTable>();
         var saved = await table.Instance.SaveModelTest();
         Assert.True(saved);
+    }
+
+    [Fact]
+    public void DynamicContext_Pagination()
+    {
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var items = Foo.GenerateFoo(localizer, 2);
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<MockDynamicTable>(pb =>
+            {
+                pb.Add(a => a.RenderMode, TableRenderMode.Table);
+                pb.Add(a => a.IsPagination, true);
+                pb.Add(a => a.DynamicContext, CreateDynamicContext(localizer));
+            });
+        });
+        cut.Contains("nav nav-pages");
     }
 
     [Fact]
@@ -5661,6 +5950,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.ExtendButtonColumnWidth, 130);
                 pb.Add(a => a.ShowExtendButtons, true);
                 pb.Add(a => a.ShowExtendEditButton, true);
+                pb.Add(a => a.DisableExtendEditButton, false);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -5685,8 +5975,12 @@ public class TableTest : TableTestBase
             pb.Add(a => a.ShowExtendEditButton, true);
             pb.Add(a => a.ShowDefaultButtons, false);
             pb.Add(a => a.ShowExtendEditButtonCallback, foo => true);
+            pb.Add(a => a.DisableExtendEditButtonCallback, foo => true);
         });
         Assert.Contains("fa-regular fa-pen-to-square", table.Find("tbody").ToMarkup());
+
+        var button = table.Find("tbody tr:first-child .btn-primary");
+        Assert.Contains("disabled=\"disabled\"", button.OuterHtml);
     }
 
     [Fact]
@@ -5703,6 +5997,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowExtendButtons, true);
                 pb.Add(a => a.ShowExtendDeleteButton, true);
+                pb.Add(a => a.DisableExtendDeleteButton, false);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -5727,8 +6022,12 @@ public class TableTest : TableTestBase
             pb.Add(a => a.ShowExtendDeleteButton, true);
             pb.Add(a => a.ShowDefaultButtons, false);
             pb.Add(a => a.ShowExtendDeleteButtonCallback, foo => true);
+            pb.Add(a => a.DisableExtendDeleteButtonCallback, foo => true);
         });
         Assert.Contains("fa-solid fa-xmark", table.Find("tbody").ToMarkup());
+
+        var button = table.Find("tbody tr:first-child .btn-danger");
+        Assert.Contains("pop-confirm disabled", button.OuterHtml);
     }
 
     [Theory]
@@ -5914,6 +6213,7 @@ public class TableTest : TableTestBase
                 pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
                 pb.Add(a => a.ShowToolbar, true);
                 pb.Add(a => a.ShowExportButton, true);
+                pb.Add(a => a.ShowExportCsvButton, true);
                 pb.Add(a => a.ShowExportPdfButton, true);
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
@@ -5925,33 +6225,29 @@ public class TableTest : TableTestBase
             });
         });
 
-        cut.InvokeAsync(() =>
+        var buttons = cut.FindAll(".dropdown-menu-end .dropdown-item");
+        foreach (var button in buttons)
         {
-            var button = cut.Find(".dropdown-menu-end .dropdown-item");
-            button.Click();
-        });
-
-        cut.InvokeAsync(() =>
-        {
-            var buttons = cut.FindAll(".dropdown-menu-end .dropdown-item");
-            buttons[buttons.Count - 1].Click();
-        });
+            cut.InvokeAsync(() =>
+            {
+                button.Click();
+            });
+        }
 
         var table = cut.FindComponent<Table<Foo>>();
         table.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.OnExportAsync, _ => Task.FromResult(true));
         });
-        cut.InvokeAsync(() =>
+
+        buttons = cut.FindAll(".dropdown-menu-end .dropdown-item");
+        foreach (var button in buttons)
         {
-            var button = cut.Find(".dropdown-menu-end .dropdown-item");
-            button.Click();
-        });
-        cut.InvokeAsync(() =>
-        {
-            var buttons = cut.FindAll(".dropdown-menu-end .dropdown-item");
-            buttons[buttons.Count - 1].Click();
-        });
+            cut.InvokeAsync(() =>
+            {
+                button.Click();
+            });
+        }
     }
 
     [Fact]
@@ -6599,7 +6895,7 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<MockTable>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo> { new Foo() { Name = null }, new Foo() { Name = "#fff" } });
+                pb.Add(a => a.Items, new List<Foo> { new() { Name = null }, new() { Name = "#fff" } });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, string>>(0);
@@ -6655,7 +6951,7 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<MockTable>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo> { new Foo() { Count = 10 } });
+                pb.Add(a => a.Items, new List<Foo> { new() { Count = 10 } });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, int>>(0);
@@ -6671,9 +6967,9 @@ public class TableTest : TableTestBase
         var col = cut.FindComponent<TableColumn<Foo, int>>();
         col.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.Formatter, new Func<object?, Task<string>>(obj =>
+            pb.Add(a => a.Formatter, new Func<object?, Task<string?>>(obj =>
             {
-                return Task.FromResult("test-formatter");
+                return Task.FromResult<string?>("test-formatter");
             }));
         });
         var table = cut.FindComponent<MockTable>();
@@ -6689,7 +6985,7 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<MockTable>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo> { new Foo() { } });
+                pb.Add(a => a.Items, new List<Foo> { new() });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, EnumEducation?>>(0);
@@ -6702,7 +6998,7 @@ public class TableTest : TableTestBase
         var table = cut.FindComponent<MockTable>();
         table.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.Items, new List<Foo> { new Foo() { Education = EnumEducation.Primary } });
+            pb.Add(a => a.Items, new List<Foo> { new() { Education = EnumEducation.Primary } });
         });
     }
 
@@ -6714,7 +7010,7 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<MockTable>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo> { new Foo() { } });
+                pb.Add(a => a.Items, new List<Foo> { new() });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, DateTime?>>(0);
@@ -6734,7 +7030,7 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<MockTable>(pb =>
             {
-                pb.Add(a => a.Items, new List<Foo> { new Foo() { Hobby = new string[] { "test-1", "test-2" } } });
+                pb.Add(a => a.Items, new List<Foo> { new() { Hobby = ["test-1", "test-2"] } });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<Foo, IEnumerable<string>>>(0);
@@ -6754,7 +7050,7 @@ public class TableTest : TableTestBase
         {
             pb.AddChildContent<MockRenderCellTable>(pb =>
             {
-                pb.Add(a => a.Items, new List<ReadonlyFoo> { new ReadonlyFoo() });
+                pb.Add(a => a.Items, new List<ReadonlyFoo> { new() });
                 pb.Add(a => a.TableColumns, foo => builder =>
                 {
                     builder.OpenComponent<TableColumn<ReadonlyFoo, string>>(0);
@@ -6788,7 +7084,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(1, "Field", "ReadonlyValue");
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
                     builder.AddAttribute(3, "Editable", false);
-                    builder.AddAttribute(4, "Template", new RenderFragment<TableColumnContext<Foo, string>>(context => builder => builder.AddContent(0, "test-edittemplate")));
+                    builder.AddAttribute(4, "Template", new RenderFragment<TableColumnContext<Foo, string>>(context => builder => builder.AddContent(0, "test-EditTemplate")));
                     builder.CloseComponent();
                 });
             });
@@ -6799,7 +7095,7 @@ public class TableTest : TableTestBase
         var cut1 = Context.Render(builder => builder.AddContent(0, table.Instance.TestRenderCell(foo, ItemChangedType.Add, col =>
         {
         })));
-        Assert.Equal("test-edittemplate", cut1.Markup);
+        Assert.Equal("test-EditTemplate", cut1.Markup);
     }
 
     [Fact]
@@ -6881,12 +7177,12 @@ public class TableTest : TableTestBase
         var col = cut.FindComponent<TableColumn<Foo, string>>();
         col.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.EditTemplate, foo => builder => builder.AddContent(0, "test-edittemplate"));
+            pb.Add(a => a.EditTemplate, foo => builder => builder.AddContent(0, "test-EditTemplate"));
         });
         cut1 = Context.Render(builder => builder.AddContent(0, table.Instance.TestRenderCell(foo, ItemChangedType.Add, col =>
         {
         })));
-        Assert.Contains("test-edittemplate", cut1.Markup);
+        Assert.Contains("test-EditTemplate", cut1.Markup);
     }
 
     [Fact]
@@ -7168,7 +7464,7 @@ public class TableTest : TableTestBase
     }
 
     [Fact]
-    public void OnResizeColumnCallback_Ok()
+    public async Task OnResizeColumnCallback_Ok()
     {
         var name = "";
         var width = 0f;
@@ -7202,11 +7498,11 @@ public class TableTest : TableTestBase
         });
 
         var table = cut.FindComponent<Table<Foo>>();
-        cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(1, 100));
+        await cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(1, 100));
         Assert.Equal("Address", name);
         Assert.Equal(100, width);
 
-        cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(20, 100));
+        await cut.InvokeAsync(() => table.Instance.ResizeColumnCallback(20, 100));
     }
 
     [Theory]
@@ -7244,6 +7540,27 @@ public class TableTest : TableTestBase
         });
     }
 
+    [Fact]
+    public void GetResponsiveInvoke_Ok()
+    {
+        Context.JSInterop.Setup<string?>("getResponsive").SetResult("Large");
+        var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
+        var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
+        {
+            pb.AddChildContent<Table<Foo>>(pb =>
+            {
+                pb.Add(a => a.OnQueryAsync, OnQueryAsync(localizer));
+                pb.Add(a => a.TableColumns, foo => builder =>
+                {
+                    builder.OpenComponent<TableColumn<Foo, string>>(0);
+                    builder.AddAttribute(1, "Field", "Name");
+                    builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Name", typeof(string)));
+                    builder.CloseComponent();
+                });
+            });
+        });
+    }
+
     private static DataTable CreateDataTable(IStringLocalizer<Foo> localizer)
     {
         var userData = new DataTable();
@@ -7267,7 +7584,10 @@ public class TableTest : TableTestBase
             var propertyName = col.GetFieldName();
             // 使用 Text 设置显示名称示例
             col.Text = localizer[nameof(Foo.Name)];
-        });
+        })
+        {
+            OnFilterCallback = (option, items) => items
+        };
     }
 
     private static Func<QueryPageOptions, Task<QueryData<Foo>>> OnQueryAsync(IStringLocalizer<Foo> localizer, bool isSearch = true, bool isAdvanceSearch = true, bool isFilter = true, bool isSorted = true) => new(op =>
@@ -7284,11 +7604,9 @@ public class TableTest : TableTestBase
         });
     });
 
-    private class MockNullDataService : IDataService<Foo>
+    private class MockNullDataService(IStringLocalizer<Foo> localizer) : IDataService<Foo>
     {
-        IStringLocalizer<Foo> Localizer { get; set; }
-
-        public MockNullDataService(IStringLocalizer<Foo> localizer) => Localizer = localizer;
+        IStringLocalizer<Foo> Localizer { get; set; } = localizer;
 
         public Task<bool> AddAsync(Foo model) => Task.FromResult(true);
 
@@ -7311,25 +7629,15 @@ public class TableTest : TableTestBase
         public Task<bool> SaveAsync(Foo model, ItemChangedType changedType) => Task.FromResult(true);
     }
 
-    private class MockEFCoreDataService : MockNullDataService, IEntityFrameworkCoreDataService
+    private class MockEFCoreDataService(IStringLocalizer<Foo> localizer) : MockNullDataService(localizer), IEntityFrameworkCoreDataService
     {
-        public MockEFCoreDataService(IStringLocalizer<Foo> localizer) : base(localizer)
-        {
-
-        }
-
         public Task CancelAsync() => Task.CompletedTask;
 
         public Task EditAsync(object model) => Task.CompletedTask;
     }
 
-    private class MockNullItemsDataService : MockNullDataService
+    private class MockNullItemsDataService(IStringLocalizer<Foo> localizer) : MockNullDataService(localizer)
     {
-        public MockNullItemsDataService(IStringLocalizer<Foo> localizer) : base(localizer)
-        {
-
-        }
-
         public override Task<QueryData<Foo>> QueryAsync(QueryPageOptions option)
         {
             return Task.FromResult(new QueryData<Foo>()
@@ -7344,7 +7652,7 @@ public class TableTest : TableTestBase
         }
     }
 
-    private class MockButton : ButtonBase
+    private class MockButton : ButtonBase, ITableCellComponent
     {
         [CascadingParameter]
         [NotNull]
@@ -7367,8 +7675,14 @@ public class TableTest : TableTestBase
         }
     }
 
-    private class MockToolbarButton<TItem> : ButtonBase
+    private class MockToolbarButton<TItem> : ButtonBase, ITableToolbarButton<TItem>
     {
+        public bool IsEnableWhenSelectedOneRow { get; set; }
+
+        public Func<IEnumerable<TItem>, bool>? IsDisabledCallback { get; set; }
+
+        public bool IsShow { get; set; } = true;
+
         [CascadingParameter]
         [NotNull]
         protected TableToolbar<TItem>? Buttons { get; set; }
@@ -7485,14 +7799,14 @@ public class TableTest : TableTestBase
     {
         public FilterKeyValueAction GetFilterConditions() => new()
         {
-            Filters = new()
-            {
+            Filters =
+            [
                 new FilterKeyValueAction()
                 {
-                     FieldKey ="Name",
-                     FieldValue = "Zhang"
+                    FieldKey = "Name",
+                    FieldValue = "Zhang"
                 }
-            }
+            ]
         };
 
         public void Reset()

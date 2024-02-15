@@ -1,0 +1,35 @@
+﻿@page "/search-dialog"
+@inject IStringLocalizer<SearchDialogs> Localizer
+@inject DialogService DialogService
+
+<h3>@Localizer["SearchDialogsTitle"]</h3>
+<h4>@Localizer["SearchDialogsSubTitle"]</h4>
+
+<p>@((MarkupString)Localizer["SearchDialogsDescription"].Value)</p>
+
+<Tips>
+    <p>@((MarkupString)Localizer["SearchDialogsTips"].Value)</p>
+</Tips>
+
+<DemoBlock Title="@Localizer["SearchDialogsNormalTitle"]"
+           Introduction="@Localizer["SearchDialogsNormalIntro"]"
+           Name="Normal">
+    <Button Text="@Localizer["SearchDialogsNormalButtonText"]" OnClickWithoutRender="@ShowDialog" />
+
+    <ConsoleLogger @ref="Logger" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SearchDialogsFieldTitle"]"
+           Introduction="@Localizer["SearchDialogsFieldIntro"]"
+           Name="Field">
+    <Button Text="@Localizer["SearchDialogsFieldButtonText"]" OnClickWithoutRender="@ShowColumnsDialog" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SearchDialogsLayoutTitle"]"
+           Introduction="@Localizer["SearchDialogsLayoutIntro"]"
+           Name="Layout">
+    <Button Text="@Localizer["SearchDialogsLayoutButtonText1"]" OnClickWithoutRender="@ShowInlineDialog" />
+    <Button Text="@Localizer["SearchDialogsLayoutButtonText2"]" OnClickWithoutRender="@ShowInlineAlignDialog" />
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" Title="@Localizer["SearchDialogOptionAttr"]" />

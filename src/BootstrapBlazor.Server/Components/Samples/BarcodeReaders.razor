@@ -1,0 +1,36 @@
+﻿@page "/barcode-reader"
+@inject IStringLocalizer<BarcodeReaders> Localizer
+
+<h4>@Localizer["SubTitle"]</h4>
+
+<PackageTips Name="BootstrapBlazor.BarCode" />
+
+<p><b>@Localizer["Attention"]</b></p>
+<ul class="ul-demo">
+    <li>@((MarkupString)Localizer["Li1"].Value)</li>
+    <li>@Localizer["Li4"]</li>
+</ul>
+
+<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
+    <p>@Localizer["Step"]</p>
+    <ul class="ul-demo mb-3">
+        <li>@Localizer["BasicUsageLi1"]</li>
+        <li>@Localizer["BasicUsageLi2"]</li>
+        <li>@Localizer["BasicUsageLi3"]</li>
+    </ul>
+    <BarcodeReader OnInit="@OnInit" OnResult="@OnResult" OnStart="@OnStart" OnClose="@OnClose" OnError="@OnError" />
+    <ConsoleLogger @ref="Logger" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ImageTitle"]" Introduction="@Localizer["ImageIntro"]" Name="Image">
+    <p>@Localizer["Step"]</p>
+    <ul class="ul-demo mb-3">
+        <li>@Localizer["ImageLi1"]</li>
+        <li>@Localizer["ImageLi2"]</li>
+        <li>@Localizer["ImageLi3"]</li>
+    </ul>
+    <BarcodeReader ScanType="@ScanType.Image" OnResult="@OnImageResult" OnError="@OnImageError" />
+    <ConsoleLogger @ref="ImageLogger" />
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />

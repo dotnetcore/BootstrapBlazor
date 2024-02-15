@@ -42,6 +42,30 @@ public static class Utility
     public static string GetDisplayName<TModel>(string fieldName) => GetDisplayName(typeof(TModel), fieldName);
 
     /// <summary>
+    /// 获取 RangeAttribute 标签值
+    /// </summary>
+    /// <param name="model">模型实例</param>
+    /// <param name="fieldName">字段名称</param>
+    /// <returns></returns>
+    public static RangeAttribute? GetRange(object model, string fieldName) => GetRange(model.GetType(), fieldName);
+
+    /// <summary>
+    /// 获得 RangeAttribute 标签值
+    /// </summary>
+    /// <param name="modelType">模型类型</param>
+    /// <param name="fieldName">字段名称</param>
+    /// <returns></returns>
+    public static RangeAttribute? GetRange(Type modelType, string fieldName) => CacheManager.GetRange(Nullable.GetUnderlyingType(modelType) ?? modelType, fieldName);
+
+    /// <summary>
+    /// 获得 RangeAttribute 标签值
+    /// </summary>
+    /// <typeparam name="TModel">模型</typeparam>
+    /// <param name="fieldName">字段名称</param>
+    /// <returns></returns>
+    public static RangeAttribute? GetRange<TModel>(string fieldName) => GetRange(typeof(TModel), fieldName);
+
+    /// <summary>
     /// 获取资源文件中 NullableBoolItemsAttribute 标签名称方法
     /// </summary>
     /// <param name="model">模型实例</param>
@@ -369,6 +393,10 @@ public static class Utility
             {
                 builder.AddAttribute(5, "rows", item.Rows);
             }
+            if (item is ITableColumn col && col.ComponentParameters != null)
+            {
+                builder.AddMultipleAttributes(6, col.ComponentParameters);
+            }
             builder.CloseComponent();
         }
         else
@@ -380,8 +408,11 @@ public static class Utility
             builder.AddAttribute(4, nameof(Display<string>.ShowLabelTooltip), item.ShowLabelTooltip);
             if (item is ITableColumn col)
             {
-                // TODO: 暂时不支持 Formatter 逻辑
-                if (!string.IsNullOrEmpty(col.FormatString))
+                if (col.Formatter != null)
+                {
+                    builder.AddAttribute(5, nameof(Display<string>.FormatterAsync), CacheManager.GetFormatterInvoker(fieldType, col.Formatter));
+                }
+                else if (!string.IsNullOrEmpty(col.FormatString))
                 {
                     builder.AddAttribute(5, nameof(Display<string>.FormatString), col.FormatString);
                 }
@@ -500,7 +531,7 @@ public static class Utility
         GroupName = d.GroupName
     }).ToList();
 
-    private static object? GenerateValue(object model, string fieldName) => Utility.GetPropertyValue<object, object?>(model, fieldName);
+    private static object? GenerateValue(object model, string fieldName) => GetPropertyValue<object, object?>(model, fieldName);
 
     /// <summary>
     /// 通过指定类型实例获取属性 Lambda 表达式
@@ -574,35 +605,21 @@ public static class Utility
         {
             ret = typeof(NullSwitch);
         }
-        else
+        else if (fieldType.IsNumber())
         {
-            switch (type.Name)
-            {
-                case nameof(Boolean):
-                    ret = typeof(Switch);
-                    break;
-                case nameof(DateTime):
-                    ret = typeof(DateTimePicker<>).MakeGenericType(fieldType);
-                    break;
-                case nameof(Int16):
-                case nameof(Int32):
-                case nameof(Int64):
-                case nameof(Single):
-                case nameof(Double):
-                case nameof(Decimal):
-                    ret = typeof(BootstrapInputNumber<>).MakeGenericType(fieldType);
-                    break;
-                case nameof(String):
-                    if (hasRows)
-                    {
-                        ret = typeof(Textarea);
-                    }
-                    else
-                    {
-                        ret = typeof(BootstrapInput<>).MakeGenericType(typeof(string));
-                    }
-                    break;
-            }
+            ret = typeof(BootstrapInputNumber<>).MakeGenericType(fieldType);
+        }
+        else if (fieldType.IsDateTime())
+        {
+            ret = typeof(DateTimePicker<>).MakeGenericType(fieldType);
+        }
+        else if (fieldType.IsBoolean())
+        {
+            ret = typeof(Switch);
+        }
+        else if (fieldType == typeof(string))
+        {
+            ret = hasRows ? typeof(Textarea) : typeof(BootstrapInput<>).MakeGenericType(typeof(string));
         }
         return ret ?? typeof(BootstrapInput<>).MakeGenericType(fieldType);
     }
@@ -638,42 +655,31 @@ public static class Utility
     /// <param name="fieldName">字段名称</param>
     /// <param name="item">IEditorItem 实例</param>
     /// <returns></returns>
-    private static IEnumerable<KeyValuePair<string, object>> CreateMultipleAttributes(Type fieldType, object model, string fieldName, IEditorItem item)
+    private static Dictionary<string, object> CreateMultipleAttributes(Type fieldType, object model, string fieldName, IEditorItem item)
     {
-        var ret = new List<KeyValuePair<string, object>>();
+        var ret = new Dictionary<string, object>();
         var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
-        switch (type.Name)
+        if (type.Name == nameof(String))
         {
-            case nameof(String):
-                var ph = item.PlaceHolder ?? Utility.GetPlaceHolder(model, fieldName);
-                if (ph != null)
-                {
-                    ret.Add(new("placeholder", ph));
-                }
-                if (item.Rows != 0)
-                {
-                    ret.Add(new("rows", item.Rows));
-                }
-                break;
-            case nameof(Int16):
-            case nameof(Int32):
-            case nameof(Int64):
-            case nameof(Single):
-            case nameof(Double):
-            case nameof(Decimal):
-                if (item.Step != null)
-                {
-                    var step = item.Step.ToString();
-                    if (!string.IsNullOrEmpty(step))
-                    {
-                        ret.Add(new("Step", step));
-                    }
-                }
-                break;
-            default:
-                break;
+            var ph = item.PlaceHolder ?? Utility.GetPlaceHolder(model, fieldName);
+            if (ph != null)
+            {
+                ret.Add("placeholder", ph);
+            }
+            if (item.Rows != 0)
+            {
+                ret.Add("rows", item.Rows);
+            }
+        }
+        else if (type.IsNumber())
+        {
+            if (!string.IsNullOrEmpty(item.Step))
+            {
+                ret.Add("Step", item.Step);
+            }
         }
         return ret;
+
     }
 
     /// <summary>
@@ -775,7 +781,7 @@ public static class Utility
                     var mi = instance.GetType().GetMethod(nameof(List<string>.AddRange));
                     if (mi != null)
                     {
-                        mi.Invoke(instance, new object?[] { value });
+                        mi.Invoke(instance, [value]);
                         var invoker = CacheManager.CreateConverterInvoker(t);
                         var v = invoker.Invoke(instance);
                         ret = string.Join(",", v);

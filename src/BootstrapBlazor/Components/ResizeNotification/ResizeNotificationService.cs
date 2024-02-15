@@ -27,12 +27,19 @@ public class ResizeNotificationService
     public void Unsubscribe(object target) => Cache.TryRemove(target, out _);
 
     /// <summary>
+    /// 获得 当前值
+    /// </summary>
+    public BreakPoint CurrentValue { get; private set; }
+
+    /// <summary>
     /// 内部调用
     /// </summary>
     /// <param name="breakPoint"></param>
     /// <returns></returns>
     internal async Task InvokeAsync(BreakPoint breakPoint)
     {
+        CurrentValue = breakPoint;
+
         foreach (var cb in Cache.Values)
         {
             await cb(breakPoint);

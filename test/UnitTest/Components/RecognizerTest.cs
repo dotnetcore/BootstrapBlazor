@@ -104,5 +104,6 @@ public class RecognizerTest : SpeechTestBase
 
         token.Cancel();
         Assert.False((bool?)pi?.GetValue(cut.Instance));
+        Context.DisposeComponents();
     }
 }

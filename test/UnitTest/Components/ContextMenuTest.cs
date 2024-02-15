@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using AngleSharp.Dom;
-using BootstrapBlazor.Shared;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
@@ -207,8 +206,8 @@ public class ContextMenuTest : BootstrapBlazorTestBase
     {
         row.TouchStart(new TouchEventArgs()
         {
-            Touches = new TouchPoint[]
-            {
+            Touches =
+            [
                 new()
                 {
                     ClientX = 10,
@@ -216,7 +215,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
                     ScreenX = 10,
                     ScreenY = 10
                 }
-            }
+            ]
         });
     }
 }

@@ -56,7 +56,7 @@ public class ITableColumnExtensionsTest
             Rows = 3,
             SkipValidate = true,
             Text = "Test",
-            ValidateRules = new List<IValidator>() { new RequiredValidator() },
+            ValidateRules = [new RequiredValidator()],
             ShowLabelTooltip = true,
             GroupName = "test-group",
             GroupOrder = 1,
@@ -74,7 +74,8 @@ public class ITableColumnExtensionsTest
             FormatString = "test-format",
             Formatter = obj =>
             {
-                return Task.FromResult("test-formatter");
+                var ret = "test-formatter";
+                return Task.FromResult<string?>(ret);
             },
             HeaderTemplate = new RenderFragment<ITableColumn>(col => builder => builder.AddContent(0, "test-header")),
             OnCellRender = args => { },
@@ -94,7 +95,7 @@ public class ITableColumnExtensionsTest
             ShowSearchWhenSelect = true,
             IsPopover = true,
             ShowCopyColumn = true,
-            Step = 0.01,
+            Step = "0.01",
             Order = -1,
             IsMarkupString = true
         };
@@ -147,7 +148,7 @@ public class ITableColumnExtensionsTest
         Assert.True(col.ShowSearchWhenSelect);
         Assert.True(col.IsPopover);
         Assert.True(col.ShowCopyColumn);
-        Assert.Equal(0.01, col.Step);
+        Assert.Equal("0.01", col.Step);
         Assert.Equal(-1, col.Order);
 
         Assert.True(col.IsMarkupString);

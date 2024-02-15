@@ -12,7 +12,7 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public partial class MultiSelect<TValue>
 {
-    private List<SelectedItem> SelectedItems { get; } = new();
+    private List<SelectedItem> SelectedItems { get; } = [];
 
     private static string? ClassString => CssBuilder.Default("select dropdown multi-select")
         .Build();
@@ -29,7 +29,7 @@ public partial class MultiSelect<TValue>
         .Build();
 
     private string? PlaceHolderClassString => CssBuilder.Default("multi-select-ph")
-        .AddClass("d-none", SelectedItems.Any())
+        .AddClass("d-none", SelectedItems.Count != 0)
         .Build();
 
     /// <summary>
@@ -175,7 +175,7 @@ public partial class MultiSelect<TValue>
     /// <inheritdoc/>
     /// </summary>
     /// <returns></returns>
-    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, nameof(ToggleRow));
+    protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Id, Interop, nameof(ToggleRow));
 
     /// <summary>
     /// FormatValueAsString 方法
@@ -211,7 +211,6 @@ public partial class MultiSelect<TValue>
 
             // 更新选中值
             await SetValue();
-            StateHasChanged();
         }
     }
 
@@ -282,6 +281,11 @@ public partial class MultiSelect<TValue>
         }
 
         PreviousValue = CurrentValueAsString;
+
+        if (!ValueChanged.HasDelegate)
+        {
+            StateHasChanged();
+        }
     }
 
     private async Task Clear()
@@ -373,7 +377,7 @@ public partial class MultiSelect<TValue>
             }
             else
             {
-                Items = Enumerable.Empty<SelectedItem>();
+                Items = [];
             }
         }
     }

@@ -2,12 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Server.OAuth;
-using BootstrapBlazor.Server.Services;
-using BootstrapBlazor.Shared;
-using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.Options;
-using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -28,16 +24,10 @@ internal static class ServicesExtensions
 
         // 增加后台任务服务
         services.AddTaskServices();
-        services.AddHostedService<ClearUploadFilesService>();
+        services.AddHostedService<ClearTempFilesService>();
 
         // 增加演示网站服务
         services.AddWebSiteServices();
-
-        // 配置网站路由表
-        services.Configure<WebsiteOptions>(op =>
-        {
-            op.AdditionalAssemblies = new Assembly[] { typeof(AzureOpenAIUser).Assembly };
-        });
 
         // 增加 BootstrapBlazor 组件
         services.AddBootstrapBlazor(configureOptions);
@@ -47,18 +37,6 @@ internal static class ServicesExtensions
 
         // 增加 Baidu 语音服务
         services.AddBootstrapBlazorBaiduSpeech();
-
-        services.ConfigureJsonLocalizationOptions(op =>
-        {
-            // 附加自己的 json 多语言文化资源文件 如 zh-TW.json
-            op.AdditionalJsonAssemblies = new Assembly[]
-            {
-                typeof(BootstrapBlazor.Shared.App).Assembly,
-                typeof(BootstrapBlazor.Components.BarcodeReader).Assembly,
-                typeof(BootstrapBlazor.Components.Chart).Assembly,
-                typeof(BootstrapBlazor.Components.SignaturePad).Assembly
-            };
-        });
 
         // 设置地理位置定位器
         services.ConfigureIPLocatorOption(op => op.LocatorFactory = sp => new BaiDuIPLocator());
@@ -83,13 +61,23 @@ internal static class ServicesExtensions
         // 增加 AzureOpenAI 服务
         services.AddBootstrapBlazorAzureOpenAIService();
 
-        // 增加 Pdf 导出服务
+        // 增加 AzureTranslator 服务
+        services.AddBootstrapBlazorAzureTranslator();
+
+        // 增加 Html2Pdf 导出服务
         services.AddBootstrapBlazorHtml2PdfService();
 
-        services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie()
-            .AddGitee(OAuthHelper.Configure)
-            .AddGitHub(OAuthHelper.Configure);
+        // 配置 Tab 与 Menu 联动字典
+        services.ConfigureTabItemMenuBindOptions(options =>
+        {
+            options.Binders.Add("layout-demo", new() { Text = "Text 1" });
+            options.Binders.Add("layout-demo?text=Parameter", new() { Text = "Text 2" });
+            options.Binders.Add("layout-demo/text=Parameter", new() { Text = "Text 3" });
+        });
+
+        // 增加 MaterialDesign 图标主题
+        services.ConfigureMaterialDesignIconTheme();
+        services.ConfigureIconThemeOptions(options => options.ThemeKey = "fa");
 
         // 增加 PetaPoco ORM 数据服务操作类
         // 需要时打开下面代码
@@ -112,7 +100,7 @@ internal static class ServicesExtensions
 #if DEBUG
         //         //开发环境:自动同步实体
         //         .UseAutoSyncStructure(true)
-        //         //调试sql语句输出
+        //         //调试 sql 语句输出
         //         .UseMonitorCommand(cmd => System.Console.WriteLine(cmd.CommandText))
 #endif
         //        ;
@@ -125,6 +113,40 @@ internal static class ServicesExtensions
         //    // 需要引用 Microsoft.EntityFrameworkCore.Sqlite 包，操作 SQLite 数据库
         //    option.UseSqlite(Configuration.GetConnectionString("bb"));
         //});
+        return services;
+    }
+
+    /// <summary>
+    /// 添加 Server Side 演示网站服务
+    /// </summary>
+    /// <param name="services"></param>
+    public static IServiceCollection AddWebSiteServices(this IServiceCollection services)
+    {
+        services.AddSingleton<WeatherForecastService>();
+        services.AddSingleton<PackageVersionService>();
+        services.AddSingleton<CodeSnippetService>();
+        services.AddSingleton<DashboardService>();
+        services.AddSingleton(typeof(IDataService<>), typeof(TableDemoDataService<>));
+        services.AddSingleton(typeof(ILookupService), typeof(DemoLookupService));
+        services.AddSingleton<MockDataTableDynamicService>();
+
+        services.AddSingleton<MenuService>();
+        services.AddScoped<FanControllerDataService>();
+
+        // 增加示例网站配置
+        services.AddOptionsMonitor<WebsiteOptions>();
+
+        // 增加模拟登录服务
+        services.AddAuthorization();
+        services.AddCascadingAuthenticationState();
+        services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();
+
+        // 增加 Table Excel 导出服务
+        services.AddBootstrapBlazorTableExportService();
+
+        // 增加 Pdf 导出服务
+        services.AddTransient<IExportPdf, ExportPdfService>();
+
         return services;
     }
 }

@@ -1,0 +1,77 @@
+﻿@inject ToastService Toast
+
+<p>同时通过传递数据主键获取数据后再显示的例子组件</p>
+
+<p>传递的参数主键为：@DataPrimaryId</p>
+
+<p>通过传递参数获取的数据为：</p>
+
+@if (Model != null)
+{
+    <ValidateForm Model="@Model" OnValidSubmit="@OnValidSubmit">
+        <EditorForm TModel="Foo">
+            <FieldItems>
+                <EditorItem @bind-Field="@context.Id" Editable="false"></EditorItem>
+                <EditorItem @bind-Field="@context.Hobby" Items="@Hobbies"></EditorItem>
+            </FieldItems>
+        </EditorForm>
+        <div class="form-footer mt-3">
+            <DialogCloseButton></DialogCloseButton>
+            <Button Color="Color.Primary" ButtonType="ButtonType.Submit" Icon="fa-solid fa-floppy-disk" Text="保存"></Button>
+        </div>
+    </ValidateForm>
+}
+
+@code {
+    [Inject]
+    [NotNull]
+    private IStringLocalizer<Foo>? Localizer { get; set; }
+
+    [CascadingParameter(Name = "BodyContext")]
+    private object? DataPrimaryId { get; set; }
+
+    [CascadingParameter]
+    [NotNull]
+    private Modal? Dialog { get; set; }
+
+    private Foo? Model { get; set; }
+
+    [NotNull]
+    private List<Foo>? Items { get; set; }
+
+    [NotNull]
+    private IEnumerable<SelectedItem>? Hobbies { get; set; }
+
+    /// <summary>
+    ///
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        Items = Foo.GenerateFoo(Localizer);
+        Hobbies = Foo.GenerateHobbies(Localizer);
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (DataPrimaryId is int primaryId)
+        {
+            Model = Items.FirstOrDefault(i => i.Id == primaryId);
+        }
+    }
+
+    private async Task OnValidSubmit(EditContext model)
+    {
+        // do something like save model into db
+
+        // 关闭弹窗
+        // close Dialog
+        await Dialog.Close();
+
+        // 显示 Toast 提示弹窗
+        await Toast.Show(new ToastOption() { Title = "保存数据", Content = "保存成功，4 秒后自动关闭" });
+    }
+}

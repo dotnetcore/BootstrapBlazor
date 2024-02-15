@@ -9,17 +9,11 @@ namespace BootstrapBlazor.DataAccess.FreeSql;
 /// <summary>
 /// FreeSql ORM 的 IDataService 接口实现
 /// </summary>
-internal class DefaultDataService<TModel> : DataServiceBase<TModel> where TModel : class, new()
+/// <remarks>
+/// 构造函数
+/// </remarks>
+class DefaultDataService<TModel>(IFreeSql db) : DataServiceBase<TModel> where TModel : class, new()
 {
-    private readonly IFreeSql _db;
-    /// <summary>
-    /// 构造函数
-    /// </summary>
-    public DefaultDataService(IFreeSql db)
-    {
-        _db = db;
-    }
-
     /// <summary>
     /// 删除方法
     /// </summary>
@@ -29,7 +23,7 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel> where TModel
     {
         // 通过模型获取主键列数据
         // 支持批量删除
-        await _db.Delete<TModel>(models).ExecuteAffrowsAsync();
+        await db.Delete<TModel>(models).ExecuteAffrowsAsync();
         return true;
     }
 
@@ -41,7 +35,7 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel> where TModel
     /// <returns></returns>
     public override async Task<bool> SaveAsync(TModel model, ItemChangedType changedType)
     {
-        await _db.GetRepository<TModel>().InsertOrUpdateAsync(model);
+        await db.GetRepository<TModel>().InsertOrUpdateAsync(model);
         return true;
     }
 
@@ -52,15 +46,23 @@ internal class DefaultDataService<TModel> : DataServiceBase<TModel> where TModel
     /// <returns></returns>
     public override Task<QueryData<TModel>> QueryAsync(QueryPageOptions option)
     {
-        var Items = _db.Select<TModel>().WhereDynamicFilter(option.ToDynamicFilter())
+        var items = db.Select<TModel>().WhereDynamicFilter(option.ToDynamicFilter())
             .OrderByPropertyNameIf(option.SortOrder != SortOrder.Unset, option.SortName, option.SortOrder == SortOrder.Asc)
-            .Count(out var count)
-            .Page(option.PageIndex, option.PageItems).ToList();
+            .Count(out var count);
+
+        if (option.IsPage)
+        {
+            items = items.Page(option.PageIndex, option.PageItems);
+        }
+        else if (option.IsVirtualScroll)
+        {
+            items = items.Skip(option.StartIndex).Take(option.PageItems);
+        }
 
         var ret = new QueryData<TModel>()
         {
             TotalCount = (int)count,
-            Items = Items,
+            Items = items.ToList<TModel>(),
             IsSorted = option.SortOrder != SortOrder.Unset,
             IsFiltered = option.Filters.Any(),
             IsAdvanceSearch = option.AdvanceSearches.Any(),

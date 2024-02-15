@@ -7,22 +7,17 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 模块加载器
 /// </summary>
-public class JSModule : IAsyncDisposable
+/// <remarks>
+/// 构造函数
+/// </remarks>
+/// <param name="jSObjectReference"></param>
+public class JSModule(IJSObjectReference? jSObjectReference) : IAsyncDisposable
 {
     /// <summary>
     /// IJSObjectReference 实例
     /// </summary>
     [NotNull]
-    private IJSObjectReference? Module { get; }
-
-    /// <summary>
-    /// 构造函数
-    /// </summary>
-    /// <param name="jSObjectReference"></param>
-    public JSModule(IJSObjectReference? jSObjectReference)
-    {
-        Module = jSObjectReference ?? throw new ArgumentNullException(nameof(jSObjectReference));
-    }
+    private IJSObjectReference? Module { get; } = jSObjectReference ?? throw new ArgumentNullException(nameof(jSObjectReference));
 
     /// <summary>
     /// InvokeVoidAsync 方法
@@ -62,23 +57,28 @@ public class JSModule : IAsyncDisposable
         }
         await InvokeVoidAsync();
 
-        [ExcludeFromCodeCoverage]
         async ValueTask InvokeVoidAsync()
         {
             try
             {
-                await Module.InvokeVoidAsync(identifier, cancellationToken, paras.ToArray());
+                await Module.InvokeVoidAsync(identifier, cancellationToken, [.. paras]);
             }
-#if NET6_0_OR_GREATER
-            catch (JSDisconnectedException) { }
-#endif
+            catch (JSException)
+            {
 #if DEBUG
-#else
-            catch (JSException) { }
-            catch (AggregateException) { }
-            catch (InvalidOperationException) { }
+                System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args!)}");
+                throw;
 #endif
-            catch (TaskCanceledException) { }
+            }
+            catch (JSDisconnectedException) { }
+            catch (OperationCanceledException) { }
+            catch (ObjectDisposedException)
+            {
+#if DEBUG
+                System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args!)}");
+                throw;
+#endif
+            }
         }
     }
 
@@ -120,24 +120,29 @@ public class JSModule : IAsyncDisposable
         }
         return await InvokeAsync();
 
-        [ExcludeFromCodeCoverage]
         async ValueTask<TValue> InvokeAsync()
         {
             TValue ret = default!;
             try
             {
-                ret = await Module.InvokeAsync<TValue>(identifier, cancellationToken, paras.ToArray());
+                ret = await Module.InvokeAsync<TValue>(identifier, cancellationToken, [.. paras]);
             }
-#if NET6_0_OR_GREATER
-            catch (JSDisconnectedException) { }
-#endif
+            catch (JSException)
+            {
 #if DEBUG
-#else
-            catch (JSException) { }
-            catch (AggregateException) { }
-            catch (InvalidOperationException) { }
+                System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args!)}");
+                throw;
 #endif
-            catch (TaskCanceledException) { }
+            }
+            catch (JSDisconnectedException) { }
+            catch (OperationCanceledException) { }
+            catch (ObjectDisposedException)
+            {
+#if DEBUG
+                System.Console.WriteLine($"identifier: {identifier} args: {string.Join(" ", args!)}");
+                throw;
+#endif
+            }
 
             return ret;
         }
@@ -151,7 +156,6 @@ public class JSModule : IAsyncDisposable
     {
         if (disposing)
         {
-            // TODO: 微软的代码这里加上 await 就会线程死锁
             try
             {
                 await Module.DisposeAsync();

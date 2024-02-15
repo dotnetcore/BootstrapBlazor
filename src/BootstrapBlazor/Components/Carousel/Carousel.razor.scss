@@ -1,22 +1,29 @@
 .carousel {
+    --bb-carousel-slide-margin: #{$bb-carousel-slide-margin};
+    --bb-carousel-slide-padding: #{$bb-carousel-slide-padding};
+    --bb-carousel-slide-width: #{$bb-carousel-slide-width};
+    --bb-carousel-slide-height: #{$bb-carousel-slide-height};
+    --bb-carousel-slide-border-radisu: #{$bb-carousel-slide-border-radisu};
+    --bb-carousel-slide-border: #{$bb-carousel-slide-border};
+    --bb-carousel-slide-bg: #{$bb-carousel-slide-bg};
+    --bb-carousel-slide-color: #{$bb-carousel-slide-color};
     overflow: hidden;
 
     [data-bs-slide] {
         outline: none;
-        padding: 0;
-        margin: 0 0.5rem;
-        height: 36px;
-        width: 36px;
+        padding: var(--bb-carousel-slide-padding);
+        margin: var(--bb-carousel-slide-margin);
+        height: var(--bb-carousel-slide-height);
+        width: var(--bb-carousel-slide-width);
         cursor: pointer;
         transition: .3s;
-        border-radius: 50%;
-        background-color: rgba(31,45,61,.5);
-        border: solid 1px #e9ecef;
-        color: #fff;
+        border-radius: var(--bb-carousel-slide-border-radisu);
+        border: var(--bb-carousel-slide-border);
+        background-color: var(--bb-carousel-slide-bg);
+        color: var(--bb-carousel-slide-color);
         top: 50%;
         transform: translateY(-50%);
         text-align: center;
-        font-size: 1rem;
     }
 
     &:not(.hover) {
@@ -39,10 +46,6 @@
     .carousel-indicators {
         opacity: 1;
         transition: all .2s linear;
-
-        [data-bs-target] {
-            background-color: #606266;
-        }
     }
 
     .carousel-inner, .carousel-item, .carousel-item img {

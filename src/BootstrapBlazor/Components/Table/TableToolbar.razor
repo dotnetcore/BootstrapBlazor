@@ -6,10 +6,10 @@
         @ChildContent
     </CascadingValue>
     <RenderTemplate>
-        @if (Buttons.Count > 0)
+        @if (_buttons.Count > 0)
         {
             <div class="@ToolbarClassString">
-                @foreach (var button in Buttons)
+                @foreach (var button in _buttons)
                 {
                     @if (button is TableToolbarButton<TItem> b && b.IsShow)
                     {
@@ -31,6 +31,12 @@
                                           CloseButtonText="@pb.CloseButtonText" Content="@pb.Content">
                         </PopConfirmButton>
                     }
+                    else if (button is TableToolbarComponent<TItem> cb && cb.IsShow)
+                    {
+                        <CascadingValue Value="OnGetSelectedRows" IsFixed="true">
+                            @cb.ChildContent
+                        </CascadingValue>
+                    }
                 }
             </div>
             @if (IsAutoCollapsedToolbarButton)
@@ -40,7 +46,7 @@
                         <i class="@GearIcon"></i>
                     </button>
                     <div class="dropdown-menu">
-                        @foreach (var button in Buttons)
+                        @foreach (var button in _buttons)
                         {
                             @if (button is TableToolbarButton<TItem> { IsShow: true } b)
                             {

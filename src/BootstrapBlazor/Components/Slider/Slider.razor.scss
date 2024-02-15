@@ -1,8 +1,17 @@
-﻿.range-group {
+.range-group {
     display: flex;
     align-items: center;
+    --bb-form-range-height: #{$bb-form-range-height};
+
+    .form-range {
+        height: var(--bb-form-range-height);
+    }
 }
 
-    .range-group .form-range {
-        height: 1rem;
+.row {
+    --bb-form-range-margin-top: #{$bb-form-range-margin-top};
+
+    .form-range {
+        margin-top: var(--bb-form-range-margin-top);
     }
+}

@@ -37,15 +37,12 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.TryAddSingleton<IZipArchiveService, DefaultZipArchiveService>();
         services.TryAddSingleton(typeof(IDispatchService<>), typeof(DefaultDispatchService<>));
 
-        services.TryAddTransient<ITableExcelExport, DefaultExcelExport>();
-        services.TryAddTransient<ITablePdfExport, DefaultPdfExport>();
-        services.TryAddTransient<IJSRuntimeEventHandler, JSRuntimeEventHandler>();
-
         services.TryAddScoped(typeof(IDataService<>), typeof(NullDataService<>));
         services.TryAddScoped<IIPLocatorProvider, DefaultIPLocatorProvider>();
         services.TryAddScoped<IReconnectorProvider, ReconnectorProvider>();
         services.TryAddScoped<IGeoLocationService, DefaultGeoLocationService>();
         services.TryAddScoped<IComponentHtmlRenderer, ComponentHtmlRenderer>();
+        services.TryAddScoped<IBrowserFingerService, DefaultBrowserFingerService>();
 
         services.AddScoped<TabItemTextOptions>();
         services.AddScoped<DialogService>();
@@ -63,6 +60,9 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.AddScoped<ResizeNotificationService>();
         services.AddScoped<NotificationService>();
         services.AddScoped<EyeDropperService>();
+
+        services.TryAddTransient<ITableExport, DefaultTableExport>();
+        services.TryAddTransient<IExportPdf, DefaultExportPdf>();
 
         services.ConfigureBootstrapBlazorOption(configureOptions);
         services.ConfigureIPLocatorOption();
@@ -83,6 +83,8 @@ public static class BootstrapBlazorServiceCollectionExtensions
         services.AddOptionsMonitor<BootstrapBlazorOptions>();
         services.Configure<BootstrapBlazorOptions>(op =>
         {
+            configureOptions?.Invoke(op);
+
             // 设置默认文化信息
             if (op.DefaultCultureInfo != null)
             {
@@ -93,8 +95,6 @@ public static class BootstrapBlazorServiceCollectionExtensions
 
             // 设置 FallbackCulture
             SetFallbackCulture();
-
-            configureOptions?.Invoke(op);
 
             [ExcludeFromCodeCoverage]
             void SetFallbackCulture()

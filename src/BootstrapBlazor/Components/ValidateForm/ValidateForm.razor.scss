@@ -1,23 +1,27 @@
-form {
-    --bb-loader-bg: #f8f9fa;
+.form-control {
+    --bb-form-control-padding: #{$bb-form-control-padding}
+}
 
-    [required]:before {
+form {
+    .input-group-text:before,
+    .form-label:before {
         content: "";
         position: relative;
         top: 2px;
         margin-right: 2px;
         display: inline-block;
         min-width: 5px;
+    }
+
+    .input-group-text[required]:before,
+    .form-label[required]:before {
         content: "*";
-        color: red;
+        color: var(--bs-danger);
     }
 }
 
 .form-control {
-    --bb-form-control-padding: 0.375rem 0.75rem;
     padding: var(--bb-form-control-padding);
-    border: 1px solid var(--bs-border-color);
-    border-radius: var(--bs-border-radius);
 
     &.is-display {
         overflow: hidden;
@@ -27,12 +31,8 @@ form {
     }
 
     &:focus {
-        border: 1px solid var(--bb-border-focus-color);
+        border: var(--bs-border-width) solid var(--bb-border-focus-color);
         box-shadow: none;
-    }
-
-    &:disabled {
-        background-color: var(--bb-disabled-bg);
     }
 
     &.is-valid[type="number"],
@@ -41,8 +41,8 @@ form {
         background-image: none;
     }
 
-    &:not(.disabled):not(:disabled):not(.is-valid):not(.is-invalid):not(.no-border):hover {
-        border: 1px solid var(--bb-border-hover-color);
+    &:not(.disabled):not(:disabled):not(.is-valid):not(.is-invalid):not(.no-border):not(.is-display):hover {
+        border: var(--bs-border-width) solid var(--bb-border-hover-color);
     }
 }
 
@@ -72,12 +72,12 @@ form {
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: var(--bs-border-width) solid var(--bs-border-color);
+    border-radius: var(--bs-border-radius);
     padding: 2rem;
 }
 
 .table-cell .form-control.is-display,
 form .form-control.is-display {
-    background-color: var(--bb-disabled-bg);
+    background-color: var(--bs-secondary-bg);
 }

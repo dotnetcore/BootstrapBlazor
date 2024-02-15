@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using BootstrapBlazor.Extensions;
 using Microsoft.Extensions.Localization;
 using System.Globalization;
 
@@ -90,6 +91,10 @@ public partial class BootstrapInputNumber<TValue>
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
+    [Inject]
+    [NotNull]
+    private IOptions<BootstrapBlazorOptions>? StepOption { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -101,7 +106,7 @@ public partial class BootstrapInputNumber<TValue>
         MinusIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputNumberMinusIcon);
         PlusIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputNumberPlusIcon);
 
-        SetStep();
+        StepString = Step ?? StepOption.Value.GetStep<TValue>() ?? "any";
     }
 
     /// <summary>
@@ -139,23 +144,7 @@ public partial class BootstrapInputNumber<TValue>
         _ => throw new InvalidOperationException($"Unsupported type {value!.GetType()}"),
     };
 
-    private void SetStep()
-    {
-        var val = CurrentValue;
-        switch (val)
-        {
-            case int:
-            case long:
-            case short:
-                StepString = Step;
-                break;
-            case float:
-            case double:
-            case decimal:
-                StepString = Step;
-                break;
-        }
-    }
+    private string GetStepString() => (string.IsNullOrEmpty(StepString) || StepString.Equals("any", StringComparison.OrdinalIgnoreCase)) ? "1" : StepString;
 
     /// <summary>
     /// 点击减少按钮式时回调此方法
@@ -164,7 +153,7 @@ public partial class BootstrapInputNumber<TValue>
     private async Task OnClickDec()
     {
         var val = CurrentValue;
-        var step = string.IsNullOrEmpty(StepString) ? "1" : StepString;
+        var step = GetStepString();
         switch (val)
         {
             case int @int:
@@ -200,7 +189,7 @@ public partial class BootstrapInputNumber<TValue>
     private async Task OnClickInc()
     {
         var val = CurrentValue;
-        var step = string.IsNullOrEmpty(StepString) ? "1" : StepString;
+        var step = GetStepString();
         switch (val)
         {
             case int @int:

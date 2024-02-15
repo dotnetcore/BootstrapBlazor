@@ -12,7 +12,7 @@ else
         <i class="@FilterClassString" data-bs-placement="bottom" data-bs-auto-close="outside" data-bs-toggle="bb.dropdown" data-bs-custom-class="shadow">
         </i>
         <div class="card filter-item">
-            <div class="card-header"><span>@Title</span></div>
+            <div class="card-header"><span>@_title</span></div>
             <div class="card-body">
                 @RenderFilter(Column)
             </div>
@@ -21,8 +21,8 @@ else
                     <RenderTemplate>
                         @if (ShowMoreButton)
                         {
-                            <Button Color="Color.None" OnClick="OnClickPlus" Icon="@PlusIcon" IsDisabled="@(Count == 1)"></Button>
-                            <Button Color="Color.None" OnClick="OnClickMinus" Icon="@MinusIcon" IsDisabled="@(Count == 0)"></Button>
+                            <Button Color="Color.None" OnClick="OnClickPlus" Icon="@PlusIcon" IsDisabled="@(_count == 1)"></Button>
+                            <Button Color="Color.None" OnClick="OnClickMinus" Icon="@MinusIcon" IsDisabled="@(_count == 0)"></Button>
                         }
                     </RenderTemplate>
                 </div>
@@ -42,11 +42,11 @@ else
         }
         else if (Column.PropertyType.IsEnum())
         {
-            <EnumFilter Type="Column.PropertyType" Count="Count"></EnumFilter>
+            <EnumFilter Type="Column.PropertyType" Count="_count"></EnumFilter>
         }
-        else if (Column.Lookup != null)
+        else if (IsLookup)
         {
-            <LookupFilter Lookup="Column.Lookup" LookupStringComparison="Column.LookupStringComparison" Type="Column.PropertyType"></LookupFilter>
+            <LookupFilter Lookup="_lookup.Value" LookupStringComparison="Column.LookupStringComparison" Type="Column.PropertyType" IsShowSearch="Column.ShowSearchWhenSelect"></LookupFilter>
         }
         else
         {
@@ -57,28 +57,28 @@ else
                     <BoolFilter />
                     break;
                 case nameof(DateTime):
-                    <DateTimeFilter Count="Count" />
+                    <DateTimeFilter Count="_count" />
                     break;
                 case nameof(Int16):
-                    <NumberFilter TType="Int16" Count="@Count" Step="@Step" />
+                    <NumberFilter TType="Int16" Count="@_count" Step="@_step" />
                     break;
                 case nameof(Int32):
-                    <NumberFilter TType="Int32" Count="@Count" Step="@Step" />
+                    <NumberFilter TType="Int32" Count="@_count" Step="@_step" />
                     break;
                 case nameof(Int64):
-                    <NumberFilter TType="Int64" Count="@Count" Step="@Step" />
+                    <NumberFilter TType="Int64" Count="@_count" Step="@_step" />
                     break;
                 case nameof(Single):
-                    <NumberFilter TType="Single" Count="@Count" Step="@Step" />
+                    <NumberFilter TType="Single" Count="@_count" Step="@_step" />
                     break;
                 case nameof(Double):
-                    <NumberFilter TType="Double" Count="@Count" Step="@Step" />
+                    <NumberFilter TType="Double" Count="@_count" Step="@_step" />
                     break;
                 case nameof(Decimal):
-                    <NumberFilter TType="Decimal" Count="@Count" Step="@Step" />
+                    <NumberFilter TType="Decimal" Count="@_count" Step="@_step" />
                     break;
                 case nameof(String):
-                    <StringFilter Count="Count" />
+                    <StringFilter Count="_count" />
                     break;
                 default:
                     <div>@NotSupportedMessage</div>

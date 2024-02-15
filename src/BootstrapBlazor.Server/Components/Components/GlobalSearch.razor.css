@@ -1,0 +1,26 @@
+﻿
+::deep .auto-complete {
+    --bb-complete-border-color: rgba(255,255,255,.2);
+    --bs-border-width: 0;
+    --bb-complete-color: rgba(255,255,255,.85);
+    border: 1px solid var(--bb-complete-border-color);
+    border-radius: var(--bs-border-radius);
+    transition: border-color .3s linear;
+}
+
+::deep .form-control {
+    background-color: transparent;
+    color: var(--bb-complete-color);
+}
+
+    ::deep .form-control::placeholder {
+        color: rgba(255,255,255,.4);
+    }
+
+::deep .auto-complete:hover {
+    --bb-complete-border-color: rgba(255,255,255,.8);
+}
+
+::deep .btn {
+    color: var(--bb-complete-color);
+}

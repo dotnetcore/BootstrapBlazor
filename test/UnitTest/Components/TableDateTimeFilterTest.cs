@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
-
 namespace UnitTest.Components;
 
 public class TableDateTimeFilterTest : BootstrapBlazorTestBase
@@ -107,7 +105,7 @@ public class TableDateTimeFilterTest : BootstrapBlazorTestBase
         Assert.NotNull(conditions.Filters);
         Assert.Empty(conditions.Filters);
 
-        var newConditions = new FilterKeyValueAction() { Filters = new() };
+        var newConditions = new FilterKeyValueAction() { Filters = [] };
         DateTime now = DateTime.Now;
         newConditions.Filters.Add(new FilterKeyValueAction() { FieldValue = now });
         newConditions.Filters.Add(new FilterKeyValueAction() { FieldValue = now });

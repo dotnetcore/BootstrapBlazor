@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <Version>7.11.1-beta04</Version>
+    <Version>8.2.3</Version>
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net5.0'">
@@ -41,7 +41,6 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="$(NET8Version)" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="$(NET8Version)" />
     <PackageReference Include="Microsoft.Extensions.Localization" Version="$(NET8Version)" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="$(NET8Version)" />
   </ItemGroup>
 
   <ItemGroup>
@@ -51,16 +50,14 @@
 
   <ItemGroup>
     <Content Remove="bundleconfig.json" />
-    <Content Remove="compilerconfig.json" />
-    <Content Remove="package*.json" />
+    <Content Remove="sasscompiler.json" />
     <Content Remove="versionconfig.json" />
     <Content Remove="wwwroot\core\**\*.*" />
     <Content Remove="wwwroot\lib\**\*.css" />
     <Content Remove="wwwroot\scss\*.*" />
     <Content Remove="wwwroot\src\**\*.*" />
     <None Include="bundleconfig.json" />
-    <None Include="compilerconfig.json" />
-    <None Include="package*.json" />
+    <None Include="sasscompiler.json" />
     <None Include="versionconfig.json" />
     <None Include="wwwroot\core\**\*.*" />
     <None Include="wwwroot\lib\**\*.css" />
@@ -69,7 +66,6 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)' == 'Release'">
-    <Content Include="build\*.targets" PackagePath="build\" />
     <Content Remove="wwwroot\js\bootstrap.blazor.bundle.js" />
     <None Include="wwwroot\js\bootstrap.blazor.bundle.js" />
   </ItemGroup>

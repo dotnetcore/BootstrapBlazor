@@ -11,6 +11,7 @@ public class ImageTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<ImageViewer>(pb =>
         {
+            pb.Add(a => a.PreviewIndex, 0);
             pb.Add(a => a.Url, "https://www.blazor.zone/images/logo.png");
             pb.Add(a => a.ZIndex, 2000);
             pb.Add(a => a.FitMode, ObjectFitMode.Fill);
@@ -116,8 +117,18 @@ public class ImageTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Url, "https://www.blazor.zone/images/logo.png");
             pb.Add(a => a.IsAsync, true);
-            pb.Add(a => a.PreviewList, new List<string> { "v1", "v2" });
+            pb.Add(a => a.PreviewList, ["v1", "v2"]);
         });
         cut.Contains("bb-previewer collapse active");
+    }
+
+    [Fact]
+    public void ImagerViewer_Show()
+    {
+        var cut = Context.RenderComponent<ImagePreviewer>(pb =>
+        {
+            pb.Add(a => a.PreviewList, ["v1", "v2"]);
+        });
+        cut.Instance.Show();
     }
 }

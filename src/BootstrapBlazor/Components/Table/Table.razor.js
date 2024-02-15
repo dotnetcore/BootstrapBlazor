@@ -1,5 +1,5 @@
 ﻿export { getResponsive } from '../../modules/responsive.js?v=$version'
-import { copy, drag, getDescribedElement, getOuterHeight, getWidth } from '../../modules/utility.js?v=$version'
+import { copy, drag, getDescribedElement, getOuterHeight, getWidth, isVisible } from '../../modules/utility.js?v=$version'
 import '../../modules/browser.js?v=$version'
 import Data from '../../modules/data.js?v=$version'
 import EventHandler from '../../modules/event-handler.js?v=$version'
@@ -8,9 +8,13 @@ import Popover from "../../modules/base-popover.js?v=$version"
 const setBodyHeight = table => {
     const el = table.el
     const children = [...el.children]
-
     const search = children.find(i => i.classList.contains('table-search'))
     table.search = search
+
+    if (isVisible(el) === false) {
+        return;
+    }
+
     let searchHeight = 0
     if (search) {
         searchHeight = getOuterHeight(search)
@@ -40,7 +44,7 @@ const setBodyHeight = table => {
         }
         let headerHeight = 0
         if (table.thead) {
-            headerHeight = getOuterHeight(table.thead)
+            headerHeight = getOuterHeight(table.thead.querySelector('thead'))
         }
         if (headerHeight > 0) {
             body.style.height = `calc(100% - ${headerHeight}px)`
@@ -60,7 +64,7 @@ const fixHeader = table => {
                 margin = margin.replace('px', '')
                 const b = window.browser()
                 if (b.device !== 'PC') {
-                    margin = (parseFloat(margin) - 6) + 'px'
+                    margin = (parseFloat(margin) - table.scrollWidth) + 'px'
                 }
                 prev.classList.add('modified')
                 prev.style.right = margin
@@ -71,8 +75,6 @@ const fixHeader = table => {
             }
         }
     }
-
-    setBodyHeight(table)
 }
 
 const setExcelKeyboardListener = table => {
@@ -193,8 +195,28 @@ const resetTableWidth = table => {
 }
 
 const setResizeListener = table => {
+    disposeColumnDrag(table.columns)
+    table.columns = []
+
+    if (table.tables.length === 0) {
+        return;
+    }
+
     const eff = (col, toggle) => {
         const th = col.closest('th')
+        if (th.parentNode === null) {
+            EventHandler.off(col, 'click')
+            EventHandler.off(col, 'mousedown')
+            EventHandler.off(col, 'touchstart')
+
+            table.tables.forEach(t => {
+                const cells = t.querySelectorAll('.border-resize');
+                cells.forEach(c => c.classList.remove('border-resize'))
+            })
+
+            return
+        }
+
         if (toggle) th.classList.add('border-resize')
         else th.classList.remove('border-resize')
 
@@ -225,17 +247,8 @@ const setResizeListener = table => {
     let colIndex = 0
     let originalX = 0
 
-    disposeColumnDrag(table.columns)
-    table.columns = []
     const columns = [...table.tables[0].querySelectorAll('.col-resizer')]
-    columns.forEach((col, index) => {
-        if (table.thead && index === columns.length - 1) {
-            col.classList.add('last')
-            return
-        }
-        else {
-            col.classList.remove('last')
-        }
+    columns.forEach(col => {
         table.columns.push(col)
         EventHandler.on(col, 'click', e => e.stopPropagation())
         drag(col,
@@ -272,9 +285,13 @@ const setResizeListener = table => {
             () => {
                 eff(col, false)
                 if (table.callbacks.resizeColumnCallback) {
-                    const width = getWidth(col.parentNode);
-                    table.invoke.invokeMethodAsync(table.callbacks.resizeColumnCallback, index, width)
+                    const th = col.closest('th')
+                    const width = getWidth(th);
+                    const currentIndex = [...table.tables[0].querySelectorAll('thead > tr > th > .col-resizer')].indexOf(col)
+                    table.invoke.invokeMethodAsync(table.callbacks.resizeColumnCallback, currentIndex, width)
                 }
+
+                saveColumnWidth(table)
             }
         )
     })
@@ -368,11 +385,12 @@ const setDraggable = table => {
         EventHandler.on(col, 'dragstart', e => {
             col.parentNode.classList.add('table-dragging')
             col.classList.add('table-drag')
+            table.dragColumns = [...table.tables[0].querySelectorAll('thead > tr > th')].filter(i => i.draggable)
             index = table.dragColumns.indexOf(col)
             dragItem = col
             e.dataTransfer.effectAllowed = 'move'
         })
-        EventHandler.on(col, 'dragend', e => {
+        EventHandler.on(col, 'dragend', () => {
             col.parentNode.classList.remove('table-dragging')
             dragItem.classList.remove('table-drag')
             table.dragColumns.forEach(i => {
@@ -450,18 +468,36 @@ export function init(id, invoke, callbacks) {
     reset(id)
 }
 
+export function reloadColumnWidth(id, tableName) {
+    const key = `bb-table-column-width-${tableName}`
+    return localStorage.getItem(key);
+}
+
+const saveColumnWidth = table => {
+    const cols = table.columns
+    const tableWidth = table.tables[0].offsetWidth
+    const tableName = table.tables[0].getAttribute('data-bb-name')
+    const key = `bb-table-column-width-${tableName}`
+    localStorage.setItem(key, JSON.stringify({
+        "cols": cols.map(col => {
+            return { "width": col.closest('th').offsetWidth, "name": col.getAttribute('data-bb-field') }
+        }),
+        "table": tableWidth
+    }));
+}
+
 export function reset(id) {
     const table = Data.get(id)
+    if (table === null) {
+        return;
+    }
 
     table.columns = []
     table.tables = []
     table.dragColumns = []
 
     const shim = [...table.el.children].find(i => i.classList.contains('table-shim'))
-    if (shim === void 0) {
-        setBodyHeight(table)
-    }
-    else {
+    if (shim !== void 0) {
         table.thead = [...shim.children].find(i => i.classList.contains('table-fixed-header'))
         table.isResizeColumn = shim.classList.contains('table-resize')
         if (table.thead) {
@@ -470,6 +506,7 @@ export function reset(id) {
             table.isDraggable = table.thead.firstChild.classList.contains('table-draggable')
             table.tables.push(table.thead.firstChild)
             table.tables.push(table.body.firstChild)
+            table.scrollWidth = parseFloat(table.body.style.getPropertyValue('--bb-scroll-width'));
             fixHeader(table)
 
             EventHandler.on(table.body, 'scroll', () => {
@@ -481,7 +518,6 @@ export function reset(id) {
             table.isExcel = shim.firstChild.classList.contains('table-excel')
             table.isDraggable = shim.firstChild.classList.contains('table-draggable')
             table.tables.push(shim.firstChild)
-            setBodyHeight(table)
         }
 
         if (table.isExcel) {
@@ -502,11 +538,13 @@ export function reset(id) {
         const toolbar = [...table.el.children].find(i => i.classList.contains('table-toolbar'))
         if (toolbar) {
             const right = toolbar.querySelector('.table-column-right')
-            if(right) {
+            if (right) {
                 setToolbarDropdown(table, right)
             }
         }
     }
+
+    setBodyHeight(table)
 
     if (table.search) {
         const observer = new ResizeObserver(() => {
@@ -519,8 +557,19 @@ export function reset(id) {
 
 export function resetColumn(id) {
     const table = Data.get(id)
-    setResizeListener(table)
-    resetTableWidth(table)
+    if (table) {
+        setResizeListener(table)
+        resetTableWidth(table)
+    }
+}
+
+export function bindResizeColumn(id) {
+    const table = Data.get(id)
+    if (table) {
+        if (table.isResizeColumn) {
+            setResizeListener(table)
+        }
+    }
 }
 
 export function sort(id) {
@@ -539,10 +588,11 @@ export function sort(id) {
 export function load(id, method) {
     const table = Data.get(id)
 
-    const loader = table.el.querySelector('.table-loader')
+    const loader = [...table.el.children].find(el => el.classList.contains('table-loader'));
     if (method === 'show') {
         loader.classList.add('show')
-    } else {
+    }
+    else {
         loader.classList.remove('show')
     }
 }

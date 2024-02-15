@@ -1,18 +1,9 @@
 .accordion {
-    --bs-accordion-btn-focus-box-shadow: #{$accordion-btn-focus-box-shadow};
-    --bs-accordion-btn-hover-bg: #{$accordion-btn-hover-bg};
+    --bs-accordion-btn-focus-box-shadow: #{$bb-accordion-btn-focus-box-shadow};
+    --bs-accordion-btn-padding-x: 1rem;
+    --bs-accordion-btn-padding-y: .5rem;
 
     .accordion-button {
-        color: var(--bs-btn-color);
-
-        &:active {
-            background-color: var(--bs-accordion-btn-bg);
-        }
-
-        &:hover {
-            background-color: var(--bs-accordion-btn-hover-bg);
-        }
-
         &.btn-primary {
             background-color: var(--bs-primary);
         }

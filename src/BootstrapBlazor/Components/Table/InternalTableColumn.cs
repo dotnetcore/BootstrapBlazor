@@ -4,9 +4,15 @@
 
 namespace BootstrapBlazor.Components;
 
-class InternalTableColumn : ITableColumn
+/// <summary>
+/// 构造函数
+/// </summary>
+/// <param name="fieldName">字段名称</param>
+/// <param name="fieldType">字段类型</param>
+/// <param name="fieldText">显示文字</param>
+class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = null) : ITableColumn
 {
-    private string FieldName { get; }
+    private string FieldName { get; } = fieldName;
 
     public bool Sortable { get; set; }
 
@@ -72,24 +78,24 @@ class InternalTableColumn : ITableColumn
     /// </summary>
     public string? PlaceHolder { get; set; }
 
-    public Func<object?, Task<string>>? Formatter { get; set; }
+    public Func<object?, Task<string?>>? Formatter { get; set; }
 
     public Alignment Align { get; set; }
 
     public bool ShowTips { get; set; }
 
-    public Type PropertyType { get; }
+    public Type PropertyType { get; } = fieldType;
 
     public bool Editable { get; set; } = true;
 
     public bool Readonly { get; set; }
 
-    public object? Step { get; set; }
+    public string? Step { get; set; }
 
     public int Rows { get; set; }
 
     [NotNull]
-    public string? Text { get; set; }
+    public string? Text { get; set; } = fieldText;
 
     public RenderFragment<object>? EditTemplate { get; set; }
 
@@ -187,19 +193,6 @@ class InternalTableColumn : ITableColumn
     /// <inheritdoc/>
     /// </summary>
     public bool IsMarkupString { get; set; }
-
-    /// <summary>
-    /// 构造函数
-    /// </summary>
-    /// <param name="fieldName">字段名称</param>
-    /// <param name="fieldType">字段类型</param>
-    /// <param name="fieldText">显示文字</param>
-    public InternalTableColumn(string fieldName, Type fieldType, string? fieldText = null)
-    {
-        FieldName = fieldName;
-        PropertyType = fieldType;
-        Text = fieldText;
-    }
 
     public string GetDisplayName() => Text;
 

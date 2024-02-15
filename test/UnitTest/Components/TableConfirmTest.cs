@@ -7,7 +7,7 @@ namespace UnitTest.Components;
 public class TableConfirmTest : TableConfirmTestBase
 {
     [Fact]
-    public async Task TableCellPopconfirmButton_Ok()
+    public void TableCellPopConfirmButton_Ok()
     {
         var clicked = false;
         var trigger = false;
@@ -17,8 +17,8 @@ public class TableConfirmTest : TableConfirmTestBase
             {
                 pb.Add(a => a.ChildContent, builder =>
                 {
-                    builder.OpenComponent<TableCellPopconfirmButton>(0);
-                    builder.AddAttribute(1, nameof(TableCellPopconfirmButton.OnConfirm), () =>
+                    builder.OpenComponent<TableCellPopConfirmButton>(0);
+                    builder.AddAttribute(1, nameof(TableCellPopConfirmButton.OnConfirm), () =>
                     {
                         clicked = true;
                         return Task.CompletedTask;
@@ -37,17 +37,20 @@ public class TableConfirmTest : TableConfirmTestBase
         });
 
         var button = cut1.Find("div");
-        await cut1.InvokeAsync(() => button.Click());
+        cut1.InvokeAsync(() => button.Click());
+
         var buttonConfirm = cut1.Find(".popover-confirm-buttons .btn-primary");
-        await cut1.InvokeAsync(() => buttonConfirm.Click());
+        cut1.InvokeAsync(() => buttonConfirm.Click());
         Assert.True(trigger);
         Assert.True(clicked);
+        Context.DisposeComponents();
     }
 
     [Fact]
-    public void TableCellPopconfirmButton_Null()
+    public void TableCellPopConfirmButton_Null()
     {
-        var cut = Context.RenderComponent<TableCellPopconfirmButton>();
+        var cut = Context.RenderComponent<TableCellPopConfirmButton>();
         Assert.Equal("", cut.Markup);
+        Context.DisposeComponents();
     }
 }

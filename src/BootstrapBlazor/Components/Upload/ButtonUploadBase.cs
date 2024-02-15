@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components.Forms;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// 按钮上传组件基类
 /// </summary>
 public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
 {
@@ -107,6 +107,18 @@ public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
     [Parameter]
     public string? FileIconFile { get; set; }
 
+    /// <summary>
+    /// 获得/设置 取消图标
+    /// </summary>
+    [Parameter]
+    public string? CancelIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 点击取消按钮回调此方法 默认 null
+    /// </summary>
+    [Parameter]
+    public Func<UploadFile, Task>? OnCancel { get; set; }
+
     [Inject]
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
@@ -143,6 +155,7 @@ public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
         FileIconArchive ??= IconTheme.GetIconByKey(ComponentIcons.FileIconArchive);
         FileIconImage ??= IconTheme.GetIconByKey(ComponentIcons.FileIconImage);
         FileIconFile ??= IconTheme.GetIconByKey(ComponentIcons.FileIconFile);
+        CancelIcon ??= IconTheme.GetIconByKey(ComponentIcons.UploadCancelIcon);
     }
 
     /// <summary>
@@ -213,7 +226,13 @@ public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
         {
             fileExtension = fileExtension.ToLowerInvariant();
         }
-        var icon = OnGetFileFormat?.Invoke(fileExtension) ?? fileExtension switch
+        var icon = OnGetFileFormat?.Invoke(fileExtension) ?? GetFileExtensions();
+        builder.AddClass(icon);
+        return builder.Build();
+
+        // switch 关键字导致无法 100% 覆盖
+        [ExcludeFromCodeCoverage]
+        string? GetFileExtensions() => fileExtension switch
         {
             ".csv" or ".xls" or ".xlsx" => FileIconExcel,
             ".doc" or ".docx" or ".dot" or ".dotx" => FileIconDocx,
@@ -227,8 +246,6 @@ public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
             ".jpg" or ".jpeg" or ".png" or ".bmp" or ".gif" => FileIconImage,
             _ => FileIconFile
         };
-        builder.AddClass(icon);
-        return builder.Build();
     }
 
     /// <summary>
@@ -262,6 +279,19 @@ public abstract class ButtonUploadBase<TValue> : SingleUploadBase<TValue>
         if (OnDownload != null)
         {
             await OnDownload(item);
+        }
+    }
+
+    /// <summary>
+    /// 点击取消按钮回调此方法
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    protected async Task OnClickCancel(UploadFile item)
+    {
+        if (OnCancel != null)
+        {
+            await OnCancel(item);
         }
     }
 }

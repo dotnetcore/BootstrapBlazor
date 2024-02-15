@@ -48,7 +48,7 @@ export function init(id) {
     }
     Data.set(id, menu)
 
-    scrollToView(menu.element)
+    scrollElementToView(menu.element)
 }
 
 export function update(id) {
@@ -74,7 +74,14 @@ export function update(id) {
         }
     });
 
-    scrollToView(menu.element)
+    scrollElementToView(menu.element)
+}
+
+export function scrollToView(id) {
+    const menu = Data.get(id)
+    if (menu) {
+        scrollElementToView(menu.element);
+    }
 }
 
 export function dispose(id) {
@@ -90,7 +97,7 @@ export function dispose(id) {
     })
 }
 
-const scrollToView = element => {
+const scrollElementToView = element => {
     const scroll = element.hasAttribute('data-bb-scroll-view')
     if (scroll) {
         var links = [...element.querySelectorAll('.nav-link.active')]

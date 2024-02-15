@@ -17,12 +17,6 @@ public partial class Slider<TValue>
         .Build();
 
     /// <summary>
-    /// 获得/设置 是否使用 input 事件 默认为 false
-    /// </summary>
-    [Parameter]
-    public bool UseInputEvent { get; set; }
-
-    /// <summary>
     /// 获得/设置 最小值 默认为 null 未设置
     /// </summary>
     [Parameter]
@@ -43,11 +37,28 @@ public partial class Slider<TValue>
     [NotNull]
     public TValue? Step { get; set; }
 
-    private string eventName => UseInputEvent ? "oninput" : "onchange";
+    private string? MinString => Min.ToString() == "0" ? GetRangeMinString : Min.ToString();
 
-    private string? MinString => Min.ToString() == "0" ? null : Min.ToString();
+    private string? GetRangeMinString => _range?.Minimum.ToString();
 
-    private string? MaxString => Max.ToString() == "0" ? null : Max.ToString();
+    private string? MaxString => Max.ToString() == "0" ? GetRangeMaxString : Max.ToString();
+
+    private string? GetRangeMaxString => _range?.Maximum.ToString();
 
     private string? StepString => Step.ToString() == "0" ? null : Step.ToString();
+
+    private RangeAttribute? _range = null;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        if (FieldIdentifier.HasValue)
+        {
+            _range = FieldIdentifier.Value.GetRange();
+        }
+    }
 }

@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using BootstrapBlazor.Localization;
-using BootstrapBlazor.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 using System.ComponentModel.DataAnnotations;
@@ -18,7 +17,7 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
     {
         var factory = Context.Services.GetRequiredService<IStringLocalizerFactory>();
         var mi = factory.GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Instance).First(i => i.Name == "GetResourcePrefix" && i.GetParameters().Length == 1)!;
-        Assert.Throws<TargetInvocationException>(() => mi.Invoke(factory, new object?[] { new MockTypeInfo() }));
+        Assert.Throws<TargetInvocationException>(() => mi.Invoke(factory, [new MockTypeInfo()]));
     }
 
     [Fact]
@@ -249,6 +248,8 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         Assert.Equal("test", result.Value);
     }
 
+    private static readonly string[] localizationConfigure = ["zh-CN.json"];
+
     [Fact]
     public void Validate_ResourceManagerStringLocalizerType()
     {
@@ -259,8 +260,7 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         context.Services.AddBootstrapBlazor(localizationConfigure: option =>
         {
             option.ResourceManagerStringLocalizerType = typeof(Foo);
-            option.AdditionalJsonAssemblies = new[] { typeof(Alert).Assembly, GetType().Assembly };
-            option.AdditionalJsonFiles = new string[] { "zh-CN.json" };
+            option.AdditionalJsonFiles = localizationConfigure;
         });
         context.Services.GetRequiredService<ICacheManager>();
 
@@ -278,7 +278,7 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
         var mi = cut.Instance.GetType().GetMethod("ValidateDataAnnotations", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!;
         var pi = foo.GetType().GetProperty("Name");
         var result = new List<ValidationResult>();
-        mi.Invoke(cut.Instance, new object?[] { null, new ValidationContext(cut.Instance), result, pi, "Name" });
+        mi.Invoke(cut.Instance, [null, new ValidationContext(cut.Instance), result, pi, "Name"]);
         Assert.Equal("Test", result[0].ErrorMessage);
     }
 
@@ -309,9 +309,9 @@ public class JsonStringLocalizerTest : BootstrapBlazorTestBase
 
         public IEnumerable<LocalizedString> GetAllStrings(bool includeParentCultures) => new List<LocalizedString>()
         {
-            new LocalizedString("Mock-Name", "Mock-Test-Name"),
-            new LocalizedString("Mock-Address", "Mock-Test-Address-{0}"),
-            new LocalizedString("Mock-FakeAddress", "Mock-Test-Address-{ 0}")
+            new("Mock-Name", "Mock-Test-Name"),
+            new("Mock-Address", "Mock-Test-Address-{0}"),
+            new("Mock-FakeAddress", "Mock-Test-Address-{ 0}")
         };
     }
 

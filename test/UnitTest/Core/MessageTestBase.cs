@@ -46,7 +46,7 @@ public class MessageTestHost : IDisposable
 
     protected virtual void ConfigureServices(IServiceCollection services)
     {
-        services.AddBootstrapBlazor(localizationConfigure: op => op.AdditionalJsonAssemblies = new[] { typeof(Alert).Assembly });
+        services.AddBootstrapBlazor();
     }
 
     protected virtual void ConfigureConfigration(IServiceCollection services)

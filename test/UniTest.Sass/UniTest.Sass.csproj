@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.1" />
-    <PackageReference Include="xunit" Version="2.5.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.0">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="xunit" Version="2.6.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.4">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -14,10 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Using Remove="BootstrapBlazor.Components"/>
-    <Using Remove="Bunit"/>
-    <Using Remove="Microsoft.AspNetCore.Components"/>
-    <Using Remove="UnitTest.Core"/>
+    <Using Remove="BootstrapBlazor.Components" />
+    <Using Remove="Bunit" />
+    <Using Remove="Microsoft.AspNetCore.Components" />
+    <Using Remove="UnitTest.Core" />
   </ItemGroup>
 
 </Project>

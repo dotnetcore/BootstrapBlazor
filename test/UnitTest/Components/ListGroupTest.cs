@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
-
 namespace UnitTest.Components;
 
 public class ListGroupTest : BootstrapBlazorTestBase
@@ -16,11 +14,11 @@ public class ListGroupTest : BootstrapBlazorTestBase
 
         cut.SetParametersAndRender(pb =>
         {
-            pb.Add(a => a.Items, new List<Foo>()
-            {
+            pb.Add(a => a.Items,
+            [
                 new() { Name = "Test 1" },
                 new() { Name = "Test 1" }
-            });
+            ]);
         });
 
         var items = cut.FindAll(".list-group-item");
@@ -33,11 +31,11 @@ public class ListGroupTest : BootstrapBlazorTestBase
         var clicked = false;
         var cut = Context.RenderComponent<ListGroup<Foo>>(pb =>
         {
-            pb.Add(a => a.Items, new List<Foo>()
-            {
+            pb.Add(a => a.Items,
+            [
                 new() { Name = "Test 1" },
                 new() { Name = "Test 1" }
-            });
+            ]);
             pb.Add(a => a.OnClickItem, foo =>
             {
                 clicked = true;
@@ -54,12 +52,12 @@ public class ListGroupTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<ListGroup<Foo?>>(pb =>
         {
-            pb.Add(a => a.Items, new List<Foo?>()
-            {
+            pb.Add(a => a.Items,
+            [
                 new() { Name = "Test 1" },
                 new() { Name = "Test 1" },
                 (Foo?)null
-           });
+           ]);
             pb.Add(a => a.GetItemDisplayText, foo => foo?.Name ?? "");
         });
         var item = cut.Find(".list-group-item");
@@ -77,11 +75,11 @@ public class ListGroupTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<ListGroup<Foo>>(pb =>
         {
-            pb.Add(a => a.Items, new List<Foo>()
-            {
+            pb.Add(a => a.Items,
+            [
                 new() { Name = "Test 1" },
                 new() { Name = "Test 1" }
-            });
+            ]);
             pb.Add(a => a.GetItemDisplayText, foo => foo.Name ?? "");
             pb.Add(a => a.HeaderText, "Text-Header");
         });
@@ -93,11 +91,11 @@ public class ListGroupTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<ListGroup<Foo>>(pb =>
         {
-            pb.Add(a => a.Items, new List<Foo>()
-            {
+            pb.Add(a => a.Items,
+            [
                 new() { Name = "Test 1" },
                 new() { Name = "Test 1" }
-            });
+            ]);
             pb.Add(a => a.GetItemDisplayText, foo => foo.Name ?? "");
             pb.Add(a => a.HeaderTemplate, new RenderFragment(builder =>
             {
@@ -112,11 +110,11 @@ public class ListGroupTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<ListGroup<Foo>>(pb =>
         {
-            pb.Add(a => a.Items, new List<Foo>()
-            {
+            pb.Add(a => a.Items,
+            [
                 new() { Name = "Test 1" },
                 new() { Name = "Test 2" }
-            });
+            ]);
             pb.Add(a => a.GetItemDisplayText, foo => foo.Name ?? "");
             pb.Add(a => a.ItemTemplate, foo => builder =>
             {

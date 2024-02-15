@@ -23,7 +23,7 @@ public class ResponsiveTest : BootstrapBlazorTestBase
         });
 
         var resp = cut.FindComponent<ResizeNotification>().Instance;
-        cut.InvokeAsync(() => resp.OnResize(BreakPoint.Large));
+        cut.InvokeAsync(() => resp.OnResize("Large"));
         Assert.Equal(BreakPoint.Large, point);
     }
 

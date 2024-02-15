@@ -6,6 +6,6 @@ dotnet restore --no-cache
 dotnet publish src/BootstrapBlazor.Server -c Release
 
 systemctl stop ba.blazor
-\cp -fr ~/BootstrapBlazor/src/BootstrapBlazor.Server/bin/Release/net7.0/publish/* /usr/local/ba/blazor
+\cp -fr ~/BootstrapBlazor/src/BootstrapBlazor.Server/bin/Release/net8.0/publish/* /usr/local/ba/blazor
 systemctl start ba.blazor
 systemctl status ba.blazor -l --no-pager

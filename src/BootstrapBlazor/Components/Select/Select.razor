@@ -67,7 +67,14 @@
                 {
                     if (!string.IsNullOrEmpty(itemGroup.Key))
                     {
-                        <Divider Text="@itemGroup.Key" />
+                        if (GroupItemTemplate != null)
+                        {
+                            @GroupItemTemplate(itemGroup.Key)
+                        }
+                        else
+                        {
+                            <Divider Text="@itemGroup.Key" />
+                        }
                     }
                     @foreach (var item in itemGroup)
                     {
@@ -93,6 +100,10 @@
         @if (ItemTemplate != null)
         {
             @ItemTemplate(item)
+        }
+        else if (IsMarkupString)
+        {
+            @((MarkupString)item.Text) 
         }
         else
         {

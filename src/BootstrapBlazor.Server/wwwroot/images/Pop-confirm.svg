@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="150px" height="91px" viewBox="0 0 150 91" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Popconfirm</title>
+    <title>PopConfirm</title>
     <defs>
         <path d="M135.563636,0.965517241 C136.447292,0.965517241 137.163636,1.68186164 137.163636,2.56551724 L137.163636,73.3655172 C137.163636,74.2491728 136.447292,74.9655172 135.563636,74.9655172 L72.217,74.9655172 L69.4181818,78.1655172 L66.619,74.9655172 L1.6,74.9655172 C0.7163444,74.9655172 7.19088647e-13,74.2491728 7.2475359e-13,73.3655172 L7.2475359e-13,2.56551724 C7.24645374e-13,1.68186164 0.7163444,0.965517241 1.6,0.965517241 L135.563636,0.965517241 Z" id="path-1"></path>
         <filter x="-6.6%" y="-11.7%" width="113.1%" height="123.3%" filterUnits="objectBoundingBox" id="filter-2">
@@ -10,7 +10,7 @@
         </filter>
     </defs>
     <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Popconfirm" transform="translate(-18.000000, -24.000000)">
+        <g id="PopConfirm" transform="translate(-18.000000, -24.000000)">
             <g transform="translate(24.000000, 30.000000)">
                 <g id="4.DataDisplay/Popover/Box/Top" fill-rule="nonzero">
                     <g id="Combined-Shape">

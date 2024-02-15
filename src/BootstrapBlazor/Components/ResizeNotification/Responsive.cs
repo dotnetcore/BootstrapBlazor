@@ -14,7 +14,7 @@ public class Responsive : BootstrapComponentBase, IDisposable
     private ResizeNotificationService? ResizeService { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否触发内容刷新 返回 true 时刷新
+    /// 获得/设置 浏览器断点阈值改变时触发 默认 null
     /// </summary>
     [Parameter]
     public Func<BreakPoint, Task>? OnBreakPointChanged { get; set; }
@@ -25,6 +25,22 @@ public class Responsive : BootstrapComponentBase, IDisposable
     protected override void OnInitialized()
     {
         ResizeService.Subscribe(this, OnResize);
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="firstRender"></param>
+    /// <returns></returns>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (OnBreakPointChanged != null)
+            {
+                await OnBreakPointChanged(ResizeService.CurrentValue);
+            }
+        }
     }
 
     /// <summary>
@@ -55,7 +71,6 @@ public class Responsive : BootstrapComponentBase, IDisposable
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    /// <exception cref="NotImplementedException"></exception>
     public void Dispose()
     {
         Dispose(true);

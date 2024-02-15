@@ -24,10 +24,10 @@ public static class BootstrapBlazorApplicationBuilderExtensions
         {
             var ip = "";
             var headers = context.Request.Headers;
-            if (headers.ContainsKey("X-Forwarded-For"))
+            if (headers.TryGetValue("X-Forwarded-For", out var value))
             {
                 var ips = new List<string>();
-                foreach (var xf in headers["X-Forwarded-For"])
+                foreach (var xf in value)
                 {
                     if (!string.IsNullOrEmpty(xf))
                     {
@@ -41,7 +41,7 @@ public static class BootstrapBlazorApplicationBuilderExtensions
                 ip = context.Connection.RemoteIpAddress.ToIPv4String();
             }
 
-            context.Response.Headers.Add("Content-Type", new Microsoft.Extensions.Primitives.StringValues("application/json; charset=utf-8"));
+            context.Response.Headers.TryAdd("Content-Type", new Microsoft.Extensions.Primitives.StringValues("application/json; charset=utf-8"));
             await context.Response.WriteAsync(JsonSerializer.Serialize(new { Id = context.TraceIdentifier, Ip = ip }));
         }));
         return builder;

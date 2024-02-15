@@ -44,7 +44,7 @@ public class ListViewTest : BootstrapBlazorTestBase
 
         var item = cut.Find(".listview-item");
         cut.InvokeAsync(() => item.Click());
-        Assert.True(clicked);
+        cut.WaitForAssertion(() => Assert.True(clicked));
 
         cut.SetParametersAndRender(pb =>
         {
@@ -57,7 +57,7 @@ public class ListViewTest : BootstrapBlazorTestBase
         clicked = false;
         item = cut.Find(".listview-item");
         cut.InvokeAsync(() => item.Click());
-        Assert.True(clicked);
+        cut.WaitForAssertion(() => Assert.True(clicked));
     }
 
     [Fact]
@@ -156,6 +156,12 @@ public class ListViewTest : BootstrapBlazorTestBase
             var item = cut.Find(".listview-item");
             item.Click();
             Assert.True(clicked);
+        });
+
+        // 设置分组
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.GroupOrderCallback, items.GroupBy(i => i.Category).OrderBy(i => i.Key));
         });
     }
 

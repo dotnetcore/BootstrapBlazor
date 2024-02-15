@@ -1,0 +1,18 @@
+﻿@if (IsNew)
+{
+    <Badge Color="Color.Danger" IsPill="true">
+        NEW
+    </Badge>
+}
+@if (IsUpdate)
+{
+    <Badge Color="Color.Success" IsPill="true">
+        Upd
+    </Badge>
+}
+@if (Count > 0)
+{
+    <Badge Color="Color.None" IsPill="true" class="badge-menu">
+        @Count
+    </Badge>
+}

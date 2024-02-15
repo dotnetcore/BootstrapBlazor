@@ -1,6 +1,6 @@
 .alert {
-    --bb-alert-icon-margin-right: #{$alert-icon-margin-right};
-    --bb-alert-bar-width: #{$alert-bar-width};
+    --bb-alert-icon-margin-right: #{$bb-alert-icon-margin-right};
+    --bb-alert-bar-width: #{$bb-alert-bar-width};
 
     &.alert-bar {
         &.alert-info {

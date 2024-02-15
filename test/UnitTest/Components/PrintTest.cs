@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.DependencyInjection;
-using System.Web;
 
 namespace UnitTest.Components;
 
@@ -27,11 +26,11 @@ public class PrintTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void PrintService_Error()
+    public async Task PrintService_Error()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>();
         var printService = cut.Services.CreateScope().ServiceProvider.GetRequiredService<PrintService>();
-        Assert.ThrowsAsync<InvalidOperationException>(() => printService.PrintAsync<Button>(op =>
+        await Assert.ThrowsAsync<InvalidOperationException>(() => printService.PrintAsync<Button>(op =>
         {
             // 弹窗配置
             op.Title = "数据查询窗口";
@@ -41,14 +40,14 @@ public class PrintTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void PrintService_Ok()
+    public async Task PrintService_Ok()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
             pb.AddChildContent<MockPrintButton>();
         });
         var button = cut.FindComponent<MockPrintButton>();
-        cut.InvokeAsync(() => button.Instance.PrintAsync());
+        await cut.InvokeAsync(() => button.Instance.PrintAsync());
     }
 
     private class MockPrintButton : ComponentBase

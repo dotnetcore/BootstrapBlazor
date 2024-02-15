@@ -1,0 +1,120 @@
+﻿@page "/barcode-generator"
+@inject IStringLocalizer<BarcodeGenerators> Localizer
+
+<h3>@Localizer["Title"]</h3>
+
+<PackageTips Name="BootstrapBlazor.BarcodeGenerator" />
+
+<DemoBlock Title="@Localizer["BarcodeGeneratorNormalText"]" Introduction="@Localizer["BarcodeGeneratorNormalIntro"]" Name="Normal">
+    <div class="col-12" style="text-align: center; vertical-align: middle;">
+        <BarCodeGenerator Value="@value" Options="Options" OnResult="OnResult" />
+    </div>
+    <GroupBox Title="@Localizer["BarcodeGeneratorGroupBoxText"]">
+        <div class="row form-inline g-3">
+            <div class="col-12 col-sm-6 col-lg-4">
+                <BootstrapInput @bind-Value="value" ShowLabel="true" UseInputEvent="true" />
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4">
+                <Select @bind-Value="Options.Type" OnValueChanged="OnValueChanged" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4">
+                <Slider @bind-Value="Options.Width" Min="1" Max="6" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4">
+                <Slider @bind-Value="Options.Height" Min="10" Max="300" Step="5" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4">
+                <Slider @bind-Value="Options.Margin" Min="-30" Max="100" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4">
+                <Switch @bind-Value="Options.Flat" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4">
+                <ColorPicker @bind-Value="Options.Background" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4">
+                <ColorPicker @bind-Value="Options.LineColor" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4">
+                <Switch @bind-Value="Options.DisplayValue" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4">
+                <BootstrapInput ShowLabel="true" @bind-Value="Options.Text" UseInputEvent="true" />
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4">
+                <Select @bind-Value="Options.TextAlign" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4">
+                <Select @bind-Value="Options.TextPosition" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4">
+                <Select @bind-Value="Options.Font" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4">
+                <Select @bind-Value="Options.FontOptions" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4">
+                <Slider @bind-Value="Options.FontSize" Min="8" Max="52" ShowLabel="true" />
+            </div>
+            <div class="col-12 col-sm-6 col-lg-4">
+                <Slider @bind-Value="Options.TextMargin" Min="-30" Max="100" ShowLabel="true" />
+            </div>
+            <div class="col-12">
+                <Textarea Value="@svg" DisplayText="SVG" ShowLabel="true" />
+            </div>
+        </div>
+    </GroupBox>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["BarcodeGeneratorBatchText"]" Introduction="@Localizer["BarcodeGeneratorBatchIntro"]" Name="Batch">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6 col-lg-4">
+            <BarCodeGenerator Type="EnumBarcodeType.CODE128" Value="Hi!" />
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+            <BarCodeGenerator Type="EnumBarcodeType.EAN13" Value="1234567890128" />
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+            <BarCodeGenerator Type="EnumBarcodeType.EAN8" Value="12345670" />
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+            <BarCodeGenerator Type="EnumBarcodeType.EAN5" Value="12345" />
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+            <BarCodeGenerator Type="EnumBarcodeType.EAN2" Value="12" />
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+            <BarCodeGenerator Type="EnumBarcodeType.UPC" Value="123456789012" />
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+            <BarCodeGenerator Type="EnumBarcodeType.CODE39" Value="Hello" />
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+            <BarCodeGenerator Type="EnumBarcodeType.ITF14" Value="1234567890123" />
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+            <BarCodeGenerator Type="EnumBarcodeType.ITF14" Value="123456" />
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+            <BarCodeGenerator Type="EnumBarcodeType.MSI" Value="12345" />
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["BarcodeGeneratorSimpleText"]" Introduction="@Localizer["BarcodeGeneratorSimpleIntro"]" Name="Simple">
+    <div class="row g-3">
+        <div class="col-12 col-sm-6 col-lg-4">
+            <BarCodeGenerator Options="Options1" />
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+            <BarCodeGenerator Options="Options2" />
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+            <BarCodeGenerator Options="Options3" />
+        </div>
+    </div>
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />
+
+<AttributeTable Title="BarcodeGeneratorOption" Items="@GetOptionsAttributes()" />

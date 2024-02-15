@@ -1,0 +1,24 @@
+﻿@page "/captcha"
+@inject IStringLocalizer<Captchas> Localizer
+
+<h3>@Localizer["Title"]</h3>
+
+<h4>@Localizer["SubTitle"]</h4>
+
+<DemoBlock Title="@Localizer["BasicUsageTitle"]" Introduction="@Localizer["BasicUsageIntro"]" Name="Normal">
+    <Captcha ImagesPath="@ImagesPath" @ref="NormalCaptcha" OnValidAsync="@OnValidAsync" Max="9" />
+    <ConsoleLogger @ref="NormalLogger" />
+</DemoBlock>
+<DemoBlock Title="@Localizer["ImageTitle"]" Introduction="" Name="Image">
+    <Captcha ImagesPath="@ImagesPath" ImagesName="@ImagesName" Max="9" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ImageCallbackTitle"]" Introduction="@Localizer["ImageCallbackIntro"]" Name="ImageCallback">
+    <Captcha GetImageName="@GetImageName" />
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />
+
+<EventTable Items="@GetEvents()" />
+
+<MethodTable Items="@GetMethods()" />

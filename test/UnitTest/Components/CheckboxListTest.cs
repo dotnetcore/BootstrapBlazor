@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
 
@@ -26,6 +25,26 @@ public class CheckboxListTest : BootstrapBlazorTestBase
             builder.Add(a => a.DisplayText, "Test");
         });
         Assert.DoesNotContain("is-label", cut.Markup);
+    }
+
+    [Fact]
+    public void ShowAfterLabel_Ok()
+    {
+        var cut = Context.RenderComponent<Checkbox<string>>(builder =>
+        {
+            builder.Add(a => a.ShowAfterLabel, true);
+            builder.Add(a => a.DisplayText, "Test");
+        });
+        var label = cut.Find("label");
+        label.MarkupMatches("<label class=\"form-check-label\" diff:ignore>Test</label>");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ShowLabelTooltip, true);
+        });
+
+        var span = cut.Find("span");
+        span.MarkupMatches("<span tabindex=\"0\" diff:ignore data-bs-original-title=\"Test\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" data-bs-trigger=\"focus hover\">Test</span>");
     }
 
     [Fact]

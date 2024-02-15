@@ -83,10 +83,10 @@ public class EditorItem<TValue> : ComponentBase, IEditorItem
     public string? Text { get; set; }
 
     /// <summary>
-    /// 获得/设置 步长
+    /// <inheritdoc/>
     /// </summary>
     [Parameter]
-    public object? Step { get; set; }
+    public string? Step { get; set; }
 
     /// <summary>
     /// 获得/设置 Textarea行数

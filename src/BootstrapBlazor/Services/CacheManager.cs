@@ -32,9 +32,7 @@ internal class CacheManager : ICacheManager
     /// </summary>
     /// <param name="provider"></param>
     /// <param name="memoryCache"></param>
-    public CacheManager(
-        IServiceProvider provider,
-        IMemoryCache memoryCache)
+    public CacheManager(IServiceProvider provider, IMemoryCache memoryCache)
     {
         // 为了避免依赖导致的报错，构造函数避免使用其他服务
         Provider = provider;
@@ -105,15 +103,23 @@ internal class CacheManager : ICacheManager
         else if (Cache is MemoryCache c)
         {
             c.Compact(100);
+
+            var dtm = GetStartTime();
+            SetStartTime(dtm);
         }
     }
 
     /// <summary>
     /// 设置 App 开始时间
     /// </summary>
-    public void SetStartTime()
+    public void SetStartTime() => SetStartTime(DateTimeOffset.Now);
+
+    /// <summary>
+    /// 设置 App 开始时间
+    /// </summary>
+    private void SetStartTime(DateTimeOffset startDateTimeOffset)
     {
-        GetOrCreate("BootstrapBlazor_StartTime", entry => DateTimeOffset.Now);
+        GetOrCreate("BootstrapBlazor_StartTime", entry => startDateTimeOffset);
     }
 
     /// <summary>
@@ -246,6 +252,20 @@ internal class CacheManager : ICacheManager
     /// <param name="includeParentCultures"></param>
     /// <returns></returns>
     public static IEnumerable<LocalizedString> GetAllStringsFromResolve(bool includeParentCultures = true) => Instance.GetOrCreate($"{nameof(GetAllStringsFromResolve)}-{CultureInfo.CurrentUICulture.Name}", entry => Instance.Provider.GetRequiredService<ILocalizationResolve>().GetAllStringsByCulture(includeParentCultures));
+
+    /// <summary>
+    /// 查询缺失本地化资源项目
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
+    public static bool GetMissingLocalizerByKey(string key) => Instance.TryGetValue(key, out string? _);
+
+    /// <summary>
+    /// 添加缺失本地化资源项目
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="name"></param>
+    public static void AddMissingLocalizerByKey(string key, string name) => Instance.GetOrCreate(key, entry => name);
     #endregion
 
     #region DisplayName
@@ -377,6 +397,30 @@ internal class CacheManager : ICacheManager
             }
             return val;
         }
+    }
+    #endregion
+
+    #region Range
+    /// <summary>
+    /// 获得类型属性的描述信息
+    /// </summary>
+    /// <param name="modelType"></param>
+    /// <param name="fieldName"></param>
+    /// <returns></returns>
+    public static RangeAttribute? GetRange(Type modelType, string fieldName)
+    {
+        var cacheKey = $"{nameof(GetRange)}-{modelType.FullName}-{fieldName}";
+        return Instance.GetOrCreate(cacheKey, entry =>
+        {
+            RangeAttribute? dn = null;
+            if (TryGetProperty(modelType, fieldName, out var propertyInfo))
+            {
+                dn = propertyInfo.GetCustomAttribute<RangeAttribute>(true);
+            }
+
+            entry.SetDynamicAssemblyPolicy(modelType);
+            return dn;
+        });
     }
     #endregion
 
@@ -583,7 +627,7 @@ internal class CacheManager : ICacheManager
     #region Format
     public static Func<object, string, IFormatProvider?, string> GetFormatInvoker(Type type)
     {
-        var cacheKey = $"{nameof(GetFormatInvoker)}-{nameof(GetFormatLambda)}-{type.FullName}";
+        var cacheKey = $"{nameof(GetFormatInvoker)}-{type.FullName}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             entry.SetDynamicAssemblyPolicy(type);
@@ -599,7 +643,7 @@ internal class CacheManager : ICacheManager
             if (type.IsAssignableTo(typeof(IFormattable)))
             {
                 // 通过 IFormattable 接口格式化
-                var mi = type.GetMethod("ToString", new Type[] { typeof(string), typeof(IFormatProvider) });
+                var mi = type.GetMethod("ToString", [typeof(string), typeof(IFormatProvider)]);
                 if (mi != null)
                 {
                     body = Expression.Call(Expression.Convert(exp_p1, type), mi, exp_p2, exp_p3);
@@ -608,7 +652,7 @@ internal class CacheManager : ICacheManager
             else
             {
                 // 通过 ToString() 方法格式化
-                var mi = type.GetMethod("ToString", Array.Empty<Type>());
+                var mi = type.GetMethod("ToString", []);
                 if (mi != null)
                 {
                     body = Expression.Call(Expression.Convert(exp_p1, type), mi);
@@ -625,7 +669,7 @@ internal class CacheManager : ICacheManager
 
     public static Func<object, IFormatProvider?, string> GetFormatProviderInvoker(Type type)
     {
-        var cacheKey = $"{nameof(GetFormatProviderInvoker)}-{nameof(GetFormatProviderLambda)}-{type.FullName}";
+        var cacheKey = $"{nameof(GetFormatProviderInvoker)}-{type.FullName}";
         return Instance.GetOrCreate(cacheKey, entry =>
         {
             entry.SetDynamicAssemblyPolicy(type);
@@ -638,7 +682,7 @@ internal class CacheManager : ICacheManager
             var exp_p2 = Expression.Parameter(typeof(IFormatProvider));
             Expression? body;
 
-            var mi = type.GetMethod("ToString", new Type[] { typeof(IFormatProvider) });
+            var mi = type.GetMethod("ToString", [typeof(IFormatProvider)]);
             if (mi != null)
             {
                 // 通过 ToString(IFormatProvider? provider) 接口格式化
@@ -653,5 +697,27 @@ internal class CacheManager : ICacheManager
             return Expression.Lambda<Func<object, IFormatProvider?, string>>(body, exp_p1, exp_p2);
         }
     }
+
+    public static object GetFormatterInvoker(Type type, Func<object?, Task<string?>> formatter)
+    {
+        var cacheKey = $"{nameof(GetFormatterInvoker)}-{type.FullName}";
+        var invoker = Instance.GetOrCreate(cacheKey, entry =>
+        {
+            entry.SetDynamicAssemblyPolicy(type);
+            return GetFormatterInvokerLambda(type).Compile();
+        });
+        return invoker(formatter);
+
+        static Expression<Func<Func<object?, Task<string?>>, object>> GetFormatterInvokerLambda(Type type)
+        {
+            var method = typeof(CacheManager).GetMethod(nameof(InvokeFormatterAsync), BindingFlags.Static | BindingFlags.NonPublic)!.MakeGenericMethod(type);
+            var exp_p1 = Expression.Parameter(typeof(Func<object?, Task<string?>>));
+            var body = Expression.Call(null, method, exp_p1);
+            return Expression.Lambda<Func<Func<object?, Task<string?>>, object>>(body, exp_p1);
+        }
+    }
+
+    private static Func<TType, Task<string?>> InvokeFormatterAsync<TType>(Func<object?, Task<string?>> formatter) => new(v => formatter(v));
+
     #endregion
 }

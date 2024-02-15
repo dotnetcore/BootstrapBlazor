@@ -4,6 +4,9 @@
 
 using Microsoft.Extensions.Logging;
 using System.Net.Http.Json;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Text.Unicode;
 
 namespace BootstrapBlazor.Components;
 
@@ -29,7 +32,7 @@ public class DefaultIPLocator : IIPLocator
     /// </summary>
     /// <param name="option"></param>
     /// <returns></returns>
-    protected virtual async Task<string?> Locate<T>(IPLocatorOption option) where T : class
+    protected virtual async Task<string?> Locate<T>(IPLocatorOption option)
     {
         string? ret = null;
         if (!string.IsNullOrEmpty(Url) && !string.IsNullOrEmpty(option.IP) && option.HttpClient != null)

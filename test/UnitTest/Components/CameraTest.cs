@@ -2,9 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using Bunit;
 using Microsoft.JSInterop;
-using System.IO;
 using UnitTest.Mock;
 
 namespace UnitTest.Components;
@@ -14,7 +12,7 @@ public class CameraTest : BootstrapBlazorTestBase
     [Fact]
     public void InitDevices_Ok()
     {
-        List<DeviceItem> items = new();
+        List<DeviceItem> items = [];
         var cut = Context.RenderComponent<Camera>(pb =>
         {
             pb.Add(a => a.OnInit, devices =>
@@ -24,11 +22,11 @@ public class CameraTest : BootstrapBlazorTestBase
             });
             pb.Add(a => a.AutoStart, true);
         });
-        cut.InvokeAsync(() => cut.Instance.TriggerInit(new List<DeviceItem>()));
+        cut.InvokeAsync(() => cut.Instance.TriggerInit([]));
         Assert.Empty(items);
 
-        cut.InvokeAsync(() => cut.Instance.TriggerInit(new List<DeviceItem>
-        {
+        cut.InvokeAsync(() => cut.Instance.TriggerInit(
+        [
             new DeviceItem()
             {
                 DeviceId = "1",
@@ -38,7 +36,7 @@ public class CameraTest : BootstrapBlazorTestBase
             {
                 DeviceId = "2"
             }
-        }));
+        ]));
         Assert.Equal("1", items[0].DeviceId);
         Assert.Equal("Device 1", items[0].Label);
         Assert.Equal(string.Empty, items[1].Label);

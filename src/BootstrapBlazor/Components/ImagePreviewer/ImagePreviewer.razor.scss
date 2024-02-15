@@ -1,8 +1,6 @@
-.is-img-preview {
-    overflow: hidden;
-}
-
 .bb-previewer {
+    --bb-viewer-button-bg: #{$bb-viewer-button-bg};
+    --bb-viewer-border-radius: #{$bb-viewer-border-radius};
     position: fixed;
     top: 0;
     right: 0;
@@ -34,8 +32,8 @@
     .bb-viewer-btn {
         position: absolute;
         cursor: pointer;
-        border-radius: 50%;
-        background-color: #606266;
+        border-radius: var(--bb-viewer-border-radius);
+        background-color: var(--bb-viewer-button-bg);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -72,7 +70,6 @@
         &.bb-viewer-close {
             top: 40px;
             right: 40px;
-            background-color: #606266;
             transition: all .3s linear;
 
             > span {
@@ -89,7 +86,6 @@
             width: 282px;
             height: 44px;
             padding: 0 23px;
-            background-color: #606266;
             border-color: #fff;
             border-radius: 22px;
             cursor: default;
@@ -135,4 +131,8 @@
             }
         }
     }
+}
+
+.is-img-preview {
+    overflow: hidden;
 }

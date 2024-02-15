@@ -30,7 +30,7 @@ public partial class Rate
     /// <returns></returns>
     private bool IsPartialStar(int i) => (Value + 1 - i) is > 0 and < 1;
 
-    private string? GetIcon(int i) => Value >= i ? StarIcon : UnStarIcon;
+    private string GetIcon(int i) => Value >= i ? StarIcon : UnStarIcon;
 
     private string GetWidthStyle(int i) => $"width: {Math.Round(Value + 1 - i, 2) * 100}%;";
 

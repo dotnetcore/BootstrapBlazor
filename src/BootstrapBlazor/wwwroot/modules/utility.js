@@ -50,7 +50,8 @@ function copyTextUsingDOM(str) {
 const copy = (text = '') => {
     if (navigator.clipboard) {
         navigator.clipboard.writeText(text)
-    } else {
+    }
+    else {
         copyTextUsingDOM(text)
     }
 }
@@ -58,7 +59,8 @@ const copy = (text = '') => {
 const getUID = (prefix = '') => {
     do {
         prefix += Math.floor(Math.random() * 1000000)
-    } while (document.getElementById(prefix))
+    }
+    while (document.getElementById(prefix))
 
     return prefix
 }
@@ -144,6 +146,11 @@ const normalizeLink = link => {
     return url
 }
 
+/**
+ * 添加 script 标签到 head
+ * @param {string} content
+ * @returns
+ */
 const addScript = content => {
     // content 文件名
     const scripts = [...document.getElementsByTagName('script')]
@@ -171,6 +178,10 @@ const addScript = content => {
     })
 }
 
+/**
+ * 从 head 移除 script 标签
+ * @param {string} content
+ */
 const removeScript = content => {
     const links = [...document.getElementsByTagName('script')]
     const url = normalizeLink(content)
@@ -182,7 +193,54 @@ const removeScript = content => {
     }
 }
 
-const addLink = href => {
+/**
+ * 批量添加 script 标签到 head
+ * @param {string[]} content
+ * @returns
+ */
+const addScriptBatch = content => {
+    const promises = content.map(item => addScript(item));
+    return Promise.all(promises);
+}
+
+/**
+ * 从 head 批量移除 script 标签
+ * @param {string[]} content
+ * @returns
+ */
+const removeScriptBatch = (content) => {
+    const promises = content.map(item => removeScript(item));
+    return Promise.all(promises);
+}
+
+/**
+ * 批量添加 link 标签到 head
+ * @param {string[]} href
+ * @param {string} rel
+ * @returns
+ */
+const addLinkBatch = (href, rel = "stylesheet") => {
+    const promises = href.map(item => addLink(item, rel));
+    return Promise.all(promises);
+}
+
+/**
+ * 从 head 批量移除 link 标签
+ * @param {string[]} href
+ * @returns
+ */
+const removeLinkBatch = (href) => {
+    const promises = href.map(item => removeLink(item));
+    return Promise.all(promises);
+}
+
+/**
+ * 添加 link 标签到 head
+ * @param {string} href
+ * @param {string} rel
+ * @returns
+ */
+const addLink = (href, rel = "stylesheet") => {
     const links = [...document.getElementsByTagName('link')]
     const url = normalizeLink(href)
     let link = links.filter(function (link) {
@@ -192,7 +250,7 @@ const addLink = href => {
         const css = document.createElement('link')
         link.push(css)
         css.setAttribute('href', href)
-        css.setAttribute("rel", "stylesheet")
+        css.setAttribute("rel", rel)
         document.getElementsByTagName("head")[0].appendChild(css)
         css.onload = () => {
             css.setAttribute('loaded', true)
@@ -209,6 +267,10 @@ const addLink = href => {
     })
 }
 
+/**
+ * 从 head 移除 link 标签
+ * @param {string} href
+ */
 const removeLink = href => {
     const links = [...document.getElementsByTagName('link')]
     const url = normalizeLink(href)
@@ -218,6 +280,42 @@ const removeLink = href => {
     for (let index = 0; index < nodes.length; index++) {
         document.getElementsByTagName("head")[0].removeChild(nodes[index])
     }
+}
+
+/**
+ * 自动识别 css 或者 js 链接并添加到 head
+ * @param {string[]} fileList
+ */
+const autoAdd = (fileList) => {
+    const promises = fileList.map(async (item) => {
+        const extension = item.match(/\.(\w+)(\?|$)/)[1];
+        if (extension === 'js') {
+            return addScript(item);
+        }
+        else if (extension === 'css') {
+            return addLink(item);
+        }
+    });
+
+    return Promise.all(promises);
+}
+
+/**
+ * 自动识别 css 或者 js 链接并从 head 中移除
+ * @param {string[]} fileList
+ */
+const autoRemove = (fileList) => {
+    const promises = fileList.map(async (item) => {
+        const extension = item.match(/\.(\w+)(\?|$)/)[1];
+        if (extension === 'js') {
+            return removeScript(item);
+        }
+        else if (extension === 'css') {
+            return removeLink(item);
+        }
+    });
+
+    return Promise.all(promises);
 }
 
 const insertBefore = (element, newEl) => {
@@ -237,7 +335,8 @@ const insertAfter = (element, newEl) => {
         if (parentNode) {
             if (element.nextElementSibling) {
                 parentNode.insertBefore(newEl, element.nextElementSibling)
-            } else {
+            }
+            else {
                 parentNode.appendChild(newEl)
             }
         }
@@ -477,7 +576,7 @@ const debounce = function (fn, duration = 200, callback = null) {
             clearTimeout(handler)
         }
         if (callback && typeof (callback) === 'function') {
-            var v = callback.apply(this, arguments)
+            const v = callback.apply(this, arguments)
             if (v === true) {
                 handler = null
             }
@@ -497,7 +596,40 @@ const debounce = function (fn, duration = 200, callback = null) {
     }
 }
 
+export function openUrl(url, target = '_blank', features = null) {
+    window.open(url, target, features);
+}
+
+export function runEval(code) {
+    try {
+        return eval(code);
+    } catch (e) {
+        console.warn(e.message);
+        return e.message;
+    }
+}
+
+export function runFunction(code, arg) {
+    try {
+        var func = new Function(code);
+        return func(...arg);
+    } catch (e) {
+        console.warn(e.message);
+        return e.message;
+    }
+}
+
+export function isMobile() {
+    return /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile/i.test(navigator.userAgent);
+}
+
 export {
+    autoAdd,
+    autoRemove,
+    addLinkBatch,
+    removeLinkBatch,
+    addScriptBatch,
+    removeScriptBatch,
     addLink,
     addScript,
     copy,

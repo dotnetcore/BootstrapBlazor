@@ -6,14 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\src\BootstrapBlazor.Shared\Extensions\MenusLocalizerExtensions.cs" Link="Extensions\MenusLocalizerExtensions.cs" />
-    <Compile Include="..\..\src\BootstrapBlazor.Shared\Services\MenuService.cs" Link="Services\MenuService.cs" />
+    <Compile Include="..\..\src\BootstrapBlazor.Server\Extensions\MenusLocalizerExtensions.cs" Link="Extensions\MenusLocalizerExtensions.cs" />
+    <Compile Include="..\..\src\BootstrapBlazor.Server\Services\MenuService.cs" Link="Services\MenuService.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
-    <PackageReference Include="xunit" Version="2.5.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.0">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="xunit" Version="2.6.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.4">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
@@ -24,19 +24,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\BootstrapBlazor.Shared\BootstrapBlazor.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Using Include="BootstrapBlazor.Components" />
-    <Using Include="BootstrapBlazor.Shared.Common" />
-    <Using Include="BootstrapBlazor.Shared.Components" />
-    <Using Include="BootstrapBlazor.Shared.Samples" />
+    <Using Include="BootstrapBlazor.Server.Components" />
+    <Using Include="BootstrapBlazor.Server.Components.Components" />
+    <Using Include="BootstrapBlazor.Server.Components.Layout" />
+    <Using Include="BootstrapBlazor.Server.Extensions" />
     <Using Include="Microsoft.AspNetCore.Components" />
     <Using Include="Microsoft.Extensions.Localization" />
     <Using Include="System.ComponentModel.DataAnnotations" />
     <Using Remove="Bunit" />
     <Using Remove="UnitTest.Core" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\BootstrapBlazor.Server\BootstrapBlazor.Server.csproj" />
   </ItemGroup>
 
 </Project>

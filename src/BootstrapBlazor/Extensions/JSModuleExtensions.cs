@@ -10,12 +10,19 @@ namespace BootstrapBlazor.Components;
 public static class JSModuleExtensions
 {
     /// <summary>
+    /// 导入 utility js 模块
+    /// </summary>
+    /// <param name="jsRuntime"></param>
+    /// <returns>A <see cref="Task"/><![CDATA[<]]><see cref="JSModule"/><![CDATA[>]]> 模块加载器</returns>
+    public static Task<JSModule> LoadUtility(this IJSRuntime jsRuntime) => jsRuntime.LoadModule("./_content/BootstrapBlazor/modules/utility.js");
+
+    /// <summary>
     /// IJSRuntime 扩展方法 动态加载脚本 脚本目录为 modules
     /// </summary>
     /// <param name="jsRuntime"></param>
     /// <param name="fileName"></param>
     /// <param name="version"></param>
-    /// <returns></returns>
+    /// <returns>A <see cref="Task"/><![CDATA[<]]><see cref="JSModule"/><![CDATA[>]]> 模块加载器</returns>
     public static async Task<JSModule> LoadModule(this IJSRuntime jsRuntime, string fileName, string? version = null)
     {
         if (!string.IsNullOrEmpty(version))
@@ -41,4 +48,124 @@ public static class JSModuleExtensions
         }
         return name;
     }
+
+    /// <summary>
+    /// 在新标签页打开指定网址
+    /// </summary>
+    /// <param name="module"><see cref="JSModule"/> 实例</param>
+    /// <param name="url">打开网页地址</param>
+    /// <param name="target">默认 _blank</param>
+    /// <param name="features">默认 null</param>
+    /// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
+    public static ValueTask OpenUrl(this JSModule module, string url, string? target = "_blank", string? features = null) => module.InvokeVoidAsync("openUrl", url, target, features);
+
+    /// <summary>
+    /// 动态运行js代码
+    /// </summary>
+    /// <param name="module"><see cref="JSModule"/> 实例</param>
+    /// <param name="script"></param>
+    /// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
+    public static async ValueTask Eval(this JSModule module, string script) => await module.InvokeVoidAsync("runEval", script);
+
+    /// <summary>
+    /// 通过 Eval 动态运行 javascript 代码
+    /// </summary>
+    /// <param name="module"><see cref="JSModule"/> 实例</param>
+    /// <param name="script"></param>
+    /// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
+    public static ValueTask<T> Eval<T>(this JSModule module, string script) => module.InvokeAsync<T>("runEval", script);
+
+    /// <summary>
+    /// 通过 Function 动态运行 javascript 代码
+    /// </summary>
+    /// <param name="module"><see cref="JSModule"/> 实例</param>
+    /// <param name="script"></param>
+    /// <param name="args"></param>
+    /// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
+    public static ValueTask Function(this JSModule module, string script, params object?[]? args) => module.InvokeVoidAsync("runFunction", script, args);
+
+    /// <summary>
+    /// 动态运行js代码
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="module"><see cref="JSModule"/> 实例</param>
+    /// <param name="script"></param>
+    /// <param name="args"></param>
+    /// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
+    public static ValueTask<T> Function<T>(this JSModule module, string script, params object?[]? args) => module.InvokeAsync<T>("runFunction", script, args);
+
+    ///// <summary>
+    ///// 动态增加 head 标签
+    ///// <para>
+    ///// 示例：
+    ///// <code>
+    ///// [Inject]
+    ///// [NotNull]
+    ///// private <see cref="IJSRuntime"/> JSRuntime
+    ///// 
+    ///// [NotNull]
+    ///// private <see cref="JSModule"/>? Module { get; set; }
+    ///// 
+    ///// protected override <see langword="async"/> <see cref="Task"/> OnAfterRenderAsync(bool firstRender)
+    ///// {
+    /////     <see langword="await"/> <see langword="base"/>.OnAfterRenderAsync(firstRender);
+    /////     
+    /////     <see langword="if"/>(firstRender)
+    /////     {
+    /////         Module = <see langword="await"/> JSRuntime.LoadUtility();
+    /////     }
+    ///// }
+    /////
+    ///// private <see langword="async"/> <see cref="Task"/> OnClick()
+    ///// {
+    /////     var result = <see langword="await"/> Module.AddMetaAsync("styles.css")
+    ///// }
+    ///// </code>
+    ///// </para>
+    ///// </summary>
+    ///// <param name="module"><see cref="JSModule"/> 实例</param>
+    ///// <param name="content">添加的 Meta 内容</param>
+    ///// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
+    //public static ValueTask<bool> AddMetaAsync(this JSModule module, string content) => module.InvokeAsync<bool>("addMeta", content);
+
+    ///// <summary>
+    ///// 动态移除 head 标签
+    ///// <para>
+    ///// 示例：
+    ///// <code>
+    ///// [Inject]
+    ///// [NotNull]
+    ///// private <see cref="IJSRuntime"/> JSRuntime
+    ///// 
+    ///// [NotNull]
+    ///// private <see cref="JSModule"/>? Module { get; set; }
+    ///// 
+    ///// protected override <see langword="async"/> <see cref="Task"/> OnAfterRenderAsync(bool firstRender)
+    ///// {
+    /////     <see langword="await"/> <see langword="base"/>.OnAfterRenderAsync(firstRender);
+    /////     
+    /////     <see langword="if"/>(firstRender)
+    /////     {
+    /////         Module = <see langword="await"/> JSRuntime.LoadUtility();
+    /////     }
+    ///// }
+    /////
+    ///// private <see langword="async"/> <see cref="Task"/> OnClick()
+    ///// {
+    /////     var result = <see langword="await"/> Module.RemoveMetaAsync("styles.css")
+    ///// }
+    ///// </code>
+    ///// </para>
+    ///// </summary>
+    ///// <param name="module"><see cref="JSModule"/> 实例</param>
+    ///// <param name="content">移除 Meta 内容</param>
+    ///// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
+    //public static ValueTask<bool> RemoveMetaAsync(this JSModule module, string content) => module.InvokeAsync<bool>("removeMeta", content);
+
+    /// <summary>
+    /// 获取当前终端是否为移动设备
+    /// </summary>
+    /// <param name="module"><see cref="JSModule"/> 实例</param>
+    /// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
+    public static ValueTask<bool> IsMobile(this JSModule module) => module.InvokeAsync<bool>("isMobile");
 }

@@ -1,0 +1,12 @@
+﻿@page "/responsive"
+@inject IStringLocalizer<Responsives> Localizer
+
+<h3>@Localizer["ResponsiveTitle"]</h3>
+<h4>@Localizer["ResponsiveDescription"]</h4>
+
+<DemoBlock Title="@Localizer["ResponsiveNormalTitle"]" Introduction="@Localizer["ResponsiveNormalIntro"]" Name="Normal">
+    <div>@Localizer["ResponsiveNormalIntroCurrentText"] <code>Breakpoint</code>：@Size</div>
+    <Responsive OnBreakPointChanged="OnChanged" />
+</DemoBlock>
+
+<AttributeTable Items="@GetAttributes()" />

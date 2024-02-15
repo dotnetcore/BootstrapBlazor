@@ -1,13 +1,13 @@
-﻿.tag {
-    --bb-tag-btn-close-margin-left: .5rem;
-    --bb-tag-btn-close-width: .25rem;
-    --bb-tag-btn-close-height: .25rem;
-    --bb-tag-text-margin-left: .25rem;
-    --bb-tag-padding-x: 0;
-    --bb-tag-padding-y: 10px;
-    --bb-tag-line-height: 30px;
-    --bb-tag-font-size: 12px;
-    --bb-tag-align: center;
+.tag {
+    --bb-tag-btn-close-margin-left: #{$bb-tag-btn-close-margin-left};
+    --bb-tag-btn-close-width: #{$bb-tag-btn-close-width};
+    --bb-tag-btn-close-height: #{$bb-tag-btn-close-height};
+    --bb-tag-text-margin-left: #{$bb-tag-text-margin-left};
+    --bb-tag-padding-x: #{$bb-tag-padding-x};
+    --bb-tag-padding-y: #{$bb-tag-padding-y};
+    --bb-tag-line-height: #{$bb-tag-line-height};
+    --bb-tag-font-size: #{$bb-tag-font-size};
+    --bb-tag-align: #{$bb-tag-align};
     display: inline-flex;
     padding: var(--bb-tag-padding-x) var(--bb-tag-padding-y);
     line-height: var(--bb-tag-line-height);
