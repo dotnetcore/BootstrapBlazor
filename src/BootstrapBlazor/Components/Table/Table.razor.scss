@@ -676,12 +676,9 @@ form .table .table-cell > textarea {
     }
 }
 
-.table-search .card-header .table-search-buttons .btn {
-    padding: .275rem .5rem;
-}
-
 .table-search .card-header .input-group {
     width: auto;
+    flex-wrap: nowrap;
 }
 
 .table-search .card-header .input-group .table-toolbar-search,
