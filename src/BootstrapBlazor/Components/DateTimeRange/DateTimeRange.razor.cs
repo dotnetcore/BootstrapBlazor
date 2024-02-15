@@ -17,6 +17,7 @@ public partial class DateTimeRange
     /// </summary>
     private string? ClassString => CssBuilder.Default("select datetime-range form-control")
         .AddClass("disabled", IsDisabled)
+        .AddClass("has-time", ViewMode == DatePickerViewMode.DateTime)
         .AddClass(ValidCss)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -152,7 +153,7 @@ public partial class DateTimeRange
     /// </summary>
     [Parameter]
     [NotNull]
-    public IEnumerable<DateTimeRangeSidebarItem>? SidebarItems { get; set; }
+    public List<DateTimeRangeSidebarItem>? SidebarItems { get; set; }
 
     /// <summary>
     /// 点击确认按钮回调委托方法
@@ -251,13 +252,13 @@ public partial class DateTimeRange
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimeRangeIcon);
         ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimeRangeClearIcon); ;
 
-        SidebarItems ??= new DateTimeRangeSidebarItem[]
-        {
+        SidebarItems ??=
+        [
             new() { Text = Localizer["Last7Days"], StartDateTime = DateTime.Today.AddDays(-7), EndDateTime = DateTime.Today.AddDays(1).AddSeconds(-1) },
             new() { Text = Localizer["Last30Days"], StartDateTime = DateTime.Today.AddDays(-30), EndDateTime = DateTime.Today.AddDays(1).AddSeconds(-1) },
             new() { Text = Localizer["ThisMonth"], StartDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day), EndDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1).AddSeconds(-1) },
             new() { Text = Localizer["LastMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddMonths(-1), EndDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddSeconds(-1) },
-        };
+        ];
 
         Value ??= new DateTimeRangeValue();
 
@@ -272,6 +273,7 @@ public partial class DateTimeRange
     {
         SelectedValue.Start = item.StartDateTime;
         SelectedValue.End = item.EndDateTime;
+
         StartValue = item.StartDateTime;
         EndValue = StartValue.AddMonths(1).Date + SelectedValue.End.TimeOfDay;
 
@@ -332,7 +334,7 @@ public partial class DateTimeRange
 
     private Task OnEndDateChanged(DateTime value)
     {
-        EndValue = value;
+        EndValue = GetEndDateTime(value);
         StartValue = value.AddMonths(-1).Date + StartValue.TimeOfDay;
         StateHasChanged();
         return Task.CompletedTask;
@@ -345,8 +347,9 @@ public partial class DateTimeRange
     {
         SelectedValue.Start = DateTime.Today;
         SelectedValue.End = GetEndDateTime(DateTime.Today);
-        StartValue = SelectedValue.Start;
+
         EndValue = SelectedValue.End;
+        StartValue = GetSafeStartValue();
         await ClickConfirmButton();
     }
 
@@ -369,7 +372,7 @@ public partial class DateTimeRange
             }
         }
         Value.Start = SelectedValue.Start;
-        Value.End = SelectedValue.End;
+        Value.End = GetEndDateTime(SelectedValue.End);
 
         if (ValueChanged.HasDelegate)
         {
@@ -429,5 +432,7 @@ public partial class DateTimeRange
     /// <returns></returns>
     public override bool IsComplexValue(object? propertyValue) => false;
 
-    private static DateTime GetEndDateTime(DateTime dt) => dt.AddDays(1).AddSeconds(-1);
+    private static DateTime GetEndDateTime(DateTime dt) => dt.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
+
+    private DateTime GetSafeStartValue() => SelectedValue.Start.Date == SelectedValue.End.Date ? SelectedValue.Start.GetSafeMonthDateTime(-1) : SelectedValue.Start.Date;
 }
