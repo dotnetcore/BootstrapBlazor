@@ -43,26 +43,26 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void RangeValue_Ok()
+    public async Task RangeValue_Ok()
     {
         var cut = Context.RenderComponent<DateTimeRange>();
         var cells = cut.FindAll(".date-table tbody span");
         var end = cells.First(i => i.TextContent == "7");
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             end.Click();
         });
 
         cells = cut.FindAll(".date-table tbody span");
         var first = cells.First(i => i.TextContent == "1");
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             first.Click();
         });
 
         // confirm
         var confirm = cut.FindAll(".is-confirm")[cut.FindAll(".is-confirm").Count - 1];
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             confirm.Click();
         });
@@ -178,10 +178,10 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
             builder.Add(a => a.Value, new DateTimeRangeValue { Start = DateTime.Now, End = DateTime.Now.AddDays(30) });
             builder.Add(a => a.ShowSidebar, true);
             builder.Add(a => a.AutoCloseClickSideBar, true);
-            builder.Add(a => a.SidebarItems, new DateTimeRangeSidebarItem[]
-            {
-                    new DateTimeRangeSidebarItem(){ Text = "Test" }
-            });
+            builder.Add(a => a.SidebarItems,
+            [
+                new DateTimeRangeSidebarItem(){ Text = "Test" }
+            ]);
         });
 
         var item = cut.Find(".sidebar-item > div");
