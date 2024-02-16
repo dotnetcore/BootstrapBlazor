@@ -238,6 +238,12 @@ public partial class DateTimeRange
     {
         base.OnParametersSet();
 
+        // TODO: 临时禁用 DateTime 模式
+        if (ViewMode == DatePickerViewMode.DateTime)
+        {
+            ViewMode = DatePickerViewMode.Date;
+        }
+
         StartPlaceHolderText ??= Localizer[nameof(StartPlaceHolderText)];
         EndPlaceHolderText ??= Localizer[nameof(EndPlaceHolderText)];
         SeparateText ??= Localizer[nameof(SeparateText)];
@@ -275,7 +281,7 @@ public partial class DateTimeRange
         SelectedValue.End = item.EndDateTime;
 
         StartValue = item.StartDateTime;
-        EndValue = StartValue.AddMonths(1).Date + SelectedValue.End.TimeOfDay;
+        EndValue = StartValue.GetSafeMonthDateTime(1).Date + SelectedValue.End.TimeOfDay;
 
         if (AutoCloseClickSideBar)
         {
