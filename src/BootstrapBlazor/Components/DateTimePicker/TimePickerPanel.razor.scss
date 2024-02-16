@@ -1,7 +1,7 @@
 .bb-time-panel {
     --bb-time-text-color: #409eff;
-    --bb-time-body-width: 244px;
-    --bb-time-body-height: 244px;
+    --bb-time-body-width: 264px;
+    --bb-time-body-height: 264px;
     --bb-time-clock-number-width: 22px;
     --bb-time-clock-number-height: 22px;
     --bb-time-clock-hour-margin-top: 6px;
@@ -72,8 +72,8 @@
     }
 
     .bb-time-body {
-        margin: 1rem auto;
-        border: 1px solid #ddd;
+        margin: 0 auto;
+        border: 1px solid var(--bs-border-color);
         border-radius: 50%;
         position: relative;
         width: var(--bb-time-body-width);
@@ -193,7 +193,7 @@
     .bb-time-footer {
         display: flex;
         justify-content: space-between;
-        margin: -24px 12px 0 12px;
+        margin: -8px 8px 0 8px;
 
         .btn {
             border: var(--bb-time-footer-btn-border);

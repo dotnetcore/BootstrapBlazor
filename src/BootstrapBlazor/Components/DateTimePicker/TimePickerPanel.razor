@@ -6,7 +6,7 @@
     <div @key="Value" class="bb-time-header">
         @if (DatePicker != null)
         {
-            <span class="bb-time-text me-3" @onclick="SwitchView">@CurrentDateString</span>
+            <span class="bb-time-text me-5" @onclick="SwitchView">@CurrentDateString</span>
         }
         <span class="bb-time-text hour" @onclick="() => SetMode(TimeMode.Hour)">@HourValue</span>
         <span>:</span>
