@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
-/// Cascaders
+/// Cascader 组件示例代码
 /// </summary>
 public sealed partial class Cascaders
 {
@@ -20,8 +20,8 @@ public sealed partial class Cascaders
 
     private readonly IEnumerable<CascaderItem> _guidItems = new CascaderItem[]
     {
-        new CascaderItem(Guid.NewGuid().ToString(), "Guid1"),
-        new CascaderItem(Guid.NewGuid().ToString(), "Guid2")
+        new(Guid.NewGuid().ToString(), "Guid1"),
+        new(Guid.NewGuid().ToString(), "Guid2")
     };
 
     private string Value { get; set; } = "Shanghai";
