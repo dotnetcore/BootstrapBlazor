@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
-/// Cascaders
+/// Cascader 组件示例代码
 /// </summary>
 public sealed partial class Cascaders
 {
