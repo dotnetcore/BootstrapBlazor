@@ -566,6 +566,22 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task OnClickClose_Ok()
+    {
+        var cut = Context.RenderComponent<TimePickerBody>();
+        var btn = cut.Find(".time-panel-footer > button");
+        await cut.InvokeAsync(() => btn.Click());
+    }
+
+    [Fact]
+    public async Task OnClickConfirm_Ok()
+    {
+        var cut = Context.RenderComponent<TimePickerBody>();
+        var buttons = cut.FindAll(".time-panel-footer > button");
+        await cut.InvokeAsync(() => buttons[1].Click());
+    }
+
+    [Fact]
     public void Validate_Ok()
     {
         // (!MinValue.HasValue || Value >= MinValue.Value) && (!MaxValue.HasValue || Value <= MaxValue.Value)
