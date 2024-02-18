@@ -313,6 +313,12 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
+                    IsNew = true,
+                    Text = Localizer["ClockPicker"],
+                    Url = "clock-picker"
+                },
+                new()
+                {
                     Text = Localizer["DateTimePicker"],
                     Url = "datetime-picker"
                 },
