@@ -22,9 +22,10 @@ public class TimePickerTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task OnValueChanged_Ok()
+    public async Task ValueChanged_Ok()
     {
         var changed = false;
+        var val = new TimeSpan(10, 10, 10);
         var cut = Context.RenderComponent<TimePicker>(pb =>
         {
             pb.Add(a => a.Value, new TimeSpan(10, 10, 10));
@@ -33,10 +34,21 @@ public class TimePickerTest : BootstrapBlazorTestBase
                 changed = true;
                 return Task.CompletedTask;
             });
+            pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<TimeSpan>(this, ts =>
+            {
+                val = ts;
+                return Task.CompletedTask;
+            }));
         });
-
-        await cut.InvokeAsync(() => cut.Instance.SetValue(new TimeSpan(11, 11, 11)));
-        Assert.True(changed);
+        var body = cut.FindComponent<TimePickerBody>();
+        body.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Value, new TimeSpan(11, 11, 11));
+        });
+        var button = cut.Find(".confirm");
+        await cut.InvokeAsync(() => button.Click());
         Assert.Equal(new TimeSpan(11, 11, 11), cut.Instance.Value);
+        Assert.Equal(new TimeSpan(11, 11, 11), val);
+        Assert.True(changed);
     }
 }
