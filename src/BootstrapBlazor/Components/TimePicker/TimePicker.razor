@@ -2,5 +2,5 @@
 @inherits ValidateBase<TimeSpan>
 
 <div @attributes="@AdditionalAttributes" class="@ClassString">
-    <TimePickerPanel @bind-Value="@Value" OnValueChanged="OnInternalValueChanged"></TimePickerPanel>
+    <TimePickerBody Value="@Value" OnConfirm="OnInternalValueChanged"></TimePickerBody>
 </div>

@@ -25,8 +25,6 @@
 @import "../../Components/Console/Console.razor.scss";
 @import "../../Components/Console/ConsoleLogger.razor.scss";
 @import "../../Components/ContextMenu/ContextMenu.razor.scss";
-@import "../../Components/DateTimePicker/TimePicker.razor.scss";
-@import "../../Components/DateTimePicker/TimePickerBody.razor.scss";
 @import "../../Components/DateTimePicker/TimePickerPanel.razor.scss";
 @import "../../Components/DateTimePicker/DatePickerBody.razor";
 @import "../../Components/DateTimePicker/DateTimePicker.razor.scss";
@@ -92,6 +90,8 @@
 @import "../../Components/Tag/Tag.razor.scss";
 @import "../../Components/Timeline/Timeline.razor.scss";
 @import "../../Components/Timer/Timer.razor.scss";
+@import "../../Components/TimePicker/TimePicker.razor.scss";
+@import "../../Components/TimePicker/TimePickerBody.razor.scss";
 @import "../../Components/Toast/ToastContainer.razor.scss";
 @import "../../Components/Toggle/Toggle.razor.scss";
 @import "../../Components/Tooltip/Tooltip.razor.scss";
