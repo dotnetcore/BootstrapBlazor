@@ -380,6 +380,10 @@ public static class Utility
             builder.AddAttribute(2, nameof(Switch.IsDisabled), true);
             builder.AddAttribute(3, nameof(Switch.DisplayText), displayName);
             builder.AddAttribute(4, nameof(Switch.ShowLabelTooltip), item.ShowLabelTooltip);
+            if (item is ITableColumn col)
+            {
+                builder.AddAttribute(5, "class", col.CssClass);
+            }
             builder.CloseComponent();
         }
         else if (item.ComponentType == typeof(Textarea))
@@ -393,9 +397,13 @@ public static class Utility
             {
                 builder.AddAttribute(5, "rows", item.Rows);
             }
-            if (item is ITableColumn col && col.ComponentParameters != null)
+            if (item is ITableColumn col)
             {
-                builder.AddMultipleAttributes(6, col.ComponentParameters);
+                if (col.ComponentParameters != null)
+                {
+                    builder.AddMultipleAttributes(6, col.ComponentParameters);
+                }
+                builder.AddAttribute(7, "class", col.CssClass);
             }
             builder.CloseComponent();
         }
@@ -416,6 +424,7 @@ public static class Utility
                 {
                     builder.AddAttribute(5, nameof(Display<string>.FormatString), col.FormatString);
                 }
+                builder.AddAttribute(6, "class", col.CssClass);
             }
             builder.CloseComponent();
         }
