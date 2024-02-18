@@ -9,7 +9,7 @@ public class TimePickerPanelTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowClockScale_Ok()
     {
-        var cut = Context.RenderComponent<TimePickerPanel>(pb =>
+        var cut = Context.RenderComponent<ClockPicker>(pb =>
         {
             pb.Add(a => a.ShowClockScale, true);
         });
@@ -20,7 +20,7 @@ public class TimePickerPanelTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowSecond_Ok()
     {
-        var cut = Context.RenderComponent<TimePickerPanel>(pb =>
+        var cut = Context.RenderComponent<ClockPicker>(pb =>
         {
             pb.Add(a => a.ShowSecond, false);
         });
@@ -31,7 +31,7 @@ public class TimePickerPanelTest : BootstrapBlazorTestBase
     [Fact]
     public void ShowMinute_Ok()
     {
-        var cut = Context.RenderComponent<TimePickerPanel>(pb =>
+        var cut = Context.RenderComponent<ClockPicker>(pb =>
         {
             pb.Add(a => a.ShowMinute, false);
         });
@@ -42,7 +42,7 @@ public class TimePickerPanelTest : BootstrapBlazorTestBase
     [Fact]
     public void ClickSetMode_Ok()
     {
-        var cut = Context.RenderComponent<TimePickerPanel>(pb =>
+        var cut = Context.RenderComponent<ClockPicker>(pb =>
         {
             pb.Add(a => a.Value, new TimeSpan(10, 10, 10));
         });
@@ -66,7 +66,7 @@ public class TimePickerPanelTest : BootstrapBlazorTestBase
     [Fact]
     public void ClickSetTimePeriod_Ok()
     {
-        var cut = Context.RenderComponent<TimePickerPanel>(pb =>
+        var cut = Context.RenderComponent<ClockPicker>(pb =>
         {
             pb.Add(a => a.Value, new TimeSpan(10, 10, 10));
         });
@@ -104,7 +104,7 @@ public class TimePickerPanelTest : BootstrapBlazorTestBase
     [Fact]
     public void SetTime()
     {
-        var cut = Context.RenderComponent<TimePickerPanel>(pb =>
+        var cut = Context.RenderComponent<ClockPicker>(pb =>
         {
             pb.Add(a => a.Value, new TimeSpan(10, 10, 10));
         });

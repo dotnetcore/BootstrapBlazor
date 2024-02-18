@@ -214,7 +214,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             builder.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
         });
 
-        var panel = cut.FindComponent<TimePickerPanel>();
+        var panel = cut.FindComponent<ClockPicker>();
         cut.InvokeAsync(() => panel.Instance.SetTime(0, 0, 0));
         // 点击确定
         var buttons = cut.FindAll(".picker-panel-footer button");
@@ -645,10 +645,11 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<TimePickerBody>(builder =>
         {
             builder.Add(a => a.Value, TimeSpan.FromDays(1));
-            builder.Add(a => a.OnClose, new Action(() =>
+            builder.Add(a => a.OnClose, () =>
             {
                 res = true;
-            }));
+                return Task.CompletedTask;
+            });
         });
 
         cut.Find(".time-panel-footer .cancel").Click();
@@ -664,14 +665,12 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<TimePickerBody>(builder =>
         {
             builder.Add(a => a.Value, TimeSpan.FromDays(1));
-            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<TimeSpan>(this, t =>
+            builder.Add(a => a.OnConfirm, val =>
             {
                 value = true;
-            }));
-            builder.Add(a => a.OnConfirm, new Action(() =>
-            {
                 res = true;
-            }));
+                return Task.CompletedTask;
+            });
         });
 
         cut.Find(".time-panel-footer .confirm").Click();
