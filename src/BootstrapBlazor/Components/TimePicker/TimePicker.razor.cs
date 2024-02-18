@@ -16,8 +16,9 @@ public partial class TimePicker
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
-    private async Task OnInternalValueChanged(TimeSpan)
+    private async Task OnInternalValueChanged(TimeSpan val)
     {
+        Value = val;
         if (OnValueChanged != null)
         {
             await OnValueChanged(Value);
