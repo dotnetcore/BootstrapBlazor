@@ -167,15 +167,16 @@ public partial class Timer
         }
     }
 
-    private void OnStart()
+    private Task OnStart(TimeSpan val)
     {
+        Value = val;
         IsPause = false;
         CurrentTimespan = Value;
         AlertTime = DateTime.Now.Add(CurrentTimespan).ToString("HH:mm:ss");
 
         StateHasChanged();
 
-        Task.Run(async () =>
+        _ = Task.Run(async () =>
         {
             // 点击 Cancel 后重新设置再点击 Star
             if (CancelTokenSource.IsCancellationRequested)
@@ -227,6 +228,7 @@ public partial class Timer
                 }
             }
         });
+        return Task.CompletedTask;
     }
 
     private void OnClickPause()
