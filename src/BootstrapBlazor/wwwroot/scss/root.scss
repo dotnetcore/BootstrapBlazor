@@ -33,7 +33,7 @@ a, a:hover, a:focus {
 }
 
 .disabled .range-separator,
-:not([type='range']):disabled {
+:disabled {
     background-color: var(--bs-secondary-bg);
     opacity: 1;
 }
