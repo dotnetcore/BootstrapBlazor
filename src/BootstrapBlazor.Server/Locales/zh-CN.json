@@ -3038,6 +3038,8 @@
     "SlidersNormalTitle": "基础用法",
     "SlidersNormalIntro": "在拖动滑块时，改变当前值",
     "SlidersRangeTitle": "Range 标签",
+    "SlidersIsDisabledTitle": "禁用",
+    "SlidersIsDisabledIntro": "通过设置 <code>IsDisabled=\"true\" 禁用组件",
     "SlidersRangeIntro": "通过设置绑定值标签 <code>RangeAttribute</code> 自动生成 <code>min</code> <code>max</code>",
     "SlidersIsDisabled": "是否禁用",
     "SlidersValue": "组件当前值",
