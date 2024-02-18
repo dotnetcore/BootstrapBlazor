@@ -147,10 +147,10 @@
                         @ChildContent
                     </CascadingValue>
                     <CascadingValue Value="this" IsFixed="true">
-                        <TimePickerPanel Value="CurrentTime" OnValueChanged="OnTimeChanged" @ref="TimePickerPanel"
-                                         ShowClockScale="TimePickerOption.ShowClockScale" IsAutoSwitch="TimePickerOption.IsAutoSwitch"
-                                         ShowMinute="TimePickerOption.ShowMinute" ShowSecond="TimePickerOption.ShowSecond">
-                        </TimePickerPanel>
+                        <ClockPicker Value="CurrentTime" OnValueChanged="OnTimeChanged" @ref="TimePickerPanel"
+                                     ShowClockScale="TimePickerOption.ShowClockScale" IsAutoSwitch="TimePickerOption.IsAutoSwitch"
+                                     ShowMinute="TimePickerOption.ShowMinute" ShowSecond="TimePickerOption.ShowSecond">
+                        </ClockPicker>
                     </CascadingValue>
                 }
             </div>

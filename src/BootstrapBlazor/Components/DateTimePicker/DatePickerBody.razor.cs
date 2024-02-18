@@ -116,7 +116,7 @@ public partial class DatePickerBody
         .AddClass("d-none", CurrentViewMode == DatePickerViewMode.Year || CurrentViewMode == DatePickerViewMode.Month)
         .Build();
 
-    private TimePickerPanel? TimePickerPanel { get; set; }
+    private ClockPicker? TimePickerPanel { get; set; }
 
     [NotNull]
     private string? YearText { get; set; }

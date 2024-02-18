@@ -7,14 +7,14 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// TimePickerPanel 组件
+/// ClockPicker 组件
 /// </summary>
-public partial class TimePickerPanel
+public partial class ClockPicker
 {
     /// <summary>
     /// 获得/设置 样式
     /// </summary>
-    private string? ClassString => CssBuilder.Default("bb-time-panel")
+    private string? ClassString => CssBuilder.Default("bb-clock-picker")
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -47,7 +47,7 @@ public partial class TimePickerPanel
 
     [Inject]
     [NotNull]
-    private IStringLocalizer<TimePickerPanel>? Localizer { get; set; }
+    private IStringLocalizer<ClockPicker>? Localizer { get; set; }
 
     private string? CurrentDateString => DatePicker?.Value.ToString(DatePicker.DateFormat);
 
