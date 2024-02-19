@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 using System.Reflection;
 
@@ -42,6 +43,16 @@ public partial class DateTimeRange
 
     private string? EndValueString => Value.End != DateTime.MinValue ? Value.End.ToString(DateFormat) : null;
 
+    Dictionary<string, object> GetReadOnlyAttribute()
+    {
+        var dict = new Dictionary<string, object>();
+        if (!IsEditable)
+        {
+            dict.Add("readonly", "readonly");
+        }
+        return dict;
+    }
+
     [NotNull]
     private string? StartPlaceHolderText { get; set; }
 
@@ -53,6 +64,12 @@ public partial class DateTimeRange
 
     [NotNull]
     private string? DateFormat { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否可以编辑内容 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsEditable { get; set; } = false;
 
     /// <summary>
     /// 获得/设置 是否点击快捷侧边栏自动关闭弹窗 默认 false
@@ -382,4 +399,45 @@ public partial class DateTimeRange
     /// <param name="propertyValue"></param>
     /// <returns></returns>
     public override bool IsComplexValue(object? propertyValue) => false;
+
+    private ElementReference inputElement1;
+
+    private ElementReference inputElement2;
+
+    /// <summary>
+    /// 按下回车键时获取元素的值
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
+    private async Task HandleKeyPress(KeyboardEventArgs e)
+    {
+        switch (e.Key)
+        {
+            case "Enter":
+                await GetInputValue();
+                break;
+            default:
+                break;
+        }
+    }
+
+    /// <summary>
+    /// 调用js方法获取元素的值
+    /// </summary>
+    /// <returns></returns>
+    private async Task GetInputValue()
+    {
+        var dateString = await InvokeAsync<string>("element.value");
+
+        if (DateTime.TryParse(dateString, out var dateValue))
+        {
+
+            CurrentValueAsString = dateValue.ToString("yyyy-MM-dd HH:mm:ss");
+        }
+        else
+        {
+
+            CurrentValueAsString = string.Empty;
+        }
+    }
 }

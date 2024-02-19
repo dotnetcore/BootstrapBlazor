@@ -5,8 +5,6 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
 
-using System.Globalization;
-
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -117,7 +115,6 @@ public partial class DateTimePicker<TValue>
     /// </summary>
     [Parameter]
     public bool IsEditable { get; set; } = false;
-
 
     /// <summary>
     /// 获得/设置 是否自动设置值为当前时间 默认 true 当 Value 为 null 或者 <see cref="DateTime.MinValue"/>  时自动设置当前时间为 <see cref="DateTime.Today"/>
@@ -251,7 +248,22 @@ public partial class DateTimePicker<TValue>
         }
     }
 
-    private ElementReference inputElement;
+    [NotNull]
+    private JSModule? UtilityModule { get; set; }
+
+    private string? inputElementID { get; set; }
+
+    /// <inheritdoc/>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            UtilityModule = await JSRuntime.LoadUtility();
+            inputElementID = await UtilityModule.GetUID();
+        }
+    }
 
     /// <summary>
     /// 设置 readonly属性
@@ -285,18 +297,12 @@ public partial class DateTimePicker<TValue>
     }
 
     /// <summary>
-    /// 失去焦点时获取元素的值
-    /// </summary>
-    /// <returns></returns>
-    private Task OnBlur() => GetInputValue();
-
-    /// <summary>
     /// 调用js方法获取元素的值
     /// </summary>
     /// <returns></returns>
     private async Task GetInputValue()
     {
-        var dateString = await InvokeAsync<string>("getValue", inputElement);
+        var dateString = await UtilityModule.Eval<string>($"document.getElementById('{inputElementID}').value");
 
         if (DateTime.TryParse(dateString, out var dateValue))
         {
@@ -307,11 +313,6 @@ public partial class DateTimePicker<TValue>
         {
             SelectedValue = DateTime.Now;
             CurrentValueAsString = string.Empty;
-        }
-
-        if (ValueChanged.HasDelegate)
-        {
-            await ValueChanged.InvokeAsync();
         }
     }
 }
