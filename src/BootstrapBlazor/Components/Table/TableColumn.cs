@@ -36,7 +36,7 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     /// 获得/设置 组件自定义类型参数集合 默认为 null
     /// </summary>
     [Parameter]
-    public IEnumerable<KeyValuePair<string, object>>? ComponentParameters { get; set; }
+    public IEnumerable<KeyValuePair<string, object?>>? ComponentParameters { get; set; }
 
     /// <summary>
     /// 获得/设置 绑定列类型

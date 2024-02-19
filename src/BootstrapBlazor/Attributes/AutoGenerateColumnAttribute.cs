@@ -128,7 +128,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// <summary>
     /// 获得/设置 组件自定义类型参数集合 默认为 null
     /// </summary>
-    IEnumerable<KeyValuePair<string, object>>? IEditorItem.ComponentParameters { get; set; }
+    IEnumerable<KeyValuePair<string, object?>>? IEditorItem.ComponentParameters { get; set; }
 
     /// <summary>
     /// 获得/设置 显示模板
