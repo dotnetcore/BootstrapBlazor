@@ -253,6 +253,10 @@ public partial class DateTimePicker<TValue>
 
     private ElementReference inputElement;
 
+    /// <summary>
+    /// 设置 readonly属性
+    /// </summary>
+    /// <returns></returns>
     Dictionary<string, object> GetReadOnlyAttribute()
     {
         var dict = new Dictionary<string, object>();
@@ -303,6 +307,11 @@ public partial class DateTimePicker<TValue>
         {
             SelectedValue = DateTime.Now;
             CurrentValueAsString = string.Empty;
+        }
+
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync();
         }
     }
 }
