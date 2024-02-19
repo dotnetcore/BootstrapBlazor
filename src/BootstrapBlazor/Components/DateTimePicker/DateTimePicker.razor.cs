@@ -2,7 +2,10 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
+
+using System.Globalization;
 
 namespace BootstrapBlazor.Components;
 
@@ -108,6 +111,13 @@ public partial class DateTimePicker<TValue>
     /// </summary>
     [Parameter]
     public bool AutoClose { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否可以编辑内容 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsEditable { get; set; } = false;
+
 
     /// <summary>
     /// 获得/设置 是否自动设置值为当前时间 默认 true 当 Value 为 null 或者 <see cref="DateTime.MinValue"/>  时自动设置当前时间为 <see cref="DateTime.Today"/>
@@ -238,6 +248,60 @@ public partial class DateTimePicker<TValue>
         if (AutoClose)
         {
             await InvokeVoidAsync("hide", Id);
+        }
+    }
+
+    private ElementReference inputElement;
+
+    Dictionary<string, object> GetReadOnlyAttribute()
+    {
+        var dict = new Dictionary<string, object>();
+        if (IsEditable)
+        {
+            dict.Add("readonly", "readonly");
+        }
+        return dict;
+    }
+
+    /// <summary>
+    /// 按下回车键时获取元素的值
+    /// </summary>
+    /// <param name="e"></param>
+    /// <returns></returns>
+    private async Task HandleKeyPress(KeyboardEventArgs e)
+    {
+        switch (e.Key)
+        {
+            case "Enter":
+                await GetInputValue();
+                break;
+            default:
+                break;
+        }
+    }
+
+    /// <summary>
+    /// 失去焦点时获取元素的值
+    /// </summary>
+    /// <returns></returns>
+    private Task OnBlur() => GetInputValue();
+
+    /// <summary>
+    /// 调用js方法获取元素的值
+    /// </summary>
+    /// <returns></returns>
+    private async Task GetInputValue()
+    {
+        var dateString = await InvokeAsync<string>("getValue", inputElement);
+
+        if (DateTime.TryParse(dateString, out var dateValue))
+        {
+            SelectedValue = dateValue;
+        }
+        else
+        {
+            SelectedValue = DateTime.Now;
+            CurrentValueAsString = string.Empty;
         }
     }
 }

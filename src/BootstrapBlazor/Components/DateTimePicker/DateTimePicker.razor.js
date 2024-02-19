@@ -34,6 +34,10 @@ export function hide(id) {
     }
 }
 
+export function getValue(el) {
+    return el.value;
+}
+
 export function dispose(id) {
     const data = Data.get(id)
     Data.remove(id)
