@@ -61,7 +61,7 @@
 <DemoBlock Title="@Localizer["BindValueTitle"]" Introduction="@Localizer["BindValueIntro"]" Name="BindValue">
     <div class="row g-3">
         <div class="col-sm-6">
-            <DateTimePicker @bind-Value="@BindValue" IsEditable=true />
+            <DateTimePicker @bind-Value="@BindValue" IsEditable=true Format="dd/MM/yyyy" />
         </div>
         <div class="col-sm-6">
             <input class="form-control" @bind="@BindValueString" />

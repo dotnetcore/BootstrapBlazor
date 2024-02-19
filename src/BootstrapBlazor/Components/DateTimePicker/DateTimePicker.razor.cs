@@ -4,6 +4,8 @@
 
 using Microsoft.Extensions.Localization;
 
+using System.Globalization;
+
 namespace BootstrapBlazor.Components;
 
 /// <summary>
@@ -265,10 +267,10 @@ public partial class DateTimePicker<TValue>
     {
         set
         {
-            if (DateTime.TryParse(value, out var dateValue))
+            if (DateTime.TryParseExact(value, Format, CultureInfo.InvariantCulture, DateTimeStyles.None, out var dateValue))
             {
                 SelectedValue = dateValue;
-                CurrentValueAsString = dateValue.ToString("yyyy-MM-dd HH:mm:ss");
+                CurrentValueAsString = dateValue.ToString(Format, CultureInfo.InvariantCulture);
             }
         }
         get
