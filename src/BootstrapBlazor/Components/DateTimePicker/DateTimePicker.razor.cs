@@ -248,23 +248,6 @@ public partial class DateTimePicker<TValue>
         }
     }
 
-    [NotNull]
-    private JSModule? UtilityModule { get; set; }
-
-    private string? inputElementID { get; set; }
-
-    /// <inheritdoc/>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            UtilityModule = await JSRuntime.LoadUtility();
-            inputElementID = await UtilityModule.GetUID();
-        }
-    }
-
     /// <summary>
     /// 设置 readonly属性
     /// </summary>
@@ -279,40 +262,19 @@ public partial class DateTimePicker<TValue>
         return dict;
     }
 
-    /// <summary>
-    /// 按下回车键时获取元素的值
-    /// </summary>
-    /// <param name="e"></param>
-    /// <returns></returns>
-    private async Task HandleKeyPress(KeyboardEventArgs e)
+    private string? CurrentValueString
     {
-        switch (e.Key)
+        set
         {
-            case "Enter":
-                await GetInputValue();
-                break;
-            default:
-                break;
+            if (DateTime.TryParse(value, out var dateValue))
+            {
+                SelectedValue = dateValue;
+                CurrentValueAsString = dateValue.ToString("yyyy-MM-dd HH:mm:ss");
+            }
         }
-    }
-
-    /// <summary>
-    /// 获取元素的值
-    /// </summary>
-    /// <returns></returns>
-    private async Task GetInputValue()
-    {
-        var dateString = await UtilityModule.Eval<string>($"document.getElementById('{inputElementID}').value");
-
-        if (DateTime.TryParse(dateString, out var dateValue))
+        get
         {
-            SelectedValue = dateValue;
-            CurrentValueAsString = dateValue.ToString("yyyy-MM-dd HH:mm:ss");
-        }
-        else
-        {
-            SelectedValue = DateTime.Now;
-            CurrentValueAsString = string.Empty;
+            return CurrentValueAsString;
         }
     }
 }

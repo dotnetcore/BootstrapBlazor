@@ -38,11 +38,41 @@ public partial class DateTimeRange
 
     private DateTime StartValue { get; set; }
 
-    private string? StartValueString => Value.Start != DateTime.MinValue ? Value.Start.ToString(DateFormat) : null;
+    private string? StartValueString
+    {
+        set
+        {
+            if (DateTime.TryParse(value, out var startDateValue))
+            {
+                StartValue = startDateValue;
+                Value.Start = startDateValue;
+                SelectedValue.Start = startDateValue;
+            }
+        }
+        get
+        {
+            return Value.Start != DateTime.MinValue ? Value.Start.ToString(DateFormat) : null;
+        }
+    }
 
     private DateTime EndValue { get; set; }
 
-    private string? EndValueString => Value.End != DateTime.MinValue ? Value.End.ToString(DateFormat) : null;
+    private string? EndValueString
+    {
+        set
+        {
+            if (DateTime.TryParse(value, out var endDateValue))
+            {
+                EndValue = endDateValue;
+                Value.End = endDateValue;
+                SelectedValue.End = endDateValue;
+            }
+        }
+        get
+        {
+            return Value.End != DateTime.MinValue ? Value.End.ToString(DateFormat) : null;
+        }
+    }
 
     Dictionary<string, object> GetReadOnlyAttribute()
     {
@@ -401,64 +431,4 @@ public partial class DateTimeRange
     /// <returns></returns>
     public override bool IsComplexValue(object? propertyValue) => false;
 
-    [NotNull]
-    private JSModule? UtilityModule { get; set; }
-
-    private string? StartValueElementID { get; set; }
-
-    private string? EndValueElementID { get; set; }
-
-    /// <inheritdoc/>
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        await base.OnAfterRenderAsync(firstRender);
-
-        if (firstRender)
-        {
-            UtilityModule = await JSRuntime.LoadUtility();
-            StartValueElementID = await UtilityModule.GetUID();
-            EndValueElementID = await UtilityModule.GetUID();
-        }
-    }
-
-    /// <summary>
-    /// 按下回车键时获取元素的值
-    /// </summary>
-    /// <param name="e"></param>
-    /// <returns></returns>
-    private async Task HandleKeyPress(KeyboardEventArgs e)
-    {
-        switch (e.Key)
-        {
-            case "Enter":
-                await GetInputValue();
-                break;
-            default:
-                break;
-        }
-    }
-
-    /// <summary>
-    /// 调用js方法获取元素的值
-    /// </summary>
-    /// <returns></returns>
-    private async Task GetInputValue()
-    {
-        var StartDateString = await UtilityModule.Eval<string>($"document.getElementById('{StartValueElementID}').value");
-        var EndDateString = await UtilityModule.Eval<string>($"document.getElementById('{EndValueElementID}').value");
-
-        if (DateTime.TryParse(StartDateString, out var startDateValue))
-        {
-            StartValue = startDateValue;
-            Value.Start = startDateValue;
-            SelectedValue.Start = startDateValue;
-        }
-
-        if (DateTime.TryParse(EndDateString, out var endDateValue))
-        {
-            EndValue = endDateValue;
-            Value.End = endDateValue;
-            SelectedValue.End = endDateValue;
-        }
-    }
 }
