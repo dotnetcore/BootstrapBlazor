@@ -4,10 +4,12 @@
 
 namespace BootstrapBlazor.Components;
 
+#pragma warning disable CS1574 // XML 注释中有无法解析的 cref 特性
 /// <summary>
 /// AutoGenerateColumn 标签类，用于 <see cref="Table{TItem}"/> 标识自动生成列
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
+#pragma warning restore CS1574 // XML 注释中有无法解析的 cref 特性
 public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColumn
 {
     /// <summary>
