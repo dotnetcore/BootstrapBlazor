@@ -2453,6 +2453,7 @@
     "Att8": "The value of the component is a two-way binding with ValueChanged",
     "Att9": "Get/Set Component display mode The default is the month-to-day display mode",
     "AttrAutoClose": "Whether auto close the popup window",
+    "AttrIsEditable": "Is manual date entry allowed",
     "Event1": "Confirm that the button calls back the delegate",
     "Event2": "Callback delegates are used for bidirectional binding when component values change",
     "BlockGroupLabel": "Prev",

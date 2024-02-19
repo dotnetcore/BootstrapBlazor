@@ -2453,6 +2453,7 @@
     "Att8": "组件值与 ValueChanged 作为双向绑定的值",
     "Att9": "获得/设置 组件显示模式 默认为显示年月日模式",
     "AttrAutoClose": "选中日期后是否自动关闭弹窗",
+    "AttrIsEditable": "是否允许手动录入日期",
     "Event1": "确认按钮回调委托",
     "Event2": "组件值改变时回调委托供双向绑定使用",
     "BlockGroupLabel": "前置标签",

@@ -226,6 +226,14 @@ public sealed partial class DateTimeRanges
             Type = "IEnumerable<DateTimeRangeSidebarItem>",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "IsEditable",
+            Description = "Is manual date entry allowed",
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
         }
     ];
 }

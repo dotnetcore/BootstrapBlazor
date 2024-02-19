@@ -163,6 +163,13 @@ public sealed partial class DateTimePickers
             Type = "bool",
             ValueList = "true/false",
             DefaultValue = "false"
+        },
+        new() {
+            Name = "IsEditable",
+            Description = Localizer["AttrIsEditable"],
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
         }
     ];
 }
