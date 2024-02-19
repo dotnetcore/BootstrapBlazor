@@ -4,6 +4,7 @@
 
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.Localization;
+
 using System.Reflection;
 
 namespace BootstrapBlazor.Components;
@@ -400,9 +401,25 @@ public partial class DateTimeRange
     /// <returns></returns>
     public override bool IsComplexValue(object? propertyValue) => false;
 
-    private ElementReference inputElement1;
+    [NotNull]
+    private JSModule? UtilityModule { get; set; }
 
-    private ElementReference inputElement2;
+    private string? StartValueElementID { get; set; }
+
+    private string? EndValueElementID { get; set; }
+
+    /// <inheritdoc/>
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            UtilityModule = await JSRuntime.LoadUtility();
+            StartValueElementID = await UtilityModule.GetUID();
+            EndValueElementID = await UtilityModule.GetUID();
+        }
+    }
 
     /// <summary>
     /// 按下回车键时获取元素的值
@@ -427,17 +444,21 @@ public partial class DateTimeRange
     /// <returns></returns>
     private async Task GetInputValue()
     {
-        var dateString = await InvokeAsync<string>("element.value");
+        var StartDateString = await UtilityModule.Eval<string>($"document.getElementById('{StartValueElementID}').value");
+        var EndDateString = await UtilityModule.Eval<string>($"document.getElementById('{EndValueElementID}').value");
 
-        if (DateTime.TryParse(dateString, out var dateValue))
+        if (DateTime.TryParse(StartDateString, out var startDateValue))
         {
-
-            CurrentValueAsString = dateValue.ToString("yyyy-MM-dd HH:mm:ss");
+            StartValue = startDateValue;
+            Value.Start = startDateValue;
+            SelectedValue.Start = startDateValue;
         }
-        else
-        {
 
-            CurrentValueAsString = string.Empty;
+        if (DateTime.TryParse(EndDateString, out var endDateValue))
+        {
+            EndValue = endDateValue;
+            Value.End = endDateValue;
+            SelectedValue.End = endDateValue;
         }
     }
 }

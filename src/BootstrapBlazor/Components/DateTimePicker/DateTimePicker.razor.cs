@@ -297,7 +297,7 @@ public partial class DateTimePicker<TValue>
     }
 
     /// <summary>
-    /// 调用js方法获取元素的值
+    /// 获取元素的值
     /// </summary>
     /// <returns></returns>
     private async Task GetInputValue()

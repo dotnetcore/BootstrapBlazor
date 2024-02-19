@@ -10,10 +10,10 @@
     <div class="dropdown-toggle datetime-range-control" data-bs-toggle="@Constants.DropdownToggleString" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString">
         <div class="position-relative">
             <i class="@DateTimePickerIconClassString"></i>
-            <input @attributes="@GetReadOnlyAttribute()" @onblur="@(() => GetInputValue())" @onkeypress="@HandleKeyPress" @ref="inputElement1" class="datetime-range-input" value="@StartValueString" placeholder="@StartPlaceHolderText" disabled="@Disabled" />
+            <input @attributes="@GetReadOnlyAttribute()" id="@StartValueElementID" @onblur="@GetInputValue" @onkeypress="@HandleKeyPress" class="datetime-range-input" value="@StartValueString" placeholder="@StartPlaceHolderText" disabled="@Disabled" />
         </div>
         <span class="range-separator">@SeparateText</span>
-        <input @attributes="@GetReadOnlyAttribute()" @onblur="@(() => GetInputValue())" @onkeypress="@HandleKeyPress" @ref="inputElement2" class="datetime-range-input" value="@EndValueString" placeholder="@EndPlaceHolderText" disabled="@Disabled" />
+        <input @attributes="@GetReadOnlyAttribute()" id="@EndValueElementID" @onblur="@GetInputValue" @onkeypress="@HandleKeyPress" class="datetime-range-input" value="@EndValueString" placeholder="@EndPlaceHolderText" disabled="@Disabled" />
     </div>
     @if (AllowNull)
     {
