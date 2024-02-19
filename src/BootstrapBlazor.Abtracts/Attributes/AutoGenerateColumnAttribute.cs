@@ -171,7 +171,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// 获得 属性类型
     /// </summary>
     [NotNull]
-    public Type? PropertyType { get; internal set; }
+    public Type? PropertyType { get; set; }
 
     /// <summary>
     /// 获得/设置 当前属性显示文字 列头或者标签名称
@@ -182,7 +182,7 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// 
     /// </summary>
     [NotNull]
-    internal string? FieldName { get; set; }
+    public string? FieldName { get; set; }
 
     /// <summary>
     /// 获得/设置 字典数据源 常用于外键自动转换为名称操作

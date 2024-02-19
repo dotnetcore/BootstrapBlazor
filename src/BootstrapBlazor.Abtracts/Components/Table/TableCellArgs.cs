@@ -13,13 +13,13 @@ public class TableCellArgs
     /// 获得 当前单元格行数据 请自行转化为绑定模型
     /// </summary>
     [NotNull]
-    public object? Row { get; internal set; }
+    public object? Row { get; set; }
 
     /// <summary>
     /// 获得 当前单元格绑定列名称
     /// </summary>
     [NotNull]
-    public string? ColumnName { get; internal set; }
+    public string? ColumnName { get; set; }
 
     /// <summary>
     /// 获得/设置 合并单元格数量 默认 0
