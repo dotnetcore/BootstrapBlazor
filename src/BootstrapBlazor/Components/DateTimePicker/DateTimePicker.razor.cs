@@ -256,7 +256,7 @@ public partial class DateTimePicker<TValue>
     Dictionary<string, object> GetReadOnlyAttribute()
     {
         var dict = new Dictionary<string, object>();
-        if (IsEditable)
+        if (!IsEditable)
         {
             dict.Add("readonly", "readonly");
         }
@@ -297,6 +297,7 @@ public partial class DateTimePicker<TValue>
         if (DateTime.TryParse(dateString, out var dateValue))
         {
             SelectedValue = dateValue;
+            CurrentValueAsString = dateValue.ToString("yyyy-MM-dd HH:mm:ss");
         }
         else
         {
