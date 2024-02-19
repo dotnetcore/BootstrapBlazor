@@ -384,7 +384,6 @@ public static class Utility
             {
                 builder.AddAttribute(5, "class", col.CssClass);
             }
-            builder.AddMultipleAttributes(6, item.ComponentParameters);
             builder.CloseComponent();
         }
         else if (item.ComponentType == typeof(Textarea))
@@ -400,9 +399,12 @@ public static class Utility
             }
             if (item is ITableColumn col)
             {
-                builder.AddAttribute(6, "class", col.CssClass);
+                if (col.ComponentParameters != null)
+                {
+                    builder.AddMultipleAttributes(6, col.ComponentParameters);
+                }
+                builder.AddAttribute(7, "class", col.CssClass);
             }
-            builder.AddMultipleAttributes(7, item.ComponentParameters);
             builder.CloseComponent();
         }
         else
@@ -424,7 +426,6 @@ public static class Utility
                 }
                 builder.AddAttribute(6, "class", col.CssClass);
             }
-            builder.AddMultipleAttributes(7, item.ComponentParameters);
             builder.CloseComponent();
         }
     }

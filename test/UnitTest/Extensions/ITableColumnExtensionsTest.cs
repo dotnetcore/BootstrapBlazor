@@ -43,7 +43,7 @@ public class ITableColumnExtensionsTest
         var attr = new MockTableColumn("Name", typeof(string))
         {
             ComponentType = typeof(NullSwitch),
-            ComponentParameters = [],
+            ComponentParameters = Enumerable.Empty<KeyValuePair<string, object>>(),
             Editable = false,
             EditTemplate = new RenderFragment<object>(obj => builder => builder.AddContent(0, "test")),
             Items = new List<SelectedItem>(),

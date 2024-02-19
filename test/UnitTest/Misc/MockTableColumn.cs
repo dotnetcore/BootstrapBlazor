@@ -86,7 +86,7 @@ internal class MockTableColumn : ITableColumn
 
     public Action<TableCellArgs>? OnCellRender { get; set; }
 
-    public IEnumerable<KeyValuePair<string, object?>>? ComponentParameters { get; set; }
+    public IEnumerable<KeyValuePair<string, object>>? ComponentParameters { get; set; }
 
     public string? PlaceHolder { get; set; }
 

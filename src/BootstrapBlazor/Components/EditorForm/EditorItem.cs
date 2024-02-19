@@ -128,7 +128,7 @@ public class EditorItem<TValue> : ComponentBase, IEditorItem
     /// 获得/设置 组件自定义类型参数集合 默认为 null
     /// </summary>
     [Parameter]
-    public IEnumerable<KeyValuePair<string, object?>>? ComponentParameters { get; set; }
+    public IEnumerable<KeyValuePair<string, object>>? ComponentParameters { get; set; }
 
     /// <summary>
     /// 获得/设置 placeholder 文本 默认为 null

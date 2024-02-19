@@ -83,7 +83,7 @@ public interface IEditorItem
     /// <summary>
     /// 获得/设置 组件自定义类型参数集合 默认为 null
     /// </summary>
-    IEnumerable<KeyValuePair<string, object?>>? ComponentParameters { get; set; }
+    IEnumerable<KeyValuePair<string, object>>? ComponentParameters { get; set; }
 
     /// <summary>
     /// 获得/设置 字典数据源 常用于外键自动转换为名称操作
