@@ -93,6 +93,7 @@
         .drawer-bar {
             background-color: var(--bb-drawer-bar-bg);
             position: absolute;
+            z-index: 5;
 
             .drawer-bar-body {
                 position: absolute;

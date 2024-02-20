@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
-/// 
+/// Badge 组件示例代码
 /// </summary>
 public sealed partial class Badges
 {

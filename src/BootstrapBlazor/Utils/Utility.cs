@@ -380,6 +380,11 @@ public static class Utility
             builder.AddAttribute(2, nameof(Switch.IsDisabled), true);
             builder.AddAttribute(3, nameof(Switch.DisplayText), displayName);
             builder.AddAttribute(4, nameof(Switch.ShowLabelTooltip), item.ShowLabelTooltip);
+            if (item is ITableColumn col)
+            {
+                builder.AddAttribute(5, "class", col.CssClass);
+            }
+            builder.AddMultipleAttributes(6, item.ComponentParameters);
             builder.CloseComponent();
         }
         else if (item.ComponentType == typeof(Textarea))
@@ -393,10 +398,11 @@ public static class Utility
             {
                 builder.AddAttribute(5, "rows", item.Rows);
             }
-            if (item is ITableColumn col && col.ComponentParameters != null)
+            if (item is ITableColumn col)
             {
-                builder.AddMultipleAttributes(6, col.ComponentParameters);
+                builder.AddAttribute(6, "class", col.CssClass);
             }
+            builder.AddMultipleAttributes(7, item.ComponentParameters);
             builder.CloseComponent();
         }
         else
@@ -416,7 +422,9 @@ public static class Utility
                 {
                     builder.AddAttribute(5, nameof(Display<string>.FormatString), col.FormatString);
                 }
+                builder.AddAttribute(6, "class", col.CssClass);
             }
+            builder.AddMultipleAttributes(7, item.ComponentParameters);
             builder.CloseComponent();
         }
     }
@@ -511,10 +519,7 @@ public static class Utility
 
         builder.AddMultipleAttributes(17, CreateMultipleAttributes(fieldType, model, fieldName, item));
 
-        if (item.ComponentParameters != null)
-        {
-            builder.AddMultipleAttributes(18, item.ComponentParameters);
-        }
+        builder.AddMultipleAttributes(18, item.ComponentParameters);
 
         // 设置 IsPopover
         if (componentType.GetPropertyByName(nameof(Select<string>.IsPopover)) != null)

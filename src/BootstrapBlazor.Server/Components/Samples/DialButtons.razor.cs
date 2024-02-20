@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Server.Components.Samples;
 
 /// <summary>
-/// 
+/// DialButton 组件示例代码
 /// </summary>
 public partial class DialButtons
 {
