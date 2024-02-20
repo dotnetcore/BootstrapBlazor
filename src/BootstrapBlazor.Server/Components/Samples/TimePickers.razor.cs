@@ -13,4 +13,15 @@ public partial class TimePickers
     [NotNull]
     private IStringLocalizer<TimePickers>? Localizer { get; set; }
 
+    [NotNull]
+    private ConsoleLogger? Logger { get; set; }
+
+    private TimeSpan Value { get; set; } = DateTime.Now - DateTime.Today;
+
+    private Task OnConfirm(TimeSpan ts)
+    {
+        Value = ts;
+        Logger.Log($"Value: {Value:hh\\:mm\\:ss}");
+        return Task.CompletedTask;
+    }
 }

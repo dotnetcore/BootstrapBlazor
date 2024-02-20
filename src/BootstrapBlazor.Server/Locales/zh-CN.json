@@ -2410,12 +2410,6 @@
     "Description": "用于选择或输入日期",
     "NormalTitle": "选择日",
     "NormalIntro": "以「日」为基本单位，基础的日期选择控件",
-    "ValueChangedTitle": "选择任意时间点",
-    "ValueChangedIntro": "可以选择任意时间",
-    "HasSecondsTitle": "隐藏秒数",
-    "HasSecondsIntro": "控制是否显示秒数控件",
-    "TimeTitle": "数据双向绑定",
-    "TimeIntro": "点击确认按钮时间选择框值与文本框值一致",
     "ShowIconTitle": "是否显示组件图标",
     "ShowIconIntro": "通过设置 <code>ShowIcon=\"false\" 不显示组件图标节约空间",
     "ValidateFormTitle": "客户端验证",
@@ -2464,6 +2458,16 @@
     "ValidateFormValue": "时间",
     "DateTimePickerTitle": "时间选择",
     "DateTimePickerIntro": "通过时钟表盘选择时分秒，获取当前的日期和时间。"
+  },
+  "BootstrapBlazor.Server.Components.Samples.TimePickers": {
+    "Title": "TimePicker 时间选择器",
+    "Description": "用于选择或输入时刻",
+    "OnConfirmTitle": "选择任意时间点",
+    "OnConfirmIntro": "可以选择任意时间",
+    "HasSecondsTitle": "隐藏秒数",
+    "HasSecondsIntro": "控制是否显示秒数控件",
+    "TimeTitle": "数据双向绑定",
+    "TimeIntro": "点击确认按钮时间选择框值与文本框值一致"
   },
   "BootstrapBlazor.Server.Components.Samples.Editors": {
     "EditorsTitle": "Editor 富文本框",

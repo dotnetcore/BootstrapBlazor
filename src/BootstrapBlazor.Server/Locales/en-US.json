@@ -2410,12 +2410,6 @@
     "Description": "Used to select or enter a date",
     "NormalTitle": "Select the day",
     "NormalIntro": "Select the control based on the date of the day in 「day」as the base unit",
-    "ValueChangedTitle": "Select any point in time",
-    "ValueChangedIntro": "You can choose any time",
-    "HasSecondsTitle": "Hide seconds",
-    "HasSecondsIntro": "Whether to display or hide the seconds control",
-    "TimeTitle": "Data is bound in both directions",
-    "TimeIntro": "Click the confirm button to select the box value consistent with the text box value",
     "ShowIconTitle": "Wether show the component icon",
     "ShowIconIntro": "Save space by setting<code>ShowIcon=\"false\" to not display component icons",
     "ValidateFormTitle": "Client validation",
@@ -2464,6 +2458,16 @@
     "ValidateFormValue": "DateTimePick",
     "DateTimePickerTitle": "Select the time",
     "DateTimePickerIntro": "Select the hour, minute, and second on the clock dial to obtain the current date and time."
+  },
+  "BootstrapBlazor.Server.Components.Samples.TimePickers": {
+    "Title": "TimePicker",
+    "Description": "Used to select or enter a timespan",
+    "OnConfirmTitle": "Select any point in time",
+    "OnConfirmIntro": "You can choose any time",
+    "HasSecondsTitle": "Hide seconds",
+    "HasSecondsIntro": "Whether to display or hide the seconds control",
+    "TimeTitle": "Data is bound in both directions",
+    "TimeIntro": "Click the confirm button to select the box value consistent with the text box value"
   },
   "BootstrapBlazor.Server.Components.Samples.Editors": {
     "EditorsTitle": "Editor",
