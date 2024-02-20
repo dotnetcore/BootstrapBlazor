@@ -519,10 +519,7 @@ public static class Utility
 
         builder.AddMultipleAttributes(17, CreateMultipleAttributes(fieldType, model, fieldName, item));
 
-        if (item.ComponentParameters != null)
-        {
-            builder.AddMultipleAttributes(18, item.ComponentParameters);
-        }
+        builder.AddMultipleAttributes(18, item.ComponentParameters);
 
         // 设置 IsPopover
         if (componentType.GetPropertyByName(nameof(Select<string>.IsPopover)) != null)
