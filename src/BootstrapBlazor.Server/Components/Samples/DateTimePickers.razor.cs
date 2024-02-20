@@ -31,16 +31,6 @@ public sealed partial class DateTimePickers
         return Task.CompletedTask;
     }
 
-    [NotNull]
-    private ConsoleLogger? ValueChangedLogger { get; set; }
-
-    private TimeSpan ValueChangedValue { get; set; } = DateTime.Now - DateTime.Today;
-
-    private void ValueChangedOnConfirm()
-    {
-        ValueChangedLogger.Log($"Value: {ValueChangedValue:hh\\:mm\\:ss}");
-    }
-
     /// <summary>
     /// ModelValidateValue
     /// </summary>
