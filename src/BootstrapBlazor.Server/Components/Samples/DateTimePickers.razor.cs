@@ -9,6 +9,17 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class DateTimePickers
 {
+    private DateTime DateTimePickerValue { get; set; }
+
+    [NotNull]
+    private ConsoleLogger? TimePickerLogger { get; set; }
+
+    private Task TimePickerValueChanged(DateTime dt)
+    {
+        TimePickerLogger.Log($"Value: {dt}");
+        return Task.CompletedTask;
+    }
+
     [NotNull]
     private ConsoleLogger? NormalLogger { get; set; }
 
@@ -18,16 +29,6 @@ public sealed partial class DateTimePickers
     {
         NormalLogger.Log($"Value: {Value:yyyy-MM-dd}");
         return Task.CompletedTask;
-    }
-
-    [NotNull]
-    private ConsoleLogger? ValueChangedLogger { get; set; }
-
-    private TimeSpan ValueChangedValue { get; set; } = DateTime.Now - DateTime.Today;
-
-    private void ValueChangedOnConfirm()
-    {
-        ValueChangedLogger.Log($"Value: {ValueChangedValue:hh\\:mm\\:ss}");
     }
 
     /// <summary>
@@ -41,6 +42,20 @@ public sealed partial class DateTimePickers
     private TimeSpan TimeValue { get; set; } = DateTime.Now - DateTime.Today;
 
     private TimeSpan SpanValue { get; set; } = DateTime.Now.Subtract(DateTime.Today);
+
+    private DateTime AutoCloseValue { get; set; } = DateTime.Today;
+
+    private DateTime AllowValue { get; set; } = DateTime.Today;
+
+    private DateTime SidebarValue { get; set; } = DateTime.Today;
+
+    private DateTime YearValue { get; set; } = DateTime.Today;
+
+    private DateTime MonthValue { get; set; } = DateTime.Today;
+
+    private DateTime DateValue { get; set; } = DateTime.Today;
+
+    private DateTime DateTimeValue { get; set; } = DateTime.Today;
 
     private static string FormatterSpanString(TimeSpan ts)
     {

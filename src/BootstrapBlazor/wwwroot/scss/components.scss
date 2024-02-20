@@ -20,13 +20,14 @@
 @import "../../Components/Checkbox/Checkbox.razor.scss";
 @import "../../Components/Checkbox/CheckboxList.razor.scss";
 @import "../../Components/Circle/Circle.razor.scss";
+@import "../../Components/ClockPicker/ClockPicker.razor.scss";
 @import "../../Components/Collapse/Collapse.razor.scss";
 @import "../../Components/ColorPicker/ColorPicker.razor.scss";
 @import "../../Components/Console/Console.razor.scss";
 @import "../../Components/Console/ConsoleLogger.razor.scss";
 @import "../../Components/ContextMenu/ContextMenu.razor.scss";
+@import "../../Components/DateTimePicker/DatePickerBody.razor.scss";
 @import "../../Components/DateTimePicker/DateTimePicker.razor.scss";
-@import "../../Components/DateTimePicker/TimePickerBody.razor.scss";
 @import "../../Components/DateTimeRange/DateTimeRange.razor.scss";
 @import "../../Components/Dialog/IconDialog.razor.scss";
 @import "../../Components/Divider/Divider.razor.scss";
@@ -89,6 +90,8 @@
 @import "../../Components/Tag/Tag.razor.scss";
 @import "../../Components/Timeline/Timeline.razor.scss";
 @import "../../Components/Timer/Timer.razor.scss";
+@import "../../Components/TimePicker/TimePicker.razor.scss";
+@import "../../Components/TimePicker/TimePickerBody.razor.scss";
 @import "../../Components/Toast/ToastContainer.razor.scss";
 @import "../../Components/Toggle/Toggle.razor.scss";
 @import "../../Components/Tooltip/Tooltip.razor.scss";

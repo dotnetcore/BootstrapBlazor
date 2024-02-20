@@ -8,7 +8,7 @@ using System.Reflection;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-///
+/// DateTimeRange 时间范围组件
 /// </summary>
 public partial class DateTimeRange
 {
@@ -17,6 +17,7 @@ public partial class DateTimeRange
     /// </summary>
     private string? ClassString => CssBuilder.Default("select datetime-range form-control")
         .AddClass("disabled", IsDisabled)
+        .AddClass("has-time", ViewMode == DatePickerViewMode.DateTime)
         .AddClass(ValidCss)
         .AddClassFromAttributes(AdditionalAttributes)
         .Build();
@@ -36,11 +37,15 @@ public partial class DateTimeRange
 
     private DateTime StartValue { get; set; }
 
-    private string? StartValueString => Value.Start != DateTime.MinValue ? Value.Start.ToString(DateFormat) : null;
+    private string? StartValueString => Value.Start != DateTime.MinValue
+        ? GetValueString(Value.Start)
+        : null;
 
     private DateTime EndValue { get; set; }
 
-    private string? EndValueString => Value.End != DateTime.MinValue ? Value.End.ToString(DateFormat) : null;
+    private string? EndValueString => Value.End != DateTime.MinValue
+        ? GetValueString(Value.End)
+        : null;
 
     [NotNull]
     private string? StartPlaceHolderText { get; set; }
@@ -51,14 +56,17 @@ public partial class DateTimeRange
     [NotNull]
     private string? SeparateText { get; set; }
 
-    [NotNull]
-    private string? DateFormat { get; set; }
-
     /// <summary>
     /// 获得/设置 是否点击快捷侧边栏自动关闭弹窗 默认 false
     /// </summary>
     [Parameter]
     public bool AutoCloseClickSideBar { get; set; }
+
+    /// <summary>
+    /// 获得/设置 子组件模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// 获得/设置 清空按钮文字
@@ -72,6 +80,12 @@ public partial class DateTimeRange
     /// </summary>
     [Parameter]
     public string? ClearIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 组件显示模式 默认为显示年月日模式
+    /// </summary>
+    [Parameter]
+    public DatePickerViewMode ViewMode { get; set; } = DatePickerViewMode.Date;
 
     /// <summary>
     /// 获得/设置 今天按钮文字
@@ -102,7 +116,19 @@ public partial class DateTimeRange
     /// 获得/设置 是否允许为空 默认为 true
     /// </summary>
     [Parameter]
-    public bool AllowNull { get; set; } = true;
+    [Obsolete("已过期，请使用 ShowClearButton 代替")]
+    [ExcludeFromCodeCoverage]
+    public bool AllowNull
+    {
+        get => ShowClearButton;
+        set => ShowClearButton = value;
+    }
+
+    /// <summary>
+    /// 获得/设置 是否显示清空按钮 默认 true
+    /// </summary>
+    [Parameter]
+    public bool ShowClearButton { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 组件图标
@@ -127,7 +153,7 @@ public partial class DateTimeRange
     /// </summary>
     [Parameter]
     [NotNull]
-    public IEnumerable<DateTimeRangeSidebarItem>? SidebarItems { get; set; }
+    public List<DateTimeRangeSidebarItem>? SidebarItems { get; set; }
 
     /// <summary>
     /// 点击确认按钮回调委托方法
@@ -141,6 +167,27 @@ public partial class DateTimeRange
     [Parameter]
     public Func<DateTimeRangeValue, Task>? OnClearValue { get; set; }
 
+    /// <summary>
+    /// 获得/设置 时间格式化字符串 默认值为 "HH:mm:ss"
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? TimeFormat { get; set; }
+
+    /// <summary>
+    /// 获得/设置 时间格式化字符串 默认值为 "yyyy-MM-dd"
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? DateFormat { get; set; }
+
+    /// <summary>
+    /// 获得/设置 时间格式化字符串 默认值为 "yyyy-MM-dd HH:mm:ss"
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? DateTimeFormat { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimeRange>? Localizer { get; set; }
@@ -153,53 +200,13 @@ public partial class DateTimeRange
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
-    /// <summary>
-    /// OnParametersSet 方法
-    /// </summary>
-    protected override void OnParametersSet()
-    {
-        base.OnParametersSet();
-
-        Value ??= new DateTimeRangeValue();
-
-        StartValue = Value.Start;
-        EndValue = Value.End;
-
-        if (StartValue == DateTime.MinValue) StartValue = DateTime.Today;
-        if (EndValue == DateTime.MinValue) EndValue = StartValue.AddMonths(1);
-
-        SelectedValue.Start = StartValue;
-        SelectedValue.End = EndValue;
-
-        StartPlaceHolderText ??= Localizer[nameof(StartPlaceHolderText)];
-        EndPlaceHolderText ??= Localizer[nameof(EndPlaceHolderText)];
-        SeparateText ??= Localizer[nameof(SeparateText)];
-
-        ClearButtonText ??= Localizer[nameof(ClearButtonText)];
-        ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
-        TodayButtonText ??= Localizer[nameof(TodayButtonText)];
-
-        DateFormat ??= Localizer[nameof(DateFormat)];
-
-        Icon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimeRangeIcon);
-        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimeRangeClearIcon); ;
-
-        if (StartValue.ToString("yyyy-MM") == EndValue.ToString("yyyy-MM"))
-        {
-            StartValue = StartValue.AddMonths(-1);
-        }
-
-        SidebarItems ??= new DateTimeRangeSidebarItem[]
-        {
-            new() { Text = Localizer["Last7Days"], StartDateTime = DateTime.Today.AddDays(-7), EndDateTime = DateTime.Today },
-            new() { Text = Localizer["Last30Days"], StartDateTime = DateTime.Today.AddDays(-30), EndDateTime = DateTime.Today },
-            new() { Text = Localizer["ThisMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day), EndDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1).AddDays(-1) },
-            new() { Text = Localizer["LastMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddMonths(-1), EndDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddDays(-1) },
-        };
-    }
+    private string? ValueClassString => CssBuilder.Default("datetime-range-input")
+        .AddClass("datetime", ViewMode == DatePickerViewMode.DateTime)
+        .AddClass("disabled", IsDisabled)
+        .Build();
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
     protected override void OnInitialized()
     {
@@ -224,18 +231,77 @@ public partial class DateTimeRange
         }
     }
 
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        // TODO: 临时禁用 DateTime 模式
+        if (ViewMode == DatePickerViewMode.DateTime)
+        {
+            ViewMode = DatePickerViewMode.Date;
+        }
+
+        StartPlaceHolderText ??= Localizer[nameof(StartPlaceHolderText)];
+        EndPlaceHolderText ??= Localizer[nameof(EndPlaceHolderText)];
+        SeparateText ??= Localizer[nameof(SeparateText)];
+
+        ClearButtonText ??= Localizer[nameof(ClearButtonText)];
+        ConfirmButtonText ??= Localizer[nameof(ConfirmButtonText)];
+        TodayButtonText ??= Localizer[nameof(TodayButtonText)];
+
+        DateFormat ??= Localizer[nameof(DateFormat)];
+        DateTimeFormat ??= Localizer[nameof(DateTimeFormat)];
+
+        Icon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimeRangeIcon);
+        ClearIcon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimeRangeClearIcon); ;
+
+        SidebarItems ??=
+        [
+            new() { Text = Localizer["Last7Days"], StartDateTime = DateTime.Today.AddDays(-7), EndDateTime = DateTime.Today.AddDays(1).AddSeconds(-1) },
+            new() { Text = Localizer["Last30Days"], StartDateTime = DateTime.Today.AddDays(-30), EndDateTime = DateTime.Today.AddDays(1).AddSeconds(-1) },
+            new() { Text = Localizer["ThisMonth"], StartDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day), EndDateTime = DateTime.Today.AddDays(1 - DateTime.Today.Day).AddMonths(1).AddSeconds(-1) },
+            new() { Text = Localizer["LastMonth"], StartDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddMonths(-1), EndDateTime = DateTime.Today.AddDays(1- DateTime.Today.Day).AddSeconds(-1) },
+        ];
+
+        Value ??= new DateTimeRangeValue();
+
+        EndValue = Value.End == DateTime.MinValue ? GetEndDateTime(DateTime.Today) : Value.End;
+        StartValue = EndValue.AddMonths(-1).Date;
+
+        SelectedValue.Start = Value.Start;
+        SelectedValue.End = Value.End;
+    }
+
     private async Task OnClickSidebarItem(DateTimeRangeSidebarItem item)
     {
         SelectedValue.Start = item.StartDateTime;
         SelectedValue.End = item.EndDateTime;
+
         StartValue = item.StartDateTime;
-        EndValue = item.EndDateTime;
+        EndValue = StartValue.GetSafeMonthDateTime(1).Date + SelectedValue.End.TimeOfDay;
 
         if (AutoCloseClickSideBar)
         {
             await InvokeVoidAsync("hide", Id);
             await ClickConfirmButton();
         }
+    }
+
+    private string GetValueString(DateTime value)
+    {
+        string? ret;
+        if (ViewMode == DatePickerViewMode.DateTime)
+        {
+            ret = value.ToString(DateTimeFormat);
+        }
+        else
+        {
+            ret = value.ToString(DateFormat);
+        }
+        return ret;
     }
 
     /// <summary>
@@ -264,15 +330,32 @@ public partial class DateTimeRange
         }
     }
 
+    private Task OnStartDateChanged(DateTime value)
+    {
+        StartValue = value.Date + StartValue.TimeOfDay;
+        EndValue = GetEndDateTime(StartValue.AddMonths(1).Date);
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task OnEndDateChanged(DateTime value)
+    {
+        EndValue = GetEndDateTime(value);
+        StartValue = value.AddMonths(-1).Date + StartValue.TimeOfDay;
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
     /// <summary>
     /// 点击 确认时调用此方法
     /// </summary>
     private async Task ClickTodayButton()
     {
         SelectedValue.Start = DateTime.Today;
-        SelectedValue.End = DateTime.Today;
-        StartValue = DateTime.Today;
-        EndValue = StartValue.AddMonths(1);
+        SelectedValue.End = GetEndDateTime(DateTime.Today);
+
+        EndValue = SelectedValue.End;
+        StartValue = GetSafeStartValue();
         await ClickConfirmButton();
     }
 
@@ -295,7 +378,7 @@ public partial class DateTimeRange
             }
         }
         Value.Start = SelectedValue.Start;
-        Value.End = SelectedValue.End.Date.AddDays(1).AddSeconds(-1);
+        Value.End = GetEndDateTime(SelectedValue.End);
 
         if (ValueChanged.HasDelegate)
         {
@@ -316,35 +399,19 @@ public partial class DateTimeRange
     }
 
     /// <summary>
-    /// 更新年时间方法
-    /// </summary>
-    /// <param name="d"></param>
-    internal void UpdateStart(DateTime d)
-    {
-        StartValue = d;
-        EndValue = StartValue.AddMonths(1);
-        StateHasChanged();
-    }
-
-    /// <summary>
-    /// 更新年时间方法
-    /// </summary>
-    /// <param name="d"></param>
-    internal void UpdateEnd(DateTime d)
-    {
-        EndValue = d;
-        StartValue = EndValue.AddMonths(-1);
-        StateHasChanged();
-    }
-
-    /// <summary>
     /// 更新值方法
     /// </summary>
     /// <param name="d"></param>
-    internal void UpdateValue(DateTime d)
+    private void UpdateValue(DateTime d)
     {
-        if (SelectedValue.End == DateTime.MinValue)
+        if (SelectedValue.Start == DateTime.MinValue)
         {
+            // 开始时间为空
+            SelectedValue.Start = d;
+        }
+        else if (SelectedValue.End == DateTime.MinValue)
+        {
+            // 结束时间为空
             if (d < SelectedValue.Start)
             {
                 SelectedValue.End = SelectedValue.Start;
@@ -357,23 +424,11 @@ public partial class DateTimeRange
         }
         else
         {
+            // 开始时间、结束时间均不为空
             SelectedValue.Start = d;
             SelectedValue.End = DateTime.MinValue;
         }
-
-        var startDate = StartValue.AddDays(1 - StartValue.Day);
-        if (d < startDate)
-        {
-            UpdateStart(d);
-        }
-        else if (d > startDate.AddMonths(2).AddDays(-1))
-        {
-            UpdateEnd(d);
-        }
-        else
-        {
-            StateHasChanged();
-        }
+        StateHasChanged();
     }
 
     /// <summary>
@@ -382,4 +437,8 @@ public partial class DateTimeRange
     /// <param name="propertyValue"></param>
     /// <returns></returns>
     public override bool IsComplexValue(object? propertyValue) => false;
+
+    private static DateTime GetEndDateTime(DateTime dt) => dt.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
+
+    private DateTime GetSafeStartValue() => SelectedValue.Start.Date == SelectedValue.End.Date ? SelectedValue.Start.GetSafeMonthDateTime(-1) : SelectedValue.Start.Date;
 }
