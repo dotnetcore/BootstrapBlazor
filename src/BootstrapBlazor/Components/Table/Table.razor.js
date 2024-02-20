@@ -276,7 +276,7 @@ const setResizeListener = table => {
                         const tableEl = curCol.closest('table')
                         let width = tableWidth + marginX
                         if (t.closest('.table-fixed-body')) {
-                            width = width - 6
+                            width = width - table.scrollWidth;
                         }
                         tableEl.setAttribute('style', `width: ${width}px;`)
                     }
