@@ -445,7 +445,7 @@ internal static class MenusLocalizerExtensions
                 },
                 new()
                 {
-                    Text = Localizer["TimerPicker"],
+                    Text = Localizer["TimePicker"],
                     Url = "time-picker"
                 },
                 new()

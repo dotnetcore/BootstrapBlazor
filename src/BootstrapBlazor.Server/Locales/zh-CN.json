@@ -4538,6 +4538,8 @@
     "HtmlRenderer": "Html 转换器  HtmlRenderer",
     "Html2Pdf": "Html 转 Pdf Html2Pdf",
     "ContextMenu": "右键菜单 ContextMenu",
+    "ClockPicker": "时间选择器 ClockPicker",
+    "TimePicker": "时间选择器 TimePicker",
     "DockViewComponents": "可停靠布局",
     "DockViewIndex": "简介",
     "DockViewColumn": "列布局",

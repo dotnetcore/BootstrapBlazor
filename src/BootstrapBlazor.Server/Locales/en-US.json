@@ -4538,6 +4538,8 @@
     "HtmlRenderer": "HtmlRenderer",
     "Html2Pdf": "Html2Pdf",
     "ContextMenu": "ContextMenu",
+    "ClockPicker": "ClockPicker",
+    "TimePicker": "TimePicker",
     "DockViewComponents": "DockView",
     "DockViewIndex": "Overview",
     "DockViewColumn": "Column",
