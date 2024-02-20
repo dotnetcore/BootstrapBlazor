@@ -18,6 +18,8 @@ public partial class TimePickers
 
     private TimeSpan Value { get; set; } = DateTime.Now - DateTime.Today;
 
+    private TimeSpan SecondValue { get; set; } = TimeSpan.FromMinutes(1.5);
+
     private Task OnConfirm(TimeSpan ts)
     {
         Value = ts;

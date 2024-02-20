@@ -53,7 +53,7 @@ public partial class TimePickerBody
     public string? ConfirmButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示秒
+    /// 获得/设置 是否显示秒 默认为 true
     /// </summary>
     [Parameter]
     [NotNull]

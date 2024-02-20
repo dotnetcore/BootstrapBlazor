@@ -8,3 +8,14 @@
     <TimePickerBody Value="@Value" OnConfirm="OnConfirm" />
     <ConsoleLogger @ref="Logger" class="mt-3" />
 </DemoBlock>
+
+<DemoBlock Title="@Localizer["HasSecondsTitle"]" Introduction="@Localizer["HasSecondsIntro"]" Name="HasSeconds">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <TimePickerBody @bind-Value="@SecondValue" HasSeconds="false" />
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display Value="@SecondValue" FormatString="hh\:mm" />
+        </div>
+    </div>
+</DemoBlock>
