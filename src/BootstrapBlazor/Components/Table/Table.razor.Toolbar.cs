@@ -485,7 +485,6 @@ public partial class Table<TItem>
             if (DynamicContext != null)
             {
                 // 数据源为 DataTable 新建后重建行与列
-                // TODO: 新建行在数据源 DataTable 中
                 await DynamicContext.AddAsync(SelectedRows.OfType<IDynamicObject>());
                 ResetDynamicContext();
                 SelectedRows.Clear();
