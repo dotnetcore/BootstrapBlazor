@@ -1,11 +1,45 @@
 ﻿@page "/clock-picker"
 
+<style>
+    .custom-clock {
+        border: 1px solid var(--bs-border-color);
+        padding: .5rem;
+        border-radius: var(--bs-border-radius);
+        width: 320px;
+    }
+</style>
+
 <h3>@Localizer["Title"]</h3>
 
 <h4>@Localizer["Description"]</h4>
 
 <DemoBlock Title="@Localizer["BindValueTitle"]" Introduction="@Localizer["BindValueIntro"]" Name="BindValue">
-    <div class="border p-2" style="border-radius: var(--bs-border-radius); width: 320px;">
-        <ClockPicker @bind-Value="@Value" />
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <div class="custom-clock">
+                <ClockPicker @bind-Value="@Value" IsAutoSwitch="_autoSwitch" />
+            </div>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Switch @bind-Value="_autoSwitch" ShowLabel="true" DisplayText="@Localizer["AutoSwitchText"]"></Switch>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["HasSecondsTitle"]" Introduction="@Localizer["HasSecondsIntro"]" Name="ShowSecond">
+    <div class="custom-clock">
+        <ClockPicker Value="@SecondValue" ShowSecond="false" />
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ShowMinuteTitle"]" Introduction="@Localizer["ShowMinuteIntro"]" Name="ShowMinute">
+    <div class="custom-clock">
+        <ClockPicker Value="@MinuteValue" ShowMinute="false" />
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["ShowClockScaleTitle"]" Introduction="@Localizer["ShowClockScaleIntro"]" Name="ShowClockScale">
+    <div class="custom-clock">
+        <ClockPicker Value="@ScaleValue" ShowClockScale="true" />
     </div>
 </DemoBlock>

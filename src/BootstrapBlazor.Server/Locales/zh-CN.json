@@ -2473,11 +2473,14 @@
     "Title": "ClockPicker 时间选择器",
     "Description": "通过拖动表针选择时间",
     "BindValueTitle": "数据双向绑定",
-    "BindValueIntro": "可以选择任意时间，拖动结束后默认自动切换",
-    "HasSecondsTitle": "隐藏秒数",
-    "HasSecondsIntro": "控制是否显示秒数控件",
-    "TimeTitle": "数据双向绑定",
-    "TimeIntro": "点击确认按钮时间选择框值与文本框值一致"
+    "BindValueIntro": "通过设置 <code>IsAutoSwitch=\"false\"</code> 禁止小时、分钟、秒表盘自动切换功能",
+    "AutoSwitchText": "是否自动切换表盘",
+    "HasSecondsTitle": "不设置秒数",
+    "HasSecondsIntro": "通过设置 <code>ShowSecond=\"false\"</code> 不显示秒针表盘",
+    "ShowMinuteTitle": "不设置分钟",
+    "ShowMinuteIntro": "通过设置 <code>ShowMinute=\"false\"</code> 不显示分针表盘",
+    "ShowClockScaleTitle": "显示表盘刻度",
+    "ShowClockScaleIntro": "通过设置 <code>ShowClockScale=\"true\"</code> 显示表盘刻度"
   },
   "BootstrapBlazor.Server.Components.Samples.Editors": {
     "EditorsTitle": "Editor 富文本框",

@@ -14,4 +14,12 @@ public partial class ClockPickers
     private IStringLocalizer<ClockPickers>? Localizer { get; set; }
 
     private TimeSpan Value { get; set; } = DateTime.Now - DateTime.Today;
+
+    private TimeSpan SecondValue { get; set; } = TimeSpan.FromHours(12.5);
+
+    private TimeSpan MinuteValue { get; set; } = TimeSpan.FromHours(12);
+
+    private TimeSpan ScaleValue { get; set; } = TimeSpan.FromHours(12.5);
+
+    private bool _autoSwitch = false;
 }

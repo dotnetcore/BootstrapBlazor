@@ -2470,14 +2470,17 @@
     "TimeIntro": "Click the confirm button to select the box value consistent with the text box value"
   },
   "BootstrapBlazor.Server.Components.Samples.ClockPickers": {
-    "Title": "TimePicker 时间选择器",
-    "Description": "用于选择或输入时刻",
-    "BindValueTitle": "选择任意时间点",
-    "BindValueIntro": "可以选择任意时间",
-    "HasSecondsTitle": "隐藏秒数",
-    "HasSecondsIntro": "控制是否显示秒数控件",
-    "TimeTitle": "数据双向绑定",
-    "TimeIntro": "点击确认按钮时间选择框值与文本框值一致"
+    "Title": "ClockPicker",
+    "Description": "Select a time by dragging the watch needle",
+    "BindValueTitle": "bind",
+    "BindValueIntro": "By setting<code>IsAutoSwitch=\"false\"</code> to disable automatic switching of hour, minute, and stopwatch dial functions",
+    "AutoSwitchText": "Whether to automatically switch the dial",
+    "HasSecondsTitle": "Do not set the number of seconds",
+    "HasSecondsIntro": "By setting<code>ShowSecond=\"false\"</code> to not display the second hand dial",
+    "ShowMinuteTitle": "Do not set minutes",
+    "ShowMinuteIntro": "By setting<code>ShowMinute=\"false\"</code>to not display the minute dial",
+    "ShowClockScaleTitle": "Display dial scale",
+    "ShowClockScaleIntro": "By setting<code>ShowClockScale=\"true\"</code> to display the dial scale"
   },
   "BootstrapBlazor.Server.Components.Samples.Editors": {
     "EditorsTitle": "Editor",
