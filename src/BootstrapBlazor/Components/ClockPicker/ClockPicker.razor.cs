@@ -19,37 +19,38 @@ public partial class ClockPicker
         .Build();
 
     /// <summary>
-    /// 是否显示表盘刻度 默认 false
+    /// 获得/设置 是否显示表盘刻度 默认 false
     /// </summary>
     [Parameter]
     public bool ShowClockScale { get; set; }
 
     /// <summary>
-    /// 是否显示秒 默认 true
+    /// 获得/设置 是否显示秒 默认 true
     /// </summary>
     [Parameter]
     public bool ShowSecond { get; set; } = true;
 
     /// <summary>
-    /// 是否显示分钟 默认 true
+    /// 获得/设置 是否显示分钟 默认 true
     /// </summary>
     [Parameter]
     public bool ShowMinute { get; set; } = true;
 
     /// <summary>
-    /// 是否自动切换 小时、分钟、秒 自动切换 默认 true
+    /// 获得/设置 是否自动切换 小时、分钟、秒 自动切换 默认 true
     /// </summary>
     [Parameter]
     public bool IsAutoSwitch { get; set; } = true;
 
     [CascadingParameter]
+    [NotNull]
     private DatePickerBody? DatePicker { get; set; }
 
     [Inject]
     [NotNull]
     private IStringLocalizer<ClockPicker>? Localizer { get; set; }
 
-    private string? CurrentDateString => DatePicker?.Value.ToString(DatePicker.DateFormat);
+    private string? CurrentDateString => DatePicker.Value.ToString(DatePicker.DateFormat);
 
     /// <summary>
     /// is hour or min or sec mode
@@ -118,24 +119,20 @@ public partial class ClockPicker
     }
 
     /// <summary>
-    /// 设置小时调用此方法
+    /// JSInvoke 调用此方法
     /// </summary>
     [JSInvokable]
     public void SetTime(int hour, int minute, int second)
     {
         if (IsAutoSwitch)
         {
-            switch (Mode)
+            if (Mode == TimeMode.Hour && ShowMinute)
             {
-                case TimeMode.Hour:
-                    Mode = TimeMode.Minute;
-                    break;
-                case TimeMode.Minute:
-                    Mode = TimeMode.Second;
-                    break;
-                case TimeMode.Second:
-                default:
-                    break;
+                Mode = TimeMode.Minute;
+            }
+            else if (Mode == TimeMode.Minute && ShowSecond)
+            {
+                Mode = TimeMode.Second;
             }
         }
 
@@ -167,7 +164,7 @@ public partial class ClockPicker
     private void SwitchView()
     {
         Mode = TimeMode.Hour;
-        DatePicker?.SwitchDateView();
+        DatePicker.SwitchDateView();
     }
 
     private enum TimeMode

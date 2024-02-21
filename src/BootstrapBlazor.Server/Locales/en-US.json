@@ -2469,6 +2469,23 @@
     "TimeTitle": "Data is bound in both directions",
     "TimeIntro": "Click the confirm button to select the box value consistent with the text box value"
   },
+  "BootstrapBlazor.Server.Components.Samples.ClockPickers": {
+    "Title": "ClockPicker",
+    "Description": "Select a time by dragging the watch needle",
+    "BindValueTitle": "bind",
+    "BindValueIntro": "By setting<code>IsAutoSwitch=\"false\"</code> to disable automatic switching of hour, minute, and stopwatch dial functions",
+    "AutoSwitchText": "Whether to automatically switch the dial",
+    "HasSecondsTitle": "Do not set the number of seconds",
+    "HasSecondsIntro": "By setting<code>ShowSecond=\"false\"</code> to not display the second hand dial",
+    "ShowMinuteTitle": "Do not set minutes",
+    "ShowMinuteIntro": "By setting<code>ShowMinute=\"false\"</code>to not display the minute dial",
+    "ShowClockScaleTitle": "Display dial scale",
+    "ShowClockScaleIntro": "By setting<code>ShowClockScale=\"true\"</code> to display the dial scale",
+    "IsAutoSwitchAttr": "Does it automatically switch between hours, minutes, and seconds",
+    "ShowClockScaleAttr": "Is the dial scale displayed",
+    "ShowMinuteAttr": "Is the minute displayed",
+    "ShowSecondAttr": "Is seconds displayed"
+  },
   "BootstrapBlazor.Server.Components.Samples.Editors": {
     "EditorsTitle": "Editor",
     "EditorsDescription": "Convert the entered text into <code>html</code> code snippets",

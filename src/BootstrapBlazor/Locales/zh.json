@@ -352,7 +352,7 @@
     "AscText": "升序",
     "DescText": "降序"
   },
-  "BootstrapBlazor.Components.TimePickerPanel": {
+  "BootstrapBlazor.Components.ClockPicker": {
     "AMText": "上午",
     "PMText": "下午"
   }

@@ -214,6 +214,10 @@
             }
         }
     }
+
+    .clock-panel-body {
+        width: var(--bb-picker-panel-body-width);
+    }
 }
 
 .popover-body {
