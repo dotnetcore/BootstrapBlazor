@@ -31,23 +31,22 @@ public class TimePickerSettingTest : BootstrapBlazorTestBase
     [Fact]
     public void RangeSetting_Ok()
     {
-        // TODO: 未实现
-        //var cut = Context.RenderComponent<DateTimeRange>(pb =>
-        //{
-        //    pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
-        //    pb.AddChildContent<TimePickerSetting>(pb =>
-        //    {
-        //        pb.Add(a => a.ShowMinute, false);
-        //        pb.Add(a => a.ShowSecond, false);
-        //        pb.Add(a => a.ShowClockScale, true);
-        //        pb.Add(a => a.IsAutoSwitch, false);
-        //    });
-        //});
+        var cut = Context.RenderComponent<DateTimeRange>(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.AddChildContent<TimePickerSetting>(pb =>
+            {
+                pb.Add(a => a.ShowMinute, false);
+                pb.Add(a => a.ShowSecond, false);
+                pb.Add(a => a.ShowClockScale, true);
+                pb.Add(a => a.IsAutoSwitch, false);
+            });
+        });
 
-        //var picker = cut.FindComponent<TimePickerPanel>();
-        //Assert.False(picker.Instance.ShowMinute);
-        //Assert.False(picker.Instance.ShowSecond);
-        //Assert.False(picker.Instance.IsAutoSwitch);
-        //Assert.True(picker.Instance.ShowClockScale);
+        var picker = cut.FindComponent<ClockPicker>();
+        Assert.False(picker.Instance.ShowMinute);
+        Assert.False(picker.Instance.ShowSecond);
+        Assert.False(picker.Instance.IsAutoSwitch);
+        Assert.True(picker.Instance.ShowClockScale);
     }
 }
