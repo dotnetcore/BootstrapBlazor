@@ -2480,7 +2480,11 @@
     "ShowMinuteTitle": "不设置分钟",
     "ShowMinuteIntro": "通过设置 <code>ShowMinute=\"false\"</code> 不显示分针表盘",
     "ShowClockScaleTitle": "显示表盘刻度",
-    "ShowClockScaleIntro": "通过设置 <code>ShowClockScale=\"true\"</code> 显示表盘刻度"
+    "ShowClockScaleIntro": "通过设置 <code>ShowClockScale=\"true\"</code> 显示表盘刻度",
+    "IsAutoSwitchAttr": "是否自动切换 小时、分钟、秒 自动切换",
+    "ShowClockScaleAttr": "是否显示表盘刻度",
+    "ShowMinuteAttr": "是否显示分钟",
+    "ShowSecondAttr": "是否显示秒"
   },
   "BootstrapBlazor.Server.Components.Samples.Editors": {
     "EditorsTitle": "Editor 富文本框",

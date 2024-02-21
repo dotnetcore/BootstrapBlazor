@@ -2480,7 +2480,11 @@
     "ShowMinuteTitle": "Do not set minutes",
     "ShowMinuteIntro": "By setting<code>ShowMinute=\"false\"</code>to not display the minute dial",
     "ShowClockScaleTitle": "Display dial scale",
-    "ShowClockScaleIntro": "By setting<code>ShowClockScale=\"true\"</code> to display the dial scale"
+    "ShowClockScaleIntro": "By setting<code>ShowClockScale=\"true\"</code> to display the dial scale",
+    "IsAutoSwitchAttr": "Does it automatically switch between hours, minutes, and seconds",
+    "ShowClockScaleAttr": "Is the dial scale displayed",
+    "ShowMinuteAttr": "Is the minute displayed",
+    "ShowSecondAttr": "Is seconds displayed"
   },
   "BootstrapBlazor.Server.Components.Samples.Editors": {
     "EditorsTitle": "Editor",
