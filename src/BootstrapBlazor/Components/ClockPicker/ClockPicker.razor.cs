@@ -43,13 +43,14 @@ public partial class ClockPicker
     public bool IsAutoSwitch { get; set; } = true;
 
     [CascadingParameter]
+    [NotNull]
     private DatePickerBody? DatePicker { get; set; }
 
     [Inject]
     [NotNull]
     private IStringLocalizer<ClockPicker>? Localizer { get; set; }
 
-    private string? CurrentDateString => DatePicker?.Value.ToString(DatePicker.DateFormat);
+    private string? CurrentDateString => DatePicker.Value.ToString(DatePicker.DateFormat);
 
     /// <summary>
     /// is hour or min or sec mode
@@ -163,7 +164,7 @@ public partial class ClockPicker
     private void SwitchView()
     {
         Mode = TimeMode.Hour;
-        DatePicker?.SwitchDateView();
+        DatePicker.SwitchDateView();
     }
 
     private enum TimeMode
