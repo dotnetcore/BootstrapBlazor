@@ -10,9 +10,23 @@
         }
         <span class="bb-time-text hour" @onclick="() => SetMode(TimeMode.Hour)">@HourValue</span>
         <span>:</span>
-        <span class="bb-time-text minute" @onclick="() => SetMode(TimeMode.Minute)">@Value.Minutes.ToString("D2")</span>
+        @if(ShowMinute)
+        {
+            <span class="bb-time-text minute" @onclick="() => SetMode(TimeMode.Minute)">@Value.Minutes.ToString("D2")</span>
+        }
+        else
+        {
+            <span class="bb-time-text minute">@Value.Minutes.ToString("D2")</span>
+        }
         <span>:</span>
-        <span class="bb-time-text second" @onclick="() => SetMode(TimeMode.Second)">@Value.Seconds.ToString("D2")</span>
+        @if(ShowMinute && ShowSecond)
+        {
+            <span class="bb-time-text second" @onclick="() => SetMode(TimeMode.Second)">@Value.Seconds.ToString("D2")</span>
+        }
+        else
+        {
+            <span class="bb-time-text second">@Value.Seconds.ToString("D2")</span>
+        }
     </div>
     <div class="bb-time-body">
         @if (ShowClockScale)

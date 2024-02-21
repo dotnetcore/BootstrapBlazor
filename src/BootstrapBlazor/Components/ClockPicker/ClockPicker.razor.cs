@@ -118,24 +118,20 @@ public partial class ClockPicker
     }
 
     /// <summary>
-    /// 设置小时调用此方法
+    /// JSInvoke 调用此方法
     /// </summary>
     [JSInvokable]
     public void SetTime(int hour, int minute, int second)
     {
         if (IsAutoSwitch)
         {
-            switch (Mode)
+            if (Mode == TimeMode.Hour && ShowMinute)
             {
-                case TimeMode.Hour:
-                    Mode = TimeMode.Minute;
-                    break;
-                case TimeMode.Minute:
-                    Mode = TimeMode.Second;
-                    break;
-                case TimeMode.Second:
-                default:
-                    break;
+                Mode = TimeMode.Minute;
+            }
+            else if (Mode == TimeMode.Minute && ShowSecond)
+            {
+                Mode = TimeMode.Second;
             }
         }
 
