@@ -532,6 +532,7 @@ public partial class DatePickerBody
         }
     }
 
+    [ExcludeFromCodeCoverage]
     private async Task OnTimeChanged(TimeSpan time)
     {
         CurrentTime = time;
