@@ -192,7 +192,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void OnConfirm_Ok()
+    public async Task OnConfirm_Ok()
     {
         var value = false;
         var cut = Context.RenderComponent<DateTimeRange>(pb =>
@@ -208,7 +208,7 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
             });
         });
 
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             // 选择开始未选择结束
             cut.Find(".cell").Click();
@@ -228,27 +228,38 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         Assert.True(DateTime.TryParseExact(input.GetAttribute("Value"), "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var _));
 
         // datetime
-        //cut.SetParametersAndRender(pb =>
-        //{
-        //    pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
-        //    pb.Add(a => a.DateTimeFormat, "MM/dd/yyyy HH:mm:ss");
-        //});
-        //cut.InvokeAsync(() =>
-        //{
-        //    // 选择开始未选择结束
-        //    cut.Find(".cell").Click();
-        //    var cells = cut.FindAll(".is-confirm");
-        //    cells.First(s => s.TextContent == "确定").Click();
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.Add(a => a.DateTimeFormat, "MM/dd/yyyy HH:mm:ss");
+        });
+        await cut.InvokeAsync(() =>
+        {
+            // 选择开始未选择结束
+            cut.Find(".cell").Click();
+            var cells = cut.FindAll(".is-confirm");
+            cells.First(s => s.TextContent == "确定").Click();
 
-        //    // 选择时间大于当前时间
-        //    cells = cut.FindAll(".date-table .cell");
-        //    cells[cells.Count - 1].Click();
-        //    cells = cut.FindAll(".is-confirm");
-        //    cells.First(s => s.TextContent == "确定").Click();
-        //});
-        //input = cut.Find(".datetime-range-input");
-        //Assert.True(input.ClassList.Contains("datetime"));
-        //Assert.True(DateTime.TryParseExact(input.GetAttribute("Value"), "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out var _));
+            // 选择时间大于当前时间
+            cells = cut.FindAll(".date-table .cell");
+            cells[cells.Count - 1].Click();
+            cells = cut.FindAll(".is-confirm");
+            cells.First(s => s.TextContent == "确定").Click();
+        });
+        input = cut.Find(".datetime-range-input");
+        Assert.True(input.ClassList.Contains("datetime"));
+        Assert.True(DateTime.TryParseExact(input.GetAttribute("Value"), "MM/dd/yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out var _));
+
+        // timeformat
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.TimeFormat, "hhmmss");
+        });
+        var labels = cut.FindAll(".picker-panel-header-label");
+        Assert.Equal(6, labels.Count);
+
+        var timeLabel = labels[2];
+        timeLabel.MarkupMatches("<span role=\"button\" class=\"picker-panel-header-label\" diff:ignore>00000</span>");
     }
 
     [Fact]
