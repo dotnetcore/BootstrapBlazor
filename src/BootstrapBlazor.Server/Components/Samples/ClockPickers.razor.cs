@@ -13,4 +13,5 @@ public partial class ClockPickers
     [NotNull]
     private IStringLocalizer<ClockPickers>? Localizer { get; set; }
 
+    private TimeSpan Value { get; set; } = DateTime.Now - DateTime.Today;
 }

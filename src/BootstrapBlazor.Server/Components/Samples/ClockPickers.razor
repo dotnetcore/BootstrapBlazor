@@ -4,4 +4,8 @@
 
 <h4>@Localizer["Description"]</h4>
 
-
+<DemoBlock Title="@Localizer["BindValueTitle"]" Introduction="@Localizer["BindValueIntro"]" Name="BindValue">
+    <div class="border p-2" style="border-radius: var(--bs-border-radius); width: 320px;">
+        <ClockPicker @bind-Value="@Value" />
+    </div>
+</DemoBlock>
