@@ -9,6 +9,7 @@ colspan
 cors
 dest
 dissubmit
+dropup
 editform
 ellips
 fullscreen
@@ -32,6 +33,7 @@ teng
 thead
 tbody
 tfoot
+timepanel
 oninput
 onkeyup
 ontouchstart

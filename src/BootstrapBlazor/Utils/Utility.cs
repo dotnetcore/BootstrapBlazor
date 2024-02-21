@@ -384,6 +384,7 @@ public static class Utility
             {
                 builder.AddAttribute(5, "class", col.CssClass);
             }
+            builder.AddMultipleAttributes(6, item.ComponentParameters);
             builder.CloseComponent();
         }
         else if (item.ComponentType == typeof(Textarea))
@@ -399,12 +400,9 @@ public static class Utility
             }
             if (item is ITableColumn col)
             {
-                if (col.ComponentParameters != null)
-                {
-                    builder.AddMultipleAttributes(6, col.ComponentParameters);
-                }
-                builder.AddAttribute(7, "class", col.CssClass);
+                builder.AddAttribute(6, "class", col.CssClass);
             }
+            builder.AddMultipleAttributes(7, item.ComponentParameters);
             builder.CloseComponent();
         }
         else
@@ -426,6 +424,7 @@ public static class Utility
                 }
                 builder.AddAttribute(6, "class", col.CssClass);
             }
+            builder.AddMultipleAttributes(7, item.ComponentParameters);
             builder.CloseComponent();
         }
     }
@@ -520,10 +519,7 @@ public static class Utility
 
         builder.AddMultipleAttributes(17, CreateMultipleAttributes(fieldType, model, fieldName, item));
 
-        if (item.ComponentParameters != null)
-        {
-            builder.AddMultipleAttributes(18, item.ComponentParameters);
-        }
+        builder.AddMultipleAttributes(18, item.ComponentParameters);
 
         // 设置 IsPopover
         if (componentType.GetPropertyByName(nameof(Select<string>.IsPopover)) != null)

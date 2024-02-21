@@ -14,7 +14,7 @@ public sealed partial class DateTimeRanges
 
     private DateTimeRangeValue NormalDateTimeRangeValue { get; set; } = new();
 
-    private Task NormalOnConfirm(DateTimeRangeValue value)
+    private Task OnNormalConfirm(DateTimeRangeValue value)
     {
         NormalLogger.Log($"选择的时间范围是: {value.Start:yyyy-MM-dd} - {value.End:yyyy-MM-dd}");
         return Task.CompletedTask;
@@ -119,7 +119,7 @@ public sealed partial class DateTimeRanges
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private static EventItem[] GetEvents() =>
+    private static List<EventItem> GetEvents() =>
     [
         new()
         {
@@ -145,7 +145,7 @@ public sealed partial class DateTimeRanges
     /// Get property method
     /// </summary>
     /// <returns></returns>
-    private static AttributeItem[] GetAttributes() =>
+    private static List<AttributeItem> GetAttributes() =>
     [
         new()
         {

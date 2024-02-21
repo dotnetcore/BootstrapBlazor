@@ -10,12 +10,12 @@
     <div class="dropdown-toggle datetime-range-control" data-bs-toggle="@Constants.DropdownToggleString" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString">
         <div class="position-relative">
             <i class="@DateTimePickerIconClassString"></i>
-            <input @attributes="@GetReadOnlyAttribute()" class="datetime-range-input" @bind="@StartValueString" placeholder="@StartPlaceHolderText" disabled="@Disabled" />
+            <input readonly="readonly" class="@ValueClassString" value="@StartValueString" placeholder="@StartPlaceHolderText" disabled="@Disabled" />
         </div>
         <span class="range-separator">@SeparateText</span>
-        <input @attributes="@GetReadOnlyAttribute()" class="datetime-range-input" @bind="@EndValueString" placeholder="@EndPlaceHolderText" disabled="@Disabled" />
+        <input readonly="readonly" class="@ValueClassString" value="@EndValueString" placeholder="@EndPlaceHolderText" disabled="@Disabled" />
     </div>
-    @if (AllowNull)
+    @if (ShowClearButton)
     {
         <i class="range-clear @ClearIcon" @onclick:stopPropagation @onclick="@ClickClearButton"></i>
     }
@@ -33,17 +33,21 @@
                 </div>
             }
             <CascadingValue Value="this" IsFixed="true">
-                <DatePickerBody @bind-Value="@StartValue" AllowNull="@AllowNull" AutoClose="false"
-                                ViewMode="DatePickerViewMode.Date" ShowRightButtons="false" MaxValue=MaxValue MinValue=MinValue>
+                <DatePickerBody Value="@StartValue" ValueChanged="UpdateValue" OnDateChanged="OnStartDateChanged"
+                                DateFormat="@DateFormat" TimeFormat="@TimeFormat" ViewMode="ViewMode"
+                                ShowRightButtons="false" MaxValue="MaxValue" MinValue="MinValue">
+                    @ChildContent
                 </DatePickerBody>
-                <DatePickerBody @bind-Value="@EndValue" AllowNull="@AllowNull" AutoClose="false"
-                                ViewMode="DatePickerViewMode.Date" ShowLeftButtons="false" MaxValue=MaxValue MinValue=MinValue>
+                <DatePickerBody Value="@EndValue" ValueChanged="UpdateValue" OnDateChanged="OnEndDateChanged"
+                                DateFormat="@DateFormat" TimeFormat="@TimeFormat" ViewMode="ViewMode"
+                                ShowLeftButtons="false" MaxValue="MaxValue" MinValue="MinValue">
+                    @ChildContent
                 </DatePickerBody>
             </CascadingValue>
         </div>
-        <div class="range-panel-footer picker-panel-footer">
+        <div class="picker-panel-footer">
             <div class="flex-fill me-3">
-                @if (AllowNull)
+                @if (ShowClearButton)
                 {
                     <Button class="picker-panel-link-btn is-confirm is-clear" Color="Color.None" OnClick="@ClickClearButton">
                         <span>@ClearButtonText</span>
@@ -52,7 +56,7 @@
             </div>
             @if (ShowToday)
             {
-                <Button class="picker-panel-link-btn is-confirm me-3" Color="Color.None" OnClick="@ClickTodayButton">
+                <Button class="picker-panel-link-btn is-confirm" Color="Color.None" OnClick="@ClickTodayButton">
                     <span>@TodayButtonText</span>
                 </Button>
             }
@@ -62,4 +66,3 @@
         </div>
     </div>
 </div>
-
