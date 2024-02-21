@@ -520,4 +520,23 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         [Required]
         public DateTimeRangeValue? Value { get; set; }
     }
+
+    [Fact]
+    public async Task GetSafeStartValue_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimeRange>(builder =>
+        {
+            builder.Add(a => a.Value, new DateTimeRangeValue());
+            builder.Add(a => a.ShowToday, true);
+            builder.Add(a => a.ShowClearButton, false);
+        });
+        var button = cut.Find(".picker-panel-link-btn.is-confirm");
+        await cut.InvokeAsync(() =>
+        {
+            button.Click();
+        });
+
+        Assert.Equal(DateTime.Today, cut.Instance.Value.Start);
+        Assert.Equal(DateTime.Today.AddDays(1).AddSeconds(-1), cut.Instance.Value.End);
+    }
 }
