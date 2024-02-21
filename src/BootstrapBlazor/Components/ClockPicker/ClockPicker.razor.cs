@@ -19,25 +19,25 @@ public partial class ClockPicker
         .Build();
 
     /// <summary>
-    /// 是否显示表盘刻度 默认 false
+    /// 获得/设置 是否显示表盘刻度 默认 false
     /// </summary>
     [Parameter]
     public bool ShowClockScale { get; set; }
 
     /// <summary>
-    /// 是否显示秒 默认 true
+    /// 获得/设置 是否显示秒 默认 true
     /// </summary>
     [Parameter]
     public bool ShowSecond { get; set; } = true;
 
     /// <summary>
-    /// 是否显示分钟 默认 true
+    /// 获得/设置 是否显示分钟 默认 true
     /// </summary>
     [Parameter]
     public bool ShowMinute { get; set; } = true;
 
     /// <summary>
-    /// 是否自动切换 小时、分钟、秒 自动切换 默认 true
+    /// 获得/设置 是否自动切换 小时、分钟、秒 自动切换 默认 true
     /// </summary>
     [Parameter]
     public bool IsAutoSwitch { get; set; } = true;
