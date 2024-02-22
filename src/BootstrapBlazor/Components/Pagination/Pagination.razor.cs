@@ -181,7 +181,8 @@ public partial class Pagination
         var pageIndex = InternalPageIndex - index;
         if (pageIndex < 1)
         {
-            pageIndex = InternalPageCount;
+            //pageIndex = InternalPageCount;
+            pageIndex = 1;
         }
         await OnPageItemClick(pageIndex);
     }
@@ -194,7 +195,8 @@ public partial class Pagination
         var pageIndex = InternalPageIndex + index;
         if (pageIndex > InternalPageCount)
         {
-            pageIndex = 1;
+            //pageIndex = 1;
+            pageIndex = InternalPageCount;
         }
         await OnPageItemClick(pageIndex);
     }
