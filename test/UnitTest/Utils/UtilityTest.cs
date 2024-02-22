@@ -687,12 +687,36 @@ public class UtilityTest : BootstrapBlazorTestBase
         Assert.Equal(2, cols.Count);
     }
 
+    [Fact]
+    public void GetTableColumnsWithMetadata_Ok()
+    {
+        TableMetadataTypeService.RegisterMetadataTypes(typeof(Pig).Assembly);
+        var cols = Utility.GetTableColumns<Pig>().ToList();
+        Assert.Single(cols);
+    }
+
     [AutoGenerateClass(Align = Alignment.Center)]
     private class Dog
     {
         public string? Name1 { get; set; }
 
         [AutoGenerateColumn(Align = Alignment.Center, Order = -2)]
+        public string? Name2 { get; set; }
+    }
+
+    [TableMetadataFor(typeof(Pig))]
+    [AutoGenerateClass(Align = Alignment.Center)]
+    private class PigMetadata
+    {
+        [AutoGenerateColumn(Ignore = true)]
+        public string? Name1 { get; set; }
+        [AutoGenerateColumn(Align = Alignment.Center, Order = -2)]
+        public string? Name2 { get; set; }
+    }
+    private class Pig
+    {
+        public string? Name1 { get; set; }
+
         public string? Name2 { get; set; }
     }
 

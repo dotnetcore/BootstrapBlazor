@@ -300,15 +300,17 @@ public static class Utility
     /// <returns></returns>
     public static IEnumerable<ITableColumn> GetTableColumns(Type type, IEnumerable<ITableColumn>? source = null, Func<IEnumerable<ITableColumn>, IEnumerable<ITableColumn>>? defaultOrderCallback = null)
     {
+        var metadataType = TableMetadataTypeService.GetMetadataType(type);
         var cols = new List<ITableColumn>(50);
-        var classAttribute = type.GetCustomAttribute<AutoGenerateClassAttribute>(true);
-        var props = type.GetProperties().Where(p => !p.IsStatic());
+        var classAttribute = metadataType.GetCustomAttribute<AutoGenerateClassAttribute>(true);
+        // to make it simple, we just check the property name should exist in target data type properties
+        var targetProperties = type.GetProperties().Where(p => !p.IsStatic());
+        var props = metadataType.GetProperties().Where(p => !p.IsStatic() && targetProperties.Any(o => o.Name == p.Name));
         foreach (var prop in props)
         {
             ITableColumn? tc;
             var columnAttribute = prop.GetCustomAttribute<AutoGenerateColumnAttribute>(true);
-
-            var displayName = columnAttribute?.Text ?? Utility.GetDisplayName(type, prop.Name);
+            var displayName = columnAttribute?.Text ?? Utility.GetDisplayName(metadataType, prop.Name);
             if (columnAttribute == null)
             {
                 // 未设置 AutoGenerateColumnAttribute 时使用默认值
