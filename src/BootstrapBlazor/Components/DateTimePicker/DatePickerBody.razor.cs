@@ -536,7 +536,11 @@ public partial class DatePickerBody
     private async Task OnTimeChanged(TimeSpan time)
     {
         CurrentTime = time;
-        if (Ranger != null || ShouldConfirm)
+        //if(Ranger != null)
+        //{
+
+        //}
+        if (ShouldConfirm)
         {
             await ClickConfirmButton();
         }
