@@ -919,7 +919,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
 
         var picker = cut.Instance;
         var mi = picker.GetType().GetMethod("FormatValueAsString", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
-        var v = mi.Invoke(picker, new object[] { DateTime.MinValue });
+        var v = mi.Invoke(picker, [DateTime.MinValue]);
         Assert.Equal($"{DateTime.Today:yyyy-MM-dd}", v);
     }
 

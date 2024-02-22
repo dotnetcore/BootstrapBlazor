@@ -9,8 +9,8 @@
             <span class="bb-time-text me-5" @onclick="SwitchView">@CurrentDateString</span>
         }
         <span class="bb-time-text hour" @onclick="() => SetMode(TimeMode.Hour)">@HourValue</span>
-        <span>:</span>
-        @if(ShowMinute)
+        <span class="bb-time-colon">:</span>
+        @if (ShowMinute)
         {
             <span class="bb-time-text minute" @onclick="() => SetMode(TimeMode.Minute)">@Value.Minutes.ToString("D2")</span>
         }
@@ -18,8 +18,8 @@
         {
             <span class="bb-time-text minute">@Value.Minutes.ToString("D2")</span>
         }
-        <span>:</span>
-        @if(ShowMinute && ShowSecond)
+        <span class="bb-time-colon">:</span>
+        @if (ShowMinute && ShowSecond)
         {
             <span class="bb-time-text second" @onclick="() => SetMode(TimeMode.Second)">@Value.Seconds.ToString("D2")</span>
         }
