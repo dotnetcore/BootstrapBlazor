@@ -236,6 +236,8 @@ public partial class DateTimeRange
     /// </summary>
     protected override void OnParametersSet()
     {
+        CheckValid();
+
         base.OnParametersSet();
 
         StartPlaceHolderText ??= Localizer[nameof(StartPlaceHolderText)];
@@ -267,6 +269,15 @@ public partial class DateTimeRange
 
         SelectedValue.Start = Value.Start;
         SelectedValue.End = Value.End;
+
+        [ExcludeFromCodeCoverage]
+        void CheckValid()
+        {
+            if (ViewMode == DatePickerViewMode.DateTime)
+            {
+                throw new InvalidOperationException("DateTime 模式暂时不支持，The DateTime mode is currently not supported yet");
+            }
+        }
     }
 
     private async Task OnClickSidebarItem(DateTimeRangeSidebarItem item)
@@ -287,14 +298,14 @@ public partial class DateTimeRange
     private string GetValueString(DateTime value)
     {
         string? ret;
-        if (ViewMode == DatePickerViewMode.DateTime)
-        {
-            ret = value.ToString(DateTimeFormat);
-        }
-        else
-        {
+        //if (ViewMode == DatePickerViewMode.DateTime)
+        //{
+        //    ret = value.ToString(DateTimeFormat);
+        //}
+        //else
+        //{
             ret = value.ToString(DateFormat);
-        }
+        //}
         return ret;
     }
 
@@ -422,6 +433,8 @@ public partial class DateTimeRange
             SelectedValue.Start = d;
             SelectedValue.End = DateTime.MinValue;
         }
+        //StartValue = SelectedValue.Start;
+        //EndValue = SelectedValue.End;
         StateHasChanged();
     }
 
