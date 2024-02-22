@@ -489,7 +489,7 @@ public class ValidateFormTest : ValidateFormTestBase
 
         var context = new ValidationContext(new Foo());
         var result = new List<ValidationResult>();
-        method.Invoke(form, new object[] { context, result });
+        method.Invoke(form, [context, result]);
     }
 
     private class HasServiceAttribute : ValidationAttribute
