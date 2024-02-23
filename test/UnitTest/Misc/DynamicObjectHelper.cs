@@ -8,7 +8,7 @@ internal static class DynamicObjectHelper
 {
     public static Type CreateDynamicType(string typeName = "Test")
     {
-        var cols = new MockTableColumn[]
+        var cols = new InternalTableColumn[]
         {
             new("Id", typeof(int)),
             new("Name", typeof(string))

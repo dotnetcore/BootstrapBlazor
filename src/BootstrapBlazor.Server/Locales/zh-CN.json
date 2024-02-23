@@ -4810,6 +4810,7 @@
     "LookupAttr": "字典数据源",
     "LookupStringComparisonAttr": "字典数据源比较规则",
     "LookupServiceKeyAttr": "LookupService 服务获取 Lookup 数据集合键值",
+    "LookupServiceDataAttr": "LookupService 服务获取 Lookup 数据集合自定义数据",
     "ReadonlyAttr": "编辑时是否只读模式",
     "SearchTemplateColumnAttr": "模板",
     "ShowTipsAttr": "显示单元格 Tooltips",

@@ -4810,6 +4810,7 @@
     "LookupAttr": "Dictionary Data Source",
     "LookupStringComparisonAttr": "Dictionary Data Source Comparison Rules",
     "LookupServiceKeyAttr": "The LookupService service gets the Lookup data collection key value",
+    "LookupServiceDataAttr": "The LookupService service gets the Lookup data collection data value",
     "ReadonlyAttr": "Is it read-only mode when editing",
     "SearchTemplateColumnAttr": "Template",
     "ShowTipsAttr": "Show cell Tooltips",

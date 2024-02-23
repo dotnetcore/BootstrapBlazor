@@ -14,4 +14,11 @@ public interface ILookupService
     /// </summary>
     /// <param name="key">获得 Lookup 数据集合键值</param>
     IEnumerable<SelectedItem>? GetItemsByKey(string? key);
+
+    /// <summary>
+    /// 根据指定键值获取 Lookup 集合方法
+    /// </summary>
+    /// <param name="key">获得 Lookup 数据集合键值</param>
+    /// <param name="data">Lookup 键值附加数据</param>
+    IEnumerable<SelectedItem>? GetItemsByKey(string? key, object? data);
 }

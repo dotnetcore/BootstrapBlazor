@@ -411,20 +411,21 @@ public static class Utility
             builder.AddAttribute(1, nameof(Display<string>.DisplayText), displayName);
             builder.AddAttribute(2, nameof(Display<string>.Value), fieldValue);
             builder.AddAttribute(3, nameof(Display<string>.LookupServiceKey), item.LookupServiceKey);
-            builder.AddAttribute(4, nameof(Display<string>.ShowLabelTooltip), item.ShowLabelTooltip);
+            builder.AddAttribute(4, nameof(Display<string>.LookupServiceData), item.LookupServiceData);
+            builder.AddAttribute(5, nameof(Display<string>.ShowLabelTooltip), item.ShowLabelTooltip);
             if (item is ITableColumn col)
             {
                 if (col.Formatter != null)
                 {
-                    builder.AddAttribute(5, nameof(Display<string>.FormatterAsync), CacheManager.GetFormatterInvoker(fieldType, col.Formatter));
+                    builder.AddAttribute(6, nameof(Display<string>.FormatterAsync), CacheManager.GetFormatterInvoker(fieldType, col.Formatter));
                 }
                 else if (!string.IsNullOrEmpty(col.FormatString))
                 {
-                    builder.AddAttribute(5, nameof(Display<string>.FormatString), col.FormatString);
+                    builder.AddAttribute(6, nameof(Display<string>.FormatString), col.FormatString);
                 }
-                builder.AddAttribute(6, "class", col.CssClass);
+                builder.AddAttribute(7, "class", col.CssClass);
             }
-            builder.AddMultipleAttributes(7, item.ComponentParameters);
+            builder.AddMultipleAttributes(8, item.ComponentParameters);
             builder.CloseComponent();
         }
     }
@@ -448,7 +449,7 @@ public static class Utility
         var fieldValue = GenerateValue(model, fieldName);
         var fieldValueChanged = GenerateValueChanged(component, model, fieldName, fieldType);
         var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
-        var lookup = item.Lookup ?? lookUpService?.GetItemsByKey(item.LookupServiceKey);
+        var lookup = item.Lookup ?? lookUpService?.GetItemsByKey(item.LookupServiceKey, item.LookupServiceData);
         var componentType = item.ComponentType ?? GenerateComponentType(fieldType, item.Rows != 0, lookup);
         builder.OpenComponent(0, componentType);
         if (componentType.IsSubclassOf(typeof(ValidateBase<>).MakeGenericType(fieldType)))
