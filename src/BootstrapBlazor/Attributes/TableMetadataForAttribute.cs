@@ -59,5 +59,5 @@ public class TableMetadataForAttribute(Type dataType) : Attribute
     /// <summary>
     /// The target model/data type
     /// </summary>
-    public Type DataType { get; private set; } = dataType;
+    public Type DataType => dataType;
 }
