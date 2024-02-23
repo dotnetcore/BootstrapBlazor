@@ -1049,7 +1049,7 @@ public partial class Table<TItem> : ITable, IModelEqualityComparer<TItem> where 
             {
                 // 未设置 Lookup
                 // 设置 LookupService 键值
-                col.Lookup = LookupService.GetItemsByKey(col.LookupServiceKey);
+                col.Lookup = LookupService.GetItemsByKey(col.LookupServiceKey, col.LookupServiceData);
             }
             builder.AddContent(20, col.RenderValue(item));
         }
