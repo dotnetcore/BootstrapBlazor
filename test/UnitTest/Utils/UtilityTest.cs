@@ -691,6 +691,7 @@ public class UtilityTest : BootstrapBlazorTestBase
     public void GetTableColumnsWithMetadata_Ok()
     {
         TableMetadataTypeService.RegisterMetadataTypes(typeof(Pig).Assembly);
+        TableMetadataTypeService.RegisterMatadataType(typeof(PigMetadata), typeof(Pig));
         var cols = Utility.GetTableColumns<Pig>().ToList();
         Assert.Single(cols);
     }
@@ -710,8 +711,14 @@ public class UtilityTest : BootstrapBlazorTestBase
     {
         [AutoGenerateColumn(Ignore = true)]
         public string? Name1 { get; set; }
+
         [AutoGenerateColumn(Align = Alignment.Center, Order = -2)]
         public string? Name2 { get; set; }
+
+        /// <summary>
+        /// for test
+        /// </summary>
+        public static string? StaticProperty1 { get; set; }
     }
 
     private class Pig
