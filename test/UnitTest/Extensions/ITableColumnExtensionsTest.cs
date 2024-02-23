@@ -43,13 +43,14 @@ public class ITableColumnExtensionsTest
         var attr = new MockTableColumn("Name", typeof(string))
         {
             ComponentType = typeof(NullSwitch),
-            ComponentParameters = Enumerable.Empty<KeyValuePair<string, object>>(),
+            ComponentParameters = [],
             Editable = false,
             EditTemplate = new RenderFragment<object>(obj => builder => builder.AddContent(0, "test")),
             Items = new List<SelectedItem>(),
             Lookup = new List<SelectedItem>(),
             LookupStringComparison = StringComparison.Ordinal,
             LookupServiceKey = "test-key",
+            LookupServiceData = true,
             IsReadonlyWhenAdd = true,
             IsReadonlyWhenEdit = true,
             Readonly = true,
@@ -108,6 +109,7 @@ public class ITableColumnExtensionsTest
         Assert.NotNull(col.Lookup);
         Assert.Equal(StringComparison.Ordinal, col.LookupStringComparison);
         Assert.Equal("test-key", col.LookupServiceKey);
+        Assert.Equal(true, col.LookupServiceData);
         Assert.True(col.IsReadonlyWhenAdd);
         Assert.True(col.IsReadonlyWhenEdit);
         Assert.True(col.Readonly);

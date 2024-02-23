@@ -403,6 +403,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Text), "Test-Text");
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.LookupServiceKey), "FooLookup");
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.LookupServiceData), true);
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.LookupStringComparison), StringComparison.OrdinalIgnoreCase);
                 builder.CloseComponent();
             });

@@ -546,6 +546,17 @@ public class UtilityTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void GenerateTableColumns_Ok()
+    {
+        var cols = Utility.GetTableColumns<Cat>(new MockTableColumn[]
+        {
+            new(nameof(Cat.Name), typeof(string)) { Text = "test-Name", LookupServiceData = true }
+        });
+        Assert.Equal(2, cols.Count());
+        Assert.Equal(true, cols.First().LookupServiceData);
+    }
+
+    [Fact]
     public void GetPlaceholder_Ok()
     {
         var text = Utility.GetPlaceHolder<Cat>("Name");

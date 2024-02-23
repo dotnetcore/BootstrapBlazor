@@ -6924,6 +6924,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(1, "Field", true);
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Complete", typeof(bool)));
                     builder.AddAttribute(3, "LookupServiceKey", "test");
+                    builder.AddAttribute(4, "LookupServiceData", true);
                     builder.CloseComponent();
                 });
             });
