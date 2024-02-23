@@ -9,7 +9,7 @@ public class ITableColumnExtensionsTest
     [Fact]
     public void InheritValue_Ok()
     {
-        var col = new MockTableColumn("Name", typeof(string));
+        var col = new InternalTableColumn("Name", typeof(string));
         var attr = new AutoGenerateClassAttribute()
         {
             Align = Alignment.Center,
@@ -39,8 +39,8 @@ public class ITableColumnExtensionsTest
     [Fact]
     public void CopyValue_Ok()
     {
-        var col = new MockTableColumn("Name", typeof(string));
-        var attr = new MockTableColumn("Name", typeof(string))
+        var col = new InternalTableColumn("Name", typeof(string));
+        var attr = new InternalTableColumn("Name", typeof(string))
         {
             ComponentType = typeof(NullSwitch),
             ComponentParameters = [],
@@ -159,7 +159,7 @@ public class ITableColumnExtensionsTest
     [Fact]
     public void ToSearches_Ok()
     {
-        var cols = new MockTableColumn[]
+        var cols = new InternalTableColumn[]
         {
             new("Test_Name", typeof(string)),
             new("Test_Bool", typeof(bool)),
