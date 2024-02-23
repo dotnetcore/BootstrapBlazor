@@ -32,12 +32,12 @@ public partial class DateTimeFilter
 
         Items ??= new SelectedItem[]
         {
-            new SelectedItem("GreaterThanOrEqual", Localizer["GreaterThanOrEqual"].Value),
-            new SelectedItem("LessThanOrEqual", Localizer["LessThanOrEqual"].Value),
-            new SelectedItem("GreaterThan", Localizer["GreaterThan"].Value),
-            new SelectedItem("LessThan", Localizer["LessThan"].Value),
-            new SelectedItem("Equal", Localizer["Equal"].Value),
-            new SelectedItem("NotEqual", Localizer["NotEqual"].Value )
+            new("GreaterThanOrEqual", Localizer["GreaterThanOrEqual"].Value),
+            new("LessThanOrEqual", Localizer["LessThanOrEqual"].Value),
+            new("GreaterThan", Localizer["GreaterThan"].Value),
+            new("LessThan", Localizer["LessThan"].Value),
+            new("Equal", Localizer["Equal"].Value),
+            new("NotEqual", Localizer["NotEqual"].Value )
         };
     }
 

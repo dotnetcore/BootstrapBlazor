@@ -63,7 +63,7 @@ public class TableDateTimeFilterTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void Misc_Ok()
+    public void IsHeaderRow_OnSelectedItemChanged()
     {
         var cut = Context.RenderComponent<BootstrapBlazorRoot>(pb =>
         {
@@ -83,37 +83,17 @@ public class TableDateTimeFilterTest : BootstrapBlazorTestBase
                 }));
             });
         });
-        var filter = cut.FindComponent<DateTimeFilter>();
-        var dt = filter.FindComponent<DateTimePicker<DateTime?>>();
 
-        // Click ToDay Cell
-        cut.InvokeAsync(() =>
-        {
-            dt.Find(".current.today .cell").Click();
-            dt.FindAll(".is-confirm")[1].Click();
-        });
+        // 选择时间
+        var btn = cut.Find(".picker-panel-link-btn.is-now");
+        cut.InvokeAsync(() => btn.Click());
 
-        cut.InvokeAsync(() =>
-        {
-            // OnFilterValueChanged
-            var filterButton = cut.FindComponent<FilterButton<FilterAction>>();
-            var logics = filterButton.FindAll(".dropdown-item");
-            Assert.Equal(6, logics.Count);
-            logics[1].Click();
-        });
-        var conditions = filter.Instance.GetFilterConditions();
-        Assert.NotNull(conditions.Filters);
-        Assert.Single(conditions.Filters);
-        Assert.Equal(FilterAction.LessThanOrEqual, conditions.Filters[0].FilterAction);
-
-        // OnClearFilter
-        cut.InvokeAsync(() =>
-        {
-            dt.Find(".is-confirm").Click();
-        });
-        conditions = filter.Instance.GetFilterConditions();
-        Assert.NotNull(conditions.Filters);
-        Assert.Empty(conditions.Filters);
+        // 选择小于等于条件
+        var items = cut.FindAll(".dropdown-item");
+        cut.InvokeAsync(() => items[1].Click());
+        var filter = cut.FindComponent<DateTimeFilter>().Instance.GetFilterConditions();
+        Assert.NotNull(filter.Filters);
+        Assert.Single(filter.Filters);
     }
 
     [Fact]

@@ -4,37 +4,17 @@
 
 <h4>@Localizer["Description"]</h4>
 
+<DemoBlock Title="@Localizer["DateTimePickerTitle"]" Introduction="@Localizer["DateTimePickerIntro"]" Name="DateTimePicker">
+    <DateTimePicker ViewMode="DatePickerViewMode.DateTime"
+                    Value="@DateTimePickerValue" OnValueChanged="@TimePickerValueChanged">
+        <TimePickerSetting ShowClockScale="true" IsAutoSwitch="false" />
+    </DateTimePicker>
+    <ConsoleLogger @ref="TimePickerLogger" class="mt-3" />
+</DemoBlock>
+
 <DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
     <DatePickerBody @bind-Value="Value" OnConfirm="@NormalOnConfirm" ShowFooter="false" />
-    <ConsoleLogger @ref="NormalLogger" />
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["ValueChangedTitle"]" Introduction="@Localizer["ValueChangedIntro"]" Name="ValueChanged">
-    <TimePickerBody @bind-Value="@ValueChangedValue" OnConfirm="ValueChangedOnConfirm" />
-    <ConsoleLogger @ref="ValueChangedLogger" />
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["HasSecondsTitle"]" Introduction="@Localizer["HasSecondsIntro"]" Name="HasSeconds">
-    <TimePickerBody @bind-Value="@ValueChangedValue" OnConfirm="ValueChangedOnConfirm" HasSeconds="false" />
-</DemoBlock>
-
-<DemoBlock Title="@Localizer["TimeTitle"]" Introduction="@Localizer["TimeIntro"]" Name="Time">
-    <div class="row g-3">
-        <div class="col-12 col-sm-6">
-            <div class="d-flex flex-column">
-                <div class="mb-1"><code>TimeSpan</code></div>
-                <TimePickerBody @bind-Value="@SpanValue" />
-                <BootstrapInput Value="@SpanValue" Formatter="@FormatterSpanString" Readonly="true" style="width: 180px; margin-top: 0.5rem;" />
-            </div>
-        </div>
-        <div class="col-12 col-sm-6">
-            <div class="d-flex flex-column">
-                <div class="mb-1"><code>string</code></div>
-                <TimePickerBody @bind-Value="@TimeValue" />
-                <BootstrapInput Value="@TimeValue.ToString(@"hh\:mm\:ss")" Readonly="true" style="width: 180px; margin-top: 0.5rem;" />
-            </div>
-        </div>
-    </div>
+    <ConsoleLogger @ref="NormalLogger" class="mt-3" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ValidateFormTitle"]" Introduction="@Localizer["ValidateFormIntro"]" Name="ValidateForm">
@@ -44,18 +24,18 @@
                 <DateTimePicker @bind-Value="@ValidateFormValue" />
             </div>
             <div class="col-12 col-sm-auto align-self-end">
-                <Button ButtonType="ButtonType.Submit" Text="@Localizer["SubmitText"]" Icon="fa-solid fa-floppy-disk"></Button>
+                <Button ButtonType="ButtonType.Submit" Text="@Localizer["SubmitText"]" Icon="fa-solid fa-floppy-disk" />
             </div>
         </div>
     </ValidateForm>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["DateTimeOffsetTitle"]" Introduction="@Localizer["DateTimeOffsetIntro"]" Name="DateTimeOffset">
-    <DateTimePicker TValue="DateTimeOffset?" Value="DateTimeOffsetValue" />
-</DemoBlock>
-
 <DemoBlock Title="@Localizer["ShowIconTitle"]" Introduction="@Localizer["ShowIconIntro"]" Name="ShowIcon">
     <DateTimePicker TValue="DateTimeOffset?" ShowIcon="false" />
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["DateTimeOffsetTitle"]" Introduction="@Localizer["DateTimeOffsetIntro"]" Name="DateTimeOffset">
+    <DateTimePicker @bind-Value="DateTimeOffsetValue" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BindValueTitle"]" Introduction="@Localizer["BindValueIntro"]" Name="BindValue">
@@ -73,16 +53,16 @@
     <p>@((MarkupString)Localizer["ViewModeTip"].Value)</p>
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Year" ViewMode="DatePickerViewMode.Year" Format="yyyy" />
+            <DateTimePicker @bind-Value="YearValue" ShowLabel="true" DisplayText="Year" ViewMode="DatePickerViewMode.Year" DateFormat="yyyy" />
         </div>
         <div class="col-12 col-sm-6">
-            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Month" ViewMode="DatePickerViewMode.Month" Format="yyyy-MM" />
+            <DateTimePicker @bind-Value="MonthValue" ShowLabel="true" DisplayText="Month" ViewMode="DatePickerViewMode.Month" DateFormat="yyyy-MM" />
         </div>
         <div class="col-12 col-sm-6">
-            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="Date" ViewMode="DatePickerViewMode.Date" Format="yyyy-MM-dd" />
+            <DateTimePicker @bind-Value="DateValue" ShowLabel="true" DisplayText="Date" ViewMode="DatePickerViewMode.Date" DateFormat="yyyy-MM-dd" />
         </div>
         <div class="col-12 col-sm-6">
-            <DateTimePicker TValue="DateTime" ShowLabel="true" DisplayText="DateTime" ViewMode="DatePickerViewMode.DateTime" Format="yyyy-MM-dd HH:mm:ss" />
+            <DateTimePicker @bind-Value="DateTimeValue" ShowLabel="true" DisplayText="DateTime" ViewMode="DatePickerViewMode.DateTime" DateTimeFormat="yyyy-MM-dd HH:mm:ss" />
         </div>
     </div>
 </DemoBlock>
@@ -100,15 +80,16 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ShowLabelTitle"]" Introduction="@Localizer["ShowLabelIntro"]" Name="ShowLabel">
-    <p>@((MarkupString)Localizer["ShowLabelTip1"].Value)</p>
-    <p>@((MarkupString)Localizer["ShowLabelTip2"].Value)</p>
+    <section ignore class="mb-3">
+        @((MarkupString)Localizer["ShowLabelTip"].Value)
+    </section>
     <DateTimePicker ShowLabel="true" DisplayText="@Localizer["DisplayText"]" @bind-Value="@ShowLabelValue" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["DisabledTitle"]" Introduction="@Localizer["DisabledIntro"]" Name="IsDisabled">
     <div class="row g-3">
         <div class="col-12 col-sm-6">
-            <DateTimePicker TValue="DateTime" IsDisabled="IsDisabled" />
+            <DateTimePicker IsDisabled="IsDisabled" Value="DateTime.Today" />
         </div>
         <div class="col-12 col-sm-6">
             <Switch @bind-Value="@IsDisabled" />
@@ -117,39 +98,40 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["ShowSidebarTitle"]" Introduction="@Localizer["ShowSidebarIntro"]" Name="ShowSidebar">
-    <DateTimePicker TValue="DateTime" ShowSidebar="true" ViewMode="DatePickerViewMode.DateTime" />
+    <DateTimePicker ShowSidebar="true" @bind-Value="SidebarValue" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["MinValueTitle"]" Introduction="@Localizer["MinValueIntro"]" Name="MinValue">
-    <DateTimePicker TValue="DateTime"
-                    ViewMode="DatePickerViewMode.Date"
-                    Value="@(DateTime.Today.AddDays(3 - DateTime.Today.Day))"
+    <DateTimePicker @bind-Value="@AllowValue"
                     MinValue="@(DateTime.Today.AddDays(1 - DateTime.Today.Day))"
                     MaxValue="@(DateTime.Today.AddDays(46 - DateTime.Today.Day))" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BlockAutoCloseTitle"]" Introduction="@Localizer["BlockAutoCloseIntro"]" Name="AutoClose">
-    <DateTimePicker AutoClose="false" TValue="DateTime" ViewMode="DatePickerViewMode.Date" Value="@(DateTime.Today.AddDays(3 - DateTime.Today.Day))" />
+    <section ignore class="mb-3">
+        @((MarkupString)Localizer["BlockAutoCloseDesc"].Value)
+    </section>
+    <DateTimePicker @bind-Value="@AutoCloseValue" AutoClose="false" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["BlockGroupTitle"]" Introduction="@Localizer["BlockGroupIntro"]" Name="Group">
     <div class="row g-3">
-        <div class="col-12 col-sm-6 col-md-4">
+        <div class="col-12 col-sm-6">
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="@Localizer["BlockGroupLabel"]" />
-                <DateTimePicker TValue="DateTime" ViewMode="DatePickerViewMode.Date" />
+                <DateTimePicker TValue="DateTime" ShowIcon="false" />
             </BootstrapInputGroup>
         </div>
-        <div class="col-12 col-sm-6 col-md-4">
+        <div class="col-12 col-sm-6">
             <BootstrapInputGroup>
-                <DateTimePicker TValue="DateTime" ViewMode="DatePickerViewMode.Date" />
+                <DateTimePicker TValue="DateTime" />
                 <BootstrapInputGroupLabel DisplayText="@Localizer["BlockGroupSuffixLabel"]" />
             </BootstrapInputGroup>
         </div>
-        <div class="col-12 col-sm-6 col-md-4">
+        <div class="col-12 col-sm-6">
             <BootstrapInputGroup>
                 <BootstrapInputGroupLabel DisplayText="@Localizer["BlockGroupLabel"]" />
-                <DateTimePicker TValue="DateTime" ViewMode="DatePickerViewMode.Date" />
+                <DateTimePicker TValue="DateTime" ShowIcon="false" />
                 <BootstrapInputGroupLabel DisplayText="@Localizer["BlockGroupSuffixLabel"]" />
             </BootstrapInputGroup>
         </div>

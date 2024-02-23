@@ -157,7 +157,7 @@ public static class Utility
     /// <param name="cultureName">cultureName 未空时使用 CultureInfo.CurrentUICulture.Name</param>
     /// <param name="forceLoad">默认 false 使用缓存值 设置 true 时内部强制重新加载</param>
     /// <returns></returns>
-    public static IEnumerable<LocalizedString> GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false) => CacheManager.GetJsonStringByTypeName(option, assembly, typeName, cultureName, forceLoad) ?? Enumerable.Empty<LocalizedString>();
+    public static IEnumerable<LocalizedString> GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false) => CacheManager.GetJsonStringByTypeName(option, assembly, typeName, cultureName, forceLoad) ?? [];
 
     /// <summary>
     /// 通过指定程序集与类型获得 IStringLocalizer 实例
@@ -382,6 +382,11 @@ public static class Utility
             builder.AddAttribute(2, nameof(Switch.IsDisabled), true);
             builder.AddAttribute(3, nameof(Switch.DisplayText), displayName);
             builder.AddAttribute(4, nameof(Switch.ShowLabelTooltip), item.ShowLabelTooltip);
+            if (item is ITableColumn col)
+            {
+                builder.AddAttribute(5, "class", col.CssClass);
+            }
+            builder.AddMultipleAttributes(6, item.ComponentParameters);
             builder.CloseComponent();
         }
         else if (item.ComponentType == typeof(Textarea))
@@ -395,10 +400,11 @@ public static class Utility
             {
                 builder.AddAttribute(5, "rows", item.Rows);
             }
-            if (item is ITableColumn col && col.ComponentParameters != null)
+            if (item is ITableColumn col)
             {
-                builder.AddMultipleAttributes(6, col.ComponentParameters);
+                builder.AddAttribute(6, "class", col.CssClass);
             }
+            builder.AddMultipleAttributes(7, item.ComponentParameters);
             builder.CloseComponent();
         }
         else
@@ -418,7 +424,9 @@ public static class Utility
                 {
                     builder.AddAttribute(5, nameof(Display<string>.FormatString), col.FormatString);
                 }
+                builder.AddAttribute(6, "class", col.CssClass);
             }
+            builder.AddMultipleAttributes(7, item.ComponentParameters);
             builder.CloseComponent();
         }
     }
@@ -513,10 +521,7 @@ public static class Utility
 
         builder.AddMultipleAttributes(17, CreateMultipleAttributes(fieldType, model, fieldName, item));
 
-        if (item.ComponentParameters != null)
-        {
-            builder.AddMultipleAttributes(18, item.ComponentParameters);
-        }
+        builder.AddMultipleAttributes(18, item.ComponentParameters);
 
         // 设置 IsPopover
         if (componentType.GetPropertyByName(nameof(Select<string>.IsPopover)) != null)
