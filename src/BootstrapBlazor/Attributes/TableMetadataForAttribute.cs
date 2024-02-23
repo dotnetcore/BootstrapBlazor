@@ -2,7 +2,10 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Diagnostics;
+
 namespace BootstrapBlazor.Components;
+
 /// <summary>
 /// Define a group of UI generation metadata for target data type <br/>
 /// Usually model types are at different layer to the blazor component UI layer. <br/>
@@ -32,7 +35,7 @@ namespace BootstrapBlazor.Components;
 ///         public string? Name2 { get; set; }
 ///     }
 ///     </code>
-///     before using the metadat, it needs to register the metadata types. <br/>
+///     before using the metadata, it needs to register the metadata types. <br/>
 ///     register metadata types in assembly
 ///     <code>
 ///     TableMetadataTypeService.RegisterMetadataTypes(typeof(Pig).Assembly);
@@ -43,14 +46,14 @@ namespace BootstrapBlazor.Components;
 ///     <code>
 ///     TableMetadataTypeService.RegisterMatadataType(metadataType, dataType);
 ///     </code>
-/// </example> 
+/// </example>
 /// </summary>
-[System.Diagnostics.DebuggerStepThrough()]
+[DebuggerStepThrough()]
 [AttributeUsage(AttributeTargets.Class)]
 public class TableMetadataForAttribute : Attribute
 {
     /// <summary>
-    /// Constructor `TableMetadataForAttribute` for target data type
+    /// Constructor TableMetadataForAttribute for target data type
     /// </summary>
     /// <param name="dataType">The target model/data type</param>
     public TableMetadataForAttribute(Type dataType)

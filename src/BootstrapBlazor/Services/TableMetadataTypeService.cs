@@ -9,11 +9,12 @@ namespace BootstrapBlazor.Components;
 
 /// <summary>
 /// service for storage metadata type/data type pair for Table component
-/// more details: <seealso cref="TableMetadataForAttribute"/>
+/// more details: <see cref="TableMetadataForAttribute"/>
 /// </summary>
 public static class TableMetadataTypeService
 {
     private static ConcurrentDictionary<Type, Type> _metadataTypeCache { get; } = new();
+
     /// <summary>
     /// register medatatype for target model/data type
     /// </summary>
@@ -29,12 +30,7 @@ public static class TableMetadataTypeService
     /// </summary>
     /// <param name="targetType">the target data type</param>
     /// <returns>metadata type</returns>
-    public static Type GetMetadataType(Type targetType)
-    {
-        if (_metadataTypeCache.TryGetValue(targetType, out var type))
-            return type;
-        return targetType;
-    }
+    public static Type GetMetadataType(Type targetType) => _metadataTypeCache.TryGetValue(targetType, out var type) ? type : targetType;
 
     /// <summary>
     /// register metadata types from assemblies by using reflection
@@ -45,12 +41,12 @@ public static class TableMetadataTypeService
         foreach (var asm in assemblies)
         {
             var mapTypes = asm.GetTypes()
-                            .Where(o => o.IsDefined(typeof(TableMetadataForAttribute), true))
-                            .Select(o => new
-                            {
-                                MetadataType = o,
-                                DataType = o.GetCustomAttribute<TableMetadataForAttribute>(true)!.DataType
-                            });
+                              .Where(o => o.IsDefined(typeof(TableMetadataForAttribute), true))
+                              .Select(o => new
+                              {
+                                  MetadataType = o,
+                                  o.GetCustomAttribute<TableMetadataForAttribute>(true)!.DataType
+                              });
             foreach (var mt in mapTypes)
             {
                 RegisterMatadataType(mt.MetadataType, mt.DataType);
