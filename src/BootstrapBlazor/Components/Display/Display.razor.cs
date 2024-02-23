@@ -46,6 +46,12 @@ public partial class Display<TValue>
     [Parameter]
     public string? LookupServiceKey { get; set; }
 
+    /// <summary>
+    /// 获得/设置 <see cref="ILookupService"/> 服务获取 Lookup 数据集合键值自定义数据，通过 <see cref="LookupServiceKey"/> 指定键值
+    /// </summary>
+    [Parameter]
+    public object? LookupServiceData { get; set; }
+
     [Inject]
     [NotNull]
     private ILookupService? LookupService { get; set; }
@@ -74,7 +80,7 @@ public partial class Display<TValue>
 
         if (!string.IsNullOrEmpty(LookupServiceKey))
         {
-            Lookup = LookupService.GetItemsByKey(LookupServiceKey);
+            Lookup = LookupService.GetItemsByKey(LookupServiceKey, LookupServiceData);
         }
 
         // For derived components, retain the usual lifecycle with OnInit/OnParametersSet/etc.
