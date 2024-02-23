@@ -108,6 +108,8 @@ internal class MockTableColumn : ITableColumn
 
     public string? LookupServiceKey { get; set; }
 
+    public object? LookupServiceData { get; set; }
+
     public bool? ShowLabelTooltip { get; set; }
 
     public string GetDisplayName() => Text ?? FieldName;

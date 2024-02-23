@@ -41,7 +41,7 @@ public partial class Display<TValue>
     public IEnumerable<SelectedItem>? Lookup { get; set; }
 
     /// <summary>
-    /// 获得/设置 LookupService 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作
+    /// 获得/设置 <see cref="ILookupService"/> 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作，可以通过 <see cref="LookupServiceData"/> 传递自定义数据
     /// </summary>
     [Parameter]
     public string? LookupServiceKey { get; set; }
