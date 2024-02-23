@@ -59,11 +59,6 @@ public class TableMetadataForAttribute : Attribute
     public TableMetadataForAttribute(Type dataType)
     {
         DataType = dataType;
-        var metadataType = System.Reflection.MethodBase.GetCurrentMethod()?.DeclaringType;
-        if (metadataType != null)
-        {
-            TableMetadataTypeService.RegisterMatadataType(dataType, metadataType);
-        }
     }
     /// <summary>
     /// The target model/data type
