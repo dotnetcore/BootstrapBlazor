@@ -171,6 +171,17 @@ public class DisplayTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void ShowToolip_Ok()
+    {
+        var cut = Context.RenderComponent<Display<string>>(pb =>
+        {
+            pb.Add(a => a.ShowTooltip, true);
+            pb.Add(a => a.Value, "Test Label");
+        });
+        Assert.Contains("data-bs-original-title=\"Test Label\"", cut.Markup);
+    }
+
+    [Fact]
     public void Bind_Ok()
     {
         var foo = new Foo();

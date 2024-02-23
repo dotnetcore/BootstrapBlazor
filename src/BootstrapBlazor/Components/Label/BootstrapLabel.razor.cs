@@ -17,10 +17,9 @@ public partial class BootstrapLabel
     public string? Value { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示标签 Tooltip 多用于标签文字过长导致裁减时使用 默认 false 始终不显示
+    /// 获得/设置 是否显示 Tooltip 多用于标签文字过长导致裁减时使用 默认 false 不显示
     /// </summary>
     [Parameter]
-    [NotNull]
     public bool? ShowLabelTooltip { get; set; }
 
     private bool _showTooltip;
