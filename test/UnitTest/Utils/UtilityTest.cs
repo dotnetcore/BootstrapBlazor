@@ -713,6 +713,7 @@ public class UtilityTest : BootstrapBlazorTestBase
         [AutoGenerateColumn(Align = Alignment.Center, Order = -2)]
         public string? Name2 { get; set; }
     }
+
     private class Pig
     {
         public string? Name1 { get; set; }
