@@ -39,15 +39,41 @@ public partial class DateTimeRange
 
     private DateTime StartValue { get; set; }
 
-    private string? StartValueString => Value.Start != DateTime.MinValue
-        ? GetValueString(Value.Start)
-        : null;
+    private string? StartValueString
+    {
+        set
+        {
+            if (DateTime.TryParse(value, out var startDateValue))
+            {
+                StartValue = startDateValue;
+                Value.Start = startDateValue;
+                SelectedValue.Start = startDateValue;
+            }
+        }
+        get
+        {
+            return Value.Start != DateTime.MinValue ? Value.Start.ToString(DateFormat) : null;
+        }
+    }
 
     private DateTime EndValue { get; set; }
 
-    private string? EndValueString => Value.End != DateTime.MinValue
-        ? GetValueString(Value.End)
-        : null;
+    private string? EndValueString
+    {
+        set
+        {
+            if (DateTime.TryParse(value, out var endDateValue))
+            {
+                EndValue = endDateValue;
+                Value.End = endDateValue;
+                SelectedValue.End = endDateValue;
+            }
+        }
+        get
+        {
+            return Value.End != DateTime.MinValue ? Value.End.ToString(DateFormat) : null;
+        }
+    }
 
     [NotNull]
     private string? StartPlaceHolderText { get; set; }
@@ -449,4 +475,14 @@ public partial class DateTimeRange
     private static DateTime GetEndDateTime(DateTime dt) => dt.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
 
     private DateTime GetSafeStartValue() => SelectedValue.Start.Date == SelectedValue.End.Date ? SelectedValue.Start.GetSafeMonthDateTime(-1) : SelectedValue.Start.Date;
+
+    Dictionary<string, object> GetReadOnlyAttribute()
+    {
+        var dict = new Dictionary<string, object>();
+        if (!IsEditable)
+        {
+            dict.Add("readonly", "readonly");
+        }
+        return dict;
+    }
 }

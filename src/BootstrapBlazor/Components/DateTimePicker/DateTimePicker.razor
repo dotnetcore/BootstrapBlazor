@@ -8,7 +8,7 @@
     <BootstrapLabel required="@Required" for="@Id" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="@AdditionalAttributes" tabindex="@TabIndexString" id="@Id" class="@ClassString" data-bb-dropdown=".picker-panel" data-bb-dismiss=".picker-panel-link-btn">
-    <input readonly class="@InputClassName" value="@CurrentValueAsString" placeholder="@PlaceholderString" disabled="@Disabled" data-bs-toggle="@Constants.DropdownToggleString" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString" />
+    <input @attributes="@GetReadOnlyAttribute()" class="@InputClassName"  @bind="@CurrentValueString" placeholder="@PlaceholderString" disabled="@Disabled" data-bs-toggle="@Constants.DropdownToggleString" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString" />
     @if (ShowIcon)
     {
         <i class="@DateTimePickerIconClassString"></i>

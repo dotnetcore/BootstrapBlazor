@@ -320,4 +320,45 @@ public partial class DateTimePicker<TValue>
         }
         return ret;
     }
+
+    private string? CurrentValueString
+    {
+        set
+        {
+            var format = DateFormat;
+            switch (ViewMode)
+            {
+                case DatePickerViewMode.DateTime:
+                    format = DateTimeFormat;
+                    break;
+                case DatePickerViewMode.Date:
+                case DatePickerViewMode.Month:
+                case DatePickerViewMode.Year:
+                    format = DateFormat;
+                    break;
+                default:
+                    break;
+            }
+
+            if (DateTime.TryParse(value, out var dateValue))
+            {
+                SelectedValue = dateValue;
+                CurrentValueAsString = dateValue.ToString(format);
+            }
+        }
+        get
+        {
+            return CurrentValueAsString;
+        }
+    }
+
+    Dictionary<string, object> GetReadOnlyAttribute()
+    {
+        var dict = new Dictionary<string, object>();
+        if (!IsEditable)
+        {
+            dict.Add("readonly", "readonly");
+        }
+        return dict;
+    }
 }
