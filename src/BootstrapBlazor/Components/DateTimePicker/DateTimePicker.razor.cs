@@ -231,9 +231,9 @@ public partial class DateTimePicker<TValue>
         {
             SelectedValue = v1.DateTime;
         }
-        else if (Value is DateTime v2)
+        else
         {
-            SelectedValue = v2;
+            SelectedValue = (DateTime)(object)Value;
         }
 
         if (MinValueToEmpty(SelectedValue))

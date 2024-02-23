@@ -57,12 +57,14 @@ const copy = (text = '') => {
 }
 
 const getUID = (prefix = '') => {
+    let id = "";
     do {
-        prefix += Math.floor(Math.random() * 1000000)
+        const code = Math.floor(Math.random() * 1000000);
+        id = `${prefix}${code}`;
     }
-    while (document.getElementById(prefix))
+    while (document.getElementById(id))
 
-    return prefix
+    return id;
 }
 
 const getInnerWidth = element => getWidth(element, true)

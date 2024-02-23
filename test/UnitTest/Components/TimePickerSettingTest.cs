@@ -31,7 +31,7 @@ public class TimePickerSettingTest : BootstrapBlazorTestBase
     [Fact]
     public void RangeSetting_Ok()
     {
-        // TODO: 未实现
+        // TODO: 等待 Range 支持 DateTime 模式
         //var cut = Context.RenderComponent<DateTimeRange>(pb =>
         //{
         //    pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
@@ -44,7 +44,7 @@ public class TimePickerSettingTest : BootstrapBlazorTestBase
         //    });
         //});
 
-        //var picker = cut.FindComponent<TimePickerPanel>();
+        //var picker = cut.FindComponent<ClockPicker>();
         //Assert.False(picker.Instance.ShowMinute);
         //Assert.False(picker.Instance.ShowSecond);
         //Assert.False(picker.Instance.IsAutoSwitch);

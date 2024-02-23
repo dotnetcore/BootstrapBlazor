@@ -270,13 +270,9 @@ public partial class DateTimeRange
     /// </summary>
     protected override void OnParametersSet()
     {
-        base.OnParametersSet();
+        CheckValid();
 
-        // TODO: 临时禁用 DateTime 模式
-        if (ViewMode == DatePickerViewMode.DateTime)
-        {
-            ViewMode = DatePickerViewMode.Date;
-        }
+        base.OnParametersSet();
 
         StartPlaceHolderText ??= Localizer[nameof(StartPlaceHolderText)];
         EndPlaceHolderText ??= Localizer[nameof(EndPlaceHolderText)];
@@ -307,6 +303,15 @@ public partial class DateTimeRange
 
         SelectedValue.Start = Value.Start;
         SelectedValue.End = Value.End;
+
+        [ExcludeFromCodeCoverage]
+        void CheckValid()
+        {
+            if (ViewMode == DatePickerViewMode.DateTime)
+            {
+                throw new InvalidOperationException("DateTime 模式暂时不支持，The DateTime mode is currently not supported yet");
+            }
+        }
     }
 
     private async Task OnClickSidebarItem(DateTimeRangeSidebarItem item)
@@ -327,14 +332,14 @@ public partial class DateTimeRange
     private string GetValueString(DateTime value)
     {
         string? ret;
-        if (ViewMode == DatePickerViewMode.DateTime)
-        {
-            ret = value.ToString(DateTimeFormat);
-        }
-        else
-        {
+        //if (ViewMode == DatePickerViewMode.DateTime)
+        //{
+        //    ret = value.ToString(DateTimeFormat);
+        //}
+        //else
+        //{
             ret = value.ToString(DateFormat);
-        }
+        //}
         return ret;
     }
 
@@ -389,7 +394,7 @@ public partial class DateTimeRange
         SelectedValue.End = GetEndDateTime(DateTime.Today);
 
         EndValue = SelectedValue.End;
-        StartValue = GetSafeStartValue();
+        StartValue = SelectedValue.Start.GetSafeMonthDateTime(-1);
         await ClickConfirmButton();
     }
 
@@ -462,6 +467,8 @@ public partial class DateTimeRange
             SelectedValue.Start = d;
             SelectedValue.End = DateTime.MinValue;
         }
+        //StartValue = SelectedValue.Start;
+        //EndValue = SelectedValue.End;
         StateHasChanged();
     }
 

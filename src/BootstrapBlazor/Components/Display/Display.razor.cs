@@ -20,7 +20,7 @@ public partial class Display<TValue>
     /// <summary>
     /// 获得 显示文本
     /// </summary>
-    private string? CurrentTextAsString { get; set; }
+    protected string? CurrentTextAsString { get; set; }
 
     /// <summary>
     /// 获得/设置 异步格式化字符串
@@ -56,6 +56,12 @@ public partial class Display<TValue>
     [Parameter]
 
     public Func<Assembly?, string, bool, Type?>? TypeResolver { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示 Tooltip 多用于标签文字过长导致裁减时使用 默认 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowTooltip { get; set; }
 
     /// <summary>
     /// <inheritdoc/>>

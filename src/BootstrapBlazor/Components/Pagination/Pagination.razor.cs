@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// Pagination 组件
 /// </summary>
 public partial class Pagination
 {
@@ -181,7 +181,7 @@ public partial class Pagination
         var pageIndex = InternalPageIndex - index;
         if (pageIndex < 1)
         {
-            pageIndex = InternalPageCount;
+            pageIndex = 1;
         }
         await OnPageItemClick(pageIndex);
     }
@@ -194,7 +194,7 @@ public partial class Pagination
         var pageIndex = InternalPageIndex + index;
         if (pageIndex > InternalPageCount)
         {
-            pageIndex = 1;
+            pageIndex = InternalPageCount;
         }
         await OnPageItemClick(pageIndex);
     }
