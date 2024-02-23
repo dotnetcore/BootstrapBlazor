@@ -3817,8 +3817,8 @@
     "Arr": "Array",
     "FormatStringSettingText": "Set up",
     "FormatStringP": "The <code>Display</code> component binding <code>byte[]</code> array, formatted as an example of <code>base64</code> encoded string",
-    "ShowTipsTitle": "Show Tooltip",
-    "ShowTipIntro": "Wrapper with <code>Tooltip</code> component for show tooltip title"
+    "ShowTooltipTitle": "Show Tooltip",
+    "ShowTooltipIntro": "Wrapper with <code>Tooltip</code> or <code>ShowTooltip=\"true\"</code> component for show tooltip title"
   },
   "BootstrapBlazor.Server.Components.Samples.DropdownWidgets": {
     "Title": "DropdownWidget",
