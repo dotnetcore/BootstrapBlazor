@@ -148,7 +148,15 @@ public partial class Tables
         {
             Name = nameof(IEditorItem.LookupServiceKey),
             Description = Localizer["LookupServiceKeyAttr"],
-            Type = "string",
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(IEditorItem.LookupServiceData),
+            Description = Localizer["LookupServiceDataAttr"],
+            Type = "object?",
             ValueList = " — ",
             DefaultValue = " — "
         },
