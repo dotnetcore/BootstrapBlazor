@@ -297,8 +297,8 @@ public static class Utility
     /// <returns></returns>
     public static IEnumerable<ITableColumn> GetTableColumns(Type type, IEnumerable<ITableColumn>? source = null, Func<IEnumerable<ITableColumn>, IEnumerable<ITableColumn>>? defaultOrderCallback = null)
     {
-        var metadataType = TableMetadataTypeService.GetMetadataType(type);
         var cols = new List<ITableColumn>(50);
+        var metadataType = TableMetadataTypeService.GetMetadataType(type);
         var classAttribute = metadataType.GetCustomAttribute<AutoGenerateClassAttribute>(true);
         // to make it simple, we just check the property name should exist in target data type properties
         var targetProperties = type.GetProperties().Where(p => !p.IsStatic());
