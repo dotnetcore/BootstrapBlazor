@@ -58,6 +58,12 @@ public partial class Display<TValue>
     public Func<Assembly?, string, bool, Type?>? TypeResolver { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示 Tooltip 多用于标签文字过长导致裁减时使用 默认 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowTooltip { get; set; }
+
+    /// <summary>
     /// <inheritdoc/>>
     /// </summary>
     /// <param name="parameters"></param>
