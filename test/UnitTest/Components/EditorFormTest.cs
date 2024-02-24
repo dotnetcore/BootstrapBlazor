@@ -211,13 +211,14 @@ public class EditorFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public async Task IsEditable_Ok()
+    public void IsEditable_Ok()
     {
         var editorItem = new EditorItem<Foo, string>();
-        await editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
+        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
             ["Editable"] = true,
             ["Readonly"] = false,
+            ["Visible"] = true,
             ["IsReadonlyWhenAdd"] = true,
             ["IsReadonlyWhenEdit"] = false
         }));
@@ -227,10 +228,10 @@ public class EditorFormTest : BootstrapBlazorTestBase
 
 
     [Fact]
-    public async Task IsVisible_Ok()
+    public void IsVisible_Ok()
     {
         var editorItem = new EditorItem<Foo, string>();
-        await editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
+        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
             ["Editable"] = true,
             ["Readonly"] = false,
@@ -398,7 +399,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
 
         var v = itemsField.GetValue(editor) as List<IEditorItem>;
         Assert.NotNull(v);
-        Assert.Equal(new List<int>() { 60, 50, 40, 20, 10, 1 }, v.Select(i => i.Order));
+        Assert.Equal(new List<int>() { 70, 60, 50, 40, 20, 10, 1 }, v.Select(i => i.Order));
     }
 
     [Fact]

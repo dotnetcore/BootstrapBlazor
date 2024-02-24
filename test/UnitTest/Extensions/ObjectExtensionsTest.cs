@@ -175,11 +175,10 @@ public class ObjectExtensionsTest
     [Theory]
     [InlineData(ItemChangedType.Add, true)]
     [InlineData(ItemChangedType.Add, false)]
-    public async Task IsEditable_IsReadonlyWhenAdd(ItemChangedType itemChangedType, bool val)
+    public void IsEditable_IsReadonlyWhenAdd(ItemChangedType itemChangedType, bool val)
     {
-
         var editorItem = new EditorItem<Foo, string>();
-        await editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
+        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
             ["IsReadonlyWhenAdd"] = val
         }));
@@ -189,10 +188,10 @@ public class ObjectExtensionsTest
     [Theory]
     [InlineData(ItemChangedType.Update, true)]
     [InlineData(ItemChangedType.Update, false)]
-    public async Task IsEditable_IsReadonlyWhenEdit(ItemChangedType itemChangedType, bool val)
+    public void IsEditable_IsReadonlyWhenEdit(ItemChangedType itemChangedType, bool val)
     {
         var editorItem = new EditorItem<Foo, string>();
-        await editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
+        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
             ["IsReadonlyWhenEdit"] = val
         }));
@@ -203,10 +202,10 @@ public class ObjectExtensionsTest
     [Theory]
     [InlineData(ItemChangedType.Add, true)]
     [InlineData(ItemChangedType.Add, false)]
-    public async Task IsVisible_IsVisibleWhenAdd(ItemChangedType itemChangedType, bool val)
+    public void IsVisible_IsVisibleWhenAdd(ItemChangedType itemChangedType, bool val)
     {
         var editorItem = new EditorItem<Foo, string>();
-        await editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
+        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
             ["IsVisibleWhenAdd"] = val
         }));
@@ -216,10 +215,10 @@ public class ObjectExtensionsTest
     [Theory]
     [InlineData(ItemChangedType.Update, true)]
     [InlineData(ItemChangedType.Update, false)]
-    public async Task IsVisible_IsVisibleWhenEdit(ItemChangedType itemChangedType, bool val)
+    public void IsVisible_IsVisibleWhenEdit(ItemChangedType itemChangedType, bool val)
     {
         var editorItem = new EditorItem<Foo, string>();
-        await editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
+        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
             ["IsVisibleWhenEdit"] = val
         }));
