@@ -114,22 +114,6 @@ public partial class Tables
         },
         new()
         {
-            Name = nameof(IEditorItem.IsReadonlyWhenAdd),
-            Description = Localizer["IsReadonlyWhenAddAttr"],
-            Type = "boolean",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = nameof(IEditorItem.IsReadonlyWhenEdit),
-            Description = Localizer["IsReadonlyWhenEditAttr"],
-            Type = "boolean",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
             Name = nameof(IEditorItem.Lookup),
             Description = Localizer["LookupAttr"],
             Type = "IEnumerable<SelectedItem>",
@@ -164,6 +148,22 @@ public partial class Tables
         {
             Name = "Readonly",
             Description = Localizer["ReadonlyAttr"],
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(IEditorItem.IsReadonlyWhenAdd),
+            Description = Localizer["IsReadonlyWhenAddAttr"],
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(IEditorItem.IsReadonlyWhenEdit),
+            Description = Localizer["IsReadonlyWhenEditAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -260,17 +260,17 @@ public partial class Tables
         {
             Name = "IsVisibleWhenAdd",
             Description = Localizer["IsVisibleWhenAddAttr"],
-            Type = "Visibility",
-            ValueList = "Unset|Visible|Hidden",
-            DefaultValue = "Unset"
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "true"
         },
         new()
         {
             Name = "IsVisibleWhenEdit",
             Description = Localizer["IsVisibleWhenEditAttr"],
-            Type = "Visibility",
-            ValueList = "Unset|Visible|Hidden",
-            DefaultValue = "Unset"
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "true"
         },
         new()
         {
