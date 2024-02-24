@@ -473,7 +473,7 @@ public partial class Table<TItem>
             else if (EditMode == EditMode.InCell)
             {
                 AddInCell = true;
-                EditInCell = true;
+                EditInCell = false;
                 SelectedRows.Add(EditModel);
             }
             await OnSelectedRowsChanged();
