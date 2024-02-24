@@ -188,7 +188,7 @@ public partial class EditorForm<TModel> : IShowLabel
     /// </summary>
     private readonly List<IEditorItem> _formItems = [];
 
-    private IEnumerable<IEditorItem> UnsetGroupItems => _formItems.Where(i => string.IsNullOrEmpty(i.GroupName) && (i.IsVisible(ItemChangedType, IsSearch.Value)));
+    private IEnumerable<IEditorItem> UnsetGroupItems => _formItems.Where(i => string.IsNullOrEmpty(i.GroupName) && i.IsVisible(ItemChangedType, IsSearch.Value));
 
     private IEnumerable<KeyValuePair<string, IOrderedEnumerable<IEditorItem>>> GroupItems => _formItems
         .Where(i => !string.IsNullOrEmpty(i.GroupName) && i.IsVisible(ItemChangedType, IsSearch.Value))
@@ -230,10 +230,7 @@ public partial class EditorForm<TModel> : IShowLabel
         ShowLabel ??= ValidateForm?.ShowLabel;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    private bool FirstRender { get; set; } = true;
+    private bool _firstRender = true;
 
     /// <summary>
     /// OnAfterRenderAsync 方法
@@ -246,12 +243,11 @@ public partial class EditorForm<TModel> : IShowLabel
 
         if (firstRender)
         {
-            FirstRender = false;
+            _firstRender = false;
 
             if (Items != null)
             {
-                // 通过级联参数渲染组件 
-                _formItems.AddRange(IsVisibleAny(Items));
+                _formItems.AddRange(Items);
             }
             else
             {
@@ -267,8 +263,8 @@ public partial class EditorForm<TModel> : IShowLabel
                         var item = items.FirstOrDefault(i => i.GetFieldName() == el.GetFieldName());
                         if (item != null)
                         {
-                            // 过滤掉不编辑的列
-                            if (!el.Editable)
+                            // 过滤掉不编辑与不可见的列
+                            if (!el.Editable || !el.IsVisible(ItemChangedType, IsSearch.Value))
                             {
                                 items.Remove(item);
                             }
@@ -280,28 +276,14 @@ public partial class EditorForm<TModel> : IShowLabel
                             }
                         }
                     }
-                    _formItems.AddRange(IsVisibleAny(items.Where(i => i.Editable)));
+                    _formItems.AddRange(items);
                 }
                 else
                 {
-                    _formItems.AddRange(IsVisibleAny(_editorItems.Where(i => i.Editable)));
+                    _formItems.AddRange(_editorItems.Where(i => i.Editable && i.IsVisible(ItemChangedType, IsSearch.Value)));
                 }
             }
             StateHasChanged();
-        }
-
-        IEnumerable<IEditorItem> IsVisibleAny(IEnumerable<IEditorItem> items)
-        {
-            //如果有列设置了 VisibleWhenAdd 或者 VisibleWhenEdit 属性为 Visible, 隐藏其他列, 用于新建数据Dto场景, 优先用于判断是否需要默认隐藏其他列
-            bool isSetVisibleAny = items.Any(i => ItemChangedType == ItemChangedType.Add ? (i.IsVisibleWhenAdd == Visibility.Visible) : (i.IsVisibleWhenEdit == Visibility.Visible));
-            if (isSetVisibleAny)
-            {
-                return items.Where(a => ItemChangedType == ItemChangedType.Add ? (a.IsVisibleWhenAdd == Visibility.Visible) : (a.IsVisibleWhenEdit == Visibility.Visible));
-            }
-            else
-            {
-                return items;
-            }
         }
     }
 

@@ -5,7 +5,7 @@
 <CascadingValue Value="@_editorItems" IsFixed="true">
     @FieldItems?.Invoke(Model)
 </CascadingValue>
-@if (FirstRender)
+@if (_firstRender)
 {
     <div class="ef-loading">
         <Spinner Color="Color.Primary" />
