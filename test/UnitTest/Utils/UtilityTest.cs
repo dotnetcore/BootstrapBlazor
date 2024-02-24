@@ -550,10 +550,12 @@ public class UtilityTest : BootstrapBlazorTestBase
     {
         var cols = Utility.GetTableColumns<Cat>(new InternalTableColumn[]
         {
-            new(nameof(Cat.Name), typeof(string)) { Text = "test-Name", LookupServiceData = true }
+            new(nameof(Cat.Name), typeof(string)) { Text = "test-Name", LookupServiceData = true, IsVisibleWhenAdd = false, IsVisibleWhenEdit = false }
         });
         Assert.Equal(2, cols.Count());
         Assert.Equal(true, cols.First().LookupServiceData);
+        Assert.False(cols.First().IsVisibleWhenAdd);
+        Assert.False(cols.First().IsVisibleWhenEdit);
     }
 
     [Fact]
