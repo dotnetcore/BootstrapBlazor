@@ -30,7 +30,7 @@
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Address" Rows="3" />
             <TableColumn @bind-Field="@context.Count" IsVisibleWhenAdd="false" />
             <TableColumn @bind-Field="@context.Complete" IsVisibleWhenEdit="false" />
             <TableColumn @bind-Field="@context.Education" />
@@ -131,10 +131,10 @@
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Address" Rows="3" />
             <TableColumn @bind-Field="@context.Education" />
-            <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Complete" />
+            <TableColumn @bind-Field="@context.Count" IsVisibleWhenAdd="false" />
+            <TableColumn @bind-Field="@context.Complete" IsVisibleWhenEdit="false" />
         </TableColumns>
     </Table>
 
@@ -142,7 +142,6 @@
         <p>@((MarkupString)Localizer["TablesEditModeInCell"].Value)</p>
         <RadioList @bind-Value="InsertMode" />
     </section>
-
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
@@ -152,10 +151,10 @@
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Address" Rows="3" />
             <TableColumn @bind-Field="@context.Education" />
-            <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Complete" />
+            <TableColumn @bind-Field="@context.Count" IsVisibleWhenAdd="false" />
+            <TableColumn @bind-Field="@context.Complete" IsVisibleWhenEdit="false" />
         </TableColumns>
     </Table>
 </DemoBlock>
