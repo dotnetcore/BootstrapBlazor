@@ -17,15 +17,19 @@
 }
 
 .datetime-picker {
-    --bb-dt-picker-bar-color: #{$dt-picker-bar-color};
+    --bb-dt-picker-bar-color: #{$bb-dt-picker-bar-color};
     position: relative;
 
     .form-control {
         cursor: pointer;
-        --bb-form-control-padding: #{$form-control-padding};
+        --bb-form-control-padding: #{$bb-dt-form-control-padding};
 
         &[readonly]:not([disabled]) {
             background-color: var(--bs-body-bg);
+        }
+
+        &.has-icon {
+            --bb-form-control-padding: #{$bb-dt-form-control-icon-padding};
         }
     }
 
@@ -252,7 +256,7 @@
 
 .picker-panel-footer {
     border-top: var(--bs-border-width) solid var(--bs-border-color);
-    padding: 4px;
+    padding: .25rem .5rem;
     background-color: var(--bs-body-bg);
     position: relative;
     display: flex;
@@ -260,7 +264,7 @@
     border-bottom-right-radius: var(--bs-border-radius);
 
     .picker-panel-link-btn {
-        padding: 7px 15px;
+        padding: .5rem 1rem;
         font-size: 0.75rem;
         border-radius: var(--bs-border-radius);
         line-height: 12px;

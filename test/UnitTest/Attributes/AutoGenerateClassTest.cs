@@ -60,6 +60,7 @@ public class AutoGenerateClassTest
             Rows = 1,
             LookupStringComparison = StringComparison.Ordinal,
             LookupServiceKey = "test-lookup",
+            LookupServiceData = true,
             GroupName = "Test",
             GroupOrder = 1,
             ShowHeaderTooltip = true,
@@ -93,6 +94,7 @@ public class AutoGenerateClassTest
         Assert.Equal("Test", attr.GroupName);
         Assert.Equal(1, attr.GroupOrder);
         Assert.Equal("test-lookup", attr.LookupServiceKey);
+        Assert.Equal(true, attr.LookupServiceData);
         Assert.True(attr.ShowHeaderTooltip);
         Assert.True(attr.HeaderTextWrap);
         Assert.True(attr.HeaderTextEllipsis);

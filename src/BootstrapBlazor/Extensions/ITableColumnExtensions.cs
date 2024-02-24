@@ -47,6 +47,7 @@ public static class IEditItemExtensions
         if (source.IsPopover) dest.IsPopover = source.IsPopover;
         if (source.LookupStringComparison != StringComparison.OrdinalIgnoreCase) dest.LookupStringComparison = source.LookupStringComparison;
         if (source.LookupServiceKey != null) dest.LookupServiceKey = source.LookupServiceKey;
+        if (source.LookupServiceData != null) dest.LookupServiceData = source.LookupServiceData;
         if (source.IsReadonlyWhenAdd) dest.IsReadonlyWhenAdd = source.IsReadonlyWhenAdd;
         if (source.IsReadonlyWhenEdit) dest.IsReadonlyWhenEdit = source.IsReadonlyWhenEdit;
         if (source.Readonly) dest.Readonly = source.Readonly;

@@ -157,7 +157,7 @@ public static class Utility
     /// <param name="cultureName">cultureName 未空时使用 CultureInfo.CurrentUICulture.Name</param>
     /// <param name="forceLoad">默认 false 使用缓存值 设置 true 时内部强制重新加载</param>
     /// <returns></returns>
-    public static IEnumerable<LocalizedString> GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false) => CacheManager.GetJsonStringByTypeName(option, assembly, typeName, cultureName, forceLoad) ?? Enumerable.Empty<LocalizedString>();
+    public static IEnumerable<LocalizedString> GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false) => CacheManager.GetJsonStringByTypeName(option, assembly, typeName, cultureName, forceLoad) ?? [];
 
     /// <summary>
     /// 通过指定程序集与类型获得 IStringLocalizer 实例
@@ -380,6 +380,11 @@ public static class Utility
             builder.AddAttribute(2, nameof(Switch.IsDisabled), true);
             builder.AddAttribute(3, nameof(Switch.DisplayText), displayName);
             builder.AddAttribute(4, nameof(Switch.ShowLabelTooltip), item.ShowLabelTooltip);
+            if (item is ITableColumn col)
+            {
+                builder.AddAttribute(5, "class", col.CssClass);
+            }
+            builder.AddMultipleAttributes(6, item.ComponentParameters);
             builder.CloseComponent();
         }
         else if (item.ComponentType == typeof(Textarea))
@@ -393,10 +398,11 @@ public static class Utility
             {
                 builder.AddAttribute(5, "rows", item.Rows);
             }
-            if (item is ITableColumn col && col.ComponentParameters != null)
+            if (item is ITableColumn col)
             {
-                builder.AddMultipleAttributes(6, col.ComponentParameters);
+                builder.AddAttribute(6, "class", col.CssClass);
             }
+            builder.AddMultipleAttributes(7, item.ComponentParameters);
             builder.CloseComponent();
         }
         else
@@ -405,18 +411,21 @@ public static class Utility
             builder.AddAttribute(1, nameof(Display<string>.DisplayText), displayName);
             builder.AddAttribute(2, nameof(Display<string>.Value), fieldValue);
             builder.AddAttribute(3, nameof(Display<string>.LookupServiceKey), item.LookupServiceKey);
-            builder.AddAttribute(4, nameof(Display<string>.ShowLabelTooltip), item.ShowLabelTooltip);
+            builder.AddAttribute(4, nameof(Display<string>.LookupServiceData), item.LookupServiceData);
+            builder.AddAttribute(5, nameof(Display<string>.ShowLabelTooltip), item.ShowLabelTooltip);
             if (item is ITableColumn col)
             {
                 if (col.Formatter != null)
                 {
-                    builder.AddAttribute(5, nameof(Display<string>.FormatterAsync), CacheManager.GetFormatterInvoker(fieldType, col.Formatter));
+                    builder.AddAttribute(6, nameof(Display<string>.FormatterAsync), CacheManager.GetFormatterInvoker(fieldType, col.Formatter));
                 }
                 else if (!string.IsNullOrEmpty(col.FormatString))
                 {
-                    builder.AddAttribute(5, nameof(Display<string>.FormatString), col.FormatString);
+                    builder.AddAttribute(6, nameof(Display<string>.FormatString), col.FormatString);
                 }
+                builder.AddAttribute(7, "class", col.CssClass);
             }
+            builder.AddMultipleAttributes(8, item.ComponentParameters);
             builder.CloseComponent();
         }
     }
@@ -440,7 +449,7 @@ public static class Utility
         var fieldValue = GenerateValue(model, fieldName);
         var fieldValueChanged = GenerateValueChanged(component, model, fieldName, fieldType);
         var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
-        var lookup = item.Lookup ?? lookUpService?.GetItemsByKey(item.LookupServiceKey);
+        var lookup = item.Lookup ?? lookUpService?.GetItemsByKey(item.LookupServiceKey, item.LookupServiceData);
         var componentType = item.ComponentType ?? GenerateComponentType(fieldType, item.Rows != 0, lookup);
         builder.OpenComponent(0, componentType);
         if (componentType.IsSubclassOf(typeof(ValidateBase<>).MakeGenericType(fieldType)))
@@ -511,10 +520,7 @@ public static class Utility
 
         builder.AddMultipleAttributes(17, CreateMultipleAttributes(fieldType, model, fieldName, item));
 
-        if (item.ComponentParameters != null)
-        {
-            builder.AddMultipleAttributes(18, item.ComponentParameters);
-        }
+        builder.AddMultipleAttributes(18, item.ComponentParameters);
 
         // 设置 IsPopover
         if (componentType.GetPropertyByName(nameof(Select<string>.IsPopover)) != null)

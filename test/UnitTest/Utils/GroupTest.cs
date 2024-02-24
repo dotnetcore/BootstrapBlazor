@@ -13,7 +13,7 @@ public class GroupTest(ITestOutputHelper logger)
     {
         var results = new List<string>();
 
-        var items = new List<MockTableColumn>(50)
+        var items = new List<InternalTableColumn>(50)
         {
             new("Test1", typeof(string)) { GroupName = "Test1", GroupOrder = 2, Order = 2  },
             new("Test2", typeof(string)) { GroupName = "Test1", GroupOrder = 2, Order = 1  },
@@ -25,8 +25,8 @@ public class GroupTest(ITestOutputHelper logger)
         {
             foreach (var item in g.Items)
             {
-                results.Add(item.FieldName);
-                Logger.WriteLine($"{item.FieldName} - {item.GroupName} - {item.GroupOrder}");
+                results.Add(item.GetFieldName());
+                Logger.WriteLine($"{item.GetFieldName()} - {item.GroupName} - {item.GroupOrder}");
             }
         }
 

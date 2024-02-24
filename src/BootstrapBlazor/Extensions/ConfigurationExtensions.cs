@@ -105,14 +105,14 @@ internal static class ConfigurationExtensions
     /// <param name="config"></param>
     /// <param name="defaultValue"></param>
     /// <returns></returns>
-    public static string GetUserName(this IConfiguration config, string defaultValue = "")
+    public static string? GetUserName(this IConfiguration config, string? defaultValue = null)
     {
-        var userName = config.GetValue<string>("USERNAME");
+        var userName = config.GetValue<string?>("USERNAME");
 
-        // Mac CentOs 系统
+        // Mac CentOS 系统
         if (string.IsNullOrEmpty(userName))
         {
-            userName = config.GetValue<string>("LOGNAME");
+            userName = config.GetValue<string?>("LOGNAME");
         }
         return userName ?? defaultValue;
     }
@@ -123,9 +123,9 @@ internal static class ConfigurationExtensions
     /// <param name="config"></param>
     /// <param name="defaultValue"></param>
     /// <returns></returns>
-    public static string GetEnvironmentName(this IConfiguration config, string defaultValue = "")
+    public static string? GetEnvironmentName(this IConfiguration config, string? defaultValue = null)
     {
-        return config.GetValue<string>("ASPNETCORE_ENVIRONMENT") ?? defaultValue;
+        return config.GetValue<string?>("ASPNETCORE_ENVIRONMENT") ?? defaultValue;
     }
 
     /// <summary>
@@ -134,9 +134,9 @@ internal static class ConfigurationExtensions
     /// <param name="config"></param>
     /// <param name="defaultValue"></param>
     /// <returns></returns>
-    public static string GetIISPath(this IConfiguration config, string defaultValue = "")
+    public static string? GetIISPath(this IConfiguration config, string? defaultValue = null)
     {
-        return config.GetValue<string>("ASPNETCORE_IIS_PHYSICAL_PATH") ?? defaultValue;
+        return config.GetValue<string?>("ASPNETCORE_IIS_PHYSICAL_PATH") ?? defaultValue;
     }
 
     /// <summary>
@@ -145,10 +145,10 @@ internal static class ConfigurationExtensions
     /// <param name="config"></param>
     /// <param name="defaultValue"></param>
     /// <returns></returns>
-    public static string GetVisualStudioVersion(this IConfiguration config, string defaultValue = "")
+    public static string? GetVisualStudioVersion(this IConfiguration config, string? defaultValue = null)
     {
-        var edition = config.GetValue<string>("VisualStudioEdition");
-        var version = config.GetValue<string>("VisualStudioVersion");
+        var edition = config.GetValue<string?>("VisualStudioEdition");
+        var version = config.GetValue<string?>("VisualStudioVersion");
 
         var ret = $"{edition} {version}";
         if (ret == " ")

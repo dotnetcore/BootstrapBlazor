@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// IEditorItem 接口
 /// </summary>
 public interface IEditorItem
 {
@@ -101,14 +101,19 @@ public interface IEditorItem
     bool IsPopover { get; set; }
 
     /// <summary>
-    /// 获得/设置 字典数据源字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
+    /// 获得/设置 字典数据源字符串比较规则 默认 <see cref="StringComparison.OrdinalIgnoreCase" /> 大小写不敏感 
     /// </summary>
     StringComparison LookupStringComparison { get; set; }
 
     /// <summary>
-    /// 获得/设置 LookupService 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作
+    /// 获得/设置 <see cref="ILookupService"/> 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作，可以通过 <see cref="LookupServiceData"/> 传递自定义数据
     /// </summary>
     string? LookupServiceKey { get; set; }
+
+    /// <summary>
+    /// 获得/设置 <see cref="ILookupService"/> 服务获取 Lookup 数据集合键值自定义数据，通过 <see cref="LookupServiceKey"/> 指定键值
+    /// </summary>
+    object? LookupServiceData { get; set; }
 
     /// <summary>
     /// 获得/设置 自定义验证集合

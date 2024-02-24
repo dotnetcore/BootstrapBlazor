@@ -52,10 +52,10 @@
     "YearText": "{0}",
     "MonthText": "{0}",
     "YearPeriodText": "{0} - {1}",
-    "Months": "January,February,March,April,May,June,July,August,September,October,November,December",
+    "Months": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
     "MonthLists": "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec",
     "WeekLists": "Sun,Mon,Tue,Wed,Thu,Fri,Sat",
-    "GenericTypeErroMessage": "DateTimePicker only supports DateTime or Nullable<DateTime>",
+    "GenericTypeErroMessage": "DateTimePicker only supports DateTime DateTime? DateTimeOffset DateTimeOffset?",
     "Today": "Today",
     "Yesterday": "Yesterday",
     "Week": "A week ago"
@@ -67,6 +67,7 @@
     "ClearButtonText": "Clear",
     "TodayButtonText": "Today",
     "ConfirmButtonText": "Ok",
+    "DateTimeFormat": "M/d/yyyy hh\\:mm\\:ss tt",
     "DateFormat": "M/d/yyyy",
     "Last7Days": "Last 7 Days",
     "Last30Days": "Last 30 Days",
@@ -350,5 +351,9 @@
   "BootstrapBlazor.Components.TableAdvancedSortDialog": {
     "AscText": "Ascending",
     "DescText": "Descending"
+  },
+  "BootstrapBlazor.Components.ClockPicker": {
+    "AMText": "AM",
+    "PMText": "PM"
   }
 }

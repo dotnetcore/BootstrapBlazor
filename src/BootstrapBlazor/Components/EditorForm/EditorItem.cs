@@ -173,10 +173,16 @@ public class EditorItem<TValue> : ComponentBase, IEditorItem
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
     /// <summary>
-    /// 获得/设置 LookupService 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作
+    /// <inheritdoc/>>
     /// </summary>
     [Parameter]
     public string? LookupServiceKey { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>>
+    /// </summary>
+    [Parameter]
+    public object? LookupServiceData { get; set; }
 
     /// <summary>
     /// 获得/设置 自定义验证集合

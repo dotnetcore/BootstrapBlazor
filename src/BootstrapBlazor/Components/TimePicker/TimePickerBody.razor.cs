@@ -53,35 +53,36 @@ public partial class TimePickerBody
     public string? ConfirmButtonText { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示秒
+    /// 获得/设置 是否显示秒 默认为 true
     /// </summary>
     [Parameter]
     [NotNull]
     public bool HasSeconds { get; set; } = true;
-    private string? HasSecondsCss => HasSeconds? "has-seconds" : "havenot-seconds";
+
+    private string? HasSecondsCss => HasSeconds ? "has-seconds" : "havenot-seconds";
 
     /// <summary>
     /// 获得/设置 取消按钮回调委托
     /// </summary>
     [Parameter]
-    public Action? OnClose { get; set; }
+    public Func<Task>? OnClose { get; set; }
 
     /// <summary>
     /// 获得/设置 确认按钮回调委托
     /// </summary>
     [Parameter]
-    public Action? OnConfirm { get; set; }
+    public Func<TimeSpan, Task>? OnConfirm { get; set; }
 
     [Inject]
     [NotNull]
     private IStringLocalizer<DateTimePicker<DateTime>>? Localizer { get; set; }
 
     /// <summary>
-    /// OnInitialized 方法
+    /// <inheritdoc/>
     /// </summary>
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        base.OnInitialized();
+        base.OnParametersSet();
 
         CurrentTime = Value;
         CancelButtonText ??= Localizer[nameof(CancelButtonText)];
@@ -91,11 +92,13 @@ public partial class TimePickerBody
     /// <summary>
     /// 点击取消按钮回调此方法
     /// </summary>
-    private Task OnClickClose()
+    private async Task OnClickClose()
     {
         CurrentTime = Value;
-        OnClose?.Invoke();
-        return Task.CompletedTask;
+        if (OnClose != null)
+        {
+            await OnClose();
+        }
     }
 
     /// <summary>
@@ -108,6 +111,9 @@ public partial class TimePickerBody
         {
             await ValueChanged.InvokeAsync(Value);
         }
-        OnConfirm?.Invoke();
+        if (OnConfirm != null)
+        {
+            await OnConfirm(Value);
+        }
     }
 }

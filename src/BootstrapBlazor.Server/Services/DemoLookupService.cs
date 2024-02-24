@@ -7,13 +7,11 @@ namespace Microsoft.Extensions.DependencyInjection;
 /// <summary>
 /// 演示网站示例数据注入服务实现类
 /// </summary>
-internal class DemoLookupService : ILookupService
+internal class DemoLookupService(IServiceProvider provider) : LookupServiceBase
 {
-    private IServiceProvider Provider { get; }
+    private IServiceProvider Provider { get; } = provider;
 
-    public DemoLookupService(IServiceProvider provider) => Provider = provider;
-
-    public IEnumerable<SelectedItem>? GetItemsByKey(string? key)
+    public override IEnumerable<SelectedItem>? GetItemsByKey(string? key, object? data)
     {
         IEnumerable<SelectedItem>? items = null;
         if (key == "Foo.Complete")

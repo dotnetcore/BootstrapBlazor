@@ -895,7 +895,7 @@
         <HeaderTemplate>
             @if (ShowSearchText)
             {
-                <div class="input-group">
+                <div class="input-group input-group-xs">
                     @if (ShowSearchTextTooltip)
                     {
                         <Tooltip Placement="Placement.Top" Title="@SearchTooltip" Sanitize="false" IsHtml="true">
@@ -919,16 +919,16 @@
                     </Button>
                 </div>
             }
-            <div class="table-search-buttons">
+            <div class="table-search-buttons input-group input-group-xs">
                 @if (ShowResetButton)
                 {
-                    <Button Color="Color.Secondary" Icon="@ResetSearchButtonIcon" class="btn-xs ms-2" OnClickWithoutRender="ClearSearchClick">
+                    <Button Color="Color.Secondary" Icon="@ResetSearchButtonIcon" OnClickWithoutRender="ClearSearchClick">
                         <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                     </Button>
                 }
                 @if (ShowSearchButton)
                 {
-                    <Button Color="Color.Primary" Icon="@SearchButtonIcon" class="btn-xs ms-2" OnClickWithoutRender="SearchClick">
+                    <Button Color="Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="SearchClick">
                         <span class="d-none d-sm-inline-block">@SearchButtonText</span>
                     </Button>
                 }

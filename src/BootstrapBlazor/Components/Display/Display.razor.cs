@@ -20,7 +20,7 @@ public partial class Display<TValue>
     /// <summary>
     /// 获得 显示文本
     /// </summary>
-    private string? CurrentTextAsString { get; set; }
+    protected string? CurrentTextAsString { get; set; }
 
     /// <summary>
     /// 获得/设置 异步格式化字符串
@@ -41,10 +41,16 @@ public partial class Display<TValue>
     public IEnumerable<SelectedItem>? Lookup { get; set; }
 
     /// <summary>
-    /// 获得/设置 LookupService 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作
+    /// 获得/设置 <see cref="ILookupService"/> 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作，可以通过 <see cref="LookupServiceData"/> 传递自定义数据
     /// </summary>
     [Parameter]
     public string? LookupServiceKey { get; set; }
+
+    /// <summary>
+    /// 获得/设置 <see cref="ILookupService"/> 服务获取 Lookup 数据集合键值自定义数据，通过 <see cref="LookupServiceKey"/> 指定键值
+    /// </summary>
+    [Parameter]
+    public object? LookupServiceData { get; set; }
 
     [Inject]
     [NotNull]
@@ -58,6 +64,12 @@ public partial class Display<TValue>
     public Func<Assembly?, string, bool, Type?>? TypeResolver { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否显示 Tooltip 多用于标签文字过长导致裁减时使用 默认 false 不显示
+    /// </summary>
+    [Parameter]
+    public bool ShowTooltip { get; set; }
+
+    /// <summary>
     /// <inheritdoc/>>
     /// </summary>
     /// <param name="parameters"></param>
@@ -68,7 +80,7 @@ public partial class Display<TValue>
 
         if (!string.IsNullOrEmpty(LookupServiceKey))
         {
-            Lookup = LookupService.GetItemsByKey(LookupServiceKey);
+            Lookup = LookupService.GetItemsByKey(LookupServiceKey, LookupServiceData);
         }
 
         // For derived components, retain the usual lifecycle with OnInit/OnParametersSet/etc.
