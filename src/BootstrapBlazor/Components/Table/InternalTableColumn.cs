@@ -28,8 +28,6 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
 
     public bool Fixed { get; set; }
 
-    public bool Visible { get; set; } = true;
-
     public bool TextWrap { get; set; }
 
     public bool TextEllipsis { get; set; }
@@ -40,14 +38,34 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     public bool SkipValidate { get; set; }
 
     /// <summary>
-    /// 获得/设置 新建时此列只读 默认为 false
+    /// <inheritdoc/>
+    /// </summary>
+    public bool Readonly { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     public bool IsReadonlyWhenAdd { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑时此列只读 默认为 false
+    /// <inheritdoc/>
     /// </summary>
     public bool IsReadonlyWhenEdit { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool Visible { get; set; } = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool IsVisibleWhenAdd { get; set; } = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool IsVisibleWhenEdit { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 是否显示标签 Tooltip 多用于标签文字过长导致裁减时使用 默认 null
@@ -87,8 +105,6 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     public Type PropertyType { get; } = fieldType;
 
     public bool Editable { get; set; } = true;
-
-    public bool Readonly { get; set; }
 
     public string? Step { get; set; }
 
@@ -198,16 +214,6 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     /// <inheritdoc/>
     /// </summary>
     public bool IsMarkupString { get; set; }
-
-    /// <summary>
-    /// 获得/设置 新建时此列显示
-    /// </summary>
-    public Visibility IsVisibleWhenAdd { get; set; }
-
-    /// <summary>
-    /// 获得/设置 编辑时此列显示
-    /// </summary>
-    public Visibility IsVisibleWhenEdit { get; set; }
 
     public string GetDisplayName() => Text;
 

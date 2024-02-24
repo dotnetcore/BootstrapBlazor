@@ -37,14 +37,29 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     public bool SkipValidate { get; set; }
 
     /// <summary>
-    /// 获得/设置 新建时此列只读 默认为 false
+    /// <inheritdoc/>
     /// </summary>
     public bool IsReadonlyWhenAdd { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑时此列只读 默认为 false
+    /// <inheritdoc/>
     /// </summary>
     public bool IsReadonlyWhenEdit { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool Visible { get; set; } = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool IsVisibleWhenAdd { get; set; } = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool IsVisibleWhenEdit { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 是否显示标签 Tooltip 多用于标签文字过长导致裁减时使用 默认 false
@@ -79,21 +94,6 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// 获得/设置 是否固定本列 默认 false 不固定
     /// </summary>
     public bool Fixed { get; set; }
-
-    /// <summary>
-    /// 获得/设置 列是否显示 默认为 true 可见的
-    /// </summary>
-    public bool Visible { get; set; } = true; 
-
-    /// <summary>
-    /// 获得/设置 新建时此列显示
-    /// </summary>
-    public Visibility IsVisibleWhenAdd { get; set; }
-
-    /// <summary>
-    /// 获得/设置 编辑时此列显示
-    /// </summary>
-    public Visibility IsVisibleWhenEdit { get; set; }
 
     /// <summary>
     /// 获得/设置 列 td 自定义样式 默认为 null 未设置

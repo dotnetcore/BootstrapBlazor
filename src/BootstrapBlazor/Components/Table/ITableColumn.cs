@@ -44,11 +44,6 @@ public interface ITableColumn : IEditorItem
     /// </summary>
     bool Fixed { get; set; }
 
-    ///// <summary>
-    ///// 获得/设置 列是否显示 默认为 true 可见的
-    ///// </summary>
-    //bool Visible { get; set; }
-
     /// <summary>
     /// 获得/设置 本列是否允许换行 默认为 false
     /// </summary>
