@@ -206,12 +206,12 @@ public static class ObjectExtensions
     /// <param name="changedType"></param>
     /// <param name="search"></param>
     /// <returns></returns>
-    public static bool IsEditable(this IEditorItem item, ItemChangedType changedType, bool search = false) => item.Editable
+    public static bool IsEditable(this IEditorItem item, ItemChangedType changedType, bool search = false) => search || item.Editable
         && !item.Readonly && changedType switch
         {
             ItemChangedType.Add => !item.IsReadonlyWhenAdd,
             _ => !item.IsReadonlyWhenEdit
-        } || search;
+        };
 
     /// <summary>
     /// 判断当前 IEditorItem 实例是否显示
@@ -220,12 +220,12 @@ public static class ObjectExtensions
     /// <param name="changedType"></param>
     /// <param name="search"></param>
     /// <returns></returns>
-    public static bool IsVisible(this IEditorItem item, ItemChangedType changedType, bool search = false) => item.Editable
+    public static bool IsVisible(this IEditorItem item, ItemChangedType changedType, bool search = false) => search || item.Editable
         && item.Visible && changedType switch
         {
-            ItemChangedType.Add => item.IsVisibleWhenAdd != Visibility.Hidden,
-            _ => item.IsVisibleWhenEdit != Visibility.Hidden
-        } || search;
+            ItemChangedType.Add => item.IsVisibleWhenAdd,
+            _ => item.IsVisibleWhenEdit
+        };
 
     /// <summary>
     /// 判断当前 IEditorItem 示例是否可以编辑
