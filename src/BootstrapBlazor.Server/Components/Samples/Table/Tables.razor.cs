@@ -38,8 +38,8 @@ public partial class Tables
         Items = Foo.GenerateFoo(FooLocalizer);
     }
 
-    private IEnumerable<AttributeItem> GetTableColumnAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetTableColumnAttributes() =>
+    [
         new()
         {
             Name = "TextWrap",
@@ -360,7 +360,7 @@ public partial class Tables
             ValueList = "true/false",
             DefaultValue = "false"
         }
-    };
+    ];
 
     private AttributeItem[] GetAttributes() =>
     [
