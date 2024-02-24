@@ -62,7 +62,7 @@ public abstract class DisplayBase<TValue> : BootstrapModuleComponentBase
     public bool? ShowLabel { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示标签 Tooltip 多用于标签文字过长导致裁减时使用 默认 null
+    /// 获得/设置 是否显示 Tooltip 多用于文字过长导致裁减时使用 默认 null
     /// </summary>
     [Parameter]
     public bool? ShowLabelTooltip { get; set; }

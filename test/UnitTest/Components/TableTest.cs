@@ -679,7 +679,7 @@ public class TableTest : TableTestBase
         // 利用 MockTableColumn 设置 Filter 为 null 测试内部 Filter 为空时单元测试
         var table = cut.FindComponent<Table<Foo>>();
         table.Instance.Columns.Clear();
-        table.Instance.Columns.Add(new MockTableColumn("Name", typeof(string)));
+        table.Instance.Columns.Add(new InternalTableColumn("Name", typeof(string)));
         cut.InvokeAsync(() => table.Instance.ResetFilters());
     }
 
@@ -4757,10 +4757,10 @@ public class TableTest : TableTestBase
             });
         });
         var table = cut.FindComponent<MockTable>();
-        var css = table.Instance.TestGetCellClassString(new MockTableColumn("Name", typeof(string)) { Align = Alignment.Center });
+        var css = table.Instance.TestGetCellClassString(new InternalTableColumn("Name", typeof(string)) { Align = Alignment.Center });
         Assert.Equal("table-cell center", css);
 
-        css = table.Instance.TestGetHeaderWrapperClassString(new MockTableColumn("Name", typeof(string)) { Align = Alignment.Center });
+        css = table.Instance.TestGetHeaderWrapperClassString(new InternalTableColumn("Name", typeof(string)) { Align = Alignment.Center });
         Assert.Equal("table-cell center", css);
     }
 
@@ -6924,6 +6924,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(1, "Field", true);
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Complete", typeof(bool)));
                     builder.AddAttribute(3, "LookupServiceKey", "test");
+                    builder.AddAttribute(4, "LookupServiceData", true);
                     builder.CloseComponent();
                 });
             });

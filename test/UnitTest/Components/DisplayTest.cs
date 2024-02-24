@@ -48,6 +48,7 @@ public class DisplayTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Display<List<string>>>(pb =>
         {
             pb.Add(a => a.LookupServiceKey, "FooLookup");
+            pb.Add(a => a.LookupServiceData, true);
             pb.Add(a => a.Value, ["v1", "v2"]);
         });
         Assert.Contains("LookupService-Test-1,LookupService-Test-2", cut.Markup);
@@ -168,6 +169,17 @@ public class DisplayTest : BootstrapBlazorTestBase
             pb.Add(a => a.DisplayText, "Test Label");
         });
         Assert.Contains("Test Label", cut.Markup);
+    }
+
+    [Fact]
+    public void ShowToolip_Ok()
+    {
+        var cut = Context.RenderComponent<Display<string>>(pb =>
+        {
+            pb.Add(a => a.ShowTooltip, true);
+            pb.Add(a => a.Value, "Test Label");
+        });
+        Assert.Contains("data-bs-original-title=\"Test Label\"", cut.Markup);
     }
 
     [Fact]

@@ -382,16 +382,22 @@ public class TableColumn<TItem, TType> : BootstrapComponentBase, ITableColumn
     public bool IsPopover { get; set; }
 
     /// <summary>
-    /// 获得/设置 字典数据源字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感
+    /// <inheritdoc/>>
     /// </summary>
     [Parameter]
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
     /// <summary>
-    /// 获得/设置 字典数据源服务的类别 常用于外键自动转换为名称操作
+    /// <inheritdoc/>>
     /// </summary>
     [Parameter]
     public string? LookupServiceKey { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>>
+    /// </summary>
+    [Parameter]
+    public object? LookupServiceData { get; set; }
 
     /// <summary>
     /// 获得/设置 单元格回调方法

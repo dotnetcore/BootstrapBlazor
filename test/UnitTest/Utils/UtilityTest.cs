@@ -169,7 +169,7 @@ public class UtilityTest : BootstrapBlazorTestBase
         Assert.Equal("False", items[2].Text);
 
         // 动态类型
-        var dynamicType = EmitHelper.CreateTypeByName("test_type", new MockTableColumn[] { new("Name", typeof(string)) });
+        var dynamicType = EmitHelper.CreateTypeByName("test_type", new InternalTableColumn[] { new("Name", typeof(string)) });
         items = Utility.GetNullableBoolItems(dynamicType!, "Name");
         Assert.Equal("请选择 ...", items[0].Text);
         Assert.Equal("True", items[1].Text);
@@ -219,7 +219,7 @@ public class UtilityTest : BootstrapBlazorTestBase
     public void CreateDisplayByFieldType_FormatString()
     {
         var dt = DateTime.Now;
-        var editor = new MockTableColumn("DateTime", typeof(DateTime?)) { FormatString = "yyyy" };
+        var editor = new InternalTableColumn("DateTime", typeof(DateTime?)) { FormatString = "yyyy" };
         var fragment = new RenderFragment(builder => builder.CreateDisplayByFieldType(editor, new Foo() { DateTime = dt }));
         var cut = Context.Render(builder => builder.AddContent(0, fragment));
         Assert.Equal($"<div class=\"form-control is-display\">{dt:yyyy}</div>", cut.Markup);
@@ -229,7 +229,7 @@ public class UtilityTest : BootstrapBlazorTestBase
     public void CreateDisplayByFieldType_Formatter()
     {
         var dt = DateTime.Now;
-        var editor = new MockTableColumn("DateTime", typeof(DateTime?))
+        var editor = new InternalTableColumn("DateTime", typeof(DateTime?))
         {
             Formatter = new Func<object?, Task<string?>>(async v =>
             {
@@ -253,7 +253,7 @@ public class UtilityTest : BootstrapBlazorTestBase
     [Fact]
     public void CreateComponentByFieldType_Ok()
     {
-        var editor = new MockNullDisplayNameColumn("Name", typeof(string));
+        var editor = new MockNullDisplayNameColumn("Name", typeof(string)) { Readonly = true };
         var fragment = new RenderFragment(builder => builder.CreateComponentByFieldType(new BootstrapBlazorRoot(), editor, new Foo() { Name = "Test-Component" }));
         var cut = Context.Render(builder => builder.AddContent(0, fragment));
         Assert.Contains("class=\"form-control\" disabled=\"disabled\" value=\"Test-Component\"", cut.Markup);
@@ -375,7 +375,7 @@ public class UtilityTest : BootstrapBlazorTestBase
         Utility.GetJsonStringByTypeName(option, this.GetType().Assembly, "UnitTest.Utils.UtilityTest+Cat", null, true);
 
         // dynamic
-        var dynamicType = EmitHelper.CreateTypeByName("test_type", new MockTableColumn[] { new("Name", typeof(string)) });
+        var dynamicType = EmitHelper.CreateTypeByName("test_type", new InternalTableColumn[] { new("Name", typeof(string)) });
         Utility.GetJsonStringByTypeName(option, dynamicType!.Assembly, "Test");
     }
 
@@ -538,11 +538,22 @@ public class UtilityTest : BootstrapBlazorTestBase
         var cols = Utility.GenerateEditorItems<Foo>();
         Assert.Equal(7, cols.Count());
 
-        cols = Utility.GenerateEditorItems<Foo>(new MockTableColumn[]
+        cols = Utility.GenerateEditorItems<Foo>(new InternalTableColumn[]
         {
             new("Name", typeof(string)) { Text = "test-Name" }
         });
         Assert.Equal("test-Name", cols.First(i => i.GetFieldName() == "Name").Text);
+    }
+
+    [Fact]
+    public void GenerateTableColumns_Ok()
+    {
+        var cols = Utility.GetTableColumns<Cat>(new InternalTableColumn[]
+        {
+            new(nameof(Cat.Name), typeof(string)) { Text = "test-Name", LookupServiceData = true }
+        });
+        Assert.Equal(2, cols.Count());
+        Assert.Equal(true, cols.First().LookupServiceData);
     }
 
     [Fact]
@@ -575,7 +586,7 @@ public class UtilityTest : BootstrapBlazorTestBase
         }
 
         // dynamic assembly
-        var dynamicType = EmitHelper.CreateTypeByName("test_type", new MockTableColumn[] { new("Name", typeof(string)) });
+        var dynamicType = EmitHelper.CreateTypeByName("test_type", new InternalTableColumn[] { new("Name", typeof(string)) });
         localizer = Utility.CreateLocalizer(dynamicType!);
         Assert.Null(localizer);
     }
@@ -584,7 +595,7 @@ public class UtilityTest : BootstrapBlazorTestBase
     public void GetStringLocalizerFromService_Ok()
     {
         // 动态程序集
-        var dynamicType = EmitHelper.CreateTypeByName("test-Type", new MockTableColumn[] { new("Name", typeof(string)) });
+        var dynamicType = EmitHelper.CreateTypeByName("test-Type", new InternalTableColumn[] { new("Name", typeof(string)) });
         var localizer = Utility.GetStringLocalizerFromService(dynamicType!.Assembly, dynamicType.Name);
         Assert.Null(localizer);
     }
@@ -728,7 +739,7 @@ public class UtilityTest : BootstrapBlazorTestBase
         public string? Name2 { get; set; }
     }
 
-    private class MockNullDisplayNameColumn(string fieldName, Type propertyType) : MockTableColumn(fieldName, propertyType), IEditorItem
+    private class MockNullDisplayNameColumn(string fieldName, Type propertyType) : InternalTableColumn(fieldName, propertyType), IEditorItem
     {
         string IEditorItem.GetDisplayName() => null!;
     }
