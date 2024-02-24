@@ -175,52 +175,55 @@ public class ObjectExtensionsTest
     [Theory]
     [InlineData(ItemChangedType.Add, true)]
     [InlineData(ItemChangedType.Add, false)]
-    public void IsEditable_IsReadonlyWhenAdd(ItemChangedType itemChangedType, bool val)
+    public async Task IsEditable_IsReadonlyWhenAdd(ItemChangedType itemChangedType, bool val)
     {
-        var editorItem = new EditorItem<Foo, string>()
+
+        var editorItem = new EditorItem<Foo, string>();
+        await editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
-            IsReadonlyWhenAdd = val
-        };
+            ["IsReadonlyWhenAdd"] = val
+        }));
         Assert.Equal(val, !editorItem.IsEditable(itemChangedType));
     }
 
     [Theory]
     [InlineData(ItemChangedType.Update, true)]
     [InlineData(ItemChangedType.Update, false)]
-    public void IsEditable_IsReadonlyWhenEdit(ItemChangedType itemChangedType, bool val)
+    public async Task IsEditable_IsReadonlyWhenEdit(ItemChangedType itemChangedType, bool val)
     {
-        var editorItem = new EditorItem<Foo, string>()
+        var editorItem = new EditorItem<Foo, string>();
+        await editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
-            IsReadonlyWhenEdit = val
-        };
+            ["IsReadonlyWhenEdit"] = val
+        }));
         Assert.Equal(val, !editorItem.IsEditable(itemChangedType));
     }
 
 
     [Theory]
-    [InlineData(ItemChangedType.Add, Visibility.Unset)]
-    [InlineData(ItemChangedType.Add, Visibility.Visible)]
-    [InlineData(ItemChangedType.Add, Visibility.Hidden)]
-    public void IsVisible_IsVisibleWhenAdd(ItemChangedType itemChangedType, Visibility val)
+    [InlineData(ItemChangedType.Add, true)]
+    [InlineData(ItemChangedType.Add, false)]
+    public async Task IsVisible_IsVisibleWhenAdd(ItemChangedType itemChangedType, bool val)
     {
-        var editorItem = new EditorItem<Foo, string>()
+        var editorItem = new EditorItem<Foo, string>();
+        await editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
-            IsVisibleWhenAdd = val
-        };
-        Assert.Equal(val != Visibility.Hidden, editorItem.IsVisible(itemChangedType));
+            ["IsVisibleWhenAdd"] = val
+        }));
+        Assert.Equal(val, editorItem.IsVisible(itemChangedType));
     }
 
     [Theory]
-    [InlineData(ItemChangedType.Update, Visibility.Unset)]
-    [InlineData(ItemChangedType.Update, Visibility.Visible)]
-    [InlineData(ItemChangedType.Update, Visibility.Hidden)]
-    public void IsVisible_IsVisibleWhenEdit(ItemChangedType itemChangedType, Visibility val)
+    [InlineData(ItemChangedType.Update, true)]
+    [InlineData(ItemChangedType.Update, false)]
+    public async Task IsVisible_IsVisibleWhenEdit(ItemChangedType itemChangedType, bool val)
     {
-        var editorItem = new EditorItem<Foo, string>()
+        var editorItem = new EditorItem<Foo, string>();
+        await editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
-            IsVisibleWhenEdit = val
-        };
-        Assert.Equal(val != Visibility.Hidden, editorItem.IsVisible(itemChangedType));
+            ["IsVisibleWhenEdit"] = val
+        }));
+        Assert.Equal(val, editorItem.IsVisible(itemChangedType));
     }
 
     [Theory]

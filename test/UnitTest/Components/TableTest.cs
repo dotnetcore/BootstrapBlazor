@@ -4573,8 +4573,6 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(3, "Readonly", true);
                     builder.AddAttribute(4, "IsReadonlyWhenAdd", true);
                     builder.AddAttribute(5, "IsReadonlyWhenEdit", true);
-                    builder.AddAttribute(5, "IsVisibleWhenAdd", Visibility.Visible);
-                    builder.AddAttribute(5, "IsVisibleWhenEdit", Visibility.Visible);
                     builder.AddAttribute(6, "SkipValidate", true);
                     builder.AddAttribute(7, "Text", "test");
                     builder.AddAttribute(8, "Visible", true);
@@ -4612,6 +4610,8 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(28, "GroupOrder", 1);
                     builder.AddAttribute(29, "ShowSearchWhenSelect", true);
                     builder.AddAttribute(30, "IsPopover", false);
+                    builder.AddAttribute(31, "IsVisibleWhenAdd", false);
+                    builder.AddAttribute(32, "IsVisibleWhenEdit", false);
                     builder.CloseComponent();
                 });
             });
@@ -4620,8 +4620,8 @@ public class TableTest : TableTestBase
         Assert.True(column.Instance.Readonly);
         Assert.True(column.Instance.IsReadonlyWhenAdd);
         Assert.True(column.Instance.IsReadonlyWhenEdit);
-        Assert.Equal(Visibility.Visible, column.Instance.IsVisibleWhenAdd);
-        Assert.Equal(Visibility.Visible, column.Instance.IsVisibleWhenEdit);
+        Assert.False(column.Instance.IsVisibleWhenAdd);
+        Assert.False(column.Instance.IsVisibleWhenEdit);
         Assert.True(column.Instance.SkipValidate);
         Assert.Equal("test", column.Instance.Text);
         Assert.True(column.Instance.Visible);

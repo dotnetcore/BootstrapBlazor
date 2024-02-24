@@ -88,6 +88,8 @@ public class ITableColumnExtensionsTest
             Template = new RenderFragment<object>(obj => builder => builder.AddContent(0, "test-template")),
             TextEllipsis = true,
             Visible = false,
+            IsVisibleWhenAdd = false,
+            IsVisibleWhenEdit = false,
             Width = 100,
             ShowHeaderTooltip = true,
             HeaderTextEllipsis = true,
@@ -112,8 +114,8 @@ public class ITableColumnExtensionsTest
         Assert.Equal(true, col.LookupServiceData);
         Assert.True(col.IsReadonlyWhenAdd);
         Assert.True(col.IsReadonlyWhenEdit);
-        Assert.Equal(Visibility.Unset,col.IsVisibleWhenAdd);
-        Assert.Equal(Visibility.Unset, col.IsVisibleWhenEdit);
+        Assert.False(col.IsVisibleWhenAdd);
+        Assert.False(col.IsVisibleWhenEdit);
         Assert.True(col.Readonly);
         Assert.Equal(3, col.Rows);
         Assert.True(col.SkipValidate);

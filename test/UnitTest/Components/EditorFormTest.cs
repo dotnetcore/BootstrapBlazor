@@ -211,17 +211,15 @@ public class EditorFormTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void IsEditable_Ok()
+    public async Task IsEditable_Ok()
     {
-        var editorItem = new EditorItem<Foo, string>()
-        {
-            IsReadonlyWhenAdd = true,
-            IsReadonlyWhenEdit = false
-        };
-        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
+        var editorItem = new EditorItem<Foo, string>();
+        await editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
             ["Editable"] = true,
             ["Readonly"] = false,
+            ["IsReadonlyWhenAdd"] = true,
+            ["IsReadonlyWhenEdit"] = false
         }));
         Assert.False(editorItem.IsEditable(ItemChangedType.Add));
         Assert.True(editorItem.IsEditable(ItemChangedType.Update));
@@ -229,17 +227,15 @@ public class EditorFormTest : BootstrapBlazorTestBase
 
 
     [Fact]
-    public void IsVisible_Ok()
-    { 
-        var editorItem = new EditorItem<Foo, string>()
-        {
-            IsVisibleWhenAdd = Visibility.Visible,
-            IsVisibleWhenEdit = Visibility.Hidden
-        };
-        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
+    public async Task IsVisible_Ok()
+    {
+        var editorItem = new EditorItem<Foo, string>();
+        await editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
             ["Editable"] = true,
             ["Readonly"] = false,
+            ["IsVisibleWhenAdd"] = true,
+            ["IsVisibleWhenEdit"] = false
         }));
         Assert.True(editorItem.IsVisible(ItemChangedType.Add));
         Assert.False(editorItem.IsVisible(ItemChangedType.Update));
