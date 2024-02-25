@@ -950,6 +950,17 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
             input.Change("test");
         });
         Assert.Equal("02/15/2024", cut.Instance.Value.ToString("MM/dd/yyyy"));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.DateFormat, "MM/dd/yyyy HH:mm:ss");
+        });
+        await cut.InvokeAsync(() =>
+        {
+            input.Change("02/15/2024 01:00:00");
+        });
+        Assert.Equal("02/15/2024 01:00:00", cut.Instance.Value.ToString("MM/dd/yyyy HH:mm:ss"));
     }
 
     class MockDateTimePicker : DatePickerBody
