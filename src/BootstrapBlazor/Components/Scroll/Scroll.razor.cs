@@ -16,7 +16,8 @@ public partial class Scroll
     private string? StyleString => CssBuilder.Default()
         .AddClass($"height: {Height};", !string.IsNullOrEmpty(Height))
         .AddClass($"width: {Width};", !string.IsNullOrEmpty(Width))
-        .AddClass($"--bb-scroll-width: {ScrollWidth}px;")
+        .AddClass($"--bb-scroll-width: {ScrollWidth}px;", ScrollWidth > 4)
+        .AddClass($"--bb-scroll-hover-width: {ScrollHoverWidth}px;", ScrollHoverWidth > 8)
         .AddStyleFromAttributes(AdditionalAttributes)
         .Build();
 
@@ -39,8 +40,14 @@ public partial class Scroll
     public string? Width { get; set; }
 
     /// <summary>
-    /// 获得/设置 滚动条宽度 默认 8px
+    /// 获得/设置 滚动条宽度 默认 4px
     /// </summary>
     [Parameter]
-    public int ScrollWidth { get; set; } = 8;
+    public int ScrollWidth { get; set; } = 4;
+
+    /// <summary>
+    /// 获得/设置 滚动条 hover 状态下宽度 默认 8px
+    /// </summary>
+    [Parameter]
+    public int ScrollHoverWidth { get; set; } = 8;
 }

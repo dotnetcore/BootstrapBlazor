@@ -28,10 +28,22 @@ public class ScrollTest : TestBase
         var cut = Context.RenderComponent<Scroll>(builder =>
         {
             builder.Add(a => a.Width, "500px");
-            builder.Add(a => a.ScrollWidth, 6);
         });
 
+        Assert.Equal("<div class=\"scroll\" style=\"width: 500px;\"></div>", cut.Markup);
+
+        cut.SetParametersAndRender(builder =>
+        {
+            builder.Add(a => a.ScrollWidth, 6);
+        });
         Assert.Equal("<div class=\"scroll\" style=\"width: 500px; --bb-scroll-width: 6px;\"></div>", cut.Markup);
+
+        cut.SetParametersAndRender(builder =>
+        {
+            builder.Add(a => a.ScrollWidth, 6);
+            builder.Add(a => a.ScrollHoverWidth, 12);
+        });
+        Assert.Equal("<div class=\"scroll\" style=\"width: 500px; --bb-scroll-width: 6px; --bb-scroll-hover-width: 12px;\"></div>", cut.Markup);
     }
 
     [Fact]
