@@ -5129,7 +5129,7 @@ public class TableTest : TableTestBase
             // test update button
             var update = cut.Find("tbody tr button");
             await cut.InvokeAsync(() => update.Click());
-            Assert.Equal(ItemChangedType.Update, itemChanged);
+            Assert.Equal(ItemChangedType.Add, itemChanged);
         }
         else if (mode == EditMode.EditForm)
         {

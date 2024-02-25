@@ -703,7 +703,7 @@
                         }
                         @if (IsExcel)
                         {
-                            @RenderExcelCell(col, item, AddInCell ? ItemChangedType.Add : ItemChangedType.Update)
+                            @RenderExcelCell(col, item, ItemChangedType.Update)
                         }
                         else if(isInCell)
                         {
