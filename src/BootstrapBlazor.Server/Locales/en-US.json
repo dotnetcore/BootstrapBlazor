@@ -2416,7 +2416,7 @@
     "ValidateFormIntro": "Check data validity and prompt automatically based on custom validation rules",
     "DateTimeOffsetTitle": "Click on the pop-up date box",
     "DateTimeOffsetIntro": "Select the control based on the date of the day in 「day」 as the base unit",
-    "BindValueTitle": "Data is bound in both directions",
+    "BindValueTitle": "Data is bound in both directions. Enable manual input function by setting <code>IsEditable=\"true\"</code>",
     "BindValueIntro": "The values in the text box change as the date component time changes",
     "ViewModeTitle": "Selector with time",
     "ViewModeIntro": "Select the date and time in the same selector, click the confirm button and close the pop-up window",
