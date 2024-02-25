@@ -849,7 +849,7 @@
         <div class="@ExtendButtonsCellClassString">
             <div class="btn-group" @onclick:stopPropagation="true">
                 @{
-                    var isInCell = EditInCell && SelectedRows.FirstOrDefault() == item;
+                    var isInCell = (AddInCell || EditInCell) && SelectedRows.FirstOrDefault() == item;
                 }
                 @if (!isInCell)
                 {
