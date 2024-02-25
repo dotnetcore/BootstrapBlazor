@@ -24,13 +24,13 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["TablesVisibleNormalTitle"]" Introduction="@Localizer["TablesVisibleNormalIntro"]" Name="Visible">
+<DemoBlock Title="@Localizer["TablesVisibleTitle"]" Introduction="@Localizer["TablesVisibleIntro"]" Name="Visible">
     <Table TItem="Foo" Items="@Items.Take(3)" IsMultipleSelect="true"
            ShowToolbar="true" ShowExtendButtons="true">
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" Rows="3" />
+            <TableColumn @bind-Field="@context.Address" Rows="3" Visible="false" IsVisibleWhenAdd="true" IsVisibleWhenEdit="true" />
             <TableColumn @bind-Field="@context.Count" IsVisibleWhenAdd="false" />
             <TableColumn @bind-Field="@context.Complete" IsVisibleWhenEdit="false" />
             <TableColumn @bind-Field="@context.Education" />
