@@ -541,4 +541,34 @@ public class DateTimeRangeTest : BootstrapBlazorTestBase
         Assert.Equal(DateTime.Today, cut.Instance.Value.Start);
         Assert.Equal(DateTime.Today.AddDays(1).AddSeconds(-1), cut.Instance.Value.End);
     }
+
+    [Fact]
+    public async Task IsEditable_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimeRange>(pb =>
+        {
+            pb.Add(a => a.Value, new DateTimeRangeValue());
+            pb.Add(a => a.IsEditable, true);
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.DateFormat, "MM/dd/yyyy");
+        });
+        var inputs = cut.FindAll(".datetime-range-input");
+        Assert.False(inputs[0].HasAttribute("readonly"));
+        Assert.False(inputs[1].HasAttribute("readonly"));
+
+        // input value
+        var input = cut.Find(".datetime-range-input");
+        await cut.InvokeAsync(() =>
+        {
+            input.Change("02/15/2024");
+        });
+
+        inputs = cut.FindAll(".datetime-range-input");
+        await cut.InvokeAsync(() =>
+        {
+            inputs[1].Change("02/16/2024");
+        });
+        Assert.Equal("02/15/2024", cut.Instance.Value.Start.ToString("MM/dd/yyyy"));
+        Assert.Equal("02/16/2024", cut.Instance.Value.End.ToString("MM/dd/yyyy"));
+    }
 }

@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Localization;
+using System.Globalization;
 
 namespace BootstrapBlazor.Components;
 
@@ -133,6 +134,12 @@ public partial class DateTimePicker<TValue>
     /// </summary>
     [Parameter]
     public bool AutoClose { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否可以编辑内容 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsEditable { get; set; }
 
     /// <summary>
     /// 获得/设置 是否自动设置值为当前时间 默认 true
@@ -312,4 +319,26 @@ public partial class DateTimePicker<TValue>
         }
         return ret;
     }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="result"></param>
+    /// <param name="validationErrorMessage"></param>
+    /// <returns></returns>
+    protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
+    {
+        var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
+        result = default;
+        validationErrorMessage = null;
+        var ret = DateTime.TryParseExact(value, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out var val);
+        if (ret)
+        {
+            result = (TValue)(object)val;
+        }
+        return ret;
+    }
+
+    private string? ReadonlyString => IsEditable ? null : "readonly";
 }

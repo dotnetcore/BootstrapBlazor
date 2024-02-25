@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Localization;
+using System.Globalization;
 using System.Reflection;
 
 namespace BootstrapBlazor.Components;
@@ -37,15 +38,47 @@ public partial class DateTimeRange
 
     private DateTime StartValue { get; set; }
 
-    private string? StartValueString => Value.Start != DateTime.MinValue
-        ? GetValueString(Value.Start)
-        : null;
+    private string? StartValueString
+    {
+        set
+        {
+            var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
+            var ret = DateTime.TryParseExact(value, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out var startDateValue);
+            if (ret)
+            {
+                StartValue = startDateValue;
+                Value.Start = startDateValue;
+                SelectedValue.Start = startDateValue;
+            }
+        }
+        get
+        {
+            var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
+            return Value.Start != DateTime.MinValue ? Value.Start.ToString(format) : null;
+        }
+    }
 
     private DateTime EndValue { get; set; }
 
-    private string? EndValueString => Value.End != DateTime.MinValue
-        ? GetValueString(Value.End)
-        : null;
+    private string? EndValueString
+    {
+        set
+        {
+            var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
+            var ret = DateTime.TryParseExact(value, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out var endDateValue);
+            if (ret)
+            {
+                EndValue = endDateValue;
+                Value.End = endDateValue;
+                SelectedValue.End = endDateValue;
+            }
+        }
+        get
+        {
+            var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
+            return Value.End != DateTime.MinValue ? Value.End.ToString(format) : null;
+        }
+    }
 
     [NotNull]
     private string? StartPlaceHolderText { get; set; }
@@ -55,6 +88,12 @@ public partial class DateTimeRange
 
     [NotNull]
     private string? SeparateText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否可以编辑内容 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsEditable { get; set; }
 
     /// <summary>
     /// 获得/设置 是否点击快捷侧边栏自动关闭弹窗 默认 false
@@ -200,6 +239,8 @@ public partial class DateTimeRange
     [NotNull]
     private IIconTheme? IconTheme { get; set; }
 
+    private string? ReadonlyString => IsEditable ? null : "readonly";
+
     private string? ValueClassString => CssBuilder.Default("datetime-range-input")
         .AddClass("datetime", ViewMode == DatePickerViewMode.DateTime)
         .AddClass("disabled", IsDisabled)
@@ -293,20 +334,6 @@ public partial class DateTimeRange
             await InvokeVoidAsync("hide", Id);
             await ClickConfirmButton();
         }
-    }
-
-    private string GetValueString(DateTime value)
-    {
-        string? ret;
-        //if (ViewMode == DatePickerViewMode.DateTime)
-        //{
-        //    ret = value.ToString(DateTimeFormat);
-        //}
-        //else
-        //{
-            ret = value.ToString(DateFormat);
-        //}
-        return ret;
     }
 
     /// <summary>
@@ -446,4 +473,6 @@ public partial class DateTimeRange
     public override bool IsComplexValue(object? propertyValue) => false;
 
     private static DateTime GetEndDateTime(DateTime dt) => dt.Date.AddHours(23).AddMinutes(59).AddSeconds(59);
+
+    private DateTime GetSafeStartValue() => SelectedValue.Start.Date == SelectedValue.End.Date ? SelectedValue.Start.GetSafeMonthDateTime(-1) : SelectedValue.Start.Date;
 }
