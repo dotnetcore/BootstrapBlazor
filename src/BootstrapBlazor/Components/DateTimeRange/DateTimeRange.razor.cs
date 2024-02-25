@@ -336,20 +336,6 @@ public partial class DateTimeRange
         }
     }
 
-    private string GetValueString(DateTime value)
-    {
-        string? ret;
-        //if (ViewMode == DatePickerViewMode.DateTime)
-        //{
-        //    ret = value.ToString(DateTimeFormat);
-        //}
-        //else
-        //{
-        ret = value.ToString(DateFormat);
-        //}
-        return ret;
-    }
-
     /// <summary>
     /// 点击 清除按钮调用此方法
     /// </summary>

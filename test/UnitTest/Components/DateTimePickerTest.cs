@@ -954,7 +954,7 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
-            pb.Add(a => a.DateFormat, "MM/dd/yyyy HH:mm:ss");
+            pb.Add(a => a.DateTimeFormat, "MM/dd/yyyy HH:mm:ss");
         });
         await cut.InvokeAsync(() =>
         {
