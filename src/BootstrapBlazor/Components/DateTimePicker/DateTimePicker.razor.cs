@@ -330,21 +330,12 @@ public partial class DateTimePicker<TValue>
     protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
     {
         var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
-        var ret = false;
         result = default;
-        try
+        validationErrorMessage = null;
+        var ret = DateTime.TryParseExact(value, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out var val);
+        if (ret)
         {
-            ret = DateTime.TryParseExact(value, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out var val);
-            if (ret)
-            {
-                result = (TValue)(object)val;
-            }
-            validationErrorMessage = null;
-        }
-        catch (Exception ex)
-        {
-            result = default;
-            validationErrorMessage = ex.Message;
+            result = (TValue)(object)val;
         }
         return ret;
     }
