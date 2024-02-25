@@ -4823,6 +4823,8 @@
     "TextEllipsisAttr": "Whether to omit text when exceeded",
     "TemplateAttr": "Template",
     "VisibleAttr": "Whether to display this column",
+    "IsVisibleWhenAddAttr": "Whether to display this column in new item dialog",
+    "IsVisibleWhenEditAttr": "Whether to display this column in edit item dialog",
     "WidthAttr": "Column width (px)",
     "FixedAttr": "Whether to fix this column",
     "GroupNameAttr": "Current Property Grouping",
@@ -4998,7 +5000,9 @@
     "TablesEditInjectDataServiceTips1": "Startup file injects data service",
     "TablesEditInjectDataServiceTips2": "Implementation principle and usage introduction",
     "TablesEditInjectDataServiceTips3": "custom data service",
-    "TablesEditInjectDataServiceTips4": "After enabling the use of the injected data service, you can set the component individually by setting the <code>DataServices</code> parameter, if the instance provided by the internal use of the injected service is not set"
+    "TablesEditInjectDataServiceTips4": "After enabling the use of the injected data service, you can set the component individually by setting the <code>DataServices</code> parameter, if the instance provided by the internal use of the injected service is not set",
+    "TablesVisibleNormalTitle": "Editor Visible/Hidden",
+    "TablesVisibleNormalIntro": "If the <code>IsVisibleWhenAdd</code> or <code>IsVisibleWhenEdit</code> property is set to <code>false</code>, hide this column when creating or updating. In this example, the <b>New</b> pop-up window does not display <b>Count</b> <b>Edit</b> Pop up window does not display <b>Complete</b> edit the item"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesVirtualization": {
     "TablesVirtualizationTitle": "Table virtual scroll row",

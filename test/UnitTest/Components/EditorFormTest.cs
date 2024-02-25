@@ -213,18 +213,33 @@ public class EditorFormTest : BootstrapBlazorTestBase
     [Fact]
     public void IsEditable_Ok()
     {
-        var editorItem = new EditorItem<Foo, string>()
-        {
-            IsReadonlyWhenAdd = true,
-            IsReadonlyWhenEdit = false
-        };
+        var editorItem = new EditorItem<Foo, string>();
         editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
             ["Editable"] = true,
             ["Readonly"] = false,
+            ["Visible"] = true,
+            ["IsReadonlyWhenAdd"] = true,
+            ["IsReadonlyWhenEdit"] = false
         }));
         Assert.False(editorItem.IsEditable(ItemChangedType.Add));
         Assert.True(editorItem.IsEditable(ItemChangedType.Update));
+    }
+
+
+    [Fact]
+    public void IsVisible_Ok()
+    {
+        var editorItem = new EditorItem<Foo, string>();
+        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
+        {
+            ["Editable"] = true,
+            ["Readonly"] = false,
+            ["IsVisibleWhenAdd"] = true,
+            ["IsVisibleWhenEdit"] = false
+        }));
+        Assert.True(editorItem.IsVisible(ItemChangedType.Add));
+        Assert.False(editorItem.IsVisible(ItemChangedType.Update));
     }
 
     [Fact]
@@ -384,7 +399,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
 
         var v = itemsField.GetValue(editor) as List<IEditorItem>;
         Assert.NotNull(v);
-        Assert.Equal(new List<int>() { 60, 50, 40, 20, 10, 1 }, v.Select(i => i.Order));
+        Assert.Equal(new List<int>() { 70, 60, 50, 40, 20, 10, 1 }, v.Select(i => i.Order));
     }
 
     [Fact]

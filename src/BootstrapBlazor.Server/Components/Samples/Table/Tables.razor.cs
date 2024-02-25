@@ -38,8 +38,8 @@ public partial class Tables
         Items = Foo.GenerateFoo(FooLocalizer);
     }
 
-    private IEnumerable<AttributeItem> GetTableColumnAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetTableColumnAttributes() =>
+    [
         new()
         {
             Name = "TextWrap",
@@ -114,22 +114,6 @@ public partial class Tables
         },
         new()
         {
-            Name = nameof(IEditorItem.IsReadonlyWhenAdd),
-            Description = Localizer["IsReadonlyWhenAddAttr"],
-            Type = "boolean",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = nameof(IEditorItem.IsReadonlyWhenEdit),
-            Description = Localizer["IsReadonlyWhenEditAttr"],
-            Type = "boolean",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
             Name = nameof(IEditorItem.Lookup),
             Description = Localizer["LookupAttr"],
             Type = "IEnumerable<SelectedItem>",
@@ -164,6 +148,22 @@ public partial class Tables
         {
             Name = "Readonly",
             Description = Localizer["ReadonlyAttr"],
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(IEditorItem.IsReadonlyWhenAdd),
+            Description = Localizer["IsReadonlyWhenAddAttr"],
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(IEditorItem.IsReadonlyWhenEdit),
+            Description = Localizer["IsReadonlyWhenEditAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -258,6 +258,22 @@ public partial class Tables
         },
         new()
         {
+            Name = "IsVisibleWhenAdd",
+            Description = Localizer["IsVisibleWhenAddAttr"],
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = "IsVisibleWhenEdit",
+            Description = Localizer["IsVisibleWhenEditAttr"],
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new()
+        {
             Name = "Width",
             Description = Localizer["WidthAttr"],
             Type = "int",
@@ -344,7 +360,7 @@ public partial class Tables
             ValueList = "true/false",
             DefaultValue = "false"
         }
-    };
+    ];
 
     private AttributeItem[] GetAttributes() =>
     [

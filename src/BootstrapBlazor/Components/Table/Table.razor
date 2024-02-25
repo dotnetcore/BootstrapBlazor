@@ -645,7 +645,7 @@
         @{
             var index = 0;
             var colIndex = 0;
-            var isInCell = EditInCell && SelectedRows.FirstOrDefault() == item;
+            var isInCell = InCellMode && SelectedRows.FirstOrDefault() == item;
         }
         @if (ShowExtendButtons && IsExtendButtonsInRowHeader)
         {
@@ -707,7 +707,7 @@
                         }
                         else if(isInCell)
                         {
-                            @RenderCell(col, EditModel, ItemChangedType.Update)
+                            @RenderCell(col, EditModel, AddInCell ? ItemChangedType.Add : ItemChangedType.Update)
                         }
                         else
                         {
@@ -781,7 +781,7 @@
                 else
                 {
                     <ValidateForm Model="@item.Item" OnValidSubmit="context => SaveAsync(context, item.ChangedType)">
-                        <EditorForm TModel="TItem" Items="Columns.Where(c => c.Editable)" ItemsPerRow="EditDialogItemsPerRow" RowType="EditDialogRowType" LabelAlign="EditDialogLabelAlign">
+                        <EditorForm TModel="TItem" Items="Columns.Where(c => c.Editable)" ItemsPerRow="EditDialogItemsPerRow" RowType="EditDialogRowType" LabelAlign="EditDialogLabelAlign" ItemChangedType="item.ChangedType">
                             <Buttons>
                                 <div class="text-end">
                                     @if(!IsTracking)
@@ -849,7 +849,7 @@
         <div class="@ExtendButtonsCellClassString">
             <div class="btn-group" @onclick:stopPropagation="true">
                 @{
-                    var isInCell = EditInCell && SelectedRows.FirstOrDefault() == item;
+                    var isInCell = InCellMode && SelectedRows.FirstOrDefault() == item;
                 }
                 @if (!isInCell)
                 {

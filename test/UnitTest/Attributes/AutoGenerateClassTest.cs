@@ -43,6 +43,8 @@ public class AutoGenerateClassTest
             SkipValidate = true,
             IsReadonlyWhenAdd = true,
             IsReadonlyWhenEdit = true,
+            IsVisibleWhenAdd = false,
+            IsVisibleWhenEdit = false,
             ShowLabelTooltip = true,
             DefaultSortOrder = SortOrder.Asc,
             Width = 10,
@@ -73,6 +75,8 @@ public class AutoGenerateClassTest
         Assert.True(attr.SkipValidate);
         Assert.True(attr.IsReadonlyWhenAdd);
         Assert.True(attr.IsReadonlyWhenEdit);
+        Assert.False(attr.IsVisibleWhenAdd);
+        Assert.False(attr.IsVisibleWhenEdit);
         Assert.True(attr.ShowLabelTooltip);
         Assert.Equal(SortOrder.Asc, attr.DefaultSortOrder);
         Assert.Equal(10, attr.Width);
@@ -158,5 +162,11 @@ public class AutoGenerateClassTest
         // 增加 GetDisplay 单元覆盖率
         attr.Text = null;
         Assert.Equal(string.Empty, attr.GetDisplayName());
+
+        attrEditor.IsVisibleWhenAdd = false;
+        Assert.False(attrEditor.IsVisibleWhenAdd);
+
+        attrEditor.IsVisibleWhenEdit = false;
+        Assert.False(attrEditor.IsVisibleWhenEdit);
     }
 }

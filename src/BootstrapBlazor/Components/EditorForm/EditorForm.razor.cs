@@ -188,10 +188,10 @@ public partial class EditorForm<TModel> : IShowLabel
     /// </summary>
     private readonly List<IEditorItem> _formItems = [];
 
-    private IEnumerable<IEditorItem> UnsetGroupItems => _formItems.Where(i => string.IsNullOrEmpty(i.GroupName));
+    private IEnumerable<IEditorItem> UnsetGroupItems => _formItems.Where(i => string.IsNullOrEmpty(i.GroupName) && i.IsVisible(ItemChangedType, IsSearch.Value));
 
     private IEnumerable<KeyValuePair<string, IOrderedEnumerable<IEditorItem>>> GroupItems => _formItems
-        .Where(i => !string.IsNullOrEmpty(i.GroupName))
+        .Where(i => !string.IsNullOrEmpty(i.GroupName) && i.IsVisible(ItemChangedType, IsSearch.Value))
         .GroupBy(i => i.GroupOrder).OrderBy(i => i.Key)
         .Select(i => new KeyValuePair<string, IOrderedEnumerable<IEditorItem>>(i.First().GroupName!, i.OrderBy(x => x.Order)));
 
@@ -230,10 +230,7 @@ public partial class EditorForm<TModel> : IShowLabel
         ShowLabel ??= ValidateForm?.ShowLabel;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    private bool FirstRender { get; set; } = true;
+    private bool _firstRender = true;
 
     /// <summary>
     /// OnAfterRenderAsync 方法
@@ -246,11 +243,10 @@ public partial class EditorForm<TModel> : IShowLabel
 
         if (firstRender)
         {
-            FirstRender = false;
+            _firstRender = false;
 
             if (Items != null)
             {
-                // 通过级联参数渲染组件
                 _formItems.AddRange(Items);
             }
             else
@@ -267,8 +263,8 @@ public partial class EditorForm<TModel> : IShowLabel
                         var item = items.FirstOrDefault(i => i.GetFieldName() == el.GetFieldName());
                         if (item != null)
                         {
-                            // 过滤掉不编辑的列
-                            if (!el.Editable)
+                            // 过滤掉不编辑与不可见的列
+                            if (!el.Editable || !el.IsVisible(ItemChangedType, IsSearch.Value))
                             {
                                 items.Remove(item);
                             }
@@ -280,11 +276,11 @@ public partial class EditorForm<TModel> : IShowLabel
                             }
                         }
                     }
-                    _formItems.AddRange(items.Where(i => i.Editable));
+                    _formItems.AddRange(items);
                 }
                 else
                 {
-                    _formItems.AddRange(_editorItems.Where(i => i.Editable));
+                    _formItems.AddRange(_editorItems.Where(i => i.Editable && i.IsVisible(ItemChangedType, IsSearch.Value)));
                 }
             }
             StateHasChanged();

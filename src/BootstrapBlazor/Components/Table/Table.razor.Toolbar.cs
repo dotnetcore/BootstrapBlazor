@@ -442,6 +442,8 @@ public partial class Table<TItem>
 
     private bool AddInCell { get; set; }
 
+    private bool InCellMode => AddInCell || EditInCell;
+
     /// <summary>
     /// 新建按钮方法
     /// </summary>
@@ -473,7 +475,7 @@ public partial class Table<TItem>
             else if (EditMode == EditMode.InCell)
             {
                 AddInCell = true;
-                EditInCell = true;
+                EditInCell = false;
                 SelectedRows.Add(EditModel);
             }
             await OnSelectedRowsChanged();
