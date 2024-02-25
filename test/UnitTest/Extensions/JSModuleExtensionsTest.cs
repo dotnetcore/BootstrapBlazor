@@ -62,6 +62,16 @@ public class JSModuleExtensionsTest : BootstrapBlazorTestBase
         await module.Function<string>("test2");
     }
 
+    [Fact]
+    public async Task GenerateId_Ok()
+    {
+        Context.JSInterop.Setup<string?>("getUID", ["bb"]).SetResult("bb_test");
+        var jsRuntime = Context.Services.GetRequiredService<IJSRuntime>();
+        var module = await jsRuntime.LoadUtility();
+        var id = await module.GenerateId("bb");
+        Assert.Equal("bb_test", id);
+    }
+
     class MockComponent : ComponentBase
     {
 
