@@ -2,6 +2,8 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using AngleSharp.Dom;
+
 namespace UnitTest.Components;
 
 public class DateTimePickerTest : BootstrapBlazorTestBase
@@ -921,6 +923,44 @@ public class DateTimePickerTest : BootstrapBlazorTestBase
         var mi = picker.GetType().GetMethod("FormatValueAsString", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)!;
         var v = mi.Invoke(picker, [DateTime.MinValue]);
         Assert.Equal($"{DateTime.Today:yyyy-MM-dd}", v);
+    }
+
+    [Fact]
+    public async Task IsEditable_Ok()
+    {
+        var cut = Context.RenderComponent<DateTimePicker<DateTime>>(pb =>
+        {
+            pb.Add(a => a.IsEditable, true);
+            pb.Add(a => a.ViewMode, DatePickerViewMode.Date);
+            pb.Add(a => a.DateFormat, "MM/dd/yyyy");
+        });
+        var input = cut.Find(".datetime-picker-input");
+        Assert.False(input.HasAttribute("readonly"));
+
+        // input value
+        await cut.InvokeAsync(() =>
+        {
+            input.Change("02/15/2024");
+        });
+        Assert.Equal("02/15/2024", cut.Instance.Value.ToString("MM/dd/yyyy"));
+
+        // error input value
+        await cut.InvokeAsync(() =>
+        {
+            input.Change("test");
+        });
+        Assert.Equal("02/15/2024", cut.Instance.Value.ToString("MM/dd/yyyy"));
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.ViewMode, DatePickerViewMode.DateTime);
+            pb.Add(a => a.DateTimeFormat, "MM/dd/yyyy HH:mm:ss");
+        });
+        await cut.InvokeAsync(() =>
+        {
+            input.Change("02/15/2024 01:00:00");
+        });
+        Assert.Equal("02/15/2024 01:00:00", cut.Instance.Value.ToString("MM/dd/yyyy HH:mm:ss"));
     }
 
     class MockDateTimePicker : DatePickerBody

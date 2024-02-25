@@ -10,10 +10,10 @@
     <div class="dropdown-toggle datetime-range-control" data-bs-toggle="@Constants.DropdownToggleString" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString">
         <div class="position-relative">
             <i class="@DateTimePickerIconClassString"></i>
-            <input readonly="readonly" class="@ValueClassString" value="@StartValueString" placeholder="@StartPlaceHolderText" disabled="@Disabled" />
+            <input readonly="@ReadonlyString" class="@ValueClassString" @bind="@StartValueString" placeholder="@StartPlaceHolderText" disabled="@Disabled" />
         </div>
         <span class="range-separator">@SeparateText</span>
-        <input readonly="readonly" class="@ValueClassString" value="@EndValueString" placeholder="@EndPlaceHolderText" disabled="@Disabled" />
+        <input readonly="@ReadonlyString" class="@ValueClassString" @bind="@EndValueString" placeholder="@EndPlaceHolderText" disabled="@Disabled" />
     </div>
     @if (ShowClearButton)
     {
