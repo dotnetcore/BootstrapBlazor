@@ -49,11 +49,6 @@ public class AutoGenerateColumnAttribute : AutoGenerateBaseAttribute, ITableColu
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
-    public bool Visible { get; set; } = true;
-
-    /// <summary>
-    /// <inheritdoc/>
-    /// </summary>
     public bool IsVisibleWhenAdd { get; set; } = true;
 
     /// <summary>

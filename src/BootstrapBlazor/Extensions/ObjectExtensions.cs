@@ -221,11 +221,19 @@ public static class ObjectExtensions
     /// <param name="search"></param>
     /// <returns></returns>
     public static bool IsVisible(this IEditorItem item, ItemChangedType changedType, bool search = false) => search || item.Editable
-        && item.Visible && changedType switch
-        {
-            ItemChangedType.Add => item.IsVisibleWhenAdd,
-            _ => item.IsVisibleWhenEdit
-        };
+        && (IsVisible(item, changedType) || IsRevertVisible(item, changedType));
+
+    private static bool IsVisible(IEditorItem item, ItemChangedType changedType) => item.Visible && changedType switch
+    {
+        ItemChangedType.Add => item.IsVisibleWhenAdd,
+        _ => item.IsVisibleWhenEdit
+    };
+
+    private static bool IsRevertVisible(IEditorItem item, ItemChangedType changedType) => !item.Visible || changedType switch
+    {
+        ItemChangedType.Add => item.IsVisibleWhenAdd,
+        _ => item.IsVisibleWhenEdit
+    };
 
     /// <summary>
     /// 判断当前 IEditorItem 示例是否可以编辑
