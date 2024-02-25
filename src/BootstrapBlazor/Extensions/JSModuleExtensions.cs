@@ -168,4 +168,12 @@ public static class JSModuleExtensions
     /// <param name="module"><see cref="JSModule"/> 实例</param>
     /// <returns>A <see cref="ValueTask"/> that represents the asynchronous invocation operation.</returns>
     public static ValueTask<bool> IsMobile(this JSModule module) => module.InvokeAsync<bool>("isMobile");
+
+    /// <summary>
+    /// 获取一个页面上不重复的元素ID
+    /// </summary>
+    /// <param name="module">An instance of <see cref="JSModule"/></param>
+    /// <param name="prefix">A prefix of type <see cref="string"/></param>
+    /// <returns>Returns a <see cref="string"/> formatted element ID</returns>
+    public static ValueTask<string?> GenerateId(this JSModule module, string? prefix = null) => module.InvokeAsync<string?>("getUID", prefix);
 }

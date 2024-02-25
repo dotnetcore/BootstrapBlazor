@@ -56,11 +56,11 @@ const copy = (text = '') => {
     }
 }
 
-const getUID = (prefix = '') => {
+const getUID = (prefix = 'bb') => {
     let id = "";
     do {
         const code = Math.floor(Math.random() * 1000000);
-        id = `${prefix}${code}`;
+        id = `${prefix}_${code}`;
     }
     while (document.getElementById(id))
 
