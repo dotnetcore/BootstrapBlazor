@@ -76,9 +76,9 @@ public class BootstrapBlazorTestHost : IDisposable
         GC.SuppressFinalize(this);
     }
 
-    class FooLookupService : ILookupService
+    class FooLookupService : LookupServiceBase
     {
-        public IEnumerable<SelectedItem>? GetItemsByKey(string? key)
+        public override IEnumerable<SelectedItem>? GetItemsByKey(string? key, object? data)
         {
             IEnumerable<SelectedItem>? ret = null;
 

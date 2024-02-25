@@ -4811,6 +4811,7 @@
     "LookupAttr": "字典数据源",
     "LookupStringComparisonAttr": "字典数据源比较规则",
     "LookupServiceKeyAttr": "LookupService 服务获取 Lookup 数据集合键值",
+    "LookupServiceDataAttr": "LookupService 服务获取 Lookup 数据集合自定义数据",
     "ReadonlyAttr": "编辑时是否只读模式",
     "SearchTemplateColumnAttr": "模板",
     "ShowTipsAttr": "显示单元格 Tooltips",
@@ -4823,6 +4824,8 @@
     "TextEllipsisAttr": "是否文本超出时省略",
     "TemplateAttr": "模板",
     "VisibleAttr": "是否显示此列",
+    "IsVisibleWhenAddAttr": "新建时此列是否显示",
+    "IsVisibleWhenEditAttr": "编辑时此列是否显示",
     "WidthAttr": "列宽度（像素px）",
     "FixedAttr": "是否固定本列",
     "GroupNameAttr": "当前属性分组",
@@ -4998,7 +5001,9 @@
     "TablesEditInjectDataServiceTips2": "实现原理与用法介绍",
     "TablesEditInjectDataServiceTips3": "自定义数据服务",
     "TablesEditInjectDataServiceTips4": "开启使用注入数据服务后，可通过设置 <code>DataServices</code> 参数对组件进行单独设置，如未设置内部使用注入服务提供的实例",
-    "TablesEditShowSearchPlaceHolderString": "不可为空，50字以内"
+    "TablesEditShowSearchPlaceHolderString": "不可为空，50字以内",
+    "TablesVisibleTitle": "Table 编辑时显示/隐藏",
+    "TablesVisibleIntro": "<div><code>Visible</code> 默认值为 <code>true</code> 如果有列设置了 <code>IsVisibleWhenAdd</code> 或者 <code>IsVisibleWhenEdit</code> 属性为 <code>false</code> 时, 新建或者更新时隐藏此列。本例中 <b>新建</b> 弹窗不显示 <b>数量</b> <b>编辑</b> 弹窗不显示 <b>是否</b> 编辑项。</div><div>可以通过在数据模型中使用 <code>[AutoGenerateClass(Visible = false)]</code> 全部禁止显示，再通过 <code>IsVisibleWhenAdd</code> 或者 <code>IsVisibleWhenEdit</code> 单独设置编辑状态下的可见性，本例中，<b>地址</b> 列默认不可见，<b>新建、编辑</b> 弹窗内均可以编辑</div>"
   },
   "BootstrapBlazor.Server.Components.Samples.Table.TablesVirtualization": {
     "TablesVirtualizationTitle": "Table 虚拟滚动行",

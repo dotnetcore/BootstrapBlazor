@@ -9,7 +9,7 @@ public class ITableColumnExtensionsTest
     [Fact]
     public void InheritValue_Ok()
     {
-        var col = new MockTableColumn("Name", typeof(string));
+        var col = new InternalTableColumn("Name", typeof(string));
         var attr = new AutoGenerateClassAttribute()
         {
             Align = Alignment.Center,
@@ -39,17 +39,18 @@ public class ITableColumnExtensionsTest
     [Fact]
     public void CopyValue_Ok()
     {
-        var col = new MockTableColumn("Name", typeof(string));
-        var attr = new MockTableColumn("Name", typeof(string))
+        var col = new InternalTableColumn("Name", typeof(string));
+        var attr = new InternalTableColumn("Name", typeof(string))
         {
             ComponentType = typeof(NullSwitch),
-            ComponentParameters = Enumerable.Empty<KeyValuePair<string, object>>(),
+            ComponentParameters = [],
             Editable = false,
             EditTemplate = new RenderFragment<object>(obj => builder => builder.AddContent(0, "test")),
             Items = new List<SelectedItem>(),
             Lookup = new List<SelectedItem>(),
             LookupStringComparison = StringComparison.Ordinal,
             LookupServiceKey = "test-key",
+            LookupServiceData = true,
             IsReadonlyWhenAdd = true,
             IsReadonlyWhenEdit = true,
             Readonly = true,
@@ -87,6 +88,8 @@ public class ITableColumnExtensionsTest
             Template = new RenderFragment<object>(obj => builder => builder.AddContent(0, "test-template")),
             TextEllipsis = true,
             Visible = false,
+            IsVisibleWhenAdd = false,
+            IsVisibleWhenEdit = false,
             Width = 100,
             ShowHeaderTooltip = true,
             HeaderTextEllipsis = true,
@@ -108,8 +111,11 @@ public class ITableColumnExtensionsTest
         Assert.NotNull(col.Lookup);
         Assert.Equal(StringComparison.Ordinal, col.LookupStringComparison);
         Assert.Equal("test-key", col.LookupServiceKey);
+        Assert.Equal(true, col.LookupServiceData);
         Assert.True(col.IsReadonlyWhenAdd);
         Assert.True(col.IsReadonlyWhenEdit);
+        Assert.False(col.IsVisibleWhenAdd);
+        Assert.False(col.IsVisibleWhenEdit);
         Assert.True(col.Readonly);
         Assert.Equal(3, col.Rows);
         Assert.True(col.SkipValidate);
@@ -157,7 +163,7 @@ public class ITableColumnExtensionsTest
     [Fact]
     public void ToSearches_Ok()
     {
-        var cols = new MockTableColumn[]
+        var cols = new InternalTableColumn[]
         {
             new("Test_Name", typeof(string)),
             new("Test_Bool", typeof(bool)),

@@ -28,8 +28,6 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
 
     public bool Fixed { get; set; }
 
-    public bool Visible { get; set; } = true;
-
     public bool TextWrap { get; set; }
 
     public bool TextEllipsis { get; set; }
@@ -40,14 +38,34 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     public bool SkipValidate { get; set; }
 
     /// <summary>
-    /// 获得/设置 新建时此列只读 默认为 false
+    /// <inheritdoc/>
+    /// </summary>
+    public bool Readonly { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
     /// </summary>
     public bool IsReadonlyWhenAdd { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑时此列只读 默认为 false
+    /// <inheritdoc/>
     /// </summary>
     public bool IsReadonlyWhenEdit { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool Visible { get; set; } = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool IsVisibleWhenAdd { get; set; } = true;
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    public bool IsVisibleWhenEdit { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 是否显示标签 Tooltip 多用于标签文字过长导致裁减时使用 默认 null
@@ -87,8 +105,6 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     public Type PropertyType { get; } = fieldType;
 
     public bool Editable { get; set; } = true;
-
-    public bool Readonly { get; set; }
 
     public string? Step { get; set; }
 
@@ -135,14 +151,19 @@ class InternalTableColumn(string fieldName, Type fieldType, string? fieldText = 
     public bool IsPopover { get; set; }
 
     /// <summary>
-    /// 获得/设置 字典数据源字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
+    /// <inheritdoc/>>
     /// </summary>
     public StringComparison LookupStringComparison { get; set; } = StringComparison.OrdinalIgnoreCase;
 
     /// <summary>
-    /// 获得/设置 LookupService 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作
+    /// <inheritdoc/>>
     /// </summary>
     public string? LookupServiceKey { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>>
+    /// </summary>
+    public object? LookupServiceData { get; set; }
 
     /// <summary>
     /// 获得/设置 单元格回调方法

@@ -206,12 +206,34 @@ public static class ObjectExtensions
     /// <param name="changedType"></param>
     /// <param name="search"></param>
     /// <returns></returns>
-    public static bool IsEditable(this IEditorItem item, ItemChangedType changedType, bool search = false) => item.Editable
+    public static bool IsEditable(this IEditorItem item, ItemChangedType changedType, bool search = false) => search || item.Editable
         && !item.Readonly && changedType switch
         {
             ItemChangedType.Add => !item.IsReadonlyWhenAdd,
             _ => !item.IsReadonlyWhenEdit
-        } || search;
+        };
+
+    /// <summary>
+    /// 判断当前 IEditorItem 实例是否显示
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="changedType"></param>
+    /// <param name="search"></param>
+    /// <returns></returns>
+    public static bool IsVisible(this IEditorItem item, ItemChangedType changedType, bool search = false) => search || item.Editable
+        && (IsVisible(item, changedType) || IsRevertVisible(item, changedType));
+
+    private static bool IsVisible(IEditorItem item, ItemChangedType changedType) => item.Visible && changedType switch
+    {
+        ItemChangedType.Add => item.IsVisibleWhenAdd,
+        _ => item.IsVisibleWhenEdit
+    };
+
+    private static bool IsRevertVisible(IEditorItem item, ItemChangedType changedType) => !item.Visible || changedType switch
+    {
+        ItemChangedType.Add => item.IsVisibleWhenAdd,
+        _ => item.IsVisibleWhenEdit
+    };
 
     /// <summary>
     /// 判断当前 IEditorItem 示例是否可以编辑
@@ -221,7 +243,7 @@ public static class ObjectExtensions
     /// <param name="changedType"></param>
     /// <param name="search"></param>
     /// <returns></returns>
-    public static bool CanWrite(this IEditorItem item, Type modelType, ItemChangedType changedType, bool search = false) => item.CanWrite(modelType) && item.IsEditable(changedType, search);
+    public static bool CanWrite(this IEditorItem item, Type modelType, ItemChangedType changedType, bool search = false) => item.CanWrite(modelType) && item.IsEditable(changedType, search) && item.IsVisible(changedType, search);
 
     /// <summary>
     /// 判断模型是否可写

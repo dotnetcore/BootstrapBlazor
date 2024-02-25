@@ -5,12 +5,17 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 内部默认字典服务实现类
+/// LookupService 基类
 /// </summary>
-class NullLookupService : LookupServiceBase
+public abstract class LookupServiceBase : ILookupService
 {
     /// <summary>
-    /// <inheritdoc/>>
+    ///<inheritdoc/>
     /// </summary>
-    public override IEnumerable<SelectedItem>? GetItemsByKey(string? key, object? data) => null;
+    public virtual IEnumerable<SelectedItem>? GetItemsByKey(string? key) => GetItemsByKey(key, null);
+
+    /// <summary>
+    ///<inheritdoc/>
+    /// </summary>
+    public abstract IEnumerable<SelectedItem>? GetItemsByKey(string? key, object? data);
 }

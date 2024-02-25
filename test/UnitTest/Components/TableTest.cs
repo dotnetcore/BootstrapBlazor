@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using AngleSharp.Dom;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
@@ -114,11 +113,11 @@ public class TableTest : TableTestBase
     }
 
     [Theory]
+    [InlineData(InsertRowMode.First, false)]
     [InlineData(InsertRowMode.First, true)]
     [InlineData(InsertRowMode.Last, true)]
-    [InlineData(InsertRowMode.First, false)]
     [InlineData(InsertRowMode.Last, false)]
-    public void Items_Add(InsertRowMode insertMode, bool bind)
+    public async Task Items_Add(InsertRowMode insertMode, bool bind)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -141,13 +140,14 @@ public class TableTest : TableTestBase
             });
         });
         var table = cut.FindComponent<Table<Foo>>();
-        cut.InvokeAsync(() => table.Instance.AddAsync());
+        await cut.InvokeAsync(() => table.Instance.AddAsync());
 
         if (insertMode == InsertRowMode.First)
         {
-            cut.InvokeAsync(() =>
+            // 保存按钮
+            var button = cut.Find("tbody tr button");
+            await cut.InvokeAsync(() =>
             {
-                var button = cut.Find("tbody tr button");
                 button.Click();
             });
             if (bind)
@@ -163,9 +163,9 @@ public class TableTest : TableTestBase
         }
         else if (insertMode == InsertRowMode.Last)
         {
-            cut.InvokeAsync(() =>
+            var button = cut.FindAll("tbody tr button").Last(i => i.ClassList.Contains("btn-success"));
+            await cut.InvokeAsync(() =>
             {
-                var button = cut.FindAll("tbody tr button").Last(i => i.ClassList.Contains("btn-success"));
                 button.Click();
             });
             if (bind)
@@ -679,7 +679,7 @@ public class TableTest : TableTestBase
         // 利用 MockTableColumn 设置 Filter 为 null 测试内部 Filter 为空时单元测试
         var table = cut.FindComponent<Table<Foo>>();
         table.Instance.Columns.Clear();
-        table.Instance.Columns.Add(new MockTableColumn("Name", typeof(string)));
+        table.Instance.Columns.Add(new InternalTableColumn("Name", typeof(string)));
         cut.InvokeAsync(() => table.Instance.ResetFilters());
     }
 
@@ -4611,6 +4611,8 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(28, "GroupOrder", 1);
                     builder.AddAttribute(29, "ShowSearchWhenSelect", true);
                     builder.AddAttribute(30, "IsPopover", false);
+                    builder.AddAttribute(31, "IsVisibleWhenAdd", false);
+                    builder.AddAttribute(32, "IsVisibleWhenEdit", false);
                     builder.CloseComponent();
                 });
             });
@@ -4619,6 +4621,8 @@ public class TableTest : TableTestBase
         Assert.True(column.Instance.Readonly);
         Assert.True(column.Instance.IsReadonlyWhenAdd);
         Assert.True(column.Instance.IsReadonlyWhenEdit);
+        Assert.False(column.Instance.IsVisibleWhenAdd);
+        Assert.False(column.Instance.IsVisibleWhenEdit);
         Assert.True(column.Instance.SkipValidate);
         Assert.Equal("test", column.Instance.Text);
         Assert.True(column.Instance.Visible);
@@ -4757,10 +4761,10 @@ public class TableTest : TableTestBase
             });
         });
         var table = cut.FindComponent<MockTable>();
-        var css = table.Instance.TestGetCellClassString(new MockTableColumn("Name", typeof(string)) { Align = Alignment.Center });
+        var css = table.Instance.TestGetCellClassString(new InternalTableColumn("Name", typeof(string)) { Align = Alignment.Center });
         Assert.Equal("table-cell center", css);
 
-        css = table.Instance.TestGetHeaderWrapperClassString(new MockTableColumn("Name", typeof(string)) { Align = Alignment.Center });
+        css = table.Instance.TestGetHeaderWrapperClassString(new InternalTableColumn("Name", typeof(string)) { Align = Alignment.Center });
         Assert.Equal("table-cell center", css);
     }
 
@@ -5135,8 +5139,8 @@ public class TableTest : TableTestBase
             var form = cut.Find("tbody form");
             await cut.InvokeAsync(() => form.Submit());
             Assert.Equal(ItemChangedType.Add, itemChanged);
+            Assert.True(afterModify);
         }
-        Assert.True(afterModify);
     }
 
     [Theory]
@@ -6924,6 +6928,7 @@ public class TableTest : TableTestBase
                     builder.AddAttribute(1, "Field", true);
                     builder.AddAttribute(2, "FieldExpression", Utility.GenerateValueExpression(foo, "Complete", typeof(bool)));
                     builder.AddAttribute(3, "LookupServiceKey", "test");
+                    builder.AddAttribute(4, "LookupServiceData", true);
                     builder.CloseComponent();
                 });
             });

@@ -431,12 +431,13 @@ tr.active:not(.is-edit):hover {
 
 .table-row .table-cell label:not(.form-check) {
     font-weight: bold;
-    width: var(--bb-table-cardview-label-width);
     margin-bottom: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     margin-right: 6px;
+    flex-basis: var(--bb-table-cardview-label-width);
+    flex-shrink: 0;
 }
 
 .table-row .table-cell > span {
