@@ -113,11 +113,11 @@ public class TableTest : TableTestBase
     }
 
     [Theory]
+    [InlineData(InsertRowMode.First, false)]
     [InlineData(InsertRowMode.First, true)]
     [InlineData(InsertRowMode.Last, true)]
-    [InlineData(InsertRowMode.First, false)]
     [InlineData(InsertRowMode.Last, false)]
-    public void Items_Add(InsertRowMode insertMode, bool bind)
+    public async Task Items_Add(InsertRowMode insertMode, bool bind)
     {
         var localizer = Context.Services.GetRequiredService<IStringLocalizer<Foo>>();
         var items = Foo.GenerateFoo(localizer, 2);
@@ -140,13 +140,14 @@ public class TableTest : TableTestBase
             });
         });
         var table = cut.FindComponent<Table<Foo>>();
-        cut.InvokeAsync(() => table.Instance.AddAsync());
+        await cut.InvokeAsync(() => table.Instance.AddAsync());
 
         if (insertMode == InsertRowMode.First)
         {
-            cut.InvokeAsync(() =>
+            // 保存按钮
+            var button = cut.Find("tbody tr button");
+            await cut.InvokeAsync(() =>
             {
-                var button = cut.Find("tbody tr button");
                 button.Click();
             });
             if (bind)
@@ -162,9 +163,9 @@ public class TableTest : TableTestBase
         }
         else if (insertMode == InsertRowMode.Last)
         {
-            cut.InvokeAsync(() =>
+            var button = cut.FindAll("tbody tr button").Last(i => i.ClassList.Contains("btn-success"));
+            await cut.InvokeAsync(() =>
             {
-                var button = cut.FindAll("tbody tr button").Last(i => i.ClassList.Contains("btn-success"));
                 button.Click();
             });
             if (bind)
@@ -5128,7 +5129,7 @@ public class TableTest : TableTestBase
             // test update button
             var update = cut.Find("tbody tr button");
             await cut.InvokeAsync(() => update.Click());
-            Assert.Equal(ItemChangedType.Add, itemChanged);
+            Assert.Equal(ItemChangedType.Update, itemChanged);
         }
         else if (mode == EditMode.EditForm)
         {
@@ -5138,8 +5139,8 @@ public class TableTest : TableTestBase
             var form = cut.Find("tbody form");
             await cut.InvokeAsync(() => form.Submit());
             Assert.Equal(ItemChangedType.Add, itemChanged);
+            Assert.True(afterModify);
         }
-        Assert.True(afterModify);
     }
 
     [Theory]
