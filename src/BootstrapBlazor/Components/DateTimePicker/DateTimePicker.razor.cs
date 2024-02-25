@@ -3,7 +3,6 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Localization;
-
 using System.Globalization;
 
 namespace BootstrapBlazor.Components;
@@ -336,13 +335,13 @@ public partial class DateTimePicker<TValue>
         try
         {
             ret = DateTime.TryParseExact(value, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out var val);
-            if(ret)
+            if (ret)
             {
                 result = (TValue)(object)val;
             }
             validationErrorMessage = null;
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             result = default;
             validationErrorMessage = ex.Message;
@@ -350,13 +349,5 @@ public partial class DateTimePicker<TValue>
         return ret;
     }
 
-    Dictionary<string, object> GetReadOnlyAttribute()
-    {
-        var dict = new Dictionary<string, object>();
-        if (!IsEditable)
-        {
-            dict.Add("readonly", "readonly");
-        }
-        return dict;
-    }
+    private string? ReadonlyString => IsEditable ? null : "readonly";
 }
