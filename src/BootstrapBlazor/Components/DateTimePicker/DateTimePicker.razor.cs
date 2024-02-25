@@ -321,35 +321,33 @@ public partial class DateTimePicker<TValue>
         return ret;
     }
 
-    private string? CurrentValueString
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="result"></param>
+    /// <param name="validationErrorMessage"></param>
+    /// <returns></returns>
+    protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
     {
-        set
+        var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
+        var ret = false;
+        result = default;
+        try
         {
-            var format = DateFormat;
-            switch (ViewMode)
+            ret = DateTime.TryParseExact(value, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out var val);
+            if(ret)
             {
-                case DatePickerViewMode.DateTime:
-                    format = DateTimeFormat;
-                    break;
-                case DatePickerViewMode.Date:
-                case DatePickerViewMode.Month:
-                case DatePickerViewMode.Year:
-                    format = DateFormat;
-                    break;
-                default:
-                    break;
+                result = (TValue)(object)val;
             }
-
-            if (DateTime.TryParse(value, out var dateValue))
-            {
-                SelectedValue = dateValue;
-                CurrentValueAsString = dateValue.ToString(format);
-            }
+            validationErrorMessage = null;
         }
-        get
+        catch(Exception ex)
         {
-            return CurrentValueAsString;
+            result = default;
+            validationErrorMessage = ex.Message;
         }
+        return ret;
     }
 
     Dictionary<string, object> GetReadOnlyAttribute()
