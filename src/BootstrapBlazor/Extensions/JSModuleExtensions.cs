@@ -175,5 +175,5 @@ public static class JSModuleExtensions
     /// <param name="module">An instance of <see cref="JSModule"/></param>
     /// <param name="prefix">A prefix of type <see cref="string"/></param>
     /// <returns>Returns a <see cref="string"/> formatted element ID</returns>
-    public static ValueTask<string> GetUID(this JSModule module, string prefix = "bb_") => module.InvokeAsync<string>("getUID", prefix);
+    public static ValueTask<string?> GenerateId(this JSModule module, string? prefix = null) => module.InvokeAsync<string?>("getUID", prefix);
 }
