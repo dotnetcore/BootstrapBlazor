@@ -443,8 +443,11 @@ public partial class Select<TValue> : ISelect
             // Items 中没有时插入一个 SelectedItem
             if (Items.FirstOrDefault(i => i.Text == v) == null)
             {
-                var items = Items.ToList();
-                items.Insert(0, new SelectedItem(v, v));
+                var items = new List<SelectedItem>
+                {
+                    new(v, v)
+                };
+                items.AddRange(Items);
                 Items = items;
             }
             CurrentValueAsString = v;
