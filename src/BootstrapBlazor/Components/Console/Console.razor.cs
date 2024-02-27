@@ -44,6 +44,7 @@ public partial class Console
     /// <summary>
     /// 获得/设置 组件绑定数据源
     /// </summary>
+    /// <remarks><see cref="ConsoleMessageCollection"/> 集合内置了最大消息数量功能</remarks>
     [Parameter]
     [NotNull]
     public IEnumerable<ConsoleMessageItem>? Items { get; set; }

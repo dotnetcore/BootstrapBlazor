@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using System.Collections;
 using Console = BootstrapBlazor.Components.Console;
 
 namespace UnitTest.Components;
@@ -323,5 +324,44 @@ public class ConsoleTest : BootstrapBlazorTestBase
             });
         });
         Assert.Contains("test-css-class", cut.Markup);
+    }
+
+    [Fact]
+    public void Collection_Ok()
+    {
+        var items = new ConsoleMessageCollection(2)
+        {
+            new() { Message = "Test1", CssClass = "test-css-class" }
+        };
+        Assert.Single(items);
+
+        items.Add(new ConsoleMessageItem() { Message = "Text2" });
+        Assert.Equal(2, items.Count());
+
+        items.Add(new ConsoleMessageItem() { Message = "Text3" });
+        Assert.Equal(2, items.Count());
+
+        items.Clear();
+        Assert.Empty(items);
+
+        items.Dispose();
+    }
+
+    [Fact]
+    public void CollectionMaxCount_Ok()
+    {
+        var items = new ConsoleMessageCollection() { MaxCount = 2 };
+        Assert.Empty(items);
+    }
+
+    [Fact]
+    public void Collection_GetEnumerator()
+    {
+        var items = new ConsoleMessageCollection()
+        {
+            new() { Message = "Test1", CssClass = "test-css-class" }
+        };
+        IEnumerable collection = items;
+        Assert.NotNull(collection.GetEnumerator());
     }
 }
