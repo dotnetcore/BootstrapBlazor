@@ -108,6 +108,13 @@ public partial class Select<TValue> : ISelect
     public bool IsEditable { get; set; }
 
     /// <summary>
+    /// 获得/设置 选项输入更新后回调方法 默认 null
+    /// </summary>
+    /// <remarks>设置 <see cref="IsEditable"/> 后生效</remarks>
+    [Parameter]
+    public Func<string, Task>? OnInputChangedCallback { get; set; }
+
+    /// <summary>
     /// 获得/设置 无搜索结果时显示文字
     /// </summary>
     [Parameter]
@@ -436,7 +443,7 @@ public partial class Select<TValue> : ISelect
         CurrentValue = default;
     }
 
-    private void OnChange(ChangeEventArgs args)
+    private async Task OnChange(ChangeEventArgs args)
     {
         if (args.Value is string v)
         {
@@ -451,6 +458,11 @@ public partial class Select<TValue> : ISelect
                 Items = items;
             }
             CurrentValueAsString = v;
+
+            if (OnInputChangedCallback != null)
+            {
+                await OnInputChangedCallback(v);
+            }
         }
     }
 }
