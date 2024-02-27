@@ -435,4 +435,19 @@ public partial class Select<TValue> : ISelect
     {
         CurrentValue = default;
     }
+
+    private void OnChange(ChangeEventArgs args)
+    {
+        if (args.Value is string v)
+        {
+            // Items 中没有时插入一个 SelectedItem
+            if (Items.FirstOrDefault(i => i.Text == v) == null)
+            {
+                var items = Items.ToList();
+                items.Insert(0, new SelectedItem(v, v));
+                Items = items;
+            }
+            CurrentValueAsString = v;
+        }
+    }
 }
