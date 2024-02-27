@@ -171,7 +171,7 @@ public partial class Console
         AutoScrollText ??= Localizer[nameof(AutoScrollText)];
 
         ClearButtonIcon ??= IconTheme.GetIconByKey(ComponentIcons.ConsoleClearButtonIcon);
-        Items ??= Enumerable.Empty<ConsoleMessageItem>();
+        Items ??= [];
     }
 
     /// <summary>
