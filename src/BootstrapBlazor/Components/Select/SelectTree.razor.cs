@@ -123,6 +123,8 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     [NotNull]
     private IStringLocalizer<SelectTree<TValue>>? Localizer { get; set; }
 
+    private string? ReadonlyString => IsEditable ? null : "readonly";
+
     /// <summary>
     /// 获得 input 组件 Id 方法
     /// </summary>
