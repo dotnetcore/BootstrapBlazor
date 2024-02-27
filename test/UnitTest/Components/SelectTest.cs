@@ -817,9 +817,15 @@ public class SelectTest : BootstrapBlazorTestBase
         var input = cut.Find(".form-select");
         Assert.True(input.IsReadOnly());
 
+        var updated = false;
         cut.SetParametersAndRender(pb =>
         {
             pb.Add(a => a.IsEditable, true);
+            pb.Add(a => a.OnInputChangedCallback, v =>
+            {
+                updated = true;
+                return Task.CompletedTask;
+            });
         });
         Assert.False(input.IsReadOnly());
 
@@ -828,5 +834,6 @@ public class SelectTest : BootstrapBlazorTestBase
             input.Change("Test3");
         });
         Assert.Equal("Test3", cut.Instance.Value);
+        Assert.True(updated);
     }
 }
