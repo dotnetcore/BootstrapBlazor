@@ -5,12 +5,12 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// ISelect 接口
 /// </summary>
 public interface ISelect
 {
     /// <summary>
-    /// 
+    /// 增加 SelectedItem 项方法
     /// </summary>
     /// <param name="item"></param>
     void Add(SelectedItem item);
