@@ -23,4 +23,9 @@ public class ConsoleMessageItem
     /// 获得/设置 自定义样式名称 默认 null
     /// </summary>
     public string? CssClass { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否为 Html 原生字符串 默认 false
+    /// </summary>
+    public bool IsHtml { get; set; }
 }
