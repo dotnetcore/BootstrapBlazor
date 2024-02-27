@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using AngleSharp.Dom;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using System.Reflection;
 
@@ -799,5 +800,33 @@ public class SelectTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsMarkupString, true);
         });
         Assert.Contains("<div>Test1</div>", cut.Markup);
+    }
+
+    [Fact]
+    public async Task IsEditable_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new("1", "<div>Test1</div>"),
+                new("2", "<div>Test2</div>")
+            });
+            pb.Add(a => a.Value, "2");
+        });
+        var input = cut.Find(".form-select");
+        Assert.True(input.IsReadOnly());
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsEditable, true);
+        });
+        Assert.False(input.IsReadOnly());
+
+        await cut.InvokeAsync(() =>
+        {
+            input.Change("Test3");
+        });
+        Assert.Equal("Test3", cut.Instance.Value);
     }
 }
