@@ -3052,6 +3052,8 @@
     "SelectsDisplayTemplateIntro": "Custom <code>UI</code> of display template",
     "SelectsPopoverTitle": "Popover dropdown menu",
     "SelectsPopoverIntro": "Set <code>IsPopover</code> to <b>true</b>, use <code>popover</code> render UI prevent The dropdown menu cannot be fully displayed because the parent container is set to <code>overflow: hidden</code>",
+    "SelectsIsEditableTitle": "Editable",
+    "SelectsIsEditableIntro": "By setting <code>IsEditable=\"true\"</code> to make the component editable",
     "SelectsVirtualizeTitle": "Virtualize",
     "SelectsVirtualizeIntro": "Set <code>IsVirtualize</code> to <b>true</b> enable virtual scroll for larg data",
     "SelectsVirtualizeDescription": "Component virtual scrolling supports two ways of providing data through <code>Items</code> or <code>OnQueryAsync</code> callback methods"
