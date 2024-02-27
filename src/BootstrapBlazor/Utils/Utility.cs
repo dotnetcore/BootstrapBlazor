@@ -260,22 +260,19 @@ public static class Utility
     {
         var type = source.GetType();
         var valType = destination.GetType();
-        if (valType != null)
+        foreach (var f in type.GetFields())
         {
-            foreach (var f in type.GetFields())
+            var v = f.GetValue(source);
+            var field = valType.GetField(f.Name)!;
+            field.SetValue(destination, v);
+        }
+        foreach (var p in type.GetRuntimeProperties())
+        {
+            if (p.CanWrite)
             {
-                var v = f.GetValue(source);
-                var field = valType.GetField(f.Name)!;
-                field.SetValue(destination, v);
-            }
-            foreach (var p in type.GetRuntimeProperties())
-            {
-                if (p.CanWrite)
-                {
-                    var v = p.GetValue(source);
-                    var property = valType.GetRuntimeProperties().First(i => i.Name == p.Name && i.PropertyType == p.PropertyType);
-                    property.SetValue(destination, v);
-                }
+                var v = p.GetValue(source);
+                var property = valType.GetRuntimeProperties().First(i => i.Name == p.Name && i.PropertyType == p.PropertyType);
+                property.SetValue(destination, v);
             }
         }
     }
@@ -301,14 +298,16 @@ public static class Utility
     public static IEnumerable<ITableColumn> GetTableColumns(Type type, IEnumerable<ITableColumn>? source = null, Func<IEnumerable<ITableColumn>, IEnumerable<ITableColumn>>? defaultOrderCallback = null)
     {
         var cols = new List<ITableColumn>(50);
-        var classAttribute = type.GetCustomAttribute<AutoGenerateClassAttribute>(true);
-        var props = type.GetProperties().Where(p => !p.IsStatic());
+        var metadataType = TableMetadataTypeService.GetMetadataType(type);
+        var classAttribute = metadataType.GetCustomAttribute<AutoGenerateClassAttribute>(true);
+        // to make it simple, we just check the property name should exist in target data type properties
+        var targetProperties = type.GetProperties().Where(p => !p.IsStatic());
+        var props = metadataType.GetProperties().Where(p => !p.IsStatic() && targetProperties.Any(o => o.Name == p.Name));
         foreach (var prop in props)
         {
             ITableColumn? tc;
             var columnAttribute = prop.GetCustomAttribute<AutoGenerateColumnAttribute>(true);
-
-            var displayName = columnAttribute?.Text ?? Utility.GetDisplayName(type, prop.Name);
+            var displayName = columnAttribute?.Text ?? GetDisplayName(metadataType, prop.Name);
             if (columnAttribute == null)
             {
                 // 未设置 AutoGenerateColumnAttribute 时使用默认值
@@ -481,7 +480,7 @@ public static class Utility
             var defaultValueAttr = propertyInfo.GetCustomAttribute<DefaultValueAttribute>();
             if (defaultValueAttr != null)
             {
-                var dv = defaultValueAttr.Value is bool v && v;
+                var dv = defaultValueAttr.Value is true;
                 builder.AddAttribute(8, nameof(NullSwitch.DefaultValueWhenNull), dv);
             }
         }
@@ -574,14 +573,7 @@ public static class Utility
                 {
                     t = propertyInstance.GetType();
                 }
-                if (body == null)
-                {
-                    body = Expression.Property(Expression.Convert(Expression.Constant(model), type), p);
-                }
-                else
-                {
-                    body = Expression.Property(body, p);
-                }
+                body = Expression.Property(body ?? Expression.Convert(Expression.Constant(model), type), p);
             }
             var tDelegate = typeof(Func<>).MakeGenericType(fieldType);
             return Expression.Lambda(tDelegate, body!);
@@ -667,7 +659,7 @@ public static class Utility
         var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
         if (type.Name == nameof(String))
         {
-            var ph = item.PlaceHolder ?? Utility.GetPlaceHolder(model, fieldName);
+            var ph = item.PlaceHolder ?? GetPlaceHolder(model, fieldName);
             if (ph != null)
             {
                 ret.Add("placeholder", ph);
@@ -697,7 +689,7 @@ public static class Utility
     /// <param name="col"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public static Func<TType, Task> CreateOnValueChangedCallback<TModel, TType>(TModel model, ITableColumn col, Func<TModel, ITableColumn, object?, Task> callback) => new(v => callback(model, col, v));
+    public static Func<TType, Task> CreateOnValueChangedCallback<TModel, TType>(TModel model, ITableColumn col, Func<TModel, ITableColumn, object?, Task> callback) => v => callback(model, col, v);
 
     /// <summary>
     /// 创建 OnValueChanged 回调委托
@@ -806,7 +798,7 @@ public static class Utility
     /// <param name="fieldName"></param>
     /// <param name="fieldType"></param>
     /// <returns></returns>
-    public static object? GenerateValueChanged(ComponentBase component, object model, string fieldName, Type fieldType)
+    public static object GenerateValueChanged(ComponentBase component, object model, string fieldName, Type fieldType)
     {
         var valueChangedInvoker = CreateLambda(fieldType).Compile();
         return valueChangedInvoker(component, model, fieldName);
@@ -838,7 +830,7 @@ public static class Utility
     /// </summary>
     /// <param name="source"></param>
     /// <returns></returns>
-    public static IEnumerable<IEditorItem> GenerateEditorItems<TModel>(IEnumerable<ITableColumn>? source = null) => Utility.GetTableColumns<TModel>(source);
+    public static IEnumerable<IEditorItem> GenerateEditorItems<TModel>(IEnumerable<ITableColumn>? source = null) => GetTableColumns<TModel>(source);
 
     /// <summary>
     /// 通过指定类型创建 IStringLocalizer 实例
