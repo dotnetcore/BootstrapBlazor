@@ -102,6 +102,12 @@ public partial class Select<TValue> : ISelect
     public bool IsFixedSearch { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否可编辑 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsEditable { get; set; }
+
+    /// <summary>
     /// 获得/设置 无搜索结果时显示文字
     /// </summary>
     [Parameter]
@@ -428,5 +434,23 @@ public partial class Select<TValue> : ISelect
     private void OnClearValue()
     {
         CurrentValue = default;
+    }
+
+    private void OnChange(ChangeEventArgs args)
+    {
+        if (args.Value is string v)
+        {
+            // Items 中没有时插入一个 SelectedItem
+            if (Items.FirstOrDefault(i => i.Text == v) == null)
+            {
+                var items = new List<SelectedItem>
+                {
+                    new(v, v)
+                };
+                items.AddRange(Items);
+                Items = items;
+            }
+            CurrentValueAsString = v;
+        }
     }
 }
