@@ -102,6 +102,12 @@ public partial class Select<TValue> : ISelect
     public bool IsFixedSearch { get; set; }
 
     /// <summary>
+    /// 获得/设置 是否可编辑 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsEditable { get; set; }
+
+    /// <summary>
     /// 获得/设置 无搜索结果时显示文字
     /// </summary>
     [Parameter]
