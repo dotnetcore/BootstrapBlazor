@@ -37,7 +37,7 @@ public class SelectTreeTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<SelectTree<string>>(builder =>
         {
             builder.Add(p => p.Items, BindItems);
-            builder.Add(p => p.IsEdit, true);
+            builder.Add(p => p.IsEditable, true);
         });
         var input = cut.Find(".dropdown-toggle input");
         cut.InvokeAsync(() => input.Change("123"));

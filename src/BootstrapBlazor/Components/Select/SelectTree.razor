@@ -9,7 +9,7 @@
 }
 <div @attributes="AdditionalAttributes" id="@Id" class="@ClassName">
     <div class="dropdown-toggle" data-bs-toggle="@ToggleString" data-bs-auto-close="outside" data-bs-offset="@OffsetString" data-bs-placement="@PlacementString" data-bs-custom-class="@CustomClassString">
-        @if (IsEdit)
+        @if (IsEditable)
         {
             <input type="text" id="@InputId" disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassName" value="@CurrentValueAsString" @onchange="@OnChange" />
         }
