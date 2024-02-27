@@ -11,26 +11,16 @@ namespace BootstrapBlazor.Server.Components.Samples;
 /// </summary>
 public sealed partial class Consoles
 {
-    private ConcurrentQueue<ConsoleMessageItem> Messages { get; set; } = new();
+    private ConsoleMessageCollection Messages { get; set; } = new(8);
 
-    private ConcurrentQueue<ConsoleMessageItem> ColorMessages { get; set; } = new();
-
-    private readonly AutoResetEvent _locker = new(true);
+    private ConsoleMessageCollection ColorMessages { get; set; } = new(12);
 
     private CancellationTokenSource? CancelTokenSource { get; set; }
 
     /// <summary>
     /// OnClear
     /// </summary>
-    private void OnClear()
-    {
-        _locker.WaitOne();
-        while (!Messages.IsEmpty)
-        {
-            Messages.TryDequeue(out var _);
-        }
-        _locker.Set();
-    }
+    private void OnClear() => Messages.Clear();
 
     /// <summary>
     /// GetColor
@@ -58,26 +48,11 @@ public sealed partial class Consoles
             Task.Run(async () =>
             {
                 CancelTokenSource ??= new();
-                while (CancelTokenSource != null && !CancelTokenSource.IsCancellationRequested)
+                while (CancelTokenSource is { IsCancellationRequested: false })
                 {
-                    _locker.WaitOne();
-
-                    Messages.Enqueue(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message" });
-
-                    if (Messages.Count > 8)
-                    {
-                        Messages.TryDequeue(out var _);
-                    }
-
-                    ColorMessages.Enqueue(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message", Color = GetColor() });
-
-                    if (ColorMessages.Count > 12)
-                    {
-                        ColorMessages.TryDequeue(out var _);
-                    }
-
+                    Messages.Add(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message" });
+                    ColorMessages.Add(new ConsoleMessageItem { Message = $"{DateTimeOffset.Now}: Dispatch Message", Color = GetColor() });
                     await InvokeAsync(StateHasChanged);
-                    _locker.Set();
 
                     try
                     {
@@ -98,11 +73,17 @@ public sealed partial class Consoles
     /// <param name="disposing"></param>
     private void Dispose(bool disposing)
     {
-        if (disposing && CancelTokenSource != null)
+        if (disposing)
         {
-            CancelTokenSource.Cancel();
-            CancelTokenSource.Dispose();
-            CancelTokenSource = null;
+            Messages.Dispose();
+            ColorMessages.Dispose();
+
+            if (CancelTokenSource != null)
+            {
+                CancelTokenSource.Cancel();
+                CancelTokenSource.Dispose();
+                CancelTokenSource = null;
+            }
         }
     }
 
