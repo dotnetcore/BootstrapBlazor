@@ -12,6 +12,7 @@ public class ConsoleMessageItem
     /// <summary>
     /// 获得/设置 控制台输出消息
     /// </summary>
+    [NotNull]
     public string? Message { get; set; }
 
     /// <summary>
