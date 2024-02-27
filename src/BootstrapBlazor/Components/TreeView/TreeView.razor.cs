@@ -34,7 +34,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// </summary>
     /// <param name="item"></param>
     /// <returns></returns>
-    private string? GetIconClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-icon")
+    private static string? GetIconClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-icon")
         .AddClass(item.Icon)
         .AddClass(item.ExpandIcon, item.IsExpand && !string.IsNullOrEmpty(item.ExpandIcon))
         .Build();
@@ -190,7 +190,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public string? ExpandNodeIcon { get; set; }
 
     [CascadingParameter]
-    [NotNull]
     private ContextMenuZone? ContextMenuZone { get; set; }
 
     [NotNull]
@@ -280,19 +279,19 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             // 设置 ActiveItem 默认值
             ActiveItem ??= Items.FirstOrDefaultActiveItem();
             ActiveItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
+        }
+    }
 
-            async Task CheckExpand(IEnumerable<TreeViewItem<TItem>> nodes)
+    async Task CheckExpand(IEnumerable<TreeViewItem<TItem>> nodes)
+    {
+        // 恢复当前节点状态
+        foreach (var node in nodes)
+        {
+            await TreeNodeStateCache.CheckExpandAsync(node, GetChildrenRowAsync);
+
+            if (node.Items.Any())
             {
-                // 恢复当前节点状态
-                foreach (var node in nodes)
-                {
-                    await TreeNodeStateCache.CheckExpandAsync(node, GetChildrenRowAsync);
-
-                    if (node.Items.Any())
-                    {
-                        await CheckExpand(node.Items);
-                    }
-                }
+                await CheckExpand(node.Items);
             }
         }
     }
@@ -381,14 +380,11 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             {
                 // 通过 item 找到父节点
                 var nodes = TreeNodeStateCache.FindParentNode(Items, node)?.Items ?? Items;
-                foreach (var n in nodes)
+                foreach (var n in nodes.Where(n => n != node))
                 {
-                    if (n != node)
-                    {
-                        // 收缩同级节点
-                        n.IsExpand = false;
-                        await TreeNodeStateCache.ToggleNodeAsync(n, GetChildrenRowAsync);
-                    }
+                    // 收缩同级节点
+                    n.IsExpand = false;
+                    await TreeNodeStateCache.ToggleNodeAsync(n, GetChildrenRowAsync);
                 }
             }
         }
@@ -417,7 +413,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         if (AutoCheckChildren)
         {
             // 向下级联操作
-            item.SetChildrenCheck<TreeViewItem<TItem>, TItem>(item.CheckedState, TreeNodeStateCache);
+            item.SetChildrenCheck(item.CheckedState, TreeNodeStateCache);
         }
 
         if (AutoCheckParent)
