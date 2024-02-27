@@ -224,6 +224,19 @@ public class ConsoleTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public void MessageItemHtml_OK()
+    {
+        var cut = Context.RenderComponent<Console>(builder =>
+        {
+            builder.Add(a => a.Items, new List<ConsoleMessageItem>()
+            {
+                new() { Message = "<div class=\"html\">Test1</div>", Color = Color.Danger, IsHtml = true }, new() { Message = "Test2" }
+            });
+        });
+        cut.Contains("<div class=\"html\">Test1</div>");
+    }
+
+    [Fact]
     public void FooterTemplate_OK()
     {
         var cut = Context.RenderComponent<Console>(pb =>
