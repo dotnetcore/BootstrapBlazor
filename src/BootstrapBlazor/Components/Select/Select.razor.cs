@@ -457,12 +457,11 @@ public partial class Select<TValue> : ISelect
                 items.AddRange(Items);
                 Items = items;
             }
-            CurrentValueAsString = v;
-
             if (OnInputChangedCallback != null)
             {
                 await OnInputChangedCallback(v);
             }
+            CurrentValueAsString = v;
         }
     }
 }
