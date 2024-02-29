@@ -155,9 +155,9 @@
                 @if (ShowSearch && SearchMode == SearchMode.Popup)
                 {
                     <div class="float-end table-toolbar-button btn-group">
-                        @if (ShowSearchText)
-                        {
-                            <div class="input-group">
+                        <div class="input-group">
+                            @if (ShowSearchText)
+                            {
                                 @if (ShowSearchTextTooltip)
                                 {
                                     <Tooltip Placement="Placement.Top" Title="@SearchTooltip" Sanitize="false" IsHtml="true">
@@ -168,25 +168,21 @@
                                 {
                                     <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @bind-Value="@SearchText" ShowLabel="false" />
                                 }
-                                <Button Color="@Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="@SearchClick">
-                                    <span class="d-none d-sm-inline-block">@SearchButtonText</span>
+                            }
+                            <Button Color="@Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="@SearchClick">
+                                <span class="d-none d-sm-inline-block">@SearchButtonText</span>
+                            </Button>
+                            @if (ShowResetButton)
+                            {
+                                <Button Color="@Color.Secondary" Icon="@ResetSearchButtonIcon" OnClickWithoutRender="@ClearSearchClick">
+                                    <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                                 </Button>
-                                @if (ShowResetButton)
-                                {
-                                    <Button Color="@Color.Secondary" Icon="@ResetSearchButtonIcon" OnClickWithoutRender="@ClearSearchClick">
-                                        <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
-                                    </Button>
-                                }
-                                @if (ShowAdvancedSearch)
-                                {
-                                    @RenderAdvanceSearchButton
-                                }
-                            </div>
-                        }
-                        else if (ShowAdvancedSearch)
-                        {
-                            @RenderAdvanceSearchButton
-                        }
+                            }
+                            @if (ShowAdvancedSearch)
+                            {
+                                @RenderAdvanceSearchButton
+                            }
+                        </div>
                     </div>
                 }
             </div>
@@ -893,9 +889,9 @@
     RenderFragment RenderSearch =>
     @<Card IsCollapsible="true" HeaderText="@SearchModalTitle" Collapsed="CollapsedTopSearch">
         <HeaderTemplate>
-            @if (ShowSearchText)
-            {
-                <div class="input-group input-group-xs">
+            <div class="input-group input-group-xs">
+                @if (ShowSearchText)
+                {
                     @if (ShowSearchTextTooltip)
                     {
                         <Tooltip Placement="Placement.Top" Title="@SearchTooltip" Sanitize="false" IsHtml="true">
@@ -908,17 +904,17 @@
                         <BootstrapInput class="table-toolbar-search" placeholder="@SearchPlaceholderText" @onkeyup="OnSearchKeyUp" @bind-Value="@SearchText" >
                         </BootstrapInput>
                     }
-                    @if (ShowResetButton)
-                    {
-                        <Button Color="Color.Secondary" Icon="@ResetSearchButtonIcon" OnClickWithoutRender="ClearSearchClick">
-                            <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
-                        </Button>
-                    }
-                    <Button Color="Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="SearchClick">
-                        <span class="d-none d-sm-inline-block">@SearchButtonText</span>
+                }
+                @if (ShowResetButton)
+                {
+                    <Button Color="Color.Secondary" Icon="@ResetSearchButtonIcon" OnClickWithoutRender="ClearSearchClick">
+                        <span class="d-none d-sm-inline-block">@ResetSearchButtonText</span>
                     </Button>
-                </div>
-            }
+                }
+                <Button Color="Color.Secondary" Icon="@SearchButtonIcon" OnClickWithoutRender="SearchClick">
+                    <span class="d-none d-sm-inline-block">@SearchButtonText</span>
+                </Button>
+            </div>
             <div class="table-search-buttons input-group input-group-xs">
                 @if (ShowResetButton)
                 {
