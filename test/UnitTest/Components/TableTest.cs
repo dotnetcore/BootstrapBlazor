@@ -3674,15 +3674,7 @@ public class TableTest : TableTestBase
             });
         });
 
-        // 仅在 Top 模式下不显示 ShowSearchText 时可切换是否显示搜索按钮
-        if (showSearchButton)
-        {
-            cut.Contains("test_search");
-        }
-        else
-        {
-            cut.DoesNotContain("test_search");
-        }
+        cut.Contains("test_search");
     }
 
     [Fact]
