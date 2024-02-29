@@ -74,7 +74,7 @@ protected override async Task OnAfterRenderAsync(bool firstRender)
                 <Display Value="ClientInfo.Language" DisplayText="@Localizer["Language"]" ShowLabel="true" />
             </div>
             <div class="col-12">
-                <BootstrapInput Value="ClientInfo.UserAgent" DisplayText="UserAgent" ShowLabel="true" readonly />
+                <Display Value="ClientInfo.UserAgent" DisplayText="UserAgent" ShowLabel="true" ShowTooltip="true" />
             </div>
         </div>
     </GroupBox>
