@@ -67,35 +67,44 @@ public class CalendarTest : BootstrapBlazorTestBase
             pb.Add(a => a.OnValueChanged, d => Task.CompletedTask);
         });
 
+        var buttons = cut.FindAll(".calendar-button-group button");
+        await cut.InvokeAsync(() =>
+        {
+            // btn 上一月
+            buttons[1].Click();
+        });
+        Assert.Contains($"{DateTime.Now.AddMonths(-1).Year} 年 {DateTime.Now.AddMonths(-1).Month} 月", cut.Find(".calendar-title").ToMarkup());
+        Assert.Equal(v, DateTime.Today.AddMonths(-1));
 
         await cut.InvokeAsync(() =>
         {
-            var buttons = cut.FindAll(".calendar-button-group button");
-            // btn 上一年
-            buttons[0].Click();
-
-            Assert.Contains($"{DateTime.Now.Year - 1} 年 {DateTime.Now.Month} 月", cut.Find(".calendar-title").ToMarkup());
-            Assert.Equal(v, DateTime.Today.AddYears(-1));
-
-            // btn 下一年
-            buttons[4].Click();
-            Assert.Contains($"{DateTime.Now.Year} 年 {DateTime.Now.Month} 月", cut.Find(".calendar-title").ToMarkup());
-
-            // btn 上一月
-            buttons[1].Click();
-            Assert.Contains($"{DateTime.Now.AddMonths(-1).Year} 年 {DateTime.Now.AddMonths(-1).Month} 月", cut.Find(".calendar-title").ToMarkup());
-            Assert.Equal(v, DateTime.Today.AddMonths(-1));
-
             // btn 下一月
             buttons[3].Click();
-            Assert.Contains($"{DateTime.Now.Year} 年 {DateTime.Now.Month} 月", cut.Find(".calendar-title").ToMarkup());
+        });
+        Assert.Contains($"{DateTime.Now.Year} 年 {DateTime.Now.Month} 月", cut.Find(".calendar-title").ToMarkup());
 
+        await cut.InvokeAsync(() =>
+        {
+            // btn 上一年
+            buttons[0].Click();
+        });
+        Assert.Contains($"{DateTime.Now.Year - 1} 年 {DateTime.Now.Month} 月", cut.Find(".calendar-title").ToMarkup());
+        Assert.Equal(v, DateTime.Today.AddYears(-1));
+
+        await cut.InvokeAsync(() =>
+        {
+            // btn 下一年
+            buttons[4].Click();
+        });
+        Assert.Contains($"{DateTime.Now.Year} 年 {DateTime.Now.Month} 月", cut.Find(".calendar-title").ToMarkup());
+
+        await cut.InvokeAsync(() =>
+        {
             // btn 今天
             buttons[2].Click();
-            Assert.Contains(DateTime.Now.Day.ToString(), cut.Find(".current.is-selected.is-today").ToMarkup());
         });
+        Assert.Contains(DateTime.Now.Day.ToString(), cut.Find(".current.is-selected.is-today").ToMarkup());
     }
-
 
     [Fact]
     public async Task ValueChanged_Ok()
