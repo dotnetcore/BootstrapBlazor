@@ -2710,6 +2710,8 @@
     "InputNumbersNormalIntro": "The <code>Numer</code> numeric type displays a text box, and the mobile side automatically pops up the numeric keypad",
     "InputNumbersRangeTitle": "Interval limit usage",
     "InputNumbersRangeIntro": "Set the <code>Max</code> <code>Min</code> to control the range of value intervals 1-10",
+    "InputNumbersNullableTitle": "Nullable data type",
+    "InputNumbersNullableIntro": "When binding to a data type that can be empty, the component allows empty strings. When inputting illegal data such as <code>1+2+3e</code>, the component UI value is an empty string",
     "InputNumbersShowButtonTitle": "Control button",
     "InputNumbersShowButtonIntro": "Set the <code>ShowButton</code> parameter to control whether the buttons are displayed to increase or decrease",
     "InputNumbersShowButtonDescription": "This example sets a maximum of 10 minimum value of 0",

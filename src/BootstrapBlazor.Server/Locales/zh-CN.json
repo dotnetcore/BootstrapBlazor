@@ -2710,6 +2710,8 @@
     "InputNumbersNormalIntro": "<code>Number</code> 数值类型显示文本框，移动端自动弹出数字键盘",
     "InputNumbersRangeTitle": "区间限制用法",
     "InputNumbersRangeIntro": "设置 <code>Max</code> <code>Min</code> 来控制数值区间范围 1-10",
+    "InputNumbersNullableTitle": "可为空数据类型",
+    "InputNumbersNullableIntro": "绑定可为空数据类型时，组件允许空字符串，输入非法数据如 <code>1+2+3e</code> 时组件 UI 值为空字符串",
     "InputNumbersShowButtonTitle": "控制按钮",
     "InputNumbersShowButtonIntro": "设置 <code>ShowButton</code> 参数来控制是否显示增加或减少的按钮",
     "InputNumbersShowButtonDescription": "本例设置了最大值 10 最小值 0",
