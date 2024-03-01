@@ -114,7 +114,7 @@ public abstract class ValidateBase<TValue> : DisplayBase<TValue>, IValidateCompo
             }
             else if (TryParseValueFromString(value, out var parsedValue, out var validationErrorMessage))
             {
-                PreviousParsingAttemptFailed = true;
+                PreviousParsingAttemptFailed = false;
                 CurrentValue = parsedValue;
             }
             else
