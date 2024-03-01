@@ -227,6 +227,10 @@ public partial class BootstrapInputNumber<TValue>
         {
             CurrentValue = SetMax(SetMin(Value));
         }
+        else
+        {
+            CurrentValue = default!;
+        }
 
         if (NullableUnderlyingType != null && string.IsNullOrEmpty(CurrentValueAsString))
         {
