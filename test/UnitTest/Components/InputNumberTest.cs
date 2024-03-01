@@ -93,6 +93,22 @@ public class InputNumberTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task Nullable_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapInputNumber<int?>>(pb =>
+        {
+            pb.Add(a => a.Value, 5);
+        });
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() =>
+        {
+            input.Change("1+2");
+            input.Blur();
+        });
+        Assert.Null(cut.Instance.Value);
+    }
+
+    [Fact]
     public async Task ShowButton_Ok()
     {
         var inc = false;
