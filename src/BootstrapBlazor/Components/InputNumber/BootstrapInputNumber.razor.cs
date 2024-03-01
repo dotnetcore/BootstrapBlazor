@@ -221,11 +221,14 @@ public partial class BootstrapInputNumber<TValue>
     /// 失去焦点是触发此方法
     /// </summary>
     /// <returns></returns>
-    private void OnBlur()
+    private async Task OnBlur()
     {
         if (!PreviousParsingAttemptFailed)
         {
             CurrentValue = SetMax(SetMin(Value));
+
+            // set component value empty
+            await InvokeVoidAsync("clear", Id);
         }
     }
 
