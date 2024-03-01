@@ -10,6 +10,11 @@ namespace BootstrapBlazor.Server.Components.Samples;
 public sealed partial class InputNumbers
 {
     /// <summary>
+    /// NullableValue
+    /// </summary>
+    public int? NullableValue { get; set; } = 5;
+
+    /// <summary>
     /// BindValue
     /// </summary>
     public int BindValue { get; set; } = 5;
