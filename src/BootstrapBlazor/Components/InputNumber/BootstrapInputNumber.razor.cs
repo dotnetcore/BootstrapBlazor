@@ -226,7 +226,10 @@ public partial class BootstrapInputNumber<TValue>
         if (!PreviousParsingAttemptFailed)
         {
             CurrentValue = SetMax(SetMin(Value));
+        }
 
+        if (NullableUnderlyingType != null && string.IsNullOrEmpty(CurrentValueAsString))
+        {
             // set component value empty
             await InvokeVoidAsync("clear", Id);
         }
