@@ -409,7 +409,7 @@ public partial class DateTimeRange
                 SelectedValue.Start = DateTime.Today;
             }
         }
-        Value.Start = SelectedValue.Start;
+        Value.Start = SelectedValue.Start.Date;
         Value.End = GetEndDateTime(SelectedValue.End);
 
         if (ValueChanged.HasDelegate)

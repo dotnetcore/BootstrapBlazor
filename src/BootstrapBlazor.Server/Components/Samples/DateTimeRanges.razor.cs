@@ -16,7 +16,7 @@ public sealed partial class DateTimeRanges
 
     private Task OnNormalConfirm(DateTimeRangeValue value)
     {
-        NormalLogger.Log($"选择的时间范围是: {value.Start:yyyy-MM-dd} - {value.End:yyyy-MM-dd}");
+        NormalLogger.Log($"选择的时间范围是: {value.Start:yyyy-MM-dd HH:mm:ss} - {value.End:yyyy-MM-dd HH:mm:ss}");
         return Task.CompletedTask;
     }
 
