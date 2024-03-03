@@ -10,7 +10,6 @@ export function init(id) {
         if (bb.cancelContextMenuHandler === void 0) {
             bb.contextMenus = []
             bb.cancelContextMenuHandler = e => {
-                console.log('test - bb - ');
                 const menu = document.querySelector('.bb-cm.show')
                 if (menu) {
                     const menuId = menu.getAttribute('id')
