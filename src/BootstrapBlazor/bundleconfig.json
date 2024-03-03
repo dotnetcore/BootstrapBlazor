@@ -10,25 +10,5 @@
   {
     "outputFileName": "wwwroot/css/motronic.min.css",
     "inputFiles": [ "wwwroot/src/css/motronic.css" ]
-  },
-  {
-    "outputFileName": "wwwroot/js/bootstrap.blazor.bundle.js",
-    "inputFiles": [
-      "wwwroot/core/bootstrap/js/bootstrap.bundle.js"
-    ],
-    "minify": {
-      "enabled": false,
-      "renameLocals": true
-    }
-  },
-  {
-    "outputFileName": "wwwroot/js/bootstrap.blazor.bundle.min.js",
-    "inputFiles": [
-      "wwwroot/core/bootstrap/js/bootstrap.bundle.min.js"
-    ],
-    "minify": {
-      "enabled": false,
-      "renameLocals": true
-    }
   }
 ]
