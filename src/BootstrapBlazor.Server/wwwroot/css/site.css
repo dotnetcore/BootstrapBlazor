@@ -298,6 +298,32 @@ code {
     }
 }
 
+:root, [data-bs-theme="light"] {
+    --bd-purple: #4c0bce;
+    --bd-violet: #712cf9;
+    --bd-accent: #ffe484;
+    --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+    --bd-accent-rgb: 255, 228, 132;
+    --bd-pink-rgb: 214, 51, 132;
+    --bd-teal-rgb: 32, 201, 151;
+    --bd-violet-bg: var(--bd-violet);
+    --bd-toc-color: var(--bd-violet);
+    --bd-sidebar-link-bg: rgba(var(--bd-violet-rgb), .1);
+    --bd-callout-link: 10, 88, 202;
+    --bd-callout-code-color: #ab296a;
+    --bd-pre-bg: var(--bs-tertiary-bg);
+}
+
+[data-bs-theme="dark"] {
+    --bd-violet: #9461fb;
+    --bd-violet-bg: #712cf9;
+    --bd-toc-color: var(--bs-emphasis-color);
+    --bd-sidebar-link-bg: rgba(84, 33, 187, .5);
+    --bd-callout-link: 110, 168, 254;
+    --bd-callout-code-color: #e685b5;
+    --bd-pre-bg: #1b1f22;
+}
+
 @supports not selector(::-webkit-scrollbar) {
     .scroll {
         scrollbar-color: rgba(0,0,0,0.3) rgba(0,0,0,0);
