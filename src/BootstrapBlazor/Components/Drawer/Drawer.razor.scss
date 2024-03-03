@@ -2,6 +2,7 @@
     --bb-drawer-bg: var(--bs-body-bg);
     --bb-drawer-zindex: #{$bb-drawer-zindex};
     --bb-drawer-body-shadow: #{$bb-drawer-body-shadow};
+    --bb-drawer-body-padding: #{$bb-drawer-body-padding};
     --bb-drawer-bar-bg: #{$bb-drawer-bar-bg};
     --bb-drawer-bar-hover-color: #{$bb-drawer-bar-hover-color};
     --bb-drawer-bar-drag-color: #{$bb-drawer-bar-drag-color};
@@ -38,6 +39,7 @@
         z-index: 2;
         pointer-events: auto;
         display: flex;
+        padding: var(--bb-drawer-body-padding);
 
         .drawer-content {
             overflow: auto;
@@ -90,11 +92,12 @@
 
         .drawer-bar {
             background-color: var(--bb-drawer-bar-bg);
-            position: relative;
+            position: absolute;
+            z-index: 5;
 
             .drawer-bar-body {
                 position: absolute;
-                inset: 0 -2px;
+                inset: 0 -1px;
                 cursor: col-resize;
             }
 
@@ -112,19 +115,49 @@
         &.left, &.right {
             .drawer-bar {
                 width: 2px;
-                height: 100%;
+            }
+        }
+
+        &.left {
+            .drawer-bar {
+                right: 0;
+                top: 0;
+                bottom: 0;
+            }
+        }
+
+        &.right {
+            .drawer-bar {
+                left: 0;
+                top: 0;
+                bottom: 0;
             }
         }
 
         &.top, &.bottom {
             .drawer-bar {
                 height: 2px;
-                width: 100%;
 
                 .drawer-bar-body {
-                    inset: -2px 0;
+                    inset: -1px 0;
                     cursor: row-resize;
                 }
+            }
+        }
+
+        &.top {
+            .drawer-bar {
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+        }
+
+        &.bottom {
+            .drawer-bar {
+                left: 0;
+                right: 0;
+                top: 0;
             }
         }
     }

@@ -14,13 +14,13 @@
     </div>
 </Tips>
 
-<div class="my-2">
+<p>
     @((@MarkupString)Localizer["DownloadsExample"].Value)：
     <Button Icon="fa-solid fa-download" Text="@Localizer["DownloadsExampleButtonText"]" OnClick="@DownloadFileAsync"></Button>
-</div>
-<div class="mb-2">@((@MarkupString)Localizer["DownloadsExampleRazorCodeTitle"].Value)</div>
+</p>
+<p>@((@MarkupString)Localizer["DownloadsExampleRazorCodeTitle"].Value)</p>
 <Pre>@Localizer["DownloadsExampleRazorCodeContent"]</Pre>
-<div class="mb-2">@((@MarkupString)Localizer["DownloadsExampleCodeTitle"].Value)</div>
+<p>@((@MarkupString)Localizer["DownloadsExampleCodeTitle"].Value)</p>
 <Pre>private async Task DownloadFileAsync()
 {
     using var stream = await GenerateFileAsync();

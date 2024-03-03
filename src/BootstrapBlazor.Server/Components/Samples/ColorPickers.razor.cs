@@ -27,8 +27,8 @@ public partial class ColorPickers
         return Task.CompletedTask;
     }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "OnValueChanged",
@@ -37,5 +37,5 @@ public partial class ColorPickers
             ValueList = "",
             DefaultValue = ""
         }
-    };
+    ];
 }

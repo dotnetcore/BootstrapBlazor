@@ -12,13 +12,11 @@ public sealed partial class Dropdowns
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
 
-    private List<SelectedItem> Items { get; set; } = new();
+    private List<SelectedItem> Items { get; set; } = [];
 
     /// <summary>
     /// ShowMessage
     /// </summary>
-    /// <param name="e"></param>
-    /// <returns></returns>
     private Task ShowMessage(SelectedItem e)
     {
         Logger.Log($"Dropdown Item Clicked: Value={e.Value} Text={e.Text}");
@@ -32,45 +30,45 @@ public sealed partial class Dropdowns
     {
         base.OnInitialized();
 
-        Items = new List<SelectedItem>
-        {
+        Items =
+        [
+            new SelectedItem() { Text=Localizer["Item1"], Value="0"},
+            new SelectedItem() { Text=Localizer["Item2"], Value="1"},
+            new SelectedItem() { Text=Localizer["Item3"], Value="2"},
+        ];
+
+        Foos =
+        [
             new SelectedItem{ Text=Localizer["Item1"], Value="0"},
             new SelectedItem{ Text=Localizer["Item2"], Value="1"},
             new SelectedItem{ Text=Localizer["Item3"], Value="2"},
-        };
+        ];
 
-        Foos = new List<SelectedItem>
-        {
-            new SelectedItem{ Text=Localizer["Item1"], Value="0"},
-            new SelectedItem{ Text=Localizer["Item2"], Value="1"},
-            new SelectedItem{ Text=Localizer["Item3"], Value="2"},
-        };
-
-        RadioDropDownItems = new List<SelectedItem>
-        {
+        RadioDropDownItems =
+        [
             new SelectedItem("1", Localizer["Item1"]) { Active = true },
             new SelectedItem("2", Localizer["Item2"]),
             new SelectedItem("3", Localizer["Item3"])
-        };
+        ];
 
-        RadioItems = new List<SelectedItem>
-        {
+        RadioItems =
+        [
             new SelectedItem("1", Localizer["Item1"]) { Active = true },
             new SelectedItem("2", Localizer["Item2"])
-        };
+        ];
 
         Items3 = new SelectedItem[]
         {
-            new SelectedItem ("", Localizer["DropdownCascadeItem1"]),
-            new SelectedItem ("Beijing", Localizer["DropdownCascadeItem2"]) { Active = true },
-            new SelectedItem ("Shanghai", Localizer["DropdownCascadeItem3"]),
-            new SelectedItem ("Hangzhou", Localizer["DropdownCascadeItem4"])
+            new ("", Localizer["DropdownCascadeItem1"]),
+            new ("Beijing", Localizer["DropdownCascadeItem2"]) { Active = true },
+            new ("Shanghai", Localizer["DropdownCascadeItem3"]),
+            new ("Hangzhou", Localizer["DropdownCascadeItem4"])
         };
     }
 
-    private static List<SelectedItem> EmptyList => new();
+    private static List<SelectedItem> EmptyList => [];
 
-    private List<SelectedItem> Foos { get; set; } = new List<SelectedItem>();
+    private List<SelectedItem> Foos { get; set; } = [];
 
     /// <summary>
     /// AddItem
@@ -80,9 +78,9 @@ public sealed partial class Dropdowns
         Foos.Add(new SelectedItem($"{Foos.Count}", $"{Localizer["City"]} {Foos.Count}"));
     }
 
-    private List<SelectedItem> RadioItems { get; set; } = new List<SelectedItem>();
+    private List<SelectedItem> RadioItems { get; set; } = [];
 
-    private List<SelectedItem> RadioDropDownItems { get; set; } = new List<SelectedItem>();
+    private List<SelectedItem> RadioDropDownItems { get; set; } = [];
 
     /// <summary>
     /// OnRadioItemChanged
@@ -102,7 +100,7 @@ public sealed partial class Dropdowns
     /// </summary>
     private void RemoveItem()
     {
-        if (Foos.Any())
+        if (Foos.Count != 0)
         {
             Foos.RemoveAt(0);
         }
@@ -110,7 +108,7 @@ public sealed partial class Dropdowns
 
     private IEnumerable<SelectedItem>? Items2 { get; set; }
 
-    private IEnumerable<SelectedItem>? Items3 = new SelectedItem[] { };
+    private IEnumerable<SelectedItem>? Items3 = Array.Empty<SelectedItem>();
 
     /// <summary>
     /// 级联绑定菜单
@@ -124,16 +122,16 @@ public sealed partial class Dropdowns
         {
             Items2 = new SelectedItem[]
             {
-                new SelectedItem("1",Localizer["DropdownCascadeItem5"]) { Active = true },
-                new SelectedItem("2",Localizer["DropdownCascadeItem6"]),
+                new("1",Localizer["DropdownCascadeItem5"]) { Active = true },
+                new("2",Localizer["DropdownCascadeItem6"]),
             };
         }
         else if (item.Value == "Shanghai")
         {
             Items2 = new SelectedItem[]
             {
-                new SelectedItem("1",Localizer["DropdownCascadeItem7"]),
-                new SelectedItem("2",Localizer["DropdownCascadeItem8"]) { Active = true } ,
+                new("1",Localizer["DropdownCascadeItem7"]),
+                new("2",Localizer["DropdownCascadeItem8"]) { Active = true } ,
             };
         }
         else
@@ -147,8 +145,8 @@ public sealed partial class Dropdowns
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Value",
@@ -244,19 +242,19 @@ public sealed partial class Dropdowns
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 
     /// <summary>
     /// GetEvents
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<EventItem> GetEvents() => new EventItem[]
-    {
+    private EventItem[] GetEvents() =>
+    [
         new EventItem()
         {
             Name = "OnSelectedItemChanged",
             Description= Localizer["EventOnSelectedItemChanged"],
             Type ="Func<SelectedItem, Task>"
         }
-   };
+   ];
 }

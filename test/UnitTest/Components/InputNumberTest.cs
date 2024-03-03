@@ -93,7 +93,23 @@ public class InputNumberTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ShowButton_Ok()
+    public async Task Nullable_Ok()
+    {
+        var cut = Context.RenderComponent<BootstrapInputNumber<int?>>(pb =>
+        {
+            pb.Add(a => a.Value, 5);
+        });
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() =>
+        {
+            input.Change("1+2");
+            input.Blur();
+        });
+        Assert.Null(cut.Instance.Value);
+    }
+
+    [Fact]
+    public async Task ShowButton_Ok()
     {
         var inc = false;
         var dec = false;
@@ -114,20 +130,20 @@ public class InputNumberTest : BootstrapBlazorTestBase
         cut.Contains("class=\"input-group\"");
 
         var buttons = cut.FindAll("button");
-        cut.InvokeAsync(() => buttons[0].Click());
+        await cut.InvokeAsync(() => buttons[0].Click());
         Assert.True(inc);
         Assert.Equal(-1, cut.Instance.Value);
 
-        cut.InvokeAsync(() => buttons[1].Click());
+        await cut.InvokeAsync(() => buttons[1].Click());
         Assert.True(dec);
         Assert.Equal(0, cut.Instance.Value);
 
         cut.SetParametersAndRender(pb => pb.Add(a => a.Step, "10"));
         buttons = cut.FindAll("button");
-        cut.InvokeAsync(() => buttons[0].Click());
+        await cut.InvokeAsync(() => buttons[0].Click());
         Assert.Equal(-10, cut.Instance.Value);
 
-        cut.InvokeAsync(() => buttons[1].Click());
+        await cut.InvokeAsync(() => buttons[1].Click());
         Assert.Equal(0, cut.Instance.Value);
     }
 

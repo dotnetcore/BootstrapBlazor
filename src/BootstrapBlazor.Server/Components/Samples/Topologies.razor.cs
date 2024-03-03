@@ -38,9 +38,9 @@ public partial class Topologies
     /// </summary>
     protected override Task InvokeInitAsync() => InvokeVoidAsync("init", Interop, nameof(ToggleFan));
 
-    private Task OnResize()
+    private Task OnReset()
     {
-        TopologyElement.Resize();
+        TopologyElement.Reset();
         return Task.CompletedTask;
     }
 
@@ -83,35 +83,39 @@ public partial class Topologies
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
-        new() {
+    private static AttributeItem[] GetAttributes() =>
+    [
+        new()
+        {
             Name = nameof(Topology.Content),
             Description = "Load Graphical Json Content",
             Type = "string",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = nameof(Topology.Interval),
             Description = "Polling interval in polling mode",
             Type = "int",
             ValueList = " — ",
             DefaultValue = "2000"
         },
-        new() {
+        new()
+        {
             Name = nameof(Topology.OnQueryAsync),
             Description = "Get push data callback delegate method",
             Type = "Func<CancellationToken, Task<IEnumerable<TopologyItem>>>",
             ValueList = " — ",
             DefaultValue = " — "
         },
-        new() {
+        new()
+        {
             Name = nameof(Topology.OnBeforePushData),
             Description = "Callback method before starting to push data",
             Type = "Func<Task>",
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

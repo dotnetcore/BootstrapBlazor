@@ -53,7 +53,7 @@ public class TableColumnTest
         SetValue("Align", Alignment.Left);
         SetValue("ShowTips", true);
         SetValue("Readonly", true);
-        SetValue("Step", 1);
+        SetValue("Step", "1");
         SetValue("Rows", 1);
         SetValue("ComponentType", typeof(string));
         SetValue("Order", 1);

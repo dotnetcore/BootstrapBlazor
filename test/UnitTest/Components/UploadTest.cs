@@ -359,6 +359,12 @@ public class UploadTest : BootstrapBlazorTestBase
             new()
         })));
         cut.DoesNotContain("cancel-icon");
+
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.Size, Size.ExtraSmall);
+        });
+        cut.Contains("btn-xs");
     }
 
     [Fact]
@@ -546,7 +552,7 @@ public class UploadTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ButtonUpload_ShowProgress_Ok()
+    public async Task ButtonUpload_ShowProgress_Ok()
     {
         var cancel = false;
         var cut = Context.RenderComponent<ButtonUpload<string>>(pb =>
@@ -564,17 +570,18 @@ public class UploadTest : BootstrapBlazorTestBase
             });
         });
         var input = cut.FindComponent<InputFile>();
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(async () =>
         {
-            input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+            _ = input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
             {
                 new()
             }));
+
             var button = cut.Find(".cancel-icon");
             Assert.NotNull(button);
-            button.Click();
+            await cut.InvokeAsync(() => button.Click());
+            Assert.True(cancel);
         });
-        Assert.True(cancel);
     }
 
     [Fact]
@@ -889,6 +896,24 @@ public class UploadTest : BootstrapBlazorTestBase
             button.Click();
         });
         Assert.True(cancel);
+    }
+
+    [Fact]
+    public async Task CardUpload_Max_Ok()
+    {
+        var cut = Context.RenderComponent<CardUpload<string>>(pb =>
+        {
+            pb.Add(a => a.ShowProgress, true);
+            pb.Add(a => a.Max, 1);
+        });
+        var input = cut.FindComponent<InputFile>();
+        await cut.InvokeAsync(async () =>
+        {
+            await input.Instance.OnChange.InvokeAsync(new InputFileChangeEventArgs(new List<MockBrowserFile>()
+            {
+                new()
+            }));
+        });
     }
 
     [Fact]

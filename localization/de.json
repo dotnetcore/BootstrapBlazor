@@ -160,6 +160,9 @@
   "BootstrapBlazor.Components.SelectTree": {
     "PlaceHolder": "Zum Auswählen klicken ..."
   },
+  "BootstrapBlazor.Components.SelectTreeView": {
+    "PlaceHolder": "Zum Auswählen klicken ..."
+  },
   "BootstrapBlazor.Components.StringLengthValidator": {
     "ErrorMessage": "Bitte geben Sie einen Wert kleiner oder gleich {{0}} ein"
   },
@@ -230,6 +233,7 @@
     "ExportToastTitle": "Daten exportieren",
     "ExportToastContent": "Daten exportieren {0}, automatisches Schließen in {1} Sekunden",
     "ExportToastInProgressContent": "Daten exportieren, automatisches Schließen in {0} Sekunden",
+    "ExportCsvDropdownItemText": "MS-Csv",
     "ExportExcelDropdownItemText": "MS-Excel",
     "ExportPdfDropdownItemText": "Pdf",
     "PageInfoText": "{0} - {1} Total {2}",

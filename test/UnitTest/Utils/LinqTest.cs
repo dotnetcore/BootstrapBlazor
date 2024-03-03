@@ -14,12 +14,12 @@ public class LinqTest
             new Dummy()
             {
                 Name = "Test1",
-                Items = new List<string>() { "Test_Item_1" }
+                Items = ["Test_Item_1"]
             },
             new Dummy()
             {
                 Name = "Test2",
-                Items = new List<string>() { "Test_Item_4" }
+                Items = ["Test_Item_4"]
             }
         };
         var foo2 = new Dummy[]
@@ -27,12 +27,12 @@ public class LinqTest
             new Dummy()
             {
                 Name = "Test1",
-                Items = new List<string>() { "Test_Item_2", "Test_Item_3" }
+                Items = ["Test_Item_2", "Test_Item_3"]
             },
             new Dummy()
             {
                 Name = "Test2",
-                Items = new List<string>() { "Test_Item_5", "Test_Item_6" }
+                Items = ["Test_Item_5", "Test_Item_6"]
             }
         };
 
@@ -48,13 +48,13 @@ public class LinqTest
             };
         });
         Assert.Equal(2, foo3.Count());
-        Assert.Equal(new List<string>() { "Test_Item_1", "Test_Item_2", "Test_Item_3" }, foo3.First().Items);
+        Assert.Equal(["Test_Item_1", "Test_Item_2", "Test_Item_3"], foo3.First().Items);
     }
 
     private class Dummy
     {
         public string? Name { get; set; }
 
-        public List<string> Items { get; set; } = new List<string>();
+        public List<string> Items { get; set; } = [];
     }
 }

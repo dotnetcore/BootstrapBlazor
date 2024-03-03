@@ -1,5 +1,12 @@
 ﻿import EventHandler from "../../modules/event-handler.js?v=$version"
 
+export function clear(id) {
+    const el = document.getElementById(id)
+    if (el) {
+        el.value = '';
+    }
+}
+
 export function handleKeyUp(id, invoke, enter, enterCallbackMethod, esc, escCallbackMethod) {
     const el = document.getElementById(id)
     if (el) {

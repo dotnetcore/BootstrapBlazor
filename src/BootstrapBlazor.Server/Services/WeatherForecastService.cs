@@ -6,10 +6,10 @@ namespace BootstrapBlazor.Server.Services;
 
 internal class WeatherForecastService
 {
-    private string[] Summaries { get; } = new[]
-    {
+    private string[] Summaries { get; } =
+    [
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+        ];
 
     /// <summary>
     /// 

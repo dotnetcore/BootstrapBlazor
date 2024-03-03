@@ -7,10 +7,8 @@
 <h3>@Localizer["TablesEditTitle"]</h3>
 <h4>@((MarkupString)Localizer["TablesEditDescription"].Value)</h4>
 
-<DemoBlock Title="@Localizer["TablesEditItemsTitle"]"
-           Introduction="@Localizer["TablesEditItemsIntro"]"
-           Name="EditItems">
-    <section ignore class="mb-3">@((MarkupString)Localizer["TablesEditItemsDescription"].Value)</section>
+<DemoBlock Title="@Localizer["TablesEditItemsTitle"]" Introduction="@Localizer["TablesEditItemsIntro"]" Name="EditItems">
+    <section ignore>@((MarkupString)Localizer["TablesEditItemsDescription"].Value)</section>
     <Table TItem="Foo" @bind-Items="EditItems"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true"
            ShowToolbar="true" ShowExtendButtons="true" ShowSkeleton="true"
@@ -26,10 +24,22 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["TablesEditTemplateTitle"]"
-           Introduction="@Localizer["TablesEditTemplateIntro"]"
-           Name="EditTemplate">
-    <section ignore class="mb-3">@((MarkupString)Localizer["TablesEditTemplateDescription"].Value)</section>
+<DemoBlock Title="@Localizer["TablesVisibleTitle"]" Introduction="@Localizer["TablesVisibleIntro"]" Name="Visible">
+    <Table TItem="Foo" Items="@Items.Take(3)" IsMultipleSelect="true"
+           ShowToolbar="true" ShowExtendButtons="true">
+        <TableColumns>
+            <TableColumn @bind-Field="@context.DateTime" Width="180" />
+            <TableColumn @bind-Field="@context.Name" />
+            <TableColumn @bind-Field="@context.Address" Rows="3" Visible="false" IsVisibleWhenAdd="true" IsVisibleWhenEdit="true" />
+            <TableColumn @bind-Field="@context.Count" IsVisibleWhenAdd="false" />
+            <TableColumn @bind-Field="@context.Complete" IsVisibleWhenEdit="false" />
+            <TableColumn @bind-Field="@context.Education" />
+        </TableColumns>
+    </Table>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["TablesEditTemplateTitle"]" Introduction="@Localizer["TablesEditTemplateIntro"]" Name="EditTemplate">
+    <section ignore>@((MarkupString)Localizer["TablesEditTemplateDescription"].Value)</section>
     <Table TItem="Foo" EditDialogShowMaximizeButton="true"
            IsPagination="true" PageItemsSource="@PageItemsSource" DataService="@CustomerDataService"
            IsStriped="true" IsBordered="true" IsMultipleSelect="true" AutoGenerateColumns="true"
@@ -51,9 +61,7 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["TablesEditOnAddAsyncTitle"]"
-           Introduction="@Localizer["TablesEditOnAddAsyncIntro"]"
-           Name="OnAddAsync">
+<DemoBlock Title="@Localizer["TablesEditOnAddAsyncTitle"]" Introduction="@Localizer["TablesEditOnAddAsyncIntro"]" Name="OnAddAsync">
     <section ignore>
         <p>@((MarkupString)Localizer["TablesEditOnAddAsyncDescription"].Value)</p>
         <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips1"].Value)</p>
@@ -61,7 +69,7 @@
         <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips3"].Value)</p>
         <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips4"].Value)</p>
         <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips5"].Value)</p>
-        <p class="mb-3">@((MarkupString)Localizer["TablesEditOnAddAsyncTips6"].Value)</p>
+        <p>@((MarkupString)Localizer["TablesEditOnAddAsyncTips6"].Value)</p>
     </section>
     <Table TItem="Foo"
            IsPagination="true" PageItemsSource="@PageItemsSource"
@@ -80,10 +88,8 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["TablesColumnEditTemplateTitle"]"
-           Introduction="@Localizer["TablesColumnEditTemplateIntro"]"
-           Name="EditTemplate">
-    <section ignore class="mb-3">
+<DemoBlock Title="@Localizer["TablesColumnEditTemplateTitle"]" Introduction="@Localizer["TablesColumnEditTemplateIntro"]" Name="ColumnEditTemplate">
+    <section ignore>
         <div>@((MarkupString)Localizer["TablesColumnEditTemplateDescription1"].Value)</div>
         <div>@((MarkupString)Localizer["TablesColumnEditTemplateTips"].Value)</div>
     </section>
@@ -109,10 +115,8 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["TablesEditModeTitle"]"
-           Introduction="@Localizer["TablesEditModeIntro"]"
-           Name="EditMode">
-    <section ignore class="mb-3">
+<DemoBlock Title="@Localizer["TablesEditModeTitle"]" Introduction="@Localizer["TablesEditModeIntro"]" Name="EditMode">
+    <section ignore>
         <p>@((MarkupString)Localizer["TablesEditModeDescription"].Value)</p>
         <p>@((MarkupString)Localizer["TablesEditModeTips1"].Value)</p>
         <p>@((MarkupString)Localizer["TablesEditModeTips2"].Value)</p>
@@ -127,14 +131,14 @@
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Address" Rows="3" />
             <TableColumn @bind-Field="@context.Education" />
-            <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Complete" />
+            <TableColumn @bind-Field="@context.Count" IsVisibleWhenAdd="false" />
+            <TableColumn @bind-Field="@context.Complete" IsVisibleWhenEdit="false" />
         </TableColumns>
     </Table>
 
-    <section ignore class="my-3">
+    <section ignore>
         <p>@((MarkupString)Localizer["TablesEditModeInCell"].Value)</p>
         <RadioList @bind-Value="InsertMode" />
     </section>
@@ -147,17 +151,15 @@
         <TableColumns>
             <TableColumn @bind-Field="@context.DateTime" Width="180" />
             <TableColumn @bind-Field="@context.Name" />
-            <TableColumn @bind-Field="@context.Address" />
+            <TableColumn @bind-Field="@context.Address" Rows="3" />
             <TableColumn @bind-Field="@context.Education" />
-            <TableColumn @bind-Field="@context.Count" />
-            <TableColumn @bind-Field="@context.Complete" />
+            <TableColumn @bind-Field="@context.Count" IsVisibleWhenAdd="false" />
+            <TableColumn @bind-Field="@context.Complete" IsVisibleWhenEdit="false" />
         </TableColumns>
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["TablesEditInjectDataServiceTitle"]"
-           Introduction="@Localizer["TablesEditInjectDataServiceIntro"]"
-           Name="InjectDataService">
+<DemoBlock Title="@Localizer["TablesEditInjectDataServiceTitle"]" Introduction="@Localizer["TablesEditInjectDataServiceIntro"]" Name="InjectDataService">
     <section ignore>
         @((MarkupString)Localizer["TablesEditInjectDataServiceDescription"].Value)
         <ul class="ul-demo mb-3">
@@ -181,9 +183,7 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["TablesEditDataServiceTitle"]"
-           Introduction="@Localizer["TablesEditDataServiceIntro"]"
-           Name="DataService">
+<DemoBlock Title="@Localizer["TablesEditDataServiceTitle"]" Introduction="@Localizer["TablesEditDataServiceIntro"]" Name="DataService">
     <section ignore>
         <b>@Localizer["TablesEditDataServiceDescription"]</b>
         <div class="mt-1">@((MarkupString)Localizer["TablesEditDataServiceTips1"].Value)</div>
@@ -200,9 +200,7 @@
     </Table>
 </DemoBlock>
 
-<DemoBlock Title="@Localizer["TablesEditFooterTemplateTitle"]"
-           Introduction="@Localizer["TablesEditFooterTemplateIntro"]"
-           Name="EditFooterTemplate">
+<DemoBlock Title="@Localizer["TablesEditFooterTemplateTitle"]" Introduction="@Localizer["TablesEditFooterTemplateIntro"]" Name="EditFooterTemplate">
     <section ignore>
         <p>@((MarkupString)Localizer["TablesEditFooterTemplateDescription"].Value)</p>
         <Pre class="mb-3">&lt;EditFooterTemplate Context="model"&gt;

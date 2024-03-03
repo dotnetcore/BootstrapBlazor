@@ -1,23 +1,26 @@
 .segmented {
-    --bb-segmented-padding: 2px;
-    --bb-segmented-bg: #f5f5f5;
-    --bb-segmented-item-padding: 0 11px;
-    --bb-segmented-item-height: 28px;
-    --bb-segmented-item-font-size: 0.875rem;
-    --bb-segmented-item-selected-bg: #fff;
-    --bb-segmented-item-border-radius: 6px;
-    --bb-segmented-item-lg-height: 36px;
-    --bb-segmented-item-lg-padding: 0 11px;
-    --bb-segmented-item-lg-font-size: 1rem;
-    --bb-segmented-item-lg-border-radius: 8px;
-    --bb-segmented-item-sm-height: 20px;
-    --bb-segmented-item-sm-padding: 0 7px;
-    --bb-segmented-item-sm-font-size: .75rem;
-    --bb-segmented-item-sm-border-radius: 4px;
-    --bb-segmented-text-margin-left: 4px;
+    --bb-segmented-padding: #{$bb-segmented-padding};
+    --bb-segmented-bg: #{$bb-segmented-bg};
+    --bb-segmented-item-padding: #{$bb-segmented-item-padding};
+    --bb-segmented-item-height: #{$bb-segmented-item-height};
+    --bb-segmented-item-font-size: #{$bb-segmented-item-font-size};
+    --bb-segmented-item-selected-bg: var(--bs-body-bg);
+    --bb-segmented-item-hover-bg: #{$bb-segmented-item-hover-bg};
+    --bb-segmented-item-active-bg: #{$bb-segmented-item-active-bg};
+    --bb-segmented-item-border-radius: #{$bb-segmented-item-border-radius};
+    --bb-segmented-item-lg-height: #{$bb-segmented-item-lg-height};
+    --bb-segmented-item-lg-padding: #{$bb-segmented-item-lg-padding};
+    --bb-segmented-item-lg-font-size: #{$bb-segmented-item-lg-font-size};
+    --bb-segmented-item-lg-border-radius: #{$bb-segmented-item-lg-border-radius};
+    --bb-segmented-item-sm-height: #{$bb-segmented-item-sm-height};
+    --bb-segmented-item-sm-padding: #{$bb-segmented-item-sm-padding};
+    --bb-segmented-item-sm-font-size: #{$bb-segmented-item-sm-font-size};
+    --bb-segmented-item-sm-border-radius: #{$bb-segmented-item-sm-border-radius};
+    --bb-segmented-text-margin-left: #{$bb-segmented-text-margin-left};
     padding: var(--bb-segmented-padding);
     background-color: var(--bb-segmented-bg);
     border-radius: var(--bs-border-radius);
+    border: var(--bs-border-width) solid var(--bs-border-color);
     display: inline-flex;
     position: relative;
 
@@ -48,7 +51,6 @@
 
     .segmented-item {
         padding: var(--bb-segmented-item-padding);
-        text-align: center;
         cursor: pointer;
         border-radius: var(--bb-segmented-item-border-radius);
         line-height: var(--bb-segmented-item-height);
@@ -56,33 +58,36 @@
         position: relative;
         transition: color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
         white-space: nowrap;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 
         &.mask {
             background-color: var(--bb-segmented-item-selected-bg);
-            box-shadow: 0 1px 2px 0 rgba(0,0,0,.03), 0 1px 6px -1px rgba(0,0,0,.02), 0 2px 4px 0 rgba(0,0,0,.02);
+            box-shadow: 0 1px 2px 0 rgba(var(--bs-body-color-rgb),.03), 0 1px 6px -1px rgba(var(--bs-body-color-rgb),.02), 0 2px 4px 0 rgba(var(--bs-body-color-rgb),.02);
             pointer-events: none;
             position: absolute;
             left: 0;
-            transition: all .3s ease-in-out;
+            transition: transform .3s ease-in-out, width .3s ease-in-out;
             visibility: hidden;
         }
 
         &.selected {
             background-color: var(--bb-segmented-item-selected-bg);
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02);
+            box-shadow: 0 1px 2px 0 rgba(var(--bs-body-color-rgb),.03), 0 1px 6px -1px rgba(var(--bs-body-color-rgb),.02), 0 2px 4px 0 rgba(var(--bs-body-color-rgb),.02);
         }
 
         &.disabled {
-            color: rgba(0, 0, 0, 0.25);
+            color: rgba(var(--bs-body-color-rgb),.25);
             cursor: not-allowed;
         }
 
         &:hover:not(.selected):not(.disabled):not(.moving):after {
-            background-color: rgba(0,0,0,.06);
+            background-color: var(--bb-segmented-item-hover-bg);
         }
 
         &:active:not(.selected):not(.disabled):not(.moving):after {
-            background-color: rgba(0,0,0,.15);
+            background-color: var(--bb-segmented-item-active-bg);
         }
 
         &:after {
@@ -105,4 +110,8 @@
             --bb-segmented-text-margin-left: 0;
         }
     }
+}
+
+[data-bs-theme='dark'] .segmented {
+    --bb-segmented-item-selected-bg: rgba(var(--bs-body-color-rgb),.12);
 }

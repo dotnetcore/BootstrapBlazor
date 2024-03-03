@@ -1,0 +1,9 @@
+<Project>
+
+  <Target Name="BeforeBuild" BeforeTargets="Build" Condition="'$(TargetFramework)' == 'net8.0'">
+    <Message Text="Copy bootstrap script files ..." Importance="high"></Message>
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)wwwroot/core/bootstrap/js/bootstrap.bundle.js" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/js/bootstrap.blazor.bundle.js" SkipUnchangedFiles="true" ></Copy>
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)wwwroot/core/bootstrap/js/bootstrap.bundle.min.js" DestinationFiles="$(MSBuildThisFileDirectory)wwwroot/js/bootstrap.blazor.bundle.min.js" SkipUnchangedFiles="true" ></Copy>
+  </Target>
+
+</Project>

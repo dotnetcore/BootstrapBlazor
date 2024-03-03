@@ -1,5 +1,5 @@
 ﻿.card {
-    transition: all .3s linear;
+    transition: box-shadow .3s linear;
 }
 
     .card:hover {
@@ -19,6 +19,9 @@
                 opacity: 1;
             }
 
+[data-bs-theme='dark'] .card:hover {
+    box-shadow: none;
+}
 
 .card-footer {
     background-color: transparent;
@@ -81,7 +84,7 @@
 
 .demo-block > ::deep .anchor-link {
     font-weight: var(--bb-font-weight);
-    color: var(--bb-title-color);
+    color: var(--bs-body-color);
     font-size: var(--bb-sub-font-size);
     margin-top: 1rem;
     margin-bottom: .5rem;
@@ -96,14 +99,6 @@
 ::deep .chart .btn i + span {
     display: none;
 }
-
-::deep .ul-demo {
-    margin-bottom: 0;
-}
-
-    ::deep .ul-demo li:not(:last-child) {
-        margin-bottom: 0.25rem;
-    }
 
 @media (min-width: 768px) {
     ::deep .chart {

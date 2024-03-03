@@ -8,13 +8,13 @@
 <p>@Localizer["MessagesIntro"]</p>
 
 <p class="code-label">@((MarkupString)Localizer["MessagesTips1"].Value)</p>
-<Pre class="mb-2">@@inject MessageService MessageService</Pre>
-<Pre class="mb-2">[Inject]
+<Pre>@@inject MessageService MessageService</Pre>
+<Pre>[Inject]
 [NotNull]
 private MessageService? MessageService { get; set; }
 </Pre>
 <p class="code-label">@((MarkupString)Localizer["MessagesTips2"].Value)</p>
-<Pre class="mb-2">await MessageService.Show(new MessageOption()
+<Pre>await MessageService.Show(new MessageOption()
 {
     Content = "@Localizer["MessagesTips3"]"
 });</Pre>
@@ -76,6 +76,22 @@ private MessageService? MessageService { get; set; }
     <Message @ref="Message1" Placement="Placement.Bottom" />
 </DemoBlock>
 
+<DemoBlock Title="@Localizer["MessagesTemplateTitle"]"
+           Introduction="@Localizer["MessagesTemplateIntro"]"
+           Name="Template">
+    <button class="btn btn-primary" @onclick="@ShowTemplateMessage">@Localizer["MessagesTemplatePrompt"]</button>
+    <Message @ref="Message1" Placement="Placement.Bottom" />
+</DemoBlock>
+
 <AttributeTable Items="@GetAttributes()" />
 
 <AttributeTable Title="@Localizer["MessagesItem"]" Items="@GetMessageItemAttributes()" />
+
+@code {
+    private RenderFragment RenderContent =>
+    @<div class="message-custom">
+        <p class="text-primary">Message Header</p>
+        <p>Message Body</p>
+        <div class="text-warning">Message Footer</div>
+    </div>;
+}

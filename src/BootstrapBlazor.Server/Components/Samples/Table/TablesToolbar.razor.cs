@@ -19,6 +19,14 @@ public partial class TablesToolbar
     [NotNull]
     private List<Foo>? Items { get; set; }
 
+    private readonly List<SelectedItem> _cityItems =
+    [
+        new SelectedItem("Beijing", "北京"),
+        new SelectedItem("Shanghai", "上海")
+    ];
+
+    private string? _cityName;
+
     private static IEnumerable<int> PageItemsSource => new int[]
     {
         2,
@@ -90,7 +98,7 @@ public partial class TablesToolbar
             // Passing Option used to be used to close the popup after the asynchronous operation
             await MockDownLoadAsync();
             // Close the popup associated with the option
-            option.Close();
+            await option.Close();
             // A pop-up window informs that the download is complete
             await ToastService.Show(new ToastOption() { Category = ToastCategory.Success, Title = "Custom download example", Content = "data download complete", });
         }

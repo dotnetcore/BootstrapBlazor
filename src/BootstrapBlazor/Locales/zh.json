@@ -55,7 +55,7 @@
     "Months": "1,2,3,4,5,6,7,8,9,10,11,12",
     "MonthLists": "一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月",
     "WeekLists": "日,一,二,三,四,五,六",
-    "GenericTypeErroMessage": "DateTimePicker 组件仅支持绑定泛型为 DateTime 或者 DateTime?",
+    "GenericTypeErroMessage": "DateTimePicker 组件仅支持绑定泛型为 DateTime DateTime? DateTimeOffset DateTimeOffset?",
     "Today": "今天",
     "Yesterday": "昨天",
     "Week": "一周前"
@@ -67,6 +67,7 @@
     "ClearButtonText": "清空",
     "TodayButtonText": "今天",
     "ConfirmButtonText": "确定",
+    "DateTimeFormat": "yyyy-MM-dd HH\\:mm\\:ss",
     "DateFormat": "yyyy-MM-dd",
     "Last7Days": "最近 7 天",
     "Last30Days": "最近 30 天",
@@ -225,6 +226,7 @@
     "ExportToastTitle": "导出数据",
     "ExportToastContent": "导出数据 {0}，{1} 秒后自动关闭",
     "ExportToastInProgressContent": "正在导出数据，请稍后, {0} 秒后自动关闭",
+    "ExportCsvDropdownItemText": "微软 Csv 格式",
     "ExportExcelDropdownItemText": "微软 Excel 格式",
     "ExportPdfDropdownItemText": "Pdf 格式",
     "PageInfoText": "{0} - {1} 共 {2} 条",
@@ -288,6 +290,9 @@
   "BootstrapBlazor.Components.Tree": {
     "NotSetOnTreeExpandErrorMessage": "未设置 OnExpandNodeAsync 回调委托方法"
   },
+  "BootstrapBlazor.Components.TreeView": {
+    "NotSetOnTreeExpandErrorMessage": "未设置 OnExpandNodeAsync 回调委托方法"
+  },
   "BootstrapBlazor.Components.UploadBase": {
     "DeleteButtonText": "删除",
     "BrowserButtonText": "浏览",
@@ -346,5 +351,9 @@
   "BootstrapBlazor.Components.TableAdvancedSortDialog": {
     "AscText": "升序",
     "DescText": "降序"
+  },
+  "BootstrapBlazor.Components.ClockPicker": {
+    "AMText": "上午",
+    "PMText": "下午"
   }
 }

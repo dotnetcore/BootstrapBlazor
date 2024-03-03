@@ -14,9 +14,9 @@ public class DisplayTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Display<string>>(pb =>
         {
-            pb.Add(a => a.FormatterAsync, new Func<string, Task<string>>(v =>
+            pb.Add(a => a.FormatterAsync, new Func<string, Task<string?>>(v =>
             {
-                return Task.FromResult("FormattedValue");
+                return Task.FromResult<string?>("FormattedValue");
             }));
         });
         Assert.Contains("FormattedValue", cut.Markup);
@@ -37,7 +37,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Display<byte[]>>(pb =>
         {
-            pb.Add(a => a.Value, new byte[] { 0x01, 0x12, 0x34, 0x56 });
+            pb.Add(a => a.Value, [0x01, 0x12, 0x34, 0x56]);
         });
         Assert.Contains("1,18,52,86", cut.Markup);
     }
@@ -48,7 +48,8 @@ public class DisplayTest : BootstrapBlazorTestBase
         var cut = Context.RenderComponent<Display<List<string>>>(pb =>
         {
             pb.Add(a => a.LookupServiceKey, "FooLookup");
-            pb.Add(a => a.Value, new List<string> { "v1", "v2" });
+            pb.Add(a => a.LookupServiceData, true);
+            pb.Add(a => a.Value, ["v1", "v2"]);
         });
         Assert.Contains("LookupService-Test-1,LookupService-Test-2", cut.Markup);
     }
@@ -56,10 +57,10 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void TypeResolver_Ok()
     {
-        var cut = Context.RenderComponent<Display<DisplayTest.Fish[]>>(pb =>
+        var cut = Context.RenderComponent<Display<Fish[]>>(pb =>
         {
-            pb.Add(a => a.Value, new DisplayTest.Fish[] { new DisplayTest.Fish() { Value = "1" } });
-            pb.Add(a => a.TypeResolver, new Func<Assembly, string, bool, Type>((assembly, typeName, ignoreCase) => typeof(DisplayTest.Fish)));
+            pb.Add(a => a.Value, new Fish[] { new() { Value = "1" } });
+            pb.Add(a => a.TypeResolver, new Func<Assembly, string, bool, Type>((assembly, typeName, ignoreCase) => typeof(Fish)));
         });
         Assert.Equal("<div class=\"form-control is-display\">1</div>", cut.Markup);
     }
@@ -67,9 +68,9 @@ public class DisplayTest : BootstrapBlazorTestBase
     [Fact]
     public void TypeResolver_Null()
     {
-        var cut = Context.RenderComponent<Display<DisplayTest.Fish[]>>(pb =>
+        var cut = Context.RenderComponent<Display<Fish[]>>(pb =>
         {
-            pb.Add(a => a.Value, new DisplayTest.Fish[] { new DisplayTest.Fish() { Value = "1" } });
+            pb.Add(a => a.Value, new Fish[] { new() { Value = "1" } });
         });
         Assert.Equal("<div class=\"form-control is-display\"></div>", cut.Markup);
     }
@@ -79,7 +80,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Display<List<int?>>>(pb =>
         {
-            pb.Add(a => a.Value, new List<int?> { 1, 2, 3, 4, null });
+            pb.Add(a => a.Value, [1, 2, 3, 4, null]);
             pb.Add(a => a.Lookup, new List<SelectedItem>()
             {
                 new("", "Test"),
@@ -96,7 +97,7 @@ public class DisplayTest : BootstrapBlazorTestBase
     {
         var cut = Context.RenderComponent<Display<List<int>>>(pb =>
         {
-            pb.Add(a => a.Value, new List<int> { 1, 2, 3, 4 });
+            pb.Add(a => a.Value, [1, 2, 3, 4]);
         });
         Assert.Contains("1,2,3,4", cut.Markup);
 
@@ -168,6 +169,17 @@ public class DisplayTest : BootstrapBlazorTestBase
             pb.Add(a => a.DisplayText, "Test Label");
         });
         Assert.Contains("Test Label", cut.Markup);
+    }
+
+    [Fact]
+    public void ShowToolip_Ok()
+    {
+        var cut = Context.RenderComponent<Display<string>>(pb =>
+        {
+            pb.Add(a => a.ShowTooltip, true);
+            pb.Add(a => a.Value, "Test Label");
+        });
+        Assert.Contains("data-bs-original-title=\"Test Label\"", cut.Markup);
     }
 
     [Fact]

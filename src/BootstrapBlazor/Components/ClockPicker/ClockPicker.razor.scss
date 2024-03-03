@@ -1,0 +1,223 @@
+.bb-clock-picker {
+    --bb-time-text-color: #409eff;
+    --bb-time-body-width: 264px;
+    --bb-time-body-height: 264px;
+    --bb-time-clock-number-width: 22px;
+    --bb-time-clock-number-height: 22px;
+    --bb-time-clock-hour-margin-top: 6px;
+    --bb-time-clock-minute-margin-top: 9px;
+    --bb-time-clock-second-margin-top: 12px;
+    --bb-time-clock-point-bg-color: var(--bs-primary);
+    --bb-time-clock-point-bar-bg-color: var(--bs-primary);
+    --bb-time-footer-btn-border: 1px solid #dcdfe6;
+    --bb-time-footer-btn-padding: 3px 12px;
+    --bb-time-footer-btn-font-size: .75rem;
+    --bb-time-footer-btn-color: #606266;
+    --bb-time-footer-btn-hover-color: #fff;
+    --bb-time-footer-btn-hover-border-color: #409eff;
+    --bb-time-footer-btn-hover-bg-color: #409eff;
+    --bb-time-footer-btn-active-color: #409eff;
+    --bb-time-footer-btn-active-border-color: #409eff;
+
+    &.dragging {
+        user-select: none;
+    }
+
+    &[data-bb-mode="Hour"] {
+        .bb-time-text {
+            &.hour {
+                color: var(--bb-time-text-color);
+            }
+        }
+    }
+
+    &[data-bb-mode="Minute"] {
+        .bb-time-text {
+            &.minute {
+                color: var(--bb-time-text-color);
+            }
+        }
+    }
+
+    &[data-bb-mode="Second"] {
+        .bb-time-text {
+            &.second {
+                color: var(--bb-time-text-color);
+            }
+        }
+    }
+
+    .bb-time-header {
+        margin: 12px;
+        font-size: 1rem;
+        font-weight: 500;
+        text-align: center;
+        user-select: none;
+        display: flex;
+        justify-content: center;
+
+        .bb-time-text {
+            cursor: pointer;
+
+            &:hover {
+                color: var(--bb-time-text-color);
+            }
+        }
+
+        .bb-time-period {
+            font-size: 50%;
+            width: auto;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .bb-time-colon {
+            padding: 0 .25rem;
+        }
+    }
+
+    .bb-time-body {
+        margin: 0 auto;
+        border: 1px solid var(--bs-border-color);
+        border-radius: 50%;
+        position: relative;
+        width: var(--bb-time-body-width);
+        height: var(--bb-time-body-height);
+        user-select: none;
+
+        .bb-clock-panel {
+            --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-hour-margin-top));
+            --bb-time-clock-number-margin-top: var(--bb-time-clock-hour-margin-top);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: center;
+            align-items: start;
+            transition: transform 0.5s cubic-bezier(.47,.02,.74,1.81), opacity 0.4s;
+
+            &.bb-clock-panel-scale {
+                > div {
+                    --bb-time-clock-number-margin-top: 0;
+                    --bb-clock-radius: calc(var(--bb-time-body-height) / 2);
+                    width: 1px;
+                    height: 3px;
+                    background-color: var(--bs-secondary);
+                    position: absolute;
+                    transform-origin: center var(--bb-clock-radius);
+                    pointer-events: none;
+
+                    @for $i from 0 to 60 {
+                        &:nth-child(#{($i + 1)}) {
+                            transform: rotate($i * 6deg);
+                        }
+                    }
+
+                    &:nth-child(5n+1) {
+                        height: 6px;
+                        background-color: var(--bs-body-color);
+                    }
+                }
+            }
+
+            &.fade {
+                pointer-events: none;
+            }
+
+            &.bb-clock-panel-minute {
+                --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-minute-margin-top));
+                --bb-time-clock-number-margin-top: var(--bb-time-clock-minute-margin-top);
+            }
+
+            &.bb-clock-panel-second {
+                --bb-clock-radius: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-second-margin-top));
+                --bb-time-clock-number-margin-top: var(--bb-time-clock-second-margin-top);
+            }
+
+            > div {
+                position: absolute;
+                margin-top: var(--bb-time-clock-number-margin-top);
+                text-align: center;
+                width: var(--bb-time-clock-number-width);
+                height: var(--bb-time-clock-number-height);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                transform-origin: center var(--bb-clock-radius);
+                transition: transform 0.5s cubic-bezier(.47,.02,.74,1.81), opacity 0.4s;
+
+                @for $i from 0 to 12 {
+                    &:nth-child(#{($i + 1)}) {
+                        transform: rotate($i * 30deg);
+
+                        > span {
+                            transform: rotate($i * -30deg);
+                            position: absolute;
+                        }
+                    }
+                }
+            }
+
+            .bb-clock-point {
+                margin-top: var(--bb-time-clock-number-margin-top);
+                opacity: .4;
+                height: calc(var(--bb-time-body-height) / 2 - var(--bb-time-clock-number-margin-top));
+                width: 2px;
+                background-color: var(--bb-time-clock-point-bg-color);
+                transform: rotate(0deg);
+                transform-origin: bottom;
+                position: relative;
+
+                .bb-clock-point-bar {
+                    background-color: var(--bb-time-clock-point-bar-bg-color);
+                    width: var(--bb-time-clock-number-width);
+                    height: var(--bb-time-clock-number-height);
+                    border-radius: 50%;
+                    position: absolute;
+                    left: calc(0px - (var(--bb-time-clock-number-width) - 2px) / 2);
+                    transition: opacity 0.4s;
+                    cursor: move;
+                }
+
+                .bb-clock-point-star {
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+                    position: absolute;
+                    left: -3px;
+                    bottom: -4px;
+                    background-color: #000;
+                }
+            }
+        }
+    }
+
+    .bb-time-footer {
+        display: flex;
+        justify-content: space-between;
+        margin: -8px 8px 0 8px;
+
+        .btn {
+            border: var(--bb-time-footer-btn-border);
+            padding: var(--bb-time-footer-btn-padding);
+            font-size: var(--bb-time-footer-btn-font-size);
+            border-radius: var(--bs-border-radius);
+            color: var(--bb-time-footer-btn-color);
+            transition: border-color .3s linear,color .3s linear;
+
+            &:hover {
+                border-color: var(--bb-time-footer-btn-active-border-color);
+                color: var(--bb-time-footer-btn-active-color);
+            }
+
+            &.active {
+                background: var(--bb-time-footer-btn-hover-bg-color);
+                border-color: var(--bb-time-footer-btn-hover-border-color);
+                color: var(--bb-time-footer-btn-hover-color);
+            }
+        }
+    }
+}

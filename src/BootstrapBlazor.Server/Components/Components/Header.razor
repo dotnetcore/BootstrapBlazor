@@ -18,7 +18,7 @@
                 <a class="nav-link" href="components">@ComponentsText</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="practice">实战</a>
+                <a class="nav-link" href="tutorials">@TutorialsText</a>
             </li>
         </ul>
     </div>
@@ -39,6 +39,11 @@
             <FullScreenButton class="nav-link p-2" TooltipText="点击切换全屏模式" />
         </li>
     </ul>
-    <a class="btn btn-bd-download d-none d-lg-inline-block mb-3 mb-md-0 ms-md-3" target="_blank" href="@DownloadUrl">@DownloadText</a>
+    <a class="btn btn-bd-download d-none d-lg-block mb-3 mb-md-0 ms-md-3" target="_blank" href="@DownloadUrl">@DownloadText</a>
+    <div class="navbar-version ms-2 d-none d-lg-block">@_versionString</div>
+    <div class="icon-theme ms-2 d-none d-lg-block">
+        <img src="./images/theme-light.svg" class="icon-light" />
+        <img src="./images/theme-night.svg" class="icon-dark" />
+    </div>
 </header>
 

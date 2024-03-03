@@ -25,7 +25,7 @@ public class ValidatorAsyncTest : BootstrapBlazorTestBase
             {
                 pb.Add(a => a.Value, foo.Name);
                 pb.Add(a => a.ValueExpression, foo.GenerateValueExpression());
-                pb.Add(a => a.ValidateRules, new List<IValidator> { new MockValidator() });
+                pb.Add(a => a.ValidateRules, [new MockValidator()]);
             });
             pb.AddChildContent<Button>(pb =>
             {

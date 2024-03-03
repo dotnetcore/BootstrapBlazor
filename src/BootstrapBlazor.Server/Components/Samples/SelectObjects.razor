@@ -1,0 +1,70 @@
+﻿@page "/select-object"
+@inject IStringLocalizer<SelectObjects> Localizer
+
+<h3>@Localizer["Title"]</h3>
+
+<h4>@Localizer["Intro"]</h4>
+
+<DemoBlock Title="@Localizer["NormalTitle"]" Introduction="@Localizer["NormalIntro"]" Name="Normal">
+    <SelectObject @bind-Value="_value" GetTextCallback="GetTextCallback">
+        <ListView TItem="ListViews.Product" Items="@Products" OnListViewItemClick="item => OnListViewItemClick(item, context)">
+            <BodyTemplate Context="value">
+                <Card>
+                    <BodyTemplate>
+                        <img src="@value.ImageUrl" />
+                        <div class="lv-demo-desc">@value.Description</div>
+                    </BodyTemplate>
+                </Card>
+            </BodyTemplate>
+        </ListView>
+    </SelectObject>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["MinWidthTitle"]" Introduction="@Localizer["MinWidthIntro"]" Name="MinWidth">
+    <div class="row">
+        <div class="col-4">
+            <SelectObject @bind-Value="_widthValue" GetTextCallback="GetTextCallback" DropdownMinWidth="704">
+                <ListView TItem="ListViews.Product" Items="@Products" OnListViewItemClick="item => OnListViewItemClick(item, context)">
+                    <BodyTemplate Context="value">
+                        <Card>
+                            <BodyTemplate>
+                                <img src="@value.ImageUrl" />
+                                <div class="lv-demo-desc">@value.Description</div>
+                            </BodyTemplate>
+                        </Card>
+                    </BodyTemplate>
+                </ListView>
+            </SelectObject>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["HeightTitle"]" Introduction="@Localizer["HeightIntro"]" Name="Height">
+    <div class="row">
+        <div class="col-4">
+            <SelectObject @bind-Value="_heightValue" GetTextCallback="GetTextCallback" DropdownMinWidth="704" Height="600">
+                <ListView TItem="ListViews.Product" Items="@Products" OnListViewItemClick="item => OnListViewItemClick(item, context)">
+                    <BodyTemplate Context="value">
+                        <Card>
+                            <BodyTemplate>
+                                <img src="@value.ImageUrl" />
+                                <div class="lv-demo-desc">@value.Description</div>
+                            </BodyTemplate>
+                        </Card>
+                    </BodyTemplate>
+                </ListView>
+            </SelectObject>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["CustomComponentTitle"]" Introduction="@Localizer["CustomComponentIntro"]" Name="CustomComponent">
+    <div class="row">
+        <div class="col-4">
+            <SelectObject @bind-Value="_counter" GetTextCallback="GetCounterTextCallback" Height="170">
+                <ValueCounter OnSubmitAsync="v => OnSubmit(v, context)"></ValueCounter>
+            </SelectObject>
+        </div>
+    </div>
+</DemoBlock>
+

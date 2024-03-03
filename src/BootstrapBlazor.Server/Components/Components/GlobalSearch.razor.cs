@@ -44,10 +44,10 @@ public partial class GlobalSearch
     {
         if (!string.IsNullOrEmpty(searchText))
         {
-            var item = Menus.FirstOrDefault(i => i.Text!.Contains(searchText, StringComparison.OrdinalIgnoreCase));
+            var item = Menus.FirstOrDefault(i => i.Text?.Contains(searchText, StringComparison.OrdinalIgnoreCase) ?? false);
             if (item != null && !string.IsNullOrEmpty(item.Url))
             {
-                NavigationManager.NavigateTo(item.Url);
+                NavigationManager.NavigateTo(item.Url, true);
             }
         }
         return Task.CompletedTask;

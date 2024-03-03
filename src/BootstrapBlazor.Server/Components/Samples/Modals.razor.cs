@@ -69,12 +69,18 @@ public sealed partial class Modals
         return Task.CompletedTask;
     }
 
+    private async Task<bool> OnSaveAsync()
+    {
+        await Task.Delay(1000);
+        return true;
+    }
+
     /// <summary>
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "FirstAfterRenderCallbackAsync",
@@ -219,5 +225,5 @@ public sealed partial class Modals
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

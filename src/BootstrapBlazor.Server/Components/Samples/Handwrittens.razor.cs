@@ -14,8 +14,8 @@ public sealed partial class Handwrittens
     /// </summary>
     public string? DrawBase64 { get; set; }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "SaveButtonText",
@@ -48,5 +48,5 @@ public sealed partial class Handwrittens
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

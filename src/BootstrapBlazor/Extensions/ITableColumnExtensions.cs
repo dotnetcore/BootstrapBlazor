@@ -47,9 +47,13 @@ public static class IEditItemExtensions
         if (source.IsPopover) dest.IsPopover = source.IsPopover;
         if (source.LookupStringComparison != StringComparison.OrdinalIgnoreCase) dest.LookupStringComparison = source.LookupStringComparison;
         if (source.LookupServiceKey != null) dest.LookupServiceKey = source.LookupServiceKey;
+        if (source.LookupServiceData != null) dest.LookupServiceData = source.LookupServiceData;
         if (source.IsReadonlyWhenAdd) dest.IsReadonlyWhenAdd = source.IsReadonlyWhenAdd;
         if (source.IsReadonlyWhenEdit) dest.IsReadonlyWhenEdit = source.IsReadonlyWhenEdit;
         if (source.Readonly) dest.Readonly = source.Readonly;
+        if (!source.IsVisibleWhenAdd) dest.IsVisibleWhenAdd = source.IsVisibleWhenAdd;
+        if (!source.IsVisibleWhenEdit) dest.IsVisibleWhenEdit = source.IsVisibleWhenEdit;
+        if (source.Visible) dest.Visible = source.Visible;
         if (source.Rows > 0) dest.Rows = source.Rows;
         if (source.SkipValidate) dest.SkipValidate = source.SkipValidate;
         if (!string.IsNullOrEmpty(source.Text)) dest.Text = source.Text;
@@ -58,7 +62,7 @@ public static class IEditItemExtensions
         if (!string.IsNullOrEmpty(source.GroupName)) dest.GroupName = source.GroupName;
         if (source.GroupOrder != 0) dest.GroupOrder = source.GroupOrder;
         if (!string.IsNullOrEmpty(source.PlaceHolder)) dest.PlaceHolder = source.PlaceHolder;
-        if (source.Step != null) dest.Step = source.Step;
+        if (!string.IsNullOrEmpty(source.Step)) dest.Step = source.Step;
         if (source.Order != 0) dest.Order = source.Order;
 
         if (source is ITableColumn col)

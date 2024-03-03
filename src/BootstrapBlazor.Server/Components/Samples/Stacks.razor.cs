@@ -23,11 +23,11 @@ public partial class Stacks
 
     private bool IsReverse { get; set; }
 
-    private List<SelectedItem> ShowMode => new()
-    {
+    private List<SelectedItem> ShowMode =>
+    [
         new("true", Localizer["RowMode"]),
         new("false", Localizer["ColumnMode"])
-    };
+    ];
 
     private string ShowModeString { get; set; } = "true";
 

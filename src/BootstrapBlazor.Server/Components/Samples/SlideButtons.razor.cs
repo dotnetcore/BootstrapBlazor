@@ -30,8 +30,8 @@ public partial class SlideButtons
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = nameof(FileViewer.Filename),
@@ -40,5 +40,5 @@ public partial class SlideButtons
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

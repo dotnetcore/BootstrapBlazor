@@ -13,16 +13,16 @@ public sealed partial class Drawers
 
     private Placement DrawerAlign { get; set; }
 
-    private IEnumerable<SelectedItem> DrawerDirection { get; } = new SelectedItem[]
-    {
-        new SelectedItem("left", "left to right")
+    private SelectedItem[] DrawerDirection { get; } =
+    [
+        new("left", "left to right")
         {
             Active = true
         },
-        new SelectedItem("right", "right to left"),
-        new SelectedItem("top", "top to bottom"),
-        new SelectedItem("bottom", "bottom to top")
-    };
+        new("right", "right to left"),
+        new("top", "top to bottom"),
+        new("bottom", "bottom to top")
+    ];
 
     private Task OnStateChanged(IEnumerable<SelectedItem> values, SelectedItem val)
     {
@@ -53,8 +53,8 @@ public sealed partial class Drawers
     /// Get property method
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Width",
@@ -119,5 +119,5 @@ public sealed partial class Drawers
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

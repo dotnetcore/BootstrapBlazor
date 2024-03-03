@@ -68,8 +68,8 @@ public sealed partial class PopoverConfirms
     /// Get property method
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = nameof(PopConfirmButton.IsLink),
@@ -166,14 +166,14 @@ public sealed partial class PopoverConfirms
             ValueList = "",
             DefaultValue = " "
         }
-    };
+    ];
 
     /// <summary>
     /// Get event method
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<EventItem> GetEvents() => new EventItem[]
-    {
+    private static EventItem[] GetEvents() =>
+    [
         new()
         {
             Name = "OnConfirm",
@@ -192,5 +192,5 @@ public sealed partial class PopoverConfirms
             Description="Click the callback method before confirming the pop-up window",
             Type ="Func<Task<bool>>"
         }
-    };
+    ];
 }

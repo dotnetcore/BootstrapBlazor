@@ -69,6 +69,30 @@ public class InputTest : BootstrapBlazorTestBase
     }
 
     [Fact]
+    public async Task OnInput_Ok()
+    {
+        var foo = new Foo() { Name = "Test" };
+        var cut = Context.RenderComponent<BootstrapInput<string>>(builder =>
+        {
+            builder.Add(a => a.Value, foo.Name);
+            builder.Add(a => a.UseInputEvent, true);
+            builder.Add(a => a.ValueChanged, EventCallback.Factory.Create<string>(this, v =>
+            {
+                foo.Name = v;
+            }));
+        });
+        cut.Contains("blazor:oninput");
+
+        // 输入字符
+        var input = cut.Find("input");
+        await cut.InvokeAsync(() =>
+        {
+            input.Input("1");
+        });
+        Assert.Equal("1", foo.Name);
+    }
+
+    [Fact]
     public void Password_Ok()
     {
         var cut = Context.RenderComponent<BootstrapPassword>();
@@ -118,7 +142,7 @@ public class InputTest : BootstrapBlazorTestBase
             builder.Add(a => a.Formatter, dt => dt.ToString("HH:mm"));
             builder.Add(a => a.Value, DateTime.Now);
         });
-        cut.WaitForAssertion(() =>  Assert.Contains($"value=\"{DateTime.Now:HH:mm}\"", cut.Markup));
+        cut.WaitForAssertion(() => Assert.Contains($"value=\"{DateTime.Now:HH:mm}\"", cut.Markup));
     }
 
     [Fact]
@@ -239,7 +263,7 @@ public class InputTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void InputGroup_Ok()
+    public void InputGroup_Width()
     {
         var cut = Context.RenderComponent<BootstrapInputGroup>(builder =>
         {
@@ -248,11 +272,31 @@ public class InputTest : BootstrapBlazorTestBase
                 builder.OpenComponent<BootstrapInputGroupLabel>(0);
                 builder.AddAttribute(1, nameof(BootstrapInputGroupLabel.DisplayText), "BootstrapInputGroup");
                 builder.AddAttribute(2, nameof(BootstrapInputGroupLabel.ShowRequiredMark), true);
+                builder.AddAttribute(2, nameof(BootstrapInputGroupLabel.Width), 120);
                 builder.CloseComponent();
             }));
         });
 
-        cut.MarkupMatches("<div class=\"input-group\"><div class=\"input-group-text\" required=\"true\"><span>BootstrapInputGroup</span></div></div>");
+        cut.MarkupMatches("<div class=\"input-group\"><div class=\"input-group-text\" required=\"true\" style=\"--bb-input-group-label-width: 120px;\"><span>BootstrapInputGroup</span></div></div>");
+    }
+
+    [Theory]
+    [InlineData(Alignment.Center, "center")]
+    [InlineData(Alignment.Right, "end")]
+    public void InputGroup_Alignment(Alignment alignment, string expected)
+    {
+        var cut = Context.RenderComponent<BootstrapInputGroup>(builder =>
+        {
+            builder.Add(s => s.ChildContent, new RenderFragment(builder =>
+            {
+                builder.OpenComponent<BootstrapInputGroupLabel>(0);
+                builder.AddAttribute(1, nameof(BootstrapInputGroupLabel.DisplayText), "BootstrapInputGroup");
+                builder.AddAttribute(2, nameof(BootstrapInputGroupLabel.Alignment), alignment);
+                builder.CloseComponent();
+            }));
+        });
+
+        cut.Contains($"justify-content-{expected}");
     }
 
     [Fact]

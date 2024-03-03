@@ -168,6 +168,7 @@ public class TableFilterTest : BootstrapBlazorTestBase
         builder.OpenComponent<TableColumn<Foo, int>>(index++);
         builder.AddAttribute(index++, nameof(TableColumn<Foo, int>.Field), foo.Id);
         builder.AddAttribute(index++, nameof(TableColumn<Foo, int>.LookupServiceKey), "FooLookup");
+        builder.AddAttribute(index++, nameof(TableColumn<Foo, int>.LookupServiceData), new Foo());
         builder.AddAttribute(index++, nameof(TableColumn<Foo, int>.FieldExpression), foo.GenerateValueExpression(nameof(Foo.Id), typeof(int)));
         builder.AddAttribute(index++, nameof(TableColumn<Foo, int>.Filterable), true);
         builder.CloseComponent();
@@ -198,7 +199,7 @@ public class TableFilterTest : BootstrapBlazorTestBase
         builder.AddAttribute(index++, nameof(TableColumn<Cat, double>.Field), cat.P4);
         builder.AddAttribute(index++, nameof(TableColumn<Cat, double>.FieldExpression), Utility.GenerateValueExpression(cat, nameof(Cat.P4), typeof(double)));
         builder.AddAttribute(index++, nameof(TableColumn<Cat, double>.Filterable), true);
-        builder.AddAttribute(index++, nameof(TableColumn<Cat, double>.Step), 0.02);
+        builder.AddAttribute(index++, nameof(TableColumn<Cat, double>.Step), "0.02");
         builder.CloseComponent();
 
         builder.OpenComponent<TableColumn<Cat, decimal>>(index++);

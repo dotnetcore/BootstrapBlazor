@@ -96,13 +96,13 @@ public sealed partial class Dialogs
 
     private async Task OnClickShowDataById()
     {
-        var op = new DialogOption()
+        var op = new DialogOption
         {
             Title = "Data query window",
             ShowFooter = false,
-            BodyContext = ApplyDataPrimaryId
+            BodyContext = ApplyDataPrimaryId,
+            Component = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>()
         };
-        op.Component = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>();
 
         await DialogService.Show(op);
     }
@@ -243,15 +243,15 @@ public sealed partial class Dialogs
 
     private async Task OnPrintDialogClick()
     {
-        var op = new DialogOption()
+        var op = new DialogOption
         {
             Title = "Data query window",
             ShowPrintButton = true,
             ShowPrintButtonInHeader = true,
             ShowFooter = false,
-            BodyContext = DataPrimaryId
+            BodyContext = DataPrimaryId,
+            Component = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>()
         };
-        op.Component = BootstrapDynamicComponent.CreateComponent<DataDialogComponent>();
 
         await DialogService.Show(op);
     }
@@ -308,8 +308,8 @@ public sealed partial class Dialogs
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Component",
@@ -446,5 +446,5 @@ public sealed partial class Dialogs
             ValueList = "true|false",
             DefaultValue = "false"
         }
-    };
+    ];
 }

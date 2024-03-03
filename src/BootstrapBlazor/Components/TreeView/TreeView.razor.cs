@@ -48,6 +48,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         .AddClass("visible", item.HasChildren || item.Items.Any())
         .AddClass(NodeIcon, !item.IsExpand)
         .AddClass(ExpandNodeIcon, item.IsExpand)
+        .AddClass("disabled", !CanExpandWhenDisabled && GetItemDisabledState(item))
         .Build();
 
     /// <summary>
@@ -57,7 +58,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     /// <returns></returns>
     private string? GetItemClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-item")
         .AddClass("active", ActiveItem == item)
-        .AddClass("disabled", item.IsDisabled)
+        .AddClass("disabled", !CanExpandWhenDisabled && GetItemDisabledState(item))
         .Build();
 
     /// <summary>
@@ -69,18 +70,32 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         .AddClass("show", item.IsExpand)
         .Build();
 
-    private static string? GetNodeClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-node")
-        .AddClass("disabled", item.IsDisabled)
+    private string? GetNodeClassString(TreeViewItem<TItem> item) => CssBuilder.Default("tree-node")
+        .AddClass("disabled", GetItemDisabledState(item))
         .Build();
 
-    private static bool TriggerNodeArrow(TreeViewItem<TItem> item) => !item.IsDisabled && (item.HasChildren || item.Items.Any());
+    private bool TriggerNodeArrow(TreeViewItem<TItem> item) => (CanExpandWhenDisabled || !GetItemDisabledState(item)) && (item.HasChildren || item.Items.Any());
 
-    private static bool TriggerNodeLabel(TreeViewItem<TItem> item) => !item.IsDisabled;
+    private bool TriggerNodeLabel(TreeViewItem<TItem> item) => !GetItemDisabledState(item);
+
+    private bool GetItemDisabledState(TreeViewItem<TItem> item) => item.IsDisabled || IsDisabled;
 
     /// <summary>
     /// 获得/设置 选中节点 默认 null
     /// </summary>
     private TreeViewItem<TItem>? ActiveItem { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否禁用整个组件 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsDisabled { get; set; }
+
+    /// <summary>
+    /// 获得/设置 当节点被禁用时 <see cref="IsDisabled"/> 是否可以进行折叠展开操作 默认 false
+    /// </summary>
+    [Parameter]
+    public bool CanExpandWhenDisabled { get; set; }
 
     /// <summary>
     /// 获得/设置 是否为手风琴效果 默认为 false
@@ -175,7 +190,6 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
     public string? ExpandNodeIcon { get; set; }
 
     [CascadingParameter]
-    [NotNull]
     private ContextMenuZone? ContextMenuZone { get; set; }
 
     [NotNull]
@@ -265,19 +279,19 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             // 设置 ActiveItem 默认值
             ActiveItem ??= Items.FirstOrDefaultActiveItem();
             ActiveItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
+        }
+    }
 
-            async Task CheckExpand(IEnumerable<TreeViewItem<TItem>> nodes)
+    async Task CheckExpand(IEnumerable<TreeViewItem<TItem>> nodes)
+    {
+        // 恢复当前节点状态
+        foreach (var node in nodes)
+        {
+            await TreeNodeStateCache.CheckExpandAsync(node, GetChildrenRowAsync);
+
+            if (node.Items.Any())
             {
-                // 恢复当前节点状态
-                foreach (var node in nodes)
-                {
-                    await TreeNodeStateCache.CheckExpandAsync(node, GetChildrenRowAsync);
-
-                    if (node.Items.Any())
-                    {
-                        await CheckExpand(node.Items);
-                    }
-                }
+                await CheckExpand(node.Items);
             }
         }
     }
@@ -322,6 +336,26 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         StateHasChanged();
     }
 
+    /// <summary>
+    /// 设置选中节点
+    /// </summary>
+    public void SetActiveItem(TreeViewItem<TItem> item)
+    {
+        ActiveItem = item;
+        ActiveItem.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
+        StateHasChanged();
+    }
+
+    /// <summary>
+    /// 设置选中节点
+    /// </summary>
+    public void SetActiveItem(TItem item)
+    {
+        ActiveItem = Items.GetAllItems().FirstOrDefault(i => Equals(i.Value, item));
+        ActiveItem?.SetParentExpand<TreeViewItem<TItem>, TItem>(true);
+        StateHasChanged();
+    }
+
     private static CheckboxState ToggleCheckState(CheckboxState state) => state switch
     {
         CheckboxState.Checked => CheckboxState.UnChecked,
@@ -346,14 +380,11 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
             {
                 // 通过 item 找到父节点
                 var nodes = TreeNodeStateCache.FindParentNode(Items, node)?.Items ?? Items;
-                foreach (var n in nodes)
+                foreach (var n in nodes.Where(n => n != node))
                 {
-                    if (n != node)
-                    {
-                        // 收缩同级节点
-                        n.IsExpand = false;
-                        await TreeNodeStateCache.ToggleNodeAsync(n, GetChildrenRowAsync);
-                    }
+                    // 收缩同级节点
+                    n.IsExpand = false;
+                    await TreeNodeStateCache.ToggleNodeAsync(n, GetChildrenRowAsync);
                 }
             }
         }
@@ -382,7 +413,7 @@ public partial class TreeView<TItem> : IModelEqualityComparer<TItem>
         if (AutoCheckChildren)
         {
             // 向下级联操作
-            item.SetChildrenCheck<TreeViewItem<TItem>, TItem>(item.CheckedState, TreeNodeStateCache);
+            item.SetChildrenCheck(item.CheckedState, TreeNodeStateCache);
         }
 
         if (AutoCheckParent)

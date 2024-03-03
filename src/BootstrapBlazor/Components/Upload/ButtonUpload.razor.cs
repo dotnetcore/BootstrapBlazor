@@ -96,6 +96,12 @@ public partial class ButtonUpload<TValue>
     [NotNull]
     public string? BrowserButtonText { get; set; }
 
+    /// <summary>
+    /// 获得/设置 Size 大小
+    /// </summary>
+    [Parameter]
+    public Size Size { get; set; }
+
     [Inject]
     [NotNull]
     private IStringLocalizer<UploadBase<TValue>>? Localizer { get; set; }

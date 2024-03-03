@@ -75,7 +75,7 @@ public static class DynamicObjectContextExtensions
     /// <param name="context"></param>
     /// <param name="columnName"></param>
     /// <param name="displayName"></param>
-    public static void AddDisplayNameAttribute(this DynamicObjectContext context, string columnName, string displayName) => context.AddAttribute<DisplayNameAttribute>(columnName, new Type[] { typeof(string) }, new object?[] { displayName });
+    public static void AddDisplayNameAttribute(this DynamicObjectContext context, string columnName, string displayName) => context.AddAttribute<DisplayNameAttribute>(columnName, [typeof(string)], [displayName]);
 
     /// <summary>
     /// 增加 DescriptionAttribute 扩展方法
@@ -83,7 +83,7 @@ public static class DynamicObjectContextExtensions
     /// <param name="context"></param>
     /// <param name="columnName"></param>
     /// <param name="description"></param>
-    public static void AddDescriptionAttribute(this DynamicObjectContext context, string columnName, string description) => context.AddAttribute<DescriptionAttribute>(columnName, new Type[] { typeof(string) }, new object?[] { description });
+    public static void AddDescriptionAttribute(this DynamicObjectContext context, string columnName, string description) => context.AddAttribute<DescriptionAttribute>(columnName, [typeof(string)], [description]);
 
     /// <summary>
     /// 增加自定义标签泛型方法

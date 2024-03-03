@@ -1,0 +1,22 @@
+﻿@page "/zip-archive"
+@layout MainLayout
+@inject IStringLocalizer<ZipArchives> Localizer
+
+<h3>@Localizer["ZipArchivesTitle"]</h3>
+<h4>@Localizer["ZipArchivesSubTitle"]</h4>
+
+<p>@Localizer["ZipArchiveInjectText"]</p>
+<Pre class="mb-3">[Inject]
+[NotNull]
+private IZipArchiveService? ZipArchiveService { get; set; }</Pre>
+
+<p>@Localizer["ZipArchiveFileText"]</p>
+<Pre class="mb-3">Task&lt;Stream&gt; ArchiveAsync(IEnumerable&lt;string&gt; files, ArchiveOptions? options = null);
+
+Task ArchiveAsync(string archiveFileName, IEnumerable&lt;string&gt; files, ArchiveOptions? options = null);</Pre>
+
+<p>@Localizer["ZipArchiveDirectoryText"]</p>
+<Pre class="mb-3">Task ArchiveDirectory(string archiveFileName, string directoryName, CompressionLevel compressionLevel = CompressionLevel.Optimal, bool includeBaseDirectory = false, Encoding? encoding = null);</Pre>
+
+<p>@Localizer["ZipArchiveExtractText"]</p>
+<Pre class="mb-3">bool ExtractToDirectory(string archiveFile, string destinationDirectoryName, bool overwriteFiles = false, Encoding? encoding = null);</Pre>

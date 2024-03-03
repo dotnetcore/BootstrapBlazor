@@ -6,16 +6,11 @@ using System.Diagnostics;
 
 namespace BootstrapBlazor.Components;
 
-class DefaultJSVersionService : IVersionService
+class DefaultJSVersionService(IOptions<BootstrapBlazorOptions> options) : IVersionService
 {
     private string? Version { get; set; }
 
-    private string? ConfigVersion { get; set; }
-
-    public DefaultJSVersionService(IOptions<BootstrapBlazorOptions> options)
-    {
-        ConfigVersion = options.Value.JSModuleVersion;
-    }
+    private string? ConfigVersion => options.Value.JSModuleVersion;
 
     /// <summary>
     /// <inheritdoc/>
@@ -44,10 +39,24 @@ class DefaultJSVersionService : IVersionService
                 }
             }
             catch { }
-            return ver ?? "7.0.0";
+            return FormatVersion();
 
             [ExcludeFromCodeCoverage]
             string? GetAssemblyVersion() => typeof(BootstrapComponentBase).Assembly.GetName().Version?.ToString(3);
+
+            [ExcludeFromCodeCoverage]
+            string FormatVersion()
+            {
+                if (!string.IsNullOrEmpty(ver))
+                {
+                    var index = ver.IndexOf('+');
+                    if (index > 0)
+                    {
+                        ver = ver[..index];
+                    }
+                }
+                return ver ?? "8.0.0.0";
+            }
         }
     }
 }

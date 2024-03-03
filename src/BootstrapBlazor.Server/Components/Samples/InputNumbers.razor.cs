@@ -10,6 +10,11 @@ namespace BootstrapBlazor.Server.Components.Samples;
 public sealed partial class InputNumbers
 {
     /// <summary>
+    /// NullableValue
+    /// </summary>
+    public int? NullableValue { get; set; } = 5;
+
+    /// <summary>
     /// BindValue
     /// </summary>
     public int BindValue { get; set; } = 5;
@@ -43,8 +48,8 @@ public sealed partial class InputNumbers
 
     private static string Formatter(double val) => val.ToString("0.0");
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Value",
@@ -101,5 +106,5 @@ public sealed partial class InputNumbers
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

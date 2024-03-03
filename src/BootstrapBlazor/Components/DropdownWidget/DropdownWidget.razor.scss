@@ -8,6 +8,7 @@
     --bb-widget-body-max-height: #{$bb-widget-body-max-height};
     --bb-widget-item-odd-bg: #{$bb-widget-item-odd-bg};
     --bb-widget-footer-padding: #{$bb-widget-footer-padding};
+    --bb-widget-footer-bg: #{$bb-widget-footer-bg};
 
     .dropdown-toggle {
         color: var(--bb-widget-toggle-color);
@@ -56,7 +57,7 @@
 
     .dropdown-footer {
         padding: var(--bb-widget-footer-padding);
-        background-color: var(--bb-widget-border-color);
+        background-color: var(--bb-widget-footer-bg);
         border-radius: 0 0 var(--bs-border-radius) var(--bs-border-radius);
     }
 

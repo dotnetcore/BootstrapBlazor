@@ -64,6 +64,12 @@ public partial class Table<TItem>
     public bool ShowExportExcelButton { get; set; } = true;
 
     /// <summary>
+    /// 获得/设置 是否显示 Csv 导出按钮 默认为 false 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowExportCsvButton { get; set; }
+
+    /// <summary>
     /// 获得/设置 是否显示 Pdf 导出按钮 默认为 false 显示
     /// </summary>
     [Parameter]
@@ -74,6 +80,12 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     public string? ExportButtonIcon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 内置导出 Csv 按钮图标
+    /// </summary>
+    [Parameter]
+    public string? CsvExportIcon { get; set; }
 
     /// <summary>
     /// 获得/设置 内置导出 Excel 按钮图标
@@ -116,6 +128,12 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     public RenderFragment<ITableExportContext<TItem>>? ExportButtonDropdownTemplate { get; set; }
+
+    /// <summary>
+    /// 获得/设置 内置导出微软 Csv 按钮文本 默认 null 读取资源文件
+    /// </summary>
+    [Parameter]
+    public string? ExportCsvDropdownItemText { get; set; }
 
     /// <summary>
     /// 获得/设置 内置导出微软 Excel 按钮文本 默认 null 读取资源文件
@@ -176,6 +194,30 @@ public partial class Table<TItem>
     /// </summary>
     [Parameter]
     public Func<TItem, bool>? ShowExtendEditButtonCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否禁用行内扩展编辑按钮 默认 false 不禁用
+    /// </summary>
+    [Parameter]
+    public bool DisableExtendEditButton { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否禁用行内扩展编辑按钮 默认为 null 未设置时使用 <see cref="DisableExtendEditButton"/> 值
+    /// </summary>
+    [Parameter]
+    public Func<TItem, bool>? DisableExtendEditButtonCallback { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否禁用行内扩展删除按钮 默认 false 不禁用
+    /// </summary>
+    [Parameter]
+    public bool DisableExtendDeleteButton { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否禁用行内扩展删除按钮 默认为 null 未设置时使用 <see cref="DisableExtendDeleteButton"/> 值
+    /// </summary>
+    [Parameter]
+    public Func<TItem, bool>? DisableExtendDeleteButtonCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 是否显示行内扩展编辑按钮 默认为 null 未设置时使用 <see cref="ShowExtendEditButton"/> 值
@@ -374,16 +416,12 @@ public partial class Table<TItem>
 
     [Inject]
     [NotNull]
-    private ITableExcelExport? ExcelExport { get; set; }
-
-    [Inject]
-    [NotNull]
-    private ITablePdfExport? PdfExport { get; set; }
+    private ITableExport? TableExport { get; set; }
 
     /// <summary>
     /// 获得/设置 各列是否显示状态集合
     /// </summary>
-    private List<ColumnVisibleItem> VisibleColumns { get; } = new();
+    private List<ColumnVisibleItem> VisibleColumns { get; } = [];
 
     /// <summary>
     /// 获得当前可见列集合
@@ -403,6 +441,8 @@ public partial class Table<TItem>
     private bool EditInCell { get; set; }
 
     private bool AddInCell { get; set; }
+
+    private bool InCellMode => AddInCell || EditInCell;
 
     /// <summary>
     /// 新建按钮方法
@@ -435,7 +475,7 @@ public partial class Table<TItem>
             else if (EditMode == EditMode.InCell)
             {
                 AddInCell = true;
-                EditInCell = true;
+                EditInCell = false;
                 SelectedRows.Add(EditModel);
             }
             await OnSelectedRowsChanged();
@@ -447,7 +487,6 @@ public partial class Table<TItem>
             if (DynamicContext != null)
             {
                 // 数据源为 DataTable 新建后重建行与列
-                // TODO: 新建行在数据源 DataTable 中
                 await DynamicContext.AddAsync(SelectedRows.OfType<IDynamicObject>());
                 ResetDynamicContext();
                 SelectedRows.Clear();
@@ -682,7 +721,7 @@ public partial class Table<TItem>
     public FullScreenSize EditDialogFullScreenSize { get; set; }
 
     /// <summary>
-    /// 获得/设置 编辑框是否显示最大化按钮 默认 true 不显示
+    /// 获得/设置 编辑框是否显示最大化按钮 默认 true 显示
     /// </summary>
     [Parameter]
     public bool EditDialogShowMaximizeButton { get; set; } = true;
@@ -967,21 +1006,39 @@ public partial class Table<TItem>
 
             InternalResetVisibleColumns(Columns.Select(i => new ColumnVisibleItem(i.GetFieldName(), i.Visible)));
 
-            QueryDynamicItems(DynamicContext);
+            var queryOption = BuildQueryPageOptions();
+            // 设置是否为首次查询
+            queryOption.IsFristQuery = _firstQuery;
+
+            QueryDynamicItems(queryOption, DynamicContext);
 
             // 重新绑定列拖拽
             _bindResizeColumn = true;
         }
     }
 
-    private void QueryDynamicItems(IDynamicObjectContext context)
+    private void QueryDynamicItems(QueryPageOptions queryOption, IDynamicObjectContext? context)
     {
-        QueryItems = context.GetItems().Cast<TItem>();
-        TotalCount = QueryItems.Count();
         RowsCache = null;
+        if (context != null)
+        {
+            var items = context.GetItems();
+            if (context.OnFilterCallback != null)
+            {
+                items = context.OnFilterCallback(queryOption, items);
+            }
+            if (IsPagination)
+            {
+                TotalCount = items.Count();
+                PageCount = (int)Math.Ceiling(TotalCount * 1.0 / Math.Max(1, PageItems));
+                PageIndex = Math.Max(1, Math.Min(PageIndex, int.Parse(Math.Ceiling((TotalCount - SelectedRows.Count) * 1d / PageItems).ToString())));
+                items = items.Skip((PageIndex - 1) * PageItems).Take(PageItems);
+            }
+            QueryItems = items.Cast<TItem>();
 
-        // 重置选中行
-        ResetSelectedRows(QueryItems);
+            // 重置选中行
+            ResetSelectedRows(QueryItems);
+        }
     }
 
     private async Task ExecuteExportAsync(Func<Task<bool>> callback)
@@ -1021,15 +1078,19 @@ public partial class Table<TItem>
 
     private Task ExportAsync() => ExecuteExportAsync(() => OnExportAsync != null
         ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Unknown, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
-        : ExcelExport.ExportAsync(Rows, GetVisibleColumns()));
+        : TableExport.ExportAsync(Rows, GetVisibleColumns()));
+
+    private Task ExportCsvAsync() => ExecuteExportAsync(() => OnExportAsync != null
+        ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Csv, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
+        : TableExport.ExportCsvAsync(Rows, GetVisibleColumns()));
 
     private Task ExportPdfAsync() => ExecuteExportAsync(() => OnExportAsync != null
         ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Pdf, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
-        : PdfExport.ExportAsync(Rows, GetVisibleColumns()));
+        : TableExport.ExportPdfAsync(Rows, GetVisibleColumns()));
 
     private Task ExportExcelAsync() => ExecuteExportAsync(() => OnExportAsync != null
         ? OnExportAsync(new TableExportDataContext<TItem>(TableExportType.Excel, Rows, GetVisibleColumns(), BuildQueryPageOptions()))
-        : ExcelExport.ExportAsync(Rows, GetVisibleColumns()));
+        : TableExport.ExportExcelAsync(Rows, GetVisibleColumns()));
 
     /// <summary>
     /// 获取当前 Table 选中的所有行数据

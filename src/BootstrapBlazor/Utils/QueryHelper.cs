@@ -95,7 +95,7 @@ public static class QueryHelper
     /// </summary>
     /// <param name="queryString">The raw query string value, with or without the leading '?'.</param>
     /// <returns>A collection of parsed keys and values.</returns>
-    public static Dictionary<string, StringValues> ParseQuery(string? queryString) => ParseNullableQuery(queryString) ?? new Dictionary<string, StringValues>();
+    public static Dictionary<string, StringValues> ParseQuery(string? queryString) => ParseNullableQuery(queryString) ?? [];
 
     /// <summary>
     /// Parse a query string into its component key and value parts.
@@ -129,13 +129,13 @@ public static class QueryHelper
             var equalIndex = segment.Span.IndexOf('=');
             if (equalIndex >= 0)
             {
-                ret ??= new();
+                ret ??= [];
                 var v = Uri.UnescapeDataString(segment[(equalIndex + 1)..].ToString());
                 ret.Add(segment[..equalIndex].ToString(), v);
             }
             else if (!segment.IsEmpty)
             {
-                ret ??= new();
+                ret ??= [];
                 ret.Add(segment.ToString(), default);
             }
         }

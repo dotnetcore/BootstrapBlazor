@@ -6,12 +6,12 @@
 
 <h4>@Localizer["Heading"]</h4>
 
-<p class="mt-3">@Localizer["P1"]</p>
-<ul>
+<p>@Localizer["P1"]</p>
+<ul class="ul-demo">
     <li><code>visual studio 2019</code> @Localizer["P2"] <code>visual studio 2022</code></li>
     <li><code>net5</code> @Localizer["P3"] <code>net6</code> <code>net7</code></li>
 </ul>
-<div><code>BootstrapBlazor</code> @Localizer["P4"] <code>net5/net6/net7</code></div>
+<p><code>BootstrapBlazor</code> @Localizer["P4"] <code>NET6/NET7/NET8</code></p>
 
 <h4>@Localizer["P5"]</h4>
 
@@ -19,26 +19,29 @@
 
 <h4>@Localizer["P9"]</h4>
 
-<h5 class="mb-3">@Localizer["P10"]</h5>
-<div class="code-label mb-2">1. @Localizer["P11"]</div>
-<div class="code-label mb-2">2. @Localizer["P12"]</div>
-<div class="code-label mb-2">3. @Localizer["P13"] <b>Blazor App</b> @Localizer["P14"] <b>@Localizer["P15"]</b>, @Localizer["P16"] <b>Create</b></div>
-<img alt="install" src="./images/create-new-application.png" style="border-radius: 6px;" class="d-none d-sm-block mb-2" />
+<h5>@Localizer["P10"]</h5>
+<p class="code-label">1. @Localizer["P11"]</p>
+<p class="code-label">2. @Localizer["P12"]</p>
+<p class="code-label">3. @Localizer["P13"] <b>Blazor App</b> @Localizer["P14"] <b>@Localizer["P15"]</b>, @Localizer["P16"] <b>Create</b></p>
+<img alt="install" src="./images/create-new-application.png" style="border-radius: 6px;" class="d-none d-sm-block" />
 @ChooseTemplate
-<h5 class="mb-3">@Localizer["P17"]</h5>
-<div class="code-label mb-2">1. @Localizer["P18"] <b>nuget.org</b> @Localizer["P19"] <code>BootstrapBlazor</code></div>
-<div class="mb-2">@Localizer["P20"] <b>Manage Nuget Packages</b></div>
-<Pre @key="@Version" class="no-highlight mb-2">dotnet add package BootstrapBlazor --version @Version</Pre>
-<img alt="install" src="./images/manage-nuget-packages-for-server-app.png" style="border-radius: 6px;" class="d-none d-sm-block mb-2" />
-<div class="code-label mt-3 mb-2">2. @Localizer["P21"]</div>
-<img alt="install" src="./images/nuget_install.png" style="width: 1000px; border-radius: 6px;" class="d-none d-sm-block mb-2" />
-<div class="code-label mt-3 mb-2">3. @Localizer["P22"]</div>
-<div class="mb-2">@Localizer["P23"]</div>
+
+<h5>@Localizer["P17"]</h5>
+<p class="code-label">1. @Localizer["P18"] <b>nuget.org</b> @Localizer["P19"] <code>BootstrapBlazor</code></p>
+<p>@Localizer["P20"] <b>Manage Nuget Packages</b></p>
+<Pre @key="@Version" class="no-highlight">dotnet add package BootstrapBlazor --version @Version</Pre>
+<img alt="install" src="./images/manage-nuget-packages-for-server-app.png" style="border-radius: 6px;" class="d-none d-sm-block" />
+
+<p class="code-label">2. @Localizer["P21"]</p>
+<img alt="install" src="./images/nuget_install.png" style="width: 1000px; border-radius: 6px;" class="d-none d-sm-block" />
+
+<p class="code-label">3. @Localizer["P22"]</p>
+<p>@Localizer["P23"]</p>
 @SheetTemplate
 <Tips>
     <div>@((MarkupString)Localizer["Tips2"].Value)</div>
 </Tips>
-<Pre class="mb-2">&lt;head&gt;
+<Pre>&lt;head&gt;
     ...
 <b>
     &lt;!-- @Localizer["P24"] !--&gt;
@@ -49,24 +52,26 @@
     &lt;link href="css/site.css" rel="stylesheet"&gt;
     &lt;link href="BlazorApp1.styles.css" rel="stylesheet"&gt;
 &lt;/head&gt;</Pre>
-<div class="code-label my-2">4. @Localizer["P25"]</div>
+
+<p class="code-label">4. @Localizer["P25"]</p>
 @ScriptsTemplate
-<Pre class="mb-2">&lt;body&gt;
+<Pre>&lt;body&gt;
     ...
     &lt;!-- @Localizer["P26"] !--&gt;
     <b>&lt;script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"&gt;&lt;/script&gt;</b>
     ...
     &lt;script src="_framework/blazor.server.js"&gt;&lt;/script&gt;
 &lt;/body&gt;</Pre>
-<div class="code-label mb-2">5. @Localizer["P27"]</div>
+
+<p class="code-label">5. @Localizer["P27"]</p>
 @ServicesTemplate
 
-<div class="code-label mb-2">6. @Localizer["P28"]</div>
-<div class="mb-2">@Localizer["P29"] <code>~/_Imports.razor</code> @Localizer["P30"] <code>Razor</code> @Localizer["P31"]</div>
-<Pre class="mb-2"><b>@@using BootstrapBlazor.Components</b></Pre>
+<p class="code-label">6. @Localizer["P28"]</p>
+<p>@Localizer["P29"] <code>~/_Imports.razor</code> @Localizer["P30"] <code>Razor</code> @Localizer["P31"]</p>
+<Pre><b>@@using BootstrapBlazor.Components</b></Pre>
 
-<div class="code-label mb-2">7. @Localizer["P32"] <code>BootstrapBlazorRoot</code> @Localizer["P33"] <code>~/App.razor</code> @Localizer["P34"]</div>
-<Pre class="mb-2">&lt;BootstrapBlazorRoot&gt;
+<p class="code-label">7. @Localizer["P32"] <code>BootstrapBlazorRoot</code> @Localizer["P33"] <code>~/App.razor</code> @Localizer["P34"]</p>
+<Pre>&lt;BootstrapBlazorRoot&gt;
     &lt;Router AppAssembly="@@typeof(App).Assembly"&gt;
         &lt;Found Context="routeData"&gt;
             &lt;PageTitle&gt;Title&lt;/PageTitle&gt;
@@ -82,9 +87,9 @@
     &lt;/Router&gt;
 &lt;/BootstrapBlazorRoot&gt;</Pre>
 
-<h5 class="mb-3">@Localizer["P36"]</h5>
-<div class="mb-2">@Localizer["P37"] <code>BootstrapBlazor</code> @Localizer["P38"]：</div>
-<div class="code-label mb-2">1. @Localizer["P39"] <code>Button</code> @Localizer["P40"]</div>
-<Pre class="mb-2">&lt;Button Color="Color.Primary" Icon="fa-solid fa-font-awesome" Text="@Localizer["P41"]" /&gt;</Pre>
-<div class="code-label mb-2">2. @Localizer["P42"] <b>Visual studio 2022</b> @Localizer["P43"] <kbd>F5</kbd> @Localizer["P44"]</div>
+<h5>@Localizer["P36"]</h5>
+<p>@Localizer["P37"] <code>BootstrapBlazor</code> @Localizer["P38"]：</p>
+<p class="code-label">1. @Localizer["P39"] <code>Button</code> @Localizer["P40"]</p>
+<Pre>&lt;Button Color="Color.Primary" Icon="fa-solid fa-font-awesome" Text="@Localizer["P41"]" /&gt;</Pre>
+<p class="code-label">2. @Localizer["P42"] <b>Visual studio 2022</b> @Localizer["P43"] <kbd>F5</kbd> @Localizer["P44"]</p>
 <img alt="install" src="./images/preview.png" style="border-radius: 6px;" class="d-none d-sm-block" />

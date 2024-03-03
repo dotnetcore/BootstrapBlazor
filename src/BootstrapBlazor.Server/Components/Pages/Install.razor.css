@@ -11,7 +11,7 @@
 }
 
 .git a {
-    border: solid 1px #ddd;
+    border: var(--bs-border-width) solid var(--bs-border-color);
     display: block;
     padding: 6px 10px;
     border-radius: var(--bs-border-radius);
@@ -25,4 +25,8 @@
     font-size: 1.8rem;
     color: #1c3949;
     margin-left: 38px;
+}
+
+[data-bs-theme='dark'] .git .git-fork span {
+    color: var(--bs-body-color);
 }

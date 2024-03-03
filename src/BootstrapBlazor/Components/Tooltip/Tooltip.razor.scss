@@ -10,3 +10,7 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
 }
+
+[data-bs-toggle="tooltip"]:has(.is-display) {
+    overflow: hidden;
+}

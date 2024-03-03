@@ -13,7 +13,7 @@ public sealed partial class Navigation
 {
     private IEnumerable<NavLink> Items => GetItems();
 
-    private IEnumerable<NavLink> GetItems()
+    private List<NavLink> GetItems()
     {
         var ret = new List<NavLink>();
         var link = new NavLink();
@@ -36,9 +36,8 @@ public sealed partial class Navigation
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
-
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "ChildContent",
@@ -82,5 +81,5 @@ public sealed partial class Navigation
             ValueList = "true|false",
             DefaultValue = "false"
         }
-    };
+    ];
 }

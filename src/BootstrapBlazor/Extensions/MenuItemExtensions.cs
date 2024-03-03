@@ -38,5 +38,5 @@ public static class MenuItemExtensions
     /// </summary>
     /// <param name="source"></param>
     /// <returns></returns>
-    public static IEnumerable<MenuItem> GetAllSubItems(this IEnumerable<MenuItem>? source) => source?.SelectMany(i => i.Items.Any() ? i.Items.Concat(GetAllSubItems(i.Items)) : i.Items) ?? Enumerable.Empty<MenuItem>();
+    public static IEnumerable<MenuItem> GetAllSubItems(this IEnumerable<MenuItem>? source) => source?.SelectMany(i => i.Items.Any() ? i.Items.Concat(GetAllSubItems(i.Items)) : i.Items) ?? [];
 }

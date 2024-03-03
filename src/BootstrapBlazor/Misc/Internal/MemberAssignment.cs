@@ -36,7 +36,7 @@ internal class MemberAssignment
                     List<PropertyInfo> many;
                     if (others is PropertyInfo single)
                     {
-                        many = new List<PropertyInfo> { single };
+                        many = [single];
                         dictionary[property.Name] = many;
                     }
                     else

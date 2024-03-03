@@ -48,6 +48,10 @@ public partial class EditorForm<TModel> : IShowLabel
         .AddClass("form-inline-center", RowType == RowType.Inline && LabelAlign == Alignment.Center)
         .Build();
 
+    private string? FormStyleString => CssBuilder.Default()
+        .AddClass($"--bb-row-label-width: {LabelWidth}px;", LabelWidth.HasValue)
+        .Build();
+
     /// <summary>
     /// 获得/设置 每行显示组件数量 默认为 null
     /// </summary>
@@ -71,6 +75,12 @@ public partial class EditorForm<TModel> : IShowLabel
     /// </summary>
     [Parameter]
     public Alignment LabelAlign { get; set; }
+
+    /// <summary>
+    /// 获得/设置 标签宽度 默认 null 未设置使用全局设置 <code>--bb-row-label-width</code> 值
+    /// </summary>
+    [Parameter]
+    public int? LabelWidth { get; set; }
 
     /// <summary>
     /// 获得/设置 列模板
@@ -171,17 +181,17 @@ public partial class EditorForm<TModel> : IShowLabel
     /// <summary>
     /// 获得/设置 配置编辑项目集合
     /// </summary>
-    private readonly List<IEditorItem> _editorItems = new();
+    private readonly List<IEditorItem> _editorItems = [];
 
     /// <summary>
     /// 获得/设置 渲染的编辑项集合
     /// </summary>
-    private readonly List<IEditorItem> _formItems = new();
+    private readonly List<IEditorItem> _formItems = [];
 
-    private IEnumerable<IEditorItem> UnsetGroupItems => _formItems.Where(i => string.IsNullOrEmpty(i.GroupName));
+    private IEnumerable<IEditorItem> UnsetGroupItems => _formItems.Where(i => string.IsNullOrEmpty(i.GroupName) && i.IsVisible(ItemChangedType, IsSearch.Value));
 
     private IEnumerable<KeyValuePair<string, IOrderedEnumerable<IEditorItem>>> GroupItems => _formItems
-        .Where(i => !string.IsNullOrEmpty(i.GroupName))
+        .Where(i => !string.IsNullOrEmpty(i.GroupName) && i.IsVisible(ItemChangedType, IsSearch.Value))
         .GroupBy(i => i.GroupOrder).OrderBy(i => i.Key)
         .Select(i => new KeyValuePair<string, IOrderedEnumerable<IEditorItem>>(i.First().GroupName!, i.OrderBy(x => x.Order)));
 
@@ -220,10 +230,7 @@ public partial class EditorForm<TModel> : IShowLabel
         ShowLabel ??= ValidateForm?.ShowLabel;
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    private bool FirstRender { get; set; } = true;
+    private bool _firstRender = true;
 
     /// <summary>
     /// OnAfterRenderAsync 方法
@@ -236,11 +243,10 @@ public partial class EditorForm<TModel> : IShowLabel
 
         if (firstRender)
         {
-            FirstRender = false;
+            _firstRender = false;
 
             if (Items != null)
             {
-                // 通过级联参数渲染组件
                 _formItems.AddRange(Items);
             }
             else
@@ -257,8 +263,8 @@ public partial class EditorForm<TModel> : IShowLabel
                         var item = items.FirstOrDefault(i => i.GetFieldName() == el.GetFieldName());
                         if (item != null)
                         {
-                            // 过滤掉不编辑的列
-                            if (!el.Editable)
+                            // 过滤掉不编辑与不可见的列
+                            if (!el.Editable || !el.IsVisible(ItemChangedType, IsSearch.Value))
                             {
                                 items.Remove(item);
                             }
@@ -270,11 +276,11 @@ public partial class EditorForm<TModel> : IShowLabel
                             }
                         }
                     }
-                    _formItems.AddRange(items.Where(i => i.Editable));
+                    _formItems.AddRange(items);
                 }
                 else
                 {
-                    _formItems.AddRange(_editorItems.Where(i => i.Editable));
+                    _formItems.AddRange(_editorItems.Where(i => i.Editable && i.IsVisible(ItemChangedType, IsSearch.Value)));
                 }
             }
             StateHasChanged();

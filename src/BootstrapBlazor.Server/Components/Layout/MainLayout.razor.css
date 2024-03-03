@@ -18,27 +18,12 @@
     font-weight: 700;
 }
 
-::deep p {
-    line-height: 2;
+::deep p:last-child {
+    margin-bottom: 0;
 }
-
-    ::deep p:last-child {
-        margin-bottom: 0;
-    }
-
-    ::deep p code,
-    ::deep li code {
-        display: inline-block;
-        padding: 0px 8px;
-        background-color: #e9ecef;
-        margin: 0;
-        border-radius: var(--bs-border-radius);
-    }
 
 ::deep .code-label {
     font-weight: bold;
-    color: #333;
-    margin-bottom: 8px;
 }
 
 ::deep h4 {
@@ -88,8 +73,7 @@
         height: calc(100vh);
         position: sticky;
         top: 0;
-        border-right: solid 1px #c0c4cc;
-        background-color: #f0f0f0;
+        border-right: solid 1px var(--bs-border-color);
         margin-top: calc(var(--bs-header-height)*-1);
     }
 

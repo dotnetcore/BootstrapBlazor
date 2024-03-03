@@ -17,7 +17,7 @@ public partial class TablesDynamic
 
     private DataTable UserData { get; } = new DataTable();
 
-    private List<DynamicObject> SelectedItems { get; set; } = new();
+    private List<DynamicObject> SelectedItems { get; set; } = [];
 
     private string? ButtonAddColumnText { get; set; }
 
@@ -117,10 +117,10 @@ public partial class TablesDynamic
         UserData.Columns.Add(nameof(Foo.DateTime), typeof(DateTime));
         UserData.Columns.Add(nameof(Foo.Name), typeof(string));
         UserData.Columns.Add(nameof(Foo.Count), typeof(int));
-        UserData.PrimaryKey = new DataColumn[]
-        {
+        UserData.PrimaryKey =
+        [
             UserData.Columns[0]
-        };
+        ];
         UserData.Columns[0].AutoIncrement = true;
         Foo.GenerateFoo(LocalizerFoo, 10).ForEach(f =>
         {

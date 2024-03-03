@@ -82,3 +82,11 @@
         opacity: var(--bs-btn-disabled-opacity);
     }
 }
+
+.btn-group {
+    > .upload {
+        button {
+            display: block;
+        }
+    }
+}

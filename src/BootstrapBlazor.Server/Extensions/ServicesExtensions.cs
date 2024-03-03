@@ -24,7 +24,7 @@ internal static class ServicesExtensions
 
         // 增加后台任务服务
         services.AddTaskServices();
-        services.AddHostedService<ClearUploadFilesService>();
+        services.AddHostedService<ClearTempFilesService>();
 
         // 增加演示网站服务
         services.AddWebSiteServices();
@@ -64,7 +64,7 @@ internal static class ServicesExtensions
         // 增加 AzureTranslator 服务
         services.AddBootstrapBlazorAzureTranslator();
 
-        // 增加 Pdf 导出服务
+        // 增加 Html2Pdf 导出服务
         services.AddBootstrapBlazorHtml2PdfService();
 
         // 配置 Tab 与 Menu 联动字典
@@ -142,7 +142,10 @@ internal static class ServicesExtensions
         services.AddScoped<AuthenticationStateProvider, MockAuthenticationStateProvider>();
 
         // 增加 Table Excel 导出服务
-        services.AddBootstrapBlazorTableExcelExport();
+        services.AddBootstrapBlazorTableExportService();
+
+        // 增加 Pdf 导出服务
+        services.AddTransient<IExportPdf, ExportPdfService>();
 
         return services;
     }

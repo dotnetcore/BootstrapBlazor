@@ -1,15 +1,3 @@
-@mixin direction($var, $child) {
-    > .datetime-picker:not(:#{$child}-child) .form-control,
-    > .select:not(:#{$child}-child) .form-control,
-    > .switch:not(:#{$child}-child),
-    > .multi-select:not(:#{$child}-child) .dropdown-toggle,
-    > [data-bs-toggle]:not(:#{$child}-child) > .form-control,
-    > .auto-complete:not(:#{$child}-child) .form-control {
-        border-top-#{$var}-radius: 0;
-        border-bottom-#{$var}-radius: 0;
-    }
-}
-
 .input-group {
     > .datetime-picker,
     > .select,
@@ -32,6 +20,17 @@
         border-radius: var(--bs-border-radius);
     }
 
-    @include direction(right,last);
-    @include direction(left,first)
+    > .segmented {
+        border: 1px solid var(--bs-border-color);
+    }
+
+    > .input-group-text {
+        width: var(--bb-input-group-label-width);
+    }
+}
+
+.input-group-xs {
+    .btn, .form-control, .input-group-text {
+        font-size: .75rem;
+    }
 }

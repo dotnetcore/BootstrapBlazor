@@ -25,7 +25,14 @@
             }
             else
             {
-                <input type="text" id="@InputId" readonly disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassString" value="@SelectedItem?.Text" />
+                if (IsEditable)
+                {
+                    <input type="text" id="@InputId" disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassString" value="@SelectedItem?.Text" @onchange="OnChange" />
+                }
+                else
+                {
+                    <input type="text" id="@InputId" readonly disabled="@Disabled" placeholder="@PlaceHolder" class="@InputClassString" value="@SelectedItem?.Text" />
+                }
                 <span class="@AppendClassString"><i class="@DropdownIcon"></i></span>
             }
         </div>

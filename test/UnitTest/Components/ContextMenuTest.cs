@@ -206,8 +206,8 @@ public class ContextMenuTest : BootstrapBlazorTestBase
     {
         row.TouchStart(new TouchEventArgs()
         {
-            Touches = new TouchPoint[]
-            {
+            Touches =
+            [
                 new()
                 {
                     ClientX = 10,
@@ -215,7 +215,7 @@ public class ContextMenuTest : BootstrapBlazorTestBase
                     ScreenX = 10,
                     ScreenY = 10
                 }
-            }
+            ]
         });
     }
 }

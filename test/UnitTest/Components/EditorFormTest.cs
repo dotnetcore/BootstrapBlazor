@@ -67,7 +67,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
         Context.RenderComponent<EditorForm<Foo>>(pb =>
         {
             pb.Add(a => a.Model, foo);
-            pb.Add(a => a.Items, new List<MockTableColumn>
+            pb.Add(a => a.Items, new List<InternalTableColumn>
             {
                 new("Id", typeof(int)),
                 new("Name", typeof(string))
@@ -169,9 +169,11 @@ public class EditorFormTest : BootstrapBlazorTestBase
             pb.Add(a => a.ItemChangedType, ItemChangedType.Add);
             pb.Add(a => a.RowType, RowType.Inline);
             pb.Add(a => a.LabelAlign, Alignment.Right);
+            pb.Add(a => a.LabelWidth, 80);
         });
         cut.Contains("row g-3 form-inline form-inline-end");
         cut.Contains("col-12");
+        cut.Contains("--bb-row-label-width: 80px;");
 
         cut.SetParametersAndRender(pb =>
         {
@@ -211,18 +213,33 @@ public class EditorFormTest : BootstrapBlazorTestBase
     [Fact]
     public void IsEditable_Ok()
     {
-        var editorItem = new EditorItem<Foo, string>()
-        {
-            IsReadonlyWhenAdd = true,
-            IsReadonlyWhenEdit = false
-        };
+        var editorItem = new EditorItem<Foo, string>();
         editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
         {
             ["Editable"] = true,
             ["Readonly"] = false,
+            ["Visible"] = true,
+            ["IsReadonlyWhenAdd"] = true,
+            ["IsReadonlyWhenEdit"] = false
         }));
         Assert.False(editorItem.IsEditable(ItemChangedType.Add));
         Assert.True(editorItem.IsEditable(ItemChangedType.Update));
+    }
+
+
+    [Fact]
+    public void IsVisible_Ok()
+    {
+        var editorItem = new EditorItem<Foo, string>();
+        editorItem.SetParametersAsync(ParameterView.FromDictionary(new Dictionary<string, object?>
+        {
+            ["Editable"] = true,
+            ["Readonly"] = false,
+            ["IsVisibleWhenAdd"] = true,
+            ["IsVisibleWhenEdit"] = false
+        }));
+        Assert.True(editorItem.IsVisible(ItemChangedType.Add));
+        Assert.False(editorItem.IsVisible(ItemChangedType.Update));
     }
 
     [Fact]
@@ -264,7 +281,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
                     builder.OpenComponent<EditorItem<Foo, int>>(index++);
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, int>.Field), f.Count);
                     builder.AddAttribute(index++, nameof(EditorItem<Foo, int>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Count), typeof(int)));
-                    builder.AddAttribute(index++, nameof(EditorItem<Foo, int>.Step), 3);
+                    builder.AddAttribute(index++, nameof(EditorItem<Foo, int>.Step), "3");
                     builder.CloseComponent();
 
                     builder.OpenComponent<EditorItem<Foo, bool>>(index++);
@@ -382,7 +399,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
 
         var v = itemsField.GetValue(editor) as List<IEditorItem>;
         Assert.NotNull(v);
-        Assert.Equal(new List<int>() { 60, 50, 40, 20, 10, 1 }, v.Select(i => i.Order));
+        Assert.Equal(new List<int>() { 70, 60, 50, 40, 20, 10, 1 }, v.Select(i => i.Order));
     }
 
     [Fact]
@@ -401,6 +418,7 @@ public class EditorFormTest : BootstrapBlazorTestBase
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.FieldExpression), Utility.GenerateValueExpression(foo, nameof(Foo.Name), typeof(string)));
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.Text), "Test-Text");
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.LookupServiceKey), "FooLookup");
+                builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.LookupServiceData), true);
                 builder.AddAttribute(index++, nameof(EditorItem<Foo, string>.LookupStringComparison), StringComparison.OrdinalIgnoreCase);
                 builder.CloseComponent();
             });

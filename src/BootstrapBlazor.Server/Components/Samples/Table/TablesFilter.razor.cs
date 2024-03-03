@@ -10,18 +10,20 @@ namespace BootstrapBlazor.Server.Components.Samples.Table;
 public partial class TablesFilter
 {
     /// <summary>
-    /// Foo 类为Demo测试用，如有需要请自行下载源码查阅
+    /// Foo 类为 Demo 测试用，如有需要请自行下载源码查阅
     /// Foo class is used for Demo test, please download the source code if necessary
     /// https://gitee.com/LongbowEnterprise/BootstrapBlazor/blob/main/src/BootstrapBlazor.Server/Data/Foo.cs
     /// </summary>
     [NotNull]
     private List<Foo>? Items { get; set; }
 
-    private static IEnumerable<int> PageItemsSource => new int[] { 4, 10, 20 };
+    private List<Foo> SelectedItems { get; set; } = [];
+
+    private static IEnumerable<int> PageItemsSource => [4, 10, 20];
 
     private string SortString { get; set; } = "DateTime desc, Address";
 
-    private string ComponentSourceCodeUrl => $"{WebsiteOption.CurrentValue.GiteeRepositoryUrl}/blob/main/src/BootstrapBlazor.Shared/Components/CustomerFilter.razor";
+    private string ComponentSourceCodeUrl => $"{WebsiteOption.CurrentValue.GiteeRepositoryUrl}/blob/main/src/BootstrapBlazor.Server/Components/Components/CustomerFilter.razor";
 
     [NotNull]
     private Table<Foo>? TableSetFilter { get; set; }
@@ -48,14 +50,14 @@ public partial class TablesFilter
         var isSorted = false;
 
         //处理高级排序
-        if (options.AdvancedSortList.Any())
+        if (options.AdvancedSortList.Count != 0)
         {
             items = items.Sort(options.AdvancedSortList);
             isSorted = true;
         }
 
         // 此段代码可不写，组件内部自行处理
-        if (options.SortName == nameof(Foo.DateTime) && options.SortList != null)
+        if (options.SortName == nameof(Foo.DateTime))
         {
             items = items.Sort(options.SortList);
             isSorted = true;
@@ -68,10 +70,11 @@ public partial class TablesFilter
         }
 
         // 设置记录总数
-        var total = items.Count();
+        var enumerable = items.ToList();
+        var total = enumerable.Count;
 
         // 内存分页
-        items = items.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
+        items = enumerable.Skip((options.PageIndex - 1) * options.PageItems).Take(options.PageItems).ToList();
 
         return Task.FromResult(new QueryData<Foo>()
         {

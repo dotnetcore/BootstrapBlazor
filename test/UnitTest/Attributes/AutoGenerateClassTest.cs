@@ -43,6 +43,8 @@ public class AutoGenerateClassTest
             SkipValidate = true,
             IsReadonlyWhenAdd = true,
             IsReadonlyWhenEdit = true,
+            IsVisibleWhenAdd = false,
+            IsVisibleWhenEdit = false,
             ShowLabelTooltip = true,
             DefaultSortOrder = SortOrder.Asc,
             Width = 10,
@@ -54,10 +56,11 @@ public class AutoGenerateClassTest
             PlaceHolder = "test_holder",
             Formatter = null,
             ComponentType = typeof(Select<string>),
-            Step = 1,
+            Step = "1",
             Rows = 1,
             LookupStringComparison = StringComparison.Ordinal,
             LookupServiceKey = "test-lookup",
+            LookupServiceData = true,
             GroupName = "Test",
             GroupOrder = 1,
             ShowHeaderTooltip = true,
@@ -72,6 +75,8 @@ public class AutoGenerateClassTest
         Assert.True(attr.SkipValidate);
         Assert.True(attr.IsReadonlyWhenAdd);
         Assert.True(attr.IsReadonlyWhenEdit);
+        Assert.False(attr.IsVisibleWhenAdd);
+        Assert.False(attr.IsVisibleWhenEdit);
         Assert.True(attr.ShowLabelTooltip);
         Assert.Equal(SortOrder.Asc, attr.DefaultSortOrder);
         Assert.Equal(10, attr.Width);
@@ -83,12 +88,13 @@ public class AutoGenerateClassTest
         Assert.Equal("test_holder", attr.PlaceHolder);
         Assert.Null(attr.Formatter);
         Assert.Equal(typeof(Select<string>), attr.ComponentType);
-        Assert.Equal(1, attr.Step);
+        Assert.Equal("1", attr.Step);
         Assert.Equal(1, attr.Rows);
         Assert.Equal(StringComparison.Ordinal, attr.LookupStringComparison);
         Assert.Equal("Test", attr.GroupName);
         Assert.Equal(1, attr.GroupOrder);
         Assert.Equal("test-lookup", attr.LookupServiceKey);
+        Assert.Equal(true, attr.LookupServiceData);
         Assert.True(attr.ShowHeaderTooltip);
         Assert.True(attr.HeaderTextWrap);
         Assert.True(attr.HeaderTextEllipsis);
@@ -156,5 +162,11 @@ public class AutoGenerateClassTest
         // 增加 GetDisplay 单元覆盖率
         attr.Text = null;
         Assert.Equal(string.Empty, attr.GetDisplayName());
+
+        attrEditor.IsVisibleWhenAdd = false;
+        Assert.False(attrEditor.IsVisibleWhenAdd);
+
+        attrEditor.IsVisibleWhenEdit = false;
+        Assert.False(attrEditor.IsVisibleWhenEdit);
     }
 }

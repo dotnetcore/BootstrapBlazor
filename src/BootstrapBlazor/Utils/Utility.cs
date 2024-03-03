@@ -42,6 +42,30 @@ public static class Utility
     public static string GetDisplayName<TModel>(string fieldName) => GetDisplayName(typeof(TModel), fieldName);
 
     /// <summary>
+    /// 获取 RangeAttribute 标签值
+    /// </summary>
+    /// <param name="model">模型实例</param>
+    /// <param name="fieldName">字段名称</param>
+    /// <returns></returns>
+    public static RangeAttribute? GetRange(object model, string fieldName) => GetRange(model.GetType(), fieldName);
+
+    /// <summary>
+    /// 获得 RangeAttribute 标签值
+    /// </summary>
+    /// <param name="modelType">模型类型</param>
+    /// <param name="fieldName">字段名称</param>
+    /// <returns></returns>
+    public static RangeAttribute? GetRange(Type modelType, string fieldName) => CacheManager.GetRange(Nullable.GetUnderlyingType(modelType) ?? modelType, fieldName);
+
+    /// <summary>
+    /// 获得 RangeAttribute 标签值
+    /// </summary>
+    /// <typeparam name="TModel">模型</typeparam>
+    /// <param name="fieldName">字段名称</param>
+    /// <returns></returns>
+    public static RangeAttribute? GetRange<TModel>(string fieldName) => GetRange(typeof(TModel), fieldName);
+
+    /// <summary>
     /// 获取资源文件中 NullableBoolItemsAttribute 标签名称方法
     /// </summary>
     /// <param name="model">模型实例</param>
@@ -133,7 +157,7 @@ public static class Utility
     /// <param name="cultureName">cultureName 未空时使用 CultureInfo.CurrentUICulture.Name</param>
     /// <param name="forceLoad">默认 false 使用缓存值 设置 true 时内部强制重新加载</param>
     /// <returns></returns>
-    public static IEnumerable<LocalizedString> GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false) => CacheManager.GetJsonStringByTypeName(option, assembly, typeName, cultureName, forceLoad) ?? Enumerable.Empty<LocalizedString>();
+    public static IEnumerable<LocalizedString> GetJsonStringByTypeName(JsonLocalizationOptions option, Assembly assembly, string typeName, string? cultureName = null, bool forceLoad = false) => CacheManager.GetJsonStringByTypeName(option, assembly, typeName, cultureName, forceLoad) ?? [];
 
     /// <summary>
     /// 通过指定程序集与类型获得 IStringLocalizer 实例
@@ -236,22 +260,19 @@ public static class Utility
     {
         var type = source.GetType();
         var valType = destination.GetType();
-        if (valType != null)
+        foreach (var f in type.GetFields())
         {
-            foreach (var f in type.GetFields())
+            var v = f.GetValue(source);
+            var field = valType.GetField(f.Name)!;
+            field.SetValue(destination, v);
+        }
+        foreach (var p in type.GetRuntimeProperties())
+        {
+            if (p.CanWrite)
             {
-                var v = f.GetValue(source);
-                var field = valType.GetField(f.Name)!;
-                field.SetValue(destination, v);
-            }
-            foreach (var p in type.GetRuntimeProperties())
-            {
-                if (p.CanWrite)
-                {
-                    var v = p.GetValue(source);
-                    var property = valType.GetRuntimeProperties().First(i => i.Name == p.Name && i.PropertyType == p.PropertyType);
-                    property.SetValue(destination, v);
-                }
+                var v = p.GetValue(source);
+                var property = valType.GetRuntimeProperties().First(i => i.Name == p.Name && i.PropertyType == p.PropertyType);
+                property.SetValue(destination, v);
             }
         }
     }
@@ -277,14 +298,16 @@ public static class Utility
     public static IEnumerable<ITableColumn> GetTableColumns(Type type, IEnumerable<ITableColumn>? source = null, Func<IEnumerable<ITableColumn>, IEnumerable<ITableColumn>>? defaultOrderCallback = null)
     {
         var cols = new List<ITableColumn>(50);
-        var classAttribute = type.GetCustomAttribute<AutoGenerateClassAttribute>(true);
-        var props = type.GetProperties().Where(p => !p.IsStatic());
+        var metadataType = TableMetadataTypeService.GetMetadataType(type);
+        var classAttribute = metadataType.GetCustomAttribute<AutoGenerateClassAttribute>(true);
+        // to make it simple, we just check the property name should exist in target data type properties
+        var targetProperties = type.GetProperties().Where(p => !p.IsStatic());
+        var props = metadataType.GetProperties().Where(p => !p.IsStatic() && targetProperties.Any(o => o.Name == p.Name));
         foreach (var prop in props)
         {
             ITableColumn? tc;
             var columnAttribute = prop.GetCustomAttribute<AutoGenerateColumnAttribute>(true);
-
-            var displayName = columnAttribute?.Text ?? Utility.GetDisplayName(type, prop.Name);
+            var displayName = columnAttribute?.Text ?? GetDisplayName(metadataType, prop.Name);
             if (columnAttribute == null)
             {
                 // 未设置 AutoGenerateColumnAttribute 时使用默认值
@@ -356,6 +379,11 @@ public static class Utility
             builder.AddAttribute(2, nameof(Switch.IsDisabled), true);
             builder.AddAttribute(3, nameof(Switch.DisplayText), displayName);
             builder.AddAttribute(4, nameof(Switch.ShowLabelTooltip), item.ShowLabelTooltip);
+            if (item is ITableColumn col)
+            {
+                builder.AddAttribute(5, "class", col.CssClass);
+            }
+            builder.AddMultipleAttributes(6, item.ComponentParameters);
             builder.CloseComponent();
         }
         else if (item.ComponentType == typeof(Textarea))
@@ -369,6 +397,11 @@ public static class Utility
             {
                 builder.AddAttribute(5, "rows", item.Rows);
             }
+            if (item is ITableColumn col)
+            {
+                builder.AddAttribute(6, "class", col.CssClass);
+            }
+            builder.AddMultipleAttributes(7, item.ComponentParameters);
             builder.CloseComponent();
         }
         else
@@ -377,15 +410,21 @@ public static class Utility
             builder.AddAttribute(1, nameof(Display<string>.DisplayText), displayName);
             builder.AddAttribute(2, nameof(Display<string>.Value), fieldValue);
             builder.AddAttribute(3, nameof(Display<string>.LookupServiceKey), item.LookupServiceKey);
-            builder.AddAttribute(4, nameof(Display<string>.ShowLabelTooltip), item.ShowLabelTooltip);
+            builder.AddAttribute(4, nameof(Display<string>.LookupServiceData), item.LookupServiceData);
+            builder.AddAttribute(5, nameof(Display<string>.ShowLabelTooltip), item.ShowLabelTooltip);
             if (item is ITableColumn col)
             {
-                // TODO: 暂时不支持 Formatter 逻辑
-                if (!string.IsNullOrEmpty(col.FormatString))
+                if (col.Formatter != null)
                 {
-                    builder.AddAttribute(5, nameof(Display<string>.FormatString), col.FormatString);
+                    builder.AddAttribute(6, nameof(Display<string>.FormatterAsync), CacheManager.GetFormatterInvoker(fieldType, col.Formatter));
                 }
+                else if (!string.IsNullOrEmpty(col.FormatString))
+                {
+                    builder.AddAttribute(6, nameof(Display<string>.FormatString), col.FormatString);
+                }
+                builder.AddAttribute(7, "class", col.CssClass);
             }
+            builder.AddMultipleAttributes(8, item.ComponentParameters);
             builder.CloseComponent();
         }
     }
@@ -409,7 +448,7 @@ public static class Utility
         var fieldValue = GenerateValue(model, fieldName);
         var fieldValueChanged = GenerateValueChanged(component, model, fieldName, fieldType);
         var valueExpression = GenerateValueExpression(model, fieldName, fieldType);
-        var lookup = item.Lookup ?? lookUpService?.GetItemsByKey(item.LookupServiceKey);
+        var lookup = item.Lookup ?? lookUpService?.GetItemsByKey(item.LookupServiceKey, item.LookupServiceData);
         var componentType = item.ComponentType ?? GenerateComponentType(fieldType, item.Rows != 0, lookup);
         builder.OpenComponent(0, componentType);
         if (componentType.IsSubclassOf(typeof(ValidateBase<>).MakeGenericType(fieldType)))
@@ -441,7 +480,7 @@ public static class Utility
             var defaultValueAttr = propertyInfo.GetCustomAttribute<DefaultValueAttribute>();
             if (defaultValueAttr != null)
             {
-                var dv = defaultValueAttr.Value is bool v && v;
+                var dv = defaultValueAttr.Value is true;
                 builder.AddAttribute(8, nameof(NullSwitch.DefaultValueWhenNull), dv);
             }
         }
@@ -480,10 +519,7 @@ public static class Utility
 
         builder.AddMultipleAttributes(17, CreateMultipleAttributes(fieldType, model, fieldName, item));
 
-        if (item.ComponentParameters != null)
-        {
-            builder.AddMultipleAttributes(18, item.ComponentParameters);
-        }
+        builder.AddMultipleAttributes(18, item.ComponentParameters);
 
         // 设置 IsPopover
         if (componentType.GetPropertyByName(nameof(Select<string>.IsPopover)) != null)
@@ -500,7 +536,7 @@ public static class Utility
         GroupName = d.GroupName
     }).ToList();
 
-    private static object? GenerateValue(object model, string fieldName) => Utility.GetPropertyValue<object, object?>(model, fieldName);
+    private static object? GenerateValue(object model, string fieldName) => GetPropertyValue<object, object?>(model, fieldName);
 
     /// <summary>
     /// 通过指定类型实例获取属性 Lambda 表达式
@@ -537,14 +573,7 @@ public static class Utility
                 {
                     t = propertyInstance.GetType();
                 }
-                if (body == null)
-                {
-                    body = Expression.Property(Expression.Convert(Expression.Constant(model), type), p);
-                }
-                else
-                {
-                    body = Expression.Property(body, p);
-                }
+                body = Expression.Property(body ?? Expression.Convert(Expression.Constant(model), type), p);
             }
             var tDelegate = typeof(Func<>).MakeGenericType(fieldType);
             return Expression.Lambda(tDelegate, body!);
@@ -574,35 +603,21 @@ public static class Utility
         {
             ret = typeof(NullSwitch);
         }
-        else
+        else if (fieldType.IsNumber())
         {
-            switch (type.Name)
-            {
-                case nameof(Boolean):
-                    ret = typeof(Switch);
-                    break;
-                case nameof(DateTime):
-                    ret = typeof(DateTimePicker<>).MakeGenericType(fieldType);
-                    break;
-                case nameof(Int16):
-                case nameof(Int32):
-                case nameof(Int64):
-                case nameof(Single):
-                case nameof(Double):
-                case nameof(Decimal):
-                    ret = typeof(BootstrapInputNumber<>).MakeGenericType(fieldType);
-                    break;
-                case nameof(String):
-                    if (hasRows)
-                    {
-                        ret = typeof(Textarea);
-                    }
-                    else
-                    {
-                        ret = typeof(BootstrapInput<>).MakeGenericType(typeof(string));
-                    }
-                    break;
-            }
+            ret = typeof(BootstrapInputNumber<>).MakeGenericType(fieldType);
+        }
+        else if (fieldType.IsDateTime())
+        {
+            ret = typeof(DateTimePicker<>).MakeGenericType(fieldType);
+        }
+        else if (fieldType.IsBoolean())
+        {
+            ret = typeof(Switch);
+        }
+        else if (fieldType == typeof(string))
+        {
+            ret = hasRows ? typeof(Textarea) : typeof(BootstrapInput<>).MakeGenericType(typeof(string));
         }
         return ret ?? typeof(BootstrapInput<>).MakeGenericType(fieldType);
     }
@@ -638,40 +653,31 @@ public static class Utility
     /// <param name="fieldName">字段名称</param>
     /// <param name="item">IEditorItem 实例</param>
     /// <returns></returns>
-    private static IEnumerable<KeyValuePair<string, object>> CreateMultipleAttributes(Type fieldType, object model, string fieldName, IEditorItem item)
+    private static Dictionary<string, object> CreateMultipleAttributes(Type fieldType, object model, string fieldName, IEditorItem item)
     {
-        var ret = new List<KeyValuePair<string, object>>();
+        var ret = new Dictionary<string, object>();
         var type = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
-        switch (type.Name)
+        if (type.Name == nameof(String))
         {
-            case nameof(String):
-                var ph = item.PlaceHolder ?? Utility.GetPlaceHolder(model, fieldName);
-                if (ph != null)
-                {
-                    ret.Add(new("placeholder", ph));
-                }
-                if (item.Rows != 0)
-                {
-                    ret.Add(new("rows", item.Rows));
-                }
-                break;
-            case nameof(Int16):
-            case nameof(Int32):
-            case nameof(Int64):
-            case nameof(Single):
-            case nameof(Double):
-            case nameof(Decimal):
-                if (item.Step != null)
-                {
-                    var step = item.Step.ToString();
-                    if (!string.IsNullOrEmpty(step))
-                    {
-                        ret.Add(new("Step", step));
-                    }
-                }
-                break;
+            var ph = item.PlaceHolder ?? GetPlaceHolder(model, fieldName);
+            if (ph != null)
+            {
+                ret.Add("placeholder", ph);
+            }
+            if (item.Rows != 0)
+            {
+                ret.Add("rows", item.Rows);
+            }
+        }
+        else if (type.IsNumber())
+        {
+            if (!string.IsNullOrEmpty(item.Step))
+            {
+                ret.Add("Step", item.Step);
+            }
         }
         return ret;
+
     }
 
     /// <summary>
@@ -683,7 +689,7 @@ public static class Utility
     /// <param name="col"></param>
     /// <param name="callback"></param>
     /// <returns></returns>
-    public static Func<TType, Task> CreateOnValueChangedCallback<TModel, TType>(TModel model, ITableColumn col, Func<TModel, ITableColumn, object?, Task> callback) => new(v => callback(model, col, v));
+    public static Func<TType, Task> CreateOnValueChangedCallback<TModel, TType>(TModel model, ITableColumn col, Func<TModel, ITableColumn, object?, Task> callback) => v => callback(model, col, v);
 
     /// <summary>
     /// 创建 OnValueChanged 回调委托
@@ -773,7 +779,7 @@ public static class Utility
                     var mi = instance.GetType().GetMethod(nameof(List<string>.AddRange));
                     if (mi != null)
                     {
-                        mi.Invoke(instance, new object?[] { value });
+                        mi.Invoke(instance, [value]);
                         var invoker = CacheManager.CreateConverterInvoker(t);
                         var v = invoker.Invoke(instance);
                         ret = string.Join(",", v);
@@ -792,7 +798,7 @@ public static class Utility
     /// <param name="fieldName"></param>
     /// <param name="fieldType"></param>
     /// <returns></returns>
-    public static object? GenerateValueChanged(ComponentBase component, object model, string fieldName, Type fieldType)
+    public static object GenerateValueChanged(ComponentBase component, object model, string fieldName, Type fieldType)
     {
         var valueChangedInvoker = CreateLambda(fieldType).Compile();
         return valueChangedInvoker(component, model, fieldName);
@@ -824,7 +830,7 @@ public static class Utility
     /// </summary>
     /// <param name="source"></param>
     /// <returns></returns>
-    public static IEnumerable<IEditorItem> GenerateEditorItems<TModel>(IEnumerable<ITableColumn>? source = null) => Utility.GetTableColumns<TModel>(source);
+    public static IEnumerable<IEditorItem> GenerateEditorItems<TModel>(IEnumerable<ITableColumn>? source = null) => GetTableColumns<TModel>(source);
 
     /// <summary>
     /// 通过指定类型创建 IStringLocalizer 实例

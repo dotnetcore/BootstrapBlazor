@@ -1,10 +1,7 @@
 :root {
-    --bb-disabled-bg: #{$bb-disabled-bg};
-    --bb-disabled-color: #{$bb-disabled-color};
     --bb-border-focus-color: #{$bb-border-focus-color};
     --bb-border-hover-color: #{$bb-border-hover-color};
     --bb-height: #{$bb-height};
-    --bb-disabled-opactiy: #{$bb-disabled-opactiy};
     --bb-dropdown-max-height: #{$bb-dropdown-max-height};
     --bb-shadow: #{$bb-shadow};
     --bb-hover-shadow: #{$bb-hover-shadow};
@@ -35,11 +32,10 @@ a, a:hover, a:focus {
     cursor: not-allowed !important;
 }
 
-.disabled > i,
 .disabled .range-separator,
-:disabled,
-.form-control:disabled {
-    opacity: var(--bb-disabled-opactiy);
+:disabled {
+    background-color: var(--bs-secondary-bg);
+    opacity: 1;
 }
 
 :focus-visible,
@@ -51,4 +47,26 @@ a, a:hover, a:focus {
 .btn-group > .btn:not(.dropdown-toggle):not(:last-child) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+}
+
+@mixin direction($var, $child) {
+    > .datetime-picker:not(:#{$child}-child) .form-control,
+    > .select:not(:#{$child}-child) .form-control,
+    > .switch:not(:#{$child}-child),
+    > .multi-select:not(:#{$child}-child) .dropdown-toggle,
+    > [data-bs-toggle]:not(:#{$child}-child) > .form-control,
+    > .auto-complete:not(:#{$child}-child) .form-control {
+        border-top-#{$var}-radius: 0;
+        border-bottom-#{$var}-radius: 0;
+    }
+}
+
+.input-group {
+    @include direction(right,last);
+    @include direction(left,first)
+}
+
+.btn-group {
+    @include direction(right,last);
+    @include direction(left,first)
 }

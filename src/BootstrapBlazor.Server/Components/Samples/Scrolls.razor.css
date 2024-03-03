@@ -1,5 +1,4 @@
 ﻿.scroll-demo {
-    border: solid 1px var(--bs-secondary);
-    padding: .5rem;
+    padding: .125rem;
     border-radius: var(--bs-border-radius);
 }

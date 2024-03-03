@@ -7,7 +7,7 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// ITableCellButton 接口
 /// </summary>
-public interface ITableCellButton
+public interface ITableCellButton : ITableCellComponent
 {
     /// <summary>
     /// 获得/设置 点击按钮是否选中正行 默认 true 选中

@@ -25,7 +25,11 @@ public partial class BaseLayout : IDisposable
 
     [Inject]
     [NotNull]
-    private IDispatchService<GiteePostBody>? DispatchService { get; set; }
+    private IDispatchService<GiteePostBody>? CommitDispatchService { get; set; }
+
+    [Inject]
+    [NotNull]
+    private IDispatchService<RebootMessage>? RebootDispatchService { get; set; }
 
     [NotNull]
     private string? FlowText { get; set; }
@@ -45,6 +49,9 @@ public partial class BaseLayout : IDisposable
     [NotNull]
     private string? ChatTooltip { get; set; }
 
+    [NotNull]
+    private string? ThemeTooltip { get; set; }
+
     /// <summary>
     /// <inheritdoc/>
     /// </summary>
@@ -58,11 +65,13 @@ public partial class BaseLayout : IDisposable
         CancelText ??= Localizer[nameof(CancelText)];
         Title ??= Localizer[nameof(Title)];
         ChatTooltip ??= Localizer[nameof(ChatTooltip)];
+        ThemeTooltip ??= Localizer[nameof(ThemeTooltip)];
 
-        DispatchService.Subscribe(Notify);
+        CommitDispatchService.Subscribe(NotifyCommit);
+        RebootDispatchService.Subscribe(NotifyReboot);
     }
 
-    private async Task Notify(DispatchEntry<GiteePostBody> payload)
+    private async Task NotifyCommit(DispatchEntry<GiteePostBody> payload)
     {
         if (payload.CanDispatch())
         {
@@ -81,6 +90,22 @@ public partial class BaseLayout : IDisposable
         }
     }
 
+    private async Task NotifyReboot(DispatchEntry<RebootMessage> payload)
+    {
+        if (payload.Entry != null)
+        {
+            var option = new ToastOption()
+            {
+                Category = ToastCategory.Error,
+                Title = payload.Entry.Title,
+                Delay = 120 * 1000,
+                ForceDelay = true,
+                Content = payload.Entry.Content
+            };
+            await Toast.Show(option);
+        }
+    }
+
     /// <summary>
     /// 释放资源
     /// </summary>
@@ -89,7 +114,8 @@ public partial class BaseLayout : IDisposable
     {
         if (disposing)
         {
-            DispatchService.UnSubscribe(Notify);
+            CommitDispatchService.UnSubscribe(NotifyCommit);
+            RebootDispatchService.UnSubscribe(NotifyReboot);
         }
     }
 

@@ -45,7 +45,12 @@
 
     .page-link {
         padding: var(--bb-pagination-link-padding);
+        cursor: pointer;
     }
+}
+
+[data-bs-theme='dark'] .pagination {
+    --bs-pagination-active-border-color: var(--bs-border-color);
 }
 
 @media (min-width: 375px) {

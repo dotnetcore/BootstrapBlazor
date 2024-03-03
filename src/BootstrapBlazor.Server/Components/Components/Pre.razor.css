@@ -3,6 +3,7 @@
     border: 1px solid var(--bs-border-color);
     border-radius: var(--bs-border-radius);
     overflow: hidden;
+    margin-bottom: 1rem;
 }
 
     .pre-code .loading {
@@ -12,17 +13,6 @@
     .pre-code.loaded > pre > code {
         display: none;
     }
-
-::deep .btn-primary {
-    position: absolute;
-    top: .65rem;
-    right: 1.5rem;
-    font-size: 65%;
-    --bs-btn-color: var(--bs-primary);
-    --bs-btn-bg: #fff;
-    --bs-btn-padding-y: .25rem;
-    --bs-btn-padding-x: .5rem;
-}
 
 ::deep .btn-group {
     position: absolute;

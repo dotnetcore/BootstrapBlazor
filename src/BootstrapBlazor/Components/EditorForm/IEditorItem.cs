@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// IEditorItem 接口
 /// </summary>
 public interface IEditorItem
 {
@@ -20,20 +20,42 @@ public interface IEditorItem
     bool Editable { get; set; }
 
     /// <summary>
-    /// 获得/设置 当前列编辑时是否只读 默认为 false 自动生成 UI 为不可编辑 div
+    /// 获得/设置 当前编辑项是否只读 默认为 false
+    /// <para>新建与编辑时可单独设置 <see cref="IsReadonlyWhenAdd"/> 与 <seealso cref="IsReadonlyWhenEdit"/></para>
     /// </summary>
-    /// <remarks>此属性覆盖 <see cref="IsReadonlyWhenAdd"/> 与 <see cref="IsReadonlyWhenEdit"/> 即新建与编辑时均只读</remarks>
+    /// <remarks>设置 <see cref="Readonly"/> 值为 true 时，<see cref="IsReadonlyWhenAdd"/> 与 <seealso cref="IsReadonlyWhenEdit"/> 值被覆盖</remarks>
     bool Readonly { get; set; }
 
     /// <summary>
     /// 获得/设置 新建时此列只读 默认为 false
     /// </summary>
+    /// <remarks>设置 <see cref="Readonly"/> 值为 true 时，<see cref="IsReadonlyWhenAdd"/> 值被覆盖</remarks>
     bool IsReadonlyWhenAdd { get; set; }
 
     /// <summary>
     /// 获得/设置 编辑时此列只读 默认为 false
     /// </summary>
+    /// <remarks>设置 <see cref="Readonly"/> 值为 true 时，<see cref="IsReadonlyWhenEdit"/> 值被覆盖</remarks>
     bool IsReadonlyWhenEdit { get; set; }
+
+    /// <summary>
+    /// 获得/设置 当前编辑项是否显示 默认为 true
+    /// <para>新建与编辑时可单独设置 <see cref="IsVisibleWhenAdd"/> 与 <seealso cref="IsVisibleWhenEdit"/></para>
+    /// <remarks>设置 <see cref="Visible"/> 值为 false 时，<see cref="IsVisibleWhenAdd"/> 与 <seealso cref="IsVisibleWhenEdit"/> 值被覆盖</remarks>
+    /// </summary>
+    bool Visible { get; set; }
+
+    /// <summary>
+    /// 获得/设置 新建时是否此列显示  默认为 true
+    /// </summary>
+    /// <remarks>设置 <see cref="Visible"/> 值为 false 时，<see cref="IsVisibleWhenAdd"/> 值被覆盖</remarks>
+    bool IsVisibleWhenAdd { get; set; }
+
+    /// <summary>
+    /// 获得/设置 编辑时是否此列显示  默认为 true
+    /// </summary>
+    /// <remarks>设置 <see cref="Visible"/> 值为 false 时，<see cref="IsVisibleWhenEdit"/> 值被覆盖</remarks>
+    bool IsVisibleWhenEdit { get; set; }
 
     /// <summary>
     /// 获得/设置 是否不进行验证 默认为 false
@@ -61,9 +83,9 @@ public interface IEditorItem
     IEnumerable<SelectedItem>? Items { get; set; }
 
     /// <summary>
-    /// 获得/设置 步长 默认为 null
+    /// 获得/设置 步长 默认为 null 设置 any 时忽略检查
     /// </summary>
-    object? Step { get; set; }
+    string? Step { get; set; }
 
     /// <summary>
     /// 获得/设置 Textarea 行数 默认为 0
@@ -101,14 +123,19 @@ public interface IEditorItem
     bool IsPopover { get; set; }
 
     /// <summary>
-    /// 获得/设置 字典数据源字符串比较规则 默认 StringComparison.OrdinalIgnoreCase 大小写不敏感 
+    /// 获得/设置 字典数据源字符串比较规则 默认 <see cref="StringComparison.OrdinalIgnoreCase" /> 大小写不敏感 
     /// </summary>
     StringComparison LookupStringComparison { get; set; }
 
     /// <summary>
-    /// 获得/设置 LookupService 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作
+    /// 获得/设置 <see cref="ILookupService"/> 服务获取 Lookup 数据集合键值 常用于外键自动转换为名称操作，可以通过 <see cref="LookupServiceData"/> 传递自定义数据
     /// </summary>
     string? LookupServiceKey { get; set; }
+
+    /// <summary>
+    /// 获得/设置 <see cref="ILookupService"/> 服务获取 Lookup 数据集合键值自定义数据，通过 <see cref="LookupServiceKey"/> 指定键值
+    /// </summary>
+    object? LookupServiceData { get; set; }
 
     /// <summary>
     /// 获得/设置 自定义验证集合

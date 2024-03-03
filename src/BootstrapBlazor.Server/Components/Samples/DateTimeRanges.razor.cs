@@ -14,9 +14,9 @@ public sealed partial class DateTimeRanges
 
     private DateTimeRangeValue NormalDateTimeRangeValue { get; set; } = new();
 
-    private Task NormalOnConfirm(DateTimeRangeValue value)
+    private Task OnNormalConfirm(DateTimeRangeValue value)
     {
-        NormalLogger.Log($"选择的时间范围是: {value.Start:yyyy-MM-dd} - {value.End:yyyy-MM-dd}");
+        NormalLogger.Log($"选择的时间范围是: {value.Start:yyyy-MM-dd HH:mm:ss} - {value.End:yyyy-MM-dd HH:mm:ss}");
         return Task.CompletedTask;
     }
 
@@ -119,8 +119,8 @@ public sealed partial class DateTimeRanges
     /// 获得事件方法
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<EventItem> GetEvents() => new EventItem[]
-    {
+    private static List<EventItem> GetEvents() =>
+    [
         new()
         {
             Name = "OnConfirm",
@@ -139,14 +139,14 @@ public sealed partial class DateTimeRanges
             Description="ValueChanged callback delegate",
             Type ="Func<DateTimeRangeValue,Task>"
         }
-    };
+    ];
 
     /// <summary>
     /// Get property method
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private static List<AttributeItem> GetAttributes() =>
+    [
         new()
         {
             Name = "ShowLabel",
@@ -226,6 +226,14 @@ public sealed partial class DateTimeRanges
             Type = "IEnumerable<DateTimeRangeSidebarItem>",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new()
+        {
+            Name = "IsEditable",
+            Description = "Is manual date entry allowed",
+            Type = "bool",
+            ValueList = "true/false",
+            DefaultValue = "false"
         }
-    };
+    ];
 }

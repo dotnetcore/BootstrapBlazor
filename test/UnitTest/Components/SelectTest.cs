@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
+using AngleSharp.Dom;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 using System.Reflection;
 
@@ -19,8 +20,8 @@ public class SelectTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ShowSearch, true);
                 pb.Add(a => a.Items, new List<SelectedItem>()
                 {
-                    new SelectedItem("1", "Test1"),
-                    new SelectedItem("2", "Test2") { IsDisabled = true }
+                    new("1", "Test1"),
+                    new("2", "Test2") { IsDisabled = true }
                 });
             });
         });
@@ -92,9 +93,9 @@ public class SelectTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsClearable, true);
             pb.Add(a => a.Items, new List<SelectedItem>()
             {
-                new SelectedItem("", "请选择"),
-                new SelectedItem("2", "Test2"),
-                new SelectedItem("3", "Test3")
+                new("", "请选择"),
+                new("2", "Test2"),
+                new("3", "Test3")
             });
             pb.Add(a => a.Value, "");
             pb.Add(a => a.OnValueChanged, v =>
@@ -169,8 +170,8 @@ public class SelectTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
-                new SelectedItem("", "Test"),
-                new SelectedItem("1", "Test2")
+                new("", "Test"),
+                new("1", "Test2")
             });
             pb.Add(a => a.Value, "");
             pb.Add(a => a.OnSelectedItemChanged, item =>
@@ -209,9 +210,9 @@ public class SelectTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
-                new SelectedItem("", "Test"),
-                new SelectedItem("1", "Test1"),
-                new SelectedItem("2", "Test2")
+                new("", "Test"),
+                new("1", "Test1"),
+                new("2", "Test2")
             });
             pb.Add(a => a.Value, "2");
         });
@@ -240,8 +241,8 @@ public class SelectTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
-                new SelectedItem("1", "Test"),
-                new SelectedItem("2", "Test2")
+                new("1", "Test"),
+                new("2", "Test2")
             });
             pb.Add(a => a.Value, "");
             pb.Add(a => a.OnSelectedItemChanged, item =>
@@ -294,9 +295,9 @@ public class SelectTest : BootstrapBlazorTestBase
                 pb.Add(a => a.ValueExpression, model.GenerateValueExpression());
                 pb.Add(a => a.Items, new SelectedItem[]
                 {
-                    new SelectedItem("", "Test"),
-                    new SelectedItem("1", "Test1") { GroupName = "Test1" },
-                    new SelectedItem("2", "Test2") { GroupName = "Test2" }
+                    new("", "Test"),
+                    new("1", "Test1") { GroupName = "Test1" },
+                    new("2", "Test2") { GroupName = "Test2" }
                 });
             });
         });
@@ -325,8 +326,8 @@ public class SelectTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
-                new SelectedItem("1", "Test1") { GroupName = "Test1" },
-                new SelectedItem("2", "Test2") { GroupName = "Test2" }
+                new("1", "Test1") { GroupName = "Test1" },
+                new("2", "Test2") { GroupName = "Test2" }
             });
             pb.Add(a => a.Value, "2");
             pb.Add(a => a.ItemTemplate, item => builder =>
@@ -347,8 +348,8 @@ public class SelectTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
-                new SelectedItem("1", "Test1") { GroupName = "Test1" },
-                new SelectedItem("2", "Test2") { GroupName = "Test2" }
+                new("1", "Test1") { GroupName = "Test1" },
+                new("2", "Test2") { GroupName = "Test2" }
             });
             pb.Add(a => a.Value, "2");
             pb.Add(a => a.GroupItemTemplate, title => builder =>
@@ -377,8 +378,8 @@ public class SelectTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new List<SelectedItem>
             {
-                new SelectedItem("true", "True"),
-                new SelectedItem("false", "False"),
+                new("true", "True"),
+                new("false", "False"),
             });
             pb.Add(a => a.Value, null);
         });
@@ -396,8 +397,8 @@ public class SelectTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new List<SelectedItem>
             {
-                new SelectedItem("1", "Text1"),
-                new SelectedItem("2", "Text2"),
+                new("1", "Text1"),
+                new("2", "Text2"),
             });
             pb.Add(a => a.Value, v);
             pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<SelectedItem>(this, i => v = i));
@@ -415,8 +416,8 @@ public class SelectTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
-                new SelectedItem("1", "Test1"),
-                new SelectedItem("2", "Test2")
+                new("1", "Test1"),
+                new("2", "Test2")
             });
             pb.Add(a => a.Value, "2");
             pb.Add(a => a.ShowSearch, true);
@@ -432,8 +433,8 @@ public class SelectTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
-                new SelectedItem("1", "Test1"),
-                new SelectedItem("2", "Test2")
+                new("1", "Test1"),
+                new("2", "Test2")
             });
             pb.Add(a => a.Value, "2");
             pb.Add(a => a.ShowSearch, true);
@@ -450,8 +451,8 @@ public class SelectTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
-                new SelectedItem("1", "Test1"),
-                new SelectedItem("2", "Test2")
+                new("1", "Test1"),
+                new("2", "Test2")
             });
             pb.Add(a => a.Value, "2");
             pb.Add(a => a.CustomClass, "test-custom-class");
@@ -466,8 +467,8 @@ public class SelectTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
-                new SelectedItem("1", "Test1"),
-                new SelectedItem("2", "Test2")
+                new("1", "Test1"),
+                new("2", "Test2")
             });
             pb.Add(a => a.Value, "2");
         });
@@ -487,8 +488,8 @@ public class SelectTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
-                new SelectedItem("1", "Test1"),
-                new SelectedItem("2", "Test2")
+                new("1", "Test1"),
+                new("2", "Test2")
             });
             pb.Add(a => a.Value, "2");
             pb.Add(a => a.DropdownIcon, "search-icon");
@@ -503,8 +504,8 @@ public class SelectTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
-                new SelectedItem("1", "Test1"),
-                new SelectedItem("2", "Test2")
+                new("1", "Test1"),
+                new("2", "Test2")
             });
             pb.Add(a => a.Value, "2");
             pb.Add(a => a.DisplayTemplate, item => builder =>
@@ -522,8 +523,8 @@ public class SelectTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
-                new SelectedItem("1", "Test1"),
-                new SelectedItem("2", "Test2")
+                new("1", "Test1"),
+                new("2", "Test2")
             });
             pb.Add(a => a.Value, "2");
             pb.Add(a => a.IsPopover, true);
@@ -539,8 +540,8 @@ public class SelectTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
-                new SelectedItem("1", "Test1"),
-                new SelectedItem("2", "Test2")
+                new("1", "Test1"),
+                new("2", "Test2")
             });
             pb.Add(a => a.Value, "2");
             pb.Add(a => a.IsPopover, false);
@@ -556,8 +557,8 @@ public class SelectTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
-                new SelectedItem("1", "Test1"),
-                new SelectedItem("2", "Test2")
+                new("1", "Test1"),
+                new("2", "Test2")
             });
             pb.Add(a => a.Value, "2");
             pb.Add(a => a.Placement, Placement.Top);
@@ -578,8 +579,8 @@ public class SelectTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
-                new SelectedItem("1", "Test1"),
-                new SelectedItem("2", "Test2")
+                new("1", "Test1"),
+                new("2", "Test2")
             });
             pb.Add(a => a.Value, "2");
             pb.Add(a => a.IsPopover, true);
@@ -600,8 +601,8 @@ public class SelectTest : BootstrapBlazorTestBase
         {
             pb.Add(a => a.Items, new SelectedItem[]
             {
-                new SelectedItem("1", "Test1"),
-                new SelectedItem("2", "Test2")
+                new("1", "Test1"),
+                new("2", "Test2")
             });
             pb.Add(a => a.Value, "2");
             pb.Add(a => a.IsVirtualize, true);
@@ -635,8 +636,8 @@ public class SelectTest : BootstrapBlazorTestBase
                 {
                     Items = new SelectedItem[]
                     {
-                        new SelectedItem("1", "Test1"),
-                        new SelectedItem("2", "Test2")
+                        new("1", "Test1"),
+                        new("2", "Test2")
                     },
                     TotalCount = 2
                 });
@@ -674,8 +675,8 @@ public class SelectTest : BootstrapBlazorTestBase
                 {
                     Items = new SelectedItem[]
                     {
-                        new SelectedItem("1", "Test1"),
-                        new SelectedItem("2", "Test2")
+                        new("1", "Test1"),
+                        new("2", "Test2")
                     },
                     TotalCount = 2
                 });
@@ -721,8 +722,8 @@ public class SelectTest : BootstrapBlazorTestBase
                 {
                     Items = new SelectedItem[]
                     {
-                        new SelectedItem("1", "Test1"),
-                        new SelectedItem("2", "Test2")
+                        new("1", "Test1"),
+                        new("2", "Test2")
                     },
                     TotalCount = 2
                 });
@@ -762,8 +763,8 @@ public class SelectTest : BootstrapBlazorTestBase
     {
         var items = new SelectedItem[]
         {
-            new SelectedItem("1", "Test1"),
-            new SelectedItem("2", "Test2")
+            new("1", "Test1"),
+            new("2", "Test2")
         };
         var cut = Context.RenderComponent<Select<SelectedItem>>(pb =>
         {
@@ -777,12 +778,12 @@ public class SelectTest : BootstrapBlazorTestBase
         string value = "";
         SelectedItem result = new();
         string? msg = null;
-        mi?.Invoke(select, new object?[] { value, result, msg });
+        mi?.Invoke(select, [value, result, msg]);
 
         var p = select.GetType().GetProperty("VirtualItems", BindingFlags.NonPublic | BindingFlags.Instance);
         p?.SetValue(select, items);
         value = "1";
-        mi?.Invoke(select, new object?[] { value, result, msg });
+        mi?.Invoke(select, [value, result, msg]);
     }
 
     [Fact]
@@ -799,5 +800,40 @@ public class SelectTest : BootstrapBlazorTestBase
             pb.Add(a => a.IsMarkupString, true);
         });
         Assert.Contains("<div>Test1</div>", cut.Markup);
+    }
+
+    [Fact]
+    public async Task IsEditable_Ok()
+    {
+        var cut = Context.RenderComponent<Select<string>>(pb =>
+        {
+            pb.Add(a => a.Items, new SelectedItem[]
+            {
+                new("1", "<div>Test1</div>"),
+                new("2", "<div>Test2</div>")
+            });
+            pb.Add(a => a.Value, "2");
+        });
+        var input = cut.Find(".form-select");
+        Assert.True(input.IsReadOnly());
+
+        var updated = false;
+        cut.SetParametersAndRender(pb =>
+        {
+            pb.Add(a => a.IsEditable, true);
+            pb.Add(a => a.OnInputChangedCallback, v =>
+            {
+                updated = true;
+                return Task.CompletedTask;
+            });
+        });
+        Assert.False(input.IsReadOnly());
+
+        await cut.InvokeAsync(() =>
+        {
+            input.Change("Test3");
+        });
+        Assert.Equal("Test3", cut.Instance.Value);
+        Assert.True(updated);
     }
 }

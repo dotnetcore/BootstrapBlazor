@@ -34,7 +34,7 @@ public partial class ToastContainer : IDisposable
     /// <summary>
     /// 获得 弹出窗集合
     /// </summary>
-    private List<ToastOption> Toasts { get; } = new List<ToastOption>();
+    private List<ToastOption> Toasts { get; } = [];
 
     /// <summary>
     /// 获得/设置 显示文字
@@ -61,24 +61,34 @@ public partial class ToastContainer : IDisposable
         Placement = Options.CurrentValue.ToastPlacement ?? Placement.BottomEnd;
 
         // 注册 Toast 弹窗事件
-        if (ToastService != null)
-        {
-            ToastService.Register(this, Show);
-        }
+        ToastService.Register(this, Show);
     }
 
     private async Task Show(ToastOption option)
     {
+        if (option.PreventDuplicates)
+        {
+            var lastOption = Toasts.LastOrDefault();
+            if (lastOption != null && option.Title == lastOption.Title && option.Content == lastOption.Content)
+            {
+                return;
+            }
+        }
         Toasts.Add(option);
         await InvokeAsync(StateHasChanged);
+        return;
     }
 
     /// <summary>
     /// 关闭弹窗
     /// </summary>
     /// <param name="option"></param>
-    public void Close(ToastOption option)
+    public async Task Close(ToastOption option)
     {
+        if (option.OnCloseAsync != null)
+        {
+            await option.OnCloseAsync();
+        }
         Toasts.Remove(option);
         StateHasChanged();
     }

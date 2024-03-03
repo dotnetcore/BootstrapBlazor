@@ -17,7 +17,6 @@
     --bb-calendar-cell-padding: #{$bb-calendar-cell-padding};
     --bb-calendar-cell-height: #{$bb-calendar-cell-height};
     --bb-calendar-cell-hover-bg: #{$bb-calendar-cell-hover-bg};
-    --bb-calendar-cell-disabled-color: var(--bb-disabled-color);
     --bb-calendar-header-padding: #{$bb-calendar-header-padding};
     --bb-calendar-today-color: #{$bb-calendar-today-color};
     --bb-calendar-selected-color: #{$bb-calendar-selected-color};
@@ -66,7 +65,7 @@
                 background-color: var(--bb-calendar-toolbar-hover-bg);
             }
 
-            &:active {
+            &:not(:focus):not(:hover):active {
                 color: var(--bb-calendar-toolbar-active-color);
                 border-color: var(--bb-calendar-toolbar-active-border-color);
                 outline: none;
@@ -98,14 +97,14 @@
 
         tr {
             td {
-                border-bottom: 1px solid var(--bs-border-color);
-                border-right: 1px solid var(--bs-border-color);
+                border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+                border-right: var(--bs-border-width) solid var(--bs-border-color);
                 vertical-align: top;
                 transition: background-color .2s ease;
                 cursor: pointer;
 
                 &:first-child {
-                    border-left: 1px solid var(--bs-border-color);
+                    border-left: var(--bs-border-width) solid var(--bs-border-color);
                 }
 
                 &.is-today {
@@ -119,11 +118,11 @@
             }
 
             &:first-child td {
-                border-top: 1px solid var(--bs-border-color);
+                border-top: var(--bs-border-width) solid var(--bs-border-color);
             }
 
             &:not(.is-range) td.next, &:not(.is-range) td.prev {
-                color: var(--bb-calendar-cell-disabled-color);
+                color: rgba(var(--bs-body-color-rgb), 0.5);
             }
         }
     }

@@ -48,8 +48,6 @@ public partial class PdfReaders
 
     private int Page { get; set; } = 3;
 
-    private bool ForcePDFJS { get; set; } = true;
-
     private async Task ApplyZoom()
     {
         Zoom = Zoom switch
@@ -119,8 +117,8 @@ public partial class PdfReaders
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    protected IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    protected AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Filename",
@@ -272,6 +270,14 @@ public partial class PdfReaders
             Type = "bool",
             ValueList = "-",
             DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(PdfReader.LocalFileName),
+            Description = Localizer[nameof(PdfReader.LocalFileName)],
+            Type = "string",
+            ValueList = " — ",
+            DefaultValue = " — "
         }
-    };
+    ];
 }

@@ -21,8 +21,8 @@ public sealed partial class LinkButtons
     /// GetAttributes
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = nameof(LinkButton.Text),
@@ -87,5 +87,5 @@ public sealed partial class LinkButtons
             ValueList = "—",
             DefaultValue = " — "
         }
-    };
+    ];
 }

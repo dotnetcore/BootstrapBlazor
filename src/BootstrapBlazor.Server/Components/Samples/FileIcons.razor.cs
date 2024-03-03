@@ -13,8 +13,8 @@ public partial class FileIcons
     [NotNull]
     private IStringLocalizer<FileIcons>? Localizer { get; set; }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = nameof(FileIcon.Extension),
@@ -39,5 +39,5 @@ public partial class FileIcons
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

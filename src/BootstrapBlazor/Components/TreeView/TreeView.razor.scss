@@ -1,16 +1,17 @@
-﻿.tree-view {
+.tree-view {
+    --bb-tree-padding: #{$bb-tree-padding};
+    --bb-tree-margin: #{$bb-tree-margin};
+    --bb-tree-ul-padding-left: #{$bb-tree-ul-padding-left};
+    --bb-tree-item-margin: #{$bb-tree-item-margin};
+    --bb-tree-icon-width: #{$bb-tree-icon-width};
+    --bb-tree-check-margin: #{$bb-tree-check-margin};
+    --bb-tree-node-padding: #{$bb-tree-node-padding};
+    --bb-tree-item-active-color: #{$bb-tree-item-active-color};
+    --bb-tree-item-active-bg: #{$bb-tree-item-active-bg};
+    --bb-tree-item-hover-bg: #{$bb-tree-item-hover-bg};
+    --bb-tree-icon-margin-right: #{$bb-tree-icon-margin-right};
+    --bb-tree-disabled-opacity: .5;
     position: relative;
-    --bb-tree-padding: 0;
-    --bb-tree-margin: 0;
-    --bb-tree-ul-padding-left: 20px;
-    --bb-tree-item-margin: 1px 0;
-    --bb-tree-icon-width: 22px;
-    --bb-tree-check-margin: 0 4px;
-    --bb-tree-node-padding: .25rem .5rem;
-    --bb-tree-item-active-color: #409eff;
-    --bb-tree-item-active-bg: #e9ecef;
-    --bb-tree-item-hover-bg: var(--bs-secondary);
-    --bb-tree-icon-margin-right: .5rem;
 }
 
     .tree-view .tree-root {
@@ -47,6 +48,10 @@
                 align-items: center;
                 justify-content: center;
                 visibility: hidden;
+
+                &.disabled {
+                    opacity: var(--bb-tree-disabled-opacity);
+                }
             }
 
             .tree-view .tree-item .tree-content .show .node-icon {
@@ -59,12 +64,11 @@
         padding: var(--bb-tree-node-padding);
         border-radius: var(--bs-border-radius);
         flex: 1;
-    }
 
-        .tree-view .tree-node.disabled,
-        .tree-view .tree-item.disabled > .tree-content > .node-icon {
-            opacity: var(--bb-disabled-opactiy);
+        &.disabled {
+            opacity: var(--bb-tree-disabled-opacity);
         }
+    }
 
         .tree-view .tree-node:hover {
             background-color: var(--bb-tree-item-hover-bg);

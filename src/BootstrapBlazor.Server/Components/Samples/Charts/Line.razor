@@ -1,5 +1,4 @@
 ﻿@page "/chart/line"
-@layout PageLayout
 @inject IStringLocalizer<Line> Localizer
 @inject CodeSnippetService CodeSnippetService
 @inherits WebSiteModuleComponentBase
@@ -18,7 +17,7 @@
             <button class="btn btn-primary" @onclick="e => Utility.RemoveData(LineChart, ref LineDataCount)"><i class="fa-solid fa-minus"></i><span>@Localizer["LineOnInitRemoveData"]</span></button>
         </div>
     </div>
-    <ConsoleLogger @ref="Logger" class="mt-3" />
+    <ConsoleLogger @ref="Logger" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["LineTensionTitle"]"

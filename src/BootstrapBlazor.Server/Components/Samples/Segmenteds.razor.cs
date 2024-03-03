@@ -11,44 +11,44 @@ public partial class Segmenteds
 {
     private BootstrapBlazor.Components.ConsoleLogger? ConsoleLogger { get; set; }
 
-    private List<SegmentedOption<string>> Items { get; } = new()
-    {
+    private List<SegmentedOption<string>> Items { get; } =
+    [
         new() { Value = "Daily", Text = "Daily" },
         new() { Value = "Weekly", Text = "Weekly" },
         new() { Value = "Monthly", Text = "Monthly" },
         new() { Value = "Quarterly", Text = "Quarterly" },
         new() { Value = "Yearly", Text = "Yearly" }
-    };
+    ];
 
-    private List<SegmentedOption<string>> DisabledItems { get; } = new()
-    {
+    private List<SegmentedOption<string>> DisabledItems { get; } =
+    [
         new() { Value = "123", Text = "123" },
         new() { Value = "456", Text = "456", IsDisabled = true },
         new() { Value = "789", Text = "789" },
         new() { Value = "000", Text = "long-text-long-text-long-text-long-text" }
-    };
+    ];
 
-    private List<SegmentedOption<string>> ItemTemplateItems { get; } = new()
-    {
+    private List<SegmentedOption<string>> ItemTemplateItems { get; } =
+    [
         new() { Value = "123", Text = "123", Icon = "fa-solid fa-flag" },
         new() { Value = "456", Text = "456", Icon = "fa-solid fa-flag" },
         new() { Value = "789", Text = "789", Icon = "fa-solid fa-flag" }
-    };
+    ];
 
-    private List<SegmentedOption<string>> IconItems { get; set; } = new()
-    {
+    private List<SegmentedOption<string>> IconItems { get; set; } =
+    [
         new() { Value = "list", Text = "List", Icon = "fas fa-bars" },
         new() { Value = "chart", Text = "Chart", Icon = "fas fa-chart-column" }
-    };
+    ];
 
-    private List<SegmentedOption<string>> SizeItems { get; } = new()
-    {
+    private List<SegmentedOption<string>> SizeItems { get; } =
+    [
         new() { Value = "Daily", Text = "Daily" },
         new() { Value = "Weekly", Text = "Weekly" },
         new() { Value = "Monthly", Text = "Monthly" },
         new() { Value = "Quarterly", Text = "Quarterly" },
         new() { Value = "Yearly", Text = "Yearly" }
-    };
+    ];
 
     [NotNull]
     private ConsoleLogger? Logger { get; set; }
@@ -61,8 +61,8 @@ public partial class Segmenteds
 
     private string Value { get; set; } = "Daily";
 
-    private IEnumerable<AttributeItem> GetAttributes() => new List<AttributeItem>()
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = nameof(Segmented<string>.Items),
@@ -143,5 +143,5 @@ public partial class Segmenteds
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

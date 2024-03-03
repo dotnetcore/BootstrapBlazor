@@ -9,7 +9,7 @@
 <DemoBlock Title="@Localizer["RowCommonTitle"]"
            Introduction="@Localizer["RowCommonIntro"]"
            Name="Common">
-    <p class="mb-3"><b>@((MarkupString)Localizer["RowCommonDescription"].Value)</b></p>
+    <p><b>@((MarkupString)Localizer["RowCommonDescription"].Value)</b></p>
     <Row ItemsPerRow="ItemsPerRow.Three">
         <Card>
             <BodyTemplate>
@@ -59,7 +59,7 @@
 <DemoBlock Title="@Localizer["RowFormInlineTitle"]"
            Introduction="@Localizer["RowFormInlineIntro"]"
            Name="FormInline">
-    <p class="mb-3">@((MarkupString)Localizer["RowFormInlineDescription"].Value)</p>
+    <p>@((MarkupString)Localizer["RowFormInlineDescription"].Value)</p>
     <ValidateForm Model="@Model">
         <Row ItemsPerRow="ItemsPerRow.Two" RowType="RowType.Inline">
             <CheckboxList @bind-Value="@Model.Hobby" Items="Hobbies1" />
@@ -75,7 +75,7 @@
 <DemoBlock Title="@Localizer["RowFormTitle"]"
            Introduction="@Localizer["RowFormIntro"]"
            Name="Form">
-    <p class="mb-3">@((MarkupString)Localizer["RowFormInlineDescription"].Value)</p>
+    <p>@((MarkupString)Localizer["RowFormInlineDescription"].Value)</p>
     <ValidateForm Model="@RowFormModel">
         <Row ItemsPerRow="ItemsPerRow.Three">
             <CheckboxList @bind-Value="@RowFormModel.Hobby" Items="Hobbies2" />
@@ -91,7 +91,7 @@
 <DemoBlock Title="@Localizer["RowNestedTitle"]"
            Introduction="@Localizer["RowNestedIntro"]"
            Name="Nested">
-    <p class="mb-3">@((MarkupString)Localizer["RowFormInlineDescription"].Value)</p>
+    <p>@((MarkupString)Localizer["RowFormInlineDescription"].Value)</p>
     <ValidateForm Model="@NestedModel">
         <Row ItemsPerRow="ItemsPerRow.Two">
             <BootstrapInput @bind-Value="@NestedModel.Name" />
@@ -122,7 +122,7 @@
 <DemoBlock Title="@Localizer["RowSpanTitle"]"
            Introduction="@Localizer["RowSpanIntro"]"
            Name="RowSpan">
-    <p class="mb-3">@((MarkupString)Localizer["RowFormInlineDescription"].Value)</p>
+    <p>@((MarkupString)Localizer["RowFormInlineDescription"].Value)</p>
     <p><b>@Localizer["RowSpanTips1"]</b></p>
     <ValidateForm Model="@SpanModel">
         <Row ItemsPerRow="ItemsPerRow.Four">

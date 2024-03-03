@@ -1,29 +1,42 @@
-﻿.spinner-border-xs {
-    --bs-spinner-width: .75rem;
-    --bs-spinner-height: .75rem;
-    --bs-spinner-border-width: .1em;
-}
+.spinner {
+    --bb-spinner-border-width-xs: #{$bb-spinner-border-width-xs};
+    --bb-spinner-border-border-width-xs: #{$bb-spinner-border-border-width-xs};
+    --bb-spinner-border-width-sm: #{$bb-spinner-border-width-sm};
+    --bb-spinner-border-border-width-sm: #{$bb-spinner-border-border-width-sm};
+    --bb-spinner-border-width-lg: #{$bb-spinner-border-width-lg};
+    --bb-spinner-border-border-width-lg: #{$bb-spinner-border-border-width-lg};
+    --bb-spinner-border-width-xl: #{$bb-spinner-border-width-xl};
+    --bb-spinner-border-border-width-xl: #{$bb-spinner-border-border-width-xl};
+    --bb-spinner-border-width-xxl: #{$bb-spinner-border-width-xxl};
+    --bb-spinner-border-border-width-xxl: #{$bb-spinner-border-border-width-xxl};
 
-.spinner-border-sm {
-    --bs-spinner-width: 1rem;
-    --bs-spinner-height: 1rem;
-    --bs-spinner-border-width: .125em;
-}
+    &.spinner-border-xs {
+        --bs-spinner-width: var(--bb-spinner-border-width-xs);
+        --bs-spinner-height: var(--bb-spinner-border-width-xs);
+        --bs-spinner-border-width: var(--bb-spinner-border-border-width-xs);
+    }
 
-.spinner-border-lg {
-    --bs-spinner-width: 3rem;
-    --bs-spinner-height: 3rem;
-    --bs-spinner-border-width: .25em;
-}
+    &.spinner-border-sm {
+        --bs-spinner-width: var(--bb-spinner-border-width-sm);
+        --bs-spinner-height: var(--bb-spinner-border-width-sm);
+        --bs-spinner-border-width: var(--bb-spinner-border-border-width-sm);
+    }
 
-.spinner-border-xl {
-    --bs-spinner-width: 4rem;
-    --bs-spinner-height: 4rem;
-    --bs-spinner-border-width: .25em;
-}
+    &.spinner-border-lg {
+        --bs-spinner-width: var(--bb-spinner-border-width-lg);
+        --bs-spinner-height: var(--bb-spinner-border-width-lg);
+        --bs-spinner-border-width: var(--bb-spinner-border-border-width-lg);
+    }
 
-.spinner-border-xxl {
-    --bs-spinner-width: 6rem;
-    --bs-spinner-height: 6rem;
-    --bs-spinner-border-width: .275em;
+    &.spinner-border-xl {
+        --bs-spinner-width: var(--bb-spinner-border-width-xl);
+        --bs-spinner-height: var(--bb-spinner-border-width-xl);
+        --bs-spinner-border-width: var(--bb-spinner-border-border-width-xl);
+    }
+
+    &.spinner-border-xxl {
+        --bs-spinner-width: var(--bb-spinner-border-width-xxl);
+        --bs-spinner-height: var(--bb-spinner-border-width-xxl);
+        --bs-spinner-border-width: var(--bb-spinner-border-border-width-xxl);
+    }
 }

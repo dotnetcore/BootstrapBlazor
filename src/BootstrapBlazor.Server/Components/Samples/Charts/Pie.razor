@@ -15,7 +15,7 @@
             <button class="btn btn-primary" @onclick="e => Utility.RemoveData(PieChart, ref PieDataCount)"><i class="fa-solid fa-minus"></i><span>@Localizer["PieNormalRemoveData"]</span></button>
         </div>
     </div>
-    <ConsoleLogger @ref="Logger" class="mt-3" />
+    <ConsoleLogger @ref="Logger" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["PieAspectRatioTitle"]"

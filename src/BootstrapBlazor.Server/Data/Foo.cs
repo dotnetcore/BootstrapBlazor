@@ -136,11 +136,11 @@ public class Foo
     /// </summary>
     /// <param name="localizer"></param>
     /// <returns></returns>
-    public static List<SelectedItem> GetCompleteItems(IStringLocalizer<Foo> localizer) => new()
-    {
+    public static List<SelectedItem> GetCompleteItems(IStringLocalizer<Foo> localizer) =>
+    [
         new("True", localizer["True"]),
         new("False", localizer["False"])
-    };
+    ];
 
     /// <summary>
     /// 通过 Count 获得颜色

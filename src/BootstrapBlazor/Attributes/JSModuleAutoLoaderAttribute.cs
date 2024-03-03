@@ -7,13 +7,14 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// JSModuleAutoLoaderAttribute class
 /// </summary>
+/// <param name="path"></param>
 [AttributeUsage(AttributeTargets.Class)]
-public class JSModuleAutoLoaderAttribute : Attribute
+public class JSModuleAutoLoaderAttribute(string? path = null) : Attribute
 {
     /// <summary>
     /// 获得 Name 属性
     /// </summary>
-    public string? Path { get; }
+    public string? Path { get; } = path;
 
     /// <summary>
     /// Represents a reference to a JavaScript object Default value false
@@ -29,13 +30,4 @@ public class JSModuleAutoLoaderAttribute : Attribute
     /// 获得/设置 是否自动调用 dispose 默认 true
     /// </summary>
     public bool AutoInvokeDispose { get; set; } = true;
-
-    /// <summary>
-    /// 构造函数
-    /// </summary>
-    /// <param name="path"></param>
-    public JSModuleAutoLoaderAttribute(string? path = null)
-    {
-        Path = path;
-    }
 }

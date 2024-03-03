@@ -7,7 +7,7 @@
     <BootstrapLabel required="@Required" ShowLabelTooltip="ShowLabelTooltip" Value="@DisplayText" />
 }
 <div @attributes="@AdditionalAttributes" class="@ClassString" id="@Id">
-    <Button class="@BrowserButtonClassString" IsDisabled="@IsUploadButtonDisabled" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" />
+    <Button class="@BrowserButtonClassString" IsDisabled="@IsUploadButtonDisabled" Size="Size" Icon="@BrowserButtonIcon" Text="@BrowserButtonText" />
     @if (ShowUploadFileList)
     {
         <div class="upload-body is-list">
@@ -15,7 +15,7 @@
             {
                 <div @key="item" class="@GetItemClassString(item)">
                     <i class="@GetFileFormatClassString(item)"></i>
-                    <div class="fn">
+                    <div class="upload-item-body">
                         <span>@item.GetFileName()</span>
                         <span>(@item.Size.ToFileSizeString())</span>
                     </div>

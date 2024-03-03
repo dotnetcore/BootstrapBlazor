@@ -17,6 +17,10 @@ public partial class TablesVirtualization
     [NotNull]
     private List<Foo>? Items { get; set; }
 
+    private bool _isFixedFooter = true;
+
+    private List<SegmentedOption<bool>> _fixedFooterSegments = [];
+
     /// <summary>
     /// OnInitialized
     /// </summary>
@@ -25,6 +29,11 @@ public partial class TablesVirtualization
         base.OnInitialized();
 
         Items = Foo.GenerateFoo(LocalizerFoo);
+        _fixedFooterSegments.AddRange(
+        [
+            new SegmentedOption<bool>() { Text = Localizer["TablesFooterFixedText"], Value = true },
+            new SegmentedOption<bool>() { Text = Localizer["TablesFooterNotFixedText"], Value = false },
+        ]);
     }
 
     private async Task<QueryData<Foo>> OnQueryAsync(QueryPageOptions options)

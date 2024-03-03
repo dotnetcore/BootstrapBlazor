@@ -46,7 +46,7 @@ public static class IModelEqualityComparerExtensions
             }
             else
             {
-                // 调用 Object 对象的 Equlas 方法
+                // 调用 Object 对象的 Equals 方法
                 ret = x.Equals(y);
             }
             return ret;

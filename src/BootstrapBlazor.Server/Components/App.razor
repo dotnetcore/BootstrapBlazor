@@ -2,7 +2,7 @@
 @inject IStringLocalizer<App> Localizer
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme='light'>
 
 <head>
     <meta charset="utf-8" />
@@ -16,15 +16,15 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="favicon.png">
     <base href="/" />
-    <link rel="stylesheet" href="_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="_content/BootstrapBlazor.MaterialDesign/css/md.min.css">
-    <link rel="stylesheet" href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css">
-    <link rel="stylesheet" href="_content/BootstrapBlazor/css/motronic.min.css">
-    <link rel="stylesheet" href="BootstrapBlazor.Server.styles.css">
-    <link rel="stylesheet" href="css/site.css">
-    <link rel="stylesheet" href="css/motronic.css">
+    <Link Href="_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css" />
+    <Link Href="_content/BootstrapBlazor.MaterialDesign/css/md.min.css" />
+    <Link Href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" />
+    <Link Href="_content/BootstrapBlazor/css/motronic.min.css" />
+    <Link Href="BootstrapBlazor.Server.styles.css" />
+    <Link Href="css/site.css" />
     <title>@Localizer["Title"]</title>
     <HeadOutlet @rendermode="new InteractiveServerRenderMode(false)" />
+    <Script Src="lib/theme.js" type="module"></Script>
 </head>
 
 <body>
@@ -36,14 +36,14 @@
 
     <BlazorReconnector @rendermode="new InteractiveServerRenderMode(false)" />
 
-    <script src="_content/BootstrapBlazor.SummerNote/js/jquery-3.5.1.min.js"></script>
+    <Script Src="_content/BootstrapBlazor.SummerNote/js/jquery-3.5.1.min.js"></Script>
     @if (Env.IsDevelopment())
     {
-        <script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.js"></script>
+        <Script Src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.js"></Script>
     }
     @if (Env.IsProduction())
     {
-        <script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
+        <Script Src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></Script>
     }
     <script src="_framework/blazor.web.js"></script>
     @if (Env.IsProduction())

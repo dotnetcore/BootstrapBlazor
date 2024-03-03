@@ -5,7 +5,7 @@
 namespace BootstrapBlazor.Components;
 
 /// <summary>
-/// 
+/// AutoGenerateColumn 标签基类，用于 <see cref="Table{TItem}"/> 标识自动生成列
 /// </summary>
 public abstract class AutoGenerateBaseAttribute : Attribute
 {
@@ -15,9 +15,14 @@ public abstract class AutoGenerateBaseAttribute : Attribute
     public bool Editable { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 当前列编辑时是否只读 默认为 false
+    /// 获得/设置 当前编辑项是否只读 默认为 false
     /// </summary>
     public bool Readonly { get; set; }
+
+    /// <summary>
+    /// 获得/设置 当前编辑项是否显示 默认为 true
+    /// </summary>
+    public bool Visible { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 是否允许排序 默认为 false

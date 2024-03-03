@@ -105,12 +105,15 @@
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["AlignmentTitle"]" Introduction="@Localizer["AlignmentIntro"]" Name="Alignment">
-    <ul class="ul-demo mb-3">
-        <li>@((MarkupString)Localizer["AlignmentTips1"].Value)</li>
-        <li>@((MarkupString)Localizer["AlignmentTips2"].Value)</li>
-    </ul>
+    <section ignore>
+        <ul class="ul-demo">
+            <li>@((MarkupString)Localizer["AlignmentTips1"].Value)</li>
+            <li>@((MarkupString)Localizer["AlignmentTips2"].Value)</li>
+            <li>@((MarkupString)Localizer["AlignmentTips3"].Value)</li>
+        </ul>
+    </section>
     <ValidateForm Model="@Model">
-        <EditorForm TModel="Foo" ItemsPerRow="2" RowType="RowType.Inline" LabelAlign="Alignment.Right">
+        <EditorForm TModel="Foo" ItemsPerRow="2" RowType="RowType.Inline" LabelAlign="Alignment.Right" LabelWidth="80">
             <FieldItems>
                 <EditorItem @bind-Field="@context.Hobby" Items="@Hobbies" />
             </FieldItems>

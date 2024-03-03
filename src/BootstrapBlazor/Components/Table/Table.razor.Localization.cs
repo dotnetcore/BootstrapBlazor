@@ -414,6 +414,7 @@ public partial class Table<TItem>
         ExportToastTitle ??= Localizer[nameof(ExportToastTitle)];
         ExportToastContent ??= Localizer[nameof(ExportToastContent)];
         ExportToastInProgressContent ??= Localizer[nameof(ExportToastInProgressContent)];
+        ExportCsvDropdownItemText ??= Localizer[nameof(ExportCsvDropdownItemText)];
         ExportExcelDropdownItemText ??= Localizer[nameof(ExportExcelDropdownItemText)];
         ExportPdfDropdownItemText ??= Localizer[nameof(ExportPdfDropdownItemText)];
         CopyColumnTooltipText ??= Localizer[nameof(CopyColumnTooltipText)];

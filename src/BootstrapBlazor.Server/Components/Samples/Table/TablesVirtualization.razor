@@ -9,9 +9,15 @@
 <DemoBlock Title="@Localizer["VirtualizationNormalTitle"]"
            Introduction="@Localizer["VirtualizationNormalIntro"]"
            Name="Normal">
-    <p>@((MarkupString)Localizer["VirtualizationNormalDescription"].Value)</p>
+    <section ignore>
+        @((MarkupString)Localizer["VirtualizationNormalDescription"].Value)
+        <BootstrapInputGroup>
+            <BootstrapInputGroupLabel DisplayText="@Localizer["TablesFooterFixedLabel"]"></BootstrapInputGroupLabel>
+            <Segmented Items="_fixedFooterSegments" @bind-Value="_isFixedFooter"></Segmented>
+        </BootstrapInputGroup>
+    </section>
     <div class="table-virtualize-demo">
-        <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="Items" ScrollMode="ScrollMode.Virtual" ShowFooter="true">
+        <Table TItem="Foo" IsBordered="true" IsStriped="true" Items="Items" ScrollMode="ScrollMode.Virtual" ShowFooter="true" IsFixedFooter="_isFixedFooter">
             <TableColumns>
                 <TableColumn @bind-Field="@context.DateTime" Width="180" />
                 <TableColumn @bind-Field="@context.Name" />
@@ -21,7 +27,7 @@
                 <TableColumn @bind-Field="@context.Complete" />
             </TableColumns>
             <TableFooter>
-                <TableFooterCell colspan="4" Text="Footer Info" Align="Alignment.Left" />
+                <TableFooterCell colspan="4" Text="@Localizer["TablesFooterInfo"]" Align="Alignment.Left" />
                 <TableFooterCell colspan="2" Aggregate="AggregateType.Average" Field="@nameof(Foo.Count)" />
             </TableFooter>
         </Table>
@@ -31,7 +37,7 @@
 <DemoBlock Title="@Localizer["VirtualizationDynamicTitle"]"
            Introduction="@Localizer["VirtualizationDynamicIntro"]"
            Name="Dynamic">
-    <p>@Localizer["VirtualizationDynamicDescription"]</p>
+    <section ignore>@Localizer["VirtualizationDynamicDescription"]</section>
     <div class="table-virtualize-demo">
         <Table TItem="Foo" IsBordered="true" IsStriped="true" ScrollMode="ScrollMode.Virtual" OnQueryAsync="OnQueryAsync">
             <TableColumns>

@@ -156,8 +156,8 @@ public partial class TableFilter : IFilter
         FieldKey = Column.GetFieldName();
         Column.Filter = this;
 
-        _lookup = new(() => Column.Lookup ?? LookupService.GetItemsByKey(Column.LookupServiceKey));
-        _step = Column.Step?.ToString();
+        _lookup = new(() => Column.Lookup ?? LookupService.GetItemsByKey(Column.LookupServiceKey, Column.LookupServiceData));
+        _step = Column.Step;
     }
 
     /// <summary>
@@ -208,7 +208,10 @@ public partial class TableFilter : IFilter
         {
             Table.Filters.Remove(FieldKey);
             FilterAction.Reset();
-            await Table.OnFilterAsync();
+            if (Table.OnFilterAsync != null)
+            {
+                await Table.OnFilterAsync();
+            }
         }
     }
 
@@ -235,7 +238,10 @@ public partial class TableFilter : IFilter
             {
                 Table.Filters.Remove(FieldKey);
             }
-            await Table.OnFilterAsync();
+            if (Table.OnFilterAsync != null)
+            {
+                await Table.OnFilterAsync();
+            }
         }
     }
 

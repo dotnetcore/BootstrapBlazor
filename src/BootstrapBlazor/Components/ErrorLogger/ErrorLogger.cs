@@ -46,6 +46,7 @@ public class ErrorLogger
     /// 获得/设置 Toast 弹窗标题
     /// </summary>
     [Parameter]
+    [NotNull]
     public string? ToastTitle { get; set; }
 
     /// <summary>
@@ -86,7 +87,7 @@ public class ErrorLogger
 
         ToastTitle ??= Localizer[nameof(ToastTitle)];
 
-        ShowErrorDetails = Configuration.GetValue<bool>("DetailedErrors", false);
+        ShowErrorDetails = Configuration.GetValue("DetailedErrors", false);
 
         if (ShowErrorDetails)
         {
@@ -128,7 +129,7 @@ public class ErrorLogger
 #endif
         if (ex != null && ErrorContent != null)
         {
-            if (Cache.Any())
+            if (Cache.Count > 0)
             {
                 var component = Cache.Last();
                 if (component is IHandlerException handler)
@@ -201,7 +202,7 @@ public class ErrorLogger
         }
     }
 
-    private List<ComponentBase> Cache { get; } = new();
+    private List<ComponentBase> Cache { get; } = [];
 
     /// <summary>
     /// 

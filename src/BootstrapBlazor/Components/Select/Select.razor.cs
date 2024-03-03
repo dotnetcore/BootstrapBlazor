@@ -69,10 +69,10 @@ public partial class Select<TValue> : ISelect
     /// <summary>
     /// Razor 文件中 Options 模板子项
     /// </summary>
-    private List<SelectedItem> Children { get; } = new();
+    private List<SelectedItem> Children { get; } = [];
 
     [NotNull]
-    private List<SelectedItem> DataSource { get; } = new();
+    private List<SelectedItem> DataSource { get; } = [];
 
     /// <summary>
     /// 获得/设置 右侧下拉箭头图标 默认 fa-solid fa-angle-up
@@ -100,6 +100,19 @@ public partial class Select<TValue> : ISelect
     /// </summary>
     [Parameter]
     public bool IsFixedSearch { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否可编辑 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsEditable { get; set; }
+
+    /// <summary>
+    /// 获得/设置 选项输入更新后回调方法 默认 null
+    /// </summary>
+    /// <remarks>设置 <see cref="IsEditable"/> 后生效</remarks>
+    [Parameter]
+    public Func<string, Task>? OnInputChangedCallback { get; set; }
 
     /// <summary>
     /// 获得/设置 无搜索结果时显示文字
@@ -132,7 +145,7 @@ public partial class Select<TValue> : ISelect
     public RenderFragment<SelectedItem?>? DisplayTemplate { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否开启虚拟滚动 默认 false 未开启 注意：开启虚拟滚动后不支持 <see cref="SelectBase{TValue}.ShowSearch"/> <see cref="PopoverSelectBase{TValue}.IsPopover"/> <seealso cref="IsFixedSearch"/> 参数设置
+    /// 获得/设置 是否开启虚拟滚动 默认 false 未开启 注意：开启虚拟滚动后不支持 <see cref="SelectBase{TValue}.ShowSearch"/> <see cref="PopoverSelectBase{TValue}.IsPopover"/> <seealso cref="IsFixedSearch"/> 参数设置，设置初始值时请设置 <see cref="DefaultVirtualizeItemText"/>
     /// </summary>
     [Parameter]
     public bool IsVirtualize { get; set; }
@@ -193,7 +206,7 @@ public partial class Select<TValue> : ISelect
     {
         base.OnParametersSet();
 
-        Items ??= Enumerable.Empty<SelectedItem>();
+        Items ??= [];
         OnSearchTextChanged ??= text => Items.Where(i => i.Text.Contains(text, StringComparison));
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
         NoSearchDataText ??= Localizer[nameof(NoSearchDataText)];
@@ -246,7 +259,7 @@ public partial class Select<TValue> : ISelect
         var data = await OnQueryAsync(new() { StartIndex = request.StartIndex, Count = count, SearchText = SearchText });
 
         TotalCount = data.TotalCount;
-        VirtualItems = data.Items ?? Enumerable.Empty<SelectedItem>();
+        VirtualItems = data.Items ?? [];
         return new ItemsProviderResult<SelectedItem>(VirtualItems, TotalCount);
 
         int GetCountByTotal() => TotalCount == 0 ? request.Count : Math.Min(request.Count, TotalCount - request.StartIndex);
@@ -428,5 +441,27 @@ public partial class Select<TValue> : ISelect
     private void OnClearValue()
     {
         CurrentValue = default;
+    }
+
+    private async Task OnChange(ChangeEventArgs args)
+    {
+        if (args.Value is string v)
+        {
+            // Items 中没有时插入一个 SelectedItem
+            if (Items.FirstOrDefault(i => i.Text == v) == null)
+            {
+                var items = new List<SelectedItem>
+                {
+                    new(v, v)
+                };
+                items.AddRange(Items);
+                Items = items;
+            }
+            if (OnInputChangedCallback != null)
+            {
+                await OnInputChangedCallback(v);
+            }
+            CurrentValueAsString = v;
+        }
     }
 }

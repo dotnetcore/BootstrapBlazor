@@ -76,7 +76,26 @@
             }
         </div>
         <div class="col-12">
-            <ConsoleLogger @ref="Logger" class="mt-3" />
+            <ConsoleLogger @ref="Logger" />
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SlidersRangeTitle"]" Introduction="@Localizer["SlidersRangeIntro"]" Name="Range">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <Slider @bind-Value="@RangeValue" Step="1" UseInputEvent="true"></Slider>
+        </div>
+        <div class="col-12 col-sm-6">
+            <Display Value="@RangeValue"></Display>
+        </div>
+    </div>
+</DemoBlock>
+
+<DemoBlock Title="@Localizer["SlidersIsDisabledTitle"]" Introduction="@Localizer["SlidersIsDisabledIntro"]" Name="IsDisabled">
+    <div class="row">
+        <div class="col-12 col-sm-6">
+            <Slider TValue="double" Step="1" IsDisabled="true"></Slider>
         </div>
     </div>
 </DemoBlock>
@@ -86,65 +105,7 @@
 <EventTable Items="@GetEvents()" />
 
 @code {
-    private string DisplayText { get; set; } = "Range";
-
-    private double MaxValue { get; set; } = 100;
-    private double MinValue { get; set; } = -100;
-    private double CurrentValue { get; set; } = 0;
-    private double Step { get; set; } = 20;
-
-    private bool IsDisabled { get; set; }
-    private bool UseInput { get; set; }
-    private bool UseGroup { get; set; }
-    private bool ShowLabel { get; set; } = true;
-
-    [NotNull]
-    private ConsoleLogger? Logger { get; set; }
-
-    private Task OnRangeSliderValueChanged(double value)
-    {
-        Logger.Log($"RangeSlider: Bind Value: {value}");
-        return Task.CompletedTask;
-    }
-
     RenderFragment RenderSlider =>
     @<Slider @bind-Value="@CurrentValue" Max="MaxValue" Min="MinValue" Step="Step" UseInputEvent="UseInput"
             DisplayText="@DisplayText" ShowLabel="ShowLabel" IsDisabled="IsDisabled" OnValueChanged="OnRangeSliderValueChanged" />;
-
-    /// <summary>
-    /// 获得属性方法
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
-
-        new() {
-            Name = "IsDisabled",
-            Description = Localizer["SlidersIsDisabled"],
-            Type = "boolean",
-            ValueList = " — ",
-            DefaultValue = "false"
-        },
-        new() {
-            Name = "Value",
-            Description = Localizer["SlidersValue"],
-            Type = "int",
-            ValueList = " — ",
-            DefaultValue = " — "
-        },
-    };
-
-    /// <summary>
-    /// 获得事件方法
-    /// </summary>
-    /// <returns></returns>
-    private IEnumerable<EventItem> GetEvents() => new EventItem[]
-    {
-        new EventItem()
-        {
-            Name = "ValueChanged",
-            Description = Localizer["SlidersValueChanged"],
-            Type ="EventCallback<int>"
-        }
-    };
 }

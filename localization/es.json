@@ -230,6 +230,7 @@
     "ExportToastTitle": "Exportar datos",
     "ExportToastContent": "Exportar datos {0}, cierre automático en {0} segundos",
     "ExportToastInProgressContent": "Exportar datos, cierre automático en {0} segundos",
+    "ExportCsvDropdownItemText": "MS-Csv",
     "ExportExcelDropdownItemText": "MS-Excel",
     "ExportPdfDropdownItemText": "Pdf",
     "PageInfoText": "{0} - {1} Total {2}",
@@ -287,6 +288,9 @@
     "Text": "Lista"
   },
   "BootstrapBlazor.Components.Tree": {
+    "NotSetOnTreeExpandErrorMessage": "Parámetro OnExpandNodeAsync no asignado"
+  },
+  "BootstrapBlazor.Components.TreeView": {
     "NotSetOnTreeExpandErrorMessage": "Parámetro OnExpandNodeAsync no asignado"
   },
   "BootstrapBlazor.Components.UploadBase": {

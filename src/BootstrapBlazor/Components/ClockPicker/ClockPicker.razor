@@ -1,0 +1,82 @@
+﻿@namespace BootstrapBlazor.Components
+@inherits ValidateBase<TimeSpan>
+@attribute [BootstrapModuleAutoLoader(JSObjectReference = true)]
+
+<div @attributes="AdditionalAttributes" class="@ClassString" id="@Id" data-bb-mode="@Mode">
+    <div @key="Value" class="bb-time-header">
+        @if (DatePicker != null)
+        {
+            <span class="bb-time-text me-5" @onclick="SwitchView">@CurrentDateString</span>
+        }
+        <span class="bb-time-text hour" @onclick="() => SetMode(TimeMode.Hour)">@HourValue</span>
+        <span class="bb-time-colon">:</span>
+        @if (ShowMinute)
+        {
+            <span class="bb-time-text minute" @onclick="() => SetMode(TimeMode.Minute)">@Value.Minutes.ToString("D2")</span>
+        }
+        else
+        {
+            <span class="bb-time-text minute">@Value.Minutes.ToString("D2")</span>
+        }
+        <span class="bb-time-colon">:</span>
+        @if (ShowMinute && ShowSecond)
+        {
+            <span class="bb-time-text second" @onclick="() => SetMode(TimeMode.Second)">@Value.Seconds.ToString("D2")</span>
+        }
+        else
+        {
+            <span class="bb-time-text second">@Value.Seconds.ToString("D2")</span>
+        }
+    </div>
+    <div class="bb-time-body">
+        @if (ShowClockScale)
+        {
+            <div class="bb-clock-panel bb-clock-panel-scale">
+                @for (var index = 0; index < 60; index++)
+                {
+                    <div></div>
+                }
+            </div>
+        }
+        @if (ShowSecond)
+        {
+            <div class="@SecondClass">
+                @for (var index = 0; index < 60; index = index + 5)
+                {
+                    <div><span>@index</span></div>
+                }
+                @RenderClockPoint
+            </div>
+        }
+        @if (ShowMinute)
+        {
+            <div class="@MinuteClass">
+                @for (var index = 0; index < 60; index = index + 5)
+                {
+                    <div><span>@index</span></div>
+                }
+                @RenderClockPoint
+            </div>
+        }
+        <div class="@HourClass">
+            <div><span>12</span></div>
+            @for (var index = 1; index < 12; index++)
+            {
+                <div><span>@index</span></div>
+            }
+            @RenderClockPoint
+        </div>
+    </div>
+    <div class="bb-time-footer">
+        <div class="@ButtonAMClassString" @onclick="@(() => SetTimePeriod(-12))">@Localizer["AMText"]</div>
+        <div class="@ButtonPMClassString" @onclick="@(() => SetTimePeriod(12))">@Localizer["PMText"]</div>
+    </div>
+</div>
+
+@code {
+    RenderFragment RenderClockPoint =>
+    @<span class="bb-clock-point">
+        <span class="bb-clock-point-bar"></span>
+        <span class="bb-clock-point-star"></span>
+    </span>;
+}

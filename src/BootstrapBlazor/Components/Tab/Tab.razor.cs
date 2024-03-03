@@ -73,13 +73,13 @@ public partial class Tab : IHandlerException
     public bool IsBorderCard { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否仅渲染 Active 标签
+    /// 获得/设置 是否仅渲染 Active 标签 默认 false
     /// </summary>
     [Parameter]
     public bool IsOnlyRenderActiveTab { get; set; }
 
     /// <summary>
-    /// 获得/设置 懒加载 TabItem, 首次不渲染
+    /// 获得/设置 懒加载 TabItem, 首次不渲染 默认 false
     /// </summary>
     [Parameter]
     public bool IsLazyLoadTabItem { get; set; }

@@ -7,11 +7,10 @@ namespace BootstrapBlazor.Components;
 /// <summary>
 /// 内部默认字典服务实现类
 /// </summary>
-internal class NullLookupService : ILookupService
+class NullLookupService : LookupServiceBase
 {
     /// <summary>
-    /// 根据指定键值获取 Lookup 集合方法
+    /// <inheritdoc/>>
     /// </summary>
-    /// <param name="key">获得 Lookup 数据集合键值</param>
-    public IEnumerable<SelectedItem>? GetItemsByKey(string? key) => null;
+    public override IEnumerable<SelectedItem>? GetItemsByKey(string? key, object? data) => null;
 }

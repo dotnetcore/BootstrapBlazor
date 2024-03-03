@@ -36,6 +36,12 @@ public partial class Layout : IHandlerException
     public bool IsAccordion { get; set; }
 
     /// <summary>
+    /// 获得/设置 收起展开按钮模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? CollapseBarTemplate { get; set; }
+
+    /// <summary>
     /// 获得/设置 Header 模板
     /// </summary>
     [Parameter]
@@ -140,7 +146,7 @@ public partial class Layout : IHandlerException
     public bool IsFixedHeader { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示收缩展开 Bar
+    /// 获得/设置 是否显示收缩展开 Bar 默认 false
     /// </summary>
     [Parameter]
     public bool ShowCollapseBar { get; set; }

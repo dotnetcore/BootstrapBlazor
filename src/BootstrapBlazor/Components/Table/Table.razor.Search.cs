@@ -58,7 +58,7 @@ public partial class Table<TItem>
     public bool CollapsedTopSearch { get; set; }
 
     /// <summary>
-    /// 获得/设置 是否显示搜索框 默认为 true 显示搜索文本框  <see cref="ShowSearch" />
+    /// 获得/设置 是否显示搜索文本框 默认为 true 显示搜索文本框  <see cref="ShowSearch" />
     /// </summary>
     [Parameter]
     public bool ShowSearchText { get; set; } = true;
@@ -263,7 +263,7 @@ public partial class Table<TItem>
             foreach (var property in SearchModel.GetType().GetProperties().Where(i => searchColumns.Any(col => col.GetFieldName() == i.Name)))
             {
                 var filters = callback(property, SearchModel);
-                if (filters != null && filters.Any())
+                if (filters != null && filters.Count != 0)
                 {
                     searches.AddRange(filters);
                 }

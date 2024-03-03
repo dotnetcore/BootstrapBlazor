@@ -13,6 +13,12 @@ public partial class Table<TItem>
     public bool IsPagination { get; set; }
 
     /// <summary>
+    /// 获得/设置 Page up/down 页码数量 默认 5
+    /// </summary>
+    [Parameter]
+    public int MaxPageLinkCount { get; set; } = 5;
+
+    /// <summary>
     /// 获得/设置 是否在顶端显示分页 默认为 false
     /// </summary>
     [Parameter]
@@ -115,8 +121,7 @@ public partial class Table<TItem>
     /// <summary>
     /// 内部 分页信息模板
     /// </summary>
-    [NotNull]
-    protected RenderFragment? InternalPageInfoTemplate => builder =>
+    protected RenderFragment InternalPageInfoTemplate => builder =>
     {
         if (PageInfoTemplate != null)
         {

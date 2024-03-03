@@ -17,6 +17,10 @@ public partial class Header
 
     [Inject]
     [NotNull]
+    private PackageVersionService? PackageVersionService { get; set; }
+
+    [Inject]
+    [NotNull]
     private IStringLocalizer<Header>? Localizer { get; set; }
 
     [NotNull]
@@ -31,7 +35,12 @@ public partial class Header
     [NotNull]
     private string? DownloadText { get; set; }
 
+    [NotNull]
+    private string? TutorialsText { get; set; }
+
     private string DownloadUrl => $"{WebsiteOption.CurrentValue.GiteeRepositoryUrl}/repository/archive/main.zip";
+
+    private string _versionString = "";
 
     /// <summary>
     /// <inheritdoc/>
@@ -44,5 +53,7 @@ public partial class Header
         HomeText ??= Localizer[nameof(HomeText)];
         IntroductionText ??= Localizer[nameof(IntroductionText)];
         ComponentsText ??= Localizer[nameof(ComponentsText)];
+        TutorialsText ??= Localizer[nameof(TutorialsText)];
+        _versionString = $"v{PackageVersionService.Version}";
     }
 }

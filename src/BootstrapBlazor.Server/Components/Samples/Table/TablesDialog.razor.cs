@@ -30,7 +30,7 @@ public partial class TablesDialog
 
     private static readonly Random random = new();
 
-    private List<Foo> SelectedRows { get; set; } = new();
+    private List<Foo> SelectedRows { get; set; } = [];
 
     /// <summary>
     /// OnInitialized
@@ -39,7 +39,7 @@ public partial class TablesDialog
     {
         base.OnInitialized();
 
-        Products = new List<Foo>();
+        Products = [];
 
         ProductSelectItems = Enumerable.Range(1, 5).Select(i => new Foo()
         {

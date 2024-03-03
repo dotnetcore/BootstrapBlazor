@@ -32,7 +32,7 @@ public partial class Inputs
     [NotNull]
     private Foo? GenericModel { get; set; }
 
-    private byte[] ByteArray { get; set; } = new byte[] { 0x01, 0x12, 0x34, 0x56 };
+    private byte[] ByteArray { get; set; } = [0x01, 0x12, 0x34, 0x56];
 
     [NotNull]
     private Foo? FormatModel { get; set; }
@@ -79,8 +79,8 @@ public partial class Inputs
 
     private static string ByteArrayFormatter(byte[] source) => Convert.ToBase64String(source);
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "ChildContent",
@@ -190,6 +190,14 @@ public partial class Inputs
             Type = "List<IValidator>",
             ValueList = " — ",
             DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(BootstrapInput<string>.UseInputEvent),
+            Description = Localizer[nameof(BootstrapInput<string>.UseInputEvent)].Value,
+            Type = "bool",
+            ValueList = "true|false",
+            DefaultValue = "false"
         }
-    };
+    ];
 }

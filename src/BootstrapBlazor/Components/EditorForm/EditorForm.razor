@@ -5,8 +5,7 @@
 <CascadingValue Value="@_editorItems" IsFixed="true">
     @FieldItems?.Invoke(Model)
 </CascadingValue>
-
-@if (FirstRender)
+@if (_firstRender)
 {
     <div class="ef-loading">
         <Spinner Color="Color.Primary" />
@@ -16,7 +15,7 @@ else
 {
     <div class="@ClassString">
         <CascadingValue Value="this" Name="EditorForm">
-            @if(ShowUnsetGroupItemsOnTop)
+            @if (ShowUnsetGroupItemsOnTop)
             {
                 if (UnsetGroupItems.Any())
                 {
@@ -51,7 +50,7 @@ else
 @code
 {
     RenderFragment RenderUnsetGroupItems =>
-    @<div class="@FormClassString">
+    @<div class="@FormClassString" style="@FormStyleString">
         @foreach (var item in UnsetGroupItems)
         {
             var render = GetRenderTemplate(item);
@@ -73,7 +72,6 @@ else
         <div class="@FormClassString">
             @foreach (var item in g.Value)
             {
-
                 var render = GetRenderTemplate(item);
                 @if (render != null)
                 {

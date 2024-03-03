@@ -263,7 +263,7 @@ public partial class Tree
             // 其他设置为 false
             if (OnTreeItemChecked != null)
             {
-                await OnTreeItemChecked(new List<TreeItem> { item });
+                await OnTreeItemChecked([item]);
             }
         }
     }

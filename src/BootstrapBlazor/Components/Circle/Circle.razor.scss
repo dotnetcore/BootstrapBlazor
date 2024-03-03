@@ -1,38 +1,57 @@
-﻿.circle {
+.circle {
+    --bb-circle-stroke-color: #{$bb-circle-stroke-color};
+    --bb-circle-stroke-width: #{$bb-circle-stroke-width};
+    --bb-circle-progress-stroke-color: #{$bb-circle-progress-stroke-color};
     display: inline-block;
     position: relative;
 }
 
+[data-bs-theme='dark'] .circle {
+    --bb-circle-stroke-color: #495057;
+}
+
+.circle-inner {
+    stroke: var(--bb-circle-stroke-color);
+    stroke-width: var(--bb-circle-stroke-width);
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    fill: none;
+}
+
 .circle-progress {
+    stroke: var(--bb-circle-progress-stroke-color);
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    fill: none;
     transition: stroke-dashoffset .3s linear;
 }
 
 .circle-primary {
-    stroke: var(--bs-primary);
+    --bb-circle-progress-stroke-color: var(--bs-primary);
 }
 
 .circle-danger {
-    stroke: var(--bs-danger);
+    --bb-circle-progress-stroke-color: var(--bs-danger);
 }
 
 .circle-success {
-    stroke: var(--bs-success);
+    --bb-circle-progress-stroke-color: var(--bs-success);
 }
 
 .circle-warning {
-    stroke: var(--bs-warning);
+    --bb-circle-progress-stroke-color: var(--bs-warning);
 }
 
 .circle-info {
-    stroke: var(--bs-info);
+    --bb-circle-progress-stroke-color: var(--bs-info);
 }
 
 .circle-secondary {
-    stroke: var(--bs-secondary);
+    --bb-circle-progress-stroke-color: var(--bs-secondary);
 }
 
 .circle-dark {
-    stroke: var(--bs-dark);
+    --bb-circle-progress-stroke-color: var(--bs-dark);
 }
 
 .circle-body {

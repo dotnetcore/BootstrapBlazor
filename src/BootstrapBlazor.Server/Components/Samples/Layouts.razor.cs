@@ -22,9 +22,8 @@ public sealed partial class Layouts
         IconSideMenuItems = await MenusDataGenerator.GetIconSideMenuItemsAsync(LocalizerMenu);
     }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
-
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Header",
@@ -175,5 +174,5 @@ public sealed partial class Layouts
             ValueList = " — ",
             DefaultValue = " — "
         }
-    };
+    ];
 }

@@ -15,12 +15,12 @@ public sealed partial class Carousels
     /// <summary>
     /// Images
     /// </summary>
-    private static List<string> Images => new()
-    {
+    private static List<string> Images =>
+    [
         "./images/Pic0.jpg",
         "./images/Pic1.jpg",
         "./images/Pic2.jpg"
-    };
+    ];
 
     /// <summary>
     /// OnClick
@@ -37,8 +37,8 @@ public sealed partial class Carousels
     /// 获得属性方法
     /// </summary>
     /// <returns></returns>
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Images",
@@ -87,5 +87,5 @@ public sealed partial class Carousels
             ValueList = "AutoPlayOnload|AutoPlayAfterManually|Manually",
             DefaultValue = "AutoPlayOnload"
         }
-    };
+    ];
 }

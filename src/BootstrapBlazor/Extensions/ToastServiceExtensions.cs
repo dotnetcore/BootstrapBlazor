@@ -9,6 +9,8 @@ namespace BootstrapBlazor.Components;
 /// </summary>
 public static class ToastServiceExtensions
 {
+    // 特别备注：此处方法使用三个参数被 UniLite 插件系统使用，请勿删除
+
     /// <summary>
     /// Toast 调用成功快捷方法
     /// </summary>
@@ -30,8 +32,8 @@ public static class ToastServiceExtensions
     {
         Category = ToastCategory.Success,
         IsAutoHide = autoHide,
-        Title = title ?? "",
-        Content = content ?? "",
+        Title = title,
+        Content = content,
         ShowClose = showClose
     });
 
@@ -56,8 +58,8 @@ public static class ToastServiceExtensions
     {
         Category = ToastCategory.Error,
         IsAutoHide = autoHide,
-        Title = title ?? "",
-        Content = content ?? "",
+        Title = title,
+        Content = content,
         ShowClose = showClose
     });
 
@@ -82,8 +84,8 @@ public static class ToastServiceExtensions
     {
         Category = ToastCategory.Information,
         IsAutoHide = autoHide,
-        Title = title ?? "",
-        Content = content ?? "",
+        Title = title,
+        Content = content,
         ShowClose = showClose
     });
 
@@ -108,8 +110,8 @@ public static class ToastServiceExtensions
     {
         Category = ToastCategory.Warning,
         IsAutoHide = autoHide,
-        Title = title ?? "",
-        Content = content ?? "",
+        Title = title,
+        Content = content,
         ShowClose = showClose
     });
 }

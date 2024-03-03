@@ -189,7 +189,7 @@ public static class DialogServiceExtensions
     }
 
     /// <summary>
-    /// 弹出保存对话窗方法
+    /// 弹出带保存按钮对话窗方法
     /// </summary>
     /// <typeparam name="TComponent"></typeparam>
     /// <param name="service">DialogService 服务实例</param>
@@ -207,19 +207,15 @@ public static class DialogServiceExtensions
             ShowSaveButton = true,
             OnSaveAsync = saveCallback
         };
-        Dictionary<string, object?>? parameters = null;
-        if (parametersFactory != null)
-        {
-            parameters = new Dictionary<string, object?>();
-            parametersFactory.Invoke(parameters);
-        }
+        var parameters = new Dictionary<string, object?>();
+        parametersFactory?.Invoke(parameters);
         option.Component = BootstrapDynamicComponent.CreateComponent<TComponent>(parameters);
         configureOption?.Invoke(option);
         await service.Show(option, dialog);
     }
 
     /// <summary>
-    /// 弹出保存对话窗
+    /// 弹出带关闭按钮对话窗方法
     /// </summary>
     /// <typeparam name="TComponent"></typeparam>
     /// <param name="service"></param>
@@ -238,7 +234,6 @@ public static class DialogServiceExtensions
         parametersFactory?.Invoke(parameters);
         option.Component = BootstrapDynamicComponent.CreateComponent<TComponent>(parameters);
         configureOption?.Invoke(option);
-
         await service.Show(option, dialog);
     }
 

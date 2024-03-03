@@ -109,7 +109,15 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
     /// 获得/设置 是否可编辑 默认 false
     /// </summary>
     [Parameter]
-    public bool IsEdit { get; set; }
+    [ExcludeFromCodeCoverage]
+    [Obsolete("已过期，请使用 IsEditable Please use IsEditable parameter")]
+    public bool IsEdit { get => IsEditable; set => IsEditable = value; }
+
+    /// <summary>
+    /// 获得/设置 是否可编辑 默认 false
+    /// </summary>
+    [Parameter]
+    public bool IsEditable { get; set; }
 
     [Inject]
     [NotNull]
@@ -163,7 +171,7 @@ public partial class SelectTree<TValue> : IModelEqualityComparer<TValue>
         DropdownIcon ??= IconTheme.GetIconByKey(ComponentIcons.SelectTreeDropdownIcon);
         PlaceHolder ??= Localizer[nameof(PlaceHolder)];
 
-        Items ??= new List<TreeViewItem<TValue>>();
+        Items ??= [];
 
         if (Value == null)
         {

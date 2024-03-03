@@ -1,7 +1,8 @@
 ﻿.layout-menu-demo ::deep .layout-side {
-    background-color: var(--bb-disabled-bg);
-    color: #dcdfe6;
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
     height: 100%;
+    border-right: 1px solid var(--bs-border-color);
 }
 
 .layout-menu-demo ::deep .menu.is-vertical:not(.is-collapsed) {
@@ -9,9 +10,9 @@
 }
 
 .layout-menu-demo ::deep .menu-demo-header {
-    background-color: #17a2b8;
+    background-color: rgba(var(--bs-body-color-rgb), .12);
     line-height: 50px;
-    color: #fff;
+    color: var(--bs-body-color);
     flex: 1;
     padding-left: 80px;
 }
@@ -20,7 +21,7 @@
     display: flex;
     align-items: center;
     padding: 0 .625rem;
-    background-color: var(--bb-layout-sidebar-banner-background);
+    background-color: rgba(var(--bs-body-color-rgb), .12);
     height: 50px;
     font-size: 1.5rem;
 }
@@ -29,6 +30,8 @@
         width: 38px;
         border-radius: var(--bs-border-radius);
         margin-right: .5rem;
+        border: 1px solid #c0c4cc;
+        background-color: #787878;
     }
 
 .layout-menu-demo ::deep .layout-side.is-collapsed .layout-banner .layout-title {
@@ -40,11 +43,11 @@
 .layout-menu-demo ::deep .layout-menu {
     height: 371px;
     padding: 6px 0;
-    color: #000;
+    color: var(--bs-body-color);
 }
 
 .layout-menu-demo ::deep .layout-title {
-    color: #fff;
+    color: var(--bs-body-color);
 }
 
 .layout-menu-demo ::deep .layout-header .layout-header-bar {
@@ -53,7 +56,7 @@
 }
 
 .layout-menu-demo ::deep .layout-footer {
-    background-color: #e4e7ed;
+    background-color: rgba(var(--bs-body-color-rgb), .12);
     text-align: center;
 }
 

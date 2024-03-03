@@ -11,7 +11,7 @@
         </p>
     </div>
 
-    <Table TItem="Foo" Items="@Items" IsBordered="true" AutoGenerateColumns="true">
+    <Table TItem="Foo" Items="@Items" IsBordered="true" AutoGenerateColumns="true" RenderMode="TableRenderMode.Table">
         <TableColumns>
             <TableColumn @bind-Field="@context.Complete" Visible="false" />
             <TableColumn @bind-Field="@context.Hobby" Visible="false" />

@@ -13,8 +13,8 @@ public sealed partial class Spinners
     /// Get property method
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "Class",
@@ -47,5 +47,5 @@ public sealed partial class Spinners
             ValueList = " Border / Grow ",
             DefaultValue = "SpinnerType.Border"
         }
-    };
+    ];
 }

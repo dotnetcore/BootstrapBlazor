@@ -8,7 +8,7 @@
 <DemoBlock Title="@Localizer["SearchesNormalTitle"]"
            Introduction="@Localizer["SearchesNormalIntro"]"
            Name="Normal">
-    <p class="mb-3">@((MarkupString)Localizer["SearchesNormalDescription"].Value)</p>
+    <p>@((MarkupString)Localizer["SearchesNormalDescription"].Value)</p>
     <Search IgnoreCase="true"
             IsLikeMatch="true"
             IsAutoFocus="true"
@@ -16,7 +16,7 @@
             Items="@Items"
             OnSearch="@OnSearch"
             IsSelectAllTextOnFocus="true" />
-    <ConsoleLogger @ref="Logger" class="mt-3" />
+    <ConsoleLogger @ref="Logger" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SearchesClearValueTitle"]"
@@ -28,7 +28,7 @@
             PlaceHolder="@Localizer["SearchesPlaceHolder"]"
             Items="@Items"
             OnSearch="@OnClearSearch" />
-    <ConsoleLogger @ref="ClearLogger" class="mt-3" />
+    <ConsoleLogger @ref="ClearLogger" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SearchesDisplayButtonTitle"]"
@@ -41,7 +41,7 @@
             Items="@Items"
             OnSearch="@OnDisplaySearch"
             OnClear="@OnClear"></Search>
-    <ConsoleLogger @ref="DisplayLogger" class="mt-3" />
+    <ConsoleLogger @ref="DisplayLogger" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SearchesKeyboardsTitle"]"
@@ -53,7 +53,7 @@
             IsOnInputTrigger="true"
             Items="@Items"
             OnSearch="@OnKeyboardSearch" />
-    <ConsoleLogger @ref="KeyboardLogger" class="mt-3" />
+    <ConsoleLogger @ref="KeyboardLogger" />
 </DemoBlock>
 
 <DemoBlock Title="@Localizer["SearchesValidateFormTitle"]"

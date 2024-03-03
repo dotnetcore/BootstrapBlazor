@@ -127,8 +127,8 @@ public sealed partial class EditDialogs
     /// get property method
     /// </summary>
     /// <returns></returns>
-    private static IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private static AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "ShowLabel",
@@ -209,5 +209,5 @@ public sealed partial class EditDialogs
             ValueList = "None|Left|Center|Right",
             DefaultValue = "None"
         }
-    };
+    ];
 }

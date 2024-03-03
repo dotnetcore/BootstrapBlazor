@@ -57,64 +57,78 @@ public class CalendarTest : BootstrapBlazorTestBase
     }
 
     [Fact]
-    public void ButtonClick_Ok()
+    public async Task ButtonClick_Ok()
     {
         var v = DateTime.MinValue;
         var cut = Context.RenderComponent<Calendar>(pb =>
         {
             pb.Add(a => a.Value, DateTime.Today);
             pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<DateTime>(this, d => v = d));
+            pb.Add(a => a.OnValueChanged, d => Task.CompletedTask);
         });
 
-
-        cut.InvokeAsync(() =>
+        var buttons = cut.FindAll(".calendar-button-group button");
+        await cut.InvokeAsync(() =>
         {
-            var buttons = cut.FindAll(".calendar-button-group button");
-            // btn 上一年
-            buttons[0].Click();
-
-            Assert.Contains($"{DateTime.Now.Year - 1} 年 {DateTime.Now.Month} 月", cut.Find(".calendar-title").ToMarkup());
-            Assert.Equal(v, DateTime.Today.AddYears(-1));
-
-            // btn 下一年
-            buttons[4].Click();
-            Assert.Contains($"{DateTime.Now.Year} 年 {DateTime.Now.Month} 月", cut.Find(".calendar-title").ToMarkup());
-
             // btn 上一月
             buttons[1].Click();
-            Assert.Contains($"{DateTime.Now.AddMonths(-1).Year} 年 {DateTime.Now.AddMonths(-1).Month} 月", cut.Find(".calendar-title").ToMarkup());
-            Assert.Equal(v, DateTime.Today.AddMonths(-1));
+        });
+        Assert.Contains($"{DateTime.Now.AddMonths(-1).Year} 年 {DateTime.Now.AddMonths(-1).Month} 月", cut.Find(".calendar-title").ToMarkup());
+        Assert.Equal(v, DateTime.Today.AddMonths(-1));
 
+        await cut.InvokeAsync(() =>
+        {
             // btn 下一月
             buttons[3].Click();
-            Assert.Contains($"{DateTime.Now.Year} 年 {DateTime.Now.Month} 月", cut.Find(".calendar-title").ToMarkup());
+        });
+        Assert.Contains($"{DateTime.Now.Year} 年 {DateTime.Now.Month} 月", cut.Find(".calendar-title").ToMarkup());
 
+        await cut.InvokeAsync(() =>
+        {
+            // btn 上一年
+            buttons[0].Click();
+        });
+        Assert.Contains($"{DateTime.Now.Year - 1} 年 {DateTime.Now.Month} 月", cut.Find(".calendar-title").ToMarkup());
+        Assert.Equal(v, DateTime.Today.AddYears(-1));
+
+        await cut.InvokeAsync(() =>
+        {
+            // btn 下一年
+            buttons[4].Click();
+        });
+        Assert.Contains($"{DateTime.Now.Year} 年 {DateTime.Now.Month} 月", cut.Find(".calendar-title").ToMarkup());
+
+        await cut.InvokeAsync(() =>
+        {
             // btn 今天
             buttons[2].Click();
-            Assert.Contains(DateTime.Now.Day.ToString(), cut.Find(".current.is-selected.is-today").ToMarkup());
         });
+        Assert.Contains(DateTime.Now.Day.ToString(), cut.Find(".current.is-selected.is-today").ToMarkup());
     }
 
-
     [Fact]
-    public void ValueChanged_Ok()
+    public async Task ValueChanged_Ok()
     {
         var value = DateTime.MinValue;
-        var cut = Context.RenderComponent<Calendar>(builder =>
+        var cut = Context.RenderComponent<Calendar>(pb =>
         {
-            builder.Add(a => a.ValueChanged, v => value = v);
+            pb.Add(a => a.ValueChanged, v => value = v);
+            pb.Add(a => a.OnValueChanged, d => Task.CompletedTask);
         });
 
-        // 点击第一个 current 得到本月 1号
-        cut.Find(".current").Click();
-        Assert.Equal(1, value.Day);
+        await cut.InvokeAsync(() =>
+        {
+            // 点击第一个 current 得到本月 1号
+            cut.Find(".current").Click();
+            Assert.Equal(1, value.Day);
 
-        cut.Find(".is-today").Click();
-        Assert.Equal(value.Day, DateTime.Now.Day);
+            cut.Find(".is-today").Click();
+            Assert.Equal(value.Day, DateTime.Now.Day);
+        });
     }
 
     [Fact]
-    public void OnChangeWeek_Ok()
+    public async Task OnChangeWeek_Ok()
     {
         var v = DateTime.MinValue;
         var cut = Context.RenderComponent<Calendar>(pb =>
@@ -122,10 +136,11 @@ public class CalendarTest : BootstrapBlazorTestBase
             pb.Add(s => s.ViewMode, CalendarViewMode.Week);
             pb.Add(a => a.Value, DateTime.Today);
             pb.Add(a => a.ValueChanged, EventCallback.Factory.Create<DateTime>(this, d => v = d));
+            pb.Add(a => a.OnValueChanged, d => Task.CompletedTask);
         });
         Assert.Contains("table-week", cut.Markup);
 
-        cut.InvokeAsync(() =>
+        await cut.InvokeAsync(() =>
         {
             var buttons = cut.FindAll(".calendar-button-group button");
             // 上一周
@@ -150,5 +165,44 @@ public class CalendarTest : BootstrapBlazorTestBase
                 return gc.GetWeekOfYear(value, System.Globalization.CalendarWeekRule.FirstDay, DayOfWeek.Sunday);
             }
         });
+    }
+
+    [Fact]
+    public void ShowYearButtons_Ok()
+    {
+        var cut = Context.RenderComponent<Calendar>(pb =>
+        {
+            pb.Add(s => s.ViewMode, CalendarViewMode.Month);
+            pb.Add(a => a.Value, DateTime.Today);
+            pb.Add(a => a.ShowYearButtons, false);
+        });
+
+        var buttons = cut.FindAll(".btn-group > .btn-sm");
+        Assert.Equal(3, buttons.Count);
+    }
+
+    [Fact]
+    public async Task OnValueChanged_Ok()
+    {
+        var v = DateTime.MinValue;
+        var cut = Context.RenderComponent<Calendar>(pb =>
+        {
+            pb.Add(s => s.ViewMode, CalendarViewMode.Week);
+            pb.Add(a => a.Value, DateTime.Today);
+            pb.Add(a => a.OnValueChanged, d =>
+            {
+                v = d;
+                return Task.CompletedTask;
+            });
+        });
+        Assert.Contains("table-week", cut.Markup);
+
+        await cut.InvokeAsync(() =>
+        {
+            var buttons = cut.FindAll(".calendar-button-group button");
+            // 上一周
+            buttons[0].Click();
+        });
+        Assert.NotEqual(v, DateTime.MinValue);
     }
 }

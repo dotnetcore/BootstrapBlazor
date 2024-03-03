@@ -18,7 +18,7 @@ public partial class FloatingLabels
     [NotNull]
     private Foo? FormatStringModel { get; set; }
 
-    private byte[] ByteArray { get; set; } = new byte[] { 0x01, 0x12, 0x34, 0x56 };
+    private byte[] ByteArray { get; set; } = [0x01, 0x12, 0x34, 0x56];
 
     private static string ByteArrayFormatter(byte[] source) => Convert.ToBase64String(source);
 
@@ -36,8 +36,8 @@ public partial class FloatingLabels
         FormatStringModel = new Foo() { Name = Localizer["FloatingLabelsTestName"] };
     }
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "ChildContent",
@@ -102,5 +102,5 @@ public partial class FloatingLabels
             ValueList = "true|false",
             DefaultValue = "false"
         }
-    };
+    ];
 }

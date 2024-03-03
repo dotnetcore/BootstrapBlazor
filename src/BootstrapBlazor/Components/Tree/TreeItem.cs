@@ -18,7 +18,7 @@ public class TreeItem : NodeItem
     /// <summary>
     /// 获得/设置 子节点数据源
     /// </summary>
-    public List<TreeItem> Items { get; set; } = new List<TreeItem>();
+    public List<TreeItem> Items { get; set; } = [];
 
     /// <summary>
     /// 获得/设置 TreeItem 标识

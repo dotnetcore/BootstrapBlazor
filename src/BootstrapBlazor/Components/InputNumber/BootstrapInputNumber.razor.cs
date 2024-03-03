@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
-using BootstrapBlazor.Extensions;
 using Microsoft.Extensions.Localization;
 using System.Globalization;
 
@@ -106,7 +105,7 @@ public partial class BootstrapInputNumber<TValue>
         MinusIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputNumberMinusIcon);
         PlusIcon ??= IconTheme.GetIconByKey(ComponentIcons.InputNumberPlusIcon);
 
-        StepString = Step ?? StepOption.Value.GetStep<TValue>();
+        StepString = Step ?? StepOption.Value.GetStep<TValue>() ?? "any";
     }
 
     /// <summary>
@@ -144,6 +143,8 @@ public partial class BootstrapInputNumber<TValue>
         _ => throw new InvalidOperationException($"Unsupported type {value!.GetType()}"),
     };
 
+    private string GetStepString() => (string.IsNullOrEmpty(StepString) || StepString.Equals("any", StringComparison.OrdinalIgnoreCase)) ? "1" : StepString;
+
     /// <summary>
     /// 点击减少按钮式时回调此方法
     /// </summary>
@@ -151,7 +152,7 @@ public partial class BootstrapInputNumber<TValue>
     private async Task OnClickDec()
     {
         var val = CurrentValue;
-        var step = string.IsNullOrEmpty(StepString) ? "1" : StepString;
+        var step = GetStepString();
         switch (val)
         {
             case int @int:
@@ -187,7 +188,7 @@ public partial class BootstrapInputNumber<TValue>
     private async Task OnClickInc()
     {
         var val = CurrentValue;
-        var step = string.IsNullOrEmpty(StepString) ? "1" : StepString;
+        var step = GetStepString();
         switch (val)
         {
             case int @int:
@@ -220,11 +221,21 @@ public partial class BootstrapInputNumber<TValue>
     /// 失去焦点是触发此方法
     /// </summary>
     /// <returns></returns>
-    private void OnBlur()
+    private async Task OnBlur()
     {
         if (!PreviousParsingAttemptFailed)
         {
             CurrentValue = SetMax(SetMin(Value));
+        }
+        else
+        {
+            CurrentValue = default!;
+        }
+
+        if (NullableUnderlyingType != null && string.IsNullOrEmpty(CurrentValueAsString))
+        {
+            // set component value empty
+            await InvokeVoidAsync("clear", Id);
         }
     }
 

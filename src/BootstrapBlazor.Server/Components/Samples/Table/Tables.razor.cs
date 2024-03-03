@@ -38,8 +38,8 @@ public partial class Tables
         Items = Foo.GenerateFoo(FooLocalizer);
     }
 
-    private IEnumerable<AttributeItem> GetTableColumnAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetTableColumnAttributes() =>
+    [
         new()
         {
             Name = "TextWrap",
@@ -114,22 +114,6 @@ public partial class Tables
         },
         new()
         {
-            Name = nameof(IEditorItem.IsReadonlyWhenAdd),
-            Description = Localizer["IsReadonlyWhenAddAttr"],
-            Type = "boolean",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
-            Name = nameof(IEditorItem.IsReadonlyWhenEdit),
-            Description = Localizer["IsReadonlyWhenEditAttr"],
-            Type = "boolean",
-            ValueList = "true|false",
-            DefaultValue = "false"
-        },
-        new()
-        {
             Name = nameof(IEditorItem.Lookup),
             Description = Localizer["LookupAttr"],
             Type = "IEnumerable<SelectedItem>",
@@ -148,7 +132,15 @@ public partial class Tables
         {
             Name = nameof(IEditorItem.LookupServiceKey),
             Description = Localizer["LookupServiceKeyAttr"],
-            Type = "string",
+            Type = "string?",
+            ValueList = " — ",
+            DefaultValue = " — "
+        },
+        new()
+        {
+            Name = nameof(IEditorItem.LookupServiceData),
+            Description = Localizer["LookupServiceDataAttr"],
+            Type = "object?",
             ValueList = " — ",
             DefaultValue = " — "
         },
@@ -156,6 +148,22 @@ public partial class Tables
         {
             Name = "Readonly",
             Description = Localizer["ReadonlyAttr"],
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(IEditorItem.IsReadonlyWhenAdd),
+            Description = Localizer["IsReadonlyWhenAddAttr"],
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "false"
+        },
+        new()
+        {
+            Name = nameof(IEditorItem.IsReadonlyWhenEdit),
+            Description = Localizer["IsReadonlyWhenEditAttr"],
             Type = "boolean",
             ValueList = "true|false",
             DefaultValue = "false"
@@ -250,6 +258,22 @@ public partial class Tables
         },
         new()
         {
+            Name = "IsVisibleWhenAdd",
+            Description = Localizer["IsVisibleWhenAddAttr"],
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = "IsVisibleWhenEdit",
+            Description = Localizer["IsVisibleWhenEditAttr"],
+            Type = "boolean",
+            ValueList = "true|false",
+            DefaultValue = "true"
+        },
+        new()
+        {
             Name = "Width",
             Description = Localizer["WidthAttr"],
             Type = "int",
@@ -336,10 +360,10 @@ public partial class Tables
             ValueList = "true/false",
             DefaultValue = "false"
         }
-    };
+    ];
 
-    private IEnumerable<AttributeItem> GetAttributes() => new AttributeItem[]
-    {
+    private AttributeItem[] GetAttributes() =>
+    [
         new()
         {
             Name = "TableSize",
@@ -814,11 +838,59 @@ public partial class Tables
         },
         new()
         {
+            Name = nameof(Table<Foo>.ShowExtendEditButtonCallback),
+            Description = Localizer["ShowExtendEditButtonCallbackAttr"],
+            Type = "Func<TItem, bool>",
+            ValueList = " - ",
+            DefaultValue = " - "
+        },
+        new()
+        {
+            Name = nameof(Table<Foo>.DisableExtendEditButton),
+            Description = Localizer["ShowExtendEditButtonAttr"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = nameof(Table<Foo>.DisableExtendEditButtonCallback),
+            Description = Localizer["DisableExtendEditButtonCallbackAttr"],
+            Type = "Func<TItem, bool>",
+            ValueList = " - ",
+            DefaultValue = " - "
+        },
+        new()
+        {
             Name = nameof(Table<Foo>.ShowExtendDeleteButton),
             Description = Localizer["ShowExtendDeleteButtonAttr"],
             Type = "boolean",
             ValueList = "true / false",
             DefaultValue = "true"
+        },
+        new()
+        {
+            Name = nameof(Table<Foo>.ShowExtendDeleteButtonCallback),
+            Description = Localizer["ShowExtendDeleteButtonCallbackAttr"],
+            Type = "Func<TItem, bool>",
+            ValueList = " - ",
+            DefaultValue = " - "
+        },
+        new()
+        {
+            Name = nameof(Table<Foo>.DisableExtendDeleteButton),
+            Description = Localizer["ShowExtendDeleteButtonAttr"],
+            Type = "boolean",
+            ValueList = "true / false",
+            DefaultValue = "true"
+        },
+        new()
+        {
+            Name = nameof(Table<Foo>.DisableExtendDeleteButtonCallback),
+            Description = Localizer["DisableExtendDeleteButtonCallbackAttr"],
+            Type = "Func<TItem, bool>",
+            ValueList = " - ",
+            DefaultValue = " - "
         },
         new()
         {
@@ -1252,10 +1324,10 @@ public partial class Tables
             ValueList = "true|false",
             DefaultValue = "false"
         },
-    };
+    ];
 
-    private IEnumerable<MethodItem> GetMethods() => new MethodItem[]
-    {
+    private MethodItem[] GetMethods() =>
+    [
         new()
         {
             Name = nameof(Table<MethodItem>.AddAsync),
@@ -1277,5 +1349,5 @@ public partial class Tables
             Parameters = " — ",
             ReturnValue = "Task"
         }
-    };
+    ];
 }

@@ -1,0 +1,27 @@
+.select-object {
+    .dropdown-toggle {
+        .is-display {
+            cursor: pointer;
+        }
+    }
+
+    &.disabled {
+        .is-display {
+            background-color: var(--bs-secondary-bg);
+            cursor: not-allowed;
+        }
+    }
+}
+
+.popover-dropdown {
+    .dropdown-object {
+        --bs-dropdown-padding-x: .25rem;
+        --bs-dropdown-padding-y: .25rem;
+        --bb-dropdown-max-height: 468px;
+        --bb-dropdown-object-width: auto;
+        overflow: hidden;
+        padding: .25rem;
+        width: var(--bb-dropdown-object-width);
+        max-height: unset;
+    }
+}

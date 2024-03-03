@@ -39,7 +39,14 @@
     border-radius: .5rem;
     box-shadow: rgb(210, 208, 206) 0 2px 4px, rgb(237, 235, 233) 0 0 2px;
     display: flex;
+    flex-direction: column;
 }
+
+    .chat-footer .chat-info {
+        margin-bottom: .25rem;
+        font-size: 80%;
+        color: rgba(var(--bs-body-color-rgb), 0.6);
+    }
 
 ::deep .chat-footer-tx {
     resize: none;

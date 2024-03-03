@@ -3,6 +3,7 @@
 // Website: https://www.blazor.zone or https://argozhang.github.io/
 
 using Microsoft.Extensions.Localization;
+using System.Globalization;
 
 namespace BootstrapBlazor.Components;
 
@@ -24,6 +25,7 @@ public partial class DateTimePicker<TValue>
     /// 获得 组件文本框样式名称
     /// </summary>
     private string? InputClassName => CssBuilder.Default("dropdown-toggle form-control datetime-picker-input")
+        .AddClass("has-icon", ShowIcon)
         .AddClass(ValidCss)
         .Build();
 
@@ -36,8 +38,6 @@ public partial class DateTimePicker<TValue>
 
     private string? TabIndexString => ValidateForm != null ? "0" : null;
 
-    private string? AutoCloseString => AutoClose ? "true" : null;
-
     /// <summary>
     /// 获得 Placeholder 显示字符串
     /// </summary>
@@ -48,15 +48,42 @@ public partial class DateTimePicker<TValue>
     };
 
     /// <summary>
-    /// 获得/设置 是否允许为空 默认 false 不允许为空
+    /// 获得/设置 是否允许为空
     /// </summary>
     private bool AllowNull { get; set; }
+
+    /// <summary>
+    /// 获得/设置 时间格式化字符串 默认值为 null
+    /// </summary>
+    [Parameter]
+    [Obsolete("已过期，请使用 DateTimeFormat/DateFormat/TimeFormat 分别设置; Please use DateTimeFormat/DateFormat/TimeFormat")]
+    [ExcludeFromCodeCoverage]
+    public string? Format
+    {
+        get => DateFormat;
+        set => DateFormat = value;
+    }
+
+    /// <summary>
+    /// 获得/设置 时间格式化字符串 默认值为 "yyyy-MM-dd HH:mm:ss"
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? DateTimeFormat { get; set; }
 
     /// <summary>
     /// 获得/设置 时间格式化字符串 默认值为 "yyyy-MM-dd"
     /// </summary>
     [Parameter]
-    public string? Format { get; set; }
+    [NotNull]
+    public string? DateFormat { get; set; }
+
+    /// <summary>
+    /// 获得/设置 时间格式化字符串 默认值为 "HH:mm:ss"
+    /// </summary>
+    [Parameter]
+    [NotNull]
+    public string? TimeFormat { get; set; }
 
     /// <summary>
     /// 获得/设置 组件图标 默认 fa-regular fa-calendar-days
@@ -64,6 +91,12 @@ public partial class DateTimePicker<TValue>
     [Parameter]
     [NotNull]
     public string? Icon { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否显示组件图标 默认 true 显示
+    /// </summary>
+    [Parameter]
+    public bool ShowIcon { get; set; } = true;
 
     /// <summary>
     /// 获得/设置 组件显示模式 默认为显示年月日模式
@@ -103,10 +136,42 @@ public partial class DateTimePicker<TValue>
     public bool AutoClose { get; set; } = true;
 
     /// <summary>
-    /// 获得/设置 是否自动设置值为当前时间 默认 true 当 Value 为 null 或者 <see cref="DateTime.MinValue"/>  时自动设置当前时间为 <see cref="DateTime.Today"/>
+    /// 获得/设置 是否可以编辑内容 默认 false
     /// </summary>
     [Parameter]
+    public bool IsEditable { get; set; }
+
+    /// <summary>
+    /// 获得/设置 是否自动设置值为当前时间 默认 true
+    /// </summary>
+    /// <remarks>当 Value 值为 <see cref="DateTime.MinValue"/> 时自动设置时间为 <see cref="DateTime.Today"/> 不为空类型时此参数生效</remarks>
+    [Parameter]
     public bool AutoToday { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 是否将 <see cref="DateTime.MinValue"/> 显示为空字符串 默认 true
+    /// </summary>
+    /// <remarks>可为空类型时此参数生效</remarks>
+    [Parameter]
+    public bool DisplayMinValueAsEmpty { get; set; } = true;
+
+    /// <summary>
+    /// 获得/设置 子组件模板
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// 获得/设置 日期占位符文本 默认 null 读取资源文件
+    /// </summary>
+    [Parameter]
+    public string? DatePlaceHolderText { get; set; }
+
+    /// <summary>
+    /// 获得/设置 日期时间占位符文本 默认 null 读取资源文件
+    /// </summary>
+    [Parameter]
+    public string? DateTimePlaceHolderText { get; set; }
 
     [Inject]
     [NotNull]
@@ -117,21 +182,20 @@ public partial class DateTimePicker<TValue>
     private IIconTheme? IconTheme { get; set; }
 
     [NotNull]
-    private string? DatePlaceHolderText { get; set; }
-
-    [NotNull]
-    private string? DateTimePlaceHolderText { get; set; }
-
-    [NotNull]
-    private string? GenericTypeErroMessage { get; set; }
-
-    [NotNull]
-    private string? DateTimeFormat { get; set; }
-
-    [NotNull]
-    private string? DateFormat { get; set; }
+    private string? GenericTypeErrorMessage { get; set; }
 
     private DateTime SelectedValue { get; set; }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        // 泛型设置为可为空
+        AllowNull = NullableUnderlyingType != null;
+    }
 
     /// <summary>
     /// OnParametersSet 方法
@@ -142,9 +206,10 @@ public partial class DateTimePicker<TValue>
 
         DateTimePlaceHolderText ??= Localizer[nameof(DateTimePlaceHolderText)];
         DatePlaceHolderText ??= Localizer[nameof(DatePlaceHolderText)];
-        GenericTypeErroMessage ??= Localizer[nameof(GenericTypeErroMessage)];
+        GenericTypeErrorMessage ??= Localizer[nameof(GenericTypeErrorMessage)];
         DateTimeFormat ??= Localizer[nameof(DateTimeFormat)];
         DateFormat ??= Localizer[nameof(DateFormat)];
+        TimeFormat ??= Localizer[nameof(TimeFormat)];
 
         Icon ??= IconTheme.GetIconByKey(ComponentIcons.DateTimePickerIcon);
 
@@ -153,42 +218,32 @@ public partial class DateTimePicker<TValue>
         // 判断泛型类型
         if (!type.IsDateTime())
         {
-            throw new InvalidOperationException(GenericTypeErroMessage);
-        }
-
-        // 泛型设置为可为空
-        AllowNull = Nullable.GetUnderlyingType(type) != null;
-
-        if (!string.IsNullOrEmpty(Format))
-        {
-            DateTimeFormat = Format;
-
-            var index = Format.IndexOf(' ');
-            if (index > 0)
-            {
-                DateFormat = Format[..index];
-            }
+            throw new InvalidOperationException(GenericTypeErrorMessage);
         }
 
         // Value 为 MinValue 时 设置 Value 默认值
-        if (AutoToday && (Value == null || Value.ToString() == DateTime.MinValue.ToString()))
+        if (Value == null)
         {
-            SelectedValue = DateTime.Today;
-            if (!AllowNull)
-            {
-                CurrentValueAsString = SelectedValue.ToString("yyyy-MM-dd HH:mm:ss");
-            }
+            SelectedValue = DateTime.MinValue;
         }
-        else if (Value is DateTime dt)
+        else if (Value is DateTimeOffset v1)
         {
-            SelectedValue = dt;
+            SelectedValue = v1.DateTime;
         }
         else
         {
-            var offset = (DateTimeOffset?)(object)Value;
-            SelectedValue = offset.HasValue
-                ? offset.Value.DateTime
-                : DateTime.MinValue;
+            SelectedValue = (DateTime)(object)Value;
+        }
+
+        if (MinValueToEmpty(SelectedValue))
+        {
+            SelectedValue = DateTime.Today;
+            Value = default;
+        }
+        else if (MinValueToToday(SelectedValue))
+        {
+            SelectedValue = ViewMode == DatePickerViewMode.DateTime ? DateTime.Now : DateTime.Today;
+            Value = GetValue();
         }
     }
 
@@ -198,39 +253,92 @@ public partial class DateTimePicker<TValue>
     protected override string FormatValueAsString(TValue value)
     {
         var ret = "";
-        if (value != null)
+        DateTime? d = null;
+        if (value is DateTime v1)
         {
-            var format = Format;
-            if (string.IsNullOrEmpty(format))
-            {
-                format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
-            }
+            d = v1;
+        }
+        else if (value is DateTimeOffset v2)
+        {
+            d = v2.DateTime;
+        }
 
-            ret = SelectedValue.ToString(format);
+        if (d.HasValue && MinValueToToday(d.Value))
+        {
+            d = DateTime.Today;
+        }
+
+        if (d.HasValue && !MinValueToEmpty(d.Value))
+        {
+            ret = d.Value.ToString(ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat);
         }
         return ret;
     }
 
-    /// <summary>
-    /// 清空按钮点击时回调此方法
-    /// </summary>
-    /// <returns></returns>
-    private Task OnClear()
-    {
-        SelectedValue = AutoToday ? DateTime.Today : DateTime.MinValue;
-        CurrentValue = default;
-        return Task.CompletedTask;
-    }
+    private bool MinValueToEmpty(DateTime val) => val == DateTime.MinValue && AllowNull && DisplayMinValueAsEmpty;
+
+    private bool MinValueToToday(DateTime val) => val == DateTime.MinValue && !AllowNull && AutoToday;
 
     /// <summary>
     /// 确认按钮点击时回调此方法
     /// </summary>
     private async Task OnConfirm()
     {
-        CurrentValueAsString = SelectedValue.ToString("yyyy-MM-dd HH:mm:ss");
+        CurrentValue = GetValue();
+
         if (AutoClose)
         {
             await InvokeVoidAsync("hide", Id);
         }
     }
+
+    private async Task OnClear()
+    {
+        // 允许为空时才会触发 OnClear 方法
+        CurrentValue = default;
+        SelectedValue = DateTime.Today;
+
+        if (AutoClose)
+        {
+            await InvokeVoidAsync("hide", Id);
+        }
+    }
+
+    private TValue? GetValue()
+    {
+        TValue? ret = default;
+
+        if (ValueType == typeof(DateTime))
+        {
+            ret = (TValue)(object)SelectedValue;
+        }
+        else if (ValueType == typeof(DateTimeOffset))
+        {
+            DateTimeOffset d = new DateTimeOffset(SelectedValue);
+            ret = (TValue)(object)d;
+        }
+        return ret;
+    }
+
+    /// <summary>
+    /// <inheritdoc/>
+    /// </summary>
+    /// <param name="value"></param>
+    /// <param name="result"></param>
+    /// <param name="validationErrorMessage"></param>
+    /// <returns></returns>
+    protected override bool TryParseValueFromString(string value, [MaybeNullWhen(false)] out TValue result, out string? validationErrorMessage)
+    {
+        var format = ViewMode == DatePickerViewMode.DateTime ? DateTimeFormat : DateFormat;
+        result = default;
+        validationErrorMessage = null;
+        var ret = DateTime.TryParseExact(value, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out var val);
+        if (ret)
+        {
+            result = (TValue)(object)val;
+        }
+        return ret;
+    }
+
+    private string? ReadonlyString => IsEditable ? null : "readonly";
 }

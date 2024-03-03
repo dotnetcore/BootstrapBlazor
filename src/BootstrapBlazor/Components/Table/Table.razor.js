@@ -1,5 +1,5 @@
 ﻿export { getResponsive } from '../../modules/responsive.js?v=$version'
-import { copy, drag, getDescribedElement, getOuterHeight, getWidth } from '../../modules/utility.js?v=$version'
+import { copy, drag, getDescribedElement, getOuterHeight, getWidth, isVisible } from '../../modules/utility.js?v=$version'
 import '../../modules/browser.js?v=$version'
 import Data from '../../modules/data.js?v=$version'
 import EventHandler from '../../modules/event-handler.js?v=$version'
@@ -8,9 +8,13 @@ import Popover from "../../modules/base-popover.js?v=$version"
 const setBodyHeight = table => {
     const el = table.el
     const children = [...el.children]
-
     const search = children.find(i => i.classList.contains('table-search'))
     table.search = search
+
+    if (isVisible(el) === false) {
+        return;
+    }
+
     let searchHeight = 0
     if (search) {
         searchHeight = getOuterHeight(search)
@@ -60,7 +64,7 @@ const fixHeader = table => {
                 margin = margin.replace('px', '')
                 const b = window.browser()
                 if (b.device !== 'PC') {
-                    margin = (parseFloat(margin) - 6) + 'px'
+                    margin = (parseFloat(margin) - table.scrollWidth) + 'px'
                 }
                 prev.classList.add('modified')
                 prev.style.right = margin
@@ -71,8 +75,6 @@ const fixHeader = table => {
             }
         }
     }
-
-    setBodyHeight(table)
 }
 
 const setExcelKeyboardListener = table => {
@@ -193,6 +195,13 @@ const resetTableWidth = table => {
 }
 
 const setResizeListener = table => {
+    disposeColumnDrag(table.columns)
+    table.columns = []
+
+    if (table.tables.length === 0) {
+        return;
+    }
+
     const eff = (col, toggle) => {
         const th = col.closest('th')
         if (th.parentNode === null) {
@@ -238,10 +247,8 @@ const setResizeListener = table => {
     let colIndex = 0
     let originalX = 0
 
-    disposeColumnDrag(table.columns)
-    table.columns = []
     const columns = [...table.tables[0].querySelectorAll('.col-resizer')]
-    columns.forEach((col, index) => {
+    columns.forEach(col => {
         table.columns.push(col)
         EventHandler.on(col, 'click', e => e.stopPropagation())
         drag(col,
@@ -269,7 +276,7 @@ const setResizeListener = table => {
                         const tableEl = curCol.closest('table')
                         let width = tableWidth + marginX
                         if (t.closest('.table-fixed-body')) {
-                            width = width - 6
+                            width = width - table.scrollWidth;
                         }
                         tableEl.setAttribute('style', `width: ${width}px;`)
                     }
@@ -383,7 +390,7 @@ const setDraggable = table => {
             dragItem = col
             e.dataTransfer.effectAllowed = 'move'
         })
-        EventHandler.on(col, 'dragend', e => {
+        EventHandler.on(col, 'dragend', () => {
             col.parentNode.classList.remove('table-dragging')
             dragItem.classList.remove('table-drag')
             table.dragColumns.forEach(i => {
@@ -481,16 +488,16 @@ const saveColumnWidth = table => {
 
 export function reset(id) {
     const table = Data.get(id)
+    if (table === null) {
+        return;
+    }
 
     table.columns = []
     table.tables = []
     table.dragColumns = []
 
     const shim = [...table.el.children].find(i => i.classList.contains('table-shim'))
-    if (shim === void 0) {
-        setBodyHeight(table)
-    }
-    else {
+    if (shim !== void 0) {
         table.thead = [...shim.children].find(i => i.classList.contains('table-fixed-header'))
         table.isResizeColumn = shim.classList.contains('table-resize')
         if (table.thead) {
@@ -499,6 +506,7 @@ export function reset(id) {
             table.isDraggable = table.thead.firstChild.classList.contains('table-draggable')
             table.tables.push(table.thead.firstChild)
             table.tables.push(table.body.firstChild)
+            table.scrollWidth = parseFloat(table.body.style.getPropertyValue('--bb-scroll-width'));
             fixHeader(table)
 
             EventHandler.on(table.body, 'scroll', () => {
@@ -510,7 +518,6 @@ export function reset(id) {
             table.isExcel = shim.firstChild.classList.contains('table-excel')
             table.isDraggable = shim.firstChild.classList.contains('table-draggable')
             table.tables.push(shim.firstChild)
-            setBodyHeight(table)
         }
 
         if (table.isExcel) {
@@ -536,6 +543,8 @@ export function reset(id) {
             }
         }
     }
+
+    setBodyHeight(table)
 
     if (table.search) {
         const observer = new ResizeObserver(() => {
