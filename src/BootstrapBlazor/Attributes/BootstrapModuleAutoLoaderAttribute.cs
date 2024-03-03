@@ -4,19 +4,14 @@
 
 namespace BootstrapBlazor.Components;
 
-class BootstrapModuleAutoLoaderAttribute : JSModuleAutoLoaderAttribute
+/// <summary>
+/// 构造函数
+/// </summary>
+/// <param name="path"></param>
+class BootstrapModuleAutoLoaderAttribute(string? path = null) : JSModuleAutoLoaderAttribute(path)
 {
     /// <summary>
     /// 获得/设置 模块名称 自动使用 modules 文件夹下脚本
     /// </summary>
     public string? ModuleName { get; set; }
-
-    /// <summary>
-    /// 构造函数
-    /// </summary>
-    /// <param name="path"></param>
-    public BootstrapModuleAutoLoaderAttribute(string? path = null) : base(path)
-    {
-
-    }
 }
